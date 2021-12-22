@@ -168,6 +168,9 @@ func (r *MessagesReadFeaturedStickersRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (r *MessagesReadFeaturedStickersRequest) GetID() (value []int64) {
+	if r == nil {
+		return
+	}
 	return r.ID
 }
 

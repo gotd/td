@@ -216,6 +216,9 @@ func (c *ChatParticipantsForbidden) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (c *ChatParticipantsForbidden) GetChatID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ChatID
 }
 
@@ -228,6 +231,9 @@ func (c *ChatParticipantsForbidden) SetSelfParticipant(value ChatParticipantClas
 // GetSelfParticipant returns value of SelfParticipant conditional field and
 // boolean which is true if field was set.
 func (c *ChatParticipantsForbidden) GetSelfParticipant() (value ChatParticipantClass, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(0) {
 		return value, false
 	}
@@ -419,16 +425,25 @@ func (c *ChatParticipants) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (c *ChatParticipants) GetChatID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ChatID
 }
 
 // GetParticipants returns value of Participants field.
 func (c *ChatParticipants) GetParticipants() (value []ChatParticipantClass) {
+	if c == nil {
+		return
+	}
 	return c.Participants
 }
 
 // GetVersion returns value of Version field.
 func (c *ChatParticipants) GetVersion() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Version
 }
 

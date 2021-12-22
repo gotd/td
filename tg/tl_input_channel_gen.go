@@ -284,11 +284,17 @@ func (i *InputChannel) DecodeBare(b *bin.Buffer) error {
 
 // GetChannelID returns value of ChannelID field.
 func (i *InputChannel) GetChannelID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ChannelID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputChannel) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }
 
@@ -467,16 +473,25 @@ func (i *InputChannelFromMessage) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (i *InputChannelFromMessage) GetPeer() (value InputPeerClass) {
+	if i == nil {
+		return
+	}
 	return i.Peer
 }
 
 // GetMsgID returns value of MsgID field.
 func (i *InputChannelFromMessage) GetMsgID() (value int) {
+	if i == nil {
+		return
+	}
 	return i.MsgID
 }
 
 // GetChannelID returns value of ChannelID field.
 func (i *InputChannelFromMessage) GetChannelID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ChannelID
 }
 

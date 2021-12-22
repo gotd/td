@@ -208,11 +208,17 @@ func (t *ToggleGroupCallEnabledStartNotificationRequest) DecodeTDLibJSON(b tdjso
 
 // GetGroupCallID returns value of GroupCallID field.
 func (t *ToggleGroupCallEnabledStartNotificationRequest) GetGroupCallID() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.GroupCallID
 }
 
 // GetEnabledStartNotification returns value of EnabledStartNotification field.
 func (t *ToggleGroupCallEnabledStartNotificationRequest) GetEnabledStartNotification() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.EnabledStartNotification
 }
 

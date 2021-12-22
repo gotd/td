@@ -253,6 +253,9 @@ func (t *MessagesToggleStickerSetsRequest) SetUninstall(value bool) {
 
 // GetUninstall returns value of Uninstall conditional field.
 func (t *MessagesToggleStickerSetsRequest) GetUninstall() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.Flags.Has(0)
 }
 
@@ -269,6 +272,9 @@ func (t *MessagesToggleStickerSetsRequest) SetArchive(value bool) {
 
 // GetArchive returns value of Archive conditional field.
 func (t *MessagesToggleStickerSetsRequest) GetArchive() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.Flags.Has(1)
 }
 
@@ -285,11 +291,17 @@ func (t *MessagesToggleStickerSetsRequest) SetUnarchive(value bool) {
 
 // GetUnarchive returns value of Unarchive conditional field.
 func (t *MessagesToggleStickerSetsRequest) GetUnarchive() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.Flags.Has(2)
 }
 
 // GetStickersets returns value of Stickersets field.
 func (t *MessagesToggleStickerSetsRequest) GetStickersets() (value []InputStickerSetClass) {
+	if t == nil {
+		return
+	}
 	return t.Stickersets
 }
 

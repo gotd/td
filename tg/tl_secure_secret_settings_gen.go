@@ -198,15 +198,24 @@ func (s *SecureSecretSettings) DecodeBare(b *bin.Buffer) error {
 
 // GetSecureAlgo returns value of SecureAlgo field.
 func (s *SecureSecretSettings) GetSecureAlgo() (value SecurePasswordKdfAlgoClass) {
+	if s == nil {
+		return
+	}
 	return s.SecureAlgo
 }
 
 // GetSecureSecret returns value of SecureSecret field.
 func (s *SecureSecretSettings) GetSecureSecret() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.SecureSecret
 }
 
 // GetSecureSecretID returns value of SecureSecretID field.
 func (s *SecureSecretSettings) GetSecureSecretID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.SecureSecretID
 }

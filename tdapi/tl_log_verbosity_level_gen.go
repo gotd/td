@@ -183,5 +183,8 @@ func (l *LogVerbosityLevel) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetVerbosityLevel returns value of VerbosityLevel field.
 func (l *LogVerbosityLevel) GetVerbosityLevel() (value int32) {
+	if l == nil {
+		return
+	}
 	return l.VerbosityLevel
 }

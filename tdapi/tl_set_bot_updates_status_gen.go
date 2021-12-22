@@ -208,11 +208,17 @@ func (s *SetBotUpdatesStatusRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPendingUpdateCount returns value of PendingUpdateCount field.
 func (s *SetBotUpdatesStatusRequest) GetPendingUpdateCount() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.PendingUpdateCount
 }
 
 // GetErrorMessage returns value of ErrorMessage field.
 func (s *SetBotUpdatesStatusRequest) GetErrorMessage() (value string) {
+	if s == nil {
+		return
+	}
 	return s.ErrorMessage
 }
 

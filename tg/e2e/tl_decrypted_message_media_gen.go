@@ -372,41 +372,65 @@ func (d *DecryptedMessageMediaPhoto23) DecodeBare(b *bin.Buffer) error {
 
 // GetThumb returns value of Thumb field.
 func (d *DecryptedMessageMediaPhoto23) GetThumb() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Thumb
 }
 
 // GetThumbW returns value of ThumbW field.
 func (d *DecryptedMessageMediaPhoto23) GetThumbW() (value int) {
+	if d == nil {
+		return
+	}
 	return d.ThumbW
 }
 
 // GetThumbH returns value of ThumbH field.
 func (d *DecryptedMessageMediaPhoto23) GetThumbH() (value int) {
+	if d == nil {
+		return
+	}
 	return d.ThumbH
 }
 
 // GetW returns value of W field.
 func (d *DecryptedMessageMediaPhoto23) GetW() (value int) {
+	if d == nil {
+		return
+	}
 	return d.W
 }
 
 // GetH returns value of H field.
 func (d *DecryptedMessageMediaPhoto23) GetH() (value int) {
+	if d == nil {
+		return
+	}
 	return d.H
 }
 
 // GetSize returns value of Size field.
 func (d *DecryptedMessageMediaPhoto23) GetSize() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Size
 }
 
 // GetKey returns value of Key field.
 func (d *DecryptedMessageMediaPhoto23) GetKey() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Key
 }
 
 // GetIv returns value of Iv field.
 func (d *DecryptedMessageMediaPhoto23) GetIv() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Iv
 }
 
@@ -667,46 +691,73 @@ func (d *DecryptedMessageMediaVideo8) DecodeBare(b *bin.Buffer) error {
 
 // GetThumb returns value of Thumb field.
 func (d *DecryptedMessageMediaVideo8) GetThumb() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Thumb
 }
 
 // GetThumbW returns value of ThumbW field.
 func (d *DecryptedMessageMediaVideo8) GetThumbW() (value int) {
+	if d == nil {
+		return
+	}
 	return d.ThumbW
 }
 
 // GetThumbH returns value of ThumbH field.
 func (d *DecryptedMessageMediaVideo8) GetThumbH() (value int) {
+	if d == nil {
+		return
+	}
 	return d.ThumbH
 }
 
 // GetDuration returns value of Duration field.
 func (d *DecryptedMessageMediaVideo8) GetDuration() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Duration
 }
 
 // GetW returns value of W field.
 func (d *DecryptedMessageMediaVideo8) GetW() (value int) {
+	if d == nil {
+		return
+	}
 	return d.W
 }
 
 // GetH returns value of H field.
 func (d *DecryptedMessageMediaVideo8) GetH() (value int) {
+	if d == nil {
+		return
+	}
 	return d.H
 }
 
 // GetSize returns value of Size field.
 func (d *DecryptedMessageMediaVideo8) GetSize() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Size
 }
 
 // GetKey returns value of Key field.
 func (d *DecryptedMessageMediaVideo8) GetKey() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Key
 }
 
 // GetIv returns value of Iv field.
 func (d *DecryptedMessageMediaVideo8) GetIv() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Iv
 }
 
@@ -848,11 +899,17 @@ func (d *DecryptedMessageMediaGeoPoint) DecodeBare(b *bin.Buffer) error {
 
 // GetLat returns value of Lat field.
 func (d *DecryptedMessageMediaGeoPoint) GetLat() (value float64) {
+	if d == nil {
+		return
+	}
 	return d.Lat
 }
 
 // GetLong returns value of Long field.
 func (d *DecryptedMessageMediaGeoPoint) GetLong() (value float64) {
+	if d == nil {
+		return
+	}
 	return d.Long
 }
 
@@ -1028,21 +1085,33 @@ func (d *DecryptedMessageMediaContact) DecodeBare(b *bin.Buffer) error {
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (d *DecryptedMessageMediaContact) GetPhoneNumber() (value string) {
+	if d == nil {
+		return
+	}
 	return d.PhoneNumber
 }
 
 // GetFirstName returns value of FirstName field.
 func (d *DecryptedMessageMediaContact) GetFirstName() (value string) {
+	if d == nil {
+		return
+	}
 	return d.FirstName
 }
 
 // GetLastName returns value of LastName field.
 func (d *DecryptedMessageMediaContact) GetLastName() (value string) {
+	if d == nil {
+		return
+	}
 	return d.LastName
 }
 
 // GetUserID returns value of UserID field.
 func (d *DecryptedMessageMediaContact) GetUserID() (value int) {
+	if d == nil {
+		return
+	}
 	return d.UserID
 }
 
@@ -1286,41 +1355,65 @@ func (d *DecryptedMessageMediaDocument23) DecodeBare(b *bin.Buffer) error {
 
 // GetThumb returns value of Thumb field.
 func (d *DecryptedMessageMediaDocument23) GetThumb() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Thumb
 }
 
 // GetThumbW returns value of ThumbW field.
 func (d *DecryptedMessageMediaDocument23) GetThumbW() (value int) {
+	if d == nil {
+		return
+	}
 	return d.ThumbW
 }
 
 // GetThumbH returns value of ThumbH field.
 func (d *DecryptedMessageMediaDocument23) GetThumbH() (value int) {
+	if d == nil {
+		return
+	}
 	return d.ThumbH
 }
 
 // GetFileName returns value of FileName field.
 func (d *DecryptedMessageMediaDocument23) GetFileName() (value string) {
+	if d == nil {
+		return
+	}
 	return d.FileName
 }
 
 // GetMimeType returns value of MimeType field.
 func (d *DecryptedMessageMediaDocument23) GetMimeType() (value string) {
+	if d == nil {
+		return
+	}
 	return d.MimeType
 }
 
 // GetSize returns value of Size field.
 func (d *DecryptedMessageMediaDocument23) GetSize() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Size
 }
 
 // GetKey returns value of Key field.
 func (d *DecryptedMessageMediaDocument23) GetKey() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Key
 }
 
 // GetIv returns value of Iv field.
 func (d *DecryptedMessageMediaDocument23) GetIv() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Iv
 }
 
@@ -1496,21 +1589,33 @@ func (d *DecryptedMessageMediaAudio8) DecodeBare(b *bin.Buffer) error {
 
 // GetDuration returns value of Duration field.
 func (d *DecryptedMessageMediaAudio8) GetDuration() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Duration
 }
 
 // GetSize returns value of Size field.
 func (d *DecryptedMessageMediaAudio8) GetSize() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Size
 }
 
 // GetKey returns value of Key field.
 func (d *DecryptedMessageMediaAudio8) GetKey() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Key
 }
 
 // GetIv returns value of Iv field.
 func (d *DecryptedMessageMediaAudio8) GetIv() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Iv
 }
 
@@ -1788,51 +1893,81 @@ func (d *DecryptedMessageMediaVideo23) DecodeBare(b *bin.Buffer) error {
 
 // GetThumb returns value of Thumb field.
 func (d *DecryptedMessageMediaVideo23) GetThumb() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Thumb
 }
 
 // GetThumbW returns value of ThumbW field.
 func (d *DecryptedMessageMediaVideo23) GetThumbW() (value int) {
+	if d == nil {
+		return
+	}
 	return d.ThumbW
 }
 
 // GetThumbH returns value of ThumbH field.
 func (d *DecryptedMessageMediaVideo23) GetThumbH() (value int) {
+	if d == nil {
+		return
+	}
 	return d.ThumbH
 }
 
 // GetDuration returns value of Duration field.
 func (d *DecryptedMessageMediaVideo23) GetDuration() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Duration
 }
 
 // GetMimeType returns value of MimeType field.
 func (d *DecryptedMessageMediaVideo23) GetMimeType() (value string) {
+	if d == nil {
+		return
+	}
 	return d.MimeType
 }
 
 // GetW returns value of W field.
 func (d *DecryptedMessageMediaVideo23) GetW() (value int) {
+	if d == nil {
+		return
+	}
 	return d.W
 }
 
 // GetH returns value of H field.
 func (d *DecryptedMessageMediaVideo23) GetH() (value int) {
+	if d == nil {
+		return
+	}
 	return d.H
 }
 
 // GetSize returns value of Size field.
 func (d *DecryptedMessageMediaVideo23) GetSize() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Size
 }
 
 // GetKey returns value of Key field.
 func (d *DecryptedMessageMediaVideo23) GetKey() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Key
 }
 
 // GetIv returns value of Iv field.
 func (d *DecryptedMessageMediaVideo23) GetIv() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Iv
 }
 
@@ -2025,26 +2160,41 @@ func (d *DecryptedMessageMediaAudio) DecodeBare(b *bin.Buffer) error {
 
 // GetDuration returns value of Duration field.
 func (d *DecryptedMessageMediaAudio) GetDuration() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Duration
 }
 
 // GetMimeType returns value of MimeType field.
 func (d *DecryptedMessageMediaAudio) GetMimeType() (value string) {
+	if d == nil {
+		return
+	}
 	return d.MimeType
 }
 
 // GetSize returns value of Size field.
 func (d *DecryptedMessageMediaAudio) GetSize() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Size
 }
 
 // GetKey returns value of Key field.
 func (d *DecryptedMessageMediaAudio) GetKey() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Key
 }
 
 // GetIv returns value of Iv field.
 func (d *DecryptedMessageMediaAudio) GetIv() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Iv
 }
 
@@ -2311,41 +2461,65 @@ func (d *DecryptedMessageMediaExternalDocument) DecodeBare(b *bin.Buffer) error 
 
 // GetID returns value of ID field.
 func (d *DecryptedMessageMediaExternalDocument) GetID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (d *DecryptedMessageMediaExternalDocument) GetAccessHash() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.AccessHash
 }
 
 // GetDate returns value of Date field.
 func (d *DecryptedMessageMediaExternalDocument) GetDate() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Date
 }
 
 // GetMimeType returns value of MimeType field.
 func (d *DecryptedMessageMediaExternalDocument) GetMimeType() (value string) {
+	if d == nil {
+		return
+	}
 	return d.MimeType
 }
 
 // GetSize returns value of Size field.
 func (d *DecryptedMessageMediaExternalDocument) GetSize() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Size
 }
 
 // GetThumb returns value of Thumb field.
 func (d *DecryptedMessageMediaExternalDocument) GetThumb() (value PhotoSizeClass) {
+	if d == nil {
+		return
+	}
 	return d.Thumb
 }
 
 // GetDCID returns value of DCID field.
 func (d *DecryptedMessageMediaExternalDocument) GetDCID() (value int) {
+	if d == nil {
+		return
+	}
 	return d.DCID
 }
 
 // GetAttributes returns value of Attributes field.
 func (d *DecryptedMessageMediaExternalDocument) GetAttributes() (value []DocumentAttributeClass) {
+	if d == nil {
+		return
+	}
 	return d.Attributes
 }
 
@@ -2606,46 +2780,73 @@ func (d *DecryptedMessageMediaPhoto) DecodeBare(b *bin.Buffer) error {
 
 // GetThumb returns value of Thumb field.
 func (d *DecryptedMessageMediaPhoto) GetThumb() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Thumb
 }
 
 // GetThumbW returns value of ThumbW field.
 func (d *DecryptedMessageMediaPhoto) GetThumbW() (value int) {
+	if d == nil {
+		return
+	}
 	return d.ThumbW
 }
 
 // GetThumbH returns value of ThumbH field.
 func (d *DecryptedMessageMediaPhoto) GetThumbH() (value int) {
+	if d == nil {
+		return
+	}
 	return d.ThumbH
 }
 
 // GetW returns value of W field.
 func (d *DecryptedMessageMediaPhoto) GetW() (value int) {
+	if d == nil {
+		return
+	}
 	return d.W
 }
 
 // GetH returns value of H field.
 func (d *DecryptedMessageMediaPhoto) GetH() (value int) {
+	if d == nil {
+		return
+	}
 	return d.H
 }
 
 // GetSize returns value of Size field.
 func (d *DecryptedMessageMediaPhoto) GetSize() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Size
 }
 
 // GetKey returns value of Key field.
 func (d *DecryptedMessageMediaPhoto) GetKey() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Key
 }
 
 // GetIv returns value of Iv field.
 func (d *DecryptedMessageMediaPhoto) GetIv() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Iv
 }
 
 // GetCaption returns value of Caption field.
 func (d *DecryptedMessageMediaPhoto) GetCaption() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Caption
 }
 
@@ -2940,56 +3141,89 @@ func (d *DecryptedMessageMediaVideo) DecodeBare(b *bin.Buffer) error {
 
 // GetThumb returns value of Thumb field.
 func (d *DecryptedMessageMediaVideo) GetThumb() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Thumb
 }
 
 // GetThumbW returns value of ThumbW field.
 func (d *DecryptedMessageMediaVideo) GetThumbW() (value int) {
+	if d == nil {
+		return
+	}
 	return d.ThumbW
 }
 
 // GetThumbH returns value of ThumbH field.
 func (d *DecryptedMessageMediaVideo) GetThumbH() (value int) {
+	if d == nil {
+		return
+	}
 	return d.ThumbH
 }
 
 // GetDuration returns value of Duration field.
 func (d *DecryptedMessageMediaVideo) GetDuration() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Duration
 }
 
 // GetMimeType returns value of MimeType field.
 func (d *DecryptedMessageMediaVideo) GetMimeType() (value string) {
+	if d == nil {
+		return
+	}
 	return d.MimeType
 }
 
 // GetW returns value of W field.
 func (d *DecryptedMessageMediaVideo) GetW() (value int) {
+	if d == nil {
+		return
+	}
 	return d.W
 }
 
 // GetH returns value of H field.
 func (d *DecryptedMessageMediaVideo) GetH() (value int) {
+	if d == nil {
+		return
+	}
 	return d.H
 }
 
 // GetSize returns value of Size field.
 func (d *DecryptedMessageMediaVideo) GetSize() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Size
 }
 
 // GetKey returns value of Key field.
 func (d *DecryptedMessageMediaVideo) GetKey() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Key
 }
 
 // GetIv returns value of Iv field.
 func (d *DecryptedMessageMediaVideo) GetIv() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Iv
 }
 
 // GetCaption returns value of Caption field.
 func (d *DecryptedMessageMediaVideo) GetCaption() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Caption
 }
 
@@ -3268,46 +3502,73 @@ func (d *DecryptedMessageMediaDocument) DecodeBare(b *bin.Buffer) error {
 
 // GetThumb returns value of Thumb field.
 func (d *DecryptedMessageMediaDocument) GetThumb() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Thumb
 }
 
 // GetThumbW returns value of ThumbW field.
 func (d *DecryptedMessageMediaDocument) GetThumbW() (value int) {
+	if d == nil {
+		return
+	}
 	return d.ThumbW
 }
 
 // GetThumbH returns value of ThumbH field.
 func (d *DecryptedMessageMediaDocument) GetThumbH() (value int) {
+	if d == nil {
+		return
+	}
 	return d.ThumbH
 }
 
 // GetMimeType returns value of MimeType field.
 func (d *DecryptedMessageMediaDocument) GetMimeType() (value string) {
+	if d == nil {
+		return
+	}
 	return d.MimeType
 }
 
 // GetSize returns value of Size field.
 func (d *DecryptedMessageMediaDocument) GetSize() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Size
 }
 
 // GetKey returns value of Key field.
 func (d *DecryptedMessageMediaDocument) GetKey() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Key
 }
 
 // GetIv returns value of Iv field.
 func (d *DecryptedMessageMediaDocument) GetIv() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Iv
 }
 
 // GetAttributes returns value of Attributes field.
 func (d *DecryptedMessageMediaDocument) GetAttributes() (value []DocumentAttributeClass) {
+	if d == nil {
+		return
+	}
 	return d.Attributes
 }
 
 // GetCaption returns value of Caption field.
 func (d *DecryptedMessageMediaDocument) GetCaption() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Caption
 }
 
@@ -3517,31 +3778,49 @@ func (d *DecryptedMessageMediaVenue) DecodeBare(b *bin.Buffer) error {
 
 // GetLat returns value of Lat field.
 func (d *DecryptedMessageMediaVenue) GetLat() (value float64) {
+	if d == nil {
+		return
+	}
 	return d.Lat
 }
 
 // GetLong returns value of Long field.
 func (d *DecryptedMessageMediaVenue) GetLong() (value float64) {
+	if d == nil {
+		return
+	}
 	return d.Long
 }
 
 // GetTitle returns value of Title field.
 func (d *DecryptedMessageMediaVenue) GetTitle() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Title
 }
 
 // GetAddress returns value of Address field.
 func (d *DecryptedMessageMediaVenue) GetAddress() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Address
 }
 
 // GetProvider returns value of Provider field.
 func (d *DecryptedMessageMediaVenue) GetProvider() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Provider
 }
 
 // GetVenueID returns value of VenueID field.
 func (d *DecryptedMessageMediaVenue) GetVenueID() (value string) {
+	if d == nil {
+		return
+	}
 	return d.VenueID
 }
 
@@ -3666,6 +3945,9 @@ func (d *DecryptedMessageMediaWebPage) DecodeBare(b *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (d *DecryptedMessageMediaWebPage) GetURL() (value string) {
+	if d == nil {
+		return
+	}
 	return d.URL
 }
 

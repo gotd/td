@@ -194,6 +194,9 @@ func (g *GlobalPrivacySettings) SetArchiveAndMuteNewNoncontactPeers(value bool) 
 // GetArchiveAndMuteNewNoncontactPeers returns value of ArchiveAndMuteNewNoncontactPeers conditional field and
 // boolean which is true if field was set.
 func (g *GlobalPrivacySettings) GetArchiveAndMuteNewNoncontactPeers() (value bool, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(0) {
 		return value, false
 	}

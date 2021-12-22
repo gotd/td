@@ -279,6 +279,9 @@ func (p *PhoneCallProtocol) SetUDPP2P(value bool) {
 
 // GetUDPP2P returns value of UDPP2P conditional field.
 func (p *PhoneCallProtocol) GetUDPP2P() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(0)
 }
 
@@ -295,20 +298,32 @@ func (p *PhoneCallProtocol) SetUDPReflector(value bool) {
 
 // GetUDPReflector returns value of UDPReflector conditional field.
 func (p *PhoneCallProtocol) GetUDPReflector() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(1)
 }
 
 // GetMinLayer returns value of MinLayer field.
 func (p *PhoneCallProtocol) GetMinLayer() (value int) {
+	if p == nil {
+		return
+	}
 	return p.MinLayer
 }
 
 // GetMaxLayer returns value of MaxLayer field.
 func (p *PhoneCallProtocol) GetMaxLayer() (value int) {
+	if p == nil {
+		return
+	}
 	return p.MaxLayer
 }
 
 // GetLibraryVersions returns value of LibraryVersions field.
 func (p *PhoneCallProtocol) GetLibraryVersions() (value []string) {
+	if p == nil {
+		return
+	}
 	return p.LibraryVersions
 }

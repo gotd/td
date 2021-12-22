@@ -179,11 +179,17 @@ func (f *MessagesFaveStickerRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (f *MessagesFaveStickerRequest) GetID() (value InputDocumentClass) {
+	if f == nil {
+		return
+	}
 	return f.ID
 }
 
 // GetUnfave returns value of Unfave field.
 func (f *MessagesFaveStickerRequest) GetUnfave() (value bool) {
+	if f == nil {
+		return
+	}
 	return f.Unfave
 }
 

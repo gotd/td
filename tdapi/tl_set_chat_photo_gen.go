@@ -218,11 +218,17 @@ func (s *SetChatPhotoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (s *SetChatPhotoRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetPhoto returns value of Photo field.
 func (s *SetChatPhotoRequest) GetPhoto() (value InputChatPhotoClass) {
+	if s == nil {
+		return
+	}
 	return s.Photo
 }
 

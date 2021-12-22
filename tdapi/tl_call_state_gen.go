@@ -213,11 +213,17 @@ func (c *CallStatePending) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetIsCreated returns value of IsCreated field.
 func (c *CallStatePending) GetIsCreated() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsCreated
 }
 
 // GetIsReceived returns value of IsReceived field.
 func (c *CallStatePending) GetIsReceived() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsReceived
 }
 
@@ -680,31 +686,49 @@ func (c *CallStateReady) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetProtocol returns value of Protocol field.
 func (c *CallStateReady) GetProtocol() (value CallProtocol) {
+	if c == nil {
+		return
+	}
 	return c.Protocol
 }
 
 // GetServers returns value of Servers field.
 func (c *CallStateReady) GetServers() (value []CallServer) {
+	if c == nil {
+		return
+	}
 	return c.Servers
 }
 
 // GetConfig returns value of Config field.
 func (c *CallStateReady) GetConfig() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Config
 }
 
 // GetEncryptionKey returns value of EncryptionKey field.
 func (c *CallStateReady) GetEncryptionKey() (value []byte) {
+	if c == nil {
+		return
+	}
 	return c.EncryptionKey
 }
 
 // GetEmojis returns value of Emojis field.
 func (c *CallStateReady) GetEmojis() (value []string) {
+	if c == nil {
+		return
+	}
 	return c.Emojis
 }
 
 // GetAllowP2P returns value of AllowP2P field.
 func (c *CallStateReady) GetAllowP2P() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.AllowP2P
 }
 
@@ -1054,16 +1078,25 @@ func (c *CallStateDiscarded) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetReason returns value of Reason field.
 func (c *CallStateDiscarded) GetReason() (value CallDiscardReasonClass) {
+	if c == nil {
+		return
+	}
 	return c.Reason
 }
 
 // GetNeedRating returns value of NeedRating field.
 func (c *CallStateDiscarded) GetNeedRating() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.NeedRating
 }
 
 // GetNeedDebugInformation returns value of NeedDebugInformation field.
 func (c *CallStateDiscarded) GetNeedDebugInformation() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.NeedDebugInformation
 }
 
@@ -1225,6 +1258,9 @@ func (c *CallStateError) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetError returns value of Error field.
 func (c *CallStateError) GetError() (value Error) {
+	if c == nil {
+		return
+	}
 	return c.Error
 }
 

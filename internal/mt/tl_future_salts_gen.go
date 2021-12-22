@@ -194,15 +194,24 @@ func (f *FutureSalts) DecodeBare(b *bin.Buffer) error {
 
 // GetReqMsgID returns value of ReqMsgID field.
 func (f *FutureSalts) GetReqMsgID() (value int64) {
+	if f == nil {
+		return
+	}
 	return f.ReqMsgID
 }
 
 // GetNow returns value of Now field.
 func (f *FutureSalts) GetNow() (value int) {
+	if f == nil {
+		return
+	}
 	return f.Now
 }
 
 // GetSalts returns value of Salts field.
 func (f *FutureSalts) GetSalts() (value []FutureSalt) {
+	if f == nil {
+		return
+	}
 	return f.Salts
 }

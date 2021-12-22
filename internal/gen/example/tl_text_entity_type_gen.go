@@ -1566,6 +1566,9 @@ func (t *TextEntityTypePreCode) DecodeBare(b *bin.Buffer) error {
 
 // GetLanguage returns value of Language field.
 func (t *TextEntityTypePreCode) GetLanguage() (value string) {
+	if t == nil {
+		return
+	}
 	return t.Language
 }
 
@@ -1690,6 +1693,9 @@ func (t *TextEntityTypeTextURL) DecodeBare(b *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (t *TextEntityTypeTextURL) GetURL() (value string) {
+	if t == nil {
+		return
+	}
 	return t.URL
 }
 
@@ -1814,6 +1820,9 @@ func (t *TextEntityTypeMentionName) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (t *TextEntityTypeMentionName) GetUserID() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.UserID
 }
 

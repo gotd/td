@@ -168,6 +168,9 @@ func (c *ChannelsConvertToGigagroupRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (c *ChannelsConvertToGigagroupRequest) GetChannel() (value InputChannelClass) {
+	if c == nil {
+		return
+	}
 	return c.Channel
 }
 

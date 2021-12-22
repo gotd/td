@@ -447,6 +447,9 @@ func (d *Dialog) SetPinned(value bool) {
 
 // GetPinned returns value of Pinned conditional field.
 func (d *Dialog) GetPinned() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(2)
 }
 
@@ -463,41 +466,65 @@ func (d *Dialog) SetUnreadMark(value bool) {
 
 // GetUnreadMark returns value of UnreadMark conditional field.
 func (d *Dialog) GetUnreadMark() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(3)
 }
 
 // GetPeer returns value of Peer field.
 func (d *Dialog) GetPeer() (value PeerClass) {
+	if d == nil {
+		return
+	}
 	return d.Peer
 }
 
 // GetTopMessage returns value of TopMessage field.
 func (d *Dialog) GetTopMessage() (value int) {
+	if d == nil {
+		return
+	}
 	return d.TopMessage
 }
 
 // GetReadInboxMaxID returns value of ReadInboxMaxID field.
 func (d *Dialog) GetReadInboxMaxID() (value int) {
+	if d == nil {
+		return
+	}
 	return d.ReadInboxMaxID
 }
 
 // GetReadOutboxMaxID returns value of ReadOutboxMaxID field.
 func (d *Dialog) GetReadOutboxMaxID() (value int) {
+	if d == nil {
+		return
+	}
 	return d.ReadOutboxMaxID
 }
 
 // GetUnreadCount returns value of UnreadCount field.
 func (d *Dialog) GetUnreadCount() (value int) {
+	if d == nil {
+		return
+	}
 	return d.UnreadCount
 }
 
 // GetUnreadMentionsCount returns value of UnreadMentionsCount field.
 func (d *Dialog) GetUnreadMentionsCount() (value int) {
+	if d == nil {
+		return
+	}
 	return d.UnreadMentionsCount
 }
 
 // GetNotifySettings returns value of NotifySettings field.
 func (d *Dialog) GetNotifySettings() (value PeerNotifySettings) {
+	if d == nil {
+		return
+	}
 	return d.NotifySettings
 }
 
@@ -510,6 +537,9 @@ func (d *Dialog) SetPts(value int) {
 // GetPts returns value of Pts conditional field and
 // boolean which is true if field was set.
 func (d *Dialog) GetPts() (value int, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(0) {
 		return value, false
 	}
@@ -525,6 +555,9 @@ func (d *Dialog) SetDraft(value DraftMessageClass) {
 // GetDraft returns value of Draft conditional field and
 // boolean which is true if field was set.
 func (d *Dialog) GetDraft() (value DraftMessageClass, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(1) {
 		return value, false
 	}
@@ -540,6 +573,9 @@ func (d *Dialog) SetFolderID(value int) {
 // GetFolderID returns value of FolderID conditional field and
 // boolean which is true if field was set.
 func (d *Dialog) GetFolderID() (value int, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(4) {
 		return value, false
 	}
@@ -842,41 +878,65 @@ func (d *DialogFolder) SetPinned(value bool) {
 
 // GetPinned returns value of Pinned conditional field.
 func (d *DialogFolder) GetPinned() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(2)
 }
 
 // GetFolder returns value of Folder field.
 func (d *DialogFolder) GetFolder() (value Folder) {
+	if d == nil {
+		return
+	}
 	return d.Folder
 }
 
 // GetPeer returns value of Peer field.
 func (d *DialogFolder) GetPeer() (value PeerClass) {
+	if d == nil {
+		return
+	}
 	return d.Peer
 }
 
 // GetTopMessage returns value of TopMessage field.
 func (d *DialogFolder) GetTopMessage() (value int) {
+	if d == nil {
+		return
+	}
 	return d.TopMessage
 }
 
 // GetUnreadMutedPeersCount returns value of UnreadMutedPeersCount field.
 func (d *DialogFolder) GetUnreadMutedPeersCount() (value int) {
+	if d == nil {
+		return
+	}
 	return d.UnreadMutedPeersCount
 }
 
 // GetUnreadUnmutedPeersCount returns value of UnreadUnmutedPeersCount field.
 func (d *DialogFolder) GetUnreadUnmutedPeersCount() (value int) {
+	if d == nil {
+		return
+	}
 	return d.UnreadUnmutedPeersCount
 }
 
 // GetUnreadMutedMessagesCount returns value of UnreadMutedMessagesCount field.
 func (d *DialogFolder) GetUnreadMutedMessagesCount() (value int) {
+	if d == nil {
+		return
+	}
 	return d.UnreadMutedMessagesCount
 }
 
 // GetUnreadUnmutedMessagesCount returns value of UnreadUnmutedMessagesCount field.
 func (d *DialogFolder) GetUnreadUnmutedMessagesCount() (value int) {
+	if d == nil {
+		return
+	}
 	return d.UnreadUnmutedMessagesCount
 }
 

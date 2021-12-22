@@ -252,16 +252,25 @@ func (m *MessagesMessages) DecodeBare(b *bin.Buffer) error {
 
 // GetMessages returns value of Messages field.
 func (m *MessagesMessages) GetMessages() (value []MessageClass) {
+	if m == nil {
+		return
+	}
 	return m.Messages
 }
 
 // GetChats returns value of Chats field.
 func (m *MessagesMessages) GetChats() (value []ChatClass) {
+	if m == nil {
+		return
+	}
 	return m.Chats
 }
 
 // GetUsers returns value of Users field.
 func (m *MessagesMessages) GetUsers() (value []UserClass) {
+	if m == nil {
+		return
+	}
 	return m.Users
 }
 
@@ -634,11 +643,17 @@ func (m *MessagesMessagesSlice) SetInexact(value bool) {
 
 // GetInexact returns value of Inexact conditional field.
 func (m *MessagesMessagesSlice) GetInexact() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(1)
 }
 
 // GetCount returns value of Count field.
 func (m *MessagesMessagesSlice) GetCount() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Count
 }
 
@@ -651,6 +666,9 @@ func (m *MessagesMessagesSlice) SetNextRate(value int) {
 // GetNextRate returns value of NextRate conditional field and
 // boolean which is true if field was set.
 func (m *MessagesMessagesSlice) GetNextRate() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(0) {
 		return value, false
 	}
@@ -666,6 +684,9 @@ func (m *MessagesMessagesSlice) SetOffsetIDOffset(value int) {
 // GetOffsetIDOffset returns value of OffsetIDOffset conditional field and
 // boolean which is true if field was set.
 func (m *MessagesMessagesSlice) GetOffsetIDOffset() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(2) {
 		return value, false
 	}
@@ -674,16 +695,25 @@ func (m *MessagesMessagesSlice) GetOffsetIDOffset() (value int, ok bool) {
 
 // GetMessages returns value of Messages field.
 func (m *MessagesMessagesSlice) GetMessages() (value []MessageClass) {
+	if m == nil {
+		return
+	}
 	return m.Messages
 }
 
 // GetChats returns value of Chats field.
 func (m *MessagesMessagesSlice) GetChats() (value []ChatClass) {
+	if m == nil {
+		return
+	}
 	return m.Chats
 }
 
 // GetUsers returns value of Users field.
 func (m *MessagesMessagesSlice) GetUsers() (value []UserClass) {
+	if m == nil {
+		return
+	}
 	return m.Users
 }
 
@@ -1045,16 +1075,25 @@ func (c *MessagesChannelMessages) SetInexact(value bool) {
 
 // GetInexact returns value of Inexact conditional field.
 func (c *MessagesChannelMessages) GetInexact() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(1)
 }
 
 // GetPts returns value of Pts field.
 func (c *MessagesChannelMessages) GetPts() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Pts
 }
 
 // GetCount returns value of Count field.
 func (c *MessagesChannelMessages) GetCount() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Count
 }
 
@@ -1067,6 +1106,9 @@ func (c *MessagesChannelMessages) SetOffsetIDOffset(value int) {
 // GetOffsetIDOffset returns value of OffsetIDOffset conditional field and
 // boolean which is true if field was set.
 func (c *MessagesChannelMessages) GetOffsetIDOffset() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(2) {
 		return value, false
 	}
@@ -1075,16 +1117,25 @@ func (c *MessagesChannelMessages) GetOffsetIDOffset() (value int, ok bool) {
 
 // GetMessages returns value of Messages field.
 func (c *MessagesChannelMessages) GetMessages() (value []MessageClass) {
+	if c == nil {
+		return
+	}
 	return c.Messages
 }
 
 // GetChats returns value of Chats field.
 func (c *MessagesChannelMessages) GetChats() (value []ChatClass) {
+	if c == nil {
+		return
+	}
 	return c.Chats
 }
 
 // GetUsers returns value of Users field.
 func (c *MessagesChannelMessages) GetUsers() (value []UserClass) {
+	if c == nil {
+		return
+	}
 	return c.Users
 }
 
@@ -1232,6 +1283,9 @@ func (m *MessagesMessagesNotModified) DecodeBare(b *bin.Buffer) error {
 
 // GetCount returns value of Count field.
 func (m *MessagesMessagesNotModified) GetCount() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Count
 }
 

@@ -28,6 +28,9 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Set{{ $f.Name }}(value {{ template "prin
 {{- else }}field.
 {{- end }}
 func ({{ $s.Receiver }} *{{ $s.Name }}) {{ template "getter_func_type" $f }} {
+    if {{ $s.Receiver }} == nil {
+        return
+    }
     {{- if $f.Conditional }}{{ if not ($f.ConditionalBool) }}
     if !{{ $s.Receiver }}.{{ $f.ConditionalField }}.Has({{ $f.ConditionalIndex }}) {
         return value, false

@@ -318,30 +318,48 @@ func (p *Proxy) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (p *Proxy) GetID() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.ID
 }
 
 // GetServer returns value of Server field.
 func (p *Proxy) GetServer() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Server
 }
 
 // GetPort returns value of Port field.
 func (p *Proxy) GetPort() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.Port
 }
 
 // GetLastUsedDate returns value of LastUsedDate field.
 func (p *Proxy) GetLastUsedDate() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.LastUsedDate
 }
 
 // GetIsEnabled returns value of IsEnabled field.
 func (p *Proxy) GetIsEnabled() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsEnabled
 }
 
 // GetType returns value of Type field.
 func (p *Proxy) GetType() (value ProxyTypeClass) {
+	if p == nil {
+		return
+	}
 	return p.Type
 }

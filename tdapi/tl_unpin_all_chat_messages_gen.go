@@ -183,6 +183,9 @@ func (u *UnpinAllChatMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UnpinAllChatMessagesRequest) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 

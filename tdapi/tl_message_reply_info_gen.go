@@ -316,25 +316,40 @@ func (m *MessageReplyInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetReplyCount returns value of ReplyCount field.
 func (m *MessageReplyInfo) GetReplyCount() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.ReplyCount
 }
 
 // GetRecentReplierIDs returns value of RecentReplierIDs field.
 func (m *MessageReplyInfo) GetRecentReplierIDs() (value []MessageSenderClass) {
+	if m == nil {
+		return
+	}
 	return m.RecentReplierIDs
 }
 
 // GetLastReadInboxMessageID returns value of LastReadInboxMessageID field.
 func (m *MessageReplyInfo) GetLastReadInboxMessageID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.LastReadInboxMessageID
 }
 
 // GetLastReadOutboxMessageID returns value of LastReadOutboxMessageID field.
 func (m *MessageReplyInfo) GetLastReadOutboxMessageID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.LastReadOutboxMessageID
 }
 
 // GetLastMessageID returns value of LastMessageID field.
 func (m *MessageReplyInfo) GetLastMessageID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.LastMessageID
 }

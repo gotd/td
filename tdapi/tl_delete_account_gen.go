@@ -183,6 +183,9 @@ func (d *DeleteAccountRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetReason returns value of Reason field.
 func (d *DeleteAccountRequest) GetReason() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Reason
 }
 

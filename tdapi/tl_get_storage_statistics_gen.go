@@ -186,6 +186,9 @@ func (g *GetStorageStatisticsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatLimit returns value of ChatLimit field.
 func (g *GetStorageStatisticsRequest) GetChatLimit() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.ChatLimit
 }
 

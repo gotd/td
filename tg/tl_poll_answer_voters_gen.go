@@ -241,6 +241,9 @@ func (p *PollAnswerVoters) SetChosen(value bool) {
 
 // GetChosen returns value of Chosen conditional field.
 func (p *PollAnswerVoters) GetChosen() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(0)
 }
 
@@ -257,15 +260,24 @@ func (p *PollAnswerVoters) SetCorrect(value bool) {
 
 // GetCorrect returns value of Correct conditional field.
 func (p *PollAnswerVoters) GetCorrect() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(1)
 }
 
 // GetOption returns value of Option field.
 func (p *PollAnswerVoters) GetOption() (value []byte) {
+	if p == nil {
+		return
+	}
 	return p.Option
 }
 
 // GetVoters returns value of Voters field.
 func (p *PollAnswerVoters) GetVoters() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Voters
 }

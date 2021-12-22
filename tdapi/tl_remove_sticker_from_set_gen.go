@@ -193,6 +193,9 @@ func (r *RemoveStickerFromSetRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSticker returns value of Sticker field.
 func (r *RemoveStickerFromSetRequest) GetSticker() (value InputFileClass) {
+	if r == nil {
+		return
+	}
 	return r.Sticker
 }
 

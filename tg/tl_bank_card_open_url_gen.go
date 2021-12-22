@@ -174,10 +174,16 @@ func (b *BankCardOpenURL) DecodeBare(buf *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (b *BankCardOpenURL) GetURL() (value string) {
+	if b == nil {
+		return
+	}
 	return b.URL
 }
 
 // GetName returns value of Name field.
 func (b *BankCardOpenURL) GetName() (value string) {
+	if b == nil {
+		return
+	}
 	return b.Name
 }

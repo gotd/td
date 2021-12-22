@@ -171,6 +171,9 @@ func (c *MessagesCheckHistoryImportPeerRequest) DecodeBare(b *bin.Buffer) error 
 
 // GetPeer returns value of Peer field.
 func (c *MessagesCheckHistoryImportPeerRequest) GetPeer() (value InputPeerClass) {
+	if c == nil {
+		return
+	}
 	return c.Peer
 }
 

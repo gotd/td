@@ -145,5 +145,8 @@ func (g *GetFutureSaltsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetNum returns value of Num field.
 func (g *GetFutureSaltsRequest) GetNum() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Num
 }

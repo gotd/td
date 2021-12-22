@@ -198,20 +198,32 @@ func (c *ClientDHInnerData) DecodeBare(b *bin.Buffer) error {
 
 // GetNonce returns value of Nonce field.
 func (c *ClientDHInnerData) GetNonce() (value bin.Int128) {
+	if c == nil {
+		return
+	}
 	return c.Nonce
 }
 
 // GetServerNonce returns value of ServerNonce field.
 func (c *ClientDHInnerData) GetServerNonce() (value bin.Int128) {
+	if c == nil {
+		return
+	}
 	return c.ServerNonce
 }
 
 // GetRetryID returns value of RetryID field.
 func (c *ClientDHInnerData) GetRetryID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.RetryID
 }
 
 // GetGB returns value of GB field.
 func (c *ClientDHInnerData) GetGB() (value string) {
+	if c == nil {
+		return
+	}
 	return c.GB
 }

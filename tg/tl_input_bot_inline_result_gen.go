@@ -377,11 +377,17 @@ func (i *InputBotInlineResult) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputBotInlineResult) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetType returns value of Type field.
 func (i *InputBotInlineResult) GetType() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Type
 }
 
@@ -394,6 +400,9 @@ func (i *InputBotInlineResult) SetTitle(value string) {
 // GetTitle returns value of Title conditional field and
 // boolean which is true if field was set.
 func (i *InputBotInlineResult) GetTitle() (value string, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(1) {
 		return value, false
 	}
@@ -409,6 +418,9 @@ func (i *InputBotInlineResult) SetDescription(value string) {
 // GetDescription returns value of Description conditional field and
 // boolean which is true if field was set.
 func (i *InputBotInlineResult) GetDescription() (value string, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(2) {
 		return value, false
 	}
@@ -424,6 +436,9 @@ func (i *InputBotInlineResult) SetURL(value string) {
 // GetURL returns value of URL conditional field and
 // boolean which is true if field was set.
 func (i *InputBotInlineResult) GetURL() (value string, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(3) {
 		return value, false
 	}
@@ -439,6 +454,9 @@ func (i *InputBotInlineResult) SetThumb(value InputWebDocument) {
 // GetThumb returns value of Thumb conditional field and
 // boolean which is true if field was set.
 func (i *InputBotInlineResult) GetThumb() (value InputWebDocument, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(4) {
 		return value, false
 	}
@@ -454,6 +472,9 @@ func (i *InputBotInlineResult) SetContent(value InputWebDocument) {
 // GetContent returns value of Content conditional field and
 // boolean which is true if field was set.
 func (i *InputBotInlineResult) GetContent() (value InputWebDocument, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(5) {
 		return value, false
 	}
@@ -462,6 +483,9 @@ func (i *InputBotInlineResult) GetContent() (value InputWebDocument, ok bool) {
 
 // GetSendMessage returns value of SendMessage field.
 func (i *InputBotInlineResult) GetSendMessage() (value InputBotInlineMessageClass) {
+	if i == nil {
+		return
+	}
 	return i.SendMessage
 }
 
@@ -664,21 +688,33 @@ func (i *InputBotInlineResultPhoto) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputBotInlineResultPhoto) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetType returns value of Type field.
 func (i *InputBotInlineResultPhoto) GetType() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Type
 }
 
 // GetPhoto returns value of Photo field.
 func (i *InputBotInlineResultPhoto) GetPhoto() (value InputPhotoClass) {
+	if i == nil {
+		return
+	}
 	return i.Photo
 }
 
 // GetSendMessage returns value of SendMessage field.
 func (i *InputBotInlineResultPhoto) GetSendMessage() (value InputBotInlineMessageClass) {
+	if i == nil {
+		return
+	}
 	return i.SendMessage
 }
 
@@ -962,11 +998,17 @@ func (i *InputBotInlineResultDocument) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputBotInlineResultDocument) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetType returns value of Type field.
 func (i *InputBotInlineResultDocument) GetType() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Type
 }
 
@@ -979,6 +1021,9 @@ func (i *InputBotInlineResultDocument) SetTitle(value string) {
 // GetTitle returns value of Title conditional field and
 // boolean which is true if field was set.
 func (i *InputBotInlineResultDocument) GetTitle() (value string, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(1) {
 		return value, false
 	}
@@ -994,6 +1039,9 @@ func (i *InputBotInlineResultDocument) SetDescription(value string) {
 // GetDescription returns value of Description conditional field and
 // boolean which is true if field was set.
 func (i *InputBotInlineResultDocument) GetDescription() (value string, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(2) {
 		return value, false
 	}
@@ -1002,11 +1050,17 @@ func (i *InputBotInlineResultDocument) GetDescription() (value string, ok bool) 
 
 // GetDocument returns value of Document field.
 func (i *InputBotInlineResultDocument) GetDocument() (value InputDocumentClass) {
+	if i == nil {
+		return
+	}
 	return i.Document
 }
 
 // GetSendMessage returns value of SendMessage field.
 func (i *InputBotInlineResultDocument) GetSendMessage() (value InputBotInlineMessageClass) {
+	if i == nil {
+		return
+	}
 	return i.SendMessage
 }
 
@@ -1182,16 +1236,25 @@ func (i *InputBotInlineResultGame) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputBotInlineResultGame) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetShortName returns value of ShortName field.
 func (i *InputBotInlineResultGame) GetShortName() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ShortName
 }
 
 // GetSendMessage returns value of SendMessage field.
 func (i *InputBotInlineResultGame) GetSendMessage() (value InputBotInlineMessageClass) {
+	if i == nil {
+		return
+	}
 	return i.SendMessage
 }
 

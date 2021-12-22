@@ -180,10 +180,16 @@ func (a *MessagesAffectedMessages) DecodeBare(b *bin.Buffer) error {
 
 // GetPts returns value of Pts field.
 func (a *MessagesAffectedMessages) GetPts() (value int) {
+	if a == nil {
+		return
+	}
 	return a.Pts
 }
 
 // GetPtsCount returns value of PtsCount field.
 func (a *MessagesAffectedMessages) GetPtsCount() (value int) {
+	if a == nil {
+		return
+	}
 	return a.PtsCount
 }

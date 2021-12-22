@@ -174,10 +174,16 @@ func (r *ReceivedNotifyMessage) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (r *ReceivedNotifyMessage) GetID() (value int) {
+	if r == nil {
+		return
+	}
 	return r.ID
 }
 
 // GetFlags returns value of Flags field.
 func (r *ReceivedNotifyMessage) GetFlags() (value int) {
+	if r == nil {
+		return
+	}
 	return r.Flags
 }

@@ -187,10 +187,16 @@ func (g *GroupCallParticipantVideoSourceGroup) DecodeBare(b *bin.Buffer) error {
 
 // GetSemantics returns value of Semantics field.
 func (g *GroupCallParticipantVideoSourceGroup) GetSemantics() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Semantics
 }
 
 // GetSources returns value of Sources field.
 func (g *GroupCallParticipantVideoSourceGroup) GetSources() (value []int) {
+	if g == nil {
+		return
+	}
 	return g.Sources
 }

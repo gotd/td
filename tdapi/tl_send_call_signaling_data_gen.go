@@ -208,11 +208,17 @@ func (s *SendCallSignalingDataRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCallID returns value of CallID field.
 func (s *SendCallSignalingDataRequest) GetCallID() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.CallID
 }
 
 // GetData returns value of Data field.
 func (s *SendCallSignalingDataRequest) GetData() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.Data
 }
 

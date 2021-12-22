@@ -342,16 +342,25 @@ func (s *PaymentsSendPaymentFormRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetFormID returns value of FormID field.
 func (s *PaymentsSendPaymentFormRequest) GetFormID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.FormID
 }
 
 // GetPeer returns value of Peer field.
 func (s *PaymentsSendPaymentFormRequest) GetPeer() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
 // GetMsgID returns value of MsgID field.
 func (s *PaymentsSendPaymentFormRequest) GetMsgID() (value int) {
+	if s == nil {
+		return
+	}
 	return s.MsgID
 }
 
@@ -364,6 +373,9 @@ func (s *PaymentsSendPaymentFormRequest) SetRequestedInfoID(value string) {
 // GetRequestedInfoID returns value of RequestedInfoID conditional field and
 // boolean which is true if field was set.
 func (s *PaymentsSendPaymentFormRequest) GetRequestedInfoID() (value string, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(0) {
 		return value, false
 	}
@@ -379,6 +391,9 @@ func (s *PaymentsSendPaymentFormRequest) SetShippingOptionID(value string) {
 // GetShippingOptionID returns value of ShippingOptionID conditional field and
 // boolean which is true if field was set.
 func (s *PaymentsSendPaymentFormRequest) GetShippingOptionID() (value string, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(1) {
 		return value, false
 	}
@@ -387,6 +402,9 @@ func (s *PaymentsSendPaymentFormRequest) GetShippingOptionID() (value string, ok
 
 // GetCredentials returns value of Credentials field.
 func (s *PaymentsSendPaymentFormRequest) GetCredentials() (value InputPaymentCredentialsClass) {
+	if s == nil {
+		return
+	}
 	return s.Credentials
 }
 
@@ -399,6 +417,9 @@ func (s *PaymentsSendPaymentFormRequest) SetTipAmount(value int64) {
 // GetTipAmount returns value of TipAmount conditional field and
 // boolean which is true if field was set.
 func (s *PaymentsSendPaymentFormRequest) GetTipAmount() (value int64, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(2) {
 		return value, false
 	}

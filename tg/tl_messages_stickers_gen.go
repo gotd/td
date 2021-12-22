@@ -302,11 +302,17 @@ func (s *MessagesStickers) DecodeBare(b *bin.Buffer) error {
 
 // GetHash returns value of Hash field.
 func (s *MessagesStickers) GetHash() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.Hash
 }
 
 // GetStickers returns value of Stickers field.
 func (s *MessagesStickers) GetStickers() (value []DocumentClass) {
+	if s == nil {
+		return
+	}
 	return s.Stickers
 }
 

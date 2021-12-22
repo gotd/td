@@ -163,6 +163,9 @@ func (u *MessagesUnpinAllMessagesRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (u *MessagesUnpinAllMessagesRequest) GetPeer() (value InputPeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 

@@ -297,25 +297,40 @@ func (m *MessageForwardInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetOrigin returns value of Origin field.
 func (m *MessageForwardInfo) GetOrigin() (value MessageForwardOriginClass) {
+	if m == nil {
+		return
+	}
 	return m.Origin
 }
 
 // GetDate returns value of Date field.
 func (m *MessageForwardInfo) GetDate() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.Date
 }
 
 // GetPublicServiceAnnouncementType returns value of PublicServiceAnnouncementType field.
 func (m *MessageForwardInfo) GetPublicServiceAnnouncementType() (value string) {
+	if m == nil {
+		return
+	}
 	return m.PublicServiceAnnouncementType
 }
 
 // GetFromChatID returns value of FromChatID field.
 func (m *MessageForwardInfo) GetFromChatID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.FromChatID
 }
 
 // GetFromMessageID returns value of FromMessageID field.
 func (m *MessageForwardInfo) GetFromMessageID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.FromMessageID
 }

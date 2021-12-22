@@ -242,16 +242,25 @@ func (i *MessagesInactiveChats) DecodeBare(b *bin.Buffer) error {
 
 // GetDates returns value of Dates field.
 func (i *MessagesInactiveChats) GetDates() (value []int) {
+	if i == nil {
+		return
+	}
 	return i.Dates
 }
 
 // GetChats returns value of Chats field.
 func (i *MessagesInactiveChats) GetChats() (value []ChatClass) {
+	if i == nil {
+		return
+	}
 	return i.Chats
 }
 
 // GetUsers returns value of Users field.
 func (i *MessagesInactiveChats) GetUsers() (value []UserClass) {
+	if i == nil {
+		return
+	}
 	return i.Users
 }
 

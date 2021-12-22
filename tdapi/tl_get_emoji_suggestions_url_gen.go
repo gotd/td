@@ -183,6 +183,9 @@ func (g *GetEmojiSuggestionsURLRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetLanguageCode returns value of LanguageCode field.
 func (g *GetEmojiSuggestionsURLRequest) GetLanguageCode() (value string) {
+	if g == nil {
+		return
+	}
 	return g.LanguageCode
 }
 

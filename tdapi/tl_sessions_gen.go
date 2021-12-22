@@ -235,10 +235,16 @@ func (s *Sessions) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSessions returns value of Sessions field.
 func (s *Sessions) GetSessions() (value []Session) {
+	if s == nil {
+		return
+	}
 	return s.Sessions
 }
 
 // GetInactiveSessionTTLDays returns value of InactiveSessionTTLDays field.
 func (s *Sessions) GetInactiveSessionTTLDays() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.InactiveSessionTTLDays
 }

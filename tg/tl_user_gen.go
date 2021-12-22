@@ -160,6 +160,9 @@ func (u *UserEmpty) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (u *UserEmpty) GetID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 
@@ -926,6 +929,9 @@ func (u *User) SetSelf(value bool) {
 
 // GetSelf returns value of Self conditional field.
 func (u *User) GetSelf() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(10)
 }
 
@@ -942,6 +948,9 @@ func (u *User) SetContact(value bool) {
 
 // GetContact returns value of Contact conditional field.
 func (u *User) GetContact() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(11)
 }
 
@@ -958,6 +967,9 @@ func (u *User) SetMutualContact(value bool) {
 
 // GetMutualContact returns value of MutualContact conditional field.
 func (u *User) GetMutualContact() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(12)
 }
 
@@ -974,6 +986,9 @@ func (u *User) SetDeleted(value bool) {
 
 // GetDeleted returns value of Deleted conditional field.
 func (u *User) GetDeleted() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(13)
 }
 
@@ -990,6 +1005,9 @@ func (u *User) SetBot(value bool) {
 
 // GetBot returns value of Bot conditional field.
 func (u *User) GetBot() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(14)
 }
 
@@ -1006,6 +1024,9 @@ func (u *User) SetBotChatHistory(value bool) {
 
 // GetBotChatHistory returns value of BotChatHistory conditional field.
 func (u *User) GetBotChatHistory() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(15)
 }
 
@@ -1022,6 +1043,9 @@ func (u *User) SetBotNochats(value bool) {
 
 // GetBotNochats returns value of BotNochats conditional field.
 func (u *User) GetBotNochats() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(16)
 }
 
@@ -1038,6 +1062,9 @@ func (u *User) SetVerified(value bool) {
 
 // GetVerified returns value of Verified conditional field.
 func (u *User) GetVerified() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(17)
 }
 
@@ -1054,6 +1081,9 @@ func (u *User) SetRestricted(value bool) {
 
 // GetRestricted returns value of Restricted conditional field.
 func (u *User) GetRestricted() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(18)
 }
 
@@ -1070,6 +1100,9 @@ func (u *User) SetMin(value bool) {
 
 // GetMin returns value of Min conditional field.
 func (u *User) GetMin() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(20)
 }
 
@@ -1086,6 +1119,9 @@ func (u *User) SetBotInlineGeo(value bool) {
 
 // GetBotInlineGeo returns value of BotInlineGeo conditional field.
 func (u *User) GetBotInlineGeo() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(21)
 }
 
@@ -1102,6 +1138,9 @@ func (u *User) SetSupport(value bool) {
 
 // GetSupport returns value of Support conditional field.
 func (u *User) GetSupport() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(23)
 }
 
@@ -1118,6 +1157,9 @@ func (u *User) SetScam(value bool) {
 
 // GetScam returns value of Scam conditional field.
 func (u *User) GetScam() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(24)
 }
 
@@ -1134,6 +1176,9 @@ func (u *User) SetApplyMinPhoto(value bool) {
 
 // GetApplyMinPhoto returns value of ApplyMinPhoto conditional field.
 func (u *User) GetApplyMinPhoto() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(25)
 }
 
@@ -1150,11 +1195,17 @@ func (u *User) SetFake(value bool) {
 
 // GetFake returns value of Fake conditional field.
 func (u *User) GetFake() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(26)
 }
 
 // GetID returns value of ID field.
 func (u *User) GetID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 
@@ -1167,6 +1218,9 @@ func (u *User) SetAccessHash(value int64) {
 // GetAccessHash returns value of AccessHash conditional field and
 // boolean which is true if field was set.
 func (u *User) GetAccessHash() (value int64, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -1182,6 +1236,9 @@ func (u *User) SetFirstName(value string) {
 // GetFirstName returns value of FirstName conditional field and
 // boolean which is true if field was set.
 func (u *User) GetFirstName() (value string, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(1) {
 		return value, false
 	}
@@ -1197,6 +1254,9 @@ func (u *User) SetLastName(value string) {
 // GetLastName returns value of LastName conditional field and
 // boolean which is true if field was set.
 func (u *User) GetLastName() (value string, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(2) {
 		return value, false
 	}
@@ -1212,6 +1272,9 @@ func (u *User) SetUsername(value string) {
 // GetUsername returns value of Username conditional field and
 // boolean which is true if field was set.
 func (u *User) GetUsername() (value string, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(3) {
 		return value, false
 	}
@@ -1227,6 +1290,9 @@ func (u *User) SetPhone(value string) {
 // GetPhone returns value of Phone conditional field and
 // boolean which is true if field was set.
 func (u *User) GetPhone() (value string, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(4) {
 		return value, false
 	}
@@ -1242,6 +1308,9 @@ func (u *User) SetPhoto(value UserProfilePhotoClass) {
 // GetPhoto returns value of Photo conditional field and
 // boolean which is true if field was set.
 func (u *User) GetPhoto() (value UserProfilePhotoClass, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(5) {
 		return value, false
 	}
@@ -1257,6 +1326,9 @@ func (u *User) SetStatus(value UserStatusClass) {
 // GetStatus returns value of Status conditional field and
 // boolean which is true if field was set.
 func (u *User) GetStatus() (value UserStatusClass, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(6) {
 		return value, false
 	}
@@ -1272,6 +1344,9 @@ func (u *User) SetBotInfoVersion(value int) {
 // GetBotInfoVersion returns value of BotInfoVersion conditional field and
 // boolean which is true if field was set.
 func (u *User) GetBotInfoVersion() (value int, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(14) {
 		return value, false
 	}
@@ -1287,6 +1362,9 @@ func (u *User) SetRestrictionReason(value []RestrictionReason) {
 // GetRestrictionReason returns value of RestrictionReason conditional field and
 // boolean which is true if field was set.
 func (u *User) GetRestrictionReason() (value []RestrictionReason, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(18) {
 		return value, false
 	}
@@ -1302,6 +1380,9 @@ func (u *User) SetBotInlinePlaceholder(value string) {
 // GetBotInlinePlaceholder returns value of BotInlinePlaceholder conditional field and
 // boolean which is true if field was set.
 func (u *User) GetBotInlinePlaceholder() (value string, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(19) {
 		return value, false
 	}
@@ -1317,6 +1398,9 @@ func (u *User) SetLangCode(value string) {
 // GetLangCode returns value of LangCode conditional field and
 // boolean which is true if field was set.
 func (u *User) GetLangCode() (value string, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(22) {
 		return value, false
 	}

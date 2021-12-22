@@ -174,11 +174,17 @@ func (i *AuthImportAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *AuthImportAuthorizationRequest) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetBytes returns value of Bytes field.
 func (i *AuthImportAuthorizationRequest) GetBytes() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.Bytes
 }
 

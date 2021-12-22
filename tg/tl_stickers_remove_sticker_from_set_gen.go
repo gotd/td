@@ -161,6 +161,9 @@ func (r *StickersRemoveStickerFromSetRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetSticker returns value of Sticker field.
 func (r *StickersRemoveStickerFromSetRequest) GetSticker() (value InputDocumentClass) {
+	if r == nil {
+		return
+	}
 	return r.Sticker
 }
 

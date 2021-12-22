@@ -233,15 +233,24 @@ func (c *ChatStatisticsMessageSenderInfo) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetUserID returns value of UserID field.
 func (c *ChatStatisticsMessageSenderInfo) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetSentMessageCount returns value of SentMessageCount field.
 func (c *ChatStatisticsMessageSenderInfo) GetSentMessageCount() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.SentMessageCount
 }
 
 // GetAverageCharacterCount returns value of AverageCharacterCount field.
 func (c *ChatStatisticsMessageSenderInfo) GetAverageCharacterCount() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.AverageCharacterCount
 }

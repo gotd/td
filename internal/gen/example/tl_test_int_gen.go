@@ -147,5 +147,8 @@ func (t *TestInt) DecodeBare(b *bin.Buffer) error {
 
 // GetValue returns value of Value field.
 func (t *TestInt) GetValue() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.Value
 }

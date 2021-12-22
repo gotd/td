@@ -283,26 +283,41 @@ func (d *DiscardCallRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCallID returns value of CallID field.
 func (d *DiscardCallRequest) GetCallID() (value int32) {
+	if d == nil {
+		return
+	}
 	return d.CallID
 }
 
 // GetIsDisconnected returns value of IsDisconnected field.
 func (d *DiscardCallRequest) GetIsDisconnected() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.IsDisconnected
 }
 
 // GetDuration returns value of Duration field.
 func (d *DiscardCallRequest) GetDuration() (value int32) {
+	if d == nil {
+		return
+	}
 	return d.Duration
 }
 
 // GetIsVideo returns value of IsVideo field.
 func (d *DiscardCallRequest) GetIsVideo() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.IsVideo
 }
 
 // GetConnectionID returns value of ConnectionID field.
 func (d *DiscardCallRequest) GetConnectionID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.ConnectionID
 }
 

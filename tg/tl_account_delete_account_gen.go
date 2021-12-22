@@ -160,6 +160,9 @@ func (d *AccountDeleteAccountRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetReason returns value of Reason field.
 func (d *AccountDeleteAccountRequest) GetReason() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Reason
 }
 

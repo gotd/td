@@ -182,11 +182,17 @@ func (l *AuthLoginToken) DecodeBare(b *bin.Buffer) error {
 
 // GetExpires returns value of Expires field.
 func (l *AuthLoginToken) GetExpires() (value int) {
+	if l == nil {
+		return
+	}
 	return l.Expires
 }
 
 // GetToken returns value of Token field.
 func (l *AuthLoginToken) GetToken() (value []byte) {
+	if l == nil {
+		return
+	}
 	return l.Token
 }
 
@@ -338,11 +344,17 @@ func (l *AuthLoginTokenMigrateTo) DecodeBare(b *bin.Buffer) error {
 
 // GetDCID returns value of DCID field.
 func (l *AuthLoginTokenMigrateTo) GetDCID() (value int) {
+	if l == nil {
+		return
+	}
 	return l.DCID
 }
 
 // GetToken returns value of Token field.
 func (l *AuthLoginTokenMigrateTo) GetToken() (value []byte) {
+	if l == nil {
+		return
+	}
 	return l.Token
 }
 
@@ -480,6 +492,9 @@ func (l *AuthLoginTokenSuccess) DecodeBare(b *bin.Buffer) error {
 
 // GetAuthorization returns value of Authorization field.
 func (l *AuthLoginTokenSuccess) GetAuthorization() (value AuthAuthorizationClass) {
+	if l == nil {
+		return
+	}
 	return l.Authorization
 }
 

@@ -258,6 +258,9 @@ func (s *MessagesSetBotShippingResultsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetQueryID returns value of QueryID field.
 func (s *MessagesSetBotShippingResultsRequest) GetQueryID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.QueryID
 }
 
@@ -270,6 +273,9 @@ func (s *MessagesSetBotShippingResultsRequest) SetError(value string) {
 // GetError returns value of Error conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSetBotShippingResultsRequest) GetError() (value string, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(0) {
 		return value, false
 	}
@@ -285,6 +291,9 @@ func (s *MessagesSetBotShippingResultsRequest) SetShippingOptions(value []Shippi
 // GetShippingOptions returns value of ShippingOptions conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSetBotShippingResultsRequest) GetShippingOptions() (value []ShippingOption, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(1) {
 		return value, false
 	}

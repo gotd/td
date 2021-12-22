@@ -233,15 +233,24 @@ func (c *ChatAdministrator) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (c *ChatAdministrator) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetCustomTitle returns value of CustomTitle field.
 func (c *ChatAdministrator) GetCustomTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.CustomTitle
 }
 
 // GetIsOwner returns value of IsOwner field.
 func (c *ChatAdministrator) GetIsOwner() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsOwner
 }

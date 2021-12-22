@@ -208,11 +208,17 @@ func (o *OpenMessageContentRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (o *OpenMessageContentRequest) GetChatID() (value int64) {
+	if o == nil {
+		return
+	}
 	return o.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (o *OpenMessageContentRequest) GetMessageID() (value int64) {
+	if o == nil {
+		return
+	}
 	return o.MessageID
 }
 

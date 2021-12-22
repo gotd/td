@@ -188,6 +188,9 @@ func (t *TMeURLTypeUser) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (t *TMeURLTypeUser) GetUserID() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.UserID
 }
 
@@ -348,6 +351,9 @@ func (t *TMeURLTypeSupergroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSupergroupID returns value of SupergroupID field.
 func (t *TMeURLTypeSupergroup) GetSupergroupID() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.SupergroupID
 }
 
@@ -508,6 +514,9 @@ func (t *TMeURLTypeChatInvite) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetInfo returns value of Info field.
 func (t *TMeURLTypeChatInvite) GetInfo() (value ChatInviteLinkInfo) {
+	if t == nil {
+		return
+	}
 	return t.Info
 }
 
@@ -668,6 +677,9 @@ func (t *TMeURLTypeStickerSet) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetStickerSetID returns value of StickerSetID field.
 func (t *TMeURLTypeStickerSet) GetStickerSetID() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.StickerSetID
 }
 

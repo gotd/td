@@ -155,5 +155,8 @@ func (c *ChatOnlines) DecodeBare(b *bin.Buffer) error {
 
 // GetOnlines returns value of Onlines field.
 func (c *ChatOnlines) GetOnlines() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Onlines
 }

@@ -209,5 +209,8 @@ func (l *LocalizationTargetInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLanguagePacks returns value of LanguagePacks field.
 func (l *LocalizationTargetInfo) GetLanguagePacks() (value []LanguagePackInfo) {
+	if l == nil {
+		return
+	}
 	return l.LanguagePacks
 }

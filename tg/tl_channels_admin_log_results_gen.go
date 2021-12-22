@@ -244,16 +244,25 @@ func (a *ChannelsAdminLogResults) DecodeBare(b *bin.Buffer) error {
 
 // GetEvents returns value of Events field.
 func (a *ChannelsAdminLogResults) GetEvents() (value []ChannelAdminLogEvent) {
+	if a == nil {
+		return
+	}
 	return a.Events
 }
 
 // GetChats returns value of Chats field.
 func (a *ChannelsAdminLogResults) GetChats() (value []ChatClass) {
+	if a == nil {
+		return
+	}
 	return a.Chats
 }
 
 // GetUsers returns value of Users field.
 func (a *ChannelsAdminLogResults) GetUsers() (value []UserClass) {
+	if a == nil {
+		return
+	}
 	return a.Users
 }
 

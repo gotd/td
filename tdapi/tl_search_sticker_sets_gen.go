@@ -183,6 +183,9 @@ func (s *SearchStickerSetsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetQuery returns value of Query field.
 func (s *SearchStickerSetsRequest) GetQuery() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Query
 }
 

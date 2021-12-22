@@ -161,6 +161,9 @@ func (d *FoldersDeleteFolderRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetFolderID returns value of FolderID field.
 func (d *FoldersDeleteFolderRequest) GetFolderID() (value int) {
+	if d == nil {
+		return
+	}
 	return d.FolderID
 }
 

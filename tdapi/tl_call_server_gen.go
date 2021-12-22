@@ -293,25 +293,40 @@ func (c *CallServer) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (c *CallServer) GetID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ID
 }
 
 // GetIPAddress returns value of IPAddress field.
 func (c *CallServer) GetIPAddress() (value string) {
+	if c == nil {
+		return
+	}
 	return c.IPAddress
 }
 
 // GetIpv6Address returns value of Ipv6Address field.
 func (c *CallServer) GetIpv6Address() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Ipv6Address
 }
 
 // GetPort returns value of Port field.
 func (c *CallServer) GetPort() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.Port
 }
 
 // GetType returns value of Type field.
 func (c *CallServer) GetType() (value CallServerTypeClass) {
+	if c == nil {
+		return
+	}
 	return c.Type
 }

@@ -184,6 +184,9 @@ func (s *AccountSetContentSettingsRequest) SetSensitiveEnabled(value bool) {
 
 // GetSensitiveEnabled returns value of SensitiveEnabled conditional field.
 func (s *AccountSetContentSettingsRequest) GetSensitiveEnabled() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(0)
 }
 

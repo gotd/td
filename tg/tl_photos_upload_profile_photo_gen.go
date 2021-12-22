@@ -271,6 +271,9 @@ func (u *PhotosUploadProfilePhotoRequest) SetFile(value InputFileClass) {
 // GetFile returns value of File conditional field and
 // boolean which is true if field was set.
 func (u *PhotosUploadProfilePhotoRequest) GetFile() (value InputFileClass, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -286,6 +289,9 @@ func (u *PhotosUploadProfilePhotoRequest) SetVideo(value InputFileClass) {
 // GetVideo returns value of Video conditional field and
 // boolean which is true if field was set.
 func (u *PhotosUploadProfilePhotoRequest) GetVideo() (value InputFileClass, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(1) {
 		return value, false
 	}
@@ -301,6 +307,9 @@ func (u *PhotosUploadProfilePhotoRequest) SetVideoStartTs(value float64) {
 // GetVideoStartTs returns value of VideoStartTs conditional field and
 // boolean which is true if field was set.
 func (u *PhotosUploadProfilePhotoRequest) GetVideoStartTs() (value float64, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(2) {
 		return value, false
 	}

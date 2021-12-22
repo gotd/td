@@ -213,11 +213,17 @@ func (d *DeviceTokenFirebaseCloudMessaging) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetToken returns value of Token field.
 func (d *DeviceTokenFirebaseCloudMessaging) GetToken() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Token
 }
 
 // GetEncrypt returns value of Encrypt field.
 func (d *DeviceTokenFirebaseCloudMessaging) GetEncrypt() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Encrypt
 }
 
@@ -403,11 +409,17 @@ func (d *DeviceTokenApplePush) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetDeviceToken returns value of DeviceToken field.
 func (d *DeviceTokenApplePush) GetDeviceToken() (value string) {
+	if d == nil {
+		return
+	}
 	return d.DeviceToken
 }
 
 // GetIsAppSandbox returns value of IsAppSandbox field.
 func (d *DeviceTokenApplePush) GetIsAppSandbox() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.IsAppSandbox
 }
 
@@ -618,16 +630,25 @@ func (d *DeviceTokenApplePushVoIP) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetDeviceToken returns value of DeviceToken field.
 func (d *DeviceTokenApplePushVoIP) GetDeviceToken() (value string) {
+	if d == nil {
+		return
+	}
 	return d.DeviceToken
 }
 
 // GetIsAppSandbox returns value of IsAppSandbox field.
 func (d *DeviceTokenApplePushVoIP) GetIsAppSandbox() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.IsAppSandbox
 }
 
 // GetEncrypt returns value of Encrypt field.
 func (d *DeviceTokenApplePushVoIP) GetEncrypt() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Encrypt
 }
 
@@ -789,6 +810,9 @@ func (d *DeviceTokenWindowsPush) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAccessToken returns value of AccessToken field.
 func (d *DeviceTokenWindowsPush) GetAccessToken() (value string) {
+	if d == nil {
+		return
+	}
 	return d.AccessToken
 }
 
@@ -949,6 +973,9 @@ func (d *DeviceTokenMicrosoftPush) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChannelURI returns value of ChannelURI field.
 func (d *DeviceTokenMicrosoftPush) GetChannelURI() (value string) {
+	if d == nil {
+		return
+	}
 	return d.ChannelURI
 }
 
@@ -1109,6 +1136,9 @@ func (d *DeviceTokenMicrosoftPushVoIP) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChannelURI returns value of ChannelURI field.
 func (d *DeviceTokenMicrosoftPushVoIP) GetChannelURI() (value string) {
+	if d == nil {
+		return
+	}
 	return d.ChannelURI
 }
 
@@ -1320,16 +1350,25 @@ func (d *DeviceTokenWebPush) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetEndpoint returns value of Endpoint field.
 func (d *DeviceTokenWebPush) GetEndpoint() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Endpoint
 }
 
 // GetP256dhBase64url returns value of P256dhBase64url field.
 func (d *DeviceTokenWebPush) GetP256dhBase64url() (value string) {
+	if d == nil {
+		return
+	}
 	return d.P256dhBase64url
 }
 
 // GetAuthBase64url returns value of AuthBase64url field.
 func (d *DeviceTokenWebPush) GetAuthBase64url() (value string) {
+	if d == nil {
+		return
+	}
 	return d.AuthBase64url
 }
 
@@ -1491,6 +1530,9 @@ func (d *DeviceTokenSimplePush) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetEndpoint returns value of Endpoint field.
 func (d *DeviceTokenSimplePush) GetEndpoint() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Endpoint
 }
 
@@ -1651,6 +1693,9 @@ func (d *DeviceTokenUbuntuPush) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetToken returns value of Token field.
 func (d *DeviceTokenUbuntuPush) GetToken() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Token
 }
 
@@ -1811,6 +1856,9 @@ func (d *DeviceTokenBlackBerryPush) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetToken returns value of Token field.
 func (d *DeviceTokenBlackBerryPush) GetToken() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Token
 }
 
@@ -1971,6 +2019,9 @@ func (d *DeviceTokenTizenPush) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetRegID returns value of RegID field.
 func (d *DeviceTokenTizenPush) GetRegID() (value string) {
+	if d == nil {
+		return
+	}
 	return d.RegID
 }
 

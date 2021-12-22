@@ -486,6 +486,9 @@ func (s *MessagesSendMediaRequest) SetSilent(value bool) {
 
 // GetSilent returns value of Silent conditional field.
 func (s *MessagesSendMediaRequest) GetSilent() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(5)
 }
 
@@ -502,6 +505,9 @@ func (s *MessagesSendMediaRequest) SetBackground(value bool) {
 
 // GetBackground returns value of Background conditional field.
 func (s *MessagesSendMediaRequest) GetBackground() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(6)
 }
 
@@ -518,11 +524,17 @@ func (s *MessagesSendMediaRequest) SetClearDraft(value bool) {
 
 // GetClearDraft returns value of ClearDraft conditional field.
 func (s *MessagesSendMediaRequest) GetClearDraft() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(7)
 }
 
 // GetPeer returns value of Peer field.
 func (s *MessagesSendMediaRequest) GetPeer() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
@@ -535,6 +547,9 @@ func (s *MessagesSendMediaRequest) SetReplyToMsgID(value int) {
 // GetReplyToMsgID returns value of ReplyToMsgID conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSendMediaRequest) GetReplyToMsgID() (value int, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(0) {
 		return value, false
 	}
@@ -543,16 +558,25 @@ func (s *MessagesSendMediaRequest) GetReplyToMsgID() (value int, ok bool) {
 
 // GetMedia returns value of Media field.
 func (s *MessagesSendMediaRequest) GetMedia() (value InputMediaClass) {
+	if s == nil {
+		return
+	}
 	return s.Media
 }
 
 // GetMessage returns value of Message field.
 func (s *MessagesSendMediaRequest) GetMessage() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Message
 }
 
 // GetRandomID returns value of RandomID field.
 func (s *MessagesSendMediaRequest) GetRandomID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.RandomID
 }
 
@@ -565,6 +589,9 @@ func (s *MessagesSendMediaRequest) SetReplyMarkup(value ReplyMarkupClass) {
 // GetReplyMarkup returns value of ReplyMarkup conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSendMediaRequest) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(2) {
 		return value, false
 	}
@@ -580,6 +607,9 @@ func (s *MessagesSendMediaRequest) SetEntities(value []MessageEntityClass) {
 // GetEntities returns value of Entities conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSendMediaRequest) GetEntities() (value []MessageEntityClass, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(3) {
 		return value, false
 	}
@@ -595,6 +625,9 @@ func (s *MessagesSendMediaRequest) SetScheduleDate(value int) {
 // GetScheduleDate returns value of ScheduleDate conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSendMediaRequest) GetScheduleDate() (value int, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(10) {
 		return value, false
 	}
@@ -610,6 +643,9 @@ func (s *MessagesSendMediaRequest) SetSendAs(value InputPeerClass) {
 // GetSendAs returns value of SendAs conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSendMediaRequest) GetSendAs() (value InputPeerClass, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(13) {
 		return value, false
 	}

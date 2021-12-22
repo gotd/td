@@ -168,6 +168,9 @@ func (d *ContactsDeleteByPhonesRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPhones returns value of Phones field.
 func (d *ContactsDeleteByPhonesRequest) GetPhones() (value []string) {
+	if d == nil {
+		return
+	}
 	return d.Phones
 }
 

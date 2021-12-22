@@ -183,6 +183,9 @@ func (g *GetBasicGroupFullInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBasicGroupID returns value of BasicGroupID field.
 func (g *GetBasicGroupFullInfoRequest) GetBasicGroupID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.BasicGroupID
 }
 

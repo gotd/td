@@ -210,11 +210,17 @@ func (g *GetGroupCallInviteLinkRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetGroupCallID returns value of GroupCallID field.
 func (g *GetGroupCallInviteLinkRequest) GetGroupCallID() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.GroupCallID
 }
 
 // GetCanSelfUnmute returns value of CanSelfUnmute field.
 func (g *GetGroupCallInviteLinkRequest) GetCanSelfUnmute() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.CanSelfUnmute
 }
 

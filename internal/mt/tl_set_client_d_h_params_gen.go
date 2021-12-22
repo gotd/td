@@ -179,15 +179,24 @@ func (s *SetClientDHParamsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetNonce returns value of Nonce field.
 func (s *SetClientDHParamsRequest) GetNonce() (value bin.Int128) {
+	if s == nil {
+		return
+	}
 	return s.Nonce
 }
 
 // GetServerNonce returns value of ServerNonce field.
 func (s *SetClientDHParamsRequest) GetServerNonce() (value bin.Int128) {
+	if s == nil {
+		return
+	}
 	return s.ServerNonce
 }
 
 // GetEncryptedData returns value of EncryptedData field.
 func (s *SetClientDHParamsRequest) GetEncryptedData() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.EncryptedData
 }

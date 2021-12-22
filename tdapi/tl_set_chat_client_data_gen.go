@@ -208,11 +208,17 @@ func (s *SetChatClientDataRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (s *SetChatClientDataRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetClientData returns value of ClientData field.
 func (s *SetChatClientDataRequest) GetClientData() (value string) {
+	if s == nil {
+		return
+	}
 	return s.ClientData
 }
 

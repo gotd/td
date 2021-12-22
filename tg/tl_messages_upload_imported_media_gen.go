@@ -229,21 +229,33 @@ func (u *MessagesUploadImportedMediaRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (u *MessagesUploadImportedMediaRequest) GetPeer() (value InputPeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
 // GetImportID returns value of ImportID field.
 func (u *MessagesUploadImportedMediaRequest) GetImportID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ImportID
 }
 
 // GetFileName returns value of FileName field.
 func (u *MessagesUploadImportedMediaRequest) GetFileName() (value string) {
+	if u == nil {
+		return
+	}
 	return u.FileName
 }
 
 // GetMedia returns value of Media field.
 func (u *MessagesUploadImportedMediaRequest) GetMedia() (value InputMediaClass) {
+	if u == nil {
+		return
+	}
 	return u.Media
 }
 

@@ -215,11 +215,17 @@ func (p *PhotosPhotos) DecodeBare(b *bin.Buffer) error {
 
 // GetPhotos returns value of Photos field.
 func (p *PhotosPhotos) GetPhotos() (value []PhotoClass) {
+	if p == nil {
+		return
+	}
 	return p.Photos
 }
 
 // GetUsers returns value of Users field.
 func (p *PhotosPhotos) GetUsers() (value []UserClass) {
+	if p == nil {
+		return
+	}
 	return p.Users
 }
 
@@ -436,16 +442,25 @@ func (p *PhotosPhotosSlice) DecodeBare(b *bin.Buffer) error {
 
 // GetCount returns value of Count field.
 func (p *PhotosPhotosSlice) GetCount() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Count
 }
 
 // GetPhotos returns value of Photos field.
 func (p *PhotosPhotosSlice) GetPhotos() (value []PhotoClass) {
+	if p == nil {
+		return
+	}
 	return p.Photos
 }
 
 // GetUsers returns value of Users field.
 func (p *PhotosPhotosSlice) GetUsers() (value []UserClass) {
+	if p == nil {
+		return
+	}
 	return p.Users
 }
 

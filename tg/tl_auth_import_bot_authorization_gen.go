@@ -221,21 +221,33 @@ func (i *AuthImportBotAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetFlags returns value of Flags field.
 func (i *AuthImportBotAuthorizationRequest) GetFlags() (value int) {
+	if i == nil {
+		return
+	}
 	return i.Flags
 }
 
 // GetAPIID returns value of APIID field.
 func (i *AuthImportBotAuthorizationRequest) GetAPIID() (value int) {
+	if i == nil {
+		return
+	}
 	return i.APIID
 }
 
 // GetAPIHash returns value of APIHash field.
 func (i *AuthImportBotAuthorizationRequest) GetAPIHash() (value string) {
+	if i == nil {
+		return
+	}
 	return i.APIHash
 }
 
 // GetBotAuthToken returns value of BotAuthToken field.
 func (i *AuthImportBotAuthorizationRequest) GetBotAuthToken() (value string) {
+	if i == nil {
+		return
+	}
 	return i.BotAuthToken
 }
 

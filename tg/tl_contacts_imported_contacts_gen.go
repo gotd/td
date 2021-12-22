@@ -277,21 +277,33 @@ func (i *ContactsImportedContacts) DecodeBare(b *bin.Buffer) error {
 
 // GetImported returns value of Imported field.
 func (i *ContactsImportedContacts) GetImported() (value []ImportedContact) {
+	if i == nil {
+		return
+	}
 	return i.Imported
 }
 
 // GetPopularInvites returns value of PopularInvites field.
 func (i *ContactsImportedContacts) GetPopularInvites() (value []PopularContact) {
+	if i == nil {
+		return
+	}
 	return i.PopularInvites
 }
 
 // GetRetryContacts returns value of RetryContacts field.
 func (i *ContactsImportedContacts) GetRetryContacts() (value []int64) {
+	if i == nil {
+		return
+	}
 	return i.RetryContacts
 }
 
 // GetUsers returns value of Users field.
 func (i *ContactsImportedContacts) GetUsers() (value []UserClass) {
+	if i == nil {
+		return
+	}
 	return i.Users
 }
 

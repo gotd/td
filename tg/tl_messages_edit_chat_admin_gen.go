@@ -201,16 +201,25 @@ func (e *MessagesEditChatAdminRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (e *MessagesEditChatAdminRequest) GetChatID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.ChatID
 }
 
 // GetUserID returns value of UserID field.
 func (e *MessagesEditChatAdminRequest) GetUserID() (value InputUserClass) {
+	if e == nil {
+		return
+	}
 	return e.UserID
 }
 
 // GetIsAdmin returns value of IsAdmin field.
 func (e *MessagesEditChatAdminRequest) GetIsAdmin() (value bool) {
+	if e == nil {
+		return
+	}
 	return e.IsAdmin
 }
 

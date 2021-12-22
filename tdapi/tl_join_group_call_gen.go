@@ -345,36 +345,57 @@ func (j *JoinGroupCallRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetGroupCallID returns value of GroupCallID field.
 func (j *JoinGroupCallRequest) GetGroupCallID() (value int32) {
+	if j == nil {
+		return
+	}
 	return j.GroupCallID
 }
 
 // GetParticipantID returns value of ParticipantID field.
 func (j *JoinGroupCallRequest) GetParticipantID() (value MessageSenderClass) {
+	if j == nil {
+		return
+	}
 	return j.ParticipantID
 }
 
 // GetAudioSourceID returns value of AudioSourceID field.
 func (j *JoinGroupCallRequest) GetAudioSourceID() (value int32) {
+	if j == nil {
+		return
+	}
 	return j.AudioSourceID
 }
 
 // GetPayload returns value of Payload field.
 func (j *JoinGroupCallRequest) GetPayload() (value string) {
+	if j == nil {
+		return
+	}
 	return j.Payload
 }
 
 // GetIsMuted returns value of IsMuted field.
 func (j *JoinGroupCallRequest) GetIsMuted() (value bool) {
+	if j == nil {
+		return
+	}
 	return j.IsMuted
 }
 
 // GetIsMyVideoEnabled returns value of IsMyVideoEnabled field.
 func (j *JoinGroupCallRequest) GetIsMyVideoEnabled() (value bool) {
+	if j == nil {
+		return
+	}
 	return j.IsMyVideoEnabled
 }
 
 // GetInviteHash returns value of InviteHash field.
 func (j *JoinGroupCallRequest) GetInviteHash() (value string) {
+	if j == nil {
+		return
+	}
 	return j.InviteHash
 }
 

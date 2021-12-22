@@ -174,11 +174,17 @@ func (g *MessagesGetEmojiKeywordsDifferenceRequest) DecodeBare(b *bin.Buffer) er
 
 // GetLangCode returns value of LangCode field.
 func (g *MessagesGetEmojiKeywordsDifferenceRequest) GetLangCode() (value string) {
+	if g == nil {
+		return
+	}
 	return g.LangCode
 }
 
 // GetFromVersion returns value of FromVersion field.
 func (g *MessagesGetEmojiKeywordsDifferenceRequest) GetFromVersion() (value int) {
+	if g == nil {
+		return
+	}
 	return g.FromVersion
 }
 

@@ -170,11 +170,17 @@ func (d *DocumentAttributeImageSize) DecodeBare(b *bin.Buffer) error {
 
 // GetW returns value of W field.
 func (d *DocumentAttributeImageSize) GetW() (value int) {
+	if d == nil {
+		return
+	}
 	return d.W
 }
 
 // GetH returns value of H field.
 func (d *DocumentAttributeImageSize) GetH() (value int) {
+	if d == nil {
+		return
+	}
 	return d.H
 }
 
@@ -537,16 +543,25 @@ func (d *DocumentAttributeVideo) DecodeBare(b *bin.Buffer) error {
 
 // GetDuration returns value of Duration field.
 func (d *DocumentAttributeVideo) GetDuration() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Duration
 }
 
 // GetW returns value of W field.
 func (d *DocumentAttributeVideo) GetW() (value int) {
+	if d == nil {
+		return
+	}
 	return d.W
 }
 
 // GetH returns value of H field.
 func (d *DocumentAttributeVideo) GetH() (value int) {
+	if d == nil {
+		return
+	}
 	return d.H
 }
 
@@ -671,6 +686,9 @@ func (d *DocumentAttributeAudio23) DecodeBare(b *bin.Buffer) error {
 
 // GetDuration returns value of Duration field.
 func (d *DocumentAttributeAudio23) GetDuration() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Duration
 }
 
@@ -796,6 +814,9 @@ func (d *DocumentAttributeFilename) DecodeBare(b *bin.Buffer) error {
 
 // GetFileName returns value of FileName field.
 func (d *DocumentAttributeFilename) GetFileName() (value string) {
+	if d == nil {
+		return
+	}
 	return d.FileName
 }
 
@@ -954,16 +975,25 @@ func (d *DocumentAttributeAudio45) DecodeBare(b *bin.Buffer) error {
 
 // GetDuration returns value of Duration field.
 func (d *DocumentAttributeAudio45) GetDuration() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Duration
 }
 
 // GetTitle returns value of Title field.
 func (d *DocumentAttributeAudio45) GetTitle() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Title
 }
 
 // GetPerformer returns value of Performer field.
 func (d *DocumentAttributeAudio45) GetPerformer() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Performer
 }
 
@@ -1111,11 +1141,17 @@ func (d *DocumentAttributeSticker) DecodeBare(b *bin.Buffer) error {
 
 // GetAlt returns value of Alt field.
 func (d *DocumentAttributeSticker) GetAlt() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Alt
 }
 
 // GetStickerset returns value of Stickerset field.
 func (d *DocumentAttributeSticker) GetStickerset() (value InputStickerSetClass) {
+	if d == nil {
+		return
+	}
 	return d.Stickerset
 }
 
@@ -1362,11 +1398,17 @@ func (d *DocumentAttributeAudio) SetVoice(value bool) {
 
 // GetVoice returns value of Voice conditional field.
 func (d *DocumentAttributeAudio) GetVoice() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(10)
 }
 
 // GetDuration returns value of Duration field.
 func (d *DocumentAttributeAudio) GetDuration() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Duration
 }
 
@@ -1379,6 +1421,9 @@ func (d *DocumentAttributeAudio) SetTitle(value string) {
 // GetTitle returns value of Title conditional field and
 // boolean which is true if field was set.
 func (d *DocumentAttributeAudio) GetTitle() (value string, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(0) {
 		return value, false
 	}
@@ -1394,6 +1439,9 @@ func (d *DocumentAttributeAudio) SetPerformer(value string) {
 // GetPerformer returns value of Performer conditional field and
 // boolean which is true if field was set.
 func (d *DocumentAttributeAudio) GetPerformer() (value string, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(1) {
 		return value, false
 	}
@@ -1409,6 +1457,9 @@ func (d *DocumentAttributeAudio) SetWaveform(value []byte) {
 // GetWaveform returns value of Waveform conditional field and
 // boolean which is true if field was set.
 func (d *DocumentAttributeAudio) GetWaveform() (value []byte, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(2) {
 		return value, false
 	}
@@ -1613,21 +1664,33 @@ func (d *DocumentAttributeVideo66) SetRoundMessage(value bool) {
 
 // GetRoundMessage returns value of RoundMessage conditional field.
 func (d *DocumentAttributeVideo66) GetRoundMessage() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(0)
 }
 
 // GetDuration returns value of Duration field.
 func (d *DocumentAttributeVideo66) GetDuration() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Duration
 }
 
 // GetW returns value of W field.
 func (d *DocumentAttributeVideo66) GetW() (value int) {
+	if d == nil {
+		return
+	}
 	return d.W
 }
 
 // GetH returns value of H field.
 func (d *DocumentAttributeVideo66) GetH() (value int) {
+	if d == nil {
+		return
+	}
 	return d.H
 }
 

@@ -474,6 +474,9 @@ func (i *InputSecureValue) DecodeBare(b *bin.Buffer) error {
 
 // GetType returns value of Type field.
 func (i *InputSecureValue) GetType() (value SecureValueTypeClass) {
+	if i == nil {
+		return
+	}
 	return i.Type
 }
 
@@ -486,6 +489,9 @@ func (i *InputSecureValue) SetData(value SecureData) {
 // GetData returns value of Data conditional field and
 // boolean which is true if field was set.
 func (i *InputSecureValue) GetData() (value SecureData, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(0) {
 		return value, false
 	}
@@ -501,6 +507,9 @@ func (i *InputSecureValue) SetFrontSide(value InputSecureFileClass) {
 // GetFrontSide returns value of FrontSide conditional field and
 // boolean which is true if field was set.
 func (i *InputSecureValue) GetFrontSide() (value InputSecureFileClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(1) {
 		return value, false
 	}
@@ -516,6 +525,9 @@ func (i *InputSecureValue) SetReverseSide(value InputSecureFileClass) {
 // GetReverseSide returns value of ReverseSide conditional field and
 // boolean which is true if field was set.
 func (i *InputSecureValue) GetReverseSide() (value InputSecureFileClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(2) {
 		return value, false
 	}
@@ -531,6 +543,9 @@ func (i *InputSecureValue) SetSelfie(value InputSecureFileClass) {
 // GetSelfie returns value of Selfie conditional field and
 // boolean which is true if field was set.
 func (i *InputSecureValue) GetSelfie() (value InputSecureFileClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(3) {
 		return value, false
 	}
@@ -546,6 +561,9 @@ func (i *InputSecureValue) SetTranslation(value []InputSecureFileClass) {
 // GetTranslation returns value of Translation conditional field and
 // boolean which is true if field was set.
 func (i *InputSecureValue) GetTranslation() (value []InputSecureFileClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(6) {
 		return value, false
 	}
@@ -561,6 +579,9 @@ func (i *InputSecureValue) SetFiles(value []InputSecureFileClass) {
 // GetFiles returns value of Files conditional field and
 // boolean which is true if field was set.
 func (i *InputSecureValue) GetFiles() (value []InputSecureFileClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(4) {
 		return value, false
 	}
@@ -576,6 +597,9 @@ func (i *InputSecureValue) SetPlainData(value SecurePlainDataClass) {
 // GetPlainData returns value of PlainData conditional field and
 // boolean which is true if field was set.
 func (i *InputSecureValue) GetPlainData() (value SecurePlainDataClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(5) {
 		return value, false
 	}

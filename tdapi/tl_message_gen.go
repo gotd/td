@@ -1073,170 +1073,272 @@ func (m *Message) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (m *Message) GetID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.ID
 }
 
 // GetSenderID returns value of SenderID field.
 func (m *Message) GetSenderID() (value MessageSenderClass) {
+	if m == nil {
+		return
+	}
 	return m.SenderID
 }
 
 // GetChatID returns value of ChatID field.
 func (m *Message) GetChatID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.ChatID
 }
 
 // GetSendingState returns value of SendingState field.
 func (m *Message) GetSendingState() (value MessageSendingStateClass) {
+	if m == nil {
+		return
+	}
 	return m.SendingState
 }
 
 // GetSchedulingState returns value of SchedulingState field.
 func (m *Message) GetSchedulingState() (value MessageSchedulingStateClass) {
+	if m == nil {
+		return
+	}
 	return m.SchedulingState
 }
 
 // GetIsOutgoing returns value of IsOutgoing field.
 func (m *Message) GetIsOutgoing() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.IsOutgoing
 }
 
 // GetIsPinned returns value of IsPinned field.
 func (m *Message) GetIsPinned() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.IsPinned
 }
 
 // GetCanBeEdited returns value of CanBeEdited field.
 func (m *Message) GetCanBeEdited() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.CanBeEdited
 }
 
 // GetCanBeForwarded returns value of CanBeForwarded field.
 func (m *Message) GetCanBeForwarded() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.CanBeForwarded
 }
 
 // GetCanBeSaved returns value of CanBeSaved field.
 func (m *Message) GetCanBeSaved() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.CanBeSaved
 }
 
 // GetCanBeDeletedOnlyForSelf returns value of CanBeDeletedOnlyForSelf field.
 func (m *Message) GetCanBeDeletedOnlyForSelf() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.CanBeDeletedOnlyForSelf
 }
 
 // GetCanBeDeletedForAllUsers returns value of CanBeDeletedForAllUsers field.
 func (m *Message) GetCanBeDeletedForAllUsers() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.CanBeDeletedForAllUsers
 }
 
 // GetCanGetStatistics returns value of CanGetStatistics field.
 func (m *Message) GetCanGetStatistics() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.CanGetStatistics
 }
 
 // GetCanGetMessageThread returns value of CanGetMessageThread field.
 func (m *Message) GetCanGetMessageThread() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.CanGetMessageThread
 }
 
 // GetCanGetViewers returns value of CanGetViewers field.
 func (m *Message) GetCanGetViewers() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.CanGetViewers
 }
 
 // GetCanGetMediaTimestampLinks returns value of CanGetMediaTimestampLinks field.
 func (m *Message) GetCanGetMediaTimestampLinks() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.CanGetMediaTimestampLinks
 }
 
 // GetHasTimestampedMedia returns value of HasTimestampedMedia field.
 func (m *Message) GetHasTimestampedMedia() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.HasTimestampedMedia
 }
 
 // GetIsChannelPost returns value of IsChannelPost field.
 func (m *Message) GetIsChannelPost() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.IsChannelPost
 }
 
 // GetContainsUnreadMention returns value of ContainsUnreadMention field.
 func (m *Message) GetContainsUnreadMention() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.ContainsUnreadMention
 }
 
 // GetDate returns value of Date field.
 func (m *Message) GetDate() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.Date
 }
 
 // GetEditDate returns value of EditDate field.
 func (m *Message) GetEditDate() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.EditDate
 }
 
 // GetForwardInfo returns value of ForwardInfo field.
 func (m *Message) GetForwardInfo() (value MessageForwardInfo) {
+	if m == nil {
+		return
+	}
 	return m.ForwardInfo
 }
 
 // GetInteractionInfo returns value of InteractionInfo field.
 func (m *Message) GetInteractionInfo() (value MessageInteractionInfo) {
+	if m == nil {
+		return
+	}
 	return m.InteractionInfo
 }
 
 // GetReplyInChatID returns value of ReplyInChatID field.
 func (m *Message) GetReplyInChatID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.ReplyInChatID
 }
 
 // GetReplyToMessageID returns value of ReplyToMessageID field.
 func (m *Message) GetReplyToMessageID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.ReplyToMessageID
 }
 
 // GetMessageThreadID returns value of MessageThreadID field.
 func (m *Message) GetMessageThreadID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.MessageThreadID
 }
 
 // GetTTL returns value of TTL field.
 func (m *Message) GetTTL() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.TTL
 }
 
 // GetTTLExpiresIn returns value of TTLExpiresIn field.
 func (m *Message) GetTTLExpiresIn() (value float64) {
+	if m == nil {
+		return
+	}
 	return m.TTLExpiresIn
 }
 
 // GetViaBotUserID returns value of ViaBotUserID field.
 func (m *Message) GetViaBotUserID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.ViaBotUserID
 }
 
 // GetAuthorSignature returns value of AuthorSignature field.
 func (m *Message) GetAuthorSignature() (value string) {
+	if m == nil {
+		return
+	}
 	return m.AuthorSignature
 }
 
 // GetMediaAlbumID returns value of MediaAlbumID field.
 func (m *Message) GetMediaAlbumID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.MediaAlbumID
 }
 
 // GetRestrictionReason returns value of RestrictionReason field.
 func (m *Message) GetRestrictionReason() (value string) {
+	if m == nil {
+		return
+	}
 	return m.RestrictionReason
 }
 
 // GetContent returns value of Content field.
 func (m *Message) GetContent() (value MessageContentClass) {
+	if m == nil {
+		return
+	}
 	return m.Content
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (m *Message) GetReplyMarkup() (value ReplyMarkupClass) {
+	if m == nil {
+		return
+	}
 	return m.ReplyMarkup
 }

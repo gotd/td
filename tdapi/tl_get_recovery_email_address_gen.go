@@ -183,6 +183,9 @@ func (g *GetRecoveryEmailAddressRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetPassword returns value of Password field.
 func (g *GetRecoveryEmailAddressRequest) GetPassword() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Password
 }
 

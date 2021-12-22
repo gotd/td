@@ -305,25 +305,40 @@ func (c *CountryInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCountryCode returns value of CountryCode field.
 func (c *CountryInfo) GetCountryCode() (value string) {
+	if c == nil {
+		return
+	}
 	return c.CountryCode
 }
 
 // GetName returns value of Name field.
 func (c *CountryInfo) GetName() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Name
 }
 
 // GetEnglishName returns value of EnglishName field.
 func (c *CountryInfo) GetEnglishName() (value string) {
+	if c == nil {
+		return
+	}
 	return c.EnglishName
 }
 
 // GetIsHidden returns value of IsHidden field.
 func (c *CountryInfo) GetIsHidden() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsHidden
 }
 
 // GetCallingCodes returns value of CallingCodes field.
 func (c *CountryInfo) GetCallingCodes() (value []string) {
+	if c == nil {
+		return
+	}
 	return c.CallingCodes
 }

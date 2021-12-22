@@ -240,25 +240,40 @@ func (w *UploadWebFile) DecodeBare(b *bin.Buffer) error {
 
 // GetSize returns value of Size field.
 func (w *UploadWebFile) GetSize() (value int) {
+	if w == nil {
+		return
+	}
 	return w.Size
 }
 
 // GetMimeType returns value of MimeType field.
 func (w *UploadWebFile) GetMimeType() (value string) {
+	if w == nil {
+		return
+	}
 	return w.MimeType
 }
 
 // GetFileType returns value of FileType field.
 func (w *UploadWebFile) GetFileType() (value StorageFileTypeClass) {
+	if w == nil {
+		return
+	}
 	return w.FileType
 }
 
 // GetMtime returns value of Mtime field.
 func (w *UploadWebFile) GetMtime() (value int) {
+	if w == nil {
+		return
+	}
 	return w.Mtime
 }
 
 // GetBytes returns value of Bytes field.
 func (w *UploadWebFile) GetBytes() (value []byte) {
+	if w == nil {
+		return
+	}
 	return w.Bytes
 }

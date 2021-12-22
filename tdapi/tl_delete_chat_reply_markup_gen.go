@@ -208,11 +208,17 @@ func (d *DeleteChatReplyMarkupRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (d *DeleteChatReplyMarkupRequest) GetChatID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (d *DeleteChatReplyMarkupRequest) GetMessageID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.MessageID
 }
 

@@ -184,6 +184,9 @@ func (s *SetInactiveSessionTTLRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetInactiveSessionTTLDays returns value of InactiveSessionTTLDays field.
 func (s *SetInactiveSessionTTLRequest) GetInactiveSessionTTLDays() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.InactiveSessionTTLDays
 }
 

@@ -205,6 +205,9 @@ func (r *RequestQrCodeAuthenticationRequest) DecodeTDLibJSON(b tdjson.Decoder) e
 
 // GetOtherUserIDs returns value of OtherUserIDs field.
 func (r *RequestQrCodeAuthenticationRequest) GetOtherUserIDs() (value []int64) {
+	if r == nil {
+		return
+	}
 	return r.OtherUserIDs
 }
 

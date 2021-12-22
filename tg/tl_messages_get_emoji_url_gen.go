@@ -157,6 +157,9 @@ func (g *MessagesGetEmojiURLRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetLangCode returns value of LangCode field.
 func (g *MessagesGetEmojiURLRequest) GetLangCode() (value string) {
+	if g == nil {
+		return
+	}
 	return g.LangCode
 }
 

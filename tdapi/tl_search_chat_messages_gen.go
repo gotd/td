@@ -384,41 +384,65 @@ func (s *SearchChatMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (s *SearchChatMessagesRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetQuery returns value of Query field.
 func (s *SearchChatMessagesRequest) GetQuery() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Query
 }
 
 // GetSenderID returns value of SenderID field.
 func (s *SearchChatMessagesRequest) GetSenderID() (value MessageSenderClass) {
+	if s == nil {
+		return
+	}
 	return s.SenderID
 }
 
 // GetFromMessageID returns value of FromMessageID field.
 func (s *SearchChatMessagesRequest) GetFromMessageID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.FromMessageID
 }
 
 // GetOffset returns value of Offset field.
 func (s *SearchChatMessagesRequest) GetOffset() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Offset
 }
 
 // GetLimit returns value of Limit field.
 func (s *SearchChatMessagesRequest) GetLimit() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Limit
 }
 
 // GetFilter returns value of Filter field.
 func (s *SearchChatMessagesRequest) GetFilter() (value SearchMessagesFilterClass) {
+	if s == nil {
+		return
+	}
 	return s.Filter
 }
 
 // GetMessageThreadID returns value of MessageThreadID field.
 func (s *SearchChatMessagesRequest) GetMessageThreadID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.MessageThreadID
 }
 

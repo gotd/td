@@ -243,16 +243,25 @@ func (t *ToggleChatIsPinnedRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatList returns value of ChatList field.
 func (t *ToggleChatIsPinnedRequest) GetChatList() (value ChatListClass) {
+	if t == nil {
+		return
+	}
 	return t.ChatList
 }
 
 // GetChatID returns value of ChatID field.
 func (t *ToggleChatIsPinnedRequest) GetChatID() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.ChatID
 }
 
 // GetIsPinned returns value of IsPinned field.
 func (t *ToggleChatIsPinnedRequest) GetIsPinned() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.IsPinned
 }
 

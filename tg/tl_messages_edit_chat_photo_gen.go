@@ -179,11 +179,17 @@ func (e *MessagesEditChatPhotoRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (e *MessagesEditChatPhotoRequest) GetChatID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.ChatID
 }
 
 // GetPhoto returns value of Photo field.
 func (e *MessagesEditChatPhotoRequest) GetPhoto() (value InputChatPhotoClass) {
+	if e == nil {
+		return
+	}
 	return e.Photo
 }
 

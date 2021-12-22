@@ -386,11 +386,17 @@ func (i *InputUser) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (i *InputUser) GetUserID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.UserID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputUser) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }
 
@@ -569,16 +575,25 @@ func (i *InputUserFromMessage) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (i *InputUserFromMessage) GetPeer() (value InputPeerClass) {
+	if i == nil {
+		return
+	}
 	return i.Peer
 }
 
 // GetMsgID returns value of MsgID field.
 func (i *InputUserFromMessage) GetMsgID() (value int) {
+	if i == nil {
+		return
+	}
 	return i.MsgID
 }
 
 // GetUserID returns value of UserID field.
 func (i *InputUserFromMessage) GetUserID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.UserID
 }
 

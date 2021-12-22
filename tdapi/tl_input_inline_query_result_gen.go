@@ -462,56 +462,89 @@ func (i *InputInlineQueryResultAnimation) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetID returns value of ID field.
 func (i *InputInlineQueryResultAnimation) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetTitle returns value of Title field.
 func (i *InputInlineQueryResultAnimation) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 
 // GetThumbnailURL returns value of ThumbnailURL field.
 func (i *InputInlineQueryResultAnimation) GetThumbnailURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ThumbnailURL
 }
 
 // GetThumbnailMimeType returns value of ThumbnailMimeType field.
 func (i *InputInlineQueryResultAnimation) GetThumbnailMimeType() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ThumbnailMimeType
 }
 
 // GetVideoURL returns value of VideoURL field.
 func (i *InputInlineQueryResultAnimation) GetVideoURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.VideoURL
 }
 
 // GetVideoMimeType returns value of VideoMimeType field.
 func (i *InputInlineQueryResultAnimation) GetVideoMimeType() (value string) {
+	if i == nil {
+		return
+	}
 	return i.VideoMimeType
 }
 
 // GetVideoDuration returns value of VideoDuration field.
 func (i *InputInlineQueryResultAnimation) GetVideoDuration() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.VideoDuration
 }
 
 // GetVideoWidth returns value of VideoWidth field.
 func (i *InputInlineQueryResultAnimation) GetVideoWidth() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.VideoWidth
 }
 
 // GetVideoHeight returns value of VideoHeight field.
 func (i *InputInlineQueryResultAnimation) GetVideoHeight() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.VideoHeight
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (i *InputInlineQueryResultAnimation) GetReplyMarkup() (value ReplyMarkupClass) {
+	if i == nil {
+		return
+	}
 	return i.ReplyMarkup
 }
 
 // GetInputMessageContent returns value of InputMessageContent field.
 func (i *InputInlineQueryResultAnimation) GetInputMessageContent() (value InputMessageContentClass) {
+	if i == nil {
+		return
+	}
 	return i.InputMessageContent
 }
 
@@ -920,51 +953,81 @@ func (i *InputInlineQueryResultArticle) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetID returns value of ID field.
 func (i *InputInlineQueryResultArticle) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetURL returns value of URL field.
 func (i *InputInlineQueryResultArticle) GetURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.URL
 }
 
 // GetHideURL returns value of HideURL field.
 func (i *InputInlineQueryResultArticle) GetHideURL() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.HideURL
 }
 
 // GetTitle returns value of Title field.
 func (i *InputInlineQueryResultArticle) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 
 // GetDescription returns value of Description field.
 func (i *InputInlineQueryResultArticle) GetDescription() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Description
 }
 
 // GetThumbnailURL returns value of ThumbnailURL field.
 func (i *InputInlineQueryResultArticle) GetThumbnailURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ThumbnailURL
 }
 
 // GetThumbnailWidth returns value of ThumbnailWidth field.
 func (i *InputInlineQueryResultArticle) GetThumbnailWidth() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.ThumbnailWidth
 }
 
 // GetThumbnailHeight returns value of ThumbnailHeight field.
 func (i *InputInlineQueryResultArticle) GetThumbnailHeight() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.ThumbnailHeight
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (i *InputInlineQueryResultArticle) GetReplyMarkup() (value ReplyMarkupClass) {
+	if i == nil {
+		return
+	}
 	return i.ReplyMarkup
 }
 
 // GetInputMessageContent returns value of InputMessageContent field.
 func (i *InputInlineQueryResultArticle) GetInputMessageContent() (value InputMessageContentClass) {
+	if i == nil {
+		return
+	}
 	return i.InputMessageContent
 }
 
@@ -1298,36 +1361,57 @@ func (i *InputInlineQueryResultAudio) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (i *InputInlineQueryResultAudio) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetTitle returns value of Title field.
 func (i *InputInlineQueryResultAudio) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 
 // GetPerformer returns value of Performer field.
 func (i *InputInlineQueryResultAudio) GetPerformer() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Performer
 }
 
 // GetAudioURL returns value of AudioURL field.
 func (i *InputInlineQueryResultAudio) GetAudioURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.AudioURL
 }
 
 // GetAudioDuration returns value of AudioDuration field.
 func (i *InputInlineQueryResultAudio) GetAudioDuration() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.AudioDuration
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (i *InputInlineQueryResultAudio) GetReplyMarkup() (value ReplyMarkupClass) {
+	if i == nil {
+		return
+	}
 	return i.ReplyMarkup
 }
 
 // GetInputMessageContent returns value of InputMessageContent field.
 func (i *InputInlineQueryResultAudio) GetInputMessageContent() (value InputMessageContentClass) {
+	if i == nil {
+		return
+	}
 	return i.InputMessageContent
 }
 
@@ -1661,36 +1745,57 @@ func (i *InputInlineQueryResultContact) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetID returns value of ID field.
 func (i *InputInlineQueryResultContact) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetContact returns value of Contact field.
 func (i *InputInlineQueryResultContact) GetContact() (value Contact) {
+	if i == nil {
+		return
+	}
 	return i.Contact
 }
 
 // GetThumbnailURL returns value of ThumbnailURL field.
 func (i *InputInlineQueryResultContact) GetThumbnailURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ThumbnailURL
 }
 
 // GetThumbnailWidth returns value of ThumbnailWidth field.
 func (i *InputInlineQueryResultContact) GetThumbnailWidth() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.ThumbnailWidth
 }
 
 // GetThumbnailHeight returns value of ThumbnailHeight field.
 func (i *InputInlineQueryResultContact) GetThumbnailHeight() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.ThumbnailHeight
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (i *InputInlineQueryResultContact) GetReplyMarkup() (value ReplyMarkupClass) {
+	if i == nil {
+		return
+	}
 	return i.ReplyMarkup
 }
 
 // GetInputMessageContent returns value of InputMessageContent field.
 func (i *InputInlineQueryResultContact) GetInputMessageContent() (value InputMessageContentClass) {
+	if i == nil {
+		return
+	}
 	return i.InputMessageContent
 }
 
@@ -2100,51 +2205,81 @@ func (i *InputInlineQueryResultDocument) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetID returns value of ID field.
 func (i *InputInlineQueryResultDocument) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetTitle returns value of Title field.
 func (i *InputInlineQueryResultDocument) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 
 // GetDescription returns value of Description field.
 func (i *InputInlineQueryResultDocument) GetDescription() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Description
 }
 
 // GetDocumentURL returns value of DocumentURL field.
 func (i *InputInlineQueryResultDocument) GetDocumentURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.DocumentURL
 }
 
 // GetMimeType returns value of MimeType field.
 func (i *InputInlineQueryResultDocument) GetMimeType() (value string) {
+	if i == nil {
+		return
+	}
 	return i.MimeType
 }
 
 // GetThumbnailURL returns value of ThumbnailURL field.
 func (i *InputInlineQueryResultDocument) GetThumbnailURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ThumbnailURL
 }
 
 // GetThumbnailWidth returns value of ThumbnailWidth field.
 func (i *InputInlineQueryResultDocument) GetThumbnailWidth() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.ThumbnailWidth
 }
 
 // GetThumbnailHeight returns value of ThumbnailHeight field.
 func (i *InputInlineQueryResultDocument) GetThumbnailHeight() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.ThumbnailHeight
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (i *InputInlineQueryResultDocument) GetReplyMarkup() (value ReplyMarkupClass) {
+	if i == nil {
+		return
+	}
 	return i.ReplyMarkup
 }
 
 // GetInputMessageContent returns value of InputMessageContent field.
 func (i *InputInlineQueryResultDocument) GetInputMessageContent() (value InputMessageContentClass) {
+	if i == nil {
+		return
+	}
 	return i.InputMessageContent
 }
 
@@ -2366,16 +2501,25 @@ func (i *InputInlineQueryResultGame) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (i *InputInlineQueryResultGame) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetGameShortName returns value of GameShortName field.
 func (i *InputInlineQueryResultGame) GetGameShortName() (value string) {
+	if i == nil {
+		return
+	}
 	return i.GameShortName
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (i *InputInlineQueryResultGame) GetReplyMarkup() (value ReplyMarkupClass) {
+	if i == nil {
+		return
+	}
 	return i.ReplyMarkup
 }
 
@@ -2760,46 +2904,73 @@ func (i *InputInlineQueryResultLocation) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetID returns value of ID field.
 func (i *InputInlineQueryResultLocation) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetLocation returns value of Location field.
 func (i *InputInlineQueryResultLocation) GetLocation() (value Location) {
+	if i == nil {
+		return
+	}
 	return i.Location
 }
 
 // GetLivePeriod returns value of LivePeriod field.
 func (i *InputInlineQueryResultLocation) GetLivePeriod() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.LivePeriod
 }
 
 // GetTitle returns value of Title field.
 func (i *InputInlineQueryResultLocation) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 
 // GetThumbnailURL returns value of ThumbnailURL field.
 func (i *InputInlineQueryResultLocation) GetThumbnailURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ThumbnailURL
 }
 
 // GetThumbnailWidth returns value of ThumbnailWidth field.
 func (i *InputInlineQueryResultLocation) GetThumbnailWidth() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.ThumbnailWidth
 }
 
 // GetThumbnailHeight returns value of ThumbnailHeight field.
 func (i *InputInlineQueryResultLocation) GetThumbnailHeight() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.ThumbnailHeight
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (i *InputInlineQueryResultLocation) GetReplyMarkup() (value ReplyMarkupClass) {
+	if i == nil {
+		return
+	}
 	return i.ReplyMarkup
 }
 
 // GetInputMessageContent returns value of InputMessageContent field.
 func (i *InputInlineQueryResultLocation) GetInputMessageContent() (value InputMessageContentClass) {
+	if i == nil {
+		return
+	}
 	return i.InputMessageContent
 }
 
@@ -3183,46 +3354,73 @@ func (i *InputInlineQueryResultPhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (i *InputInlineQueryResultPhoto) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetTitle returns value of Title field.
 func (i *InputInlineQueryResultPhoto) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 
 // GetDescription returns value of Description field.
 func (i *InputInlineQueryResultPhoto) GetDescription() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Description
 }
 
 // GetThumbnailURL returns value of ThumbnailURL field.
 func (i *InputInlineQueryResultPhoto) GetThumbnailURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ThumbnailURL
 }
 
 // GetPhotoURL returns value of PhotoURL field.
 func (i *InputInlineQueryResultPhoto) GetPhotoURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.PhotoURL
 }
 
 // GetPhotoWidth returns value of PhotoWidth field.
 func (i *InputInlineQueryResultPhoto) GetPhotoWidth() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.PhotoWidth
 }
 
 // GetPhotoHeight returns value of PhotoHeight field.
 func (i *InputInlineQueryResultPhoto) GetPhotoHeight() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.PhotoHeight
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (i *InputInlineQueryResultPhoto) GetReplyMarkup() (value ReplyMarkupClass) {
+	if i == nil {
+		return
+	}
 	return i.ReplyMarkup
 }
 
 // GetInputMessageContent returns value of InputMessageContent field.
 func (i *InputInlineQueryResultPhoto) GetInputMessageContent() (value InputMessageContentClass) {
+	if i == nil {
+		return
+	}
 	return i.InputMessageContent
 }
 
@@ -3556,36 +3754,57 @@ func (i *InputInlineQueryResultSticker) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetID returns value of ID field.
 func (i *InputInlineQueryResultSticker) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetThumbnailURL returns value of ThumbnailURL field.
 func (i *InputInlineQueryResultSticker) GetThumbnailURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ThumbnailURL
 }
 
 // GetStickerURL returns value of StickerURL field.
 func (i *InputInlineQueryResultSticker) GetStickerURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.StickerURL
 }
 
 // GetStickerWidth returns value of StickerWidth field.
 func (i *InputInlineQueryResultSticker) GetStickerWidth() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.StickerWidth
 }
 
 // GetStickerHeight returns value of StickerHeight field.
 func (i *InputInlineQueryResultSticker) GetStickerHeight() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.StickerHeight
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (i *InputInlineQueryResultSticker) GetReplyMarkup() (value ReplyMarkupClass) {
+	if i == nil {
+		return
+	}
 	return i.ReplyMarkup
 }
 
 // GetInputMessageContent returns value of InputMessageContent field.
 func (i *InputInlineQueryResultSticker) GetInputMessageContent() (value InputMessageContentClass) {
+	if i == nil {
+		return
+	}
 	return i.InputMessageContent
 }
 
@@ -3919,36 +4138,57 @@ func (i *InputInlineQueryResultVenue) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (i *InputInlineQueryResultVenue) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetVenue returns value of Venue field.
 func (i *InputInlineQueryResultVenue) GetVenue() (value Venue) {
+	if i == nil {
+		return
+	}
 	return i.Venue
 }
 
 // GetThumbnailURL returns value of ThumbnailURL field.
 func (i *InputInlineQueryResultVenue) GetThumbnailURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ThumbnailURL
 }
 
 // GetThumbnailWidth returns value of ThumbnailWidth field.
 func (i *InputInlineQueryResultVenue) GetThumbnailWidth() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.ThumbnailWidth
 }
 
 // GetThumbnailHeight returns value of ThumbnailHeight field.
 func (i *InputInlineQueryResultVenue) GetThumbnailHeight() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.ThumbnailHeight
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (i *InputInlineQueryResultVenue) GetReplyMarkup() (value ReplyMarkupClass) {
+	if i == nil {
+		return
+	}
 	return i.ReplyMarkup
 }
 
 // GetInputMessageContent returns value of InputMessageContent field.
 func (i *InputInlineQueryResultVenue) GetInputMessageContent() (value InputMessageContentClass) {
+	if i == nil {
+		return
+	}
 	return i.InputMessageContent
 }
 
@@ -4383,56 +4623,89 @@ func (i *InputInlineQueryResultVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (i *InputInlineQueryResultVideo) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetTitle returns value of Title field.
 func (i *InputInlineQueryResultVideo) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 
 // GetDescription returns value of Description field.
 func (i *InputInlineQueryResultVideo) GetDescription() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Description
 }
 
 // GetThumbnailURL returns value of ThumbnailURL field.
 func (i *InputInlineQueryResultVideo) GetThumbnailURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ThumbnailURL
 }
 
 // GetVideoURL returns value of VideoURL field.
 func (i *InputInlineQueryResultVideo) GetVideoURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.VideoURL
 }
 
 // GetMimeType returns value of MimeType field.
 func (i *InputInlineQueryResultVideo) GetMimeType() (value string) {
+	if i == nil {
+		return
+	}
 	return i.MimeType
 }
 
 // GetVideoWidth returns value of VideoWidth field.
 func (i *InputInlineQueryResultVideo) GetVideoWidth() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.VideoWidth
 }
 
 // GetVideoHeight returns value of VideoHeight field.
 func (i *InputInlineQueryResultVideo) GetVideoHeight() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.VideoHeight
 }
 
 // GetVideoDuration returns value of VideoDuration field.
 func (i *InputInlineQueryResultVideo) GetVideoDuration() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.VideoDuration
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (i *InputInlineQueryResultVideo) GetReplyMarkup() (value ReplyMarkupClass) {
+	if i == nil {
+		return
+	}
 	return i.ReplyMarkup
 }
 
 // GetInputMessageContent returns value of InputMessageContent field.
 func (i *InputInlineQueryResultVideo) GetInputMessageContent() (value InputMessageContentClass) {
+	if i == nil {
+		return
+	}
 	return i.InputMessageContent
 }
 
@@ -4741,31 +5014,49 @@ func (i *InputInlineQueryResultVoiceNote) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetID returns value of ID field.
 func (i *InputInlineQueryResultVoiceNote) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetTitle returns value of Title field.
 func (i *InputInlineQueryResultVoiceNote) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 
 // GetVoiceNoteURL returns value of VoiceNoteURL field.
 func (i *InputInlineQueryResultVoiceNote) GetVoiceNoteURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.VoiceNoteURL
 }
 
 // GetVoiceNoteDuration returns value of VoiceNoteDuration field.
 func (i *InputInlineQueryResultVoiceNote) GetVoiceNoteDuration() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.VoiceNoteDuration
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (i *InputInlineQueryResultVoiceNote) GetReplyMarkup() (value ReplyMarkupClass) {
+	if i == nil {
+		return
+	}
 	return i.ReplyMarkup
 }
 
 // GetInputMessageContent returns value of InputMessageContent field.
 func (i *InputInlineQueryResultVoiceNote) GetInputMessageContent() (value InputMessageContentClass) {
+	if i == nil {
+		return
+	}
 	return i.InputMessageContent
 }
 

@@ -145,5 +145,8 @@ func (r *RPCDropAnswerRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetReqMsgID returns value of ReqMsgID field.
 func (r *RPCDropAnswerRequest) GetReqMsgID() (value int64) {
+	if r == nil {
+		return
+	}
 	return r.ReqMsgID
 }

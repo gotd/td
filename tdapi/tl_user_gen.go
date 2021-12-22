@@ -606,85 +606,136 @@ func (u *User) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (u *User) GetID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 
 // GetFirstName returns value of FirstName field.
 func (u *User) GetFirstName() (value string) {
+	if u == nil {
+		return
+	}
 	return u.FirstName
 }
 
 // GetLastName returns value of LastName field.
 func (u *User) GetLastName() (value string) {
+	if u == nil {
+		return
+	}
 	return u.LastName
 }
 
 // GetUsername returns value of Username field.
 func (u *User) GetUsername() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Username
 }
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (u *User) GetPhoneNumber() (value string) {
+	if u == nil {
+		return
+	}
 	return u.PhoneNumber
 }
 
 // GetStatus returns value of Status field.
 func (u *User) GetStatus() (value UserStatusClass) {
+	if u == nil {
+		return
+	}
 	return u.Status
 }
 
 // GetProfilePhoto returns value of ProfilePhoto field.
 func (u *User) GetProfilePhoto() (value ProfilePhoto) {
+	if u == nil {
+		return
+	}
 	return u.ProfilePhoto
 }
 
 // GetIsContact returns value of IsContact field.
 func (u *User) GetIsContact() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.IsContact
 }
 
 // GetIsMutualContact returns value of IsMutualContact field.
 func (u *User) GetIsMutualContact() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.IsMutualContact
 }
 
 // GetIsVerified returns value of IsVerified field.
 func (u *User) GetIsVerified() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.IsVerified
 }
 
 // GetIsSupport returns value of IsSupport field.
 func (u *User) GetIsSupport() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.IsSupport
 }
 
 // GetRestrictionReason returns value of RestrictionReason field.
 func (u *User) GetRestrictionReason() (value string) {
+	if u == nil {
+		return
+	}
 	return u.RestrictionReason
 }
 
 // GetIsScam returns value of IsScam field.
 func (u *User) GetIsScam() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.IsScam
 }
 
 // GetIsFake returns value of IsFake field.
 func (u *User) GetIsFake() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.IsFake
 }
 
 // GetHaveAccess returns value of HaveAccess field.
 func (u *User) GetHaveAccess() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.HaveAccess
 }
 
 // GetType returns value of Type field.
 func (u *User) GetType() (value UserTypeClass) {
+	if u == nil {
+		return
+	}
 	return u.Type
 }
 
 // GetLanguageCode returns value of LanguageCode field.
 func (u *User) GetLanguageCode() (value string) {
+	if u == nil {
+		return
+	}
 	return u.LanguageCode
 }

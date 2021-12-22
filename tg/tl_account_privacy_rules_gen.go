@@ -247,16 +247,25 @@ func (p *AccountPrivacyRules) DecodeBare(b *bin.Buffer) error {
 
 // GetRules returns value of Rules field.
 func (p *AccountPrivacyRules) GetRules() (value []PrivacyRuleClass) {
+	if p == nil {
+		return
+	}
 	return p.Rules
 }
 
 // GetChats returns value of Chats field.
 func (p *AccountPrivacyRules) GetChats() (value []ChatClass) {
+	if p == nil {
+		return
+	}
 	return p.Chats
 }
 
 // GetUsers returns value of Users field.
 func (p *AccountPrivacyRules) GetUsers() (value []UserClass) {
+	if p == nil {
+		return
+	}
 	return p.Users
 }
 

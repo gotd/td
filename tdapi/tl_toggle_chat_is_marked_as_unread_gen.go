@@ -208,11 +208,17 @@ func (t *ToggleChatIsMarkedAsUnreadRequest) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetChatID returns value of ChatID field.
 func (t *ToggleChatIsMarkedAsUnreadRequest) GetChatID() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.ChatID
 }
 
 // GetIsMarkedAsUnread returns value of IsMarkedAsUnread field.
 func (t *ToggleChatIsMarkedAsUnreadRequest) GetIsMarkedAsUnread() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.IsMarkedAsUnread
 }
 

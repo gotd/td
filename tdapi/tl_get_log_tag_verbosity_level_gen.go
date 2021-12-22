@@ -183,6 +183,9 @@ func (g *GetLogTagVerbosityLevelRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetTag returns value of Tag field.
 func (g *GetLogTagVerbosityLevelRequest) GetTag() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Tag
 }
 

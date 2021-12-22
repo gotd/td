@@ -209,5 +209,8 @@ func (p *PassportRequiredElement) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSuitableElements returns value of SuitableElements field.
 func (p *PassportRequiredElement) GetSuitableElements() (value []PassportSuitableElement) {
+	if p == nil {
+		return
+	}
 	return p.SuitableElements
 }

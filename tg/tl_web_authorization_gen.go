@@ -310,45 +310,72 @@ func (w *WebAuthorization) DecodeBare(b *bin.Buffer) error {
 
 // GetHash returns value of Hash field.
 func (w *WebAuthorization) GetHash() (value int64) {
+	if w == nil {
+		return
+	}
 	return w.Hash
 }
 
 // GetBotID returns value of BotID field.
 func (w *WebAuthorization) GetBotID() (value int64) {
+	if w == nil {
+		return
+	}
 	return w.BotID
 }
 
 // GetDomain returns value of Domain field.
 func (w *WebAuthorization) GetDomain() (value string) {
+	if w == nil {
+		return
+	}
 	return w.Domain
 }
 
 // GetBrowser returns value of Browser field.
 func (w *WebAuthorization) GetBrowser() (value string) {
+	if w == nil {
+		return
+	}
 	return w.Browser
 }
 
 // GetPlatform returns value of Platform field.
 func (w *WebAuthorization) GetPlatform() (value string) {
+	if w == nil {
+		return
+	}
 	return w.Platform
 }
 
 // GetDateCreated returns value of DateCreated field.
 func (w *WebAuthorization) GetDateCreated() (value int) {
+	if w == nil {
+		return
+	}
 	return w.DateCreated
 }
 
 // GetDateActive returns value of DateActive field.
 func (w *WebAuthorization) GetDateActive() (value int) {
+	if w == nil {
+		return
+	}
 	return w.DateActive
 }
 
 // GetIP returns value of IP field.
 func (w *WebAuthorization) GetIP() (value string) {
+	if w == nil {
+		return
+	}
 	return w.IP
 }
 
 // GetRegion returns value of Region field.
 func (w *WebAuthorization) GetRegion() (value string) {
+	if w == nil {
+		return
+	}
 	return w.Region
 }

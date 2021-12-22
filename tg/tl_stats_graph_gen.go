@@ -165,6 +165,9 @@ func (s *StatsGraphAsync) DecodeBare(b *bin.Buffer) error {
 
 // GetToken returns value of Token field.
 func (s *StatsGraphAsync) GetToken() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Token
 }
 
@@ -300,6 +303,9 @@ func (s *StatsGraphError) DecodeBare(b *bin.Buffer) error {
 
 // GetError returns value of Error field.
 func (s *StatsGraphError) GetError() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Error
 }
 
@@ -486,6 +492,9 @@ func (s *StatsGraph) DecodeBare(b *bin.Buffer) error {
 
 // GetJSON returns value of JSON field.
 func (s *StatsGraph) GetJSON() (value DataJSON) {
+	if s == nil {
+		return
+	}
 	return s.JSON
 }
 
@@ -498,6 +507,9 @@ func (s *StatsGraph) SetZoomToken(value string) {
 // GetZoomToken returns value of ZoomToken conditional field and
 // boolean which is true if field was set.
 func (s *StatsGraph) GetZoomToken() (value string, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(0) {
 		return value, false
 	}

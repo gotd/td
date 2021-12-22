@@ -257,6 +257,9 @@ func (u *AccountUploadThemeRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetFile returns value of File field.
 func (u *AccountUploadThemeRequest) GetFile() (value InputFileClass) {
+	if u == nil {
+		return
+	}
 	return u.File
 }
 
@@ -269,6 +272,9 @@ func (u *AccountUploadThemeRequest) SetThumb(value InputFileClass) {
 // GetThumb returns value of Thumb conditional field and
 // boolean which is true if field was set.
 func (u *AccountUploadThemeRequest) GetThumb() (value InputFileClass, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -277,11 +283,17 @@ func (u *AccountUploadThemeRequest) GetThumb() (value InputFileClass, ok bool) {
 
 // GetFileName returns value of FileName field.
 func (u *AccountUploadThemeRequest) GetFileName() (value string) {
+	if u == nil {
+		return
+	}
 	return u.FileName
 }
 
 // GetMimeType returns value of MimeType field.
 func (u *AccountUploadThemeRequest) GetMimeType() (value string) {
+	if u == nil {
+		return
+	}
 	return u.MimeType
 }
 

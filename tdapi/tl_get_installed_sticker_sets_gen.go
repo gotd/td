@@ -183,6 +183,9 @@ func (g *GetInstalledStickerSetsRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetIsMasks returns value of IsMasks field.
 func (g *GetInstalledStickerSetsRequest) GetIsMasks() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.IsMasks
 }
 

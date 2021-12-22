@@ -247,16 +247,25 @@ func (r *HelpRecentMeURLs) DecodeBare(b *bin.Buffer) error {
 
 // GetURLs returns value of URLs field.
 func (r *HelpRecentMeURLs) GetURLs() (value []RecentMeURLClass) {
+	if r == nil {
+		return
+	}
 	return r.URLs
 }
 
 // GetChats returns value of Chats field.
 func (r *HelpRecentMeURLs) GetChats() (value []ChatClass) {
+	if r == nil {
+		return
+	}
 	return r.Chats
 }
 
 // GetUsers returns value of Users field.
 func (r *HelpRecentMeURLs) GetUsers() (value []UserClass) {
+	if r == nil {
+		return
+	}
 	return r.Users
 }
 

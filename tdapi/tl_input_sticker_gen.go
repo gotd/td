@@ -248,16 +248,25 @@ func (i *InputStickerStatic) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSticker returns value of Sticker field.
 func (i *InputStickerStatic) GetSticker() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.Sticker
 }
 
 // GetEmojis returns value of Emojis field.
 func (i *InputStickerStatic) GetEmojis() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Emojis
 }
 
 // GetMaskPosition returns value of MaskPosition field.
 func (i *InputStickerStatic) GetMaskPosition() (value MaskPosition) {
+	if i == nil {
+		return
+	}
 	return i.MaskPosition
 }
 
@@ -455,11 +464,17 @@ func (i *InputStickerAnimated) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSticker returns value of Sticker field.
 func (i *InputStickerAnimated) GetSticker() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.Sticker
 }
 
 // GetEmojis returns value of Emojis field.
 func (i *InputStickerAnimated) GetEmojis() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Emojis
 }
 

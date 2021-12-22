@@ -291,26 +291,41 @@ func (g *PhoneGroupCall) DecodeBare(b *bin.Buffer) error {
 
 // GetCall returns value of Call field.
 func (g *PhoneGroupCall) GetCall() (value GroupCallClass) {
+	if g == nil {
+		return
+	}
 	return g.Call
 }
 
 // GetParticipants returns value of Participants field.
 func (g *PhoneGroupCall) GetParticipants() (value []GroupCallParticipant) {
+	if g == nil {
+		return
+	}
 	return g.Participants
 }
 
 // GetParticipantsNextOffset returns value of ParticipantsNextOffset field.
 func (g *PhoneGroupCall) GetParticipantsNextOffset() (value string) {
+	if g == nil {
+		return
+	}
 	return g.ParticipantsNextOffset
 }
 
 // GetChats returns value of Chats field.
 func (g *PhoneGroupCall) GetChats() (value []ChatClass) {
+	if g == nil {
+		return
+	}
 	return g.Chats
 }
 
 // GetUsers returns value of Users field.
 func (g *PhoneGroupCall) GetUsers() (value []UserClass) {
+	if g == nil {
+		return
+	}
 	return g.Users
 }
 

@@ -245,26 +245,41 @@ func (e *EncryptedMessage) DecodeBare(b *bin.Buffer) error {
 
 // GetRandomID returns value of RandomID field.
 func (e *EncryptedMessage) GetRandomID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.RandomID
 }
 
 // GetChatID returns value of ChatID field.
 func (e *EncryptedMessage) GetChatID() (value int) {
+	if e == nil {
+		return
+	}
 	return e.ChatID
 }
 
 // GetDate returns value of Date field.
 func (e *EncryptedMessage) GetDate() (value int) {
+	if e == nil {
+		return
+	}
 	return e.Date
 }
 
 // GetBytes returns value of Bytes field.
 func (e *EncryptedMessage) GetBytes() (value []byte) {
+	if e == nil {
+		return
+	}
 	return e.Bytes
 }
 
 // GetFile returns value of File field.
 func (e *EncryptedMessage) GetFile() (value EncryptedFileClass) {
+	if e == nil {
+		return
+	}
 	return e.File
 }
 
@@ -458,21 +473,33 @@ func (e *EncryptedMessageService) DecodeBare(b *bin.Buffer) error {
 
 // GetRandomID returns value of RandomID field.
 func (e *EncryptedMessageService) GetRandomID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.RandomID
 }
 
 // GetChatID returns value of ChatID field.
 func (e *EncryptedMessageService) GetChatID() (value int) {
+	if e == nil {
+		return
+	}
 	return e.ChatID
 }
 
 // GetDate returns value of Date field.
 func (e *EncryptedMessageService) GetDate() (value int) {
+	if e == nil {
+		return
+	}
 	return e.Date
 }
 
 // GetBytes returns value of Bytes field.
 func (e *EncryptedMessageService) GetBytes() (value []byte) {
+	if e == nil {
+		return
+	}
 	return e.Bytes
 }
 

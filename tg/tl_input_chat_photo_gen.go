@@ -374,6 +374,9 @@ func (i *InputChatUploadedPhoto) SetFile(value InputFileClass) {
 // GetFile returns value of File conditional field and
 // boolean which is true if field was set.
 func (i *InputChatUploadedPhoto) GetFile() (value InputFileClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(0) {
 		return value, false
 	}
@@ -389,6 +392,9 @@ func (i *InputChatUploadedPhoto) SetVideo(value InputFileClass) {
 // GetVideo returns value of Video conditional field and
 // boolean which is true if field was set.
 func (i *InputChatUploadedPhoto) GetVideo() (value InputFileClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(1) {
 		return value, false
 	}
@@ -404,6 +410,9 @@ func (i *InputChatUploadedPhoto) SetVideoStartTs(value float64) {
 // GetVideoStartTs returns value of VideoStartTs conditional field and
 // boolean which is true if field was set.
 func (i *InputChatUploadedPhoto) GetVideoStartTs() (value float64, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(2) {
 		return value, false
 	}
@@ -544,6 +553,9 @@ func (i *InputChatPhoto) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputChatPhoto) GetID() (value InputPhotoClass) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 

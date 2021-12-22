@@ -382,6 +382,9 @@ func (i *InputPrivacyValueAllowUsers) DecodeBare(b *bin.Buffer) error {
 
 // GetUsers returns value of Users field.
 func (i *InputPrivacyValueAllowUsers) GetUsers() (value []InputUserClass) {
+	if i == nil {
+		return
+	}
 	return i.Users
 }
 
@@ -741,6 +744,9 @@ func (i *InputPrivacyValueDisallowUsers) DecodeBare(b *bin.Buffer) error {
 
 // GetUsers returns value of Users field.
 func (i *InputPrivacyValueDisallowUsers) GetUsers() (value []InputUserClass) {
+	if i == nil {
+		return
+	}
 	return i.Users
 }
 
@@ -891,6 +897,9 @@ func (i *InputPrivacyValueAllowChatParticipants) DecodeBare(b *bin.Buffer) error
 
 // GetChats returns value of Chats field.
 func (i *InputPrivacyValueAllowChatParticipants) GetChats() (value []int64) {
+	if i == nil {
+		return
+	}
 	return i.Chats
 }
 
@@ -1036,6 +1045,9 @@ func (i *InputPrivacyValueDisallowChatParticipants) DecodeBare(b *bin.Buffer) er
 
 // GetChats returns value of Chats field.
 func (i *InputPrivacyValueDisallowChatParticipants) GetChats() (value []int64) {
+	if i == nil {
+		return
+	}
 	return i.Chats
 }
 

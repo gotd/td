@@ -199,16 +199,25 @@ func (c *AccountChangePhoneRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (c *AccountChangePhoneRequest) GetPhoneNumber() (value string) {
+	if c == nil {
+		return
+	}
 	return c.PhoneNumber
 }
 
 // GetPhoneCodeHash returns value of PhoneCodeHash field.
 func (c *AccountChangePhoneRequest) GetPhoneCodeHash() (value string) {
+	if c == nil {
+		return
+	}
 	return c.PhoneCodeHash
 }
 
 // GetPhoneCode returns value of PhoneCode field.
 func (c *AccountChangePhoneRequest) GetPhoneCode() (value string) {
+	if c == nil {
+		return
+	}
 	return c.PhoneCode
 }
 

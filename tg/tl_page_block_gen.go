@@ -267,6 +267,9 @@ func (p *PageBlockTitle) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (p *PageBlockTitle) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
@@ -404,6 +407,9 @@ func (p *PageBlockSubtitle) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (p *PageBlockSubtitle) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
@@ -560,11 +566,17 @@ func (p *PageBlockAuthorDate) DecodeBare(b *bin.Buffer) error {
 
 // GetAuthor returns value of Author field.
 func (p *PageBlockAuthorDate) GetAuthor() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Author
 }
 
 // GetPublishedDate returns value of PublishedDate field.
 func (p *PageBlockAuthorDate) GetPublishedDate() (value int) {
+	if p == nil {
+		return
+	}
 	return p.PublishedDate
 }
 
@@ -702,6 +714,9 @@ func (p *PageBlockHeader) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (p *PageBlockHeader) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
@@ -839,6 +854,9 @@ func (p *PageBlockSubheader) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (p *PageBlockSubheader) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
@@ -976,6 +994,9 @@ func (p *PageBlockParagraph) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (p *PageBlockParagraph) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
@@ -1132,11 +1153,17 @@ func (p *PageBlockPreformatted) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (p *PageBlockPreformatted) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
 // GetLanguage returns value of Language field.
 func (p *PageBlockPreformatted) GetLanguage() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Language
 }
 
@@ -1274,6 +1301,9 @@ func (p *PageBlockFooter) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (p *PageBlockFooter) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
@@ -1508,6 +1538,9 @@ func (p *PageBlockAnchor) DecodeBare(b *bin.Buffer) error {
 
 // GetName returns value of Name field.
 func (p *PageBlockAnchor) GetName() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Name
 }
 
@@ -1658,6 +1691,9 @@ func (p *PageBlockList) DecodeBare(b *bin.Buffer) error {
 
 // GetItems returns value of Items field.
 func (p *PageBlockList) GetItems() (value []PageListItemClass) {
+	if p == nil {
+		return
+	}
 	return p.Items
 }
 
@@ -1824,11 +1860,17 @@ func (p *PageBlockBlockquote) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (p *PageBlockBlockquote) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockBlockquote) GetCaption() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
@@ -1990,11 +2032,17 @@ func (p *PageBlockPullquote) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (p *PageBlockPullquote) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockPullquote) GetCaption() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
@@ -2227,11 +2275,17 @@ func (p *PageBlockPhoto) DecodeBare(b *bin.Buffer) error {
 
 // GetPhotoID returns value of PhotoID field.
 func (p *PageBlockPhoto) GetPhotoID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.PhotoID
 }
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockPhoto) GetCaption() (value PageCaption) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
@@ -2244,6 +2298,9 @@ func (p *PageBlockPhoto) SetURL(value string) {
 // GetURL returns value of URL conditional field and
 // boolean which is true if field was set.
 func (p *PageBlockPhoto) GetURL() (value string, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(0) {
 		return value, false
 	}
@@ -2259,6 +2316,9 @@ func (p *PageBlockPhoto) SetWebpageID(value int64) {
 // GetWebpageID returns value of WebpageID conditional field and
 // boolean which is true if field was set.
 func (p *PageBlockPhoto) GetWebpageID() (value int64, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(0) {
 		return value, false
 	}
@@ -2477,6 +2537,9 @@ func (p *PageBlockVideo) SetAutoplay(value bool) {
 
 // GetAutoplay returns value of Autoplay conditional field.
 func (p *PageBlockVideo) GetAutoplay() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(0)
 }
 
@@ -2493,16 +2556,25 @@ func (p *PageBlockVideo) SetLoop(value bool) {
 
 // GetLoop returns value of Loop conditional field.
 func (p *PageBlockVideo) GetLoop() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(1)
 }
 
 // GetVideoID returns value of VideoID field.
 func (p *PageBlockVideo) GetVideoID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.VideoID
 }
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockVideo) GetCaption() (value PageCaption) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
@@ -2640,6 +2712,9 @@ func (p *PageBlockCover) DecodeBare(b *bin.Buffer) error {
 
 // GetCover returns value of Cover field.
 func (p *PageBlockCover) GetCover() (value PageBlockClass) {
+	if p == nil {
+		return
+	}
 	return p.Cover
 }
 
@@ -2986,6 +3061,9 @@ func (p *PageBlockEmbed) SetFullWidth(value bool) {
 
 // GetFullWidth returns value of FullWidth conditional field.
 func (p *PageBlockEmbed) GetFullWidth() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(0)
 }
 
@@ -3002,6 +3080,9 @@ func (p *PageBlockEmbed) SetAllowScrolling(value bool) {
 
 // GetAllowScrolling returns value of AllowScrolling conditional field.
 func (p *PageBlockEmbed) GetAllowScrolling() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(3)
 }
 
@@ -3014,6 +3095,9 @@ func (p *PageBlockEmbed) SetURL(value string) {
 // GetURL returns value of URL conditional field and
 // boolean which is true if field was set.
 func (p *PageBlockEmbed) GetURL() (value string, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(1) {
 		return value, false
 	}
@@ -3029,6 +3113,9 @@ func (p *PageBlockEmbed) SetHTML(value string) {
 // GetHTML returns value of HTML conditional field and
 // boolean which is true if field was set.
 func (p *PageBlockEmbed) GetHTML() (value string, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(2) {
 		return value, false
 	}
@@ -3044,6 +3131,9 @@ func (p *PageBlockEmbed) SetPosterPhotoID(value int64) {
 // GetPosterPhotoID returns value of PosterPhotoID conditional field and
 // boolean which is true if field was set.
 func (p *PageBlockEmbed) GetPosterPhotoID() (value int64, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(4) {
 		return value, false
 	}
@@ -3059,6 +3149,9 @@ func (p *PageBlockEmbed) SetW(value int) {
 // GetW returns value of W conditional field and
 // boolean which is true if field was set.
 func (p *PageBlockEmbed) GetW() (value int, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(5) {
 		return value, false
 	}
@@ -3074,6 +3167,9 @@ func (p *PageBlockEmbed) SetH(value int) {
 // GetH returns value of H conditional field and
 // boolean which is true if field was set.
 func (p *PageBlockEmbed) GetH() (value int, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(5) {
 		return value, false
 	}
@@ -3082,6 +3178,9 @@ func (p *PageBlockEmbed) GetH() (value int, ok bool) {
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockEmbed) GetCaption() (value PageCaption) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
@@ -3346,36 +3445,57 @@ func (p *PageBlockEmbedPost) DecodeBare(b *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (p *PageBlockEmbedPost) GetURL() (value string) {
+	if p == nil {
+		return
+	}
 	return p.URL
 }
 
 // GetWebpageID returns value of WebpageID field.
 func (p *PageBlockEmbedPost) GetWebpageID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.WebpageID
 }
 
 // GetAuthorPhotoID returns value of AuthorPhotoID field.
 func (p *PageBlockEmbedPost) GetAuthorPhotoID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.AuthorPhotoID
 }
 
 // GetAuthor returns value of Author field.
 func (p *PageBlockEmbedPost) GetAuthor() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Author
 }
 
 // GetDate returns value of Date field.
 func (p *PageBlockEmbedPost) GetDate() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Date
 }
 
 // GetBlocks returns value of Blocks field.
 func (p *PageBlockEmbedPost) GetBlocks() (value []PageBlockClass) {
+	if p == nil {
+		return
+	}
 	return p.Blocks
 }
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockEmbedPost) GetCaption() (value PageCaption) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
@@ -3550,11 +3670,17 @@ func (p *PageBlockCollage) DecodeBare(b *bin.Buffer) error {
 
 // GetItems returns value of Items field.
 func (p *PageBlockCollage) GetItems() (value []PageBlockClass) {
+	if p == nil {
+		return
+	}
 	return p.Items
 }
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockCollage) GetCaption() (value PageCaption) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
@@ -3729,11 +3855,17 @@ func (p *PageBlockSlideshow) DecodeBare(b *bin.Buffer) error {
 
 // GetItems returns value of Items field.
 func (p *PageBlockSlideshow) GetItems() (value []PageBlockClass) {
+	if p == nil {
+		return
+	}
 	return p.Items
 }
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockSlideshow) GetCaption() (value PageCaption) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
@@ -3876,6 +4008,9 @@ func (p *PageBlockChannel) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (p *PageBlockChannel) GetChannel() (value ChatClass) {
+	if p == nil {
+		return
+	}
 	return p.Channel
 }
 
@@ -4030,11 +4165,17 @@ func (p *PageBlockAudio) DecodeBare(b *bin.Buffer) error {
 
 // GetAudioID returns value of AudioID field.
 func (p *PageBlockAudio) GetAudioID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.AudioID
 }
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockAudio) GetCaption() (value PageCaption) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
@@ -4172,6 +4313,9 @@ func (p *PageBlockKicker) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (p *PageBlockKicker) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
@@ -4407,6 +4551,9 @@ func (p *PageBlockTable) SetBordered(value bool) {
 
 // GetBordered returns value of Bordered conditional field.
 func (p *PageBlockTable) GetBordered() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(0)
 }
 
@@ -4423,16 +4570,25 @@ func (p *PageBlockTable) SetStriped(value bool) {
 
 // GetStriped returns value of Striped conditional field.
 func (p *PageBlockTable) GetStriped() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(1)
 }
 
 // GetTitle returns value of Title field.
 func (p *PageBlockTable) GetTitle() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Title
 }
 
 // GetRows returns value of Rows field.
 func (p *PageBlockTable) GetRows() (value []PageTableRow) {
+	if p == nil {
+		return
+	}
 	return p.Rows
 }
 
@@ -4583,6 +4739,9 @@ func (p *PageBlockOrderedList) DecodeBare(b *bin.Buffer) error {
 
 // GetItems returns value of Items field.
 func (p *PageBlockOrderedList) GetItems() (value []PageListOrderedItemClass) {
+	if p == nil {
+		return
+	}
 	return p.Items
 }
 
@@ -4810,16 +4969,25 @@ func (p *PageBlockDetails) SetOpen(value bool) {
 
 // GetOpen returns value of Open conditional field.
 func (p *PageBlockDetails) GetOpen() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(0)
 }
 
 // GetBlocks returns value of Blocks field.
 func (p *PageBlockDetails) GetBlocks() (value []PageBlockClass) {
+	if p == nil {
+		return
+	}
 	return p.Blocks
 }
 
 // GetTitle returns value of Title field.
 func (p *PageBlockDetails) GetTitle() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Title
 }
 
@@ -4996,11 +5164,17 @@ func (p *PageBlockRelatedArticles) DecodeBare(b *bin.Buffer) error {
 
 // GetTitle returns value of Title field.
 func (p *PageBlockRelatedArticles) GetTitle() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Title
 }
 
 // GetArticles returns value of Articles field.
 func (p *PageBlockRelatedArticles) GetArticles() (value []PageRelatedArticle) {
+	if p == nil {
+		return
+	}
 	return p.Articles
 }
 
@@ -5214,26 +5388,41 @@ func (p *PageBlockMap) DecodeBare(b *bin.Buffer) error {
 
 // GetGeo returns value of Geo field.
 func (p *PageBlockMap) GetGeo() (value GeoPointClass) {
+	if p == nil {
+		return
+	}
 	return p.Geo
 }
 
 // GetZoom returns value of Zoom field.
 func (p *PageBlockMap) GetZoom() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Zoom
 }
 
 // GetW returns value of W field.
 func (p *PageBlockMap) GetW() (value int) {
+	if p == nil {
+		return
+	}
 	return p.W
 }
 
 // GetH returns value of H field.
 func (p *PageBlockMap) GetH() (value int) {
+	if p == nil {
+		return
+	}
 	return p.H
 }
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockMap) GetCaption() (value PageCaption) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 

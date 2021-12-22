@@ -332,11 +332,17 @@ func (i *InputGeoPoint) DecodeBare(b *bin.Buffer) error {
 
 // GetLat returns value of Lat field.
 func (i *InputGeoPoint) GetLat() (value float64) {
+	if i == nil {
+		return
+	}
 	return i.Lat
 }
 
 // GetLong returns value of Long field.
 func (i *InputGeoPoint) GetLong() (value float64) {
+	if i == nil {
+		return
+	}
 	return i.Long
 }
 
@@ -349,6 +355,9 @@ func (i *InputGeoPoint) SetAccuracyRadius(value int) {
 // GetAccuracyRadius returns value of AccuracyRadius conditional field and
 // boolean which is true if field was set.
 func (i *InputGeoPoint) GetAccuracyRadius() (value int, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(0) {
 		return value, false
 	}

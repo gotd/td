@@ -197,16 +197,25 @@ func (s *MessagesSendEncryptedServiceRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (s *MessagesSendEncryptedServiceRequest) GetPeer() (value InputEncryptedChat) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
 // GetRandomID returns value of RandomID field.
 func (s *MessagesSendEncryptedServiceRequest) GetRandomID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.RandomID
 }
 
 // GetData returns value of Data field.
 func (s *MessagesSendEncryptedServiceRequest) GetData() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.Data
 }
 

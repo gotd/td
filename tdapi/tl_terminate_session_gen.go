@@ -183,6 +183,9 @@ func (t *TerminateSessionRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSessionID returns value of SessionID field.
 func (t *TerminateSessionRequest) GetSessionID() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.SessionID
 }
 

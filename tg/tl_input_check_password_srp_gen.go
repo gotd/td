@@ -312,16 +312,25 @@ func (i *InputCheckPasswordSRP) DecodeBare(b *bin.Buffer) error {
 
 // GetSRPID returns value of SRPID field.
 func (i *InputCheckPasswordSRP) GetSRPID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.SRPID
 }
 
 // GetA returns value of A field.
 func (i *InputCheckPasswordSRP) GetA() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.A
 }
 
 // GetM1 returns value of M1 field.
 func (i *InputCheckPasswordSRP) GetM1() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.M1
 }
 

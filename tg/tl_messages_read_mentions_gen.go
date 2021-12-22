@@ -160,6 +160,9 @@ func (r *MessagesReadMentionsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (r *MessagesReadMentionsRequest) GetPeer() (value InputPeerClass) {
+	if r == nil {
+		return
+	}
 	return r.Peer
 }
 

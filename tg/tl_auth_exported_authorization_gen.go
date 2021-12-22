@@ -174,10 +174,16 @@ func (e *AuthExportedAuthorization) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (e *AuthExportedAuthorization) GetID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.ID
 }
 
 // GetBytes returns value of Bytes field.
 func (e *AuthExportedAuthorization) GetBytes() (value []byte) {
+	if e == nil {
+		return
+	}
 	return e.Bytes
 }

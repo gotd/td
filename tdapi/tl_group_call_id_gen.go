@@ -183,5 +183,8 @@ func (g *GroupCallID) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (g *GroupCallID) GetID() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.ID
 }

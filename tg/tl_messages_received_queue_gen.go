@@ -155,6 +155,9 @@ func (r *MessagesReceivedQueueRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetMaxQts returns value of MaxQts field.
 func (r *MessagesReceivedQueueRequest) GetMaxQts() (value int) {
+	if r == nil {
+		return
+	}
 	return r.MaxQts
 }
 

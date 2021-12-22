@@ -183,6 +183,9 @@ func (c *ClearAllDraftMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetExcludeSecretChats returns value of ExcludeSecretChats field.
 func (c *ClearAllDraftMessagesRequest) GetExcludeSecretChats() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.ExcludeSecretChats
 }
 

@@ -213,11 +213,17 @@ func (c *ChatEventMessageEdited) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetOldMessage returns value of OldMessage field.
 func (c *ChatEventMessageEdited) GetOldMessage() (value Message) {
+	if c == nil {
+		return
+	}
 	return c.OldMessage
 }
 
 // GetNewMessage returns value of NewMessage field.
 func (c *ChatEventMessageEdited) GetNewMessage() (value Message) {
+	if c == nil {
+		return
+	}
 	return c.NewMessage
 }
 
@@ -378,6 +384,9 @@ func (c *ChatEventMessageDeleted) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMessage returns value of Message field.
 func (c *ChatEventMessageDeleted) GetMessage() (value Message) {
+	if c == nil {
+		return
+	}
 	return c.Message
 }
 
@@ -538,6 +547,9 @@ func (c *ChatEventPollStopped) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMessage returns value of Message field.
 func (c *ChatEventPollStopped) GetMessage() (value Message) {
+	if c == nil {
+		return
+	}
 	return c.Message
 }
 
@@ -698,6 +710,9 @@ func (c *ChatEventMessagePinned) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMessage returns value of Message field.
 func (c *ChatEventMessagePinned) GetMessage() (value Message) {
+	if c == nil {
+		return
+	}
 	return c.Message
 }
 
@@ -858,6 +873,9 @@ func (c *ChatEventMessageUnpinned) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMessage returns value of Message field.
 func (c *ChatEventMessageUnpinned) GetMessage() (value Message) {
+	if c == nil {
+		return
+	}
 	return c.Message
 }
 
@@ -1147,6 +1165,9 @@ func (c *ChatEventMemberJoinedByInviteLink) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetInviteLink returns value of InviteLink field.
 func (c *ChatEventMemberJoinedByInviteLink) GetInviteLink() (value ChatInviteLink) {
+	if c == nil {
+		return
+	}
 	return c.InviteLink
 }
 
@@ -1332,11 +1353,17 @@ func (c *ChatEventMemberJoinedByRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetApproverUserID returns value of ApproverUserID field.
 func (c *ChatEventMemberJoinedByRequest) GetApproverUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ApproverUserID
 }
 
 // GetInviteLink returns value of InviteLink field.
 func (c *ChatEventMemberJoinedByRequest) GetInviteLink() (value ChatInviteLink) {
+	if c == nil {
+		return
+	}
 	return c.InviteLink
 }
 
@@ -1661,11 +1688,17 @@ func (c *ChatEventMemberInvited) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (c *ChatEventMemberInvited) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetStatus returns value of Status field.
 func (c *ChatEventMemberInvited) GetStatus() (value ChatMemberStatusClass) {
+	if c == nil {
+		return
+	}
 	return c.Status
 }
 
@@ -1896,16 +1929,25 @@ func (c *ChatEventMemberPromoted) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (c *ChatEventMemberPromoted) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetOldStatus returns value of OldStatus field.
 func (c *ChatEventMemberPromoted) GetOldStatus() (value ChatMemberStatusClass) {
+	if c == nil {
+		return
+	}
 	return c.OldStatus
 }
 
 // GetNewStatus returns value of NewStatus field.
 func (c *ChatEventMemberPromoted) GetNewStatus() (value ChatMemberStatusClass) {
+	if c == nil {
+		return
+	}
 	return c.NewStatus
 }
 
@@ -2146,16 +2188,25 @@ func (c *ChatEventMemberRestricted) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMemberID returns value of MemberID field.
 func (c *ChatEventMemberRestricted) GetMemberID() (value MessageSenderClass) {
+	if c == nil {
+		return
+	}
 	return c.MemberID
 }
 
 // GetOldStatus returns value of OldStatus field.
 func (c *ChatEventMemberRestricted) GetOldStatus() (value ChatMemberStatusClass) {
+	if c == nil {
+		return
+	}
 	return c.OldStatus
 }
 
 // GetNewStatus returns value of NewStatus field.
 func (c *ChatEventMemberRestricted) GetNewStatus() (value ChatMemberStatusClass) {
+	if c == nil {
+		return
+	}
 	return c.NewStatus
 }
 
@@ -2341,11 +2392,17 @@ func (c *ChatEventTitleChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetOldTitle returns value of OldTitle field.
 func (c *ChatEventTitleChanged) GetOldTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.OldTitle
 }
 
 // GetNewTitle returns value of NewTitle field.
 func (c *ChatEventTitleChanged) GetNewTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.NewTitle
 }
 
@@ -2531,11 +2588,17 @@ func (c *ChatEventPermissionsChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetOldPermissions returns value of OldPermissions field.
 func (c *ChatEventPermissionsChanged) GetOldPermissions() (value ChatPermissions) {
+	if c == nil {
+		return
+	}
 	return c.OldPermissions
 }
 
 // GetNewPermissions returns value of NewPermissions field.
 func (c *ChatEventPermissionsChanged) GetNewPermissions() (value ChatPermissions) {
+	if c == nil {
+		return
+	}
 	return c.NewPermissions
 }
 
@@ -2721,11 +2784,17 @@ func (c *ChatEventDescriptionChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetOldDescription returns value of OldDescription field.
 func (c *ChatEventDescriptionChanged) GetOldDescription() (value string) {
+	if c == nil {
+		return
+	}
 	return c.OldDescription
 }
 
 // GetNewDescription returns value of NewDescription field.
 func (c *ChatEventDescriptionChanged) GetNewDescription() (value string) {
+	if c == nil {
+		return
+	}
 	return c.NewDescription
 }
 
@@ -2911,11 +2980,17 @@ func (c *ChatEventUsernameChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetOldUsername returns value of OldUsername field.
 func (c *ChatEventUsernameChanged) GetOldUsername() (value string) {
+	if c == nil {
+		return
+	}
 	return c.OldUsername
 }
 
 // GetNewUsername returns value of NewUsername field.
 func (c *ChatEventUsernameChanged) GetNewUsername() (value string) {
+	if c == nil {
+		return
+	}
 	return c.NewUsername
 }
 
@@ -3101,11 +3176,17 @@ func (c *ChatEventPhotoChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetOldPhoto returns value of OldPhoto field.
 func (c *ChatEventPhotoChanged) GetOldPhoto() (value ChatPhoto) {
+	if c == nil {
+		return
+	}
 	return c.OldPhoto
 }
 
 // GetNewPhoto returns value of NewPhoto field.
 func (c *ChatEventPhotoChanged) GetNewPhoto() (value ChatPhoto) {
+	if c == nil {
+		return
+	}
 	return c.NewPhoto
 }
 
@@ -3266,6 +3347,9 @@ func (c *ChatEventInvitesToggled) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCanInviteUsers returns value of CanInviteUsers field.
 func (c *ChatEventInvitesToggled) GetCanInviteUsers() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanInviteUsers
 }
 
@@ -3451,11 +3535,17 @@ func (c *ChatEventLinkedChatChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetOldLinkedChatID returns value of OldLinkedChatID field.
 func (c *ChatEventLinkedChatChanged) GetOldLinkedChatID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.OldLinkedChatID
 }
 
 // GetNewLinkedChatID returns value of NewLinkedChatID field.
 func (c *ChatEventLinkedChatChanged) GetNewLinkedChatID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.NewLinkedChatID
 }
 
@@ -3641,11 +3731,17 @@ func (c *ChatEventSlowModeDelayChanged) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetOldSlowModeDelay returns value of OldSlowModeDelay field.
 func (c *ChatEventSlowModeDelayChanged) GetOldSlowModeDelay() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.OldSlowModeDelay
 }
 
 // GetNewSlowModeDelay returns value of NewSlowModeDelay field.
 func (c *ChatEventSlowModeDelayChanged) GetNewSlowModeDelay() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.NewSlowModeDelay
 }
 
@@ -3831,11 +3927,17 @@ func (c *ChatEventMessageTTLSettingChanged) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetOldMessageTTLSetting returns value of OldMessageTTLSetting field.
 func (c *ChatEventMessageTTLSettingChanged) GetOldMessageTTLSetting() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.OldMessageTTLSetting
 }
 
 // GetNewMessageTTLSetting returns value of NewMessageTTLSetting field.
 func (c *ChatEventMessageTTLSettingChanged) GetNewMessageTTLSetting() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.NewMessageTTLSetting
 }
 
@@ -3996,6 +4098,9 @@ func (c *ChatEventSignMessagesToggled) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSignMessages returns value of SignMessages field.
 func (c *ChatEventSignMessagesToggled) GetSignMessages() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.SignMessages
 }
 
@@ -4156,6 +4261,9 @@ func (c *ChatEventHasProtectedContentToggled) DecodeTDLibJSON(b tdjson.Decoder) 
 
 // GetHasProtectedContent returns value of HasProtectedContent field.
 func (c *ChatEventHasProtectedContentToggled) GetHasProtectedContent() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.HasProtectedContent
 }
 
@@ -4341,11 +4449,17 @@ func (c *ChatEventStickerSetChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetOldStickerSetID returns value of OldStickerSetID field.
 func (c *ChatEventStickerSetChanged) GetOldStickerSetID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.OldStickerSetID
 }
 
 // GetNewStickerSetID returns value of NewStickerSetID field.
 func (c *ChatEventStickerSetChanged) GetNewStickerSetID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.NewStickerSetID
 }
 
@@ -4531,11 +4645,17 @@ func (c *ChatEventLocationChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetOldLocation returns value of OldLocation field.
 func (c *ChatEventLocationChanged) GetOldLocation() (value ChatLocation) {
+	if c == nil {
+		return
+	}
 	return c.OldLocation
 }
 
 // GetNewLocation returns value of NewLocation field.
 func (c *ChatEventLocationChanged) GetNewLocation() (value ChatLocation) {
+	if c == nil {
+		return
+	}
 	return c.NewLocation
 }
 
@@ -4696,6 +4816,9 @@ func (c *ChatEventIsAllHistoryAvailableToggled) DecodeTDLibJSON(b tdjson.Decoder
 
 // GetIsAllHistoryAvailable returns value of IsAllHistoryAvailable field.
 func (c *ChatEventIsAllHistoryAvailableToggled) GetIsAllHistoryAvailable() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsAllHistoryAvailable
 }
 
@@ -4881,11 +5004,17 @@ func (c *ChatEventInviteLinkEdited) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetOldInviteLink returns value of OldInviteLink field.
 func (c *ChatEventInviteLinkEdited) GetOldInviteLink() (value ChatInviteLink) {
+	if c == nil {
+		return
+	}
 	return c.OldInviteLink
 }
 
 // GetNewInviteLink returns value of NewInviteLink field.
 func (c *ChatEventInviteLinkEdited) GetNewInviteLink() (value ChatInviteLink) {
+	if c == nil {
+		return
+	}
 	return c.NewInviteLink
 }
 
@@ -5046,6 +5175,9 @@ func (c *ChatEventInviteLinkRevoked) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetInviteLink returns value of InviteLink field.
 func (c *ChatEventInviteLinkRevoked) GetInviteLink() (value ChatInviteLink) {
+	if c == nil {
+		return
+	}
 	return c.InviteLink
 }
 
@@ -5206,6 +5338,9 @@ func (c *ChatEventInviteLinkDeleted) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetInviteLink returns value of InviteLink field.
 func (c *ChatEventInviteLinkDeleted) GetInviteLink() (value ChatInviteLink) {
+	if c == nil {
+		return
+	}
 	return c.InviteLink
 }
 
@@ -5367,6 +5502,9 @@ func (c *ChatEventVideoChatCreated) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetGroupCallID returns value of GroupCallID field.
 func (c *ChatEventVideoChatCreated) GetGroupCallID() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.GroupCallID
 }
 
@@ -5528,6 +5666,9 @@ func (c *ChatEventVideoChatDiscarded) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetGroupCallID returns value of GroupCallID field.
 func (c *ChatEventVideoChatDiscarded) GetGroupCallID() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.GroupCallID
 }
 
@@ -5723,11 +5864,17 @@ func (c *ChatEventVideoChatParticipantIsMutedToggled) DecodeTDLibJSON(b tdjson.D
 
 // GetParticipantID returns value of ParticipantID field.
 func (c *ChatEventVideoChatParticipantIsMutedToggled) GetParticipantID() (value MessageSenderClass) {
+	if c == nil {
+		return
+	}
 	return c.ParticipantID
 }
 
 // GetIsMuted returns value of IsMuted field.
 func (c *ChatEventVideoChatParticipantIsMutedToggled) GetIsMuted() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsMuted
 }
 
@@ -5923,11 +6070,17 @@ func (c *ChatEventVideoChatParticipantVolumeLevelChanged) DecodeTDLibJSON(b tdjs
 
 // GetParticipantID returns value of ParticipantID field.
 func (c *ChatEventVideoChatParticipantVolumeLevelChanged) GetParticipantID() (value MessageSenderClass) {
+	if c == nil {
+		return
+	}
 	return c.ParticipantID
 }
 
 // GetVolumeLevel returns value of VolumeLevel field.
 func (c *ChatEventVideoChatParticipantVolumeLevelChanged) GetVolumeLevel() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.VolumeLevel
 }
 
@@ -6088,6 +6241,9 @@ func (c *ChatEventVideoChatMuteNewParticipantsToggled) DecodeTDLibJSON(b tdjson.
 
 // GetMuteNewParticipants returns value of MuteNewParticipants field.
 func (c *ChatEventVideoChatMuteNewParticipantsToggled) GetMuteNewParticipants() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.MuteNewParticipants
 }
 

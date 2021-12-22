@@ -158,6 +158,9 @@ func (g *MessagesGetPinnedDialogsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetFolderID returns value of FolderID field.
 func (g *MessagesGetPinnedDialogsRequest) GetFolderID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.FolderID
 }
 

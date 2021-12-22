@@ -347,11 +347,17 @@ func (g *ChannelsGetAdminLogRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (g *ChannelsGetAdminLogRequest) GetChannel() (value InputChannelClass) {
+	if g == nil {
+		return
+	}
 	return g.Channel
 }
 
 // GetQ returns value of Q field.
 func (g *ChannelsGetAdminLogRequest) GetQ() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Q
 }
 
@@ -364,6 +370,9 @@ func (g *ChannelsGetAdminLogRequest) SetEventsFilter(value ChannelAdminLogEvents
 // GetEventsFilter returns value of EventsFilter conditional field and
 // boolean which is true if field was set.
 func (g *ChannelsGetAdminLogRequest) GetEventsFilter() (value ChannelAdminLogEventsFilter, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(0) {
 		return value, false
 	}
@@ -379,6 +388,9 @@ func (g *ChannelsGetAdminLogRequest) SetAdmins(value []InputUserClass) {
 // GetAdmins returns value of Admins conditional field and
 // boolean which is true if field was set.
 func (g *ChannelsGetAdminLogRequest) GetAdmins() (value []InputUserClass, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(1) {
 		return value, false
 	}
@@ -387,16 +399,25 @@ func (g *ChannelsGetAdminLogRequest) GetAdmins() (value []InputUserClass, ok boo
 
 // GetMaxID returns value of MaxID field.
 func (g *ChannelsGetAdminLogRequest) GetMaxID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.MaxID
 }
 
 // GetMinID returns value of MinID field.
 func (g *ChannelsGetAdminLogRequest) GetMinID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.MinID
 }
 
 // GetLimit returns value of Limit field.
 func (g *ChannelsGetAdminLogRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

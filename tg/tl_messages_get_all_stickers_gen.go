@@ -158,6 +158,9 @@ func (g *MessagesGetAllStickersRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetHash returns value of Hash field.
 func (g *MessagesGetAllStickersRequest) GetHash() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.Hash
 }
 

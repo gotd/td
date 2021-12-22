@@ -209,11 +209,17 @@ func (c *CreateTemporaryPasswordRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetPassword returns value of Password field.
 func (c *CreateTemporaryPasswordRequest) GetPassword() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Password
 }
 
 // GetValidFor returns value of ValidFor field.
 func (c *CreateTemporaryPasswordRequest) GetValidFor() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.ValidFor
 }
 

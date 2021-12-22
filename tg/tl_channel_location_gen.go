@@ -286,11 +286,17 @@ func (c *ChannelLocation) DecodeBare(b *bin.Buffer) error {
 
 // GetGeoPoint returns value of GeoPoint field.
 func (c *ChannelLocation) GetGeoPoint() (value GeoPointClass) {
+	if c == nil {
+		return
+	}
 	return c.GeoPoint
 }
 
 // GetAddress returns value of Address field.
 func (c *ChannelLocation) GetAddress() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Address
 }
 

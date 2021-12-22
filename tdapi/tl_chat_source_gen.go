@@ -342,11 +342,17 @@ func (c *ChatSourcePublicServiceAnnouncement) DecodeTDLibJSON(b tdjson.Decoder) 
 
 // GetType returns value of Type field.
 func (c *ChatSourcePublicServiceAnnouncement) GetType() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Type
 }
 
 // GetText returns value of Text field.
 func (c *ChatSourcePublicServiceAnnouncement) GetText() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Text
 }
 

@@ -161,6 +161,9 @@ func (i *AuthImportLoginTokenRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetToken returns value of Token field.
 func (i *AuthImportLoginTokenRequest) GetToken() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.Token
 }
 

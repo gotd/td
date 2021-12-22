@@ -275,11 +275,17 @@ func (c *AccountCreateThemeRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetSlug returns value of Slug field.
 func (c *AccountCreateThemeRequest) GetSlug() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Slug
 }
 
 // GetTitle returns value of Title field.
 func (c *AccountCreateThemeRequest) GetTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Title
 }
 
@@ -292,6 +298,9 @@ func (c *AccountCreateThemeRequest) SetDocument(value InputDocumentClass) {
 // GetDocument returns value of Document conditional field and
 // boolean which is true if field was set.
 func (c *AccountCreateThemeRequest) GetDocument() (value InputDocumentClass, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(2) {
 		return value, false
 	}
@@ -307,6 +316,9 @@ func (c *AccountCreateThemeRequest) SetSettings(value []InputThemeSettings) {
 // GetSettings returns value of Settings conditional field and
 // boolean which is true if field was set.
 func (c *AccountCreateThemeRequest) GetSettings() (value []InputThemeSettings, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(3) {
 		return value, false
 	}

@@ -165,6 +165,9 @@ func (n *NotifyPeer) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (n *NotifyPeer) GetPeer() (value PeerClass) {
+	if n == nil {
+		return
+	}
 	return n.Peer
 }
 

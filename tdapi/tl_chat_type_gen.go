@@ -188,6 +188,9 @@ func (c *ChatTypePrivate) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (c *ChatTypePrivate) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
@@ -348,6 +351,9 @@ func (c *ChatTypeBasicGroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBasicGroupID returns value of BasicGroupID field.
 func (c *ChatTypeBasicGroup) GetBasicGroupID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.BasicGroupID
 }
 
@@ -533,11 +539,17 @@ func (c *ChatTypeSupergroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSupergroupID returns value of SupergroupID field.
 func (c *ChatTypeSupergroup) GetSupergroupID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.SupergroupID
 }
 
 // GetIsChannel returns value of IsChannel field.
 func (c *ChatTypeSupergroup) GetIsChannel() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsChannel
 }
 
@@ -723,11 +735,17 @@ func (c *ChatTypeSecret) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSecretChatID returns value of SecretChatID field.
 func (c *ChatTypeSecret) GetSecretChatID() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.SecretChatID
 }
 
 // GetUserID returns value of UserID field.
 func (c *ChatTypeSecret) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 

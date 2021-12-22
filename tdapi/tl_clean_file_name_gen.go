@@ -183,6 +183,9 @@ func (c *CleanFileNameRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFileName returns value of FileName field.
 func (c *CleanFileNameRequest) GetFileName() (value string) {
+	if c == nil {
+		return
+	}
 	return c.FileName
 }
 

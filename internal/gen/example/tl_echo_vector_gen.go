@@ -160,6 +160,9 @@ func (e *EchoVectorRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetIDs returns value of IDs field.
 func (e *EchoVectorRequest) GetIDs() (value []int) {
+	if e == nil {
+		return
+	}
 	return e.IDs
 }
 

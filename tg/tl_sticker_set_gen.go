@@ -485,6 +485,9 @@ func (s *StickerSet) SetArchived(value bool) {
 
 // GetArchived returns value of Archived conditional field.
 func (s *StickerSet) GetArchived() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(1)
 }
 
@@ -501,6 +504,9 @@ func (s *StickerSet) SetOfficial(value bool) {
 
 // GetOfficial returns value of Official conditional field.
 func (s *StickerSet) GetOfficial() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(2)
 }
 
@@ -517,6 +523,9 @@ func (s *StickerSet) SetMasks(value bool) {
 
 // GetMasks returns value of Masks conditional field.
 func (s *StickerSet) GetMasks() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(3)
 }
 
@@ -533,6 +542,9 @@ func (s *StickerSet) SetAnimated(value bool) {
 
 // GetAnimated returns value of Animated conditional field.
 func (s *StickerSet) GetAnimated() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(5)
 }
 
@@ -545,6 +557,9 @@ func (s *StickerSet) SetInstalledDate(value int) {
 // GetInstalledDate returns value of InstalledDate conditional field and
 // boolean which is true if field was set.
 func (s *StickerSet) GetInstalledDate() (value int, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(0) {
 		return value, false
 	}
@@ -553,21 +568,33 @@ func (s *StickerSet) GetInstalledDate() (value int, ok bool) {
 
 // GetID returns value of ID field.
 func (s *StickerSet) GetID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (s *StickerSet) GetAccessHash() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.AccessHash
 }
 
 // GetTitle returns value of Title field.
 func (s *StickerSet) GetTitle() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Title
 }
 
 // GetShortName returns value of ShortName field.
 func (s *StickerSet) GetShortName() (value string) {
+	if s == nil {
+		return
+	}
 	return s.ShortName
 }
 
@@ -580,6 +607,9 @@ func (s *StickerSet) SetThumbs(value []PhotoSizeClass) {
 // GetThumbs returns value of Thumbs conditional field and
 // boolean which is true if field was set.
 func (s *StickerSet) GetThumbs() (value []PhotoSizeClass, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(4) {
 		return value, false
 	}
@@ -595,6 +625,9 @@ func (s *StickerSet) SetThumbDCID(value int) {
 // GetThumbDCID returns value of ThumbDCID conditional field and
 // boolean which is true if field was set.
 func (s *StickerSet) GetThumbDCID() (value int, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(4) {
 		return value, false
 	}
@@ -610,6 +643,9 @@ func (s *StickerSet) SetThumbVersion(value int) {
 // GetThumbVersion returns value of ThumbVersion conditional field and
 // boolean which is true if field was set.
 func (s *StickerSet) GetThumbVersion() (value int, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(4) {
 		return value, false
 	}
@@ -618,11 +654,17 @@ func (s *StickerSet) GetThumbVersion() (value int, ok bool) {
 
 // GetCount returns value of Count field.
 func (s *StickerSet) GetCount() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Count
 }
 
 // GetHash returns value of Hash field.
 func (s *StickerSet) GetHash() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Hash
 }
 

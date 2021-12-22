@@ -208,10 +208,16 @@ func (d *DeepLinkInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (d *DeepLinkInfo) GetText() (value FormattedText) {
+	if d == nil {
+		return
+	}
 	return d.Text
 }
 
 // GetNeedUpdateApplication returns value of NeedUpdateApplication field.
 func (d *DeepLinkInfo) GetNeedUpdateApplication() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.NeedUpdateApplication
 }

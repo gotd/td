@@ -183,5 +183,8 @@ func (p *PushReceiverID) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (p *PushReceiverID) GetID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ID
 }

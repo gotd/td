@@ -147,5 +147,8 @@ func (t *Theme) DecodeBare(b *bin.Buffer) error {
 
 // GetName returns value of Name field.
 func (t *Theme) GetName() (value string) {
+	if t == nil {
+		return
+	}
 	return t.Name
 }

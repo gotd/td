@@ -259,15 +259,24 @@ func (f *FoundMessages) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTotalCount returns value of TotalCount field.
 func (f *FoundMessages) GetTotalCount() (value int32) {
+	if f == nil {
+		return
+	}
 	return f.TotalCount
 }
 
 // GetMessages returns value of Messages field.
 func (f *FoundMessages) GetMessages() (value []Message) {
+	if f == nil {
+		return
+	}
 	return f.Messages
 }
 
 // GetNextOffset returns value of NextOffset field.
 func (f *FoundMessages) GetNextOffset() (value string) {
+	if f == nil {
+		return
+	}
 	return f.NextOffset
 }

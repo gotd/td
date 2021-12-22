@@ -260,15 +260,24 @@ func (g *GroupCallParticipantVideoInfo) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetSourceGroups returns value of SourceGroups field.
 func (g *GroupCallParticipantVideoInfo) GetSourceGroups() (value []GroupCallVideoSourceGroup) {
+	if g == nil {
+		return
+	}
 	return g.SourceGroups
 }
 
 // GetEndpointID returns value of EndpointID field.
 func (g *GroupCallParticipantVideoInfo) GetEndpointID() (value string) {
+	if g == nil {
+		return
+	}
 	return g.EndpointID
 }
 
 // GetIsPaused returns value of IsPaused field.
 func (g *GroupCallParticipantVideoInfo) GetIsPaused() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.IsPaused
 }

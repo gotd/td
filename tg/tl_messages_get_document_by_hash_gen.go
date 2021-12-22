@@ -193,16 +193,25 @@ func (g *MessagesGetDocumentByHashRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetSHA256 returns value of SHA256 field.
 func (g *MessagesGetDocumentByHashRequest) GetSHA256() (value []byte) {
+	if g == nil {
+		return
+	}
 	return g.SHA256
 }
 
 // GetSize returns value of Size field.
 func (g *MessagesGetDocumentByHashRequest) GetSize() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Size
 }
 
 // GetMimeType returns value of MimeType field.
 func (g *MessagesGetDocumentByHashRequest) GetMimeType() (value string) {
+	if g == nil {
+		return
+	}
 	return g.MimeType
 }
 

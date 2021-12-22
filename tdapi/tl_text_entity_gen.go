@@ -243,15 +243,24 @@ func (t *TextEntity) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetOffset returns value of Offset field.
 func (t *TextEntity) GetOffset() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.Offset
 }
 
 // GetLength returns value of Length field.
 func (t *TextEntity) GetLength() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.Length
 }
 
 // GetType returns value of Type field.
 func (t *TextEntity) GetType() (value TextEntityTypeClass) {
+	if t == nil {
+		return
+	}
 	return t.Type
 }

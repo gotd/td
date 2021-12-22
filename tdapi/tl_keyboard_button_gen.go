@@ -218,10 +218,16 @@ func (k *KeyboardButton) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (k *KeyboardButton) GetText() (value string) {
+	if k == nil {
+		return
+	}
 	return k.Text
 }
 
 // GetType returns value of Type field.
 func (k *KeyboardButton) GetType() (value KeyboardButtonTypeClass) {
+	if k == nil {
+		return
+	}
 	return k.Type
 }

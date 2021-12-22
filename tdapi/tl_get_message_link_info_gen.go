@@ -183,6 +183,9 @@ func (g *GetMessageLinkInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetURL returns value of URL field.
 func (g *GetMessageLinkInfoRequest) GetURL() (value string) {
+	if g == nil {
+		return
+	}
 	return g.URL
 }
 

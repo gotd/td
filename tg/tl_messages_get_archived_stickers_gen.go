@@ -228,16 +228,25 @@ func (g *MessagesGetArchivedStickersRequest) SetMasks(value bool) {
 
 // GetMasks returns value of Masks conditional field.
 func (g *MessagesGetArchivedStickersRequest) GetMasks() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(0)
 }
 
 // GetOffsetID returns value of OffsetID field.
 func (g *MessagesGetArchivedStickersRequest) GetOffsetID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.OffsetID
 }
 
 // GetLimit returns value of Limit field.
 func (g *MessagesGetArchivedStickersRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

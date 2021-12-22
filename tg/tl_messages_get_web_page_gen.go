@@ -180,11 +180,17 @@ func (g *MessagesGetWebPageRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (g *MessagesGetWebPageRequest) GetURL() (value string) {
+	if g == nil {
+		return
+	}
 	return g.URL
 }
 
 // GetHash returns value of Hash field.
 func (g *MessagesGetWebPageRequest) GetHash() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Hash
 }
 

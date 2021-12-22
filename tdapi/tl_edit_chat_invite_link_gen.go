@@ -310,31 +310,49 @@ func (e *EditChatInviteLinkRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (e *EditChatInviteLinkRequest) GetChatID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.ChatID
 }
 
 // GetInviteLink returns value of InviteLink field.
 func (e *EditChatInviteLinkRequest) GetInviteLink() (value string) {
+	if e == nil {
+		return
+	}
 	return e.InviteLink
 }
 
 // GetName returns value of Name field.
 func (e *EditChatInviteLinkRequest) GetName() (value string) {
+	if e == nil {
+		return
+	}
 	return e.Name
 }
 
 // GetExpireDate returns value of ExpireDate field.
 func (e *EditChatInviteLinkRequest) GetExpireDate() (value int32) {
+	if e == nil {
+		return
+	}
 	return e.ExpireDate
 }
 
 // GetMemberLimit returns value of MemberLimit field.
 func (e *EditChatInviteLinkRequest) GetMemberLimit() (value int32) {
+	if e == nil {
+		return
+	}
 	return e.MemberLimit
 }
 
 // GetCreatesJoinRequest returns value of CreatesJoinRequest field.
 func (e *EditChatInviteLinkRequest) GetCreatesJoinRequest() (value bool) {
+	if e == nil {
+		return
+	}
 	return e.CreatesJoinRequest
 }
 

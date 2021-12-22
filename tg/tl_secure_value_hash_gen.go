@@ -179,10 +179,16 @@ func (s *SecureValueHash) DecodeBare(b *bin.Buffer) error {
 
 // GetType returns value of Type field.
 func (s *SecureValueHash) GetType() (value SecureValueTypeClass) {
+	if s == nil {
+		return
+	}
 	return s.Type
 }
 
 // GetHash returns value of Hash field.
 func (s *SecureValueHash) GetHash() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.Hash
 }

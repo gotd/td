@@ -279,20 +279,32 @@ func (c *ChatPosition) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetList returns value of List field.
 func (c *ChatPosition) GetList() (value ChatListClass) {
+	if c == nil {
+		return
+	}
 	return c.List
 }
 
 // GetOrder returns value of Order field.
 func (c *ChatPosition) GetOrder() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.Order
 }
 
 // GetIsPinned returns value of IsPinned field.
 func (c *ChatPosition) GetIsPinned() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsPinned
 }
 
 // GetSource returns value of Source field.
 func (c *ChatPosition) GetSource() (value ChatSourceClass) {
+	if c == nil {
+		return
+	}
 	return c.Source
 }

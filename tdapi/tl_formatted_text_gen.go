@@ -235,10 +235,16 @@ func (f *FormattedText) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (f *FormattedText) GetText() (value string) {
+	if f == nil {
+		return
+	}
 	return f.Text
 }
 
 // GetEntities returns value of Entities field.
 func (f *FormattedText) GetEntities() (value []TextEntity) {
+	if f == nil {
+		return
+	}
 	return f.Entities
 }

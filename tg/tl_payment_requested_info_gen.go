@@ -284,6 +284,9 @@ func (p *PaymentRequestedInfo) SetName(value string) {
 // GetName returns value of Name conditional field and
 // boolean which is true if field was set.
 func (p *PaymentRequestedInfo) GetName() (value string, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(0) {
 		return value, false
 	}
@@ -299,6 +302,9 @@ func (p *PaymentRequestedInfo) SetPhone(value string) {
 // GetPhone returns value of Phone conditional field and
 // boolean which is true if field was set.
 func (p *PaymentRequestedInfo) GetPhone() (value string, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(1) {
 		return value, false
 	}
@@ -314,6 +320,9 @@ func (p *PaymentRequestedInfo) SetEmail(value string) {
 // GetEmail returns value of Email conditional field and
 // boolean which is true if field was set.
 func (p *PaymentRequestedInfo) GetEmail() (value string, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(2) {
 		return value, false
 	}
@@ -329,6 +338,9 @@ func (p *PaymentRequestedInfo) SetShippingAddress(value PostAddress) {
 // GetShippingAddress returns value of ShippingAddress conditional field and
 // boolean which is true if field was set.
 func (p *PaymentRequestedInfo) GetShippingAddress() (value PostAddress, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(3) {
 		return value, false
 	}

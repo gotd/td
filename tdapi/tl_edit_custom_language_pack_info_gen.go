@@ -183,6 +183,9 @@ func (e *EditCustomLanguagePackInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetInfo returns value of Info field.
 func (e *EditCustomLanguagePackInfoRequest) GetInfo() (value LanguagePackInfo) {
+	if e == nil {
+		return
+	}
 	return e.Info
 }
 

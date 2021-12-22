@@ -203,16 +203,25 @@ func (r *AccountReportPeerRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (r *AccountReportPeerRequest) GetPeer() (value InputPeerClass) {
+	if r == nil {
+		return
+	}
 	return r.Peer
 }
 
 // GetReason returns value of Reason field.
 func (r *AccountReportPeerRequest) GetReason() (value ReportReasonClass) {
+	if r == nil {
+		return
+	}
 	return r.Reason
 }
 
 // GetMessage returns value of Message field.
 func (r *AccountReportPeerRequest) GetMessage() (value string) {
+	if r == nil {
+		return
+	}
 	return r.Message
 }
 

@@ -233,21 +233,33 @@ func (i *InputWebDocument) DecodeBare(b *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (i *InputWebDocument) GetURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.URL
 }
 
 // GetSize returns value of Size field.
 func (i *InputWebDocument) GetSize() (value int) {
+	if i == nil {
+		return
+	}
 	return i.Size
 }
 
 // GetMimeType returns value of MimeType field.
 func (i *InputWebDocument) GetMimeType() (value string) {
+	if i == nil {
+		return
+	}
 	return i.MimeType
 }
 
 // GetAttributes returns value of Attributes field.
 func (i *InputWebDocument) GetAttributes() (value []DocumentAttributeClass) {
+	if i == nil {
+		return
+	}
 	return i.Attributes
 }
 

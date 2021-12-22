@@ -332,31 +332,49 @@ func (g *GetChatEventLogRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (g *GetChatEventLogRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetQuery returns value of Query field.
 func (g *GetChatEventLogRequest) GetQuery() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Query
 }
 
 // GetFromEventID returns value of FromEventID field.
 func (g *GetChatEventLogRequest) GetFromEventID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.FromEventID
 }
 
 // GetLimit returns value of Limit field.
 func (g *GetChatEventLogRequest) GetLimit() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 
 // GetFilters returns value of Filters field.
 func (g *GetChatEventLogRequest) GetFilters() (value ChatEventLogFilters) {
+	if g == nil {
+		return
+	}
 	return g.Filters
 }
 
 // GetUserIDs returns value of UserIDs field.
 func (g *GetChatEventLogRequest) GetUserIDs() (value []int64) {
+	if g == nil {
+		return
+	}
 	return g.UserIDs
 }
 

@@ -285,11 +285,17 @@ func (t *AccountThemes) DecodeBare(b *bin.Buffer) error {
 
 // GetHash returns value of Hash field.
 func (t *AccountThemes) GetHash() (value int) {
+	if t == nil {
+		return
+	}
 	return t.Hash
 }
 
 // GetThemes returns value of Themes field.
 func (t *AccountThemes) GetThemes() (value []Theme) {
+	if t == nil {
+		return
+	}
 	return t.Themes
 }
 

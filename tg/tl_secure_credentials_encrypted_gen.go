@@ -208,15 +208,24 @@ func (s *SecureCredentialsEncrypted) DecodeBare(b *bin.Buffer) error {
 
 // GetData returns value of Data field.
 func (s *SecureCredentialsEncrypted) GetData() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.Data
 }
 
 // GetHash returns value of Hash field.
 func (s *SecureCredentialsEncrypted) GetHash() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.Hash
 }
 
 // GetSecret returns value of Secret field.
 func (s *SecureCredentialsEncrypted) GetSecret() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.Secret
 }

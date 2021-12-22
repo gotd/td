@@ -236,15 +236,24 @@ func (c *ChatFilterInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (c *ChatFilterInfo) GetID() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.ID
 }
 
 // GetTitle returns value of Title field.
 func (c *ChatFilterInfo) GetTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Title
 }
 
 // GetIconName returns value of IconName field.
 func (c *ChatFilterInfo) GetIconName() (value string) {
+	if c == nil {
+		return
+	}
 	return c.IconName
 }

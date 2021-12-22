@@ -343,36 +343,57 @@ func (s *SendPaymentFormRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (s *SendPaymentFormRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (s *SendPaymentFormRequest) GetMessageID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.MessageID
 }
 
 // GetPaymentFormID returns value of PaymentFormID field.
 func (s *SendPaymentFormRequest) GetPaymentFormID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.PaymentFormID
 }
 
 // GetOrderInfoID returns value of OrderInfoID field.
 func (s *SendPaymentFormRequest) GetOrderInfoID() (value string) {
+	if s == nil {
+		return
+	}
 	return s.OrderInfoID
 }
 
 // GetShippingOptionID returns value of ShippingOptionID field.
 func (s *SendPaymentFormRequest) GetShippingOptionID() (value string) {
+	if s == nil {
+		return
+	}
 	return s.ShippingOptionID
 }
 
 // GetCredentials returns value of Credentials field.
 func (s *SendPaymentFormRequest) GetCredentials() (value InputCredentialsClass) {
+	if s == nil {
+		return
+	}
 	return s.Credentials
 }
 
 // GetTipAmount returns value of TipAmount field.
 func (s *SendPaymentFormRequest) GetTipAmount() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.TipAmount
 }
 

@@ -198,6 +198,9 @@ func (u *UpdateAuthorizationState) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAuthorizationState returns value of AuthorizationState field.
 func (u *UpdateAuthorizationState) GetAuthorizationState() (value AuthorizationStateClass) {
+	if u == nil {
+		return
+	}
 	return u.AuthorizationState
 }
 
@@ -358,6 +361,9 @@ func (u *UpdateNewMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMessage returns value of Message field.
 func (u *UpdateNewMessage) GetMessage() (value Message) {
+	if u == nil {
+		return
+	}
 	return u.Message
 }
 
@@ -543,11 +549,17 @@ func (u *UpdateMessageSendAcknowledged) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateMessageSendAcknowledged) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (u *UpdateMessageSendAcknowledged) GetMessageID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.MessageID
 }
 
@@ -734,11 +746,17 @@ func (u *UpdateMessageSendSucceeded) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMessage returns value of Message field.
 func (u *UpdateMessageSendSucceeded) GetMessage() (value Message) {
+	if u == nil {
+		return
+	}
 	return u.Message
 }
 
 // GetOldMessageID returns value of OldMessageID field.
 func (u *UpdateMessageSendSucceeded) GetOldMessageID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.OldMessageID
 }
 
@@ -974,21 +992,33 @@ func (u *UpdateMessageSendFailed) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMessage returns value of Message field.
 func (u *UpdateMessageSendFailed) GetMessage() (value Message) {
+	if u == nil {
+		return
+	}
 	return u.Message
 }
 
 // GetOldMessageID returns value of OldMessageID field.
 func (u *UpdateMessageSendFailed) GetOldMessageID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.OldMessageID
 }
 
 // GetErrorCode returns value of ErrorCode field.
 func (u *UpdateMessageSendFailed) GetErrorCode() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.ErrorCode
 }
 
 // GetErrorMessage returns value of ErrorMessage field.
 func (u *UpdateMessageSendFailed) GetErrorMessage() (value string) {
+	if u == nil {
+		return
+	}
 	return u.ErrorMessage
 }
 
@@ -1209,16 +1239,25 @@ func (u *UpdateMessageContent) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateMessageContent) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (u *UpdateMessageContent) GetMessageID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.MessageID
 }
 
 // GetNewContent returns value of NewContent field.
 func (u *UpdateMessageContent) GetNewContent() (value MessageContentClass) {
+	if u == nil {
+		return
+	}
 	return u.NewContent
 }
 
@@ -1464,21 +1503,33 @@ func (u *UpdateMessageEdited) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateMessageEdited) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (u *UpdateMessageEdited) GetMessageID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.MessageID
 }
 
 // GetEditDate returns value of EditDate field.
 func (u *UpdateMessageEdited) GetEditDate() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.EditDate
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (u *UpdateMessageEdited) GetReplyMarkup() (value ReplyMarkupClass) {
+	if u == nil {
+		return
+	}
 	return u.ReplyMarkup
 }
 
@@ -1689,16 +1740,25 @@ func (u *UpdateMessageIsPinned) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateMessageIsPinned) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (u *UpdateMessageIsPinned) GetMessageID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.MessageID
 }
 
 // GetIsPinned returns value of IsPinned field.
 func (u *UpdateMessageIsPinned) GetIsPinned() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.IsPinned
 }
 
@@ -1909,16 +1969,25 @@ func (u *UpdateMessageInteractionInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateMessageInteractionInfo) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (u *UpdateMessageInteractionInfo) GetMessageID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.MessageID
 }
 
 // GetInteractionInfo returns value of InteractionInfo field.
 func (u *UpdateMessageInteractionInfo) GetInteractionInfo() (value MessageInteractionInfo) {
+	if u == nil {
+		return
+	}
 	return u.InteractionInfo
 }
 
@@ -2104,11 +2173,17 @@ func (u *UpdateMessageContentOpened) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateMessageContentOpened) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (u *UpdateMessageContentOpened) GetMessageID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.MessageID
 }
 
@@ -2319,16 +2394,25 @@ func (u *UpdateMessageMentionRead) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateMessageMentionRead) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (u *UpdateMessageMentionRead) GetMessageID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.MessageID
 }
 
 // GetUnreadMentionCount returns value of UnreadMentionCount field.
 func (u *UpdateMessageMentionRead) GetUnreadMentionCount() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.UnreadMentionCount
 }
 
@@ -2514,11 +2598,17 @@ func (u *UpdateMessageLiveLocationViewed) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateMessageLiveLocationViewed) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (u *UpdateMessageLiveLocationViewed) GetMessageID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.MessageID
 }
 
@@ -2679,6 +2769,9 @@ func (u *UpdateNewChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChat returns value of Chat field.
 func (u *UpdateNewChat) GetChat() (value Chat) {
+	if u == nil {
+		return
+	}
 	return u.Chat
 }
 
@@ -2864,11 +2957,17 @@ func (u *UpdateChatTitle) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatTitle) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetTitle returns value of Title field.
 func (u *UpdateChatTitle) GetTitle() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Title
 }
 
@@ -3054,11 +3153,17 @@ func (u *UpdateChatPhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatPhoto) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetPhoto returns value of Photo field.
 func (u *UpdateChatPhoto) GetPhoto() (value ChatPhotoInfo) {
+	if u == nil {
+		return
+	}
 	return u.Photo
 }
 
@@ -3244,11 +3349,17 @@ func (u *UpdateChatPermissions) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatPermissions) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetPermissions returns value of Permissions field.
 func (u *UpdateChatPermissions) GetPermissions() (value ChatPermissions) {
+	if u == nil {
+		return
+	}
 	return u.Permissions
 }
 
@@ -3485,16 +3596,25 @@ func (u *UpdateChatLastMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatLastMessage) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetLastMessage returns value of LastMessage field.
 func (u *UpdateChatLastMessage) GetLastMessage() (value Message) {
+	if u == nil {
+		return
+	}
 	return u.LastMessage
 }
 
 // GetPositions returns value of Positions field.
 func (u *UpdateChatLastMessage) GetPositions() (value []ChatPosition) {
+	if u == nil {
+		return
+	}
 	return u.Positions
 }
 
@@ -3680,11 +3800,17 @@ func (u *UpdateChatPosition) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatPosition) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetPosition returns value of Position field.
 func (u *UpdateChatPosition) GetPosition() (value ChatPosition) {
+	if u == nil {
+		return
+	}
 	return u.Position
 }
 
@@ -3881,11 +4007,17 @@ func (u *UpdateChatDefaultMessageSenderID) DecodeTDLibJSON(b tdjson.Decoder) err
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatDefaultMessageSenderID) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetDefaultMessageSenderID returns value of DefaultMessageSenderID field.
 func (u *UpdateChatDefaultMessageSenderID) GetDefaultMessageSenderID() (value MessageSenderClass) {
+	if u == nil {
+		return
+	}
 	return u.DefaultMessageSenderID
 }
 
@@ -4071,11 +4203,17 @@ func (u *UpdateChatHasProtectedContent) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatHasProtectedContent) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetHasProtectedContent returns value of HasProtectedContent field.
 func (u *UpdateChatHasProtectedContent) GetHasProtectedContent() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.HasProtectedContent
 }
 
@@ -4261,11 +4399,17 @@ func (u *UpdateChatIsMarkedAsUnread) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatIsMarkedAsUnread) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetIsMarkedAsUnread returns value of IsMarkedAsUnread field.
 func (u *UpdateChatIsMarkedAsUnread) GetIsMarkedAsUnread() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.IsMarkedAsUnread
 }
 
@@ -4451,11 +4595,17 @@ func (u *UpdateChatIsBlocked) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatIsBlocked) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetIsBlocked returns value of IsBlocked field.
 func (u *UpdateChatIsBlocked) GetIsBlocked() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.IsBlocked
 }
 
@@ -4641,11 +4791,17 @@ func (u *UpdateChatHasScheduledMessages) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatHasScheduledMessages) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetHasScheduledMessages returns value of HasScheduledMessages field.
 func (u *UpdateChatHasScheduledMessages) GetHasScheduledMessages() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.HasScheduledMessages
 }
 
@@ -4831,11 +4987,17 @@ func (u *UpdateChatVideoChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatVideoChat) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetVideoChat returns value of VideoChat field.
 func (u *UpdateChatVideoChat) GetVideoChat() (value VideoChat) {
+	if u == nil {
+		return
+	}
 	return u.VideoChat
 }
 
@@ -5021,11 +5183,17 @@ func (u *UpdateChatDefaultDisableNotification) DecodeTDLibJSON(b tdjson.Decoder)
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatDefaultDisableNotification) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetDefaultDisableNotification returns value of DefaultDisableNotification field.
 func (u *UpdateChatDefaultDisableNotification) GetDefaultDisableNotification() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.DefaultDisableNotification
 }
 
@@ -5236,16 +5404,25 @@ func (u *UpdateChatReadInbox) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatReadInbox) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetLastReadInboxMessageID returns value of LastReadInboxMessageID field.
 func (u *UpdateChatReadInbox) GetLastReadInboxMessageID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.LastReadInboxMessageID
 }
 
 // GetUnreadCount returns value of UnreadCount field.
 func (u *UpdateChatReadInbox) GetUnreadCount() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.UnreadCount
 }
 
@@ -5431,11 +5608,17 @@ func (u *UpdateChatReadOutbox) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatReadOutbox) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetLastReadOutboxMessageID returns value of LastReadOutboxMessageID field.
 func (u *UpdateChatReadOutbox) GetLastReadOutboxMessageID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.LastReadOutboxMessageID
 }
 
@@ -5621,11 +5804,17 @@ func (u *UpdateChatUnreadMentionCount) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatUnreadMentionCount) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetUnreadMentionCount returns value of UnreadMentionCount field.
 func (u *UpdateChatUnreadMentionCount) GetUnreadMentionCount() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.UnreadMentionCount
 }
 
@@ -5811,11 +6000,17 @@ func (u *UpdateChatNotificationSettings) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatNotificationSettings) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetNotificationSettings returns value of NotificationSettings field.
 func (u *UpdateChatNotificationSettings) GetNotificationSettings() (value ChatNotificationSettings) {
+	if u == nil {
+		return
+	}
 	return u.NotificationSettings
 }
 
@@ -6011,11 +6206,17 @@ func (u *UpdateScopeNotificationSettings) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetScope returns value of Scope field.
 func (u *UpdateScopeNotificationSettings) GetScope() (value NotificationSettingsScopeClass) {
+	if u == nil {
+		return
+	}
 	return u.Scope
 }
 
 // GetNotificationSettings returns value of NotificationSettings field.
 func (u *UpdateScopeNotificationSettings) GetNotificationSettings() (value ScopeNotificationSettings) {
+	if u == nil {
+		return
+	}
 	return u.NotificationSettings
 }
 
@@ -6201,11 +6402,17 @@ func (u *UpdateChatMessageTTLSetting) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatMessageTTLSetting) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetMessageTTLSetting returns value of MessageTTLSetting field.
 func (u *UpdateChatMessageTTLSetting) GetMessageTTLSetting() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.MessageTTLSetting
 }
 
@@ -6401,11 +6608,17 @@ func (u *UpdateChatActionBar) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatActionBar) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetActionBar returns value of ActionBar field.
 func (u *UpdateChatActionBar) GetActionBar() (value ChatActionBarClass) {
+	if u == nil {
+		return
+	}
 	return u.ActionBar
 }
 
@@ -6591,11 +6804,17 @@ func (u *UpdateChatTheme) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatTheme) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetThemeName returns value of ThemeName field.
 func (u *UpdateChatTheme) GetThemeName() (value string) {
+	if u == nil {
+		return
+	}
 	return u.ThemeName
 }
 
@@ -6781,11 +7000,17 @@ func (u *UpdateChatPendingJoinRequests) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatPendingJoinRequests) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetPendingJoinRequests returns value of PendingJoinRequests field.
 func (u *UpdateChatPendingJoinRequests) GetPendingJoinRequests() (value ChatJoinRequestsInfo) {
+	if u == nil {
+		return
+	}
 	return u.PendingJoinRequests
 }
 
@@ -6972,11 +7197,17 @@ func (u *UpdateChatReplyMarkup) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatReplyMarkup) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetReplyMarkupMessageID returns value of ReplyMarkupMessageID field.
 func (u *UpdateChatReplyMarkup) GetReplyMarkupMessageID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ReplyMarkupMessageID
 }
 
@@ -7213,16 +7444,25 @@ func (u *UpdateChatDraftMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatDraftMessage) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetDraftMessage returns value of DraftMessage field.
 func (u *UpdateChatDraftMessage) GetDraftMessage() (value DraftMessage) {
+	if u == nil {
+		return
+	}
 	return u.DraftMessage
 }
 
 // GetPositions returns value of Positions field.
 func (u *UpdateChatDraftMessage) GetPositions() (value []ChatPosition) {
+	if u == nil {
+		return
+	}
 	return u.Positions
 }
 
@@ -7409,6 +7649,9 @@ func (u *UpdateChatFilters) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatFilters returns value of ChatFilters field.
 func (u *UpdateChatFilters) GetChatFilters() (value []ChatFilterInfo) {
+	if u == nil {
+		return
+	}
 	return u.ChatFilters
 }
 
@@ -7594,11 +7837,17 @@ func (u *UpdateChatOnlineMemberCount) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatOnlineMemberCount) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetOnlineMemberCount returns value of OnlineMemberCount field.
 func (u *UpdateChatOnlineMemberCount) GetOnlineMemberCount() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.OnlineMemberCount
 }
 
@@ -7784,11 +8033,17 @@ func (u *UpdateNotification) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetNotificationGroupID returns value of NotificationGroupID field.
 func (u *UpdateNotification) GetNotificationGroupID() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.NotificationGroupID
 }
 
 // GetNotification returns value of Notification field.
 func (u *UpdateNotification) GetNotification() (value Notification) {
+	if u == nil {
+		return
+	}
 	return u.Notification
 }
 
@@ -8184,41 +8439,65 @@ func (u *UpdateNotificationGroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetNotificationGroupID returns value of NotificationGroupID field.
 func (u *UpdateNotificationGroup) GetNotificationGroupID() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.NotificationGroupID
 }
 
 // GetType returns value of Type field.
 func (u *UpdateNotificationGroup) GetType() (value NotificationGroupTypeClass) {
+	if u == nil {
+		return
+	}
 	return u.Type
 }
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateNotificationGroup) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetNotificationSettingsChatID returns value of NotificationSettingsChatID field.
 func (u *UpdateNotificationGroup) GetNotificationSettingsChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.NotificationSettingsChatID
 }
 
 // GetIsSilent returns value of IsSilent field.
 func (u *UpdateNotificationGroup) GetIsSilent() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.IsSilent
 }
 
 // GetTotalCount returns value of TotalCount field.
 func (u *UpdateNotificationGroup) GetTotalCount() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.TotalCount
 }
 
 // GetAddedNotifications returns value of AddedNotifications field.
 func (u *UpdateNotificationGroup) GetAddedNotifications() (value []Notification) {
+	if u == nil {
+		return
+	}
 	return u.AddedNotifications
 }
 
 // GetRemovedNotificationIDs returns value of RemovedNotificationIDs field.
 func (u *UpdateNotificationGroup) GetRemovedNotificationIDs() (value []int32) {
+	if u == nil {
+		return
+	}
 	return u.RemovedNotificationIDs
 }
 
@@ -8405,6 +8684,9 @@ func (u *UpdateActiveNotifications) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetGroups returns value of Groups field.
 func (u *UpdateActiveNotifications) GetGroups() (value []NotificationGroup) {
+	if u == nil {
+		return
+	}
 	return u.Groups
 }
 
@@ -8591,11 +8873,17 @@ func (u *UpdateHavePendingNotifications) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetHaveDelayedNotifications returns value of HaveDelayedNotifications field.
 func (u *UpdateHavePendingNotifications) GetHaveDelayedNotifications() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.HaveDelayedNotifications
 }
 
 // GetHaveUnreceivedNotifications returns value of HaveUnreceivedNotifications field.
 func (u *UpdateHavePendingNotifications) GetHaveUnreceivedNotifications() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.HaveUnreceivedNotifications
 }
 
@@ -8855,21 +9143,33 @@ func (u *UpdateDeleteMessages) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateDeleteMessages) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetMessageIDs returns value of MessageIDs field.
 func (u *UpdateDeleteMessages) GetMessageIDs() (value []int64) {
+	if u == nil {
+		return
+	}
 	return u.MessageIDs
 }
 
 // GetIsPermanent returns value of IsPermanent field.
 func (u *UpdateDeleteMessages) GetIsPermanent() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.IsPermanent
 }
 
 // GetFromCache returns value of FromCache field.
 func (u *UpdateDeleteMessages) GetFromCache() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.FromCache
 }
 
@@ -9125,21 +9425,33 @@ func (u *UpdateChatAction) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatAction) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetMessageThreadID returns value of MessageThreadID field.
 func (u *UpdateChatAction) GetMessageThreadID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.MessageThreadID
 }
 
 // GetSenderID returns value of SenderID field.
 func (u *UpdateChatAction) GetSenderID() (value MessageSenderClass) {
+	if u == nil {
+		return
+	}
 	return u.SenderID
 }
 
 // GetAction returns value of Action field.
 func (u *UpdateChatAction) GetAction() (value ChatActionClass) {
+	if u == nil {
+		return
+	}
 	return u.Action
 }
 
@@ -9335,11 +9647,17 @@ func (u *UpdateUserStatus) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (u *UpdateUserStatus) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetStatus returns value of Status field.
 func (u *UpdateUserStatus) GetStatus() (value UserStatusClass) {
+	if u == nil {
+		return
+	}
 	return u.Status
 }
 
@@ -9500,6 +9818,9 @@ func (u *UpdateUser) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUser returns value of User field.
 func (u *UpdateUser) GetUser() (value User) {
+	if u == nil {
+		return
+	}
 	return u.User
 }
 
@@ -9660,6 +9981,9 @@ func (u *UpdateBasicGroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBasicGroup returns value of BasicGroup field.
 func (u *UpdateBasicGroup) GetBasicGroup() (value BasicGroup) {
+	if u == nil {
+		return
+	}
 	return u.BasicGroup
 }
 
@@ -9820,6 +10144,9 @@ func (u *UpdateSupergroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSupergroup returns value of Supergroup field.
 func (u *UpdateSupergroup) GetSupergroup() (value Supergroup) {
+	if u == nil {
+		return
+	}
 	return u.Supergroup
 }
 
@@ -9980,6 +10307,9 @@ func (u *UpdateSecretChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSecretChat returns value of SecretChat field.
 func (u *UpdateSecretChat) GetSecretChat() (value SecretChat) {
+	if u == nil {
+		return
+	}
 	return u.SecretChat
 }
 
@@ -10165,11 +10495,17 @@ func (u *UpdateUserFullInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (u *UpdateUserFullInfo) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetUserFullInfo returns value of UserFullInfo field.
 func (u *UpdateUserFullInfo) GetUserFullInfo() (value UserFullInfo) {
+	if u == nil {
+		return
+	}
 	return u.UserFullInfo
 }
 
@@ -10355,11 +10691,17 @@ func (u *UpdateBasicGroupFullInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBasicGroupID returns value of BasicGroupID field.
 func (u *UpdateBasicGroupFullInfo) GetBasicGroupID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.BasicGroupID
 }
 
 // GetBasicGroupFullInfo returns value of BasicGroupFullInfo field.
 func (u *UpdateBasicGroupFullInfo) GetBasicGroupFullInfo() (value BasicGroupFullInfo) {
+	if u == nil {
+		return
+	}
 	return u.BasicGroupFullInfo
 }
 
@@ -10545,11 +10887,17 @@ func (u *UpdateSupergroupFullInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSupergroupID returns value of SupergroupID field.
 func (u *UpdateSupergroupFullInfo) GetSupergroupID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.SupergroupID
 }
 
 // GetSupergroupFullInfo returns value of SupergroupFullInfo field.
 func (u *UpdateSupergroupFullInfo) GetSupergroupFullInfo() (value SupergroupFullInfo) {
+	if u == nil {
+		return
+	}
 	return u.SupergroupFullInfo
 }
 
@@ -10747,11 +11095,17 @@ func (u *UpdateServiceNotification) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetType returns value of Type field.
 func (u *UpdateServiceNotification) GetType() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Type
 }
 
 // GetContent returns value of Content field.
 func (u *UpdateServiceNotification) GetContent() (value MessageContentClass) {
+	if u == nil {
+		return
+	}
 	return u.Content
 }
 
@@ -10912,6 +11266,9 @@ func (u *UpdateFile) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFile returns value of File field.
 func (u *UpdateFile) GetFile() (value File) {
+	if u == nil {
+		return
+	}
 	return u.File
 }
 
@@ -11149,21 +11506,33 @@ func (u *UpdateFileGenerationStart) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetGenerationID returns value of GenerationID field.
 func (u *UpdateFileGenerationStart) GetGenerationID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.GenerationID
 }
 
 // GetOriginalPath returns value of OriginalPath field.
 func (u *UpdateFileGenerationStart) GetOriginalPath() (value string) {
+	if u == nil {
+		return
+	}
 	return u.OriginalPath
 }
 
 // GetDestinationPath returns value of DestinationPath field.
 func (u *UpdateFileGenerationStart) GetDestinationPath() (value string) {
+	if u == nil {
+		return
+	}
 	return u.DestinationPath
 }
 
 // GetConversion returns value of Conversion field.
 func (u *UpdateFileGenerationStart) GetConversion() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Conversion
 }
 
@@ -11324,6 +11693,9 @@ func (u *UpdateFileGenerationStop) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetGenerationID returns value of GenerationID field.
 func (u *UpdateFileGenerationStop) GetGenerationID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.GenerationID
 }
 
@@ -11484,6 +11856,9 @@ func (u *UpdateCall) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCall returns value of Call field.
 func (u *UpdateCall) GetCall() (value Call) {
+	if u == nil {
+		return
+	}
 	return u.Call
 }
 
@@ -11644,6 +12019,9 @@ func (u *UpdateGroupCall) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetGroupCall returns value of GroupCall field.
 func (u *UpdateGroupCall) GetGroupCall() (value GroupCall) {
+	if u == nil {
+		return
+	}
 	return u.GroupCall
 }
 
@@ -11829,11 +12207,17 @@ func (u *UpdateGroupCallParticipant) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetGroupCallID returns value of GroupCallID field.
 func (u *UpdateGroupCallParticipant) GetGroupCallID() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.GroupCallID
 }
 
 // GetParticipant returns value of Participant field.
 func (u *UpdateGroupCallParticipant) GetParticipant() (value GroupCallParticipant) {
+	if u == nil {
+		return
+	}
 	return u.Participant
 }
 
@@ -12019,11 +12403,17 @@ func (u *UpdateNewCallSignalingData) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCallID returns value of CallID field.
 func (u *UpdateNewCallSignalingData) GetCallID() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.CallID
 }
 
 // GetData returns value of Data field.
 func (u *UpdateNewCallSignalingData) GetData() (value []byte) {
+	if u == nil {
+		return
+	}
 	return u.Data
 }
 
@@ -12219,11 +12609,17 @@ func (u *UpdateUserPrivacySettingRules) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetSetting returns value of Setting field.
 func (u *UpdateUserPrivacySettingRules) GetSetting() (value UserPrivacySettingClass) {
+	if u == nil {
+		return
+	}
 	return u.Setting
 }
 
 // GetRules returns value of Rules field.
 func (u *UpdateUserPrivacySettingRules) GetRules() (value UserPrivacySettingRules) {
+	if u == nil {
+		return
+	}
 	return u.Rules
 }
 
@@ -12444,16 +12840,25 @@ func (u *UpdateUnreadMessageCount) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatList returns value of ChatList field.
 func (u *UpdateUnreadMessageCount) GetChatList() (value ChatListClass) {
+	if u == nil {
+		return
+	}
 	return u.ChatList
 }
 
 // GetUnreadCount returns value of UnreadCount field.
 func (u *UpdateUnreadMessageCount) GetUnreadCount() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.UnreadCount
 }
 
 // GetUnreadUnmutedCount returns value of UnreadUnmutedCount field.
 func (u *UpdateUnreadMessageCount) GetUnreadUnmutedCount() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.UnreadUnmutedCount
 }
 
@@ -12749,31 +13154,49 @@ func (u *UpdateUnreadChatCount) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatList returns value of ChatList field.
 func (u *UpdateUnreadChatCount) GetChatList() (value ChatListClass) {
+	if u == nil {
+		return
+	}
 	return u.ChatList
 }
 
 // GetTotalCount returns value of TotalCount field.
 func (u *UpdateUnreadChatCount) GetTotalCount() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.TotalCount
 }
 
 // GetUnreadCount returns value of UnreadCount field.
 func (u *UpdateUnreadChatCount) GetUnreadCount() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.UnreadCount
 }
 
 // GetUnreadUnmutedCount returns value of UnreadUnmutedCount field.
 func (u *UpdateUnreadChatCount) GetUnreadUnmutedCount() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.UnreadUnmutedCount
 }
 
 // GetMarkedAsUnreadCount returns value of MarkedAsUnreadCount field.
 func (u *UpdateUnreadChatCount) GetMarkedAsUnreadCount() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.MarkedAsUnreadCount
 }
 
 // GetMarkedAsUnreadUnmutedCount returns value of MarkedAsUnreadUnmutedCount field.
 func (u *UpdateUnreadChatCount) GetMarkedAsUnreadUnmutedCount() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.MarkedAsUnreadUnmutedCount
 }
 
@@ -12969,11 +13392,17 @@ func (u *UpdateOption) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetName returns value of Name field.
 func (u *UpdateOption) GetName() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Name
 }
 
 // GetValue returns value of Value field.
 func (u *UpdateOption) GetValue() (value OptionValueClass) {
+	if u == nil {
+		return
+	}
 	return u.Value
 }
 
@@ -13134,6 +13563,9 @@ func (u *UpdateStickerSet) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetStickerSet returns value of StickerSet field.
 func (u *UpdateStickerSet) GetStickerSet() (value StickerSet) {
+	if u == nil {
+		return
+	}
 	return u.StickerSet
 }
 
@@ -13341,11 +13773,17 @@ func (u *UpdateInstalledStickerSets) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetIsMasks returns value of IsMasks field.
 func (u *UpdateInstalledStickerSets) GetIsMasks() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.IsMasks
 }
 
 // GetStickerSetIDs returns value of StickerSetIDs field.
 func (u *UpdateInstalledStickerSets) GetStickerSetIDs() (value []int64) {
+	if u == nil {
+		return
+	}
 	return u.StickerSetIDs
 }
 
@@ -13506,6 +13944,9 @@ func (u *UpdateTrendingStickerSets) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetStickerSets returns value of StickerSets field.
 func (u *UpdateTrendingStickerSets) GetStickerSets() (value StickerSets) {
+	if u == nil {
+		return
+	}
 	return u.StickerSets
 }
 
@@ -13714,11 +14155,17 @@ func (u *UpdateRecentStickers) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetIsAttached returns value of IsAttached field.
 func (u *UpdateRecentStickers) GetIsAttached() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.IsAttached
 }
 
 // GetStickerIDs returns value of StickerIDs field.
 func (u *UpdateRecentStickers) GetStickerIDs() (value []int32) {
+	if u == nil {
+		return
+	}
 	return u.StickerIDs
 }
 
@@ -13901,6 +14348,9 @@ func (u *UpdateFavoriteStickers) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetStickerIDs returns value of StickerIDs field.
 func (u *UpdateFavoriteStickers) GetStickerIDs() (value []int32) {
+	if u == nil {
+		return
+	}
 	return u.StickerIDs
 }
 
@@ -14083,6 +14533,9 @@ func (u *UpdateSavedAnimations) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAnimationIDs returns value of AnimationIDs field.
 func (u *UpdateSavedAnimations) GetAnimationIDs() (value []int32) {
+	if u == nil {
+		return
+	}
 	return u.AnimationIDs
 }
 
@@ -14268,11 +14721,17 @@ func (u *UpdateSelectedBackground) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetForDarkTheme returns value of ForDarkTheme field.
 func (u *UpdateSelectedBackground) GetForDarkTheme() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.ForDarkTheme
 }
 
 // GetBackground returns value of Background field.
 func (u *UpdateSelectedBackground) GetBackground() (value Background) {
+	if u == nil {
+		return
+	}
 	return u.Background
 }
 
@@ -14459,6 +14918,9 @@ func (u *UpdateChatThemes) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatThemes returns value of ChatThemes field.
 func (u *UpdateChatThemes) GetChatThemes() (value []ChatTheme) {
+	if u == nil {
+		return
+	}
 	return u.ChatThemes
 }
 
@@ -14695,16 +15157,25 @@ func (u *UpdateLanguagePackStrings) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLocalizationTarget returns value of LocalizationTarget field.
 func (u *UpdateLanguagePackStrings) GetLocalizationTarget() (value string) {
+	if u == nil {
+		return
+	}
 	return u.LocalizationTarget
 }
 
 // GetLanguagePackID returns value of LanguagePackID field.
 func (u *UpdateLanguagePackStrings) GetLanguagePackID() (value string) {
+	if u == nil {
+		return
+	}
 	return u.LanguagePackID
 }
 
 // GetStrings returns value of Strings field.
 func (u *UpdateLanguagePackStrings) GetStrings() (value []LanguagePackString) {
+	if u == nil {
+		return
+	}
 	return u.Strings
 }
 
@@ -14875,6 +15346,9 @@ func (u *UpdateConnectionState) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetState returns value of State field.
 func (u *UpdateConnectionState) GetState() (value ConnectionStateClass) {
+	if u == nil {
+		return
+	}
 	return u.State
 }
 
@@ -15060,11 +15534,17 @@ func (u *UpdateTermsOfService) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTermsOfServiceID returns value of TermsOfServiceID field.
 func (u *UpdateTermsOfService) GetTermsOfServiceID() (value string) {
+	if u == nil {
+		return
+	}
 	return u.TermsOfServiceID
 }
 
 // GetTermsOfService returns value of TermsOfService field.
 func (u *UpdateTermsOfService) GetTermsOfService() (value TermsOfService) {
+	if u == nil {
+		return
+	}
 	return u.TermsOfService
 }
 
@@ -15251,6 +15731,9 @@ func (u *UpdateUsersNearby) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUsersNearby returns value of UsersNearby field.
 func (u *UpdateUsersNearby) GetUsersNearby() (value []ChatNearby) {
+	if u == nil {
+		return
+	}
 	return u.UsersNearby
 }
 
@@ -15433,6 +15916,9 @@ func (u *UpdateDiceEmojis) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetEmojis returns value of Emojis field.
 func (u *UpdateDiceEmojis) GetEmojis() (value []string) {
+	if u == nil {
+		return
+	}
 	return u.Emojis
 }
 
@@ -15643,16 +16129,25 @@ func (u *UpdateAnimatedEmojiMessageClicked) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateAnimatedEmojiMessageClicked) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (u *UpdateAnimatedEmojiMessageClicked) GetMessageID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.MessageID
 }
 
 // GetSticker returns value of Sticker field.
 func (u *UpdateAnimatedEmojiMessageClicked) GetSticker() (value Sticker) {
+	if u == nil {
+		return
+	}
 	return u.Sticker
 }
 
@@ -15860,11 +16355,17 @@ func (u *UpdateAnimationSearchParameters) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetProvider returns value of Provider field.
 func (u *UpdateAnimationSearchParameters) GetProvider() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Provider
 }
 
 // GetEmojis returns value of Emojis field.
 func (u *UpdateAnimationSearchParameters) GetEmojis() (value []string) {
+	if u == nil {
+		return
+	}
 	return u.Emojis
 }
 
@@ -16114,11 +16615,17 @@ func (u *UpdateSuggestedActions) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAddedActions returns value of AddedActions field.
 func (u *UpdateSuggestedActions) GetAddedActions() (value []SuggestedActionClass) {
+	if u == nil {
+		return
+	}
 	return u.AddedActions
 }
 
 // GetRemovedActions returns value of RemovedActions field.
 func (u *UpdateSuggestedActions) GetRemovedActions() (value []SuggestedActionClass) {
+	if u == nil {
+		return
+	}
 	return u.RemovedActions
 }
 
@@ -16414,31 +16921,49 @@ func (u *UpdateNewInlineQuery) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (u *UpdateNewInlineQuery) GetID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 
 // GetSenderUserID returns value of SenderUserID field.
 func (u *UpdateNewInlineQuery) GetSenderUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.SenderUserID
 }
 
 // GetUserLocation returns value of UserLocation field.
 func (u *UpdateNewInlineQuery) GetUserLocation() (value Location) {
+	if u == nil {
+		return
+	}
 	return u.UserLocation
 }
 
 // GetChatType returns value of ChatType field.
 func (u *UpdateNewInlineQuery) GetChatType() (value ChatTypeClass) {
+	if u == nil {
+		return
+	}
 	return u.ChatType
 }
 
 // GetQuery returns value of Query field.
 func (u *UpdateNewInlineQuery) GetQuery() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Query
 }
 
 // GetOffset returns value of Offset field.
 func (u *UpdateNewInlineQuery) GetOffset() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Offset
 }
 
@@ -16699,26 +17224,41 @@ func (u *UpdateNewChosenInlineResult) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSenderUserID returns value of SenderUserID field.
 func (u *UpdateNewChosenInlineResult) GetSenderUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.SenderUserID
 }
 
 // GetUserLocation returns value of UserLocation field.
 func (u *UpdateNewChosenInlineResult) GetUserLocation() (value Location) {
+	if u == nil {
+		return
+	}
 	return u.UserLocation
 }
 
 // GetQuery returns value of Query field.
 func (u *UpdateNewChosenInlineResult) GetQuery() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Query
 }
 
 // GetResultID returns value of ResultID field.
 func (u *UpdateNewChosenInlineResult) GetResultID() (value string) {
+	if u == nil {
+		return
+	}
 	return u.ResultID
 }
 
 // GetInlineMessageID returns value of InlineMessageID field.
 func (u *UpdateNewChosenInlineResult) GetInlineMessageID() (value string) {
+	if u == nil {
+		return
+	}
 	return u.InlineMessageID
 }
 
@@ -17014,31 +17554,49 @@ func (u *UpdateNewCallbackQuery) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (u *UpdateNewCallbackQuery) GetID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 
 // GetSenderUserID returns value of SenderUserID field.
 func (u *UpdateNewCallbackQuery) GetSenderUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.SenderUserID
 }
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateNewCallbackQuery) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (u *UpdateNewCallbackQuery) GetMessageID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.MessageID
 }
 
 // GetChatInstance returns value of ChatInstance field.
 func (u *UpdateNewCallbackQuery) GetChatInstance() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatInstance
 }
 
 // GetPayload returns value of Payload field.
 func (u *UpdateNewCallbackQuery) GetPayload() (value CallbackQueryPayloadClass) {
+	if u == nil {
+		return
+	}
 	return u.Payload
 }
 
@@ -17309,26 +17867,41 @@ func (u *UpdateNewInlineCallbackQuery) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (u *UpdateNewInlineCallbackQuery) GetID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 
 // GetSenderUserID returns value of SenderUserID field.
 func (u *UpdateNewInlineCallbackQuery) GetSenderUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.SenderUserID
 }
 
 // GetInlineMessageID returns value of InlineMessageID field.
 func (u *UpdateNewInlineCallbackQuery) GetInlineMessageID() (value string) {
+	if u == nil {
+		return
+	}
 	return u.InlineMessageID
 }
 
 // GetChatInstance returns value of ChatInstance field.
 func (u *UpdateNewInlineCallbackQuery) GetChatInstance() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatInstance
 }
 
 // GetPayload returns value of Payload field.
 func (u *UpdateNewInlineCallbackQuery) GetPayload() (value CallbackQueryPayloadClass) {
+	if u == nil {
+		return
+	}
 	return u.Payload
 }
 
@@ -17564,21 +18137,33 @@ func (u *UpdateNewShippingQuery) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (u *UpdateNewShippingQuery) GetID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 
 // GetSenderUserID returns value of SenderUserID field.
 func (u *UpdateNewShippingQuery) GetSenderUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.SenderUserID
 }
 
 // GetInvoicePayload returns value of InvoicePayload field.
 func (u *UpdateNewShippingQuery) GetInvoicePayload() (value string) {
+	if u == nil {
+		return
+	}
 	return u.InvoicePayload
 }
 
 // GetShippingAddress returns value of ShippingAddress field.
 func (u *UpdateNewShippingQuery) GetShippingAddress() (value Address) {
+	if u == nil {
+		return
+	}
 	return u.ShippingAddress
 }
 
@@ -17889,36 +18474,57 @@ func (u *UpdateNewPreCheckoutQuery) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (u *UpdateNewPreCheckoutQuery) GetID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 
 // GetSenderUserID returns value of SenderUserID field.
 func (u *UpdateNewPreCheckoutQuery) GetSenderUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.SenderUserID
 }
 
 // GetCurrency returns value of Currency field.
 func (u *UpdateNewPreCheckoutQuery) GetCurrency() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Currency
 }
 
 // GetTotalAmount returns value of TotalAmount field.
 func (u *UpdateNewPreCheckoutQuery) GetTotalAmount() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.TotalAmount
 }
 
 // GetInvoicePayload returns value of InvoicePayload field.
 func (u *UpdateNewPreCheckoutQuery) GetInvoicePayload() (value []byte) {
+	if u == nil {
+		return
+	}
 	return u.InvoicePayload
 }
 
 // GetShippingOptionID returns value of ShippingOptionID field.
 func (u *UpdateNewPreCheckoutQuery) GetShippingOptionID() (value string) {
+	if u == nil {
+		return
+	}
 	return u.ShippingOptionID
 }
 
 // GetOrderInfo returns value of OrderInfo field.
 func (u *UpdateNewPreCheckoutQuery) GetOrderInfo() (value OrderInfo) {
+	if u == nil {
+		return
+	}
 	return u.OrderInfo
 }
 
@@ -18079,6 +18685,9 @@ func (u *UpdateNewCustomEvent) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetEvent returns value of Event field.
 func (u *UpdateNewCustomEvent) GetEvent() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Event
 }
 
@@ -18289,16 +18898,25 @@ func (u *UpdateNewCustomQuery) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (u *UpdateNewCustomQuery) GetID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 
 // GetData returns value of Data field.
 func (u *UpdateNewCustomQuery) GetData() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Data
 }
 
 // GetTimeout returns value of Timeout field.
 func (u *UpdateNewCustomQuery) GetTimeout() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.Timeout
 }
 
@@ -18459,6 +19077,9 @@ func (u *UpdatePoll) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPoll returns value of Poll field.
 func (u *UpdatePoll) GetPoll() (value Poll) {
+	if u == nil {
+		return
+	}
 	return u.Poll
 }
 
@@ -18691,16 +19312,25 @@ func (u *UpdatePollAnswer) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPollID returns value of PollID field.
 func (u *UpdatePollAnswer) GetPollID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.PollID
 }
 
 // GetUserID returns value of UserID field.
 func (u *UpdatePollAnswer) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetOptionIDs returns value of OptionIDs field.
 func (u *UpdatePollAnswer) GetOptionIDs() (value []int32) {
+	if u == nil {
+		return
+	}
 	return u.OptionIDs
 }
 
@@ -18986,31 +19616,49 @@ func (u *UpdateChatMember) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatMember) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetActorUserID returns value of ActorUserID field.
 func (u *UpdateChatMember) GetActorUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ActorUserID
 }
 
 // GetDate returns value of Date field.
 func (u *UpdateChatMember) GetDate() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.Date
 }
 
 // GetInviteLink returns value of InviteLink field.
 func (u *UpdateChatMember) GetInviteLink() (value ChatInviteLink) {
+	if u == nil {
+		return
+	}
 	return u.InviteLink
 }
 
 // GetOldChatMember returns value of OldChatMember field.
 func (u *UpdateChatMember) GetOldChatMember() (value ChatMember) {
+	if u == nil {
+		return
+	}
 	return u.OldChatMember
 }
 
 // GetNewChatMember returns value of NewChatMember field.
 func (u *UpdateChatMember) GetNewChatMember() (value ChatMember) {
+	if u == nil {
+		return
+	}
 	return u.NewChatMember
 }
 
@@ -19221,16 +19869,25 @@ func (u *UpdateNewChatJoinRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateNewChatJoinRequest) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetRequest returns value of Request field.
 func (u *UpdateNewChatJoinRequest) GetRequest() (value ChatJoinRequest) {
+	if u == nil {
+		return
+	}
 	return u.Request
 }
 
 // GetInviteLink returns value of InviteLink field.
 func (u *UpdateNewChatJoinRequest) GetInviteLink() (value ChatInviteLink) {
+	if u == nil {
+		return
+	}
 	return u.InviteLink
 }
 

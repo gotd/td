@@ -183,6 +183,9 @@ func (r *RemoveRecentHashtagRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetHashtag returns value of Hashtag field.
 func (r *RemoveRecentHashtagRequest) GetHashtag() (value string) {
+	if r == nil {
+		return
+	}
 	return r.Hashtag
 }
 

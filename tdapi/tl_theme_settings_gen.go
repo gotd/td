@@ -293,25 +293,40 @@ func (t *ThemeSettings) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAccentColor returns value of AccentColor field.
 func (t *ThemeSettings) GetAccentColor() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.AccentColor
 }
 
 // GetBackground returns value of Background field.
 func (t *ThemeSettings) GetBackground() (value Background) {
+	if t == nil {
+		return
+	}
 	return t.Background
 }
 
 // GetOutgoingMessageFill returns value of OutgoingMessageFill field.
 func (t *ThemeSettings) GetOutgoingMessageFill() (value BackgroundFillClass) {
+	if t == nil {
+		return
+	}
 	return t.OutgoingMessageFill
 }
 
 // GetAnimateOutgoingMessageFill returns value of AnimateOutgoingMessageFill field.
 func (t *ThemeSettings) GetAnimateOutgoingMessageFill() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.AnimateOutgoingMessageFill
 }
 
 // GetOutgoingMessageAccentColor returns value of OutgoingMessageAccentColor field.
 func (t *ThemeSettings) GetOutgoingMessageAccentColor() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.OutgoingMessageAccentColor
 }

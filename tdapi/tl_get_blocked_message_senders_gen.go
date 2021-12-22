@@ -208,11 +208,17 @@ func (g *GetBlockedMessageSendersRequest) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetOffset returns value of Offset field.
 func (g *GetBlockedMessageSendersRequest) GetOffset() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 
 // GetLimit returns value of Limit field.
 func (g *GetBlockedMessageSendersRequest) GetLimit() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

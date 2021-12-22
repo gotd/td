@@ -198,16 +198,25 @@ func (m *MessageUserVote) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (m *MessageUserVote) GetUserID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.UserID
 }
 
 // GetOption returns value of Option field.
 func (m *MessageUserVote) GetOption() (value []byte) {
+	if m == nil {
+		return
+	}
 	return m.Option
 }
 
 // GetDate returns value of Date field.
 func (m *MessageUserVote) GetDate() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Date
 }
 
@@ -363,11 +372,17 @@ func (m *MessageUserVoteInputOption) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (m *MessageUserVoteInputOption) GetUserID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.UserID
 }
 
 // GetDate returns value of Date field.
 func (m *MessageUserVoteInputOption) GetDate() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Date
 }
 
@@ -551,16 +566,25 @@ func (m *MessageUserVoteMultiple) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (m *MessageUserVoteMultiple) GetUserID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.UserID
 }
 
 // GetOptions returns value of Options field.
 func (m *MessageUserVoteMultiple) GetOptions() (value [][]byte) {
+	if m == nil {
+		return
+	}
 	return m.Options
 }
 
 // GetDate returns value of Date field.
 func (m *MessageUserVoteMultiple) GetDate() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Date
 }
 

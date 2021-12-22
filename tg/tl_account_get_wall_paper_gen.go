@@ -160,6 +160,9 @@ func (g *AccountGetWallPaperRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetWallpaper returns value of Wallpaper field.
 func (g *AccountGetWallPaperRequest) GetWallpaper() (value InputWallPaperClass) {
+	if g == nil {
+		return
+	}
 	return g.Wallpaper
 }
 

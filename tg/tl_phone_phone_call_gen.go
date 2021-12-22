@@ -197,11 +197,17 @@ func (p *PhonePhoneCall) DecodeBare(b *bin.Buffer) error {
 
 // GetPhoneCall returns value of PhoneCall field.
 func (p *PhonePhoneCall) GetPhoneCall() (value PhoneCallClass) {
+	if p == nil {
+		return
+	}
 	return p.PhoneCall
 }
 
 // GetUsers returns value of Users field.
 func (p *PhonePhoneCall) GetUsers() (value []UserClass) {
+	if p == nil {
+		return
+	}
 	return p.Users
 }
 

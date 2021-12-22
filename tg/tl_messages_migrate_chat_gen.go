@@ -158,6 +158,9 @@ func (m *MessagesMigrateChatRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (m *MessagesMigrateChatRequest) GetChatID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.ChatID
 }
 

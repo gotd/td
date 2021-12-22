@@ -588,85 +588,136 @@ func (s *Session) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (s *Session) GetID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ID
 }
 
 // GetIsCurrent returns value of IsCurrent field.
 func (s *Session) GetIsCurrent() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsCurrent
 }
 
 // GetIsPasswordPending returns value of IsPasswordPending field.
 func (s *Session) GetIsPasswordPending() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsPasswordPending
 }
 
 // GetCanAcceptSecretChats returns value of CanAcceptSecretChats field.
 func (s *Session) GetCanAcceptSecretChats() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.CanAcceptSecretChats
 }
 
 // GetCanAcceptCalls returns value of CanAcceptCalls field.
 func (s *Session) GetCanAcceptCalls() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.CanAcceptCalls
 }
 
 // GetAPIID returns value of APIID field.
 func (s *Session) GetAPIID() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.APIID
 }
 
 // GetApplicationName returns value of ApplicationName field.
 func (s *Session) GetApplicationName() (value string) {
+	if s == nil {
+		return
+	}
 	return s.ApplicationName
 }
 
 // GetApplicationVersion returns value of ApplicationVersion field.
 func (s *Session) GetApplicationVersion() (value string) {
+	if s == nil {
+		return
+	}
 	return s.ApplicationVersion
 }
 
 // GetIsOfficialApplication returns value of IsOfficialApplication field.
 func (s *Session) GetIsOfficialApplication() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsOfficialApplication
 }
 
 // GetDeviceModel returns value of DeviceModel field.
 func (s *Session) GetDeviceModel() (value string) {
+	if s == nil {
+		return
+	}
 	return s.DeviceModel
 }
 
 // GetPlatform returns value of Platform field.
 func (s *Session) GetPlatform() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Platform
 }
 
 // GetSystemVersion returns value of SystemVersion field.
 func (s *Session) GetSystemVersion() (value string) {
+	if s == nil {
+		return
+	}
 	return s.SystemVersion
 }
 
 // GetLogInDate returns value of LogInDate field.
 func (s *Session) GetLogInDate() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.LogInDate
 }
 
 // GetLastActiveDate returns value of LastActiveDate field.
 func (s *Session) GetLastActiveDate() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.LastActiveDate
 }
 
 // GetIP returns value of IP field.
 func (s *Session) GetIP() (value string) {
+	if s == nil {
+		return
+	}
 	return s.IP
 }
 
 // GetCountry returns value of Country field.
 func (s *Session) GetCountry() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Country
 }
 
 // GetRegion returns value of Region field.
 func (s *Session) GetRegion() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Region
 }

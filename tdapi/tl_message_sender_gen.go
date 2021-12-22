@@ -188,6 +188,9 @@ func (m *MessageSenderUser) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (m *MessageSenderUser) GetUserID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.UserID
 }
 
@@ -348,6 +351,9 @@ func (m *MessageSenderChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (m *MessageSenderChat) GetChatID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.ChatID
 }
 

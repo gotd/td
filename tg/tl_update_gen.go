@@ -206,16 +206,25 @@ func (u *UpdateNewMessage) DecodeBare(b *bin.Buffer) error {
 
 // GetMessage returns value of Message field.
 func (u *UpdateNewMessage) GetMessage() (value MessageClass) {
+	if u == nil {
+		return
+	}
 	return u.Message
 }
 
 // GetPts returns value of Pts field.
 func (u *UpdateNewMessage) GetPts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Pts
 }
 
 // GetPtsCount returns value of PtsCount field.
 func (u *UpdateNewMessage) GetPtsCount() (value int) {
+	if u == nil {
+		return
+	}
 	return u.PtsCount
 }
 
@@ -370,11 +379,17 @@ func (u *UpdateMessageID) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (u *UpdateMessageID) GetID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 
 // GetRandomID returns value of RandomID field.
 func (u *UpdateMessageID) GetRandomID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.RandomID
 }
 
@@ -561,16 +576,25 @@ func (u *UpdateDeleteMessages) DecodeBare(b *bin.Buffer) error {
 
 // GetMessages returns value of Messages field.
 func (u *UpdateDeleteMessages) GetMessages() (value []int) {
+	if u == nil {
+		return
+	}
 	return u.Messages
 }
 
 // GetPts returns value of Pts field.
 func (u *UpdateDeleteMessages) GetPts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Pts
 }
 
 // GetPtsCount returns value of PtsCount field.
 func (u *UpdateDeleteMessages) GetPtsCount() (value int) {
+	if u == nil {
+		return
+	}
 	return u.PtsCount
 }
 
@@ -732,11 +756,17 @@ func (u *UpdateUserTyping) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (u *UpdateUserTyping) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetAction returns value of Action field.
 func (u *UpdateUserTyping) GetAction() (value SendMessageActionClass) {
+	if u == nil {
+		return
+	}
 	return u.Action
 }
 
@@ -922,16 +952,25 @@ func (u *UpdateChatUserTyping) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatUserTyping) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetFromID returns value of FromID field.
 func (u *UpdateChatUserTyping) GetFromID() (value PeerClass) {
+	if u == nil {
+		return
+	}
 	return u.FromID
 }
 
 // GetAction returns value of Action field.
 func (u *UpdateChatUserTyping) GetAction() (value SendMessageActionClass) {
+	if u == nil {
+		return
+	}
 	return u.Action
 }
 
@@ -1069,6 +1108,9 @@ func (u *UpdateChatParticipants) DecodeBare(b *bin.Buffer) error {
 
 // GetParticipants returns value of Participants field.
 func (u *UpdateChatParticipants) GetParticipants() (value ChatParticipantsClass) {
+	if u == nil {
+		return
+	}
 	return u.Participants
 }
 
@@ -1225,11 +1267,17 @@ func (u *UpdateUserStatus) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (u *UpdateUserStatus) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetStatus returns value of Status field.
 func (u *UpdateUserStatus) GetStatus() (value UserStatusClass) {
+	if u == nil {
+		return
+	}
 	return u.Status
 }
 
@@ -1430,21 +1478,33 @@ func (u *UpdateUserName) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (u *UpdateUserName) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetFirstName returns value of FirstName field.
 func (u *UpdateUserName) GetFirstName() (value string) {
+	if u == nil {
+		return
+	}
 	return u.FirstName
 }
 
 // GetLastName returns value of LastName field.
 func (u *UpdateUserName) GetLastName() (value string) {
+	if u == nil {
+		return
+	}
 	return u.LastName
 }
 
 // GetUsername returns value of Username field.
 func (u *UpdateUserName) GetUsername() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Username
 }
 
@@ -1642,21 +1702,33 @@ func (u *UpdateUserPhoto) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (u *UpdateUserPhoto) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetDate returns value of Date field.
 func (u *UpdateUserPhoto) GetDate() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Date
 }
 
 // GetPhoto returns value of Photo field.
 func (u *UpdateUserPhoto) GetPhoto() (value UserProfilePhotoClass) {
+	if u == nil {
+		return
+	}
 	return u.Photo
 }
 
 // GetPrevious returns value of Previous field.
 func (u *UpdateUserPhoto) GetPrevious() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Previous
 }
 
@@ -1816,11 +1888,17 @@ func (u *UpdateNewEncryptedMessage) DecodeBare(b *bin.Buffer) error {
 
 // GetMessage returns value of Message field.
 func (u *UpdateNewEncryptedMessage) GetMessage() (value EncryptedMessageClass) {
+	if u == nil {
+		return
+	}
 	return u.Message
 }
 
 // GetQts returns value of Qts field.
 func (u *UpdateNewEncryptedMessage) GetQts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Qts
 }
 
@@ -1955,6 +2033,9 @@ func (u *UpdateEncryptedChatTyping) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateEncryptedChatTyping) GetChatID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
@@ -2111,11 +2192,17 @@ func (u *UpdateEncryption) DecodeBare(b *bin.Buffer) error {
 
 // GetChat returns value of Chat field.
 func (u *UpdateEncryption) GetChat() (value EncryptedChatClass) {
+	if u == nil {
+		return
+	}
 	return u.Chat
 }
 
 // GetDate returns value of Date field.
 func (u *UpdateEncryption) GetDate() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Date
 }
 
@@ -2286,16 +2373,25 @@ func (u *UpdateEncryptedMessagesRead) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateEncryptedMessagesRead) GetChatID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetMaxDate returns value of MaxDate field.
 func (u *UpdateEncryptedMessagesRead) GetMaxDate() (value int) {
+	if u == nil {
+		return
+	}
 	return u.MaxDate
 }
 
 // GetDate returns value of Date field.
 func (u *UpdateEncryptedMessagesRead) GetDate() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Date
 }
 
@@ -2504,26 +2600,41 @@ func (u *UpdateChatParticipantAdd) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatParticipantAdd) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetUserID returns value of UserID field.
 func (u *UpdateChatParticipantAdd) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetInviterID returns value of InviterID field.
 func (u *UpdateChatParticipantAdd) GetInviterID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.InviterID
 }
 
 // GetDate returns value of Date field.
 func (u *UpdateChatParticipantAdd) GetDate() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Date
 }
 
 // GetVersion returns value of Version field.
 func (u *UpdateChatParticipantAdd) GetVersion() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Version
 }
 
@@ -2694,16 +2805,25 @@ func (u *UpdateChatParticipantDelete) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatParticipantDelete) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetUserID returns value of UserID field.
 func (u *UpdateChatParticipantDelete) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetVersion returns value of Version field.
 func (u *UpdateChatParticipantDelete) GetVersion() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Version
 }
 
@@ -2851,6 +2971,9 @@ func (u *UpdateDCOptions) DecodeBare(b *bin.Buffer) error {
 
 // GetDCOptions returns value of DCOptions field.
 func (u *UpdateDCOptions) GetDCOptions() (value []DCOption) {
+	if u == nil {
+		return
+	}
 	return u.DCOptions
 }
 
@@ -3007,11 +3130,17 @@ func (u *UpdateNotifySettings) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (u *UpdateNotifySettings) GetPeer() (value NotifyPeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
 // GetNotifySettings returns value of NotifySettings field.
 func (u *UpdateNotifySettings) GetNotifySettings() (value PeerNotifySettings) {
+	if u == nil {
+		return
+	}
 	return u.NotifySettings
 }
 
@@ -3317,6 +3446,9 @@ func (u *UpdateServiceNotification) SetPopup(value bool) {
 
 // GetPopup returns value of Popup conditional field.
 func (u *UpdateServiceNotification) GetPopup() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(0)
 }
 
@@ -3329,6 +3461,9 @@ func (u *UpdateServiceNotification) SetInboxDate(value int) {
 // GetInboxDate returns value of InboxDate conditional field and
 // boolean which is true if field was set.
 func (u *UpdateServiceNotification) GetInboxDate() (value int, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(1) {
 		return value, false
 	}
@@ -3337,21 +3472,33 @@ func (u *UpdateServiceNotification) GetInboxDate() (value int, ok bool) {
 
 // GetType returns value of Type field.
 func (u *UpdateServiceNotification) GetType() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Type
 }
 
 // GetMessage returns value of Message field.
 func (u *UpdateServiceNotification) GetMessage() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Message
 }
 
 // GetMedia returns value of Media field.
 func (u *UpdateServiceNotification) GetMedia() (value MessageMediaClass) {
+	if u == nil {
+		return
+	}
 	return u.Media
 }
 
 // GetEntities returns value of Entities field.
 func (u *UpdateServiceNotification) GetEntities() (value []MessageEntityClass) {
+	if u == nil {
+		return
+	}
 	return u.Entities
 }
 
@@ -3531,11 +3678,17 @@ func (u *UpdatePrivacy) DecodeBare(b *bin.Buffer) error {
 
 // GetKey returns value of Key field.
 func (u *UpdatePrivacy) GetKey() (value PrivacyKeyClass) {
+	if u == nil {
+		return
+	}
 	return u.Key
 }
 
 // GetRules returns value of Rules field.
 func (u *UpdatePrivacy) GetRules() (value []PrivacyRuleClass) {
+	if u == nil {
+		return
+	}
 	return u.Rules
 }
 
@@ -3692,11 +3845,17 @@ func (u *UpdateUserPhone) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (u *UpdateUserPhone) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetPhone returns value of Phone field.
 func (u *UpdateUserPhone) GetPhone() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Phone
 }
 
@@ -3977,6 +4136,9 @@ func (u *UpdateReadHistoryInbox) SetFolderID(value int) {
 // GetFolderID returns value of FolderID conditional field and
 // boolean which is true if field was set.
 func (u *UpdateReadHistoryInbox) GetFolderID() (value int, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -3985,26 +4147,41 @@ func (u *UpdateReadHistoryInbox) GetFolderID() (value int, ok bool) {
 
 // GetPeer returns value of Peer field.
 func (u *UpdateReadHistoryInbox) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
 // GetMaxID returns value of MaxID field.
 func (u *UpdateReadHistoryInbox) GetMaxID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.MaxID
 }
 
 // GetStillUnreadCount returns value of StillUnreadCount field.
 func (u *UpdateReadHistoryInbox) GetStillUnreadCount() (value int) {
+	if u == nil {
+		return
+	}
 	return u.StillUnreadCount
 }
 
 // GetPts returns value of Pts field.
 func (u *UpdateReadHistoryInbox) GetPts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Pts
 }
 
 // GetPtsCount returns value of PtsCount field.
 func (u *UpdateReadHistoryInbox) GetPtsCount() (value int) {
+	if u == nil {
+		return
+	}
 	return u.PtsCount
 }
 
@@ -4205,21 +4382,33 @@ func (u *UpdateReadHistoryOutbox) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (u *UpdateReadHistoryOutbox) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
 // GetMaxID returns value of MaxID field.
 func (u *UpdateReadHistoryOutbox) GetMaxID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.MaxID
 }
 
 // GetPts returns value of Pts field.
 func (u *UpdateReadHistoryOutbox) GetPts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Pts
 }
 
 // GetPtsCount returns value of PtsCount field.
 func (u *UpdateReadHistoryOutbox) GetPtsCount() (value int) {
+	if u == nil {
+		return
+	}
 	return u.PtsCount
 }
 
@@ -4404,16 +4593,25 @@ func (u *UpdateWebPage) DecodeBare(b *bin.Buffer) error {
 
 // GetWebpage returns value of Webpage field.
 func (u *UpdateWebPage) GetWebpage() (value WebPageClass) {
+	if u == nil {
+		return
+	}
 	return u.Webpage
 }
 
 // GetPts returns value of Pts field.
 func (u *UpdateWebPage) GetPts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Pts
 }
 
 // GetPtsCount returns value of PtsCount field.
 func (u *UpdateWebPage) GetPtsCount() (value int) {
+	if u == nil {
+		return
+	}
 	return u.PtsCount
 }
 
@@ -4606,16 +4804,25 @@ func (u *UpdateReadMessagesContents) DecodeBare(b *bin.Buffer) error {
 
 // GetMessages returns value of Messages field.
 func (u *UpdateReadMessagesContents) GetMessages() (value []int) {
+	if u == nil {
+		return
+	}
 	return u.Messages
 }
 
 // GetPts returns value of Pts field.
 func (u *UpdateReadMessagesContents) GetPts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Pts
 }
 
 // GetPtsCount returns value of PtsCount field.
 func (u *UpdateReadMessagesContents) GetPtsCount() (value int) {
+	if u == nil {
+		return
+	}
 	return u.PtsCount
 }
 
@@ -4804,6 +5011,9 @@ func (u *UpdateChannelTooLong) DecodeBare(b *bin.Buffer) error {
 
 // GetChannelID returns value of ChannelID field.
 func (u *UpdateChannelTooLong) GetChannelID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChannelID
 }
 
@@ -4816,6 +5026,9 @@ func (u *UpdateChannelTooLong) SetPts(value int) {
 // GetPts returns value of Pts conditional field and
 // boolean which is true if field was set.
 func (u *UpdateChannelTooLong) GetPts() (value int, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -4951,6 +5164,9 @@ func (u *UpdateChannel) DecodeBare(b *bin.Buffer) error {
 
 // GetChannelID returns value of ChannelID field.
 func (u *UpdateChannel) GetChannelID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChannelID
 }
 
@@ -5135,16 +5351,25 @@ func (u *UpdateNewChannelMessage) DecodeBare(b *bin.Buffer) error {
 
 // GetMessage returns value of Message field.
 func (u *UpdateNewChannelMessage) GetMessage() (value MessageClass) {
+	if u == nil {
+		return
+	}
 	return u.Message
 }
 
 // GetPts returns value of Pts field.
 func (u *UpdateNewChannelMessage) GetPts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Pts
 }
 
 // GetPtsCount returns value of PtsCount field.
 func (u *UpdateNewChannelMessage) GetPtsCount() (value int) {
+	if u == nil {
+		return
+	}
 	return u.PtsCount
 }
 
@@ -5401,6 +5626,9 @@ func (u *UpdateReadChannelInbox) SetFolderID(value int) {
 // GetFolderID returns value of FolderID conditional field and
 // boolean which is true if field was set.
 func (u *UpdateReadChannelInbox) GetFolderID() (value int, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -5409,21 +5637,33 @@ func (u *UpdateReadChannelInbox) GetFolderID() (value int, ok bool) {
 
 // GetChannelID returns value of ChannelID field.
 func (u *UpdateReadChannelInbox) GetChannelID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChannelID
 }
 
 // GetMaxID returns value of MaxID field.
 func (u *UpdateReadChannelInbox) GetMaxID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.MaxID
 }
 
 // GetStillUnreadCount returns value of StillUnreadCount field.
 func (u *UpdateReadChannelInbox) GetStillUnreadCount() (value int) {
+	if u == nil {
+		return
+	}
 	return u.StillUnreadCount
 }
 
 // GetPts returns value of Pts field.
 func (u *UpdateReadChannelInbox) GetPts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Pts
 }
 
@@ -5635,21 +5875,33 @@ func (u *UpdateDeleteChannelMessages) DecodeBare(b *bin.Buffer) error {
 
 // GetChannelID returns value of ChannelID field.
 func (u *UpdateDeleteChannelMessages) GetChannelID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChannelID
 }
 
 // GetMessages returns value of Messages field.
 func (u *UpdateDeleteChannelMessages) GetMessages() (value []int) {
+	if u == nil {
+		return
+	}
 	return u.Messages
 }
 
 // GetPts returns value of Pts field.
 func (u *UpdateDeleteChannelMessages) GetPts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Pts
 }
 
 // GetPtsCount returns value of PtsCount field.
 func (u *UpdateDeleteChannelMessages) GetPtsCount() (value int) {
+	if u == nil {
+		return
+	}
 	return u.PtsCount
 }
 
@@ -5820,16 +6072,25 @@ func (u *UpdateChannelMessageViews) DecodeBare(b *bin.Buffer) error {
 
 // GetChannelID returns value of ChannelID field.
 func (u *UpdateChannelMessageViews) GetChannelID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChannelID
 }
 
 // GetID returns value of ID field.
 func (u *UpdateChannelMessageViews) GetID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 
 // GetViews returns value of Views field.
 func (u *UpdateChannelMessageViews) GetViews() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Views
 }
 
@@ -6022,21 +6283,33 @@ func (u *UpdateChatParticipantAdmin) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatParticipantAdmin) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetUserID returns value of UserID field.
 func (u *UpdateChatParticipantAdmin) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetIsAdmin returns value of IsAdmin field.
 func (u *UpdateChatParticipantAdmin) GetIsAdmin() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.IsAdmin
 }
 
 // GetVersion returns value of Version field.
 func (u *UpdateChatParticipantAdmin) GetVersion() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Version
 }
 
@@ -6174,6 +6447,9 @@ func (u *UpdateNewStickerSet) DecodeBare(b *bin.Buffer) error {
 
 // GetStickerset returns value of Stickerset field.
 func (u *UpdateNewStickerSet) GetStickerset() (value MessagesStickerSetClass) {
+	if u == nil {
+		return
+	}
 	return u.Stickerset
 }
 
@@ -6367,11 +6643,17 @@ func (u *UpdateStickerSetsOrder) SetMasks(value bool) {
 
 // GetMasks returns value of Masks conditional field.
 func (u *UpdateStickerSetsOrder) GetMasks() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(0)
 }
 
 // GetOrder returns value of Order field.
 func (u *UpdateStickerSetsOrder) GetOrder() (value []int64) {
+	if u == nil {
+		return
+	}
 	return u.Order
 }
 
@@ -6864,16 +7146,25 @@ func (u *UpdateBotInlineQuery) DecodeBare(b *bin.Buffer) error {
 
 // GetQueryID returns value of QueryID field.
 func (u *UpdateBotInlineQuery) GetQueryID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.QueryID
 }
 
 // GetUserID returns value of UserID field.
 func (u *UpdateBotInlineQuery) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetQuery returns value of Query field.
 func (u *UpdateBotInlineQuery) GetQuery() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Query
 }
 
@@ -6886,6 +7177,9 @@ func (u *UpdateBotInlineQuery) SetGeo(value GeoPointClass) {
 // GetGeo returns value of Geo conditional field and
 // boolean which is true if field was set.
 func (u *UpdateBotInlineQuery) GetGeo() (value GeoPointClass, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -6901,6 +7195,9 @@ func (u *UpdateBotInlineQuery) SetPeerType(value InlineQueryPeerTypeClass) {
 // GetPeerType returns value of PeerType conditional field and
 // boolean which is true if field was set.
 func (u *UpdateBotInlineQuery) GetPeerType() (value InlineQueryPeerTypeClass, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(1) {
 		return value, false
 	}
@@ -6909,6 +7206,9 @@ func (u *UpdateBotInlineQuery) GetPeerType() (value InlineQueryPeerTypeClass, ok
 
 // GetOffset returns value of Offset field.
 func (u *UpdateBotInlineQuery) GetOffset() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Offset
 }
 
@@ -7177,11 +7477,17 @@ func (u *UpdateBotInlineSend) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (u *UpdateBotInlineSend) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetQuery returns value of Query field.
 func (u *UpdateBotInlineSend) GetQuery() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Query
 }
 
@@ -7194,6 +7500,9 @@ func (u *UpdateBotInlineSend) SetGeo(value GeoPointClass) {
 // GetGeo returns value of Geo conditional field and
 // boolean which is true if field was set.
 func (u *UpdateBotInlineSend) GetGeo() (value GeoPointClass, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -7202,6 +7511,9 @@ func (u *UpdateBotInlineSend) GetGeo() (value GeoPointClass, ok bool) {
 
 // GetID returns value of ID field.
 func (u *UpdateBotInlineSend) GetID() (value string) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 
@@ -7214,6 +7526,9 @@ func (u *UpdateBotInlineSend) SetMsgID(value InputBotInlineMessageIDClass) {
 // GetMsgID returns value of MsgID conditional field and
 // boolean which is true if field was set.
 func (u *UpdateBotInlineSend) GetMsgID() (value InputBotInlineMessageIDClass, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(1) {
 		return value, false
 	}
@@ -7401,16 +7716,25 @@ func (u *UpdateEditChannelMessage) DecodeBare(b *bin.Buffer) error {
 
 // GetMessage returns value of Message field.
 func (u *UpdateEditChannelMessage) GetMessage() (value MessageClass) {
+	if u == nil {
+		return
+	}
 	return u.Message
 }
 
 // GetPts returns value of Pts field.
 func (u *UpdateEditChannelMessage) GetPts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Pts
 }
 
 // GetPtsCount returns value of PtsCount field.
 func (u *UpdateEditChannelMessage) GetPtsCount() (value int) {
+	if u == nil {
+		return
+	}
 	return u.PtsCount
 }
 
@@ -7707,26 +8031,41 @@ func (u *UpdateBotCallbackQuery) DecodeBare(b *bin.Buffer) error {
 
 // GetQueryID returns value of QueryID field.
 func (u *UpdateBotCallbackQuery) GetQueryID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.QueryID
 }
 
 // GetUserID returns value of UserID field.
 func (u *UpdateBotCallbackQuery) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetPeer returns value of Peer field.
 func (u *UpdateBotCallbackQuery) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
 // GetMsgID returns value of MsgID field.
 func (u *UpdateBotCallbackQuery) GetMsgID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.MsgID
 }
 
 // GetChatInstance returns value of ChatInstance field.
 func (u *UpdateBotCallbackQuery) GetChatInstance() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatInstance
 }
 
@@ -7739,6 +8078,9 @@ func (u *UpdateBotCallbackQuery) SetData(value []byte) {
 // GetData returns value of Data conditional field and
 // boolean which is true if field was set.
 func (u *UpdateBotCallbackQuery) GetData() (value []byte, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -7754,6 +8096,9 @@ func (u *UpdateBotCallbackQuery) SetGameShortName(value string) {
 // GetGameShortName returns value of GameShortName conditional field and
 // boolean which is true if field was set.
 func (u *UpdateBotCallbackQuery) GetGameShortName() (value string, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(1) {
 		return value, false
 	}
@@ -7938,16 +8283,25 @@ func (u *UpdateEditMessage) DecodeBare(b *bin.Buffer) error {
 
 // GetMessage returns value of Message field.
 func (u *UpdateEditMessage) GetMessage() (value MessageClass) {
+	if u == nil {
+		return
+	}
 	return u.Message
 }
 
 // GetPts returns value of Pts field.
 func (u *UpdateEditMessage) GetPts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Pts
 }
 
 // GetPtsCount returns value of PtsCount field.
 func (u *UpdateEditMessage) GetPtsCount() (value int) {
+	if u == nil {
+		return
+	}
 	return u.PtsCount
 }
 
@@ -8225,21 +8579,33 @@ func (u *UpdateInlineBotCallbackQuery) DecodeBare(b *bin.Buffer) error {
 
 // GetQueryID returns value of QueryID field.
 func (u *UpdateInlineBotCallbackQuery) GetQueryID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.QueryID
 }
 
 // GetUserID returns value of UserID field.
 func (u *UpdateInlineBotCallbackQuery) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetMsgID returns value of MsgID field.
 func (u *UpdateInlineBotCallbackQuery) GetMsgID() (value InputBotInlineMessageIDClass) {
+	if u == nil {
+		return
+	}
 	return u.MsgID
 }
 
 // GetChatInstance returns value of ChatInstance field.
 func (u *UpdateInlineBotCallbackQuery) GetChatInstance() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatInstance
 }
 
@@ -8252,6 +8618,9 @@ func (u *UpdateInlineBotCallbackQuery) SetData(value []byte) {
 // GetData returns value of Data conditional field and
 // boolean which is true if field was set.
 func (u *UpdateInlineBotCallbackQuery) GetData() (value []byte, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -8267,6 +8636,9 @@ func (u *UpdateInlineBotCallbackQuery) SetGameShortName(value string) {
 // GetGameShortName returns value of GameShortName conditional field and
 // boolean which is true if field was set.
 func (u *UpdateInlineBotCallbackQuery) GetGameShortName() (value string, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(1) {
 		return value, false
 	}
@@ -8424,11 +8796,17 @@ func (u *UpdateReadChannelOutbox) DecodeBare(b *bin.Buffer) error {
 
 // GetChannelID returns value of ChannelID field.
 func (u *UpdateReadChannelOutbox) GetChannelID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChannelID
 }
 
 // GetMaxID returns value of MaxID field.
 func (u *UpdateReadChannelOutbox) GetMaxID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.MaxID
 }
 
@@ -8593,11 +8971,17 @@ func (u *UpdateDraftMessage) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (u *UpdateDraftMessage) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
 // GetDraft returns value of Draft field.
 func (u *UpdateDraftMessage) GetDraft() (value DraftMessageClass) {
+	if u == nil {
+		return
+	}
 	return u.Draft
 }
 
@@ -9221,21 +9605,33 @@ func (u *UpdateChannelWebPage) DecodeBare(b *bin.Buffer) error {
 
 // GetChannelID returns value of ChannelID field.
 func (u *UpdateChannelWebPage) GetChannelID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChannelID
 }
 
 // GetWebpage returns value of Webpage field.
 func (u *UpdateChannelWebPage) GetWebpage() (value WebPageClass) {
+	if u == nil {
+		return
+	}
 	return u.Webpage
 }
 
 // GetPts returns value of Pts field.
 func (u *UpdateChannelWebPage) GetPts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Pts
 }
 
 // GetPtsCount returns value of PtsCount field.
 func (u *UpdateChannelWebPage) GetPtsCount() (value int) {
+	if u == nil {
+		return
+	}
 	return u.PtsCount
 }
 
@@ -9454,6 +9850,9 @@ func (u *UpdateDialogPinned) SetPinned(value bool) {
 
 // GetPinned returns value of Pinned conditional field.
 func (u *UpdateDialogPinned) GetPinned() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(0)
 }
 
@@ -9466,6 +9865,9 @@ func (u *UpdateDialogPinned) SetFolderID(value int) {
 // GetFolderID returns value of FolderID conditional field and
 // boolean which is true if field was set.
 func (u *UpdateDialogPinned) GetFolderID() (value int, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(1) {
 		return value, false
 	}
@@ -9474,6 +9876,9 @@ func (u *UpdateDialogPinned) GetFolderID() (value int, ok bool) {
 
 // GetPeer returns value of Peer field.
 func (u *UpdateDialogPinned) GetPeer() (value DialogPeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
@@ -9696,6 +10101,9 @@ func (u *UpdatePinnedDialogs) SetFolderID(value int) {
 // GetFolderID returns value of FolderID conditional field and
 // boolean which is true if field was set.
 func (u *UpdatePinnedDialogs) GetFolderID() (value int, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(1) {
 		return value, false
 	}
@@ -9711,6 +10119,9 @@ func (u *UpdatePinnedDialogs) SetOrder(value []DialogPeerClass) {
 // GetOrder returns value of Order conditional field and
 // boolean which is true if field was set.
 func (u *UpdatePinnedDialogs) GetOrder() (value []DialogPeerClass, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -9854,6 +10265,9 @@ func (u *UpdateBotWebhookJSON) DecodeBare(b *bin.Buffer) error {
 
 // GetData returns value of Data field.
 func (u *UpdateBotWebhookJSON) GetData() (value DataJSON) {
+	if u == nil {
+		return
+	}
 	return u.Data
 }
 
@@ -10024,16 +10438,25 @@ func (u *UpdateBotWebhookJSONQuery) DecodeBare(b *bin.Buffer) error {
 
 // GetQueryID returns value of QueryID field.
 func (u *UpdateBotWebhookJSONQuery) GetQueryID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.QueryID
 }
 
 // GetData returns value of Data field.
 func (u *UpdateBotWebhookJSONQuery) GetData() (value DataJSON) {
+	if u == nil {
+		return
+	}
 	return u.Data
 }
 
 // GetTimeout returns value of Timeout field.
 func (u *UpdateBotWebhookJSONQuery) GetTimeout() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Timeout
 }
 
@@ -10223,21 +10646,33 @@ func (u *UpdateBotShippingQuery) DecodeBare(b *bin.Buffer) error {
 
 // GetQueryID returns value of QueryID field.
 func (u *UpdateBotShippingQuery) GetQueryID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.QueryID
 }
 
 // GetUserID returns value of UserID field.
 func (u *UpdateBotShippingQuery) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetPayload returns value of Payload field.
 func (u *UpdateBotShippingQuery) GetPayload() (value []byte) {
+	if u == nil {
+		return
+	}
 	return u.Payload
 }
 
 // GetShippingAddress returns value of ShippingAddress field.
 func (u *UpdateBotShippingQuery) GetShippingAddress() (value PostAddress) {
+	if u == nil {
+		return
+	}
 	return u.ShippingAddress
 }
 
@@ -10536,16 +10971,25 @@ func (u *UpdateBotPrecheckoutQuery) DecodeBare(b *bin.Buffer) error {
 
 // GetQueryID returns value of QueryID field.
 func (u *UpdateBotPrecheckoutQuery) GetQueryID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.QueryID
 }
 
 // GetUserID returns value of UserID field.
 func (u *UpdateBotPrecheckoutQuery) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetPayload returns value of Payload field.
 func (u *UpdateBotPrecheckoutQuery) GetPayload() (value []byte) {
+	if u == nil {
+		return
+	}
 	return u.Payload
 }
 
@@ -10558,6 +11002,9 @@ func (u *UpdateBotPrecheckoutQuery) SetInfo(value PaymentRequestedInfo) {
 // GetInfo returns value of Info conditional field and
 // boolean which is true if field was set.
 func (u *UpdateBotPrecheckoutQuery) GetInfo() (value PaymentRequestedInfo, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -10573,6 +11020,9 @@ func (u *UpdateBotPrecheckoutQuery) SetShippingOptionID(value string) {
 // GetShippingOptionID returns value of ShippingOptionID conditional field and
 // boolean which is true if field was set.
 func (u *UpdateBotPrecheckoutQuery) GetShippingOptionID() (value string, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(1) {
 		return value, false
 	}
@@ -10581,11 +11031,17 @@ func (u *UpdateBotPrecheckoutQuery) GetShippingOptionID() (value string, ok bool
 
 // GetCurrency returns value of Currency field.
 func (u *UpdateBotPrecheckoutQuery) GetCurrency() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Currency
 }
 
 // GetTotalAmount returns value of TotalAmount field.
 func (u *UpdateBotPrecheckoutQuery) GetTotalAmount() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.TotalAmount
 }
 
@@ -10723,6 +11179,9 @@ func (u *UpdatePhoneCall) DecodeBare(b *bin.Buffer) error {
 
 // GetPhoneCall returns value of PhoneCall field.
 func (u *UpdatePhoneCall) GetPhoneCall() (value PhoneCallClass) {
+	if u == nil {
+		return
+	}
 	return u.PhoneCall
 }
 
@@ -10859,6 +11318,9 @@ func (u *UpdateLangPackTooLong) DecodeBare(b *bin.Buffer) error {
 
 // GetLangCode returns value of LangCode field.
 func (u *UpdateLangPackTooLong) GetLangCode() (value string) {
+	if u == nil {
+		return
+	}
 	return u.LangCode
 }
 
@@ -10991,6 +11453,9 @@ func (u *UpdateLangPack) DecodeBare(b *bin.Buffer) error {
 
 // GetDifference returns value of Difference field.
 func (u *UpdateLangPack) GetDifference() (value LangPackDifference) {
+	if u == nil {
+		return
+	}
 	return u.Difference
 }
 
@@ -11267,11 +11732,17 @@ func (u *UpdateChannelReadMessagesContents) DecodeBare(b *bin.Buffer) error {
 
 // GetChannelID returns value of ChannelID field.
 func (u *UpdateChannelReadMessagesContents) GetChannelID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChannelID
 }
 
 // GetMessages returns value of Messages field.
 func (u *UpdateChannelReadMessagesContents) GetMessages() (value []int) {
+	if u == nil {
+		return
+	}
 	return u.Messages
 }
 
@@ -11528,11 +11999,17 @@ func (u *UpdateChannelAvailableMessages) DecodeBare(b *bin.Buffer) error {
 
 // GetChannelID returns value of ChannelID field.
 func (u *UpdateChannelAvailableMessages) GetChannelID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChannelID
 }
 
 // GetAvailableMinID returns value of AvailableMinID field.
 func (u *UpdateChannelAvailableMessages) GetAvailableMinID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.AvailableMinID
 }
 
@@ -11718,11 +12195,17 @@ func (u *UpdateDialogUnreadMark) SetUnread(value bool) {
 
 // GetUnread returns value of Unread conditional field.
 func (u *UpdateDialogUnreadMark) GetUnread() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
 func (u *UpdateDialogUnreadMark) GetPeer() (value DialogPeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
@@ -11925,6 +12408,9 @@ func (u *UpdateMessagePoll) DecodeBare(b *bin.Buffer) error {
 
 // GetPollID returns value of PollID field.
 func (u *UpdateMessagePoll) GetPollID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.PollID
 }
 
@@ -11937,6 +12423,9 @@ func (u *UpdateMessagePoll) SetPoll(value Poll) {
 // GetPoll returns value of Poll conditional field and
 // boolean which is true if field was set.
 func (u *UpdateMessagePoll) GetPoll() (value Poll, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -11945,6 +12434,9 @@ func (u *UpdateMessagePoll) GetPoll() (value Poll, ok bool) {
 
 // GetResults returns value of Results field.
 func (u *UpdateMessagePoll) GetResults() (value PollResults) {
+	if u == nil {
+		return
+	}
 	return u.Results
 }
 
@@ -12123,16 +12615,25 @@ func (u *UpdateChatDefaultBannedRights) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (u *UpdateChatDefaultBannedRights) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
 // GetDefaultBannedRights returns value of DefaultBannedRights field.
 func (u *UpdateChatDefaultBannedRights) GetDefaultBannedRights() (value ChatBannedRights) {
+	if u == nil {
+		return
+	}
 	return u.DefaultBannedRights
 }
 
 // GetVersion returns value of Version field.
 func (u *UpdateChatDefaultBannedRights) GetVersion() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Version
 }
 
@@ -12327,16 +12828,25 @@ func (u *UpdateFolderPeers) DecodeBare(b *bin.Buffer) error {
 
 // GetFolderPeers returns value of FolderPeers field.
 func (u *UpdateFolderPeers) GetFolderPeers() (value []FolderPeer) {
+	if u == nil {
+		return
+	}
 	return u.FolderPeers
 }
 
 // GetPts returns value of Pts field.
 func (u *UpdateFolderPeers) GetPts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Pts
 }
 
 // GetPtsCount returns value of PtsCount field.
 func (u *UpdateFolderPeers) GetPtsCount() (value int) {
+	if u == nil {
+		return
+	}
 	return u.PtsCount
 }
 
@@ -12493,11 +13003,17 @@ func (u *UpdatePeerSettings) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (u *UpdatePeerSettings) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
 // GetSettings returns value of Settings field.
 func (u *UpdatePeerSettings) GetSettings() (value PeerSettings) {
+	if u == nil {
+		return
+	}
 	return u.Settings
 }
 
@@ -12648,6 +13164,9 @@ func (u *UpdatePeerLocated) DecodeBare(b *bin.Buffer) error {
 
 // GetPeers returns value of Peers field.
 func (u *UpdatePeerLocated) GetPeers() (value []PeerLocatedClass) {
+	if u == nil {
+		return
+	}
 	return u.Peers
 }
 
@@ -12793,6 +13312,9 @@ func (u *UpdateNewScheduledMessage) DecodeBare(b *bin.Buffer) error {
 
 // GetMessage returns value of Message field.
 func (u *UpdateNewScheduledMessage) GetMessage() (value MessageClass) {
+	if u == nil {
+		return
+	}
 	return u.Message
 }
 
@@ -12965,11 +13487,17 @@ func (u *UpdateDeleteScheduledMessages) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (u *UpdateDeleteScheduledMessages) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
 // GetMessages returns value of Messages field.
 func (u *UpdateDeleteScheduledMessages) GetMessages() (value []int) {
+	if u == nil {
+		return
+	}
 	return u.Messages
 }
 
@@ -13102,6 +13630,9 @@ func (u *UpdateTheme) DecodeBare(b *bin.Buffer) error {
 
 // GetTheme returns value of Theme field.
 func (u *UpdateTheme) GetTheme() (value Theme) {
+	if u == nil {
+		return
+	}
 	return u.Theme
 }
 
@@ -13258,11 +13789,17 @@ func (u *UpdateGeoLiveViewed) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (u *UpdateGeoLiveViewed) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
 // GetMsgID returns value of MsgID field.
 func (u *UpdateGeoLiveViewed) GetMsgID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.MsgID
 }
 
@@ -13570,21 +14107,33 @@ func (u *UpdateMessagePollVote) DecodeBare(b *bin.Buffer) error {
 
 // GetPollID returns value of PollID field.
 func (u *UpdateMessagePollVote) GetPollID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.PollID
 }
 
 // GetUserID returns value of UserID field.
 func (u *UpdateMessagePollVote) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetOptions returns value of Options field.
 func (u *UpdateMessagePollVote) GetOptions() (value [][]byte) {
+	if u == nil {
+		return
+	}
 	return u.Options
 }
 
 // GetQts returns value of Qts field.
 func (u *UpdateMessagePollVote) GetQts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Qts
 }
 
@@ -13777,6 +14326,9 @@ func (u *UpdateDialogFilter) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (u *UpdateDialogFilter) GetID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 
@@ -13789,6 +14341,9 @@ func (u *UpdateDialogFilter) SetFilter(value DialogFilter) {
 // GetFilter returns value of Filter conditional field and
 // boolean which is true if field was set.
 func (u *UpdateDialogFilter) GetFilter() (value DialogFilter, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -13943,6 +14498,9 @@ func (u *UpdateDialogFilterOrder) DecodeBare(b *bin.Buffer) error {
 
 // GetOrder returns value of Order field.
 func (u *UpdateDialogFilterOrder) GetOrder() (value []int) {
+	if u == nil {
+		return
+	}
 	return u.Order
 }
 
@@ -14199,11 +14757,17 @@ func (u *UpdatePhoneCallSignalingData) DecodeBare(b *bin.Buffer) error {
 
 // GetPhoneCallID returns value of PhoneCallID field.
 func (u *UpdatePhoneCallSignalingData) GetPhoneCallID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.PhoneCallID
 }
 
 // GetData returns value of Data field.
 func (u *UpdatePhoneCallSignalingData) GetData() (value []byte) {
+	if u == nil {
+		return
+	}
 	return u.Data
 }
 
@@ -14374,16 +14938,25 @@ func (u *UpdateChannelMessageForwards) DecodeBare(b *bin.Buffer) error {
 
 // GetChannelID returns value of ChannelID field.
 func (u *UpdateChannelMessageForwards) GetChannelID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChannelID
 }
 
 // GetID returns value of ID field.
 func (u *UpdateChannelMessageForwards) GetID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 
 // GetForwards returns value of Forwards field.
 func (u *UpdateChannelMessageForwards) GetForwards() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Forwards
 }
 
@@ -14655,16 +15228,25 @@ func (u *UpdateReadChannelDiscussionInbox) DecodeBare(b *bin.Buffer) error {
 
 // GetChannelID returns value of ChannelID field.
 func (u *UpdateReadChannelDiscussionInbox) GetChannelID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChannelID
 }
 
 // GetTopMsgID returns value of TopMsgID field.
 func (u *UpdateReadChannelDiscussionInbox) GetTopMsgID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.TopMsgID
 }
 
 // GetReadMaxID returns value of ReadMaxID field.
 func (u *UpdateReadChannelDiscussionInbox) GetReadMaxID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.ReadMaxID
 }
 
@@ -14677,6 +15259,9 @@ func (u *UpdateReadChannelDiscussionInbox) SetBroadcastID(value int64) {
 // GetBroadcastID returns value of BroadcastID conditional field and
 // boolean which is true if field was set.
 func (u *UpdateReadChannelDiscussionInbox) GetBroadcastID() (value int64, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -14692,6 +15277,9 @@ func (u *UpdateReadChannelDiscussionInbox) SetBroadcastPost(value int) {
 // GetBroadcastPost returns value of BroadcastPost conditional field and
 // boolean which is true if field was set.
 func (u *UpdateReadChannelDiscussionInbox) GetBroadcastPost() (value int, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -14877,16 +15465,25 @@ func (u *UpdateReadChannelDiscussionOutbox) DecodeBare(b *bin.Buffer) error {
 
 // GetChannelID returns value of ChannelID field.
 func (u *UpdateReadChannelDiscussionOutbox) GetChannelID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChannelID
 }
 
 // GetTopMsgID returns value of TopMsgID field.
 func (u *UpdateReadChannelDiscussionOutbox) GetTopMsgID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.TopMsgID
 }
 
 // GetReadMaxID returns value of ReadMaxID field.
 func (u *UpdateReadChannelDiscussionOutbox) GetReadMaxID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.ReadMaxID
 }
 
@@ -15043,11 +15640,17 @@ func (u *UpdatePeerBlocked) DecodeBare(b *bin.Buffer) error {
 
 // GetPeerID returns value of PeerID field.
 func (u *UpdatePeerBlocked) GetPeerID() (value PeerClass) {
+	if u == nil {
+		return
+	}
 	return u.PeerID
 }
 
 // GetBlocked returns value of Blocked field.
 func (u *UpdatePeerBlocked) GetBlocked() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Blocked
 }
 
@@ -15286,6 +15889,9 @@ func (u *UpdateChannelUserTyping) DecodeBare(b *bin.Buffer) error {
 
 // GetChannelID returns value of ChannelID field.
 func (u *UpdateChannelUserTyping) GetChannelID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChannelID
 }
 
@@ -15298,6 +15904,9 @@ func (u *UpdateChannelUserTyping) SetTopMsgID(value int) {
 // GetTopMsgID returns value of TopMsgID conditional field and
 // boolean which is true if field was set.
 func (u *UpdateChannelUserTyping) GetTopMsgID() (value int, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -15306,11 +15915,17 @@ func (u *UpdateChannelUserTyping) GetTopMsgID() (value int, ok bool) {
 
 // GetFromID returns value of FromID field.
 func (u *UpdateChannelUserTyping) GetFromID() (value PeerClass) {
+	if u == nil {
+		return
+	}
 	return u.FromID
 }
 
 // GetAction returns value of Action field.
 func (u *UpdateChannelUserTyping) GetAction() (value SendMessageActionClass) {
+	if u == nil {
+		return
+	}
 	return u.Action
 }
 
@@ -15572,26 +16187,41 @@ func (u *UpdatePinnedMessages) SetPinned(value bool) {
 
 // GetPinned returns value of Pinned conditional field.
 func (u *UpdatePinnedMessages) GetPinned() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
 func (u *UpdatePinnedMessages) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
 // GetMessages returns value of Messages field.
 func (u *UpdatePinnedMessages) GetMessages() (value []int) {
+	if u == nil {
+		return
+	}
 	return u.Messages
 }
 
 // GetPts returns value of Pts field.
 func (u *UpdatePinnedMessages) GetPts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Pts
 }
 
 // GetPtsCount returns value of PtsCount field.
 func (u *UpdatePinnedMessages) GetPtsCount() (value int) {
+	if u == nil {
+		return
+	}
 	return u.PtsCount
 }
 
@@ -15851,26 +16481,41 @@ func (u *UpdatePinnedChannelMessages) SetPinned(value bool) {
 
 // GetPinned returns value of Pinned conditional field.
 func (u *UpdatePinnedChannelMessages) GetPinned() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(0)
 }
 
 // GetChannelID returns value of ChannelID field.
 func (u *UpdatePinnedChannelMessages) GetChannelID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChannelID
 }
 
 // GetMessages returns value of Messages field.
 func (u *UpdatePinnedChannelMessages) GetMessages() (value []int) {
+	if u == nil {
+		return
+	}
 	return u.Messages
 }
 
 // GetPts returns value of Pts field.
 func (u *UpdatePinnedChannelMessages) GetPts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Pts
 }
 
 // GetPtsCount returns value of PtsCount field.
 func (u *UpdatePinnedChannelMessages) GetPtsCount() (value int) {
+	if u == nil {
+		return
+	}
 	return u.PtsCount
 }
 
@@ -16003,6 +16648,9 @@ func (u *UpdateChat) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChat) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
@@ -16188,16 +16836,25 @@ func (u *UpdateGroupCallParticipants) DecodeBare(b *bin.Buffer) error {
 
 // GetCall returns value of Call field.
 func (u *UpdateGroupCallParticipants) GetCall() (value InputGroupCall) {
+	if u == nil {
+		return
+	}
 	return u.Call
 }
 
 // GetParticipants returns value of Participants field.
 func (u *UpdateGroupCallParticipants) GetParticipants() (value []GroupCallParticipant) {
+	if u == nil {
+		return
+	}
 	return u.Participants
 }
 
 // GetVersion returns value of Version field.
 func (u *UpdateGroupCallParticipants) GetVersion() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Version
 }
 
@@ -16357,11 +17014,17 @@ func (u *UpdateGroupCall) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateGroupCall) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetCall returns value of Call field.
 func (u *UpdateGroupCall) GetCall() (value GroupCallClass) {
+	if u == nil {
+		return
+	}
 	return u.Call
 }
 
@@ -16550,6 +17213,9 @@ func (u *UpdatePeerHistoryTTL) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (u *UpdatePeerHistoryTTL) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
@@ -16562,6 +17228,9 @@ func (u *UpdatePeerHistoryTTL) SetTTLPeriod(value int) {
 // GetTTLPeriod returns value of TTLPeriod conditional field and
 // boolean which is true if field was set.
 func (u *UpdatePeerHistoryTTL) GetTTLPeriod() (value int, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -16901,21 +17570,33 @@ func (u *UpdateChatParticipant) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateChatParticipant) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetDate returns value of Date field.
 func (u *UpdateChatParticipant) GetDate() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Date
 }
 
 // GetActorID returns value of ActorID field.
 func (u *UpdateChatParticipant) GetActorID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ActorID
 }
 
 // GetUserID returns value of UserID field.
 func (u *UpdateChatParticipant) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
@@ -16928,6 +17609,9 @@ func (u *UpdateChatParticipant) SetPrevParticipant(value ChatParticipantClass) {
 // GetPrevParticipant returns value of PrevParticipant conditional field and
 // boolean which is true if field was set.
 func (u *UpdateChatParticipant) GetPrevParticipant() (value ChatParticipantClass, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -16943,6 +17627,9 @@ func (u *UpdateChatParticipant) SetNewParticipant(value ChatParticipantClass) {
 // GetNewParticipant returns value of NewParticipant conditional field and
 // boolean which is true if field was set.
 func (u *UpdateChatParticipant) GetNewParticipant() (value ChatParticipantClass, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(1) {
 		return value, false
 	}
@@ -16958,6 +17645,9 @@ func (u *UpdateChatParticipant) SetInvite(value ChatInviteExported) {
 // GetInvite returns value of Invite conditional field and
 // boolean which is true if field was set.
 func (u *UpdateChatParticipant) GetInvite() (value ChatInviteExported, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(2) {
 		return value, false
 	}
@@ -16966,6 +17656,9 @@ func (u *UpdateChatParticipant) GetInvite() (value ChatInviteExported, ok bool) 
 
 // GetQts returns value of Qts field.
 func (u *UpdateChatParticipant) GetQts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Qts
 }
 
@@ -17305,21 +17998,33 @@ func (u *UpdateChannelParticipant) DecodeBare(b *bin.Buffer) error {
 
 // GetChannelID returns value of ChannelID field.
 func (u *UpdateChannelParticipant) GetChannelID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChannelID
 }
 
 // GetDate returns value of Date field.
 func (u *UpdateChannelParticipant) GetDate() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Date
 }
 
 // GetActorID returns value of ActorID field.
 func (u *UpdateChannelParticipant) GetActorID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ActorID
 }
 
 // GetUserID returns value of UserID field.
 func (u *UpdateChannelParticipant) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
@@ -17332,6 +18037,9 @@ func (u *UpdateChannelParticipant) SetPrevParticipant(value ChannelParticipantCl
 // GetPrevParticipant returns value of PrevParticipant conditional field and
 // boolean which is true if field was set.
 func (u *UpdateChannelParticipant) GetPrevParticipant() (value ChannelParticipantClass, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -17347,6 +18055,9 @@ func (u *UpdateChannelParticipant) SetNewParticipant(value ChannelParticipantCla
 // GetNewParticipant returns value of NewParticipant conditional field and
 // boolean which is true if field was set.
 func (u *UpdateChannelParticipant) GetNewParticipant() (value ChannelParticipantClass, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(1) {
 		return value, false
 	}
@@ -17362,6 +18073,9 @@ func (u *UpdateChannelParticipant) SetInvite(value ChatInviteExported) {
 // GetInvite returns value of Invite conditional field and
 // boolean which is true if field was set.
 func (u *UpdateChannelParticipant) GetInvite() (value ChatInviteExported, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(2) {
 		return value, false
 	}
@@ -17370,6 +18084,9 @@ func (u *UpdateChannelParticipant) GetInvite() (value ChatInviteExported, ok boo
 
 // GetQts returns value of Qts field.
 func (u *UpdateChannelParticipant) GetQts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Qts
 }
 
@@ -17562,21 +18279,33 @@ func (u *UpdateBotStopped) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (u *UpdateBotStopped) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetDate returns value of Date field.
 func (u *UpdateBotStopped) GetDate() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Date
 }
 
 // GetStopped returns value of Stopped field.
 func (u *UpdateBotStopped) GetStopped() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Stopped
 }
 
 // GetQts returns value of Qts field.
 func (u *UpdateBotStopped) GetQts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Qts
 }
 
@@ -17757,11 +18486,17 @@ func (u *UpdateGroupCallConnection) SetPresentation(value bool) {
 
 // GetPresentation returns value of Presentation conditional field.
 func (u *UpdateGroupCallConnection) GetPresentation() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(0)
 }
 
 // GetParams returns value of Params field.
 func (u *UpdateGroupCallConnection) GetParams() (value DataJSON) {
+	if u == nil {
+		return
+	}
 	return u.Params
 }
 
@@ -17955,16 +18690,25 @@ func (u *UpdateBotCommands) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (u *UpdateBotCommands) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
 // GetBotID returns value of BotID field.
 func (u *UpdateBotCommands) GetBotID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.BotID
 }
 
 // GetCommands returns value of Commands field.
 func (u *UpdateBotCommands) GetCommands() (value []BotCommand) {
+	if u == nil {
+		return
+	}
 	return u.Commands
 }
 
@@ -18152,16 +18896,25 @@ func (u *UpdatePendingJoinRequests) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (u *UpdatePendingJoinRequests) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
 // GetRequestsPending returns value of RequestsPending field.
 func (u *UpdatePendingJoinRequests) GetRequestsPending() (value int) {
+	if u == nil {
+		return
+	}
 	return u.RequestsPending
 }
 
 // GetRecentRequesters returns value of RecentRequesters field.
 func (u *UpdatePendingJoinRequests) GetRecentRequesters() (value []int64) {
+	if u == nil {
+		return
+	}
 	return u.RecentRequesters
 }
 
@@ -18393,31 +19146,49 @@ func (u *UpdateBotChatInviteRequester) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (u *UpdateBotChatInviteRequester) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
 // GetDate returns value of Date field.
 func (u *UpdateBotChatInviteRequester) GetDate() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Date
 }
 
 // GetUserID returns value of UserID field.
 func (u *UpdateBotChatInviteRequester) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetAbout returns value of About field.
 func (u *UpdateBotChatInviteRequester) GetAbout() (value string) {
+	if u == nil {
+		return
+	}
 	return u.About
 }
 
 // GetInvite returns value of Invite field.
 func (u *UpdateBotChatInviteRequester) GetInvite() (value ChatInviteExported) {
+	if u == nil {
+		return
+	}
 	return u.Invite
 }
 
 // GetQts returns value of Qts field.
 func (u *UpdateBotChatInviteRequester) GetQts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Qts
 }
 

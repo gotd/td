@@ -418,26 +418,41 @@ func (m *MessageSendingStateFailed) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetErrorCode returns value of ErrorCode field.
 func (m *MessageSendingStateFailed) GetErrorCode() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.ErrorCode
 }
 
 // GetErrorMessage returns value of ErrorMessage field.
 func (m *MessageSendingStateFailed) GetErrorMessage() (value string) {
+	if m == nil {
+		return
+	}
 	return m.ErrorMessage
 }
 
 // GetCanRetry returns value of CanRetry field.
 func (m *MessageSendingStateFailed) GetCanRetry() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.CanRetry
 }
 
 // GetNeedAnotherSender returns value of NeedAnotherSender field.
 func (m *MessageSendingStateFailed) GetNeedAnotherSender() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.NeedAnotherSender
 }
 
 // GetRetryAfter returns value of RetryAfter field.
 func (m *MessageSendingStateFailed) GetRetryAfter() (value float64) {
+	if m == nil {
+		return
+	}
 	return m.RetryAfter
 }
 

@@ -177,6 +177,9 @@ func (g *AccountGetSecureValueRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetTypes returns value of Types field.
 func (g *AccountGetSecureValueRequest) GetTypes() (value []SecureValueTypeClass) {
+	if g == nil {
+		return
+	}
 	return g.Types
 }
 

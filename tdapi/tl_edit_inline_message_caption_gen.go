@@ -244,16 +244,25 @@ func (e *EditInlineMessageCaptionRequest) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetInlineMessageID returns value of InlineMessageID field.
 func (e *EditInlineMessageCaptionRequest) GetInlineMessageID() (value string) {
+	if e == nil {
+		return
+	}
 	return e.InlineMessageID
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (e *EditInlineMessageCaptionRequest) GetReplyMarkup() (value ReplyMarkupClass) {
+	if e == nil {
+		return
+	}
 	return e.ReplyMarkup
 }
 
 // GetCaption returns value of Caption field.
 func (e *EditInlineMessageCaptionRequest) GetCaption() (value FormattedText) {
+	if e == nil {
+		return
+	}
 	return e.Caption
 }
 

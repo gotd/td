@@ -183,6 +183,9 @@ func (g *GetPushReceiverIDRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPayload returns value of Payload field.
 func (g *GetPushReceiverIDRequest) GetPayload() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Payload
 }
 

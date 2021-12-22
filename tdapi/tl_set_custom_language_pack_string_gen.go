@@ -209,11 +209,17 @@ func (s *SetCustomLanguagePackStringRequest) DecodeTDLibJSON(b tdjson.Decoder) e
 
 // GetLanguagePackID returns value of LanguagePackID field.
 func (s *SetCustomLanguagePackStringRequest) GetLanguagePackID() (value string) {
+	if s == nil {
+		return
+	}
 	return s.LanguagePackID
 }
 
 // GetNewString returns value of NewString field.
 func (s *SetCustomLanguagePackStringRequest) GetNewString() (value LanguagePackString) {
+	if s == nil {
+		return
+	}
 	return s.NewString
 }
 

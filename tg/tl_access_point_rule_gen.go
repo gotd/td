@@ -210,16 +210,25 @@ func (a *AccessPointRule) DecodeBare(b *bin.Buffer) error {
 
 // GetPhonePrefixRules returns value of PhonePrefixRules field.
 func (a *AccessPointRule) GetPhonePrefixRules() (value string) {
+	if a == nil {
+		return
+	}
 	return a.PhonePrefixRules
 }
 
 // GetDCID returns value of DCID field.
 func (a *AccessPointRule) GetDCID() (value int) {
+	if a == nil {
+		return
+	}
 	return a.DCID
 }
 
 // GetIPs returns value of IPs field.
 func (a *AccessPointRule) GetIPs() (value []IPPortClass) {
+	if a == nil {
+		return
+	}
 	return a.IPs
 }
 

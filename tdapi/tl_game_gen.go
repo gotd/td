@@ -334,35 +334,56 @@ func (g *Game) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (g *Game) GetID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ID
 }
 
 // GetShortName returns value of ShortName field.
 func (g *Game) GetShortName() (value string) {
+	if g == nil {
+		return
+	}
 	return g.ShortName
 }
 
 // GetTitle returns value of Title field.
 func (g *Game) GetTitle() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Title
 }
 
 // GetText returns value of Text field.
 func (g *Game) GetText() (value FormattedText) {
+	if g == nil {
+		return
+	}
 	return g.Text
 }
 
 // GetDescription returns value of Description field.
 func (g *Game) GetDescription() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Description
 }
 
 // GetPhoto returns value of Photo field.
 func (g *Game) GetPhoto() (value Photo) {
+	if g == nil {
+		return
+	}
 	return g.Photo
 }
 
 // GetAnimation returns value of Animation field.
 func (g *Game) GetAnimation() (value Animation) {
+	if g == nil {
+		return
+	}
 	return g.Animation
 }

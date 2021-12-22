@@ -214,16 +214,25 @@ func (g *MessagesGetMessagesViewsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (g *MessagesGetMessagesViewsRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
 // GetID returns value of ID field.
 func (g *MessagesGetMessagesViewsRequest) GetID() (value []int) {
+	if g == nil {
+		return
+	}
 	return g.ID
 }
 
 // GetIncrement returns value of Increment field.
 func (g *MessagesGetMessagesViewsRequest) GetIncrement() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Increment
 }
 

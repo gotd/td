@@ -183,6 +183,9 @@ func (c *CheckAuthenticationCodeRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetCode returns value of Code field.
 func (c *CheckAuthenticationCodeRequest) GetCode() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Code
 }
 

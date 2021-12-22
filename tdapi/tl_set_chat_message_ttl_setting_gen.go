@@ -209,11 +209,17 @@ func (s *SetChatMessageTTLSettingRequest) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetChatID returns value of ChatID field.
 func (s *SetChatMessageTTLSettingRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetTTL returns value of TTL field.
 func (s *SetChatMessageTTLSettingRequest) GetTTL() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.TTL
 }
 

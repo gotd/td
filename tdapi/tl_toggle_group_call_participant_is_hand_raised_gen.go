@@ -244,16 +244,25 @@ func (t *ToggleGroupCallParticipantIsHandRaisedRequest) DecodeTDLibJSON(b tdjson
 
 // GetGroupCallID returns value of GroupCallID field.
 func (t *ToggleGroupCallParticipantIsHandRaisedRequest) GetGroupCallID() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.GroupCallID
 }
 
 // GetParticipantID returns value of ParticipantID field.
 func (t *ToggleGroupCallParticipantIsHandRaisedRequest) GetParticipantID() (value MessageSenderClass) {
+	if t == nil {
+		return
+	}
 	return t.ParticipantID
 }
 
 // GetIsHandRaised returns value of IsHandRaised field.
 func (t *ToggleGroupCallParticipantIsHandRaisedRequest) GetIsHandRaised() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.IsHandRaised
 }
 

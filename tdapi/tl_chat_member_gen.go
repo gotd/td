@@ -281,20 +281,32 @@ func (c *ChatMember) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMemberID returns value of MemberID field.
 func (c *ChatMember) GetMemberID() (value MessageSenderClass) {
+	if c == nil {
+		return
+	}
 	return c.MemberID
 }
 
 // GetInviterUserID returns value of InviterUserID field.
 func (c *ChatMember) GetInviterUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.InviterUserID
 }
 
 // GetJoinedChatDate returns value of JoinedChatDate field.
 func (c *ChatMember) GetJoinedChatDate() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.JoinedChatDate
 }
 
 // GetStatus returns value of Status field.
 func (c *ChatMember) GetStatus() (value ChatMemberStatusClass) {
+	if c == nil {
+		return
+	}
 	return c.Status
 }

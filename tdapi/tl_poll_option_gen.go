@@ -283,25 +283,40 @@ func (p *PollOption) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (p *PollOption) GetText() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
 // GetVoterCount returns value of VoterCount field.
 func (p *PollOption) GetVoterCount() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.VoterCount
 }
 
 // GetVotePercentage returns value of VotePercentage field.
 func (p *PollOption) GetVotePercentage() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.VotePercentage
 }
 
 // GetIsChosen returns value of IsChosen field.
 func (p *PollOption) GetIsChosen() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsChosen
 }
 
 // GetIsBeingChosen returns value of IsBeingChosen field.
 func (p *PollOption) GetIsBeingChosen() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsBeingChosen
 }

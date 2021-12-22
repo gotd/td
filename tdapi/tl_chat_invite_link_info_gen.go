@@ -443,50 +443,80 @@ func (c *ChatInviteLinkInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (c *ChatInviteLinkInfo) GetChatID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ChatID
 }
 
 // GetAccessibleFor returns value of AccessibleFor field.
 func (c *ChatInviteLinkInfo) GetAccessibleFor() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.AccessibleFor
 }
 
 // GetType returns value of Type field.
 func (c *ChatInviteLinkInfo) GetType() (value ChatTypeClass) {
+	if c == nil {
+		return
+	}
 	return c.Type
 }
 
 // GetTitle returns value of Title field.
 func (c *ChatInviteLinkInfo) GetTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Title
 }
 
 // GetPhoto returns value of Photo field.
 func (c *ChatInviteLinkInfo) GetPhoto() (value ChatPhotoInfo) {
+	if c == nil {
+		return
+	}
 	return c.Photo
 }
 
 // GetDescription returns value of Description field.
 func (c *ChatInviteLinkInfo) GetDescription() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Description
 }
 
 // GetMemberCount returns value of MemberCount field.
 func (c *ChatInviteLinkInfo) GetMemberCount() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.MemberCount
 }
 
 // GetMemberUserIDs returns value of MemberUserIDs field.
 func (c *ChatInviteLinkInfo) GetMemberUserIDs() (value []int64) {
+	if c == nil {
+		return
+	}
 	return c.MemberUserIDs
 }
 
 // GetCreatesJoinRequest returns value of CreatesJoinRequest field.
 func (c *ChatInviteLinkInfo) GetCreatesJoinRequest() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CreatesJoinRequest
 }
 
 // GetIsPublic returns value of IsPublic field.
 func (c *ChatInviteLinkInfo) GetIsPublic() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsPublic
 }

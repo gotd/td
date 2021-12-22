@@ -240,11 +240,17 @@ func (r *RegisterDeviceRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetDeviceToken returns value of DeviceToken field.
 func (r *RegisterDeviceRequest) GetDeviceToken() (value DeviceTokenClass) {
+	if r == nil {
+		return
+	}
 	return r.DeviceToken
 }
 
 // GetOtherUserIDs returns value of OtherUserIDs field.
 func (r *RegisterDeviceRequest) GetOtherUserIDs() (value []int64) {
+	if r == nil {
+		return
+	}
 	return r.OtherUserIDs
 }
 

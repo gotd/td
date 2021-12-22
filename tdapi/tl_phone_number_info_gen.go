@@ -234,15 +234,24 @@ func (p *PhoneNumberInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCountry returns value of Country field.
 func (p *PhoneNumberInfo) GetCountry() (value CountryInfo) {
+	if p == nil {
+		return
+	}
 	return p.Country
 }
 
 // GetCountryCallingCode returns value of CountryCallingCode field.
 func (p *PhoneNumberInfo) GetCountryCallingCode() (value string) {
+	if p == nil {
+		return
+	}
 	return p.CountryCallingCode
 }
 
 // GetFormattedPhoneNumber returns value of FormattedPhoneNumber field.
 func (p *PhoneNumberInfo) GetFormattedPhoneNumber() (value string) {
+	if p == nil {
+		return
+	}
 	return p.FormattedPhoneNumber
 }

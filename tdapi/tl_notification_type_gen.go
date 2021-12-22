@@ -188,6 +188,9 @@ func (n *NotificationTypeNewMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMessage returns value of Message field.
 func (n *NotificationTypeNewMessage) GetMessage() (value Message) {
+	if n == nil {
+		return
+	}
 	return n.Message
 }
 
@@ -477,6 +480,9 @@ func (n *NotificationTypeNewCall) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCallID returns value of CallID field.
 func (n *NotificationTypeNewCall) GetCallID() (value int32) {
+	if n == nil {
+		return
+	}
 	return n.CallID
 }
 
@@ -759,26 +765,41 @@ func (n *NotificationTypeNewPushMessage) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetMessageID returns value of MessageID field.
 func (n *NotificationTypeNewPushMessage) GetMessageID() (value int64) {
+	if n == nil {
+		return
+	}
 	return n.MessageID
 }
 
 // GetSenderID returns value of SenderID field.
 func (n *NotificationTypeNewPushMessage) GetSenderID() (value MessageSenderClass) {
+	if n == nil {
+		return
+	}
 	return n.SenderID
 }
 
 // GetSenderName returns value of SenderName field.
 func (n *NotificationTypeNewPushMessage) GetSenderName() (value string) {
+	if n == nil {
+		return
+	}
 	return n.SenderName
 }
 
 // GetIsOutgoing returns value of IsOutgoing field.
 func (n *NotificationTypeNewPushMessage) GetIsOutgoing() (value bool) {
+	if n == nil {
+		return
+	}
 	return n.IsOutgoing
 }
 
 // GetContent returns value of Content field.
 func (n *NotificationTypeNewPushMessage) GetContent() (value PushMessageContentClass) {
+	if n == nil {
+		return
+	}
 	return n.Content
 }
 

@@ -188,6 +188,9 @@ func (m *MessageSchedulingStateSendAtDate) DecodeTDLibJSON(b tdjson.Decoder) err
 
 // GetSendDate returns value of SendDate field.
 func (m *MessageSchedulingStateSendAtDate) GetSendDate() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.SendDate
 }
 

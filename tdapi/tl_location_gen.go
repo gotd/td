@@ -234,15 +234,24 @@ func (l *Location) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLatitude returns value of Latitude field.
 func (l *Location) GetLatitude() (value float64) {
+	if l == nil {
+		return
+	}
 	return l.Latitude
 }
 
 // GetLongitude returns value of Longitude field.
 func (l *Location) GetLongitude() (value float64) {
+	if l == nil {
+		return
+	}
 	return l.Longitude
 }
 
 // GetHorizontalAccuracy returns value of HorizontalAccuracy field.
 func (l *Location) GetHorizontalAccuracy() (value float64) {
+	if l == nil {
+		return
+	}
 	return l.HorizontalAccuracy
 }

@@ -163,6 +163,9 @@ func (a *AuthAcceptLoginTokenRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetToken returns value of Token field.
 func (a *AuthAcceptLoginTokenRequest) GetToken() (value []byte) {
+	if a == nil {
+		return
+	}
 	return a.Token
 }
 

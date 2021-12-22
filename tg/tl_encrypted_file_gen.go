@@ -338,26 +338,41 @@ func (e *EncryptedFile) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (e *EncryptedFile) GetID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (e *EncryptedFile) GetAccessHash() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.AccessHash
 }
 
 // GetSize returns value of Size field.
 func (e *EncryptedFile) GetSize() (value int) {
+	if e == nil {
+		return
+	}
 	return e.Size
 }
 
 // GetDCID returns value of DCID field.
 func (e *EncryptedFile) GetDCID() (value int) {
+	if e == nil {
+		return
+	}
 	return e.DCID
 }
 
 // GetKeyFingerprint returns value of KeyFingerprint field.
 func (e *EncryptedFile) GetKeyFingerprint() (value int) {
+	if e == nil {
+		return
+	}
 	return e.KeyFingerprint
 }
 

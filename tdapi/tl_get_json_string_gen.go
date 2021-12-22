@@ -193,6 +193,9 @@ func (g *GetJSONStringRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetJSONValue returns value of JSONValue field.
 func (g *GetJSONStringRequest) GetJSONValue() (value JSONValueClass) {
+	if g == nil {
+		return
+	}
 	return g.JSONValue
 }
 

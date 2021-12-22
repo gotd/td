@@ -255,16 +255,25 @@ func (s *SetBackgroundRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBackground returns value of Background field.
 func (s *SetBackgroundRequest) GetBackground() (value InputBackgroundClass) {
+	if s == nil {
+		return
+	}
 	return s.Background
 }
 
 // GetType returns value of Type field.
 func (s *SetBackgroundRequest) GetType() (value BackgroundTypeClass) {
+	if s == nil {
+		return
+	}
 	return s.Type
 }
 
 // GetForDarkTheme returns value of ForDarkTheme field.
 func (s *SetBackgroundRequest) GetForDarkTheme() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.ForDarkTheme
 }
 

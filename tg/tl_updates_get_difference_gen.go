@@ -262,6 +262,9 @@ func (g *UpdatesGetDifferenceRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPts returns value of Pts field.
 func (g *UpdatesGetDifferenceRequest) GetPts() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Pts
 }
 
@@ -274,6 +277,9 @@ func (g *UpdatesGetDifferenceRequest) SetPtsTotalLimit(value int) {
 // GetPtsTotalLimit returns value of PtsTotalLimit conditional field and
 // boolean which is true if field was set.
 func (g *UpdatesGetDifferenceRequest) GetPtsTotalLimit() (value int, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(0) {
 		return value, false
 	}
@@ -282,11 +288,17 @@ func (g *UpdatesGetDifferenceRequest) GetPtsTotalLimit() (value int, ok bool) {
 
 // GetDate returns value of Date field.
 func (g *UpdatesGetDifferenceRequest) GetDate() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Date
 }
 
 // GetQts returns value of Qts field.
 func (g *UpdatesGetDifferenceRequest) GetQts() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Qts
 }
 

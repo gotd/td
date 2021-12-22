@@ -288,16 +288,25 @@ func (v *MessagesVotesList) DecodeBare(b *bin.Buffer) error {
 
 // GetCount returns value of Count field.
 func (v *MessagesVotesList) GetCount() (value int) {
+	if v == nil {
+		return
+	}
 	return v.Count
 }
 
 // GetVotes returns value of Votes field.
 func (v *MessagesVotesList) GetVotes() (value []MessageUserVoteClass) {
+	if v == nil {
+		return
+	}
 	return v.Votes
 }
 
 // GetUsers returns value of Users field.
 func (v *MessagesVotesList) GetUsers() (value []UserClass) {
+	if v == nil {
+		return
+	}
 	return v.Users
 }
 
@@ -310,6 +319,9 @@ func (v *MessagesVotesList) SetNextOffset(value string) {
 // GetNextOffset returns value of NextOffset conditional field and
 // boolean which is true if field was set.
 func (v *MessagesVotesList) GetNextOffset() (value string, ok bool) {
+	if v == nil {
+		return
+	}
 	if !v.Flags.Has(0) {
 		return value, false
 	}

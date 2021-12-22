@@ -174,10 +174,16 @@ func (p *PaymentCharge) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (p *PaymentCharge) GetID() (value string) {
+	if p == nil {
+		return
+	}
 	return p.ID
 }
 
 // GetProviderChargeID returns value of ProviderChargeID field.
 func (p *PaymentCharge) GetProviderChargeID() (value string) {
+	if p == nil {
+		return
+	}
 	return p.ProviderChargeID
 }

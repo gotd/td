@@ -212,6 +212,9 @@ func (l *StatsLoadAsyncGraphRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetToken returns value of Token field.
 func (l *StatsLoadAsyncGraphRequest) GetToken() (value string) {
+	if l == nil {
+		return
+	}
 	return l.Token
 }
 
@@ -224,6 +227,9 @@ func (l *StatsLoadAsyncGraphRequest) SetX(value int64) {
 // GetX returns value of X conditional field and
 // boolean which is true if field was set.
 func (l *StatsLoadAsyncGraphRequest) GetX() (value int64, ok bool) {
+	if l == nil {
+		return
+	}
 	if !l.Flags.Has(0) {
 		return value, false
 	}

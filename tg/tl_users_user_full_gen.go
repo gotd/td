@@ -228,16 +228,25 @@ func (u *UsersUserFull) DecodeBare(b *bin.Buffer) error {
 
 // GetFullUser returns value of FullUser field.
 func (u *UsersUserFull) GetFullUser() (value UserFull) {
+	if u == nil {
+		return
+	}
 	return u.FullUser
 }
 
 // GetChats returns value of Chats field.
 func (u *UsersUserFull) GetChats() (value []ChatClass) {
+	if u == nil {
+		return
+	}
 	return u.Chats
 }
 
 // GetUsers returns value of Users field.
 func (u *UsersUserFull) GetUsers() (value []UserClass) {
+	if u == nil {
+		return
+	}
 	return u.Users
 }
 

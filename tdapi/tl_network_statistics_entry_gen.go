@@ -284,21 +284,33 @@ func (n *NetworkStatisticsEntryFile) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFileType returns value of FileType field.
 func (n *NetworkStatisticsEntryFile) GetFileType() (value FileTypeClass) {
+	if n == nil {
+		return
+	}
 	return n.FileType
 }
 
 // GetNetworkType returns value of NetworkType field.
 func (n *NetworkStatisticsEntryFile) GetNetworkType() (value NetworkTypeClass) {
+	if n == nil {
+		return
+	}
 	return n.NetworkType
 }
 
 // GetSentBytes returns value of SentBytes field.
 func (n *NetworkStatisticsEntryFile) GetSentBytes() (value int64) {
+	if n == nil {
+		return
+	}
 	return n.SentBytes
 }
 
 // GetReceivedBytes returns value of ReceivedBytes field.
 func (n *NetworkStatisticsEntryFile) GetReceivedBytes() (value int64) {
+	if n == nil {
+		return
+	}
 	return n.ReceivedBytes
 }
 
@@ -545,21 +557,33 @@ func (n *NetworkStatisticsEntryCall) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetNetworkType returns value of NetworkType field.
 func (n *NetworkStatisticsEntryCall) GetNetworkType() (value NetworkTypeClass) {
+	if n == nil {
+		return
+	}
 	return n.NetworkType
 }
 
 // GetSentBytes returns value of SentBytes field.
 func (n *NetworkStatisticsEntryCall) GetSentBytes() (value int64) {
+	if n == nil {
+		return
+	}
 	return n.SentBytes
 }
 
 // GetReceivedBytes returns value of ReceivedBytes field.
 func (n *NetworkStatisticsEntryCall) GetReceivedBytes() (value int64) {
+	if n == nil {
+		return
+	}
 	return n.ReceivedBytes
 }
 
 // GetDuration returns value of Duration field.
 func (n *NetworkStatisticsEntryCall) GetDuration() (value float64) {
+	if n == nil {
+		return
+	}
 	return n.Duration
 }
 

@@ -184,6 +184,9 @@ func (s *SharePhoneNumberRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (s *SharePhoneNumberRequest) GetUserID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.UserID
 }
 

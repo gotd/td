@@ -208,11 +208,17 @@ func (a *AnswerCustomQueryRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCustomQueryID returns value of CustomQueryID field.
 func (a *AnswerCustomQueryRequest) GetCustomQueryID() (value int64) {
+	if a == nil {
+		return
+	}
 	return a.CustomQueryID
 }
 
 // GetData returns value of Data field.
 func (a *AnswerCustomQueryRequest) GetData() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Data
 }
 

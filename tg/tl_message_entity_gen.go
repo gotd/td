@@ -179,11 +179,17 @@ func (m *MessageEntityUnknown) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (m *MessageEntityUnknown) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Offset
 }
 
 // GetLength returns value of Length field.
 func (m *MessageEntityUnknown) GetLength() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Length
 }
 
@@ -338,11 +344,17 @@ func (m *MessageEntityMention) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (m *MessageEntityMention) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Offset
 }
 
 // GetLength returns value of Length field.
 func (m *MessageEntityMention) GetLength() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Length
 }
 
@@ -494,11 +506,17 @@ func (m *MessageEntityHashtag) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (m *MessageEntityHashtag) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Offset
 }
 
 // GetLength returns value of Length field.
 func (m *MessageEntityHashtag) GetLength() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Length
 }
 
@@ -650,11 +668,17 @@ func (m *MessageEntityBotCommand) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (m *MessageEntityBotCommand) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Offset
 }
 
 // GetLength returns value of Length field.
 func (m *MessageEntityBotCommand) GetLength() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Length
 }
 
@@ -812,11 +836,17 @@ func (m *MessageEntityURL) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (m *MessageEntityURL) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Offset
 }
 
 // GetLength returns value of Length field.
 func (m *MessageEntityURL) GetLength() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Length
 }
 
@@ -971,11 +1001,17 @@ func (m *MessageEntityEmail) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (m *MessageEntityEmail) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Offset
 }
 
 // GetLength returns value of Length field.
 func (m *MessageEntityEmail) GetLength() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Length
 }
 
@@ -1127,11 +1163,17 @@ func (m *MessageEntityBold) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (m *MessageEntityBold) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Offset
 }
 
 // GetLength returns value of Length field.
 func (m *MessageEntityBold) GetLength() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Length
 }
 
@@ -1283,11 +1325,17 @@ func (m *MessageEntityItalic) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (m *MessageEntityItalic) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Offset
 }
 
 // GetLength returns value of Length field.
 func (m *MessageEntityItalic) GetLength() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Length
 }
 
@@ -1439,11 +1487,17 @@ func (m *MessageEntityCode) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (m *MessageEntityCode) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Offset
 }
 
 // GetLength returns value of Length field.
 func (m *MessageEntityCode) GetLength() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Length
 }
 
@@ -1615,16 +1669,25 @@ func (m *MessageEntityPre) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (m *MessageEntityPre) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Offset
 }
 
 // GetLength returns value of Length field.
 func (m *MessageEntityPre) GetLength() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Length
 }
 
 // GetLanguage returns value of Language field.
 func (m *MessageEntityPre) GetLanguage() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Language
 }
 
@@ -1801,16 +1864,25 @@ func (m *MessageEntityTextURL) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (m *MessageEntityTextURL) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Offset
 }
 
 // GetLength returns value of Length field.
 func (m *MessageEntityTextURL) GetLength() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Length
 }
 
 // GetURL returns value of URL field.
 func (m *MessageEntityTextURL) GetURL() (value string) {
+	if m == nil {
+		return
+	}
 	return m.URL
 }
 
@@ -1986,16 +2058,25 @@ func (m *MessageEntityMentionName) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (m *MessageEntityMentionName) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Offset
 }
 
 // GetLength returns value of Length field.
 func (m *MessageEntityMentionName) GetLength() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Length
 }
 
 // GetUserID returns value of UserID field.
 func (m *MessageEntityMentionName) GetUserID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.UserID
 }
 
@@ -2176,16 +2257,25 @@ func (i *InputMessageEntityMentionName) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (i *InputMessageEntityMentionName) GetOffset() (value int) {
+	if i == nil {
+		return
+	}
 	return i.Offset
 }
 
 // GetLength returns value of Length field.
 func (i *InputMessageEntityMentionName) GetLength() (value int) {
+	if i == nil {
+		return
+	}
 	return i.Length
 }
 
 // GetUserID returns value of UserID field.
 func (i *InputMessageEntityMentionName) GetUserID() (value InputUserClass) {
+	if i == nil {
+		return
+	}
 	return i.UserID
 }
 
@@ -2337,11 +2427,17 @@ func (m *MessageEntityPhone) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (m *MessageEntityPhone) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Offset
 }
 
 // GetLength returns value of Length field.
 func (m *MessageEntityPhone) GetLength() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Length
 }
 
@@ -2493,11 +2589,17 @@ func (m *MessageEntityCashtag) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (m *MessageEntityCashtag) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Offset
 }
 
 // GetLength returns value of Length field.
 func (m *MessageEntityCashtag) GetLength() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Length
 }
 
@@ -2649,11 +2751,17 @@ func (m *MessageEntityUnderline) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (m *MessageEntityUnderline) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Offset
 }
 
 // GetLength returns value of Length field.
 func (m *MessageEntityUnderline) GetLength() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Length
 }
 
@@ -2805,11 +2913,17 @@ func (m *MessageEntityStrike) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (m *MessageEntityStrike) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Offset
 }
 
 // GetLength returns value of Length field.
 func (m *MessageEntityStrike) GetLength() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Length
 }
 
@@ -2961,11 +3075,17 @@ func (m *MessageEntityBlockquote) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (m *MessageEntityBlockquote) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Offset
 }
 
 // GetLength returns value of Length field.
 func (m *MessageEntityBlockquote) GetLength() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Length
 }
 
@@ -3117,11 +3237,17 @@ func (m *MessageEntityBankCard) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (m *MessageEntityBankCard) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Offset
 }
 
 // GetLength returns value of Length field.
 func (m *MessageEntityBankCard) GetLength() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Length
 }
 

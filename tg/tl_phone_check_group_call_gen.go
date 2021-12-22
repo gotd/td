@@ -188,11 +188,17 @@ func (c *PhoneCheckGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetCall returns value of Call field.
 func (c *PhoneCheckGroupCallRequest) GetCall() (value InputGroupCall) {
+	if c == nil {
+		return
+	}
 	return c.Call
 }
 
 // GetSources returns value of Sources field.
 func (c *PhoneCheckGroupCallRequest) GetSources() (value []int) {
+	if c == nil {
+		return
+	}
 	return c.Sources
 }
 

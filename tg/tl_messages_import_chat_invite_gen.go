@@ -155,6 +155,9 @@ func (i *MessagesImportChatInviteRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetHash returns value of Hash field.
 func (i *MessagesImportChatInviteRequest) GetHash() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Hash
 }
 

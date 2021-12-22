@@ -189,10 +189,16 @@ func (b *PaymentsBankCardData) DecodeBare(buf *bin.Buffer) error {
 
 // GetTitle returns value of Title field.
 func (b *PaymentsBankCardData) GetTitle() (value string) {
+	if b == nil {
+		return
+	}
 	return b.Title
 }
 
 // GetOpenURLs returns value of OpenURLs field.
 func (b *PaymentsBankCardData) GetOpenURLs() (value []BankCardOpenURL) {
+	if b == nil {
+		return
+	}
 	return b.OpenURLs
 }

@@ -274,16 +274,25 @@ func (i *InputSingleMedia) DecodeBare(b *bin.Buffer) error {
 
 // GetMedia returns value of Media field.
 func (i *InputSingleMedia) GetMedia() (value InputMediaClass) {
+	if i == nil {
+		return
+	}
 	return i.Media
 }
 
 // GetRandomID returns value of RandomID field.
 func (i *InputSingleMedia) GetRandomID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.RandomID
 }
 
 // GetMessage returns value of Message field.
 func (i *InputSingleMedia) GetMessage() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Message
 }
 
@@ -296,6 +305,9 @@ func (i *InputSingleMedia) SetEntities(value []MessageEntityClass) {
 // GetEntities returns value of Entities conditional field and
 // boolean which is true if field was set.
 func (i *InputSingleMedia) GetEntities() (value []MessageEntityClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(0) {
 		return value, false
 	}

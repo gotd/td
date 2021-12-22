@@ -330,11 +330,17 @@ func (s *SponsoredMessage) DecodeBare(b *bin.Buffer) error {
 
 // GetRandomID returns value of RandomID field.
 func (s *SponsoredMessage) GetRandomID() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.RandomID
 }
 
 // GetFromID returns value of FromID field.
 func (s *SponsoredMessage) GetFromID() (value PeerClass) {
+	if s == nil {
+		return
+	}
 	return s.FromID
 }
 
@@ -347,6 +353,9 @@ func (s *SponsoredMessage) SetChannelPost(value int) {
 // GetChannelPost returns value of ChannelPost conditional field and
 // boolean which is true if field was set.
 func (s *SponsoredMessage) GetChannelPost() (value int, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(2) {
 		return value, false
 	}
@@ -362,6 +371,9 @@ func (s *SponsoredMessage) SetStartParam(value string) {
 // GetStartParam returns value of StartParam conditional field and
 // boolean which is true if field was set.
 func (s *SponsoredMessage) GetStartParam() (value string, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(0) {
 		return value, false
 	}
@@ -370,6 +382,9 @@ func (s *SponsoredMessage) GetStartParam() (value string, ok bool) {
 
 // GetMessage returns value of Message field.
 func (s *SponsoredMessage) GetMessage() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Message
 }
 
@@ -382,6 +397,9 @@ func (s *SponsoredMessage) SetEntities(value []MessageEntityClass) {
 // GetEntities returns value of Entities conditional field and
 // boolean which is true if field was set.
 func (s *SponsoredMessage) GetEntities() (value []MessageEntityClass, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(1) {
 		return value, false
 	}

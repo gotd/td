@@ -202,16 +202,25 @@ func (r *MessagesRequestEncryptionRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (r *MessagesRequestEncryptionRequest) GetUserID() (value InputUserClass) {
+	if r == nil {
+		return
+	}
 	return r.UserID
 }
 
 // GetRandomID returns value of RandomID field.
 func (r *MessagesRequestEncryptionRequest) GetRandomID() (value int) {
+	if r == nil {
+		return
+	}
 	return r.RandomID
 }
 
 // GetGA returns value of GA field.
 func (r *MessagesRequestEncryptionRequest) GetGA() (value []byte) {
+	if r == nil {
+		return
+	}
 	return r.GA
 }
 

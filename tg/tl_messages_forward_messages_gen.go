@@ -426,6 +426,9 @@ func (f *MessagesForwardMessagesRequest) SetSilent(value bool) {
 
 // GetSilent returns value of Silent conditional field.
 func (f *MessagesForwardMessagesRequest) GetSilent() (value bool) {
+	if f == nil {
+		return
+	}
 	return f.Flags.Has(5)
 }
 
@@ -442,6 +445,9 @@ func (f *MessagesForwardMessagesRequest) SetBackground(value bool) {
 
 // GetBackground returns value of Background conditional field.
 func (f *MessagesForwardMessagesRequest) GetBackground() (value bool) {
+	if f == nil {
+		return
+	}
 	return f.Flags.Has(6)
 }
 
@@ -458,6 +464,9 @@ func (f *MessagesForwardMessagesRequest) SetWithMyScore(value bool) {
 
 // GetWithMyScore returns value of WithMyScore conditional field.
 func (f *MessagesForwardMessagesRequest) GetWithMyScore() (value bool) {
+	if f == nil {
+		return
+	}
 	return f.Flags.Has(8)
 }
 
@@ -474,6 +483,9 @@ func (f *MessagesForwardMessagesRequest) SetDropAuthor(value bool) {
 
 // GetDropAuthor returns value of DropAuthor conditional field.
 func (f *MessagesForwardMessagesRequest) GetDropAuthor() (value bool) {
+	if f == nil {
+		return
+	}
 	return f.Flags.Has(11)
 }
 
@@ -490,26 +502,41 @@ func (f *MessagesForwardMessagesRequest) SetDropMediaCaptions(value bool) {
 
 // GetDropMediaCaptions returns value of DropMediaCaptions conditional field.
 func (f *MessagesForwardMessagesRequest) GetDropMediaCaptions() (value bool) {
+	if f == nil {
+		return
+	}
 	return f.Flags.Has(12)
 }
 
 // GetFromPeer returns value of FromPeer field.
 func (f *MessagesForwardMessagesRequest) GetFromPeer() (value InputPeerClass) {
+	if f == nil {
+		return
+	}
 	return f.FromPeer
 }
 
 // GetID returns value of ID field.
 func (f *MessagesForwardMessagesRequest) GetID() (value []int) {
+	if f == nil {
+		return
+	}
 	return f.ID
 }
 
 // GetRandomID returns value of RandomID field.
 func (f *MessagesForwardMessagesRequest) GetRandomID() (value []int64) {
+	if f == nil {
+		return
+	}
 	return f.RandomID
 }
 
 // GetToPeer returns value of ToPeer field.
 func (f *MessagesForwardMessagesRequest) GetToPeer() (value InputPeerClass) {
+	if f == nil {
+		return
+	}
 	return f.ToPeer
 }
 
@@ -522,6 +549,9 @@ func (f *MessagesForwardMessagesRequest) SetScheduleDate(value int) {
 // GetScheduleDate returns value of ScheduleDate conditional field and
 // boolean which is true if field was set.
 func (f *MessagesForwardMessagesRequest) GetScheduleDate() (value int, ok bool) {
+	if f == nil {
+		return
+	}
 	if !f.Flags.Has(10) {
 		return value, false
 	}
@@ -537,6 +567,9 @@ func (f *MessagesForwardMessagesRequest) SetSendAs(value InputPeerClass) {
 // GetSendAs returns value of SendAs conditional field and
 // boolean which is true if field was set.
 func (f *MessagesForwardMessagesRequest) GetSendAs() (value InputPeerClass, ok bool) {
+	if f == nil {
+		return
+	}
 	if !f.Flags.Has(13) {
 		return value, false
 	}

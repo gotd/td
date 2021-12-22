@@ -184,6 +184,9 @@ func (d *MessagesDeletePhoneCallHistoryRequest) SetRevoke(value bool) {
 
 // GetRevoke returns value of Revoke conditional field.
 func (d *MessagesDeletePhoneCallHistoryRequest) GetRevoke() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(0)
 }
 

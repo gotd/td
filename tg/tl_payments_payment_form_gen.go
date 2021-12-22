@@ -462,6 +462,9 @@ func (p *PaymentsPaymentForm) SetCanSaveCredentials(value bool) {
 
 // GetCanSaveCredentials returns value of CanSaveCredentials conditional field.
 func (p *PaymentsPaymentForm) GetCanSaveCredentials() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(2)
 }
 
@@ -478,31 +481,49 @@ func (p *PaymentsPaymentForm) SetPasswordMissing(value bool) {
 
 // GetPasswordMissing returns value of PasswordMissing conditional field.
 func (p *PaymentsPaymentForm) GetPasswordMissing() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(3)
 }
 
 // GetFormID returns value of FormID field.
 func (p *PaymentsPaymentForm) GetFormID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.FormID
 }
 
 // GetBotID returns value of BotID field.
 func (p *PaymentsPaymentForm) GetBotID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.BotID
 }
 
 // GetInvoice returns value of Invoice field.
 func (p *PaymentsPaymentForm) GetInvoice() (value Invoice) {
+	if p == nil {
+		return
+	}
 	return p.Invoice
 }
 
 // GetProviderID returns value of ProviderID field.
 func (p *PaymentsPaymentForm) GetProviderID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ProviderID
 }
 
 // GetURL returns value of URL field.
 func (p *PaymentsPaymentForm) GetURL() (value string) {
+	if p == nil {
+		return
+	}
 	return p.URL
 }
 
@@ -515,6 +536,9 @@ func (p *PaymentsPaymentForm) SetNativeProvider(value string) {
 // GetNativeProvider returns value of NativeProvider conditional field and
 // boolean which is true if field was set.
 func (p *PaymentsPaymentForm) GetNativeProvider() (value string, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(4) {
 		return value, false
 	}
@@ -530,6 +554,9 @@ func (p *PaymentsPaymentForm) SetNativeParams(value DataJSON) {
 // GetNativeParams returns value of NativeParams conditional field and
 // boolean which is true if field was set.
 func (p *PaymentsPaymentForm) GetNativeParams() (value DataJSON, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(4) {
 		return value, false
 	}
@@ -545,6 +572,9 @@ func (p *PaymentsPaymentForm) SetSavedInfo(value PaymentRequestedInfo) {
 // GetSavedInfo returns value of SavedInfo conditional field and
 // boolean which is true if field was set.
 func (p *PaymentsPaymentForm) GetSavedInfo() (value PaymentRequestedInfo, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(0) {
 		return value, false
 	}
@@ -560,6 +590,9 @@ func (p *PaymentsPaymentForm) SetSavedCredentials(value PaymentSavedCredentialsC
 // GetSavedCredentials returns value of SavedCredentials conditional field and
 // boolean which is true if field was set.
 func (p *PaymentsPaymentForm) GetSavedCredentials() (value PaymentSavedCredentialsCard, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(1) {
 		return value, false
 	}
@@ -568,6 +601,9 @@ func (p *PaymentsPaymentForm) GetSavedCredentials() (value PaymentSavedCredentia
 
 // GetUsers returns value of Users field.
 func (p *PaymentsPaymentForm) GetUsers() (value []UserClass) {
+	if p == nil {
+		return
+	}
 	return p.Users
 }
 

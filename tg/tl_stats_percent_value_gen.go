@@ -178,10 +178,16 @@ func (s *StatsPercentValue) DecodeBare(b *bin.Buffer) error {
 
 // GetPart returns value of Part field.
 func (s *StatsPercentValue) GetPart() (value float64) {
+	if s == nil {
+		return
+	}
 	return s.Part
 }
 
 // GetTotal returns value of Total field.
 func (s *StatsPercentValue) GetTotal() (value float64) {
+	if s == nil {
+		return
+	}
 	return s.Total
 }

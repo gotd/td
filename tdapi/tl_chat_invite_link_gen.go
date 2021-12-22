@@ -462,60 +462,96 @@ func (c *ChatInviteLink) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetInviteLink returns value of InviteLink field.
 func (c *ChatInviteLink) GetInviteLink() (value string) {
+	if c == nil {
+		return
+	}
 	return c.InviteLink
 }
 
 // GetName returns value of Name field.
 func (c *ChatInviteLink) GetName() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Name
 }
 
 // GetCreatorUserID returns value of CreatorUserID field.
 func (c *ChatInviteLink) GetCreatorUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.CreatorUserID
 }
 
 // GetDate returns value of Date field.
 func (c *ChatInviteLink) GetDate() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.Date
 }
 
 // GetEditDate returns value of EditDate field.
 func (c *ChatInviteLink) GetEditDate() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.EditDate
 }
 
 // GetExpireDate returns value of ExpireDate field.
 func (c *ChatInviteLink) GetExpireDate() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.ExpireDate
 }
 
 // GetMemberLimit returns value of MemberLimit field.
 func (c *ChatInviteLink) GetMemberLimit() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.MemberLimit
 }
 
 // GetMemberCount returns value of MemberCount field.
 func (c *ChatInviteLink) GetMemberCount() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.MemberCount
 }
 
 // GetPendingJoinRequestCount returns value of PendingJoinRequestCount field.
 func (c *ChatInviteLink) GetPendingJoinRequestCount() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.PendingJoinRequestCount
 }
 
 // GetCreatesJoinRequest returns value of CreatesJoinRequest field.
 func (c *ChatInviteLink) GetCreatesJoinRequest() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CreatesJoinRequest
 }
 
 // GetIsPrimary returns value of IsPrimary field.
 func (c *ChatInviteLink) GetIsPrimary() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsPrimary
 }
 
 // GetIsRevoked returns value of IsRevoked field.
 func (c *ChatInviteLink) GetIsRevoked() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsRevoked
 }

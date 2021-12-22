@@ -192,15 +192,24 @@ func (s *SearchResultPosition) DecodeBare(b *bin.Buffer) error {
 
 // GetMsgID returns value of MsgID field.
 func (s *SearchResultPosition) GetMsgID() (value int) {
+	if s == nil {
+		return
+	}
 	return s.MsgID
 }
 
 // GetDate returns value of Date field.
 func (s *SearchResultPosition) GetDate() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Date
 }
 
 // GetOffset returns value of Offset field.
 func (s *SearchResultPosition) GetOffset() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Offset
 }

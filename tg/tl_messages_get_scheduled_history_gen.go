@@ -182,11 +182,17 @@ func (g *MessagesGetScheduledHistoryRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (g *MessagesGetScheduledHistoryRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
 // GetHash returns value of Hash field.
 func (g *MessagesGetScheduledHistoryRequest) GetHash() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.Hash
 }
 

@@ -208,11 +208,17 @@ func (v *ViewSponsoredMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (v *ViewSponsoredMessageRequest) GetChatID() (value int64) {
+	if v == nil {
+		return
+	}
 	return v.ChatID
 }
 
 // GetSponsoredMessageID returns value of SponsoredMessageID field.
 func (v *ViewSponsoredMessageRequest) GetSponsoredMessageID() (value int32) {
+	if v == nil {
+		return
+	}
 	return v.SponsoredMessageID
 }
 

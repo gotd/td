@@ -160,5 +160,8 @@ func (m *StatsMessageStats) DecodeBare(b *bin.Buffer) error {
 
 // GetViewsGraph returns value of ViewsGraph field.
 func (m *StatsMessageStats) GetViewsGraph() (value StatsGraphClass) {
+	if m == nil {
+		return
+	}
 	return m.ViewsGraph
 }

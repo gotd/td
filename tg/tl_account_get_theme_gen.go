@@ -198,16 +198,25 @@ func (g *AccountGetThemeRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetFormat returns value of Format field.
 func (g *AccountGetThemeRequest) GetFormat() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Format
 }
 
 // GetTheme returns value of Theme field.
 func (g *AccountGetThemeRequest) GetTheme() (value InputThemeClass) {
+	if g == nil {
+		return
+	}
 	return g.Theme
 }
 
 // GetDocumentID returns value of DocumentID field.
 func (g *AccountGetThemeRequest) GetDocumentID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.DocumentID
 }
 

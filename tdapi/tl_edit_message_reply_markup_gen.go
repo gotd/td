@@ -243,16 +243,25 @@ func (e *EditMessageReplyMarkupRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetChatID returns value of ChatID field.
 func (e *EditMessageReplyMarkupRequest) GetChatID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (e *EditMessageReplyMarkupRequest) GetMessageID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.MessageID
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (e *EditMessageReplyMarkupRequest) GetReplyMarkup() (value ReplyMarkupClass) {
+	if e == nil {
+		return
+	}
 	return e.ReplyMarkup
 }
 

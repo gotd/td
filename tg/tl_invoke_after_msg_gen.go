@@ -174,10 +174,16 @@ func (i *InvokeAfterMsgRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetMsgID returns value of MsgID field.
 func (i *InvokeAfterMsgRequest) GetMsgID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.MsgID
 }
 
 // GetQuery returns value of Query field.
 func (i *InvokeAfterMsgRequest) GetQuery() (value bin.Object) {
+	if i == nil {
+		return
+	}
 	return i.Query
 }

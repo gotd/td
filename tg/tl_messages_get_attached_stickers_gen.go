@@ -160,6 +160,9 @@ func (g *MessagesGetAttachedStickersRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetMedia returns value of Media field.
 func (g *MessagesGetAttachedStickersRequest) GetMedia() (value InputStickeredMediaClass) {
+	if g == nil {
+		return
+	}
 	return g.Media
 }
 

@@ -179,11 +179,17 @@ func (s *MessagesSetEncryptedTypingRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (s *MessagesSetEncryptedTypingRequest) GetPeer() (value InputEncryptedChat) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
 // GetTyping returns value of Typing field.
 func (s *MessagesSetEncryptedTypingRequest) GetTyping() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Typing
 }
 

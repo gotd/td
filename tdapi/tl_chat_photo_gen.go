@@ -309,25 +309,40 @@ func (c *ChatPhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (c *ChatPhoto) GetID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ID
 }
 
 // GetAddedDate returns value of AddedDate field.
 func (c *ChatPhoto) GetAddedDate() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.AddedDate
 }
 
 // GetMinithumbnail returns value of Minithumbnail field.
 func (c *ChatPhoto) GetMinithumbnail() (value Minithumbnail) {
+	if c == nil {
+		return
+	}
 	return c.Minithumbnail
 }
 
 // GetSizes returns value of Sizes field.
 func (c *ChatPhoto) GetSizes() (value []PhotoSize) {
+	if c == nil {
+		return
+	}
 	return c.Sizes
 }
 
 // GetAnimation returns value of Animation field.
 func (c *ChatPhoto) GetAnimation() (value AnimatedChatPhoto) {
+	if c == nil {
+		return
+	}
 	return c.Animation
 }

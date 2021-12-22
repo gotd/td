@@ -208,11 +208,17 @@ func (c *ClickAnimatedEmojiMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) err
 
 // GetChatID returns value of ChatID field.
 func (c *ClickAnimatedEmojiMessageRequest) GetChatID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (c *ClickAnimatedEmojiMessageRequest) GetMessageID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.MessageID
 }
 

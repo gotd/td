@@ -246,11 +246,17 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) SetSuccess(value bool) {
 
 // GetSuccess returns value of Success conditional field.
 func (s *MessagesSetBotPrecheckoutResultsRequest) GetSuccess() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(1)
 }
 
 // GetQueryID returns value of QueryID field.
 func (s *MessagesSetBotPrecheckoutResultsRequest) GetQueryID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.QueryID
 }
 
@@ -263,6 +269,9 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) SetError(value string) {
 // GetError returns value of Error conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSetBotPrecheckoutResultsRequest) GetError() (value string, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(0) {
 		return value, false
 	}

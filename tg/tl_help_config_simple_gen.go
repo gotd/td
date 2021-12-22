@@ -207,15 +207,24 @@ func (c *HelpConfigSimple) DecodeBare(b *bin.Buffer) error {
 
 // GetDate returns value of Date field.
 func (c *HelpConfigSimple) GetDate() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Date
 }
 
 // GetExpires returns value of Expires field.
 func (c *HelpConfigSimple) GetExpires() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Expires
 }
 
 // GetRules returns value of Rules field.
 func (c *HelpConfigSimple) GetRules() (value []AccessPointRule) {
+	if c == nil {
+		return
+	}
 	return c.Rules
 }

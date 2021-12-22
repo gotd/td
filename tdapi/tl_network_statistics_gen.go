@@ -240,10 +240,16 @@ func (n *NetworkStatistics) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSinceDate returns value of SinceDate field.
 func (n *NetworkStatistics) GetSinceDate() (value int32) {
+	if n == nil {
+		return
+	}
 	return n.SinceDate
 }
 
 // GetEntries returns value of Entries field.
 func (n *NetworkStatistics) GetEntries() (value []NetworkStatisticsEntryClass) {
+	if n == nil {
+		return
+	}
 	return n.Entries
 }

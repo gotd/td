@@ -384,45 +384,72 @@ func (c *ConnectedWebsite) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (c *ConnectedWebsite) GetID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ID
 }
 
 // GetDomainName returns value of DomainName field.
 func (c *ConnectedWebsite) GetDomainName() (value string) {
+	if c == nil {
+		return
+	}
 	return c.DomainName
 }
 
 // GetBotUserID returns value of BotUserID field.
 func (c *ConnectedWebsite) GetBotUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.BotUserID
 }
 
 // GetBrowser returns value of Browser field.
 func (c *ConnectedWebsite) GetBrowser() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Browser
 }
 
 // GetPlatform returns value of Platform field.
 func (c *ConnectedWebsite) GetPlatform() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Platform
 }
 
 // GetLogInDate returns value of LogInDate field.
 func (c *ConnectedWebsite) GetLogInDate() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.LogInDate
 }
 
 // GetLastActiveDate returns value of LastActiveDate field.
 func (c *ConnectedWebsite) GetLastActiveDate() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.LastActiveDate
 }
 
 // GetIP returns value of IP field.
 func (c *ConnectedWebsite) GetIP() (value string) {
+	if c == nil {
+		return
+	}
 	return c.IP
 }
 
 // GetLocation returns value of Location field.
 func (c *ConnectedWebsite) GetLocation() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Location
 }

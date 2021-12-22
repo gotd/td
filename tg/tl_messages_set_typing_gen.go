@@ -245,6 +245,9 @@ func (s *MessagesSetTypingRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (s *MessagesSetTypingRequest) GetPeer() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
@@ -257,6 +260,9 @@ func (s *MessagesSetTypingRequest) SetTopMsgID(value int) {
 // GetTopMsgID returns value of TopMsgID conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSetTypingRequest) GetTopMsgID() (value int, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(0) {
 		return value, false
 	}
@@ -265,6 +271,9 @@ func (s *MessagesSetTypingRequest) GetTopMsgID() (value int, ok bool) {
 
 // GetAction returns value of Action field.
 func (s *MessagesSetTypingRequest) GetAction() (value SendMessageActionClass) {
+	if s == nil {
+		return
+	}
 	return s.Action
 }
 

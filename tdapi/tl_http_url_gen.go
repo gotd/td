@@ -183,5 +183,8 @@ func (h *HTTPURL) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetURL returns value of URL field.
 func (h *HTTPURL) GetURL() (value string) {
+	if h == nil {
+		return
+	}
 	return h.URL
 }

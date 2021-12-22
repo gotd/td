@@ -183,6 +183,9 @@ func (s *SearchPublicChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUsername returns value of Username field.
 func (s *SearchPublicChatRequest) GetUsername() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Username
 }
 

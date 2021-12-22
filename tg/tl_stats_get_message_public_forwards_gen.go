@@ -278,31 +278,49 @@ func (g *StatsGetMessagePublicForwardsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (g *StatsGetMessagePublicForwardsRequest) GetChannel() (value InputChannelClass) {
+	if g == nil {
+		return
+	}
 	return g.Channel
 }
 
 // GetMsgID returns value of MsgID field.
 func (g *StatsGetMessagePublicForwardsRequest) GetMsgID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.MsgID
 }
 
 // GetOffsetRate returns value of OffsetRate field.
 func (g *StatsGetMessagePublicForwardsRequest) GetOffsetRate() (value int) {
+	if g == nil {
+		return
+	}
 	return g.OffsetRate
 }
 
 // GetOffsetPeer returns value of OffsetPeer field.
 func (g *StatsGetMessagePublicForwardsRequest) GetOffsetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.OffsetPeer
 }
 
 // GetOffsetID returns value of OffsetID field.
 func (g *StatsGetMessagePublicForwardsRequest) GetOffsetID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.OffsetID
 }
 
 // GetLimit returns value of Limit field.
 func (g *StatsGetMessagePublicForwardsRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

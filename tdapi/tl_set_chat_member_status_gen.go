@@ -253,16 +253,25 @@ func (s *SetChatMemberStatusRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (s *SetChatMemberStatusRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetMemberID returns value of MemberID field.
 func (s *SetChatMemberStatusRequest) GetMemberID() (value MessageSenderClass) {
+	if s == nil {
+		return
+	}
 	return s.MemberID
 }
 
 // GetStatus returns value of Status field.
 func (s *SetChatMemberStatusRequest) GetStatus() (value ChatMemberStatusClass) {
+	if s == nil {
+		return
+	}
 	return s.Status
 }
 

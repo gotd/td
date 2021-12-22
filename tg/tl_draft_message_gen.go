@@ -199,6 +199,9 @@ func (d *DraftMessageEmpty) SetDate(value int) {
 // GetDate returns value of Date conditional field and
 // boolean which is true if field was set.
 func (d *DraftMessageEmpty) GetDate() (value int, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(0) {
 		return value, false
 	}
@@ -485,6 +488,9 @@ func (d *DraftMessage) SetNoWebpage(value bool) {
 
 // GetNoWebpage returns value of NoWebpage conditional field.
 func (d *DraftMessage) GetNoWebpage() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(1)
 }
 
@@ -497,6 +503,9 @@ func (d *DraftMessage) SetReplyToMsgID(value int) {
 // GetReplyToMsgID returns value of ReplyToMsgID conditional field and
 // boolean which is true if field was set.
 func (d *DraftMessage) GetReplyToMsgID() (value int, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(0) {
 		return value, false
 	}
@@ -505,6 +514,9 @@ func (d *DraftMessage) GetReplyToMsgID() (value int, ok bool) {
 
 // GetMessage returns value of Message field.
 func (d *DraftMessage) GetMessage() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Message
 }
 
@@ -517,6 +529,9 @@ func (d *DraftMessage) SetEntities(value []MessageEntityClass) {
 // GetEntities returns value of Entities conditional field and
 // boolean which is true if field was set.
 func (d *DraftMessage) GetEntities() (value []MessageEntityClass, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(3) {
 		return value, false
 	}
@@ -525,6 +540,9 @@ func (d *DraftMessage) GetEntities() (value []MessageEntityClass, ok bool) {
 
 // GetDate returns value of Date field.
 func (d *DraftMessage) GetDate() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Date
 }
 

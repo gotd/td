@@ -293,26 +293,41 @@ func (g *GetGroupCallStreamSegmentRequest) DecodeTDLibJSON(b tdjson.Decoder) err
 
 // GetGroupCallID returns value of GroupCallID field.
 func (g *GetGroupCallStreamSegmentRequest) GetGroupCallID() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.GroupCallID
 }
 
 // GetTimeOffset returns value of TimeOffset field.
 func (g *GetGroupCallStreamSegmentRequest) GetTimeOffset() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.TimeOffset
 }
 
 // GetScale returns value of Scale field.
 func (g *GetGroupCallStreamSegmentRequest) GetScale() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Scale
 }
 
 // GetChannelID returns value of ChannelID field.
 func (g *GetGroupCallStreamSegmentRequest) GetChannelID() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.ChannelID
 }
 
 // GetVideoQuality returns value of VideoQuality field.
 func (g *GetGroupCallStreamSegmentRequest) GetVideoQuality() (value GroupCallVideoQualityClass) {
+	if g == nil {
+		return
+	}
 	return g.VideoQuality
 }
 

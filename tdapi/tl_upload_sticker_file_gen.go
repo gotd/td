@@ -218,11 +218,17 @@ func (u *UploadStickerFileRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (u *UploadStickerFileRequest) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetSticker returns value of Sticker field.
 func (u *UploadStickerFileRequest) GetSticker() (value InputStickerClass) {
+	if u == nil {
+		return
+	}
 	return u.Sticker
 }
 

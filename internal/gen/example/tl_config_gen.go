@@ -1092,6 +1092,9 @@ func (c *Config) SetPhonecallsEnabled(value bool) {
 
 // GetPhonecallsEnabled returns value of PhonecallsEnabled conditional field.
 func (c *Config) GetPhonecallsEnabled() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(1)
 }
 
@@ -1108,6 +1111,9 @@ func (c *Config) SetDefaultP2PContacts(value bool) {
 
 // GetDefaultP2PContacts returns value of DefaultP2PContacts conditional field.
 func (c *Config) GetDefaultP2PContacts() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(3)
 }
 
@@ -1124,6 +1130,9 @@ func (c *Config) SetPreloadFeaturedStickers(value bool) {
 
 // GetPreloadFeaturedStickers returns value of PreloadFeaturedStickers conditional field.
 func (c *Config) GetPreloadFeaturedStickers() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(4)
 }
 
@@ -1140,6 +1149,9 @@ func (c *Config) SetIgnorePhoneEntities(value bool) {
 
 // GetIgnorePhoneEntities returns value of IgnorePhoneEntities conditional field.
 func (c *Config) GetIgnorePhoneEntities() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(5)
 }
 
@@ -1156,6 +1168,9 @@ func (c *Config) SetRevokePmInbox(value bool) {
 
 // GetRevokePmInbox returns value of RevokePmInbox conditional field.
 func (c *Config) GetRevokePmInbox() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(6)
 }
 
@@ -1172,6 +1187,9 @@ func (c *Config) SetBlockedMode(value bool) {
 
 // GetBlockedMode returns value of BlockedMode conditional field.
 func (c *Config) GetBlockedMode() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(8)
 }
 
@@ -1188,131 +1206,209 @@ func (c *Config) SetPFSEnabled(value bool) {
 
 // GetPFSEnabled returns value of PFSEnabled conditional field.
 func (c *Config) GetPFSEnabled() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(13)
 }
 
 // GetDate returns value of Date field.
 func (c *Config) GetDate() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Date
 }
 
 // GetExpires returns value of Expires field.
 func (c *Config) GetExpires() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Expires
 }
 
 // GetTestMode returns value of TestMode field.
 func (c *Config) GetTestMode() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.TestMode
 }
 
 // GetThisDC returns value of ThisDC field.
 func (c *Config) GetThisDC() (value int) {
+	if c == nil {
+		return
+	}
 	return c.ThisDC
 }
 
 // GetDCOptions returns value of DCOptions field.
 func (c *Config) GetDCOptions() (value []DCOption) {
+	if c == nil {
+		return
+	}
 	return c.DCOptions
 }
 
 // GetDCTxtDomainName returns value of DCTxtDomainName field.
 func (c *Config) GetDCTxtDomainName() (value string) {
+	if c == nil {
+		return
+	}
 	return c.DCTxtDomainName
 }
 
 // GetChatSizeMax returns value of ChatSizeMax field.
 func (c *Config) GetChatSizeMax() (value int) {
+	if c == nil {
+		return
+	}
 	return c.ChatSizeMax
 }
 
 // GetMegagroupSizeMax returns value of MegagroupSizeMax field.
 func (c *Config) GetMegagroupSizeMax() (value int) {
+	if c == nil {
+		return
+	}
 	return c.MegagroupSizeMax
 }
 
 // GetForwardedCountMax returns value of ForwardedCountMax field.
 func (c *Config) GetForwardedCountMax() (value int) {
+	if c == nil {
+		return
+	}
 	return c.ForwardedCountMax
 }
 
 // GetOnlineUpdatePeriodMs returns value of OnlineUpdatePeriodMs field.
 func (c *Config) GetOnlineUpdatePeriodMs() (value int) {
+	if c == nil {
+		return
+	}
 	return c.OnlineUpdatePeriodMs
 }
 
 // GetOfflineBlurTimeoutMs returns value of OfflineBlurTimeoutMs field.
 func (c *Config) GetOfflineBlurTimeoutMs() (value int) {
+	if c == nil {
+		return
+	}
 	return c.OfflineBlurTimeoutMs
 }
 
 // GetOfflineIdleTimeoutMs returns value of OfflineIdleTimeoutMs field.
 func (c *Config) GetOfflineIdleTimeoutMs() (value int) {
+	if c == nil {
+		return
+	}
 	return c.OfflineIdleTimeoutMs
 }
 
 // GetOnlineCloudTimeoutMs returns value of OnlineCloudTimeoutMs field.
 func (c *Config) GetOnlineCloudTimeoutMs() (value int) {
+	if c == nil {
+		return
+	}
 	return c.OnlineCloudTimeoutMs
 }
 
 // GetNotifyCloudDelayMs returns value of NotifyCloudDelayMs field.
 func (c *Config) GetNotifyCloudDelayMs() (value int) {
+	if c == nil {
+		return
+	}
 	return c.NotifyCloudDelayMs
 }
 
 // GetNotifyDefaultDelayMs returns value of NotifyDefaultDelayMs field.
 func (c *Config) GetNotifyDefaultDelayMs() (value int) {
+	if c == nil {
+		return
+	}
 	return c.NotifyDefaultDelayMs
 }
 
 // GetPushChatPeriodMs returns value of PushChatPeriodMs field.
 func (c *Config) GetPushChatPeriodMs() (value int) {
+	if c == nil {
+		return
+	}
 	return c.PushChatPeriodMs
 }
 
 // GetPushChatLimit returns value of PushChatLimit field.
 func (c *Config) GetPushChatLimit() (value int) {
+	if c == nil {
+		return
+	}
 	return c.PushChatLimit
 }
 
 // GetSavedGifsLimit returns value of SavedGifsLimit field.
 func (c *Config) GetSavedGifsLimit() (value int) {
+	if c == nil {
+		return
+	}
 	return c.SavedGifsLimit
 }
 
 // GetEditTimeLimit returns value of EditTimeLimit field.
 func (c *Config) GetEditTimeLimit() (value int) {
+	if c == nil {
+		return
+	}
 	return c.EditTimeLimit
 }
 
 // GetRevokeTimeLimit returns value of RevokeTimeLimit field.
 func (c *Config) GetRevokeTimeLimit() (value int) {
+	if c == nil {
+		return
+	}
 	return c.RevokeTimeLimit
 }
 
 // GetRevokePmTimeLimit returns value of RevokePmTimeLimit field.
 func (c *Config) GetRevokePmTimeLimit() (value int) {
+	if c == nil {
+		return
+	}
 	return c.RevokePmTimeLimit
 }
 
 // GetRatingEDecay returns value of RatingEDecay field.
 func (c *Config) GetRatingEDecay() (value int) {
+	if c == nil {
+		return
+	}
 	return c.RatingEDecay
 }
 
 // GetStickersRecentLimit returns value of StickersRecentLimit field.
 func (c *Config) GetStickersRecentLimit() (value int) {
+	if c == nil {
+		return
+	}
 	return c.StickersRecentLimit
 }
 
 // GetStickersFavedLimit returns value of StickersFavedLimit field.
 func (c *Config) GetStickersFavedLimit() (value int) {
+	if c == nil {
+		return
+	}
 	return c.StickersFavedLimit
 }
 
 // GetChannelsReadMediaPeriod returns value of ChannelsReadMediaPeriod field.
 func (c *Config) GetChannelsReadMediaPeriod() (value int) {
+	if c == nil {
+		return
+	}
 	return c.ChannelsReadMediaPeriod
 }
 
@@ -1325,6 +1421,9 @@ func (c *Config) SetTmpSessions(value int) {
 // GetTmpSessions returns value of TmpSessions conditional field and
 // boolean which is true if field was set.
 func (c *Config) GetTmpSessions() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(0) {
 		return value, false
 	}
@@ -1333,36 +1432,57 @@ func (c *Config) GetTmpSessions() (value int, ok bool) {
 
 // GetPinnedDialogsCountMax returns value of PinnedDialogsCountMax field.
 func (c *Config) GetPinnedDialogsCountMax() (value int) {
+	if c == nil {
+		return
+	}
 	return c.PinnedDialogsCountMax
 }
 
 // GetPinnedInfolderCountMax returns value of PinnedInfolderCountMax field.
 func (c *Config) GetPinnedInfolderCountMax() (value int) {
+	if c == nil {
+		return
+	}
 	return c.PinnedInfolderCountMax
 }
 
 // GetCallReceiveTimeoutMs returns value of CallReceiveTimeoutMs field.
 func (c *Config) GetCallReceiveTimeoutMs() (value int) {
+	if c == nil {
+		return
+	}
 	return c.CallReceiveTimeoutMs
 }
 
 // GetCallRingTimeoutMs returns value of CallRingTimeoutMs field.
 func (c *Config) GetCallRingTimeoutMs() (value int) {
+	if c == nil {
+		return
+	}
 	return c.CallRingTimeoutMs
 }
 
 // GetCallConnectTimeoutMs returns value of CallConnectTimeoutMs field.
 func (c *Config) GetCallConnectTimeoutMs() (value int) {
+	if c == nil {
+		return
+	}
 	return c.CallConnectTimeoutMs
 }
 
 // GetCallPacketTimeoutMs returns value of CallPacketTimeoutMs field.
 func (c *Config) GetCallPacketTimeoutMs() (value int) {
+	if c == nil {
+		return
+	}
 	return c.CallPacketTimeoutMs
 }
 
 // GetMeURLPrefix returns value of MeURLPrefix field.
 func (c *Config) GetMeURLPrefix() (value string) {
+	if c == nil {
+		return
+	}
 	return c.MeURLPrefix
 }
 
@@ -1375,6 +1495,9 @@ func (c *Config) SetAutoupdateURLPrefix(value string) {
 // GetAutoupdateURLPrefix returns value of AutoupdateURLPrefix conditional field and
 // boolean which is true if field was set.
 func (c *Config) GetAutoupdateURLPrefix() (value string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(7) {
 		return value, false
 	}
@@ -1390,6 +1513,9 @@ func (c *Config) SetGifSearchUsername(value string) {
 // GetGifSearchUsername returns value of GifSearchUsername conditional field and
 // boolean which is true if field was set.
 func (c *Config) GetGifSearchUsername() (value string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(9) {
 		return value, false
 	}
@@ -1405,6 +1531,9 @@ func (c *Config) SetVenueSearchUsername(value string) {
 // GetVenueSearchUsername returns value of VenueSearchUsername conditional field and
 // boolean which is true if field was set.
 func (c *Config) GetVenueSearchUsername() (value string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(10) {
 		return value, false
 	}
@@ -1420,6 +1549,9 @@ func (c *Config) SetImgSearchUsername(value string) {
 // GetImgSearchUsername returns value of ImgSearchUsername conditional field and
 // boolean which is true if field was set.
 func (c *Config) GetImgSearchUsername() (value string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(11) {
 		return value, false
 	}
@@ -1435,6 +1567,9 @@ func (c *Config) SetStaticMapsProvider(value string) {
 // GetStaticMapsProvider returns value of StaticMapsProvider conditional field and
 // boolean which is true if field was set.
 func (c *Config) GetStaticMapsProvider() (value string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(12) {
 		return value, false
 	}
@@ -1443,16 +1578,25 @@ func (c *Config) GetStaticMapsProvider() (value string, ok bool) {
 
 // GetCaptionLengthMax returns value of CaptionLengthMax field.
 func (c *Config) GetCaptionLengthMax() (value int) {
+	if c == nil {
+		return
+	}
 	return c.CaptionLengthMax
 }
 
 // GetMessageLengthMax returns value of MessageLengthMax field.
 func (c *Config) GetMessageLengthMax() (value int) {
+	if c == nil {
+		return
+	}
 	return c.MessageLengthMax
 }
 
 // GetWebfileDCID returns value of WebfileDCID field.
 func (c *Config) GetWebfileDCID() (value int) {
+	if c == nil {
+		return
+	}
 	return c.WebfileDCID
 }
 
@@ -1465,6 +1609,9 @@ func (c *Config) SetSuggestedLangCode(value string) {
 // GetSuggestedLangCode returns value of SuggestedLangCode conditional field and
 // boolean which is true if field was set.
 func (c *Config) GetSuggestedLangCode() (value string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(2) {
 		return value, false
 	}
@@ -1480,6 +1627,9 @@ func (c *Config) SetLangPackVersion(value int) {
 // GetLangPackVersion returns value of LangPackVersion conditional field and
 // boolean which is true if field was set.
 func (c *Config) GetLangPackVersion() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(2) {
 		return value, false
 	}
@@ -1495,6 +1645,9 @@ func (c *Config) SetBaseLangPackVersion(value int) {
 // GetBaseLangPackVersion returns value of BaseLangPackVersion conditional field and
 // boolean which is true if field was set.
 func (c *Config) GetBaseLangPackVersion() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(2) {
 		return value, false
 	}

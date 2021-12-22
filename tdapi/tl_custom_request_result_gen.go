@@ -183,5 +183,8 @@ func (c *CustomRequestResult) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetResult returns value of Result field.
 func (c *CustomRequestResult) GetResult() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Result
 }

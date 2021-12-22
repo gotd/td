@@ -208,15 +208,24 @@ func (s *ShippingOption) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (s *ShippingOption) GetID() (value string) {
+	if s == nil {
+		return
+	}
 	return s.ID
 }
 
 // GetTitle returns value of Title field.
 func (s *ShippingOption) GetTitle() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Title
 }
 
 // GetPrices returns value of Prices field.
 func (s *ShippingOption) GetPrices() (value []LabeledPrice) {
+	if s == nil {
+		return
+	}
 	return s.Prices
 }

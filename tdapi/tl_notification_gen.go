@@ -268,20 +268,32 @@ func (n *Notification) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (n *Notification) GetID() (value int32) {
+	if n == nil {
+		return
+	}
 	return n.ID
 }
 
 // GetDate returns value of Date field.
 func (n *Notification) GetDate() (value int32) {
+	if n == nil {
+		return
+	}
 	return n.Date
 }
 
 // GetIsSilent returns value of IsSilent field.
 func (n *Notification) GetIsSilent() (value bool) {
+	if n == nil {
+		return
+	}
 	return n.IsSilent
 }
 
 // GetType returns value of Type field.
 func (n *Notification) GetType() (value NotificationTypeClass) {
+	if n == nil {
+		return
+	}
 	return n.Type
 }

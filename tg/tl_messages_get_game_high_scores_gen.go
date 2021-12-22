@@ -203,16 +203,25 @@ func (g *MessagesGetGameHighScoresRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (g *MessagesGetGameHighScoresRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
 // GetID returns value of ID field.
 func (g *MessagesGetGameHighScoresRequest) GetID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.ID
 }
 
 // GetUserID returns value of UserID field.
 func (g *MessagesGetGameHighScoresRequest) GetUserID() (value InputUserClass) {
+	if g == nil {
+		return
+	}
 	return g.UserID
 }
 

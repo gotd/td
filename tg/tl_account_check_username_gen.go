@@ -156,6 +156,9 @@ func (c *AccountCheckUsernameRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetUsername returns value of Username field.
 func (c *AccountCheckUsernameRequest) GetUsername() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Username
 }
 

@@ -389,6 +389,9 @@ func (d *MessagesDiscussionMessage) DecodeBare(b *bin.Buffer) error {
 
 // GetMessages returns value of Messages field.
 func (d *MessagesDiscussionMessage) GetMessages() (value []MessageClass) {
+	if d == nil {
+		return
+	}
 	return d.Messages
 }
 
@@ -401,6 +404,9 @@ func (d *MessagesDiscussionMessage) SetMaxID(value int) {
 // GetMaxID returns value of MaxID conditional field and
 // boolean which is true if field was set.
 func (d *MessagesDiscussionMessage) GetMaxID() (value int, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(0) {
 		return value, false
 	}
@@ -416,6 +422,9 @@ func (d *MessagesDiscussionMessage) SetReadInboxMaxID(value int) {
 // GetReadInboxMaxID returns value of ReadInboxMaxID conditional field and
 // boolean which is true if field was set.
 func (d *MessagesDiscussionMessage) GetReadInboxMaxID() (value int, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(1) {
 		return value, false
 	}
@@ -431,6 +440,9 @@ func (d *MessagesDiscussionMessage) SetReadOutboxMaxID(value int) {
 // GetReadOutboxMaxID returns value of ReadOutboxMaxID conditional field and
 // boolean which is true if field was set.
 func (d *MessagesDiscussionMessage) GetReadOutboxMaxID() (value int, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(2) {
 		return value, false
 	}
@@ -439,16 +451,25 @@ func (d *MessagesDiscussionMessage) GetReadOutboxMaxID() (value int, ok bool) {
 
 // GetUnreadCount returns value of UnreadCount field.
 func (d *MessagesDiscussionMessage) GetUnreadCount() (value int) {
+	if d == nil {
+		return
+	}
 	return d.UnreadCount
 }
 
 // GetChats returns value of Chats field.
 func (d *MessagesDiscussionMessage) GetChats() (value []ChatClass) {
+	if d == nil {
+		return
+	}
 	return d.Chats
 }
 
 // GetUsers returns value of Users field.
 func (d *MessagesDiscussionMessage) GetUsers() (value []UserClass) {
+	if d == nil {
+		return
+	}
 	return d.Users
 }
 

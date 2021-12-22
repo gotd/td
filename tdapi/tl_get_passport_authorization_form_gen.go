@@ -258,21 +258,33 @@ func (g *GetPassportAuthorizationFormRequest) DecodeTDLibJSON(b tdjson.Decoder) 
 
 // GetBotUserID returns value of BotUserID field.
 func (g *GetPassportAuthorizationFormRequest) GetBotUserID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.BotUserID
 }
 
 // GetScope returns value of Scope field.
 func (g *GetPassportAuthorizationFormRequest) GetScope() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Scope
 }
 
 // GetPublicKey returns value of PublicKey field.
 func (g *GetPassportAuthorizationFormRequest) GetPublicKey() (value string) {
+	if g == nil {
+		return
+	}
 	return g.PublicKey
 }
 
 // GetNonce returns value of Nonce field.
 func (g *GetPassportAuthorizationFormRequest) GetNonce() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Nonce
 }
 

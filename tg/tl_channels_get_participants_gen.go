@@ -253,26 +253,41 @@ func (g *ChannelsGetParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (g *ChannelsGetParticipantsRequest) GetChannel() (value InputChannelClass) {
+	if g == nil {
+		return
+	}
 	return g.Channel
 }
 
 // GetFilter returns value of Filter field.
 func (g *ChannelsGetParticipantsRequest) GetFilter() (value ChannelParticipantsFilterClass) {
+	if g == nil {
+		return
+	}
 	return g.Filter
 }
 
 // GetOffset returns value of Offset field.
 func (g *ChannelsGetParticipantsRequest) GetOffset() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 
 // GetLimit returns value of Limit field.
 func (g *ChannelsGetParticipantsRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 
 // GetHash returns value of Hash field.
 func (g *ChannelsGetParticipantsRequest) GetHash() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.Hash
 }
 

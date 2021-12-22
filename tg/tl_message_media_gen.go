@@ -336,6 +336,9 @@ func (m *MessageMediaPhoto) SetPhoto(value PhotoClass) {
 // GetPhoto returns value of Photo conditional field and
 // boolean which is true if field was set.
 func (m *MessageMediaPhoto) GetPhoto() (value PhotoClass, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(0) {
 		return value, false
 	}
@@ -351,6 +354,9 @@ func (m *MessageMediaPhoto) SetTTLSeconds(value int) {
 // GetTTLSeconds returns value of TTLSeconds conditional field and
 // boolean which is true if field was set.
 func (m *MessageMediaPhoto) GetTTLSeconds() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(2) {
 		return value, false
 	}
@@ -491,6 +497,9 @@ func (m *MessageMediaGeo) DecodeBare(b *bin.Buffer) error {
 
 // GetGeo returns value of Geo field.
 func (m *MessageMediaGeo) GetGeo() (value GeoPointClass) {
+	if m == nil {
+		return
+	}
 	return m.Geo
 }
 
@@ -699,26 +708,41 @@ func (m *MessageMediaContact) DecodeBare(b *bin.Buffer) error {
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (m *MessageMediaContact) GetPhoneNumber() (value string) {
+	if m == nil {
+		return
+	}
 	return m.PhoneNumber
 }
 
 // GetFirstName returns value of FirstName field.
 func (m *MessageMediaContact) GetFirstName() (value string) {
+	if m == nil {
+		return
+	}
 	return m.FirstName
 }
 
 // GetLastName returns value of LastName field.
 func (m *MessageMediaContact) GetLastName() (value string) {
+	if m == nil {
+		return
+	}
 	return m.LastName
 }
 
 // GetVcard returns value of Vcard field.
 func (m *MessageMediaContact) GetVcard() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Vcard
 }
 
 // GetUserID returns value of UserID field.
 func (m *MessageMediaContact) GetUserID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.UserID
 }
 
@@ -1027,6 +1051,9 @@ func (m *MessageMediaDocument) SetDocument(value DocumentClass) {
 // GetDocument returns value of Document conditional field and
 // boolean which is true if field was set.
 func (m *MessageMediaDocument) GetDocument() (value DocumentClass, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(0) {
 		return value, false
 	}
@@ -1042,6 +1069,9 @@ func (m *MessageMediaDocument) SetTTLSeconds(value int) {
 // GetTTLSeconds returns value of TTLSeconds conditional field and
 // boolean which is true if field was set.
 func (m *MessageMediaDocument) GetTTLSeconds() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(2) {
 		return value, false
 	}
@@ -1182,6 +1212,9 @@ func (m *MessageMediaWebPage) DecodeBare(b *bin.Buffer) error {
 
 // GetWebpage returns value of Webpage field.
 func (m *MessageMediaWebPage) GetWebpage() (value WebPageClass) {
+	if m == nil {
+		return
+	}
 	return m.Webpage
 }
 
@@ -1414,31 +1447,49 @@ func (m *MessageMediaVenue) DecodeBare(b *bin.Buffer) error {
 
 // GetGeo returns value of Geo field.
 func (m *MessageMediaVenue) GetGeo() (value GeoPointClass) {
+	if m == nil {
+		return
+	}
 	return m.Geo
 }
 
 // GetTitle returns value of Title field.
 func (m *MessageMediaVenue) GetTitle() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Title
 }
 
 // GetAddress returns value of Address field.
 func (m *MessageMediaVenue) GetAddress() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Address
 }
 
 // GetProvider returns value of Provider field.
 func (m *MessageMediaVenue) GetProvider() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Provider
 }
 
 // GetVenueID returns value of VenueID field.
 func (m *MessageMediaVenue) GetVenueID() (value string) {
+	if m == nil {
+		return
+	}
 	return m.VenueID
 }
 
 // GetVenueType returns value of VenueType field.
 func (m *MessageMediaVenue) GetVenueType() (value string) {
+	if m == nil {
+		return
+	}
 	return m.VenueType
 }
 
@@ -1571,6 +1622,9 @@ func (m *MessageMediaGame) DecodeBare(b *bin.Buffer) error {
 
 // GetGame returns value of Game field.
 func (m *MessageMediaGame) GetGame() (value Game) {
+	if m == nil {
+		return
+	}
 	return m.Game
 }
 
@@ -1924,6 +1978,9 @@ func (m *MessageMediaInvoice) SetShippingAddressRequested(value bool) {
 
 // GetShippingAddressRequested returns value of ShippingAddressRequested conditional field.
 func (m *MessageMediaInvoice) GetShippingAddressRequested() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(1)
 }
 
@@ -1940,16 +1997,25 @@ func (m *MessageMediaInvoice) SetTest(value bool) {
 
 // GetTest returns value of Test conditional field.
 func (m *MessageMediaInvoice) GetTest() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(3)
 }
 
 // GetTitle returns value of Title field.
 func (m *MessageMediaInvoice) GetTitle() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Title
 }
 
 // GetDescription returns value of Description field.
 func (m *MessageMediaInvoice) GetDescription() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Description
 }
 
@@ -1962,6 +2028,9 @@ func (m *MessageMediaInvoice) SetPhoto(value WebDocumentClass) {
 // GetPhoto returns value of Photo conditional field and
 // boolean which is true if field was set.
 func (m *MessageMediaInvoice) GetPhoto() (value WebDocumentClass, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(0) {
 		return value, false
 	}
@@ -1977,6 +2046,9 @@ func (m *MessageMediaInvoice) SetReceiptMsgID(value int) {
 // GetReceiptMsgID returns value of ReceiptMsgID conditional field and
 // boolean which is true if field was set.
 func (m *MessageMediaInvoice) GetReceiptMsgID() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(2) {
 		return value, false
 	}
@@ -1985,16 +2057,25 @@ func (m *MessageMediaInvoice) GetReceiptMsgID() (value int, ok bool) {
 
 // GetCurrency returns value of Currency field.
 func (m *MessageMediaInvoice) GetCurrency() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Currency
 }
 
 // GetTotalAmount returns value of TotalAmount field.
 func (m *MessageMediaInvoice) GetTotalAmount() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.TotalAmount
 }
 
 // GetStartParam returns value of StartParam field.
 func (m *MessageMediaInvoice) GetStartParam() (value string) {
+	if m == nil {
+		return
+	}
 	return m.StartParam
 }
 
@@ -2242,6 +2323,9 @@ func (m *MessageMediaGeoLive) DecodeBare(b *bin.Buffer) error {
 
 // GetGeo returns value of Geo field.
 func (m *MessageMediaGeoLive) GetGeo() (value GeoPointClass) {
+	if m == nil {
+		return
+	}
 	return m.Geo
 }
 
@@ -2254,6 +2338,9 @@ func (m *MessageMediaGeoLive) SetHeading(value int) {
 // GetHeading returns value of Heading conditional field and
 // boolean which is true if field was set.
 func (m *MessageMediaGeoLive) GetHeading() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(0) {
 		return value, false
 	}
@@ -2262,6 +2349,9 @@ func (m *MessageMediaGeoLive) GetHeading() (value int, ok bool) {
 
 // GetPeriod returns value of Period field.
 func (m *MessageMediaGeoLive) GetPeriod() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Period
 }
 
@@ -2274,6 +2364,9 @@ func (m *MessageMediaGeoLive) SetProximityNotificationRadius(value int) {
 // GetProximityNotificationRadius returns value of ProximityNotificationRadius conditional field and
 // boolean which is true if field was set.
 func (m *MessageMediaGeoLive) GetProximityNotificationRadius() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(1) {
 		return value, false
 	}
@@ -2428,11 +2521,17 @@ func (m *MessageMediaPoll) DecodeBare(b *bin.Buffer) error {
 
 // GetPoll returns value of Poll field.
 func (m *MessageMediaPoll) GetPoll() (value Poll) {
+	if m == nil {
+		return
+	}
 	return m.Poll
 }
 
 // GetResults returns value of Results field.
 func (m *MessageMediaPoll) GetResults() (value PollResults) {
+	if m == nil {
+		return
+	}
 	return m.Results
 }
 
@@ -2590,11 +2689,17 @@ func (m *MessageMediaDice) DecodeBare(b *bin.Buffer) error {
 
 // GetValue returns value of Value field.
 func (m *MessageMediaDice) GetValue() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Value
 }
 
 // GetEmoticon returns value of Emoticon field.
 func (m *MessageMediaDice) GetEmoticon() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Emoticon
 }
 

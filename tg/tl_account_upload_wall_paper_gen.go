@@ -198,16 +198,25 @@ func (u *AccountUploadWallPaperRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetFile returns value of File field.
 func (u *AccountUploadWallPaperRequest) GetFile() (value InputFileClass) {
+	if u == nil {
+		return
+	}
 	return u.File
 }
 
 // GetMimeType returns value of MimeType field.
 func (u *AccountUploadWallPaperRequest) GetMimeType() (value string) {
+	if u == nil {
+		return
+	}
 	return u.MimeType
 }
 
 // GetSettings returns value of Settings field.
 func (u *AccountUploadWallPaperRequest) GetSettings() (value WallPaperSettings) {
+	if u == nil {
+		return
+	}
 	return u.Settings
 }
 

@@ -217,6 +217,9 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) SetByLocation(value bool) {
 
 // GetByLocation returns value of ByLocation conditional field.
 func (g *ChannelsGetAdminedPublicChannelsRequest) GetByLocation() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(0)
 }
 
@@ -233,6 +236,9 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) SetCheckLimit(value bool) {
 
 // GetCheckLimit returns value of CheckLimit conditional field.
 func (g *ChannelsGetAdminedPublicChannelsRequest) GetCheckLimit() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(1)
 }
 

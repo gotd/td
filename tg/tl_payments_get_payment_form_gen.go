@@ -234,11 +234,17 @@ func (g *PaymentsGetPaymentFormRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (g *PaymentsGetPaymentFormRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
 // GetMsgID returns value of MsgID field.
 func (g *PaymentsGetPaymentFormRequest) GetMsgID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.MsgID
 }
 
@@ -251,6 +257,9 @@ func (g *PaymentsGetPaymentFormRequest) SetThemeParams(value DataJSON) {
 // GetThemeParams returns value of ThemeParams conditional field and
 // boolean which is true if field was set.
 func (g *PaymentsGetPaymentFormRequest) GetThemeParams() (value DataJSON, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(0) {
 		return value, false
 	}

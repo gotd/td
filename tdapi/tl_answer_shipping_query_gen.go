@@ -259,16 +259,25 @@ func (a *AnswerShippingQueryRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetShippingQueryID returns value of ShippingQueryID field.
 func (a *AnswerShippingQueryRequest) GetShippingQueryID() (value int64) {
+	if a == nil {
+		return
+	}
 	return a.ShippingQueryID
 }
 
 // GetShippingOptions returns value of ShippingOptions field.
 func (a *AnswerShippingQueryRequest) GetShippingOptions() (value []ShippingOption) {
+	if a == nil {
+		return
+	}
 	return a.ShippingOptions
 }
 
 // GetErrorMessage returns value of ErrorMessage field.
 func (a *AnswerShippingQueryRequest) GetErrorMessage() (value string) {
+	if a == nil {
+		return
+	}
 	return a.ErrorMessage
 }
 

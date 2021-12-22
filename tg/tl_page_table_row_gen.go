@@ -170,5 +170,8 @@ func (p *PageTableRow) DecodeBare(b *bin.Buffer) error {
 
 // GetCells returns value of Cells field.
 func (p *PageTableRow) GetCells() (value []PageTableCell) {
+	if p == nil {
+		return
+	}
 	return p.Cells
 }

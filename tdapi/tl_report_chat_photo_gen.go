@@ -268,21 +268,33 @@ func (r *ReportChatPhotoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (r *ReportChatPhotoRequest) GetChatID() (value int64) {
+	if r == nil {
+		return
+	}
 	return r.ChatID
 }
 
 // GetFileID returns value of FileID field.
 func (r *ReportChatPhotoRequest) GetFileID() (value int32) {
+	if r == nil {
+		return
+	}
 	return r.FileID
 }
 
 // GetReason returns value of Reason field.
 func (r *ReportChatPhotoRequest) GetReason() (value ChatReportReasonClass) {
+	if r == nil {
+		return
+	}
 	return r.Reason
 }
 
 // GetText returns value of Text field.
 func (r *ReportChatPhotoRequest) GetText() (value string) {
+	if r == nil {
+		return
+	}
 	return r.Text
 }
 

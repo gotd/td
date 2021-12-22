@@ -188,6 +188,9 @@ func (i *InputFileID) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (i *InputFileID) GetID() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
@@ -348,6 +351,9 @@ func (i *InputFileRemote) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (i *InputFileRemote) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
@@ -508,6 +514,9 @@ func (i *InputFileLocal) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPath returns value of Path field.
 func (i *InputFileLocal) GetPath() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Path
 }
 
@@ -721,16 +730,25 @@ func (i *InputFileGenerated) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetOriginalPath returns value of OriginalPath field.
 func (i *InputFileGenerated) GetOriginalPath() (value string) {
+	if i == nil {
+		return
+	}
 	return i.OriginalPath
 }
 
 // GetConversion returns value of Conversion field.
 func (i *InputFileGenerated) GetConversion() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Conversion
 }
 
 // GetExpectedSize returns value of ExpectedSize field.
 func (i *InputFileGenerated) GetExpectedSize() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.ExpectedSize
 }
 

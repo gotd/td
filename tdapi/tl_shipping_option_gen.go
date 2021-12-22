@@ -259,15 +259,24 @@ func (s *ShippingOption) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (s *ShippingOption) GetID() (value string) {
+	if s == nil {
+		return
+	}
 	return s.ID
 }
 
 // GetTitle returns value of Title field.
 func (s *ShippingOption) GetTitle() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Title
 }
 
 // GetPriceParts returns value of PriceParts field.
 func (s *ShippingOption) GetPriceParts() (value []LabeledPricePart) {
+	if s == nil {
+		return
+	}
 	return s.PriceParts
 }

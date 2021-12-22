@@ -183,6 +183,9 @@ func (c *CheckPhoneNumberConfirmationCodeRequest) DecodeTDLibJSON(b tdjson.Decod
 
 // GetCode returns value of Code field.
 func (c *CheckPhoneNumberConfirmationCodeRequest) GetCode() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Code
 }
 

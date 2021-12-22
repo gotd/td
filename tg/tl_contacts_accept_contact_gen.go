@@ -164,6 +164,9 @@ func (a *ContactsAcceptContactRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (a *ContactsAcceptContactRequest) GetID() (value InputUserClass) {
+	if a == nil {
+		return
+	}
 	return a.ID
 }
 

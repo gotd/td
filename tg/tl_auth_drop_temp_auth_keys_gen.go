@@ -168,6 +168,9 @@ func (d *AuthDropTempAuthKeysRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetExceptAuthKeys returns value of ExceptAuthKeys field.
 func (d *AuthDropTempAuthKeysRequest) GetExceptAuthKeys() (value []int64) {
+	if d == nil {
+		return
+	}
 	return d.ExceptAuthKeys
 }
 

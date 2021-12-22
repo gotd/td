@@ -176,5 +176,8 @@ func (c *CDNConfig) DecodeBare(b *bin.Buffer) error {
 
 // GetPublicKeys returns value of PublicKeys field.
 func (c *CDNConfig) GetPublicKeys() (value []CDNPublicKey) {
+	if c == nil {
+		return
+	}
 	return c.PublicKeys
 }

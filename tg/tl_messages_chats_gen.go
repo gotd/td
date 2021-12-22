@@ -178,6 +178,9 @@ func (c *MessagesChats) DecodeBare(b *bin.Buffer) error {
 
 // GetChats returns value of Chats field.
 func (c *MessagesChats) GetChats() (value []ChatClass) {
+	if c == nil {
+		return
+	}
 	return c.Chats
 }
 
@@ -355,11 +358,17 @@ func (c *MessagesChatsSlice) DecodeBare(b *bin.Buffer) error {
 
 // GetCount returns value of Count field.
 func (c *MessagesChatsSlice) GetCount() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Count
 }
 
 // GetChats returns value of Chats field.
 func (c *MessagesChatsSlice) GetChats() (value []ChatClass) {
+	if c == nil {
+		return
+	}
 	return c.Chats
 }
 

@@ -243,16 +243,25 @@ func (s *SendChatActionRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (s *SendChatActionRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetMessageThreadID returns value of MessageThreadID field.
 func (s *SendChatActionRequest) GetMessageThreadID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.MessageThreadID
 }
 
 // GetAction returns value of Action field.
 func (s *SendChatActionRequest) GetAction() (value ChatActionClass) {
+	if s == nil {
+		return
+	}
 	return s.Action
 }
 

@@ -183,6 +183,9 @@ func (g *GetLocalizationTargetInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) err
 
 // GetOnlyLocal returns value of OnlyLocal field.
 func (g *GetLocalizationTargetInfoRequest) GetOnlyLocal() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.OnlyLocal
 }
 

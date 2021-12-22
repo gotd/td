@@ -183,6 +183,9 @@ func (d *DeleteChatFilterRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatFilterID returns value of ChatFilterID field.
 func (d *DeleteChatFilterRequest) GetChatFilterID() (value int32) {
+	if d == nil {
+		return
+	}
 	return d.ChatFilterID
 }
 

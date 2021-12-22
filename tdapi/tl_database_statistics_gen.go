@@ -183,5 +183,8 @@ func (d *DatabaseStatistics) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetStatistics returns value of Statistics field.
 func (d *DatabaseStatistics) GetStatistics() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Statistics
 }

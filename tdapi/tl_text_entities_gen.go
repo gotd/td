@@ -209,5 +209,8 @@ func (t *TextEntities) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetEntities returns value of Entities field.
 func (t *TextEntities) GetEntities() (value []TextEntity) {
+	if t == nil {
+		return
+	}
 	return t.Entities
 }

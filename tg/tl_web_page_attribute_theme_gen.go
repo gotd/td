@@ -242,6 +242,9 @@ func (w *WebPageAttributeTheme) SetDocuments(value []DocumentClass) {
 // GetDocuments returns value of Documents conditional field and
 // boolean which is true if field was set.
 func (w *WebPageAttributeTheme) GetDocuments() (value []DocumentClass, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(0) {
 		return value, false
 	}
@@ -257,6 +260,9 @@ func (w *WebPageAttributeTheme) SetSettings(value ThemeSettings) {
 // GetSettings returns value of Settings conditional field and
 // boolean which is true if field was set.
 func (w *WebPageAttributeTheme) GetSettings() (value ThemeSettings, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(1) {
 		return value, false
 	}

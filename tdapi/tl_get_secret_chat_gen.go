@@ -183,6 +183,9 @@ func (g *GetSecretChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSecretChatID returns value of SecretChatID field.
 func (g *GetSecretChatRequest) GetSecretChatID() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.SecretChatID
 }
 

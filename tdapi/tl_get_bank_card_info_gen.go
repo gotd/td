@@ -183,6 +183,9 @@ func (g *GetBankCardInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBankCardNumber returns value of BankCardNumber field.
 func (g *GetBankCardInfoRequest) GetBankCardNumber() (value string) {
+	if g == nil {
+		return
+	}
 	return g.BankCardNumber
 }
 

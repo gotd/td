@@ -184,5 +184,8 @@ func (m *MessagesMessageEditData) SetCaption(value bool) {
 
 // GetCaption returns value of Caption conditional field.
 func (m *MessagesMessageEditData) GetCaption() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(0)
 }

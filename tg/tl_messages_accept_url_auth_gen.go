@@ -316,6 +316,9 @@ func (a *MessagesAcceptURLAuthRequest) SetWriteAllowed(value bool) {
 
 // GetWriteAllowed returns value of WriteAllowed conditional field.
 func (a *MessagesAcceptURLAuthRequest) GetWriteAllowed() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.Flags.Has(0)
 }
 
@@ -328,6 +331,9 @@ func (a *MessagesAcceptURLAuthRequest) SetPeer(value InputPeerClass) {
 // GetPeer returns value of Peer conditional field and
 // boolean which is true if field was set.
 func (a *MessagesAcceptURLAuthRequest) GetPeer() (value InputPeerClass, ok bool) {
+	if a == nil {
+		return
+	}
 	if !a.Flags.Has(1) {
 		return value, false
 	}
@@ -343,6 +349,9 @@ func (a *MessagesAcceptURLAuthRequest) SetMsgID(value int) {
 // GetMsgID returns value of MsgID conditional field and
 // boolean which is true if field was set.
 func (a *MessagesAcceptURLAuthRequest) GetMsgID() (value int, ok bool) {
+	if a == nil {
+		return
+	}
 	if !a.Flags.Has(1) {
 		return value, false
 	}
@@ -358,6 +367,9 @@ func (a *MessagesAcceptURLAuthRequest) SetButtonID(value int) {
 // GetButtonID returns value of ButtonID conditional field and
 // boolean which is true if field was set.
 func (a *MessagesAcceptURLAuthRequest) GetButtonID() (value int, ok bool) {
+	if a == nil {
+		return
+	}
 	if !a.Flags.Has(1) {
 		return value, false
 	}
@@ -373,6 +385,9 @@ func (a *MessagesAcceptURLAuthRequest) SetURL(value string) {
 // GetURL returns value of URL conditional field and
 // boolean which is true if field was set.
 func (a *MessagesAcceptURLAuthRequest) GetURL() (value string, ok bool) {
+	if a == nil {
+		return
+	}
 	if !a.Flags.Has(2) {
 		return value, false
 	}

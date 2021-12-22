@@ -185,11 +185,17 @@ func (e *MessagesEditChatAboutRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (e *MessagesEditChatAboutRequest) GetPeer() (value InputPeerClass) {
+	if e == nil {
+		return
+	}
 	return e.Peer
 }
 
 // GetAbout returns value of About field.
 func (e *MessagesEditChatAboutRequest) GetAbout() (value string) {
+	if e == nil {
+		return
+	}
 	return e.About
 }
 

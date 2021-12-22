@@ -204,16 +204,25 @@ func (g *MessagesGetCommonChatsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (g *MessagesGetCommonChatsRequest) GetUserID() (value InputUserClass) {
+	if g == nil {
+		return
+	}
 	return g.UserID
 }
 
 // GetMaxID returns value of MaxID field.
 func (g *MessagesGetCommonChatsRequest) GetMaxID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.MaxID
 }
 
 // GetLimit returns value of Limit field.
 func (g *MessagesGetCommonChatsRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

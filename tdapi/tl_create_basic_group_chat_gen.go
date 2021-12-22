@@ -209,11 +209,17 @@ func (c *CreateBasicGroupChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBasicGroupID returns value of BasicGroupID field.
 func (c *CreateBasicGroupChatRequest) GetBasicGroupID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.BasicGroupID
 }
 
 // GetForce returns value of Force field.
 func (c *CreateBasicGroupChatRequest) GetForce() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Force
 }
 

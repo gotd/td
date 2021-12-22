@@ -182,10 +182,16 @@ func (f *FolderPeer) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (f *FolderPeer) GetPeer() (value PeerClass) {
+	if f == nil {
+		return
+	}
 	return f.Peer
 }
 
 // GetFolderID returns value of FolderID field.
 func (f *FolderPeer) GetFolderID() (value int) {
+	if f == nil {
+		return
+	}
 	return f.FolderID
 }

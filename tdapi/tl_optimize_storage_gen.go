@@ -466,46 +466,73 @@ func (o *OptimizeStorageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSize returns value of Size field.
 func (o *OptimizeStorageRequest) GetSize() (value int64) {
+	if o == nil {
+		return
+	}
 	return o.Size
 }
 
 // GetTTL returns value of TTL field.
 func (o *OptimizeStorageRequest) GetTTL() (value int32) {
+	if o == nil {
+		return
+	}
 	return o.TTL
 }
 
 // GetCount returns value of Count field.
 func (o *OptimizeStorageRequest) GetCount() (value int32) {
+	if o == nil {
+		return
+	}
 	return o.Count
 }
 
 // GetImmunityDelay returns value of ImmunityDelay field.
 func (o *OptimizeStorageRequest) GetImmunityDelay() (value int32) {
+	if o == nil {
+		return
+	}
 	return o.ImmunityDelay
 }
 
 // GetFileTypes returns value of FileTypes field.
 func (o *OptimizeStorageRequest) GetFileTypes() (value []FileTypeClass) {
+	if o == nil {
+		return
+	}
 	return o.FileTypes
 }
 
 // GetChatIDs returns value of ChatIDs field.
 func (o *OptimizeStorageRequest) GetChatIDs() (value []int64) {
+	if o == nil {
+		return
+	}
 	return o.ChatIDs
 }
 
 // GetExcludeChatIDs returns value of ExcludeChatIDs field.
 func (o *OptimizeStorageRequest) GetExcludeChatIDs() (value []int64) {
+	if o == nil {
+		return
+	}
 	return o.ExcludeChatIDs
 }
 
 // GetReturnDeletedFileStatistics returns value of ReturnDeletedFileStatistics field.
 func (o *OptimizeStorageRequest) GetReturnDeletedFileStatistics() (value bool) {
+	if o == nil {
+		return
+	}
 	return o.ReturnDeletedFileStatistics
 }
 
 // GetChatLimit returns value of ChatLimit field.
 func (o *OptimizeStorageRequest) GetChatLimit() (value int32) {
+	if o == nil {
+		return
+	}
 	return o.ChatLimit
 }
 

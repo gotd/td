@@ -211,6 +211,9 @@ func (r *AuthRecoverPasswordRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetCode returns value of Code field.
 func (r *AuthRecoverPasswordRequest) GetCode() (value string) {
+	if r == nil {
+		return
+	}
 	return r.Code
 }
 
@@ -223,6 +226,9 @@ func (r *AuthRecoverPasswordRequest) SetNewSettings(value AccountPasswordInputSe
 // GetNewSettings returns value of NewSettings conditional field and
 // boolean which is true if field was set.
 func (r *AuthRecoverPasswordRequest) GetNewSettings() (value AccountPasswordInputSettings, ok bool) {
+	if r == nil {
+		return
+	}
 	if !r.Flags.Has(0) {
 		return value, false
 	}

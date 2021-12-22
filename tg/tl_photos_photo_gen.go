@@ -197,11 +197,17 @@ func (p *PhotosPhoto) DecodeBare(b *bin.Buffer) error {
 
 // GetPhoto returns value of Photo field.
 func (p *PhotosPhoto) GetPhoto() (value PhotoClass) {
+	if p == nil {
+		return
+	}
 	return p.Photo
 }
 
 // GetUsers returns value of Users field.
 func (p *PhotosPhoto) GetUsers() (value []UserClass) {
+	if p == nil {
+		return
+	}
 	return p.Users
 }
 

@@ -165,5 +165,8 @@ func (vec *DialogFilterVector) DecodeBare(b *bin.Buffer) error {
 
 // GetElems returns value of Elems field.
 func (vec *DialogFilterVector) GetElems() (value []DialogFilter) {
+	if vec == nil {
+		return
+	}
 	return vec.Elems
 }

@@ -157,5 +157,8 @@ func (e *EmojiURL) DecodeBare(b *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (e *EmojiURL) GetURL() (value string) {
+	if e == nil {
+		return
+	}
 	return e.URL
 }

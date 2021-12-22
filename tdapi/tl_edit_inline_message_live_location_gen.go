@@ -294,26 +294,41 @@ func (e *EditInlineMessageLiveLocationRequest) DecodeTDLibJSON(b tdjson.Decoder)
 
 // GetInlineMessageID returns value of InlineMessageID field.
 func (e *EditInlineMessageLiveLocationRequest) GetInlineMessageID() (value string) {
+	if e == nil {
+		return
+	}
 	return e.InlineMessageID
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (e *EditInlineMessageLiveLocationRequest) GetReplyMarkup() (value ReplyMarkupClass) {
+	if e == nil {
+		return
+	}
 	return e.ReplyMarkup
 }
 
 // GetLocation returns value of Location field.
 func (e *EditInlineMessageLiveLocationRequest) GetLocation() (value Location) {
+	if e == nil {
+		return
+	}
 	return e.Location
 }
 
 // GetHeading returns value of Heading field.
 func (e *EditInlineMessageLiveLocationRequest) GetHeading() (value int32) {
+	if e == nil {
+		return
+	}
 	return e.Heading
 }
 
 // GetProximityAlertRadius returns value of ProximityAlertRadius field.
 func (e *EditInlineMessageLiveLocationRequest) GetProximityAlertRadius() (value int32) {
+	if e == nil {
+		return
+	}
 	return e.ProximityAlertRadius
 }
 

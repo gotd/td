@@ -623,90 +623,144 @@ func (g *GroupCallParticipant) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetParticipantID returns value of ParticipantID field.
 func (g *GroupCallParticipant) GetParticipantID() (value MessageSenderClass) {
+	if g == nil {
+		return
+	}
 	return g.ParticipantID
 }
 
 // GetAudioSourceID returns value of AudioSourceID field.
 func (g *GroupCallParticipant) GetAudioSourceID() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.AudioSourceID
 }
 
 // GetScreenSharingAudioSourceID returns value of ScreenSharingAudioSourceID field.
 func (g *GroupCallParticipant) GetScreenSharingAudioSourceID() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.ScreenSharingAudioSourceID
 }
 
 // GetVideoInfo returns value of VideoInfo field.
 func (g *GroupCallParticipant) GetVideoInfo() (value GroupCallParticipantVideoInfo) {
+	if g == nil {
+		return
+	}
 	return g.VideoInfo
 }
 
 // GetScreenSharingVideoInfo returns value of ScreenSharingVideoInfo field.
 func (g *GroupCallParticipant) GetScreenSharingVideoInfo() (value GroupCallParticipantVideoInfo) {
+	if g == nil {
+		return
+	}
 	return g.ScreenSharingVideoInfo
 }
 
 // GetBio returns value of Bio field.
 func (g *GroupCallParticipant) GetBio() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Bio
 }
 
 // GetIsCurrentUser returns value of IsCurrentUser field.
 func (g *GroupCallParticipant) GetIsCurrentUser() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.IsCurrentUser
 }
 
 // GetIsSpeaking returns value of IsSpeaking field.
 func (g *GroupCallParticipant) GetIsSpeaking() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.IsSpeaking
 }
 
 // GetIsHandRaised returns value of IsHandRaised field.
 func (g *GroupCallParticipant) GetIsHandRaised() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.IsHandRaised
 }
 
 // GetCanBeMutedForAllUsers returns value of CanBeMutedForAllUsers field.
 func (g *GroupCallParticipant) GetCanBeMutedForAllUsers() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.CanBeMutedForAllUsers
 }
 
 // GetCanBeUnmutedForAllUsers returns value of CanBeUnmutedForAllUsers field.
 func (g *GroupCallParticipant) GetCanBeUnmutedForAllUsers() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.CanBeUnmutedForAllUsers
 }
 
 // GetCanBeMutedForCurrentUser returns value of CanBeMutedForCurrentUser field.
 func (g *GroupCallParticipant) GetCanBeMutedForCurrentUser() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.CanBeMutedForCurrentUser
 }
 
 // GetCanBeUnmutedForCurrentUser returns value of CanBeUnmutedForCurrentUser field.
 func (g *GroupCallParticipant) GetCanBeUnmutedForCurrentUser() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.CanBeUnmutedForCurrentUser
 }
 
 // GetIsMutedForAllUsers returns value of IsMutedForAllUsers field.
 func (g *GroupCallParticipant) GetIsMutedForAllUsers() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.IsMutedForAllUsers
 }
 
 // GetIsMutedForCurrentUser returns value of IsMutedForCurrentUser field.
 func (g *GroupCallParticipant) GetIsMutedForCurrentUser() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.IsMutedForCurrentUser
 }
 
 // GetCanUnmuteSelf returns value of CanUnmuteSelf field.
 func (g *GroupCallParticipant) GetCanUnmuteSelf() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.CanUnmuteSelf
 }
 
 // GetVolumeLevel returns value of VolumeLevel field.
 func (g *GroupCallParticipant) GetVolumeLevel() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.VolumeLevel
 }
 
 // GetOrder returns value of Order field.
 func (g *GroupCallParticipant) GetOrder() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Order
 }

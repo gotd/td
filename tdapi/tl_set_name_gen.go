@@ -208,11 +208,17 @@ func (s *SetNameRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFirstName returns value of FirstName field.
 func (s *SetNameRequest) GetFirstName() (value string) {
+	if s == nil {
+		return
+	}
 	return s.FirstName
 }
 
 // GetLastName returns value of LastName field.
 func (s *SetNameRequest) GetLastName() (value string) {
+	if s == nil {
+		return
+	}
 	return s.LastName
 }
 

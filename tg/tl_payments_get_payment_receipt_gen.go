@@ -179,11 +179,17 @@ func (g *PaymentsGetPaymentReceiptRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (g *PaymentsGetPaymentReceiptRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
 // GetMsgID returns value of MsgID field.
 func (g *PaymentsGetPaymentReceiptRequest) GetMsgID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.MsgID
 }
 

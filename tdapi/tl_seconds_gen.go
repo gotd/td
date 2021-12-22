@@ -183,5 +183,8 @@ func (s *Seconds) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSeconds returns value of Seconds field.
 func (s *Seconds) GetSeconds() (value float64) {
+	if s == nil {
+		return
+	}
 	return s.Seconds
 }

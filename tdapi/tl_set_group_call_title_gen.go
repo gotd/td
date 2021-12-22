@@ -208,11 +208,17 @@ func (s *SetGroupCallTitleRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetGroupCallID returns value of GroupCallID field.
 func (s *SetGroupCallTitleRequest) GetGroupCallID() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.GroupCallID
 }
 
 // GetTitle returns value of Title field.
 func (s *SetGroupCallTitleRequest) GetTitle() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Title
 }
 

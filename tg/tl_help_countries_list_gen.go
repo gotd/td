@@ -299,11 +299,17 @@ func (c *HelpCountriesList) DecodeBare(b *bin.Buffer) error {
 
 // GetCountries returns value of Countries field.
 func (c *HelpCountriesList) GetCountries() (value []HelpCountry) {
+	if c == nil {
+		return
+	}
 	return c.Countries
 }
 
 // GetHash returns value of Hash field.
 func (c *HelpCountriesList) GetHash() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Hash
 }
 

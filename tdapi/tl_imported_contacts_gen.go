@@ -254,10 +254,16 @@ func (i *ImportedContacts) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserIDs returns value of UserIDs field.
 func (i *ImportedContacts) GetUserIDs() (value []int64) {
+	if i == nil {
+		return
+	}
 	return i.UserIDs
 }
 
 // GetImporterCount returns value of ImporterCount field.
 func (i *ImportedContacts) GetImporterCount() (value []int32) {
+	if i == nil {
+		return
+	}
 	return i.ImporterCount
 }

@@ -704,6 +704,9 @@ func (s *SuggestedActionConvertToBroadcastGroup) DecodeTDLibJSON(b tdjson.Decode
 
 // GetSupergroupID returns value of SupergroupID field.
 func (s *SuggestedActionConvertToBroadcastGroup) GetSupergroupID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.SupergroupID
 }
 
@@ -865,6 +868,9 @@ func (s *SuggestedActionSetPassword) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAuthorizationDelay returns value of AuthorizationDelay field.
 func (s *SuggestedActionSetPassword) GetAuthorizationDelay() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.AuthorizationDelay
 }
 

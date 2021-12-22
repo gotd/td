@@ -219,16 +219,25 @@ func (e *AuthExportLoginTokenRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetAPIID returns value of APIID field.
 func (e *AuthExportLoginTokenRequest) GetAPIID() (value int) {
+	if e == nil {
+		return
+	}
 	return e.APIID
 }
 
 // GetAPIHash returns value of APIHash field.
 func (e *AuthExportLoginTokenRequest) GetAPIHash() (value string) {
+	if e == nil {
+		return
+	}
 	return e.APIHash
 }
 
 // GetExceptIDs returns value of ExceptIDs field.
 func (e *AuthExportLoginTokenRequest) GetExceptIDs() (value []int64) {
+	if e == nil {
+		return
+	}
 	return e.ExceptIDs
 }
 

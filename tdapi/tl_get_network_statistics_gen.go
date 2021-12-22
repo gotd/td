@@ -183,6 +183,9 @@ func (g *GetNetworkStatisticsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetOnlyCurrent returns value of OnlyCurrent field.
 func (g *GetNetworkStatisticsRequest) GetOnlyCurrent() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.OnlyCurrent
 }
 

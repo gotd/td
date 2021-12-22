@@ -178,11 +178,17 @@ func (g *MessagesGetDhConfigRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetVersion returns value of Version field.
 func (g *MessagesGetDhConfigRequest) GetVersion() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Version
 }
 
 // GetRandomLength returns value of RandomLength field.
 func (g *MessagesGetDhConfigRequest) GetRandomLength() (value int) {
+	if g == nil {
+		return
+	}
 	return g.RandomLength
 }
 

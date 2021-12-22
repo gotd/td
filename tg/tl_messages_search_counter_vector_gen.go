@@ -165,5 +165,8 @@ func (vec *MessagesSearchCounterVector) DecodeBare(b *bin.Buffer) error {
 
 // GetElems returns value of Elems field.
 func (vec *MessagesSearchCounterVector) GetElems() (value []MessagesSearchCounter) {
+	if vec == nil {
+		return
+	}
 	return vec.Elems
 }

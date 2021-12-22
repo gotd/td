@@ -258,21 +258,33 @@ func (g *GetLanguagePackStringRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLanguagePackDatabasePath returns value of LanguagePackDatabasePath field.
 func (g *GetLanguagePackStringRequest) GetLanguagePackDatabasePath() (value string) {
+	if g == nil {
+		return
+	}
 	return g.LanguagePackDatabasePath
 }
 
 // GetLocalizationTarget returns value of LocalizationTarget field.
 func (g *GetLanguagePackStringRequest) GetLocalizationTarget() (value string) {
+	if g == nil {
+		return
+	}
 	return g.LocalizationTarget
 }
 
 // GetLanguagePackID returns value of LanguagePackID field.
 func (g *GetLanguagePackStringRequest) GetLanguagePackID() (value string) {
+	if g == nil {
+		return
+	}
 	return g.LanguagePackID
 }
 
 // GetKey returns value of Key field.
 func (g *GetLanguagePackStringRequest) GetKey() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Key
 }
 

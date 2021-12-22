@@ -233,15 +233,24 @@ func (d *Date) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetDay returns value of Day field.
 func (d *Date) GetDay() (value int32) {
+	if d == nil {
+		return
+	}
 	return d.Day
 }
 
 // GetMonth returns value of Month field.
 func (d *Date) GetMonth() (value int32) {
+	if d == nil {
+		return
+	}
 	return d.Month
 }
 
 // GetYear returns value of Year field.
 func (d *Date) GetYear() (value int32) {
+	if d == nil {
+		return
+	}
 	return d.Year
 }

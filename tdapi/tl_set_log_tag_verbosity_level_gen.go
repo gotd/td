@@ -208,11 +208,17 @@ func (s *SetLogTagVerbosityLevelRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetTag returns value of Tag field.
 func (s *SetLogTagVerbosityLevelRequest) GetTag() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Tag
 }
 
 // GetNewVerbosityLevel returns value of NewVerbosityLevel field.
 func (s *SetLogTagVerbosityLevelRequest) GetNewVerbosityLevel() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.NewVerbosityLevel
 }
 

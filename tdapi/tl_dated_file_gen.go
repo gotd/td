@@ -208,10 +208,16 @@ func (d *DatedFile) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFile returns value of File field.
 func (d *DatedFile) GetFile() (value File) {
+	if d == nil {
+		return
+	}
 	return d.File
 }
 
 // GetDate returns value of Date field.
 func (d *DatedFile) GetDate() (value int32) {
+	if d == nil {
+		return
+	}
 	return d.Date
 }

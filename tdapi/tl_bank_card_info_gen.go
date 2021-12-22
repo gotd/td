@@ -234,10 +234,16 @@ func (b *BankCardInfo) DecodeTDLibJSON(buf tdjson.Decoder) error {
 
 // GetTitle returns value of Title field.
 func (b *BankCardInfo) GetTitle() (value string) {
+	if b == nil {
+		return
+	}
 	return b.Title
 }
 
 // GetActions returns value of Actions field.
 func (b *BankCardInfo) GetActions() (value []BankCardActionOpenURL) {
+	if b == nil {
+		return
+	}
 	return b.Actions
 }

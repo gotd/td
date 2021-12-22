@@ -184,16 +184,25 @@ func (s *ServerDHParamsFail) DecodeBare(b *bin.Buffer) error {
 
 // GetNonce returns value of Nonce field.
 func (s *ServerDHParamsFail) GetNonce() (value bin.Int128) {
+	if s == nil {
+		return
+	}
 	return s.Nonce
 }
 
 // GetServerNonce returns value of ServerNonce field.
 func (s *ServerDHParamsFail) GetServerNonce() (value bin.Int128) {
+	if s == nil {
+		return
+	}
 	return s.ServerNonce
 }
 
 // GetNewNonceHash returns value of NewNonceHash field.
 func (s *ServerDHParamsFail) GetNewNonceHash() (value bin.Int128) {
+	if s == nil {
+		return
+	}
 	return s.NewNonceHash
 }
 
@@ -350,16 +359,25 @@ func (s *ServerDHParamsOk) DecodeBare(b *bin.Buffer) error {
 
 // GetNonce returns value of Nonce field.
 func (s *ServerDHParamsOk) GetNonce() (value bin.Int128) {
+	if s == nil {
+		return
+	}
 	return s.Nonce
 }
 
 // GetServerNonce returns value of ServerNonce field.
 func (s *ServerDHParamsOk) GetServerNonce() (value bin.Int128) {
+	if s == nil {
+		return
+	}
 	return s.ServerNonce
 }
 
 // GetEncryptedAnswer returns value of EncryptedAnswer field.
 func (s *ServerDHParamsOk) GetEncryptedAnswer() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.EncryptedAnswer
 }
 

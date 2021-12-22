@@ -184,6 +184,9 @@ func (c *ClearRecentStickersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetIsAttached returns value of IsAttached field.
 func (c *ClearRecentStickersRequest) GetIsAttached() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsAttached
 }
 

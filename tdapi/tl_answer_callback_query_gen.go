@@ -283,26 +283,41 @@ func (a *AnswerCallbackQueryRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCallbackQueryID returns value of CallbackQueryID field.
 func (a *AnswerCallbackQueryRequest) GetCallbackQueryID() (value int64) {
+	if a == nil {
+		return
+	}
 	return a.CallbackQueryID
 }
 
 // GetText returns value of Text field.
 func (a *AnswerCallbackQueryRequest) GetText() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Text
 }
 
 // GetShowAlert returns value of ShowAlert field.
 func (a *AnswerCallbackQueryRequest) GetShowAlert() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.ShowAlert
 }
 
 // GetURL returns value of URL field.
 func (a *AnswerCallbackQueryRequest) GetURL() (value string) {
+	if a == nil {
+		return
+	}
 	return a.URL
 }
 
 // GetCacheTime returns value of CacheTime field.
 func (a *AnswerCallbackQueryRequest) GetCacheTime() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.CacheTime
 }
 

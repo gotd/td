@@ -209,5 +209,8 @@ func (b *Backgrounds) DecodeTDLibJSON(buf tdjson.Decoder) error {
 
 // GetBackgrounds returns value of Backgrounds field.
 func (b *Backgrounds) GetBackgrounds() (value []Background) {
+	if b == nil {
+		return
+	}
 	return b.Backgrounds
 }

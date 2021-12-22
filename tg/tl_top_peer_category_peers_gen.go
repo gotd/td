@@ -213,15 +213,24 @@ func (t *TopPeerCategoryPeers) DecodeBare(b *bin.Buffer) error {
 
 // GetCategory returns value of Category field.
 func (t *TopPeerCategoryPeers) GetCategory() (value TopPeerCategoryClass) {
+	if t == nil {
+		return
+	}
 	return t.Category
 }
 
 // GetCount returns value of Count field.
 func (t *TopPeerCategoryPeers) GetCount() (value int) {
+	if t == nil {
+		return
+	}
 	return t.Count
 }
 
 // GetPeers returns value of Peers field.
 func (t *TopPeerCategoryPeers) GetPeers() (value []TopPeer) {
+	if t == nil {
+		return
+	}
 	return t.Peers
 }

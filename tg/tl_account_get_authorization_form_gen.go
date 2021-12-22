@@ -193,16 +193,25 @@ func (g *AccountGetAuthorizationFormRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetBotID returns value of BotID field.
 func (g *AccountGetAuthorizationFormRequest) GetBotID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.BotID
 }
 
 // GetScope returns value of Scope field.
 func (g *AccountGetAuthorizationFormRequest) GetScope() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Scope
 }
 
 // GetPublicKey returns value of PublicKey field.
 func (g *AccountGetAuthorizationFormRequest) GetPublicKey() (value string) {
+	if g == nil {
+		return
+	}
 	return g.PublicKey
 }
 

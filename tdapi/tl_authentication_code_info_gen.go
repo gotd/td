@@ -278,20 +278,32 @@ func (a *AuthenticationCodeInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (a *AuthenticationCodeInfo) GetPhoneNumber() (value string) {
+	if a == nil {
+		return
+	}
 	return a.PhoneNumber
 }
 
 // GetType returns value of Type field.
 func (a *AuthenticationCodeInfo) GetType() (value AuthenticationCodeTypeClass) {
+	if a == nil {
+		return
+	}
 	return a.Type
 }
 
 // GetNextType returns value of NextType field.
 func (a *AuthenticationCodeInfo) GetNextType() (value AuthenticationCodeTypeClass) {
+	if a == nil {
+		return
+	}
 	return a.NextType
 }
 
 // GetTimeout returns value of Timeout field.
 func (a *AuthenticationCodeInfo) GetTimeout() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.Timeout
 }

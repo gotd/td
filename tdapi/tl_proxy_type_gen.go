@@ -213,11 +213,17 @@ func (p *ProxyTypeSocks5) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUsername returns value of Username field.
 func (p *ProxyTypeSocks5) GetUsername() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Username
 }
 
 // GetPassword returns value of Password field.
 func (p *ProxyTypeSocks5) GetPassword() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Password
 }
 
@@ -429,16 +435,25 @@ func (p *ProxyTypeHTTP) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUsername returns value of Username field.
 func (p *ProxyTypeHTTP) GetUsername() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Username
 }
 
 // GetPassword returns value of Password field.
 func (p *ProxyTypeHTTP) GetPassword() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Password
 }
 
 // GetHTTPOnly returns value of HTTPOnly field.
 func (p *ProxyTypeHTTP) GetHTTPOnly() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.HTTPOnly
 }
 
@@ -599,6 +614,9 @@ func (p *ProxyTypeMtproto) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSecret returns value of Secret field.
 func (p *ProxyTypeMtproto) GetSecret() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Secret
 }
 

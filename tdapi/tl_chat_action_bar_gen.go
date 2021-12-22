@@ -190,6 +190,9 @@ func (c *ChatActionBarReportSpam) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCanUnarchive returns value of CanUnarchive field.
 func (c *ChatActionBarReportSpam) GetCanUnarchive() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanUnarchive
 }
 
@@ -636,11 +639,17 @@ func (c *ChatActionBarReportAddBlock) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCanUnarchive returns value of CanUnarchive field.
 func (c *ChatActionBarReportAddBlock) GetCanUnarchive() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanUnarchive
 }
 
 // GetDistance returns value of Distance field.
 func (c *ChatActionBarReportAddBlock) GetDistance() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.Distance
 }
 
@@ -1109,16 +1118,25 @@ func (c *ChatActionBarJoinRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTitle returns value of Title field.
 func (c *ChatActionBarJoinRequest) GetTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Title
 }
 
 // GetIsChannel returns value of IsChannel field.
 func (c *ChatActionBarJoinRequest) GetIsChannel() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsChannel
 }
 
 // GetRequestDate returns value of RequestDate field.
 func (c *ChatActionBarJoinRequest) GetRequestDate() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.RequestDate
 }
 

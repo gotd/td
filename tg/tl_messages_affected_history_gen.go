@@ -195,15 +195,24 @@ func (a *MessagesAffectedHistory) DecodeBare(b *bin.Buffer) error {
 
 // GetPts returns value of Pts field.
 func (a *MessagesAffectedHistory) GetPts() (value int) {
+	if a == nil {
+		return
+	}
 	return a.Pts
 }
 
 // GetPtsCount returns value of PtsCount field.
 func (a *MessagesAffectedHistory) GetPtsCount() (value int) {
+	if a == nil {
+		return
+	}
 	return a.PtsCount
 }
 
 // GetOffset returns value of Offset field.
 func (a *MessagesAffectedHistory) GetOffset() (value int) {
+	if a == nil {
+		return
+	}
 	return a.Offset
 }

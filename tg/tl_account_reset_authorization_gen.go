@@ -158,6 +158,9 @@ func (r *AccountResetAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetHash returns value of Hash field.
 func (r *AccountResetAuthorizationRequest) GetHash() (value int64) {
+	if r == nil {
+		return
+	}
 	return r.Hash
 }
 

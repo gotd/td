@@ -453,6 +453,9 @@ func (c *ChatInviteExported) SetRevoked(value bool) {
 
 // GetRevoked returns value of Revoked conditional field.
 func (c *ChatInviteExported) GetRevoked() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(0)
 }
 
@@ -469,6 +472,9 @@ func (c *ChatInviteExported) SetPermanent(value bool) {
 
 // GetPermanent returns value of Permanent conditional field.
 func (c *ChatInviteExported) GetPermanent() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(5)
 }
 
@@ -485,21 +491,33 @@ func (c *ChatInviteExported) SetRequestNeeded(value bool) {
 
 // GetRequestNeeded returns value of RequestNeeded conditional field.
 func (c *ChatInviteExported) GetRequestNeeded() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(6)
 }
 
 // GetLink returns value of Link field.
 func (c *ChatInviteExported) GetLink() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Link
 }
 
 // GetAdminID returns value of AdminID field.
 func (c *ChatInviteExported) GetAdminID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.AdminID
 }
 
 // GetDate returns value of Date field.
 func (c *ChatInviteExported) GetDate() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Date
 }
 
@@ -512,6 +530,9 @@ func (c *ChatInviteExported) SetStartDate(value int) {
 // GetStartDate returns value of StartDate conditional field and
 // boolean which is true if field was set.
 func (c *ChatInviteExported) GetStartDate() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(4) {
 		return value, false
 	}
@@ -527,6 +548,9 @@ func (c *ChatInviteExported) SetExpireDate(value int) {
 // GetExpireDate returns value of ExpireDate conditional field and
 // boolean which is true if field was set.
 func (c *ChatInviteExported) GetExpireDate() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(1) {
 		return value, false
 	}
@@ -542,6 +566,9 @@ func (c *ChatInviteExported) SetUsageLimit(value int) {
 // GetUsageLimit returns value of UsageLimit conditional field and
 // boolean which is true if field was set.
 func (c *ChatInviteExported) GetUsageLimit() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(2) {
 		return value, false
 	}
@@ -557,6 +584,9 @@ func (c *ChatInviteExported) SetUsage(value int) {
 // GetUsage returns value of Usage conditional field and
 // boolean which is true if field was set.
 func (c *ChatInviteExported) GetUsage() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(3) {
 		return value, false
 	}
@@ -572,6 +602,9 @@ func (c *ChatInviteExported) SetRequested(value int) {
 // GetRequested returns value of Requested conditional field and
 // boolean which is true if field was set.
 func (c *ChatInviteExported) GetRequested() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(7) {
 		return value, false
 	}
@@ -587,6 +620,9 @@ func (c *ChatInviteExported) SetTitle(value string) {
 // GetTitle returns value of Title conditional field and
 // boolean which is true if field was set.
 func (c *ChatInviteExported) GetTitle() (value string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(8) {
 		return value, false
 	}

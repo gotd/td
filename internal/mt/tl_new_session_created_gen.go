@@ -179,15 +179,24 @@ func (n *NewSessionCreated) DecodeBare(b *bin.Buffer) error {
 
 // GetFirstMsgID returns value of FirstMsgID field.
 func (n *NewSessionCreated) GetFirstMsgID() (value int64) {
+	if n == nil {
+		return
+	}
 	return n.FirstMsgID
 }
 
 // GetUniqueID returns value of UniqueID field.
 func (n *NewSessionCreated) GetUniqueID() (value int64) {
+	if n == nil {
+		return
+	}
 	return n.UniqueID
 }
 
 // GetServerSalt returns value of ServerSalt field.
 func (n *NewSessionCreated) GetServerSalt() (value int64) {
+	if n == nil {
+		return
+	}
 	return n.ServerSalt
 }

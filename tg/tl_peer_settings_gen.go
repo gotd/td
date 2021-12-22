@@ -408,6 +408,9 @@ func (p *PeerSettings) SetReportSpam(value bool) {
 
 // GetReportSpam returns value of ReportSpam conditional field.
 func (p *PeerSettings) GetReportSpam() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(0)
 }
 
@@ -424,6 +427,9 @@ func (p *PeerSettings) SetAddContact(value bool) {
 
 // GetAddContact returns value of AddContact conditional field.
 func (p *PeerSettings) GetAddContact() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(1)
 }
 
@@ -440,6 +446,9 @@ func (p *PeerSettings) SetBlockContact(value bool) {
 
 // GetBlockContact returns value of BlockContact conditional field.
 func (p *PeerSettings) GetBlockContact() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(2)
 }
 
@@ -456,6 +465,9 @@ func (p *PeerSettings) SetShareContact(value bool) {
 
 // GetShareContact returns value of ShareContact conditional field.
 func (p *PeerSettings) GetShareContact() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(3)
 }
 
@@ -472,6 +484,9 @@ func (p *PeerSettings) SetNeedContactsException(value bool) {
 
 // GetNeedContactsException returns value of NeedContactsException conditional field.
 func (p *PeerSettings) GetNeedContactsException() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(4)
 }
 
@@ -488,6 +503,9 @@ func (p *PeerSettings) SetReportGeo(value bool) {
 
 // GetReportGeo returns value of ReportGeo conditional field.
 func (p *PeerSettings) GetReportGeo() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(5)
 }
 
@@ -504,6 +522,9 @@ func (p *PeerSettings) SetAutoarchived(value bool) {
 
 // GetAutoarchived returns value of Autoarchived conditional field.
 func (p *PeerSettings) GetAutoarchived() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(7)
 }
 
@@ -520,6 +541,9 @@ func (p *PeerSettings) SetInviteMembers(value bool) {
 
 // GetInviteMembers returns value of InviteMembers conditional field.
 func (p *PeerSettings) GetInviteMembers() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(8)
 }
 
@@ -536,6 +560,9 @@ func (p *PeerSettings) SetRequestChatBroadcast(value bool) {
 
 // GetRequestChatBroadcast returns value of RequestChatBroadcast conditional field.
 func (p *PeerSettings) GetRequestChatBroadcast() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(10)
 }
 
@@ -548,6 +575,9 @@ func (p *PeerSettings) SetGeoDistance(value int) {
 // GetGeoDistance returns value of GeoDistance conditional field and
 // boolean which is true if field was set.
 func (p *PeerSettings) GetGeoDistance() (value int, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(6) {
 		return value, false
 	}
@@ -563,6 +593,9 @@ func (p *PeerSettings) SetRequestChatTitle(value string) {
 // GetRequestChatTitle returns value of RequestChatTitle conditional field and
 // boolean which is true if field was set.
 func (p *PeerSettings) GetRequestChatTitle() (value string, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(9) {
 		return value, false
 	}
@@ -578,6 +611,9 @@ func (p *PeerSettings) SetRequestChatDate(value int) {
 // GetRequestChatDate returns value of RequestChatDate conditional field and
 // boolean which is true if field was set.
 func (p *PeerSettings) GetRequestChatDate() (value int, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(9) {
 		return value, false
 	}

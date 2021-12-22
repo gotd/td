@@ -283,25 +283,40 @@ func (c *Contact) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (c *Contact) GetPhoneNumber() (value string) {
+	if c == nil {
+		return
+	}
 	return c.PhoneNumber
 }
 
 // GetFirstName returns value of FirstName field.
 func (c *Contact) GetFirstName() (value string) {
+	if c == nil {
+		return
+	}
 	return c.FirstName
 }
 
 // GetLastName returns value of LastName field.
 func (c *Contact) GetLastName() (value string) {
+	if c == nil {
+		return
+	}
 	return c.LastName
 }
 
 // GetVcard returns value of Vcard field.
 func (c *Contact) GetVcard() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Vcard
 }
 
 // GetUserID returns value of UserID field.
 func (c *Contact) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }

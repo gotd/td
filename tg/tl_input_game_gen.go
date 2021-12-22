@@ -185,11 +185,17 @@ func (i *InputGameID) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputGameID) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputGameID) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }
 
@@ -346,11 +352,17 @@ func (i *InputGameShortName) DecodeBare(b *bin.Buffer) error {
 
 // GetBotID returns value of BotID field.
 func (i *InputGameShortName) GetBotID() (value InputUserClass) {
+	if i == nil {
+		return
+	}
 	return i.BotID
 }
 
 // GetShortName returns value of ShortName field.
 func (i *InputGameShortName) GetShortName() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ShortName
 }
 

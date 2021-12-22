@@ -161,6 +161,9 @@ func (r *AccountResetPasswordFailedWait) DecodeBare(b *bin.Buffer) error {
 
 // GetRetryDate returns value of RetryDate field.
 func (r *AccountResetPasswordFailedWait) GetRetryDate() (value int) {
+	if r == nil {
+		return
+	}
 	return r.RetryDate
 }
 
@@ -294,6 +297,9 @@ func (r *AccountResetPasswordRequestedWait) DecodeBare(b *bin.Buffer) error {
 
 // GetUntilDate returns value of UntilDate field.
 func (r *AccountResetPasswordRequestedWait) GetUntilDate() (value int) {
+	if r == nil {
+		return
+	}
 	return r.UntilDate
 }
 

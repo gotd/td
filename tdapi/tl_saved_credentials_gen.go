@@ -208,10 +208,16 @@ func (s *SavedCredentials) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (s *SavedCredentials) GetID() (value string) {
+	if s == nil {
+		return
+	}
 	return s.ID
 }
 
 // GetTitle returns value of Title field.
 func (s *SavedCredentials) GetTitle() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Title
 }

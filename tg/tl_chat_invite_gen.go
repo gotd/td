@@ -165,6 +165,9 @@ func (c *ChatInviteAlready) DecodeBare(b *bin.Buffer) error {
 
 // GetChat returns value of Chat field.
 func (c *ChatInviteAlready) GetChat() (value ChatClass) {
+	if c == nil {
+		return
+	}
 	return c.Chat
 }
 
@@ -543,6 +546,9 @@ func (c *ChatInvite) SetChannel(value bool) {
 
 // GetChannel returns value of Channel conditional field.
 func (c *ChatInvite) GetChannel() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(0)
 }
 
@@ -559,6 +565,9 @@ func (c *ChatInvite) SetBroadcast(value bool) {
 
 // GetBroadcast returns value of Broadcast conditional field.
 func (c *ChatInvite) GetBroadcast() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(1)
 }
 
@@ -575,6 +584,9 @@ func (c *ChatInvite) SetPublic(value bool) {
 
 // GetPublic returns value of Public conditional field.
 func (c *ChatInvite) GetPublic() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(2)
 }
 
@@ -591,6 +603,9 @@ func (c *ChatInvite) SetMegagroup(value bool) {
 
 // GetMegagroup returns value of Megagroup conditional field.
 func (c *ChatInvite) GetMegagroup() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(3)
 }
 
@@ -607,11 +622,17 @@ func (c *ChatInvite) SetRequestNeeded(value bool) {
 
 // GetRequestNeeded returns value of RequestNeeded conditional field.
 func (c *ChatInvite) GetRequestNeeded() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(6)
 }
 
 // GetTitle returns value of Title field.
 func (c *ChatInvite) GetTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Title
 }
 
@@ -624,6 +645,9 @@ func (c *ChatInvite) SetAbout(value string) {
 // GetAbout returns value of About conditional field and
 // boolean which is true if field was set.
 func (c *ChatInvite) GetAbout() (value string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(5) {
 		return value, false
 	}
@@ -632,11 +656,17 @@ func (c *ChatInvite) GetAbout() (value string, ok bool) {
 
 // GetPhoto returns value of Photo field.
 func (c *ChatInvite) GetPhoto() (value PhotoClass) {
+	if c == nil {
+		return
+	}
 	return c.Photo
 }
 
 // GetParticipantsCount returns value of ParticipantsCount field.
 func (c *ChatInvite) GetParticipantsCount() (value int) {
+	if c == nil {
+		return
+	}
 	return c.ParticipantsCount
 }
 
@@ -649,6 +679,9 @@ func (c *ChatInvite) SetParticipants(value []UserClass) {
 // GetParticipants returns value of Participants conditional field and
 // boolean which is true if field was set.
 func (c *ChatInvite) GetParticipants() (value []UserClass, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(4) {
 		return value, false
 	}
@@ -817,11 +850,17 @@ func (c *ChatInvitePeek) DecodeBare(b *bin.Buffer) error {
 
 // GetChat returns value of Chat field.
 func (c *ChatInvitePeek) GetChat() (value ChatClass) {
+	if c == nil {
+		return
+	}
 	return c.Chat
 }
 
 // GetExpires returns value of Expires field.
 func (c *ChatInvitePeek) GetExpires() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Expires
 }
 

@@ -338,30 +338,48 @@ func (p *PageBlockTableCell) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (p *PageBlockTableCell) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
 // GetIsHeader returns value of IsHeader field.
 func (p *PageBlockTableCell) GetIsHeader() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsHeader
 }
 
 // GetColspan returns value of Colspan field.
 func (p *PageBlockTableCell) GetColspan() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.Colspan
 }
 
 // GetRowspan returns value of Rowspan field.
 func (p *PageBlockTableCell) GetRowspan() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.Rowspan
 }
 
 // GetAlign returns value of Align field.
 func (p *PageBlockTableCell) GetAlign() (value PageBlockHorizontalAlignmentClass) {
+	if p == nil {
+		return
+	}
 	return p.Align
 }
 
 // GetValign returns value of Valign field.
 func (p *PageBlockTableCell) GetValign() (value PageBlockVerticalAlignmentClass) {
+	if p == nil {
+		return
+	}
 	return p.Valign
 }

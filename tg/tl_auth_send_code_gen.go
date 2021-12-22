@@ -218,21 +218,33 @@ func (s *AuthSendCodeRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (s *AuthSendCodeRequest) GetPhoneNumber() (value string) {
+	if s == nil {
+		return
+	}
 	return s.PhoneNumber
 }
 
 // GetAPIID returns value of APIID field.
 func (s *AuthSendCodeRequest) GetAPIID() (value int) {
+	if s == nil {
+		return
+	}
 	return s.APIID
 }
 
 // GetAPIHash returns value of APIHash field.
 func (s *AuthSendCodeRequest) GetAPIHash() (value string) {
+	if s == nil {
+		return
+	}
 	return s.APIHash
 }
 
 // GetSettings returns value of Settings field.
 func (s *AuthSendCodeRequest) GetSettings() (value CodeSettings) {
+	if s == nil {
+		return
+	}
 	return s.Settings
 }
 

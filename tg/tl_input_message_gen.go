@@ -160,6 +160,9 @@ func (i *InputMessageID) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputMessageID) GetID() (value int) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
@@ -292,6 +295,9 @@ func (i *InputMessageReplyTo) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputMessageReplyTo) GetID() (value int) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
@@ -546,11 +552,17 @@ func (i *InputMessageCallbackQuery) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputMessageCallbackQuery) GetID() (value int) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetQueryID returns value of QueryID field.
 func (i *InputMessageCallbackQuery) GetQueryID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.QueryID
 }
 

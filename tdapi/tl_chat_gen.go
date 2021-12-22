@@ -950,145 +950,232 @@ func (c *Chat) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (c *Chat) GetID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ID
 }
 
 // GetType returns value of Type field.
 func (c *Chat) GetType() (value ChatTypeClass) {
+	if c == nil {
+		return
+	}
 	return c.Type
 }
 
 // GetTitle returns value of Title field.
 func (c *Chat) GetTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Title
 }
 
 // GetPhoto returns value of Photo field.
 func (c *Chat) GetPhoto() (value ChatPhotoInfo) {
+	if c == nil {
+		return
+	}
 	return c.Photo
 }
 
 // GetPermissions returns value of Permissions field.
 func (c *Chat) GetPermissions() (value ChatPermissions) {
+	if c == nil {
+		return
+	}
 	return c.Permissions
 }
 
 // GetLastMessage returns value of LastMessage field.
 func (c *Chat) GetLastMessage() (value Message) {
+	if c == nil {
+		return
+	}
 	return c.LastMessage
 }
 
 // GetPositions returns value of Positions field.
 func (c *Chat) GetPositions() (value []ChatPosition) {
+	if c == nil {
+		return
+	}
 	return c.Positions
 }
 
 // GetDefaultMessageSenderID returns value of DefaultMessageSenderID field.
 func (c *Chat) GetDefaultMessageSenderID() (value MessageSenderClass) {
+	if c == nil {
+		return
+	}
 	return c.DefaultMessageSenderID
 }
 
 // GetHasProtectedContent returns value of HasProtectedContent field.
 func (c *Chat) GetHasProtectedContent() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.HasProtectedContent
 }
 
 // GetIsMarkedAsUnread returns value of IsMarkedAsUnread field.
 func (c *Chat) GetIsMarkedAsUnread() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsMarkedAsUnread
 }
 
 // GetIsBlocked returns value of IsBlocked field.
 func (c *Chat) GetIsBlocked() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsBlocked
 }
 
 // GetHasScheduledMessages returns value of HasScheduledMessages field.
 func (c *Chat) GetHasScheduledMessages() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.HasScheduledMessages
 }
 
 // GetCanBeDeletedOnlyForSelf returns value of CanBeDeletedOnlyForSelf field.
 func (c *Chat) GetCanBeDeletedOnlyForSelf() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanBeDeletedOnlyForSelf
 }
 
 // GetCanBeDeletedForAllUsers returns value of CanBeDeletedForAllUsers field.
 func (c *Chat) GetCanBeDeletedForAllUsers() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanBeDeletedForAllUsers
 }
 
 // GetCanBeReported returns value of CanBeReported field.
 func (c *Chat) GetCanBeReported() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanBeReported
 }
 
 // GetDefaultDisableNotification returns value of DefaultDisableNotification field.
 func (c *Chat) GetDefaultDisableNotification() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.DefaultDisableNotification
 }
 
 // GetUnreadCount returns value of UnreadCount field.
 func (c *Chat) GetUnreadCount() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.UnreadCount
 }
 
 // GetLastReadInboxMessageID returns value of LastReadInboxMessageID field.
 func (c *Chat) GetLastReadInboxMessageID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.LastReadInboxMessageID
 }
 
 // GetLastReadOutboxMessageID returns value of LastReadOutboxMessageID field.
 func (c *Chat) GetLastReadOutboxMessageID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.LastReadOutboxMessageID
 }
 
 // GetUnreadMentionCount returns value of UnreadMentionCount field.
 func (c *Chat) GetUnreadMentionCount() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.UnreadMentionCount
 }
 
 // GetNotificationSettings returns value of NotificationSettings field.
 func (c *Chat) GetNotificationSettings() (value ChatNotificationSettings) {
+	if c == nil {
+		return
+	}
 	return c.NotificationSettings
 }
 
 // GetMessageTTLSetting returns value of MessageTTLSetting field.
 func (c *Chat) GetMessageTTLSetting() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.MessageTTLSetting
 }
 
 // GetThemeName returns value of ThemeName field.
 func (c *Chat) GetThemeName() (value string) {
+	if c == nil {
+		return
+	}
 	return c.ThemeName
 }
 
 // GetActionBar returns value of ActionBar field.
 func (c *Chat) GetActionBar() (value ChatActionBarClass) {
+	if c == nil {
+		return
+	}
 	return c.ActionBar
 }
 
 // GetVideoChat returns value of VideoChat field.
 func (c *Chat) GetVideoChat() (value VideoChat) {
+	if c == nil {
+		return
+	}
 	return c.VideoChat
 }
 
 // GetPendingJoinRequests returns value of PendingJoinRequests field.
 func (c *Chat) GetPendingJoinRequests() (value ChatJoinRequestsInfo) {
+	if c == nil {
+		return
+	}
 	return c.PendingJoinRequests
 }
 
 // GetReplyMarkupMessageID returns value of ReplyMarkupMessageID field.
 func (c *Chat) GetReplyMarkupMessageID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ReplyMarkupMessageID
 }
 
 // GetDraftMessage returns value of DraftMessage field.
 func (c *Chat) GetDraftMessage() (value DraftMessage) {
+	if c == nil {
+		return
+	}
 	return c.DraftMessage
 }
 
 // GetClientData returns value of ClientData field.
 func (c *Chat) GetClientData() (value string) {
+	if c == nil {
+		return
+	}
 	return c.ClientData
 }

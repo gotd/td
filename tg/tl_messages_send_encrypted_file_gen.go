@@ -269,26 +269,41 @@ func (s *MessagesSendEncryptedFileRequest) SetSilent(value bool) {
 
 // GetSilent returns value of Silent conditional field.
 func (s *MessagesSendEncryptedFileRequest) GetSilent() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
 func (s *MessagesSendEncryptedFileRequest) GetPeer() (value InputEncryptedChat) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
 // GetRandomID returns value of RandomID field.
 func (s *MessagesSendEncryptedFileRequest) GetRandomID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.RandomID
 }
 
 // GetData returns value of Data field.
 func (s *MessagesSendEncryptedFileRequest) GetData() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.Data
 }
 
 // GetFile returns value of File field.
 func (s *MessagesSendEncryptedFileRequest) GetFile() (value InputEncryptedFileClass) {
+	if s == nil {
+		return
+	}
 	return s.File
 }
 

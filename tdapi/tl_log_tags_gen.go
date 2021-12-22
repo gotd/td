@@ -205,5 +205,8 @@ func (l *LogTags) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTags returns value of Tags field.
 func (l *LogTags) GetTags() (value []string) {
+	if l == nil {
+		return
+	}
 	return l.Tags
 }

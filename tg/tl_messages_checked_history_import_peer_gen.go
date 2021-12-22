@@ -162,5 +162,8 @@ func (c *MessagesCheckedHistoryImportPeer) DecodeBare(b *bin.Buffer) error {
 
 // GetConfirmText returns value of ConfirmText field.
 func (c *MessagesCheckedHistoryImportPeer) GetConfirmText() (value string) {
+	if c == nil {
+		return
+	}
 	return c.ConfirmText
 }

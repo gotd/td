@@ -262,6 +262,9 @@ func (c *HelpCountryCode) DecodeBare(b *bin.Buffer) error {
 
 // GetCountryCode returns value of CountryCode field.
 func (c *HelpCountryCode) GetCountryCode() (value string) {
+	if c == nil {
+		return
+	}
 	return c.CountryCode
 }
 
@@ -274,6 +277,9 @@ func (c *HelpCountryCode) SetPrefixes(value []string) {
 // GetPrefixes returns value of Prefixes conditional field and
 // boolean which is true if field was set.
 func (c *HelpCountryCode) GetPrefixes() (value []string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(0) {
 		return value, false
 	}
@@ -289,6 +295,9 @@ func (c *HelpCountryCode) SetPatterns(value []string) {
 // GetPatterns returns value of Patterns conditional field and
 // boolean which is true if field was set.
 func (c *HelpCountryCode) GetPatterns() (value []string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(1) {
 		return value, false
 	}

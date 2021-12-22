@@ -162,6 +162,9 @@ func (u *AccountUpdateDeviceLockedRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeriod returns value of Period field.
 func (u *AccountUpdateDeviceLockedRequest) GetPeriod() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Period
 }
 

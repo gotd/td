@@ -236,11 +236,17 @@ func (s *SetCustomLanguagePackRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetInfo returns value of Info field.
 func (s *SetCustomLanguagePackRequest) GetInfo() (value LanguagePackInfo) {
+	if s == nil {
+		return
+	}
 	return s.Info
 }
 
 // GetStrings returns value of Strings field.
 func (s *SetCustomLanguagePackRequest) GetStrings() (value []LanguagePackString) {
+	if s == nil {
+		return
+	}
 	return s.Strings
 }
 

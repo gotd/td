@@ -308,30 +308,48 @@ func (a *Address) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCountryCode returns value of CountryCode field.
 func (a *Address) GetCountryCode() (value string) {
+	if a == nil {
+		return
+	}
 	return a.CountryCode
 }
 
 // GetState returns value of State field.
 func (a *Address) GetState() (value string) {
+	if a == nil {
+		return
+	}
 	return a.State
 }
 
 // GetCity returns value of City field.
 func (a *Address) GetCity() (value string) {
+	if a == nil {
+		return
+	}
 	return a.City
 }
 
 // GetStreetLine1 returns value of StreetLine1 field.
 func (a *Address) GetStreetLine1() (value string) {
+	if a == nil {
+		return
+	}
 	return a.StreetLine1
 }
 
 // GetStreetLine2 returns value of StreetLine2 field.
 func (a *Address) GetStreetLine2() (value string) {
+	if a == nil {
+		return
+	}
 	return a.StreetLine2
 }
 
 // GetPostalCode returns value of PostalCode field.
 func (a *Address) GetPostalCode() (value string) {
+	if a == nil {
+		return
+	}
 	return a.PostalCode
 }

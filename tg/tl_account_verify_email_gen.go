@@ -177,11 +177,17 @@ func (v *AccountVerifyEmailRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetEmail returns value of Email field.
 func (v *AccountVerifyEmailRequest) GetEmail() (value string) {
+	if v == nil {
+		return
+	}
 	return v.Email
 }
 
 // GetCode returns value of Code field.
 func (v *AccountVerifyEmailRequest) GetCode() (value string) {
+	if v == nil {
+		return
+	}
 	return v.Code
 }
 

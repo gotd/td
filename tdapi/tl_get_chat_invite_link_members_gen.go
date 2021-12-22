@@ -259,21 +259,33 @@ func (g *GetChatInviteLinkMembersRequest) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetChatID returns value of ChatID field.
 func (g *GetChatInviteLinkMembersRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetInviteLink returns value of InviteLink field.
 func (g *GetChatInviteLinkMembersRequest) GetInviteLink() (value string) {
+	if g == nil {
+		return
+	}
 	return g.InviteLink
 }
 
 // GetOffsetMember returns value of OffsetMember field.
 func (g *GetChatInviteLinkMembersRequest) GetOffsetMember() (value ChatInviteLinkMember) {
+	if g == nil {
+		return
+	}
 	return g.OffsetMember
 }
 
 // GetLimit returns value of Limit field.
 func (g *GetChatInviteLinkMembersRequest) GetLimit() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

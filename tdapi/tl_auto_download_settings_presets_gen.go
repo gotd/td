@@ -233,15 +233,24 @@ func (a *AutoDownloadSettingsPresets) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLow returns value of Low field.
 func (a *AutoDownloadSettingsPresets) GetLow() (value AutoDownloadSettings) {
+	if a == nil {
+		return
+	}
 	return a.Low
 }
 
 // GetMedium returns value of Medium field.
 func (a *AutoDownloadSettingsPresets) GetMedium() (value AutoDownloadSettings) {
+	if a == nil {
+		return
+	}
 	return a.Medium
 }
 
 // GetHigh returns value of High field.
 func (a *AutoDownloadSettingsPresets) GetHigh() (value AutoDownloadSettings) {
+	if a == nil {
+		return
+	}
 	return a.High
 }

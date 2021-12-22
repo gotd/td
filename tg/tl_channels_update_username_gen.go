@@ -179,11 +179,17 @@ func (u *ChannelsUpdateUsernameRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (u *ChannelsUpdateUsernameRequest) GetChannel() (value InputChannelClass) {
+	if u == nil {
+		return
+	}
 	return u.Channel
 }
 
 // GetUsername returns value of Username field.
 func (u *ChannelsUpdateUsernameRequest) GetUsername() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Username
 }
 

@@ -240,11 +240,17 @@ func (s *SendPassportAuthorizationFormRequest) DecodeTDLibJSON(b tdjson.Decoder)
 
 // GetAutorizationFormID returns value of AutorizationFormID field.
 func (s *SendPassportAuthorizationFormRequest) GetAutorizationFormID() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.AutorizationFormID
 }
 
 // GetTypes returns value of Types field.
 func (s *SendPassportAuthorizationFormRequest) GetTypes() (value []PassportElementTypeClass) {
+	if s == nil {
+		return
+	}
 	return s.Types
 }
 

@@ -235,16 +235,25 @@ func (r *ReadFilePartRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFileID returns value of FileID field.
 func (r *ReadFilePartRequest) GetFileID() (value int32) {
+	if r == nil {
+		return
+	}
 	return r.FileID
 }
 
 // GetOffset returns value of Offset field.
 func (r *ReadFilePartRequest) GetOffset() (value int32) {
+	if r == nil {
+		return
+	}
 	return r.Offset
 }
 
 // GetCount returns value of Count field.
 func (r *ReadFilePartRequest) GetCount() (value int32) {
+	if r == nil {
+		return
+	}
 	return r.Count
 }
 

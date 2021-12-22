@@ -173,6 +173,9 @@ func (e *FoldersEditPeerFoldersRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetFolderPeers returns value of FolderPeers field.
 func (e *FoldersEditPeerFoldersRequest) GetFolderPeers() (value []InputFolderPeer) {
+	if e == nil {
+		return
+	}
 	return e.FolderPeers
 }
 

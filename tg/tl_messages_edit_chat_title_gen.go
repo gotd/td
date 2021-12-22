@@ -174,11 +174,17 @@ func (e *MessagesEditChatTitleRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (e *MessagesEditChatTitleRequest) GetChatID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.ChatID
 }
 
 // GetTitle returns value of Title field.
 func (e *MessagesEditChatTitleRequest) GetTitle() (value string) {
+	if e == nil {
+		return
+	}
 	return e.Title
 }
 

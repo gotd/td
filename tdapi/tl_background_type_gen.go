@@ -214,11 +214,17 @@ func (b *BackgroundTypeWallpaper) DecodeTDLibJSON(buf tdjson.Decoder) error {
 
 // GetIsBlurred returns value of IsBlurred field.
 func (b *BackgroundTypeWallpaper) GetIsBlurred() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.IsBlurred
 }
 
 // GetIsMoving returns value of IsMoving field.
 func (b *BackgroundTypeWallpaper) GetIsMoving() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.IsMoving
 }
 
@@ -465,21 +471,33 @@ func (b *BackgroundTypePattern) DecodeTDLibJSON(buf tdjson.Decoder) error {
 
 // GetFill returns value of Fill field.
 func (b *BackgroundTypePattern) GetFill() (value BackgroundFillClass) {
+	if b == nil {
+		return
+	}
 	return b.Fill
 }
 
 // GetIntensity returns value of Intensity field.
 func (b *BackgroundTypePattern) GetIntensity() (value int32) {
+	if b == nil {
+		return
+	}
 	return b.Intensity
 }
 
 // GetIsInverted returns value of IsInverted field.
 func (b *BackgroundTypePattern) GetIsInverted() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.IsInverted
 }
 
 // GetIsMoving returns value of IsMoving field.
 func (b *BackgroundTypePattern) GetIsMoving() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.IsMoving
 }
 
@@ -650,6 +668,9 @@ func (b *BackgroundTypeFill) DecodeTDLibJSON(buf tdjson.Decoder) error {
 
 // GetFill returns value of Fill field.
 func (b *BackgroundTypeFill) GetFill() (value BackgroundFillClass) {
+	if b == nil {
+		return
+	}
 	return b.Fill
 }
 

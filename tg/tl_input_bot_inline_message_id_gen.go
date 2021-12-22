@@ -199,16 +199,25 @@ func (i *InputBotInlineMessageID) DecodeBare(b *bin.Buffer) error {
 
 // GetDCID returns value of DCID field.
 func (i *InputBotInlineMessageID) GetDCID() (value int) {
+	if i == nil {
+		return
+	}
 	return i.DCID
 }
 
 // GetID returns value of ID field.
 func (i *InputBotInlineMessageID) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputBotInlineMessageID) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }
 
@@ -398,21 +407,33 @@ func (i *InputBotInlineMessageID64) DecodeBare(b *bin.Buffer) error {
 
 // GetDCID returns value of DCID field.
 func (i *InputBotInlineMessageID64) GetDCID() (value int) {
+	if i == nil {
+		return
+	}
 	return i.DCID
 }
 
 // GetOwnerID returns value of OwnerID field.
 func (i *InputBotInlineMessageID64) GetOwnerID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.OwnerID
 }
 
 // GetID returns value of ID field.
 func (i *InputBotInlineMessageID64) GetID() (value int) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputBotInlineMessageID64) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }
 

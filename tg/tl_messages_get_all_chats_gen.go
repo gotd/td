@@ -168,6 +168,9 @@ func (g *MessagesGetAllChatsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetExceptIDs returns value of ExceptIDs field.
 func (g *MessagesGetAllChatsRequest) GetExceptIDs() (value []int64) {
+	if g == nil {
+		return
+	}
 	return g.ExceptIDs
 }
 

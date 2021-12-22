@@ -147,5 +147,8 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 
 // GetErr returns value of Err field.
 func (m *Message) GetErr() (value Error) {
+	if m == nil {
+		return
+	}
 	return m.Err
 }

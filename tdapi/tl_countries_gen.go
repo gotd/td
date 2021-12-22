@@ -209,5 +209,8 @@ func (c *Countries) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCountries returns value of Countries field.
 func (c *Countries) GetCountries() (value []CountryInfo) {
+	if c == nil {
+		return
+	}
 	return c.Countries
 }

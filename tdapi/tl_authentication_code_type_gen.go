@@ -188,6 +188,9 @@ func (a *AuthenticationCodeTypeTelegramMessage) DecodeTDLibJSON(b tdjson.Decoder
 
 // GetLength returns value of Length field.
 func (a *AuthenticationCodeTypeTelegramMessage) GetLength() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.Length
 }
 
@@ -348,6 +351,9 @@ func (a *AuthenticationCodeTypeSMS) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLength returns value of Length field.
 func (a *AuthenticationCodeTypeSMS) GetLength() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.Length
 }
 
@@ -508,6 +514,9 @@ func (a *AuthenticationCodeTypeCall) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLength returns value of Length field.
 func (a *AuthenticationCodeTypeCall) GetLength() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.Length
 }
 
@@ -668,6 +677,9 @@ func (a *AuthenticationCodeTypeFlashCall) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetPattern returns value of Pattern field.
 func (a *AuthenticationCodeTypeFlashCall) GetPattern() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Pattern
 }
 
@@ -853,11 +865,17 @@ func (a *AuthenticationCodeTypeMissedCall) DecodeTDLibJSON(b tdjson.Decoder) err
 
 // GetPhoneNumberPrefix returns value of PhoneNumberPrefix field.
 func (a *AuthenticationCodeTypeMissedCall) GetPhoneNumberPrefix() (value string) {
+	if a == nil {
+		return
+	}
 	return a.PhoneNumberPrefix
 }
 
 // GetLength returns value of Length field.
 func (a *AuthenticationCodeTypeMissedCall) GetLength() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.Length
 }
 

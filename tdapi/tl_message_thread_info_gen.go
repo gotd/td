@@ -335,30 +335,48 @@ func (m *MessageThreadInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (m *MessageThreadInfo) GetChatID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.ChatID
 }
 
 // GetMessageThreadID returns value of MessageThreadID field.
 func (m *MessageThreadInfo) GetMessageThreadID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.MessageThreadID
 }
 
 // GetReplyInfo returns value of ReplyInfo field.
 func (m *MessageThreadInfo) GetReplyInfo() (value MessageReplyInfo) {
+	if m == nil {
+		return
+	}
 	return m.ReplyInfo
 }
 
 // GetUnreadMessageCount returns value of UnreadMessageCount field.
 func (m *MessageThreadInfo) GetUnreadMessageCount() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.UnreadMessageCount
 }
 
 // GetMessages returns value of Messages field.
 func (m *MessageThreadInfo) GetMessages() (value []Message) {
+	if m == nil {
+		return
+	}
 	return m.Messages
 }
 
 // GetDraftMessage returns value of DraftMessage field.
 func (m *MessageThreadInfo) GetDraftMessage() (value DraftMessage) {
+	if m == nil {
+		return
+	}
 	return m.DraftMessage
 }

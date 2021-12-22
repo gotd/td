@@ -177,10 +177,16 @@ func (s *StatsGroupTopInviter) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (s *StatsGroupTopInviter) GetUserID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.UserID
 }
 
 // GetInvitations returns value of Invitations field.
 func (s *StatsGroupTopInviter) GetInvitations() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Invitations
 }

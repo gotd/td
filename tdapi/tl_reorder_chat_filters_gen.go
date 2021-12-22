@@ -205,6 +205,9 @@ func (r *ReorderChatFiltersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatFilterIDs returns value of ChatFilterIDs field.
 func (r *ReorderChatFiltersRequest) GetChatFilterIDs() (value []int32) {
+	if r == nil {
+		return
+	}
 	return r.ChatFilterIDs
 }
 

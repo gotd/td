@@ -362,11 +362,17 @@ func (c *ChatPhoto) SetHasVideo(value bool) {
 
 // GetHasVideo returns value of HasVideo conditional field.
 func (c *ChatPhoto) GetHasVideo() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(0)
 }
 
 // GetPhotoID returns value of PhotoID field.
 func (c *ChatPhoto) GetPhotoID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.PhotoID
 }
 
@@ -379,6 +385,9 @@ func (c *ChatPhoto) SetStrippedThumb(value []byte) {
 // GetStrippedThumb returns value of StrippedThumb conditional field and
 // boolean which is true if field was set.
 func (c *ChatPhoto) GetStrippedThumb() (value []byte, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(1) {
 		return value, false
 	}
@@ -387,6 +396,9 @@ func (c *ChatPhoto) GetStrippedThumb() (value []byte, ok bool) {
 
 // GetDCID returns value of DCID field.
 func (c *ChatPhoto) GetDCID() (value int) {
+	if c == nil {
+		return
+	}
 	return c.DCID
 }
 

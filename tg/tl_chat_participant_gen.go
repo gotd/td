@@ -198,16 +198,25 @@ func (c *ChatParticipant) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (c *ChatParticipant) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetInviterID returns value of InviterID field.
 func (c *ChatParticipant) GetInviterID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.InviterID
 }
 
 // GetDate returns value of Date field.
 func (c *ChatParticipant) GetDate() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Date
 }
 
@@ -340,6 +349,9 @@ func (c *ChatParticipantCreator) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (c *ChatParticipantCreator) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
@@ -510,16 +522,25 @@ func (c *ChatParticipantAdmin) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (c *ChatParticipantAdmin) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetInviterID returns value of InviterID field.
 func (c *ChatParticipantAdmin) GetInviterID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.InviterID
 }
 
 // GetDate returns value of Date field.
 func (c *ChatParticipantAdmin) GetDate() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Date
 }
 

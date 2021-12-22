@@ -221,21 +221,33 @@ func (g *MessagesGetSearchResultsCalendarRequest) DecodeBare(b *bin.Buffer) erro
 
 // GetPeer returns value of Peer field.
 func (g *MessagesGetSearchResultsCalendarRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
 // GetFilter returns value of Filter field.
 func (g *MessagesGetSearchResultsCalendarRequest) GetFilter() (value MessagesFilterClass) {
+	if g == nil {
+		return
+	}
 	return g.Filter
 }
 
 // GetOffsetID returns value of OffsetID field.
 func (g *MessagesGetSearchResultsCalendarRequest) GetOffsetID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.OffsetID
 }
 
 // GetOffsetDate returns value of OffsetDate field.
 func (g *MessagesGetSearchResultsCalendarRequest) GetOffsetDate() (value int) {
+	if g == nil {
+		return
+	}
 	return g.OffsetDate
 }
 

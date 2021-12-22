@@ -183,11 +183,17 @@ func (s *MessagesSaveDefaultSendAsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (s *MessagesSaveDefaultSendAsRequest) GetPeer() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
 // GetSendAs returns value of SendAs field.
 func (s *MessagesSaveDefaultSendAsRequest) GetSendAs() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.SendAs
 }
 

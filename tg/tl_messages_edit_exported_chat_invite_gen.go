@@ -347,16 +347,25 @@ func (e *MessagesEditExportedChatInviteRequest) SetRevoked(value bool) {
 
 // GetRevoked returns value of Revoked conditional field.
 func (e *MessagesEditExportedChatInviteRequest) GetRevoked() (value bool) {
+	if e == nil {
+		return
+	}
 	return e.Flags.Has(2)
 }
 
 // GetPeer returns value of Peer field.
 func (e *MessagesEditExportedChatInviteRequest) GetPeer() (value InputPeerClass) {
+	if e == nil {
+		return
+	}
 	return e.Peer
 }
 
 // GetLink returns value of Link field.
 func (e *MessagesEditExportedChatInviteRequest) GetLink() (value string) {
+	if e == nil {
+		return
+	}
 	return e.Link
 }
 
@@ -369,6 +378,9 @@ func (e *MessagesEditExportedChatInviteRequest) SetExpireDate(value int) {
 // GetExpireDate returns value of ExpireDate conditional field and
 // boolean which is true if field was set.
 func (e *MessagesEditExportedChatInviteRequest) GetExpireDate() (value int, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(0) {
 		return value, false
 	}
@@ -384,6 +396,9 @@ func (e *MessagesEditExportedChatInviteRequest) SetUsageLimit(value int) {
 // GetUsageLimit returns value of UsageLimit conditional field and
 // boolean which is true if field was set.
 func (e *MessagesEditExportedChatInviteRequest) GetUsageLimit() (value int, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(1) {
 		return value, false
 	}
@@ -399,6 +414,9 @@ func (e *MessagesEditExportedChatInviteRequest) SetRequestNeeded(value bool) {
 // GetRequestNeeded returns value of RequestNeeded conditional field and
 // boolean which is true if field was set.
 func (e *MessagesEditExportedChatInviteRequest) GetRequestNeeded() (value bool, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(3) {
 		return value, false
 	}
@@ -414,6 +432,9 @@ func (e *MessagesEditExportedChatInviteRequest) SetTitle(value string) {
 // GetTitle returns value of Title conditional field and
 // boolean which is true if field was set.
 func (e *MessagesEditExportedChatInviteRequest) GetTitle() (value string, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(4) {
 		return value, false
 	}

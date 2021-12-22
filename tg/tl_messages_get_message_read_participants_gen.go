@@ -185,11 +185,17 @@ func (g *MessagesGetMessageReadParticipantsRequest) DecodeBare(b *bin.Buffer) er
 
 // GetPeer returns value of Peer field.
 func (g *MessagesGetMessageReadParticipantsRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
 // GetMsgID returns value of MsgID field.
 func (g *MessagesGetMessageReadParticipantsRequest) GetMsgID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.MsgID
 }
 

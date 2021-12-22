@@ -378,36 +378,57 @@ func (i *InitConnectionRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetAPIID returns value of APIID field.
 func (i *InitConnectionRequest) GetAPIID() (value int) {
+	if i == nil {
+		return
+	}
 	return i.APIID
 }
 
 // GetDeviceModel returns value of DeviceModel field.
 func (i *InitConnectionRequest) GetDeviceModel() (value string) {
+	if i == nil {
+		return
+	}
 	return i.DeviceModel
 }
 
 // GetSystemVersion returns value of SystemVersion field.
 func (i *InitConnectionRequest) GetSystemVersion() (value string) {
+	if i == nil {
+		return
+	}
 	return i.SystemVersion
 }
 
 // GetAppVersion returns value of AppVersion field.
 func (i *InitConnectionRequest) GetAppVersion() (value string) {
+	if i == nil {
+		return
+	}
 	return i.AppVersion
 }
 
 // GetSystemLangCode returns value of SystemLangCode field.
 func (i *InitConnectionRequest) GetSystemLangCode() (value string) {
+	if i == nil {
+		return
+	}
 	return i.SystemLangCode
 }
 
 // GetLangPack returns value of LangPack field.
 func (i *InitConnectionRequest) GetLangPack() (value string) {
+	if i == nil {
+		return
+	}
 	return i.LangPack
 }
 
 // GetLangCode returns value of LangCode field.
 func (i *InitConnectionRequest) GetLangCode() (value string) {
+	if i == nil {
+		return
+	}
 	return i.LangCode
 }
 
@@ -420,6 +441,9 @@ func (i *InitConnectionRequest) SetProxy(value InputClientProxy) {
 // GetProxy returns value of Proxy conditional field and
 // boolean which is true if field was set.
 func (i *InitConnectionRequest) GetProxy() (value InputClientProxy, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(0) {
 		return value, false
 	}
@@ -435,6 +459,9 @@ func (i *InitConnectionRequest) SetParams(value JSONValueClass) {
 // GetParams returns value of Params conditional field and
 // boolean which is true if field was set.
 func (i *InitConnectionRequest) GetParams() (value JSONValueClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(1) {
 		return value, false
 	}
@@ -443,5 +470,8 @@ func (i *InitConnectionRequest) GetParams() (value JSONValueClass, ok bool) {
 
 // GetQuery returns value of Query field.
 func (i *InitConnectionRequest) GetQuery() (value bin.Object) {
+	if i == nil {
+		return
+	}
 	return i.Query
 }

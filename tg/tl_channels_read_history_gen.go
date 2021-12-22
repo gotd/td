@@ -185,11 +185,17 @@ func (r *ChannelsReadHistoryRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (r *ChannelsReadHistoryRequest) GetChannel() (value InputChannelClass) {
+	if r == nil {
+		return
+	}
 	return r.Channel
 }
 
 // GetMaxID returns value of MaxID field.
 func (r *ChannelsReadHistoryRequest) GetMaxID() (value int) {
+	if r == nil {
+		return
+	}
 	return r.MaxID
 }
 

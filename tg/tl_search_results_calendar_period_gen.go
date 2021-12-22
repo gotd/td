@@ -211,20 +211,32 @@ func (s *SearchResultsCalendarPeriod) DecodeBare(b *bin.Buffer) error {
 
 // GetDate returns value of Date field.
 func (s *SearchResultsCalendarPeriod) GetDate() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Date
 }
 
 // GetMinMsgID returns value of MinMsgID field.
 func (s *SearchResultsCalendarPeriod) GetMinMsgID() (value int) {
+	if s == nil {
+		return
+	}
 	return s.MinMsgID
 }
 
 // GetMaxMsgID returns value of MaxMsgID field.
 func (s *SearchResultsCalendarPeriod) GetMaxMsgID() (value int) {
+	if s == nil {
+		return
+	}
 	return s.MaxMsgID
 }
 
 // GetCount returns value of Count field.
 func (s *SearchResultsCalendarPeriod) GetCount() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Count
 }

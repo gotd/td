@@ -253,16 +253,25 @@ func (e *EditInlineMessageTextRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetInlineMessageID returns value of InlineMessageID field.
 func (e *EditInlineMessageTextRequest) GetInlineMessageID() (value string) {
+	if e == nil {
+		return
+	}
 	return e.InlineMessageID
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (e *EditInlineMessageTextRequest) GetReplyMarkup() (value ReplyMarkupClass) {
+	if e == nil {
+		return
+	}
 	return e.ReplyMarkup
 }
 
 // GetInputMessageContent returns value of InputMessageContent field.
 func (e *EditInlineMessageTextRequest) GetInputMessageContent() (value InputMessageContentClass) {
+	if e == nil {
+		return
+	}
 	return e.InputMessageContent
 }
 

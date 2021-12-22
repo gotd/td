@@ -309,30 +309,48 @@ func (v *Venue) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLocation returns value of Location field.
 func (v *Venue) GetLocation() (value Location) {
+	if v == nil {
+		return
+	}
 	return v.Location
 }
 
 // GetTitle returns value of Title field.
 func (v *Venue) GetTitle() (value string) {
+	if v == nil {
+		return
+	}
 	return v.Title
 }
 
 // GetAddress returns value of Address field.
 func (v *Venue) GetAddress() (value string) {
+	if v == nil {
+		return
+	}
 	return v.Address
 }
 
 // GetProvider returns value of Provider field.
 func (v *Venue) GetProvider() (value string) {
+	if v == nil {
+		return
+	}
 	return v.Provider
 }
 
 // GetID returns value of ID field.
 func (v *Venue) GetID() (value string) {
+	if v == nil {
+		return
+	}
 	return v.ID
 }
 
 // GetType returns value of Type field.
 func (v *Venue) GetType() (value string) {
+	if v == nil {
+		return
+	}
 	return v.Type
 }

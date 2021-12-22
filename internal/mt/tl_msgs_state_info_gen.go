@@ -162,10 +162,16 @@ func (m *MsgsStateInfo) DecodeBare(b *bin.Buffer) error {
 
 // GetReqMsgID returns value of ReqMsgID field.
 func (m *MsgsStateInfo) GetReqMsgID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.ReqMsgID
 }
 
 // GetInfo returns value of Info field.
 func (m *MsgsStateInfo) GetInfo() (value []byte) {
+	if m == nil {
+		return
+	}
 	return m.Info
 }

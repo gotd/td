@@ -262,6 +262,9 @@ func (j *JSONBool) DecodeBare(b *bin.Buffer) error {
 
 // GetValue returns value of Value field.
 func (j *JSONBool) GetValue() (value bool) {
+	if j == nil {
+		return
+	}
 	return j.Value
 }
 
@@ -394,6 +397,9 @@ func (j *JSONNumber) DecodeBare(b *bin.Buffer) error {
 
 // GetValue returns value of Value field.
 func (j *JSONNumber) GetValue() (value float64) {
+	if j == nil {
+		return
+	}
 	return j.Value
 }
 
@@ -526,6 +532,9 @@ func (j *JSONString) DecodeBare(b *bin.Buffer) error {
 
 // GetValue returns value of Value field.
 func (j *JSONString) GetValue() (value string) {
+	if j == nil {
+		return
+	}
 	return j.Value
 }
 
@@ -676,6 +685,9 @@ func (j *JSONArray) DecodeBare(b *bin.Buffer) error {
 
 // GetValue returns value of Value field.
 func (j *JSONArray) GetValue() (value []JSONValueClass) {
+	if j == nil {
+		return
+	}
 	return j.Value
 }
 
@@ -828,6 +840,9 @@ func (j *JSONObject) DecodeBare(b *bin.Buffer) error {
 
 // GetValue returns value of Value field.
 func (j *JSONObject) GetValue() (value []JSONObjectValue) {
+	if j == nil {
+		return
+	}
 	return j.Value
 }
 

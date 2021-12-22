@@ -230,10 +230,16 @@ func (g *GroupCallVideoSourceGroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSemantics returns value of Semantics field.
 func (g *GroupCallVideoSourceGroup) GetSemantics() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Semantics
 }
 
 // GetSourceIDs returns value of SourceIDs field.
 func (g *GroupCallVideoSourceGroup) GetSourceIDs() (value []int32) {
+	if g == nil {
+		return
+	}
 	return g.SourceIDs
 }

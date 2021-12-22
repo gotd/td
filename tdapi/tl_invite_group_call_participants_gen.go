@@ -230,11 +230,17 @@ func (i *InviteGroupCallParticipantsRequest) DecodeTDLibJSON(b tdjson.Decoder) e
 
 // GetGroupCallID returns value of GroupCallID field.
 func (i *InviteGroupCallParticipantsRequest) GetGroupCallID() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.GroupCallID
 }
 
 // GetUserIDs returns value of UserIDs field.
 func (i *InviteGroupCallParticipantsRequest) GetUserIDs() (value []int64) {
+	if i == nil {
+		return
+	}
 	return i.UserIDs
 }
 

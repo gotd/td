@@ -243,16 +243,25 @@ func (e *EditMessageSchedulingStateRequest) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetChatID returns value of ChatID field.
 func (e *EditMessageSchedulingStateRequest) GetChatID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (e *EditMessageSchedulingStateRequest) GetMessageID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.MessageID
 }
 
 // GetSchedulingState returns value of SchedulingState field.
 func (e *EditMessageSchedulingStateRequest) GetSchedulingState() (value MessageSchedulingStateClass) {
+	if e == nil {
+		return
+	}
 	return e.SchedulingState
 }
 

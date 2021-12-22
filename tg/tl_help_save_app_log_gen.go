@@ -170,6 +170,9 @@ func (s *HelpSaveAppLogRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetEvents returns value of Events field.
 func (s *HelpSaveAppLogRequest) GetEvents() (value []InputAppEvent) {
+	if s == nil {
+		return
+	}
 	return s.Events
 }
 

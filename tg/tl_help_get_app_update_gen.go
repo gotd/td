@@ -155,6 +155,9 @@ func (g *HelpGetAppUpdateRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetSource returns value of Source field.
 func (g *HelpGetAppUpdateRequest) GetSource() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Source
 }
 

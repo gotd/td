@@ -209,5 +209,8 @@ func (p *Proxies) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetProxies returns value of Proxies field.
 func (p *Proxies) GetProxies() (value []Proxy) {
+	if p == nil {
+		return
+	}
 	return p.Proxies
 }

@@ -368,16 +368,25 @@ func (l *LogStreamFile) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPath returns value of Path field.
 func (l *LogStreamFile) GetPath() (value string) {
+	if l == nil {
+		return
+	}
 	return l.Path
 }
 
 // GetMaxFileSize returns value of MaxFileSize field.
 func (l *LogStreamFile) GetMaxFileSize() (value int64) {
+	if l == nil {
+		return
+	}
 	return l.MaxFileSize
 }
 
 // GetRedirectStderr returns value of RedirectStderr field.
 func (l *LogStreamFile) GetRedirectStderr() (value bool) {
+	if l == nil {
+		return
+	}
 	return l.RedirectStderr
 }
 

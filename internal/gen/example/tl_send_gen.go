@@ -147,6 +147,9 @@ func (s *SendRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetMsg returns value of Msg field.
 func (s *SendRequest) GetMsg() (value SMS) {
+	if s == nil {
+		return
+	}
 	return s.Msg
 }
 

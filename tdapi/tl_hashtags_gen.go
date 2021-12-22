@@ -205,5 +205,8 @@ func (h *Hashtags) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetHashtags returns value of Hashtags field.
 func (h *Hashtags) GetHashtags() (value []string) {
+	if h == nil {
+		return
+	}
 	return h.Hashtags
 }

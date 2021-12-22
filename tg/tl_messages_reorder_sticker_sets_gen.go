@@ -216,11 +216,17 @@ func (r *MessagesReorderStickerSetsRequest) SetMasks(value bool) {
 
 // GetMasks returns value of Masks conditional field.
 func (r *MessagesReorderStickerSetsRequest) GetMasks() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.Flags.Has(0)
 }
 
 // GetOrder returns value of Order field.
 func (r *MessagesReorderStickerSetsRequest) GetOrder() (value []int64) {
+	if r == nil {
+		return
+	}
 	return r.Order
 }
 

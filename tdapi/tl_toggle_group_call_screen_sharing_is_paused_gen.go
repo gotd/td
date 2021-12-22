@@ -208,11 +208,17 @@ func (t *ToggleGroupCallScreenSharingIsPausedRequest) DecodeTDLibJSON(b tdjson.D
 
 // GetGroupCallID returns value of GroupCallID field.
 func (t *ToggleGroupCallScreenSharingIsPausedRequest) GetGroupCallID() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.GroupCallID
 }
 
 // GetIsPaused returns value of IsPaused field.
 func (t *ToggleGroupCallScreenSharingIsPausedRequest) GetIsPaused() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.IsPaused
 }
 

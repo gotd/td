@@ -231,11 +231,17 @@ func (r *ResendMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (r *ResendMessagesRequest) GetChatID() (value int64) {
+	if r == nil {
+		return
+	}
 	return r.ChatID
 }
 
 // GetMessageIDs returns value of MessageIDs field.
 func (r *ResendMessagesRequest) GetMessageIDs() (value []int64) {
+	if r == nil {
+		return
+	}
 	return r.MessageIDs
 }
 

@@ -236,26 +236,41 @@ func (p *PhoneConnection) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (p *PhoneConnection) GetID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ID
 }
 
 // GetIP returns value of IP field.
 func (p *PhoneConnection) GetIP() (value string) {
+	if p == nil {
+		return
+	}
 	return p.IP
 }
 
 // GetIpv6 returns value of Ipv6 field.
 func (p *PhoneConnection) GetIpv6() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Ipv6
 }
 
 // GetPort returns value of Port field.
 func (p *PhoneConnection) GetPort() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Port
 }
 
 // GetPeerTag returns value of PeerTag field.
 func (p *PhoneConnection) GetPeerTag() (value []byte) {
+	if p == nil {
+		return
+	}
 	return p.PeerTag
 }
 
@@ -547,6 +562,9 @@ func (p *PhoneConnectionWebrtc) SetTurn(value bool) {
 
 // GetTurn returns value of Turn conditional field.
 func (p *PhoneConnectionWebrtc) GetTurn() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(0)
 }
 
@@ -563,36 +581,57 @@ func (p *PhoneConnectionWebrtc) SetStun(value bool) {
 
 // GetStun returns value of Stun conditional field.
 func (p *PhoneConnectionWebrtc) GetStun() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(1)
 }
 
 // GetID returns value of ID field.
 func (p *PhoneConnectionWebrtc) GetID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ID
 }
 
 // GetIP returns value of IP field.
 func (p *PhoneConnectionWebrtc) GetIP() (value string) {
+	if p == nil {
+		return
+	}
 	return p.IP
 }
 
 // GetIpv6 returns value of Ipv6 field.
 func (p *PhoneConnectionWebrtc) GetIpv6() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Ipv6
 }
 
 // GetPort returns value of Port field.
 func (p *PhoneConnectionWebrtc) GetPort() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Port
 }
 
 // GetUsername returns value of Username field.
 func (p *PhoneConnectionWebrtc) GetUsername() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Username
 }
 
 // GetPassword returns value of Password field.
 func (p *PhoneConnectionWebrtc) GetPassword() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Password
 }
 

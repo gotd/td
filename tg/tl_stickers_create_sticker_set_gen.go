@@ -366,6 +366,9 @@ func (c *StickersCreateStickerSetRequest) SetMasks(value bool) {
 
 // GetMasks returns value of Masks conditional field.
 func (c *StickersCreateStickerSetRequest) GetMasks() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(0)
 }
 
@@ -382,21 +385,33 @@ func (c *StickersCreateStickerSetRequest) SetAnimated(value bool) {
 
 // GetAnimated returns value of Animated conditional field.
 func (c *StickersCreateStickerSetRequest) GetAnimated() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(1)
 }
 
 // GetUserID returns value of UserID field.
 func (c *StickersCreateStickerSetRequest) GetUserID() (value InputUserClass) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetTitle returns value of Title field.
 func (c *StickersCreateStickerSetRequest) GetTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Title
 }
 
 // GetShortName returns value of ShortName field.
 func (c *StickersCreateStickerSetRequest) GetShortName() (value string) {
+	if c == nil {
+		return
+	}
 	return c.ShortName
 }
 
@@ -409,6 +424,9 @@ func (c *StickersCreateStickerSetRequest) SetThumb(value InputDocumentClass) {
 // GetThumb returns value of Thumb conditional field and
 // boolean which is true if field was set.
 func (c *StickersCreateStickerSetRequest) GetThumb() (value InputDocumentClass, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(2) {
 		return value, false
 	}
@@ -417,6 +435,9 @@ func (c *StickersCreateStickerSetRequest) GetThumb() (value InputDocumentClass, 
 
 // GetStickers returns value of Stickers field.
 func (c *StickersCreateStickerSetRequest) GetStickers() (value []InputStickerSetItem) {
+	if c == nil {
+		return
+	}
 	return c.Stickers
 }
 
@@ -429,6 +450,9 @@ func (c *StickersCreateStickerSetRequest) SetSoftware(value string) {
 // GetSoftware returns value of Software conditional field and
 // boolean which is true if field was set.
 func (c *StickersCreateStickerSetRequest) GetSoftware() (value string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(3) {
 		return value, false
 	}

@@ -218,10 +218,16 @@ func (t *TMeURL) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetURL returns value of URL field.
 func (t *TMeURL) GetURL() (value string) {
+	if t == nil {
+		return
+	}
 	return t.URL
 }
 
 // GetType returns value of Type field.
 func (t *TMeURL) GetType() (value TMeURLTypeClass) {
+	if t == nil {
+		return
+	}
 	return t.Type
 }

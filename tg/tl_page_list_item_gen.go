@@ -165,6 +165,9 @@ func (p *PageListItemText) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (p *PageListItemText) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
@@ -315,6 +318,9 @@ func (p *PageListItemBlocks) DecodeBare(b *bin.Buffer) error {
 
 // GetBlocks returns value of Blocks field.
 func (p *PageListItemBlocks) GetBlocks() (value []PageBlockClass) {
+	if p == nil {
+		return
+	}
 	return p.Blocks
 }
 

@@ -284,20 +284,32 @@ func (s *StorageStatisticsByChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (s *StorageStatisticsByChat) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetSize returns value of Size field.
 func (s *StorageStatisticsByChat) GetSize() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.Size
 }
 
 // GetCount returns value of Count field.
 func (s *StorageStatisticsByChat) GetCount() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Count
 }
 
 // GetByFileType returns value of ByFileType field.
 func (s *StorageStatisticsByChat) GetByFileType() (value []StorageStatisticsByFileType) {
+	if s == nil {
+		return
+	}
 	return s.ByFileType
 }

@@ -468,6 +468,9 @@ func (u *UserPrivacySettingRuleAllowUsers) DecodeTDLibJSON(b tdjson.Decoder) err
 
 // GetUserIDs returns value of UserIDs field.
 func (u *UserPrivacySettingRuleAllowUsers) GetUserIDs() (value []int64) {
+	if u == nil {
+		return
+	}
 	return u.UserIDs
 }
 
@@ -650,6 +653,9 @@ func (u *UserPrivacySettingRuleAllowChatMembers) DecodeTDLibJSON(b tdjson.Decode
 
 // GetChatIDs returns value of ChatIDs field.
 func (u *UserPrivacySettingRuleAllowChatMembers) GetChatIDs() (value []int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatIDs
 }
 
@@ -1090,6 +1096,9 @@ func (u *UserPrivacySettingRuleRestrictUsers) DecodeTDLibJSON(b tdjson.Decoder) 
 
 // GetUserIDs returns value of UserIDs field.
 func (u *UserPrivacySettingRuleRestrictUsers) GetUserIDs() (value []int64) {
+	if u == nil {
+		return
+	}
 	return u.UserIDs
 }
 
@@ -1272,6 +1281,9 @@ func (u *UserPrivacySettingRuleRestrictChatMembers) DecodeTDLibJSON(b tdjson.Dec
 
 // GetChatIDs returns value of ChatIDs field.
 func (u *UserPrivacySettingRuleRestrictChatMembers) GetChatIDs() (value []int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatIDs
 }
 

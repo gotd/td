@@ -168,6 +168,9 @@ func (vec *UserClassVector) DecodeBare(b *bin.Buffer) error {
 
 // GetElems returns value of Elems field.
 func (vec *UserClassVector) GetElems() (value []UserClass) {
+	if vec == nil {
+		return
+	}
 	return vec.Elems
 }
 

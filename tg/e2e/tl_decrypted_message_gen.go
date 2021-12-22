@@ -208,21 +208,33 @@ func (d *DecryptedMessage8) DecodeBare(b *bin.Buffer) error {
 
 // GetRandomID returns value of RandomID field.
 func (d *DecryptedMessage8) GetRandomID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.RandomID
 }
 
 // GetRandomBytes returns value of RandomBytes field.
 func (d *DecryptedMessage8) GetRandomBytes() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.RandomBytes
 }
 
 // GetMessage returns value of Message field.
 func (d *DecryptedMessage8) GetMessage() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Message
 }
 
 // GetMedia returns value of Media field.
 func (d *DecryptedMessage8) GetMedia() (value DecryptedMessageMediaClass) {
+	if d == nil {
+		return
+	}
 	return d.Media
 }
 
@@ -386,16 +398,25 @@ func (d *DecryptedMessageService8) DecodeBare(b *bin.Buffer) error {
 
 // GetRandomID returns value of RandomID field.
 func (d *DecryptedMessageService8) GetRandomID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.RandomID
 }
 
 // GetRandomBytes returns value of RandomBytes field.
 func (d *DecryptedMessageService8) GetRandomBytes() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.RandomBytes
 }
 
 // GetAction returns value of Action field.
 func (d *DecryptedMessageService8) GetAction() (value DecryptedMessageActionClass) {
+	if d == nil {
+		return
+	}
 	return d.Action
 }
 
@@ -576,21 +597,33 @@ func (d *DecryptedMessage23) DecodeBare(b *bin.Buffer) error {
 
 // GetRandomID returns value of RandomID field.
 func (d *DecryptedMessage23) GetRandomID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.RandomID
 }
 
 // GetTTL returns value of TTL field.
 func (d *DecryptedMessage23) GetTTL() (value int) {
+	if d == nil {
+		return
+	}
 	return d.TTL
 }
 
 // GetMessage returns value of Message field.
 func (d *DecryptedMessage23) GetMessage() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Message
 }
 
 // GetMedia returns value of Media field.
 func (d *DecryptedMessage23) GetMedia() (value DecryptedMessageMediaClass) {
+	if d == nil {
+		return
+	}
 	return d.Media
 }
 
@@ -737,11 +770,17 @@ func (d *DecryptedMessageService) DecodeBare(b *bin.Buffer) error {
 
 // GetRandomID returns value of RandomID field.
 func (d *DecryptedMessageService) GetRandomID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.RandomID
 }
 
 // GetAction returns value of Action field.
 func (d *DecryptedMessageService) GetAction() (value DecryptedMessageActionClass) {
+	if d == nil {
+		return
+	}
 	return d.Action
 }
 
@@ -1041,16 +1080,25 @@ func (d *DecryptedMessage46) DecodeBare(b *bin.Buffer) error {
 
 // GetRandomID returns value of RandomID field.
 func (d *DecryptedMessage46) GetRandomID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.RandomID
 }
 
 // GetTTL returns value of TTL field.
 func (d *DecryptedMessage46) GetTTL() (value int) {
+	if d == nil {
+		return
+	}
 	return d.TTL
 }
 
 // GetMessage returns value of Message field.
 func (d *DecryptedMessage46) GetMessage() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Message
 }
 
@@ -1063,6 +1111,9 @@ func (d *DecryptedMessage46) SetMedia(value DecryptedMessageMediaClass) {
 // GetMedia returns value of Media conditional field and
 // boolean which is true if field was set.
 func (d *DecryptedMessage46) GetMedia() (value DecryptedMessageMediaClass, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(9) {
 		return value, false
 	}
@@ -1078,6 +1129,9 @@ func (d *DecryptedMessage46) SetEntities(value []MessageEntityClass) {
 // GetEntities returns value of Entities conditional field and
 // boolean which is true if field was set.
 func (d *DecryptedMessage46) GetEntities() (value []MessageEntityClass, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(7) {
 		return value, false
 	}
@@ -1093,6 +1147,9 @@ func (d *DecryptedMessage46) SetViaBotName(value string) {
 // GetViaBotName returns value of ViaBotName conditional field and
 // boolean which is true if field was set.
 func (d *DecryptedMessage46) GetViaBotName() (value string, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(11) {
 		return value, false
 	}
@@ -1108,6 +1165,9 @@ func (d *DecryptedMessage46) SetReplyToRandomID(value int64) {
 // GetReplyToRandomID returns value of ReplyToRandomID conditional field and
 // boolean which is true if field was set.
 func (d *DecryptedMessage46) GetReplyToRandomID() (value int64, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(3) {
 		return value, false
 	}
@@ -1460,21 +1520,33 @@ func (d *DecryptedMessage) SetSilent(value bool) {
 
 // GetSilent returns value of Silent conditional field.
 func (d *DecryptedMessage) GetSilent() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(5)
 }
 
 // GetRandomID returns value of RandomID field.
 func (d *DecryptedMessage) GetRandomID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.RandomID
 }
 
 // GetTTL returns value of TTL field.
 func (d *DecryptedMessage) GetTTL() (value int) {
+	if d == nil {
+		return
+	}
 	return d.TTL
 }
 
 // GetMessage returns value of Message field.
 func (d *DecryptedMessage) GetMessage() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Message
 }
 
@@ -1487,6 +1559,9 @@ func (d *DecryptedMessage) SetMedia(value DecryptedMessageMediaClass) {
 // GetMedia returns value of Media conditional field and
 // boolean which is true if field was set.
 func (d *DecryptedMessage) GetMedia() (value DecryptedMessageMediaClass, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(9) {
 		return value, false
 	}
@@ -1502,6 +1577,9 @@ func (d *DecryptedMessage) SetEntities(value []MessageEntityClass) {
 // GetEntities returns value of Entities conditional field and
 // boolean which is true if field was set.
 func (d *DecryptedMessage) GetEntities() (value []MessageEntityClass, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(7) {
 		return value, false
 	}
@@ -1517,6 +1595,9 @@ func (d *DecryptedMessage) SetViaBotName(value string) {
 // GetViaBotName returns value of ViaBotName conditional field and
 // boolean which is true if field was set.
 func (d *DecryptedMessage) GetViaBotName() (value string, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(11) {
 		return value, false
 	}
@@ -1532,6 +1613,9 @@ func (d *DecryptedMessage) SetReplyToRandomID(value int64) {
 // GetReplyToRandomID returns value of ReplyToRandomID conditional field and
 // boolean which is true if field was set.
 func (d *DecryptedMessage) GetReplyToRandomID() (value int64, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(3) {
 		return value, false
 	}
@@ -1547,6 +1631,9 @@ func (d *DecryptedMessage) SetGroupedID(value int64) {
 // GetGroupedID returns value of GroupedID conditional field and
 // boolean which is true if field was set.
 func (d *DecryptedMessage) GetGroupedID() (value int64, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(17) {
 		return value, false
 	}

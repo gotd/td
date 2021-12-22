@@ -243,16 +243,25 @@ func (s *StopPollRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (s *StopPollRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (s *StopPollRequest) GetMessageID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.MessageID
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (s *StopPollRequest) GetReplyMarkup() (value ReplyMarkupClass) {
+	if s == nil {
+		return
+	}
 	return s.ReplyMarkup
 }
 

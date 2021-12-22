@@ -180,11 +180,17 @@ func (g *AccountGetTmpPasswordRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPassword returns value of Password field.
 func (g *AccountGetTmpPasswordRequest) GetPassword() (value InputCheckPasswordSRPClass) {
+	if g == nil {
+		return
+	}
 	return g.Password
 }
 
 // GetPeriod returns value of Period field.
 func (g *AccountGetTmpPasswordRequest) GetPeriod() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Period
 }
 

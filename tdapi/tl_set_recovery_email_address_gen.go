@@ -208,11 +208,17 @@ func (s *SetRecoveryEmailAddressRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetPassword returns value of Password field.
 func (s *SetRecoveryEmailAddressRequest) GetPassword() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Password
 }
 
 // GetNewRecoveryEmailAddress returns value of NewRecoveryEmailAddress field.
 func (s *SetRecoveryEmailAddressRequest) GetNewRecoveryEmailAddress() (value string) {
+	if s == nil {
+		return
+	}
 	return s.NewRecoveryEmailAddress
 }
 

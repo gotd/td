@@ -425,6 +425,9 @@ func (s *MessagesSendInlineBotResultRequest) SetSilent(value bool) {
 
 // GetSilent returns value of Silent conditional field.
 func (s *MessagesSendInlineBotResultRequest) GetSilent() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(5)
 }
 
@@ -441,6 +444,9 @@ func (s *MessagesSendInlineBotResultRequest) SetBackground(value bool) {
 
 // GetBackground returns value of Background conditional field.
 func (s *MessagesSendInlineBotResultRequest) GetBackground() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(6)
 }
 
@@ -457,6 +463,9 @@ func (s *MessagesSendInlineBotResultRequest) SetClearDraft(value bool) {
 
 // GetClearDraft returns value of ClearDraft conditional field.
 func (s *MessagesSendInlineBotResultRequest) GetClearDraft() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(7)
 }
 
@@ -473,11 +482,17 @@ func (s *MessagesSendInlineBotResultRequest) SetHideVia(value bool) {
 
 // GetHideVia returns value of HideVia conditional field.
 func (s *MessagesSendInlineBotResultRequest) GetHideVia() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(11)
 }
 
 // GetPeer returns value of Peer field.
 func (s *MessagesSendInlineBotResultRequest) GetPeer() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
@@ -490,6 +505,9 @@ func (s *MessagesSendInlineBotResultRequest) SetReplyToMsgID(value int) {
 // GetReplyToMsgID returns value of ReplyToMsgID conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSendInlineBotResultRequest) GetReplyToMsgID() (value int, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(0) {
 		return value, false
 	}
@@ -498,16 +516,25 @@ func (s *MessagesSendInlineBotResultRequest) GetReplyToMsgID() (value int, ok bo
 
 // GetRandomID returns value of RandomID field.
 func (s *MessagesSendInlineBotResultRequest) GetRandomID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.RandomID
 }
 
 // GetQueryID returns value of QueryID field.
 func (s *MessagesSendInlineBotResultRequest) GetQueryID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.QueryID
 }
 
 // GetID returns value of ID field.
 func (s *MessagesSendInlineBotResultRequest) GetID() (value string) {
+	if s == nil {
+		return
+	}
 	return s.ID
 }
 
@@ -520,6 +547,9 @@ func (s *MessagesSendInlineBotResultRequest) SetScheduleDate(value int) {
 // GetScheduleDate returns value of ScheduleDate conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSendInlineBotResultRequest) GetScheduleDate() (value int, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(10) {
 		return value, false
 	}
@@ -535,6 +565,9 @@ func (s *MessagesSendInlineBotResultRequest) SetSendAs(value InputPeerClass) {
 // GetSendAs returns value of SendAs conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSendInlineBotResultRequest) GetSendAs() (value InputPeerClass, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(13) {
 		return value, false
 	}

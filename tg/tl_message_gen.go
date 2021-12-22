@@ -216,6 +216,9 @@ func (m *MessageEmpty) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (m *MessageEmpty) GetID() (value int) {
+	if m == nil {
+		return
+	}
 	return m.ID
 }
 
@@ -228,6 +231,9 @@ func (m *MessageEmpty) SetPeerID(value PeerClass) {
 // GetPeerID returns value of PeerID conditional field and
 // boolean which is true if field was set.
 func (m *MessageEmpty) GetPeerID() (value PeerClass, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(0) {
 		return value, false
 	}
@@ -1137,6 +1143,9 @@ func (m *Message) SetOut(value bool) {
 
 // GetOut returns value of Out conditional field.
 func (m *Message) GetOut() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(1)
 }
 
@@ -1153,6 +1162,9 @@ func (m *Message) SetMentioned(value bool) {
 
 // GetMentioned returns value of Mentioned conditional field.
 func (m *Message) GetMentioned() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(4)
 }
 
@@ -1169,6 +1181,9 @@ func (m *Message) SetMediaUnread(value bool) {
 
 // GetMediaUnread returns value of MediaUnread conditional field.
 func (m *Message) GetMediaUnread() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(5)
 }
 
@@ -1185,6 +1200,9 @@ func (m *Message) SetSilent(value bool) {
 
 // GetSilent returns value of Silent conditional field.
 func (m *Message) GetSilent() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(13)
 }
 
@@ -1201,6 +1219,9 @@ func (m *Message) SetPost(value bool) {
 
 // GetPost returns value of Post conditional field.
 func (m *Message) GetPost() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(14)
 }
 
@@ -1217,6 +1238,9 @@ func (m *Message) SetFromScheduled(value bool) {
 
 // GetFromScheduled returns value of FromScheduled conditional field.
 func (m *Message) GetFromScheduled() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(18)
 }
 
@@ -1233,6 +1257,9 @@ func (m *Message) SetLegacy(value bool) {
 
 // GetLegacy returns value of Legacy conditional field.
 func (m *Message) GetLegacy() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(19)
 }
 
@@ -1249,6 +1276,9 @@ func (m *Message) SetEditHide(value bool) {
 
 // GetEditHide returns value of EditHide conditional field.
 func (m *Message) GetEditHide() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(21)
 }
 
@@ -1265,6 +1295,9 @@ func (m *Message) SetPinned(value bool) {
 
 // GetPinned returns value of Pinned conditional field.
 func (m *Message) GetPinned() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(24)
 }
 
@@ -1281,11 +1314,17 @@ func (m *Message) SetNoforwards(value bool) {
 
 // GetNoforwards returns value of Noforwards conditional field.
 func (m *Message) GetNoforwards() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(26)
 }
 
 // GetID returns value of ID field.
 func (m *Message) GetID() (value int) {
+	if m == nil {
+		return
+	}
 	return m.ID
 }
 
@@ -1298,6 +1337,9 @@ func (m *Message) SetFromID(value PeerClass) {
 // GetFromID returns value of FromID conditional field and
 // boolean which is true if field was set.
 func (m *Message) GetFromID() (value PeerClass, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(8) {
 		return value, false
 	}
@@ -1306,6 +1348,9 @@ func (m *Message) GetFromID() (value PeerClass, ok bool) {
 
 // GetPeerID returns value of PeerID field.
 func (m *Message) GetPeerID() (value PeerClass) {
+	if m == nil {
+		return
+	}
 	return m.PeerID
 }
 
@@ -1318,6 +1363,9 @@ func (m *Message) SetFwdFrom(value MessageFwdHeader) {
 // GetFwdFrom returns value of FwdFrom conditional field and
 // boolean which is true if field was set.
 func (m *Message) GetFwdFrom() (value MessageFwdHeader, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(2) {
 		return value, false
 	}
@@ -1333,6 +1381,9 @@ func (m *Message) SetViaBotID(value int64) {
 // GetViaBotID returns value of ViaBotID conditional field and
 // boolean which is true if field was set.
 func (m *Message) GetViaBotID() (value int64, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(11) {
 		return value, false
 	}
@@ -1348,6 +1399,9 @@ func (m *Message) SetReplyTo(value MessageReplyHeader) {
 // GetReplyTo returns value of ReplyTo conditional field and
 // boolean which is true if field was set.
 func (m *Message) GetReplyTo() (value MessageReplyHeader, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(3) {
 		return value, false
 	}
@@ -1356,11 +1410,17 @@ func (m *Message) GetReplyTo() (value MessageReplyHeader, ok bool) {
 
 // GetDate returns value of Date field.
 func (m *Message) GetDate() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Date
 }
 
 // GetMessage returns value of Message field.
 func (m *Message) GetMessage() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Message
 }
 
@@ -1373,6 +1433,9 @@ func (m *Message) SetMedia(value MessageMediaClass) {
 // GetMedia returns value of Media conditional field and
 // boolean which is true if field was set.
 func (m *Message) GetMedia() (value MessageMediaClass, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(9) {
 		return value, false
 	}
@@ -1388,6 +1451,9 @@ func (m *Message) SetReplyMarkup(value ReplyMarkupClass) {
 // GetReplyMarkup returns value of ReplyMarkup conditional field and
 // boolean which is true if field was set.
 func (m *Message) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(6) {
 		return value, false
 	}
@@ -1403,6 +1469,9 @@ func (m *Message) SetEntities(value []MessageEntityClass) {
 // GetEntities returns value of Entities conditional field and
 // boolean which is true if field was set.
 func (m *Message) GetEntities() (value []MessageEntityClass, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(7) {
 		return value, false
 	}
@@ -1418,6 +1487,9 @@ func (m *Message) SetViews(value int) {
 // GetViews returns value of Views conditional field and
 // boolean which is true if field was set.
 func (m *Message) GetViews() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(10) {
 		return value, false
 	}
@@ -1433,6 +1505,9 @@ func (m *Message) SetForwards(value int) {
 // GetForwards returns value of Forwards conditional field and
 // boolean which is true if field was set.
 func (m *Message) GetForwards() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(10) {
 		return value, false
 	}
@@ -1448,6 +1523,9 @@ func (m *Message) SetReplies(value MessageReplies) {
 // GetReplies returns value of Replies conditional field and
 // boolean which is true if field was set.
 func (m *Message) GetReplies() (value MessageReplies, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(23) {
 		return value, false
 	}
@@ -1463,6 +1541,9 @@ func (m *Message) SetEditDate(value int) {
 // GetEditDate returns value of EditDate conditional field and
 // boolean which is true if field was set.
 func (m *Message) GetEditDate() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(15) {
 		return value, false
 	}
@@ -1478,6 +1559,9 @@ func (m *Message) SetPostAuthor(value string) {
 // GetPostAuthor returns value of PostAuthor conditional field and
 // boolean which is true if field was set.
 func (m *Message) GetPostAuthor() (value string, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(16) {
 		return value, false
 	}
@@ -1493,6 +1577,9 @@ func (m *Message) SetGroupedID(value int64) {
 // GetGroupedID returns value of GroupedID conditional field and
 // boolean which is true if field was set.
 func (m *Message) GetGroupedID() (value int64, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(17) {
 		return value, false
 	}
@@ -1508,6 +1595,9 @@ func (m *Message) SetRestrictionReason(value []RestrictionReason) {
 // GetRestrictionReason returns value of RestrictionReason conditional field and
 // boolean which is true if field was set.
 func (m *Message) GetRestrictionReason() (value []RestrictionReason, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(22) {
 		return value, false
 	}
@@ -1523,6 +1613,9 @@ func (m *Message) SetTTLPeriod(value int) {
 // GetTTLPeriod returns value of TTLPeriod conditional field and
 // boolean which is true if field was set.
 func (m *Message) GetTTLPeriod() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(25) {
 		return value, false
 	}
@@ -1957,6 +2050,9 @@ func (m *MessageService) SetOut(value bool) {
 
 // GetOut returns value of Out conditional field.
 func (m *MessageService) GetOut() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(1)
 }
 
@@ -1973,6 +2069,9 @@ func (m *MessageService) SetMentioned(value bool) {
 
 // GetMentioned returns value of Mentioned conditional field.
 func (m *MessageService) GetMentioned() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(4)
 }
 
@@ -1989,6 +2088,9 @@ func (m *MessageService) SetMediaUnread(value bool) {
 
 // GetMediaUnread returns value of MediaUnread conditional field.
 func (m *MessageService) GetMediaUnread() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(5)
 }
 
@@ -2005,6 +2107,9 @@ func (m *MessageService) SetSilent(value bool) {
 
 // GetSilent returns value of Silent conditional field.
 func (m *MessageService) GetSilent() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(13)
 }
 
@@ -2021,6 +2126,9 @@ func (m *MessageService) SetPost(value bool) {
 
 // GetPost returns value of Post conditional field.
 func (m *MessageService) GetPost() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(14)
 }
 
@@ -2037,11 +2145,17 @@ func (m *MessageService) SetLegacy(value bool) {
 
 // GetLegacy returns value of Legacy conditional field.
 func (m *MessageService) GetLegacy() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(19)
 }
 
 // GetID returns value of ID field.
 func (m *MessageService) GetID() (value int) {
+	if m == nil {
+		return
+	}
 	return m.ID
 }
 
@@ -2054,6 +2168,9 @@ func (m *MessageService) SetFromID(value PeerClass) {
 // GetFromID returns value of FromID conditional field and
 // boolean which is true if field was set.
 func (m *MessageService) GetFromID() (value PeerClass, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(8) {
 		return value, false
 	}
@@ -2062,6 +2179,9 @@ func (m *MessageService) GetFromID() (value PeerClass, ok bool) {
 
 // GetPeerID returns value of PeerID field.
 func (m *MessageService) GetPeerID() (value PeerClass) {
+	if m == nil {
+		return
+	}
 	return m.PeerID
 }
 
@@ -2074,6 +2194,9 @@ func (m *MessageService) SetReplyTo(value MessageReplyHeader) {
 // GetReplyTo returns value of ReplyTo conditional field and
 // boolean which is true if field was set.
 func (m *MessageService) GetReplyTo() (value MessageReplyHeader, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(3) {
 		return value, false
 	}
@@ -2082,11 +2205,17 @@ func (m *MessageService) GetReplyTo() (value MessageReplyHeader, ok bool) {
 
 // GetDate returns value of Date field.
 func (m *MessageService) GetDate() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Date
 }
 
 // GetAction returns value of Action field.
 func (m *MessageService) GetAction() (value MessageActionClass) {
+	if m == nil {
+		return
+	}
 	return m.Action
 }
 
@@ -2099,6 +2228,9 @@ func (m *MessageService) SetTTLPeriod(value int) {
 // GetTTLPeriod returns value of TTLPeriod conditional field and
 // boolean which is true if field was set.
 func (m *MessageService) GetTTLPeriod() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(25) {
 		return value, false
 	}

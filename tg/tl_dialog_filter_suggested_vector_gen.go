@@ -165,5 +165,8 @@ func (vec *DialogFilterSuggestedVector) DecodeBare(b *bin.Buffer) error {
 
 // GetElems returns value of Elems field.
 func (vec *DialogFilterSuggestedVector) GetElems() (value []DialogFilterSuggested) {
+	if vec == nil {
+		return
+	}
 	return vec.Elems
 }

@@ -177,10 +177,16 @@ func (s *StatsDateRangeDays) DecodeBare(b *bin.Buffer) error {
 
 // GetMinDate returns value of MinDate field.
 func (s *StatsDateRangeDays) GetMinDate() (value int) {
+	if s == nil {
+		return
+	}
 	return s.MinDate
 }
 
 // GetMaxDate returns value of MaxDate field.
 func (s *StatsDateRangeDays) GetMaxDate() (value int) {
+	if s == nil {
+		return
+	}
 	return s.MaxDate
 }

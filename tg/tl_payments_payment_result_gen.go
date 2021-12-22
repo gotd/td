@@ -165,6 +165,9 @@ func (p *PaymentsPaymentResult) DecodeBare(b *bin.Buffer) error {
 
 // GetUpdates returns value of Updates field.
 func (p *PaymentsPaymentResult) GetUpdates() (value UpdatesClass) {
+	if p == nil {
+		return
+	}
 	return p.Updates
 }
 
@@ -297,6 +300,9 @@ func (p *PaymentsPaymentVerificationNeeded) DecodeBare(b *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (p *PaymentsPaymentVerificationNeeded) GetURL() (value string) {
+	if p == nil {
+		return
+	}
 	return p.URL
 }
 

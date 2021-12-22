@@ -236,6 +236,9 @@ func (h *MessagesHistoryImportParsed) SetPm(value bool) {
 
 // GetPm returns value of Pm conditional field.
 func (h *MessagesHistoryImportParsed) GetPm() (value bool) {
+	if h == nil {
+		return
+	}
 	return h.Flags.Has(0)
 }
 
@@ -252,6 +255,9 @@ func (h *MessagesHistoryImportParsed) SetGroup(value bool) {
 
 // GetGroup returns value of Group conditional field.
 func (h *MessagesHistoryImportParsed) GetGroup() (value bool) {
+	if h == nil {
+		return
+	}
 	return h.Flags.Has(1)
 }
 
@@ -264,6 +270,9 @@ func (h *MessagesHistoryImportParsed) SetTitle(value string) {
 // GetTitle returns value of Title conditional field and
 // boolean which is true if field was set.
 func (h *MessagesHistoryImportParsed) GetTitle() (value string, ok bool) {
+	if h == nil {
+		return
+	}
 	if !h.Flags.Has(2) {
 		return value, false
 	}

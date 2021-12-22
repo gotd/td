@@ -446,6 +446,9 @@ func (c *ChatActionUploadingVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetProgress returns value of Progress field.
 func (c *ChatActionUploadingVideo) GetProgress() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.Progress
 }
 
@@ -735,6 +738,9 @@ func (c *ChatActionUploadingVoiceNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetProgress returns value of Progress field.
 func (c *ChatActionUploadingVoiceNote) GetProgress() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.Progress
 }
 
@@ -895,6 +901,9 @@ func (c *ChatActionUploadingPhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetProgress returns value of Progress field.
 func (c *ChatActionUploadingPhoto) GetProgress() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.Progress
 }
 
@@ -1055,6 +1064,9 @@ func (c *ChatActionUploadingDocument) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetProgress returns value of Progress field.
 func (c *ChatActionUploadingDocument) GetProgress() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.Progress
 }
 
@@ -1860,6 +1872,9 @@ func (c *ChatActionUploadingVideoNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetProgress returns value of Progress field.
 func (c *ChatActionUploadingVideoNote) GetProgress() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.Progress
 }
 
@@ -2020,6 +2035,9 @@ func (c *ChatActionWatchingAnimations) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetEmoji returns value of Emoji field.
 func (c *ChatActionWatchingAnimations) GetEmoji() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Emoji
 }
 

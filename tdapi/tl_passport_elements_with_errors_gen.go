@@ -266,10 +266,16 @@ func (p *PassportElementsWithErrors) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetElements returns value of Elements field.
 func (p *PassportElementsWithErrors) GetElements() (value []PassportElementClass) {
+	if p == nil {
+		return
+	}
 	return p.Elements
 }
 
 // GetErrors returns value of Errors field.
 func (p *PassportElementsWithErrors) GetErrors() (value []PassportElementError) {
+	if p == nil {
+		return
+	}
 	return p.Errors
 }

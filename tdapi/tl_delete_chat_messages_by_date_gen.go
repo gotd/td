@@ -258,21 +258,33 @@ func (d *DeleteChatMessagesByDateRequest) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetChatID returns value of ChatID field.
 func (d *DeleteChatMessagesByDateRequest) GetChatID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.ChatID
 }
 
 // GetMinDate returns value of MinDate field.
 func (d *DeleteChatMessagesByDateRequest) GetMinDate() (value int32) {
+	if d == nil {
+		return
+	}
 	return d.MinDate
 }
 
 // GetMaxDate returns value of MaxDate field.
 func (d *DeleteChatMessagesByDateRequest) GetMaxDate() (value int32) {
+	if d == nil {
+		return
+	}
 	return d.MaxDate
 }
 
 // GetRevoke returns value of Revoke field.
 func (d *DeleteChatMessagesByDateRequest) GetRevoke() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Revoke
 }
 

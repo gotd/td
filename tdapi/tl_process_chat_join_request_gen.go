@@ -233,16 +233,25 @@ func (p *ProcessChatJoinRequestRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetChatID returns value of ChatID field.
 func (p *ProcessChatJoinRequestRequest) GetChatID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ChatID
 }
 
 // GetUserID returns value of UserID field.
 func (p *ProcessChatJoinRequestRequest) GetUserID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.UserID
 }
 
 // GetApprove returns value of Approve field.
 func (p *ProcessChatJoinRequestRequest) GetApprove() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Approve
 }
 

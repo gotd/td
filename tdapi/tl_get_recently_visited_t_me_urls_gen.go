@@ -183,6 +183,9 @@ func (g *GetRecentlyVisitedTMeURLsRequest) DecodeTDLibJSON(b tdjson.Decoder) err
 
 // GetReferrer returns value of Referrer field.
 func (g *GetRecentlyVisitedTMeURLsRequest) GetReferrer() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Referrer
 }
 

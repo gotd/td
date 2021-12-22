@@ -233,16 +233,25 @@ func (c *CreateCallRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (c *CreateCallRequest) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetProtocol returns value of Protocol field.
 func (c *CreateCallRequest) GetProtocol() (value CallProtocol) {
+	if c == nil {
+		return
+	}
 	return c.Protocol
 }
 
 // GetIsVideo returns value of IsVideo field.
 func (c *CreateCallRequest) GetIsVideo() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsVideo
 }
 

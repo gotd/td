@@ -161,6 +161,9 @@ func (c *AuthCheckRecoveryPasswordRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetCode returns value of Code field.
 func (c *AuthCheckRecoveryPasswordRequest) GetCode() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Code
 }
 

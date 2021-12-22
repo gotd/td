@@ -155,6 +155,9 @@ func (g *LangpackGetLanguagesRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetLangPack returns value of LangPack field.
 func (g *LangpackGetLanguagesRequest) GetLangPack() (value string) {
+	if g == nil {
+		return
+	}
 	return g.LangPack
 }
 

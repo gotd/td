@@ -211,16 +211,25 @@ func (e *ChannelsEditCreatorRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (e *ChannelsEditCreatorRequest) GetChannel() (value InputChannelClass) {
+	if e == nil {
+		return
+	}
 	return e.Channel
 }
 
 // GetUserID returns value of UserID field.
 func (e *ChannelsEditCreatorRequest) GetUserID() (value InputUserClass) {
+	if e == nil {
+		return
+	}
 	return e.UserID
 }
 
 // GetPassword returns value of Password field.
 func (e *ChannelsEditCreatorRequest) GetPassword() (value InputCheckPasswordSRPClass) {
+	if e == nil {
+		return
+	}
 	return e.Password
 }
 

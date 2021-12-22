@@ -207,11 +207,17 @@ func (w *AccountWebAuthorizations) DecodeBare(b *bin.Buffer) error {
 
 // GetAuthorizations returns value of Authorizations field.
 func (w *AccountWebAuthorizations) GetAuthorizations() (value []WebAuthorization) {
+	if w == nil {
+		return
+	}
 	return w.Authorizations
 }
 
 // GetUsers returns value of Users field.
 func (w *AccountWebAuthorizations) GetUsers() (value []UserClass) {
+	if w == nil {
+		return
+	}
 	return w.Users
 }
 

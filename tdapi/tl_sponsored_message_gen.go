@@ -279,20 +279,32 @@ func (s *SponsoredMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (s *SponsoredMessage) GetID() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.ID
 }
 
 // GetSponsorChatID returns value of SponsorChatID field.
 func (s *SponsoredMessage) GetSponsorChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.SponsorChatID
 }
 
 // GetLink returns value of Link field.
 func (s *SponsoredMessage) GetLink() (value InternalLinkTypeClass) {
+	if s == nil {
+		return
+	}
 	return s.Link
 }
 
 // GetContent returns value of Content field.
 func (s *SponsoredMessage) GetContent() (value MessageContentClass) {
+	if s == nil {
+		return
+	}
 	return s.Content
 }

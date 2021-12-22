@@ -183,6 +183,9 @@ func (g *GetChatScheduledMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetChatID returns value of ChatID field.
 func (g *GetChatScheduledMessagesRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 

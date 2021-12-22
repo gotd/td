@@ -184,11 +184,17 @@ func (s *ChannelsSetStickersRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (s *ChannelsSetStickersRequest) GetChannel() (value InputChannelClass) {
+	if s == nil {
+		return
+	}
 	return s.Channel
 }
 
 // GetStickerset returns value of Stickerset field.
 func (s *ChannelsSetStickersRequest) GetStickerset() (value InputStickerSetClass) {
+	if s == nil {
+		return
+	}
 	return s.Stickerset
 }
 

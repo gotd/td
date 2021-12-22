@@ -257,6 +257,9 @@ func (m *MessageViews) SetViews(value int) {
 // GetViews returns value of Views conditional field and
 // boolean which is true if field was set.
 func (m *MessageViews) GetViews() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(0) {
 		return value, false
 	}
@@ -272,6 +275,9 @@ func (m *MessageViews) SetForwards(value int) {
 // GetForwards returns value of Forwards conditional field and
 // boolean which is true if field was set.
 func (m *MessageViews) GetForwards() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(1) {
 		return value, false
 	}
@@ -287,6 +293,9 @@ func (m *MessageViews) SetReplies(value MessageReplies) {
 // GetReplies returns value of Replies conditional field and
 // boolean which is true if field was set.
 func (m *MessageViews) GetReplies() (value MessageReplies, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(2) {
 		return value, false
 	}

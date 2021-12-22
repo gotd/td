@@ -179,11 +179,17 @@ func (i *AccountInstallWallPaperRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetWallpaper returns value of Wallpaper field.
 func (i *AccountInstallWallPaperRequest) GetWallpaper() (value InputWallPaperClass) {
+	if i == nil {
+		return
+	}
 	return i.Wallpaper
 }
 
 // GetSettings returns value of Settings field.
 func (i *AccountInstallWallPaperRequest) GetSettings() (value WallPaperSettings) {
+	if i == nil {
+		return
+	}
 	return i.Settings
 }
 

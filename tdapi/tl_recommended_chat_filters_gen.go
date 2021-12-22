@@ -209,5 +209,8 @@ func (r *RecommendedChatFilters) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatFilters returns value of ChatFilters field.
 func (r *RecommendedChatFilters) GetChatFilters() (value []RecommendedChatFilter) {
+	if r == nil {
+		return
+	}
 	return r.ChatFilters
 }

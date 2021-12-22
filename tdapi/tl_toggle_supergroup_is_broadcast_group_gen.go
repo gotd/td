@@ -183,6 +183,9 @@ func (t *ToggleSupergroupIsBroadcastGroupRequest) DecodeTDLibJSON(b tdjson.Decod
 
 // GetSupergroupID returns value of SupergroupID field.
 func (t *ToggleSupergroupIsBroadcastGroupRequest) GetSupergroupID() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.SupergroupID
 }
 

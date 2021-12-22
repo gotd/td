@@ -208,10 +208,16 @@ func (b *BankCardActionOpenURL) DecodeTDLibJSON(buf tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (b *BankCardActionOpenURL) GetText() (value string) {
+	if b == nil {
+		return
+	}
 	return b.Text
 }
 
 // GetURL returns value of URL field.
 func (b *BankCardActionOpenURL) GetURL() (value string) {
+	if b == nil {
+		return
+	}
 	return b.URL
 }

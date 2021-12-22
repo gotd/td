@@ -208,11 +208,17 @@ func (t *ToggleGroupCallIsMyVideoEnabledRequest) DecodeTDLibJSON(b tdjson.Decode
 
 // GetGroupCallID returns value of GroupCallID field.
 func (t *ToggleGroupCallIsMyVideoEnabledRequest) GetGroupCallID() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.GroupCallID
 }
 
 // GetIsMyVideoEnabled returns value of IsMyVideoEnabled field.
 func (t *ToggleGroupCallIsMyVideoEnabledRequest) GetIsMyVideoEnabled() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.IsMyVideoEnabled
 }
 

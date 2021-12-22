@@ -215,5 +215,8 @@ func (p *PassportElements) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetElements returns value of Elements field.
 func (p *PassportElements) GetElements() (value []PassportElementClass) {
+	if p == nil {
+		return
+	}
 	return p.Elements
 }

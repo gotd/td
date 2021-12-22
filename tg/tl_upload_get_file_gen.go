@@ -266,6 +266,9 @@ func (g *UploadGetFileRequest) SetPrecise(value bool) {
 
 // GetPrecise returns value of Precise conditional field.
 func (g *UploadGetFileRequest) GetPrecise() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(0)
 }
 
@@ -282,21 +285,33 @@ func (g *UploadGetFileRequest) SetCDNSupported(value bool) {
 
 // GetCDNSupported returns value of CDNSupported conditional field.
 func (g *UploadGetFileRequest) GetCDNSupported() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(1)
 }
 
 // GetLocation returns value of Location field.
 func (g *UploadGetFileRequest) GetLocation() (value InputFileLocationClass) {
+	if g == nil {
+		return
+	}
 	return g.Location
 }
 
 // GetOffset returns value of Offset field.
 func (g *UploadGetFileRequest) GetOffset() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 
 // GetLimit returns value of Limit field.
 func (g *UploadGetFileRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

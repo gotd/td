@@ -244,16 +244,25 @@ func (m *MessagesMessageViews) DecodeBare(b *bin.Buffer) error {
 
 // GetViews returns value of Views field.
 func (m *MessagesMessageViews) GetViews() (value []MessageViews) {
+	if m == nil {
+		return
+	}
 	return m.Views
 }
 
 // GetChats returns value of Chats field.
 func (m *MessagesMessageViews) GetChats() (value []ChatClass) {
+	if m == nil {
+		return
+	}
 	return m.Chats
 }
 
 // GetUsers returns value of Users field.
 func (m *MessagesMessageViews) GetUsers() (value []UserClass) {
+	if m == nil {
+		return
+	}
 	return m.Users
 }
 

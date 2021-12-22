@@ -179,11 +179,17 @@ func (i *InputPaymentCredentialsSaved) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputPaymentCredentialsSaved) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetTmpPassword returns value of TmpPassword field.
 func (i *InputPaymentCredentialsSaved) GetTmpPassword() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.TmpPassword
 }
 
@@ -364,11 +370,17 @@ func (i *InputPaymentCredentials) SetSave(value bool) {
 
 // GetSave returns value of Save conditional field.
 func (i *InputPaymentCredentials) GetSave() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(0)
 }
 
 // GetData returns value of Data field.
 func (i *InputPaymentCredentials) GetData() (value DataJSON) {
+	if i == nil {
+		return
+	}
 	return i.Data
 }
 
@@ -501,6 +513,9 @@ func (i *InputPaymentCredentialsApplePay) DecodeBare(b *bin.Buffer) error {
 
 // GetPaymentData returns value of PaymentData field.
 func (i *InputPaymentCredentialsApplePay) GetPaymentData() (value DataJSON) {
+	if i == nil {
+		return
+	}
 	return i.PaymentData
 }
 
@@ -633,6 +648,9 @@ func (i *InputPaymentCredentialsGooglePay) DecodeBare(b *bin.Buffer) error {
 
 // GetPaymentToken returns value of PaymentToken field.
 func (i *InputPaymentCredentialsGooglePay) GetPaymentToken() (value DataJSON) {
+	if i == nil {
+		return
+	}
 	return i.PaymentToken
 }
 

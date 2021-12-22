@@ -188,6 +188,9 @@ func (i *InlineKeyboardButtonTypeURL) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetURL returns value of URL field.
 func (i *InlineKeyboardButtonTypeURL) GetURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.URL
 }
 
@@ -398,16 +401,25 @@ func (i *InlineKeyboardButtonTypeLoginURL) DecodeTDLibJSON(b tdjson.Decoder) err
 
 // GetURL returns value of URL field.
 func (i *InlineKeyboardButtonTypeLoginURL) GetURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.URL
 }
 
 // GetID returns value of ID field.
 func (i *InlineKeyboardButtonTypeLoginURL) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetForwardText returns value of ForwardText field.
 func (i *InlineKeyboardButtonTypeLoginURL) GetForwardText() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ForwardText
 }
 
@@ -568,6 +580,9 @@ func (i *InlineKeyboardButtonTypeCallback) DecodeTDLibJSON(b tdjson.Decoder) err
 
 // GetData returns value of Data field.
 func (i *InlineKeyboardButtonTypeCallback) GetData() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.Data
 }
 
@@ -730,6 +745,9 @@ func (i *InlineKeyboardButtonTypeCallbackWithPassword) DecodeTDLibJSON(b tdjson.
 
 // GetData returns value of Data field.
 func (i *InlineKeyboardButtonTypeCallbackWithPassword) GetData() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.Data
 }
 
@@ -1044,11 +1062,17 @@ func (i *InlineKeyboardButtonTypeSwitchInline) DecodeTDLibJSON(b tdjson.Decoder)
 
 // GetQuery returns value of Query field.
 func (i *InlineKeyboardButtonTypeSwitchInline) GetQuery() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Query
 }
 
 // GetInCurrentChat returns value of InCurrentChat field.
 func (i *InlineKeyboardButtonTypeSwitchInline) GetInCurrentChat() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.InCurrentChat
 }
 
@@ -1338,6 +1362,9 @@ func (i *InlineKeyboardButtonTypeUser) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (i *InlineKeyboardButtonTypeUser) GetUserID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.UserID
 }
 

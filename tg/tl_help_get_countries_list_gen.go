@@ -177,11 +177,17 @@ func (g *HelpGetCountriesListRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetLangCode returns value of LangCode field.
 func (g *HelpGetCountriesListRequest) GetLangCode() (value string) {
+	if g == nil {
+		return
+	}
 	return g.LangCode
 }
 
 // GetHash returns value of Hash field.
 func (g *HelpGetCountriesListRequest) GetHash() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Hash
 }
 

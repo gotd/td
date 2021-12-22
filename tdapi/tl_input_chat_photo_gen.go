@@ -188,6 +188,9 @@ func (i *InputChatPhotoPrevious) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatPhotoID returns value of ChatPhotoID field.
 func (i *InputChatPhotoPrevious) GetChatPhotoID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ChatPhotoID
 }
 
@@ -359,6 +362,9 @@ func (i *InputChatPhotoStatic) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPhoto returns value of Photo field.
 func (i *InputChatPhotoStatic) GetPhoto() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.Photo
 }
 
@@ -555,11 +561,17 @@ func (i *InputChatPhotoAnimation) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAnimation returns value of Animation field.
 func (i *InputChatPhotoAnimation) GetAnimation() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.Animation
 }
 
 // GetMainFrameTimestamp returns value of MainFrameTimestamp field.
 func (i *InputChatPhotoAnimation) GetMainFrameTimestamp() (value float64) {
+	if i == nil {
+		return
+	}
 	return i.MainFrameTimestamp
 }
 

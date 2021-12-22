@@ -206,16 +206,25 @@ func (g *LangpackGetStringsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetLangPack returns value of LangPack field.
 func (g *LangpackGetStringsRequest) GetLangPack() (value string) {
+	if g == nil {
+		return
+	}
 	return g.LangPack
 }
 
 // GetLangCode returns value of LangCode field.
 func (g *LangpackGetStringsRequest) GetLangCode() (value string) {
+	if g == nil {
+		return
+	}
 	return g.LangCode
 }
 
 // GetKeys returns value of Keys field.
 func (g *LangpackGetStringsRequest) GetKeys() (value []string) {
+	if g == nil {
+		return
+	}
 	return g.Keys
 }
 

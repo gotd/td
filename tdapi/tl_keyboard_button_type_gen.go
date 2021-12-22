@@ -600,11 +600,17 @@ func (k *KeyboardButtonTypeRequestPoll) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetForceRegular returns value of ForceRegular field.
 func (k *KeyboardButtonTypeRequestPoll) GetForceRegular() (value bool) {
+	if k == nil {
+		return
+	}
 	return k.ForceRegular
 }
 
 // GetForceQuiz returns value of ForceQuiz field.
 func (k *KeyboardButtonTypeRequestPoll) GetForceQuiz() (value bool) {
+	if k == nil {
+		return
+	}
 	return k.ForceQuiz
 }
 

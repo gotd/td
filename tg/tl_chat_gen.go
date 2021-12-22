@@ -160,6 +160,9 @@ func (c *ChatEmpty) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (c *ChatEmpty) GetID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ID
 }
 
@@ -643,6 +646,9 @@ func (c *Chat) SetCreator(value bool) {
 
 // GetCreator returns value of Creator conditional field.
 func (c *Chat) GetCreator() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(0)
 }
 
@@ -659,6 +665,9 @@ func (c *Chat) SetKicked(value bool) {
 
 // GetKicked returns value of Kicked conditional field.
 func (c *Chat) GetKicked() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(1)
 }
 
@@ -675,6 +684,9 @@ func (c *Chat) SetLeft(value bool) {
 
 // GetLeft returns value of Left conditional field.
 func (c *Chat) GetLeft() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(2)
 }
 
@@ -691,6 +703,9 @@ func (c *Chat) SetDeactivated(value bool) {
 
 // GetDeactivated returns value of Deactivated conditional field.
 func (c *Chat) GetDeactivated() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(5)
 }
 
@@ -707,6 +722,9 @@ func (c *Chat) SetCallActive(value bool) {
 
 // GetCallActive returns value of CallActive conditional field.
 func (c *Chat) GetCallActive() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(23)
 }
 
@@ -723,6 +741,9 @@ func (c *Chat) SetCallNotEmpty(value bool) {
 
 // GetCallNotEmpty returns value of CallNotEmpty conditional field.
 func (c *Chat) GetCallNotEmpty() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(24)
 }
 
@@ -739,36 +760,57 @@ func (c *Chat) SetNoforwards(value bool) {
 
 // GetNoforwards returns value of Noforwards conditional field.
 func (c *Chat) GetNoforwards() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(25)
 }
 
 // GetID returns value of ID field.
 func (c *Chat) GetID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ID
 }
 
 // GetTitle returns value of Title field.
 func (c *Chat) GetTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Title
 }
 
 // GetPhoto returns value of Photo field.
 func (c *Chat) GetPhoto() (value ChatPhotoClass) {
+	if c == nil {
+		return
+	}
 	return c.Photo
 }
 
 // GetParticipantsCount returns value of ParticipantsCount field.
 func (c *Chat) GetParticipantsCount() (value int) {
+	if c == nil {
+		return
+	}
 	return c.ParticipantsCount
 }
 
 // GetDate returns value of Date field.
 func (c *Chat) GetDate() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Date
 }
 
 // GetVersion returns value of Version field.
 func (c *Chat) GetVersion() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Version
 }
 
@@ -781,6 +823,9 @@ func (c *Chat) SetMigratedTo(value InputChannelClass) {
 // GetMigratedTo returns value of MigratedTo conditional field and
 // boolean which is true if field was set.
 func (c *Chat) GetMigratedTo() (value InputChannelClass, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(6) {
 		return value, false
 	}
@@ -796,6 +841,9 @@ func (c *Chat) SetAdminRights(value ChatAdminRights) {
 // GetAdminRights returns value of AdminRights conditional field and
 // boolean which is true if field was set.
 func (c *Chat) GetAdminRights() (value ChatAdminRights, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(14) {
 		return value, false
 	}
@@ -811,6 +859,9 @@ func (c *Chat) SetDefaultBannedRights(value ChatBannedRights) {
 // GetDefaultBannedRights returns value of DefaultBannedRights conditional field and
 // boolean which is true if field was set.
 func (c *Chat) GetDefaultBannedRights() (value ChatBannedRights, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(18) {
 		return value, false
 	}
@@ -966,11 +1017,17 @@ func (c *ChatForbidden) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (c *ChatForbidden) GetID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ID
 }
 
 // GetTitle returns value of Title field.
 func (c *ChatForbidden) GetTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Title
 }
 
@@ -1714,6 +1771,9 @@ func (c *Channel) SetCreator(value bool) {
 
 // GetCreator returns value of Creator conditional field.
 func (c *Channel) GetCreator() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(0)
 }
 
@@ -1730,6 +1790,9 @@ func (c *Channel) SetLeft(value bool) {
 
 // GetLeft returns value of Left conditional field.
 func (c *Channel) GetLeft() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(2)
 }
 
@@ -1746,6 +1809,9 @@ func (c *Channel) SetBroadcast(value bool) {
 
 // GetBroadcast returns value of Broadcast conditional field.
 func (c *Channel) GetBroadcast() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(5)
 }
 
@@ -1762,6 +1828,9 @@ func (c *Channel) SetVerified(value bool) {
 
 // GetVerified returns value of Verified conditional field.
 func (c *Channel) GetVerified() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(7)
 }
 
@@ -1778,6 +1847,9 @@ func (c *Channel) SetMegagroup(value bool) {
 
 // GetMegagroup returns value of Megagroup conditional field.
 func (c *Channel) GetMegagroup() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(8)
 }
 
@@ -1794,6 +1866,9 @@ func (c *Channel) SetRestricted(value bool) {
 
 // GetRestricted returns value of Restricted conditional field.
 func (c *Channel) GetRestricted() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(9)
 }
 
@@ -1810,6 +1885,9 @@ func (c *Channel) SetSignatures(value bool) {
 
 // GetSignatures returns value of Signatures conditional field.
 func (c *Channel) GetSignatures() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(11)
 }
 
@@ -1826,6 +1904,9 @@ func (c *Channel) SetMin(value bool) {
 
 // GetMin returns value of Min conditional field.
 func (c *Channel) GetMin() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(12)
 }
 
@@ -1842,6 +1923,9 @@ func (c *Channel) SetScam(value bool) {
 
 // GetScam returns value of Scam conditional field.
 func (c *Channel) GetScam() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(19)
 }
 
@@ -1858,6 +1942,9 @@ func (c *Channel) SetHasLink(value bool) {
 
 // GetHasLink returns value of HasLink conditional field.
 func (c *Channel) GetHasLink() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(20)
 }
 
@@ -1874,6 +1961,9 @@ func (c *Channel) SetHasGeo(value bool) {
 
 // GetHasGeo returns value of HasGeo conditional field.
 func (c *Channel) GetHasGeo() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(21)
 }
 
@@ -1890,6 +1980,9 @@ func (c *Channel) SetSlowmodeEnabled(value bool) {
 
 // GetSlowmodeEnabled returns value of SlowmodeEnabled conditional field.
 func (c *Channel) GetSlowmodeEnabled() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(22)
 }
 
@@ -1906,6 +1999,9 @@ func (c *Channel) SetCallActive(value bool) {
 
 // GetCallActive returns value of CallActive conditional field.
 func (c *Channel) GetCallActive() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(23)
 }
 
@@ -1922,6 +2018,9 @@ func (c *Channel) SetCallNotEmpty(value bool) {
 
 // GetCallNotEmpty returns value of CallNotEmpty conditional field.
 func (c *Channel) GetCallNotEmpty() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(24)
 }
 
@@ -1938,6 +2037,9 @@ func (c *Channel) SetFake(value bool) {
 
 // GetFake returns value of Fake conditional field.
 func (c *Channel) GetFake() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(25)
 }
 
@@ -1954,6 +2056,9 @@ func (c *Channel) SetGigagroup(value bool) {
 
 // GetGigagroup returns value of Gigagroup conditional field.
 func (c *Channel) GetGigagroup() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(26)
 }
 
@@ -1970,11 +2075,17 @@ func (c *Channel) SetNoforwards(value bool) {
 
 // GetNoforwards returns value of Noforwards conditional field.
 func (c *Channel) GetNoforwards() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(27)
 }
 
 // GetID returns value of ID field.
 func (c *Channel) GetID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ID
 }
 
@@ -1987,6 +2098,9 @@ func (c *Channel) SetAccessHash(value int64) {
 // GetAccessHash returns value of AccessHash conditional field and
 // boolean which is true if field was set.
 func (c *Channel) GetAccessHash() (value int64, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(13) {
 		return value, false
 	}
@@ -1995,6 +2109,9 @@ func (c *Channel) GetAccessHash() (value int64, ok bool) {
 
 // GetTitle returns value of Title field.
 func (c *Channel) GetTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Title
 }
 
@@ -2007,6 +2124,9 @@ func (c *Channel) SetUsername(value string) {
 // GetUsername returns value of Username conditional field and
 // boolean which is true if field was set.
 func (c *Channel) GetUsername() (value string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(6) {
 		return value, false
 	}
@@ -2015,11 +2135,17 @@ func (c *Channel) GetUsername() (value string, ok bool) {
 
 // GetPhoto returns value of Photo field.
 func (c *Channel) GetPhoto() (value ChatPhotoClass) {
+	if c == nil {
+		return
+	}
 	return c.Photo
 }
 
 // GetDate returns value of Date field.
 func (c *Channel) GetDate() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Date
 }
 
@@ -2032,6 +2158,9 @@ func (c *Channel) SetRestrictionReason(value []RestrictionReason) {
 // GetRestrictionReason returns value of RestrictionReason conditional field and
 // boolean which is true if field was set.
 func (c *Channel) GetRestrictionReason() (value []RestrictionReason, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(9) {
 		return value, false
 	}
@@ -2047,6 +2176,9 @@ func (c *Channel) SetAdminRights(value ChatAdminRights) {
 // GetAdminRights returns value of AdminRights conditional field and
 // boolean which is true if field was set.
 func (c *Channel) GetAdminRights() (value ChatAdminRights, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(14) {
 		return value, false
 	}
@@ -2062,6 +2194,9 @@ func (c *Channel) SetBannedRights(value ChatBannedRights) {
 // GetBannedRights returns value of BannedRights conditional field and
 // boolean which is true if field was set.
 func (c *Channel) GetBannedRights() (value ChatBannedRights, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(15) {
 		return value, false
 	}
@@ -2077,6 +2212,9 @@ func (c *Channel) SetDefaultBannedRights(value ChatBannedRights) {
 // GetDefaultBannedRights returns value of DefaultBannedRights conditional field and
 // boolean which is true if field was set.
 func (c *Channel) GetDefaultBannedRights() (value ChatBannedRights, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(18) {
 		return value, false
 	}
@@ -2092,6 +2230,9 @@ func (c *Channel) SetParticipantsCount(value int) {
 // GetParticipantsCount returns value of ParticipantsCount conditional field and
 // boolean which is true if field was set.
 func (c *Channel) GetParticipantsCount() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(17) {
 		return value, false
 	}
@@ -2360,6 +2501,9 @@ func (c *ChannelForbidden) SetBroadcast(value bool) {
 
 // GetBroadcast returns value of Broadcast conditional field.
 func (c *ChannelForbidden) GetBroadcast() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(5)
 }
 
@@ -2376,21 +2520,33 @@ func (c *ChannelForbidden) SetMegagroup(value bool) {
 
 // GetMegagroup returns value of Megagroup conditional field.
 func (c *ChannelForbidden) GetMegagroup() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(8)
 }
 
 // GetID returns value of ID field.
 func (c *ChannelForbidden) GetID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (c *ChannelForbidden) GetAccessHash() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.AccessHash
 }
 
 // GetTitle returns value of Title field.
 func (c *ChannelForbidden) GetTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Title
 }
 
@@ -2403,6 +2559,9 @@ func (c *ChannelForbidden) SetUntilDate(value int) {
 // GetUntilDate returns value of UntilDate conditional field and
 // boolean which is true if field was set.
 func (c *ChannelForbidden) GetUntilDate() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(16) {
 		return value, false
 	}

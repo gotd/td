@@ -183,6 +183,9 @@ func (d *DeleteLanguagePackRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLanguagePackID returns value of LanguagePackID field.
 func (d *DeleteLanguagePackRequest) GetLanguagePackID() (value string) {
+	if d == nil {
+		return
+	}
 	return d.LanguagePackID
 }
 

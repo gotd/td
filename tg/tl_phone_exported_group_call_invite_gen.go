@@ -155,5 +155,8 @@ func (e *PhoneExportedGroupCallInvite) DecodeBare(b *bin.Buffer) error {
 
 // GetLink returns value of Link field.
 func (e *PhoneExportedGroupCallInvite) GetLink() (value string) {
+	if e == nil {
+		return
+	}
 	return e.Link
 }

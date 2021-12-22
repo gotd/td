@@ -165,5 +165,8 @@ func (vec *LangPackLanguageVector) DecodeBare(b *bin.Buffer) error {
 
 // GetElems returns value of Elems field.
 func (vec *LangPackLanguageVector) GetElems() (value []LangPackLanguage) {
+	if vec == nil {
+		return
+	}
 	return vec.Elems
 }

@@ -244,15 +244,24 @@ func (m *MessageSendOptions) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetDisableNotification returns value of DisableNotification field.
 func (m *MessageSendOptions) GetDisableNotification() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.DisableNotification
 }
 
 // GetFromBackground returns value of FromBackground field.
 func (m *MessageSendOptions) GetFromBackground() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.FromBackground
 }
 
 // GetSchedulingState returns value of SchedulingState field.
 func (m *MessageSendOptions) GetSchedulingState() (value MessageSchedulingStateClass) {
+	if m == nil {
+		return
+	}
 	return m.SchedulingState
 }

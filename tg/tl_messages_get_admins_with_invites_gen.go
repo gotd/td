@@ -160,6 +160,9 @@ func (g *MessagesGetAdminsWithInvitesRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (g *MessagesGetAdminsWithInvitesRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 

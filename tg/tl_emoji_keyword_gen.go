@@ -192,11 +192,17 @@ func (e *EmojiKeyword) DecodeBare(b *bin.Buffer) error {
 
 // GetKeyword returns value of Keyword field.
 func (e *EmojiKeyword) GetKeyword() (value string) {
+	if e == nil {
+		return
+	}
 	return e.Keyword
 }
 
 // GetEmoticons returns value of Emoticons field.
 func (e *EmojiKeyword) GetEmoticons() (value []string) {
+	if e == nil {
+		return
+	}
 	return e.Emoticons
 }
 
@@ -361,11 +367,17 @@ func (e *EmojiKeywordDeleted) DecodeBare(b *bin.Buffer) error {
 
 // GetKeyword returns value of Keyword field.
 func (e *EmojiKeywordDeleted) GetKeyword() (value string) {
+	if e == nil {
+		return
+	}
 	return e.Keyword
 }
 
 // GetEmoticons returns value of Emoticons field.
 func (e *EmojiKeywordDeleted) GetEmoticons() (value []string) {
+	if e == nil {
+		return
+	}
 	return e.Emoticons
 }
 

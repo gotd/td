@@ -188,6 +188,9 @@ func (r *RichTextPlain) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (r *RichTextPlain) GetText() (value string) {
+	if r == nil {
+		return
+	}
 	return r.Text
 }
 
@@ -358,6 +361,9 @@ func (r *RichTextBold) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (r *RichTextBold) GetText() (value RichTextClass) {
+	if r == nil {
+		return
+	}
 	return r.Text
 }
 
@@ -528,6 +534,9 @@ func (r *RichTextItalic) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (r *RichTextItalic) GetText() (value RichTextClass) {
+	if r == nil {
+		return
+	}
 	return r.Text
 }
 
@@ -698,6 +707,9 @@ func (r *RichTextUnderline) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (r *RichTextUnderline) GetText() (value RichTextClass) {
+	if r == nil {
+		return
+	}
 	return r.Text
 }
 
@@ -868,6 +880,9 @@ func (r *RichTextStrikethrough) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (r *RichTextStrikethrough) GetText() (value RichTextClass) {
+	if r == nil {
+		return
+	}
 	return r.Text
 }
 
@@ -1038,6 +1053,9 @@ func (r *RichTextFixed) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (r *RichTextFixed) GetText() (value RichTextClass) {
+	if r == nil {
+		return
+	}
 	return r.Text
 }
 
@@ -1258,16 +1276,25 @@ func (r *RichTextURL) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (r *RichTextURL) GetText() (value RichTextClass) {
+	if r == nil {
+		return
+	}
 	return r.Text
 }
 
 // GetURL returns value of URL field.
 func (r *RichTextURL) GetURL() (value string) {
+	if r == nil {
+		return
+	}
 	return r.URL
 }
 
 // GetIsCached returns value of IsCached field.
 func (r *RichTextURL) GetIsCached() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.IsCached
 }
 
@@ -1463,11 +1490,17 @@ func (r *RichTextEmailAddress) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (r *RichTextEmailAddress) GetText() (value RichTextClass) {
+	if r == nil {
+		return
+	}
 	return r.Text
 }
 
 // GetEmailAddress returns value of EmailAddress field.
 func (r *RichTextEmailAddress) GetEmailAddress() (value string) {
+	if r == nil {
+		return
+	}
 	return r.EmailAddress
 }
 
@@ -1638,6 +1671,9 @@ func (r *RichTextSubscript) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (r *RichTextSubscript) GetText() (value RichTextClass) {
+	if r == nil {
+		return
+	}
 	return r.Text
 }
 
@@ -1808,6 +1844,9 @@ func (r *RichTextSuperscript) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (r *RichTextSuperscript) GetText() (value RichTextClass) {
+	if r == nil {
+		return
+	}
 	return r.Text
 }
 
@@ -1978,6 +2017,9 @@ func (r *RichTextMarked) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (r *RichTextMarked) GetText() (value RichTextClass) {
+	if r == nil {
+		return
+	}
 	return r.Text
 }
 
@@ -2173,11 +2215,17 @@ func (r *RichTextPhoneNumber) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (r *RichTextPhoneNumber) GetText() (value RichTextClass) {
+	if r == nil {
+		return
+	}
 	return r.Text
 }
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (r *RichTextPhoneNumber) GetPhoneNumber() (value string) {
+	if r == nil {
+		return
+	}
 	return r.PhoneNumber
 }
 
@@ -2388,16 +2436,25 @@ func (r *RichTextIcon) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetDocument returns value of Document field.
 func (r *RichTextIcon) GetDocument() (value Document) {
+	if r == nil {
+		return
+	}
 	return r.Document
 }
 
 // GetWidth returns value of Width field.
 func (r *RichTextIcon) GetWidth() (value int32) {
+	if r == nil {
+		return
+	}
 	return r.Width
 }
 
 // GetHeight returns value of Height field.
 func (r *RichTextIcon) GetHeight() (value int32) {
+	if r == nil {
+		return
+	}
 	return r.Height
 }
 
@@ -2619,16 +2676,25 @@ func (r *RichTextReference) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (r *RichTextReference) GetText() (value RichTextClass) {
+	if r == nil {
+		return
+	}
 	return r.Text
 }
 
 // GetAnchorName returns value of AnchorName field.
 func (r *RichTextReference) GetAnchorName() (value string) {
+	if r == nil {
+		return
+	}
 	return r.AnchorName
 }
 
 // GetURL returns value of URL field.
 func (r *RichTextReference) GetURL() (value string) {
+	if r == nil {
+		return
+	}
 	return r.URL
 }
 
@@ -2789,6 +2855,9 @@ func (r *RichTextAnchor) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetName returns value of Name field.
 func (r *RichTextAnchor) GetName() (value string) {
+	if r == nil {
+		return
+	}
 	return r.Name
 }
 
@@ -3009,16 +3078,25 @@ func (r *RichTextAnchorLink) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (r *RichTextAnchorLink) GetText() (value RichTextClass) {
+	if r == nil {
+		return
+	}
 	return r.Text
 }
 
 // GetAnchorName returns value of AnchorName field.
 func (r *RichTextAnchorLink) GetAnchorName() (value string) {
+	if r == nil {
+		return
+	}
 	return r.AnchorName
 }
 
 // GetURL returns value of URL field.
 func (r *RichTextAnchorLink) GetURL() (value string) {
+	if r == nil {
+		return
+	}
 	return r.URL
 }
 
@@ -3211,6 +3289,9 @@ func (r *RichTexts) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTexts returns value of Texts field.
 func (r *RichTexts) GetTexts() (value []RichTextClass) {
+	if r == nil {
+		return
+	}
 	return r.Texts
 }
 

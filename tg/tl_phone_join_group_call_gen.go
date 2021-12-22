@@ -292,6 +292,9 @@ func (j *PhoneJoinGroupCallRequest) SetMuted(value bool) {
 
 // GetMuted returns value of Muted conditional field.
 func (j *PhoneJoinGroupCallRequest) GetMuted() (value bool) {
+	if j == nil {
+		return
+	}
 	return j.Flags.Has(0)
 }
 
@@ -308,16 +311,25 @@ func (j *PhoneJoinGroupCallRequest) SetVideoStopped(value bool) {
 
 // GetVideoStopped returns value of VideoStopped conditional field.
 func (j *PhoneJoinGroupCallRequest) GetVideoStopped() (value bool) {
+	if j == nil {
+		return
+	}
 	return j.Flags.Has(2)
 }
 
 // GetCall returns value of Call field.
 func (j *PhoneJoinGroupCallRequest) GetCall() (value InputGroupCall) {
+	if j == nil {
+		return
+	}
 	return j.Call
 }
 
 // GetJoinAs returns value of JoinAs field.
 func (j *PhoneJoinGroupCallRequest) GetJoinAs() (value InputPeerClass) {
+	if j == nil {
+		return
+	}
 	return j.JoinAs
 }
 
@@ -330,6 +342,9 @@ func (j *PhoneJoinGroupCallRequest) SetInviteHash(value string) {
 // GetInviteHash returns value of InviteHash conditional field and
 // boolean which is true if field was set.
 func (j *PhoneJoinGroupCallRequest) GetInviteHash() (value string, ok bool) {
+	if j == nil {
+		return
+	}
 	if !j.Flags.Has(1) {
 		return value, false
 	}
@@ -338,6 +353,9 @@ func (j *PhoneJoinGroupCallRequest) GetInviteHash() (value string, ok bool) {
 
 // GetParams returns value of Params field.
 func (j *PhoneJoinGroupCallRequest) GetParams() (value DataJSON) {
+	if j == nil {
+		return
+	}
 	return j.Params
 }
 

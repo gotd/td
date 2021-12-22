@@ -183,6 +183,9 @@ func (g *GetVideoChatAvailableParticipantsRequest) DecodeTDLibJSON(b tdjson.Deco
 
 // GetChatID returns value of ChatID field.
 func (g *GetVideoChatAvailableParticipantsRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 

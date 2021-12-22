@@ -183,6 +183,9 @@ func (r *ReadAllChatMentionsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (r *ReadAllChatMentionsRequest) GetChatID() (value int64) {
+	if r == nil {
+		return
+	}
 	return r.ChatID
 }
 

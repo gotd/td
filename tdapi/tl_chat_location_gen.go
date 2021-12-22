@@ -208,10 +208,16 @@ func (c *ChatLocation) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLocation returns value of Location field.
 func (c *ChatLocation) GetLocation() (value Location) {
+	if c == nil {
+		return
+	}
 	return c.Location
 }
 
 // GetAddress returns value of Address field.
 func (c *ChatLocation) GetAddress() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Address
 }

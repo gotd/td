@@ -206,11 +206,17 @@ func (g *MessagesGetRecentStickersRequest) SetAttached(value bool) {
 
 // GetAttached returns value of Attached conditional field.
 func (g *MessagesGetRecentStickersRequest) GetAttached() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(0)
 }
 
 // GetHash returns value of Hash field.
 func (g *MessagesGetRecentStickersRequest) GetHash() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.Hash
 }
 

@@ -343,6 +343,9 @@ func (p *PageTableCell) SetHeader(value bool) {
 
 // GetHeader returns value of Header conditional field.
 func (p *PageTableCell) GetHeader() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(0)
 }
 
@@ -359,6 +362,9 @@ func (p *PageTableCell) SetAlignCenter(value bool) {
 
 // GetAlignCenter returns value of AlignCenter conditional field.
 func (p *PageTableCell) GetAlignCenter() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(3)
 }
 
@@ -375,6 +381,9 @@ func (p *PageTableCell) SetAlignRight(value bool) {
 
 // GetAlignRight returns value of AlignRight conditional field.
 func (p *PageTableCell) GetAlignRight() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(4)
 }
 
@@ -391,6 +400,9 @@ func (p *PageTableCell) SetValignMiddle(value bool) {
 
 // GetValignMiddle returns value of ValignMiddle conditional field.
 func (p *PageTableCell) GetValignMiddle() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(5)
 }
 
@@ -407,6 +419,9 @@ func (p *PageTableCell) SetValignBottom(value bool) {
 
 // GetValignBottom returns value of ValignBottom conditional field.
 func (p *PageTableCell) GetValignBottom() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(6)
 }
 
@@ -419,6 +434,9 @@ func (p *PageTableCell) SetText(value RichTextClass) {
 // GetText returns value of Text conditional field and
 // boolean which is true if field was set.
 func (p *PageTableCell) GetText() (value RichTextClass, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(7) {
 		return value, false
 	}
@@ -434,6 +452,9 @@ func (p *PageTableCell) SetColspan(value int) {
 // GetColspan returns value of Colspan conditional field and
 // boolean which is true if field was set.
 func (p *PageTableCell) GetColspan() (value int, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(1) {
 		return value, false
 	}
@@ -449,6 +470,9 @@ func (p *PageTableCell) SetRowspan(value int) {
 // GetRowspan returns value of Rowspan conditional field and
 // boolean which is true if field was set.
 func (p *PageTableCell) GetRowspan() (value int, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(2) {
 		return value, false
 	}

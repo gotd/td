@@ -293,21 +293,33 @@ func (t *HelpTermsOfService) SetPopup(value bool) {
 
 // GetPopup returns value of Popup conditional field.
 func (t *HelpTermsOfService) GetPopup() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.Flags.Has(0)
 }
 
 // GetID returns value of ID field.
 func (t *HelpTermsOfService) GetID() (value DataJSON) {
+	if t == nil {
+		return
+	}
 	return t.ID
 }
 
 // GetText returns value of Text field.
 func (t *HelpTermsOfService) GetText() (value string) {
+	if t == nil {
+		return
+	}
 	return t.Text
 }
 
 // GetEntities returns value of Entities field.
 func (t *HelpTermsOfService) GetEntities() (value []MessageEntityClass) {
+	if t == nil {
+		return
+	}
 	return t.Entities
 }
 
@@ -320,6 +332,9 @@ func (t *HelpTermsOfService) SetMinAgeConfirm(value int) {
 // GetMinAgeConfirm returns value of MinAgeConfirm conditional field and
 // boolean which is true if field was set.
 func (t *HelpTermsOfService) GetMinAgeConfirm() (value int, ok bool) {
+	if t == nil {
+		return
+	}
 	if !t.Flags.Has(1) {
 		return value, false
 	}

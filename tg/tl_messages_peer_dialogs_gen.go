@@ -306,26 +306,41 @@ func (p *MessagesPeerDialogs) DecodeBare(b *bin.Buffer) error {
 
 // GetDialogs returns value of Dialogs field.
 func (p *MessagesPeerDialogs) GetDialogs() (value []DialogClass) {
+	if p == nil {
+		return
+	}
 	return p.Dialogs
 }
 
 // GetMessages returns value of Messages field.
 func (p *MessagesPeerDialogs) GetMessages() (value []MessageClass) {
+	if p == nil {
+		return
+	}
 	return p.Messages
 }
 
 // GetChats returns value of Chats field.
 func (p *MessagesPeerDialogs) GetChats() (value []ChatClass) {
+	if p == nil {
+		return
+	}
 	return p.Chats
 }
 
 // GetUsers returns value of Users field.
 func (p *MessagesPeerDialogs) GetUsers() (value []UserClass) {
+	if p == nil {
+		return
+	}
 	return p.Users
 }
 
 // GetState returns value of State field.
 func (p *MessagesPeerDialogs) GetState() (value UpdatesState) {
+	if p == nil {
+		return
+	}
 	return p.State
 }
 

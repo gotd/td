@@ -337,6 +337,9 @@ func (w *WallPaper) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (w *WallPaper) GetID() (value int64) {
+	if w == nil {
+		return
+	}
 	return w.ID
 }
 
@@ -353,6 +356,9 @@ func (w *WallPaper) SetCreator(value bool) {
 
 // GetCreator returns value of Creator conditional field.
 func (w *WallPaper) GetCreator() (value bool) {
+	if w == nil {
+		return
+	}
 	return w.Flags.Has(0)
 }
 
@@ -369,6 +375,9 @@ func (w *WallPaper) SetDefault(value bool) {
 
 // GetDefault returns value of Default conditional field.
 func (w *WallPaper) GetDefault() (value bool) {
+	if w == nil {
+		return
+	}
 	return w.Flags.Has(1)
 }
 
@@ -385,6 +394,9 @@ func (w *WallPaper) SetPattern(value bool) {
 
 // GetPattern returns value of Pattern conditional field.
 func (w *WallPaper) GetPattern() (value bool) {
+	if w == nil {
+		return
+	}
 	return w.Flags.Has(3)
 }
 
@@ -401,21 +413,33 @@ func (w *WallPaper) SetDark(value bool) {
 
 // GetDark returns value of Dark conditional field.
 func (w *WallPaper) GetDark() (value bool) {
+	if w == nil {
+		return
+	}
 	return w.Flags.Has(4)
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (w *WallPaper) GetAccessHash() (value int64) {
+	if w == nil {
+		return
+	}
 	return w.AccessHash
 }
 
 // GetSlug returns value of Slug field.
 func (w *WallPaper) GetSlug() (value string) {
+	if w == nil {
+		return
+	}
 	return w.Slug
 }
 
 // GetDocument returns value of Document field.
 func (w *WallPaper) GetDocument() (value DocumentClass) {
+	if w == nil {
+		return
+	}
 	return w.Document
 }
 
@@ -428,6 +452,9 @@ func (w *WallPaper) SetSettings(value WallPaperSettings) {
 // GetSettings returns value of Settings conditional field and
 // boolean which is true if field was set.
 func (w *WallPaper) GetSettings() (value WallPaperSettings, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(2) {
 		return value, false
 	}
@@ -651,6 +678,9 @@ func (w *WallPaperNoFile) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (w *WallPaperNoFile) GetID() (value int64) {
+	if w == nil {
+		return
+	}
 	return w.ID
 }
 
@@ -667,6 +697,9 @@ func (w *WallPaperNoFile) SetDefault(value bool) {
 
 // GetDefault returns value of Default conditional field.
 func (w *WallPaperNoFile) GetDefault() (value bool) {
+	if w == nil {
+		return
+	}
 	return w.Flags.Has(1)
 }
 
@@ -683,6 +716,9 @@ func (w *WallPaperNoFile) SetDark(value bool) {
 
 // GetDark returns value of Dark conditional field.
 func (w *WallPaperNoFile) GetDark() (value bool) {
+	if w == nil {
+		return
+	}
 	return w.Flags.Has(4)
 }
 
@@ -695,6 +731,9 @@ func (w *WallPaperNoFile) SetSettings(value WallPaperSettings) {
 // GetSettings returns value of Settings conditional field and
 // boolean which is true if field was set.
 func (w *WallPaperNoFile) GetSettings() (value WallPaperSettings, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(2) {
 		return value, false
 	}

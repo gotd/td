@@ -208,15 +208,24 @@ func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (b *BotInfo) GetUserID() (value int64) {
+	if b == nil {
+		return
+	}
 	return b.UserID
 }
 
 // GetDescription returns value of Description field.
 func (b *BotInfo) GetDescription() (value string) {
+	if b == nil {
+		return
+	}
 	return b.Description
 }
 
 // GetCommands returns value of Commands field.
 func (b *BotInfo) GetCommands() (value []BotCommand) {
+	if b == nil {
+		return
+	}
 	return b.Commands
 }

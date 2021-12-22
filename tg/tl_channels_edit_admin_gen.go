@@ -228,21 +228,33 @@ func (e *ChannelsEditAdminRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (e *ChannelsEditAdminRequest) GetChannel() (value InputChannelClass) {
+	if e == nil {
+		return
+	}
 	return e.Channel
 }
 
 // GetUserID returns value of UserID field.
 func (e *ChannelsEditAdminRequest) GetUserID() (value InputUserClass) {
+	if e == nil {
+		return
+	}
 	return e.UserID
 }
 
 // GetAdminRights returns value of AdminRights field.
 func (e *ChannelsEditAdminRequest) GetAdminRights() (value ChatAdminRights) {
+	if e == nil {
+		return
+	}
 	return e.AdminRights
 }
 
 // GetRank returns value of Rank field.
 func (e *ChannelsEditAdminRequest) GetRank() (value string) {
+	if e == nil {
+		return
+	}
 	return e.Rank
 }
 

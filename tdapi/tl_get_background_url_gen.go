@@ -218,11 +218,17 @@ func (g *GetBackgroundURLRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetName returns value of Name field.
 func (g *GetBackgroundURLRequest) GetName() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Name
 }
 
 // GetType returns value of Type field.
 func (g *GetBackgroundURLRequest) GetType() (value BackgroundTypeClass) {
+	if g == nil {
+		return
+	}
 	return g.Type
 }
 

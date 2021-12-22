@@ -209,11 +209,17 @@ func (l *LoadGroupCallParticipantsRequest) DecodeTDLibJSON(b tdjson.Decoder) err
 
 // GetGroupCallID returns value of GroupCallID field.
 func (l *LoadGroupCallParticipantsRequest) GetGroupCallID() (value int32) {
+	if l == nil {
+		return
+	}
 	return l.GroupCallID
 }
 
 // GetLimit returns value of Limit field.
 func (l *LoadGroupCallParticipantsRequest) GetLimit() (value int32) {
+	if l == nil {
+		return
+	}
 	return l.Limit
 }
 

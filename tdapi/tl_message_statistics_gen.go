@@ -193,5 +193,8 @@ func (m *MessageStatistics) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMessageInteractionGraph returns value of MessageInteractionGraph field.
 func (m *MessageStatistics) GetMessageInteractionGraph() (value StatisticalGraphClass) {
+	if m == nil {
+		return
+	}
 	return m.MessageInteractionGraph
 }

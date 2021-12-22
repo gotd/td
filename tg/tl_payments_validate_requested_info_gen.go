@@ -246,21 +246,33 @@ func (v *PaymentsValidateRequestedInfoRequest) SetSave(value bool) {
 
 // GetSave returns value of Save conditional field.
 func (v *PaymentsValidateRequestedInfoRequest) GetSave() (value bool) {
+	if v == nil {
+		return
+	}
 	return v.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
 func (v *PaymentsValidateRequestedInfoRequest) GetPeer() (value InputPeerClass) {
+	if v == nil {
+		return
+	}
 	return v.Peer
 }
 
 // GetMsgID returns value of MsgID field.
 func (v *PaymentsValidateRequestedInfoRequest) GetMsgID() (value int) {
+	if v == nil {
+		return
+	}
 	return v.MsgID
 }
 
 // GetInfo returns value of Info field.
 func (v *PaymentsValidateRequestedInfoRequest) GetInfo() (value PaymentRequestedInfo) {
+	if v == nil {
+		return
+	}
 	return v.Info
 }
 

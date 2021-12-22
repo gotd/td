@@ -218,11 +218,17 @@ func (s *SetPassportElementRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetElement returns value of Element field.
 func (s *SetPassportElementRequest) GetElement() (value InputPassportElementClass) {
+	if s == nil {
+		return
+	}
 	return s.Element
 }
 
 // GetPassword returns value of Password field.
 func (s *SetPassportElementRequest) GetPassword() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Password
 }
 

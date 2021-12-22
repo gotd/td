@@ -332,6 +332,9 @@ func (c *ChannelsCreateChannelRequest) SetBroadcast(value bool) {
 
 // GetBroadcast returns value of Broadcast conditional field.
 func (c *ChannelsCreateChannelRequest) GetBroadcast() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(0)
 }
 
@@ -348,6 +351,9 @@ func (c *ChannelsCreateChannelRequest) SetMegagroup(value bool) {
 
 // GetMegagroup returns value of Megagroup conditional field.
 func (c *ChannelsCreateChannelRequest) GetMegagroup() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(1)
 }
 
@@ -364,16 +370,25 @@ func (c *ChannelsCreateChannelRequest) SetForImport(value bool) {
 
 // GetForImport returns value of ForImport conditional field.
 func (c *ChannelsCreateChannelRequest) GetForImport() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(3)
 }
 
 // GetTitle returns value of Title field.
 func (c *ChannelsCreateChannelRequest) GetTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Title
 }
 
 // GetAbout returns value of About field.
 func (c *ChannelsCreateChannelRequest) GetAbout() (value string) {
+	if c == nil {
+		return
+	}
 	return c.About
 }
 
@@ -386,6 +401,9 @@ func (c *ChannelsCreateChannelRequest) SetGeoPoint(value InputGeoPointClass) {
 // GetGeoPoint returns value of GeoPoint conditional field and
 // boolean which is true if field was set.
 func (c *ChannelsCreateChannelRequest) GetGeoPoint() (value InputGeoPointClass, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(2) {
 		return value, false
 	}
@@ -401,6 +419,9 @@ func (c *ChannelsCreateChannelRequest) SetAddress(value string) {
 // GetAddress returns value of Address conditional field and
 // boolean which is true if field was set.
 func (c *ChannelsCreateChannelRequest) GetAddress() (value string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(2) {
 		return value, false
 	}

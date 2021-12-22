@@ -233,16 +233,25 @@ func (g *GetMessageEmbeddingCodeRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetChatID returns value of ChatID field.
 func (g *GetMessageEmbeddingCodeRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (g *GetMessageEmbeddingCodeRequest) GetMessageID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.MessageID
 }
 
 // GetForAlbum returns value of ForAlbum field.
 func (g *GetMessageEmbeddingCodeRequest) GetForAlbum() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.ForAlbum
 }
 

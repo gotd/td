@@ -236,15 +236,24 @@ func (m *MessageCopyOptions) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSendCopy returns value of SendCopy field.
 func (m *MessageCopyOptions) GetSendCopy() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.SendCopy
 }
 
 // GetReplaceCaption returns value of ReplaceCaption field.
 func (m *MessageCopyOptions) GetReplaceCaption() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.ReplaceCaption
 }
 
 // GetNewCaption returns value of NewCaption field.
 func (m *MessageCopyOptions) GetNewCaption() (value FormattedText) {
+	if m == nil {
+		return
+	}
 	return m.NewCaption
 }

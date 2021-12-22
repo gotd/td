@@ -359,11 +359,17 @@ func (e *MessagesEditInlineBotMessageRequest) SetNoWebpage(value bool) {
 
 // GetNoWebpage returns value of NoWebpage conditional field.
 func (e *MessagesEditInlineBotMessageRequest) GetNoWebpage() (value bool) {
+	if e == nil {
+		return
+	}
 	return e.Flags.Has(1)
 }
 
 // GetID returns value of ID field.
 func (e *MessagesEditInlineBotMessageRequest) GetID() (value InputBotInlineMessageIDClass) {
+	if e == nil {
+		return
+	}
 	return e.ID
 }
 
@@ -376,6 +382,9 @@ func (e *MessagesEditInlineBotMessageRequest) SetMessage(value string) {
 // GetMessage returns value of Message conditional field and
 // boolean which is true if field was set.
 func (e *MessagesEditInlineBotMessageRequest) GetMessage() (value string, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(11) {
 		return value, false
 	}
@@ -391,6 +400,9 @@ func (e *MessagesEditInlineBotMessageRequest) SetMedia(value InputMediaClass) {
 // GetMedia returns value of Media conditional field and
 // boolean which is true if field was set.
 func (e *MessagesEditInlineBotMessageRequest) GetMedia() (value InputMediaClass, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(14) {
 		return value, false
 	}
@@ -406,6 +418,9 @@ func (e *MessagesEditInlineBotMessageRequest) SetReplyMarkup(value ReplyMarkupCl
 // GetReplyMarkup returns value of ReplyMarkup conditional field and
 // boolean which is true if field was set.
 func (e *MessagesEditInlineBotMessageRequest) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(2) {
 		return value, false
 	}
@@ -421,6 +436,9 @@ func (e *MessagesEditInlineBotMessageRequest) SetEntities(value []MessageEntityC
 // GetEntities returns value of Entities conditional field and
 // boolean which is true if field was set.
 func (e *MessagesEditInlineBotMessageRequest) GetEntities() (value []MessageEntityClass, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(3) {
 		return value, false
 	}

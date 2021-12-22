@@ -667,6 +667,9 @@ func (c *ChatFull) SetCanSetUsername(value bool) {
 
 // GetCanSetUsername returns value of CanSetUsername conditional field.
 func (c *ChatFull) GetCanSetUsername() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(7)
 }
 
@@ -683,21 +686,33 @@ func (c *ChatFull) SetHasScheduled(value bool) {
 
 // GetHasScheduled returns value of HasScheduled conditional field.
 func (c *ChatFull) GetHasScheduled() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(8)
 }
 
 // GetID returns value of ID field.
 func (c *ChatFull) GetID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ID
 }
 
 // GetAbout returns value of About field.
 func (c *ChatFull) GetAbout() (value string) {
+	if c == nil {
+		return
+	}
 	return c.About
 }
 
 // GetParticipants returns value of Participants field.
 func (c *ChatFull) GetParticipants() (value ChatParticipantsClass) {
+	if c == nil {
+		return
+	}
 	return c.Participants
 }
 
@@ -710,6 +725,9 @@ func (c *ChatFull) SetChatPhoto(value PhotoClass) {
 // GetChatPhoto returns value of ChatPhoto conditional field and
 // boolean which is true if field was set.
 func (c *ChatFull) GetChatPhoto() (value PhotoClass, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(2) {
 		return value, false
 	}
@@ -718,6 +736,9 @@ func (c *ChatFull) GetChatPhoto() (value PhotoClass, ok bool) {
 
 // GetNotifySettings returns value of NotifySettings field.
 func (c *ChatFull) GetNotifySettings() (value PeerNotifySettings) {
+	if c == nil {
+		return
+	}
 	return c.NotifySettings
 }
 
@@ -730,6 +751,9 @@ func (c *ChatFull) SetExportedInvite(value ChatInviteExported) {
 // GetExportedInvite returns value of ExportedInvite conditional field and
 // boolean which is true if field was set.
 func (c *ChatFull) GetExportedInvite() (value ChatInviteExported, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(13) {
 		return value, false
 	}
@@ -745,6 +769,9 @@ func (c *ChatFull) SetBotInfo(value []BotInfo) {
 // GetBotInfo returns value of BotInfo conditional field and
 // boolean which is true if field was set.
 func (c *ChatFull) GetBotInfo() (value []BotInfo, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(3) {
 		return value, false
 	}
@@ -760,6 +787,9 @@ func (c *ChatFull) SetPinnedMsgID(value int) {
 // GetPinnedMsgID returns value of PinnedMsgID conditional field and
 // boolean which is true if field was set.
 func (c *ChatFull) GetPinnedMsgID() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(6) {
 		return value, false
 	}
@@ -775,6 +805,9 @@ func (c *ChatFull) SetFolderID(value int) {
 // GetFolderID returns value of FolderID conditional field and
 // boolean which is true if field was set.
 func (c *ChatFull) GetFolderID() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(11) {
 		return value, false
 	}
@@ -790,6 +823,9 @@ func (c *ChatFull) SetCall(value InputGroupCall) {
 // GetCall returns value of Call conditional field and
 // boolean which is true if field was set.
 func (c *ChatFull) GetCall() (value InputGroupCall, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(12) {
 		return value, false
 	}
@@ -805,6 +841,9 @@ func (c *ChatFull) SetTTLPeriod(value int) {
 // GetTTLPeriod returns value of TTLPeriod conditional field and
 // boolean which is true if field was set.
 func (c *ChatFull) GetTTLPeriod() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(14) {
 		return value, false
 	}
@@ -820,6 +859,9 @@ func (c *ChatFull) SetGroupcallDefaultJoinAs(value PeerClass) {
 // GetGroupcallDefaultJoinAs returns value of GroupcallDefaultJoinAs conditional field and
 // boolean which is true if field was set.
 func (c *ChatFull) GetGroupcallDefaultJoinAs() (value PeerClass, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(15) {
 		return value, false
 	}
@@ -835,6 +877,9 @@ func (c *ChatFull) SetThemeEmoticon(value string) {
 // GetThemeEmoticon returns value of ThemeEmoticon conditional field and
 // boolean which is true if field was set.
 func (c *ChatFull) GetThemeEmoticon() (value string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(16) {
 		return value, false
 	}
@@ -850,6 +895,9 @@ func (c *ChatFull) SetRequestsPending(value int) {
 // GetRequestsPending returns value of RequestsPending conditional field and
 // boolean which is true if field was set.
 func (c *ChatFull) GetRequestsPending() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(17) {
 		return value, false
 	}
@@ -865,6 +913,9 @@ func (c *ChatFull) SetRecentRequesters(value []int64) {
 // GetRecentRequesters returns value of RecentRequesters conditional field and
 // boolean which is true if field was set.
 func (c *ChatFull) GetRecentRequesters() (value []int64, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(17) {
 		return value, false
 	}
@@ -2170,6 +2221,9 @@ func (c *ChannelFull) SetCanViewParticipants(value bool) {
 
 // GetCanViewParticipants returns value of CanViewParticipants conditional field.
 func (c *ChannelFull) GetCanViewParticipants() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(3)
 }
 
@@ -2186,6 +2240,9 @@ func (c *ChannelFull) SetCanSetUsername(value bool) {
 
 // GetCanSetUsername returns value of CanSetUsername conditional field.
 func (c *ChannelFull) GetCanSetUsername() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(6)
 }
 
@@ -2202,6 +2259,9 @@ func (c *ChannelFull) SetCanSetStickers(value bool) {
 
 // GetCanSetStickers returns value of CanSetStickers conditional field.
 func (c *ChannelFull) GetCanSetStickers() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(7)
 }
 
@@ -2218,6 +2278,9 @@ func (c *ChannelFull) SetHiddenPrehistory(value bool) {
 
 // GetHiddenPrehistory returns value of HiddenPrehistory conditional field.
 func (c *ChannelFull) GetHiddenPrehistory() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(10)
 }
 
@@ -2234,6 +2297,9 @@ func (c *ChannelFull) SetCanSetLocation(value bool) {
 
 // GetCanSetLocation returns value of CanSetLocation conditional field.
 func (c *ChannelFull) GetCanSetLocation() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(16)
 }
 
@@ -2250,6 +2316,9 @@ func (c *ChannelFull) SetHasScheduled(value bool) {
 
 // GetHasScheduled returns value of HasScheduled conditional field.
 func (c *ChannelFull) GetHasScheduled() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(19)
 }
 
@@ -2266,6 +2335,9 @@ func (c *ChannelFull) SetCanViewStats(value bool) {
 
 // GetCanViewStats returns value of CanViewStats conditional field.
 func (c *ChannelFull) GetCanViewStats() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(20)
 }
 
@@ -2282,16 +2354,25 @@ func (c *ChannelFull) SetBlocked(value bool) {
 
 // GetBlocked returns value of Blocked conditional field.
 func (c *ChannelFull) GetBlocked() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(22)
 }
 
 // GetID returns value of ID field.
 func (c *ChannelFull) GetID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ID
 }
 
 // GetAbout returns value of About field.
 func (c *ChannelFull) GetAbout() (value string) {
+	if c == nil {
+		return
+	}
 	return c.About
 }
 
@@ -2304,6 +2385,9 @@ func (c *ChannelFull) SetParticipantsCount(value int) {
 // GetParticipantsCount returns value of ParticipantsCount conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetParticipantsCount() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(0) {
 		return value, false
 	}
@@ -2319,6 +2403,9 @@ func (c *ChannelFull) SetAdminsCount(value int) {
 // GetAdminsCount returns value of AdminsCount conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetAdminsCount() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(1) {
 		return value, false
 	}
@@ -2334,6 +2421,9 @@ func (c *ChannelFull) SetKickedCount(value int) {
 // GetKickedCount returns value of KickedCount conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetKickedCount() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(2) {
 		return value, false
 	}
@@ -2349,6 +2439,9 @@ func (c *ChannelFull) SetBannedCount(value int) {
 // GetBannedCount returns value of BannedCount conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetBannedCount() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(2) {
 		return value, false
 	}
@@ -2364,6 +2457,9 @@ func (c *ChannelFull) SetOnlineCount(value int) {
 // GetOnlineCount returns value of OnlineCount conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetOnlineCount() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(13) {
 		return value, false
 	}
@@ -2372,26 +2468,41 @@ func (c *ChannelFull) GetOnlineCount() (value int, ok bool) {
 
 // GetReadInboxMaxID returns value of ReadInboxMaxID field.
 func (c *ChannelFull) GetReadInboxMaxID() (value int) {
+	if c == nil {
+		return
+	}
 	return c.ReadInboxMaxID
 }
 
 // GetReadOutboxMaxID returns value of ReadOutboxMaxID field.
 func (c *ChannelFull) GetReadOutboxMaxID() (value int) {
+	if c == nil {
+		return
+	}
 	return c.ReadOutboxMaxID
 }
 
 // GetUnreadCount returns value of UnreadCount field.
 func (c *ChannelFull) GetUnreadCount() (value int) {
+	if c == nil {
+		return
+	}
 	return c.UnreadCount
 }
 
 // GetChatPhoto returns value of ChatPhoto field.
 func (c *ChannelFull) GetChatPhoto() (value PhotoClass) {
+	if c == nil {
+		return
+	}
 	return c.ChatPhoto
 }
 
 // GetNotifySettings returns value of NotifySettings field.
 func (c *ChannelFull) GetNotifySettings() (value PeerNotifySettings) {
+	if c == nil {
+		return
+	}
 	return c.NotifySettings
 }
 
@@ -2404,6 +2515,9 @@ func (c *ChannelFull) SetExportedInvite(value ChatInviteExported) {
 // GetExportedInvite returns value of ExportedInvite conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetExportedInvite() (value ChatInviteExported, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(23) {
 		return value, false
 	}
@@ -2412,6 +2526,9 @@ func (c *ChannelFull) GetExportedInvite() (value ChatInviteExported, ok bool) {
 
 // GetBotInfo returns value of BotInfo field.
 func (c *ChannelFull) GetBotInfo() (value []BotInfo) {
+	if c == nil {
+		return
+	}
 	return c.BotInfo
 }
 
@@ -2424,6 +2541,9 @@ func (c *ChannelFull) SetMigratedFromChatID(value int64) {
 // GetMigratedFromChatID returns value of MigratedFromChatID conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetMigratedFromChatID() (value int64, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(4) {
 		return value, false
 	}
@@ -2439,6 +2559,9 @@ func (c *ChannelFull) SetMigratedFromMaxID(value int) {
 // GetMigratedFromMaxID returns value of MigratedFromMaxID conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetMigratedFromMaxID() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(4) {
 		return value, false
 	}
@@ -2454,6 +2577,9 @@ func (c *ChannelFull) SetPinnedMsgID(value int) {
 // GetPinnedMsgID returns value of PinnedMsgID conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetPinnedMsgID() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(5) {
 		return value, false
 	}
@@ -2469,6 +2595,9 @@ func (c *ChannelFull) SetStickerset(value StickerSet) {
 // GetStickerset returns value of Stickerset conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetStickerset() (value StickerSet, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(8) {
 		return value, false
 	}
@@ -2484,6 +2613,9 @@ func (c *ChannelFull) SetAvailableMinID(value int) {
 // GetAvailableMinID returns value of AvailableMinID conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetAvailableMinID() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(9) {
 		return value, false
 	}
@@ -2499,6 +2631,9 @@ func (c *ChannelFull) SetFolderID(value int) {
 // GetFolderID returns value of FolderID conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetFolderID() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(11) {
 		return value, false
 	}
@@ -2514,6 +2649,9 @@ func (c *ChannelFull) SetLinkedChatID(value int64) {
 // GetLinkedChatID returns value of LinkedChatID conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetLinkedChatID() (value int64, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(14) {
 		return value, false
 	}
@@ -2529,6 +2667,9 @@ func (c *ChannelFull) SetLocation(value ChannelLocationClass) {
 // GetLocation returns value of Location conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetLocation() (value ChannelLocationClass, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(15) {
 		return value, false
 	}
@@ -2544,6 +2685,9 @@ func (c *ChannelFull) SetSlowmodeSeconds(value int) {
 // GetSlowmodeSeconds returns value of SlowmodeSeconds conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetSlowmodeSeconds() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(17) {
 		return value, false
 	}
@@ -2559,6 +2703,9 @@ func (c *ChannelFull) SetSlowmodeNextSendDate(value int) {
 // GetSlowmodeNextSendDate returns value of SlowmodeNextSendDate conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetSlowmodeNextSendDate() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(18) {
 		return value, false
 	}
@@ -2574,6 +2721,9 @@ func (c *ChannelFull) SetStatsDC(value int) {
 // GetStatsDC returns value of StatsDC conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetStatsDC() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(12) {
 		return value, false
 	}
@@ -2582,6 +2732,9 @@ func (c *ChannelFull) GetStatsDC() (value int, ok bool) {
 
 // GetPts returns value of Pts field.
 func (c *ChannelFull) GetPts() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Pts
 }
 
@@ -2594,6 +2747,9 @@ func (c *ChannelFull) SetCall(value InputGroupCall) {
 // GetCall returns value of Call conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetCall() (value InputGroupCall, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(21) {
 		return value, false
 	}
@@ -2609,6 +2765,9 @@ func (c *ChannelFull) SetTTLPeriod(value int) {
 // GetTTLPeriod returns value of TTLPeriod conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetTTLPeriod() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(24) {
 		return value, false
 	}
@@ -2624,6 +2783,9 @@ func (c *ChannelFull) SetPendingSuggestions(value []string) {
 // GetPendingSuggestions returns value of PendingSuggestions conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetPendingSuggestions() (value []string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(25) {
 		return value, false
 	}
@@ -2639,6 +2801,9 @@ func (c *ChannelFull) SetGroupcallDefaultJoinAs(value PeerClass) {
 // GetGroupcallDefaultJoinAs returns value of GroupcallDefaultJoinAs conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetGroupcallDefaultJoinAs() (value PeerClass, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(26) {
 		return value, false
 	}
@@ -2654,6 +2819,9 @@ func (c *ChannelFull) SetThemeEmoticon(value string) {
 // GetThemeEmoticon returns value of ThemeEmoticon conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetThemeEmoticon() (value string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(27) {
 		return value, false
 	}
@@ -2669,6 +2837,9 @@ func (c *ChannelFull) SetRequestsPending(value int) {
 // GetRequestsPending returns value of RequestsPending conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetRequestsPending() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(28) {
 		return value, false
 	}
@@ -2684,6 +2855,9 @@ func (c *ChannelFull) SetRecentRequesters(value []int64) {
 // GetRecentRequesters returns value of RecentRequesters conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetRecentRequesters() (value []int64, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(28) {
 		return value, false
 	}
@@ -2699,6 +2873,9 @@ func (c *ChannelFull) SetDefaultSendAs(value PeerClass) {
 // GetDefaultSendAs returns value of DefaultSendAs conditional field and
 // boolean which is true if field was set.
 func (c *ChannelFull) GetDefaultSendAs() (value PeerClass, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(29) {
 		return value, false
 	}

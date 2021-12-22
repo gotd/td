@@ -262,6 +262,9 @@ func (t *TextPlain) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (t *TextPlain) GetText() (value string) {
+	if t == nil {
+		return
+	}
 	return t.Text
 }
 
@@ -399,6 +402,9 @@ func (t *TextBold) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (t *TextBold) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
 	return t.Text
 }
 
@@ -536,6 +542,9 @@ func (t *TextItalic) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (t *TextItalic) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
 	return t.Text
 }
 
@@ -673,6 +682,9 @@ func (t *TextUnderline) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (t *TextUnderline) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
 	return t.Text
 }
 
@@ -810,6 +822,9 @@ func (t *TextStrike) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (t *TextStrike) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
 	return t.Text
 }
 
@@ -947,6 +962,9 @@ func (t *TextFixed) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (t *TextFixed) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
 	return t.Text
 }
 
@@ -1122,16 +1140,25 @@ func (t *TextURL) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (t *TextURL) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
 	return t.Text
 }
 
 // GetURL returns value of URL field.
 func (t *TextURL) GetURL() (value string) {
+	if t == nil {
+		return
+	}
 	return t.URL
 }
 
 // GetWebpageID returns value of WebpageID field.
 func (t *TextURL) GetWebpageID() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.WebpageID
 }
 
@@ -1288,11 +1315,17 @@ func (t *TextEmail) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (t *TextEmail) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
 	return t.Text
 }
 
 // GetEmail returns value of Email field.
 func (t *TextEmail) GetEmail() (value string) {
+	if t == nil {
+		return
+	}
 	return t.Email
 }
 
@@ -1443,6 +1476,9 @@ func (t *TextConcat) DecodeBare(b *bin.Buffer) error {
 
 // GetTexts returns value of Texts field.
 func (t *TextConcat) GetTexts() (value []RichTextClass) {
+	if t == nil {
+		return
+	}
 	return t.Texts
 }
 
@@ -1585,6 +1621,9 @@ func (t *TextSubscript) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (t *TextSubscript) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
 	return t.Text
 }
 
@@ -1722,6 +1761,9 @@ func (t *TextSuperscript) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (t *TextSuperscript) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
 	return t.Text
 }
 
@@ -1859,6 +1901,9 @@ func (t *TextMarked) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (t *TextMarked) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
 	return t.Text
 }
 
@@ -2015,11 +2060,17 @@ func (t *TextPhone) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (t *TextPhone) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
 	return t.Text
 }
 
 // GetPhone returns value of Phone field.
 func (t *TextPhone) GetPhone() (value string) {
+	if t == nil {
+		return
+	}
 	return t.Phone
 }
 
@@ -2190,16 +2241,25 @@ func (t *TextImage) DecodeBare(b *bin.Buffer) error {
 
 // GetDocumentID returns value of DocumentID field.
 func (t *TextImage) GetDocumentID() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.DocumentID
 }
 
 // GetW returns value of W field.
 func (t *TextImage) GetW() (value int) {
+	if t == nil {
+		return
+	}
 	return t.W
 }
 
 // GetH returns value of H field.
 func (t *TextImage) GetH() (value int) {
+	if t == nil {
+		return
+	}
 	return t.H
 }
 
@@ -2356,11 +2416,17 @@ func (t *TextAnchor) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (t *TextAnchor) GetText() (value RichTextClass) {
+	if t == nil {
+		return
+	}
 	return t.Text
 }
 
 // GetName returns value of Name field.
 func (t *TextAnchor) GetName() (value string) {
+	if t == nil {
+		return
+	}
 	return t.Name
 }
 

@@ -183,6 +183,9 @@ func (s *SearchPublicChatsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetQuery returns value of Query field.
 func (s *SearchPublicChatsRequest) GetQuery() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Query
 }
 

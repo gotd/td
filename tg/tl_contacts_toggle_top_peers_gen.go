@@ -158,6 +158,9 @@ func (t *ContactsToggleTopPeersRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetEnabled returns value of Enabled field.
 func (t *ContactsToggleTopPeersRequest) GetEnabled() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.Enabled
 }
 

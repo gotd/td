@@ -286,11 +286,17 @@ func (g *MessagesGetPollVotesRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (g *MessagesGetPollVotesRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
 // GetID returns value of ID field.
 func (g *MessagesGetPollVotesRequest) GetID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.ID
 }
 
@@ -303,6 +309,9 @@ func (g *MessagesGetPollVotesRequest) SetOption(value []byte) {
 // GetOption returns value of Option conditional field and
 // boolean which is true if field was set.
 func (g *MessagesGetPollVotesRequest) GetOption() (value []byte, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(0) {
 		return value, false
 	}
@@ -318,6 +327,9 @@ func (g *MessagesGetPollVotesRequest) SetOffset(value string) {
 // GetOffset returns value of Offset conditional field and
 // boolean which is true if field was set.
 func (g *MessagesGetPollVotesRequest) GetOffset() (value string, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(1) {
 		return value, false
 	}
@@ -326,6 +338,9 @@ func (g *MessagesGetPollVotesRequest) GetOffset() (value string, ok bool) {
 
 // GetLimit returns value of Limit field.
 func (g *MessagesGetPollVotesRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

@@ -188,6 +188,9 @@ func (b *BackgroundFillSolid) DecodeTDLibJSON(buf tdjson.Decoder) error {
 
 // GetColor returns value of Color field.
 func (b *BackgroundFillSolid) GetColor() (value int32) {
+	if b == nil {
+		return
+	}
 	return b.Color
 }
 
@@ -399,16 +402,25 @@ func (b *BackgroundFillGradient) DecodeTDLibJSON(buf tdjson.Decoder) error {
 
 // GetTopColor returns value of TopColor field.
 func (b *BackgroundFillGradient) GetTopColor() (value int32) {
+	if b == nil {
+		return
+	}
 	return b.TopColor
 }
 
 // GetBottomColor returns value of BottomColor field.
 func (b *BackgroundFillGradient) GetBottomColor() (value int32) {
+	if b == nil {
+		return
+	}
 	return b.BottomColor
 }
 
 // GetRotationAngle returns value of RotationAngle field.
 func (b *BackgroundFillGradient) GetRotationAngle() (value int32) {
+	if b == nil {
+		return
+	}
 	return b.RotationAngle
 }
 
@@ -591,6 +603,9 @@ func (b *BackgroundFillFreeformGradient) DecodeTDLibJSON(buf tdjson.Decoder) err
 
 // GetColors returns value of Colors field.
 func (b *BackgroundFillFreeformGradient) GetColors() (value []int32) {
+	if b == nil {
+		return
+	}
 	return b.Colors
 }
 

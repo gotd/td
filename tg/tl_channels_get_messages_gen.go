@@ -200,11 +200,17 @@ func (g *ChannelsGetMessagesRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (g *ChannelsGetMessagesRequest) GetChannel() (value InputChannelClass) {
+	if g == nil {
+		return
+	}
 	return g.Channel
 }
 
 // GetID returns value of ID field.
 func (g *ChannelsGetMessagesRequest) GetID() (value []InputMessageClass) {
+	if g == nil {
+		return
+	}
 	return g.ID
 }
 

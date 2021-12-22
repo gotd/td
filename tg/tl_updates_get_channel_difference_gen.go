@@ -275,26 +275,41 @@ func (g *UpdatesGetChannelDifferenceRequest) SetForce(value bool) {
 
 // GetForce returns value of Force conditional field.
 func (g *UpdatesGetChannelDifferenceRequest) GetForce() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(0)
 }
 
 // GetChannel returns value of Channel field.
 func (g *UpdatesGetChannelDifferenceRequest) GetChannel() (value InputChannelClass) {
+	if g == nil {
+		return
+	}
 	return g.Channel
 }
 
 // GetFilter returns value of Filter field.
 func (g *UpdatesGetChannelDifferenceRequest) GetFilter() (value ChannelMessagesFilterClass) {
+	if g == nil {
+		return
+	}
 	return g.Filter
 }
 
 // GetPts returns value of Pts field.
 func (g *UpdatesGetChannelDifferenceRequest) GetPts() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Pts
 }
 
 // GetLimit returns value of Limit field.
 func (g *UpdatesGetChannelDifferenceRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

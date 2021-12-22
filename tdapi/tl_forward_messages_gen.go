@@ -358,36 +358,57 @@ func (f *ForwardMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (f *ForwardMessagesRequest) GetChatID() (value int64) {
+	if f == nil {
+		return
+	}
 	return f.ChatID
 }
 
 // GetFromChatID returns value of FromChatID field.
 func (f *ForwardMessagesRequest) GetFromChatID() (value int64) {
+	if f == nil {
+		return
+	}
 	return f.FromChatID
 }
 
 // GetMessageIDs returns value of MessageIDs field.
 func (f *ForwardMessagesRequest) GetMessageIDs() (value []int64) {
+	if f == nil {
+		return
+	}
 	return f.MessageIDs
 }
 
 // GetOptions returns value of Options field.
 func (f *ForwardMessagesRequest) GetOptions() (value MessageSendOptions) {
+	if f == nil {
+		return
+	}
 	return f.Options
 }
 
 // GetSendCopy returns value of SendCopy field.
 func (f *ForwardMessagesRequest) GetSendCopy() (value bool) {
+	if f == nil {
+		return
+	}
 	return f.SendCopy
 }
 
 // GetRemoveCaption returns value of RemoveCaption field.
 func (f *ForwardMessagesRequest) GetRemoveCaption() (value bool) {
+	if f == nil {
+		return
+	}
 	return f.RemoveCaption
 }
 
 // GetOnlyPreview returns value of OnlyPreview field.
 func (f *ForwardMessagesRequest) GetOnlyPreview() (value bool) {
+	if f == nil {
+		return
+	}
 	return f.OnlyPreview
 }
 

@@ -208,11 +208,17 @@ func (t *ToggleChatHasProtectedContentRequest) DecodeTDLibJSON(b tdjson.Decoder)
 
 // GetChatID returns value of ChatID field.
 func (t *ToggleChatHasProtectedContentRequest) GetChatID() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.ChatID
 }
 
 // GetHasProtectedContent returns value of HasProtectedContent field.
 func (t *ToggleChatHasProtectedContentRequest) GetHasProtectedContent() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.HasProtectedContent
 }
 

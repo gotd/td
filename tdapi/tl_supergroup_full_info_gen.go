@@ -718,105 +718,168 @@ func (s *SupergroupFullInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPhoto returns value of Photo field.
 func (s *SupergroupFullInfo) GetPhoto() (value ChatPhoto) {
+	if s == nil {
+		return
+	}
 	return s.Photo
 }
 
 // GetDescription returns value of Description field.
 func (s *SupergroupFullInfo) GetDescription() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Description
 }
 
 // GetMemberCount returns value of MemberCount field.
 func (s *SupergroupFullInfo) GetMemberCount() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.MemberCount
 }
 
 // GetAdministratorCount returns value of AdministratorCount field.
 func (s *SupergroupFullInfo) GetAdministratorCount() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.AdministratorCount
 }
 
 // GetRestrictedCount returns value of RestrictedCount field.
 func (s *SupergroupFullInfo) GetRestrictedCount() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.RestrictedCount
 }
 
 // GetBannedCount returns value of BannedCount field.
 func (s *SupergroupFullInfo) GetBannedCount() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.BannedCount
 }
 
 // GetLinkedChatID returns value of LinkedChatID field.
 func (s *SupergroupFullInfo) GetLinkedChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.LinkedChatID
 }
 
 // GetSlowModeDelay returns value of SlowModeDelay field.
 func (s *SupergroupFullInfo) GetSlowModeDelay() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.SlowModeDelay
 }
 
 // GetSlowModeDelayExpiresIn returns value of SlowModeDelayExpiresIn field.
 func (s *SupergroupFullInfo) GetSlowModeDelayExpiresIn() (value float64) {
+	if s == nil {
+		return
+	}
 	return s.SlowModeDelayExpiresIn
 }
 
 // GetCanGetMembers returns value of CanGetMembers field.
 func (s *SupergroupFullInfo) GetCanGetMembers() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.CanGetMembers
 }
 
 // GetCanSetUsername returns value of CanSetUsername field.
 func (s *SupergroupFullInfo) GetCanSetUsername() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.CanSetUsername
 }
 
 // GetCanSetStickerSet returns value of CanSetStickerSet field.
 func (s *SupergroupFullInfo) GetCanSetStickerSet() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.CanSetStickerSet
 }
 
 // GetCanSetLocation returns value of CanSetLocation field.
 func (s *SupergroupFullInfo) GetCanSetLocation() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.CanSetLocation
 }
 
 // GetCanGetStatistics returns value of CanGetStatistics field.
 func (s *SupergroupFullInfo) GetCanGetStatistics() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.CanGetStatistics
 }
 
 // GetIsAllHistoryAvailable returns value of IsAllHistoryAvailable field.
 func (s *SupergroupFullInfo) GetIsAllHistoryAvailable() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsAllHistoryAvailable
 }
 
 // GetStickerSetID returns value of StickerSetID field.
 func (s *SupergroupFullInfo) GetStickerSetID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.StickerSetID
 }
 
 // GetLocation returns value of Location field.
 func (s *SupergroupFullInfo) GetLocation() (value ChatLocation) {
+	if s == nil {
+		return
+	}
 	return s.Location
 }
 
 // GetInviteLink returns value of InviteLink field.
 func (s *SupergroupFullInfo) GetInviteLink() (value ChatInviteLink) {
+	if s == nil {
+		return
+	}
 	return s.InviteLink
 }
 
 // GetBotCommands returns value of BotCommands field.
 func (s *SupergroupFullInfo) GetBotCommands() (value []BotCommands) {
+	if s == nil {
+		return
+	}
 	return s.BotCommands
 }
 
 // GetUpgradedFromBasicGroupID returns value of UpgradedFromBasicGroupID field.
 func (s *SupergroupFullInfo) GetUpgradedFromBasicGroupID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.UpgradedFromBasicGroupID
 }
 
 // GetUpgradedFromMaxMessageID returns value of UpgradedFromMaxMessageID field.
 func (s *SupergroupFullInfo) GetUpgradedFromMaxMessageID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.UpgradedFromMaxMessageID
 }

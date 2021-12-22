@@ -234,16 +234,25 @@ func (c *ChannelsChannelParticipant) DecodeBare(b *bin.Buffer) error {
 
 // GetParticipant returns value of Participant field.
 func (c *ChannelsChannelParticipant) GetParticipant() (value ChannelParticipantClass) {
+	if c == nil {
+		return
+	}
 	return c.Participant
 }
 
 // GetChats returns value of Chats field.
 func (c *ChannelsChannelParticipant) GetChats() (value []ChatClass) {
+	if c == nil {
+		return
+	}
 	return c.Chats
 }
 
 // GetUsers returns value of Users field.
 func (c *ChannelsChannelParticipant) GetUsers() (value []UserClass) {
+	if c == nil {
+		return
+	}
 	return c.Users
 }
 

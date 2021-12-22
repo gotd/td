@@ -317,6 +317,9 @@ func (i *InternalLinkTypeAuthenticationCode) DecodeTDLibJSON(b tdjson.Decoder) e
 
 // GetCode returns value of Code field.
 func (i *InternalLinkTypeAuthenticationCode) GetCode() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Code
 }
 
@@ -477,6 +480,9 @@ func (i *InternalLinkTypeBackground) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBackgroundName returns value of BackgroundName field.
 func (i *InternalLinkTypeBackground) GetBackgroundName() (value string) {
+	if i == nil {
+		return
+	}
 	return i.BackgroundName
 }
 
@@ -662,11 +668,17 @@ func (i *InternalLinkTypeBotStart) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBotUsername returns value of BotUsername field.
 func (i *InternalLinkTypeBotStart) GetBotUsername() (value string) {
+	if i == nil {
+		return
+	}
 	return i.BotUsername
 }
 
 // GetStartParameter returns value of StartParameter field.
 func (i *InternalLinkTypeBotStart) GetStartParameter() (value string) {
+	if i == nil {
+		return
+	}
 	return i.StartParameter
 }
 
@@ -852,11 +864,17 @@ func (i *InternalLinkTypeBotStartInGroup) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetBotUsername returns value of BotUsername field.
 func (i *InternalLinkTypeBotStartInGroup) GetBotUsername() (value string) {
+	if i == nil {
+		return
+	}
 	return i.BotUsername
 }
 
 // GetStartParameter returns value of StartParameter field.
 func (i *InternalLinkTypeBotStartInGroup) GetStartParameter() (value string) {
+	if i == nil {
+		return
+	}
 	return i.StartParameter
 }
 
@@ -1146,6 +1164,9 @@ func (i *InternalLinkTypeChatInvite) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetInviteLink returns value of InviteLink field.
 func (i *InternalLinkTypeChatInvite) GetInviteLink() (value string) {
+	if i == nil {
+		return
+	}
 	return i.InviteLink
 }
 
@@ -1460,11 +1481,17 @@ func (i *InternalLinkTypeGame) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBotUsername returns value of BotUsername field.
 func (i *InternalLinkTypeGame) GetBotUsername() (value string) {
+	if i == nil {
+		return
+	}
 	return i.BotUsername
 }
 
 // GetGameShortName returns value of GameShortName field.
 func (i *InternalLinkTypeGame) GetGameShortName() (value string) {
+	if i == nil {
+		return
+	}
 	return i.GameShortName
 }
 
@@ -1625,6 +1652,9 @@ func (i *InternalLinkTypeLanguagePack) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLanguagePackID returns value of LanguagePackID field.
 func (i *InternalLinkTypeLanguagePack) GetLanguagePackID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.LanguagePackID
 }
 
@@ -1785,6 +1815,9 @@ func (i *InternalLinkTypeMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetURL returns value of URL field.
 func (i *InternalLinkTypeMessage) GetURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.URL
 }
 
@@ -1971,11 +2004,17 @@ func (i *InternalLinkTypeMessageDraft) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (i *InternalLinkTypeMessageDraft) GetText() (value FormattedText) {
+	if i == nil {
+		return
+	}
 	return i.Text
 }
 
 // GetContainsLink returns value of ContainsLink field.
 func (i *InternalLinkTypeMessageDraft) GetContainsLink() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.ContainsLink
 }
 
@@ -2239,26 +2278,41 @@ func (i *InternalLinkTypePassportDataRequest) DecodeTDLibJSON(b tdjson.Decoder) 
 
 // GetBotUserID returns value of BotUserID field.
 func (i *InternalLinkTypePassportDataRequest) GetBotUserID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.BotUserID
 }
 
 // GetScope returns value of Scope field.
 func (i *InternalLinkTypePassportDataRequest) GetScope() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Scope
 }
 
 // GetPublicKey returns value of PublicKey field.
 func (i *InternalLinkTypePassportDataRequest) GetPublicKey() (value string) {
+	if i == nil {
+		return
+	}
 	return i.PublicKey
 }
 
 // GetNonce returns value of Nonce field.
 func (i *InternalLinkTypePassportDataRequest) GetNonce() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Nonce
 }
 
 // GetCallbackURL returns value of CallbackURL field.
 func (i *InternalLinkTypePassportDataRequest) GetCallbackURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.CallbackURL
 }
 
@@ -2444,11 +2498,17 @@ func (i *InternalLinkTypePhoneNumberConfirmation) DecodeTDLibJSON(b tdjson.Decod
 
 // GetHash returns value of Hash field.
 func (i *InternalLinkTypePhoneNumberConfirmation) GetHash() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Hash
 }
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (i *InternalLinkTypePhoneNumberConfirmation) GetPhoneNumber() (value string) {
+	if i == nil {
+		return
+	}
 	return i.PhoneNumber
 }
 
@@ -2669,16 +2729,25 @@ func (i *InternalLinkTypeProxy) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetServer returns value of Server field.
 func (i *InternalLinkTypeProxy) GetServer() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Server
 }
 
 // GetPort returns value of Port field.
 func (i *InternalLinkTypeProxy) GetPort() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.Port
 }
 
 // GetType returns value of Type field.
 func (i *InternalLinkTypeProxy) GetType() (value ProxyTypeClass) {
+	if i == nil {
+		return
+	}
 	return i.Type
 }
 
@@ -2839,6 +2908,9 @@ func (i *InternalLinkTypePublicChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatUsername returns value of ChatUsername field.
 func (i *InternalLinkTypePublicChat) GetChatUsername() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ChatUsername
 }
 
@@ -3257,6 +3329,9 @@ func (i *InternalLinkTypeStickerSet) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetStickerSetName returns value of StickerSetName field.
 func (i *InternalLinkTypeStickerSet) GetStickerSetName() (value string) {
+	if i == nil {
+		return
+	}
 	return i.StickerSetName
 }
 
@@ -3417,6 +3492,9 @@ func (i *InternalLinkTypeTheme) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetThemeName returns value of ThemeName field.
 func (i *InternalLinkTypeTheme) GetThemeName() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ThemeName
 }
 
@@ -3706,6 +3784,9 @@ func (i *InternalLinkTypeUnknownDeepLink) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetLink returns value of Link field.
 func (i *InternalLinkTypeUnknownDeepLink) GetLink() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Link
 }
 
@@ -4047,16 +4128,25 @@ func (i *InternalLinkTypeVideoChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatUsername returns value of ChatUsername field.
 func (i *InternalLinkTypeVideoChat) GetChatUsername() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ChatUsername
 }
 
 // GetInviteHash returns value of InviteHash field.
 func (i *InternalLinkTypeVideoChat) GetInviteHash() (value string) {
+	if i == nil {
+		return
+	}
 	return i.InviteHash
 }
 
 // GetIsLiveStream returns value of IsLiveStream field.
 func (i *InternalLinkTypeVideoChat) GetIsLiveStream() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.IsLiveStream
 }
 

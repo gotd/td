@@ -174,11 +174,17 @@ func (s *PhoneSendSignalingDataRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (s *PhoneSendSignalingDataRequest) GetPeer() (value InputPhoneCall) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
 // GetData returns value of Data field.
 func (s *PhoneSendSignalingDataRequest) GetData() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.Data
 }
 

@@ -155,6 +155,9 @@ func (d *PhoneDiscardGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetCall returns value of Call field.
 func (d *PhoneDiscardGroupCallRequest) GetCall() (value InputGroupCall) {
+	if d == nil {
+		return
+	}
 	return d.Call
 }
 

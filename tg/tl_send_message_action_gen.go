@@ -467,6 +467,9 @@ func (s *SendMessageUploadVideoAction) DecodeBare(b *bin.Buffer) error {
 
 // GetProgress returns value of Progress field.
 func (s *SendMessageUploadVideoAction) GetProgress() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Progress
 }
 
@@ -701,6 +704,9 @@ func (s *SendMessageUploadAudioAction) DecodeBare(b *bin.Buffer) error {
 
 // GetProgress returns value of Progress field.
 func (s *SendMessageUploadAudioAction) GetProgress() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Progress
 }
 
@@ -833,6 +839,9 @@ func (s *SendMessageUploadPhotoAction) DecodeBare(b *bin.Buffer) error {
 
 // GetProgress returns value of Progress field.
 func (s *SendMessageUploadPhotoAction) GetProgress() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Progress
 }
 
@@ -965,6 +974,9 @@ func (s *SendMessageUploadDocumentAction) DecodeBare(b *bin.Buffer) error {
 
 // GetProgress returns value of Progress field.
 func (s *SendMessageUploadDocumentAction) GetProgress() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Progress
 }
 
@@ -1505,6 +1517,9 @@ func (s *SendMessageUploadRoundAction) DecodeBare(b *bin.Buffer) error {
 
 // GetProgress returns value of Progress field.
 func (s *SendMessageUploadRoundAction) GetProgress() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Progress
 }
 
@@ -1739,6 +1754,9 @@ func (s *SendMessageHistoryImportAction) DecodeBare(b *bin.Buffer) error {
 
 // GetProgress returns value of Progress field.
 func (s *SendMessageHistoryImportAction) GetProgress() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Progress
 }
 
@@ -2018,16 +2036,25 @@ func (s *SendMessageEmojiInteraction) DecodeBare(b *bin.Buffer) error {
 
 // GetEmoticon returns value of Emoticon field.
 func (s *SendMessageEmojiInteraction) GetEmoticon() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Emoticon
 }
 
 // GetMsgID returns value of MsgID field.
 func (s *SendMessageEmojiInteraction) GetMsgID() (value int) {
+	if s == nil {
+		return
+	}
 	return s.MsgID
 }
 
 // GetInteraction returns value of Interaction field.
 func (s *SendMessageEmojiInteraction) GetInteraction() (value DataJSON) {
+	if s == nil {
+		return
+	}
 	return s.Interaction
 }
 
@@ -2164,6 +2191,9 @@ func (s *SendMessageEmojiInteractionSeen) DecodeBare(b *bin.Buffer) error {
 
 // GetEmoticon returns value of Emoticon field.
 func (s *SendMessageEmojiInteractionSeen) GetEmoticon() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Emoticon
 }
 

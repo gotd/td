@@ -234,16 +234,25 @@ func (s *SetGroupCallParticipantIsSpeakingRequest) DecodeTDLibJSON(b tdjson.Deco
 
 // GetGroupCallID returns value of GroupCallID field.
 func (s *SetGroupCallParticipantIsSpeakingRequest) GetGroupCallID() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.GroupCallID
 }
 
 // GetAudioSource returns value of AudioSource field.
 func (s *SetGroupCallParticipantIsSpeakingRequest) GetAudioSource() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.AudioSource
 }
 
 // GetIsSpeaking returns value of IsSpeaking field.
 func (s *SetGroupCallParticipantIsSpeakingRequest) GetIsSpeaking() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsSpeaking
 }
 

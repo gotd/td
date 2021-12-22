@@ -319,31 +319,49 @@ func (e *EditMessageLiveLocationRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetChatID returns value of ChatID field.
 func (e *EditMessageLiveLocationRequest) GetChatID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (e *EditMessageLiveLocationRequest) GetMessageID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.MessageID
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (e *EditMessageLiveLocationRequest) GetReplyMarkup() (value ReplyMarkupClass) {
+	if e == nil {
+		return
+	}
 	return e.ReplyMarkup
 }
 
 // GetLocation returns value of Location field.
 func (e *EditMessageLiveLocationRequest) GetLocation() (value Location) {
+	if e == nil {
+		return
+	}
 	return e.Location
 }
 
 // GetHeading returns value of Heading field.
 func (e *EditMessageLiveLocationRequest) GetHeading() (value int32) {
+	if e == nil {
+		return
+	}
 	return e.Heading
 }
 
 // GetProximityAlertRadius returns value of ProximityAlertRadius field.
 func (e *EditMessageLiveLocationRequest) GetProximityAlertRadius() (value int32) {
+	if e == nil {
+		return
+	}
 	return e.ProximityAlertRadius
 }
 

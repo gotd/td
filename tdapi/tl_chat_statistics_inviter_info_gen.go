@@ -208,10 +208,16 @@ func (c *ChatStatisticsInviterInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (c *ChatStatisticsInviterInfo) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetAddedMemberCount returns value of AddedMemberCount field.
 func (c *ChatStatisticsInviterInfo) GetAddedMemberCount() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.AddedMemberCount
 }

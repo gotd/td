@@ -283,26 +283,41 @@ func (s *SetPasswordRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetOldPassword returns value of OldPassword field.
 func (s *SetPasswordRequest) GetOldPassword() (value string) {
+	if s == nil {
+		return
+	}
 	return s.OldPassword
 }
 
 // GetNewPassword returns value of NewPassword field.
 func (s *SetPasswordRequest) GetNewPassword() (value string) {
+	if s == nil {
+		return
+	}
 	return s.NewPassword
 }
 
 // GetNewHint returns value of NewHint field.
 func (s *SetPasswordRequest) GetNewHint() (value string) {
+	if s == nil {
+		return
+	}
 	return s.NewHint
 }
 
 // GetSetRecoveryEmailAddress returns value of SetRecoveryEmailAddress field.
 func (s *SetPasswordRequest) GetSetRecoveryEmailAddress() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.SetRecoveryEmailAddress
 }
 
 // GetNewRecoveryEmailAddress returns value of NewRecoveryEmailAddress field.
 func (s *SetPasswordRequest) GetNewRecoveryEmailAddress() (value string) {
+	if s == nil {
+		return
+	}
 	return s.NewRecoveryEmailAddress
 }
 

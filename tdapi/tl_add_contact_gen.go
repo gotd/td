@@ -212,11 +212,17 @@ func (a *AddContactRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetContact returns value of Contact field.
 func (a *AddContactRequest) GetContact() (value Contact) {
+	if a == nil {
+		return
+	}
 	return a.Contact
 }
 
 // GetSharePhoneNumber returns value of SharePhoneNumber field.
 func (a *AddContactRequest) GetSharePhoneNumber() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.SharePhoneNumber
 }
 

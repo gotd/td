@@ -183,5 +183,8 @@ func (r *RecoveryEmailAddress) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetRecoveryEmailAddress returns value of RecoveryEmailAddress field.
 func (r *RecoveryEmailAddress) GetRecoveryEmailAddress() (value string) {
+	if r == nil {
+		return
+	}
 	return r.RecoveryEmailAddress
 }

@@ -259,15 +259,24 @@ func (p *PassportAuthorizationForm) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (p *PassportAuthorizationForm) GetID() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.ID
 }
 
 // GetRequiredElements returns value of RequiredElements field.
 func (p *PassportAuthorizationForm) GetRequiredElements() (value []PassportRequiredElement) {
+	if p == nil {
+		return
+	}
 	return p.RequiredElements
 }
 
 // GetPrivacyPolicyURL returns value of PrivacyPolicyURL field.
 func (p *PassportAuthorizationForm) GetPrivacyPolicyURL() (value string) {
+	if p == nil {
+		return
+	}
 	return p.PrivacyPolicyURL
 }

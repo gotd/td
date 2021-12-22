@@ -212,21 +212,33 @@ func (s *AuthSignUpRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (s *AuthSignUpRequest) GetPhoneNumber() (value string) {
+	if s == nil {
+		return
+	}
 	return s.PhoneNumber
 }
 
 // GetPhoneCodeHash returns value of PhoneCodeHash field.
 func (s *AuthSignUpRequest) GetPhoneCodeHash() (value string) {
+	if s == nil {
+		return
+	}
 	return s.PhoneCodeHash
 }
 
 // GetFirstName returns value of FirstName field.
 func (s *AuthSignUpRequest) GetFirstName() (value string) {
+	if s == nil {
+		return
+	}
 	return s.FirstName
 }
 
 // GetLastName returns value of LastName field.
 func (s *AuthSignUpRequest) GetLastName() (value string) {
+	if s == nil {
+		return
+	}
 	return s.LastName
 }
 

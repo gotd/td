@@ -208,11 +208,17 @@ func (s *SearchHashtagsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPrefix returns value of Prefix field.
 func (s *SearchHashtagsRequest) GetPrefix() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Prefix
 }
 
 // GetLimit returns value of Limit field.
 func (s *SearchHashtagsRequest) GetLimit() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Limit
 }
 

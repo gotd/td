@@ -178,11 +178,17 @@ func (i *IPPort) DecodeBare(b *bin.Buffer) error {
 
 // GetIpv4 returns value of Ipv4 field.
 func (i *IPPort) GetIpv4() (value int) {
+	if i == nil {
+		return
+	}
 	return i.Ipv4
 }
 
 // GetPort returns value of Port field.
 func (i *IPPort) GetPort() (value int) {
+	if i == nil {
+		return
+	}
 	return i.Port
 }
 
@@ -352,16 +358,25 @@ func (i *IPPortSecret) DecodeBare(b *bin.Buffer) error {
 
 // GetIpv4 returns value of Ipv4 field.
 func (i *IPPortSecret) GetIpv4() (value int) {
+	if i == nil {
+		return
+	}
 	return i.Ipv4
 }
 
 // GetPort returns value of Port field.
 func (i *IPPortSecret) GetPort() (value int) {
+	if i == nil {
+		return
+	}
 	return i.Port
 }
 
 // GetSecret returns value of Secret field.
 func (i *IPPortSecret) GetSecret() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.Secret
 }
 

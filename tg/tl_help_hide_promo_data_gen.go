@@ -160,6 +160,9 @@ func (h *HelpHidePromoDataRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (h *HelpHidePromoDataRequest) GetPeer() (value InputPeerClass) {
+	if h == nil {
+		return
+	}
 	return h.Peer
 }
 

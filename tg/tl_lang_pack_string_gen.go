@@ -179,11 +179,17 @@ func (l *LangPackString) DecodeBare(b *bin.Buffer) error {
 
 // GetKey returns value of Key field.
 func (l *LangPackString) GetKey() (value string) {
+	if l == nil {
+		return
+	}
 	return l.Key
 }
 
 // GetValue returns value of Value field.
 func (l *LangPackString) GetValue() (value string) {
+	if l == nil {
+		return
+	}
 	return l.Value
 }
 
@@ -511,6 +517,9 @@ func (l *LangPackStringPluralized) DecodeBare(b *bin.Buffer) error {
 
 // GetKey returns value of Key field.
 func (l *LangPackStringPluralized) GetKey() (value string) {
+	if l == nil {
+		return
+	}
 	return l.Key
 }
 
@@ -523,6 +532,9 @@ func (l *LangPackStringPluralized) SetZeroValue(value string) {
 // GetZeroValue returns value of ZeroValue conditional field and
 // boolean which is true if field was set.
 func (l *LangPackStringPluralized) GetZeroValue() (value string, ok bool) {
+	if l == nil {
+		return
+	}
 	if !l.Flags.Has(0) {
 		return value, false
 	}
@@ -538,6 +550,9 @@ func (l *LangPackStringPluralized) SetOneValue(value string) {
 // GetOneValue returns value of OneValue conditional field and
 // boolean which is true if field was set.
 func (l *LangPackStringPluralized) GetOneValue() (value string, ok bool) {
+	if l == nil {
+		return
+	}
 	if !l.Flags.Has(1) {
 		return value, false
 	}
@@ -553,6 +568,9 @@ func (l *LangPackStringPluralized) SetTwoValue(value string) {
 // GetTwoValue returns value of TwoValue conditional field and
 // boolean which is true if field was set.
 func (l *LangPackStringPluralized) GetTwoValue() (value string, ok bool) {
+	if l == nil {
+		return
+	}
 	if !l.Flags.Has(2) {
 		return value, false
 	}
@@ -568,6 +586,9 @@ func (l *LangPackStringPluralized) SetFewValue(value string) {
 // GetFewValue returns value of FewValue conditional field and
 // boolean which is true if field was set.
 func (l *LangPackStringPluralized) GetFewValue() (value string, ok bool) {
+	if l == nil {
+		return
+	}
 	if !l.Flags.Has(3) {
 		return value, false
 	}
@@ -583,6 +604,9 @@ func (l *LangPackStringPluralized) SetManyValue(value string) {
 // GetManyValue returns value of ManyValue conditional field and
 // boolean which is true if field was set.
 func (l *LangPackStringPluralized) GetManyValue() (value string, ok bool) {
+	if l == nil {
+		return
+	}
 	if !l.Flags.Has(4) {
 		return value, false
 	}
@@ -591,6 +615,9 @@ func (l *LangPackStringPluralized) GetManyValue() (value string, ok bool) {
 
 // GetOtherValue returns value of OtherValue field.
 func (l *LangPackStringPluralized) GetOtherValue() (value string) {
+	if l == nil {
+		return
+	}
 	return l.OtherValue
 }
 
@@ -723,6 +750,9 @@ func (l *LangPackStringDeleted) DecodeBare(b *bin.Buffer) error {
 
 // GetKey returns value of Key field.
 func (l *LangPackStringDeleted) GetKey() (value string) {
+	if l == nil {
+		return
+	}
 	return l.Key
 }
 

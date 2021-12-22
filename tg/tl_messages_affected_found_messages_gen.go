@@ -231,20 +231,32 @@ func (a *MessagesAffectedFoundMessages) DecodeBare(b *bin.Buffer) error {
 
 // GetPts returns value of Pts field.
 func (a *MessagesAffectedFoundMessages) GetPts() (value int) {
+	if a == nil {
+		return
+	}
 	return a.Pts
 }
 
 // GetPtsCount returns value of PtsCount field.
 func (a *MessagesAffectedFoundMessages) GetPtsCount() (value int) {
+	if a == nil {
+		return
+	}
 	return a.PtsCount
 }
 
 // GetOffset returns value of Offset field.
 func (a *MessagesAffectedFoundMessages) GetOffset() (value int) {
+	if a == nil {
+		return
+	}
 	return a.Offset
 }
 
 // GetMessages returns value of Messages field.
 func (a *MessagesAffectedFoundMessages) GetMessages() (value []int) {
+	if a == nil {
+		return
+	}
 	return a.Messages
 }

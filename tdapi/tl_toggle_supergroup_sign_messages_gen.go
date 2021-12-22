@@ -208,11 +208,17 @@ func (t *ToggleSupergroupSignMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) 
 
 // GetSupergroupID returns value of SupergroupID field.
 func (t *ToggleSupergroupSignMessagesRequest) GetSupergroupID() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.SupergroupID
 }
 
 // GetSignMessages returns value of SignMessages field.
 func (t *ToggleSupergroupSignMessagesRequest) GetSignMessages() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.SignMessages
 }
 

@@ -218,11 +218,17 @@ func (p *ParseTextEntitiesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (p *ParseTextEntitiesRequest) GetText() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
 // GetParseMode returns value of ParseMode field.
 func (p *ParseTextEntitiesRequest) GetParseMode() (value TextParseModeClass) {
+	if p == nil {
+		return
+	}
 	return p.ParseMode
 }
 

@@ -184,6 +184,9 @@ func (c *MessagesClearRecentStickersRequest) SetAttached(value bool) {
 
 // GetAttached returns value of Attached conditional field.
 func (c *MessagesClearRecentStickersRequest) GetAttached() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(0)
 }
 

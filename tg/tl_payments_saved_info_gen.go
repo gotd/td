@@ -214,6 +214,9 @@ func (s *PaymentsSavedInfo) SetHasSavedCredentials(value bool) {
 
 // GetHasSavedCredentials returns value of HasSavedCredentials conditional field.
 func (s *PaymentsSavedInfo) GetHasSavedCredentials() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(1)
 }
 
@@ -226,6 +229,9 @@ func (s *PaymentsSavedInfo) SetSavedInfo(value PaymentRequestedInfo) {
 // GetSavedInfo returns value of SavedInfo conditional field and
 // boolean which is true if field was set.
 func (s *PaymentsSavedInfo) GetSavedInfo() (value PaymentRequestedInfo, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(0) {
 		return value, false
 	}

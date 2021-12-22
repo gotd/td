@@ -233,16 +233,25 @@ func (s *StartGroupCallScreenSharingRequest) DecodeTDLibJSON(b tdjson.Decoder) e
 
 // GetGroupCallID returns value of GroupCallID field.
 func (s *StartGroupCallScreenSharingRequest) GetGroupCallID() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.GroupCallID
 }
 
 // GetAudioSourceID returns value of AudioSourceID field.
 func (s *StartGroupCallScreenSharingRequest) GetAudioSourceID() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.AudioSourceID
 }
 
 // GetPayload returns value of Payload field.
 func (s *StartGroupCallScreenSharingRequest) GetPayload() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Payload
 }
 

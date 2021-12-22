@@ -199,16 +199,25 @@ func (g *MessagesGetOldFeaturedStickersRequest) DecodeBare(b *bin.Buffer) error 
 
 // GetOffset returns value of Offset field.
 func (g *MessagesGetOldFeaturedStickersRequest) GetOffset() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 
 // GetLimit returns value of Limit field.
 func (g *MessagesGetOldFeaturedStickersRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 
 // GetHash returns value of Hash field.
 func (g *MessagesGetOldFeaturedStickersRequest) GetHash() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.Hash
 }
 

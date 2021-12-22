@@ -208,10 +208,16 @@ func (m *MessageCalendarDay) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTotalCount returns value of TotalCount field.
 func (m *MessageCalendarDay) GetTotalCount() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.TotalCount
 }
 
 // GetMessage returns value of Message field.
 func (m *MessageCalendarDay) GetMessage() (value Message) {
+	if m == nil {
+		return
+	}
 	return m.Message
 }

@@ -197,11 +197,17 @@ func (i *ChannelsInviteToChannelRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (i *ChannelsInviteToChannelRequest) GetChannel() (value InputChannelClass) {
+	if i == nil {
+		return
+	}
 	return i.Channel
 }
 
 // GetUsers returns value of Users field.
 func (i *ChannelsInviteToChannelRequest) GetUsers() (value []InputUserClass) {
+	if i == nil {
+		return
+	}
 	return i.Users
 }
 

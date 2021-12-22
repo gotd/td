@@ -224,21 +224,33 @@ func (i *InputFile) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputFile) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetParts returns value of Parts field.
 func (i *InputFile) GetParts() (value int) {
+	if i == nil {
+		return
+	}
 	return i.Parts
 }
 
 // GetName returns value of Name field.
 func (i *InputFile) GetName() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Name
 }
 
 // GetMD5Checksum returns value of MD5Checksum field.
 func (i *InputFile) GetMD5Checksum() (value string) {
+	if i == nil {
+		return
+	}
 	return i.MD5Checksum
 }
 
@@ -413,16 +425,25 @@ func (i *InputFileBig) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputFileBig) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetParts returns value of Parts field.
 func (i *InputFileBig) GetParts() (value int) {
+	if i == nil {
+		return
+	}
 	return i.Parts
 }
 
 // GetName returns value of Name field.
 func (i *InputFileBig) GetName() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Name
 }
 

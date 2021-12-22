@@ -147,6 +147,9 @@ func (p *PingRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (p *PingRequest) GetID() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.ID
 }
 

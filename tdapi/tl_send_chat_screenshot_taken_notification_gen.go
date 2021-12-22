@@ -183,6 +183,9 @@ func (s *SendChatScreenshotTakenNotificationRequest) DecodeTDLibJSON(b tdjson.De
 
 // GetChatID returns value of ChatID field.
 func (s *SendChatScreenshotTakenNotificationRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 

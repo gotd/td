@@ -209,5 +209,8 @@ func (s *Stickers) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetStickers returns value of Stickers field.
 func (s *Stickers) GetStickers() (value []Sticker) {
+	if s == nil {
+		return
+	}
 	return s.Stickers
 }

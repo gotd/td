@@ -303,26 +303,41 @@ func (a *AddLocalMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (a *AddLocalMessageRequest) GetChatID() (value int64) {
+	if a == nil {
+		return
+	}
 	return a.ChatID
 }
 
 // GetSenderID returns value of SenderID field.
 func (a *AddLocalMessageRequest) GetSenderID() (value MessageSenderClass) {
+	if a == nil {
+		return
+	}
 	return a.SenderID
 }
 
 // GetReplyToMessageID returns value of ReplyToMessageID field.
 func (a *AddLocalMessageRequest) GetReplyToMessageID() (value int64) {
+	if a == nil {
+		return
+	}
 	return a.ReplyToMessageID
 }
 
 // GetDisableNotification returns value of DisableNotification field.
 func (a *AddLocalMessageRequest) GetDisableNotification() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.DisableNotification
 }
 
 // GetInputMessageContent returns value of InputMessageContent field.
 func (a *AddLocalMessageRequest) GetInputMessageContent() (value InputMessageContentClass) {
+	if a == nil {
+		return
+	}
 	return a.InputMessageContent
 }
 

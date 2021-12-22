@@ -183,6 +183,9 @@ func (d *DisconnectWebsiteRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetWebsiteID returns value of WebsiteID field.
 func (d *DisconnectWebsiteRequest) GetWebsiteID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.WebsiteID
 }
 

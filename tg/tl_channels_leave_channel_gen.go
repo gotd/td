@@ -166,6 +166,9 @@ func (l *ChannelsLeaveChannelRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (l *ChannelsLeaveChannelRequest) GetChannel() (value InputChannelClass) {
+	if l == nil {
+		return
+	}
 	return l.Channel
 }
 

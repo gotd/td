@@ -289,26 +289,41 @@ func (g *GetChatHistoryRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (g *GetChatHistoryRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetFromMessageID returns value of FromMessageID field.
 func (g *GetChatHistoryRequest) GetFromMessageID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.FromMessageID
 }
 
 // GetOffset returns value of Offset field.
 func (g *GetChatHistoryRequest) GetOffset() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 
 // GetLimit returns value of Limit field.
 func (g *GetChatHistoryRequest) GetLimit() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 
 // GetOnlyLocal returns value of OnlyLocal field.
 func (g *GetChatHistoryRequest) GetOnlyLocal() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.OnlyLocal
 }
 

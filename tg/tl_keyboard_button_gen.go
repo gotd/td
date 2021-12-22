@@ -160,6 +160,9 @@ func (k *KeyboardButton) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (k *KeyboardButton) GetText() (value string) {
+	if k == nil {
+		return
+	}
 	return k.Text
 }
 
@@ -311,11 +314,17 @@ func (k *KeyboardButtonURL) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (k *KeyboardButtonURL) GetText() (value string) {
+	if k == nil {
+		return
+	}
 	return k.Text
 }
 
 // GetURL returns value of URL field.
 func (k *KeyboardButtonURL) GetURL() (value string) {
+	if k == nil {
+		return
+	}
 	return k.URL
 }
 
@@ -525,16 +534,25 @@ func (k *KeyboardButtonCallback) SetRequiresPassword(value bool) {
 
 // GetRequiresPassword returns value of RequiresPassword conditional field.
 func (k *KeyboardButtonCallback) GetRequiresPassword() (value bool) {
+	if k == nil {
+		return
+	}
 	return k.Flags.Has(0)
 }
 
 // GetText returns value of Text field.
 func (k *KeyboardButtonCallback) GetText() (value string) {
+	if k == nil {
+		return
+	}
 	return k.Text
 }
 
 // GetData returns value of Data field.
 func (k *KeyboardButtonCallback) GetData() (value []byte) {
+	if k == nil {
+		return
+	}
 	return k.Data
 }
 
@@ -667,6 +685,9 @@ func (k *KeyboardButtonRequestPhone) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (k *KeyboardButtonRequestPhone) GetText() (value string) {
+	if k == nil {
+		return
+	}
 	return k.Text
 }
 
@@ -799,6 +820,9 @@ func (k *KeyboardButtonRequestGeoLocation) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (k *KeyboardButtonRequestGeoLocation) GetText() (value string) {
+	if k == nil {
+		return
+	}
 	return k.Text
 }
 
@@ -1001,16 +1025,25 @@ func (k *KeyboardButtonSwitchInline) SetSamePeer(value bool) {
 
 // GetSamePeer returns value of SamePeer conditional field.
 func (k *KeyboardButtonSwitchInline) GetSamePeer() (value bool) {
+	if k == nil {
+		return
+	}
 	return k.Flags.Has(0)
 }
 
 // GetText returns value of Text field.
 func (k *KeyboardButtonSwitchInline) GetText() (value string) {
+	if k == nil {
+		return
+	}
 	return k.Text
 }
 
 // GetQuery returns value of Query field.
 func (k *KeyboardButtonSwitchInline) GetQuery() (value string) {
+	if k == nil {
+		return
+	}
 	return k.Query
 }
 
@@ -1143,6 +1176,9 @@ func (k *KeyboardButtonGame) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (k *KeyboardButtonGame) GetText() (value string) {
+	if k == nil {
+		return
+	}
 	return k.Text
 }
 
@@ -1275,6 +1311,9 @@ func (k *KeyboardButtonBuy) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (k *KeyboardButtonBuy) GetText() (value string) {
+	if k == nil {
+		return
+	}
 	return k.Text
 }
 
@@ -1526,6 +1565,9 @@ func (k *KeyboardButtonURLAuth) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (k *KeyboardButtonURLAuth) GetText() (value string) {
+	if k == nil {
+		return
+	}
 	return k.Text
 }
 
@@ -1538,6 +1580,9 @@ func (k *KeyboardButtonURLAuth) SetFwdText(value string) {
 // GetFwdText returns value of FwdText conditional field and
 // boolean which is true if field was set.
 func (k *KeyboardButtonURLAuth) GetFwdText() (value string, ok bool) {
+	if k == nil {
+		return
+	}
 	if !k.Flags.Has(0) {
 		return value, false
 	}
@@ -1546,11 +1591,17 @@ func (k *KeyboardButtonURLAuth) GetFwdText() (value string, ok bool) {
 
 // GetURL returns value of URL field.
 func (k *KeyboardButtonURLAuth) GetURL() (value string) {
+	if k == nil {
+		return
+	}
 	return k.URL
 }
 
 // GetButtonID returns value of ButtonID field.
 func (k *KeyboardButtonURLAuth) GetButtonID() (value int) {
+	if k == nil {
+		return
+	}
 	return k.ButtonID
 }
 
@@ -1824,11 +1875,17 @@ func (i *InputKeyboardButtonURLAuth) SetRequestWriteAccess(value bool) {
 
 // GetRequestWriteAccess returns value of RequestWriteAccess conditional field.
 func (i *InputKeyboardButtonURLAuth) GetRequestWriteAccess() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(0)
 }
 
 // GetText returns value of Text field.
 func (i *InputKeyboardButtonURLAuth) GetText() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Text
 }
 
@@ -1841,6 +1898,9 @@ func (i *InputKeyboardButtonURLAuth) SetFwdText(value string) {
 // GetFwdText returns value of FwdText conditional field and
 // boolean which is true if field was set.
 func (i *InputKeyboardButtonURLAuth) GetFwdText() (value string, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(1) {
 		return value, false
 	}
@@ -1849,11 +1909,17 @@ func (i *InputKeyboardButtonURLAuth) GetFwdText() (value string, ok bool) {
 
 // GetURL returns value of URL field.
 func (i *InputKeyboardButtonURLAuth) GetURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.URL
 }
 
 // GetBot returns value of Bot field.
 func (i *InputKeyboardButtonURLAuth) GetBot() (value InputUserClass) {
+	if i == nil {
+		return
+	}
 	return i.Bot
 }
 
@@ -2045,6 +2111,9 @@ func (k *KeyboardButtonRequestPoll) SetQuiz(value bool) {
 // GetQuiz returns value of Quiz conditional field and
 // boolean which is true if field was set.
 func (k *KeyboardButtonRequestPoll) GetQuiz() (value bool, ok bool) {
+	if k == nil {
+		return
+	}
 	if !k.Flags.Has(0) {
 		return value, false
 	}
@@ -2053,6 +2122,9 @@ func (k *KeyboardButtonRequestPoll) GetQuiz() (value bool, ok bool) {
 
 // GetText returns value of Text field.
 func (k *KeyboardButtonRequestPoll) GetText() (value string) {
+	if k == nil {
+		return
+	}
 	return k.Text
 }
 
@@ -2208,11 +2280,17 @@ func (i *InputKeyboardButtonUserProfile) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (i *InputKeyboardButtonUserProfile) GetText() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Text
 }
 
 // GetUserID returns value of UserID field.
 func (i *InputKeyboardButtonUserProfile) GetUserID() (value InputUserClass) {
+	if i == nil {
+		return
+	}
 	return i.UserID
 }
 
@@ -2363,11 +2441,17 @@ func (k *KeyboardButtonUserProfile) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (k *KeyboardButtonUserProfile) GetText() (value string) {
+	if k == nil {
+		return
+	}
 	return k.Text
 }
 
 // GetUserID returns value of UserID field.
 func (k *KeyboardButtonUserProfile) GetUserID() (value int64) {
+	if k == nil {
+		return
+	}
 	return k.UserID
 }
 

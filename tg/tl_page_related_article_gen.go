@@ -345,11 +345,17 @@ func (p *PageRelatedArticle) DecodeBare(b *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (p *PageRelatedArticle) GetURL() (value string) {
+	if p == nil {
+		return
+	}
 	return p.URL
 }
 
 // GetWebpageID returns value of WebpageID field.
 func (p *PageRelatedArticle) GetWebpageID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.WebpageID
 }
 
@@ -362,6 +368,9 @@ func (p *PageRelatedArticle) SetTitle(value string) {
 // GetTitle returns value of Title conditional field and
 // boolean which is true if field was set.
 func (p *PageRelatedArticle) GetTitle() (value string, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(0) {
 		return value, false
 	}
@@ -377,6 +386,9 @@ func (p *PageRelatedArticle) SetDescription(value string) {
 // GetDescription returns value of Description conditional field and
 // boolean which is true if field was set.
 func (p *PageRelatedArticle) GetDescription() (value string, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(1) {
 		return value, false
 	}
@@ -392,6 +404,9 @@ func (p *PageRelatedArticle) SetPhotoID(value int64) {
 // GetPhotoID returns value of PhotoID conditional field and
 // boolean which is true if field was set.
 func (p *PageRelatedArticle) GetPhotoID() (value int64, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(2) {
 		return value, false
 	}
@@ -407,6 +422,9 @@ func (p *PageRelatedArticle) SetAuthor(value string) {
 // GetAuthor returns value of Author conditional field and
 // boolean which is true if field was set.
 func (p *PageRelatedArticle) GetAuthor() (value string, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(3) {
 		return value, false
 	}
@@ -422,6 +440,9 @@ func (p *PageRelatedArticle) SetPublishedDate(value int) {
 // GetPublishedDate returns value of PublishedDate conditional field and
 // boolean which is true if field was set.
 func (p *PageRelatedArticle) GetPublishedDate() (value int, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(4) {
 		return value, false
 	}

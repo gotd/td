@@ -247,26 +247,41 @@ func (a *AccountAcceptAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetBotID returns value of BotID field.
 func (a *AccountAcceptAuthorizationRequest) GetBotID() (value int64) {
+	if a == nil {
+		return
+	}
 	return a.BotID
 }
 
 // GetScope returns value of Scope field.
 func (a *AccountAcceptAuthorizationRequest) GetScope() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Scope
 }
 
 // GetPublicKey returns value of PublicKey field.
 func (a *AccountAcceptAuthorizationRequest) GetPublicKey() (value string) {
+	if a == nil {
+		return
+	}
 	return a.PublicKey
 }
 
 // GetValueHashes returns value of ValueHashes field.
 func (a *AccountAcceptAuthorizationRequest) GetValueHashes() (value []SecureValueHash) {
+	if a == nil {
+		return
+	}
 	return a.ValueHashes
 }
 
 // GetCredentials returns value of Credentials field.
 func (a *AccountAcceptAuthorizationRequest) GetCredentials() (value SecureCredentialsEncrypted) {
+	if a == nil {
+		return
+	}
 	return a.Credentials
 }
 

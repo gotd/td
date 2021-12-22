@@ -198,16 +198,25 @@ func (s *MessagesSendScreenshotNotificationRequest) DecodeBare(b *bin.Buffer) er
 
 // GetPeer returns value of Peer field.
 func (s *MessagesSendScreenshotNotificationRequest) GetPeer() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
 // GetReplyToMsgID returns value of ReplyToMsgID field.
 func (s *MessagesSendScreenshotNotificationRequest) GetReplyToMsgID() (value int) {
+	if s == nil {
+		return
+	}
 	return s.ReplyToMsgID
 }
 
 // GetRandomID returns value of RandomID field.
 func (s *MessagesSendScreenshotNotificationRequest) GetRandomID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.RandomID
 }
 

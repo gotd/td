@@ -230,10 +230,16 @@ func (u *Users) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTotalCount returns value of TotalCount field.
 func (u *Users) GetTotalCount() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.TotalCount
 }
 
 // GetUserIDs returns value of UserIDs field.
 func (u *Users) GetUserIDs() (value []int64) {
+	if u == nil {
+		return
+	}
 	return u.UserIDs
 }

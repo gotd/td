@@ -208,11 +208,17 @@ func (s *SetChatPermissionsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (s *SetChatPermissionsRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetPermissions returns value of Permissions field.
 func (s *SetChatPermissionsRequest) GetPermissions() (value ChatPermissions) {
+	if s == nil {
+		return
+	}
 	return s.Permissions
 }
 

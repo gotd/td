@@ -287,11 +287,17 @@ func (p *HelpPassportConfig) DecodeBare(b *bin.Buffer) error {
 
 // GetHash returns value of Hash field.
 func (p *HelpPassportConfig) GetHash() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Hash
 }
 
 // GetCountriesLangs returns value of CountriesLangs field.
 func (p *HelpPassportConfig) GetCountriesLangs() (value DataJSON) {
+	if p == nil {
+		return
+	}
 	return p.CountriesLangs
 }
 

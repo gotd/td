@@ -177,11 +177,17 @@ func (r *UploadReuploadCDNFileRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetFileToken returns value of FileToken field.
 func (r *UploadReuploadCDNFileRequest) GetFileToken() (value []byte) {
+	if r == nil {
+		return
+	}
 	return r.FileToken
 }
 
 // GetRequestToken returns value of RequestToken field.
 func (r *UploadReuploadCDNFileRequest) GetRequestToken() (value []byte) {
+	if r == nil {
+		return
+	}
 	return r.RequestToken
 }
 

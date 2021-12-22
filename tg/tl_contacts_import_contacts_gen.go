@@ -176,6 +176,9 @@ func (i *ContactsImportContactsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetContacts returns value of Contacts field.
 func (i *ContactsImportContactsRequest) GetContacts() (value []InputPhoneContact) {
+	if i == nil {
+		return
+	}
 	return i.Contacts
 }
 

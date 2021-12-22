@@ -209,11 +209,17 @@ func (s *SetAuthenticationPhoneNumberRequest) DecodeTDLibJSON(b tdjson.Decoder) 
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (s *SetAuthenticationPhoneNumberRequest) GetPhoneNumber() (value string) {
+	if s == nil {
+		return
+	}
 	return s.PhoneNumber
 }
 
 // GetSettings returns value of Settings field.
 func (s *SetAuthenticationPhoneNumberRequest) GetSettings() (value PhoneNumberAuthenticationSettings) {
+	if s == nil {
+		return
+	}
 	return s.Settings
 }
 

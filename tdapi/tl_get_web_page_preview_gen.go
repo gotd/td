@@ -183,6 +183,9 @@ func (g *GetWebPagePreviewRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (g *GetWebPagePreviewRequest) GetText() (value FormattedText) {
+	if g == nil {
+		return
+	}
 	return g.Text
 }
 

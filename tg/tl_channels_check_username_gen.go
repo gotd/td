@@ -182,11 +182,17 @@ func (c *ChannelsCheckUsernameRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (c *ChannelsCheckUsernameRequest) GetChannel() (value InputChannelClass) {
+	if c == nil {
+		return
+	}
 	return c.Channel
 }
 
 // GetUsername returns value of Username field.
 func (c *ChannelsCheckUsernameRequest) GetUsername() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Username
 }
 

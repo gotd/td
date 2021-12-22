@@ -179,11 +179,17 @@ func (i *InputWallPaper) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputWallPaper) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputWallPaper) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }
 
@@ -316,6 +322,9 @@ func (i *InputWallPaperSlug) DecodeBare(b *bin.Buffer) error {
 
 // GetSlug returns value of Slug field.
 func (i *InputWallPaperSlug) GetSlug() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Slug
 }
 
@@ -452,6 +461,9 @@ func (i *InputWallPaperNoFile) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputWallPaperNoFile) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 

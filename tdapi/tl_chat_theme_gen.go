@@ -233,15 +233,24 @@ func (c *ChatTheme) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetName returns value of Name field.
 func (c *ChatTheme) GetName() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Name
 }
 
 // GetLightSettings returns value of LightSettings field.
 func (c *ChatTheme) GetLightSettings() (value ThemeSettings) {
+	if c == nil {
+		return
+	}
 	return c.LightSettings
 }
 
 // GetDarkSettings returns value of DarkSettings field.
 func (c *ChatTheme) GetDarkSettings() (value ThemeSettings) {
+	if c == nil {
+		return
+	}
 	return c.DarkSettings
 }

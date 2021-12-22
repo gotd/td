@@ -190,11 +190,17 @@ func (u *MessagesUploadMediaRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (u *MessagesUploadMediaRequest) GetPeer() (value InputPeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
 // GetMedia returns value of Media field.
 func (u *MessagesUploadMediaRequest) GetMedia() (value InputMediaClass) {
+	if u == nil {
+		return
+	}
 	return u.Media
 }
 

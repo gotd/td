@@ -188,6 +188,9 @@ func (o *OptionValueBoolean) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetValue returns value of Value field.
 func (o *OptionValueBoolean) GetValue() (value bool) {
+	if o == nil {
+		return
+	}
 	return o.Value
 }
 
@@ -477,6 +480,9 @@ func (o *OptionValueInteger) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetValue returns value of Value field.
 func (o *OptionValueInteger) GetValue() (value int64) {
+	if o == nil {
+		return
+	}
 	return o.Value
 }
 
@@ -637,6 +643,9 @@ func (o *OptionValueString) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetValue returns value of Value field.
 func (o *OptionValueString) GetValue() (value string) {
+	if o == nil {
+		return
+	}
 	return o.Value
 }
 

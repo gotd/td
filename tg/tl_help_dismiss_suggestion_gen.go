@@ -188,11 +188,17 @@ func (d *HelpDismissSuggestionRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (d *HelpDismissSuggestionRequest) GetPeer() (value InputPeerClass) {
+	if d == nil {
+		return
+	}
 	return d.Peer
 }
 
 // GetSuggestion returns value of Suggestion field.
 func (d *HelpDismissSuggestionRequest) GetSuggestion() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Suggestion
 }
 

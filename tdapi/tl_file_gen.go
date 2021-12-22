@@ -284,25 +284,40 @@ func (f *File) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (f *File) GetID() (value int32) {
+	if f == nil {
+		return
+	}
 	return f.ID
 }
 
 // GetSize returns value of Size field.
 func (f *File) GetSize() (value int32) {
+	if f == nil {
+		return
+	}
 	return f.Size
 }
 
 // GetExpectedSize returns value of ExpectedSize field.
 func (f *File) GetExpectedSize() (value int32) {
+	if f == nil {
+		return
+	}
 	return f.ExpectedSize
 }
 
 // GetLocal returns value of Local field.
 func (f *File) GetLocal() (value LocalFile) {
+	if f == nil {
+		return
+	}
 	return f.Local
 }
 
 // GetRemote returns value of Remote field.
 func (f *File) GetRemote() (value RemoteFile) {
+	if f == nil {
+		return
+	}
 	return f.Remote
 }

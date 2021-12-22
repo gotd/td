@@ -179,11 +179,17 @@ func (t *ChannelsTogglePreHistoryHiddenRequest) DecodeBare(b *bin.Buffer) error 
 
 // GetChannel returns value of Channel field.
 func (t *ChannelsTogglePreHistoryHiddenRequest) GetChannel() (value InputChannelClass) {
+	if t == nil {
+		return
+	}
 	return t.Channel
 }
 
 // GetEnabled returns value of Enabled field.
 func (t *ChannelsTogglePreHistoryHiddenRequest) GetEnabled() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.Enabled
 }
 

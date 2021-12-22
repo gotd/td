@@ -162,10 +162,16 @@ func (r *RPCResult) DecodeBare(b *bin.Buffer) error {
 
 // GetReqMsgID returns value of ReqMsgID field.
 func (r *RPCResult) GetReqMsgID() (value int64) {
+	if r == nil {
+		return
+	}
 	return r.ReqMsgID
 }
 
 // GetResult returns value of Result field.
 func (r *RPCResult) GetResult() (value GzipPacked) {
+	if r == nil {
+		return
+	}
 	return r.Result
 }

@@ -364,6 +364,9 @@ func (c *ChannelParticipantsKicked) DecodeBare(b *bin.Buffer) error {
 
 // GetQ returns value of Q field.
 func (c *ChannelParticipantsKicked) GetQ() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Q
 }
 
@@ -598,6 +601,9 @@ func (c *ChannelParticipantsBanned) DecodeBare(b *bin.Buffer) error {
 
 // GetQ returns value of Q field.
 func (c *ChannelParticipantsBanned) GetQ() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Q
 }
 
@@ -730,6 +736,9 @@ func (c *ChannelParticipantsSearch) DecodeBare(b *bin.Buffer) error {
 
 // GetQ returns value of Q field.
 func (c *ChannelParticipantsSearch) GetQ() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Q
 }
 
@@ -862,6 +871,9 @@ func (c *ChannelParticipantsContacts) DecodeBare(b *bin.Buffer) error {
 
 // GetQ returns value of Q field.
 func (c *ChannelParticipantsContacts) GetQ() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Q
 }
 
@@ -1073,6 +1085,9 @@ func (c *ChannelParticipantsMentions) SetQ(value string) {
 // GetQ returns value of Q conditional field and
 // boolean which is true if field was set.
 func (c *ChannelParticipantsMentions) GetQ() (value string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(0) {
 		return value, false
 	}
@@ -1088,6 +1103,9 @@ func (c *ChannelParticipantsMentions) SetTopMsgID(value int) {
 // GetTopMsgID returns value of TopMsgID conditional field and
 // boolean which is true if field was set.
 func (c *ChannelParticipantsMentions) GetTopMsgID() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(1) {
 		return value, false
 	}

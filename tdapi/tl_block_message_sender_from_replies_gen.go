@@ -258,21 +258,33 @@ func (b *BlockMessageSenderFromRepliesRequest) DecodeTDLibJSON(buf tdjson.Decode
 
 // GetMessageID returns value of MessageID field.
 func (b *BlockMessageSenderFromRepliesRequest) GetMessageID() (value int64) {
+	if b == nil {
+		return
+	}
 	return b.MessageID
 }
 
 // GetDeleteMessage returns value of DeleteMessage field.
 func (b *BlockMessageSenderFromRepliesRequest) GetDeleteMessage() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.DeleteMessage
 }
 
 // GetDeleteAllMessages returns value of DeleteAllMessages field.
 func (b *BlockMessageSenderFromRepliesRequest) GetDeleteAllMessages() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.DeleteAllMessages
 }
 
 // GetReportSpam returns value of ReportSpam field.
 func (b *BlockMessageSenderFromRepliesRequest) GetReportSpam() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.ReportSpam
 }
 

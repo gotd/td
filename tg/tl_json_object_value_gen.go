@@ -179,10 +179,16 @@ func (j *JSONObjectValue) DecodeBare(b *bin.Buffer) error {
 
 // GetKey returns value of Key field.
 func (j *JSONObjectValue) GetKey() (value string) {
+	if j == nil {
+		return
+	}
 	return j.Key
 }
 
 // GetValue returns value of Value field.
 func (j *JSONObjectValue) GetValue() (value JSONValueClass) {
+	if j == nil {
+		return
+	}
 	return j.Value
 }

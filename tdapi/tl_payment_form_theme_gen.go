@@ -308,30 +308,48 @@ func (p *PaymentFormTheme) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBackgroundColor returns value of BackgroundColor field.
 func (p *PaymentFormTheme) GetBackgroundColor() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.BackgroundColor
 }
 
 // GetTextColor returns value of TextColor field.
 func (p *PaymentFormTheme) GetTextColor() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.TextColor
 }
 
 // GetHintColor returns value of HintColor field.
 func (p *PaymentFormTheme) GetHintColor() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.HintColor
 }
 
 // GetLinkColor returns value of LinkColor field.
 func (p *PaymentFormTheme) GetLinkColor() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.LinkColor
 }
 
 // GetButtonColor returns value of ButtonColor field.
 func (p *PaymentFormTheme) GetButtonColor() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.ButtonColor
 }
 
 // GetButtonTextColor returns value of ButtonTextColor field.
 func (p *PaymentFormTheme) GetButtonTextColor() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.ButtonTextColor
 }

@@ -243,16 +243,25 @@ func (t *ToggleGroupCallParticipantIsMutedRequest) DecodeTDLibJSON(b tdjson.Deco
 
 // GetGroupCallID returns value of GroupCallID field.
 func (t *ToggleGroupCallParticipantIsMutedRequest) GetGroupCallID() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.GroupCallID
 }
 
 // GetParticipantID returns value of ParticipantID field.
 func (t *ToggleGroupCallParticipantIsMutedRequest) GetParticipantID() (value MessageSenderClass) {
+	if t == nil {
+		return
+	}
 	return t.ParticipantID
 }
 
 // GetIsMuted returns value of IsMuted field.
 func (t *ToggleGroupCallParticipantIsMutedRequest) GetIsMuted() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.IsMuted
 }
 

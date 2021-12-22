@@ -309,31 +309,49 @@ func (s *SetGameScoreRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (s *SetGameScoreRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (s *SetGameScoreRequest) GetMessageID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.MessageID
 }
 
 // GetEditMessage returns value of EditMessage field.
 func (s *SetGameScoreRequest) GetEditMessage() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.EditMessage
 }
 
 // GetUserID returns value of UserID field.
 func (s *SetGameScoreRequest) GetUserID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.UserID
 }
 
 // GetScore returns value of Score field.
 func (s *SetGameScoreRequest) GetScore() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Score
 }
 
 // GetForce returns value of Force field.
 func (s *SetGameScoreRequest) GetForce() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Force
 }
 

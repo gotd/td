@@ -207,11 +207,17 @@ func (c *MessagesChatAdminsWithInvites) DecodeBare(b *bin.Buffer) error {
 
 // GetAdmins returns value of Admins field.
 func (c *MessagesChatAdminsWithInvites) GetAdmins() (value []ChatAdminWithInvites) {
+	if c == nil {
+		return
+	}
 	return c.Admins
 }
 
 // GetUsers returns value of Users field.
 func (c *MessagesChatAdminsWithInvites) GetUsers() (value []UserClass) {
+	if c == nil {
+		return
+	}
 	return c.Users
 }
 

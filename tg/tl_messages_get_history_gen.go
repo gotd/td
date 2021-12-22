@@ -298,41 +298,65 @@ func (g *MessagesGetHistoryRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (g *MessagesGetHistoryRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
 // GetOffsetID returns value of OffsetID field.
 func (g *MessagesGetHistoryRequest) GetOffsetID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.OffsetID
 }
 
 // GetOffsetDate returns value of OffsetDate field.
 func (g *MessagesGetHistoryRequest) GetOffsetDate() (value int) {
+	if g == nil {
+		return
+	}
 	return g.OffsetDate
 }
 
 // GetAddOffset returns value of AddOffset field.
 func (g *MessagesGetHistoryRequest) GetAddOffset() (value int) {
+	if g == nil {
+		return
+	}
 	return g.AddOffset
 }
 
 // GetLimit returns value of Limit field.
 func (g *MessagesGetHistoryRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 
 // GetMaxID returns value of MaxID field.
 func (g *MessagesGetHistoryRequest) GetMaxID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.MaxID
 }
 
 // GetMinID returns value of MinID field.
 func (g *MessagesGetHistoryRequest) GetMinID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.MinID
 }
 
 // GetHash returns value of Hash field.
 func (g *MessagesGetHistoryRequest) GetHash() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.Hash
 }
 

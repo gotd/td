@@ -209,5 +209,8 @@ func (s *SponsoredMessages) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMessages returns value of Messages field.
 func (s *SponsoredMessages) GetMessages() (value []SponsoredMessage) {
+	if s == nil {
+		return
+	}
 	return s.Messages
 }

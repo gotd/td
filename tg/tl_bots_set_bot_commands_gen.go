@@ -213,16 +213,25 @@ func (s *BotsSetBotCommandsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetScope returns value of Scope field.
 func (s *BotsSetBotCommandsRequest) GetScope() (value BotCommandScopeClass) {
+	if s == nil {
+		return
+	}
 	return s.Scope
 }
 
 // GetLangCode returns value of LangCode field.
 func (s *BotsSetBotCommandsRequest) GetLangCode() (value string) {
+	if s == nil {
+		return
+	}
 	return s.LangCode
 }
 
 // GetCommands returns value of Commands field.
 func (s *BotsSetBotCommandsRequest) GetCommands() (value []BotCommand) {
+	if s == nil {
+		return
+	}
 	return s.Commands
 }
 

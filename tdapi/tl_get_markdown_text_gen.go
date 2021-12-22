@@ -183,6 +183,9 @@ func (g *GetMarkdownTextRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (g *GetMarkdownTextRequest) GetText() (value FormattedText) {
+	if g == nil {
+		return
+	}
 	return g.Text
 }
 

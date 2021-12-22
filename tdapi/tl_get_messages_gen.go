@@ -230,11 +230,17 @@ func (g *GetMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (g *GetMessagesRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetMessageIDs returns value of MessageIDs field.
 func (g *GetMessagesRequest) GetMessageIDs() (value []int64) {
+	if g == nil {
+		return
+	}
 	return g.MessageIDs
 }
 

@@ -264,6 +264,9 @@ func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) DecodeBare(b *bin.Buff
 
 // GetSalt returns value of Salt field.
 func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) GetSalt() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.Salt
 }
 
@@ -396,6 +399,9 @@ func (s *SecurePasswordKdfAlgoSHA512) DecodeBare(b *bin.Buffer) error {
 
 // GetSalt returns value of Salt field.
 func (s *SecurePasswordKdfAlgoSHA512) GetSalt() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.Salt
 }
 

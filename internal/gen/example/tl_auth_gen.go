@@ -152,6 +152,9 @@ func (a *Auth) DecodeBare(b *bin.Buffer) error {
 
 // GetName returns value of Name field.
 func (a *Auth) GetName() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Name
 }
 
@@ -293,11 +296,17 @@ func (a *AuthPassword) DecodeBare(b *bin.Buffer) error {
 
 // GetName returns value of Name field.
 func (a *AuthPassword) GetName() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Name
 }
 
 // GetPassword returns value of Password field.
 func (a *AuthPassword) GetPassword() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Password
 }
 

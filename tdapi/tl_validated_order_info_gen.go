@@ -234,10 +234,16 @@ func (v *ValidatedOrderInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetOrderInfoID returns value of OrderInfoID field.
 func (v *ValidatedOrderInfo) GetOrderInfoID() (value string) {
+	if v == nil {
+		return
+	}
 	return v.OrderInfoID
 }
 
 // GetShippingOptions returns value of ShippingOptions field.
 func (v *ValidatedOrderInfo) GetShippingOptions() (value []ShippingOption) {
+	if v == nil {
+		return
+	}
 	return v.ShippingOptions
 }

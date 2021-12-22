@@ -233,16 +233,25 @@ func (d *DeleteChatHistoryRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (d *DeleteChatHistoryRequest) GetChatID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.ChatID
 }
 
 // GetRemoveFromChatList returns value of RemoveFromChatList field.
 func (d *DeleteChatHistoryRequest) GetRemoveFromChatList() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.RemoveFromChatList
 }
 
 // GetRevoke returns value of Revoke field.
 func (d *DeleteChatHistoryRequest) GetRevoke() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Revoke
 }
 

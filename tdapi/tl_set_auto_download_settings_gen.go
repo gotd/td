@@ -218,11 +218,17 @@ func (s *SetAutoDownloadSettingsRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetSettings returns value of Settings field.
 func (s *SetAutoDownloadSettingsRequest) GetSettings() (value AutoDownloadSettings) {
+	if s == nil {
+		return
+	}
 	return s.Settings
 }
 
 // GetType returns value of Type field.
 func (s *SetAutoDownloadSettingsRequest) GetType() (value NetworkTypeClass) {
+	if s == nil {
+		return
+	}
 	return s.Type
 }
 

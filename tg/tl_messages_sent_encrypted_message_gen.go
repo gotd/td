@@ -160,6 +160,9 @@ func (s *MessagesSentEncryptedMessage) DecodeBare(b *bin.Buffer) error {
 
 // GetDate returns value of Date field.
 func (s *MessagesSentEncryptedMessage) GetDate() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Date
 }
 
@@ -316,11 +319,17 @@ func (s *MessagesSentEncryptedFile) DecodeBare(b *bin.Buffer) error {
 
 // GetDate returns value of Date field.
 func (s *MessagesSentEncryptedFile) GetDate() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Date
 }
 
 // GetFile returns value of File field.
 func (s *MessagesSentEncryptedFile) GetFile() (value EncryptedFileClass) {
+	if s == nil {
+		return
+	}
 	return s.File
 }
 

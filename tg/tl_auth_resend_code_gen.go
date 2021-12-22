@@ -181,11 +181,17 @@ func (r *AuthResendCodeRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (r *AuthResendCodeRequest) GetPhoneNumber() (value string) {
+	if r == nil {
+		return
+	}
 	return r.PhoneNumber
 }
 
 // GetPhoneCodeHash returns value of PhoneCodeHash field.
 func (r *AuthResendCodeRequest) GetPhoneCodeHash() (value string) {
+	if r == nil {
+		return
+	}
 	return r.PhoneCodeHash
 }
 

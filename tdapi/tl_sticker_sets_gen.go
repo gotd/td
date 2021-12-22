@@ -234,10 +234,16 @@ func (s *StickerSets) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTotalCount returns value of TotalCount field.
 func (s *StickerSets) GetTotalCount() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.TotalCount
 }
 
 // GetSets returns value of Sets field.
 func (s *StickerSets) GetSets() (value []StickerSetInfo) {
+	if s == nil {
+		return
+	}
 	return s.Sets
 }

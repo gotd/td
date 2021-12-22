@@ -160,6 +160,9 @@ func (j *ChannelsJoinChannelRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (j *ChannelsJoinChannelRequest) GetChannel() (value InputChannelClass) {
+	if j == nil {
+		return
+	}
 	return j.Channel
 }
 

@@ -177,11 +177,17 @@ func (g *UploadGetCDNFileHashesRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetFileToken returns value of FileToken field.
 func (g *UploadGetCDNFileHashesRequest) GetFileToken() (value []byte) {
+	if g == nil {
+		return
+	}
 	return g.FileToken
 }
 
 // GetOffset returns value of Offset field.
 func (g *UploadGetCDNFileHashesRequest) GetOffset() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 

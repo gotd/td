@@ -202,16 +202,25 @@ func (v *AccountVerifyPhoneRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (v *AccountVerifyPhoneRequest) GetPhoneNumber() (value string) {
+	if v == nil {
+		return
+	}
 	return v.PhoneNumber
 }
 
 // GetPhoneCodeHash returns value of PhoneCodeHash field.
 func (v *AccountVerifyPhoneRequest) GetPhoneCodeHash() (value string) {
+	if v == nil {
+		return
+	}
 	return v.PhoneCodeHash
 }
 
 // GetPhoneCode returns value of PhoneCode field.
 func (v *AccountVerifyPhoneRequest) GetPhoneCode() (value string) {
+	if v == nil {
+		return
+	}
 	return v.PhoneCode
 }
 

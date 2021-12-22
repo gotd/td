@@ -259,6 +259,9 @@ func (u *MessagesUpdatePinnedMessageRequest) SetSilent(value bool) {
 
 // GetSilent returns value of Silent conditional field.
 func (u *MessagesUpdatePinnedMessageRequest) GetSilent() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(0)
 }
 
@@ -275,6 +278,9 @@ func (u *MessagesUpdatePinnedMessageRequest) SetUnpin(value bool) {
 
 // GetUnpin returns value of Unpin conditional field.
 func (u *MessagesUpdatePinnedMessageRequest) GetUnpin() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(1)
 }
 
@@ -291,16 +297,25 @@ func (u *MessagesUpdatePinnedMessageRequest) SetPmOneside(value bool) {
 
 // GetPmOneside returns value of PmOneside conditional field.
 func (u *MessagesUpdatePinnedMessageRequest) GetPmOneside() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(2)
 }
 
 // GetPeer returns value of Peer field.
 func (u *MessagesUpdatePinnedMessageRequest) GetPeer() (value InputPeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
 // GetID returns value of ID field.
 func (u *MessagesUpdatePinnedMessageRequest) GetID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 

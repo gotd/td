@@ -180,11 +180,17 @@ func (a *StickersAddStickerToSetRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetStickerset returns value of Stickerset field.
 func (a *StickersAddStickerToSetRequest) GetStickerset() (value InputStickerSetClass) {
+	if a == nil {
+		return
+	}
 	return a.Stickerset
 }
 
 // GetSticker returns value of Sticker field.
 func (a *StickersAddStickerToSetRequest) GetSticker() (value InputStickerSetItem) {
+	if a == nil {
+		return
+	}
 	return a.Sticker
 }
 

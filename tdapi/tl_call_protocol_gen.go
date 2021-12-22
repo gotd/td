@@ -305,25 +305,40 @@ func (c *CallProtocol) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUDPP2P returns value of UDPP2P field.
 func (c *CallProtocol) GetUDPP2P() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.UDPP2P
 }
 
 // GetUDPReflector returns value of UDPReflector field.
 func (c *CallProtocol) GetUDPReflector() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.UDPReflector
 }
 
 // GetMinLayer returns value of MinLayer field.
 func (c *CallProtocol) GetMinLayer() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.MinLayer
 }
 
 // GetMaxLayer returns value of MaxLayer field.
 func (c *CallProtocol) GetMaxLayer() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.MaxLayer
 }
 
 // GetLibraryVersions returns value of LibraryVersions field.
 func (c *CallProtocol) GetLibraryVersions() (value []string) {
+	if c == nil {
+		return
+	}
 	return c.LibraryVersions
 }

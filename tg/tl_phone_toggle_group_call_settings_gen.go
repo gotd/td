@@ -234,11 +234,17 @@ func (t *PhoneToggleGroupCallSettingsRequest) SetResetInviteHash(value bool) {
 
 // GetResetInviteHash returns value of ResetInviteHash conditional field.
 func (t *PhoneToggleGroupCallSettingsRequest) GetResetInviteHash() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.Flags.Has(1)
 }
 
 // GetCall returns value of Call field.
 func (t *PhoneToggleGroupCallSettingsRequest) GetCall() (value InputGroupCall) {
+	if t == nil {
+		return
+	}
 	return t.Call
 }
 
@@ -251,6 +257,9 @@ func (t *PhoneToggleGroupCallSettingsRequest) SetJoinMuted(value bool) {
 // GetJoinMuted returns value of JoinMuted conditional field and
 // boolean which is true if field was set.
 func (t *PhoneToggleGroupCallSettingsRequest) GetJoinMuted() (value bool, ok bool) {
+	if t == nil {
+		return
+	}
 	if !t.Flags.Has(0) {
 		return value, false
 	}

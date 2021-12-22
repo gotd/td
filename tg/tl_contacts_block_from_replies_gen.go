@@ -241,6 +241,9 @@ func (b *ContactsBlockFromRepliesRequest) SetDeleteMessage(value bool) {
 
 // GetDeleteMessage returns value of DeleteMessage conditional field.
 func (b *ContactsBlockFromRepliesRequest) GetDeleteMessage() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.Flags.Has(0)
 }
 
@@ -257,6 +260,9 @@ func (b *ContactsBlockFromRepliesRequest) SetDeleteHistory(value bool) {
 
 // GetDeleteHistory returns value of DeleteHistory conditional field.
 func (b *ContactsBlockFromRepliesRequest) GetDeleteHistory() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.Flags.Has(1)
 }
 
@@ -273,11 +279,17 @@ func (b *ContactsBlockFromRepliesRequest) SetReportSpam(value bool) {
 
 // GetReportSpam returns value of ReportSpam conditional field.
 func (b *ContactsBlockFromRepliesRequest) GetReportSpam() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.Flags.Has(2)
 }
 
 // GetMsgID returns value of MsgID field.
 func (b *ContactsBlockFromRepliesRequest) GetMsgID() (value int) {
+	if b == nil {
+		return
+	}
 	return b.MsgID
 }
 

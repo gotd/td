@@ -208,11 +208,17 @@ func (r *RegisterUserRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFirstName returns value of FirstName field.
 func (r *RegisterUserRequest) GetFirstName() (value string) {
+	if r == nil {
+		return
+	}
 	return r.FirstName
 }
 
 // GetLastName returns value of LastName field.
 func (r *RegisterUserRequest) GetLastName() (value string) {
+	if r == nil {
+		return
+	}
 	return r.LastName
 }
 

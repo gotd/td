@@ -302,11 +302,17 @@ func (s *MessagesSavedGifs) DecodeBare(b *bin.Buffer) error {
 
 // GetHash returns value of Hash field.
 func (s *MessagesSavedGifs) GetHash() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.Hash
 }
 
 // GetGifs returns value of Gifs field.
 func (s *MessagesSavedGifs) GetGifs() (value []DocumentClass) {
+	if s == nil {
+		return
+	}
 	return s.Gifs
 }
 

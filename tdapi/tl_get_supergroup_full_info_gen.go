@@ -183,6 +183,9 @@ func (g *GetSupergroupFullInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSupergroupID returns value of SupergroupID field.
 func (g *GetSupergroupFullInfoRequest) GetSupergroupID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.SupergroupID
 }
 

@@ -174,10 +174,16 @@ func (p *PaymentSavedCredentialsCard) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (p *PaymentSavedCredentialsCard) GetID() (value string) {
+	if p == nil {
+		return
+	}
 	return p.ID
 }
 
 // GetTitle returns value of Title field.
 func (p *PaymentSavedCredentialsCard) GetTitle() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Title
 }

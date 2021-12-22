@@ -177,11 +177,17 @@ func (g *MessagesGetStickersRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetEmoticon returns value of Emoticon field.
 func (g *MessagesGetStickersRequest) GetEmoticon() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Emoticon
 }
 
 // GetHash returns value of Hash field.
 func (g *MessagesGetStickersRequest) GetHash() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.Hash
 }
 

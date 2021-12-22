@@ -221,20 +221,32 @@ func (s *StatsGroupTopAdmin) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (s *StatsGroupTopAdmin) GetUserID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.UserID
 }
 
 // GetDeleted returns value of Deleted field.
 func (s *StatsGroupTopAdmin) GetDeleted() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Deleted
 }
 
 // GetKicked returns value of Kicked field.
 func (s *StatsGroupTopAdmin) GetKicked() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Kicked
 }
 
 // GetBanned returns value of Banned field.
 func (s *StatsGroupTopAdmin) GetBanned() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Banned
 }

@@ -478,6 +478,9 @@ func (s *MessagesSendMessageRequest) SetNoWebpage(value bool) {
 
 // GetNoWebpage returns value of NoWebpage conditional field.
 func (s *MessagesSendMessageRequest) GetNoWebpage() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(1)
 }
 
@@ -494,6 +497,9 @@ func (s *MessagesSendMessageRequest) SetSilent(value bool) {
 
 // GetSilent returns value of Silent conditional field.
 func (s *MessagesSendMessageRequest) GetSilent() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(5)
 }
 
@@ -510,6 +516,9 @@ func (s *MessagesSendMessageRequest) SetBackground(value bool) {
 
 // GetBackground returns value of Background conditional field.
 func (s *MessagesSendMessageRequest) GetBackground() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(6)
 }
 
@@ -526,11 +535,17 @@ func (s *MessagesSendMessageRequest) SetClearDraft(value bool) {
 
 // GetClearDraft returns value of ClearDraft conditional field.
 func (s *MessagesSendMessageRequest) GetClearDraft() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(7)
 }
 
 // GetPeer returns value of Peer field.
 func (s *MessagesSendMessageRequest) GetPeer() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
@@ -543,6 +558,9 @@ func (s *MessagesSendMessageRequest) SetReplyToMsgID(value int) {
 // GetReplyToMsgID returns value of ReplyToMsgID conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSendMessageRequest) GetReplyToMsgID() (value int, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(0) {
 		return value, false
 	}
@@ -551,11 +569,17 @@ func (s *MessagesSendMessageRequest) GetReplyToMsgID() (value int, ok bool) {
 
 // GetMessage returns value of Message field.
 func (s *MessagesSendMessageRequest) GetMessage() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Message
 }
 
 // GetRandomID returns value of RandomID field.
 func (s *MessagesSendMessageRequest) GetRandomID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.RandomID
 }
 
@@ -568,6 +592,9 @@ func (s *MessagesSendMessageRequest) SetReplyMarkup(value ReplyMarkupClass) {
 // GetReplyMarkup returns value of ReplyMarkup conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSendMessageRequest) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(2) {
 		return value, false
 	}
@@ -583,6 +610,9 @@ func (s *MessagesSendMessageRequest) SetEntities(value []MessageEntityClass) {
 // GetEntities returns value of Entities conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSendMessageRequest) GetEntities() (value []MessageEntityClass, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(3) {
 		return value, false
 	}
@@ -598,6 +628,9 @@ func (s *MessagesSendMessageRequest) SetScheduleDate(value int) {
 // GetScheduleDate returns value of ScheduleDate conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSendMessageRequest) GetScheduleDate() (value int, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(10) {
 		return value, false
 	}
@@ -613,6 +646,9 @@ func (s *MessagesSendMessageRequest) SetSendAs(value InputPeerClass) {
 // GetSendAs returns value of SendAs conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSendMessageRequest) GetSendAs() (value InputPeerClass, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(13) {
 		return value, false
 	}

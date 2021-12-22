@@ -215,5 +215,8 @@ func (u *Updates) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUpdates returns value of Updates field.
 func (u *Updates) GetUpdates() (value []UpdateClass) {
+	if u == nil {
+		return
+	}
 	return u.Updates
 }

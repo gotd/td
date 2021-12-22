@@ -155,6 +155,9 @@ func (s *PhoneStartScheduledGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetCall returns value of Call field.
 func (s *PhoneStartScheduledGroupCallRequest) GetCall() (value InputGroupCall) {
+	if s == nil {
+		return
+	}
 	return s.Call
 }
 

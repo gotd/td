@@ -235,21 +235,33 @@ func (r *MessagesReportRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (r *MessagesReportRequest) GetPeer() (value InputPeerClass) {
+	if r == nil {
+		return
+	}
 	return r.Peer
 }
 
 // GetID returns value of ID field.
 func (r *MessagesReportRequest) GetID() (value []int) {
+	if r == nil {
+		return
+	}
 	return r.ID
 }
 
 // GetReason returns value of Reason field.
 func (r *MessagesReportRequest) GetReason() (value ReportReasonClass) {
+	if r == nil {
+		return
+	}
 	return r.Reason
 }
 
 // GetMessage returns value of Message field.
 func (r *MessagesReportRequest) GetMessage() (value string) {
+	if r == nil {
+		return
+	}
 	return r.Message
 }
 

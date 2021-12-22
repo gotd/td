@@ -234,16 +234,25 @@ func (s *SendPhoneNumberConfirmationCodeRequest) DecodeTDLibJSON(b tdjson.Decode
 
 // GetHash returns value of Hash field.
 func (s *SendPhoneNumberConfirmationCodeRequest) GetHash() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Hash
 }
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (s *SendPhoneNumberConfirmationCodeRequest) GetPhoneNumber() (value string) {
+	if s == nil {
+		return
+	}
 	return s.PhoneNumber
 }
 
 // GetSettings returns value of Settings field.
 func (s *SendPhoneNumberConfirmationCodeRequest) GetSettings() (value PhoneNumberAuthenticationSettings) {
+	if s == nil {
+		return
+	}
 	return s.Settings
 }
 

@@ -337,21 +337,33 @@ func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) Deco
 
 // GetSalt1 returns value of Salt1 field.
 func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) GetSalt1() (value []byte) {
+	if p == nil {
+		return
+	}
 	return p.Salt1
 }
 
 // GetSalt2 returns value of Salt2 field.
 func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) GetSalt2() (value []byte) {
+	if p == nil {
+		return
+	}
 	return p.Salt2
 }
 
 // GetG returns value of G field.
 func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) GetG() (value int) {
+	if p == nil {
+		return
+	}
 	return p.G
 }
 
 // GetP returns value of P field.
 func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) GetP() (value []byte) {
+	if p == nil {
+		return
+	}
 	return p.P
 }
 

@@ -184,16 +184,25 @@ func (d *DhGenOk) DecodeBare(b *bin.Buffer) error {
 
 // GetNonce returns value of Nonce field.
 func (d *DhGenOk) GetNonce() (value bin.Int128) {
+	if d == nil {
+		return
+	}
 	return d.Nonce
 }
 
 // GetServerNonce returns value of ServerNonce field.
 func (d *DhGenOk) GetServerNonce() (value bin.Int128) {
+	if d == nil {
+		return
+	}
 	return d.ServerNonce
 }
 
 // GetNewNonceHash1 returns value of NewNonceHash1 field.
 func (d *DhGenOk) GetNewNonceHash1() (value bin.Int128) {
+	if d == nil {
+		return
+	}
 	return d.NewNonceHash1
 }
 
@@ -350,16 +359,25 @@ func (d *DhGenRetry) DecodeBare(b *bin.Buffer) error {
 
 // GetNonce returns value of Nonce field.
 func (d *DhGenRetry) GetNonce() (value bin.Int128) {
+	if d == nil {
+		return
+	}
 	return d.Nonce
 }
 
 // GetServerNonce returns value of ServerNonce field.
 func (d *DhGenRetry) GetServerNonce() (value bin.Int128) {
+	if d == nil {
+		return
+	}
 	return d.ServerNonce
 }
 
 // GetNewNonceHash2 returns value of NewNonceHash2 field.
 func (d *DhGenRetry) GetNewNonceHash2() (value bin.Int128) {
+	if d == nil {
+		return
+	}
 	return d.NewNonceHash2
 }
 
@@ -516,16 +534,25 @@ func (d *DhGenFail) DecodeBare(b *bin.Buffer) error {
 
 // GetNonce returns value of Nonce field.
 func (d *DhGenFail) GetNonce() (value bin.Int128) {
+	if d == nil {
+		return
+	}
 	return d.Nonce
 }
 
 // GetServerNonce returns value of ServerNonce field.
 func (d *DhGenFail) GetServerNonce() (value bin.Int128) {
+	if d == nil {
+		return
+	}
 	return d.ServerNonce
 }
 
 // GetNewNonceHash3 returns value of NewNonceHash3 field.
 func (d *DhGenFail) GetNewNonceHash3() (value bin.Int128) {
+	if d == nil {
+		return
+	}
 	return d.NewNonceHash3
 }
 

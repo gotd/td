@@ -284,26 +284,41 @@ func (s *SetInlineGameScoreRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetInlineMessageID returns value of InlineMessageID field.
 func (s *SetInlineGameScoreRequest) GetInlineMessageID() (value string) {
+	if s == nil {
+		return
+	}
 	return s.InlineMessageID
 }
 
 // GetEditMessage returns value of EditMessage field.
 func (s *SetInlineGameScoreRequest) GetEditMessage() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.EditMessage
 }
 
 // GetUserID returns value of UserID field.
 func (s *SetInlineGameScoreRequest) GetUserID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.UserID
 }
 
 // GetScore returns value of Score field.
 func (s *SetInlineGameScoreRequest) GetScore() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Score
 }
 
 // GetForce returns value of Force field.
 func (s *SetInlineGameScoreRequest) GetForce() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Force
 }
 

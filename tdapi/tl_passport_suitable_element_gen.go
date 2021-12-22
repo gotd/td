@@ -269,20 +269,32 @@ func (p *PassportSuitableElement) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetType returns value of Type field.
 func (p *PassportSuitableElement) GetType() (value PassportElementTypeClass) {
+	if p == nil {
+		return
+	}
 	return p.Type
 }
 
 // GetIsSelfieRequired returns value of IsSelfieRequired field.
 func (p *PassportSuitableElement) GetIsSelfieRequired() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsSelfieRequired
 }
 
 // GetIsTranslationRequired returns value of IsTranslationRequired field.
 func (p *PassportSuitableElement) GetIsTranslationRequired() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsTranslationRequired
 }
 
 // GetIsNativeNameRequired returns value of IsNativeNameRequired field.
 func (p *PassportSuitableElement) GetIsNativeNameRequired() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsNativeNameRequired
 }

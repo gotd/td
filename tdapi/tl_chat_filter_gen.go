@@ -552,65 +552,104 @@ func (c *ChatFilter) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTitle returns value of Title field.
 func (c *ChatFilter) GetTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Title
 }
 
 // GetIconName returns value of IconName field.
 func (c *ChatFilter) GetIconName() (value string) {
+	if c == nil {
+		return
+	}
 	return c.IconName
 }
 
 // GetPinnedChatIDs returns value of PinnedChatIDs field.
 func (c *ChatFilter) GetPinnedChatIDs() (value []int64) {
+	if c == nil {
+		return
+	}
 	return c.PinnedChatIDs
 }
 
 // GetIncludedChatIDs returns value of IncludedChatIDs field.
 func (c *ChatFilter) GetIncludedChatIDs() (value []int64) {
+	if c == nil {
+		return
+	}
 	return c.IncludedChatIDs
 }
 
 // GetExcludedChatIDs returns value of ExcludedChatIDs field.
 func (c *ChatFilter) GetExcludedChatIDs() (value []int64) {
+	if c == nil {
+		return
+	}
 	return c.ExcludedChatIDs
 }
 
 // GetExcludeMuted returns value of ExcludeMuted field.
 func (c *ChatFilter) GetExcludeMuted() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.ExcludeMuted
 }
 
 // GetExcludeRead returns value of ExcludeRead field.
 func (c *ChatFilter) GetExcludeRead() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.ExcludeRead
 }
 
 // GetExcludeArchived returns value of ExcludeArchived field.
 func (c *ChatFilter) GetExcludeArchived() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.ExcludeArchived
 }
 
 // GetIncludeContacts returns value of IncludeContacts field.
 func (c *ChatFilter) GetIncludeContacts() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IncludeContacts
 }
 
 // GetIncludeNonContacts returns value of IncludeNonContacts field.
 func (c *ChatFilter) GetIncludeNonContacts() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IncludeNonContacts
 }
 
 // GetIncludeBots returns value of IncludeBots field.
 func (c *ChatFilter) GetIncludeBots() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IncludeBots
 }
 
 // GetIncludeGroups returns value of IncludeGroups field.
 func (c *ChatFilter) GetIncludeGroups() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IncludeGroups
 }
 
 // GetIncludeChannels returns value of IncludeChannels field.
 func (c *ChatFilter) GetIncludeChannels() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IncludeChannels
 }

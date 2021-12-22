@@ -152,6 +152,9 @@ func (a *UserAuth) DecodeBare(b *bin.Buffer) error {
 
 // GetFoo returns value of Foo field.
 func (a *UserAuth) GetFoo() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Foo
 }
 
@@ -276,6 +279,9 @@ func (a *UserAuthPassword) DecodeBare(b *bin.Buffer) error {
 
 // GetPwd returns value of Pwd field.
 func (a *UserAuthPassword) GetPwd() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Pwd
 }
 

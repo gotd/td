@@ -279,21 +279,33 @@ func (e *EditMessageMediaRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (e *EditMessageMediaRequest) GetChatID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (e *EditMessageMediaRequest) GetMessageID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.MessageID
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (e *EditMessageMediaRequest) GetReplyMarkup() (value ReplyMarkupClass) {
+	if e == nil {
+		return
+	}
 	return e.ReplyMarkup
 }
 
 // GetInputMessageContent returns value of InputMessageContent field.
 func (e *EditMessageMediaRequest) GetInputMessageContent() (value InputMessageContentClass) {
+	if e == nil {
+		return
+	}
 	return e.InputMessageContent
 }
 

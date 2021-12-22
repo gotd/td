@@ -289,21 +289,33 @@ func (d *MessagesDialogs) DecodeBare(b *bin.Buffer) error {
 
 // GetDialogs returns value of Dialogs field.
 func (d *MessagesDialogs) GetDialogs() (value []DialogClass) {
+	if d == nil {
+		return
+	}
 	return d.Dialogs
 }
 
 // GetMessages returns value of Messages field.
 func (d *MessagesDialogs) GetMessages() (value []MessageClass) {
+	if d == nil {
+		return
+	}
 	return d.Messages
 }
 
 // GetChats returns value of Chats field.
 func (d *MessagesDialogs) GetChats() (value []ChatClass) {
+	if d == nil {
+		return
+	}
 	return d.Chats
 }
 
 // GetUsers returns value of Users field.
 func (d *MessagesDialogs) GetUsers() (value []UserClass) {
+	if d == nil {
+		return
+	}
 	return d.Users
 }
 
@@ -604,26 +616,41 @@ func (d *MessagesDialogsSlice) DecodeBare(b *bin.Buffer) error {
 
 // GetCount returns value of Count field.
 func (d *MessagesDialogsSlice) GetCount() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Count
 }
 
 // GetDialogs returns value of Dialogs field.
 func (d *MessagesDialogsSlice) GetDialogs() (value []DialogClass) {
+	if d == nil {
+		return
+	}
 	return d.Dialogs
 }
 
 // GetMessages returns value of Messages field.
 func (d *MessagesDialogsSlice) GetMessages() (value []MessageClass) {
+	if d == nil {
+		return
+	}
 	return d.Messages
 }
 
 // GetChats returns value of Chats field.
 func (d *MessagesDialogsSlice) GetChats() (value []ChatClass) {
+	if d == nil {
+		return
+	}
 	return d.Chats
 }
 
 // GetUsers returns value of Users field.
 func (d *MessagesDialogsSlice) GetUsers() (value []UserClass) {
+	if d == nil {
+		return
+	}
 	return d.Users
 }
 
@@ -776,6 +803,9 @@ func (d *MessagesDialogsNotModified) DecodeBare(b *bin.Buffer) error {
 
 // GetCount returns value of Count field.
 func (d *MessagesDialogsNotModified) GetCount() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Count
 }
 

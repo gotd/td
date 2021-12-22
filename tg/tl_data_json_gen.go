@@ -155,5 +155,8 @@ func (d *DataJSON) DecodeBare(b *bin.Buffer) error {
 
 // GetData returns value of Data field.
 func (d *DataJSON) GetData() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Data
 }

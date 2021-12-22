@@ -249,16 +249,25 @@ func (b *ContactsBlocked) DecodeBare(buf *bin.Buffer) error {
 
 // GetBlocked returns value of Blocked field.
 func (b *ContactsBlocked) GetBlocked() (value []PeerBlocked) {
+	if b == nil {
+		return
+	}
 	return b.Blocked
 }
 
 // GetChats returns value of Chats field.
 func (b *ContactsBlocked) GetChats() (value []ChatClass) {
+	if b == nil {
+		return
+	}
 	return b.Chats
 }
 
 // GetUsers returns value of Users field.
 func (b *ContactsBlocked) GetUsers() (value []UserClass) {
+	if b == nil {
+		return
+	}
 	return b.Users
 }
 
@@ -509,21 +518,33 @@ func (b *ContactsBlockedSlice) DecodeBare(buf *bin.Buffer) error {
 
 // GetCount returns value of Count field.
 func (b *ContactsBlockedSlice) GetCount() (value int) {
+	if b == nil {
+		return
+	}
 	return b.Count
 }
 
 // GetBlocked returns value of Blocked field.
 func (b *ContactsBlockedSlice) GetBlocked() (value []PeerBlocked) {
+	if b == nil {
+		return
+	}
 	return b.Blocked
 }
 
 // GetChats returns value of Chats field.
 func (b *ContactsBlockedSlice) GetChats() (value []ChatClass) {
+	if b == nil {
+		return
+	}
 	return b.Chats
 }
 
 // GetUsers returns value of Users field.
 func (b *ContactsBlockedSlice) GetUsers() (value []UserClass) {
+	if b == nil {
+		return
+	}
 	return b.Users
 }
 

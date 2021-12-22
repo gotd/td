@@ -322,30 +322,48 @@ func (s *SecretChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (s *SecretChat) GetID() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.ID
 }
 
 // GetUserID returns value of UserID field.
 func (s *SecretChat) GetUserID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.UserID
 }
 
 // GetState returns value of State field.
 func (s *SecretChat) GetState() (value SecretChatStateClass) {
+	if s == nil {
+		return
+	}
 	return s.State
 }
 
 // GetIsOutbound returns value of IsOutbound field.
 func (s *SecretChat) GetIsOutbound() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsOutbound
 }
 
 // GetKeyHash returns value of KeyHash field.
 func (s *SecretChat) GetKeyHash() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.KeyHash
 }
 
 // GetLayer returns value of Layer field.
 func (s *SecretChat) GetLayer() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Layer
 }

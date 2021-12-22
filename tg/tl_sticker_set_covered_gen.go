@@ -184,11 +184,17 @@ func (s *StickerSetCovered) DecodeBare(b *bin.Buffer) error {
 
 // GetSet returns value of Set field.
 func (s *StickerSetCovered) GetSet() (value StickerSet) {
+	if s == nil {
+		return
+	}
 	return s.Set
 }
 
 // GetCover returns value of Cover field.
 func (s *StickerSetCovered) GetCover() (value DocumentClass) {
+	if s == nil {
+		return
+	}
 	return s.Cover
 }
 
@@ -358,11 +364,17 @@ func (s *StickerSetMultiCovered) DecodeBare(b *bin.Buffer) error {
 
 // GetSet returns value of Set field.
 func (s *StickerSetMultiCovered) GetSet() (value StickerSet) {
+	if s == nil {
+		return
+	}
 	return s.Set
 }
 
 // GetCovers returns value of Covers field.
 func (s *StickerSetMultiCovered) GetCovers() (value []DocumentClass) {
+	if s == nil {
+		return
+	}
 	return s.Covers
 }
 

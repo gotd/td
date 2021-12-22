@@ -218,10 +218,16 @@ func (j *JSONObjectMember) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetKey returns value of Key field.
 func (j *JSONObjectMember) GetKey() (value string) {
+	if j == nil {
+		return
+	}
 	return j.Key
 }
 
 // GetValue returns value of Value field.
 func (j *JSONObjectMember) GetValue() (value JSONValueClass) {
+	if j == nil {
+		return
+	}
 	return j.Value
 }

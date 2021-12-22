@@ -193,6 +193,9 @@ func (g *GetUserPrivacySettingRulesRequest) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetSetting returns value of Setting field.
 func (g *GetUserPrivacySettingRulesRequest) GetSetting() (value UserPrivacySettingClass) {
+	if g == nil {
+		return
+	}
 	return g.Setting
 }
 

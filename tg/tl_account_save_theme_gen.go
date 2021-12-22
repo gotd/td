@@ -179,11 +179,17 @@ func (s *AccountSaveThemeRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetTheme returns value of Theme field.
 func (s *AccountSaveThemeRequest) GetTheme() (value InputThemeClass) {
+	if s == nil {
+		return
+	}
 	return s.Theme
 }
 
 // GetUnsave returns value of Unsave field.
 func (s *AccountSaveThemeRequest) GetUnsave() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Unsave
 }
 

@@ -158,6 +158,9 @@ func (s *AccountSendVerifyEmailCodeRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetEmail returns value of Email field.
 func (s *AccountSendVerifyEmailCodeRequest) GetEmail() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Email
 }
 

@@ -219,6 +219,9 @@ func (s *AccountSaveAutoDownloadSettingsRequest) SetLow(value bool) {
 
 // GetLow returns value of Low conditional field.
 func (s *AccountSaveAutoDownloadSettingsRequest) GetLow() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(0)
 }
 
@@ -235,11 +238,17 @@ func (s *AccountSaveAutoDownloadSettingsRequest) SetHigh(value bool) {
 
 // GetHigh returns value of High conditional field.
 func (s *AccountSaveAutoDownloadSettingsRequest) GetHigh() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(1)
 }
 
 // GetSettings returns value of Settings field.
 func (s *AccountSaveAutoDownloadSettingsRequest) GetSettings() (value AutoDownloadSettings) {
+	if s == nil {
+		return
+	}
 	return s.Settings
 }
 

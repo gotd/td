@@ -174,11 +174,17 @@ func (s *PhoneSaveCallDebugRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (s *PhoneSaveCallDebugRequest) GetPeer() (value InputPhoneCall) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
 // GetDebug returns value of Debug field.
 func (s *PhoneSaveCallDebugRequest) GetDebug() (value DataJSON) {
+	if s == nil {
+		return
+	}
 	return s.Debug
 }
 

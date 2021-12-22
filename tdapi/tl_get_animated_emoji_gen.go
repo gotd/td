@@ -183,6 +183,9 @@ func (g *GetAnimatedEmojiRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetEmoji returns value of Emoji field.
 func (g *GetAnimatedEmojiRequest) GetEmoji() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Emoji
 }
 

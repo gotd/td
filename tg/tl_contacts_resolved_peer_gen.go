@@ -234,16 +234,25 @@ func (r *ContactsResolvedPeer) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (r *ContactsResolvedPeer) GetPeer() (value PeerClass) {
+	if r == nil {
+		return
+	}
 	return r.Peer
 }
 
 // GetChats returns value of Chats field.
 func (r *ContactsResolvedPeer) GetChats() (value []ChatClass) {
+	if r == nil {
+		return
+	}
 	return r.Chats
 }
 
 // GetUsers returns value of Users field.
 func (r *ContactsResolvedPeer) GetUsers() (value []UserClass) {
+	if r == nil {
+		return
+	}
 	return r.Users
 }
 

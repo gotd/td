@@ -182,10 +182,16 @@ func (t *TopPeer) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (t *TopPeer) GetPeer() (value PeerClass) {
+	if t == nil {
+		return
+	}
 	return t.Peer
 }
 
 // GetRating returns value of Rating field.
 func (t *TopPeer) GetRating() (value float64) {
+	if t == nil {
+		return
+	}
 	return t.Rating
 }

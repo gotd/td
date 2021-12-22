@@ -209,11 +209,17 @@ func (f *FinishFileGenerationRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetGenerationID returns value of GenerationID field.
 func (f *FinishFileGenerationRequest) GetGenerationID() (value int64) {
+	if f == nil {
+		return
+	}
 	return f.GenerationID
 }
 
 // GetError returns value of Error field.
 func (f *FinishFileGenerationRequest) GetError() (value Error) {
+	if f == nil {
+		return
+	}
 	return f.Error
 }
 

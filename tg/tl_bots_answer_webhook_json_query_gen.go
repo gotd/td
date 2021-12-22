@@ -174,11 +174,17 @@ func (a *BotsAnswerWebhookJSONQueryRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetQueryID returns value of QueryID field.
 func (a *BotsAnswerWebhookJSONQueryRequest) GetQueryID() (value int64) {
+	if a == nil {
+		return
+	}
 	return a.QueryID
 }
 
 // GetData returns value of Data field.
 func (a *BotsAnswerWebhookJSONQueryRequest) GetData() (value DataJSON) {
+	if a == nil {
+		return
+	}
 	return a.Data
 }
 

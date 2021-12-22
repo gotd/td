@@ -197,16 +197,25 @@ func (g *UploadGetWebFileRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetLocation returns value of Location field.
 func (g *UploadGetWebFileRequest) GetLocation() (value InputWebFileLocationClass) {
+	if g == nil {
+		return
+	}
 	return g.Location
 }
 
 // GetOffset returns value of Offset field.
 func (g *UploadGetWebFileRequest) GetOffset() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 
 // GetLimit returns value of Limit field.
 func (g *UploadGetWebFileRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

@@ -333,16 +333,25 @@ func (c *ContactsContacts) DecodeBare(b *bin.Buffer) error {
 
 // GetContacts returns value of Contacts field.
 func (c *ContactsContacts) GetContacts() (value []Contact) {
+	if c == nil {
+		return
+	}
 	return c.Contacts
 }
 
 // GetSavedCount returns value of SavedCount field.
 func (c *ContactsContacts) GetSavedCount() (value int) {
+	if c == nil {
+		return
+	}
 	return c.SavedCount
 }
 
 // GetUsers returns value of Users field.
 func (c *ContactsContacts) GetUsers() (value []UserClass) {
+	if c == nil {
+		return
+	}
 	return c.Users
 }
 

@@ -233,16 +233,25 @@ func (s *SetFileGenerationProgressRequest) DecodeTDLibJSON(b tdjson.Decoder) err
 
 // GetGenerationID returns value of GenerationID field.
 func (s *SetFileGenerationProgressRequest) GetGenerationID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.GenerationID
 }
 
 // GetExpectedSize returns value of ExpectedSize field.
 func (s *SetFileGenerationProgressRequest) GetExpectedSize() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.ExpectedSize
 }
 
 // GetLocalPrefixSize returns value of LocalPrefixSize field.
 func (s *SetFileGenerationProgressRequest) GetLocalPrefixSize() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.LocalPrefixSize
 }
 

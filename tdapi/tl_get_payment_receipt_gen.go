@@ -208,11 +208,17 @@ func (g *GetPaymentReceiptRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (g *GetPaymentReceiptRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (g *GetPaymentReceiptRequest) GetMessageID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.MessageID
 }
 

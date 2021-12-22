@@ -226,16 +226,25 @@ func (c *MessagesChatInviteImporters) DecodeBare(b *bin.Buffer) error {
 
 // GetCount returns value of Count field.
 func (c *MessagesChatInviteImporters) GetCount() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Count
 }
 
 // GetImporters returns value of Importers field.
 func (c *MessagesChatInviteImporters) GetImporters() (value []ChatInviteImporter) {
+	if c == nil {
+		return
+	}
 	return c.Importers
 }
 
 // GetUsers returns value of Users field.
 func (c *MessagesChatInviteImporters) GetUsers() (value []UserClass) {
+	if c == nil {
+		return
+	}
 	return c.Users
 }
 

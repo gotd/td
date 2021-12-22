@@ -203,16 +203,25 @@ func (f *UploadFile) DecodeBare(b *bin.Buffer) error {
 
 // GetType returns value of Type field.
 func (f *UploadFile) GetType() (value StorageFileTypeClass) {
+	if f == nil {
+		return
+	}
 	return f.Type
 }
 
 // GetMtime returns value of Mtime field.
 func (f *UploadFile) GetMtime() (value int) {
+	if f == nil {
+		return
+	}
 	return f.Mtime
 }
 
 // GetBytes returns value of Bytes field.
 func (f *UploadFile) GetBytes() (value []byte) {
+	if f == nil {
+		return
+	}
 	return f.Bytes
 }
 
@@ -454,26 +463,41 @@ func (f *UploadFileCDNRedirect) DecodeBare(b *bin.Buffer) error {
 
 // GetDCID returns value of DCID field.
 func (f *UploadFileCDNRedirect) GetDCID() (value int) {
+	if f == nil {
+		return
+	}
 	return f.DCID
 }
 
 // GetFileToken returns value of FileToken field.
 func (f *UploadFileCDNRedirect) GetFileToken() (value []byte) {
+	if f == nil {
+		return
+	}
 	return f.FileToken
 }
 
 // GetEncryptionKey returns value of EncryptionKey field.
 func (f *UploadFileCDNRedirect) GetEncryptionKey() (value []byte) {
+	if f == nil {
+		return
+	}
 	return f.EncryptionKey
 }
 
 // GetEncryptionIv returns value of EncryptionIv field.
 func (f *UploadFileCDNRedirect) GetEncryptionIv() (value []byte) {
+	if f == nil {
+		return
+	}
 	return f.EncryptionIv
 }
 
 // GetFileHashes returns value of FileHashes field.
 func (f *UploadFileCDNRedirect) GetFileHashes() (value []FileHash) {
+	if f == nil {
+		return
+	}
 	return f.FileHashes
 }
 

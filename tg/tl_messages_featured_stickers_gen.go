@@ -160,6 +160,9 @@ func (f *MessagesFeaturedStickersNotModified) DecodeBare(b *bin.Buffer) error {
 
 // GetCount returns value of Count field.
 func (f *MessagesFeaturedStickersNotModified) GetCount() (value int) {
+	if f == nil {
+		return
+	}
 	return f.Count
 }
 
@@ -383,21 +386,33 @@ func (f *MessagesFeaturedStickers) DecodeBare(b *bin.Buffer) error {
 
 // GetHash returns value of Hash field.
 func (f *MessagesFeaturedStickers) GetHash() (value int64) {
+	if f == nil {
+		return
+	}
 	return f.Hash
 }
 
 // GetCount returns value of Count field.
 func (f *MessagesFeaturedStickers) GetCount() (value int) {
+	if f == nil {
+		return
+	}
 	return f.Count
 }
 
 // GetSets returns value of Sets field.
 func (f *MessagesFeaturedStickers) GetSets() (value []StickerSetCoveredClass) {
+	if f == nil {
+		return
+	}
 	return f.Sets
 }
 
 // GetUnread returns value of Unread field.
 func (f *MessagesFeaturedStickers) GetUnread() (value []int64) {
+	if f == nil {
+		return
+	}
 	return f.Unread
 }
 

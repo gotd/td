@@ -160,6 +160,9 @@ func (w *WebPageEmpty) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (w *WebPageEmpty) GetID() (value int64) {
+	if w == nil {
+		return
+	}
 	return w.ID
 }
 
@@ -311,11 +314,17 @@ func (w *WebPagePending) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (w *WebPagePending) GetID() (value int64) {
+	if w == nil {
+		return
+	}
 	return w.ID
 }
 
 // GetDate returns value of Date field.
 func (w *WebPagePending) GetDate() (value int) {
+	if w == nil {
+		return
+	}
 	return w.Date
 }
 
@@ -978,21 +987,33 @@ func (w *WebPage) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (w *WebPage) GetID() (value int64) {
+	if w == nil {
+		return
+	}
 	return w.ID
 }
 
 // GetURL returns value of URL field.
 func (w *WebPage) GetURL() (value string) {
+	if w == nil {
+		return
+	}
 	return w.URL
 }
 
 // GetDisplayURL returns value of DisplayURL field.
 func (w *WebPage) GetDisplayURL() (value string) {
+	if w == nil {
+		return
+	}
 	return w.DisplayURL
 }
 
 // GetHash returns value of Hash field.
 func (w *WebPage) GetHash() (value int) {
+	if w == nil {
+		return
+	}
 	return w.Hash
 }
 
@@ -1005,6 +1026,9 @@ func (w *WebPage) SetType(value string) {
 // GetType returns value of Type conditional field and
 // boolean which is true if field was set.
 func (w *WebPage) GetType() (value string, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(0) {
 		return value, false
 	}
@@ -1020,6 +1044,9 @@ func (w *WebPage) SetSiteName(value string) {
 // GetSiteName returns value of SiteName conditional field and
 // boolean which is true if field was set.
 func (w *WebPage) GetSiteName() (value string, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(1) {
 		return value, false
 	}
@@ -1035,6 +1062,9 @@ func (w *WebPage) SetTitle(value string) {
 // GetTitle returns value of Title conditional field and
 // boolean which is true if field was set.
 func (w *WebPage) GetTitle() (value string, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(2) {
 		return value, false
 	}
@@ -1050,6 +1080,9 @@ func (w *WebPage) SetDescription(value string) {
 // GetDescription returns value of Description conditional field and
 // boolean which is true if field was set.
 func (w *WebPage) GetDescription() (value string, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(3) {
 		return value, false
 	}
@@ -1065,6 +1098,9 @@ func (w *WebPage) SetPhoto(value PhotoClass) {
 // GetPhoto returns value of Photo conditional field and
 // boolean which is true if field was set.
 func (w *WebPage) GetPhoto() (value PhotoClass, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(4) {
 		return value, false
 	}
@@ -1080,6 +1116,9 @@ func (w *WebPage) SetEmbedURL(value string) {
 // GetEmbedURL returns value of EmbedURL conditional field and
 // boolean which is true if field was set.
 func (w *WebPage) GetEmbedURL() (value string, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(5) {
 		return value, false
 	}
@@ -1095,6 +1134,9 @@ func (w *WebPage) SetEmbedType(value string) {
 // GetEmbedType returns value of EmbedType conditional field and
 // boolean which is true if field was set.
 func (w *WebPage) GetEmbedType() (value string, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(5) {
 		return value, false
 	}
@@ -1110,6 +1152,9 @@ func (w *WebPage) SetEmbedWidth(value int) {
 // GetEmbedWidth returns value of EmbedWidth conditional field and
 // boolean which is true if field was set.
 func (w *WebPage) GetEmbedWidth() (value int, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(6) {
 		return value, false
 	}
@@ -1125,6 +1170,9 @@ func (w *WebPage) SetEmbedHeight(value int) {
 // GetEmbedHeight returns value of EmbedHeight conditional field and
 // boolean which is true if field was set.
 func (w *WebPage) GetEmbedHeight() (value int, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(6) {
 		return value, false
 	}
@@ -1140,6 +1188,9 @@ func (w *WebPage) SetDuration(value int) {
 // GetDuration returns value of Duration conditional field and
 // boolean which is true if field was set.
 func (w *WebPage) GetDuration() (value int, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(7) {
 		return value, false
 	}
@@ -1155,6 +1206,9 @@ func (w *WebPage) SetAuthor(value string) {
 // GetAuthor returns value of Author conditional field and
 // boolean which is true if field was set.
 func (w *WebPage) GetAuthor() (value string, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(8) {
 		return value, false
 	}
@@ -1170,6 +1224,9 @@ func (w *WebPage) SetDocument(value DocumentClass) {
 // GetDocument returns value of Document conditional field and
 // boolean which is true if field was set.
 func (w *WebPage) GetDocument() (value DocumentClass, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(9) {
 		return value, false
 	}
@@ -1185,6 +1242,9 @@ func (w *WebPage) SetCachedPage(value Page) {
 // GetCachedPage returns value of CachedPage conditional field and
 // boolean which is true if field was set.
 func (w *WebPage) GetCachedPage() (value Page, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(10) {
 		return value, false
 	}
@@ -1200,6 +1260,9 @@ func (w *WebPage) SetAttributes(value []WebPageAttributeTheme) {
 // GetAttributes returns value of Attributes conditional field and
 // boolean which is true if field was set.
 func (w *WebPage) GetAttributes() (value []WebPageAttributeTheme, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(12) {
 		return value, false
 	}
@@ -1374,6 +1437,9 @@ func (w *WebPageNotModified) SetCachedPageViews(value int) {
 // GetCachedPageViews returns value of CachedPageViews conditional field and
 // boolean which is true if field was set.
 func (w *WebPageNotModified) GetCachedPageViews() (value int, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(0) {
 		return value, false
 	}

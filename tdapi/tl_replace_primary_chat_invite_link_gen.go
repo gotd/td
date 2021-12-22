@@ -183,6 +183,9 @@ func (r *ReplacePrimaryChatInviteLinkRequest) DecodeTDLibJSON(b tdjson.Decoder) 
 
 // GetChatID returns value of ChatID field.
 func (r *ReplacePrimaryChatInviteLinkRequest) GetChatID() (value int64) {
+	if r == nil {
+		return
+	}
 	return r.ChatID
 }
 

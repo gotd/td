@@ -243,16 +243,25 @@ func (a *AddStickerToSetRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (a *AddStickerToSetRequest) GetUserID() (value int64) {
+	if a == nil {
+		return
+	}
 	return a.UserID
 }
 
 // GetName returns value of Name field.
 func (a *AddStickerToSetRequest) GetName() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Name
 }
 
 // GetSticker returns value of Sticker field.
 func (a *AddStickerToSetRequest) GetSticker() (value InputStickerClass) {
+	if a == nil {
+		return
+	}
 	return a.Sticker
 }
 

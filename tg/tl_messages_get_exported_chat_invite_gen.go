@@ -179,11 +179,17 @@ func (g *MessagesGetExportedChatInviteRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (g *MessagesGetExportedChatInviteRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
 // GetLink returns value of Link field.
 func (g *MessagesGetExportedChatInviteRequest) GetLink() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Link
 }
 

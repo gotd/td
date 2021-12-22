@@ -183,6 +183,9 @@ func (d *DeleteAllCallMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetRevoke returns value of Revoke field.
 func (d *DeleteAllCallMessagesRequest) GetRevoke() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Revoke
 }
 

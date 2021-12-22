@@ -255,16 +255,25 @@ func (u *UploadFileRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFile returns value of File field.
 func (u *UploadFileRequest) GetFile() (value InputFileClass) {
+	if u == nil {
+		return
+	}
 	return u.File
 }
 
 // GetFileType returns value of FileType field.
 func (u *UploadFileRequest) GetFileType() (value FileTypeClass) {
+	if u == nil {
+		return
+	}
 	return u.FileType
 }
 
 // GetPriority returns value of Priority field.
 func (u *UploadFileRequest) GetPriority() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.Priority
 }
 

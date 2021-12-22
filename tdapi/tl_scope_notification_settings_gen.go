@@ -286,25 +286,40 @@ func (s *ScopeNotificationSettings) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMuteFor returns value of MuteFor field.
 func (s *ScopeNotificationSettings) GetMuteFor() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.MuteFor
 }
 
 // GetSound returns value of Sound field.
 func (s *ScopeNotificationSettings) GetSound() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Sound
 }
 
 // GetShowPreview returns value of ShowPreview field.
 func (s *ScopeNotificationSettings) GetShowPreview() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.ShowPreview
 }
 
 // GetDisablePinnedMessageNotifications returns value of DisablePinnedMessageNotifications field.
 func (s *ScopeNotificationSettings) GetDisablePinnedMessageNotifications() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.DisablePinnedMessageNotifications
 }
 
 // GetDisableMentionNotifications returns value of DisableMentionNotifications field.
 func (s *ScopeNotificationSettings) GetDisableMentionNotifications() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.DisableMentionNotifications
 }

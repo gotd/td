@@ -183,6 +183,9 @@ func (c *CheckAuthenticationPasswordRecoveryCodeRequest) DecodeTDLibJSON(b tdjso
 
 // GetRecoveryCode returns value of RecoveryCode field.
 func (c *CheckAuthenticationPasswordRecoveryCodeRequest) GetRecoveryCode() (value string) {
+	if c == nil {
+		return
+	}
 	return c.RecoveryCode
 }
 

@@ -168,6 +168,9 @@ func (vec *WallPaperClassVector) DecodeBare(b *bin.Buffer) error {
 
 // GetElems returns value of Elems field.
 func (vec *WallPaperClassVector) GetElems() (value []WallPaperClass) {
+	if vec == nil {
+		return
+	}
 	return vec.Elems
 }
 

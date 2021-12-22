@@ -221,21 +221,33 @@ func (g *MessagesGetSearchResultsPositionsRequest) DecodeBare(b *bin.Buffer) err
 
 // GetPeer returns value of Peer field.
 func (g *MessagesGetSearchResultsPositionsRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
 // GetFilter returns value of Filter field.
 func (g *MessagesGetSearchResultsPositionsRequest) GetFilter() (value MessagesFilterClass) {
+	if g == nil {
+		return
+	}
 	return g.Filter
 }
 
 // GetOffsetID returns value of OffsetID field.
 func (g *MessagesGetSearchResultsPositionsRequest) GetOffsetID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.OffsetID
 }
 
 // GetLimit returns value of Limit field.
 func (g *MessagesGetSearchResultsPositionsRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

@@ -183,11 +183,17 @@ func (d *ChannelsDeleteParticipantHistoryRequest) DecodeBare(b *bin.Buffer) erro
 
 // GetChannel returns value of Channel field.
 func (d *ChannelsDeleteParticipantHistoryRequest) GetChannel() (value InputChannelClass) {
+	if d == nil {
+		return
+	}
 	return d.Channel
 }
 
 // GetParticipant returns value of Participant field.
 func (d *ChannelsDeleteParticipantHistoryRequest) GetParticipant() (value InputPeerClass) {
+	if d == nil {
+		return
+	}
 	return d.Participant
 }
 

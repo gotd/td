@@ -209,10 +209,16 @@ func (e *Error) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCode returns value of Code field.
 func (e *Error) GetCode() (value int32) {
+	if e == nil {
+		return
+	}
 	return e.Code
 }
 
 // GetMessage returns value of Message field.
 func (e *Error) GetMessage() (value string) {
+	if e == nil {
+		return
+	}
 	return e.Message
 }

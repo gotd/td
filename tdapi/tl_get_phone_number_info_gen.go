@@ -183,6 +183,9 @@ func (g *GetPhoneNumberInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPhoneNumberPrefix returns value of PhoneNumberPrefix field.
 func (g *GetPhoneNumberInfoRequest) GetPhoneNumberPrefix() (value string) {
+	if g == nil {
+		return
+	}
 	return g.PhoneNumberPrefix
 }
 

@@ -268,21 +268,33 @@ func (s *SearchChatMembersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (s *SearchChatMembersRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetQuery returns value of Query field.
 func (s *SearchChatMembersRequest) GetQuery() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Query
 }
 
 // GetLimit returns value of Limit field.
 func (s *SearchChatMembersRequest) GetLimit() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Limit
 }
 
 // GetFilter returns value of Filter field.
 func (s *SearchChatMembersRequest) GetFilter() (value ChatMembersFilterClass) {
+	if s == nil {
+		return
+	}
 	return s.Filter
 }
 

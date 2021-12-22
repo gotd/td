@@ -435,6 +435,9 @@ func (t *Theme) SetCreator(value bool) {
 
 // GetCreator returns value of Creator conditional field.
 func (t *Theme) GetCreator() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.Flags.Has(0)
 }
 
@@ -451,6 +454,9 @@ func (t *Theme) SetDefault(value bool) {
 
 // GetDefault returns value of Default conditional field.
 func (t *Theme) GetDefault() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.Flags.Has(1)
 }
 
@@ -467,26 +473,41 @@ func (t *Theme) SetForChat(value bool) {
 
 // GetForChat returns value of ForChat conditional field.
 func (t *Theme) GetForChat() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.Flags.Has(5)
 }
 
 // GetID returns value of ID field.
 func (t *Theme) GetID() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (t *Theme) GetAccessHash() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.AccessHash
 }
 
 // GetSlug returns value of Slug field.
 func (t *Theme) GetSlug() (value string) {
+	if t == nil {
+		return
+	}
 	return t.Slug
 }
 
 // GetTitle returns value of Title field.
 func (t *Theme) GetTitle() (value string) {
+	if t == nil {
+		return
+	}
 	return t.Title
 }
 
@@ -499,6 +520,9 @@ func (t *Theme) SetDocument(value DocumentClass) {
 // GetDocument returns value of Document conditional field and
 // boolean which is true if field was set.
 func (t *Theme) GetDocument() (value DocumentClass, ok bool) {
+	if t == nil {
+		return
+	}
 	if !t.Flags.Has(2) {
 		return value, false
 	}
@@ -514,6 +538,9 @@ func (t *Theme) SetSettings(value []ThemeSettings) {
 // GetSettings returns value of Settings conditional field and
 // boolean which is true if field was set.
 func (t *Theme) GetSettings() (value []ThemeSettings, ok bool) {
+	if t == nil {
+		return
+	}
 	if !t.Flags.Has(3) {
 		return value, false
 	}
@@ -529,6 +556,9 @@ func (t *Theme) SetEmoticon(value string) {
 // GetEmoticon returns value of Emoticon conditional field and
 // boolean which is true if field was set.
 func (t *Theme) GetEmoticon() (value string, ok bool) {
+	if t == nil {
+		return
+	}
 	if !t.Flags.Has(6) {
 		return value, false
 	}
@@ -544,6 +574,9 @@ func (t *Theme) SetInstallsCount(value int) {
 // GetInstallsCount returns value of InstallsCount conditional field and
 // boolean which is true if field was set.
 func (t *Theme) GetInstallsCount() (value int, ok bool) {
+	if t == nil {
+		return
+	}
 	if !t.Flags.Has(4) {
 		return value, false
 	}

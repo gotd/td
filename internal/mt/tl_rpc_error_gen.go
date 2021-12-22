@@ -162,10 +162,16 @@ func (r *RPCError) DecodeBare(b *bin.Buffer) error {
 
 // GetErrorCode returns value of ErrorCode field.
 func (r *RPCError) GetErrorCode() (value int) {
+	if r == nil {
+		return
+	}
 	return r.ErrorCode
 }
 
 // GetErrorMessage returns value of ErrorMessage field.
 func (r *RPCError) GetErrorMessage() (value string) {
+	if r == nil {
+		return
+	}
 	return r.ErrorMessage
 }

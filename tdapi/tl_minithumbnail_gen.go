@@ -233,15 +233,24 @@ func (m *Minithumbnail) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetWidth returns value of Width field.
 func (m *Minithumbnail) GetWidth() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.Width
 }
 
 // GetHeight returns value of Height field.
 func (m *Minithumbnail) GetHeight() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.Height
 }
 
 // GetData returns value of Data field.
 func (m *Minithumbnail) GetData() (value []byte) {
+	if m == nil {
+		return
+	}
 	return m.Data
 }

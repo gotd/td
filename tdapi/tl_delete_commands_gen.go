@@ -219,11 +219,17 @@ func (d *DeleteCommandsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetScope returns value of Scope field.
 func (d *DeleteCommandsRequest) GetScope() (value BotCommandScopeClass) {
+	if d == nil {
+		return
+	}
 	return d.Scope
 }
 
 // GetLanguageCode returns value of LanguageCode field.
 func (d *DeleteCommandsRequest) GetLanguageCode() (value string) {
+	if d == nil {
+		return
+	}
 	return d.LanguageCode
 }
 

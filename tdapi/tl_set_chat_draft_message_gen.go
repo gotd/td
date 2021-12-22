@@ -233,16 +233,25 @@ func (s *SetChatDraftMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (s *SetChatDraftMessageRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetMessageThreadID returns value of MessageThreadID field.
 func (s *SetChatDraftMessageRequest) GetMessageThreadID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.MessageThreadID
 }
 
 // GetDraftMessage returns value of DraftMessage field.
 func (s *SetChatDraftMessageRequest) GetDraftMessage() (value DraftMessage) {
+	if s == nil {
+		return
+	}
 	return s.DraftMessage
 }
 

@@ -233,15 +233,24 @@ func (e *EncryptedCredentials) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetData returns value of Data field.
 func (e *EncryptedCredentials) GetData() (value []byte) {
+	if e == nil {
+		return
+	}
 	return e.Data
 }
 
 // GetHash returns value of Hash field.
 func (e *EncryptedCredentials) GetHash() (value []byte) {
+	if e == nil {
+		return
+	}
 	return e.Hash
 }
 
 // GetSecret returns value of Secret field.
 func (e *EncryptedCredentials) GetSecret() (value []byte) {
+	if e == nil {
+		return
+	}
 	return e.Secret
 }

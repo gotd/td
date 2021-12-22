@@ -234,16 +234,25 @@ func (s *SendBotStartMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBotUserID returns value of BotUserID field.
 func (s *SendBotStartMessageRequest) GetBotUserID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.BotUserID
 }
 
 // GetChatID returns value of ChatID field.
 func (s *SendBotStartMessageRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetParameter returns value of Parameter field.
 func (s *SendBotStartMessageRequest) GetParameter() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Parameter
 }
 

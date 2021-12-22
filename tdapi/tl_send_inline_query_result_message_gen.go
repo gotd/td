@@ -335,36 +335,57 @@ func (s *SendInlineQueryResultMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) 
 
 // GetChatID returns value of ChatID field.
 func (s *SendInlineQueryResultMessageRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetMessageThreadID returns value of MessageThreadID field.
 func (s *SendInlineQueryResultMessageRequest) GetMessageThreadID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.MessageThreadID
 }
 
 // GetReplyToMessageID returns value of ReplyToMessageID field.
 func (s *SendInlineQueryResultMessageRequest) GetReplyToMessageID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ReplyToMessageID
 }
 
 // GetOptions returns value of Options field.
 func (s *SendInlineQueryResultMessageRequest) GetOptions() (value MessageSendOptions) {
+	if s == nil {
+		return
+	}
 	return s.Options
 }
 
 // GetQueryID returns value of QueryID field.
 func (s *SendInlineQueryResultMessageRequest) GetQueryID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.QueryID
 }
 
 // GetResultID returns value of ResultID field.
 func (s *SendInlineQueryResultMessageRequest) GetResultID() (value string) {
+	if s == nil {
+		return
+	}
 	return s.ResultID
 }
 
 // GetHideViaBot returns value of HideViaBot field.
 func (s *SendInlineQueryResultMessageRequest) GetHideViaBot() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.HideViaBot
 }
 

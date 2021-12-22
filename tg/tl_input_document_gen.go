@@ -306,16 +306,25 @@ func (i *InputDocument) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputDocument) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputDocument) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }
 
 // GetFileReference returns value of FileReference field.
 func (i *InputDocument) GetFileReference() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.FileReference
 }
 

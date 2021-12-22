@@ -209,5 +209,8 @@ func (c *ChatInviteLinkCounts) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetInviteLinkCounts returns value of InviteLinkCounts field.
 func (c *ChatInviteLinkCounts) GetInviteLinkCounts() (value []ChatInviteLinkCount) {
+	if c == nil {
+		return
+	}
 	return c.InviteLinkCounts
 }

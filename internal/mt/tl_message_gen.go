@@ -196,20 +196,32 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 
 // GetMsgID returns value of MsgID field.
 func (m *Message) GetMsgID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.MsgID
 }
 
 // GetSeqno returns value of Seqno field.
 func (m *Message) GetSeqno() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Seqno
 }
 
 // GetBytes returns value of Bytes field.
 func (m *Message) GetBytes() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Bytes
 }
 
 // GetBody returns value of Body field.
 func (m *Message) GetBody() (value GzipPacked) {
+	if m == nil {
+		return
+	}
 	return m.Body
 }

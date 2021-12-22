@@ -183,6 +183,9 @@ func (s *SetUsernameRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUsername returns value of Username field.
 func (s *SetUsernameRequest) GetUsername() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Username
 }
 

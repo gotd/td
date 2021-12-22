@@ -165,5 +165,8 @@ func (vec *BotCommandVector) DecodeBare(b *bin.Buffer) error {
 
 // GetElems returns value of Elems field.
 func (vec *BotCommandVector) GetElems() (value []BotCommand) {
+	if vec == nil {
+		return
+	}
 	return vec.Elems
 }

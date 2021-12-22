@@ -288,6 +288,9 @@ func (c *CodeSettings) SetAllowFlashcall(value bool) {
 
 // GetAllowFlashcall returns value of AllowFlashcall conditional field.
 func (c *CodeSettings) GetAllowFlashcall() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(0)
 }
 
@@ -304,6 +307,9 @@ func (c *CodeSettings) SetCurrentNumber(value bool) {
 
 // GetCurrentNumber returns value of CurrentNumber conditional field.
 func (c *CodeSettings) GetCurrentNumber() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(1)
 }
 
@@ -320,6 +326,9 @@ func (c *CodeSettings) SetAllowAppHash(value bool) {
 
 // GetAllowAppHash returns value of AllowAppHash conditional field.
 func (c *CodeSettings) GetAllowAppHash() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(4)
 }
 
@@ -336,6 +345,9 @@ func (c *CodeSettings) SetAllowMissedCall(value bool) {
 
 // GetAllowMissedCall returns value of AllowMissedCall conditional field.
 func (c *CodeSettings) GetAllowMissedCall() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(5)
 }
 
@@ -348,6 +360,9 @@ func (c *CodeSettings) SetLogoutTokens(value [][]byte) {
 // GetLogoutTokens returns value of LogoutTokens conditional field and
 // boolean which is true if field was set.
 func (c *CodeSettings) GetLogoutTokens() (value [][]byte, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(6) {
 		return value, false
 	}

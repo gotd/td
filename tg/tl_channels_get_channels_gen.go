@@ -176,6 +176,9 @@ func (g *ChannelsGetChannelsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (g *ChannelsGetChannelsRequest) GetID() (value []InputChannelClass) {
+	if g == nil {
+		return
+	}
 	return g.ID
 }
 

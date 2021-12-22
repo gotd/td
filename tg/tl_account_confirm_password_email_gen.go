@@ -161,6 +161,9 @@ func (c *AccountConfirmPasswordEmailRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetCode returns value of Code field.
 func (c *AccountConfirmPasswordEmailRequest) GetCode() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Code
 }
 

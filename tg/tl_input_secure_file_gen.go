@@ -239,26 +239,41 @@ func (i *InputSecureFileUploaded) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputSecureFileUploaded) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetParts returns value of Parts field.
 func (i *InputSecureFileUploaded) GetParts() (value int) {
+	if i == nil {
+		return
+	}
 	return i.Parts
 }
 
 // GetMD5Checksum returns value of MD5Checksum field.
 func (i *InputSecureFileUploaded) GetMD5Checksum() (value string) {
+	if i == nil {
+		return
+	}
 	return i.MD5Checksum
 }
 
 // GetFileHash returns value of FileHash field.
 func (i *InputSecureFileUploaded) GetFileHash() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.FileHash
 }
 
 // GetSecret returns value of Secret field.
 func (i *InputSecureFileUploaded) GetSecret() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.Secret
 }
 
@@ -414,11 +429,17 @@ func (i *InputSecureFile) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputSecureFile) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputSecureFile) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }
 

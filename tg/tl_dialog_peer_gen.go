@@ -165,6 +165,9 @@ func (d *DialogPeer) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (d *DialogPeer) GetPeer() (value PeerClass) {
+	if d == nil {
+		return
+	}
 	return d.Peer
 }
 
@@ -303,6 +306,9 @@ func (d *DialogPeerFolder) DecodeBare(b *bin.Buffer) error {
 
 // GetFolderID returns value of FolderID field.
 func (d *DialogPeerFolder) GetFolderID() (value int) {
+	if d == nil {
+		return
+	}
 	return d.FolderID
 }
 

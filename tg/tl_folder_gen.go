@@ -289,6 +289,9 @@ func (f *Folder) SetAutofillNewBroadcasts(value bool) {
 
 // GetAutofillNewBroadcasts returns value of AutofillNewBroadcasts conditional field.
 func (f *Folder) GetAutofillNewBroadcasts() (value bool) {
+	if f == nil {
+		return
+	}
 	return f.Flags.Has(0)
 }
 
@@ -305,6 +308,9 @@ func (f *Folder) SetAutofillPublicGroups(value bool) {
 
 // GetAutofillPublicGroups returns value of AutofillPublicGroups conditional field.
 func (f *Folder) GetAutofillPublicGroups() (value bool) {
+	if f == nil {
+		return
+	}
 	return f.Flags.Has(1)
 }
 
@@ -321,16 +327,25 @@ func (f *Folder) SetAutofillNewCorrespondents(value bool) {
 
 // GetAutofillNewCorrespondents returns value of AutofillNewCorrespondents conditional field.
 func (f *Folder) GetAutofillNewCorrespondents() (value bool) {
+	if f == nil {
+		return
+	}
 	return f.Flags.Has(2)
 }
 
 // GetID returns value of ID field.
 func (f *Folder) GetID() (value int) {
+	if f == nil {
+		return
+	}
 	return f.ID
 }
 
 // GetTitle returns value of Title field.
 func (f *Folder) GetTitle() (value string) {
+	if f == nil {
+		return
+	}
 	return f.Title
 }
 
@@ -343,6 +358,9 @@ func (f *Folder) SetPhoto(value ChatPhotoClass) {
 // GetPhoto returns value of Photo conditional field and
 // boolean which is true if field was set.
 func (f *Folder) GetPhoto() (value ChatPhotoClass, ok bool) {
+	if f == nil {
+		return
+	}
 	if !f.Flags.Has(3) {
 		return value, false
 	}

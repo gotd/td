@@ -193,6 +193,9 @@ func (a *AddNetworkStatisticsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetEntry returns value of Entry field.
 func (a *AddNetworkStatisticsRequest) GetEntry() (value NetworkStatisticsEntryClass) {
+	if a == nil {
+		return
+	}
 	return a.Entry
 }
 

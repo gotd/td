@@ -208,10 +208,16 @@ func (r *RecommendedChatFilter) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFilter returns value of Filter field.
 func (r *RecommendedChatFilter) GetFilter() (value ChatFilter) {
+	if r == nil {
+		return
+	}
 	return r.Filter
 }
 
 // GetDescription returns value of Description field.
 func (r *RecommendedChatFilter) GetDescription() (value string) {
+	if r == nil {
+		return
+	}
 	return r.Description
 }

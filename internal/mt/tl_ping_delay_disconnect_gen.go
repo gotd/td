@@ -162,10 +162,16 @@ func (p *PingDelayDisconnectRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPingID returns value of PingID field.
 func (p *PingDelayDisconnectRequest) GetPingID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.PingID
 }
 
 // GetDisconnectDelay returns value of DisconnectDelay field.
 func (p *PingDelayDisconnectRequest) GetDisconnectDelay() (value int) {
+	if p == nil {
+		return
+	}
 	return p.DisconnectDelay
 }

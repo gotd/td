@@ -389,6 +389,9 @@ func (p *PollResults) SetMin(value bool) {
 
 // GetMin returns value of Min conditional field.
 func (p *PollResults) GetMin() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(0)
 }
 
@@ -401,6 +404,9 @@ func (p *PollResults) SetResults(value []PollAnswerVoters) {
 // GetResults returns value of Results conditional field and
 // boolean which is true if field was set.
 func (p *PollResults) GetResults() (value []PollAnswerVoters, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(1) {
 		return value, false
 	}
@@ -416,6 +422,9 @@ func (p *PollResults) SetTotalVoters(value int) {
 // GetTotalVoters returns value of TotalVoters conditional field and
 // boolean which is true if field was set.
 func (p *PollResults) GetTotalVoters() (value int, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(2) {
 		return value, false
 	}
@@ -431,6 +440,9 @@ func (p *PollResults) SetRecentVoters(value []int64) {
 // GetRecentVoters returns value of RecentVoters conditional field and
 // boolean which is true if field was set.
 func (p *PollResults) GetRecentVoters() (value []int64, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(3) {
 		return value, false
 	}
@@ -446,6 +458,9 @@ func (p *PollResults) SetSolution(value string) {
 // GetSolution returns value of Solution conditional field and
 // boolean which is true if field was set.
 func (p *PollResults) GetSolution() (value string, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(4) {
 		return value, false
 	}
@@ -461,6 +476,9 @@ func (p *PollResults) SetSolutionEntities(value []MessageEntityClass) {
 // GetSolutionEntities returns value of SolutionEntities conditional field and
 // boolean which is true if field was set.
 func (p *PollResults) GetSolutionEntities() (value []MessageEntityClass, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(4) {
 		return value, false
 	}

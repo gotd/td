@@ -241,21 +241,33 @@ func (s *PhoneSetCallRatingRequest) SetUserInitiative(value bool) {
 
 // GetUserInitiative returns value of UserInitiative conditional field.
 func (s *PhoneSetCallRatingRequest) GetUserInitiative() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
 func (s *PhoneSetCallRatingRequest) GetPeer() (value InputPhoneCall) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
 // GetRating returns value of Rating field.
 func (s *PhoneSetCallRatingRequest) GetRating() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Rating
 }
 
 // GetComment returns value of Comment field.
 func (s *PhoneSetCallRatingRequest) GetComment() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Comment
 }
 

@@ -566,65 +566,104 @@ func (s *StickerSet) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (s *StickerSet) GetID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ID
 }
 
 // GetTitle returns value of Title field.
 func (s *StickerSet) GetTitle() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Title
 }
 
 // GetName returns value of Name field.
 func (s *StickerSet) GetName() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Name
 }
 
 // GetThumbnail returns value of Thumbnail field.
 func (s *StickerSet) GetThumbnail() (value Thumbnail) {
+	if s == nil {
+		return
+	}
 	return s.Thumbnail
 }
 
 // GetThumbnailOutline returns value of ThumbnailOutline field.
 func (s *StickerSet) GetThumbnailOutline() (value []ClosedVectorPath) {
+	if s == nil {
+		return
+	}
 	return s.ThumbnailOutline
 }
 
 // GetIsInstalled returns value of IsInstalled field.
 func (s *StickerSet) GetIsInstalled() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsInstalled
 }
 
 // GetIsArchived returns value of IsArchived field.
 func (s *StickerSet) GetIsArchived() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsArchived
 }
 
 // GetIsOfficial returns value of IsOfficial field.
 func (s *StickerSet) GetIsOfficial() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsOfficial
 }
 
 // GetIsAnimated returns value of IsAnimated field.
 func (s *StickerSet) GetIsAnimated() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsAnimated
 }
 
 // GetIsMasks returns value of IsMasks field.
 func (s *StickerSet) GetIsMasks() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsMasks
 }
 
 // GetIsViewed returns value of IsViewed field.
 func (s *StickerSet) GetIsViewed() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsViewed
 }
 
 // GetStickers returns value of Stickers field.
 func (s *StickerSet) GetStickers() (value []Sticker) {
+	if s == nil {
+		return
+	}
 	return s.Stickers
 }
 
 // GetEmojis returns value of Emojis field.
 func (s *StickerSet) GetEmojis() (value []Emojis) {
+	if s == nil {
+		return
+	}
 	return s.Emojis
 }

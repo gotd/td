@@ -258,21 +258,33 @@ func (g *GetLoginURLRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (g *GetLoginURLRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (g *GetLoginURLRequest) GetMessageID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.MessageID
 }
 
 // GetButtonID returns value of ButtonID field.
 func (g *GetLoginURLRequest) GetButtonID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ButtonID
 }
 
 // GetAllowWriteAccess returns value of AllowWriteAccess field.
 func (g *GetLoginURLRequest) GetAllowWriteAccess() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.AllowWriteAccess
 }
 

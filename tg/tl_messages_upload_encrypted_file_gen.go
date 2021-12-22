@@ -179,11 +179,17 @@ func (u *MessagesUploadEncryptedFileRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (u *MessagesUploadEncryptedFileRequest) GetPeer() (value InputEncryptedChat) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
 // GetFile returns value of File field.
 func (u *MessagesUploadEncryptedFileRequest) GetFile() (value InputEncryptedFileClass) {
+	if u == nil {
+		return
+	}
 	return u.File
 }
 

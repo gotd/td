@@ -183,6 +183,9 @@ func (g *GetStickerSetRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSetID returns value of SetID field.
 func (g *GetStickerSetRequest) GetSetID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.SetID
 }
 

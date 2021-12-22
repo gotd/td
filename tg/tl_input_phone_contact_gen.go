@@ -217,20 +217,32 @@ func (i *InputPhoneContact) DecodeBare(b *bin.Buffer) error {
 
 // GetClientID returns value of ClientID field.
 func (i *InputPhoneContact) GetClientID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ClientID
 }
 
 // GetPhone returns value of Phone field.
 func (i *InputPhoneContact) GetPhone() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Phone
 }
 
 // GetFirstName returns value of FirstName field.
 func (i *InputPhoneContact) GetFirstName() (value string) {
+	if i == nil {
+		return
+	}
 	return i.FirstName
 }
 
 // GetLastName returns value of LastName field.
 func (i *InputPhoneContact) GetLastName() (value string) {
+	if i == nil {
+		return
+	}
 	return i.LastName
 }

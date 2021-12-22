@@ -361,11 +361,17 @@ func (d *HelpDeepLinkInfo) SetUpdateApp(value bool) {
 
 // GetUpdateApp returns value of UpdateApp conditional field.
 func (d *HelpDeepLinkInfo) GetUpdateApp() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(0)
 }
 
 // GetMessage returns value of Message field.
 func (d *HelpDeepLinkInfo) GetMessage() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Message
 }
 
@@ -378,6 +384,9 @@ func (d *HelpDeepLinkInfo) SetEntities(value []MessageEntityClass) {
 // GetEntities returns value of Entities conditional field and
 // boolean which is true if field was set.
 func (d *HelpDeepLinkInfo) GetEntities() (value []MessageEntityClass, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(1) {
 		return value, false
 	}

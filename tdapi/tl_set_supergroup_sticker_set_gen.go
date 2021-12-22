@@ -209,11 +209,17 @@ func (s *SetSupergroupStickerSetRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetSupergroupID returns value of SupergroupID field.
 func (s *SetSupergroupStickerSetRequest) GetSupergroupID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.SupergroupID
 }
 
 // GetStickerSetID returns value of StickerSetID field.
 func (s *SetSupergroupStickerSetRequest) GetStickerSetID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.StickerSetID
 }
 

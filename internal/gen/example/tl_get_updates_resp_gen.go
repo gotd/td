@@ -165,5 +165,8 @@ func (g *GetUpdatesResp) DecodeBare(b *bin.Buffer) error {
 
 // GetUpdates returns value of Updates field.
 func (g *GetUpdatesResp) GetUpdates() (value []AbstractMessageClass) {
+	if g == nil {
+		return
+	}
 	return g.Updates
 }

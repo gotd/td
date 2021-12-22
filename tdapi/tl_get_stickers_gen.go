@@ -208,11 +208,17 @@ func (g *GetStickersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetEmoji returns value of Emoji field.
 func (g *GetStickersRequest) GetEmoji() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Emoji
 }
 
 // GetLimit returns value of Limit field.
 func (g *GetStickersRequest) GetLimit() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

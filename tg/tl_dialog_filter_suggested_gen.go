@@ -183,10 +183,16 @@ func (d *DialogFilterSuggested) DecodeBare(b *bin.Buffer) error {
 
 // GetFilter returns value of Filter field.
 func (d *DialogFilterSuggested) GetFilter() (value DialogFilter) {
+	if d == nil {
+		return
+	}
 	return d.Filter
 }
 
 // GetDescription returns value of Description field.
 func (d *DialogFilterSuggested) GetDescription() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Description
 }

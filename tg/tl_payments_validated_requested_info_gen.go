@@ -235,6 +235,9 @@ func (v *PaymentsValidatedRequestedInfo) SetID(value string) {
 // GetID returns value of ID conditional field and
 // boolean which is true if field was set.
 func (v *PaymentsValidatedRequestedInfo) GetID() (value string, ok bool) {
+	if v == nil {
+		return
+	}
 	if !v.Flags.Has(0) {
 		return value, false
 	}
@@ -250,6 +253,9 @@ func (v *PaymentsValidatedRequestedInfo) SetShippingOptions(value []ShippingOpti
 // GetShippingOptions returns value of ShippingOptions conditional field and
 // boolean which is true if field was set.
 func (v *PaymentsValidatedRequestedInfo) GetShippingOptions() (value []ShippingOption, ok bool) {
+	if v == nil {
+		return
+	}
 	if !v.Flags.Has(1) {
 		return value, false
 	}

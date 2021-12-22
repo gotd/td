@@ -183,6 +183,9 @@ func (c *CancelUploadFileRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFileID returns value of FileID field.
 func (c *CancelUploadFileRequest) GetFileID() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.FileID
 }
 

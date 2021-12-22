@@ -155,6 +155,9 @@ func (s *AccountSetAccountTTLRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetTTL returns value of TTL field.
 func (s *AccountSetAccountTTLRequest) GetTTL() (value AccountDaysTTL) {
+	if s == nil {
+		return
+	}
 	return s.TTL
 }
 

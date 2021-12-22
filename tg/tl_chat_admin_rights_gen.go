@@ -373,6 +373,9 @@ func (c *ChatAdminRights) SetChangeInfo(value bool) {
 
 // GetChangeInfo returns value of ChangeInfo conditional field.
 func (c *ChatAdminRights) GetChangeInfo() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(0)
 }
 
@@ -389,6 +392,9 @@ func (c *ChatAdminRights) SetPostMessages(value bool) {
 
 // GetPostMessages returns value of PostMessages conditional field.
 func (c *ChatAdminRights) GetPostMessages() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(1)
 }
 
@@ -405,6 +411,9 @@ func (c *ChatAdminRights) SetEditMessages(value bool) {
 
 // GetEditMessages returns value of EditMessages conditional field.
 func (c *ChatAdminRights) GetEditMessages() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(2)
 }
 
@@ -421,6 +430,9 @@ func (c *ChatAdminRights) SetDeleteMessages(value bool) {
 
 // GetDeleteMessages returns value of DeleteMessages conditional field.
 func (c *ChatAdminRights) GetDeleteMessages() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(3)
 }
 
@@ -437,6 +449,9 @@ func (c *ChatAdminRights) SetBanUsers(value bool) {
 
 // GetBanUsers returns value of BanUsers conditional field.
 func (c *ChatAdminRights) GetBanUsers() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(4)
 }
 
@@ -453,6 +468,9 @@ func (c *ChatAdminRights) SetInviteUsers(value bool) {
 
 // GetInviteUsers returns value of InviteUsers conditional field.
 func (c *ChatAdminRights) GetInviteUsers() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(5)
 }
 
@@ -469,6 +487,9 @@ func (c *ChatAdminRights) SetPinMessages(value bool) {
 
 // GetPinMessages returns value of PinMessages conditional field.
 func (c *ChatAdminRights) GetPinMessages() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(7)
 }
 
@@ -485,6 +506,9 @@ func (c *ChatAdminRights) SetAddAdmins(value bool) {
 
 // GetAddAdmins returns value of AddAdmins conditional field.
 func (c *ChatAdminRights) GetAddAdmins() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(9)
 }
 
@@ -501,6 +525,9 @@ func (c *ChatAdminRights) SetAnonymous(value bool) {
 
 // GetAnonymous returns value of Anonymous conditional field.
 func (c *ChatAdminRights) GetAnonymous() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(10)
 }
 
@@ -517,6 +544,9 @@ func (c *ChatAdminRights) SetManageCall(value bool) {
 
 // GetManageCall returns value of ManageCall conditional field.
 func (c *ChatAdminRights) GetManageCall() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(11)
 }
 
@@ -533,5 +563,8 @@ func (c *ChatAdminRights) SetOther(value bool) {
 
 // GetOther returns value of Other conditional field.
 func (c *ChatAdminRights) GetOther() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(12)
 }

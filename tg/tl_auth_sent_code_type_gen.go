@@ -160,6 +160,9 @@ func (s *AuthSentCodeTypeApp) DecodeBare(b *bin.Buffer) error {
 
 // GetLength returns value of Length field.
 func (s *AuthSentCodeTypeApp) GetLength() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Length
 }
 
@@ -292,6 +295,9 @@ func (s *AuthSentCodeTypeSMS) DecodeBare(b *bin.Buffer) error {
 
 // GetLength returns value of Length field.
 func (s *AuthSentCodeTypeSMS) GetLength() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Length
 }
 
@@ -425,6 +431,9 @@ func (s *AuthSentCodeTypeCall) DecodeBare(b *bin.Buffer) error {
 
 // GetLength returns value of Length field.
 func (s *AuthSentCodeTypeCall) GetLength() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Length
 }
 
@@ -562,6 +571,9 @@ func (s *AuthSentCodeTypeFlashCall) DecodeBare(b *bin.Buffer) error {
 
 // GetPattern returns value of Pattern field.
 func (s *AuthSentCodeTypeFlashCall) GetPattern() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Pattern
 }
 
@@ -712,11 +724,17 @@ func (s *AuthSentCodeTypeMissedCall) DecodeBare(b *bin.Buffer) error {
 
 // GetPrefix returns value of Prefix field.
 func (s *AuthSentCodeTypeMissedCall) GetPrefix() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Prefix
 }
 
 // GetLength returns value of Length field.
 func (s *AuthSentCodeTypeMissedCall) GetLength() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Length
 }
 

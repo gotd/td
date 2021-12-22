@@ -208,11 +208,17 @@ func (e *EditChatFilterRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatFilterID returns value of ChatFilterID field.
 func (e *EditChatFilterRequest) GetChatFilterID() (value int32) {
+	if e == nil {
+		return
+	}
 	return e.ChatFilterID
 }
 
 // GetFilter returns value of Filter field.
 func (e *EditChatFilterRequest) GetFilter() (value ChatFilter) {
+	if e == nil {
+		return
+	}
 	return e.Filter
 }
 

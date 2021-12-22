@@ -155,6 +155,9 @@ func (r *MessagesReportEncryptedSpamRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (r *MessagesReportEncryptedSpamRequest) GetPeer() (value InputEncryptedChat) {
+	if r == nil {
+		return
+	}
 	return r.Peer
 }
 

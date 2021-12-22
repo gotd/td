@@ -279,16 +279,25 @@ func (c *ChatInviteImporter) SetRequested(value bool) {
 
 // GetRequested returns value of Requested conditional field.
 func (c *ChatInviteImporter) GetRequested() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(0)
 }
 
 // GetUserID returns value of UserID field.
 func (c *ChatInviteImporter) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetDate returns value of Date field.
 func (c *ChatInviteImporter) GetDate() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Date
 }
 
@@ -301,6 +310,9 @@ func (c *ChatInviteImporter) SetAbout(value string) {
 // GetAbout returns value of About conditional field and
 // boolean which is true if field was set.
 func (c *ChatInviteImporter) GetAbout() (value string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(2) {
 		return value, false
 	}
@@ -316,6 +328,9 @@ func (c *ChatInviteImporter) SetApprovedBy(value int64) {
 // GetApprovedBy returns value of ApprovedBy conditional field and
 // boolean which is true if field was set.
 func (c *ChatInviteImporter) GetApprovedBy() (value int64, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(1) {
 		return value, false
 	}

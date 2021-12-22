@@ -213,11 +213,17 @@ func (m *MessageText) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (m *MessageText) GetText() (value FormattedText) {
+	if m == nil {
+		return
+	}
 	return m.Text
 }
 
 // GetWebPage returns value of WebPage field.
 func (m *MessageText) GetWebPage() (value WebPage) {
+	if m == nil {
+		return
+	}
 	return m.WebPage
 }
 
@@ -429,16 +435,25 @@ func (m *MessageAnimation) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAnimation returns value of Animation field.
 func (m *MessageAnimation) GetAnimation() (value Animation) {
+	if m == nil {
+		return
+	}
 	return m.Animation
 }
 
 // GetCaption returns value of Caption field.
 func (m *MessageAnimation) GetCaption() (value FormattedText) {
+	if m == nil {
+		return
+	}
 	return m.Caption
 }
 
 // GetIsSecret returns value of IsSecret field.
 func (m *MessageAnimation) GetIsSecret() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.IsSecret
 }
 
@@ -624,11 +639,17 @@ func (m *MessageAudio) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAudio returns value of Audio field.
 func (m *MessageAudio) GetAudio() (value Audio) {
+	if m == nil {
+		return
+	}
 	return m.Audio
 }
 
 // GetCaption returns value of Caption field.
 func (m *MessageAudio) GetCaption() (value FormattedText) {
+	if m == nil {
+		return
+	}
 	return m.Caption
 }
 
@@ -814,11 +835,17 @@ func (m *MessageDocument) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetDocument returns value of Document field.
 func (m *MessageDocument) GetDocument() (value Document) {
+	if m == nil {
+		return
+	}
 	return m.Document
 }
 
 // GetCaption returns value of Caption field.
 func (m *MessageDocument) GetCaption() (value FormattedText) {
+	if m == nil {
+		return
+	}
 	return m.Caption
 }
 
@@ -1029,16 +1056,25 @@ func (m *MessagePhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPhoto returns value of Photo field.
 func (m *MessagePhoto) GetPhoto() (value Photo) {
+	if m == nil {
+		return
+	}
 	return m.Photo
 }
 
 // GetCaption returns value of Caption field.
 func (m *MessagePhoto) GetCaption() (value FormattedText) {
+	if m == nil {
+		return
+	}
 	return m.Caption
 }
 
 // GetIsSecret returns value of IsSecret field.
 func (m *MessagePhoto) GetIsSecret() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.IsSecret
 }
 
@@ -1328,6 +1364,9 @@ func (m *MessageSticker) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSticker returns value of Sticker field.
 func (m *MessageSticker) GetSticker() (value Sticker) {
+	if m == nil {
+		return
+	}
 	return m.Sticker
 }
 
@@ -1539,16 +1578,25 @@ func (m *MessageVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetVideo returns value of Video field.
 func (m *MessageVideo) GetVideo() (value Video) {
+	if m == nil {
+		return
+	}
 	return m.Video
 }
 
 // GetCaption returns value of Caption field.
 func (m *MessageVideo) GetCaption() (value FormattedText) {
+	if m == nil {
+		return
+	}
 	return m.Caption
 }
 
 // GetIsSecret returns value of IsSecret field.
 func (m *MessageVideo) GetIsSecret() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.IsSecret
 }
 
@@ -1889,16 +1937,25 @@ func (m *MessageVideoNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetVideoNote returns value of VideoNote field.
 func (m *MessageVideoNote) GetVideoNote() (value VideoNote) {
+	if m == nil {
+		return
+	}
 	return m.VideoNote
 }
 
 // GetIsViewed returns value of IsViewed field.
 func (m *MessageVideoNote) GetIsViewed() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.IsViewed
 }
 
 // GetIsSecret returns value of IsSecret field.
 func (m *MessageVideoNote) GetIsSecret() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.IsSecret
 }
 
@@ -2109,16 +2166,25 @@ func (m *MessageVoiceNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetVoiceNote returns value of VoiceNote field.
 func (m *MessageVoiceNote) GetVoiceNote() (value VoiceNote) {
+	if m == nil {
+		return
+	}
 	return m.VoiceNote
 }
 
 // GetCaption returns value of Caption field.
 func (m *MessageVoiceNote) GetCaption() (value FormattedText) {
+	if m == nil {
+		return
+	}
 	return m.Caption
 }
 
 // GetIsListened returns value of IsListened field.
 func (m *MessageVoiceNote) GetIsListened() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.IsListened
 }
 
@@ -2384,26 +2450,41 @@ func (m *MessageLocation) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLocation returns value of Location field.
 func (m *MessageLocation) GetLocation() (value Location) {
+	if m == nil {
+		return
+	}
 	return m.Location
 }
 
 // GetLivePeriod returns value of LivePeriod field.
 func (m *MessageLocation) GetLivePeriod() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.LivePeriod
 }
 
 // GetExpiresIn returns value of ExpiresIn field.
 func (m *MessageLocation) GetExpiresIn() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.ExpiresIn
 }
 
 // GetHeading returns value of Heading field.
 func (m *MessageLocation) GetHeading() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.Heading
 }
 
 // GetProximityAlertRadius returns value of ProximityAlertRadius field.
 func (m *MessageLocation) GetProximityAlertRadius() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.ProximityAlertRadius
 }
 
@@ -2564,6 +2645,9 @@ func (m *MessageVenue) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetVenue returns value of Venue field.
 func (m *MessageVenue) GetVenue() (value Venue) {
+	if m == nil {
+		return
+	}
 	return m.Venue
 }
 
@@ -2724,6 +2808,9 @@ func (m *MessageContact) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetContact returns value of Contact field.
 func (m *MessageContact) GetContact() (value Contact) {
+	if m == nil {
+		return
+	}
 	return m.Contact
 }
 
@@ -2909,11 +2996,17 @@ func (m *MessageAnimatedEmoji) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAnimatedEmoji returns value of AnimatedEmoji field.
 func (m *MessageAnimatedEmoji) GetAnimatedEmoji() (value AnimatedEmoji) {
+	if m == nil {
+		return
+	}
 	return m.AnimatedEmoji
 }
 
 // GetEmoji returns value of Emoji field.
 func (m *MessageAnimatedEmoji) GetEmoji() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Emoji
 }
 
@@ -3197,26 +3290,41 @@ func (m *MessageDice) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetInitialState returns value of InitialState field.
 func (m *MessageDice) GetInitialState() (value DiceStickersClass) {
+	if m == nil {
+		return
+	}
 	return m.InitialState
 }
 
 // GetFinalState returns value of FinalState field.
 func (m *MessageDice) GetFinalState() (value DiceStickersClass) {
+	if m == nil {
+		return
+	}
 	return m.FinalState
 }
 
 // GetEmoji returns value of Emoji field.
 func (m *MessageDice) GetEmoji() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Emoji
 }
 
 // GetValue returns value of Value field.
 func (m *MessageDice) GetValue() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.Value
 }
 
 // GetSuccessAnimationFrameNumber returns value of SuccessAnimationFrameNumber field.
 func (m *MessageDice) GetSuccessAnimationFrameNumber() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.SuccessAnimationFrameNumber
 }
 
@@ -3377,6 +3485,9 @@ func (m *MessageGame) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetGame returns value of Game field.
 func (m *MessageGame) GetGame() (value Game) {
+	if m == nil {
+		return
+	}
 	return m.Game
 }
 
@@ -3537,6 +3648,9 @@ func (m *MessagePoll) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPoll returns value of Poll field.
 func (m *MessagePoll) GetPoll() (value Poll) {
+	if m == nil {
+		return
+	}
 	return m.Poll
 }
 
@@ -3898,46 +4012,73 @@ func (m *MessageInvoice) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTitle returns value of Title field.
 func (m *MessageInvoice) GetTitle() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Title
 }
 
 // GetDescription returns value of Description field.
 func (m *MessageInvoice) GetDescription() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Description
 }
 
 // GetPhoto returns value of Photo field.
 func (m *MessageInvoice) GetPhoto() (value Photo) {
+	if m == nil {
+		return
+	}
 	return m.Photo
 }
 
 // GetCurrency returns value of Currency field.
 func (m *MessageInvoice) GetCurrency() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Currency
 }
 
 // GetTotalAmount returns value of TotalAmount field.
 func (m *MessageInvoice) GetTotalAmount() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.TotalAmount
 }
 
 // GetStartParameter returns value of StartParameter field.
 func (m *MessageInvoice) GetStartParameter() (value string) {
+	if m == nil {
+		return
+	}
 	return m.StartParameter
 }
 
 // GetIsTest returns value of IsTest field.
 func (m *MessageInvoice) GetIsTest() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.IsTest
 }
 
 // GetNeedShippingAddress returns value of NeedShippingAddress field.
 func (m *MessageInvoice) GetNeedShippingAddress() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.NeedShippingAddress
 }
 
 // GetReceiptMessageID returns value of ReceiptMessageID field.
 func (m *MessageInvoice) GetReceiptMessageID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.ReceiptMessageID
 }
 
@@ -4158,16 +4299,25 @@ func (m *MessageCall) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetIsVideo returns value of IsVideo field.
 func (m *MessageCall) GetIsVideo() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.IsVideo
 }
 
 // GetDiscardReason returns value of DiscardReason field.
 func (m *MessageCall) GetDiscardReason() (value CallDiscardReasonClass) {
+	if m == nil {
+		return
+	}
 	return m.DiscardReason
 }
 
 // GetDuration returns value of Duration field.
 func (m *MessageCall) GetDuration() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.Duration
 }
 
@@ -4355,11 +4505,17 @@ func (m *MessageVideoChatScheduled) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetGroupCallID returns value of GroupCallID field.
 func (m *MessageVideoChatScheduled) GetGroupCallID() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.GroupCallID
 }
 
 // GetStartDate returns value of StartDate field.
 func (m *MessageVideoChatScheduled) GetStartDate() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.StartDate
 }
 
@@ -4521,6 +4677,9 @@ func (m *MessageVideoChatStarted) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetGroupCallID returns value of GroupCallID field.
 func (m *MessageVideoChatStarted) GetGroupCallID() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.GroupCallID
 }
 
@@ -4681,6 +4840,9 @@ func (m *MessageVideoChatEnded) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetDuration returns value of Duration field.
 func (m *MessageVideoChatEnded) GetDuration() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.Duration
 }
 
@@ -4889,11 +5051,17 @@ func (m *MessageInviteVideoChatParticipants) DecodeTDLibJSON(b tdjson.Decoder) e
 
 // GetGroupCallID returns value of GroupCallID field.
 func (m *MessageInviteVideoChatParticipants) GetGroupCallID() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.GroupCallID
 }
 
 // GetUserIDs returns value of UserIDs field.
 func (m *MessageInviteVideoChatParticipants) GetUserIDs() (value []int64) {
+	if m == nil {
+		return
+	}
 	return m.UserIDs
 }
 
@@ -5101,11 +5269,17 @@ func (m *MessageBasicGroupChatCreate) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTitle returns value of Title field.
 func (m *MessageBasicGroupChatCreate) GetTitle() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Title
 }
 
 // GetMemberUserIDs returns value of MemberUserIDs field.
 func (m *MessageBasicGroupChatCreate) GetMemberUserIDs() (value []int64) {
+	if m == nil {
+		return
+	}
 	return m.MemberUserIDs
 }
 
@@ -5266,6 +5440,9 @@ func (m *MessageSupergroupChatCreate) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTitle returns value of Title field.
 func (m *MessageSupergroupChatCreate) GetTitle() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Title
 }
 
@@ -5426,6 +5603,9 @@ func (m *MessageChatChangeTitle) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTitle returns value of Title field.
 func (m *MessageChatChangeTitle) GetTitle() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Title
 }
 
@@ -5586,6 +5766,9 @@ func (m *MessageChatChangePhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPhoto returns value of Photo field.
 func (m *MessageChatChangePhoto) GetPhoto() (value ChatPhoto) {
+	if m == nil {
+		return
+	}
 	return m.Photo
 }
 
@@ -5897,6 +6080,9 @@ func (m *MessageChatAddMembers) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMemberUserIDs returns value of MemberUserIDs field.
 func (m *MessageChatAddMembers) GetMemberUserIDs() (value []int64) {
+	if m == nil {
+		return
+	}
 	return m.MemberUserIDs
 }
 
@@ -6315,6 +6501,9 @@ func (m *MessageChatDeleteMember) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (m *MessageChatDeleteMember) GetUserID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.UserID
 }
 
@@ -6475,6 +6664,9 @@ func (m *MessageChatUpgradeTo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSupergroupID returns value of SupergroupID field.
 func (m *MessageChatUpgradeTo) GetSupergroupID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.SupergroupID
 }
 
@@ -6660,11 +6852,17 @@ func (m *MessageChatUpgradeFrom) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTitle returns value of Title field.
 func (m *MessageChatUpgradeFrom) GetTitle() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Title
 }
 
 // GetBasicGroupID returns value of BasicGroupID field.
 func (m *MessageChatUpgradeFrom) GetBasicGroupID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.BasicGroupID
 }
 
@@ -6825,6 +7023,9 @@ func (m *MessagePinMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMessageID returns value of MessageID field.
 func (m *MessagePinMessage) GetMessageID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.MessageID
 }
 
@@ -7115,6 +7316,9 @@ func (m *MessageChatSetTheme) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetThemeName returns value of ThemeName field.
 func (m *MessageChatSetTheme) GetThemeName() (value string) {
+	if m == nil {
+		return
+	}
 	return m.ThemeName
 }
 
@@ -7275,6 +7479,9 @@ func (m *MessageChatSetTTL) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTTL returns value of TTL field.
 func (m *MessageChatSetTTL) GetTTL() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.TTL
 }
 
@@ -7435,6 +7642,9 @@ func (m *MessageCustomServiceAction) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (m *MessageCustomServiceAction) GetText() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Text
 }
 
@@ -7646,16 +7856,25 @@ func (m *MessageGameScore) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetGameMessageID returns value of GameMessageID field.
 func (m *MessageGameScore) GetGameMessageID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.GameMessageID
 }
 
 // GetGameID returns value of GameID field.
 func (m *MessageGameScore) GetGameID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.GameID
 }
 
 // GetScore returns value of Score field.
 func (m *MessageGameScore) GetScore() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.Score
 }
 
@@ -7892,21 +8111,33 @@ func (m *MessagePaymentSuccessful) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetInvoiceChatID returns value of InvoiceChatID field.
 func (m *MessagePaymentSuccessful) GetInvoiceChatID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.InvoiceChatID
 }
 
 // GetInvoiceMessageID returns value of InvoiceMessageID field.
 func (m *MessagePaymentSuccessful) GetInvoiceMessageID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.InvoiceMessageID
 }
 
 // GetCurrency returns value of Currency field.
 func (m *MessagePaymentSuccessful) GetCurrency() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Currency
 }
 
 // GetTotalAmount returns value of TotalAmount field.
 func (m *MessagePaymentSuccessful) GetTotalAmount() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.TotalAmount
 }
 
@@ -8217,36 +8448,57 @@ func (m *MessagePaymentSuccessfulBot) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCurrency returns value of Currency field.
 func (m *MessagePaymentSuccessfulBot) GetCurrency() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Currency
 }
 
 // GetTotalAmount returns value of TotalAmount field.
 func (m *MessagePaymentSuccessfulBot) GetTotalAmount() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.TotalAmount
 }
 
 // GetInvoicePayload returns value of InvoicePayload field.
 func (m *MessagePaymentSuccessfulBot) GetInvoicePayload() (value []byte) {
+	if m == nil {
+		return
+	}
 	return m.InvoicePayload
 }
 
 // GetShippingOptionID returns value of ShippingOptionID field.
 func (m *MessagePaymentSuccessfulBot) GetShippingOptionID() (value string) {
+	if m == nil {
+		return
+	}
 	return m.ShippingOptionID
 }
 
 // GetOrderInfo returns value of OrderInfo field.
 func (m *MessagePaymentSuccessfulBot) GetOrderInfo() (value OrderInfo) {
+	if m == nil {
+		return
+	}
 	return m.OrderInfo
 }
 
 // GetTelegramPaymentChargeID returns value of TelegramPaymentChargeID field.
 func (m *MessagePaymentSuccessfulBot) GetTelegramPaymentChargeID() (value string) {
+	if m == nil {
+		return
+	}
 	return m.TelegramPaymentChargeID
 }
 
 // GetProviderPaymentChargeID returns value of ProviderPaymentChargeID field.
 func (m *MessagePaymentSuccessfulBot) GetProviderPaymentChargeID() (value string) {
+	if m == nil {
+		return
+	}
 	return m.ProviderPaymentChargeID
 }
 
@@ -8536,6 +8788,9 @@ func (m *MessageWebsiteConnected) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetDomainName returns value of DomainName field.
 func (m *MessageWebsiteConnected) GetDomainName() (value string) {
+	if m == nil {
+		return
+	}
 	return m.DomainName
 }
 
@@ -8728,6 +8983,9 @@ func (m *MessagePassportDataSent) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTypes returns value of Types field.
 func (m *MessagePassportDataSent) GetTypes() (value []PassportElementTypeClass) {
+	if m == nil {
+		return
+	}
 	return m.Types
 }
 
@@ -8939,11 +9197,17 @@ func (m *MessagePassportDataReceived) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetElements returns value of Elements field.
 func (m *MessagePassportDataReceived) GetElements() (value []EncryptedPassportElement) {
+	if m == nil {
+		return
+	}
 	return m.Elements
 }
 
 // GetCredentials returns value of Credentials field.
 func (m *MessagePassportDataReceived) GetCredentials() (value EncryptedCredentials) {
+	if m == nil {
+		return
+	}
 	return m.Credentials
 }
 
@@ -9174,16 +9438,25 @@ func (m *MessageProximityAlertTriggered) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetTravelerID returns value of TravelerID field.
 func (m *MessageProximityAlertTriggered) GetTravelerID() (value MessageSenderClass) {
+	if m == nil {
+		return
+	}
 	return m.TravelerID
 }
 
 // GetWatcherID returns value of WatcherID field.
 func (m *MessageProximityAlertTriggered) GetWatcherID() (value MessageSenderClass) {
+	if m == nil {
+		return
+	}
 	return m.WatcherID
 }
 
 // GetDistance returns value of Distance field.
 func (m *MessageProximityAlertTriggered) GetDistance() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.Distance
 }
 

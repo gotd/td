@@ -180,11 +180,17 @@ func (c *StickersChangeStickerPositionRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetSticker returns value of Sticker field.
 func (c *StickersChangeStickerPositionRequest) GetSticker() (value InputDocumentClass) {
+	if c == nil {
+		return
+	}
 	return c.Sticker
 }
 
 // GetPosition returns value of Position field.
 func (c *StickersChangeStickerPositionRequest) GetPosition() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Position
 }
 

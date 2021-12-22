@@ -162,6 +162,9 @@ func (s *SendMultipleSMSRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetMessages returns value of Messages field.
 func (s *SendMultipleSMSRequest) GetMessages() (value []SMS) {
+	if s == nil {
+		return
+	}
 	return s.Messages
 }
 

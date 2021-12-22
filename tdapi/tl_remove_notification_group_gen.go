@@ -208,11 +208,17 @@ func (r *RemoveNotificationGroupRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetNotificationGroupID returns value of NotificationGroupID field.
 func (r *RemoveNotificationGroupRequest) GetNotificationGroupID() (value int32) {
+	if r == nil {
+		return
+	}
 	return r.NotificationGroupID
 }
 
 // GetMaxNotificationID returns value of MaxNotificationID field.
 func (r *RemoveNotificationGroupRequest) GetMaxNotificationID() (value int32) {
+	if r == nil {
+		return
+	}
 	return r.MaxNotificationID
 }
 

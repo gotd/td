@@ -179,11 +179,17 @@ func (c *ChannelParticipant) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (c *ChannelParticipant) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetDate returns value of Date field.
 func (c *ChannelParticipant) GetDate() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Date
 }
 
@@ -399,21 +405,33 @@ func (c *ChannelParticipantSelf) SetViaRequest(value bool) {
 
 // GetViaRequest returns value of ViaRequest conditional field.
 func (c *ChannelParticipantSelf) GetViaRequest() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(0)
 }
 
 // GetUserID returns value of UserID field.
 func (c *ChannelParticipantSelf) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetInviterID returns value of InviterID field.
 func (c *ChannelParticipantSelf) GetInviterID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.InviterID
 }
 
 // GetDate returns value of Date field.
 func (c *ChannelParticipantSelf) GetDate() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Date
 }
 
@@ -617,11 +635,17 @@ func (c *ChannelParticipantCreator) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (c *ChannelParticipantCreator) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetAdminRights returns value of AdminRights field.
 func (c *ChannelParticipantCreator) GetAdminRights() (value ChatAdminRights) {
+	if c == nil {
+		return
+	}
 	return c.AdminRights
 }
 
@@ -634,6 +658,9 @@ func (c *ChannelParticipantCreator) SetRank(value string) {
 // GetRank returns value of Rank conditional field and
 // boolean which is true if field was set.
 func (c *ChannelParticipantCreator) GetRank() (value string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(0) {
 		return value, false
 	}
@@ -953,6 +980,9 @@ func (c *ChannelParticipantAdmin) SetCanEdit(value bool) {
 
 // GetCanEdit returns value of CanEdit conditional field.
 func (c *ChannelParticipantAdmin) GetCanEdit() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(0)
 }
 
@@ -969,11 +999,17 @@ func (c *ChannelParticipantAdmin) SetSelf(value bool) {
 
 // GetSelf returns value of Self conditional field.
 func (c *ChannelParticipantAdmin) GetSelf() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(1)
 }
 
 // GetUserID returns value of UserID field.
 func (c *ChannelParticipantAdmin) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
@@ -986,6 +1022,9 @@ func (c *ChannelParticipantAdmin) SetInviterID(value int64) {
 // GetInviterID returns value of InviterID conditional field and
 // boolean which is true if field was set.
 func (c *ChannelParticipantAdmin) GetInviterID() (value int64, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(1) {
 		return value, false
 	}
@@ -994,16 +1033,25 @@ func (c *ChannelParticipantAdmin) GetInviterID() (value int64, ok bool) {
 
 // GetPromotedBy returns value of PromotedBy field.
 func (c *ChannelParticipantAdmin) GetPromotedBy() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.PromotedBy
 }
 
 // GetDate returns value of Date field.
 func (c *ChannelParticipantAdmin) GetDate() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Date
 }
 
 // GetAdminRights returns value of AdminRights field.
 func (c *ChannelParticipantAdmin) GetAdminRights() (value ChatAdminRights) {
+	if c == nil {
+		return
+	}
 	return c.AdminRights
 }
 
@@ -1016,6 +1064,9 @@ func (c *ChannelParticipantAdmin) SetRank(value string) {
 // GetRank returns value of Rank conditional field and
 // boolean which is true if field was set.
 func (c *ChannelParticipantAdmin) GetRank() (value string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(2) {
 		return value, false
 	}
@@ -1264,26 +1315,41 @@ func (c *ChannelParticipantBanned) SetLeft(value bool) {
 
 // GetLeft returns value of Left conditional field.
 func (c *ChannelParticipantBanned) GetLeft() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
 func (c *ChannelParticipantBanned) GetPeer() (value PeerClass) {
+	if c == nil {
+		return
+	}
 	return c.Peer
 }
 
 // GetKickedBy returns value of KickedBy field.
 func (c *ChannelParticipantBanned) GetKickedBy() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.KickedBy
 }
 
 // GetDate returns value of Date field.
 func (c *ChannelParticipantBanned) GetDate() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Date
 }
 
 // GetBannedRights returns value of BannedRights field.
 func (c *ChannelParticipantBanned) GetBannedRights() (value ChatBannedRights) {
+	if c == nil {
+		return
+	}
 	return c.BannedRights
 }
 
@@ -1421,6 +1487,9 @@ func (c *ChannelParticipantLeft) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (c *ChannelParticipantLeft) GetPeer() (value PeerClass) {
+	if c == nil {
+		return
+	}
 	return c.Peer
 }
 

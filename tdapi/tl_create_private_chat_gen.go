@@ -209,11 +209,17 @@ func (c *CreatePrivateChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (c *CreatePrivateChatRequest) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetForce returns value of Force field.
 func (c *CreatePrivateChatRequest) GetForce() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Force
 }
 

@@ -240,16 +240,25 @@ func (c *ChatMemberStatusCreator) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCustomTitle returns value of CustomTitle field.
 func (c *ChatMemberStatusCreator) GetCustomTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.CustomTitle
 }
 
 // GetIsAnonymous returns value of IsAnonymous field.
 func (c *ChatMemberStatusCreator) GetIsAnonymous() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsAnonymous
 }
 
 // GetIsMember returns value of IsMember field.
 func (c *ChatMemberStatusCreator) GetIsMember() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsMember
 }
 
@@ -719,66 +728,105 @@ func (c *ChatMemberStatusAdministrator) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetCustomTitle returns value of CustomTitle field.
 func (c *ChatMemberStatusAdministrator) GetCustomTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.CustomTitle
 }
 
 // GetCanBeEdited returns value of CanBeEdited field.
 func (c *ChatMemberStatusAdministrator) GetCanBeEdited() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanBeEdited
 }
 
 // GetCanManageChat returns value of CanManageChat field.
 func (c *ChatMemberStatusAdministrator) GetCanManageChat() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanManageChat
 }
 
 // GetCanChangeInfo returns value of CanChangeInfo field.
 func (c *ChatMemberStatusAdministrator) GetCanChangeInfo() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanChangeInfo
 }
 
 // GetCanPostMessages returns value of CanPostMessages field.
 func (c *ChatMemberStatusAdministrator) GetCanPostMessages() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanPostMessages
 }
 
 // GetCanEditMessages returns value of CanEditMessages field.
 func (c *ChatMemberStatusAdministrator) GetCanEditMessages() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanEditMessages
 }
 
 // GetCanDeleteMessages returns value of CanDeleteMessages field.
 func (c *ChatMemberStatusAdministrator) GetCanDeleteMessages() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanDeleteMessages
 }
 
 // GetCanInviteUsers returns value of CanInviteUsers field.
 func (c *ChatMemberStatusAdministrator) GetCanInviteUsers() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanInviteUsers
 }
 
 // GetCanRestrictMembers returns value of CanRestrictMembers field.
 func (c *ChatMemberStatusAdministrator) GetCanRestrictMembers() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanRestrictMembers
 }
 
 // GetCanPinMessages returns value of CanPinMessages field.
 func (c *ChatMemberStatusAdministrator) GetCanPinMessages() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanPinMessages
 }
 
 // GetCanPromoteMembers returns value of CanPromoteMembers field.
 func (c *ChatMemberStatusAdministrator) GetCanPromoteMembers() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanPromoteMembers
 }
 
 // GetCanManageVideoChats returns value of CanManageVideoChats field.
 func (c *ChatMemberStatusAdministrator) GetCanManageVideoChats() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanManageVideoChats
 }
 
 // GetIsAnonymous returns value of IsAnonymous field.
 func (c *ChatMemberStatusAdministrator) GetIsAnonymous() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsAnonymous
 }
 
@@ -1120,16 +1168,25 @@ func (c *ChatMemberStatusRestricted) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetIsMember returns value of IsMember field.
 func (c *ChatMemberStatusRestricted) GetIsMember() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsMember
 }
 
 // GetRestrictedUntilDate returns value of RestrictedUntilDate field.
 func (c *ChatMemberStatusRestricted) GetRestrictedUntilDate() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.RestrictedUntilDate
 }
 
 // GetPermissions returns value of Permissions field.
 func (c *ChatMemberStatusRestricted) GetPermissions() (value ChatPermissions) {
+	if c == nil {
+		return
+	}
 	return c.Permissions
 }
 
@@ -1421,6 +1478,9 @@ func (c *ChatMemberStatusBanned) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBannedUntilDate returns value of BannedUntilDate field.
 func (c *ChatMemberStatusBanned) GetBannedUntilDate() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.BannedUntilDate
 }
 

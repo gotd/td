@@ -313,31 +313,49 @@ func (i *InlineQueryResultArticle) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (i *InlineQueryResultArticle) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetURL returns value of URL field.
 func (i *InlineQueryResultArticle) GetURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.URL
 }
 
 // GetHideURL returns value of HideURL field.
 func (i *InlineQueryResultArticle) GetHideURL() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.HideURL
 }
 
 // GetTitle returns value of Title field.
 func (i *InlineQueryResultArticle) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 
 // GetDescription returns value of Description field.
 func (i *InlineQueryResultArticle) GetDescription() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Description
 }
 
 // GetThumbnail returns value of Thumbnail field.
 func (i *InlineQueryResultArticle) GetThumbnail() (value Thumbnail) {
+	if i == nil {
+		return
+	}
 	return i.Thumbnail
 }
 
@@ -548,16 +566,25 @@ func (i *InlineQueryResultContact) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (i *InlineQueryResultContact) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetContact returns value of Contact field.
 func (i *InlineQueryResultContact) GetContact() (value Contact) {
+	if i == nil {
+		return
+	}
 	return i.Contact
 }
 
 // GetThumbnail returns value of Thumbnail field.
 func (i *InlineQueryResultContact) GetThumbnail() (value Thumbnail) {
+	if i == nil {
+		return
+	}
 	return i.Thumbnail
 }
 
@@ -793,21 +820,33 @@ func (i *InlineQueryResultLocation) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (i *InlineQueryResultLocation) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetLocation returns value of Location field.
 func (i *InlineQueryResultLocation) GetLocation() (value Location) {
+	if i == nil {
+		return
+	}
 	return i.Location
 }
 
 // GetTitle returns value of Title field.
 func (i *InlineQueryResultLocation) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 
 // GetThumbnail returns value of Thumbnail field.
 func (i *InlineQueryResultLocation) GetThumbnail() (value Thumbnail) {
+	if i == nil {
+		return
+	}
 	return i.Thumbnail
 }
 
@@ -1018,16 +1057,25 @@ func (i *InlineQueryResultVenue) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (i *InlineQueryResultVenue) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetVenue returns value of Venue field.
 func (i *InlineQueryResultVenue) GetVenue() (value Venue) {
+	if i == nil {
+		return
+	}
 	return i.Venue
 }
 
 // GetThumbnail returns value of Thumbnail field.
 func (i *InlineQueryResultVenue) GetThumbnail() (value Thumbnail) {
+	if i == nil {
+		return
+	}
 	return i.Thumbnail
 }
 
@@ -1213,11 +1261,17 @@ func (i *InlineQueryResultGame) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (i *InlineQueryResultGame) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetGame returns value of Game field.
 func (i *InlineQueryResultGame) GetGame() (value Game) {
+	if i == nil {
+		return
+	}
 	return i.Game
 }
 
@@ -1428,16 +1482,25 @@ func (i *InlineQueryResultAnimation) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (i *InlineQueryResultAnimation) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetAnimation returns value of Animation field.
 func (i *InlineQueryResultAnimation) GetAnimation() (value Animation) {
+	if i == nil {
+		return
+	}
 	return i.Animation
 }
 
 // GetTitle returns value of Title field.
 func (i *InlineQueryResultAnimation) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 
@@ -1623,11 +1686,17 @@ func (i *InlineQueryResultAudio) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (i *InlineQueryResultAudio) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetAudio returns value of Audio field.
 func (i *InlineQueryResultAudio) GetAudio() (value Audio) {
+	if i == nil {
+		return
+	}
 	return i.Audio
 }
 
@@ -1863,21 +1932,33 @@ func (i *InlineQueryResultDocument) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (i *InlineQueryResultDocument) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetDocument returns value of Document field.
 func (i *InlineQueryResultDocument) GetDocument() (value Document) {
+	if i == nil {
+		return
+	}
 	return i.Document
 }
 
 // GetTitle returns value of Title field.
 func (i *InlineQueryResultDocument) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 
 // GetDescription returns value of Description field.
 func (i *InlineQueryResultDocument) GetDescription() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Description
 }
 
@@ -2113,21 +2194,33 @@ func (i *InlineQueryResultPhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (i *InlineQueryResultPhoto) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetPhoto returns value of Photo field.
 func (i *InlineQueryResultPhoto) GetPhoto() (value Photo) {
+	if i == nil {
+		return
+	}
 	return i.Photo
 }
 
 // GetTitle returns value of Title field.
 func (i *InlineQueryResultPhoto) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 
 // GetDescription returns value of Description field.
 func (i *InlineQueryResultPhoto) GetDescription() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Description
 }
 
@@ -2313,11 +2406,17 @@ func (i *InlineQueryResultSticker) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (i *InlineQueryResultSticker) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetSticker returns value of Sticker field.
 func (i *InlineQueryResultSticker) GetSticker() (value Sticker) {
+	if i == nil {
+		return
+	}
 	return i.Sticker
 }
 
@@ -2553,21 +2652,33 @@ func (i *InlineQueryResultVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (i *InlineQueryResultVideo) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetVideo returns value of Video field.
 func (i *InlineQueryResultVideo) GetVideo() (value Video) {
+	if i == nil {
+		return
+	}
 	return i.Video
 }
 
 // GetTitle returns value of Title field.
 func (i *InlineQueryResultVideo) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 
 // GetDescription returns value of Description field.
 func (i *InlineQueryResultVideo) GetDescription() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Description
 }
 
@@ -2778,16 +2889,25 @@ func (i *InlineQueryResultVoiceNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (i *InlineQueryResultVoiceNote) GetID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetVoiceNote returns value of VoiceNote field.
 func (i *InlineQueryResultVoiceNote) GetVoiceNote() (value VoiceNote) {
+	if i == nil {
+		return
+	}
 	return i.VoiceNote
 }
 
 // GetTitle returns value of Title field.
 func (i *InlineQueryResultVoiceNote) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 

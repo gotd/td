@@ -317,6 +317,9 @@ func (p *PassportElementErrorSourceDataField) DecodeTDLibJSON(b tdjson.Decoder) 
 
 // GetFieldName returns value of FieldName field.
 func (p *PassportElementErrorSourceDataField) GetFieldName() (value string) {
+	if p == nil {
+		return
+	}
 	return p.FieldName
 }
 
@@ -866,6 +869,9 @@ func (p *PassportElementErrorSourceTranslationFile) DecodeTDLibJSON(b tdjson.Dec
 
 // GetFileIndex returns value of FileIndex field.
 func (p *PassportElementErrorSourceTranslationFile) GetFileIndex() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.FileIndex
 }
 
@@ -1157,6 +1163,9 @@ func (p *PassportElementErrorSourceFile) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetFileIndex returns value of FileIndex field.
 func (p *PassportElementErrorSourceFile) GetFileIndex() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.FileIndex
 }
 

@@ -190,11 +190,17 @@ func (s *ChannelsSetDiscussionGroupRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetBroadcast returns value of Broadcast field.
 func (s *ChannelsSetDiscussionGroupRequest) GetBroadcast() (value InputChannelClass) {
+	if s == nil {
+		return
+	}
 	return s.Broadcast
 }
 
 // GetGroup returns value of Group field.
 func (s *ChannelsSetDiscussionGroupRequest) GetGroup() (value InputChannelClass) {
+	if s == nil {
+		return
+	}
 	return s.Group
 }
 

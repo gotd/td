@@ -208,11 +208,17 @@ func (t *ToggleGroupCallIsMyVideoPausedRequest) DecodeTDLibJSON(b tdjson.Decoder
 
 // GetGroupCallID returns value of GroupCallID field.
 func (t *ToggleGroupCallIsMyVideoPausedRequest) GetGroupCallID() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.GroupCallID
 }
 
 // GetIsMyVideoPaused returns value of IsMyVideoPaused field.
 func (t *ToggleGroupCallIsMyVideoPausedRequest) GetIsMyVideoPaused() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.IsMyVideoPaused
 }
 

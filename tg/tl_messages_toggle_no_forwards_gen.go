@@ -178,11 +178,17 @@ func (t *MessagesToggleNoForwardsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (t *MessagesToggleNoForwardsRequest) GetPeer() (value InputPeerClass) {
+	if t == nil {
+		return
+	}
 	return t.Peer
 }
 
 // GetEnabled returns value of Enabled field.
 func (t *MessagesToggleNoForwardsRequest) GetEnabled() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.Enabled
 }
 

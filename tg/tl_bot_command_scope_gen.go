@@ -580,6 +580,9 @@ func (b *BotCommandScopePeer) DecodeBare(buf *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (b *BotCommandScopePeer) GetPeer() (value InputPeerClass) {
+	if b == nil {
+		return
+	}
 	return b.Peer
 }
 
@@ -721,6 +724,9 @@ func (b *BotCommandScopePeerAdmins) DecodeBare(buf *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (b *BotCommandScopePeerAdmins) GetPeer() (value InputPeerClass) {
+	if b == nil {
+		return
+	}
 	return b.Peer
 }
 
@@ -886,11 +892,17 @@ func (b *BotCommandScopePeerUser) DecodeBare(buf *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (b *BotCommandScopePeerUser) GetPeer() (value InputPeerClass) {
+	if b == nil {
+		return
+	}
 	return b.Peer
 }
 
 // GetUserID returns value of UserID field.
 func (b *BotCommandScopePeerUser) GetUserID() (value InputUserClass) {
+	if b == nil {
+		return
+	}
 	return b.UserID
 }
 

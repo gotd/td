@@ -212,20 +212,32 @@ func (s *SavedPhoneContact) DecodeBare(b *bin.Buffer) error {
 
 // GetPhone returns value of Phone field.
 func (s *SavedPhoneContact) GetPhone() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Phone
 }
 
 // GetFirstName returns value of FirstName field.
 func (s *SavedPhoneContact) GetFirstName() (value string) {
+	if s == nil {
+		return
+	}
 	return s.FirstName
 }
 
 // GetLastName returns value of LastName field.
 func (s *SavedPhoneContact) GetLastName() (value string) {
+	if s == nil {
+		return
+	}
 	return s.LastName
 }
 
 // GetDate returns value of Date field.
 func (s *SavedPhoneContact) GetDate() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Date
 }

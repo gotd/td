@@ -302,11 +302,17 @@ func (w *AccountWallPapers) DecodeBare(b *bin.Buffer) error {
 
 // GetHash returns value of Hash field.
 func (w *AccountWallPapers) GetHash() (value int64) {
+	if w == nil {
+		return
+	}
 	return w.Hash
 }
 
 // GetWallpapers returns value of Wallpapers field.
 func (w *AccountWallPapers) GetWallpapers() (value []WallPaperClass) {
+	if w == nil {
+		return
+	}
 	return w.Wallpapers
 }
 

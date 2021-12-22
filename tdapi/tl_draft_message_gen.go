@@ -243,15 +243,24 @@ func (d *DraftMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetReplyToMessageID returns value of ReplyToMessageID field.
 func (d *DraftMessage) GetReplyToMessageID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.ReplyToMessageID
 }
 
 // GetDate returns value of Date field.
 func (d *DraftMessage) GetDate() (value int32) {
+	if d == nil {
+		return
+	}
 	return d.Date
 }
 
 // GetInputMessageText returns value of InputMessageText field.
 func (d *DraftMessage) GetInputMessageText() (value InputMessageContentClass) {
+	if d == nil {
+		return
+	}
 	return d.InputMessageText
 }

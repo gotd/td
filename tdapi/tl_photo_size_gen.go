@@ -306,25 +306,40 @@ func (p *PhotoSize) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetType returns value of Type field.
 func (p *PhotoSize) GetType() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Type
 }
 
 // GetPhoto returns value of Photo field.
 func (p *PhotoSize) GetPhoto() (value File) {
+	if p == nil {
+		return
+	}
 	return p.Photo
 }
 
 // GetWidth returns value of Width field.
 func (p *PhotoSize) GetWidth() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.Width
 }
 
 // GetHeight returns value of Height field.
 func (p *PhotoSize) GetHeight() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.Height
 }
 
 // GetProgressiveSizes returns value of ProgressiveSizes field.
 func (p *PhotoSize) GetProgressiveSizes() (value []int32) {
+	if p == nil {
+		return
+	}
 	return p.ProgressiveSizes
 }

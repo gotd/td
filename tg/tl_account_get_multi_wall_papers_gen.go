@@ -173,6 +173,9 @@ func (g *AccountGetMultiWallPapersRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetWallpapers returns value of Wallpapers field.
 func (g *AccountGetMultiWallPapersRequest) GetWallpapers() (value []InputWallPaperClass) {
+	if g == nil {
+		return
+	}
 	return g.Wallpapers
 }
 

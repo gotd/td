@@ -174,10 +174,16 @@ func (p *PopularContact) DecodeBare(b *bin.Buffer) error {
 
 // GetClientID returns value of ClientID field.
 func (p *PopularContact) GetClientID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ClientID
 }
 
 // GetImporters returns value of Importers field.
 func (p *PopularContact) GetImporters() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Importers
 }

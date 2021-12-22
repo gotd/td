@@ -208,11 +208,17 @@ func (s *SetChatThemeRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (s *SetChatThemeRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetThemeName returns value of ThemeName field.
 func (s *SetChatThemeRequest) GetThemeName() (value string) {
+	if s == nil {
+		return
+	}
 	return s.ThemeName
 }
 

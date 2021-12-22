@@ -233,16 +233,25 @@ func (g *GetArchivedStickerSetsRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetIsMasks returns value of IsMasks field.
 func (g *GetArchivedStickerSetsRequest) GetIsMasks() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.IsMasks
 }
 
 // GetOffsetStickerSetID returns value of OffsetStickerSetID field.
 func (g *GetArchivedStickerSetsRequest) GetOffsetStickerSetID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.OffsetStickerSetID
 }
 
 // GetLimit returns value of Limit field.
 func (g *GetArchivedStickerSetsRequest) GetLimit() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

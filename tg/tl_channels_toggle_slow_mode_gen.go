@@ -184,11 +184,17 @@ func (t *ChannelsToggleSlowModeRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (t *ChannelsToggleSlowModeRequest) GetChannel() (value InputChannelClass) {
+	if t == nil {
+		return
+	}
 	return t.Channel
 }
 
 // GetSeconds returns value of Seconds field.
 func (t *ChannelsToggleSlowModeRequest) GetSeconds() (value int) {
+	if t == nil {
+		return
+	}
 	return t.Seconds
 }
 

@@ -188,6 +188,9 @@ func (p *PushMessageContentHidden) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetIsPinned returns value of IsPinned field.
 func (p *PushMessageContentHidden) GetIsPinned() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsPinned
 }
 
@@ -398,16 +401,25 @@ func (p *PushMessageContentAnimation) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAnimation returns value of Animation field.
 func (p *PushMessageContentAnimation) GetAnimation() (value Animation) {
+	if p == nil {
+		return
+	}
 	return p.Animation
 }
 
 // GetCaption returns value of Caption field.
 func (p *PushMessageContentAnimation) GetCaption() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
 // GetIsPinned returns value of IsPinned field.
 func (p *PushMessageContentAnimation) GetIsPinned() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsPinned
 }
 
@@ -593,11 +605,17 @@ func (p *PushMessageContentAudio) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAudio returns value of Audio field.
 func (p *PushMessageContentAudio) GetAudio() (value Audio) {
+	if p == nil {
+		return
+	}
 	return p.Audio
 }
 
 // GetIsPinned returns value of IsPinned field.
 func (p *PushMessageContentAudio) GetIsPinned() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsPinned
 }
 
@@ -783,11 +801,17 @@ func (p *PushMessageContentContact) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetName returns value of Name field.
 func (p *PushMessageContentContact) GetName() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Name
 }
 
 // GetIsPinned returns value of IsPinned field.
 func (p *PushMessageContentContact) GetIsPinned() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsPinned
 }
 
@@ -1102,11 +1126,17 @@ func (p *PushMessageContentDocument) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetDocument returns value of Document field.
 func (p *PushMessageContentDocument) GetDocument() (value Document) {
+	if p == nil {
+		return
+	}
 	return p.Document
 }
 
 // GetIsPinned returns value of IsPinned field.
 func (p *PushMessageContentDocument) GetIsPinned() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsPinned
 }
 
@@ -1292,11 +1322,17 @@ func (p *PushMessageContentGame) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTitle returns value of Title field.
 func (p *PushMessageContentGame) GetTitle() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Title
 }
 
 // GetIsPinned returns value of IsPinned field.
 func (p *PushMessageContentGame) GetIsPinned() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsPinned
 }
 
@@ -1507,16 +1543,25 @@ func (p *PushMessageContentGameScore) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTitle returns value of Title field.
 func (p *PushMessageContentGameScore) GetTitle() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Title
 }
 
 // GetScore returns value of Score field.
 func (p *PushMessageContentGameScore) GetScore() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.Score
 }
 
 // GetIsPinned returns value of IsPinned field.
 func (p *PushMessageContentGameScore) GetIsPinned() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsPinned
 }
 
@@ -1702,11 +1747,17 @@ func (p *PushMessageContentInvoice) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPrice returns value of Price field.
 func (p *PushMessageContentInvoice) GetPrice() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Price
 }
 
 // GetIsPinned returns value of IsPinned field.
 func (p *PushMessageContentInvoice) GetIsPinned() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsPinned
 }
 
@@ -1892,11 +1943,17 @@ func (p *PushMessageContentLocation) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetIsLive returns value of IsLive field.
 func (p *PushMessageContentLocation) GetIsLive() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsLive
 }
 
 // GetIsPinned returns value of IsPinned field.
 func (p *PushMessageContentLocation) GetIsPinned() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsPinned
 }
 
@@ -2132,21 +2189,33 @@ func (p *PushMessageContentPhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPhoto returns value of Photo field.
 func (p *PushMessageContentPhoto) GetPhoto() (value Photo) {
+	if p == nil {
+		return
+	}
 	return p.Photo
 }
 
 // GetCaption returns value of Caption field.
 func (p *PushMessageContentPhoto) GetCaption() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
 // GetIsSecret returns value of IsSecret field.
 func (p *PushMessageContentPhoto) GetIsSecret() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsSecret
 }
 
 // GetIsPinned returns value of IsPinned field.
 func (p *PushMessageContentPhoto) GetIsPinned() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsPinned
 }
 
@@ -2357,16 +2426,25 @@ func (p *PushMessageContentPoll) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetQuestion returns value of Question field.
 func (p *PushMessageContentPoll) GetQuestion() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Question
 }
 
 // GetIsRegular returns value of IsRegular field.
 func (p *PushMessageContentPoll) GetIsRegular() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsRegular
 }
 
 // GetIsPinned returns value of IsPinned field.
 func (p *PushMessageContentPoll) GetIsPinned() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsPinned
 }
 
@@ -2706,16 +2784,25 @@ func (p *PushMessageContentSticker) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSticker returns value of Sticker field.
 func (p *PushMessageContentSticker) GetSticker() (value Sticker) {
+	if p == nil {
+		return
+	}
 	return p.Sticker
 }
 
 // GetEmoji returns value of Emoji field.
 func (p *PushMessageContentSticker) GetEmoji() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Emoji
 }
 
 // GetIsPinned returns value of IsPinned field.
 func (p *PushMessageContentSticker) GetIsPinned() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsPinned
 }
 
@@ -2901,11 +2988,17 @@ func (p *PushMessageContentText) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (p *PushMessageContentText) GetText() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
 // GetIsPinned returns value of IsPinned field.
 func (p *PushMessageContentText) GetIsPinned() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsPinned
 }
 
@@ -3141,21 +3234,33 @@ func (p *PushMessageContentVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetVideo returns value of Video field.
 func (p *PushMessageContentVideo) GetVideo() (value Video) {
+	if p == nil {
+		return
+	}
 	return p.Video
 }
 
 // GetCaption returns value of Caption field.
 func (p *PushMessageContentVideo) GetCaption() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
 // GetIsSecret returns value of IsSecret field.
 func (p *PushMessageContentVideo) GetIsSecret() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsSecret
 }
 
 // GetIsPinned returns value of IsPinned field.
 func (p *PushMessageContentVideo) GetIsPinned() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsPinned
 }
 
@@ -3341,11 +3446,17 @@ func (p *PushMessageContentVideoNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetVideoNote returns value of VideoNote field.
 func (p *PushMessageContentVideoNote) GetVideoNote() (value VideoNote) {
+	if p == nil {
+		return
+	}
 	return p.VideoNote
 }
 
 // GetIsPinned returns value of IsPinned field.
 func (p *PushMessageContentVideoNote) GetIsPinned() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsPinned
 }
 
@@ -3531,11 +3642,17 @@ func (p *PushMessageContentVoiceNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetVoiceNote returns value of VoiceNote field.
 func (p *PushMessageContentVoiceNote) GetVoiceNote() (value VoiceNote) {
+	if p == nil {
+		return
+	}
 	return p.VoiceNote
 }
 
 // GetIsPinned returns value of IsPinned field.
 func (p *PushMessageContentVoiceNote) GetIsPinned() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsPinned
 }
 
@@ -3875,16 +3992,25 @@ func (p *PushMessageContentChatAddMembers) DecodeTDLibJSON(b tdjson.Decoder) err
 
 // GetMemberName returns value of MemberName field.
 func (p *PushMessageContentChatAddMembers) GetMemberName() (value string) {
+	if p == nil {
+		return
+	}
 	return p.MemberName
 }
 
 // GetIsCurrentUser returns value of IsCurrentUser field.
 func (p *PushMessageContentChatAddMembers) GetIsCurrentUser() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsCurrentUser
 }
 
 // GetIsReturned returns value of IsReturned field.
 func (p *PushMessageContentChatAddMembers) GetIsReturned() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsReturned
 }
 
@@ -4174,6 +4300,9 @@ func (p *PushMessageContentChatChangeTitle) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetTitle returns value of Title field.
 func (p *PushMessageContentChatChangeTitle) GetTitle() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Title
 }
 
@@ -4335,6 +4464,9 @@ func (p *PushMessageContentChatSetTheme) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetThemeName returns value of ThemeName field.
 func (p *PushMessageContentChatSetTheme) GetThemeName() (value string) {
+	if p == nil {
+		return
+	}
 	return p.ThemeName
 }
 
@@ -4545,16 +4677,25 @@ func (p *PushMessageContentChatDeleteMember) DecodeTDLibJSON(b tdjson.Decoder) e
 
 // GetMemberName returns value of MemberName field.
 func (p *PushMessageContentChatDeleteMember) GetMemberName() (value string) {
+	if p == nil {
+		return
+	}
 	return p.MemberName
 }
 
 // GetIsCurrentUser returns value of IsCurrentUser field.
 func (p *PushMessageContentChatDeleteMember) GetIsCurrentUser() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsCurrentUser
 }
 
 // GetIsLeft returns value of IsLeft field.
 func (p *PushMessageContentChatDeleteMember) GetIsLeft() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsLeft
 }
 
@@ -4973,6 +5114,9 @@ func (p *PushMessageContentMessageForwards) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetTotalCount returns value of TotalCount field.
 func (p *PushMessageContentMessageForwards) GetTotalCount() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.TotalCount
 }
 
@@ -5233,26 +5377,41 @@ func (p *PushMessageContentMediaAlbum) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTotalCount returns value of TotalCount field.
 func (p *PushMessageContentMediaAlbum) GetTotalCount() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.TotalCount
 }
 
 // GetHasPhotos returns value of HasPhotos field.
 func (p *PushMessageContentMediaAlbum) GetHasPhotos() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.HasPhotos
 }
 
 // GetHasVideos returns value of HasVideos field.
 func (p *PushMessageContentMediaAlbum) GetHasVideos() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.HasVideos
 }
 
 // GetHasAudios returns value of HasAudios field.
 func (p *PushMessageContentMediaAlbum) GetHasAudios() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.HasAudios
 }
 
 // GetHasDocuments returns value of HasDocuments field.
 func (p *PushMessageContentMediaAlbum) GetHasDocuments() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.HasDocuments
 }
 

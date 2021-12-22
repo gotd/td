@@ -293,26 +293,41 @@ func (t *TestProxyRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetServer returns value of Server field.
 func (t *TestProxyRequest) GetServer() (value string) {
+	if t == nil {
+		return
+	}
 	return t.Server
 }
 
 // GetPort returns value of Port field.
 func (t *TestProxyRequest) GetPort() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.Port
 }
 
 // GetType returns value of Type field.
 func (t *TestProxyRequest) GetType() (value ProxyTypeClass) {
+	if t == nil {
+		return
+	}
 	return t.Type
 }
 
 // GetDCID returns value of DCID field.
 func (t *TestProxyRequest) GetDCID() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.DCID
 }
 
 // GetTimeout returns value of Timeout field.
 func (t *TestProxyRequest) GetTimeout() (value float64) {
+	if t == nil {
+		return
+	}
 	return t.Timeout
 }
 

@@ -209,5 +209,8 @@ func (g *GameHighScores) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetScores returns value of Scores field.
 func (g *GameHighScores) GetScores() (value []GameHighScore) {
+	if g == nil {
+		return
+	}
 	return g.Scores
 }

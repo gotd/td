@@ -371,30 +371,48 @@ func (i *InputIdentityDocument) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetNumber returns value of Number field.
 func (i *InputIdentityDocument) GetNumber() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Number
 }
 
 // GetExpiryDate returns value of ExpiryDate field.
 func (i *InputIdentityDocument) GetExpiryDate() (value Date) {
+	if i == nil {
+		return
+	}
 	return i.ExpiryDate
 }
 
 // GetFrontSide returns value of FrontSide field.
 func (i *InputIdentityDocument) GetFrontSide() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.FrontSide
 }
 
 // GetReverseSide returns value of ReverseSide field.
 func (i *InputIdentityDocument) GetReverseSide() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.ReverseSide
 }
 
 // GetSelfie returns value of Selfie field.
 func (i *InputIdentityDocument) GetSelfie() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.Selfie
 }
 
 // GetTranslation returns value of Translation field.
 func (i *InputIdentityDocument) GetTranslation() (value []InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.Translation
 }

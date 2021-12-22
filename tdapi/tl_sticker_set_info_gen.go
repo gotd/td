@@ -538,65 +538,104 @@ func (s *StickerSetInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (s *StickerSetInfo) GetID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ID
 }
 
 // GetTitle returns value of Title field.
 func (s *StickerSetInfo) GetTitle() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Title
 }
 
 // GetName returns value of Name field.
 func (s *StickerSetInfo) GetName() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Name
 }
 
 // GetThumbnail returns value of Thumbnail field.
 func (s *StickerSetInfo) GetThumbnail() (value Thumbnail) {
+	if s == nil {
+		return
+	}
 	return s.Thumbnail
 }
 
 // GetThumbnailOutline returns value of ThumbnailOutline field.
 func (s *StickerSetInfo) GetThumbnailOutline() (value []ClosedVectorPath) {
+	if s == nil {
+		return
+	}
 	return s.ThumbnailOutline
 }
 
 // GetIsInstalled returns value of IsInstalled field.
 func (s *StickerSetInfo) GetIsInstalled() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsInstalled
 }
 
 // GetIsArchived returns value of IsArchived field.
 func (s *StickerSetInfo) GetIsArchived() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsArchived
 }
 
 // GetIsOfficial returns value of IsOfficial field.
 func (s *StickerSetInfo) GetIsOfficial() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsOfficial
 }
 
 // GetIsAnimated returns value of IsAnimated field.
 func (s *StickerSetInfo) GetIsAnimated() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsAnimated
 }
 
 // GetIsMasks returns value of IsMasks field.
 func (s *StickerSetInfo) GetIsMasks() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsMasks
 }
 
 // GetIsViewed returns value of IsViewed field.
 func (s *StickerSetInfo) GetIsViewed() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsViewed
 }
 
 // GetSize returns value of Size field.
 func (s *StickerSetInfo) GetSize() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Size
 }
 
 // GetCovers returns value of Covers field.
 func (s *StickerSetInfo) GetCovers() (value []Sticker) {
+	if s == nil {
+		return
+	}
 	return s.Covers
 }

@@ -218,11 +218,17 @@ func (s *SetChatDefaultMessageSenderRequest) DecodeTDLibJSON(b tdjson.Decoder) e
 
 // GetChatID returns value of ChatID field.
 func (s *SetChatDefaultMessageSenderRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetDefaultMessageSenderID returns value of DefaultMessageSenderID field.
 func (s *SetChatDefaultMessageSenderRequest) GetDefaultMessageSenderID() (value MessageSenderClass) {
+	if s == nil {
+		return
+	}
 	return s.DefaultMessageSenderID
 }
 

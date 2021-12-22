@@ -160,6 +160,9 @@ func (d *MessagesDhConfigNotModified) DecodeBare(b *bin.Buffer) error {
 
 // GetRandom returns value of Random field.
 func (d *MessagesDhConfigNotModified) GetRandom() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Random
 }
 
@@ -355,21 +358,33 @@ func (d *MessagesDhConfig) DecodeBare(b *bin.Buffer) error {
 
 // GetG returns value of G field.
 func (d *MessagesDhConfig) GetG() (value int) {
+	if d == nil {
+		return
+	}
 	return d.G
 }
 
 // GetP returns value of P field.
 func (d *MessagesDhConfig) GetP() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.P
 }
 
 // GetVersion returns value of Version field.
 func (d *MessagesDhConfig) GetVersion() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Version
 }
 
 // GetRandom returns value of Random field.
 func (d *MessagesDhConfig) GetRandom() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.Random
 }
 

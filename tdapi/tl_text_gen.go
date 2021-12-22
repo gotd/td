@@ -183,5 +183,8 @@ func (t *Text) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (t *Text) GetText() (value string) {
+	if t == nil {
+		return
+	}
 	return t.Text
 }

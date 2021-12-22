@@ -664,95 +664,152 @@ func (g *GroupCall) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (g *GroupCall) GetID() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.ID
 }
 
 // GetTitle returns value of Title field.
 func (g *GroupCall) GetTitle() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Title
 }
 
 // GetScheduledStartDate returns value of ScheduledStartDate field.
 func (g *GroupCall) GetScheduledStartDate() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.ScheduledStartDate
 }
 
 // GetEnabledStartNotification returns value of EnabledStartNotification field.
 func (g *GroupCall) GetEnabledStartNotification() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.EnabledStartNotification
 }
 
 // GetIsActive returns value of IsActive field.
 func (g *GroupCall) GetIsActive() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.IsActive
 }
 
 // GetIsJoined returns value of IsJoined field.
 func (g *GroupCall) GetIsJoined() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.IsJoined
 }
 
 // GetNeedRejoin returns value of NeedRejoin field.
 func (g *GroupCall) GetNeedRejoin() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.NeedRejoin
 }
 
 // GetCanBeManaged returns value of CanBeManaged field.
 func (g *GroupCall) GetCanBeManaged() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.CanBeManaged
 }
 
 // GetParticipantCount returns value of ParticipantCount field.
 func (g *GroupCall) GetParticipantCount() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.ParticipantCount
 }
 
 // GetLoadedAllParticipants returns value of LoadedAllParticipants field.
 func (g *GroupCall) GetLoadedAllParticipants() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.LoadedAllParticipants
 }
 
 // GetRecentSpeakers returns value of RecentSpeakers field.
 func (g *GroupCall) GetRecentSpeakers() (value []GroupCallRecentSpeaker) {
+	if g == nil {
+		return
+	}
 	return g.RecentSpeakers
 }
 
 // GetIsMyVideoEnabled returns value of IsMyVideoEnabled field.
 func (g *GroupCall) GetIsMyVideoEnabled() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.IsMyVideoEnabled
 }
 
 // GetIsMyVideoPaused returns value of IsMyVideoPaused field.
 func (g *GroupCall) GetIsMyVideoPaused() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.IsMyVideoPaused
 }
 
 // GetCanEnableVideo returns value of CanEnableVideo field.
 func (g *GroupCall) GetCanEnableVideo() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.CanEnableVideo
 }
 
 // GetMuteNewParticipants returns value of MuteNewParticipants field.
 func (g *GroupCall) GetMuteNewParticipants() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.MuteNewParticipants
 }
 
 // GetCanToggleMuteNewParticipants returns value of CanToggleMuteNewParticipants field.
 func (g *GroupCall) GetCanToggleMuteNewParticipants() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.CanToggleMuteNewParticipants
 }
 
 // GetRecordDuration returns value of RecordDuration field.
 func (g *GroupCall) GetRecordDuration() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.RecordDuration
 }
 
 // GetIsVideoRecorded returns value of IsVideoRecorded field.
 func (g *GroupCall) GetIsVideoRecorded() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.IsVideoRecorded
 }
 
 // GetDuration returns value of Duration field.
 func (g *GroupCall) GetDuration() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Duration
 }

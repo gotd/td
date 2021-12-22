@@ -209,11 +209,17 @@ func (c *CancelDownloadFileRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFileID returns value of FileID field.
 func (c *CancelDownloadFileRequest) GetFileID() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.FileID
 }
 
 // GetOnlyIfPending returns value of OnlyIfPending field.
 func (c *CancelDownloadFileRequest) GetOnlyIfPending() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.OnlyIfPending
 }
 
