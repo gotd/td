@@ -285,6 +285,9 @@ func (s *MessagesStickerSetInstallResultArchive) DecodeBare(b *bin.Buffer) error
 
 // GetSets returns value of Sets field.
 func (s *MessagesStickerSetInstallResultArchive) GetSets() (value []StickerSetCoveredClass) {
+	if s == nil {
+		return
+	}
 	return s.Sets
 }
 

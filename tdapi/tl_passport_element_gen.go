@@ -188,6 +188,9 @@ func (p *PassportElementPersonalDetails) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetPersonalDetails returns value of PersonalDetails field.
 func (p *PassportElementPersonalDetails) GetPersonalDetails() (value PersonalDetails) {
+	if p == nil {
+		return
+	}
 	return p.PersonalDetails
 }
 
@@ -348,6 +351,9 @@ func (p *PassportElementPassport) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPassport returns value of Passport field.
 func (p *PassportElementPassport) GetPassport() (value IdentityDocument) {
+	if p == nil {
+		return
+	}
 	return p.Passport
 }
 
@@ -508,6 +514,9 @@ func (p *PassportElementDriverLicense) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetDriverLicense returns value of DriverLicense field.
 func (p *PassportElementDriverLicense) GetDriverLicense() (value IdentityDocument) {
+	if p == nil {
+		return
+	}
 	return p.DriverLicense
 }
 
@@ -668,6 +677,9 @@ func (p *PassportElementIdentityCard) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetIdentityCard returns value of IdentityCard field.
 func (p *PassportElementIdentityCard) GetIdentityCard() (value IdentityDocument) {
+	if p == nil {
+		return
+	}
 	return p.IdentityCard
 }
 
@@ -828,6 +840,9 @@ func (p *PassportElementInternalPassport) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetInternalPassport returns value of InternalPassport field.
 func (p *PassportElementInternalPassport) GetInternalPassport() (value IdentityDocument) {
+	if p == nil {
+		return
+	}
 	return p.InternalPassport
 }
 
@@ -988,6 +1003,9 @@ func (p *PassportElementAddress) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAddress returns value of Address field.
 func (p *PassportElementAddress) GetAddress() (value Address) {
+	if p == nil {
+		return
+	}
 	return p.Address
 }
 
@@ -1148,6 +1166,9 @@ func (p *PassportElementUtilityBill) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUtilityBill returns value of UtilityBill field.
 func (p *PassportElementUtilityBill) GetUtilityBill() (value PersonalDocument) {
+	if p == nil {
+		return
+	}
 	return p.UtilityBill
 }
 
@@ -1308,6 +1329,9 @@ func (p *PassportElementBankStatement) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBankStatement returns value of BankStatement field.
 func (p *PassportElementBankStatement) GetBankStatement() (value PersonalDocument) {
+	if p == nil {
+		return
+	}
 	return p.BankStatement
 }
 
@@ -1468,6 +1492,9 @@ func (p *PassportElementRentalAgreement) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetRentalAgreement returns value of RentalAgreement field.
 func (p *PassportElementRentalAgreement) GetRentalAgreement() (value PersonalDocument) {
+	if p == nil {
+		return
+	}
 	return p.RentalAgreement
 }
 
@@ -1628,6 +1655,9 @@ func (p *PassportElementPassportRegistration) DecodeTDLibJSON(b tdjson.Decoder) 
 
 // GetPassportRegistration returns value of PassportRegistration field.
 func (p *PassportElementPassportRegistration) GetPassportRegistration() (value PersonalDocument) {
+	if p == nil {
+		return
+	}
 	return p.PassportRegistration
 }
 
@@ -1788,6 +1818,9 @@ func (p *PassportElementTemporaryRegistration) DecodeTDLibJSON(b tdjson.Decoder)
 
 // GetTemporaryRegistration returns value of TemporaryRegistration field.
 func (p *PassportElementTemporaryRegistration) GetTemporaryRegistration() (value PersonalDocument) {
+	if p == nil {
+		return
+	}
 	return p.TemporaryRegistration
 }
 
@@ -1948,6 +1981,9 @@ func (p *PassportElementPhoneNumber) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (p *PassportElementPhoneNumber) GetPhoneNumber() (value string) {
+	if p == nil {
+		return
+	}
 	return p.PhoneNumber
 }
 
@@ -2108,6 +2144,9 @@ func (p *PassportElementEmailAddress) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetEmailAddress returns value of EmailAddress field.
 func (p *PassportElementEmailAddress) GetEmailAddress() (value string) {
+	if p == nil {
+		return
+	}
 	return p.EmailAddress
 }
 

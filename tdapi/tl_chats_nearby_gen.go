@@ -260,10 +260,16 @@ func (c *ChatsNearby) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUsersNearby returns value of UsersNearby field.
 func (c *ChatsNearby) GetUsersNearby() (value []ChatNearby) {
+	if c == nil {
+		return
+	}
 	return c.UsersNearby
 }
 
 // GetSupergroupsNearby returns value of SupergroupsNearby field.
 func (c *ChatsNearby) GetSupergroupsNearby() (value []ChatNearby) {
+	if c == nil {
+		return
+	}
 	return c.SupergroupsNearby
 }

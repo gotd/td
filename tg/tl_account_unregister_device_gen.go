@@ -215,16 +215,25 @@ func (u *AccountUnregisterDeviceRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetTokenType returns value of TokenType field.
 func (u *AccountUnregisterDeviceRequest) GetTokenType() (value int) {
+	if u == nil {
+		return
+	}
 	return u.TokenType
 }
 
 // GetToken returns value of Token field.
 func (u *AccountUnregisterDeviceRequest) GetToken() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Token
 }
 
 // GetOtherUIDs returns value of OtherUIDs field.
 func (u *AccountUnregisterDeviceRequest) GetOtherUIDs() (value []int64) {
+	if u == nil {
+		return
+	}
 	return u.OtherUIDs
 }
 

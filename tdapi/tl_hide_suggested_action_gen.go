@@ -193,6 +193,9 @@ func (h *HideSuggestedActionRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAction returns value of Action field.
 func (h *HideSuggestedActionRequest) GetAction() (value SuggestedActionClass) {
+	if h == nil {
+		return
+	}
 	return h.Action
 }
 

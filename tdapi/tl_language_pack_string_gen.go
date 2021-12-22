@@ -219,10 +219,16 @@ func (l *LanguagePackString) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetKey returns value of Key field.
 func (l *LanguagePackString) GetKey() (value string) {
+	if l == nil {
+		return
+	}
 	return l.Key
 }
 
 // GetValue returns value of Value field.
 func (l *LanguagePackString) GetValue() (value LanguagePackStringValueClass) {
+	if l == nil {
+		return
+	}
 	return l.Value
 }

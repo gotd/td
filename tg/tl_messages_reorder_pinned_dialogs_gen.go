@@ -243,16 +243,25 @@ func (r *MessagesReorderPinnedDialogsRequest) SetForce(value bool) {
 
 // GetForce returns value of Force conditional field.
 func (r *MessagesReorderPinnedDialogsRequest) GetForce() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.Flags.Has(0)
 }
 
 // GetFolderID returns value of FolderID field.
 func (r *MessagesReorderPinnedDialogsRequest) GetFolderID() (value int) {
+	if r == nil {
+		return
+	}
 	return r.FolderID
 }
 
 // GetOrder returns value of Order field.
 func (r *MessagesReorderPinnedDialogsRequest) GetOrder() (value []InputDialogPeerClass) {
+	if r == nil {
+		return
+	}
 	return r.Order
 }
 

@@ -183,6 +183,9 @@ func (g *GetChatFilterDefaultIconNameRequest) DecodeTDLibJSON(b tdjson.Decoder) 
 
 // GetFilter returns value of Filter field.
 func (g *GetChatFilterDefaultIconNameRequest) GetFilter() (value ChatFilter) {
+	if g == nil {
+		return
+	}
 	return g.Filter
 }
 

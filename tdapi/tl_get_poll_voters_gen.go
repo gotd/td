@@ -286,26 +286,41 @@ func (g *GetPollVotersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (g *GetPollVotersRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (g *GetPollVotersRequest) GetMessageID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.MessageID
 }
 
 // GetOptionID returns value of OptionID field.
 func (g *GetPollVotersRequest) GetOptionID() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.OptionID
 }
 
 // GetOffset returns value of Offset field.
 func (g *GetPollVotersRequest) GetOffset() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 
 // GetLimit returns value of Limit field.
 func (g *GetPollVotersRequest) GetLimit() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

@@ -310,30 +310,48 @@ func (m *MessageLinkInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetIsPublic returns value of IsPublic field.
 func (m *MessageLinkInfo) GetIsPublic() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.IsPublic
 }
 
 // GetChatID returns value of ChatID field.
 func (m *MessageLinkInfo) GetChatID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.ChatID
 }
 
 // GetMessage returns value of Message field.
 func (m *MessageLinkInfo) GetMessage() (value Message) {
+	if m == nil {
+		return
+	}
 	return m.Message
 }
 
 // GetMediaTimestamp returns value of MediaTimestamp field.
 func (m *MessageLinkInfo) GetMediaTimestamp() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.MediaTimestamp
 }
 
 // GetForAlbum returns value of ForAlbum field.
 func (m *MessageLinkInfo) GetForAlbum() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.ForAlbum
 }
 
 // GetForComment returns value of ForComment field.
 func (m *MessageLinkInfo) GetForComment() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.ForComment
 }

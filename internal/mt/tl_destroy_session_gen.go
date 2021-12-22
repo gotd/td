@@ -145,5 +145,8 @@ func (d *DestroySessionRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetSessionID returns value of SessionID field.
 func (d *DestroySessionRequest) GetSessionID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.SessionID
 }

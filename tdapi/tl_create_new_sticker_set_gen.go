@@ -344,31 +344,49 @@ func (c *CreateNewStickerSetRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (c *CreateNewStickerSetRequest) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetTitle returns value of Title field.
 func (c *CreateNewStickerSetRequest) GetTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Title
 }
 
 // GetName returns value of Name field.
 func (c *CreateNewStickerSetRequest) GetName() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Name
 }
 
 // GetIsMasks returns value of IsMasks field.
 func (c *CreateNewStickerSetRequest) GetIsMasks() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsMasks
 }
 
 // GetStickers returns value of Stickers field.
 func (c *CreateNewStickerSetRequest) GetStickers() (value []InputStickerClass) {
+	if c == nil {
+		return
+	}
 	return c.Stickers
 }
 
 // GetSource returns value of Source field.
 func (c *CreateNewStickerSetRequest) GetSource() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Source
 }
 

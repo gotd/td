@@ -247,21 +247,33 @@ func (i *InputPeerPhotoFileLocationLegacy) SetBig(value bool) {
 
 // GetBig returns value of Big conditional field.
 func (i *InputPeerPhotoFileLocationLegacy) GetBig() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
 func (i *InputPeerPhotoFileLocationLegacy) GetPeer() (value InputPeerClass) {
+	if i == nil {
+		return
+	}
 	return i.Peer
 }
 
 // GetVolumeID returns value of VolumeID field.
 func (i *InputPeerPhotoFileLocationLegacy) GetVolumeID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.VolumeID
 }
 
 // GetLocalID returns value of LocalID field.
 func (i *InputPeerPhotoFileLocationLegacy) GetLocalID() (value int) {
+	if i == nil {
+		return
+	}
 	return i.LocalID
 }
 
@@ -436,16 +448,25 @@ func (i *InputStickerSetThumbLegacy) DecodeBare(b *bin.Buffer) error {
 
 // GetStickerset returns value of Stickerset field.
 func (i *InputStickerSetThumbLegacy) GetStickerset() (value InputStickerSetClass) {
+	if i == nil {
+		return
+	}
 	return i.Stickerset
 }
 
 // GetVolumeID returns value of VolumeID field.
 func (i *InputStickerSetThumbLegacy) GetVolumeID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.VolumeID
 }
 
 // GetLocalID returns value of LocalID field.
 func (i *InputStickerSetThumbLegacy) GetLocalID() (value int) {
+	if i == nil {
+		return
+	}
 	return i.LocalID
 }
 
@@ -638,21 +659,33 @@ func (i *InputFileLocation) DecodeBare(b *bin.Buffer) error {
 
 // GetVolumeID returns value of VolumeID field.
 func (i *InputFileLocation) GetVolumeID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.VolumeID
 }
 
 // GetLocalID returns value of LocalID field.
 func (i *InputFileLocation) GetLocalID() (value int) {
+	if i == nil {
+		return
+	}
 	return i.LocalID
 }
 
 // GetSecret returns value of Secret field.
 func (i *InputFileLocation) GetSecret() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.Secret
 }
 
 // GetFileReference returns value of FileReference field.
 func (i *InputFileLocation) GetFileReference() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.FileReference
 }
 
@@ -810,11 +843,17 @@ func (i *InputEncryptedFileLocation) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputEncryptedFileLocation) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputEncryptedFileLocation) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }
 
@@ -1010,21 +1049,33 @@ func (i *InputDocumentFileLocation) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputDocumentFileLocation) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputDocumentFileLocation) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }
 
 // GetFileReference returns value of FileReference field.
 func (i *InputDocumentFileLocation) GetFileReference() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.FileReference
 }
 
 // GetThumbSize returns value of ThumbSize field.
 func (i *InputDocumentFileLocation) GetThumbSize() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ThumbSize
 }
 
@@ -1185,11 +1236,17 @@ func (i *InputSecureFileLocation) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputSecureFileLocation) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputSecureFileLocation) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }
 
@@ -1498,21 +1555,33 @@ func (i *InputPhotoFileLocation) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputPhotoFileLocation) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputPhotoFileLocation) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }
 
 // GetFileReference returns value of FileReference field.
 func (i *InputPhotoFileLocation) GetFileReference() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.FileReference
 }
 
 // GetThumbSize returns value of ThumbSize field.
 func (i *InputPhotoFileLocation) GetThumbSize() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ThumbSize
 }
 
@@ -1740,31 +1809,49 @@ func (i *InputPhotoLegacyFileLocation) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputPhotoLegacyFileLocation) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputPhotoLegacyFileLocation) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }
 
 // GetFileReference returns value of FileReference field.
 func (i *InputPhotoLegacyFileLocation) GetFileReference() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.FileReference
 }
 
 // GetVolumeID returns value of VolumeID field.
 func (i *InputPhotoLegacyFileLocation) GetVolumeID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.VolumeID
 }
 
 // GetLocalID returns value of LocalID field.
 func (i *InputPhotoLegacyFileLocation) GetLocalID() (value int) {
+	if i == nil {
+		return
+	}
 	return i.LocalID
 }
 
 // GetSecret returns value of Secret field.
 func (i *InputPhotoLegacyFileLocation) GetSecret() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.Secret
 }
 
@@ -1969,16 +2056,25 @@ func (i *InputPeerPhotoFileLocation) SetBig(value bool) {
 
 // GetBig returns value of Big conditional field.
 func (i *InputPeerPhotoFileLocation) GetBig() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
 func (i *InputPeerPhotoFileLocation) GetPeer() (value InputPeerClass) {
+	if i == nil {
+		return
+	}
 	return i.Peer
 }
 
 // GetPhotoID returns value of PhotoID field.
 func (i *InputPeerPhotoFileLocation) GetPhotoID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.PhotoID
 }
 
@@ -2138,11 +2234,17 @@ func (i *InputStickerSetThumb) DecodeBare(b *bin.Buffer) error {
 
 // GetStickerset returns value of Stickerset field.
 func (i *InputStickerSetThumb) GetStickerset() (value InputStickerSetClass) {
+	if i == nil {
+		return
+	}
 	return i.Stickerset
 }
 
 // GetThumbVersion returns value of ThumbVersion field.
 func (i *InputStickerSetThumb) GetThumbVersion() (value int) {
+	if i == nil {
+		return
+	}
 	return i.ThumbVersion
 }
 
@@ -2395,16 +2497,25 @@ func (i *InputGroupCallStream) DecodeBare(b *bin.Buffer) error {
 
 // GetCall returns value of Call field.
 func (i *InputGroupCallStream) GetCall() (value InputGroupCall) {
+	if i == nil {
+		return
+	}
 	return i.Call
 }
 
 // GetTimeMs returns value of TimeMs field.
 func (i *InputGroupCallStream) GetTimeMs() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.TimeMs
 }
 
 // GetScale returns value of Scale field.
 func (i *InputGroupCallStream) GetScale() (value int) {
+	if i == nil {
+		return
+	}
 	return i.Scale
 }
 
@@ -2417,6 +2528,9 @@ func (i *InputGroupCallStream) SetVideoChannel(value int) {
 // GetVideoChannel returns value of VideoChannel conditional field and
 // boolean which is true if field was set.
 func (i *InputGroupCallStream) GetVideoChannel() (value int, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(0) {
 		return value, false
 	}
@@ -2432,6 +2546,9 @@ func (i *InputGroupCallStream) SetVideoQuality(value int) {
 // GetVideoQuality returns value of VideoQuality conditional field and
 // boolean which is true if field was set.
 func (i *InputGroupCallStream) GetVideoQuality() (value int, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(0) {
 		return value, false
 	}

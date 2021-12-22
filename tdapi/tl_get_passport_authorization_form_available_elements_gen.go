@@ -208,11 +208,17 @@ func (g *GetPassportAuthorizationFormAvailableElementsRequest) DecodeTDLibJSON(b
 
 // GetAutorizationFormID returns value of AutorizationFormID field.
 func (g *GetPassportAuthorizationFormAvailableElementsRequest) GetAutorizationFormID() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.AutorizationFormID
 }
 
 // GetPassword returns value of Password field.
 func (g *GetPassportAuthorizationFormAvailableElementsRequest) GetPassword() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Password
 }
 

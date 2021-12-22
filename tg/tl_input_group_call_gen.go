@@ -174,10 +174,16 @@ func (i *InputGroupCall) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputGroupCall) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputGroupCall) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }

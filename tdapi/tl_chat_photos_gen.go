@@ -234,10 +234,16 @@ func (c *ChatPhotos) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTotalCount returns value of TotalCount field.
 func (c *ChatPhotos) GetTotalCount() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.TotalCount
 }
 
 // GetPhotos returns value of Photos field.
 func (c *ChatPhotos) GetPhotos() (value []ChatPhoto) {
+	if c == nil {
+		return
+	}
 	return c.Photos
 }

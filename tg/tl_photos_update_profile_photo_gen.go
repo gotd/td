@@ -160,6 +160,9 @@ func (u *PhotosUpdateProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (u *PhotosUpdateProfilePhotoRequest) GetID() (value InputPhotoClass) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 

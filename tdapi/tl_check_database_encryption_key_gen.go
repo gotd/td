@@ -183,6 +183,9 @@ func (c *CheckDatabaseEncryptionKeyRequest) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetEncryptionKey returns value of EncryptionKey field.
 func (c *CheckDatabaseEncryptionKeyRequest) GetEncryptionKey() (value []byte) {
+	if c == nil {
+		return
+	}
 	return c.EncryptionKey
 }
 

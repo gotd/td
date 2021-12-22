@@ -266,21 +266,33 @@ func (v *VideoSize) DecodeBare(b *bin.Buffer) error {
 
 // GetType returns value of Type field.
 func (v *VideoSize) GetType() (value string) {
+	if v == nil {
+		return
+	}
 	return v.Type
 }
 
 // GetW returns value of W field.
 func (v *VideoSize) GetW() (value int) {
+	if v == nil {
+		return
+	}
 	return v.W
 }
 
 // GetH returns value of H field.
 func (v *VideoSize) GetH() (value int) {
+	if v == nil {
+		return
+	}
 	return v.H
 }
 
 // GetSize returns value of Size field.
 func (v *VideoSize) GetSize() (value int) {
+	if v == nil {
+		return
+	}
 	return v.Size
 }
 
@@ -293,6 +305,9 @@ func (v *VideoSize) SetVideoStartTs(value float64) {
 // GetVideoStartTs returns value of VideoStartTs conditional field and
 // boolean which is true if field was set.
 func (v *VideoSize) GetVideoStartTs() (value float64, ok bool) {
+	if v == nil {
+		return
+	}
 	if !v.Flags.Has(0) {
 		return value, false
 	}

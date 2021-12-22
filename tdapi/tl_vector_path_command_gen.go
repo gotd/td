@@ -188,6 +188,9 @@ func (v *VectorPathCommandLine) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetEndPoint returns value of EndPoint field.
 func (v *VectorPathCommandLine) GetEndPoint() (value Point) {
+	if v == nil {
+		return
+	}
 	return v.EndPoint
 }
 
@@ -398,16 +401,25 @@ func (v *VectorPathCommandCubicBezierCurve) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetStartControlPoint returns value of StartControlPoint field.
 func (v *VectorPathCommandCubicBezierCurve) GetStartControlPoint() (value Point) {
+	if v == nil {
+		return
+	}
 	return v.StartControlPoint
 }
 
 // GetEndControlPoint returns value of EndControlPoint field.
 func (v *VectorPathCommandCubicBezierCurve) GetEndControlPoint() (value Point) {
+	if v == nil {
+		return
+	}
 	return v.EndControlPoint
 }
 
 // GetEndPoint returns value of EndPoint field.
 func (v *VectorPathCommandCubicBezierCurve) GetEndPoint() (value Point) {
+	if v == nil {
+		return
+	}
 	return v.EndPoint
 }
 

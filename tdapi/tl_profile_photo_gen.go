@@ -286,25 +286,40 @@ func (p *ProfilePhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (p *ProfilePhoto) GetID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ID
 }
 
 // GetSmall returns value of Small field.
 func (p *ProfilePhoto) GetSmall() (value File) {
+	if p == nil {
+		return
+	}
 	return p.Small
 }
 
 // GetBig returns value of Big field.
 func (p *ProfilePhoto) GetBig() (value File) {
+	if p == nil {
+		return
+	}
 	return p.Big
 }
 
 // GetMinithumbnail returns value of Minithumbnail field.
 func (p *ProfilePhoto) GetMinithumbnail() (value Minithumbnail) {
+	if p == nil {
+		return
+	}
 	return p.Minithumbnail
 }
 
 // GetHasAnimation returns value of HasAnimation field.
 func (p *ProfilePhoto) GetHasAnimation() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.HasAnimation
 }

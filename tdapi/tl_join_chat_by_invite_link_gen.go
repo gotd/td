@@ -183,6 +183,9 @@ func (j *JoinChatByInviteLinkRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetInviteLink returns value of InviteLink field.
 func (j *JoinChatByInviteLinkRequest) GetInviteLink() (value string) {
+	if j == nil {
+		return
+	}
 	return j.InviteLink
 }
 

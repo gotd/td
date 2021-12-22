@@ -209,11 +209,17 @@ func (s *SetChatSlowModeDelayRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (s *SetChatSlowModeDelayRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetSlowModeDelay returns value of SlowModeDelay field.
 func (s *SetChatSlowModeDelayRequest) GetSlowModeDelay() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.SlowModeDelay
 }
 

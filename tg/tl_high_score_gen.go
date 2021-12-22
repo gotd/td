@@ -193,15 +193,24 @@ func (h *HighScore) DecodeBare(b *bin.Buffer) error {
 
 // GetPos returns value of Pos field.
 func (h *HighScore) GetPos() (value int) {
+	if h == nil {
+		return
+	}
 	return h.Pos
 }
 
 // GetUserID returns value of UserID field.
 func (h *HighScore) GetUserID() (value int64) {
+	if h == nil {
+		return
+	}
 	return h.UserID
 }
 
 // GetScore returns value of Score field.
 func (h *HighScore) GetScore() (value int) {
+	if h == nil {
+		return
+	}
 	return h.Score
 }

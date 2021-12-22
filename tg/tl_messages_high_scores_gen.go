@@ -207,11 +207,17 @@ func (h *MessagesHighScores) DecodeBare(b *bin.Buffer) error {
 
 // GetScores returns value of Scores field.
 func (h *MessagesHighScores) GetScores() (value []HighScore) {
+	if h == nil {
+		return
+	}
 	return h.Scores
 }
 
 // GetUsers returns value of Users field.
 func (h *MessagesHighScores) GetUsers() (value []UserClass) {
+	if h == nil {
+		return
+	}
 	return h.Users
 }
 

@@ -1994,6 +1994,9 @@ func (t *TextEntityTypePreCode) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLanguage returns value of Language field.
 func (t *TextEntityTypePreCode) GetLanguage() (value string) {
+	if t == nil {
+		return
+	}
 	return t.Language
 }
 
@@ -2154,6 +2157,9 @@ func (t *TextEntityTypeTextURL) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetURL returns value of URL field.
 func (t *TextEntityTypeTextURL) GetURL() (value string) {
+	if t == nil {
+		return
+	}
 	return t.URL
 }
 
@@ -2314,6 +2320,9 @@ func (t *TextEntityTypeMentionName) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (t *TextEntityTypeMentionName) GetUserID() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.UserID
 }
 
@@ -2476,6 +2485,9 @@ func (t *TextEntityTypeMediaTimestamp) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMediaTimestamp returns value of MediaTimestamp field.
 func (t *TextEntityTypeMediaTimestamp) GetMediaTimestamp() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.MediaTimestamp
 }
 

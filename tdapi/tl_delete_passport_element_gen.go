@@ -193,6 +193,9 @@ func (d *DeletePassportElementRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetType returns value of Type field.
 func (d *DeletePassportElementRequest) GetType() (value PassportElementTypeClass) {
+	if d == nil {
+		return
+	}
 	return d.Type
 }
 

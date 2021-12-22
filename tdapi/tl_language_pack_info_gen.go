@@ -486,65 +486,104 @@ func (l *LanguagePackInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (l *LanguagePackInfo) GetID() (value string) {
+	if l == nil {
+		return
+	}
 	return l.ID
 }
 
 // GetBaseLanguagePackID returns value of BaseLanguagePackID field.
 func (l *LanguagePackInfo) GetBaseLanguagePackID() (value string) {
+	if l == nil {
+		return
+	}
 	return l.BaseLanguagePackID
 }
 
 // GetName returns value of Name field.
 func (l *LanguagePackInfo) GetName() (value string) {
+	if l == nil {
+		return
+	}
 	return l.Name
 }
 
 // GetNativeName returns value of NativeName field.
 func (l *LanguagePackInfo) GetNativeName() (value string) {
+	if l == nil {
+		return
+	}
 	return l.NativeName
 }
 
 // GetPluralCode returns value of PluralCode field.
 func (l *LanguagePackInfo) GetPluralCode() (value string) {
+	if l == nil {
+		return
+	}
 	return l.PluralCode
 }
 
 // GetIsOfficial returns value of IsOfficial field.
 func (l *LanguagePackInfo) GetIsOfficial() (value bool) {
+	if l == nil {
+		return
+	}
 	return l.IsOfficial
 }
 
 // GetIsRtl returns value of IsRtl field.
 func (l *LanguagePackInfo) GetIsRtl() (value bool) {
+	if l == nil {
+		return
+	}
 	return l.IsRtl
 }
 
 // GetIsBeta returns value of IsBeta field.
 func (l *LanguagePackInfo) GetIsBeta() (value bool) {
+	if l == nil {
+		return
+	}
 	return l.IsBeta
 }
 
 // GetIsInstalled returns value of IsInstalled field.
 func (l *LanguagePackInfo) GetIsInstalled() (value bool) {
+	if l == nil {
+		return
+	}
 	return l.IsInstalled
 }
 
 // GetTotalStringCount returns value of TotalStringCount field.
 func (l *LanguagePackInfo) GetTotalStringCount() (value int32) {
+	if l == nil {
+		return
+	}
 	return l.TotalStringCount
 }
 
 // GetTranslatedStringCount returns value of TranslatedStringCount field.
 func (l *LanguagePackInfo) GetTranslatedStringCount() (value int32) {
+	if l == nil {
+		return
+	}
 	return l.TranslatedStringCount
 }
 
 // GetLocalStringCount returns value of LocalStringCount field.
 func (l *LanguagePackInfo) GetLocalStringCount() (value int32) {
+	if l == nil {
+		return
+	}
 	return l.LocalStringCount
 }
 
 // GetTranslationURL returns value of TranslationURL field.
 func (l *LanguagePackInfo) GetTranslationURL() (value string) {
+	if l == nil {
+		return
+	}
 	return l.TranslationURL
 }

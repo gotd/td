@@ -218,10 +218,16 @@ func (g *GroupCallRecentSpeaker) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetParticipantID returns value of ParticipantID field.
 func (g *GroupCallRecentSpeaker) GetParticipantID() (value MessageSenderClass) {
+	if g == nil {
+		return
+	}
 	return g.ParticipantID
 }
 
 // GetIsSpeaking returns value of IsSpeaking field.
 func (g *GroupCallRecentSpeaker) GetIsSpeaking() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.IsSpeaking
 }

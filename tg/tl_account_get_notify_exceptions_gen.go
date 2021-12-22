@@ -219,6 +219,9 @@ func (g *AccountGetNotifyExceptionsRequest) SetCompareSound(value bool) {
 
 // GetCompareSound returns value of CompareSound conditional field.
 func (g *AccountGetNotifyExceptionsRequest) GetCompareSound() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(1)
 }
 
@@ -231,6 +234,9 @@ func (g *AccountGetNotifyExceptionsRequest) SetPeer(value InputNotifyPeerClass) 
 // GetPeer returns value of Peer conditional field and
 // boolean which is true if field was set.
 func (g *AccountGetNotifyExceptionsRequest) GetPeer() (value InputNotifyPeerClass, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(0) {
 		return value, false
 	}

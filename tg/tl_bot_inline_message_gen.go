@@ -270,6 +270,9 @@ func (b *BotInlineMessageMediaAuto) DecodeBare(buf *bin.Buffer) error {
 
 // GetMessage returns value of Message field.
 func (b *BotInlineMessageMediaAuto) GetMessage() (value string) {
+	if b == nil {
+		return
+	}
 	return b.Message
 }
 
@@ -282,6 +285,9 @@ func (b *BotInlineMessageMediaAuto) SetEntities(value []MessageEntityClass) {
 // GetEntities returns value of Entities conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineMessageMediaAuto) GetEntities() (value []MessageEntityClass, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(1) {
 		return value, false
 	}
@@ -297,6 +303,9 @@ func (b *BotInlineMessageMediaAuto) SetReplyMarkup(value ReplyMarkupClass) {
 // GetReplyMarkup returns value of ReplyMarkup conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineMessageMediaAuto) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(2) {
 		return value, false
 	}
@@ -574,11 +583,17 @@ func (b *BotInlineMessageText) SetNoWebpage(value bool) {
 
 // GetNoWebpage returns value of NoWebpage conditional field.
 func (b *BotInlineMessageText) GetNoWebpage() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.Flags.Has(0)
 }
 
 // GetMessage returns value of Message field.
 func (b *BotInlineMessageText) GetMessage() (value string) {
+	if b == nil {
+		return
+	}
 	return b.Message
 }
 
@@ -591,6 +606,9 @@ func (b *BotInlineMessageText) SetEntities(value []MessageEntityClass) {
 // GetEntities returns value of Entities conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineMessageText) GetEntities() (value []MessageEntityClass, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(1) {
 		return value, false
 	}
@@ -606,6 +624,9 @@ func (b *BotInlineMessageText) SetReplyMarkup(value ReplyMarkupClass) {
 // GetReplyMarkup returns value of ReplyMarkup conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineMessageText) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(2) {
 		return value, false
 	}
@@ -907,6 +928,9 @@ func (b *BotInlineMessageMediaGeo) DecodeBare(buf *bin.Buffer) error {
 
 // GetGeo returns value of Geo field.
 func (b *BotInlineMessageMediaGeo) GetGeo() (value GeoPointClass) {
+	if b == nil {
+		return
+	}
 	return b.Geo
 }
 
@@ -919,6 +943,9 @@ func (b *BotInlineMessageMediaGeo) SetHeading(value int) {
 // GetHeading returns value of Heading conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineMessageMediaGeo) GetHeading() (value int, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(0) {
 		return value, false
 	}
@@ -934,6 +961,9 @@ func (b *BotInlineMessageMediaGeo) SetPeriod(value int) {
 // GetPeriod returns value of Period conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineMessageMediaGeo) GetPeriod() (value int, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(1) {
 		return value, false
 	}
@@ -949,6 +979,9 @@ func (b *BotInlineMessageMediaGeo) SetProximityNotificationRadius(value int) {
 // GetProximityNotificationRadius returns value of ProximityNotificationRadius conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineMessageMediaGeo) GetProximityNotificationRadius() (value int, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(3) {
 		return value, false
 	}
@@ -964,6 +997,9 @@ func (b *BotInlineMessageMediaGeo) SetReplyMarkup(value ReplyMarkupClass) {
 // GetReplyMarkup returns value of ReplyMarkup conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineMessageMediaGeo) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(2) {
 		return value, false
 	}
@@ -1255,31 +1291,49 @@ func (b *BotInlineMessageMediaVenue) DecodeBare(buf *bin.Buffer) error {
 
 // GetGeo returns value of Geo field.
 func (b *BotInlineMessageMediaVenue) GetGeo() (value GeoPointClass) {
+	if b == nil {
+		return
+	}
 	return b.Geo
 }
 
 // GetTitle returns value of Title field.
 func (b *BotInlineMessageMediaVenue) GetTitle() (value string) {
+	if b == nil {
+		return
+	}
 	return b.Title
 }
 
 // GetAddress returns value of Address field.
 func (b *BotInlineMessageMediaVenue) GetAddress() (value string) {
+	if b == nil {
+		return
+	}
 	return b.Address
 }
 
 // GetProvider returns value of Provider field.
 func (b *BotInlineMessageMediaVenue) GetProvider() (value string) {
+	if b == nil {
+		return
+	}
 	return b.Provider
 }
 
 // GetVenueID returns value of VenueID field.
 func (b *BotInlineMessageMediaVenue) GetVenueID() (value string) {
+	if b == nil {
+		return
+	}
 	return b.VenueID
 }
 
 // GetVenueType returns value of VenueType field.
 func (b *BotInlineMessageMediaVenue) GetVenueType() (value string) {
+	if b == nil {
+		return
+	}
 	return b.VenueType
 }
 
@@ -1292,6 +1346,9 @@ func (b *BotInlineMessageMediaVenue) SetReplyMarkup(value ReplyMarkupClass) {
 // GetReplyMarkup returns value of ReplyMarkup conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineMessageMediaVenue) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(2) {
 		return value, false
 	}
@@ -1540,21 +1597,33 @@ func (b *BotInlineMessageMediaContact) DecodeBare(buf *bin.Buffer) error {
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (b *BotInlineMessageMediaContact) GetPhoneNumber() (value string) {
+	if b == nil {
+		return
+	}
 	return b.PhoneNumber
 }
 
 // GetFirstName returns value of FirstName field.
 func (b *BotInlineMessageMediaContact) GetFirstName() (value string) {
+	if b == nil {
+		return
+	}
 	return b.FirstName
 }
 
 // GetLastName returns value of LastName field.
 func (b *BotInlineMessageMediaContact) GetLastName() (value string) {
+	if b == nil {
+		return
+	}
 	return b.LastName
 }
 
 // GetVcard returns value of Vcard field.
 func (b *BotInlineMessageMediaContact) GetVcard() (value string) {
+	if b == nil {
+		return
+	}
 	return b.Vcard
 }
 
@@ -1567,6 +1636,9 @@ func (b *BotInlineMessageMediaContact) SetReplyMarkup(value ReplyMarkupClass) {
 // GetReplyMarkup returns value of ReplyMarkup conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineMessageMediaContact) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(2) {
 		return value, false
 	}
@@ -1902,6 +1974,9 @@ func (b *BotInlineMessageMediaInvoice) SetShippingAddressRequested(value bool) {
 
 // GetShippingAddressRequested returns value of ShippingAddressRequested conditional field.
 func (b *BotInlineMessageMediaInvoice) GetShippingAddressRequested() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.Flags.Has(1)
 }
 
@@ -1918,16 +1993,25 @@ func (b *BotInlineMessageMediaInvoice) SetTest(value bool) {
 
 // GetTest returns value of Test conditional field.
 func (b *BotInlineMessageMediaInvoice) GetTest() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.Flags.Has(3)
 }
 
 // GetTitle returns value of Title field.
 func (b *BotInlineMessageMediaInvoice) GetTitle() (value string) {
+	if b == nil {
+		return
+	}
 	return b.Title
 }
 
 // GetDescription returns value of Description field.
 func (b *BotInlineMessageMediaInvoice) GetDescription() (value string) {
+	if b == nil {
+		return
+	}
 	return b.Description
 }
 
@@ -1940,6 +2024,9 @@ func (b *BotInlineMessageMediaInvoice) SetPhoto(value WebDocumentClass) {
 // GetPhoto returns value of Photo conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineMessageMediaInvoice) GetPhoto() (value WebDocumentClass, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(0) {
 		return value, false
 	}
@@ -1948,11 +2035,17 @@ func (b *BotInlineMessageMediaInvoice) GetPhoto() (value WebDocumentClass, ok bo
 
 // GetCurrency returns value of Currency field.
 func (b *BotInlineMessageMediaInvoice) GetCurrency() (value string) {
+	if b == nil {
+		return
+	}
 	return b.Currency
 }
 
 // GetTotalAmount returns value of TotalAmount field.
 func (b *BotInlineMessageMediaInvoice) GetTotalAmount() (value int64) {
+	if b == nil {
+		return
+	}
 	return b.TotalAmount
 }
 
@@ -1965,6 +2058,9 @@ func (b *BotInlineMessageMediaInvoice) SetReplyMarkup(value ReplyMarkupClass) {
 // GetReplyMarkup returns value of ReplyMarkup conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineMessageMediaInvoice) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(2) {
 		return value, false
 	}

@@ -183,6 +183,9 @@ func (g *GetPreferredCountryLanguageRequest) DecodeTDLibJSON(b tdjson.Decoder) e
 
 // GetCountryCode returns value of CountryCode field.
 func (g *GetPreferredCountryLanguageRequest) GetCountryCode() (value string) {
+	if g == nil {
+		return
+	}
 	return g.CountryCode
 }
 

@@ -284,25 +284,40 @@ func (d *Document) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFileName returns value of FileName field.
 func (d *Document) GetFileName() (value string) {
+	if d == nil {
+		return
+	}
 	return d.FileName
 }
 
 // GetMimeType returns value of MimeType field.
 func (d *Document) GetMimeType() (value string) {
+	if d == nil {
+		return
+	}
 	return d.MimeType
 }
 
 // GetMinithumbnail returns value of Minithumbnail field.
 func (d *Document) GetMinithumbnail() (value Minithumbnail) {
+	if d == nil {
+		return
+	}
 	return d.Minithumbnail
 }
 
 // GetThumbnail returns value of Thumbnail field.
 func (d *Document) GetThumbnail() (value Thumbnail) {
+	if d == nil {
+		return
+	}
 	return d.Thumbnail
 }
 
 // GetDocument returns value of Document field.
 func (d *Document) GetDocument() (value File) {
+	if d == nil {
+		return
+	}
 	return d.Document
 }

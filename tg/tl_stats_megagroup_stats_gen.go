@@ -565,86 +565,137 @@ func (m *StatsMegagroupStats) DecodeBare(b *bin.Buffer) error {
 
 // GetPeriod returns value of Period field.
 func (m *StatsMegagroupStats) GetPeriod() (value StatsDateRangeDays) {
+	if m == nil {
+		return
+	}
 	return m.Period
 }
 
 // GetMembers returns value of Members field.
 func (m *StatsMegagroupStats) GetMembers() (value StatsAbsValueAndPrev) {
+	if m == nil {
+		return
+	}
 	return m.Members
 }
 
 // GetMessages returns value of Messages field.
 func (m *StatsMegagroupStats) GetMessages() (value StatsAbsValueAndPrev) {
+	if m == nil {
+		return
+	}
 	return m.Messages
 }
 
 // GetViewers returns value of Viewers field.
 func (m *StatsMegagroupStats) GetViewers() (value StatsAbsValueAndPrev) {
+	if m == nil {
+		return
+	}
 	return m.Viewers
 }
 
 // GetPosters returns value of Posters field.
 func (m *StatsMegagroupStats) GetPosters() (value StatsAbsValueAndPrev) {
+	if m == nil {
+		return
+	}
 	return m.Posters
 }
 
 // GetGrowthGraph returns value of GrowthGraph field.
 func (m *StatsMegagroupStats) GetGrowthGraph() (value StatsGraphClass) {
+	if m == nil {
+		return
+	}
 	return m.GrowthGraph
 }
 
 // GetMembersGraph returns value of MembersGraph field.
 func (m *StatsMegagroupStats) GetMembersGraph() (value StatsGraphClass) {
+	if m == nil {
+		return
+	}
 	return m.MembersGraph
 }
 
 // GetNewMembersBySourceGraph returns value of NewMembersBySourceGraph field.
 func (m *StatsMegagroupStats) GetNewMembersBySourceGraph() (value StatsGraphClass) {
+	if m == nil {
+		return
+	}
 	return m.NewMembersBySourceGraph
 }
 
 // GetLanguagesGraph returns value of LanguagesGraph field.
 func (m *StatsMegagroupStats) GetLanguagesGraph() (value StatsGraphClass) {
+	if m == nil {
+		return
+	}
 	return m.LanguagesGraph
 }
 
 // GetMessagesGraph returns value of MessagesGraph field.
 func (m *StatsMegagroupStats) GetMessagesGraph() (value StatsGraphClass) {
+	if m == nil {
+		return
+	}
 	return m.MessagesGraph
 }
 
 // GetActionsGraph returns value of ActionsGraph field.
 func (m *StatsMegagroupStats) GetActionsGraph() (value StatsGraphClass) {
+	if m == nil {
+		return
+	}
 	return m.ActionsGraph
 }
 
 // GetTopHoursGraph returns value of TopHoursGraph field.
 func (m *StatsMegagroupStats) GetTopHoursGraph() (value StatsGraphClass) {
+	if m == nil {
+		return
+	}
 	return m.TopHoursGraph
 }
 
 // GetWeekdaysGraph returns value of WeekdaysGraph field.
 func (m *StatsMegagroupStats) GetWeekdaysGraph() (value StatsGraphClass) {
+	if m == nil {
+		return
+	}
 	return m.WeekdaysGraph
 }
 
 // GetTopPosters returns value of TopPosters field.
 func (m *StatsMegagroupStats) GetTopPosters() (value []StatsGroupTopPoster) {
+	if m == nil {
+		return
+	}
 	return m.TopPosters
 }
 
 // GetTopAdmins returns value of TopAdmins field.
 func (m *StatsMegagroupStats) GetTopAdmins() (value []StatsGroupTopAdmin) {
+	if m == nil {
+		return
+	}
 	return m.TopAdmins
 }
 
 // GetTopInviters returns value of TopInviters field.
 func (m *StatsMegagroupStats) GetTopInviters() (value []StatsGroupTopInviter) {
+	if m == nil {
+		return
+	}
 	return m.TopInviters
 }
 
 // GetUsers returns value of Users field.
 func (m *StatsMegagroupStats) GetUsers() (value []UserClass) {
+	if m == nil {
+		return
+	}
 	return m.Users
 }
 

@@ -230,16 +230,25 @@ func (g *StatsGetMessageStatsRequest) SetDark(value bool) {
 
 // GetDark returns value of Dark conditional field.
 func (g *StatsGetMessageStatsRequest) GetDark() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(0)
 }
 
 // GetChannel returns value of Channel field.
 func (g *StatsGetMessageStatsRequest) GetChannel() (value InputChannelClass) {
+	if g == nil {
+		return
+	}
 	return g.Channel
 }
 
 // GetMsgID returns value of MsgID field.
 func (g *StatsGetMessageStatsRequest) GetMsgID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.MsgID
 }
 

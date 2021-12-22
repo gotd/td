@@ -159,6 +159,9 @@ func (c *MessagesCheckHistoryImportRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetImportHead returns value of ImportHead field.
 func (c *MessagesCheckHistoryImportRequest) GetImportHead() (value string) {
+	if c == nil {
+		return
+	}
 	return c.ImportHead
 }
 

@@ -155,6 +155,9 @@ func (r *MessagesReceivedMessagesRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetMaxID returns value of MaxID field.
 func (r *MessagesReceivedMessagesRequest) GetMaxID() (value int) {
+	if r == nil {
+		return
+	}
 	return r.MaxID
 }
 

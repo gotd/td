@@ -308,31 +308,49 @@ func (g *GetMapThumbnailFileRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLocation returns value of Location field.
 func (g *GetMapThumbnailFileRequest) GetLocation() (value Location) {
+	if g == nil {
+		return
+	}
 	return g.Location
 }
 
 // GetZoom returns value of Zoom field.
 func (g *GetMapThumbnailFileRequest) GetZoom() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Zoom
 }
 
 // GetWidth returns value of Width field.
 func (g *GetMapThumbnailFileRequest) GetWidth() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Width
 }
 
 // GetHeight returns value of Height field.
 func (g *GetMapThumbnailFileRequest) GetHeight() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Height
 }
 
 // GetScale returns value of Scale field.
 func (g *GetMapThumbnailFileRequest) GetScale() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Scale
 }
 
 // GetChatID returns value of ChatID field.
 func (g *GetMapThumbnailFileRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 

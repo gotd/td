@@ -174,10 +174,16 @@ func (t *AccountTmpPassword) DecodeBare(b *bin.Buffer) error {
 
 // GetTmpPassword returns value of TmpPassword field.
 func (t *AccountTmpPassword) GetTmpPassword() (value []byte) {
+	if t == nil {
+		return
+	}
 	return t.TmpPassword
 }
 
 // GetValidUntil returns value of ValidUntil field.
 func (t *AccountTmpPassword) GetValidUntil() (value int) {
+	if t == nil {
+		return
+	}
 	return t.ValidUntil
 }

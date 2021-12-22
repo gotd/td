@@ -208,11 +208,17 @@ func (s *SetChatTitleRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (s *SetChatTitleRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetTitle returns value of Title field.
 func (s *SetChatTitleRequest) GetTitle() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Title
 }
 

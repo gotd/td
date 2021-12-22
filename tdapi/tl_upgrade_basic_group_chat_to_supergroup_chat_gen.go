@@ -183,6 +183,9 @@ func (u *UpgradeBasicGroupChatToSupergroupChatRequest) DecodeTDLibJSON(b tdjson.
 
 // GetChatID returns value of ChatID field.
 func (u *UpgradeBasicGroupChatToSupergroupChatRequest) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 

@@ -487,60 +487,96 @@ func (u *UserFullInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPhoto returns value of Photo field.
 func (u *UserFullInfo) GetPhoto() (value ChatPhoto) {
+	if u == nil {
+		return
+	}
 	return u.Photo
 }
 
 // GetIsBlocked returns value of IsBlocked field.
 func (u *UserFullInfo) GetIsBlocked() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.IsBlocked
 }
 
 // GetCanBeCalled returns value of CanBeCalled field.
 func (u *UserFullInfo) GetCanBeCalled() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.CanBeCalled
 }
 
 // GetSupportsVideoCalls returns value of SupportsVideoCalls field.
 func (u *UserFullInfo) GetSupportsVideoCalls() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.SupportsVideoCalls
 }
 
 // GetHasPrivateCalls returns value of HasPrivateCalls field.
 func (u *UserFullInfo) GetHasPrivateCalls() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.HasPrivateCalls
 }
 
 // GetHasPrivateForwards returns value of HasPrivateForwards field.
 func (u *UserFullInfo) GetHasPrivateForwards() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.HasPrivateForwards
 }
 
 // GetNeedPhoneNumberPrivacyException returns value of NeedPhoneNumberPrivacyException field.
 func (u *UserFullInfo) GetNeedPhoneNumberPrivacyException() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.NeedPhoneNumberPrivacyException
 }
 
 // GetBio returns value of Bio field.
 func (u *UserFullInfo) GetBio() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Bio
 }
 
 // GetShareText returns value of ShareText field.
 func (u *UserFullInfo) GetShareText() (value string) {
+	if u == nil {
+		return
+	}
 	return u.ShareText
 }
 
 // GetDescription returns value of Description field.
 func (u *UserFullInfo) GetDescription() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Description
 }
 
 // GetGroupInCommonCount returns value of GroupInCommonCount field.
 func (u *UserFullInfo) GetGroupInCommonCount() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.GroupInCommonCount
 }
 
 // GetCommands returns value of Commands field.
 func (u *UserFullInfo) GetCommands() (value []BotCommand) {
+	if u == nil {
+		return
+	}
 	return u.Commands
 }

@@ -317,6 +317,9 @@ func (s *SupergroupMembersFilterContacts) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetQuery returns value of Query field.
 func (s *SupergroupMembersFilterContacts) GetQuery() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Query
 }
 
@@ -606,6 +609,9 @@ func (s *SupergroupMembersFilterSearch) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetQuery returns value of Query field.
 func (s *SupergroupMembersFilterSearch) GetQuery() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Query
 }
 
@@ -766,6 +772,9 @@ func (s *SupergroupMembersFilterRestricted) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetQuery returns value of Query field.
 func (s *SupergroupMembersFilterRestricted) GetQuery() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Query
 }
 
@@ -926,6 +935,9 @@ func (s *SupergroupMembersFilterBanned) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetQuery returns value of Query field.
 func (s *SupergroupMembersFilterBanned) GetQuery() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Query
 }
 
@@ -1111,11 +1123,17 @@ func (s *SupergroupMembersFilterMention) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetQuery returns value of Query field.
 func (s *SupergroupMembersFilterMention) GetQuery() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Query
 }
 
 // GetMessageThreadID returns value of MessageThreadID field.
 func (s *SupergroupMembersFilterMention) GetMessageThreadID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.MessageThreadID
 }
 

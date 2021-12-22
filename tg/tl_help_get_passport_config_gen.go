@@ -161,6 +161,9 @@ func (g *HelpGetPassportConfigRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetHash returns value of Hash field.
 func (g *HelpGetPassportConfigRequest) GetHash() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Hash
 }
 

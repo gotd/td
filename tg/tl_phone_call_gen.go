@@ -160,6 +160,9 @@ func (p *PhoneCallEmpty) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (p *PhoneCallEmpty) GetID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ID
 }
 
@@ -465,36 +468,57 @@ func (p *PhoneCallWaiting) SetVideo(value bool) {
 
 // GetVideo returns value of Video conditional field.
 func (p *PhoneCallWaiting) GetVideo() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(6)
 }
 
 // GetID returns value of ID field.
 func (p *PhoneCallWaiting) GetID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (p *PhoneCallWaiting) GetAccessHash() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.AccessHash
 }
 
 // GetDate returns value of Date field.
 func (p *PhoneCallWaiting) GetDate() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Date
 }
 
 // GetAdminID returns value of AdminID field.
 func (p *PhoneCallWaiting) GetAdminID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.AdminID
 }
 
 // GetParticipantID returns value of ParticipantID field.
 func (p *PhoneCallWaiting) GetParticipantID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ParticipantID
 }
 
 // GetProtocol returns value of Protocol field.
 func (p *PhoneCallWaiting) GetProtocol() (value PhoneCallProtocol) {
+	if p == nil {
+		return
+	}
 	return p.Protocol
 }
 
@@ -507,6 +531,9 @@ func (p *PhoneCallWaiting) SetReceiveDate(value int) {
 // GetReceiveDate returns value of ReceiveDate conditional field and
 // boolean which is true if field was set.
 func (p *PhoneCallWaiting) GetReceiveDate() (value int, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(0) {
 		return value, false
 	}
@@ -807,41 +834,65 @@ func (p *PhoneCallRequested) SetVideo(value bool) {
 
 // GetVideo returns value of Video conditional field.
 func (p *PhoneCallRequested) GetVideo() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(6)
 }
 
 // GetID returns value of ID field.
 func (p *PhoneCallRequested) GetID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (p *PhoneCallRequested) GetAccessHash() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.AccessHash
 }
 
 // GetDate returns value of Date field.
 func (p *PhoneCallRequested) GetDate() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Date
 }
 
 // GetAdminID returns value of AdminID field.
 func (p *PhoneCallRequested) GetAdminID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.AdminID
 }
 
 // GetParticipantID returns value of ParticipantID field.
 func (p *PhoneCallRequested) GetParticipantID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ParticipantID
 }
 
 // GetGAHash returns value of GAHash field.
 func (p *PhoneCallRequested) GetGAHash() (value []byte) {
+	if p == nil {
+		return
+	}
 	return p.GAHash
 }
 
 // GetProtocol returns value of Protocol field.
 func (p *PhoneCallRequested) GetProtocol() (value PhoneCallProtocol) {
+	if p == nil {
+		return
+	}
 	return p.Protocol
 }
 
@@ -1139,41 +1190,65 @@ func (p *PhoneCallAccepted) SetVideo(value bool) {
 
 // GetVideo returns value of Video conditional field.
 func (p *PhoneCallAccepted) GetVideo() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(6)
 }
 
 // GetID returns value of ID field.
 func (p *PhoneCallAccepted) GetID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (p *PhoneCallAccepted) GetAccessHash() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.AccessHash
 }
 
 // GetDate returns value of Date field.
 func (p *PhoneCallAccepted) GetDate() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Date
 }
 
 // GetAdminID returns value of AdminID field.
 func (p *PhoneCallAccepted) GetAdminID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.AdminID
 }
 
 // GetParticipantID returns value of ParticipantID field.
 func (p *PhoneCallAccepted) GetParticipantID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ParticipantID
 }
 
 // GetGB returns value of GB field.
 func (p *PhoneCallAccepted) GetGB() (value []byte) {
+	if p == nil {
+		return
+	}
 	return p.GB
 }
 
 // GetProtocol returns value of Protocol field.
 func (p *PhoneCallAccepted) GetProtocol() (value PhoneCallProtocol) {
+	if p == nil {
+		return
+	}
 	return p.Protocol
 }
 
@@ -1565,6 +1640,9 @@ func (p *PhoneCall) SetP2PAllowed(value bool) {
 
 // GetP2PAllowed returns value of P2PAllowed conditional field.
 func (p *PhoneCall) GetP2PAllowed() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(5)
 }
 
@@ -1581,56 +1659,89 @@ func (p *PhoneCall) SetVideo(value bool) {
 
 // GetVideo returns value of Video conditional field.
 func (p *PhoneCall) GetVideo() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(6)
 }
 
 // GetID returns value of ID field.
 func (p *PhoneCall) GetID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (p *PhoneCall) GetAccessHash() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.AccessHash
 }
 
 // GetDate returns value of Date field.
 func (p *PhoneCall) GetDate() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Date
 }
 
 // GetAdminID returns value of AdminID field.
 func (p *PhoneCall) GetAdminID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.AdminID
 }
 
 // GetParticipantID returns value of ParticipantID field.
 func (p *PhoneCall) GetParticipantID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ParticipantID
 }
 
 // GetGAOrB returns value of GAOrB field.
 func (p *PhoneCall) GetGAOrB() (value []byte) {
+	if p == nil {
+		return
+	}
 	return p.GAOrB
 }
 
 // GetKeyFingerprint returns value of KeyFingerprint field.
 func (p *PhoneCall) GetKeyFingerprint() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.KeyFingerprint
 }
 
 // GetProtocol returns value of Protocol field.
 func (p *PhoneCall) GetProtocol() (value PhoneCallProtocol) {
+	if p == nil {
+		return
+	}
 	return p.Protocol
 }
 
 // GetConnections returns value of Connections field.
 func (p *PhoneCall) GetConnections() (value []PhoneConnectionClass) {
+	if p == nil {
+		return
+	}
 	return p.Connections
 }
 
 // GetStartDate returns value of StartDate field.
 func (p *PhoneCall) GetStartDate() (value int) {
+	if p == nil {
+		return
+	}
 	return p.StartDate
 }
 
@@ -1919,6 +2030,9 @@ func (p *PhoneCallDiscarded) SetNeedRating(value bool) {
 
 // GetNeedRating returns value of NeedRating conditional field.
 func (p *PhoneCallDiscarded) GetNeedRating() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(2)
 }
 
@@ -1935,6 +2049,9 @@ func (p *PhoneCallDiscarded) SetNeedDebug(value bool) {
 
 // GetNeedDebug returns value of NeedDebug conditional field.
 func (p *PhoneCallDiscarded) GetNeedDebug() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(3)
 }
 
@@ -1951,11 +2068,17 @@ func (p *PhoneCallDiscarded) SetVideo(value bool) {
 
 // GetVideo returns value of Video conditional field.
 func (p *PhoneCallDiscarded) GetVideo() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(6)
 }
 
 // GetID returns value of ID field.
 func (p *PhoneCallDiscarded) GetID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ID
 }
 
@@ -1968,6 +2091,9 @@ func (p *PhoneCallDiscarded) SetReason(value PhoneCallDiscardReasonClass) {
 // GetReason returns value of Reason conditional field and
 // boolean which is true if field was set.
 func (p *PhoneCallDiscarded) GetReason() (value PhoneCallDiscardReasonClass, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(0) {
 		return value, false
 	}
@@ -1983,6 +2109,9 @@ func (p *PhoneCallDiscarded) SetDuration(value int) {
 // GetDuration returns value of Duration conditional field and
 // boolean which is true if field was set.
 func (p *PhoneCallDiscarded) GetDuration() (value int, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(1) {
 		return value, false
 	}

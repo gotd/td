@@ -227,16 +227,25 @@ func (d *MessagesDeleteChatUserRequest) SetRevokeHistory(value bool) {
 
 // GetRevokeHistory returns value of RevokeHistory conditional field.
 func (d *MessagesDeleteChatUserRequest) GetRevokeHistory() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(0)
 }
 
 // GetChatID returns value of ChatID field.
 func (d *MessagesDeleteChatUserRequest) GetChatID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.ChatID
 }
 
 // GetUserID returns value of UserID field.
 func (d *MessagesDeleteChatUserRequest) GetUserID() (value InputUserClass) {
+	if d == nil {
+		return
+	}
 	return d.UserID
 }
 

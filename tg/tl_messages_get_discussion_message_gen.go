@@ -187,11 +187,17 @@ func (g *MessagesGetDiscussionMessageRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (g *MessagesGetDiscussionMessageRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
 // GetMsgID returns value of MsgID field.
 func (g *MessagesGetDiscussionMessageRequest) GetMsgID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.MsgID
 }
 

@@ -204,11 +204,17 @@ func (e *PhoneExportGroupCallInviteRequest) SetCanSelfUnmute(value bool) {
 
 // GetCanSelfUnmute returns value of CanSelfUnmute conditional field.
 func (e *PhoneExportGroupCallInviteRequest) GetCanSelfUnmute() (value bool) {
+	if e == nil {
+		return
+	}
 	return e.Flags.Has(0)
 }
 
 // GetCall returns value of Call field.
 func (e *PhoneExportGroupCallInviteRequest) GetCall() (value InputGroupCall) {
+	if e == nil {
+		return
+	}
 	return e.Call
 }
 

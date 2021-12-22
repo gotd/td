@@ -183,6 +183,9 @@ func (s *SearchStickerSetRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetName returns value of Name field.
 func (s *SearchStickerSetRequest) GetName() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Name
 }
 

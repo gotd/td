@@ -188,6 +188,9 @@ func (i *InputCredentialsSaved) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSavedCredentialsID returns value of SavedCredentialsID field.
 func (i *InputCredentialsSaved) GetSavedCredentialsID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.SavedCredentialsID
 }
 
@@ -373,11 +376,17 @@ func (i *InputCredentialsNew) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetData returns value of Data field.
 func (i *InputCredentialsNew) GetData() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Data
 }
 
 // GetAllowSave returns value of AllowSave field.
 func (i *InputCredentialsNew) GetAllowSave() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.AllowSave
 }
 
@@ -538,6 +547,9 @@ func (i *InputCredentialsApplePay) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetData returns value of Data field.
 func (i *InputCredentialsApplePay) GetData() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Data
 }
 
@@ -698,6 +710,9 @@ func (i *InputCredentialsGooglePay) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetData returns value of Data field.
 func (i *InputCredentialsGooglePay) GetData() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Data
 }
 

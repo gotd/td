@@ -209,11 +209,17 @@ func (s *SetChatNotificationSettingsRequest) DecodeTDLibJSON(b tdjson.Decoder) e
 
 // GetChatID returns value of ChatID field.
 func (s *SetChatNotificationSettingsRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetNotificationSettings returns value of NotificationSettings field.
 func (s *SetChatNotificationSettingsRequest) GetNotificationSettings() (value ChatNotificationSettings) {
+	if s == nil {
+		return
+	}
 	return s.NotificationSettings
 }
 

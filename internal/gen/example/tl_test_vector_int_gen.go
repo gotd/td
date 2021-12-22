@@ -160,5 +160,8 @@ func (t *TestVectorInt) DecodeBare(b *bin.Buffer) error {
 
 // GetValue returns value of Value field.
 func (t *TestVectorInt) GetValue() (value []int32) {
+	if t == nil {
+		return
+	}
 	return t.Value
 }

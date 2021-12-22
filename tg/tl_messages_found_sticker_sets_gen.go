@@ -302,11 +302,17 @@ func (f *MessagesFoundStickerSets) DecodeBare(b *bin.Buffer) error {
 
 // GetHash returns value of Hash field.
 func (f *MessagesFoundStickerSets) GetHash() (value int64) {
+	if f == nil {
+		return
+	}
 	return f.Hash
 }
 
 // GetSets returns value of Sets field.
 func (f *MessagesFoundStickerSets) GetSets() (value []StickerSetCoveredClass) {
+	if f == nil {
+		return
+	}
 	return f.Sets
 }
 

@@ -174,11 +174,17 @@ func (j *PhoneJoinGroupCallPresentationRequest) DecodeBare(b *bin.Buffer) error 
 
 // GetCall returns value of Call field.
 func (j *PhoneJoinGroupCallPresentationRequest) GetCall() (value InputGroupCall) {
+	if j == nil {
+		return
+	}
 	return j.Call
 }
 
 // GetParams returns value of Params field.
 func (j *PhoneJoinGroupCallPresentationRequest) GetParams() (value DataJSON) {
+	if j == nil {
+		return
+	}
 	return j.Params
 }
 

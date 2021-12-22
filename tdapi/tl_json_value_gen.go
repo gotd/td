@@ -317,6 +317,9 @@ func (j *JSONValueBoolean) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetValue returns value of Value field.
 func (j *JSONValueBoolean) GetValue() (value bool) {
+	if j == nil {
+		return
+	}
 	return j.Value
 }
 
@@ -477,6 +480,9 @@ func (j *JSONValueNumber) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetValue returns value of Value field.
 func (j *JSONValueNumber) GetValue() (value float64) {
+	if j == nil {
+		return
+	}
 	return j.Value
 }
 
@@ -637,6 +643,9 @@ func (j *JSONValueString) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetValue returns value of Value field.
 func (j *JSONValueString) GetValue() (value string) {
+	if j == nil {
+		return
+	}
 	return j.Value
 }
 
@@ -829,6 +838,9 @@ func (j *JSONValueArray) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetValues returns value of Values field.
 func (j *JSONValueArray) GetValues() (value []JSONValueClass) {
+	if j == nil {
+		return
+	}
 	return j.Values
 }
 
@@ -1015,6 +1027,9 @@ func (j *JSONValueObject) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMembers returns value of Members field.
 func (j *JSONValueObject) GetMembers() (value []JSONObjectMember) {
+	if j == nil {
+		return
+	}
 	return j.Members
 }
 

@@ -236,25 +236,40 @@ func (s *UpdatesState) DecodeBare(b *bin.Buffer) error {
 
 // GetPts returns value of Pts field.
 func (s *UpdatesState) GetPts() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Pts
 }
 
 // GetQts returns value of Qts field.
 func (s *UpdatesState) GetQts() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Qts
 }
 
 // GetDate returns value of Date field.
 func (s *UpdatesState) GetDate() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Date
 }
 
 // GetSeq returns value of Seq field.
 func (s *UpdatesState) GetSeq() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Seq
 }
 
 // GetUnreadCount returns value of UnreadCount field.
 func (s *UpdatesState) GetUnreadCount() (value int) {
+	if s == nil {
+		return
+	}
 	return s.UnreadCount
 }

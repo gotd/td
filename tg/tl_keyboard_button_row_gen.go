@@ -173,6 +173,9 @@ func (k *KeyboardButtonRow) DecodeBare(b *bin.Buffer) error {
 
 // GetButtons returns value of Buttons field.
 func (k *KeyboardButtonRow) GetButtons() (value []KeyboardButtonClass) {
+	if k == nil {
+		return
+	}
 	return k.Buttons
 }
 

@@ -228,16 +228,25 @@ func (h *MessagesHideChatJoinRequestRequest) SetApproved(value bool) {
 
 // GetApproved returns value of Approved conditional field.
 func (h *MessagesHideChatJoinRequestRequest) GetApproved() (value bool) {
+	if h == nil {
+		return
+	}
 	return h.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
 func (h *MessagesHideChatJoinRequestRequest) GetPeer() (value InputPeerClass) {
+	if h == nil {
+		return
+	}
 	return h.Peer
 }
 
 // GetUserID returns value of UserID field.
 func (h *MessagesHideChatJoinRequestRequest) GetUserID() (value InputUserClass) {
+	if h == nil {
+		return
+	}
 	return h.UserID
 }
 

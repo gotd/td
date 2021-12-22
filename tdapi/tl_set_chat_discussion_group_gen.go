@@ -210,11 +210,17 @@ func (s *SetChatDiscussionGroupRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetChatID returns value of ChatID field.
 func (s *SetChatDiscussionGroupRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetDiscussionChatID returns value of DiscussionChatID field.
 func (s *SetChatDiscussionGroupRequest) GetDiscussionChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.DiscussionChatID
 }
 

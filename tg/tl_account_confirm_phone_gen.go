@@ -183,11 +183,17 @@ func (c *AccountConfirmPhoneRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPhoneCodeHash returns value of PhoneCodeHash field.
 func (c *AccountConfirmPhoneRequest) GetPhoneCodeHash() (value string) {
+	if c == nil {
+		return
+	}
 	return c.PhoneCodeHash
 }
 
 // GetPhoneCode returns value of PhoneCode field.
 func (c *AccountConfirmPhoneRequest) GetPhoneCode() (value string) {
+	if c == nil {
+		return
+	}
 	return c.PhoneCode
 }
 

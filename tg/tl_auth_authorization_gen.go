@@ -276,6 +276,9 @@ func (a *AuthAuthorization) SetSetupPasswordRequired(value bool) {
 
 // GetSetupPasswordRequired returns value of SetupPasswordRequired conditional field.
 func (a *AuthAuthorization) GetSetupPasswordRequired() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.Flags.Has(1)
 }
 
@@ -288,6 +291,9 @@ func (a *AuthAuthorization) SetOtherwiseReloginDays(value int) {
 // GetOtherwiseReloginDays returns value of OtherwiseReloginDays conditional field and
 // boolean which is true if field was set.
 func (a *AuthAuthorization) GetOtherwiseReloginDays() (value int, ok bool) {
+	if a == nil {
+		return
+	}
 	if !a.Flags.Has(1) {
 		return value, false
 	}
@@ -303,6 +309,9 @@ func (a *AuthAuthorization) SetTmpSessions(value int) {
 // GetTmpSessions returns value of TmpSessions conditional field and
 // boolean which is true if field was set.
 func (a *AuthAuthorization) GetTmpSessions() (value int, ok bool) {
+	if a == nil {
+		return
+	}
 	if !a.Flags.Has(0) {
 		return value, false
 	}
@@ -311,6 +320,9 @@ func (a *AuthAuthorization) GetTmpSessions() (value int, ok bool) {
 
 // GetUser returns value of User field.
 func (a *AuthAuthorization) GetUser() (value UserClass) {
+	if a == nil {
+		return
+	}
 	return a.User
 }
 
@@ -487,6 +499,9 @@ func (a *AuthAuthorizationSignUpRequired) SetTermsOfService(value HelpTermsOfSer
 // GetTermsOfService returns value of TermsOfService conditional field and
 // boolean which is true if field was set.
 func (a *AuthAuthorizationSignUpRequired) GetTermsOfService() (value HelpTermsOfService, ok bool) {
+	if a == nil {
+		return
+	}
 	if !a.Flags.Has(0) {
 		return value, false
 	}

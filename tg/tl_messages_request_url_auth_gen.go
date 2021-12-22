@@ -296,6 +296,9 @@ func (r *MessagesRequestURLAuthRequest) SetPeer(value InputPeerClass) {
 // GetPeer returns value of Peer conditional field and
 // boolean which is true if field was set.
 func (r *MessagesRequestURLAuthRequest) GetPeer() (value InputPeerClass, ok bool) {
+	if r == nil {
+		return
+	}
 	if !r.Flags.Has(1) {
 		return value, false
 	}
@@ -311,6 +314,9 @@ func (r *MessagesRequestURLAuthRequest) SetMsgID(value int) {
 // GetMsgID returns value of MsgID conditional field and
 // boolean which is true if field was set.
 func (r *MessagesRequestURLAuthRequest) GetMsgID() (value int, ok bool) {
+	if r == nil {
+		return
+	}
 	if !r.Flags.Has(1) {
 		return value, false
 	}
@@ -326,6 +332,9 @@ func (r *MessagesRequestURLAuthRequest) SetButtonID(value int) {
 // GetButtonID returns value of ButtonID conditional field and
 // boolean which is true if field was set.
 func (r *MessagesRequestURLAuthRequest) GetButtonID() (value int, ok bool) {
+	if r == nil {
+		return
+	}
 	if !r.Flags.Has(1) {
 		return value, false
 	}
@@ -341,6 +350,9 @@ func (r *MessagesRequestURLAuthRequest) SetURL(value string) {
 // GetURL returns value of URL conditional field and
 // boolean which is true if field was set.
 func (r *MessagesRequestURLAuthRequest) GetURL() (value string, ok bool) {
+	if r == nil {
+		return
+	}
 	if !r.Flags.Has(2) {
 		return value, false
 	}

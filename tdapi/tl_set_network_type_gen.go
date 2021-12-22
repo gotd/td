@@ -193,6 +193,9 @@ func (s *SetNetworkTypeRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetType returns value of Type field.
 func (s *SetNetworkTypeRequest) GetType() (value NetworkTypeClass) {
+	if s == nil {
+		return
+	}
 	return s.Type
 }
 

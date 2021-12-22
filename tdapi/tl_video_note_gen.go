@@ -283,25 +283,40 @@ func (v *VideoNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetDuration returns value of Duration field.
 func (v *VideoNote) GetDuration() (value int32) {
+	if v == nil {
+		return
+	}
 	return v.Duration
 }
 
 // GetLength returns value of Length field.
 func (v *VideoNote) GetLength() (value int32) {
+	if v == nil {
+		return
+	}
 	return v.Length
 }
 
 // GetMinithumbnail returns value of Minithumbnail field.
 func (v *VideoNote) GetMinithumbnail() (value Minithumbnail) {
+	if v == nil {
+		return
+	}
 	return v.Minithumbnail
 }
 
 // GetThumbnail returns value of Thumbnail field.
 func (v *VideoNote) GetThumbnail() (value Thumbnail) {
+	if v == nil {
+		return
+	}
 	return v.Thumbnail
 }
 
 // GetVideo returns value of Video field.
 func (v *VideoNote) GetVideo() (value File) {
+	if v == nil {
+		return
+	}
 	return v.Video
 }

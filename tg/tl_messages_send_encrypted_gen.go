@@ -245,21 +245,33 @@ func (s *MessagesSendEncryptedRequest) SetSilent(value bool) {
 
 // GetSilent returns value of Silent conditional field.
 func (s *MessagesSendEncryptedRequest) GetSilent() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
 func (s *MessagesSendEncryptedRequest) GetPeer() (value InputEncryptedChat) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
 // GetRandomID returns value of RandomID field.
 func (s *MessagesSendEncryptedRequest) GetRandomID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.RandomID
 }
 
 // GetData returns value of Data field.
 func (s *MessagesSendEncryptedRequest) GetData() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.Data
 }
 

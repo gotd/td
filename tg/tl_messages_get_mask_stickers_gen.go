@@ -158,6 +158,9 @@ func (g *MessagesGetMaskStickersRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetHash returns value of Hash field.
 func (g *MessagesGetMaskStickersRequest) GetHash() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.Hash
 }
 

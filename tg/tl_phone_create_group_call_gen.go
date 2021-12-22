@@ -264,11 +264,17 @@ func (c *PhoneCreateGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (c *PhoneCreateGroupCallRequest) GetPeer() (value InputPeerClass) {
+	if c == nil {
+		return
+	}
 	return c.Peer
 }
 
 // GetRandomID returns value of RandomID field.
 func (c *PhoneCreateGroupCallRequest) GetRandomID() (value int) {
+	if c == nil {
+		return
+	}
 	return c.RandomID
 }
 
@@ -281,6 +287,9 @@ func (c *PhoneCreateGroupCallRequest) SetTitle(value string) {
 // GetTitle returns value of Title conditional field and
 // boolean which is true if field was set.
 func (c *PhoneCreateGroupCallRequest) GetTitle() (value string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(0) {
 		return value, false
 	}
@@ -296,6 +305,9 @@ func (c *PhoneCreateGroupCallRequest) SetScheduleDate(value int) {
 // GetScheduleDate returns value of ScheduleDate conditional field and
 // boolean which is true if field was set.
 func (c *PhoneCreateGroupCallRequest) GetScheduleDate() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(1) {
 		return value, false
 	}

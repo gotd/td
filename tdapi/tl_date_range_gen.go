@@ -208,10 +208,16 @@ func (d *DateRange) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetStartDate returns value of StartDate field.
 func (d *DateRange) GetStartDate() (value int32) {
+	if d == nil {
+		return
+	}
 	return d.StartDate
 }
 
 // GetEndDate returns value of EndDate field.
 func (d *DateRange) GetEndDate() (value int32) {
+	if d == nil {
+		return
+	}
 	return d.EndDate
 }

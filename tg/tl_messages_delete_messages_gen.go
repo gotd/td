@@ -216,11 +216,17 @@ func (d *MessagesDeleteMessagesRequest) SetRevoke(value bool) {
 
 // GetRevoke returns value of Revoke conditional field.
 func (d *MessagesDeleteMessagesRequest) GetRevoke() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(0)
 }
 
 // GetID returns value of ID field.
 func (d *MessagesDeleteMessagesRequest) GetID() (value []int) {
+	if d == nil {
+		return
+	}
 	return d.ID
 }
 

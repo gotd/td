@@ -182,15 +182,24 @@ func (e *Error) DecodeBare(b *bin.Buffer) error {
 
 // GetCode returns value of Code field.
 func (e *Error) GetCode() (value int32) {
+	if e == nil {
+		return
+	}
 	return e.Code
 }
 
 // GetMessage returns value of Message field.
 func (e *Error) GetMessage() (value string) {
+	if e == nil {
+		return
+	}
 	return e.Message
 }
 
 // GetTemporary returns value of Temporary field.
 func (e *Error) GetTemporary() (value bool) {
+	if e == nil {
+		return
+	}
 	return e.Temporary
 }

@@ -198,11 +198,17 @@ func (d *ChannelsDeleteMessagesRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (d *ChannelsDeleteMessagesRequest) GetChannel() (value InputChannelClass) {
+	if d == nil {
+		return
+	}
 	return d.Channel
 }
 
 // GetID returns value of ID field.
 func (d *ChannelsDeleteMessagesRequest) GetID() (value []int) {
+	if d == nil {
+		return
+	}
 	return d.ID
 }
 

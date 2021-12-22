@@ -218,20 +218,32 @@ func (i *InputAppEvent) DecodeBare(b *bin.Buffer) error {
 
 // GetTime returns value of Time field.
 func (i *InputAppEvent) GetTime() (value float64) {
+	if i == nil {
+		return
+	}
 	return i.Time
 }
 
 // GetType returns value of Type field.
 func (i *InputAppEvent) GetType() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Type
 }
 
 // GetPeer returns value of Peer field.
 func (i *InputAppEvent) GetPeer() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.Peer
 }
 
 // GetData returns value of Data field.
 func (i *InputAppEvent) GetData() (value JSONValueClass) {
+	if i == nil {
+		return
+	}
 	return i.Data
 }

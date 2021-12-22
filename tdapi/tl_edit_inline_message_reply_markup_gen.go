@@ -218,11 +218,17 @@ func (e *EditInlineMessageReplyMarkupRequest) DecodeTDLibJSON(b tdjson.Decoder) 
 
 // GetInlineMessageID returns value of InlineMessageID field.
 func (e *EditInlineMessageReplyMarkupRequest) GetInlineMessageID() (value string) {
+	if e == nil {
+		return
+	}
 	return e.InlineMessageID
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (e *EditInlineMessageReplyMarkupRequest) GetReplyMarkup() (value ReplyMarkupClass) {
+	if e == nil {
+		return
+	}
 	return e.ReplyMarkup
 }
 

@@ -192,11 +192,17 @@ func (a *MessagesArchivedStickers) DecodeBare(b *bin.Buffer) error {
 
 // GetCount returns value of Count field.
 func (a *MessagesArchivedStickers) GetCount() (value int) {
+	if a == nil {
+		return
+	}
 	return a.Count
 }
 
 // GetSets returns value of Sets field.
 func (a *MessagesArchivedStickers) GetSets() (value []StickerSetCoveredClass) {
+	if a == nil {
+		return
+	}
 	return a.Sets
 }
 

@@ -721,81 +721,129 @@ func (c *ChatStatisticsSupergroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPeriod returns value of Period field.
 func (c *ChatStatisticsSupergroup) GetPeriod() (value DateRange) {
+	if c == nil {
+		return
+	}
 	return c.Period
 }
 
 // GetMemberCount returns value of MemberCount field.
 func (c *ChatStatisticsSupergroup) GetMemberCount() (value StatisticalValue) {
+	if c == nil {
+		return
+	}
 	return c.MemberCount
 }
 
 // GetMessageCount returns value of MessageCount field.
 func (c *ChatStatisticsSupergroup) GetMessageCount() (value StatisticalValue) {
+	if c == nil {
+		return
+	}
 	return c.MessageCount
 }
 
 // GetViewerCount returns value of ViewerCount field.
 func (c *ChatStatisticsSupergroup) GetViewerCount() (value StatisticalValue) {
+	if c == nil {
+		return
+	}
 	return c.ViewerCount
 }
 
 // GetSenderCount returns value of SenderCount field.
 func (c *ChatStatisticsSupergroup) GetSenderCount() (value StatisticalValue) {
+	if c == nil {
+		return
+	}
 	return c.SenderCount
 }
 
 // GetMemberCountGraph returns value of MemberCountGraph field.
 func (c *ChatStatisticsSupergroup) GetMemberCountGraph() (value StatisticalGraphClass) {
+	if c == nil {
+		return
+	}
 	return c.MemberCountGraph
 }
 
 // GetJoinGraph returns value of JoinGraph field.
 func (c *ChatStatisticsSupergroup) GetJoinGraph() (value StatisticalGraphClass) {
+	if c == nil {
+		return
+	}
 	return c.JoinGraph
 }
 
 // GetJoinBySourceGraph returns value of JoinBySourceGraph field.
 func (c *ChatStatisticsSupergroup) GetJoinBySourceGraph() (value StatisticalGraphClass) {
+	if c == nil {
+		return
+	}
 	return c.JoinBySourceGraph
 }
 
 // GetLanguageGraph returns value of LanguageGraph field.
 func (c *ChatStatisticsSupergroup) GetLanguageGraph() (value StatisticalGraphClass) {
+	if c == nil {
+		return
+	}
 	return c.LanguageGraph
 }
 
 // GetMessageContentGraph returns value of MessageContentGraph field.
 func (c *ChatStatisticsSupergroup) GetMessageContentGraph() (value StatisticalGraphClass) {
+	if c == nil {
+		return
+	}
 	return c.MessageContentGraph
 }
 
 // GetActionGraph returns value of ActionGraph field.
 func (c *ChatStatisticsSupergroup) GetActionGraph() (value StatisticalGraphClass) {
+	if c == nil {
+		return
+	}
 	return c.ActionGraph
 }
 
 // GetDayGraph returns value of DayGraph field.
 func (c *ChatStatisticsSupergroup) GetDayGraph() (value StatisticalGraphClass) {
+	if c == nil {
+		return
+	}
 	return c.DayGraph
 }
 
 // GetWeekGraph returns value of WeekGraph field.
 func (c *ChatStatisticsSupergroup) GetWeekGraph() (value StatisticalGraphClass) {
+	if c == nil {
+		return
+	}
 	return c.WeekGraph
 }
 
 // GetTopSenders returns value of TopSenders field.
 func (c *ChatStatisticsSupergroup) GetTopSenders() (value []ChatStatisticsMessageSenderInfo) {
+	if c == nil {
+		return
+	}
 	return c.TopSenders
 }
 
 // GetTopAdministrators returns value of TopAdministrators field.
 func (c *ChatStatisticsSupergroup) GetTopAdministrators() (value []ChatStatisticsAdministratorActionsInfo) {
+	if c == nil {
+		return
+	}
 	return c.TopAdministrators
 }
 
 // GetTopInviters returns value of TopInviters field.
 func (c *ChatStatisticsSupergroup) GetTopInviters() (value []ChatStatisticsInviterInfo) {
+	if c == nil {
+		return
+	}
 	return c.TopInviters
 }
 
@@ -1422,76 +1470,121 @@ func (c *ChatStatisticsChannel) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPeriod returns value of Period field.
 func (c *ChatStatisticsChannel) GetPeriod() (value DateRange) {
+	if c == nil {
+		return
+	}
 	return c.Period
 }
 
 // GetMemberCount returns value of MemberCount field.
 func (c *ChatStatisticsChannel) GetMemberCount() (value StatisticalValue) {
+	if c == nil {
+		return
+	}
 	return c.MemberCount
 }
 
 // GetMeanViewCount returns value of MeanViewCount field.
 func (c *ChatStatisticsChannel) GetMeanViewCount() (value StatisticalValue) {
+	if c == nil {
+		return
+	}
 	return c.MeanViewCount
 }
 
 // GetMeanShareCount returns value of MeanShareCount field.
 func (c *ChatStatisticsChannel) GetMeanShareCount() (value StatisticalValue) {
+	if c == nil {
+		return
+	}
 	return c.MeanShareCount
 }
 
 // GetEnabledNotificationsPercentage returns value of EnabledNotificationsPercentage field.
 func (c *ChatStatisticsChannel) GetEnabledNotificationsPercentage() (value float64) {
+	if c == nil {
+		return
+	}
 	return c.EnabledNotificationsPercentage
 }
 
 // GetMemberCountGraph returns value of MemberCountGraph field.
 func (c *ChatStatisticsChannel) GetMemberCountGraph() (value StatisticalGraphClass) {
+	if c == nil {
+		return
+	}
 	return c.MemberCountGraph
 }
 
 // GetJoinGraph returns value of JoinGraph field.
 func (c *ChatStatisticsChannel) GetJoinGraph() (value StatisticalGraphClass) {
+	if c == nil {
+		return
+	}
 	return c.JoinGraph
 }
 
 // GetMuteGraph returns value of MuteGraph field.
 func (c *ChatStatisticsChannel) GetMuteGraph() (value StatisticalGraphClass) {
+	if c == nil {
+		return
+	}
 	return c.MuteGraph
 }
 
 // GetViewCountByHourGraph returns value of ViewCountByHourGraph field.
 func (c *ChatStatisticsChannel) GetViewCountByHourGraph() (value StatisticalGraphClass) {
+	if c == nil {
+		return
+	}
 	return c.ViewCountByHourGraph
 }
 
 // GetViewCountBySourceGraph returns value of ViewCountBySourceGraph field.
 func (c *ChatStatisticsChannel) GetViewCountBySourceGraph() (value StatisticalGraphClass) {
+	if c == nil {
+		return
+	}
 	return c.ViewCountBySourceGraph
 }
 
 // GetJoinBySourceGraph returns value of JoinBySourceGraph field.
 func (c *ChatStatisticsChannel) GetJoinBySourceGraph() (value StatisticalGraphClass) {
+	if c == nil {
+		return
+	}
 	return c.JoinBySourceGraph
 }
 
 // GetLanguageGraph returns value of LanguageGraph field.
 func (c *ChatStatisticsChannel) GetLanguageGraph() (value StatisticalGraphClass) {
+	if c == nil {
+		return
+	}
 	return c.LanguageGraph
 }
 
 // GetMessageInteractionGraph returns value of MessageInteractionGraph field.
 func (c *ChatStatisticsChannel) GetMessageInteractionGraph() (value StatisticalGraphClass) {
+	if c == nil {
+		return
+	}
 	return c.MessageInteractionGraph
 }
 
 // GetInstantViewInteractionGraph returns value of InstantViewInteractionGraph field.
 func (c *ChatStatisticsChannel) GetInstantViewInteractionGraph() (value StatisticalGraphClass) {
+	if c == nil {
+		return
+	}
 	return c.InstantViewInteractionGraph
 }
 
 // GetRecentMessageInteractions returns value of RecentMessageInteractions field.
 func (c *ChatStatisticsChannel) GetRecentMessageInteractions() (value []ChatStatisticsMessageInteractionInfo) {
+	if c == nil {
+		return
+	}
 	return c.RecentMessageInteractions
 }
 

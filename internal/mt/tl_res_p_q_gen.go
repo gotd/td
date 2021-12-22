@@ -209,20 +209,32 @@ func (r *ResPQ) DecodeBare(b *bin.Buffer) error {
 
 // GetNonce returns value of Nonce field.
 func (r *ResPQ) GetNonce() (value bin.Int128) {
+	if r == nil {
+		return
+	}
 	return r.Nonce
 }
 
 // GetServerNonce returns value of ServerNonce field.
 func (r *ResPQ) GetServerNonce() (value bin.Int128) {
+	if r == nil {
+		return
+	}
 	return r.ServerNonce
 }
 
 // GetPq returns value of Pq field.
 func (r *ResPQ) GetPq() (value []byte) {
+	if r == nil {
+		return
+	}
 	return r.Pq
 }
 
 // GetServerPublicKeyFingerprints returns value of ServerPublicKeyFingerprints field.
 func (r *ResPQ) GetServerPublicKeyFingerprints() (value []int64) {
+	if r == nil {
+		return
+	}
 	return r.ServerPublicKeyFingerprints
 }

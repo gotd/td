@@ -258,20 +258,32 @@ func (v *VoiceNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetDuration returns value of Duration field.
 func (v *VoiceNote) GetDuration() (value int32) {
+	if v == nil {
+		return
+	}
 	return v.Duration
 }
 
 // GetWaveform returns value of Waveform field.
 func (v *VoiceNote) GetWaveform() (value []byte) {
+	if v == nil {
+		return
+	}
 	return v.Waveform
 }
 
 // GetMimeType returns value of MimeType field.
 func (v *VoiceNote) GetMimeType() (value string) {
+	if v == nil {
+		return
+	}
 	return v.MimeType
 }
 
 // GetVoice returns value of Voice field.
 func (v *VoiceNote) GetVoice() (value File) {
+	if v == nil {
+		return
+	}
 	return v.Voice
 }

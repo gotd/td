@@ -184,16 +184,25 @@ func (b *BadMsgNotification) DecodeBare(buf *bin.Buffer) error {
 
 // GetBadMsgID returns value of BadMsgID field.
 func (b *BadMsgNotification) GetBadMsgID() (value int64) {
+	if b == nil {
+		return
+	}
 	return b.BadMsgID
 }
 
 // GetBadMsgSeqno returns value of BadMsgSeqno field.
 func (b *BadMsgNotification) GetBadMsgSeqno() (value int) {
+	if b == nil {
+		return
+	}
 	return b.BadMsgSeqno
 }
 
 // GetErrorCode returns value of ErrorCode field.
 func (b *BadMsgNotification) GetErrorCode() (value int) {
+	if b == nil {
+		return
+	}
 	return b.ErrorCode
 }
 
@@ -367,21 +376,33 @@ func (b *BadServerSalt) DecodeBare(buf *bin.Buffer) error {
 
 // GetBadMsgID returns value of BadMsgID field.
 func (b *BadServerSalt) GetBadMsgID() (value int64) {
+	if b == nil {
+		return
+	}
 	return b.BadMsgID
 }
 
 // GetBadMsgSeqno returns value of BadMsgSeqno field.
 func (b *BadServerSalt) GetBadMsgSeqno() (value int) {
+	if b == nil {
+		return
+	}
 	return b.BadMsgSeqno
 }
 
 // GetErrorCode returns value of ErrorCode field.
 func (b *BadServerSalt) GetErrorCode() (value int) {
+	if b == nil {
+		return
+	}
 	return b.ErrorCode
 }
 
 // GetNewServerSalt returns value of NewServerSalt field.
 func (b *BadServerSalt) GetNewServerSalt() (value int64) {
+	if b == nil {
+		return
+	}
 	return b.NewServerSalt
 }
 

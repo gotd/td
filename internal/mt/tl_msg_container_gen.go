@@ -160,5 +160,8 @@ func (m *MsgContainer) DecodeBare(b *bin.Buffer) error {
 
 // GetMessages returns value of Messages field.
 func (m *MsgContainer) GetMessages() (value []Message) {
+	if m == nil {
+		return
+	}
 	return m.Messages
 }

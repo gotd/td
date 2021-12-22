@@ -361,40 +361,64 @@ func (c *ChatPermissions) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCanSendMessages returns value of CanSendMessages field.
 func (c *ChatPermissions) GetCanSendMessages() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanSendMessages
 }
 
 // GetCanSendMediaMessages returns value of CanSendMediaMessages field.
 func (c *ChatPermissions) GetCanSendMediaMessages() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanSendMediaMessages
 }
 
 // GetCanSendPolls returns value of CanSendPolls field.
 func (c *ChatPermissions) GetCanSendPolls() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanSendPolls
 }
 
 // GetCanSendOtherMessages returns value of CanSendOtherMessages field.
 func (c *ChatPermissions) GetCanSendOtherMessages() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanSendOtherMessages
 }
 
 // GetCanAddWebPagePreviews returns value of CanAddWebPagePreviews field.
 func (c *ChatPermissions) GetCanAddWebPagePreviews() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanAddWebPagePreviews
 }
 
 // GetCanChangeInfo returns value of CanChangeInfo field.
 func (c *ChatPermissions) GetCanChangeInfo() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanChangeInfo
 }
 
 // GetCanInviteUsers returns value of CanInviteUsers field.
 func (c *ChatPermissions) GetCanInviteUsers() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanInviteUsers
 }
 
 // GetCanPinMessages returns value of CanPinMessages field.
 func (c *ChatPermissions) GetCanPinMessages() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.CanPinMessages
 }

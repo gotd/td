@@ -270,26 +270,41 @@ func (a *ContactsAddContactRequest) SetAddPhonePrivacyException(value bool) {
 
 // GetAddPhonePrivacyException returns value of AddPhonePrivacyException conditional field.
 func (a *ContactsAddContactRequest) GetAddPhonePrivacyException() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.Flags.Has(0)
 }
 
 // GetID returns value of ID field.
 func (a *ContactsAddContactRequest) GetID() (value InputUserClass) {
+	if a == nil {
+		return
+	}
 	return a.ID
 }
 
 // GetFirstName returns value of FirstName field.
 func (a *ContactsAddContactRequest) GetFirstName() (value string) {
+	if a == nil {
+		return
+	}
 	return a.FirstName
 }
 
 // GetLastName returns value of LastName field.
 func (a *ContactsAddContactRequest) GetLastName() (value string) {
+	if a == nil {
+		return
+	}
 	return a.LastName
 }
 
 // GetPhone returns value of Phone field.
 func (a *ContactsAddContactRequest) GetPhone() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Phone
 }
 

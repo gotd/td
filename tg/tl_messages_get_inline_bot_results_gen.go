@@ -278,11 +278,17 @@ func (g *MessagesGetInlineBotResultsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetBot returns value of Bot field.
 func (g *MessagesGetInlineBotResultsRequest) GetBot() (value InputUserClass) {
+	if g == nil {
+		return
+	}
 	return g.Bot
 }
 
 // GetPeer returns value of Peer field.
 func (g *MessagesGetInlineBotResultsRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
@@ -295,6 +301,9 @@ func (g *MessagesGetInlineBotResultsRequest) SetGeoPoint(value InputGeoPointClas
 // GetGeoPoint returns value of GeoPoint conditional field and
 // boolean which is true if field was set.
 func (g *MessagesGetInlineBotResultsRequest) GetGeoPoint() (value InputGeoPointClass, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(0) {
 		return value, false
 	}
@@ -303,11 +312,17 @@ func (g *MessagesGetInlineBotResultsRequest) GetGeoPoint() (value InputGeoPointC
 
 // GetQuery returns value of Query field.
 func (g *MessagesGetInlineBotResultsRequest) GetQuery() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Query
 }
 
 // GetOffset returns value of Offset field.
 func (g *MessagesGetInlineBotResultsRequest) GetOffset() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 

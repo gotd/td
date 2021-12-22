@@ -490,75 +490,120 @@ func (b *StatsBroadcastStats) DecodeBare(buf *bin.Buffer) error {
 
 // GetPeriod returns value of Period field.
 func (b *StatsBroadcastStats) GetPeriod() (value StatsDateRangeDays) {
+	if b == nil {
+		return
+	}
 	return b.Period
 }
 
 // GetFollowers returns value of Followers field.
 func (b *StatsBroadcastStats) GetFollowers() (value StatsAbsValueAndPrev) {
+	if b == nil {
+		return
+	}
 	return b.Followers
 }
 
 // GetViewsPerPost returns value of ViewsPerPost field.
 func (b *StatsBroadcastStats) GetViewsPerPost() (value StatsAbsValueAndPrev) {
+	if b == nil {
+		return
+	}
 	return b.ViewsPerPost
 }
 
 // GetSharesPerPost returns value of SharesPerPost field.
 func (b *StatsBroadcastStats) GetSharesPerPost() (value StatsAbsValueAndPrev) {
+	if b == nil {
+		return
+	}
 	return b.SharesPerPost
 }
 
 // GetEnabledNotifications returns value of EnabledNotifications field.
 func (b *StatsBroadcastStats) GetEnabledNotifications() (value StatsPercentValue) {
+	if b == nil {
+		return
+	}
 	return b.EnabledNotifications
 }
 
 // GetGrowthGraph returns value of GrowthGraph field.
 func (b *StatsBroadcastStats) GetGrowthGraph() (value StatsGraphClass) {
+	if b == nil {
+		return
+	}
 	return b.GrowthGraph
 }
 
 // GetFollowersGraph returns value of FollowersGraph field.
 func (b *StatsBroadcastStats) GetFollowersGraph() (value StatsGraphClass) {
+	if b == nil {
+		return
+	}
 	return b.FollowersGraph
 }
 
 // GetMuteGraph returns value of MuteGraph field.
 func (b *StatsBroadcastStats) GetMuteGraph() (value StatsGraphClass) {
+	if b == nil {
+		return
+	}
 	return b.MuteGraph
 }
 
 // GetTopHoursGraph returns value of TopHoursGraph field.
 func (b *StatsBroadcastStats) GetTopHoursGraph() (value StatsGraphClass) {
+	if b == nil {
+		return
+	}
 	return b.TopHoursGraph
 }
 
 // GetInteractionsGraph returns value of InteractionsGraph field.
 func (b *StatsBroadcastStats) GetInteractionsGraph() (value StatsGraphClass) {
+	if b == nil {
+		return
+	}
 	return b.InteractionsGraph
 }
 
 // GetIvInteractionsGraph returns value of IvInteractionsGraph field.
 func (b *StatsBroadcastStats) GetIvInteractionsGraph() (value StatsGraphClass) {
+	if b == nil {
+		return
+	}
 	return b.IvInteractionsGraph
 }
 
 // GetViewsBySourceGraph returns value of ViewsBySourceGraph field.
 func (b *StatsBroadcastStats) GetViewsBySourceGraph() (value StatsGraphClass) {
+	if b == nil {
+		return
+	}
 	return b.ViewsBySourceGraph
 }
 
 // GetNewFollowersBySourceGraph returns value of NewFollowersBySourceGraph field.
 func (b *StatsBroadcastStats) GetNewFollowersBySourceGraph() (value StatsGraphClass) {
+	if b == nil {
+		return
+	}
 	return b.NewFollowersBySourceGraph
 }
 
 // GetLanguagesGraph returns value of LanguagesGraph field.
 func (b *StatsBroadcastStats) GetLanguagesGraph() (value StatsGraphClass) {
+	if b == nil {
+		return
+	}
 	return b.LanguagesGraph
 }
 
 // GetRecentMessageInteractions returns value of RecentMessageInteractions field.
 func (b *StatsBroadcastStats) GetRecentMessageInteractions() (value []MessageInteractionCounters) {
+	if b == nil {
+		return
+	}
 	return b.RecentMessageInteractions
 }

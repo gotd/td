@@ -184,11 +184,17 @@ func (d *MessagesDeleteRevokedExportedChatInvitesRequest) DecodeBare(b *bin.Buff
 
 // GetPeer returns value of Peer field.
 func (d *MessagesDeleteRevokedExportedChatInvitesRequest) GetPeer() (value InputPeerClass) {
+	if d == nil {
+		return
+	}
 	return d.Peer
 }
 
 // GetAdminID returns value of AdminID field.
 func (d *MessagesDeleteRevokedExportedChatInvitesRequest) GetAdminID() (value InputUserClass) {
+	if d == nil {
+		return
+	}
 	return d.AdminID
 }
 

@@ -231,11 +231,17 @@ func (g *GetLanguagePackStringsRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetLanguagePackID returns value of LanguagePackID field.
 func (g *GetLanguagePackStringsRequest) GetLanguagePackID() (value string) {
+	if g == nil {
+		return
+	}
 	return g.LanguagePackID
 }
 
 // GetKeys returns value of Keys field.
 func (g *GetLanguagePackStringsRequest) GetKeys() (value []string) {
+	if g == nil {
+		return
+	}
 	return g.Keys
 }
 

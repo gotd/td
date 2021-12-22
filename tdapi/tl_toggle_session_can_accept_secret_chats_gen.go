@@ -208,11 +208,17 @@ func (t *ToggleSessionCanAcceptSecretChatsRequest) DecodeTDLibJSON(b tdjson.Deco
 
 // GetSessionID returns value of SessionID field.
 func (t *ToggleSessionCanAcceptSecretChatsRequest) GetSessionID() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.SessionID
 }
 
 // GetCanAcceptSecretChats returns value of CanAcceptSecretChats field.
 func (t *ToggleSessionCanAcceptSecretChatsRequest) GetCanAcceptSecretChats() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.CanAcceptSecretChats
 }
 

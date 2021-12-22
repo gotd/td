@@ -351,16 +351,25 @@ func (g *GeoPoint) DecodeBare(b *bin.Buffer) error {
 
 // GetLong returns value of Long field.
 func (g *GeoPoint) GetLong() (value float64) {
+	if g == nil {
+		return
+	}
 	return g.Long
 }
 
 // GetLat returns value of Lat field.
 func (g *GeoPoint) GetLat() (value float64) {
+	if g == nil {
+		return
+	}
 	return g.Lat
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (g *GeoPoint) GetAccessHash() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.AccessHash
 }
 
@@ -373,6 +382,9 @@ func (g *GeoPoint) SetAccuracyRadius(value int) {
 // GetAccuracyRadius returns value of AccuracyRadius conditional field and
 // boolean which is true if field was set.
 func (g *GeoPoint) GetAccuracyRadius() (value int, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(0) {
 		return value, false
 	}

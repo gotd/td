@@ -193,6 +193,9 @@ func (g *GetStickerEmojisRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSticker returns value of Sticker field.
 func (g *GetStickerEmojisRequest) GetSticker() (value InputFileClass) {
+	if g == nil {
+		return
+	}
 	return g.Sticker
 }
 

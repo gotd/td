@@ -179,11 +179,17 @@ func (c *ChannelAdminLogEventActionChangeTitle) DecodeBare(b *bin.Buffer) error 
 
 // GetPrevValue returns value of PrevValue field.
 func (c *ChannelAdminLogEventActionChangeTitle) GetPrevValue() (value string) {
+	if c == nil {
+		return
+	}
 	return c.PrevValue
 }
 
 // GetNewValue returns value of NewValue field.
 func (c *ChannelAdminLogEventActionChangeTitle) GetNewValue() (value string) {
+	if c == nil {
+		return
+	}
 	return c.NewValue
 }
 
@@ -335,11 +341,17 @@ func (c *ChannelAdminLogEventActionChangeAbout) DecodeBare(b *bin.Buffer) error 
 
 // GetPrevValue returns value of PrevValue field.
 func (c *ChannelAdminLogEventActionChangeAbout) GetPrevValue() (value string) {
+	if c == nil {
+		return
+	}
 	return c.PrevValue
 }
 
 // GetNewValue returns value of NewValue field.
 func (c *ChannelAdminLogEventActionChangeAbout) GetNewValue() (value string) {
+	if c == nil {
+		return
+	}
 	return c.NewValue
 }
 
@@ -493,11 +505,17 @@ func (c *ChannelAdminLogEventActionChangeUsername) DecodeBare(b *bin.Buffer) err
 
 // GetPrevValue returns value of PrevValue field.
 func (c *ChannelAdminLogEventActionChangeUsername) GetPrevValue() (value string) {
+	if c == nil {
+		return
+	}
 	return c.PrevValue
 }
 
 // GetNewValue returns value of NewValue field.
 func (c *ChannelAdminLogEventActionChangeUsername) GetNewValue() (value string) {
+	if c == nil {
+		return
+	}
 	return c.NewValue
 }
 
@@ -659,11 +677,17 @@ func (c *ChannelAdminLogEventActionChangePhoto) DecodeBare(b *bin.Buffer) error 
 
 // GetPrevPhoto returns value of PrevPhoto field.
 func (c *ChannelAdminLogEventActionChangePhoto) GetPrevPhoto() (value PhotoClass) {
+	if c == nil {
+		return
+	}
 	return c.PrevPhoto
 }
 
 // GetNewPhoto returns value of NewPhoto field.
 func (c *ChannelAdminLogEventActionChangePhoto) GetNewPhoto() (value PhotoClass) {
+	if c == nil {
+		return
+	}
 	return c.NewPhoto
 }
 
@@ -798,6 +822,9 @@ func (c *ChannelAdminLogEventActionToggleInvites) DecodeBare(b *bin.Buffer) erro
 
 // GetNewValue returns value of NewValue field.
 func (c *ChannelAdminLogEventActionToggleInvites) GetNewValue() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.NewValue
 }
 
@@ -932,6 +959,9 @@ func (c *ChannelAdminLogEventActionToggleSignatures) DecodeBare(b *bin.Buffer) e
 
 // GetNewValue returns value of NewValue field.
 func (c *ChannelAdminLogEventActionToggleSignatures) GetNewValue() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.NewValue
 }
 
@@ -1071,6 +1101,9 @@ func (c *ChannelAdminLogEventActionUpdatePinned) DecodeBare(b *bin.Buffer) error
 
 // GetMessage returns value of Message field.
 func (c *ChannelAdminLogEventActionUpdatePinned) GetMessage() (value MessageClass) {
+	if c == nil {
+		return
+	}
 	return c.Message
 }
 
@@ -1232,11 +1265,17 @@ func (c *ChannelAdminLogEventActionEditMessage) DecodeBare(b *bin.Buffer) error 
 
 // GetPrevMessage returns value of PrevMessage field.
 func (c *ChannelAdminLogEventActionEditMessage) GetPrevMessage() (value MessageClass) {
+	if c == nil {
+		return
+	}
 	return c.PrevMessage
 }
 
 // GetNewMessage returns value of NewMessage field.
 func (c *ChannelAdminLogEventActionEditMessage) GetNewMessage() (value MessageClass) {
+	if c == nil {
+		return
+	}
 	return c.NewMessage
 }
 
@@ -1376,6 +1415,9 @@ func (c *ChannelAdminLogEventActionDeleteMessage) DecodeBare(b *bin.Buffer) erro
 
 // GetMessage returns value of Message field.
 func (c *ChannelAdminLogEventActionDeleteMessage) GetMessage() (value MessageClass) {
+	if c == nil {
+		return
+	}
 	return c.Message
 }
 
@@ -1725,6 +1767,9 @@ func (c *ChannelAdminLogEventActionParticipantInvite) DecodeBare(b *bin.Buffer) 
 
 // GetParticipant returns value of Participant field.
 func (c *ChannelAdminLogEventActionParticipantInvite) GetParticipant() (value ChannelParticipantClass) {
+	if c == nil {
+		return
+	}
 	return c.Participant
 }
 
@@ -1891,11 +1936,17 @@ func (c *ChannelAdminLogEventActionParticipantToggleBan) DecodeBare(b *bin.Buffe
 
 // GetPrevParticipant returns value of PrevParticipant field.
 func (c *ChannelAdminLogEventActionParticipantToggleBan) GetPrevParticipant() (value ChannelParticipantClass) {
+	if c == nil {
+		return
+	}
 	return c.PrevParticipant
 }
 
 // GetNewParticipant returns value of NewParticipant field.
 func (c *ChannelAdminLogEventActionParticipantToggleBan) GetNewParticipant() (value ChannelParticipantClass) {
+	if c == nil {
+		return
+	}
 	return c.NewParticipant
 }
 
@@ -2062,11 +2113,17 @@ func (c *ChannelAdminLogEventActionParticipantToggleAdmin) DecodeBare(b *bin.Buf
 
 // GetPrevParticipant returns value of PrevParticipant field.
 func (c *ChannelAdminLogEventActionParticipantToggleAdmin) GetPrevParticipant() (value ChannelParticipantClass) {
+	if c == nil {
+		return
+	}
 	return c.PrevParticipant
 }
 
 // GetNewParticipant returns value of NewParticipant field.
 func (c *ChannelAdminLogEventActionParticipantToggleAdmin) GetNewParticipant() (value ChannelParticipantClass) {
+	if c == nil {
+		return
+	}
 	return c.NewParticipant
 }
 
@@ -2230,11 +2287,17 @@ func (c *ChannelAdminLogEventActionChangeStickerSet) DecodeBare(b *bin.Buffer) e
 
 // GetPrevStickerset returns value of PrevStickerset field.
 func (c *ChannelAdminLogEventActionChangeStickerSet) GetPrevStickerset() (value InputStickerSetClass) {
+	if c == nil {
+		return
+	}
 	return c.PrevStickerset
 }
 
 // GetNewStickerset returns value of NewStickerset field.
 func (c *ChannelAdminLogEventActionChangeStickerSet) GetNewStickerset() (value InputStickerSetClass) {
+	if c == nil {
+		return
+	}
 	return c.NewStickerset
 }
 
@@ -2372,6 +2435,9 @@ func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) DecodeBare(b *bin.Buf
 
 // GetNewValue returns value of NewValue field.
 func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) GetNewValue() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.NewValue
 }
 
@@ -2531,11 +2597,17 @@ func (c *ChannelAdminLogEventActionDefaultBannedRights) DecodeBare(b *bin.Buffer
 
 // GetPrevBannedRights returns value of PrevBannedRights field.
 func (c *ChannelAdminLogEventActionDefaultBannedRights) GetPrevBannedRights() (value ChatBannedRights) {
+	if c == nil {
+		return
+	}
 	return c.PrevBannedRights
 }
 
 // GetNewBannedRights returns value of NewBannedRights field.
 func (c *ChannelAdminLogEventActionDefaultBannedRights) GetNewBannedRights() (value ChatBannedRights) {
+	if c == nil {
+		return
+	}
 	return c.NewBannedRights
 }
 
@@ -2673,6 +2745,9 @@ func (c *ChannelAdminLogEventActionStopPoll) DecodeBare(b *bin.Buffer) error {
 
 // GetMessage returns value of Message field.
 func (c *ChannelAdminLogEventActionStopPoll) GetMessage() (value MessageClass) {
+	if c == nil {
+		return
+	}
 	return c.Message
 }
 
@@ -2826,11 +2901,17 @@ func (c *ChannelAdminLogEventActionChangeLinkedChat) DecodeBare(b *bin.Buffer) e
 
 // GetPrevValue returns value of PrevValue field.
 func (c *ChannelAdminLogEventActionChangeLinkedChat) GetPrevValue() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.PrevValue
 }
 
 // GetNewValue returns value of NewValue field.
 func (c *ChannelAdminLogEventActionChangeLinkedChat) GetNewValue() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.NewValue
 }
 
@@ -2994,11 +3075,17 @@ func (c *ChannelAdminLogEventActionChangeLocation) DecodeBare(b *bin.Buffer) err
 
 // GetPrevValue returns value of PrevValue field.
 func (c *ChannelAdminLogEventActionChangeLocation) GetPrevValue() (value ChannelLocationClass) {
+	if c == nil {
+		return
+	}
 	return c.PrevValue
 }
 
 // GetNewValue returns value of NewValue field.
 func (c *ChannelAdminLogEventActionChangeLocation) GetNewValue() (value ChannelLocationClass) {
+	if c == nil {
+		return
+	}
 	return c.NewValue
 }
 
@@ -3155,11 +3242,17 @@ func (c *ChannelAdminLogEventActionToggleSlowMode) DecodeBare(b *bin.Buffer) err
 
 // GetPrevValue returns value of PrevValue field.
 func (c *ChannelAdminLogEventActionToggleSlowMode) GetPrevValue() (value int) {
+	if c == nil {
+		return
+	}
 	return c.PrevValue
 }
 
 // GetNewValue returns value of NewValue field.
 func (c *ChannelAdminLogEventActionToggleSlowMode) GetNewValue() (value int) {
+	if c == nil {
+		return
+	}
 	return c.NewValue
 }
 
@@ -3294,6 +3387,9 @@ func (c *ChannelAdminLogEventActionStartGroupCall) DecodeBare(b *bin.Buffer) err
 
 // GetCall returns value of Call field.
 func (c *ChannelAdminLogEventActionStartGroupCall) GetCall() (value InputGroupCall) {
+	if c == nil {
+		return
+	}
 	return c.Call
 }
 
@@ -3428,6 +3524,9 @@ func (c *ChannelAdminLogEventActionDiscardGroupCall) DecodeBare(b *bin.Buffer) e
 
 // GetCall returns value of Call field.
 func (c *ChannelAdminLogEventActionDiscardGroupCall) GetCall() (value InputGroupCall) {
+	if c == nil {
+		return
+	}
 	return c.Call
 }
 
@@ -3562,6 +3661,9 @@ func (c *ChannelAdminLogEventActionParticipantMute) DecodeBare(b *bin.Buffer) er
 
 // GetParticipant returns value of Participant field.
 func (c *ChannelAdminLogEventActionParticipantMute) GetParticipant() (value GroupCallParticipant) {
+	if c == nil {
+		return
+	}
 	return c.Participant
 }
 
@@ -3696,6 +3798,9 @@ func (c *ChannelAdminLogEventActionParticipantUnmute) DecodeBare(b *bin.Buffer) 
 
 // GetParticipant returns value of Participant field.
 func (c *ChannelAdminLogEventActionParticipantUnmute) GetParticipant() (value GroupCallParticipant) {
+	if c == nil {
+		return
+	}
 	return c.Participant
 }
 
@@ -3830,6 +3935,9 @@ func (c *ChannelAdminLogEventActionToggleGroupCallSetting) DecodeBare(b *bin.Buf
 
 // GetJoinMuted returns value of JoinMuted field.
 func (c *ChannelAdminLogEventActionToggleGroupCallSetting) GetJoinMuted() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.JoinMuted
 }
 
@@ -3970,6 +4078,9 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) DecodeBare(b *bin.Bu
 
 // GetInvite returns value of Invite field.
 func (c *ChannelAdminLogEventActionParticipantJoinByInvite) GetInvite() (value ChatInviteExported) {
+	if c == nil {
+		return
+	}
 	return c.Invite
 }
 
@@ -4104,6 +4215,9 @@ func (c *ChannelAdminLogEventActionExportedInviteDelete) DecodeBare(b *bin.Buffe
 
 // GetInvite returns value of Invite field.
 func (c *ChannelAdminLogEventActionExportedInviteDelete) GetInvite() (value ChatInviteExported) {
+	if c == nil {
+		return
+	}
 	return c.Invite
 }
 
@@ -4238,6 +4352,9 @@ func (c *ChannelAdminLogEventActionExportedInviteRevoke) DecodeBare(b *bin.Buffe
 
 // GetInvite returns value of Invite field.
 func (c *ChannelAdminLogEventActionExportedInviteRevoke) GetInvite() (value ChatInviteExported) {
+	if c == nil {
+		return
+	}
 	return c.Invite
 }
 
@@ -4391,11 +4508,17 @@ func (c *ChannelAdminLogEventActionExportedInviteEdit) DecodeBare(b *bin.Buffer)
 
 // GetPrevInvite returns value of PrevInvite field.
 func (c *ChannelAdminLogEventActionExportedInviteEdit) GetPrevInvite() (value ChatInviteExported) {
+	if c == nil {
+		return
+	}
 	return c.PrevInvite
 }
 
 // GetNewInvite returns value of NewInvite field.
 func (c *ChannelAdminLogEventActionExportedInviteEdit) GetNewInvite() (value ChatInviteExported) {
+	if c == nil {
+		return
+	}
 	return c.NewInvite
 }
 
@@ -4531,6 +4654,9 @@ func (c *ChannelAdminLogEventActionParticipantVolume) DecodeBare(b *bin.Buffer) 
 
 // GetParticipant returns value of Participant field.
 func (c *ChannelAdminLogEventActionParticipantVolume) GetParticipant() (value GroupCallParticipant) {
+	if c == nil {
+		return
+	}
 	return c.Participant
 }
 
@@ -4684,11 +4810,17 @@ func (c *ChannelAdminLogEventActionChangeHistoryTTL) DecodeBare(b *bin.Buffer) e
 
 // GetPrevValue returns value of PrevValue field.
 func (c *ChannelAdminLogEventActionChangeHistoryTTL) GetPrevValue() (value int) {
+	if c == nil {
+		return
+	}
 	return c.PrevValue
 }
 
 // GetNewValue returns value of NewValue field.
 func (c *ChannelAdminLogEventActionChangeHistoryTTL) GetNewValue() (value int) {
+	if c == nil {
+		return
+	}
 	return c.NewValue
 }
 
@@ -4841,11 +4973,17 @@ func (c *ChannelAdminLogEventActionParticipantJoinByRequest) DecodeBare(b *bin.B
 
 // GetInvite returns value of Invite field.
 func (c *ChannelAdminLogEventActionParticipantJoinByRequest) GetInvite() (value ChatInviteExported) {
+	if c == nil {
+		return
+	}
 	return c.Invite
 }
 
 // GetApprovedBy returns value of ApprovedBy field.
 func (c *ChannelAdminLogEventActionParticipantJoinByRequest) GetApprovedBy() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ApprovedBy
 }
 
@@ -4979,6 +5117,9 @@ func (c *ChannelAdminLogEventActionToggleNoForwards) DecodeBare(b *bin.Buffer) e
 
 // GetNewValue returns value of NewValue field.
 func (c *ChannelAdminLogEventActionToggleNoForwards) GetNewValue() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.NewValue
 }
 
@@ -5115,6 +5256,9 @@ func (c *ChannelAdminLogEventActionSendMessage) DecodeBare(b *bin.Buffer) error 
 
 // GetMessage returns value of Message field.
 func (c *ChannelAdminLogEventActionSendMessage) GetMessage() (value MessageClass) {
+	if c == nil {
+		return
+	}
 	return c.Message
 }
 

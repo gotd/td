@@ -218,11 +218,17 @@ func (t *ToggleMessageSenderIsBlockedRequest) DecodeTDLibJSON(b tdjson.Decoder) 
 
 // GetSenderID returns value of SenderID field.
 func (t *ToggleMessageSenderIsBlockedRequest) GetSenderID() (value MessageSenderClass) {
+	if t == nil {
+		return
+	}
 	return t.SenderID
 }
 
 // GetIsBlocked returns value of IsBlocked field.
 func (t *ToggleMessageSenderIsBlockedRequest) GetIsBlocked() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.IsBlocked
 }
 

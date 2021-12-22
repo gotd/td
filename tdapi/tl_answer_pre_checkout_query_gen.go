@@ -208,11 +208,17 @@ func (a *AnswerPreCheckoutQueryRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetPreCheckoutQueryID returns value of PreCheckoutQueryID field.
 func (a *AnswerPreCheckoutQueryRequest) GetPreCheckoutQueryID() (value int64) {
+	if a == nil {
+		return
+	}
 	return a.PreCheckoutQueryID
 }
 
 // GetErrorMessage returns value of ErrorMessage field.
 func (a *AnswerPreCheckoutQueryRequest) GetErrorMessage() (value string) {
+	if a == nil {
+		return
+	}
 	return a.ErrorMessage
 }
 

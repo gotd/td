@@ -208,11 +208,17 @@ func (d *DeleteRevokedChatInviteLinkRequest) DecodeTDLibJSON(b tdjson.Decoder) e
 
 // GetChatID returns value of ChatID field.
 func (d *DeleteRevokedChatInviteLinkRequest) GetChatID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.ChatID
 }
 
 // GetInviteLink returns value of InviteLink field.
 func (d *DeleteRevokedChatInviteLinkRequest) GetInviteLink() (value string) {
+	if d == nil {
+		return
+	}
 	return d.InviteLink
 }
 

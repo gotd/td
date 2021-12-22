@@ -575,6 +575,9 @@ func (c *ChatMembersFilterMention) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMessageThreadID returns value of MessageThreadID field.
 func (c *ChatMembersFilterMention) GetMessageThreadID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.MessageThreadID
 }
 

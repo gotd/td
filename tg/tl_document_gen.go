@@ -160,6 +160,9 @@ func (d *DocumentEmpty) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (d *DocumentEmpty) GetID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.ID
 }
 
@@ -560,31 +563,49 @@ func (d *Document) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (d *Document) GetID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (d *Document) GetAccessHash() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.AccessHash
 }
 
 // GetFileReference returns value of FileReference field.
 func (d *Document) GetFileReference() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.FileReference
 }
 
 // GetDate returns value of Date field.
 func (d *Document) GetDate() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Date
 }
 
 // GetMimeType returns value of MimeType field.
 func (d *Document) GetMimeType() (value string) {
+	if d == nil {
+		return
+	}
 	return d.MimeType
 }
 
 // GetSize returns value of Size field.
 func (d *Document) GetSize() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Size
 }
 
@@ -597,6 +618,9 @@ func (d *Document) SetThumbs(value []PhotoSizeClass) {
 // GetThumbs returns value of Thumbs conditional field and
 // boolean which is true if field was set.
 func (d *Document) GetThumbs() (value []PhotoSizeClass, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(0) {
 		return value, false
 	}
@@ -612,6 +636,9 @@ func (d *Document) SetVideoThumbs(value []VideoSize) {
 // GetVideoThumbs returns value of VideoThumbs conditional field and
 // boolean which is true if field was set.
 func (d *Document) GetVideoThumbs() (value []VideoSize, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(1) {
 		return value, false
 	}
@@ -620,11 +647,17 @@ func (d *Document) GetVideoThumbs() (value []VideoSize, ok bool) {
 
 // GetDCID returns value of DCID field.
 func (d *Document) GetDCID() (value int) {
+	if d == nil {
+		return
+	}
 	return d.DCID
 }
 
 // GetAttributes returns value of Attributes field.
 func (d *Document) GetAttributes() (value []DocumentAttributeClass) {
+	if d == nil {
+		return
+	}
 	return d.Attributes
 }
 

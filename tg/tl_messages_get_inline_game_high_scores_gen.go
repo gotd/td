@@ -184,11 +184,17 @@ func (g *MessagesGetInlineGameHighScoresRequest) DecodeBare(b *bin.Buffer) error
 
 // GetID returns value of ID field.
 func (g *MessagesGetInlineGameHighScoresRequest) GetID() (value InputBotInlineMessageIDClass) {
+	if g == nil {
+		return
+	}
 	return g.ID
 }
 
 // GetUserID returns value of UserID field.
 func (g *MessagesGetInlineGameHighScoresRequest) GetUserID() (value InputUserClass) {
+	if g == nil {
+		return
+	}
 	return g.UserID
 }
 

@@ -208,10 +208,16 @@ func (c *ChatNearby) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (c *ChatNearby) GetChatID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ChatID
 }
 
 // GetDistance returns value of Distance field.
 func (c *ChatNearby) GetDistance() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.Distance
 }

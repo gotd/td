@@ -231,15 +231,24 @@ func (s *MessagesSearchCounter) SetInexact(value bool) {
 
 // GetInexact returns value of Inexact conditional field.
 func (s *MessagesSearchCounter) GetInexact() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(1)
 }
 
 // GetFilter returns value of Filter field.
 func (s *MessagesSearchCounter) GetFilter() (value MessagesFilterClass) {
+	if s == nil {
+		return
+	}
 	return s.Filter
 }
 
 // GetCount returns value of Count field.
 func (s *MessagesSearchCounter) GetCount() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Count
 }

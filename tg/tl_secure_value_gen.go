@@ -490,6 +490,9 @@ func (s *SecureValue) DecodeBare(b *bin.Buffer) error {
 
 // GetType returns value of Type field.
 func (s *SecureValue) GetType() (value SecureValueTypeClass) {
+	if s == nil {
+		return
+	}
 	return s.Type
 }
 
@@ -502,6 +505,9 @@ func (s *SecureValue) SetData(value SecureData) {
 // GetData returns value of Data conditional field and
 // boolean which is true if field was set.
 func (s *SecureValue) GetData() (value SecureData, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(0) {
 		return value, false
 	}
@@ -517,6 +523,9 @@ func (s *SecureValue) SetFrontSide(value SecureFileClass) {
 // GetFrontSide returns value of FrontSide conditional field and
 // boolean which is true if field was set.
 func (s *SecureValue) GetFrontSide() (value SecureFileClass, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(1) {
 		return value, false
 	}
@@ -532,6 +541,9 @@ func (s *SecureValue) SetReverseSide(value SecureFileClass) {
 // GetReverseSide returns value of ReverseSide conditional field and
 // boolean which is true if field was set.
 func (s *SecureValue) GetReverseSide() (value SecureFileClass, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(2) {
 		return value, false
 	}
@@ -547,6 +559,9 @@ func (s *SecureValue) SetSelfie(value SecureFileClass) {
 // GetSelfie returns value of Selfie conditional field and
 // boolean which is true if field was set.
 func (s *SecureValue) GetSelfie() (value SecureFileClass, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(3) {
 		return value, false
 	}
@@ -562,6 +577,9 @@ func (s *SecureValue) SetTranslation(value []SecureFileClass) {
 // GetTranslation returns value of Translation conditional field and
 // boolean which is true if field was set.
 func (s *SecureValue) GetTranslation() (value []SecureFileClass, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(6) {
 		return value, false
 	}
@@ -577,6 +595,9 @@ func (s *SecureValue) SetFiles(value []SecureFileClass) {
 // GetFiles returns value of Files conditional field and
 // boolean which is true if field was set.
 func (s *SecureValue) GetFiles() (value []SecureFileClass, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(4) {
 		return value, false
 	}
@@ -592,6 +613,9 @@ func (s *SecureValue) SetPlainData(value SecurePlainDataClass) {
 // GetPlainData returns value of PlainData conditional field and
 // boolean which is true if field was set.
 func (s *SecureValue) GetPlainData() (value SecurePlainDataClass, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(5) {
 		return value, false
 	}
@@ -600,6 +624,9 @@ func (s *SecureValue) GetPlainData() (value SecurePlainDataClass, ok bool) {
 
 // GetHash returns value of Hash field.
 func (s *SecureValue) GetHash() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.Hash
 }
 

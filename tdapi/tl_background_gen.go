@@ -318,30 +318,48 @@ func (b *Background) DecodeTDLibJSON(buf tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (b *Background) GetID() (value int64) {
+	if b == nil {
+		return
+	}
 	return b.ID
 }
 
 // GetIsDefault returns value of IsDefault field.
 func (b *Background) GetIsDefault() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.IsDefault
 }
 
 // GetIsDark returns value of IsDark field.
 func (b *Background) GetIsDark() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.IsDark
 }
 
 // GetName returns value of Name field.
 func (b *Background) GetName() (value string) {
+	if b == nil {
+		return
+	}
 	return b.Name
 }
 
 // GetDocument returns value of Document field.
 func (b *Background) GetDocument() (value Document) {
+	if b == nil {
+		return
+	}
 	return b.Document
 }
 
 // GetType returns value of Type field.
 func (b *Background) GetType() (value BackgroundTypeClass) {
+	if b == nil {
+		return
+	}
 	return b.Type
 }

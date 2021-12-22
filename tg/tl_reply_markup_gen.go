@@ -194,6 +194,9 @@ func (r *ReplyKeyboardHide) SetSelective(value bool) {
 
 // GetSelective returns value of Selective conditional field.
 func (r *ReplyKeyboardHide) GetSelective() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.Flags.Has(2)
 }
 
@@ -409,6 +412,9 @@ func (r *ReplyKeyboardForceReply) SetSingleUse(value bool) {
 
 // GetSingleUse returns value of SingleUse conditional field.
 func (r *ReplyKeyboardForceReply) GetSingleUse() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.Flags.Has(1)
 }
 
@@ -425,6 +431,9 @@ func (r *ReplyKeyboardForceReply) SetSelective(value bool) {
 
 // GetSelective returns value of Selective conditional field.
 func (r *ReplyKeyboardForceReply) GetSelective() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.Flags.Has(2)
 }
 
@@ -437,6 +446,9 @@ func (r *ReplyKeyboardForceReply) SetPlaceholder(value string) {
 // GetPlaceholder returns value of Placeholder conditional field and
 // boolean which is true if field was set.
 func (r *ReplyKeyboardForceReply) GetPlaceholder() (value string, ok bool) {
+	if r == nil {
+		return
+	}
 	if !r.Flags.Has(3) {
 		return value, false
 	}
@@ -707,6 +719,9 @@ func (r *ReplyKeyboardMarkup) SetResize(value bool) {
 
 // GetResize returns value of Resize conditional field.
 func (r *ReplyKeyboardMarkup) GetResize() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.Flags.Has(0)
 }
 
@@ -723,6 +738,9 @@ func (r *ReplyKeyboardMarkup) SetSingleUse(value bool) {
 
 // GetSingleUse returns value of SingleUse conditional field.
 func (r *ReplyKeyboardMarkup) GetSingleUse() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.Flags.Has(1)
 }
 
@@ -739,11 +757,17 @@ func (r *ReplyKeyboardMarkup) SetSelective(value bool) {
 
 // GetSelective returns value of Selective conditional field.
 func (r *ReplyKeyboardMarkup) GetSelective() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.Flags.Has(2)
 }
 
 // GetRows returns value of Rows field.
 func (r *ReplyKeyboardMarkup) GetRows() (value []KeyboardButtonRow) {
+	if r == nil {
+		return
+	}
 	return r.Rows
 }
 
@@ -756,6 +780,9 @@ func (r *ReplyKeyboardMarkup) SetPlaceholder(value string) {
 // GetPlaceholder returns value of Placeholder conditional field and
 // boolean which is true if field was set.
 func (r *ReplyKeyboardMarkup) GetPlaceholder() (value string, ok bool) {
+	if r == nil {
+		return
+	}
 	if !r.Flags.Has(3) {
 		return value, false
 	}
@@ -906,6 +933,9 @@ func (r *ReplyInlineMarkup) DecodeBare(b *bin.Buffer) error {
 
 // GetRows returns value of Rows field.
 func (r *ReplyInlineMarkup) GetRows() (value []KeyboardButtonRow) {
+	if r == nil {
+		return
+	}
 	return r.Rows
 }
 

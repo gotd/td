@@ -243,16 +243,25 @@ func (s *SetGroupCallParticipantVolumeLevelRequest) DecodeTDLibJSON(b tdjson.Dec
 
 // GetGroupCallID returns value of GroupCallID field.
 func (s *SetGroupCallParticipantVolumeLevelRequest) GetGroupCallID() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.GroupCallID
 }
 
 // GetParticipantID returns value of ParticipantID field.
 func (s *SetGroupCallParticipantVolumeLevelRequest) GetParticipantID() (value MessageSenderClass) {
+	if s == nil {
+		return
+	}
 	return s.ParticipantID
 }
 
 // GetVolumeLevel returns value of VolumeLevel field.
 func (s *SetGroupCallParticipantVolumeLevelRequest) GetVolumeLevel() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.VolumeLevel
 }
 

@@ -196,16 +196,25 @@ func (a *MessagesAcceptEncryptionRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (a *MessagesAcceptEncryptionRequest) GetPeer() (value InputEncryptedChat) {
+	if a == nil {
+		return
+	}
 	return a.Peer
 }
 
 // GetGB returns value of GB field.
 func (a *MessagesAcceptEncryptionRequest) GetGB() (value []byte) {
+	if a == nil {
+		return
+	}
 	return a.GB
 }
 
 // GetKeyFingerprint returns value of KeyFingerprint field.
 func (a *MessagesAcceptEncryptionRequest) GetKeyFingerprint() (value int64) {
+	if a == nil {
+		return
+	}
 	return a.KeyFingerprint
 }
 

@@ -364,6 +364,9 @@ func (i *InputPeerChat) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (i *InputPeerChat) GetChatID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ChatID
 }
 
@@ -518,11 +521,17 @@ func (i *InputPeerUser) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (i *InputPeerUser) GetUserID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.UserID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputPeerUser) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }
 
@@ -677,11 +686,17 @@ func (i *InputPeerChannel) DecodeBare(b *bin.Buffer) error {
 
 // GetChannelID returns value of ChannelID field.
 func (i *InputPeerChannel) GetChannelID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ChannelID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputPeerChannel) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }
 
@@ -860,16 +875,25 @@ func (i *InputPeerUserFromMessage) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (i *InputPeerUserFromMessage) GetPeer() (value InputPeerClass) {
+	if i == nil {
+		return
+	}
 	return i.Peer
 }
 
 // GetMsgID returns value of MsgID field.
 func (i *InputPeerUserFromMessage) GetMsgID() (value int) {
+	if i == nil {
+		return
+	}
 	return i.MsgID
 }
 
 // GetUserID returns value of UserID field.
 func (i *InputPeerUserFromMessage) GetUserID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.UserID
 }
 
@@ -1048,16 +1072,25 @@ func (i *InputPeerChannelFromMessage) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (i *InputPeerChannelFromMessage) GetPeer() (value InputPeerClass) {
+	if i == nil {
+		return
+	}
 	return i.Peer
 }
 
 // GetMsgID returns value of MsgID field.
 func (i *InputPeerChannelFromMessage) GetMsgID() (value int) {
+	if i == nil {
+		return
+	}
 	return i.MsgID
 }
 
 // GetChannelID returns value of ChannelID field.
 func (i *InputPeerChannelFromMessage) GetChannelID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ChannelID
 }
 

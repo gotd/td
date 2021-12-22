@@ -165,5 +165,8 @@ func (vec *MessageRangeVector) DecodeBare(b *bin.Buffer) error {
 
 // GetElems returns value of Elems field.
 func (vec *MessageRangeVector) GetElems() (value []MessageRange) {
+	if vec == nil {
+		return
+	}
 	return vec.Elems
 }

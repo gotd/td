@@ -183,6 +183,9 @@ func (c *CheckEmailAddressVerificationCodeRequest) DecodeTDLibJSON(b tdjson.Deco
 
 // GetCode returns value of Code field.
 func (c *CheckEmailAddressVerificationCodeRequest) GetCode() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Code
 }
 

@@ -215,5 +215,8 @@ func (c *ClosedVectorPath) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCommands returns value of Commands field.
 func (c *ClosedVectorPath) GetCommands() (value []VectorPathCommandClass) {
+	if c == nil {
+		return
+	}
 	return c.Commands
 }

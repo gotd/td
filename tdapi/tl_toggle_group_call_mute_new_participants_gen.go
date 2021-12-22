@@ -208,11 +208,17 @@ func (t *ToggleGroupCallMuteNewParticipantsRequest) DecodeTDLibJSON(b tdjson.Dec
 
 // GetGroupCallID returns value of GroupCallID field.
 func (t *ToggleGroupCallMuteNewParticipantsRequest) GetGroupCallID() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.GroupCallID
 }
 
 // GetMuteNewParticipants returns value of MuteNewParticipants field.
 func (t *ToggleGroupCallMuteNewParticipantsRequest) GetMuteNewParticipants() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.MuteNewParticipants
 }
 

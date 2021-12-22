@@ -177,10 +177,16 @@ func (s *AccountSentEmailCode) DecodeBare(b *bin.Buffer) error {
 
 // GetEmailPattern returns value of EmailPattern field.
 func (s *AccountSentEmailCode) GetEmailPattern() (value string) {
+	if s == nil {
+		return
+	}
 	return s.EmailPattern
 }
 
 // GetLength returns value of Length field.
 func (s *AccountSentEmailCode) GetLength() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Length
 }

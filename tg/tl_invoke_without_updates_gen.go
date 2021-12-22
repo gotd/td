@@ -160,5 +160,8 @@ func (i *InvokeWithoutUpdatesRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetQuery returns value of Query field.
 func (i *InvokeWithoutUpdatesRequest) GetQuery() (value bin.Object) {
+	if i == nil {
+		return
+	}
 	return i.Query
 }

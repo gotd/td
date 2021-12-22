@@ -189,10 +189,16 @@ func (a *AccountAuthorizations) DecodeBare(b *bin.Buffer) error {
 
 // GetAuthorizationTTLDays returns value of AuthorizationTTLDays field.
 func (a *AccountAuthorizations) GetAuthorizationTTLDays() (value int) {
+	if a == nil {
+		return
+	}
 	return a.AuthorizationTTLDays
 }
 
 // GetAuthorizations returns value of Authorizations field.
 func (a *AccountAuthorizations) GetAuthorizations() (value []Authorization) {
+	if a == nil {
+		return
+	}
 	return a.Authorizations
 }

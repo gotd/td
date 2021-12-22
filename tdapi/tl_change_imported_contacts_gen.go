@@ -209,6 +209,9 @@ func (c *ChangeImportedContactsRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetContacts returns value of Contacts field.
 func (c *ChangeImportedContactsRequest) GetContacts() (value []Contact) {
+	if c == nil {
+		return
+	}
 	return c.Contacts
 }
 

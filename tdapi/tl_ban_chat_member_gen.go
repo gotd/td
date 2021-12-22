@@ -272,21 +272,33 @@ func (b *BanChatMemberRequest) DecodeTDLibJSON(buf tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (b *BanChatMemberRequest) GetChatID() (value int64) {
+	if b == nil {
+		return
+	}
 	return b.ChatID
 }
 
 // GetMemberID returns value of MemberID field.
 func (b *BanChatMemberRequest) GetMemberID() (value MessageSenderClass) {
+	if b == nil {
+		return
+	}
 	return b.MemberID
 }
 
 // GetBannedUntilDate returns value of BannedUntilDate field.
 func (b *BanChatMemberRequest) GetBannedUntilDate() (value int32) {
+	if b == nil {
+		return
+	}
 	return b.BannedUntilDate
 }
 
 // GetRevokeMessages returns value of RevokeMessages field.
 func (b *BanChatMemberRequest) GetRevokeMessages() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.RevokeMessages
 }
 

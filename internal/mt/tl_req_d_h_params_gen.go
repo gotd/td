@@ -230,30 +230,48 @@ func (r *ReqDHParamsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetNonce returns value of Nonce field.
 func (r *ReqDHParamsRequest) GetNonce() (value bin.Int128) {
+	if r == nil {
+		return
+	}
 	return r.Nonce
 }
 
 // GetServerNonce returns value of ServerNonce field.
 func (r *ReqDHParamsRequest) GetServerNonce() (value bin.Int128) {
+	if r == nil {
+		return
+	}
 	return r.ServerNonce
 }
 
 // GetP returns value of P field.
 func (r *ReqDHParamsRequest) GetP() (value []byte) {
+	if r == nil {
+		return
+	}
 	return r.P
 }
 
 // GetQ returns value of Q field.
 func (r *ReqDHParamsRequest) GetQ() (value []byte) {
+	if r == nil {
+		return
+	}
 	return r.Q
 }
 
 // GetPublicKeyFingerprint returns value of PublicKeyFingerprint field.
 func (r *ReqDHParamsRequest) GetPublicKeyFingerprint() (value int64) {
+	if r == nil {
+		return
+	}
 	return r.PublicKeyFingerprint
 }
 
 // GetEncryptedData returns value of EncryptedData field.
 func (r *ReqDHParamsRequest) GetEncryptedData() (value []byte) {
+	if r == nil {
+		return
+	}
 	return r.EncryptedData
 }

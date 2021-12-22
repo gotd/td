@@ -189,6 +189,9 @@ func (r *ReplyMarkupRemoveKeyboard) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetIsPersonal returns value of IsPersonal field.
 func (r *ReplyMarkupRemoveKeyboard) GetIsPersonal() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.IsPersonal
 }
 
@@ -377,11 +380,17 @@ func (r *ReplyMarkupForceReply) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetIsPersonal returns value of IsPersonal field.
 func (r *ReplyMarkupForceReply) GetIsPersonal() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.IsPersonal
 }
 
 // GetInputFieldPlaceholder returns value of InputFieldPlaceholder field.
 func (r *ReplyMarkupForceReply) GetInputFieldPlaceholder() (value string) {
+	if r == nil {
+		return
+	}
 	return r.InputFieldPlaceholder
 }
 
@@ -697,26 +706,41 @@ func (r *ReplyMarkupShowKeyboard) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetRows returns value of Rows field.
 func (r *ReplyMarkupShowKeyboard) GetRows() (value [][]KeyboardButton) {
+	if r == nil {
+		return
+	}
 	return r.Rows
 }
 
 // GetResizeKeyboard returns value of ResizeKeyboard field.
 func (r *ReplyMarkupShowKeyboard) GetResizeKeyboard() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.ResizeKeyboard
 }
 
 // GetOneTime returns value of OneTime field.
 func (r *ReplyMarkupShowKeyboard) GetOneTime() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.OneTime
 }
 
 // GetIsPersonal returns value of IsPersonal field.
 func (r *ReplyMarkupShowKeyboard) GetIsPersonal() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.IsPersonal
 }
 
 // GetInputFieldPlaceholder returns value of InputFieldPlaceholder field.
 func (r *ReplyMarkupShowKeyboard) GetInputFieldPlaceholder() (value string) {
+	if r == nil {
+		return
+	}
 	return r.InputFieldPlaceholder
 }
 
@@ -929,6 +953,9 @@ func (r *ReplyMarkupInlineKeyboard) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetRows returns value of Rows field.
 func (r *ReplyMarkupInlineKeyboard) GetRows() (value [][]InlineKeyboardButton) {
+	if r == nil {
+		return
+	}
 	return r.Rows
 }
 

@@ -193,15 +193,24 @@ func (c *ChatAdminWithInvites) DecodeBare(b *bin.Buffer) error {
 
 // GetAdminID returns value of AdminID field.
 func (c *ChatAdminWithInvites) GetAdminID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.AdminID
 }
 
 // GetInvitesCount returns value of InvitesCount field.
 func (c *ChatAdminWithInvites) GetInvitesCount() (value int) {
+	if c == nil {
+		return
+	}
 	return c.InvitesCount
 }
 
 // GetRevokedInvitesCount returns value of RevokedInvitesCount field.
 func (c *ChatAdminWithInvites) GetRevokedInvitesCount() (value int) {
+	if c == nil {
+		return
+	}
 	return c.RevokedInvitesCount
 }

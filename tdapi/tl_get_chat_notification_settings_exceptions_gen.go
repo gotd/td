@@ -219,11 +219,17 @@ func (g *GetChatNotificationSettingsExceptionsRequest) DecodeTDLibJSON(b tdjson.
 
 // GetScope returns value of Scope field.
 func (g *GetChatNotificationSettingsExceptionsRequest) GetScope() (value NotificationSettingsScopeClass) {
+	if g == nil {
+		return
+	}
 	return g.Scope
 }
 
 // GetCompareSound returns value of CompareSound field.
 func (g *GetChatNotificationSettingsExceptionsRequest) GetCompareSound() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.CompareSound
 }
 

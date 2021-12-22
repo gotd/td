@@ -243,16 +243,25 @@ func (s *SaveApplicationLogEventRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetType returns value of Type field.
 func (s *SaveApplicationLogEventRequest) GetType() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Type
 }
 
 // GetChatID returns value of ChatID field.
 func (s *SaveApplicationLogEventRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetData returns value of Data field.
 func (s *SaveApplicationLogEventRequest) GetData() (value JSONValueClass) {
+	if s == nil {
+		return
+	}
 	return s.Data
 }
 

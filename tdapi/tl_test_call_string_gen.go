@@ -183,6 +183,9 @@ func (t *TestCallStringRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetX returns value of X field.
 func (t *TestCallStringRequest) GetX() (value string) {
+	if t == nil {
+		return
+	}
 	return t.X
 }
 

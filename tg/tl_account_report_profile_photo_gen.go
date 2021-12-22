@@ -227,21 +227,33 @@ func (r *AccountReportProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (r *AccountReportProfilePhotoRequest) GetPeer() (value InputPeerClass) {
+	if r == nil {
+		return
+	}
 	return r.Peer
 }
 
 // GetPhotoID returns value of PhotoID field.
 func (r *AccountReportProfilePhotoRequest) GetPhotoID() (value InputPhotoClass) {
+	if r == nil {
+		return
+	}
 	return r.PhotoID
 }
 
 // GetReason returns value of Reason field.
 func (r *AccountReportProfilePhotoRequest) GetReason() (value ReportReasonClass) {
+	if r == nil {
+		return
+	}
 	return r.Reason
 }
 
 // GetMessage returns value of Message field.
 func (r *AccountReportProfilePhotoRequest) GetMessage() (value string) {
+	if r == nil {
+		return
+	}
 	return r.Message
 }
 

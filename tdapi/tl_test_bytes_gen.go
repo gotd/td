@@ -183,5 +183,8 @@ func (t *TestBytes) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetValue returns value of Value field.
 func (t *TestBytes) GetValue() (value []byte) {
+	if t == nil {
+		return
+	}
 	return t.Value
 }

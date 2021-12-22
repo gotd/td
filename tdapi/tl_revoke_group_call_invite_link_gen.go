@@ -183,6 +183,9 @@ func (r *RevokeGroupCallInviteLinkRequest) DecodeTDLibJSON(b tdjson.Decoder) err
 
 // GetGroupCallID returns value of GroupCallID field.
 func (r *RevokeGroupCallInviteLinkRequest) GetGroupCallID() (value int32) {
+	if r == nil {
+		return
+	}
 	return r.GroupCallID
 }
 

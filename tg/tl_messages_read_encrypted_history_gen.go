@@ -174,11 +174,17 @@ func (r *MessagesReadEncryptedHistoryRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (r *MessagesReadEncryptedHistoryRequest) GetPeer() (value InputEncryptedChat) {
+	if r == nil {
+		return
+	}
 	return r.Peer
 }
 
 // GetMaxDate returns value of MaxDate field.
 func (r *MessagesReadEncryptedHistoryRequest) GetMaxDate() (value int) {
+	if r == nil {
+		return
+	}
 	return r.MaxDate
 }
 

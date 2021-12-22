@@ -174,10 +174,16 @@ func (m *MessageRange) DecodeBare(b *bin.Buffer) error {
 
 // GetMinID returns value of MinID field.
 func (m *MessageRange) GetMinID() (value int) {
+	if m == nil {
+		return
+	}
 	return m.MinID
 }
 
 // GetMaxID returns value of MaxID field.
 func (m *MessageRange) GetMaxID() (value int) {
+	if m == nil {
+		return
+	}
 	return m.MaxID
 }

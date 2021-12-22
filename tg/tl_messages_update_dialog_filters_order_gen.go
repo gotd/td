@@ -174,6 +174,9 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) DecodeBare(b *bin.Buffer) erro
 
 // GetOrder returns value of Order field.
 func (u *MessagesUpdateDialogFiltersOrderRequest) GetOrder() (value []int) {
+	if u == nil {
+		return
+	}
 	return u.Order
 }
 

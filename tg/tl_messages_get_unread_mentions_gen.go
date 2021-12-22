@@ -270,31 +270,49 @@ func (g *MessagesGetUnreadMentionsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (g *MessagesGetUnreadMentionsRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
 // GetOffsetID returns value of OffsetID field.
 func (g *MessagesGetUnreadMentionsRequest) GetOffsetID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.OffsetID
 }
 
 // GetAddOffset returns value of AddOffset field.
 func (g *MessagesGetUnreadMentionsRequest) GetAddOffset() (value int) {
+	if g == nil {
+		return
+	}
 	return g.AddOffset
 }
 
 // GetLimit returns value of Limit field.
 func (g *MessagesGetUnreadMentionsRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 
 // GetMaxID returns value of MaxID field.
 func (g *MessagesGetUnreadMentionsRequest) GetMaxID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.MaxID
 }
 
 // GetMinID returns value of MinID field.
 func (g *MessagesGetUnreadMentionsRequest) GetMinID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.MinID
 }
 

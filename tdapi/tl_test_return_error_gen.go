@@ -183,6 +183,9 @@ func (t *TestReturnErrorRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetError returns value of Error field.
 func (t *TestReturnErrorRequest) GetError() (value Error) {
+	if t == nil {
+		return
+	}
 	return t.Error
 }
 

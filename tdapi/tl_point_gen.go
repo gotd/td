@@ -208,10 +208,16 @@ func (p *Point) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetX returns value of X field.
 func (p *Point) GetX() (value float64) {
+	if p == nil {
+		return
+	}
 	return p.X
 }
 
 // GetY returns value of Y field.
 func (p *Point) GetY() (value float64) {
+	if p == nil {
+		return
+	}
 	return p.Y
 }

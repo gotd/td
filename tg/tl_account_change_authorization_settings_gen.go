@@ -232,6 +232,9 @@ func (c *AccountChangeAuthorizationSettingsRequest) DecodeBare(b *bin.Buffer) er
 
 // GetHash returns value of Hash field.
 func (c *AccountChangeAuthorizationSettingsRequest) GetHash() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.Hash
 }
 
@@ -244,6 +247,9 @@ func (c *AccountChangeAuthorizationSettingsRequest) SetEncryptedRequestsDisabled
 // GetEncryptedRequestsDisabled returns value of EncryptedRequestsDisabled conditional field and
 // boolean which is true if field was set.
 func (c *AccountChangeAuthorizationSettingsRequest) GetEncryptedRequestsDisabled() (value bool, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(0) {
 		return value, false
 	}
@@ -259,6 +265,9 @@ func (c *AccountChangeAuthorizationSettingsRequest) SetCallRequestsDisabled(valu
 // GetCallRequestsDisabled returns value of CallRequestsDisabled conditional field and
 // boolean which is true if field was set.
 func (c *AccountChangeAuthorizationSettingsRequest) GetCallRequestsDisabled() (value bool, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(1) {
 		return value, false
 	}

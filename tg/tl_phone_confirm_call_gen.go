@@ -218,21 +218,33 @@ func (c *PhoneConfirmCallRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (c *PhoneConfirmCallRequest) GetPeer() (value InputPhoneCall) {
+	if c == nil {
+		return
+	}
 	return c.Peer
 }
 
 // GetGA returns value of GA field.
 func (c *PhoneConfirmCallRequest) GetGA() (value []byte) {
+	if c == nil {
+		return
+	}
 	return c.GA
 }
 
 // GetKeyFingerprint returns value of KeyFingerprint field.
 func (c *PhoneConfirmCallRequest) GetKeyFingerprint() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.KeyFingerprint
 }
 
 // GetProtocol returns value of Protocol field.
 func (c *PhoneConfirmCallRequest) GetProtocol() (value PhoneCallProtocol) {
+	if c == nil {
+		return
+	}
 	return c.Protocol
 }
 

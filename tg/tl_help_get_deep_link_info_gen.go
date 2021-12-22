@@ -155,6 +155,9 @@ func (g *HelpGetDeepLinkInfoRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPath returns value of Path field.
 func (g *HelpGetDeepLinkInfoRequest) GetPath() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Path
 }
 

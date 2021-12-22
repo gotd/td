@@ -281,11 +281,17 @@ func (i *InputStickerSetID) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputStickerSetID) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputStickerSetID) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }
 
@@ -418,6 +424,9 @@ func (i *InputStickerSetShortName) DecodeBare(b *bin.Buffer) error {
 
 // GetShortName returns value of ShortName field.
 func (i *InputStickerSetShortName) GetShortName() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ShortName
 }
 
@@ -655,6 +664,9 @@ func (i *InputStickerSetDice) DecodeBare(b *bin.Buffer) error {
 
 // GetEmoticon returns value of Emoticon field.
 func (i *InputStickerSetDice) GetEmoticon() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Emoticon
 }
 

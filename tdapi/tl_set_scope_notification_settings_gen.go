@@ -218,11 +218,17 @@ func (s *SetScopeNotificationSettingsRequest) DecodeTDLibJSON(b tdjson.Decoder) 
 
 // GetScope returns value of Scope field.
 func (s *SetScopeNotificationSettingsRequest) GetScope() (value NotificationSettingsScopeClass) {
+	if s == nil {
+		return
+	}
 	return s.Scope
 }
 
 // GetNotificationSettings returns value of NotificationSettings field.
 func (s *SetScopeNotificationSettingsRequest) GetNotificationSettings() (value ScopeNotificationSettings) {
+	if s == nil {
+		return
+	}
 	return s.NotificationSettings
 }
 

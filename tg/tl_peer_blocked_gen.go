@@ -179,10 +179,16 @@ func (p *PeerBlocked) DecodeBare(b *bin.Buffer) error {
 
 // GetPeerID returns value of PeerID field.
 func (p *PeerBlocked) GetPeerID() (value PeerClass) {
+	if p == nil {
+		return
+	}
 	return p.PeerID
 }
 
 // GetDate returns value of Date field.
 func (p *PeerBlocked) GetDate() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Date
 }

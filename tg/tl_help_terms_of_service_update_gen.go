@@ -164,6 +164,9 @@ func (t *HelpTermsOfServiceUpdateEmpty) DecodeBare(b *bin.Buffer) error {
 
 // GetExpires returns value of Expires field.
 func (t *HelpTermsOfServiceUpdateEmpty) GetExpires() (value int) {
+	if t == nil {
+		return
+	}
 	return t.Expires
 }
 
@@ -324,11 +327,17 @@ func (t *HelpTermsOfServiceUpdate) DecodeBare(b *bin.Buffer) error {
 
 // GetExpires returns value of Expires field.
 func (t *HelpTermsOfServiceUpdate) GetExpires() (value int) {
+	if t == nil {
+		return
+	}
 	return t.Expires
 }
 
 // GetTermsOfService returns value of TermsOfService field.
 func (t *HelpTermsOfServiceUpdate) GetTermsOfService() (value HelpTermsOfService) {
+	if t == nil {
+		return
+	}
 	return t.TermsOfService
 }
 

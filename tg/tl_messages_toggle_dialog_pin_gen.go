@@ -208,11 +208,17 @@ func (t *MessagesToggleDialogPinRequest) SetPinned(value bool) {
 
 // GetPinned returns value of Pinned conditional field.
 func (t *MessagesToggleDialogPinRequest) GetPinned() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
 func (t *MessagesToggleDialogPinRequest) GetPeer() (value InputDialogPeerClass) {
+	if t == nil {
+		return
+	}
 	return t.Peer
 }
 

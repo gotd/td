@@ -289,6 +289,9 @@ func (s *MessagesSetGameScoreRequest) SetEditMessage(value bool) {
 
 // GetEditMessage returns value of EditMessage conditional field.
 func (s *MessagesSetGameScoreRequest) GetEditMessage() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(0)
 }
 
@@ -305,26 +308,41 @@ func (s *MessagesSetGameScoreRequest) SetForce(value bool) {
 
 // GetForce returns value of Force conditional field.
 func (s *MessagesSetGameScoreRequest) GetForce() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(1)
 }
 
 // GetPeer returns value of Peer field.
 func (s *MessagesSetGameScoreRequest) GetPeer() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
 // GetID returns value of ID field.
 func (s *MessagesSetGameScoreRequest) GetID() (value int) {
+	if s == nil {
+		return
+	}
 	return s.ID
 }
 
 // GetUserID returns value of UserID field.
 func (s *MessagesSetGameScoreRequest) GetUserID() (value InputUserClass) {
+	if s == nil {
+		return
+	}
 	return s.UserID
 }
 
 // GetScore returns value of Score field.
 func (s *MessagesSetGameScoreRequest) GetScore() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Score
 }
 

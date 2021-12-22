@@ -234,15 +234,24 @@ func (a *AnimatedEmoji) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSticker returns value of Sticker field.
 func (a *AnimatedEmoji) GetSticker() (value Sticker) {
+	if a == nil {
+		return
+	}
 	return a.Sticker
 }
 
 // GetFitzpatrickType returns value of FitzpatrickType field.
 func (a *AnimatedEmoji) GetFitzpatrickType() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.FitzpatrickType
 }
 
 // GetSound returns value of Sound field.
 func (a *AnimatedEmoji) GetSound() (value File) {
+	if a == nil {
+		return
+	}
 	return a.Sound
 }

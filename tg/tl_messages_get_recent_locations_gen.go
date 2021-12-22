@@ -204,16 +204,25 @@ func (g *MessagesGetRecentLocationsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (g *MessagesGetRecentLocationsRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
 // GetLimit returns value of Limit field.
 func (g *MessagesGetRecentLocationsRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 
 // GetHash returns value of Hash field.
 func (g *MessagesGetRecentLocationsRequest) GetHash() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.Hash
 }
 

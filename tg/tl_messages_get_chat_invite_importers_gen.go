@@ -336,11 +336,17 @@ func (g *MessagesGetChatInviteImportersRequest) SetRequested(value bool) {
 
 // GetRequested returns value of Requested conditional field.
 func (g *MessagesGetChatInviteImportersRequest) GetRequested() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
 func (g *MessagesGetChatInviteImportersRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
@@ -353,6 +359,9 @@ func (g *MessagesGetChatInviteImportersRequest) SetLink(value string) {
 // GetLink returns value of Link conditional field and
 // boolean which is true if field was set.
 func (g *MessagesGetChatInviteImportersRequest) GetLink() (value string, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(1) {
 		return value, false
 	}
@@ -368,6 +377,9 @@ func (g *MessagesGetChatInviteImportersRequest) SetQ(value string) {
 // GetQ returns value of Q conditional field and
 // boolean which is true if field was set.
 func (g *MessagesGetChatInviteImportersRequest) GetQ() (value string, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(2) {
 		return value, false
 	}
@@ -376,16 +388,25 @@ func (g *MessagesGetChatInviteImportersRequest) GetQ() (value string, ok bool) {
 
 // GetOffsetDate returns value of OffsetDate field.
 func (g *MessagesGetChatInviteImportersRequest) GetOffsetDate() (value int) {
+	if g == nil {
+		return
+	}
 	return g.OffsetDate
 }
 
 // GetOffsetUser returns value of OffsetUser field.
 func (g *MessagesGetChatInviteImportersRequest) GetOffsetUser() (value InputUserClass) {
+	if g == nil {
+		return
+	}
 	return g.OffsetUser
 }
 
 // GetLimit returns value of Limit field.
 func (g *MessagesGetChatInviteImportersRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

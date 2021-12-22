@@ -183,6 +183,9 @@ func (g *GetExternalLinkInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLink returns value of Link field.
 func (g *GetExternalLinkInfoRequest) GetLink() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Link
 }
 

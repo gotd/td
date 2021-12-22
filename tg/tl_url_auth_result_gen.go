@@ -240,16 +240,25 @@ func (u *URLAuthResultRequest) SetRequestWriteAccess(value bool) {
 
 // GetRequestWriteAccess returns value of RequestWriteAccess conditional field.
 func (u *URLAuthResultRequest) GetRequestWriteAccess() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(0)
 }
 
 // GetBot returns value of Bot field.
 func (u *URLAuthResultRequest) GetBot() (value UserClass) {
+	if u == nil {
+		return
+	}
 	return u.Bot
 }
 
 // GetDomain returns value of Domain field.
 func (u *URLAuthResultRequest) GetDomain() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Domain
 }
 
@@ -385,6 +394,9 @@ func (u *URLAuthResultAccepted) DecodeBare(b *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (u *URLAuthResultAccepted) GetURL() (value string) {
+	if u == nil {
+		return
+	}
 	return u.URL
 }
 

@@ -359,40 +359,64 @@ func (a *Audio) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetDuration returns value of Duration field.
 func (a *Audio) GetDuration() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.Duration
 }
 
 // GetTitle returns value of Title field.
 func (a *Audio) GetTitle() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Title
 }
 
 // GetPerformer returns value of Performer field.
 func (a *Audio) GetPerformer() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Performer
 }
 
 // GetFileName returns value of FileName field.
 func (a *Audio) GetFileName() (value string) {
+	if a == nil {
+		return
+	}
 	return a.FileName
 }
 
 // GetMimeType returns value of MimeType field.
 func (a *Audio) GetMimeType() (value string) {
+	if a == nil {
+		return
+	}
 	return a.MimeType
 }
 
 // GetAlbumCoverMinithumbnail returns value of AlbumCoverMinithumbnail field.
 func (a *Audio) GetAlbumCoverMinithumbnail() (value Minithumbnail) {
+	if a == nil {
+		return
+	}
 	return a.AlbumCoverMinithumbnail
 }
 
 // GetAlbumCoverThumbnail returns value of AlbumCoverThumbnail field.
 func (a *Audio) GetAlbumCoverThumbnail() (value Thumbnail) {
+	if a == nil {
+		return
+	}
 	return a.AlbumCoverThumbnail
 }
 
 // GetAudio returns value of Audio field.
 func (a *Audio) GetAudio() (value File) {
+	if a == nil {
+		return
+	}
 	return a.Audio
 }

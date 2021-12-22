@@ -308,6 +308,9 @@ func (a *AutoDownloadSettings) SetDisabled(value bool) {
 
 // GetDisabled returns value of Disabled conditional field.
 func (a *AutoDownloadSettings) GetDisabled() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.Flags.Has(0)
 }
 
@@ -324,6 +327,9 @@ func (a *AutoDownloadSettings) SetVideoPreloadLarge(value bool) {
 
 // GetVideoPreloadLarge returns value of VideoPreloadLarge conditional field.
 func (a *AutoDownloadSettings) GetVideoPreloadLarge() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.Flags.Has(1)
 }
 
@@ -340,6 +346,9 @@ func (a *AutoDownloadSettings) SetAudioPreloadNext(value bool) {
 
 // GetAudioPreloadNext returns value of AudioPreloadNext conditional field.
 func (a *AutoDownloadSettings) GetAudioPreloadNext() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.Flags.Has(2)
 }
 
@@ -356,25 +365,40 @@ func (a *AutoDownloadSettings) SetPhonecallsLessData(value bool) {
 
 // GetPhonecallsLessData returns value of PhonecallsLessData conditional field.
 func (a *AutoDownloadSettings) GetPhonecallsLessData() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.Flags.Has(3)
 }
 
 // GetPhotoSizeMax returns value of PhotoSizeMax field.
 func (a *AutoDownloadSettings) GetPhotoSizeMax() (value int) {
+	if a == nil {
+		return
+	}
 	return a.PhotoSizeMax
 }
 
 // GetVideoSizeMax returns value of VideoSizeMax field.
 func (a *AutoDownloadSettings) GetVideoSizeMax() (value int) {
+	if a == nil {
+		return
+	}
 	return a.VideoSizeMax
 }
 
 // GetFileSizeMax returns value of FileSizeMax field.
 func (a *AutoDownloadSettings) GetFileSizeMax() (value int) {
+	if a == nil {
+		return
+	}
 	return a.FileSizeMax
 }
 
 // GetVideoUploadMaxbitrate returns value of VideoUploadMaxbitrate field.
 func (a *AutoDownloadSettings) GetVideoUploadMaxbitrate() (value int) {
+	if a == nil {
+		return
+	}
 	return a.VideoUploadMaxbitrate
 }

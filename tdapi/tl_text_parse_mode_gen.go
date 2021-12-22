@@ -189,6 +189,9 @@ func (t *TextParseModeMarkdown) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetVersion returns value of Version field.
 func (t *TextParseModeMarkdown) GetVersion() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.Version
 }
 

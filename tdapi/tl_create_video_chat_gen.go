@@ -235,16 +235,25 @@ func (c *CreateVideoChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (c *CreateVideoChatRequest) GetChatID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ChatID
 }
 
 // GetTitle returns value of Title field.
 func (c *CreateVideoChatRequest) GetTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Title
 }
 
 // GetStartDate returns value of StartDate field.
 func (c *CreateVideoChatRequest) GetStartDate() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.StartDate
 }
 

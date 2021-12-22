@@ -161,5 +161,8 @@ func (h *MessagesHistoryImport) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (h *MessagesHistoryImport) GetID() (value int64) {
+	if h == nil {
+		return
+	}
 	return h.ID
 }

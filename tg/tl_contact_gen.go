@@ -174,10 +174,16 @@ func (c *Contact) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (c *Contact) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetMutual returns value of Mutual field.
 func (c *Contact) GetMutual() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Mutual
 }

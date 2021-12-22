@@ -411,16 +411,25 @@ func (e *MessagesEditMessageRequest) SetNoWebpage(value bool) {
 
 // GetNoWebpage returns value of NoWebpage conditional field.
 func (e *MessagesEditMessageRequest) GetNoWebpage() (value bool) {
+	if e == nil {
+		return
+	}
 	return e.Flags.Has(1)
 }
 
 // GetPeer returns value of Peer field.
 func (e *MessagesEditMessageRequest) GetPeer() (value InputPeerClass) {
+	if e == nil {
+		return
+	}
 	return e.Peer
 }
 
 // GetID returns value of ID field.
 func (e *MessagesEditMessageRequest) GetID() (value int) {
+	if e == nil {
+		return
+	}
 	return e.ID
 }
 
@@ -433,6 +442,9 @@ func (e *MessagesEditMessageRequest) SetMessage(value string) {
 // GetMessage returns value of Message conditional field and
 // boolean which is true if field was set.
 func (e *MessagesEditMessageRequest) GetMessage() (value string, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(11) {
 		return value, false
 	}
@@ -448,6 +460,9 @@ func (e *MessagesEditMessageRequest) SetMedia(value InputMediaClass) {
 // GetMedia returns value of Media conditional field and
 // boolean which is true if field was set.
 func (e *MessagesEditMessageRequest) GetMedia() (value InputMediaClass, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(14) {
 		return value, false
 	}
@@ -463,6 +478,9 @@ func (e *MessagesEditMessageRequest) SetReplyMarkup(value ReplyMarkupClass) {
 // GetReplyMarkup returns value of ReplyMarkup conditional field and
 // boolean which is true if field was set.
 func (e *MessagesEditMessageRequest) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(2) {
 		return value, false
 	}
@@ -478,6 +496,9 @@ func (e *MessagesEditMessageRequest) SetEntities(value []MessageEntityClass) {
 // GetEntities returns value of Entities conditional field and
 // boolean which is true if field was set.
 func (e *MessagesEditMessageRequest) GetEntities() (value []MessageEntityClass, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(3) {
 		return value, false
 	}
@@ -493,6 +514,9 @@ func (e *MessagesEditMessageRequest) SetScheduleDate(value int) {
 // GetScheduleDate returns value of ScheduleDate conditional field and
 // boolean which is true if field was set.
 func (e *MessagesEditMessageRequest) GetScheduleDate() (value int, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(15) {
 		return value, false
 	}

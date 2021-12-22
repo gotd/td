@@ -179,11 +179,17 @@ func (s *HelpSupport) DecodeBare(b *bin.Buffer) error {
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (s *HelpSupport) GetPhoneNumber() (value string) {
+	if s == nil {
+		return
+	}
 	return s.PhoneNumber
 }
 
 // GetUser returns value of User field.
 func (s *HelpSupport) GetUser() (value UserClass) {
+	if s == nil {
+		return
+	}
 	return s.User
 }
 

@@ -234,16 +234,25 @@ func (t *TransferChatOwnershipRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (t *TransferChatOwnershipRequest) GetChatID() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.ChatID
 }
 
 // GetUserID returns value of UserID field.
 func (t *TransferChatOwnershipRequest) GetUserID() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.UserID
 }
 
 // GetPassword returns value of Password field.
 func (t *TransferChatOwnershipRequest) GetPassword() (value string) {
+	if t == nil {
+		return
+	}
 	return t.Password
 }
 

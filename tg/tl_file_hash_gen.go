@@ -192,15 +192,24 @@ func (f *FileHash) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (f *FileHash) GetOffset() (value int) {
+	if f == nil {
+		return
+	}
 	return f.Offset
 }
 
 // GetLimit returns value of Limit field.
 func (f *FileHash) GetLimit() (value int) {
+	if f == nil {
+		return
+	}
 	return f.Limit
 }
 
 // GetHash returns value of Hash field.
 func (f *FileHash) GetHash() (value []byte) {
+	if f == nil {
+		return
+	}
 	return f.Hash
 }

@@ -163,5 +163,8 @@ func (p *AuthPasswordRecovery) DecodeBare(b *bin.Buffer) error {
 
 // GetEmailPattern returns value of EmailPattern field.
 func (p *AuthPasswordRecovery) GetEmailPattern() (value string) {
+	if p == nil {
+		return
+	}
 	return p.EmailPattern
 }

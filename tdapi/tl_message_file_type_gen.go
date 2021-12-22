@@ -188,6 +188,9 @@ func (m *MessageFileTypePrivate) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetName returns value of Name field.
 func (m *MessageFileTypePrivate) GetName() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Name
 }
 
@@ -348,6 +351,9 @@ func (m *MessageFileTypeGroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTitle returns value of Title field.
 func (m *MessageFileTypeGroup) GetTitle() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Title
 }
 

@@ -183,6 +183,9 @@ func (e *EnableProxyRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetProxyID returns value of ProxyID field.
 func (e *EnableProxyRequest) GetProxyID() (value int32) {
+	if e == nil {
+		return
+	}
 	return e.ProxyID
 }
 

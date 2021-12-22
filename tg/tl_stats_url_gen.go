@@ -155,5 +155,8 @@ func (s *StatsURL) DecodeBare(b *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (s *StatsURL) GetURL() (value string) {
+	if s == nil {
+		return
+	}
 	return s.URL
 }

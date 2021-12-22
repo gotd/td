@@ -179,11 +179,17 @@ func (g *UploadGetFileHashesRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetLocation returns value of Location field.
 func (g *UploadGetFileHashesRequest) GetLocation() (value InputFileLocationClass) {
+	if g == nil {
+		return
+	}
 	return g.Location
 }
 
 // GetOffset returns value of Offset field.
 func (g *UploadGetFileHashesRequest) GetOffset() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 

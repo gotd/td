@@ -193,6 +193,9 @@ func (s *SetProfilePhotoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPhoto returns value of Photo field.
 func (s *SetProfilePhotoRequest) GetPhoto() (value InputChatPhotoClass) {
+	if s == nil {
+		return
+	}
 	return s.Photo
 }
 

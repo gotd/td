@@ -188,6 +188,9 @@ func (p *PollTypeRegular) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAllowMultipleAnswers returns value of AllowMultipleAnswers field.
 func (p *PollTypeRegular) GetAllowMultipleAnswers() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.AllowMultipleAnswers
 }
 
@@ -374,11 +377,17 @@ func (p *PollTypeQuiz) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCorrectOptionID returns value of CorrectOptionID field.
 func (p *PollTypeQuiz) GetCorrectOptionID() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.CorrectOptionID
 }
 
 // GetExplanation returns value of Explanation field.
 func (p *PollTypeQuiz) GetExplanation() (value FormattedText) {
+	if p == nil {
+		return
+	}
 	return p.Explanation
 }
 

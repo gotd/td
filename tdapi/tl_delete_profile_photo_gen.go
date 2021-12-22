@@ -183,6 +183,9 @@ func (d *DeleteProfilePhotoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetProfilePhotoID returns value of ProfilePhotoID field.
 func (d *DeleteProfilePhotoRequest) GetProfilePhotoID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.ProfilePhotoID
 }
 

@@ -234,11 +234,17 @@ func (s *SetPassportElementErrorsRequest) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetUserID returns value of UserID field.
 func (s *SetPassportElementErrorsRequest) GetUserID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.UserID
 }
 
 // GetErrors returns value of Errors field.
 func (s *SetPassportElementErrorsRequest) GetErrors() (value []InputPassportElementError) {
+	if s == nil {
+		return
+	}
 	return s.Errors
 }
 

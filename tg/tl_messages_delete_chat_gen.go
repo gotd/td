@@ -158,6 +158,9 @@ func (d *MessagesDeleteChatRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (d *MessagesDeleteChatRequest) GetChatID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.ChatID
 }
 

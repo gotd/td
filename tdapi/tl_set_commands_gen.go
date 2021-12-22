@@ -271,16 +271,25 @@ func (s *SetCommandsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetScope returns value of Scope field.
 func (s *SetCommandsRequest) GetScope() (value BotCommandScopeClass) {
+	if s == nil {
+		return
+	}
 	return s.Scope
 }
 
 // GetLanguageCode returns value of LanguageCode field.
 func (s *SetCommandsRequest) GetLanguageCode() (value string) {
+	if s == nil {
+		return
+	}
 	return s.LanguageCode
 }
 
 // GetCommands returns value of Commands field.
 func (s *SetCommandsRequest) GetCommands() (value []BotCommand) {
+	if s == nil {
+		return
+	}
 	return s.Commands
 }
 

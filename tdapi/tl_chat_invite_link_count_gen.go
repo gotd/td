@@ -233,15 +233,24 @@ func (c *ChatInviteLinkCount) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (c *ChatInviteLinkCount) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetInviteLinkCount returns value of InviteLinkCount field.
 func (c *ChatInviteLinkCount) GetInviteLinkCount() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.InviteLinkCount
 }
 
 // GetRevokedInviteLinkCount returns value of RevokedInviteLinkCount field.
 func (c *ChatInviteLinkCount) GetRevokedInviteLinkCount() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.RevokedInviteLinkCount
 }

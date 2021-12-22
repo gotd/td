@@ -553,75 +553,120 @@ func (s *Supergroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (s *Supergroup) GetID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ID
 }
 
 // GetUsername returns value of Username field.
 func (s *Supergroup) GetUsername() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Username
 }
 
 // GetDate returns value of Date field.
 func (s *Supergroup) GetDate() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Date
 }
 
 // GetStatus returns value of Status field.
 func (s *Supergroup) GetStatus() (value ChatMemberStatusClass) {
+	if s == nil {
+		return
+	}
 	return s.Status
 }
 
 // GetMemberCount returns value of MemberCount field.
 func (s *Supergroup) GetMemberCount() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.MemberCount
 }
 
 // GetHasLinkedChat returns value of HasLinkedChat field.
 func (s *Supergroup) GetHasLinkedChat() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.HasLinkedChat
 }
 
 // GetHasLocation returns value of HasLocation field.
 func (s *Supergroup) GetHasLocation() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.HasLocation
 }
 
 // GetSignMessages returns value of SignMessages field.
 func (s *Supergroup) GetSignMessages() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.SignMessages
 }
 
 // GetIsSlowModeEnabled returns value of IsSlowModeEnabled field.
 func (s *Supergroup) GetIsSlowModeEnabled() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsSlowModeEnabled
 }
 
 // GetIsChannel returns value of IsChannel field.
 func (s *Supergroup) GetIsChannel() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsChannel
 }
 
 // GetIsBroadcastGroup returns value of IsBroadcastGroup field.
 func (s *Supergroup) GetIsBroadcastGroup() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsBroadcastGroup
 }
 
 // GetIsVerified returns value of IsVerified field.
 func (s *Supergroup) GetIsVerified() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsVerified
 }
 
 // GetRestrictionReason returns value of RestrictionReason field.
 func (s *Supergroup) GetRestrictionReason() (value string) {
+	if s == nil {
+		return
+	}
 	return s.RestrictionReason
 }
 
 // GetIsScam returns value of IsScam field.
 func (s *Supergroup) GetIsScam() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsScam
 }
 
 // GetIsFake returns value of IsFake field.
 func (s *Supergroup) GetIsFake() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsFake
 }

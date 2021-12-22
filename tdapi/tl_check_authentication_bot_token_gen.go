@@ -183,6 +183,9 @@ func (c *CheckAuthenticationBotTokenRequest) DecodeTDLibJSON(b tdjson.Decoder) e
 
 // GetToken returns value of Token field.
 func (c *CheckAuthenticationBotTokenRequest) GetToken() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Token
 }
 

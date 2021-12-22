@@ -269,21 +269,33 @@ func (e *EditMessageCaptionRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (e *EditMessageCaptionRequest) GetChatID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (e *EditMessageCaptionRequest) GetMessageID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.MessageID
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (e *EditMessageCaptionRequest) GetReplyMarkup() (value ReplyMarkupClass) {
+	if e == nil {
+		return
+	}
 	return e.ReplyMarkup
 }
 
 // GetCaption returns value of Caption field.
 func (e *EditMessageCaptionRequest) GetCaption() (value FormattedText) {
+	if e == nil {
+		return
+	}
 	return e.Caption
 }
 

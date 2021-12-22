@@ -201,6 +201,9 @@ func (c *AccountContentSettings) SetSensitiveEnabled(value bool) {
 
 // GetSensitiveEnabled returns value of SensitiveEnabled conditional field.
 func (c *AccountContentSettings) GetSensitiveEnabled() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(0)
 }
 
@@ -217,5 +220,8 @@ func (c *AccountContentSettings) SetSensitiveCanChange(value bool) {
 
 // GetSensitiveCanChange returns value of SensitiveCanChange conditional field.
 func (c *AccountContentSettings) GetSensitiveCanChange() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(1)
 }

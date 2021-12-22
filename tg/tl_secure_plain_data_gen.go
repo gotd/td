@@ -164,6 +164,9 @@ func (s *SecurePlainPhone) DecodeBare(b *bin.Buffer) error {
 
 // GetPhone returns value of Phone field.
 func (s *SecurePlainPhone) GetPhone() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Phone
 }
 
@@ -300,6 +303,9 @@ func (s *SecurePlainEmail) DecodeBare(b *bin.Buffer) error {
 
 // GetEmail returns value of Email field.
 func (s *SecurePlainEmail) GetEmail() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Email
 }
 

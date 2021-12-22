@@ -213,11 +213,17 @@ func (s *StatisticalGraphData) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetJSONData returns value of JSONData field.
 func (s *StatisticalGraphData) GetJSONData() (value string) {
+	if s == nil {
+		return
+	}
 	return s.JSONData
 }
 
 // GetZoomToken returns value of ZoomToken field.
 func (s *StatisticalGraphData) GetZoomToken() (value string) {
+	if s == nil {
+		return
+	}
 	return s.ZoomToken
 }
 
@@ -378,6 +384,9 @@ func (s *StatisticalGraphAsync) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetToken returns value of Token field.
 func (s *StatisticalGraphAsync) GetToken() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Token
 }
 
@@ -538,6 +547,9 @@ func (s *StatisticalGraphError) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetErrorMessage returns value of ErrorMessage field.
 func (s *StatisticalGraphError) GetErrorMessage() (value string) {
+	if s == nil {
+		return
+	}
 	return s.ErrorMessage
 }
 

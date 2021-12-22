@@ -384,45 +384,72 @@ func (a *Animation) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetDuration returns value of Duration field.
 func (a *Animation) GetDuration() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.Duration
 }
 
 // GetWidth returns value of Width field.
 func (a *Animation) GetWidth() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.Width
 }
 
 // GetHeight returns value of Height field.
 func (a *Animation) GetHeight() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.Height
 }
 
 // GetFileName returns value of FileName field.
 func (a *Animation) GetFileName() (value string) {
+	if a == nil {
+		return
+	}
 	return a.FileName
 }
 
 // GetMimeType returns value of MimeType field.
 func (a *Animation) GetMimeType() (value string) {
+	if a == nil {
+		return
+	}
 	return a.MimeType
 }
 
 // GetHasStickers returns value of HasStickers field.
 func (a *Animation) GetHasStickers() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.HasStickers
 }
 
 // GetMinithumbnail returns value of Minithumbnail field.
 func (a *Animation) GetMinithumbnail() (value Minithumbnail) {
+	if a == nil {
+		return
+	}
 	return a.Minithumbnail
 }
 
 // GetThumbnail returns value of Thumbnail field.
 func (a *Animation) GetThumbnail() (value Thumbnail) {
+	if a == nil {
+		return
+	}
 	return a.Thumbnail
 }
 
 // GetAnimation returns value of Animation field.
 func (a *Animation) GetAnimation() (value File) {
+	if a == nil {
+		return
+	}
 	return a.Animation
 }

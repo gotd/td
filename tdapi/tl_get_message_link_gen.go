@@ -285,26 +285,41 @@ func (g *GetMessageLinkRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (g *GetMessageLinkRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (g *GetMessageLinkRequest) GetMessageID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.MessageID
 }
 
 // GetMediaTimestamp returns value of MediaTimestamp field.
 func (g *GetMessageLinkRequest) GetMediaTimestamp() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.MediaTimestamp
 }
 
 // GetForAlbum returns value of ForAlbum field.
 func (g *GetMessageLinkRequest) GetForAlbum() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.ForAlbum
 }
 
 // GetForComment returns value of ForComment field.
 func (g *GetMessageLinkRequest) GetForComment() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.ForComment
 }
 

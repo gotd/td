@@ -174,10 +174,16 @@ func (i *InvokeWithMessagesRangeRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetRange returns value of Range field.
 func (i *InvokeWithMessagesRangeRequest) GetRange() (value MessageRange) {
+	if i == nil {
+		return
+	}
 	return i.Range
 }
 
 // GetQuery returns value of Query field.
 func (i *InvokeWithMessagesRangeRequest) GetQuery() (value bin.Object) {
+	if i == nil {
+		return
+	}
 	return i.Query
 }

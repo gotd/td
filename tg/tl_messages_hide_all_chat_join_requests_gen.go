@@ -234,11 +234,17 @@ func (h *MessagesHideAllChatJoinRequestsRequest) SetApproved(value bool) {
 
 // GetApproved returns value of Approved conditional field.
 func (h *MessagesHideAllChatJoinRequestsRequest) GetApproved() (value bool) {
+	if h == nil {
+		return
+	}
 	return h.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
 func (h *MessagesHideAllChatJoinRequestsRequest) GetPeer() (value InputPeerClass) {
+	if h == nil {
+		return
+	}
 	return h.Peer
 }
 
@@ -251,6 +257,9 @@ func (h *MessagesHideAllChatJoinRequestsRequest) SetLink(value string) {
 // GetLink returns value of Link conditional field and
 // boolean which is true if field was set.
 func (h *MessagesHideAllChatJoinRequestsRequest) GetLink() (value string, ok bool) {
+	if h == nil {
+		return
+	}
 	if !h.Flags.Has(1) {
 		return value, false
 	}

@@ -183,6 +183,9 @@ func (c *CreateChatFilterRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFilter returns value of Filter field.
 func (c *CreateChatFilterRequest) GetFilter() (value ChatFilter) {
+	if c == nil {
+		return
+	}
 	return c.Filter
 }
 

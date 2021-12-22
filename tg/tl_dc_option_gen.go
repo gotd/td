@@ -348,6 +348,9 @@ func (d *DCOption) SetIpv6(value bool) {
 
 // GetIpv6 returns value of Ipv6 conditional field.
 func (d *DCOption) GetIpv6() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(0)
 }
 
@@ -364,6 +367,9 @@ func (d *DCOption) SetMediaOnly(value bool) {
 
 // GetMediaOnly returns value of MediaOnly conditional field.
 func (d *DCOption) GetMediaOnly() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(1)
 }
 
@@ -380,6 +386,9 @@ func (d *DCOption) SetTCPObfuscatedOnly(value bool) {
 
 // GetTCPObfuscatedOnly returns value of TCPObfuscatedOnly conditional field.
 func (d *DCOption) GetTCPObfuscatedOnly() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(2)
 }
 
@@ -396,6 +405,9 @@ func (d *DCOption) SetCDN(value bool) {
 
 // GetCDN returns value of CDN conditional field.
 func (d *DCOption) GetCDN() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(3)
 }
 
@@ -412,21 +424,33 @@ func (d *DCOption) SetStatic(value bool) {
 
 // GetStatic returns value of Static conditional field.
 func (d *DCOption) GetStatic() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(4)
 }
 
 // GetID returns value of ID field.
 func (d *DCOption) GetID() (value int) {
+	if d == nil {
+		return
+	}
 	return d.ID
 }
 
 // GetIPAddress returns value of IPAddress field.
 func (d *DCOption) GetIPAddress() (value string) {
+	if d == nil {
+		return
+	}
 	return d.IPAddress
 }
 
 // GetPort returns value of Port field.
 func (d *DCOption) GetPort() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Port
 }
 
@@ -439,6 +463,9 @@ func (d *DCOption) SetSecret(value []byte) {
 // GetSecret returns value of Secret conditional field and
 // boolean which is true if field was set.
 func (d *DCOption) GetSecret() (value []byte, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(10) {
 		return value, false
 	}

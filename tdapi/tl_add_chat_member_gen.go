@@ -234,16 +234,25 @@ func (a *AddChatMemberRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (a *AddChatMemberRequest) GetChatID() (value int64) {
+	if a == nil {
+		return
+	}
 	return a.ChatID
 }
 
 // GetUserID returns value of UserID field.
 func (a *AddChatMemberRequest) GetUserID() (value int64) {
+	if a == nil {
+		return
+	}
 	return a.UserID
 }
 
 // GetForwardLimit returns value of ForwardLimit field.
 func (a *AddChatMemberRequest) GetForwardLimit() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.ForwardLimit
 }
 

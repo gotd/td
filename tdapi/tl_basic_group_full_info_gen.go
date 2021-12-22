@@ -361,30 +361,48 @@ func (b *BasicGroupFullInfo) DecodeTDLibJSON(buf tdjson.Decoder) error {
 
 // GetPhoto returns value of Photo field.
 func (b *BasicGroupFullInfo) GetPhoto() (value ChatPhoto) {
+	if b == nil {
+		return
+	}
 	return b.Photo
 }
 
 // GetDescription returns value of Description field.
 func (b *BasicGroupFullInfo) GetDescription() (value string) {
+	if b == nil {
+		return
+	}
 	return b.Description
 }
 
 // GetCreatorUserID returns value of CreatorUserID field.
 func (b *BasicGroupFullInfo) GetCreatorUserID() (value int64) {
+	if b == nil {
+		return
+	}
 	return b.CreatorUserID
 }
 
 // GetMembers returns value of Members field.
 func (b *BasicGroupFullInfo) GetMembers() (value []ChatMember) {
+	if b == nil {
+		return
+	}
 	return b.Members
 }
 
 // GetInviteLink returns value of InviteLink field.
 func (b *BasicGroupFullInfo) GetInviteLink() (value ChatInviteLink) {
+	if b == nil {
+		return
+	}
 	return b.InviteLink
 }
 
 // GetBotCommands returns value of BotCommands field.
 func (b *BasicGroupFullInfo) GetBotCommands() (value []BotCommands) {
+	if b == nil {
+		return
+	}
 	return b.BotCommands
 }

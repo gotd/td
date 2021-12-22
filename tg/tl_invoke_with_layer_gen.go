@@ -177,10 +177,16 @@ func (i *InvokeWithLayerRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetLayer returns value of Layer field.
 func (i *InvokeWithLayerRequest) GetLayer() (value int) {
+	if i == nil {
+		return
+	}
 	return i.Layer
 }
 
 // GetQuery returns value of Query field.
 func (i *InvokeWithLayerRequest) GetQuery() (value bin.Object) {
+	if i == nil {
+		return
+	}
 	return i.Query
 }

@@ -193,6 +193,9 @@ func (s *SetLogStreamRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLogStream returns value of LogStream field.
 func (s *SetLogStreamRequest) GetLogStream() (value LogStreamClass) {
+	if s == nil {
+		return
+	}
 	return s.LogStream
 }
 

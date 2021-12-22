@@ -293,25 +293,40 @@ func (b *BasicGroup) DecodeTDLibJSON(buf tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (b *BasicGroup) GetID() (value int64) {
+	if b == nil {
+		return
+	}
 	return b.ID
 }
 
 // GetMemberCount returns value of MemberCount field.
 func (b *BasicGroup) GetMemberCount() (value int32) {
+	if b == nil {
+		return
+	}
 	return b.MemberCount
 }
 
 // GetStatus returns value of Status field.
 func (b *BasicGroup) GetStatus() (value ChatMemberStatusClass) {
+	if b == nil {
+		return
+	}
 	return b.Status
 }
 
 // GetIsActive returns value of IsActive field.
 func (b *BasicGroup) GetIsActive() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.IsActive
 }
 
 // GetUpgradedToSupergroupID returns value of UpgradedToSupergroupID field.
 func (b *BasicGroup) GetUpgradedToSupergroupID() (value int64) {
+	if b == nil {
+		return
+	}
 	return b.UpgradedToSupergroupID
 }

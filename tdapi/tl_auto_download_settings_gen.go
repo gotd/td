@@ -359,40 +359,64 @@ func (a *AutoDownloadSettings) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetIsAutoDownloadEnabled returns value of IsAutoDownloadEnabled field.
 func (a *AutoDownloadSettings) GetIsAutoDownloadEnabled() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.IsAutoDownloadEnabled
 }
 
 // GetMaxPhotoFileSize returns value of MaxPhotoFileSize field.
 func (a *AutoDownloadSettings) GetMaxPhotoFileSize() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.MaxPhotoFileSize
 }
 
 // GetMaxVideoFileSize returns value of MaxVideoFileSize field.
 func (a *AutoDownloadSettings) GetMaxVideoFileSize() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.MaxVideoFileSize
 }
 
 // GetMaxOtherFileSize returns value of MaxOtherFileSize field.
 func (a *AutoDownloadSettings) GetMaxOtherFileSize() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.MaxOtherFileSize
 }
 
 // GetVideoUploadBitrate returns value of VideoUploadBitrate field.
 func (a *AutoDownloadSettings) GetVideoUploadBitrate() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.VideoUploadBitrate
 }
 
 // GetPreloadLargeVideos returns value of PreloadLargeVideos field.
 func (a *AutoDownloadSettings) GetPreloadLargeVideos() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.PreloadLargeVideos
 }
 
 // GetPreloadNextAudio returns value of PreloadNextAudio field.
 func (a *AutoDownloadSettings) GetPreloadNextAudio() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.PreloadNextAudio
 }
 
 // GetUseLessDataForCalls returns value of UseLessDataForCalls field.
 func (a *AutoDownloadSettings) GetUseLessDataForCalls() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.UseLessDataForCalls
 }

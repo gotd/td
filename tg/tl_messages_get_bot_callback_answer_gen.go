@@ -297,16 +297,25 @@ func (g *MessagesGetBotCallbackAnswerRequest) SetGame(value bool) {
 
 // GetGame returns value of Game conditional field.
 func (g *MessagesGetBotCallbackAnswerRequest) GetGame() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(1)
 }
 
 // GetPeer returns value of Peer field.
 func (g *MessagesGetBotCallbackAnswerRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
 // GetMsgID returns value of MsgID field.
 func (g *MessagesGetBotCallbackAnswerRequest) GetMsgID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.MsgID
 }
 
@@ -319,6 +328,9 @@ func (g *MessagesGetBotCallbackAnswerRequest) SetData(value []byte) {
 // GetData returns value of Data conditional field and
 // boolean which is true if field was set.
 func (g *MessagesGetBotCallbackAnswerRequest) GetData() (value []byte, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(0) {
 		return value, false
 	}
@@ -334,6 +346,9 @@ func (g *MessagesGetBotCallbackAnswerRequest) SetPassword(value InputCheckPasswo
 // GetPassword returns value of Password conditional field and
 // boolean which is true if field was set.
 func (g *MessagesGetBotCallbackAnswerRequest) GetPassword() (value InputCheckPasswordSRPClass, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(2) {
 		return value, false
 	}

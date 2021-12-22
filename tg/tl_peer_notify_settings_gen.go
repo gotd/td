@@ -284,6 +284,9 @@ func (p *PeerNotifySettings) SetShowPreviews(value bool) {
 // GetShowPreviews returns value of ShowPreviews conditional field and
 // boolean which is true if field was set.
 func (p *PeerNotifySettings) GetShowPreviews() (value bool, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(0) {
 		return value, false
 	}
@@ -299,6 +302,9 @@ func (p *PeerNotifySettings) SetSilent(value bool) {
 // GetSilent returns value of Silent conditional field and
 // boolean which is true if field was set.
 func (p *PeerNotifySettings) GetSilent() (value bool, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(1) {
 		return value, false
 	}
@@ -314,6 +320,9 @@ func (p *PeerNotifySettings) SetMuteUntil(value int) {
 // GetMuteUntil returns value of MuteUntil conditional field and
 // boolean which is true if field was set.
 func (p *PeerNotifySettings) GetMuteUntil() (value int, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(2) {
 		return value, false
 	}
@@ -329,6 +338,9 @@ func (p *PeerNotifySettings) SetSound(value string) {
 // GetSound returns value of Sound conditional field and
 // boolean which is true if field was set.
 func (p *PeerNotifySettings) GetSound() (value string, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(3) {
 		return value, false
 	}

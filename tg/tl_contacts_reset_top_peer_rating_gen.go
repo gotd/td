@@ -187,11 +187,17 @@ func (r *ContactsResetTopPeerRatingRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetCategory returns value of Category field.
 func (r *ContactsResetTopPeerRatingRequest) GetCategory() (value TopPeerCategoryClass) {
+	if r == nil {
+		return
+	}
 	return r.Category
 }
 
 // GetPeer returns value of Peer field.
 func (r *ContactsResetTopPeerRatingRequest) GetPeer() (value InputPeerClass) {
+	if r == nil {
+		return
+	}
 	return r.Peer
 }
 

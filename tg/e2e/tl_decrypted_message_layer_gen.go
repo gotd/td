@@ -220,25 +220,40 @@ func (d *DecryptedMessageLayer) DecodeBare(b *bin.Buffer) error {
 
 // GetRandomBytes returns value of RandomBytes field.
 func (d *DecryptedMessageLayer) GetRandomBytes() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.RandomBytes
 }
 
 // GetLayer returns value of Layer field.
 func (d *DecryptedMessageLayer) GetLayer() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Layer
 }
 
 // GetInSeqNo returns value of InSeqNo field.
 func (d *DecryptedMessageLayer) GetInSeqNo() (value int) {
+	if d == nil {
+		return
+	}
 	return d.InSeqNo
 }
 
 // GetOutSeqNo returns value of OutSeqNo field.
 func (d *DecryptedMessageLayer) GetOutSeqNo() (value int) {
+	if d == nil {
+		return
+	}
 	return d.OutSeqNo
 }
 
 // GetMessage returns value of Message field.
 func (d *DecryptedMessageLayer) GetMessage() (value DecryptedMessageClass) {
+	if d == nil {
+		return
+	}
 	return d.Message
 }

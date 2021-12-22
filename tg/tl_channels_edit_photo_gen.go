@@ -187,11 +187,17 @@ func (e *ChannelsEditPhotoRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (e *ChannelsEditPhotoRequest) GetChannel() (value InputChannelClass) {
+	if e == nil {
+		return
+	}
 	return e.Channel
 }
 
 // GetPhoto returns value of Photo field.
 func (e *ChannelsEditPhotoRequest) GetPhoto() (value InputChatPhotoClass) {
+	if e == nil {
+		return
+	}
 	return e.Photo
 }
 

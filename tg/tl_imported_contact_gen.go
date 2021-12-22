@@ -177,10 +177,16 @@ func (i *ImportedContact) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (i *ImportedContact) GetUserID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.UserID
 }
 
 // GetClientID returns value of ClientID field.
 func (i *ImportedContact) GetClientID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ClientID
 }

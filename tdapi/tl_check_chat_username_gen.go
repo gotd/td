@@ -209,11 +209,17 @@ func (c *CheckChatUsernameRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (c *CheckChatUsernameRequest) GetChatID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ChatID
 }
 
 // GetUsername returns value of Username field.
 func (c *CheckChatUsernameRequest) GetUsername() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Username
 }
 

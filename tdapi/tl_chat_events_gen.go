@@ -209,5 +209,8 @@ func (c *ChatEvents) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetEvents returns value of Events field.
 func (c *ChatEvents) GetEvents() (value []ChatEvent) {
+	if c == nil {
+		return
+	}
 	return c.Events
 }

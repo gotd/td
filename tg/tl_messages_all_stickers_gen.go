@@ -299,11 +299,17 @@ func (a *MessagesAllStickers) DecodeBare(b *bin.Buffer) error {
 
 // GetHash returns value of Hash field.
 func (a *MessagesAllStickers) GetHash() (value int64) {
+	if a == nil {
+		return
+	}
 	return a.Hash
 }
 
 // GetSets returns value of Sets field.
 func (a *MessagesAllStickers) GetSets() (value []StickerSet) {
+	if a == nil {
+		return
+	}
 	return a.Sets
 }
 

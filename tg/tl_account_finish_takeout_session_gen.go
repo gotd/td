@@ -184,6 +184,9 @@ func (f *AccountFinishTakeoutSessionRequest) SetSuccess(value bool) {
 
 // GetSuccess returns value of Success conditional field.
 func (f *AccountFinishTakeoutSessionRequest) GetSuccess() (value bool) {
+	if f == nil {
+		return
+	}
 	return f.Flags.Has(0)
 }
 

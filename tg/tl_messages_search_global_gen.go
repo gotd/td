@@ -373,6 +373,9 @@ func (s *MessagesSearchGlobalRequest) SetFolderID(value int) {
 // GetFolderID returns value of FolderID conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSearchGlobalRequest) GetFolderID() (value int, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(0) {
 		return value, false
 	}
@@ -381,41 +384,65 @@ func (s *MessagesSearchGlobalRequest) GetFolderID() (value int, ok bool) {
 
 // GetQ returns value of Q field.
 func (s *MessagesSearchGlobalRequest) GetQ() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Q
 }
 
 // GetFilter returns value of Filter field.
 func (s *MessagesSearchGlobalRequest) GetFilter() (value MessagesFilterClass) {
+	if s == nil {
+		return
+	}
 	return s.Filter
 }
 
 // GetMinDate returns value of MinDate field.
 func (s *MessagesSearchGlobalRequest) GetMinDate() (value int) {
+	if s == nil {
+		return
+	}
 	return s.MinDate
 }
 
 // GetMaxDate returns value of MaxDate field.
 func (s *MessagesSearchGlobalRequest) GetMaxDate() (value int) {
+	if s == nil {
+		return
+	}
 	return s.MaxDate
 }
 
 // GetOffsetRate returns value of OffsetRate field.
 func (s *MessagesSearchGlobalRequest) GetOffsetRate() (value int) {
+	if s == nil {
+		return
+	}
 	return s.OffsetRate
 }
 
 // GetOffsetPeer returns value of OffsetPeer field.
 func (s *MessagesSearchGlobalRequest) GetOffsetPeer() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.OffsetPeer
 }
 
 // GetOffsetID returns value of OffsetID field.
 func (s *MessagesSearchGlobalRequest) GetOffsetID() (value int) {
+	if s == nil {
+		return
+	}
 	return s.OffsetID
 }
 
 // GetLimit returns value of Limit field.
 func (s *MessagesSearchGlobalRequest) GetLimit() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Limit
 }
 

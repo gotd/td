@@ -218,11 +218,17 @@ func (r *RemoveTopChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCategory returns value of Category field.
 func (r *RemoveTopChatRequest) GetCategory() (value TopChatCategoryClass) {
+	if r == nil {
+		return
+	}
 	return r.Category
 }
 
 // GetChatID returns value of ChatID field.
 func (r *RemoveTopChatRequest) GetChatID() (value int64) {
+	if r == nil {
+		return
+	}
 	return r.ChatID
 }
 

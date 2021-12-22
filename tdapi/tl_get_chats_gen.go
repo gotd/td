@@ -218,11 +218,17 @@ func (g *GetChatsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatList returns value of ChatList field.
 func (g *GetChatsRequest) GetChatList() (value ChatListClass) {
+	if g == nil {
+		return
+	}
 	return g.ChatList
 }
 
 // GetLimit returns value of Limit field.
 func (g *GetChatsRequest) GetLimit() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

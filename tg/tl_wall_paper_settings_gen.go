@@ -386,6 +386,9 @@ func (w *WallPaperSettings) SetBlur(value bool) {
 
 // GetBlur returns value of Blur conditional field.
 func (w *WallPaperSettings) GetBlur() (value bool) {
+	if w == nil {
+		return
+	}
 	return w.Flags.Has(1)
 }
 
@@ -402,6 +405,9 @@ func (w *WallPaperSettings) SetMotion(value bool) {
 
 // GetMotion returns value of Motion conditional field.
 func (w *WallPaperSettings) GetMotion() (value bool) {
+	if w == nil {
+		return
+	}
 	return w.Flags.Has(2)
 }
 
@@ -414,6 +420,9 @@ func (w *WallPaperSettings) SetBackgroundColor(value int) {
 // GetBackgroundColor returns value of BackgroundColor conditional field and
 // boolean which is true if field was set.
 func (w *WallPaperSettings) GetBackgroundColor() (value int, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(0) {
 		return value, false
 	}
@@ -429,6 +438,9 @@ func (w *WallPaperSettings) SetSecondBackgroundColor(value int) {
 // GetSecondBackgroundColor returns value of SecondBackgroundColor conditional field and
 // boolean which is true if field was set.
 func (w *WallPaperSettings) GetSecondBackgroundColor() (value int, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(4) {
 		return value, false
 	}
@@ -444,6 +456,9 @@ func (w *WallPaperSettings) SetThirdBackgroundColor(value int) {
 // GetThirdBackgroundColor returns value of ThirdBackgroundColor conditional field and
 // boolean which is true if field was set.
 func (w *WallPaperSettings) GetThirdBackgroundColor() (value int, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(5) {
 		return value, false
 	}
@@ -459,6 +474,9 @@ func (w *WallPaperSettings) SetFourthBackgroundColor(value int) {
 // GetFourthBackgroundColor returns value of FourthBackgroundColor conditional field and
 // boolean which is true if field was set.
 func (w *WallPaperSettings) GetFourthBackgroundColor() (value int, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(6) {
 		return value, false
 	}
@@ -474,6 +492,9 @@ func (w *WallPaperSettings) SetIntensity(value int) {
 // GetIntensity returns value of Intensity conditional field and
 // boolean which is true if field was set.
 func (w *WallPaperSettings) GetIntensity() (value int, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(3) {
 		return value, false
 	}
@@ -489,6 +510,9 @@ func (w *WallPaperSettings) SetRotation(value int) {
 // GetRotation returns value of Rotation conditional field and
 // boolean which is true if field was set.
 func (w *WallPaperSettings) GetRotation() (value int, ok bool) {
+	if w == nil {
+		return
+	}
 	if !w.Flags.Has(4) {
 		return value, false
 	}

@@ -209,11 +209,17 @@ func (g *GetExternalLinkRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLink returns value of Link field.
 func (g *GetExternalLinkRequest) GetLink() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Link
 }
 
 // GetAllowWriteAccess returns value of AllowWriteAccess field.
 func (g *GetExternalLinkRequest) GetAllowWriteAccess() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.AllowWriteAccess
 }
 

@@ -187,11 +187,17 @@ func (g *ChannelsGetParticipantRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (g *ChannelsGetParticipantRequest) GetChannel() (value InputChannelClass) {
+	if g == nil {
+		return
+	}
 	return g.Channel
 }
 
 // GetParticipant returns value of Participant field.
 func (g *ChannelsGetParticipantRequest) GetParticipant() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Participant
 }
 

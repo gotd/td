@@ -369,6 +369,9 @@ func (i *InputMediaUploadedPhoto) DecodeBare(b *bin.Buffer) error {
 
 // GetFile returns value of File field.
 func (i *InputMediaUploadedPhoto) GetFile() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.File
 }
 
@@ -381,6 +384,9 @@ func (i *InputMediaUploadedPhoto) SetStickers(value []InputDocumentClass) {
 // GetStickers returns value of Stickers conditional field and
 // boolean which is true if field was set.
 func (i *InputMediaUploadedPhoto) GetStickers() (value []InputDocumentClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(0) {
 		return value, false
 	}
@@ -396,6 +402,9 @@ func (i *InputMediaUploadedPhoto) SetTTLSeconds(value int) {
 // GetTTLSeconds returns value of TTLSeconds conditional field and
 // boolean which is true if field was set.
 func (i *InputMediaUploadedPhoto) GetTTLSeconds() (value int, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(1) {
 		return value, false
 	}
@@ -595,6 +604,9 @@ func (i *InputMediaPhoto) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputMediaPhoto) GetID() (value InputPhotoClass) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
@@ -607,6 +619,9 @@ func (i *InputMediaPhoto) SetTTLSeconds(value int) {
 // GetTTLSeconds returns value of TTLSeconds conditional field and
 // boolean which is true if field was set.
 func (i *InputMediaPhoto) GetTTLSeconds() (value int, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(0) {
 		return value, false
 	}
@@ -747,6 +762,9 @@ func (i *InputMediaGeoPoint) DecodeBare(b *bin.Buffer) error {
 
 // GetGeoPoint returns value of GeoPoint field.
 func (i *InputMediaGeoPoint) GetGeoPoint() (value InputGeoPointClass) {
+	if i == nil {
+		return
+	}
 	return i.GeoPoint
 }
 
@@ -936,21 +954,33 @@ func (i *InputMediaContact) DecodeBare(b *bin.Buffer) error {
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (i *InputMediaContact) GetPhoneNumber() (value string) {
+	if i == nil {
+		return
+	}
 	return i.PhoneNumber
 }
 
 // GetFirstName returns value of FirstName field.
 func (i *InputMediaContact) GetFirstName() (value string) {
+	if i == nil {
+		return
+	}
 	return i.FirstName
 }
 
 // GetLastName returns value of LastName field.
 func (i *InputMediaContact) GetLastName() (value string) {
+	if i == nil {
+		return
+	}
 	return i.LastName
 }
 
 // GetVcard returns value of Vcard field.
 func (i *InputMediaContact) GetVcard() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Vcard
 }
 
@@ -1325,6 +1355,9 @@ func (i *InputMediaUploadedDocument) SetNosoundVideo(value bool) {
 
 // GetNosoundVideo returns value of NosoundVideo conditional field.
 func (i *InputMediaUploadedDocument) GetNosoundVideo() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(3)
 }
 
@@ -1341,11 +1374,17 @@ func (i *InputMediaUploadedDocument) SetForceFile(value bool) {
 
 // GetForceFile returns value of ForceFile conditional field.
 func (i *InputMediaUploadedDocument) GetForceFile() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(4)
 }
 
 // GetFile returns value of File field.
 func (i *InputMediaUploadedDocument) GetFile() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.File
 }
 
@@ -1358,6 +1397,9 @@ func (i *InputMediaUploadedDocument) SetThumb(value InputFileClass) {
 // GetThumb returns value of Thumb conditional field and
 // boolean which is true if field was set.
 func (i *InputMediaUploadedDocument) GetThumb() (value InputFileClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(2) {
 		return value, false
 	}
@@ -1366,11 +1408,17 @@ func (i *InputMediaUploadedDocument) GetThumb() (value InputFileClass, ok bool) 
 
 // GetMimeType returns value of MimeType field.
 func (i *InputMediaUploadedDocument) GetMimeType() (value string) {
+	if i == nil {
+		return
+	}
 	return i.MimeType
 }
 
 // GetAttributes returns value of Attributes field.
 func (i *InputMediaUploadedDocument) GetAttributes() (value []DocumentAttributeClass) {
+	if i == nil {
+		return
+	}
 	return i.Attributes
 }
 
@@ -1383,6 +1431,9 @@ func (i *InputMediaUploadedDocument) SetStickers(value []InputDocumentClass) {
 // GetStickers returns value of Stickers conditional field and
 // boolean which is true if field was set.
 func (i *InputMediaUploadedDocument) GetStickers() (value []InputDocumentClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(0) {
 		return value, false
 	}
@@ -1398,6 +1449,9 @@ func (i *InputMediaUploadedDocument) SetTTLSeconds(value int) {
 // GetTTLSeconds returns value of TTLSeconds conditional field and
 // boolean which is true if field was set.
 func (i *InputMediaUploadedDocument) GetTTLSeconds() (value int, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(1) {
 		return value, false
 	}
@@ -1633,6 +1687,9 @@ func (i *InputMediaDocument) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputMediaDocument) GetID() (value InputDocumentClass) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
@@ -1645,6 +1702,9 @@ func (i *InputMediaDocument) SetTTLSeconds(value int) {
 // GetTTLSeconds returns value of TTLSeconds conditional field and
 // boolean which is true if field was set.
 func (i *InputMediaDocument) GetTTLSeconds() (value int, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(0) {
 		return value, false
 	}
@@ -1660,6 +1720,9 @@ func (i *InputMediaDocument) SetQuery(value string) {
 // GetQuery returns value of Query conditional field and
 // boolean which is true if field was set.
 func (i *InputMediaDocument) GetQuery() (value string, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(1) {
 		return value, false
 	}
@@ -1895,31 +1958,49 @@ func (i *InputMediaVenue) DecodeBare(b *bin.Buffer) error {
 
 // GetGeoPoint returns value of GeoPoint field.
 func (i *InputMediaVenue) GetGeoPoint() (value InputGeoPointClass) {
+	if i == nil {
+		return
+	}
 	return i.GeoPoint
 }
 
 // GetTitle returns value of Title field.
 func (i *InputMediaVenue) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 
 // GetAddress returns value of Address field.
 func (i *InputMediaVenue) GetAddress() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Address
 }
 
 // GetProvider returns value of Provider field.
 func (i *InputMediaVenue) GetProvider() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Provider
 }
 
 // GetVenueID returns value of VenueID field.
 func (i *InputMediaVenue) GetVenueID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.VenueID
 }
 
 // GetVenueType returns value of VenueType field.
 func (i *InputMediaVenue) GetVenueType() (value string) {
+	if i == nil {
+		return
+	}
 	return i.VenueType
 }
 
@@ -2103,6 +2184,9 @@ func (i *InputMediaPhotoExternal) DecodeBare(b *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (i *InputMediaPhotoExternal) GetURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.URL
 }
 
@@ -2115,6 +2199,9 @@ func (i *InputMediaPhotoExternal) SetTTLSeconds(value int) {
 // GetTTLSeconds returns value of TTLSeconds conditional field and
 // boolean which is true if field was set.
 func (i *InputMediaPhotoExternal) GetTTLSeconds() (value int, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(0) {
 		return value, false
 	}
@@ -2301,6 +2388,9 @@ func (i *InputMediaDocumentExternal) DecodeBare(b *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (i *InputMediaDocumentExternal) GetURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.URL
 }
 
@@ -2313,6 +2403,9 @@ func (i *InputMediaDocumentExternal) SetTTLSeconds(value int) {
 // GetTTLSeconds returns value of TTLSeconds conditional field and
 // boolean which is true if field was set.
 func (i *InputMediaDocumentExternal) GetTTLSeconds() (value int, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(0) {
 		return value, false
 	}
@@ -2453,6 +2546,9 @@ func (i *InputMediaGame) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputMediaGame) GetID() (value InputGameClass) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
@@ -2770,11 +2866,17 @@ func (i *InputMediaInvoice) DecodeBare(b *bin.Buffer) error {
 
 // GetTitle returns value of Title field.
 func (i *InputMediaInvoice) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 
 // GetDescription returns value of Description field.
 func (i *InputMediaInvoice) GetDescription() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Description
 }
 
@@ -2787,6 +2889,9 @@ func (i *InputMediaInvoice) SetPhoto(value InputWebDocument) {
 // GetPhoto returns value of Photo conditional field and
 // boolean which is true if field was set.
 func (i *InputMediaInvoice) GetPhoto() (value InputWebDocument, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(0) {
 		return value, false
 	}
@@ -2795,21 +2900,33 @@ func (i *InputMediaInvoice) GetPhoto() (value InputWebDocument, ok bool) {
 
 // GetInvoice returns value of Invoice field.
 func (i *InputMediaInvoice) GetInvoice() (value Invoice) {
+	if i == nil {
+		return
+	}
 	return i.Invoice
 }
 
 // GetPayload returns value of Payload field.
 func (i *InputMediaInvoice) GetPayload() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.Payload
 }
 
 // GetProvider returns value of Provider field.
 func (i *InputMediaInvoice) GetProvider() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Provider
 }
 
 // GetProviderData returns value of ProviderData field.
 func (i *InputMediaInvoice) GetProviderData() (value DataJSON) {
+	if i == nil {
+		return
+	}
 	return i.ProviderData
 }
 
@@ -2822,6 +2939,9 @@ func (i *InputMediaInvoice) SetStartParam(value string) {
 // GetStartParam returns value of StartParam conditional field and
 // boolean which is true if field was set.
 func (i *InputMediaInvoice) GetStartParam() (value string, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(1) {
 		return value, false
 	}
@@ -3110,11 +3230,17 @@ func (i *InputMediaGeoLive) SetStopped(value bool) {
 
 // GetStopped returns value of Stopped conditional field.
 func (i *InputMediaGeoLive) GetStopped() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(0)
 }
 
 // GetGeoPoint returns value of GeoPoint field.
 func (i *InputMediaGeoLive) GetGeoPoint() (value InputGeoPointClass) {
+	if i == nil {
+		return
+	}
 	return i.GeoPoint
 }
 
@@ -3127,6 +3253,9 @@ func (i *InputMediaGeoLive) SetHeading(value int) {
 // GetHeading returns value of Heading conditional field and
 // boolean which is true if field was set.
 func (i *InputMediaGeoLive) GetHeading() (value int, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(2) {
 		return value, false
 	}
@@ -3142,6 +3271,9 @@ func (i *InputMediaGeoLive) SetPeriod(value int) {
 // GetPeriod returns value of Period conditional field and
 // boolean which is true if field was set.
 func (i *InputMediaGeoLive) GetPeriod() (value int, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(1) {
 		return value, false
 	}
@@ -3157,6 +3289,9 @@ func (i *InputMediaGeoLive) SetProximityNotificationRadius(value int) {
 // GetProximityNotificationRadius returns value of ProximityNotificationRadius conditional field and
 // boolean which is true if field was set.
 func (i *InputMediaGeoLive) GetProximityNotificationRadius() (value int, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(3) {
 		return value, false
 	}
@@ -3437,6 +3572,9 @@ func (i *InputMediaPoll) DecodeBare(b *bin.Buffer) error {
 
 // GetPoll returns value of Poll field.
 func (i *InputMediaPoll) GetPoll() (value Poll) {
+	if i == nil {
+		return
+	}
 	return i.Poll
 }
 
@@ -3449,6 +3587,9 @@ func (i *InputMediaPoll) SetCorrectAnswers(value [][]byte) {
 // GetCorrectAnswers returns value of CorrectAnswers conditional field and
 // boolean which is true if field was set.
 func (i *InputMediaPoll) GetCorrectAnswers() (value [][]byte, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(0) {
 		return value, false
 	}
@@ -3464,6 +3605,9 @@ func (i *InputMediaPoll) SetSolution(value string) {
 // GetSolution returns value of Solution conditional field and
 // boolean which is true if field was set.
 func (i *InputMediaPoll) GetSolution() (value string, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(1) {
 		return value, false
 	}
@@ -3479,6 +3623,9 @@ func (i *InputMediaPoll) SetSolutionEntities(value []MessageEntityClass) {
 // GetSolutionEntities returns value of SolutionEntities conditional field and
 // boolean which is true if field was set.
 func (i *InputMediaPoll) GetSolutionEntities() (value []MessageEntityClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(1) {
 		return value, false
 	}
@@ -3625,6 +3772,9 @@ func (i *InputMediaDice) DecodeBare(b *bin.Buffer) error {
 
 // GetEmoticon returns value of Emoticon field.
 func (i *InputMediaDice) GetEmoticon() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Emoticon
 }
 

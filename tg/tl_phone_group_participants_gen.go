@@ -305,31 +305,49 @@ func (g *PhoneGroupParticipants) DecodeBare(b *bin.Buffer) error {
 
 // GetCount returns value of Count field.
 func (g *PhoneGroupParticipants) GetCount() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Count
 }
 
 // GetParticipants returns value of Participants field.
 func (g *PhoneGroupParticipants) GetParticipants() (value []GroupCallParticipant) {
+	if g == nil {
+		return
+	}
 	return g.Participants
 }
 
 // GetNextOffset returns value of NextOffset field.
 func (g *PhoneGroupParticipants) GetNextOffset() (value string) {
+	if g == nil {
+		return
+	}
 	return g.NextOffset
 }
 
 // GetChats returns value of Chats field.
 func (g *PhoneGroupParticipants) GetChats() (value []ChatClass) {
+	if g == nil {
+		return
+	}
 	return g.Chats
 }
 
 // GetUsers returns value of Users field.
 func (g *PhoneGroupParticipants) GetUsers() (value []UserClass) {
+	if g == nil {
+		return
+	}
 	return g.Users
 }
 
 // GetVersion returns value of Version field.
 func (g *PhoneGroupParticipants) GetVersion() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Version
 }
 

@@ -209,16 +209,25 @@ func (e *ChannelsEditBannedRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (e *ChannelsEditBannedRequest) GetChannel() (value InputChannelClass) {
+	if e == nil {
+		return
+	}
 	return e.Channel
 }
 
 // GetParticipant returns value of Participant field.
 func (e *ChannelsEditBannedRequest) GetParticipant() (value InputPeerClass) {
+	if e == nil {
+		return
+	}
 	return e.Participant
 }
 
 // GetBannedRights returns value of BannedRights field.
 func (e *ChannelsEditBannedRequest) GetBannedRights() (value ChatBannedRights) {
+	if e == nil {
+		return
+	}
 	return e.BannedRights
 }
 

@@ -213,21 +213,33 @@ func (s *UploadSaveBigFilePartRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetFileID returns value of FileID field.
 func (s *UploadSaveBigFilePartRequest) GetFileID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.FileID
 }
 
 // GetFilePart returns value of FilePart field.
 func (s *UploadSaveBigFilePartRequest) GetFilePart() (value int) {
+	if s == nil {
+		return
+	}
 	return s.FilePart
 }
 
 // GetFileTotalParts returns value of FileTotalParts field.
 func (s *UploadSaveBigFilePartRequest) GetFileTotalParts() (value int) {
+	if s == nil {
+		return
+	}
 	return s.FileTotalParts
 }
 
 // GetBytes returns value of Bytes field.
 func (s *UploadSaveBigFilePartRequest) GetBytes() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.Bytes
 }
 

@@ -188,6 +188,9 @@ func (i *InputPassportElementPersonalDetails) DecodeTDLibJSON(b tdjson.Decoder) 
 
 // GetPersonalDetails returns value of PersonalDetails field.
 func (i *InputPassportElementPersonalDetails) GetPersonalDetails() (value PersonalDetails) {
+	if i == nil {
+		return
+	}
 	return i.PersonalDetails
 }
 
@@ -348,6 +351,9 @@ func (i *InputPassportElementPassport) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPassport returns value of Passport field.
 func (i *InputPassportElementPassport) GetPassport() (value InputIdentityDocument) {
+	if i == nil {
+		return
+	}
 	return i.Passport
 }
 
@@ -508,6 +514,9 @@ func (i *InputPassportElementDriverLicense) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetDriverLicense returns value of DriverLicense field.
 func (i *InputPassportElementDriverLicense) GetDriverLicense() (value InputIdentityDocument) {
+	if i == nil {
+		return
+	}
 	return i.DriverLicense
 }
 
@@ -668,6 +677,9 @@ func (i *InputPassportElementIdentityCard) DecodeTDLibJSON(b tdjson.Decoder) err
 
 // GetIdentityCard returns value of IdentityCard field.
 func (i *InputPassportElementIdentityCard) GetIdentityCard() (value InputIdentityDocument) {
+	if i == nil {
+		return
+	}
 	return i.IdentityCard
 }
 
@@ -828,6 +840,9 @@ func (i *InputPassportElementInternalPassport) DecodeTDLibJSON(b tdjson.Decoder)
 
 // GetInternalPassport returns value of InternalPassport field.
 func (i *InputPassportElementInternalPassport) GetInternalPassport() (value InputIdentityDocument) {
+	if i == nil {
+		return
+	}
 	return i.InternalPassport
 }
 
@@ -988,6 +1003,9 @@ func (i *InputPassportElementAddress) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAddress returns value of Address field.
 func (i *InputPassportElementAddress) GetAddress() (value Address) {
+	if i == nil {
+		return
+	}
 	return i.Address
 }
 
@@ -1148,6 +1166,9 @@ func (i *InputPassportElementUtilityBill) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetUtilityBill returns value of UtilityBill field.
 func (i *InputPassportElementUtilityBill) GetUtilityBill() (value InputPersonalDocument) {
+	if i == nil {
+		return
+	}
 	return i.UtilityBill
 }
 
@@ -1308,6 +1329,9 @@ func (i *InputPassportElementBankStatement) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetBankStatement returns value of BankStatement field.
 func (i *InputPassportElementBankStatement) GetBankStatement() (value InputPersonalDocument) {
+	if i == nil {
+		return
+	}
 	return i.BankStatement
 }
 
@@ -1468,6 +1492,9 @@ func (i *InputPassportElementRentalAgreement) DecodeTDLibJSON(b tdjson.Decoder) 
 
 // GetRentalAgreement returns value of RentalAgreement field.
 func (i *InputPassportElementRentalAgreement) GetRentalAgreement() (value InputPersonalDocument) {
+	if i == nil {
+		return
+	}
 	return i.RentalAgreement
 }
 
@@ -1628,6 +1655,9 @@ func (i *InputPassportElementPassportRegistration) DecodeTDLibJSON(b tdjson.Deco
 
 // GetPassportRegistration returns value of PassportRegistration field.
 func (i *InputPassportElementPassportRegistration) GetPassportRegistration() (value InputPersonalDocument) {
+	if i == nil {
+		return
+	}
 	return i.PassportRegistration
 }
 
@@ -1788,6 +1818,9 @@ func (i *InputPassportElementTemporaryRegistration) DecodeTDLibJSON(b tdjson.Dec
 
 // GetTemporaryRegistration returns value of TemporaryRegistration field.
 func (i *InputPassportElementTemporaryRegistration) GetTemporaryRegistration() (value InputPersonalDocument) {
+	if i == nil {
+		return
+	}
 	return i.TemporaryRegistration
 }
 
@@ -1948,6 +1981,9 @@ func (i *InputPassportElementPhoneNumber) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (i *InputPassportElementPhoneNumber) GetPhoneNumber() (value string) {
+	if i == nil {
+		return
+	}
 	return i.PhoneNumber
 }
 
@@ -2108,6 +2144,9 @@ func (i *InputPassportElementEmailAddress) DecodeTDLibJSON(b tdjson.Decoder) err
 
 // GetEmailAddress returns value of EmailAddress field.
 func (i *InputPassportElementEmailAddress) GetEmailAddress() (value string) {
+	if i == nil {
+		return
+	}
 	return i.EmailAddress
 }
 

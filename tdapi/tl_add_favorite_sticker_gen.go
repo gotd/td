@@ -193,6 +193,9 @@ func (a *AddFavoriteStickerRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSticker returns value of Sticker field.
 func (a *AddFavoriteStickerRequest) GetSticker() (value InputFileClass) {
+	if a == nil {
+		return
+	}
 	return a.Sticker
 }
 

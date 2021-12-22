@@ -190,6 +190,9 @@ func (l *AuthLoggedOut) SetFutureAuthToken(value []byte) {
 // GetFutureAuthToken returns value of FutureAuthToken conditional field and
 // boolean which is true if field was set.
 func (l *AuthLoggedOut) GetFutureAuthToken() (value []byte, ok bool) {
+	if l == nil {
+		return
+	}
 	if !l.Flags.Has(0) {
 		return value, false
 	}

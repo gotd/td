@@ -183,6 +183,9 @@ func (s *SetAccountTTLRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTTL returns value of TTL field.
 func (s *SetAccountTTLRequest) GetTTL() (value AccountTTL) {
+	if s == nil {
+		return
+	}
 	return s.TTL
 }
 

@@ -234,10 +234,16 @@ func (b *BotCommands) DecodeTDLibJSON(buf tdjson.Decoder) error {
 
 // GetBotUserID returns value of BotUserID field.
 func (b *BotCommands) GetBotUserID() (value int64) {
+	if b == nil {
+		return
+	}
 	return b.BotUserID
 }
 
 // GetCommands returns value of Commands field.
 func (b *BotCommands) GetCommands() (value []BotCommand) {
+	if b == nil {
+		return
+	}
 	return b.Commands
 }

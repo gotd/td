@@ -304,6 +304,9 @@ func (d *MessagesDeleteHistoryRequest) SetJustClear(value bool) {
 
 // GetJustClear returns value of JustClear conditional field.
 func (d *MessagesDeleteHistoryRequest) GetJustClear() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(0)
 }
 
@@ -320,16 +323,25 @@ func (d *MessagesDeleteHistoryRequest) SetRevoke(value bool) {
 
 // GetRevoke returns value of Revoke conditional field.
 func (d *MessagesDeleteHistoryRequest) GetRevoke() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(1)
 }
 
 // GetPeer returns value of Peer field.
 func (d *MessagesDeleteHistoryRequest) GetPeer() (value InputPeerClass) {
+	if d == nil {
+		return
+	}
 	return d.Peer
 }
 
 // GetMaxID returns value of MaxID field.
 func (d *MessagesDeleteHistoryRequest) GetMaxID() (value int) {
+	if d == nil {
+		return
+	}
 	return d.MaxID
 }
 
@@ -342,6 +354,9 @@ func (d *MessagesDeleteHistoryRequest) SetMinDate(value int) {
 // GetMinDate returns value of MinDate conditional field and
 // boolean which is true if field was set.
 func (d *MessagesDeleteHistoryRequest) GetMinDate() (value int, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(2) {
 		return value, false
 	}
@@ -357,6 +372,9 @@ func (d *MessagesDeleteHistoryRequest) SetMaxDate(value int) {
 // GetMaxDate returns value of MaxDate conditional field and
 // boolean which is true if field was set.
 func (d *MessagesDeleteHistoryRequest) GetMaxDate() (value int, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(3) {
 		return value, false
 	}

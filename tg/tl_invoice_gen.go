@@ -435,6 +435,9 @@ func (i *Invoice) SetTest(value bool) {
 
 // GetTest returns value of Test conditional field.
 func (i *Invoice) GetTest() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(0)
 }
 
@@ -451,6 +454,9 @@ func (i *Invoice) SetNameRequested(value bool) {
 
 // GetNameRequested returns value of NameRequested conditional field.
 func (i *Invoice) GetNameRequested() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(1)
 }
 
@@ -467,6 +473,9 @@ func (i *Invoice) SetPhoneRequested(value bool) {
 
 // GetPhoneRequested returns value of PhoneRequested conditional field.
 func (i *Invoice) GetPhoneRequested() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(2)
 }
 
@@ -483,6 +492,9 @@ func (i *Invoice) SetEmailRequested(value bool) {
 
 // GetEmailRequested returns value of EmailRequested conditional field.
 func (i *Invoice) GetEmailRequested() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(3)
 }
 
@@ -499,6 +511,9 @@ func (i *Invoice) SetShippingAddressRequested(value bool) {
 
 // GetShippingAddressRequested returns value of ShippingAddressRequested conditional field.
 func (i *Invoice) GetShippingAddressRequested() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(4)
 }
 
@@ -515,6 +530,9 @@ func (i *Invoice) SetFlexible(value bool) {
 
 // GetFlexible returns value of Flexible conditional field.
 func (i *Invoice) GetFlexible() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(5)
 }
 
@@ -531,6 +549,9 @@ func (i *Invoice) SetPhoneToProvider(value bool) {
 
 // GetPhoneToProvider returns value of PhoneToProvider conditional field.
 func (i *Invoice) GetPhoneToProvider() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(6)
 }
 
@@ -547,16 +568,25 @@ func (i *Invoice) SetEmailToProvider(value bool) {
 
 // GetEmailToProvider returns value of EmailToProvider conditional field.
 func (i *Invoice) GetEmailToProvider() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(7)
 }
 
 // GetCurrency returns value of Currency field.
 func (i *Invoice) GetCurrency() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Currency
 }
 
 // GetPrices returns value of Prices field.
 func (i *Invoice) GetPrices() (value []LabeledPrice) {
+	if i == nil {
+		return
+	}
 	return i.Prices
 }
 
@@ -569,6 +599,9 @@ func (i *Invoice) SetMaxTipAmount(value int64) {
 // GetMaxTipAmount returns value of MaxTipAmount conditional field and
 // boolean which is true if field was set.
 func (i *Invoice) GetMaxTipAmount() (value int64, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(8) {
 		return value, false
 	}
@@ -584,6 +617,9 @@ func (i *Invoice) SetSuggestedTipAmounts(value []int64) {
 // GetSuggestedTipAmounts returns value of SuggestedTipAmounts conditional field and
 // boolean which is true if field was set.
 func (i *Invoice) GetSuggestedTipAmounts() (value []int64, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(8) {
 		return value, false
 	}

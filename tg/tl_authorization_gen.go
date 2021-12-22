@@ -479,6 +479,9 @@ func (a *Authorization) SetCurrent(value bool) {
 
 // GetCurrent returns value of Current conditional field.
 func (a *Authorization) GetCurrent() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.Flags.Has(0)
 }
 
@@ -495,6 +498,9 @@ func (a *Authorization) SetOfficialApp(value bool) {
 
 // GetOfficialApp returns value of OfficialApp conditional field.
 func (a *Authorization) GetOfficialApp() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.Flags.Has(1)
 }
 
@@ -511,6 +517,9 @@ func (a *Authorization) SetPasswordPending(value bool) {
 
 // GetPasswordPending returns value of PasswordPending conditional field.
 func (a *Authorization) GetPasswordPending() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.Flags.Has(2)
 }
 
@@ -527,6 +536,9 @@ func (a *Authorization) SetEncryptedRequestsDisabled(value bool) {
 
 // GetEncryptedRequestsDisabled returns value of EncryptedRequestsDisabled conditional field.
 func (a *Authorization) GetEncryptedRequestsDisabled() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.Flags.Has(3)
 }
 
@@ -543,65 +555,104 @@ func (a *Authorization) SetCallRequestsDisabled(value bool) {
 
 // GetCallRequestsDisabled returns value of CallRequestsDisabled conditional field.
 func (a *Authorization) GetCallRequestsDisabled() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.Flags.Has(4)
 }
 
 // GetHash returns value of Hash field.
 func (a *Authorization) GetHash() (value int64) {
+	if a == nil {
+		return
+	}
 	return a.Hash
 }
 
 // GetDeviceModel returns value of DeviceModel field.
 func (a *Authorization) GetDeviceModel() (value string) {
+	if a == nil {
+		return
+	}
 	return a.DeviceModel
 }
 
 // GetPlatform returns value of Platform field.
 func (a *Authorization) GetPlatform() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Platform
 }
 
 // GetSystemVersion returns value of SystemVersion field.
 func (a *Authorization) GetSystemVersion() (value string) {
+	if a == nil {
+		return
+	}
 	return a.SystemVersion
 }
 
 // GetAPIID returns value of APIID field.
 func (a *Authorization) GetAPIID() (value int) {
+	if a == nil {
+		return
+	}
 	return a.APIID
 }
 
 // GetAppName returns value of AppName field.
 func (a *Authorization) GetAppName() (value string) {
+	if a == nil {
+		return
+	}
 	return a.AppName
 }
 
 // GetAppVersion returns value of AppVersion field.
 func (a *Authorization) GetAppVersion() (value string) {
+	if a == nil {
+		return
+	}
 	return a.AppVersion
 }
 
 // GetDateCreated returns value of DateCreated field.
 func (a *Authorization) GetDateCreated() (value int) {
+	if a == nil {
+		return
+	}
 	return a.DateCreated
 }
 
 // GetDateActive returns value of DateActive field.
 func (a *Authorization) GetDateActive() (value int) {
+	if a == nil {
+		return
+	}
 	return a.DateActive
 }
 
 // GetIP returns value of IP field.
 func (a *Authorization) GetIP() (value string) {
+	if a == nil {
+		return
+	}
 	return a.IP
 }
 
 // GetCountry returns value of Country field.
 func (a *Authorization) GetCountry() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Country
 }
 
 // GetRegion returns value of Region field.
 func (a *Authorization) GetRegion() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Region
 }

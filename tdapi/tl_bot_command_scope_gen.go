@@ -704,6 +704,9 @@ func (b *BotCommandScopeChat) DecodeTDLibJSON(buf tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (b *BotCommandScopeChat) GetChatID() (value int64) {
+	if b == nil {
+		return
+	}
 	return b.ChatID
 }
 
@@ -864,6 +867,9 @@ func (b *BotCommandScopeChatAdministrators) DecodeTDLibJSON(buf tdjson.Decoder) 
 
 // GetChatID returns value of ChatID field.
 func (b *BotCommandScopeChatAdministrators) GetChatID() (value int64) {
+	if b == nil {
+		return
+	}
 	return b.ChatID
 }
 
@@ -1049,11 +1055,17 @@ func (b *BotCommandScopeChatMember) DecodeTDLibJSON(buf tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (b *BotCommandScopeChatMember) GetChatID() (value int64) {
+	if b == nil {
+		return
+	}
 	return b.ChatID
 }
 
 // GetUserID returns value of UserID field.
 func (b *BotCommandScopeChatMember) GetUserID() (value int64) {
+	if b == nil {
+		return
+	}
 	return b.UserID
 }
 

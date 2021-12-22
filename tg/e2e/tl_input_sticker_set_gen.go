@@ -153,6 +153,9 @@ func (i *InputStickerSetShortName) DecodeBare(b *bin.Buffer) error {
 
 // GetShortName returns value of ShortName field.
 func (i *InputStickerSetShortName) GetShortName() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ShortName
 }
 

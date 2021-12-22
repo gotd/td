@@ -209,10 +209,16 @@ func (p *PaymentResult) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSuccess returns value of Success field.
 func (p *PaymentResult) GetSuccess() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Success
 }
 
 // GetVerificationURL returns value of VerificationURL field.
 func (p *PaymentResult) GetVerificationURL() (value string) {
+	if p == nil {
+		return
+	}
 	return p.VerificationURL
 }

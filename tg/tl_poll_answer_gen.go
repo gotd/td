@@ -177,10 +177,16 @@ func (p *PollAnswer) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (p *PollAnswer) GetText() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
 // GetOption returns value of Option field.
 func (p *PollAnswer) GetOption() (value []byte) {
+	if p == nil {
+		return
+	}
 	return p.Option
 }

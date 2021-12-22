@@ -256,16 +256,25 @@ func (s *SetPollAnswerRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (s *SetPollAnswerRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (s *SetPollAnswerRequest) GetMessageID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.MessageID
 }
 
 // GetOptionIDs returns value of OptionIDs field.
 func (s *SetPollAnswerRequest) GetOptionIDs() (value []int32) {
+	if s == nil {
+		return
+	}
 	return s.OptionIDs
 }
 

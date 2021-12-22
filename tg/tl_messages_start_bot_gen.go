@@ -228,21 +228,33 @@ func (s *MessagesStartBotRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetBot returns value of Bot field.
 func (s *MessagesStartBotRequest) GetBot() (value InputUserClass) {
+	if s == nil {
+		return
+	}
 	return s.Bot
 }
 
 // GetPeer returns value of Peer field.
 func (s *MessagesStartBotRequest) GetPeer() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
 // GetRandomID returns value of RandomID field.
 func (s *MessagesStartBotRequest) GetRandomID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.RandomID
 }
 
 // GetStartParam returns value of StartParam field.
 func (s *MessagesStartBotRequest) GetStartParam() (value string) {
+	if s == nil {
+		return
+	}
 	return s.StartParam
 }
 

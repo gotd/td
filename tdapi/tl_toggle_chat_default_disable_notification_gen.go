@@ -208,11 +208,17 @@ func (t *ToggleChatDefaultDisableNotificationRequest) DecodeTDLibJSON(b tdjson.D
 
 // GetChatID returns value of ChatID field.
 func (t *ToggleChatDefaultDisableNotificationRequest) GetChatID() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.ChatID
 }
 
 // GetDefaultDisableNotification returns value of DefaultDisableNotification field.
 func (t *ToggleChatDefaultDisableNotificationRequest) GetDefaultDisableNotification() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.DefaultDisableNotification
 }
 

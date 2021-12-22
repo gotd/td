@@ -174,11 +174,17 @@ func (s *BotsSendCustomRequestRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetCustomMethod returns value of CustomMethod field.
 func (s *BotsSendCustomRequestRequest) GetCustomMethod() (value string) {
+	if s == nil {
+		return
+	}
 	return s.CustomMethod
 }
 
 // GetParams returns value of Params field.
 func (s *BotsSendCustomRequestRequest) GetParams() (value DataJSON) {
+	if s == nil {
+		return
+	}
 	return s.Params
 }
 

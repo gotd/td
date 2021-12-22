@@ -155,6 +155,9 @@ func (g *MessagesGetFullChatRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (g *MessagesGetFullChatRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 

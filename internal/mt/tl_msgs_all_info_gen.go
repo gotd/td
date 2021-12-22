@@ -175,10 +175,16 @@ func (m *MsgsAllInfo) DecodeBare(b *bin.Buffer) error {
 
 // GetMsgIDs returns value of MsgIDs field.
 func (m *MsgsAllInfo) GetMsgIDs() (value []int64) {
+	if m == nil {
+		return
+	}
 	return m.MsgIDs
 }
 
 // GetInfo returns value of Info field.
 func (m *MsgsAllInfo) GetInfo() (value []byte) {
+	if m == nil {
+		return
+	}
 	return m.Info
 }

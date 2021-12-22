@@ -233,16 +233,25 @@ func (r *RecoverPasswordRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetRecoveryCode returns value of RecoveryCode field.
 func (r *RecoverPasswordRequest) GetRecoveryCode() (value string) {
+	if r == nil {
+		return
+	}
 	return r.RecoveryCode
 }
 
 // GetNewPassword returns value of NewPassword field.
 func (r *RecoverPasswordRequest) GetNewPassword() (value string) {
+	if r == nil {
+		return
+	}
 	return r.NewPassword
 }
 
 // GetNewHint returns value of NewHint field.
 func (r *RecoverPasswordRequest) GetNewHint() (value string) {
+	if r == nil {
+		return
+	}
 	return r.NewHint
 }
 

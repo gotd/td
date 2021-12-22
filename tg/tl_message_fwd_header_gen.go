@@ -429,6 +429,9 @@ func (m *MessageFwdHeader) SetImported(value bool) {
 
 // GetImported returns value of Imported conditional field.
 func (m *MessageFwdHeader) GetImported() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(7)
 }
 
@@ -441,6 +444,9 @@ func (m *MessageFwdHeader) SetFromID(value PeerClass) {
 // GetFromID returns value of FromID conditional field and
 // boolean which is true if field was set.
 func (m *MessageFwdHeader) GetFromID() (value PeerClass, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(0) {
 		return value, false
 	}
@@ -456,6 +462,9 @@ func (m *MessageFwdHeader) SetFromName(value string) {
 // GetFromName returns value of FromName conditional field and
 // boolean which is true if field was set.
 func (m *MessageFwdHeader) GetFromName() (value string, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(5) {
 		return value, false
 	}
@@ -464,6 +473,9 @@ func (m *MessageFwdHeader) GetFromName() (value string, ok bool) {
 
 // GetDate returns value of Date field.
 func (m *MessageFwdHeader) GetDate() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Date
 }
 
@@ -476,6 +488,9 @@ func (m *MessageFwdHeader) SetChannelPost(value int) {
 // GetChannelPost returns value of ChannelPost conditional field and
 // boolean which is true if field was set.
 func (m *MessageFwdHeader) GetChannelPost() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(2) {
 		return value, false
 	}
@@ -491,6 +506,9 @@ func (m *MessageFwdHeader) SetPostAuthor(value string) {
 // GetPostAuthor returns value of PostAuthor conditional field and
 // boolean which is true if field was set.
 func (m *MessageFwdHeader) GetPostAuthor() (value string, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(3) {
 		return value, false
 	}
@@ -506,6 +524,9 @@ func (m *MessageFwdHeader) SetSavedFromPeer(value PeerClass) {
 // GetSavedFromPeer returns value of SavedFromPeer conditional field and
 // boolean which is true if field was set.
 func (m *MessageFwdHeader) GetSavedFromPeer() (value PeerClass, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(4) {
 		return value, false
 	}
@@ -521,6 +542,9 @@ func (m *MessageFwdHeader) SetSavedFromMsgID(value int) {
 // GetSavedFromMsgID returns value of SavedFromMsgID conditional field and
 // boolean which is true if field was set.
 func (m *MessageFwdHeader) GetSavedFromMsgID() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(4) {
 		return value, false
 	}
@@ -536,6 +560,9 @@ func (m *MessageFwdHeader) SetPsaType(value string) {
 // GetPsaType returns value of PsaType conditional field and
 // boolean which is true if field was set.
 func (m *MessageFwdHeader) GetPsaType() (value string, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(6) {
 		return value, false
 	}

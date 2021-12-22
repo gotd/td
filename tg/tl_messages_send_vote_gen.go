@@ -214,16 +214,25 @@ func (s *MessagesSendVoteRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (s *MessagesSendVoteRequest) GetPeer() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
 // GetMsgID returns value of MsgID field.
 func (s *MessagesSendVoteRequest) GetMsgID() (value int) {
+	if s == nil {
+		return
+	}
 	return s.MsgID
 }
 
 // GetOptions returns value of Options field.
 func (s *MessagesSendVoteRequest) GetOptions() (value [][]byte) {
+	if s == nil {
+		return
+	}
 	return s.Options
 }
 

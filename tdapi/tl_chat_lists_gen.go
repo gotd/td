@@ -215,5 +215,8 @@ func (c *ChatLists) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatLists returns value of ChatLists field.
 func (c *ChatLists) GetChatLists() (value []ChatListClass) {
+	if c == nil {
+		return
+	}
 	return c.ChatLists
 }

@@ -198,16 +198,25 @@ func (a *MessagesAddChatUserRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (a *MessagesAddChatUserRequest) GetChatID() (value int64) {
+	if a == nil {
+		return
+	}
 	return a.ChatID
 }
 
 // GetUserID returns value of UserID field.
 func (a *MessagesAddChatUserRequest) GetUserID() (value InputUserClass) {
+	if a == nil {
+		return
+	}
 	return a.UserID
 }
 
 // GetFwdLimit returns value of FwdLimit field.
 func (a *MessagesAddChatUserRequest) GetFwdLimit() (value int) {
+	if a == nil {
+		return
+	}
 	return a.FwdLimit
 }
 

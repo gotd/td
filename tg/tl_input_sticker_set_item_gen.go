@@ -230,11 +230,17 @@ func (i *InputStickerSetItem) DecodeBare(b *bin.Buffer) error {
 
 // GetDocument returns value of Document field.
 func (i *InputStickerSetItem) GetDocument() (value InputDocumentClass) {
+	if i == nil {
+		return
+	}
 	return i.Document
 }
 
 // GetEmoji returns value of Emoji field.
 func (i *InputStickerSetItem) GetEmoji() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Emoji
 }
 
@@ -247,6 +253,9 @@ func (i *InputStickerSetItem) SetMaskCoords(value MaskCoords) {
 // GetMaskCoords returns value of MaskCoords conditional field and
 // boolean which is true if field was set.
 func (i *InputStickerSetItem) GetMaskCoords() (value MaskCoords, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(0) {
 		return value, false
 	}

@@ -208,11 +208,17 @@ func (g *GetInlineGameHighScoresRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetInlineMessageID returns value of InlineMessageID field.
 func (g *GetInlineGameHighScoresRequest) GetInlineMessageID() (value string) {
+	if g == nil {
+		return
+	}
 	return g.InlineMessageID
 }
 
 // GetUserID returns value of UserID field.
 func (g *GetInlineGameHighScoresRequest) GetUserID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.UserID
 }
 

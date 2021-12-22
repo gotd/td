@@ -160,6 +160,9 @@ func (r *RecentMeURLUnknown) DecodeBare(b *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (r *RecentMeURLUnknown) GetURL() (value string) {
+	if r == nil {
+		return
+	}
 	return r.URL
 }
 
@@ -311,11 +314,17 @@ func (r *RecentMeURLUser) DecodeBare(b *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (r *RecentMeURLUser) GetURL() (value string) {
+	if r == nil {
+		return
+	}
 	return r.URL
 }
 
 // GetUserID returns value of UserID field.
 func (r *RecentMeURLUser) GetUserID() (value int64) {
+	if r == nil {
+		return
+	}
 	return r.UserID
 }
 
@@ -467,11 +476,17 @@ func (r *RecentMeURLChat) DecodeBare(b *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (r *RecentMeURLChat) GetURL() (value string) {
+	if r == nil {
+		return
+	}
 	return r.URL
 }
 
 // GetChatID returns value of ChatID field.
 func (r *RecentMeURLChat) GetChatID() (value int64) {
+	if r == nil {
+		return
+	}
 	return r.ChatID
 }
 
@@ -628,11 +643,17 @@ func (r *RecentMeURLChatInvite) DecodeBare(b *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (r *RecentMeURLChatInvite) GetURL() (value string) {
+	if r == nil {
+		return
+	}
 	return r.URL
 }
 
 // GetChatInvite returns value of ChatInvite field.
 func (r *RecentMeURLChatInvite) GetChatInvite() (value ChatInviteClass) {
+	if r == nil {
+		return
+	}
 	return r.ChatInvite
 }
 
@@ -789,11 +810,17 @@ func (r *RecentMeURLStickerSet) DecodeBare(b *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (r *RecentMeURLStickerSet) GetURL() (value string) {
+	if r == nil {
+		return
+	}
 	return r.URL
 }
 
 // GetSet returns value of Set field.
 func (r *RecentMeURLStickerSet) GetSet() (value StickerSetCoveredClass) {
+	if r == nil {
+		return
+	}
 	return r.Set
 }
 

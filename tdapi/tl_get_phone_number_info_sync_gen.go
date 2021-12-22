@@ -208,11 +208,17 @@ func (g *GetPhoneNumberInfoSyncRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetLanguageCode returns value of LanguageCode field.
 func (g *GetPhoneNumberInfoSyncRequest) GetLanguageCode() (value string) {
+	if g == nil {
+		return
+	}
 	return g.LanguageCode
 }
 
 // GetPhoneNumberPrefix returns value of PhoneNumberPrefix field.
 func (g *GetPhoneNumberInfoSyncRequest) GetPhoneNumberPrefix() (value string) {
+	if g == nil {
+		return
+	}
 	return g.PhoneNumberPrefix
 }
 

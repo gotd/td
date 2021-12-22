@@ -185,11 +185,17 @@ func (u *AccountUpdatePasswordSettingsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPassword returns value of Password field.
 func (u *AccountUpdatePasswordSettingsRequest) GetPassword() (value InputCheckPasswordSRPClass) {
+	if u == nil {
+		return
+	}
 	return u.Password
 }
 
 // GetNewSettings returns value of NewSettings field.
 func (u *AccountUpdatePasswordSettingsRequest) GetNewSettings() (value AccountPasswordInputSettings) {
+	if u == nil {
+		return
+	}
 	return u.NewSettings
 }
 

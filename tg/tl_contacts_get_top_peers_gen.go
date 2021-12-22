@@ -362,6 +362,9 @@ func (g *ContactsGetTopPeersRequest) SetCorrespondents(value bool) {
 
 // GetCorrespondents returns value of Correspondents conditional field.
 func (g *ContactsGetTopPeersRequest) GetCorrespondents() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(0)
 }
 
@@ -378,6 +381,9 @@ func (g *ContactsGetTopPeersRequest) SetBotsPm(value bool) {
 
 // GetBotsPm returns value of BotsPm conditional field.
 func (g *ContactsGetTopPeersRequest) GetBotsPm() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(1)
 }
 
@@ -394,6 +400,9 @@ func (g *ContactsGetTopPeersRequest) SetBotsInline(value bool) {
 
 // GetBotsInline returns value of BotsInline conditional field.
 func (g *ContactsGetTopPeersRequest) GetBotsInline() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(2)
 }
 
@@ -410,6 +419,9 @@ func (g *ContactsGetTopPeersRequest) SetPhoneCalls(value bool) {
 
 // GetPhoneCalls returns value of PhoneCalls conditional field.
 func (g *ContactsGetTopPeersRequest) GetPhoneCalls() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(3)
 }
 
@@ -426,6 +438,9 @@ func (g *ContactsGetTopPeersRequest) SetForwardUsers(value bool) {
 
 // GetForwardUsers returns value of ForwardUsers conditional field.
 func (g *ContactsGetTopPeersRequest) GetForwardUsers() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(4)
 }
 
@@ -442,6 +457,9 @@ func (g *ContactsGetTopPeersRequest) SetForwardChats(value bool) {
 
 // GetForwardChats returns value of ForwardChats conditional field.
 func (g *ContactsGetTopPeersRequest) GetForwardChats() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(5)
 }
 
@@ -458,6 +476,9 @@ func (g *ContactsGetTopPeersRequest) SetGroups(value bool) {
 
 // GetGroups returns value of Groups conditional field.
 func (g *ContactsGetTopPeersRequest) GetGroups() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(10)
 }
 
@@ -474,21 +495,33 @@ func (g *ContactsGetTopPeersRequest) SetChannels(value bool) {
 
 // GetChannels returns value of Channels conditional field.
 func (g *ContactsGetTopPeersRequest) GetChannels() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(15)
 }
 
 // GetOffset returns value of Offset field.
 func (g *ContactsGetTopPeersRequest) GetOffset() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 
 // GetLimit returns value of Limit field.
 func (g *ContactsGetTopPeersRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 
 // GetHash returns value of Hash field.
 func (g *ContactsGetTopPeersRequest) GetHash() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.Hash
 }
 

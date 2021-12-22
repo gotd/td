@@ -344,21 +344,33 @@ func (a *AccountAuthorizationForm) DecodeBare(b *bin.Buffer) error {
 
 // GetRequiredTypes returns value of RequiredTypes field.
 func (a *AccountAuthorizationForm) GetRequiredTypes() (value []SecureRequiredTypeClass) {
+	if a == nil {
+		return
+	}
 	return a.RequiredTypes
 }
 
 // GetValues returns value of Values field.
 func (a *AccountAuthorizationForm) GetValues() (value []SecureValue) {
+	if a == nil {
+		return
+	}
 	return a.Values
 }
 
 // GetErrors returns value of Errors field.
 func (a *AccountAuthorizationForm) GetErrors() (value []SecureValueErrorClass) {
+	if a == nil {
+		return
+	}
 	return a.Errors
 }
 
 // GetUsers returns value of Users field.
 func (a *AccountAuthorizationForm) GetUsers() (value []UserClass) {
+	if a == nil {
+		return
+	}
 	return a.Users
 }
 
@@ -371,6 +383,9 @@ func (a *AccountAuthorizationForm) SetPrivacyPolicyURL(value string) {
 // GetPrivacyPolicyURL returns value of PrivacyPolicyURL conditional field and
 // boolean which is true if field was set.
 func (a *AccountAuthorizationForm) GetPrivacyPolicyURL() (value string, ok bool) {
+	if a == nil {
+		return
+	}
 	if !a.Flags.Has(0) {
 		return value, false
 	}

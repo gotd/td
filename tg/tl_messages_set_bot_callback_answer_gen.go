@@ -282,11 +282,17 @@ func (s *MessagesSetBotCallbackAnswerRequest) SetAlert(value bool) {
 
 // GetAlert returns value of Alert conditional field.
 func (s *MessagesSetBotCallbackAnswerRequest) GetAlert() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(1)
 }
 
 // GetQueryID returns value of QueryID field.
 func (s *MessagesSetBotCallbackAnswerRequest) GetQueryID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.QueryID
 }
 
@@ -299,6 +305,9 @@ func (s *MessagesSetBotCallbackAnswerRequest) SetMessage(value string) {
 // GetMessage returns value of Message conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSetBotCallbackAnswerRequest) GetMessage() (value string, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(0) {
 		return value, false
 	}
@@ -314,6 +323,9 @@ func (s *MessagesSetBotCallbackAnswerRequest) SetURL(value string) {
 // GetURL returns value of URL conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSetBotCallbackAnswerRequest) GetURL() (value string, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(2) {
 		return value, false
 	}
@@ -322,6 +334,9 @@ func (s *MessagesSetBotCallbackAnswerRequest) GetURL() (value string, ok bool) {
 
 // GetCacheTime returns value of CacheTime field.
 func (s *MessagesSetBotCallbackAnswerRequest) GetCacheTime() (value int) {
+	if s == nil {
+		return
+	}
 	return s.CacheTime
 }
 

@@ -193,15 +193,24 @@ func (n *NearestDC) DecodeBare(b *bin.Buffer) error {
 
 // GetCountry returns value of Country field.
 func (n *NearestDC) GetCountry() (value string) {
+	if n == nil {
+		return
+	}
 	return n.Country
 }
 
 // GetThisDC returns value of ThisDC field.
 func (n *NearestDC) GetThisDC() (value int) {
+	if n == nil {
+		return
+	}
 	return n.ThisDC
 }
 
 // GetNearestDC returns value of NearestDC field.
 func (n *NearestDC) GetNearestDC() (value int) {
+	if n == nil {
+		return
+	}
 	return n.NearestDC
 }

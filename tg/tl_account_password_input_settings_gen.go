@@ -328,6 +328,9 @@ func (p *AccountPasswordInputSettings) SetNewAlgo(value PasswordKdfAlgoClass) {
 // GetNewAlgo returns value of NewAlgo conditional field and
 // boolean which is true if field was set.
 func (p *AccountPasswordInputSettings) GetNewAlgo() (value PasswordKdfAlgoClass, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(0) {
 		return value, false
 	}
@@ -343,6 +346,9 @@ func (p *AccountPasswordInputSettings) SetNewPasswordHash(value []byte) {
 // GetNewPasswordHash returns value of NewPasswordHash conditional field and
 // boolean which is true if field was set.
 func (p *AccountPasswordInputSettings) GetNewPasswordHash() (value []byte, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(0) {
 		return value, false
 	}
@@ -358,6 +364,9 @@ func (p *AccountPasswordInputSettings) SetHint(value string) {
 // GetHint returns value of Hint conditional field and
 // boolean which is true if field was set.
 func (p *AccountPasswordInputSettings) GetHint() (value string, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(0) {
 		return value, false
 	}
@@ -373,6 +382,9 @@ func (p *AccountPasswordInputSettings) SetEmail(value string) {
 // GetEmail returns value of Email conditional field and
 // boolean which is true if field was set.
 func (p *AccountPasswordInputSettings) GetEmail() (value string, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(1) {
 		return value, false
 	}
@@ -388,6 +400,9 @@ func (p *AccountPasswordInputSettings) SetNewSecureSettings(value SecureSecretSe
 // GetNewSecureSettings returns value of NewSecureSettings conditional field and
 // boolean which is true if field was set.
 func (p *AccountPasswordInputSettings) GetNewSecureSettings() (value SecureSecretSettings, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(2) {
 		return value, false
 	}

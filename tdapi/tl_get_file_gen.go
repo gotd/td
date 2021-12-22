@@ -183,6 +183,9 @@ func (g *GetFileRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFileID returns value of FileID field.
 func (g *GetFileRequest) GetFileID() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.FileID
 }
 

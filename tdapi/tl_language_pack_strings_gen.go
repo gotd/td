@@ -209,5 +209,8 @@ func (l *LanguagePackStrings) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetStrings returns value of Strings field.
 func (l *LanguagePackStrings) GetStrings() (value []LanguagePackString) {
+	if l == nil {
+		return
+	}
 	return l.Strings
 }

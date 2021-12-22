@@ -415,50 +415,80 @@ func (c *ChatNotificationSettings) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUseDefaultMuteFor returns value of UseDefaultMuteFor field.
 func (c *ChatNotificationSettings) GetUseDefaultMuteFor() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.UseDefaultMuteFor
 }
 
 // GetMuteFor returns value of MuteFor field.
 func (c *ChatNotificationSettings) GetMuteFor() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.MuteFor
 }
 
 // GetUseDefaultSound returns value of UseDefaultSound field.
 func (c *ChatNotificationSettings) GetUseDefaultSound() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.UseDefaultSound
 }
 
 // GetSound returns value of Sound field.
 func (c *ChatNotificationSettings) GetSound() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Sound
 }
 
 // GetUseDefaultShowPreview returns value of UseDefaultShowPreview field.
 func (c *ChatNotificationSettings) GetUseDefaultShowPreview() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.UseDefaultShowPreview
 }
 
 // GetShowPreview returns value of ShowPreview field.
 func (c *ChatNotificationSettings) GetShowPreview() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.ShowPreview
 }
 
 // GetUseDefaultDisablePinnedMessageNotifications returns value of UseDefaultDisablePinnedMessageNotifications field.
 func (c *ChatNotificationSettings) GetUseDefaultDisablePinnedMessageNotifications() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.UseDefaultDisablePinnedMessageNotifications
 }
 
 // GetDisablePinnedMessageNotifications returns value of DisablePinnedMessageNotifications field.
 func (c *ChatNotificationSettings) GetDisablePinnedMessageNotifications() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.DisablePinnedMessageNotifications
 }
 
 // GetUseDefaultDisableMentionNotifications returns value of UseDefaultDisableMentionNotifications field.
 func (c *ChatNotificationSettings) GetUseDefaultDisableMentionNotifications() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.UseDefaultDisableMentionNotifications
 }
 
 // GetDisableMentionNotifications returns value of DisableMentionNotifications field.
 func (c *ChatNotificationSettings) GetDisableMentionNotifications() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.DisableMentionNotifications
 }

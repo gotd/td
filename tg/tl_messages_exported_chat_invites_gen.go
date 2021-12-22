@@ -226,16 +226,25 @@ func (e *MessagesExportedChatInvites) DecodeBare(b *bin.Buffer) error {
 
 // GetCount returns value of Count field.
 func (e *MessagesExportedChatInvites) GetCount() (value int) {
+	if e == nil {
+		return
+	}
 	return e.Count
 }
 
 // GetInvites returns value of Invites field.
 func (e *MessagesExportedChatInvites) GetInvites() (value []ChatInviteExported) {
+	if e == nil {
+		return
+	}
 	return e.Invites
 }
 
 // GetUsers returns value of Users field.
 func (e *MessagesExportedChatInvites) GetUsers() (value []UserClass) {
+	if e == nil {
+		return
+	}
 	return e.Users
 }
 

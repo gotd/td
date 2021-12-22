@@ -205,6 +205,9 @@ func (v *ViewTrendingStickerSetsRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetStickerSetIDs returns value of StickerSetIDs field.
 func (v *ViewTrendingStickerSetsRequest) GetStickerSetIDs() (value []int64) {
+	if v == nil {
+		return
+	}
 	return v.StickerSetIDs
 }
 

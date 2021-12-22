@@ -233,15 +233,24 @@ func (m *MessagePosition) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPosition returns value of Position field.
 func (m *MessagePosition) GetPosition() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.Position
 }
 
 // GetMessageID returns value of MessageID field.
 func (m *MessagePosition) GetMessageID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.MessageID
 }
 
 // GetDate returns value of Date field.
 func (m *MessagePosition) GetDate() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.Date
 }

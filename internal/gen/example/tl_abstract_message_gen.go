@@ -220,26 +220,41 @@ func (b *BigMessage) DecodeBare(buf *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (b *BigMessage) GetID() (value int32) {
+	if b == nil {
+		return
+	}
 	return b.ID
 }
 
 // GetCount returns value of Count field.
 func (b *BigMessage) GetCount() (value int32) {
+	if b == nil {
+		return
+	}
 	return b.Count
 }
 
 // GetTargetID returns value of TargetID field.
 func (b *BigMessage) GetTargetID() (value int32) {
+	if b == nil {
+		return
+	}
 	return b.TargetID
 }
 
 // GetEscape returns value of Escape field.
 func (b *BigMessage) GetEscape() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.Escape
 }
 
 // GetSummary returns value of Summary field.
 func (b *BigMessage) GetSummary() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.Summary
 }
 
@@ -478,6 +493,9 @@ func (t *TargetsMessage) DecodeBare(b *bin.Buffer) error {
 
 // GetTargets returns value of Targets field.
 func (t *TargetsMessage) GetTargets() (value []int32) {
+	if t == nil {
+		return
+	}
 	return t.Targets
 }
 
@@ -660,6 +678,9 @@ func (f *FieldsMessage) SetEscape(value bool) {
 // GetEscape returns value of Escape conditional field and
 // boolean which is true if field was set.
 func (f *FieldsMessage) GetEscape() (value bool, ok bool) {
+	if f == nil {
+		return
+	}
 	if !f.Flags.Has(0) {
 		return value, false
 	}
@@ -675,6 +696,9 @@ func (f *FieldsMessage) SetTTLSeconds(value int) {
 // GetTTLSeconds returns value of TTLSeconds conditional field and
 // boolean which is true if field was set.
 func (f *FieldsMessage) GetTTLSeconds() (value int, ok bool) {
+	if f == nil {
+		return
+	}
 	if !f.Flags.Has(1) {
 		return value, false
 	}
@@ -802,6 +826,9 @@ func (b *BytesMessage) DecodeBare(buf *bin.Buffer) error {
 
 // GetData returns value of Data field.
 func (b *BytesMessage) GetData() (value []byte) {
+	if b == nil {
+		return
+	}
 	return b.Data
 }
 

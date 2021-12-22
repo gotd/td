@@ -208,11 +208,17 @@ func (g *GetSuggestedFileNameRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFileID returns value of FileID field.
 func (g *GetSuggestedFileNameRequest) GetFileID() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.FileID
 }
 
 // GetDirectory returns value of Directory field.
 func (g *GetSuggestedFileNameRequest) GetDirectory() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Directory
 }
 

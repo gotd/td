@@ -196,15 +196,24 @@ func (s *StatsGroupTopPoster) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (s *StatsGroupTopPoster) GetUserID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.UserID
 }
 
 // GetMessages returns value of Messages field.
 func (s *StatsGroupTopPoster) GetMessages() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Messages
 }
 
 // GetAvgChars returns value of AvgChars field.
 func (s *StatsGroupTopPoster) GetAvgChars() (value int) {
+	if s == nil {
+		return
+	}
 	return s.AvgChars
 }

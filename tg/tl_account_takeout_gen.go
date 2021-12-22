@@ -155,5 +155,8 @@ func (t *AccountTakeout) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (t *AccountTakeout) GetID() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.ID
 }

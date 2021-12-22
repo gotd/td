@@ -183,6 +183,9 @@ func (l *LeaveGroupCallRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetGroupCallID returns value of GroupCallID field.
 func (l *LeaveGroupCallRequest) GetGroupCallID() (value int32) {
+	if l == nil {
+		return
+	}
 	return l.GroupCallID
 }
 

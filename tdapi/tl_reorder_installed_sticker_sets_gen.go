@@ -231,11 +231,17 @@ func (r *ReorderInstalledStickerSetsRequest) DecodeTDLibJSON(b tdjson.Decoder) e
 
 // GetIsMasks returns value of IsMasks field.
 func (r *ReorderInstalledStickerSetsRequest) GetIsMasks() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.IsMasks
 }
 
 // GetStickerSetIDs returns value of StickerSetIDs field.
 func (r *ReorderInstalledStickerSetsRequest) GetStickerSetIDs() (value []int64) {
+	if r == nil {
+		return
+	}
 	return r.StickerSetIDs
 }
 

@@ -183,6 +183,9 @@ func (l *LeaveChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (l *LeaveChatRequest) GetChatID() (value int64) {
+	if l == nil {
+		return
+	}
 	return l.ChatID
 }
 

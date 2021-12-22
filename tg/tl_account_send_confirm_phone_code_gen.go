@@ -180,11 +180,17 @@ func (s *AccountSendConfirmPhoneCodeRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetHash returns value of Hash field.
 func (s *AccountSendConfirmPhoneCodeRequest) GetHash() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Hash
 }
 
 // GetSettings returns value of Settings field.
 func (s *AccountSendConfirmPhoneCodeRequest) GetSettings() (value CodeSettings) {
+	if s == nil {
+		return
+	}
 	return s.Settings
 }
 

@@ -375,16 +375,25 @@ func (m *MessageReplies) SetComments(value bool) {
 
 // GetComments returns value of Comments conditional field.
 func (m *MessageReplies) GetComments() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(0)
 }
 
 // GetReplies returns value of Replies field.
 func (m *MessageReplies) GetReplies() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Replies
 }
 
 // GetRepliesPts returns value of RepliesPts field.
 func (m *MessageReplies) GetRepliesPts() (value int) {
+	if m == nil {
+		return
+	}
 	return m.RepliesPts
 }
 
@@ -397,6 +406,9 @@ func (m *MessageReplies) SetRecentRepliers(value []PeerClass) {
 // GetRecentRepliers returns value of RecentRepliers conditional field and
 // boolean which is true if field was set.
 func (m *MessageReplies) GetRecentRepliers() (value []PeerClass, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(1) {
 		return value, false
 	}
@@ -412,6 +424,9 @@ func (m *MessageReplies) SetChannelID(value int64) {
 // GetChannelID returns value of ChannelID conditional field and
 // boolean which is true if field was set.
 func (m *MessageReplies) GetChannelID() (value int64, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(0) {
 		return value, false
 	}
@@ -427,6 +442,9 @@ func (m *MessageReplies) SetMaxID(value int) {
 // GetMaxID returns value of MaxID conditional field and
 // boolean which is true if field was set.
 func (m *MessageReplies) GetMaxID() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(2) {
 		return value, false
 	}
@@ -442,6 +460,9 @@ func (m *MessageReplies) SetReadMaxID(value int) {
 // GetReadMaxID returns value of ReadMaxID conditional field and
 // boolean which is true if field was set.
 func (m *MessageReplies) GetReadMaxID() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(3) {
 		return value, false
 	}

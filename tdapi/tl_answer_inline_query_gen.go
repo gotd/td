@@ -366,36 +366,57 @@ func (a *AnswerInlineQueryRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetInlineQueryID returns value of InlineQueryID field.
 func (a *AnswerInlineQueryRequest) GetInlineQueryID() (value int64) {
+	if a == nil {
+		return
+	}
 	return a.InlineQueryID
 }
 
 // GetIsPersonal returns value of IsPersonal field.
 func (a *AnswerInlineQueryRequest) GetIsPersonal() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.IsPersonal
 }
 
 // GetResults returns value of Results field.
 func (a *AnswerInlineQueryRequest) GetResults() (value []InputInlineQueryResultClass) {
+	if a == nil {
+		return
+	}
 	return a.Results
 }
 
 // GetCacheTime returns value of CacheTime field.
 func (a *AnswerInlineQueryRequest) GetCacheTime() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.CacheTime
 }
 
 // GetNextOffset returns value of NextOffset field.
 func (a *AnswerInlineQueryRequest) GetNextOffset() (value string) {
+	if a == nil {
+		return
+	}
 	return a.NextOffset
 }
 
 // GetSwitchPmText returns value of SwitchPmText field.
 func (a *AnswerInlineQueryRequest) GetSwitchPmText() (value string) {
+	if a == nil {
+		return
+	}
 	return a.SwitchPmText
 }
 
 // GetSwitchPmParameter returns value of SwitchPmParameter field.
 func (a *AnswerInlineQueryRequest) GetSwitchPmParameter() (value string) {
+	if a == nil {
+		return
+	}
 	return a.SwitchPmParameter
 }
 

@@ -175,5 +175,8 @@ func (t *TestVectorVector) DecodeBare(b *bin.Buffer) error {
 
 // GetValue returns value of Value field.
 func (t *TestVectorVector) GetValue() (value [][]string) {
+	if t == nil {
+		return
+	}
 	return t.Value
 }

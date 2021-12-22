@@ -466,50 +466,80 @@ func (p *Poll) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (p *Poll) GetID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ID
 }
 
 // GetQuestion returns value of Question field.
 func (p *Poll) GetQuestion() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Question
 }
 
 // GetOptions returns value of Options field.
 func (p *Poll) GetOptions() (value []PollOption) {
+	if p == nil {
+		return
+	}
 	return p.Options
 }
 
 // GetTotalVoterCount returns value of TotalVoterCount field.
 func (p *Poll) GetTotalVoterCount() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.TotalVoterCount
 }
 
 // GetRecentVoterUserIDs returns value of RecentVoterUserIDs field.
 func (p *Poll) GetRecentVoterUserIDs() (value []int64) {
+	if p == nil {
+		return
+	}
 	return p.RecentVoterUserIDs
 }
 
 // GetIsAnonymous returns value of IsAnonymous field.
 func (p *Poll) GetIsAnonymous() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsAnonymous
 }
 
 // GetType returns value of Type field.
 func (p *Poll) GetType() (value PollTypeClass) {
+	if p == nil {
+		return
+	}
 	return p.Type
 }
 
 // GetOpenPeriod returns value of OpenPeriod field.
 func (p *Poll) GetOpenPeriod() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.OpenPeriod
 }
 
 // GetCloseDate returns value of CloseDate field.
 func (p *Poll) GetCloseDate() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.CloseDate
 }
 
 // GetIsClosed returns value of IsClosed field.
 func (p *Poll) GetIsClosed() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsClosed
 }

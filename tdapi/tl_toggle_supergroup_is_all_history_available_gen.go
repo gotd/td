@@ -208,11 +208,17 @@ func (t *ToggleSupergroupIsAllHistoryAvailableRequest) DecodeTDLibJSON(b tdjson.
 
 // GetSupergroupID returns value of SupergroupID field.
 func (t *ToggleSupergroupIsAllHistoryAvailableRequest) GetSupergroupID() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.SupergroupID
 }
 
 // GetIsAllHistoryAvailable returns value of IsAllHistoryAvailable field.
 func (t *ToggleSupergroupIsAllHistoryAvailableRequest) GetIsAllHistoryAvailable() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.IsAllHistoryAvailable
 }
 

@@ -179,11 +179,17 @@ func (s *MessagesSaveGifRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (s *MessagesSaveGifRequest) GetID() (value InputDocumentClass) {
+	if s == nil {
+		return
+	}
 	return s.ID
 }
 
 // GetUnsave returns value of Unsave field.
 func (s *MessagesSaveGifRequest) GetUnsave() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Unsave
 }
 

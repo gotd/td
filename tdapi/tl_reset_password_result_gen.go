@@ -318,6 +318,9 @@ func (r *ResetPasswordResultPending) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPendingResetDate returns value of PendingResetDate field.
 func (r *ResetPasswordResultPending) GetPendingResetDate() (value int32) {
+	if r == nil {
+		return
+	}
 	return r.PendingResetDate
 }
 
@@ -478,6 +481,9 @@ func (r *ResetPasswordResultDeclined) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetRetryDate returns value of RetryDate field.
 func (r *ResetPasswordResultDeclined) GetRetryDate() (value int32) {
+	if r == nil {
+		return
+	}
 	return r.RetryDate
 }
 

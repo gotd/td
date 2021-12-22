@@ -410,46 +410,73 @@ func (s *SearchMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatList returns value of ChatList field.
 func (s *SearchMessagesRequest) GetChatList() (value ChatListClass) {
+	if s == nil {
+		return
+	}
 	return s.ChatList
 }
 
 // GetQuery returns value of Query field.
 func (s *SearchMessagesRequest) GetQuery() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Query
 }
 
 // GetOffsetDate returns value of OffsetDate field.
 func (s *SearchMessagesRequest) GetOffsetDate() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.OffsetDate
 }
 
 // GetOffsetChatID returns value of OffsetChatID field.
 func (s *SearchMessagesRequest) GetOffsetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.OffsetChatID
 }
 
 // GetOffsetMessageID returns value of OffsetMessageID field.
 func (s *SearchMessagesRequest) GetOffsetMessageID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.OffsetMessageID
 }
 
 // GetLimit returns value of Limit field.
 func (s *SearchMessagesRequest) GetLimit() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Limit
 }
 
 // GetFilter returns value of Filter field.
 func (s *SearchMessagesRequest) GetFilter() (value SearchMessagesFilterClass) {
+	if s == nil {
+		return
+	}
 	return s.Filter
 }
 
 // GetMinDate returns value of MinDate field.
 func (s *SearchMessagesRequest) GetMinDate() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.MinDate
 }
 
 // GetMaxDate returns value of MaxDate field.
 func (s *SearchMessagesRequest) GetMaxDate() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.MaxDate
 }
 

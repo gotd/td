@@ -271,20 +271,32 @@ func (m *MaskPosition) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPoint returns value of Point field.
 func (m *MaskPosition) GetPoint() (value MaskPointClass) {
+	if m == nil {
+		return
+	}
 	return m.Point
 }
 
 // GetXShift returns value of XShift field.
 func (m *MaskPosition) GetXShift() (value float64) {
+	if m == nil {
+		return
+	}
 	return m.XShift
 }
 
 // GetYShift returns value of YShift field.
 func (m *MaskPosition) GetYShift() (value float64) {
+	if m == nil {
+		return
+	}
 	return m.YShift
 }
 
 // GetScale returns value of Scale field.
 func (m *MaskPosition) GetScale() (value float64) {
+	if m == nil {
+		return
+	}
 	return m.Scale
 }

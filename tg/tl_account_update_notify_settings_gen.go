@@ -179,11 +179,17 @@ func (u *AccountUpdateNotifySettingsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (u *AccountUpdateNotifySettingsRequest) GetPeer() (value InputNotifyPeerClass) {
+	if u == nil {
+		return
+	}
 	return u.Peer
 }
 
 // GetSettings returns value of Settings field.
 func (u *AccountUpdateNotifySettingsRequest) GetSettings() (value InputPeerNotifySettings) {
+	if u == nil {
+		return
+	}
 	return u.Settings
 }
 

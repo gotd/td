@@ -209,5 +209,8 @@ func (t *TMeURLs) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetURLs returns value of URLs field.
 func (t *TMeURLs) GetURLs() (value []TMeURL) {
+	if t == nil {
+		return
+	}
 	return t.URLs
 }

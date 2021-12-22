@@ -209,5 +209,8 @@ func (t *TestVectorStringObject) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetValue returns value of Value field.
 func (t *TestVectorStringObject) GetValue() (value []TestString) {
+	if t == nil {
+		return
+	}
 	return t.Value
 }

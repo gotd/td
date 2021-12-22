@@ -180,10 +180,16 @@ func (i *InputEncryptedChat) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (i *InputEncryptedChat) GetChatID() (value int) {
+	if i == nil {
+		return
+	}
 	return i.ChatID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputEncryptedChat) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }

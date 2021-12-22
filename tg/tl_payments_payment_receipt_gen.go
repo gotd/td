@@ -499,26 +499,41 @@ func (p *PaymentsPaymentReceipt) DecodeBare(b *bin.Buffer) error {
 
 // GetDate returns value of Date field.
 func (p *PaymentsPaymentReceipt) GetDate() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Date
 }
 
 // GetBotID returns value of BotID field.
 func (p *PaymentsPaymentReceipt) GetBotID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.BotID
 }
 
 // GetProviderID returns value of ProviderID field.
 func (p *PaymentsPaymentReceipt) GetProviderID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ProviderID
 }
 
 // GetTitle returns value of Title field.
 func (p *PaymentsPaymentReceipt) GetTitle() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Title
 }
 
 // GetDescription returns value of Description field.
 func (p *PaymentsPaymentReceipt) GetDescription() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Description
 }
 
@@ -531,6 +546,9 @@ func (p *PaymentsPaymentReceipt) SetPhoto(value WebDocumentClass) {
 // GetPhoto returns value of Photo conditional field and
 // boolean which is true if field was set.
 func (p *PaymentsPaymentReceipt) GetPhoto() (value WebDocumentClass, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(2) {
 		return value, false
 	}
@@ -539,6 +557,9 @@ func (p *PaymentsPaymentReceipt) GetPhoto() (value WebDocumentClass, ok bool) {
 
 // GetInvoice returns value of Invoice field.
 func (p *PaymentsPaymentReceipt) GetInvoice() (value Invoice) {
+	if p == nil {
+		return
+	}
 	return p.Invoice
 }
 
@@ -551,6 +572,9 @@ func (p *PaymentsPaymentReceipt) SetInfo(value PaymentRequestedInfo) {
 // GetInfo returns value of Info conditional field and
 // boolean which is true if field was set.
 func (p *PaymentsPaymentReceipt) GetInfo() (value PaymentRequestedInfo, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(0) {
 		return value, false
 	}
@@ -566,6 +590,9 @@ func (p *PaymentsPaymentReceipt) SetShipping(value ShippingOption) {
 // GetShipping returns value of Shipping conditional field and
 // boolean which is true if field was set.
 func (p *PaymentsPaymentReceipt) GetShipping() (value ShippingOption, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(1) {
 		return value, false
 	}
@@ -581,6 +608,9 @@ func (p *PaymentsPaymentReceipt) SetTipAmount(value int64) {
 // GetTipAmount returns value of TipAmount conditional field and
 // boolean which is true if field was set.
 func (p *PaymentsPaymentReceipt) GetTipAmount() (value int64, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(3) {
 		return value, false
 	}
@@ -589,21 +619,33 @@ func (p *PaymentsPaymentReceipt) GetTipAmount() (value int64, ok bool) {
 
 // GetCurrency returns value of Currency field.
 func (p *PaymentsPaymentReceipt) GetCurrency() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Currency
 }
 
 // GetTotalAmount returns value of TotalAmount field.
 func (p *PaymentsPaymentReceipt) GetTotalAmount() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.TotalAmount
 }
 
 // GetCredentialsTitle returns value of CredentialsTitle field.
 func (p *PaymentsPaymentReceipt) GetCredentialsTitle() (value string) {
+	if p == nil {
+		return
+	}
 	return p.CredentialsTitle
 }
 
 // GetUsers returns value of Users field.
 func (p *PaymentsPaymentReceipt) GetUsers() (value []UserClass) {
+	if p == nil {
+		return
+	}
 	return p.Users
 }
 

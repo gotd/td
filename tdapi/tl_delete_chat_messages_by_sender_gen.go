@@ -218,11 +218,17 @@ func (d *DeleteChatMessagesBySenderRequest) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetChatID returns value of ChatID field.
 func (d *DeleteChatMessagesBySenderRequest) GetChatID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.ChatID
 }
 
 // GetSenderID returns value of SenderID field.
 func (d *DeleteChatMessagesBySenderRequest) GetSenderID() (value MessageSenderClass) {
+	if d == nil {
+		return
+	}
 	return d.SenderID
 }
 

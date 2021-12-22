@@ -244,15 +244,24 @@ func (v *VideoChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetGroupCallID returns value of GroupCallID field.
 func (v *VideoChat) GetGroupCallID() (value int32) {
+	if v == nil {
+		return
+	}
 	return v.GroupCallID
 }
 
 // GetHasParticipants returns value of HasParticipants field.
 func (v *VideoChat) GetHasParticipants() (value bool) {
+	if v == nil {
+		return
+	}
 	return v.HasParticipants
 }
 
 // GetDefaultParticipantID returns value of DefaultParticipantID field.
 func (v *VideoChat) GetDefaultParticipantID() (value MessageSenderClass) {
+	if v == nil {
+		return
+	}
 	return v.DefaultParticipantID
 }

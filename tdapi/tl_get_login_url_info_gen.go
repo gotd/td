@@ -233,16 +233,25 @@ func (g *GetLoginURLInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (g *GetLoginURLInfoRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (g *GetLoginURLInfoRequest) GetMessageID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.MessageID
 }
 
 // GetButtonID returns value of ButtonID field.
 func (g *GetLoginURLInfoRequest) GetButtonID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ButtonID
 }
 

@@ -198,16 +198,25 @@ func (g *GroupCallDiscarded) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (g *GroupCallDiscarded) GetID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (g *GroupCallDiscarded) GetAccessHash() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.AccessHash
 }
 
 // GetDuration returns value of Duration field.
 func (g *GroupCallDiscarded) GetDuration() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Duration
 }
 
@@ -699,6 +708,9 @@ func (g *GroupCall) SetJoinMuted(value bool) {
 
 // GetJoinMuted returns value of JoinMuted conditional field.
 func (g *GroupCall) GetJoinMuted() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(1)
 }
 
@@ -715,6 +727,9 @@ func (g *GroupCall) SetCanChangeJoinMuted(value bool) {
 
 // GetCanChangeJoinMuted returns value of CanChangeJoinMuted conditional field.
 func (g *GroupCall) GetCanChangeJoinMuted() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(2)
 }
 
@@ -731,6 +746,9 @@ func (g *GroupCall) SetJoinDateAsc(value bool) {
 
 // GetJoinDateAsc returns value of JoinDateAsc conditional field.
 func (g *GroupCall) GetJoinDateAsc() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(6)
 }
 
@@ -747,6 +765,9 @@ func (g *GroupCall) SetScheduleStartSubscribed(value bool) {
 
 // GetScheduleStartSubscribed returns value of ScheduleStartSubscribed conditional field.
 func (g *GroupCall) GetScheduleStartSubscribed() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(8)
 }
 
@@ -763,6 +784,9 @@ func (g *GroupCall) SetCanStartVideo(value bool) {
 
 // GetCanStartVideo returns value of CanStartVideo conditional field.
 func (g *GroupCall) GetCanStartVideo() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(9)
 }
 
@@ -779,21 +803,33 @@ func (g *GroupCall) SetRecordVideoActive(value bool) {
 
 // GetRecordVideoActive returns value of RecordVideoActive conditional field.
 func (g *GroupCall) GetRecordVideoActive() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(11)
 }
 
 // GetID returns value of ID field.
 func (g *GroupCall) GetID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (g *GroupCall) GetAccessHash() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.AccessHash
 }
 
 // GetParticipantsCount returns value of ParticipantsCount field.
 func (g *GroupCall) GetParticipantsCount() (value int) {
+	if g == nil {
+		return
+	}
 	return g.ParticipantsCount
 }
 
@@ -806,6 +842,9 @@ func (g *GroupCall) SetTitle(value string) {
 // GetTitle returns value of Title conditional field and
 // boolean which is true if field was set.
 func (g *GroupCall) GetTitle() (value string, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(3) {
 		return value, false
 	}
@@ -821,6 +860,9 @@ func (g *GroupCall) SetStreamDCID(value int) {
 // GetStreamDCID returns value of StreamDCID conditional field and
 // boolean which is true if field was set.
 func (g *GroupCall) GetStreamDCID() (value int, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(4) {
 		return value, false
 	}
@@ -836,6 +878,9 @@ func (g *GroupCall) SetRecordStartDate(value int) {
 // GetRecordStartDate returns value of RecordStartDate conditional field and
 // boolean which is true if field was set.
 func (g *GroupCall) GetRecordStartDate() (value int, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(5) {
 		return value, false
 	}
@@ -851,6 +896,9 @@ func (g *GroupCall) SetScheduleDate(value int) {
 // GetScheduleDate returns value of ScheduleDate conditional field and
 // boolean which is true if field was set.
 func (g *GroupCall) GetScheduleDate() (value int, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(7) {
 		return value, false
 	}
@@ -866,6 +914,9 @@ func (g *GroupCall) SetUnmutedVideoCount(value int) {
 // GetUnmutedVideoCount returns value of UnmutedVideoCount conditional field and
 // boolean which is true if field was set.
 func (g *GroupCall) GetUnmutedVideoCount() (value int, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(10) {
 		return value, false
 	}
@@ -874,11 +925,17 @@ func (g *GroupCall) GetUnmutedVideoCount() (value int, ok bool) {
 
 // GetUnmutedVideoLimit returns value of UnmutedVideoLimit field.
 func (g *GroupCall) GetUnmutedVideoLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.UnmutedVideoLimit
 }
 
 // GetVersion returns value of Version field.
 func (g *GroupCall) GetVersion() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Version
 }
 

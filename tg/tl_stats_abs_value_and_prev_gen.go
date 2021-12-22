@@ -175,10 +175,16 @@ func (s *StatsAbsValueAndPrev) DecodeBare(b *bin.Buffer) error {
 
 // GetCurrent returns value of Current field.
 func (s *StatsAbsValueAndPrev) GetCurrent() (value float64) {
+	if s == nil {
+		return
+	}
 	return s.Current
 }
 
 // GetPrevious returns value of Previous field.
 func (s *StatsAbsValueAndPrev) GetPrevious() (value float64) {
+	if s == nil {
+		return
+	}
 	return s.Previous
 }

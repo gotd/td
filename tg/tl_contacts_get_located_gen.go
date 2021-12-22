@@ -243,11 +243,17 @@ func (g *ContactsGetLocatedRequest) SetBackground(value bool) {
 
 // GetBackground returns value of Background conditional field.
 func (g *ContactsGetLocatedRequest) GetBackground() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(1)
 }
 
 // GetGeoPoint returns value of GeoPoint field.
 func (g *ContactsGetLocatedRequest) GetGeoPoint() (value InputGeoPointClass) {
+	if g == nil {
+		return
+	}
 	return g.GeoPoint
 }
 
@@ -260,6 +266,9 @@ func (g *ContactsGetLocatedRequest) SetSelfExpires(value int) {
 // GetSelfExpires returns value of SelfExpires conditional field and
 // boolean which is true if field was set.
 func (g *ContactsGetLocatedRequest) GetSelfExpires() (value int, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(0) {
 		return value, false
 	}

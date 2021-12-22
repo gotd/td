@@ -201,21 +201,33 @@ func (m *MsgDetailedInfo) DecodeBare(b *bin.Buffer) error {
 
 // GetMsgID returns value of MsgID field.
 func (m *MsgDetailedInfo) GetMsgID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.MsgID
 }
 
 // GetAnswerMsgID returns value of AnswerMsgID field.
 func (m *MsgDetailedInfo) GetAnswerMsgID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.AnswerMsgID
 }
 
 // GetBytes returns value of Bytes field.
 func (m *MsgDetailedInfo) GetBytes() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Bytes
 }
 
 // GetStatus returns value of Status field.
 func (m *MsgDetailedInfo) GetStatus() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Status
 }
 
@@ -372,16 +384,25 @@ func (m *MsgNewDetailedInfo) DecodeBare(b *bin.Buffer) error {
 
 // GetAnswerMsgID returns value of AnswerMsgID field.
 func (m *MsgNewDetailedInfo) GetAnswerMsgID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.AnswerMsgID
 }
 
 // GetBytes returns value of Bytes field.
 func (m *MsgNewDetailedInfo) GetBytes() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Bytes
 }
 
 // GetStatus returns value of Status field.
 func (m *MsgNewDetailedInfo) GetStatus() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Status
 }
 

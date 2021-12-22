@@ -167,6 +167,9 @@ func (c *UploadCDNFileReuploadNeeded) DecodeBare(b *bin.Buffer) error {
 
 // GetRequestToken returns value of RequestToken field.
 func (c *UploadCDNFileReuploadNeeded) GetRequestToken() (value []byte) {
+	if c == nil {
+		return
+	}
 	return c.RequestToken
 }
 
@@ -302,6 +305,9 @@ func (c *UploadCDNFile) DecodeBare(b *bin.Buffer) error {
 
 // GetBytes returns value of Bytes field.
 func (c *UploadCDNFile) GetBytes() (value []byte) {
+	if c == nil {
+		return
+	}
 	return c.Bytes
 }
 

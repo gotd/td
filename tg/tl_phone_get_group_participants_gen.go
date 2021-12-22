@@ -272,26 +272,41 @@ func (g *PhoneGetGroupParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetCall returns value of Call field.
 func (g *PhoneGetGroupParticipantsRequest) GetCall() (value InputGroupCall) {
+	if g == nil {
+		return
+	}
 	return g.Call
 }
 
 // GetIDs returns value of IDs field.
 func (g *PhoneGetGroupParticipantsRequest) GetIDs() (value []InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.IDs
 }
 
 // GetSources returns value of Sources field.
 func (g *PhoneGetGroupParticipantsRequest) GetSources() (value []int) {
+	if g == nil {
+		return
+	}
 	return g.Sources
 }
 
 // GetOffset returns value of Offset field.
 func (g *PhoneGetGroupParticipantsRequest) GetOffset() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 
 // GetLimit returns value of Limit field.
 func (g *PhoneGetGroupParticipantsRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

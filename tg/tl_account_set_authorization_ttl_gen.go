@@ -154,6 +154,9 @@ func (s *AccountSetAuthorizationTTLRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetAuthorizationTTLDays returns value of AuthorizationTTLDays field.
 func (s *AccountSetAuthorizationTTLRequest) GetAuthorizationTTLDays() (value int) {
+	if s == nil {
+		return
+	}
 	return s.AuthorizationTTLDays
 }
 

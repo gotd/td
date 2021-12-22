@@ -193,6 +193,9 @@ func (c *CheckCreatedPublicChatsLimitRequest) DecodeTDLibJSON(b tdjson.Decoder) 
 
 // GetType returns value of Type field.
 func (c *CheckCreatedPublicChatsLimitRequest) GetType() (value PublicChatTypeClass) {
+	if c == nil {
+		return
+	}
 	return c.Type
 }
 

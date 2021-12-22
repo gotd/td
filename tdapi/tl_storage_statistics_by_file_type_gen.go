@@ -243,15 +243,24 @@ func (s *StorageStatisticsByFileType) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFileType returns value of FileType field.
 func (s *StorageStatisticsByFileType) GetFileType() (value FileTypeClass) {
+	if s == nil {
+		return
+	}
 	return s.FileType
 }
 
 // GetSize returns value of Size field.
 func (s *StorageStatisticsByFileType) GetSize() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.Size
 }
 
 // GetCount returns value of Count field.
 func (s *StorageStatisticsByFileType) GetCount() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Count
 }

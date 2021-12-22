@@ -286,16 +286,25 @@ func (c *HelpCountry) SetHidden(value bool) {
 
 // GetHidden returns value of Hidden conditional field.
 func (c *HelpCountry) GetHidden() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(0)
 }
 
 // GetIso2 returns value of Iso2 field.
 func (c *HelpCountry) GetIso2() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Iso2
 }
 
 // GetDefaultName returns value of DefaultName field.
 func (c *HelpCountry) GetDefaultName() (value string) {
+	if c == nil {
+		return
+	}
 	return c.DefaultName
 }
 
@@ -308,6 +317,9 @@ func (c *HelpCountry) SetName(value string) {
 // GetName returns value of Name conditional field and
 // boolean which is true if field was set.
 func (c *HelpCountry) GetName() (value string, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(1) {
 		return value, false
 	}
@@ -316,5 +328,8 @@ func (c *HelpCountry) GetName() (value string, ok bool) {
 
 // GetCountryCodes returns value of CountryCodes field.
 func (c *HelpCountry) GetCountryCodes() (value []HelpCountryCode) {
+	if c == nil {
+		return
+	}
 	return c.CountryCodes
 }

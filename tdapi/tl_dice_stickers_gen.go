@@ -188,6 +188,9 @@ func (d *DiceStickersRegular) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSticker returns value of Sticker field.
 func (d *DiceStickersRegular) GetSticker() (value Sticker) {
+	if d == nil {
+		return
+	}
 	return d.Sticker
 }
 
@@ -450,26 +453,41 @@ func (d *DiceStickersSlotMachine) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBackground returns value of Background field.
 func (d *DiceStickersSlotMachine) GetBackground() (value Sticker) {
+	if d == nil {
+		return
+	}
 	return d.Background
 }
 
 // GetLever returns value of Lever field.
 func (d *DiceStickersSlotMachine) GetLever() (value Sticker) {
+	if d == nil {
+		return
+	}
 	return d.Lever
 }
 
 // GetLeftReel returns value of LeftReel field.
 func (d *DiceStickersSlotMachine) GetLeftReel() (value Sticker) {
+	if d == nil {
+		return
+	}
 	return d.LeftReel
 }
 
 // GetCenterReel returns value of CenterReel field.
 func (d *DiceStickersSlotMachine) GetCenterReel() (value Sticker) {
+	if d == nil {
+		return
+	}
 	return d.CenterReel
 }
 
 // GetRightReel returns value of RightReel field.
 func (d *DiceStickersSlotMachine) GetRightReel() (value Sticker) {
+	if d == nil {
+		return
+	}
 	return d.RightReel
 }
 

@@ -196,16 +196,25 @@ func (g *UploadGetCDNFileRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetFileToken returns value of FileToken field.
 func (g *UploadGetCDNFileRequest) GetFileToken() (value []byte) {
+	if g == nil {
+		return
+	}
 	return g.FileToken
 }
 
 // GetOffset returns value of Offset field.
 func (g *UploadGetCDNFileRequest) GetOffset() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 
 // GetLimit returns value of Limit field.
 func (g *UploadGetCDNFileRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

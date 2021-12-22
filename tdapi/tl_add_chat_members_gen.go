@@ -231,11 +231,17 @@ func (a *AddChatMembersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (a *AddChatMembersRequest) GetChatID() (value int64) {
+	if a == nil {
+		return
+	}
 	return a.ChatID
 }
 
 // GetUserIDs returns value of UserIDs field.
 func (a *AddChatMembersRequest) GetUserIDs() (value []int64) {
+	if a == nil {
+		return
+	}
 	return a.UserIDs
 }
 

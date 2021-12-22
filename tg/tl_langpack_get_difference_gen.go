@@ -193,16 +193,25 @@ func (g *LangpackGetDifferenceRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetLangPack returns value of LangPack field.
 func (g *LangpackGetDifferenceRequest) GetLangPack() (value string) {
+	if g == nil {
+		return
+	}
 	return g.LangPack
 }
 
 // GetLangCode returns value of LangCode field.
 func (g *LangpackGetDifferenceRequest) GetLangCode() (value string) {
+	if g == nil {
+		return
+	}
 	return g.LangCode
 }
 
 // GetFromVersion returns value of FromVersion field.
 func (g *LangpackGetDifferenceRequest) GetFromVersion() (value int) {
+	if g == nil {
+		return
+	}
 	return g.FromVersion
 }
 

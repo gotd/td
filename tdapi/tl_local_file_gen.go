@@ -363,40 +363,64 @@ func (l *LocalFile) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPath returns value of Path field.
 func (l *LocalFile) GetPath() (value string) {
+	if l == nil {
+		return
+	}
 	return l.Path
 }
 
 // GetCanBeDownloaded returns value of CanBeDownloaded field.
 func (l *LocalFile) GetCanBeDownloaded() (value bool) {
+	if l == nil {
+		return
+	}
 	return l.CanBeDownloaded
 }
 
 // GetCanBeDeleted returns value of CanBeDeleted field.
 func (l *LocalFile) GetCanBeDeleted() (value bool) {
+	if l == nil {
+		return
+	}
 	return l.CanBeDeleted
 }
 
 // GetIsDownloadingActive returns value of IsDownloadingActive field.
 func (l *LocalFile) GetIsDownloadingActive() (value bool) {
+	if l == nil {
+		return
+	}
 	return l.IsDownloadingActive
 }
 
 // GetIsDownloadingCompleted returns value of IsDownloadingCompleted field.
 func (l *LocalFile) GetIsDownloadingCompleted() (value bool) {
+	if l == nil {
+		return
+	}
 	return l.IsDownloadingCompleted
 }
 
 // GetDownloadOffset returns value of DownloadOffset field.
 func (l *LocalFile) GetDownloadOffset() (value int32) {
+	if l == nil {
+		return
+	}
 	return l.DownloadOffset
 }
 
 // GetDownloadedPrefixSize returns value of DownloadedPrefixSize field.
 func (l *LocalFile) GetDownloadedPrefixSize() (value int32) {
+	if l == nil {
+		return
+	}
 	return l.DownloadedPrefixSize
 }
 
 // GetDownloadedSize returns value of DownloadedSize field.
 func (l *LocalFile) GetDownloadedSize() (value int32) {
+	if l == nil {
+		return
+	}
 	return l.DownloadedSize
 }

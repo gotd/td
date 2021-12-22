@@ -284,21 +284,33 @@ func (f *ContactsFound) DecodeBare(b *bin.Buffer) error {
 
 // GetMyResults returns value of MyResults field.
 func (f *ContactsFound) GetMyResults() (value []PeerClass) {
+	if f == nil {
+		return
+	}
 	return f.MyResults
 }
 
 // GetResults returns value of Results field.
 func (f *ContactsFound) GetResults() (value []PeerClass) {
+	if f == nil {
+		return
+	}
 	return f.Results
 }
 
 // GetChats returns value of Chats field.
 func (f *ContactsFound) GetChats() (value []ChatClass) {
+	if f == nil {
+		return
+	}
 	return f.Chats
 }
 
 // GetUsers returns value of Users field.
 func (f *ContactsFound) GetUsers() (value []UserClass) {
+	if f == nil {
+		return
+	}
 	return f.Users
 }
 

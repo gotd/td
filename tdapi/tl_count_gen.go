@@ -183,5 +183,8 @@ func (c *Count) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCount returns value of Count field.
 func (c *Count) GetCount() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.Count
 }

@@ -412,21 +412,33 @@ func (s *MessagesSearchResultsCalendar) SetInexact(value bool) {
 
 // GetInexact returns value of Inexact conditional field.
 func (s *MessagesSearchResultsCalendar) GetInexact() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(0)
 }
 
 // GetCount returns value of Count field.
 func (s *MessagesSearchResultsCalendar) GetCount() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Count
 }
 
 // GetMinDate returns value of MinDate field.
 func (s *MessagesSearchResultsCalendar) GetMinDate() (value int) {
+	if s == nil {
+		return
+	}
 	return s.MinDate
 }
 
 // GetMinMsgID returns value of MinMsgID field.
 func (s *MessagesSearchResultsCalendar) GetMinMsgID() (value int) {
+	if s == nil {
+		return
+	}
 	return s.MinMsgID
 }
 
@@ -439,6 +451,9 @@ func (s *MessagesSearchResultsCalendar) SetOffsetIDOffset(value int) {
 // GetOffsetIDOffset returns value of OffsetIDOffset conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSearchResultsCalendar) GetOffsetIDOffset() (value int, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(1) {
 		return value, false
 	}
@@ -447,21 +462,33 @@ func (s *MessagesSearchResultsCalendar) GetOffsetIDOffset() (value int, ok bool)
 
 // GetPeriods returns value of Periods field.
 func (s *MessagesSearchResultsCalendar) GetPeriods() (value []SearchResultsCalendarPeriod) {
+	if s == nil {
+		return
+	}
 	return s.Periods
 }
 
 // GetMessages returns value of Messages field.
 func (s *MessagesSearchResultsCalendar) GetMessages() (value []MessageClass) {
+	if s == nil {
+		return
+	}
 	return s.Messages
 }
 
 // GetChats returns value of Chats field.
 func (s *MessagesSearchResultsCalendar) GetChats() (value []ChatClass) {
+	if s == nil {
+		return
+	}
 	return s.Chats
 }
 
 // GetUsers returns value of Users field.
 func (s *MessagesSearchResultsCalendar) GetUsers() (value []UserClass) {
+	if s == nil {
+		return
+	}
 	return s.Users
 }
 

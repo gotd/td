@@ -183,6 +183,9 @@ func (t *TestSquareIntRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetX returns value of X field.
 func (t *TestSquareIntRequest) GetX() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.X
 }
 

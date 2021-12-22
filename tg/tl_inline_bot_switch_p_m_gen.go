@@ -175,10 +175,16 @@ func (i *InlineBotSwitchPM) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (i *InlineBotSwitchPM) GetText() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Text
 }
 
 // GetStartParam returns value of StartParam field.
 func (i *InlineBotSwitchPM) GetStartParam() (value string) {
+	if i == nil {
+		return
+	}
 	return i.StartParam
 }

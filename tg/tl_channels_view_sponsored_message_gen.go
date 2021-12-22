@@ -179,11 +179,17 @@ func (v *ChannelsViewSponsoredMessageRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (v *ChannelsViewSponsoredMessageRequest) GetChannel() (value InputChannelClass) {
+	if v == nil {
+		return
+	}
 	return v.Channel
 }
 
 // GetRandomID returns value of RandomID field.
 func (v *ChannelsViewSponsoredMessageRequest) GetRandomID() (value []byte) {
+	if v == nil {
+		return
+	}
 	return v.RandomID
 }
 

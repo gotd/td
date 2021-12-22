@@ -233,15 +233,24 @@ func (c *CallbackQueryAnswer) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (c *CallbackQueryAnswer) GetText() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Text
 }
 
 // GetShowAlert returns value of ShowAlert field.
 func (c *CallbackQueryAnswer) GetShowAlert() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.ShowAlert
 }
 
 // GetURL returns value of URL field.
 func (c *CallbackQueryAnswer) GetURL() (value string) {
+	if c == nil {
+		return
+	}
 	return c.URL
 }

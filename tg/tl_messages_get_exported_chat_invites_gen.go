@@ -320,16 +320,25 @@ func (g *MessagesGetExportedChatInvitesRequest) SetRevoked(value bool) {
 
 // GetRevoked returns value of Revoked conditional field.
 func (g *MessagesGetExportedChatInvitesRequest) GetRevoked() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(3)
 }
 
 // GetPeer returns value of Peer field.
 func (g *MessagesGetExportedChatInvitesRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
 // GetAdminID returns value of AdminID field.
 func (g *MessagesGetExportedChatInvitesRequest) GetAdminID() (value InputUserClass) {
+	if g == nil {
+		return
+	}
 	return g.AdminID
 }
 
@@ -342,6 +351,9 @@ func (g *MessagesGetExportedChatInvitesRequest) SetOffsetDate(value int) {
 // GetOffsetDate returns value of OffsetDate conditional field and
 // boolean which is true if field was set.
 func (g *MessagesGetExportedChatInvitesRequest) GetOffsetDate() (value int, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(2) {
 		return value, false
 	}
@@ -357,6 +369,9 @@ func (g *MessagesGetExportedChatInvitesRequest) SetOffsetLink(value string) {
 // GetOffsetLink returns value of OffsetLink conditional field and
 // boolean which is true if field was set.
 func (g *MessagesGetExportedChatInvitesRequest) GetOffsetLink() (value string, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(2) {
 		return value, false
 	}
@@ -365,6 +380,9 @@ func (g *MessagesGetExportedChatInvitesRequest) GetOffsetLink() (value string, o
 
 // GetLimit returns value of Limit field.
 func (g *MessagesGetExportedChatInvitesRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

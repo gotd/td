@@ -160,6 +160,9 @@ func (g *AccountGetPrivacyRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetKey returns value of Key field.
 func (g *AccountGetPrivacyRequest) GetKey() (value InputPrivacyKeyClass) {
+	if g == nil {
+		return
+	}
 	return g.Key
 }
 

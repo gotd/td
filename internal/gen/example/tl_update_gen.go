@@ -169,10 +169,16 @@ func (u *Update) DecodeBare(b *bin.Buffer) error {
 
 // GetMsg returns value of Msg field.
 func (u *Update) GetMsg() (value AbstractMessageClass) {
+	if u == nil {
+		return
+	}
 	return u.Msg
 }
 
 // GetDelay returns value of Delay field.
 func (u *Update) GetDelay() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.Delay
 }

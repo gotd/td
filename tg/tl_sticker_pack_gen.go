@@ -192,10 +192,16 @@ func (s *StickerPack) DecodeBare(b *bin.Buffer) error {
 
 // GetEmoticon returns value of Emoticon field.
 func (s *StickerPack) GetEmoticon() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Emoticon
 }
 
 // GetDocuments returns value of Documents field.
 func (s *StickerPack) GetDocuments() (value []int64) {
+	if s == nil {
+		return
+	}
 	return s.Documents
 }

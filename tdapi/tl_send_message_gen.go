@@ -328,31 +328,49 @@ func (s *SendMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (s *SendMessageRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetMessageThreadID returns value of MessageThreadID field.
 func (s *SendMessageRequest) GetMessageThreadID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.MessageThreadID
 }
 
 // GetReplyToMessageID returns value of ReplyToMessageID field.
 func (s *SendMessageRequest) GetReplyToMessageID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ReplyToMessageID
 }
 
 // GetOptions returns value of Options field.
 func (s *SendMessageRequest) GetOptions() (value MessageSendOptions) {
+	if s == nil {
+		return
+	}
 	return s.Options
 }
 
 // GetReplyMarkup returns value of ReplyMarkup field.
 func (s *SendMessageRequest) GetReplyMarkup() (value ReplyMarkupClass) {
+	if s == nil {
+		return
+	}
 	return s.ReplyMarkup
 }
 
 // GetInputMessageContent returns value of InputMessageContent field.
 func (s *SendMessageRequest) GetInputMessageContent() (value InputMessageContentClass) {
+	if s == nil {
+		return
+	}
 	return s.InputMessageContent
 }
 

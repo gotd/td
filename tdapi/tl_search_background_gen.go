@@ -183,6 +183,9 @@ func (s *SearchBackgroundRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetName returns value of Name field.
 func (s *SearchBackgroundRequest) GetName() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Name
 }
 

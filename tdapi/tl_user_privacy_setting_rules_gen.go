@@ -215,5 +215,8 @@ func (u *UserPrivacySettingRules) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetRules returns value of Rules field.
 func (u *UserPrivacySettingRules) GetRules() (value []UserPrivacySettingRuleClass) {
+	if u == nil {
+		return
+	}
 	return u.Rules
 }

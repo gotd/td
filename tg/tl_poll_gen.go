@@ -360,6 +360,9 @@ func (p *Poll) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (p *Poll) GetID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ID
 }
 
@@ -376,6 +379,9 @@ func (p *Poll) SetClosed(value bool) {
 
 // GetClosed returns value of Closed conditional field.
 func (p *Poll) GetClosed() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(0)
 }
 
@@ -392,6 +398,9 @@ func (p *Poll) SetPublicVoters(value bool) {
 
 // GetPublicVoters returns value of PublicVoters conditional field.
 func (p *Poll) GetPublicVoters() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(1)
 }
 
@@ -408,6 +417,9 @@ func (p *Poll) SetMultipleChoice(value bool) {
 
 // GetMultipleChoice returns value of MultipleChoice conditional field.
 func (p *Poll) GetMultipleChoice() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(2)
 }
 
@@ -424,16 +436,25 @@ func (p *Poll) SetQuiz(value bool) {
 
 // GetQuiz returns value of Quiz conditional field.
 func (p *Poll) GetQuiz() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(3)
 }
 
 // GetQuestion returns value of Question field.
 func (p *Poll) GetQuestion() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Question
 }
 
 // GetAnswers returns value of Answers field.
 func (p *Poll) GetAnswers() (value []PollAnswer) {
+	if p == nil {
+		return
+	}
 	return p.Answers
 }
 
@@ -446,6 +467,9 @@ func (p *Poll) SetClosePeriod(value int) {
 // GetClosePeriod returns value of ClosePeriod conditional field and
 // boolean which is true if field was set.
 func (p *Poll) GetClosePeriod() (value int, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(4) {
 		return value, false
 	}
@@ -461,6 +485,9 @@ func (p *Poll) SetCloseDate(value int) {
 // GetCloseDate returns value of CloseDate conditional field and
 // boolean which is true if field was set.
 func (p *Poll) GetCloseDate() (value int, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(5) {
 		return value, false
 	}

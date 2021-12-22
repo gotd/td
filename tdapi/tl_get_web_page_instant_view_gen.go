@@ -208,11 +208,17 @@ func (g *GetWebPageInstantViewRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetURL returns value of URL field.
 func (g *GetWebPageInstantViewRequest) GetURL() (value string) {
+	if g == nil {
+		return
+	}
 	return g.URL
 }
 
 // GetForceFull returns value of ForceFull field.
 func (g *GetWebPageInstantViewRequest) GetForceFull() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.ForceFull
 }
 

@@ -217,16 +217,25 @@ func (r *ChannelsReportSpamRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (r *ChannelsReportSpamRequest) GetChannel() (value InputChannelClass) {
+	if r == nil {
+		return
+	}
 	return r.Channel
 }
 
 // GetParticipant returns value of Participant field.
 func (r *ChannelsReportSpamRequest) GetParticipant() (value InputPeerClass) {
+	if r == nil {
+		return
+	}
 	return r.Participant
 }
 
 // GetID returns value of ID field.
 func (r *ChannelsReportSpamRequest) GetID() (value []int) {
+	if r == nil {
+		return
+	}
 	return r.ID
 }
 

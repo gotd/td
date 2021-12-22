@@ -317,6 +317,9 @@ func (u *UserStatusOnline) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetExpires returns value of Expires field.
 func (u *UserStatusOnline) GetExpires() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.Expires
 }
 
@@ -477,6 +480,9 @@ func (u *UserStatusOffline) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetWasOnline returns value of WasOnline field.
 func (u *UserStatusOffline) GetWasOnline() (value int32) {
+	if u == nil {
+		return
+	}
 	return u.WasOnline
 }
 

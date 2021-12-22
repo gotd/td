@@ -168,6 +168,9 @@ func (g *MessagesGetChatsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (g *MessagesGetChatsRequest) GetID() (value []int64) {
+	if g == nil {
+		return
+	}
 	return g.ID
 }
 

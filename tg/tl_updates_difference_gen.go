@@ -179,11 +179,17 @@ func (d *UpdatesDifferenceEmpty) DecodeBare(b *bin.Buffer) error {
 
 // GetDate returns value of Date field.
 func (d *UpdatesDifferenceEmpty) GetDate() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Date
 }
 
 // GetSeq returns value of Seq field.
 func (d *UpdatesDifferenceEmpty) GetSeq() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Seq
 }
 
@@ -501,31 +507,49 @@ func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
 
 // GetNewMessages returns value of NewMessages field.
 func (d *UpdatesDifference) GetNewMessages() (value []MessageClass) {
+	if d == nil {
+		return
+	}
 	return d.NewMessages
 }
 
 // GetNewEncryptedMessages returns value of NewEncryptedMessages field.
 func (d *UpdatesDifference) GetNewEncryptedMessages() (value []EncryptedMessageClass) {
+	if d == nil {
+		return
+	}
 	return d.NewEncryptedMessages
 }
 
 // GetOtherUpdates returns value of OtherUpdates field.
 func (d *UpdatesDifference) GetOtherUpdates() (value []UpdateClass) {
+	if d == nil {
+		return
+	}
 	return d.OtherUpdates
 }
 
 // GetChats returns value of Chats field.
 func (d *UpdatesDifference) GetChats() (value []ChatClass) {
+	if d == nil {
+		return
+	}
 	return d.Chats
 }
 
 // GetUsers returns value of Users field.
 func (d *UpdatesDifference) GetUsers() (value []UserClass) {
+	if d == nil {
+		return
+	}
 	return d.Users
 }
 
 // GetState returns value of State field.
 func (d *UpdatesDifference) GetState() (value UpdatesState) {
+	if d == nil {
+		return
+	}
 	return d.State
 }
 
@@ -871,31 +895,49 @@ func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
 
 // GetNewMessages returns value of NewMessages field.
 func (d *UpdatesDifferenceSlice) GetNewMessages() (value []MessageClass) {
+	if d == nil {
+		return
+	}
 	return d.NewMessages
 }
 
 // GetNewEncryptedMessages returns value of NewEncryptedMessages field.
 func (d *UpdatesDifferenceSlice) GetNewEncryptedMessages() (value []EncryptedMessageClass) {
+	if d == nil {
+		return
+	}
 	return d.NewEncryptedMessages
 }
 
 // GetOtherUpdates returns value of OtherUpdates field.
 func (d *UpdatesDifferenceSlice) GetOtherUpdates() (value []UpdateClass) {
+	if d == nil {
+		return
+	}
 	return d.OtherUpdates
 }
 
 // GetChats returns value of Chats field.
 func (d *UpdatesDifferenceSlice) GetChats() (value []ChatClass) {
+	if d == nil {
+		return
+	}
 	return d.Chats
 }
 
 // GetUsers returns value of Users field.
 func (d *UpdatesDifferenceSlice) GetUsers() (value []UserClass) {
+	if d == nil {
+		return
+	}
 	return d.Users
 }
 
 // GetIntermediateState returns value of IntermediateState field.
 func (d *UpdatesDifferenceSlice) GetIntermediateState() (value UpdatesState) {
+	if d == nil {
+		return
+	}
 	return d.IntermediateState
 }
 
@@ -1056,6 +1098,9 @@ func (d *UpdatesDifferenceTooLong) DecodeBare(b *bin.Buffer) error {
 
 // GetPts returns value of Pts field.
 func (d *UpdatesDifferenceTooLong) GetPts() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Pts
 }
 

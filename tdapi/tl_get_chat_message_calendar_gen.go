@@ -246,16 +246,25 @@ func (g *GetChatMessageCalendarRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetChatID returns value of ChatID field.
 func (g *GetChatMessageCalendarRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetFilter returns value of Filter field.
 func (g *GetChatMessageCalendarRequest) GetFilter() (value SearchMessagesFilterClass) {
+	if g == nil {
+		return
+	}
 	return g.Filter
 }
 
 // GetFromMessageID returns value of FromMessageID field.
 func (g *GetChatMessageCalendarRequest) GetFromMessageID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.FromMessageID
 }
 

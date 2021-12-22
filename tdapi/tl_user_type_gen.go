@@ -549,26 +549,41 @@ func (u *UserTypeBot) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCanJoinGroups returns value of CanJoinGroups field.
 func (u *UserTypeBot) GetCanJoinGroups() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.CanJoinGroups
 }
 
 // GetCanReadAllGroupMessages returns value of CanReadAllGroupMessages field.
 func (u *UserTypeBot) GetCanReadAllGroupMessages() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.CanReadAllGroupMessages
 }
 
 // GetIsInline returns value of IsInline field.
 func (u *UserTypeBot) GetIsInline() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.IsInline
 }
 
 // GetInlineQueryPlaceholder returns value of InlineQueryPlaceholder field.
 func (u *UserTypeBot) GetInlineQueryPlaceholder() (value string) {
+	if u == nil {
+		return
+	}
 	return u.InlineQueryPlaceholder
 }
 
 // GetNeedLocation returns value of NeedLocation field.
 func (u *UserTypeBot) GetNeedLocation() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.NeedLocation
 }
 

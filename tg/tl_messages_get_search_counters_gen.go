@@ -201,11 +201,17 @@ func (g *MessagesGetSearchCountersRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (g *MessagesGetSearchCountersRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
 // GetFilters returns value of Filters field.
 func (g *MessagesGetSearchCountersRequest) GetFilters() (value []MessagesFilterClass) {
+	if g == nil {
+		return
+	}
 	return g.Filters
 }
 

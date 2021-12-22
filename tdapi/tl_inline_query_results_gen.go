@@ -316,25 +316,40 @@ func (i *InlineQueryResults) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetInlineQueryID returns value of InlineQueryID field.
 func (i *InlineQueryResults) GetInlineQueryID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.InlineQueryID
 }
 
 // GetNextOffset returns value of NextOffset field.
 func (i *InlineQueryResults) GetNextOffset() (value string) {
+	if i == nil {
+		return
+	}
 	return i.NextOffset
 }
 
 // GetResults returns value of Results field.
 func (i *InlineQueryResults) GetResults() (value []InlineQueryResultClass) {
+	if i == nil {
+		return
+	}
 	return i.Results
 }
 
 // GetSwitchPmText returns value of SwitchPmText field.
 func (i *InlineQueryResults) GetSwitchPmText() (value string) {
+	if i == nil {
+		return
+	}
 	return i.SwitchPmText
 }
 
 // GetSwitchPmParameter returns value of SwitchPmParameter field.
 func (i *InlineQueryResults) GetSwitchPmParameter() (value string) {
+	if i == nil {
+		return
+	}
 	return i.SwitchPmParameter
 }

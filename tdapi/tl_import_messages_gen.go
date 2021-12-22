@@ -279,16 +279,25 @@ func (i *ImportMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (i *ImportMessagesRequest) GetChatID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ChatID
 }
 
 // GetMessageFile returns value of MessageFile field.
 func (i *ImportMessagesRequest) GetMessageFile() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.MessageFile
 }
 
 // GetAttachedFiles returns value of AttachedFiles field.
 func (i *ImportMessagesRequest) GetAttachedFiles() (value []InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.AttachedFiles
 }
 

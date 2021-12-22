@@ -233,15 +233,24 @@ func (c *ChatStatisticsMessageInteractionInfo) DecodeTDLibJSON(b tdjson.Decoder)
 
 // GetMessageID returns value of MessageID field.
 func (c *ChatStatisticsMessageInteractionInfo) GetMessageID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.MessageID
 }
 
 // GetViewCount returns value of ViewCount field.
 func (c *ChatStatisticsMessageInteractionInfo) GetViewCount() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.ViewCount
 }
 
 // GetForwardCount returns value of ForwardCount field.
 func (c *ChatStatisticsMessageInteractionInfo) GetForwardCount() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.ForwardCount
 }

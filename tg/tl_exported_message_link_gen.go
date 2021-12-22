@@ -174,10 +174,16 @@ func (e *ExportedMessageLink) DecodeBare(b *bin.Buffer) error {
 
 // GetLink returns value of Link field.
 func (e *ExportedMessageLink) GetLink() (value string) {
+	if e == nil {
+		return
+	}
 	return e.Link
 }
 
 // GetHTML returns value of HTML field.
 func (e *ExportedMessageLink) GetHTML() (value string) {
+	if e == nil {
+		return
+	}
 	return e.HTML
 }

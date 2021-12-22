@@ -260,10 +260,16 @@ func (p *PersonalDocument) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFiles returns value of Files field.
 func (p *PersonalDocument) GetFiles() (value []DatedFile) {
+	if p == nil {
+		return
+	}
 	return p.Files
 }
 
 // GetTranslation returns value of Translation field.
 func (p *PersonalDocument) GetTranslation() (value []DatedFile) {
+	if p == nil {
+		return
+	}
 	return p.Translation
 }

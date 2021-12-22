@@ -368,11 +368,17 @@ func (u *UserProfilePhoto) SetHasVideo(value bool) {
 
 // GetHasVideo returns value of HasVideo conditional field.
 func (u *UserProfilePhoto) GetHasVideo() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(0)
 }
 
 // GetPhotoID returns value of PhotoID field.
 func (u *UserProfilePhoto) GetPhotoID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.PhotoID
 }
 
@@ -385,6 +391,9 @@ func (u *UserProfilePhoto) SetStrippedThumb(value []byte) {
 // GetStrippedThumb returns value of StrippedThumb conditional field and
 // boolean which is true if field was set.
 func (u *UserProfilePhoto) GetStrippedThumb() (value []byte, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(1) {
 		return value, false
 	}
@@ -393,6 +402,9 @@ func (u *UserProfilePhoto) GetStrippedThumb() (value []byte, ok bool) {
 
 // GetDCID returns value of DCID field.
 func (u *UserProfilePhoto) GetDCID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.DCID
 }
 

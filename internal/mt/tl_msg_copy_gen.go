@@ -145,5 +145,8 @@ func (m *MsgCopy) DecodeBare(b *bin.Buffer) error {
 
 // GetOrigMessage returns value of OrigMessage field.
 func (m *MsgCopy) GetOrigMessage() (value Message) {
+	if m == nil {
+		return
+	}
 	return m.OrigMessage
 }

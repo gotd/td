@@ -208,11 +208,17 @@ func (s *SearchChatsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetQuery returns value of Query field.
 func (s *SearchChatsRequest) GetQuery() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Query
 }
 
 // GetLimit returns value of Limit field.
 func (s *SearchChatsRequest) GetLimit() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Limit
 }
 

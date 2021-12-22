@@ -183,6 +183,9 @@ func (g *GetAllPassportElementsRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetPassword returns value of Password field.
 func (g *GetAllPassportElementsRequest) GetPassword() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Password
 }
 

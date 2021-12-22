@@ -218,21 +218,33 @@ func (g *PhotosGetUserPhotosRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (g *PhotosGetUserPhotosRequest) GetUserID() (value InputUserClass) {
+	if g == nil {
+		return
+	}
 	return g.UserID
 }
 
 // GetOffset returns value of Offset field.
 func (g *PhotosGetUserPhotosRequest) GetOffset() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 
 // GetMaxID returns value of MaxID field.
 func (g *PhotosGetUserPhotosRequest) GetMaxID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.MaxID
 }
 
 // GetLimit returns value of Limit field.
 func (g *PhotosGetUserPhotosRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

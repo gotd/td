@@ -152,6 +152,9 @@ func (r *ResponseID) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (r *ResponseID) GetID() (value int32) {
+	if r == nil {
+		return
+	}
 	return r.ID
 }
 
@@ -276,6 +279,9 @@ func (r *ResponseText) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (r *ResponseText) GetText() (value string) {
+	if r == nil {
+		return
+	}
 	return r.Text
 }
 

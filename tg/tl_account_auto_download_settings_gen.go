@@ -193,15 +193,24 @@ func (a *AccountAutoDownloadSettings) DecodeBare(b *bin.Buffer) error {
 
 // GetLow returns value of Low field.
 func (a *AccountAutoDownloadSettings) GetLow() (value AutoDownloadSettings) {
+	if a == nil {
+		return
+	}
 	return a.Low
 }
 
 // GetMedium returns value of Medium field.
 func (a *AccountAutoDownloadSettings) GetMedium() (value AutoDownloadSettings) {
+	if a == nil {
+		return
+	}
 	return a.Medium
 }
 
 // GetHigh returns value of High field.
 func (a *AccountAutoDownloadSettings) GetHigh() (value AutoDownloadSettings) {
+	if a == nil {
+		return
+	}
 	return a.High
 }

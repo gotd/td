@@ -161,6 +161,9 @@ func (g *HelpGetAppChangelogRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPrevAppVersion returns value of PrevAppVersion field.
 func (g *HelpGetAppChangelogRequest) GetPrevAppVersion() (value string) {
+	if g == nil {
+		return
+	}
 	return g.PrevAppVersion
 }
 

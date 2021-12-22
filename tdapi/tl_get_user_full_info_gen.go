@@ -183,6 +183,9 @@ func (g *GetUserFullInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (g *GetUserFullInfoRequest) GetUserID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.UserID
 }
 

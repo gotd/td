@@ -329,6 +329,9 @@ func (g *MessagesGetDialogsRequest) SetExcludePinned(value bool) {
 
 // GetExcludePinned returns value of ExcludePinned conditional field.
 func (g *MessagesGetDialogsRequest) GetExcludePinned() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(0)
 }
 
@@ -341,6 +344,9 @@ func (g *MessagesGetDialogsRequest) SetFolderID(value int) {
 // GetFolderID returns value of FolderID conditional field and
 // boolean which is true if field was set.
 func (g *MessagesGetDialogsRequest) GetFolderID() (value int, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(1) {
 		return value, false
 	}
@@ -349,26 +355,41 @@ func (g *MessagesGetDialogsRequest) GetFolderID() (value int, ok bool) {
 
 // GetOffsetDate returns value of OffsetDate field.
 func (g *MessagesGetDialogsRequest) GetOffsetDate() (value int) {
+	if g == nil {
+		return
+	}
 	return g.OffsetDate
 }
 
 // GetOffsetID returns value of OffsetID field.
 func (g *MessagesGetDialogsRequest) GetOffsetID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.OffsetID
 }
 
 // GetOffsetPeer returns value of OffsetPeer field.
 func (g *MessagesGetDialogsRequest) GetOffsetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.OffsetPeer
 }
 
 // GetLimit returns value of Limit field.
 func (g *MessagesGetDialogsRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 
 // GetHash returns value of Hash field.
 func (g *MessagesGetDialogsRequest) GetHash() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.Hash
 }
 

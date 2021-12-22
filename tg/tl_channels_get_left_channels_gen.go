@@ -161,6 +161,9 @@ func (g *ChannelsGetLeftChannelsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (g *ChannelsGetLeftChannelsRequest) GetOffset() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 

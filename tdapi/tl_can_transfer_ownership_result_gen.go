@@ -450,6 +450,9 @@ func (c *CanTransferOwnershipResultPasswordTooFresh) DecodeTDLibJSON(b tdjson.De
 
 // GetRetryAfter returns value of RetryAfter field.
 func (c *CanTransferOwnershipResultPasswordTooFresh) GetRetryAfter() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.RetryAfter
 }
 
@@ -612,6 +615,9 @@ func (c *CanTransferOwnershipResultSessionTooFresh) DecodeTDLibJSON(b tdjson.Dec
 
 // GetRetryAfter returns value of RetryAfter field.
 func (c *CanTransferOwnershipResultSessionTooFresh) GetRetryAfter() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.RetryAfter
 }
 

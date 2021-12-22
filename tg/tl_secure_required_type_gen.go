@@ -245,6 +245,9 @@ func (s *SecureRequiredType) SetNativeNames(value bool) {
 
 // GetNativeNames returns value of NativeNames conditional field.
 func (s *SecureRequiredType) GetNativeNames() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(0)
 }
 
@@ -261,6 +264,9 @@ func (s *SecureRequiredType) SetSelfieRequired(value bool) {
 
 // GetSelfieRequired returns value of SelfieRequired conditional field.
 func (s *SecureRequiredType) GetSelfieRequired() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(1)
 }
 
@@ -277,11 +283,17 @@ func (s *SecureRequiredType) SetTranslationRequired(value bool) {
 
 // GetTranslationRequired returns value of TranslationRequired conditional field.
 func (s *SecureRequiredType) GetTranslationRequired() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(2)
 }
 
 // GetType returns value of Type field.
 func (s *SecureRequiredType) GetType() (value SecureValueTypeClass) {
+	if s == nil {
+		return
+	}
 	return s.Type
 }
 
@@ -432,6 +444,9 @@ func (s *SecureRequiredTypeOneOf) DecodeBare(b *bin.Buffer) error {
 
 // GetTypes returns value of Types field.
 func (s *SecureRequiredTypeOneOf) GetTypes() (value []SecureRequiredTypeClass) {
+	if s == nil {
+		return
+	}
 	return s.Types
 }
 

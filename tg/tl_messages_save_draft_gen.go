@@ -311,6 +311,9 @@ func (s *MessagesSaveDraftRequest) SetNoWebpage(value bool) {
 
 // GetNoWebpage returns value of NoWebpage conditional field.
 func (s *MessagesSaveDraftRequest) GetNoWebpage() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(1)
 }
 
@@ -323,6 +326,9 @@ func (s *MessagesSaveDraftRequest) SetReplyToMsgID(value int) {
 // GetReplyToMsgID returns value of ReplyToMsgID conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSaveDraftRequest) GetReplyToMsgID() (value int, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(0) {
 		return value, false
 	}
@@ -331,11 +337,17 @@ func (s *MessagesSaveDraftRequest) GetReplyToMsgID() (value int, ok bool) {
 
 // GetPeer returns value of Peer field.
 func (s *MessagesSaveDraftRequest) GetPeer() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
 // GetMessage returns value of Message field.
 func (s *MessagesSaveDraftRequest) GetMessage() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Message
 }
 
@@ -348,6 +360,9 @@ func (s *MessagesSaveDraftRequest) SetEntities(value []MessageEntityClass) {
 // GetEntities returns value of Entities conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSaveDraftRequest) GetEntities() (value []MessageEntityClass, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(3) {
 		return value, false
 	}

@@ -435,50 +435,80 @@ func (s *Sticker) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSetID returns value of SetID field.
 func (s *Sticker) GetSetID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.SetID
 }
 
 // GetWidth returns value of Width field.
 func (s *Sticker) GetWidth() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Width
 }
 
 // GetHeight returns value of Height field.
 func (s *Sticker) GetHeight() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Height
 }
 
 // GetEmoji returns value of Emoji field.
 func (s *Sticker) GetEmoji() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Emoji
 }
 
 // GetIsAnimated returns value of IsAnimated field.
 func (s *Sticker) GetIsAnimated() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsAnimated
 }
 
 // GetIsMask returns value of IsMask field.
 func (s *Sticker) GetIsMask() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsMask
 }
 
 // GetMaskPosition returns value of MaskPosition field.
 func (s *Sticker) GetMaskPosition() (value MaskPosition) {
+	if s == nil {
+		return
+	}
 	return s.MaskPosition
 }
 
 // GetOutline returns value of Outline field.
 func (s *Sticker) GetOutline() (value []ClosedVectorPath) {
+	if s == nil {
+		return
+	}
 	return s.Outline
 }
 
 // GetThumbnail returns value of Thumbnail field.
 func (s *Sticker) GetThumbnail() (value Thumbnail) {
+	if s == nil {
+		return
+	}
 	return s.Thumbnail
 }
 
 // GetSticker returns value of Sticker field.
 func (s *Sticker) GetSticker() (value File) {
+	if s == nil {
+		return
+	}
 	return s.Sticker
 }

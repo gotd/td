@@ -180,11 +180,17 @@ func (r *MessagesReadHistoryRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (r *MessagesReadHistoryRequest) GetPeer() (value InputPeerClass) {
+	if r == nil {
+		return
+	}
 	return r.Peer
 }
 
 // GetMaxID returns value of MaxID field.
 func (r *MessagesReadHistoryRequest) GetMaxID() (value int) {
+	if r == nil {
+		return
+	}
 	return r.MaxID
 }
 

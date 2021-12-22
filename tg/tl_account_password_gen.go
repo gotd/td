@@ -493,6 +493,9 @@ func (p *AccountPassword) SetHasRecovery(value bool) {
 
 // GetHasRecovery returns value of HasRecovery conditional field.
 func (p *AccountPassword) GetHasRecovery() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(0)
 }
 
@@ -509,6 +512,9 @@ func (p *AccountPassword) SetHasSecureValues(value bool) {
 
 // GetHasSecureValues returns value of HasSecureValues conditional field.
 func (p *AccountPassword) GetHasSecureValues() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(1)
 }
 
@@ -525,6 +531,9 @@ func (p *AccountPassword) SetHasPassword(value bool) {
 
 // GetHasPassword returns value of HasPassword conditional field.
 func (p *AccountPassword) GetHasPassword() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(2)
 }
 
@@ -537,6 +546,9 @@ func (p *AccountPassword) SetCurrentAlgo(value PasswordKdfAlgoClass) {
 // GetCurrentAlgo returns value of CurrentAlgo conditional field and
 // boolean which is true if field was set.
 func (p *AccountPassword) GetCurrentAlgo() (value PasswordKdfAlgoClass, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(2) {
 		return value, false
 	}
@@ -552,6 +564,9 @@ func (p *AccountPassword) SetSRPB(value []byte) {
 // GetSRPB returns value of SRPB conditional field and
 // boolean which is true if field was set.
 func (p *AccountPassword) GetSRPB() (value []byte, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(2) {
 		return value, false
 	}
@@ -567,6 +582,9 @@ func (p *AccountPassword) SetSRPID(value int64) {
 // GetSRPID returns value of SRPID conditional field and
 // boolean which is true if field was set.
 func (p *AccountPassword) GetSRPID() (value int64, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(2) {
 		return value, false
 	}
@@ -582,6 +600,9 @@ func (p *AccountPassword) SetHint(value string) {
 // GetHint returns value of Hint conditional field and
 // boolean which is true if field was set.
 func (p *AccountPassword) GetHint() (value string, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(3) {
 		return value, false
 	}
@@ -597,6 +618,9 @@ func (p *AccountPassword) SetEmailUnconfirmedPattern(value string) {
 // GetEmailUnconfirmedPattern returns value of EmailUnconfirmedPattern conditional field and
 // boolean which is true if field was set.
 func (p *AccountPassword) GetEmailUnconfirmedPattern() (value string, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(4) {
 		return value, false
 	}
@@ -605,16 +629,25 @@ func (p *AccountPassword) GetEmailUnconfirmedPattern() (value string, ok bool) {
 
 // GetNewAlgo returns value of NewAlgo field.
 func (p *AccountPassword) GetNewAlgo() (value PasswordKdfAlgoClass) {
+	if p == nil {
+		return
+	}
 	return p.NewAlgo
 }
 
 // GetNewSecureAlgo returns value of NewSecureAlgo field.
 func (p *AccountPassword) GetNewSecureAlgo() (value SecurePasswordKdfAlgoClass) {
+	if p == nil {
+		return
+	}
 	return p.NewSecureAlgo
 }
 
 // GetSecureRandom returns value of SecureRandom field.
 func (p *AccountPassword) GetSecureRandom() (value []byte) {
+	if p == nil {
+		return
+	}
 	return p.SecureRandom
 }
 
@@ -627,6 +660,9 @@ func (p *AccountPassword) SetPendingResetDate(value int) {
 // GetPendingResetDate returns value of PendingResetDate conditional field and
 // boolean which is true if field was set.
 func (p *AccountPassword) GetPendingResetDate() (value int, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(5) {
 		return value, false
 	}

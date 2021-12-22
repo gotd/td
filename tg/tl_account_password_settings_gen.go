@@ -234,6 +234,9 @@ func (p *AccountPasswordSettings) SetEmail(value string) {
 // GetEmail returns value of Email conditional field and
 // boolean which is true if field was set.
 func (p *AccountPasswordSettings) GetEmail() (value string, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(0) {
 		return value, false
 	}
@@ -249,6 +252,9 @@ func (p *AccountPasswordSettings) SetSecureSettings(value SecureSecretSettings) 
 // GetSecureSettings returns value of SecureSettings conditional field and
 // boolean which is true if field was set.
 func (p *AccountPasswordSettings) GetSecureSettings() (value SecureSecretSettings, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(1) {
 		return value, false
 	}

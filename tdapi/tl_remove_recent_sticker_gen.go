@@ -220,11 +220,17 @@ func (r *RemoveRecentStickerRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetIsAttached returns value of IsAttached field.
 func (r *RemoveRecentStickerRequest) GetIsAttached() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.IsAttached
 }
 
 // GetSticker returns value of Sticker field.
 func (r *RemoveRecentStickerRequest) GetSticker() (value InputFileClass) {
+	if r == nil {
+		return
+	}
 	return r.Sticker
 }
 

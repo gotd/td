@@ -155,6 +155,9 @@ func (r *ContactsResolveUsernameRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetUsername returns value of Username field.
 func (r *ContactsResolveUsernameRequest) GetUsername() (value string) {
+	if r == nil {
+		return
+	}
 	return r.Username
 }
 

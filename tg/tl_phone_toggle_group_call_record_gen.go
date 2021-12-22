@@ -280,6 +280,9 @@ func (t *PhoneToggleGroupCallRecordRequest) SetStart(value bool) {
 
 // GetStart returns value of Start conditional field.
 func (t *PhoneToggleGroupCallRecordRequest) GetStart() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.Flags.Has(0)
 }
 
@@ -296,11 +299,17 @@ func (t *PhoneToggleGroupCallRecordRequest) SetVideo(value bool) {
 
 // GetVideo returns value of Video conditional field.
 func (t *PhoneToggleGroupCallRecordRequest) GetVideo() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.Flags.Has(2)
 }
 
 // GetCall returns value of Call field.
 func (t *PhoneToggleGroupCallRecordRequest) GetCall() (value InputGroupCall) {
+	if t == nil {
+		return
+	}
 	return t.Call
 }
 
@@ -313,6 +322,9 @@ func (t *PhoneToggleGroupCallRecordRequest) SetTitle(value string) {
 // GetTitle returns value of Title conditional field and
 // boolean which is true if field was set.
 func (t *PhoneToggleGroupCallRecordRequest) GetTitle() (value string, ok bool) {
+	if t == nil {
+		return
+	}
 	if !t.Flags.Has(1) {
 		return value, false
 	}
@@ -328,6 +340,9 @@ func (t *PhoneToggleGroupCallRecordRequest) SetVideoPortrait(value bool) {
 // GetVideoPortrait returns value of VideoPortrait conditional field and
 // boolean which is true if field was set.
 func (t *PhoneToggleGroupCallRecordRequest) GetVideoPortrait() (value bool, ok bool) {
+	if t == nil {
+		return
+	}
 	if !t.Flags.Has(2) {
 		return value, false
 	}

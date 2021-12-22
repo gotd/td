@@ -240,16 +240,25 @@ func (i *InputMessageText) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (i *InputMessageText) GetText() (value FormattedText) {
+	if i == nil {
+		return
+	}
 	return i.Text
 }
 
 // GetDisableWebPagePreview returns value of DisableWebPagePreview field.
 func (i *InputMessageText) GetDisableWebPagePreview() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.DisableWebPagePreview
 }
 
 // GetClearDraft returns value of ClearDraft field.
 func (i *InputMessageText) GetClearDraft() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.ClearDraft
 }
 
@@ -593,36 +602,57 @@ func (i *InputMessageAnimation) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAnimation returns value of Animation field.
 func (i *InputMessageAnimation) GetAnimation() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.Animation
 }
 
 // GetThumbnail returns value of Thumbnail field.
 func (i *InputMessageAnimation) GetThumbnail() (value InputThumbnail) {
+	if i == nil {
+		return
+	}
 	return i.Thumbnail
 }
 
 // GetAddedStickerFileIDs returns value of AddedStickerFileIDs field.
 func (i *InputMessageAnimation) GetAddedStickerFileIDs() (value []int32) {
+	if i == nil {
+		return
+	}
 	return i.AddedStickerFileIDs
 }
 
 // GetDuration returns value of Duration field.
 func (i *InputMessageAnimation) GetDuration() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.Duration
 }
 
 // GetWidth returns value of Width field.
 func (i *InputMessageAnimation) GetWidth() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.Width
 }
 
 // GetHeight returns value of Height field.
 func (i *InputMessageAnimation) GetHeight() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.Height
 }
 
 // GetCaption returns value of Caption field.
 func (i *InputMessageAnimation) GetCaption() (value FormattedText) {
+	if i == nil {
+		return
+	}
 	return i.Caption
 }
 
@@ -919,31 +949,49 @@ func (i *InputMessageAudio) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAudio returns value of Audio field.
 func (i *InputMessageAudio) GetAudio() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.Audio
 }
 
 // GetAlbumCoverThumbnail returns value of AlbumCoverThumbnail field.
 func (i *InputMessageAudio) GetAlbumCoverThumbnail() (value InputThumbnail) {
+	if i == nil {
+		return
+	}
 	return i.AlbumCoverThumbnail
 }
 
 // GetDuration returns value of Duration field.
 func (i *InputMessageAudio) GetDuration() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.Duration
 }
 
 // GetTitle returns value of Title field.
 func (i *InputMessageAudio) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 
 // GetPerformer returns value of Performer field.
 func (i *InputMessageAudio) GetPerformer() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Performer
 }
 
 // GetCaption returns value of Caption field.
 func (i *InputMessageAudio) GetCaption() (value FormattedText) {
+	if i == nil {
+		return
+	}
 	return i.Caption
 }
 
@@ -1191,21 +1239,33 @@ func (i *InputMessageDocument) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetDocument returns value of Document field.
 func (i *InputMessageDocument) GetDocument() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.Document
 }
 
 // GetThumbnail returns value of Thumbnail field.
 func (i *InputMessageDocument) GetThumbnail() (value InputThumbnail) {
+	if i == nil {
+		return
+	}
 	return i.Thumbnail
 }
 
 // GetDisableContentTypeDetection returns value of DisableContentTypeDetection field.
 func (i *InputMessageDocument) GetDisableContentTypeDetection() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.DisableContentTypeDetection
 }
 
 // GetCaption returns value of Caption field.
 func (i *InputMessageDocument) GetCaption() (value FormattedText) {
+	if i == nil {
+		return
+	}
 	return i.Caption
 }
 
@@ -1551,36 +1611,57 @@ func (i *InputMessagePhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPhoto returns value of Photo field.
 func (i *InputMessagePhoto) GetPhoto() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.Photo
 }
 
 // GetThumbnail returns value of Thumbnail field.
 func (i *InputMessagePhoto) GetThumbnail() (value InputThumbnail) {
+	if i == nil {
+		return
+	}
 	return i.Thumbnail
 }
 
 // GetAddedStickerFileIDs returns value of AddedStickerFileIDs field.
 func (i *InputMessagePhoto) GetAddedStickerFileIDs() (value []int32) {
+	if i == nil {
+		return
+	}
 	return i.AddedStickerFileIDs
 }
 
 // GetWidth returns value of Width field.
 func (i *InputMessagePhoto) GetWidth() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.Width
 }
 
 // GetHeight returns value of Height field.
 func (i *InputMessagePhoto) GetHeight() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.Height
 }
 
 // GetCaption returns value of Caption field.
 func (i *InputMessagePhoto) GetCaption() (value FormattedText) {
+	if i == nil {
+		return
+	}
 	return i.Caption
 }
 
 // GetTTL returns value of TTL field.
 func (i *InputMessagePhoto) GetTTL() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.TTL
 }
 
@@ -1851,26 +1932,41 @@ func (i *InputMessageSticker) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSticker returns value of Sticker field.
 func (i *InputMessageSticker) GetSticker() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.Sticker
 }
 
 // GetThumbnail returns value of Thumbnail field.
 func (i *InputMessageSticker) GetThumbnail() (value InputThumbnail) {
+	if i == nil {
+		return
+	}
 	return i.Thumbnail
 }
 
 // GetWidth returns value of Width field.
 func (i *InputMessageSticker) GetWidth() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.Width
 }
 
 // GetHeight returns value of Height field.
 func (i *InputMessageSticker) GetHeight() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.Height
 }
 
 // GetEmoji returns value of Emoji field.
 func (i *InputMessageSticker) GetEmoji() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Emoji
 }
 
@@ -2265,46 +2361,73 @@ func (i *InputMessageVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetVideo returns value of Video field.
 func (i *InputMessageVideo) GetVideo() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.Video
 }
 
 // GetThumbnail returns value of Thumbnail field.
 func (i *InputMessageVideo) GetThumbnail() (value InputThumbnail) {
+	if i == nil {
+		return
+	}
 	return i.Thumbnail
 }
 
 // GetAddedStickerFileIDs returns value of AddedStickerFileIDs field.
 func (i *InputMessageVideo) GetAddedStickerFileIDs() (value []int32) {
+	if i == nil {
+		return
+	}
 	return i.AddedStickerFileIDs
 }
 
 // GetDuration returns value of Duration field.
 func (i *InputMessageVideo) GetDuration() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.Duration
 }
 
 // GetWidth returns value of Width field.
 func (i *InputMessageVideo) GetWidth() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.Width
 }
 
 // GetHeight returns value of Height field.
 func (i *InputMessageVideo) GetHeight() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.Height
 }
 
 // GetSupportsStreaming returns value of SupportsStreaming field.
 func (i *InputMessageVideo) GetSupportsStreaming() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.SupportsStreaming
 }
 
 // GetCaption returns value of Caption field.
 func (i *InputMessageVideo) GetCaption() (value FormattedText) {
+	if i == nil {
+		return
+	}
 	return i.Caption
 }
 
 // GetTTL returns value of TTL field.
 func (i *InputMessageVideo) GetTTL() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.TTL
 }
 
@@ -2550,21 +2673,33 @@ func (i *InputMessageVideoNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetVideoNote returns value of VideoNote field.
 func (i *InputMessageVideoNote) GetVideoNote() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.VideoNote
 }
 
 // GetThumbnail returns value of Thumbnail field.
 func (i *InputMessageVideoNote) GetThumbnail() (value InputThumbnail) {
+	if i == nil {
+		return
+	}
 	return i.Thumbnail
 }
 
 // GetDuration returns value of Duration field.
 func (i *InputMessageVideoNote) GetDuration() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.Duration
 }
 
 // GetLength returns value of Length field.
 func (i *InputMessageVideoNote) GetLength() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.Length
 }
 
@@ -2811,21 +2946,33 @@ func (i *InputMessageVoiceNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetVoiceNote returns value of VoiceNote field.
 func (i *InputMessageVoiceNote) GetVoiceNote() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.VoiceNote
 }
 
 // GetDuration returns value of Duration field.
 func (i *InputMessageVoiceNote) GetDuration() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.Duration
 }
 
 // GetWaveform returns value of Waveform field.
 func (i *InputMessageVoiceNote) GetWaveform() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.Waveform
 }
 
 // GetCaption returns value of Caption field.
 func (i *InputMessageVoiceNote) GetCaption() (value FormattedText) {
+	if i == nil {
+		return
+	}
 	return i.Caption
 }
 
@@ -3065,21 +3212,33 @@ func (i *InputMessageLocation) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLocation returns value of Location field.
 func (i *InputMessageLocation) GetLocation() (value Location) {
+	if i == nil {
+		return
+	}
 	return i.Location
 }
 
 // GetLivePeriod returns value of LivePeriod field.
 func (i *InputMessageLocation) GetLivePeriod() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.LivePeriod
 }
 
 // GetHeading returns value of Heading field.
 func (i *InputMessageLocation) GetHeading() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.Heading
 }
 
 // GetProximityAlertRadius returns value of ProximityAlertRadius field.
 func (i *InputMessageLocation) GetProximityAlertRadius() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.ProximityAlertRadius
 }
 
@@ -3240,6 +3399,9 @@ func (i *InputMessageVenue) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetVenue returns value of Venue field.
 func (i *InputMessageVenue) GetVenue() (value Venue) {
+	if i == nil {
+		return
+	}
 	return i.Venue
 }
 
@@ -3400,6 +3562,9 @@ func (i *InputMessageContact) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetContact returns value of Contact field.
 func (i *InputMessageContact) GetContact() (value Contact) {
+	if i == nil {
+		return
+	}
 	return i.Contact
 }
 
@@ -3585,11 +3750,17 @@ func (i *InputMessageDice) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetEmoji returns value of Emoji field.
 func (i *InputMessageDice) GetEmoji() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Emoji
 }
 
 // GetClearDraft returns value of ClearDraft field.
 func (i *InputMessageDice) GetClearDraft() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.ClearDraft
 }
 
@@ -3775,11 +3946,17 @@ func (i *InputMessageGame) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBotUserID returns value of BotUserID field.
 func (i *InputMessageGame) GetBotUserID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.BotUserID
 }
 
 // GetGameShortName returns value of GameShortName field.
 func (i *InputMessageGame) GetGameShortName() (value string) {
+	if i == nil {
+		return
+	}
 	return i.GameShortName
 }
 
@@ -4191,56 +4368,89 @@ func (i *InputMessageInvoice) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetInvoice returns value of Invoice field.
 func (i *InputMessageInvoice) GetInvoice() (value Invoice) {
+	if i == nil {
+		return
+	}
 	return i.Invoice
 }
 
 // GetTitle returns value of Title field.
 func (i *InputMessageInvoice) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 
 // GetDescription returns value of Description field.
 func (i *InputMessageInvoice) GetDescription() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Description
 }
 
 // GetPhotoURL returns value of PhotoURL field.
 func (i *InputMessageInvoice) GetPhotoURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.PhotoURL
 }
 
 // GetPhotoSize returns value of PhotoSize field.
 func (i *InputMessageInvoice) GetPhotoSize() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.PhotoSize
 }
 
 // GetPhotoWidth returns value of PhotoWidth field.
 func (i *InputMessageInvoice) GetPhotoWidth() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.PhotoWidth
 }
 
 // GetPhotoHeight returns value of PhotoHeight field.
 func (i *InputMessageInvoice) GetPhotoHeight() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.PhotoHeight
 }
 
 // GetPayload returns value of Payload field.
 func (i *InputMessageInvoice) GetPayload() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.Payload
 }
 
 // GetProviderToken returns value of ProviderToken field.
 func (i *InputMessageInvoice) GetProviderToken() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ProviderToken
 }
 
 // GetProviderData returns value of ProviderData field.
 func (i *InputMessageInvoice) GetProviderData() (value string) {
+	if i == nil {
+		return
+	}
 	return i.ProviderData
 }
 
 // GetStartParameter returns value of StartParameter field.
 func (i *InputMessageInvoice) GetStartParameter() (value string) {
+	if i == nil {
+		return
+	}
 	return i.StartParameter
 }
 
@@ -4585,36 +4795,57 @@ func (i *InputMessagePoll) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetQuestion returns value of Question field.
 func (i *InputMessagePoll) GetQuestion() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Question
 }
 
 // GetOptions returns value of Options field.
 func (i *InputMessagePoll) GetOptions() (value []string) {
+	if i == nil {
+		return
+	}
 	return i.Options
 }
 
 // GetIsAnonymous returns value of IsAnonymous field.
 func (i *InputMessagePoll) GetIsAnonymous() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.IsAnonymous
 }
 
 // GetType returns value of Type field.
 func (i *InputMessagePoll) GetType() (value PollTypeClass) {
+	if i == nil {
+		return
+	}
 	return i.Type
 }
 
 // GetOpenPeriod returns value of OpenPeriod field.
 func (i *InputMessagePoll) GetOpenPeriod() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.OpenPeriod
 }
 
 // GetCloseDate returns value of CloseDate field.
 func (i *InputMessagePoll) GetCloseDate() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.CloseDate
 }
 
 // GetIsClosed returns value of IsClosed field.
 func (i *InputMessagePoll) GetIsClosed() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.IsClosed
 }
 
@@ -4852,21 +5083,33 @@ func (i *InputMessageForwarded) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFromChatID returns value of FromChatID field.
 func (i *InputMessageForwarded) GetFromChatID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.FromChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (i *InputMessageForwarded) GetMessageID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.MessageID
 }
 
 // GetInGameShare returns value of InGameShare field.
 func (i *InputMessageForwarded) GetInGameShare() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.InGameShare
 }
 
 // GetCopyOptions returns value of CopyOptions field.
 func (i *InputMessageForwarded) GetCopyOptions() (value MessageCopyOptions) {
+	if i == nil {
+		return
+	}
 	return i.CopyOptions
 }
 

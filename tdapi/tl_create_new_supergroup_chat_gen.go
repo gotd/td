@@ -285,26 +285,41 @@ func (c *CreateNewSupergroupChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetTitle returns value of Title field.
 func (c *CreateNewSupergroupChatRequest) GetTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Title
 }
 
 // GetIsChannel returns value of IsChannel field.
 func (c *CreateNewSupergroupChatRequest) GetIsChannel() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsChannel
 }
 
 // GetDescription returns value of Description field.
 func (c *CreateNewSupergroupChatRequest) GetDescription() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Description
 }
 
 // GetLocation returns value of Location field.
 func (c *CreateNewSupergroupChatRequest) GetLocation() (value ChatLocation) {
+	if c == nil {
+		return
+	}
 	return c.Location
 }
 
 // GetForImport returns value of ForImport field.
 func (c *CreateNewSupergroupChatRequest) GetForImport() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.ForImport
 }
 

@@ -197,11 +197,17 @@ func (e *MessagesExportedChatInvite) DecodeBare(b *bin.Buffer) error {
 
 // GetInvite returns value of Invite field.
 func (e *MessagesExportedChatInvite) GetInvite() (value ChatInviteExported) {
+	if e == nil {
+		return
+	}
 	return e.Invite
 }
 
 // GetUsers returns value of Users field.
 func (e *MessagesExportedChatInvite) GetUsers() (value []UserClass) {
+	if e == nil {
+		return
+	}
 	return e.Users
 }
 
@@ -395,16 +401,25 @@ func (e *MessagesExportedChatInviteReplaced) DecodeBare(b *bin.Buffer) error {
 
 // GetInvite returns value of Invite field.
 func (e *MessagesExportedChatInviteReplaced) GetInvite() (value ChatInviteExported) {
+	if e == nil {
+		return
+	}
 	return e.Invite
 }
 
 // GetNewInvite returns value of NewInvite field.
 func (e *MessagesExportedChatInviteReplaced) GetNewInvite() (value ChatInviteExported) {
+	if e == nil {
+		return
+	}
 	return e.NewInvite
 }
 
 // GetUsers returns value of Users field.
 func (e *MessagesExportedChatInviteReplaced) GetUsers() (value []UserClass) {
+	if e == nil {
+		return
+	}
 	return e.Users
 }
 

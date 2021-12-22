@@ -160,6 +160,9 @@ func (u *MessagesUninstallStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetStickerset returns value of Stickerset field.
 func (u *MessagesUninstallStickerSetRequest) GetStickerset() (value InputStickerSetClass) {
+	if u == nil {
+		return
+	}
 	return u.Stickerset
 }
 

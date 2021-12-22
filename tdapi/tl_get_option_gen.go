@@ -183,6 +183,9 @@ func (g *GetOptionRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetName returns value of Name field.
 func (g *GetOptionRequest) GetName() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Name
 }
 

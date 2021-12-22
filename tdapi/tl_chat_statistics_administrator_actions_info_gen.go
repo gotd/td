@@ -258,20 +258,32 @@ func (c *ChatStatisticsAdministratorActionsInfo) DecodeTDLibJSON(b tdjson.Decode
 
 // GetUserID returns value of UserID field.
 func (c *ChatStatisticsAdministratorActionsInfo) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetDeletedMessageCount returns value of DeletedMessageCount field.
 func (c *ChatStatisticsAdministratorActionsInfo) GetDeletedMessageCount() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.DeletedMessageCount
 }
 
 // GetBannedUserCount returns value of BannedUserCount field.
 func (c *ChatStatisticsAdministratorActionsInfo) GetBannedUserCount() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.BannedUserCount
 }
 
 // GetRestrictedUserCount returns value of RestrictedUserCount field.
 func (c *ChatStatisticsAdministratorActionsInfo) GetRestrictedUserCount() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.RestrictedUserCount
 }

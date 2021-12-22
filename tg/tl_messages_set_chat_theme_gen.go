@@ -183,11 +183,17 @@ func (s *MessagesSetChatThemeRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (s *MessagesSetChatThemeRequest) GetPeer() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
 // GetEmoticon returns value of Emoticon field.
 func (s *MessagesSetChatThemeRequest) GetEmoticon() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Emoticon
 }
 

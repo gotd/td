@@ -183,6 +183,9 @@ func (a *AcceptTermsOfServiceRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTermsOfServiceID returns value of TermsOfServiceID field.
 func (a *AcceptTermsOfServiceRequest) GetTermsOfServiceID() (value string) {
+	if a == nil {
+		return
+	}
 	return a.TermsOfServiceID
 }
 

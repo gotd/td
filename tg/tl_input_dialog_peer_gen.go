@@ -165,6 +165,9 @@ func (i *InputDialogPeer) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (i *InputDialogPeer) GetPeer() (value InputPeerClass) {
+	if i == nil {
+		return
+	}
 	return i.Peer
 }
 
@@ -303,6 +306,9 @@ func (i *InputDialogPeerFolder) DecodeBare(b *bin.Buffer) error {
 
 // GetFolderID returns value of FolderID field.
 func (i *InputDialogPeerFolder) GetFolderID() (value int) {
+	if i == nil {
+		return
+	}
 	return i.FolderID
 }
 

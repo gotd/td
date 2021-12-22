@@ -640,6 +640,9 @@ func (u *UpdateShortMessage) SetOut(value bool) {
 
 // GetOut returns value of Out conditional field.
 func (u *UpdateShortMessage) GetOut() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(1)
 }
 
@@ -656,6 +659,9 @@ func (u *UpdateShortMessage) SetMentioned(value bool) {
 
 // GetMentioned returns value of Mentioned conditional field.
 func (u *UpdateShortMessage) GetMentioned() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(4)
 }
 
@@ -672,6 +678,9 @@ func (u *UpdateShortMessage) SetMediaUnread(value bool) {
 
 // GetMediaUnread returns value of MediaUnread conditional field.
 func (u *UpdateShortMessage) GetMediaUnread() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(5)
 }
 
@@ -688,36 +697,57 @@ func (u *UpdateShortMessage) SetSilent(value bool) {
 
 // GetSilent returns value of Silent conditional field.
 func (u *UpdateShortMessage) GetSilent() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(13)
 }
 
 // GetID returns value of ID field.
 func (u *UpdateShortMessage) GetID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 
 // GetUserID returns value of UserID field.
 func (u *UpdateShortMessage) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.UserID
 }
 
 // GetMessage returns value of Message field.
 func (u *UpdateShortMessage) GetMessage() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Message
 }
 
 // GetPts returns value of Pts field.
 func (u *UpdateShortMessage) GetPts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Pts
 }
 
 // GetPtsCount returns value of PtsCount field.
 func (u *UpdateShortMessage) GetPtsCount() (value int) {
+	if u == nil {
+		return
+	}
 	return u.PtsCount
 }
 
 // GetDate returns value of Date field.
 func (u *UpdateShortMessage) GetDate() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Date
 }
 
@@ -730,6 +760,9 @@ func (u *UpdateShortMessage) SetFwdFrom(value MessageFwdHeader) {
 // GetFwdFrom returns value of FwdFrom conditional field and
 // boolean which is true if field was set.
 func (u *UpdateShortMessage) GetFwdFrom() (value MessageFwdHeader, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(2) {
 		return value, false
 	}
@@ -745,6 +778,9 @@ func (u *UpdateShortMessage) SetViaBotID(value int64) {
 // GetViaBotID returns value of ViaBotID conditional field and
 // boolean which is true if field was set.
 func (u *UpdateShortMessage) GetViaBotID() (value int64, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(11) {
 		return value, false
 	}
@@ -760,6 +796,9 @@ func (u *UpdateShortMessage) SetReplyTo(value MessageReplyHeader) {
 // GetReplyTo returns value of ReplyTo conditional field and
 // boolean which is true if field was set.
 func (u *UpdateShortMessage) GetReplyTo() (value MessageReplyHeader, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(3) {
 		return value, false
 	}
@@ -775,6 +814,9 @@ func (u *UpdateShortMessage) SetEntities(value []MessageEntityClass) {
 // GetEntities returns value of Entities conditional field and
 // boolean which is true if field was set.
 func (u *UpdateShortMessage) GetEntities() (value []MessageEntityClass, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(7) {
 		return value, false
 	}
@@ -790,6 +832,9 @@ func (u *UpdateShortMessage) SetTTLPeriod(value int) {
 // GetTTLPeriod returns value of TTLPeriod conditional field and
 // boolean which is true if field was set.
 func (u *UpdateShortMessage) GetTTLPeriod() (value int, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(25) {
 		return value, false
 	}
@@ -1325,6 +1370,9 @@ func (u *UpdateShortChatMessage) SetOut(value bool) {
 
 // GetOut returns value of Out conditional field.
 func (u *UpdateShortChatMessage) GetOut() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(1)
 }
 
@@ -1341,6 +1389,9 @@ func (u *UpdateShortChatMessage) SetMentioned(value bool) {
 
 // GetMentioned returns value of Mentioned conditional field.
 func (u *UpdateShortChatMessage) GetMentioned() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(4)
 }
 
@@ -1357,6 +1408,9 @@ func (u *UpdateShortChatMessage) SetMediaUnread(value bool) {
 
 // GetMediaUnread returns value of MediaUnread conditional field.
 func (u *UpdateShortChatMessage) GetMediaUnread() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(5)
 }
 
@@ -1373,41 +1427,65 @@ func (u *UpdateShortChatMessage) SetSilent(value bool) {
 
 // GetSilent returns value of Silent conditional field.
 func (u *UpdateShortChatMessage) GetSilent() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(13)
 }
 
 // GetID returns value of ID field.
 func (u *UpdateShortChatMessage) GetID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 
 // GetFromID returns value of FromID field.
 func (u *UpdateShortChatMessage) GetFromID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.FromID
 }
 
 // GetChatID returns value of ChatID field.
 func (u *UpdateShortChatMessage) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ChatID
 }
 
 // GetMessage returns value of Message field.
 func (u *UpdateShortChatMessage) GetMessage() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Message
 }
 
 // GetPts returns value of Pts field.
 func (u *UpdateShortChatMessage) GetPts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Pts
 }
 
 // GetPtsCount returns value of PtsCount field.
 func (u *UpdateShortChatMessage) GetPtsCount() (value int) {
+	if u == nil {
+		return
+	}
 	return u.PtsCount
 }
 
 // GetDate returns value of Date field.
 func (u *UpdateShortChatMessage) GetDate() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Date
 }
 
@@ -1420,6 +1498,9 @@ func (u *UpdateShortChatMessage) SetFwdFrom(value MessageFwdHeader) {
 // GetFwdFrom returns value of FwdFrom conditional field and
 // boolean which is true if field was set.
 func (u *UpdateShortChatMessage) GetFwdFrom() (value MessageFwdHeader, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(2) {
 		return value, false
 	}
@@ -1435,6 +1516,9 @@ func (u *UpdateShortChatMessage) SetViaBotID(value int64) {
 // GetViaBotID returns value of ViaBotID conditional field and
 // boolean which is true if field was set.
 func (u *UpdateShortChatMessage) GetViaBotID() (value int64, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(11) {
 		return value, false
 	}
@@ -1450,6 +1534,9 @@ func (u *UpdateShortChatMessage) SetReplyTo(value MessageReplyHeader) {
 // GetReplyTo returns value of ReplyTo conditional field and
 // boolean which is true if field was set.
 func (u *UpdateShortChatMessage) GetReplyTo() (value MessageReplyHeader, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(3) {
 		return value, false
 	}
@@ -1465,6 +1552,9 @@ func (u *UpdateShortChatMessage) SetEntities(value []MessageEntityClass) {
 // GetEntities returns value of Entities conditional field and
 // boolean which is true if field was set.
 func (u *UpdateShortChatMessage) GetEntities() (value []MessageEntityClass, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(7) {
 		return value, false
 	}
@@ -1480,6 +1570,9 @@ func (u *UpdateShortChatMessage) SetTTLPeriod(value int) {
 // GetTTLPeriod returns value of TTLPeriod conditional field and
 // boolean which is true if field was set.
 func (u *UpdateShortChatMessage) GetTTLPeriod() (value int, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(25) {
 		return value, false
 	}
@@ -1647,11 +1740,17 @@ func (u *UpdateShort) DecodeBare(b *bin.Buffer) error {
 
 // GetUpdate returns value of Update field.
 func (u *UpdateShort) GetUpdate() (value UpdateClass) {
+	if u == nil {
+		return
+	}
 	return u.Update
 }
 
 // GetDate returns value of Date field.
 func (u *UpdateShort) GetDate() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Date
 }
 
@@ -1933,31 +2032,49 @@ func (u *UpdatesCombined) DecodeBare(b *bin.Buffer) error {
 
 // GetUpdates returns value of Updates field.
 func (u *UpdatesCombined) GetUpdates() (value []UpdateClass) {
+	if u == nil {
+		return
+	}
 	return u.Updates
 }
 
 // GetUsers returns value of Users field.
 func (u *UpdatesCombined) GetUsers() (value []UserClass) {
+	if u == nil {
+		return
+	}
 	return u.Users
 }
 
 // GetChats returns value of Chats field.
 func (u *UpdatesCombined) GetChats() (value []ChatClass) {
+	if u == nil {
+		return
+	}
 	return u.Chats
 }
 
 // GetDate returns value of Date field.
 func (u *UpdatesCombined) GetDate() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Date
 }
 
 // GetSeqStart returns value of SeqStart field.
 func (u *UpdatesCombined) GetSeqStart() (value int) {
+	if u == nil {
+		return
+	}
 	return u.SeqStart
 }
 
 // GetSeq returns value of Seq field.
 func (u *UpdatesCombined) GetSeq() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Seq
 }
 
@@ -2234,26 +2351,41 @@ func (u *Updates) DecodeBare(b *bin.Buffer) error {
 
 // GetUpdates returns value of Updates field.
 func (u *Updates) GetUpdates() (value []UpdateClass) {
+	if u == nil {
+		return
+	}
 	return u.Updates
 }
 
 // GetUsers returns value of Users field.
 func (u *Updates) GetUsers() (value []UserClass) {
+	if u == nil {
+		return
+	}
 	return u.Users
 }
 
 // GetChats returns value of Chats field.
 func (u *Updates) GetChats() (value []ChatClass) {
+	if u == nil {
+		return
+	}
 	return u.Chats
 }
 
 // GetDate returns value of Date field.
 func (u *Updates) GetDate() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Date
 }
 
 // GetSeq returns value of Seq field.
 func (u *Updates) GetSeq() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Seq
 }
 
@@ -2633,26 +2765,41 @@ func (u *UpdateShortSentMessage) SetOut(value bool) {
 
 // GetOut returns value of Out conditional field.
 func (u *UpdateShortSentMessage) GetOut() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(1)
 }
 
 // GetID returns value of ID field.
 func (u *UpdateShortSentMessage) GetID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 
 // GetPts returns value of Pts field.
 func (u *UpdateShortSentMessage) GetPts() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Pts
 }
 
 // GetPtsCount returns value of PtsCount field.
 func (u *UpdateShortSentMessage) GetPtsCount() (value int) {
+	if u == nil {
+		return
+	}
 	return u.PtsCount
 }
 
 // GetDate returns value of Date field.
 func (u *UpdateShortSentMessage) GetDate() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Date
 }
 
@@ -2665,6 +2812,9 @@ func (u *UpdateShortSentMessage) SetMedia(value MessageMediaClass) {
 // GetMedia returns value of Media conditional field and
 // boolean which is true if field was set.
 func (u *UpdateShortSentMessage) GetMedia() (value MessageMediaClass, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(9) {
 		return value, false
 	}
@@ -2680,6 +2830,9 @@ func (u *UpdateShortSentMessage) SetEntities(value []MessageEntityClass) {
 // GetEntities returns value of Entities conditional field and
 // boolean which is true if field was set.
 func (u *UpdateShortSentMessage) GetEntities() (value []MessageEntityClass, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(7) {
 		return value, false
 	}
@@ -2695,6 +2848,9 @@ func (u *UpdateShortSentMessage) SetTTLPeriod(value int) {
 // GetTTLPeriod returns value of TTLPeriod conditional field and
 // boolean which is true if field was set.
 func (u *UpdateShortSentMessage) GetTTLPeriod() (value int, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(25) {
 		return value, false
 	}

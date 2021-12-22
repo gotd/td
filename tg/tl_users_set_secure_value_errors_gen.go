@@ -206,11 +206,17 @@ func (s *UsersSetSecureValueErrorsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (s *UsersSetSecureValueErrorsRequest) GetID() (value InputUserClass) {
+	if s == nil {
+		return
+	}
 	return s.ID
 }
 
 // GetErrors returns value of Errors field.
 func (s *UsersSetSecureValueErrorsRequest) GetErrors() (value []SecureValueErrorClass) {
+	if s == nil {
+		return
+	}
 	return s.Errors
 }
 

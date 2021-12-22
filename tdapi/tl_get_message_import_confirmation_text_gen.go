@@ -185,6 +185,9 @@ func (g *GetMessageImportConfirmationTextRequest) DecodeTDLibJSON(b tdjson.Decod
 
 // GetChatID returns value of ChatID field.
 func (g *GetMessageImportConfirmationTextRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 

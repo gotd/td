@@ -233,15 +233,24 @@ func (s *StatisticalValue) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetValue returns value of Value field.
 func (s *StatisticalValue) GetValue() (value float64) {
+	if s == nil {
+		return
+	}
 	return s.Value
 }
 
 // GetPreviousValue returns value of PreviousValue field.
 func (s *StatisticalValue) GetPreviousValue() (value float64) {
+	if s == nil {
+		return
+	}
 	return s.PreviousValue
 }
 
 // GetGrowthRatePercentage returns value of GrowthRatePercentage field.
 func (s *StatisticalValue) GetGrowthRatePercentage() (value float64) {
+	if s == nil {
+		return
+	}
 	return s.GrowthRatePercentage
 }

@@ -193,6 +193,9 @@ func (r *RemoveSavedAnimationRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAnimation returns value of Animation field.
 func (r *RemoveSavedAnimationRequest) GetAnimation() (value InputFileClass) {
+	if r == nil {
+		return
+	}
 	return r.Animation
 }
 

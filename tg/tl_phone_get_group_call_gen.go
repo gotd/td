@@ -177,11 +177,17 @@ func (g *PhoneGetGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetCall returns value of Call field.
 func (g *PhoneGetGroupCallRequest) GetCall() (value InputGroupCall) {
+	if g == nil {
+		return
+	}
 	return g.Call
 }
 
 // GetLimit returns value of Limit field.
 func (g *PhoneGetGroupCallRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

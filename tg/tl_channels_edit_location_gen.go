@@ -206,16 +206,25 @@ func (e *ChannelsEditLocationRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (e *ChannelsEditLocationRequest) GetChannel() (value InputChannelClass) {
+	if e == nil {
+		return
+	}
 	return e.Channel
 }
 
 // GetGeoPoint returns value of GeoPoint field.
 func (e *ChannelsEditLocationRequest) GetGeoPoint() (value InputGeoPointClass) {
+	if e == nil {
+		return
+	}
 	return e.GeoPoint
 }
 
 // GetAddress returns value of Address field.
 func (e *ChannelsEditLocationRequest) GetAddress() (value string) {
+	if e == nil {
+		return
+	}
 	return e.Address
 }
 

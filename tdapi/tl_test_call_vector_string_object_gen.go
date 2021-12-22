@@ -209,6 +209,9 @@ func (t *TestCallVectorStringObjectRequest) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetX returns value of X field.
 func (t *TestCallVectorStringObjectRequest) GetX() (value []TestString) {
+	if t == nil {
+		return
+	}
 	return t.X
 }
 

@@ -183,6 +183,9 @@ func (c *ConfirmQrCodeAuthenticationRequest) DecodeTDLibJSON(b tdjson.Decoder) e
 
 // GetLink returns value of Link field.
 func (c *ConfirmQrCodeAuthenticationRequest) GetLink() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Link
 }
 

@@ -183,5 +183,8 @@ func (f *FilePart) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetData returns value of Data field.
 func (f *FilePart) GetData() (value []byte) {
+	if f == nil {
+		return
+	}
 	return f.Data
 }

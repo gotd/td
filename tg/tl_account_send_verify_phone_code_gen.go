@@ -177,11 +177,17 @@ func (s *AccountSendVerifyPhoneCodeRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (s *AccountSendVerifyPhoneCodeRequest) GetPhoneNumber() (value string) {
+	if s == nil {
+		return
+	}
 	return s.PhoneNumber
 }
 
 // GetSettings returns value of Settings field.
 func (s *AccountSendVerifyPhoneCodeRequest) GetSettings() (value CodeSettings) {
+	if s == nil {
+		return
+	}
 	return s.Settings
 }
 

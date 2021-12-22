@@ -260,15 +260,24 @@ func (p *Photo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetHasStickers returns value of HasStickers field.
 func (p *Photo) GetHasStickers() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.HasStickers
 }
 
 // GetMinithumbnail returns value of Minithumbnail field.
 func (p *Photo) GetMinithumbnail() (value Minithumbnail) {
+	if p == nil {
+		return
+	}
 	return p.Minithumbnail
 }
 
 // GetSizes returns value of Sizes field.
 func (p *Photo) GetSizes() (value []PhotoSize) {
+	if p == nil {
+		return
+	}
 	return p.Sizes
 }

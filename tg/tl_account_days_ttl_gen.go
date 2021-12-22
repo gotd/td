@@ -155,5 +155,8 @@ func (a *AccountDaysTTL) DecodeBare(b *bin.Buffer) error {
 
 // GetDays returns value of Days field.
 func (a *AccountDaysTTL) GetDays() (value int) {
+	if a == nil {
+		return
+	}
 	return a.Days
 }

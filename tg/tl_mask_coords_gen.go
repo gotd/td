@@ -217,20 +217,32 @@ func (m *MaskCoords) DecodeBare(b *bin.Buffer) error {
 
 // GetN returns value of N field.
 func (m *MaskCoords) GetN() (value int) {
+	if m == nil {
+		return
+	}
 	return m.N
 }
 
 // GetX returns value of X field.
 func (m *MaskCoords) GetX() (value float64) {
+	if m == nil {
+		return
+	}
 	return m.X
 }
 
 // GetY returns value of Y field.
 func (m *MaskCoords) GetY() (value float64) {
+	if m == nil {
+		return
+	}
 	return m.Y
 }
 
 // GetZoom returns value of Zoom field.
 func (m *MaskCoords) GetZoom() (value float64) {
+	if m == nil {
+		return
+	}
 	return m.Zoom
 }

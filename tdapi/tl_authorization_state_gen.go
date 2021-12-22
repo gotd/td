@@ -317,6 +317,9 @@ func (a *AuthorizationStateWaitEncryptionKey) DecodeTDLibJSON(b tdjson.Decoder) 
 
 // GetIsEncrypted returns value of IsEncrypted field.
 func (a *AuthorizationStateWaitEncryptionKey) GetIsEncrypted() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.IsEncrypted
 }
 
@@ -606,6 +609,9 @@ func (a *AuthorizationStateWaitCode) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCodeInfo returns value of CodeInfo field.
 func (a *AuthorizationStateWaitCode) GetCodeInfo() (value AuthenticationCodeInfo) {
+	if a == nil {
+		return
+	}
 	return a.CodeInfo
 }
 
@@ -766,6 +772,9 @@ func (a *AuthorizationStateWaitOtherDeviceConfirmation) DecodeTDLibJSON(b tdjson
 
 // GetLink returns value of Link field.
 func (a *AuthorizationStateWaitOtherDeviceConfirmation) GetLink() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Link
 }
 
@@ -926,6 +935,9 @@ func (a *AuthorizationStateWaitRegistration) DecodeTDLibJSON(b tdjson.Decoder) e
 
 // GetTermsOfService returns value of TermsOfService field.
 func (a *AuthorizationStateWaitRegistration) GetTermsOfService() (value TermsOfService) {
+	if a == nil {
+		return
+	}
 	return a.TermsOfService
 }
 
@@ -1137,16 +1149,25 @@ func (a *AuthorizationStateWaitPassword) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetPasswordHint returns value of PasswordHint field.
 func (a *AuthorizationStateWaitPassword) GetPasswordHint() (value string) {
+	if a == nil {
+		return
+	}
 	return a.PasswordHint
 }
 
 // GetHasRecoveryEmailAddress returns value of HasRecoveryEmailAddress field.
 func (a *AuthorizationStateWaitPassword) GetHasRecoveryEmailAddress() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.HasRecoveryEmailAddress
 }
 
 // GetRecoveryEmailAddressPattern returns value of RecoveryEmailAddressPattern field.
 func (a *AuthorizationStateWaitPassword) GetRecoveryEmailAddressPattern() (value string) {
+	if a == nil {
+		return
+	}
 	return a.RecoveryEmailAddressPattern
 }
 

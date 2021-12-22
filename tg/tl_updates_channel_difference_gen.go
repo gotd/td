@@ -242,11 +242,17 @@ func (c *UpdatesChannelDifferenceEmpty) SetFinal(value bool) {
 
 // GetFinal returns value of Final conditional field.
 func (c *UpdatesChannelDifferenceEmpty) GetFinal() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(0)
 }
 
 // GetPts returns value of Pts field.
 func (c *UpdatesChannelDifferenceEmpty) GetPts() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Pts
 }
 
@@ -259,6 +265,9 @@ func (c *UpdatesChannelDifferenceEmpty) SetTimeout(value int) {
 // GetTimeout returns value of Timeout conditional field and
 // boolean which is true if field was set.
 func (c *UpdatesChannelDifferenceEmpty) GetTimeout() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(1) {
 		return value, false
 	}
@@ -594,6 +603,9 @@ func (c *UpdatesChannelDifferenceTooLong) SetFinal(value bool) {
 
 // GetFinal returns value of Final conditional field.
 func (c *UpdatesChannelDifferenceTooLong) GetFinal() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(0)
 }
 
@@ -606,6 +618,9 @@ func (c *UpdatesChannelDifferenceTooLong) SetTimeout(value int) {
 // GetTimeout returns value of Timeout conditional field and
 // boolean which is true if field was set.
 func (c *UpdatesChannelDifferenceTooLong) GetTimeout() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(1) {
 		return value, false
 	}
@@ -614,21 +629,33 @@ func (c *UpdatesChannelDifferenceTooLong) GetTimeout() (value int, ok bool) {
 
 // GetDialog returns value of Dialog field.
 func (c *UpdatesChannelDifferenceTooLong) GetDialog() (value DialogClass) {
+	if c == nil {
+		return
+	}
 	return c.Dialog
 }
 
 // GetMessages returns value of Messages field.
 func (c *UpdatesChannelDifferenceTooLong) GetMessages() (value []MessageClass) {
+	if c == nil {
+		return
+	}
 	return c.Messages
 }
 
 // GetChats returns value of Chats field.
 func (c *UpdatesChannelDifferenceTooLong) GetChats() (value []ChatClass) {
+	if c == nil {
+		return
+	}
 	return c.Chats
 }
 
 // GetUsers returns value of Users field.
 func (c *UpdatesChannelDifferenceTooLong) GetUsers() (value []UserClass) {
+	if c == nil {
+		return
+	}
 	return c.Users
 }
 
@@ -1007,11 +1034,17 @@ func (c *UpdatesChannelDifference) SetFinal(value bool) {
 
 // GetFinal returns value of Final conditional field.
 func (c *UpdatesChannelDifference) GetFinal() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(0)
 }
 
 // GetPts returns value of Pts field.
 func (c *UpdatesChannelDifference) GetPts() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Pts
 }
 
@@ -1024,6 +1057,9 @@ func (c *UpdatesChannelDifference) SetTimeout(value int) {
 // GetTimeout returns value of Timeout conditional field and
 // boolean which is true if field was set.
 func (c *UpdatesChannelDifference) GetTimeout() (value int, ok bool) {
+	if c == nil {
+		return
+	}
 	if !c.Flags.Has(1) {
 		return value, false
 	}
@@ -1032,21 +1068,33 @@ func (c *UpdatesChannelDifference) GetTimeout() (value int, ok bool) {
 
 // GetNewMessages returns value of NewMessages field.
 func (c *UpdatesChannelDifference) GetNewMessages() (value []MessageClass) {
+	if c == nil {
+		return
+	}
 	return c.NewMessages
 }
 
 // GetOtherUpdates returns value of OtherUpdates field.
 func (c *UpdatesChannelDifference) GetOtherUpdates() (value []UpdateClass) {
+	if c == nil {
+		return
+	}
 	return c.OtherUpdates
 }
 
 // GetChats returns value of Chats field.
 func (c *UpdatesChannelDifference) GetChats() (value []ChatClass) {
+	if c == nil {
+		return
+	}
 	return c.Chats
 }
 
 // GetUsers returns value of Users field.
 func (c *UpdatesChannelDifference) GetUsers() (value []UserClass) {
+	if c == nil {
+		return
+	}
 	return c.Users
 }
 

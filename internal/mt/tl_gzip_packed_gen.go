@@ -145,5 +145,8 @@ func (g *GzipPacked) DecodeBare(b *bin.Buffer) error {
 
 // GetPackedData returns value of PackedData field.
 func (g *GzipPacked) GetPackedData() (value []byte) {
+	if g == nil {
+		return
+	}
 	return g.PackedData
 }

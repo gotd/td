@@ -465,11 +465,17 @@ func (s *MessagesSearchRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (s *MessagesSearchRequest) GetPeer() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
 // GetQ returns value of Q field.
 func (s *MessagesSearchRequest) GetQ() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Q
 }
 
@@ -482,6 +488,9 @@ func (s *MessagesSearchRequest) SetFromID(value InputPeerClass) {
 // GetFromID returns value of FromID conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSearchRequest) GetFromID() (value InputPeerClass, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(0) {
 		return value, false
 	}
@@ -497,6 +506,9 @@ func (s *MessagesSearchRequest) SetTopMsgID(value int) {
 // GetTopMsgID returns value of TopMsgID conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSearchRequest) GetTopMsgID() (value int, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(1) {
 		return value, false
 	}
@@ -505,46 +517,73 @@ func (s *MessagesSearchRequest) GetTopMsgID() (value int, ok bool) {
 
 // GetFilter returns value of Filter field.
 func (s *MessagesSearchRequest) GetFilter() (value MessagesFilterClass) {
+	if s == nil {
+		return
+	}
 	return s.Filter
 }
 
 // GetMinDate returns value of MinDate field.
 func (s *MessagesSearchRequest) GetMinDate() (value int) {
+	if s == nil {
+		return
+	}
 	return s.MinDate
 }
 
 // GetMaxDate returns value of MaxDate field.
 func (s *MessagesSearchRequest) GetMaxDate() (value int) {
+	if s == nil {
+		return
+	}
 	return s.MaxDate
 }
 
 // GetOffsetID returns value of OffsetID field.
 func (s *MessagesSearchRequest) GetOffsetID() (value int) {
+	if s == nil {
+		return
+	}
 	return s.OffsetID
 }
 
 // GetAddOffset returns value of AddOffset field.
 func (s *MessagesSearchRequest) GetAddOffset() (value int) {
+	if s == nil {
+		return
+	}
 	return s.AddOffset
 }
 
 // GetLimit returns value of Limit field.
 func (s *MessagesSearchRequest) GetLimit() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Limit
 }
 
 // GetMaxID returns value of MaxID field.
 func (s *MessagesSearchRequest) GetMaxID() (value int) {
+	if s == nil {
+		return
+	}
 	return s.MaxID
 }
 
 // GetMinID returns value of MinID field.
 func (s *MessagesSearchRequest) GetMinID() (value int) {
+	if s == nil {
+		return
+	}
 	return s.MinID
 }
 
 // GetHash returns value of Hash field.
 func (s *MessagesSearchRequest) GetHash() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.Hash
 }
 

@@ -368,21 +368,33 @@ func (r *MessagesRecentStickers) DecodeBare(b *bin.Buffer) error {
 
 // GetHash returns value of Hash field.
 func (r *MessagesRecentStickers) GetHash() (value int64) {
+	if r == nil {
+		return
+	}
 	return r.Hash
 }
 
 // GetPacks returns value of Packs field.
 func (r *MessagesRecentStickers) GetPacks() (value []StickerPack) {
+	if r == nil {
+		return
+	}
 	return r.Packs
 }
 
 // GetStickers returns value of Stickers field.
 func (r *MessagesRecentStickers) GetStickers() (value []DocumentClass) {
+	if r == nil {
+		return
+	}
 	return r.Stickers
 }
 
 // GetDates returns value of Dates field.
 func (r *MessagesRecentStickers) GetDates() (value []int) {
+	if r == nil {
+		return
+	}
 	return r.Dates
 }
 

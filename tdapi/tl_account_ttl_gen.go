@@ -184,5 +184,8 @@ func (a *AccountTTL) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetDays returns value of Days field.
 func (a *AccountTTL) GetDays() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.Days
 }

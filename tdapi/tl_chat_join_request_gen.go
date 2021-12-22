@@ -233,15 +233,24 @@ func (c *ChatJoinRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (c *ChatJoinRequest) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetDate returns value of Date field.
 func (c *ChatJoinRequest) GetDate() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.Date
 }
 
 // GetBio returns value of Bio field.
 func (c *ChatJoinRequest) GetBio() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Bio
 }

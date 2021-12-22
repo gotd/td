@@ -386,6 +386,9 @@ func (p *Page) SetPart(value bool) {
 
 // GetPart returns value of Part conditional field.
 func (p *Page) GetPart() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(0)
 }
 
@@ -402,6 +405,9 @@ func (p *Page) SetRtl(value bool) {
 
 // GetRtl returns value of Rtl conditional field.
 func (p *Page) GetRtl() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(1)
 }
 
@@ -418,26 +424,41 @@ func (p *Page) SetV2(value bool) {
 
 // GetV2 returns value of V2 conditional field.
 func (p *Page) GetV2() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(2)
 }
 
 // GetURL returns value of URL field.
 func (p *Page) GetURL() (value string) {
+	if p == nil {
+		return
+	}
 	return p.URL
 }
 
 // GetBlocks returns value of Blocks field.
 func (p *Page) GetBlocks() (value []PageBlockClass) {
+	if p == nil {
+		return
+	}
 	return p.Blocks
 }
 
 // GetPhotos returns value of Photos field.
 func (p *Page) GetPhotos() (value []PhotoClass) {
+	if p == nil {
+		return
+	}
 	return p.Photos
 }
 
 // GetDocuments returns value of Documents field.
 func (p *Page) GetDocuments() (value []DocumentClass) {
+	if p == nil {
+		return
+	}
 	return p.Documents
 }
 
@@ -450,6 +471,9 @@ func (p *Page) SetViews(value int) {
 // GetViews returns value of Views conditional field and
 // boolean which is true if field was set.
 func (p *Page) GetViews() (value int, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(3) {
 		return value, false
 	}

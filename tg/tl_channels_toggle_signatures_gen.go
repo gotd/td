@@ -179,11 +179,17 @@ func (t *ChannelsToggleSignaturesRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (t *ChannelsToggleSignaturesRequest) GetChannel() (value InputChannelClass) {
+	if t == nil {
+		return
+	}
 	return t.Channel
 }
 
 // GetEnabled returns value of Enabled field.
 func (t *ChannelsToggleSignaturesRequest) GetEnabled() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.Enabled
 }
 

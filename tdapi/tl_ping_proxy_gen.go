@@ -183,6 +183,9 @@ func (p *PingProxyRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetProxyID returns value of ProxyID field.
 func (p *PingProxyRequest) GetProxyID() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.ProxyID
 }
 

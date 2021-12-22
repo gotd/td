@@ -147,5 +147,8 @@ func (s *SMS) DecodeBare(b *bin.Buffer) error {
 
 // GetText returns value of Text field.
 func (s *SMS) GetText() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Text
 }

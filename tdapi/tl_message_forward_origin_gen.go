@@ -188,6 +188,9 @@ func (m *MessageForwardOriginUser) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSenderUserID returns value of SenderUserID field.
 func (m *MessageForwardOriginUser) GetSenderUserID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.SenderUserID
 }
 
@@ -373,11 +376,17 @@ func (m *MessageForwardOriginChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSenderChatID returns value of SenderChatID field.
 func (m *MessageForwardOriginChat) GetSenderChatID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.SenderChatID
 }
 
 // GetAuthorSignature returns value of AuthorSignature field.
 func (m *MessageForwardOriginChat) GetAuthorSignature() (value string) {
+	if m == nil {
+		return
+	}
 	return m.AuthorSignature
 }
 
@@ -538,6 +547,9 @@ func (m *MessageForwardOriginHiddenUser) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetSenderName returns value of SenderName field.
 func (m *MessageForwardOriginHiddenUser) GetSenderName() (value string) {
+	if m == nil {
+		return
+	}
 	return m.SenderName
 }
 
@@ -748,16 +760,25 @@ func (m *MessageForwardOriginChannel) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (m *MessageForwardOriginChannel) GetChatID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (m *MessageForwardOriginChannel) GetMessageID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.MessageID
 }
 
 // GetAuthorSignature returns value of AuthorSignature field.
 func (m *MessageForwardOriginChannel) GetAuthorSignature() (value string) {
+	if m == nil {
+		return
+	}
 	return m.AuthorSignature
 }
 
@@ -918,6 +939,9 @@ func (m *MessageForwardOriginMessageImport) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetSenderName returns value of SenderName field.
 func (m *MessageForwardOriginMessageImport) GetSenderName() (value string) {
+	if m == nil {
+		return
+	}
 	return m.SenderName
 }
 

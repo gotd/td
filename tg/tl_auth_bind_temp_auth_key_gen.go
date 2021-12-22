@@ -227,21 +227,33 @@ func (b *AuthBindTempAuthKeyRequest) DecodeBare(buf *bin.Buffer) error {
 
 // GetPermAuthKeyID returns value of PermAuthKeyID field.
 func (b *AuthBindTempAuthKeyRequest) GetPermAuthKeyID() (value int64) {
+	if b == nil {
+		return
+	}
 	return b.PermAuthKeyID
 }
 
 // GetNonce returns value of Nonce field.
 func (b *AuthBindTempAuthKeyRequest) GetNonce() (value int64) {
+	if b == nil {
+		return
+	}
 	return b.Nonce
 }
 
 // GetExpiresAt returns value of ExpiresAt field.
 func (b *AuthBindTempAuthKeyRequest) GetExpiresAt() (value int) {
+	if b == nil {
+		return
+	}
 	return b.ExpiresAt
 }
 
 // GetEncryptedMessage returns value of EncryptedMessage field.
 func (b *AuthBindTempAuthKeyRequest) GetEncryptedMessage() (value []byte) {
+	if b == nil {
+		return
+	}
 	return b.EncryptedMessage
 }
 

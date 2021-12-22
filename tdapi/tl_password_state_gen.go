@@ -310,30 +310,48 @@ func (p *PasswordState) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetHasPassword returns value of HasPassword field.
 func (p *PasswordState) GetHasPassword() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.HasPassword
 }
 
 // GetPasswordHint returns value of PasswordHint field.
 func (p *PasswordState) GetPasswordHint() (value string) {
+	if p == nil {
+		return
+	}
 	return p.PasswordHint
 }
 
 // GetHasRecoveryEmailAddress returns value of HasRecoveryEmailAddress field.
 func (p *PasswordState) GetHasRecoveryEmailAddress() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.HasRecoveryEmailAddress
 }
 
 // GetHasPassportData returns value of HasPassportData field.
 func (p *PasswordState) GetHasPassportData() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.HasPassportData
 }
 
 // GetRecoveryEmailAddressCodeInfo returns value of RecoveryEmailAddressCodeInfo field.
 func (p *PasswordState) GetRecoveryEmailAddressCodeInfo() (value EmailAddressAuthenticationCodeInfo) {
+	if p == nil {
+		return
+	}
 	return p.RecoveryEmailAddressCodeInfo
 }
 
 // GetPendingResetDate returns value of PendingResetDate field.
 func (p *PasswordState) GetPendingResetDate() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.PendingResetDate
 }

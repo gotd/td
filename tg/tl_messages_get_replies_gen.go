@@ -329,46 +329,73 @@ func (g *MessagesGetRepliesRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (g *MessagesGetRepliesRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
 // GetMsgID returns value of MsgID field.
 func (g *MessagesGetRepliesRequest) GetMsgID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.MsgID
 }
 
 // GetOffsetID returns value of OffsetID field.
 func (g *MessagesGetRepliesRequest) GetOffsetID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.OffsetID
 }
 
 // GetOffsetDate returns value of OffsetDate field.
 func (g *MessagesGetRepliesRequest) GetOffsetDate() (value int) {
+	if g == nil {
+		return
+	}
 	return g.OffsetDate
 }
 
 // GetAddOffset returns value of AddOffset field.
 func (g *MessagesGetRepliesRequest) GetAddOffset() (value int) {
+	if g == nil {
+		return
+	}
 	return g.AddOffset
 }
 
 // GetLimit returns value of Limit field.
 func (g *MessagesGetRepliesRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 
 // GetMaxID returns value of MaxID field.
 func (g *MessagesGetRepliesRequest) GetMaxID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.MaxID
 }
 
 // GetMinID returns value of MinID field.
 func (g *MessagesGetRepliesRequest) GetMinID() (value int) {
+	if g == nil {
+		return
+	}
 	return g.MinID
 }
 
 // GetHash returns value of Hash field.
 func (g *MessagesGetRepliesRequest) GetHash() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.Hash
 }
 

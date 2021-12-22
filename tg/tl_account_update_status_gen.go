@@ -159,6 +159,9 @@ func (u *AccountUpdateStatusRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetOffline returns value of Offline field.
 func (u *AccountUpdateStatusRequest) GetOffline() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Offline
 }
 

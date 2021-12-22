@@ -256,16 +256,25 @@ func (s *SearchEmojisRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (s *SearchEmojisRequest) GetText() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Text
 }
 
 // GetExactMatch returns value of ExactMatch field.
 func (s *SearchEmojisRequest) GetExactMatch() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.ExactMatch
 }
 
 // GetInputLanguageCodes returns value of InputLanguageCodes field.
 func (s *SearchEmojisRequest) GetInputLanguageCodes() (value []string) {
+	if s == nil {
+		return
+	}
 	return s.InputLanguageCodes
 }
 

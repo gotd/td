@@ -230,11 +230,17 @@ func (r *ReportSupergroupSpamRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSupergroupID returns value of SupergroupID field.
 func (r *ReportSupergroupSpamRequest) GetSupergroupID() (value int64) {
+	if r == nil {
+		return
+	}
 	return r.SupergroupID
 }
 
 // GetMessageIDs returns value of MessageIDs field.
 func (r *ReportSupergroupSpamRequest) GetMessageIDs() (value []int64) {
+	if r == nil {
+		return
+	}
 	return r.MessageIDs
 }
 

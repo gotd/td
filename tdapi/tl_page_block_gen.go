@@ -198,6 +198,9 @@ func (p *PageBlockTitle) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTitle returns value of Title field.
 func (p *PageBlockTitle) GetTitle() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Title
 }
 
@@ -368,6 +371,9 @@ func (p *PageBlockSubtitle) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSubtitle returns value of Subtitle field.
 func (p *PageBlockSubtitle) GetSubtitle() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Subtitle
 }
 
@@ -563,11 +569,17 @@ func (p *PageBlockAuthorDate) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAuthor returns value of Author field.
 func (p *PageBlockAuthorDate) GetAuthor() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Author
 }
 
 // GetPublishDate returns value of PublishDate field.
 func (p *PageBlockAuthorDate) GetPublishDate() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.PublishDate
 }
 
@@ -738,6 +750,9 @@ func (p *PageBlockHeader) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetHeader returns value of Header field.
 func (p *PageBlockHeader) GetHeader() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Header
 }
 
@@ -908,6 +923,9 @@ func (p *PageBlockSubheader) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSubheader returns value of Subheader field.
 func (p *PageBlockSubheader) GetSubheader() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Subheader
 }
 
@@ -1078,6 +1096,9 @@ func (p *PageBlockKicker) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetKicker returns value of Kicker field.
 func (p *PageBlockKicker) GetKicker() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Kicker
 }
 
@@ -1248,6 +1269,9 @@ func (p *PageBlockParagraph) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (p *PageBlockParagraph) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
@@ -1443,11 +1467,17 @@ func (p *PageBlockPreformatted) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (p *PageBlockPreformatted) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
 // GetLanguage returns value of Language field.
 func (p *PageBlockPreformatted) GetLanguage() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Language
 }
 
@@ -1618,6 +1648,9 @@ func (p *PageBlockFooter) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFooter returns value of Footer field.
 func (p *PageBlockFooter) GetFooter() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Footer
 }
 
@@ -1907,6 +1940,9 @@ func (p *PageBlockAnchor) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetName returns value of Name field.
 func (p *PageBlockAnchor) GetName() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Name
 }
 
@@ -2093,6 +2129,9 @@ func (p *PageBlockList) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetItems returns value of Items field.
 func (p *PageBlockList) GetItems() (value []PageBlockListItem) {
+	if p == nil {
+		return
+	}
 	return p.Items
 }
 
@@ -2298,11 +2337,17 @@ func (p *PageBlockBlockQuote) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (p *PageBlockBlockQuote) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
 // GetCredit returns value of Credit field.
 func (p *PageBlockBlockQuote) GetCredit() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Credit
 }
 
@@ -2508,11 +2553,17 @@ func (p *PageBlockPullQuote) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (p *PageBlockPullQuote) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
 // GetCredit returns value of Credit field.
 func (p *PageBlockPullQuote) GetCredit() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Credit
 }
 
@@ -2723,16 +2774,25 @@ func (p *PageBlockAnimation) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAnimation returns value of Animation field.
 func (p *PageBlockAnimation) GetAnimation() (value Animation) {
+	if p == nil {
+		return
+	}
 	return p.Animation
 }
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockAnimation) GetCaption() (value PageBlockCaption) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
 // GetNeedAutoplay returns value of NeedAutoplay field.
 func (p *PageBlockAnimation) GetNeedAutoplay() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.NeedAutoplay
 }
 
@@ -2918,11 +2978,17 @@ func (p *PageBlockAudio) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAudio returns value of Audio field.
 func (p *PageBlockAudio) GetAudio() (value Audio) {
+	if p == nil {
+		return
+	}
 	return p.Audio
 }
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockAudio) GetCaption() (value PageBlockCaption) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
@@ -3133,16 +3199,25 @@ func (p *PageBlockPhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPhoto returns value of Photo field.
 func (p *PageBlockPhoto) GetPhoto() (value Photo) {
+	if p == nil {
+		return
+	}
 	return p.Photo
 }
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockPhoto) GetCaption() (value PageBlockCaption) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
 // GetURL returns value of URL field.
 func (p *PageBlockPhoto) GetURL() (value string) {
+	if p == nil {
+		return
+	}
 	return p.URL
 }
 
@@ -3378,21 +3453,33 @@ func (p *PageBlockVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetVideo returns value of Video field.
 func (p *PageBlockVideo) GetVideo() (value Video) {
+	if p == nil {
+		return
+	}
 	return p.Video
 }
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockVideo) GetCaption() (value PageBlockCaption) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
 // GetNeedAutoplay returns value of NeedAutoplay field.
 func (p *PageBlockVideo) GetNeedAutoplay() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.NeedAutoplay
 }
 
 // GetIsLooped returns value of IsLooped field.
 func (p *PageBlockVideo) GetIsLooped() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsLooped
 }
 
@@ -3578,11 +3665,17 @@ func (p *PageBlockVoiceNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetVoiceNote returns value of VoiceNote field.
 func (p *PageBlockVoiceNote) GetVoiceNote() (value VoiceNote) {
+	if p == nil {
+		return
+	}
 	return p.VoiceNote
 }
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockVoiceNote) GetCaption() (value PageBlockCaption) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
@@ -3753,6 +3846,9 @@ func (p *PageBlockCover) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCover returns value of Cover field.
 func (p *PageBlockCover) GetCover() (value PageBlockClass) {
+	if p == nil {
+		return
+	}
 	return p.Cover
 }
 
@@ -4088,41 +4184,65 @@ func (p *PageBlockEmbedded) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetURL returns value of URL field.
 func (p *PageBlockEmbedded) GetURL() (value string) {
+	if p == nil {
+		return
+	}
 	return p.URL
 }
 
 // GetHTML returns value of HTML field.
 func (p *PageBlockEmbedded) GetHTML() (value string) {
+	if p == nil {
+		return
+	}
 	return p.HTML
 }
 
 // GetPosterPhoto returns value of PosterPhoto field.
 func (p *PageBlockEmbedded) GetPosterPhoto() (value Photo) {
+	if p == nil {
+		return
+	}
 	return p.PosterPhoto
 }
 
 // GetWidth returns value of Width field.
 func (p *PageBlockEmbedded) GetWidth() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.Width
 }
 
 // GetHeight returns value of Height field.
 func (p *PageBlockEmbedded) GetHeight() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.Height
 }
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockEmbedded) GetCaption() (value PageBlockCaption) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
 // GetIsFullWidth returns value of IsFullWidth field.
 func (p *PageBlockEmbedded) GetIsFullWidth() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsFullWidth
 }
 
 // GetAllowScrolling returns value of AllowScrolling field.
 func (p *PageBlockEmbedded) GetAllowScrolling() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.AllowScrolling
 }
 
@@ -4440,31 +4560,49 @@ func (p *PageBlockEmbeddedPost) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetURL returns value of URL field.
 func (p *PageBlockEmbeddedPost) GetURL() (value string) {
+	if p == nil {
+		return
+	}
 	return p.URL
 }
 
 // GetAuthor returns value of Author field.
 func (p *PageBlockEmbeddedPost) GetAuthor() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Author
 }
 
 // GetAuthorPhoto returns value of AuthorPhoto field.
 func (p *PageBlockEmbeddedPost) GetAuthorPhoto() (value Photo) {
+	if p == nil {
+		return
+	}
 	return p.AuthorPhoto
 }
 
 // GetDate returns value of Date field.
 func (p *PageBlockEmbeddedPost) GetDate() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.Date
 }
 
 // GetPageBlocks returns value of PageBlocks field.
 func (p *PageBlockEmbeddedPost) GetPageBlocks() (value []PageBlockClass) {
+	if p == nil {
+		return
+	}
 	return p.PageBlocks
 }
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockEmbeddedPost) GetCaption() (value PageBlockCaption) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
@@ -4682,11 +4820,17 @@ func (p *PageBlockCollage) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPageBlocks returns value of PageBlocks field.
 func (p *PageBlockCollage) GetPageBlocks() (value []PageBlockClass) {
+	if p == nil {
+		return
+	}
 	return p.PageBlocks
 }
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockCollage) GetCaption() (value PageBlockCaption) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
@@ -4904,11 +5048,17 @@ func (p *PageBlockSlideshow) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPageBlocks returns value of PageBlocks field.
 func (p *PageBlockSlideshow) GetPageBlocks() (value []PageBlockClass) {
+	if p == nil {
+		return
+	}
 	return p.PageBlocks
 }
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockSlideshow) GetCaption() (value PageBlockCaption) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
@@ -5119,16 +5269,25 @@ func (p *PageBlockChatLink) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTitle returns value of Title field.
 func (p *PageBlockChatLink) GetTitle() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Title
 }
 
 // GetPhoto returns value of Photo field.
 func (p *PageBlockChatLink) GetPhoto() (value ChatPhotoInfo) {
+	if p == nil {
+		return
+	}
 	return p.Photo
 }
 
 // GetUsername returns value of Username field.
 func (p *PageBlockChatLink) GetUsername() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Username
 }
 
@@ -5426,21 +5585,33 @@ func (p *PageBlockTable) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockTable) GetCaption() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 
 // GetCells returns value of Cells field.
 func (p *PageBlockTable) GetCells() (value [][]PageBlockTableCell) {
+	if p == nil {
+		return
+	}
 	return p.Cells
 }
 
 // GetIsBordered returns value of IsBordered field.
 func (p *PageBlockTable) GetIsBordered() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsBordered
 }
 
 // GetIsStriped returns value of IsStriped field.
 func (p *PageBlockTable) GetIsStriped() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsStriped
 }
 
@@ -5693,16 +5864,25 @@ func (p *PageBlockDetails) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetHeader returns value of Header field.
 func (p *PageBlockDetails) GetHeader() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Header
 }
 
 // GetPageBlocks returns value of PageBlocks field.
 func (p *PageBlockDetails) GetPageBlocks() (value []PageBlockClass) {
+	if p == nil {
+		return
+	}
 	return p.PageBlocks
 }
 
 // GetIsOpen returns value of IsOpen field.
 func (p *PageBlockDetails) GetIsOpen() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsOpen
 }
 
@@ -5924,11 +6104,17 @@ func (p *PageBlockRelatedArticles) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetHeader returns value of Header field.
 func (p *PageBlockRelatedArticles) GetHeader() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Header
 }
 
 // GetArticles returns value of Articles field.
 func (p *PageBlockRelatedArticles) GetArticles() (value []PageBlockRelatedArticle) {
+	if p == nil {
+		return
+	}
 	return p.Articles
 }
 
@@ -6189,26 +6375,41 @@ func (p *PageBlockMap) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLocation returns value of Location field.
 func (p *PageBlockMap) GetLocation() (value Location) {
+	if p == nil {
+		return
+	}
 	return p.Location
 }
 
 // GetZoom returns value of Zoom field.
 func (p *PageBlockMap) GetZoom() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.Zoom
 }
 
 // GetWidth returns value of Width field.
 func (p *PageBlockMap) GetWidth() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.Width
 }
 
 // GetHeight returns value of Height field.
 func (p *PageBlockMap) GetHeight() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.Height
 }
 
 // GetCaption returns value of Caption field.
 func (p *PageBlockMap) GetCaption() (value PageBlockCaption) {
+	if p == nil {
+		return
+	}
 	return p.Caption
 }
 

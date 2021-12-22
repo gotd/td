@@ -188,6 +188,9 @@ func (l *LanguagePackStringValueOrdinary) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetValue returns value of Value field.
 func (l *LanguagePackStringValueOrdinary) GetValue() (value string) {
+	if l == nil {
+		return
+	}
 	return l.Value
 }
 
@@ -473,31 +476,49 @@ func (l *LanguagePackStringValuePluralized) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetZeroValue returns value of ZeroValue field.
 func (l *LanguagePackStringValuePluralized) GetZeroValue() (value string) {
+	if l == nil {
+		return
+	}
 	return l.ZeroValue
 }
 
 // GetOneValue returns value of OneValue field.
 func (l *LanguagePackStringValuePluralized) GetOneValue() (value string) {
+	if l == nil {
+		return
+	}
 	return l.OneValue
 }
 
 // GetTwoValue returns value of TwoValue field.
 func (l *LanguagePackStringValuePluralized) GetTwoValue() (value string) {
+	if l == nil {
+		return
+	}
 	return l.TwoValue
 }
 
 // GetFewValue returns value of FewValue field.
 func (l *LanguagePackStringValuePluralized) GetFewValue() (value string) {
+	if l == nil {
+		return
+	}
 	return l.FewValue
 }
 
 // GetManyValue returns value of ManyValue field.
 func (l *LanguagePackStringValuePluralized) GetManyValue() (value string) {
+	if l == nil {
+		return
+	}
 	return l.ManyValue
 }
 
 // GetOtherValue returns value of OtherValue field.
 func (l *LanguagePackStringValuePluralized) GetOtherValue() (value string) {
+	if l == nil {
+		return
+	}
 	return l.OtherValue
 }
 

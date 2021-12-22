@@ -188,6 +188,9 @@ func (c *CallServerTypeTelegramReflector) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetPeerTag returns value of PeerTag field.
 func (c *CallServerTypeTelegramReflector) GetPeerTag() (value []byte) {
+	if c == nil {
+		return
+	}
 	return c.PeerTag
 }
 
@@ -423,21 +426,33 @@ func (c *CallServerTypeWebrtc) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUsername returns value of Username field.
 func (c *CallServerTypeWebrtc) GetUsername() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Username
 }
 
 // GetPassword returns value of Password field.
 func (c *CallServerTypeWebrtc) GetPassword() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Password
 }
 
 // GetSupportsTurn returns value of SupportsTurn field.
 func (c *CallServerTypeWebrtc) GetSupportsTurn() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.SupportsTurn
 }
 
 // GetSupportsStun returns value of SupportsStun field.
 func (c *CallServerTypeWebrtc) GetSupportsStun() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.SupportsStun
 }
 

@@ -179,11 +179,17 @@ func (i *MessagesInstallStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetStickerset returns value of Stickerset field.
 func (i *MessagesInstallStickerSetRequest) GetStickerset() (value InputStickerSetClass) {
+	if i == nil {
+		return
+	}
 	return i.Stickerset
 }
 
 // GetArchived returns value of Archived field.
 func (i *MessagesInstallStickerSetRequest) GetArchived() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Archived
 }
 

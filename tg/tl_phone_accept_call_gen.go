@@ -196,16 +196,25 @@ func (a *PhoneAcceptCallRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (a *PhoneAcceptCallRequest) GetPeer() (value InputPhoneCall) {
+	if a == nil {
+		return
+	}
 	return a.Peer
 }
 
 // GetGB returns value of GB field.
 func (a *PhoneAcceptCallRequest) GetGB() (value []byte) {
+	if a == nil {
+		return
+	}
 	return a.GB
 }
 
 // GetProtocol returns value of Protocol field.
 func (a *PhoneAcceptCallRequest) GetProtocol() (value PhoneCallProtocol) {
+	if a == nil {
+		return
+	}
 	return a.Protocol
 }
 

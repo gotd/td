@@ -182,11 +182,17 @@ func (e *MessagesEditChatDefaultBannedRightsRequest) DecodeBare(b *bin.Buffer) e
 
 // GetPeer returns value of Peer field.
 func (e *MessagesEditChatDefaultBannedRightsRequest) GetPeer() (value InputPeerClass) {
+	if e == nil {
+		return
+	}
 	return e.Peer
 }
 
 // GetBannedRights returns value of BannedRights field.
 func (e *MessagesEditChatDefaultBannedRightsRequest) GetBannedRights() (value ChatBannedRights) {
+	if e == nil {
+		return
+	}
 	return e.BannedRights
 }
 

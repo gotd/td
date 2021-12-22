@@ -233,15 +233,24 @@ func (g *GameHighScore) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPosition returns value of Position field.
 func (g *GameHighScore) GetPosition() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Position
 }
 
 // GetUserID returns value of UserID field.
 func (g *GameHighScore) GetUserID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.UserID
 }
 
 // GetScore returns value of Score field.
 func (g *GameHighScore) GetScore() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Score
 }

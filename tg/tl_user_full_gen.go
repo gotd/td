@@ -596,6 +596,9 @@ func (u *UserFull) SetBlocked(value bool) {
 
 // GetBlocked returns value of Blocked conditional field.
 func (u *UserFull) GetBlocked() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(0)
 }
 
@@ -612,6 +615,9 @@ func (u *UserFull) SetPhoneCallsAvailable(value bool) {
 
 // GetPhoneCallsAvailable returns value of PhoneCallsAvailable conditional field.
 func (u *UserFull) GetPhoneCallsAvailable() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(4)
 }
 
@@ -628,6 +634,9 @@ func (u *UserFull) SetPhoneCallsPrivate(value bool) {
 
 // GetPhoneCallsPrivate returns value of PhoneCallsPrivate conditional field.
 func (u *UserFull) GetPhoneCallsPrivate() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(5)
 }
 
@@ -644,6 +653,9 @@ func (u *UserFull) SetCanPinMessage(value bool) {
 
 // GetCanPinMessage returns value of CanPinMessage conditional field.
 func (u *UserFull) GetCanPinMessage() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(7)
 }
 
@@ -660,6 +672,9 @@ func (u *UserFull) SetHasScheduled(value bool) {
 
 // GetHasScheduled returns value of HasScheduled conditional field.
 func (u *UserFull) GetHasScheduled() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(12)
 }
 
@@ -676,11 +691,17 @@ func (u *UserFull) SetVideoCallsAvailable(value bool) {
 
 // GetVideoCallsAvailable returns value of VideoCallsAvailable conditional field.
 func (u *UserFull) GetVideoCallsAvailable() (value bool) {
+	if u == nil {
+		return
+	}
 	return u.Flags.Has(13)
 }
 
 // GetID returns value of ID field.
 func (u *UserFull) GetID() (value int64) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 
@@ -693,6 +714,9 @@ func (u *UserFull) SetAbout(value string) {
 // GetAbout returns value of About conditional field and
 // boolean which is true if field was set.
 func (u *UserFull) GetAbout() (value string, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(1) {
 		return value, false
 	}
@@ -701,6 +725,9 @@ func (u *UserFull) GetAbout() (value string, ok bool) {
 
 // GetSettings returns value of Settings field.
 func (u *UserFull) GetSettings() (value PeerSettings) {
+	if u == nil {
+		return
+	}
 	return u.Settings
 }
 
@@ -713,6 +740,9 @@ func (u *UserFull) SetProfilePhoto(value PhotoClass) {
 // GetProfilePhoto returns value of ProfilePhoto conditional field and
 // boolean which is true if field was set.
 func (u *UserFull) GetProfilePhoto() (value PhotoClass, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(2) {
 		return value, false
 	}
@@ -721,6 +751,9 @@ func (u *UserFull) GetProfilePhoto() (value PhotoClass, ok bool) {
 
 // GetNotifySettings returns value of NotifySettings field.
 func (u *UserFull) GetNotifySettings() (value PeerNotifySettings) {
+	if u == nil {
+		return
+	}
 	return u.NotifySettings
 }
 
@@ -733,6 +766,9 @@ func (u *UserFull) SetBotInfo(value BotInfo) {
 // GetBotInfo returns value of BotInfo conditional field and
 // boolean which is true if field was set.
 func (u *UserFull) GetBotInfo() (value BotInfo, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(3) {
 		return value, false
 	}
@@ -748,6 +784,9 @@ func (u *UserFull) SetPinnedMsgID(value int) {
 // GetPinnedMsgID returns value of PinnedMsgID conditional field and
 // boolean which is true if field was set.
 func (u *UserFull) GetPinnedMsgID() (value int, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(6) {
 		return value, false
 	}
@@ -756,6 +795,9 @@ func (u *UserFull) GetPinnedMsgID() (value int, ok bool) {
 
 // GetCommonChatsCount returns value of CommonChatsCount field.
 func (u *UserFull) GetCommonChatsCount() (value int) {
+	if u == nil {
+		return
+	}
 	return u.CommonChatsCount
 }
 
@@ -768,6 +810,9 @@ func (u *UserFull) SetFolderID(value int) {
 // GetFolderID returns value of FolderID conditional field and
 // boolean which is true if field was set.
 func (u *UserFull) GetFolderID() (value int, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(11) {
 		return value, false
 	}
@@ -783,6 +828,9 @@ func (u *UserFull) SetTTLPeriod(value int) {
 // GetTTLPeriod returns value of TTLPeriod conditional field and
 // boolean which is true if field was set.
 func (u *UserFull) GetTTLPeriod() (value int, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(14) {
 		return value, false
 	}
@@ -798,6 +846,9 @@ func (u *UserFull) SetThemeEmoticon(value string) {
 // GetThemeEmoticon returns value of ThemeEmoticon conditional field and
 // boolean which is true if field was set.
 func (u *UserFull) GetThemeEmoticon() (value string, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(15) {
 		return value, false
 	}
@@ -813,6 +864,9 @@ func (u *UserFull) SetPrivateForwardName(value string) {
 // GetPrivateForwardName returns value of PrivateForwardName conditional field and
 // boolean which is true if field was set.
 func (u *UserFull) GetPrivateForwardName() (value string, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(16) {
 		return value, false
 	}

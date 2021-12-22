@@ -240,10 +240,16 @@ func (p *PageBlockListItem) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLabel returns value of Label field.
 func (p *PageBlockListItem) GetLabel() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Label
 }
 
 // GetPageBlocks returns value of PageBlocks field.
 func (p *PageBlockListItem) GetPageBlocks() (value []PageBlockClass) {
+	if p == nil {
+		return
+	}
 	return p.PageBlocks
 }

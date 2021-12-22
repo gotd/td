@@ -165,5 +165,8 @@ func (vec *EmojiLanguageVector) DecodeBare(b *bin.Buffer) error {
 
 // GetElems returns value of Elems field.
 func (vec *EmojiLanguageVector) GetElems() (value []EmojiLanguage) {
+	if vec == nil {
+		return
+	}
 	return vec.Elems
 }

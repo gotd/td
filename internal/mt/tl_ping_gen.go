@@ -145,5 +145,8 @@ func (p *PingRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPingID returns value of PingID field.
 func (p *PingRequest) GetPingID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.PingID
 }

@@ -156,6 +156,9 @@ func (r *PhoneReceivedCallRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (r *PhoneReceivedCallRequest) GetPeer() (value InputPhoneCall) {
+	if r == nil {
+		return
+	}
 	return r.Peer
 }
 

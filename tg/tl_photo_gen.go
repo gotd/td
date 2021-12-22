@@ -160,6 +160,9 @@ func (p *PhotoEmpty) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (p *PhotoEmpty) GetID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ID
 }
 
@@ -504,31 +507,49 @@ func (p *Photo) SetHasStickers(value bool) {
 
 // GetHasStickers returns value of HasStickers conditional field.
 func (p *Photo) GetHasStickers() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(0)
 }
 
 // GetID returns value of ID field.
 func (p *Photo) GetID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (p *Photo) GetAccessHash() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.AccessHash
 }
 
 // GetFileReference returns value of FileReference field.
 func (p *Photo) GetFileReference() (value []byte) {
+	if p == nil {
+		return
+	}
 	return p.FileReference
 }
 
 // GetDate returns value of Date field.
 func (p *Photo) GetDate() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Date
 }
 
 // GetSizes returns value of Sizes field.
 func (p *Photo) GetSizes() (value []PhotoSizeClass) {
+	if p == nil {
+		return
+	}
 	return p.Sizes
 }
 
@@ -541,6 +562,9 @@ func (p *Photo) SetVideoSizes(value []VideoSize) {
 // GetVideoSizes returns value of VideoSizes conditional field and
 // boolean which is true if field was set.
 func (p *Photo) GetVideoSizes() (value []VideoSize, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(1) {
 		return value, false
 	}
@@ -549,6 +573,9 @@ func (p *Photo) GetVideoSizes() (value []VideoSize, ok bool) {
 
 // GetDCID returns value of DCID field.
 func (p *Photo) GetDCID() (value int) {
+	if p == nil {
+		return
+	}
 	return p.DCID
 }
 

@@ -179,11 +179,17 @@ func (s *MessagesSetHistoryTTLRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (s *MessagesSetHistoryTTLRequest) GetPeer() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
 // GetPeriod returns value of Period field.
 func (s *MessagesSetHistoryTTLRequest) GetPeriod() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Period
 }
 

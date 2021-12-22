@@ -270,6 +270,9 @@ func (s *MessagesSetInlineGameScoreRequest) SetEditMessage(value bool) {
 
 // GetEditMessage returns value of EditMessage conditional field.
 func (s *MessagesSetInlineGameScoreRequest) GetEditMessage() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(0)
 }
 
@@ -286,21 +289,33 @@ func (s *MessagesSetInlineGameScoreRequest) SetForce(value bool) {
 
 // GetForce returns value of Force conditional field.
 func (s *MessagesSetInlineGameScoreRequest) GetForce() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(1)
 }
 
 // GetID returns value of ID field.
 func (s *MessagesSetInlineGameScoreRequest) GetID() (value InputBotInlineMessageIDClass) {
+	if s == nil {
+		return
+	}
 	return s.ID
 }
 
 // GetUserID returns value of UserID field.
 func (s *MessagesSetInlineGameScoreRequest) GetUserID() (value InputUserClass) {
+	if s == nil {
+		return
+	}
 	return s.UserID
 }
 
 // GetScore returns value of Score field.
 func (s *MessagesSetInlineGameScoreRequest) GetScore() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Score
 }
 

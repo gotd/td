@@ -234,16 +234,25 @@ func (c *MessagesChatFull) DecodeBare(b *bin.Buffer) error {
 
 // GetFullChat returns value of FullChat field.
 func (c *MessagesChatFull) GetFullChat() (value ChatFullClass) {
+	if c == nil {
+		return
+	}
 	return c.FullChat
 }
 
 // GetChats returns value of Chats field.
 func (c *MessagesChatFull) GetChats() (value []ChatClass) {
+	if c == nil {
+		return
+	}
 	return c.Chats
 }
 
 // GetUsers returns value of Users field.
 func (c *MessagesChatFull) GetUsers() (value []UserClass) {
+	if c == nil {
+		return
+	}
 	return c.Users
 }
 

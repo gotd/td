@@ -369,16 +369,25 @@ func (i *InputThemeSettings) SetMessageColorsAnimated(value bool) {
 
 // GetMessageColorsAnimated returns value of MessageColorsAnimated conditional field.
 func (i *InputThemeSettings) GetMessageColorsAnimated() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(2)
 }
 
 // GetBaseTheme returns value of BaseTheme field.
 func (i *InputThemeSettings) GetBaseTheme() (value BaseThemeClass) {
+	if i == nil {
+		return
+	}
 	return i.BaseTheme
 }
 
 // GetAccentColor returns value of AccentColor field.
 func (i *InputThemeSettings) GetAccentColor() (value int) {
+	if i == nil {
+		return
+	}
 	return i.AccentColor
 }
 
@@ -391,6 +400,9 @@ func (i *InputThemeSettings) SetOutboxAccentColor(value int) {
 // GetOutboxAccentColor returns value of OutboxAccentColor conditional field and
 // boolean which is true if field was set.
 func (i *InputThemeSettings) GetOutboxAccentColor() (value int, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(3) {
 		return value, false
 	}
@@ -406,6 +418,9 @@ func (i *InputThemeSettings) SetMessageColors(value []int) {
 // GetMessageColors returns value of MessageColors conditional field and
 // boolean which is true if field was set.
 func (i *InputThemeSettings) GetMessageColors() (value []int, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(0) {
 		return value, false
 	}
@@ -421,6 +436,9 @@ func (i *InputThemeSettings) SetWallpaper(value InputWallPaperClass) {
 // GetWallpaper returns value of Wallpaper conditional field and
 // boolean which is true if field was set.
 func (i *InputThemeSettings) GetWallpaper() (value InputWallPaperClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(1) {
 		return value, false
 	}
@@ -436,6 +454,9 @@ func (i *InputThemeSettings) SetWallpaperSettings(value WallPaperSettings) {
 // GetWallpaperSettings returns value of WallpaperSettings conditional field and
 // boolean which is true if field was set.
 func (i *InputThemeSettings) GetWallpaperSettings() (value WallPaperSettings, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(1) {
 		return value, false
 	}

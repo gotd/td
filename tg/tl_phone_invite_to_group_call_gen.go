@@ -192,11 +192,17 @@ func (i *PhoneInviteToGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetCall returns value of Call field.
 func (i *PhoneInviteToGroupCallRequest) GetCall() (value InputGroupCall) {
+	if i == nil {
+		return
+	}
 	return i.Call
 }
 
 // GetUsers returns value of Users field.
 func (i *PhoneInviteToGroupCallRequest) GetUsers() (value []InputUserClass) {
+	if i == nil {
+		return
+	}
 	return i.Users
 }
 

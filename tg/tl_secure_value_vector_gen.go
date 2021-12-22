@@ -165,5 +165,8 @@ func (vec *SecureValueVector) DecodeBare(b *bin.Buffer) error {
 
 // GetElems returns value of Elems field.
 func (vec *SecureValueVector) GetElems() (value []SecureValue) {
+	if vec == nil {
+		return
+	}
 	return vec.Elems
 }

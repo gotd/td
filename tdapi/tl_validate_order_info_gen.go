@@ -258,21 +258,33 @@ func (v *ValidateOrderInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (v *ValidateOrderInfoRequest) GetChatID() (value int64) {
+	if v == nil {
+		return
+	}
 	return v.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (v *ValidateOrderInfoRequest) GetMessageID() (value int64) {
+	if v == nil {
+		return
+	}
 	return v.MessageID
 }
 
 // GetOrderInfo returns value of OrderInfo field.
 func (v *ValidateOrderInfoRequest) GetOrderInfo() (value OrderInfo) {
+	if v == nil {
+		return
+	}
 	return v.OrderInfo
 }
 
 // GetAllowSave returns value of AllowSave field.
 func (v *ValidateOrderInfoRequest) GetAllowSave() (value bool) {
+	if v == nil {
+		return
+	}
 	return v.AllowSave
 }
 

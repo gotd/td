@@ -174,11 +174,17 @@ func (t *PhoneToggleGroupCallStartSubscriptionRequest) DecodeBare(b *bin.Buffer)
 
 // GetCall returns value of Call field.
 func (t *PhoneToggleGroupCallStartSubscriptionRequest) GetCall() (value InputGroupCall) {
+	if t == nil {
+		return
+	}
 	return t.Call
 }
 
 // GetSubscribed returns value of Subscribed field.
 func (t *PhoneToggleGroupCallStartSubscriptionRequest) GetSubscribed() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.Subscribed
 }
 

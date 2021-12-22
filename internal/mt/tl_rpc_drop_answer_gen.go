@@ -382,16 +382,25 @@ func (r *RPCAnswerDropped) DecodeBare(b *bin.Buffer) error {
 
 // GetMsgID returns value of MsgID field.
 func (r *RPCAnswerDropped) GetMsgID() (value int64) {
+	if r == nil {
+		return
+	}
 	return r.MsgID
 }
 
 // GetSeqNo returns value of SeqNo field.
 func (r *RPCAnswerDropped) GetSeqNo() (value int) {
+	if r == nil {
+		return
+	}
 	return r.SeqNo
 }
 
 // GetBytes returns value of Bytes field.
 func (r *RPCAnswerDropped) GetBytes() (value int) {
+	if r == nil {
+		return
+	}
 	return r.Bytes
 }
 

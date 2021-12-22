@@ -213,11 +213,17 @@ func (l *LoginURLInfoOpen) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetURL returns value of URL field.
 func (l *LoginURLInfoOpen) GetURL() (value string) {
+	if l == nil {
+		return
+	}
 	return l.URL
 }
 
 // GetSkipConfirm returns value of SkipConfirm field.
 func (l *LoginURLInfoOpen) GetSkipConfirm() (value bool) {
+	if l == nil {
+		return
+	}
 	return l.SkipConfirm
 }
 
@@ -454,21 +460,33 @@ func (l *LoginURLInfoRequestConfirmation) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetURL returns value of URL field.
 func (l *LoginURLInfoRequestConfirmation) GetURL() (value string) {
+	if l == nil {
+		return
+	}
 	return l.URL
 }
 
 // GetDomain returns value of Domain field.
 func (l *LoginURLInfoRequestConfirmation) GetDomain() (value string) {
+	if l == nil {
+		return
+	}
 	return l.Domain
 }
 
 // GetBotUserID returns value of BotUserID field.
 func (l *LoginURLInfoRequestConfirmation) GetBotUserID() (value int64) {
+	if l == nil {
+		return
+	}
 	return l.BotUserID
 }
 
 // GetRequestWriteAccess returns value of RequestWriteAccess field.
 func (l *LoginURLInfoRequestConfirmation) GetRequestWriteAccess() (value bool) {
+	if l == nil {
+		return
+	}
 	return l.RequestWriteAccess
 }
 

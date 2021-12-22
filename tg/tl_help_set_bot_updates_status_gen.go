@@ -175,11 +175,17 @@ func (s *HelpSetBotUpdatesStatusRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPendingUpdatesCount returns value of PendingUpdatesCount field.
 func (s *HelpSetBotUpdatesStatusRequest) GetPendingUpdatesCount() (value int) {
+	if s == nil {
+		return
+	}
 	return s.PendingUpdatesCount
 }
 
 // GetMessage returns value of Message field.
 func (s *HelpSetBotUpdatesStatusRequest) GetMessage() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Message
 }
 

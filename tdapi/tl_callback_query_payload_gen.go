@@ -188,6 +188,9 @@ func (c *CallbackQueryPayloadData) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetData returns value of Data field.
 func (c *CallbackQueryPayloadData) GetData() (value []byte) {
+	if c == nil {
+		return
+	}
 	return c.Data
 }
 
@@ -373,11 +376,17 @@ func (c *CallbackQueryPayloadDataWithPassword) DecodeTDLibJSON(b tdjson.Decoder)
 
 // GetPassword returns value of Password field.
 func (c *CallbackQueryPayloadDataWithPassword) GetPassword() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Password
 }
 
 // GetData returns value of Data field.
 func (c *CallbackQueryPayloadDataWithPassword) GetData() (value []byte) {
+	if c == nil {
+		return
+	}
 	return c.Data
 }
 
@@ -538,6 +547,9 @@ func (c *CallbackQueryPayloadGame) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetGameShortName returns value of GameShortName field.
 func (c *CallbackQueryPayloadGame) GetGameShortName() (value string) {
+	if c == nil {
+		return
+	}
 	return c.GameShortName
 }
 

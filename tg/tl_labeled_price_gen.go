@@ -180,10 +180,16 @@ func (l *LabeledPrice) DecodeBare(b *bin.Buffer) error {
 
 // GetLabel returns value of Label field.
 func (l *LabeledPrice) GetLabel() (value string) {
+	if l == nil {
+		return
+	}
 	return l.Label
 }
 
 // GetAmount returns value of Amount field.
 func (l *LabeledPrice) GetAmount() (value int64) {
+	if l == nil {
+		return
+	}
 	return l.Amount
 }

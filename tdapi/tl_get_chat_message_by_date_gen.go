@@ -208,11 +208,17 @@ func (g *GetChatMessageByDateRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (g *GetChatMessageByDateRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetDate returns value of Date field.
 func (g *GetChatMessageByDateRequest) GetDate() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Date
 }
 

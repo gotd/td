@@ -311,25 +311,40 @@ func (p *PhoneNumberAuthenticationSettings) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetAllowFlashCall returns value of AllowFlashCall field.
 func (p *PhoneNumberAuthenticationSettings) GetAllowFlashCall() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.AllowFlashCall
 }
 
 // GetAllowMissedCall returns value of AllowMissedCall field.
 func (p *PhoneNumberAuthenticationSettings) GetAllowMissedCall() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.AllowMissedCall
 }
 
 // GetIsCurrentPhoneNumber returns value of IsCurrentPhoneNumber field.
 func (p *PhoneNumberAuthenticationSettings) GetIsCurrentPhoneNumber() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.IsCurrentPhoneNumber
 }
 
 // GetAllowSMSRetrieverAPI returns value of AllowSMSRetrieverAPI field.
 func (p *PhoneNumberAuthenticationSettings) GetAllowSMSRetrieverAPI() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.AllowSMSRetrieverAPI
 }
 
 // GetAuthenticationTokens returns value of AuthenticationTokens field.
 func (p *PhoneNumberAuthenticationSettings) GetAuthenticationTokens() (value []string) {
+	if p == nil {
+		return
+	}
 	return p.AuthenticationTokens
 }

@@ -160,6 +160,9 @@ func (p *HelpPromoDataEmpty) DecodeBare(b *bin.Buffer) error {
 
 // GetExpires returns value of Expires field.
 func (p *HelpPromoDataEmpty) GetExpires() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Expires
 }
 
@@ -498,26 +501,41 @@ func (p *HelpPromoData) SetProxy(value bool) {
 
 // GetProxy returns value of Proxy conditional field.
 func (p *HelpPromoData) GetProxy() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.Flags.Has(0)
 }
 
 // GetExpires returns value of Expires field.
 func (p *HelpPromoData) GetExpires() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Expires
 }
 
 // GetPeer returns value of Peer field.
 func (p *HelpPromoData) GetPeer() (value PeerClass) {
+	if p == nil {
+		return
+	}
 	return p.Peer
 }
 
 // GetChats returns value of Chats field.
 func (p *HelpPromoData) GetChats() (value []ChatClass) {
+	if p == nil {
+		return
+	}
 	return p.Chats
 }
 
 // GetUsers returns value of Users field.
 func (p *HelpPromoData) GetUsers() (value []UserClass) {
+	if p == nil {
+		return
+	}
 	return p.Users
 }
 
@@ -530,6 +548,9 @@ func (p *HelpPromoData) SetPsaType(value string) {
 // GetPsaType returns value of PsaType conditional field and
 // boolean which is true if field was set.
 func (p *HelpPromoData) GetPsaType() (value string, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(1) {
 		return value, false
 	}
@@ -545,6 +566,9 @@ func (p *HelpPromoData) SetPsaMessage(value string) {
 // GetPsaMessage returns value of PsaMessage conditional field and
 // boolean which is true if field was set.
 func (p *HelpPromoData) GetPsaMessage() (value string, ok bool) {
+	if p == nil {
+		return
+	}
 	if !p.Flags.Has(2) {
 		return value, false
 	}

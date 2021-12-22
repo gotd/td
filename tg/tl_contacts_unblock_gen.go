@@ -160,6 +160,9 @@ func (u *ContactsUnblockRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (u *ContactsUnblockRequest) GetID() (value InputPeerClass) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 

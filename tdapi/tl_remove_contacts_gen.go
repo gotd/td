@@ -205,6 +205,9 @@ func (r *RemoveContactsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserIDs returns value of UserIDs field.
 func (r *RemoveContactsRequest) GetUserIDs() (value []int64) {
+	if r == nil {
+		return
+	}
 	return r.UserIDs
 }
 

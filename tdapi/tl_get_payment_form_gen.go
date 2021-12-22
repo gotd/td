@@ -233,16 +233,25 @@ func (g *GetPaymentFormRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (g *GetPaymentFormRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (g *GetPaymentFormRequest) GetMessageID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.MessageID
 }
 
 // GetTheme returns value of Theme field.
 func (g *GetPaymentFormRequest) GetTheme() (value PaymentFormTheme) {
+	if g == nil {
+		return
+	}
 	return g.Theme
 }
 

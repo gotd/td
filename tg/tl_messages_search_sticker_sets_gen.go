@@ -225,16 +225,25 @@ func (s *MessagesSearchStickerSetsRequest) SetExcludeFeatured(value bool) {
 
 // GetExcludeFeatured returns value of ExcludeFeatured conditional field.
 func (s *MessagesSearchStickerSetsRequest) GetExcludeFeatured() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(0)
 }
 
 // GetQ returns value of Q field.
 func (s *MessagesSearchStickerSetsRequest) GetQ() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Q
 }
 
 // GetHash returns value of Hash field.
 func (s *MessagesSearchStickerSetsRequest) GetHash() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.Hash
 }
 

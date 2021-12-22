@@ -581,6 +581,9 @@ func (g *GroupCallParticipant) SetMuted(value bool) {
 
 // GetMuted returns value of Muted conditional field.
 func (g *GroupCallParticipant) GetMuted() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(0)
 }
 
@@ -597,6 +600,9 @@ func (g *GroupCallParticipant) SetLeft(value bool) {
 
 // GetLeft returns value of Left conditional field.
 func (g *GroupCallParticipant) GetLeft() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(1)
 }
 
@@ -613,6 +619,9 @@ func (g *GroupCallParticipant) SetCanSelfUnmute(value bool) {
 
 // GetCanSelfUnmute returns value of CanSelfUnmute conditional field.
 func (g *GroupCallParticipant) GetCanSelfUnmute() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(2)
 }
 
@@ -629,6 +638,9 @@ func (g *GroupCallParticipant) SetJustJoined(value bool) {
 
 // GetJustJoined returns value of JustJoined conditional field.
 func (g *GroupCallParticipant) GetJustJoined() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(4)
 }
 
@@ -645,6 +657,9 @@ func (g *GroupCallParticipant) SetVersioned(value bool) {
 
 // GetVersioned returns value of Versioned conditional field.
 func (g *GroupCallParticipant) GetVersioned() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(5)
 }
 
@@ -661,6 +676,9 @@ func (g *GroupCallParticipant) SetMin(value bool) {
 
 // GetMin returns value of Min conditional field.
 func (g *GroupCallParticipant) GetMin() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(8)
 }
 
@@ -677,6 +695,9 @@ func (g *GroupCallParticipant) SetMutedByYou(value bool) {
 
 // GetMutedByYou returns value of MutedByYou conditional field.
 func (g *GroupCallParticipant) GetMutedByYou() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(9)
 }
 
@@ -693,6 +714,9 @@ func (g *GroupCallParticipant) SetVolumeByAdmin(value bool) {
 
 // GetVolumeByAdmin returns value of VolumeByAdmin conditional field.
 func (g *GroupCallParticipant) GetVolumeByAdmin() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(10)
 }
 
@@ -709,6 +733,9 @@ func (g *GroupCallParticipant) SetSelf(value bool) {
 
 // GetSelf returns value of Self conditional field.
 func (g *GroupCallParticipant) GetSelf() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(12)
 }
 
@@ -725,16 +752,25 @@ func (g *GroupCallParticipant) SetVideoJoined(value bool) {
 
 // GetVideoJoined returns value of VideoJoined conditional field.
 func (g *GroupCallParticipant) GetVideoJoined() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(15)
 }
 
 // GetPeer returns value of Peer field.
 func (g *GroupCallParticipant) GetPeer() (value PeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peer
 }
 
 // GetDate returns value of Date field.
 func (g *GroupCallParticipant) GetDate() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Date
 }
 
@@ -747,6 +783,9 @@ func (g *GroupCallParticipant) SetActiveDate(value int) {
 // GetActiveDate returns value of ActiveDate conditional field and
 // boolean which is true if field was set.
 func (g *GroupCallParticipant) GetActiveDate() (value int, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(3) {
 		return value, false
 	}
@@ -755,6 +794,9 @@ func (g *GroupCallParticipant) GetActiveDate() (value int, ok bool) {
 
 // GetSource returns value of Source field.
 func (g *GroupCallParticipant) GetSource() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Source
 }
 
@@ -767,6 +809,9 @@ func (g *GroupCallParticipant) SetVolume(value int) {
 // GetVolume returns value of Volume conditional field and
 // boolean which is true if field was set.
 func (g *GroupCallParticipant) GetVolume() (value int, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(7) {
 		return value, false
 	}
@@ -782,6 +827,9 @@ func (g *GroupCallParticipant) SetAbout(value string) {
 // GetAbout returns value of About conditional field and
 // boolean which is true if field was set.
 func (g *GroupCallParticipant) GetAbout() (value string, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(11) {
 		return value, false
 	}
@@ -797,6 +845,9 @@ func (g *GroupCallParticipant) SetRaiseHandRating(value int64) {
 // GetRaiseHandRating returns value of RaiseHandRating conditional field and
 // boolean which is true if field was set.
 func (g *GroupCallParticipant) GetRaiseHandRating() (value int64, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(13) {
 		return value, false
 	}
@@ -812,6 +863,9 @@ func (g *GroupCallParticipant) SetVideo(value GroupCallParticipantVideo) {
 // GetVideo returns value of Video conditional field and
 // boolean which is true if field was set.
 func (g *GroupCallParticipant) GetVideo() (value GroupCallParticipantVideo, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(6) {
 		return value, false
 	}
@@ -827,6 +881,9 @@ func (g *GroupCallParticipant) SetPresentation(value GroupCallParticipantVideo) 
 // GetPresentation returns value of Presentation conditional field and
 // boolean which is true if field was set.
 func (g *GroupCallParticipant) GetPresentation() (value GroupCallParticipantVideo, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(14) {
 		return value, false
 	}

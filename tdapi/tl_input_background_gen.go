@@ -199,6 +199,9 @@ func (i *InputBackgroundLocal) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBackground returns value of Background field.
 func (i *InputBackgroundLocal) GetBackground() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.Background
 }
 
@@ -359,6 +362,9 @@ func (i *InputBackgroundRemote) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBackgroundID returns value of BackgroundID field.
 func (i *InputBackgroundRemote) GetBackgroundID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.BackgroundID
 }
 

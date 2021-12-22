@@ -542,75 +542,120 @@ func (t *TdlibParameters) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUseTestDC returns value of UseTestDC field.
 func (t *TdlibParameters) GetUseTestDC() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.UseTestDC
 }
 
 // GetDatabaseDirectory returns value of DatabaseDirectory field.
 func (t *TdlibParameters) GetDatabaseDirectory() (value string) {
+	if t == nil {
+		return
+	}
 	return t.DatabaseDirectory
 }
 
 // GetFilesDirectory returns value of FilesDirectory field.
 func (t *TdlibParameters) GetFilesDirectory() (value string) {
+	if t == nil {
+		return
+	}
 	return t.FilesDirectory
 }
 
 // GetUseFileDatabase returns value of UseFileDatabase field.
 func (t *TdlibParameters) GetUseFileDatabase() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.UseFileDatabase
 }
 
 // GetUseChatInfoDatabase returns value of UseChatInfoDatabase field.
 func (t *TdlibParameters) GetUseChatInfoDatabase() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.UseChatInfoDatabase
 }
 
 // GetUseMessageDatabase returns value of UseMessageDatabase field.
 func (t *TdlibParameters) GetUseMessageDatabase() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.UseMessageDatabase
 }
 
 // GetUseSecretChats returns value of UseSecretChats field.
 func (t *TdlibParameters) GetUseSecretChats() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.UseSecretChats
 }
 
 // GetAPIID returns value of APIID field.
 func (t *TdlibParameters) GetAPIID() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.APIID
 }
 
 // GetAPIHash returns value of APIHash field.
 func (t *TdlibParameters) GetAPIHash() (value string) {
+	if t == nil {
+		return
+	}
 	return t.APIHash
 }
 
 // GetSystemLanguageCode returns value of SystemLanguageCode field.
 func (t *TdlibParameters) GetSystemLanguageCode() (value string) {
+	if t == nil {
+		return
+	}
 	return t.SystemLanguageCode
 }
 
 // GetDeviceModel returns value of DeviceModel field.
 func (t *TdlibParameters) GetDeviceModel() (value string) {
+	if t == nil {
+		return
+	}
 	return t.DeviceModel
 }
 
 // GetSystemVersion returns value of SystemVersion field.
 func (t *TdlibParameters) GetSystemVersion() (value string) {
+	if t == nil {
+		return
+	}
 	return t.SystemVersion
 }
 
 // GetApplicationVersion returns value of ApplicationVersion field.
 func (t *TdlibParameters) GetApplicationVersion() (value string) {
+	if t == nil {
+		return
+	}
 	return t.ApplicationVersion
 }
 
 // GetEnableStorageOptimizer returns value of EnableStorageOptimizer field.
 func (t *TdlibParameters) GetEnableStorageOptimizer() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.EnableStorageOptimizer
 }
 
 // GetIgnoreFileNames returns value of IgnoreFileNames field.
 func (t *TdlibParameters) GetIgnoreFileNames() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.IgnoreFileNames
 }

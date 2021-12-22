@@ -287,26 +287,41 @@ func (g *GetChatJoinRequestsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (g *GetChatJoinRequestsRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetInviteLink returns value of InviteLink field.
 func (g *GetChatJoinRequestsRequest) GetInviteLink() (value string) {
+	if g == nil {
+		return
+	}
 	return g.InviteLink
 }
 
 // GetQuery returns value of Query field.
 func (g *GetChatJoinRequestsRequest) GetQuery() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Query
 }
 
 // GetOffsetRequest returns value of OffsetRequest field.
 func (g *GetChatJoinRequestsRequest) GetOffsetRequest() (value ChatJoinRequest) {
+	if g == nil {
+		return
+	}
 	return g.OffsetRequest
 }
 
 // GetLimit returns value of Limit field.
 func (g *GetChatJoinRequestsRequest) GetLimit() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

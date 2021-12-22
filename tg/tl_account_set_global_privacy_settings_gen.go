@@ -155,6 +155,9 @@ func (s *AccountSetGlobalPrivacySettingsRequest) DecodeBare(b *bin.Buffer) error
 
 // GetSettings returns value of Settings field.
 func (s *AccountSetGlobalPrivacySettingsRequest) GetSettings() (value GlobalPrivacySettings) {
+	if s == nil {
+		return
+	}
 	return s.Settings
 }
 

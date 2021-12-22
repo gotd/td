@@ -227,16 +227,25 @@ func (s *MessagesSaveRecentStickerRequest) SetAttached(value bool) {
 
 // GetAttached returns value of Attached conditional field.
 func (s *MessagesSaveRecentStickerRequest) GetAttached() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(0)
 }
 
 // GetID returns value of ID field.
 func (s *MessagesSaveRecentStickerRequest) GetID() (value InputDocumentClass) {
+	if s == nil {
+		return
+	}
 	return s.ID
 }
 
 // GetUnsave returns value of Unsave field.
 func (s *MessagesSaveRecentStickerRequest) GetUnsave() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Unsave
 }
 

@@ -166,6 +166,9 @@ func (d *ChannelsDeleteChannelRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (d *ChannelsDeleteChannelRequest) GetChannel() (value InputChannelClass) {
+	if d == nil {
+		return
+	}
 	return d.Channel
 }
 

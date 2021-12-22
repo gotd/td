@@ -258,20 +258,32 @@ func (o *OrderInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetName returns value of Name field.
 func (o *OrderInfo) GetName() (value string) {
+	if o == nil {
+		return
+	}
 	return o.Name
 }
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (o *OrderInfo) GetPhoneNumber() (value string) {
+	if o == nil {
+		return
+	}
 	return o.PhoneNumber
 }
 
 // GetEmailAddress returns value of EmailAddress field.
 func (o *OrderInfo) GetEmailAddress() (value string) {
+	if o == nil {
+		return
+	}
 	return o.EmailAddress
 }
 
 // GetShippingAddress returns value of ShippingAddress field.
 func (o *OrderInfo) GetShippingAddress() (value Address) {
+	if o == nil {
+		return
+	}
 	return o.ShippingAddress
 }

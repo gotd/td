@@ -235,31 +235,49 @@ func (p *PQInnerData) DecodeBare(b *bin.Buffer) error {
 
 // GetPq returns value of Pq field.
 func (p *PQInnerData) GetPq() (value []byte) {
+	if p == nil {
+		return
+	}
 	return p.Pq
 }
 
 // GetP returns value of P field.
 func (p *PQInnerData) GetP() (value []byte) {
+	if p == nil {
+		return
+	}
 	return p.P
 }
 
 // GetQ returns value of Q field.
 func (p *PQInnerData) GetQ() (value []byte) {
+	if p == nil {
+		return
+	}
 	return p.Q
 }
 
 // GetNonce returns value of Nonce field.
 func (p *PQInnerData) GetNonce() (value bin.Int128) {
+	if p == nil {
+		return
+	}
 	return p.Nonce
 }
 
 // GetServerNonce returns value of ServerNonce field.
 func (p *PQInnerData) GetServerNonce() (value bin.Int128) {
+	if p == nil {
+		return
+	}
 	return p.ServerNonce
 }
 
 // GetNewNonce returns value of NewNonce field.
 func (p *PQInnerData) GetNewNonce() (value bin.Int256) {
+	if p == nil {
+		return
+	}
 	return p.NewNonce
 }
 
@@ -484,36 +502,57 @@ func (p *PQInnerDataDC) DecodeBare(b *bin.Buffer) error {
 
 // GetPq returns value of Pq field.
 func (p *PQInnerDataDC) GetPq() (value []byte) {
+	if p == nil {
+		return
+	}
 	return p.Pq
 }
 
 // GetP returns value of P field.
 func (p *PQInnerDataDC) GetP() (value []byte) {
+	if p == nil {
+		return
+	}
 	return p.P
 }
 
 // GetQ returns value of Q field.
 func (p *PQInnerDataDC) GetQ() (value []byte) {
+	if p == nil {
+		return
+	}
 	return p.Q
 }
 
 // GetNonce returns value of Nonce field.
 func (p *PQInnerDataDC) GetNonce() (value bin.Int128) {
+	if p == nil {
+		return
+	}
 	return p.Nonce
 }
 
 // GetServerNonce returns value of ServerNonce field.
 func (p *PQInnerDataDC) GetServerNonce() (value bin.Int128) {
+	if p == nil {
+		return
+	}
 	return p.ServerNonce
 }
 
 // GetNewNonce returns value of NewNonce field.
 func (p *PQInnerDataDC) GetNewNonce() (value bin.Int256) {
+	if p == nil {
+		return
+	}
 	return p.NewNonce
 }
 
 // GetDC returns value of DC field.
 func (p *PQInnerDataDC) GetDC() (value int) {
+	if p == nil {
+		return
+	}
 	return p.DC
 }
 

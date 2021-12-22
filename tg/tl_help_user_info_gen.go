@@ -340,21 +340,33 @@ func (u *HelpUserInfo) DecodeBare(b *bin.Buffer) error {
 
 // GetMessage returns value of Message field.
 func (u *HelpUserInfo) GetMessage() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Message
 }
 
 // GetEntities returns value of Entities field.
 func (u *HelpUserInfo) GetEntities() (value []MessageEntityClass) {
+	if u == nil {
+		return
+	}
 	return u.Entities
 }
 
 // GetAuthor returns value of Author field.
 func (u *HelpUserInfo) GetAuthor() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Author
 }
 
 // GetDate returns value of Date field.
 func (u *HelpUserInfo) GetDate() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Date
 }
 

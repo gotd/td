@@ -218,11 +218,17 @@ func (s *SetVideoChatDefaultParticipantRequest) DecodeTDLibJSON(b tdjson.Decoder
 
 // GetChatID returns value of ChatID field.
 func (s *SetVideoChatDefaultParticipantRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetDefaultParticipantID returns value of DefaultParticipantID field.
 func (s *SetVideoChatDefaultParticipantRequest) GetDefaultParticipantID() (value MessageSenderClass) {
+	if s == nil {
+		return
+	}
 	return s.DefaultParticipantID
 }
 

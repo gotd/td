@@ -218,11 +218,17 @@ func (s *SetOptionRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetName returns value of Name field.
 func (s *SetOptionRequest) GetName() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Name
 }
 
 // GetValue returns value of Value field.
 func (s *SetOptionRequest) GetValue() (value OptionValueClass) {
+	if s == nil {
+		return
+	}
 	return s.Value
 }
 

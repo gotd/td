@@ -179,11 +179,17 @@ func (g *BotsGetBotCommandsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetScope returns value of Scope field.
 func (g *BotsGetBotCommandsRequest) GetScope() (value BotCommandScopeClass) {
+	if g == nil {
+		return
+	}
 	return g.Scope
 }
 
 // GetLangCode returns value of LangCode field.
 func (g *BotsGetBotCommandsRequest) GetLangCode() (value string) {
+	if g == nil {
+		return
+	}
 	return g.LangCode
 }
 

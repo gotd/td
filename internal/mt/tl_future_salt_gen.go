@@ -179,15 +179,24 @@ func (f *FutureSalt) DecodeBare(b *bin.Buffer) error {
 
 // GetValidSince returns value of ValidSince field.
 func (f *FutureSalt) GetValidSince() (value int) {
+	if f == nil {
+		return
+	}
 	return f.ValidSince
 }
 
 // GetValidUntil returns value of ValidUntil field.
 func (f *FutureSalt) GetValidUntil() (value int) {
+	if f == nil {
+		return
+	}
 	return f.ValidUntil
 }
 
 // GetSalt returns value of Salt field.
 func (f *FutureSalt) GetSalt() (value int64) {
+	if f == nil {
+		return
+	}
 	return f.Salt
 }

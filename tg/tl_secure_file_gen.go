@@ -380,36 +380,57 @@ func (s *SecureFile) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (s *SecureFile) GetID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (s *SecureFile) GetAccessHash() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.AccessHash
 }
 
 // GetSize returns value of Size field.
 func (s *SecureFile) GetSize() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Size
 }
 
 // GetDCID returns value of DCID field.
 func (s *SecureFile) GetDCID() (value int) {
+	if s == nil {
+		return
+	}
 	return s.DCID
 }
 
 // GetDate returns value of Date field.
 func (s *SecureFile) GetDate() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Date
 }
 
 // GetFileHash returns value of FileHash field.
 func (s *SecureFile) GetFileHash() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.FileHash
 }
 
 // GetSecret returns value of Secret field.
 func (s *SecureFile) GetSecret() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.Secret
 }
 

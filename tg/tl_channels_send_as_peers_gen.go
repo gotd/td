@@ -246,16 +246,25 @@ func (s *ChannelsSendAsPeers) DecodeBare(b *bin.Buffer) error {
 
 // GetPeers returns value of Peers field.
 func (s *ChannelsSendAsPeers) GetPeers() (value []PeerClass) {
+	if s == nil {
+		return
+	}
 	return s.Peers
 }
 
 // GetChats returns value of Chats field.
 func (s *ChannelsSendAsPeers) GetChats() (value []ChatClass) {
+	if s == nil {
+		return
+	}
 	return s.Chats
 }
 
 // GetUsers returns value of Users field.
 func (s *ChannelsSendAsPeers) GetUsers() (value []UserClass) {
+	if s == nil {
+		return
+	}
 	return s.Users
 }
 

@@ -183,6 +183,9 @@ func (s *SetTdlibParametersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetParameters returns value of Parameters field.
 func (s *SetTdlibParametersRequest) GetParameters() (value TdlibParameters) {
+	if s == nil {
+		return
+	}
 	return s.Parameters
 }
 

@@ -160,6 +160,9 @@ func (p *PeerUser) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (p *PeerUser) GetUserID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.UserID
 }
 
@@ -292,6 +295,9 @@ func (p *PeerChat) DecodeBare(b *bin.Buffer) error {
 
 // GetChatID returns value of ChatID field.
 func (p *PeerChat) GetChatID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ChatID
 }
 
@@ -424,6 +430,9 @@ func (p *PeerChannel) DecodeBare(b *bin.Buffer) error {
 
 // GetChannelID returns value of ChannelID field.
 func (p *PeerChannel) GetChannelID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ChannelID
 }
 

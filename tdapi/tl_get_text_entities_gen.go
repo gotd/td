@@ -183,6 +183,9 @@ func (g *GetTextEntitiesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (g *GetTextEntitiesRequest) GetText() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Text
 }
 

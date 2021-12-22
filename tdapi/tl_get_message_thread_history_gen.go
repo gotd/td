@@ -288,26 +288,41 @@ func (g *GetMessageThreadHistoryRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetChatID returns value of ChatID field.
 func (g *GetMessageThreadHistoryRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (g *GetMessageThreadHistoryRequest) GetMessageID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.MessageID
 }
 
 // GetFromMessageID returns value of FromMessageID field.
 func (g *GetMessageThreadHistoryRequest) GetFromMessageID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.FromMessageID
 }
 
 // GetOffset returns value of Offset field.
 func (g *GetMessageThreadHistoryRequest) GetOffset() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 
 // GetLimit returns value of Limit field.
 func (g *GetMessageThreadHistoryRequest) GetLimit() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

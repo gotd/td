@@ -520,6 +520,9 @@ func (d *DialogFilter) SetContacts(value bool) {
 
 // GetContacts returns value of Contacts conditional field.
 func (d *DialogFilter) GetContacts() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(0)
 }
 
@@ -536,6 +539,9 @@ func (d *DialogFilter) SetNonContacts(value bool) {
 
 // GetNonContacts returns value of NonContacts conditional field.
 func (d *DialogFilter) GetNonContacts() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(1)
 }
 
@@ -552,6 +558,9 @@ func (d *DialogFilter) SetGroups(value bool) {
 
 // GetGroups returns value of Groups conditional field.
 func (d *DialogFilter) GetGroups() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(2)
 }
 
@@ -568,6 +577,9 @@ func (d *DialogFilter) SetBroadcasts(value bool) {
 
 // GetBroadcasts returns value of Broadcasts conditional field.
 func (d *DialogFilter) GetBroadcasts() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(3)
 }
 
@@ -584,6 +596,9 @@ func (d *DialogFilter) SetBots(value bool) {
 
 // GetBots returns value of Bots conditional field.
 func (d *DialogFilter) GetBots() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(4)
 }
 
@@ -600,6 +615,9 @@ func (d *DialogFilter) SetExcludeMuted(value bool) {
 
 // GetExcludeMuted returns value of ExcludeMuted conditional field.
 func (d *DialogFilter) GetExcludeMuted() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(11)
 }
 
@@ -616,6 +634,9 @@ func (d *DialogFilter) SetExcludeRead(value bool) {
 
 // GetExcludeRead returns value of ExcludeRead conditional field.
 func (d *DialogFilter) GetExcludeRead() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(12)
 }
 
@@ -632,16 +653,25 @@ func (d *DialogFilter) SetExcludeArchived(value bool) {
 
 // GetExcludeArchived returns value of ExcludeArchived conditional field.
 func (d *DialogFilter) GetExcludeArchived() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(13)
 }
 
 // GetID returns value of ID field.
 func (d *DialogFilter) GetID() (value int) {
+	if d == nil {
+		return
+	}
 	return d.ID
 }
 
 // GetTitle returns value of Title field.
 func (d *DialogFilter) GetTitle() (value string) {
+	if d == nil {
+		return
+	}
 	return d.Title
 }
 
@@ -654,6 +684,9 @@ func (d *DialogFilter) SetEmoticon(value string) {
 // GetEmoticon returns value of Emoticon conditional field and
 // boolean which is true if field was set.
 func (d *DialogFilter) GetEmoticon() (value string, ok bool) {
+	if d == nil {
+		return
+	}
 	if !d.Flags.Has(25) {
 		return value, false
 	}
@@ -662,16 +695,25 @@ func (d *DialogFilter) GetEmoticon() (value string, ok bool) {
 
 // GetPinnedPeers returns value of PinnedPeers field.
 func (d *DialogFilter) GetPinnedPeers() (value []InputPeerClass) {
+	if d == nil {
+		return
+	}
 	return d.PinnedPeers
 }
 
 // GetIncludePeers returns value of IncludePeers field.
 func (d *DialogFilter) GetIncludePeers() (value []InputPeerClass) {
+	if d == nil {
+		return
+	}
 	return d.IncludePeers
 }
 
 // GetExcludePeers returns value of ExcludePeers field.
 func (d *DialogFilter) GetExcludePeers() (value []InputPeerClass) {
+	if d == nil {
+		return
+	}
 	return d.ExcludePeers
 }
 

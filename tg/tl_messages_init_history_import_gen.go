@@ -214,16 +214,25 @@ func (i *MessagesInitHistoryImportRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (i *MessagesInitHistoryImportRequest) GetPeer() (value InputPeerClass) {
+	if i == nil {
+		return
+	}
 	return i.Peer
 }
 
 // GetFile returns value of File field.
 func (i *MessagesInitHistoryImportRequest) GetFile() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.File
 }
 
 // GetMediaCount returns value of MediaCount field.
 func (i *MessagesInitHistoryImportRequest) GetMediaCount() (value int) {
+	if i == nil {
+		return
+	}
 	return i.MediaCount
 }
 

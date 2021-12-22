@@ -287,26 +287,41 @@ func (d *DownloadFileRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFileID returns value of FileID field.
 func (d *DownloadFileRequest) GetFileID() (value int32) {
+	if d == nil {
+		return
+	}
 	return d.FileID
 }
 
 // GetPriority returns value of Priority field.
 func (d *DownloadFileRequest) GetPriority() (value int32) {
+	if d == nil {
+		return
+	}
 	return d.Priority
 }
 
 // GetOffset returns value of Offset field.
 func (d *DownloadFileRequest) GetOffset() (value int32) {
+	if d == nil {
+		return
+	}
 	return d.Offset
 }
 
 // GetLimit returns value of Limit field.
 func (d *DownloadFileRequest) GetLimit() (value int32) {
+	if d == nil {
+		return
+	}
 	return d.Limit
 }
 
 // GetSynchronous returns value of Synchronous field.
 func (d *DownloadFileRequest) GetSynchronous() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Synchronous
 }
 

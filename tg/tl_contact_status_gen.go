@@ -179,10 +179,16 @@ func (c *ContactStatus) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (c *ContactStatus) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetStatus returns value of Status field.
 func (c *ContactStatus) GetStatus() (value UserStatusClass) {
+	if c == nil {
+		return
+	}
 	return c.Status
 }

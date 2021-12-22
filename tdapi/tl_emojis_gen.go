@@ -205,5 +205,8 @@ func (e *Emojis) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetEmojis returns value of Emojis field.
 func (e *Emojis) GetEmojis() (value []string) {
+	if e == nil {
+		return
+	}
 	return e.Emojis
 }

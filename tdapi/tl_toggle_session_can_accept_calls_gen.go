@@ -208,11 +208,17 @@ func (t *ToggleSessionCanAcceptCallsRequest) DecodeTDLibJSON(b tdjson.Decoder) e
 
 // GetSessionID returns value of SessionID field.
 func (t *ToggleSessionCanAcceptCallsRequest) GetSessionID() (value int64) {
+	if t == nil {
+		return
+	}
 	return t.SessionID
 }
 
 // GetCanAcceptCalls returns value of CanAcceptCalls field.
 func (t *ToggleSessionCanAcceptCallsRequest) GetCanAcceptCalls() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.CanAcceptCalls
 }
 

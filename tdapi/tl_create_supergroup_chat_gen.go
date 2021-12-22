@@ -209,11 +209,17 @@ func (c *CreateSupergroupChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSupergroupID returns value of SupergroupID field.
 func (c *CreateSupergroupChatRequest) GetSupergroupID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.SupergroupID
 }
 
 // GetForce returns value of Force field.
 func (c *CreateSupergroupChatRequest) GetForce() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Force
 }
 

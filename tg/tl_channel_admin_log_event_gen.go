@@ -217,20 +217,32 @@ func (c *ChannelAdminLogEvent) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (c *ChannelAdminLogEvent) GetID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ID
 }
 
 // GetDate returns value of Date field.
 func (c *ChannelAdminLogEvent) GetDate() (value int) {
+	if c == nil {
+		return
+	}
 	return c.Date
 }
 
 // GetUserID returns value of UserID field.
 func (c *ChannelAdminLogEvent) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetAction returns value of Action field.
 func (c *ChannelAdminLogEvent) GetAction() (value ChannelAdminLogEventActionClass) {
+	if c == nil {
+		return
+	}
 	return c.Action
 }

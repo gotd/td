@@ -208,11 +208,17 @@ func (s *SearchContactsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetQuery returns value of Query field.
 func (s *SearchContactsRequest) GetQuery() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Query
 }
 
 // GetLimit returns value of Limit field.
 func (s *SearchContactsRequest) GetLimit() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Limit
 }
 

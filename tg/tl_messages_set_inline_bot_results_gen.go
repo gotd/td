@@ -340,6 +340,9 @@ func (s *MessagesSetInlineBotResultsRequest) SetGallery(value bool) {
 
 // GetGallery returns value of Gallery conditional field.
 func (s *MessagesSetInlineBotResultsRequest) GetGallery() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(0)
 }
 
@@ -356,21 +359,33 @@ func (s *MessagesSetInlineBotResultsRequest) SetPrivate(value bool) {
 
 // GetPrivate returns value of Private conditional field.
 func (s *MessagesSetInlineBotResultsRequest) GetPrivate() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(1)
 }
 
 // GetQueryID returns value of QueryID field.
 func (s *MessagesSetInlineBotResultsRequest) GetQueryID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.QueryID
 }
 
 // GetResults returns value of Results field.
 func (s *MessagesSetInlineBotResultsRequest) GetResults() (value []InputBotInlineResultClass) {
+	if s == nil {
+		return
+	}
 	return s.Results
 }
 
 // GetCacheTime returns value of CacheTime field.
 func (s *MessagesSetInlineBotResultsRequest) GetCacheTime() (value int) {
+	if s == nil {
+		return
+	}
 	return s.CacheTime
 }
 
@@ -383,6 +398,9 @@ func (s *MessagesSetInlineBotResultsRequest) SetNextOffset(value string) {
 // GetNextOffset returns value of NextOffset conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSetInlineBotResultsRequest) GetNextOffset() (value string, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(2) {
 		return value, false
 	}
@@ -398,6 +416,9 @@ func (s *MessagesSetInlineBotResultsRequest) SetSwitchPm(value InlineBotSwitchPM
 // GetSwitchPm returns value of SwitchPm conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSetInlineBotResultsRequest) GetSwitchPm() (value InlineBotSwitchPM, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(3) {
 		return value, false
 	}

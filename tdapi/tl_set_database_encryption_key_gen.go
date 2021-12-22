@@ -183,6 +183,9 @@ func (s *SetDatabaseEncryptionKeyRequest) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetNewEncryptionKey returns value of NewEncryptionKey field.
 func (s *SetDatabaseEncryptionKeyRequest) GetNewEncryptionKey() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.NewEncryptionKey
 }
 

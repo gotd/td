@@ -218,11 +218,17 @@ func (g *GetRemoteFileRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetRemoteFileID returns value of RemoteFileID field.
 func (g *GetRemoteFileRequest) GetRemoteFileID() (value string) {
+	if g == nil {
+		return
+	}
 	return g.RemoteFileID
 }
 
 // GetFileType returns value of FileType field.
 func (g *GetRemoteFileRequest) GetFileType() (value FileTypeClass) {
+	if g == nil {
+		return
+	}
 	return g.FileType
 }
 

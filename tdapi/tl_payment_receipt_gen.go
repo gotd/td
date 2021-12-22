@@ -433,55 +433,88 @@ func (p *PaymentReceipt) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTitle returns value of Title field.
 func (p *PaymentReceipt) GetTitle() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Title
 }
 
 // GetDescription returns value of Description field.
 func (p *PaymentReceipt) GetDescription() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Description
 }
 
 // GetPhoto returns value of Photo field.
 func (p *PaymentReceipt) GetPhoto() (value Photo) {
+	if p == nil {
+		return
+	}
 	return p.Photo
 }
 
 // GetDate returns value of Date field.
 func (p *PaymentReceipt) GetDate() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.Date
 }
 
 // GetSellerBotUserID returns value of SellerBotUserID field.
 func (p *PaymentReceipt) GetSellerBotUserID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.SellerBotUserID
 }
 
 // GetPaymentsProviderUserID returns value of PaymentsProviderUserID field.
 func (p *PaymentReceipt) GetPaymentsProviderUserID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.PaymentsProviderUserID
 }
 
 // GetInvoice returns value of Invoice field.
 func (p *PaymentReceipt) GetInvoice() (value Invoice) {
+	if p == nil {
+		return
+	}
 	return p.Invoice
 }
 
 // GetOrderInfo returns value of OrderInfo field.
 func (p *PaymentReceipt) GetOrderInfo() (value OrderInfo) {
+	if p == nil {
+		return
+	}
 	return p.OrderInfo
 }
 
 // GetShippingOption returns value of ShippingOption field.
 func (p *PaymentReceipt) GetShippingOption() (value ShippingOption) {
+	if p == nil {
+		return
+	}
 	return p.ShippingOption
 }
 
 // GetCredentialsTitle returns value of CredentialsTitle field.
 func (p *PaymentReceipt) GetCredentialsTitle() (value string) {
+	if p == nil {
+		return
+	}
 	return p.CredentialsTitle
 }
 
 // GetTipAmount returns value of TipAmount field.
 func (p *PaymentReceipt) GetTipAmount() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.TipAmount
 }

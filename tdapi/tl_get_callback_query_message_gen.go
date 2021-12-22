@@ -233,16 +233,25 @@ func (g *GetCallbackQueryMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetChatID returns value of ChatID field.
 func (g *GetCallbackQueryMessageRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (g *GetCallbackQueryMessageRequest) GetMessageID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.MessageID
 }
 
 // GetCallbackQueryID returns value of CallbackQueryID field.
 func (g *GetCallbackQueryMessageRequest) GetCallbackQueryID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.CallbackQueryID
 }
 

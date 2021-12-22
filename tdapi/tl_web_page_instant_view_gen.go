@@ -351,30 +351,48 @@ func (w *WebPageInstantView) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPageBlocks returns value of PageBlocks field.
 func (w *WebPageInstantView) GetPageBlocks() (value []PageBlockClass) {
+	if w == nil {
+		return
+	}
 	return w.PageBlocks
 }
 
 // GetViewCount returns value of ViewCount field.
 func (w *WebPageInstantView) GetViewCount() (value int32) {
+	if w == nil {
+		return
+	}
 	return w.ViewCount
 }
 
 // GetVersion returns value of Version field.
 func (w *WebPageInstantView) GetVersion() (value int32) {
+	if w == nil {
+		return
+	}
 	return w.Version
 }
 
 // GetIsRtl returns value of IsRtl field.
 func (w *WebPageInstantView) GetIsRtl() (value bool) {
+	if w == nil {
+		return
+	}
 	return w.IsRtl
 }
 
 // GetIsFull returns value of IsFull field.
 func (w *WebPageInstantView) GetIsFull() (value bool) {
+	if w == nil {
+		return
+	}
 	return w.IsFull
 }
 
 // GetFeedbackLink returns value of FeedbackLink field.
 func (w *WebPageInstantView) GetFeedbackLink() (value InternalLinkTypeClass) {
+	if w == nil {
+		return
+	}
 	return w.FeedbackLink
 }

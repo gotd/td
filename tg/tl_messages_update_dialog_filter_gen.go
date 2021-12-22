@@ -215,6 +215,9 @@ func (u *MessagesUpdateDialogFilterRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (u *MessagesUpdateDialogFilterRequest) GetID() (value int) {
+	if u == nil {
+		return
+	}
 	return u.ID
 }
 
@@ -227,6 +230,9 @@ func (u *MessagesUpdateDialogFilterRequest) SetFilter(value DialogFilter) {
 // GetFilter returns value of Filter conditional field and
 // boolean which is true if field was set.
 func (u *MessagesUpdateDialogFilterRequest) GetFilter() (value DialogFilter, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}

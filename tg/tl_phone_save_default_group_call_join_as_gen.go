@@ -185,11 +185,17 @@ func (s *PhoneSaveDefaultGroupCallJoinAsRequest) DecodeBare(b *bin.Buffer) error
 
 // GetPeer returns value of Peer field.
 func (s *PhoneSaveDefaultGroupCallJoinAsRequest) GetPeer() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
 // GetJoinAs returns value of JoinAs field.
 func (s *PhoneSaveDefaultGroupCallJoinAsRequest) GetJoinAs() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.JoinAs
 }
 

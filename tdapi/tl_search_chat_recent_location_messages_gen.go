@@ -208,11 +208,17 @@ func (s *SearchChatRecentLocationMessagesRequest) DecodeTDLibJSON(b tdjson.Decod
 
 // GetChatID returns value of ChatID field.
 func (s *SearchChatRecentLocationMessagesRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetLimit returns value of Limit field.
 func (s *SearchChatRecentLocationMessagesRequest) GetLimit() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Limit
 }
 

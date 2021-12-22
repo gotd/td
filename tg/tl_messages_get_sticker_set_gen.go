@@ -179,11 +179,17 @@ func (g *MessagesGetStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetStickerset returns value of Stickerset field.
 func (g *MessagesGetStickerSetRequest) GetStickerset() (value InputStickerSetClass) {
+	if g == nil {
+		return
+	}
 	return g.Stickerset
 }
 
 // GetHash returns value of Hash field.
 func (g *MessagesGetStickerSetRequest) GetHash() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Hash
 }
 

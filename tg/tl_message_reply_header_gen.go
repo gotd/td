@@ -251,6 +251,9 @@ func (m *MessageReplyHeader) DecodeBare(b *bin.Buffer) error {
 
 // GetReplyToMsgID returns value of ReplyToMsgID field.
 func (m *MessageReplyHeader) GetReplyToMsgID() (value int) {
+	if m == nil {
+		return
+	}
 	return m.ReplyToMsgID
 }
 
@@ -263,6 +266,9 @@ func (m *MessageReplyHeader) SetReplyToPeerID(value PeerClass) {
 // GetReplyToPeerID returns value of ReplyToPeerID conditional field and
 // boolean which is true if field was set.
 func (m *MessageReplyHeader) GetReplyToPeerID() (value PeerClass, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(0) {
 		return value, false
 	}
@@ -278,6 +284,9 @@ func (m *MessageReplyHeader) SetReplyToTopID(value int) {
 // GetReplyToTopID returns value of ReplyToTopID conditional field and
 // boolean which is true if field was set.
 func (m *MessageReplyHeader) GetReplyToTopID() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(1) {
 		return value, false
 	}

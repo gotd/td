@@ -208,11 +208,17 @@ func (a *AddLogMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetVerbosityLevel returns value of VerbosityLevel field.
 func (a *AddLogMessageRequest) GetVerbosityLevel() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.VerbosityLevel
 }
 
 // GetText returns value of Text field.
 func (a *AddLogMessageRequest) GetText() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Text
 }
 

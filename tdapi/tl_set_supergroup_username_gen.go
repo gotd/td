@@ -208,11 +208,17 @@ func (s *SetSupergroupUsernameRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSupergroupID returns value of SupergroupID field.
 func (s *SetSupergroupUsernameRequest) GetSupergroupID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.SupergroupID
 }
 
 // GetUsername returns value of Username field.
 func (s *SetSupergroupUsernameRequest) GetUsername() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Username
 }
 

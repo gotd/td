@@ -183,6 +183,9 @@ func (s *SearchChatsNearbyRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLocation returns value of Location field.
 func (s *SearchChatsNearbyRequest) GetLocation() (value Location) {
+	if s == nil {
+		return
+	}
 	return s.Location
 }
 

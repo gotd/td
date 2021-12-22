@@ -165,5 +165,8 @@ func (vec *ReceivedNotifyMessageVector) DecodeBare(b *bin.Buffer) error {
 
 // GetElems returns value of Elems field.
 func (vec *ReceivedNotifyMessageVector) GetElems() (value []ReceivedNotifyMessage) {
+	if vec == nil {
+		return
+	}
 	return vec.Elems
 }

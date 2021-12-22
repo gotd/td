@@ -268,21 +268,33 @@ func (g *GetSupergroupMembersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSupergroupID returns value of SupergroupID field.
 func (g *GetSupergroupMembersRequest) GetSupergroupID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.SupergroupID
 }
 
 // GetFilter returns value of Filter field.
 func (g *GetSupergroupMembersRequest) GetFilter() (value SupergroupMembersFilterClass) {
+	if g == nil {
+		return
+	}
 	return g.Filter
 }
 
 // GetOffset returns value of Offset field.
 func (g *GetSupergroupMembersRequest) GetOffset() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 
 // GetLimit returns value of Limit field.
 func (g *GetSupergroupMembersRequest) GetLimit() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

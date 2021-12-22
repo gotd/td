@@ -163,5 +163,8 @@ func (vec *LongVector) DecodeBare(b *bin.Buffer) error {
 
 // GetElems returns value of Elems field.
 func (vec *LongVector) GetElems() (value []int64) {
+	if vec == nil {
+		return
+	}
 	return vec.Elems
 }

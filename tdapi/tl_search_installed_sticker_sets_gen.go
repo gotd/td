@@ -233,16 +233,25 @@ func (s *SearchInstalledStickerSetsRequest) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetIsMasks returns value of IsMasks field.
 func (s *SearchInstalledStickerSetsRequest) GetIsMasks() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.IsMasks
 }
 
 // GetQuery returns value of Query field.
 func (s *SearchInstalledStickerSetsRequest) GetQuery() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Query
 }
 
 // GetLimit returns value of Limit field.
 func (s *SearchInstalledStickerSetsRequest) GetLimit() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Limit
 }
 

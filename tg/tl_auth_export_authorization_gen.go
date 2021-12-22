@@ -155,6 +155,9 @@ func (e *AuthExportAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetDCID returns value of DCID field.
 func (e *AuthExportAuthorizationRequest) GetDCID() (value int) {
+	if e == nil {
+		return
+	}
 	return e.DCID
 }
 

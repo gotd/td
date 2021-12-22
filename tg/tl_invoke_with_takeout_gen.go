@@ -174,10 +174,16 @@ func (i *InvokeWithTakeoutRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetTakeoutID returns value of TakeoutID field.
 func (i *InvokeWithTakeoutRequest) GetTakeoutID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.TakeoutID
 }
 
 // GetQuery returns value of Query field.
 func (i *InvokeWithTakeoutRequest) GetQuery() (value bin.Object) {
+	if i == nil {
+		return
+	}
 	return i.Query
 }

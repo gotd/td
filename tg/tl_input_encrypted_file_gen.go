@@ -323,21 +323,33 @@ func (i *InputEncryptedFileUploaded) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputEncryptedFileUploaded) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetParts returns value of Parts field.
 func (i *InputEncryptedFileUploaded) GetParts() (value int) {
+	if i == nil {
+		return
+	}
 	return i.Parts
 }
 
 // GetMD5Checksum returns value of MD5Checksum field.
 func (i *InputEncryptedFileUploaded) GetMD5Checksum() (value string) {
+	if i == nil {
+		return
+	}
 	return i.MD5Checksum
 }
 
 // GetKeyFingerprint returns value of KeyFingerprint field.
 func (i *InputEncryptedFileUploaded) GetKeyFingerprint() (value int) {
+	if i == nil {
+		return
+	}
 	return i.KeyFingerprint
 }
 
@@ -495,11 +507,17 @@ func (i *InputEncryptedFile) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputEncryptedFile) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputEncryptedFile) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }
 
@@ -674,16 +692,25 @@ func (i *InputEncryptedFileBigUploaded) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputEncryptedFileBigUploaded) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetParts returns value of Parts field.
 func (i *InputEncryptedFileBigUploaded) GetParts() (value int) {
+	if i == nil {
+		return
+	}
 	return i.Parts
 }
 
 // GetKeyFingerprint returns value of KeyFingerprint field.
 func (i *InputEncryptedFileBigUploaded) GetKeyFingerprint() (value int) {
+	if i == nil {
+		return
+	}
 	return i.KeyFingerprint
 }
 

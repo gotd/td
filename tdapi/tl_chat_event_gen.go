@@ -268,20 +268,32 @@ func (c *ChatEvent) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (c *ChatEvent) GetID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ID
 }
 
 // GetDate returns value of Date field.
 func (c *ChatEvent) GetDate() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.Date
 }
 
 // GetUserID returns value of UserID field.
 func (c *ChatEvent) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetAction returns value of Action field.
 func (c *ChatEvent) GetAction() (value ChatEventActionClass) {
+	if c == nil {
+		return
+	}
 	return c.Action
 }

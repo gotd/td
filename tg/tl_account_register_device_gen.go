@@ -308,31 +308,49 @@ func (r *AccountRegisterDeviceRequest) SetNoMuted(value bool) {
 
 // GetNoMuted returns value of NoMuted conditional field.
 func (r *AccountRegisterDeviceRequest) GetNoMuted() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.Flags.Has(0)
 }
 
 // GetTokenType returns value of TokenType field.
 func (r *AccountRegisterDeviceRequest) GetTokenType() (value int) {
+	if r == nil {
+		return
+	}
 	return r.TokenType
 }
 
 // GetToken returns value of Token field.
 func (r *AccountRegisterDeviceRequest) GetToken() (value string) {
+	if r == nil {
+		return
+	}
 	return r.Token
 }
 
 // GetAppSandbox returns value of AppSandbox field.
 func (r *AccountRegisterDeviceRequest) GetAppSandbox() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.AppSandbox
 }
 
 // GetSecret returns value of Secret field.
 func (r *AccountRegisterDeviceRequest) GetSecret() (value []byte) {
+	if r == nil {
+		return
+	}
 	return r.Secret
 }
 
 // GetOtherUIDs returns value of OtherUIDs field.
 func (r *AccountRegisterDeviceRequest) GetOtherUIDs() (value []int64) {
+	if r == nil {
+		return
+	}
 	return r.OtherUIDs
 }
 

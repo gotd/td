@@ -340,11 +340,17 @@ func (u *AccountUpdateThemeRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetFormat returns value of Format field.
 func (u *AccountUpdateThemeRequest) GetFormat() (value string) {
+	if u == nil {
+		return
+	}
 	return u.Format
 }
 
 // GetTheme returns value of Theme field.
 func (u *AccountUpdateThemeRequest) GetTheme() (value InputThemeClass) {
+	if u == nil {
+		return
+	}
 	return u.Theme
 }
 
@@ -357,6 +363,9 @@ func (u *AccountUpdateThemeRequest) SetSlug(value string) {
 // GetSlug returns value of Slug conditional field and
 // boolean which is true if field was set.
 func (u *AccountUpdateThemeRequest) GetSlug() (value string, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -372,6 +381,9 @@ func (u *AccountUpdateThemeRequest) SetTitle(value string) {
 // GetTitle returns value of Title conditional field and
 // boolean which is true if field was set.
 func (u *AccountUpdateThemeRequest) GetTitle() (value string, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(1) {
 		return value, false
 	}
@@ -387,6 +399,9 @@ func (u *AccountUpdateThemeRequest) SetDocument(value InputDocumentClass) {
 // GetDocument returns value of Document conditional field and
 // boolean which is true if field was set.
 func (u *AccountUpdateThemeRequest) GetDocument() (value InputDocumentClass, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(2) {
 		return value, false
 	}
@@ -402,6 +417,9 @@ func (u *AccountUpdateThemeRequest) SetSettings(value []InputThemeSettings) {
 // GetSettings returns value of Settings conditional field and
 // boolean which is true if field was set.
 func (u *AccountUpdateThemeRequest) GetSettings() (value []InputThemeSettings, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(3) {
 		return value, false
 	}

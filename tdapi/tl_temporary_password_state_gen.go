@@ -208,10 +208,16 @@ func (t *TemporaryPasswordState) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetHasPassword returns value of HasPassword field.
 func (t *TemporaryPasswordState) GetHasPassword() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.HasPassword
 }
 
 // GetValidFor returns value of ValidFor field.
 func (t *TemporaryPasswordState) GetValidFor() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.ValidFor
 }

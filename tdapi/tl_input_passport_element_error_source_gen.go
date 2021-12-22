@@ -190,6 +190,9 @@ func (i *InputPassportElementErrorSourceUnspecified) DecodeTDLibJSON(b tdjson.De
 
 // GetElementHash returns value of ElementHash field.
 func (i *InputPassportElementErrorSourceUnspecified) GetElementHash() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.ElementHash
 }
 
@@ -377,11 +380,17 @@ func (i *InputPassportElementErrorSourceDataField) DecodeTDLibJSON(b tdjson.Deco
 
 // GetFieldName returns value of FieldName field.
 func (i *InputPassportElementErrorSourceDataField) GetFieldName() (value string) {
+	if i == nil {
+		return
+	}
 	return i.FieldName
 }
 
 // GetDataHash returns value of DataHash field.
 func (i *InputPassportElementErrorSourceDataField) GetDataHash() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.DataHash
 }
 
@@ -544,6 +553,9 @@ func (i *InputPassportElementErrorSourceFrontSide) DecodeTDLibJSON(b tdjson.Deco
 
 // GetFileHash returns value of FileHash field.
 func (i *InputPassportElementErrorSourceFrontSide) GetFileHash() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.FileHash
 }
 
@@ -706,6 +718,9 @@ func (i *InputPassportElementErrorSourceReverseSide) DecodeTDLibJSON(b tdjson.De
 
 // GetFileHash returns value of FileHash field.
 func (i *InputPassportElementErrorSourceReverseSide) GetFileHash() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.FileHash
 }
 
@@ -868,6 +883,9 @@ func (i *InputPassportElementErrorSourceSelfie) DecodeTDLibJSON(b tdjson.Decoder
 
 // GetFileHash returns value of FileHash field.
 func (i *InputPassportElementErrorSourceSelfie) GetFileHash() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.FileHash
 }
 
@@ -1030,6 +1048,9 @@ func (i *InputPassportElementErrorSourceTranslationFile) DecodeTDLibJSON(b tdjso
 
 // GetFileHash returns value of FileHash field.
 func (i *InputPassportElementErrorSourceTranslationFile) GetFileHash() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.FileHash
 }
 
@@ -1214,6 +1235,9 @@ func (i *InputPassportElementErrorSourceTranslationFiles) DecodeTDLibJSON(b tdjs
 
 // GetFileHashes returns value of FileHashes field.
 func (i *InputPassportElementErrorSourceTranslationFiles) GetFileHashes() (value [][]byte) {
+	if i == nil {
+		return
+	}
 	return i.FileHashes
 }
 
@@ -1376,6 +1400,9 @@ func (i *InputPassportElementErrorSourceFile) DecodeTDLibJSON(b tdjson.Decoder) 
 
 // GetFileHash returns value of FileHash field.
 func (i *InputPassportElementErrorSourceFile) GetFileHash() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.FileHash
 }
 
@@ -1560,6 +1587,9 @@ func (i *InputPassportElementErrorSourceFiles) DecodeTDLibJSON(b tdjson.Decoder)
 
 // GetFileHashes returns value of FileHashes field.
 func (i *InputPassportElementErrorSourceFiles) GetFileHashes() (value [][]byte) {
+	if i == nil {
+		return
+	}
 	return i.FileHashes
 }
 

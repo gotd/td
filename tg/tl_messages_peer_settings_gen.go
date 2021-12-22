@@ -228,16 +228,25 @@ func (p *MessagesPeerSettings) DecodeBare(b *bin.Buffer) error {
 
 // GetSettings returns value of Settings field.
 func (p *MessagesPeerSettings) GetSettings() (value PeerSettings) {
+	if p == nil {
+		return
+	}
 	return p.Settings
 }
 
 // GetChats returns value of Chats field.
 func (p *MessagesPeerSettings) GetChats() (value []ChatClass) {
+	if p == nil {
+		return
+	}
 	return p.Chats
 }
 
 // GetUsers returns value of Users field.
 func (p *MessagesPeerSettings) GetUsers() (value []UserClass) {
+	if p == nil {
+		return
+	}
 	return p.Users
 }
 

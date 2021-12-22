@@ -183,6 +183,9 @@ func (g *GetMessageFileTypeRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMessageFileHead returns value of MessageFileHead field.
 func (g *GetMessageFileTypeRequest) GetMessageFileHead() (value string) {
+	if g == nil {
+		return
+	}
 	return g.MessageFileHead
 }
 

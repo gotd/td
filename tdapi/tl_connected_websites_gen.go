@@ -209,5 +209,8 @@ func (c *ConnectedWebsites) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetWebsites returns value of Websites field.
 func (c *ConnectedWebsites) GetWebsites() (value []ConnectedWebsite) {
+	if c == nil {
+		return
+	}
 	return c.Websites
 }

@@ -208,11 +208,17 @@ func (g *GetFileDownloadedPrefixSizeRequest) DecodeTDLibJSON(b tdjson.Decoder) e
 
 // GetFileID returns value of FileID field.
 func (g *GetFileDownloadedPrefixSizeRequest) GetFileID() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.FileID
 }
 
 // GetOffset returns value of Offset field.
 func (g *GetFileDownloadedPrefixSizeRequest) GetOffset() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 

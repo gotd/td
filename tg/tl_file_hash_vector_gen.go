@@ -165,5 +165,8 @@ func (vec *FileHashVector) DecodeBare(b *bin.Buffer) error {
 
 // GetElems returns value of Elems field.
 func (vec *FileHashVector) GetElems() (value []FileHash) {
+	if vec == nil {
+		return
+	}
 	return vec.Elems
 }

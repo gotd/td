@@ -1209,6 +1209,9 @@ func (i *InputMessagesFilterPhoneCalls) SetMissed(value bool) {
 
 // GetMissed returns value of Missed conditional field.
 func (i *InputMessagesFilterPhoneCalls) GetMissed() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(0)
 }
 

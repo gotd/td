@@ -227,6 +227,9 @@ func (g *MessagesGetWebPagePreviewRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetMessage returns value of Message field.
 func (g *MessagesGetWebPagePreviewRequest) GetMessage() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Message
 }
 
@@ -239,6 +242,9 @@ func (g *MessagesGetWebPagePreviewRequest) SetEntities(value []MessageEntityClas
 // GetEntities returns value of Entities conditional field and
 // boolean which is true if field was set.
 func (g *MessagesGetWebPagePreviewRequest) GetEntities() (value []MessageEntityClass, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(3) {
 		return value, false
 	}

@@ -409,50 +409,80 @@ func (p *PaymentForm) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (p *PaymentForm) GetID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ID
 }
 
 // GetInvoice returns value of Invoice field.
 func (p *PaymentForm) GetInvoice() (value Invoice) {
+	if p == nil {
+		return
+	}
 	return p.Invoice
 }
 
 // GetURL returns value of URL field.
 func (p *PaymentForm) GetURL() (value string) {
+	if p == nil {
+		return
+	}
 	return p.URL
 }
 
 // GetSellerBotUserID returns value of SellerBotUserID field.
 func (p *PaymentForm) GetSellerBotUserID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.SellerBotUserID
 }
 
 // GetPaymentsProviderUserID returns value of PaymentsProviderUserID field.
 func (p *PaymentForm) GetPaymentsProviderUserID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.PaymentsProviderUserID
 }
 
 // GetPaymentsProvider returns value of PaymentsProvider field.
 func (p *PaymentForm) GetPaymentsProvider() (value PaymentsProviderStripe) {
+	if p == nil {
+		return
+	}
 	return p.PaymentsProvider
 }
 
 // GetSavedOrderInfo returns value of SavedOrderInfo field.
 func (p *PaymentForm) GetSavedOrderInfo() (value OrderInfo) {
+	if p == nil {
+		return
+	}
 	return p.SavedOrderInfo
 }
 
 // GetSavedCredentials returns value of SavedCredentials field.
 func (p *PaymentForm) GetSavedCredentials() (value SavedCredentials) {
+	if p == nil {
+		return
+	}
 	return p.SavedCredentials
 }
 
 // GetCanSaveCredentials returns value of CanSaveCredentials field.
 func (p *PaymentForm) GetCanSaveCredentials() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.CanSaveCredentials
 }
 
 // GetNeedPassword returns value of NeedPassword field.
 func (p *PaymentForm) GetNeedPassword() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.NeedPassword
 }

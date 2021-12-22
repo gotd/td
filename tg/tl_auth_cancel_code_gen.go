@@ -177,11 +177,17 @@ func (c *AuthCancelCodeRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (c *AuthCancelCodeRequest) GetPhoneNumber() (value string) {
+	if c == nil {
+		return
+	}
 	return c.PhoneNumber
 }
 
 // GetPhoneCodeHash returns value of PhoneCodeHash field.
 func (c *AuthCancelCodeRequest) GetPhoneCodeHash() (value string) {
+	if c == nil {
+		return
+	}
 	return c.PhoneCodeHash
 }
 

@@ -184,11 +184,17 @@ func (s *AccountSaveSecureValueRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetValue returns value of Value field.
 func (s *AccountSaveSecureValueRequest) GetValue() (value InputSecureValue) {
+	if s == nil {
+		return
+	}
 	return s.Value
 }
 
 // GetSecureSecretID returns value of SecureSecretID field.
 func (s *AccountSaveSecureValueRequest) GetSecureSecretID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.SecureSecretID
 }
 

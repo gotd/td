@@ -316,6 +316,9 @@ func (e *MessagesExportChatInviteRequest) SetLegacyRevokePermanent(value bool) {
 
 // GetLegacyRevokePermanent returns value of LegacyRevokePermanent conditional field.
 func (e *MessagesExportChatInviteRequest) GetLegacyRevokePermanent() (value bool) {
+	if e == nil {
+		return
+	}
 	return e.Flags.Has(2)
 }
 
@@ -332,11 +335,17 @@ func (e *MessagesExportChatInviteRequest) SetRequestNeeded(value bool) {
 
 // GetRequestNeeded returns value of RequestNeeded conditional field.
 func (e *MessagesExportChatInviteRequest) GetRequestNeeded() (value bool) {
+	if e == nil {
+		return
+	}
 	return e.Flags.Has(3)
 }
 
 // GetPeer returns value of Peer field.
 func (e *MessagesExportChatInviteRequest) GetPeer() (value InputPeerClass) {
+	if e == nil {
+		return
+	}
 	return e.Peer
 }
 
@@ -349,6 +358,9 @@ func (e *MessagesExportChatInviteRequest) SetExpireDate(value int) {
 // GetExpireDate returns value of ExpireDate conditional field and
 // boolean which is true if field was set.
 func (e *MessagesExportChatInviteRequest) GetExpireDate() (value int, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(0) {
 		return value, false
 	}
@@ -364,6 +376,9 @@ func (e *MessagesExportChatInviteRequest) SetUsageLimit(value int) {
 // GetUsageLimit returns value of UsageLimit conditional field and
 // boolean which is true if field was set.
 func (e *MessagesExportChatInviteRequest) GetUsageLimit() (value int, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(1) {
 		return value, false
 	}
@@ -379,6 +394,9 @@ func (e *MessagesExportChatInviteRequest) SetTitle(value string) {
 // GetTitle returns value of Title conditional field and
 // boolean which is true if field was set.
 func (e *MessagesExportChatInviteRequest) GetTitle() (value string, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(4) {
 		return value, false
 	}

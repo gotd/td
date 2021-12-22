@@ -180,10 +180,16 @@ func (c *CDNPublicKey) DecodeBare(b *bin.Buffer) error {
 
 // GetDCID returns value of DCID field.
 func (c *CDNPublicKey) GetDCID() (value int) {
+	if c == nil {
+		return
+	}
 	return c.DCID
 }
 
 // GetPublicKey returns value of PublicKey field.
 func (c *CDNPublicKey) GetPublicKey() (value string) {
+	if c == nil {
+		return
+	}
 	return c.PublicKey
 }

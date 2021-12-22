@@ -218,11 +218,17 @@ func (s *SetStickerPositionInSetRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetSticker returns value of Sticker field.
 func (s *SetStickerPositionInSetRequest) GetSticker() (value InputFileClass) {
+	if s == nil {
+		return
+	}
 	return s.Sticker
 }
 
 // GetPosition returns value of Position field.
 func (s *SetStickerPositionInSetRequest) GetPosition() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Position
 }
 

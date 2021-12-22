@@ -256,16 +256,25 @@ func (d *DeleteMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (d *DeleteMessagesRequest) GetChatID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.ChatID
 }
 
 // GetMessageIDs returns value of MessageIDs field.
 func (d *DeleteMessagesRequest) GetMessageIDs() (value []int64) {
+	if d == nil {
+		return
+	}
 	return d.MessageIDs
 }
 
 // GetRevoke returns value of Revoke field.
 func (d *DeleteMessagesRequest) GetRevoke() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Revoke
 }
 

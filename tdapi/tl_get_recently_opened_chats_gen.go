@@ -183,6 +183,9 @@ func (g *GetRecentlyOpenedChatsRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetLimit returns value of Limit field.
 func (g *GetRecentlyOpenedChatsRequest) GetLimit() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

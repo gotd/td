@@ -177,10 +177,16 @@ func (i *InputClientProxy) DecodeBare(b *bin.Buffer) error {
 
 // GetAddress returns value of Address field.
 func (i *InputClientProxy) GetAddress() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Address
 }
 
 // GetPort returns value of Port field.
 func (i *InputClientProxy) GetPort() (value int) {
+	if i == nil {
+		return
+	}
 	return i.Port
 }

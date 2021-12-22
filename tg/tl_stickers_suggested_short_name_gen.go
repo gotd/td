@@ -155,5 +155,8 @@ func (s *StickersSuggestedShortName) DecodeBare(b *bin.Buffer) error {
 
 // GetShortName returns value of ShortName field.
 func (s *StickersSuggestedShortName) GetShortName() (value string) {
+	if s == nil {
+		return
+	}
 	return s.ShortName
 }

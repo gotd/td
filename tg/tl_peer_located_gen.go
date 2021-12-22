@@ -203,16 +203,25 @@ func (p *PeerLocated) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (p *PeerLocated) GetPeer() (value PeerClass) {
+	if p == nil {
+		return
+	}
 	return p.Peer
 }
 
 // GetExpires returns value of Expires field.
 func (p *PeerLocated) GetExpires() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Expires
 }
 
 // GetDistance returns value of Distance field.
 func (p *PeerLocated) GetDistance() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Distance
 }
 
@@ -345,6 +354,9 @@ func (p *PeerSelfLocated) DecodeBare(b *bin.Buffer) error {
 
 // GetExpires returns value of Expires field.
 func (p *PeerSelfLocated) GetExpires() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Expires
 }
 

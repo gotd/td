@@ -183,6 +183,9 @@ func (r *RemoveBackgroundRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBackgroundID returns value of BackgroundID field.
 func (r *RemoveBackgroundRequest) GetBackgroundID() (value int64) {
+	if r == nil {
+		return
+	}
 	return r.BackgroundID
 }
 

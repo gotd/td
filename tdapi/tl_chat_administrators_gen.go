@@ -209,5 +209,8 @@ func (c *ChatAdministrators) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAdministrators returns value of Administrators field.
 func (c *ChatAdministrators) GetAdministrators() (value []ChatAdministrator) {
+	if c == nil {
+		return
+	}
 	return c.Administrators
 }

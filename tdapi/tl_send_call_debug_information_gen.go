@@ -208,11 +208,17 @@ func (s *SendCallDebugInformationRequest) DecodeTDLibJSON(b tdjson.Decoder) erro
 
 // GetCallID returns value of CallID field.
 func (s *SendCallDebugInformationRequest) GetCallID() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.CallID
 }
 
 // GetDebugInformation returns value of DebugInformation field.
 func (s *SendCallDebugInformationRequest) GetDebugInformation() (value string) {
+	if s == nil {
+		return
+	}
 	return s.DebugInformation
 }
 

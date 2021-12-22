@@ -219,16 +219,25 @@ func (e *HelpEditUserInfoRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (e *HelpEditUserInfoRequest) GetUserID() (value InputUserClass) {
+	if e == nil {
+		return
+	}
 	return e.UserID
 }
 
 // GetMessage returns value of Message field.
 func (e *HelpEditUserInfoRequest) GetMessage() (value string) {
+	if e == nil {
+		return
+	}
 	return e.Message
 }
 
 // GetEntities returns value of Entities field.
 func (e *HelpEditUserInfoRequest) GetEntities() (value []MessageEntityClass) {
+	if e == nil {
+		return
+	}
 	return e.Entities
 }
 

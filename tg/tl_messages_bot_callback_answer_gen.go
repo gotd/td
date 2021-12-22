@@ -295,6 +295,9 @@ func (b *MessagesBotCallbackAnswer) SetAlert(value bool) {
 
 // GetAlert returns value of Alert conditional field.
 func (b *MessagesBotCallbackAnswer) GetAlert() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.Flags.Has(1)
 }
 
@@ -311,6 +314,9 @@ func (b *MessagesBotCallbackAnswer) SetHasURL(value bool) {
 
 // GetHasURL returns value of HasURL conditional field.
 func (b *MessagesBotCallbackAnswer) GetHasURL() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.Flags.Has(3)
 }
 
@@ -327,6 +333,9 @@ func (b *MessagesBotCallbackAnswer) SetNativeUI(value bool) {
 
 // GetNativeUI returns value of NativeUI conditional field.
 func (b *MessagesBotCallbackAnswer) GetNativeUI() (value bool) {
+	if b == nil {
+		return
+	}
 	return b.Flags.Has(4)
 }
 
@@ -339,6 +348,9 @@ func (b *MessagesBotCallbackAnswer) SetMessage(value string) {
 // GetMessage returns value of Message conditional field and
 // boolean which is true if field was set.
 func (b *MessagesBotCallbackAnswer) GetMessage() (value string, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(0) {
 		return value, false
 	}
@@ -354,6 +366,9 @@ func (b *MessagesBotCallbackAnswer) SetURL(value string) {
 // GetURL returns value of URL conditional field and
 // boolean which is true if field was set.
 func (b *MessagesBotCallbackAnswer) GetURL() (value string, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(2) {
 		return value, false
 	}
@@ -362,5 +377,8 @@ func (b *MessagesBotCallbackAnswer) GetURL() (value string, ok bool) {
 
 // GetCacheTime returns value of CacheTime field.
 func (b *MessagesBotCallbackAnswer) GetCacheTime() (value int) {
+	if b == nil {
+		return
+	}
 	return b.CacheTime
 }

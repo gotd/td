@@ -233,16 +233,25 @@ func (w *WriteGeneratedFilePartRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetGenerationID returns value of GenerationID field.
 func (w *WriteGeneratedFilePartRequest) GetGenerationID() (value int64) {
+	if w == nil {
+		return
+	}
 	return w.GenerationID
 }
 
 // GetOffset returns value of Offset field.
 func (w *WriteGeneratedFilePartRequest) GetOffset() (value int32) {
+	if w == nil {
+		return
+	}
 	return w.Offset
 }
 
 // GetData returns value of Data field.
 func (w *WriteGeneratedFilePartRequest) GetData() (value []byte) {
+	if w == nil {
+		return
+	}
 	return w.Data
 }
 

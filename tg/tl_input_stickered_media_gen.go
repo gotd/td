@@ -165,6 +165,9 @@ func (i *InputStickeredMediaPhoto) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputStickeredMediaPhoto) GetID() (value InputPhotoClass) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
@@ -302,6 +305,9 @@ func (i *InputStickeredMediaDocument) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputStickeredMediaDocument) GetID() (value InputDocumentClass) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 

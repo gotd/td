@@ -233,15 +233,24 @@ func (t *TermsOfService) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (t *TermsOfService) GetText() (value FormattedText) {
+	if t == nil {
+		return
+	}
 	return t.Text
 }
 
 // GetMinUserAge returns value of MinUserAge field.
 func (t *TermsOfService) GetMinUserAge() (value int32) {
+	if t == nil {
+		return
+	}
 	return t.MinUserAge
 }
 
 // GetShowPopup returns value of ShowPopup field.
 func (t *TermsOfService) GetShowPopup() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.ShowPopup
 }

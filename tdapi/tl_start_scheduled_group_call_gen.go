@@ -183,6 +183,9 @@ func (s *StartScheduledGroupCallRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetGroupCallID returns value of GroupCallID field.
 func (s *StartScheduledGroupCallRequest) GetGroupCallID() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.GroupCallID
 }
 

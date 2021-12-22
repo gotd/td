@@ -163,5 +163,8 @@ func (vec *IntVector) DecodeBare(b *bin.Buffer) error {
 
 // GetElems returns value of Elems field.
 func (vec *IntVector) GetElems() (value []int) {
+	if vec == nil {
+		return
+	}
 	return vec.Elems
 }

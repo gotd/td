@@ -192,11 +192,17 @@ func (c *MessagesCreateChatRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetUsers returns value of Users field.
 func (c *MessagesCreateChatRequest) GetUsers() (value []InputUserClass) {
+	if c == nil {
+		return
+	}
 	return c.Users
 }
 
 // GetTitle returns value of Title field.
 func (c *MessagesCreateChatRequest) GetTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Title
 }
 

@@ -294,11 +294,17 @@ func (m *MessageActionChatCreate) DecodeBare(b *bin.Buffer) error {
 
 // GetTitle returns value of Title field.
 func (m *MessageActionChatCreate) GetTitle() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Title
 }
 
 // GetUsers returns value of Users field.
 func (m *MessageActionChatCreate) GetUsers() (value []int64) {
+	if m == nil {
+		return
+	}
 	return m.Users
 }
 
@@ -431,6 +437,9 @@ func (m *MessageActionChatEditTitle) DecodeBare(b *bin.Buffer) error {
 
 // GetTitle returns value of Title field.
 func (m *MessageActionChatEditTitle) GetTitle() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Title
 }
 
@@ -568,6 +577,9 @@ func (m *MessageActionChatEditPhoto) DecodeBare(b *bin.Buffer) error {
 
 // GetPhoto returns value of Photo field.
 func (m *MessageActionChatEditPhoto) GetPhoto() (value PhotoClass) {
+	if m == nil {
+		return
+	}
 	return m.Photo
 }
 
@@ -815,6 +827,9 @@ func (m *MessageActionChatAddUser) DecodeBare(b *bin.Buffer) error {
 
 // GetUsers returns value of Users field.
 func (m *MessageActionChatAddUser) GetUsers() (value []int64) {
+	if m == nil {
+		return
+	}
 	return m.Users
 }
 
@@ -947,6 +962,9 @@ func (m *MessageActionChatDeleteUser) DecodeBare(b *bin.Buffer) error {
 
 // GetUserID returns value of UserID field.
 func (m *MessageActionChatDeleteUser) GetUserID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.UserID
 }
 
@@ -1079,6 +1097,9 @@ func (m *MessageActionChatJoinedByLink) DecodeBare(b *bin.Buffer) error {
 
 // GetInviterID returns value of InviterID field.
 func (m *MessageActionChatJoinedByLink) GetInviterID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.InviterID
 }
 
@@ -1211,6 +1232,9 @@ func (m *MessageActionChannelCreate) DecodeBare(b *bin.Buffer) error {
 
 // GetTitle returns value of Title field.
 func (m *MessageActionChannelCreate) GetTitle() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Title
 }
 
@@ -1346,6 +1370,9 @@ func (m *MessageActionChatMigrateTo) DecodeBare(b *bin.Buffer) error {
 
 // GetChannelID returns value of ChannelID field.
 func (m *MessageActionChatMigrateTo) GetChannelID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.ChannelID
 }
 
@@ -1500,11 +1527,17 @@ func (m *MessageActionChannelMigrateFrom) DecodeBare(b *bin.Buffer) error {
 
 // GetTitle returns value of Title field.
 func (m *MessageActionChannelMigrateFrom) GetTitle() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Title
 }
 
 // GetChatID returns value of ChatID field.
 func (m *MessageActionChannelMigrateFrom) GetChatID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.ChatID
 }
 
@@ -1860,11 +1893,17 @@ func (m *MessageActionGameScore) DecodeBare(b *bin.Buffer) error {
 
 // GetGameID returns value of GameID field.
 func (m *MessageActionGameScore) GetGameID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.GameID
 }
 
 // GetScore returns value of Score field.
 func (m *MessageActionGameScore) GetScore() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Score
 }
 
@@ -2144,16 +2183,25 @@ func (m *MessageActionPaymentSentMe) DecodeBare(b *bin.Buffer) error {
 
 // GetCurrency returns value of Currency field.
 func (m *MessageActionPaymentSentMe) GetCurrency() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Currency
 }
 
 // GetTotalAmount returns value of TotalAmount field.
 func (m *MessageActionPaymentSentMe) GetTotalAmount() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.TotalAmount
 }
 
 // GetPayload returns value of Payload field.
 func (m *MessageActionPaymentSentMe) GetPayload() (value []byte) {
+	if m == nil {
+		return
+	}
 	return m.Payload
 }
 
@@ -2166,6 +2214,9 @@ func (m *MessageActionPaymentSentMe) SetInfo(value PaymentRequestedInfo) {
 // GetInfo returns value of Info conditional field and
 // boolean which is true if field was set.
 func (m *MessageActionPaymentSentMe) GetInfo() (value PaymentRequestedInfo, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(0) {
 		return value, false
 	}
@@ -2181,6 +2232,9 @@ func (m *MessageActionPaymentSentMe) SetShippingOptionID(value string) {
 // GetShippingOptionID returns value of ShippingOptionID conditional field and
 // boolean which is true if field was set.
 func (m *MessageActionPaymentSentMe) GetShippingOptionID() (value string, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(1) {
 		return value, false
 	}
@@ -2189,6 +2243,9 @@ func (m *MessageActionPaymentSentMe) GetShippingOptionID() (value string, ok boo
 
 // GetCharge returns value of Charge field.
 func (m *MessageActionPaymentSentMe) GetCharge() (value PaymentCharge) {
+	if m == nil {
+		return
+	}
 	return m.Charge
 }
 
@@ -2349,11 +2406,17 @@ func (m *MessageActionPaymentSent) DecodeBare(b *bin.Buffer) error {
 
 // GetCurrency returns value of Currency field.
 func (m *MessageActionPaymentSent) GetCurrency() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Currency
 }
 
 // GetTotalAmount returns value of TotalAmount field.
 func (m *MessageActionPaymentSent) GetTotalAmount() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.TotalAmount
 }
 
@@ -2599,11 +2662,17 @@ func (m *MessageActionPhoneCall) SetVideo(value bool) {
 
 // GetVideo returns value of Video conditional field.
 func (m *MessageActionPhoneCall) GetVideo() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(2)
 }
 
 // GetCallID returns value of CallID field.
 func (m *MessageActionPhoneCall) GetCallID() (value int64) {
+	if m == nil {
+		return
+	}
 	return m.CallID
 }
 
@@ -2616,6 +2685,9 @@ func (m *MessageActionPhoneCall) SetReason(value PhoneCallDiscardReasonClass) {
 // GetReason returns value of Reason conditional field and
 // boolean which is true if field was set.
 func (m *MessageActionPhoneCall) GetReason() (value PhoneCallDiscardReasonClass, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(0) {
 		return value, false
 	}
@@ -2631,6 +2703,9 @@ func (m *MessageActionPhoneCall) SetDuration(value int) {
 // GetDuration returns value of Duration conditional field and
 // boolean which is true if field was set.
 func (m *MessageActionPhoneCall) GetDuration() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(1) {
 		return value, false
 	}
@@ -2869,6 +2944,9 @@ func (m *MessageActionCustomAction) DecodeBare(b *bin.Buffer) error {
 
 // GetMessage returns value of Message field.
 func (m *MessageActionCustomAction) GetMessage() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Message
 }
 
@@ -3005,6 +3083,9 @@ func (m *MessageActionBotAllowed) DecodeBare(b *bin.Buffer) error {
 
 // GetDomain returns value of Domain field.
 func (m *MessageActionBotAllowed) GetDomain() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Domain
 }
 
@@ -3175,11 +3256,17 @@ func (m *MessageActionSecureValuesSentMe) DecodeBare(b *bin.Buffer) error {
 
 // GetValues returns value of Values field.
 func (m *MessageActionSecureValuesSentMe) GetValues() (value []SecureValue) {
+	if m == nil {
+		return
+	}
 	return m.Values
 }
 
 // GetCredentials returns value of Credentials field.
 func (m *MessageActionSecureValuesSentMe) GetCredentials() (value SecureCredentialsEncrypted) {
+	if m == nil {
+		return
+	}
 	return m.Credentials
 }
 
@@ -3333,6 +3420,9 @@ func (m *MessageActionSecureValuesSent) DecodeBare(b *bin.Buffer) error {
 
 // GetTypes returns value of Types field.
 func (m *MessageActionSecureValuesSent) GetTypes() (value []SecureValueTypeClass) {
+	if m == nil {
+		return
+	}
 	return m.Types
 }
 
@@ -3623,16 +3713,25 @@ func (m *MessageActionGeoProximityReached) DecodeBare(b *bin.Buffer) error {
 
 // GetFromID returns value of FromID field.
 func (m *MessageActionGeoProximityReached) GetFromID() (value PeerClass) {
+	if m == nil {
+		return
+	}
 	return m.FromID
 }
 
 // GetToID returns value of ToID field.
 func (m *MessageActionGeoProximityReached) GetToID() (value PeerClass) {
+	if m == nil {
+		return
+	}
 	return m.ToID
 }
 
 // GetDistance returns value of Distance field.
 func (m *MessageActionGeoProximityReached) GetDistance() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Distance
 }
 
@@ -3816,6 +3915,9 @@ func (m *MessageActionGroupCall) DecodeBare(b *bin.Buffer) error {
 
 // GetCall returns value of Call field.
 func (m *MessageActionGroupCall) GetCall() (value InputGroupCall) {
+	if m == nil {
+		return
+	}
 	return m.Call
 }
 
@@ -3828,6 +3930,9 @@ func (m *MessageActionGroupCall) SetDuration(value int) {
 // GetDuration returns value of Duration conditional field and
 // boolean which is true if field was set.
 func (m *MessageActionGroupCall) GetDuration() (value int, ok bool) {
+	if m == nil {
+		return
+	}
 	if !m.Flags.Has(0) {
 		return value, false
 	}
@@ -3995,11 +4100,17 @@ func (m *MessageActionInviteToGroupCall) DecodeBare(b *bin.Buffer) error {
 
 // GetCall returns value of Call field.
 func (m *MessageActionInviteToGroupCall) GetCall() (value InputGroupCall) {
+	if m == nil {
+		return
+	}
 	return m.Call
 }
 
 // GetUsers returns value of Users field.
 func (m *MessageActionInviteToGroupCall) GetUsers() (value []int64) {
+	if m == nil {
+		return
+	}
 	return m.Users
 }
 
@@ -4132,6 +4243,9 @@ func (m *MessageActionSetMessagesTTL) DecodeBare(b *bin.Buffer) error {
 
 // GetPeriod returns value of Period field.
 func (m *MessageActionSetMessagesTTL) GetPeriod() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Period
 }
 
@@ -4283,11 +4397,17 @@ func (m *MessageActionGroupCallScheduled) DecodeBare(b *bin.Buffer) error {
 
 // GetCall returns value of Call field.
 func (m *MessageActionGroupCallScheduled) GetCall() (value InputGroupCall) {
+	if m == nil {
+		return
+	}
 	return m.Call
 }
 
 // GetScheduleDate returns value of ScheduleDate field.
 func (m *MessageActionGroupCallScheduled) GetScheduleDate() (value int) {
+	if m == nil {
+		return
+	}
 	return m.ScheduleDate
 }
 
@@ -4420,6 +4540,9 @@ func (m *MessageActionSetChatTheme) DecodeBare(b *bin.Buffer) error {
 
 // GetEmoticon returns value of Emoticon field.
 func (m *MessageActionSetChatTheme) GetEmoticon() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Emoticon
 }
 

@@ -351,16 +351,25 @@ func (t *ContactsTopPeers) DecodeBare(b *bin.Buffer) error {
 
 // GetCategories returns value of Categories field.
 func (t *ContactsTopPeers) GetCategories() (value []TopPeerCategoryPeers) {
+	if t == nil {
+		return
+	}
 	return t.Categories
 }
 
 // GetChats returns value of Chats field.
 func (t *ContactsTopPeers) GetChats() (value []ChatClass) {
+	if t == nil {
+		return
+	}
 	return t.Chats
 }
 
 // GetUsers returns value of Users field.
 func (t *ContactsTopPeers) GetUsers() (value []UserClass) {
+	if t == nil {
+		return
+	}
 	return t.Users
 }
 

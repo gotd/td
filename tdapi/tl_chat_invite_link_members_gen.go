@@ -234,10 +234,16 @@ func (c *ChatInviteLinkMembers) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTotalCount returns value of TotalCount field.
 func (c *ChatInviteLinkMembers) GetTotalCount() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.TotalCount
 }
 
 // GetMembers returns value of Members field.
 func (c *ChatInviteLinkMembers) GetMembers() (value []ChatInviteLinkMember) {
+	if c == nil {
+		return
+	}
 	return c.Members
 }

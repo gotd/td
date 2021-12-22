@@ -169,6 +169,9 @@ func (r *MessagesReadMessageContentsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (r *MessagesReadMessageContentsRequest) GetID() (value []int) {
+	if r == nil {
+		return
+	}
 	return r.ID
 }
 

@@ -272,11 +272,17 @@ func (s *AuthSentCode) DecodeBare(b *bin.Buffer) error {
 
 // GetType returns value of Type field.
 func (s *AuthSentCode) GetType() (value AuthSentCodeTypeClass) {
+	if s == nil {
+		return
+	}
 	return s.Type
 }
 
 // GetPhoneCodeHash returns value of PhoneCodeHash field.
 func (s *AuthSentCode) GetPhoneCodeHash() (value string) {
+	if s == nil {
+		return
+	}
 	return s.PhoneCodeHash
 }
 
@@ -289,6 +295,9 @@ func (s *AuthSentCode) SetNextType(value AuthCodeTypeClass) {
 // GetNextType returns value of NextType conditional field and
 // boolean which is true if field was set.
 func (s *AuthSentCode) GetNextType() (value AuthCodeTypeClass, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(1) {
 		return value, false
 	}
@@ -304,6 +313,9 @@ func (s *AuthSentCode) SetTimeout(value int) {
 // GetTimeout returns value of Timeout conditional field and
 // boolean which is true if field was set.
 func (s *AuthSentCode) GetTimeout() (value int, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(2) {
 		return value, false
 	}

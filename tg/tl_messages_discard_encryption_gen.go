@@ -203,11 +203,17 @@ func (d *MessagesDiscardEncryptionRequest) SetDeleteHistory(value bool) {
 
 // GetDeleteHistory returns value of DeleteHistory conditional field.
 func (d *MessagesDiscardEncryptionRequest) GetDeleteHistory() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(0)
 }
 
 // GetChatID returns value of ChatID field.
 func (d *MessagesDiscardEncryptionRequest) GetChatID() (value int) {
+	if d == nil {
+		return
+	}
 	return d.ChatID
 }
 

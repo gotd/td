@@ -192,11 +192,17 @@ func (s *MessagesSendScheduledMessagesRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (s *MessagesSendScheduledMessagesRequest) GetPeer() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
 // GetID returns value of ID field.
 func (s *MessagesSendScheduledMessagesRequest) GetID() (value []int) {
+	if s == nil {
+		return
+	}
 	return s.ID
 }
 

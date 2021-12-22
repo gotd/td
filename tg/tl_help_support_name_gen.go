@@ -155,5 +155,8 @@ func (s *HelpSupportName) DecodeBare(b *bin.Buffer) error {
 
 // GetName returns value of Name field.
 func (s *HelpSupportName) GetName() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Name
 }

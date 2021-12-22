@@ -235,15 +235,24 @@ func (m *MessageInteractionInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetViewCount returns value of ViewCount field.
 func (m *MessageInteractionInfo) GetViewCount() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.ViewCount
 }
 
 // GetForwardCount returns value of ForwardCount field.
 func (m *MessageInteractionInfo) GetForwardCount() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.ForwardCount
 }
 
 // GetReplyInfo returns value of ReplyInfo field.
 func (m *MessageInteractionInfo) GetReplyInfo() (value MessageReplyInfo) {
+	if m == nil {
+		return
+	}
 	return m.ReplyInfo
 }

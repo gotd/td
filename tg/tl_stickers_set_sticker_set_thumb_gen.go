@@ -184,11 +184,17 @@ func (s *StickersSetStickerSetThumbRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetStickerset returns value of Stickerset field.
 func (s *StickersSetStickerSetThumbRequest) GetStickerset() (value InputStickerSetClass) {
+	if s == nil {
+		return
+	}
 	return s.Stickerset
 }
 
 // GetThumb returns value of Thumb field.
 func (s *StickersSetStickerSetThumbRequest) GetThumb() (value InputDocumentClass) {
+	if s == nil {
+		return
+	}
 	return s.Thumb
 }
 

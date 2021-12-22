@@ -209,11 +209,17 @@ func (s *SetChatDescriptionRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (s *SetChatDescriptionRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetDescription returns value of Description field.
 func (s *SetChatDescriptionRequest) GetDescription() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Description
 }
 

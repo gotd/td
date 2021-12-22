@@ -173,6 +173,9 @@ func (g *MessagesGetPeerDialogsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeers returns value of Peers field.
 func (g *MessagesGetPeerDialogsRequest) GetPeers() (value []InputDialogPeerClass) {
+	if g == nil {
+		return
+	}
 	return g.Peers
 }
 

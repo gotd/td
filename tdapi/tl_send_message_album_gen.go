@@ -315,26 +315,41 @@ func (s *SendMessageAlbumRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (s *SendMessageAlbumRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetMessageThreadID returns value of MessageThreadID field.
 func (s *SendMessageAlbumRequest) GetMessageThreadID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.MessageThreadID
 }
 
 // GetReplyToMessageID returns value of ReplyToMessageID field.
 func (s *SendMessageAlbumRequest) GetReplyToMessageID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ReplyToMessageID
 }
 
 // GetOptions returns value of Options field.
 func (s *SendMessageAlbumRequest) GetOptions() (value MessageSendOptions) {
+	if s == nil {
+		return
+	}
 	return s.Options
 }
 
 // GetInputMessageContents returns value of InputMessageContents field.
 func (s *SendMessageAlbumRequest) GetInputMessageContents() (value []InputMessageContentClass) {
+	if s == nil {
+		return
+	}
 	return s.InputMessageContents
 }
 

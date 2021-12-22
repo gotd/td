@@ -160,6 +160,9 @@ func (e *EncryptedChatEmpty) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (e *EncryptedChatEmpty) GetID() (value int) {
+	if e == nil {
+		return
+	}
 	return e.ID
 }
 
@@ -368,26 +371,41 @@ func (e *EncryptedChatWaiting) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (e *EncryptedChatWaiting) GetID() (value int) {
+	if e == nil {
+		return
+	}
 	return e.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (e *EncryptedChatWaiting) GetAccessHash() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.AccessHash
 }
 
 // GetDate returns value of Date field.
 func (e *EncryptedChatWaiting) GetDate() (value int) {
+	if e == nil {
+		return
+	}
 	return e.Date
 }
 
 // GetAdminID returns value of AdminID field.
 func (e *EncryptedChatWaiting) GetAdminID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.AdminID
 }
 
 // GetParticipantID returns value of ParticipantID field.
 func (e *EncryptedChatWaiting) GetParticipantID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.ParticipantID
 }
 
@@ -679,6 +697,9 @@ func (e *EncryptedChatRequested) SetFolderID(value int) {
 // GetFolderID returns value of FolderID conditional field and
 // boolean which is true if field was set.
 func (e *EncryptedChatRequested) GetFolderID() (value int, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(0) {
 		return value, false
 	}
@@ -687,31 +708,49 @@ func (e *EncryptedChatRequested) GetFolderID() (value int, ok bool) {
 
 // GetID returns value of ID field.
 func (e *EncryptedChatRequested) GetID() (value int) {
+	if e == nil {
+		return
+	}
 	return e.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (e *EncryptedChatRequested) GetAccessHash() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.AccessHash
 }
 
 // GetDate returns value of Date field.
 func (e *EncryptedChatRequested) GetDate() (value int) {
+	if e == nil {
+		return
+	}
 	return e.Date
 }
 
 // GetAdminID returns value of AdminID field.
 func (e *EncryptedChatRequested) GetAdminID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.AdminID
 }
 
 // GetParticipantID returns value of ParticipantID field.
 func (e *EncryptedChatRequested) GetParticipantID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.ParticipantID
 }
 
 // GetGA returns value of GA field.
 func (e *EncryptedChatRequested) GetGA() (value []byte) {
+	if e == nil {
+		return
+	}
 	return e.GA
 }
 
@@ -962,36 +1001,57 @@ func (e *EncryptedChat) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (e *EncryptedChat) GetID() (value int) {
+	if e == nil {
+		return
+	}
 	return e.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (e *EncryptedChat) GetAccessHash() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.AccessHash
 }
 
 // GetDate returns value of Date field.
 func (e *EncryptedChat) GetDate() (value int) {
+	if e == nil {
+		return
+	}
 	return e.Date
 }
 
 // GetAdminID returns value of AdminID field.
 func (e *EncryptedChat) GetAdminID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.AdminID
 }
 
 // GetParticipantID returns value of ParticipantID field.
 func (e *EncryptedChat) GetParticipantID() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.ParticipantID
 }
 
 // GetGAOrB returns value of GAOrB field.
 func (e *EncryptedChat) GetGAOrB() (value []byte) {
+	if e == nil {
+		return
+	}
 	return e.GAOrB
 }
 
 // GetKeyFingerprint returns value of KeyFingerprint field.
 func (e *EncryptedChat) GetKeyFingerprint() (value int64) {
+	if e == nil {
+		return
+	}
 	return e.KeyFingerprint
 }
 
@@ -1172,11 +1232,17 @@ func (e *EncryptedChatDiscarded) SetHistoryDeleted(value bool) {
 
 // GetHistoryDeleted returns value of HistoryDeleted conditional field.
 func (e *EncryptedChatDiscarded) GetHistoryDeleted() (value bool) {
+	if e == nil {
+		return
+	}
 	return e.Flags.Has(0)
 }
 
 // GetID returns value of ID field.
 func (e *EncryptedChatDiscarded) GetID() (value int) {
+	if e == nil {
+		return
+	}
 	return e.ID
 }
 

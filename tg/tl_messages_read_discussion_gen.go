@@ -201,16 +201,25 @@ func (r *MessagesReadDiscussionRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (r *MessagesReadDiscussionRequest) GetPeer() (value InputPeerClass) {
+	if r == nil {
+		return
+	}
 	return r.Peer
 }
 
 // GetMsgID returns value of MsgID field.
 func (r *MessagesReadDiscussionRequest) GetMsgID() (value int) {
+	if r == nil {
+		return
+	}
 	return r.MsgID
 }
 
 // GetReadMaxID returns value of ReadMaxID field.
 func (r *MessagesReadDiscussionRequest) GetReadMaxID() (value int) {
+	if r == nil {
+		return
+	}
 	return r.ReadMaxID
 }
 

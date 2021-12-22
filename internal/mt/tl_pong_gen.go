@@ -162,10 +162,16 @@ func (p *Pong) DecodeBare(b *bin.Buffer) error {
 
 // GetMsgID returns value of MsgID field.
 func (p *Pong) GetMsgID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.MsgID
 }
 
 // GetPingID returns value of PingID field.
 func (p *Pong) GetPingID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.PingID
 }

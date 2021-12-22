@@ -458,60 +458,96 @@ func (c *ChatEventLogFilters) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMessageEdits returns value of MessageEdits field.
 func (c *ChatEventLogFilters) GetMessageEdits() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.MessageEdits
 }
 
 // GetMessageDeletions returns value of MessageDeletions field.
 func (c *ChatEventLogFilters) GetMessageDeletions() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.MessageDeletions
 }
 
 // GetMessagePins returns value of MessagePins field.
 func (c *ChatEventLogFilters) GetMessagePins() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.MessagePins
 }
 
 // GetMemberJoins returns value of MemberJoins field.
 func (c *ChatEventLogFilters) GetMemberJoins() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.MemberJoins
 }
 
 // GetMemberLeaves returns value of MemberLeaves field.
 func (c *ChatEventLogFilters) GetMemberLeaves() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.MemberLeaves
 }
 
 // GetMemberInvites returns value of MemberInvites field.
 func (c *ChatEventLogFilters) GetMemberInvites() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.MemberInvites
 }
 
 // GetMemberPromotions returns value of MemberPromotions field.
 func (c *ChatEventLogFilters) GetMemberPromotions() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.MemberPromotions
 }
 
 // GetMemberRestrictions returns value of MemberRestrictions field.
 func (c *ChatEventLogFilters) GetMemberRestrictions() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.MemberRestrictions
 }
 
 // GetInfoChanges returns value of InfoChanges field.
 func (c *ChatEventLogFilters) GetInfoChanges() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.InfoChanges
 }
 
 // GetSettingChanges returns value of SettingChanges field.
 func (c *ChatEventLogFilters) GetSettingChanges() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.SettingChanges
 }
 
 // GetInviteLinkChanges returns value of InviteLinkChanges field.
 func (c *ChatEventLogFilters) GetInviteLinkChanges() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.InviteLinkChanges
 }
 
 // GetVideoChatChanges returns value of VideoChatChanges field.
 func (c *ChatEventLogFilters) GetVideoChatChanges() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.VideoChatChanges
 }

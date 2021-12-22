@@ -179,11 +179,17 @@ func (i *InputWebFileLocation) DecodeBare(b *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (i *InputWebFileLocation) GetURL() (value string) {
+	if i == nil {
+		return
+	}
 	return i.URL
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputWebFileLocation) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }
 
@@ -416,31 +422,49 @@ func (i *InputWebFileGeoPointLocation) DecodeBare(b *bin.Buffer) error {
 
 // GetGeoPoint returns value of GeoPoint field.
 func (i *InputWebFileGeoPointLocation) GetGeoPoint() (value InputGeoPointClass) {
+	if i == nil {
+		return
+	}
 	return i.GeoPoint
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputWebFileGeoPointLocation) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }
 
 // GetW returns value of W field.
 func (i *InputWebFileGeoPointLocation) GetW() (value int) {
+	if i == nil {
+		return
+	}
 	return i.W
 }
 
 // GetH returns value of H field.
 func (i *InputWebFileGeoPointLocation) GetH() (value int) {
+	if i == nil {
+		return
+	}
 	return i.H
 }
 
 // GetZoom returns value of Zoom field.
 func (i *InputWebFileGeoPointLocation) GetZoom() (value int) {
+	if i == nil {
+		return
+	}
 	return i.Zoom
 }
 
 // GetScale returns value of Scale field.
 func (i *InputWebFileGeoPointLocation) GetScale() (value int) {
+	if i == nil {
+		return
+	}
 	return i.Scale
 }
 

@@ -174,11 +174,17 @@ func (l *PhoneLeaveGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetCall returns value of Call field.
 func (l *PhoneLeaveGroupCallRequest) GetCall() (value InputGroupCall) {
+	if l == nil {
+		return
+	}
 	return l.Call
 }
 
 // GetSource returns value of Source field.
 func (l *PhoneLeaveGroupCallRequest) GetSource() (value int) {
+	if l == nil {
+		return
+	}
 	return l.Source
 }
 

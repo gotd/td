@@ -268,21 +268,33 @@ func (a *AddProxyRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetServer returns value of Server field.
 func (a *AddProxyRequest) GetServer() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Server
 }
 
 // GetPort returns value of Port field.
 func (a *AddProxyRequest) GetPort() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.Port
 }
 
 // GetEnable returns value of Enable field.
 func (a *AddProxyRequest) GetEnable() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.Enable
 }
 
 // GetType returns value of Type field.
 func (a *AddProxyRequest) GetType() (value ProxyTypeClass) {
+	if a == nil {
+		return
+	}
 	return a.Type
 }
 

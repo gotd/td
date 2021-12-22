@@ -167,6 +167,9 @@ func (g *AccountGetPasswordSettingsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPassword returns value of Password field.
 func (g *AccountGetPasswordSettingsRequest) GetPassword() (value InputCheckPasswordSRPClass) {
+	if g == nil {
+		return
+	}
 	return g.Password
 }
 

@@ -219,11 +219,17 @@ func (a *AddRecentStickerRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetIsAttached returns value of IsAttached field.
 func (a *AddRecentStickerRequest) GetIsAttached() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.IsAttached
 }
 
 // GetSticker returns value of Sticker field.
 func (a *AddRecentStickerRequest) GetSticker() (value InputFileClass) {
+	if a == nil {
+		return
+	}
 	return a.Sticker
 }
 

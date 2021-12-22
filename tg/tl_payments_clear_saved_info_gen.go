@@ -200,6 +200,9 @@ func (c *PaymentsClearSavedInfoRequest) SetCredentials(value bool) {
 
 // GetCredentials returns value of Credentials conditional field.
 func (c *PaymentsClearSavedInfoRequest) GetCredentials() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(0)
 }
 
@@ -216,6 +219,9 @@ func (c *PaymentsClearSavedInfoRequest) SetInfo(value bool) {
 
 // GetInfo returns value of Info conditional field.
 func (c *PaymentsClearSavedInfoRequest) GetInfo() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(1)
 }
 

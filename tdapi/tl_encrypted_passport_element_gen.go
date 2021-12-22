@@ -445,45 +445,72 @@ func (e *EncryptedPassportElement) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetType returns value of Type field.
 func (e *EncryptedPassportElement) GetType() (value PassportElementTypeClass) {
+	if e == nil {
+		return
+	}
 	return e.Type
 }
 
 // GetData returns value of Data field.
 func (e *EncryptedPassportElement) GetData() (value []byte) {
+	if e == nil {
+		return
+	}
 	return e.Data
 }
 
 // GetFrontSide returns value of FrontSide field.
 func (e *EncryptedPassportElement) GetFrontSide() (value DatedFile) {
+	if e == nil {
+		return
+	}
 	return e.FrontSide
 }
 
 // GetReverseSide returns value of ReverseSide field.
 func (e *EncryptedPassportElement) GetReverseSide() (value DatedFile) {
+	if e == nil {
+		return
+	}
 	return e.ReverseSide
 }
 
 // GetSelfie returns value of Selfie field.
 func (e *EncryptedPassportElement) GetSelfie() (value DatedFile) {
+	if e == nil {
+		return
+	}
 	return e.Selfie
 }
 
 // GetTranslation returns value of Translation field.
 func (e *EncryptedPassportElement) GetTranslation() (value []DatedFile) {
+	if e == nil {
+		return
+	}
 	return e.Translation
 }
 
 // GetFiles returns value of Files field.
 func (e *EncryptedPassportElement) GetFiles() (value []DatedFile) {
+	if e == nil {
+		return
+	}
 	return e.Files
 }
 
 // GetValue returns value of Value field.
 func (e *EncryptedPassportElement) GetValue() (value string) {
+	if e == nil {
+		return
+	}
 	return e.Value
 }
 
 // GetHash returns value of Hash field.
 func (e *EncryptedPassportElement) GetHash() (value string) {
+	if e == nil {
+		return
+	}
 	return e.Hash
 }

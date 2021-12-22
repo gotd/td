@@ -233,16 +233,25 @@ func (g *GetMessageStatisticsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (g *GetMessageStatisticsRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (g *GetMessageStatisticsRequest) GetMessageID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.MessageID
 }
 
 // GetIsDark returns value of IsDark field.
 func (g *GetMessageStatisticsRequest) GetIsDark() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.IsDark
 }
 

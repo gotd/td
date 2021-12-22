@@ -165,5 +165,8 @@ func (vec *ContactStatusVector) DecodeBare(b *bin.Buffer) error {
 
 // GetElems returns value of Elems field.
 func (vec *ContactStatusVector) GetElems() (value []ContactStatus) {
+	if vec == nil {
+		return
+	}
 	return vec.Elems
 }

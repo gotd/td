@@ -284,6 +284,9 @@ func (i *AccountInstallThemeRequest) SetDark(value bool) {
 
 // GetDark returns value of Dark conditional field.
 func (i *AccountInstallThemeRequest) GetDark() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(0)
 }
 
@@ -296,6 +299,9 @@ func (i *AccountInstallThemeRequest) SetTheme(value InputThemeClass) {
 // GetTheme returns value of Theme conditional field and
 // boolean which is true if field was set.
 func (i *AccountInstallThemeRequest) GetTheme() (value InputThemeClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(1) {
 		return value, false
 	}
@@ -311,6 +317,9 @@ func (i *AccountInstallThemeRequest) SetFormat(value string) {
 // GetFormat returns value of Format conditional field and
 // boolean which is true if field was set.
 func (i *AccountInstallThemeRequest) GetFormat() (value string, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(2) {
 		return value, false
 	}
@@ -326,6 +335,9 @@ func (i *AccountInstallThemeRequest) SetBaseTheme(value BaseThemeClass) {
 // GetBaseTheme returns value of BaseTheme conditional field and
 // boolean which is true if field was set.
 func (i *AccountInstallThemeRequest) GetBaseTheme() (value BaseThemeClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(3) {
 		return value, false
 	}

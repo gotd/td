@@ -209,5 +209,8 @@ func (a *Animations) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetAnimations returns value of Animations field.
 func (a *Animations) GetAnimations() (value []Animation) {
+	if a == nil {
+		return
+	}
 	return a.Animations
 }

@@ -233,15 +233,24 @@ func (a *AnimatedChatPhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLength returns value of Length field.
 func (a *AnimatedChatPhoto) GetLength() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.Length
 }
 
 // GetFile returns value of File field.
 func (a *AnimatedChatPhoto) GetFile() (value File) {
+	if a == nil {
+		return
+	}
 	return a.File
 }
 
 // GetMainFrameTimestamp returns value of MainFrameTimestamp field.
 func (a *AnimatedChatPhoto) GetMainFrameTimestamp() (value float64) {
+	if a == nil {
+		return
+	}
 	return a.MainFrameTimestamp
 }

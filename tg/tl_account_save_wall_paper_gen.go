@@ -198,16 +198,25 @@ func (s *AccountSaveWallPaperRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetWallpaper returns value of Wallpaper field.
 func (s *AccountSaveWallPaperRequest) GetWallpaper() (value InputWallPaperClass) {
+	if s == nil {
+		return
+	}
 	return s.Wallpaper
 }
 
 // GetUnsave returns value of Unsave field.
 func (s *AccountSaveWallPaperRequest) GetUnsave() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Unsave
 }
 
 // GetSettings returns value of Settings field.
 func (s *AccountSaveWallPaperRequest) GetSettings() (value WallPaperSettings) {
+	if s == nil {
+		return
+	}
 	return s.Settings
 }
 

@@ -173,6 +173,9 @@ func (d *PhotosDeletePhotosRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (d *PhotosDeletePhotosRequest) GetID() (value []InputPhotoClass) {
+	if d == nil {
+		return
+	}
 	return d.ID
 }
 

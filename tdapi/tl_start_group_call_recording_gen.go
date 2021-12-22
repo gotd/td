@@ -258,21 +258,33 @@ func (s *StartGroupCallRecordingRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetGroupCallID returns value of GroupCallID field.
 func (s *StartGroupCallRecordingRequest) GetGroupCallID() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.GroupCallID
 }
 
 // GetTitle returns value of Title field.
 func (s *StartGroupCallRecordingRequest) GetTitle() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Title
 }
 
 // GetRecordVideo returns value of RecordVideo field.
 func (s *StartGroupCallRecordingRequest) GetRecordVideo() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.RecordVideo
 }
 
 // GetUsePortraitOrientation returns value of UsePortraitOrientation field.
 func (s *StartGroupCallRecordingRequest) GetUsePortraitOrientation() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.UsePortraitOrientation
 }
 

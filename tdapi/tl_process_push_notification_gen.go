@@ -184,6 +184,9 @@ func (p *ProcessPushNotificationRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetPayload returns value of Payload field.
 func (p *ProcessPushNotificationRequest) GetPayload() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Payload
 }
 

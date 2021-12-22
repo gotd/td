@@ -240,11 +240,17 @@ func (s *SetPinnedChatsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatList returns value of ChatList field.
 func (s *SetPinnedChatsRequest) GetChatList() (value ChatListClass) {
+	if s == nil {
+		return
+	}
 	return s.ChatList
 }
 
 // GetChatIDs returns value of ChatIDs field.
 func (s *SetPinnedChatsRequest) GetChatIDs() (value []int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatIDs
 }
 

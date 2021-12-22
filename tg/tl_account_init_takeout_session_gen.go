@@ -303,6 +303,9 @@ func (i *AccountInitTakeoutSessionRequest) SetContacts(value bool) {
 
 // GetContacts returns value of Contacts conditional field.
 func (i *AccountInitTakeoutSessionRequest) GetContacts() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(0)
 }
 
@@ -319,6 +322,9 @@ func (i *AccountInitTakeoutSessionRequest) SetMessageUsers(value bool) {
 
 // GetMessageUsers returns value of MessageUsers conditional field.
 func (i *AccountInitTakeoutSessionRequest) GetMessageUsers() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(1)
 }
 
@@ -335,6 +341,9 @@ func (i *AccountInitTakeoutSessionRequest) SetMessageChats(value bool) {
 
 // GetMessageChats returns value of MessageChats conditional field.
 func (i *AccountInitTakeoutSessionRequest) GetMessageChats() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(2)
 }
 
@@ -351,6 +360,9 @@ func (i *AccountInitTakeoutSessionRequest) SetMessageMegagroups(value bool) {
 
 // GetMessageMegagroups returns value of MessageMegagroups conditional field.
 func (i *AccountInitTakeoutSessionRequest) GetMessageMegagroups() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(3)
 }
 
@@ -367,6 +379,9 @@ func (i *AccountInitTakeoutSessionRequest) SetMessageChannels(value bool) {
 
 // GetMessageChannels returns value of MessageChannels conditional field.
 func (i *AccountInitTakeoutSessionRequest) GetMessageChannels() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(4)
 }
 
@@ -383,6 +398,9 @@ func (i *AccountInitTakeoutSessionRequest) SetFiles(value bool) {
 
 // GetFiles returns value of Files conditional field.
 func (i *AccountInitTakeoutSessionRequest) GetFiles() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(5)
 }
 
@@ -395,6 +413,9 @@ func (i *AccountInitTakeoutSessionRequest) SetFileMaxSize(value int) {
 // GetFileMaxSize returns value of FileMaxSize conditional field and
 // boolean which is true if field was set.
 func (i *AccountInitTakeoutSessionRequest) GetFileMaxSize() (value int, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(5) {
 		return value, false
 	}

@@ -230,11 +230,17 @@ func (c *CreateNewBasicGroupChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 
 // GetUserIDs returns value of UserIDs field.
 func (c *CreateNewBasicGroupChatRequest) GetUserIDs() (value []int64) {
+	if c == nil {
+		return
+	}
 	return c.UserIDs
 }
 
 // GetTitle returns value of Title field.
 func (c *CreateNewBasicGroupChatRequest) GetTitle() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Title
 }
 

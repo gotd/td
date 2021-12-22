@@ -186,16 +186,25 @@ func (f *FileLocationUnavailable) DecodeBare(b *bin.Buffer) error {
 
 // GetVolumeID returns value of VolumeID field.
 func (f *FileLocationUnavailable) GetVolumeID() (value int64) {
+	if f == nil {
+		return
+	}
 	return f.VolumeID
 }
 
 // GetLocalID returns value of LocalID field.
 func (f *FileLocationUnavailable) GetLocalID() (value int) {
+	if f == nil {
+		return
+	}
 	return f.LocalID
 }
 
 // GetSecret returns value of Secret field.
 func (f *FileLocationUnavailable) GetSecret() (value int64) {
+	if f == nil {
+		return
+	}
 	return f.Secret
 }
 
@@ -371,21 +380,33 @@ func (f *FileLocation) DecodeBare(b *bin.Buffer) error {
 
 // GetDCID returns value of DCID field.
 func (f *FileLocation) GetDCID() (value int) {
+	if f == nil {
+		return
+	}
 	return f.DCID
 }
 
 // GetVolumeID returns value of VolumeID field.
 func (f *FileLocation) GetVolumeID() (value int64) {
+	if f == nil {
+		return
+	}
 	return f.VolumeID
 }
 
 // GetLocalID returns value of LocalID field.
 func (f *FileLocation) GetLocalID() (value int) {
+	if f == nil {
+		return
+	}
 	return f.LocalID
 }
 
 // GetSecret returns value of Secret field.
 func (f *FileLocation) GetSecret() (value int64) {
+	if f == nil {
+		return
+	}
 	return f.Secret
 }
 

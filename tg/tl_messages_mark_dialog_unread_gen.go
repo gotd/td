@@ -208,11 +208,17 @@ func (m *MessagesMarkDialogUnreadRequest) SetUnread(value bool) {
 
 // GetUnread returns value of Unread conditional field.
 func (m *MessagesMarkDialogUnreadRequest) GetUnread() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
 func (m *MessagesMarkDialogUnreadRequest) GetPeer() (value InputDialogPeerClass) {
+	if m == nil {
+		return
+	}
 	return m.Peer
 }
 

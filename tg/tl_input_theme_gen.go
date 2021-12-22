@@ -179,11 +179,17 @@ func (i *InputTheme) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (i *InputTheme) GetID() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (i *InputTheme) GetAccessHash() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.AccessHash
 }
 
@@ -316,6 +322,9 @@ func (i *InputThemeSlug) DecodeBare(b *bin.Buffer) error {
 
 // GetSlug returns value of Slug field.
 func (i *InputThemeSlug) GetSlug() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Slug
 }
 

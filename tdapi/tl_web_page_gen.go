@@ -685,105 +685,168 @@ func (w *WebPage) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetURL returns value of URL field.
 func (w *WebPage) GetURL() (value string) {
+	if w == nil {
+		return
+	}
 	return w.URL
 }
 
 // GetDisplayURL returns value of DisplayURL field.
 func (w *WebPage) GetDisplayURL() (value string) {
+	if w == nil {
+		return
+	}
 	return w.DisplayURL
 }
 
 // GetType returns value of Type field.
 func (w *WebPage) GetType() (value string) {
+	if w == nil {
+		return
+	}
 	return w.Type
 }
 
 // GetSiteName returns value of SiteName field.
 func (w *WebPage) GetSiteName() (value string) {
+	if w == nil {
+		return
+	}
 	return w.SiteName
 }
 
 // GetTitle returns value of Title field.
 func (w *WebPage) GetTitle() (value string) {
+	if w == nil {
+		return
+	}
 	return w.Title
 }
 
 // GetDescription returns value of Description field.
 func (w *WebPage) GetDescription() (value FormattedText) {
+	if w == nil {
+		return
+	}
 	return w.Description
 }
 
 // GetPhoto returns value of Photo field.
 func (w *WebPage) GetPhoto() (value Photo) {
+	if w == nil {
+		return
+	}
 	return w.Photo
 }
 
 // GetEmbedURL returns value of EmbedURL field.
 func (w *WebPage) GetEmbedURL() (value string) {
+	if w == nil {
+		return
+	}
 	return w.EmbedURL
 }
 
 // GetEmbedType returns value of EmbedType field.
 func (w *WebPage) GetEmbedType() (value string) {
+	if w == nil {
+		return
+	}
 	return w.EmbedType
 }
 
 // GetEmbedWidth returns value of EmbedWidth field.
 func (w *WebPage) GetEmbedWidth() (value int32) {
+	if w == nil {
+		return
+	}
 	return w.EmbedWidth
 }
 
 // GetEmbedHeight returns value of EmbedHeight field.
 func (w *WebPage) GetEmbedHeight() (value int32) {
+	if w == nil {
+		return
+	}
 	return w.EmbedHeight
 }
 
 // GetDuration returns value of Duration field.
 func (w *WebPage) GetDuration() (value int32) {
+	if w == nil {
+		return
+	}
 	return w.Duration
 }
 
 // GetAuthor returns value of Author field.
 func (w *WebPage) GetAuthor() (value string) {
+	if w == nil {
+		return
+	}
 	return w.Author
 }
 
 // GetAnimation returns value of Animation field.
 func (w *WebPage) GetAnimation() (value Animation) {
+	if w == nil {
+		return
+	}
 	return w.Animation
 }
 
 // GetAudio returns value of Audio field.
 func (w *WebPage) GetAudio() (value Audio) {
+	if w == nil {
+		return
+	}
 	return w.Audio
 }
 
 // GetDocument returns value of Document field.
 func (w *WebPage) GetDocument() (value Document) {
+	if w == nil {
+		return
+	}
 	return w.Document
 }
 
 // GetSticker returns value of Sticker field.
 func (w *WebPage) GetSticker() (value Sticker) {
+	if w == nil {
+		return
+	}
 	return w.Sticker
 }
 
 // GetVideo returns value of Video field.
 func (w *WebPage) GetVideo() (value Video) {
+	if w == nil {
+		return
+	}
 	return w.Video
 }
 
 // GetVideoNote returns value of VideoNote field.
 func (w *WebPage) GetVideoNote() (value VideoNote) {
+	if w == nil {
+		return
+	}
 	return w.VideoNote
 }
 
 // GetVoiceNote returns value of VoiceNote field.
 func (w *WebPage) GetVoiceNote() (value VoiceNote) {
+	if w == nil {
+		return
+	}
 	return w.VoiceNote
 }
 
 // GetInstantViewVersion returns value of InstantViewVersion field.
 func (w *WebPage) GetInstantViewVersion() (value int32) {
+	if w == nil {
+		return
+	}
 	return w.InstantViewVersion
 }

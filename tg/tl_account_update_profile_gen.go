@@ -254,6 +254,9 @@ func (u *AccountUpdateProfileRequest) SetFirstName(value string) {
 // GetFirstName returns value of FirstName conditional field and
 // boolean which is true if field was set.
 func (u *AccountUpdateProfileRequest) GetFirstName() (value string, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(0) {
 		return value, false
 	}
@@ -269,6 +272,9 @@ func (u *AccountUpdateProfileRequest) SetLastName(value string) {
 // GetLastName returns value of LastName conditional field and
 // boolean which is true if field was set.
 func (u *AccountUpdateProfileRequest) GetLastName() (value string, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(1) {
 		return value, false
 	}
@@ -284,6 +290,9 @@ func (u *AccountUpdateProfileRequest) SetAbout(value string) {
 // GetAbout returns value of About conditional field and
 // boolean which is true if field was set.
 func (u *AccountUpdateProfileRequest) GetAbout() (value string, ok bool) {
+	if u == nil {
+		return
+	}
 	if !u.Flags.Has(2) {
 		return value, false
 	}

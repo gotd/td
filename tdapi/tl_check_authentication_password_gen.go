@@ -183,6 +183,9 @@ func (c *CheckAuthenticationPasswordRequest) DecodeTDLibJSON(b tdjson.Decoder) e
 
 // GetPassword returns value of Password field.
 func (c *CheckAuthenticationPasswordRequest) GetPassword() (value string) {
+	if c == nil {
+		return
+	}
 	return c.Password
 }
 

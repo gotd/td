@@ -208,10 +208,16 @@ func (e *EmailAddressAuthenticationCodeInfo) DecodeTDLibJSON(b tdjson.Decoder) e
 
 // GetEmailAddressPattern returns value of EmailAddressPattern field.
 func (e *EmailAddressAuthenticationCodeInfo) GetEmailAddressPattern() (value string) {
+	if e == nil {
+		return
+	}
 	return e.EmailAddressPattern
 }
 
 // GetLength returns value of Length field.
 func (e *EmailAddressAuthenticationCodeInfo) GetLength() (value int32) {
+	if e == nil {
+		return
+	}
 	return e.Length
 }

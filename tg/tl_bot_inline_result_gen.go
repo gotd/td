@@ -387,11 +387,17 @@ func (b *BotInlineResult) DecodeBare(buf *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (b *BotInlineResult) GetID() (value string) {
+	if b == nil {
+		return
+	}
 	return b.ID
 }
 
 // GetType returns value of Type field.
 func (b *BotInlineResult) GetType() (value string) {
+	if b == nil {
+		return
+	}
 	return b.Type
 }
 
@@ -404,6 +410,9 @@ func (b *BotInlineResult) SetTitle(value string) {
 // GetTitle returns value of Title conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineResult) GetTitle() (value string, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(1) {
 		return value, false
 	}
@@ -419,6 +428,9 @@ func (b *BotInlineResult) SetDescription(value string) {
 // GetDescription returns value of Description conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineResult) GetDescription() (value string, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(2) {
 		return value, false
 	}
@@ -434,6 +446,9 @@ func (b *BotInlineResult) SetURL(value string) {
 // GetURL returns value of URL conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineResult) GetURL() (value string, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(3) {
 		return value, false
 	}
@@ -449,6 +464,9 @@ func (b *BotInlineResult) SetThumb(value WebDocumentClass) {
 // GetThumb returns value of Thumb conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineResult) GetThumb() (value WebDocumentClass, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(4) {
 		return value, false
 	}
@@ -464,6 +482,9 @@ func (b *BotInlineResult) SetContent(value WebDocumentClass) {
 // GetContent returns value of Content conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineResult) GetContent() (value WebDocumentClass, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(5) {
 		return value, false
 	}
@@ -472,6 +493,9 @@ func (b *BotInlineResult) GetContent() (value WebDocumentClass, ok bool) {
 
 // GetSendMessage returns value of SendMessage field.
 func (b *BotInlineResult) GetSendMessage() (value BotInlineMessageClass) {
+	if b == nil {
+		return
+	}
 	return b.SendMessage
 }
 
@@ -805,11 +829,17 @@ func (b *BotInlineMediaResult) DecodeBare(buf *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (b *BotInlineMediaResult) GetID() (value string) {
+	if b == nil {
+		return
+	}
 	return b.ID
 }
 
 // GetType returns value of Type field.
 func (b *BotInlineMediaResult) GetType() (value string) {
+	if b == nil {
+		return
+	}
 	return b.Type
 }
 
@@ -822,6 +852,9 @@ func (b *BotInlineMediaResult) SetPhoto(value PhotoClass) {
 // GetPhoto returns value of Photo conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineMediaResult) GetPhoto() (value PhotoClass, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(0) {
 		return value, false
 	}
@@ -837,6 +870,9 @@ func (b *BotInlineMediaResult) SetDocument(value DocumentClass) {
 // GetDocument returns value of Document conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineMediaResult) GetDocument() (value DocumentClass, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(1) {
 		return value, false
 	}
@@ -852,6 +888,9 @@ func (b *BotInlineMediaResult) SetTitle(value string) {
 // GetTitle returns value of Title conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineMediaResult) GetTitle() (value string, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(2) {
 		return value, false
 	}
@@ -867,6 +906,9 @@ func (b *BotInlineMediaResult) SetDescription(value string) {
 // GetDescription returns value of Description conditional field and
 // boolean which is true if field was set.
 func (b *BotInlineMediaResult) GetDescription() (value string, ok bool) {
+	if b == nil {
+		return
+	}
 	if !b.Flags.Has(3) {
 		return value, false
 	}
@@ -875,6 +917,9 @@ func (b *BotInlineMediaResult) GetDescription() (value string, ok bool) {
 
 // GetSendMessage returns value of SendMessage field.
 func (b *BotInlineMediaResult) GetSendMessage() (value BotInlineMessageClass) {
+	if b == nil {
+		return
+	}
 	return b.SendMessage
 }
 

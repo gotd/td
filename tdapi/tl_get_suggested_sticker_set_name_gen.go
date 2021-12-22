@@ -183,6 +183,9 @@ func (g *GetSuggestedStickerSetNameRequest) DecodeTDLibJSON(b tdjson.Decoder) er
 
 // GetTitle returns value of Title field.
 func (g *GetSuggestedStickerSetNameRequest) GetTitle() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Title
 }
 

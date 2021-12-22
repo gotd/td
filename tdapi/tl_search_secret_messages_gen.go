@@ -296,26 +296,41 @@ func (s *SearchSecretMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (s *SearchSecretMessagesRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ChatID
 }
 
 // GetQuery returns value of Query field.
 func (s *SearchSecretMessagesRequest) GetQuery() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Query
 }
 
 // GetOffset returns value of Offset field.
 func (s *SearchSecretMessagesRequest) GetOffset() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Offset
 }
 
 // GetLimit returns value of Limit field.
 func (s *SearchSecretMessagesRequest) GetLimit() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Limit
 }
 
 // GetFilter returns value of Filter field.
 func (s *SearchSecretMessagesRequest) GetFilter() (value SearchMessagesFilterClass) {
+	if s == nil {
+		return
+	}
 	return s.Filter
 }
 

@@ -218,11 +218,17 @@ func (g *GetTopChatsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCategory returns value of Category field.
 func (g *GetTopChatsRequest) GetCategory() (value TopChatCategoryClass) {
+	if g == nil {
+		return
+	}
 	return g.Category
 }
 
 // GetLimit returns value of Limit field.
 func (g *GetTopChatsRequest) GetLimit() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

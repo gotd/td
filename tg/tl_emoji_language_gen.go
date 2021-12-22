@@ -155,5 +155,8 @@ func (e *EmojiLanguage) DecodeBare(b *bin.Buffer) error {
 
 // GetLangCode returns value of LangCode field.
 func (e *EmojiLanguage) GetLangCode() (value string) {
+	if e == nil {
+		return
+	}
 	return e.LangCode
 }

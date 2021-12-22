@@ -233,16 +233,25 @@ func (g *GetUserProfilePhotosRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (g *GetUserProfilePhotosRequest) GetUserID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.UserID
 }
 
 // GetOffset returns value of Offset field.
 func (g *GetUserProfilePhotosRequest) GetOffset() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 
 // GetLimit returns value of Limit field.
 func (g *GetUserProfilePhotosRequest) GetLimit() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

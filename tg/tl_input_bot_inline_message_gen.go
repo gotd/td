@@ -267,6 +267,9 @@ func (i *InputBotInlineMessageMediaAuto) DecodeBare(b *bin.Buffer) error {
 
 // GetMessage returns value of Message field.
 func (i *InputBotInlineMessageMediaAuto) GetMessage() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Message
 }
 
@@ -279,6 +282,9 @@ func (i *InputBotInlineMessageMediaAuto) SetEntities(value []MessageEntityClass)
 // GetEntities returns value of Entities conditional field and
 // boolean which is true if field was set.
 func (i *InputBotInlineMessageMediaAuto) GetEntities() (value []MessageEntityClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(1) {
 		return value, false
 	}
@@ -294,6 +300,9 @@ func (i *InputBotInlineMessageMediaAuto) SetReplyMarkup(value ReplyMarkupClass) 
 // GetReplyMarkup returns value of ReplyMarkup conditional field and
 // boolean which is true if field was set.
 func (i *InputBotInlineMessageMediaAuto) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(2) {
 		return value, false
 	}
@@ -571,11 +580,17 @@ func (i *InputBotInlineMessageText) SetNoWebpage(value bool) {
 
 // GetNoWebpage returns value of NoWebpage conditional field.
 func (i *InputBotInlineMessageText) GetNoWebpage() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.Flags.Has(0)
 }
 
 // GetMessage returns value of Message field.
 func (i *InputBotInlineMessageText) GetMessage() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Message
 }
 
@@ -588,6 +603,9 @@ func (i *InputBotInlineMessageText) SetEntities(value []MessageEntityClass) {
 // GetEntities returns value of Entities conditional field and
 // boolean which is true if field was set.
 func (i *InputBotInlineMessageText) GetEntities() (value []MessageEntityClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(1) {
 		return value, false
 	}
@@ -603,6 +621,9 @@ func (i *InputBotInlineMessageText) SetReplyMarkup(value ReplyMarkupClass) {
 // GetReplyMarkup returns value of ReplyMarkup conditional field and
 // boolean which is true if field was set.
 func (i *InputBotInlineMessageText) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(2) {
 		return value, false
 	}
@@ -904,6 +925,9 @@ func (i *InputBotInlineMessageMediaGeo) DecodeBare(b *bin.Buffer) error {
 
 // GetGeoPoint returns value of GeoPoint field.
 func (i *InputBotInlineMessageMediaGeo) GetGeoPoint() (value InputGeoPointClass) {
+	if i == nil {
+		return
+	}
 	return i.GeoPoint
 }
 
@@ -916,6 +940,9 @@ func (i *InputBotInlineMessageMediaGeo) SetHeading(value int) {
 // GetHeading returns value of Heading conditional field and
 // boolean which is true if field was set.
 func (i *InputBotInlineMessageMediaGeo) GetHeading() (value int, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(0) {
 		return value, false
 	}
@@ -931,6 +958,9 @@ func (i *InputBotInlineMessageMediaGeo) SetPeriod(value int) {
 // GetPeriod returns value of Period conditional field and
 // boolean which is true if field was set.
 func (i *InputBotInlineMessageMediaGeo) GetPeriod() (value int, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(1) {
 		return value, false
 	}
@@ -946,6 +976,9 @@ func (i *InputBotInlineMessageMediaGeo) SetProximityNotificationRadius(value int
 // GetProximityNotificationRadius returns value of ProximityNotificationRadius conditional field and
 // boolean which is true if field was set.
 func (i *InputBotInlineMessageMediaGeo) GetProximityNotificationRadius() (value int, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(3) {
 		return value, false
 	}
@@ -961,6 +994,9 @@ func (i *InputBotInlineMessageMediaGeo) SetReplyMarkup(value ReplyMarkupClass) {
 // GetReplyMarkup returns value of ReplyMarkup conditional field and
 // boolean which is true if field was set.
 func (i *InputBotInlineMessageMediaGeo) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(2) {
 		return value, false
 	}
@@ -1252,31 +1288,49 @@ func (i *InputBotInlineMessageMediaVenue) DecodeBare(b *bin.Buffer) error {
 
 // GetGeoPoint returns value of GeoPoint field.
 func (i *InputBotInlineMessageMediaVenue) GetGeoPoint() (value InputGeoPointClass) {
+	if i == nil {
+		return
+	}
 	return i.GeoPoint
 }
 
 // GetTitle returns value of Title field.
 func (i *InputBotInlineMessageMediaVenue) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 
 // GetAddress returns value of Address field.
 func (i *InputBotInlineMessageMediaVenue) GetAddress() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Address
 }
 
 // GetProvider returns value of Provider field.
 func (i *InputBotInlineMessageMediaVenue) GetProvider() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Provider
 }
 
 // GetVenueID returns value of VenueID field.
 func (i *InputBotInlineMessageMediaVenue) GetVenueID() (value string) {
+	if i == nil {
+		return
+	}
 	return i.VenueID
 }
 
 // GetVenueType returns value of VenueType field.
 func (i *InputBotInlineMessageMediaVenue) GetVenueType() (value string) {
+	if i == nil {
+		return
+	}
 	return i.VenueType
 }
 
@@ -1289,6 +1343,9 @@ func (i *InputBotInlineMessageMediaVenue) SetReplyMarkup(value ReplyMarkupClass)
 // GetReplyMarkup returns value of ReplyMarkup conditional field and
 // boolean which is true if field was set.
 func (i *InputBotInlineMessageMediaVenue) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(2) {
 		return value, false
 	}
@@ -1537,21 +1594,33 @@ func (i *InputBotInlineMessageMediaContact) DecodeBare(b *bin.Buffer) error {
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (i *InputBotInlineMessageMediaContact) GetPhoneNumber() (value string) {
+	if i == nil {
+		return
+	}
 	return i.PhoneNumber
 }
 
 // GetFirstName returns value of FirstName field.
 func (i *InputBotInlineMessageMediaContact) GetFirstName() (value string) {
+	if i == nil {
+		return
+	}
 	return i.FirstName
 }
 
 // GetLastName returns value of LastName field.
 func (i *InputBotInlineMessageMediaContact) GetLastName() (value string) {
+	if i == nil {
+		return
+	}
 	return i.LastName
 }
 
 // GetVcard returns value of Vcard field.
 func (i *InputBotInlineMessageMediaContact) GetVcard() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Vcard
 }
 
@@ -1564,6 +1633,9 @@ func (i *InputBotInlineMessageMediaContact) SetReplyMarkup(value ReplyMarkupClas
 // GetReplyMarkup returns value of ReplyMarkup conditional field and
 // boolean which is true if field was set.
 func (i *InputBotInlineMessageMediaContact) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(2) {
 		return value, false
 	}
@@ -1743,6 +1815,9 @@ func (i *InputBotInlineMessageGame) SetReplyMarkup(value ReplyMarkupClass) {
 // GetReplyMarkup returns value of ReplyMarkup conditional field and
 // boolean which is true if field was set.
 func (i *InputBotInlineMessageGame) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(2) {
 		return value, false
 	}
@@ -2065,11 +2140,17 @@ func (i *InputBotInlineMessageMediaInvoice) DecodeBare(b *bin.Buffer) error {
 
 // GetTitle returns value of Title field.
 func (i *InputBotInlineMessageMediaInvoice) GetTitle() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Title
 }
 
 // GetDescription returns value of Description field.
 func (i *InputBotInlineMessageMediaInvoice) GetDescription() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Description
 }
 
@@ -2082,6 +2163,9 @@ func (i *InputBotInlineMessageMediaInvoice) SetPhoto(value InputWebDocument) {
 // GetPhoto returns value of Photo conditional field and
 // boolean which is true if field was set.
 func (i *InputBotInlineMessageMediaInvoice) GetPhoto() (value InputWebDocument, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(0) {
 		return value, false
 	}
@@ -2090,21 +2174,33 @@ func (i *InputBotInlineMessageMediaInvoice) GetPhoto() (value InputWebDocument, 
 
 // GetInvoice returns value of Invoice field.
 func (i *InputBotInlineMessageMediaInvoice) GetInvoice() (value Invoice) {
+	if i == nil {
+		return
+	}
 	return i.Invoice
 }
 
 // GetPayload returns value of Payload field.
 func (i *InputBotInlineMessageMediaInvoice) GetPayload() (value []byte) {
+	if i == nil {
+		return
+	}
 	return i.Payload
 }
 
 // GetProvider returns value of Provider field.
 func (i *InputBotInlineMessageMediaInvoice) GetProvider() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Provider
 }
 
 // GetProviderData returns value of ProviderData field.
 func (i *InputBotInlineMessageMediaInvoice) GetProviderData() (value DataJSON) {
+	if i == nil {
+		return
+	}
 	return i.ProviderData
 }
 
@@ -2117,6 +2213,9 @@ func (i *InputBotInlineMessageMediaInvoice) SetReplyMarkup(value ReplyMarkupClas
 // GetReplyMarkup returns value of ReplyMarkup conditional field and
 // boolean which is true if field was set.
 func (i *InputBotInlineMessageMediaInvoice) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if i == nil {
+		return
+	}
 	if !i.Flags.Has(2) {
 		return value, false
 	}

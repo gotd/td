@@ -385,6 +385,9 @@ func (l *LangPackLanguage) SetOfficial(value bool) {
 
 // GetOfficial returns value of Official conditional field.
 func (l *LangPackLanguage) GetOfficial() (value bool) {
+	if l == nil {
+		return
+	}
 	return l.Flags.Has(0)
 }
 
@@ -401,6 +404,9 @@ func (l *LangPackLanguage) SetRtl(value bool) {
 
 // GetRtl returns value of Rtl conditional field.
 func (l *LangPackLanguage) GetRtl() (value bool) {
+	if l == nil {
+		return
+	}
 	return l.Flags.Has(2)
 }
 
@@ -417,21 +423,33 @@ func (l *LangPackLanguage) SetBeta(value bool) {
 
 // GetBeta returns value of Beta conditional field.
 func (l *LangPackLanguage) GetBeta() (value bool) {
+	if l == nil {
+		return
+	}
 	return l.Flags.Has(3)
 }
 
 // GetName returns value of Name field.
 func (l *LangPackLanguage) GetName() (value string) {
+	if l == nil {
+		return
+	}
 	return l.Name
 }
 
 // GetNativeName returns value of NativeName field.
 func (l *LangPackLanguage) GetNativeName() (value string) {
+	if l == nil {
+		return
+	}
 	return l.NativeName
 }
 
 // GetLangCode returns value of LangCode field.
 func (l *LangPackLanguage) GetLangCode() (value string) {
+	if l == nil {
+		return
+	}
 	return l.LangCode
 }
 
@@ -444,6 +462,9 @@ func (l *LangPackLanguage) SetBaseLangCode(value string) {
 // GetBaseLangCode returns value of BaseLangCode conditional field and
 // boolean which is true if field was set.
 func (l *LangPackLanguage) GetBaseLangCode() (value string, ok bool) {
+	if l == nil {
+		return
+	}
 	if !l.Flags.Has(1) {
 		return value, false
 	}
@@ -452,20 +473,32 @@ func (l *LangPackLanguage) GetBaseLangCode() (value string, ok bool) {
 
 // GetPluralCode returns value of PluralCode field.
 func (l *LangPackLanguage) GetPluralCode() (value string) {
+	if l == nil {
+		return
+	}
 	return l.PluralCode
 }
 
 // GetStringsCount returns value of StringsCount field.
 func (l *LangPackLanguage) GetStringsCount() (value int) {
+	if l == nil {
+		return
+	}
 	return l.StringsCount
 }
 
 // GetTranslatedCount returns value of TranslatedCount field.
 func (l *LangPackLanguage) GetTranslatedCount() (value int) {
+	if l == nil {
+		return
+	}
 	return l.TranslatedCount
 }
 
 // GetTranslationsURL returns value of TranslationsURL field.
 func (l *LangPackLanguage) GetTranslationsURL() (value string) {
+	if l == nil {
+		return
+	}
 	return l.TranslationsURL
 }

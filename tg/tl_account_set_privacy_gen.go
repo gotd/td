@@ -197,11 +197,17 @@ func (s *AccountSetPrivacyRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetKey returns value of Key field.
 func (s *AccountSetPrivacyRequest) GetKey() (value InputPrivacyKeyClass) {
+	if s == nil {
+		return
+	}
 	return s.Key
 }
 
 // GetRules returns value of Rules field.
 func (s *AccountSetPrivacyRequest) GetRules() (value []InputPrivacyRuleClass) {
+	if s == nil {
+		return
+	}
 	return s.Rules
 }
 

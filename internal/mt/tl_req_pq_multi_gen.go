@@ -145,5 +145,8 @@ func (r *ReqPqMultiRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetNonce returns value of Nonce field.
 func (r *ReqPqMultiRequest) GetNonce() (value bin.Int128) {
+	if r == nil {
+		return
+	}
 	return r.Nonce
 }

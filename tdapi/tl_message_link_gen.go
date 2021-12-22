@@ -208,10 +208,16 @@ func (m *MessageLink) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLink returns value of Link field.
 func (m *MessageLink) GetLink() (value string) {
+	if m == nil {
+		return
+	}
 	return m.Link
 }
 
 // GetIsPublic returns value of IsPublic field.
 func (m *MessageLink) GetIsPublic() (value bool) {
+	if m == nil {
+		return
+	}
 	return m.IsPublic
 }

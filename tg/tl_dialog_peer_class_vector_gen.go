@@ -168,6 +168,9 @@ func (vec *DialogPeerClassVector) DecodeBare(b *bin.Buffer) error {
 
 // GetElems returns value of Elems field.
 func (vec *DialogPeerClassVector) GetElems() (value []DialogPeerClass) {
+	if vec == nil {
+		return
+	}
 	return vec.Elems
 }
 

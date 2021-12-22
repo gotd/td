@@ -271,21 +271,33 @@ func (g *GetChatSparseMessagePositionsRequest) DecodeTDLibJSON(b tdjson.Decoder)
 
 // GetChatID returns value of ChatID field.
 func (g *GetChatSparseMessagePositionsRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetFilter returns value of Filter field.
 func (g *GetChatSparseMessagePositionsRequest) GetFilter() (value SearchMessagesFilterClass) {
+	if g == nil {
+		return
+	}
 	return g.Filter
 }
 
 // GetFromMessageID returns value of FromMessageID field.
 func (g *GetChatSparseMessagePositionsRequest) GetFromMessageID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.FromMessageID
 }
 
 // GetLimit returns value of Limit field.
 func (g *GetChatSparseMessagePositionsRequest) GetLimit() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

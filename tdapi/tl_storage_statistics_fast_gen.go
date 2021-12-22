@@ -283,25 +283,40 @@ func (s *StorageStatisticsFast) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFilesSize returns value of FilesSize field.
 func (s *StorageStatisticsFast) GetFilesSize() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.FilesSize
 }
 
 // GetFileCount returns value of FileCount field.
 func (s *StorageStatisticsFast) GetFileCount() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.FileCount
 }
 
 // GetDatabaseSize returns value of DatabaseSize field.
 func (s *StorageStatisticsFast) GetDatabaseSize() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.DatabaseSize
 }
 
 // GetLanguagePackDatabaseSize returns value of LanguagePackDatabaseSize field.
 func (s *StorageStatisticsFast) GetLanguagePackDatabaseSize() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.LanguagePackDatabaseSize
 }
 
 // GetLogSize returns value of LogSize field.
 func (s *StorageStatisticsFast) GetLogSize() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.LogSize
 }

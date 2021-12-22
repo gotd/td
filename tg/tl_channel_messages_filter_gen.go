@@ -325,11 +325,17 @@ func (c *ChannelMessagesFilter) SetExcludeNewMessages(value bool) {
 
 // GetExcludeNewMessages returns value of ExcludeNewMessages conditional field.
 func (c *ChannelMessagesFilter) GetExcludeNewMessages() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.Flags.Has(1)
 }
 
 // GetRanges returns value of Ranges field.
 func (c *ChannelMessagesFilter) GetRanges() (value []MessageRange) {
+	if c == nil {
+		return
+	}
 	return c.Ranges
 }
 

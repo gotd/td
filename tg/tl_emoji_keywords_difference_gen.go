@@ -230,21 +230,33 @@ func (e *EmojiKeywordsDifference) DecodeBare(b *bin.Buffer) error {
 
 // GetLangCode returns value of LangCode field.
 func (e *EmojiKeywordsDifference) GetLangCode() (value string) {
+	if e == nil {
+		return
+	}
 	return e.LangCode
 }
 
 // GetFromVersion returns value of FromVersion field.
 func (e *EmojiKeywordsDifference) GetFromVersion() (value int) {
+	if e == nil {
+		return
+	}
 	return e.FromVersion
 }
 
 // GetVersion returns value of Version field.
 func (e *EmojiKeywordsDifference) GetVersion() (value int) {
+	if e == nil {
+		return
+	}
 	return e.Version
 }
 
 // GetKeywords returns value of Keywords field.
 func (e *EmojiKeywordsDifference) GetKeywords() (value []EmojiKeywordClass) {
+	if e == nil {
+		return
+	}
 	return e.Keywords
 }
 

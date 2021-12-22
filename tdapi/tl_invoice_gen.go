@@ -506,60 +506,96 @@ func (i *Invoice) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCurrency returns value of Currency field.
 func (i *Invoice) GetCurrency() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Currency
 }
 
 // GetPriceParts returns value of PriceParts field.
 func (i *Invoice) GetPriceParts() (value []LabeledPricePart) {
+	if i == nil {
+		return
+	}
 	return i.PriceParts
 }
 
 // GetMaxTipAmount returns value of MaxTipAmount field.
 func (i *Invoice) GetMaxTipAmount() (value int64) {
+	if i == nil {
+		return
+	}
 	return i.MaxTipAmount
 }
 
 // GetSuggestedTipAmounts returns value of SuggestedTipAmounts field.
 func (i *Invoice) GetSuggestedTipAmounts() (value []int64) {
+	if i == nil {
+		return
+	}
 	return i.SuggestedTipAmounts
 }
 
 // GetIsTest returns value of IsTest field.
 func (i *Invoice) GetIsTest() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.IsTest
 }
 
 // GetNeedName returns value of NeedName field.
 func (i *Invoice) GetNeedName() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.NeedName
 }
 
 // GetNeedPhoneNumber returns value of NeedPhoneNumber field.
 func (i *Invoice) GetNeedPhoneNumber() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.NeedPhoneNumber
 }
 
 // GetNeedEmailAddress returns value of NeedEmailAddress field.
 func (i *Invoice) GetNeedEmailAddress() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.NeedEmailAddress
 }
 
 // GetNeedShippingAddress returns value of NeedShippingAddress field.
 func (i *Invoice) GetNeedShippingAddress() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.NeedShippingAddress
 }
 
 // GetSendPhoneNumberToProvider returns value of SendPhoneNumberToProvider field.
 func (i *Invoice) GetSendPhoneNumberToProvider() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.SendPhoneNumberToProvider
 }
 
 // GetSendEmailAddressToProvider returns value of SendEmailAddressToProvider field.
 func (i *Invoice) GetSendEmailAddressToProvider() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.SendEmailAddressToProvider
 }
 
 // GetIsFlexible returns value of IsFlexible field.
 func (i *Invoice) GetIsFlexible() (value bool) {
+	if i == nil {
+		return
+	}
 	return i.IsFlexible
 }

@@ -188,10 +188,16 @@ func (s *MessagesSearchResultsPositions) DecodeBare(b *bin.Buffer) error {
 
 // GetCount returns value of Count field.
 func (s *MessagesSearchResultsPositions) GetCount() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Count
 }
 
 // GetPositions returns value of Positions field.
 func (s *MessagesSearchResultsPositions) GetPositions() (value []SearchResultPosition) {
+	if s == nil {
+		return
+	}
 	return s.Positions
 }

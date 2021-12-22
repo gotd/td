@@ -234,21 +234,33 @@ func (s *SecureValueErrorData) DecodeBare(b *bin.Buffer) error {
 
 // GetType returns value of Type field.
 func (s *SecureValueErrorData) GetType() (value SecureValueTypeClass) {
+	if s == nil {
+		return
+	}
 	return s.Type
 }
 
 // GetDataHash returns value of DataHash field.
 func (s *SecureValueErrorData) GetDataHash() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.DataHash
 }
 
 // GetField returns value of Field field.
 func (s *SecureValueErrorData) GetField() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Field
 }
 
 // GetText returns value of Text field.
 func (s *SecureValueErrorData) GetText() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Text
 }
 
@@ -432,16 +444,25 @@ func (s *SecureValueErrorFrontSide) DecodeBare(b *bin.Buffer) error {
 
 // GetType returns value of Type field.
 func (s *SecureValueErrorFrontSide) GetType() (value SecureValueTypeClass) {
+	if s == nil {
+		return
+	}
 	return s.Type
 }
 
 // GetFileHash returns value of FileHash field.
 func (s *SecureValueErrorFrontSide) GetFileHash() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.FileHash
 }
 
 // GetText returns value of Text field.
 func (s *SecureValueErrorFrontSide) GetText() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Text
 }
 
@@ -622,16 +643,25 @@ func (s *SecureValueErrorReverseSide) DecodeBare(b *bin.Buffer) error {
 
 // GetType returns value of Type field.
 func (s *SecureValueErrorReverseSide) GetType() (value SecureValueTypeClass) {
+	if s == nil {
+		return
+	}
 	return s.Type
 }
 
 // GetFileHash returns value of FileHash field.
 func (s *SecureValueErrorReverseSide) GetFileHash() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.FileHash
 }
 
 // GetText returns value of Text field.
 func (s *SecureValueErrorReverseSide) GetText() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Text
 }
 
@@ -815,16 +845,25 @@ func (s *SecureValueErrorSelfie) DecodeBare(b *bin.Buffer) error {
 
 // GetType returns value of Type field.
 func (s *SecureValueErrorSelfie) GetType() (value SecureValueTypeClass) {
+	if s == nil {
+		return
+	}
 	return s.Type
 }
 
 // GetFileHash returns value of FileHash field.
 func (s *SecureValueErrorSelfie) GetFileHash() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.FileHash
 }
 
 // GetText returns value of Text field.
 func (s *SecureValueErrorSelfie) GetText() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Text
 }
 
@@ -1010,16 +1049,25 @@ func (s *SecureValueErrorFile) DecodeBare(b *bin.Buffer) error {
 
 // GetType returns value of Type field.
 func (s *SecureValueErrorFile) GetType() (value SecureValueTypeClass) {
+	if s == nil {
+		return
+	}
 	return s.Type
 }
 
 // GetFileHash returns value of FileHash field.
 func (s *SecureValueErrorFile) GetFileHash() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.FileHash
 }
 
 // GetText returns value of Text field.
 func (s *SecureValueErrorFile) GetText() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Text
 }
 
@@ -1218,16 +1266,25 @@ func (s *SecureValueErrorFiles) DecodeBare(b *bin.Buffer) error {
 
 // GetType returns value of Type field.
 func (s *SecureValueErrorFiles) GetType() (value SecureValueTypeClass) {
+	if s == nil {
+		return
+	}
 	return s.Type
 }
 
 // GetFileHash returns value of FileHash field.
 func (s *SecureValueErrorFiles) GetFileHash() (value [][]byte) {
+	if s == nil {
+		return
+	}
 	return s.FileHash
 }
 
 // GetText returns value of Text field.
 func (s *SecureValueErrorFiles) GetText() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Text
 }
 
@@ -1403,16 +1460,25 @@ func (s *SecureValueError) DecodeBare(b *bin.Buffer) error {
 
 // GetType returns value of Type field.
 func (s *SecureValueError) GetType() (value SecureValueTypeClass) {
+	if s == nil {
+		return
+	}
 	return s.Type
 }
 
 // GetHash returns value of Hash field.
 func (s *SecureValueError) GetHash() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.Hash
 }
 
 // GetText returns value of Text field.
 func (s *SecureValueError) GetText() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Text
 }
 
@@ -1605,16 +1671,25 @@ func (s *SecureValueErrorTranslationFile) DecodeBare(b *bin.Buffer) error {
 
 // GetType returns value of Type field.
 func (s *SecureValueErrorTranslationFile) GetType() (value SecureValueTypeClass) {
+	if s == nil {
+		return
+	}
 	return s.Type
 }
 
 // GetFileHash returns value of FileHash field.
 func (s *SecureValueErrorTranslationFile) GetFileHash() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.FileHash
 }
 
 // GetText returns value of Text field.
 func (s *SecureValueErrorTranslationFile) GetText() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Text
 }
 
@@ -1820,16 +1895,25 @@ func (s *SecureValueErrorTranslationFiles) DecodeBare(b *bin.Buffer) error {
 
 // GetType returns value of Type field.
 func (s *SecureValueErrorTranslationFiles) GetType() (value SecureValueTypeClass) {
+	if s == nil {
+		return
+	}
 	return s.Type
 }
 
 // GetFileHash returns value of FileHash field.
 func (s *SecureValueErrorTranslationFiles) GetFileHash() (value [][]byte) {
+	if s == nil {
+		return
+	}
 	return s.FileHash
 }
 
 // GetText returns value of Text field.
 func (s *SecureValueErrorTranslationFiles) GetText() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Text
 }
 

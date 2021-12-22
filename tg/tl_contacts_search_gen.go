@@ -174,11 +174,17 @@ func (s *ContactsSearchRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetQ returns value of Q field.
 func (s *ContactsSearchRequest) GetQ() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Q
 }
 
 // GetLimit returns value of Limit field.
 func (s *ContactsSearchRequest) GetLimit() (value int) {
+	if s == nil {
+		return
+	}
 	return s.Limit
 }
 

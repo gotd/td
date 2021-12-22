@@ -244,16 +244,25 @@ func (s *SetStickerSetThumbnailRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetUserID returns value of UserID field.
 func (s *SetStickerSetThumbnailRequest) GetUserID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.UserID
 }
 
 // GetName returns value of Name field.
 func (s *SetStickerSetThumbnailRequest) GetName() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Name
 }
 
 // GetThumbnail returns value of Thumbnail field.
 func (s *SetStickerSetThumbnailRequest) GetThumbnail() (value InputFileClass) {
+	if s == nil {
+		return
+	}
 	return s.Thumbnail
 }
 

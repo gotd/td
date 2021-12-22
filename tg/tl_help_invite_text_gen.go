@@ -155,5 +155,8 @@ func (i *HelpInviteText) DecodeBare(b *bin.Buffer) error {
 
 // GetMessage returns value of Message field.
 func (i *HelpInviteText) GetMessage() (value string) {
+	if i == nil {
+		return
+	}
 	return i.Message
 }

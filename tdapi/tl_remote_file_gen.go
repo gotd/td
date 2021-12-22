@@ -287,25 +287,40 @@ func (r *RemoteFile) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (r *RemoteFile) GetID() (value string) {
+	if r == nil {
+		return
+	}
 	return r.ID
 }
 
 // GetUniqueID returns value of UniqueID field.
 func (r *RemoteFile) GetUniqueID() (value string) {
+	if r == nil {
+		return
+	}
 	return r.UniqueID
 }
 
 // GetIsUploadingActive returns value of IsUploadingActive field.
 func (r *RemoteFile) GetIsUploadingActive() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.IsUploadingActive
 }
 
 // GetIsUploadingCompleted returns value of IsUploadingCompleted field.
 func (r *RemoteFile) GetIsUploadingCompleted() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.IsUploadingCompleted
 }
 
 // GetUploadedSize returns value of UploadedSize field.
 func (r *RemoteFile) GetUploadedSize() (value int32) {
+	if r == nil {
+		return
+	}
 	return r.UploadedSize
 }

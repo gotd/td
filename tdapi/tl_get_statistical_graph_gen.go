@@ -233,16 +233,25 @@ func (g *GetStatisticalGraphRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (g *GetStatisticalGraphRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetToken returns value of Token field.
 func (g *GetStatisticalGraphRequest) GetToken() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Token
 }
 
 // GetX returns value of X field.
 func (g *GetStatisticalGraphRequest) GetX() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.X
 }
 

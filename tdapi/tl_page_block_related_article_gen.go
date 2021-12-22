@@ -308,30 +308,48 @@ func (p *PageBlockRelatedArticle) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetURL returns value of URL field.
 func (p *PageBlockRelatedArticle) GetURL() (value string) {
+	if p == nil {
+		return
+	}
 	return p.URL
 }
 
 // GetTitle returns value of Title field.
 func (p *PageBlockRelatedArticle) GetTitle() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Title
 }
 
 // GetDescription returns value of Description field.
 func (p *PageBlockRelatedArticle) GetDescription() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Description
 }
 
 // GetPhoto returns value of Photo field.
 func (p *PageBlockRelatedArticle) GetPhoto() (value Photo) {
+	if p == nil {
+		return
+	}
 	return p.Photo
 }
 
 // GetAuthor returns value of Author field.
 func (p *PageBlockRelatedArticle) GetAuthor() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Author
 }
 
 // GetPublishDate returns value of PublishDate field.
 func (p *PageBlockRelatedArticle) GetPublishDate() (value int32) {
+	if p == nil {
+		return
+	}
 	return p.PublishDate
 }

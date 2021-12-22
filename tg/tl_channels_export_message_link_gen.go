@@ -246,6 +246,9 @@ func (e *ChannelsExportMessageLinkRequest) SetGrouped(value bool) {
 
 // GetGrouped returns value of Grouped conditional field.
 func (e *ChannelsExportMessageLinkRequest) GetGrouped() (value bool) {
+	if e == nil {
+		return
+	}
 	return e.Flags.Has(0)
 }
 
@@ -262,16 +265,25 @@ func (e *ChannelsExportMessageLinkRequest) SetThread(value bool) {
 
 // GetThread returns value of Thread conditional field.
 func (e *ChannelsExportMessageLinkRequest) GetThread() (value bool) {
+	if e == nil {
+		return
+	}
 	return e.Flags.Has(1)
 }
 
 // GetChannel returns value of Channel field.
 func (e *ChannelsExportMessageLinkRequest) GetChannel() (value InputChannelClass) {
+	if e == nil {
+		return
+	}
 	return e.Channel
 }
 
 // GetID returns value of ID field.
 func (e *ChannelsExportMessageLinkRequest) GetID() (value int) {
+	if e == nil {
+		return
+	}
 	return e.ID
 }
 

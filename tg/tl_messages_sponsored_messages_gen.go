@@ -244,16 +244,25 @@ func (s *MessagesSponsoredMessages) DecodeBare(b *bin.Buffer) error {
 
 // GetMessages returns value of Messages field.
 func (s *MessagesSponsoredMessages) GetMessages() (value []SponsoredMessage) {
+	if s == nil {
+		return
+	}
 	return s.Messages
 }
 
 // GetChats returns value of Chats field.
 func (s *MessagesSponsoredMessages) GetChats() (value []ChatClass) {
+	if s == nil {
+		return
+	}
 	return s.Chats
 }
 
 // GetUsers returns value of Users field.
 func (s *MessagesSponsoredMessages) GetUsers() (value []UserClass) {
+	if s == nil {
+		return
+	}
 	return s.Users
 }
 

@@ -234,16 +234,25 @@ func (c *ChangeStickerSetRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSetID returns value of SetID field.
 func (c *ChangeStickerSetRequest) GetSetID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.SetID
 }
 
 // GetIsInstalled returns value of IsInstalled field.
 func (c *ChangeStickerSetRequest) GetIsInstalled() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsInstalled
 }
 
 // GetIsArchived returns value of IsArchived field.
 func (c *ChangeStickerSetRequest) GetIsArchived() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsArchived
 }
 

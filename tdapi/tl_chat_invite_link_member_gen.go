@@ -233,15 +233,24 @@ func (c *ChatInviteLinkMember) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (c *ChatInviteLinkMember) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetJoinedChatDate returns value of JoinedChatDate field.
 func (c *ChatInviteLinkMember) GetJoinedChatDate() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.JoinedChatDate
 }
 
 // GetApproverUserID returns value of ApproverUserID field.
 func (c *ChatInviteLinkMember) GetApproverUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.ApproverUserID
 }

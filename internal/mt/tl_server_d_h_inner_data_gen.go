@@ -230,30 +230,48 @@ func (s *ServerDHInnerData) DecodeBare(b *bin.Buffer) error {
 
 // GetNonce returns value of Nonce field.
 func (s *ServerDHInnerData) GetNonce() (value bin.Int128) {
+	if s == nil {
+		return
+	}
 	return s.Nonce
 }
 
 // GetServerNonce returns value of ServerNonce field.
 func (s *ServerDHInnerData) GetServerNonce() (value bin.Int128) {
+	if s == nil {
+		return
+	}
 	return s.ServerNonce
 }
 
 // GetG returns value of G field.
 func (s *ServerDHInnerData) GetG() (value int) {
+	if s == nil {
+		return
+	}
 	return s.G
 }
 
 // GetDhPrime returns value of DhPrime field.
 func (s *ServerDHInnerData) GetDhPrime() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.DhPrime
 }
 
 // GetGA returns value of GA field.
 func (s *ServerDHInnerData) GetGA() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.GA
 }
 
 // GetServerTime returns value of ServerTime field.
 func (s *ServerDHInnerData) GetServerTime() (value int) {
+	if s == nil {
+		return
+	}
 	return s.ServerTime
 }

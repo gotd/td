@@ -408,50 +408,80 @@ func (p *PersonalDetails) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFirstName returns value of FirstName field.
 func (p *PersonalDetails) GetFirstName() (value string) {
+	if p == nil {
+		return
+	}
 	return p.FirstName
 }
 
 // GetMiddleName returns value of MiddleName field.
 func (p *PersonalDetails) GetMiddleName() (value string) {
+	if p == nil {
+		return
+	}
 	return p.MiddleName
 }
 
 // GetLastName returns value of LastName field.
 func (p *PersonalDetails) GetLastName() (value string) {
+	if p == nil {
+		return
+	}
 	return p.LastName
 }
 
 // GetNativeFirstName returns value of NativeFirstName field.
 func (p *PersonalDetails) GetNativeFirstName() (value string) {
+	if p == nil {
+		return
+	}
 	return p.NativeFirstName
 }
 
 // GetNativeMiddleName returns value of NativeMiddleName field.
 func (p *PersonalDetails) GetNativeMiddleName() (value string) {
+	if p == nil {
+		return
+	}
 	return p.NativeMiddleName
 }
 
 // GetNativeLastName returns value of NativeLastName field.
 func (p *PersonalDetails) GetNativeLastName() (value string) {
+	if p == nil {
+		return
+	}
 	return p.NativeLastName
 }
 
 // GetBirthdate returns value of Birthdate field.
 func (p *PersonalDetails) GetBirthdate() (value Date) {
+	if p == nil {
+		return
+	}
 	return p.Birthdate
 }
 
 // GetGender returns value of Gender field.
 func (p *PersonalDetails) GetGender() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Gender
 }
 
 // GetCountryCode returns value of CountryCode field.
 func (p *PersonalDetails) GetCountryCode() (value string) {
+	if p == nil {
+		return
+	}
 	return p.CountryCode
 }
 
 // GetResidenceCountryCode returns value of ResidenceCountryCode field.
 func (p *PersonalDetails) GetResidenceCountryCode() (value string) {
+	if p == nil {
+		return
+	}
 	return p.ResidenceCountryCode
 }

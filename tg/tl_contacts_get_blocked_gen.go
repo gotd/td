@@ -174,11 +174,17 @@ func (g *ContactsGetBlockedRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetOffset returns value of Offset field.
 func (g *ContactsGetBlockedRequest) GetOffset() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 
 // GetLimit returns value of Limit field.
 func (g *ContactsGetBlockedRequest) GetLimit() (value int) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

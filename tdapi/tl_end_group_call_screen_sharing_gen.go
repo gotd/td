@@ -183,6 +183,9 @@ func (e *EndGroupCallScreenSharingRequest) DecodeTDLibJSON(b tdjson.Decoder) err
 
 // GetGroupCallID returns value of GroupCallID field.
 func (e *EndGroupCallScreenSharingRequest) GetGroupCallID() (value int32) {
+	if e == nil {
+		return
+	}
 	return e.GroupCallID
 }
 

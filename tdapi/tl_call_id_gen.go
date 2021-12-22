@@ -183,5 +183,8 @@ func (c *CallID) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (c *CallID) GetID() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.ID
 }

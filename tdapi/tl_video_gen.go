@@ -409,50 +409,80 @@ func (v *Video) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetDuration returns value of Duration field.
 func (v *Video) GetDuration() (value int32) {
+	if v == nil {
+		return
+	}
 	return v.Duration
 }
 
 // GetWidth returns value of Width field.
 func (v *Video) GetWidth() (value int32) {
+	if v == nil {
+		return
+	}
 	return v.Width
 }
 
 // GetHeight returns value of Height field.
 func (v *Video) GetHeight() (value int32) {
+	if v == nil {
+		return
+	}
 	return v.Height
 }
 
 // GetFileName returns value of FileName field.
 func (v *Video) GetFileName() (value string) {
+	if v == nil {
+		return
+	}
 	return v.FileName
 }
 
 // GetMimeType returns value of MimeType field.
 func (v *Video) GetMimeType() (value string) {
+	if v == nil {
+		return
+	}
 	return v.MimeType
 }
 
 // GetHasStickers returns value of HasStickers field.
 func (v *Video) GetHasStickers() (value bool) {
+	if v == nil {
+		return
+	}
 	return v.HasStickers
 }
 
 // GetSupportsStreaming returns value of SupportsStreaming field.
 func (v *Video) GetSupportsStreaming() (value bool) {
+	if v == nil {
+		return
+	}
 	return v.SupportsStreaming
 }
 
 // GetMinithumbnail returns value of Minithumbnail field.
 func (v *Video) GetMinithumbnail() (value Minithumbnail) {
+	if v == nil {
+		return
+	}
 	return v.Minithumbnail
 }
 
 // GetThumbnail returns value of Thumbnail field.
 func (v *Video) GetThumbnail() (value Thumbnail) {
+	if v == nil {
+		return
+	}
 	return v.Thumbnail
 }
 
 // GetVideo returns value of Video field.
 func (v *Video) GetVideo() (value File) {
+	if v == nil {
+		return
+	}
 	return v.Video
 }

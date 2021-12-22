@@ -199,15 +199,24 @@ func (r *RestrictionReason) DecodeBare(b *bin.Buffer) error {
 
 // GetPlatform returns value of Platform field.
 func (r *RestrictionReason) GetPlatform() (value string) {
+	if r == nil {
+		return
+	}
 	return r.Platform
 }
 
 // GetReason returns value of Reason field.
 func (r *RestrictionReason) GetReason() (value string) {
+	if r == nil {
+		return
+	}
 	return r.Reason
 }
 
 // GetText returns value of Text field.
 func (r *RestrictionReason) GetText() (value string) {
+	if r == nil {
+		return
+	}
 	return r.Text
 }

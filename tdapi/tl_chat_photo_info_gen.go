@@ -260,20 +260,32 @@ func (c *ChatPhotoInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetSmall returns value of Small field.
 func (c *ChatPhotoInfo) GetSmall() (value File) {
+	if c == nil {
+		return
+	}
 	return c.Small
 }
 
 // GetBig returns value of Big field.
 func (c *ChatPhotoInfo) GetBig() (value File) {
+	if c == nil {
+		return
+	}
 	return c.Big
 }
 
 // GetMinithumbnail returns value of Minithumbnail field.
 func (c *ChatPhotoInfo) GetMinithumbnail() (value Minithumbnail) {
+	if c == nil {
+		return
+	}
 	return c.Minithumbnail
 }
 
 // GetHasAnimation returns value of HasAnimation field.
 func (c *ChatPhotoInfo) GetHasAnimation() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.HasAnimation
 }

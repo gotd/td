@@ -248,16 +248,25 @@ func (j *PhoneJoinAsPeers) DecodeBare(b *bin.Buffer) error {
 
 // GetPeers returns value of Peers field.
 func (j *PhoneJoinAsPeers) GetPeers() (value []PeerClass) {
+	if j == nil {
+		return
+	}
 	return j.Peers
 }
 
 // GetChats returns value of Chats field.
 func (j *PhoneJoinAsPeers) GetChats() (value []ChatClass) {
+	if j == nil {
+		return
+	}
 	return j.Chats
 }
 
 // GetUsers returns value of Users field.
 func (j *PhoneJoinAsPeers) GetUsers() (value []UserClass) {
+	if j == nil {
+		return
+	}
 	return j.Users
 }
 

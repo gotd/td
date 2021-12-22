@@ -192,11 +192,17 @@ func (s *MessagesStartHistoryImportRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPeer returns value of Peer field.
 func (s *MessagesStartHistoryImportRequest) GetPeer() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
 // GetImportID returns value of ImportID field.
 func (s *MessagesStartHistoryImportRequest) GetImportID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.ImportID
 }
 

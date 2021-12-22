@@ -152,6 +152,9 @@ func (d *DecryptedMessageActionSetMessageTTL) DecodeBare(b *bin.Buffer) error {
 
 // GetTTLSeconds returns value of TTLSeconds field.
 func (d *DecryptedMessageActionSetMessageTTL) GetTTLSeconds() (value int) {
+	if d == nil {
+		return
+	}
 	return d.TTLSeconds
 }
 
@@ -289,6 +292,9 @@ func (d *DecryptedMessageActionReadMessages) DecodeBare(b *bin.Buffer) error {
 
 // GetRandomIDs returns value of RandomIDs field.
 func (d *DecryptedMessageActionReadMessages) GetRandomIDs() (value []int64) {
+	if d == nil {
+		return
+	}
 	return d.RandomIDs
 }
 
@@ -426,6 +432,9 @@ func (d *DecryptedMessageActionDeleteMessages) DecodeBare(b *bin.Buffer) error {
 
 // GetRandomIDs returns value of RandomIDs field.
 func (d *DecryptedMessageActionDeleteMessages) GetRandomIDs() (value []int64) {
+	if d == nil {
+		return
+	}
 	return d.RandomIDs
 }
 
@@ -563,6 +572,9 @@ func (d *DecryptedMessageActionScreenshotMessages) DecodeBare(b *bin.Buffer) err
 
 // GetRandomIDs returns value of RandomIDs field.
 func (d *DecryptedMessageActionScreenshotMessages) GetRandomIDs() (value []int64) {
+	if d == nil {
+		return
+	}
 	return d.RandomIDs
 }
 
@@ -805,11 +817,17 @@ func (d *DecryptedMessageActionResend) DecodeBare(b *bin.Buffer) error {
 
 // GetStartSeqNo returns value of StartSeqNo field.
 func (d *DecryptedMessageActionResend) GetStartSeqNo() (value int) {
+	if d == nil {
+		return
+	}
 	return d.StartSeqNo
 }
 
 // GetEndSeqNo returns value of EndSeqNo field.
 func (d *DecryptedMessageActionResend) GetEndSeqNo() (value int) {
+	if d == nil {
+		return
+	}
 	return d.EndSeqNo
 }
 
@@ -934,6 +952,9 @@ func (d *DecryptedMessageActionNotifyLayer) DecodeBare(b *bin.Buffer) error {
 
 // GetLayer returns value of Layer field.
 func (d *DecryptedMessageActionNotifyLayer) GetLayer() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Layer
 }
 
@@ -1063,6 +1084,9 @@ func (d *DecryptedMessageActionTyping) DecodeBare(b *bin.Buffer) error {
 
 // GetAction returns value of Action field.
 func (d *DecryptedMessageActionTyping) GetAction() (value SendMessageActionClass) {
+	if d == nil {
+		return
+	}
 	return d.Action
 }
 
@@ -1204,11 +1228,17 @@ func (d *DecryptedMessageActionRequestKey) DecodeBare(b *bin.Buffer) error {
 
 // GetExchangeID returns value of ExchangeID field.
 func (d *DecryptedMessageActionRequestKey) GetExchangeID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.ExchangeID
 }
 
 // GetGA returns value of GA field.
 func (d *DecryptedMessageActionRequestKey) GetGA() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.GA
 }
 
@@ -1367,16 +1397,25 @@ func (d *DecryptedMessageActionAcceptKey) DecodeBare(b *bin.Buffer) error {
 
 // GetExchangeID returns value of ExchangeID field.
 func (d *DecryptedMessageActionAcceptKey) GetExchangeID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.ExchangeID
 }
 
 // GetGB returns value of GB field.
 func (d *DecryptedMessageActionAcceptKey) GetGB() (value []byte) {
+	if d == nil {
+		return
+	}
 	return d.GB
 }
 
 // GetKeyFingerprint returns value of KeyFingerprint field.
 func (d *DecryptedMessageActionAcceptKey) GetKeyFingerprint() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.KeyFingerprint
 }
 
@@ -1501,6 +1540,9 @@ func (d *DecryptedMessageActionAbortKey) DecodeBare(b *bin.Buffer) error {
 
 // GetExchangeID returns value of ExchangeID field.
 func (d *DecryptedMessageActionAbortKey) GetExchangeID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.ExchangeID
 }
 
@@ -1642,11 +1684,17 @@ func (d *DecryptedMessageActionCommitKey) DecodeBare(b *bin.Buffer) error {
 
 // GetExchangeID returns value of ExchangeID field.
 func (d *DecryptedMessageActionCommitKey) GetExchangeID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.ExchangeID
 }
 
 // GetKeyFingerprint returns value of KeyFingerprint field.
 func (d *DecryptedMessageActionCommitKey) GetKeyFingerprint() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.KeyFingerprint
 }
 

@@ -446,6 +446,9 @@ func (c *ChatListFilter) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatFilterID returns value of ChatFilterID field.
 func (c *ChatListFilter) GetChatFilterID() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.ChatFilterID
 }
 

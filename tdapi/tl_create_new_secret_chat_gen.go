@@ -183,6 +183,9 @@ func (c *CreateNewSecretChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (c *CreateNewSecretChatRequest) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 

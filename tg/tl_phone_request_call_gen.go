@@ -268,26 +268,41 @@ func (r *PhoneRequestCallRequest) SetVideo(value bool) {
 
 // GetVideo returns value of Video conditional field.
 func (r *PhoneRequestCallRequest) GetVideo() (value bool) {
+	if r == nil {
+		return
+	}
 	return r.Flags.Has(0)
 }
 
 // GetUserID returns value of UserID field.
 func (r *PhoneRequestCallRequest) GetUserID() (value InputUserClass) {
+	if r == nil {
+		return
+	}
 	return r.UserID
 }
 
 // GetRandomID returns value of RandomID field.
 func (r *PhoneRequestCallRequest) GetRandomID() (value int) {
+	if r == nil {
+		return
+	}
 	return r.RandomID
 }
 
 // GetGAHash returns value of GAHash field.
 func (r *PhoneRequestCallRequest) GetGAHash() (value []byte) {
+	if r == nil {
+		return
+	}
 	return r.GAHash
 }
 
 // GetProtocol returns value of Protocol field.
 func (r *PhoneRequestCallRequest) GetProtocol() (value PhoneCallProtocol) {
+	if r == nil {
+		return
+	}
 	return r.Protocol
 }
 

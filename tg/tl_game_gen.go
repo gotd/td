@@ -311,31 +311,49 @@ func (g *Game) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (g *Game) GetID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ID
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (g *Game) GetAccessHash() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.AccessHash
 }
 
 // GetShortName returns value of ShortName field.
 func (g *Game) GetShortName() (value string) {
+	if g == nil {
+		return
+	}
 	return g.ShortName
 }
 
 // GetTitle returns value of Title field.
 func (g *Game) GetTitle() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Title
 }
 
 // GetDescription returns value of Description field.
 func (g *Game) GetDescription() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Description
 }
 
 // GetPhoto returns value of Photo field.
 func (g *Game) GetPhoto() (value PhotoClass) {
+	if g == nil {
+		return
+	}
 	return g.Photo
 }
 
@@ -348,6 +366,9 @@ func (g *Game) SetDocument(value DocumentClass) {
 // GetDocument returns value of Document conditional field and
 // boolean which is true if field was set.
 func (g *Game) GetDocument() (value DocumentClass, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(0) {
 		return value, false
 	}

@@ -179,15 +179,24 @@ func (h *HTTPWaitRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetMaxDelay returns value of MaxDelay field.
 func (h *HTTPWaitRequest) GetMaxDelay() (value int) {
+	if h == nil {
+		return
+	}
 	return h.MaxDelay
 }
 
 // GetWaitAfter returns value of WaitAfter field.
 func (h *HTTPWaitRequest) GetWaitAfter() (value int) {
+	if h == nil {
+		return
+	}
 	return h.WaitAfter
 }
 
 // GetMaxWait returns value of MaxWait field.
 func (h *HTTPWaitRequest) GetMaxWait() (value int) {
+	if h == nil {
+		return
+	}
 	return h.MaxWait
 }

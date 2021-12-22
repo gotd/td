@@ -183,6 +183,9 @@ func (g *GetFileExtensionRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMimeType returns value of MimeType field.
 func (g *GetFileExtensionRequest) GetMimeType() (value string) {
+	if g == nil {
+		return
+	}
 	return g.MimeType
 }
 

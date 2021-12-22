@@ -234,10 +234,16 @@ func (m *MessagePositions) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTotalCount returns value of TotalCount field.
 func (m *MessagePositions) GetTotalCount() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.TotalCount
 }
 
 // GetPositions returns value of Positions field.
 func (m *MessagePositions) GetPositions() (value []MessagePosition) {
+	if m == nil {
+		return
+	}
 	return m.Positions
 }

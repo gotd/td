@@ -208,11 +208,17 @@ func (s *SendCustomRequestRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMethod returns value of Method field.
 func (s *SendCustomRequestRequest) GetMethod() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Method
 }
 
 // GetParameters returns value of Parameters field.
 func (s *SendCustomRequestRequest) GetParameters() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Parameters
 }
 

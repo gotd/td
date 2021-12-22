@@ -196,16 +196,25 @@ func (s *AuthSignInRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetPhoneNumber returns value of PhoneNumber field.
 func (s *AuthSignInRequest) GetPhoneNumber() (value string) {
+	if s == nil {
+		return
+	}
 	return s.PhoneNumber
 }
 
 // GetPhoneCodeHash returns value of PhoneCodeHash field.
 func (s *AuthSignInRequest) GetPhoneCodeHash() (value string) {
+	if s == nil {
+		return
+	}
 	return s.PhoneCodeHash
 }
 
 // GetPhoneCode returns value of PhoneCode field.
 func (s *AuthSignInRequest) GetPhoneCode() (value string) {
+	if s == nil {
+		return
+	}
 	return s.PhoneCode
 }
 

@@ -193,6 +193,9 @@ func (g *GetCreatedPublicChatsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetType returns value of Type field.
 func (g *GetCreatedPublicChatsRequest) GetType() (value PublicChatTypeClass) {
+	if g == nil {
+		return
+	}
 	return g.Type
 }
 

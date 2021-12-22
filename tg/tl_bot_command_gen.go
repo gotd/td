@@ -174,10 +174,16 @@ func (b *BotCommand) DecodeBare(buf *bin.Buffer) error {
 
 // GetCommand returns value of Command field.
 func (b *BotCommand) GetCommand() (value string) {
+	if b == nil {
+		return
+	}
 	return b.Command
 }
 
 // GetDescription returns value of Description field.
 func (b *BotCommand) GetDescription() (value string) {
+	if b == nil {
+		return
+	}
 	return b.Description
 }

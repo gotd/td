@@ -258,20 +258,32 @@ func (p *PaymentsProviderStripe) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetPublishableKey returns value of PublishableKey field.
 func (p *PaymentsProviderStripe) GetPublishableKey() (value string) {
+	if p == nil {
+		return
+	}
 	return p.PublishableKey
 }
 
 // GetNeedCountry returns value of NeedCountry field.
 func (p *PaymentsProviderStripe) GetNeedCountry() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.NeedCountry
 }
 
 // GetNeedPostalCode returns value of NeedPostalCode field.
 func (p *PaymentsProviderStripe) GetNeedPostalCode() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.NeedPostalCode
 }
 
 // GetNeedCardholderName returns value of NeedCardholderName field.
 func (p *PaymentsProviderStripe) GetNeedCardholderName() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.NeedCardholderName
 }

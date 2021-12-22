@@ -174,11 +174,17 @@ func (e *PhoneEditGroupCallTitleRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetCall returns value of Call field.
 func (e *PhoneEditGroupCallTitleRequest) GetCall() (value InputGroupCall) {
+	if e == nil {
+		return
+	}
 	return e.Call
 }
 
 // GetTitle returns value of Title field.
 func (e *PhoneEditGroupCallTitleRequest) GetTitle() (value string) {
+	if e == nil {
+		return
+	}
 	return e.Title
 }
 

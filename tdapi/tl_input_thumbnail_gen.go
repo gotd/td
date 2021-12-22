@@ -243,15 +243,24 @@ func (i *InputThumbnail) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetThumbnail returns value of Thumbnail field.
 func (i *InputThumbnail) GetThumbnail() (value InputFileClass) {
+	if i == nil {
+		return
+	}
 	return i.Thumbnail
 }
 
 // GetWidth returns value of Width field.
 func (i *InputThumbnail) GetWidth() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.Width
 }
 
 // GetHeight returns value of Height field.
 func (i *InputThumbnail) GetHeight() (value int32) {
+	if i == nil {
+		return
+	}
 	return i.Height
 }

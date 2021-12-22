@@ -155,6 +155,9 @@ func (g *PaymentsGetBankCardDataRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetNumber returns value of Number field.
 func (g *PaymentsGetBankCardDataRequest) GetNumber() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Number
 }
 

@@ -293,25 +293,40 @@ func (c *Call) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (c *Call) GetID() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.ID
 }
 
 // GetUserID returns value of UserID field.
 func (c *Call) GetUserID() (value int64) {
+	if c == nil {
+		return
+	}
 	return c.UserID
 }
 
 // GetIsOutgoing returns value of IsOutgoing field.
 func (c *Call) GetIsOutgoing() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsOutgoing
 }
 
 // GetIsVideo returns value of IsVideo field.
 func (c *Call) GetIsVideo() (value bool) {
+	if c == nil {
+		return
+	}
 	return c.IsVideo
 }
 
 // GetState returns value of State field.
 func (c *Call) GetState() (value CallStateClass) {
+	if c == nil {
+		return
+	}
 	return c.State
 }

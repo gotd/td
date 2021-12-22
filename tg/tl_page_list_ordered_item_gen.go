@@ -184,11 +184,17 @@ func (p *PageListOrderedItemText) DecodeBare(b *bin.Buffer) error {
 
 // GetNum returns value of Num field.
 func (p *PageListOrderedItemText) GetNum() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Num
 }
 
 // GetText returns value of Text field.
 func (p *PageListOrderedItemText) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
@@ -361,11 +367,17 @@ func (p *PageListOrderedItemBlocks) DecodeBare(b *bin.Buffer) error {
 
 // GetNum returns value of Num field.
 func (p *PageListOrderedItemBlocks) GetNum() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Num
 }
 
 // GetBlocks returns value of Blocks field.
 func (p *PageListOrderedItemBlocks) GetBlocks() (value []PageBlockClass) {
+	if p == nil {
+		return
+	}
 	return p.Blocks
 }
 

@@ -253,15 +253,24 @@ func (p *PassportElementError) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetType returns value of Type field.
 func (p *PassportElementError) GetType() (value PassportElementTypeClass) {
+	if p == nil {
+		return
+	}
 	return p.Type
 }
 
 // GetMessage returns value of Message field.
 func (p *PassportElementError) GetMessage() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Message
 }
 
 // GetSource returns value of Source field.
 func (p *PassportElementError) GetSource() (value PassportElementErrorSourceClass) {
+	if p == nil {
+		return
+	}
 	return p.Source
 }

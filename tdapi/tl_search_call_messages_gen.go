@@ -236,16 +236,25 @@ func (s *SearchCallMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetFromMessageID returns value of FromMessageID field.
 func (s *SearchCallMessagesRequest) GetFromMessageID() (value int64) {
+	if s == nil {
+		return
+	}
 	return s.FromMessageID
 }
 
 // GetLimit returns value of Limit field.
 func (s *SearchCallMessagesRequest) GetLimit() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Limit
 }
 
 // GetOnlyMissed returns value of OnlyMissed field.
 func (s *SearchCallMessagesRequest) GetOnlyMissed() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.OnlyMissed
 }
 

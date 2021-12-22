@@ -156,6 +156,9 @@ func (p *PhotoSizeEmpty) DecodeBare(b *bin.Buffer) error {
 
 // GetType returns value of Type field.
 func (p *PhotoSizeEmpty) GetType() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Type
 }
 
@@ -354,26 +357,41 @@ func (p *PhotoSize) DecodeBare(b *bin.Buffer) error {
 
 // GetType returns value of Type field.
 func (p *PhotoSize) GetType() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Type
 }
 
 // GetLocation returns value of Location field.
 func (p *PhotoSize) GetLocation() (value FileLocationClass) {
+	if p == nil {
+		return
+	}
 	return p.Location
 }
 
 // GetW returns value of W field.
 func (p *PhotoSize) GetW() (value int) {
+	if p == nil {
+		return
+	}
 	return p.W
 }
 
 // GetH returns value of H field.
 func (p *PhotoSize) GetH() (value int) {
+	if p == nil {
+		return
+	}
 	return p.H
 }
 
 // GetSize returns value of Size field.
 func (p *PhotoSize) GetSize() (value int) {
+	if p == nil {
+		return
+	}
 	return p.Size
 }
 
@@ -572,26 +590,41 @@ func (p *PhotoCachedSize) DecodeBare(b *bin.Buffer) error {
 
 // GetType returns value of Type field.
 func (p *PhotoCachedSize) GetType() (value string) {
+	if p == nil {
+		return
+	}
 	return p.Type
 }
 
 // GetLocation returns value of Location field.
 func (p *PhotoCachedSize) GetLocation() (value FileLocationClass) {
+	if p == nil {
+		return
+	}
 	return p.Location
 }
 
 // GetW returns value of W field.
 func (p *PhotoCachedSize) GetW() (value int) {
+	if p == nil {
+		return
+	}
 	return p.W
 }
 
 // GetH returns value of H field.
 func (p *PhotoCachedSize) GetH() (value int) {
+	if p == nil {
+		return
+	}
 	return p.H
 }
 
 // GetBytes returns value of Bytes field.
 func (p *PhotoCachedSize) GetBytes() (value []byte) {
+	if p == nil {
+		return
+	}
 	return p.Bytes
 }
 

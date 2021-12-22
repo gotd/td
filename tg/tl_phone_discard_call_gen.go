@@ -265,26 +265,41 @@ func (d *PhoneDiscardCallRequest) SetVideo(value bool) {
 
 // GetVideo returns value of Video conditional field.
 func (d *PhoneDiscardCallRequest) GetVideo() (value bool) {
+	if d == nil {
+		return
+	}
 	return d.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
 func (d *PhoneDiscardCallRequest) GetPeer() (value InputPhoneCall) {
+	if d == nil {
+		return
+	}
 	return d.Peer
 }
 
 // GetDuration returns value of Duration field.
 func (d *PhoneDiscardCallRequest) GetDuration() (value int) {
+	if d == nil {
+		return
+	}
 	return d.Duration
 }
 
 // GetReason returns value of Reason field.
 func (d *PhoneDiscardCallRequest) GetReason() (value PhoneCallDiscardReasonClass) {
+	if d == nil {
+		return
+	}
 	return d.Reason
 }
 
 // GetConnectionID returns value of ConnectionID field.
 func (d *PhoneDiscardCallRequest) GetConnectionID() (value int64) {
+	if d == nil {
+		return
+	}
 	return d.ConnectionID
 }
 

@@ -231,16 +231,25 @@ func (s *MessagesStickerSet) DecodeBare(b *bin.Buffer) error {
 
 // GetSet returns value of Set field.
 func (s *MessagesStickerSet) GetSet() (value StickerSet) {
+	if s == nil {
+		return
+	}
 	return s.Set
 }
 
 // GetPacks returns value of Packs field.
 func (s *MessagesStickerSet) GetPacks() (value []StickerPack) {
+	if s == nil {
+		return
+	}
 	return s.Packs
 }
 
 // GetDocuments returns value of Documents field.
 func (s *MessagesStickerSet) GetDocuments() (value []DocumentClass) {
+	if s == nil {
+		return
+	}
 	return s.Documents
 }
 

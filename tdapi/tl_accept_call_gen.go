@@ -208,11 +208,17 @@ func (a *AcceptCallRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCallID returns value of CallID field.
 func (a *AcceptCallRequest) GetCallID() (value int32) {
+	if a == nil {
+		return
+	}
 	return a.CallID
 }
 
 // GetProtocol returns value of Protocol field.
 func (a *AcceptCallRequest) GetProtocol() (value CallProtocol) {
+	if a == nil {
+		return
+	}
 	return a.Protocol
 }
 

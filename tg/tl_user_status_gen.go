@@ -262,6 +262,9 @@ func (u *UserStatusOnline) DecodeBare(b *bin.Buffer) error {
 
 // GetExpires returns value of Expires field.
 func (u *UserStatusOnline) GetExpires() (value int) {
+	if u == nil {
+		return
+	}
 	return u.Expires
 }
 
@@ -394,6 +397,9 @@ func (u *UserStatusOffline) DecodeBare(b *bin.Buffer) error {
 
 // GetWasOnline returns value of WasOnline field.
 func (u *UserStatusOffline) GetWasOnline() (value int) {
+	if u == nil {
+		return
+	}
 	return u.WasOnline
 }
 

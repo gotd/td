@@ -197,15 +197,24 @@ func (s *SecureData) DecodeBare(b *bin.Buffer) error {
 
 // GetData returns value of Data field.
 func (s *SecureData) GetData() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.Data
 }
 
 // GetDataHash returns value of DataHash field.
 func (s *SecureData) GetDataHash() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.DataHash
 }
 
 // GetSecret returns value of Secret field.
 func (s *SecureData) GetSecret() (value []byte) {
+	if s == nil {
+		return
+	}
 	return s.Secret
 }

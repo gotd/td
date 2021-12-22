@@ -259,21 +259,33 @@ func (p *PinChatMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (p *PinChatMessageRequest) GetChatID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.ChatID
 }
 
 // GetMessageID returns value of MessageID field.
 func (p *PinChatMessageRequest) GetMessageID() (value int64) {
+	if p == nil {
+		return
+	}
 	return p.MessageID
 }
 
 // GetDisableNotification returns value of DisableNotification field.
 func (p *PinChatMessageRequest) GetDisableNotification() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.DisableNotification
 }
 
 // GetOnlyForSelf returns value of OnlyForSelf field.
 func (p *PinChatMessageRequest) GetOnlyForSelf() (value bool) {
+	if p == nil {
+		return
+	}
 	return p.OnlyForSelf
 }
 

@@ -319,25 +319,40 @@ func (n *NotificationGroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetID returns value of ID field.
 func (n *NotificationGroup) GetID() (value int32) {
+	if n == nil {
+		return
+	}
 	return n.ID
 }
 
 // GetType returns value of Type field.
 func (n *NotificationGroup) GetType() (value NotificationGroupTypeClass) {
+	if n == nil {
+		return
+	}
 	return n.Type
 }
 
 // GetChatID returns value of ChatID field.
 func (n *NotificationGroup) GetChatID() (value int64) {
+	if n == nil {
+		return
+	}
 	return n.ChatID
 }
 
 // GetTotalCount returns value of TotalCount field.
 func (n *NotificationGroup) GetTotalCount() (value int32) {
+	if n == nil {
+		return
+	}
 	return n.TotalCount
 }
 
 // GetNotifications returns value of Notifications field.
 func (n *NotificationGroup) GetNotifications() (value []Notification) {
+	if n == nil {
+		return
+	}
 	return n.Notifications
 }

@@ -283,26 +283,41 @@ func (g *GetInlineQueryResultsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBotUserID returns value of BotUserID field.
 func (g *GetInlineQueryResultsRequest) GetBotUserID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.BotUserID
 }
 
 // GetChatID returns value of ChatID field.
 func (g *GetInlineQueryResultsRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetUserLocation returns value of UserLocation field.
 func (g *GetInlineQueryResultsRequest) GetUserLocation() (value Location) {
+	if g == nil {
+		return
+	}
 	return g.UserLocation
 }
 
 // GetQuery returns value of Query field.
 func (g *GetInlineQueryResultsRequest) GetQuery() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Query
 }
 
 // GetOffset returns value of Offset field.
 func (g *GetInlineQueryResultsRequest) GetOffset() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 

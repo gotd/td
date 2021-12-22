@@ -177,11 +177,17 @@ func (g *AccountGetThemesRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetFormat returns value of Format field.
 func (g *AccountGetThemesRequest) GetFormat() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Format
 }
 
 // GetHash returns value of Hash field.
 func (g *AccountGetThemesRequest) GetHash() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.Hash
 }
 

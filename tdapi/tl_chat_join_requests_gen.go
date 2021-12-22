@@ -234,10 +234,16 @@ func (c *ChatJoinRequests) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTotalCount returns value of TotalCount field.
 func (c *ChatJoinRequests) GetTotalCount() (value int32) {
+	if c == nil {
+		return
+	}
 	return c.TotalCount
 }
 
 // GetRequests returns value of Requests field.
 func (c *ChatJoinRequests) GetRequests() (value []ChatJoinRequest) {
+	if c == nil {
+		return
+	}
 	return c.Requests
 }

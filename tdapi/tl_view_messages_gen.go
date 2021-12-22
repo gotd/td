@@ -280,21 +280,33 @@ func (v *ViewMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (v *ViewMessagesRequest) GetChatID() (value int64) {
+	if v == nil {
+		return
+	}
 	return v.ChatID
 }
 
 // GetMessageThreadID returns value of MessageThreadID field.
 func (v *ViewMessagesRequest) GetMessageThreadID() (value int64) {
+	if v == nil {
+		return
+	}
 	return v.MessageThreadID
 }
 
 // GetMessageIDs returns value of MessageIDs field.
 func (v *ViewMessagesRequest) GetMessageIDs() (value []int64) {
+	if v == nil {
+		return
+	}
 	return v.MessageIDs
 }
 
 // GetForceRead returns value of ForceRead field.
 func (v *ViewMessagesRequest) GetForceRead() (value bool) {
+	if v == nil {
+		return
+	}
 	return v.ForceRead
 }
 

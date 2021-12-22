@@ -173,6 +173,9 @@ func (d *ContactsDeleteContactsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (d *ContactsDeleteContactsRequest) GetID() (value []InputUserClass) {
+	if d == nil {
+		return
+	}
 	return d.ID
 }
 

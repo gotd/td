@@ -228,10 +228,16 @@ func (p *PageBlockCaption) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetText returns value of Text field.
 func (p *PageBlockCaption) GetText() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Text
 }
 
 // GetCredit returns value of Credit field.
 func (p *PageBlockCaption) GetCredit() (value RichTextClass) {
+	if p == nil {
+		return
+	}
 	return p.Credit
 }

@@ -336,16 +336,25 @@ func (f *MessagesFavedStickers) DecodeBare(b *bin.Buffer) error {
 
 // GetHash returns value of Hash field.
 func (f *MessagesFavedStickers) GetHash() (value int64) {
+	if f == nil {
+		return
+	}
 	return f.Hash
 }
 
 // GetPacks returns value of Packs field.
 func (f *MessagesFavedStickers) GetPacks() (value []StickerPack) {
+	if f == nil {
+		return
+	}
 	return f.Packs
 }
 
 // GetStickers returns value of Stickers field.
 func (f *MessagesFavedStickers) GetStickers() (value []DocumentClass) {
+	if f == nil {
+		return
+	}
 	return f.Stickers
 }
 

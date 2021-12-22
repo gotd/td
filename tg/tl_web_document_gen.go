@@ -254,26 +254,41 @@ func (w *WebDocument) DecodeBare(b *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (w *WebDocument) GetURL() (value string) {
+	if w == nil {
+		return
+	}
 	return w.URL
 }
 
 // GetAccessHash returns value of AccessHash field.
 func (w *WebDocument) GetAccessHash() (value int64) {
+	if w == nil {
+		return
+	}
 	return w.AccessHash
 }
 
 // GetSize returns value of Size field.
 func (w *WebDocument) GetSize() (value int) {
+	if w == nil {
+		return
+	}
 	return w.Size
 }
 
 // GetMimeType returns value of MimeType field.
 func (w *WebDocument) GetMimeType() (value string) {
+	if w == nil {
+		return
+	}
 	return w.MimeType
 }
 
 // GetAttributes returns value of Attributes field.
 func (w *WebDocument) GetAttributes() (value []DocumentAttributeClass) {
+	if w == nil {
+		return
+	}
 	return w.Attributes
 }
 
@@ -489,21 +504,33 @@ func (w *WebDocumentNoProxy) DecodeBare(b *bin.Buffer) error {
 
 // GetURL returns value of URL field.
 func (w *WebDocumentNoProxy) GetURL() (value string) {
+	if w == nil {
+		return
+	}
 	return w.URL
 }
 
 // GetSize returns value of Size field.
 func (w *WebDocumentNoProxy) GetSize() (value int) {
+	if w == nil {
+		return
+	}
 	return w.Size
 }
 
 // GetMimeType returns value of MimeType field.
 func (w *WebDocumentNoProxy) GetMimeType() (value string) {
+	if w == nil {
+		return
+	}
 	return w.MimeType
 }
 
 // GetAttributes returns value of Attributes field.
 func (w *WebDocumentNoProxy) GetAttributes() (value []DocumentAttributeClass) {
+	if w == nil {
+		return
+	}
 	return w.Attributes
 }
 

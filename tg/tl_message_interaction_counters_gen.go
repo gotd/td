@@ -193,15 +193,24 @@ func (m *MessageInteractionCounters) DecodeBare(b *bin.Buffer) error {
 
 // GetMsgID returns value of MsgID field.
 func (m *MessageInteractionCounters) GetMsgID() (value int) {
+	if m == nil {
+		return
+	}
 	return m.MsgID
 }
 
 // GetViews returns value of Views field.
 func (m *MessageInteractionCounters) GetViews() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Views
 }
 
 // GetForwards returns value of Forwards field.
 func (m *MessageInteractionCounters) GetForwards() (value int) {
+	if m == nil {
+		return
+	}
 	return m.Forwards
 }

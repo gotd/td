@@ -155,6 +155,9 @@ func (g *HelpGetRecentMeURLsRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetReferer returns value of Referer field.
 func (g *HelpGetRecentMeURLsRequest) GetReferer() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Referer
 }
 

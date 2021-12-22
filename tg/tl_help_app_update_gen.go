@@ -386,26 +386,41 @@ func (a *HelpAppUpdate) SetCanNotSkip(value bool) {
 
 // GetCanNotSkip returns value of CanNotSkip conditional field.
 func (a *HelpAppUpdate) GetCanNotSkip() (value bool) {
+	if a == nil {
+		return
+	}
 	return a.Flags.Has(0)
 }
 
 // GetID returns value of ID field.
 func (a *HelpAppUpdate) GetID() (value int) {
+	if a == nil {
+		return
+	}
 	return a.ID
 }
 
 // GetVersion returns value of Version field.
 func (a *HelpAppUpdate) GetVersion() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Version
 }
 
 // GetText returns value of Text field.
 func (a *HelpAppUpdate) GetText() (value string) {
+	if a == nil {
+		return
+	}
 	return a.Text
 }
 
 // GetEntities returns value of Entities field.
 func (a *HelpAppUpdate) GetEntities() (value []MessageEntityClass) {
+	if a == nil {
+		return
+	}
 	return a.Entities
 }
 
@@ -418,6 +433,9 @@ func (a *HelpAppUpdate) SetDocument(value DocumentClass) {
 // GetDocument returns value of Document conditional field and
 // boolean which is true if field was set.
 func (a *HelpAppUpdate) GetDocument() (value DocumentClass, ok bool) {
+	if a == nil {
+		return
+	}
 	if !a.Flags.Has(1) {
 		return value, false
 	}
@@ -433,6 +451,9 @@ func (a *HelpAppUpdate) SetURL(value string) {
 // GetURL returns value of URL conditional field and
 // boolean which is true if field was set.
 func (a *HelpAppUpdate) GetURL() (value string, ok bool) {
+	if a == nil {
+		return
+	}
 	if !a.Flags.Has(2) {
 		return value, false
 	}
@@ -448,6 +469,9 @@ func (a *HelpAppUpdate) SetSticker(value DocumentClass) {
 // GetSticker returns value of Sticker conditional field and
 // boolean which is true if field was set.
 func (a *HelpAppUpdate) GetSticker() (value DocumentClass, ok bool) {
+	if a == nil {
+		return
+	}
 	if !a.Flags.Has(3) {
 		return value, false
 	}

@@ -267,16 +267,25 @@ func (g *GroupCallParticipantVideo) SetPaused(value bool) {
 
 // GetPaused returns value of Paused conditional field.
 func (g *GroupCallParticipantVideo) GetPaused() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(0)
 }
 
 // GetEndpoint returns value of Endpoint field.
 func (g *GroupCallParticipantVideo) GetEndpoint() (value string) {
+	if g == nil {
+		return
+	}
 	return g.Endpoint
 }
 
 // GetSourceGroups returns value of SourceGroups field.
 func (g *GroupCallParticipantVideo) GetSourceGroups() (value []GroupCallParticipantVideoSourceGroup) {
+	if g == nil {
+		return
+	}
 	return g.SourceGroups
 }
 
@@ -289,6 +298,9 @@ func (g *GroupCallParticipantVideo) SetAudioSource(value int) {
 // GetAudioSource returns value of AudioSource conditional field and
 // boolean which is true if field was set.
 func (g *GroupCallParticipantVideo) GetAudioSource() (value int, ok bool) {
+	if g == nil {
+		return
+	}
 	if !g.Flags.Has(1) {
 		return value, false
 	}

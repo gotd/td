@@ -174,10 +174,16 @@ func (e *Error) DecodeBare(b *bin.Buffer) error {
 
 // GetCode returns value of Code field.
 func (e *Error) GetCode() (value int) {
+	if e == nil {
+		return
+	}
 	return e.Code
 }
 
 // GetText returns value of Text field.
 func (e *Error) GetText() (value string) {
+	if e == nil {
+		return
+	}
 	return e.Text
 }

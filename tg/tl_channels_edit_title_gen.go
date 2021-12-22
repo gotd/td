@@ -182,11 +182,17 @@ func (e *ChannelsEditTitleRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetChannel returns value of Channel field.
 func (e *ChannelsEditTitleRequest) GetChannel() (value InputChannelClass) {
+	if e == nil {
+		return
+	}
 	return e.Channel
 }
 
 // GetTitle returns value of Title field.
 func (e *ChannelsEditTitleRequest) GetTitle() (value string) {
+	if e == nil {
+		return
+	}
 	return e.Title
 }
 

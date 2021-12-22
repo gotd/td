@@ -233,16 +233,25 @@ func (g *GetGroupsInCommonRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetUserID returns value of UserID field.
 func (g *GetGroupsInCommonRequest) GetUserID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.UserID
 }
 
 // GetOffsetChatID returns value of OffsetChatID field.
 func (g *GetGroupsInCommonRequest) GetOffsetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.OffsetChatID
 }
 
 // GetLimit returns value of Limit field.
 func (g *GetGroupsInCommonRequest) GetLimit() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

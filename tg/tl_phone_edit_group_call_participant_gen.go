@@ -385,11 +385,17 @@ func (e *PhoneEditGroupCallParticipantRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetCall returns value of Call field.
 func (e *PhoneEditGroupCallParticipantRequest) GetCall() (value InputGroupCall) {
+	if e == nil {
+		return
+	}
 	return e.Call
 }
 
 // GetParticipant returns value of Participant field.
 func (e *PhoneEditGroupCallParticipantRequest) GetParticipant() (value InputPeerClass) {
+	if e == nil {
+		return
+	}
 	return e.Participant
 }
 
@@ -402,6 +408,9 @@ func (e *PhoneEditGroupCallParticipantRequest) SetMuted(value bool) {
 // GetMuted returns value of Muted conditional field and
 // boolean which is true if field was set.
 func (e *PhoneEditGroupCallParticipantRequest) GetMuted() (value bool, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(0) {
 		return value, false
 	}
@@ -417,6 +426,9 @@ func (e *PhoneEditGroupCallParticipantRequest) SetVolume(value int) {
 // GetVolume returns value of Volume conditional field and
 // boolean which is true if field was set.
 func (e *PhoneEditGroupCallParticipantRequest) GetVolume() (value int, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(1) {
 		return value, false
 	}
@@ -432,6 +444,9 @@ func (e *PhoneEditGroupCallParticipantRequest) SetRaiseHand(value bool) {
 // GetRaiseHand returns value of RaiseHand conditional field and
 // boolean which is true if field was set.
 func (e *PhoneEditGroupCallParticipantRequest) GetRaiseHand() (value bool, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(2) {
 		return value, false
 	}
@@ -447,6 +462,9 @@ func (e *PhoneEditGroupCallParticipantRequest) SetVideoStopped(value bool) {
 // GetVideoStopped returns value of VideoStopped conditional field and
 // boolean which is true if field was set.
 func (e *PhoneEditGroupCallParticipantRequest) GetVideoStopped() (value bool, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(3) {
 		return value, false
 	}
@@ -462,6 +480,9 @@ func (e *PhoneEditGroupCallParticipantRequest) SetVideoPaused(value bool) {
 // GetVideoPaused returns value of VideoPaused conditional field and
 // boolean which is true if field was set.
 func (e *PhoneEditGroupCallParticipantRequest) GetVideoPaused() (value bool, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(4) {
 		return value, false
 	}
@@ -477,6 +498,9 @@ func (e *PhoneEditGroupCallParticipantRequest) SetPresentationPaused(value bool)
 // GetPresentationPaused returns value of PresentationPaused conditional field and
 // boolean which is true if field was set.
 func (e *PhoneEditGroupCallParticipantRequest) GetPresentationPaused() (value bool, ok bool) {
+	if e == nil {
+		return
+	}
 	if !e.Flags.Has(5) {
 		return value, false
 	}

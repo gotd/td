@@ -160,6 +160,9 @@ func (g *UsersGetFullUserRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (g *UsersGetFullUserRequest) GetID() (value InputUserClass) {
+	if g == nil {
+		return
+	}
 	return g.ID
 }
 

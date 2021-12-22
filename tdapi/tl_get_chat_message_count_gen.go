@@ -244,16 +244,25 @@ func (g *GetChatMessageCountRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetChatID returns value of ChatID field.
 func (g *GetChatMessageCountRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
 	return g.ChatID
 }
 
 // GetFilter returns value of Filter field.
 func (g *GetChatMessageCountRequest) GetFilter() (value SearchMessagesFilterClass) {
+	if g == nil {
+		return
+	}
 	return g.Filter
 }
 
 // GetReturnLocal returns value of ReturnLocal field.
 func (g *GetChatMessageCountRequest) GetReturnLocal() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.ReturnLocal
 }
 

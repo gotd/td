@@ -208,10 +208,16 @@ func (l *LabeledPricePart) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetLabel returns value of Label field.
 func (l *LabeledPricePart) GetLabel() (value string) {
+	if l == nil {
+		return
+	}
 	return l.Label
 }
 
 // GetAmount returns value of Amount field.
 func (l *LabeledPricePart) GetAmount() (value int64) {
+	if l == nil {
+		return
+	}
 	return l.Amount
 }

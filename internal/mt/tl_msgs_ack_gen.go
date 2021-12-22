@@ -158,5 +158,8 @@ func (m *MsgsAck) DecodeBare(b *bin.Buffer) error {
 
 // GetMsgIDs returns value of MsgIDs field.
 func (m *MsgsAck) GetMsgIDs() (value []int64) {
+	if m == nil {
+		return
+	}
 	return m.MsgIDs
 }

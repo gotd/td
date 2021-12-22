@@ -210,11 +210,17 @@ func (g *GetTrendingStickerSetsRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 
 // GetOffset returns value of Offset field.
 func (g *GetTrendingStickerSetsRequest) GetOffset() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Offset
 }
 
 // GetLimit returns value of Limit field.
 func (g *GetTrendingStickerSetsRequest) GetLimit() (value int32) {
+	if g == nil {
+		return
+	}
 	return g.Limit
 }
 

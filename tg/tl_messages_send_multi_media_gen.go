@@ -375,6 +375,9 @@ func (s *MessagesSendMultiMediaRequest) SetSilent(value bool) {
 
 // GetSilent returns value of Silent conditional field.
 func (s *MessagesSendMultiMediaRequest) GetSilent() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(5)
 }
 
@@ -391,6 +394,9 @@ func (s *MessagesSendMultiMediaRequest) SetBackground(value bool) {
 
 // GetBackground returns value of Background conditional field.
 func (s *MessagesSendMultiMediaRequest) GetBackground() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(6)
 }
 
@@ -407,11 +413,17 @@ func (s *MessagesSendMultiMediaRequest) SetClearDraft(value bool) {
 
 // GetClearDraft returns value of ClearDraft conditional field.
 func (s *MessagesSendMultiMediaRequest) GetClearDraft() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Flags.Has(7)
 }
 
 // GetPeer returns value of Peer field.
 func (s *MessagesSendMultiMediaRequest) GetPeer() (value InputPeerClass) {
+	if s == nil {
+		return
+	}
 	return s.Peer
 }
 
@@ -424,6 +436,9 @@ func (s *MessagesSendMultiMediaRequest) SetReplyToMsgID(value int) {
 // GetReplyToMsgID returns value of ReplyToMsgID conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSendMultiMediaRequest) GetReplyToMsgID() (value int, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(0) {
 		return value, false
 	}
@@ -432,6 +447,9 @@ func (s *MessagesSendMultiMediaRequest) GetReplyToMsgID() (value int, ok bool) {
 
 // GetMultiMedia returns value of MultiMedia field.
 func (s *MessagesSendMultiMediaRequest) GetMultiMedia() (value []InputSingleMedia) {
+	if s == nil {
+		return
+	}
 	return s.MultiMedia
 }
 
@@ -444,6 +462,9 @@ func (s *MessagesSendMultiMediaRequest) SetScheduleDate(value int) {
 // GetScheduleDate returns value of ScheduleDate conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSendMultiMediaRequest) GetScheduleDate() (value int, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(10) {
 		return value, false
 	}
@@ -459,6 +480,9 @@ func (s *MessagesSendMultiMediaRequest) SetSendAs(value InputPeerClass) {
 // GetSendAs returns value of SendAs conditional field and
 // boolean which is true if field was set.
 func (s *MessagesSendMultiMediaRequest) GetSendAs() (value InputPeerClass, ok bool) {
+	if s == nil {
+		return
+	}
 	if !s.Flags.Has(13) {
 		return value, false
 	}

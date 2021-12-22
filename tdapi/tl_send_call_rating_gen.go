@@ -290,21 +290,33 @@ func (s *SendCallRatingRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetCallID returns value of CallID field.
 func (s *SendCallRatingRequest) GetCallID() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.CallID
 }
 
 // GetRating returns value of Rating field.
 func (s *SendCallRatingRequest) GetRating() (value int32) {
+	if s == nil {
+		return
+	}
 	return s.Rating
 }
 
 // GetComment returns value of Comment field.
 func (s *SendCallRatingRequest) GetComment() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Comment
 }
 
 // GetProblems returns value of Problems field.
 func (s *SendCallRatingRequest) GetProblems() (value []CallProblemClass) {
+	if s == nil {
+		return
+	}
 	return s.Problems
 }
 

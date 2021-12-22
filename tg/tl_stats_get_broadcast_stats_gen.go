@@ -211,11 +211,17 @@ func (g *StatsGetBroadcastStatsRequest) SetDark(value bool) {
 
 // GetDark returns value of Dark conditional field.
 func (g *StatsGetBroadcastStatsRequest) GetDark() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.Flags.Has(0)
 }
 
 // GetChannel returns value of Channel field.
 func (g *StatsGetBroadcastStatsRequest) GetChannel() (value InputChannelClass) {
+	if g == nil {
+		return
+	}
 	return g.Channel
 }
 

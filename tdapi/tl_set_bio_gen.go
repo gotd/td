@@ -183,6 +183,9 @@ func (s *SetBioRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetBio returns value of Bio field.
 func (s *SetBioRequest) GetBio() (value string) {
+	if s == nil {
+		return
+	}
 	return s.Bio
 }
 

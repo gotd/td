@@ -240,10 +240,16 @@ func (m *MessageSenders) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetTotalCount returns value of TotalCount field.
 func (m *MessageSenders) GetTotalCount() (value int32) {
+	if m == nil {
+		return
+	}
 	return m.TotalCount
 }
 
 // GetSenders returns value of Senders field.
 func (m *MessageSenders) GetSenders() (value []MessageSenderClass) {
+	if m == nil {
+		return
+	}
 	return m.Senders
 }

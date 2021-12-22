@@ -155,6 +155,9 @@ func (s *AccountSetContactSignUpNotificationRequest) DecodeBare(b *bin.Buffer) e
 
 // GetSilent returns value of Silent field.
 func (s *AccountSetContactSignUpNotificationRequest) GetSilent() (value bool) {
+	if s == nil {
+		return
+	}
 	return s.Silent
 }
 

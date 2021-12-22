@@ -155,6 +155,9 @@ func (a *HelpAcceptTermsOfServiceRequest) DecodeBare(b *bin.Buffer) error {
 
 // GetID returns value of ID field.
 func (a *HelpAcceptTermsOfServiceRequest) GetID() (value DataJSON) {
+	if a == nil {
+		return
+	}
 	return a.ID
 }
 

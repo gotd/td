@@ -183,6 +183,9 @@ func (g *GetBackgroundsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetForDarkTheme returns value of ForDarkTheme field.
 func (g *GetBackgroundsRequest) GetForDarkTheme() (value bool) {
+	if g == nil {
+		return
+	}
 	return g.ForDarkTheme
 }
 

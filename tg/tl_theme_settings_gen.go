@@ -339,16 +339,25 @@ func (t *ThemeSettings) SetMessageColorsAnimated(value bool) {
 
 // GetMessageColorsAnimated returns value of MessageColorsAnimated conditional field.
 func (t *ThemeSettings) GetMessageColorsAnimated() (value bool) {
+	if t == nil {
+		return
+	}
 	return t.Flags.Has(2)
 }
 
 // GetBaseTheme returns value of BaseTheme field.
 func (t *ThemeSettings) GetBaseTheme() (value BaseThemeClass) {
+	if t == nil {
+		return
+	}
 	return t.BaseTheme
 }
 
 // GetAccentColor returns value of AccentColor field.
 func (t *ThemeSettings) GetAccentColor() (value int) {
+	if t == nil {
+		return
+	}
 	return t.AccentColor
 }
 
@@ -361,6 +370,9 @@ func (t *ThemeSettings) SetOutboxAccentColor(value int) {
 // GetOutboxAccentColor returns value of OutboxAccentColor conditional field and
 // boolean which is true if field was set.
 func (t *ThemeSettings) GetOutboxAccentColor() (value int, ok bool) {
+	if t == nil {
+		return
+	}
 	if !t.Flags.Has(3) {
 		return value, false
 	}
@@ -376,6 +388,9 @@ func (t *ThemeSettings) SetMessageColors(value []int) {
 // GetMessageColors returns value of MessageColors conditional field and
 // boolean which is true if field was set.
 func (t *ThemeSettings) GetMessageColors() (value []int, ok bool) {
+	if t == nil {
+		return
+	}
 	if !t.Flags.Has(0) {
 		return value, false
 	}
@@ -391,6 +406,9 @@ func (t *ThemeSettings) SetWallpaper(value WallPaperClass) {
 // GetWallpaper returns value of Wallpaper conditional field and
 // boolean which is true if field was set.
 func (t *ThemeSettings) GetWallpaper() (value WallPaperClass, ok bool) {
+	if t == nil {
+		return
+	}
 	if !t.Flags.Has(1) {
 		return value, false
 	}
