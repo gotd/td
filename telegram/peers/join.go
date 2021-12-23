@@ -44,48 +44,47 @@ func (m *Manager) ImportInvite(ctx context.Context, hash string) (Peer, error) {
 		return Chat{}, errors.Wrap(err, "check invite")
 	}
 
-	var (
-		chat  tg.ChatClass
-		apply = true
-	)
 	switch inviteInfo := inviteInfo.(type) {
 	case *tg.ChatInviteAlready:
-		chat = inviteInfo.GetChat()
+		return m.extractChat(inviteInfo.GetChat())
 	case *tg.ChatInvite:
-		apply = false
 		if err := m.applyUsers(ctx, inviteInfo.Participants...); err != nil {
 			return nil, errors.Wrap(err, "update users")
 		}
-
-		u, err := m.api.MessagesImportChatInvite(ctx, hash)
-		if err != nil {
-			return nil, errors.Wrap(err, "import invite")
-		}
-
-		updates, ok := u.(updateWithChats)
-		if !ok {
-			return nil, errors.Errorf("bad result %T type", u)
-		}
-
-		// Do not apply it, update hook already did it.
-		chats := updates.GetChats()
-		if len(chats) < 1 {
-			return nil, errors.New("empty result")
-		}
-		chat = chats[0]
 	case *tg.ChatInvitePeek:
-		chat = inviteInfo.GetChat()
+		if err := m.applyChats(ctx, inviteInfo.GetChat()); err != nil {
+			return Chat{}, errors.Wrap(err, "update chats")
+		}
 	default:
 		return nil, errors.Errorf("unexpected type %T", inviteInfo)
 	}
 
-	if apply {
-		if err := m.applyChats(ctx, chat); err != nil {
-			return Chat{}, errors.Wrap(err, "update chats")
-		}
+	ch, err := m.importInvite(ctx, hash)
+	if err != nil {
+		return nil, err
 	}
 
-	return m.extractChat(chat)
+	return m.extractChat(ch)
+}
+
+func (m *Manager) importInvite(ctx context.Context, hash string) (tg.ChatClass, error) {
+	u, err := m.api.MessagesImportChatInvite(ctx, hash)
+	if err != nil {
+		return nil, errors.Wrap(err, "import invite")
+	}
+
+	updates, ok := u.(updateWithChats)
+	if !ok {
+		return nil, errors.Errorf("bad result %T type", u)
+	}
+
+	// Do not apply it, update hook already did it.
+	chats := updates.GetChats()
+	if len(chats) < 1 {
+		return nil, errors.New("empty result")
+	}
+
+	return chats[0], nil
 }
 
 func (m *Manager) extractChat(p tg.ChatClass) (Peer, error) {

@@ -14,13 +14,20 @@ import (
 
 var _ = []interface {
 	Peer
+	Creator() bool
 	Left() bool
 	NoForwards() bool
+	CallActive() bool
+	CallNotEmpty() bool
 	ParticipantsCount() int
+	AdminRights() (tg.ChatAdminRights, bool)
+	DefaultBannedRights() (tg.ChatBannedRights, bool)
+
 	Leave(ctx context.Context) error
 	SetTitle(ctx context.Context, title string) error
 	SetDescription(ctx context.Context, about string) error
 
+	InviteLinks() InviteLinks
 	ToSupergroup() (Supergroup, bool)
 	ToBroadcast() (Broadcast, bool)
 }{

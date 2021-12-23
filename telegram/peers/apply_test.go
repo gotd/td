@@ -22,6 +22,8 @@ func TestManager_applyChats(t *testing.T) {
 		&tg.ChannelForbidden{ID: 5, AccessHash: 15},
 	}
 
+	// Ensure nil safety.
+	a.NoError(m.applyChats(ctx, nil, nil, nil))
 	a.NoError(m.applyChats(ctx, chats...))
 
 	_, ok, err := m.storage.Find(ctx, Key{ID: 2, Prefix: chatsPrefix})

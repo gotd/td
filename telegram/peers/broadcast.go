@@ -18,8 +18,8 @@ func (b Broadcast) Signatures() bool {
 	return b.raw.GetSignatures()
 }
 
-// LinkedChat returns linked chat, if any.
-func (b Broadcast) LinkedChat(ctx context.Context) (Channel, bool, error) {
+// DiscussionGroup returns linked chat, if any.
+func (b Broadcast) DiscussionGroup(ctx context.Context) (Channel, bool, error) {
 	full, err := b.FullRaw(ctx)
 	if err != nil {
 		return Channel{}, false, err

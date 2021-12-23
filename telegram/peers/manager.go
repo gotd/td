@@ -11,6 +11,8 @@ import (
 )
 
 // Manager is peer manager.
+//
+// NB: this package is completely experimental and still WIP.
 type Manager struct {
 	api     *tg.Client
 	storage Storage

@@ -12,9 +12,13 @@ import (
 func (m *Manager) applyUsers(ctx context.Context, input ...tg.UserClass) error {
 	var users []*tg.User
 	for _, user := range input {
-		user, ok := user.AsNotEmpty()
-		if !ok || user.Min {
-			// TODO(tdakkota): call some hook to get actual user (e.g. force gaps to getDifference)
+		user, ok := user.(*tg.User)
+		if !ok {
+			// Got nil or Empty.
+			continue
+		}
+		if user.Min {
+			// TODO(tdakkota): call some hook to get actual user if got min (e.g. force gaps to getDifference)
 			continue
 		}
 		users = append(users, user)
@@ -57,8 +61,6 @@ func (m *Manager) applyChats(ctx context.Context, input ...tg.ChatClass) error {
 		)
 		// FIXME(tdakkota): check min constructors
 		switch ch := ch.(type) {
-		case *tg.ChatEmpty:
-			continue
 		case *tg.Chat:
 			k.ID = ch.ID
 			k.Prefix = chatsPrefix
@@ -75,6 +77,9 @@ func (m *Manager) applyChats(ctx context.Context, input ...tg.ChatClass) error {
 			k.ID = ch.ID
 			v.AccessHash = ch.AccessHash
 			k.Prefix = channelPrefix
+		default:
+			// Got nil or Empty
+			continue
 		}
 
 		if err := m.storage.Save(ctx, k, v); err != nil {
