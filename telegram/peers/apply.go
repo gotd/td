@@ -31,8 +31,10 @@ func (m *Manager) applyUsers(ctx context.Context, input ...tg.UserClass) error {
 			// FIXME(tdakkota): just log errors?
 			return errors.Wrapf(err, "save user %d", user.ID)
 		}
-		if err := m.storage.SavePhone(ctx, user.Phone, k); err != nil {
-			return errors.Wrapf(err, "save user %d", user.ID)
+		if user.Phone != "" {
+			if err := m.storage.SavePhone(ctx, user.Phone, k); err != nil {
+				return errors.Wrapf(err, "save user %d", user.ID)
+			}
 		}
 	}
 
