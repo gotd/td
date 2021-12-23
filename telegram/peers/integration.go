@@ -41,18 +41,22 @@ func (m *Manager) GetChannelAccessHash(userID, channelID int64) (accessHash int6
 func (m *Manager) UpdateHook(next telegram.UpdateHandler) telegram.UpdateHandler {
 	f := func(ctx context.Context, u tg.UpdatesClass) error {
 		var (
-			users []tg.UserClass
-			chats []tg.ChatClass
+			users   []tg.UserClass
+			chats   []tg.ChatClass
+			updates []tg.UpdateClass
 		)
 		switch u := u.(type) {
 		case *tg.UpdatesCombined:
 			users = u.GetUsers()
 			chats = u.GetChats()
+			updates = u.GetUpdates()
 		case *tg.Updates:
 			users = u.GetUsers()
 			chats = u.GetChats()
+			updates = u.GetUpdates()
 		}
-		applyErr := m.Apply(ctx, users, chats)
+		m.applyUpdates(updates)
+		applyErr := m.applyEntities(ctx, users, chats)
 		handleErr := next.Handle(ctx, u)
 		return multierr.Append(handleErr, applyErr)
 	}

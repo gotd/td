@@ -2,6 +2,7 @@ package peers
 
 import (
 	"context"
+	"sync"
 
 	"github.com/go-faster/errors"
 	"go.uber.org/zap"
@@ -18,7 +19,13 @@ type Manager struct {
 	storage Storage
 	cache   Cache
 
+	// State of current user.
 	me *atomicUser
+
+	// needUpdate stores peers what need to be updated.
+	needUpdate     peerIDSet
+	needUpdateFull peerIDSet
+	needUpdateMux  sync.Mutex // guards needUpdate, needUpdateFull
 
 	logger *zap.Logger
 	sg     singleflight.Group

@@ -17,6 +17,7 @@ type Chat struct {
 
 // Chat creates new Chat, attached to this manager.
 func (m *Manager) Chat(u *tg.Chat) Chat {
+	m.needsUpdate(chatPeerID(u.ID))
 	return Chat{
 		raw: u,
 		m:   m,
@@ -43,9 +44,8 @@ func (c Chat) ID() int64 {
 }
 
 // TDLibPeerID returns TDLibPeerID for this entity.
-func (c Chat) TDLibPeerID() (r constant.TDLibPeerID) {
-	r.Chat(c.raw.GetID())
-	return r
+func (c Chat) TDLibPeerID() constant.TDLibPeerID {
+	return chatPeerID(c.raw.GetID())
 }
 
 // VisibleName returns visible name of peer.

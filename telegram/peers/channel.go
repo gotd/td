@@ -17,6 +17,7 @@ type Channel struct {
 
 // Channel creates new Channel, attached to this manager.
 func (m *Manager) Channel(u *tg.Channel) Channel {
+	m.needsUpdate(channelPeerID(u.ID))
 	return Channel{
 		raw: u,
 		m:   m,
@@ -43,9 +44,8 @@ func (c Channel) ID() int64 {
 }
 
 // TDLibPeerID returns TDLibPeerID for this entity.
-func (c Channel) TDLibPeerID() (r constant.TDLibPeerID) {
-	r.Channel(c.raw.GetID())
-	return r
+func (c Channel) TDLibPeerID() constant.TDLibPeerID {
+	return channelPeerID(c.raw.GetID())
 }
 
 // VisibleName returns visible name of peer.
