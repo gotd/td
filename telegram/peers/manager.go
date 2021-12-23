@@ -2,6 +2,7 @@ package peers
 
 import (
 	"context"
+	"sync"
 
 	"github.com/go-faster/errors"
 	"go.uber.org/zap"
@@ -11,12 +12,20 @@ import (
 )
 
 // Manager is peer manager.
+//
+// NB: this package is completely experimental and still WIP.
 type Manager struct {
 	api     *tg.Client
 	storage Storage
 	cache   Cache
 
+	// State of current user.
 	me *atomicUser
+
+	// needUpdate stores peers what need to be updated.
+	needUpdate     peerIDSet
+	needUpdateFull peerIDSet
+	needUpdateMux  sync.Mutex // guards needUpdate, needUpdateFull
 
 	logger *zap.Logger
 	sg     singleflight.Group

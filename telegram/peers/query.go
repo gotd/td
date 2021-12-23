@@ -27,12 +27,12 @@ func (m *Manager) getUser(ctx context.Context, p tg.InputUserClass) (*tg.User, e
 	switch p := p.(type) {
 	case *tg.InputUserSelf:
 		u, ok := m.me.Load()
-		if ok {
+		if ok && !m.needsUpdate(userPeerID(u.ID)) {
 			return u, nil
 		}
 	default:
 		userID, ok := m.getIDFromInputUser(p)
-		if !ok {
+		if !ok || m.needsUpdate(userPeerID(userID)) {
 			break
 		}
 
@@ -82,13 +82,15 @@ func (m *Manager) updateUser(ctx context.Context, p tg.InputUserClass) (*tg.User
 
 // getChat gets tg.Chat using given id.
 func (m *Manager) getChat(ctx context.Context, p int64) (*tg.Chat, error) {
-	c, found, err := m.cache.FindChat(ctx, p)
-	if err == nil && found {
-		c.SetFlags()
-		return c, nil
-	}
-	if err != nil {
-		m.logger.Warn("Find chat error", zap.Int64("chat_id", p), zap.Error(err))
+	if !m.needsUpdate(chatPeerID(p)) {
+		c, found, err := m.cache.FindChat(ctx, p)
+		if err == nil && found {
+			c.SetFlags()
+			return c, nil
+		}
+		if err != nil {
+			m.logger.Warn("Find chat error", zap.Int64("chat_id", p), zap.Error(err))
+		}
 	}
 	return m.updateChat(ctx, p)
 }
@@ -109,10 +111,21 @@ func (m *Manager) updateChat(ctx context.Context, id int64) (*tg.Chat, error) {
 		return nil, errors.Wrap(err, "update chats")
 	}
 
-	ch, ok := chats[0].(*tg.Chat)
+	var found tg.ChatClass
+	for _, chat := range chats {
+		switch chat := chat.(type) {
+		case *tg.Chat:
+			if chat.ID == id {
+				found = chat
+				break
+			}
+		}
+	}
+
+	ch, ok := found.(*tg.Chat)
 	if !ok {
 		// TODO(tdakkota): get better error for forbidden.
-		return nil, errors.Errorf("got unexpected type %T", chats[0])
+		return nil, errors.Errorf("got unexpected type %T", found)
 	}
 
 	return ch, nil
@@ -131,7 +144,7 @@ func getIDFromInputChannel(p tg.InputChannelClass) (int64, bool) {
 
 // getChannel gets tg.Channel using given tg.InputChannelClass.
 func (m *Manager) getChannel(ctx context.Context, p tg.InputChannelClass) (*tg.Channel, error) {
-	if id, ok := getIDFromInputChannel(p); ok {
+	if id, ok := getIDFromInputChannel(p); ok && !m.needsUpdate(channelPeerID(id)) {
 		c, found, err := m.cache.FindChannel(ctx, id)
 		if err == nil && found {
 			c.SetFlags()
@@ -160,10 +173,26 @@ func (m *Manager) updateChannel(ctx context.Context, p tg.InputChannelClass) (*t
 		return nil, errors.Wrap(err, "update chats")
 	}
 
-	ch, ok := chats[0].(*tg.Channel)
+	var found tg.ChatClass
+	if inputHasID, ok := p.AsNotEmpty(); ok {
+		id := inputHasID.GetChannelID()
+		for _, chat := range chats {
+			switch chat := chat.(type) {
+			case *tg.Channel:
+				if chat.ID == id {
+					found = chat
+					break
+				}
+			}
+		}
+	} else {
+		found = chats[0]
+	}
+
+	ch, ok := found.(*tg.Channel)
 	if !ok {
 		// TODO(tdakkota): get better error for forbidden.
-		return nil, errors.Errorf("got unexpected type %T", chats[0])
+		return nil, errors.Errorf("got unexpected type %T", found)
 	}
 
 	return ch, nil

@@ -6,17 +6,29 @@ import (
 	"github.com/go-faster/errors"
 	"go.uber.org/multierr"
 
+	"github.com/gotd/td/constant"
 	"github.com/gotd/td/tg"
 )
 
 func (m *Manager) applyUsers(ctx context.Context, input ...tg.UserClass) error {
-	var users []*tg.User
+	var (
+		users []*tg.User
+		ids   = make([]constant.TDLibPeerID, 0, 16)
+	)
+	if len(ids) < len(input) {
+		ids = make([]constant.TDLibPeerID, 0, len(input))
+	}
+
 	for _, user := range input {
-		user, ok := user.AsNotEmpty()
+		user, ok := user.(*tg.User)
 		if !ok {
+			// Got nil or Empty.
 			continue
 		}
-		// FIXME(tdakkota): check min constructors
+		if user.Min {
+			// TODO(tdakkota): call some hook to get actual user if got min (e.g. force gaps to getDifference)
+			continue
+		}
 		users = append(users, user)
 
 		id := user.GetID()
@@ -31,14 +43,18 @@ func (m *Manager) applyUsers(ctx context.Context, input ...tg.UserClass) error {
 			// FIXME(tdakkota): just log errors?
 			return errors.Wrapf(err, "save user %d", user.ID)
 		}
-		if err := m.storage.SavePhone(ctx, user.Phone, k); err != nil {
-			return errors.Wrapf(err, "save user %d", user.ID)
+		if user.Phone != "" {
+			if err := m.storage.SavePhone(ctx, user.Phone, k); err != nil {
+				return errors.Wrapf(err, "save user %d", user.ID)
+			}
 		}
+		ids = append(ids, userPeerID(id))
 	}
 
 	if err := m.cache.SaveUsers(ctx, users...); err != nil {
 		return errors.Wrap(err, "cache users")
 	}
+	m.updated(ids...)
 	return nil
 }
 
@@ -46,7 +62,11 @@ func (m *Manager) applyChats(ctx context.Context, input ...tg.ChatClass) error {
 	var (
 		chats    []*tg.Chat
 		channels []*tg.Channel
+		ids      = make([]constant.TDLibPeerID, 0, 16)
 	)
+	if len(ids) < len(input) {
+		ids = make([]constant.TDLibPeerID, 0, len(input))
+	}
 
 	for _, ch := range input {
 		var (
@@ -55,12 +75,12 @@ func (m *Manager) applyChats(ctx context.Context, input ...tg.ChatClass) error {
 		)
 		// FIXME(tdakkota): check min constructors
 		switch ch := ch.(type) {
-		case *tg.ChatEmpty:
-			continue
 		case *tg.Chat:
 			k.ID = ch.ID
 			k.Prefix = chatsPrefix
 			chats = append(chats, ch)
+
+			ids = append(ids, chatPeerID(ch.ID))
 		case *tg.ChatForbidden:
 			k.ID = ch.ID
 			k.Prefix = chatsPrefix
@@ -69,10 +89,15 @@ func (m *Manager) applyChats(ctx context.Context, input ...tg.ChatClass) error {
 			v.AccessHash = ch.AccessHash
 			k.Prefix = channelPrefix
 			channels = append(channels, ch)
+
+			ids = append(ids, channelPeerID(ch.ID))
 		case *tg.ChannelForbidden:
 			k.ID = ch.ID
 			v.AccessHash = ch.AccessHash
 			k.Prefix = channelPrefix
+		default:
+			// Got nil or Empty
+			continue
 		}
 
 		if err := m.storage.Save(ctx, k, v); err != nil {
@@ -87,6 +112,7 @@ func (m *Manager) applyChats(ctx context.Context, input ...tg.ChatClass) error {
 	if err := m.cache.SaveChannels(ctx, channels...); err != nil {
 		return errors.Wrap(err, "cache channels")
 	}
+	m.updated(ids...)
 	return nil
 }
 
@@ -100,14 +126,26 @@ func (m *Manager) applyEntities(ctx context.Context, users []tg.UserClass, chats
 }
 
 func (m *Manager) applyFullUser(ctx context.Context, user *tg.UserFull) error {
+	if user == nil {
+		return nil
+	}
+	m.updatedFull(userPeerID(user.ID))
 	return m.cache.SaveUserFulls(ctx, user)
 }
 
 func (m *Manager) applyFullChat(ctx context.Context, chat *tg.ChatFull) error {
+	if chat == nil {
+		return nil
+	}
+	m.updatedFull(chatPeerID(chat.ID))
 	return m.cache.SaveChatFulls(ctx, chat)
 }
 
 func (m *Manager) applyFullChannel(ctx context.Context, ch *tg.ChannelFull) error {
+	if ch == nil {
+		return nil
+	}
+	m.updatedFull(channelPeerID(ch.ID))
 	return m.cache.SaveChannelFulls(ctx, ch)
 }
 

@@ -17,6 +17,7 @@ type Chat struct {
 
 // Chat creates new Chat, attached to this manager.
 func (m *Manager) Chat(u *tg.Chat) Chat {
+	m.needsUpdate(chatPeerID(u.ID))
 	return Chat{
 		raw: u,
 		m:   m,
@@ -43,9 +44,8 @@ func (c Chat) ID() int64 {
 }
 
 // TDLibPeerID returns TDLibPeerID for this entity.
-func (c Chat) TDLibPeerID() (r constant.TDLibPeerID) {
-	r.Chat(c.raw.GetID())
-	return r
+func (c Chat) TDLibPeerID() constant.TDLibPeerID {
+	return chatPeerID(c.raw.GetID())
 }
 
 // VisibleName returns visible name of peer.
@@ -110,7 +110,7 @@ func (c Chat) Report(ctx context.Context, reason tg.ReportReasonClass, message s
 
 // Photo returns peer photo, if any.
 func (c Chat) Photo(ctx context.Context) (*tg.Photo, bool, error) {
-	full, err := c.Full(ctx)
+	full, err := c.FullRaw(ctx)
 	if err != nil {
 		return nil, false, errors.Wrap(err, "get full chat")
 	}
@@ -124,9 +124,27 @@ func (c Chat) Photo(ctx context.Context) (*tg.Photo, bool, error) {
 	return p, ok, nil
 }
 
-// Full returns *tg.ChatFull for this Chat.
-func (c Chat) Full(ctx context.Context) (*tg.ChatFull, error) {
+// FullRaw returns *tg.ChatFull for this Chat.
+func (c Chat) FullRaw(ctx context.Context) (*tg.ChatFull, error) {
 	return c.m.getChatFull(ctx, c.ID())
+}
+
+// InviteLinks returns InviteLinks for this peer.
+func (c Chat) InviteLinks() InviteLinks {
+	return InviteLinks{
+		peer: c,
+		m:    c.m,
+	}
+}
+
+// ToBroadcast tries to convert this Chat to Broadcast.
+func (c Chat) ToBroadcast() (Broadcast, bool) {
+	return Broadcast{}, false
+}
+
+// ToSupergroup tries to convert this Chat to Supergroup.
+func (c Chat) ToSupergroup() (Supergroup, bool) {
+	return Supergroup{}, false
 }
 
 // Creator whether the current user is the creator of this group.
@@ -186,6 +204,22 @@ func (c Chat) AdminRights() (tg.ChatAdminRights, bool) {
 // See https://core.telegram.org/api/rights.
 func (c Chat) DefaultBannedRights() (tg.ChatBannedRights, bool) {
 	return c.raw.GetDefaultBannedRights()
+}
+
+// ActualChat returns Channel to which this chat migrated.
+//
+// Also see MigratedTo.
+func (c Chat) ActualChat(ctx context.Context) (Channel, bool, error) {
+	m, ok := c.MigratedTo()
+	if !ok {
+		return Channel{}, false, nil
+	}
+
+	ch, err := c.m.GetChannel(ctx, m)
+	if err != nil {
+		return Channel{}, false, errors.Wrap(err, "get actual chat")
+	}
+	return ch, true, nil
 }
 
 // Leave leaves this chat.

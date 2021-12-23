@@ -18,6 +18,7 @@ type User struct {
 
 // User creates new User, attached to this manager.
 func (m *Manager) User(u *tg.User) User {
+	m.needsUpdate(userPeerID(u.ID))
 	return User{
 		raw: u,
 		m:   m,
@@ -44,9 +45,8 @@ func (u User) ID() int64 {
 }
 
 // TDLibPeerID returns TDLibPeerID for this entity.
-func (u User) TDLibPeerID() (r constant.TDLibPeerID) {
-	r.User(u.raw.GetID())
-	return r
+func (u User) TDLibPeerID() constant.TDLibPeerID {
+	return userPeerID(u.raw.GetID())
 }
 
 // VisibleName returns visible name of peer.
@@ -142,6 +142,11 @@ func (u User) Photo(ctx context.Context) (*tg.Photo, bool, error) {
 	}
 	p, ok := photos[0].AsNotEmpty()
 	return p, ok, nil
+}
+
+// FullRaw returns *tg.UserFull for this User.
+func (u User) FullRaw(ctx context.Context) (*tg.UserFull, error) {
+	return u.m.getUserFull(ctx, u.InputUser())
 }
 
 // ToBot tries to convert this User to Bot.

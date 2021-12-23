@@ -17,6 +17,7 @@ type Channel struct {
 
 // Channel creates new Channel, attached to this manager.
 func (m *Manager) Channel(u *tg.Channel) Channel {
+	m.needsUpdate(channelPeerID(u.ID))
 	return Channel{
 		raw: u,
 		m:   m,
@@ -43,9 +44,8 @@ func (c Channel) ID() int64 {
 }
 
 // TDLibPeerID returns TDLibPeerID for this entity.
-func (c Channel) TDLibPeerID() (r constant.TDLibPeerID) {
-	r.Channel(c.raw.GetID())
-	return r
+func (c Channel) TDLibPeerID() constant.TDLibPeerID {
+	return channelPeerID(c.raw.GetID())
 }
 
 // VisibleName returns visible name of peer.
@@ -114,7 +114,7 @@ func (c Channel) Report(ctx context.Context, reason tg.ReportReasonClass, messag
 
 // Photo returns peer photo, if any.
 func (c Channel) Photo(ctx context.Context) (*tg.Photo, bool, error) {
-	full, err := c.Full(ctx)
+	full, err := c.FullRaw(ctx)
 	if err != nil {
 		return nil, false, err
 	}
@@ -123,8 +123,8 @@ func (c Channel) Photo(ctx context.Context) (*tg.Photo, bool, error) {
 	return p, ok, nil
 }
 
-// Full returns *tg.ChannelFull for this Channel.
-func (c Channel) Full(ctx context.Context) (*tg.ChannelFull, error) {
+// FullRaw returns *tg.ChannelFull for this Channel.
+func (c Channel) FullRaw(ctx context.Context) (*tg.ChannelFull, error) {
 	return c.m.getChannelFull(ctx, c.InputChannel())
 }
 
@@ -146,6 +146,14 @@ func (c Channel) ToSupergroup() (Supergroup, bool) {
 	return Supergroup{
 		Channel: c,
 	}, true
+}
+
+// InviteLinks returns InviteLinks for this peer.
+func (c Channel) InviteLinks() InviteLinks {
+	return InviteLinks{
+		peer: c,
+		m:    c.m,
+	}
 }
 
 // InputChannel returns input user for this user.
