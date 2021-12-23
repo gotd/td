@@ -13,10 +13,10 @@ func (m *Manager) applyUsers(ctx context.Context, input ...tg.UserClass) error {
 	var users []*tg.User
 	for _, user := range input {
 		user, ok := user.AsNotEmpty()
-		if !ok {
+		if !ok || user.Min {
+			// TODO(tdakkota): call some hook to get actual user (e.g. force gaps to getDifference)
 			continue
 		}
-		// FIXME(tdakkota): check min constructors
 		users = append(users, user)
 
 		id := user.GetID()
