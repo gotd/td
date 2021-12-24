@@ -418,27 +418,27 @@ func (s *SuggestedActionCheckPhoneNumber) DecodeTDLibJSON(b tdjson.Decoder) erro
 	})
 }
 
-// SuggestedActionSeeTicksHint represents TL type `suggestedActionSeeTicksHint#3f4ae062`.
-type SuggestedActionSeeTicksHint struct {
+// SuggestedActionViewChecksHint represents TL type `suggestedActionViewChecksHint#35203547`.
+type SuggestedActionViewChecksHint struct {
 }
 
-// SuggestedActionSeeTicksHintTypeID is TL type id of SuggestedActionSeeTicksHint.
-const SuggestedActionSeeTicksHintTypeID = 0x3f4ae062
+// SuggestedActionViewChecksHintTypeID is TL type id of SuggestedActionViewChecksHint.
+const SuggestedActionViewChecksHintTypeID = 0x35203547
 
 // construct implements constructor of SuggestedActionClass.
-func (s SuggestedActionSeeTicksHint) construct() SuggestedActionClass { return &s }
+func (s SuggestedActionViewChecksHint) construct() SuggestedActionClass { return &s }
 
-// Ensuring interfaces in compile-time for SuggestedActionSeeTicksHint.
+// Ensuring interfaces in compile-time for SuggestedActionViewChecksHint.
 var (
-	_ bin.Encoder     = &SuggestedActionSeeTicksHint{}
-	_ bin.Decoder     = &SuggestedActionSeeTicksHint{}
-	_ bin.BareEncoder = &SuggestedActionSeeTicksHint{}
-	_ bin.BareDecoder = &SuggestedActionSeeTicksHint{}
+	_ bin.Encoder     = &SuggestedActionViewChecksHint{}
+	_ bin.Decoder     = &SuggestedActionViewChecksHint{}
+	_ bin.BareEncoder = &SuggestedActionViewChecksHint{}
+	_ bin.BareDecoder = &SuggestedActionViewChecksHint{}
 
-	_ SuggestedActionClass = &SuggestedActionSeeTicksHint{}
+	_ SuggestedActionClass = &SuggestedActionViewChecksHint{}
 )
 
-func (s *SuggestedActionSeeTicksHint) Zero() bool {
+func (s *SuggestedActionViewChecksHint) Zero() bool {
 	if s == nil {
 		return true
 	}
@@ -447,31 +447,31 @@ func (s *SuggestedActionSeeTicksHint) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (s *SuggestedActionSeeTicksHint) String() string {
+func (s *SuggestedActionViewChecksHint) String() string {
 	if s == nil {
-		return "SuggestedActionSeeTicksHint(nil)"
+		return "SuggestedActionViewChecksHint(nil)"
 	}
-	type Alias SuggestedActionSeeTicksHint
-	return fmt.Sprintf("SuggestedActionSeeTicksHint%+v", Alias(*s))
+	type Alias SuggestedActionViewChecksHint
+	return fmt.Sprintf("SuggestedActionViewChecksHint%+v", Alias(*s))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*SuggestedActionSeeTicksHint) TypeID() uint32 {
-	return SuggestedActionSeeTicksHintTypeID
+func (*SuggestedActionViewChecksHint) TypeID() uint32 {
+	return SuggestedActionViewChecksHintTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*SuggestedActionSeeTicksHint) TypeName() string {
-	return "suggestedActionSeeTicksHint"
+func (*SuggestedActionViewChecksHint) TypeName() string {
+	return "suggestedActionViewChecksHint"
 }
 
 // TypeInfo returns info about TL type.
-func (s *SuggestedActionSeeTicksHint) TypeInfo() tdp.Type {
+func (s *SuggestedActionViewChecksHint) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "suggestedActionSeeTicksHint",
-		ID:   SuggestedActionSeeTicksHintTypeID,
+		Name: "suggestedActionViewChecksHint",
+		ID:   SuggestedActionViewChecksHintTypeID,
 	}
 	if s == nil {
 		typ.Null = true
@@ -482,63 +482,63 @@ func (s *SuggestedActionSeeTicksHint) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (s *SuggestedActionSeeTicksHint) Encode(b *bin.Buffer) error {
+func (s *SuggestedActionViewChecksHint) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode suggestedActionSeeTicksHint#3f4ae062 as nil")
+		return fmt.Errorf("can't encode suggestedActionViewChecksHint#35203547 as nil")
 	}
-	b.PutID(SuggestedActionSeeTicksHintTypeID)
+	b.PutID(SuggestedActionViewChecksHintTypeID)
 	return s.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (s *SuggestedActionSeeTicksHint) EncodeBare(b *bin.Buffer) error {
+func (s *SuggestedActionViewChecksHint) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode suggestedActionSeeTicksHint#3f4ae062 as nil")
+		return fmt.Errorf("can't encode suggestedActionViewChecksHint#35203547 as nil")
 	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (s *SuggestedActionSeeTicksHint) Decode(b *bin.Buffer) error {
+func (s *SuggestedActionViewChecksHint) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode suggestedActionSeeTicksHint#3f4ae062 to nil")
+		return fmt.Errorf("can't decode suggestedActionViewChecksHint#35203547 to nil")
 	}
-	if err := b.ConsumeID(SuggestedActionSeeTicksHintTypeID); err != nil {
-		return fmt.Errorf("unable to decode suggestedActionSeeTicksHint#3f4ae062: %w", err)
+	if err := b.ConsumeID(SuggestedActionViewChecksHintTypeID); err != nil {
+		return fmt.Errorf("unable to decode suggestedActionViewChecksHint#35203547: %w", err)
 	}
 	return s.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (s *SuggestedActionSeeTicksHint) DecodeBare(b *bin.Buffer) error {
+func (s *SuggestedActionViewChecksHint) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode suggestedActionSeeTicksHint#3f4ae062 to nil")
+		return fmt.Errorf("can't decode suggestedActionViewChecksHint#35203547 to nil")
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (s *SuggestedActionSeeTicksHint) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (s *SuggestedActionViewChecksHint) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode suggestedActionSeeTicksHint#3f4ae062 as nil")
+		return fmt.Errorf("can't encode suggestedActionViewChecksHint#35203547 as nil")
 	}
 	b.ObjStart()
-	b.PutID("suggestedActionSeeTicksHint")
+	b.PutID("suggestedActionViewChecksHint")
 	b.ObjEnd()
 	return nil
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (s *SuggestedActionSeeTicksHint) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (s *SuggestedActionViewChecksHint) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode suggestedActionSeeTicksHint#3f4ae062 to nil")
+		return fmt.Errorf("can't decode suggestedActionViewChecksHint#35203547 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("suggestedActionSeeTicksHint"); err != nil {
-				return fmt.Errorf("unable to decode suggestedActionSeeTicksHint#3f4ae062: %w", err)
+			if err := b.ConsumeID("suggestedActionViewChecksHint"); err != nil {
+				return fmt.Errorf("unable to decode suggestedActionViewChecksHint#35203547: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -888,7 +888,7 @@ const SuggestedActionClassName = "SuggestedAction"
 //  case *tdapi.SuggestedActionEnableArchiveAndMuteNewChats: // suggestedActionEnableArchiveAndMuteNewChats#7841ec4f
 //  case *tdapi.SuggestedActionCheckPassword: // suggestedActionCheckPassword#71e072b7
 //  case *tdapi.SuggestedActionCheckPhoneNumber: // suggestedActionCheckPhoneNumber#26ab77eb
-//  case *tdapi.SuggestedActionSeeTicksHint: // suggestedActionSeeTicksHint#3f4ae062
+//  case *tdapi.SuggestedActionViewChecksHint: // suggestedActionViewChecksHint#35203547
 //  case *tdapi.SuggestedActionConvertToBroadcastGroup: // suggestedActionConvertToBroadcastGroup#c67a2e38
 //  case *tdapi.SuggestedActionSetPassword: // suggestedActionSetPassword#6f147d98
 //  default: panic(v)
@@ -943,9 +943,9 @@ func DecodeSuggestedAction(buf *bin.Buffer) (SuggestedActionClass, error) {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
 		}
 		return &v, nil
-	case SuggestedActionSeeTicksHintTypeID:
-		// Decoding suggestedActionSeeTicksHint#3f4ae062.
-		v := SuggestedActionSeeTicksHint{}
+	case SuggestedActionViewChecksHintTypeID:
+		// Decoding suggestedActionViewChecksHint#35203547.
+		v := SuggestedActionViewChecksHint{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
 		}
@@ -997,9 +997,9 @@ func DecodeTDLibJSONSuggestedAction(buf tdjson.Decoder) (SuggestedActionClass, e
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
 		}
 		return &v, nil
-	case "suggestedActionSeeTicksHint":
-		// Decoding suggestedActionSeeTicksHint#3f4ae062.
-		v := SuggestedActionSeeTicksHint{}
+	case "suggestedActionViewChecksHint":
+		// Decoding suggestedActionViewChecksHint#35203547.
+		v := SuggestedActionViewChecksHint{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
 		}

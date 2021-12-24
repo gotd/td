@@ -3745,38 +3745,38 @@ func (c *ChatEventSlowModeDelayChanged) GetNewSlowModeDelay() (value int32) {
 	return c.NewSlowModeDelay
 }
 
-// ChatEventMessageTTLSettingChanged represents TL type `chatEventMessageTtlSettingChanged#b01e7caa`.
-type ChatEventMessageTTLSettingChanged struct {
-	// Previous value of message_ttl_setting
-	OldMessageTTLSetting int32
-	// New value of message_ttl_setting
-	NewMessageTTLSetting int32
+// ChatEventMessageTTLChanged represents TL type `chatEventMessageTtlChanged#2e46b9b3`.
+type ChatEventMessageTTLChanged struct {
+	// Previous value of message_ttl
+	OldMessageTTL int32
+	// New value of message_ttl
+	NewMessageTTL int32
 }
 
-// ChatEventMessageTTLSettingChangedTypeID is TL type id of ChatEventMessageTTLSettingChanged.
-const ChatEventMessageTTLSettingChangedTypeID = 0xb01e7caa
+// ChatEventMessageTTLChangedTypeID is TL type id of ChatEventMessageTTLChanged.
+const ChatEventMessageTTLChangedTypeID = 0x2e46b9b3
 
 // construct implements constructor of ChatEventActionClass.
-func (c ChatEventMessageTTLSettingChanged) construct() ChatEventActionClass { return &c }
+func (c ChatEventMessageTTLChanged) construct() ChatEventActionClass { return &c }
 
-// Ensuring interfaces in compile-time for ChatEventMessageTTLSettingChanged.
+// Ensuring interfaces in compile-time for ChatEventMessageTTLChanged.
 var (
-	_ bin.Encoder     = &ChatEventMessageTTLSettingChanged{}
-	_ bin.Decoder     = &ChatEventMessageTTLSettingChanged{}
-	_ bin.BareEncoder = &ChatEventMessageTTLSettingChanged{}
-	_ bin.BareDecoder = &ChatEventMessageTTLSettingChanged{}
+	_ bin.Encoder     = &ChatEventMessageTTLChanged{}
+	_ bin.Decoder     = &ChatEventMessageTTLChanged{}
+	_ bin.BareEncoder = &ChatEventMessageTTLChanged{}
+	_ bin.BareDecoder = &ChatEventMessageTTLChanged{}
 
-	_ ChatEventActionClass = &ChatEventMessageTTLSettingChanged{}
+	_ ChatEventActionClass = &ChatEventMessageTTLChanged{}
 )
 
-func (c *ChatEventMessageTTLSettingChanged) Zero() bool {
+func (c *ChatEventMessageTTLChanged) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.OldMessageTTLSetting == 0) {
+	if !(c.OldMessageTTL == 0) {
 		return false
 	}
-	if !(c.NewMessageTTLSetting == 0) {
+	if !(c.NewMessageTTL == 0) {
 		return false
 	}
 
@@ -3784,31 +3784,31 @@ func (c *ChatEventMessageTTLSettingChanged) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (c *ChatEventMessageTTLSettingChanged) String() string {
+func (c *ChatEventMessageTTLChanged) String() string {
 	if c == nil {
-		return "ChatEventMessageTTLSettingChanged(nil)"
+		return "ChatEventMessageTTLChanged(nil)"
 	}
-	type Alias ChatEventMessageTTLSettingChanged
-	return fmt.Sprintf("ChatEventMessageTTLSettingChanged%+v", Alias(*c))
+	type Alias ChatEventMessageTTLChanged
+	return fmt.Sprintf("ChatEventMessageTTLChanged%+v", Alias(*c))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatEventMessageTTLSettingChanged) TypeID() uint32 {
-	return ChatEventMessageTTLSettingChangedTypeID
+func (*ChatEventMessageTTLChanged) TypeID() uint32 {
+	return ChatEventMessageTTLChangedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*ChatEventMessageTTLSettingChanged) TypeName() string {
-	return "chatEventMessageTtlSettingChanged"
+func (*ChatEventMessageTTLChanged) TypeName() string {
+	return "chatEventMessageTtlChanged"
 }
 
 // TypeInfo returns info about TL type.
-func (c *ChatEventMessageTTLSettingChanged) TypeInfo() tdp.Type {
+func (c *ChatEventMessageTTLChanged) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "chatEventMessageTtlSettingChanged",
-		ID:   ChatEventMessageTTLSettingChangedTypeID,
+		Name: "chatEventMessageTtlChanged",
+		ID:   ChatEventMessageTTLChangedTypeID,
 	}
 	if c == nil {
 		typ.Null = true
@@ -3816,108 +3816,108 @@ func (c *ChatEventMessageTTLSettingChanged) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "OldMessageTTLSetting",
-			SchemaName: "old_message_ttl_setting",
+			Name:       "OldMessageTTL",
+			SchemaName: "old_message_ttl",
 		},
 		{
-			Name:       "NewMessageTTLSetting",
-			SchemaName: "new_message_ttl_setting",
+			Name:       "NewMessageTTL",
+			SchemaName: "new_message_ttl",
 		},
 	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
-func (c *ChatEventMessageTTLSettingChanged) Encode(b *bin.Buffer) error {
+func (c *ChatEventMessageTTLChanged) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventMessageTtlSettingChanged#b01e7caa as nil")
+		return fmt.Errorf("can't encode chatEventMessageTtlChanged#2e46b9b3 as nil")
 	}
-	b.PutID(ChatEventMessageTTLSettingChangedTypeID)
+	b.PutID(ChatEventMessageTTLChangedTypeID)
 	return c.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (c *ChatEventMessageTTLSettingChanged) EncodeBare(b *bin.Buffer) error {
+func (c *ChatEventMessageTTLChanged) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventMessageTtlSettingChanged#b01e7caa as nil")
+		return fmt.Errorf("can't encode chatEventMessageTtlChanged#2e46b9b3 as nil")
 	}
-	b.PutInt32(c.OldMessageTTLSetting)
-	b.PutInt32(c.NewMessageTTLSetting)
+	b.PutInt32(c.OldMessageTTL)
+	b.PutInt32(c.NewMessageTTL)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (c *ChatEventMessageTTLSettingChanged) Decode(b *bin.Buffer) error {
+func (c *ChatEventMessageTTLChanged) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventMessageTtlSettingChanged#b01e7caa to nil")
+		return fmt.Errorf("can't decode chatEventMessageTtlChanged#2e46b9b3 to nil")
 	}
-	if err := b.ConsumeID(ChatEventMessageTTLSettingChangedTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventMessageTtlSettingChanged#b01e7caa: %w", err)
+	if err := b.ConsumeID(ChatEventMessageTTLChangedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: %w", err)
 	}
 	return c.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (c *ChatEventMessageTTLSettingChanged) DecodeBare(b *bin.Buffer) error {
+func (c *ChatEventMessageTTLChanged) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventMessageTtlSettingChanged#b01e7caa to nil")
+		return fmt.Errorf("can't decode chatEventMessageTtlChanged#2e46b9b3 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatEventMessageTtlSettingChanged#b01e7caa: field old_message_ttl_setting: %w", err)
+			return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: field old_message_ttl: %w", err)
 		}
-		c.OldMessageTTLSetting = value
+		c.OldMessageTTL = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatEventMessageTtlSettingChanged#b01e7caa: field new_message_ttl_setting: %w", err)
+			return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: field new_message_ttl: %w", err)
 		}
-		c.NewMessageTTLSetting = value
+		c.NewMessageTTL = value
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatEventMessageTTLSettingChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (c *ChatEventMessageTTLChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventMessageTtlSettingChanged#b01e7caa as nil")
+		return fmt.Errorf("can't encode chatEventMessageTtlChanged#2e46b9b3 as nil")
 	}
 	b.ObjStart()
-	b.PutID("chatEventMessageTtlSettingChanged")
-	b.FieldStart("old_message_ttl_setting")
-	b.PutInt32(c.OldMessageTTLSetting)
-	b.FieldStart("new_message_ttl_setting")
-	b.PutInt32(c.NewMessageTTLSetting)
+	b.PutID("chatEventMessageTtlChanged")
+	b.FieldStart("old_message_ttl")
+	b.PutInt32(c.OldMessageTTL)
+	b.FieldStart("new_message_ttl")
+	b.PutInt32(c.NewMessageTTL)
 	b.ObjEnd()
 	return nil
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatEventMessageTTLSettingChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (c *ChatEventMessageTTLChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventMessageTtlSettingChanged#b01e7caa to nil")
+		return fmt.Errorf("can't decode chatEventMessageTtlChanged#2e46b9b3 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("chatEventMessageTtlSettingChanged"); err != nil {
-				return fmt.Errorf("unable to decode chatEventMessageTtlSettingChanged#b01e7caa: %w", err)
+			if err := b.ConsumeID("chatEventMessageTtlChanged"); err != nil {
+				return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: %w", err)
 			}
-		case "old_message_ttl_setting":
+		case "old_message_ttl":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatEventMessageTtlSettingChanged#b01e7caa: field old_message_ttl_setting: %w", err)
+				return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: field old_message_ttl: %w", err)
 			}
-			c.OldMessageTTLSetting = value
-		case "new_message_ttl_setting":
+			c.OldMessageTTL = value
+		case "new_message_ttl":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatEventMessageTtlSettingChanged#b01e7caa: field new_message_ttl_setting: %w", err)
+				return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: field new_message_ttl: %w", err)
 			}
-			c.NewMessageTTLSetting = value
+			c.NewMessageTTL = value
 		default:
 			return b.Skip()
 		}
@@ -3925,20 +3925,20 @@ func (c *ChatEventMessageTTLSettingChanged) DecodeTDLibJSON(b tdjson.Decoder) er
 	})
 }
 
-// GetOldMessageTTLSetting returns value of OldMessageTTLSetting field.
-func (c *ChatEventMessageTTLSettingChanged) GetOldMessageTTLSetting() (value int32) {
+// GetOldMessageTTL returns value of OldMessageTTL field.
+func (c *ChatEventMessageTTLChanged) GetOldMessageTTL() (value int32) {
 	if c == nil {
 		return
 	}
-	return c.OldMessageTTLSetting
+	return c.OldMessageTTL
 }
 
-// GetNewMessageTTLSetting returns value of NewMessageTTLSetting field.
-func (c *ChatEventMessageTTLSettingChanged) GetNewMessageTTLSetting() (value int32) {
+// GetNewMessageTTL returns value of NewMessageTTL field.
+func (c *ChatEventMessageTTLChanged) GetNewMessageTTL() (value int32) {
 	if c == nil {
 		return
 	}
-	return c.NewMessageTTLSetting
+	return c.NewMessageTTL
 }
 
 // ChatEventSignMessagesToggled represents TL type `chatEventSignMessagesToggled#b1b9281e`.
@@ -5508,30 +5508,30 @@ func (c *ChatEventVideoChatCreated) GetGroupCallID() (value int32) {
 	return c.GroupCallID
 }
 
-// ChatEventVideoChatDiscarded represents TL type `chatEventVideoChatDiscarded#d1d44947`.
-type ChatEventVideoChatDiscarded struct {
+// ChatEventVideoChatEnded represents TL type `chatEventVideoChatEnded#61286c48`.
+type ChatEventVideoChatEnded struct {
 	// Identifier of the video chat. The video chat can be received through the method
 	// getGroupCall
 	GroupCallID int32
 }
 
-// ChatEventVideoChatDiscardedTypeID is TL type id of ChatEventVideoChatDiscarded.
-const ChatEventVideoChatDiscardedTypeID = 0xd1d44947
+// ChatEventVideoChatEndedTypeID is TL type id of ChatEventVideoChatEnded.
+const ChatEventVideoChatEndedTypeID = 0x61286c48
 
 // construct implements constructor of ChatEventActionClass.
-func (c ChatEventVideoChatDiscarded) construct() ChatEventActionClass { return &c }
+func (c ChatEventVideoChatEnded) construct() ChatEventActionClass { return &c }
 
-// Ensuring interfaces in compile-time for ChatEventVideoChatDiscarded.
+// Ensuring interfaces in compile-time for ChatEventVideoChatEnded.
 var (
-	_ bin.Encoder     = &ChatEventVideoChatDiscarded{}
-	_ bin.Decoder     = &ChatEventVideoChatDiscarded{}
-	_ bin.BareEncoder = &ChatEventVideoChatDiscarded{}
-	_ bin.BareDecoder = &ChatEventVideoChatDiscarded{}
+	_ bin.Encoder     = &ChatEventVideoChatEnded{}
+	_ bin.Decoder     = &ChatEventVideoChatEnded{}
+	_ bin.BareEncoder = &ChatEventVideoChatEnded{}
+	_ bin.BareDecoder = &ChatEventVideoChatEnded{}
 
-	_ ChatEventActionClass = &ChatEventVideoChatDiscarded{}
+	_ ChatEventActionClass = &ChatEventVideoChatEnded{}
 )
 
-func (c *ChatEventVideoChatDiscarded) Zero() bool {
+func (c *ChatEventVideoChatEnded) Zero() bool {
 	if c == nil {
 		return true
 	}
@@ -5543,31 +5543,31 @@ func (c *ChatEventVideoChatDiscarded) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (c *ChatEventVideoChatDiscarded) String() string {
+func (c *ChatEventVideoChatEnded) String() string {
 	if c == nil {
-		return "ChatEventVideoChatDiscarded(nil)"
+		return "ChatEventVideoChatEnded(nil)"
 	}
-	type Alias ChatEventVideoChatDiscarded
-	return fmt.Sprintf("ChatEventVideoChatDiscarded%+v", Alias(*c))
+	type Alias ChatEventVideoChatEnded
+	return fmt.Sprintf("ChatEventVideoChatEnded%+v", Alias(*c))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatEventVideoChatDiscarded) TypeID() uint32 {
-	return ChatEventVideoChatDiscardedTypeID
+func (*ChatEventVideoChatEnded) TypeID() uint32 {
+	return ChatEventVideoChatEndedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*ChatEventVideoChatDiscarded) TypeName() string {
-	return "chatEventVideoChatDiscarded"
+func (*ChatEventVideoChatEnded) TypeName() string {
+	return "chatEventVideoChatEnded"
 }
 
 // TypeInfo returns info about TL type.
-func (c *ChatEventVideoChatDiscarded) TypeInfo() tdp.Type {
+func (c *ChatEventVideoChatEnded) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "chatEventVideoChatDiscarded",
-		ID:   ChatEventVideoChatDiscardedTypeID,
+		Name: "chatEventVideoChatEnded",
+		ID:   ChatEventVideoChatEndedTypeID,
 	}
 	if c == nil {
 		typ.Null = true
@@ -5583,43 +5583,43 @@ func (c *ChatEventVideoChatDiscarded) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (c *ChatEventVideoChatDiscarded) Encode(b *bin.Buffer) error {
+func (c *ChatEventVideoChatEnded) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventVideoChatDiscarded#d1d44947 as nil")
+		return fmt.Errorf("can't encode chatEventVideoChatEnded#61286c48 as nil")
 	}
-	b.PutID(ChatEventVideoChatDiscardedTypeID)
+	b.PutID(ChatEventVideoChatEndedTypeID)
 	return c.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (c *ChatEventVideoChatDiscarded) EncodeBare(b *bin.Buffer) error {
+func (c *ChatEventVideoChatEnded) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventVideoChatDiscarded#d1d44947 as nil")
+		return fmt.Errorf("can't encode chatEventVideoChatEnded#61286c48 as nil")
 	}
 	b.PutInt32(c.GroupCallID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (c *ChatEventVideoChatDiscarded) Decode(b *bin.Buffer) error {
+func (c *ChatEventVideoChatEnded) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventVideoChatDiscarded#d1d44947 to nil")
+		return fmt.Errorf("can't decode chatEventVideoChatEnded#61286c48 to nil")
 	}
-	if err := b.ConsumeID(ChatEventVideoChatDiscardedTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventVideoChatDiscarded#d1d44947: %w", err)
+	if err := b.ConsumeID(ChatEventVideoChatEndedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventVideoChatEnded#61286c48: %w", err)
 	}
 	return c.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (c *ChatEventVideoChatDiscarded) DecodeBare(b *bin.Buffer) error {
+func (c *ChatEventVideoChatEnded) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventVideoChatDiscarded#d1d44947 to nil")
+		return fmt.Errorf("can't decode chatEventVideoChatEnded#61286c48 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatEventVideoChatDiscarded#d1d44947: field group_call_id: %w", err)
+			return fmt.Errorf("unable to decode chatEventVideoChatEnded#61286c48: field group_call_id: %w", err)
 		}
 		c.GroupCallID = value
 	}
@@ -5627,12 +5627,12 @@ func (c *ChatEventVideoChatDiscarded) DecodeBare(b *bin.Buffer) error {
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatEventVideoChatDiscarded) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (c *ChatEventVideoChatEnded) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventVideoChatDiscarded#d1d44947 as nil")
+		return fmt.Errorf("can't encode chatEventVideoChatEnded#61286c48 as nil")
 	}
 	b.ObjStart()
-	b.PutID("chatEventVideoChatDiscarded")
+	b.PutID("chatEventVideoChatEnded")
 	b.FieldStart("group_call_id")
 	b.PutInt32(c.GroupCallID)
 	b.ObjEnd()
@@ -5640,21 +5640,21 @@ func (c *ChatEventVideoChatDiscarded) EncodeTDLibJSON(b tdjson.Encoder) error {
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatEventVideoChatDiscarded) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (c *ChatEventVideoChatEnded) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventVideoChatDiscarded#d1d44947 to nil")
+		return fmt.Errorf("can't decode chatEventVideoChatEnded#61286c48 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("chatEventVideoChatDiscarded"); err != nil {
-				return fmt.Errorf("unable to decode chatEventVideoChatDiscarded#d1d44947: %w", err)
+			if err := b.ConsumeID("chatEventVideoChatEnded"); err != nil {
+				return fmt.Errorf("unable to decode chatEventVideoChatEnded#61286c48: %w", err)
 			}
 		case "group_call_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatEventVideoChatDiscarded#d1d44947: field group_call_id: %w", err)
+				return fmt.Errorf("unable to decode chatEventVideoChatEnded#61286c48: field group_call_id: %w", err)
 			}
 			c.GroupCallID = value
 		default:
@@ -5665,7 +5665,7 @@ func (c *ChatEventVideoChatDiscarded) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetGroupCallID returns value of GroupCallID field.
-func (c *ChatEventVideoChatDiscarded) GetGroupCallID() (value int32) {
+func (c *ChatEventVideoChatEnded) GetGroupCallID() (value int32) {
 	if c == nil {
 		return
 	}
@@ -6278,7 +6278,7 @@ const ChatEventActionClassName = "ChatEventAction"
 //  case *tdapi.ChatEventInvitesToggled: // chatEventInvitesToggled#fc45966b
 //  case *tdapi.ChatEventLinkedChatChanged: // chatEventLinkedChatChanged#6b2271af
 //  case *tdapi.ChatEventSlowModeDelayChanged: // chatEventSlowModeDelayChanged#9d763c0b
-//  case *tdapi.ChatEventMessageTTLSettingChanged: // chatEventMessageTtlSettingChanged#b01e7caa
+//  case *tdapi.ChatEventMessageTTLChanged: // chatEventMessageTtlChanged#2e46b9b3
 //  case *tdapi.ChatEventSignMessagesToggled: // chatEventSignMessagesToggled#b1b9281e
 //  case *tdapi.ChatEventHasProtectedContentToggled: // chatEventHasProtectedContentToggled#f5044201
 //  case *tdapi.ChatEventStickerSetChanged: // chatEventStickerSetChanged#b5e7558f
@@ -6288,7 +6288,7 @@ const ChatEventActionClassName = "ChatEventAction"
 //  case *tdapi.ChatEventInviteLinkRevoked: // chatEventInviteLinkRevoked#a1dbffe3
 //  case *tdapi.ChatEventInviteLinkDeleted: // chatEventInviteLinkDeleted#acda6167
 //  case *tdapi.ChatEventVideoChatCreated: // chatEventVideoChatCreated#6ca68a7b
-//  case *tdapi.ChatEventVideoChatDiscarded: // chatEventVideoChatDiscarded#d1d44947
+//  case *tdapi.ChatEventVideoChatEnded: // chatEventVideoChatEnded#61286c48
 //  case *tdapi.ChatEventVideoChatParticipantIsMutedToggled: // chatEventVideoChatParticipantIsMutedToggled#1f1058f7
 //  case *tdapi.ChatEventVideoChatParticipantVolumeLevelChanged: // chatEventVideoChatParticipantVolumeLevelChanged#436f92be
 //  case *tdapi.ChatEventVideoChatMuteNewParticipantsToggled: // chatEventVideoChatMuteNewParticipantsToggled#f87507fe
@@ -6463,9 +6463,9 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
-	case ChatEventMessageTTLSettingChangedTypeID:
-		// Decoding chatEventMessageTtlSettingChanged#b01e7caa.
-		v := ChatEventMessageTTLSettingChanged{}
+	case ChatEventMessageTTLChangedTypeID:
+		// Decoding chatEventMessageTtlChanged#2e46b9b3.
+		v := ChatEventMessageTTLChanged{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -6533,9 +6533,9 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
-	case ChatEventVideoChatDiscardedTypeID:
-		// Decoding chatEventVideoChatDiscarded#d1d44947.
-		v := ChatEventVideoChatDiscarded{}
+	case ChatEventVideoChatEndedTypeID:
+		// Decoding chatEventVideoChatEnded#61286c48.
+		v := ChatEventVideoChatEnded{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -6713,9 +6713,9 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
-	case "chatEventMessageTtlSettingChanged":
-		// Decoding chatEventMessageTtlSettingChanged#b01e7caa.
-		v := ChatEventMessageTTLSettingChanged{}
+	case "chatEventMessageTtlChanged":
+		// Decoding chatEventMessageTtlChanged#2e46b9b3.
+		v := ChatEventMessageTTLChanged{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -6783,9 +6783,9 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
-	case "chatEventVideoChatDiscarded":
-		// Decoding chatEventVideoChatDiscarded#d1d44947.
-		v := ChatEventVideoChatDiscarded{}
+	case "chatEventVideoChatEnded":
+		// Decoding chatEventVideoChatEnded#61286c48.
+		v := ChatEventVideoChatEnded{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}

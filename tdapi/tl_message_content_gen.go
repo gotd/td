@@ -7324,7 +7324,7 @@ func (m *MessageChatSetTheme) GetThemeName() (value string) {
 
 // MessageChatSetTTL represents TL type `messageChatSetTtl#6be353b1`.
 type MessageChatSetTTL struct {
-	// New message TTL setting
+	// New message TTL
 	TTL int32
 }
 
