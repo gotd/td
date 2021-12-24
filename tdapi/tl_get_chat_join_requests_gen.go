@@ -45,7 +45,7 @@ type GetChatJoinRequestsRequest struct {
 	// A chat join request from which to return next requests; pass null to get results from
 	// the beginning
 	OffsetRequest ChatJoinRequest
-	// The maximum number of chat join requests to return
+	// The maximum number of requests to join the chat to return
 	Limit int32
 }
 

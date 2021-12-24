@@ -3814,1389 +3814,6 @@ func (u *UpdateChatPosition) GetPosition() (value ChatPosition) {
 	return u.Position
 }
 
-// UpdateChatDefaultMessageSenderID represents TL type `updateChatDefaultMessageSenderId#39de0dcd`.
-type UpdateChatDefaultMessageSenderID struct {
-	// Chat identifier
-	ChatID int64
-	// New value of default_message_sender_id; may be null if the user can't change message
-	// sender
-	DefaultMessageSenderID MessageSenderClass
-}
-
-// UpdateChatDefaultMessageSenderIDTypeID is TL type id of UpdateChatDefaultMessageSenderID.
-const UpdateChatDefaultMessageSenderIDTypeID = 0x39de0dcd
-
-// construct implements constructor of UpdateClass.
-func (u UpdateChatDefaultMessageSenderID) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateChatDefaultMessageSenderID.
-var (
-	_ bin.Encoder     = &UpdateChatDefaultMessageSenderID{}
-	_ bin.Decoder     = &UpdateChatDefaultMessageSenderID{}
-	_ bin.BareEncoder = &UpdateChatDefaultMessageSenderID{}
-	_ bin.BareDecoder = &UpdateChatDefaultMessageSenderID{}
-
-	_ UpdateClass = &UpdateChatDefaultMessageSenderID{}
-)
-
-func (u *UpdateChatDefaultMessageSenderID) Zero() bool {
-	if u == nil {
-		return true
-	}
-	if !(u.ChatID == 0) {
-		return false
-	}
-	if !(u.DefaultMessageSenderID == nil) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (u *UpdateChatDefaultMessageSenderID) String() string {
-	if u == nil {
-		return "UpdateChatDefaultMessageSenderID(nil)"
-	}
-	type Alias UpdateChatDefaultMessageSenderID
-	return fmt.Sprintf("UpdateChatDefaultMessageSenderID%+v", Alias(*u))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateChatDefaultMessageSenderID) TypeID() uint32 {
-	return UpdateChatDefaultMessageSenderIDTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*UpdateChatDefaultMessageSenderID) TypeName() string {
-	return "updateChatDefaultMessageSenderId"
-}
-
-// TypeInfo returns info about TL type.
-func (u *UpdateChatDefaultMessageSenderID) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "updateChatDefaultMessageSenderId",
-		ID:   UpdateChatDefaultMessageSenderIDTypeID,
-	}
-	if u == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "ChatID",
-			SchemaName: "chat_id",
-		},
-		{
-			Name:       "DefaultMessageSenderID",
-			SchemaName: "default_message_sender_id",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (u *UpdateChatDefaultMessageSenderID) Encode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatDefaultMessageSenderId#39de0dcd as nil")
-	}
-	b.PutID(UpdateChatDefaultMessageSenderIDTypeID)
-	return u.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (u *UpdateChatDefaultMessageSenderID) EncodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatDefaultMessageSenderId#39de0dcd as nil")
-	}
-	b.PutInt53(u.ChatID)
-	if u.DefaultMessageSenderID == nil {
-		return fmt.Errorf("unable to encode updateChatDefaultMessageSenderId#39de0dcd: field default_message_sender_id is nil")
-	}
-	if err := u.DefaultMessageSenderID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateChatDefaultMessageSenderId#39de0dcd: field default_message_sender_id: %w", err)
-	}
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (u *UpdateChatDefaultMessageSenderID) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatDefaultMessageSenderId#39de0dcd to nil")
-	}
-	if err := b.ConsumeID(UpdateChatDefaultMessageSenderIDTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatDefaultMessageSenderId#39de0dcd: %w", err)
-	}
-	return u.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (u *UpdateChatDefaultMessageSenderID) DecodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatDefaultMessageSenderId#39de0dcd to nil")
-	}
-	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChatDefaultMessageSenderId#39de0dcd: field chat_id: %w", err)
-		}
-		u.ChatID = value
-	}
-	{
-		value, err := DecodeMessageSender(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChatDefaultMessageSenderId#39de0dcd: field default_message_sender_id: %w", err)
-		}
-		u.DefaultMessageSenderID = value
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (u *UpdateChatDefaultMessageSenderID) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatDefaultMessageSenderId#39de0dcd as nil")
-	}
-	b.ObjStart()
-	b.PutID("updateChatDefaultMessageSenderId")
-	b.FieldStart("chat_id")
-	b.PutInt53(u.ChatID)
-	b.FieldStart("default_message_sender_id")
-	if u.DefaultMessageSenderID == nil {
-		return fmt.Errorf("unable to encode updateChatDefaultMessageSenderId#39de0dcd: field default_message_sender_id is nil")
-	}
-	if err := u.DefaultMessageSenderID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode updateChatDefaultMessageSenderId#39de0dcd: field default_message_sender_id: %w", err)
-	}
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (u *UpdateChatDefaultMessageSenderID) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatDefaultMessageSenderId#39de0dcd to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("updateChatDefaultMessageSenderId"); err != nil {
-				return fmt.Errorf("unable to decode updateChatDefaultMessageSenderId#39de0dcd: %w", err)
-			}
-		case "chat_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateChatDefaultMessageSenderId#39de0dcd: field chat_id: %w", err)
-			}
-			u.ChatID = value
-		case "default_message_sender_id":
-			value, err := DecodeTDLibJSONMessageSender(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode updateChatDefaultMessageSenderId#39de0dcd: field default_message_sender_id: %w", err)
-			}
-			u.DefaultMessageSenderID = value
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetChatID returns value of ChatID field.
-func (u *UpdateChatDefaultMessageSenderID) GetChatID() (value int64) {
-	if u == nil {
-		return
-	}
-	return u.ChatID
-}
-
-// GetDefaultMessageSenderID returns value of DefaultMessageSenderID field.
-func (u *UpdateChatDefaultMessageSenderID) GetDefaultMessageSenderID() (value MessageSenderClass) {
-	if u == nil {
-		return
-	}
-	return u.DefaultMessageSenderID
-}
-
-// UpdateChatHasProtectedContent represents TL type `updateChatHasProtectedContent#6b50071b`.
-type UpdateChatHasProtectedContent struct {
-	// Chat identifier
-	ChatID int64
-	// New value of has_protected_content
-	HasProtectedContent bool
-}
-
-// UpdateChatHasProtectedContentTypeID is TL type id of UpdateChatHasProtectedContent.
-const UpdateChatHasProtectedContentTypeID = 0x6b50071b
-
-// construct implements constructor of UpdateClass.
-func (u UpdateChatHasProtectedContent) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateChatHasProtectedContent.
-var (
-	_ bin.Encoder     = &UpdateChatHasProtectedContent{}
-	_ bin.Decoder     = &UpdateChatHasProtectedContent{}
-	_ bin.BareEncoder = &UpdateChatHasProtectedContent{}
-	_ bin.BareDecoder = &UpdateChatHasProtectedContent{}
-
-	_ UpdateClass = &UpdateChatHasProtectedContent{}
-)
-
-func (u *UpdateChatHasProtectedContent) Zero() bool {
-	if u == nil {
-		return true
-	}
-	if !(u.ChatID == 0) {
-		return false
-	}
-	if !(u.HasProtectedContent == false) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (u *UpdateChatHasProtectedContent) String() string {
-	if u == nil {
-		return "UpdateChatHasProtectedContent(nil)"
-	}
-	type Alias UpdateChatHasProtectedContent
-	return fmt.Sprintf("UpdateChatHasProtectedContent%+v", Alias(*u))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateChatHasProtectedContent) TypeID() uint32 {
-	return UpdateChatHasProtectedContentTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*UpdateChatHasProtectedContent) TypeName() string {
-	return "updateChatHasProtectedContent"
-}
-
-// TypeInfo returns info about TL type.
-func (u *UpdateChatHasProtectedContent) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "updateChatHasProtectedContent",
-		ID:   UpdateChatHasProtectedContentTypeID,
-	}
-	if u == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "ChatID",
-			SchemaName: "chat_id",
-		},
-		{
-			Name:       "HasProtectedContent",
-			SchemaName: "has_protected_content",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (u *UpdateChatHasProtectedContent) Encode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatHasProtectedContent#6b50071b as nil")
-	}
-	b.PutID(UpdateChatHasProtectedContentTypeID)
-	return u.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (u *UpdateChatHasProtectedContent) EncodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatHasProtectedContent#6b50071b as nil")
-	}
-	b.PutInt53(u.ChatID)
-	b.PutBool(u.HasProtectedContent)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (u *UpdateChatHasProtectedContent) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatHasProtectedContent#6b50071b to nil")
-	}
-	if err := b.ConsumeID(UpdateChatHasProtectedContentTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatHasProtectedContent#6b50071b: %w", err)
-	}
-	return u.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (u *UpdateChatHasProtectedContent) DecodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatHasProtectedContent#6b50071b to nil")
-	}
-	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChatHasProtectedContent#6b50071b: field chat_id: %w", err)
-		}
-		u.ChatID = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChatHasProtectedContent#6b50071b: field has_protected_content: %w", err)
-		}
-		u.HasProtectedContent = value
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (u *UpdateChatHasProtectedContent) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatHasProtectedContent#6b50071b as nil")
-	}
-	b.ObjStart()
-	b.PutID("updateChatHasProtectedContent")
-	b.FieldStart("chat_id")
-	b.PutInt53(u.ChatID)
-	b.FieldStart("has_protected_content")
-	b.PutBool(u.HasProtectedContent)
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (u *UpdateChatHasProtectedContent) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatHasProtectedContent#6b50071b to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("updateChatHasProtectedContent"); err != nil {
-				return fmt.Errorf("unable to decode updateChatHasProtectedContent#6b50071b: %w", err)
-			}
-		case "chat_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateChatHasProtectedContent#6b50071b: field chat_id: %w", err)
-			}
-			u.ChatID = value
-		case "has_protected_content":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateChatHasProtectedContent#6b50071b: field has_protected_content: %w", err)
-			}
-			u.HasProtectedContent = value
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetChatID returns value of ChatID field.
-func (u *UpdateChatHasProtectedContent) GetChatID() (value int64) {
-	if u == nil {
-		return
-	}
-	return u.ChatID
-}
-
-// GetHasProtectedContent returns value of HasProtectedContent field.
-func (u *UpdateChatHasProtectedContent) GetHasProtectedContent() (value bool) {
-	if u == nil {
-		return
-	}
-	return u.HasProtectedContent
-}
-
-// UpdateChatIsMarkedAsUnread represents TL type `updateChatIsMarkedAsUnread#57853334`.
-type UpdateChatIsMarkedAsUnread struct {
-	// Chat identifier
-	ChatID int64
-	// New value of is_marked_as_unread
-	IsMarkedAsUnread bool
-}
-
-// UpdateChatIsMarkedAsUnreadTypeID is TL type id of UpdateChatIsMarkedAsUnread.
-const UpdateChatIsMarkedAsUnreadTypeID = 0x57853334
-
-// construct implements constructor of UpdateClass.
-func (u UpdateChatIsMarkedAsUnread) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateChatIsMarkedAsUnread.
-var (
-	_ bin.Encoder     = &UpdateChatIsMarkedAsUnread{}
-	_ bin.Decoder     = &UpdateChatIsMarkedAsUnread{}
-	_ bin.BareEncoder = &UpdateChatIsMarkedAsUnread{}
-	_ bin.BareDecoder = &UpdateChatIsMarkedAsUnread{}
-
-	_ UpdateClass = &UpdateChatIsMarkedAsUnread{}
-)
-
-func (u *UpdateChatIsMarkedAsUnread) Zero() bool {
-	if u == nil {
-		return true
-	}
-	if !(u.ChatID == 0) {
-		return false
-	}
-	if !(u.IsMarkedAsUnread == false) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (u *UpdateChatIsMarkedAsUnread) String() string {
-	if u == nil {
-		return "UpdateChatIsMarkedAsUnread(nil)"
-	}
-	type Alias UpdateChatIsMarkedAsUnread
-	return fmt.Sprintf("UpdateChatIsMarkedAsUnread%+v", Alias(*u))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateChatIsMarkedAsUnread) TypeID() uint32 {
-	return UpdateChatIsMarkedAsUnreadTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*UpdateChatIsMarkedAsUnread) TypeName() string {
-	return "updateChatIsMarkedAsUnread"
-}
-
-// TypeInfo returns info about TL type.
-func (u *UpdateChatIsMarkedAsUnread) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "updateChatIsMarkedAsUnread",
-		ID:   UpdateChatIsMarkedAsUnreadTypeID,
-	}
-	if u == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "ChatID",
-			SchemaName: "chat_id",
-		},
-		{
-			Name:       "IsMarkedAsUnread",
-			SchemaName: "is_marked_as_unread",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (u *UpdateChatIsMarkedAsUnread) Encode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatIsMarkedAsUnread#57853334 as nil")
-	}
-	b.PutID(UpdateChatIsMarkedAsUnreadTypeID)
-	return u.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (u *UpdateChatIsMarkedAsUnread) EncodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatIsMarkedAsUnread#57853334 as nil")
-	}
-	b.PutInt53(u.ChatID)
-	b.PutBool(u.IsMarkedAsUnread)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (u *UpdateChatIsMarkedAsUnread) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatIsMarkedAsUnread#57853334 to nil")
-	}
-	if err := b.ConsumeID(UpdateChatIsMarkedAsUnreadTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: %w", err)
-	}
-	return u.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (u *UpdateChatIsMarkedAsUnread) DecodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatIsMarkedAsUnread#57853334 to nil")
-	}
-	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: field chat_id: %w", err)
-		}
-		u.ChatID = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: field is_marked_as_unread: %w", err)
-		}
-		u.IsMarkedAsUnread = value
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (u *UpdateChatIsMarkedAsUnread) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatIsMarkedAsUnread#57853334 as nil")
-	}
-	b.ObjStart()
-	b.PutID("updateChatIsMarkedAsUnread")
-	b.FieldStart("chat_id")
-	b.PutInt53(u.ChatID)
-	b.FieldStart("is_marked_as_unread")
-	b.PutBool(u.IsMarkedAsUnread)
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (u *UpdateChatIsMarkedAsUnread) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatIsMarkedAsUnread#57853334 to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("updateChatIsMarkedAsUnread"); err != nil {
-				return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: %w", err)
-			}
-		case "chat_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: field chat_id: %w", err)
-			}
-			u.ChatID = value
-		case "is_marked_as_unread":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: field is_marked_as_unread: %w", err)
-			}
-			u.IsMarkedAsUnread = value
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetChatID returns value of ChatID field.
-func (u *UpdateChatIsMarkedAsUnread) GetChatID() (value int64) {
-	if u == nil {
-		return
-	}
-	return u.ChatID
-}
-
-// GetIsMarkedAsUnread returns value of IsMarkedAsUnread field.
-func (u *UpdateChatIsMarkedAsUnread) GetIsMarkedAsUnread() (value bool) {
-	if u == nil {
-		return
-	}
-	return u.IsMarkedAsUnread
-}
-
-// UpdateChatIsBlocked represents TL type `updateChatIsBlocked#88da7e40`.
-type UpdateChatIsBlocked struct {
-	// Chat identifier
-	ChatID int64
-	// New value of is_blocked
-	IsBlocked bool
-}
-
-// UpdateChatIsBlockedTypeID is TL type id of UpdateChatIsBlocked.
-const UpdateChatIsBlockedTypeID = 0x88da7e40
-
-// construct implements constructor of UpdateClass.
-func (u UpdateChatIsBlocked) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateChatIsBlocked.
-var (
-	_ bin.Encoder     = &UpdateChatIsBlocked{}
-	_ bin.Decoder     = &UpdateChatIsBlocked{}
-	_ bin.BareEncoder = &UpdateChatIsBlocked{}
-	_ bin.BareDecoder = &UpdateChatIsBlocked{}
-
-	_ UpdateClass = &UpdateChatIsBlocked{}
-)
-
-func (u *UpdateChatIsBlocked) Zero() bool {
-	if u == nil {
-		return true
-	}
-	if !(u.ChatID == 0) {
-		return false
-	}
-	if !(u.IsBlocked == false) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (u *UpdateChatIsBlocked) String() string {
-	if u == nil {
-		return "UpdateChatIsBlocked(nil)"
-	}
-	type Alias UpdateChatIsBlocked
-	return fmt.Sprintf("UpdateChatIsBlocked%+v", Alias(*u))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateChatIsBlocked) TypeID() uint32 {
-	return UpdateChatIsBlockedTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*UpdateChatIsBlocked) TypeName() string {
-	return "updateChatIsBlocked"
-}
-
-// TypeInfo returns info about TL type.
-func (u *UpdateChatIsBlocked) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "updateChatIsBlocked",
-		ID:   UpdateChatIsBlockedTypeID,
-	}
-	if u == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "ChatID",
-			SchemaName: "chat_id",
-		},
-		{
-			Name:       "IsBlocked",
-			SchemaName: "is_blocked",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (u *UpdateChatIsBlocked) Encode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatIsBlocked#88da7e40 as nil")
-	}
-	b.PutID(UpdateChatIsBlockedTypeID)
-	return u.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (u *UpdateChatIsBlocked) EncodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatIsBlocked#88da7e40 as nil")
-	}
-	b.PutInt53(u.ChatID)
-	b.PutBool(u.IsBlocked)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (u *UpdateChatIsBlocked) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatIsBlocked#88da7e40 to nil")
-	}
-	if err := b.ConsumeID(UpdateChatIsBlockedTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatIsBlocked#88da7e40: %w", err)
-	}
-	return u.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (u *UpdateChatIsBlocked) DecodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatIsBlocked#88da7e40 to nil")
-	}
-	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChatIsBlocked#88da7e40: field chat_id: %w", err)
-		}
-		u.ChatID = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChatIsBlocked#88da7e40: field is_blocked: %w", err)
-		}
-		u.IsBlocked = value
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (u *UpdateChatIsBlocked) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatIsBlocked#88da7e40 as nil")
-	}
-	b.ObjStart()
-	b.PutID("updateChatIsBlocked")
-	b.FieldStart("chat_id")
-	b.PutInt53(u.ChatID)
-	b.FieldStart("is_blocked")
-	b.PutBool(u.IsBlocked)
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (u *UpdateChatIsBlocked) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatIsBlocked#88da7e40 to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("updateChatIsBlocked"); err != nil {
-				return fmt.Errorf("unable to decode updateChatIsBlocked#88da7e40: %w", err)
-			}
-		case "chat_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateChatIsBlocked#88da7e40: field chat_id: %w", err)
-			}
-			u.ChatID = value
-		case "is_blocked":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateChatIsBlocked#88da7e40: field is_blocked: %w", err)
-			}
-			u.IsBlocked = value
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetChatID returns value of ChatID field.
-func (u *UpdateChatIsBlocked) GetChatID() (value int64) {
-	if u == nil {
-		return
-	}
-	return u.ChatID
-}
-
-// GetIsBlocked returns value of IsBlocked field.
-func (u *UpdateChatIsBlocked) GetIsBlocked() (value bool) {
-	if u == nil {
-		return
-	}
-	return u.IsBlocked
-}
-
-// UpdateChatHasScheduledMessages represents TL type `updateChatHasScheduledMessages#7b14c2d7`.
-type UpdateChatHasScheduledMessages struct {
-	// Chat identifier
-	ChatID int64
-	// New value of has_scheduled_messages
-	HasScheduledMessages bool
-}
-
-// UpdateChatHasScheduledMessagesTypeID is TL type id of UpdateChatHasScheduledMessages.
-const UpdateChatHasScheduledMessagesTypeID = 0x7b14c2d7
-
-// construct implements constructor of UpdateClass.
-func (u UpdateChatHasScheduledMessages) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateChatHasScheduledMessages.
-var (
-	_ bin.Encoder     = &UpdateChatHasScheduledMessages{}
-	_ bin.Decoder     = &UpdateChatHasScheduledMessages{}
-	_ bin.BareEncoder = &UpdateChatHasScheduledMessages{}
-	_ bin.BareDecoder = &UpdateChatHasScheduledMessages{}
-
-	_ UpdateClass = &UpdateChatHasScheduledMessages{}
-)
-
-func (u *UpdateChatHasScheduledMessages) Zero() bool {
-	if u == nil {
-		return true
-	}
-	if !(u.ChatID == 0) {
-		return false
-	}
-	if !(u.HasScheduledMessages == false) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (u *UpdateChatHasScheduledMessages) String() string {
-	if u == nil {
-		return "UpdateChatHasScheduledMessages(nil)"
-	}
-	type Alias UpdateChatHasScheduledMessages
-	return fmt.Sprintf("UpdateChatHasScheduledMessages%+v", Alias(*u))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateChatHasScheduledMessages) TypeID() uint32 {
-	return UpdateChatHasScheduledMessagesTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*UpdateChatHasScheduledMessages) TypeName() string {
-	return "updateChatHasScheduledMessages"
-}
-
-// TypeInfo returns info about TL type.
-func (u *UpdateChatHasScheduledMessages) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "updateChatHasScheduledMessages",
-		ID:   UpdateChatHasScheduledMessagesTypeID,
-	}
-	if u == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "ChatID",
-			SchemaName: "chat_id",
-		},
-		{
-			Name:       "HasScheduledMessages",
-			SchemaName: "has_scheduled_messages",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (u *UpdateChatHasScheduledMessages) Encode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatHasScheduledMessages#7b14c2d7 as nil")
-	}
-	b.PutID(UpdateChatHasScheduledMessagesTypeID)
-	return u.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (u *UpdateChatHasScheduledMessages) EncodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatHasScheduledMessages#7b14c2d7 as nil")
-	}
-	b.PutInt53(u.ChatID)
-	b.PutBool(u.HasScheduledMessages)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (u *UpdateChatHasScheduledMessages) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatHasScheduledMessages#7b14c2d7 to nil")
-	}
-	if err := b.ConsumeID(UpdateChatHasScheduledMessagesTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: %w", err)
-	}
-	return u.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (u *UpdateChatHasScheduledMessages) DecodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatHasScheduledMessages#7b14c2d7 to nil")
-	}
-	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: field chat_id: %w", err)
-		}
-		u.ChatID = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: field has_scheduled_messages: %w", err)
-		}
-		u.HasScheduledMessages = value
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (u *UpdateChatHasScheduledMessages) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatHasScheduledMessages#7b14c2d7 as nil")
-	}
-	b.ObjStart()
-	b.PutID("updateChatHasScheduledMessages")
-	b.FieldStart("chat_id")
-	b.PutInt53(u.ChatID)
-	b.FieldStart("has_scheduled_messages")
-	b.PutBool(u.HasScheduledMessages)
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (u *UpdateChatHasScheduledMessages) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatHasScheduledMessages#7b14c2d7 to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("updateChatHasScheduledMessages"); err != nil {
-				return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: %w", err)
-			}
-		case "chat_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: field chat_id: %w", err)
-			}
-			u.ChatID = value
-		case "has_scheduled_messages":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: field has_scheduled_messages: %w", err)
-			}
-			u.HasScheduledMessages = value
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetChatID returns value of ChatID field.
-func (u *UpdateChatHasScheduledMessages) GetChatID() (value int64) {
-	if u == nil {
-		return
-	}
-	return u.ChatID
-}
-
-// GetHasScheduledMessages returns value of HasScheduledMessages field.
-func (u *UpdateChatHasScheduledMessages) GetHasScheduledMessages() (value bool) {
-	if u == nil {
-		return
-	}
-	return u.HasScheduledMessages
-}
-
-// UpdateChatVideoChat represents TL type `updateChatVideoChat#25fb4ca6`.
-type UpdateChatVideoChat struct {
-	// Chat identifier
-	ChatID int64
-	// New value of video_chat
-	VideoChat VideoChat
-}
-
-// UpdateChatVideoChatTypeID is TL type id of UpdateChatVideoChat.
-const UpdateChatVideoChatTypeID = 0x25fb4ca6
-
-// construct implements constructor of UpdateClass.
-func (u UpdateChatVideoChat) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateChatVideoChat.
-var (
-	_ bin.Encoder     = &UpdateChatVideoChat{}
-	_ bin.Decoder     = &UpdateChatVideoChat{}
-	_ bin.BareEncoder = &UpdateChatVideoChat{}
-	_ bin.BareDecoder = &UpdateChatVideoChat{}
-
-	_ UpdateClass = &UpdateChatVideoChat{}
-)
-
-func (u *UpdateChatVideoChat) Zero() bool {
-	if u == nil {
-		return true
-	}
-	if !(u.ChatID == 0) {
-		return false
-	}
-	if !(u.VideoChat.Zero()) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (u *UpdateChatVideoChat) String() string {
-	if u == nil {
-		return "UpdateChatVideoChat(nil)"
-	}
-	type Alias UpdateChatVideoChat
-	return fmt.Sprintf("UpdateChatVideoChat%+v", Alias(*u))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateChatVideoChat) TypeID() uint32 {
-	return UpdateChatVideoChatTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*UpdateChatVideoChat) TypeName() string {
-	return "updateChatVideoChat"
-}
-
-// TypeInfo returns info about TL type.
-func (u *UpdateChatVideoChat) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "updateChatVideoChat",
-		ID:   UpdateChatVideoChatTypeID,
-	}
-	if u == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "ChatID",
-			SchemaName: "chat_id",
-		},
-		{
-			Name:       "VideoChat",
-			SchemaName: "video_chat",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (u *UpdateChatVideoChat) Encode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatVideoChat#25fb4ca6 as nil")
-	}
-	b.PutID(UpdateChatVideoChatTypeID)
-	return u.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (u *UpdateChatVideoChat) EncodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatVideoChat#25fb4ca6 as nil")
-	}
-	b.PutInt53(u.ChatID)
-	if err := u.VideoChat.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateChatVideoChat#25fb4ca6: field video_chat: %w", err)
-	}
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (u *UpdateChatVideoChat) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatVideoChat#25fb4ca6 to nil")
-	}
-	if err := b.ConsumeID(UpdateChatVideoChatTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatVideoChat#25fb4ca6: %w", err)
-	}
-	return u.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (u *UpdateChatVideoChat) DecodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatVideoChat#25fb4ca6 to nil")
-	}
-	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChatVideoChat#25fb4ca6: field chat_id: %w", err)
-		}
-		u.ChatID = value
-	}
-	{
-		if err := u.VideoChat.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateChatVideoChat#25fb4ca6: field video_chat: %w", err)
-		}
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (u *UpdateChatVideoChat) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatVideoChat#25fb4ca6 as nil")
-	}
-	b.ObjStart()
-	b.PutID("updateChatVideoChat")
-	b.FieldStart("chat_id")
-	b.PutInt53(u.ChatID)
-	b.FieldStart("video_chat")
-	if err := u.VideoChat.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode updateChatVideoChat#25fb4ca6: field video_chat: %w", err)
-	}
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (u *UpdateChatVideoChat) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatVideoChat#25fb4ca6 to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("updateChatVideoChat"); err != nil {
-				return fmt.Errorf("unable to decode updateChatVideoChat#25fb4ca6: %w", err)
-			}
-		case "chat_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateChatVideoChat#25fb4ca6: field chat_id: %w", err)
-			}
-			u.ChatID = value
-		case "video_chat":
-			if err := u.VideoChat.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode updateChatVideoChat#25fb4ca6: field video_chat: %w", err)
-			}
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetChatID returns value of ChatID field.
-func (u *UpdateChatVideoChat) GetChatID() (value int64) {
-	if u == nil {
-		return
-	}
-	return u.ChatID
-}
-
-// GetVideoChat returns value of VideoChat field.
-func (u *UpdateChatVideoChat) GetVideoChat() (value VideoChat) {
-	if u == nil {
-		return
-	}
-	return u.VideoChat
-}
-
-// UpdateChatDefaultDisableNotification represents TL type `updateChatDefaultDisableNotification#1ba96a9b`.
-type UpdateChatDefaultDisableNotification struct {
-	// Chat identifier
-	ChatID int64
-	// The new default_disable_notification value
-	DefaultDisableNotification bool
-}
-
-// UpdateChatDefaultDisableNotificationTypeID is TL type id of UpdateChatDefaultDisableNotification.
-const UpdateChatDefaultDisableNotificationTypeID = 0x1ba96a9b
-
-// construct implements constructor of UpdateClass.
-func (u UpdateChatDefaultDisableNotification) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateChatDefaultDisableNotification.
-var (
-	_ bin.Encoder     = &UpdateChatDefaultDisableNotification{}
-	_ bin.Decoder     = &UpdateChatDefaultDisableNotification{}
-	_ bin.BareEncoder = &UpdateChatDefaultDisableNotification{}
-	_ bin.BareDecoder = &UpdateChatDefaultDisableNotification{}
-
-	_ UpdateClass = &UpdateChatDefaultDisableNotification{}
-)
-
-func (u *UpdateChatDefaultDisableNotification) Zero() bool {
-	if u == nil {
-		return true
-	}
-	if !(u.ChatID == 0) {
-		return false
-	}
-	if !(u.DefaultDisableNotification == false) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (u *UpdateChatDefaultDisableNotification) String() string {
-	if u == nil {
-		return "UpdateChatDefaultDisableNotification(nil)"
-	}
-	type Alias UpdateChatDefaultDisableNotification
-	return fmt.Sprintf("UpdateChatDefaultDisableNotification%+v", Alias(*u))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateChatDefaultDisableNotification) TypeID() uint32 {
-	return UpdateChatDefaultDisableNotificationTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*UpdateChatDefaultDisableNotification) TypeName() string {
-	return "updateChatDefaultDisableNotification"
-}
-
-// TypeInfo returns info about TL type.
-func (u *UpdateChatDefaultDisableNotification) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "updateChatDefaultDisableNotification",
-		ID:   UpdateChatDefaultDisableNotificationTypeID,
-	}
-	if u == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "ChatID",
-			SchemaName: "chat_id",
-		},
-		{
-			Name:       "DefaultDisableNotification",
-			SchemaName: "default_disable_notification",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (u *UpdateChatDefaultDisableNotification) Encode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatDefaultDisableNotification#1ba96a9b as nil")
-	}
-	b.PutID(UpdateChatDefaultDisableNotificationTypeID)
-	return u.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (u *UpdateChatDefaultDisableNotification) EncodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatDefaultDisableNotification#1ba96a9b as nil")
-	}
-	b.PutInt53(u.ChatID)
-	b.PutBool(u.DefaultDisableNotification)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (u *UpdateChatDefaultDisableNotification) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatDefaultDisableNotification#1ba96a9b to nil")
-	}
-	if err := b.ConsumeID(UpdateChatDefaultDisableNotificationTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatDefaultDisableNotification#1ba96a9b: %w", err)
-	}
-	return u.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (u *UpdateChatDefaultDisableNotification) DecodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatDefaultDisableNotification#1ba96a9b to nil")
-	}
-	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChatDefaultDisableNotification#1ba96a9b: field chat_id: %w", err)
-		}
-		u.ChatID = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChatDefaultDisableNotification#1ba96a9b: field default_disable_notification: %w", err)
-		}
-		u.DefaultDisableNotification = value
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (u *UpdateChatDefaultDisableNotification) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatDefaultDisableNotification#1ba96a9b as nil")
-	}
-	b.ObjStart()
-	b.PutID("updateChatDefaultDisableNotification")
-	b.FieldStart("chat_id")
-	b.PutInt53(u.ChatID)
-	b.FieldStart("default_disable_notification")
-	b.PutBool(u.DefaultDisableNotification)
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (u *UpdateChatDefaultDisableNotification) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatDefaultDisableNotification#1ba96a9b to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("updateChatDefaultDisableNotification"); err != nil {
-				return fmt.Errorf("unable to decode updateChatDefaultDisableNotification#1ba96a9b: %w", err)
-			}
-		case "chat_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateChatDefaultDisableNotification#1ba96a9b: field chat_id: %w", err)
-			}
-			u.ChatID = value
-		case "default_disable_notification":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateChatDefaultDisableNotification#1ba96a9b: field default_disable_notification: %w", err)
-			}
-			u.DefaultDisableNotification = value
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetChatID returns value of ChatID field.
-func (u *UpdateChatDefaultDisableNotification) GetChatID() (value int64) {
-	if u == nil {
-		return
-	}
-	return u.ChatID
-}
-
-// GetDefaultDisableNotification returns value of DefaultDisableNotification field.
-func (u *UpdateChatDefaultDisableNotification) GetDefaultDisableNotification() (value bool) {
-	if u == nil {
-		return
-	}
-	return u.DefaultDisableNotification
-}
-
 // UpdateChatReadInbox represents TL type `updateChatReadInbox#d07036e7`.
 type UpdateChatReadInbox struct {
 	// Chat identifier
@@ -5622,800 +4239,6 @@ func (u *UpdateChatReadOutbox) GetLastReadOutboxMessageID() (value int64) {
 	return u.LastReadOutboxMessageID
 }
 
-// UpdateChatUnreadMentionCount represents TL type `updateChatUnreadMentionCount#80f47b1c`.
-type UpdateChatUnreadMentionCount struct {
-	// Chat identifier
-	ChatID int64
-	// The number of unread mention messages left in the chat
-	UnreadMentionCount int32
-}
-
-// UpdateChatUnreadMentionCountTypeID is TL type id of UpdateChatUnreadMentionCount.
-const UpdateChatUnreadMentionCountTypeID = 0x80f47b1c
-
-// construct implements constructor of UpdateClass.
-func (u UpdateChatUnreadMentionCount) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateChatUnreadMentionCount.
-var (
-	_ bin.Encoder     = &UpdateChatUnreadMentionCount{}
-	_ bin.Decoder     = &UpdateChatUnreadMentionCount{}
-	_ bin.BareEncoder = &UpdateChatUnreadMentionCount{}
-	_ bin.BareDecoder = &UpdateChatUnreadMentionCount{}
-
-	_ UpdateClass = &UpdateChatUnreadMentionCount{}
-)
-
-func (u *UpdateChatUnreadMentionCount) Zero() bool {
-	if u == nil {
-		return true
-	}
-	if !(u.ChatID == 0) {
-		return false
-	}
-	if !(u.UnreadMentionCount == 0) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (u *UpdateChatUnreadMentionCount) String() string {
-	if u == nil {
-		return "UpdateChatUnreadMentionCount(nil)"
-	}
-	type Alias UpdateChatUnreadMentionCount
-	return fmt.Sprintf("UpdateChatUnreadMentionCount%+v", Alias(*u))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateChatUnreadMentionCount) TypeID() uint32 {
-	return UpdateChatUnreadMentionCountTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*UpdateChatUnreadMentionCount) TypeName() string {
-	return "updateChatUnreadMentionCount"
-}
-
-// TypeInfo returns info about TL type.
-func (u *UpdateChatUnreadMentionCount) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "updateChatUnreadMentionCount",
-		ID:   UpdateChatUnreadMentionCountTypeID,
-	}
-	if u == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "ChatID",
-			SchemaName: "chat_id",
-		},
-		{
-			Name:       "UnreadMentionCount",
-			SchemaName: "unread_mention_count",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (u *UpdateChatUnreadMentionCount) Encode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatUnreadMentionCount#80f47b1c as nil")
-	}
-	b.PutID(UpdateChatUnreadMentionCountTypeID)
-	return u.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (u *UpdateChatUnreadMentionCount) EncodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatUnreadMentionCount#80f47b1c as nil")
-	}
-	b.PutInt53(u.ChatID)
-	b.PutInt32(u.UnreadMentionCount)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (u *UpdateChatUnreadMentionCount) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatUnreadMentionCount#80f47b1c to nil")
-	}
-	if err := b.ConsumeID(UpdateChatUnreadMentionCountTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatUnreadMentionCount#80f47b1c: %w", err)
-	}
-	return u.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (u *UpdateChatUnreadMentionCount) DecodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatUnreadMentionCount#80f47b1c to nil")
-	}
-	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChatUnreadMentionCount#80f47b1c: field chat_id: %w", err)
-		}
-		u.ChatID = value
-	}
-	{
-		value, err := b.Int32()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChatUnreadMentionCount#80f47b1c: field unread_mention_count: %w", err)
-		}
-		u.UnreadMentionCount = value
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (u *UpdateChatUnreadMentionCount) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatUnreadMentionCount#80f47b1c as nil")
-	}
-	b.ObjStart()
-	b.PutID("updateChatUnreadMentionCount")
-	b.FieldStart("chat_id")
-	b.PutInt53(u.ChatID)
-	b.FieldStart("unread_mention_count")
-	b.PutInt32(u.UnreadMentionCount)
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (u *UpdateChatUnreadMentionCount) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatUnreadMentionCount#80f47b1c to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("updateChatUnreadMentionCount"); err != nil {
-				return fmt.Errorf("unable to decode updateChatUnreadMentionCount#80f47b1c: %w", err)
-			}
-		case "chat_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateChatUnreadMentionCount#80f47b1c: field chat_id: %w", err)
-			}
-			u.ChatID = value
-		case "unread_mention_count":
-			value, err := b.Int32()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateChatUnreadMentionCount#80f47b1c: field unread_mention_count: %w", err)
-			}
-			u.UnreadMentionCount = value
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetChatID returns value of ChatID field.
-func (u *UpdateChatUnreadMentionCount) GetChatID() (value int64) {
-	if u == nil {
-		return
-	}
-	return u.ChatID
-}
-
-// GetUnreadMentionCount returns value of UnreadMentionCount field.
-func (u *UpdateChatUnreadMentionCount) GetUnreadMentionCount() (value int32) {
-	if u == nil {
-		return
-	}
-	return u.UnreadMentionCount
-}
-
-// UpdateChatNotificationSettings represents TL type `updateChatNotificationSettings#d020b456`.
-type UpdateChatNotificationSettings struct {
-	// Chat identifier
-	ChatID int64
-	// The new notification settings
-	NotificationSettings ChatNotificationSettings
-}
-
-// UpdateChatNotificationSettingsTypeID is TL type id of UpdateChatNotificationSettings.
-const UpdateChatNotificationSettingsTypeID = 0xd020b456
-
-// construct implements constructor of UpdateClass.
-func (u UpdateChatNotificationSettings) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateChatNotificationSettings.
-var (
-	_ bin.Encoder     = &UpdateChatNotificationSettings{}
-	_ bin.Decoder     = &UpdateChatNotificationSettings{}
-	_ bin.BareEncoder = &UpdateChatNotificationSettings{}
-	_ bin.BareDecoder = &UpdateChatNotificationSettings{}
-
-	_ UpdateClass = &UpdateChatNotificationSettings{}
-)
-
-func (u *UpdateChatNotificationSettings) Zero() bool {
-	if u == nil {
-		return true
-	}
-	if !(u.ChatID == 0) {
-		return false
-	}
-	if !(u.NotificationSettings.Zero()) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (u *UpdateChatNotificationSettings) String() string {
-	if u == nil {
-		return "UpdateChatNotificationSettings(nil)"
-	}
-	type Alias UpdateChatNotificationSettings
-	return fmt.Sprintf("UpdateChatNotificationSettings%+v", Alias(*u))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateChatNotificationSettings) TypeID() uint32 {
-	return UpdateChatNotificationSettingsTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*UpdateChatNotificationSettings) TypeName() string {
-	return "updateChatNotificationSettings"
-}
-
-// TypeInfo returns info about TL type.
-func (u *UpdateChatNotificationSettings) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "updateChatNotificationSettings",
-		ID:   UpdateChatNotificationSettingsTypeID,
-	}
-	if u == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "ChatID",
-			SchemaName: "chat_id",
-		},
-		{
-			Name:       "NotificationSettings",
-			SchemaName: "notification_settings",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (u *UpdateChatNotificationSettings) Encode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatNotificationSettings#d020b456 as nil")
-	}
-	b.PutID(UpdateChatNotificationSettingsTypeID)
-	return u.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (u *UpdateChatNotificationSettings) EncodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatNotificationSettings#d020b456 as nil")
-	}
-	b.PutInt53(u.ChatID)
-	if err := u.NotificationSettings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateChatNotificationSettings#d020b456: field notification_settings: %w", err)
-	}
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (u *UpdateChatNotificationSettings) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatNotificationSettings#d020b456 to nil")
-	}
-	if err := b.ConsumeID(UpdateChatNotificationSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatNotificationSettings#d020b456: %w", err)
-	}
-	return u.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (u *UpdateChatNotificationSettings) DecodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatNotificationSettings#d020b456 to nil")
-	}
-	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChatNotificationSettings#d020b456: field chat_id: %w", err)
-		}
-		u.ChatID = value
-	}
-	{
-		if err := u.NotificationSettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateChatNotificationSettings#d020b456: field notification_settings: %w", err)
-		}
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (u *UpdateChatNotificationSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatNotificationSettings#d020b456 as nil")
-	}
-	b.ObjStart()
-	b.PutID("updateChatNotificationSettings")
-	b.FieldStart("chat_id")
-	b.PutInt53(u.ChatID)
-	b.FieldStart("notification_settings")
-	if err := u.NotificationSettings.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode updateChatNotificationSettings#d020b456: field notification_settings: %w", err)
-	}
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (u *UpdateChatNotificationSettings) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatNotificationSettings#d020b456 to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("updateChatNotificationSettings"); err != nil {
-				return fmt.Errorf("unable to decode updateChatNotificationSettings#d020b456: %w", err)
-			}
-		case "chat_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateChatNotificationSettings#d020b456: field chat_id: %w", err)
-			}
-			u.ChatID = value
-		case "notification_settings":
-			if err := u.NotificationSettings.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode updateChatNotificationSettings#d020b456: field notification_settings: %w", err)
-			}
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetChatID returns value of ChatID field.
-func (u *UpdateChatNotificationSettings) GetChatID() (value int64) {
-	if u == nil {
-		return
-	}
-	return u.ChatID
-}
-
-// GetNotificationSettings returns value of NotificationSettings field.
-func (u *UpdateChatNotificationSettings) GetNotificationSettings() (value ChatNotificationSettings) {
-	if u == nil {
-		return
-	}
-	return u.NotificationSettings
-}
-
-// UpdateScopeNotificationSettings represents TL type `updateScopeNotificationSettings#b83ccb73`.
-type UpdateScopeNotificationSettings struct {
-	// Types of chats for which notification settings were updated
-	Scope NotificationSettingsScopeClass
-	// The new notification settings
-	NotificationSettings ScopeNotificationSettings
-}
-
-// UpdateScopeNotificationSettingsTypeID is TL type id of UpdateScopeNotificationSettings.
-const UpdateScopeNotificationSettingsTypeID = 0xb83ccb73
-
-// construct implements constructor of UpdateClass.
-func (u UpdateScopeNotificationSettings) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateScopeNotificationSettings.
-var (
-	_ bin.Encoder     = &UpdateScopeNotificationSettings{}
-	_ bin.Decoder     = &UpdateScopeNotificationSettings{}
-	_ bin.BareEncoder = &UpdateScopeNotificationSettings{}
-	_ bin.BareDecoder = &UpdateScopeNotificationSettings{}
-
-	_ UpdateClass = &UpdateScopeNotificationSettings{}
-)
-
-func (u *UpdateScopeNotificationSettings) Zero() bool {
-	if u == nil {
-		return true
-	}
-	if !(u.Scope == nil) {
-		return false
-	}
-	if !(u.NotificationSettings.Zero()) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (u *UpdateScopeNotificationSettings) String() string {
-	if u == nil {
-		return "UpdateScopeNotificationSettings(nil)"
-	}
-	type Alias UpdateScopeNotificationSettings
-	return fmt.Sprintf("UpdateScopeNotificationSettings%+v", Alias(*u))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateScopeNotificationSettings) TypeID() uint32 {
-	return UpdateScopeNotificationSettingsTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*UpdateScopeNotificationSettings) TypeName() string {
-	return "updateScopeNotificationSettings"
-}
-
-// TypeInfo returns info about TL type.
-func (u *UpdateScopeNotificationSettings) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "updateScopeNotificationSettings",
-		ID:   UpdateScopeNotificationSettingsTypeID,
-	}
-	if u == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "Scope",
-			SchemaName: "scope",
-		},
-		{
-			Name:       "NotificationSettings",
-			SchemaName: "notification_settings",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (u *UpdateScopeNotificationSettings) Encode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateScopeNotificationSettings#b83ccb73 as nil")
-	}
-	b.PutID(UpdateScopeNotificationSettingsTypeID)
-	return u.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (u *UpdateScopeNotificationSettings) EncodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateScopeNotificationSettings#b83ccb73 as nil")
-	}
-	if u.Scope == nil {
-		return fmt.Errorf("unable to encode updateScopeNotificationSettings#b83ccb73: field scope is nil")
-	}
-	if err := u.Scope.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateScopeNotificationSettings#b83ccb73: field scope: %w", err)
-	}
-	if err := u.NotificationSettings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateScopeNotificationSettings#b83ccb73: field notification_settings: %w", err)
-	}
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (u *UpdateScopeNotificationSettings) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateScopeNotificationSettings#b83ccb73 to nil")
-	}
-	if err := b.ConsumeID(UpdateScopeNotificationSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateScopeNotificationSettings#b83ccb73: %w", err)
-	}
-	return u.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (u *UpdateScopeNotificationSettings) DecodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateScopeNotificationSettings#b83ccb73 to nil")
-	}
-	{
-		value, err := DecodeNotificationSettingsScope(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode updateScopeNotificationSettings#b83ccb73: field scope: %w", err)
-		}
-		u.Scope = value
-	}
-	{
-		if err := u.NotificationSettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateScopeNotificationSettings#b83ccb73: field notification_settings: %w", err)
-		}
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (u *UpdateScopeNotificationSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateScopeNotificationSettings#b83ccb73 as nil")
-	}
-	b.ObjStart()
-	b.PutID("updateScopeNotificationSettings")
-	b.FieldStart("scope")
-	if u.Scope == nil {
-		return fmt.Errorf("unable to encode updateScopeNotificationSettings#b83ccb73: field scope is nil")
-	}
-	if err := u.Scope.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode updateScopeNotificationSettings#b83ccb73: field scope: %w", err)
-	}
-	b.FieldStart("notification_settings")
-	if err := u.NotificationSettings.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode updateScopeNotificationSettings#b83ccb73: field notification_settings: %w", err)
-	}
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (u *UpdateScopeNotificationSettings) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateScopeNotificationSettings#b83ccb73 to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("updateScopeNotificationSettings"); err != nil {
-				return fmt.Errorf("unable to decode updateScopeNotificationSettings#b83ccb73: %w", err)
-			}
-		case "scope":
-			value, err := DecodeTDLibJSONNotificationSettingsScope(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode updateScopeNotificationSettings#b83ccb73: field scope: %w", err)
-			}
-			u.Scope = value
-		case "notification_settings":
-			if err := u.NotificationSettings.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode updateScopeNotificationSettings#b83ccb73: field notification_settings: %w", err)
-			}
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetScope returns value of Scope field.
-func (u *UpdateScopeNotificationSettings) GetScope() (value NotificationSettingsScopeClass) {
-	if u == nil {
-		return
-	}
-	return u.Scope
-}
-
-// GetNotificationSettings returns value of NotificationSettings field.
-func (u *UpdateScopeNotificationSettings) GetNotificationSettings() (value ScopeNotificationSettings) {
-	if u == nil {
-		return
-	}
-	return u.NotificationSettings
-}
-
-// UpdateChatMessageTTLSetting represents TL type `updateChatMessageTtlSetting#39dd4338`.
-type UpdateChatMessageTTLSetting struct {
-	// Chat identifier
-	ChatID int64
-	// New value of message_ttl_setting
-	MessageTTLSetting int32
-}
-
-// UpdateChatMessageTTLSettingTypeID is TL type id of UpdateChatMessageTTLSetting.
-const UpdateChatMessageTTLSettingTypeID = 0x39dd4338
-
-// construct implements constructor of UpdateClass.
-func (u UpdateChatMessageTTLSetting) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateChatMessageTTLSetting.
-var (
-	_ bin.Encoder     = &UpdateChatMessageTTLSetting{}
-	_ bin.Decoder     = &UpdateChatMessageTTLSetting{}
-	_ bin.BareEncoder = &UpdateChatMessageTTLSetting{}
-	_ bin.BareDecoder = &UpdateChatMessageTTLSetting{}
-
-	_ UpdateClass = &UpdateChatMessageTTLSetting{}
-)
-
-func (u *UpdateChatMessageTTLSetting) Zero() bool {
-	if u == nil {
-		return true
-	}
-	if !(u.ChatID == 0) {
-		return false
-	}
-	if !(u.MessageTTLSetting == 0) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (u *UpdateChatMessageTTLSetting) String() string {
-	if u == nil {
-		return "UpdateChatMessageTTLSetting(nil)"
-	}
-	type Alias UpdateChatMessageTTLSetting
-	return fmt.Sprintf("UpdateChatMessageTTLSetting%+v", Alias(*u))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateChatMessageTTLSetting) TypeID() uint32 {
-	return UpdateChatMessageTTLSettingTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*UpdateChatMessageTTLSetting) TypeName() string {
-	return "updateChatMessageTtlSetting"
-}
-
-// TypeInfo returns info about TL type.
-func (u *UpdateChatMessageTTLSetting) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "updateChatMessageTtlSetting",
-		ID:   UpdateChatMessageTTLSettingTypeID,
-	}
-	if u == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "ChatID",
-			SchemaName: "chat_id",
-		},
-		{
-			Name:       "MessageTTLSetting",
-			SchemaName: "message_ttl_setting",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (u *UpdateChatMessageTTLSetting) Encode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatMessageTtlSetting#39dd4338 as nil")
-	}
-	b.PutID(UpdateChatMessageTTLSettingTypeID)
-	return u.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (u *UpdateChatMessageTTLSetting) EncodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatMessageTtlSetting#39dd4338 as nil")
-	}
-	b.PutInt53(u.ChatID)
-	b.PutInt32(u.MessageTTLSetting)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (u *UpdateChatMessageTTLSetting) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatMessageTtlSetting#39dd4338 to nil")
-	}
-	if err := b.ConsumeID(UpdateChatMessageTTLSettingTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatMessageTtlSetting#39dd4338: %w", err)
-	}
-	return u.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (u *UpdateChatMessageTTLSetting) DecodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatMessageTtlSetting#39dd4338 to nil")
-	}
-	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChatMessageTtlSetting#39dd4338: field chat_id: %w", err)
-		}
-		u.ChatID = value
-	}
-	{
-		value, err := b.Int32()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChatMessageTtlSetting#39dd4338: field message_ttl_setting: %w", err)
-		}
-		u.MessageTTLSetting = value
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (u *UpdateChatMessageTTLSetting) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChatMessageTtlSetting#39dd4338 as nil")
-	}
-	b.ObjStart()
-	b.PutID("updateChatMessageTtlSetting")
-	b.FieldStart("chat_id")
-	b.PutInt53(u.ChatID)
-	b.FieldStart("message_ttl_setting")
-	b.PutInt32(u.MessageTTLSetting)
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (u *UpdateChatMessageTTLSetting) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChatMessageTtlSetting#39dd4338 to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("updateChatMessageTtlSetting"); err != nil {
-				return fmt.Errorf("unable to decode updateChatMessageTtlSetting#39dd4338: %w", err)
-			}
-		case "chat_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateChatMessageTtlSetting#39dd4338: field chat_id: %w", err)
-			}
-			u.ChatID = value
-		case "message_ttl_setting":
-			value, err := b.Int32()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateChatMessageTtlSetting#39dd4338: field message_ttl_setting: %w", err)
-			}
-			u.MessageTTLSetting = value
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetChatID returns value of ChatID field.
-func (u *UpdateChatMessageTTLSetting) GetChatID() (value int64) {
-	if u == nil {
-		return
-	}
-	return u.ChatID
-}
-
-// GetMessageTTLSetting returns value of MessageTTLSetting field.
-func (u *UpdateChatMessageTTLSetting) GetMessageTTLSetting() (value int32) {
-	if u == nil {
-		return
-	}
-	return u.MessageTTLSetting
-}
-
 // UpdateChatActionBar represents TL type `updateChatActionBar#d9a258c2`.
 type UpdateChatActionBar struct {
 	// Chat identifier
@@ -6622,38 +4445,43 @@ func (u *UpdateChatActionBar) GetActionBar() (value ChatActionBarClass) {
 	return u.ActionBar
 }
 
-// UpdateChatTheme represents TL type `updateChatTheme#31f3d465`.
-type UpdateChatTheme struct {
+// UpdateChatDraftMessage represents TL type `updateChatDraftMessage#2bf257d4`.
+type UpdateChatDraftMessage struct {
 	// Chat identifier
 	ChatID int64
-	// The new name of the chat theme; may be empty if theme was reset to default
-	ThemeName string
+	// The new draft message; may be null
+	DraftMessage DraftMessage
+	// The new chat positions in the chat lists
+	Positions []ChatPosition
 }
 
-// UpdateChatThemeTypeID is TL type id of UpdateChatTheme.
-const UpdateChatThemeTypeID = 0x31f3d465
+// UpdateChatDraftMessageTypeID is TL type id of UpdateChatDraftMessage.
+const UpdateChatDraftMessageTypeID = 0x2bf257d4
 
 // construct implements constructor of UpdateClass.
-func (u UpdateChatTheme) construct() UpdateClass { return &u }
+func (u UpdateChatDraftMessage) construct() UpdateClass { return &u }
 
-// Ensuring interfaces in compile-time for UpdateChatTheme.
+// Ensuring interfaces in compile-time for UpdateChatDraftMessage.
 var (
-	_ bin.Encoder     = &UpdateChatTheme{}
-	_ bin.Decoder     = &UpdateChatTheme{}
-	_ bin.BareEncoder = &UpdateChatTheme{}
-	_ bin.BareDecoder = &UpdateChatTheme{}
+	_ bin.Encoder     = &UpdateChatDraftMessage{}
+	_ bin.Decoder     = &UpdateChatDraftMessage{}
+	_ bin.BareEncoder = &UpdateChatDraftMessage{}
+	_ bin.BareDecoder = &UpdateChatDraftMessage{}
 
-	_ UpdateClass = &UpdateChatTheme{}
+	_ UpdateClass = &UpdateChatDraftMessage{}
 )
 
-func (u *UpdateChatTheme) Zero() bool {
+func (u *UpdateChatDraftMessage) Zero() bool {
 	if u == nil {
 		return true
 	}
 	if !(u.ChatID == 0) {
 		return false
 	}
-	if !(u.ThemeName == "") {
+	if !(u.DraftMessage.Zero()) {
+		return false
+	}
+	if !(u.Positions == nil) {
 		return false
 	}
 
@@ -6661,31 +4489,31 @@ func (u *UpdateChatTheme) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (u *UpdateChatTheme) String() string {
+func (u *UpdateChatDraftMessage) String() string {
 	if u == nil {
-		return "UpdateChatTheme(nil)"
+		return "UpdateChatDraftMessage(nil)"
 	}
-	type Alias UpdateChatTheme
-	return fmt.Sprintf("UpdateChatTheme%+v", Alias(*u))
+	type Alias UpdateChatDraftMessage
+	return fmt.Sprintf("UpdateChatDraftMessage%+v", Alias(*u))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateChatTheme) TypeID() uint32 {
-	return UpdateChatThemeTypeID
+func (*UpdateChatDraftMessage) TypeID() uint32 {
+	return UpdateChatDraftMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*UpdateChatTheme) TypeName() string {
-	return "updateChatTheme"
+func (*UpdateChatDraftMessage) TypeName() string {
+	return "updateChatDraftMessage"
 }
 
 // TypeInfo returns info about TL type.
-func (u *UpdateChatTheme) TypeInfo() tdp.Type {
+func (u *UpdateChatDraftMessage) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "updateChatTheme",
-		ID:   UpdateChatThemeTypeID,
+		Name: "updateChatDraftMessage",
+		ID:   UpdateChatDraftMessageTypeID,
 	}
 	if u == nil {
 		typ.Null = true
@@ -6697,104 +4525,150 @@ func (u *UpdateChatTheme) TypeInfo() tdp.Type {
 			SchemaName: "chat_id",
 		},
 		{
-			Name:       "ThemeName",
-			SchemaName: "theme_name",
+			Name:       "DraftMessage",
+			SchemaName: "draft_message",
+		},
+		{
+			Name:       "Positions",
+			SchemaName: "positions",
 		},
 	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
-func (u *UpdateChatTheme) Encode(b *bin.Buffer) error {
+func (u *UpdateChatDraftMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatTheme#31f3d465 as nil")
+		return fmt.Errorf("can't encode updateChatDraftMessage#2bf257d4 as nil")
 	}
-	b.PutID(UpdateChatThemeTypeID)
+	b.PutID(UpdateChatDraftMessageTypeID)
 	return u.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (u *UpdateChatTheme) EncodeBare(b *bin.Buffer) error {
+func (u *UpdateChatDraftMessage) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatTheme#31f3d465 as nil")
+		return fmt.Errorf("can't encode updateChatDraftMessage#2bf257d4 as nil")
 	}
 	b.PutInt53(u.ChatID)
-	b.PutString(u.ThemeName)
+	if err := u.DraftMessage.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatDraftMessage#2bf257d4: field draft_message: %w", err)
+	}
+	b.PutInt(len(u.Positions))
+	for idx, v := range u.Positions {
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare updateChatDraftMessage#2bf257d4: field positions element with index %d: %w", idx, err)
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (u *UpdateChatTheme) Decode(b *bin.Buffer) error {
+func (u *UpdateChatDraftMessage) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatTheme#31f3d465 to nil")
+		return fmt.Errorf("can't decode updateChatDraftMessage#2bf257d4 to nil")
 	}
-	if err := b.ConsumeID(UpdateChatThemeTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatTheme#31f3d465: %w", err)
+	if err := b.ConsumeID(UpdateChatDraftMessageTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: %w", err)
 	}
 	return u.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (u *UpdateChatTheme) DecodeBare(b *bin.Buffer) error {
+func (u *UpdateChatDraftMessage) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatTheme#31f3d465 to nil")
+		return fmt.Errorf("can't decode updateChatDraftMessage#2bf257d4 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChatTheme#31f3d465: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: field chat_id: %w", err)
 		}
 		u.ChatID = value
 	}
 	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChatTheme#31f3d465: field theme_name: %w", err)
+		if err := u.DraftMessage.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: field draft_message: %w", err)
 		}
-		u.ThemeName = value
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: field positions: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.Positions = make([]ChatPosition, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value ChatPosition
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare updateChatDraftMessage#2bf257d4: field positions: %w", err)
+			}
+			u.Positions = append(u.Positions, value)
+		}
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (u *UpdateChatTheme) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (u *UpdateChatDraftMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatTheme#31f3d465 as nil")
+		return fmt.Errorf("can't encode updateChatDraftMessage#2bf257d4 as nil")
 	}
 	b.ObjStart()
-	b.PutID("updateChatTheme")
+	b.PutID("updateChatDraftMessage")
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
-	b.FieldStart("theme_name")
-	b.PutString(u.ThemeName)
+	b.FieldStart("draft_message")
+	if err := u.DraftMessage.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatDraftMessage#2bf257d4: field draft_message: %w", err)
+	}
+	b.FieldStart("positions")
+	b.ArrStart()
+	for idx, v := range u.Positions {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode updateChatDraftMessage#2bf257d4: field positions element with index %d: %w", idx, err)
+		}
+	}
+	b.ArrEnd()
 	b.ObjEnd()
 	return nil
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (u *UpdateChatTheme) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (u *UpdateChatDraftMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatTheme#31f3d465 to nil")
+		return fmt.Errorf("can't decode updateChatDraftMessage#2bf257d4 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("updateChatTheme"); err != nil {
-				return fmt.Errorf("unable to decode updateChatTheme#31f3d465: %w", err)
+			if err := b.ConsumeID("updateChatDraftMessage"); err != nil {
+				return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateChatTheme#31f3d465: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: field chat_id: %w", err)
 			}
 			u.ChatID = value
-		case "theme_name":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateChatTheme#31f3d465: field theme_name: %w", err)
+		case "draft_message":
+			if err := u.DraftMessage.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: field draft_message: %w", err)
 			}
-			u.ThemeName = value
+		case "positions":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				var value ChatPosition
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: field positions: %w", err)
+				}
+				u.Positions = append(u.Positions, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: field positions: %w", err)
+			}
 		default:
 			return b.Skip()
 		}
@@ -6803,19 +4677,625 @@ func (u *UpdateChatTheme) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetChatID returns value of ChatID field.
-func (u *UpdateChatTheme) GetChatID() (value int64) {
+func (u *UpdateChatDraftMessage) GetChatID() (value int64) {
 	if u == nil {
 		return
 	}
 	return u.ChatID
 }
 
-// GetThemeName returns value of ThemeName field.
-func (u *UpdateChatTheme) GetThemeName() (value string) {
+// GetDraftMessage returns value of DraftMessage field.
+func (u *UpdateChatDraftMessage) GetDraftMessage() (value DraftMessage) {
 	if u == nil {
 		return
 	}
-	return u.ThemeName
+	return u.DraftMessage
+}
+
+// GetPositions returns value of Positions field.
+func (u *UpdateChatDraftMessage) GetPositions() (value []ChatPosition) {
+	if u == nil {
+		return
+	}
+	return u.Positions
+}
+
+// UpdateChatMessageSender represents TL type `updateChatMessageSender#77705241`.
+type UpdateChatMessageSender struct {
+	// Chat identifier
+	ChatID int64
+	// New value of message_sender_id; may be null if the user can't change message sender
+	MessageSenderID MessageSenderClass
+}
+
+// UpdateChatMessageSenderTypeID is TL type id of UpdateChatMessageSender.
+const UpdateChatMessageSenderTypeID = 0x77705241
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatMessageSender) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatMessageSender.
+var (
+	_ bin.Encoder     = &UpdateChatMessageSender{}
+	_ bin.Decoder     = &UpdateChatMessageSender{}
+	_ bin.BareEncoder = &UpdateChatMessageSender{}
+	_ bin.BareDecoder = &UpdateChatMessageSender{}
+
+	_ UpdateClass = &UpdateChatMessageSender{}
+)
+
+func (u *UpdateChatMessageSender) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.MessageSenderID == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatMessageSender) String() string {
+	if u == nil {
+		return "UpdateChatMessageSender(nil)"
+	}
+	type Alias UpdateChatMessageSender
+	return fmt.Sprintf("UpdateChatMessageSender%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatMessageSender) TypeID() uint32 {
+	return UpdateChatMessageSenderTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatMessageSender) TypeName() string {
+	return "updateChatMessageSender"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatMessageSender) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatMessageSender",
+		ID:   UpdateChatMessageSenderTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "MessageSenderID",
+			SchemaName: "message_sender_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatMessageSender) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatMessageSender#77705241 as nil")
+	}
+	b.PutID(UpdateChatMessageSenderTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatMessageSender) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatMessageSender#77705241 as nil")
+	}
+	b.PutInt53(u.ChatID)
+	if u.MessageSenderID == nil {
+		return fmt.Errorf("unable to encode updateChatMessageSender#77705241: field message_sender_id is nil")
+	}
+	if err := u.MessageSenderID.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatMessageSender#77705241: field message_sender_id: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatMessageSender) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatMessageSender#77705241 to nil")
+	}
+	if err := b.ConsumeID(UpdateChatMessageSenderTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatMessageSender#77705241: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatMessageSender) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatMessageSender#77705241 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatMessageSender#77705241: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := DecodeMessageSender(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatMessageSender#77705241: field message_sender_id: %w", err)
+		}
+		u.MessageSenderID = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatMessageSender) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatMessageSender#77705241 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateChatMessageSender")
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.FieldStart("message_sender_id")
+	if u.MessageSenderID == nil {
+		return fmt.Errorf("unable to encode updateChatMessageSender#77705241: field message_sender_id is nil")
+	}
+	if err := u.MessageSenderID.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatMessageSender#77705241: field message_sender_id: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatMessageSender) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatMessageSender#77705241 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateChatMessageSender"); err != nil {
+				return fmt.Errorf("unable to decode updateChatMessageSender#77705241: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatMessageSender#77705241: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "message_sender_id":
+			value, err := DecodeTDLibJSONMessageSender(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatMessageSender#77705241: field message_sender_id: %w", err)
+			}
+			u.MessageSenderID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatMessageSender) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetMessageSenderID returns value of MessageSenderID field.
+func (u *UpdateChatMessageSender) GetMessageSenderID() (value MessageSenderClass) {
+	if u == nil {
+		return
+	}
+	return u.MessageSenderID
+}
+
+// UpdateChatMessageTTL represents TL type `updateChatMessageTtl#dde0a978`.
+type UpdateChatMessageTTL struct {
+	// Chat identifier
+	ChatID int64
+	// New value of message_ttl
+	MessageTTL int32
+}
+
+// UpdateChatMessageTTLTypeID is TL type id of UpdateChatMessageTTL.
+const UpdateChatMessageTTLTypeID = 0xdde0a978
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatMessageTTL) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatMessageTTL.
+var (
+	_ bin.Encoder     = &UpdateChatMessageTTL{}
+	_ bin.Decoder     = &UpdateChatMessageTTL{}
+	_ bin.BareEncoder = &UpdateChatMessageTTL{}
+	_ bin.BareDecoder = &UpdateChatMessageTTL{}
+
+	_ UpdateClass = &UpdateChatMessageTTL{}
+)
+
+func (u *UpdateChatMessageTTL) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.MessageTTL == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatMessageTTL) String() string {
+	if u == nil {
+		return "UpdateChatMessageTTL(nil)"
+	}
+	type Alias UpdateChatMessageTTL
+	return fmt.Sprintf("UpdateChatMessageTTL%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatMessageTTL) TypeID() uint32 {
+	return UpdateChatMessageTTLTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatMessageTTL) TypeName() string {
+	return "updateChatMessageTtl"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatMessageTTL) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatMessageTtl",
+		ID:   UpdateChatMessageTTLTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "MessageTTL",
+			SchemaName: "message_ttl",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatMessageTTL) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatMessageTtl#dde0a978 as nil")
+	}
+	b.PutID(UpdateChatMessageTTLTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatMessageTTL) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatMessageTtl#dde0a978 as nil")
+	}
+	b.PutInt53(u.ChatID)
+	b.PutInt32(u.MessageTTL)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatMessageTTL) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatMessageTtl#dde0a978 to nil")
+	}
+	if err := b.ConsumeID(UpdateChatMessageTTLTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatMessageTtl#dde0a978: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatMessageTTL) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatMessageTtl#dde0a978 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatMessageTtl#dde0a978: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatMessageTtl#dde0a978: field message_ttl: %w", err)
+		}
+		u.MessageTTL = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatMessageTTL) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatMessageTtl#dde0a978 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateChatMessageTtl")
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.FieldStart("message_ttl")
+	b.PutInt32(u.MessageTTL)
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatMessageTTL) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatMessageTtl#dde0a978 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateChatMessageTtl"); err != nil {
+				return fmt.Errorf("unable to decode updateChatMessageTtl#dde0a978: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatMessageTtl#dde0a978: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "message_ttl":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatMessageTtl#dde0a978: field message_ttl: %w", err)
+			}
+			u.MessageTTL = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatMessageTTL) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetMessageTTL returns value of MessageTTL field.
+func (u *UpdateChatMessageTTL) GetMessageTTL() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.MessageTTL
+}
+
+// UpdateChatNotificationSettings represents TL type `updateChatNotificationSettings#d020b456`.
+type UpdateChatNotificationSettings struct {
+	// Chat identifier
+	ChatID int64
+	// The new notification settings
+	NotificationSettings ChatNotificationSettings
+}
+
+// UpdateChatNotificationSettingsTypeID is TL type id of UpdateChatNotificationSettings.
+const UpdateChatNotificationSettingsTypeID = 0xd020b456
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatNotificationSettings) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatNotificationSettings.
+var (
+	_ bin.Encoder     = &UpdateChatNotificationSettings{}
+	_ bin.Decoder     = &UpdateChatNotificationSettings{}
+	_ bin.BareEncoder = &UpdateChatNotificationSettings{}
+	_ bin.BareDecoder = &UpdateChatNotificationSettings{}
+
+	_ UpdateClass = &UpdateChatNotificationSettings{}
+)
+
+func (u *UpdateChatNotificationSettings) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.NotificationSettings.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatNotificationSettings) String() string {
+	if u == nil {
+		return "UpdateChatNotificationSettings(nil)"
+	}
+	type Alias UpdateChatNotificationSettings
+	return fmt.Sprintf("UpdateChatNotificationSettings%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatNotificationSettings) TypeID() uint32 {
+	return UpdateChatNotificationSettingsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatNotificationSettings) TypeName() string {
+	return "updateChatNotificationSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatNotificationSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatNotificationSettings",
+		ID:   UpdateChatNotificationSettingsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "NotificationSettings",
+			SchemaName: "notification_settings",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatNotificationSettings) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatNotificationSettings#d020b456 as nil")
+	}
+	b.PutID(UpdateChatNotificationSettingsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatNotificationSettings) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatNotificationSettings#d020b456 as nil")
+	}
+	b.PutInt53(u.ChatID)
+	if err := u.NotificationSettings.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatNotificationSettings#d020b456: field notification_settings: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatNotificationSettings) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatNotificationSettings#d020b456 to nil")
+	}
+	if err := b.ConsumeID(UpdateChatNotificationSettingsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatNotificationSettings#d020b456: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatNotificationSettings) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatNotificationSettings#d020b456 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatNotificationSettings#d020b456: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		if err := u.NotificationSettings.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateChatNotificationSettings#d020b456: field notification_settings: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatNotificationSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatNotificationSettings#d020b456 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateChatNotificationSettings")
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.FieldStart("notification_settings")
+	if err := u.NotificationSettings.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatNotificationSettings#d020b456: field notification_settings: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatNotificationSettings) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatNotificationSettings#d020b456 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateChatNotificationSettings"); err != nil {
+				return fmt.Errorf("unable to decode updateChatNotificationSettings#d020b456: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatNotificationSettings#d020b456: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "notification_settings":
+			if err := u.NotificationSettings.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateChatNotificationSettings#d020b456: field notification_settings: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatNotificationSettings) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetNotificationSettings returns value of NotificationSettings field.
+func (u *UpdateChatNotificationSettings) GetNotificationSettings() (value ChatNotificationSettings) {
+	if u == nil {
+		return
+	}
+	return u.NotificationSettings
 }
 
 // UpdateChatPendingJoinRequests represents TL type `updateChatPendingJoinRequests#14c6e3e1`.
@@ -7211,43 +5691,38 @@ func (u *UpdateChatReplyMarkup) GetReplyMarkupMessageID() (value int64) {
 	return u.ReplyMarkupMessageID
 }
 
-// UpdateChatDraftMessage represents TL type `updateChatDraftMessage#2bf257d4`.
-type UpdateChatDraftMessage struct {
+// UpdateChatTheme represents TL type `updateChatTheme#31f3d465`.
+type UpdateChatTheme struct {
 	// Chat identifier
 	ChatID int64
-	// The new draft message; may be null
-	DraftMessage DraftMessage
-	// The new chat positions in the chat lists
-	Positions []ChatPosition
+	// The new name of the chat theme; may be empty if theme was reset to default
+	ThemeName string
 }
 
-// UpdateChatDraftMessageTypeID is TL type id of UpdateChatDraftMessage.
-const UpdateChatDraftMessageTypeID = 0x2bf257d4
+// UpdateChatThemeTypeID is TL type id of UpdateChatTheme.
+const UpdateChatThemeTypeID = 0x31f3d465
 
 // construct implements constructor of UpdateClass.
-func (u UpdateChatDraftMessage) construct() UpdateClass { return &u }
+func (u UpdateChatTheme) construct() UpdateClass { return &u }
 
-// Ensuring interfaces in compile-time for UpdateChatDraftMessage.
+// Ensuring interfaces in compile-time for UpdateChatTheme.
 var (
-	_ bin.Encoder     = &UpdateChatDraftMessage{}
-	_ bin.Decoder     = &UpdateChatDraftMessage{}
-	_ bin.BareEncoder = &UpdateChatDraftMessage{}
-	_ bin.BareDecoder = &UpdateChatDraftMessage{}
+	_ bin.Encoder     = &UpdateChatTheme{}
+	_ bin.Decoder     = &UpdateChatTheme{}
+	_ bin.BareEncoder = &UpdateChatTheme{}
+	_ bin.BareDecoder = &UpdateChatTheme{}
 
-	_ UpdateClass = &UpdateChatDraftMessage{}
+	_ UpdateClass = &UpdateChatTheme{}
 )
 
-func (u *UpdateChatDraftMessage) Zero() bool {
+func (u *UpdateChatTheme) Zero() bool {
 	if u == nil {
 		return true
 	}
 	if !(u.ChatID == 0) {
 		return false
 	}
-	if !(u.DraftMessage.Zero()) {
-		return false
-	}
-	if !(u.Positions == nil) {
+	if !(u.ThemeName == "") {
 		return false
 	}
 
@@ -7255,31 +5730,31 @@ func (u *UpdateChatDraftMessage) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (u *UpdateChatDraftMessage) String() string {
+func (u *UpdateChatTheme) String() string {
 	if u == nil {
-		return "UpdateChatDraftMessage(nil)"
+		return "UpdateChatTheme(nil)"
 	}
-	type Alias UpdateChatDraftMessage
-	return fmt.Sprintf("UpdateChatDraftMessage%+v", Alias(*u))
+	type Alias UpdateChatTheme
+	return fmt.Sprintf("UpdateChatTheme%+v", Alias(*u))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateChatDraftMessage) TypeID() uint32 {
-	return UpdateChatDraftMessageTypeID
+func (*UpdateChatTheme) TypeID() uint32 {
+	return UpdateChatThemeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*UpdateChatDraftMessage) TypeName() string {
-	return "updateChatDraftMessage"
+func (*UpdateChatTheme) TypeName() string {
+	return "updateChatTheme"
 }
 
 // TypeInfo returns info about TL type.
-func (u *UpdateChatDraftMessage) TypeInfo() tdp.Type {
+func (u *UpdateChatTheme) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "updateChatDraftMessage",
-		ID:   UpdateChatDraftMessageTypeID,
+		Name: "updateChatTheme",
+		ID:   UpdateChatThemeTypeID,
 	}
 	if u == nil {
 		typ.Null = true
@@ -7291,149 +5766,495 @@ func (u *UpdateChatDraftMessage) TypeInfo() tdp.Type {
 			SchemaName: "chat_id",
 		},
 		{
-			Name:       "DraftMessage",
-			SchemaName: "draft_message",
-		},
-		{
-			Name:       "Positions",
-			SchemaName: "positions",
+			Name:       "ThemeName",
+			SchemaName: "theme_name",
 		},
 	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
-func (u *UpdateChatDraftMessage) Encode(b *bin.Buffer) error {
+func (u *UpdateChatTheme) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatDraftMessage#2bf257d4 as nil")
+		return fmt.Errorf("can't encode updateChatTheme#31f3d465 as nil")
 	}
-	b.PutID(UpdateChatDraftMessageTypeID)
+	b.PutID(UpdateChatThemeTypeID)
 	return u.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (u *UpdateChatDraftMessage) EncodeBare(b *bin.Buffer) error {
+func (u *UpdateChatTheme) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatDraftMessage#2bf257d4 as nil")
+		return fmt.Errorf("can't encode updateChatTheme#31f3d465 as nil")
 	}
 	b.PutInt53(u.ChatID)
-	if err := u.DraftMessage.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateChatDraftMessage#2bf257d4: field draft_message: %w", err)
-	}
-	b.PutInt(len(u.Positions))
-	for idx, v := range u.Positions {
-		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare updateChatDraftMessage#2bf257d4: field positions element with index %d: %w", idx, err)
-		}
-	}
+	b.PutString(u.ThemeName)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (u *UpdateChatDraftMessage) Decode(b *bin.Buffer) error {
+func (u *UpdateChatTheme) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatDraftMessage#2bf257d4 to nil")
+		return fmt.Errorf("can't decode updateChatTheme#31f3d465 to nil")
 	}
-	if err := b.ConsumeID(UpdateChatDraftMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: %w", err)
+	if err := b.ConsumeID(UpdateChatThemeTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatTheme#31f3d465: %w", err)
 	}
 	return u.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (u *UpdateChatDraftMessage) DecodeBare(b *bin.Buffer) error {
+func (u *UpdateChatTheme) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatDraftMessage#2bf257d4 to nil")
+		return fmt.Errorf("can't decode updateChatTheme#31f3d465 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode updateChatTheme#31f3d465: field chat_id: %w", err)
 		}
 		u.ChatID = value
 	}
 	{
-		if err := u.DraftMessage.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: field draft_message: %w", err)
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatTheme#31f3d465: field theme_name: %w", err)
 		}
+		u.ThemeName = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatTheme) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatTheme#31f3d465 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateChatTheme")
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.FieldStart("theme_name")
+	b.PutString(u.ThemeName)
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatTheme) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatTheme#31f3d465 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateChatTheme"); err != nil {
+				return fmt.Errorf("unable to decode updateChatTheme#31f3d465: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatTheme#31f3d465: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "theme_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatTheme#31f3d465: field theme_name: %w", err)
+			}
+			u.ThemeName = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatTheme) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetThemeName returns value of ThemeName field.
+func (u *UpdateChatTheme) GetThemeName() (value string) {
+	if u == nil {
+		return
+	}
+	return u.ThemeName
+}
+
+// UpdateChatUnreadMentionCount represents TL type `updateChatUnreadMentionCount#80f47b1c`.
+type UpdateChatUnreadMentionCount struct {
+	// Chat identifier
+	ChatID int64
+	// The number of unread mention messages left in the chat
+	UnreadMentionCount int32
+}
+
+// UpdateChatUnreadMentionCountTypeID is TL type id of UpdateChatUnreadMentionCount.
+const UpdateChatUnreadMentionCountTypeID = 0x80f47b1c
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatUnreadMentionCount) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatUnreadMentionCount.
+var (
+	_ bin.Encoder     = &UpdateChatUnreadMentionCount{}
+	_ bin.Decoder     = &UpdateChatUnreadMentionCount{}
+	_ bin.BareEncoder = &UpdateChatUnreadMentionCount{}
+	_ bin.BareDecoder = &UpdateChatUnreadMentionCount{}
+
+	_ UpdateClass = &UpdateChatUnreadMentionCount{}
+)
+
+func (u *UpdateChatUnreadMentionCount) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.UnreadMentionCount == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatUnreadMentionCount) String() string {
+	if u == nil {
+		return "UpdateChatUnreadMentionCount(nil)"
+	}
+	type Alias UpdateChatUnreadMentionCount
+	return fmt.Sprintf("UpdateChatUnreadMentionCount%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatUnreadMentionCount) TypeID() uint32 {
+	return UpdateChatUnreadMentionCountTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatUnreadMentionCount) TypeName() string {
+	return "updateChatUnreadMentionCount"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatUnreadMentionCount) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatUnreadMentionCount",
+		ID:   UpdateChatUnreadMentionCountTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "UnreadMentionCount",
+			SchemaName: "unread_mention_count",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatUnreadMentionCount) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatUnreadMentionCount#80f47b1c as nil")
+	}
+	b.PutID(UpdateChatUnreadMentionCountTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatUnreadMentionCount) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatUnreadMentionCount#80f47b1c as nil")
+	}
+	b.PutInt53(u.ChatID)
+	b.PutInt32(u.UnreadMentionCount)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatUnreadMentionCount) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatUnreadMentionCount#80f47b1c to nil")
+	}
+	if err := b.ConsumeID(UpdateChatUnreadMentionCountTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatUnreadMentionCount#80f47b1c: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatUnreadMentionCount) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatUnreadMentionCount#80f47b1c to nil")
 	}
 	{
-		headerLen, err := b.Int()
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: field positions: %w", err)
+			return fmt.Errorf("unable to decode updateChatUnreadMentionCount#80f47b1c: field chat_id: %w", err)
 		}
+		u.ChatID = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatUnreadMentionCount#80f47b1c: field unread_mention_count: %w", err)
+		}
+		u.UnreadMentionCount = value
+	}
+	return nil
+}
 
-		if headerLen > 0 {
-			u.Positions = make([]ChatPosition, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			var value ChatPosition
-			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare updateChatDraftMessage#2bf257d4: field positions: %w", err)
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatUnreadMentionCount) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatUnreadMentionCount#80f47b1c as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateChatUnreadMentionCount")
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.FieldStart("unread_mention_count")
+	b.PutInt32(u.UnreadMentionCount)
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatUnreadMentionCount) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatUnreadMentionCount#80f47b1c to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateChatUnreadMentionCount"); err != nil {
+				return fmt.Errorf("unable to decode updateChatUnreadMentionCount#80f47b1c: %w", err)
 			}
-			u.Positions = append(u.Positions, value)
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatUnreadMentionCount#80f47b1c: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "unread_mention_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatUnreadMentionCount#80f47b1c: field unread_mention_count: %w", err)
+			}
+			u.UnreadMentionCount = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatUnreadMentionCount) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetUnreadMentionCount returns value of UnreadMentionCount field.
+func (u *UpdateChatUnreadMentionCount) GetUnreadMentionCount() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.UnreadMentionCount
+}
+
+// UpdateChatVideoChat represents TL type `updateChatVideoChat#25fb4ca6`.
+type UpdateChatVideoChat struct {
+	// Chat identifier
+	ChatID int64
+	// New value of video_chat
+	VideoChat VideoChat
+}
+
+// UpdateChatVideoChatTypeID is TL type id of UpdateChatVideoChat.
+const UpdateChatVideoChatTypeID = 0x25fb4ca6
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatVideoChat) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatVideoChat.
+var (
+	_ bin.Encoder     = &UpdateChatVideoChat{}
+	_ bin.Decoder     = &UpdateChatVideoChat{}
+	_ bin.BareEncoder = &UpdateChatVideoChat{}
+	_ bin.BareDecoder = &UpdateChatVideoChat{}
+
+	_ UpdateClass = &UpdateChatVideoChat{}
+)
+
+func (u *UpdateChatVideoChat) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.VideoChat.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatVideoChat) String() string {
+	if u == nil {
+		return "UpdateChatVideoChat(nil)"
+	}
+	type Alias UpdateChatVideoChat
+	return fmt.Sprintf("UpdateChatVideoChat%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatVideoChat) TypeID() uint32 {
+	return UpdateChatVideoChatTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatVideoChat) TypeName() string {
+	return "updateChatVideoChat"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatVideoChat) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatVideoChat",
+		ID:   UpdateChatVideoChatTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "VideoChat",
+			SchemaName: "video_chat",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatVideoChat) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatVideoChat#25fb4ca6 as nil")
+	}
+	b.PutID(UpdateChatVideoChatTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatVideoChat) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatVideoChat#25fb4ca6 as nil")
+	}
+	b.PutInt53(u.ChatID)
+	if err := u.VideoChat.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatVideoChat#25fb4ca6: field video_chat: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatVideoChat) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatVideoChat#25fb4ca6 to nil")
+	}
+	if err := b.ConsumeID(UpdateChatVideoChatTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatVideoChat#25fb4ca6: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatVideoChat) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatVideoChat#25fb4ca6 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatVideoChat#25fb4ca6: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		if err := u.VideoChat.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateChatVideoChat#25fb4ca6: field video_chat: %w", err)
 		}
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (u *UpdateChatDraftMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (u *UpdateChatVideoChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatDraftMessage#2bf257d4 as nil")
+		return fmt.Errorf("can't encode updateChatVideoChat#25fb4ca6 as nil")
 	}
 	b.ObjStart()
-	b.PutID("updateChatDraftMessage")
+	b.PutID("updateChatVideoChat")
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
-	b.FieldStart("draft_message")
-	if err := u.DraftMessage.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode updateChatDraftMessage#2bf257d4: field draft_message: %w", err)
+	b.FieldStart("video_chat")
+	if err := u.VideoChat.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatVideoChat#25fb4ca6: field video_chat: %w", err)
 	}
-	b.FieldStart("positions")
-	b.ArrStart()
-	for idx, v := range u.Positions {
-		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode updateChatDraftMessage#2bf257d4: field positions element with index %d: %w", idx, err)
-		}
-	}
-	b.ArrEnd()
 	b.ObjEnd()
 	return nil
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (u *UpdateChatDraftMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (u *UpdateChatVideoChat) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatDraftMessage#2bf257d4 to nil")
+		return fmt.Errorf("can't decode updateChatVideoChat#25fb4ca6 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("updateChatDraftMessage"); err != nil {
-				return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: %w", err)
+			if err := b.ConsumeID("updateChatVideoChat"); err != nil {
+				return fmt.Errorf("unable to decode updateChatVideoChat#25fb4ca6: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode updateChatVideoChat#25fb4ca6: field chat_id: %w", err)
 			}
 			u.ChatID = value
-		case "draft_message":
-			if err := u.DraftMessage.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: field draft_message: %w", err)
-			}
-		case "positions":
-			if err := b.Arr(func(b tdjson.Decoder) error {
-				var value ChatPosition
-				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: field positions: %w", err)
-				}
-				u.Positions = append(u.Positions, value)
-				return nil
-			}); err != nil {
-				return fmt.Errorf("unable to decode updateChatDraftMessage#2bf257d4: field positions: %w", err)
+		case "video_chat":
+			if err := u.VideoChat.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateChatVideoChat#25fb4ca6: field video_chat: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -7443,27 +6264,999 @@ func (u *UpdateChatDraftMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetChatID returns value of ChatID field.
-func (u *UpdateChatDraftMessage) GetChatID() (value int64) {
+func (u *UpdateChatVideoChat) GetChatID() (value int64) {
 	if u == nil {
 		return
 	}
 	return u.ChatID
 }
 
-// GetDraftMessage returns value of DraftMessage field.
-func (u *UpdateChatDraftMessage) GetDraftMessage() (value DraftMessage) {
+// GetVideoChat returns value of VideoChat field.
+func (u *UpdateChatVideoChat) GetVideoChat() (value VideoChat) {
 	if u == nil {
 		return
 	}
-	return u.DraftMessage
+	return u.VideoChat
 }
 
-// GetPositions returns value of Positions field.
-func (u *UpdateChatDraftMessage) GetPositions() (value []ChatPosition) {
+// UpdateChatDefaultDisableNotification represents TL type `updateChatDefaultDisableNotification#1ba96a9b`.
+type UpdateChatDefaultDisableNotification struct {
+	// Chat identifier
+	ChatID int64
+	// The new default_disable_notification value
+	DefaultDisableNotification bool
+}
+
+// UpdateChatDefaultDisableNotificationTypeID is TL type id of UpdateChatDefaultDisableNotification.
+const UpdateChatDefaultDisableNotificationTypeID = 0x1ba96a9b
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatDefaultDisableNotification) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatDefaultDisableNotification.
+var (
+	_ bin.Encoder     = &UpdateChatDefaultDisableNotification{}
+	_ bin.Decoder     = &UpdateChatDefaultDisableNotification{}
+	_ bin.BareEncoder = &UpdateChatDefaultDisableNotification{}
+	_ bin.BareDecoder = &UpdateChatDefaultDisableNotification{}
+
+	_ UpdateClass = &UpdateChatDefaultDisableNotification{}
+)
+
+func (u *UpdateChatDefaultDisableNotification) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.DefaultDisableNotification == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatDefaultDisableNotification) String() string {
+	if u == nil {
+		return "UpdateChatDefaultDisableNotification(nil)"
+	}
+	type Alias UpdateChatDefaultDisableNotification
+	return fmt.Sprintf("UpdateChatDefaultDisableNotification%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatDefaultDisableNotification) TypeID() uint32 {
+	return UpdateChatDefaultDisableNotificationTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatDefaultDisableNotification) TypeName() string {
+	return "updateChatDefaultDisableNotification"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatDefaultDisableNotification) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatDefaultDisableNotification",
+		ID:   UpdateChatDefaultDisableNotificationTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "DefaultDisableNotification",
+			SchemaName: "default_disable_notification",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatDefaultDisableNotification) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatDefaultDisableNotification#1ba96a9b as nil")
+	}
+	b.PutID(UpdateChatDefaultDisableNotificationTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatDefaultDisableNotification) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatDefaultDisableNotification#1ba96a9b as nil")
+	}
+	b.PutInt53(u.ChatID)
+	b.PutBool(u.DefaultDisableNotification)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatDefaultDisableNotification) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatDefaultDisableNotification#1ba96a9b to nil")
+	}
+	if err := b.ConsumeID(UpdateChatDefaultDisableNotificationTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatDefaultDisableNotification#1ba96a9b: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatDefaultDisableNotification) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatDefaultDisableNotification#1ba96a9b to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatDefaultDisableNotification#1ba96a9b: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatDefaultDisableNotification#1ba96a9b: field default_disable_notification: %w", err)
+		}
+		u.DefaultDisableNotification = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatDefaultDisableNotification) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatDefaultDisableNotification#1ba96a9b as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateChatDefaultDisableNotification")
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.FieldStart("default_disable_notification")
+	b.PutBool(u.DefaultDisableNotification)
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatDefaultDisableNotification) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatDefaultDisableNotification#1ba96a9b to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateChatDefaultDisableNotification"); err != nil {
+				return fmt.Errorf("unable to decode updateChatDefaultDisableNotification#1ba96a9b: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatDefaultDisableNotification#1ba96a9b: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "default_disable_notification":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatDefaultDisableNotification#1ba96a9b: field default_disable_notification: %w", err)
+			}
+			u.DefaultDisableNotification = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatDefaultDisableNotification) GetChatID() (value int64) {
 	if u == nil {
 		return
 	}
-	return u.Positions
+	return u.ChatID
+}
+
+// GetDefaultDisableNotification returns value of DefaultDisableNotification field.
+func (u *UpdateChatDefaultDisableNotification) GetDefaultDisableNotification() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.DefaultDisableNotification
+}
+
+// UpdateChatHasProtectedContent represents TL type `updateChatHasProtectedContent#6b50071b`.
+type UpdateChatHasProtectedContent struct {
+	// Chat identifier
+	ChatID int64
+	// New value of has_protected_content
+	HasProtectedContent bool
+}
+
+// UpdateChatHasProtectedContentTypeID is TL type id of UpdateChatHasProtectedContent.
+const UpdateChatHasProtectedContentTypeID = 0x6b50071b
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatHasProtectedContent) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatHasProtectedContent.
+var (
+	_ bin.Encoder     = &UpdateChatHasProtectedContent{}
+	_ bin.Decoder     = &UpdateChatHasProtectedContent{}
+	_ bin.BareEncoder = &UpdateChatHasProtectedContent{}
+	_ bin.BareDecoder = &UpdateChatHasProtectedContent{}
+
+	_ UpdateClass = &UpdateChatHasProtectedContent{}
+)
+
+func (u *UpdateChatHasProtectedContent) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.HasProtectedContent == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatHasProtectedContent) String() string {
+	if u == nil {
+		return "UpdateChatHasProtectedContent(nil)"
+	}
+	type Alias UpdateChatHasProtectedContent
+	return fmt.Sprintf("UpdateChatHasProtectedContent%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatHasProtectedContent) TypeID() uint32 {
+	return UpdateChatHasProtectedContentTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatHasProtectedContent) TypeName() string {
+	return "updateChatHasProtectedContent"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatHasProtectedContent) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatHasProtectedContent",
+		ID:   UpdateChatHasProtectedContentTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "HasProtectedContent",
+			SchemaName: "has_protected_content",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatHasProtectedContent) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatHasProtectedContent#6b50071b as nil")
+	}
+	b.PutID(UpdateChatHasProtectedContentTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatHasProtectedContent) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatHasProtectedContent#6b50071b as nil")
+	}
+	b.PutInt53(u.ChatID)
+	b.PutBool(u.HasProtectedContent)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatHasProtectedContent) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatHasProtectedContent#6b50071b to nil")
+	}
+	if err := b.ConsumeID(UpdateChatHasProtectedContentTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatHasProtectedContent#6b50071b: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatHasProtectedContent) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatHasProtectedContent#6b50071b to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatHasProtectedContent#6b50071b: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatHasProtectedContent#6b50071b: field has_protected_content: %w", err)
+		}
+		u.HasProtectedContent = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatHasProtectedContent) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatHasProtectedContent#6b50071b as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateChatHasProtectedContent")
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.FieldStart("has_protected_content")
+	b.PutBool(u.HasProtectedContent)
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatHasProtectedContent) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatHasProtectedContent#6b50071b to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateChatHasProtectedContent"); err != nil {
+				return fmt.Errorf("unable to decode updateChatHasProtectedContent#6b50071b: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatHasProtectedContent#6b50071b: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "has_protected_content":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatHasProtectedContent#6b50071b: field has_protected_content: %w", err)
+			}
+			u.HasProtectedContent = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatHasProtectedContent) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetHasProtectedContent returns value of HasProtectedContent field.
+func (u *UpdateChatHasProtectedContent) GetHasProtectedContent() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.HasProtectedContent
+}
+
+// UpdateChatHasScheduledMessages represents TL type `updateChatHasScheduledMessages#7b14c2d7`.
+type UpdateChatHasScheduledMessages struct {
+	// Chat identifier
+	ChatID int64
+	// New value of has_scheduled_messages
+	HasScheduledMessages bool
+}
+
+// UpdateChatHasScheduledMessagesTypeID is TL type id of UpdateChatHasScheduledMessages.
+const UpdateChatHasScheduledMessagesTypeID = 0x7b14c2d7
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatHasScheduledMessages) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatHasScheduledMessages.
+var (
+	_ bin.Encoder     = &UpdateChatHasScheduledMessages{}
+	_ bin.Decoder     = &UpdateChatHasScheduledMessages{}
+	_ bin.BareEncoder = &UpdateChatHasScheduledMessages{}
+	_ bin.BareDecoder = &UpdateChatHasScheduledMessages{}
+
+	_ UpdateClass = &UpdateChatHasScheduledMessages{}
+)
+
+func (u *UpdateChatHasScheduledMessages) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.HasScheduledMessages == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatHasScheduledMessages) String() string {
+	if u == nil {
+		return "UpdateChatHasScheduledMessages(nil)"
+	}
+	type Alias UpdateChatHasScheduledMessages
+	return fmt.Sprintf("UpdateChatHasScheduledMessages%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatHasScheduledMessages) TypeID() uint32 {
+	return UpdateChatHasScheduledMessagesTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatHasScheduledMessages) TypeName() string {
+	return "updateChatHasScheduledMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatHasScheduledMessages) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatHasScheduledMessages",
+		ID:   UpdateChatHasScheduledMessagesTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "HasScheduledMessages",
+			SchemaName: "has_scheduled_messages",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatHasScheduledMessages) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatHasScheduledMessages#7b14c2d7 as nil")
+	}
+	b.PutID(UpdateChatHasScheduledMessagesTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatHasScheduledMessages) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatHasScheduledMessages#7b14c2d7 as nil")
+	}
+	b.PutInt53(u.ChatID)
+	b.PutBool(u.HasScheduledMessages)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatHasScheduledMessages) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatHasScheduledMessages#7b14c2d7 to nil")
+	}
+	if err := b.ConsumeID(UpdateChatHasScheduledMessagesTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatHasScheduledMessages) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatHasScheduledMessages#7b14c2d7 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: field has_scheduled_messages: %w", err)
+		}
+		u.HasScheduledMessages = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatHasScheduledMessages) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatHasScheduledMessages#7b14c2d7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateChatHasScheduledMessages")
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.FieldStart("has_scheduled_messages")
+	b.PutBool(u.HasScheduledMessages)
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatHasScheduledMessages) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatHasScheduledMessages#7b14c2d7 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateChatHasScheduledMessages"); err != nil {
+				return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "has_scheduled_messages":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: field has_scheduled_messages: %w", err)
+			}
+			u.HasScheduledMessages = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatHasScheduledMessages) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetHasScheduledMessages returns value of HasScheduledMessages field.
+func (u *UpdateChatHasScheduledMessages) GetHasScheduledMessages() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.HasScheduledMessages
+}
+
+// UpdateChatIsBlocked represents TL type `updateChatIsBlocked#88da7e40`.
+type UpdateChatIsBlocked struct {
+	// Chat identifier
+	ChatID int64
+	// New value of is_blocked
+	IsBlocked bool
+}
+
+// UpdateChatIsBlockedTypeID is TL type id of UpdateChatIsBlocked.
+const UpdateChatIsBlockedTypeID = 0x88da7e40
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatIsBlocked) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatIsBlocked.
+var (
+	_ bin.Encoder     = &UpdateChatIsBlocked{}
+	_ bin.Decoder     = &UpdateChatIsBlocked{}
+	_ bin.BareEncoder = &UpdateChatIsBlocked{}
+	_ bin.BareDecoder = &UpdateChatIsBlocked{}
+
+	_ UpdateClass = &UpdateChatIsBlocked{}
+)
+
+func (u *UpdateChatIsBlocked) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.IsBlocked == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatIsBlocked) String() string {
+	if u == nil {
+		return "UpdateChatIsBlocked(nil)"
+	}
+	type Alias UpdateChatIsBlocked
+	return fmt.Sprintf("UpdateChatIsBlocked%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatIsBlocked) TypeID() uint32 {
+	return UpdateChatIsBlockedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatIsBlocked) TypeName() string {
+	return "updateChatIsBlocked"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatIsBlocked) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatIsBlocked",
+		ID:   UpdateChatIsBlockedTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "IsBlocked",
+			SchemaName: "is_blocked",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatIsBlocked) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatIsBlocked#88da7e40 as nil")
+	}
+	b.PutID(UpdateChatIsBlockedTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatIsBlocked) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatIsBlocked#88da7e40 as nil")
+	}
+	b.PutInt53(u.ChatID)
+	b.PutBool(u.IsBlocked)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatIsBlocked) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatIsBlocked#88da7e40 to nil")
+	}
+	if err := b.ConsumeID(UpdateChatIsBlockedTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatIsBlocked#88da7e40: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatIsBlocked) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatIsBlocked#88da7e40 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatIsBlocked#88da7e40: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatIsBlocked#88da7e40: field is_blocked: %w", err)
+		}
+		u.IsBlocked = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatIsBlocked) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatIsBlocked#88da7e40 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateChatIsBlocked")
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.FieldStart("is_blocked")
+	b.PutBool(u.IsBlocked)
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatIsBlocked) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatIsBlocked#88da7e40 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateChatIsBlocked"); err != nil {
+				return fmt.Errorf("unable to decode updateChatIsBlocked#88da7e40: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatIsBlocked#88da7e40: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "is_blocked":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatIsBlocked#88da7e40: field is_blocked: %w", err)
+			}
+			u.IsBlocked = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatIsBlocked) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetIsBlocked returns value of IsBlocked field.
+func (u *UpdateChatIsBlocked) GetIsBlocked() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.IsBlocked
+}
+
+// UpdateChatIsMarkedAsUnread represents TL type `updateChatIsMarkedAsUnread#57853334`.
+type UpdateChatIsMarkedAsUnread struct {
+	// Chat identifier
+	ChatID int64
+	// New value of is_marked_as_unread
+	IsMarkedAsUnread bool
+}
+
+// UpdateChatIsMarkedAsUnreadTypeID is TL type id of UpdateChatIsMarkedAsUnread.
+const UpdateChatIsMarkedAsUnreadTypeID = 0x57853334
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatIsMarkedAsUnread) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatIsMarkedAsUnread.
+var (
+	_ bin.Encoder     = &UpdateChatIsMarkedAsUnread{}
+	_ bin.Decoder     = &UpdateChatIsMarkedAsUnread{}
+	_ bin.BareEncoder = &UpdateChatIsMarkedAsUnread{}
+	_ bin.BareDecoder = &UpdateChatIsMarkedAsUnread{}
+
+	_ UpdateClass = &UpdateChatIsMarkedAsUnread{}
+)
+
+func (u *UpdateChatIsMarkedAsUnread) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.IsMarkedAsUnread == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatIsMarkedAsUnread) String() string {
+	if u == nil {
+		return "UpdateChatIsMarkedAsUnread(nil)"
+	}
+	type Alias UpdateChatIsMarkedAsUnread
+	return fmt.Sprintf("UpdateChatIsMarkedAsUnread%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatIsMarkedAsUnread) TypeID() uint32 {
+	return UpdateChatIsMarkedAsUnreadTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatIsMarkedAsUnread) TypeName() string {
+	return "updateChatIsMarkedAsUnread"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatIsMarkedAsUnread) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatIsMarkedAsUnread",
+		ID:   UpdateChatIsMarkedAsUnreadTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "IsMarkedAsUnread",
+			SchemaName: "is_marked_as_unread",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatIsMarkedAsUnread) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatIsMarkedAsUnread#57853334 as nil")
+	}
+	b.PutID(UpdateChatIsMarkedAsUnreadTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatIsMarkedAsUnread) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatIsMarkedAsUnread#57853334 as nil")
+	}
+	b.PutInt53(u.ChatID)
+	b.PutBool(u.IsMarkedAsUnread)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatIsMarkedAsUnread) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatIsMarkedAsUnread#57853334 to nil")
+	}
+	if err := b.ConsumeID(UpdateChatIsMarkedAsUnreadTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatIsMarkedAsUnread) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatIsMarkedAsUnread#57853334 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: field is_marked_as_unread: %w", err)
+		}
+		u.IsMarkedAsUnread = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatIsMarkedAsUnread) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatIsMarkedAsUnread#57853334 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateChatIsMarkedAsUnread")
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.FieldStart("is_marked_as_unread")
+	b.PutBool(u.IsMarkedAsUnread)
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatIsMarkedAsUnread) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatIsMarkedAsUnread#57853334 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateChatIsMarkedAsUnread"); err != nil {
+				return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "is_marked_as_unread":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: field is_marked_as_unread: %w", err)
+			}
+			u.IsMarkedAsUnread = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatIsMarkedAsUnread) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetIsMarkedAsUnread returns value of IsMarkedAsUnread field.
+func (u *UpdateChatIsMarkedAsUnread) GetIsMarkedAsUnread() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.IsMarkedAsUnread
 }
 
 // UpdateChatFilters represents TL type `updateChatFilters#928cfaed`.
@@ -7849,6 +7642,212 @@ func (u *UpdateChatOnlineMemberCount) GetOnlineMemberCount() (value int32) {
 		return
 	}
 	return u.OnlineMemberCount
+}
+
+// UpdateScopeNotificationSettings represents TL type `updateScopeNotificationSettings#b83ccb73`.
+type UpdateScopeNotificationSettings struct {
+	// Types of chats for which notification settings were updated
+	Scope NotificationSettingsScopeClass
+	// The new notification settings
+	NotificationSettings ScopeNotificationSettings
+}
+
+// UpdateScopeNotificationSettingsTypeID is TL type id of UpdateScopeNotificationSettings.
+const UpdateScopeNotificationSettingsTypeID = 0xb83ccb73
+
+// construct implements constructor of UpdateClass.
+func (u UpdateScopeNotificationSettings) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateScopeNotificationSettings.
+var (
+	_ bin.Encoder     = &UpdateScopeNotificationSettings{}
+	_ bin.Decoder     = &UpdateScopeNotificationSettings{}
+	_ bin.BareEncoder = &UpdateScopeNotificationSettings{}
+	_ bin.BareDecoder = &UpdateScopeNotificationSettings{}
+
+	_ UpdateClass = &UpdateScopeNotificationSettings{}
+)
+
+func (u *UpdateScopeNotificationSettings) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Scope == nil) {
+		return false
+	}
+	if !(u.NotificationSettings.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateScopeNotificationSettings) String() string {
+	if u == nil {
+		return "UpdateScopeNotificationSettings(nil)"
+	}
+	type Alias UpdateScopeNotificationSettings
+	return fmt.Sprintf("UpdateScopeNotificationSettings%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateScopeNotificationSettings) TypeID() uint32 {
+	return UpdateScopeNotificationSettingsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateScopeNotificationSettings) TypeName() string {
+	return "updateScopeNotificationSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateScopeNotificationSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateScopeNotificationSettings",
+		ID:   UpdateScopeNotificationSettingsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Scope",
+			SchemaName: "scope",
+		},
+		{
+			Name:       "NotificationSettings",
+			SchemaName: "notification_settings",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateScopeNotificationSettings) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateScopeNotificationSettings#b83ccb73 as nil")
+	}
+	b.PutID(UpdateScopeNotificationSettingsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateScopeNotificationSettings) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateScopeNotificationSettings#b83ccb73 as nil")
+	}
+	if u.Scope == nil {
+		return fmt.Errorf("unable to encode updateScopeNotificationSettings#b83ccb73: field scope is nil")
+	}
+	if err := u.Scope.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateScopeNotificationSettings#b83ccb73: field scope: %w", err)
+	}
+	if err := u.NotificationSettings.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateScopeNotificationSettings#b83ccb73: field notification_settings: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateScopeNotificationSettings) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateScopeNotificationSettings#b83ccb73 to nil")
+	}
+	if err := b.ConsumeID(UpdateScopeNotificationSettingsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateScopeNotificationSettings#b83ccb73: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateScopeNotificationSettings) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateScopeNotificationSettings#b83ccb73 to nil")
+	}
+	{
+		value, err := DecodeNotificationSettingsScope(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateScopeNotificationSettings#b83ccb73: field scope: %w", err)
+		}
+		u.Scope = value
+	}
+	{
+		if err := u.NotificationSettings.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateScopeNotificationSettings#b83ccb73: field notification_settings: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateScopeNotificationSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateScopeNotificationSettings#b83ccb73 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateScopeNotificationSettings")
+	b.FieldStart("scope")
+	if u.Scope == nil {
+		return fmt.Errorf("unable to encode updateScopeNotificationSettings#b83ccb73: field scope is nil")
+	}
+	if err := u.Scope.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateScopeNotificationSettings#b83ccb73: field scope: %w", err)
+	}
+	b.FieldStart("notification_settings")
+	if err := u.NotificationSettings.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateScopeNotificationSettings#b83ccb73: field notification_settings: %w", err)
+	}
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateScopeNotificationSettings) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateScopeNotificationSettings#b83ccb73 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateScopeNotificationSettings"); err != nil {
+				return fmt.Errorf("unable to decode updateScopeNotificationSettings#b83ccb73: %w", err)
+			}
+		case "scope":
+			value, err := DecodeTDLibJSONNotificationSettingsScope(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode updateScopeNotificationSettings#b83ccb73: field scope: %w", err)
+			}
+			u.Scope = value
+		case "notification_settings":
+			if err := u.NotificationSettings.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateScopeNotificationSettings#b83ccb73: field notification_settings: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetScope returns value of Scope field.
+func (u *UpdateScopeNotificationSettings) GetScope() (value NotificationSettingsScopeClass) {
+	if u == nil {
+		return
+	}
+	return u.Scope
+}
+
+// GetNotificationSettings returns value of NotificationSettings field.
+func (u *UpdateScopeNotificationSettings) GetNotificationSettings() (value ScopeNotificationSettings) {
+	if u == nil {
+		return
+	}
+	return u.NotificationSettings
 }
 
 // UpdateNotification represents TL type `updateNotification#8ee67ed4`.
@@ -19920,26 +19919,26 @@ const UpdateClassName = "Update"
 //  case *tdapi.UpdateChatPermissions: // updateChatPermissions#9f52176d
 //  case *tdapi.UpdateChatLastMessage: // updateChatLastMessage#f10cab1d
 //  case *tdapi.UpdateChatPosition: // updateChatPosition#ff76fa77
-//  case *tdapi.UpdateChatDefaultMessageSenderID: // updateChatDefaultMessageSenderId#39de0dcd
-//  case *tdapi.UpdateChatHasProtectedContent: // updateChatHasProtectedContent#6b50071b
-//  case *tdapi.UpdateChatIsMarkedAsUnread: // updateChatIsMarkedAsUnread#57853334
-//  case *tdapi.UpdateChatIsBlocked: // updateChatIsBlocked#88da7e40
-//  case *tdapi.UpdateChatHasScheduledMessages: // updateChatHasScheduledMessages#7b14c2d7
-//  case *tdapi.UpdateChatVideoChat: // updateChatVideoChat#25fb4ca6
-//  case *tdapi.UpdateChatDefaultDisableNotification: // updateChatDefaultDisableNotification#1ba96a9b
 //  case *tdapi.UpdateChatReadInbox: // updateChatReadInbox#d07036e7
 //  case *tdapi.UpdateChatReadOutbox: // updateChatReadOutbox#2a385285
-//  case *tdapi.UpdateChatUnreadMentionCount: // updateChatUnreadMentionCount#80f47b1c
-//  case *tdapi.UpdateChatNotificationSettings: // updateChatNotificationSettings#d020b456
-//  case *tdapi.UpdateScopeNotificationSettings: // updateScopeNotificationSettings#b83ccb73
-//  case *tdapi.UpdateChatMessageTTLSetting: // updateChatMessageTtlSetting#39dd4338
 //  case *tdapi.UpdateChatActionBar: // updateChatActionBar#d9a258c2
-//  case *tdapi.UpdateChatTheme: // updateChatTheme#31f3d465
+//  case *tdapi.UpdateChatDraftMessage: // updateChatDraftMessage#2bf257d4
+//  case *tdapi.UpdateChatMessageSender: // updateChatMessageSender#77705241
+//  case *tdapi.UpdateChatMessageTTL: // updateChatMessageTtl#dde0a978
+//  case *tdapi.UpdateChatNotificationSettings: // updateChatNotificationSettings#d020b456
 //  case *tdapi.UpdateChatPendingJoinRequests: // updateChatPendingJoinRequests#14c6e3e1
 //  case *tdapi.UpdateChatReplyMarkup: // updateChatReplyMarkup#4e0ba5a0
-//  case *tdapi.UpdateChatDraftMessage: // updateChatDraftMessage#2bf257d4
+//  case *tdapi.UpdateChatTheme: // updateChatTheme#31f3d465
+//  case *tdapi.UpdateChatUnreadMentionCount: // updateChatUnreadMentionCount#80f47b1c
+//  case *tdapi.UpdateChatVideoChat: // updateChatVideoChat#25fb4ca6
+//  case *tdapi.UpdateChatDefaultDisableNotification: // updateChatDefaultDisableNotification#1ba96a9b
+//  case *tdapi.UpdateChatHasProtectedContent: // updateChatHasProtectedContent#6b50071b
+//  case *tdapi.UpdateChatHasScheduledMessages: // updateChatHasScheduledMessages#7b14c2d7
+//  case *tdapi.UpdateChatIsBlocked: // updateChatIsBlocked#88da7e40
+//  case *tdapi.UpdateChatIsMarkedAsUnread: // updateChatIsMarkedAsUnread#57853334
 //  case *tdapi.UpdateChatFilters: // updateChatFilters#928cfaed
 //  case *tdapi.UpdateChatOnlineMemberCount: // updateChatOnlineMemberCount#1d0caa9d
+//  case *tdapi.UpdateScopeNotificationSettings: // updateScopeNotificationSettings#b83ccb73
 //  case *tdapi.UpdateNotification: // updateNotification#8ee67ed4
 //  case *tdapi.UpdateNotificationGroup: // updateNotificationGroup#2ec53c49
 //  case *tdapi.UpdateActiveNotifications: // updateActiveNotifications#317d80f2
@@ -20151,55 +20150,6 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case UpdateChatDefaultMessageSenderIDTypeID:
-		// Decoding updateChatDefaultMessageSenderId#39de0dcd.
-		v := UpdateChatDefaultMessageSenderID{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
-	case UpdateChatHasProtectedContentTypeID:
-		// Decoding updateChatHasProtectedContent#6b50071b.
-		v := UpdateChatHasProtectedContent{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
-	case UpdateChatIsMarkedAsUnreadTypeID:
-		// Decoding updateChatIsMarkedAsUnread#57853334.
-		v := UpdateChatIsMarkedAsUnread{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
-	case UpdateChatIsBlockedTypeID:
-		// Decoding updateChatIsBlocked#88da7e40.
-		v := UpdateChatIsBlocked{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
-	case UpdateChatHasScheduledMessagesTypeID:
-		// Decoding updateChatHasScheduledMessages#7b14c2d7.
-		v := UpdateChatHasScheduledMessages{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
-	case UpdateChatVideoChatTypeID:
-		// Decoding updateChatVideoChat#25fb4ca6.
-		v := UpdateChatVideoChat{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
-	case UpdateChatDefaultDisableNotificationTypeID:
-		// Decoding updateChatDefaultDisableNotification#1ba96a9b.
-		v := UpdateChatDefaultDisableNotification{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
 	case UpdateChatReadInboxTypeID:
 		// Decoding updateChatReadInbox#d07036e7.
 		v := UpdateChatReadInbox{}
@@ -20214,34 +20164,6 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case UpdateChatUnreadMentionCountTypeID:
-		// Decoding updateChatUnreadMentionCount#80f47b1c.
-		v := UpdateChatUnreadMentionCount{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
-	case UpdateChatNotificationSettingsTypeID:
-		// Decoding updateChatNotificationSettings#d020b456.
-		v := UpdateChatNotificationSettings{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
-	case UpdateScopeNotificationSettingsTypeID:
-		// Decoding updateScopeNotificationSettings#b83ccb73.
-		v := UpdateScopeNotificationSettings{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
-	case UpdateChatMessageTTLSettingTypeID:
-		// Decoding updateChatMessageTtlSetting#39dd4338.
-		v := UpdateChatMessageTTLSetting{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
 	case UpdateChatActionBarTypeID:
 		// Decoding updateChatActionBar#d9a258c2.
 		v := UpdateChatActionBar{}
@@ -20249,9 +20171,30 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case UpdateChatThemeTypeID:
-		// Decoding updateChatTheme#31f3d465.
-		v := UpdateChatTheme{}
+	case UpdateChatDraftMessageTypeID:
+		// Decoding updateChatDraftMessage#2bf257d4.
+		v := UpdateChatDraftMessage{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChatMessageSenderTypeID:
+		// Decoding updateChatMessageSender#77705241.
+		v := UpdateChatMessageSender{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChatMessageTTLTypeID:
+		// Decoding updateChatMessageTtl#dde0a978.
+		v := UpdateChatMessageTTL{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChatNotificationSettingsTypeID:
+		// Decoding updateChatNotificationSettings#d020b456.
+		v := UpdateChatNotificationSettings{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -20270,9 +20213,58 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case UpdateChatDraftMessageTypeID:
-		// Decoding updateChatDraftMessage#2bf257d4.
-		v := UpdateChatDraftMessage{}
+	case UpdateChatThemeTypeID:
+		// Decoding updateChatTheme#31f3d465.
+		v := UpdateChatTheme{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChatUnreadMentionCountTypeID:
+		// Decoding updateChatUnreadMentionCount#80f47b1c.
+		v := UpdateChatUnreadMentionCount{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChatVideoChatTypeID:
+		// Decoding updateChatVideoChat#25fb4ca6.
+		v := UpdateChatVideoChat{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChatDefaultDisableNotificationTypeID:
+		// Decoding updateChatDefaultDisableNotification#1ba96a9b.
+		v := UpdateChatDefaultDisableNotification{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChatHasProtectedContentTypeID:
+		// Decoding updateChatHasProtectedContent#6b50071b.
+		v := UpdateChatHasProtectedContent{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChatHasScheduledMessagesTypeID:
+		// Decoding updateChatHasScheduledMessages#7b14c2d7.
+		v := UpdateChatHasScheduledMessages{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChatIsBlockedTypeID:
+		// Decoding updateChatIsBlocked#88da7e40.
+		v := UpdateChatIsBlocked{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChatIsMarkedAsUnreadTypeID:
+		// Decoding updateChatIsMarkedAsUnread#57853334.
+		v := UpdateChatIsMarkedAsUnread{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -20287,6 +20279,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateChatOnlineMemberCountTypeID:
 		// Decoding updateChatOnlineMemberCount#1d0caa9d.
 		v := UpdateChatOnlineMemberCount{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateScopeNotificationSettingsTypeID:
+		// Decoding updateScopeNotificationSettings#b83ccb73.
+		v := UpdateScopeNotificationSettings{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -20807,55 +20806,6 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case "updateChatDefaultMessageSenderId":
-		// Decoding updateChatDefaultMessageSenderId#39de0dcd.
-		v := UpdateChatDefaultMessageSenderID{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
-	case "updateChatHasProtectedContent":
-		// Decoding updateChatHasProtectedContent#6b50071b.
-		v := UpdateChatHasProtectedContent{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
-	case "updateChatIsMarkedAsUnread":
-		// Decoding updateChatIsMarkedAsUnread#57853334.
-		v := UpdateChatIsMarkedAsUnread{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
-	case "updateChatIsBlocked":
-		// Decoding updateChatIsBlocked#88da7e40.
-		v := UpdateChatIsBlocked{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
-	case "updateChatHasScheduledMessages":
-		// Decoding updateChatHasScheduledMessages#7b14c2d7.
-		v := UpdateChatHasScheduledMessages{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
-	case "updateChatVideoChat":
-		// Decoding updateChatVideoChat#25fb4ca6.
-		v := UpdateChatVideoChat{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
-	case "updateChatDefaultDisableNotification":
-		// Decoding updateChatDefaultDisableNotification#1ba96a9b.
-		v := UpdateChatDefaultDisableNotification{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
 	case "updateChatReadInbox":
 		// Decoding updateChatReadInbox#d07036e7.
 		v := UpdateChatReadInbox{}
@@ -20870,34 +20820,6 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case "updateChatUnreadMentionCount":
-		// Decoding updateChatUnreadMentionCount#80f47b1c.
-		v := UpdateChatUnreadMentionCount{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
-	case "updateChatNotificationSettings":
-		// Decoding updateChatNotificationSettings#d020b456.
-		v := UpdateChatNotificationSettings{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
-	case "updateScopeNotificationSettings":
-		// Decoding updateScopeNotificationSettings#b83ccb73.
-		v := UpdateScopeNotificationSettings{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
-	case "updateChatMessageTtlSetting":
-		// Decoding updateChatMessageTtlSetting#39dd4338.
-		v := UpdateChatMessageTTLSetting{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
 	case "updateChatActionBar":
 		// Decoding updateChatActionBar#d9a258c2.
 		v := UpdateChatActionBar{}
@@ -20905,9 +20827,30 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case "updateChatTheme":
-		// Decoding updateChatTheme#31f3d465.
-		v := UpdateChatTheme{}
+	case "updateChatDraftMessage":
+		// Decoding updateChatDraftMessage#2bf257d4.
+		v := UpdateChatDraftMessage{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateChatMessageSender":
+		// Decoding updateChatMessageSender#77705241.
+		v := UpdateChatMessageSender{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateChatMessageTtl":
+		// Decoding updateChatMessageTtl#dde0a978.
+		v := UpdateChatMessageTTL{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateChatNotificationSettings":
+		// Decoding updateChatNotificationSettings#d020b456.
+		v := UpdateChatNotificationSettings{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -20926,9 +20869,58 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case "updateChatDraftMessage":
-		// Decoding updateChatDraftMessage#2bf257d4.
-		v := UpdateChatDraftMessage{}
+	case "updateChatTheme":
+		// Decoding updateChatTheme#31f3d465.
+		v := UpdateChatTheme{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateChatUnreadMentionCount":
+		// Decoding updateChatUnreadMentionCount#80f47b1c.
+		v := UpdateChatUnreadMentionCount{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateChatVideoChat":
+		// Decoding updateChatVideoChat#25fb4ca6.
+		v := UpdateChatVideoChat{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateChatDefaultDisableNotification":
+		// Decoding updateChatDefaultDisableNotification#1ba96a9b.
+		v := UpdateChatDefaultDisableNotification{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateChatHasProtectedContent":
+		// Decoding updateChatHasProtectedContent#6b50071b.
+		v := UpdateChatHasProtectedContent{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateChatHasScheduledMessages":
+		// Decoding updateChatHasScheduledMessages#7b14c2d7.
+		v := UpdateChatHasScheduledMessages{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateChatIsBlocked":
+		// Decoding updateChatIsBlocked#88da7e40.
+		v := UpdateChatIsBlocked{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateChatIsMarkedAsUnread":
+		// Decoding updateChatIsMarkedAsUnread#57853334.
+		v := UpdateChatIsMarkedAsUnread{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -20943,6 +20935,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	case "updateChatOnlineMemberCount":
 		// Decoding updateChatOnlineMemberCount#1d0caa9d.
 		v := UpdateChatOnlineMemberCount{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateScopeNotificationSettings":
+		// Decoding updateScopeNotificationSettings#b83ccb73.
+		v := UpdateScopeNotificationSettings{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

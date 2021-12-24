@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// EditChatInviteLinkRequest represents TL type `editChatInviteLink#7c1eeffc`.
+// EditChatInviteLinkRequest represents TL type `editChatInviteLink#4eb23d7c`.
 type EditChatInviteLinkRequest struct {
 	// Chat identifier
 	ChatID int64
@@ -40,8 +40,8 @@ type EditChatInviteLinkRequest struct {
 	// Invite link name; 0-32 characters
 	Name string
 	// Point in time (Unix timestamp) when the link will expire; pass 0 if never
-	ExpireDate int32
-	// The maximum number of chat members that can join the chat by the link simultaneously;
+	ExpirationDate int32
+	// The maximum number of chat members that can join the chat via the link simultaneously;
 	// 0-99999; pass 0 if not limited
 	MemberLimit int32
 	// True, if the link only creates join request. If true, member_limit must not be
@@ -50,7 +50,7 @@ type EditChatInviteLinkRequest struct {
 }
 
 // EditChatInviteLinkRequestTypeID is TL type id of EditChatInviteLinkRequest.
-const EditChatInviteLinkRequestTypeID = 0x7c1eeffc
+const EditChatInviteLinkRequestTypeID = 0x4eb23d7c
 
 // Ensuring interfaces in compile-time for EditChatInviteLinkRequest.
 var (
@@ -73,7 +73,7 @@ func (e *EditChatInviteLinkRequest) Zero() bool {
 	if !(e.Name == "") {
 		return false
 	}
-	if !(e.ExpireDate == 0) {
+	if !(e.ExpirationDate == 0) {
 		return false
 	}
 	if !(e.MemberLimit == 0) {
@@ -131,8 +131,8 @@ func (e *EditChatInviteLinkRequest) TypeInfo() tdp.Type {
 			SchemaName: "name",
 		},
 		{
-			Name:       "ExpireDate",
-			SchemaName: "expire_date",
+			Name:       "ExpirationDate",
+			SchemaName: "expiration_date",
 		},
 		{
 			Name:       "MemberLimit",
@@ -149,7 +149,7 @@ func (e *EditChatInviteLinkRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EditChatInviteLinkRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editChatInviteLink#7c1eeffc as nil")
+		return fmt.Errorf("can't encode editChatInviteLink#4eb23d7c as nil")
 	}
 	b.PutID(EditChatInviteLinkRequestTypeID)
 	return e.EncodeBare(b)
@@ -158,12 +158,12 @@ func (e *EditChatInviteLinkRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EditChatInviteLinkRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editChatInviteLink#7c1eeffc as nil")
+		return fmt.Errorf("can't encode editChatInviteLink#4eb23d7c as nil")
 	}
 	b.PutInt53(e.ChatID)
 	b.PutString(e.InviteLink)
 	b.PutString(e.Name)
-	b.PutInt32(e.ExpireDate)
+	b.PutInt32(e.ExpirationDate)
 	b.PutInt32(e.MemberLimit)
 	b.PutBool(e.CreatesJoinRequest)
 	return nil
@@ -172,10 +172,10 @@ func (e *EditChatInviteLinkRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (e *EditChatInviteLinkRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editChatInviteLink#7c1eeffc to nil")
+		return fmt.Errorf("can't decode editChatInviteLink#4eb23d7c to nil")
 	}
 	if err := b.ConsumeID(EditChatInviteLinkRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode editChatInviteLink#7c1eeffc: %w", err)
+		return fmt.Errorf("unable to decode editChatInviteLink#4eb23d7c: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -183,47 +183,47 @@ func (e *EditChatInviteLinkRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EditChatInviteLinkRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editChatInviteLink#7c1eeffc to nil")
+		return fmt.Errorf("can't decode editChatInviteLink#4eb23d7c to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode editChatInviteLink#7c1eeffc: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode editChatInviteLink#4eb23d7c: field chat_id: %w", err)
 		}
 		e.ChatID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode editChatInviteLink#7c1eeffc: field invite_link: %w", err)
+			return fmt.Errorf("unable to decode editChatInviteLink#4eb23d7c: field invite_link: %w", err)
 		}
 		e.InviteLink = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode editChatInviteLink#7c1eeffc: field name: %w", err)
+			return fmt.Errorf("unable to decode editChatInviteLink#4eb23d7c: field name: %w", err)
 		}
 		e.Name = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode editChatInviteLink#7c1eeffc: field expire_date: %w", err)
+			return fmt.Errorf("unable to decode editChatInviteLink#4eb23d7c: field expiration_date: %w", err)
 		}
-		e.ExpireDate = value
+		e.ExpirationDate = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode editChatInviteLink#7c1eeffc: field member_limit: %w", err)
+			return fmt.Errorf("unable to decode editChatInviteLink#4eb23d7c: field member_limit: %w", err)
 		}
 		e.MemberLimit = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode editChatInviteLink#7c1eeffc: field creates_join_request: %w", err)
+			return fmt.Errorf("unable to decode editChatInviteLink#4eb23d7c: field creates_join_request: %w", err)
 		}
 		e.CreatesJoinRequest = value
 	}
@@ -233,7 +233,7 @@ func (e *EditChatInviteLinkRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (e *EditChatInviteLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editChatInviteLink#7c1eeffc as nil")
+		return fmt.Errorf("can't encode editChatInviteLink#4eb23d7c as nil")
 	}
 	b.ObjStart()
 	b.PutID("editChatInviteLink")
@@ -243,8 +243,8 @@ func (e *EditChatInviteLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutString(e.InviteLink)
 	b.FieldStart("name")
 	b.PutString(e.Name)
-	b.FieldStart("expire_date")
-	b.PutInt32(e.ExpireDate)
+	b.FieldStart("expiration_date")
+	b.PutInt32(e.ExpirationDate)
 	b.FieldStart("member_limit")
 	b.PutInt32(e.MemberLimit)
 	b.FieldStart("creates_join_request")
@@ -256,49 +256,49 @@ func (e *EditChatInviteLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (e *EditChatInviteLinkRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editChatInviteLink#7c1eeffc to nil")
+		return fmt.Errorf("can't decode editChatInviteLink#4eb23d7c to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("editChatInviteLink"); err != nil {
-				return fmt.Errorf("unable to decode editChatInviteLink#7c1eeffc: %w", err)
+				return fmt.Errorf("unable to decode editChatInviteLink#4eb23d7c: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode editChatInviteLink#7c1eeffc: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode editChatInviteLink#4eb23d7c: field chat_id: %w", err)
 			}
 			e.ChatID = value
 		case "invite_link":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode editChatInviteLink#7c1eeffc: field invite_link: %w", err)
+				return fmt.Errorf("unable to decode editChatInviteLink#4eb23d7c: field invite_link: %w", err)
 			}
 			e.InviteLink = value
 		case "name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode editChatInviteLink#7c1eeffc: field name: %w", err)
+				return fmt.Errorf("unable to decode editChatInviteLink#4eb23d7c: field name: %w", err)
 			}
 			e.Name = value
-		case "expire_date":
+		case "expiration_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode editChatInviteLink#7c1eeffc: field expire_date: %w", err)
+				return fmt.Errorf("unable to decode editChatInviteLink#4eb23d7c: field expiration_date: %w", err)
 			}
-			e.ExpireDate = value
+			e.ExpirationDate = value
 		case "member_limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode editChatInviteLink#7c1eeffc: field member_limit: %w", err)
+				return fmt.Errorf("unable to decode editChatInviteLink#4eb23d7c: field member_limit: %w", err)
 			}
 			e.MemberLimit = value
 		case "creates_join_request":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode editChatInviteLink#7c1eeffc: field creates_join_request: %w", err)
+				return fmt.Errorf("unable to decode editChatInviteLink#4eb23d7c: field creates_join_request: %w", err)
 			}
 			e.CreatesJoinRequest = value
 		default:
@@ -332,12 +332,12 @@ func (e *EditChatInviteLinkRequest) GetName() (value string) {
 	return e.Name
 }
 
-// GetExpireDate returns value of ExpireDate field.
-func (e *EditChatInviteLinkRequest) GetExpireDate() (value int32) {
+// GetExpirationDate returns value of ExpirationDate field.
+func (e *EditChatInviteLinkRequest) GetExpirationDate() (value int32) {
 	if e == nil {
 		return
 	}
-	return e.ExpireDate
+	return e.ExpirationDate
 }
 
 // GetMemberLimit returns value of MemberLimit field.
@@ -356,7 +356,7 @@ func (e *EditChatInviteLinkRequest) GetCreatesJoinRequest() (value bool) {
 	return e.CreatesJoinRequest
 }
 
-// EditChatInviteLink invokes method editChatInviteLink#7c1eeffc returning error if any.
+// EditChatInviteLink invokes method editChatInviteLink#4eb23d7c returning error if any.
 func (c *Client) EditChatInviteLink(ctx context.Context, request *EditChatInviteLinkRequest) (*ChatInviteLink, error) {
 	var result ChatInviteLink
 

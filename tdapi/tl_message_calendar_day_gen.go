@@ -33,9 +33,9 @@ var (
 
 // MessageCalendarDay represents TL type `messageCalendarDay#e98f8f62`.
 type MessageCalendarDay struct {
-	// Total number of found messages sent in the day
+	// Total number of found messages sent on the day
 	TotalCount int32
-	// First message sent in the day
+	// First message sent on the day
 	Message Message
 }
 

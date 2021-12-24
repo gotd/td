@@ -62,7 +62,7 @@ type Supergroup struct {
 	// True, if the supergroup is a channel
 	IsChannel bool
 	// True, if the supergroup is a broadcast group, i.e. only administrators can send
-	// messages and there is no limit on number of members
+	// messages and there is no limit on the number of members
 	IsBroadcastGroup bool
 	// True, if the supergroup or channel is verified
 	IsVerified bool

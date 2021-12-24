@@ -36,7 +36,8 @@ type MessageReplyInfo struct {
 	// Number of times the message was directly or indirectly replied
 	ReplyCount int32
 	// Identifiers of at most 3 recent repliers to the message; available in channels with a
-	// discussion supergroup
+	// discussion supergroup. The users and chats are expected to be inaccessible: only their
+	// photo and name will be available
 	RecentReplierIDs []MessageSenderClass
 	// Identifier of the last read incoming reply to the message
 	LastReadInboxMessageID int64
