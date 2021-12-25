@@ -33,7 +33,7 @@ var (
 
 // DeviceTokenFirebaseCloudMessaging represents TL type `deviceTokenFirebaseCloudMessaging#d0714a07`.
 type DeviceTokenFirebaseCloudMessaging struct {
-	// Device registration token; may be empty to de-register a device
+	// Device registration token; may be empty to deregister a device
 	Token string
 	// True, if push notifications must be additionally encrypted
 	Encrypt bool
@@ -229,7 +229,7 @@ func (d *DeviceTokenFirebaseCloudMessaging) GetEncrypt() (value bool) {
 
 // DeviceTokenApplePush represents TL type `deviceTokenApplePush#17196bc3`.
 type DeviceTokenApplePush struct {
-	// Device token; may be empty to de-register a device
+	// Device token; may be empty to deregister a device
 	DeviceToken string
 	// True, if App Sandbox is enabled
 	IsAppSandbox bool
@@ -425,7 +425,7 @@ func (d *DeviceTokenApplePush) GetIsAppSandbox() (value bool) {
 
 // DeviceTokenApplePushVoIP represents TL type `deviceTokenApplePushVoIP#2ff045e9`.
 type DeviceTokenApplePushVoIP struct {
-	// Device token; may be empty to de-register a device
+	// Device token; may be empty to deregister a device
 	DeviceToken string
 	// True, if App Sandbox is enabled
 	IsAppSandbox bool
@@ -654,8 +654,8 @@ func (d *DeviceTokenApplePushVoIP) GetEncrypt() (value bool) {
 
 // DeviceTokenWindowsPush represents TL type `deviceTokenWindowsPush#abed428f`.
 type DeviceTokenWindowsPush struct {
-	// The access token that will be used to send notifications; may be empty to de-register
-	// a device
+	// The access token that will be used to send notifications; may be empty to deregister a
+	// device
 	AccessToken string
 }
 
@@ -818,7 +818,7 @@ func (d *DeviceTokenWindowsPush) GetAccessToken() (value string) {
 
 // DeviceTokenMicrosoftPush represents TL type `deviceTokenMicrosoftPush#48f8e04c`.
 type DeviceTokenMicrosoftPush struct {
-	// Push notification channel URI; may be empty to de-register a device
+	// Push notification channel URI; may be empty to deregister a device
 	ChannelURI string
 }
 
@@ -981,7 +981,7 @@ func (d *DeviceTokenMicrosoftPush) GetChannelURI() (value string) {
 
 // DeviceTokenMicrosoftPushVoIP represents TL type `deviceTokenMicrosoftPushVoIP#d12ca351`.
 type DeviceTokenMicrosoftPushVoIP struct {
-	// Push notification channel URI; may be empty to de-register a device
+	// Push notification channel URI; may be empty to deregister a device
 	ChannelURI string
 }
 
@@ -1145,7 +1145,7 @@ func (d *DeviceTokenMicrosoftPushVoIP) GetChannelURI() (value string) {
 // DeviceTokenWebPush represents TL type `deviceTokenWebPush#9affdef7`.
 type DeviceTokenWebPush struct {
 	// Absolute URL exposed by the push service where the application server can send push
-	// messages; may be empty to de-register a device
+	// messages; may be empty to deregister a device
 	Endpoint string
 	// Base64url-encoded P-256 elliptic curve Diffie-Hellman public key
 	P256dhBase64url string
@@ -1375,7 +1375,7 @@ func (d *DeviceTokenWebPush) GetAuthBase64url() (value string) {
 // DeviceTokenSimplePush represents TL type `deviceTokenSimplePush#2f49a60`.
 type DeviceTokenSimplePush struct {
 	// Absolute URL exposed by the push service where the application server can send push
-	// messages; may be empty to de-register a device
+	// messages; may be empty to deregister a device
 	Endpoint string
 }
 
@@ -1538,7 +1538,7 @@ func (d *DeviceTokenSimplePush) GetEndpoint() (value string) {
 
 // DeviceTokenUbuntuPush represents TL type `deviceTokenUbuntuPush#6a3c0d26`.
 type DeviceTokenUbuntuPush struct {
-	// Token; may be empty to de-register a device
+	// Token; may be empty to deregister a device
 	Token string
 }
 
@@ -1701,7 +1701,7 @@ func (d *DeviceTokenUbuntuPush) GetToken() (value string) {
 
 // DeviceTokenBlackBerryPush represents TL type `deviceTokenBlackBerryPush#5cef0102`.
 type DeviceTokenBlackBerryPush struct {
-	// Token; may be empty to de-register a device
+	// Token; may be empty to deregister a device
 	Token string
 }
 
@@ -1864,7 +1864,7 @@ func (d *DeviceTokenBlackBerryPush) GetToken() (value string) {
 
 // DeviceTokenTizenPush represents TL type `deviceTokenTizenPush#aef0da33`.
 type DeviceTokenTizenPush struct {
-	// Push service registration identifier; may be empty to de-register a device
+	// Push service registration identifier; may be empty to deregister a device
 	RegID string
 }
 
