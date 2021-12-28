@@ -198,7 +198,8 @@ func (m *MessageForwardOriginUser) GetSenderUserID() (value int64) {
 type MessageForwardOriginChat struct {
 	// Identifier of the chat that originally sent the message
 	SenderChatID int64
-	// Original message author signature
+	// For messages originally sent by an anonymous chat administrator, original message
+	// author signature
 	AuthorSignature string
 }
 
