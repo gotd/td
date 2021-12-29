@@ -39,7 +39,7 @@ type DeleteChatMessagesByDateRequest struct {
 	MinDate int32
 	// The maximum date of the messages to delete
 	MaxDate int32
-	// Pass true to try to delete chat messages for all users; private chats only
+	// Pass true to delete chat messages for all users; private chats only
 	Revoke bool
 }
 
