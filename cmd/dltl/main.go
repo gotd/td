@@ -49,6 +49,7 @@ func main() {
 		dir    = flag.String("dir", "td/generate/scheme", "directory of schemas")
 		out    = flag.String("o", "", "output file name (blank to stdout)")
 		merge  = flag.String("merge", "", "path to schema(s) to merge with, comma-separated")
+		latest = flag.String("latest", "", "path to schema(s) to choose latest schema, comma-separated")
 	)
 	flag.Parse()
 
@@ -65,7 +66,7 @@ func main() {
 	}
 	defer func() { _ = res.Body.Close() }()
 	if res.StatusCode/100 != 2 {
-		panic(fmt.Sprintf("status code %d", res.StatusCode))
+		panic(fmt.Sprintf("get %q: status code %d", u, res.StatusCode))
 	}
 
 	// Parsing in-place.
@@ -88,6 +89,24 @@ func main() {
 			}
 
 			mergeSchema(s, m)
+		}
+	}
+
+	if *latest != "" {
+		for _, latestName := range strings.Split(*latest, ",") {
+			data, err := os.ReadFile(latestName)
+			if err != nil {
+				panic(err)
+			}
+
+			m, err := tl.Parse(bytes.NewReader(data))
+			if err != nil {
+				panic(err)
+			}
+
+			if m.Layer > s.Layer {
+				s = m
+			}
 		}
 	}
 
