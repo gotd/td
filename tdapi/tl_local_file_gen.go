@@ -35,7 +35,7 @@ var (
 type LocalFile struct {
 	// Local path to the locally available file part; may be empty
 	Path string
-	// True, if it is possible to try to download or generate the file
+	// True, if it is possible to download or generate the file
 	CanBeDownloaded bool
 	// True, if the file can be deleted
 	CanBeDeleted bool

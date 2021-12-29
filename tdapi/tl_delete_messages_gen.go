@@ -37,7 +37,7 @@ type DeleteMessagesRequest struct {
 	ChatID int64
 	// Identifiers of the messages to be deleted
 	MessageIDs []int64
-	// Pass true to try to delete messages for all chat members. Always true for supergroups,
+	// Pass true to delete messages for all chat members. Always true for supergroups,
 	// channels and secret chats
 	Revoke bool
 }
