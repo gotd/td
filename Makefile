@@ -12,7 +12,9 @@ generate:
 .PHONY: generate
 
 download_schema:
-	go run ./cmd/dltl -o _schema/telegram.tl
+	go run ./cmd/dltl -o _schema/tdlib.tl
+	go run ./cmd/dltl -base https://raw.githubusercontent.com/telegramdesktop/tdesktop -branch dev -dir Telegram/Resources/tl -f api.tl -o _schema/tdesktop.tl
+	go run ./cmd/dltl -o _schema/telegram.tl -latest _schema/tdlib.tl,_schema/tdesktop.tl
 .PHONY: download_schema
 
 download_public_keys:
