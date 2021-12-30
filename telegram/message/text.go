@@ -20,12 +20,15 @@ func (b *Builder) sendRequest(
 		Silent:       b.silent,
 		Background:   b.background,
 		ClearDraft:   b.clearDraft,
+		Noforwards:   b.noForwards,
 		Peer:         p,
 		ReplyToMsgID: b.replyToMsgID,
 		Message:      msg,
+		RandomID:     0,
 		ReplyMarkup:  b.replyMarkup,
 		Entities:     entities,
 		ScheduleDate: b.scheduleDate,
+		SendAs:       b.sendAs,
 	}
 }
 
