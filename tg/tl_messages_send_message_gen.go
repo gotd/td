@@ -49,6 +49,8 @@ type MessagesSendMessageRequest struct {
 	Background bool
 	// Clear the draft field
 	ClearDraft bool
+	// Noforwards field of MessagesSendMessageRequest.
+	Noforwards bool
 	// The destination where the message will be sent
 	Peer InputPeerClass
 	// The message ID to which this message will reply to
@@ -113,6 +115,9 @@ func (s *MessagesSendMessageRequest) Zero() bool {
 	if !(s.ClearDraft == false) {
 		return false
 	}
+	if !(s.Noforwards == false) {
+		return false
+	}
 	if !(s.Peer == nil) {
 		return false
 	}
@@ -156,6 +161,7 @@ func (s *MessagesSendMessageRequest) FillFrom(from interface {
 	GetSilent() (value bool)
 	GetBackground() (value bool)
 	GetClearDraft() (value bool)
+	GetNoforwards() (value bool)
 	GetPeer() (value InputPeerClass)
 	GetReplyToMsgID() (value int, ok bool)
 	GetMessage() (value string)
@@ -169,6 +175,7 @@ func (s *MessagesSendMessageRequest) FillFrom(from interface {
 	s.Silent = from.GetSilent()
 	s.Background = from.GetBackground()
 	s.ClearDraft = from.GetClearDraft()
+	s.Noforwards = from.GetNoforwards()
 	s.Peer = from.GetPeer()
 	if val, ok := from.GetReplyToMsgID(); ok {
 		s.ReplyToMsgID = val
@@ -238,6 +245,11 @@ func (s *MessagesSendMessageRequest) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(7),
 		},
 		{
+			Name:       "Noforwards",
+			SchemaName: "noforwards",
+			Null:       !s.Flags.Has(14),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -291,6 +303,9 @@ func (s *MessagesSendMessageRequest) SetFlags() {
 	}
 	if !(s.ClearDraft == false) {
 		s.Flags.Set(7)
+	}
+	if !(s.Noforwards == false) {
+		s.Flags.Set(14)
 	}
 	if !(s.ReplyToMsgID == 0) {
 		s.Flags.Set(0)
@@ -396,6 +411,7 @@ func (s *MessagesSendMessageRequest) DecodeBare(b *bin.Buffer) error {
 	s.Silent = s.Flags.Has(5)
 	s.Background = s.Flags.Has(6)
 	s.ClearDraft = s.Flags.Has(7)
+	s.Noforwards = s.Flags.Has(14)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -539,6 +555,25 @@ func (s *MessagesSendMessageRequest) GetClearDraft() (value bool) {
 		return
 	}
 	return s.Flags.Has(7)
+}
+
+// SetNoforwards sets value of Noforwards conditional field.
+func (s *MessagesSendMessageRequest) SetNoforwards(value bool) {
+	if value {
+		s.Flags.Set(14)
+		s.Noforwards = true
+	} else {
+		s.Flags.Unset(14)
+		s.Noforwards = false
+	}
+}
+
+// GetNoforwards returns value of Noforwards conditional field.
+func (s *MessagesSendMessageRequest) GetNoforwards() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(14)
 }
 
 // GetPeer returns value of Peer field.

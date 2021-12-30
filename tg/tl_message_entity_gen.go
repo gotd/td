@@ -3251,6 +3251,167 @@ func (m *MessageEntityBankCard) GetLength() (value int) {
 	return m.Length
 }
 
+// MessageEntitySpoiler represents TL type `messageEntitySpoiler#32ca960f`.
+//
+// See https://core.telegram.org/constructor/messageEntitySpoiler for reference.
+type MessageEntitySpoiler struct {
+	// Offset field of MessageEntitySpoiler.
+	Offset int
+	// Length field of MessageEntitySpoiler.
+	Length int
+}
+
+// MessageEntitySpoilerTypeID is TL type id of MessageEntitySpoiler.
+const MessageEntitySpoilerTypeID = 0x32ca960f
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntitySpoiler) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntitySpoiler.
+var (
+	_ bin.Encoder     = &MessageEntitySpoiler{}
+	_ bin.Decoder     = &MessageEntitySpoiler{}
+	_ bin.BareEncoder = &MessageEntitySpoiler{}
+	_ bin.BareDecoder = &MessageEntitySpoiler{}
+
+	_ MessageEntityClass = &MessageEntitySpoiler{}
+)
+
+func (m *MessageEntitySpoiler) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageEntitySpoiler) String() string {
+	if m == nil {
+		return "MessageEntitySpoiler(nil)"
+	}
+	type Alias MessageEntitySpoiler
+	return fmt.Sprintf("MessageEntitySpoiler%+v", Alias(*m))
+}
+
+// FillFrom fills MessageEntitySpoiler from given interface.
+func (m *MessageEntitySpoiler) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageEntitySpoiler) TypeID() uint32 {
+	return MessageEntitySpoilerTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageEntitySpoiler) TypeName() string {
+	return "messageEntitySpoiler"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageEntitySpoiler) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageEntitySpoiler",
+		ID:   MessageEntitySpoilerTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+		{
+			Name:       "Length",
+			SchemaName: "length",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageEntitySpoiler) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageEntitySpoiler#32ca960f as nil")
+	}
+	b.PutID(MessageEntitySpoilerTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageEntitySpoiler) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageEntitySpoiler#32ca960f as nil")
+	}
+	b.PutInt(m.Offset)
+	b.PutInt(m.Length)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageEntitySpoiler) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageEntitySpoiler#32ca960f to nil")
+	}
+	if err := b.ConsumeID(MessageEntitySpoilerTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageEntitySpoiler#32ca960f: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageEntitySpoiler) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageEntitySpoiler#32ca960f to nil")
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntitySpoiler#32ca960f: field offset: %w", err)
+		}
+		m.Offset = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntitySpoiler#32ca960f: field length: %w", err)
+		}
+		m.Length = value
+	}
+	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntitySpoiler) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntitySpoiler) GetLength() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Length
+}
+
 // MessageEntityClassName is schema name of MessageEntityClass.
 const MessageEntityClassName = "MessageEntity"
 
@@ -3283,6 +3444,7 @@ const MessageEntityClassName = "MessageEntity"
 //  case *tg.MessageEntityStrike: // messageEntityStrike#bf0693d4
 //  case *tg.MessageEntityBlockquote: // messageEntityBlockquote#20df5d0
 //  case *tg.MessageEntityBankCard: // messageEntityBankCard#761e6af4
+//  case *tg.MessageEntitySpoiler: // messageEntitySpoiler#32ca960f
 //  default: panic(v)
 //  }
 type MessageEntityClass interface {
@@ -3446,6 +3608,13 @@ func DecodeMessageEntity(buf *bin.Buffer) (MessageEntityClass, error) {
 	case MessageEntityBankCardTypeID:
 		// Decoding messageEntityBankCard#761e6af4.
 		v := MessageEntityBankCard{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+		}
+		return &v, nil
+	case MessageEntitySpoilerTypeID:
+		// Decoding messageEntitySpoiler#32ca960f.
+		v := MessageEntitySpoiler{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
 		}

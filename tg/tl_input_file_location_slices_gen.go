@@ -116,32 +116,6 @@ func (s *InputFileLocationClassArray) Pop() (v InputFileLocationClass, ok bool) 
 	return v, true
 }
 
-// AsInputPeerPhotoFileLocationLegacy returns copy with only InputPeerPhotoFileLocationLegacy constructors.
-func (s InputFileLocationClassArray) AsInputPeerPhotoFileLocationLegacy() (to InputPeerPhotoFileLocationLegacyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputPeerPhotoFileLocationLegacy)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
-// AsInputStickerSetThumbLegacy returns copy with only InputStickerSetThumbLegacy constructors.
-func (s InputFileLocationClassArray) AsInputStickerSetThumbLegacy() (to InputStickerSetThumbLegacyArray) {
-	for _, elem := range s {
-		value, ok := elem.(*InputStickerSetThumbLegacy)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
 // AsInputFileLocation returns copy with only InputFileLocation constructors.
 func (s InputFileLocationClassArray) AsInputFileLocation() (to InputFileLocationArray) {
 	for _, elem := range s {
@@ -259,168 +233,30 @@ func (s InputFileLocationClassArray) AsInputGroupCallStream() (to InputGroupCall
 	return to
 }
 
-// InputPeerPhotoFileLocationLegacyArray is adapter for slice of InputPeerPhotoFileLocationLegacy.
-type InputPeerPhotoFileLocationLegacyArray []InputPeerPhotoFileLocationLegacy
-
-// Sort sorts slice of InputPeerPhotoFileLocationLegacy.
-func (s InputPeerPhotoFileLocationLegacyArray) Sort(less func(a, b InputPeerPhotoFileLocationLegacy) bool) InputPeerPhotoFileLocationLegacyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputPeerPhotoFileLocationLegacy.
-func (s InputPeerPhotoFileLocationLegacyArray) SortStable(less func(a, b InputPeerPhotoFileLocationLegacy) bool) InputPeerPhotoFileLocationLegacyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputPeerPhotoFileLocationLegacy.
-func (s InputPeerPhotoFileLocationLegacyArray) Retain(keep func(x InputPeerPhotoFileLocationLegacy) bool) InputPeerPhotoFileLocationLegacyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
+// AsInputPeerPhotoFileLocationLegacy returns copy with only InputPeerPhotoFileLocationLegacy constructors.
+func (s InputFileLocationClassArray) AsInputPeerPhotoFileLocationLegacy() (to InputPeerPhotoFileLocationLegacyArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputPeerPhotoFileLocationLegacy)
+		if !ok {
+			continue
 		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputPeerPhotoFileLocationLegacyArray) First() (v InputPeerPhotoFileLocationLegacy, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputPeerPhotoFileLocationLegacyArray) Last() (v InputPeerPhotoFileLocationLegacy, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputPeerPhotoFileLocationLegacyArray) PopFirst() (v InputPeerPhotoFileLocationLegacy, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
+		to = append(to, *value)
 	}
 
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputPeerPhotoFileLocationLegacy
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
+	return to
 }
 
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputPeerPhotoFileLocationLegacyArray) Pop() (v InputPeerPhotoFileLocationLegacy, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// InputStickerSetThumbLegacyArray is adapter for slice of InputStickerSetThumbLegacy.
-type InputStickerSetThumbLegacyArray []InputStickerSetThumbLegacy
-
-// Sort sorts slice of InputStickerSetThumbLegacy.
-func (s InputStickerSetThumbLegacyArray) Sort(less func(a, b InputStickerSetThumbLegacy) bool) InputStickerSetThumbLegacyArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of InputStickerSetThumbLegacy.
-func (s InputStickerSetThumbLegacyArray) SortStable(less func(a, b InputStickerSetThumbLegacy) bool) InputStickerSetThumbLegacyArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of InputStickerSetThumbLegacy.
-func (s InputStickerSetThumbLegacyArray) Retain(keep func(x InputStickerSetThumbLegacy) bool) InputStickerSetThumbLegacyArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
+// AsInputStickerSetThumbLegacy returns copy with only InputStickerSetThumbLegacy constructors.
+func (s InputFileLocationClassArray) AsInputStickerSetThumbLegacy() (to InputStickerSetThumbLegacyArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputStickerSetThumbLegacy)
+		if !ok {
+			continue
 		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s InputStickerSetThumbLegacyArray) First() (v InputStickerSetThumbLegacy, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s InputStickerSetThumbLegacyArray) Last() (v InputStickerSetThumbLegacy, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputStickerSetThumbLegacyArray) PopFirst() (v InputStickerSetThumbLegacy, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
+		to = append(to, *value)
 	}
 
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero InputStickerSetThumbLegacy
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *InputStickerSetThumbLegacyArray) Pop() (v InputStickerSetThumbLegacy, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
+	return to
 }
 
 // InputFileLocationArray is adapter for slice of InputFileLocation.
@@ -1289,6 +1125,170 @@ func (s *InputGroupCallStreamArray) PopFirst() (v InputGroupCallStream, ok bool)
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *InputGroupCallStreamArray) Pop() (v InputGroupCallStream, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputPeerPhotoFileLocationLegacyArray is adapter for slice of InputPeerPhotoFileLocationLegacy.
+type InputPeerPhotoFileLocationLegacyArray []InputPeerPhotoFileLocationLegacy
+
+// Sort sorts slice of InputPeerPhotoFileLocationLegacy.
+func (s InputPeerPhotoFileLocationLegacyArray) Sort(less func(a, b InputPeerPhotoFileLocationLegacy) bool) InputPeerPhotoFileLocationLegacyArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputPeerPhotoFileLocationLegacy.
+func (s InputPeerPhotoFileLocationLegacyArray) SortStable(less func(a, b InputPeerPhotoFileLocationLegacy) bool) InputPeerPhotoFileLocationLegacyArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputPeerPhotoFileLocationLegacy.
+func (s InputPeerPhotoFileLocationLegacyArray) Retain(keep func(x InputPeerPhotoFileLocationLegacy) bool) InputPeerPhotoFileLocationLegacyArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputPeerPhotoFileLocationLegacyArray) First() (v InputPeerPhotoFileLocationLegacy, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputPeerPhotoFileLocationLegacyArray) Last() (v InputPeerPhotoFileLocationLegacy, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputPeerPhotoFileLocationLegacyArray) PopFirst() (v InputPeerPhotoFileLocationLegacy, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputPeerPhotoFileLocationLegacy
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputPeerPhotoFileLocationLegacyArray) Pop() (v InputPeerPhotoFileLocationLegacy, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputStickerSetThumbLegacyArray is adapter for slice of InputStickerSetThumbLegacy.
+type InputStickerSetThumbLegacyArray []InputStickerSetThumbLegacy
+
+// Sort sorts slice of InputStickerSetThumbLegacy.
+func (s InputStickerSetThumbLegacyArray) Sort(less func(a, b InputStickerSetThumbLegacy) bool) InputStickerSetThumbLegacyArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputStickerSetThumbLegacy.
+func (s InputStickerSetThumbLegacyArray) SortStable(less func(a, b InputStickerSetThumbLegacy) bool) InputStickerSetThumbLegacyArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputStickerSetThumbLegacy.
+func (s InputStickerSetThumbLegacyArray) Retain(keep func(x InputStickerSetThumbLegacy) bool) InputStickerSetThumbLegacyArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputStickerSetThumbLegacyArray) First() (v InputStickerSetThumbLegacy, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputStickerSetThumbLegacyArray) Last() (v InputStickerSetThumbLegacy, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputStickerSetThumbLegacyArray) PopFirst() (v InputStickerSetThumbLegacy, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputStickerSetThumbLegacy
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputStickerSetThumbLegacyArray) Pop() (v InputStickerSetThumbLegacy, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

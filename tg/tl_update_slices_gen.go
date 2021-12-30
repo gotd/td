@@ -1221,6 +1221,19 @@ func (s UpdateClassArray) AsUpdateBotChatInviteRequester() (to UpdateBotChatInvi
 	return to
 }
 
+// AsUpdateMessageReactions returns copy with only UpdateMessageReactions constructors.
+func (s UpdateClassArray) AsUpdateMessageReactions() (to UpdateMessageReactionsArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateMessageReactions)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // UpdateNewMessageArray is adapter for slice of UpdateNewMessage.
 type UpdateNewMessageArray []UpdateNewMessage
 
@@ -8413,4 +8426,86 @@ func (s UpdateBotChatInviteRequesterArray) SortStableByDate() UpdateBotChatInvit
 	return s.SortStable(func(a, b UpdateBotChatInviteRequester) bool {
 		return a.GetDate() < b.GetDate()
 	})
+}
+
+// UpdateMessageReactionsArray is adapter for slice of UpdateMessageReactions.
+type UpdateMessageReactionsArray []UpdateMessageReactions
+
+// Sort sorts slice of UpdateMessageReactions.
+func (s UpdateMessageReactionsArray) Sort(less func(a, b UpdateMessageReactions) bool) UpdateMessageReactionsArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateMessageReactions.
+func (s UpdateMessageReactionsArray) SortStable(less func(a, b UpdateMessageReactions) bool) UpdateMessageReactionsArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateMessageReactions.
+func (s UpdateMessageReactionsArray) Retain(keep func(x UpdateMessageReactions) bool) UpdateMessageReactionsArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateMessageReactionsArray) First() (v UpdateMessageReactions, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateMessageReactionsArray) Last() (v UpdateMessageReactions, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateMessageReactionsArray) PopFirst() (v UpdateMessageReactions, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateMessageReactions
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateMessageReactionsArray) Pop() (v UpdateMessageReactions, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

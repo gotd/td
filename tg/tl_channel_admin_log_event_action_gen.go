@@ -5262,6 +5262,195 @@ func (c *ChannelAdminLogEventActionSendMessage) GetMessage() (value MessageClass
 	return c.Message
 }
 
+// ChannelAdminLogEventActionChangeAvailableReactions represents TL type `channelAdminLogEventActionChangeAvailableReactions#9cf7f76a`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionChangeAvailableReactions for reference.
+type ChannelAdminLogEventActionChangeAvailableReactions struct {
+	// PrevValue field of ChannelAdminLogEventActionChangeAvailableReactions.
+	PrevValue []string
+	// NewValue field of ChannelAdminLogEventActionChangeAvailableReactions.
+	NewValue []string
+}
+
+// ChannelAdminLogEventActionChangeAvailableReactionsTypeID is TL type id of ChannelAdminLogEventActionChangeAvailableReactions.
+const ChannelAdminLogEventActionChangeAvailableReactionsTypeID = 0x9cf7f76a
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionChangeAvailableReactions) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeAvailableReactions.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionChangeAvailableReactions{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionChangeAvailableReactions{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeAvailableReactions{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeAvailableReactions{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeAvailableReactions{}
+)
+
+func (c *ChannelAdminLogEventActionChangeAvailableReactions) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PrevValue == nil) {
+		return false
+	}
+	if !(c.NewValue == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionChangeAvailableReactions) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionChangeAvailableReactions(nil)"
+	}
+	type Alias ChannelAdminLogEventActionChangeAvailableReactions
+	return fmt.Sprintf("ChannelAdminLogEventActionChangeAvailableReactions%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionChangeAvailableReactions from given interface.
+func (c *ChannelAdminLogEventActionChangeAvailableReactions) FillFrom(from interface {
+	GetPrevValue() (value []string)
+	GetNewValue() (value []string)
+}) {
+	c.PrevValue = from.GetPrevValue()
+	c.NewValue = from.GetNewValue()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChannelAdminLogEventActionChangeAvailableReactions) TypeID() uint32 {
+	return ChannelAdminLogEventActionChangeAvailableReactionsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChannelAdminLogEventActionChangeAvailableReactions) TypeName() string {
+	return "channelAdminLogEventActionChangeAvailableReactions"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionChangeAvailableReactions) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionChangeAvailableReactions",
+		ID:   ChannelAdminLogEventActionChangeAvailableReactionsTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevValue",
+			SchemaName: "prev_value",
+		},
+		{
+			Name:       "NewValue",
+			SchemaName: "new_value",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionChangeAvailableReactions) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionChangeAvailableReactions#9cf7f76a as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionChangeAvailableReactionsTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionChangeAvailableReactions) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionChangeAvailableReactions#9cf7f76a as nil")
+	}
+	b.PutVectorHeader(len(c.PrevValue))
+	for _, v := range c.PrevValue {
+		b.PutString(v)
+	}
+	b.PutVectorHeader(len(c.NewValue))
+	for _, v := range c.NewValue {
+		b.PutString(v)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionChangeAvailableReactions) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionChangeAvailableReactions#9cf7f76a to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionChangeAvailableReactionsTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionChangeAvailableReactions#9cf7f76a: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionChangeAvailableReactions) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionChangeAvailableReactions#9cf7f76a to nil")
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionChangeAvailableReactions#9cf7f76a: field prev_value: %w", err)
+		}
+
+		if headerLen > 0 {
+			c.PrevValue = make([]string, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode channelAdminLogEventActionChangeAvailableReactions#9cf7f76a: field prev_value: %w", err)
+			}
+			c.PrevValue = append(c.PrevValue, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionChangeAvailableReactions#9cf7f76a: field new_value: %w", err)
+		}
+
+		if headerLen > 0 {
+			c.NewValue = make([]string, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode channelAdminLogEventActionChangeAvailableReactions#9cf7f76a: field new_value: %w", err)
+			}
+			c.NewValue = append(c.NewValue, value)
+		}
+	}
+	return nil
+}
+
+// GetPrevValue returns value of PrevValue field.
+func (c *ChannelAdminLogEventActionChangeAvailableReactions) GetPrevValue() (value []string) {
+	if c == nil {
+		return
+	}
+	return c.PrevValue
+}
+
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionChangeAvailableReactions) GetNewValue() (value []string) {
+	if c == nil {
+		return
+	}
+	return c.NewValue
+}
+
 // ChannelAdminLogEventActionClassName is schema name of ChannelAdminLogEventActionClass.
 const ChannelAdminLogEventActionClassName = "ChannelAdminLogEventAction"
 
@@ -5310,6 +5499,7 @@ const ChannelAdminLogEventActionClassName = "ChannelAdminLogEventAction"
 //  case *tg.ChannelAdminLogEventActionParticipantJoinByRequest: // channelAdminLogEventActionParticipantJoinByRequest#afb6144a
 //  case *tg.ChannelAdminLogEventActionToggleNoForwards: // channelAdminLogEventActionToggleNoForwards#cb2ac766
 //  case *tg.ChannelAdminLogEventActionSendMessage: // channelAdminLogEventActionSendMessage#278f2868
+//  case *tg.ChannelAdminLogEventActionChangeAvailableReactions: // channelAdminLogEventActionChangeAvailableReactions#9cf7f76a
 //  default: panic(v)
 //  }
 type ChannelAdminLogEventActionClass interface {
@@ -5579,6 +5769,13 @@ func DecodeChannelAdminLogEventAction(buf *bin.Buffer) (ChannelAdminLogEventActi
 	case ChannelAdminLogEventActionSendMessageTypeID:
 		// Decoding channelAdminLogEventActionSendMessage#278f2868.
 		v := ChannelAdminLogEventActionSendMessage{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionChangeAvailableReactionsTypeID:
+		// Decoding channelAdminLogEventActionChangeAvailableReactions#9cf7f76a.
+		v := ChannelAdminLogEventActionChangeAvailableReactions{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
 		}

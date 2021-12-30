@@ -356,3 +356,22 @@ func BankCard() Formatter {
 func (b *Builder) BankCard(s string) *Builder {
 	return b.Format(s, BankCard())
 }
+
+// Spoiler creates Formatter of Spoiler message entity.
+//
+// See https://core.telegram.org/constructor/messageEntitySpoiler.
+func Spoiler() Formatter {
+	return func(offset, length int) tg.MessageEntityClass {
+		return &tg.MessageEntitySpoiler{
+			Offset: offset,
+			Length: length,
+		}
+	}
+}
+
+// Spoiler adds and formats message as Spoiler message entity.
+//
+// See https://core.telegram.org/constructor/messageEntitySpoiler.
+func (b *Builder) Spoiler(s string) *Builder {
+	return b.Format(s, Spoiler())
+}

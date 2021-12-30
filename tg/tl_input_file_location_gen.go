@@ -31,445 +31,6 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// InputPeerPhotoFileLocationLegacy represents TL type `inputPeerPhotoFileLocationLegacy#27d69997`.
-//
-// See https://core.telegram.org/constructor/inputPeerPhotoFileLocationLegacy for reference.
-type InputPeerPhotoFileLocationLegacy struct {
-	// Flags field of InputPeerPhotoFileLocationLegacy.
-	Flags bin.Fields
-	// Big field of InputPeerPhotoFileLocationLegacy.
-	Big bool
-	// Peer field of InputPeerPhotoFileLocationLegacy.
-	Peer InputPeerClass
-	// VolumeID field of InputPeerPhotoFileLocationLegacy.
-	VolumeID int64
-	// LocalID field of InputPeerPhotoFileLocationLegacy.
-	LocalID int
-}
-
-// InputPeerPhotoFileLocationLegacyTypeID is TL type id of InputPeerPhotoFileLocationLegacy.
-const InputPeerPhotoFileLocationLegacyTypeID = 0x27d69997
-
-// construct implements constructor of InputFileLocationClass.
-func (i InputPeerPhotoFileLocationLegacy) construct() InputFileLocationClass { return &i }
-
-// Ensuring interfaces in compile-time for InputPeerPhotoFileLocationLegacy.
-var (
-	_ bin.Encoder     = &InputPeerPhotoFileLocationLegacy{}
-	_ bin.Decoder     = &InputPeerPhotoFileLocationLegacy{}
-	_ bin.BareEncoder = &InputPeerPhotoFileLocationLegacy{}
-	_ bin.BareDecoder = &InputPeerPhotoFileLocationLegacy{}
-
-	_ InputFileLocationClass = &InputPeerPhotoFileLocationLegacy{}
-)
-
-func (i *InputPeerPhotoFileLocationLegacy) Zero() bool {
-	if i == nil {
-		return true
-	}
-	if !(i.Flags.Zero()) {
-		return false
-	}
-	if !(i.Big == false) {
-		return false
-	}
-	if !(i.Peer == nil) {
-		return false
-	}
-	if !(i.VolumeID == 0) {
-		return false
-	}
-	if !(i.LocalID == 0) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (i *InputPeerPhotoFileLocationLegacy) String() string {
-	if i == nil {
-		return "InputPeerPhotoFileLocationLegacy(nil)"
-	}
-	type Alias InputPeerPhotoFileLocationLegacy
-	return fmt.Sprintf("InputPeerPhotoFileLocationLegacy%+v", Alias(*i))
-}
-
-// FillFrom fills InputPeerPhotoFileLocationLegacy from given interface.
-func (i *InputPeerPhotoFileLocationLegacy) FillFrom(from interface {
-	GetBig() (value bool)
-	GetPeer() (value InputPeerClass)
-	GetVolumeID() (value int64)
-	GetLocalID() (value int)
-}) {
-	i.Big = from.GetBig()
-	i.Peer = from.GetPeer()
-	i.VolumeID = from.GetVolumeID()
-	i.LocalID = from.GetLocalID()
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*InputPeerPhotoFileLocationLegacy) TypeID() uint32 {
-	return InputPeerPhotoFileLocationLegacyTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*InputPeerPhotoFileLocationLegacy) TypeName() string {
-	return "inputPeerPhotoFileLocationLegacy"
-}
-
-// TypeInfo returns info about TL type.
-func (i *InputPeerPhotoFileLocationLegacy) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "inputPeerPhotoFileLocationLegacy",
-		ID:   InputPeerPhotoFileLocationLegacyTypeID,
-	}
-	if i == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "Big",
-			SchemaName: "big",
-			Null:       !i.Flags.Has(0),
-		},
-		{
-			Name:       "Peer",
-			SchemaName: "peer",
-		},
-		{
-			Name:       "VolumeID",
-			SchemaName: "volume_id",
-		},
-		{
-			Name:       "LocalID",
-			SchemaName: "local_id",
-		},
-	}
-	return typ
-}
-
-// SetFlags sets flags for non-zero fields.
-func (i *InputPeerPhotoFileLocationLegacy) SetFlags() {
-	if !(i.Big == false) {
-		i.Flags.Set(0)
-	}
-}
-
-// Encode implements bin.Encoder.
-func (i *InputPeerPhotoFileLocationLegacy) Encode(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't encode inputPeerPhotoFileLocationLegacy#27d69997 as nil")
-	}
-	b.PutID(InputPeerPhotoFileLocationLegacyTypeID)
-	return i.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (i *InputPeerPhotoFileLocationLegacy) EncodeBare(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't encode inputPeerPhotoFileLocationLegacy#27d69997 as nil")
-	}
-	i.SetFlags()
-	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputPeerPhotoFileLocationLegacy#27d69997: field flags: %w", err)
-	}
-	if i.Peer == nil {
-		return fmt.Errorf("unable to encode inputPeerPhotoFileLocationLegacy#27d69997: field peer is nil")
-	}
-	if err := i.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputPeerPhotoFileLocationLegacy#27d69997: field peer: %w", err)
-	}
-	b.PutLong(i.VolumeID)
-	b.PutInt(i.LocalID)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (i *InputPeerPhotoFileLocationLegacy) Decode(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't decode inputPeerPhotoFileLocationLegacy#27d69997 to nil")
-	}
-	if err := b.ConsumeID(InputPeerPhotoFileLocationLegacyTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPeerPhotoFileLocationLegacy#27d69997: %w", err)
-	}
-	return i.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (i *InputPeerPhotoFileLocationLegacy) DecodeBare(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't decode inputPeerPhotoFileLocationLegacy#27d69997 to nil")
-	}
-	{
-		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputPeerPhotoFileLocationLegacy#27d69997: field flags: %w", err)
-		}
-	}
-	i.Big = i.Flags.Has(0)
-	{
-		value, err := DecodeInputPeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerPhotoFileLocationLegacy#27d69997: field peer: %w", err)
-		}
-		i.Peer = value
-	}
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerPhotoFileLocationLegacy#27d69997: field volume_id: %w", err)
-		}
-		i.VolumeID = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerPhotoFileLocationLegacy#27d69997: field local_id: %w", err)
-		}
-		i.LocalID = value
-	}
-	return nil
-}
-
-// SetBig sets value of Big conditional field.
-func (i *InputPeerPhotoFileLocationLegacy) SetBig(value bool) {
-	if value {
-		i.Flags.Set(0)
-		i.Big = true
-	} else {
-		i.Flags.Unset(0)
-		i.Big = false
-	}
-}
-
-// GetBig returns value of Big conditional field.
-func (i *InputPeerPhotoFileLocationLegacy) GetBig() (value bool) {
-	if i == nil {
-		return
-	}
-	return i.Flags.Has(0)
-}
-
-// GetPeer returns value of Peer field.
-func (i *InputPeerPhotoFileLocationLegacy) GetPeer() (value InputPeerClass) {
-	if i == nil {
-		return
-	}
-	return i.Peer
-}
-
-// GetVolumeID returns value of VolumeID field.
-func (i *InputPeerPhotoFileLocationLegacy) GetVolumeID() (value int64) {
-	if i == nil {
-		return
-	}
-	return i.VolumeID
-}
-
-// GetLocalID returns value of LocalID field.
-func (i *InputPeerPhotoFileLocationLegacy) GetLocalID() (value int) {
-	if i == nil {
-		return
-	}
-	return i.LocalID
-}
-
-// InputStickerSetThumbLegacy represents TL type `inputStickerSetThumbLegacy#dbaeae9`.
-//
-// See https://core.telegram.org/constructor/inputStickerSetThumbLegacy for reference.
-type InputStickerSetThumbLegacy struct {
-	// Stickerset field of InputStickerSetThumbLegacy.
-	Stickerset InputStickerSetClass
-	// VolumeID field of InputStickerSetThumbLegacy.
-	VolumeID int64
-	// LocalID field of InputStickerSetThumbLegacy.
-	LocalID int
-}
-
-// InputStickerSetThumbLegacyTypeID is TL type id of InputStickerSetThumbLegacy.
-const InputStickerSetThumbLegacyTypeID = 0xdbaeae9
-
-// construct implements constructor of InputFileLocationClass.
-func (i InputStickerSetThumbLegacy) construct() InputFileLocationClass { return &i }
-
-// Ensuring interfaces in compile-time for InputStickerSetThumbLegacy.
-var (
-	_ bin.Encoder     = &InputStickerSetThumbLegacy{}
-	_ bin.Decoder     = &InputStickerSetThumbLegacy{}
-	_ bin.BareEncoder = &InputStickerSetThumbLegacy{}
-	_ bin.BareDecoder = &InputStickerSetThumbLegacy{}
-
-	_ InputFileLocationClass = &InputStickerSetThumbLegacy{}
-)
-
-func (i *InputStickerSetThumbLegacy) Zero() bool {
-	if i == nil {
-		return true
-	}
-	if !(i.Stickerset == nil) {
-		return false
-	}
-	if !(i.VolumeID == 0) {
-		return false
-	}
-	if !(i.LocalID == 0) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (i *InputStickerSetThumbLegacy) String() string {
-	if i == nil {
-		return "InputStickerSetThumbLegacy(nil)"
-	}
-	type Alias InputStickerSetThumbLegacy
-	return fmt.Sprintf("InputStickerSetThumbLegacy%+v", Alias(*i))
-}
-
-// FillFrom fills InputStickerSetThumbLegacy from given interface.
-func (i *InputStickerSetThumbLegacy) FillFrom(from interface {
-	GetStickerset() (value InputStickerSetClass)
-	GetVolumeID() (value int64)
-	GetLocalID() (value int)
-}) {
-	i.Stickerset = from.GetStickerset()
-	i.VolumeID = from.GetVolumeID()
-	i.LocalID = from.GetLocalID()
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*InputStickerSetThumbLegacy) TypeID() uint32 {
-	return InputStickerSetThumbLegacyTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*InputStickerSetThumbLegacy) TypeName() string {
-	return "inputStickerSetThumbLegacy"
-}
-
-// TypeInfo returns info about TL type.
-func (i *InputStickerSetThumbLegacy) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "inputStickerSetThumbLegacy",
-		ID:   InputStickerSetThumbLegacyTypeID,
-	}
-	if i == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "Stickerset",
-			SchemaName: "stickerset",
-		},
-		{
-			Name:       "VolumeID",
-			SchemaName: "volume_id",
-		},
-		{
-			Name:       "LocalID",
-			SchemaName: "local_id",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (i *InputStickerSetThumbLegacy) Encode(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetThumbLegacy#dbaeae9 as nil")
-	}
-	b.PutID(InputStickerSetThumbLegacyTypeID)
-	return i.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (i *InputStickerSetThumbLegacy) EncodeBare(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetThumbLegacy#dbaeae9 as nil")
-	}
-	if i.Stickerset == nil {
-		return fmt.Errorf("unable to encode inputStickerSetThumbLegacy#dbaeae9: field stickerset is nil")
-	}
-	if err := i.Stickerset.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputStickerSetThumbLegacy#dbaeae9: field stickerset: %w", err)
-	}
-	b.PutLong(i.VolumeID)
-	b.PutInt(i.LocalID)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (i *InputStickerSetThumbLegacy) Decode(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetThumbLegacy#dbaeae9 to nil")
-	}
-	if err := b.ConsumeID(InputStickerSetThumbLegacyTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputStickerSetThumbLegacy#dbaeae9: %w", err)
-	}
-	return i.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (i *InputStickerSetThumbLegacy) DecodeBare(b *bin.Buffer) error {
-	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetThumbLegacy#dbaeae9 to nil")
-	}
-	{
-		value, err := DecodeInputStickerSet(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetThumbLegacy#dbaeae9: field stickerset: %w", err)
-		}
-		i.Stickerset = value
-	}
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetThumbLegacy#dbaeae9: field volume_id: %w", err)
-		}
-		i.VolumeID = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetThumbLegacy#dbaeae9: field local_id: %w", err)
-		}
-		i.LocalID = value
-	}
-	return nil
-}
-
-// GetStickerset returns value of Stickerset field.
-func (i *InputStickerSetThumbLegacy) GetStickerset() (value InputStickerSetClass) {
-	if i == nil {
-		return
-	}
-	return i.Stickerset
-}
-
-// GetVolumeID returns value of VolumeID field.
-func (i *InputStickerSetThumbLegacy) GetVolumeID() (value int64) {
-	if i == nil {
-		return
-	}
-	return i.VolumeID
-}
-
-// GetLocalID returns value of LocalID field.
-func (i *InputStickerSetThumbLegacy) GetLocalID() (value int) {
-	if i == nil {
-		return
-	}
-	return i.LocalID
-}
-
 // InputFileLocation represents TL type `inputFileLocation#dfdaabe1`.
 // DEPRECATED location of a photo
 //
@@ -2555,6 +2116,445 @@ func (i *InputGroupCallStream) GetVideoQuality() (value int, ok bool) {
 	return i.VideoQuality, true
 }
 
+// InputPeerPhotoFileLocationLegacy represents TL type `inputPeerPhotoFileLocationLegacy#27d69997`.
+//
+// See https://core.telegram.org/constructor/inputPeerPhotoFileLocationLegacy for reference.
+type InputPeerPhotoFileLocationLegacy struct {
+	// Flags field of InputPeerPhotoFileLocationLegacy.
+	Flags bin.Fields
+	// Big field of InputPeerPhotoFileLocationLegacy.
+	Big bool
+	// Peer field of InputPeerPhotoFileLocationLegacy.
+	Peer InputPeerClass
+	// VolumeID field of InputPeerPhotoFileLocationLegacy.
+	VolumeID int64
+	// LocalID field of InputPeerPhotoFileLocationLegacy.
+	LocalID int
+}
+
+// InputPeerPhotoFileLocationLegacyTypeID is TL type id of InputPeerPhotoFileLocationLegacy.
+const InputPeerPhotoFileLocationLegacyTypeID = 0x27d69997
+
+// construct implements constructor of InputFileLocationClass.
+func (i InputPeerPhotoFileLocationLegacy) construct() InputFileLocationClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPeerPhotoFileLocationLegacy.
+var (
+	_ bin.Encoder     = &InputPeerPhotoFileLocationLegacy{}
+	_ bin.Decoder     = &InputPeerPhotoFileLocationLegacy{}
+	_ bin.BareEncoder = &InputPeerPhotoFileLocationLegacy{}
+	_ bin.BareDecoder = &InputPeerPhotoFileLocationLegacy{}
+
+	_ InputFileLocationClass = &InputPeerPhotoFileLocationLegacy{}
+)
+
+func (i *InputPeerPhotoFileLocationLegacy) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.Big == false) {
+		return false
+	}
+	if !(i.Peer == nil) {
+		return false
+	}
+	if !(i.VolumeID == 0) {
+		return false
+	}
+	if !(i.LocalID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputPeerPhotoFileLocationLegacy) String() string {
+	if i == nil {
+		return "InputPeerPhotoFileLocationLegacy(nil)"
+	}
+	type Alias InputPeerPhotoFileLocationLegacy
+	return fmt.Sprintf("InputPeerPhotoFileLocationLegacy%+v", Alias(*i))
+}
+
+// FillFrom fills InputPeerPhotoFileLocationLegacy from given interface.
+func (i *InputPeerPhotoFileLocationLegacy) FillFrom(from interface {
+	GetBig() (value bool)
+	GetPeer() (value InputPeerClass)
+	GetVolumeID() (value int64)
+	GetLocalID() (value int)
+}) {
+	i.Big = from.GetBig()
+	i.Peer = from.GetPeer()
+	i.VolumeID = from.GetVolumeID()
+	i.LocalID = from.GetLocalID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputPeerPhotoFileLocationLegacy) TypeID() uint32 {
+	return InputPeerPhotoFileLocationLegacyTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputPeerPhotoFileLocationLegacy) TypeName() string {
+	return "inputPeerPhotoFileLocationLegacy"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPeerPhotoFileLocationLegacy) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPeerPhotoFileLocationLegacy",
+		ID:   InputPeerPhotoFileLocationLegacyTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Big",
+			SchemaName: "big",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "VolumeID",
+			SchemaName: "volume_id",
+		},
+		{
+			Name:       "LocalID",
+			SchemaName: "local_id",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (i *InputPeerPhotoFileLocationLegacy) SetFlags() {
+	if !(i.Big == false) {
+		i.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (i *InputPeerPhotoFileLocationLegacy) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPeerPhotoFileLocationLegacy#27d69997 as nil")
+	}
+	b.PutID(InputPeerPhotoFileLocationLegacyTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPeerPhotoFileLocationLegacy) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPeerPhotoFileLocationLegacy#27d69997 as nil")
+	}
+	i.SetFlags()
+	if err := i.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputPeerPhotoFileLocationLegacy#27d69997: field flags: %w", err)
+	}
+	if i.Peer == nil {
+		return fmt.Errorf("unable to encode inputPeerPhotoFileLocationLegacy#27d69997: field peer is nil")
+	}
+	if err := i.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputPeerPhotoFileLocationLegacy#27d69997: field peer: %w", err)
+	}
+	b.PutLong(i.VolumeID)
+	b.PutInt(i.LocalID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputPeerPhotoFileLocationLegacy) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPeerPhotoFileLocationLegacy#27d69997 to nil")
+	}
+	if err := b.ConsumeID(InputPeerPhotoFileLocationLegacyTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputPeerPhotoFileLocationLegacy#27d69997: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPeerPhotoFileLocationLegacy) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPeerPhotoFileLocationLegacy#27d69997 to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputPeerPhotoFileLocationLegacy#27d69997: field flags: %w", err)
+		}
+	}
+	i.Big = i.Flags.Has(0)
+	{
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputPeerPhotoFileLocationLegacy#27d69997: field peer: %w", err)
+		}
+		i.Peer = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputPeerPhotoFileLocationLegacy#27d69997: field volume_id: %w", err)
+		}
+		i.VolumeID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputPeerPhotoFileLocationLegacy#27d69997: field local_id: %w", err)
+		}
+		i.LocalID = value
+	}
+	return nil
+}
+
+// SetBig sets value of Big conditional field.
+func (i *InputPeerPhotoFileLocationLegacy) SetBig(value bool) {
+	if value {
+		i.Flags.Set(0)
+		i.Big = true
+	} else {
+		i.Flags.Unset(0)
+		i.Big = false
+	}
+}
+
+// GetBig returns value of Big conditional field.
+func (i *InputPeerPhotoFileLocationLegacy) GetBig() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (i *InputPeerPhotoFileLocationLegacy) GetPeer() (value InputPeerClass) {
+	if i == nil {
+		return
+	}
+	return i.Peer
+}
+
+// GetVolumeID returns value of VolumeID field.
+func (i *InputPeerPhotoFileLocationLegacy) GetVolumeID() (value int64) {
+	if i == nil {
+		return
+	}
+	return i.VolumeID
+}
+
+// GetLocalID returns value of LocalID field.
+func (i *InputPeerPhotoFileLocationLegacy) GetLocalID() (value int) {
+	if i == nil {
+		return
+	}
+	return i.LocalID
+}
+
+// InputStickerSetThumbLegacy represents TL type `inputStickerSetThumbLegacy#dbaeae9`.
+//
+// See https://core.telegram.org/constructor/inputStickerSetThumbLegacy for reference.
+type InputStickerSetThumbLegacy struct {
+	// Stickerset field of InputStickerSetThumbLegacy.
+	Stickerset InputStickerSetClass
+	// VolumeID field of InputStickerSetThumbLegacy.
+	VolumeID int64
+	// LocalID field of InputStickerSetThumbLegacy.
+	LocalID int
+}
+
+// InputStickerSetThumbLegacyTypeID is TL type id of InputStickerSetThumbLegacy.
+const InputStickerSetThumbLegacyTypeID = 0xdbaeae9
+
+// construct implements constructor of InputFileLocationClass.
+func (i InputStickerSetThumbLegacy) construct() InputFileLocationClass { return &i }
+
+// Ensuring interfaces in compile-time for InputStickerSetThumbLegacy.
+var (
+	_ bin.Encoder     = &InputStickerSetThumbLegacy{}
+	_ bin.Decoder     = &InputStickerSetThumbLegacy{}
+	_ bin.BareEncoder = &InputStickerSetThumbLegacy{}
+	_ bin.BareDecoder = &InputStickerSetThumbLegacy{}
+
+	_ InputFileLocationClass = &InputStickerSetThumbLegacy{}
+)
+
+func (i *InputStickerSetThumbLegacy) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Stickerset == nil) {
+		return false
+	}
+	if !(i.VolumeID == 0) {
+		return false
+	}
+	if !(i.LocalID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputStickerSetThumbLegacy) String() string {
+	if i == nil {
+		return "InputStickerSetThumbLegacy(nil)"
+	}
+	type Alias InputStickerSetThumbLegacy
+	return fmt.Sprintf("InputStickerSetThumbLegacy%+v", Alias(*i))
+}
+
+// FillFrom fills InputStickerSetThumbLegacy from given interface.
+func (i *InputStickerSetThumbLegacy) FillFrom(from interface {
+	GetStickerset() (value InputStickerSetClass)
+	GetVolumeID() (value int64)
+	GetLocalID() (value int)
+}) {
+	i.Stickerset = from.GetStickerset()
+	i.VolumeID = from.GetVolumeID()
+	i.LocalID = from.GetLocalID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputStickerSetThumbLegacy) TypeID() uint32 {
+	return InputStickerSetThumbLegacyTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputStickerSetThumbLegacy) TypeName() string {
+	return "inputStickerSetThumbLegacy"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputStickerSetThumbLegacy) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputStickerSetThumbLegacy",
+		ID:   InputStickerSetThumbLegacyTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Stickerset",
+			SchemaName: "stickerset",
+		},
+		{
+			Name:       "VolumeID",
+			SchemaName: "volume_id",
+		},
+		{
+			Name:       "LocalID",
+			SchemaName: "local_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputStickerSetThumbLegacy) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStickerSetThumbLegacy#dbaeae9 as nil")
+	}
+	b.PutID(InputStickerSetThumbLegacyTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputStickerSetThumbLegacy) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStickerSetThumbLegacy#dbaeae9 as nil")
+	}
+	if i.Stickerset == nil {
+		return fmt.Errorf("unable to encode inputStickerSetThumbLegacy#dbaeae9: field stickerset is nil")
+	}
+	if err := i.Stickerset.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputStickerSetThumbLegacy#dbaeae9: field stickerset: %w", err)
+	}
+	b.PutLong(i.VolumeID)
+	b.PutInt(i.LocalID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputStickerSetThumbLegacy) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputStickerSetThumbLegacy#dbaeae9 to nil")
+	}
+	if err := b.ConsumeID(InputStickerSetThumbLegacyTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputStickerSetThumbLegacy#dbaeae9: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputStickerSetThumbLegacy) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputStickerSetThumbLegacy#dbaeae9 to nil")
+	}
+	{
+		value, err := DecodeInputStickerSet(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStickerSetThumbLegacy#dbaeae9: field stickerset: %w", err)
+		}
+		i.Stickerset = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStickerSetThumbLegacy#dbaeae9: field volume_id: %w", err)
+		}
+		i.VolumeID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStickerSetThumbLegacy#dbaeae9: field local_id: %w", err)
+		}
+		i.LocalID = value
+	}
+	return nil
+}
+
+// GetStickerset returns value of Stickerset field.
+func (i *InputStickerSetThumbLegacy) GetStickerset() (value InputStickerSetClass) {
+	if i == nil {
+		return
+	}
+	return i.Stickerset
+}
+
+// GetVolumeID returns value of VolumeID field.
+func (i *InputStickerSetThumbLegacy) GetVolumeID() (value int64) {
+	if i == nil {
+		return
+	}
+	return i.VolumeID
+}
+
+// GetLocalID returns value of LocalID field.
+func (i *InputStickerSetThumbLegacy) GetLocalID() (value int) {
+	if i == nil {
+		return
+	}
+	return i.LocalID
+}
+
 // InputFileLocationClassName is schema name of InputFileLocationClass.
 const InputFileLocationClassName = "InputFileLocation"
 
@@ -2568,8 +2568,6 @@ const InputFileLocationClassName = "InputFileLocation"
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *tg.InputPeerPhotoFileLocationLegacy: // inputPeerPhotoFileLocationLegacy#27d69997
-//  case *tg.InputStickerSetThumbLegacy: // inputStickerSetThumbLegacy#dbaeae9
 //  case *tg.InputFileLocation: // inputFileLocation#dfdaabe1
 //  case *tg.InputEncryptedFileLocation: // inputEncryptedFileLocation#f5235d55
 //  case *tg.InputDocumentFileLocation: // inputDocumentFileLocation#bad07584
@@ -2580,6 +2578,8 @@ const InputFileLocationClassName = "InputFileLocation"
 //  case *tg.InputPeerPhotoFileLocation: // inputPeerPhotoFileLocation#37257e99
 //  case *tg.InputStickerSetThumb: // inputStickerSetThumb#9d84f3db
 //  case *tg.InputGroupCallStream: // inputGroupCallStream#598a92a
+//  case *tg.InputPeerPhotoFileLocationLegacy: // inputPeerPhotoFileLocationLegacy#27d69997
+//  case *tg.InputStickerSetThumbLegacy: // inputStickerSetThumbLegacy#dbaeae9
 //  default: panic(v)
 //  }
 type InputFileLocationClass interface {
@@ -2608,20 +2608,6 @@ func DecodeInputFileLocation(buf *bin.Buffer) (InputFileLocationClass, error) {
 		return nil, err
 	}
 	switch id {
-	case InputPeerPhotoFileLocationLegacyTypeID:
-		// Decoding inputPeerPhotoFileLocationLegacy#27d69997.
-		v := InputPeerPhotoFileLocationLegacy{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)
-		}
-		return &v, nil
-	case InputStickerSetThumbLegacyTypeID:
-		// Decoding inputStickerSetThumbLegacy#dbaeae9.
-		v := InputStickerSetThumbLegacy{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)
-		}
-		return &v, nil
 	case InputFileLocationTypeID:
 		// Decoding inputFileLocation#dfdaabe1.
 		v := InputFileLocation{}
@@ -2688,6 +2674,20 @@ func DecodeInputFileLocation(buf *bin.Buffer) (InputFileLocationClass, error) {
 	case InputGroupCallStreamTypeID:
 		// Decoding inputGroupCallStream#598a92a.
 		v := InputGroupCallStream{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)
+		}
+		return &v, nil
+	case InputPeerPhotoFileLocationLegacyTypeID:
+		// Decoding inputPeerPhotoFileLocationLegacy#27d69997.
+		v := InputPeerPhotoFileLocationLegacy{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)
+		}
+		return &v, nil
+	case InputStickerSetThumbLegacyTypeID:
+		// Decoding inputStickerSetThumbLegacy#dbaeae9.
+		v := InputStickerSetThumbLegacy{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)
 		}
