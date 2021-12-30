@@ -40,7 +40,11 @@ func TestHTML(t *testing.T) {
 					testName = fmt.Sprintf("Test%d", i+1)
 				}
 				t.Run(strings.Title(testName), func(t *testing.T) {
-					t.Logf("Input: %q", test.html)
+					t.Cleanup(func() {
+						if t.Failed() {
+							t.Logf("Input: %q", test.html)
+						}
+					})
 					if test.skipReason != "" {
 						t.Skip(test.skipReason)
 					}
@@ -102,6 +106,7 @@ func TestHTML(t *testing.T) {
 			{html: `<pre><code class="language-python">python code</code></pre>`, msg: "python code",
 				entities: getEntities(entity.Pre("python"))},
 			{html: "<b>&lt;</b>", msg: "<", entities: getEntities(entity.Bold())},
+			{html: `<span class="tg-spoiler">spoiler</span>`, msg: "spoiler", entities: getEntities(entity.Spoiler())},
 		}
 		t.Run("Common", runTests(tests, false))
 	}

@@ -43,6 +43,7 @@ const (
 	strike = "strike"
 	del    = "del"
 	strong = "strong"
+	span   = "span"
 )
 
 func (p *htmlParser) tag(tn []byte) string {
@@ -72,6 +73,8 @@ func (p *htmlParser) tag(tn []byte) string {
 		return pre
 	case code:
 		return code
+	case span:
+		return span
 	default:
 		return string(tn)
 	}
@@ -141,6 +144,10 @@ func (p *htmlParser) startTag() error {
 		if lang := last.attr; lang != "" {
 			// Set language parameter.
 			e.format = entity.Pre(lang)
+		}
+	case span:
+		if p.attr["class"] == "tg-spoiler" {
+			e.format = entity.Spoiler()
 		}
 	}
 
