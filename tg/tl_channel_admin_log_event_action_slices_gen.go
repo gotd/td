@@ -545,6 +545,19 @@ func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionSendMe
 	return to
 }
 
+// AsChannelAdminLogEventActionChangeAvailableReactions returns copy with only ChannelAdminLogEventActionChangeAvailableReactions constructors.
+func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionChangeAvailableReactions() (to ChannelAdminLogEventActionChangeAvailableReactionsArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelAdminLogEventActionChangeAvailableReactions)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // ChannelAdminLogEventActionChangeTitleArray is adapter for slice of ChannelAdminLogEventActionChangeTitle.
 type ChannelAdminLogEventActionChangeTitleArray []ChannelAdminLogEventActionChangeTitle
 
@@ -3239,6 +3252,88 @@ func (s *ChannelAdminLogEventActionSendMessageArray) PopFirst() (v ChannelAdminL
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *ChannelAdminLogEventActionSendMessageArray) Pop() (v ChannelAdminLogEventActionSendMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// ChannelAdminLogEventActionChangeAvailableReactionsArray is adapter for slice of ChannelAdminLogEventActionChangeAvailableReactions.
+type ChannelAdminLogEventActionChangeAvailableReactionsArray []ChannelAdminLogEventActionChangeAvailableReactions
+
+// Sort sorts slice of ChannelAdminLogEventActionChangeAvailableReactions.
+func (s ChannelAdminLogEventActionChangeAvailableReactionsArray) Sort(less func(a, b ChannelAdminLogEventActionChangeAvailableReactions) bool) ChannelAdminLogEventActionChangeAvailableReactionsArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelAdminLogEventActionChangeAvailableReactions.
+func (s ChannelAdminLogEventActionChangeAvailableReactionsArray) SortStable(less func(a, b ChannelAdminLogEventActionChangeAvailableReactions) bool) ChannelAdminLogEventActionChangeAvailableReactionsArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelAdminLogEventActionChangeAvailableReactions.
+func (s ChannelAdminLogEventActionChangeAvailableReactionsArray) Retain(keep func(x ChannelAdminLogEventActionChangeAvailableReactions) bool) ChannelAdminLogEventActionChangeAvailableReactionsArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelAdminLogEventActionChangeAvailableReactionsArray) First() (v ChannelAdminLogEventActionChangeAvailableReactions, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelAdminLogEventActionChangeAvailableReactionsArray) Last() (v ChannelAdminLogEventActionChangeAvailableReactions, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionChangeAvailableReactionsArray) PopFirst() (v ChannelAdminLogEventActionChangeAvailableReactions, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChannelAdminLogEventActionChangeAvailableReactions
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionChangeAvailableReactionsArray) Pop() (v ChannelAdminLogEventActionChangeAvailableReactions, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

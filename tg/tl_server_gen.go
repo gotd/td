@@ -57,40 +57,6 @@ func (s *ServerDispatcher) Handle(ctx context.Context, b *bin.Buffer) (bin.Encod
 	return f(ctx, b)
 }
 
-func (s *ServerDispatcher) OnTestUseError(f func(ctx context.Context) (*Error, error)) {
-	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request TestUseErrorRequest
-		if err := request.Decode(b); err != nil {
-			return nil, err
-		}
-
-		response, err := f(ctx)
-		if err != nil {
-			return nil, err
-		}
-		return response, nil
-	}
-
-	s.handlers[TestUseErrorRequestTypeID] = handler
-}
-
-func (s *ServerDispatcher) OnTestUseConfigSimple(f func(ctx context.Context) (*HelpConfigSimple, error)) {
-	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request TestUseConfigSimpleRequest
-		if err := request.Decode(b); err != nil {
-			return nil, err
-		}
-
-		response, err := f(ctx)
-		if err != nil {
-			return nil, err
-		}
-		return response, nil
-	}
-
-	s.handlers[TestUseConfigSimpleRequestTypeID] = handler
-}
-
 func (s *ServerDispatcher) OnAuthSendCode(f func(ctx context.Context, request *AuthSendCodeRequest) (*AuthSentCode, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request AuthSendCodeRequest
@@ -4919,6 +4885,112 @@ func (s *ServerDispatcher) OnMessagesSaveDefaultSendAs(f func(ctx context.Contex
 	s.handlers[MessagesSaveDefaultSendAsRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesSendReaction(f func(ctx context.Context, request *MessagesSendReactionRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesSendReactionRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[MessagesSendReactionRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetMessagesReactions(f func(ctx context.Context, request *MessagesGetMessagesReactionsRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetMessagesReactionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[MessagesGetMessagesReactionsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetMessageReactionsList(f func(ctx context.Context, request *MessagesGetMessageReactionsListRequest) (*MessagesMessageReactionsList, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetMessageReactionsListRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[MessagesGetMessageReactionsListRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesSetChatAvailableReactions(f func(ctx context.Context, request *MessagesSetChatAvailableReactionsRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesSetChatAvailableReactionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[MessagesSetChatAvailableReactionsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetAvailableReactions(f func(ctx context.Context, hash int) (MessagesAvailableReactionsClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetAvailableReactionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hash)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesAvailableReactionsBox{AvailableReactions: response}, nil
+	}
+
+	s.handlers[MessagesGetAvailableReactionsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesSetDefaultReaction(f func(ctx context.Context, reaction string) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesSetDefaultReactionRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Reaction)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesSetDefaultReactionRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
@@ -7316,4 +7388,38 @@ func (s *ServerDispatcher) OnStatsGetMessageStats(f func(ctx context.Context, re
 	}
 
 	s.handlers[StatsGetMessageStatsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnTestUseError(f func(ctx context.Context) (*Error, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request TestUseErrorRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[TestUseErrorRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnTestUseConfigSimple(f func(ctx context.Context) (*HelpConfigSimple, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request TestUseConfigSimpleRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[TestUseConfigSimpleRequestTypeID] = handler
 }

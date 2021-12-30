@@ -52,6 +52,8 @@ type MessagesForwardMessagesRequest struct {
 	DropAuthor bool
 	// Whether to strip captions from media
 	DropMediaCaptions bool
+	// Noforwards field of MessagesForwardMessagesRequest.
+	Noforwards bool
 	// Source of messages
 	FromPeer InputPeerClass
 	// IDs of messages
@@ -103,6 +105,9 @@ func (f *MessagesForwardMessagesRequest) Zero() bool {
 	if !(f.DropMediaCaptions == false) {
 		return false
 	}
+	if !(f.Noforwards == false) {
+		return false
+	}
 	if !(f.FromPeer == nil) {
 		return false
 	}
@@ -141,6 +146,7 @@ func (f *MessagesForwardMessagesRequest) FillFrom(from interface {
 	GetWithMyScore() (value bool)
 	GetDropAuthor() (value bool)
 	GetDropMediaCaptions() (value bool)
+	GetNoforwards() (value bool)
 	GetFromPeer() (value InputPeerClass)
 	GetID() (value []int)
 	GetRandomID() (value []int64)
@@ -153,6 +159,7 @@ func (f *MessagesForwardMessagesRequest) FillFrom(from interface {
 	f.WithMyScore = from.GetWithMyScore()
 	f.DropAuthor = from.GetDropAuthor()
 	f.DropMediaCaptions = from.GetDropMediaCaptions()
+	f.Noforwards = from.GetNoforwards()
 	f.FromPeer = from.GetFromPeer()
 	f.ID = from.GetID()
 	f.RandomID = from.GetRandomID()
@@ -216,6 +223,11 @@ func (f *MessagesForwardMessagesRequest) TypeInfo() tdp.Type {
 			Null:       !f.Flags.Has(12),
 		},
 		{
+			Name:       "Noforwards",
+			SchemaName: "noforwards",
+			Null:       !f.Flags.Has(14),
+		},
+		{
 			Name:       "FromPeer",
 			SchemaName: "from_peer",
 		},
@@ -261,6 +273,9 @@ func (f *MessagesForwardMessagesRequest) SetFlags() {
 	}
 	if !(f.DropMediaCaptions == false) {
 		f.Flags.Set(12)
+	}
+	if !(f.Noforwards == false) {
+		f.Flags.Set(14)
 	}
 	if !(f.ScheduleDate == 0) {
 		f.Flags.Set(10)
@@ -348,6 +363,7 @@ func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	f.WithMyScore = f.Flags.Has(8)
 	f.DropAuthor = f.Flags.Has(11)
 	f.DropMediaCaptions = f.Flags.Has(12)
+	f.Noforwards = f.Flags.Has(14)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -506,6 +522,25 @@ func (f *MessagesForwardMessagesRequest) GetDropMediaCaptions() (value bool) {
 		return
 	}
 	return f.Flags.Has(12)
+}
+
+// SetNoforwards sets value of Noforwards conditional field.
+func (f *MessagesForwardMessagesRequest) SetNoforwards(value bool) {
+	if value {
+		f.Flags.Set(14)
+		f.Noforwards = true
+	} else {
+		f.Flags.Unset(14)
+		f.Noforwards = false
+	}
+}
+
+// GetNoforwards returns value of Noforwards conditional field.
+func (f *MessagesForwardMessagesRequest) GetNoforwards() (value bool) {
+	if f == nil {
+		return
+	}
+	return f.Flags.Has(14)
 }
 
 // GetFromPeer returns value of FromPeer field.

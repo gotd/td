@@ -1055,3 +1055,13 @@ func (u UpdateDispatcher) OnBotChatInviteRequester(handler BotChatInviteRequeste
 		return handler(ctx, e, update.(*UpdateBotChatInviteRequester))
 	}
 }
+
+// MessageReactionsHandler is a MessageReactions event handler.
+type MessageReactionsHandler func(ctx context.Context, e Entities, update *UpdateMessageReactions) error
+
+// OnMessageReactions sets MessageReactions handler.
+func (u UpdateDispatcher) OnMessageReactions(handler MessageReactionsHandler) {
+	u.handlers[UpdateMessageReactionsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateMessageReactions))
+	}
+}

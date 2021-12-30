@@ -363,6 +363,19 @@ func (s MessageEntityClassArray) AsMessageEntityBankCard() (to MessageEntityBank
 	return to
 }
 
+// AsMessageEntitySpoiler returns copy with only MessageEntitySpoiler constructors.
+func (s MessageEntityClassArray) AsMessageEntitySpoiler() (to MessageEntitySpoilerArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageEntitySpoiler)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MessageEntityUnknownArray is adapter for slice of MessageEntityUnknown.
 type MessageEntityUnknownArray []MessageEntityUnknown
 
@@ -1909,6 +1922,88 @@ func (s *MessageEntityBankCardArray) PopFirst() (v MessageEntityBankCard, ok boo
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MessageEntityBankCardArray) Pop() (v MessageEntityBankCard, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageEntitySpoilerArray is adapter for slice of MessageEntitySpoiler.
+type MessageEntitySpoilerArray []MessageEntitySpoiler
+
+// Sort sorts slice of MessageEntitySpoiler.
+func (s MessageEntitySpoilerArray) Sort(less func(a, b MessageEntitySpoiler) bool) MessageEntitySpoilerArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageEntitySpoiler.
+func (s MessageEntitySpoilerArray) SortStable(less func(a, b MessageEntitySpoiler) bool) MessageEntitySpoilerArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageEntitySpoiler.
+func (s MessageEntitySpoilerArray) Retain(keep func(x MessageEntitySpoiler) bool) MessageEntitySpoilerArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageEntitySpoilerArray) First() (v MessageEntitySpoiler, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageEntitySpoilerArray) Last() (v MessageEntitySpoiler, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageEntitySpoilerArray) PopFirst() (v MessageEntitySpoiler, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageEntitySpoiler
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageEntitySpoilerArray) Pop() (v MessageEntitySpoiler, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
