@@ -169,9 +169,15 @@ func (s *Sender) reportSpam(ctx context.Context, p tg.InputPeerClass) (bool, err
 	return s.raw.MessagesReportSpam(ctx, p)
 }
 
-// getPeerSettings returns peer settings.
-func (s *Sender) getPeerSettings(ctx context.Context, p tg.InputPeerClass) (*tg.MessagesPeerSettings, error) {
-	return s.raw.MessagesGetPeerSettings(ctx, p)
+func (s *Sender) sendReaction(
+	ctx context.Context,
+	p tg.InputPeerClass, msgID int, reaction string,
+) (tg.UpdatesClass, error) {
+	return s.raw.MessagesSendReaction(ctx, &tg.MessagesSendReactionRequest{
+		Peer:     p,
+		MsgID:    msgID,
+		Reaction: reaction,
+	})
 }
 
 // sendScreenshotNotification sends notification about screenshot to peer.
@@ -188,6 +194,11 @@ func (s *Sender) sendScreenshotNotification(
 	}
 
 	return s.raw.MessagesSendScreenshotNotification(ctx, req)
+}
+
+// getPeerSettings returns peer settings.
+func (s *Sender) getPeerSettings(ctx context.Context, p tg.InputPeerClass) (*tg.MessagesPeerSettings, error) {
+	return s.raw.MessagesGetPeerSettings(ctx, p)
 }
 
 // sendScheduledMessages sends scheduled messages using given ids.
