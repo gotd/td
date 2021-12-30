@@ -42,6 +42,7 @@ func Plain(s string) StyledTextOption {
 }
 
 // Mention formats text as Mention entity.
+//
 // See https://core.telegram.org/constructor/messageEntityMention.
 func Mention(s string) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
@@ -51,6 +52,7 @@ func Mention(s string) StyledTextOption {
 }
 
 // Hashtag formats text as Hashtag entity.
+//
 // See https://core.telegram.org/constructor/messageEntityHashtag.
 func Hashtag(s string) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
@@ -60,6 +62,7 @@ func Hashtag(s string) StyledTextOption {
 }
 
 // BotCommand formats text as BotCommand entity.
+//
 // See https://core.telegram.org/constructor/messageEntityBotCommand.
 func BotCommand(s string) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
@@ -69,6 +72,7 @@ func BotCommand(s string) StyledTextOption {
 }
 
 // URL formats text as URL entity.
+//
 // See https://core.telegram.org/constructor/messageEntityUrl.
 func URL(s string) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
@@ -78,6 +82,7 @@ func URL(s string) StyledTextOption {
 }
 
 // Email formats text as Email entity.
+//
 // See https://core.telegram.org/constructor/messageEntityEmail.
 func Email(s string) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
@@ -87,6 +92,7 @@ func Email(s string) StyledTextOption {
 }
 
 // Bold formats text as Bold entity.
+//
 // See https://core.telegram.org/constructor/messageEntityBold.
 func Bold(s string) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
@@ -96,6 +102,7 @@ func Bold(s string) StyledTextOption {
 }
 
 // Italic formats text as Italic entity.
+//
 // See https://core.telegram.org/constructor/messageEntityItalic.
 func Italic(s string) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
@@ -105,6 +112,7 @@ func Italic(s string) StyledTextOption {
 }
 
 // Code formats text as Code entity.
+//
 // See https://core.telegram.org/constructor/messageEntityCode.
 func Code(s string) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
@@ -114,6 +122,7 @@ func Code(s string) StyledTextOption {
 }
 
 // Pre formats text as Pre entity (without language).
+//
 // See https://core.telegram.org/constructor/messageEntityPre.
 //
 // Use PreLang to pass language.
@@ -122,6 +131,7 @@ func Pre(s string) StyledTextOption {
 }
 
 // PreLang formats text as Pre entity with language.
+//
 // See https://core.telegram.org/constructor/messageEntityPre.
 func PreLang(s, lang string) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
@@ -131,6 +141,7 @@ func PreLang(s, lang string) StyledTextOption {
 }
 
 // TextURL formats text as TextURL entity.
+//
 // See https://core.telegram.org/constructor/messageEntityUrl.
 func TextURL(s, url string) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
@@ -140,6 +151,7 @@ func TextURL(s, url string) StyledTextOption {
 }
 
 // MentionName formats text as MentionName entity.
+//
 // See https://core.telegram.org/constructor/messageEntityMentionName.
 func MentionName(s string, userID tg.InputUserClass) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
@@ -149,6 +161,7 @@ func MentionName(s string, userID tg.InputUserClass) StyledTextOption {
 }
 
 // Phone formats text as Phone entity.
+//
 // See https://core.telegram.org/constructor/messageEntityPhone.
 func Phone(s string) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
@@ -158,6 +171,7 @@ func Phone(s string) StyledTextOption {
 }
 
 // Cashtag formats text as Cashtag entity.
+//
 // See https://core.telegram.org/constructor/messageEntityCashtag.
 func Cashtag(s string) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
@@ -167,6 +181,7 @@ func Cashtag(s string) StyledTextOption {
 }
 
 // Underline formats text as Underline entity.
+//
 // See https://core.telegram.org/constructor/messageEntityUnderline.
 func Underline(s string) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
@@ -176,6 +191,7 @@ func Underline(s string) StyledTextOption {
 }
 
 // Strike formats text as Strike entity.
+//
 // See https://core.telegram.org/constructor/messageEntityStrike.
 func Strike(s string) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
@@ -185,6 +201,7 @@ func Strike(s string) StyledTextOption {
 }
 
 // Blockquote formats text as Blockquote entity.
+//
 // See https://core.telegram.org/constructor/messageEntityBlockquote.
 func Blockquote(s string) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
@@ -194,10 +211,21 @@ func Blockquote(s string) StyledTextOption {
 }
 
 // BankCard formats text as BankCard entity.
+//
 // See https://core.telegram.org/constructor/messageEntityBankCard.
 func BankCard(s string) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
 		b.BankCard(s)
+		return nil
+	})
+}
+
+// Spoiler formats text as Spoiler entity.
+//
+// See https://core.telegram.org/constructor/messageEntitySpoiler.
+func Spoiler(s string) StyledTextOption {
+	return styledTextOption(s, func(b *textBuilder) error {
+		b.Spoiler(s)
 		return nil
 	})
 }
