@@ -10,6 +10,27 @@ import (
 	"github.com/gotd/td/tg"
 )
 
+func TestRequestBuilder_Reaction(t *testing.T) {
+	ctx := context.Background()
+	sender, mock := testSender(t)
+
+	mock.ExpectCall(&tg.MessagesSendReactionRequest{
+		Peer:     &tg.InputPeerSelf{},
+		MsgID:    10,
+		Reaction: "A",
+	}).ThenResult(&tg.Updates{})
+	_, err := sender.Self().Reaction(ctx, 10, "A")
+	require.NoError(t, err)
+
+	mock.ExpectCall(&tg.MessagesSendReactionRequest{
+		Peer:     &tg.InputPeerSelf{},
+		MsgID:    10,
+		Reaction: "A",
+	}).ThenRPCErr(testRPCError())
+	_, err = sender.Self().Reaction(ctx, 10, "A")
+	require.Error(t, err)
+}
+
 func TestRequestBuilder_ScreenshotNotify(t *testing.T) {
 	ctx := context.Background()
 	sender, mock := testSender(t)

@@ -1,6 +1,7 @@
 package entity
 
 import (
+	"encoding/hex"
 	"testing"
 	"unicode/utf8"
 
@@ -26,7 +27,7 @@ func TestComputeLength(t *testing.T) {
 		testutil.ZeroAlloc(t, func() {
 			_ = ComputeLengthBytes(r)
 		})
-		t.Run(tt.s, func(t *testing.T) {
+		t.Run(hex.EncodeToString([]byte(tt.s)), func(t *testing.T) {
 			require.Equal(t, tt.want, ComputeLength(tt.s))
 			require.Equal(t, tt.want, ComputeLengthBytes(r))
 		})

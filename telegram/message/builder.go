@@ -30,6 +30,8 @@ type Builder struct {
 	background bool
 	// Clear the draft field.
 	clearDraft bool
+	// noForwards whether that sent message cannot be forwarded.
+	noForwards bool
 
 	// The message ID to which this message will reply to.
 	replyToMsgID int
@@ -37,6 +39,9 @@ type Builder struct {
 	replyMarkup tg.ReplyMarkupClass
 	// Scheduled message date for scheduled messages.
 	scheduleDate int
+
+	// sendAs sets peer to send message as it.
+	sendAs tg.InputPeerClass
 }
 
 func (b *Builder) copy() *Builder {
@@ -94,7 +99,16 @@ func (b *Builder) NoWebpage() *Builder {
 	return b
 }
 
+// NoForwards whether that sent message cannot be forwarded.
+//
+// See https://telegram.org/blog/protected-content-delete-by-date-and-more#protected-content-in-groups-and-channels.
+func (b *Builder) NoForwards() *Builder {
+	b.noForwards = true
+	return b
+}
+
 // Markup sets reply markup for sending bot buttons.
+//
 // NB: markup will not be used, if you send multiple media attachments.
 func (b *Builder) Markup(m tg.ReplyMarkupClass) *Builder {
 	b.replyMarkup = m
@@ -102,7 +116,16 @@ func (b *Builder) Markup(m tg.ReplyMarkupClass) *Builder {
 }
 
 // Row sets single row keyboard markup  for sending bot buttons.
+//
 // NB: markup will not be used, if you send multiple media attachments.
 func (b *Builder) Row(buttons ...tg.KeyboardButtonClass) *Builder {
 	return b.Markup(markup.InlineRow(buttons...))
+}
+
+// SendAs sets peer to send as.
+//
+// See https://telegram.org/blog/protected-content-delete-by-date-and-more#anonymous-posting-in-public-groups.
+func (b *Builder) SendAs(p tg.InputPeerClass) *Builder {
+	b.sendAs = p
+	return b
 }

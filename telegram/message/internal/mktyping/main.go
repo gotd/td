@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"reflect"
 
 	"github.com/go-faster/errors"
@@ -67,6 +68,8 @@ type generator struct{}
 func (g generator) Name() string {
 	return "mktyping"
 }
+
+func (g generator) Flags(set *flag.FlagSet) {}
 
 func (g generator) Template() string {
 	return rawTemplate

@@ -265,4 +265,27 @@ func (c Chat) deleteMe(ctx context.Context, revokeHistory bool) error {
 	return nil
 }
 
+// SetReactions sets list of available reactions.
+//
+// Empty list disables reactions at all.
+func (c Chat) SetReactions(ctx context.Context, reactions ...string) error {
+	return c.setReactions(ctx, reactions...)
+}
+
+// DisableReactions disables reactions.
+func (c Chat) DisableReactions(ctx context.Context) error {
+	return c.setReactions(ctx)
+}
+
+func (c Chat) setReactions(ctx context.Context, reactions ...string) error {
+	if _, err := c.m.api.MessagesSetChatAvailableReactions(ctx, &tg.MessagesSetChatAvailableReactionsRequest{
+		Peer:               c.InputPeer(),
+		AvailableReactions: reactions,
+	}); err != nil {
+		return errors.Wrap(err, "set reactions")
+	}
+
+	return nil
+}
+
 // TODO(tdakkota): add more getters, helpers and convertors

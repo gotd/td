@@ -89,6 +89,9 @@ func TestBuilder_StyledText(t *testing.T) {
 		{"BankCard", styling.BankCard, func(o int) tg.MessageEntityClass {
 			return &tg.MessageEntityBankCard{Length: o}
 		}},
+		{"Spoiler", styling.Spoiler, func(o int) tg.MessageEntityClass {
+			return &tg.MessageEntitySpoiler{Length: o}
+		}},
 	}
 
 	for _, test := range tests {

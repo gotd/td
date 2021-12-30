@@ -13,6 +13,21 @@ type RequestBuilder struct {
 	Builder
 }
 
+// Reaction sends reaction for given message.
+func (b *RequestBuilder) Reaction(ctx context.Context, msgID int, reaction string) (tg.UpdatesClass, error) {
+	p, err := b.peer(ctx)
+	if err != nil {
+		return nil, errors.Wrap(err, "peer")
+	}
+
+	upd, err := b.sender.sendReaction(ctx, p, msgID, reaction)
+	if err != nil {
+		return nil, errors.Wrap(err, "send reaction")
+	}
+
+	return upd, nil
+}
+
 // ScreenshotNotify sends notification about screenshot.
 // Parameter msgID is an ID of message that was screenshotted, can be 0.
 func (b *RequestBuilder) ScreenshotNotify(ctx context.Context, msgID int) (tg.UpdatesClass, error) {
