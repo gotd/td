@@ -77,11 +77,15 @@ func generate(w io.Writer, pkgName string, g Generator) error {
 }
 
 func run(g Generator) (rErr error) {
+	set := flag.NewFlagSet(os.Args[0], flag.ExitOnError)
 	var (
-		o       = flag.String("output", "", "output file")
-		pkgName = flag.String("package", os.Getenv("GOPACKAGE"), "package name")
+		o       = set.String("output", "", "output file")
+		pkgName = set.String("package", os.Getenv("GOPACKAGE"), "package name")
 	)
-	flag.Parse()
+	g.Flags(set)
+	if err := set.Parse(os.Args[1:]); err != nil {
+		return errors.Wrap(err, "parse")
+	}
 
 	if *pkgName == "" {
 		if *o != "" {
