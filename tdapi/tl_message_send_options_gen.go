@@ -31,19 +31,22 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessageSendOptions represents TL type `messageSendOptions#3682d6ba`.
+// MessageSendOptions represents TL type `messageSendOptions#cc149434`.
 type MessageSendOptions struct {
 	// Pass true to disable notification for the message
 	DisableNotification bool
 	// Pass true if the message is sent from the background
 	FromBackground bool
+	// Pass true if the content of the message must be protected from forwarding and saving;
+	// for bots only
+	ProtectContent bool
 	// Message scheduling state; pass null to send message immediately. Messages sent to a
 	// secret chat, live location messages and self-destructing messages can't be scheduled
 	SchedulingState MessageSchedulingStateClass
 }
 
 // MessageSendOptionsTypeID is TL type id of MessageSendOptions.
-const MessageSendOptionsTypeID = 0x3682d6ba
+const MessageSendOptionsTypeID = 0xcc149434
 
 // Ensuring interfaces in compile-time for MessageSendOptions.
 var (
@@ -61,6 +64,9 @@ func (m *MessageSendOptions) Zero() bool {
 		return false
 	}
 	if !(m.FromBackground == false) {
+		return false
+	}
+	if !(m.ProtectContent == false) {
 		return false
 	}
 	if !(m.SchedulingState == nil) {
@@ -111,6 +117,10 @@ func (m *MessageSendOptions) TypeInfo() tdp.Type {
 			SchemaName: "from_background",
 		},
 		{
+			Name:       "ProtectContent",
+			SchemaName: "protect_content",
+		},
+		{
 			Name:       "SchedulingState",
 			SchemaName: "scheduling_state",
 		},
@@ -121,7 +131,7 @@ func (m *MessageSendOptions) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageSendOptions) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageSendOptions#3682d6ba as nil")
+		return fmt.Errorf("can't encode messageSendOptions#cc149434 as nil")
 	}
 	b.PutID(MessageSendOptionsTypeID)
 	return m.EncodeBare(b)
@@ -130,15 +140,16 @@ func (m *MessageSendOptions) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageSendOptions) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageSendOptions#3682d6ba as nil")
+		return fmt.Errorf("can't encode messageSendOptions#cc149434 as nil")
 	}
 	b.PutBool(m.DisableNotification)
 	b.PutBool(m.FromBackground)
+	b.PutBool(m.ProtectContent)
 	if m.SchedulingState == nil {
-		return fmt.Errorf("unable to encode messageSendOptions#3682d6ba: field scheduling_state is nil")
+		return fmt.Errorf("unable to encode messageSendOptions#cc149434: field scheduling_state is nil")
 	}
 	if err := m.SchedulingState.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageSendOptions#3682d6ba: field scheduling_state: %w", err)
+		return fmt.Errorf("unable to encode messageSendOptions#cc149434: field scheduling_state: %w", err)
 	}
 	return nil
 }
@@ -146,10 +157,10 @@ func (m *MessageSendOptions) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageSendOptions) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageSendOptions#3682d6ba to nil")
+		return fmt.Errorf("can't decode messageSendOptions#cc149434 to nil")
 	}
 	if err := b.ConsumeID(MessageSendOptionsTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageSendOptions#3682d6ba: %w", err)
+		return fmt.Errorf("unable to decode messageSendOptions#cc149434: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -157,26 +168,33 @@ func (m *MessageSendOptions) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageSendOptions) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageSendOptions#3682d6ba to nil")
+		return fmt.Errorf("can't decode messageSendOptions#cc149434 to nil")
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageSendOptions#3682d6ba: field disable_notification: %w", err)
+			return fmt.Errorf("unable to decode messageSendOptions#cc149434: field disable_notification: %w", err)
 		}
 		m.DisableNotification = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageSendOptions#3682d6ba: field from_background: %w", err)
+			return fmt.Errorf("unable to decode messageSendOptions#cc149434: field from_background: %w", err)
 		}
 		m.FromBackground = value
 	}
 	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageSendOptions#cc149434: field protect_content: %w", err)
+		}
+		m.ProtectContent = value
+	}
+	{
 		value, err := DecodeMessageSchedulingState(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageSendOptions#3682d6ba: field scheduling_state: %w", err)
+			return fmt.Errorf("unable to decode messageSendOptions#cc149434: field scheduling_state: %w", err)
 		}
 		m.SchedulingState = value
 	}
@@ -186,7 +204,7 @@ func (m *MessageSendOptions) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageSendOptions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageSendOptions#3682d6ba as nil")
+		return fmt.Errorf("can't encode messageSendOptions#cc149434 as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageSendOptions")
@@ -194,12 +212,14 @@ func (m *MessageSendOptions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutBool(m.DisableNotification)
 	b.FieldStart("from_background")
 	b.PutBool(m.FromBackground)
+	b.FieldStart("protect_content")
+	b.PutBool(m.ProtectContent)
 	b.FieldStart("scheduling_state")
 	if m.SchedulingState == nil {
-		return fmt.Errorf("unable to encode messageSendOptions#3682d6ba: field scheduling_state is nil")
+		return fmt.Errorf("unable to encode messageSendOptions#cc149434: field scheduling_state is nil")
 	}
 	if err := m.SchedulingState.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageSendOptions#3682d6ba: field scheduling_state: %w", err)
+		return fmt.Errorf("unable to encode messageSendOptions#cc149434: field scheduling_state: %w", err)
 	}
 	b.ObjEnd()
 	return nil
@@ -208,31 +228,37 @@ func (m *MessageSendOptions) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageSendOptions) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageSendOptions#3682d6ba to nil")
+		return fmt.Errorf("can't decode messageSendOptions#cc149434 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageSendOptions"); err != nil {
-				return fmt.Errorf("unable to decode messageSendOptions#3682d6ba: %w", err)
+				return fmt.Errorf("unable to decode messageSendOptions#cc149434: %w", err)
 			}
 		case "disable_notification":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageSendOptions#3682d6ba: field disable_notification: %w", err)
+				return fmt.Errorf("unable to decode messageSendOptions#cc149434: field disable_notification: %w", err)
 			}
 			m.DisableNotification = value
 		case "from_background":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageSendOptions#3682d6ba: field from_background: %w", err)
+				return fmt.Errorf("unable to decode messageSendOptions#cc149434: field from_background: %w", err)
 			}
 			m.FromBackground = value
+		case "protect_content":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageSendOptions#cc149434: field protect_content: %w", err)
+			}
+			m.ProtectContent = value
 		case "scheduling_state":
 			value, err := DecodeTDLibJSONMessageSchedulingState(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messageSendOptions#3682d6ba: field scheduling_state: %w", err)
+				return fmt.Errorf("unable to decode messageSendOptions#cc149434: field scheduling_state: %w", err)
 			}
 			m.SchedulingState = value
 		default:
@@ -256,6 +282,14 @@ func (m *MessageSendOptions) GetFromBackground() (value bool) {
 		return
 	}
 	return m.FromBackground
+}
+
+// GetProtectContent returns value of ProtectContent field.
+func (m *MessageSendOptions) GetProtectContent() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.ProtectContent
 }
 
 // GetSchedulingState returns value of SchedulingState field.
