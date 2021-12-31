@@ -1579,6 +1579,135 @@ func (t *TextEntityTypeStrikethrough) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// TextEntityTypeSpoiler represents TL type `textEntityTypeSpoiler#206d15bb`.
+type TextEntityTypeSpoiler struct {
+}
+
+// TextEntityTypeSpoilerTypeID is TL type id of TextEntityTypeSpoiler.
+const TextEntityTypeSpoilerTypeID = 0x206d15bb
+
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypeSpoiler) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypeSpoiler.
+var (
+	_ bin.Encoder     = &TextEntityTypeSpoiler{}
+	_ bin.Decoder     = &TextEntityTypeSpoiler{}
+	_ bin.BareEncoder = &TextEntityTypeSpoiler{}
+	_ bin.BareDecoder = &TextEntityTypeSpoiler{}
+
+	_ TextEntityTypeClass = &TextEntityTypeSpoiler{}
+)
+
+func (t *TextEntityTypeSpoiler) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TextEntityTypeSpoiler) String() string {
+	if t == nil {
+		return "TextEntityTypeSpoiler(nil)"
+	}
+	type Alias TextEntityTypeSpoiler
+	return fmt.Sprintf("TextEntityTypeSpoiler%+v", Alias(*t))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TextEntityTypeSpoiler) TypeID() uint32 {
+	return TextEntityTypeSpoilerTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TextEntityTypeSpoiler) TypeName() string {
+	return "textEntityTypeSpoiler"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextEntityTypeSpoiler) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textEntityTypeSpoiler",
+		ID:   TextEntityTypeSpoilerTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TextEntityTypeSpoiler) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeSpoiler#206d15bb as nil")
+	}
+	b.PutID(TextEntityTypeSpoilerTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypeSpoiler) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeSpoiler#206d15bb as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TextEntityTypeSpoiler) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeSpoiler#206d15bb to nil")
+	}
+	if err := b.ConsumeID(TextEntityTypeSpoilerTypeID); err != nil {
+		return fmt.Errorf("unable to decode textEntityTypeSpoiler#206d15bb: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypeSpoiler) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeSpoiler#206d15bb to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypeSpoiler) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeSpoiler#206d15bb as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypeSpoiler")
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypeSpoiler) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeSpoiler#206d15bb to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("textEntityTypeSpoiler"); err != nil {
+				return fmt.Errorf("unable to decode textEntityTypeSpoiler#206d15bb: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // TextEntityTypeCode represents TL type `textEntityTypeCode#c5e9c94a`.
 type TextEntityTypeCode struct {
 }
@@ -2514,6 +2643,7 @@ const TextEntityTypeClassName = "TextEntityType"
 //  case *tdapi.TextEntityTypeItalic: // textEntityTypeItalic#f8f3965d
 //  case *tdapi.TextEntityTypeUnderline: // textEntityTypeUnderline#2f39cf92
 //  case *tdapi.TextEntityTypeStrikethrough: // textEntityTypeStrikethrough#394fc4fa
+//  case *tdapi.TextEntityTypeSpoiler: // textEntityTypeSpoiler#206d15bb
 //  case *tdapi.TextEntityTypeCode: // textEntityTypeCode#c5e9c94a
 //  case *tdapi.TextEntityTypePre: // textEntityTypePre#62491c8e
 //  case *tdapi.TextEntityTypePreCode: // textEntityTypePreCode#c7a77aab
@@ -2631,6 +2761,13 @@ func DecodeTextEntityType(buf *bin.Buffer) (TextEntityTypeClass, error) {
 	case TextEntityTypeStrikethroughTypeID:
 		// Decoding textEntityTypeStrikethrough#394fc4fa.
 		v := TextEntityTypeStrikethrough{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+		}
+		return &v, nil
+	case TextEntityTypeSpoilerTypeID:
+		// Decoding textEntityTypeSpoiler#206d15bb.
+		v := TextEntityTypeSpoiler{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
 		}
@@ -2769,6 +2906,13 @@ func DecodeTDLibJSONTextEntityType(buf tdjson.Decoder) (TextEntityTypeClass, err
 	case "textEntityTypeStrikethrough":
 		// Decoding textEntityTypeStrikethrough#394fc4fa.
 		v := TextEntityTypeStrikethrough{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+		}
+		return &v, nil
+	case "textEntityTypeSpoiler":
+		// Decoding textEntityTypeSpoiler#206d15bb.
+		v := TextEntityTypeSpoiler{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
 		}
