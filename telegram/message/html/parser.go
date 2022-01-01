@@ -36,14 +36,15 @@ func (p *htmlParser) fillAttrs() {
 }
 
 const (
-	pre    = "pre"
-	code   = "code"
-	em     = "em"
-	ins    = "ins"
-	strike = "strike"
-	del    = "del"
-	strong = "strong"
-	span   = "span"
+	pre       = "pre"
+	code      = "code"
+	em        = "em"
+	ins       = "ins"
+	strike    = "strike"
+	del       = "del"
+	strong    = "strong"
+	span      = "span"
+	tgSpoiler = "tg-spoiler"
 )
 
 func (p *htmlParser) tag(tn []byte) string {
@@ -75,6 +76,8 @@ func (p *htmlParser) tag(tn []byte) string {
 		return code
 	case span:
 		return span
+	case tgSpoiler:
+		return tgSpoiler
 	default:
 		return string(tn)
 	}
@@ -149,6 +152,8 @@ func (p *htmlParser) startTag() error {
 		if p.attr["class"] == "tg-spoiler" {
 			e.format = entity.Spoiler()
 		}
+	case tgSpoiler:
+		e.format = entity.Spoiler()
 	}
 
 	p.stack.push(e)
