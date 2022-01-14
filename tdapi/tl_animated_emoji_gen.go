@@ -185,16 +185,21 @@ func (a *AnimatedEmoji) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("animatedEmoji")
+	b.Comma()
 	b.FieldStart("sticker")
 	if err := a.Sticker.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode animatedEmoji#93b7fec9: field sticker: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("fitzpatrick_type")
 	b.PutInt32(a.FitzpatrickType)
+	b.Comma()
 	b.FieldStart("sound")
 	if err := a.Sound.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode animatedEmoji#93b7fec9: field sound: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

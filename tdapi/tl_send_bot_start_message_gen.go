@@ -185,12 +185,17 @@ func (s *SendBotStartMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("sendBotStartMessage")
+	b.Comma()
 	b.FieldStart("bot_user_id")
 	b.PutInt53(s.BotUserID)
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("parameter")
 	b.PutString(s.Parameter)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

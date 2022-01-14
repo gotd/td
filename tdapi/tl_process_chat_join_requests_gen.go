@@ -186,12 +186,17 @@ func (p *ProcessChatJoinRequestsRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("processChatJoinRequests")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(p.ChatID)
+	b.Comma()
 	b.FieldStart("invite_link")
 	b.PutString(p.InviteLink)
+	b.Comma()
 	b.FieldStart("approve")
 	b.PutBool(p.Approve)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -150,8 +150,11 @@ func (d *DeleteChatFilterRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deleteChatFilter")
+	b.Comma()
 	b.FieldStart("chat_filter_id")
 	b.PutInt32(d.ChatFilterID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

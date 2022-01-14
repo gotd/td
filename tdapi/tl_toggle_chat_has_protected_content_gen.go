@@ -167,10 +167,14 @@ func (t *ToggleChatHasProtectedContentRequest) EncodeTDLibJSON(b tdjson.Encoder)
 	}
 	b.ObjStart()
 	b.PutID("toggleChatHasProtectedContent")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(t.ChatID)
+	b.Comma()
 	b.FieldStart("has_protected_content")
 	b.PutBool(t.HasProtectedContent)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

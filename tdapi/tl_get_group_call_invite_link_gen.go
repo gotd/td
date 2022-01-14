@@ -169,10 +169,14 @@ func (g *GetGroupCallInviteLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("getGroupCallInviteLink")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(g.GroupCallID)
+	b.Comma()
 	b.FieldStart("can_self_unmute")
 	b.PutBool(g.CanSelfUnmute)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

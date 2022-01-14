@@ -132,6 +132,8 @@ func (g *GetLogVerbosityLevelRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getLogVerbosityLevel")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -184,18 +184,24 @@ func (s *SetCustomLanguagePackRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setCustomLanguagePack")
+	b.Comma()
 	b.FieldStart("info")
 	if err := s.Info.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setCustomLanguagePack#234b0607: field info: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("strings")
 	b.ArrStart()
 	for idx, v := range s.Strings {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode setCustomLanguagePack#234b0607: field strings element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

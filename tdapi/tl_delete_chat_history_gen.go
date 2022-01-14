@@ -184,12 +184,17 @@ func (d *DeleteChatHistoryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deleteChatHistory")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(d.ChatID)
+	b.Comma()
 	b.FieldStart("remove_from_chat_list")
 	b.PutBool(d.RemoveFromChatList)
+	b.Comma()
 	b.FieldStart("revoke")
 	b.PutBool(d.Revoke)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

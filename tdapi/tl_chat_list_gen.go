@@ -137,6 +137,8 @@ func (c *ChatListMain) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatListMain")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (c *ChatListArchive) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatListArchive")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -413,8 +417,11 @@ func (c *ChatListFilter) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatListFilter")
+	b.Comma()
 	b.FieldStart("chat_filter_id")
 	b.PutInt32(c.ChatFilterID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

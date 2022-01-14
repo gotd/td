@@ -132,6 +132,8 @@ func (r *ResendPhoneNumberConfirmationCodeRequest) EncodeTDLibJSON(b tdjson.Enco
 	}
 	b.ObjStart()
 	b.PutID("resendPhoneNumberConfirmationCode")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

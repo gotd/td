@@ -201,16 +201,22 @@ func (o *OrderInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("orderInfo")
+	b.Comma()
 	b.FieldStart("name")
 	b.PutString(o.Name)
+	b.Comma()
 	b.FieldStart("phone_number")
 	b.PutString(o.PhoneNumber)
+	b.Comma()
 	b.FieldStart("email_address")
 	b.PutString(o.EmailAddress)
+	b.Comma()
 	b.FieldStart("shipping_address")
 	if err := o.ShippingAddress.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode orderInfo#2ebad96e: field shipping_address: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

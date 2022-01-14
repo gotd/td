@@ -167,10 +167,14 @@ func (t *ToggleGroupCallEnabledStartNotificationRequest) EncodeTDLibJSON(b tdjso
 	}
 	b.ObjStart()
 	b.PutID("toggleGroupCallEnabledStartNotification")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(t.GroupCallID)
+	b.Comma()
 	b.FieldStart("enabled_start_notification")
 	b.PutBool(t.EnabledStartNotification)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

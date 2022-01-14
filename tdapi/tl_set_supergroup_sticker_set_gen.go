@@ -168,10 +168,14 @@ func (s *SetSupergroupStickerSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("setSupergroupStickerSet")
+	b.Comma()
 	b.FieldStart("supergroup_id")
 	b.PutInt53(s.SupergroupID)
+	b.Comma()
 	b.FieldStart("sticker_set_id")
 	b.PutLong(s.StickerSetID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

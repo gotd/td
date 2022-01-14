@@ -226,14 +226,19 @@ func (s *SearchSecretMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchSecretMessages")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("query")
 	b.PutString(s.Query)
+	b.Comma()
 	b.FieldStart("offset")
 	b.PutString(s.Offset)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(s.Limit)
+	b.Comma()
 	b.FieldStart("filter")
 	if s.Filter == nil {
 		return fmt.Errorf("unable to encode searchSecretMessages#cd2a4c9c: field filter is nil")
@@ -241,6 +246,8 @@ func (s *SearchSecretMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.Filter.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode searchSecretMessages#cd2a4c9c: field filter: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

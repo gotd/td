@@ -228,8 +228,10 @@ func (a *AddLocalMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("addLocalMessage")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(a.ChatID)
+	b.Comma()
 	b.FieldStart("sender_id")
 	if a.SenderID == nil {
 		return fmt.Errorf("unable to encode addLocalMessage#88db87fb: field sender_id is nil")
@@ -237,10 +239,13 @@ func (a *AddLocalMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := a.SenderID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode addLocalMessage#88db87fb: field sender_id: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("reply_to_message_id")
 	b.PutInt53(a.ReplyToMessageID)
+	b.Comma()
 	b.FieldStart("disable_notification")
 	b.PutBool(a.DisableNotification)
+	b.Comma()
 	b.FieldStart("input_message_content")
 	if a.InputMessageContent == nil {
 		return fmt.Errorf("unable to encode addLocalMessage#88db87fb: field input_message_content is nil")
@@ -248,6 +253,8 @@ func (a *AddLocalMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := a.InputMessageContent.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode addLocalMessage#88db87fb: field input_message_content: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -167,10 +167,14 @@ func (s *SetSupergroupUsernameRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setSupergroupUsername")
+	b.Comma()
 	b.FieldStart("supergroup_id")
 	b.PutInt53(s.SupergroupID)
+	b.Comma()
 	b.FieldStart("username")
 	b.PutString(s.Username)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

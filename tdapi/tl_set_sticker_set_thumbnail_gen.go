@@ -190,10 +190,13 @@ func (s *SetStickerSetThumbnailRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("setStickerSetThumbnail")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(s.UserID)
+	b.Comma()
 	b.FieldStart("name")
 	b.PutString(s.Name)
+	b.Comma()
 	b.FieldStart("thumbnail")
 	if s.Thumbnail == nil {
 		return fmt.Errorf("unable to encode setStickerSetThumbnail#4952fa88: field thumbnail is nil")
@@ -201,6 +204,8 @@ func (s *SetStickerSetThumbnailRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	if err := s.Thumbnail.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setStickerSetThumbnail#4952fa88: field thumbnail: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

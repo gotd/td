@@ -172,10 +172,14 @@ func (s *StatisticalGraphData) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("statisticalGraphData")
+	b.Comma()
 	b.FieldStart("json_data")
 	b.PutString(s.JSONData)
+	b.Comma()
 	b.FieldStart("zoom_token")
 	b.PutString(s.ZoomToken)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -351,8 +355,11 @@ func (s *StatisticalGraphAsync) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("statisticalGraphAsync")
+	b.Comma()
 	b.FieldStart("token")
 	b.PutString(s.Token)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -514,8 +521,11 @@ func (s *StatisticalGraphError) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("statisticalGraphError")
+	b.Comma()
 	b.FieldStart("error_message")
 	b.PutString(s.ErrorMessage)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

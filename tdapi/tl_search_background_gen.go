@@ -150,8 +150,11 @@ func (s *SearchBackgroundRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchBackground")
+	b.Comma()
 	b.FieldStart("name")
 	b.PutString(s.Name)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

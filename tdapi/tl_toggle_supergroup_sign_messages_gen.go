@@ -167,10 +167,14 @@ func (t *ToggleSupergroupSignMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("toggleSupergroupSignMessages")
+	b.Comma()
 	b.FieldStart("supergroup_id")
 	b.PutInt53(t.SupergroupID)
+	b.Comma()
 	b.FieldStart("sign_messages")
 	b.PutBool(t.SignMessages)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

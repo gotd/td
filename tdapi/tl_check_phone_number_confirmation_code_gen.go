@@ -150,8 +150,11 @@ func (c *CheckPhoneNumberConfirmationCodeRequest) EncodeTDLibJSON(b tdjson.Encod
 	}
 	b.ObjStart()
 	b.PutID("checkPhoneNumberConfirmationCode")
+	b.Comma()
 	b.FieldStart("code")
 	b.PutString(c.Code)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

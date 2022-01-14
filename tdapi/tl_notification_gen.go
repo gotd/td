@@ -206,12 +206,16 @@ func (n *Notification) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("notification")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutInt32(n.ID)
+	b.Comma()
 	b.FieldStart("date")
 	b.PutInt32(n.Date)
+	b.Comma()
 	b.FieldStart("is_silent")
 	b.PutBool(n.IsSilent)
+	b.Comma()
 	b.FieldStart("type")
 	if n.Type == nil {
 		return fmt.Errorf("unable to encode notification#2f0343d0: field type is nil")
@@ -219,6 +223,8 @@ func (n *Notification) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := n.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode notification#2f0343d0: field type: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

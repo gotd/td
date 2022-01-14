@@ -181,14 +181,20 @@ func (a *AddChatMembersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("addChatMembers")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(a.ChatID)
+	b.Comma()
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range a.UserIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

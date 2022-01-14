@@ -167,10 +167,14 @@ func (g *GetBlockedMessageSendersRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("getBlockedMessageSenders")
+	b.Comma()
 	b.FieldStart("offset")
 	b.PutInt32(g.Offset)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -132,6 +132,8 @@ func (r *ResendPhoneNumberVerificationCodeRequest) EncodeTDLibJSON(b tdjson.Enco
 	}
 	b.ObjStart()
 	b.PutID("resendPhoneNumberVerificationCode")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

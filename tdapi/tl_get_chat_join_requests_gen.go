@@ -222,18 +222,25 @@ func (g *GetChatJoinRequestsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getChatJoinRequests")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
 	b.FieldStart("invite_link")
 	b.PutString(g.InviteLink)
+	b.Comma()
 	b.FieldStart("query")
 	b.PutString(g.Query)
+	b.Comma()
 	b.FieldStart("offset_request")
 	if err := g.OffsetRequest.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getChatJoinRequests#e8d90ea2: field offset_request: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

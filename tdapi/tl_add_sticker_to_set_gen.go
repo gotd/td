@@ -189,10 +189,13 @@ func (a *AddStickerToSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("addStickerToSet")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(a.UserID)
+	b.Comma()
 	b.FieldStart("name")
 	b.PutString(a.Name)
+	b.Comma()
 	b.FieldStart("sticker")
 	if a.Sticker == nil {
 		return fmt.Errorf("unable to encode addStickerToSet#3b0b81: field sticker is nil")
@@ -200,6 +203,8 @@ func (a *AddStickerToSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := a.Sticker.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode addStickerToSet#3b0b81: field sticker: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

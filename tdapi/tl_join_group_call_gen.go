@@ -259,8 +259,10 @@ func (j *JoinGroupCallRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("joinGroupCall")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(j.GroupCallID)
+	b.Comma()
 	b.FieldStart("participant_id")
 	if j.ParticipantID == nil {
 		return fmt.Errorf("unable to encode joinGroupCall#c1c947e5: field participant_id is nil")
@@ -268,16 +270,23 @@ func (j *JoinGroupCallRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := j.ParticipantID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode joinGroupCall#c1c947e5: field participant_id: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("audio_source_id")
 	b.PutInt32(j.AudioSourceID)
+	b.Comma()
 	b.FieldStart("payload")
 	b.PutString(j.Payload)
+	b.Comma()
 	b.FieldStart("is_muted")
 	b.PutBool(j.IsMuted)
+	b.Comma()
 	b.FieldStart("is_my_video_enabled")
 	b.PutBool(j.IsMyVideoEnabled)
+	b.Comma()
 	b.FieldStart("invite_hash")
 	b.PutString(j.InviteHash)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

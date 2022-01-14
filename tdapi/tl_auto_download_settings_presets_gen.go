@@ -184,18 +184,23 @@ func (a *AutoDownloadSettingsPresets) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("autoDownloadSettingsPresets")
+	b.Comma()
 	b.FieldStart("low")
 	if err := a.Low.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode autoDownloadSettingsPresets#d1621d22: field low: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("medium")
 	if err := a.Medium.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode autoDownloadSettingsPresets#d1621d22: field medium: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("high")
 	if err := a.High.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode autoDownloadSettingsPresets#d1621d22: field high: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

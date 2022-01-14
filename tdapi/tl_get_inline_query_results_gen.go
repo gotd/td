@@ -218,18 +218,25 @@ func (g *GetInlineQueryResultsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getInlineQueryResults")
+	b.Comma()
 	b.FieldStart("bot_user_id")
 	b.PutInt53(g.BotUserID)
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
 	b.FieldStart("user_location")
 	if err := g.UserLocation.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getInlineQueryResults#79dcf86c: field user_location: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("query")
 	b.PutString(g.Query)
+	b.Comma()
 	b.FieldStart("offset")
 	b.PutString(g.Offset)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

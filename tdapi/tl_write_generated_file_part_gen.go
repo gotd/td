@@ -184,12 +184,17 @@ func (w *WriteGeneratedFilePartRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("writeGeneratedFilePart")
+	b.Comma()
 	b.FieldStart("generation_id")
 	b.PutLong(w.GenerationID)
+	b.Comma()
 	b.FieldStart("offset")
 	b.PutInt32(w.Offset)
+	b.Comma()
 	b.FieldStart("data")
 	b.PutBytes(w.Data)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

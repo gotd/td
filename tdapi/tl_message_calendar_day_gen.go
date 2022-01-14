@@ -167,12 +167,16 @@ func (m *MessageCalendarDay) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageCalendarDay")
+	b.Comma()
 	b.FieldStart("total_count")
 	b.PutInt32(m.TotalCount)
+	b.Comma()
 	b.FieldStart("message")
 	if err := m.Message.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageCalendarDay#e98f8f62: field message: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

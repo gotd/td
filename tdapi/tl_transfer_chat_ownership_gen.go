@@ -185,12 +185,17 @@ func (t *TransferChatOwnershipRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("transferChatOwnership")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(t.ChatID)
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(t.UserID)
+	b.Comma()
 	b.FieldStart("password")
 	b.PutString(t.Password)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

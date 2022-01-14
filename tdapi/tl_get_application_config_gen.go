@@ -132,6 +132,8 @@ func (g *GetApplicationConfigRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getApplicationConfig")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

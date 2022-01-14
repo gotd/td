@@ -253,26 +253,35 @@ func (g *Game) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("game")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutLong(g.ID)
+	b.Comma()
 	b.FieldStart("short_name")
 	b.PutString(g.ShortName)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(g.Title)
+	b.Comma()
 	b.FieldStart("text")
 	if err := g.Text.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode game#a2aedfc8: field text: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("description")
 	b.PutString(g.Description)
+	b.Comma()
 	b.FieldStart("photo")
 	if err := g.Photo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode game#a2aedfc8: field photo: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("animation")
 	if err := g.Animation.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode game#a2aedfc8: field animation: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

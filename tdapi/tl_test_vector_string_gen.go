@@ -163,12 +163,17 @@ func (t *TestVectorString) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("testVectorString")
+	b.Comma()
 	b.FieldStart("value")
 	b.ArrStart()
 	for _, v := range t.Value {
 		b.PutString(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

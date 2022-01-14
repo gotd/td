@@ -240,16 +240,22 @@ func (p *Proxy) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("proxy")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutInt32(p.ID)
+	b.Comma()
 	b.FieldStart("server")
 	b.PutString(p.Server)
+	b.Comma()
 	b.FieldStart("port")
 	b.PutInt32(p.Port)
+	b.Comma()
 	b.FieldStart("last_used_date")
 	b.PutInt32(p.LastUsedDate)
+	b.Comma()
 	b.FieldStart("is_enabled")
 	b.PutBool(p.IsEnabled)
+	b.Comma()
 	b.FieldStart("type")
 	if p.Type == nil {
 		return fmt.Errorf("unable to encode proxy#baf7b73: field type is nil")
@@ -257,6 +263,8 @@ func (p *Proxy) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode proxy#baf7b73: field type: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -222,16 +222,23 @@ func (r *RemoteFile) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("remoteFile")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutString(r.ID)
+	b.Comma()
 	b.FieldStart("unique_id")
 	b.PutString(r.UniqueID)
+	b.Comma()
 	b.FieldStart("is_uploading_active")
 	b.PutBool(r.IsUploadingActive)
+	b.Comma()
 	b.FieldStart("is_uploading_completed")
 	b.PutBool(r.IsUploadingCompleted)
+	b.Comma()
 	b.FieldStart("uploaded_size")
 	b.PutInt32(r.UploadedSize)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

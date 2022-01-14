@@ -167,10 +167,14 @@ func (s *SetLogTagVerbosityLevelRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("setLogTagVerbosityLevel")
+	b.Comma()
 	b.FieldStart("tag")
 	b.PutString(s.Tag)
+	b.Comma()
 	b.FieldStart("new_verbosity_level")
 	b.PutInt32(s.NewVerbosityLevel)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

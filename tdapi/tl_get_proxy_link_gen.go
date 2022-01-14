@@ -150,8 +150,11 @@ func (g *GetProxyLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getProxyLink")
+	b.Comma()
 	b.FieldStart("proxy_id")
 	b.PutInt32(g.ProxyID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

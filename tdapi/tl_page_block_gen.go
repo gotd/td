@@ -160,6 +160,7 @@ func (p *PageBlockTitle) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockTitle")
+	b.Comma()
 	b.FieldStart("title")
 	if p.Title == nil {
 		return fmt.Errorf("unable to encode pageBlockTitle#6122b610: field title is nil")
@@ -167,6 +168,8 @@ func (p *PageBlockTitle) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Title.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockTitle#6122b610: field title: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -333,6 +336,7 @@ func (p *PageBlockSubtitle) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockSubtitle")
+	b.Comma()
 	b.FieldStart("subtitle")
 	if p.Subtitle == nil {
 		return fmt.Errorf("unable to encode pageBlockSubtitle#fc451e7: field subtitle is nil")
@@ -340,6 +344,8 @@ func (p *PageBlockSubtitle) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Subtitle.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockSubtitle#fc451e7: field subtitle: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -523,6 +529,7 @@ func (p *PageBlockAuthorDate) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockAuthorDate")
+	b.Comma()
 	b.FieldStart("author")
 	if p.Author == nil {
 		return fmt.Errorf("unable to encode pageBlockAuthorDate#4d7ff410: field author is nil")
@@ -530,8 +537,11 @@ func (p *PageBlockAuthorDate) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Author.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockAuthorDate#4d7ff410: field author: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("publish_date")
 	b.PutInt32(p.PublishDate)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -712,6 +722,7 @@ func (p *PageBlockHeader) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockHeader")
+	b.Comma()
 	b.FieldStart("header")
 	if p.Header == nil {
 		return fmt.Errorf("unable to encode pageBlockHeader#539ddd9b: field header is nil")
@@ -719,6 +730,8 @@ func (p *PageBlockHeader) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Header.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockHeader#539ddd9b: field header: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -885,6 +898,7 @@ func (p *PageBlockSubheader) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockSubheader")
+	b.Comma()
 	b.FieldStart("subheader")
 	if p.Subheader == nil {
 		return fmt.Errorf("unable to encode pageBlockSubheader#4b567326: field subheader is nil")
@@ -892,6 +906,8 @@ func (p *PageBlockSubheader) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Subheader.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockSubheader#4b567326: field subheader: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1058,6 +1074,7 @@ func (p *PageBlockKicker) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockKicker")
+	b.Comma()
 	b.FieldStart("kicker")
 	if p.Kicker == nil {
 		return fmt.Errorf("unable to encode pageBlockKicker#5123864b: field kicker is nil")
@@ -1065,6 +1082,8 @@ func (p *PageBlockKicker) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Kicker.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockKicker#5123864b: field kicker: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1231,6 +1250,7 @@ func (p *PageBlockParagraph) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockParagraph")
+	b.Comma()
 	b.FieldStart("text")
 	if p.Text == nil {
 		return fmt.Errorf("unable to encode pageBlockParagraph#467a0766: field text is nil")
@@ -1238,6 +1258,8 @@ func (p *PageBlockParagraph) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Text.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockParagraph#467a0766: field text: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1421,6 +1443,7 @@ func (p *PageBlockPreformatted) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockPreformatted")
+	b.Comma()
 	b.FieldStart("text")
 	if p.Text == nil {
 		return fmt.Errorf("unable to encode pageBlockPreformatted#c070d93e: field text is nil")
@@ -1428,8 +1451,11 @@ func (p *PageBlockPreformatted) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Text.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockPreformatted#c070d93e: field text: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("language")
 	b.PutString(p.Language)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1610,6 +1636,7 @@ func (p *PageBlockFooter) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockFooter")
+	b.Comma()
 	b.FieldStart("footer")
 	if p.Footer == nil {
 		return fmt.Errorf("unable to encode pageBlockFooter#34d5d728: field footer is nil")
@@ -1617,6 +1644,8 @@ func (p *PageBlockFooter) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Footer.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockFooter#34d5d728: field footer: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1760,6 +1789,8 @@ func (p *PageBlockDivider) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockDivider")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1907,8 +1938,11 @@ func (p *PageBlockAnchor) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockAnchor")
+	b.Comma()
 	b.FieldStart("name")
 	b.PutString(p.Name)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2085,14 +2119,19 @@ func (p *PageBlockList) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockList")
+	b.Comma()
 	b.FieldStart("items")
 	b.ArrStart()
 	for idx, v := range p.Items {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode pageBlockList#584af35a: field items element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2286,6 +2325,7 @@ func (p *PageBlockBlockQuote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockBlockQuote")
+	b.Comma()
 	b.FieldStart("text")
 	if p.Text == nil {
 		return fmt.Errorf("unable to encode pageBlockBlockQuote#62d08a9e: field text is nil")
@@ -2293,6 +2333,7 @@ func (p *PageBlockBlockQuote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Text.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockBlockQuote#62d08a9e: field text: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("credit")
 	if p.Credit == nil {
 		return fmt.Errorf("unable to encode pageBlockBlockQuote#62d08a9e: field credit is nil")
@@ -2300,6 +2341,8 @@ func (p *PageBlockBlockQuote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Credit.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockBlockQuote#62d08a9e: field credit: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2502,6 +2545,7 @@ func (p *PageBlockPullQuote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockPullQuote")
+	b.Comma()
 	b.FieldStart("text")
 	if p.Text == nil {
 		return fmt.Errorf("unable to encode pageBlockPullQuote#1d38810d: field text is nil")
@@ -2509,6 +2553,7 @@ func (p *PageBlockPullQuote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Text.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockPullQuote#1d38810d: field text: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("credit")
 	if p.Credit == nil {
 		return fmt.Errorf("unable to encode pageBlockPullQuote#1d38810d: field credit is nil")
@@ -2516,6 +2561,8 @@ func (p *PageBlockPullQuote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Credit.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockPullQuote#1d38810d: field credit: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2725,16 +2772,21 @@ func (p *PageBlockAnimation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockAnimation")
+	b.Comma()
 	b.FieldStart("animation")
 	if err := p.Animation.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockAnimation#50cde009: field animation: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("caption")
 	if err := p.Caption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockAnimation#50cde009: field caption: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("need_autoplay")
 	b.PutBool(p.NeedAutoplay)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2937,14 +2989,18 @@ func (p *PageBlockAudio) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockAudio")
+	b.Comma()
 	b.FieldStart("audio")
 	if err := p.Audio.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockAudio#fc390813: field audio: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("caption")
 	if err := p.Caption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockAudio#fc390813: field caption: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3150,16 +3206,21 @@ func (p *PageBlockPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockPhoto")
+	b.Comma()
 	b.FieldStart("photo")
 	if err := p.Photo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockPhoto#18e41684: field photo: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("caption")
 	if err := p.Caption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockPhoto#18e41684: field caption: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("url")
 	b.PutString(p.URL)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3396,18 +3457,24 @@ func (p *PageBlockVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockVideo")
+	b.Comma()
 	b.FieldStart("video")
 	if err := p.Video.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockVideo#1e669d32: field video: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("caption")
 	if err := p.Caption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockVideo#1e669d32: field caption: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("need_autoplay")
 	b.PutBool(p.NeedAutoplay)
+	b.Comma()
 	b.FieldStart("is_looped")
 	b.PutBool(p.IsLooped)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3624,14 +3691,18 @@ func (p *PageBlockVoiceNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockVoiceNote")
+	b.Comma()
 	b.FieldStart("voice_note")
 	if err := p.VoiceNote.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockVoiceNote#6cad827f: field voice_note: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("caption")
 	if err := p.Caption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockVoiceNote#6cad827f: field caption: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3808,6 +3879,7 @@ func (p *PageBlockCover) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockCover")
+	b.Comma()
 	b.FieldStart("cover")
 	if p.Cover == nil {
 		return fmt.Errorf("unable to encode pageBlockCover#39f23300: field cover is nil")
@@ -3815,6 +3887,8 @@ func (p *PageBlockCover) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Cover.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockCover#39f23300: field cover: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4095,26 +4169,36 @@ func (p *PageBlockEmbedded) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockEmbedded")
+	b.Comma()
 	b.FieldStart("url")
 	b.PutString(p.URL)
+	b.Comma()
 	b.FieldStart("html")
 	b.PutString(p.HTML)
+	b.Comma()
 	b.FieldStart("poster_photo")
 	if err := p.PosterPhoto.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockEmbedded#8c369d9d: field poster_photo: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("width")
 	b.PutInt32(p.Width)
+	b.Comma()
 	b.FieldStart("height")
 	b.PutInt32(p.Height)
+	b.Comma()
 	b.FieldStart("caption")
 	if err := p.Caption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockEmbedded#8c369d9d: field caption: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("is_full_width")
 	b.PutBool(p.IsFullWidth)
+	b.Comma()
 	b.FieldStart("allow_scrolling")
 	b.PutBool(p.AllowScrolling)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4473,16 +4557,21 @@ func (p *PageBlockEmbeddedPost) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockEmbeddedPost")
+	b.Comma()
 	b.FieldStart("url")
 	b.PutString(p.URL)
+	b.Comma()
 	b.FieldStart("author")
 	b.PutString(p.Author)
+	b.Comma()
 	b.FieldStart("author_photo")
 	if err := p.AuthorPhoto.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockEmbeddedPost#bc57cdf5: field author_photo: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("date")
 	b.PutInt32(p.Date)
+	b.Comma()
 	b.FieldStart("page_blocks")
 	b.ArrStart()
 	for idx, v := range p.PageBlocks {
@@ -4492,12 +4581,17 @@ func (p *PageBlockEmbeddedPost) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode pageBlockEmbeddedPost#bc57cdf5: field page_blocks element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("caption")
 	if err := p.Caption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockEmbeddedPost#bc57cdf5: field caption: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4765,6 +4859,7 @@ func (p *PageBlockCollage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockCollage")
+	b.Comma()
 	b.FieldStart("page_blocks")
 	b.ArrStart()
 	for idx, v := range p.PageBlocks {
@@ -4774,12 +4869,17 @@ func (p *PageBlockCollage) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode pageBlockCollage#40bcaaf0: field page_blocks element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("caption")
 	if err := p.Caption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockCollage#40bcaaf0: field caption: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4993,6 +5093,7 @@ func (p *PageBlockSlideshow) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockSlideshow")
+	b.Comma()
 	b.FieldStart("page_blocks")
 	b.ArrStart()
 	for idx, v := range p.PageBlocks {
@@ -5002,12 +5103,17 @@ func (p *PageBlockSlideshow) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode pageBlockSlideshow#1107d496: field page_blocks element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("caption")
 	if err := p.Caption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockSlideshow#1107d496: field caption: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -5220,14 +5326,19 @@ func (p *PageBlockChatLink) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockChatLink")
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(p.Title)
+	b.Comma()
 	b.FieldStart("photo")
 	if err := p.Photo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockChatLink#f3f4550b: field photo: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("username")
 	b.PutString(p.Username)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -5501,6 +5612,7 @@ func (p *PageBlockTable) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockTable")
+	b.Comma()
 	b.FieldStart("caption")
 	if p.Caption == nil {
 		return fmt.Errorf("unable to encode pageBlockTable#cc6352c3: field caption is nil")
@@ -5508,6 +5620,7 @@ func (p *PageBlockTable) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Caption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockTable#cc6352c3: field caption: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("cells")
 	b.ArrStart()
 	for idx, row := range p.Cells {
@@ -5516,14 +5629,22 @@ func (p *PageBlockTable) EncodeTDLibJSON(b tdjson.Encoder) error {
 			if err := v.EncodeTDLibJSON(b); err != nil {
 				return fmt.Errorf("unable to encode pageBlockTable#cc6352c3: field cells element with index %d: %w", idx, err)
 			}
-			b.ArrEnd()
+			b.Comma()
 		}
+		b.StripComma()
+		b.ArrEnd()
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("is_bordered")
 	b.PutBool(p.IsBordered)
+	b.Comma()
 	b.FieldStart("is_striped")
 	b.PutBool(p.IsStriped)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -5796,6 +5917,7 @@ func (p *PageBlockDetails) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockDetails")
+	b.Comma()
 	b.FieldStart("header")
 	if p.Header == nil {
 		return fmt.Errorf("unable to encode pageBlockDetails#990a0c0b: field header is nil")
@@ -5803,6 +5925,7 @@ func (p *PageBlockDetails) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Header.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockDetails#990a0c0b: field header: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("page_blocks")
 	b.ArrStart()
 	for idx, v := range p.PageBlocks {
@@ -5812,10 +5935,15 @@ func (p *PageBlockDetails) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode pageBlockDetails#990a0c0b: field page_blocks element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("is_open")
 	b.PutBool(p.IsOpen)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -6047,6 +6175,7 @@ func (p *PageBlockRelatedArticles) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockRelatedArticles")
+	b.Comma()
 	b.FieldStart("header")
 	if p.Header == nil {
 		return fmt.Errorf("unable to encode pageBlockRelatedArticles#936d81e6: field header is nil")
@@ -6054,14 +6183,19 @@ func (p *PageBlockRelatedArticles) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Header.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockRelatedArticles#936d81e6: field header: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("articles")
 	b.ArrStart()
 	for idx, v := range p.Articles {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode pageBlockRelatedArticles#936d81e6: field articles element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -6310,20 +6444,27 @@ func (p *PageBlockMap) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockMap")
+	b.Comma()
 	b.FieldStart("location")
 	if err := p.Location.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockMap#5a0f7013: field location: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("zoom")
 	b.PutInt32(p.Zoom)
+	b.Comma()
 	b.FieldStart("width")
 	b.PutInt32(p.Width)
+	b.Comma()
 	b.FieldStart("height")
 	b.PutInt32(p.Height)
+	b.Comma()
 	b.FieldStart("caption")
 	if err := p.Caption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockMap#5a0f7013: field caption: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

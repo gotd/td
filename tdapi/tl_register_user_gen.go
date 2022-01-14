@@ -167,10 +167,14 @@ func (r *RegisterUserRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("registerUser")
+	b.Comma()
 	b.FieldStart("first_name")
 	b.PutString(r.FirstName)
+	b.Comma()
 	b.FieldStart("last_name")
 	b.PutString(r.LastName)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -150,8 +150,11 @@ func (c *CreateSecretChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("createSecretChat")
+	b.Comma()
 	b.FieldStart("secret_chat_id")
 	b.PutInt32(c.SecretChatID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

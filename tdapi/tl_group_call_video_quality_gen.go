@@ -137,6 +137,8 @@ func (g *GroupCallVideoQualityThumbnail) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("groupCallVideoQualityThumbnail")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (g *GroupCallVideoQualityMedium) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("groupCallVideoQualityMedium")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -395,6 +399,8 @@ func (g *GroupCallVideoQualityFull) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("groupCallVideoQualityFull")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

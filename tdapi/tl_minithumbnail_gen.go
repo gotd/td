@@ -184,12 +184,17 @@ func (m *Minithumbnail) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("minithumbnail")
+	b.Comma()
 	b.FieldStart("width")
 	b.PutInt32(m.Width)
+	b.Comma()
 	b.FieldStart("height")
 	b.PutInt32(m.Height)
+	b.Comma()
 	b.FieldStart("data")
 	b.PutBytes(m.Data)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

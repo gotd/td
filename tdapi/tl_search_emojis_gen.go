@@ -198,16 +198,23 @@ func (s *SearchEmojisRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchEmojis")
+	b.Comma()
 	b.FieldStart("text")
 	b.PutString(s.Text)
+	b.Comma()
 	b.FieldStart("exact_match")
 	b.PutBool(s.ExactMatch)
+	b.Comma()
 	b.FieldStart("input_language_codes")
 	b.ArrStart()
 	for _, v := range s.InputLanguageCodes {
 		b.PutString(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

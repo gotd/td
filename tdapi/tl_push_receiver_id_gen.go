@@ -150,8 +150,11 @@ func (p *PushReceiverID) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pushReceiverId")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutLong(p.ID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

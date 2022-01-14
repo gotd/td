@@ -268,26 +268,37 @@ func (f *ForwardMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("forwardMessages")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(f.ChatID)
+	b.Comma()
 	b.FieldStart("from_chat_id")
 	b.PutInt53(f.FromChatID)
+	b.Comma()
 	b.FieldStart("message_ids")
 	b.ArrStart()
 	for _, v := range f.MessageIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("options")
 	if err := f.Options.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode forwardMessages#e68eedda: field options: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("send_copy")
 	b.PutBool(f.SendCopy)
+	b.Comma()
 	b.FieldStart("remove_caption")
 	b.PutBool(f.RemoveCaption)
+	b.Comma()
 	b.FieldStart("only_preview")
 	b.PutBool(f.OnlyPreview)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

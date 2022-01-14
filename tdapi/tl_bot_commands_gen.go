@@ -182,16 +182,22 @@ func (b *BotCommands) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	}
 	buf.ObjStart()
 	buf.PutID("botCommands")
+	buf.Comma()
 	buf.FieldStart("bot_user_id")
 	buf.PutInt53(b.BotUserID)
+	buf.Comma()
 	buf.FieldStart("commands")
 	buf.ArrStart()
 	for idx, v := range b.Commands {
 		if err := v.EncodeTDLibJSON(buf); err != nil {
 			return fmt.Errorf("unable to encode botCommands#4f9aa2c5: field commands element with index %d: %w", idx, err)
 		}
+		buf.Comma()
 	}
+	buf.StripComma()
 	buf.ArrEnd()
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }

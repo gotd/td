@@ -184,14 +184,19 @@ func (a *AnimatedChatPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("animatedChatPhoto")
+	b.Comma()
 	b.FieldStart("length")
 	b.PutInt32(a.Length)
+	b.Comma()
 	b.FieldStart("file")
 	if err := a.File.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode animatedChatPhoto#b719c2e: field file: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("main_frame_timestamp")
 	b.PutDouble(a.MainFrameTimestamp)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

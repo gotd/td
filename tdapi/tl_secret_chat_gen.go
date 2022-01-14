@@ -244,10 +244,13 @@ func (s *SecretChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("secretChat")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutInt32(s.ID)
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(s.UserID)
+	b.Comma()
 	b.FieldStart("state")
 	if s.State == nil {
 		return fmt.Errorf("unable to encode secretChat#d7a70bcb: field state is nil")
@@ -255,12 +258,17 @@ func (s *SecretChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.State.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode secretChat#d7a70bcb: field state: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("is_outbound")
 	b.PutBool(s.IsOutbound)
+	b.Comma()
 	b.FieldStart("key_hash")
 	b.PutBytes(s.KeyHash)
+	b.Comma()
 	b.FieldStart("layer")
 	b.PutInt32(s.Layer)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

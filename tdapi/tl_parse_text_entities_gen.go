@@ -172,8 +172,10 @@ func (p *ParseTextEntitiesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("parseTextEntities")
+	b.Comma()
 	b.FieldStart("text")
 	b.PutString(p.Text)
+	b.Comma()
 	b.FieldStart("parse_mode")
 	if p.ParseMode == nil {
 		return fmt.Errorf("unable to encode parseTextEntities#9a1fc29f: field parse_mode is nil")
@@ -181,6 +183,8 @@ func (p *ParseTextEntitiesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.ParseMode.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode parseTextEntities#9a1fc29f: field parse_mode: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

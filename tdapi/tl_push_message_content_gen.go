@@ -155,8 +155,11 @@ func (p *PushMessageContentHidden) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentHidden")
+	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(p.IsPinned)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -352,14 +355,19 @@ func (p *PushMessageContentAnimation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentAnimation")
+	b.Comma()
 	b.FieldStart("animation")
 	if err := p.Animation.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pushMessageContentAnimation#3da4dfe4: field animation: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("caption")
 	b.PutString(p.Caption)
+	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(p.IsPinned)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -564,12 +572,16 @@ func (p *PushMessageContentAudio) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentAudio")
+	b.Comma()
 	b.FieldStart("audio")
 	if err := p.Audio.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pushMessageContentAudio#16be7872: field audio: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(p.IsPinned)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -760,10 +772,14 @@ func (p *PushMessageContentContact) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentContact")
+	b.Comma()
 	b.FieldStart("name")
 	b.PutString(p.Name)
+	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(p.IsPinned)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -921,6 +937,8 @@ func (p *PushMessageContentContactRegistered) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentContactRegistered")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1085,12 +1103,16 @@ func (p *PushMessageContentDocument) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentDocument")
+	b.Comma()
 	b.FieldStart("document")
 	if err := p.Document.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pushMessageContentDocument#e4adae01: field document: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(p.IsPinned)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1281,10 +1303,14 @@ func (p *PushMessageContentGame) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentGame")
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(p.Title)
+	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(p.IsPinned)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1494,12 +1520,17 @@ func (p *PushMessageContentGameScore) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentGameScore")
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(p.Title)
+	b.Comma()
 	b.FieldStart("score")
 	b.PutInt32(p.Score)
+	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(p.IsPinned)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1706,10 +1737,14 @@ func (p *PushMessageContentInvoice) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentInvoice")
+	b.Comma()
 	b.FieldStart("price")
 	b.PutString(p.Price)
+	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(p.IsPinned)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1902,10 +1937,14 @@ func (p *PushMessageContentLocation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentLocation")
+	b.Comma()
 	b.FieldStart("is_live")
 	b.PutBool(p.IsLive)
+	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(p.IsPinned)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2132,16 +2171,22 @@ func (p *PushMessageContentPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentPhoto")
+	b.Comma()
 	b.FieldStart("photo")
 	if err := p.Photo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pushMessageContentPhoto#861dc52: field photo: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("caption")
 	b.PutString(p.Caption)
+	b.Comma()
 	b.FieldStart("is_secret")
 	b.PutBool(p.IsSecret)
+	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(p.IsPinned)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2377,12 +2422,17 @@ func (p *PushMessageContentPoll) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentPoll")
+	b.Comma()
 	b.FieldStart("question")
 	b.PutString(p.Question)
+	b.Comma()
 	b.FieldStart("is_regular")
 	b.PutBool(p.IsRegular)
+	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(p.IsPinned)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2554,6 +2604,8 @@ func (p *PushMessageContentScreenshotTaken) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentScreenshotTaken")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2735,14 +2787,19 @@ func (p *PushMessageContentSticker) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentSticker")
+	b.Comma()
 	b.FieldStart("sticker")
 	if err := p.Sticker.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pushMessageContentSticker#5c98bdd3: field sticker: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("emoji")
 	b.PutString(p.Emoji)
+	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(p.IsPinned)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2947,10 +3004,14 @@ func (p *PushMessageContentText) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentText")
+	b.Comma()
 	b.FieldStart("text")
 	b.PutString(p.Text)
+	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(p.IsPinned)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3177,16 +3238,22 @@ func (p *PushMessageContentVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentVideo")
+	b.Comma()
 	b.FieldStart("video")
 	if err := p.Video.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pushMessageContentVideo#127ad12f: field video: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("caption")
 	b.PutString(p.Caption)
+	b.Comma()
 	b.FieldStart("is_secret")
 	b.PutBool(p.IsSecret)
+	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(p.IsPinned)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3405,12 +3472,16 @@ func (p *PushMessageContentVideoNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentVideoNote")
+	b.Comma()
 	b.FieldStart("video_note")
 	if err := p.VideoNote.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pushMessageContentVideoNote#bd13f97f: field video_note: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(p.IsPinned)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3601,12 +3672,16 @@ func (p *PushMessageContentVoiceNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentVoiceNote")
+	b.Comma()
 	b.FieldStart("voice_note")
 	if err := p.VoiceNote.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pushMessageContentVoiceNote#54cac8b: field voice_note: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(p.IsPinned)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3762,6 +3837,8 @@ func (p *PushMessageContentBasicGroupChatCreate) EncodeTDLibJSON(b tdjson.Encode
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentBasicGroupChatCreate")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3943,12 +4020,17 @@ func (p *PushMessageContentChatAddMembers) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentChatAddMembers")
+	b.Comma()
 	b.FieldStart("member_name")
 	b.PutString(p.MemberName)
+	b.Comma()
 	b.FieldStart("is_current_user")
 	b.PutBool(p.IsCurrentUser)
+	b.Comma()
 	b.FieldStart("is_returned")
 	b.PutBool(p.IsReturned)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4120,6 +4202,8 @@ func (p *PushMessageContentChatChangePhoto) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentChatChangePhoto")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4267,8 +4351,11 @@ func (p *PushMessageContentChatChangeTitle) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentChatChangeTitle")
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(p.Title)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4431,8 +4518,11 @@ func (p *PushMessageContentChatSetTheme) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentChatSetTheme")
+	b.Comma()
 	b.FieldStart("theme_name")
 	b.PutString(p.ThemeName)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4628,12 +4718,17 @@ func (p *PushMessageContentChatDeleteMember) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentChatDeleteMember")
+	b.Comma()
 	b.FieldStart("member_name")
 	b.PutString(p.MemberName)
+	b.Comma()
 	b.FieldStart("is_current_user")
 	b.PutBool(p.IsCurrentUser)
+	b.Comma()
 	b.FieldStart("is_left")
 	b.PutBool(p.IsLeft)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4805,6 +4900,8 @@ func (p *PushMessageContentChatJoinByLink) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentChatJoinByLink")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4934,6 +5031,8 @@ func (p *PushMessageContentChatJoinByRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentChatJoinByRequest")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -5081,8 +5180,11 @@ func (p *PushMessageContentMessageForwards) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentMessageForwards")
+	b.Comma()
 	b.FieldStart("total_count")
 	b.PutInt32(p.TotalCount)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -5312,16 +5414,23 @@ func (p *PushMessageContentMediaAlbum) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pushMessageContentMediaAlbum")
+	b.Comma()
 	b.FieldStart("total_count")
 	b.PutInt32(p.TotalCount)
+	b.Comma()
 	b.FieldStart("has_photos")
 	b.PutBool(p.HasPhotos)
+	b.Comma()
 	b.FieldStart("has_videos")
 	b.PutBool(p.HasVideos)
+	b.Comma()
 	b.FieldStart("has_audios")
 	b.PutBool(p.HasAudios)
+	b.Comma()
 	b.FieldStart("has_documents")
 	b.PutBool(p.HasDocuments)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

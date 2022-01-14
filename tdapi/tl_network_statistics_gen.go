@@ -185,8 +185,10 @@ func (n *NetworkStatistics) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("networkStatistics")
+	b.Comma()
 	b.FieldStart("since_date")
 	b.PutInt32(n.SinceDate)
+	b.Comma()
 	b.FieldStart("entries")
 	b.ArrStart()
 	for idx, v := range n.Entries {
@@ -196,8 +198,12 @@ func (n *NetworkStatistics) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode networkStatistics#d86acb3c: field entries element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

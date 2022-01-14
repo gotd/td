@@ -184,12 +184,17 @@ func (c *ChatAdministrator) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatAdministrator")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(c.UserID)
+	b.Comma()
 	b.FieldStart("custom_title")
 	b.PutString(c.CustomTitle)
+	b.Comma()
 	b.FieldStart("is_owner")
 	b.PutBool(c.IsOwner)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

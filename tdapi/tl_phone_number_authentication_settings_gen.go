@@ -237,20 +237,29 @@ func (p *PhoneNumberAuthenticationSettings) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("phoneNumberAuthenticationSettings")
+	b.Comma()
 	b.FieldStart("allow_flash_call")
 	b.PutBool(p.AllowFlashCall)
+	b.Comma()
 	b.FieldStart("allow_missed_call")
 	b.PutBool(p.AllowMissedCall)
+	b.Comma()
 	b.FieldStart("is_current_phone_number")
 	b.PutBool(p.IsCurrentPhoneNumber)
+	b.Comma()
 	b.FieldStart("allow_sms_retriever_api")
 	b.PutBool(p.AllowSMSRetrieverAPI)
+	b.Comma()
 	b.FieldStart("authentication_tokens")
 	b.ArrStart()
 	for _, v := range p.AuthenticationTokens {
 		b.PutString(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

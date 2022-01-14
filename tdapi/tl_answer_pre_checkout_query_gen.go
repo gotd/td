@@ -167,10 +167,14 @@ func (a *AnswerPreCheckoutQueryRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("answerPreCheckoutQuery")
+	b.Comma()
 	b.FieldStart("pre_checkout_query_id")
 	b.PutLong(a.PreCheckoutQueryID)
+	b.Comma()
 	b.FieldStart("error_message")
 	b.PutString(a.ErrorMessage)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

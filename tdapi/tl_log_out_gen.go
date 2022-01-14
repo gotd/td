@@ -132,6 +132,8 @@ func (l *LogOutRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("logOut")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

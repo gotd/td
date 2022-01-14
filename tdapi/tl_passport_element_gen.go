@@ -155,10 +155,13 @@ func (p *PassportElementPersonalDetails) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("passportElementPersonalDetails")
+	b.Comma()
 	b.FieldStart("personal_details")
 	if err := p.PersonalDetails.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode passportElementPersonalDetails#4894fe83: field personal_details: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -318,10 +321,13 @@ func (p *PassportElementPassport) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("passportElementPassport")
+	b.Comma()
 	b.FieldStart("passport")
 	if err := p.Passport.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode passportElementPassport#f043e723: field passport: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -481,10 +487,13 @@ func (p *PassportElementDriverLicense) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("passportElementDriverLicense")
+	b.Comma()
 	b.FieldStart("driver_license")
 	if err := p.DriverLicense.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode passportElementDriverLicense#61f70cad: field driver_license: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -644,10 +653,13 @@ func (p *PassportElementIdentityCard) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("passportElementIdentityCard")
+	b.Comma()
 	b.FieldStart("identity_card")
 	if err := p.IdentityCard.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode passportElementIdentityCard#7c33e535: field identity_card: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -807,10 +819,13 @@ func (p *PassportElementInternalPassport) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("passportElementInternalPassport")
+	b.Comma()
 	b.FieldStart("internal_passport")
 	if err := p.InternalPassport.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode passportElementInternalPassport#228ad87: field internal_passport: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -970,10 +985,13 @@ func (p *PassportElementAddress) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("passportElementAddress")
+	b.Comma()
 	b.FieldStart("address")
 	if err := p.Address.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode passportElementAddress#d15a1630: field address: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1133,10 +1151,13 @@ func (p *PassportElementUtilityBill) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("passportElementUtilityBill")
+	b.Comma()
 	b.FieldStart("utility_bill")
 	if err := p.UtilityBill.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode passportElementUtilityBill#f2041dd2: field utility_bill: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1296,10 +1317,13 @@ func (p *PassportElementBankStatement) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("passportElementBankStatement")
+	b.Comma()
 	b.FieldStart("bank_statement")
 	if err := p.BankStatement.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode passportElementBankStatement#ea283268: field bank_statement: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1459,10 +1483,13 @@ func (p *PassportElementRentalAgreement) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("passportElementRentalAgreement")
+	b.Comma()
 	b.FieldStart("rental_agreement")
 	if err := p.RentalAgreement.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode passportElementRentalAgreement#eeb4cb28: field rental_agreement: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1622,10 +1649,13 @@ func (p *PassportElementPassportRegistration) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("passportElementPassportRegistration")
+	b.Comma()
 	b.FieldStart("passport_registration")
 	if err := p.PassportRegistration.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode passportElementPassportRegistration#24dadc7f: field passport_registration: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1785,10 +1815,13 @@ func (p *PassportElementTemporaryRegistration) EncodeTDLibJSON(b tdjson.Encoder)
 	}
 	b.ObjStart()
 	b.PutID("passportElementTemporaryRegistration")
+	b.Comma()
 	b.FieldStart("temporary_registration")
 	if err := p.TemporaryRegistration.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode passportElementTemporaryRegistration#49c4aff0: field temporary_registration: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1948,8 +1981,11 @@ func (p *PassportElementPhoneNumber) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("passportElementPhoneNumber")
+	b.Comma()
 	b.FieldStart("phone_number")
 	b.PutString(p.PhoneNumber)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2111,8 +2147,11 @@ func (p *PassportElementEmailAddress) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("passportElementEmailAddress")
+	b.Comma()
 	b.FieldStart("email_address")
 	b.PutString(p.EmailAddress)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

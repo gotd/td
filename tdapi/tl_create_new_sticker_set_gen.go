@@ -257,14 +257,19 @@ func (c *CreateNewStickerSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("createNewStickerSet")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(c.UserID)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(c.Title)
+	b.Comma()
 	b.FieldStart("name")
 	b.PutString(c.Name)
+	b.Comma()
 	b.FieldStart("is_masks")
 	b.PutBool(c.IsMasks)
+	b.Comma()
 	b.FieldStart("stickers")
 	b.ArrStart()
 	for idx, v := range c.Stickers {
@@ -274,10 +279,15 @@ func (c *CreateNewStickerSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode createNewStickerSet#982c0b07: field stickers element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("source")
 	b.PutString(c.Source)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

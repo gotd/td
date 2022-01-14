@@ -167,10 +167,14 @@ func (g *GetInlineGameHighScoresRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("getInlineGameHighScores")
+	b.Comma()
 	b.FieldStart("inline_message_id")
 	b.PutString(g.InlineMessageID)
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(g.UserID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -132,6 +132,8 @@ func (d *DisconnectAllWebsitesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("disconnectAllWebsites")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

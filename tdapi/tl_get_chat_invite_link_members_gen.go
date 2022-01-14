@@ -202,16 +202,22 @@ func (g *GetChatInviteLinkMembersRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("getChatInviteLinkMembers")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
 	b.FieldStart("invite_link")
 	b.PutString(g.InviteLink)
+	b.Comma()
 	b.FieldStart("offset_member")
 	if err := g.OffsetMember.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getChatInviteLinkMembers#c5b6199a: field offset_member: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -184,12 +184,17 @@ func (d *Date) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("date")
+	b.Comma()
 	b.FieldStart("day")
 	b.PutInt32(d.Day)
+	b.Comma()
 	b.FieldStart("month")
 	b.PutInt32(d.Month)
+	b.Comma()
 	b.FieldStart("year")
 	b.PutInt32(d.Year)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

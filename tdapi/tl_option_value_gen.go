@@ -155,8 +155,11 @@ func (o *OptionValueBoolean) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("optionValueBoolean")
+	b.Comma()
 	b.FieldStart("value")
 	b.PutBool(o.Value)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -300,6 +303,8 @@ func (o *OptionValueEmpty) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("optionValueEmpty")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -447,8 +452,11 @@ func (o *OptionValueInteger) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("optionValueInteger")
+	b.Comma()
 	b.FieldStart("value")
 	b.PutLong(o.Value)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -610,8 +618,11 @@ func (o *OptionValueString) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("optionValueString")
+	b.Comma()
 	b.FieldStart("value")
 	b.PutString(o.Value)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

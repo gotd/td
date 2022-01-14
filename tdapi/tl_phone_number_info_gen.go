@@ -185,14 +185,19 @@ func (p *PhoneNumberInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("phoneNumberInfo")
+	b.Comma()
 	b.FieldStart("country")
 	if err := p.Country.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode phoneNumberInfo#2163aee1: field country: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("country_calling_code")
 	b.PutString(p.CountryCallingCode)
+	b.Comma()
 	b.FieldStart("formatted_phone_number")
 	b.PutString(p.FormattedPhoneNumber)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

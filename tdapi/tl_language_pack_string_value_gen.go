@@ -155,8 +155,11 @@ func (l *LanguagePackStringValueOrdinary) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("languagePackStringValueOrdinary")
+	b.Comma()
 	b.FieldStart("value")
 	b.PutString(l.Value)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -403,18 +406,26 @@ func (l *LanguagePackStringValuePluralized) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("languagePackStringValuePluralized")
+	b.Comma()
 	b.FieldStart("zero_value")
 	b.PutString(l.ZeroValue)
+	b.Comma()
 	b.FieldStart("one_value")
 	b.PutString(l.OneValue)
+	b.Comma()
 	b.FieldStart("two_value")
 	b.PutString(l.TwoValue)
+	b.Comma()
 	b.FieldStart("few_value")
 	b.PutString(l.FewValue)
+	b.Comma()
 	b.FieldStart("many_value")
 	b.PutString(l.ManyValue)
+	b.Comma()
 	b.FieldStart("other_value")
 	b.PutString(l.OtherValue)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -628,6 +639,8 @@ func (l *LanguagePackStringValueDeleted) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("languagePackStringValueDeleted")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -210,8 +210,10 @@ func (b *BanChatMemberRequest) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	}
 	buf.ObjStart()
 	buf.PutID("banChatMember")
+	buf.Comma()
 	buf.FieldStart("chat_id")
 	buf.PutInt53(b.ChatID)
+	buf.Comma()
 	buf.FieldStart("member_id")
 	if b.MemberID == nil {
 		return fmt.Errorf("unable to encode banChatMember#cb107d7c: field member_id is nil")
@@ -219,10 +221,14 @@ func (b *BanChatMemberRequest) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if err := b.MemberID.EncodeTDLibJSON(buf); err != nil {
 		return fmt.Errorf("unable to encode banChatMember#cb107d7c: field member_id: %w", err)
 	}
+	buf.Comma()
 	buf.FieldStart("banned_until_date")
 	buf.PutInt32(b.BannedUntilDate)
+	buf.Comma()
 	buf.FieldStart("revoke_messages")
 	buf.PutBool(b.RevokeMessages)
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }

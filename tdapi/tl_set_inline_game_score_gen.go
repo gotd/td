@@ -219,16 +219,23 @@ func (s *SetInlineGameScoreRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setInlineGameScore")
+	b.Comma()
 	b.FieldStart("inline_message_id")
 	b.PutString(s.InlineMessageID)
+	b.Comma()
 	b.FieldStart("edit_message")
 	b.PutBool(s.EditMessage)
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(s.UserID)
+	b.Comma()
 	b.FieldStart("score")
 	b.PutInt32(s.Score)
+	b.Comma()
 	b.FieldStart("force")
 	b.PutBool(s.Force)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

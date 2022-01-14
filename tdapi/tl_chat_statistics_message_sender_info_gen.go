@@ -184,12 +184,17 @@ func (c *ChatStatisticsMessageSenderInfo) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("chatStatisticsMessageSenderInfo")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(c.UserID)
+	b.Comma()
 	b.FieldStart("sent_message_count")
 	b.PutInt32(c.SentMessageCount)
+	b.Comma()
 	b.FieldStart("average_character_count")
 	b.PutInt32(c.AverageCharacterCount)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -182,16 +182,22 @@ func (c *ChatJoinRequests) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatJoinRequests")
+	b.Comma()
 	b.FieldStart("total_count")
 	b.PutInt32(c.TotalCount)
+	b.Comma()
 	b.FieldStart("requests")
 	b.ArrStart()
 	for idx, v := range c.Requests {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode chatJoinRequests#b2c5fd31: field requests element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -132,6 +132,8 @@ func (d *DeleteSavedOrderInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deleteSavedOrderInfo")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

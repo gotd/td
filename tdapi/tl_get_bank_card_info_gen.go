@@ -150,8 +150,11 @@ func (g *GetBankCardInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getBankCardInfo")
+	b.Comma()
 	b.FieldStart("bank_card_number")
 	b.PutString(g.BankCardNumber)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

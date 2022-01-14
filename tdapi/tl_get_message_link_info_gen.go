@@ -150,8 +150,11 @@ func (g *GetMessageLinkInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getMessageLinkInfo")
+	b.Comma()
 	b.FieldStart("url")
 	b.PutString(g.URL)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

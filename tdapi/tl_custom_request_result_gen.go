@@ -150,8 +150,11 @@ func (c *CustomRequestResult) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("customRequestResult")
+	b.Comma()
 	b.FieldStart("result")
 	b.PutString(c.Result)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

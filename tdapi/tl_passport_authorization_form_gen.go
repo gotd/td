@@ -199,18 +199,25 @@ func (p *PassportAuthorizationForm) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("passportAuthorizationForm")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutInt32(p.ID)
+	b.Comma()
 	b.FieldStart("required_elements")
 	b.ArrStart()
 	for idx, v := range p.RequiredElements {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode passportAuthorizationForm#3fe28cb0: field required_elements element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("privacy_policy_url")
 	b.PutString(p.PrivacyPolicyURL)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

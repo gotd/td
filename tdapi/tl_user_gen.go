@@ -435,16 +435,22 @@ func (u *User) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("user")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutInt53(u.ID)
+	b.Comma()
 	b.FieldStart("first_name")
 	b.PutString(u.FirstName)
+	b.Comma()
 	b.FieldStart("last_name")
 	b.PutString(u.LastName)
+	b.Comma()
 	b.FieldStart("username")
 	b.PutString(u.Username)
+	b.Comma()
 	b.FieldStart("phone_number")
 	b.PutString(u.PhoneNumber)
+	b.Comma()
 	b.FieldStart("status")
 	if u.Status == nil {
 		return fmt.Errorf("unable to encode user#dff1de69: field status is nil")
@@ -452,26 +458,36 @@ func (u *User) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.Status.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode user#dff1de69: field status: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("profile_photo")
 	if err := u.ProfilePhoto.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode user#dff1de69: field profile_photo: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("is_contact")
 	b.PutBool(u.IsContact)
+	b.Comma()
 	b.FieldStart("is_mutual_contact")
 	b.PutBool(u.IsMutualContact)
+	b.Comma()
 	b.FieldStart("is_verified")
 	b.PutBool(u.IsVerified)
+	b.Comma()
 	b.FieldStart("is_support")
 	b.PutBool(u.IsSupport)
+	b.Comma()
 	b.FieldStart("restriction_reason")
 	b.PutString(u.RestrictionReason)
+	b.Comma()
 	b.FieldStart("is_scam")
 	b.PutBool(u.IsScam)
+	b.Comma()
 	b.FieldStart("is_fake")
 	b.PutBool(u.IsFake)
+	b.Comma()
 	b.FieldStart("have_access")
 	b.PutBool(u.HaveAccess)
+	b.Comma()
 	b.FieldStart("type")
 	if u.Type == nil {
 		return fmt.Errorf("unable to encode user#dff1de69: field type is nil")
@@ -479,8 +495,11 @@ func (u *User) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode user#dff1de69: field type: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("language_code")
 	b.PutString(u.LanguageCode)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

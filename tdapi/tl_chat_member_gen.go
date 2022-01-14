@@ -214,6 +214,7 @@ func (c *ChatMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatMember")
+	b.Comma()
 	b.FieldStart("member_id")
 	if c.MemberID == nil {
 		return fmt.Errorf("unable to encode chatMember#6d12e175: field member_id is nil")
@@ -221,10 +222,13 @@ func (c *ChatMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.MemberID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatMember#6d12e175: field member_id: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("inviter_user_id")
 	b.PutInt53(c.InviterUserID)
+	b.Comma()
 	b.FieldStart("joined_chat_date")
 	b.PutInt32(c.JoinedChatDate)
+	b.Comma()
 	b.FieldStart("status")
 	if c.Status == nil {
 		return fmt.Errorf("unable to encode chatMember#6d12e175: field status is nil")
@@ -232,6 +236,8 @@ func (c *ChatMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.Status.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatMember#6d12e175: field status: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -137,6 +137,8 @@ func (c *CheckStickerSetNameResultOk) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("checkStickerSetNameResultOk")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (c *CheckStickerSetNameResultNameInvalid) EncodeTDLibJSON(b tdjson.Encoder)
 	}
 	b.ObjStart()
 	b.PutID("checkStickerSetNameResultNameInvalid")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -395,6 +399,8 @@ func (c *CheckStickerSetNameResultNameOccupied) EncodeTDLibJSON(b tdjson.Encoder
 	}
 	b.ObjStart()
 	b.PutID("checkStickerSetNameResultNameOccupied")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

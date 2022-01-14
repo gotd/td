@@ -155,8 +155,11 @@ func (m *MessageForwardOriginUser) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageForwardOriginUser")
+	b.Comma()
 	b.FieldStart("sender_user_id")
 	b.PutInt53(m.SenderUserID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -336,10 +339,14 @@ func (m *MessageForwardOriginChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageForwardOriginChat")
+	b.Comma()
 	b.FieldStart("sender_chat_id")
 	b.PutInt53(m.SenderChatID)
+	b.Comma()
 	b.FieldStart("author_signature")
 	b.PutString(m.AuthorSignature)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -515,8 +522,11 @@ func (m *MessageForwardOriginHiddenUser) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("messageForwardOriginHiddenUser")
+	b.Comma()
 	b.FieldStart("sender_name")
 	b.PutString(m.SenderName)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -712,12 +722,17 @@ func (m *MessageForwardOriginChannel) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageForwardOriginChannel")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(m.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(m.MessageID)
+	b.Comma()
 	b.FieldStart("author_signature")
 	b.PutString(m.AuthorSignature)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -907,8 +922,11 @@ func (m *MessageForwardOriginMessageImport) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("messageForwardOriginMessageImport")
+	b.Comma()
 	b.FieldStart("sender_name")
 	b.PutString(m.SenderName)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

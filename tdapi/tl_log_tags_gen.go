@@ -163,12 +163,17 @@ func (l *LogTags) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("logTags")
+	b.Comma()
 	b.FieldStart("tags")
 	b.ArrStart()
 	for _, v := range l.Tags {
 		b.PutString(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

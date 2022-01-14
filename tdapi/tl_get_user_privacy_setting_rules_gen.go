@@ -155,6 +155,7 @@ func (g *GetUserPrivacySettingRulesRequest) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("getUserPrivacySettingRules")
+	b.Comma()
 	b.FieldStart("setting")
 	if g.Setting == nil {
 		return fmt.Errorf("unable to encode getUserPrivacySettingRules#84301671: field setting is nil")
@@ -162,6 +163,8 @@ func (g *GetUserPrivacySettingRulesRequest) EncodeTDLibJSON(b tdjson.Encoder) er
 	if err := g.Setting.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getUserPrivacySettingRules#84301671: field setting: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

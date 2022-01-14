@@ -180,14 +180,20 @@ func (c *ChatJoinRequestsInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatJoinRequestsInfo")
+	b.Comma()
 	b.FieldStart("total_count")
 	b.PutInt32(c.TotalCount)
+	b.Comma()
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range c.UserIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

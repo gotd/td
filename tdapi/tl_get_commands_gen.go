@@ -173,6 +173,7 @@ func (g *GetCommandsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getCommands")
+	b.Comma()
 	b.FieldStart("scope")
 	if g.Scope == nil {
 		return fmt.Errorf("unable to encode getCommands#58ba8ff7: field scope is nil")
@@ -180,8 +181,11 @@ func (g *GetCommandsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := g.Scope.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getCommands#58ba8ff7: field scope: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("language_code")
 	b.PutString(g.LanguageCode)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

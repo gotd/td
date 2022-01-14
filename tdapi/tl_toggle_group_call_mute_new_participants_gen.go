@@ -167,10 +167,14 @@ func (t *ToggleGroupCallMuteNewParticipantsRequest) EncodeTDLibJSON(b tdjson.Enc
 	}
 	b.ObjStart()
 	b.PutID("toggleGroupCallMuteNewParticipants")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(t.GroupCallID)
+	b.Comma()
 	b.FieldStart("mute_new_participants")
 	b.PutBool(t.MuteNewParticipants)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

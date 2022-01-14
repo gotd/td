@@ -221,22 +221,29 @@ func (p *ProfilePhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("profilePhoto")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutLong(p.ID)
+	b.Comma()
 	b.FieldStart("small")
 	if err := p.Small.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode profilePhoto#f82f9c4d: field small: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("big")
 	if err := p.Big.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode profilePhoto#f82f9c4d: field big: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("minithumbnail")
 	if err := p.Minithumbnail.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode profilePhoto#f82f9c4d: field minithumbnail: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("has_animation")
 	b.PutBool(p.HasAnimation)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

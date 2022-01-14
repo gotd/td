@@ -172,8 +172,10 @@ func (s *SetVideoChatDefaultParticipantRequest) EncodeTDLibJSON(b tdjson.Encoder
 	}
 	b.ObjStart()
 	b.PutID("setVideoChatDefaultParticipant")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("default_participant_id")
 	if s.DefaultParticipantID == nil {
 		return fmt.Errorf("unable to encode setVideoChatDefaultParticipant#f1a672b3: field default_participant_id is nil")
@@ -181,6 +183,8 @@ func (s *SetVideoChatDefaultParticipantRequest) EncodeTDLibJSON(b tdjson.Encoder
 	if err := s.DefaultParticipantID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setVideoChatDefaultParticipant#f1a672b3: field default_participant_id: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

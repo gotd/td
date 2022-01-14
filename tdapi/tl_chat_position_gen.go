@@ -212,6 +212,7 @@ func (c *ChatPosition) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatPosition")
+	b.Comma()
 	b.FieldStart("list")
 	if c.List == nil {
 		return fmt.Errorf("unable to encode chatPosition#dae48755: field list is nil")
@@ -219,10 +220,13 @@ func (c *ChatPosition) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.List.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatPosition#dae48755: field list: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("order")
 	b.PutLong(c.Order)
+	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(c.IsPinned)
+	b.Comma()
 	b.FieldStart("source")
 	if c.Source == nil {
 		return fmt.Errorf("unable to encode chatPosition#dae48755: field source is nil")
@@ -230,6 +234,8 @@ func (c *ChatPosition) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.Source.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatPosition#dae48755: field source: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

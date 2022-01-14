@@ -155,6 +155,7 @@ func (h *HideSuggestedActionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("hideSuggestedAction")
+	b.Comma()
 	b.FieldStart("action")
 	if h.Action == nil {
 		return fmt.Errorf("unable to encode hideSuggestedAction#a2ef2b7f: field action is nil")
@@ -162,6 +163,8 @@ func (h *HideSuggestedActionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := h.Action.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode hideSuggestedAction#a2ef2b7f: field action: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

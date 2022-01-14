@@ -151,8 +151,11 @@ func (g *GetRecentStickersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getRecentStickers")
+	b.Comma()
 	b.FieldStart("is_attached")
 	b.PutBool(g.IsAttached)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

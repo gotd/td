@@ -168,12 +168,16 @@ func (s *SetAuthenticationPhoneNumberRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("setAuthenticationPhoneNumber")
+	b.Comma()
 	b.FieldStart("phone_number")
 	b.PutString(s.PhoneNumber)
+	b.Comma()
 	b.FieldStart("settings")
 	if err := s.Settings.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setAuthenticationPhoneNumber#33c0d823: field settings: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

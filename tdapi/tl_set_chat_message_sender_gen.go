@@ -172,8 +172,10 @@ func (s *SetChatMessageSenderRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setChatMessageSender")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("message_sender_id")
 	if s.MessageSenderID == nil {
 		return fmt.Errorf("unable to encode setChatMessageSender#ab456b7e: field message_sender_id is nil")
@@ -181,6 +183,8 @@ func (s *SetChatMessageSenderRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.MessageSenderID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setChatMessageSender#ab456b7e: field message_sender_id: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

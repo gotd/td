@@ -180,14 +180,20 @@ func (r *ReportSupergroupSpamRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("reportSupergroupSpam")
+	b.Comma()
 	b.FieldStart("supergroup_id")
 	b.PutInt53(r.SupergroupID)
+	b.Comma()
 	b.FieldStart("message_ids")
 	b.ArrStart()
 	for _, v := range r.MessageIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

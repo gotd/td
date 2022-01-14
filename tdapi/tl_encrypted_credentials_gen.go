@@ -184,12 +184,17 @@ func (e *EncryptedCredentials) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("encryptedCredentials")
+	b.Comma()
 	b.FieldStart("data")
 	b.PutBytes(e.Data)
+	b.Comma()
 	b.FieldStart("hash")
 	b.PutBytes(e.Hash)
+	b.Comma()
 	b.FieldStart("secret")
 	b.PutBytes(e.Secret)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

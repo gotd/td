@@ -155,8 +155,11 @@ func (m *MessageFileTypePrivate) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageFileTypePrivate")
+	b.Comma()
 	b.FieldStart("name")
 	b.PutString(m.Name)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -318,8 +321,11 @@ func (m *MessageFileTypeGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageFileTypeGroup")
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(m.Title)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -463,6 +469,8 @@ func (m *MessageFileTypeUnknown) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageFileTypeUnknown")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

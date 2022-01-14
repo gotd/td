@@ -165,14 +165,19 @@ func (s *Stickers) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("stickers")
+	b.Comma()
 	b.FieldStart("stickers")
 	b.ArrStart()
 	for idx, v := range s.Stickers {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode stickers#83491d00: field stickers element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -165,14 +165,19 @@ func (l *LocalizationTargetInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("localizationTargetInfo")
+	b.Comma()
 	b.FieldStart("language_packs")
 	b.ArrStart()
 	for idx, v := range l.LanguagePacks {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode localizationTargetInfo#2ca3903b: field language_packs element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

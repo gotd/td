@@ -201,14 +201,20 @@ func (g *GetLanguagePackStringRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getLanguagePackString")
+	b.Comma()
 	b.FieldStart("language_pack_database_path")
 	b.PutString(g.LanguagePackDatabasePath)
+	b.Comma()
 	b.FieldStart("localization_target")
 	b.PutString(g.LocalizationTarget)
+	b.Comma()
 	b.FieldStart("language_pack_id")
 	b.PutString(g.LanguagePackID)
+	b.Comma()
 	b.FieldStart("key")
 	b.PutString(g.Key)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

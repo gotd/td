@@ -150,8 +150,11 @@ func (c *CheckPasswordRecoveryCodeRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("checkPasswordRecoveryCode")
+	b.Comma()
 	b.FieldStart("recovery_code")
 	b.PutString(c.RecoveryCode)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

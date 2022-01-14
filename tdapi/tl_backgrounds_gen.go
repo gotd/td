@@ -165,14 +165,19 @@ func (b *Backgrounds) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	}
 	buf.ObjStart()
 	buf.PutID("backgrounds")
+	buf.Comma()
 	buf.FieldStart("backgrounds")
 	buf.ArrStart()
 	for idx, v := range b.Backgrounds {
 		if err := v.EncodeTDLibJSON(buf); err != nil {
 			return fmt.Errorf("unable to encode backgrounds#b4671319: field backgrounds element with index %d: %w", idx, err)
 		}
+		buf.Comma()
 	}
+	buf.StripComma()
 	buf.ArrEnd()
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }

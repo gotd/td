@@ -150,8 +150,11 @@ func (g *GetBasicGroupRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getBasicGroup")
+	b.Comma()
 	b.FieldStart("basic_group_id")
 	b.PutInt53(g.BasicGroupID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

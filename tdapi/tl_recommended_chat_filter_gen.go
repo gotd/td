@@ -167,12 +167,16 @@ func (r *RecommendedChatFilter) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("recommendedChatFilter")
+	b.Comma()
 	b.FieldStart("filter")
 	if err := r.Filter.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode recommendedChatFilter#2260ee2: field filter: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("description")
 	b.PutString(r.Description)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

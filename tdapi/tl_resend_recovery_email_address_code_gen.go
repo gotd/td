@@ -132,6 +132,8 @@ func (r *ResendRecoveryEmailAddressCodeRequest) EncodeTDLibJSON(b tdjson.Encoder
 	}
 	b.ObjStart()
 	b.PutID("resendRecoveryEmailAddressCode")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

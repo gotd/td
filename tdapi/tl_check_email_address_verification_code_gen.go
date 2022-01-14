@@ -150,8 +150,11 @@ func (c *CheckEmailAddressVerificationCodeRequest) EncodeTDLibJSON(b tdjson.Enco
 	}
 	b.ObjStart()
 	b.PutID("checkEmailAddressVerificationCode")
+	b.Comma()
 	b.FieldStart("code")
 	b.PutString(c.Code)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

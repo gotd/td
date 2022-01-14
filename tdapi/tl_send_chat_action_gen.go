@@ -189,10 +189,13 @@ func (s *SendChatActionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("sendChatAction")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("message_thread_id")
 	b.PutInt53(s.MessageThreadID)
+	b.Comma()
 	b.FieldStart("action")
 	if s.Action == nil {
 		return fmt.Errorf("unable to encode sendChatAction#7cfce154: field action is nil")
@@ -200,6 +203,8 @@ func (s *SendChatActionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.Action.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode sendChatAction#7cfce154: field action: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

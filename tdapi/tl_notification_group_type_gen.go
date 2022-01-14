@@ -137,6 +137,8 @@ func (n *NotificationGroupTypeMessages) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("notificationGroupTypeMessages")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (n *NotificationGroupTypeMentions) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("notificationGroupTypeMentions")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -395,6 +399,8 @@ func (n *NotificationGroupTypeSecretChat) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("notificationGroupTypeSecretChat")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -524,6 +530,8 @@ func (n *NotificationGroupTypeCalls) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("notificationGroupTypeCalls")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

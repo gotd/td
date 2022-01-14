@@ -150,8 +150,11 @@ func (c *CheckAuthenticationPasswordRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("checkAuthenticationPassword")
+	b.Comma()
 	b.FieldStart("password")
 	b.PutString(c.Password)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

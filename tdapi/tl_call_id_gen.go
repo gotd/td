@@ -150,8 +150,11 @@ func (c *CallID) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("callId")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutInt32(c.ID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

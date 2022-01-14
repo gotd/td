@@ -132,6 +132,8 @@ func (g *GetSuitableDiscussionChatsRequest) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("getSuitableDiscussionChats")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -155,6 +155,7 @@ func (s *SetProfilePhotoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setProfilePhoto")
+	b.Comma()
 	b.FieldStart("photo")
 	if s.Photo == nil {
 		return fmt.Errorf("unable to encode setProfilePhoto#84a334de: field photo is nil")
@@ -162,6 +163,8 @@ func (s *SetProfilePhotoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.Photo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setProfilePhoto#84a334de: field photo: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

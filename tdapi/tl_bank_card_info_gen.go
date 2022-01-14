@@ -182,16 +182,22 @@ func (b *BankCardInfo) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	}
 	buf.ObjStart()
 	buf.PutID("bankCardInfo")
+	buf.Comma()
 	buf.FieldStart("title")
 	buf.PutString(b.Title)
+	buf.Comma()
 	buf.FieldStart("actions")
 	buf.ArrStart()
 	for idx, v := range b.Actions {
 		if err := v.EncodeTDLibJSON(buf); err != nil {
 			return fmt.Errorf("unable to encode bankCardInfo#2bc7da9f: field actions element with index %d: %w", idx, err)
 		}
+		buf.Comma()
 	}
+	buf.StripComma()
 	buf.ArrEnd()
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }

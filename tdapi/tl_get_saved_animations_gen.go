@@ -132,6 +132,8 @@ func (g *GetSavedAnimationsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getSavedAnimations")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

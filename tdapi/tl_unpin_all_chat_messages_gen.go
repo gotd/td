@@ -150,8 +150,11 @@ func (u *UnpinAllChatMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("unpinAllChatMessages")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

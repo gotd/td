@@ -167,10 +167,14 @@ func (g *GetPhoneNumberInfoSyncRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("getPhoneNumberInfoSync")
+	b.Comma()
 	b.FieldStart("language_code")
 	b.PutString(g.LanguageCode)
+	b.Comma()
 	b.FieldStart("phone_number_prefix")
 	b.PutString(g.PhoneNumberPrefix)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

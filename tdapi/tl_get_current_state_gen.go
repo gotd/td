@@ -132,6 +132,8 @@ func (g *GetCurrentStateRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getCurrentState")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

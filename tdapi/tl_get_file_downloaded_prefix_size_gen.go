@@ -167,10 +167,14 @@ func (g *GetFileDownloadedPrefixSizeRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("getFileDownloadedPrefixSize")
+	b.Comma()
 	b.FieldStart("file_id")
 	b.PutInt32(g.FileID)
+	b.Comma()
 	b.FieldStart("offset")
 	b.PutInt32(g.Offset)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -132,6 +132,8 @@ func (g *GetPasswordStateRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getPasswordState")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

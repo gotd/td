@@ -320,36 +320,49 @@ func (p *PaymentReceipt) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("paymentReceipt")
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(p.Title)
+	b.Comma()
 	b.FieldStart("description")
 	b.PutString(p.Description)
+	b.Comma()
 	b.FieldStart("photo")
 	if err := p.Photo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode paymentReceipt#e80d13b7: field photo: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("date")
 	b.PutInt32(p.Date)
+	b.Comma()
 	b.FieldStart("seller_bot_user_id")
 	b.PutInt53(p.SellerBotUserID)
+	b.Comma()
 	b.FieldStart("payments_provider_user_id")
 	b.PutInt53(p.PaymentsProviderUserID)
+	b.Comma()
 	b.FieldStart("invoice")
 	if err := p.Invoice.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode paymentReceipt#e80d13b7: field invoice: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("order_info")
 	if err := p.OrderInfo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode paymentReceipt#e80d13b7: field order_info: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("shipping_option")
 	if err := p.ShippingOption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode paymentReceipt#e80d13b7: field shipping_option: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("credentials_title")
 	b.PutString(p.CredentialsTitle)
+	b.Comma()
 	b.FieldStart("tip_amount")
 	b.PutInt53(p.TipAmount)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

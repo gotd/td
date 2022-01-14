@@ -201,14 +201,20 @@ func (d *DeleteChatMessagesByDateRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("deleteChatMessagesByDate")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(d.ChatID)
+	b.Comma()
 	b.FieldStart("min_date")
 	b.PutInt32(d.MinDate)
+	b.Comma()
 	b.FieldStart("max_date")
 	b.PutInt32(d.MaxDate)
+	b.Comma()
 	b.FieldStart("revoke")
 	b.PutBool(d.Revoke)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

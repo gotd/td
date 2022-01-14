@@ -184,12 +184,17 @@ func (g *GetArchivedStickerSetsRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("getArchivedStickerSets")
+	b.Comma()
 	b.FieldStart("is_masks")
 	b.PutBool(g.IsMasks)
+	b.Comma()
 	b.FieldStart("offset_sticker_set_id")
 	b.PutLong(g.OffsetStickerSetID)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

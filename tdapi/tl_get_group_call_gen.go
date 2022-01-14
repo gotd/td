@@ -150,8 +150,11 @@ func (g *GetGroupCallRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getGroupCall")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(g.GroupCallID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

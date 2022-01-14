@@ -165,14 +165,19 @@ func (g *GameHighScores) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("gameHighScores")
+	b.Comma()
 	b.FieldStart("scores")
 	b.ArrStart()
 	for idx, v := range g.Scores {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode gameHighScores#6d4cd30d: field scores element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

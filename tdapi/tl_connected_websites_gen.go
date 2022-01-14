@@ -165,14 +165,19 @@ func (c *ConnectedWebsites) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("connectedWebsites")
+	b.Comma()
 	b.FieldStart("websites")
 	b.ArrStart()
 	for idx, v := range c.Websites {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode connectedWebsites#f0c8b5ea: field websites element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

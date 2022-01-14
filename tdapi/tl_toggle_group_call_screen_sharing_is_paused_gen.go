@@ -167,10 +167,14 @@ func (t *ToggleGroupCallScreenSharingIsPausedRequest) EncodeTDLibJSON(b tdjson.E
 	}
 	b.ObjStart()
 	b.PutID("toggleGroupCallScreenSharingIsPaused")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(t.GroupCallID)
+	b.Comma()
 	b.FieldStart("is_paused")
 	b.PutBool(t.IsPaused)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

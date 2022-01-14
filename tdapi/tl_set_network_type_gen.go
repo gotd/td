@@ -155,6 +155,7 @@ func (s *SetNetworkTypeRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setNetworkType")
+	b.Comma()
 	b.FieldStart("type")
 	if s.Type == nil {
 		return fmt.Errorf("unable to encode setNetworkType#d62de55e: field type is nil")
@@ -162,6 +163,8 @@ func (s *SetNetworkTypeRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setNetworkType#d62de55e: field type: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

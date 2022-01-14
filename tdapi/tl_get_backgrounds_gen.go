@@ -150,8 +150,11 @@ func (g *GetBackgroundsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getBackgrounds")
+	b.Comma()
 	b.FieldStart("for_dark_theme")
 	b.PutBool(g.ForDarkTheme)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

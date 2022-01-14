@@ -132,6 +132,8 @@ func (b *Bytes) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	}
 	buf.ObjStart()
 	buf.PutID("bytes")
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }

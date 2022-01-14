@@ -167,10 +167,14 @@ func (b *BankCardActionOpenURL) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	}
 	buf.ObjStart()
 	buf.PutID("bankCardActionOpenUrl")
+	buf.Comma()
 	buf.FieldStart("text")
 	buf.PutString(b.Text)
+	buf.Comma()
 	buf.FieldStart("url")
 	buf.PutString(b.URL)
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }

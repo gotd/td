@@ -223,14 +223,19 @@ func (c *Call) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("call")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutInt32(c.ID)
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(c.UserID)
+	b.Comma()
 	b.FieldStart("is_outgoing")
 	b.PutBool(c.IsOutgoing)
+	b.Comma()
 	b.FieldStart("is_video")
 	b.PutBool(c.IsVideo)
+	b.Comma()
 	b.FieldStart("state")
 	if c.State == nil {
 		return fmt.Errorf("unable to encode call#36db9764: field state is nil")
@@ -238,6 +243,8 @@ func (c *Call) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.State.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode call#36db9764: field state: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

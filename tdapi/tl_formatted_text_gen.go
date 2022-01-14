@@ -183,16 +183,22 @@ func (f *FormattedText) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("formattedText")
+	b.Comma()
 	b.FieldStart("text")
 	b.PutString(f.Text)
+	b.Comma()
 	b.FieldStart("entities")
 	b.ArrStart()
 	for idx, v := range f.Entities {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode formattedText#a38d39ee: field entities element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

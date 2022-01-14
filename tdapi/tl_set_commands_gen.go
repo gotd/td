@@ -206,6 +206,7 @@ func (s *SetCommandsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setCommands")
+	b.Comma()
 	b.FieldStart("scope")
 	if s.Scope == nil {
 		return fmt.Errorf("unable to encode setCommands#b0e0217a: field scope is nil")
@@ -213,16 +214,22 @@ func (s *SetCommandsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.Scope.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setCommands#b0e0217a: field scope: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("language_code")
 	b.PutString(s.LanguageCode)
+	b.Comma()
 	b.FieldStart("commands")
 	b.ArrStart()
 	for idx, v := range s.Commands {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode setCommands#b0e0217a: field commands element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

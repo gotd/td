@@ -223,14 +223,19 @@ func (c *CallServer) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("callServer")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutLong(c.ID)
+	b.Comma()
 	b.FieldStart("ip_address")
 	b.PutString(c.IPAddress)
+	b.Comma()
 	b.FieldStart("ipv6_address")
 	b.PutString(c.Ipv6Address)
+	b.Comma()
 	b.FieldStart("port")
 	b.PutInt32(c.Port)
+	b.Comma()
 	b.FieldStart("type")
 	if c.Type == nil {
 		return fmt.Errorf("unable to encode callServer#6f37df97: field type is nil")
@@ -238,6 +243,8 @@ func (c *CallServer) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode callServer#6f37df97: field type: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

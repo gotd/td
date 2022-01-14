@@ -201,14 +201,20 @@ func (b *BlockMessageSenderFromRepliesRequest) EncodeTDLibJSON(buf tdjson.Encode
 	}
 	buf.ObjStart()
 	buf.PutID("blockMessageSenderFromReplies")
+	buf.Comma()
 	buf.FieldStart("message_id")
 	buf.PutInt53(b.MessageID)
+	buf.Comma()
 	buf.FieldStart("delete_message")
 	buf.PutBool(b.DeleteMessage)
+	buf.Comma()
 	buf.FieldStart("delete_all_messages")
 	buf.PutBool(b.DeleteAllMessages)
+	buf.Comma()
 	buf.FieldStart("report_spam")
 	buf.PutBool(b.ReportSpam)
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }

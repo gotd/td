@@ -132,6 +132,8 @@ func (g *GetProxiesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getProxies")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

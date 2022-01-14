@@ -155,8 +155,11 @@ func (i *InputCredentialsSaved) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputCredentialsSaved")
+	b.Comma()
 	b.FieldStart("saved_credentials_id")
 	b.PutString(i.SavedCredentialsID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -335,10 +338,14 @@ func (i *InputCredentialsNew) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputCredentialsNew")
+	b.Comma()
 	b.FieldStart("data")
 	b.PutString(i.Data)
+	b.Comma()
 	b.FieldStart("allow_save")
 	b.PutBool(i.AllowSave)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -514,8 +521,11 @@ func (i *InputCredentialsApplePay) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputCredentialsApplePay")
+	b.Comma()
 	b.FieldStart("data")
 	b.PutString(i.Data)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -677,8 +687,11 @@ func (i *InputCredentialsGooglePay) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputCredentialsGooglePay")
+	b.Comma()
 	b.FieldStart("data")
 	b.PutString(i.Data)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

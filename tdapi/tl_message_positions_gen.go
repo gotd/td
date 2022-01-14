@@ -182,16 +182,22 @@ func (m *MessagePositions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messagePositions")
+	b.Comma()
 	b.FieldStart("total_count")
 	b.PutInt32(m.TotalCount)
+	b.Comma()
 	b.FieldStart("positions")
 	b.ArrStart()
 	for idx, v := range m.Positions {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode messagePositions#912eab72: field positions element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

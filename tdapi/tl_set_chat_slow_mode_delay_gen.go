@@ -168,10 +168,14 @@ func (s *SetChatSlowModeDelayRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setChatSlowModeDelay")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("slow_mode_delay")
 	b.PutInt32(s.SlowModeDelay)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

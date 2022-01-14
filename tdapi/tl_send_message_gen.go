@@ -245,16 +245,21 @@ func (s *SendMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("sendMessage")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("message_thread_id")
 	b.PutInt53(s.MessageThreadID)
+	b.Comma()
 	b.FieldStart("reply_to_message_id")
 	b.PutInt53(s.ReplyToMessageID)
+	b.Comma()
 	b.FieldStart("options")
 	if err := s.Options.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode sendMessage#393f599d: field options: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if s.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode sendMessage#393f599d: field reply_markup is nil")
@@ -262,6 +267,7 @@ func (s *SendMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode sendMessage#393f599d: field reply_markup: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("input_message_content")
 	if s.InputMessageContent == nil {
 		return fmt.Errorf("unable to encode sendMessage#393f599d: field input_message_content is nil")
@@ -269,6 +275,8 @@ func (s *SendMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.InputMessageContent.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode sendMessage#393f599d: field input_message_content: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

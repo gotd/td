@@ -132,6 +132,8 @@ func (r *ResendChangePhoneNumberCodeRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("resendChangePhoneNumberCode")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

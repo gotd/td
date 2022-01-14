@@ -208,12 +208,16 @@ func (m *MessageSendOptions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageSendOptions")
+	b.Comma()
 	b.FieldStart("disable_notification")
 	b.PutBool(m.DisableNotification)
+	b.Comma()
 	b.FieldStart("from_background")
 	b.PutBool(m.FromBackground)
+	b.Comma()
 	b.FieldStart("protect_content")
 	b.PutBool(m.ProtectContent)
+	b.Comma()
 	b.FieldStart("scheduling_state")
 	if m.SchedulingState == nil {
 		return fmt.Errorf("unable to encode messageSendOptions#cc149434: field scheduling_state is nil")
@@ -221,6 +225,8 @@ func (m *MessageSendOptions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := m.SchedulingState.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageSendOptions#cc149434: field scheduling_state: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

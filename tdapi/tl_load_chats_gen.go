@@ -174,6 +174,7 @@ func (l *LoadChatsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("loadChats")
+	b.Comma()
 	b.FieldStart("chat_list")
 	if l.ChatList == nil {
 		return fmt.Errorf("unable to encode loadChats#8f9b7d7b: field chat_list is nil")
@@ -181,8 +182,11 @@ func (l *LoadChatsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := l.ChatList.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode loadChats#8f9b7d7b: field chat_list: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(l.Limit)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

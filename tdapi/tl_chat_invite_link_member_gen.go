@@ -184,12 +184,17 @@ func (c *ChatInviteLinkMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatInviteLinkMember")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(c.UserID)
+	b.Comma()
 	b.FieldStart("joined_chat_date")
 	b.PutInt32(c.JoinedChatDate)
+	b.Comma()
 	b.FieldStart("approver_user_id")
 	b.PutInt53(c.ApproverUserID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -150,8 +150,11 @@ func (g *GetNetworkStatisticsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getNetworkStatistics")
+	b.Comma()
 	b.FieldStart("only_current")
 	b.PutBool(g.OnlyCurrent)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

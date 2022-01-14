@@ -137,6 +137,8 @@ func (l *LogStreamDefault) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("logStreamDefault")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -319,12 +321,17 @@ func (l *LogStreamFile) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("logStreamFile")
+	b.Comma()
 	b.FieldStart("path")
 	b.PutString(l.Path)
+	b.Comma()
 	b.FieldStart("max_file_size")
 	b.PutInt53(l.MaxFileSize)
+	b.Comma()
 	b.FieldStart("redirect_stderr")
 	b.PutBool(l.RedirectStderr)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -496,6 +503,8 @@ func (l *LogStreamEmpty) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("logStreamEmpty")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

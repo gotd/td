@@ -137,6 +137,8 @@ func (j *JSONValueNull) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("jsonValueNull")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -284,8 +286,11 @@ func (j *JSONValueBoolean) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("jsonValueBoolean")
+	b.Comma()
 	b.FieldStart("value")
 	b.PutBool(j.Value)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -447,8 +452,11 @@ func (j *JSONValueNumber) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("jsonValueNumber")
+	b.Comma()
 	b.FieldStart("value")
 	b.PutDouble(j.Value)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -610,8 +618,11 @@ func (j *JSONValueString) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("jsonValueString")
+	b.Comma()
 	b.FieldStart("value")
 	b.PutString(j.Value)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -791,6 +802,7 @@ func (j *JSONValueArray) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("jsonValueArray")
+	b.Comma()
 	b.FieldStart("values")
 	b.ArrStart()
 	for idx, v := range j.Values {
@@ -800,8 +812,12 @@ func (j *JSONValueArray) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode jsonValueArray#eccdb0d8: field values element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -983,14 +999,19 @@ func (j *JSONValueObject) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("jsonValueObject")
+	b.Comma()
 	b.FieldStart("members")
 	b.ArrStart()
 	for idx, v := range j.Members {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode jsonValueObject#c67bff40: field members element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

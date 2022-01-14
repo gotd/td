@@ -165,14 +165,19 @@ func (t *TextEntities) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntities")
+	b.Comma()
 	b.FieldStart("entities")
 	b.ArrStart()
 	for idx, v := range t.Entities {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode textEntities#cf89c258: field entities element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

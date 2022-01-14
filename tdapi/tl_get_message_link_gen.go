@@ -220,16 +220,23 @@ func (g *GetMessageLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getMessageLink")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(g.MessageID)
+	b.Comma()
 	b.FieldStart("media_timestamp")
 	b.PutInt32(g.MediaTimestamp)
+	b.Comma()
 	b.FieldStart("for_album")
 	b.PutBool(g.ForAlbum)
+	b.Comma()
 	b.FieldStart("for_comment")
 	b.PutBool(g.ForComment)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -155,8 +155,11 @@ func (m *MessageSchedulingStateSendAtDate) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("messageSchedulingStateSendAtDate")
+	b.Comma()
 	b.FieldStart("send_date")
 	b.PutInt32(m.SendDate)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -300,6 +303,8 @@ func (m *MessageSchedulingStateSendWhenOnline) EncodeTDLibJSON(b tdjson.Encoder)
 	}
 	b.ObjStart()
 	b.PutID("messageSchedulingStateSendWhenOnline")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

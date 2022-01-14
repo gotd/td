@@ -304,34 +304,46 @@ func (p *PaymentForm) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("paymentForm")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutLong(p.ID)
+	b.Comma()
 	b.FieldStart("invoice")
 	if err := p.Invoice.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode paymentForm#572da1e6: field invoice: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("url")
 	b.PutString(p.URL)
+	b.Comma()
 	b.FieldStart("seller_bot_user_id")
 	b.PutInt53(p.SellerBotUserID)
+	b.Comma()
 	b.FieldStart("payments_provider_user_id")
 	b.PutInt53(p.PaymentsProviderUserID)
+	b.Comma()
 	b.FieldStart("payments_provider")
 	if err := p.PaymentsProvider.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode paymentForm#572da1e6: field payments_provider: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("saved_order_info")
 	if err := p.SavedOrderInfo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode paymentForm#572da1e6: field saved_order_info: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("saved_credentials")
 	if err := p.SavedCredentials.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode paymentForm#572da1e6: field saved_credentials: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("can_save_credentials")
 	b.PutBool(p.CanSaveCredentials)
+	b.Comma()
 	b.FieldStart("need_password")
 	b.PutBool(p.NeedPassword)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

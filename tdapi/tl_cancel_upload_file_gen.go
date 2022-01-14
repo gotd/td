@@ -150,8 +150,11 @@ func (c *CancelUploadFileRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("cancelUploadFile")
+	b.Comma()
 	b.FieldStart("file_id")
 	b.PutInt32(c.FileID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

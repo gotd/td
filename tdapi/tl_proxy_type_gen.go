@@ -172,10 +172,14 @@ func (p *ProxyTypeSocks5) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("proxyTypeSocks5")
+	b.Comma()
 	b.FieldStart("username")
 	b.PutString(p.Username)
+	b.Comma()
 	b.FieldStart("password")
 	b.PutString(p.Password)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -386,12 +390,17 @@ func (p *ProxyTypeHTTP) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("proxyTypeHttp")
+	b.Comma()
 	b.FieldStart("username")
 	b.PutString(p.Username)
+	b.Comma()
 	b.FieldStart("password")
 	b.PutString(p.Password)
+	b.Comma()
 	b.FieldStart("http_only")
 	b.PutBool(p.HTTPOnly)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -581,8 +590,11 @@ func (p *ProxyTypeMtproto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("proxyTypeMtproto")
+	b.Comma()
 	b.FieldStart("secret")
 	b.PutString(p.Secret)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -150,8 +150,11 @@ func (g *GetUserRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getUser")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(g.UserID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

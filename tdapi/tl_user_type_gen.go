@@ -137,6 +137,8 @@ func (u *UserTypeRegular) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("userTypeRegular")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (u *UserTypeDeleted) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("userTypeDeleted")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -484,16 +488,23 @@ func (u *UserTypeBot) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("userTypeBot")
+	b.Comma()
 	b.FieldStart("can_join_groups")
 	b.PutBool(u.CanJoinGroups)
+	b.Comma()
 	b.FieldStart("can_read_all_group_messages")
 	b.PutBool(u.CanReadAllGroupMessages)
+	b.Comma()
 	b.FieldStart("is_inline")
 	b.PutBool(u.IsInline)
+	b.Comma()
 	b.FieldStart("inline_query_placeholder")
 	b.PutString(u.InlineQueryPlaceholder)
+	b.Comma()
 	b.FieldStart("need_location")
 	b.PutBool(u.NeedLocation)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -693,6 +704,8 @@ func (u *UserTypeUnknown) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("userTypeUnknown")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

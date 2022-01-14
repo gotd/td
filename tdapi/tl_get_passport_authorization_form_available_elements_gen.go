@@ -167,10 +167,14 @@ func (g *GetPassportAuthorizationFormAvailableElementsRequest) EncodeTDLibJSON(b
 	}
 	b.ObjStart()
 	b.PutID("getPassportAuthorizationFormAvailableElements")
+	b.Comma()
 	b.FieldStart("autorization_form_id")
 	b.PutInt32(g.AutorizationFormID)
+	b.Comma()
 	b.FieldStart("password")
 	b.PutString(g.Password)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

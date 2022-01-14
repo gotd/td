@@ -172,8 +172,10 @@ func (g *GetBackgroundURLRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getBackgroundUrl")
+	b.Comma()
 	b.FieldStart("name")
 	b.PutString(g.Name)
+	b.Comma()
 	b.FieldStart("type")
 	if g.Type == nil {
 		return fmt.Errorf("unable to encode getBackgroundUrl#2bbc6fd2: field type is nil")
@@ -181,6 +183,8 @@ func (g *GetBackgroundURLRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := g.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getBackgroundUrl#2bbc6fd2: field type: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

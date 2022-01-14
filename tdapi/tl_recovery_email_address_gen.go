@@ -150,8 +150,11 @@ func (r *RecoveryEmailAddress) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("recoveryEmailAddress")
+	b.Comma()
 	b.FieldStart("recovery_email_address")
 	b.PutString(r.RecoveryEmailAddress)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

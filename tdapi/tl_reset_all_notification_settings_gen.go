@@ -132,6 +132,8 @@ func (r *ResetAllNotificationSettingsRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("resetAllNotificationSettings")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

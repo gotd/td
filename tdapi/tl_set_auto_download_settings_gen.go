@@ -172,10 +172,12 @@ func (s *SetAutoDownloadSettingsRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("setAutoDownloadSettings")
+	b.Comma()
 	b.FieldStart("settings")
 	if err := s.Settings.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setAutoDownloadSettings#eaeb64f4: field settings: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("type")
 	if s.Type == nil {
 		return fmt.Errorf("unable to encode setAutoDownloadSettings#eaeb64f4: field type is nil")
@@ -183,6 +185,8 @@ func (s *SetAutoDownloadSettingsRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	if err := s.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setAutoDownloadSettings#eaeb64f4: field type: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

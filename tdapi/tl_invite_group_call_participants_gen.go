@@ -180,14 +180,20 @@ func (i *InviteGroupCallParticipantsRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("inviteGroupCallParticipants")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(i.GroupCallID)
+	b.Comma()
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range i.UserIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

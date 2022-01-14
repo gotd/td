@@ -269,12 +269,15 @@ func (i *InputIdentityDocument) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputIdentityDocument")
+	b.Comma()
 	b.FieldStart("number")
 	b.PutString(i.Number)
+	b.Comma()
 	b.FieldStart("expiry_date")
 	if err := i.ExpiryDate.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field expiry_date: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("front_side")
 	if i.FrontSide == nil {
 		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field front_side is nil")
@@ -282,6 +285,7 @@ func (i *InputIdentityDocument) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := i.FrontSide.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field front_side: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("reverse_side")
 	if i.ReverseSide == nil {
 		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field reverse_side is nil")
@@ -289,6 +293,7 @@ func (i *InputIdentityDocument) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := i.ReverseSide.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field reverse_side: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("selfie")
 	if i.Selfie == nil {
 		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field selfie is nil")
@@ -296,6 +301,7 @@ func (i *InputIdentityDocument) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := i.Selfie.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field selfie: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("translation")
 	b.ArrStart()
 	for idx, v := range i.Translation {
@@ -305,8 +311,12 @@ func (i *InputIdentityDocument) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field translation element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

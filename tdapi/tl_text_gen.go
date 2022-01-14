@@ -150,8 +150,11 @@ func (t *Text) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("text")
+	b.Comma()
 	b.FieldStart("text")
 	b.PutString(t.Text)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

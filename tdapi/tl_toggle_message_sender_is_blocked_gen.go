@@ -172,6 +172,7 @@ func (t *ToggleMessageSenderIsBlockedRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("toggleMessageSenderIsBlocked")
+	b.Comma()
 	b.FieldStart("sender_id")
 	if t.SenderID == nil {
 		return fmt.Errorf("unable to encode toggleMessageSenderIsBlocked#884f0ed5: field sender_id is nil")
@@ -179,8 +180,11 @@ func (t *ToggleMessageSenderIsBlockedRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	if err := t.SenderID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode toggleMessageSenderIsBlocked#884f0ed5: field sender_id: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("is_blocked")
 	b.PutBool(t.IsBlocked)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

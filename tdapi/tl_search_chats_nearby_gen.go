@@ -150,10 +150,13 @@ func (s *SearchChatsNearbyRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchChatsNearby")
+	b.Comma()
 	b.FieldStart("location")
 	if err := s.Location.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode searchChatsNearby#f445c81f: field location: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

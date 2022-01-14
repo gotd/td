@@ -220,16 +220,23 @@ func (c *CreateChatInviteLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("createChatInviteLink")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(c.ChatID)
+	b.Comma()
 	b.FieldStart("name")
 	b.PutString(c.Name)
+	b.Comma()
 	b.FieldStart("expiration_date")
 	b.PutInt32(c.ExpirationDate)
+	b.Comma()
 	b.FieldStart("member_limit")
 	b.PutInt32(c.MemberLimit)
+	b.Comma()
 	b.FieldStart("creates_join_request")
 	b.PutBool(c.CreatesJoinRequest)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

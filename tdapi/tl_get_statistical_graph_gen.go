@@ -184,12 +184,17 @@ func (g *GetStatisticalGraphRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getStatisticalGraph")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
 	b.FieldStart("token")
 	b.PutString(g.Token)
+	b.Comma()
 	b.FieldStart("x")
 	b.PutInt53(g.X)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

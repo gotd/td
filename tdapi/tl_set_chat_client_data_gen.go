@@ -167,10 +167,14 @@ func (s *SetChatClientDataRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setChatClientData")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("client_data")
 	b.PutString(s.ClientData)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

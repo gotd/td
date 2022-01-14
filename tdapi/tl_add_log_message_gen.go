@@ -167,10 +167,14 @@ func (a *AddLogMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("addLogMessage")
+	b.Comma()
 	b.FieldStart("verbosity_level")
 	b.PutInt32(a.VerbosityLevel)
+	b.Comma()
 	b.FieldStart("text")
 	b.PutString(a.Text)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

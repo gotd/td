@@ -167,10 +167,14 @@ func (g *GetWebPageInstantViewRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getWebPageInstantView")
+	b.Comma()
 	b.FieldStart("url")
 	b.PutString(g.URL)
+	b.Comma()
 	b.FieldStart("force_full")
 	b.PutBool(g.ForceFull)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

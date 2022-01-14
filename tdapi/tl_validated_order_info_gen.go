@@ -182,16 +182,22 @@ func (v *ValidatedOrderInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("validatedOrderInfo")
+	b.Comma()
 	b.FieldStart("order_info_id")
 	b.PutString(v.OrderInfoID)
+	b.Comma()
 	b.FieldStart("shipping_options")
 	b.ArrStart()
 	for idx, v := range v.ShippingOptions {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode validatedOrderInfo#ac585f14: field shipping_options element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

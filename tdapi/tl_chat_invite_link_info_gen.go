@@ -324,10 +324,13 @@ func (c *ChatInviteLinkInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatInviteLinkInfo")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(c.ChatID)
+	b.Comma()
 	b.FieldStart("accessible_for")
 	b.PutInt32(c.AccessibleFor)
+	b.Comma()
 	b.FieldStart("type")
 	if c.Type == nil {
 		return fmt.Errorf("unable to encode chatInviteLinkInfo#eca8a094: field type is nil")
@@ -335,26 +338,37 @@ func (c *ChatInviteLinkInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatInviteLinkInfo#eca8a094: field type: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(c.Title)
+	b.Comma()
 	b.FieldStart("photo")
 	if err := c.Photo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatInviteLinkInfo#eca8a094: field photo: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("description")
 	b.PutString(c.Description)
+	b.Comma()
 	b.FieldStart("member_count")
 	b.PutInt32(c.MemberCount)
+	b.Comma()
 	b.FieldStart("member_user_ids")
 	b.ArrStart()
 	for _, v := range c.MemberUserIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("creates_join_request")
 	b.PutBool(c.CreatesJoinRequest)
+	b.Comma()
 	b.FieldStart("is_public")
 	b.PutBool(c.IsPublic)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

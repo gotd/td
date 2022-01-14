@@ -183,16 +183,22 @@ func (s *Sessions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("sessions")
+	b.Comma()
 	b.FieldStart("sessions")
 	b.ArrStart()
 	for idx, v := range s.Sessions {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode sessions#997833aa: field sessions element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("inactive_session_ttl_days")
 	b.PutInt32(s.InactiveSessionTTLDays)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -150,8 +150,11 @@ func (d *DeleteFileRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deleteFile")
+	b.Comma()
 	b.FieldStart("file_id")
 	b.PutInt32(d.FileID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -250,6 +250,7 @@ func (p *PageBlockTableCell) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockTableCell")
+	b.Comma()
 	b.FieldStart("text")
 	if p.Text == nil {
 		return fmt.Errorf("unable to encode pageBlockTableCell#547fbf66: field text is nil")
@@ -257,12 +258,16 @@ func (p *PageBlockTableCell) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Text.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockTableCell#547fbf66: field text: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("is_header")
 	b.PutBool(p.IsHeader)
+	b.Comma()
 	b.FieldStart("colspan")
 	b.PutInt32(p.Colspan)
+	b.Comma()
 	b.FieldStart("rowspan")
 	b.PutInt32(p.Rowspan)
+	b.Comma()
 	b.FieldStart("align")
 	if p.Align == nil {
 		return fmt.Errorf("unable to encode pageBlockTableCell#547fbf66: field align is nil")
@@ -270,6 +275,7 @@ func (p *PageBlockTableCell) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Align.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockTableCell#547fbf66: field align: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("valign")
 	if p.Valign == nil {
 		return fmt.Errorf("unable to encode pageBlockTableCell#547fbf66: field valign is nil")
@@ -277,6 +283,8 @@ func (p *PageBlockTableCell) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Valign.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockTableCell#547fbf66: field valign: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

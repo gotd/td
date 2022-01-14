@@ -191,12 +191,17 @@ func (c *ChatMemberStatusCreator) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatMemberStatusCreator")
+	b.Comma()
 	b.FieldStart("custom_title")
 	b.PutString(c.CustomTitle)
+	b.Comma()
 	b.FieldStart("is_anonymous")
 	b.PutBool(c.IsAnonymous)
+	b.Comma()
 	b.FieldStart("is_member")
 	b.PutBool(c.IsMember)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -599,32 +604,47 @@ func (c *ChatMemberStatusAdministrator) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("chatMemberStatusAdministrator")
+	b.Comma()
 	b.FieldStart("custom_title")
 	b.PutString(c.CustomTitle)
+	b.Comma()
 	b.FieldStart("can_be_edited")
 	b.PutBool(c.CanBeEdited)
+	b.Comma()
 	b.FieldStart("can_manage_chat")
 	b.PutBool(c.CanManageChat)
+	b.Comma()
 	b.FieldStart("can_change_info")
 	b.PutBool(c.CanChangeInfo)
+	b.Comma()
 	b.FieldStart("can_post_messages")
 	b.PutBool(c.CanPostMessages)
+	b.Comma()
 	b.FieldStart("can_edit_messages")
 	b.PutBool(c.CanEditMessages)
+	b.Comma()
 	b.FieldStart("can_delete_messages")
 	b.PutBool(c.CanDeleteMessages)
+	b.Comma()
 	b.FieldStart("can_invite_users")
 	b.PutBool(c.CanInviteUsers)
+	b.Comma()
 	b.FieldStart("can_restrict_members")
 	b.PutBool(c.CanRestrictMembers)
+	b.Comma()
 	b.FieldStart("can_pin_messages")
 	b.PutBool(c.CanPinMessages)
+	b.Comma()
 	b.FieldStart("can_promote_members")
 	b.PutBool(c.CanPromoteMembers)
+	b.Comma()
 	b.FieldStart("can_manage_video_chats")
 	b.PutBool(c.CanManageVideoChats)
+	b.Comma()
 	b.FieldStart("is_anonymous")
 	b.PutBool(c.IsAnonymous)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -936,6 +956,8 @@ func (c *ChatMemberStatusMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatMemberStatusMember")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1119,14 +1141,19 @@ func (c *ChatMemberStatusRestricted) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatMemberStatusRestricted")
+	b.Comma()
 	b.FieldStart("is_member")
 	b.PutBool(c.IsMember)
+	b.Comma()
 	b.FieldStart("restricted_until_date")
 	b.PutInt32(c.RestrictedUntilDate)
+	b.Comma()
 	b.FieldStart("permissions")
 	if err := c.Permissions.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatMemberStatusRestricted#630774a6: field permissions: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1296,6 +1323,8 @@ func (c *ChatMemberStatusLeft) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatMemberStatusLeft")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1445,8 +1474,11 @@ func (c *ChatMemberStatusBanned) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatMemberStatusBanned")
+	b.Comma()
 	b.FieldStart("banned_until_date")
 	b.PutInt32(c.BannedUntilDate)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

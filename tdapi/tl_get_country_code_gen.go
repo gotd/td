@@ -132,6 +132,8 @@ func (g *GetCountryCodeRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getCountryCode")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

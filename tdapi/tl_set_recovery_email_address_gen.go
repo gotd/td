@@ -167,10 +167,14 @@ func (s *SetRecoveryEmailAddressRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("setRecoveryEmailAddress")
+	b.Comma()
 	b.FieldStart("password")
 	b.PutString(s.Password)
+	b.Comma()
 	b.FieldStart("new_recovery_email_address")
 	b.PutString(s.NewRecoveryEmailAddress)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

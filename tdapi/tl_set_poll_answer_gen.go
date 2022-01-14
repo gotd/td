@@ -198,16 +198,23 @@ func (s *SetPollAnswerRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setPollAnswer")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(s.MessageID)
+	b.Comma()
 	b.FieldStart("option_ids")
 	b.ArrStart()
 	for _, v := range s.OptionIDs {
 		b.PutInt32(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -137,6 +137,8 @@ func (p *PageBlockVerticalAlignmentTop) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("pageBlockVerticalAlignmentTop")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (p *PageBlockVerticalAlignmentMiddle) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("pageBlockVerticalAlignmentMiddle")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -395,6 +399,8 @@ func (p *PageBlockVerticalAlignmentBottom) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("pageBlockVerticalAlignmentBottom")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

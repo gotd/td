@@ -186,12 +186,17 @@ func (c *CreateVideoChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("createVideoChat")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(c.ChatID)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(c.Title)
+	b.Comma()
 	b.FieldStart("start_date")
 	b.PutInt32(c.StartDate)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

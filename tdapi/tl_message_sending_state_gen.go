@@ -137,6 +137,8 @@ func (m *MessageSendingStatePending) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageSendingStatePending")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -353,16 +355,23 @@ func (m *MessageSendingStateFailed) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageSendingStateFailed")
+	b.Comma()
 	b.FieldStart("error_code")
 	b.PutInt32(m.ErrorCode)
+	b.Comma()
 	b.FieldStart("error_message")
 	b.PutString(m.ErrorMessage)
+	b.Comma()
 	b.FieldStart("can_retry")
 	b.PutBool(m.CanRetry)
+	b.Comma()
 	b.FieldStart("need_another_sender")
 	b.PutBool(m.NeedAnotherSender)
+	b.Comma()
 	b.FieldStart("retry_after")
 	b.PutDouble(m.RetryAfter)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

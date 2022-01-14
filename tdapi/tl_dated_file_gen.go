@@ -167,12 +167,16 @@ func (d *DatedFile) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("datedFile")
+	b.Comma()
 	b.FieldStart("file")
 	if err := d.File.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode datedFile#9247b09d: field file: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("date")
 	b.PutInt32(d.Date)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

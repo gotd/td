@@ -132,6 +132,8 @@ func (g *GetSupportUserRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getSupportUser")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

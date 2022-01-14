@@ -319,38 +319,52 @@ func (s *Sticker) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("sticker")
+	b.Comma()
 	b.FieldStart("set_id")
 	b.PutLong(s.SetID)
+	b.Comma()
 	b.FieldStart("width")
 	b.PutInt32(s.Width)
+	b.Comma()
 	b.FieldStart("height")
 	b.PutInt32(s.Height)
+	b.Comma()
 	b.FieldStart("emoji")
 	b.PutString(s.Emoji)
+	b.Comma()
 	b.FieldStart("is_animated")
 	b.PutBool(s.IsAnimated)
+	b.Comma()
 	b.FieldStart("is_mask")
 	b.PutBool(s.IsMask)
+	b.Comma()
 	b.FieldStart("mask_position")
 	if err := s.MaskPosition.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode sticker#a5687f28: field mask_position: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("outline")
 	b.ArrStart()
 	for idx, v := range s.Outline {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode sticker#a5687f28: field outline element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("thumbnail")
 	if err := s.Thumbnail.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode sticker#a5687f28: field thumbnail: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("sticker")
 	if err := s.Sticker.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode sticker#a5687f28: field sticker: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

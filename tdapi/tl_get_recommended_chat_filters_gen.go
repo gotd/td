@@ -132,6 +132,8 @@ func (g *GetRecommendedChatFiltersRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("getRecommendedChatFilters")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

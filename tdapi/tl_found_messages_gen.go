@@ -199,18 +199,25 @@ func (f *FoundMessages) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("foundMessages")
+	b.Comma()
 	b.FieldStart("total_count")
 	b.PutInt32(f.TotalCount)
+	b.Comma()
 	b.FieldStart("messages")
 	b.ArrStart()
 	for idx, v := range f.Messages {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode foundMessages#2515f708: field messages element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("next_offset")
 	b.PutString(f.NextOffset)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -150,8 +150,11 @@ func (f *FilePart) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("filePart")
+	b.Comma()
 	b.FieldStart("data")
 	b.PutBytes(f.Data)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

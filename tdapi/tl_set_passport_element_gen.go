@@ -172,6 +172,7 @@ func (s *SetPassportElementRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setPassportElement")
+	b.Comma()
 	b.FieldStart("element")
 	if s.Element == nil {
 		return fmt.Errorf("unable to encode setPassportElement#7b45d19c: field element is nil")
@@ -179,8 +180,11 @@ func (s *SetPassportElementRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.Element.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setPassportElement#7b45d19c: field element: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("password")
 	b.PutString(s.Password)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

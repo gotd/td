@@ -218,16 +218,23 @@ func (s *StorageStatisticsFast) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("storageStatisticsFast")
+	b.Comma()
 	b.FieldStart("files_size")
 	b.PutInt53(s.FilesSize)
+	b.Comma()
 	b.FieldStart("file_count")
 	b.PutInt32(s.FileCount)
+	b.Comma()
 	b.FieldStart("database_size")
 	b.PutInt53(s.DatabaseSize)
+	b.Comma()
 	b.FieldStart("language_pack_database_size")
 	b.PutInt53(s.LanguagePackDatabaseSize)
+	b.Comma()
 	b.FieldStart("log_size")
 	b.PutInt53(s.LogSize)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -185,12 +185,17 @@ func (s *SetGroupCallParticipantIsSpeakingRequest) EncodeTDLibJSON(b tdjson.Enco
 	}
 	b.ObjStart()
 	b.PutID("setGroupCallParticipantIsSpeaking")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(s.GroupCallID)
+	b.Comma()
 	b.FieldStart("audio_source")
 	b.PutInt32(s.AudioSource)
+	b.Comma()
 	b.FieldStart("is_speaking")
 	b.PutBool(s.IsSpeaking)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

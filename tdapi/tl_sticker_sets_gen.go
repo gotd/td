@@ -182,16 +182,22 @@ func (s *StickerSets) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("stickerSets")
+	b.Comma()
 	b.FieldStart("total_count")
 	b.PutInt32(s.TotalCount)
+	b.Comma()
 	b.FieldStart("sets")
 	b.ArrStart()
 	for idx, v := range s.Sets {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode stickerSets#b8a6490d: field sets element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

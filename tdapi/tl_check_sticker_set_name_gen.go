@@ -150,8 +150,11 @@ func (c *CheckStickerSetNameRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("checkStickerSetName")
+	b.Comma()
 	b.FieldStart("name")
 	b.PutString(c.Name)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

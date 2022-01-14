@@ -150,8 +150,11 @@ func (j *JoinChatByInviteLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("joinChatByInviteLink")
+	b.Comma()
 	b.FieldStart("invite_link")
 	b.PutString(j.InviteLink)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

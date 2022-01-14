@@ -241,10 +241,13 @@ func (e *EditMessageLiveLocationRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("editMessageLiveLocation")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(e.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(e.MessageID)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if e.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode editMessageLiveLocation#ff29a512: field reply_markup is nil")
@@ -252,14 +255,19 @@ func (e *EditMessageLiveLocationRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	if err := e.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode editMessageLiveLocation#ff29a512: field reply_markup: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("location")
 	if err := e.Location.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode editMessageLiveLocation#ff29a512: field location: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("heading")
 	b.PutInt32(e.Heading)
+	b.Comma()
 	b.FieldStart("proximity_alert_radius")
 	b.PutInt32(e.ProximityAlertRadius)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

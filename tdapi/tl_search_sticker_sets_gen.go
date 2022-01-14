@@ -150,8 +150,11 @@ func (s *SearchStickerSetsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchStickerSets")
+	b.Comma()
 	b.FieldStart("query")
 	b.PutString(s.Query)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

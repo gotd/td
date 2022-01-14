@@ -150,8 +150,11 @@ func (t *TerminateSessionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("terminateSession")
+	b.Comma()
 	b.FieldStart("session_id")
 	b.PutLong(t.SessionID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -197,22 +197,30 @@ func (p *PersonalDocument) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("personalDocument")
+	b.Comma()
 	b.FieldStart("files")
 	b.ArrStart()
 	for idx, v := range p.Files {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode personalDocument#a8357e38: field files element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("translation")
 	b.ArrStart()
 	for idx, v := range p.Translation {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode personalDocument#a8357e38: field translation element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

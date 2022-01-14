@@ -172,8 +172,10 @@ func (e *EditInlineMessageReplyMarkupRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("editInlineMessageReplyMarkup")
+	b.Comma()
 	b.FieldStart("inline_message_id")
 	b.PutString(e.InlineMessageID)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if e.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode editInlineMessageReplyMarkup#fbf906de: field reply_markup is nil")
@@ -181,6 +183,8 @@ func (e *EditInlineMessageReplyMarkupRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	if err := e.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode editInlineMessageReplyMarkup#fbf906de: field reply_markup: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

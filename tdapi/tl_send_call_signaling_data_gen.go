@@ -167,10 +167,14 @@ func (s *SendCallSignalingDataRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("sendCallSignalingData")
+	b.Comma()
 	b.FieldStart("call_id")
 	b.PutInt32(s.CallID)
+	b.Comma()
 	b.FieldStart("data")
 	b.PutBytes(s.Data)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -150,8 +150,11 @@ func (g *GetAnimatedEmojiRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getAnimatedEmoji")
+	b.Comma()
 	b.FieldStart("emoji")
 	b.PutString(g.Emoji)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

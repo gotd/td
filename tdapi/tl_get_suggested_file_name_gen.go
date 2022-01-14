@@ -167,10 +167,14 @@ func (g *GetSuggestedFileNameRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getSuggestedFileName")
+	b.Comma()
 	b.FieldStart("file_id")
 	b.PutInt32(g.FileID)
+	b.Comma()
 	b.FieldStart("directory")
 	b.PutString(g.Directory)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

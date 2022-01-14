@@ -132,6 +132,8 @@ func (r *ResetBackgroundsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("resetBackgrounds")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

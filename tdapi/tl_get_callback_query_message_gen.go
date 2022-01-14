@@ -184,12 +184,17 @@ func (g *GetCallbackQueryMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("getCallbackQueryMessage")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(g.MessageID)
+	b.Comma()
 	b.FieldStart("callback_query_id")
 	b.PutLong(g.CallbackQueryID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

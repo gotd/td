@@ -167,10 +167,14 @@ func (r *RemoveNotificationGroupRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("removeNotificationGroup")
+	b.Comma()
 	b.FieldStart("notification_group_id")
 	b.PutInt32(r.NotificationGroupID)
+	b.Comma()
 	b.FieldStart("max_notification_id")
 	b.PutInt32(r.MaxNotificationID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

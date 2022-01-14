@@ -132,6 +132,8 @@ func (g *GetTemporaryPasswordStateRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("getTemporaryPasswordState")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

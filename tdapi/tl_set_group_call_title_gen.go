@@ -167,10 +167,14 @@ func (s *SetGroupCallTitleRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setGroupCallTitle")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(s.GroupCallID)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(s.Title)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

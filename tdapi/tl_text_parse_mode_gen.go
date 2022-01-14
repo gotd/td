@@ -156,8 +156,11 @@ func (t *TextParseModeMarkdown) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textParseModeMarkdown")
+	b.Comma()
 	b.FieldStart("version")
 	b.PutInt32(t.Version)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -301,6 +304,8 @@ func (t *TextParseModeHTML) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textParseModeHTML")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

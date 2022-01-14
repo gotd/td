@@ -184,12 +184,17 @@ func (s *SetFileGenerationProgressRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("setFileGenerationProgress")
+	b.Comma()
 	b.FieldStart("generation_id")
 	b.PutLong(s.GenerationID)
+	b.Comma()
 	b.FieldStart("expected_size")
 	b.PutInt32(s.ExpectedSize)
+	b.Comma()
 	b.FieldStart("local_prefix_size")
 	b.PutInt32(s.LocalPrefixSize)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

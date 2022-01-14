@@ -132,6 +132,8 @@ func (g *GetActiveLiveLocationMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder)
 	}
 	b.ObjStart()
 	b.PutID("getActiveLiveLocationMessages")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

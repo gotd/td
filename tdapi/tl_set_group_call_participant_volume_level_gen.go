@@ -189,8 +189,10 @@ func (s *SetGroupCallParticipantVolumeLevelRequest) EncodeTDLibJSON(b tdjson.Enc
 	}
 	b.ObjStart()
 	b.PutID("setGroupCallParticipantVolumeLevel")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(s.GroupCallID)
+	b.Comma()
 	b.FieldStart("participant_id")
 	if s.ParticipantID == nil {
 		return fmt.Errorf("unable to encode setGroupCallParticipantVolumeLevel#97779828: field participant_id is nil")
@@ -198,8 +200,11 @@ func (s *SetGroupCallParticipantVolumeLevelRequest) EncodeTDLibJSON(b tdjson.Enc
 	if err := s.ParticipantID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setGroupCallParticipantVolumeLevel#97779828: field participant_id: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("volume_level")
 	b.PutInt32(s.VolumeLevel)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

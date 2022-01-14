@@ -194,6 +194,7 @@ func (i *InputStickerStatic) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputStickerStatic")
+	b.Comma()
 	b.FieldStart("sticker")
 	if i.Sticker == nil {
 		return fmt.Errorf("unable to encode inputStickerStatic#540604db: field sticker is nil")
@@ -201,12 +202,16 @@ func (i *InputStickerStatic) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := i.Sticker.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputStickerStatic#540604db: field sticker: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("emojis")
 	b.PutString(i.Emojis)
+	b.Comma()
 	b.FieldStart("mask_position")
 	if err := i.MaskPosition.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputStickerStatic#540604db: field mask_position: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -418,6 +423,7 @@ func (i *InputStickerAnimated) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputStickerAnimated")
+	b.Comma()
 	b.FieldStart("sticker")
 	if i.Sticker == nil {
 		return fmt.Errorf("unable to encode inputStickerAnimated#bccf4960: field sticker is nil")
@@ -425,8 +431,11 @@ func (i *InputStickerAnimated) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := i.Sticker.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputStickerAnimated#bccf4960: field sticker: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("emojis")
 	b.PutString(i.Emojis)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -150,10 +150,13 @@ func (c *CreateChatFilterRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("createChatFilter")
+	b.Comma()
 	b.FieldStart("filter")
 	if err := c.Filter.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode createChatFilter#2ecaca6: field filter: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

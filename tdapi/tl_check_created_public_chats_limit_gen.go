@@ -155,6 +155,7 @@ func (c *CheckCreatedPublicChatsLimitRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("checkCreatedPublicChatsLimit")
+	b.Comma()
 	b.FieldStart("type")
 	if c.Type == nil {
 		return fmt.Errorf("unable to encode checkCreatedPublicChatsLimit#e5717fa1: field type is nil")
@@ -162,6 +163,8 @@ func (c *CheckCreatedPublicChatsLimitRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	if err := c.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode checkCreatedPublicChatsLimit#e5717fa1: field type: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

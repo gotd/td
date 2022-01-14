@@ -137,6 +137,8 @@ func (p *PublicChatTypeHasUsername) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("publicChatTypeHasUsername")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (p *PublicChatTypeIsLocationBased) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("publicChatTypeIsLocationBased")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

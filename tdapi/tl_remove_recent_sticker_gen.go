@@ -174,8 +174,10 @@ func (r *RemoveRecentStickerRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("removeRecentSticker")
+	b.Comma()
 	b.FieldStart("is_attached")
 	b.PutBool(r.IsAttached)
+	b.Comma()
 	b.FieldStart("sticker")
 	if r.Sticker == nil {
 		return fmt.Errorf("unable to encode removeRecentSticker#4a4d440d: field sticker is nil")
@@ -183,6 +185,8 @@ func (r *RemoveRecentStickerRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := r.Sticker.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode removeRecentSticker#4a4d440d: field sticker: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

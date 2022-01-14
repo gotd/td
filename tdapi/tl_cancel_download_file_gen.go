@@ -168,10 +168,14 @@ func (c *CancelDownloadFileRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("cancelDownloadFile")
+	b.Comma()
 	b.FieldStart("file_id")
 	b.PutInt32(c.FileID)
+	b.Comma()
 	b.FieldStart("only_if_pending")
 	b.PutBool(c.OnlyIfPending)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

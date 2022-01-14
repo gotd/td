@@ -194,8 +194,10 @@ func (e *EditInlineMessageTextRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("editInlineMessageText")
+	b.Comma()
 	b.FieldStart("inline_message_id")
 	b.PutString(e.InlineMessageID)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if e.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode editInlineMessageText#cd02c1e5: field reply_markup is nil")
@@ -203,6 +205,7 @@ func (e *EditInlineMessageTextRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := e.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode editInlineMessageText#cd02c1e5: field reply_markup: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("input_message_content")
 	if e.InputMessageContent == nil {
 		return fmt.Errorf("unable to encode editInlineMessageText#cd02c1e5: field input_message_content is nil")
@@ -210,6 +213,8 @@ func (e *EditInlineMessageTextRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := e.InputMessageContent.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode editInlineMessageText#cd02c1e5: field input_message_content: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

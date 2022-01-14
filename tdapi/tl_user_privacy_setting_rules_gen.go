@@ -168,6 +168,7 @@ func (u *UserPrivacySettingRules) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("userPrivacySettingRules")
+	b.Comma()
 	b.FieldStart("rules")
 	b.ArrStart()
 	for idx, v := range u.Rules {
@@ -177,8 +178,12 @@ func (u *UserPrivacySettingRules) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode userPrivacySettingRules#425e6b37: field rules element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -151,8 +151,11 @@ func (a *AccountTTL) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("accountTtl")
+	b.Comma()
 	b.FieldStart("days")
 	b.PutInt32(a.Days)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

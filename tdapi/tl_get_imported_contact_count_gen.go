@@ -132,6 +132,8 @@ func (g *GetImportedContactCountRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("getImportedContactCount")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

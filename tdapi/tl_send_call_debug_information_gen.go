@@ -167,10 +167,14 @@ func (s *SendCallDebugInformationRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("sendCallDebugInformation")
+	b.Comma()
 	b.FieldStart("call_id")
 	b.PutInt32(s.CallID)
+	b.Comma()
 	b.FieldStart("debug_information")
 	b.PutString(s.DebugInformation)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -172,6 +172,7 @@ func (s *SetStickerPositionInSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("setStickerPositionInSet")
+	b.Comma()
 	b.FieldStart("sticker")
 	if s.Sticker == nil {
 		return fmt.Errorf("unable to encode setStickerPositionInSet#7bb24721: field sticker is nil")
@@ -179,8 +180,11 @@ func (s *SetStickerPositionInSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	if err := s.Sticker.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setStickerPositionInSet#7bb24721: field sticker: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("position")
 	b.PutInt32(s.Position)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -184,12 +184,17 @@ func (s *StatisticalValue) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("statisticalValue")
+	b.Comma()
 	b.FieldStart("value")
 	b.PutDouble(s.Value)
+	b.Comma()
 	b.FieldStart("previous_value")
 	b.PutDouble(s.PreviousValue)
+	b.Comma()
 	b.FieldStart("growth_rate_percentage")
 	b.PutDouble(s.GrowthRatePercentage)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

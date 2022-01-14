@@ -137,6 +137,8 @@ func (r *ResetPasswordResultOk) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("resetPasswordResultOk")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -285,8 +287,11 @@ func (r *ResetPasswordResultPending) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("resetPasswordResultPending")
+	b.Comma()
 	b.FieldStart("pending_reset_date")
 	b.PutInt32(r.PendingResetDate)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -448,8 +453,11 @@ func (r *ResetPasswordResultDeclined) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("resetPasswordResultDeclined")
+	b.Comma()
 	b.FieldStart("retry_date")
 	b.PutInt32(r.RetryDate)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

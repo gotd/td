@@ -189,10 +189,13 @@ func (e *EditMessageReplyMarkupRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("editMessageReplyMarkup")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(e.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(e.MessageID)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if e.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode editMessageReplyMarkup#13cbde89: field reply_markup is nil")
@@ -200,6 +203,8 @@ func (e *EditMessageReplyMarkupRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	if err := e.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode editMessageReplyMarkup#13cbde89: field reply_markup: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

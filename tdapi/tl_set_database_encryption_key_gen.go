@@ -150,8 +150,11 @@ func (s *SetDatabaseEncryptionKeyRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("setDatabaseEncryptionKey")
+	b.Comma()
 	b.FieldStart("new_encryption_key")
 	b.PutBytes(s.NewEncryptionKey)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

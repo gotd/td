@@ -150,8 +150,11 @@ func (r *RevokeGroupCallInviteLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("revokeGroupCallInviteLink")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(r.GroupCallID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

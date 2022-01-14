@@ -201,14 +201,20 @@ func (c *ChatStatisticsAdministratorActionsInfo) EncodeTDLibJSON(b tdjson.Encode
 	}
 	b.ObjStart()
 	b.PutID("chatStatisticsAdministratorActionsInfo")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(c.UserID)
+	b.Comma()
 	b.FieldStart("deleted_message_count")
 	b.PutInt32(c.DeletedMessageCount)
+	b.Comma()
 	b.FieldStart("banned_user_count")
 	b.PutInt32(c.BannedUserCount)
+	b.Comma()
 	b.FieldStart("restricted_user_count")
 	b.PutInt32(c.RestrictedUserCount)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -150,8 +150,11 @@ func (s *SetBioRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setBio")
+	b.Comma()
 	b.FieldStart("bio")
 	b.PutString(s.Bio)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

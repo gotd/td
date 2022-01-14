@@ -137,6 +137,8 @@ func (s *SuggestedActionEnableArchiveAndMuteNewChats) EncodeTDLibJSON(b tdjson.E
 	}
 	b.ObjStart()
 	b.PutID("suggestedActionEnableArchiveAndMuteNewChats")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (s *SuggestedActionCheckPassword) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("suggestedActionCheckPassword")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -395,6 +399,8 @@ func (s *SuggestedActionCheckPhoneNumber) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("suggestedActionCheckPhoneNumber")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -524,6 +530,8 @@ func (s *SuggestedActionViewChecksHint) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("suggestedActionViewChecksHint")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -671,8 +679,11 @@ func (s *SuggestedActionConvertToBroadcastGroup) EncodeTDLibJSON(b tdjson.Encode
 	}
 	b.ObjStart()
 	b.PutID("suggestedActionConvertToBroadcastGroup")
+	b.Comma()
 	b.FieldStart("supergroup_id")
 	b.PutInt53(s.SupergroupID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -835,8 +846,11 @@ func (s *SuggestedActionSetPassword) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("suggestedActionSetPassword")
+	b.Comma()
 	b.FieldStart("authorization_delay")
 	b.PutInt32(s.AuthorizationDelay)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

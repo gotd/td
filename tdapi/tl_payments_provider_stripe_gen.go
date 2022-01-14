@@ -201,14 +201,20 @@ func (p *PaymentsProviderStripe) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("paymentsProviderStripe")
+	b.Comma()
 	b.FieldStart("publishable_key")
 	b.PutString(p.PublishableKey)
+	b.Comma()
 	b.FieldStart("need_country")
 	b.PutBool(p.NeedCountry)
+	b.Comma()
 	b.FieldStart("need_postal_code")
 	b.PutBool(p.NeedPostalCode)
+	b.Comma()
 	b.FieldStart("need_cardholder_name")
 	b.PutBool(p.NeedCardholderName)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

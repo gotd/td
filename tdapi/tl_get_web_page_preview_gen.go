@@ -150,10 +150,13 @@ func (g *GetWebPagePreviewRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getWebPagePreview")
+	b.Comma()
 	b.FieldStart("text")
 	if err := g.Text.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getWebPagePreview#222e062c: field text: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

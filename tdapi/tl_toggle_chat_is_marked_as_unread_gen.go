@@ -167,10 +167,14 @@ func (t *ToggleChatIsMarkedAsUnreadRequest) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("toggleChatIsMarkedAsUnread")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(t.ChatID)
+	b.Comma()
 	b.FieldStart("is_marked_as_unread")
 	b.PutBool(t.IsMarkedAsUnread)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

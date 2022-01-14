@@ -150,8 +150,11 @@ func (d *DeleteAccountRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deleteAccount")
+	b.Comma()
 	b.FieldStart("reason")
 	b.PutString(d.Reason)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

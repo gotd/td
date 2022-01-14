@@ -190,8 +190,10 @@ func (t *ToggleGroupCallParticipantIsHandRaisedRequest) EncodeTDLibJSON(b tdjson
 	}
 	b.ObjStart()
 	b.PutID("toggleGroupCallParticipantIsHandRaised")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(t.GroupCallID)
+	b.Comma()
 	b.FieldStart("participant_id")
 	if t.ParticipantID == nil {
 		return fmt.Errorf("unable to encode toggleGroupCallParticipantIsHandRaised#8efb63e1: field participant_id is nil")
@@ -199,8 +201,11 @@ func (t *ToggleGroupCallParticipantIsHandRaisedRequest) EncodeTDLibJSON(b tdjson
 	if err := t.ParticipantID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode toggleGroupCallParticipantIsHandRaised#8efb63e1: field participant_id: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("is_hand_raised")
 	b.PutBool(t.IsHandRaised)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

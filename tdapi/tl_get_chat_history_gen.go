@@ -224,16 +224,23 @@ func (g *GetChatHistoryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getChatHistory")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
 	b.FieldStart("from_message_id")
 	b.PutInt53(g.FromMessageID)
+	b.Comma()
 	b.FieldStart("offset")
 	b.PutInt32(g.Offset)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
+	b.Comma()
 	b.FieldStart("only_local")
 	b.PutBool(g.OnlyLocal)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -169,10 +169,14 @@ func (s *SetChatDiscussionGroupRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("setChatDiscussionGroup")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("discussion_chat_id")
 	b.PutInt53(s.DiscussionChatID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

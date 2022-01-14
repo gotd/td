@@ -172,8 +172,10 @@ func (u *UploadStickerFileRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("uploadStickerFile")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(u.UserID)
+	b.Comma()
 	b.FieldStart("sticker")
 	if u.Sticker == nil {
 		return fmt.Errorf("unable to encode uploadStickerFile#23a0f58e: field sticker is nil")
@@ -181,6 +183,8 @@ func (u *UploadStickerFileRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.Sticker.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode uploadStickerFile#23a0f58e: field sticker: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

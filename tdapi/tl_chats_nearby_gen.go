@@ -197,22 +197,30 @@ func (c *ChatsNearby) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatsNearby")
+	b.Comma()
 	b.FieldStart("users_nearby")
 	b.ArrStart()
 	for idx, v := range c.UsersNearby {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode chatsNearby#cc744cff: field users_nearby element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("supergroups_nearby")
 	b.ArrStart()
 	for idx, v := range c.SupergroupsNearby {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode chatsNearby#cc744cff: field supergroups_nearby element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

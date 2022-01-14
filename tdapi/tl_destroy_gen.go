@@ -132,6 +132,8 @@ func (d *DestroyRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("destroy")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

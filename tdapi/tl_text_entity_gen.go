@@ -189,10 +189,13 @@ func (t *TextEntity) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntity")
+	b.Comma()
 	b.FieldStart("offset")
 	b.PutInt32(t.Offset)
+	b.Comma()
 	b.FieldStart("length")
 	b.PutInt32(t.Length)
+	b.Comma()
 	b.FieldStart("type")
 	if t.Type == nil {
 		return fmt.Errorf("unable to encode textEntity#8bab99a8: field type is nil")
@@ -200,6 +203,8 @@ func (t *TextEntity) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := t.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode textEntity#8bab99a8: field type: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

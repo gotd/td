@@ -172,14 +172,18 @@ func (m *MessageText) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageText")
+	b.Comma()
 	b.FieldStart("text")
 	if err := m.Text.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageText#768e4f93: field text: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("web_page")
 	if err := m.WebPage.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageText#768e4f93: field web_page: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -386,16 +390,21 @@ func (m *MessageAnimation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageAnimation")
+	b.Comma()
 	b.FieldStart("animation")
 	if err := m.Animation.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageAnimation#4de65004: field animation: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("caption")
 	if err := m.Caption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageAnimation#4de65004: field caption: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("is_secret")
 	b.PutBool(m.IsSecret)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -598,14 +607,18 @@ func (m *MessageAudio) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageAudio")
+	b.Comma()
 	b.FieldStart("audio")
 	if err := m.Audio.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageAudio#107e741c: field audio: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("caption")
 	if err := m.Caption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageAudio#107e741c: field caption: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -794,14 +807,18 @@ func (m *MessageDocument) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageDocument")
+	b.Comma()
 	b.FieldStart("document")
 	if err := m.Document.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageDocument#2394ab77: field document: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("caption")
 	if err := m.Caption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageDocument#2394ab77: field caption: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1007,16 +1024,21 @@ func (m *MessagePhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messagePhoto")
+	b.Comma()
 	b.FieldStart("photo")
 	if err := m.Photo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messagePhoto#91a5f39a: field photo: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("caption")
 	if err := m.Caption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messagePhoto#91a5f39a: field caption: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("is_secret")
 	b.PutBool(m.IsSecret)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1184,6 +1206,8 @@ func (m *MessageExpiredPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageExpiredPhoto")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1331,10 +1355,13 @@ func (m *MessageSticker) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageSticker")
+	b.Comma()
 	b.FieldStart("sticker")
 	if err := m.Sticker.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageSticker#6a09bc1e: field sticker: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1529,16 +1556,21 @@ func (m *MessageVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageVideo")
+	b.Comma()
 	b.FieldStart("video")
 	if err := m.Video.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageVideo#787a4e40: field video: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("caption")
 	if err := m.Caption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageVideo#787a4e40: field caption: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("is_secret")
 	b.PutBool(m.IsSecret)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1706,6 +1738,8 @@ func (m *MessageExpiredVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageExpiredVideo")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1888,14 +1922,19 @@ func (m *MessageVideoNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageVideoNote")
+	b.Comma()
 	b.FieldStart("video_note")
 	if err := m.VideoNote.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageVideoNote#396b2486: field video_note: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("is_viewed")
 	b.PutBool(m.IsViewed)
+	b.Comma()
 	b.FieldStart("is_secret")
 	b.PutBool(m.IsSecret)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2117,16 +2156,21 @@ func (m *MessageVoiceNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageVoiceNote")
+	b.Comma()
 	b.FieldStart("voice_note")
 	if err := m.VoiceNote.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageVoiceNote#1f753ff5: field voice_note: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("caption")
 	if err := m.Caption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageVoiceNote#1f753ff5: field caption: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("is_listened")
 	b.PutBool(m.IsListened)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2385,18 +2429,25 @@ func (m *MessageLocation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageLocation")
+	b.Comma()
 	b.FieldStart("location")
 	if err := m.Location.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageLocation#121e4474: field location: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("live_period")
 	b.PutInt32(m.LivePeriod)
+	b.Comma()
 	b.FieldStart("expires_in")
 	b.PutInt32(m.ExpiresIn)
+	b.Comma()
 	b.FieldStart("heading")
 	b.PutInt32(m.Heading)
+	b.Comma()
 	b.FieldStart("proximity_alert_radius")
 	b.PutInt32(m.ProximityAlertRadius)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2612,10 +2663,13 @@ func (m *MessageVenue) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageVenue")
+	b.Comma()
 	b.FieldStart("venue")
 	if err := m.Venue.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageVenue#800f2175: field venue: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2775,10 +2829,13 @@ func (m *MessageContact) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageContact")
+	b.Comma()
 	b.FieldStart("contact")
 	if err := m.Contact.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageContact#e1710c5a: field contact: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2955,12 +3012,16 @@ func (m *MessageAnimatedEmoji) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageAnimatedEmoji")
+	b.Comma()
 	b.FieldStart("animated_emoji")
 	if err := m.AnimatedEmoji.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageAnimatedEmoji#3621f5e2: field animated_emoji: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("emoji")
 	b.PutString(m.Emoji)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3215,6 +3276,7 @@ func (m *MessageDice) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageDice")
+	b.Comma()
 	b.FieldStart("initial_state")
 	if m.InitialState == nil {
 		return fmt.Errorf("unable to encode messageDice#42817239: field initial_state is nil")
@@ -3222,6 +3284,7 @@ func (m *MessageDice) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := m.InitialState.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageDice#42817239: field initial_state: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("final_state")
 	if m.FinalState == nil {
 		return fmt.Errorf("unable to encode messageDice#42817239: field final_state is nil")
@@ -3229,12 +3292,17 @@ func (m *MessageDice) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := m.FinalState.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageDice#42817239: field final_state: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("emoji")
 	b.PutString(m.Emoji)
+	b.Comma()
 	b.FieldStart("value")
 	b.PutInt32(m.Value)
+	b.Comma()
 	b.FieldStart("success_animation_frame_number")
 	b.PutInt32(m.SuccessAnimationFrameNumber)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3452,10 +3520,13 @@ func (m *MessageGame) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageGame")
+	b.Comma()
 	b.FieldStart("game")
 	if err := m.Game.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageGame#fbdc6976: field game: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3615,10 +3686,13 @@ func (m *MessagePoll) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messagePoll")
+	b.Comma()
 	b.FieldStart("poll")
 	if err := m.Poll.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messagePoll#d888b24d: field poll: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3915,26 +3989,37 @@ func (m *MessageInvoice) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageInvoice")
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(m.Title)
+	b.Comma()
 	b.FieldStart("description")
 	b.PutString(m.Description)
+	b.Comma()
 	b.FieldStart("photo")
 	if err := m.Photo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageInvoice#8dc1ea0c: field photo: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("currency")
 	b.PutString(m.Currency)
+	b.Comma()
 	b.FieldStart("total_amount")
 	b.PutInt53(m.TotalAmount)
+	b.Comma()
 	b.FieldStart("start_parameter")
 	b.PutString(m.StartParameter)
+	b.Comma()
 	b.FieldStart("is_test")
 	b.PutBool(m.IsTest)
+	b.Comma()
 	b.FieldStart("need_shipping_address")
 	b.PutBool(m.NeedShippingAddress)
+	b.Comma()
 	b.FieldStart("receipt_message_id")
 	b.PutInt53(m.ReceiptMessageID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4245,8 +4330,10 @@ func (m *MessageCall) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageCall")
+	b.Comma()
 	b.FieldStart("is_video")
 	b.PutBool(m.IsVideo)
+	b.Comma()
 	b.FieldStart("discard_reason")
 	if m.DiscardReason == nil {
 		return fmt.Errorf("unable to encode messageCall#201ede00: field discard_reason is nil")
@@ -4254,8 +4341,11 @@ func (m *MessageCall) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := m.DiscardReason.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageCall#201ede00: field discard_reason: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("duration")
 	b.PutInt32(m.Duration)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4464,10 +4554,14 @@ func (m *MessageVideoChatScheduled) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageVideoChatScheduled")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(m.GroupCallID)
+	b.Comma()
 	b.FieldStart("start_date")
 	b.PutInt32(m.StartDate)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4644,8 +4738,11 @@ func (m *MessageVideoChatStarted) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageVideoChatStarted")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(m.GroupCallID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4807,8 +4904,11 @@ func (m *MessageVideoChatEnded) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageVideoChatEnded")
+	b.Comma()
 	b.FieldStart("duration")
 	b.PutInt32(m.Duration)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -5001,14 +5101,20 @@ func (m *MessageInviteVideoChatParticipants) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("messageInviteVideoChatParticipants")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(m.GroupCallID)
+	b.Comma()
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range m.UserIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -5219,14 +5325,20 @@ func (m *MessageBasicGroupChatCreate) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageBasicGroupChatCreate")
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(m.Title)
+	b.Comma()
 	b.FieldStart("member_user_ids")
 	b.ArrStart()
 	for _, v := range m.MemberUserIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -5407,8 +5519,11 @@ func (m *MessageSupergroupChatCreate) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageSupergroupChatCreate")
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(m.Title)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -5570,8 +5685,11 @@ func (m *MessageChatChangeTitle) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageChatChangeTitle")
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(m.Title)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -5733,10 +5851,13 @@ func (m *MessageChatChangePhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageChatChangePhoto")
+	b.Comma()
 	b.FieldStart("photo")
 	if err := m.Photo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageChatChangePhoto#cf84454b: field photo: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -5878,6 +5999,8 @@ func (m *MessageChatDeletePhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageChatDeletePhoto")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -6038,12 +6161,17 @@ func (m *MessageChatAddMembers) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageChatAddMembers")
+	b.Comma()
 	b.FieldStart("member_user_ids")
 	b.ArrStart()
 	for _, v := range m.MemberUserIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -6192,6 +6320,8 @@ func (m *MessageChatJoinByLink) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageChatJoinByLink")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -6321,6 +6451,8 @@ func (m *MessageChatJoinByRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageChatJoinByRequest")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -6468,8 +6600,11 @@ func (m *MessageChatDeleteMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageChatDeleteMember")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(m.UserID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -6631,8 +6766,11 @@ func (m *MessageChatUpgradeTo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageChatUpgradeTo")
+	b.Comma()
 	b.FieldStart("supergroup_id")
 	b.PutInt53(m.SupergroupID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -6811,10 +6949,14 @@ func (m *MessageChatUpgradeFrom) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageChatUpgradeFrom")
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(m.Title)
+	b.Comma()
 	b.FieldStart("basic_group_id")
 	b.PutInt53(m.BasicGroupID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -6990,8 +7132,11 @@ func (m *MessagePinMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messagePinMessage")
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(m.MessageID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -7135,6 +7280,8 @@ func (m *MessageScreenshotTaken) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageScreenshotTaken")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -7283,8 +7430,11 @@ func (m *MessageChatSetTheme) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageChatSetTheme")
+	b.Comma()
 	b.FieldStart("theme_name")
 	b.PutString(m.ThemeName)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -7446,8 +7596,11 @@ func (m *MessageChatSetTTL) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageChatSetTtl")
+	b.Comma()
 	b.FieldStart("ttl")
 	b.PutInt32(m.TTL)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -7609,8 +7762,11 @@ func (m *MessageCustomServiceAction) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageCustomServiceAction")
+	b.Comma()
 	b.FieldStart("text")
 	b.PutString(m.Text)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -7807,12 +7963,17 @@ func (m *MessageGameScore) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageGameScore")
+	b.Comma()
 	b.FieldStart("game_message_id")
 	b.PutInt53(m.GameMessageID)
+	b.Comma()
 	b.FieldStart("game_id")
 	b.PutLong(m.GameID)
+	b.Comma()
 	b.FieldStart("score")
 	b.PutInt32(m.Score)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -8054,14 +8215,20 @@ func (m *MessagePaymentSuccessful) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messagePaymentSuccessful")
+	b.Comma()
 	b.FieldStart("invoice_chat_id")
 	b.PutInt53(m.InvoiceChatID)
+	b.Comma()
 	b.FieldStart("invoice_message_id")
 	b.PutInt53(m.InvoiceMessageID)
+	b.Comma()
 	b.FieldStart("currency")
 	b.PutString(m.Currency)
+	b.Comma()
 	b.FieldStart("total_amount")
 	b.PutInt53(m.TotalAmount)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -8367,22 +8534,31 @@ func (m *MessagePaymentSuccessfulBot) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messagePaymentSuccessfulBot")
+	b.Comma()
 	b.FieldStart("currency")
 	b.PutString(m.Currency)
+	b.Comma()
 	b.FieldStart("total_amount")
 	b.PutInt53(m.TotalAmount)
+	b.Comma()
 	b.FieldStart("invoice_payload")
 	b.PutBytes(m.InvoicePayload)
+	b.Comma()
 	b.FieldStart("shipping_option_id")
 	b.PutString(m.ShippingOptionID)
+	b.Comma()
 	b.FieldStart("order_info")
 	if err := m.OrderInfo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messagePaymentSuccessfulBot#e5de169e: field order_info: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("telegram_payment_charge_id")
 	b.PutString(m.TelegramPaymentChargeID)
+	b.Comma()
 	b.FieldStart("provider_payment_charge_id")
 	b.PutString(m.ProviderPaymentChargeID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -8608,6 +8784,8 @@ func (m *MessageContactRegistered) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageContactRegistered")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -8755,8 +8933,11 @@ func (m *MessageWebsiteConnected) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageWebsiteConnected")
+	b.Comma()
 	b.FieldStart("domain_name")
 	b.PutString(m.DomainName)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -8936,6 +9117,7 @@ func (m *MessagePassportDataSent) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messagePassportDataSent")
+	b.Comma()
 	b.FieldStart("types")
 	b.ArrStart()
 	for idx, v := range m.Types {
@@ -8945,8 +9127,12 @@ func (m *MessagePassportDataSent) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode messagePassportDataSent#26c5ed6b: field types element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -9145,18 +9331,24 @@ func (m *MessagePassportDataReceived) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messagePassportDataReceived")
+	b.Comma()
 	b.FieldStart("elements")
 	b.ArrStart()
 	for idx, v := range m.Elements {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode messagePassportDataReceived#e0b936b9: field elements element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("credentials")
 	if err := m.Credentials.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messagePassportDataReceived#e0b936b9: field credentials: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -9379,6 +9571,7 @@ func (m *MessageProximityAlertTriggered) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("messageProximityAlertTriggered")
+	b.Comma()
 	b.FieldStart("traveler_id")
 	if m.TravelerID == nil {
 		return fmt.Errorf("unable to encode messageProximityAlertTriggered#409f6d3: field traveler_id is nil")
@@ -9386,6 +9579,7 @@ func (m *MessageProximityAlertTriggered) EncodeTDLibJSON(b tdjson.Encoder) error
 	if err := m.TravelerID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageProximityAlertTriggered#409f6d3: field traveler_id: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("watcher_id")
 	if m.WatcherID == nil {
 		return fmt.Errorf("unable to encode messageProximityAlertTriggered#409f6d3: field watcher_id is nil")
@@ -9393,8 +9587,11 @@ func (m *MessageProximityAlertTriggered) EncodeTDLibJSON(b tdjson.Encoder) error
 	if err := m.WatcherID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageProximityAlertTriggered#409f6d3: field watcher_id: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("distance")
 	b.PutInt32(m.Distance)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -9566,6 +9763,8 @@ func (m *MessageUnsupported) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageUnsupported")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

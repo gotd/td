@@ -201,14 +201,20 @@ func (s *StartGroupCallRecordingRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("startGroupCallRecording")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(s.GroupCallID)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(s.Title)
+	b.Comma()
 	b.FieldStart("record_video")
 	b.PutBool(s.RecordVideo)
+	b.Comma()
 	b.FieldStart("use_portrait_orientation")
 	b.PutBool(s.UsePortraitOrientation)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

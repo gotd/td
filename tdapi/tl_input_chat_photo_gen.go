@@ -155,8 +155,11 @@ func (i *InputChatPhotoPrevious) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputChatPhotoPrevious")
+	b.Comma()
 	b.FieldStart("chat_photo_id")
 	b.PutLong(i.ChatPhotoID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -324,6 +327,7 @@ func (i *InputChatPhotoStatic) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputChatPhotoStatic")
+	b.Comma()
 	b.FieldStart("photo")
 	if i.Photo == nil {
 		return fmt.Errorf("unable to encode inputChatPhotoStatic#75f7e2b3: field photo is nil")
@@ -331,6 +335,8 @@ func (i *InputChatPhotoStatic) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := i.Photo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputChatPhotoStatic#75f7e2b3: field photo: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -515,6 +521,7 @@ func (i *InputChatPhotoAnimation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputChatPhotoAnimation")
+	b.Comma()
 	b.FieldStart("animation")
 	if i.Animation == nil {
 		return fmt.Errorf("unable to encode inputChatPhotoAnimation#56a3422: field animation is nil")
@@ -522,8 +529,11 @@ func (i *InputChatPhotoAnimation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := i.Animation.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputChatPhotoAnimation#56a3422: field animation: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("main_frame_timestamp")
 	b.PutDouble(i.MainFrameTimestamp)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

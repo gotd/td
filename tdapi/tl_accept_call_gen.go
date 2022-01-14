@@ -167,12 +167,16 @@ func (a *AcceptCallRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("acceptCall")
+	b.Comma()
 	b.FieldStart("call_id")
 	b.PutInt32(a.CallID)
+	b.Comma()
 	b.FieldStart("protocol")
 	if err := a.Protocol.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode acceptCall#d97562d0: field protocol: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

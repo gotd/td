@@ -161,6 +161,7 @@ func (i *InputBackgroundLocal) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputBackgroundLocal")
+	b.Comma()
 	b.FieldStart("background")
 	if i.Background == nil {
 		return fmt.Errorf("unable to encode inputBackgroundLocal#97dd74a4: field background is nil")
@@ -168,6 +169,8 @@ func (i *InputBackgroundLocal) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := i.Background.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputBackgroundLocal#97dd74a4: field background: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -329,8 +332,11 @@ func (i *InputBackgroundRemote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputBackgroundRemote")
+	b.Comma()
 	b.FieldStart("background_id")
 	b.PutLong(i.BackgroundID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

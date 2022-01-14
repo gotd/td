@@ -201,16 +201,22 @@ func (v *VoiceNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("voiceNote")
+	b.Comma()
 	b.FieldStart("duration")
 	b.PutInt32(v.Duration)
+	b.Comma()
 	b.FieldStart("waveform")
 	b.PutBytes(v.Waveform)
+	b.Comma()
 	b.FieldStart("mime_type")
 	b.PutString(v.MimeType)
+	b.Comma()
 	b.FieldStart("voice")
 	if err := v.Voice.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode voiceNote#84db2866: field voice: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

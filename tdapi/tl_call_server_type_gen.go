@@ -155,8 +155,11 @@ func (c *CallServerTypeTelegramReflector) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("callServerTypeTelegramReflector")
+	b.Comma()
 	b.FieldStart("peer_tag")
 	b.PutBytes(c.PeerTag)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -369,14 +372,20 @@ func (c *CallServerTypeWebrtc) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("callServerTypeWebrtc")
+	b.Comma()
 	b.FieldStart("username")
 	b.PutString(c.Username)
+	b.Comma()
 	b.FieldStart("password")
 	b.PutString(c.Password)
+	b.Comma()
 	b.FieldStart("supports_turn")
 	b.PutBool(c.SupportsTurn)
+	b.Comma()
 	b.FieldStart("supports_stun")
 	b.PutBool(c.SupportsStun)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

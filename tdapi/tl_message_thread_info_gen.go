@@ -251,28 +251,38 @@ func (m *MessageThreadInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageThreadInfo")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(m.ChatID)
+	b.Comma()
 	b.FieldStart("message_thread_id")
 	b.PutInt53(m.MessageThreadID)
+	b.Comma()
 	b.FieldStart("reply_info")
 	if err := m.ReplyInfo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageThreadInfo#683fd5ad: field reply_info: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("unread_message_count")
 	b.PutInt32(m.UnreadMessageCount)
+	b.Comma()
 	b.FieldStart("messages")
 	b.ArrStart()
 	for idx, v := range m.Messages {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode messageThreadInfo#683fd5ad: field messages element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("draft_message")
 	if err := m.DraftMessage.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageThreadInfo#683fd5ad: field draft_message: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

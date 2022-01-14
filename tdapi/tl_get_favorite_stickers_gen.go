@@ -132,6 +132,8 @@ func (g *GetFavoriteStickersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getFavoriteStickers")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

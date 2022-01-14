@@ -168,6 +168,7 @@ func (c *ClosedVectorPath) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("closedVectorPath")
+	b.Comma()
 	b.FieldStart("commands")
 	b.ArrStart()
 	for idx, v := range c.Commands {
@@ -177,8 +178,12 @@ func (c *ClosedVectorPath) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode closedVectorPath#2f9276b9: field commands element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

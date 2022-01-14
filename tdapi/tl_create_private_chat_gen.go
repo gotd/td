@@ -168,10 +168,14 @@ func (c *CreatePrivateChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("createPrivateChat")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(c.UserID)
+	b.Comma()
 	b.FieldStart("force")
 	b.PutBool(c.Force)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

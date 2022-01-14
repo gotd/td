@@ -189,8 +189,10 @@ func (t *ToggleGroupCallParticipantIsMutedRequest) EncodeTDLibJSON(b tdjson.Enco
 	}
 	b.ObjStart()
 	b.PutID("toggleGroupCallParticipantIsMuted")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(t.GroupCallID)
+	b.Comma()
 	b.FieldStart("participant_id")
 	if t.ParticipantID == nil {
 		return fmt.Errorf("unable to encode toggleGroupCallParticipantIsMuted#b2081407: field participant_id is nil")
@@ -198,8 +200,11 @@ func (t *ToggleGroupCallParticipantIsMutedRequest) EncodeTDLibJSON(b tdjson.Enco
 	if err := t.ParticipantID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode toggleGroupCallParticipantIsMuted#b2081407: field participant_id: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("is_muted")
 	b.PutBool(t.IsMuted)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

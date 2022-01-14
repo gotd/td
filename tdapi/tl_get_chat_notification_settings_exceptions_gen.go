@@ -173,6 +173,7 @@ func (g *GetChatNotificationSettingsExceptionsRequest) EncodeTDLibJSON(b tdjson.
 	}
 	b.ObjStart()
 	b.PutID("getChatNotificationSettingsExceptions")
+	b.Comma()
 	b.FieldStart("scope")
 	if g.Scope == nil {
 		return fmt.Errorf("unable to encode getChatNotificationSettingsExceptions#bfe0e11: field scope is nil")
@@ -180,8 +181,11 @@ func (g *GetChatNotificationSettingsExceptionsRequest) EncodeTDLibJSON(b tdjson.
 	if err := g.Scope.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getChatNotificationSettingsExceptions#bfe0e11: field scope: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("compare_sound")
 	b.PutBool(g.CompareSound)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

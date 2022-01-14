@@ -200,18 +200,25 @@ func (g *GroupCallParticipantVideoInfo) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("groupCallParticipantVideoInfo")
+	b.Comma()
 	b.FieldStart("source_groups")
 	b.ArrStart()
 	for idx, v := range g.SourceGroups {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode groupCallParticipantVideoInfo#70f7eff6: field source_groups element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("endpoint_id")
 	b.PutString(g.EndpointID)
+	b.Comma()
 	b.FieldStart("is_paused")
 	b.PutBool(g.IsPaused)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

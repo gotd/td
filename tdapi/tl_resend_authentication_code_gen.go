@@ -132,6 +132,8 @@ func (r *ResendAuthenticationCodeRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("resendAuthenticationCode")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

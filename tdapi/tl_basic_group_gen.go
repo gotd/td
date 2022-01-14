@@ -223,10 +223,13 @@ func (b *BasicGroup) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	}
 	buf.ObjStart()
 	buf.PutID("basicGroup")
+	buf.Comma()
 	buf.FieldStart("id")
 	buf.PutInt53(b.ID)
+	buf.Comma()
 	buf.FieldStart("member_count")
 	buf.PutInt32(b.MemberCount)
+	buf.Comma()
 	buf.FieldStart("status")
 	if b.Status == nil {
 		return fmt.Errorf("unable to encode basicGroup#f464168f: field status is nil")
@@ -234,10 +237,14 @@ func (b *BasicGroup) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if err := b.Status.EncodeTDLibJSON(buf); err != nil {
 		return fmt.Errorf("unable to encode basicGroup#f464168f: field status: %w", err)
 	}
+	buf.Comma()
 	buf.FieldStart("is_active")
 	buf.PutBool(b.IsActive)
+	buf.Comma()
 	buf.FieldStart("upgraded_to_supergroup_id")
 	buf.PutInt53(b.UpgradedToSupergroupID)
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }

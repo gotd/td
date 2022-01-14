@@ -237,20 +237,28 @@ func (p *PasswordState) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("passwordState")
+	b.Comma()
 	b.FieldStart("has_password")
 	b.PutBool(p.HasPassword)
+	b.Comma()
 	b.FieldStart("password_hint")
 	b.PutString(p.PasswordHint)
+	b.Comma()
 	b.FieldStart("has_recovery_email_address")
 	b.PutBool(p.HasRecoveryEmailAddress)
+	b.Comma()
 	b.FieldStart("has_passport_data")
 	b.PutBool(p.HasPassportData)
+	b.Comma()
 	b.FieldStart("recovery_email_address_code_info")
 	if err := p.RecoveryEmailAddressCodeInfo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode passwordState#88b1b6fe: field recovery_email_address_code_info: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("pending_reset_date")
 	b.PutInt32(p.PendingResetDate)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

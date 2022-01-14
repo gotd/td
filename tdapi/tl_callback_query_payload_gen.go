@@ -155,8 +155,11 @@ func (c *CallbackQueryPayloadData) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("callbackQueryPayloadData")
+	b.Comma()
 	b.FieldStart("data")
 	b.PutBytes(c.Data)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -335,10 +338,14 @@ func (c *CallbackQueryPayloadDataWithPassword) EncodeTDLibJSON(b tdjson.Encoder)
 	}
 	b.ObjStart()
 	b.PutID("callbackQueryPayloadDataWithPassword")
+	b.Comma()
 	b.FieldStart("password")
 	b.PutString(c.Password)
+	b.Comma()
 	b.FieldStart("data")
 	b.PutBytes(c.Data)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -514,8 +521,11 @@ func (c *CallbackQueryPayloadGame) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("callbackQueryPayloadGame")
+	b.Comma()
 	b.FieldStart("game_short_name")
 	b.PutString(c.GameShortName)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -132,6 +132,8 @@ func (r *RequestAuthenticationPasswordRecoveryRequest) EncodeTDLibJSON(b tdjson.
 	}
 	b.ObjStart()
 	b.PutID("requestAuthenticationPasswordRecovery")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -237,20 +237,28 @@ func (m *MessageLinkInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageLinkInfo")
+	b.Comma()
 	b.FieldStart("is_public")
 	b.PutBool(m.IsPublic)
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(m.ChatID)
+	b.Comma()
 	b.FieldStart("message")
 	if err := m.Message.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageLinkInfo#c57d442a: field message: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("media_timestamp")
 	b.PutInt32(m.MediaTimestamp)
+	b.Comma()
 	b.FieldStart("for_album")
 	b.PutBool(m.ForAlbum)
+	b.Comma()
 	b.FieldStart("for_comment")
 	b.PutBool(m.ForComment)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -150,10 +150,13 @@ func (t *TestReturnErrorRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("testReturnError")
+	b.Comma()
 	b.FieldStart("error")
 	if err := t.Error.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode testReturnError#1b217cf2: field error: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

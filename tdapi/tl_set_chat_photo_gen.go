@@ -172,8 +172,10 @@ func (s *SetChatPhotoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setChatPhoto")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("photo")
 	if s.Photo == nil {
 		return fmt.Errorf("unable to encode setChatPhoto#e97b8d03: field photo is nil")
@@ -181,6 +183,8 @@ func (s *SetChatPhotoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.Photo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setChatPhoto#e97b8d03: field photo: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

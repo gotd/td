@@ -172,10 +172,14 @@ func (l *LoginURLInfoOpen) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("loginUrlInfoOpen")
+	b.Comma()
 	b.FieldStart("url")
 	b.PutString(l.URL)
+	b.Comma()
 	b.FieldStart("skip_confirm")
 	b.PutBool(l.SkipConfirm)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -403,14 +407,20 @@ func (l *LoginURLInfoRequestConfirmation) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("loginUrlInfoRequestConfirmation")
+	b.Comma()
 	b.FieldStart("url")
 	b.PutString(l.URL)
+	b.Comma()
 	b.FieldStart("domain")
 	b.PutString(l.Domain)
+	b.Comma()
 	b.FieldStart("bot_user_id")
 	b.PutInt53(l.BotUserID)
+	b.Comma()
 	b.FieldStart("request_write_access")
 	b.PutBool(l.RequestWriteAccess)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

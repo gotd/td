@@ -132,6 +132,8 @@ func (g *GetInactiveSupergroupChatsRequest) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("getInactiveSupergroupChats")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

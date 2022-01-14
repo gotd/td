@@ -137,6 +137,8 @@ func (c *ChatMembersFilterContacts) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatMembersFilterContacts")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (c *ChatMembersFilterAdministrators) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("chatMembersFilterAdministrators")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -395,6 +399,8 @@ func (c *ChatMembersFilterMembers) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatMembersFilterMembers")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -542,8 +548,11 @@ func (c *ChatMembersFilterMention) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatMembersFilterMention")
+	b.Comma()
 	b.FieldStart("message_thread_id")
 	b.PutInt53(c.MessageThreadID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -687,6 +696,8 @@ func (c *ChatMembersFilterRestricted) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatMembersFilterRestricted")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -816,6 +827,8 @@ func (c *ChatMembersFilterBanned) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatMembersFilterBanned")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -945,6 +958,8 @@ func (c *ChatMembersFilterBots) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatMembersFilterBots")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

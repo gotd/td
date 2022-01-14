@@ -177,6 +177,7 @@ func (p *PageBlockCaption) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockCaption")
+	b.Comma()
 	b.FieldStart("text")
 	if p.Text == nil {
 		return fmt.Errorf("unable to encode pageBlockCaption#b9a9a476: field text is nil")
@@ -184,6 +185,7 @@ func (p *PageBlockCaption) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Text.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockCaption#b9a9a476: field text: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("credit")
 	if p.Credit == nil {
 		return fmt.Errorf("unable to encode pageBlockCaption#b9a9a476: field credit is nil")
@@ -191,6 +193,8 @@ func (p *PageBlockCaption) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Credit.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockCaption#b9a9a476: field credit: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

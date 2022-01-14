@@ -137,6 +137,8 @@ func (u *UserPrivacySettingShowStatus) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("userPrivacySettingShowStatus")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (u *UserPrivacySettingShowProfilePhoto) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("userPrivacySettingShowProfilePhoto")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -395,6 +399,8 @@ func (u *UserPrivacySettingShowLinkInForwardedMessages) EncodeTDLibJSON(b tdjson
 	}
 	b.ObjStart()
 	b.PutID("userPrivacySettingShowLinkInForwardedMessages")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -524,6 +530,8 @@ func (u *UserPrivacySettingShowPhoneNumber) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("userPrivacySettingShowPhoneNumber")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -653,6 +661,8 @@ func (u *UserPrivacySettingAllowChatInvites) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("userPrivacySettingAllowChatInvites")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -782,6 +792,8 @@ func (u *UserPrivacySettingAllowCalls) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("userPrivacySettingAllowCalls")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -911,6 +923,8 @@ func (u *UserPrivacySettingAllowPeerToPeerCalls) EncodeTDLibJSON(b tdjson.Encode
 	}
 	b.ObjStart()
 	b.PutID("userPrivacySettingAllowPeerToPeerCalls")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1040,6 +1054,8 @@ func (u *UserPrivacySettingAllowFindingByPhoneNumber) EncodeTDLibJSON(b tdjson.E
 	}
 	b.ObjStart()
 	b.PutID("userPrivacySettingAllowFindingByPhoneNumber")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

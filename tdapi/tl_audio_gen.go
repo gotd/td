@@ -270,28 +270,38 @@ func (a *Audio) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("audio")
+	b.Comma()
 	b.FieldStart("duration")
 	b.PutInt32(a.Duration)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(a.Title)
+	b.Comma()
 	b.FieldStart("performer")
 	b.PutString(a.Performer)
+	b.Comma()
 	b.FieldStart("file_name")
 	b.PutString(a.FileName)
+	b.Comma()
 	b.FieldStart("mime_type")
 	b.PutString(a.MimeType)
+	b.Comma()
 	b.FieldStart("album_cover_minithumbnail")
 	if err := a.AlbumCoverMinithumbnail.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode audio#b9b4c7de: field album_cover_minithumbnail: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("album_cover_thumbnail")
 	if err := a.AlbumCoverThumbnail.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode audio#b9b4c7de: field album_cover_thumbnail: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("audio")
 	if err := a.Audio.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode audio#b9b4c7de: field audio: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

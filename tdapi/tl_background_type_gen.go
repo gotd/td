@@ -173,10 +173,14 @@ func (b *BackgroundTypeWallpaper) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	}
 	buf.ObjStart()
 	buf.PutID("backgroundTypeWallpaper")
+	buf.Comma()
 	buf.FieldStart("is_blurred")
 	buf.PutBool(b.IsBlurred)
+	buf.Comma()
 	buf.FieldStart("is_moving")
 	buf.PutBool(b.IsMoving)
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }
@@ -409,6 +413,7 @@ func (b *BackgroundTypePattern) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	}
 	buf.ObjStart()
 	buf.PutID("backgroundTypePattern")
+	buf.Comma()
 	buf.FieldStart("fill")
 	if b.Fill == nil {
 		return fmt.Errorf("unable to encode backgroundTypePattern#4ce716fd: field fill is nil")
@@ -416,12 +421,17 @@ func (b *BackgroundTypePattern) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if err := b.Fill.EncodeTDLibJSON(buf); err != nil {
 		return fmt.Errorf("unable to encode backgroundTypePattern#4ce716fd: field fill: %w", err)
 	}
+	buf.Comma()
 	buf.FieldStart("intensity")
 	buf.PutInt32(b.Intensity)
+	buf.Comma()
 	buf.FieldStart("is_inverted")
 	buf.PutBool(b.IsInverted)
+	buf.Comma()
 	buf.FieldStart("is_moving")
 	buf.PutBool(b.IsMoving)
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }
@@ -630,6 +640,7 @@ func (b *BackgroundTypeFill) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	}
 	buf.ObjStart()
 	buf.PutID("backgroundTypeFill")
+	buf.Comma()
 	buf.FieldStart("fill")
 	if b.Fill == nil {
 		return fmt.Errorf("unable to encode backgroundTypeFill#3b301c2c: field fill is nil")
@@ -637,6 +648,8 @@ func (b *BackgroundTypeFill) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if err := b.Fill.EncodeTDLibJSON(buf); err != nil {
 		return fmt.Errorf("unable to encode backgroundTypeFill#3b301c2c: field fill: %w", err)
 	}
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }

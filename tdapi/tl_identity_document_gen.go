@@ -250,32 +250,42 @@ func (i *IdentityDocument) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("identityDocument")
+	b.Comma()
 	b.FieldStart("number")
 	b.PutString(i.Number)
+	b.Comma()
 	b.FieldStart("expiry_date")
 	if err := i.ExpiryDate.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode identityDocument#986321a6: field expiry_date: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("front_side")
 	if err := i.FrontSide.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode identityDocument#986321a6: field front_side: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("reverse_side")
 	if err := i.ReverseSide.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode identityDocument#986321a6: field reverse_side: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("selfie")
 	if err := i.Selfie.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode identityDocument#986321a6: field selfie: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("translation")
 	b.ArrStart()
 	for idx, v := range i.Translation {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode identityDocument#986321a6: field translation element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

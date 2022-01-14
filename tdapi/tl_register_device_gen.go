@@ -185,6 +185,7 @@ func (r *RegisterDeviceRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("registerDevice")
+	b.Comma()
 	b.FieldStart("device_token")
 	if r.DeviceToken == nil {
 		return fmt.Errorf("unable to encode registerDevice#ff140196: field device_token is nil")
@@ -192,12 +193,17 @@ func (r *RegisterDeviceRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := r.DeviceToken.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode registerDevice#ff140196: field device_token: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("other_user_ids")
 	b.ArrStart()
 	for _, v := range r.OtherUserIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

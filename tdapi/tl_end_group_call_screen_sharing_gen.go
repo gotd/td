@@ -150,8 +150,11 @@ func (e *EndGroupCallScreenSharingRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("endGroupCallScreenSharing")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(e.GroupCallID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

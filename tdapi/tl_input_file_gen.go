@@ -155,8 +155,11 @@ func (i *InputFileID) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputFileId")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutInt32(i.ID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -318,8 +321,11 @@ func (i *InputFileRemote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputFileRemote")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutString(i.ID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -481,8 +487,11 @@ func (i *InputFileLocal) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputFileLocal")
+	b.Comma()
 	b.FieldStart("path")
 	b.PutString(i.Path)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -681,12 +690,17 @@ func (i *InputFileGenerated) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputFileGenerated")
+	b.Comma()
 	b.FieldStart("original_path")
 	b.PutString(i.OriginalPath)
+	b.Comma()
 	b.FieldStart("conversion")
 	b.PutString(i.Conversion)
+	b.Comma()
 	b.FieldStart("expected_size")
 	b.PutInt32(i.ExpectedSize)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

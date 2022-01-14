@@ -155,10 +155,13 @@ func (n *NotificationTypeNewMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("notificationTypeNewMessage")
+	b.Comma()
 	b.FieldStart("message")
 	if err := n.Message.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode notificationTypeNewMessage#70691637: field message: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -300,6 +303,8 @@ func (n *NotificationTypeNewSecretChat) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("notificationTypeNewSecretChat")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -447,8 +452,11 @@ func (n *NotificationTypeNewCall) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("notificationTypeNewCall")
+	b.Comma()
 	b.FieldStart("call_id")
 	b.PutInt32(n.CallID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -690,8 +698,10 @@ func (n *NotificationTypeNewPushMessage) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("notificationTypeNewPushMessage")
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(n.MessageID)
+	b.Comma()
 	b.FieldStart("sender_id")
 	if n.SenderID == nil {
 		return fmt.Errorf("unable to encode notificationTypeNewPushMessage#d5949e32: field sender_id is nil")
@@ -699,10 +709,13 @@ func (n *NotificationTypeNewPushMessage) EncodeTDLibJSON(b tdjson.Encoder) error
 	if err := n.SenderID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode notificationTypeNewPushMessage#d5949e32: field sender_id: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("sender_name")
 	b.PutString(n.SenderName)
+	b.Comma()
 	b.FieldStart("is_outgoing")
 	b.PutBool(n.IsOutgoing)
+	b.Comma()
 	b.FieldStart("content")
 	if n.Content == nil {
 		return fmt.Errorf("unable to encode notificationTypeNewPushMessage#d5949e32: field content is nil")
@@ -710,6 +723,8 @@ func (n *NotificationTypeNewPushMessage) EncodeTDLibJSON(b tdjson.Encoder) error
 	if err := n.Content.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode notificationTypeNewPushMessage#d5949e32: field content: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

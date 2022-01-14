@@ -137,6 +137,8 @@ func (p *PassportElementErrorSourceUnspecified) EncodeTDLibJSON(b tdjson.Encoder
 	}
 	b.ObjStart()
 	b.PutID("passportElementErrorSourceUnspecified")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -284,8 +286,11 @@ func (p *PassportElementErrorSourceDataField) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("passportElementErrorSourceDataField")
+	b.Comma()
 	b.FieldStart("field_name")
 	b.PutString(p.FieldName)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -429,6 +434,8 @@ func (p *PassportElementErrorSourceFrontSide) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("passportElementErrorSourceFrontSide")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -558,6 +565,8 @@ func (p *PassportElementErrorSourceReverseSide) EncodeTDLibJSON(b tdjson.Encoder
 	}
 	b.ObjStart()
 	b.PutID("passportElementErrorSourceReverseSide")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -687,6 +696,8 @@ func (p *PassportElementErrorSourceSelfie) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("passportElementErrorSourceSelfie")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -836,8 +847,11 @@ func (p *PassportElementErrorSourceTranslationFile) EncodeTDLibJSON(b tdjson.Enc
 	}
 	b.ObjStart()
 	b.PutID("passportElementErrorSourceTranslationFile")
+	b.Comma()
 	b.FieldStart("file_index")
 	b.PutInt32(p.FileIndex)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -983,6 +997,8 @@ func (p *PassportElementErrorSourceTranslationFiles) EncodeTDLibJSON(b tdjson.En
 	}
 	b.ObjStart()
 	b.PutID("passportElementErrorSourceTranslationFiles")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1130,8 +1146,11 @@ func (p *PassportElementErrorSourceFile) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("passportElementErrorSourceFile")
+	b.Comma()
 	b.FieldStart("file_index")
 	b.PutInt32(p.FileIndex)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1275,6 +1294,8 @@ func (p *PassportElementErrorSourceFiles) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("passportElementErrorSourceFiles")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

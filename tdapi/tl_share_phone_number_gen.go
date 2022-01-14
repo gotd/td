@@ -151,8 +151,11 @@ func (s *SharePhoneNumberRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("sharePhoneNumber")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(s.UserID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

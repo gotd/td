@@ -168,12 +168,16 @@ func (f *FinishFileGenerationRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("finishFileGeneration")
+	b.Comma()
 	b.FieldStart("generation_id")
 	b.PutLong(f.GenerationID)
+	b.Comma()
 	b.FieldStart("error")
 	if err := f.Error.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode finishFileGeneration#c11d0c9d: field error: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

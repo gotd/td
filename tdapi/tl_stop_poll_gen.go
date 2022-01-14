@@ -189,10 +189,13 @@ func (s *StopPollRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("stopPoll")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(s.MessageID)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if s.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode stopPoll#62e80aad: field reply_markup is nil")
@@ -200,6 +203,8 @@ func (s *StopPollRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode stopPoll#62e80aad: field reply_markup: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

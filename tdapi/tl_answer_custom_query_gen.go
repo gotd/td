@@ -167,10 +167,14 @@ func (a *AnswerCustomQueryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("answerCustomQuery")
+	b.Comma()
 	b.FieldStart("custom_query_id")
 	b.PutLong(a.CustomQueryID)
+	b.Comma()
 	b.FieldStart("data")
 	b.PutString(a.Data)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

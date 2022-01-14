@@ -150,10 +150,13 @@ func (g *GetMarkdownTextRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getMarkdownText")
+	b.Comma()
 	b.FieldStart("text")
 	if err := g.Text.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getMarkdownText#9ce7228: field text: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

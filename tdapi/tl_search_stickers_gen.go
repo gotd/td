@@ -167,10 +167,14 @@ func (s *SearchStickersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchStickers")
+	b.Comma()
 	b.FieldStart("emoji")
 	b.PutString(s.Emoji)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(s.Limit)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -163,12 +163,17 @@ func (e *Emojis) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("emojis")
+	b.Comma()
 	b.FieldStart("emojis")
 	b.ArrStart()
 	for _, v := range e.Emojis {
 		b.PutString(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -155,6 +155,7 @@ func (g *GetStickerEmojisRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getStickerEmojis")
+	b.Comma()
 	b.FieldStart("sticker")
 	if g.Sticker == nil {
 		return fmt.Errorf("unable to encode getStickerEmojis#8f04d547: field sticker is nil")
@@ -162,6 +163,8 @@ func (g *GetStickerEmojisRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := g.Sticker.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getStickerEmojis#8f04d547: field sticker: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

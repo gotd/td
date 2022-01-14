@@ -150,8 +150,11 @@ func (g *GetPushReceiverIDRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getPushReceiverId")
+	b.Comma()
 	b.FieldStart("payload")
 	b.PutString(g.Payload)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

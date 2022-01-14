@@ -155,6 +155,7 @@ func (a *AddNetworkStatisticsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("addNetworkStatistics")
+	b.Comma()
 	b.FieldStart("entry")
 	if a.Entry == nil {
 		return fmt.Errorf("unable to encode addNetworkStatistics#4b63b3d9: field entry is nil")
@@ -162,6 +163,8 @@ func (a *AddNetworkStatisticsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := a.Entry.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode addNetworkStatistics#4b63b3d9: field entry: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

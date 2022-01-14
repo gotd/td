@@ -155,6 +155,7 @@ func (d *DeletePassportElementRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deletePassportElement")
+	b.Comma()
 	b.FieldStart("type")
 	if d.Type == nil {
 		return fmt.Errorf("unable to encode deletePassportElement#9981aa74: field type is nil")
@@ -162,6 +163,8 @@ func (d *DeletePassportElementRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := d.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode deletePassportElement#9981aa74: field type: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

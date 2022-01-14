@@ -137,6 +137,8 @@ func (c *ChatActionTyping) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatActionTyping")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (c *ChatActionRecordingVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatActionRecordingVideo")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -413,8 +417,11 @@ func (c *ChatActionUploadingVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatActionUploadingVideo")
+	b.Comma()
 	b.FieldStart("progress")
 	b.PutInt32(c.Progress)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -558,6 +565,8 @@ func (c *ChatActionRecordingVoiceNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatActionRecordingVoiceNote")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -705,8 +714,11 @@ func (c *ChatActionUploadingVoiceNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatActionUploadingVoiceNote")
+	b.Comma()
 	b.FieldStart("progress")
 	b.PutInt32(c.Progress)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -868,8 +880,11 @@ func (c *ChatActionUploadingPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatActionUploadingPhoto")
+	b.Comma()
 	b.FieldStart("progress")
 	b.PutInt32(c.Progress)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1031,8 +1046,11 @@ func (c *ChatActionUploadingDocument) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatActionUploadingDocument")
+	b.Comma()
 	b.FieldStart("progress")
 	b.PutInt32(c.Progress)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1176,6 +1194,8 @@ func (c *ChatActionChoosingSticker) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatActionChoosingSticker")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1305,6 +1325,8 @@ func (c *ChatActionChoosingLocation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatActionChoosingLocation")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1434,6 +1456,8 @@ func (c *ChatActionChoosingContact) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatActionChoosingContact")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1563,6 +1587,8 @@ func (c *ChatActionStartPlayingGame) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatActionStartPlayingGame")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1692,6 +1718,8 @@ func (c *ChatActionRecordingVideoNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatActionRecordingVideoNote")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1839,8 +1867,11 @@ func (c *ChatActionUploadingVideoNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatActionUploadingVideoNote")
+	b.Comma()
 	b.FieldStart("progress")
 	b.PutInt32(c.Progress)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2002,8 +2033,11 @@ func (c *ChatActionWatchingAnimations) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatActionWatchingAnimations")
+	b.Comma()
 	b.FieldStart("emoji")
 	b.PutString(c.Emoji)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2147,6 +2181,8 @@ func (c *ChatActionCancel) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatActionCancel")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -190,8 +190,10 @@ func (g *GetChatMessageCountRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getChatMessageCount")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
 	b.FieldStart("filter")
 	if g.Filter == nil {
 		return fmt.Errorf("unable to encode getChatMessageCount#c3eb1ac: field filter is nil")
@@ -199,8 +201,11 @@ func (g *GetChatMessageCountRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := g.Filter.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getChatMessageCount#c3eb1ac: field filter: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("return_local")
 	b.PutBool(g.ReturnLocal)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

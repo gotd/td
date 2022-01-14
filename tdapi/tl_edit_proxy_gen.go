@@ -223,14 +223,19 @@ func (e *EditProxyRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("editProxy")
+	b.Comma()
 	b.FieldStart("proxy_id")
 	b.PutInt32(e.ProxyID)
+	b.Comma()
 	b.FieldStart("server")
 	b.PutString(e.Server)
+	b.Comma()
 	b.FieldStart("port")
 	b.PutInt32(e.Port)
+	b.Comma()
 	b.FieldStart("enable")
 	b.PutBool(e.Enable)
+	b.Comma()
 	b.FieldStart("type")
 	if e.Type == nil {
 		return fmt.Errorf("unable to encode editProxy#a0482853: field type is nil")
@@ -238,6 +243,8 @@ func (e *EditProxyRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := e.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode editProxy#a0482853: field type: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

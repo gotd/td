@@ -167,10 +167,14 @@ func (s *SetBotUpdatesStatusRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setBotUpdatesStatus")
+	b.Comma()
 	b.FieldStart("pending_update_count")
 	b.PutInt32(s.PendingUpdateCount)
+	b.Comma()
 	b.FieldStart("error_message")
 	b.PutString(s.ErrorMessage)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

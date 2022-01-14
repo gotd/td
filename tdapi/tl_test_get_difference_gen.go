@@ -132,6 +132,8 @@ func (t *TestGetDifferenceRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("testGetDifference")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

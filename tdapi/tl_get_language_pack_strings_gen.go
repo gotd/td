@@ -181,14 +181,20 @@ func (g *GetLanguagePackStringsRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("getLanguagePackStrings")
+	b.Comma()
 	b.FieldStart("language_pack_id")
 	b.PutString(g.LanguagePackID)
+	b.Comma()
 	b.FieldStart("keys")
 	b.ArrStart()
 	for _, v := range g.Keys {
 		b.PutString(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -132,6 +132,8 @@ func (c *CloseRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("close")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

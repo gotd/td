@@ -132,6 +132,8 @@ func (t *TerminateAllOtherSessionsRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("terminateAllOtherSessions")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

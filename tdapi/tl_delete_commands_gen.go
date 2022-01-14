@@ -173,6 +173,7 @@ func (d *DeleteCommandsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deleteCommands")
+	b.Comma()
 	b.FieldStart("scope")
 	if d.Scope == nil {
 		return fmt.Errorf("unable to encode deleteCommands#3bc47c2a: field scope is nil")
@@ -180,8 +181,11 @@ func (d *DeleteCommandsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := d.Scope.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode deleteCommands#3bc47c2a: field scope: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("language_code")
 	b.PutString(d.LanguageCode)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
