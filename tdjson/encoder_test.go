@@ -27,13 +27,13 @@ func TestEncodeDecode(t *testing.T) {
 			req := create()
 
 			enc := tdjson.Encoder{
-				Encoder: jx.GetEncoder(),
+				Writer: &jx.Writer{},
 			}
 			a.NoError(req.EncodeTDLibJSON(enc))
-			a.True(json.Valid(enc.Bytes()))
+			a.True(json.Valid(enc.Buf))
 
 			dec := tdjson.Decoder{
-				Decoder: jx.DecodeBytes(enc.Bytes()),
+				Decoder: jx.DecodeBytes(enc.Buf),
 			}
 			a.NoError(req.DecodeTDLibJSON(dec))
 		}
@@ -62,6 +62,32 @@ func TestEncodeDecode(t *testing.T) {
 		&tdapi.ProfilePhoto{
 			ID: 1,
 		},
+		&tdapi.ReplyMarkupInlineKeyboard{
+			Rows: [][]tdapi.InlineKeyboardButton{
+				{
+					{
+						Text: "text",
+						Type: &tdapi.InlineKeyboardButtonTypeCallback{
+							Data: []byte("a"),
+						},
+					},
+					{
+						Text: "text2",
+						Type: &tdapi.InlineKeyboardButtonTypeCallback{
+							Data: []byte("b"),
+						},
+					},
+				},
+				{
+					{
+						Text: "text3",
+						Type: &tdapi.InlineKeyboardButtonTypeCallback{
+							Data: []byte("c"),
+						},
+					},
+				},
+			},
+		},
 	}
 
 	for _, typ := range types {
@@ -82,9 +108,9 @@ func TestEncoder_PutLong(t *testing.T) {
 	} {
 		t.Run(strconv.FormatInt(tt, 10), func(t *testing.T) {
 			a := require.New(t)
-			e := tdjson.Encoder{Encoder: jx.GetEncoder()}
+			e := tdjson.Encoder{Writer: &jx.Writer{}}
 			e.PutLong(tt)
-			data := e.Bytes()
+			data := e.Buf
 			a.Equal(strconv.Quote(strconv.FormatInt(tt, 10)), string(data))
 
 			d := tdjson.Decoder{Decoder: jx.DecodeBytes(data)}

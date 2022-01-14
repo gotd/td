@@ -53,6 +53,7 @@ func (b Decoder) FindTypeID() (string, error) {
 				return err
 			}
 			typ = t
+			found = true
 			return nil
 		})
 	}); err != nil {
