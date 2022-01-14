@@ -167,12 +167,16 @@ func (e *EditChatFilterRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("editChatFilter")
+	b.Comma()
 	b.FieldStart("chat_filter_id")
 	b.PutInt32(e.ChatFilterID)
+	b.Comma()
 	b.FieldStart("filter")
 	if err := e.Filter.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode editChatFilter#9c2caf82: field filter: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

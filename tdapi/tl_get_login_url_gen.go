@@ -201,14 +201,20 @@ func (g *GetLoginURLRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getLoginUrl")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(g.MessageID)
+	b.Comma()
 	b.FieldStart("button_id")
 	b.PutInt53(g.ButtonID)
+	b.Comma()
 	b.FieldStart("allow_write_access")
 	b.PutBool(g.AllowWriteAccess)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -206,6 +206,7 @@ func (t *Thumbnail) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("thumbnail")
+	b.Comma()
 	b.FieldStart("format")
 	if t.Format == nil {
 		return fmt.Errorf("unable to encode thumbnail#4a1ae06b: field format is nil")
@@ -213,14 +214,19 @@ func (t *Thumbnail) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := t.Format.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode thumbnail#4a1ae06b: field format: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("width")
 	b.PutInt32(t.Width)
+	b.Comma()
 	b.FieldStart("height")
 	b.PutInt32(t.Height)
+	b.Comma()
 	b.FieldStart("file")
 	if err := t.File.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode thumbnail#4a1ae06b: field file: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

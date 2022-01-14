@@ -137,6 +137,8 @@ func (p *PageBlockHorizontalAlignmentLeft) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("pageBlockHorizontalAlignmentLeft")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (p *PageBlockHorizontalAlignmentCenter) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("pageBlockHorizontalAlignmentCenter")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -395,6 +399,8 @@ func (p *PageBlockHorizontalAlignmentRight) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("pageBlockHorizontalAlignmentRight")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

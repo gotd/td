@@ -211,10 +211,13 @@ func (c *ChatEvent) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatEvent")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutLong(c.ID)
+	b.Comma()
 	b.FieldStart("date")
 	b.PutInt32(c.Date)
+	b.Comma()
 	b.FieldStart("member_id")
 	if c.MemberID == nil {
 		return fmt.Errorf("unable to encode chatEvent#d921b3d0: field member_id is nil")
@@ -222,6 +225,7 @@ func (c *ChatEvent) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.MemberID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatEvent#d921b3d0: field member_id: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("action")
 	if c.Action == nil {
 		return fmt.Errorf("unable to encode chatEvent#d921b3d0: field action is nil")
@@ -229,6 +233,8 @@ func (c *ChatEvent) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.Action.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatEvent#d921b3d0: field action: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

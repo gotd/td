@@ -218,16 +218,23 @@ func (s *SetPasswordRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setPassword")
+	b.Comma()
 	b.FieldStart("old_password")
 	b.PutString(s.OldPassword)
+	b.Comma()
 	b.FieldStart("new_password")
 	b.PutString(s.NewPassword)
+	b.Comma()
 	b.FieldStart("new_hint")
 	b.PutString(s.NewHint)
+	b.Comma()
 	b.FieldStart("set_recovery_email_address")
 	b.PutBool(s.SetRecoveryEmailAddress)
+	b.Comma()
 	b.FieldStart("new_recovery_email_address")
 	b.PutString(s.NewRecoveryEmailAddress)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

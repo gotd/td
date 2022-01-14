@@ -165,14 +165,19 @@ func (c *ChatEvents) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatEvents")
+	b.Comma()
 	b.FieldStart("events")
 	b.ArrStart()
 	for idx, v := range c.Events {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode chatEvents#d73ecdc4: field events element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

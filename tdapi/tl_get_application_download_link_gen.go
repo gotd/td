@@ -132,6 +132,8 @@ func (g *GetApplicationDownloadLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("getApplicationDownloadLink")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

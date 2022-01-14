@@ -167,10 +167,14 @@ func (g *GetChatMessageByDateRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getChatMessageByDate")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
 	b.FieldStart("date")
 	b.PutInt32(g.Date)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

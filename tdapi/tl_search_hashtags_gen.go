@@ -167,10 +167,14 @@ func (s *SearchHashtagsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchHashtags")
+	b.Comma()
 	b.FieldStart("prefix")
 	b.PutString(s.Prefix)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(s.Limit)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

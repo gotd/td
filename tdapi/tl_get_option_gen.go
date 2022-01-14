@@ -150,8 +150,11 @@ func (g *GetOptionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getOption")
+	b.Comma()
 	b.FieldStart("name")
 	b.PutString(g.Name)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

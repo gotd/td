@@ -218,16 +218,23 @@ func (p *PollOption) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pollOption")
+	b.Comma()
 	b.FieldStart("text")
 	b.PutString(p.Text)
+	b.Comma()
 	b.FieldStart("voter_count")
 	b.PutInt32(p.VoterCount)
+	b.Comma()
 	b.FieldStart("vote_percentage")
 	b.PutInt32(p.VotePercentage)
+	b.Comma()
 	b.FieldStart("is_chosen")
 	b.PutBool(p.IsChosen)
+	b.Comma()
 	b.FieldStart("is_being_chosen")
 	b.PutBool(p.IsBeingChosen)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

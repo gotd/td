@@ -137,6 +137,8 @@ func (c *ChatReportReasonSpam) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatReportReasonSpam")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (c *ChatReportReasonViolence) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatReportReasonViolence")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -395,6 +399,8 @@ func (c *ChatReportReasonPornography) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatReportReasonPornography")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -524,6 +530,8 @@ func (c *ChatReportReasonChildAbuse) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatReportReasonChildAbuse")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -653,6 +661,8 @@ func (c *ChatReportReasonCopyright) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatReportReasonCopyright")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -782,6 +792,8 @@ func (c *ChatReportReasonUnrelatedLocation) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("chatReportReasonUnrelatedLocation")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -911,6 +923,8 @@ func (c *ChatReportReasonFake) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatReportReasonFake")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1040,6 +1054,8 @@ func (c *ChatReportReasonCustom) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatReportReasonCustom")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

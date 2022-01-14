@@ -165,14 +165,19 @@ func (p *Proxies) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("proxies")
+	b.Comma()
 	b.FieldStart("proxies")
 	b.ArrStart()
 	for idx, v := range p.Proxies {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode proxies#5ee27a86: field proxies element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

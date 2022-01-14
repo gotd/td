@@ -199,18 +199,25 @@ func (a *AnswerShippingQueryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("answerShippingQuery")
+	b.Comma()
 	b.FieldStart("shipping_query_id")
 	b.PutLong(a.ShippingQueryID)
+	b.Comma()
 	b.FieldStart("shipping_options")
 	b.ArrStart()
 	for idx, v := range a.ShippingOptions {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode answerShippingQuery#7a3c2432: field shipping_options element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("error_message")
 	b.PutString(a.ErrorMessage)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

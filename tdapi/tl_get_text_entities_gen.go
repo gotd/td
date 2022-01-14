@@ -150,8 +150,11 @@ func (g *GetTextEntitiesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getTextEntities")
+	b.Comma()
 	b.FieldStart("text")
 	b.PutString(g.Text)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

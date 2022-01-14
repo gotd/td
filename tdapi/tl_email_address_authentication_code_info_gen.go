@@ -167,10 +167,14 @@ func (e *EmailAddressAuthenticationCodeInfo) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("emailAddressAuthenticationCodeInfo")
+	b.Comma()
 	b.FieldStart("email_address_pattern")
 	b.PutString(e.EmailAddressPattern)
+	b.Comma()
 	b.FieldStart("length")
 	b.PutInt32(e.Length)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -150,8 +150,11 @@ func (g *GetSupergroupRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getSupergroup")
+	b.Comma()
 	b.FieldStart("supergroup_id")
 	b.PutInt53(g.SupergroupID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

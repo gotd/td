@@ -150,8 +150,11 @@ func (g *GetFileExtensionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getFileExtension")
+	b.Comma()
 	b.FieldStart("mime_type")
 	b.PutString(g.MimeType)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -150,8 +150,11 @@ func (g *GetChatListsToAddChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getChatListsToAddChat")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

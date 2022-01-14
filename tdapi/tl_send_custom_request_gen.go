@@ -167,10 +167,14 @@ func (s *SendCustomRequestRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("sendCustomRequest")
+	b.Comma()
 	b.FieldStart("method")
 	b.PutString(s.Method)
+	b.Comma()
 	b.FieldStart("parameters")
 	b.PutString(s.Parameters)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

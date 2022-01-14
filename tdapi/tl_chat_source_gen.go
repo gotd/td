@@ -137,6 +137,8 @@ func (c *ChatSourceMtprotoProxy) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatSourceMtprotoProxy")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -301,10 +303,14 @@ func (c *ChatSourcePublicServiceAnnouncement) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("chatSourcePublicServiceAnnouncement")
+	b.Comma()
 	b.FieldStart("type")
 	b.PutString(c.Type)
+	b.Comma()
 	b.FieldStart("text")
 	b.PutString(c.Text)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

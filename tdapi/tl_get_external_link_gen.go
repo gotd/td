@@ -168,10 +168,14 @@ func (g *GetExternalLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getExternalLink")
+	b.Comma()
 	b.FieldStart("link")
 	b.PutString(g.Link)
+	b.Comma()
 	b.FieldStart("allow_write_access")
 	b.PutBool(g.AllowWriteAccess)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

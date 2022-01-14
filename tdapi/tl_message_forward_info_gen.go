@@ -227,6 +227,7 @@ func (m *MessageForwardInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageForwardInfo")
+	b.Comma()
 	b.FieldStart("origin")
 	if m.Origin == nil {
 		return fmt.Errorf("unable to encode messageForwardInfo#ec7dcac8: field origin is nil")
@@ -234,14 +235,20 @@ func (m *MessageForwardInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := m.Origin.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageForwardInfo#ec7dcac8: field origin: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("date")
 	b.PutInt32(m.Date)
+	b.Comma()
 	b.FieldStart("public_service_announcement_type")
 	b.PutString(m.PublicServiceAnnouncementType)
+	b.Comma()
 	b.FieldStart("from_chat_id")
 	b.PutInt53(m.FromChatID)
+	b.Comma()
 	b.FieldStart("from_message_id")
 	b.PutInt53(m.FromMessageID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

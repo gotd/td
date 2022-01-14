@@ -257,16 +257,22 @@ func (s *SendPaymentFormRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("sendPaymentForm")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(s.MessageID)
+	b.Comma()
 	b.FieldStart("payment_form_id")
 	b.PutLong(s.PaymentFormID)
+	b.Comma()
 	b.FieldStart("order_info_id")
 	b.PutString(s.OrderInfoID)
+	b.Comma()
 	b.FieldStart("shipping_option_id")
 	b.PutString(s.ShippingOptionID)
+	b.Comma()
 	b.FieldStart("credentials")
 	if s.Credentials == nil {
 		return fmt.Errorf("unable to encode sendPaymentForm#5b9133ff: field credentials is nil")
@@ -274,8 +280,11 @@ func (s *SendPaymentFormRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.Credentials.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode sendPaymentForm#5b9133ff: field credentials: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("tip_amount")
 	b.PutInt53(s.TipAmount)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

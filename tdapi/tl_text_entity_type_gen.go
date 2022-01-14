@@ -137,6 +137,8 @@ func (t *TextEntityTypeMention) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntityTypeMention")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (t *TextEntityTypeHashtag) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntityTypeHashtag")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -395,6 +399,8 @@ func (t *TextEntityTypeCashtag) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntityTypeCashtag")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -524,6 +530,8 @@ func (t *TextEntityTypeBotCommand) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntityTypeBotCommand")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -653,6 +661,8 @@ func (t *TextEntityTypeURL) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntityTypeUrl")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -782,6 +792,8 @@ func (t *TextEntityTypeEmailAddress) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntityTypeEmailAddress")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -911,6 +923,8 @@ func (t *TextEntityTypePhoneNumber) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntityTypePhoneNumber")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1040,6 +1054,8 @@ func (t *TextEntityTypeBankCardNumber) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntityTypeBankCardNumber")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1169,6 +1185,8 @@ func (t *TextEntityTypeBold) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntityTypeBold")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1298,6 +1316,8 @@ func (t *TextEntityTypeItalic) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntityTypeItalic")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1427,6 +1447,8 @@ func (t *TextEntityTypeUnderline) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntityTypeUnderline")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1556,6 +1578,8 @@ func (t *TextEntityTypeStrikethrough) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntityTypeStrikethrough")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1685,6 +1709,8 @@ func (t *TextEntityTypeSpoiler) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntityTypeSpoiler")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1814,6 +1840,8 @@ func (t *TextEntityTypeCode) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntityTypeCode")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1943,6 +1971,8 @@ func (t *TextEntityTypePre) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntityTypePre")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2090,8 +2120,11 @@ func (t *TextEntityTypePreCode) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntityTypePreCode")
+	b.Comma()
 	b.FieldStart("language")
 	b.PutString(t.Language)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2253,8 +2286,11 @@ func (t *TextEntityTypeTextURL) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntityTypeTextUrl")
+	b.Comma()
 	b.FieldStart("url")
 	b.PutString(t.URL)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2416,8 +2452,11 @@ func (t *TextEntityTypeMentionName) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntityTypeMentionName")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(t.UserID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2581,8 +2620,11 @@ func (t *TextEntityTypeMediaTimestamp) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("textEntityTypeMediaTimestamp")
+	b.Comma()
 	b.FieldStart("media_timestamp")
 	b.PutInt32(t.MediaTimestamp)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

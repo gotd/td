@@ -151,8 +151,11 @@ func (a *AddCustomServerLanguagePackRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("addCustomServerLanguagePack")
+	b.Comma()
 	b.FieldStart("language_pack_id")
 	b.PutString(a.LanguagePackID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

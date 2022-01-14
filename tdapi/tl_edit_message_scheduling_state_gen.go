@@ -189,10 +189,13 @@ func (e *EditMessageSchedulingStateRequest) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("editMessageSchedulingState")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(e.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(e.MessageID)
+	b.Comma()
 	b.FieldStart("scheduling_state")
 	if e.SchedulingState == nil {
 		return fmt.Errorf("unable to encode editMessageSchedulingState#ae2a0bc0: field scheduling_state is nil")
@@ -200,6 +203,8 @@ func (e *EditMessageSchedulingStateRequest) EncodeTDLibJSON(b tdjson.Encoder) er
 	if err := e.SchedulingState.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode editMessageSchedulingState#ae2a0bc0: field scheduling_state: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

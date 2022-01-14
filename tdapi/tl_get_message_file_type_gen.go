@@ -150,8 +150,11 @@ func (g *GetMessageFileTypeRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getMessageFileType")
+	b.Comma()
 	b.FieldStart("message_file_head")
 	b.PutString(g.MessageFileHead)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

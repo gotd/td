@@ -190,8 +190,10 @@ func (e *EditInlineMessageCaptionRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("editInlineMessageCaption")
+	b.Comma()
 	b.FieldStart("inline_message_id")
 	b.PutString(e.InlineMessageID)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if e.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode editInlineMessageCaption#d2a446b7: field reply_markup is nil")
@@ -199,10 +201,13 @@ func (e *EditInlineMessageCaptionRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 	if err := e.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode editInlineMessageCaption#d2a446b7: field reply_markup: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("caption")
 	if err := e.Caption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode editInlineMessageCaption#d2a446b7: field caption: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

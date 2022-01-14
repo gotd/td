@@ -53,6 +53,7 @@ func (b Decoder) FindTypeID() (string, error) {
 				return err
 			}
 			typ = t
+			found = true
 			return nil
 		})
 	}); err != nil {
@@ -88,7 +89,7 @@ func (b Decoder) Bool() (bool, error) {
 
 // Uint16 deserializes unsigned 16-bit integer.
 func (b Decoder) Uint16() (uint16, error) {
-	v, err := b.Decoder.Uint32()
+	v, err := b.Decoder.UInt32()
 	if err != nil {
 		return 0, err
 	}
@@ -102,7 +103,7 @@ func (b Decoder) Int32() (int32, error) {
 
 // Uint32 deserializes unsigned 32-bit integer.
 func (b Decoder) Uint32() (uint32, error) {
-	return b.Decoder.Uint32()
+	return b.Decoder.UInt32()
 }
 
 // Int53 deserializes int53.
@@ -121,7 +122,7 @@ func (b Decoder) Long() (int64, error) {
 
 // Uint64 deserializes unsigned 64-bit integer.
 func (b Decoder) Uint64() (uint64, error) {
-	return b.Decoder.Uint64()
+	return b.Decoder.UInt64()
 }
 
 // Double deserializes 64-bit floating point.

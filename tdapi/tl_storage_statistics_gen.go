@@ -199,18 +199,25 @@ func (s *StorageStatistics) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("storageStatistics")
+	b.Comma()
 	b.FieldStart("size")
 	b.PutInt53(s.Size)
+	b.Comma()
 	b.FieldStart("count")
 	b.PutInt32(s.Count)
+	b.Comma()
 	b.FieldStart("by_chat")
 	b.ArrStart()
 	for idx, v := range s.ByChat {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode storageStatistics#69b98672: field by_chat element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

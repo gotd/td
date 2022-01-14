@@ -168,12 +168,16 @@ func (c *ChangePhoneNumberRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("changePhoneNumber")
+	b.Comma()
 	b.FieldStart("phone_number")
 	b.PutString(c.PhoneNumber)
+	b.Comma()
 	b.FieldStart("settings")
 	if err := c.Settings.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode changePhoneNumber#f891bba3: field settings: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

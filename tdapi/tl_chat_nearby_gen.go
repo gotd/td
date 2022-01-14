@@ -167,10 +167,14 @@ func (c *ChatNearby) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatNearby")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(c.ChatID)
+	b.Comma()
 	b.FieldStart("distance")
 	b.PutInt32(c.Distance)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

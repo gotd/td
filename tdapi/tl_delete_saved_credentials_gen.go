@@ -132,6 +132,8 @@ func (d *DeleteSavedCredentialsRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("deleteSavedCredentials")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

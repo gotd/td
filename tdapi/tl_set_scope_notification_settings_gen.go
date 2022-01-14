@@ -172,6 +172,7 @@ func (s *SetScopeNotificationSettingsRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("setScopeNotificationSettings")
+	b.Comma()
 	b.FieldStart("scope")
 	if s.Scope == nil {
 		return fmt.Errorf("unable to encode setScopeNotificationSettings#85cfb63a: field scope is nil")
@@ -179,10 +180,13 @@ func (s *SetScopeNotificationSettingsRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	if err := s.Scope.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setScopeNotificationSettings#85cfb63a: field scope: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("notification_settings")
 	if err := s.NotificationSettings.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setScopeNotificationSettings#85cfb63a: field notification_settings: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

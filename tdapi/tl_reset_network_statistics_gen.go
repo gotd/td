@@ -132,6 +132,8 @@ func (r *ResetNetworkStatisticsRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("resetNetworkStatistics")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -199,18 +199,25 @@ func (s *ShippingOption) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("shippingOption")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutString(s.ID)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(s.Title)
+	b.Comma()
 	b.FieldStart("price_parts")
 	b.ArrStart()
 	for idx, v := range s.PriceParts {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode shippingOption#731bffce: field price_parts element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

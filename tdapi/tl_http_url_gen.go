@@ -150,8 +150,11 @@ func (h *HTTPURL) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("httpUrl")
+	b.Comma()
 	b.FieldStart("url")
 	b.PutString(h.URL)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

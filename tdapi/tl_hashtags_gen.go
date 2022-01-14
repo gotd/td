@@ -163,12 +163,17 @@ func (h *Hashtags) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("hashtags")
+	b.Comma()
 	b.FieldStart("hashtags")
 	b.ArrStart()
 	for _, v := range h.Hashtags {
 		b.PutString(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

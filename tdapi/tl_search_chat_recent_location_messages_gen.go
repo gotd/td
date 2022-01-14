@@ -167,10 +167,14 @@ func (s *SearchChatRecentLocationMessagesRequest) EncodeTDLibJSON(b tdjson.Encod
 	}
 	b.ObjStart()
 	b.PutID("searchChatRecentLocationMessages")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(s.Limit)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

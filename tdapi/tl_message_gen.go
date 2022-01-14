@@ -751,8 +751,10 @@ func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("message")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutInt53(m.ID)
+	b.Comma()
 	b.FieldStart("sender_id")
 	if m.SenderID == nil {
 		return fmt.Errorf("unable to encode message#c6b405b7: field sender_id is nil")
@@ -760,8 +762,10 @@ func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := m.SenderID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode message#c6b405b7: field sender_id: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(m.ChatID)
+	b.Comma()
 	b.FieldStart("sending_state")
 	if m.SendingState == nil {
 		return fmt.Errorf("unable to encode message#c6b405b7: field sending_state is nil")
@@ -769,6 +773,7 @@ func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := m.SendingState.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode message#c6b405b7: field sending_state: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("scheduling_state")
 	if m.SchedulingState == nil {
 		return fmt.Errorf("unable to encode message#c6b405b7: field scheduling_state is nil")
@@ -776,64 +781,92 @@ func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := m.SchedulingState.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode message#c6b405b7: field scheduling_state: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("is_outgoing")
 	b.PutBool(m.IsOutgoing)
+	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(m.IsPinned)
+	b.Comma()
 	b.FieldStart("can_be_edited")
 	b.PutBool(m.CanBeEdited)
+	b.Comma()
 	b.FieldStart("can_be_forwarded")
 	b.PutBool(m.CanBeForwarded)
+	b.Comma()
 	b.FieldStart("can_be_saved")
 	b.PutBool(m.CanBeSaved)
+	b.Comma()
 	b.FieldStart("can_be_deleted_only_for_self")
 	b.PutBool(m.CanBeDeletedOnlyForSelf)
+	b.Comma()
 	b.FieldStart("can_be_deleted_for_all_users")
 	b.PutBool(m.CanBeDeletedForAllUsers)
+	b.Comma()
 	b.FieldStart("can_get_statistics")
 	b.PutBool(m.CanGetStatistics)
+	b.Comma()
 	b.FieldStart("can_get_message_thread")
 	b.PutBool(m.CanGetMessageThread)
+	b.Comma()
 	b.FieldStart("can_get_viewers")
 	b.PutBool(m.CanGetViewers)
+	b.Comma()
 	b.FieldStart("can_get_media_timestamp_links")
 	b.PutBool(m.CanGetMediaTimestampLinks)
+	b.Comma()
 	b.FieldStart("has_timestamped_media")
 	b.PutBool(m.HasTimestampedMedia)
+	b.Comma()
 	b.FieldStart("is_channel_post")
 	b.PutBool(m.IsChannelPost)
+	b.Comma()
 	b.FieldStart("contains_unread_mention")
 	b.PutBool(m.ContainsUnreadMention)
+	b.Comma()
 	b.FieldStart("date")
 	b.PutInt32(m.Date)
+	b.Comma()
 	b.FieldStart("edit_date")
 	b.PutInt32(m.EditDate)
+	b.Comma()
 	b.FieldStart("forward_info")
 	if err := m.ForwardInfo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode message#c6b405b7: field forward_info: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("interaction_info")
 	if err := m.InteractionInfo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode message#c6b405b7: field interaction_info: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("reply_in_chat_id")
 	b.PutInt53(m.ReplyInChatID)
+	b.Comma()
 	b.FieldStart("reply_to_message_id")
 	b.PutInt53(m.ReplyToMessageID)
+	b.Comma()
 	b.FieldStart("message_thread_id")
 	b.PutInt53(m.MessageThreadID)
+	b.Comma()
 	b.FieldStart("ttl")
 	b.PutInt32(m.TTL)
+	b.Comma()
 	b.FieldStart("ttl_expires_in")
 	b.PutDouble(m.TTLExpiresIn)
+	b.Comma()
 	b.FieldStart("via_bot_user_id")
 	b.PutInt53(m.ViaBotUserID)
+	b.Comma()
 	b.FieldStart("author_signature")
 	b.PutString(m.AuthorSignature)
+	b.Comma()
 	b.FieldStart("media_album_id")
 	b.PutLong(m.MediaAlbumID)
+	b.Comma()
 	b.FieldStart("restriction_reason")
 	b.PutString(m.RestrictionReason)
+	b.Comma()
 	b.FieldStart("content")
 	if m.Content == nil {
 		return fmt.Errorf("unable to encode message#c6b405b7: field content is nil")
@@ -841,6 +874,7 @@ func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := m.Content.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode message#c6b405b7: field content: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if m.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode message#c6b405b7: field reply_markup is nil")
@@ -848,6 +882,8 @@ func (m *Message) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := m.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode message#c6b405b7: field reply_markup: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

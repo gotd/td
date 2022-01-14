@@ -173,8 +173,10 @@ func (a *AddRecentStickerRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("addRecentSticker")
+	b.Comma()
 	b.FieldStart("is_attached")
 	b.PutBool(a.IsAttached)
+	b.Comma()
 	b.FieldStart("sticker")
 	if a.Sticker == nil {
 		return fmt.Errorf("unable to encode addRecentSticker#a7e5d89e: field sticker is nil")
@@ -182,6 +184,8 @@ func (a *AddRecentStickerRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := a.Sticker.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode addRecentSticker#a7e5d89e: field sticker: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -190,10 +190,13 @@ func (v *VideoChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("videoChat")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(v.GroupCallID)
+	b.Comma()
 	b.FieldStart("has_participants")
 	b.PutBool(v.HasParticipants)
+	b.Comma()
 	b.FieldStart("default_participant_id")
 	if v.DefaultParticipantID == nil {
 		return fmt.Errorf("unable to encode videoChat#ae158d28: field default_participant_id is nil")
@@ -201,6 +204,8 @@ func (v *VideoChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := v.DefaultParticipantID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode videoChat#ae158d28: field default_participant_id: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

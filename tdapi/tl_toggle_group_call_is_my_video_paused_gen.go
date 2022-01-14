@@ -167,10 +167,14 @@ func (t *ToggleGroupCallIsMyVideoPausedRequest) EncodeTDLibJSON(b tdjson.Encoder
 	}
 	b.ObjStart()
 	b.PutID("toggleGroupCallIsMyVideoPaused")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(t.GroupCallID)
+	b.Comma()
 	b.FieldStart("is_my_video_paused")
 	b.PutBool(t.IsMyVideoPaused)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

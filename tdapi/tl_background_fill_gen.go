@@ -155,8 +155,11 @@ func (b *BackgroundFillSolid) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	}
 	buf.ObjStart()
 	buf.PutID("backgroundFillSolid")
+	buf.Comma()
 	buf.FieldStart("color")
 	buf.PutInt32(b.Color)
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }
@@ -353,12 +356,17 @@ func (b *BackgroundFillGradient) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	}
 	buf.ObjStart()
 	buf.PutID("backgroundFillGradient")
+	buf.Comma()
 	buf.FieldStart("top_color")
 	buf.PutInt32(b.TopColor)
+	buf.Comma()
 	buf.FieldStart("bottom_color")
 	buf.PutInt32(b.BottomColor)
+	buf.Comma()
 	buf.FieldStart("rotation_angle")
 	buf.PutInt32(b.RotationAngle)
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }
@@ -561,12 +569,17 @@ func (b *BackgroundFillFreeformGradient) EncodeTDLibJSON(buf tdjson.Encoder) err
 	}
 	buf.ObjStart()
 	buf.PutID("backgroundFillFreeformGradient")
+	buf.Comma()
 	buf.FieldStart("colors")
 	buf.ArrStart()
 	for _, v := range b.Colors {
 		buf.PutInt32(v)
+		buf.Comma()
 	}
+	buf.StripComma()
 	buf.ArrEnd()
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }

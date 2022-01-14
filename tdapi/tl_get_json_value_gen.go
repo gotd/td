@@ -150,8 +150,11 @@ func (g *GetJSONValueRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getJsonValue")
+	b.Comma()
 	b.FieldStart("json")
 	b.PutString(g.JSON)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

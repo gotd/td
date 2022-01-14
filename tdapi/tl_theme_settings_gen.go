@@ -223,12 +223,15 @@ func (t *ThemeSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("themeSettings")
+	b.Comma()
 	b.FieldStart("accent_color")
 	b.PutInt32(t.AccentColor)
+	b.Comma()
 	b.FieldStart("background")
 	if err := t.Background.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode themeSettings#fc4c1c12: field background: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("outgoing_message_fill")
 	if t.OutgoingMessageFill == nil {
 		return fmt.Errorf("unable to encode themeSettings#fc4c1c12: field outgoing_message_fill is nil")
@@ -236,10 +239,14 @@ func (t *ThemeSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := t.OutgoingMessageFill.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode themeSettings#fc4c1c12: field outgoing_message_fill: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("animate_outgoing_message_fill")
 	b.PutBool(t.AnimateOutgoingMessageFill)
+	b.Comma()
 	b.FieldStart("outgoing_message_accent_color")
 	b.PutInt32(t.OutgoingMessageAccentColor)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

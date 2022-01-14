@@ -150,10 +150,13 @@ func (s *SetTdlibParametersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setTdlibParameters")
+	b.Comma()
 	b.FieldStart("parameters")
 	if err := s.Parameters.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setTdlibParameters#8e00ae53: field parameters: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

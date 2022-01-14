@@ -157,8 +157,11 @@ func (c *ChatActionBarReportSpam) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatActionBarReportSpam")
+	b.Comma()
 	b.FieldStart("can_unarchive")
 	b.PutBool(c.CanUnarchive)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -302,6 +305,8 @@ func (c *ChatActionBarReportUnrelatedLocation) EncodeTDLibJSON(b tdjson.Encoder)
 	}
 	b.ObjStart()
 	b.PutID("chatActionBarReportUnrelatedLocation")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -431,6 +436,8 @@ func (c *ChatActionBarInviteMembers) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatActionBarInviteMembers")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -598,10 +605,14 @@ func (c *ChatActionBarReportAddBlock) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatActionBarReportAddBlock")
+	b.Comma()
 	b.FieldStart("can_unarchive")
 	b.PutBool(c.CanUnarchive)
+	b.Comma()
 	b.FieldStart("distance")
 	b.PutInt32(c.Distance)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -759,6 +770,8 @@ func (c *ChatActionBarAddContact) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatActionBarAddContact")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -888,6 +901,8 @@ func (c *ChatActionBarSharePhoneNumber) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("chatActionBarSharePhoneNumber")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1069,12 +1084,17 @@ func (c *ChatActionBarJoinRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatActionBarJoinRequest")
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(c.Title)
+	b.Comma()
 	b.FieldStart("is_channel")
 	b.PutBool(c.IsChannel)
+	b.Comma()
 	b.FieldStart("request_date")
 	b.PutInt32(c.RequestDate)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

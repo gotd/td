@@ -184,12 +184,17 @@ func (c *ChatStatisticsMessageInteractionInfo) EncodeTDLibJSON(b tdjson.Encoder)
 	}
 	b.ObjStart()
 	b.PutID("chatStatisticsMessageInteractionInfo")
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(c.MessageID)
+	b.Comma()
 	b.FieldStart("view_count")
 	b.PutInt32(c.ViewCount)
+	b.Comma()
 	b.FieldStart("forward_count")
 	b.PutInt32(c.ForwardCount)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

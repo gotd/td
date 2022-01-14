@@ -137,6 +137,8 @@ func (c *CheckChatUsernameResultOk) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("checkChatUsernameResultOk")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (c *CheckChatUsernameResultUsernameInvalid) EncodeTDLibJSON(b tdjson.Encode
 	}
 	b.ObjStart()
 	b.PutID("checkChatUsernameResultUsernameInvalid")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -395,6 +399,8 @@ func (c *CheckChatUsernameResultUsernameOccupied) EncodeTDLibJSON(b tdjson.Encod
 	}
 	b.ObjStart()
 	b.PutID("checkChatUsernameResultUsernameOccupied")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -526,6 +532,8 @@ func (c *CheckChatUsernameResultPublicChatsTooMuch) EncodeTDLibJSON(b tdjson.Enc
 	}
 	b.ObjStart()
 	b.PutID("checkChatUsernameResultPublicChatsTooMuch")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -657,6 +665,8 @@ func (c *CheckChatUsernameResultPublicGroupsUnavailable) EncodeTDLibJSON(b tdjso
 	}
 	b.ObjStart()
 	b.PutID("checkChatUsernameResultPublicGroupsUnavailable")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

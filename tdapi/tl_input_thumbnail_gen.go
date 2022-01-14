@@ -189,6 +189,7 @@ func (i *InputThumbnail) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputThumbnail")
+	b.Comma()
 	b.FieldStart("thumbnail")
 	if i.Thumbnail == nil {
 		return fmt.Errorf("unable to encode inputThumbnail#5e515024: field thumbnail is nil")
@@ -196,10 +197,14 @@ func (i *InputThumbnail) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := i.Thumbnail.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputThumbnail#5e515024: field thumbnail: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("width")
 	b.PutInt32(i.Width)
+	b.Comma()
 	b.FieldStart("height")
 	b.PutInt32(i.Height)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

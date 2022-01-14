@@ -202,14 +202,20 @@ func (p *PinChatMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pinChatMessage")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(p.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(p.MessageID)
+	b.Comma()
 	b.FieldStart("disable_notification")
 	b.PutBool(p.DisableNotification)
+	b.Comma()
 	b.FieldStart("only_for_self")
 	b.PutBool(p.OnlyForSelf)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

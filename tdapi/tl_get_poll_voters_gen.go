@@ -221,16 +221,23 @@ func (g *GetPollVotersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getPollVoters")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(g.MessageID)
+	b.Comma()
 	b.FieldStart("option_id")
 	b.PutInt32(g.OptionID)
+	b.Comma()
 	b.FieldStart("offset")
 	b.PutInt32(g.Offset)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

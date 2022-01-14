@@ -151,10 +151,13 @@ func (p *ParseMarkdownRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("parseMarkdown")
+	b.Comma()
 	b.FieldStart("text")
 	if err := p.Text.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode parseMarkdown#2d153aef: field text: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

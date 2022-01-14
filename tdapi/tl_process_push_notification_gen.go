@@ -151,8 +151,11 @@ func (p *ProcessPushNotificationRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("processPushNotification")
+	b.Comma()
 	b.FieldStart("payload")
 	b.PutString(p.Payload)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

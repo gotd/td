@@ -137,6 +137,8 @@ func (p *PassportElementTypePersonalDetails) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("passportElementTypePersonalDetails")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (p *PassportElementTypePassport) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("passportElementTypePassport")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -395,6 +399,8 @@ func (p *PassportElementTypeDriverLicense) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("passportElementTypeDriverLicense")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -524,6 +530,8 @@ func (p *PassportElementTypeIdentityCard) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("passportElementTypeIdentityCard")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -653,6 +661,8 @@ func (p *PassportElementTypeInternalPassport) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("passportElementTypeInternalPassport")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -782,6 +792,8 @@ func (p *PassportElementTypeAddress) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("passportElementTypeAddress")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -911,6 +923,8 @@ func (p *PassportElementTypeUtilityBill) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("passportElementTypeUtilityBill")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1040,6 +1054,8 @@ func (p *PassportElementTypeBankStatement) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("passportElementTypeBankStatement")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1169,6 +1185,8 @@ func (p *PassportElementTypeRentalAgreement) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("passportElementTypeRentalAgreement")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1298,6 +1316,8 @@ func (p *PassportElementTypePassportRegistration) EncodeTDLibJSON(b tdjson.Encod
 	}
 	b.ObjStart()
 	b.PutID("passportElementTypePassportRegistration")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1427,6 +1447,8 @@ func (p *PassportElementTypeTemporaryRegistration) EncodeTDLibJSON(b tdjson.Enco
 	}
 	b.ObjStart()
 	b.PutID("passportElementTypeTemporaryRegistration")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1556,6 +1578,8 @@ func (p *PassportElementTypePhoneNumber) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("passportElementTypePhoneNumber")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1685,6 +1709,8 @@ func (p *PassportElementTypeEmailAddress) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("passportElementTypeEmailAddress")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

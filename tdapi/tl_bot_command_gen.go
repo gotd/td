@@ -167,10 +167,14 @@ func (b *BotCommand) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	}
 	buf.ObjStart()
 	buf.PutID("botCommand")
+	buf.Comma()
 	buf.FieldStart("command")
 	buf.PutString(b.Command)
+	buf.Comma()
 	buf.FieldStart("description")
 	buf.PutString(b.Description)
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }

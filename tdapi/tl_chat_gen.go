@@ -667,8 +667,10 @@ func (c *Chat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chat")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutInt53(c.ID)
+	b.Comma()
 	b.FieldStart("type")
 	if c.Type == nil {
 		return fmt.Errorf("unable to encode chat#69d332bd: field type is nil")
@@ -676,28 +678,36 @@ func (c *Chat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chat#69d332bd: field type: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(c.Title)
+	b.Comma()
 	b.FieldStart("photo")
 	if err := c.Photo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chat#69d332bd: field photo: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("permissions")
 	if err := c.Permissions.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chat#69d332bd: field permissions: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("last_message")
 	if err := c.LastMessage.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chat#69d332bd: field last_message: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("positions")
 	b.ArrStart()
 	for idx, v := range c.Positions {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode chat#69d332bd: field positions element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("message_sender_id")
 	if c.MessageSenderID == nil {
 		return fmt.Errorf("unable to encode chat#69d332bd: field message_sender_id is nil")
@@ -705,38 +715,54 @@ func (c *Chat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.MessageSenderID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chat#69d332bd: field message_sender_id: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("has_protected_content")
 	b.PutBool(c.HasProtectedContent)
+	b.Comma()
 	b.FieldStart("is_marked_as_unread")
 	b.PutBool(c.IsMarkedAsUnread)
+	b.Comma()
 	b.FieldStart("is_blocked")
 	b.PutBool(c.IsBlocked)
+	b.Comma()
 	b.FieldStart("has_scheduled_messages")
 	b.PutBool(c.HasScheduledMessages)
+	b.Comma()
 	b.FieldStart("can_be_deleted_only_for_self")
 	b.PutBool(c.CanBeDeletedOnlyForSelf)
+	b.Comma()
 	b.FieldStart("can_be_deleted_for_all_users")
 	b.PutBool(c.CanBeDeletedForAllUsers)
+	b.Comma()
 	b.FieldStart("can_be_reported")
 	b.PutBool(c.CanBeReported)
+	b.Comma()
 	b.FieldStart("default_disable_notification")
 	b.PutBool(c.DefaultDisableNotification)
+	b.Comma()
 	b.FieldStart("unread_count")
 	b.PutInt32(c.UnreadCount)
+	b.Comma()
 	b.FieldStart("last_read_inbox_message_id")
 	b.PutInt53(c.LastReadInboxMessageID)
+	b.Comma()
 	b.FieldStart("last_read_outbox_message_id")
 	b.PutInt53(c.LastReadOutboxMessageID)
+	b.Comma()
 	b.FieldStart("unread_mention_count")
 	b.PutInt32(c.UnreadMentionCount)
+	b.Comma()
 	b.FieldStart("notification_settings")
 	if err := c.NotificationSettings.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chat#69d332bd: field notification_settings: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("message_ttl")
 	b.PutInt32(c.MessageTTL)
+	b.Comma()
 	b.FieldStart("theme_name")
 	b.PutString(c.ThemeName)
+	b.Comma()
 	b.FieldStart("action_bar")
 	if c.ActionBar == nil {
 		return fmt.Errorf("unable to encode chat#69d332bd: field action_bar is nil")
@@ -744,22 +770,29 @@ func (c *Chat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.ActionBar.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chat#69d332bd: field action_bar: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("video_chat")
 	if err := c.VideoChat.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chat#69d332bd: field video_chat: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("pending_join_requests")
 	if err := c.PendingJoinRequests.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chat#69d332bd: field pending_join_requests: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("reply_markup_message_id")
 	b.PutInt53(c.ReplyMarkupMessageID)
+	b.Comma()
 	b.FieldStart("draft_message")
 	if err := c.DraftMessage.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chat#69d332bd: field draft_message: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("client_data")
 	b.PutString(c.ClientData)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

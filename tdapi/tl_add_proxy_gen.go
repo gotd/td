@@ -206,12 +206,16 @@ func (a *AddProxyRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("addProxy")
+	b.Comma()
 	b.FieldStart("server")
 	b.PutString(a.Server)
+	b.Comma()
 	b.FieldStart("port")
 	b.PutInt32(a.Port)
+	b.Comma()
 	b.FieldStart("enable")
 	b.PutBool(a.Enable)
+	b.Comma()
 	b.FieldStart("type")
 	if a.Type == nil {
 		return fmt.Errorf("unable to encode addProxy#13c2bcd8: field type is nil")
@@ -219,6 +223,8 @@ func (a *AddProxyRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := a.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode addProxy#13c2bcd8: field type: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

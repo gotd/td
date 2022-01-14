@@ -155,6 +155,7 @@ func (g *GetJSONStringRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getJsonString")
+	b.Comma()
 	b.FieldStart("json_value")
 	if g.JSONValue == nil {
 		return fmt.Errorf("unable to encode getJsonString#278b9421: field json_value is nil")
@@ -162,6 +163,8 @@ func (g *GetJSONStringRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := g.JSONValue.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getJsonString#278b9421: field json_value: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

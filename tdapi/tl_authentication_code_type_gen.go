@@ -155,8 +155,11 @@ func (a *AuthenticationCodeTypeTelegramMessage) EncodeTDLibJSON(b tdjson.Encoder
 	}
 	b.ObjStart()
 	b.PutID("authenticationCodeTypeTelegramMessage")
+	b.Comma()
 	b.FieldStart("length")
 	b.PutInt32(a.Length)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -318,8 +321,11 @@ func (a *AuthenticationCodeTypeSMS) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("authenticationCodeTypeSms")
+	b.Comma()
 	b.FieldStart("length")
 	b.PutInt32(a.Length)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -481,8 +487,11 @@ func (a *AuthenticationCodeTypeCall) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("authenticationCodeTypeCall")
+	b.Comma()
 	b.FieldStart("length")
 	b.PutInt32(a.Length)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -644,8 +653,11 @@ func (a *AuthenticationCodeTypeFlashCall) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("authenticationCodeTypeFlashCall")
+	b.Comma()
 	b.FieldStart("pattern")
 	b.PutString(a.Pattern)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -824,10 +836,14 @@ func (a *AuthenticationCodeTypeMissedCall) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("authenticationCodeTypeMissedCall")
+	b.Comma()
 	b.FieldStart("phone_number_prefix")
 	b.PutString(a.PhoneNumberPrefix)
+	b.Comma()
 	b.FieldStart("length")
 	b.PutInt32(a.Length)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

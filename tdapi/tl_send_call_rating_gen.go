@@ -219,12 +219,16 @@ func (s *SendCallRatingRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("sendCallRating")
+	b.Comma()
 	b.FieldStart("call_id")
 	b.PutInt32(s.CallID)
+	b.Comma()
 	b.FieldStart("rating")
 	b.PutInt32(s.Rating)
+	b.Comma()
 	b.FieldStart("comment")
 	b.PutString(s.Comment)
+	b.Comma()
 	b.FieldStart("problems")
 	b.ArrStart()
 	for idx, v := range s.Problems {
@@ -234,8 +238,12 @@ func (s *SendCallRatingRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode sendCallRating#d89b576c: field problems element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

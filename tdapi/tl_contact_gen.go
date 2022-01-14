@@ -218,16 +218,23 @@ func (c *Contact) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("contact")
+	b.Comma()
 	b.FieldStart("phone_number")
 	b.PutString(c.PhoneNumber)
+	b.Comma()
 	b.FieldStart("first_name")
 	b.PutString(c.FirstName)
+	b.Comma()
 	b.FieldStart("last_name")
 	b.PutString(c.LastName)
+	b.Comma()
 	b.FieldStart("vcard")
 	b.PutString(c.Vcard)
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(c.UserID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -232,22 +232,31 @@ func (p *PhotoSize) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("photoSize")
+	b.Comma()
 	b.FieldStart("type")
 	b.PutString(p.Type)
+	b.Comma()
 	b.FieldStart("photo")
 	if err := p.Photo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode photoSize#18e56d39: field photo: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("width")
 	b.PutInt32(p.Width)
+	b.Comma()
 	b.FieldStart("height")
 	b.PutInt32(p.Height)
+	b.Comma()
 	b.FieldStart("progressive_sizes")
 	b.ArrStart()
 	for _, v := range p.ProgressiveSizes {
 		b.PutInt32(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

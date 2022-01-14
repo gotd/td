@@ -150,8 +150,11 @@ func (d *DeleteAllCallMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deleteAllCallMessages")
+	b.Comma()
 	b.FieldStart("revoke")
 	b.PutBool(d.Revoke)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

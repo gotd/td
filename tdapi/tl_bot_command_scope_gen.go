@@ -137,6 +137,8 @@ func (b *BotCommandScopeDefault) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	}
 	buf.ObjStart()
 	buf.PutID("botCommandScopeDefault")
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (b *BotCommandScopeAllPrivateChats) EncodeTDLibJSON(buf tdjson.Encoder) err
 	}
 	buf.ObjStart()
 	buf.PutID("botCommandScopeAllPrivateChats")
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }
@@ -395,6 +399,8 @@ func (b *BotCommandScopeAllGroupChats) EncodeTDLibJSON(buf tdjson.Encoder) error
 	}
 	buf.ObjStart()
 	buf.PutID("botCommandScopeAllGroupChats")
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }
@@ -524,6 +530,8 @@ func (b *BotCommandScopeAllChatAdministrators) EncodeTDLibJSON(buf tdjson.Encode
 	}
 	buf.ObjStart()
 	buf.PutID("botCommandScopeAllChatAdministrators")
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }
@@ -671,8 +679,11 @@ func (b *BotCommandScopeChat) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	}
 	buf.ObjStart()
 	buf.PutID("botCommandScopeChat")
+	buf.Comma()
 	buf.FieldStart("chat_id")
 	buf.PutInt53(b.ChatID)
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }
@@ -834,8 +845,11 @@ func (b *BotCommandScopeChatAdministrators) EncodeTDLibJSON(buf tdjson.Encoder) 
 	}
 	buf.ObjStart()
 	buf.PutID("botCommandScopeChatAdministrators")
+	buf.Comma()
 	buf.FieldStart("chat_id")
 	buf.PutInt53(b.ChatID)
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }
@@ -1014,10 +1028,14 @@ func (b *BotCommandScopeChatMember) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	}
 	buf.ObjStart()
 	buf.PutID("botCommandScopeChatMember")
+	buf.Comma()
 	buf.FieldStart("chat_id")
 	buf.PutInt53(b.ChatID)
+	buf.Comma()
 	buf.FieldStart("user_id")
 	buf.PutInt53(b.UserID)
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }

@@ -218,22 +218,29 @@ func (v *VideoNote) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("videoNote")
+	b.Comma()
 	b.FieldStart("duration")
 	b.PutInt32(v.Duration)
+	b.Comma()
 	b.FieldStart("length")
 	b.PutInt32(v.Length)
+	b.Comma()
 	b.FieldStart("minithumbnail")
 	if err := v.Minithumbnail.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode videoNote#fbb96a3a: field minithumbnail: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("thumbnail")
 	if err := v.Thumbnail.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode videoNote#fbb96a3a: field thumbnail: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("video")
 	if err := v.Video.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode videoNote#fbb96a3a: field video: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -181,14 +181,20 @@ func (r *ReorderInstalledStickerSetsRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("reorderInstalledStickerSets")
+	b.Comma()
 	b.FieldStart("is_masks")
 	b.PutBool(r.IsMasks)
+	b.Comma()
 	b.FieldStart("sticker_set_ids")
 	b.ArrStart()
 	for _, v := range r.StickerSetIDs {
 		b.PutLong(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

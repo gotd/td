@@ -167,10 +167,14 @@ func (d *DateRange) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("dateRange")
+	b.Comma()
 	b.FieldStart("start_date")
 	b.PutInt32(d.StartDate)
+	b.Comma()
 	b.FieldStart("end_date")
 	b.PutInt32(d.EndDate)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

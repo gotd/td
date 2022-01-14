@@ -167,10 +167,14 @@ func (s *SearchChatsOnServerRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchChatsOnServer")
+	b.Comma()
 	b.FieldStart("query")
 	b.PutString(s.Query)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(s.Limit)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

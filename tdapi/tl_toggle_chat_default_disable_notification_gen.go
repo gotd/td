@@ -167,10 +167,14 @@ func (t *ToggleChatDefaultDisableNotificationRequest) EncodeTDLibJSON(b tdjson.E
 	}
 	b.ObjStart()
 	b.PutID("toggleChatDefaultDisableNotification")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(t.ChatID)
+	b.Comma()
 	b.FieldStart("default_disable_notification")
 	b.PutBool(t.DefaultDisableNotification)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

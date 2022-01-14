@@ -156,8 +156,11 @@ func (r *ReplyMarkupRemoveKeyboard) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("replyMarkupRemoveKeyboard")
+	b.Comma()
 	b.FieldStart("is_personal")
 	b.PutBool(r.IsPersonal)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -339,10 +342,14 @@ func (r *ReplyMarkupForceReply) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("replyMarkupForceReply")
+	b.Comma()
 	b.FieldStart("is_personal")
 	b.PutBool(r.IsPersonal)
+	b.Comma()
 	b.FieldStart("input_field_placeholder")
 	b.PutString(r.InputFieldPlaceholder)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -619,6 +626,7 @@ func (r *ReplyMarkupShowKeyboard) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("replyMarkupShowKeyboard")
+	b.Comma()
 	b.FieldStart("rows")
 	b.ArrStart()
 	for idx, row := range r.Rows {
@@ -627,18 +635,28 @@ func (r *ReplyMarkupShowKeyboard) EncodeTDLibJSON(b tdjson.Encoder) error {
 			if err := v.EncodeTDLibJSON(b); err != nil {
 				return fmt.Errorf("unable to encode replyMarkupShowKeyboard#f64168f4: field rows element with index %d: %w", idx, err)
 			}
-			b.ArrEnd()
+			b.Comma()
 		}
+		b.StripComma()
+		b.ArrEnd()
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("resize_keyboard")
 	b.PutBool(r.ResizeKeyboard)
+	b.Comma()
 	b.FieldStart("one_time")
 	b.PutBool(r.OneTime)
+	b.Comma()
 	b.FieldStart("is_personal")
 	b.PutBool(r.IsPersonal)
+	b.Comma()
 	b.FieldStart("input_field_placeholder")
 	b.PutString(r.InputFieldPlaceholder)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -898,6 +916,7 @@ func (r *ReplyMarkupInlineKeyboard) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("replyMarkupInlineKeyboard")
+	b.Comma()
 	b.FieldStart("rows")
 	b.ArrStart()
 	for idx, row := range r.Rows {
@@ -906,10 +925,16 @@ func (r *ReplyMarkupInlineKeyboard) EncodeTDLibJSON(b tdjson.Encoder) error {
 			if err := v.EncodeTDLibJSON(b); err != nil {
 				return fmt.Errorf("unable to encode replyMarkupInlineKeyboard#92ac0efb: field rows element with index %d: %w", idx, err)
 			}
-			b.ArrEnd()
+			b.Comma()
 		}
+		b.StripComma()
+		b.ArrEnd()
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

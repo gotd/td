@@ -150,8 +150,11 @@ func (a *AddRecentlyFoundChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("addRecentlyFoundChat")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(a.ChatID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

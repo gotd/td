@@ -217,6 +217,7 @@ func (n *NetworkStatisticsEntryFile) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("networkStatisticsEntryFile")
+	b.Comma()
 	b.FieldStart("file_type")
 	if n.FileType == nil {
 		return fmt.Errorf("unable to encode networkStatisticsEntryFile#b3b8f62: field file_type is nil")
@@ -224,6 +225,7 @@ func (n *NetworkStatisticsEntryFile) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := n.FileType.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode networkStatisticsEntryFile#b3b8f62: field file_type: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("network_type")
 	if n.NetworkType == nil {
 		return fmt.Errorf("unable to encode networkStatisticsEntryFile#b3b8f62: field network_type is nil")
@@ -231,10 +233,14 @@ func (n *NetworkStatisticsEntryFile) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := n.NetworkType.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode networkStatisticsEntryFile#b3b8f62: field network_type: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("sent_bytes")
 	b.PutInt53(n.SentBytes)
+	b.Comma()
 	b.FieldStart("received_bytes")
 	b.PutInt53(n.ReceivedBytes)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -495,6 +501,7 @@ func (n *NetworkStatisticsEntryCall) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("networkStatisticsEntryCall")
+	b.Comma()
 	b.FieldStart("network_type")
 	if n.NetworkType == nil {
 		return fmt.Errorf("unable to encode networkStatisticsEntryCall#2bedbbad: field network_type is nil")
@@ -502,12 +509,17 @@ func (n *NetworkStatisticsEntryCall) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := n.NetworkType.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode networkStatisticsEntryCall#2bedbbad: field network_type: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("sent_bytes")
 	b.PutInt53(n.SentBytes)
+	b.Comma()
 	b.FieldStart("received_bytes")
 	b.PutInt53(n.ReceivedBytes)
+	b.Comma()
 	b.FieldStart("duration")
 	b.PutDouble(n.Duration)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

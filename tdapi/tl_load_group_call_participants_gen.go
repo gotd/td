@@ -168,10 +168,14 @@ func (l *LoadGroupCallParticipantsRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("loadGroupCallParticipants")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(l.GroupCallID)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(l.Limit)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

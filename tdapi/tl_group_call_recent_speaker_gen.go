@@ -172,6 +172,7 @@ func (g *GroupCallRecentSpeaker) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("groupCallRecentSpeaker")
+	b.Comma()
 	b.FieldStart("participant_id")
 	if g.ParticipantID == nil {
 		return fmt.Errorf("unable to encode groupCallRecentSpeaker#6c73a9cc: field participant_id is nil")
@@ -179,8 +180,11 @@ func (g *GroupCallRecentSpeaker) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := g.ParticipantID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode groupCallRecentSpeaker#6c73a9cc: field participant_id: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("is_speaking")
 	b.PutBool(g.IsSpeaking)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

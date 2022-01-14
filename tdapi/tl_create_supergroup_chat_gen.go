@@ -168,10 +168,14 @@ func (c *CreateSupergroupChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("createSupergroupChat")
+	b.Comma()
 	b.FieldStart("supergroup_id")
 	b.PutInt53(c.SupergroupID)
+	b.Comma()
 	b.FieldStart("force")
 	b.PutBool(c.Force)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

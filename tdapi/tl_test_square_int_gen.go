@@ -150,8 +150,11 @@ func (t *TestSquareIntRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("testSquareInt")
+	b.Comma()
 	b.FieldStart("x")
 	b.PutInt32(t.X)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

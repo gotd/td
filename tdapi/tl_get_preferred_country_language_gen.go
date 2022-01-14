@@ -150,8 +150,11 @@ func (g *GetPreferredCountryLanguageRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("getPreferredCountryLanguage")
+	b.Comma()
 	b.FieldStart("country_code")
 	b.PutString(g.CountryCode)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

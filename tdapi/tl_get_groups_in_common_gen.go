@@ -184,12 +184,17 @@ func (g *GetGroupsInCommonRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getGroupsInCommon")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(g.UserID)
+	b.Comma()
 	b.FieldStart("offset_chat_id")
 	b.PutInt53(g.OffsetChatID)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

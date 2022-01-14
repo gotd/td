@@ -150,8 +150,11 @@ func (g *GetLocalizationTargetInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("getLocalizationTargetInfo")
+	b.Comma()
 	b.FieldStart("only_local")
 	b.PutBool(g.OnlyLocal)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

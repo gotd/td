@@ -236,20 +236,28 @@ func (v *Venue) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("venue")
+	b.Comma()
 	b.FieldStart("location")
 	if err := v.Location.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode venue#3fcd1af9: field location: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(v.Title)
+	b.Comma()
 	b.FieldStart("address")
 	b.PutString(v.Address)
+	b.Comma()
 	b.FieldStart("provider")
 	b.PutString(v.Provider)
+	b.Comma()
 	b.FieldStart("id")
 	b.PutString(v.ID)
+	b.Comma()
 	b.FieldStart("type")
 	b.PutString(v.Type)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

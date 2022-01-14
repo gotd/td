@@ -155,6 +155,7 @@ func (m *MessageStatistics) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageStatistics")
+	b.Comma()
 	b.FieldStart("message_interaction_graph")
 	if m.MessageInteractionGraph == nil {
 		return fmt.Errorf("unable to encode messageStatistics#c3b781b0: field message_interaction_graph is nil")
@@ -162,6 +163,8 @@ func (m *MessageStatistics) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := m.MessageInteractionGraph.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageStatistics#c3b781b0: field message_interaction_graph: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

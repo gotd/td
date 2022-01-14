@@ -132,6 +132,8 @@ func (g *GetDatabaseStatisticsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getDatabaseStatistics")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

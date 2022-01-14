@@ -194,6 +194,7 @@ func (p *PassportElementError) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("passportElementError")
+	b.Comma()
 	b.FieldStart("type")
 	if p.Type == nil {
 		return fmt.Errorf("unable to encode passportElementError#91059fc5: field type is nil")
@@ -201,8 +202,10 @@ func (p *PassportElementError) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode passportElementError#91059fc5: field type: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("message")
 	b.PutString(p.Message)
+	b.Comma()
 	b.FieldStart("source")
 	if p.Source == nil {
 		return fmt.Errorf("unable to encode passportElementError#91059fc5: field source is nil")
@@ -210,6 +213,8 @@ func (p *PassportElementError) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Source.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode passportElementError#91059fc5: field source: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -337,14 +337,19 @@ func (o *OptimizeStorageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("optimizeStorage")
+	b.Comma()
 	b.FieldStart("size")
 	b.PutInt53(o.Size)
+	b.Comma()
 	b.FieldStart("ttl")
 	b.PutInt32(o.TTL)
+	b.Comma()
 	b.FieldStart("count")
 	b.PutInt32(o.Count)
+	b.Comma()
 	b.FieldStart("immunity_delay")
 	b.PutInt32(o.ImmunityDelay)
+	b.Comma()
 	b.FieldStart("file_types")
 	b.ArrStart()
 	for idx, v := range o.FileTypes {
@@ -354,24 +359,36 @@ func (o *OptimizeStorageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode optimizeStorage#ef73c8c5: field file_types element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("chat_ids")
 	b.ArrStart()
 	for _, v := range o.ChatIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("exclude_chat_ids")
 	b.ArrStart()
 	for _, v := range o.ExcludeChatIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("return_deleted_file_statistics")
 	b.PutBool(o.ReturnDeletedFileStatistics)
+	b.Comma()
 	b.FieldStart("chat_limit")
 	b.PutInt32(o.ChatLimit)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

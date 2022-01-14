@@ -184,14 +184,19 @@ func (c *CreateCallRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("createCall")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(c.UserID)
+	b.Comma()
 	b.FieldStart("protocol")
 	if err := c.Protocol.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode createCall#be282e10: field protocol: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("is_video")
 	b.PutBool(c.IsVideo)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

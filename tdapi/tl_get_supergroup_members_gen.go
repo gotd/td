@@ -206,8 +206,10 @@ func (g *GetSupergroupMembersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getSupergroupMembers")
+	b.Comma()
 	b.FieldStart("supergroup_id")
 	b.PutInt53(g.SupergroupID)
+	b.Comma()
 	b.FieldStart("filter")
 	if g.Filter == nil {
 		return fmt.Errorf("unable to encode getSupergroupMembers#ddf821c8: field filter is nil")
@@ -215,10 +217,14 @@ func (g *GetSupergroupMembersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := g.Filter.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getSupergroupMembers#ddf821c8: field filter: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("offset")
 	b.PutInt32(g.Offset)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

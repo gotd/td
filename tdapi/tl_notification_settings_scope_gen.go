@@ -137,6 +137,8 @@ func (n *NotificationSettingsScopePrivateChats) EncodeTDLibJSON(b tdjson.Encoder
 	}
 	b.ObjStart()
 	b.PutID("notificationSettingsScopePrivateChats")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (n *NotificationSettingsScopeGroupChats) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("notificationSettingsScopeGroupChats")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -395,6 +399,8 @@ func (n *NotificationSettingsScopeChannelChats) EncodeTDLibJSON(b tdjson.Encoder
 	}
 	b.ObjStart()
 	b.PutID("notificationSettingsScopeChannelChats")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

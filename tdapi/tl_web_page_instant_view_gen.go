@@ -259,6 +259,7 @@ func (w *WebPageInstantView) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("webPageInstantView")
+	b.Comma()
 	b.FieldStart("page_blocks")
 	b.ArrStart()
 	for idx, v := range w.PageBlocks {
@@ -268,16 +269,23 @@ func (w *WebPageInstantView) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode webPageInstantView#2c0ec99c: field page_blocks element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("view_count")
 	b.PutInt32(w.ViewCount)
+	b.Comma()
 	b.FieldStart("version")
 	b.PutInt32(w.Version)
+	b.Comma()
 	b.FieldStart("is_rtl")
 	b.PutBool(w.IsRtl)
+	b.Comma()
 	b.FieldStart("is_full")
 	b.PutBool(w.IsFull)
+	b.Comma()
 	b.FieldStart("feedback_link")
 	if w.FeedbackLink == nil {
 		return fmt.Errorf("unable to encode webPageInstantView#2c0ec99c: field feedback_link is nil")
@@ -285,6 +293,8 @@ func (w *WebPageInstantView) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := w.FeedbackLink.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode webPageInstantView#2c0ec99c: field feedback_link: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

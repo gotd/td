@@ -150,10 +150,13 @@ func (s *SetAccountTTLRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setAccountTtl")
+	b.Comma()
 	b.FieldStart("ttl")
 	if err := s.TTL.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setAccountTtl#29ce58e8: field ttl: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

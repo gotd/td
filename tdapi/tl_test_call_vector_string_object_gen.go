@@ -165,14 +165,19 @@ func (t *TestCallVectorStringObjectRequest) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("testCallVectorStringObject")
+	b.Comma()
 	b.FieldStart("x")
 	b.ArrStart()
 	for idx, v := range t.X {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode testCallVectorStringObject#96cd6de: field x element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

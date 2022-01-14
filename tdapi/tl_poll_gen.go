@@ -336,28 +336,39 @@ func (p *Poll) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("poll")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutLong(p.ID)
+	b.Comma()
 	b.FieldStart("question")
 	b.PutString(p.Question)
+	b.Comma()
 	b.FieldStart("options")
 	b.ArrStart()
 	for idx, v := range p.Options {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode poll#834d7ae2: field options element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("total_voter_count")
 	b.PutInt32(p.TotalVoterCount)
+	b.Comma()
 	b.FieldStart("recent_voter_user_ids")
 	b.ArrStart()
 	for _, v := range p.RecentVoterUserIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("is_anonymous")
 	b.PutBool(p.IsAnonymous)
+	b.Comma()
 	b.FieldStart("type")
 	if p.Type == nil {
 		return fmt.Errorf("unable to encode poll#834d7ae2: field type is nil")
@@ -365,12 +376,17 @@ func (p *Poll) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode poll#834d7ae2: field type: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("open_period")
 	b.PutInt32(p.OpenPeriod)
+	b.Comma()
 	b.FieldStart("close_date")
 	b.PutInt32(p.CloseDate)
+	b.Comma()
 	b.FieldStart("is_closed")
 	b.PutBool(p.IsClosed)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

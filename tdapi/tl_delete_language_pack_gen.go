@@ -150,8 +150,11 @@ func (d *DeleteLanguagePackRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deleteLanguagePack")
+	b.Comma()
 	b.FieldStart("language_pack_id")
 	b.PutString(d.LanguagePackID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

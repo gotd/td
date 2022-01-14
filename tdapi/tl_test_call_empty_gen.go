@@ -132,6 +132,8 @@ func (t *TestCallEmptyRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("testCallEmpty")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

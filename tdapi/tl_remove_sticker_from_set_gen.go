@@ -155,6 +155,7 @@ func (r *RemoveStickerFromSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("removeStickerFromSet")
+	b.Comma()
 	b.FieldStart("sticker")
 	if r.Sticker == nil {
 		return fmt.Errorf("unable to encode removeStickerFromSet#61e1eea4: field sticker is nil")
@@ -162,6 +163,8 @@ func (r *RemoveStickerFromSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := r.Sticker.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode removeStickerFromSet#61e1eea4: field sticker: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

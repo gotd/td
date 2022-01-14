@@ -189,10 +189,13 @@ func (s *SaveApplicationLogEventRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("saveApplicationLogEvent")
+	b.Comma()
 	b.FieldStart("type")
 	b.PutString(s.Type)
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("data")
 	if s.Data == nil {
 		return fmt.Errorf("unable to encode saveApplicationLogEvent#cfa6c20e: field data is nil")
@@ -200,6 +203,8 @@ func (s *SaveApplicationLogEventRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	if err := s.Data.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode saveApplicationLogEvent#cfa6c20e: field data: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

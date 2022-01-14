@@ -172,8 +172,10 @@ func (d *DeleteChatMessagesBySenderRequest) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("deleteChatMessagesBySender")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(d.ChatID)
+	b.Comma()
 	b.FieldStart("sender_id")
 	if d.SenderID == nil {
 		return fmt.Errorf("unable to encode deleteChatMessagesBySender#ba9b2e67: field sender_id is nil")
@@ -181,6 +183,8 @@ func (d *DeleteChatMessagesBySenderRequest) EncodeTDLibJSON(b tdjson.Encoder) er
 	if err := d.SenderID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode deleteChatMessagesBySender#ba9b2e67: field sender_id: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

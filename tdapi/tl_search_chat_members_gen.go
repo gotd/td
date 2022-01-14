@@ -206,12 +206,16 @@ func (s *SearchChatMembersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchChatMembers")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("query")
 	b.PutString(s.Query)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(s.Limit)
+	b.Comma()
 	b.FieldStart("filter")
 	if s.Filter == nil {
 		return fmt.Errorf("unable to encode searchChatMembers#e56d46c5: field filter is nil")
@@ -219,6 +223,8 @@ func (s *SearchChatMembersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.Filter.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode searchChatMembers#e56d46c5: field filter: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

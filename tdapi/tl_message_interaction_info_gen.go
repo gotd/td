@@ -186,14 +186,19 @@ func (m *MessageInteractionInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageInteractionInfo")
+	b.Comma()
 	b.FieldStart("view_count")
 	b.PutInt32(m.ViewCount)
+	b.Comma()
 	b.FieldStart("forward_count")
 	b.PutInt32(m.ForwardCount)
+	b.Comma()
 	b.FieldStart("reply_info")
 	if err := m.ReplyInfo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageInteractionInfo#db00a42a: field reply_info: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

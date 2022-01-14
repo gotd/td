@@ -172,8 +172,10 @@ func (s *SetOptionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setOption")
+	b.Comma()
 	b.FieldStart("name")
 	b.PutString(s.Name)
+	b.Comma()
 	b.FieldStart("value")
 	if s.Value == nil {
 		return fmt.Errorf("unable to encode setOption#7e0b4ef2: field value is nil")
@@ -181,6 +183,8 @@ func (s *SetOptionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.Value.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setOption#7e0b4ef2: field value: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

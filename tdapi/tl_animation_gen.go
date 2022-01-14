@@ -287,30 +287,41 @@ func (a *Animation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("animation")
+	b.Comma()
 	b.FieldStart("duration")
 	b.PutInt32(a.Duration)
+	b.Comma()
 	b.FieldStart("width")
 	b.PutInt32(a.Width)
+	b.Comma()
 	b.FieldStart("height")
 	b.PutInt32(a.Height)
+	b.Comma()
 	b.FieldStart("file_name")
 	b.PutString(a.FileName)
+	b.Comma()
 	b.FieldStart("mime_type")
 	b.PutString(a.MimeType)
+	b.Comma()
 	b.FieldStart("has_stickers")
 	b.PutBool(a.HasStickers)
+	b.Comma()
 	b.FieldStart("minithumbnail")
 	if err := a.Minithumbnail.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode animation#cc00db3e: field minithumbnail: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("thumbnail")
 	if err := a.Thumbnail.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode animation#cc00db3e: field thumbnail: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("animation")
 	if err := a.Animation.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode animation#cc00db3e: field animation: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

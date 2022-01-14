@@ -216,20 +216,28 @@ func (s *StorageStatisticsByChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("storageStatisticsByChat")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("size")
 	b.PutInt53(s.Size)
+	b.Comma()
 	b.FieldStart("count")
 	b.PutInt32(s.Count)
+	b.Comma()
 	b.FieldStart("by_file_type")
 	b.ArrStart()
 	for idx, v := range s.ByFileType {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode storageStatisticsByChat#a5498fe4: field by_file_type element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

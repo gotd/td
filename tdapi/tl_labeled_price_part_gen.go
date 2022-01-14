@@ -167,10 +167,14 @@ func (l *LabeledPricePart) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("labeledPricePart")
+	b.Comma()
 	b.FieldStart("label")
 	b.PutString(l.Label)
+	b.Comma()
 	b.FieldStart("amount")
 	b.PutInt53(l.Amount)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

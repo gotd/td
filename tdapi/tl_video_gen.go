@@ -304,32 +304,44 @@ func (v *Video) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("video")
+	b.Comma()
 	b.FieldStart("duration")
 	b.PutInt32(v.Duration)
+	b.Comma()
 	b.FieldStart("width")
 	b.PutInt32(v.Width)
+	b.Comma()
 	b.FieldStart("height")
 	b.PutInt32(v.Height)
+	b.Comma()
 	b.FieldStart("file_name")
 	b.PutString(v.FileName)
+	b.Comma()
 	b.FieldStart("mime_type")
 	b.PutString(v.MimeType)
+	b.Comma()
 	b.FieldStart("has_stickers")
 	b.PutBool(v.HasStickers)
+	b.Comma()
 	b.FieldStart("supports_streaming")
 	b.PutBool(v.SupportsStreaming)
+	b.Comma()
 	b.FieldStart("minithumbnail")
 	if err := v.Minithumbnail.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode video#31a460cc: field minithumbnail: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("thumbnail")
 	if err := v.Thumbnail.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode video#31a460cc: field thumbnail: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("video")
 	if err := v.Video.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode video#31a460cc: field video: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

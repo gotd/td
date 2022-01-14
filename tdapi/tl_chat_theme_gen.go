@@ -184,16 +184,21 @@ func (c *ChatTheme) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatTheme")
+	b.Comma()
 	b.FieldStart("name")
 	b.PutString(c.Name)
+	b.Comma()
 	b.FieldStart("light_settings")
 	if err := c.LightSettings.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatTheme#f9406c39: field light_settings: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("dark_settings")
 	if err := c.DarkSettings.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatTheme#f9406c39: field dark_settings: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

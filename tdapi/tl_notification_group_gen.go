@@ -238,8 +238,10 @@ func (n *NotificationGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("notificationGroup")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutInt32(n.ID)
+	b.Comma()
 	b.FieldStart("type")
 	if n.Type == nil {
 		return fmt.Errorf("unable to encode notificationGroup#d02a41ba: field type is nil")
@@ -247,18 +249,25 @@ func (n *NotificationGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := n.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode notificationGroup#d02a41ba: field type: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(n.ChatID)
+	b.Comma()
 	b.FieldStart("total_count")
 	b.PutInt32(n.TotalCount)
+	b.Comma()
 	b.FieldStart("notifications")
 	b.ArrStart()
 	for idx, v := range n.Notifications {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode notificationGroup#d02a41ba: field notifications element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

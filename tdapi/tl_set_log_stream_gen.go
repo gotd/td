@@ -155,6 +155,7 @@ func (s *SetLogStreamRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setLogStream")
+	b.Comma()
 	b.FieldStart("log_stream")
 	if s.LogStream == nil {
 		return fmt.Errorf("unable to encode setLogStream#aeaff791: field log_stream is nil")
@@ -162,6 +163,8 @@ func (s *SetLogStreamRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.LogStream.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setLogStream#aeaff791: field log_stream: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

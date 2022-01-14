@@ -187,14 +187,19 @@ func (m *MessageCopyOptions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageCopyOptions")
+	b.Comma()
 	b.FieldStart("send_copy")
 	b.PutBool(m.SendCopy)
+	b.Comma()
 	b.FieldStart("replace_caption")
 	b.PutBool(m.ReplaceCaption)
+	b.Comma()
 	b.FieldStart("new_caption")
 	if err := m.NewCaption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode messageCopyOptions#48076039: field new_caption: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

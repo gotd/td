@@ -155,10 +155,13 @@ func (d *DiceStickersRegular) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("diceStickersRegular")
+	b.Comma()
 	b.FieldStart("sticker")
 	if err := d.Sticker.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode diceStickersRegular#d3dfecce: field sticker: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -388,26 +391,33 @@ func (d *DiceStickersSlotMachine) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("diceStickersSlotMachine")
+	b.Comma()
 	b.FieldStart("background")
 	if err := d.Background.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode diceStickersSlotMachine#e9a28cac: field background: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("lever")
 	if err := d.Lever.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode diceStickersSlotMachine#e9a28cac: field lever: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("left_reel")
 	if err := d.LeftReel.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode diceStickersSlotMachine#e9a28cac: field left_reel: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("center_reel")
 	if err := d.CenterReel.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode diceStickersSlotMachine#e9a28cac: field center_reel: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("right_reel")
 	if err := d.RightReel.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode diceStickersSlotMachine#e9a28cac: field right_reel: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

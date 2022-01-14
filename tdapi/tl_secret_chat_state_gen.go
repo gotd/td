@@ -137,6 +137,8 @@ func (s *SecretChatStatePending) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("secretChatStatePending")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (s *SecretChatStateReady) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("secretChatStateReady")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -395,6 +399,8 @@ func (s *SecretChatStateClosed) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("secretChatStateClosed")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

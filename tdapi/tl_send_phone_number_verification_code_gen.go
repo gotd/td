@@ -168,12 +168,16 @@ func (s *SendPhoneNumberVerificationCodeRequest) EncodeTDLibJSON(b tdjson.Encode
 	}
 	b.ObjStart()
 	b.PutID("sendPhoneNumberVerificationCode")
+	b.Comma()
 	b.FieldStart("phone_number")
 	b.PutString(s.PhoneNumber)
+	b.Comma()
 	b.FieldStart("settings")
 	if err := s.Settings.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode sendPhoneNumberVerificationCode#7c140dcb: field settings: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -150,8 +150,11 @@ func (g *GetRecentlyVisitedTMeURLsRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("getRecentlyVisitedTMeUrls")
+	b.Comma()
 	b.FieldStart("referrer")
 	b.PutString(g.Referrer)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

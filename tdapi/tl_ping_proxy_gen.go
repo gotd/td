@@ -150,8 +150,11 @@ func (p *PingProxyRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pingProxy")
+	b.Comma()
 	b.FieldStart("proxy_id")
 	b.PutInt32(p.ProxyID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

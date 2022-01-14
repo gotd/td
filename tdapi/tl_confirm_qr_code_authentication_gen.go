@@ -150,8 +150,11 @@ func (c *ConfirmQrCodeAuthenticationRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("confirmQrCodeAuthentication")
+	b.Comma()
 	b.FieldStart("link")
 	b.PutString(c.Link)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

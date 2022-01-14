@@ -235,20 +235,28 @@ func (p *PageBlockRelatedArticle) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockRelatedArticle")
+	b.Comma()
 	b.FieldStart("url")
 	b.PutString(p.URL)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(p.Title)
+	b.Comma()
 	b.FieldStart("description")
 	b.PutString(p.Description)
+	b.Comma()
 	b.FieldStart("photo")
 	if err := p.Photo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockRelatedArticle#1cae8493: field photo: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("author")
 	b.PutString(p.Author)
+	b.Comma()
 	b.FieldStart("publish_date")
 	b.PutInt32(p.PublishDate)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

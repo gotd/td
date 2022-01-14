@@ -137,6 +137,8 @@ func (a *AuthorizationStateWaitTdlibParameters) EncodeTDLibJSON(b tdjson.Encoder
 	}
 	b.ObjStart()
 	b.PutID("authorizationStateWaitTdlibParameters")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -284,8 +286,11 @@ func (a *AuthorizationStateWaitEncryptionKey) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("authorizationStateWaitEncryptionKey")
+	b.Comma()
 	b.FieldStart("is_encrypted")
 	b.PutBool(a.IsEncrypted)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -429,6 +434,8 @@ func (a *AuthorizationStateWaitPhoneNumber) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("authorizationStateWaitPhoneNumber")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -576,10 +583,13 @@ func (a *AuthorizationStateWaitCode) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("authorizationStateWaitCode")
+	b.Comma()
 	b.FieldStart("code_info")
 	if err := a.CodeInfo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode authorizationStateWaitCode#3234501: field code_info: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -739,8 +749,11 @@ func (a *AuthorizationStateWaitOtherDeviceConfirmation) EncodeTDLibJSON(b tdjson
 	}
 	b.ObjStart()
 	b.PutID("authorizationStateWaitOtherDeviceConfirmation")
+	b.Comma()
 	b.FieldStart("link")
 	b.PutString(a.Link)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -902,10 +915,13 @@ func (a *AuthorizationStateWaitRegistration) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("authorizationStateWaitRegistration")
+	b.Comma()
 	b.FieldStart("terms_of_service")
 	if err := a.TermsOfService.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode authorizationStateWaitRegistration#20cdaeaf: field terms_of_service: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1100,12 +1116,17 @@ func (a *AuthorizationStateWaitPassword) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("authorizationStateWaitPassword")
+	b.Comma()
 	b.FieldStart("password_hint")
 	b.PutString(a.PasswordHint)
+	b.Comma()
 	b.FieldStart("has_recovery_email_address")
 	b.PutBool(a.HasRecoveryEmailAddress)
+	b.Comma()
 	b.FieldStart("recovery_email_address_pattern")
 	b.PutString(a.RecoveryEmailAddressPattern)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1277,6 +1298,8 @@ func (a *AuthorizationStateReady) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("authorizationStateReady")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1406,6 +1429,8 @@ func (a *AuthorizationStateLoggingOut) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("authorizationStateLoggingOut")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1535,6 +1560,8 @@ func (a *AuthorizationStateClosing) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("authorizationStateClosing")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1664,6 +1691,8 @@ func (a *AuthorizationStateClosed) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("authorizationStateClosed")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

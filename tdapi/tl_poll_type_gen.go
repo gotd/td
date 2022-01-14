@@ -155,8 +155,11 @@ func (p *PollTypeRegular) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pollTypeRegular")
+	b.Comma()
 	b.FieldStart("allow_multiple_answers")
 	b.PutBool(p.AllowMultipleAnswers)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -336,12 +339,16 @@ func (p *PollTypeQuiz) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pollTypeQuiz")
+	b.Comma()
 	b.FieldStart("correct_option_id")
 	b.PutInt32(p.CorrectOptionID)
+	b.Comma()
 	b.FieldStart("explanation")
 	if err := p.Explanation.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode pollTypeQuiz#27293c99: field explanation: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

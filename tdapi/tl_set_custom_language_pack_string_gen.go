@@ -168,12 +168,16 @@ func (s *SetCustomLanguagePackStringRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("setCustomLanguagePackString")
+	b.Comma()
 	b.FieldStart("language_pack_id")
 	b.PutString(s.LanguagePackID)
+	b.Comma()
 	b.FieldStart("new_string")
 	if err := s.NewString.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setCustomLanguagePackString#4e762518: field new_string: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

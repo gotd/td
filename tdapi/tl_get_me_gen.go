@@ -132,6 +132,8 @@ func (g *GetMeRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getMe")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

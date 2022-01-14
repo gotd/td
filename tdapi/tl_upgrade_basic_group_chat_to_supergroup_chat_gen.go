@@ -150,8 +150,11 @@ func (u *UpgradeBasicGroupChatToSupergroupChatRequest) EncodeTDLibJSON(b tdjson.
 	}
 	b.ObjStart()
 	b.PutID("upgradeBasicGroupChatToSupergroupChat")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

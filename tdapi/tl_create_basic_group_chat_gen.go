@@ -168,10 +168,14 @@ func (c *CreateBasicGroupChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("createBasicGroupChat")
+	b.Comma()
 	b.FieldStart("basic_group_id")
 	b.PutInt53(c.BasicGroupID)
+	b.Comma()
 	b.FieldStart("force")
 	b.PutBool(c.Force)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

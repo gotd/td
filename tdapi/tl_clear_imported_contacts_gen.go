@@ -132,6 +132,8 @@ func (c *ClearImportedContactsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("clearImportedContacts")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -152,8 +152,11 @@ func (g *GetMessageImportConfirmationTextRequest) EncodeTDLibJSON(b tdjson.Encod
 	}
 	b.ObjStart()
 	b.PutID("getMessageImportConfirmationText")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

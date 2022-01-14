@@ -150,8 +150,11 @@ func (s *SearchPublicChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchPublicChat")
+	b.Comma()
 	b.FieldStart("username")
 	b.PutString(s.Username)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

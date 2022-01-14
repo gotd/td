@@ -167,10 +167,14 @@ func (g *GetStickersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getStickers")
+	b.Comma()
 	b.FieldStart("emoji")
 	b.PutString(g.Emoji)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -167,10 +167,14 @@ func (m *MessageLink) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageLink")
+	b.Comma()
 	b.FieldStart("link")
 	b.PutString(m.Link)
+	b.Comma()
 	b.FieldStart("is_public")
 	b.PutBool(m.IsPublic)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

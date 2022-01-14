@@ -150,10 +150,13 @@ func (s *SetLocationRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setLocation")
+	b.Comma()
 	b.FieldStart("location")
 	if err := s.Location.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setLocation#5993371: field location: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

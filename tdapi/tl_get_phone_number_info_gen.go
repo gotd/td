@@ -150,8 +150,11 @@ func (g *GetPhoneNumberInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getPhoneNumberInfo")
+	b.Comma()
 	b.FieldStart("phone_number_prefix")
 	b.PutString(g.PhoneNumberPrefix)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

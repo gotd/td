@@ -189,6 +189,7 @@ func (s *StorageStatisticsByFileType) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("storageStatisticsByFileType")
+	b.Comma()
 	b.FieldStart("file_type")
 	if s.FileType == nil {
 		return fmt.Errorf("unable to encode storageStatisticsByFileType#2a8ef8a8: field file_type is nil")
@@ -196,10 +197,14 @@ func (s *StorageStatisticsByFileType) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.FileType.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode storageStatisticsByFileType#2a8ef8a8: field file_type: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("size")
 	b.PutInt53(s.Size)
+	b.Comma()
 	b.FieldStart("count")
 	b.PutInt32(s.Count)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

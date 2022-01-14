@@ -137,6 +137,8 @@ func (u *UserStatusEmpty) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("userStatusEmpty")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -284,8 +286,11 @@ func (u *UserStatusOnline) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("userStatusOnline")
+	b.Comma()
 	b.FieldStart("expires")
 	b.PutInt32(u.Expires)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -447,8 +452,11 @@ func (u *UserStatusOffline) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("userStatusOffline")
+	b.Comma()
 	b.FieldStart("was_online")
 	b.PutInt32(u.WasOnline)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -592,6 +600,8 @@ func (u *UserStatusRecently) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("userStatusRecently")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -721,6 +731,8 @@ func (u *UserStatusLastWeek) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("userStatusLastWeek")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -850,6 +862,8 @@ func (u *UserStatusLastMonth) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("userStatusLastMonth")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

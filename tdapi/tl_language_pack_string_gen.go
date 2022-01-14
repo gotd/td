@@ -173,8 +173,10 @@ func (l *LanguagePackString) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("languagePackString")
+	b.Comma()
 	b.FieldStart("key")
 	b.PutString(l.Key)
+	b.Comma()
 	b.FieldStart("value")
 	if l.Value == nil {
 		return fmt.Errorf("unable to encode languagePackString#4df0e460: field value is nil")
@@ -182,6 +184,8 @@ func (l *LanguagePackString) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := l.Value.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode languagePackString#4df0e460: field value: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

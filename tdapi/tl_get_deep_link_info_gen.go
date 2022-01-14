@@ -150,8 +150,11 @@ func (g *GetDeepLinkInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getDeepLinkInfo")
+	b.Comma()
 	b.FieldStart("link")
 	b.PutString(g.Link)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -150,8 +150,11 @@ func (g *GetLanguagePackInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getLanguagePackInfo")
+	b.Comma()
 	b.FieldStart("language_pack_id")
 	b.PutString(g.LanguagePackID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

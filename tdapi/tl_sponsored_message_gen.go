@@ -230,14 +230,18 @@ func (s *SponsoredMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("sponsoredMessage")
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(s.MessageID)
+	b.Comma()
 	b.FieldStart("sponsor_chat_id")
 	b.PutInt53(s.SponsorChatID)
+	b.Comma()
 	b.FieldStart("sponsor_chat_info")
 	if err := s.SponsorChatInfo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode sponsoredMessage#ad7c99d8: field sponsor_chat_info: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("link")
 	if s.Link == nil {
 		return fmt.Errorf("unable to encode sponsoredMessage#ad7c99d8: field link is nil")
@@ -245,6 +249,7 @@ func (s *SponsoredMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.Link.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode sponsoredMessage#ad7c99d8: field link: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("content")
 	if s.Content == nil {
 		return fmt.Errorf("unable to encode sponsoredMessage#ad7c99d8: field content is nil")
@@ -252,6 +257,8 @@ func (s *SponsoredMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.Content.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode sponsoredMessage#ad7c99d8: field content: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

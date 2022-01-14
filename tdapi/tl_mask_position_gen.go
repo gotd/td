@@ -209,6 +209,7 @@ func (m *MaskPosition) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("maskPosition")
+	b.Comma()
 	b.FieldStart("point")
 	if m.Point == nil {
 		return fmt.Errorf("unable to encode maskPosition#82fbb63e: field point is nil")
@@ -216,12 +217,17 @@ func (m *MaskPosition) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := m.Point.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode maskPosition#82fbb63e: field point: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("x_shift")
 	b.PutDouble(m.XShift)
+	b.Comma()
 	b.FieldStart("y_shift")
 	b.PutDouble(m.YShift)
+	b.Comma()
 	b.FieldStart("scale")
 	b.PutDouble(m.Scale)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

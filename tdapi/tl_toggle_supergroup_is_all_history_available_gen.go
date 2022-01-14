@@ -167,10 +167,14 @@ func (t *ToggleSupergroupIsAllHistoryAvailableRequest) EncodeTDLibJSON(b tdjson.
 	}
 	b.ObjStart()
 	b.PutID("toggleSupergroupIsAllHistoryAvailable")
+	b.Comma()
 	b.FieldStart("supergroup_id")
 	b.PutInt53(t.SupergroupID)
+	b.Comma()
 	b.FieldStart("is_all_history_available")
 	b.PutBool(t.IsAllHistoryAvailable)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

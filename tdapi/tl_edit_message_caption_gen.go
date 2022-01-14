@@ -207,10 +207,13 @@ func (e *EditMessageCaptionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("editMessageCaption")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(e.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(e.MessageID)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if e.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode editMessageCaption#44d2f92e: field reply_markup is nil")
@@ -218,10 +221,13 @@ func (e *EditMessageCaptionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := e.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode editMessageCaption#44d2f92e: field reply_markup: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("caption")
 	if err := e.Caption.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode editMessageCaption#44d2f92e: field caption: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

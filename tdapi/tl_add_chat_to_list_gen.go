@@ -172,8 +172,10 @@ func (a *AddChatToListRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("addChatToList")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(a.ChatID)
+	b.Comma()
 	b.FieldStart("chat_list")
 	if a.ChatList == nil {
 		return fmt.Errorf("unable to encode addChatToList#fb334eb5: field chat_list is nil")
@@ -181,6 +183,8 @@ func (a *AddChatToListRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := a.ChatList.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode addChatToList#fb334eb5: field chat_list: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

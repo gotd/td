@@ -157,8 +157,11 @@ func (i *InputPassportElementErrorSourceUnspecified) EncodeTDLibJSON(b tdjson.En
 	}
 	b.ObjStart()
 	b.PutID("inputPassportElementErrorSourceUnspecified")
+	b.Comma()
 	b.FieldStart("element_hash")
 	b.PutBytes(i.ElementHash)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -339,10 +342,14 @@ func (i *InputPassportElementErrorSourceDataField) EncodeTDLibJSON(b tdjson.Enco
 	}
 	b.ObjStart()
 	b.PutID("inputPassportElementErrorSourceDataField")
+	b.Comma()
 	b.FieldStart("field_name")
 	b.PutString(i.FieldName)
+	b.Comma()
 	b.FieldStart("data_hash")
 	b.PutBytes(i.DataHash)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -520,8 +527,11 @@ func (i *InputPassportElementErrorSourceFrontSide) EncodeTDLibJSON(b tdjson.Enco
 	}
 	b.ObjStart()
 	b.PutID("inputPassportElementErrorSourceFrontSide")
+	b.Comma()
 	b.FieldStart("file_hash")
 	b.PutBytes(i.FileHash)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -685,8 +695,11 @@ func (i *InputPassportElementErrorSourceReverseSide) EncodeTDLibJSON(b tdjson.En
 	}
 	b.ObjStart()
 	b.PutID("inputPassportElementErrorSourceReverseSide")
+	b.Comma()
 	b.FieldStart("file_hash")
 	b.PutBytes(i.FileHash)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -850,8 +863,11 @@ func (i *InputPassportElementErrorSourceSelfie) EncodeTDLibJSON(b tdjson.Encoder
 	}
 	b.ObjStart()
 	b.PutID("inputPassportElementErrorSourceSelfie")
+	b.Comma()
 	b.FieldStart("file_hash")
 	b.PutBytes(i.FileHash)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1015,8 +1031,11 @@ func (i *InputPassportElementErrorSourceTranslationFile) EncodeTDLibJSON(b tdjso
 	}
 	b.ObjStart()
 	b.PutID("inputPassportElementErrorSourceTranslationFile")
+	b.Comma()
 	b.FieldStart("file_hash")
 	b.PutBytes(i.FileHash)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1193,12 +1212,17 @@ func (i *InputPassportElementErrorSourceTranslationFiles) EncodeTDLibJSON(b tdjs
 	}
 	b.ObjStart()
 	b.PutID("inputPassportElementErrorSourceTranslationFiles")
+	b.Comma()
 	b.FieldStart("file_hashes")
 	b.ArrStart()
 	for _, v := range i.FileHashes {
 		b.PutBytes(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1367,8 +1391,11 @@ func (i *InputPassportElementErrorSourceFile) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("inputPassportElementErrorSourceFile")
+	b.Comma()
 	b.FieldStart("file_hash")
 	b.PutBytes(i.FileHash)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1545,12 +1572,17 @@ func (i *InputPassportElementErrorSourceFiles) EncodeTDLibJSON(b tdjson.Encoder)
 	}
 	b.ObjStart()
 	b.PutID("inputPassportElementErrorSourceFiles")
+	b.Comma()
 	b.FieldStart("file_hashes")
 	b.ArrStart()
 	for _, v := range i.FileHashes {
 		b.PutBytes(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -155,8 +155,11 @@ func (c *ChatTypePrivate) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatTypePrivate")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(c.UserID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -318,8 +321,11 @@ func (c *ChatTypeBasicGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatTypeBasicGroup")
+	b.Comma()
 	b.FieldStart("basic_group_id")
 	b.PutInt53(c.BasicGroupID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -498,10 +504,14 @@ func (c *ChatTypeSupergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatTypeSupergroup")
+	b.Comma()
 	b.FieldStart("supergroup_id")
 	b.PutInt53(c.SupergroupID)
+	b.Comma()
 	b.FieldStart("is_channel")
 	b.PutBool(c.IsChannel)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -694,10 +704,14 @@ func (c *ChatTypeSecret) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatTypeSecret")
+	b.Comma()
 	b.FieldStart("secret_chat_id")
 	b.PutInt32(c.SecretChatID)
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(c.UserID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -200,6 +200,7 @@ func (p *PassportElementsWithErrors) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("passportElementsWithErrors")
+	b.Comma()
 	b.FieldStart("elements")
 	b.ArrStart()
 	for idx, v := range p.Elements {
@@ -209,16 +210,23 @@ func (p *PassportElementsWithErrors) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode passportElementsWithErrors#438d1abf: field elements element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("errors")
 	b.ArrStart()
 	for idx, v := range p.Errors {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode passportElementsWithErrors#438d1abf: field errors element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

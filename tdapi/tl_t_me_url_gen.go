@@ -172,8 +172,10 @@ func (t *TMeURL) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("tMeUrl")
+	b.Comma()
 	b.FieldStart("url")
 	b.PutString(t.URL)
+	b.Comma()
 	b.FieldStart("type")
 	if t.Type == nil {
 		return fmt.Errorf("unable to encode tMeUrl#bc00fa42: field type is nil")
@@ -181,6 +183,8 @@ func (t *TMeURL) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := t.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode tMeUrl#bc00fa42: field type: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

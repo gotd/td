@@ -184,14 +184,19 @@ func (t *TermsOfService) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("termsOfService")
+	b.Comma()
 	b.FieldStart("text")
 	if err := t.Text.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode termsOfService#2c12b185: field text: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("min_user_age")
 	b.PutInt32(t.MinUserAge)
+	b.Comma()
 	b.FieldStart("show_popup")
 	b.PutBool(t.ShowPopup)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

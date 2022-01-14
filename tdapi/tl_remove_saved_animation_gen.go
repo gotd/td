@@ -155,6 +155,7 @@ func (r *RemoveSavedAnimationRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("removeSavedAnimation")
+	b.Comma()
 	b.FieldStart("animation")
 	if r.Animation == nil {
 		return fmt.Errorf("unable to encode removeSavedAnimation#e275a919: field animation is nil")
@@ -162,6 +163,8 @@ func (r *RemoveSavedAnimationRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := r.Animation.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode removeSavedAnimation#e275a919: field animation: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -224,8 +224,10 @@ func (e *EditInlineMessageLiveLocationRequest) EncodeTDLibJSON(b tdjson.Encoder)
 	}
 	b.ObjStart()
 	b.PutID("editInlineMessageLiveLocation")
+	b.Comma()
 	b.FieldStart("inline_message_id")
 	b.PutString(e.InlineMessageID)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if e.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode editInlineMessageLiveLocation#f6a5da00: field reply_markup is nil")
@@ -233,14 +235,19 @@ func (e *EditInlineMessageLiveLocationRequest) EncodeTDLibJSON(b tdjson.Encoder)
 	if err := e.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode editInlineMessageLiveLocation#f6a5da00: field reply_markup: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("location")
 	if err := e.Location.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode editInlineMessageLiveLocation#f6a5da00: field location: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("heading")
 	b.PutInt32(e.Heading)
+	b.Comma()
 	b.FieldStart("proximity_alert_radius")
 	b.PutInt32(e.ProximityAlertRadius)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

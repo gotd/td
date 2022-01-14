@@ -168,10 +168,14 @@ func (c *CreateTemporaryPasswordRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("createTemporaryPassword")
+	b.Comma()
 	b.FieldStart("password")
 	b.PutString(c.Password)
+	b.Comma()
 	b.FieldStart("valid_for")
 	b.PutInt32(c.ValidFor)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -165,14 +165,19 @@ func (t *TMeURLs) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("tMeUrls")
+	b.Comma()
 	b.FieldStart("urls")
 	b.ArrStart()
 	for idx, v := range t.URLs {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode tMeUrls#655b1f52: field urls element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

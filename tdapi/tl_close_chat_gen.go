@@ -150,8 +150,11 @@ func (c *CloseChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("closeChat")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(c.ChatID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -189,10 +189,13 @@ func (g *GetCallbackQueryAnswerRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("getCallbackQueryAnswer")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(g.MessageID)
+	b.Comma()
 	b.FieldStart("payload")
 	if g.Payload == nil {
 		return fmt.Errorf("unable to encode getCallbackQueryAnswer#6ef7a5f: field payload is nil")
@@ -200,6 +203,8 @@ func (g *GetCallbackQueryAnswerRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	if err := g.Payload.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getCallbackQueryAnswer#6ef7a5f: field payload: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

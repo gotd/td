@@ -186,12 +186,17 @@ func (r *ReadFilePartRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("readFilePart")
+	b.Comma()
 	b.FieldStart("file_id")
 	b.PutInt32(r.FileID)
+	b.Comma()
 	b.FieldStart("offset")
 	b.PutInt32(r.Offset)
+	b.Comma()
 	b.FieldStart("count")
 	b.PutInt32(r.Count)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

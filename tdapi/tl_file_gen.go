@@ -219,20 +219,27 @@ func (f *File) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("file")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutInt32(f.ID)
+	b.Comma()
 	b.FieldStart("size")
 	b.PutInt32(f.Size)
+	b.Comma()
 	b.FieldStart("expected_size")
 	b.PutInt32(f.ExpectedSize)
+	b.Comma()
 	b.FieldStart("local")
 	if err := f.Local.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode file#2dad6278: field local: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("remote")
 	if err := f.Remote.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode file#2dad6278: field remote: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -168,10 +168,14 @@ func (c *CheckChatUsernameRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("checkChatUsername")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(c.ChatID)
+	b.Comma()
 	b.FieldStart("username")
 	b.PutString(c.Username)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

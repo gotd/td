@@ -150,8 +150,11 @@ func (c *CheckAuthenticationPasswordRecoveryCodeRequest) EncodeTDLibJSON(b tdjso
 	}
 	b.ObjStart()
 	b.PutID("checkAuthenticationPasswordRecoveryCode")
+	b.Comma()
 	b.FieldStart("recovery_code")
 	b.PutString(c.RecoveryCode)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

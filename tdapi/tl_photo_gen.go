@@ -200,20 +200,27 @@ func (p *Photo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("photo")
+	b.Comma()
 	b.FieldStart("has_stickers")
 	b.PutBool(p.HasStickers)
+	b.Comma()
 	b.FieldStart("minithumbnail")
 	if err := p.Minithumbnail.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode photo#105a0689: field minithumbnail: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("sizes")
 	b.ArrStart()
 	for idx, v := range p.Sizes {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode photo#105a0689: field sizes element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -167,10 +167,14 @@ func (s *SetNameRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setName")
+	b.Comma()
 	b.FieldStart("first_name")
 	b.PutString(s.FirstName)
+	b.Comma()
 	b.FieldStart("last_name")
 	b.PutString(s.LastName)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

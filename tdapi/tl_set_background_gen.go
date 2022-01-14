@@ -196,6 +196,7 @@ func (s *SetBackgroundRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setBackground")
+	b.Comma()
 	b.FieldStart("background")
 	if s.Background == nil {
 		return fmt.Errorf("unable to encode setBackground#c2487387: field background is nil")
@@ -203,6 +204,7 @@ func (s *SetBackgroundRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.Background.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setBackground#c2487387: field background: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("type")
 	if s.Type == nil {
 		return fmt.Errorf("unable to encode setBackground#c2487387: field type is nil")
@@ -210,8 +212,11 @@ func (s *SetBackgroundRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setBackground#c2487387: field type: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("for_dark_theme")
 	b.PutBool(s.ForDarkTheme)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

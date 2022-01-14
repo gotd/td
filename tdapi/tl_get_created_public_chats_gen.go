@@ -155,6 +155,7 @@ func (g *GetCreatedPublicChatsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getCreatedPublicChats")
+	b.Comma()
 	b.FieldStart("type")
 	if g.Type == nil {
 		return fmt.Errorf("unable to encode getCreatedPublicChats#2a5725ef: field type is nil")
@@ -162,6 +163,8 @@ func (g *GetCreatedPublicChatsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := g.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getCreatedPublicChats#2a5725ef: field type: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

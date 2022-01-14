@@ -221,16 +221,23 @@ func (s *ScopeNotificationSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("scopeNotificationSettings")
+	b.Comma()
 	b.FieldStart("mute_for")
 	b.PutInt32(s.MuteFor)
+	b.Comma()
 	b.FieldStart("sound")
 	b.PutString(s.Sound)
+	b.Comma()
 	b.FieldStart("show_preview")
 	b.PutBool(s.ShowPreview)
+	b.Comma()
 	b.FieldStart("disable_pinned_message_notifications")
 	b.PutBool(s.DisablePinnedMessageNotifications)
+	b.Comma()
 	b.FieldStart("disable_mention_notifications")
 	b.PutBool(s.DisableMentionNotifications)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -167,10 +167,14 @@ func (d *DeleteChatReplyMarkupRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deleteChatReplyMarkup")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(d.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(d.MessageID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -150,8 +150,11 @@ func (r *ReplacePrimaryChatInviteLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("replacePrimaryChatInviteLink")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(r.ChatID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

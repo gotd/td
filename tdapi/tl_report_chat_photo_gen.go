@@ -206,10 +206,13 @@ func (r *ReportChatPhotoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("reportChatPhoto")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(r.ChatID)
+	b.Comma()
 	b.FieldStart("file_id")
 	b.PutInt32(r.FileID)
+	b.Comma()
 	b.FieldStart("reason")
 	if r.Reason == nil {
 		return fmt.Errorf("unable to encode reportChatPhoto#2bc9e924: field reason is nil")
@@ -217,8 +220,11 @@ func (r *ReportChatPhotoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := r.Reason.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode reportChatPhoto#2bc9e924: field reason: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("text")
 	b.PutString(r.Text)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

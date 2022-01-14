@@ -167,10 +167,14 @@ func (t *ToggleSessionCanAcceptSecretChatsRequest) EncodeTDLibJSON(b tdjson.Enco
 	}
 	b.ObjStart()
 	b.PutID("toggleSessionCanAcceptSecretChats")
+	b.Comma()
 	b.FieldStart("session_id")
 	b.PutLong(t.SessionID)
+	b.Comma()
 	b.FieldStart("can_accept_secret_chats")
 	b.PutBool(t.CanAcceptSecretChats)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

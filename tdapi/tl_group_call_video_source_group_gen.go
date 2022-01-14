@@ -180,14 +180,20 @@ func (g *GroupCallVideoSourceGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("groupCallVideoSourceGroup")
+	b.Comma()
 	b.FieldStart("semantics")
 	b.PutString(g.Semantics)
+	b.Comma()
 	b.FieldStart("source_ids")
 	b.ArrStart()
 	for _, v := range g.SourceIDs {
 		b.PutInt32(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

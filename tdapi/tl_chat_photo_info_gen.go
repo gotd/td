@@ -203,20 +203,26 @@ func (c *ChatPhotoInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatPhotoInfo")
+	b.Comma()
 	b.FieldStart("small")
 	if err := c.Small.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatPhotoInfo#9f51bb6: field small: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("big")
 	if err := c.Big.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatPhotoInfo#9f51bb6: field big: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("minithumbnail")
 	if err := c.Minithumbnail.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatPhotoInfo#9f51bb6: field minithumbnail: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("has_animation")
 	b.PutBool(c.HasAnimation)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

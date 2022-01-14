@@ -150,8 +150,11 @@ func (s *Seconds) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("seconds")
+	b.Comma()
 	b.FieldStart("seconds")
 	b.PutDouble(s.Seconds)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

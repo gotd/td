@@ -167,10 +167,14 @@ func (s *SetChatThemeRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setChatTheme")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("theme_name")
 	b.PutString(s.ThemeName)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

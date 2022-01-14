@@ -150,10 +150,13 @@ func (g *GetChatFilterDefaultIconNameRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("getChatFilterDefaultIconName")
+	b.Comma()
 	b.FieldStart("filter")
 	if err := g.Filter.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getChatFilterDefaultIconName#b023d638: field filter: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

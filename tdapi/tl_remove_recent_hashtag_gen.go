@@ -150,8 +150,11 @@ func (r *RemoveRecentHashtagRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("removeRecentHashtag")
+	b.Comma()
 	b.FieldStart("hashtag")
 	b.PutString(r.Hashtag)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -184,14 +184,19 @@ func (s *SetChatDraftMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setChatDraftMessage")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("message_thread_id")
 	b.PutInt53(s.MessageThreadID)
+	b.Comma()
 	b.FieldStart("draft_message")
 	if err := s.DraftMessage.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setChatDraftMessage#645e1f1a: field draft_message: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

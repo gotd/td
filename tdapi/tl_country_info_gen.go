@@ -231,20 +231,29 @@ func (c *CountryInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("countryInfo")
+	b.Comma()
 	b.FieldStart("country_code")
 	b.PutString(c.CountryCode)
+	b.Comma()
 	b.FieldStart("name")
 	b.PutString(c.Name)
+	b.Comma()
 	b.FieldStart("english_name")
 	b.PutString(c.EnglishName)
+	b.Comma()
 	b.FieldStart("is_hidden")
 	b.PutBool(c.IsHidden)
+	b.Comma()
 	b.FieldStart("calling_codes")
 	b.ArrStart()
 	for _, v := range c.CallingCodes {
 		b.PutString(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -271,10 +271,13 @@ func (a *AnswerInlineQueryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("answerInlineQuery")
+	b.Comma()
 	b.FieldStart("inline_query_id")
 	b.PutLong(a.InlineQueryID)
+	b.Comma()
 	b.FieldStart("is_personal")
 	b.PutBool(a.IsPersonal)
+	b.Comma()
 	b.FieldStart("results")
 	b.ArrStart()
 	for idx, v := range a.Results {
@@ -284,16 +287,24 @@ func (a *AnswerInlineQueryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode answerInlineQuery#18ec5846: field results element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("cache_time")
 	b.PutInt32(a.CacheTime)
+	b.Comma()
 	b.FieldStart("next_offset")
 	b.PutString(a.NextOffset)
+	b.Comma()
 	b.FieldStart("switch_pm_text")
 	b.PutString(a.SwitchPmText)
+	b.Comma()
 	b.FieldStart("switch_pm_parameter")
 	b.PutString(a.SwitchPmParameter)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -167,10 +167,14 @@ func (s *SavedCredentials) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("savedCredentials")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutString(s.ID)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(s.Title)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

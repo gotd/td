@@ -150,10 +150,13 @@ func (e *EditCustomLanguagePackInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("editCustomLanguagePackInfo")
+	b.Comma()
 	b.FieldStart("info")
 	if err := e.Info.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode editCustomLanguagePackInfo#4eb91099: field info: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

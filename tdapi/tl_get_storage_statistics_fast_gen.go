@@ -132,6 +132,8 @@ func (g *GetStorageStatisticsFastRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("getStorageStatisticsFast")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

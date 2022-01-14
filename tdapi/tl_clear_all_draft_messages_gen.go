@@ -150,8 +150,11 @@ func (c *ClearAllDraftMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("clearAllDraftMessages")
+	b.Comma()
 	b.FieldStart("exclude_secret_chats")
 	b.PutBool(c.ExcludeSecretChats)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

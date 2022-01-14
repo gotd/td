@@ -236,16 +236,21 @@ func (s *SendMessageAlbumRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("sendMessageAlbum")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("message_thread_id")
 	b.PutInt53(s.MessageThreadID)
+	b.Comma()
 	b.FieldStart("reply_to_message_id")
 	b.PutInt53(s.ReplyToMessageID)
+	b.Comma()
 	b.FieldStart("options")
 	if err := s.Options.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode sendMessageAlbum#ae6f51e6: field options: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("input_message_contents")
 	b.ArrStart()
 	for idx, v := range s.InputMessageContents {
@@ -255,8 +260,12 @@ func (s *SendMessageAlbumRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode sendMessageAlbum#ae6f51e6: field input_message_contents element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -172,8 +172,10 @@ func (k *KeyboardButton) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("keyboardButton")
+	b.Comma()
 	b.FieldStart("text")
 	b.PutString(k.Text)
+	b.Comma()
 	b.FieldStart("type")
 	if k.Type == nil {
 		return fmt.Errorf("unable to encode keyboardButton#84a0ce74: field type is nil")
@@ -181,6 +183,8 @@ func (k *KeyboardButton) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := k.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode keyboardButton#84a0ce74: field type: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

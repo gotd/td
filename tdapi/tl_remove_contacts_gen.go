@@ -163,12 +163,17 @@ func (r *RemoveContactsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("removeContacts")
+	b.Comma()
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range r.UserIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

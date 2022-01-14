@@ -172,6 +172,7 @@ func (g *GetPassportElementRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getPassportElement")
+	b.Comma()
 	b.FieldStart("type")
 	if g.Type == nil {
 		return fmt.Errorf("unable to encode getPassportElement#8fcce17a: field type is nil")
@@ -179,8 +180,11 @@ func (g *GetPassportElementRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := g.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getPassportElement#8fcce17a: field type: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("password")
 	b.PutString(g.Password)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

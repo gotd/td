@@ -167,10 +167,14 @@ func (c *ClickAnimatedEmojiMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("clickAnimatedEmojiMessage")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(c.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(c.MessageID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

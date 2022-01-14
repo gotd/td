@@ -185,8 +185,10 @@ func (p *PageBlockListItem) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("pageBlockListItem")
+	b.Comma()
 	b.FieldStart("label")
 	b.PutString(p.Label)
+	b.Comma()
 	b.FieldStart("page_blocks")
 	b.ArrStart()
 	for idx, v := range p.PageBlocks {
@@ -196,8 +198,12 @@ func (p *PageBlockListItem) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode pageBlockListItem#5f521776: field page_blocks element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

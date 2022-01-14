@@ -184,14 +184,19 @@ func (g *GetPaymentFormRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getPaymentForm")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(g.MessageID)
+	b.Comma()
 	b.FieldStart("theme")
 	if err := g.Theme.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getPaymentForm#96e6319: field theme: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

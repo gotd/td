@@ -211,8 +211,10 @@ func (a *AuthenticationCodeInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("authenticationCodeInfo")
+	b.Comma()
 	b.FieldStart("phone_number")
 	b.PutString(a.PhoneNumber)
+	b.Comma()
 	b.FieldStart("type")
 	if a.Type == nil {
 		return fmt.Errorf("unable to encode authenticationCodeInfo#ccb82bb8: field type is nil")
@@ -220,6 +222,7 @@ func (a *AuthenticationCodeInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := a.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode authenticationCodeInfo#ccb82bb8: field type: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("next_type")
 	if a.NextType == nil {
 		return fmt.Errorf("unable to encode authenticationCodeInfo#ccb82bb8: field next_type is nil")
@@ -227,8 +230,11 @@ func (a *AuthenticationCodeInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := a.NextType.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode authenticationCodeInfo#ccb82bb8: field next_type: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("timeout")
 	b.PutInt32(a.Timeout)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

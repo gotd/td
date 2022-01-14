@@ -7,10 +7,11 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) EncodeTDLibJSON({{ $s.BufArg }} tdjson.E
     }
     {{ $s.BufArg }}.ObjStart()
     {{ $s.BufArg }}.PutID("{{ $s.RawName }}")
+    {{ $s.BufArg }}.Comma()
 {{- if hasFlags $s }}
     {{ $s.Receiver }}.SetFlags()
 {{- end }}
-{{- range $f := $s.Fields }}
+{{- range $i, $f := $s.Fields }}
     {{- if not $f.ConditionalBool }}
     {{- if $f.Conditional }}
     if {{ $s.Receiver }}.{{ $f.ConditionalField }}.Has({{ $f.ConditionalIndex }}) {
@@ -35,11 +36,15 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) EncodeTDLibJSON({{ $s.BufArg }} tdjson.E
     {{- else }}
         {{ $s.BufArg }}.Put{{ $f.Func }}(v)
     {{- end }}
+    {{ $s.BufArg }}.Comma()
     {{- if $f.DoubleVector }}
-        {{ $s.BufArg }}.ArrEnd()
         }
+        {{ $s.BufArg }}.StripComma()
+        {{ $s.BufArg }}.ArrEnd()
+        {{ $s.BufArg }}.Comma()
     {{- end }}
     }
+    {{ $s.BufArg }}.StripComma()
     {{ $s.BufArg }}.ArrEnd()
     {{- else }}
     {{- if $f.Encoder }}
@@ -61,7 +66,9 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) EncodeTDLibJSON({{ $s.BufArg }} tdjson.E
     }
     {{- end }}
     {{- end }}
+    {{ $s.BufArg }}.Comma()
 {{- end }}
+    {{ $s.BufArg }}.StripComma()
     {{ $s.BufArg }}.ObjEnd()
     return nil
 }

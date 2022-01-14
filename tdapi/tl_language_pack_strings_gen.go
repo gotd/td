@@ -165,14 +165,19 @@ func (l *LanguagePackStrings) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("languagePackStrings")
+	b.Comma()
 	b.FieldStart("strings")
 	b.ArrStart()
 	for idx, v := range l.Strings {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode languagePackStrings#4aa681ef: field strings element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

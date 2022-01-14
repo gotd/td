@@ -137,6 +137,8 @@ func (s *SupergroupMembersFilterRecent) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("supergroupMembersFilterRecent")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -284,8 +286,11 @@ func (s *SupergroupMembersFilterContacts) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("supergroupMembersFilterContacts")
+	b.Comma()
 	b.FieldStart("query")
 	b.PutString(s.Query)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -429,6 +434,8 @@ func (s *SupergroupMembersFilterAdministrators) EncodeTDLibJSON(b tdjson.Encoder
 	}
 	b.ObjStart()
 	b.PutID("supergroupMembersFilterAdministrators")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -576,8 +583,11 @@ func (s *SupergroupMembersFilterSearch) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("supergroupMembersFilterSearch")
+	b.Comma()
 	b.FieldStart("query")
 	b.PutString(s.Query)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -739,8 +749,11 @@ func (s *SupergroupMembersFilterRestricted) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("supergroupMembersFilterRestricted")
+	b.Comma()
 	b.FieldStart("query")
 	b.PutString(s.Query)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -902,8 +915,11 @@ func (s *SupergroupMembersFilterBanned) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("supergroupMembersFilterBanned")
+	b.Comma()
 	b.FieldStart("query")
 	b.PutString(s.Query)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1082,10 +1098,14 @@ func (s *SupergroupMembersFilterMention) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("supergroupMembersFilterMention")
+	b.Comma()
 	b.FieldStart("query")
 	b.PutString(s.Query)
+	b.Comma()
 	b.FieldStart("message_thread_id")
 	b.PutInt53(s.MessageThreadID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1243,6 +1263,8 @@ func (s *SupergroupMembersFilterBots) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("supergroupMembersFilterBots")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

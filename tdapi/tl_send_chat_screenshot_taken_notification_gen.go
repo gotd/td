@@ -150,8 +150,11 @@ func (s *SendChatScreenshotTakenNotificationRequest) EncodeTDLibJSON(b tdjson.En
 	}
 	b.ObjStart()
 	b.PutID("sendChatScreenshotTakenNotification")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

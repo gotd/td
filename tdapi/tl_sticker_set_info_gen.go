@@ -387,46 +387,65 @@ func (s *StickerSetInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("stickerSetInfo")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutLong(s.ID)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(s.Title)
+	b.Comma()
 	b.FieldStart("name")
 	b.PutString(s.Name)
+	b.Comma()
 	b.FieldStart("thumbnail")
 	if err := s.Thumbnail.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode stickerSetInfo#aba733ac: field thumbnail: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("thumbnail_outline")
 	b.ArrStart()
 	for idx, v := range s.ThumbnailOutline {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode stickerSetInfo#aba733ac: field thumbnail_outline element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("is_installed")
 	b.PutBool(s.IsInstalled)
+	b.Comma()
 	b.FieldStart("is_archived")
 	b.PutBool(s.IsArchived)
+	b.Comma()
 	b.FieldStart("is_official")
 	b.PutBool(s.IsOfficial)
+	b.Comma()
 	b.FieldStart("is_animated")
 	b.PutBool(s.IsAnimated)
+	b.Comma()
 	b.FieldStart("is_masks")
 	b.PutBool(s.IsMasks)
+	b.Comma()
 	b.FieldStart("is_viewed")
 	b.PutBool(s.IsViewed)
+	b.Comma()
 	b.FieldStart("size")
 	b.PutInt32(s.Size)
+	b.Comma()
 	b.FieldStart("covers")
 	b.ArrStart()
 	for idx, v := range s.Covers {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode stickerSetInfo#aba733ac: field covers element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -168,6 +168,7 @@ func (c *ChatLists) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatLists")
+	b.Comma()
 	b.FieldStart("chat_lists")
 	b.ArrStart()
 	for idx, v := range c.ChatLists {
@@ -177,8 +178,12 @@ func (c *ChatLists) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode chatLists#92c2d216: field chat_lists element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

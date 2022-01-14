@@ -155,8 +155,11 @@ func (t *TMeURLTypeUser) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("tMeUrlTypeUser")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(t.UserID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -318,8 +321,11 @@ func (t *TMeURLTypeSupergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("tMeUrlTypeSupergroup")
+	b.Comma()
 	b.FieldStart("supergroup_id")
 	b.PutInt53(t.SupergroupID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -481,10 +487,13 @@ func (t *TMeURLTypeChatInvite) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("tMeUrlTypeChatInvite")
+	b.Comma()
 	b.FieldStart("info")
 	if err := t.Info.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode tMeUrlTypeChatInvite#12b5da49: field info: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -644,8 +653,11 @@ func (t *TMeURLTypeStickerSet) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("tMeUrlTypeStickerSet")
+	b.Comma()
 	b.FieldStart("sticker_set_id")
 	b.PutLong(t.StickerSetID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

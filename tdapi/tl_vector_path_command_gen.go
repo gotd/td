@@ -155,10 +155,13 @@ func (v *VectorPathCommandLine) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("vectorPathCommandLine")
+	b.Comma()
 	b.FieldStart("end_point")
 	if err := v.EndPoint.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode vectorPathCommandLine#db663c8a: field end_point: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -352,18 +355,23 @@ func (v *VectorPathCommandCubicBezierCurve) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("vectorPathCommandCubicBezierCurve")
+	b.Comma()
 	b.FieldStart("start_control_point")
 	if err := v.StartControlPoint.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode vectorPathCommandCubicBezierCurve#494c3e3a: field start_control_point: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("end_control_point")
 	if err := v.EndControlPoint.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode vectorPathCommandCubicBezierCurve#494c3e3a: field end_control_point: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("end_point")
 	if err := v.EndPoint.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode vectorPathCommandCubicBezierCurve#494c3e3a: field end_point: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

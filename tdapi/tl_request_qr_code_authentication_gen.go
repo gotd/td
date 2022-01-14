@@ -163,12 +163,17 @@ func (r *RequestQrCodeAuthenticationRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("requestQrCodeAuthentication")
+	b.Comma()
 	b.FieldStart("other_user_ids")
 	b.ArrStart()
 	for _, v := range r.OtherUserIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

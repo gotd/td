@@ -184,12 +184,17 @@ func (c *ChatInviteLinkCount) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatInviteLinkCount")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(c.UserID)
+	b.Comma()
 	b.FieldStart("invite_link_count")
 	b.PutInt32(c.InviteLinkCount)
+	b.Comma()
 	b.FieldStart("revoked_invite_link_count")
 	b.PutInt32(c.RevokedInviteLinkCount)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

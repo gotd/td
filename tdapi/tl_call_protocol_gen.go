@@ -231,20 +231,29 @@ func (c *CallProtocol) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("callProtocol")
+	b.Comma()
 	b.FieldStart("udp_p2p")
 	b.PutBool(c.UDPP2P)
+	b.Comma()
 	b.FieldStart("udp_reflector")
 	b.PutBool(c.UDPReflector)
+	b.Comma()
 	b.FieldStart("min_layer")
 	b.PutInt32(c.MinLayer)
+	b.Comma()
 	b.FieldStart("max_layer")
 	b.PutInt32(c.MaxLayer)
+	b.Comma()
 	b.FieldStart("library_versions")
 	b.ArrStart()
 	for _, v := range c.LibraryVersions {
 		b.PutString(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

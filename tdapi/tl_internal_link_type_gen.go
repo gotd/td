@@ -137,6 +137,8 @@ func (i *InternalLinkTypeActiveSessions) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeActiveSessions")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -284,8 +286,11 @@ func (i *InternalLinkTypeAuthenticationCode) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeAuthenticationCode")
+	b.Comma()
 	b.FieldStart("code")
 	b.PutString(i.Code)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -447,8 +452,11 @@ func (i *InternalLinkTypeBackground) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeBackground")
+	b.Comma()
 	b.FieldStart("background_name")
 	b.PutString(i.BackgroundName)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -627,10 +635,14 @@ func (i *InternalLinkTypeBotStart) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeBotStart")
+	b.Comma()
 	b.FieldStart("bot_username")
 	b.PutString(i.BotUsername)
+	b.Comma()
 	b.FieldStart("start_parameter")
 	b.PutString(i.StartParameter)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -823,10 +835,14 @@ func (i *InternalLinkTypeBotStartInGroup) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeBotStartInGroup")
+	b.Comma()
 	b.FieldStart("bot_username")
 	b.PutString(i.BotUsername)
+	b.Comma()
 	b.FieldStart("start_parameter")
 	b.PutString(i.StartParameter)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -984,6 +1000,8 @@ func (i *InternalLinkTypeChangePhoneNumber) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeChangePhoneNumber")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1131,8 +1149,11 @@ func (i *InternalLinkTypeChatInvite) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeChatInvite")
+	b.Comma()
 	b.FieldStart("invite_link")
 	b.PutString(i.InviteLink)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1276,6 +1297,8 @@ func (i *InternalLinkTypeFilterSettings) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeFilterSettings")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1440,10 +1463,14 @@ func (i *InternalLinkTypeGame) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeGame")
+	b.Comma()
 	b.FieldStart("bot_username")
 	b.PutString(i.BotUsername)
+	b.Comma()
 	b.FieldStart("game_short_name")
 	b.PutString(i.GameShortName)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1619,8 +1646,11 @@ func (i *InternalLinkTypeLanguagePack) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeLanguagePack")
+	b.Comma()
 	b.FieldStart("language_pack_id")
 	b.PutString(i.LanguagePackID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1782,8 +1812,11 @@ func (i *InternalLinkTypeMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeMessage")
+	b.Comma()
 	b.FieldStart("url")
 	b.PutString(i.URL)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1963,12 +1996,16 @@ func (i *InternalLinkTypeMessageDraft) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeMessageDraft")
+	b.Comma()
 	b.FieldStart("text")
 	if err := i.Text.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode internalLinkTypeMessageDraft#276fbad5: field text: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("contains_link")
 	b.PutBool(i.ContainsLink)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2213,16 +2250,23 @@ func (i *InternalLinkTypePassportDataRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypePassportDataRequest")
+	b.Comma()
 	b.FieldStart("bot_user_id")
 	b.PutInt53(i.BotUserID)
+	b.Comma()
 	b.FieldStart("scope")
 	b.PutString(i.Scope)
+	b.Comma()
 	b.FieldStart("public_key")
 	b.PutString(i.PublicKey)
+	b.Comma()
 	b.FieldStart("nonce")
 	b.PutString(i.Nonce)
+	b.Comma()
 	b.FieldStart("callback_url")
 	b.PutString(i.CallbackURL)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2457,10 +2501,14 @@ func (i *InternalLinkTypePhoneNumberConfirmation) EncodeTDLibJSON(b tdjson.Encod
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypePhoneNumberConfirmation")
+	b.Comma()
 	b.FieldStart("hash")
 	b.PutString(i.Hash)
+	b.Comma()
 	b.FieldStart("phone_number")
 	b.PutString(i.PhoneNumber)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2675,10 +2723,13 @@ func (i *InternalLinkTypeProxy) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeProxy")
+	b.Comma()
 	b.FieldStart("server")
 	b.PutString(i.Server)
+	b.Comma()
 	b.FieldStart("port")
 	b.PutInt32(i.Port)
+	b.Comma()
 	b.FieldStart("type")
 	if i.Type == nil {
 		return fmt.Errorf("unable to encode internalLinkTypeProxy#b1b12cea: field type is nil")
@@ -2686,6 +2737,8 @@ func (i *InternalLinkTypeProxy) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := i.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode internalLinkTypeProxy#b1b12cea: field type: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2875,8 +2928,11 @@ func (i *InternalLinkTypePublicChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypePublicChat")
+	b.Comma()
 	b.FieldStart("chat_username")
 	b.PutString(i.ChatUsername)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3020,6 +3076,8 @@ func (i *InternalLinkTypeQrCodeAuthentication) EncodeTDLibJSON(b tdjson.Encoder)
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeQrCodeAuthentication")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3149,6 +3207,8 @@ func (i *InternalLinkTypeSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeSettings")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3296,8 +3356,11 @@ func (i *InternalLinkTypeStickerSet) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeStickerSet")
+	b.Comma()
 	b.FieldStart("sticker_set_name")
 	b.PutString(i.StickerSetName)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3459,8 +3522,11 @@ func (i *InternalLinkTypeTheme) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeTheme")
+	b.Comma()
 	b.FieldStart("theme_name")
 	b.PutString(i.ThemeName)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3604,6 +3670,8 @@ func (i *InternalLinkTypeThemeSettings) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeThemeSettings")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3751,8 +3819,11 @@ func (i *InternalLinkTypeUnknownDeepLink) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeUnknownDeepLink")
+	b.Comma()
 	b.FieldStart("link")
 	b.PutString(i.Link)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3896,6 +3967,8 @@ func (i *InternalLinkTypeUnsupportedProxy) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeUnsupportedProxy")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4079,12 +4152,17 @@ func (i *InternalLinkTypeVideoChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeVideoChat")
+	b.Comma()
 	b.FieldStart("chat_username")
 	b.PutString(i.ChatUsername)
+	b.Comma()
 	b.FieldStart("invite_hash")
 	b.PutString(i.InviteHash)
+	b.Comma()
 	b.FieldStart("is_live_stream")
 	b.PutBool(i.IsLiveStream)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

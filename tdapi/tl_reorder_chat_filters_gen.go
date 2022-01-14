@@ -163,12 +163,17 @@ func (r *ReorderChatFiltersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("reorderChatFilters")
+	b.Comma()
 	b.FieldStart("chat_filter_ids")
 	b.ArrStart()
 	for _, v := range r.ChatFilterIDs {
 		b.PutInt32(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

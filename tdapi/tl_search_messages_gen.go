@@ -303,6 +303,7 @@ func (s *SearchMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchMessages")
+	b.Comma()
 	b.FieldStart("chat_list")
 	if s.ChatList == nil {
 		return fmt.Errorf("unable to encode searchMessages#f2938192: field chat_list is nil")
@@ -310,16 +311,22 @@ func (s *SearchMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.ChatList.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode searchMessages#f2938192: field chat_list: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("query")
 	b.PutString(s.Query)
+	b.Comma()
 	b.FieldStart("offset_date")
 	b.PutInt32(s.OffsetDate)
+	b.Comma()
 	b.FieldStart("offset_chat_id")
 	b.PutInt53(s.OffsetChatID)
+	b.Comma()
 	b.FieldStart("offset_message_id")
 	b.PutInt53(s.OffsetMessageID)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(s.Limit)
+	b.Comma()
 	b.FieldStart("filter")
 	if s.Filter == nil {
 		return fmt.Errorf("unable to encode searchMessages#f2938192: field filter is nil")
@@ -327,10 +334,14 @@ func (s *SearchMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.Filter.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode searchMessages#f2938192: field filter: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("min_date")
 	b.PutInt32(s.MinDate)
+	b.Comma()
 	b.FieldStart("max_date")
 	b.PutInt32(s.MaxDate)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

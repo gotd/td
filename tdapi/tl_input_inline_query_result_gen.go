@@ -339,24 +339,34 @@ func (i *InputInlineQueryResultAnimation) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("inputInlineQueryResultAnimation")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutString(i.ID)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(i.Title)
+	b.Comma()
 	b.FieldStart("thumbnail_url")
 	b.PutString(i.ThumbnailURL)
+	b.Comma()
 	b.FieldStart("thumbnail_mime_type")
 	b.PutString(i.ThumbnailMimeType)
+	b.Comma()
 	b.FieldStart("video_url")
 	b.PutString(i.VideoURL)
+	b.Comma()
 	b.FieldStart("video_mime_type")
 	b.PutString(i.VideoMimeType)
+	b.Comma()
 	b.FieldStart("video_duration")
 	b.PutInt32(i.VideoDuration)
+	b.Comma()
 	b.FieldStart("video_width")
 	b.PutInt32(i.VideoWidth)
+	b.Comma()
 	b.FieldStart("video_height")
 	b.PutInt32(i.VideoHeight)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if i.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultAnimation#a7335216: field reply_markup is nil")
@@ -364,6 +374,7 @@ func (i *InputInlineQueryResultAnimation) EncodeTDLibJSON(b tdjson.Encoder) erro
 	if err := i.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultAnimation#a7335216: field reply_markup: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("input_message_content")
 	if i.InputMessageContent == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultAnimation#a7335216: field input_message_content is nil")
@@ -371,6 +382,8 @@ func (i *InputInlineQueryResultAnimation) EncodeTDLibJSON(b tdjson.Encoder) erro
 	if err := i.InputMessageContent.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultAnimation#a7335216: field input_message_content: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -838,22 +851,31 @@ func (i *InputInlineQueryResultArticle) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("inputInlineQueryResultArticle")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutString(i.ID)
+	b.Comma()
 	b.FieldStart("url")
 	b.PutString(i.URL)
+	b.Comma()
 	b.FieldStart("hide_url")
 	b.PutBool(i.HideURL)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(i.Title)
+	b.Comma()
 	b.FieldStart("description")
 	b.PutString(i.Description)
+	b.Comma()
 	b.FieldStart("thumbnail_url")
 	b.PutString(i.ThumbnailURL)
+	b.Comma()
 	b.FieldStart("thumbnail_width")
 	b.PutInt32(i.ThumbnailWidth)
+	b.Comma()
 	b.FieldStart("thumbnail_height")
 	b.PutInt32(i.ThumbnailHeight)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if i.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultArticle#75a3d10c: field reply_markup is nil")
@@ -861,6 +883,7 @@ func (i *InputInlineQueryResultArticle) EncodeTDLibJSON(b tdjson.Encoder) error 
 	if err := i.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultArticle#75a3d10c: field reply_markup: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("input_message_content")
 	if i.InputMessageContent == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultArticle#75a3d10c: field input_message_content is nil")
@@ -868,6 +891,8 @@ func (i *InputInlineQueryResultArticle) EncodeTDLibJSON(b tdjson.Encoder) error 
 	if err := i.InputMessageContent.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultArticle#75a3d10c: field input_message_content: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1270,16 +1295,22 @@ func (i *InputInlineQueryResultAudio) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputInlineQueryResultAudio")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutString(i.ID)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(i.Title)
+	b.Comma()
 	b.FieldStart("performer")
 	b.PutString(i.Performer)
+	b.Comma()
 	b.FieldStart("audio_url")
 	b.PutString(i.AudioURL)
+	b.Comma()
 	b.FieldStart("audio_duration")
 	b.PutInt32(i.AudioDuration)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if i.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultAudio#4b1c35d4: field reply_markup is nil")
@@ -1287,6 +1318,7 @@ func (i *InputInlineQueryResultAudio) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := i.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultAudio#4b1c35d4: field reply_markup: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("input_message_content")
 	if i.InputMessageContent == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultAudio#4b1c35d4: field input_message_content is nil")
@@ -1294,6 +1326,8 @@ func (i *InputInlineQueryResultAudio) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := i.InputMessageContent.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultAudio#4b1c35d4: field input_message_content: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1654,18 +1688,24 @@ func (i *InputInlineQueryResultContact) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("inputInlineQueryResultContact")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutString(i.ID)
+	b.Comma()
 	b.FieldStart("contact")
 	if err := i.Contact.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultContact#6e08b5d2: field contact: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("thumbnail_url")
 	b.PutString(i.ThumbnailURL)
+	b.Comma()
 	b.FieldStart("thumbnail_width")
 	b.PutInt32(i.ThumbnailWidth)
+	b.Comma()
 	b.FieldStart("thumbnail_height")
 	b.PutInt32(i.ThumbnailHeight)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if i.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultContact#6e08b5d2: field reply_markup is nil")
@@ -1673,6 +1713,7 @@ func (i *InputInlineQueryResultContact) EncodeTDLibJSON(b tdjson.Encoder) error 
 	if err := i.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultContact#6e08b5d2: field reply_markup: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("input_message_content")
 	if i.InputMessageContent == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultContact#6e08b5d2: field input_message_content is nil")
@@ -1680,6 +1721,8 @@ func (i *InputInlineQueryResultContact) EncodeTDLibJSON(b tdjson.Encoder) error 
 	if err := i.InputMessageContent.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultContact#6e08b5d2: field input_message_content: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2090,22 +2133,31 @@ func (i *InputInlineQueryResultDocument) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("inputInlineQueryResultDocument")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutString(i.ID)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(i.Title)
+	b.Comma()
 	b.FieldStart("description")
 	b.PutString(i.Description)
+	b.Comma()
 	b.FieldStart("document_url")
 	b.PutString(i.DocumentURL)
+	b.Comma()
 	b.FieldStart("mime_type")
 	b.PutString(i.MimeType)
+	b.Comma()
 	b.FieldStart("thumbnail_url")
 	b.PutString(i.ThumbnailURL)
+	b.Comma()
 	b.FieldStart("thumbnail_width")
 	b.PutInt32(i.ThumbnailWidth)
+	b.Comma()
 	b.FieldStart("thumbnail_height")
 	b.PutInt32(i.ThumbnailHeight)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if i.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultDocument#227fd0cd: field reply_markup is nil")
@@ -2113,6 +2165,7 @@ func (i *InputInlineQueryResultDocument) EncodeTDLibJSON(b tdjson.Encoder) error
 	if err := i.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultDocument#227fd0cd: field reply_markup: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("input_message_content")
 	if i.InputMessageContent == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultDocument#227fd0cd: field input_message_content is nil")
@@ -2120,6 +2173,8 @@ func (i *InputInlineQueryResultDocument) EncodeTDLibJSON(b tdjson.Encoder) error
 	if err := i.InputMessageContent.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultDocument#227fd0cd: field input_message_content: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2447,10 +2502,13 @@ func (i *InputInlineQueryResultGame) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputInlineQueryResultGame")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutString(i.ID)
+	b.Comma()
 	b.FieldStart("game_short_name")
 	b.PutString(i.GameShortName)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if i.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultGame#39951fd7: field reply_markup is nil")
@@ -2458,6 +2516,8 @@ func (i *InputInlineQueryResultGame) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := i.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultGame#39951fd7: field reply_markup: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2797,22 +2857,30 @@ func (i *InputInlineQueryResultLocation) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("inputInlineQueryResultLocation")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutString(i.ID)
+	b.Comma()
 	b.FieldStart("location")
 	if err := i.Location.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultLocation#8f7cbe56: field location: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("live_period")
 	b.PutInt32(i.LivePeriod)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(i.Title)
+	b.Comma()
 	b.FieldStart("thumbnail_url")
 	b.PutString(i.ThumbnailURL)
+	b.Comma()
 	b.FieldStart("thumbnail_width")
 	b.PutInt32(i.ThumbnailWidth)
+	b.Comma()
 	b.FieldStart("thumbnail_height")
 	b.PutInt32(i.ThumbnailHeight)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if i.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultLocation#8f7cbe56: field reply_markup is nil")
@@ -2820,6 +2888,7 @@ func (i *InputInlineQueryResultLocation) EncodeTDLibJSON(b tdjson.Encoder) error
 	if err := i.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultLocation#8f7cbe56: field reply_markup: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("input_message_content")
 	if i.InputMessageContent == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultLocation#8f7cbe56: field input_message_content is nil")
@@ -2827,6 +2896,8 @@ func (i *InputInlineQueryResultLocation) EncodeTDLibJSON(b tdjson.Encoder) error
 	if err := i.InputMessageContent.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultLocation#8f7cbe56: field input_message_content: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3247,20 +3318,28 @@ func (i *InputInlineQueryResultPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputInlineQueryResultPhoto")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutString(i.ID)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(i.Title)
+	b.Comma()
 	b.FieldStart("description")
 	b.PutString(i.Description)
+	b.Comma()
 	b.FieldStart("thumbnail_url")
 	b.PutString(i.ThumbnailURL)
+	b.Comma()
 	b.FieldStart("photo_url")
 	b.PutString(i.PhotoURL)
+	b.Comma()
 	b.FieldStart("photo_width")
 	b.PutInt32(i.PhotoWidth)
+	b.Comma()
 	b.FieldStart("photo_height")
 	b.PutInt32(i.PhotoHeight)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if i.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultPhoto#bd0b361f: field reply_markup is nil")
@@ -3268,6 +3347,7 @@ func (i *InputInlineQueryResultPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := i.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultPhoto#bd0b361f: field reply_markup: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("input_message_content")
 	if i.InputMessageContent == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultPhoto#bd0b361f: field input_message_content is nil")
@@ -3275,6 +3355,8 @@ func (i *InputInlineQueryResultPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := i.InputMessageContent.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultPhoto#bd0b361f: field input_message_content: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3663,16 +3745,22 @@ func (i *InputInlineQueryResultSticker) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("inputInlineQueryResultSticker")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutString(i.ID)
+	b.Comma()
 	b.FieldStart("thumbnail_url")
 	b.PutString(i.ThumbnailURL)
+	b.Comma()
 	b.FieldStart("sticker_url")
 	b.PutString(i.StickerURL)
+	b.Comma()
 	b.FieldStart("sticker_width")
 	b.PutInt32(i.StickerWidth)
+	b.Comma()
 	b.FieldStart("sticker_height")
 	b.PutInt32(i.StickerHeight)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if i.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultSticker#10550459: field reply_markup is nil")
@@ -3680,6 +3768,7 @@ func (i *InputInlineQueryResultSticker) EncodeTDLibJSON(b tdjson.Encoder) error 
 	if err := i.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultSticker#10550459: field reply_markup: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("input_message_content")
 	if i.InputMessageContent == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultSticker#10550459: field input_message_content is nil")
@@ -3687,6 +3776,8 @@ func (i *InputInlineQueryResultSticker) EncodeTDLibJSON(b tdjson.Encoder) error 
 	if err := i.InputMessageContent.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultSticker#10550459: field input_message_content: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4047,18 +4138,24 @@ func (i *InputInlineQueryResultVenue) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputInlineQueryResultVenue")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutString(i.ID)
+	b.Comma()
 	b.FieldStart("venue")
 	if err := i.Venue.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultVenue#2049c13d: field venue: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("thumbnail_url")
 	b.PutString(i.ThumbnailURL)
+	b.Comma()
 	b.FieldStart("thumbnail_width")
 	b.PutInt32(i.ThumbnailWidth)
+	b.Comma()
 	b.FieldStart("thumbnail_height")
 	b.PutInt32(i.ThumbnailHeight)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if i.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultVenue#2049c13d: field reply_markup is nil")
@@ -4066,6 +4163,7 @@ func (i *InputInlineQueryResultVenue) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := i.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultVenue#2049c13d: field reply_markup: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("input_message_content")
 	if i.InputMessageContent == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultVenue#2049c13d: field input_message_content is nil")
@@ -4073,6 +4171,8 @@ func (i *InputInlineQueryResultVenue) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := i.InputMessageContent.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultVenue#2049c13d: field input_message_content: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4500,24 +4600,34 @@ func (i *InputInlineQueryResultVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inputInlineQueryResultVideo")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutString(i.ID)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(i.Title)
+	b.Comma()
 	b.FieldStart("description")
 	b.PutString(i.Description)
+	b.Comma()
 	b.FieldStart("thumbnail_url")
 	b.PutString(i.ThumbnailURL)
+	b.Comma()
 	b.FieldStart("video_url")
 	b.PutString(i.VideoURL)
+	b.Comma()
 	b.FieldStart("mime_type")
 	b.PutString(i.MimeType)
+	b.Comma()
 	b.FieldStart("video_width")
 	b.PutInt32(i.VideoWidth)
+	b.Comma()
 	b.FieldStart("video_height")
 	b.PutInt32(i.VideoHeight)
+	b.Comma()
 	b.FieldStart("video_duration")
 	b.PutInt32(i.VideoDuration)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if i.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultVideo#66c344e7: field reply_markup is nil")
@@ -4525,6 +4635,7 @@ func (i *InputInlineQueryResultVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := i.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultVideo#66c344e7: field reply_markup: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("input_message_content")
 	if i.InputMessageContent == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultVideo#66c344e7: field input_message_content is nil")
@@ -4532,6 +4643,8 @@ func (i *InputInlineQueryResultVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := i.InputMessageContent.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultVideo#66c344e7: field input_message_content: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4931,14 +5044,19 @@ func (i *InputInlineQueryResultVoiceNote) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("inputInlineQueryResultVoiceNote")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutString(i.ID)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(i.Title)
+	b.Comma()
 	b.FieldStart("voice_note_url")
 	b.PutString(i.VoiceNoteURL)
+	b.Comma()
 	b.FieldStart("voice_note_duration")
 	b.PutInt32(i.VoiceNoteDuration)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if i.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultVoiceNote#954da949: field reply_markup is nil")
@@ -4946,6 +5064,7 @@ func (i *InputInlineQueryResultVoiceNote) EncodeTDLibJSON(b tdjson.Encoder) erro
 	if err := i.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultVoiceNote#954da949: field reply_markup: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("input_message_content")
 	if i.InputMessageContent == nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultVoiceNote#954da949: field input_message_content is nil")
@@ -4953,6 +5072,8 @@ func (i *InputInlineQueryResultVoiceNote) EncodeTDLibJSON(b tdjson.Encoder) erro
 	if err := i.InputMessageContent.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode inputInlineQueryResultVoiceNote#954da949: field input_message_content: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

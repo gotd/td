@@ -187,12 +187,17 @@ func (s *SearchCallMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchCallMessages")
+	b.Comma()
 	b.FieldStart("from_message_id")
 	b.PutInt53(s.FromMessageID)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(s.Limit)
+	b.Comma()
 	b.FieldStart("only_missed")
 	b.PutBool(s.OnlyMissed)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

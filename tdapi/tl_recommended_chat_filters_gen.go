@@ -165,14 +165,19 @@ func (r *RecommendedChatFilters) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("recommendedChatFilters")
+	b.Comma()
 	b.FieldStart("chat_filters")
 	b.ArrStart()
 	for idx, v := range r.ChatFilters {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode recommendedChatFilters#3f7b7573: field chat_filters element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

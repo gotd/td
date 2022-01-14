@@ -137,6 +137,8 @@ func (s *SearchMessagesFilterEmpty) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchMessagesFilterEmpty")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (s *SearchMessagesFilterAnimation) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("searchMessagesFilterAnimation")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -395,6 +399,8 @@ func (s *SearchMessagesFilterAudio) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchMessagesFilterAudio")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -524,6 +530,8 @@ func (s *SearchMessagesFilterDocument) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchMessagesFilterDocument")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -653,6 +661,8 @@ func (s *SearchMessagesFilterPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchMessagesFilterPhoto")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -782,6 +792,8 @@ func (s *SearchMessagesFilterVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchMessagesFilterVideo")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -911,6 +923,8 @@ func (s *SearchMessagesFilterVoiceNote) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("searchMessagesFilterVoiceNote")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1040,6 +1054,8 @@ func (s *SearchMessagesFilterPhotoAndVideo) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("searchMessagesFilterPhotoAndVideo")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1169,6 +1185,8 @@ func (s *SearchMessagesFilterURL) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchMessagesFilterUrl")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1298,6 +1316,8 @@ func (s *SearchMessagesFilterChatPhoto) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("searchMessagesFilterChatPhoto")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1427,6 +1447,8 @@ func (s *SearchMessagesFilterVideoNote) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("searchMessagesFilterVideoNote")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1556,6 +1578,8 @@ func (s *SearchMessagesFilterVoiceAndVideoNote) EncodeTDLibJSON(b tdjson.Encoder
 	}
 	b.ObjStart()
 	b.PutID("searchMessagesFilterVoiceAndVideoNote")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1685,6 +1709,8 @@ func (s *SearchMessagesFilterMention) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchMessagesFilterMention")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1814,6 +1840,8 @@ func (s *SearchMessagesFilterUnreadMention) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("searchMessagesFilterUnreadMention")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1943,6 +1971,8 @@ func (s *SearchMessagesFilterFailedToSend) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("searchMessagesFilterFailedToSend")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2072,6 +2102,8 @@ func (s *SearchMessagesFilterPinned) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchMessagesFilterPinned")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

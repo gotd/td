@@ -238,8 +238,10 @@ func (m *MessageReplyInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageReplyInfo")
+	b.Comma()
 	b.FieldStart("reply_count")
 	b.PutInt32(m.ReplyCount)
+	b.Comma()
 	b.FieldStart("recent_replier_ids")
 	b.ArrStart()
 	for idx, v := range m.RecentReplierIDs {
@@ -249,14 +251,21 @@ func (m *MessageReplyInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode messageReplyInfo#69240cb9: field recent_replier_ids element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("last_read_inbox_message_id")
 	b.PutInt53(m.LastReadInboxMessageID)
+	b.Comma()
 	b.FieldStart("last_read_outbox_message_id")
 	b.PutInt53(m.LastReadOutboxMessageID)
+	b.Comma()
 	b.FieldStart("last_message_id")
 	b.PutInt53(m.LastMessageID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

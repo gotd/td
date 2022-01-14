@@ -171,12 +171,16 @@ func (a *AddContactRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("addContact")
+	b.Comma()
 	b.FieldStart("contact")
 	if err := a.Contact.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode addContact#6f707140: field contact: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("share_phone_number")
 	b.PutBool(a.SharePhoneNumber)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

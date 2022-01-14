@@ -185,12 +185,17 @@ func (l *Location) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("location")
+	b.Comma()
 	b.FieldStart("latitude")
 	b.PutDouble(l.Latitude)
+	b.Comma()
 	b.FieldStart("longitude")
 	b.PutDouble(l.Longitude)
+	b.Comma()
 	b.FieldStart("horizontal_accuracy")
 	b.PutDouble(l.HorizontalAccuracy)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

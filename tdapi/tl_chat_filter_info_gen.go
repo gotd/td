@@ -187,12 +187,17 @@ func (c *ChatFilterInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatFilterInfo")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutInt32(c.ID)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(c.Title)
+	b.Comma()
 	b.FieldStart("icon_name")
 	b.PutString(c.IconName)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

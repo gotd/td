@@ -150,8 +150,11 @@ func (g *GetSuggestedStickerSetNameRequest) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("getSuggestedStickerSetName")
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(g.Title)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

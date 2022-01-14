@@ -168,10 +168,14 @@ func (e *Error) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("error")
+	b.Comma()
 	b.FieldStart("code")
 	b.PutInt32(e.Code)
+	b.Comma()
 	b.FieldStart("message")
 	b.PutString(e.Message)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

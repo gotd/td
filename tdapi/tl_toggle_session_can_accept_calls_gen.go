@@ -167,10 +167,14 @@ func (t *ToggleSessionCanAcceptCallsRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("toggleSessionCanAcceptCalls")
+	b.Comma()
 	b.FieldStart("session_id")
 	b.PutLong(t.SessionID)
+	b.Comma()
 	b.FieldStart("can_accept_calls")
 	b.PutBool(t.CanAcceptCalls)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

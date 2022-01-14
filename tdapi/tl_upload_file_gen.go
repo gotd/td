@@ -196,6 +196,7 @@ func (u *UploadFileRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("uploadFile")
+	b.Comma()
 	b.FieldStart("file")
 	if u.File == nil {
 		return fmt.Errorf("unable to encode uploadFile#d38f14a6: field file is nil")
@@ -203,6 +204,7 @@ func (u *UploadFileRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.File.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode uploadFile#d38f14a6: field file: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("file_type")
 	if u.FileType == nil {
 		return fmt.Errorf("unable to encode uploadFile#d38f14a6: field file_type is nil")
@@ -210,8 +212,11 @@ func (u *UploadFileRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.FileType.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode uploadFile#d38f14a6: field file_type: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("priority")
 	b.PutInt32(u.Priority)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -185,6 +185,7 @@ func (s *SetPinnedChatsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setPinnedChats")
+	b.Comma()
 	b.FieldStart("chat_list")
 	if s.ChatList == nil {
 		return fmt.Errorf("unable to encode setPinnedChats#c6c6edf1: field chat_list is nil")
@@ -192,12 +193,17 @@ func (s *SetPinnedChatsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.ChatList.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setPinnedChats#c6c6edf1: field chat_list: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("chat_ids")
 	b.ArrStart()
 	for _, v := range s.ChatIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

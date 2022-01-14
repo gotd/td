@@ -156,6 +156,7 @@ func (a *AddSavedAnimationRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("addSavedAnimation")
+	b.Comma()
 	b.FieldStart("animation")
 	if a.Animation == nil {
 		return fmt.Errorf("unable to encode addSavedAnimation#a44bf860: field animation is nil")
@@ -163,6 +164,8 @@ func (a *AddSavedAnimationRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := a.Animation.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode addSavedAnimation#a44bf860: field animation: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

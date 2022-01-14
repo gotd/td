@@ -150,8 +150,11 @@ func (d *DeleteProfilePhotoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deleteProfilePhoto")
+	b.Comma()
 	b.FieldStart("profile_photo_id")
 	b.PutLong(d.ProfilePhotoID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

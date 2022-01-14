@@ -150,8 +150,11 @@ func (s *SynchronizeLanguagePackRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("synchronizeLanguagePack")
+	b.Comma()
 	b.FieldStart("language_pack_id")
 	b.PutString(s.LanguagePackID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

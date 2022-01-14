@@ -167,10 +167,14 @@ func (p *Point) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("point")
+	b.Comma()
 	b.FieldStart("x")
 	b.PutDouble(p.X)
+	b.Comma()
 	b.FieldStart("y")
 	b.PutDouble(p.Y)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

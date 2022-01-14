@@ -172,8 +172,10 @@ func (j *JSONObjectMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("jsonObjectMember")
+	b.Comma()
 	b.FieldStart("key")
 	b.PutString(j.Key)
+	b.Comma()
 	b.FieldStart("value")
 	if j.Value == nil {
 		return fmt.Errorf("unable to encode jsonObjectMember#9483ae96: field value is nil")
@@ -181,6 +183,8 @@ func (j *JSONObjectMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := j.Value.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode jsonObjectMember#9483ae96: field value: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

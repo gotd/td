@@ -240,18 +240,24 @@ func (b *Background) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	}
 	buf.ObjStart()
 	buf.PutID("background")
+	buf.Comma()
 	buf.FieldStart("id")
 	buf.PutLong(b.ID)
+	buf.Comma()
 	buf.FieldStart("is_default")
 	buf.PutBool(b.IsDefault)
+	buf.Comma()
 	buf.FieldStart("is_dark")
 	buf.PutBool(b.IsDark)
+	buf.Comma()
 	buf.FieldStart("name")
 	buf.PutString(b.Name)
+	buf.Comma()
 	buf.FieldStart("document")
 	if err := b.Document.EncodeTDLibJSON(buf); err != nil {
 		return fmt.Errorf("unable to encode background#e65f291c: field document: %w", err)
 	}
+	buf.Comma()
 	buf.FieldStart("type")
 	if b.Type == nil {
 		return fmt.Errorf("unable to encode background#e65f291c: field type is nil")
@@ -259,6 +265,8 @@ func (b *Background) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if err := b.Type.EncodeTDLibJSON(buf); err != nil {
 		return fmt.Errorf("unable to encode background#e65f291c: field type: %w", err)
 	}
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }

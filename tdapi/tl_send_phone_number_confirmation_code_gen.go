@@ -185,14 +185,19 @@ func (s *SendPhoneNumberConfirmationCodeRequest) EncodeTDLibJSON(b tdjson.Encode
 	}
 	b.ObjStart()
 	b.PutID("sendPhoneNumberConfirmationCode")
+	b.Comma()
 	b.FieldStart("hash")
 	b.PutString(s.Hash)
+	b.Comma()
 	b.FieldStart("phone_number")
 	b.PutString(s.PhoneNumber)
+	b.Comma()
 	b.FieldStart("settings")
 	if err := s.Settings.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode sendPhoneNumberConfirmationCode#8eae6cd9: field settings: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

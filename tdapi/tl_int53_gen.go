@@ -132,6 +132,8 @@ func (i *Int53) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("int53")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -155,8 +155,11 @@ func (i *InlineKeyboardButtonTypeURL) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inlineKeyboardButtonTypeUrl")
+	b.Comma()
 	b.FieldStart("url")
 	b.PutString(i.URL)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -352,12 +355,17 @@ func (i *InlineKeyboardButtonTypeLoginURL) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("inlineKeyboardButtonTypeLoginUrl")
+	b.Comma()
 	b.FieldStart("url")
 	b.PutString(i.URL)
+	b.Comma()
 	b.FieldStart("id")
 	b.PutInt53(i.ID)
+	b.Comma()
 	b.FieldStart("forward_text")
 	b.PutString(i.ForwardText)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -547,8 +555,11 @@ func (i *InlineKeyboardButtonTypeCallback) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("inlineKeyboardButtonTypeCallback")
+	b.Comma()
 	b.FieldStart("data")
 	b.PutBytes(i.Data)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -712,8 +723,11 @@ func (i *InlineKeyboardButtonTypeCallbackWithPassword) EncodeTDLibJSON(b tdjson.
 	}
 	b.ObjStart()
 	b.PutID("inlineKeyboardButtonTypeCallbackWithPassword")
+	b.Comma()
 	b.FieldStart("data")
 	b.PutBytes(i.Data)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -857,6 +871,8 @@ func (i *InlineKeyboardButtonTypeCallbackGame) EncodeTDLibJSON(b tdjson.Encoder)
 	}
 	b.ObjStart()
 	b.PutID("inlineKeyboardButtonTypeCallbackGame")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1021,10 +1037,14 @@ func (i *InlineKeyboardButtonTypeSwitchInline) EncodeTDLibJSON(b tdjson.Encoder)
 	}
 	b.ObjStart()
 	b.PutID("inlineKeyboardButtonTypeSwitchInline")
+	b.Comma()
 	b.FieldStart("query")
 	b.PutString(i.Query)
+	b.Comma()
 	b.FieldStart("in_current_chat")
 	b.PutBool(i.InCurrentChat)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1182,6 +1202,8 @@ func (i *InlineKeyboardButtonTypeBuy) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inlineKeyboardButtonTypeBuy")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1329,8 +1351,11 @@ func (i *InlineKeyboardButtonTypeUser) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("inlineKeyboardButtonTypeUser")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(i.UserID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

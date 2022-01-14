@@ -163,12 +163,17 @@ func (v *ViewTrendingStickerSetsRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("viewTrendingStickerSets")
+	b.Comma()
 	b.FieldStart("sticker_set_ids")
 	b.ArrStart()
 	for _, v := range v.StickerSetIDs {
 		b.PutLong(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -321,6 +321,7 @@ func (e *EncryptedPassportElement) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("encryptedPassportElement")
+	b.Comma()
 	b.FieldStart("type")
 	if e.Type == nil {
 		return fmt.Errorf("unable to encode encryptedPassportElement#262d248: field type is nil")
@@ -328,40 +329,54 @@ func (e *EncryptedPassportElement) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := e.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode encryptedPassportElement#262d248: field type: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("data")
 	b.PutBytes(e.Data)
+	b.Comma()
 	b.FieldStart("front_side")
 	if err := e.FrontSide.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode encryptedPassportElement#262d248: field front_side: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("reverse_side")
 	if err := e.ReverseSide.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode encryptedPassportElement#262d248: field reverse_side: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("selfie")
 	if err := e.Selfie.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode encryptedPassportElement#262d248: field selfie: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("translation")
 	b.ArrStart()
 	for idx, v := range e.Translation {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode encryptedPassportElement#262d248: field translation element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("files")
 	b.ArrStart()
 	for idx, v := range e.Files {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode encryptedPassportElement#262d248: field files element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("value")
 	b.PutString(e.Value)
+	b.Comma()
 	b.FieldStart("hash")
 	b.PutString(e.Hash)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

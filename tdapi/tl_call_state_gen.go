@@ -172,10 +172,14 @@ func (c *CallStatePending) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("callStatePending")
+	b.Comma()
 	b.FieldStart("is_created")
 	b.PutBool(c.IsCreated)
+	b.Comma()
 	b.FieldStart("is_received")
 	b.PutBool(c.IsReceived)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -333,6 +337,8 @@ func (c *CallStateExchangingKeys) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("callStateExchangingKeys")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -593,30 +599,42 @@ func (c *CallStateReady) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("callStateReady")
+	b.Comma()
 	b.FieldStart("protocol")
 	if err := c.Protocol.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode callStateReady#ce59c044: field protocol: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("servers")
 	b.ArrStart()
 	for idx, v := range c.Servers {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode callStateReady#ce59c044: field servers element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("config")
 	b.PutString(c.Config)
+	b.Comma()
 	b.FieldStart("encryption_key")
 	b.PutBytes(c.EncryptionKey)
+	b.Comma()
 	b.FieldStart("emojis")
 	b.ArrStart()
 	for _, v := range c.Emojis {
 		b.PutString(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("allow_p2p")
 	b.PutBool(c.AllowP2P)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -838,6 +856,8 @@ func (c *CallStateHangingUp) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("callStateHangingUp")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1024,6 +1044,7 @@ func (c *CallStateDiscarded) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("callStateDiscarded")
+	b.Comma()
 	b.FieldStart("reason")
 	if c.Reason == nil {
 		return fmt.Errorf("unable to encode callStateDiscarded#f49fcfd1: field reason is nil")
@@ -1031,10 +1052,14 @@ func (c *CallStateDiscarded) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.Reason.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode callStateDiscarded#f49fcfd1: field reason: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("need_rating")
 	b.PutBool(c.NeedRating)
+	b.Comma()
 	b.FieldStart("need_debug_information")
 	b.PutBool(c.NeedDebugInformation)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1225,10 +1250,13 @@ func (c *CallStateError) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("callStateError")
+	b.Comma()
 	b.FieldStart("error")
 	if err := c.Error.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode callStateError#c5df6495: field error: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

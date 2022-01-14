@@ -137,6 +137,8 @@ func (k *KeyboardButtonTypeText) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("keyboardButtonTypeText")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (k *KeyboardButtonTypeRequestPhoneNumber) EncodeTDLibJSON(b tdjson.Encoder)
 	}
 	b.ObjStart()
 	b.PutID("keyboardButtonTypeRequestPhoneNumber")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -395,6 +399,8 @@ func (k *KeyboardButtonTypeRequestLocation) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("keyboardButtonTypeRequestLocation")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -559,10 +565,14 @@ func (k *KeyboardButtonTypeRequestPoll) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("keyboardButtonTypeRequestPoll")
+	b.Comma()
 	b.FieldStart("force_regular")
 	b.PutBool(k.ForceRegular)
+	b.Comma()
 	b.FieldStart("force_quiz")
 	b.PutBool(k.ForceQuiz)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

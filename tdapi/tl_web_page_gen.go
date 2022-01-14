@@ -492,66 +492,89 @@ func (w *WebPage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("webPage")
+	b.Comma()
 	b.FieldStart("url")
 	b.PutString(w.URL)
+	b.Comma()
 	b.FieldStart("display_url")
 	b.PutString(w.DisplayURL)
+	b.Comma()
 	b.FieldStart("type")
 	b.PutString(w.Type)
+	b.Comma()
 	b.FieldStart("site_name")
 	b.PutString(w.SiteName)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(w.Title)
+	b.Comma()
 	b.FieldStart("description")
 	if err := w.Description.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode webPage#dd96962e: field description: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("photo")
 	if err := w.Photo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode webPage#dd96962e: field photo: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("embed_url")
 	b.PutString(w.EmbedURL)
+	b.Comma()
 	b.FieldStart("embed_type")
 	b.PutString(w.EmbedType)
+	b.Comma()
 	b.FieldStart("embed_width")
 	b.PutInt32(w.EmbedWidth)
+	b.Comma()
 	b.FieldStart("embed_height")
 	b.PutInt32(w.EmbedHeight)
+	b.Comma()
 	b.FieldStart("duration")
 	b.PutInt32(w.Duration)
+	b.Comma()
 	b.FieldStart("author")
 	b.PutString(w.Author)
+	b.Comma()
 	b.FieldStart("animation")
 	if err := w.Animation.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode webPage#dd96962e: field animation: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("audio")
 	if err := w.Audio.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode webPage#dd96962e: field audio: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("document")
 	if err := w.Document.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode webPage#dd96962e: field document: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("sticker")
 	if err := w.Sticker.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode webPage#dd96962e: field sticker: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("video")
 	if err := w.Video.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode webPage#dd96962e: field video: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("video_note")
 	if err := w.VideoNote.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode webPage#dd96962e: field video_note: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("voice_note")
 	if err := w.VoiceNote.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode webPage#dd96962e: field voice_note: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("instant_view_version")
 	b.PutInt32(w.InstantViewVersion)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

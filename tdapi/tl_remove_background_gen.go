@@ -150,8 +150,11 @@ func (r *RemoveBackgroundRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("removeBackground")
+	b.Comma()
 	b.FieldStart("background_id")
 	b.PutLong(r.BackgroundID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

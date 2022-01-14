@@ -167,12 +167,16 @@ func (d *DeepLinkInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deepLinkInfo")
+	b.Comma()
 	b.FieldStart("text")
 	if err := d.Text.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode deepLinkInfo#6f1ba0fe: field text: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("need_update_application")
 	b.PutBool(d.NeedUpdateApplication)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

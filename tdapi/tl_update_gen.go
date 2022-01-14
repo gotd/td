@@ -160,6 +160,7 @@ func (u *UpdateAuthorizationState) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateAuthorizationState")
+	b.Comma()
 	b.FieldStart("authorization_state")
 	if u.AuthorizationState == nil {
 		return fmt.Errorf("unable to encode updateAuthorizationState#60b30ee2: field authorization_state is nil")
@@ -167,6 +168,8 @@ func (u *UpdateAuthorizationState) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.AuthorizationState.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateAuthorizationState#60b30ee2: field authorization_state: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -328,10 +331,13 @@ func (u *UpdateNewMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateNewMessage")
+	b.Comma()
 	b.FieldStart("message")
 	if err := u.Message.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateNewMessage#de6fb20e: field message: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -508,10 +514,14 @@ func (u *UpdateMessageSendAcknowledged) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("updateMessageSendAcknowledged")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(u.MessageID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -705,12 +715,16 @@ func (u *UpdateMessageSendSucceeded) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateMessageSendSucceeded")
+	b.Comma()
 	b.FieldStart("message")
 	if err := u.Message.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateMessageSendSucceeded#6c399d7d: field message: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("old_message_id")
 	b.PutInt53(u.OldMessageID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -935,16 +949,22 @@ func (u *UpdateMessageSendFailed) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateMessageSendFailed")
+	b.Comma()
 	b.FieldStart("message")
 	if err := u.Message.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateMessageSendFailed#c277ce5d: field message: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("old_message_id")
 	b.PutInt53(u.OldMessageID)
+	b.Comma()
 	b.FieldStart("error_code")
 	b.PutInt32(u.ErrorCode)
+	b.Comma()
 	b.FieldStart("error_message")
 	b.PutString(u.ErrorMessage)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1185,10 +1205,13 @@ func (u *UpdateMessageContent) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateMessageContent")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(u.MessageID)
+	b.Comma()
 	b.FieldStart("new_content")
 	if u.NewContent == nil {
 		return fmt.Errorf("unable to encode updateMessageContent#1e36bb24: field new_content is nil")
@@ -1196,6 +1219,8 @@ func (u *UpdateMessageContent) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.NewContent.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateMessageContent#1e36bb24: field new_content: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1441,12 +1466,16 @@ func (u *UpdateMessageEdited) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateMessageEdited")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(u.MessageID)
+	b.Comma()
 	b.FieldStart("edit_date")
 	b.PutInt32(u.EditDate)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if u.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode updateMessageEdited#dea602e6: field reply_markup is nil")
@@ -1454,6 +1483,8 @@ func (u *UpdateMessageEdited) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateMessageEdited#dea602e6: field reply_markup: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1691,12 +1722,17 @@ func (u *UpdateMessageIsPinned) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateMessageIsPinned")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(u.MessageID)
+	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(u.IsPinned)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1920,14 +1956,19 @@ func (u *UpdateMessageInteractionInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateMessageInteractionInfo")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(u.MessageID)
+	b.Comma()
 	b.FieldStart("interaction_info")
 	if err := u.InteractionInfo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateMessageInteractionInfo#ab803bfe: field interaction_info: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2132,10 +2173,14 @@ func (u *UpdateMessageContentOpened) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateMessageContentOpened")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(u.MessageID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2345,12 +2390,17 @@ func (u *UpdateMessageMentionRead) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateMessageMentionRead")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(u.MessageID)
+	b.Comma()
 	b.FieldStart("unread_mention_count")
 	b.PutInt32(u.UnreadMentionCount)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2557,10 +2607,14 @@ func (u *UpdateMessageLiveLocationViewed) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("updateMessageLiveLocationViewed")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(u.MessageID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2736,10 +2790,13 @@ func (u *UpdateNewChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateNewChat")
+	b.Comma()
 	b.FieldStart("chat")
 	if err := u.Chat.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateNewChat#7bb98ccd: field chat: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -2916,10 +2973,14 @@ func (u *UpdateChatTitle) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatTitle")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(u.Title)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3112,12 +3173,16 @@ func (u *UpdateChatPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatPhoto")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("photo")
 	if err := u.Photo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateChatPhoto#eca5423f: field photo: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3308,12 +3373,16 @@ func (u *UpdateChatPermissions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatPermissions")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("permissions")
 	if err := u.Permissions.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateChatPermissions#9f52176d: field permissions: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3536,20 +3605,27 @@ func (u *UpdateChatLastMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatLastMessage")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("last_message")
 	if err := u.LastMessage.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateChatLastMessage#f10cab1d: field last_message: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("positions")
 	b.ArrStart()
 	for idx, v := range u.Positions {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode updateChatLastMessage#f10cab1d: field positions element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3759,12 +3835,16 @@ func (u *UpdateChatPosition) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatPosition")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("position")
 	if err := u.Position.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateChatPosition#ff76fa77: field position: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -3972,12 +4052,17 @@ func (u *UpdateChatReadInbox) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatReadInbox")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("last_read_inbox_message_id")
 	b.PutInt53(u.LastReadInboxMessageID)
+	b.Comma()
 	b.FieldStart("unread_count")
 	b.PutInt32(u.UnreadCount)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4184,10 +4269,14 @@ func (u *UpdateChatReadOutbox) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatReadOutbox")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("last_read_outbox_message_id")
 	b.PutInt53(u.LastReadOutboxMessageID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4385,8 +4474,10 @@ func (u *UpdateChatActionBar) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatActionBar")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("action_bar")
 	if u.ActionBar == nil {
 		return fmt.Errorf("unable to encode updateChatActionBar#d9a258c2: field action_bar is nil")
@@ -4394,6 +4485,8 @@ func (u *UpdateChatActionBar) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.ActionBar.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateChatActionBar#d9a258c2: field action_bar: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4618,20 +4711,27 @@ func (u *UpdateChatDraftMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatDraftMessage")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("draft_message")
 	if err := u.DraftMessage.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateChatDraftMessage#2bf257d4: field draft_message: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("positions")
 	b.ArrStart()
 	for idx, v := range u.Positions {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode updateChatDraftMessage#2bf257d4: field positions element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -4846,8 +4946,10 @@ func (u *UpdateChatMessageSender) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatMessageSender")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("message_sender_id")
 	if u.MessageSenderID == nil {
 		return fmt.Errorf("unable to encode updateChatMessageSender#77705241: field message_sender_id is nil")
@@ -4855,6 +4957,8 @@ func (u *UpdateChatMessageSender) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.MessageSenderID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateChatMessageSender#77705241: field message_sender_id: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -5047,10 +5151,14 @@ func (u *UpdateChatMessageTTL) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatMessageTtl")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("message_ttl")
 	b.PutInt32(u.MessageTTL)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -5243,12 +5351,16 @@ func (u *UpdateChatNotificationSettings) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("updateChatNotificationSettings")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("notification_settings")
 	if err := u.NotificationSettings.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateChatNotificationSettings#d020b456: field notification_settings: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -5439,12 +5551,16 @@ func (u *UpdateChatPendingJoinRequests) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("updateChatPendingJoinRequests")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("pending_join_requests")
 	if err := u.PendingJoinRequests.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateChatPendingJoinRequests#14c6e3e1: field pending_join_requests: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -5636,10 +5752,14 @@ func (u *UpdateChatReplyMarkup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatReplyMarkup")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("reply_markup_message_id")
 	b.PutInt53(u.ReplyMarkupMessageID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -5832,10 +5952,14 @@ func (u *UpdateChatTheme) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatTheme")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("theme_name")
 	b.PutString(u.ThemeName)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -6028,10 +6152,14 @@ func (u *UpdateChatUnreadMentionCount) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatUnreadMentionCount")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("unread_mention_count")
 	b.PutInt32(u.UnreadMentionCount)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -6224,12 +6352,16 @@ func (u *UpdateChatVideoChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatVideoChat")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("video_chat")
 	if err := u.VideoChat.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateChatVideoChat#25fb4ca6: field video_chat: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -6420,10 +6552,14 @@ func (u *UpdateChatDefaultDisableNotification) EncodeTDLibJSON(b tdjson.Encoder)
 	}
 	b.ObjStart()
 	b.PutID("updateChatDefaultDisableNotification")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("default_disable_notification")
 	b.PutBool(u.DefaultDisableNotification)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -6616,10 +6752,14 @@ func (u *UpdateChatHasProtectedContent) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("updateChatHasProtectedContent")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("has_protected_content")
 	b.PutBool(u.HasProtectedContent)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -6812,10 +6952,14 @@ func (u *UpdateChatHasScheduledMessages) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("updateChatHasScheduledMessages")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("has_scheduled_messages")
 	b.PutBool(u.HasScheduledMessages)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -7008,10 +7152,14 @@ func (u *UpdateChatIsBlocked) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatIsBlocked")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("is_blocked")
 	b.PutBool(u.IsBlocked)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -7204,10 +7352,14 @@ func (u *UpdateChatIsMarkedAsUnread) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatIsMarkedAsUnread")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("is_marked_as_unread")
 	b.PutBool(u.IsMarkedAsUnread)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -7398,14 +7550,19 @@ func (u *UpdateChatFilters) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatFilters")
+	b.Comma()
 	b.FieldStart("chat_filters")
 	b.ArrStart()
 	for idx, v := range u.ChatFilters {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode updateChatFilters#928cfaed: field chat_filters element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -7589,10 +7746,14 @@ func (u *UpdateChatOnlineMemberCount) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatOnlineMemberCount")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("online_member_count")
 	b.PutInt32(u.OnlineMemberCount)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -7790,6 +7951,7 @@ func (u *UpdateScopeNotificationSettings) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("updateScopeNotificationSettings")
+	b.Comma()
 	b.FieldStart("scope")
 	if u.Scope == nil {
 		return fmt.Errorf("unable to encode updateScopeNotificationSettings#b83ccb73: field scope is nil")
@@ -7797,10 +7959,13 @@ func (u *UpdateScopeNotificationSettings) EncodeTDLibJSON(b tdjson.Encoder) erro
 	if err := u.Scope.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateScopeNotificationSettings#b83ccb73: field scope: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("notification_settings")
 	if err := u.NotificationSettings.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateScopeNotificationSettings#b83ccb73: field notification_settings: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -7991,12 +8156,16 @@ func (u *UpdateNotification) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateNotification")
+	b.Comma()
 	b.FieldStart("notification_group_id")
 	b.PutInt32(u.NotificationGroupID)
+	b.Comma()
 	b.FieldStart("notification")
 	if err := u.Notification.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateNotification#8ee67ed4: field notification: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -8324,8 +8493,10 @@ func (u *UpdateNotificationGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateNotificationGroup")
+	b.Comma()
 	b.FieldStart("notification_group_id")
 	b.PutInt32(u.NotificationGroupID)
+	b.Comma()
 	b.FieldStart("type")
 	if u.Type == nil {
 		return fmt.Errorf("unable to encode updateNotificationGroup#2ec53c49: field type is nil")
@@ -8333,28 +8504,40 @@ func (u *UpdateNotificationGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateNotificationGroup#2ec53c49: field type: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("notification_settings_chat_id")
 	b.PutInt53(u.NotificationSettingsChatID)
+	b.Comma()
 	b.FieldStart("is_silent")
 	b.PutBool(u.IsSilent)
+	b.Comma()
 	b.FieldStart("total_count")
 	b.PutInt32(u.TotalCount)
+	b.Comma()
 	b.FieldStart("added_notifications")
 	b.ArrStart()
 	for idx, v := range u.AddedNotifications {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode updateNotificationGroup#2ec53c49: field added_notifications element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("removed_notification_ids")
 	b.ArrStart()
 	for _, v := range u.RemovedNotificationIDs {
 		b.PutInt32(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -8639,14 +8822,19 @@ func (u *UpdateActiveNotifications) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateActiveNotifications")
+	b.Comma()
 	b.FieldStart("groups")
 	b.ArrStart()
 	for idx, v := range u.Groups {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode updateActiveNotifications#317d80f2: field groups element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -8831,10 +9019,14 @@ func (u *UpdateHavePendingNotifications) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("updateHavePendingNotifications")
+	b.Comma()
 	b.FieldStart("have_delayed_notifications")
 	b.PutBool(u.HaveDelayedNotifications)
+	b.Comma()
 	b.FieldStart("have_unreceived_notifications")
 	b.PutBool(u.HaveUnreceivedNotifications)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -9076,18 +9268,26 @@ func (u *UpdateDeleteMessages) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateDeleteMessages")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("message_ids")
 	b.ArrStart()
 	for _, v := range u.MessageIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("is_permanent")
 	b.PutBool(u.IsPermanent)
+	b.Comma()
 	b.FieldStart("from_cache")
 	b.PutBool(u.FromCache)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -9357,10 +9557,13 @@ func (u *UpdateChatAction) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatAction")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("message_thread_id")
 	b.PutInt53(u.MessageThreadID)
+	b.Comma()
 	b.FieldStart("sender_id")
 	if u.SenderID == nil {
 		return fmt.Errorf("unable to encode updateChatAction#9abfd628: field sender_id is nil")
@@ -9368,6 +9571,7 @@ func (u *UpdateChatAction) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.SenderID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateChatAction#9abfd628: field sender_id: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("action")
 	if u.Action == nil {
 		return fmt.Errorf("unable to encode updateChatAction#9abfd628: field action is nil")
@@ -9375,6 +9579,8 @@ func (u *UpdateChatAction) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.Action.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateChatAction#9abfd628: field action: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -9600,8 +9806,10 @@ func (u *UpdateUserStatus) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateUserStatus")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(u.UserID)
+	b.Comma()
 	b.FieldStart("status")
 	if u.Status == nil {
 		return fmt.Errorf("unable to encode updateUserStatus#39211211: field status is nil")
@@ -9609,6 +9817,8 @@ func (u *UpdateUserStatus) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.Status.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateUserStatus#39211211: field status: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -9784,10 +9994,13 @@ func (u *UpdateUser) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateUser")
+	b.Comma()
 	b.FieldStart("user")
 	if err := u.User.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateUser#468928f9: field user: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -9947,10 +10160,13 @@ func (u *UpdateBasicGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateBasicGroup")
+	b.Comma()
 	b.FieldStart("basic_group")
 	if err := u.BasicGroup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateBasicGroup#c433c763: field basic_group: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -10110,10 +10326,13 @@ func (u *UpdateSupergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateSupergroup")
+	b.Comma()
 	b.FieldStart("supergroup")
 	if err := u.Supergroup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateSupergroup#fb6c6524: field supergroup: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -10273,10 +10492,13 @@ func (u *UpdateSecretChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateSecretChat")
+	b.Comma()
 	b.FieldStart("secret_chat")
 	if err := u.SecretChat.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateSecretChat#9ca5132b: field secret_chat: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -10453,12 +10675,16 @@ func (u *UpdateUserFullInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateUserFullInfo")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(u.UserID)
+	b.Comma()
 	b.FieldStart("user_full_info")
 	if err := u.UserFullInfo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateUserFullInfo#fcf2cb17: field user_full_info: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -10649,12 +10875,16 @@ func (u *UpdateBasicGroupFullInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateBasicGroupFullInfo")
+	b.Comma()
 	b.FieldStart("basic_group_id")
 	b.PutInt53(u.BasicGroupID)
+	b.Comma()
 	b.FieldStart("basic_group_full_info")
 	if err := u.BasicGroupFullInfo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateBasicGroupFullInfo#52f66bbf: field basic_group_full_info: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -10845,12 +11075,16 @@ func (u *UpdateSupergroupFullInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateSupergroupFullInfo")
+	b.Comma()
 	b.FieldStart("supergroup_id")
 	b.PutInt53(u.SupergroupID)
+	b.Comma()
 	b.FieldStart("supergroup_full_info")
 	if err := u.SupergroupFullInfo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateSupergroupFullInfo#19f5cd0e: field supergroup_full_info: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -11048,8 +11282,10 @@ func (u *UpdateServiceNotification) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateServiceNotification")
+	b.Comma()
 	b.FieldStart("type")
 	b.PutString(u.Type)
+	b.Comma()
 	b.FieldStart("content")
 	if u.Content == nil {
 		return fmt.Errorf("unable to encode updateServiceNotification#4e9895ad: field content is nil")
@@ -11057,6 +11293,8 @@ func (u *UpdateServiceNotification) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.Content.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateServiceNotification#4e9895ad: field content: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -11232,10 +11470,13 @@ func (u *UpdateFile) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateFile")
+	b.Comma()
 	b.FieldStart("file")
 	if err := u.File.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateFile#6cd875f: field file: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -11448,14 +11689,20 @@ func (u *UpdateFileGenerationStart) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateFileGenerationStart")
+	b.Comma()
 	b.FieldStart("generation_id")
 	b.PutLong(u.GenerationID)
+	b.Comma()
 	b.FieldStart("original_path")
 	b.PutString(u.OriginalPath)
+	b.Comma()
 	b.FieldStart("destination_path")
 	b.PutString(u.DestinationPath)
+	b.Comma()
 	b.FieldStart("conversion")
 	b.PutString(u.Conversion)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -11659,8 +11906,11 @@ func (u *UpdateFileGenerationStop) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateFileGenerationStop")
+	b.Comma()
 	b.FieldStart("generation_id")
 	b.PutLong(u.GenerationID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -11822,10 +12072,13 @@ func (u *UpdateCall) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateCall")
+	b.Comma()
 	b.FieldStart("call")
 	if err := u.Call.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateCall#4fb3d0dd: field call: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -11985,10 +12238,13 @@ func (u *UpdateGroupCall) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateGroupCall")
+	b.Comma()
 	b.FieldStart("group_call")
 	if err := u.GroupCall.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateGroupCall#30324e00: field group_call: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -12165,12 +12421,16 @@ func (u *UpdateGroupCallParticipant) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateGroupCallParticipant")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(u.GroupCallID)
+	b.Comma()
 	b.FieldStart("participant")
 	if err := u.Participant.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateGroupCallParticipant#d0213cf9: field participant: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -12361,10 +12621,14 @@ func (u *UpdateNewCallSignalingData) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateNewCallSignalingData")
+	b.Comma()
 	b.FieldStart("call_id")
 	b.PutInt32(u.CallID)
+	b.Comma()
 	b.FieldStart("data")
 	b.PutBytes(u.Data)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -12562,6 +12826,7 @@ func (u *UpdateUserPrivacySettingRules) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("updateUserPrivacySettingRules")
+	b.Comma()
 	b.FieldStart("setting")
 	if u.Setting == nil {
 		return fmt.Errorf("unable to encode updateUserPrivacySettingRules#c99552f6: field setting is nil")
@@ -12569,10 +12834,13 @@ func (u *UpdateUserPrivacySettingRules) EncodeTDLibJSON(b tdjson.Encoder) error 
 	if err := u.Setting.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateUserPrivacySettingRules#c99552f6: field setting: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("rules")
 	if err := u.Rules.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateUserPrivacySettingRules#c99552f6: field rules: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -12785,6 +13053,7 @@ func (u *UpdateUnreadMessageCount) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateUnreadMessageCount")
+	b.Comma()
 	b.FieldStart("chat_list")
 	if u.ChatList == nil {
 		return fmt.Errorf("unable to encode updateUnreadMessageCount#4b541c9: field chat_list is nil")
@@ -12792,10 +13061,14 @@ func (u *UpdateUnreadMessageCount) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.ChatList.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateUnreadMessageCount#4b541c9: field chat_list: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("unread_count")
 	b.PutInt32(u.UnreadCount)
+	b.Comma()
 	b.FieldStart("unread_unmuted_count")
 	b.PutInt32(u.UnreadUnmutedCount)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -13075,6 +13348,7 @@ func (u *UpdateUnreadChatCount) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateUnreadChatCount")
+	b.Comma()
 	b.FieldStart("chat_list")
 	if u.ChatList == nil {
 		return fmt.Errorf("unable to encode updateUnreadChatCount#76e19242: field chat_list is nil")
@@ -13082,16 +13356,23 @@ func (u *UpdateUnreadChatCount) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.ChatList.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateUnreadChatCount#76e19242: field chat_list: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("total_count")
 	b.PutInt32(u.TotalCount)
+	b.Comma()
 	b.FieldStart("unread_count")
 	b.PutInt32(u.UnreadCount)
+	b.Comma()
 	b.FieldStart("unread_unmuted_count")
 	b.PutInt32(u.UnreadUnmutedCount)
+	b.Comma()
 	b.FieldStart("marked_as_unread_count")
 	b.PutInt32(u.MarkedAsUnreadCount)
+	b.Comma()
 	b.FieldStart("marked_as_unread_unmuted_count")
 	b.PutInt32(u.MarkedAsUnreadUnmutedCount)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -13345,8 +13626,10 @@ func (u *UpdateOption) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateOption")
+	b.Comma()
 	b.FieldStart("name")
 	b.PutString(u.Name)
+	b.Comma()
 	b.FieldStart("value")
 	if u.Value == nil {
 		return fmt.Errorf("unable to encode updateOption#35b17404: field value is nil")
@@ -13354,6 +13637,8 @@ func (u *UpdateOption) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.Value.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateOption#35b17404: field value: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -13529,10 +13814,13 @@ func (u *UpdateStickerSet) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateStickerSet")
+	b.Comma()
 	b.FieldStart("sticker_set")
 	if err := u.StickerSet.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateStickerSet#70035dcc: field sticker_set: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -13722,14 +14010,20 @@ func (u *UpdateInstalledStickerSets) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateInstalledStickerSets")
+	b.Comma()
 	b.FieldStart("is_masks")
 	b.PutBool(u.IsMasks)
+	b.Comma()
 	b.FieldStart("sticker_set_ids")
 	b.ArrStart()
 	for _, v := range u.StickerSetIDs {
 		b.PutLong(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -13910,10 +14204,13 @@ func (u *UpdateTrendingStickerSets) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateTrendingStickerSets")
+	b.Comma()
 	b.FieldStart("sticker_sets")
 	if err := u.StickerSets.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateTrendingStickerSets#1add5be1: field sticker_sets: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -14104,14 +14401,20 @@ func (u *UpdateRecentStickers) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateRecentStickers")
+	b.Comma()
 	b.FieldStart("is_attached")
 	b.PutBool(u.IsAttached)
+	b.Comma()
 	b.FieldStart("sticker_ids")
 	b.ArrStart()
 	for _, v := range u.StickerIDs {
 		b.PutInt32(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -14305,12 +14608,17 @@ func (u *UpdateFavoriteStickers) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateFavoriteStickers")
+	b.Comma()
 	b.FieldStart("sticker_ids")
 	b.ArrStart()
 	for _, v := range u.StickerIDs {
 		b.PutInt32(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -14490,12 +14798,17 @@ func (u *UpdateSavedAnimations) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateSavedAnimations")
+	b.Comma()
 	b.FieldStart("animation_ids")
 	b.ArrStart()
 	for _, v := range u.AnimationIDs {
 		b.PutInt32(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -14679,12 +14992,16 @@ func (u *UpdateSelectedBackground) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateSelectedBackground")
+	b.Comma()
 	b.FieldStart("for_dark_theme")
 	b.PutBool(u.ForDarkTheme)
+	b.Comma()
 	b.FieldStart("background")
 	if err := u.Background.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateSelectedBackground#99bd205d: field background: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -14873,14 +15190,19 @@ func (u *UpdateChatThemes) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatThemes")
+	b.Comma()
 	b.FieldStart("chat_themes")
 	b.ArrStart()
 	for idx, v := range u.ChatThemes {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode updateChatThemes#98dc58d5: field chat_themes element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -15096,18 +15418,25 @@ func (u *UpdateLanguagePackStrings) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateLanguagePackStrings")
+	b.Comma()
 	b.FieldStart("localization_target")
 	b.PutString(u.LocalizationTarget)
+	b.Comma()
 	b.FieldStart("language_pack_id")
 	b.PutString(u.LanguagePackID)
+	b.Comma()
 	b.FieldStart("strings")
 	b.ArrStart()
 	for idx, v := range u.Strings {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode updateLanguagePackStrings#af87919f: field strings element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -15307,6 +15636,7 @@ func (u *UpdateConnectionState) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateConnectionState")
+	b.Comma()
 	b.FieldStart("state")
 	if u.State == nil {
 		return fmt.Errorf("unable to encode updateConnectionState#57939e2e: field state is nil")
@@ -15314,6 +15644,8 @@ func (u *UpdateConnectionState) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.State.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateConnectionState#57939e2e: field state: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -15492,12 +15824,16 @@ func (u *UpdateTermsOfService) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateTermsOfService")
+	b.Comma()
 	b.FieldStart("terms_of_service_id")
 	b.PutString(u.TermsOfServiceID)
+	b.Comma()
 	b.FieldStart("terms_of_service")
 	if err := u.TermsOfService.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateTermsOfService#b23cc55e: field terms_of_service: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -15686,14 +16022,19 @@ func (u *UpdateUsersNearby) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateUsersNearby")
+	b.Comma()
 	b.FieldStart("users_nearby")
 	b.ArrStart()
 	for idx, v := range u.UsersNearby {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode updateUsersNearby#97c8ab5: field users_nearby element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -15873,12 +16214,17 @@ func (u *UpdateDiceEmojis) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateDiceEmojis")
+	b.Comma()
 	b.FieldStart("emojis")
 	b.ArrStart()
 	for _, v := range u.Emojis {
 		b.PutString(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -16079,14 +16425,19 @@ func (u *UpdateAnimatedEmojiMessageClicked) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("updateAnimatedEmojiMessageClicked")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(u.MessageID)
+	b.Comma()
 	b.FieldStart("sticker")
 	if err := u.Sticker.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateAnimatedEmojiMessageClicked#a3167405: field sticker: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -16304,14 +16655,20 @@ func (u *UpdateAnimationSearchParameters) EncodeTDLibJSON(b tdjson.Encoder) erro
 	}
 	b.ObjStart()
 	b.PutID("updateAnimationSearchParameters")
+	b.Comma()
 	b.FieldStart("provider")
 	b.PutString(u.Provider)
+	b.Comma()
 	b.FieldStart("emojis")
 	b.ArrStart()
 	for _, v := range u.Emojis {
 		b.PutString(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -16545,6 +16902,7 @@ func (u *UpdateSuggestedActions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateSuggestedActions")
+	b.Comma()
 	b.FieldStart("added_actions")
 	b.ArrStart()
 	for idx, v := range u.AddedActions {
@@ -16554,8 +16912,11 @@ func (u *UpdateSuggestedActions) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode updateSuggestedActions#c2e5cccb: field added_actions element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("removed_actions")
 	b.ArrStart()
 	for idx, v := range u.RemovedActions {
@@ -16565,8 +16926,12 @@ func (u *UpdateSuggestedActions) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode updateSuggestedActions#c2e5cccb: field removed_actions element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -16842,14 +17207,18 @@ func (u *UpdateNewInlineQuery) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateNewInlineQuery")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutLong(u.ID)
+	b.Comma()
 	b.FieldStart("sender_user_id")
 	b.PutInt53(u.SenderUserID)
+	b.Comma()
 	b.FieldStart("user_location")
 	if err := u.UserLocation.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateNewInlineQuery#7171bf34: field user_location: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("chat_type")
 	if u.ChatType == nil {
 		return fmt.Errorf("unable to encode updateNewInlineQuery#7171bf34: field chat_type is nil")
@@ -16857,10 +17226,14 @@ func (u *UpdateNewInlineQuery) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.ChatType.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateNewInlineQuery#7171bf34: field chat_type: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("query")
 	b.PutString(u.Query)
+	b.Comma()
 	b.FieldStart("offset")
 	b.PutString(u.Offset)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -17158,18 +17531,25 @@ func (u *UpdateNewChosenInlineResult) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateNewChosenInlineResult")
+	b.Comma()
 	b.FieldStart("sender_user_id")
 	b.PutInt53(u.SenderUserID)
+	b.Comma()
 	b.FieldStart("user_location")
 	if err := u.UserLocation.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateNewChosenInlineResult#cb4c4f5d: field user_location: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("query")
 	b.PutString(u.Query)
+	b.Comma()
 	b.FieldStart("result_id")
 	b.PutString(u.ResultID)
+	b.Comma()
 	b.FieldStart("inline_message_id")
 	b.PutString(u.InlineMessageID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -17475,16 +17855,22 @@ func (u *UpdateNewCallbackQuery) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateNewCallbackQuery")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutLong(u.ID)
+	b.Comma()
 	b.FieldStart("sender_user_id")
 	b.PutInt53(u.SenderUserID)
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(u.MessageID)
+	b.Comma()
 	b.FieldStart("chat_instance")
 	b.PutLong(u.ChatInstance)
+	b.Comma()
 	b.FieldStart("payload")
 	if u.Payload == nil {
 		return fmt.Errorf("unable to encode updateNewCallbackQuery#8964d05e: field payload is nil")
@@ -17492,6 +17878,8 @@ func (u *UpdateNewCallbackQuery) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.Payload.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateNewCallbackQuery#8964d05e: field payload: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -17796,14 +18184,19 @@ func (u *UpdateNewInlineCallbackQuery) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateNewInlineCallbackQuery")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutLong(u.ID)
+	b.Comma()
 	b.FieldStart("sender_user_id")
 	b.PutInt53(u.SenderUserID)
+	b.Comma()
 	b.FieldStart("inline_message_id")
 	b.PutString(u.InlineMessageID)
+	b.Comma()
 	b.FieldStart("chat_instance")
 	b.PutLong(u.ChatInstance)
+	b.Comma()
 	b.FieldStart("payload")
 	if u.Payload == nil {
 		return fmt.Errorf("unable to encode updateNewInlineCallbackQuery#ecf934ba: field payload is nil")
@@ -17811,6 +18204,8 @@ func (u *UpdateNewInlineCallbackQuery) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := u.Payload.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateNewInlineCallbackQuery#ecf934ba: field payload: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -18079,16 +18474,22 @@ func (u *UpdateNewShippingQuery) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateNewShippingQuery")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutLong(u.ID)
+	b.Comma()
 	b.FieldStart("sender_user_id")
 	b.PutInt53(u.SenderUserID)
+	b.Comma()
 	b.FieldStart("invoice_payload")
 	b.PutString(u.InvoicePayload)
+	b.Comma()
 	b.FieldStart("shipping_address")
 	if err := u.ShippingAddress.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateNewShippingQuery#29584672: field shipping_address: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -18392,22 +18793,31 @@ func (u *UpdateNewPreCheckoutQuery) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateNewPreCheckoutQuery")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutLong(u.ID)
+	b.Comma()
 	b.FieldStart("sender_user_id")
 	b.PutInt53(u.SenderUserID)
+	b.Comma()
 	b.FieldStart("currency")
 	b.PutString(u.Currency)
+	b.Comma()
 	b.FieldStart("total_amount")
 	b.PutInt53(u.TotalAmount)
+	b.Comma()
 	b.FieldStart("invoice_payload")
 	b.PutBytes(u.InvoicePayload)
+	b.Comma()
 	b.FieldStart("shipping_option_id")
 	b.PutString(u.ShippingOptionID)
+	b.Comma()
 	b.FieldStart("order_info")
 	if err := u.OrderInfo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateNewPreCheckoutQuery#2a3871c9: field order_info: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -18651,8 +19061,11 @@ func (u *UpdateNewCustomEvent) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateNewCustomEvent")
+	b.Comma()
 	b.FieldStart("event")
 	b.PutString(u.Event)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -18848,12 +19261,17 @@ func (u *UpdateNewCustomQuery) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateNewCustomQuery")
+	b.Comma()
 	b.FieldStart("id")
 	b.PutLong(u.ID)
+	b.Comma()
 	b.FieldStart("data")
 	b.PutString(u.Data)
+	b.Comma()
 	b.FieldStart("timeout")
 	b.PutInt32(u.Timeout)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -19043,10 +19461,13 @@ func (u *UpdatePoll) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updatePoll")
+	b.Comma()
 	b.FieldStart("poll")
 	if err := u.Poll.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updatePoll#966b73ca: field poll: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -19253,16 +19674,23 @@ func (u *UpdatePollAnswer) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updatePollAnswer")
+	b.Comma()
 	b.FieldStart("poll_id")
 	b.PutLong(u.PollID)
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(u.UserID)
+	b.Comma()
 	b.FieldStart("option_ids")
 	b.ArrStart()
 	for _, v := range u.OptionIDs {
 		b.PutInt32(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -19542,24 +19970,32 @@ func (u *UpdateChatMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateChatMember")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("actor_user_id")
 	b.PutInt53(u.ActorUserID)
+	b.Comma()
 	b.FieldStart("date")
 	b.PutInt32(u.Date)
+	b.Comma()
 	b.FieldStart("invite_link")
 	if err := u.InviteLink.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateChatMember#871f5753: field invite_link: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("old_chat_member")
 	if err := u.OldChatMember.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateChatMember#871f5753: field old_chat_member: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("new_chat_member")
 	if err := u.NewChatMember.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateChatMember#871f5753: field new_chat_member: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -19819,16 +20255,21 @@ func (u *UpdateNewChatJoinRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("updateNewChatJoinRequest")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
+	b.Comma()
 	b.FieldStart("request")
 	if err := u.Request.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateNewChatJoinRequest#a72a691: field request: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("invite_link")
 	if err := u.InviteLink.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode updateNewChatJoinRequest#a72a691: field invite_link: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

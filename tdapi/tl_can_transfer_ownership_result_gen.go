@@ -137,6 +137,8 @@ func (c *CanTransferOwnershipResultOk) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("canTransferOwnershipResultOk")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -268,6 +270,8 @@ func (c *CanTransferOwnershipResultPasswordNeeded) EncodeTDLibJSON(b tdjson.Enco
 	}
 	b.ObjStart()
 	b.PutID("canTransferOwnershipResultPasswordNeeded")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -417,8 +421,11 @@ func (c *CanTransferOwnershipResultPasswordTooFresh) EncodeTDLibJSON(b tdjson.En
 	}
 	b.ObjStart()
 	b.PutID("canTransferOwnershipResultPasswordTooFresh")
+	b.Comma()
 	b.FieldStart("retry_after")
 	b.PutInt32(c.RetryAfter)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -582,8 +589,11 @@ func (c *CanTransferOwnershipResultSessionTooFresh) EncodeTDLibJSON(b tdjson.Enc
 	}
 	b.ObjStart()
 	b.PutID("canTransferOwnershipResultSessionTooFresh")
+	b.Comma()
 	b.FieldStart("retry_after")
 	b.PutInt32(c.RetryAfter)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

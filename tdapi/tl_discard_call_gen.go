@@ -218,16 +218,23 @@ func (d *DiscardCallRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("discardCall")
+	b.Comma()
 	b.FieldStart("call_id")
 	b.PutInt32(d.CallID)
+	b.Comma()
 	b.FieldStart("is_disconnected")
 	b.PutBool(d.IsDisconnected)
+	b.Comma()
 	b.FieldStart("duration")
 	b.PutInt32(d.Duration)
+	b.Comma()
 	b.FieldStart("is_video")
 	b.PutBool(d.IsVideo)
+	b.Comma()
 	b.FieldStart("connection_id")
 	b.PutLong(d.ConnectionID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

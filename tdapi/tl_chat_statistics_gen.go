@@ -495,26 +495,32 @@ func (c *ChatStatisticsSupergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatStatisticsSupergroup")
+	b.Comma()
 	b.FieldStart("period")
 	if err := c.Period.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field period: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("member_count")
 	if err := c.MemberCount.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field member_count: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("message_count")
 	if err := c.MessageCount.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field message_count: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("viewer_count")
 	if err := c.ViewerCount.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field viewer_count: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("sender_count")
 	if err := c.SenderCount.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field sender_count: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("member_count_graph")
 	if c.MemberCountGraph == nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field member_count_graph is nil")
@@ -522,6 +528,7 @@ func (c *ChatStatisticsSupergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.MemberCountGraph.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field member_count_graph: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("join_graph")
 	if c.JoinGraph == nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field join_graph is nil")
@@ -529,6 +536,7 @@ func (c *ChatStatisticsSupergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.JoinGraph.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field join_graph: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("join_by_source_graph")
 	if c.JoinBySourceGraph == nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field join_by_source_graph is nil")
@@ -536,6 +544,7 @@ func (c *ChatStatisticsSupergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.JoinBySourceGraph.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field join_by_source_graph: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("language_graph")
 	if c.LanguageGraph == nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field language_graph is nil")
@@ -543,6 +552,7 @@ func (c *ChatStatisticsSupergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.LanguageGraph.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field language_graph: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("message_content_graph")
 	if c.MessageContentGraph == nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field message_content_graph is nil")
@@ -550,6 +560,7 @@ func (c *ChatStatisticsSupergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.MessageContentGraph.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field message_content_graph: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("action_graph")
 	if c.ActionGraph == nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field action_graph is nil")
@@ -557,6 +568,7 @@ func (c *ChatStatisticsSupergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.ActionGraph.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field action_graph: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("day_graph")
 	if c.DayGraph == nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field day_graph is nil")
@@ -564,6 +576,7 @@ func (c *ChatStatisticsSupergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.DayGraph.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field day_graph: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("week_graph")
 	if c.WeekGraph == nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field week_graph is nil")
@@ -571,30 +584,41 @@ func (c *ChatStatisticsSupergroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.WeekGraph.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field week_graph: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("top_senders")
 	b.ArrStart()
 	for idx, v := range c.TopSenders {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field top_senders element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("top_administrators")
 	b.ArrStart()
 	for idx, v := range c.TopAdministrators {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field top_administrators element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("top_inviters")
 	b.ArrStart()
 	for idx, v := range c.TopInviters {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode chatStatisticsSupergroup#c67549ef: field top_inviters element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1269,24 +1293,30 @@ func (c *ChatStatisticsChannel) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatStatisticsChannel")
+	b.Comma()
 	b.FieldStart("period")
 	if err := c.Period.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field period: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("member_count")
 	if err := c.MemberCount.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field member_count: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("mean_view_count")
 	if err := c.MeanViewCount.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field mean_view_count: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("mean_share_count")
 	if err := c.MeanShareCount.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field mean_share_count: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("enabled_notifications_percentage")
 	b.PutDouble(c.EnabledNotificationsPercentage)
+	b.Comma()
 	b.FieldStart("member_count_graph")
 	if c.MemberCountGraph == nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field member_count_graph is nil")
@@ -1294,6 +1324,7 @@ func (c *ChatStatisticsChannel) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.MemberCountGraph.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field member_count_graph: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("join_graph")
 	if c.JoinGraph == nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field join_graph is nil")
@@ -1301,6 +1332,7 @@ func (c *ChatStatisticsChannel) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.JoinGraph.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field join_graph: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("mute_graph")
 	if c.MuteGraph == nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field mute_graph is nil")
@@ -1308,6 +1340,7 @@ func (c *ChatStatisticsChannel) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.MuteGraph.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field mute_graph: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("view_count_by_hour_graph")
 	if c.ViewCountByHourGraph == nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field view_count_by_hour_graph is nil")
@@ -1315,6 +1348,7 @@ func (c *ChatStatisticsChannel) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.ViewCountByHourGraph.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field view_count_by_hour_graph: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("view_count_by_source_graph")
 	if c.ViewCountBySourceGraph == nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field view_count_by_source_graph is nil")
@@ -1322,6 +1356,7 @@ func (c *ChatStatisticsChannel) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.ViewCountBySourceGraph.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field view_count_by_source_graph: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("join_by_source_graph")
 	if c.JoinBySourceGraph == nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field join_by_source_graph is nil")
@@ -1329,6 +1364,7 @@ func (c *ChatStatisticsChannel) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.JoinBySourceGraph.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field join_by_source_graph: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("language_graph")
 	if c.LanguageGraph == nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field language_graph is nil")
@@ -1336,6 +1372,7 @@ func (c *ChatStatisticsChannel) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.LanguageGraph.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field language_graph: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("message_interaction_graph")
 	if c.MessageInteractionGraph == nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field message_interaction_graph is nil")
@@ -1343,6 +1380,7 @@ func (c *ChatStatisticsChannel) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.MessageInteractionGraph.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field message_interaction_graph: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("instant_view_interaction_graph")
 	if c.InstantViewInteractionGraph == nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field instant_view_interaction_graph is nil")
@@ -1350,14 +1388,19 @@ func (c *ChatStatisticsChannel) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := c.InstantViewInteractionGraph.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field instant_view_interaction_graph: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("recent_message_interactions")
 	b.ArrStart()
 	for idx, v := range c.RecentMessageInteractions {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field recent_message_interactions element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

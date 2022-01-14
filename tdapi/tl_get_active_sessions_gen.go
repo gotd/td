@@ -132,6 +132,8 @@ func (g *GetActiveSessionsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getActiveSessions")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

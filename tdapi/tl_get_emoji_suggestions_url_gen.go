@@ -150,8 +150,11 @@ func (g *GetEmojiSuggestionsURLRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("getEmojiSuggestionsUrl")
+	b.Comma()
 	b.FieldStart("language_code")
 	b.PutString(g.LanguageCode)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

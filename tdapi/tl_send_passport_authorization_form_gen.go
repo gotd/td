@@ -185,8 +185,10 @@ func (s *SendPassportAuthorizationFormRequest) EncodeTDLibJSON(b tdjson.Encoder)
 	}
 	b.ObjStart()
 	b.PutID("sendPassportAuthorizationForm")
+	b.Comma()
 	b.FieldStart("autorization_form_id")
 	b.PutInt32(s.AutorizationFormID)
+	b.Comma()
 	b.FieldStart("types")
 	b.ArrStart()
 	for idx, v := range s.Types {
@@ -196,8 +198,12 @@ func (s *SendPassportAuthorizationFormRequest) EncodeTDLibJSON(b tdjson.Encoder)
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode sendPassportAuthorizationForm#eee589b5: field types element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

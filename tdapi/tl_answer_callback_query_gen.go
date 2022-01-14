@@ -218,16 +218,23 @@ func (a *AnswerCallbackQueryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("answerCallbackQuery")
+	b.Comma()
 	b.FieldStart("callback_query_id")
 	b.PutLong(a.CallbackQueryID)
+	b.Comma()
 	b.FieldStart("text")
 	b.PutString(a.Text)
+	b.Comma()
 	b.FieldStart("show_alert")
 	b.PutBool(a.ShowAlert)
+	b.Comma()
 	b.FieldStart("url")
 	b.PutString(a.URL)
+	b.Comma()
 	b.FieldStart("cache_time")
 	b.PutInt32(a.CacheTime)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

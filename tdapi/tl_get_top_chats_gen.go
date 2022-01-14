@@ -172,6 +172,7 @@ func (g *GetTopChatsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getTopChats")
+	b.Comma()
 	b.FieldStart("category")
 	if g.Category == nil {
 		return fmt.Errorf("unable to encode getTopChats#e8d95221: field category is nil")
@@ -179,8 +180,11 @@ func (g *GetTopChatsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := g.Category.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getTopChats#e8d95221: field category: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

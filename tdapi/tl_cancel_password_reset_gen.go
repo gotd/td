@@ -132,6 +132,8 @@ func (c *CancelPasswordResetRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("cancelPasswordReset")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

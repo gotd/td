@@ -235,20 +235,28 @@ func (g *GetMapThumbnailFileRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getMapThumbnailFile")
+	b.Comma()
 	b.FieldStart("location")
 	if err := g.Location.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getMapThumbnailFile#f6e6979a: field location: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("zoom")
 	b.PutInt32(g.Zoom)
+	b.Comma()
 	b.FieldStart("width")
 	b.PutInt32(g.Width)
+	b.Comma()
 	b.FieldStart("height")
 	b.PutInt32(g.Height)
+	b.Comma()
 	b.FieldStart("scale")
 	b.PutInt32(g.Scale)
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

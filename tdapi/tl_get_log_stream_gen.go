@@ -132,6 +132,8 @@ func (g *GetLogStreamRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getLogStream")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

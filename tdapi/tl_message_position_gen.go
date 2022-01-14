@@ -184,12 +184,17 @@ func (m *MessagePosition) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messagePosition")
+	b.Comma()
 	b.FieldStart("position")
 	b.PutInt32(m.Position)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(m.MessageID)
+	b.Comma()
 	b.FieldStart("date")
 	b.PutInt32(m.Date)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

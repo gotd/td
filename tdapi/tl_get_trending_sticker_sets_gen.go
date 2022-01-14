@@ -169,10 +169,14 @@ func (g *GetTrendingStickerSetsRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("getTrendingStickerSets")
+	b.Comma()
 	b.FieldStart("offset")
 	b.PutInt32(g.Offset)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

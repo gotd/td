@@ -167,12 +167,16 @@ func (s *SetChatPermissionsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setChatPermissions")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("permissions")
 	if err := s.Permissions.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setChatPermissions#7f7706fe: field permissions: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

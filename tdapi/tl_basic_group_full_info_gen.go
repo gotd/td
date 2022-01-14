@@ -266,34 +266,46 @@ func (b *BasicGroupFullInfo) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	}
 	buf.ObjStart()
 	buf.PutID("basicGroupFullInfo")
+	buf.Comma()
 	buf.FieldStart("photo")
 	if err := b.Photo.EncodeTDLibJSON(buf); err != nil {
 		return fmt.Errorf("unable to encode basicGroupFullInfo#f191cfca: field photo: %w", err)
 	}
+	buf.Comma()
 	buf.FieldStart("description")
 	buf.PutString(b.Description)
+	buf.Comma()
 	buf.FieldStart("creator_user_id")
 	buf.PutInt53(b.CreatorUserID)
+	buf.Comma()
 	buf.FieldStart("members")
 	buf.ArrStart()
 	for idx, v := range b.Members {
 		if err := v.EncodeTDLibJSON(buf); err != nil {
 			return fmt.Errorf("unable to encode basicGroupFullInfo#f191cfca: field members element with index %d: %w", idx, err)
 		}
+		buf.Comma()
 	}
+	buf.StripComma()
 	buf.ArrEnd()
+	buf.Comma()
 	buf.FieldStart("invite_link")
 	if err := b.InviteLink.EncodeTDLibJSON(buf); err != nil {
 		return fmt.Errorf("unable to encode basicGroupFullInfo#f191cfca: field invite_link: %w", err)
 	}
+	buf.Comma()
 	buf.FieldStart("bot_commands")
 	buf.ArrStart()
 	for idx, v := range b.BotCommands {
 		if err := v.EncodeTDLibJSON(buf); err != nil {
 			return fmt.Errorf("unable to encode basicGroupFullInfo#f191cfca: field bot_commands element with index %d: %w", idx, err)
 		}
+		buf.Comma()
 	}
+	buf.StripComma()
 	buf.ArrEnd()
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }

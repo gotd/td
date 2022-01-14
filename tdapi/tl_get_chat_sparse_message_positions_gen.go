@@ -209,8 +209,10 @@ func (g *GetChatSparseMessagePositionsRequest) EncodeTDLibJSON(b tdjson.Encoder)
 	}
 	b.ObjStart()
 	b.PutID("getChatSparseMessagePositions")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
 	b.FieldStart("filter")
 	if g.Filter == nil {
 		return fmt.Errorf("unable to encode getChatSparseMessagePositions#e472f784: field filter is nil")
@@ -218,10 +220,14 @@ func (g *GetChatSparseMessagePositionsRequest) EncodeTDLibJSON(b tdjson.Encoder)
 	if err := g.Filter.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getChatSparseMessagePositions#e472f784: field filter: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("from_message_id")
 	b.PutInt53(g.FromMessageID)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

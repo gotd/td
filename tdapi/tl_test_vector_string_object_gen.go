@@ -165,14 +165,19 @@ func (t *TestVectorStringObject) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("testVectorStringObject")
+	b.Comma()
 	b.FieldStart("value")
 	b.ArrStart()
 	for idx, v := range t.Value {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode testVectorStringObject#e5ecc0d: field value element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

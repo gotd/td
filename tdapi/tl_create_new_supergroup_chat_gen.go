@@ -220,18 +220,25 @@ func (c *CreateNewSupergroupChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("createNewSupergroupChat")
+	b.Comma()
 	b.FieldStart("title")
 	b.PutString(c.Title)
+	b.Comma()
 	b.FieldStart("is_channel")
 	b.PutBool(c.IsChannel)
+	b.Comma()
 	b.FieldStart("description")
 	b.PutString(c.Description)
+	b.Comma()
 	b.FieldStart("location")
 	if err := c.Location.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode createNewSupergroupChat#ce83a6c1: field location: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("for_import")
 	b.PutBool(c.ForImport)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

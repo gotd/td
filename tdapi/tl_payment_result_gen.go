@@ -168,10 +168,14 @@ func (p *PaymentResult) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("paymentResult")
+	b.Comma()
 	b.FieldStart("success")
 	b.PutBool(p.Success)
+	b.Comma()
 	b.FieldStart("verification_url")
 	b.PutString(p.VerificationURL)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

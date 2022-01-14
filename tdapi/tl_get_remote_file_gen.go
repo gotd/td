@@ -172,8 +172,10 @@ func (g *GetRemoteFileRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getRemoteFile")
+	b.Comma()
 	b.FieldStart("remote_file_id")
 	b.PutString(g.RemoteFileID)
+	b.Comma()
 	b.FieldStart("file_type")
 	if g.FileType == nil {
 		return fmt.Errorf("unable to encode getRemoteFile#7f632732: field file_type is nil")
@@ -181,6 +183,8 @@ func (g *GetRemoteFileRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := g.FileType.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getRemoteFile#7f632732: field file_type: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

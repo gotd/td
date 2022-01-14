@@ -150,8 +150,11 @@ func (t *ToggleSupergroupIsBroadcastGroupRequest) EncodeTDLibJSON(b tdjson.Encod
 	}
 	b.ObjStart()
 	b.PutID("toggleSupergroupIsBroadcastGroup")
+	b.Comma()
 	b.FieldStart("supergroup_id")
 	b.PutInt53(t.SupergroupID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

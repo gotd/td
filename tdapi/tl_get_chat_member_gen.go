@@ -172,8 +172,10 @@ func (g *GetChatMemberRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getChatMember")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
 	b.FieldStart("member_id")
 	if g.MemberID == nil {
 		return fmt.Errorf("unable to encode getChatMember#d0c15272: field member_id is nil")
@@ -181,6 +183,8 @@ func (g *GetChatMemberRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := g.MemberID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getChatMember#d0c15272: field member_id: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -189,10 +189,13 @@ func (d *DraftMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("draftMessage")
+	b.Comma()
 	b.FieldStart("reply_to_message_id")
 	b.PutInt53(d.ReplyToMessageID)
+	b.Comma()
 	b.FieldStart("date")
 	b.PutInt32(d.Date)
+	b.Comma()
 	b.FieldStart("input_message_text")
 	if d.InputMessageText == nil {
 		return fmt.Errorf("unable to encode draftMessage#51d71500: field input_message_text is nil")
@@ -200,6 +203,8 @@ func (d *DraftMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := d.InputMessageText.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode draftMessage#51d71500: field input_message_text: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

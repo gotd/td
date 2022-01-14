@@ -167,10 +167,14 @@ func (d *DeleteRevokedChatInviteLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("deleteRevokedChatInviteLink")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(d.ChatID)
+	b.Comma()
 	b.FieldStart("invite_link")
 	b.PutString(d.InviteLink)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -219,14 +219,19 @@ func (r *ReportChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("reportChat")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(r.ChatID)
+	b.Comma()
 	b.FieldStart("message_ids")
 	b.ArrStart()
 	for _, v := range r.MessageIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
 	b.FieldStart("reason")
 	if r.Reason == nil {
 		return fmt.Errorf("unable to encode reportChat#a19024af: field reason is nil")
@@ -234,8 +239,11 @@ func (r *ReportChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := r.Reason.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode reportChat#a19024af: field reason: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("text")
 	b.PutString(r.Text)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

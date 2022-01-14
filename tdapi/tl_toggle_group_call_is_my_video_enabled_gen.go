@@ -167,10 +167,14 @@ func (t *ToggleGroupCallIsMyVideoEnabledRequest) EncodeTDLibJSON(b tdjson.Encode
 	}
 	b.ObjStart()
 	b.PutID("toggleGroupCallIsMyVideoEnabled")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(t.GroupCallID)
+	b.Comma()
 	b.FieldStart("is_my_video_enabled")
 	b.PutBool(t.IsMyVideoEnabled)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

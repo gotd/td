@@ -151,8 +151,11 @@ func (s *SetInactiveSessionTTLRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setInactiveSessionTtl")
+	b.Comma()
 	b.FieldStart("inactive_session_ttl_days")
 	b.PutInt32(s.InactiveSessionTTLDays)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

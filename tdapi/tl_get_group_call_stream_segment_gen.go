@@ -223,14 +223,19 @@ func (g *GetGroupCallStreamSegmentRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("getGroupCallStreamSegment")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(g.GroupCallID)
+	b.Comma()
 	b.FieldStart("time_offset")
 	b.PutInt53(g.TimeOffset)
+	b.Comma()
 	b.FieldStart("scale")
 	b.PutInt32(g.Scale)
+	b.Comma()
 	b.FieldStart("channel_id")
 	b.PutInt32(g.ChannelID)
+	b.Comma()
 	b.FieldStart("video_quality")
 	if g.VideoQuality == nil {
 		return fmt.Errorf("unable to encode getGroupCallStreamSegment#8424daa5: field video_quality is nil")
@@ -238,6 +243,8 @@ func (g *GetGroupCallStreamSegmentRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 	if err := g.VideoQuality.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getGroupCallStreamSegment#8424daa5: field video_quality: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

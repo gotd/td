@@ -285,10 +285,13 @@ func (s *SearchChatMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("searchChatMessages")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("query")
 	b.PutString(s.Query)
+	b.Comma()
 	b.FieldStart("sender_id")
 	if s.SenderID == nil {
 		return fmt.Errorf("unable to encode searchChatMessages#f655b620: field sender_id is nil")
@@ -296,12 +299,16 @@ func (s *SearchChatMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.SenderID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode searchChatMessages#f655b620: field sender_id: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("from_message_id")
 	b.PutInt53(s.FromMessageID)
+	b.Comma()
 	b.FieldStart("offset")
 	b.PutInt32(s.Offset)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(s.Limit)
+	b.Comma()
 	b.FieldStart("filter")
 	if s.Filter == nil {
 		return fmt.Errorf("unable to encode searchChatMessages#f655b620: field filter is nil")
@@ -309,8 +316,11 @@ func (s *SearchChatMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.Filter.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode searchChatMessages#f655b620: field filter: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("message_thread_id")
 	b.PutInt53(s.MessageThreadID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

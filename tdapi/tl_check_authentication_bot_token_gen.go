@@ -150,8 +150,11 @@ func (c *CheckAuthenticationBotTokenRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("checkAuthenticationBotToken")
+	b.Comma()
 	b.FieldStart("token")
 	b.PutString(c.Token)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

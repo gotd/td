@@ -182,16 +182,22 @@ func (c *ChatPhotos) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatPhotos")
+	b.Comma()
 	b.FieldStart("total_count")
 	b.PutInt32(c.TotalCount)
+	b.Comma()
 	b.FieldStart("photos")
 	b.ArrStart()
 	for idx, v := range c.Photos {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode chatPhotos#89ec34e8: field photos element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

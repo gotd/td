@@ -137,6 +137,8 @@ func (b *BoolFalse) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	}
 	buf.ObjStart()
 	buf.PutID("boolFalse")
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (b *BoolTrue) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	}
 	buf.ObjStart()
 	buf.PutID("boolTrue")
+	buf.Comma()
+	buf.StripComma()
 	buf.ObjEnd()
 	return nil
 }

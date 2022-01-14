@@ -222,16 +222,23 @@ func (d *DownloadFileRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("downloadFile")
+	b.Comma()
 	b.FieldStart("file_id")
 	b.PutInt32(d.FileID)
+	b.Comma()
 	b.FieldStart("priority")
 	b.PutInt32(d.Priority)
+	b.Comma()
 	b.FieldStart("offset")
 	b.PutInt32(d.Offset)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(d.Limit)
+	b.Comma()
 	b.FieldStart("synchronous")
 	b.PutBool(d.Synchronous)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

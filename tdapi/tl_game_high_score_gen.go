@@ -184,12 +184,17 @@ func (g *GameHighScore) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("gameHighScore")
+	b.Comma()
 	b.FieldStart("position")
 	b.PutInt32(g.Position)
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(g.UserID)
+	b.Comma()
 	b.FieldStart("score")
 	b.PutInt32(g.Score)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

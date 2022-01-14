@@ -132,6 +132,8 @@ func (t *TestNetworkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("testNetwork")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

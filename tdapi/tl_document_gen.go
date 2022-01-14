@@ -219,22 +219,29 @@ func (d *Document) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("document")
+	b.Comma()
 	b.FieldStart("file_name")
 	b.PutString(d.FileName)
+	b.Comma()
 	b.FieldStart("mime_type")
 	b.PutString(d.MimeType)
+	b.Comma()
 	b.FieldStart("minithumbnail")
 	if err := d.Minithumbnail.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode document#af19afd8: field minithumbnail: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("thumbnail")
 	if err := d.Thumbnail.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode document#af19afd8: field thumbnail: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("document")
 	if err := d.Document.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode document#af19afd8: field document: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

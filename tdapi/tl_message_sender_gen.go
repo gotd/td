@@ -155,8 +155,11 @@ func (m *MessageSenderUser) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageSenderUser")
+	b.Comma()
 	b.FieldStart("user_id")
 	b.PutInt53(m.UserID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -318,8 +321,11 @@ func (m *MessageSenderChat) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("messageSenderChat")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(m.ChatID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

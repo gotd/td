@@ -250,24 +250,34 @@ func (g *GetChatEventLogRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("getChatEventLog")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
 	b.FieldStart("query")
 	b.PutString(g.Query)
+	b.Comma()
 	b.FieldStart("from_event_id")
 	b.PutLong(g.FromEventID)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
+	b.Comma()
 	b.FieldStart("filters")
 	if err := g.Filters.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getChatEventLog#f47b0a9b: field filters: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range g.UserIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

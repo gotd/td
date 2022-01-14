@@ -182,16 +182,22 @@ func (c *ChatInviteLinks) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatInviteLinks")
+	b.Comma()
 	b.FieldStart("total_count")
 	b.PutInt32(c.TotalCount)
+	b.Comma()
 	b.FieldStart("invite_links")
 	b.ArrStart()
 	for idx, v := range c.InviteLinks {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode chatInviteLinks#9b1eddfa: field invite_links element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

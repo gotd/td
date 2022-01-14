@@ -192,8 +192,10 @@ func (g *GetChatMessageCalendarRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	}
 	b.ObjStart()
 	b.PutID("getChatMessageCalendar")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
 	b.FieldStart("filter")
 	if g.Filter == nil {
 		return fmt.Errorf("unable to encode getChatMessageCalendar#ec8f2114: field filter is nil")
@@ -201,8 +203,11 @@ func (g *GetChatMessageCalendarRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	if err := g.Filter.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode getChatMessageCalendar#ec8f2114: field filter: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("from_message_id")
 	b.PutInt53(g.FromMessageID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -137,6 +137,8 @@ func (u *UserPrivacySettingRuleAllowAll) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("userPrivacySettingRuleAllowAll")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -266,6 +268,8 @@ func (u *UserPrivacySettingRuleAllowContacts) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("userPrivacySettingRuleAllowContacts")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -426,12 +430,17 @@ func (u *UserPrivacySettingRuleAllowUsers) EncodeTDLibJSON(b tdjson.Encoder) err
 	}
 	b.ObjStart()
 	b.PutID("userPrivacySettingRuleAllowUsers")
+	b.Comma()
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range u.UserIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -611,12 +620,17 @@ func (u *UserPrivacySettingRuleAllowChatMembers) EncodeTDLibJSON(b tdjson.Encode
 	}
 	b.ObjStart()
 	b.PutID("userPrivacySettingRuleAllowChatMembers")
+	b.Comma()
 	b.FieldStart("chat_ids")
 	b.ArrStart()
 	for _, v := range u.ChatIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -765,6 +779,8 @@ func (u *UserPrivacySettingRuleRestrictAll) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("userPrivacySettingRuleRestrictAll")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -894,6 +910,8 @@ func (u *UserPrivacySettingRuleRestrictContacts) EncodeTDLibJSON(b tdjson.Encode
 	}
 	b.ObjStart()
 	b.PutID("userPrivacySettingRuleRestrictContacts")
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1054,12 +1072,17 @@ func (u *UserPrivacySettingRuleRestrictUsers) EncodeTDLibJSON(b tdjson.Encoder) 
 	}
 	b.ObjStart()
 	b.PutID("userPrivacySettingRuleRestrictUsers")
+	b.Comma()
 	b.FieldStart("user_ids")
 	b.ArrStart()
 	for _, v := range u.UserIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1239,12 +1262,17 @@ func (u *UserPrivacySettingRuleRestrictChatMembers) EncodeTDLibJSON(b tdjson.Enc
 	}
 	b.ObjStart()
 	b.PutID("userPrivacySettingRuleRestrictChatMembers")
+	b.Comma()
 	b.FieldStart("chat_ids")
 	b.ArrStart()
 	for _, v := range u.ChatIDs {
 		b.PutInt53(v)
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

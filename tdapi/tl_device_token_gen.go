@@ -172,10 +172,14 @@ func (d *DeviceTokenFirebaseCloudMessaging) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("deviceTokenFirebaseCloudMessaging")
+	b.Comma()
 	b.FieldStart("token")
 	b.PutString(d.Token)
+	b.Comma()
 	b.FieldStart("encrypt")
 	b.PutBool(d.Encrypt)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -368,10 +372,14 @@ func (d *DeviceTokenApplePush) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deviceTokenApplePush")
+	b.Comma()
 	b.FieldStart("device_token")
 	b.PutString(d.DeviceToken)
+	b.Comma()
 	b.FieldStart("is_app_sandbox")
 	b.PutBool(d.IsAppSandbox)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -581,12 +589,17 @@ func (d *DeviceTokenApplePushVoIP) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deviceTokenApplePushVoIP")
+	b.Comma()
 	b.FieldStart("device_token")
 	b.PutString(d.DeviceToken)
+	b.Comma()
 	b.FieldStart("is_app_sandbox")
 	b.PutBool(d.IsAppSandbox)
+	b.Comma()
 	b.FieldStart("encrypt")
 	b.PutBool(d.Encrypt)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -777,8 +790,11 @@ func (d *DeviceTokenWindowsPush) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deviceTokenWindowsPush")
+	b.Comma()
 	b.FieldStart("access_token")
 	b.PutString(d.AccessToken)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -940,8 +956,11 @@ func (d *DeviceTokenMicrosoftPush) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deviceTokenMicrosoftPush")
+	b.Comma()
 	b.FieldStart("channel_uri")
 	b.PutString(d.ChannelURI)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1103,8 +1122,11 @@ func (d *DeviceTokenMicrosoftPushVoIP) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deviceTokenMicrosoftPushVoIP")
+	b.Comma()
 	b.FieldStart("channel_uri")
 	b.PutString(d.ChannelURI)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1301,12 +1323,17 @@ func (d *DeviceTokenWebPush) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deviceTokenWebPush")
+	b.Comma()
 	b.FieldStart("endpoint")
 	b.PutString(d.Endpoint)
+	b.Comma()
 	b.FieldStart("p256dh_base64url")
 	b.PutString(d.P256dhBase64url)
+	b.Comma()
 	b.FieldStart("auth_base64url")
 	b.PutString(d.AuthBase64url)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1497,8 +1524,11 @@ func (d *DeviceTokenSimplePush) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deviceTokenSimplePush")
+	b.Comma()
 	b.FieldStart("endpoint")
 	b.PutString(d.Endpoint)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1660,8 +1690,11 @@ func (d *DeviceTokenUbuntuPush) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deviceTokenUbuntuPush")
+	b.Comma()
 	b.FieldStart("token")
 	b.PutString(d.Token)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1823,8 +1856,11 @@ func (d *DeviceTokenBlackBerryPush) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deviceTokenBlackBerryPush")
+	b.Comma()
 	b.FieldStart("token")
 	b.PutString(d.Token)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
@@ -1986,8 +2022,11 @@ func (d *DeviceTokenTizenPush) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("deviceTokenTizenPush")
+	b.Comma()
 	b.FieldStart("reg_id")
 	b.PutString(d.RegID)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

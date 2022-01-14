@@ -150,8 +150,11 @@ func (g *GetInstalledStickerSetsRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	}
 	b.ObjStart()
 	b.PutID("getInstalledStickerSets")
+	b.Comma()
 	b.FieldStart("is_masks")
 	b.PutBool(g.IsMasks)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

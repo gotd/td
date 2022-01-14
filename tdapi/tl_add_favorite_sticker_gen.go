@@ -155,6 +155,7 @@ func (a *AddFavoriteStickerRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("addFavoriteSticker")
+	b.Comma()
 	b.FieldStart("sticker")
 	if a.Sticker == nil {
 		return fmt.Errorf("unable to encode addFavoriteSticker#13578cdf: field sticker is nil")
@@ -162,6 +163,8 @@ func (a *AddFavoriteStickerRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := a.Sticker.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode addFavoriteSticker#13578cdf: field sticker: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

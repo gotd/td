@@ -184,12 +184,17 @@ func (s *StartGroupCallScreenSharingRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 	}
 	b.ObjStart()
 	b.PutID("startGroupCallScreenSharing")
+	b.Comma()
 	b.FieldStart("group_call_id")
 	b.PutInt32(s.GroupCallID)
+	b.Comma()
 	b.FieldStart("audio_source_id")
 	b.PutInt32(s.AudioSourceID)
+	b.Comma()
 	b.FieldStart("payload")
 	b.PutString(s.Payload)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

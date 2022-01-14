@@ -194,8 +194,10 @@ func (s *SetChatMemberStatusRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("setChatMemberStatus")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("member_id")
 	if s.MemberID == nil {
 		return fmt.Errorf("unable to encode setChatMemberStatus#4e0171f: field member_id is nil")
@@ -203,6 +205,7 @@ func (s *SetChatMemberStatusRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.MemberID.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setChatMemberStatus#4e0171f: field member_id: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("status")
 	if s.Status == nil {
 		return fmt.Errorf("unable to encode setChatMemberStatus#4e0171f: field status is nil")
@@ -210,6 +213,8 @@ func (s *SetChatMemberStatusRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := s.Status.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode setChatMemberStatus#4e0171f: field status: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

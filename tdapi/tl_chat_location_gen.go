@@ -167,12 +167,16 @@ func (c *ChatLocation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("chatLocation")
+	b.Comma()
 	b.FieldStart("location")
 	if err := c.Location.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode chatLocation#a29b8f21: field location: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("address")
 	b.PutString(c.Address)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

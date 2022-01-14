@@ -185,12 +185,17 @@ func (c *ChangeStickerSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("changeStickerSet")
+	b.Comma()
 	b.FieldStart("set_id")
 	b.PutLong(c.SetID)
+	b.Comma()
 	b.FieldStart("is_installed")
 	b.PutBool(c.IsInstalled)
+	b.Comma()
 	b.FieldStart("is_archived")
 	b.PutBool(c.IsArchived)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

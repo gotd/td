@@ -211,8 +211,10 @@ func (i *ImportMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("importMessages")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(i.ChatID)
+	b.Comma()
 	b.FieldStart("message_file")
 	if i.MessageFile == nil {
 		return fmt.Errorf("unable to encode importMessages#7e98592b: field message_file is nil")
@@ -220,6 +222,7 @@ func (i *ImportMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := i.MessageFile.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode importMessages#7e98592b: field message_file: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("attached_files")
 	b.ArrStart()
 	for idx, v := range i.AttachedFiles {
@@ -229,8 +232,12 @@ func (i *ImportMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode importMessages#7e98592b: field attached_files element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

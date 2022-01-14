@@ -184,12 +184,17 @@ func (s *SearchInstalledStickerSetsRequest) EncodeTDLibJSON(b tdjson.Encoder) er
 	}
 	b.ObjStart()
 	b.PutID("searchInstalledStickerSets")
+	b.Comma()
 	b.FieldStart("is_masks")
 	b.PutBool(s.IsMasks)
+	b.Comma()
 	b.FieldStart("query")
 	b.PutString(s.Query)
+	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(s.Limit)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

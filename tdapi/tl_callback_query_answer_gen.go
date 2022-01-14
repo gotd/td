@@ -184,12 +184,17 @@ func (c *CallbackQueryAnswer) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("callbackQueryAnswer")
+	b.Comma()
 	b.FieldStart("text")
 	b.PutString(c.Text)
+	b.Comma()
 	b.FieldStart("show_alert")
 	b.PutBool(c.ShowAlert)
+	b.Comma()
 	b.FieldStart("url")
 	b.PutString(c.URL)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

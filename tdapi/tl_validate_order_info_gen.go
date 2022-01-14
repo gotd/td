@@ -201,16 +201,22 @@ func (v *ValidateOrderInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("validateOrderInfo")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(v.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(v.MessageID)
+	b.Comma()
 	b.FieldStart("order_info")
 	if err := v.OrderInfo.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode validateOrderInfo#90a9c4: field order_info: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("allow_save")
 	b.PutBool(v.AllowSave)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -189,6 +189,7 @@ func (t *ToggleChatIsPinnedRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("toggleChatIsPinned")
+	b.Comma()
 	b.FieldStart("chat_list")
 	if t.ChatList == nil {
 		return fmt.Errorf("unable to encode toggleChatIsPinned#a776263e: field chat_list is nil")
@@ -196,10 +197,14 @@ func (t *ToggleChatIsPinnedRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := t.ChatList.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode toggleChatIsPinned#a776263e: field chat_list: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(t.ChatID)
+	b.Comma()
 	b.FieldStart("is_pinned")
 	b.PutBool(t.IsPinned)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

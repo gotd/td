@@ -207,6 +207,7 @@ func (p *PassportSuitableElement) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("passportSuitableElement")
+	b.Comma()
 	b.FieldStart("type")
 	if p.Type == nil {
 		return fmt.Errorf("unable to encode passportSuitableElement#d0f8831c: field type is nil")
@@ -214,12 +215,17 @@ func (p *PassportSuitableElement) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := p.Type.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode passportSuitableElement#d0f8831c: field type: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("is_selfie_required")
 	b.PutBool(p.IsSelfieRequired)
+	b.Comma()
 	b.FieldStart("is_translation_required")
 	b.PutBool(p.IsTranslationRequired)
+	b.Comma()
 	b.FieldStart("is_native_name_required")
 	b.PutBool(p.IsNativeNameRequired)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

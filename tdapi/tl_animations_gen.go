@@ -165,14 +165,19 @@ func (a *Animations) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("animations")
+	b.Comma()
 	b.FieldStart("animations")
 	b.ArrStart()
 	for idx, v := range a.Animations {
 		if err := v.EncodeTDLibJSON(b); err != nil {
 			return fmt.Errorf("unable to encode animations#2ce4157c: field animations element with index %d: %w", idx, err)
 		}
+		b.Comma()
 	}
+	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

@@ -150,8 +150,11 @@ func (c *CleanFileNameRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("cleanFileName")
+	b.Comma()
 	b.FieldStart("file_name")
 	b.PutString(c.FileName)
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }

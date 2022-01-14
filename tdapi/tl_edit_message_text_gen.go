@@ -211,10 +211,13 @@ func (e *EditMessageTextRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.ObjStart()
 	b.PutID("editMessageText")
+	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(e.ChatID)
+	b.Comma()
 	b.FieldStart("message_id")
 	b.PutInt53(e.MessageID)
+	b.Comma()
 	b.FieldStart("reply_markup")
 	if e.ReplyMarkup == nil {
 		return fmt.Errorf("unable to encode editMessageText#bb2e1b7: field reply_markup is nil")
@@ -222,6 +225,7 @@ func (e *EditMessageTextRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := e.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode editMessageText#bb2e1b7: field reply_markup: %w", err)
 	}
+	b.Comma()
 	b.FieldStart("input_message_content")
 	if e.InputMessageContent == nil {
 		return fmt.Errorf("unable to encode editMessageText#bb2e1b7: field input_message_content is nil")
@@ -229,6 +233,8 @@ func (e *EditMessageTextRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if err := e.InputMessageContent.EncodeTDLibJSON(b); err != nil {
 		return fmt.Errorf("unable to encode editMessageText#bb2e1b7: field input_message_content: %w", err)
 	}
+	b.Comma()
+	b.StripComma()
 	b.ObjEnd()
 	return nil
 }
