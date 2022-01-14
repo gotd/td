@@ -6,6 +6,7 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 	"fmt"
+	"math/big"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -95,15 +96,13 @@ const pBase64 = "xxyuucaxyQSObFIvcPE_c5gNQCOOPiHBSTTQN1Y9kw9IGYoKp8FAWCKUk9IlMPT
 	"X7ZUNWWW0ud1GWC2xF40WnGvEZbDW_5yjko_vW5rk5Bj8Feg-vqD4f6n_Xu1wBQ3tKEn0e_lZ2VaFDOkphR8NgRX2NbEF7i5OFdBLJFS_b0-" +
 	"t8DSxBAMRnNjjuS_MWw=="
 
-func TestSRP_checkPG(t *testing.T) {
-	s := NewSRP(nil)
-
+func Test_checkInput(t *testing.T) {
 	p, err := base64.URLEncoding.DecodeString(pBase64)
 	if err != nil {
 		t.Fatal("no err expected", err)
 	}
 
-	err = s.checkGP(3, p)
+	err = checkInput(3, big.NewInt(0).SetBytes(p))
 	if err != nil {
 		t.Fatal("no err expected", err)
 	}

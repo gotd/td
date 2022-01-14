@@ -2,6 +2,7 @@
 package srp
 
 import (
+	"crypto/sha256"
 	"crypto/sha512"
 	"io"
 	"math/big"
@@ -53,11 +54,11 @@ type Answer struct {
 //
 // See https://core.telegram.org/api/srp#checking-the-password-with-srp.
 func (s SRP) Hash(password, srpB, random []byte, i Input) (Answer, error) {
-	if err := s.checkGP(i.G, i.P); err != nil {
+	p := s.bigFromBytes(i.P)
+	if err := checkInput(i.G, p); err != nil {
 		return Answer{}, errors.Wrap(err, "validate algo")
 	}
 
-	p := s.bigFromBytes(i.P)
 	g := big.NewInt(int64(i.G))
 	gBytes, ok := s.paddedFromBig(g)
 	if !ok {
@@ -77,7 +78,7 @@ func (s SRP) Hash(password, srpB, random []byte, i Input) (Answer, error) {
 	gb := s.pad256(srpB)
 
 	// `u = H(g_a | g_b)`
-	u := s.bigFromBytes(s.hash(ga, gb))
+	u := s.bigFromBytes(s.hash(ga[:], gb[:]))
 
 	// `x = PH2(password, salt1, salt2)`
 	x := s.bigFromBytes(s.secondary(password, i.Salt1, i.Salt2))
@@ -86,7 +87,7 @@ func (s SRP) Hash(password, srpB, random []byte, i Input) (Answer, error) {
 	v := s.bigExp(g, x, p)
 
 	// `k = (k * v) mod p`
-	k := s.bigFromBytes(s.hash(i.P, gBytes))
+	k := s.bigFromBytes(s.hash(i.P, gBytes[:]))
 
 	// `k_v = (k * v) % p`
 	kv := k.Mul(k, v).Mod(k, p)
@@ -104,44 +105,43 @@ func (s SRP) Hash(password, srpB, random []byte, i Input) (Answer, error) {
 	}
 
 	// `k_a = H(s_a)`
-	ka := s.hash(sa)
+	ka := sha256.Sum256(sa[:])
 
 	// `M1 = H(H(p) xor H(g) | H2(salt1) | H2(salt2) | g_a | g_b | k_a)`
+	xorHpHg := xor32(sha256.Sum256(i.P), sha256.Sum256(gBytes[:]))
 	M1 := s.hash(
-		s.bytesXor(s.hash(i.P), s.hash(gBytes)),
+		xorHpHg[:],
 		s.hash(i.Salt1),
 		s.hash(i.Salt2),
-		ga,
-		gb,
-		ka,
+		ga[:],
+		gb[:],
+		ka[:],
 	)
 
 	return Answer{
-		A:  ga,
+		A:  ga[:],
 		M1: M1,
 	}, nil
 }
 
-func (s SRP) paddedFromBig(i *big.Int) ([]byte, bool) {
-	b := make([]byte, 256)
-	r := crypto.FillBytes(i, b)
+func (s SRP) paddedFromBig(i *big.Int) (b [256]byte, r bool) {
+	r = crypto.FillBytes(i, b[:])
 	return b, r
 }
 
-func (s SRP) pad256(b []byte) []byte {
+func (s SRP) pad256(b []byte) [256]byte {
 	if len(b) >= 256 {
-		return b[len(b)-256:]
+		return *(*[256]byte)(b[len(b)-256:])
 	}
 
 	var tmp [256]byte
 	copy(tmp[256-len(b):], b)
 
-	return tmp[:]
+	return tmp
 }
 
-func (s SRP) bytesXor(a, b []byte) []byte {
-	res := make([]byte, len(a))
-	xor.Bytes(res, a, b)
+func xor32(a, b [sha256.Size]byte) (res [sha256.Size]byte) {
+	xor.Bytes(res[:], a[:], b[:])
 	return res
 }
 
@@ -157,7 +157,11 @@ func (s SRP) bigExp(x, y, m *big.Int) *big.Int {
 //
 // H(data) := sha256(data)
 func (s SRP) hash(data ...[]byte) []byte {
-	return crypto.SHA256(data...)
+	h := sha256.New()
+	for i := range data {
+		h.Write(data[i])
+	}
+	return h.Sum(nil)
 }
 
 // The salting hashing function SH is defined as follows:
@@ -185,7 +189,6 @@ func (s SRP) pbkdf2(ph1, salt1 []byte, n int) []byte {
 	return pbkdf2.Key(ph1, salt1, n, 64, sha512.New)
 }
 
-func (s SRP) checkGP(g int, pBytes []byte) error {
-	p := s.bigFromBytes(pBytes)
+func checkInput(g int, p *big.Int) error {
 	return crypto.CheckDH(g, p)
 }
