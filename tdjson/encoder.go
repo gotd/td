@@ -33,7 +33,7 @@ func (b Encoder) PutBool(v bool) {
 
 // PutUint16 serializes unsigned 16-bit integer.
 func (b Encoder) PutUint16(v uint16) {
-	b.Encoder.Uint32(uint32(v))
+	b.Encoder.UInt32(uint32(v))
 }
 
 // PutInt32 serializes signed 32-bit integer.
@@ -43,7 +43,7 @@ func (b Encoder) PutInt32(v int32) {
 
 // PutUint32 serializes unsigned 32-bit integer.
 func (b Encoder) PutUint32(v uint32) {
-	b.Encoder.Uint32(v)
+	b.Encoder.UInt32(v)
 }
 
 // PutInt53 serializes v as int53.
@@ -64,7 +64,7 @@ func (b Encoder) PutLong(v int64) {
 func (b Encoder) PutUint64(v uint64) {
 	// FIXME(tdakkota): TDLib API has no uint64 fields
 	// 	so this encoding may incorrect.
-	b.Encoder.Uint64(v)
+	b.Encoder.UInt64(v)
 }
 
 // PutDouble serializes v as 64-bit floating point.
