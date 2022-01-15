@@ -2,8 +2,8 @@
 //
 // Source: https://raw.githubusercontent.com/telegramdesktop/tdesktop/dev/Telegram/Resources/tl/api.tl
 // Merge:  _schema/legacy.tl
-// Layer:  136
-// SHA256: 01c44f593056293ed3ea01389337de379025459110913e3a041362de5c2c8449
+// Layer:  137
+// SHA256: dc2233feb0976164571345f011fa531b1560a1c76531866f48bd2e504ad3a015
 
 boolFalse#bc799737 = Bool;
 
@@ -1901,7 +1901,7 @@ messageUserReaction#932844fa user_id:long reaction:string = MessageUserReaction;
 
 messages.messageReactionsList#a366923c flags:# count:int reactions:Vector<MessageUserReaction> users:Vector<User> next_offset:flags.0?string = messages.MessageReactionsList;
 
-availableReaction#21d7c4b flags:# inactive:flags.0?true reaction:string title:string static_icon:Document appear_animation:Document select_animation:Document activate_animation:Document effect_animation:Document = AvailableReaction;
+availableReaction#c077ec01 flags:# inactive:flags.0?true reaction:string title:string static_icon:Document appear_animation:Document select_animation:Document activate_animation:Document effect_animation:Document around_animation:flags.1?Document center_icon:flags.1?Document = AvailableReaction;
 
 messages.availableReactionsNotModified#9f071957 = messages.AvailableReactions;
 
@@ -2766,4 +2766,4 @@ test.useError#ee75af01 = Error;
 
 test.useConfigSimple#f9b7b23d = help.ConfigSimple;
 
-// LAYER 136
+// LAYER 137

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AvailableReaction represents TL type `availableReaction#21d7c4b`.
+// AvailableReaction represents TL type `availableReaction#c077ec01`.
 //
 // See https://core.telegram.org/constructor/availableReaction for reference.
 type AvailableReaction struct {
@@ -53,10 +53,18 @@ type AvailableReaction struct {
 	ActivateAnimation DocumentClass
 	// EffectAnimation field of AvailableReaction.
 	EffectAnimation DocumentClass
+	// AroundAnimation field of AvailableReaction.
+	//
+	// Use SetAroundAnimation and GetAroundAnimation helpers.
+	AroundAnimation DocumentClass
+	// CenterIcon field of AvailableReaction.
+	//
+	// Use SetCenterIcon and GetCenterIcon helpers.
+	CenterIcon DocumentClass
 }
 
 // AvailableReactionTypeID is TL type id of AvailableReaction.
-const AvailableReactionTypeID = 0x21d7c4b
+const AvailableReactionTypeID = 0xc077ec01
 
 // Ensuring interfaces in compile-time for AvailableReaction.
 var (
@@ -97,6 +105,12 @@ func (a *AvailableReaction) Zero() bool {
 	if !(a.EffectAnimation == nil) {
 		return false
 	}
+	if !(a.AroundAnimation == nil) {
+		return false
+	}
+	if !(a.CenterIcon == nil) {
+		return false
+	}
 
 	return true
 }
@@ -120,6 +134,8 @@ func (a *AvailableReaction) FillFrom(from interface {
 	GetSelectAnimation() (value DocumentClass)
 	GetActivateAnimation() (value DocumentClass)
 	GetEffectAnimation() (value DocumentClass)
+	GetAroundAnimation() (value DocumentClass, ok bool)
+	GetCenterIcon() (value DocumentClass, ok bool)
 }) {
 	a.Inactive = from.GetInactive()
 	a.Reaction = from.GetReaction()
@@ -129,6 +145,14 @@ func (a *AvailableReaction) FillFrom(from interface {
 	a.SelectAnimation = from.GetSelectAnimation()
 	a.ActivateAnimation = from.GetActivateAnimation()
 	a.EffectAnimation = from.GetEffectAnimation()
+	if val, ok := from.GetAroundAnimation(); ok {
+		a.AroundAnimation = val
+	}
+
+	if val, ok := from.GetCenterIcon(); ok {
+		a.CenterIcon = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -187,6 +211,16 @@ func (a *AvailableReaction) TypeInfo() tdp.Type {
 			Name:       "EffectAnimation",
 			SchemaName: "effect_animation",
 		},
+		{
+			Name:       "AroundAnimation",
+			SchemaName: "around_animation",
+			Null:       !a.Flags.Has(1),
+		},
+		{
+			Name:       "CenterIcon",
+			SchemaName: "center_icon",
+			Null:       !a.Flags.Has(1),
+		},
 	}
 	return typ
 }
@@ -196,12 +230,18 @@ func (a *AvailableReaction) SetFlags() {
 	if !(a.Inactive == false) {
 		a.Flags.Set(0)
 	}
+	if !(a.AroundAnimation == nil) {
+		a.Flags.Set(1)
+	}
+	if !(a.CenterIcon == nil) {
+		a.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (a *AvailableReaction) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode availableReaction#21d7c4b as nil")
+		return fmt.Errorf("can't encode availableReaction#c077ec01 as nil")
 	}
 	b.PutID(AvailableReactionTypeID)
 	return a.EncodeBare(b)
@@ -210,43 +250,59 @@ func (a *AvailableReaction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AvailableReaction) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode availableReaction#21d7c4b as nil")
+		return fmt.Errorf("can't encode availableReaction#c077ec01 as nil")
 	}
 	a.SetFlags()
 	if err := a.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode availableReaction#21d7c4b: field flags: %w", err)
+		return fmt.Errorf("unable to encode availableReaction#c077ec01: field flags: %w", err)
 	}
 	b.PutString(a.Reaction)
 	b.PutString(a.Title)
 	if a.StaticIcon == nil {
-		return fmt.Errorf("unable to encode availableReaction#21d7c4b: field static_icon is nil")
+		return fmt.Errorf("unable to encode availableReaction#c077ec01: field static_icon is nil")
 	}
 	if err := a.StaticIcon.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode availableReaction#21d7c4b: field static_icon: %w", err)
+		return fmt.Errorf("unable to encode availableReaction#c077ec01: field static_icon: %w", err)
 	}
 	if a.AppearAnimation == nil {
-		return fmt.Errorf("unable to encode availableReaction#21d7c4b: field appear_animation is nil")
+		return fmt.Errorf("unable to encode availableReaction#c077ec01: field appear_animation is nil")
 	}
 	if err := a.AppearAnimation.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode availableReaction#21d7c4b: field appear_animation: %w", err)
+		return fmt.Errorf("unable to encode availableReaction#c077ec01: field appear_animation: %w", err)
 	}
 	if a.SelectAnimation == nil {
-		return fmt.Errorf("unable to encode availableReaction#21d7c4b: field select_animation is nil")
+		return fmt.Errorf("unable to encode availableReaction#c077ec01: field select_animation is nil")
 	}
 	if err := a.SelectAnimation.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode availableReaction#21d7c4b: field select_animation: %w", err)
+		return fmt.Errorf("unable to encode availableReaction#c077ec01: field select_animation: %w", err)
 	}
 	if a.ActivateAnimation == nil {
-		return fmt.Errorf("unable to encode availableReaction#21d7c4b: field activate_animation is nil")
+		return fmt.Errorf("unable to encode availableReaction#c077ec01: field activate_animation is nil")
 	}
 	if err := a.ActivateAnimation.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode availableReaction#21d7c4b: field activate_animation: %w", err)
+		return fmt.Errorf("unable to encode availableReaction#c077ec01: field activate_animation: %w", err)
 	}
 	if a.EffectAnimation == nil {
-		return fmt.Errorf("unable to encode availableReaction#21d7c4b: field effect_animation is nil")
+		return fmt.Errorf("unable to encode availableReaction#c077ec01: field effect_animation is nil")
 	}
 	if err := a.EffectAnimation.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode availableReaction#21d7c4b: field effect_animation: %w", err)
+		return fmt.Errorf("unable to encode availableReaction#c077ec01: field effect_animation: %w", err)
+	}
+	if a.Flags.Has(1) {
+		if a.AroundAnimation == nil {
+			return fmt.Errorf("unable to encode availableReaction#c077ec01: field around_animation is nil")
+		}
+		if err := a.AroundAnimation.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode availableReaction#c077ec01: field around_animation: %w", err)
+		}
+	}
+	if a.Flags.Has(1) {
+		if a.CenterIcon == nil {
+			return fmt.Errorf("unable to encode availableReaction#c077ec01: field center_icon is nil")
+		}
+		if err := a.CenterIcon.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode availableReaction#c077ec01: field center_icon: %w", err)
+		}
 	}
 	return nil
 }
@@ -254,10 +310,10 @@ func (a *AvailableReaction) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (a *AvailableReaction) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode availableReaction#21d7c4b to nil")
+		return fmt.Errorf("can't decode availableReaction#c077ec01 to nil")
 	}
 	if err := b.ConsumeID(AvailableReactionTypeID); err != nil {
-		return fmt.Errorf("unable to decode availableReaction#21d7c4b: %w", err)
+		return fmt.Errorf("unable to decode availableReaction#c077ec01: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -265,62 +321,76 @@ func (a *AvailableReaction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AvailableReaction) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode availableReaction#21d7c4b to nil")
+		return fmt.Errorf("can't decode availableReaction#c077ec01 to nil")
 	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode availableReaction#21d7c4b: field flags: %w", err)
+			return fmt.Errorf("unable to decode availableReaction#c077ec01: field flags: %w", err)
 		}
 	}
 	a.Inactive = a.Flags.Has(0)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode availableReaction#21d7c4b: field reaction: %w", err)
+			return fmt.Errorf("unable to decode availableReaction#c077ec01: field reaction: %w", err)
 		}
 		a.Reaction = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode availableReaction#21d7c4b: field title: %w", err)
+			return fmt.Errorf("unable to decode availableReaction#c077ec01: field title: %w", err)
 		}
 		a.Title = value
 	}
 	{
 		value, err := DecodeDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode availableReaction#21d7c4b: field static_icon: %w", err)
+			return fmt.Errorf("unable to decode availableReaction#c077ec01: field static_icon: %w", err)
 		}
 		a.StaticIcon = value
 	}
 	{
 		value, err := DecodeDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode availableReaction#21d7c4b: field appear_animation: %w", err)
+			return fmt.Errorf("unable to decode availableReaction#c077ec01: field appear_animation: %w", err)
 		}
 		a.AppearAnimation = value
 	}
 	{
 		value, err := DecodeDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode availableReaction#21d7c4b: field select_animation: %w", err)
+			return fmt.Errorf("unable to decode availableReaction#c077ec01: field select_animation: %w", err)
 		}
 		a.SelectAnimation = value
 	}
 	{
 		value, err := DecodeDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode availableReaction#21d7c4b: field activate_animation: %w", err)
+			return fmt.Errorf("unable to decode availableReaction#c077ec01: field activate_animation: %w", err)
 		}
 		a.ActivateAnimation = value
 	}
 	{
 		value, err := DecodeDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode availableReaction#21d7c4b: field effect_animation: %w", err)
+			return fmt.Errorf("unable to decode availableReaction#c077ec01: field effect_animation: %w", err)
 		}
 		a.EffectAnimation = value
+	}
+	if a.Flags.Has(1) {
+		value, err := DecodeDocument(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode availableReaction#c077ec01: field around_animation: %w", err)
+		}
+		a.AroundAnimation = value
+	}
+	if a.Flags.Has(1) {
+		value, err := DecodeDocument(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode availableReaction#c077ec01: field center_icon: %w", err)
+		}
+		a.CenterIcon = value
 	}
 	return nil
 }
@@ -400,6 +470,42 @@ func (a *AvailableReaction) GetEffectAnimation() (value DocumentClass) {
 	return a.EffectAnimation
 }
 
+// SetAroundAnimation sets value of AroundAnimation conditional field.
+func (a *AvailableReaction) SetAroundAnimation(value DocumentClass) {
+	a.Flags.Set(1)
+	a.AroundAnimation = value
+}
+
+// GetAroundAnimation returns value of AroundAnimation conditional field and
+// boolean which is true if field was set.
+func (a *AvailableReaction) GetAroundAnimation() (value DocumentClass, ok bool) {
+	if a == nil {
+		return
+	}
+	if !a.Flags.Has(1) {
+		return value, false
+	}
+	return a.AroundAnimation, true
+}
+
+// SetCenterIcon sets value of CenterIcon conditional field.
+func (a *AvailableReaction) SetCenterIcon(value DocumentClass) {
+	a.Flags.Set(1)
+	a.CenterIcon = value
+}
+
+// GetCenterIcon returns value of CenterIcon conditional field and
+// boolean which is true if field was set.
+func (a *AvailableReaction) GetCenterIcon() (value DocumentClass, ok bool) {
+	if a == nil {
+		return
+	}
+	if !a.Flags.Has(1) {
+		return value, false
+	}
+	return a.CenterIcon, true
+}
+
 // GetStaticIconAsNotEmpty returns mapped value of StaticIcon field.
 func (a *AvailableReaction) GetStaticIconAsNotEmpty() (*Document, bool) {
 	return a.StaticIcon.AsNotEmpty()
@@ -423,4 +529,22 @@ func (a *AvailableReaction) GetActivateAnimationAsNotEmpty() (*Document, bool) {
 // GetEffectAnimationAsNotEmpty returns mapped value of EffectAnimation field.
 func (a *AvailableReaction) GetEffectAnimationAsNotEmpty() (*Document, bool) {
 	return a.EffectAnimation.AsNotEmpty()
+}
+
+// GetAroundAnimationAsNotEmpty returns mapped value of AroundAnimation conditional field and
+// boolean which is true if field was set.
+func (a *AvailableReaction) GetAroundAnimationAsNotEmpty() (*Document, bool) {
+	if value, ok := a.GetAroundAnimation(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
+}
+
+// GetCenterIconAsNotEmpty returns mapped value of CenterIcon conditional field and
+// boolean which is true if field was set.
+func (a *AvailableReaction) GetCenterIconAsNotEmpty() (*Document, bool) {
+	if value, ok := a.GetCenterIcon(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
 }
