@@ -32,7 +32,7 @@ var (
 )
 
 // Layer version of schema.
-const Layer = 136
+const Layer = 137
 
 // TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
@@ -985,7 +985,7 @@ func TypesMap() map[uint32]string {
 		MessageReactionsTypeID:                                                  "messageReactions#87b6e36",
 		MessageUserReactionTypeID:                                               "messageUserReaction#932844fa",
 		MessagesMessageReactionsListTypeID:                                      "messages.messageReactionsList#a366923c",
-		AvailableReactionTypeID:                                                 "availableReaction#21d7c4b",
+		AvailableReactionTypeID:                                                 "availableReaction#c077ec01",
 		MessagesAvailableReactionsNotModifiedTypeID:                             "messages.availableReactionsNotModified#9f071957",
 		MessagesAvailableReactionsTypeID:                                        "messages.availableReactions#768e3aad",
 		InvokeAfterMsgRequestTypeID:                                             "invokeAfterMsg#cb9f372d",
