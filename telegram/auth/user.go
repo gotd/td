@@ -5,7 +5,6 @@ import (
 
 	"github.com/go-faster/errors"
 
-	"github.com/gotd/td/internal/crypto/srp"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
 )
@@ -26,15 +25,9 @@ func (c *Client) Password(ctx context.Context, password string) (*tg.AuthAuthori
 		return nil, errors.Wrap(err, "get SRP parameters")
 	}
 
-	algo, ok := p.CurrentAlgo.(*tg.PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow)
-	if !ok {
-		return nil, errors.Errorf("unsupported algo: %T", p.CurrentAlgo)
-	}
-
-	s := srp.NewSRP(c.rand)
-	a, err := s.Hash([]byte(password), p.SRPB, p.SecureRandom, srp.Input(*algo))
+	a, err := PasswordHash([]byte(password), p.SRPID, p.SRPB, p.SecureRandom, p.CurrentAlgo)
 	if err != nil {
-		return nil, errors.Wrap(err, "create SRP answer")
+		return nil, errors.Wrap(err, "compute password hash")
 	}
 
 	auth, err := c.api.AuthCheckPassword(ctx, &tg.InputCheckPasswordSRP{
