@@ -67,7 +67,7 @@ func (m *Iterator) apply(r tg.ChannelsChannelParticipantsClass) error {
 		entities = peer.NewEntities(prts.MapUsers().UserToMap(), map[int64]*tg.Chat{}, map[int64]*tg.Channel{})
 
 		m.count = prts.Count
-		m.lastBatch = len(participants) < m.limit
+		m.lastBatch = len(participants) < 1
 	default: // channels.channelParticipantsNotModified#f0173fe9
 		return errors.Errorf("unexpected type %T", r)
 	}
@@ -135,7 +135,8 @@ func (m *Iterator) FetchTotal(ctx context.Context) (int, error) {
 }
 
 // Next prepares the next message for reading with the Value method.
-// It returns true on success, or false if there is no next message or an error happened while preparing it.
+//
+// Returns true on success, or false if there is no next message or an error happened while preparing it.
 // Err should be consulted to distinguish between the two cases.
 func (m *Iterator) Next(ctx context.Context) bool {
 	if m.lastErr != nil {
