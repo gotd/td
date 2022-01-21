@@ -14,7 +14,7 @@ require (
 	github.com/gotd/tl v0.4.0
 	github.com/k0kubun/pp/v3 v3.1.0
 	github.com/klauspost/compress v1.14.1
-	github.com/quasilyte/go-ruleguard/dsl v0.3.13
+	github.com/quasilyte/go-ruleguard/dsl v0.3.15
 	github.com/rogpeppe/go-internal v1.8.1
 	github.com/stretchr/testify v1.7.0
 	go.uber.org/atomic v1.9.0
