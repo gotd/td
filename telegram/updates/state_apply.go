@@ -40,6 +40,7 @@ func (s *state) applyCombined(ctx context.Context, comb *tg.UpdatesCombined) (pt
 		}
 		others []tg.UpdateClass
 	)
+	sortUpdatesByPts(comb.Updates)
 
 	for _, u := range comb.Updates {
 		switch u := u.(type) {
