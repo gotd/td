@@ -4,7 +4,7 @@ import "github.com/gotd/td/tg"
 
 // Staging returns staging DC list.
 //
-// Deprecated. Use Test().
+// Deprecated: Use Test().
 func Staging() List {
 	return Test()
 }
