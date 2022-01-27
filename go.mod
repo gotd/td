@@ -23,7 +23,7 @@ require (
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
 	golang.org/x/net v0.0.0-20211015210444-4f30a5c0130f
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	golang.org/x/tools v0.1.8
+	golang.org/x/tools v0.1.9
 	nhooyr.io/websocket v1.8.7
 	rsc.io/qr v0.2.0
 )
