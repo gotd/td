@@ -69,6 +69,8 @@ type UpdatePasswordOptions struct {
 	// Hint is new password hint.
 	Hint string
 	// Password is password callback.
+	//
+	// If password was requested and Password is nil, ErrPasswordNotProvided error will be returned.
 	Password func(ctx context.Context) (string, error)
 }
 
@@ -145,6 +147,8 @@ func (r *ResetFailedWaitError) Error() string {
 
 // ResetPassword resets cloud password and returns time to wait until reset be performed.
 // If time is zero, password was successfully reset.
+//
+// May return ResetFailedWaitError.
 //
 // See https://core.telegram.org/api/srp#password-reset.
 func (c *Client) ResetPassword(ctx context.Context) (time.Time, error) {

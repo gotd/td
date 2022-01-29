@@ -29,7 +29,7 @@ func (s SRP) computeXV(password, clientSalt, serverSalt []byte, g, p *big.Int) (
 // See https://github.com/tdlib/td/blob/fa8feefed70d64271945e9d5fd010b957d93c8cd/td/telegram/PasswordManager.cpp#L57.
 //
 // TDesktop implementation:
-// See https://github.com/telegramdesktop/tdesktop/blob/624d83dc6008310d5fb88831f4d633992c864ba1/Telegram/SourceFiles/core/core_cloud_password.cpp#L68.
+// See https://github.com/telegramdesktop/tdesktop/blob/v3.4.8/Telegram/SourceFiles/core/core_cloud_password.cpp#L68.
 func (s SRP) NewHash(password []byte, i Input) (hash, newSalt []byte, _ error) {
 	// Generate a new new_password_hash using the KDF algorithm specified in the new_settings,
 	// just append 32 sufficiently random bytes to the salt1, first. Proceed as for checking passwords with SRP,
