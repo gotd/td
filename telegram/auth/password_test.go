@@ -13,24 +13,6 @@ import (
 	"github.com/gotd/td/tgmock"
 )
 
-func mockClient(t *testing.T) (*tgmock.Mock, *Client) {
-	mock := tgmock.New(t)
-	return mock, NewClient(tg.NewClient(mock), testutil.ZeroRand{}, testAppID, testAppHash)
-}
-
-func mockTest(cb func(
-	a *require.Assertions,
-	mock *tgmock.Mock,
-	client *Client,
-)) func(t *testing.T) {
-	return func(t *testing.T) {
-		a := require.New(t)
-		m, client := mockClient(t)
-
-		cb(a, m, client)
-	}
-}
-
 func TestPasswordHash(t *testing.T) {
 	a := require.New(t)
 	_, err := PasswordHash(nil, 0, nil, nil, nil)

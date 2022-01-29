@@ -37,6 +37,12 @@ func TestClient_AuthSignIn(t *testing.T) {
 	testUser := &tg.User{ID: 1}
 	invoker := tgmock.Invoker(func(body bin.Encoder) (bin.Encoder, error) {
 		switch req := body.(type) {
+		case *tg.UsersGetUsersRequest:
+			return nil, &tgerr.Error{
+				Code:    401,
+				Message: "AUTH_KEY_UNREGISTERED",
+				Type:    "AUTH_KEY_UNREGISTERED",
+			}
 		case *tg.AuthSendCodeRequest:
 			settings := tg.CodeSettings{}
 			settings.SetCurrentNumber(true)
@@ -112,14 +118,20 @@ func TestClient_AuthSignIn(t *testing.T) {
 		require.NoError(t, err)
 		require.Equal(t, testUser, result.User)
 	})
-	t.Run("AuthFlow", func(t *testing.T) {
-		// Using flow helper.
-		u := Constant(phone, password, CodeAuthenticatorFunc(
+
+	flow := NewFlow(
+		Constant(phone, password, CodeAuthenticatorFunc(
 			func(ctx context.Context, _ *tg.AuthSentCode) (string, error) {
 				return code, nil
 			},
-		))
-		require.NoError(t, NewFlow(u, SendCodeOptions{CurrentNumber: true}).Run(ctx, testClient(invoker)))
+		)),
+		SendCodeOptions{CurrentNumber: true},
+	)
+	t.Run("AuthFlow", func(t *testing.T) {
+		require.NoError(t, flow.Run(ctx, testClient(invoker)))
+	})
+	t.Run("IfNecessary", func(t *testing.T) {
+		require.NoError(t, testClient(invoker).IfNecessary(ctx, flow))
 	})
 }
 
@@ -224,4 +236,19 @@ func TestClientTestSignUp(t *testing.T) {
 		Test(rand.New(rand.NewSource(1)), dcID),
 		SendCodeOptions{},
 	).Run(ctx, testClient(invoker)))
+}
+
+func TestClient_AcceptTOS(t *testing.T) {
+	ctx := context.Background()
+	mockTest(func(a *require.Assertions, mock *tgmock.Mock, client *Client) {
+		mock.Expect().ThenUnregistered()
+		a.Error(client.AcceptTOS(ctx, tg.DataJSON{
+			Data: `{"data":"data"}`,
+		}))
+
+		mock.Expect().ThenTrue()
+		a.NoError(client.AcceptTOS(ctx, tg.DataJSON{
+			Data: `{"data":"data"}`,
+		}))
+	})(t)
 }

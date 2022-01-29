@@ -6,10 +6,11 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/testutil"
 )
 
 func TestEncrypt(t *testing.T) {
-	c := NewClientCipher(Zero{})
+	c := NewClientCipher(testutil.ZeroRand{})
 
 	var authKey Key
 	for i := 0; i < 256; i++ {

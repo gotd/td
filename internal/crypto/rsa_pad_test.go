@@ -28,7 +28,7 @@ t6N/byY9Nw9p21Og3AoXSL2q/2IJ1WRUhebgAdGVMlV1fkuOQoEzR7EdpqtQD9Cs
 	a.NoError(err)
 	data := bytes.Repeat([]byte{'a'}, 144)
 
-	encrypted, err := RSAPad(data, keys[0], Zero{})
+	encrypted, err := RSAPad(data, keys[0], testutil.ZeroRand{})
 	a.NoError(err)
 	a.Len(encrypted, 256)
 

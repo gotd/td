@@ -2,6 +2,7 @@ package auth_test
 
 import (
 	"context"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -80,4 +81,34 @@ func TestEnvAuth(t *testing.T) {
 	result, err = authEnv.Password(ctx)
 	a.NoError(err)
 	a.Equal("password", result)
+}
+
+func TestTestAuth(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	testAuth := auth.Test(testutil.ZeroRand{}, 2)
+
+	_, err := testAuth.Code(ctx, &tg.AuthSentCode{
+		Type: &tg.AuthSentCodeTypeFlashCall{},
+	})
+	a.Error(err)
+
+	result, err := testAuth.Code(ctx, nil)
+	a.NoError(err)
+	a.Equal("22222", result)
+
+	result, err = testAuth.Code(ctx, &tg.AuthSentCode{
+		Type: &tg.AuthSentCodeTypeApp{
+			Length: 1,
+		},
+	})
+	a.NoError(err)
+	a.Equal("2", result)
+
+	result, err = testAuth.Phone(ctx)
+	a.NoError(err)
+	a.True(strings.HasPrefix(result, "999662"))
+
+	_, err = testAuth.Password(ctx)
+	a.ErrorIs(err, auth.ErrPasswordNotProvided)
 }
