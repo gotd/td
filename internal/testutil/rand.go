@@ -5,6 +5,12 @@ import (
 	"math/rand"
 )
 
+// ZeroRand is zero random source.
+type ZeroRand struct{}
+
+// Read implements io.Reader.
+func (ZeroRand) Read(p []byte) (n int, err error) { return len(p), nil }
+
 func randSeed(data []byte) int64 {
 	if len(data) == 0 {
 		return 0

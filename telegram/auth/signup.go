@@ -22,7 +22,7 @@ func (s *SignUpRequired) Error() string {
 	return "account with provided number does not exist (sign up required)"
 }
 
-// checkResult checks that a is *tg.AuthAuthorization and returns authorization result or error.
+// checkResult checks that `a` is *tg.AuthAuthorization and returns authorization result or error.
 func checkResult(a tg.AuthAuthorizationClass) (*tg.AuthAuthorization, error) {
 	switch a := a.(type) {
 	case *tg.AuthAuthorization:

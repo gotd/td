@@ -233,12 +233,16 @@ func (t testAuth) Code(ctx context.Context, sentCode *tg.AuthSentCode) (string, 
 		GetLength() int
 	}
 
-	typ, ok := sentCode.Type.(notFlashing)
-	if !ok {
-		return "", errors.Errorf("unexpected type: %T", sentCode.Type)
+	length := 5
+	if sentCode != nil {
+		typ, ok := sentCode.Type.(notFlashing)
+		if !ok {
+			return "", errors.Errorf("unexpected type: %T", sentCode.Type)
+		}
+		length = typ.GetLength()
 	}
 
-	return strings.Repeat(strconv.Itoa(t.dc), typ.GetLength()), nil
+	return strings.Repeat(strconv.Itoa(t.dc), length), nil
 }
 
 func (t testAuth) AcceptTermsOfService(ctx context.Context, tos tg.HelpTermsOfService) error {

@@ -11,13 +11,9 @@ import (
 	"github.com/gotd/td/internal/testutil"
 )
 
-type Zero struct{}
-
-func (Zero) Read(p []byte) (n int, err error) { return len(p), nil }
-
 func TestDecrypt(t *testing.T) {
 	// Test vector from grammers.
-	c := NewClientCipher(Zero{})
+	c := NewClientCipher(testutil.ZeroRand{})
 	var msg EncryptedMessage
 	b := &bin.Buffer{Buf: []byte{
 		122, 113, 131, 194, 193, 14, 79, 77, 249, 69, 250, 154, 154, 189, 53, 231, 195, 132,
@@ -57,8 +53,8 @@ func TestCipher_Decrypt(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	c := NewClientCipher(Zero{})
-	s := NewServerCipher(Zero{})
+	c := NewClientCipher(testutil.ZeroRand{})
+	s := NewServerCipher(testutil.ZeroRand{})
 	tests := []struct {
 		name      string
 		data      []byte

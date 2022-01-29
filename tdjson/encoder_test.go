@@ -88,6 +88,10 @@ func TestEncodeDecode(t *testing.T) {
 				},
 			},
 		},
+		// Test empty array.
+		&tdapi.ReplyMarkupInlineKeyboard{
+			Rows: [][]tdapi.InlineKeyboardButton{},
+		},
 	}
 
 	for _, typ := range types {

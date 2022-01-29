@@ -13,13 +13,10 @@ import (
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/rpc"
+	"github.com/gotd/td/internal/testutil"
 	"github.com/gotd/td/internal/tmap"
 	"github.com/gotd/td/tg"
 )
-
-type Zero struct{}
-
-func (Zero) Read(p []byte) (n int, err error) { return len(p), nil }
 
 type fuzzHandler struct {
 	types *tmap.Constructor
@@ -67,7 +64,7 @@ func init() {
 		),
 	}
 	c := &Conn{
-		rand:      Zero{},
+		rand:      testutil.ZeroRand{},
 		rpc:       rpc.New(rpc.NopSend, rpc.Options{}),
 		log:       zap.NewNop(),
 		messageID: proto.NewMessageIDGen(time.Now),

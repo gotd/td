@@ -11,7 +11,7 @@ import (
 	"github.com/gotd/td/tgmock"
 )
 
-func TestClient_AuthStatus(t *testing.T) {
+func TestClient_Status(t *testing.T) {
 	ctx := context.Background()
 
 	t.Run("Authorized", func(t *testing.T) {
@@ -49,7 +49,7 @@ func TestClient_AuthStatus(t *testing.T) {
 	})
 }
 
-func TestClient_AuthIfNecessary(t *testing.T) {
+func TestClient_IfNecessary(t *testing.T) {
 	ctx := context.Background()
 
 	t.Run("Authorized", func(t *testing.T) {
@@ -61,5 +61,47 @@ func TestClient_AuthIfNecessary(t *testing.T) {
 
 		// Pass empty AuthFlow because it should not be called anyway.
 		require.NoError(t, testClient(mock).IfNecessary(ctx, Flow{}))
+	})
+
+	t.Run("Error", func(t *testing.T) {
+		mock := tgmock.NewRequire(t)
+		mock.Expect().ThenRPCErr(&tgerr.Error{
+			Code:    500,
+			Message: "BRUH",
+			Type:    "BRUH",
+		})
+
+		// Pass empty AuthFlow because it should not be called anyway.
+		require.Error(t, testClient(mock).IfNecessary(ctx, Flow{}))
+	})
+}
+
+func TestClient_Test(t *testing.T) {
+	ctx := context.Background()
+
+	t.Run("Authorized", func(t *testing.T) {
+		mock := tgmock.NewRequire(t)
+		testUser := &tg.User{
+			Username: "user",
+		}
+		mock.Expect().ThenResult(&tg.UserClassVector{Elems: []tg.UserClass{testUser}})
+
+		// Pass empty AuthFlow because it should not be called anyway.
+		require.NoError(t, testClient(mock).Test(ctx, 2))
+	})
+}
+
+func TestClient_TestUser(t *testing.T) {
+	ctx := context.Background()
+
+	t.Run("Authorized", func(t *testing.T) {
+		mock := tgmock.NewRequire(t)
+		testUser := &tg.User{
+			Username: "user",
+		}
+		mock.Expect().ThenResult(&tg.UserClassVector{Elems: []tg.UserClass{testUser}})
+
+		// Pass empty AuthFlow because it should not be called anyway.
+		require.NoError(t, testClient(mock).TestUser(ctx, "phone", 2))
 	})
 }

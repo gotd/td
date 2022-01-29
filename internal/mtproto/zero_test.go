@@ -3,6 +3,6 @@
 
 package mtproto
 
-type Zero struct{}
+import "github.com/gotd/td/internal/testutil"
 
-func (Zero) Read(p []byte) (n int, err error) { return len(p), nil }
+type Zero = testutil.ZeroRand
