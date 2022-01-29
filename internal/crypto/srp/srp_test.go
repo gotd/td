@@ -62,7 +62,7 @@ func TestSRP(t *testing.T) {
 	}
 	for i := range tests {
 		tcase := tests[i]
-		t.Run(fmt.Sprintf("#%v", i), func(t *testing.T) {
+		t.Run(fmt.Sprintf("Test%d", i+1), func(t *testing.T) {
 			random := setByte(256, 1)
 			srp := NewSRP(rand.Reader)
 			got, err := srp.Hash(tcase.args.password, tcase.args.srpB, random, tcase.args.mp)

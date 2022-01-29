@@ -2,6 +2,8 @@ package auth
 
 import (
 	"context"
+	"fmt"
+	"time"
 
 	"github.com/go-faster/errors"
 
@@ -62,11 +64,21 @@ var (
 	emptyPassword tg.InputCheckPasswordSRPClass = &tg.InputCheckPasswordEmpty{}
 )
 
-// UpdatePassword sets new password for this account.
+// UpdatePasswordOptions is options structure for UpdatePassword.
+type UpdatePasswordOptions struct {
+	// Hint is new password hint.
+	Hint string
+	// Password is password callback.
+	Password func(ctx context.Context) (string, error)
+}
+
+// UpdatePassword sets new cloud password for this account.
+//
+// See https://core.telegram.org/api/srp#setting-a-new-2fa-password.
 func (c *Client) UpdatePassword(
 	ctx context.Context,
-	hint, newPassword string,
-	pass func(ctx context.Context) (string, error),
+	newPassword string,
+	opts UpdatePasswordOptions,
 ) error {
 	p, err := c.api.AccountGetPassword(ctx)
 	if err != nil {
@@ -85,11 +97,11 @@ func (c *Client) UpdatePassword(
 
 	var old = emptyPassword
 	if p.HasPassword {
-		if pass == nil {
+		if opts.Password == nil {
 			return ErrPasswordNotProvided
 		}
 
-		oldPassword, err := pass(ctx)
+		oldPassword, err := opts.Password(ctx)
 		if err != nil {
 			return errors.Wrap(err, "get password")
 		}
@@ -106,10 +118,58 @@ func (c *Client) UpdatePassword(
 		NewSettings: tg.AccountPasswordInputSettings{
 			NewAlgo:         algo,
 			NewPasswordHash: newHash,
-			Hint:            hint,
+			Hint:            opts.Hint,
 		},
 	}); err != nil {
 		return errors.Wrap(err, "update password")
+	}
+	return nil
+}
+
+// ResetFailedWaitError reports that you recently requested a password reset that was cancel and need to wait until the
+// specified date before requesting another reset.
+type ResetFailedWaitError struct {
+	Result tg.AccountResetPasswordFailedWait
+}
+
+// Until returns time required to wait.
+func (r ResetFailedWaitError) Until() time.Duration {
+	retryDate := time.Unix(int64(r.Result.RetryDate), 0)
+	return time.Until(retryDate)
+}
+
+// Error implements error.
+func (r *ResetFailedWaitError) Error() string {
+	return fmt.Sprintf("wait to reset password (%s)", r.Until())
+}
+
+// ResetPassword resets cloud password and returns time to wait until reset be performed.
+// If time is zero, password was successfully reset.
+//
+// See https://core.telegram.org/api/srp#password-reset.
+func (c *Client) ResetPassword(ctx context.Context) (time.Time, error) {
+	r, err := c.api.AccountResetPassword(ctx)
+	if err != nil {
+		return time.Time{}, errors.Wrap(err, "reset password")
+	}
+	switch v := r.(type) {
+	case *tg.AccountResetPasswordFailedWait:
+		return time.Time{}, &ResetFailedWaitError{Result: *v}
+	case *tg.AccountResetPasswordRequestedWait:
+		return time.Unix(int64(v.UntilDate), 0), nil
+	case *tg.AccountResetPasswordOk:
+		return time.Time{}, nil
+	default:
+		return time.Time{}, errors.Errorf("unexpected type %T", v)
+	}
+}
+
+// CancelPasswordReset cancels password reset.
+//
+// See https://core.telegram.org/api/srp#password-reset.
+func (c *Client) CancelPasswordReset(ctx context.Context) error {
+	if _, err := c.api.AccountDeclinePasswordReset(ctx); err != nil {
+		return errors.Wrap(err, "cancel password reset")
 	}
 	return nil
 }

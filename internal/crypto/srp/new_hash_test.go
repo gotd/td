@@ -4,11 +4,9 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
+
+	"github.com/gotd/td/internal/testutil"
 )
-
-type Zero struct{}
-
-func (Zero) Read(p []byte) (n int, err error) { return len(p), nil }
 
 func TestSRP_NewHash(t *testing.T) {
 	password := []uint8{
@@ -66,7 +64,7 @@ func TestSRP_NewHash(t *testing.T) {
 	}
 
 	a := require.New(t)
-	s := NewSRP(Zero{})
+	s := NewSRP(testutil.ZeroRand{})
 	hash, newSalt, err := s.NewHash(password, i)
 	a.NoError(err)
 	a.Equal(expectedHash, hash)
