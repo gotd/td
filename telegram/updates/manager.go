@@ -128,10 +128,6 @@ onNotFound:
 			return State{}, err
 		}
 
-		if err := m.cfg.Storage.SetState(userID, state); err != nil {
-			return State{}, err
-		}
-
 		return state, nil
 	}
 
