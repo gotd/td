@@ -142,9 +142,19 @@ func (c Chat) ToBroadcast() (Broadcast, bool) {
 	return Broadcast{}, false
 }
 
+// IsBroadcast whether this Chat is Broadcast.
+func (c Chat) IsBroadcast() bool {
+	return false
+}
+
 // ToSupergroup tries to convert this Chat to Supergroup.
 func (c Chat) ToSupergroup() (Supergroup, bool) {
 	return Supergroup{}, false
+}
+
+// IsSupergroup whether this Chat is Supergroup.
+func (c Chat) IsSupergroup() bool {
+	return false
 }
 
 // Creator whether the current user is the creator of this group.

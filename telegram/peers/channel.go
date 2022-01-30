@@ -138,6 +138,11 @@ func (c Channel) ToBroadcast() (Broadcast, bool) {
 	}, true
 }
 
+// IsBroadcast whether this Channel is Broadcast.
+func (c Channel) IsBroadcast() bool {
+	return c.raw.Broadcast
+}
+
 // ToSupergroup tries to convert this Channel to Supergroup.
 func (c Channel) ToSupergroup() (Supergroup, bool) {
 	if !c.raw.Megagroup {
@@ -146,6 +151,11 @@ func (c Channel) ToSupergroup() (Supergroup, bool) {
 	return Supergroup{
 		Channel: c,
 	}, true
+}
+
+// IsSupergroup whether this Channel is Supergroup.
+func (c Channel) IsSupergroup() bool {
+	return c.raw.Megagroup
 }
 
 // InviteLinks returns InviteLinks for this peer.
