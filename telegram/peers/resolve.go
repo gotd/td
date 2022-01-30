@@ -12,7 +12,7 @@ import (
 )
 
 // Resolve uses given string to create new peer promise.
-// It resolves peer of message using given Resolver.
+//
 // Input examples:
 //
 //	@telegram
@@ -72,7 +72,6 @@ func cleanupPhone(phone string) string {
 
 // ResolvePhone uses given phone to resolve User.
 //
-// It resolves peer of message using given Resolver.
 // Input example:
 //
 //	+13115552368
@@ -152,7 +151,7 @@ func (m *Manager) findPeerClass(p tg.PeerClass, users []tg.UserClass, chats []tg
 }
 
 // ResolveDomain uses given domain to create new peer promise.
-// It resolves peer of message using given Resolver.
+//
 // May be prefixed with @ or not.
 //
 // Input examples:
@@ -199,8 +198,7 @@ func (m *Manager) ResolveDomain(ctx context.Context, domain string) (Peer, error
 }
 
 // ResolveDeeplink uses given deeplink to create new peer promise.
-// Deeplink is a URL like https://t.me/telegram.
-// It resolves peer of message using given Resolver.
+//
 // Input examples:
 //
 //	t.me/telegram

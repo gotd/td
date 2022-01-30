@@ -305,4 +305,49 @@ func (c Channel) setReactions(ctx context.Context, reactions ...string) error {
 	return nil
 }
 
+// KickUser kicks user member.
+//
+// Needed for parity with Chat to define common interface.
+//
+// If revokeHistory is set, will delete all messages from this member.
+func (c Channel) KickUser(ctx context.Context, member tg.InputUserClass, revokeHistory bool) error {
+	p := convertInputUserToInputPeer(member)
+	if revokeHistory {
+		if _, err := c.m.api.ChannelsDeleteParticipantHistory(ctx, &tg.ChannelsDeleteParticipantHistoryRequest{
+			Channel:     c.InputChannel(),
+			Participant: p,
+		}); err != nil {
+			return errors.Wrap(err, "revoke history")
+		}
+	}
+	return c.KickParticipant(ctx, p)
+}
+
+// KickParticipant kicks participant.
+func (c Channel) KickParticipant(ctx context.Context, participant tg.InputPeerClass) error {
+	return c.editParticipantRights(ctx, participant, ParticipantRights{
+		ViewMessages: true,
+	})
+}
+
+// EditParticipantRights edits participant rights in this channel.
+func (c Channel) EditParticipantRights(
+	ctx context.Context,
+	participant tg.InputPeerClass,
+	options ParticipantRights,
+) error {
+	return c.editParticipantRights(ctx, participant, options)
+}
+
+func (c Channel) editParticipantRights(ctx context.Context, member tg.InputPeerClass, options ParticipantRights) error {
+	if _, err := c.m.api.ChannelsEditBanned(ctx, &tg.ChannelsEditBannedRequest{
+		Channel:      c.InputChannel(),
+		Participant:  member,
+		BannedRights: options.IntoChatBannedRights(),
+	}); err != nil {
+		return errors.Wrap(err, "edit member rights")
+	}
+	return nil
+}
+
 // TODO(tdakkota): add more getters, helpers and convertors

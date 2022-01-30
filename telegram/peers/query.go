@@ -9,6 +9,26 @@ import (
 	"github.com/gotd/td/tg"
 )
 
+func convertInputUserToInputPeer(p tg.InputUserClass) tg.InputPeerClass {
+	switch p := p.(type) {
+	case *tg.InputUserSelf:
+		return &tg.InputPeerSelf{}
+	case *tg.InputUser:
+		return &tg.InputPeerUser{
+			UserID:     p.UserID,
+			AccessHash: p.AccessHash,
+		}
+	case *tg.InputUserFromMessage:
+		return &tg.InputPeerUserFromMessage{
+			Peer:   p.Peer,
+			MsgID:  p.MsgID,
+			UserID: p.UserID,
+		}
+	default:
+		return nil
+	}
+}
+
 func (m *Manager) getIDFromInputUser(p tg.InputUserClass) (int64, bool) {
 	switch p := p.(type) {
 	case *tg.InputUserSelf:

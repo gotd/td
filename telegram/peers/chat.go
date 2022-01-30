@@ -259,22 +259,6 @@ func (c Chat) SetDescription(ctx context.Context, about string) error {
 	return nil
 }
 
-// LeaveAndDelete leaves this chat and removes the entire chat history of this user in this chat.
-func (c Chat) LeaveAndDelete(ctx context.Context) error {
-	return c.deleteMe(ctx, true)
-}
-
-func (c Chat) deleteMe(ctx context.Context, revokeHistory bool) error {
-	if _, err := c.m.api.MessagesDeleteChatUser(ctx, &tg.MessagesDeleteChatUserRequest{
-		RevokeHistory: revokeHistory,
-		ChatID:        c.raw.GetID(),
-		UserID:        &tg.InputUserSelf{},
-	}); err != nil {
-		return errors.Wrapf(err, "leave (revoke: %v)", revokeHistory)
-	}
-	return nil
-}
-
 // SetReactions sets list of available reactions.
 //
 // Empty list disables reactions at all.
@@ -296,6 +280,37 @@ func (c Chat) setReactions(ctx context.Context, reactions ...string) error {
 	}
 
 	return nil
+}
+
+// LeaveAndDelete leaves this chat and removes the entire chat history of this user in this chat.
+func (c Chat) LeaveAndDelete(ctx context.Context) error {
+	return c.deleteMe(ctx, true)
+}
+
+func (c Chat) deleteMe(ctx context.Context, revokeHistory bool) error {
+	return c.deleteUser(ctx, &tg.InputUserSelf{}, revokeHistory)
+}
+
+func (c Chat) deleteUser(ctx context.Context, user tg.InputUserClass, revokeHistory bool) error {
+	if _, err := c.m.api.MessagesDeleteChatUser(ctx, &tg.MessagesDeleteChatUserRequest{
+		RevokeHistory: revokeHistory,
+		ChatID:        c.raw.GetID(),
+		UserID:        user,
+	}); err != nil {
+		_, self := user.(*tg.InputUserSelf)
+		if self {
+			return errors.Wrapf(err, "leave (revoke: %v)", revokeHistory)
+		}
+		return errors.Wrapf(err, "delete user (revoke: %v)", revokeHistory)
+	}
+	return nil
+}
+
+// KickUser kicks member.
+//
+// If revokeHistory is set, will delete all messages from this member.
+func (c Chat) KickUser(ctx context.Context, member tg.InputUserClass, revokeHistory bool) error {
+	return c.deleteUser(ctx, member, revokeHistory)
 }
 
 // TODO(tdakkota): add more getters, helpers and convertors
