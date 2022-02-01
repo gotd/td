@@ -36,8 +36,8 @@ type GetChatMessageCalendarRequest struct {
 	// Identifier of the chat in which to return information about messages
 	ChatID int64
 	// Filter for message content. Filters searchMessagesFilterEmpty,
-	// searchMessagesFilterMention and searchMessagesFilterUnreadMention are unsupported in
-	// this function
+	// searchMessagesFilterMention, searchMessagesFilterUnreadMention, and
+	// searchMessagesFilterUnreadReaction are unsupported in this function
 	Filter SearchMessagesFilterClass
 	// The message identifier from which to return information about messages; use 0 to get
 	// results from the last message

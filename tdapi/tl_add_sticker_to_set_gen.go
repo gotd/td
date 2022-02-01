@@ -31,18 +31,18 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AddStickerToSetRequest represents TL type `addStickerToSet#3b0b81`.
+// AddStickerToSetRequest represents TL type `addStickerToSet#b015455d`.
 type AddStickerToSetRequest struct {
 	// Sticker set owner
 	UserID int64
 	// Sticker set name
 	Name string
 	// Sticker to add to the set
-	Sticker InputStickerClass
+	Sticker InputSticker
 }
 
 // AddStickerToSetRequestTypeID is TL type id of AddStickerToSetRequest.
-const AddStickerToSetRequestTypeID = 0x3b0b81
+const AddStickerToSetRequestTypeID = 0xb015455d
 
 // Ensuring interfaces in compile-time for AddStickerToSetRequest.
 var (
@@ -62,7 +62,7 @@ func (a *AddStickerToSetRequest) Zero() bool {
 	if !(a.Name == "") {
 		return false
 	}
-	if !(a.Sticker == nil) {
+	if !(a.Sticker.Zero()) {
 		return false
 	}
 
@@ -120,7 +120,7 @@ func (a *AddStickerToSetRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AddStickerToSetRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode addStickerToSet#3b0b81 as nil")
+		return fmt.Errorf("can't encode addStickerToSet#b015455d as nil")
 	}
 	b.PutID(AddStickerToSetRequestTypeID)
 	return a.EncodeBare(b)
@@ -129,15 +129,12 @@ func (a *AddStickerToSetRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AddStickerToSetRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode addStickerToSet#3b0b81 as nil")
+		return fmt.Errorf("can't encode addStickerToSet#b015455d as nil")
 	}
 	b.PutInt53(a.UserID)
 	b.PutString(a.Name)
-	if a.Sticker == nil {
-		return fmt.Errorf("unable to encode addStickerToSet#3b0b81: field sticker is nil")
-	}
 	if err := a.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode addStickerToSet#3b0b81: field sticker: %w", err)
+		return fmt.Errorf("unable to encode addStickerToSet#b015455d: field sticker: %w", err)
 	}
 	return nil
 }
@@ -145,10 +142,10 @@ func (a *AddStickerToSetRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (a *AddStickerToSetRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode addStickerToSet#3b0b81 to nil")
+		return fmt.Errorf("can't decode addStickerToSet#b015455d to nil")
 	}
 	if err := b.ConsumeID(AddStickerToSetRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode addStickerToSet#3b0b81: %w", err)
+		return fmt.Errorf("unable to decode addStickerToSet#b015455d: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -156,28 +153,26 @@ func (a *AddStickerToSetRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AddStickerToSetRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode addStickerToSet#3b0b81 to nil")
+		return fmt.Errorf("can't decode addStickerToSet#b015455d to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode addStickerToSet#3b0b81: field user_id: %w", err)
+			return fmt.Errorf("unable to decode addStickerToSet#b015455d: field user_id: %w", err)
 		}
 		a.UserID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode addStickerToSet#3b0b81: field name: %w", err)
+			return fmt.Errorf("unable to decode addStickerToSet#b015455d: field name: %w", err)
 		}
 		a.Name = value
 	}
 	{
-		value, err := DecodeInputSticker(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode addStickerToSet#3b0b81: field sticker: %w", err)
+		if err := a.Sticker.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode addStickerToSet#b015455d: field sticker: %w", err)
 		}
-		a.Sticker = value
 	}
 	return nil
 }
@@ -185,7 +180,7 @@ func (a *AddStickerToSetRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (a *AddStickerToSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
-		return fmt.Errorf("can't encode addStickerToSet#3b0b81 as nil")
+		return fmt.Errorf("can't encode addStickerToSet#b015455d as nil")
 	}
 	b.ObjStart()
 	b.PutID("addStickerToSet")
@@ -197,11 +192,8 @@ func (a *AddStickerToSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutString(a.Name)
 	b.Comma()
 	b.FieldStart("sticker")
-	if a.Sticker == nil {
-		return fmt.Errorf("unable to encode addStickerToSet#3b0b81: field sticker is nil")
-	}
 	if err := a.Sticker.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode addStickerToSet#3b0b81: field sticker: %w", err)
+		return fmt.Errorf("unable to encode addStickerToSet#b015455d: field sticker: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -212,33 +204,31 @@ func (a *AddStickerToSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (a *AddStickerToSetRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
-		return fmt.Errorf("can't decode addStickerToSet#3b0b81 to nil")
+		return fmt.Errorf("can't decode addStickerToSet#b015455d to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("addStickerToSet"); err != nil {
-				return fmt.Errorf("unable to decode addStickerToSet#3b0b81: %w", err)
+				return fmt.Errorf("unable to decode addStickerToSet#b015455d: %w", err)
 			}
 		case "user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode addStickerToSet#3b0b81: field user_id: %w", err)
+				return fmt.Errorf("unable to decode addStickerToSet#b015455d: field user_id: %w", err)
 			}
 			a.UserID = value
 		case "name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode addStickerToSet#3b0b81: field name: %w", err)
+				return fmt.Errorf("unable to decode addStickerToSet#b015455d: field name: %w", err)
 			}
 			a.Name = value
 		case "sticker":
-			value, err := DecodeTDLibJSONInputSticker(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode addStickerToSet#3b0b81: field sticker: %w", err)
+			if err := a.Sticker.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode addStickerToSet#b015455d: field sticker: %w", err)
 			}
-			a.Sticker = value
 		default:
 			return b.Skip()
 		}
@@ -263,14 +253,14 @@ func (a *AddStickerToSetRequest) GetName() (value string) {
 }
 
 // GetSticker returns value of Sticker field.
-func (a *AddStickerToSetRequest) GetSticker() (value InputStickerClass) {
+func (a *AddStickerToSetRequest) GetSticker() (value InputSticker) {
 	if a == nil {
 		return
 	}
 	return a.Sticker
 }
 
-// AddStickerToSet invokes method addStickerToSet#3b0b81 returning error if any.
+// AddStickerToSet invokes method addStickerToSet#b015455d returning error if any.
 func (c *Client) AddStickerToSet(ctx context.Context, request *AddStickerToSetRequest) (*StickerSet, error) {
 	var result StickerSet
 

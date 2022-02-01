@@ -51,8 +51,8 @@ type SearchMessagesRequest struct {
 	Limit int32
 	// Additional filter for messages to search; pass null to search for all messages.
 	// Filters searchMessagesFilterMention, searchMessagesFilterUnreadMention,
-	// searchMessagesFilterFailedToSend and searchMessagesFilterPinned are unsupported in
-	// this function
+	// searchMessagesFilterUnreadReaction, searchMessagesFilterFailedToSend, and
+	// searchMessagesFilterPinned are unsupported in this function
 	Filter SearchMessagesFilterClass
 	// If not 0, the minimum date of the messages to return
 	MinDate int32

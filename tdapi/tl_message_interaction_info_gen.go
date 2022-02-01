@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessageInteractionInfo represents TL type `messageInteractionInfo#db00a42a`.
+// MessageInteractionInfo represents TL type `messageInteractionInfo#4af275ac`.
 type MessageInteractionInfo struct {
 	// Number of times the message was viewed
 	ViewCount int32
@@ -41,10 +41,12 @@ type MessageInteractionInfo struct {
 	// available only in channels with a discussion supergroup and discussion supergroups for
 	// messages, which are not replies itself
 	ReplyInfo MessageReplyInfo
+	// The list of reactions added to the message
+	Reactions []MessageReaction
 }
 
 // MessageInteractionInfoTypeID is TL type id of MessageInteractionInfo.
-const MessageInteractionInfoTypeID = 0xdb00a42a
+const MessageInteractionInfoTypeID = 0x4af275ac
 
 // Ensuring interfaces in compile-time for MessageInteractionInfo.
 var (
@@ -65,6 +67,9 @@ func (m *MessageInteractionInfo) Zero() bool {
 		return false
 	}
 	if !(m.ReplyInfo.Zero()) {
+		return false
+	}
+	if !(m.Reactions == nil) {
 		return false
 	}
 
@@ -115,6 +120,10 @@ func (m *MessageInteractionInfo) TypeInfo() tdp.Type {
 			Name:       "ReplyInfo",
 			SchemaName: "reply_info",
 		},
+		{
+			Name:       "Reactions",
+			SchemaName: "reactions",
+		},
 	}
 	return typ
 }
@@ -122,7 +131,7 @@ func (m *MessageInteractionInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageInteractionInfo) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageInteractionInfo#db00a42a as nil")
+		return fmt.Errorf("can't encode messageInteractionInfo#4af275ac as nil")
 	}
 	b.PutID(MessageInteractionInfoTypeID)
 	return m.EncodeBare(b)
@@ -131,12 +140,18 @@ func (m *MessageInteractionInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageInteractionInfo) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageInteractionInfo#db00a42a as nil")
+		return fmt.Errorf("can't encode messageInteractionInfo#4af275ac as nil")
 	}
 	b.PutInt32(m.ViewCount)
 	b.PutInt32(m.ForwardCount)
 	if err := m.ReplyInfo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageInteractionInfo#db00a42a: field reply_info: %w", err)
+		return fmt.Errorf("unable to encode messageInteractionInfo#4af275ac: field reply_info: %w", err)
+	}
+	b.PutInt(len(m.Reactions))
+	for idx, v := range m.Reactions {
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare messageInteractionInfo#4af275ac: field reactions element with index %d: %w", idx, err)
+		}
 	}
 	return nil
 }
@@ -144,10 +159,10 @@ func (m *MessageInteractionInfo) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageInteractionInfo) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageInteractionInfo#db00a42a to nil")
+		return fmt.Errorf("can't decode messageInteractionInfo#4af275ac to nil")
 	}
 	if err := b.ConsumeID(MessageInteractionInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageInteractionInfo#db00a42a: %w", err)
+		return fmt.Errorf("unable to decode messageInteractionInfo#4af275ac: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -155,25 +170,42 @@ func (m *MessageInteractionInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageInteractionInfo) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageInteractionInfo#db00a42a to nil")
+		return fmt.Errorf("can't decode messageInteractionInfo#4af275ac to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageInteractionInfo#db00a42a: field view_count: %w", err)
+			return fmt.Errorf("unable to decode messageInteractionInfo#4af275ac: field view_count: %w", err)
 		}
 		m.ViewCount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageInteractionInfo#db00a42a: field forward_count: %w", err)
+			return fmt.Errorf("unable to decode messageInteractionInfo#4af275ac: field forward_count: %w", err)
 		}
 		m.ForwardCount = value
 	}
 	{
 		if err := m.ReplyInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageInteractionInfo#db00a42a: field reply_info: %w", err)
+			return fmt.Errorf("unable to decode messageInteractionInfo#4af275ac: field reply_info: %w", err)
+		}
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageInteractionInfo#4af275ac: field reactions: %w", err)
+		}
+
+		if headerLen > 0 {
+			m.Reactions = make([]MessageReaction, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value MessageReaction
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare messageInteractionInfo#4af275ac: field reactions: %w", err)
+			}
+			m.Reactions = append(m.Reactions, value)
 		}
 	}
 	return nil
@@ -182,7 +214,7 @@ func (m *MessageInteractionInfo) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageInteractionInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageInteractionInfo#db00a42a as nil")
+		return fmt.Errorf("can't encode messageInteractionInfo#4af275ac as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageInteractionInfo")
@@ -195,8 +227,19 @@ func (m *MessageInteractionInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("reply_info")
 	if err := m.ReplyInfo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageInteractionInfo#db00a42a: field reply_info: %w", err)
+		return fmt.Errorf("unable to encode messageInteractionInfo#4af275ac: field reply_info: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("reactions")
+	b.ArrStart()
+	for idx, v := range m.Reactions {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode messageInteractionInfo#4af275ac: field reactions element with index %d: %w", idx, err)
+		}
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -206,30 +249,41 @@ func (m *MessageInteractionInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageInteractionInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageInteractionInfo#db00a42a to nil")
+		return fmt.Errorf("can't decode messageInteractionInfo#4af275ac to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageInteractionInfo"); err != nil {
-				return fmt.Errorf("unable to decode messageInteractionInfo#db00a42a: %w", err)
+				return fmt.Errorf("unable to decode messageInteractionInfo#4af275ac: %w", err)
 			}
 		case "view_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageInteractionInfo#db00a42a: field view_count: %w", err)
+				return fmt.Errorf("unable to decode messageInteractionInfo#4af275ac: field view_count: %w", err)
 			}
 			m.ViewCount = value
 		case "forward_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageInteractionInfo#db00a42a: field forward_count: %w", err)
+				return fmt.Errorf("unable to decode messageInteractionInfo#4af275ac: field forward_count: %w", err)
 			}
 			m.ForwardCount = value
 		case "reply_info":
 			if err := m.ReplyInfo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messageInteractionInfo#db00a42a: field reply_info: %w", err)
+				return fmt.Errorf("unable to decode messageInteractionInfo#4af275ac: field reply_info: %w", err)
+			}
+		case "reactions":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				var value MessageReaction
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode messageInteractionInfo#4af275ac: field reactions: %w", err)
+				}
+				m.Reactions = append(m.Reactions, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode messageInteractionInfo#4af275ac: field reactions: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -260,4 +314,12 @@ func (m *MessageInteractionInfo) GetReplyInfo() (value MessageReplyInfo) {
 		return
 	}
 	return m.ReplyInfo
+}
+
+// GetReactions returns value of Reactions field.
+func (m *MessageInteractionInfo) GetReactions() (value []MessageReaction) {
+	if m == nil {
+		return
+	}
+	return m.Reactions
 }

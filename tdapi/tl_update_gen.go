@@ -2466,6 +2466,302 @@ func (u *UpdateMessageMentionRead) GetUnreadMentionCount() (value int32) {
 	return u.UnreadMentionCount
 }
 
+// UpdateMessageUnreadReactions represents TL type `updateMessageUnreadReactions#12a7220a`.
+type UpdateMessageUnreadReactions struct {
+	// Chat identifier
+	ChatID int64
+	// Message identifier
+	MessageID int64
+	// The new list of unread reactions
+	UnreadReactions []UnreadReaction
+	// The new number of messages with unread reactions left in the chat
+	UnreadReactionCount int32
+}
+
+// UpdateMessageUnreadReactionsTypeID is TL type id of UpdateMessageUnreadReactions.
+const UpdateMessageUnreadReactionsTypeID = 0x12a7220a
+
+// construct implements constructor of UpdateClass.
+func (u UpdateMessageUnreadReactions) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateMessageUnreadReactions.
+var (
+	_ bin.Encoder     = &UpdateMessageUnreadReactions{}
+	_ bin.Decoder     = &UpdateMessageUnreadReactions{}
+	_ bin.BareEncoder = &UpdateMessageUnreadReactions{}
+	_ bin.BareDecoder = &UpdateMessageUnreadReactions{}
+
+	_ UpdateClass = &UpdateMessageUnreadReactions{}
+)
+
+func (u *UpdateMessageUnreadReactions) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.MessageID == 0) {
+		return false
+	}
+	if !(u.UnreadReactions == nil) {
+		return false
+	}
+	if !(u.UnreadReactionCount == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateMessageUnreadReactions) String() string {
+	if u == nil {
+		return "UpdateMessageUnreadReactions(nil)"
+	}
+	type Alias UpdateMessageUnreadReactions
+	return fmt.Sprintf("UpdateMessageUnreadReactions%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateMessageUnreadReactions) TypeID() uint32 {
+	return UpdateMessageUnreadReactionsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateMessageUnreadReactions) TypeName() string {
+	return "updateMessageUnreadReactions"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateMessageUnreadReactions) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateMessageUnreadReactions",
+		ID:   UpdateMessageUnreadReactionsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "MessageID",
+			SchemaName: "message_id",
+		},
+		{
+			Name:       "UnreadReactions",
+			SchemaName: "unread_reactions",
+		},
+		{
+			Name:       "UnreadReactionCount",
+			SchemaName: "unread_reaction_count",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateMessageUnreadReactions) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateMessageUnreadReactions#12a7220a as nil")
+	}
+	b.PutID(UpdateMessageUnreadReactionsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateMessageUnreadReactions) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateMessageUnreadReactions#12a7220a as nil")
+	}
+	b.PutInt53(u.ChatID)
+	b.PutInt53(u.MessageID)
+	b.PutInt(len(u.UnreadReactions))
+	for idx, v := range u.UnreadReactions {
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare updateMessageUnreadReactions#12a7220a: field unread_reactions element with index %d: %w", idx, err)
+		}
+	}
+	b.PutInt32(u.UnreadReactionCount)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateMessageUnreadReactions) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateMessageUnreadReactions#12a7220a to nil")
+	}
+	if err := b.ConsumeID(UpdateMessageUnreadReactionsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateMessageUnreadReactions#12a7220a: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateMessageUnreadReactions) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateMessageUnreadReactions#12a7220a to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessageUnreadReactions#12a7220a: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessageUnreadReactions#12a7220a: field message_id: %w", err)
+		}
+		u.MessageID = value
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessageUnreadReactions#12a7220a: field unread_reactions: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.UnreadReactions = make([]UnreadReaction, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value UnreadReaction
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare updateMessageUnreadReactions#12a7220a: field unread_reactions: %w", err)
+			}
+			u.UnreadReactions = append(u.UnreadReactions, value)
+		}
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessageUnreadReactions#12a7220a: field unread_reaction_count: %w", err)
+		}
+		u.UnreadReactionCount = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateMessageUnreadReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateMessageUnreadReactions#12a7220a as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateMessageUnreadReactions")
+	b.Comma()
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.Comma()
+	b.FieldStart("message_id")
+	b.PutInt53(u.MessageID)
+	b.Comma()
+	b.FieldStart("unread_reactions")
+	b.ArrStart()
+	for idx, v := range u.UnreadReactions {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode updateMessageUnreadReactions#12a7220a: field unread_reactions element with index %d: %w", idx, err)
+		}
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.FieldStart("unread_reaction_count")
+	b.PutInt32(u.UnreadReactionCount)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateMessageUnreadReactions) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateMessageUnreadReactions#12a7220a to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateMessageUnreadReactions"); err != nil {
+				return fmt.Errorf("unable to decode updateMessageUnreadReactions#12a7220a: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateMessageUnreadReactions#12a7220a: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "message_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateMessageUnreadReactions#12a7220a: field message_id: %w", err)
+			}
+			u.MessageID = value
+		case "unread_reactions":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				var value UnreadReaction
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode updateMessageUnreadReactions#12a7220a: field unread_reactions: %w", err)
+				}
+				u.UnreadReactions = append(u.UnreadReactions, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode updateMessageUnreadReactions#12a7220a: field unread_reactions: %w", err)
+			}
+		case "unread_reaction_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateMessageUnreadReactions#12a7220a: field unread_reaction_count: %w", err)
+			}
+			u.UnreadReactionCount = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateMessageUnreadReactions) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetMessageID returns value of MessageID field.
+func (u *UpdateMessageUnreadReactions) GetMessageID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.MessageID
+}
+
+// GetUnreadReactions returns value of UnreadReactions field.
+func (u *UpdateMessageUnreadReactions) GetUnreadReactions() (value []UnreadReaction) {
+	if u == nil {
+		return
+	}
+	return u.UnreadReactions
+}
+
+// GetUnreadReactionCount returns value of UnreadReactionCount field.
+func (u *UpdateMessageUnreadReactions) GetUnreadReactionCount() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.UnreadReactionCount
+}
+
 // UpdateMessageLiveLocationViewed represents TL type `updateMessageLiveLocationViewed#b2058595`.
 type UpdateMessageLiveLocationViewed struct {
 	// Identifier of the chat with the live location message
@@ -4538,6 +4834,230 @@ func (u *UpdateChatActionBar) GetActionBar() (value ChatActionBarClass) {
 	return u.ActionBar
 }
 
+// UpdateChatAvailableReactions represents TL type `updateChatAvailableReactions#852fb10d`.
+type UpdateChatAvailableReactions struct {
+	// Chat identifier
+	ChatID int64
+	// The new list of reactions, available in the chat
+	AvailableReactions []string
+}
+
+// UpdateChatAvailableReactionsTypeID is TL type id of UpdateChatAvailableReactions.
+const UpdateChatAvailableReactionsTypeID = 0x852fb10d
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatAvailableReactions) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatAvailableReactions.
+var (
+	_ bin.Encoder     = &UpdateChatAvailableReactions{}
+	_ bin.Decoder     = &UpdateChatAvailableReactions{}
+	_ bin.BareEncoder = &UpdateChatAvailableReactions{}
+	_ bin.BareDecoder = &UpdateChatAvailableReactions{}
+
+	_ UpdateClass = &UpdateChatAvailableReactions{}
+)
+
+func (u *UpdateChatAvailableReactions) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.AvailableReactions == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatAvailableReactions) String() string {
+	if u == nil {
+		return "UpdateChatAvailableReactions(nil)"
+	}
+	type Alias UpdateChatAvailableReactions
+	return fmt.Sprintf("UpdateChatAvailableReactions%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatAvailableReactions) TypeID() uint32 {
+	return UpdateChatAvailableReactionsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatAvailableReactions) TypeName() string {
+	return "updateChatAvailableReactions"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatAvailableReactions) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatAvailableReactions",
+		ID:   UpdateChatAvailableReactionsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "AvailableReactions",
+			SchemaName: "available_reactions",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatAvailableReactions) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatAvailableReactions#852fb10d as nil")
+	}
+	b.PutID(UpdateChatAvailableReactionsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatAvailableReactions) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatAvailableReactions#852fb10d as nil")
+	}
+	b.PutInt53(u.ChatID)
+	b.PutInt(len(u.AvailableReactions))
+	for _, v := range u.AvailableReactions {
+		b.PutString(v)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatAvailableReactions) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatAvailableReactions#852fb10d to nil")
+	}
+	if err := b.ConsumeID(UpdateChatAvailableReactionsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatAvailableReactions#852fb10d: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatAvailableReactions) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatAvailableReactions#852fb10d to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatAvailableReactions#852fb10d: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatAvailableReactions#852fb10d: field available_reactions: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.AvailableReactions = make([]string, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatAvailableReactions#852fb10d: field available_reactions: %w", err)
+			}
+			u.AvailableReactions = append(u.AvailableReactions, value)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatAvailableReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatAvailableReactions#852fb10d as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateChatAvailableReactions")
+	b.Comma()
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.Comma()
+	b.FieldStart("available_reactions")
+	b.ArrStart()
+	for _, v := range u.AvailableReactions {
+		b.PutString(v)
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatAvailableReactions) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatAvailableReactions#852fb10d to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateChatAvailableReactions"); err != nil {
+				return fmt.Errorf("unable to decode updateChatAvailableReactions#852fb10d: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatAvailableReactions#852fb10d: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "available_reactions":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				value, err := b.String()
+				if err != nil {
+					return fmt.Errorf("unable to decode updateChatAvailableReactions#852fb10d: field available_reactions: %w", err)
+				}
+				u.AvailableReactions = append(u.AvailableReactions, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode updateChatAvailableReactions#852fb10d: field available_reactions: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatAvailableReactions) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetAvailableReactions returns value of AvailableReactions field.
+func (u *UpdateChatAvailableReactions) GetAvailableReactions() (value []string) {
+	if u == nil {
+		return
+	}
+	return u.AvailableReactions
+}
+
 // UpdateChatDraftMessage represents TL type `updateChatDraftMessage#2bf257d4`.
 type UpdateChatDraftMessage struct {
 	// Chat identifier
@@ -6209,6 +6729,206 @@ func (u *UpdateChatUnreadMentionCount) GetUnreadMentionCount() (value int32) {
 		return
 	}
 	return u.UnreadMentionCount
+}
+
+// UpdateChatUnreadReactionCount represents TL type `updateChatUnreadReactionCount#81603cdd`.
+type UpdateChatUnreadReactionCount struct {
+	// Chat identifier
+	ChatID int64
+	// The number of messages with unread reactions left in the chat
+	UnreadReactionCount int32
+}
+
+// UpdateChatUnreadReactionCountTypeID is TL type id of UpdateChatUnreadReactionCount.
+const UpdateChatUnreadReactionCountTypeID = 0x81603cdd
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatUnreadReactionCount) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatUnreadReactionCount.
+var (
+	_ bin.Encoder     = &UpdateChatUnreadReactionCount{}
+	_ bin.Decoder     = &UpdateChatUnreadReactionCount{}
+	_ bin.BareEncoder = &UpdateChatUnreadReactionCount{}
+	_ bin.BareDecoder = &UpdateChatUnreadReactionCount{}
+
+	_ UpdateClass = &UpdateChatUnreadReactionCount{}
+)
+
+func (u *UpdateChatUnreadReactionCount) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.UnreadReactionCount == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatUnreadReactionCount) String() string {
+	if u == nil {
+		return "UpdateChatUnreadReactionCount(nil)"
+	}
+	type Alias UpdateChatUnreadReactionCount
+	return fmt.Sprintf("UpdateChatUnreadReactionCount%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatUnreadReactionCount) TypeID() uint32 {
+	return UpdateChatUnreadReactionCountTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatUnreadReactionCount) TypeName() string {
+	return "updateChatUnreadReactionCount"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatUnreadReactionCount) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatUnreadReactionCount",
+		ID:   UpdateChatUnreadReactionCountTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "UnreadReactionCount",
+			SchemaName: "unread_reaction_count",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatUnreadReactionCount) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatUnreadReactionCount#81603cdd as nil")
+	}
+	b.PutID(UpdateChatUnreadReactionCountTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatUnreadReactionCount) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatUnreadReactionCount#81603cdd as nil")
+	}
+	b.PutInt53(u.ChatID)
+	b.PutInt32(u.UnreadReactionCount)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatUnreadReactionCount) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatUnreadReactionCount#81603cdd to nil")
+	}
+	if err := b.ConsumeID(UpdateChatUnreadReactionCountTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatUnreadReactionCount#81603cdd: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatUnreadReactionCount) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatUnreadReactionCount#81603cdd to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatUnreadReactionCount#81603cdd: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatUnreadReactionCount#81603cdd: field unread_reaction_count: %w", err)
+		}
+		u.UnreadReactionCount = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatUnreadReactionCount) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatUnreadReactionCount#81603cdd as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateChatUnreadReactionCount")
+	b.Comma()
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.Comma()
+	b.FieldStart("unread_reaction_count")
+	b.PutInt32(u.UnreadReactionCount)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatUnreadReactionCount) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatUnreadReactionCount#81603cdd to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateChatUnreadReactionCount"); err != nil {
+				return fmt.Errorf("unable to decode updateChatUnreadReactionCount#81603cdd: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatUnreadReactionCount#81603cdd: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "unread_reaction_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatUnreadReactionCount#81603cdd: field unread_reaction_count: %w", err)
+			}
+			u.UnreadReactionCount = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatUnreadReactionCount) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetUnreadReactionCount returns value of UnreadReactionCount field.
+func (u *UpdateChatUnreadReactionCount) GetUnreadReactionCount() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.UnreadReactionCount
 }
 
 // UpdateChatVideoChat represents TL type `updateChatVideoChat#25fb4ca6`.
@@ -16077,6 +16797,200 @@ func (u *UpdateUsersNearby) GetUsersNearby() (value []ChatNearby) {
 	return u.UsersNearby
 }
 
+// UpdateReactions represents TL type `updateReactions#e769e4e7`.
+type UpdateReactions struct {
+	// The new list of supported reactions
+	Reactions []Reaction
+}
+
+// UpdateReactionsTypeID is TL type id of UpdateReactions.
+const UpdateReactionsTypeID = 0xe769e4e7
+
+// construct implements constructor of UpdateClass.
+func (u UpdateReactions) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateReactions.
+var (
+	_ bin.Encoder     = &UpdateReactions{}
+	_ bin.Decoder     = &UpdateReactions{}
+	_ bin.BareEncoder = &UpdateReactions{}
+	_ bin.BareDecoder = &UpdateReactions{}
+
+	_ UpdateClass = &UpdateReactions{}
+)
+
+func (u *UpdateReactions) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Reactions == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateReactions) String() string {
+	if u == nil {
+		return "UpdateReactions(nil)"
+	}
+	type Alias UpdateReactions
+	return fmt.Sprintf("UpdateReactions%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateReactions) TypeID() uint32 {
+	return UpdateReactionsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateReactions) TypeName() string {
+	return "updateReactions"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateReactions) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateReactions",
+		ID:   UpdateReactionsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Reactions",
+			SchemaName: "reactions",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateReactions) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateReactions#e769e4e7 as nil")
+	}
+	b.PutID(UpdateReactionsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateReactions) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateReactions#e769e4e7 as nil")
+	}
+	b.PutInt(len(u.Reactions))
+	for idx, v := range u.Reactions {
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare updateReactions#e769e4e7: field reactions element with index %d: %w", idx, err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateReactions) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateReactions#e769e4e7 to nil")
+	}
+	if err := b.ConsumeID(UpdateReactionsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateReactions#e769e4e7: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateReactions) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateReactions#e769e4e7 to nil")
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateReactions#e769e4e7: field reactions: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.Reactions = make([]Reaction, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value Reaction
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare updateReactions#e769e4e7: field reactions: %w", err)
+			}
+			u.Reactions = append(u.Reactions, value)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateReactions#e769e4e7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateReactions")
+	b.Comma()
+	b.FieldStart("reactions")
+	b.ArrStart()
+	for idx, v := range u.Reactions {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode updateReactions#e769e4e7: field reactions element with index %d: %w", idx, err)
+		}
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateReactions) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateReactions#e769e4e7 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateReactions"); err != nil {
+				return fmt.Errorf("unable to decode updateReactions#e769e4e7: %w", err)
+			}
+		case "reactions":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				var value Reaction
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode updateReactions#e769e4e7: field reactions: %w", err)
+				}
+				u.Reactions = append(u.Reactions, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode updateReactions#e769e4e7: field reactions: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetReactions returns value of Reactions field.
+func (u *UpdateReactions) GetReactions() (value []Reaction) {
+	if u == nil {
+		return
+	}
+	return u.Reactions
+}
+
 // UpdateDiceEmojis represents TL type `updateDiceEmojis#9d0f91df`.
 type UpdateDiceEmojis struct {
 	// The new list of supported dice emojis
@@ -20353,6 +21267,7 @@ const UpdateClassName = "Update"
 //  case *tdapi.UpdateMessageInteractionInfo: // updateMessageInteractionInfo#ab803bfe
 //  case *tdapi.UpdateMessageContentOpened: // updateMessageContentOpened#a55ea885
 //  case *tdapi.UpdateMessageMentionRead: // updateMessageMentionRead#f0f74d46
+//  case *tdapi.UpdateMessageUnreadReactions: // updateMessageUnreadReactions#12a7220a
 //  case *tdapi.UpdateMessageLiveLocationViewed: // updateMessageLiveLocationViewed#b2058595
 //  case *tdapi.UpdateNewChat: // updateNewChat#7bb98ccd
 //  case *tdapi.UpdateChatTitle: // updateChatTitle#f58b85a4
@@ -20363,6 +21278,7 @@ const UpdateClassName = "Update"
 //  case *tdapi.UpdateChatReadInbox: // updateChatReadInbox#d07036e7
 //  case *tdapi.UpdateChatReadOutbox: // updateChatReadOutbox#2a385285
 //  case *tdapi.UpdateChatActionBar: // updateChatActionBar#d9a258c2
+//  case *tdapi.UpdateChatAvailableReactions: // updateChatAvailableReactions#852fb10d
 //  case *tdapi.UpdateChatDraftMessage: // updateChatDraftMessage#2bf257d4
 //  case *tdapi.UpdateChatMessageSender: // updateChatMessageSender#77705241
 //  case *tdapi.UpdateChatMessageTTL: // updateChatMessageTtl#dde0a978
@@ -20371,6 +21287,7 @@ const UpdateClassName = "Update"
 //  case *tdapi.UpdateChatReplyMarkup: // updateChatReplyMarkup#4e0ba5a0
 //  case *tdapi.UpdateChatTheme: // updateChatTheme#31f3d465
 //  case *tdapi.UpdateChatUnreadMentionCount: // updateChatUnreadMentionCount#80f47b1c
+//  case *tdapi.UpdateChatUnreadReactionCount: // updateChatUnreadReactionCount#81603cdd
 //  case *tdapi.UpdateChatVideoChat: // updateChatVideoChat#25fb4ca6
 //  case *tdapi.UpdateChatDefaultDisableNotification: // updateChatDefaultDisableNotification#1ba96a9b
 //  case *tdapi.UpdateChatHasProtectedContent: // updateChatHasProtectedContent#6b50071b
@@ -20418,6 +21335,7 @@ const UpdateClassName = "Update"
 //  case *tdapi.UpdateConnectionState: // updateConnectionState#57939e2e
 //  case *tdapi.UpdateTermsOfService: // updateTermsOfService#b23cc55e
 //  case *tdapi.UpdateUsersNearby: // updateUsersNearby#97c8ab5
+//  case *tdapi.UpdateReactions: // updateReactions#e769e4e7
 //  case *tdapi.UpdateDiceEmojis: // updateDiceEmojis#9d0f91df
 //  case *tdapi.UpdateAnimatedEmojiMessageClicked: // updateAnimatedEmojiMessageClicked#a3167405
 //  case *tdapi.UpdateAnimationSearchParameters: // updateAnimationSearchParameters#6016ef01
@@ -20542,6 +21460,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case UpdateMessageUnreadReactionsTypeID:
+		// Decoding updateMessageUnreadReactions#12a7220a.
+		v := UpdateMessageUnreadReactions{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case UpdateMessageLiveLocationViewedTypeID:
 		// Decoding updateMessageLiveLocationViewed#b2058595.
 		v := UpdateMessageLiveLocationViewed{}
@@ -20612,6 +21537,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case UpdateChatAvailableReactionsTypeID:
+		// Decoding updateChatAvailableReactions#852fb10d.
+		v := UpdateChatAvailableReactions{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case UpdateChatDraftMessageTypeID:
 		// Decoding updateChatDraftMessage#2bf257d4.
 		v := UpdateChatDraftMessage{}
@@ -20664,6 +21596,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateChatUnreadMentionCountTypeID:
 		// Decoding updateChatUnreadMentionCount#80f47b1c.
 		v := UpdateChatUnreadMentionCount{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChatUnreadReactionCountTypeID:
+		// Decoding updateChatUnreadReactionCount#81603cdd.
+		v := UpdateChatUnreadReactionCount{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -20997,6 +21936,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case UpdateReactionsTypeID:
+		// Decoding updateReactions#e769e4e7.
+		v := UpdateReactions{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case UpdateDiceEmojisTypeID:
 		// Decoding updateDiceEmojis#9d0f91df.
 		v := UpdateDiceEmojis{}
@@ -21198,6 +22144,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case "updateMessageUnreadReactions":
+		// Decoding updateMessageUnreadReactions#12a7220a.
+		v := UpdateMessageUnreadReactions{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case "updateMessageLiveLocationViewed":
 		// Decoding updateMessageLiveLocationViewed#b2058595.
 		v := UpdateMessageLiveLocationViewed{}
@@ -21268,6 +22221,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case "updateChatAvailableReactions":
+		// Decoding updateChatAvailableReactions#852fb10d.
+		v := UpdateChatAvailableReactions{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case "updateChatDraftMessage":
 		// Decoding updateChatDraftMessage#2bf257d4.
 		v := UpdateChatDraftMessage{}
@@ -21320,6 +22280,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	case "updateChatUnreadMentionCount":
 		// Decoding updateChatUnreadMentionCount#80f47b1c.
 		v := UpdateChatUnreadMentionCount{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateChatUnreadReactionCount":
+		// Decoding updateChatUnreadReactionCount#81603cdd.
+		v := UpdateChatUnreadReactionCount{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -21649,6 +22616,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	case "updateUsersNearby":
 		// Decoding updateUsersNearby#97c8ab5.
 		v := UpdateUsersNearby{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateReactions":
+		// Decoding updateReactions#e769e4e7.
+		v := UpdateReactions{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

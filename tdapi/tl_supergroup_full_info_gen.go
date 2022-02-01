@@ -74,7 +74,7 @@ type SupergroupFullInfo struct {
 	StickerSetID int64
 	// Location to which the supergroup is connected; may be null
 	Location ChatLocation
-	// Primary invite link for this chat; may be null. For chat administrators with
+	// Primary invite link for the chat; may be null. For chat administrators with
 	// can_invite_users right only
 	InviteLink ChatInviteLink
 	// List of commands of bots in the group

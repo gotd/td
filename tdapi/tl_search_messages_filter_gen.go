@@ -1865,6 +1865,137 @@ func (s *SearchMessagesFilterUnreadMention) DecodeTDLibJSON(b tdjson.Decoder) er
 	})
 }
 
+// SearchMessagesFilterUnreadReaction represents TL type `searchMessagesFilterUnreadReaction#adc43100`.
+type SearchMessagesFilterUnreadReaction struct {
+}
+
+// SearchMessagesFilterUnreadReactionTypeID is TL type id of SearchMessagesFilterUnreadReaction.
+const SearchMessagesFilterUnreadReactionTypeID = 0xadc43100
+
+// construct implements constructor of SearchMessagesFilterClass.
+func (s SearchMessagesFilterUnreadReaction) construct() SearchMessagesFilterClass { return &s }
+
+// Ensuring interfaces in compile-time for SearchMessagesFilterUnreadReaction.
+var (
+	_ bin.Encoder     = &SearchMessagesFilterUnreadReaction{}
+	_ bin.Decoder     = &SearchMessagesFilterUnreadReaction{}
+	_ bin.BareEncoder = &SearchMessagesFilterUnreadReaction{}
+	_ bin.BareDecoder = &SearchMessagesFilterUnreadReaction{}
+
+	_ SearchMessagesFilterClass = &SearchMessagesFilterUnreadReaction{}
+)
+
+func (s *SearchMessagesFilterUnreadReaction) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *SearchMessagesFilterUnreadReaction) String() string {
+	if s == nil {
+		return "SearchMessagesFilterUnreadReaction(nil)"
+	}
+	type Alias SearchMessagesFilterUnreadReaction
+	return fmt.Sprintf("SearchMessagesFilterUnreadReaction%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*SearchMessagesFilterUnreadReaction) TypeID() uint32 {
+	return SearchMessagesFilterUnreadReactionTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*SearchMessagesFilterUnreadReaction) TypeName() string {
+	return "searchMessagesFilterUnreadReaction"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SearchMessagesFilterUnreadReaction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "searchMessagesFilterUnreadReaction",
+		ID:   SearchMessagesFilterUnreadReactionTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *SearchMessagesFilterUnreadReaction) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterUnreadReaction#adc43100 as nil")
+	}
+	b.PutID(SearchMessagesFilterUnreadReactionTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SearchMessagesFilterUnreadReaction) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterUnreadReaction#adc43100 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *SearchMessagesFilterUnreadReaction) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode searchMessagesFilterUnreadReaction#adc43100 to nil")
+	}
+	if err := b.ConsumeID(SearchMessagesFilterUnreadReactionTypeID); err != nil {
+		return fmt.Errorf("unable to decode searchMessagesFilterUnreadReaction#adc43100: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SearchMessagesFilterUnreadReaction) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode searchMessagesFilterUnreadReaction#adc43100 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SearchMessagesFilterUnreadReaction) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode searchMessagesFilterUnreadReaction#adc43100 as nil")
+	}
+	b.ObjStart()
+	b.PutID("searchMessagesFilterUnreadReaction")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SearchMessagesFilterUnreadReaction) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode searchMessagesFilterUnreadReaction#adc43100 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("searchMessagesFilterUnreadReaction"); err != nil {
+				return fmt.Errorf("unable to decode searchMessagesFilterUnreadReaction#adc43100: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // SearchMessagesFilterFailedToSend represents TL type `searchMessagesFilterFailedToSend#dc74d6fc`.
 type SearchMessagesFilterFailedToSend struct {
 }
@@ -2152,6 +2283,7 @@ const SearchMessagesFilterClassName = "SearchMessagesFilter"
 //  case *tdapi.SearchMessagesFilterVoiceAndVideoNote: // searchMessagesFilterVoiceAndVideoNote#279680e3
 //  case *tdapi.SearchMessagesFilterMention: // searchMessagesFilterMention#7748c89c
 //  case *tdapi.SearchMessagesFilterUnreadMention: // searchMessagesFilterUnreadMention#fa4aadc3
+//  case *tdapi.SearchMessagesFilterUnreadReaction: // searchMessagesFilterUnreadReaction#adc43100
 //  case *tdapi.SearchMessagesFilterFailedToSend: // searchMessagesFilterFailedToSend#dc74d6fc
 //  case *tdapi.SearchMessagesFilterPinned: // searchMessagesFilterPinned#16294d48
 //  default: panic(v)
@@ -2283,6 +2415,13 @@ func DecodeSearchMessagesFilter(buf *bin.Buffer) (SearchMessagesFilterClass, err
 			return nil, fmt.Errorf("unable to decode SearchMessagesFilterClass: %w", err)
 		}
 		return &v, nil
+	case SearchMessagesFilterUnreadReactionTypeID:
+		// Decoding searchMessagesFilterUnreadReaction#adc43100.
+		v := SearchMessagesFilterUnreadReaction{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SearchMessagesFilterClass: %w", err)
+		}
+		return &v, nil
 	case SearchMessagesFilterFailedToSendTypeID:
 		// Decoding searchMessagesFilterFailedToSend#dc74d6fc.
 		v := SearchMessagesFilterFailedToSend{}
@@ -2403,6 +2542,13 @@ func DecodeTDLibJSONSearchMessagesFilter(buf tdjson.Decoder) (SearchMessagesFilt
 	case "searchMessagesFilterUnreadMention":
 		// Decoding searchMessagesFilterUnreadMention#fa4aadc3.
 		v := SearchMessagesFilterUnreadMention{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SearchMessagesFilterClass: %w", err)
+		}
+		return &v, nil
+	case "searchMessagesFilterUnreadReaction":
+		// Decoding searchMessagesFilterUnreadReaction#adc43100.
+		v := SearchMessagesFilterUnreadReaction{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode SearchMessagesFilterClass: %w", err)
 		}

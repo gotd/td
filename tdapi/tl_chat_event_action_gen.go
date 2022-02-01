@@ -397,172 +397,6 @@ func (c *ChatEventMessageDeleted) GetMessage() (value Message) {
 	return c.Message
 }
 
-// ChatEventPollStopped represents TL type `chatEventPollStopped#77cc8be5`.
-type ChatEventPollStopped struct {
-	// The message with the poll
-	Message Message
-}
-
-// ChatEventPollStoppedTypeID is TL type id of ChatEventPollStopped.
-const ChatEventPollStoppedTypeID = 0x77cc8be5
-
-// construct implements constructor of ChatEventActionClass.
-func (c ChatEventPollStopped) construct() ChatEventActionClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatEventPollStopped.
-var (
-	_ bin.Encoder     = &ChatEventPollStopped{}
-	_ bin.Decoder     = &ChatEventPollStopped{}
-	_ bin.BareEncoder = &ChatEventPollStopped{}
-	_ bin.BareDecoder = &ChatEventPollStopped{}
-
-	_ ChatEventActionClass = &ChatEventPollStopped{}
-)
-
-func (c *ChatEventPollStopped) Zero() bool {
-	if c == nil {
-		return true
-	}
-	if !(c.Message.Zero()) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (c *ChatEventPollStopped) String() string {
-	if c == nil {
-		return "ChatEventPollStopped(nil)"
-	}
-	type Alias ChatEventPollStopped
-	return fmt.Sprintf("ChatEventPollStopped%+v", Alias(*c))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatEventPollStopped) TypeID() uint32 {
-	return ChatEventPollStoppedTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*ChatEventPollStopped) TypeName() string {
-	return "chatEventPollStopped"
-}
-
-// TypeInfo returns info about TL type.
-func (c *ChatEventPollStopped) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "chatEventPollStopped",
-		ID:   ChatEventPollStoppedTypeID,
-	}
-	if c == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "Message",
-			SchemaName: "message",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (c *ChatEventPollStopped) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventPollStopped#77cc8be5 as nil")
-	}
-	b.PutID(ChatEventPollStoppedTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *ChatEventPollStopped) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventPollStopped#77cc8be5 as nil")
-	}
-	if err := c.Message.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatEventPollStopped#77cc8be5: field message: %w", err)
-	}
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (c *ChatEventPollStopped) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventPollStopped#77cc8be5 to nil")
-	}
-	if err := b.ConsumeID(ChatEventPollStoppedTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventPollStopped#77cc8be5: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChatEventPollStopped) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventPollStopped#77cc8be5 to nil")
-	}
-	{
-		if err := c.Message.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatEventPollStopped#77cc8be5: field message: %w", err)
-		}
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatEventPollStopped) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventPollStopped#77cc8be5 as nil")
-	}
-	b.ObjStart()
-	b.PutID("chatEventPollStopped")
-	b.Comma()
-	b.FieldStart("message")
-	if err := c.Message.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatEventPollStopped#77cc8be5: field message: %w", err)
-	}
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatEventPollStopped) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventPollStopped#77cc8be5 to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("chatEventPollStopped"); err != nil {
-				return fmt.Errorf("unable to decode chatEventPollStopped#77cc8be5: %w", err)
-			}
-		case "message":
-			if err := c.Message.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatEventPollStopped#77cc8be5: field message: %w", err)
-			}
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetMessage returns value of Message field.
-func (c *ChatEventPollStopped) GetMessage() (value Message) {
-	if c == nil {
-		return
-	}
-	return c.Message
-}
-
 // ChatEventMessagePinned represents TL type `chatEventMessagePinned#1a26ad1a`.
 type ChatEventMessagePinned struct {
 	// Pinned message
@@ -889,6 +723,172 @@ func (c *ChatEventMessageUnpinned) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // GetMessage returns value of Message field.
 func (c *ChatEventMessageUnpinned) GetMessage() (value Message) {
+	if c == nil {
+		return
+	}
+	return c.Message
+}
+
+// ChatEventPollStopped represents TL type `chatEventPollStopped#77cc8be5`.
+type ChatEventPollStopped struct {
+	// The message with the poll
+	Message Message
+}
+
+// ChatEventPollStoppedTypeID is TL type id of ChatEventPollStopped.
+const ChatEventPollStoppedTypeID = 0x77cc8be5
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventPollStopped) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventPollStopped.
+var (
+	_ bin.Encoder     = &ChatEventPollStopped{}
+	_ bin.Decoder     = &ChatEventPollStopped{}
+	_ bin.BareEncoder = &ChatEventPollStopped{}
+	_ bin.BareDecoder = &ChatEventPollStopped{}
+
+	_ ChatEventActionClass = &ChatEventPollStopped{}
+)
+
+func (c *ChatEventPollStopped) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Message.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventPollStopped) String() string {
+	if c == nil {
+		return "ChatEventPollStopped(nil)"
+	}
+	type Alias ChatEventPollStopped
+	return fmt.Sprintf("ChatEventPollStopped%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventPollStopped) TypeID() uint32 {
+	return ChatEventPollStoppedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventPollStopped) TypeName() string {
+	return "chatEventPollStopped"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventPollStopped) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventPollStopped",
+		ID:   ChatEventPollStoppedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventPollStopped) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventPollStopped#77cc8be5 as nil")
+	}
+	b.PutID(ChatEventPollStoppedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventPollStopped) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventPollStopped#77cc8be5 as nil")
+	}
+	if err := c.Message.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventPollStopped#77cc8be5: field message: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventPollStopped) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventPollStopped#77cc8be5 to nil")
+	}
+	if err := b.ConsumeID(ChatEventPollStoppedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventPollStopped#77cc8be5: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventPollStopped) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventPollStopped#77cc8be5 to nil")
+	}
+	{
+		if err := c.Message.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatEventPollStopped#77cc8be5: field message: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventPollStopped) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventPollStopped#77cc8be5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventPollStopped")
+	b.Comma()
+	b.FieldStart("message")
+	if err := c.Message.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventPollStopped#77cc8be5: field message: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventPollStopped) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventPollStopped#77cc8be5 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventPollStopped"); err != nil {
+				return fmt.Errorf("unable to decode chatEventPollStopped#77cc8be5: %w", err)
+			}
+		case "message":
+			if err := c.Message.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatEventPollStopped#77cc8be5: field message: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetMessage returns value of Message field.
+func (c *ChatEventPollStopped) GetMessage() (value Message) {
 	if c == nil {
 		return
 	}
@@ -1392,137 +1392,6 @@ func (c *ChatEventMemberJoinedByRequest) GetInviteLink() (value ChatInviteLink) 
 	return c.InviteLink
 }
 
-// ChatEventMemberLeft represents TL type `chatEventMemberLeft#c778400f`.
-type ChatEventMemberLeft struct {
-}
-
-// ChatEventMemberLeftTypeID is TL type id of ChatEventMemberLeft.
-const ChatEventMemberLeftTypeID = 0xc778400f
-
-// construct implements constructor of ChatEventActionClass.
-func (c ChatEventMemberLeft) construct() ChatEventActionClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatEventMemberLeft.
-var (
-	_ bin.Encoder     = &ChatEventMemberLeft{}
-	_ bin.Decoder     = &ChatEventMemberLeft{}
-	_ bin.BareEncoder = &ChatEventMemberLeft{}
-	_ bin.BareDecoder = &ChatEventMemberLeft{}
-
-	_ ChatEventActionClass = &ChatEventMemberLeft{}
-)
-
-func (c *ChatEventMemberLeft) Zero() bool {
-	if c == nil {
-		return true
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (c *ChatEventMemberLeft) String() string {
-	if c == nil {
-		return "ChatEventMemberLeft(nil)"
-	}
-	type Alias ChatEventMemberLeft
-	return fmt.Sprintf("ChatEventMemberLeft%+v", Alias(*c))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatEventMemberLeft) TypeID() uint32 {
-	return ChatEventMemberLeftTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*ChatEventMemberLeft) TypeName() string {
-	return "chatEventMemberLeft"
-}
-
-// TypeInfo returns info about TL type.
-func (c *ChatEventMemberLeft) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "chatEventMemberLeft",
-		ID:   ChatEventMemberLeftTypeID,
-	}
-	if c == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (c *ChatEventMemberLeft) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventMemberLeft#c778400f as nil")
-	}
-	b.PutID(ChatEventMemberLeftTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *ChatEventMemberLeft) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventMemberLeft#c778400f as nil")
-	}
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (c *ChatEventMemberLeft) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventMemberLeft#c778400f to nil")
-	}
-	if err := b.ConsumeID(ChatEventMemberLeftTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventMemberLeft#c778400f: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChatEventMemberLeft) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventMemberLeft#c778400f to nil")
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatEventMemberLeft) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventMemberLeft#c778400f as nil")
-	}
-	b.ObjStart()
-	b.PutID("chatEventMemberLeft")
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatEventMemberLeft) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventMemberLeft#c778400f to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("chatEventMemberLeft"); err != nil {
-				return fmt.Errorf("unable to decode chatEventMemberLeft#c778400f: %w", err)
-			}
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
 // ChatEventMemberInvited represents TL type `chatEventMemberInvited#38d7bfc9`.
 type ChatEventMemberInvited struct {
 	// New member user identifier
@@ -1731,6 +1600,137 @@ func (c *ChatEventMemberInvited) GetStatus() (value ChatMemberStatusClass) {
 		return
 	}
 	return c.Status
+}
+
+// ChatEventMemberLeft represents TL type `chatEventMemberLeft#c778400f`.
+type ChatEventMemberLeft struct {
+}
+
+// ChatEventMemberLeftTypeID is TL type id of ChatEventMemberLeft.
+const ChatEventMemberLeftTypeID = 0xc778400f
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventMemberLeft) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventMemberLeft.
+var (
+	_ bin.Encoder     = &ChatEventMemberLeft{}
+	_ bin.Decoder     = &ChatEventMemberLeft{}
+	_ bin.BareEncoder = &ChatEventMemberLeft{}
+	_ bin.BareDecoder = &ChatEventMemberLeft{}
+
+	_ ChatEventActionClass = &ChatEventMemberLeft{}
+)
+
+func (c *ChatEventMemberLeft) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventMemberLeft) String() string {
+	if c == nil {
+		return "ChatEventMemberLeft(nil)"
+	}
+	type Alias ChatEventMemberLeft
+	return fmt.Sprintf("ChatEventMemberLeft%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventMemberLeft) TypeID() uint32 {
+	return ChatEventMemberLeftTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventMemberLeft) TypeName() string {
+	return "chatEventMemberLeft"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventMemberLeft) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventMemberLeft",
+		ID:   ChatEventMemberLeftTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventMemberLeft) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventMemberLeft#c778400f as nil")
+	}
+	b.PutID(ChatEventMemberLeftTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventMemberLeft) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventMemberLeft#c778400f as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventMemberLeft) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventMemberLeft#c778400f to nil")
+	}
+	if err := b.ConsumeID(ChatEventMemberLeftTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventMemberLeft#c778400f: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventMemberLeft) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventMemberLeft#c778400f to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventMemberLeft) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventMemberLeft#c778400f as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventMemberLeft")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventMemberLeft) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventMemberLeft#c778400f to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventMemberLeft"); err != nil {
+				return fmt.Errorf("unable to decode chatEventMemberLeft#c778400f: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // ChatEventMemberPromoted represents TL type `chatEventMemberPromoted#1f4f6861`.
@@ -2251,38 +2251,38 @@ func (c *ChatEventMemberRestricted) GetNewStatus() (value ChatMemberStatusClass)
 	return c.NewStatus
 }
 
-// ChatEventTitleChanged represents TL type `chatEventTitleChanged#43990ad2`.
-type ChatEventTitleChanged struct {
-	// Previous chat title
-	OldTitle string
-	// New chat title
-	NewTitle string
+// ChatEventAvailableReactionsChanged represents TL type `chatEventAvailableReactionsChanged#9ac93274`.
+type ChatEventAvailableReactionsChanged struct {
+	// Previous chat available reactions
+	OldAvailableReactions []string
+	// New chat available reactions
+	NewAvailableReactions []string
 }
 
-// ChatEventTitleChangedTypeID is TL type id of ChatEventTitleChanged.
-const ChatEventTitleChangedTypeID = 0x43990ad2
+// ChatEventAvailableReactionsChangedTypeID is TL type id of ChatEventAvailableReactionsChanged.
+const ChatEventAvailableReactionsChangedTypeID = 0x9ac93274
 
 // construct implements constructor of ChatEventActionClass.
-func (c ChatEventTitleChanged) construct() ChatEventActionClass { return &c }
+func (c ChatEventAvailableReactionsChanged) construct() ChatEventActionClass { return &c }
 
-// Ensuring interfaces in compile-time for ChatEventTitleChanged.
+// Ensuring interfaces in compile-time for ChatEventAvailableReactionsChanged.
 var (
-	_ bin.Encoder     = &ChatEventTitleChanged{}
-	_ bin.Decoder     = &ChatEventTitleChanged{}
-	_ bin.BareEncoder = &ChatEventTitleChanged{}
-	_ bin.BareDecoder = &ChatEventTitleChanged{}
+	_ bin.Encoder     = &ChatEventAvailableReactionsChanged{}
+	_ bin.Decoder     = &ChatEventAvailableReactionsChanged{}
+	_ bin.BareEncoder = &ChatEventAvailableReactionsChanged{}
+	_ bin.BareDecoder = &ChatEventAvailableReactionsChanged{}
 
-	_ ChatEventActionClass = &ChatEventTitleChanged{}
+	_ ChatEventActionClass = &ChatEventAvailableReactionsChanged{}
 )
 
-func (c *ChatEventTitleChanged) Zero() bool {
+func (c *ChatEventAvailableReactionsChanged) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.OldTitle == "") {
+	if !(c.OldAvailableReactions == nil) {
 		return false
 	}
-	if !(c.NewTitle == "") {
+	if !(c.NewAvailableReactions == nil) {
 		return false
 	}
 
@@ -2290,31 +2290,31 @@ func (c *ChatEventTitleChanged) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (c *ChatEventTitleChanged) String() string {
+func (c *ChatEventAvailableReactionsChanged) String() string {
 	if c == nil {
-		return "ChatEventTitleChanged(nil)"
+		return "ChatEventAvailableReactionsChanged(nil)"
 	}
-	type Alias ChatEventTitleChanged
-	return fmt.Sprintf("ChatEventTitleChanged%+v", Alias(*c))
+	type Alias ChatEventAvailableReactionsChanged
+	return fmt.Sprintf("ChatEventAvailableReactionsChanged%+v", Alias(*c))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatEventTitleChanged) TypeID() uint32 {
-	return ChatEventTitleChangedTypeID
+func (*ChatEventAvailableReactionsChanged) TypeID() uint32 {
+	return ChatEventAvailableReactionsChangedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*ChatEventTitleChanged) TypeName() string {
-	return "chatEventTitleChanged"
+func (*ChatEventAvailableReactionsChanged) TypeName() string {
+	return "chatEventAvailableReactionsChanged"
 }
 
 // TypeInfo returns info about TL type.
-func (c *ChatEventTitleChanged) TypeInfo() tdp.Type {
+func (c *ChatEventAvailableReactionsChanged) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "chatEventTitleChanged",
-		ID:   ChatEventTitleChangedTypeID,
+		Name: "chatEventAvailableReactionsChanged",
+		ID:   ChatEventAvailableReactionsChangedTypeID,
 	}
 	if c == nil {
 		typ.Null = true
@@ -2322,82 +2322,120 @@ func (c *ChatEventTitleChanged) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "OldTitle",
-			SchemaName: "old_title",
+			Name:       "OldAvailableReactions",
+			SchemaName: "old_available_reactions",
 		},
 		{
-			Name:       "NewTitle",
-			SchemaName: "new_title",
+			Name:       "NewAvailableReactions",
+			SchemaName: "new_available_reactions",
 		},
 	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
-func (c *ChatEventTitleChanged) Encode(b *bin.Buffer) error {
+func (c *ChatEventAvailableReactionsChanged) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventTitleChanged#43990ad2 as nil")
+		return fmt.Errorf("can't encode chatEventAvailableReactionsChanged#9ac93274 as nil")
 	}
-	b.PutID(ChatEventTitleChangedTypeID)
+	b.PutID(ChatEventAvailableReactionsChangedTypeID)
 	return c.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (c *ChatEventTitleChanged) EncodeBare(b *bin.Buffer) error {
+func (c *ChatEventAvailableReactionsChanged) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventTitleChanged#43990ad2 as nil")
+		return fmt.Errorf("can't encode chatEventAvailableReactionsChanged#9ac93274 as nil")
 	}
-	b.PutString(c.OldTitle)
-	b.PutString(c.NewTitle)
+	b.PutInt(len(c.OldAvailableReactions))
+	for _, v := range c.OldAvailableReactions {
+		b.PutString(v)
+	}
+	b.PutInt(len(c.NewAvailableReactions))
+	for _, v := range c.NewAvailableReactions {
+		b.PutString(v)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (c *ChatEventTitleChanged) Decode(b *bin.Buffer) error {
+func (c *ChatEventAvailableReactionsChanged) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventTitleChanged#43990ad2 to nil")
+		return fmt.Errorf("can't decode chatEventAvailableReactionsChanged#9ac93274 to nil")
 	}
-	if err := b.ConsumeID(ChatEventTitleChangedTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventTitleChanged#43990ad2: %w", err)
+	if err := b.ConsumeID(ChatEventAvailableReactionsChangedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#9ac93274: %w", err)
 	}
 	return c.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (c *ChatEventTitleChanged) DecodeBare(b *bin.Buffer) error {
+func (c *ChatEventAvailableReactionsChanged) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventTitleChanged#43990ad2 to nil")
+		return fmt.Errorf("can't decode chatEventAvailableReactionsChanged#9ac93274 to nil")
 	}
 	{
-		value, err := b.String()
+		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatEventTitleChanged#43990ad2: field old_title: %w", err)
+			return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#9ac93274: field old_available_reactions: %w", err)
 		}
-		c.OldTitle = value
+
+		if headerLen > 0 {
+			c.OldAvailableReactions = make([]string, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#9ac93274: field old_available_reactions: %w", err)
+			}
+			c.OldAvailableReactions = append(c.OldAvailableReactions, value)
+		}
 	}
 	{
-		value, err := b.String()
+		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatEventTitleChanged#43990ad2: field new_title: %w", err)
+			return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#9ac93274: field new_available_reactions: %w", err)
 		}
-		c.NewTitle = value
+
+		if headerLen > 0 {
+			c.NewAvailableReactions = make([]string, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#9ac93274: field new_available_reactions: %w", err)
+			}
+			c.NewAvailableReactions = append(c.NewAvailableReactions, value)
+		}
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatEventTitleChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (c *ChatEventAvailableReactionsChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventTitleChanged#43990ad2 as nil")
+		return fmt.Errorf("can't encode chatEventAvailableReactionsChanged#9ac93274 as nil")
 	}
 	b.ObjStart()
-	b.PutID("chatEventTitleChanged")
+	b.PutID("chatEventAvailableReactionsChanged")
 	b.Comma()
-	b.FieldStart("old_title")
-	b.PutString(c.OldTitle)
+	b.FieldStart("old_available_reactions")
+	b.ArrStart()
+	for _, v := range c.OldAvailableReactions {
+		b.PutString(v)
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
 	b.Comma()
-	b.FieldStart("new_title")
-	b.PutString(c.NewTitle)
+	b.FieldStart("new_available_reactions")
+	b.ArrStart()
+	for _, v := range c.NewAvailableReactions {
+		b.PutString(v)
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -2405,228 +2443,38 @@ func (c *ChatEventTitleChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatEventTitleChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (c *ChatEventAvailableReactionsChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventTitleChanged#43990ad2 to nil")
+		return fmt.Errorf("can't decode chatEventAvailableReactionsChanged#9ac93274 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("chatEventTitleChanged"); err != nil {
-				return fmt.Errorf("unable to decode chatEventTitleChanged#43990ad2: %w", err)
+			if err := b.ConsumeID("chatEventAvailableReactionsChanged"); err != nil {
+				return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#9ac93274: %w", err)
 			}
-		case "old_title":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatEventTitleChanged#43990ad2: field old_title: %w", err)
+		case "old_available_reactions":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				value, err := b.String()
+				if err != nil {
+					return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#9ac93274: field old_available_reactions: %w", err)
+				}
+				c.OldAvailableReactions = append(c.OldAvailableReactions, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#9ac93274: field old_available_reactions: %w", err)
 			}
-			c.OldTitle = value
-		case "new_title":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatEventTitleChanged#43990ad2: field new_title: %w", err)
-			}
-			c.NewTitle = value
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetOldTitle returns value of OldTitle field.
-func (c *ChatEventTitleChanged) GetOldTitle() (value string) {
-	if c == nil {
-		return
-	}
-	return c.OldTitle
-}
-
-// GetNewTitle returns value of NewTitle field.
-func (c *ChatEventTitleChanged) GetNewTitle() (value string) {
-	if c == nil {
-		return
-	}
-	return c.NewTitle
-}
-
-// ChatEventPermissionsChanged represents TL type `chatEventPermissionsChanged#b1d337a8`.
-type ChatEventPermissionsChanged struct {
-	// Previous chat permissions
-	OldPermissions ChatPermissions
-	// New chat permissions
-	NewPermissions ChatPermissions
-}
-
-// ChatEventPermissionsChangedTypeID is TL type id of ChatEventPermissionsChanged.
-const ChatEventPermissionsChangedTypeID = 0xb1d337a8
-
-// construct implements constructor of ChatEventActionClass.
-func (c ChatEventPermissionsChanged) construct() ChatEventActionClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatEventPermissionsChanged.
-var (
-	_ bin.Encoder     = &ChatEventPermissionsChanged{}
-	_ bin.Decoder     = &ChatEventPermissionsChanged{}
-	_ bin.BareEncoder = &ChatEventPermissionsChanged{}
-	_ bin.BareDecoder = &ChatEventPermissionsChanged{}
-
-	_ ChatEventActionClass = &ChatEventPermissionsChanged{}
-)
-
-func (c *ChatEventPermissionsChanged) Zero() bool {
-	if c == nil {
-		return true
-	}
-	if !(c.OldPermissions.Zero()) {
-		return false
-	}
-	if !(c.NewPermissions.Zero()) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (c *ChatEventPermissionsChanged) String() string {
-	if c == nil {
-		return "ChatEventPermissionsChanged(nil)"
-	}
-	type Alias ChatEventPermissionsChanged
-	return fmt.Sprintf("ChatEventPermissionsChanged%+v", Alias(*c))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatEventPermissionsChanged) TypeID() uint32 {
-	return ChatEventPermissionsChangedTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*ChatEventPermissionsChanged) TypeName() string {
-	return "chatEventPermissionsChanged"
-}
-
-// TypeInfo returns info about TL type.
-func (c *ChatEventPermissionsChanged) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "chatEventPermissionsChanged",
-		ID:   ChatEventPermissionsChangedTypeID,
-	}
-	if c == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "OldPermissions",
-			SchemaName: "old_permissions",
-		},
-		{
-			Name:       "NewPermissions",
-			SchemaName: "new_permissions",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (c *ChatEventPermissionsChanged) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventPermissionsChanged#b1d337a8 as nil")
-	}
-	b.PutID(ChatEventPermissionsChangedTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *ChatEventPermissionsChanged) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventPermissionsChanged#b1d337a8 as nil")
-	}
-	if err := c.OldPermissions.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatEventPermissionsChanged#b1d337a8: field old_permissions: %w", err)
-	}
-	if err := c.NewPermissions.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatEventPermissionsChanged#b1d337a8: field new_permissions: %w", err)
-	}
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (c *ChatEventPermissionsChanged) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventPermissionsChanged#b1d337a8 to nil")
-	}
-	if err := b.ConsumeID(ChatEventPermissionsChangedTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventPermissionsChanged#b1d337a8: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChatEventPermissionsChanged) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventPermissionsChanged#b1d337a8 to nil")
-	}
-	{
-		if err := c.OldPermissions.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatEventPermissionsChanged#b1d337a8: field old_permissions: %w", err)
-		}
-	}
-	{
-		if err := c.NewPermissions.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatEventPermissionsChanged#b1d337a8: field new_permissions: %w", err)
-		}
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatEventPermissionsChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventPermissionsChanged#b1d337a8 as nil")
-	}
-	b.ObjStart()
-	b.PutID("chatEventPermissionsChanged")
-	b.Comma()
-	b.FieldStart("old_permissions")
-	if err := c.OldPermissions.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatEventPermissionsChanged#b1d337a8: field old_permissions: %w", err)
-	}
-	b.Comma()
-	b.FieldStart("new_permissions")
-	if err := c.NewPermissions.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatEventPermissionsChanged#b1d337a8: field new_permissions: %w", err)
-	}
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatEventPermissionsChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventPermissionsChanged#b1d337a8 to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("chatEventPermissionsChanged"); err != nil {
-				return fmt.Errorf("unable to decode chatEventPermissionsChanged#b1d337a8: %w", err)
-			}
-		case "old_permissions":
-			if err := c.OldPermissions.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatEventPermissionsChanged#b1d337a8: field old_permissions: %w", err)
-			}
-		case "new_permissions":
-			if err := c.NewPermissions.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatEventPermissionsChanged#b1d337a8: field new_permissions: %w", err)
+		case "new_available_reactions":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				value, err := b.String()
+				if err != nil {
+					return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#9ac93274: field new_available_reactions: %w", err)
+				}
+				c.NewAvailableReactions = append(c.NewAvailableReactions, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#9ac93274: field new_available_reactions: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -2635,20 +2483,20 @@ func (c *ChatEventPermissionsChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetOldPermissions returns value of OldPermissions field.
-func (c *ChatEventPermissionsChanged) GetOldPermissions() (value ChatPermissions) {
+// GetOldAvailableReactions returns value of OldAvailableReactions field.
+func (c *ChatEventAvailableReactionsChanged) GetOldAvailableReactions() (value []string) {
 	if c == nil {
 		return
 	}
-	return c.OldPermissions
+	return c.OldAvailableReactions
 }
 
-// GetNewPermissions returns value of NewPermissions field.
-func (c *ChatEventPermissionsChanged) GetNewPermissions() (value ChatPermissions) {
+// GetNewAvailableReactions returns value of NewAvailableReactions field.
+func (c *ChatEventAvailableReactionsChanged) GetNewAvailableReactions() (value []string) {
 	if c == nil {
 		return
 	}
-	return c.NewPermissions
+	return c.NewAvailableReactions
 }
 
 // ChatEventDescriptionChanged represents TL type `chatEventDescriptionChanged#254cf1e`.
@@ -2851,572 +2699,6 @@ func (c *ChatEventDescriptionChanged) GetNewDescription() (value string) {
 	return c.NewDescription
 }
 
-// ChatEventUsernameChanged represents TL type `chatEventUsernameChanged#6707b56b`.
-type ChatEventUsernameChanged struct {
-	// Previous chat username
-	OldUsername string
-	// New chat username
-	NewUsername string
-}
-
-// ChatEventUsernameChangedTypeID is TL type id of ChatEventUsernameChanged.
-const ChatEventUsernameChangedTypeID = 0x6707b56b
-
-// construct implements constructor of ChatEventActionClass.
-func (c ChatEventUsernameChanged) construct() ChatEventActionClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatEventUsernameChanged.
-var (
-	_ bin.Encoder     = &ChatEventUsernameChanged{}
-	_ bin.Decoder     = &ChatEventUsernameChanged{}
-	_ bin.BareEncoder = &ChatEventUsernameChanged{}
-	_ bin.BareDecoder = &ChatEventUsernameChanged{}
-
-	_ ChatEventActionClass = &ChatEventUsernameChanged{}
-)
-
-func (c *ChatEventUsernameChanged) Zero() bool {
-	if c == nil {
-		return true
-	}
-	if !(c.OldUsername == "") {
-		return false
-	}
-	if !(c.NewUsername == "") {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (c *ChatEventUsernameChanged) String() string {
-	if c == nil {
-		return "ChatEventUsernameChanged(nil)"
-	}
-	type Alias ChatEventUsernameChanged
-	return fmt.Sprintf("ChatEventUsernameChanged%+v", Alias(*c))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatEventUsernameChanged) TypeID() uint32 {
-	return ChatEventUsernameChangedTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*ChatEventUsernameChanged) TypeName() string {
-	return "chatEventUsernameChanged"
-}
-
-// TypeInfo returns info about TL type.
-func (c *ChatEventUsernameChanged) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "chatEventUsernameChanged",
-		ID:   ChatEventUsernameChangedTypeID,
-	}
-	if c == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "OldUsername",
-			SchemaName: "old_username",
-		},
-		{
-			Name:       "NewUsername",
-			SchemaName: "new_username",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (c *ChatEventUsernameChanged) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventUsernameChanged#6707b56b as nil")
-	}
-	b.PutID(ChatEventUsernameChangedTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *ChatEventUsernameChanged) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventUsernameChanged#6707b56b as nil")
-	}
-	b.PutString(c.OldUsername)
-	b.PutString(c.NewUsername)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (c *ChatEventUsernameChanged) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventUsernameChanged#6707b56b to nil")
-	}
-	if err := b.ConsumeID(ChatEventUsernameChangedTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventUsernameChanged#6707b56b: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChatEventUsernameChanged) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventUsernameChanged#6707b56b to nil")
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatEventUsernameChanged#6707b56b: field old_username: %w", err)
-		}
-		c.OldUsername = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatEventUsernameChanged#6707b56b: field new_username: %w", err)
-		}
-		c.NewUsername = value
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatEventUsernameChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventUsernameChanged#6707b56b as nil")
-	}
-	b.ObjStart()
-	b.PutID("chatEventUsernameChanged")
-	b.Comma()
-	b.FieldStart("old_username")
-	b.PutString(c.OldUsername)
-	b.Comma()
-	b.FieldStart("new_username")
-	b.PutString(c.NewUsername)
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatEventUsernameChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventUsernameChanged#6707b56b to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("chatEventUsernameChanged"); err != nil {
-				return fmt.Errorf("unable to decode chatEventUsernameChanged#6707b56b: %w", err)
-			}
-		case "old_username":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatEventUsernameChanged#6707b56b: field old_username: %w", err)
-			}
-			c.OldUsername = value
-		case "new_username":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatEventUsernameChanged#6707b56b: field new_username: %w", err)
-			}
-			c.NewUsername = value
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetOldUsername returns value of OldUsername field.
-func (c *ChatEventUsernameChanged) GetOldUsername() (value string) {
-	if c == nil {
-		return
-	}
-	return c.OldUsername
-}
-
-// GetNewUsername returns value of NewUsername field.
-func (c *ChatEventUsernameChanged) GetNewUsername() (value string) {
-	if c == nil {
-		return
-	}
-	return c.NewUsername
-}
-
-// ChatEventPhotoChanged represents TL type `chatEventPhotoChanged#cfa062c3`.
-type ChatEventPhotoChanged struct {
-	// Previous chat photo value; may be null
-	OldPhoto ChatPhoto
-	// New chat photo value; may be null
-	NewPhoto ChatPhoto
-}
-
-// ChatEventPhotoChangedTypeID is TL type id of ChatEventPhotoChanged.
-const ChatEventPhotoChangedTypeID = 0xcfa062c3
-
-// construct implements constructor of ChatEventActionClass.
-func (c ChatEventPhotoChanged) construct() ChatEventActionClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatEventPhotoChanged.
-var (
-	_ bin.Encoder     = &ChatEventPhotoChanged{}
-	_ bin.Decoder     = &ChatEventPhotoChanged{}
-	_ bin.BareEncoder = &ChatEventPhotoChanged{}
-	_ bin.BareDecoder = &ChatEventPhotoChanged{}
-
-	_ ChatEventActionClass = &ChatEventPhotoChanged{}
-)
-
-func (c *ChatEventPhotoChanged) Zero() bool {
-	if c == nil {
-		return true
-	}
-	if !(c.OldPhoto.Zero()) {
-		return false
-	}
-	if !(c.NewPhoto.Zero()) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (c *ChatEventPhotoChanged) String() string {
-	if c == nil {
-		return "ChatEventPhotoChanged(nil)"
-	}
-	type Alias ChatEventPhotoChanged
-	return fmt.Sprintf("ChatEventPhotoChanged%+v", Alias(*c))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatEventPhotoChanged) TypeID() uint32 {
-	return ChatEventPhotoChangedTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*ChatEventPhotoChanged) TypeName() string {
-	return "chatEventPhotoChanged"
-}
-
-// TypeInfo returns info about TL type.
-func (c *ChatEventPhotoChanged) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "chatEventPhotoChanged",
-		ID:   ChatEventPhotoChangedTypeID,
-	}
-	if c == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "OldPhoto",
-			SchemaName: "old_photo",
-		},
-		{
-			Name:       "NewPhoto",
-			SchemaName: "new_photo",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (c *ChatEventPhotoChanged) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventPhotoChanged#cfa062c3 as nil")
-	}
-	b.PutID(ChatEventPhotoChangedTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *ChatEventPhotoChanged) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventPhotoChanged#cfa062c3 as nil")
-	}
-	if err := c.OldPhoto.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatEventPhotoChanged#cfa062c3: field old_photo: %w", err)
-	}
-	if err := c.NewPhoto.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatEventPhotoChanged#cfa062c3: field new_photo: %w", err)
-	}
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (c *ChatEventPhotoChanged) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventPhotoChanged#cfa062c3 to nil")
-	}
-	if err := b.ConsumeID(ChatEventPhotoChangedTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventPhotoChanged#cfa062c3: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChatEventPhotoChanged) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventPhotoChanged#cfa062c3 to nil")
-	}
-	{
-		if err := c.OldPhoto.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatEventPhotoChanged#cfa062c3: field old_photo: %w", err)
-		}
-	}
-	{
-		if err := c.NewPhoto.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatEventPhotoChanged#cfa062c3: field new_photo: %w", err)
-		}
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatEventPhotoChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventPhotoChanged#cfa062c3 as nil")
-	}
-	b.ObjStart()
-	b.PutID("chatEventPhotoChanged")
-	b.Comma()
-	b.FieldStart("old_photo")
-	if err := c.OldPhoto.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatEventPhotoChanged#cfa062c3: field old_photo: %w", err)
-	}
-	b.Comma()
-	b.FieldStart("new_photo")
-	if err := c.NewPhoto.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatEventPhotoChanged#cfa062c3: field new_photo: %w", err)
-	}
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatEventPhotoChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventPhotoChanged#cfa062c3 to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("chatEventPhotoChanged"); err != nil {
-				return fmt.Errorf("unable to decode chatEventPhotoChanged#cfa062c3: %w", err)
-			}
-		case "old_photo":
-			if err := c.OldPhoto.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatEventPhotoChanged#cfa062c3: field old_photo: %w", err)
-			}
-		case "new_photo":
-			if err := c.NewPhoto.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatEventPhotoChanged#cfa062c3: field new_photo: %w", err)
-			}
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetOldPhoto returns value of OldPhoto field.
-func (c *ChatEventPhotoChanged) GetOldPhoto() (value ChatPhoto) {
-	if c == nil {
-		return
-	}
-	return c.OldPhoto
-}
-
-// GetNewPhoto returns value of NewPhoto field.
-func (c *ChatEventPhotoChanged) GetNewPhoto() (value ChatPhoto) {
-	if c == nil {
-		return
-	}
-	return c.NewPhoto
-}
-
-// ChatEventInvitesToggled represents TL type `chatEventInvitesToggled#fc45966b`.
-type ChatEventInvitesToggled struct {
-	// New value of can_invite_users permission
-	CanInviteUsers bool
-}
-
-// ChatEventInvitesToggledTypeID is TL type id of ChatEventInvitesToggled.
-const ChatEventInvitesToggledTypeID = 0xfc45966b
-
-// construct implements constructor of ChatEventActionClass.
-func (c ChatEventInvitesToggled) construct() ChatEventActionClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatEventInvitesToggled.
-var (
-	_ bin.Encoder     = &ChatEventInvitesToggled{}
-	_ bin.Decoder     = &ChatEventInvitesToggled{}
-	_ bin.BareEncoder = &ChatEventInvitesToggled{}
-	_ bin.BareDecoder = &ChatEventInvitesToggled{}
-
-	_ ChatEventActionClass = &ChatEventInvitesToggled{}
-)
-
-func (c *ChatEventInvitesToggled) Zero() bool {
-	if c == nil {
-		return true
-	}
-	if !(c.CanInviteUsers == false) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (c *ChatEventInvitesToggled) String() string {
-	if c == nil {
-		return "ChatEventInvitesToggled(nil)"
-	}
-	type Alias ChatEventInvitesToggled
-	return fmt.Sprintf("ChatEventInvitesToggled%+v", Alias(*c))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatEventInvitesToggled) TypeID() uint32 {
-	return ChatEventInvitesToggledTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*ChatEventInvitesToggled) TypeName() string {
-	return "chatEventInvitesToggled"
-}
-
-// TypeInfo returns info about TL type.
-func (c *ChatEventInvitesToggled) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "chatEventInvitesToggled",
-		ID:   ChatEventInvitesToggledTypeID,
-	}
-	if c == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "CanInviteUsers",
-			SchemaName: "can_invite_users",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (c *ChatEventInvitesToggled) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventInvitesToggled#fc45966b as nil")
-	}
-	b.PutID(ChatEventInvitesToggledTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *ChatEventInvitesToggled) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventInvitesToggled#fc45966b as nil")
-	}
-	b.PutBool(c.CanInviteUsers)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (c *ChatEventInvitesToggled) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventInvitesToggled#fc45966b to nil")
-	}
-	if err := b.ConsumeID(ChatEventInvitesToggledTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventInvitesToggled#fc45966b: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChatEventInvitesToggled) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventInvitesToggled#fc45966b to nil")
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatEventInvitesToggled#fc45966b: field can_invite_users: %w", err)
-		}
-		c.CanInviteUsers = value
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatEventInvitesToggled) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventInvitesToggled#fc45966b as nil")
-	}
-	b.ObjStart()
-	b.PutID("chatEventInvitesToggled")
-	b.Comma()
-	b.FieldStart("can_invite_users")
-	b.PutBool(c.CanInviteUsers)
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatEventInvitesToggled) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventInvitesToggled#fc45966b to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("chatEventInvitesToggled"); err != nil {
-				return fmt.Errorf("unable to decode chatEventInvitesToggled#fc45966b: %w", err)
-			}
-		case "can_invite_users":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatEventInvitesToggled#fc45966b: field can_invite_users: %w", err)
-			}
-			c.CanInviteUsers = value
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetCanInviteUsers returns value of CanInviteUsers field.
-func (c *ChatEventInvitesToggled) GetCanInviteUsers() (value bool) {
-	if c == nil {
-		return
-	}
-	return c.CanInviteUsers
-}
-
 // ChatEventLinkedChatChanged represents TL type `chatEventLinkedChatChanged#6b2271af`.
 type ChatEventLinkedChatChanged struct {
 	// Previous supergroup linked chat identifier
@@ -3615,938 +2897,6 @@ func (c *ChatEventLinkedChatChanged) GetNewLinkedChatID() (value int64) {
 		return
 	}
 	return c.NewLinkedChatID
-}
-
-// ChatEventSlowModeDelayChanged represents TL type `chatEventSlowModeDelayChanged#9d763c0b`.
-type ChatEventSlowModeDelayChanged struct {
-	// Previous value of slow_mode_delay, in seconds
-	OldSlowModeDelay int32
-	// New value of slow_mode_delay, in seconds
-	NewSlowModeDelay int32
-}
-
-// ChatEventSlowModeDelayChangedTypeID is TL type id of ChatEventSlowModeDelayChanged.
-const ChatEventSlowModeDelayChangedTypeID = 0x9d763c0b
-
-// construct implements constructor of ChatEventActionClass.
-func (c ChatEventSlowModeDelayChanged) construct() ChatEventActionClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatEventSlowModeDelayChanged.
-var (
-	_ bin.Encoder     = &ChatEventSlowModeDelayChanged{}
-	_ bin.Decoder     = &ChatEventSlowModeDelayChanged{}
-	_ bin.BareEncoder = &ChatEventSlowModeDelayChanged{}
-	_ bin.BareDecoder = &ChatEventSlowModeDelayChanged{}
-
-	_ ChatEventActionClass = &ChatEventSlowModeDelayChanged{}
-)
-
-func (c *ChatEventSlowModeDelayChanged) Zero() bool {
-	if c == nil {
-		return true
-	}
-	if !(c.OldSlowModeDelay == 0) {
-		return false
-	}
-	if !(c.NewSlowModeDelay == 0) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (c *ChatEventSlowModeDelayChanged) String() string {
-	if c == nil {
-		return "ChatEventSlowModeDelayChanged(nil)"
-	}
-	type Alias ChatEventSlowModeDelayChanged
-	return fmt.Sprintf("ChatEventSlowModeDelayChanged%+v", Alias(*c))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatEventSlowModeDelayChanged) TypeID() uint32 {
-	return ChatEventSlowModeDelayChangedTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*ChatEventSlowModeDelayChanged) TypeName() string {
-	return "chatEventSlowModeDelayChanged"
-}
-
-// TypeInfo returns info about TL type.
-func (c *ChatEventSlowModeDelayChanged) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "chatEventSlowModeDelayChanged",
-		ID:   ChatEventSlowModeDelayChangedTypeID,
-	}
-	if c == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "OldSlowModeDelay",
-			SchemaName: "old_slow_mode_delay",
-		},
-		{
-			Name:       "NewSlowModeDelay",
-			SchemaName: "new_slow_mode_delay",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (c *ChatEventSlowModeDelayChanged) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventSlowModeDelayChanged#9d763c0b as nil")
-	}
-	b.PutID(ChatEventSlowModeDelayChangedTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *ChatEventSlowModeDelayChanged) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventSlowModeDelayChanged#9d763c0b as nil")
-	}
-	b.PutInt32(c.OldSlowModeDelay)
-	b.PutInt32(c.NewSlowModeDelay)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (c *ChatEventSlowModeDelayChanged) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventSlowModeDelayChanged#9d763c0b to nil")
-	}
-	if err := b.ConsumeID(ChatEventSlowModeDelayChangedTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventSlowModeDelayChanged#9d763c0b: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChatEventSlowModeDelayChanged) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventSlowModeDelayChanged#9d763c0b to nil")
-	}
-	{
-		value, err := b.Int32()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatEventSlowModeDelayChanged#9d763c0b: field old_slow_mode_delay: %w", err)
-		}
-		c.OldSlowModeDelay = value
-	}
-	{
-		value, err := b.Int32()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatEventSlowModeDelayChanged#9d763c0b: field new_slow_mode_delay: %w", err)
-		}
-		c.NewSlowModeDelay = value
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatEventSlowModeDelayChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventSlowModeDelayChanged#9d763c0b as nil")
-	}
-	b.ObjStart()
-	b.PutID("chatEventSlowModeDelayChanged")
-	b.Comma()
-	b.FieldStart("old_slow_mode_delay")
-	b.PutInt32(c.OldSlowModeDelay)
-	b.Comma()
-	b.FieldStart("new_slow_mode_delay")
-	b.PutInt32(c.NewSlowModeDelay)
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatEventSlowModeDelayChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventSlowModeDelayChanged#9d763c0b to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("chatEventSlowModeDelayChanged"); err != nil {
-				return fmt.Errorf("unable to decode chatEventSlowModeDelayChanged#9d763c0b: %w", err)
-			}
-		case "old_slow_mode_delay":
-			value, err := b.Int32()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatEventSlowModeDelayChanged#9d763c0b: field old_slow_mode_delay: %w", err)
-			}
-			c.OldSlowModeDelay = value
-		case "new_slow_mode_delay":
-			value, err := b.Int32()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatEventSlowModeDelayChanged#9d763c0b: field new_slow_mode_delay: %w", err)
-			}
-			c.NewSlowModeDelay = value
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetOldSlowModeDelay returns value of OldSlowModeDelay field.
-func (c *ChatEventSlowModeDelayChanged) GetOldSlowModeDelay() (value int32) {
-	if c == nil {
-		return
-	}
-	return c.OldSlowModeDelay
-}
-
-// GetNewSlowModeDelay returns value of NewSlowModeDelay field.
-func (c *ChatEventSlowModeDelayChanged) GetNewSlowModeDelay() (value int32) {
-	if c == nil {
-		return
-	}
-	return c.NewSlowModeDelay
-}
-
-// ChatEventMessageTTLChanged represents TL type `chatEventMessageTtlChanged#2e46b9b3`.
-type ChatEventMessageTTLChanged struct {
-	// Previous value of message_ttl
-	OldMessageTTL int32
-	// New value of message_ttl
-	NewMessageTTL int32
-}
-
-// ChatEventMessageTTLChangedTypeID is TL type id of ChatEventMessageTTLChanged.
-const ChatEventMessageTTLChangedTypeID = 0x2e46b9b3
-
-// construct implements constructor of ChatEventActionClass.
-func (c ChatEventMessageTTLChanged) construct() ChatEventActionClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatEventMessageTTLChanged.
-var (
-	_ bin.Encoder     = &ChatEventMessageTTLChanged{}
-	_ bin.Decoder     = &ChatEventMessageTTLChanged{}
-	_ bin.BareEncoder = &ChatEventMessageTTLChanged{}
-	_ bin.BareDecoder = &ChatEventMessageTTLChanged{}
-
-	_ ChatEventActionClass = &ChatEventMessageTTLChanged{}
-)
-
-func (c *ChatEventMessageTTLChanged) Zero() bool {
-	if c == nil {
-		return true
-	}
-	if !(c.OldMessageTTL == 0) {
-		return false
-	}
-	if !(c.NewMessageTTL == 0) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (c *ChatEventMessageTTLChanged) String() string {
-	if c == nil {
-		return "ChatEventMessageTTLChanged(nil)"
-	}
-	type Alias ChatEventMessageTTLChanged
-	return fmt.Sprintf("ChatEventMessageTTLChanged%+v", Alias(*c))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatEventMessageTTLChanged) TypeID() uint32 {
-	return ChatEventMessageTTLChangedTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*ChatEventMessageTTLChanged) TypeName() string {
-	return "chatEventMessageTtlChanged"
-}
-
-// TypeInfo returns info about TL type.
-func (c *ChatEventMessageTTLChanged) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "chatEventMessageTtlChanged",
-		ID:   ChatEventMessageTTLChangedTypeID,
-	}
-	if c == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "OldMessageTTL",
-			SchemaName: "old_message_ttl",
-		},
-		{
-			Name:       "NewMessageTTL",
-			SchemaName: "new_message_ttl",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (c *ChatEventMessageTTLChanged) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventMessageTtlChanged#2e46b9b3 as nil")
-	}
-	b.PutID(ChatEventMessageTTLChangedTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *ChatEventMessageTTLChanged) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventMessageTtlChanged#2e46b9b3 as nil")
-	}
-	b.PutInt32(c.OldMessageTTL)
-	b.PutInt32(c.NewMessageTTL)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (c *ChatEventMessageTTLChanged) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventMessageTtlChanged#2e46b9b3 to nil")
-	}
-	if err := b.ConsumeID(ChatEventMessageTTLChangedTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChatEventMessageTTLChanged) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventMessageTtlChanged#2e46b9b3 to nil")
-	}
-	{
-		value, err := b.Int32()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: field old_message_ttl: %w", err)
-		}
-		c.OldMessageTTL = value
-	}
-	{
-		value, err := b.Int32()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: field new_message_ttl: %w", err)
-		}
-		c.NewMessageTTL = value
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatEventMessageTTLChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventMessageTtlChanged#2e46b9b3 as nil")
-	}
-	b.ObjStart()
-	b.PutID("chatEventMessageTtlChanged")
-	b.Comma()
-	b.FieldStart("old_message_ttl")
-	b.PutInt32(c.OldMessageTTL)
-	b.Comma()
-	b.FieldStart("new_message_ttl")
-	b.PutInt32(c.NewMessageTTL)
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatEventMessageTTLChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventMessageTtlChanged#2e46b9b3 to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("chatEventMessageTtlChanged"); err != nil {
-				return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: %w", err)
-			}
-		case "old_message_ttl":
-			value, err := b.Int32()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: field old_message_ttl: %w", err)
-			}
-			c.OldMessageTTL = value
-		case "new_message_ttl":
-			value, err := b.Int32()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: field new_message_ttl: %w", err)
-			}
-			c.NewMessageTTL = value
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetOldMessageTTL returns value of OldMessageTTL field.
-func (c *ChatEventMessageTTLChanged) GetOldMessageTTL() (value int32) {
-	if c == nil {
-		return
-	}
-	return c.OldMessageTTL
-}
-
-// GetNewMessageTTL returns value of NewMessageTTL field.
-func (c *ChatEventMessageTTLChanged) GetNewMessageTTL() (value int32) {
-	if c == nil {
-		return
-	}
-	return c.NewMessageTTL
-}
-
-// ChatEventSignMessagesToggled represents TL type `chatEventSignMessagesToggled#b1b9281e`.
-type ChatEventSignMessagesToggled struct {
-	// New value of sign_messages
-	SignMessages bool
-}
-
-// ChatEventSignMessagesToggledTypeID is TL type id of ChatEventSignMessagesToggled.
-const ChatEventSignMessagesToggledTypeID = 0xb1b9281e
-
-// construct implements constructor of ChatEventActionClass.
-func (c ChatEventSignMessagesToggled) construct() ChatEventActionClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatEventSignMessagesToggled.
-var (
-	_ bin.Encoder     = &ChatEventSignMessagesToggled{}
-	_ bin.Decoder     = &ChatEventSignMessagesToggled{}
-	_ bin.BareEncoder = &ChatEventSignMessagesToggled{}
-	_ bin.BareDecoder = &ChatEventSignMessagesToggled{}
-
-	_ ChatEventActionClass = &ChatEventSignMessagesToggled{}
-)
-
-func (c *ChatEventSignMessagesToggled) Zero() bool {
-	if c == nil {
-		return true
-	}
-	if !(c.SignMessages == false) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (c *ChatEventSignMessagesToggled) String() string {
-	if c == nil {
-		return "ChatEventSignMessagesToggled(nil)"
-	}
-	type Alias ChatEventSignMessagesToggled
-	return fmt.Sprintf("ChatEventSignMessagesToggled%+v", Alias(*c))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatEventSignMessagesToggled) TypeID() uint32 {
-	return ChatEventSignMessagesToggledTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*ChatEventSignMessagesToggled) TypeName() string {
-	return "chatEventSignMessagesToggled"
-}
-
-// TypeInfo returns info about TL type.
-func (c *ChatEventSignMessagesToggled) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "chatEventSignMessagesToggled",
-		ID:   ChatEventSignMessagesToggledTypeID,
-	}
-	if c == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "SignMessages",
-			SchemaName: "sign_messages",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (c *ChatEventSignMessagesToggled) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventSignMessagesToggled#b1b9281e as nil")
-	}
-	b.PutID(ChatEventSignMessagesToggledTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *ChatEventSignMessagesToggled) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventSignMessagesToggled#b1b9281e as nil")
-	}
-	b.PutBool(c.SignMessages)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (c *ChatEventSignMessagesToggled) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventSignMessagesToggled#b1b9281e to nil")
-	}
-	if err := b.ConsumeID(ChatEventSignMessagesToggledTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventSignMessagesToggled#b1b9281e: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChatEventSignMessagesToggled) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventSignMessagesToggled#b1b9281e to nil")
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatEventSignMessagesToggled#b1b9281e: field sign_messages: %w", err)
-		}
-		c.SignMessages = value
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatEventSignMessagesToggled) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventSignMessagesToggled#b1b9281e as nil")
-	}
-	b.ObjStart()
-	b.PutID("chatEventSignMessagesToggled")
-	b.Comma()
-	b.FieldStart("sign_messages")
-	b.PutBool(c.SignMessages)
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatEventSignMessagesToggled) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventSignMessagesToggled#b1b9281e to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("chatEventSignMessagesToggled"); err != nil {
-				return fmt.Errorf("unable to decode chatEventSignMessagesToggled#b1b9281e: %w", err)
-			}
-		case "sign_messages":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatEventSignMessagesToggled#b1b9281e: field sign_messages: %w", err)
-			}
-			c.SignMessages = value
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetSignMessages returns value of SignMessages field.
-func (c *ChatEventSignMessagesToggled) GetSignMessages() (value bool) {
-	if c == nil {
-		return
-	}
-	return c.SignMessages
-}
-
-// ChatEventHasProtectedContentToggled represents TL type `chatEventHasProtectedContentToggled#f5044201`.
-type ChatEventHasProtectedContentToggled struct {
-	// New value of has_protected_content
-	HasProtectedContent bool
-}
-
-// ChatEventHasProtectedContentToggledTypeID is TL type id of ChatEventHasProtectedContentToggled.
-const ChatEventHasProtectedContentToggledTypeID = 0xf5044201
-
-// construct implements constructor of ChatEventActionClass.
-func (c ChatEventHasProtectedContentToggled) construct() ChatEventActionClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatEventHasProtectedContentToggled.
-var (
-	_ bin.Encoder     = &ChatEventHasProtectedContentToggled{}
-	_ bin.Decoder     = &ChatEventHasProtectedContentToggled{}
-	_ bin.BareEncoder = &ChatEventHasProtectedContentToggled{}
-	_ bin.BareDecoder = &ChatEventHasProtectedContentToggled{}
-
-	_ ChatEventActionClass = &ChatEventHasProtectedContentToggled{}
-)
-
-func (c *ChatEventHasProtectedContentToggled) Zero() bool {
-	if c == nil {
-		return true
-	}
-	if !(c.HasProtectedContent == false) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (c *ChatEventHasProtectedContentToggled) String() string {
-	if c == nil {
-		return "ChatEventHasProtectedContentToggled(nil)"
-	}
-	type Alias ChatEventHasProtectedContentToggled
-	return fmt.Sprintf("ChatEventHasProtectedContentToggled%+v", Alias(*c))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatEventHasProtectedContentToggled) TypeID() uint32 {
-	return ChatEventHasProtectedContentToggledTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*ChatEventHasProtectedContentToggled) TypeName() string {
-	return "chatEventHasProtectedContentToggled"
-}
-
-// TypeInfo returns info about TL type.
-func (c *ChatEventHasProtectedContentToggled) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "chatEventHasProtectedContentToggled",
-		ID:   ChatEventHasProtectedContentToggledTypeID,
-	}
-	if c == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "HasProtectedContent",
-			SchemaName: "has_protected_content",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (c *ChatEventHasProtectedContentToggled) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventHasProtectedContentToggled#f5044201 as nil")
-	}
-	b.PutID(ChatEventHasProtectedContentToggledTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *ChatEventHasProtectedContentToggled) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventHasProtectedContentToggled#f5044201 as nil")
-	}
-	b.PutBool(c.HasProtectedContent)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (c *ChatEventHasProtectedContentToggled) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventHasProtectedContentToggled#f5044201 to nil")
-	}
-	if err := b.ConsumeID(ChatEventHasProtectedContentToggledTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventHasProtectedContentToggled#f5044201: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChatEventHasProtectedContentToggled) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventHasProtectedContentToggled#f5044201 to nil")
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatEventHasProtectedContentToggled#f5044201: field has_protected_content: %w", err)
-		}
-		c.HasProtectedContent = value
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatEventHasProtectedContentToggled) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventHasProtectedContentToggled#f5044201 as nil")
-	}
-	b.ObjStart()
-	b.PutID("chatEventHasProtectedContentToggled")
-	b.Comma()
-	b.FieldStart("has_protected_content")
-	b.PutBool(c.HasProtectedContent)
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatEventHasProtectedContentToggled) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventHasProtectedContentToggled#f5044201 to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("chatEventHasProtectedContentToggled"); err != nil {
-				return fmt.Errorf("unable to decode chatEventHasProtectedContentToggled#f5044201: %w", err)
-			}
-		case "has_protected_content":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatEventHasProtectedContentToggled#f5044201: field has_protected_content: %w", err)
-			}
-			c.HasProtectedContent = value
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetHasProtectedContent returns value of HasProtectedContent field.
-func (c *ChatEventHasProtectedContentToggled) GetHasProtectedContent() (value bool) {
-	if c == nil {
-		return
-	}
-	return c.HasProtectedContent
-}
-
-// ChatEventStickerSetChanged represents TL type `chatEventStickerSetChanged#b5e7558f`.
-type ChatEventStickerSetChanged struct {
-	// Previous identifier of the chat sticker set; 0 if none
-	OldStickerSetID int64
-	// New identifier of the chat sticker set; 0 if none
-	NewStickerSetID int64
-}
-
-// ChatEventStickerSetChangedTypeID is TL type id of ChatEventStickerSetChanged.
-const ChatEventStickerSetChangedTypeID = 0xb5e7558f
-
-// construct implements constructor of ChatEventActionClass.
-func (c ChatEventStickerSetChanged) construct() ChatEventActionClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatEventStickerSetChanged.
-var (
-	_ bin.Encoder     = &ChatEventStickerSetChanged{}
-	_ bin.Decoder     = &ChatEventStickerSetChanged{}
-	_ bin.BareEncoder = &ChatEventStickerSetChanged{}
-	_ bin.BareDecoder = &ChatEventStickerSetChanged{}
-
-	_ ChatEventActionClass = &ChatEventStickerSetChanged{}
-)
-
-func (c *ChatEventStickerSetChanged) Zero() bool {
-	if c == nil {
-		return true
-	}
-	if !(c.OldStickerSetID == 0) {
-		return false
-	}
-	if !(c.NewStickerSetID == 0) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (c *ChatEventStickerSetChanged) String() string {
-	if c == nil {
-		return "ChatEventStickerSetChanged(nil)"
-	}
-	type Alias ChatEventStickerSetChanged
-	return fmt.Sprintf("ChatEventStickerSetChanged%+v", Alias(*c))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatEventStickerSetChanged) TypeID() uint32 {
-	return ChatEventStickerSetChangedTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*ChatEventStickerSetChanged) TypeName() string {
-	return "chatEventStickerSetChanged"
-}
-
-// TypeInfo returns info about TL type.
-func (c *ChatEventStickerSetChanged) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "chatEventStickerSetChanged",
-		ID:   ChatEventStickerSetChangedTypeID,
-	}
-	if c == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "OldStickerSetID",
-			SchemaName: "old_sticker_set_id",
-		},
-		{
-			Name:       "NewStickerSetID",
-			SchemaName: "new_sticker_set_id",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (c *ChatEventStickerSetChanged) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventStickerSetChanged#b5e7558f as nil")
-	}
-	b.PutID(ChatEventStickerSetChangedTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *ChatEventStickerSetChanged) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventStickerSetChanged#b5e7558f as nil")
-	}
-	b.PutLong(c.OldStickerSetID)
-	b.PutLong(c.NewStickerSetID)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (c *ChatEventStickerSetChanged) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventStickerSetChanged#b5e7558f to nil")
-	}
-	if err := b.ConsumeID(ChatEventStickerSetChangedTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventStickerSetChanged#b5e7558f: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChatEventStickerSetChanged) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventStickerSetChanged#b5e7558f to nil")
-	}
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatEventStickerSetChanged#b5e7558f: field old_sticker_set_id: %w", err)
-		}
-		c.OldStickerSetID = value
-	}
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatEventStickerSetChanged#b5e7558f: field new_sticker_set_id: %w", err)
-		}
-		c.NewStickerSetID = value
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatEventStickerSetChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventStickerSetChanged#b5e7558f as nil")
-	}
-	b.ObjStart()
-	b.PutID("chatEventStickerSetChanged")
-	b.Comma()
-	b.FieldStart("old_sticker_set_id")
-	b.PutLong(c.OldStickerSetID)
-	b.Comma()
-	b.FieldStart("new_sticker_set_id")
-	b.PutLong(c.NewStickerSetID)
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatEventStickerSetChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventStickerSetChanged#b5e7558f to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("chatEventStickerSetChanged"); err != nil {
-				return fmt.Errorf("unable to decode chatEventStickerSetChanged#b5e7558f: %w", err)
-			}
-		case "old_sticker_set_id":
-			value, err := b.Long()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatEventStickerSetChanged#b5e7558f: field old_sticker_set_id: %w", err)
-			}
-			c.OldStickerSetID = value
-		case "new_sticker_set_id":
-			value, err := b.Long()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatEventStickerSetChanged#b5e7558f: field new_sticker_set_id: %w", err)
-			}
-			c.NewStickerSetID = value
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetOldStickerSetID returns value of OldStickerSetID field.
-func (c *ChatEventStickerSetChanged) GetOldStickerSetID() (value int64) {
-	if c == nil {
-		return
-	}
-	return c.OldStickerSetID
-}
-
-// GetNewStickerSetID returns value of NewStickerSetID field.
-func (c *ChatEventStickerSetChanged) GetNewStickerSetID() (value int64) {
-	if c == nil {
-		return
-	}
-	return c.NewStickerSetID
 }
 
 // ChatEventLocationChanged represents TL type `chatEventLocationChanged#e7cdfd4e`.
@@ -4749,6 +3099,1738 @@ func (c *ChatEventLocationChanged) GetNewLocation() (value ChatLocation) {
 	return c.NewLocation
 }
 
+// ChatEventMessageTTLChanged represents TL type `chatEventMessageTtlChanged#2e46b9b3`.
+type ChatEventMessageTTLChanged struct {
+	// Previous value of message_ttl
+	OldMessageTTL int32
+	// New value of message_ttl
+	NewMessageTTL int32
+}
+
+// ChatEventMessageTTLChangedTypeID is TL type id of ChatEventMessageTTLChanged.
+const ChatEventMessageTTLChangedTypeID = 0x2e46b9b3
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventMessageTTLChanged) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventMessageTTLChanged.
+var (
+	_ bin.Encoder     = &ChatEventMessageTTLChanged{}
+	_ bin.Decoder     = &ChatEventMessageTTLChanged{}
+	_ bin.BareEncoder = &ChatEventMessageTTLChanged{}
+	_ bin.BareDecoder = &ChatEventMessageTTLChanged{}
+
+	_ ChatEventActionClass = &ChatEventMessageTTLChanged{}
+)
+
+func (c *ChatEventMessageTTLChanged) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.OldMessageTTL == 0) {
+		return false
+	}
+	if !(c.NewMessageTTL == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventMessageTTLChanged) String() string {
+	if c == nil {
+		return "ChatEventMessageTTLChanged(nil)"
+	}
+	type Alias ChatEventMessageTTLChanged
+	return fmt.Sprintf("ChatEventMessageTTLChanged%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventMessageTTLChanged) TypeID() uint32 {
+	return ChatEventMessageTTLChangedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventMessageTTLChanged) TypeName() string {
+	return "chatEventMessageTtlChanged"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventMessageTTLChanged) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventMessageTtlChanged",
+		ID:   ChatEventMessageTTLChangedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "OldMessageTTL",
+			SchemaName: "old_message_ttl",
+		},
+		{
+			Name:       "NewMessageTTL",
+			SchemaName: "new_message_ttl",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventMessageTTLChanged) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventMessageTtlChanged#2e46b9b3 as nil")
+	}
+	b.PutID(ChatEventMessageTTLChangedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventMessageTTLChanged) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventMessageTtlChanged#2e46b9b3 as nil")
+	}
+	b.PutInt32(c.OldMessageTTL)
+	b.PutInt32(c.NewMessageTTL)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventMessageTTLChanged) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventMessageTtlChanged#2e46b9b3 to nil")
+	}
+	if err := b.ConsumeID(ChatEventMessageTTLChangedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventMessageTTLChanged) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventMessageTtlChanged#2e46b9b3 to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: field old_message_ttl: %w", err)
+		}
+		c.OldMessageTTL = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: field new_message_ttl: %w", err)
+		}
+		c.NewMessageTTL = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventMessageTTLChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventMessageTtlChanged#2e46b9b3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventMessageTtlChanged")
+	b.Comma()
+	b.FieldStart("old_message_ttl")
+	b.PutInt32(c.OldMessageTTL)
+	b.Comma()
+	b.FieldStart("new_message_ttl")
+	b.PutInt32(c.NewMessageTTL)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventMessageTTLChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventMessageTtlChanged#2e46b9b3 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventMessageTtlChanged"); err != nil {
+				return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: %w", err)
+			}
+		case "old_message_ttl":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: field old_message_ttl: %w", err)
+			}
+			c.OldMessageTTL = value
+		case "new_message_ttl":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: field new_message_ttl: %w", err)
+			}
+			c.NewMessageTTL = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetOldMessageTTL returns value of OldMessageTTL field.
+func (c *ChatEventMessageTTLChanged) GetOldMessageTTL() (value int32) {
+	if c == nil {
+		return
+	}
+	return c.OldMessageTTL
+}
+
+// GetNewMessageTTL returns value of NewMessageTTL field.
+func (c *ChatEventMessageTTLChanged) GetNewMessageTTL() (value int32) {
+	if c == nil {
+		return
+	}
+	return c.NewMessageTTL
+}
+
+// ChatEventPermissionsChanged represents TL type `chatEventPermissionsChanged#b1d337a8`.
+type ChatEventPermissionsChanged struct {
+	// Previous chat permissions
+	OldPermissions ChatPermissions
+	// New chat permissions
+	NewPermissions ChatPermissions
+}
+
+// ChatEventPermissionsChangedTypeID is TL type id of ChatEventPermissionsChanged.
+const ChatEventPermissionsChangedTypeID = 0xb1d337a8
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventPermissionsChanged) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventPermissionsChanged.
+var (
+	_ bin.Encoder     = &ChatEventPermissionsChanged{}
+	_ bin.Decoder     = &ChatEventPermissionsChanged{}
+	_ bin.BareEncoder = &ChatEventPermissionsChanged{}
+	_ bin.BareDecoder = &ChatEventPermissionsChanged{}
+
+	_ ChatEventActionClass = &ChatEventPermissionsChanged{}
+)
+
+func (c *ChatEventPermissionsChanged) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.OldPermissions.Zero()) {
+		return false
+	}
+	if !(c.NewPermissions.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventPermissionsChanged) String() string {
+	if c == nil {
+		return "ChatEventPermissionsChanged(nil)"
+	}
+	type Alias ChatEventPermissionsChanged
+	return fmt.Sprintf("ChatEventPermissionsChanged%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventPermissionsChanged) TypeID() uint32 {
+	return ChatEventPermissionsChangedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventPermissionsChanged) TypeName() string {
+	return "chatEventPermissionsChanged"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventPermissionsChanged) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventPermissionsChanged",
+		ID:   ChatEventPermissionsChangedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "OldPermissions",
+			SchemaName: "old_permissions",
+		},
+		{
+			Name:       "NewPermissions",
+			SchemaName: "new_permissions",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventPermissionsChanged) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventPermissionsChanged#b1d337a8 as nil")
+	}
+	b.PutID(ChatEventPermissionsChangedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventPermissionsChanged) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventPermissionsChanged#b1d337a8 as nil")
+	}
+	if err := c.OldPermissions.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventPermissionsChanged#b1d337a8: field old_permissions: %w", err)
+	}
+	if err := c.NewPermissions.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventPermissionsChanged#b1d337a8: field new_permissions: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventPermissionsChanged) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventPermissionsChanged#b1d337a8 to nil")
+	}
+	if err := b.ConsumeID(ChatEventPermissionsChangedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventPermissionsChanged#b1d337a8: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventPermissionsChanged) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventPermissionsChanged#b1d337a8 to nil")
+	}
+	{
+		if err := c.OldPermissions.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatEventPermissionsChanged#b1d337a8: field old_permissions: %w", err)
+		}
+	}
+	{
+		if err := c.NewPermissions.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatEventPermissionsChanged#b1d337a8: field new_permissions: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventPermissionsChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventPermissionsChanged#b1d337a8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventPermissionsChanged")
+	b.Comma()
+	b.FieldStart("old_permissions")
+	if err := c.OldPermissions.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventPermissionsChanged#b1d337a8: field old_permissions: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("new_permissions")
+	if err := c.NewPermissions.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventPermissionsChanged#b1d337a8: field new_permissions: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventPermissionsChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventPermissionsChanged#b1d337a8 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventPermissionsChanged"); err != nil {
+				return fmt.Errorf("unable to decode chatEventPermissionsChanged#b1d337a8: %w", err)
+			}
+		case "old_permissions":
+			if err := c.OldPermissions.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatEventPermissionsChanged#b1d337a8: field old_permissions: %w", err)
+			}
+		case "new_permissions":
+			if err := c.NewPermissions.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatEventPermissionsChanged#b1d337a8: field new_permissions: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetOldPermissions returns value of OldPermissions field.
+func (c *ChatEventPermissionsChanged) GetOldPermissions() (value ChatPermissions) {
+	if c == nil {
+		return
+	}
+	return c.OldPermissions
+}
+
+// GetNewPermissions returns value of NewPermissions field.
+func (c *ChatEventPermissionsChanged) GetNewPermissions() (value ChatPermissions) {
+	if c == nil {
+		return
+	}
+	return c.NewPermissions
+}
+
+// ChatEventPhotoChanged represents TL type `chatEventPhotoChanged#cfa062c3`.
+type ChatEventPhotoChanged struct {
+	// Previous chat photo value; may be null
+	OldPhoto ChatPhoto
+	// New chat photo value; may be null
+	NewPhoto ChatPhoto
+}
+
+// ChatEventPhotoChangedTypeID is TL type id of ChatEventPhotoChanged.
+const ChatEventPhotoChangedTypeID = 0xcfa062c3
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventPhotoChanged) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventPhotoChanged.
+var (
+	_ bin.Encoder     = &ChatEventPhotoChanged{}
+	_ bin.Decoder     = &ChatEventPhotoChanged{}
+	_ bin.BareEncoder = &ChatEventPhotoChanged{}
+	_ bin.BareDecoder = &ChatEventPhotoChanged{}
+
+	_ ChatEventActionClass = &ChatEventPhotoChanged{}
+)
+
+func (c *ChatEventPhotoChanged) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.OldPhoto.Zero()) {
+		return false
+	}
+	if !(c.NewPhoto.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventPhotoChanged) String() string {
+	if c == nil {
+		return "ChatEventPhotoChanged(nil)"
+	}
+	type Alias ChatEventPhotoChanged
+	return fmt.Sprintf("ChatEventPhotoChanged%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventPhotoChanged) TypeID() uint32 {
+	return ChatEventPhotoChangedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventPhotoChanged) TypeName() string {
+	return "chatEventPhotoChanged"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventPhotoChanged) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventPhotoChanged",
+		ID:   ChatEventPhotoChangedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "OldPhoto",
+			SchemaName: "old_photo",
+		},
+		{
+			Name:       "NewPhoto",
+			SchemaName: "new_photo",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventPhotoChanged) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventPhotoChanged#cfa062c3 as nil")
+	}
+	b.PutID(ChatEventPhotoChangedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventPhotoChanged) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventPhotoChanged#cfa062c3 as nil")
+	}
+	if err := c.OldPhoto.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventPhotoChanged#cfa062c3: field old_photo: %w", err)
+	}
+	if err := c.NewPhoto.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventPhotoChanged#cfa062c3: field new_photo: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventPhotoChanged) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventPhotoChanged#cfa062c3 to nil")
+	}
+	if err := b.ConsumeID(ChatEventPhotoChangedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventPhotoChanged#cfa062c3: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventPhotoChanged) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventPhotoChanged#cfa062c3 to nil")
+	}
+	{
+		if err := c.OldPhoto.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatEventPhotoChanged#cfa062c3: field old_photo: %w", err)
+		}
+	}
+	{
+		if err := c.NewPhoto.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatEventPhotoChanged#cfa062c3: field new_photo: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventPhotoChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventPhotoChanged#cfa062c3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventPhotoChanged")
+	b.Comma()
+	b.FieldStart("old_photo")
+	if err := c.OldPhoto.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventPhotoChanged#cfa062c3: field old_photo: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("new_photo")
+	if err := c.NewPhoto.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventPhotoChanged#cfa062c3: field new_photo: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventPhotoChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventPhotoChanged#cfa062c3 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventPhotoChanged"); err != nil {
+				return fmt.Errorf("unable to decode chatEventPhotoChanged#cfa062c3: %w", err)
+			}
+		case "old_photo":
+			if err := c.OldPhoto.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatEventPhotoChanged#cfa062c3: field old_photo: %w", err)
+			}
+		case "new_photo":
+			if err := c.NewPhoto.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatEventPhotoChanged#cfa062c3: field new_photo: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetOldPhoto returns value of OldPhoto field.
+func (c *ChatEventPhotoChanged) GetOldPhoto() (value ChatPhoto) {
+	if c == nil {
+		return
+	}
+	return c.OldPhoto
+}
+
+// GetNewPhoto returns value of NewPhoto field.
+func (c *ChatEventPhotoChanged) GetNewPhoto() (value ChatPhoto) {
+	if c == nil {
+		return
+	}
+	return c.NewPhoto
+}
+
+// ChatEventSlowModeDelayChanged represents TL type `chatEventSlowModeDelayChanged#9d763c0b`.
+type ChatEventSlowModeDelayChanged struct {
+	// Previous value of slow_mode_delay, in seconds
+	OldSlowModeDelay int32
+	// New value of slow_mode_delay, in seconds
+	NewSlowModeDelay int32
+}
+
+// ChatEventSlowModeDelayChangedTypeID is TL type id of ChatEventSlowModeDelayChanged.
+const ChatEventSlowModeDelayChangedTypeID = 0x9d763c0b
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventSlowModeDelayChanged) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventSlowModeDelayChanged.
+var (
+	_ bin.Encoder     = &ChatEventSlowModeDelayChanged{}
+	_ bin.Decoder     = &ChatEventSlowModeDelayChanged{}
+	_ bin.BareEncoder = &ChatEventSlowModeDelayChanged{}
+	_ bin.BareDecoder = &ChatEventSlowModeDelayChanged{}
+
+	_ ChatEventActionClass = &ChatEventSlowModeDelayChanged{}
+)
+
+func (c *ChatEventSlowModeDelayChanged) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.OldSlowModeDelay == 0) {
+		return false
+	}
+	if !(c.NewSlowModeDelay == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventSlowModeDelayChanged) String() string {
+	if c == nil {
+		return "ChatEventSlowModeDelayChanged(nil)"
+	}
+	type Alias ChatEventSlowModeDelayChanged
+	return fmt.Sprintf("ChatEventSlowModeDelayChanged%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventSlowModeDelayChanged) TypeID() uint32 {
+	return ChatEventSlowModeDelayChangedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventSlowModeDelayChanged) TypeName() string {
+	return "chatEventSlowModeDelayChanged"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventSlowModeDelayChanged) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventSlowModeDelayChanged",
+		ID:   ChatEventSlowModeDelayChangedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "OldSlowModeDelay",
+			SchemaName: "old_slow_mode_delay",
+		},
+		{
+			Name:       "NewSlowModeDelay",
+			SchemaName: "new_slow_mode_delay",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventSlowModeDelayChanged) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventSlowModeDelayChanged#9d763c0b as nil")
+	}
+	b.PutID(ChatEventSlowModeDelayChangedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventSlowModeDelayChanged) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventSlowModeDelayChanged#9d763c0b as nil")
+	}
+	b.PutInt32(c.OldSlowModeDelay)
+	b.PutInt32(c.NewSlowModeDelay)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventSlowModeDelayChanged) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventSlowModeDelayChanged#9d763c0b to nil")
+	}
+	if err := b.ConsumeID(ChatEventSlowModeDelayChangedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventSlowModeDelayChanged#9d763c0b: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventSlowModeDelayChanged) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventSlowModeDelayChanged#9d763c0b to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventSlowModeDelayChanged#9d763c0b: field old_slow_mode_delay: %w", err)
+		}
+		c.OldSlowModeDelay = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventSlowModeDelayChanged#9d763c0b: field new_slow_mode_delay: %w", err)
+		}
+		c.NewSlowModeDelay = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventSlowModeDelayChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventSlowModeDelayChanged#9d763c0b as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventSlowModeDelayChanged")
+	b.Comma()
+	b.FieldStart("old_slow_mode_delay")
+	b.PutInt32(c.OldSlowModeDelay)
+	b.Comma()
+	b.FieldStart("new_slow_mode_delay")
+	b.PutInt32(c.NewSlowModeDelay)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventSlowModeDelayChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventSlowModeDelayChanged#9d763c0b to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventSlowModeDelayChanged"); err != nil {
+				return fmt.Errorf("unable to decode chatEventSlowModeDelayChanged#9d763c0b: %w", err)
+			}
+		case "old_slow_mode_delay":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventSlowModeDelayChanged#9d763c0b: field old_slow_mode_delay: %w", err)
+			}
+			c.OldSlowModeDelay = value
+		case "new_slow_mode_delay":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventSlowModeDelayChanged#9d763c0b: field new_slow_mode_delay: %w", err)
+			}
+			c.NewSlowModeDelay = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetOldSlowModeDelay returns value of OldSlowModeDelay field.
+func (c *ChatEventSlowModeDelayChanged) GetOldSlowModeDelay() (value int32) {
+	if c == nil {
+		return
+	}
+	return c.OldSlowModeDelay
+}
+
+// GetNewSlowModeDelay returns value of NewSlowModeDelay field.
+func (c *ChatEventSlowModeDelayChanged) GetNewSlowModeDelay() (value int32) {
+	if c == nil {
+		return
+	}
+	return c.NewSlowModeDelay
+}
+
+// ChatEventStickerSetChanged represents TL type `chatEventStickerSetChanged#b5e7558f`.
+type ChatEventStickerSetChanged struct {
+	// Previous identifier of the chat sticker set; 0 if none
+	OldStickerSetID int64
+	// New identifier of the chat sticker set; 0 if none
+	NewStickerSetID int64
+}
+
+// ChatEventStickerSetChangedTypeID is TL type id of ChatEventStickerSetChanged.
+const ChatEventStickerSetChangedTypeID = 0xb5e7558f
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventStickerSetChanged) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventStickerSetChanged.
+var (
+	_ bin.Encoder     = &ChatEventStickerSetChanged{}
+	_ bin.Decoder     = &ChatEventStickerSetChanged{}
+	_ bin.BareEncoder = &ChatEventStickerSetChanged{}
+	_ bin.BareDecoder = &ChatEventStickerSetChanged{}
+
+	_ ChatEventActionClass = &ChatEventStickerSetChanged{}
+)
+
+func (c *ChatEventStickerSetChanged) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.OldStickerSetID == 0) {
+		return false
+	}
+	if !(c.NewStickerSetID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventStickerSetChanged) String() string {
+	if c == nil {
+		return "ChatEventStickerSetChanged(nil)"
+	}
+	type Alias ChatEventStickerSetChanged
+	return fmt.Sprintf("ChatEventStickerSetChanged%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventStickerSetChanged) TypeID() uint32 {
+	return ChatEventStickerSetChangedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventStickerSetChanged) TypeName() string {
+	return "chatEventStickerSetChanged"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventStickerSetChanged) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventStickerSetChanged",
+		ID:   ChatEventStickerSetChangedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "OldStickerSetID",
+			SchemaName: "old_sticker_set_id",
+		},
+		{
+			Name:       "NewStickerSetID",
+			SchemaName: "new_sticker_set_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventStickerSetChanged) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventStickerSetChanged#b5e7558f as nil")
+	}
+	b.PutID(ChatEventStickerSetChangedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventStickerSetChanged) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventStickerSetChanged#b5e7558f as nil")
+	}
+	b.PutLong(c.OldStickerSetID)
+	b.PutLong(c.NewStickerSetID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventStickerSetChanged) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventStickerSetChanged#b5e7558f to nil")
+	}
+	if err := b.ConsumeID(ChatEventStickerSetChangedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventStickerSetChanged#b5e7558f: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventStickerSetChanged) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventStickerSetChanged#b5e7558f to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventStickerSetChanged#b5e7558f: field old_sticker_set_id: %w", err)
+		}
+		c.OldStickerSetID = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventStickerSetChanged#b5e7558f: field new_sticker_set_id: %w", err)
+		}
+		c.NewStickerSetID = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventStickerSetChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventStickerSetChanged#b5e7558f as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventStickerSetChanged")
+	b.Comma()
+	b.FieldStart("old_sticker_set_id")
+	b.PutLong(c.OldStickerSetID)
+	b.Comma()
+	b.FieldStart("new_sticker_set_id")
+	b.PutLong(c.NewStickerSetID)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventStickerSetChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventStickerSetChanged#b5e7558f to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventStickerSetChanged"); err != nil {
+				return fmt.Errorf("unable to decode chatEventStickerSetChanged#b5e7558f: %w", err)
+			}
+		case "old_sticker_set_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventStickerSetChanged#b5e7558f: field old_sticker_set_id: %w", err)
+			}
+			c.OldStickerSetID = value
+		case "new_sticker_set_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventStickerSetChanged#b5e7558f: field new_sticker_set_id: %w", err)
+			}
+			c.NewStickerSetID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetOldStickerSetID returns value of OldStickerSetID field.
+func (c *ChatEventStickerSetChanged) GetOldStickerSetID() (value int64) {
+	if c == nil {
+		return
+	}
+	return c.OldStickerSetID
+}
+
+// GetNewStickerSetID returns value of NewStickerSetID field.
+func (c *ChatEventStickerSetChanged) GetNewStickerSetID() (value int64) {
+	if c == nil {
+		return
+	}
+	return c.NewStickerSetID
+}
+
+// ChatEventTitleChanged represents TL type `chatEventTitleChanged#43990ad2`.
+type ChatEventTitleChanged struct {
+	// Previous chat title
+	OldTitle string
+	// New chat title
+	NewTitle string
+}
+
+// ChatEventTitleChangedTypeID is TL type id of ChatEventTitleChanged.
+const ChatEventTitleChangedTypeID = 0x43990ad2
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventTitleChanged) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventTitleChanged.
+var (
+	_ bin.Encoder     = &ChatEventTitleChanged{}
+	_ bin.Decoder     = &ChatEventTitleChanged{}
+	_ bin.BareEncoder = &ChatEventTitleChanged{}
+	_ bin.BareDecoder = &ChatEventTitleChanged{}
+
+	_ ChatEventActionClass = &ChatEventTitleChanged{}
+)
+
+func (c *ChatEventTitleChanged) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.OldTitle == "") {
+		return false
+	}
+	if !(c.NewTitle == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventTitleChanged) String() string {
+	if c == nil {
+		return "ChatEventTitleChanged(nil)"
+	}
+	type Alias ChatEventTitleChanged
+	return fmt.Sprintf("ChatEventTitleChanged%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventTitleChanged) TypeID() uint32 {
+	return ChatEventTitleChangedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventTitleChanged) TypeName() string {
+	return "chatEventTitleChanged"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventTitleChanged) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventTitleChanged",
+		ID:   ChatEventTitleChangedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "OldTitle",
+			SchemaName: "old_title",
+		},
+		{
+			Name:       "NewTitle",
+			SchemaName: "new_title",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventTitleChanged) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventTitleChanged#43990ad2 as nil")
+	}
+	b.PutID(ChatEventTitleChangedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventTitleChanged) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventTitleChanged#43990ad2 as nil")
+	}
+	b.PutString(c.OldTitle)
+	b.PutString(c.NewTitle)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventTitleChanged) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventTitleChanged#43990ad2 to nil")
+	}
+	if err := b.ConsumeID(ChatEventTitleChangedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventTitleChanged#43990ad2: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventTitleChanged) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventTitleChanged#43990ad2 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventTitleChanged#43990ad2: field old_title: %w", err)
+		}
+		c.OldTitle = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventTitleChanged#43990ad2: field new_title: %w", err)
+		}
+		c.NewTitle = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventTitleChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventTitleChanged#43990ad2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventTitleChanged")
+	b.Comma()
+	b.FieldStart("old_title")
+	b.PutString(c.OldTitle)
+	b.Comma()
+	b.FieldStart("new_title")
+	b.PutString(c.NewTitle)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventTitleChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventTitleChanged#43990ad2 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventTitleChanged"); err != nil {
+				return fmt.Errorf("unable to decode chatEventTitleChanged#43990ad2: %w", err)
+			}
+		case "old_title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventTitleChanged#43990ad2: field old_title: %w", err)
+			}
+			c.OldTitle = value
+		case "new_title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventTitleChanged#43990ad2: field new_title: %w", err)
+			}
+			c.NewTitle = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetOldTitle returns value of OldTitle field.
+func (c *ChatEventTitleChanged) GetOldTitle() (value string) {
+	if c == nil {
+		return
+	}
+	return c.OldTitle
+}
+
+// GetNewTitle returns value of NewTitle field.
+func (c *ChatEventTitleChanged) GetNewTitle() (value string) {
+	if c == nil {
+		return
+	}
+	return c.NewTitle
+}
+
+// ChatEventUsernameChanged represents TL type `chatEventUsernameChanged#6707b56b`.
+type ChatEventUsernameChanged struct {
+	// Previous chat username
+	OldUsername string
+	// New chat username
+	NewUsername string
+}
+
+// ChatEventUsernameChangedTypeID is TL type id of ChatEventUsernameChanged.
+const ChatEventUsernameChangedTypeID = 0x6707b56b
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventUsernameChanged) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventUsernameChanged.
+var (
+	_ bin.Encoder     = &ChatEventUsernameChanged{}
+	_ bin.Decoder     = &ChatEventUsernameChanged{}
+	_ bin.BareEncoder = &ChatEventUsernameChanged{}
+	_ bin.BareDecoder = &ChatEventUsernameChanged{}
+
+	_ ChatEventActionClass = &ChatEventUsernameChanged{}
+)
+
+func (c *ChatEventUsernameChanged) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.OldUsername == "") {
+		return false
+	}
+	if !(c.NewUsername == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventUsernameChanged) String() string {
+	if c == nil {
+		return "ChatEventUsernameChanged(nil)"
+	}
+	type Alias ChatEventUsernameChanged
+	return fmt.Sprintf("ChatEventUsernameChanged%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventUsernameChanged) TypeID() uint32 {
+	return ChatEventUsernameChangedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventUsernameChanged) TypeName() string {
+	return "chatEventUsernameChanged"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventUsernameChanged) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventUsernameChanged",
+		ID:   ChatEventUsernameChangedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "OldUsername",
+			SchemaName: "old_username",
+		},
+		{
+			Name:       "NewUsername",
+			SchemaName: "new_username",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventUsernameChanged) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventUsernameChanged#6707b56b as nil")
+	}
+	b.PutID(ChatEventUsernameChangedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventUsernameChanged) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventUsernameChanged#6707b56b as nil")
+	}
+	b.PutString(c.OldUsername)
+	b.PutString(c.NewUsername)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventUsernameChanged) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventUsernameChanged#6707b56b to nil")
+	}
+	if err := b.ConsumeID(ChatEventUsernameChangedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventUsernameChanged#6707b56b: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventUsernameChanged) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventUsernameChanged#6707b56b to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventUsernameChanged#6707b56b: field old_username: %w", err)
+		}
+		c.OldUsername = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventUsernameChanged#6707b56b: field new_username: %w", err)
+		}
+		c.NewUsername = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventUsernameChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventUsernameChanged#6707b56b as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventUsernameChanged")
+	b.Comma()
+	b.FieldStart("old_username")
+	b.PutString(c.OldUsername)
+	b.Comma()
+	b.FieldStart("new_username")
+	b.PutString(c.NewUsername)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventUsernameChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventUsernameChanged#6707b56b to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventUsernameChanged"); err != nil {
+				return fmt.Errorf("unable to decode chatEventUsernameChanged#6707b56b: %w", err)
+			}
+		case "old_username":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventUsernameChanged#6707b56b: field old_username: %w", err)
+			}
+			c.OldUsername = value
+		case "new_username":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventUsernameChanged#6707b56b: field new_username: %w", err)
+			}
+			c.NewUsername = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetOldUsername returns value of OldUsername field.
+func (c *ChatEventUsernameChanged) GetOldUsername() (value string) {
+	if c == nil {
+		return
+	}
+	return c.OldUsername
+}
+
+// GetNewUsername returns value of NewUsername field.
+func (c *ChatEventUsernameChanged) GetNewUsername() (value string) {
+	if c == nil {
+		return
+	}
+	return c.NewUsername
+}
+
+// ChatEventHasProtectedContentToggled represents TL type `chatEventHasProtectedContentToggled#f5044201`.
+type ChatEventHasProtectedContentToggled struct {
+	// New value of has_protected_content
+	HasProtectedContent bool
+}
+
+// ChatEventHasProtectedContentToggledTypeID is TL type id of ChatEventHasProtectedContentToggled.
+const ChatEventHasProtectedContentToggledTypeID = 0xf5044201
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventHasProtectedContentToggled) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventHasProtectedContentToggled.
+var (
+	_ bin.Encoder     = &ChatEventHasProtectedContentToggled{}
+	_ bin.Decoder     = &ChatEventHasProtectedContentToggled{}
+	_ bin.BareEncoder = &ChatEventHasProtectedContentToggled{}
+	_ bin.BareDecoder = &ChatEventHasProtectedContentToggled{}
+
+	_ ChatEventActionClass = &ChatEventHasProtectedContentToggled{}
+)
+
+func (c *ChatEventHasProtectedContentToggled) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.HasProtectedContent == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventHasProtectedContentToggled) String() string {
+	if c == nil {
+		return "ChatEventHasProtectedContentToggled(nil)"
+	}
+	type Alias ChatEventHasProtectedContentToggled
+	return fmt.Sprintf("ChatEventHasProtectedContentToggled%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventHasProtectedContentToggled) TypeID() uint32 {
+	return ChatEventHasProtectedContentToggledTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventHasProtectedContentToggled) TypeName() string {
+	return "chatEventHasProtectedContentToggled"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventHasProtectedContentToggled) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventHasProtectedContentToggled",
+		ID:   ChatEventHasProtectedContentToggledTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "HasProtectedContent",
+			SchemaName: "has_protected_content",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventHasProtectedContentToggled) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventHasProtectedContentToggled#f5044201 as nil")
+	}
+	b.PutID(ChatEventHasProtectedContentToggledTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventHasProtectedContentToggled) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventHasProtectedContentToggled#f5044201 as nil")
+	}
+	b.PutBool(c.HasProtectedContent)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventHasProtectedContentToggled) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventHasProtectedContentToggled#f5044201 to nil")
+	}
+	if err := b.ConsumeID(ChatEventHasProtectedContentToggledTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventHasProtectedContentToggled#f5044201: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventHasProtectedContentToggled) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventHasProtectedContentToggled#f5044201 to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventHasProtectedContentToggled#f5044201: field has_protected_content: %w", err)
+		}
+		c.HasProtectedContent = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventHasProtectedContentToggled) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventHasProtectedContentToggled#f5044201 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventHasProtectedContentToggled")
+	b.Comma()
+	b.FieldStart("has_protected_content")
+	b.PutBool(c.HasProtectedContent)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventHasProtectedContentToggled) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventHasProtectedContentToggled#f5044201 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventHasProtectedContentToggled"); err != nil {
+				return fmt.Errorf("unable to decode chatEventHasProtectedContentToggled#f5044201: %w", err)
+			}
+		case "has_protected_content":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventHasProtectedContentToggled#f5044201: field has_protected_content: %w", err)
+			}
+			c.HasProtectedContent = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetHasProtectedContent returns value of HasProtectedContent field.
+func (c *ChatEventHasProtectedContentToggled) GetHasProtectedContent() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.HasProtectedContent
+}
+
+// ChatEventInvitesToggled represents TL type `chatEventInvitesToggled#fc45966b`.
+type ChatEventInvitesToggled struct {
+	// New value of can_invite_users permission
+	CanInviteUsers bool
+}
+
+// ChatEventInvitesToggledTypeID is TL type id of ChatEventInvitesToggled.
+const ChatEventInvitesToggledTypeID = 0xfc45966b
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventInvitesToggled) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventInvitesToggled.
+var (
+	_ bin.Encoder     = &ChatEventInvitesToggled{}
+	_ bin.Decoder     = &ChatEventInvitesToggled{}
+	_ bin.BareEncoder = &ChatEventInvitesToggled{}
+	_ bin.BareDecoder = &ChatEventInvitesToggled{}
+
+	_ ChatEventActionClass = &ChatEventInvitesToggled{}
+)
+
+func (c *ChatEventInvitesToggled) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.CanInviteUsers == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventInvitesToggled) String() string {
+	if c == nil {
+		return "ChatEventInvitesToggled(nil)"
+	}
+	type Alias ChatEventInvitesToggled
+	return fmt.Sprintf("ChatEventInvitesToggled%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventInvitesToggled) TypeID() uint32 {
+	return ChatEventInvitesToggledTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventInvitesToggled) TypeName() string {
+	return "chatEventInvitesToggled"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventInvitesToggled) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventInvitesToggled",
+		ID:   ChatEventInvitesToggledTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "CanInviteUsers",
+			SchemaName: "can_invite_users",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventInvitesToggled) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventInvitesToggled#fc45966b as nil")
+	}
+	b.PutID(ChatEventInvitesToggledTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventInvitesToggled) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventInvitesToggled#fc45966b as nil")
+	}
+	b.PutBool(c.CanInviteUsers)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventInvitesToggled) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventInvitesToggled#fc45966b to nil")
+	}
+	if err := b.ConsumeID(ChatEventInvitesToggledTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventInvitesToggled#fc45966b: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventInvitesToggled) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventInvitesToggled#fc45966b to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventInvitesToggled#fc45966b: field can_invite_users: %w", err)
+		}
+		c.CanInviteUsers = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventInvitesToggled) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventInvitesToggled#fc45966b as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventInvitesToggled")
+	b.Comma()
+	b.FieldStart("can_invite_users")
+	b.PutBool(c.CanInviteUsers)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventInvitesToggled) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventInvitesToggled#fc45966b to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventInvitesToggled"); err != nil {
+				return fmt.Errorf("unable to decode chatEventInvitesToggled#fc45966b: %w", err)
+			}
+		case "can_invite_users":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventInvitesToggled#fc45966b: field can_invite_users: %w", err)
+			}
+			c.CanInviteUsers = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetCanInviteUsers returns value of CanInviteUsers field.
+func (c *ChatEventInvitesToggled) GetCanInviteUsers() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.CanInviteUsers
+}
+
 // ChatEventIsAllHistoryAvailableToggled represents TL type `chatEventIsAllHistoryAvailableToggled#a0b03c15`.
 type ChatEventIsAllHistoryAvailableToggled struct {
 	// New value of is_all_history_available
@@ -4913,6 +4995,172 @@ func (c *ChatEventIsAllHistoryAvailableToggled) GetIsAllHistoryAvailable() (valu
 		return
 	}
 	return c.IsAllHistoryAvailable
+}
+
+// ChatEventSignMessagesToggled represents TL type `chatEventSignMessagesToggled#b1b9281e`.
+type ChatEventSignMessagesToggled struct {
+	// New value of sign_messages
+	SignMessages bool
+}
+
+// ChatEventSignMessagesToggledTypeID is TL type id of ChatEventSignMessagesToggled.
+const ChatEventSignMessagesToggledTypeID = 0xb1b9281e
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventSignMessagesToggled) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventSignMessagesToggled.
+var (
+	_ bin.Encoder     = &ChatEventSignMessagesToggled{}
+	_ bin.Decoder     = &ChatEventSignMessagesToggled{}
+	_ bin.BareEncoder = &ChatEventSignMessagesToggled{}
+	_ bin.BareDecoder = &ChatEventSignMessagesToggled{}
+
+	_ ChatEventActionClass = &ChatEventSignMessagesToggled{}
+)
+
+func (c *ChatEventSignMessagesToggled) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.SignMessages == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventSignMessagesToggled) String() string {
+	if c == nil {
+		return "ChatEventSignMessagesToggled(nil)"
+	}
+	type Alias ChatEventSignMessagesToggled
+	return fmt.Sprintf("ChatEventSignMessagesToggled%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventSignMessagesToggled) TypeID() uint32 {
+	return ChatEventSignMessagesToggledTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventSignMessagesToggled) TypeName() string {
+	return "chatEventSignMessagesToggled"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventSignMessagesToggled) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventSignMessagesToggled",
+		ID:   ChatEventSignMessagesToggledTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "SignMessages",
+			SchemaName: "sign_messages",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventSignMessagesToggled) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventSignMessagesToggled#b1b9281e as nil")
+	}
+	b.PutID(ChatEventSignMessagesToggledTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventSignMessagesToggled) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventSignMessagesToggled#b1b9281e as nil")
+	}
+	b.PutBool(c.SignMessages)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventSignMessagesToggled) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventSignMessagesToggled#b1b9281e to nil")
+	}
+	if err := b.ConsumeID(ChatEventSignMessagesToggledTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventSignMessagesToggled#b1b9281e: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventSignMessagesToggled) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventSignMessagesToggled#b1b9281e to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventSignMessagesToggled#b1b9281e: field sign_messages: %w", err)
+		}
+		c.SignMessages = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventSignMessagesToggled) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventSignMessagesToggled#b1b9281e as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventSignMessagesToggled")
+	b.Comma()
+	b.FieldStart("sign_messages")
+	b.PutBool(c.SignMessages)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventSignMessagesToggled) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventSignMessagesToggled#b1b9281e to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventSignMessagesToggled"); err != nil {
+				return fmt.Errorf("unable to decode chatEventSignMessagesToggled#b1b9281e: %w", err)
+			}
+		case "sign_messages":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventSignMessagesToggled#b1b9281e: field sign_messages: %w", err)
+			}
+			c.SignMessages = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetSignMessages returns value of SignMessages field.
+func (c *ChatEventSignMessagesToggled) GetSignMessages() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.SignMessages
 }
 
 // ChatEventInviteLinkEdited represents TL type `chatEventInviteLinkEdited#e4920d62`.
@@ -5781,6 +6029,172 @@ func (c *ChatEventVideoChatEnded) GetGroupCallID() (value int32) {
 	return c.GroupCallID
 }
 
+// ChatEventVideoChatMuteNewParticipantsToggled represents TL type `chatEventVideoChatMuteNewParticipantsToggled#f87507fe`.
+type ChatEventVideoChatMuteNewParticipantsToggled struct {
+	// New value of the mute_new_participants setting
+	MuteNewParticipants bool
+}
+
+// ChatEventVideoChatMuteNewParticipantsToggledTypeID is TL type id of ChatEventVideoChatMuteNewParticipantsToggled.
+const ChatEventVideoChatMuteNewParticipantsToggledTypeID = 0xf87507fe
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventVideoChatMuteNewParticipantsToggled) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventVideoChatMuteNewParticipantsToggled.
+var (
+	_ bin.Encoder     = &ChatEventVideoChatMuteNewParticipantsToggled{}
+	_ bin.Decoder     = &ChatEventVideoChatMuteNewParticipantsToggled{}
+	_ bin.BareEncoder = &ChatEventVideoChatMuteNewParticipantsToggled{}
+	_ bin.BareDecoder = &ChatEventVideoChatMuteNewParticipantsToggled{}
+
+	_ ChatEventActionClass = &ChatEventVideoChatMuteNewParticipantsToggled{}
+)
+
+func (c *ChatEventVideoChatMuteNewParticipantsToggled) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.MuteNewParticipants == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventVideoChatMuteNewParticipantsToggled) String() string {
+	if c == nil {
+		return "ChatEventVideoChatMuteNewParticipantsToggled(nil)"
+	}
+	type Alias ChatEventVideoChatMuteNewParticipantsToggled
+	return fmt.Sprintf("ChatEventVideoChatMuteNewParticipantsToggled%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventVideoChatMuteNewParticipantsToggled) TypeID() uint32 {
+	return ChatEventVideoChatMuteNewParticipantsToggledTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventVideoChatMuteNewParticipantsToggled) TypeName() string {
+	return "chatEventVideoChatMuteNewParticipantsToggled"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventVideoChatMuteNewParticipantsToggled) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventVideoChatMuteNewParticipantsToggled",
+		ID:   ChatEventVideoChatMuteNewParticipantsToggledTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MuteNewParticipants",
+			SchemaName: "mute_new_participants",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventVideoChatMuteNewParticipantsToggled) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventVideoChatMuteNewParticipantsToggled#f87507fe as nil")
+	}
+	b.PutID(ChatEventVideoChatMuteNewParticipantsToggledTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventVideoChatMuteNewParticipantsToggled) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventVideoChatMuteNewParticipantsToggled#f87507fe as nil")
+	}
+	b.PutBool(c.MuteNewParticipants)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventVideoChatMuteNewParticipantsToggled) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventVideoChatMuteNewParticipantsToggled#f87507fe to nil")
+	}
+	if err := b.ConsumeID(ChatEventVideoChatMuteNewParticipantsToggledTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventVideoChatMuteNewParticipantsToggled#f87507fe: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventVideoChatMuteNewParticipantsToggled) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventVideoChatMuteNewParticipantsToggled#f87507fe to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventVideoChatMuteNewParticipantsToggled#f87507fe: field mute_new_participants: %w", err)
+		}
+		c.MuteNewParticipants = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventVideoChatMuteNewParticipantsToggled) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventVideoChatMuteNewParticipantsToggled#f87507fe as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventVideoChatMuteNewParticipantsToggled")
+	b.Comma()
+	b.FieldStart("mute_new_participants")
+	b.PutBool(c.MuteNewParticipants)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventVideoChatMuteNewParticipantsToggled) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventVideoChatMuteNewParticipantsToggled#f87507fe to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventVideoChatMuteNewParticipantsToggled"); err != nil {
+				return fmt.Errorf("unable to decode chatEventVideoChatMuteNewParticipantsToggled#f87507fe: %w", err)
+			}
+		case "mute_new_participants":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventVideoChatMuteNewParticipantsToggled#f87507fe: field mute_new_participants: %w", err)
+			}
+			c.MuteNewParticipants = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetMuteNewParticipants returns value of MuteNewParticipants field.
+func (c *ChatEventVideoChatMuteNewParticipantsToggled) GetMuteNewParticipants() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.MuteNewParticipants
+}
+
 // ChatEventVideoChatParticipantIsMutedToggled represents TL type `chatEventVideoChatParticipantIsMutedToggled#1f1058f7`.
 type ChatEventVideoChatParticipantIsMutedToggled struct {
 	// Identifier of the affected group call participant
@@ -6201,172 +6615,6 @@ func (c *ChatEventVideoChatParticipantVolumeLevelChanged) GetVolumeLevel() (valu
 	return c.VolumeLevel
 }
 
-// ChatEventVideoChatMuteNewParticipantsToggled represents TL type `chatEventVideoChatMuteNewParticipantsToggled#f87507fe`.
-type ChatEventVideoChatMuteNewParticipantsToggled struct {
-	// New value of the mute_new_participants setting
-	MuteNewParticipants bool
-}
-
-// ChatEventVideoChatMuteNewParticipantsToggledTypeID is TL type id of ChatEventVideoChatMuteNewParticipantsToggled.
-const ChatEventVideoChatMuteNewParticipantsToggledTypeID = 0xf87507fe
-
-// construct implements constructor of ChatEventActionClass.
-func (c ChatEventVideoChatMuteNewParticipantsToggled) construct() ChatEventActionClass { return &c }
-
-// Ensuring interfaces in compile-time for ChatEventVideoChatMuteNewParticipantsToggled.
-var (
-	_ bin.Encoder     = &ChatEventVideoChatMuteNewParticipantsToggled{}
-	_ bin.Decoder     = &ChatEventVideoChatMuteNewParticipantsToggled{}
-	_ bin.BareEncoder = &ChatEventVideoChatMuteNewParticipantsToggled{}
-	_ bin.BareDecoder = &ChatEventVideoChatMuteNewParticipantsToggled{}
-
-	_ ChatEventActionClass = &ChatEventVideoChatMuteNewParticipantsToggled{}
-)
-
-func (c *ChatEventVideoChatMuteNewParticipantsToggled) Zero() bool {
-	if c == nil {
-		return true
-	}
-	if !(c.MuteNewParticipants == false) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (c *ChatEventVideoChatMuteNewParticipantsToggled) String() string {
-	if c == nil {
-		return "ChatEventVideoChatMuteNewParticipantsToggled(nil)"
-	}
-	type Alias ChatEventVideoChatMuteNewParticipantsToggled
-	return fmt.Sprintf("ChatEventVideoChatMuteNewParticipantsToggled%+v", Alias(*c))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatEventVideoChatMuteNewParticipantsToggled) TypeID() uint32 {
-	return ChatEventVideoChatMuteNewParticipantsToggledTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*ChatEventVideoChatMuteNewParticipantsToggled) TypeName() string {
-	return "chatEventVideoChatMuteNewParticipantsToggled"
-}
-
-// TypeInfo returns info about TL type.
-func (c *ChatEventVideoChatMuteNewParticipantsToggled) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "chatEventVideoChatMuteNewParticipantsToggled",
-		ID:   ChatEventVideoChatMuteNewParticipantsToggledTypeID,
-	}
-	if c == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "MuteNewParticipants",
-			SchemaName: "mute_new_participants",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (c *ChatEventVideoChatMuteNewParticipantsToggled) Encode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventVideoChatMuteNewParticipantsToggled#f87507fe as nil")
-	}
-	b.PutID(ChatEventVideoChatMuteNewParticipantsToggledTypeID)
-	return c.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (c *ChatEventVideoChatMuteNewParticipantsToggled) EncodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventVideoChatMuteNewParticipantsToggled#f87507fe as nil")
-	}
-	b.PutBool(c.MuteNewParticipants)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (c *ChatEventVideoChatMuteNewParticipantsToggled) Decode(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventVideoChatMuteNewParticipantsToggled#f87507fe to nil")
-	}
-	if err := b.ConsumeID(ChatEventVideoChatMuteNewParticipantsToggledTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventVideoChatMuteNewParticipantsToggled#f87507fe: %w", err)
-	}
-	return c.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (c *ChatEventVideoChatMuteNewParticipantsToggled) DecodeBare(b *bin.Buffer) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventVideoChatMuteNewParticipantsToggled#f87507fe to nil")
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatEventVideoChatMuteNewParticipantsToggled#f87507fe: field mute_new_participants: %w", err)
-		}
-		c.MuteNewParticipants = value
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatEventVideoChatMuteNewParticipantsToggled) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if c == nil {
-		return fmt.Errorf("can't encode chatEventVideoChatMuteNewParticipantsToggled#f87507fe as nil")
-	}
-	b.ObjStart()
-	b.PutID("chatEventVideoChatMuteNewParticipantsToggled")
-	b.Comma()
-	b.FieldStart("mute_new_participants")
-	b.PutBool(c.MuteNewParticipants)
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatEventVideoChatMuteNewParticipantsToggled) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if c == nil {
-		return fmt.Errorf("can't decode chatEventVideoChatMuteNewParticipantsToggled#f87507fe to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("chatEventVideoChatMuteNewParticipantsToggled"); err != nil {
-				return fmt.Errorf("unable to decode chatEventVideoChatMuteNewParticipantsToggled#f87507fe: %w", err)
-			}
-		case "mute_new_participants":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatEventVideoChatMuteNewParticipantsToggled#f87507fe: field mute_new_participants: %w", err)
-			}
-			c.MuteNewParticipants = value
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetMuteNewParticipants returns value of MuteNewParticipants field.
-func (c *ChatEventVideoChatMuteNewParticipantsToggled) GetMuteNewParticipants() (value bool) {
-	if c == nil {
-		return
-	}
-	return c.MuteNewParticipants
-}
-
 // ChatEventActionClassName is schema name of ChatEventActionClass.
 const ChatEventActionClassName = "ChatEventAction"
 
@@ -6380,38 +6628,39 @@ const ChatEventActionClassName = "ChatEventAction"
 //  switch v := g.(type) {
 //  case *tdapi.ChatEventMessageEdited: // chatEventMessageEdited#e64ff5f8
 //  case *tdapi.ChatEventMessageDeleted: // chatEventMessageDeleted#cac649f7
-//  case *tdapi.ChatEventPollStopped: // chatEventPollStopped#77cc8be5
 //  case *tdapi.ChatEventMessagePinned: // chatEventMessagePinned#1a26ad1a
 //  case *tdapi.ChatEventMessageUnpinned: // chatEventMessageUnpinned#e9943b17
+//  case *tdapi.ChatEventPollStopped: // chatEventPollStopped#77cc8be5
 //  case *tdapi.ChatEventMemberJoined: // chatEventMemberJoined#f1f70924
 //  case *tdapi.ChatEventMemberJoinedByInviteLink: // chatEventMemberJoinedByInviteLink#f0e6d5bd
 //  case *tdapi.ChatEventMemberJoinedByRequest: // chatEventMemberJoinedByRequest#9dc87e3f
-//  case *tdapi.ChatEventMemberLeft: // chatEventMemberLeft#c778400f
 //  case *tdapi.ChatEventMemberInvited: // chatEventMemberInvited#38d7bfc9
+//  case *tdapi.ChatEventMemberLeft: // chatEventMemberLeft#c778400f
 //  case *tdapi.ChatEventMemberPromoted: // chatEventMemberPromoted#1f4f6861
 //  case *tdapi.ChatEventMemberRestricted: // chatEventMemberRestricted#5f951e05
-//  case *tdapi.ChatEventTitleChanged: // chatEventTitleChanged#43990ad2
-//  case *tdapi.ChatEventPermissionsChanged: // chatEventPermissionsChanged#b1d337a8
+//  case *tdapi.ChatEventAvailableReactionsChanged: // chatEventAvailableReactionsChanged#9ac93274
 //  case *tdapi.ChatEventDescriptionChanged: // chatEventDescriptionChanged#254cf1e
-//  case *tdapi.ChatEventUsernameChanged: // chatEventUsernameChanged#6707b56b
-//  case *tdapi.ChatEventPhotoChanged: // chatEventPhotoChanged#cfa062c3
-//  case *tdapi.ChatEventInvitesToggled: // chatEventInvitesToggled#fc45966b
 //  case *tdapi.ChatEventLinkedChatChanged: // chatEventLinkedChatChanged#6b2271af
-//  case *tdapi.ChatEventSlowModeDelayChanged: // chatEventSlowModeDelayChanged#9d763c0b
-//  case *tdapi.ChatEventMessageTTLChanged: // chatEventMessageTtlChanged#2e46b9b3
-//  case *tdapi.ChatEventSignMessagesToggled: // chatEventSignMessagesToggled#b1b9281e
-//  case *tdapi.ChatEventHasProtectedContentToggled: // chatEventHasProtectedContentToggled#f5044201
-//  case *tdapi.ChatEventStickerSetChanged: // chatEventStickerSetChanged#b5e7558f
 //  case *tdapi.ChatEventLocationChanged: // chatEventLocationChanged#e7cdfd4e
+//  case *tdapi.ChatEventMessageTTLChanged: // chatEventMessageTtlChanged#2e46b9b3
+//  case *tdapi.ChatEventPermissionsChanged: // chatEventPermissionsChanged#b1d337a8
+//  case *tdapi.ChatEventPhotoChanged: // chatEventPhotoChanged#cfa062c3
+//  case *tdapi.ChatEventSlowModeDelayChanged: // chatEventSlowModeDelayChanged#9d763c0b
+//  case *tdapi.ChatEventStickerSetChanged: // chatEventStickerSetChanged#b5e7558f
+//  case *tdapi.ChatEventTitleChanged: // chatEventTitleChanged#43990ad2
+//  case *tdapi.ChatEventUsernameChanged: // chatEventUsernameChanged#6707b56b
+//  case *tdapi.ChatEventHasProtectedContentToggled: // chatEventHasProtectedContentToggled#f5044201
+//  case *tdapi.ChatEventInvitesToggled: // chatEventInvitesToggled#fc45966b
 //  case *tdapi.ChatEventIsAllHistoryAvailableToggled: // chatEventIsAllHistoryAvailableToggled#a0b03c15
+//  case *tdapi.ChatEventSignMessagesToggled: // chatEventSignMessagesToggled#b1b9281e
 //  case *tdapi.ChatEventInviteLinkEdited: // chatEventInviteLinkEdited#e4920d62
 //  case *tdapi.ChatEventInviteLinkRevoked: // chatEventInviteLinkRevoked#a1dbffe3
 //  case *tdapi.ChatEventInviteLinkDeleted: // chatEventInviteLinkDeleted#acda6167
 //  case *tdapi.ChatEventVideoChatCreated: // chatEventVideoChatCreated#6ca68a7b
 //  case *tdapi.ChatEventVideoChatEnded: // chatEventVideoChatEnded#61286c48
+//  case *tdapi.ChatEventVideoChatMuteNewParticipantsToggled: // chatEventVideoChatMuteNewParticipantsToggled#f87507fe
 //  case *tdapi.ChatEventVideoChatParticipantIsMutedToggled: // chatEventVideoChatParticipantIsMutedToggled#1f1058f7
 //  case *tdapi.ChatEventVideoChatParticipantVolumeLevelChanged: // chatEventVideoChatParticipantVolumeLevelChanged#436f92be
-//  case *tdapi.ChatEventVideoChatMuteNewParticipantsToggled: // chatEventVideoChatMuteNewParticipantsToggled#f87507fe
 //  default: panic(v)
 //  }
 type ChatEventActionClass interface {
@@ -6457,13 +6706,6 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
-	case ChatEventPollStoppedTypeID:
-		// Decoding chatEventPollStopped#77cc8be5.
-		v := ChatEventPollStopped{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
 	case ChatEventMessagePinnedTypeID:
 		// Decoding chatEventMessagePinned#1a26ad1a.
 		v := ChatEventMessagePinned{}
@@ -6474,6 +6716,13 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 	case ChatEventMessageUnpinnedTypeID:
 		// Decoding chatEventMessageUnpinned#e9943b17.
 		v := ChatEventMessageUnpinned{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventPollStoppedTypeID:
+		// Decoding chatEventPollStopped#77cc8be5.
+		v := ChatEventPollStopped{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -6499,16 +6748,16 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
-	case ChatEventMemberLeftTypeID:
-		// Decoding chatEventMemberLeft#c778400f.
-		v := ChatEventMemberLeft{}
+	case ChatEventMemberInvitedTypeID:
+		// Decoding chatEventMemberInvited#38d7bfc9.
+		v := ChatEventMemberInvited{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
-	case ChatEventMemberInvitedTypeID:
-		// Decoding chatEventMemberInvited#38d7bfc9.
-		v := ChatEventMemberInvited{}
+	case ChatEventMemberLeftTypeID:
+		// Decoding chatEventMemberLeft#c778400f.
+		v := ChatEventMemberLeft{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -6527,16 +6776,9 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
-	case ChatEventTitleChangedTypeID:
-		// Decoding chatEventTitleChanged#43990ad2.
-		v := ChatEventTitleChanged{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
-	case ChatEventPermissionsChangedTypeID:
-		// Decoding chatEventPermissionsChanged#b1d337a8.
-		v := ChatEventPermissionsChanged{}
+	case ChatEventAvailableReactionsChangedTypeID:
+		// Decoding chatEventAvailableReactionsChanged#9ac93274.
+		v := ChatEventAvailableReactionsChanged{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -6548,65 +6790,9 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
-	case ChatEventUsernameChangedTypeID:
-		// Decoding chatEventUsernameChanged#6707b56b.
-		v := ChatEventUsernameChanged{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
-	case ChatEventPhotoChangedTypeID:
-		// Decoding chatEventPhotoChanged#cfa062c3.
-		v := ChatEventPhotoChanged{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
-	case ChatEventInvitesToggledTypeID:
-		// Decoding chatEventInvitesToggled#fc45966b.
-		v := ChatEventInvitesToggled{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
 	case ChatEventLinkedChatChangedTypeID:
 		// Decoding chatEventLinkedChatChanged#6b2271af.
 		v := ChatEventLinkedChatChanged{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
-	case ChatEventSlowModeDelayChangedTypeID:
-		// Decoding chatEventSlowModeDelayChanged#9d763c0b.
-		v := ChatEventSlowModeDelayChanged{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
-	case ChatEventMessageTTLChangedTypeID:
-		// Decoding chatEventMessageTtlChanged#2e46b9b3.
-		v := ChatEventMessageTTLChanged{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
-	case ChatEventSignMessagesToggledTypeID:
-		// Decoding chatEventSignMessagesToggled#b1b9281e.
-		v := ChatEventSignMessagesToggled{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
-	case ChatEventHasProtectedContentToggledTypeID:
-		// Decoding chatEventHasProtectedContentToggled#f5044201.
-		v := ChatEventHasProtectedContentToggled{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
-	case ChatEventStickerSetChangedTypeID:
-		// Decoding chatEventStickerSetChanged#b5e7558f.
-		v := ChatEventStickerSetChanged{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -6618,9 +6804,79 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
+	case ChatEventMessageTTLChangedTypeID:
+		// Decoding chatEventMessageTtlChanged#2e46b9b3.
+		v := ChatEventMessageTTLChanged{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventPermissionsChangedTypeID:
+		// Decoding chatEventPermissionsChanged#b1d337a8.
+		v := ChatEventPermissionsChanged{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventPhotoChangedTypeID:
+		// Decoding chatEventPhotoChanged#cfa062c3.
+		v := ChatEventPhotoChanged{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventSlowModeDelayChangedTypeID:
+		// Decoding chatEventSlowModeDelayChanged#9d763c0b.
+		v := ChatEventSlowModeDelayChanged{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventStickerSetChangedTypeID:
+		// Decoding chatEventStickerSetChanged#b5e7558f.
+		v := ChatEventStickerSetChanged{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventTitleChangedTypeID:
+		// Decoding chatEventTitleChanged#43990ad2.
+		v := ChatEventTitleChanged{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventUsernameChangedTypeID:
+		// Decoding chatEventUsernameChanged#6707b56b.
+		v := ChatEventUsernameChanged{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventHasProtectedContentToggledTypeID:
+		// Decoding chatEventHasProtectedContentToggled#f5044201.
+		v := ChatEventHasProtectedContentToggled{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventInvitesToggledTypeID:
+		// Decoding chatEventInvitesToggled#fc45966b.
+		v := ChatEventInvitesToggled{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
 	case ChatEventIsAllHistoryAvailableToggledTypeID:
 		// Decoding chatEventIsAllHistoryAvailableToggled#a0b03c15.
 		v := ChatEventIsAllHistoryAvailableToggled{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventSignMessagesToggledTypeID:
+		// Decoding chatEventSignMessagesToggled#b1b9281e.
+		v := ChatEventSignMessagesToggled{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -6660,6 +6916,13 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
+	case ChatEventVideoChatMuteNewParticipantsToggledTypeID:
+		// Decoding chatEventVideoChatMuteNewParticipantsToggled#f87507fe.
+		v := ChatEventVideoChatMuteNewParticipantsToggled{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
 	case ChatEventVideoChatParticipantIsMutedToggledTypeID:
 		// Decoding chatEventVideoChatParticipantIsMutedToggled#1f1058f7.
 		v := ChatEventVideoChatParticipantIsMutedToggled{}
@@ -6670,13 +6933,6 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 	case ChatEventVideoChatParticipantVolumeLevelChangedTypeID:
 		// Decoding chatEventVideoChatParticipantVolumeLevelChanged#436f92be.
 		v := ChatEventVideoChatParticipantVolumeLevelChanged{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
-	case ChatEventVideoChatMuteNewParticipantsToggledTypeID:
-		// Decoding chatEventVideoChatMuteNewParticipantsToggled#f87507fe.
-		v := ChatEventVideoChatMuteNewParticipantsToggled{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -6707,13 +6963,6 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
-	case "chatEventPollStopped":
-		// Decoding chatEventPollStopped#77cc8be5.
-		v := ChatEventPollStopped{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
 	case "chatEventMessagePinned":
 		// Decoding chatEventMessagePinned#1a26ad1a.
 		v := ChatEventMessagePinned{}
@@ -6724,6 +6973,13 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 	case "chatEventMessageUnpinned":
 		// Decoding chatEventMessageUnpinned#e9943b17.
 		v := ChatEventMessageUnpinned{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventPollStopped":
+		// Decoding chatEventPollStopped#77cc8be5.
+		v := ChatEventPollStopped{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -6749,16 +7005,16 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
-	case "chatEventMemberLeft":
-		// Decoding chatEventMemberLeft#c778400f.
-		v := ChatEventMemberLeft{}
+	case "chatEventMemberInvited":
+		// Decoding chatEventMemberInvited#38d7bfc9.
+		v := ChatEventMemberInvited{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
-	case "chatEventMemberInvited":
-		// Decoding chatEventMemberInvited#38d7bfc9.
-		v := ChatEventMemberInvited{}
+	case "chatEventMemberLeft":
+		// Decoding chatEventMemberLeft#c778400f.
+		v := ChatEventMemberLeft{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -6777,16 +7033,9 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
-	case "chatEventTitleChanged":
-		// Decoding chatEventTitleChanged#43990ad2.
-		v := ChatEventTitleChanged{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
-	case "chatEventPermissionsChanged":
-		// Decoding chatEventPermissionsChanged#b1d337a8.
-		v := ChatEventPermissionsChanged{}
+	case "chatEventAvailableReactionsChanged":
+		// Decoding chatEventAvailableReactionsChanged#9ac93274.
+		v := ChatEventAvailableReactionsChanged{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -6798,65 +7047,9 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
-	case "chatEventUsernameChanged":
-		// Decoding chatEventUsernameChanged#6707b56b.
-		v := ChatEventUsernameChanged{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
-	case "chatEventPhotoChanged":
-		// Decoding chatEventPhotoChanged#cfa062c3.
-		v := ChatEventPhotoChanged{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
-	case "chatEventInvitesToggled":
-		// Decoding chatEventInvitesToggled#fc45966b.
-		v := ChatEventInvitesToggled{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
 	case "chatEventLinkedChatChanged":
 		// Decoding chatEventLinkedChatChanged#6b2271af.
 		v := ChatEventLinkedChatChanged{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
-	case "chatEventSlowModeDelayChanged":
-		// Decoding chatEventSlowModeDelayChanged#9d763c0b.
-		v := ChatEventSlowModeDelayChanged{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
-	case "chatEventMessageTtlChanged":
-		// Decoding chatEventMessageTtlChanged#2e46b9b3.
-		v := ChatEventMessageTTLChanged{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
-	case "chatEventSignMessagesToggled":
-		// Decoding chatEventSignMessagesToggled#b1b9281e.
-		v := ChatEventSignMessagesToggled{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
-	case "chatEventHasProtectedContentToggled":
-		// Decoding chatEventHasProtectedContentToggled#f5044201.
-		v := ChatEventHasProtectedContentToggled{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
-	case "chatEventStickerSetChanged":
-		// Decoding chatEventStickerSetChanged#b5e7558f.
-		v := ChatEventStickerSetChanged{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -6868,9 +7061,79 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
+	case "chatEventMessageTtlChanged":
+		// Decoding chatEventMessageTtlChanged#2e46b9b3.
+		v := ChatEventMessageTTLChanged{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventPermissionsChanged":
+		// Decoding chatEventPermissionsChanged#b1d337a8.
+		v := ChatEventPermissionsChanged{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventPhotoChanged":
+		// Decoding chatEventPhotoChanged#cfa062c3.
+		v := ChatEventPhotoChanged{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventSlowModeDelayChanged":
+		// Decoding chatEventSlowModeDelayChanged#9d763c0b.
+		v := ChatEventSlowModeDelayChanged{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventStickerSetChanged":
+		// Decoding chatEventStickerSetChanged#b5e7558f.
+		v := ChatEventStickerSetChanged{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventTitleChanged":
+		// Decoding chatEventTitleChanged#43990ad2.
+		v := ChatEventTitleChanged{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventUsernameChanged":
+		// Decoding chatEventUsernameChanged#6707b56b.
+		v := ChatEventUsernameChanged{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventHasProtectedContentToggled":
+		// Decoding chatEventHasProtectedContentToggled#f5044201.
+		v := ChatEventHasProtectedContentToggled{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventInvitesToggled":
+		// Decoding chatEventInvitesToggled#fc45966b.
+		v := ChatEventInvitesToggled{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
 	case "chatEventIsAllHistoryAvailableToggled":
 		// Decoding chatEventIsAllHistoryAvailableToggled#a0b03c15.
 		v := ChatEventIsAllHistoryAvailableToggled{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventSignMessagesToggled":
+		// Decoding chatEventSignMessagesToggled#b1b9281e.
+		v := ChatEventSignMessagesToggled{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -6910,6 +7173,13 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
+	case "chatEventVideoChatMuteNewParticipantsToggled":
+		// Decoding chatEventVideoChatMuteNewParticipantsToggled#f87507fe.
+		v := ChatEventVideoChatMuteNewParticipantsToggled{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
 	case "chatEventVideoChatParticipantIsMutedToggled":
 		// Decoding chatEventVideoChatParticipantIsMutedToggled#1f1058f7.
 		v := ChatEventVideoChatParticipantIsMutedToggled{}
@@ -6920,13 +7190,6 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 	case "chatEventVideoChatParticipantVolumeLevelChanged":
 		// Decoding chatEventVideoChatParticipantVolumeLevelChanged#436f92be.
 		v := ChatEventVideoChatParticipantVolumeLevelChanged{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
-		}
-		return &v, nil
-	case "chatEventVideoChatMuteNewParticipantsToggled":
-		// Decoding chatEventVideoChatMuteNewParticipantsToggled#f87507fe.
-		v := ChatEventVideoChatMuteNewParticipantsToggled{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
