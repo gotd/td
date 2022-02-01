@@ -38,7 +38,7 @@ type GetMessagePublicForwardsRequest struct {
 	// Message identifier
 	MessageID int64
 	// Offset of the first entry to return as received from the previous request; use empty
-	// string to get first chunk of results
+	// string to get the first chunk of results
 	Offset string
 	// The maximum number of messages to be returned; must be positive and can't be greater
 	// than 100. For optimal performance, the number of returned messages is chosen by TDLib

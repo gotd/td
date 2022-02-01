@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// UploadStickerFileRequest represents TL type `uploadStickerFile#23a0f58e`.
+// UploadStickerFileRequest represents TL type `uploadStickerFile#524839a`.
 type UploadStickerFileRequest struct {
 	// Sticker file owner; ignored for regular users
 	UserID int64
 	// Sticker file to upload
-	Sticker InputStickerClass
+	Sticker InputSticker
 }
 
 // UploadStickerFileRequestTypeID is TL type id of UploadStickerFileRequest.
-const UploadStickerFileRequestTypeID = 0x23a0f58e
+const UploadStickerFileRequestTypeID = 0x524839a
 
 // Ensuring interfaces in compile-time for UploadStickerFileRequest.
 var (
@@ -57,7 +57,7 @@ func (u *UploadStickerFileRequest) Zero() bool {
 	if !(u.UserID == 0) {
 		return false
 	}
-	if !(u.Sticker == nil) {
+	if !(u.Sticker.Zero()) {
 		return false
 	}
 
@@ -111,7 +111,7 @@ func (u *UploadStickerFileRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UploadStickerFileRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode uploadStickerFile#23a0f58e as nil")
+		return fmt.Errorf("can't encode uploadStickerFile#524839a as nil")
 	}
 	b.PutID(UploadStickerFileRequestTypeID)
 	return u.EncodeBare(b)
@@ -120,14 +120,11 @@ func (u *UploadStickerFileRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UploadStickerFileRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode uploadStickerFile#23a0f58e as nil")
+		return fmt.Errorf("can't encode uploadStickerFile#524839a as nil")
 	}
 	b.PutInt53(u.UserID)
-	if u.Sticker == nil {
-		return fmt.Errorf("unable to encode uploadStickerFile#23a0f58e: field sticker is nil")
-	}
 	if err := u.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode uploadStickerFile#23a0f58e: field sticker: %w", err)
+		return fmt.Errorf("unable to encode uploadStickerFile#524839a: field sticker: %w", err)
 	}
 	return nil
 }
@@ -135,10 +132,10 @@ func (u *UploadStickerFileRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UploadStickerFileRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode uploadStickerFile#23a0f58e to nil")
+		return fmt.Errorf("can't decode uploadStickerFile#524839a to nil")
 	}
 	if err := b.ConsumeID(UploadStickerFileRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode uploadStickerFile#23a0f58e: %w", err)
+		return fmt.Errorf("unable to decode uploadStickerFile#524839a: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -146,21 +143,19 @@ func (u *UploadStickerFileRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UploadStickerFileRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode uploadStickerFile#23a0f58e to nil")
+		return fmt.Errorf("can't decode uploadStickerFile#524839a to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode uploadStickerFile#23a0f58e: field user_id: %w", err)
+			return fmt.Errorf("unable to decode uploadStickerFile#524839a: field user_id: %w", err)
 		}
 		u.UserID = value
 	}
 	{
-		value, err := DecodeInputSticker(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode uploadStickerFile#23a0f58e: field sticker: %w", err)
+		if err := u.Sticker.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode uploadStickerFile#524839a: field sticker: %w", err)
 		}
-		u.Sticker = value
 	}
 	return nil
 }
@@ -168,7 +163,7 @@ func (u *UploadStickerFileRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UploadStickerFileRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode uploadStickerFile#23a0f58e as nil")
+		return fmt.Errorf("can't encode uploadStickerFile#524839a as nil")
 	}
 	b.ObjStart()
 	b.PutID("uploadStickerFile")
@@ -177,11 +172,8 @@ func (u *UploadStickerFileRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutInt53(u.UserID)
 	b.Comma()
 	b.FieldStart("sticker")
-	if u.Sticker == nil {
-		return fmt.Errorf("unable to encode uploadStickerFile#23a0f58e: field sticker is nil")
-	}
 	if err := u.Sticker.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode uploadStickerFile#23a0f58e: field sticker: %w", err)
+		return fmt.Errorf("unable to encode uploadStickerFile#524839a: field sticker: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -192,27 +184,25 @@ func (u *UploadStickerFileRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UploadStickerFileRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode uploadStickerFile#23a0f58e to nil")
+		return fmt.Errorf("can't decode uploadStickerFile#524839a to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("uploadStickerFile"); err != nil {
-				return fmt.Errorf("unable to decode uploadStickerFile#23a0f58e: %w", err)
+				return fmt.Errorf("unable to decode uploadStickerFile#524839a: %w", err)
 			}
 		case "user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode uploadStickerFile#23a0f58e: field user_id: %w", err)
+				return fmt.Errorf("unable to decode uploadStickerFile#524839a: field user_id: %w", err)
 			}
 			u.UserID = value
 		case "sticker":
-			value, err := DecodeTDLibJSONInputSticker(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode uploadStickerFile#23a0f58e: field sticker: %w", err)
+			if err := u.Sticker.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode uploadStickerFile#524839a: field sticker: %w", err)
 			}
-			u.Sticker = value
 		default:
 			return b.Skip()
 		}
@@ -229,14 +219,14 @@ func (u *UploadStickerFileRequest) GetUserID() (value int64) {
 }
 
 // GetSticker returns value of Sticker field.
-func (u *UploadStickerFileRequest) GetSticker() (value InputStickerClass) {
+func (u *UploadStickerFileRequest) GetSticker() (value InputSticker) {
 	if u == nil {
 		return
 	}
 	return u.Sticker
 }
 
-// UploadStickerFile invokes method uploadStickerFile#23a0f58e returning error if any.
+// UploadStickerFile invokes method uploadStickerFile#524839a returning error if any.
 func (c *Client) UploadStickerFile(ctx context.Context, request *UploadStickerFileRequest) (*File, error) {
 	var result File
 

@@ -36,7 +36,7 @@ type SetCommandsRequest struct {
 	// The scope to which the commands are relevant; pass null to change commands in the
 	// default bot command scope
 	Scope BotCommandScopeClass
-	// A two-letter ISO 639-1 country code. If empty, the commands will be applied to all
+	// A two-letter ISO 639-1 language code. If empty, the commands will be applied to all
 	// users from the given scope, for which language there are no dedicated commands
 	LanguageCode string
 	// List of the bot's commands

@@ -33,7 +33,7 @@ var (
 
 // GetPhoneNumberInfoSyncRequest represents TL type `getPhoneNumberInfoSync#209b7d38`.
 type GetPhoneNumberInfoSyncRequest struct {
-	// A two-letter ISO 639-1 country code for country information localization
+	// A two-letter ISO 639-1 language code for country information localization
 	LanguageCode string
 	// The phone number prefix
 	PhoneNumberPrefix string
