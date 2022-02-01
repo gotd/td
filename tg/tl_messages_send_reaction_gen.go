@@ -37,6 +37,8 @@ var (
 type MessagesSendReactionRequest struct {
 	// Flags field of MessagesSendReactionRequest.
 	Flags bin.Fields
+	// Big field of MessagesSendReactionRequest.
+	Big bool
 	// Peer field of MessagesSendReactionRequest.
 	Peer InputPeerClass
 	// MsgID field of MessagesSendReactionRequest.
@@ -65,6 +67,9 @@ func (s *MessagesSendReactionRequest) Zero() bool {
 	if !(s.Flags.Zero()) {
 		return false
 	}
+	if !(s.Big == false) {
+		return false
+	}
 	if !(s.Peer == nil) {
 		return false
 	}
@@ -89,10 +94,12 @@ func (s *MessagesSendReactionRequest) String() string {
 
 // FillFrom fills MessagesSendReactionRequest from given interface.
 func (s *MessagesSendReactionRequest) FillFrom(from interface {
+	GetBig() (value bool)
 	GetPeer() (value InputPeerClass)
 	GetMsgID() (value int)
 	GetReaction() (value string, ok bool)
 }) {
+	s.Big = from.GetBig()
 	s.Peer = from.GetPeer()
 	s.MsgID = from.GetMsgID()
 	if val, ok := from.GetReaction(); ok {
@@ -125,6 +132,11 @@ func (s *MessagesSendReactionRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Big",
+			SchemaName: "big",
+			Null:       !s.Flags.Has(1),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -143,6 +155,9 @@ func (s *MessagesSendReactionRequest) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (s *MessagesSendReactionRequest) SetFlags() {
+	if !(s.Big == false) {
+		s.Flags.Set(1)
+	}
 	if !(s.Reaction == "") {
 		s.Flags.Set(0)
 	}
@@ -200,6 +215,7 @@ func (s *MessagesSendReactionRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.sendReaction#25690ce4: field flags: %w", err)
 		}
 	}
+	s.Big = s.Flags.Has(1)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -222,6 +238,25 @@ func (s *MessagesSendReactionRequest) DecodeBare(b *bin.Buffer) error {
 		s.Reaction = value
 	}
 	return nil
+}
+
+// SetBig sets value of Big conditional field.
+func (s *MessagesSendReactionRequest) SetBig(value bool) {
+	if value {
+		s.Flags.Set(1)
+		s.Big = true
+	} else {
+		s.Flags.Unset(1)
+		s.Big = false
+	}
+}
+
+// GetBig returns value of Big conditional field.
+func (s *MessagesSendReactionRequest) GetBig() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(1)
 }
 
 // GetPeer returns value of Peer field.
