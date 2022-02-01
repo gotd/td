@@ -50,6 +50,8 @@ type StickerSet struct {
 	Masks bool
 	// Is this an animated stickerpack
 	Animated bool
+	// Gifs field of StickerSet.
+	Gifs bool
 	// When was this stickerset installed
 	//
 	// Use SetInstalledDate and GetInstalledDate helpers.
@@ -110,6 +112,9 @@ func (s *StickerSet) Zero() bool {
 	if !(s.Animated == false) {
 		return false
 	}
+	if !(s.Gifs == false) {
+		return false
+	}
 	if !(s.InstalledDate == 0) {
 		return false
 	}
@@ -159,6 +164,7 @@ func (s *StickerSet) FillFrom(from interface {
 	GetOfficial() (value bool)
 	GetMasks() (value bool)
 	GetAnimated() (value bool)
+	GetGifs() (value bool)
 	GetInstalledDate() (value int, ok bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64)
@@ -174,6 +180,7 @@ func (s *StickerSet) FillFrom(from interface {
 	s.Official = from.GetOfficial()
 	s.Masks = from.GetMasks()
 	s.Animated = from.GetAnimated()
+	s.Gifs = from.GetGifs()
 	if val, ok := from.GetInstalledDate(); ok {
 		s.InstalledDate = val
 	}
@@ -242,6 +249,11 @@ func (s *StickerSet) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(5),
 		},
 		{
+			Name:       "Gifs",
+			SchemaName: "gifs",
+			Null:       !s.Flags.Has(6),
+		},
+		{
 			Name:       "InstalledDate",
 			SchemaName: "installed_date",
 			Null:       !s.Flags.Has(0),
@@ -302,6 +314,9 @@ func (s *StickerSet) SetFlags() {
 	}
 	if !(s.Animated == false) {
 		s.Flags.Set(5)
+	}
+	if !(s.Gifs == false) {
+		s.Flags.Set(6)
 	}
 	if !(s.InstalledDate == 0) {
 		s.Flags.Set(0)
@@ -389,6 +404,7 @@ func (s *StickerSet) DecodeBare(b *bin.Buffer) error {
 	s.Official = s.Flags.Has(2)
 	s.Masks = s.Flags.Has(3)
 	s.Animated = s.Flags.Has(5)
+	s.Gifs = s.Flags.Has(6)
 	if s.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
@@ -546,6 +562,25 @@ func (s *StickerSet) GetAnimated() (value bool) {
 		return
 	}
 	return s.Flags.Has(5)
+}
+
+// SetGifs sets value of Gifs conditional field.
+func (s *StickerSet) SetGifs(value bool) {
+	if value {
+		s.Flags.Set(6)
+		s.Gifs = true
+	} else {
+		s.Flags.Unset(6)
+		s.Gifs = false
+	}
+}
+
+// GetGifs returns value of Gifs conditional field.
+func (s *StickerSet) GetGifs() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(6)
 }
 
 // SetInstalledDate sets value of InstalledDate conditional field.

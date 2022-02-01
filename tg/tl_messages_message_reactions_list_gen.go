@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesMessageReactionsList represents TL type `messages.messageReactionsList#a366923c`.
+// MessagesMessageReactionsList represents TL type `messages.messageReactionsList#31bd492d`.
 //
 // See https://core.telegram.org/constructor/messages.messageReactionsList for reference.
 type MessagesMessageReactionsList struct {
@@ -40,7 +40,9 @@ type MessagesMessageReactionsList struct {
 	// Count field of MessagesMessageReactionsList.
 	Count int
 	// Reactions field of MessagesMessageReactionsList.
-	Reactions []MessageUserReaction
+	Reactions []MessagePeerReaction
+	// Chats field of MessagesMessageReactionsList.
+	Chats []ChatClass
 	// Users field of MessagesMessageReactionsList.
 	Users []UserClass
 	// NextOffset field of MessagesMessageReactionsList.
@@ -50,7 +52,7 @@ type MessagesMessageReactionsList struct {
 }
 
 // MessagesMessageReactionsListTypeID is TL type id of MessagesMessageReactionsList.
-const MessagesMessageReactionsListTypeID = 0xa366923c
+const MessagesMessageReactionsListTypeID = 0x31bd492d
 
 // Ensuring interfaces in compile-time for MessagesMessageReactionsList.
 var (
@@ -71,6 +73,9 @@ func (m *MessagesMessageReactionsList) Zero() bool {
 		return false
 	}
 	if !(m.Reactions == nil) {
+		return false
+	}
+	if !(m.Chats == nil) {
 		return false
 	}
 	if !(m.Users == nil) {
@@ -95,12 +100,14 @@ func (m *MessagesMessageReactionsList) String() string {
 // FillFrom fills MessagesMessageReactionsList from given interface.
 func (m *MessagesMessageReactionsList) FillFrom(from interface {
 	GetCount() (value int)
-	GetReactions() (value []MessageUserReaction)
+	GetReactions() (value []MessagePeerReaction)
+	GetChats() (value []ChatClass)
 	GetUsers() (value []UserClass)
 	GetNextOffset() (value string, ok bool)
 }) {
 	m.Count = from.GetCount()
 	m.Reactions = from.GetReactions()
+	m.Chats = from.GetChats()
 	m.Users = from.GetUsers()
 	if val, ok := from.GetNextOffset(); ok {
 		m.NextOffset = val
@@ -140,6 +147,10 @@ func (m *MessagesMessageReactionsList) TypeInfo() tdp.Type {
 			SchemaName: "reactions",
 		},
 		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
 			Name:       "Users",
 			SchemaName: "users",
 		},
@@ -162,7 +173,7 @@ func (m *MessagesMessageReactionsList) SetFlags() {
 // Encode implements bin.Encoder.
 func (m *MessagesMessageReactionsList) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messages.messageReactionsList#a366923c as nil")
+		return fmt.Errorf("can't encode messages.messageReactionsList#31bd492d as nil")
 	}
 	b.PutID(MessagesMessageReactionsListTypeID)
 	return m.EncodeBare(b)
@@ -171,26 +182,35 @@ func (m *MessagesMessageReactionsList) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessagesMessageReactionsList) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messages.messageReactionsList#a366923c as nil")
+		return fmt.Errorf("can't encode messages.messageReactionsList#31bd492d as nil")
 	}
 	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.messageReactionsList#a366923c: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.messageReactionsList#31bd492d: field flags: %w", err)
 	}
 	b.PutInt(m.Count)
 	b.PutVectorHeader(len(m.Reactions))
 	for idx, v := range m.Reactions {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.messageReactionsList#a366923c: field reactions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.messageReactionsList#31bd492d: field reactions element with index %d: %w", idx, err)
+		}
+	}
+	b.PutVectorHeader(len(m.Chats))
+	for idx, v := range m.Chats {
+		if v == nil {
+			return fmt.Errorf("unable to encode messages.messageReactionsList#31bd492d: field chats element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.messageReactionsList#31bd492d: field chats element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(m.Users))
 	for idx, v := range m.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.messageReactionsList#a366923c: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.messageReactionsList#31bd492d: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.messageReactionsList#a366923c: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.messageReactionsList#31bd492d: field users element with index %d: %w", idx, err)
 		}
 	}
 	if m.Flags.Has(0) {
@@ -202,10 +222,10 @@ func (m *MessagesMessageReactionsList) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessagesMessageReactionsList) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messages.messageReactionsList#a366923c to nil")
+		return fmt.Errorf("can't decode messages.messageReactionsList#31bd492d to nil")
 	}
 	if err := b.ConsumeID(MessagesMessageReactionsListTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.messageReactionsList#a366923c: %w", err)
+		return fmt.Errorf("unable to decode messages.messageReactionsList#31bd492d: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -213,33 +233,33 @@ func (m *MessagesMessageReactionsList) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessagesMessageReactionsList) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messages.messageReactionsList#a366923c to nil")
+		return fmt.Errorf("can't decode messages.messageReactionsList#31bd492d to nil")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.messageReactionsList#a366923c: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.messageReactionsList#31bd492d: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.messageReactionsList#a366923c: field count: %w", err)
+			return fmt.Errorf("unable to decode messages.messageReactionsList#31bd492d: field count: %w", err)
 		}
 		m.Count = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.messageReactionsList#a366923c: field reactions: %w", err)
+			return fmt.Errorf("unable to decode messages.messageReactionsList#31bd492d: field reactions: %w", err)
 		}
 
 		if headerLen > 0 {
-			m.Reactions = make([]MessageUserReaction, 0, headerLen%bin.PreallocateLimit)
+			m.Reactions = make([]MessagePeerReaction, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value MessageUserReaction
+			var value MessagePeerReaction
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode messages.messageReactionsList#a366923c: field reactions: %w", err)
+				return fmt.Errorf("unable to decode messages.messageReactionsList#31bd492d: field reactions: %w", err)
 			}
 			m.Reactions = append(m.Reactions, value)
 		}
@@ -247,7 +267,24 @@ func (m *MessagesMessageReactionsList) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.messageReactionsList#a366923c: field users: %w", err)
+			return fmt.Errorf("unable to decode messages.messageReactionsList#31bd492d: field chats: %w", err)
+		}
+
+		if headerLen > 0 {
+			m.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeChat(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode messages.messageReactionsList#31bd492d: field chats: %w", err)
+			}
+			m.Chats = append(m.Chats, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.messageReactionsList#31bd492d: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -256,7 +293,7 @@ func (m *MessagesMessageReactionsList) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.messageReactionsList#a366923c: field users: %w", err)
+				return fmt.Errorf("unable to decode messages.messageReactionsList#31bd492d: field users: %w", err)
 			}
 			m.Users = append(m.Users, value)
 		}
@@ -264,7 +301,7 @@ func (m *MessagesMessageReactionsList) DecodeBare(b *bin.Buffer) error {
 	if m.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.messageReactionsList#a366923c: field next_offset: %w", err)
+			return fmt.Errorf("unable to decode messages.messageReactionsList#31bd492d: field next_offset: %w", err)
 		}
 		m.NextOffset = value
 	}
@@ -280,11 +317,19 @@ func (m *MessagesMessageReactionsList) GetCount() (value int) {
 }
 
 // GetReactions returns value of Reactions field.
-func (m *MessagesMessageReactionsList) GetReactions() (value []MessageUserReaction) {
+func (m *MessagesMessageReactionsList) GetReactions() (value []MessagePeerReaction) {
 	if m == nil {
 		return
 	}
 	return m.Reactions
+}
+
+// GetChats returns value of Chats field.
+func (m *MessagesMessageReactionsList) GetChats() (value []ChatClass) {
+	if m == nil {
+		return
+	}
+	return m.Chats
 }
 
 // GetUsers returns value of Users field.
@@ -311,6 +356,11 @@ func (m *MessagesMessageReactionsList) GetNextOffset() (value string, ok bool) {
 		return value, false
 	}
 	return m.NextOffset, true
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (m *MessagesMessageReactionsList) MapChats() (value ChatClassArray) {
+	return ChatClassArray(m.Chats)
 }
 
 // MapUsers returns field Users wrapped in UserClassArray helper.

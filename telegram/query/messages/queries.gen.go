@@ -457,6 +457,105 @@ func (b *GetUnreadMentionsQueryBuilder) Collect(ctx context.Context) ([]Elem, er
 	return r, iter.Err()
 }
 
+// GetUnreadReactionsQueryBuilder is query builder of MessagesGetUnreadReactions.
+type GetUnreadReactionsQueryBuilder struct {
+	raw       *tg.Client
+	req       tg.MessagesGetUnreadReactionsRequest
+	batchSize int
+	addOffset int
+	offsetID  int
+}
+
+// GetUnreadReactions creates query builder of MessagesGetUnreadReactions.
+func (q *QueryBuilder) GetUnreadReactions(paramPeer tg.InputPeerClass) *GetUnreadReactionsQueryBuilder {
+	b := &GetUnreadReactionsQueryBuilder{
+		raw:       q.raw,
+		batchSize: 1,
+		req: tg.MessagesGetUnreadReactionsRequest{
+			Peer: &tg.InputPeerEmpty{},
+		},
+	}
+
+	b.req.Peer = paramPeer
+	return b
+}
+
+// BatchSize sets buffer of message loaded from one request.
+// Be carefully, when set this limit, because Telegram does not return error if limit is too big,
+// so results can be incorrect.
+func (b *GetUnreadReactionsQueryBuilder) BatchSize(batchSize int) *GetUnreadReactionsQueryBuilder {
+	b.batchSize = batchSize
+	return b
+}
+
+// OffsetID sets offsetID from which iterate start.
+func (b *GetUnreadReactionsQueryBuilder) OffsetID(offsetID int) *GetUnreadReactionsQueryBuilder {
+	b.offsetID = offsetID
+	return b
+}
+
+// Peer sets Peer field of GetUnreadReactions query.
+func (b *GetUnreadReactionsQueryBuilder) Peer(paramPeer tg.InputPeerClass) *GetUnreadReactionsQueryBuilder {
+	b.req.Peer = paramPeer
+	return b
+}
+
+// Query implements Query interface.
+func (b *GetUnreadReactionsQueryBuilder) Query(ctx context.Context, req Request) (tg.MessagesMessagesClass, error) {
+	r := &tg.MessagesGetUnreadReactionsRequest{
+		Limit: req.Limit,
+	}
+
+	r.Peer = b.req.Peer
+	r.AddOffset = req.AddOffset
+	r.OffsetID = req.OffsetID
+	return b.raw.MessagesGetUnreadReactions(ctx, r)
+}
+
+// Iter returns iterator using built query.
+func (b *GetUnreadReactionsQueryBuilder) Iter() *Iterator {
+	iter := NewIterator(b, b.batchSize)
+	iter = iter.OffsetID(b.offsetID)
+	return iter
+}
+
+// ForEach calls given callback on each iterator element.
+func (b *GetUnreadReactionsQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Elem) error) error {
+	iter := b.Iter()
+	for iter.Next(ctx) {
+		if err := cb(ctx, iter.Value()); err != nil {
+			return err
+		}
+	}
+	return iter.Err()
+}
+
+// Count fetches remote state to get number of elements.
+func (b *GetUnreadReactionsQueryBuilder) Count(ctx context.Context) (int, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return 0, errors.Wrap(err, "get total")
+	}
+	return c, nil
+}
+
+// Collect creates iterator and collects all elements to slice.
+func (b *GetUnreadReactionsQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return nil, errors.Wrap(err, "get total")
+	}
+
+	r := make([]Elem, 0, c)
+	for iter.Next(ctx) {
+		r = append(r, iter.Value())
+	}
+
+	return r, iter.Err()
+}
+
 // SearchQueryBuilder is query builder of MessagesSearch.
 type SearchQueryBuilder struct {
 	raw       *tg.Client

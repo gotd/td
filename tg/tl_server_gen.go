@@ -4991,6 +4991,57 @@ func (s *ServerDispatcher) OnMessagesSetDefaultReaction(f func(ctx context.Conte
 	s.handlers[MessagesSetDefaultReactionRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesTranslateText(f func(ctx context.Context, request *MessagesTranslateTextRequest) (MessagesTranslatedTextClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesTranslateTextRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesTranslatedTextBox{TranslatedText: response}, nil
+	}
+
+	s.handlers[MessagesTranslateTextRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetUnreadReactions(f func(ctx context.Context, request *MessagesGetUnreadReactionsRequest) (MessagesMessagesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetUnreadReactionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesMessagesBox{Messages: response}, nil
+	}
+
+	s.handlers[MessagesGetUnreadReactionsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesReadReactions(f func(ctx context.Context, peer InputPeerClass) (*MessagesAffectedHistory, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesReadReactionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Peer)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[MessagesReadReactionsRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
