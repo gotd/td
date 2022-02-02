@@ -37,7 +37,7 @@ type ProcessChatJoinRequestRequest struct {
 	ChatID int64
 	// Identifier of the user that sent the request
 	UserID int64
-	// True, if the request is approved. Otherwise the request is declived
+	// True, if the request is approved. Otherwise the request is declined
 	Approve bool
 }
 
