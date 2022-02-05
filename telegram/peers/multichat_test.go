@@ -35,6 +35,7 @@ type multiChat interface {
 	DisableReactions(ctx context.Context) error
 
 	KickUser(ctx context.Context, member tg.InputUserClass, revokeHistory bool) error
+	EditRights(ctx context.Context, options ParticipantRights) error
 }
 
 var _ = []multiChat{

@@ -213,6 +213,7 @@ func (c Channel) NoForwards() bool {
 //
 // See https://core.telegram.org/api/rights.
 func (c Channel) AdminRights() (tg.ChatAdminRights, bool) {
+	// TODO(tdakkota): add wrapper for raw object?
 	return c.raw.GetAdminRights()
 }
 
@@ -220,6 +221,7 @@ func (c Channel) AdminRights() (tg.ChatAdminRights, bool) {
 //
 // See https://core.telegram.org/api/rights.
 func (c Channel) BannedRights() (tg.ChatBannedRights, bool) {
+	// TODO(tdakkota): add wrapper for raw object?
 	return c.raw.GetBannedRights()
 }
 
@@ -227,6 +229,7 @@ func (c Channel) BannedRights() (tg.ChatBannedRights, bool) {
 //
 // See https://core.telegram.org/api/rights.
 func (c Channel) DefaultBannedRights() (tg.ChatBannedRights, bool) {
+	// TODO(tdakkota): add wrapper for raw object?
 	return c.raw.GetDefaultBannedRights()
 }
 
@@ -273,45 +276,28 @@ func (c Channel) SetTitle(ctx context.Context, title string) error {
 
 // SetDescription sets new description for this Chat.
 func (c Channel) SetDescription(ctx context.Context, about string) error {
-	if _, err := c.m.api.MessagesEditChatAbout(ctx, &tg.MessagesEditChatAboutRequest{
-		Peer:  c.InputPeer(),
-		About: about,
-	}); err != nil {
-		return errors.Wrap(err, "edit channel about")
-	}
-	return nil
+	return c.m.editAbout(ctx, c.InputPeer(), about)
 }
 
 // SetReactions sets list of available reactions.
 //
 // Empty list disables reactions at all.
 func (c Channel) SetReactions(ctx context.Context, reactions ...string) error {
-	return c.setReactions(ctx, reactions...)
+	return c.m.editReactions(ctx, c.InputPeer(), reactions...)
 }
 
 // DisableReactions disables reactions.
 func (c Channel) DisableReactions(ctx context.Context) error {
-	return c.setReactions(ctx)
+	return c.m.editReactions(ctx, c.InputPeer())
 }
 
-func (c Channel) setReactions(ctx context.Context, reactions ...string) error {
-	if _, err := c.m.api.MessagesSetChatAvailableReactions(ctx, &tg.MessagesSetChatAvailableReactionsRequest{
-		Peer:               c.InputPeer(),
-		AvailableReactions: reactions,
-	}); err != nil {
-		return errors.Wrap(err, "set reactions")
-	}
-
-	return nil
-}
-
-// KickUser kicks user member.
+// KickUser kicks user participant.
 //
 // Needed for parity with Chat to define common interface.
 //
-// If revokeHistory is set, will delete all messages from this member.
-func (c Channel) KickUser(ctx context.Context, member tg.InputUserClass, revokeHistory bool) error {
-	p := convertInputUserToInputPeer(member)
+// If revokeHistory is set, will delete all messages from this participant.
+func (c Channel) KickUser(ctx context.Context, participant tg.InputUserClass, revokeHistory bool) error {
+	p := convertInputUserToInputPeer(participant)
 	if revokeHistory {
 		if _, err := c.m.api.ChannelsDeleteParticipantHistory(ctx, &tg.ChannelsDeleteParticipantHistoryRequest{
 			Channel:     c.InputChannel(),
@@ -339,13 +325,35 @@ func (c Channel) EditParticipantRights(
 	return c.editParticipantRights(ctx, participant, options)
 }
 
-func (c Channel) editParticipantRights(ctx context.Context, member tg.InputPeerClass, options ParticipantRights) error {
+func (c Channel) editParticipantRights(ctx context.Context, p tg.InputPeerClass, options ParticipantRights) error {
 	if _, err := c.m.api.ChannelsEditBanned(ctx, &tg.ChannelsEditBannedRequest{
 		Channel:      c.InputChannel(),
-		Participant:  member,
+		Participant:  p,
 		BannedRights: options.IntoChatBannedRights(),
 	}); err != nil {
-		return errors.Wrap(err, "edit member rights")
+		return errors.Wrap(err, "edit participant rights")
+	}
+	return nil
+}
+
+// EditRights edits rights of all participants in this channel.
+func (c Channel) EditRights(ctx context.Context, options ParticipantRights) error {
+	return c.m.editDefaultRights(ctx, c.InputPeer(), options)
+}
+
+// EditAdminRights edits admin rights in this channel.
+func (c Channel) EditAdminRights(
+	ctx context.Context,
+	admin tg.InputUserClass,
+	options AdminRights,
+) error {
+	if _, err := c.m.api.ChannelsEditAdmin(ctx, &tg.ChannelsEditAdminRequest{
+		Channel:     c.InputChannel(),
+		UserID:      admin,
+		AdminRights: options.IntoChatAdminRights(),
+		Rank:        options.Rank,
+	}); err != nil {
+		return errors.Wrap(err, "edit admin rights")
 	}
 	return nil
 }
