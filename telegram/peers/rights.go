@@ -58,55 +58,57 @@ func (b AdminRights) IntoChatAdminRights() (r tg.ChatAdminRights) {
 // ParticipantRights represents participant right settings.
 type ParticipantRights struct {
 	// If set, does not allow a user to view messages in a supergroup/channel/chat.
-	ViewMessages bool
+	//
+	// In fact, user will be kicked.
+	DenyViewMessages bool
 	// If set, does not allow a user to send messages in a supergroup/chat.
-	SendMessages bool
+	DenySendMessages bool
 	// If set, does not allow a user to send any media in a supergroup/chat.
-	SendMedia bool
+	DenySendMedia bool
 	// If set, does not allow a user to send stickers in a supergroup/chat.
-	SendStickers bool
+	DenySendStickers bool
 	// If set, does not allow a user to send gifs in a supergroup/chat.
-	SendGifs bool
+	DenySendGifs bool
 	// If set, does not allow a user to send games in a supergroup/chat.
-	SendGames bool
+	DenySendGames bool
 	// If set, does not allow a user to use inline bots in a supergroup/chat.
-	SendInline bool
+	DenySendInline bool
 	// If set, does not allow a user to embed links in the messages of a supergroup/chat.
-	EmbedLinks bool
+	DenyEmbedLinks bool
 	// If set, does not allow a user to send polls in a supergroup/chat.
-	SendPolls bool
+	DenySendPolls bool
 	// If set, does not allow any user to change the description of a supergroup/chat.
-	ChangeInfo bool
+	DenyChangeInfo bool
 	// If set, does not allow any user to invite users in a supergroup/chat.
-	InviteUsers bool
+	DenyInviteUsers bool
 	// If set, does not allow any user to pin messages in a supergroup/chat.
-	PinMessages bool
+	DenyPinMessages bool
 	// Validity of said permissions (it is considered forever any value less than 30 seconds or more than 366 days).
 	//
 	// If value is zero, value will not be used.
 	UntilDate time.Time
 }
 
-// SetUntil sets duration of validity of set rights.
-func (b *ParticipantRights) SetUntil(d time.Duration) {
+// ApplyFor sets duration of validity of set rights.
+func (b *ParticipantRights) ApplyFor(d time.Duration) {
 	b.UntilDate = time.Now().Add(d)
 }
 
 // IntoChatBannedRights converts ParticipantRights into tg.ChatBannedRights.
 func (b ParticipantRights) IntoChatBannedRights() (r tg.ChatBannedRights) {
 	r = tg.ChatBannedRights{
-		ViewMessages: b.ViewMessages,
-		SendMessages: b.SendMessages,
-		SendMedia:    b.SendMedia,
-		SendStickers: b.SendStickers,
-		SendGifs:     b.SendGifs,
-		SendGames:    b.SendGames,
-		SendInline:   b.SendInline,
-		EmbedLinks:   b.EmbedLinks,
-		SendPolls:    b.SendPolls,
-		ChangeInfo:   b.ChangeInfo,
-		InviteUsers:  b.InviteUsers,
-		PinMessages:  b.PinMessages,
+		ViewMessages: b.DenyViewMessages,
+		SendMessages: b.DenySendMessages,
+		SendMedia:    b.DenySendMedia,
+		SendStickers: b.DenySendStickers,
+		SendGifs:     b.DenySendGifs,
+		SendGames:    b.DenySendGames,
+		SendInline:   b.DenySendInline,
+		EmbedLinks:   b.DenyEmbedLinks,
+		SendPolls:    b.DenySendPolls,
+		ChangeInfo:   b.DenyChangeInfo,
+		InviteUsers:  b.DenyInviteUsers,
+		PinMessages:  b.DenyPinMessages,
 	}
 	if !b.UntilDate.IsZero() {
 		r.UntilDate = int(b.UntilDate.Unix())

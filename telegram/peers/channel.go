@@ -130,7 +130,7 @@ func (c Channel) FullRaw(ctx context.Context) (*tg.ChannelFull, error) {
 
 // ToBroadcast tries to convert this Channel to Broadcast.
 func (c Channel) ToBroadcast() (Broadcast, bool) {
-	if !c.raw.Broadcast {
+	if !c.IsBroadcast() {
 		return Broadcast{}, false
 	}
 	return Broadcast{
@@ -145,7 +145,7 @@ func (c Channel) IsBroadcast() bool {
 
 // ToSupergroup tries to convert this Channel to Supergroup.
 func (c Channel) ToSupergroup() (Supergroup, bool) {
-	if !c.raw.Megagroup {
+	if !c.IsSupergroup() {
 		return Supergroup{}, false
 	}
 	return Supergroup{
@@ -311,8 +311,8 @@ func (c Channel) KickUser(ctx context.Context, participant tg.InputUserClass, re
 
 // KickParticipant kicks participant.
 func (c Channel) KickParticipant(ctx context.Context, participant tg.InputPeerClass) error {
-	return c.editParticipantRights(ctx, participant, ParticipantRights{
-		ViewMessages: true,
+	return c.EditParticipantRights(ctx, participant, ParticipantRights{
+		DenyViewMessages: true,
 	})
 }
 
@@ -341,7 +341,7 @@ func (c Channel) EditRights(ctx context.Context, options ParticipantRights) erro
 	return c.m.editDefaultRights(ctx, c.InputPeer(), options)
 }
 
-// EditAdminRights edits admin rights in this channel.
+// EditAdminRights edits admin rights of given user in this channel.
 func (c Channel) EditAdminRights(
 	ctx context.Context,
 	admin tg.InputUserClass,

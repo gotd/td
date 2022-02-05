@@ -70,3 +70,29 @@ func TestReactions(t *testing.T) {
 		a.NoError(p.DisableReactions(ctx))
 	}
 }
+
+func TestEditRights(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	mock, m := testManager(t)
+
+	rights := tg.ChatBannedRights{
+		SendInline: true,
+	}
+	rights.SetFlags()
+	req := func(p Peer) *tgmock.RequestBuilder {
+		return mock.ExpectCall(&tg.MessagesEditChatDefaultBannedRightsRequest{
+			Peer:         p.InputPeer(),
+			BannedRights: rights,
+		})
+	}
+	for _, p := range []multiChat{
+		m.Chat(getTestChat()),
+		m.Channel(getTestChannel()),
+	} {
+		req(p).ThenRPCErr(getTestError())
+		a.Error(p.EditRights(ctx, ParticipantRights{DenySendInline: true}))
+		req(p).ThenResult(&tg.Updates{})
+		a.NoError(p.EditRights(ctx, ParticipantRights{DenySendInline: true}))
+	}
+}

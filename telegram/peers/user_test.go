@@ -1,6 +1,7 @@
 package peers
 
 import (
+	"context"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -92,6 +93,18 @@ func TestUserGetters(t *testing.T) {
 		a.Equal(ok, ok2)
 		a.Equal(v, v2)
 	}
+	{
+		v, ok := u.raw.GetStatus()
+		v2, ok2 := u.Status()
+		a.Equal(ok, ok2)
+		a.Equal(v, v2)
+	}
+	{
+		v, ok := u.raw.GetLangCode()
+		v2, ok2 := u.LangCode()
+		a.Equal(ok, ok2)
+		a.Equal(v, v2)
+	}
 
 	b, ok := u.ToBot()
 	a.True(ok)
@@ -130,4 +143,52 @@ func TestUser_VisibleName(t *testing.T) {
 		FirstName: "FirstName",
 		LastName:  "LastName",
 	}}.VisibleName())
+}
+
+func TestUser_ReportSpam(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	mock, m := testManager(t)
+
+	u := m.User(getTestUser())
+
+	mock.ExpectCall(&tg.MessagesReportSpamRequest{Peer: u.InputPeer()}).
+		ThenRPCErr(getTestError())
+	a.Error(u.ReportSpam(ctx))
+
+	mock.ExpectCall(&tg.MessagesReportSpamRequest{Peer: u.InputPeer()}).
+		ThenTrue()
+	a.NoError(u.ReportSpam(ctx))
+}
+
+func TestUser_Block(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	mock, m := testManager(t)
+
+	u := m.User(getTestUser())
+
+	mock.ExpectCall(&tg.ContactsBlockRequest{ID: u.InputPeer()}).
+		ThenRPCErr(getTestError())
+	a.Error(u.Block(ctx))
+
+	mock.ExpectCall(&tg.ContactsBlockRequest{ID: u.InputPeer()}).
+		ThenTrue()
+	a.NoError(u.Block(ctx))
+}
+
+func TestUser_Unblock(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	mock, m := testManager(t)
+
+	u := m.User(getTestUser())
+
+	mock.ExpectCall(&tg.ContactsUnblockRequest{ID: u.InputPeer()}).
+		ThenRPCErr(getTestError())
+	a.Error(u.Unblock(ctx))
+
+	mock.ExpectCall(&tg.ContactsUnblockRequest{ID: u.InputPeer()}).
+		ThenTrue()
+	a.NoError(u.Unblock(ctx))
 }

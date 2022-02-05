@@ -73,6 +73,24 @@ func TestChannelGetters(t *testing.T) {
 		a.Equal(b.raw.Broadcast, ok)
 		a.Equal(b.raw.Signatures, b.Signatures())
 	}
+	{
+		v, ok := u.AdminRights()
+		v2, ok2 := u.raw.GetAdminRights()
+		a.Equal(ok, ok2)
+		a.Equal(v2, v)
+	}
+	{
+		v, ok := u.BannedRights()
+		v2, ok2 := u.raw.GetBannedRights()
+		a.Equal(ok, ok2)
+		a.Equal(v2, v)
+	}
+	{
+		v, ok := u.DefaultBannedRights()
+		v2, ok2 := u.raw.GetDefaultBannedRights()
+		a.Equal(ok2, ok)
+		a.Equal(v2, v)
+	}
 }
 
 func TestChannel_Leave(t *testing.T) {
@@ -133,4 +151,102 @@ func TestChannel_SetDescription(t *testing.T) {
 		About: about,
 	}).ThenTrue()
 	a.NoError(ch.SetDescription(ctx, about))
+}
+
+func TestChannel_Join(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	mock, m := testManager(t)
+
+	ch := m.Channel(getTestChannel())
+
+	mock.ExpectCall(&tg.ChannelsJoinChannelRequest{
+		Channel: ch.InputChannel(),
+	}).ThenRPCErr(getTestError())
+	a.Error(ch.Join(ctx))
+
+	mock.ExpectCall(&tg.ChannelsJoinChannelRequest{
+		Channel: ch.InputChannel(),
+	}).ThenResult(&tg.Updates{})
+	a.NoError(ch.Join(ctx))
+}
+
+func TestChannel_Delete(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	mock, m := testManager(t)
+
+	ch := m.Channel(getTestChannel())
+
+	mock.ExpectCall(&tg.ChannelsDeleteChannelRequest{
+		Channel: ch.InputChannel(),
+	}).ThenRPCErr(getTestError())
+	a.Error(ch.Delete(ctx))
+
+	mock.ExpectCall(&tg.ChannelsDeleteChannelRequest{
+		Channel: ch.InputChannel(),
+	}).ThenResult(&tg.Updates{})
+	a.NoError(ch.Delete(ctx))
+}
+
+func TestChannel_KickUser(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	mock, m := testManager(t)
+
+	u := m.User(getTestUser())
+	ch := m.Channel(getTestChannel())
+	rights := tg.ChatBannedRights{
+		ViewMessages: true,
+	}
+	rights.SetFlags()
+
+	mock.ExpectCall(&tg.ChannelsEditBannedRequest{
+		Channel:      ch.InputChannel(),
+		Participant:  u.InputPeer(),
+		BannedRights: rights,
+	}).ThenRPCErr(getTestError())
+	a.Error(ch.KickUser(ctx, u.InputUser(), false))
+
+	mock.ExpectCall(&tg.ChannelsEditBannedRequest{
+		Channel:      ch.InputChannel(),
+		Participant:  u.InputPeer(),
+		BannedRights: rights,
+	}).ThenResult(&tg.Updates{})
+	a.NoError(ch.KickUser(ctx, u.InputUser(), false))
+}
+
+func TestChannel_EditAdminRights(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	mock, m := testManager(t)
+
+	u := m.User(getTestUser())
+	ch := m.Channel(getTestChannel())
+	rights := tg.ChatAdminRights{
+		AddAdmins: true,
+	}
+	rights.SetFlags()
+
+	mock.ExpectCall(&tg.ChannelsEditAdminRequest{
+		Channel:     ch.InputChannel(),
+		UserID:      u.InputUser(),
+		AdminRights: rights,
+		Rank:        "rank",
+	}).ThenRPCErr(getTestError())
+	a.Error(ch.EditAdminRights(ctx, u.InputUser(), AdminRights{
+		Rank:      "rank",
+		AddAdmins: true,
+	}))
+
+	mock.ExpectCall(&tg.ChannelsEditAdminRequest{
+		Channel:     ch.InputChannel(),
+		UserID:      u.InputUser(),
+		AdminRights: rights,
+		Rank:        "rank",
+	}).ThenResult(&tg.Updates{})
+	a.NoError(ch.EditAdminRights(ctx, u.InputUser(), AdminRights{
+		Rank:      "rank",
+		AddAdmins: true,
+	}))
 }

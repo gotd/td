@@ -139,7 +139,7 @@ func (c Chat) InviteLinks() InviteLinks {
 
 // ToBroadcast tries to convert this Chat to Broadcast.
 func (c Chat) ToBroadcast() (Broadcast, bool) {
-	return Broadcast{}, false
+	return Broadcast{}, c.IsBroadcast()
 }
 
 // IsBroadcast whether this Chat is Broadcast.
@@ -149,7 +149,7 @@ func (c Chat) IsBroadcast() bool {
 
 // ToSupergroup tries to convert this Chat to Supergroup.
 func (c Chat) ToSupergroup() (Supergroup, bool) {
-	return Supergroup{}, false
+	return Supergroup{}, c.IsSupergroup()
 }
 
 // IsSupergroup whether this Chat is Supergroup.
