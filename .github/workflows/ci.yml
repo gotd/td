@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@v2.4.0
 
       - name: Install Go
-        uses: actions/setup-go@v2.1.5
+        uses: actions/setup-go@v2.2.0
         with:
           stable: false
           go-version: ${{ matrix.go }}
