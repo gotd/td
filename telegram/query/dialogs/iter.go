@@ -116,7 +116,7 @@ func (m *Iterator) apply(r tg.MessagesDialogsClass) error {
 		entities = peer.EntitiesFromResult(dlgs)
 
 		m.count = dlgs.Count
-		m.lastBatch = len(dlgs.Dialogs) < m.limit
+		m.lastBatch = len(dlgs.Dialogs) == 0
 	default: // messages.dialogsNotModified#f0e3e596
 		return errors.Errorf("unexpected type %T", r)
 	}
