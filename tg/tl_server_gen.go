@@ -2204,6 +2204,23 @@ func (s *ServerDispatcher) OnContactsBlockFromReplies(f func(ctx context.Context
 	s.handlers[ContactsBlockFromRepliesRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnContactsResolvePhone(f func(ctx context.Context, phone string) (*ContactsResolvedPeer, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ContactsResolvePhoneRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Phone)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[ContactsResolvePhoneRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnMessagesGetMessages(f func(ctx context.Context, id []InputMessageClass) (MessagesMessagesClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesGetMessagesRequest
@@ -5042,6 +5059,23 @@ func (s *ServerDispatcher) OnMessagesReadReactions(f func(ctx context.Context, p
 	s.handlers[MessagesReadReactionsRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesSearchSentMedia(f func(ctx context.Context, request *MessagesSearchSentMediaRequest) (MessagesMessagesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesSearchSentMediaRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesMessagesBox{Messages: response}, nil
+	}
+
+	s.handlers[MessagesSearchSentMediaRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
@@ -7235,6 +7269,40 @@ func (s *ServerDispatcher) OnPhoneLeaveGroupCallPresentation(f func(ctx context.
 	}
 
 	s.handlers[PhoneLeaveGroupCallPresentationRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPhoneGetGroupCallStreamChannels(f func(ctx context.Context, call InputGroupCall) (*PhoneGroupCallStreamChannels, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PhoneGetGroupCallStreamChannelsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Call)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[PhoneGetGroupCallStreamChannelsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPhoneGetGroupCallStreamRtmpURL(f func(ctx context.Context, request *PhoneGetGroupCallStreamRtmpURLRequest) (*PhoneGroupCallStreamRtmpURL, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PhoneGetGroupCallStreamRtmpURLRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[PhoneGetGroupCallStreamRtmpURLRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnLangpackGetLangPack(f func(ctx context.Context, request *LangpackGetLangPackRequest) (*LangPackDifference, error)) {

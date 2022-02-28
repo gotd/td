@@ -1023,6 +1023,198 @@ func (b *SearchGlobalQueryBuilder) Collect(ctx context.Context) ([]Elem, error) 
 	return r, iter.Err()
 }
 
+// SearchSentMediaQueryBuilder is query builder of MessagesSearchSentMedia.
+type SearchSentMediaQueryBuilder struct {
+	raw       *tg.Client
+	req       tg.MessagesSearchSentMediaRequest
+	batchSize int
+}
+
+// SearchSentMedia creates query builder of MessagesSearchSentMedia.
+func (q *QueryBuilder) SearchSentMedia() *SearchSentMediaQueryBuilder {
+	b := &SearchSentMediaQueryBuilder{
+		raw:       q.raw,
+		batchSize: 1,
+		req: tg.MessagesSearchSentMediaRequest{
+			Filter: &tg.InputMessagesFilterEmpty{},
+		},
+	}
+
+	return b
+}
+
+// BatchSize sets buffer of message loaded from one request.
+// Be carefully, when set this limit, because Telegram does not return error if limit is too big,
+// so results can be incorrect.
+func (b *SearchSentMediaQueryBuilder) BatchSize(batchSize int) *SearchSentMediaQueryBuilder {
+	b.batchSize = batchSize
+	return b
+}
+
+// Filter sets Filter field of SearchSentMedia query.
+func (b *SearchSentMediaQueryBuilder) Filter(paramFilter tg.MessagesFilterClass) *SearchSentMediaQueryBuilder {
+	b.req.Filter = paramFilter
+	return b
+}
+
+// Q sets Q field of SearchSentMedia query.
+func (b *SearchSentMediaQueryBuilder) Q(paramQ string) *SearchSentMediaQueryBuilder {
+	b.req.Q = paramQ
+	return b
+}
+
+// ChatPhotos sets Filter field of SearchSentMedia query.
+func (b *SearchSentMediaQueryBuilder) ChatPhotos() *SearchSentMediaQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterChatPhotos{}
+	return b
+}
+
+// Contacts sets Filter field of SearchSentMedia query.
+func (b *SearchSentMediaQueryBuilder) Contacts() *SearchSentMediaQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterContacts{}
+	return b
+}
+
+// Document sets Filter field of SearchSentMedia query.
+func (b *SearchSentMediaQueryBuilder) Document() *SearchSentMediaQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterDocument{}
+	return b
+}
+
+// Geo sets Filter field of SearchSentMedia query.
+func (b *SearchSentMediaQueryBuilder) Geo() *SearchSentMediaQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterGeo{}
+	return b
+}
+
+// Gif sets Filter field of SearchSentMedia query.
+func (b *SearchSentMediaQueryBuilder) Gif() *SearchSentMediaQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterGif{}
+	return b
+}
+
+// Music sets Filter field of SearchSentMedia query.
+func (b *SearchSentMediaQueryBuilder) Music() *SearchSentMediaQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterMusic{}
+	return b
+}
+
+// MyMentions sets Filter field of SearchSentMedia query.
+func (b *SearchSentMediaQueryBuilder) MyMentions() *SearchSentMediaQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterMyMentions{}
+	return b
+}
+
+// PhoneCalls sets Filter field of SearchSentMedia query.
+func (b *SearchSentMediaQueryBuilder) PhoneCalls(paramMissed bool) *SearchSentMediaQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterPhoneCalls{
+		Missed: paramMissed,
+	}
+	return b
+}
+
+// PhotoVideo sets Filter field of SearchSentMedia query.
+func (b *SearchSentMediaQueryBuilder) PhotoVideo() *SearchSentMediaQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterPhotoVideo{}
+	return b
+}
+
+// Photos sets Filter field of SearchSentMedia query.
+func (b *SearchSentMediaQueryBuilder) Photos() *SearchSentMediaQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterPhotos{}
+	return b
+}
+
+// Pinned sets Filter field of SearchSentMedia query.
+func (b *SearchSentMediaQueryBuilder) Pinned() *SearchSentMediaQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterPinned{}
+	return b
+}
+
+// RoundVideo sets Filter field of SearchSentMedia query.
+func (b *SearchSentMediaQueryBuilder) RoundVideo() *SearchSentMediaQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterRoundVideo{}
+	return b
+}
+
+// RoundVoice sets Filter field of SearchSentMedia query.
+func (b *SearchSentMediaQueryBuilder) RoundVoice() *SearchSentMediaQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterRoundVoice{}
+	return b
+}
+
+// URL sets Filter field of SearchSentMedia query.
+func (b *SearchSentMediaQueryBuilder) URL() *SearchSentMediaQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterURL{}
+	return b
+}
+
+// Video sets Filter field of SearchSentMedia query.
+func (b *SearchSentMediaQueryBuilder) Video() *SearchSentMediaQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterVideo{}
+	return b
+}
+
+// Voice sets Filter field of SearchSentMedia query.
+func (b *SearchSentMediaQueryBuilder) Voice() *SearchSentMediaQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterVoice{}
+	return b
+}
+
+// Query implements Query interface.
+func (b *SearchSentMediaQueryBuilder) Query(ctx context.Context, req Request) (tg.MessagesMessagesClass, error) {
+	r := &tg.MessagesSearchSentMediaRequest{
+		Limit: req.Limit,
+	}
+
+	r.Filter = b.req.Filter
+	r.Q = b.req.Q
+	return b.raw.MessagesSearchSentMedia(ctx, r)
+}
+
+// Iter returns iterator using built query.
+func (b *SearchSentMediaQueryBuilder) Iter() *Iterator {
+	iter := NewIterator(b, b.batchSize)
+	return iter
+}
+
+// ForEach calls given callback on each iterator element.
+func (b *SearchSentMediaQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Elem) error) error {
+	iter := b.Iter()
+	for iter.Next(ctx) {
+		if err := cb(ctx, iter.Value()); err != nil {
+			return err
+		}
+	}
+	return iter.Err()
+}
+
+// Count fetches remote state to get number of elements.
+func (b *SearchSentMediaQueryBuilder) Count(ctx context.Context) (int, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return 0, errors.Wrap(err, "get total")
+	}
+	return c, nil
+}
+
+// Collect creates iterator and collects all elements to slice.
+func (b *SearchSentMediaQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return nil, errors.Wrap(err, "get total")
+	}
+
+	r := make([]Elem, 0, c)
+	for iter.Next(ctx) {
+		r = append(r, iter.Value())
+	}
+
+	return r, iter.Err()
+}
+
 // StatsGetMessagePublicForwardsQueryBuilder is query builder of StatsGetMessagePublicForwards.
 type StatsGetMessagePublicForwardsQueryBuilder struct {
 	raw        *tg.Client

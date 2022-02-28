@@ -41,6 +41,8 @@ type PhoneCreateGroupCallRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// RtmpStream field of PhoneCreateGroupCallRequest.
+	RtmpStream bool
 	// Associate the group call or livestream to the provided group/supergroup/channel¹
 	//
 	// Links:
@@ -77,6 +79,9 @@ func (c *PhoneCreateGroupCallRequest) Zero() bool {
 	if !(c.Flags.Zero()) {
 		return false
 	}
+	if !(c.RtmpStream == false) {
+		return false
+	}
 	if !(c.Peer == nil) {
 		return false
 	}
@@ -104,11 +109,13 @@ func (c *PhoneCreateGroupCallRequest) String() string {
 
 // FillFrom fills PhoneCreateGroupCallRequest from given interface.
 func (c *PhoneCreateGroupCallRequest) FillFrom(from interface {
+	GetRtmpStream() (value bool)
 	GetPeer() (value InputPeerClass)
 	GetRandomID() (value int)
 	GetTitle() (value string, ok bool)
 	GetScheduleDate() (value int, ok bool)
 }) {
+	c.RtmpStream = from.GetRtmpStream()
 	c.Peer = from.GetPeer()
 	c.RandomID = from.GetRandomID()
 	if val, ok := from.GetTitle(); ok {
@@ -145,6 +152,11 @@ func (c *PhoneCreateGroupCallRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "RtmpStream",
+			SchemaName: "rtmp_stream",
+			Null:       !c.Flags.Has(2),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -168,6 +180,9 @@ func (c *PhoneCreateGroupCallRequest) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (c *PhoneCreateGroupCallRequest) SetFlags() {
+	if !(c.RtmpStream == false) {
+		c.Flags.Set(2)
+	}
 	if !(c.Title == "") {
 		c.Flags.Set(0)
 	}
@@ -231,6 +246,7 @@ func (c *PhoneCreateGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode phone.createGroupCall#48cdc6d8: field flags: %w", err)
 		}
 	}
+	c.RtmpStream = c.Flags.Has(2)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -260,6 +276,25 @@ func (c *PhoneCreateGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 		c.ScheduleDate = value
 	}
 	return nil
+}
+
+// SetRtmpStream sets value of RtmpStream conditional field.
+func (c *PhoneCreateGroupCallRequest) SetRtmpStream(value bool) {
+	if value {
+		c.Flags.Set(2)
+		c.RtmpStream = true
+	} else {
+		c.Flags.Unset(2)
+		c.RtmpStream = false
+	}
+}
+
+// GetRtmpStream returns value of RtmpStream conditional field.
+func (c *PhoneCreateGroupCallRequest) GetRtmpStream() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(2)
 }
 
 // GetPeer returns value of Peer field.

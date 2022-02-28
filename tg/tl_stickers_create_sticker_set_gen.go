@@ -45,6 +45,8 @@ type StickersCreateStickerSetRequest struct {
 	Masks bool
 	// Whether this is an animated stickerset
 	Animated bool
+	// Videos field of StickersCreateStickerSetRequest.
+	Videos bool
 	// Stickerset owner
 	UserID InputUserClass
 	// Stickerset name, 1-64 chars
@@ -92,6 +94,9 @@ func (c *StickersCreateStickerSetRequest) Zero() bool {
 	if !(c.Animated == false) {
 		return false
 	}
+	if !(c.Videos == false) {
+		return false
+	}
 	if !(c.UserID == nil) {
 		return false
 	}
@@ -127,6 +132,7 @@ func (c *StickersCreateStickerSetRequest) String() string {
 func (c *StickersCreateStickerSetRequest) FillFrom(from interface {
 	GetMasks() (value bool)
 	GetAnimated() (value bool)
+	GetVideos() (value bool)
 	GetUserID() (value InputUserClass)
 	GetTitle() (value string)
 	GetShortName() (value string)
@@ -136,6 +142,7 @@ func (c *StickersCreateStickerSetRequest) FillFrom(from interface {
 }) {
 	c.Masks = from.GetMasks()
 	c.Animated = from.GetAnimated()
+	c.Videos = from.GetVideos()
 	c.UserID = from.GetUserID()
 	c.Title = from.GetTitle()
 	c.ShortName = from.GetShortName()
@@ -184,6 +191,11 @@ func (c *StickersCreateStickerSetRequest) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(1),
 		},
 		{
+			Name:       "Videos",
+			SchemaName: "videos",
+			Null:       !c.Flags.Has(4),
+		},
+		{
 			Name:       "UserID",
 			SchemaName: "user_id",
 		},
@@ -220,6 +232,9 @@ func (c *StickersCreateStickerSetRequest) SetFlags() {
 	}
 	if !(c.Animated == false) {
 		c.Flags.Set(1)
+	}
+	if !(c.Videos == false) {
+		c.Flags.Set(4)
 	}
 	if !(c.Thumb == nil) {
 		c.Flags.Set(2)
@@ -298,6 +313,7 @@ func (c *StickersCreateStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	c.Masks = c.Flags.Has(0)
 	c.Animated = c.Flags.Has(1)
+	c.Videos = c.Flags.Has(4)
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
@@ -389,6 +405,25 @@ func (c *StickersCreateStickerSetRequest) GetAnimated() (value bool) {
 		return
 	}
 	return c.Flags.Has(1)
+}
+
+// SetVideos sets value of Videos conditional field.
+func (c *StickersCreateStickerSetRequest) SetVideos(value bool) {
+	if value {
+		c.Flags.Set(4)
+		c.Videos = true
+	} else {
+		c.Flags.Unset(4)
+		c.Videos = false
+	}
+}
+
+// GetVideos returns value of Videos conditional field.
+func (c *StickersCreateStickerSetRequest) GetVideos() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(4)
 }
 
 // GetUserID returns value of UserID field.
