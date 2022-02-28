@@ -847,6 +847,208 @@ func (i *InputReportReasonFake) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// InputReportReasonIllegalDrugs represents TL type `inputReportReasonIllegalDrugs#a8eb2be`.
+//
+// See https://core.telegram.org/constructor/inputReportReasonIllegalDrugs for reference.
+type InputReportReasonIllegalDrugs struct {
+}
+
+// InputReportReasonIllegalDrugsTypeID is TL type id of InputReportReasonIllegalDrugs.
+const InputReportReasonIllegalDrugsTypeID = 0xa8eb2be
+
+// construct implements constructor of ReportReasonClass.
+func (i InputReportReasonIllegalDrugs) construct() ReportReasonClass { return &i }
+
+// Ensuring interfaces in compile-time for InputReportReasonIllegalDrugs.
+var (
+	_ bin.Encoder     = &InputReportReasonIllegalDrugs{}
+	_ bin.Decoder     = &InputReportReasonIllegalDrugs{}
+	_ bin.BareEncoder = &InputReportReasonIllegalDrugs{}
+	_ bin.BareDecoder = &InputReportReasonIllegalDrugs{}
+
+	_ ReportReasonClass = &InputReportReasonIllegalDrugs{}
+)
+
+func (i *InputReportReasonIllegalDrugs) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputReportReasonIllegalDrugs) String() string {
+	if i == nil {
+		return "InputReportReasonIllegalDrugs(nil)"
+	}
+	type Alias InputReportReasonIllegalDrugs
+	return fmt.Sprintf("InputReportReasonIllegalDrugs%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputReportReasonIllegalDrugs) TypeID() uint32 {
+	return InputReportReasonIllegalDrugsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputReportReasonIllegalDrugs) TypeName() string {
+	return "inputReportReasonIllegalDrugs"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputReportReasonIllegalDrugs) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputReportReasonIllegalDrugs",
+		ID:   InputReportReasonIllegalDrugsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputReportReasonIllegalDrugs) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputReportReasonIllegalDrugs#a8eb2be as nil")
+	}
+	b.PutID(InputReportReasonIllegalDrugsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputReportReasonIllegalDrugs) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputReportReasonIllegalDrugs#a8eb2be as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputReportReasonIllegalDrugs) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputReportReasonIllegalDrugs#a8eb2be to nil")
+	}
+	if err := b.ConsumeID(InputReportReasonIllegalDrugsTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputReportReasonIllegalDrugs#a8eb2be: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputReportReasonIllegalDrugs) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputReportReasonIllegalDrugs#a8eb2be to nil")
+	}
+	return nil
+}
+
+// InputReportReasonPersonalDetails represents TL type `inputReportReasonPersonalDetails#9ec7863d`.
+//
+// See https://core.telegram.org/constructor/inputReportReasonPersonalDetails for reference.
+type InputReportReasonPersonalDetails struct {
+}
+
+// InputReportReasonPersonalDetailsTypeID is TL type id of InputReportReasonPersonalDetails.
+const InputReportReasonPersonalDetailsTypeID = 0x9ec7863d
+
+// construct implements constructor of ReportReasonClass.
+func (i InputReportReasonPersonalDetails) construct() ReportReasonClass { return &i }
+
+// Ensuring interfaces in compile-time for InputReportReasonPersonalDetails.
+var (
+	_ bin.Encoder     = &InputReportReasonPersonalDetails{}
+	_ bin.Decoder     = &InputReportReasonPersonalDetails{}
+	_ bin.BareEncoder = &InputReportReasonPersonalDetails{}
+	_ bin.BareDecoder = &InputReportReasonPersonalDetails{}
+
+	_ ReportReasonClass = &InputReportReasonPersonalDetails{}
+)
+
+func (i *InputReportReasonPersonalDetails) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputReportReasonPersonalDetails) String() string {
+	if i == nil {
+		return "InputReportReasonPersonalDetails(nil)"
+	}
+	type Alias InputReportReasonPersonalDetails
+	return fmt.Sprintf("InputReportReasonPersonalDetails%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputReportReasonPersonalDetails) TypeID() uint32 {
+	return InputReportReasonPersonalDetailsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputReportReasonPersonalDetails) TypeName() string {
+	return "inputReportReasonPersonalDetails"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputReportReasonPersonalDetails) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputReportReasonPersonalDetails",
+		ID:   InputReportReasonPersonalDetailsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputReportReasonPersonalDetails) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputReportReasonPersonalDetails#9ec7863d as nil")
+	}
+	b.PutID(InputReportReasonPersonalDetailsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputReportReasonPersonalDetails) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputReportReasonPersonalDetails#9ec7863d as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputReportReasonPersonalDetails) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputReportReasonPersonalDetails#9ec7863d to nil")
+	}
+	if err := b.ConsumeID(InputReportReasonPersonalDetailsTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputReportReasonPersonalDetails#9ec7863d: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputReportReasonPersonalDetails) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputReportReasonPersonalDetails#9ec7863d to nil")
+	}
+	return nil
+}
+
 // ReportReasonClassName is schema name of ReportReasonClass.
 const ReportReasonClassName = "ReportReason"
 
@@ -868,6 +1070,8 @@ const ReportReasonClassName = "ReportReason"
 //  case *tg.InputReportReasonCopyright: // inputReportReasonCopyright#9b89f93a
 //  case *tg.InputReportReasonGeoIrrelevant: // inputReportReasonGeoIrrelevant#dbd4feed
 //  case *tg.InputReportReasonFake: // inputReportReasonFake#f5ddd6e7
+//  case *tg.InputReportReasonIllegalDrugs: // inputReportReasonIllegalDrugs#a8eb2be
+//  case *tg.InputReportReasonPersonalDetails: // inputReportReasonPersonalDetails#9ec7863d
 //  default: panic(v)
 //  }
 type ReportReasonClass interface {
@@ -948,6 +1152,20 @@ func DecodeReportReason(buf *bin.Buffer) (ReportReasonClass, error) {
 	case InputReportReasonFakeTypeID:
 		// Decoding inputReportReasonFake#f5ddd6e7.
 		v := InputReportReasonFake{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ReportReasonClass: %w", err)
+		}
+		return &v, nil
+	case InputReportReasonIllegalDrugsTypeID:
+		// Decoding inputReportReasonIllegalDrugs#a8eb2be.
+		v := InputReportReasonIllegalDrugs{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ReportReasonClass: %w", err)
+		}
+		return &v, nil
+	case InputReportReasonPersonalDetailsTypeID:
+		// Decoding inputReportReasonPersonalDetails#9ec7863d.
+		v := InputReportReasonPersonalDetails{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ReportReasonClass: %w", err)
 		}

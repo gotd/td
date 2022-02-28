@@ -247,6 +247,10 @@ type GroupCall struct {
 	CanStartVideo bool
 	// Whether the group call is currently being recorded
 	RecordVideoActive bool
+	// RtmpStream field of GroupCall.
+	RtmpStream bool
+	// ListenersHidden field of GroupCall.
+	ListenersHidden bool
 	// Group call ID
 	ID int64
 	// Group call access hash
@@ -320,6 +324,12 @@ func (g *GroupCall) Zero() bool {
 	if !(g.RecordVideoActive == false) {
 		return false
 	}
+	if !(g.RtmpStream == false) {
+		return false
+	}
+	if !(g.ListenersHidden == false) {
+		return false
+	}
 	if !(g.ID == 0) {
 		return false
 	}
@@ -371,6 +381,8 @@ func (g *GroupCall) FillFrom(from interface {
 	GetScheduleStartSubscribed() (value bool)
 	GetCanStartVideo() (value bool)
 	GetRecordVideoActive() (value bool)
+	GetRtmpStream() (value bool)
+	GetListenersHidden() (value bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64)
 	GetParticipantsCount() (value int)
@@ -388,6 +400,8 @@ func (g *GroupCall) FillFrom(from interface {
 	g.ScheduleStartSubscribed = from.GetScheduleStartSubscribed()
 	g.CanStartVideo = from.GetCanStartVideo()
 	g.RecordVideoActive = from.GetRecordVideoActive()
+	g.RtmpStream = from.GetRtmpStream()
+	g.ListenersHidden = from.GetListenersHidden()
 	g.ID = from.GetID()
 	g.AccessHash = from.GetAccessHash()
 	g.ParticipantsCount = from.GetParticipantsCount()
@@ -469,6 +483,16 @@ func (g *GroupCall) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(11),
 		},
 		{
+			Name:       "RtmpStream",
+			SchemaName: "rtmp_stream",
+			Null:       !g.Flags.Has(12),
+		},
+		{
+			Name:       "ListenersHidden",
+			SchemaName: "listeners_hidden",
+			Null:       !g.Flags.Has(13),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -536,6 +560,12 @@ func (g *GroupCall) SetFlags() {
 	}
 	if !(g.RecordVideoActive == false) {
 		g.Flags.Set(11)
+	}
+	if !(g.RtmpStream == false) {
+		g.Flags.Set(12)
+	}
+	if !(g.ListenersHidden == false) {
+		g.Flags.Set(13)
 	}
 	if !(g.Title == "") {
 		g.Flags.Set(3)
@@ -622,6 +652,8 @@ func (g *GroupCall) DecodeBare(b *bin.Buffer) error {
 	g.ScheduleStartSubscribed = g.Flags.Has(8)
 	g.CanStartVideo = g.Flags.Has(9)
 	g.RecordVideoActive = g.Flags.Has(11)
+	g.RtmpStream = g.Flags.Has(12)
+	g.ListenersHidden = g.Flags.Has(13)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -807,6 +839,44 @@ func (g *GroupCall) GetRecordVideoActive() (value bool) {
 		return
 	}
 	return g.Flags.Has(11)
+}
+
+// SetRtmpStream sets value of RtmpStream conditional field.
+func (g *GroupCall) SetRtmpStream(value bool) {
+	if value {
+		g.Flags.Set(12)
+		g.RtmpStream = true
+	} else {
+		g.Flags.Unset(12)
+		g.RtmpStream = false
+	}
+}
+
+// GetRtmpStream returns value of RtmpStream conditional field.
+func (g *GroupCall) GetRtmpStream() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(12)
+}
+
+// SetListenersHidden sets value of ListenersHidden conditional field.
+func (g *GroupCall) SetListenersHidden(value bool) {
+	if value {
+		g.Flags.Set(13)
+		g.ListenersHidden = true
+	} else {
+		g.Flags.Unset(13)
+		g.ListenersHidden = false
+	}
+}
+
+// GetListenersHidden returns value of ListenersHidden conditional field.
+func (g *GroupCall) GetListenersHidden() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(13)
 }
 
 // GetID returns value of ID field.

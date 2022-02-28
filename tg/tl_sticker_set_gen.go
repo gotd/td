@@ -50,8 +50,8 @@ type StickerSet struct {
 	Masks bool
 	// Is this an animated stickerpack
 	Animated bool
-	// Gifs field of StickerSet.
-	Gifs bool
+	// Videos field of StickerSet.
+	Videos bool
 	// When was this stickerset installed
 	//
 	// Use SetInstalledDate and GetInstalledDate helpers.
@@ -112,7 +112,7 @@ func (s *StickerSet) Zero() bool {
 	if !(s.Animated == false) {
 		return false
 	}
-	if !(s.Gifs == false) {
+	if !(s.Videos == false) {
 		return false
 	}
 	if !(s.InstalledDate == 0) {
@@ -164,7 +164,7 @@ func (s *StickerSet) FillFrom(from interface {
 	GetOfficial() (value bool)
 	GetMasks() (value bool)
 	GetAnimated() (value bool)
-	GetGifs() (value bool)
+	GetVideos() (value bool)
 	GetInstalledDate() (value int, ok bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64)
@@ -180,7 +180,7 @@ func (s *StickerSet) FillFrom(from interface {
 	s.Official = from.GetOfficial()
 	s.Masks = from.GetMasks()
 	s.Animated = from.GetAnimated()
-	s.Gifs = from.GetGifs()
+	s.Videos = from.GetVideos()
 	if val, ok := from.GetInstalledDate(); ok {
 		s.InstalledDate = val
 	}
@@ -249,8 +249,8 @@ func (s *StickerSet) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(5),
 		},
 		{
-			Name:       "Gifs",
-			SchemaName: "gifs",
+			Name:       "Videos",
+			SchemaName: "videos",
 			Null:       !s.Flags.Has(6),
 		},
 		{
@@ -315,7 +315,7 @@ func (s *StickerSet) SetFlags() {
 	if !(s.Animated == false) {
 		s.Flags.Set(5)
 	}
-	if !(s.Gifs == false) {
+	if !(s.Videos == false) {
 		s.Flags.Set(6)
 	}
 	if !(s.InstalledDate == 0) {
@@ -404,7 +404,7 @@ func (s *StickerSet) DecodeBare(b *bin.Buffer) error {
 	s.Official = s.Flags.Has(2)
 	s.Masks = s.Flags.Has(3)
 	s.Animated = s.Flags.Has(5)
-	s.Gifs = s.Flags.Has(6)
+	s.Videos = s.Flags.Has(6)
 	if s.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
@@ -564,19 +564,19 @@ func (s *StickerSet) GetAnimated() (value bool) {
 	return s.Flags.Has(5)
 }
 
-// SetGifs sets value of Gifs conditional field.
-func (s *StickerSet) SetGifs(value bool) {
+// SetVideos sets value of Videos conditional field.
+func (s *StickerSet) SetVideos(value bool) {
 	if value {
 		s.Flags.Set(6)
-		s.Gifs = true
+		s.Videos = true
 	} else {
 		s.Flags.Unset(6)
-		s.Gifs = false
+		s.Videos = false
 	}
 }
 
-// GetGifs returns value of Gifs conditional field.
-func (s *StickerSet) GetGifs() (value bool) {
+// GetVideos returns value of Videos conditional field.
+func (s *StickerSet) GetVideos() (value bool) {
 	if s == nil {
 		return
 	}
