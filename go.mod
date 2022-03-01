@@ -18,7 +18,7 @@ require (
 	github.com/rogpeppe/go-internal v1.8.1
 	github.com/stretchr/testify v1.7.0
 	go.uber.org/atomic v1.9.0
-	go.uber.org/multierr v1.7.0
+	go.uber.org/multierr v1.8.0
 	go.uber.org/zap v1.21.0
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
 	golang.org/x/net v0.0.0-20211015210444-4f30a5c0130f
