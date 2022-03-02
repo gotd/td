@@ -21,7 +21,7 @@ jobs:
             https://github.com/AlekSi/golang-tip/releases/download/tip/master.linux-amd64.tar.gz
           sudo tar -C /usr/local -xzf go.tar.gz
           sudo ln -s /usr/local/go/bin/* /usr/local/bin/
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Get Go environment
         id: go-env

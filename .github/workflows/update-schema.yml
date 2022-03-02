@@ -30,7 +30,7 @@ jobs:
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
 
       - name: Checkout latest code
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
 
       - name: Install Go
         uses: actions/setup-go@v2.2.0
