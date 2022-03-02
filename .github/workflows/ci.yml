@@ -34,7 +34,7 @@ jobs:
             runner: [self-hosted, linux, arm64]
           - arch: amd64
             runner: ubuntu-latest
-            go: 1.18
+            go: 1.18.0-rc.1
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
