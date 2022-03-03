@@ -29,9 +29,6 @@ jobs:
             go: 1.17
             runner: [self-hosted, linux, x64]
             flags: "-race"
-          - arch: arm64
-            go: 1.17
-            runner: [self-hosted, linux, arm64]
           - arch: amd64
             runner: ubuntu-latest
             go: 1.18.0-rc.1
