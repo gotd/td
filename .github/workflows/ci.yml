@@ -61,4 +61,3 @@ jobs:
           GOARCH: ${{ matrix.arch }}
           GOFLAGS: ${{ matrix.flags }}
         run: go test --timeout 5m ./...
-
