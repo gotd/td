@@ -54,64 +54,15 @@ var _ = []Peer{
 	Channel{},
 }
 
-// ResolveTDLibID creates Peer using given constant.TDLibPeerID.
-func (m *Manager) ResolveTDLibID(ctx context.Context, peerID constant.TDLibPeerID) (Peer, error) {
-	var p tg.PeerClass
-	switch {
-	case peerID.IsUser():
-		p = &tg.PeerUser{UserID: peerID.ToPlain()}
-	case peerID.IsChat():
-		p = &tg.PeerChat{ChatID: peerID.ToPlain()}
-	case peerID.IsChannel():
-		p = &tg.PeerChannel{ChannelID: peerID.ToPlain()}
-	default:
-		return nil, errors.Errorf("invalid ID %d", peerID)
-	}
-	return m.ResolvePeer(ctx, p)
-}
-
 // ResolvePeer creates Peer using given tg.PeerClass.
 func (m *Manager) ResolvePeer(ctx context.Context, p tg.PeerClass) (Peer, error) {
 	switch p := p.(type) {
 	case *tg.PeerUser:
-		v, ok, err := m.storage.Find(ctx, Key{
-			Prefix: usersPrefix,
-			ID:     p.UserID,
-		})
-		if err != nil {
-			return nil, err
-		}
-		u, err := m.GetUser(ctx, &tg.InputUser{
-			UserID:     p.UserID,
-			AccessHash: v.AccessHash,
-		})
-		if !ok && tgerr.Is(err, tg.ErrUserIDInvalid) {
-			return nil, &PeerNotFoundError{
-				Peer: p,
-			}
-		}
-		return u, err
+		return m.ResolveUserID(ctx, p.UserID)
 	case *tg.PeerChat:
-		c, err := m.GetChat(ctx, p.ChatID)
-		return c, err
+		return m.ResolveChatID(ctx, p.ChatID)
 	case *tg.PeerChannel:
-		v, ok, err := m.storage.Find(ctx, Key{
-			Prefix: channelPrefix,
-			ID:     p.ChannelID,
-		})
-		if err != nil {
-			return nil, err
-		}
-		c, err := m.GetChannel(ctx, &tg.InputChannel{
-			ChannelID:  p.ChannelID,
-			AccessHash: v.AccessHash,
-		})
-		if !ok && tgerr.Is(err, tg.ErrChannelInvalid) {
-			return nil, &PeerNotFoundError{
-				Peer: p,
-			}
-		}
-		return c, err
+		return m.ResolveChannelID(ctx, p.ChannelID)
 	default:
 		return nil, errors.Errorf("unexpected type %T", p)
 	}
