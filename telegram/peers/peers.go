@@ -11,7 +11,6 @@ import (
 
 	"github.com/gotd/td/constant"
 	"github.com/gotd/td/tg"
-	"github.com/gotd/td/tgerr"
 )
 
 // Peer represents generic peer.
@@ -41,6 +40,8 @@ type Peer interface {
 	InputPeer() tg.InputPeerClass
 	// Sync updates current object.
 	Sync(ctx context.Context) error
+	// Manager returns attached Manager.
+	Manager() *Manager
 
 	// Report reports a peer for violation of telegram's Terms of Service.
 	Report(ctx context.Context, reason tg.ReportReasonClass, message string) error

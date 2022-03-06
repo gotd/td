@@ -109,6 +109,11 @@ func (u User) Sync(ctx context.Context) error {
 	return nil
 }
 
+// Manager returns attached Manager.
+func (u User) Manager() *Manager {
+	return u.m
+}
+
 // Report reports a peer for violation of telegram's Terms of Service.
 func (u User) Report(ctx context.Context, reason tg.ReportReasonClass, message string) error {
 	if _, err := u.m.api.AccountReportPeer(ctx, &tg.AccountReportPeerRequest{

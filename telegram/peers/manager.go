@@ -39,3 +39,8 @@ func (m *Manager) Init(ctx context.Context) error {
 	}
 	return nil
 }
+
+// API returns used Client.
+func (m *Manager) API() *tg.Client {
+	return m.api
+}

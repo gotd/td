@@ -100,6 +100,11 @@ func (c Channel) Sync(ctx context.Context) error {
 	return nil
 }
 
+// Manager returns attached Manager.
+func (c Channel) Manager() *Manager {
+	return c.m
+}
+
 // Report reports a peer for violation of telegram's Terms of Service.
 func (c Channel) Report(ctx context.Context, reason tg.ReportReasonClass, message string) error {
 	if _, err := c.m.api.AccountReportPeer(ctx, &tg.AccountReportPeerRequest{
