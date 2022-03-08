@@ -73,7 +73,7 @@ func (c ChannelMember) JoinDate() (time.Time, bool) {
 	case *tg.ChannelParticipantSelf:
 		return time.Unix(int64(p.Date), 0), true
 	case *tg.ChannelParticipantCreator:
-		return c.creatorDate, false
+		return c.creatorDate, true
 	case *tg.ChannelParticipantAdmin:
 		return time.Unix(int64(p.Date), 0), true
 	case *tg.ChannelParticipantBanned:
