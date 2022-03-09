@@ -30,13 +30,3 @@ func (m *Manager) editReactions(ctx context.Context, p tg.InputPeerClass, reacti
 	}
 	return nil
 }
-
-func (m *Manager) editDefaultRights(ctx context.Context, p tg.InputPeerClass, rights ParticipantRights) error {
-	if _, err := m.api.MessagesEditChatDefaultBannedRights(ctx, &tg.MessagesEditChatDefaultBannedRightsRequest{
-		Peer:         p,
-		BannedRights: rights.IntoChatBannedRights(),
-	}); err != nil {
-		return errors.Wrap(err, "edit default rights")
-	}
-	return nil
-}

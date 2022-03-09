@@ -1,4 +1,4 @@
-package peers
+package members
 
 import (
 	"testing"
@@ -9,14 +9,14 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-func TestParticipantRights_ApplyFor(t *testing.T) {
-	var r ParticipantRights
+func TestMemberRights_ApplyFor(t *testing.T) {
+	var r MemberRights
 	r.ApplyFor(time.Second)
 	require.False(t, r.UntilDate.IsZero())
 }
 
-func TestParticipantRights_IntoChatBannedRights(t *testing.T) {
-	r := ParticipantRights{
+func TestMemberRights_IntoChatBannedRights(t *testing.T) {
+	r := MemberRights{
 		DenyViewMessages: true,
 		DenySendMessages: true,
 		DenySendMedia:    true,

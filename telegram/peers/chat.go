@@ -296,28 +296,4 @@ func (c Chat) deleteUser(ctx context.Context, user tg.InputUserClass, revokeHist
 	return nil
 }
 
-// KickUser kicks user participant.
-//
-// If revokeHistory is set, will delete all messages from this participant.
-func (c Chat) KickUser(ctx context.Context, participant tg.InputUserClass, revokeHistory bool) error {
-	return c.deleteUser(ctx, participant, revokeHistory)
-}
-
-// EditRights edits rights of all participants in this channel.
-func (c Chat) EditRights(ctx context.Context, options ParticipantRights) error {
-	return c.m.editDefaultRights(ctx, c.InputPeer(), options)
-}
-
-// EditAdmin edits admin rights for given user.
-func (c Chat) EditAdmin(ctx context.Context, user tg.InputUserClass, isAdmin bool) error {
-	if _, err := c.m.api.MessagesEditChatAdmin(ctx, &tg.MessagesEditChatAdminRequest{
-		ChatID:  c.ID(),
-		UserID:  user,
-		IsAdmin: isAdmin,
-	}); err != nil {
-		return errors.Wrap(err, "edit admin")
-	}
-	return nil
-}
-
 // TODO(tdakkota): add more getters, helpers and convertors

@@ -16,101 +16,6 @@ type ChannelMembers struct {
 	channel peers.Channel
 }
 
-// ChannelMember is channel Member.
-type ChannelMember struct {
-	parent      *ChannelMembers
-	creatorDate time.Time
-	user        peers.User
-	inviter     peers.User
-	raw         tg.ChannelParticipantClass
-}
-
-// Status returns member Status.
-func (c ChannelMember) Status() Status {
-	switch c.raw.(type) {
-	case *tg.ChannelParticipant:
-		return Plain
-	case *tg.ChannelParticipantSelf:
-		return Plain
-	case *tg.ChannelParticipantCreator:
-		return Creator
-	case *tg.ChannelParticipantAdmin:
-		return Admin
-	case *tg.ChannelParticipantBanned:
-		return Banned
-	case *tg.ChannelParticipantLeft:
-		return Left
-	default:
-		return -1
-	}
-}
-
-// Rank returns admin "rank".
-func (c ChannelMember) Rank() (string, bool) {
-	switch p := c.raw.(type) {
-	case *tg.ChannelParticipant:
-		return "", false
-	case *tg.ChannelParticipantSelf:
-		return "", false
-	case *tg.ChannelParticipantCreator:
-		return p.GetRank()
-	case *tg.ChannelParticipantAdmin:
-		return p.GetRank()
-	case *tg.ChannelParticipantBanned:
-		return "", false
-	case *tg.ChannelParticipantLeft:
-		return "", false
-	default:
-		return "", false
-	}
-}
-
-// JoinDate returns member join date, if it is available.
-func (c ChannelMember) JoinDate() (time.Time, bool) {
-	switch p := c.raw.(type) {
-	case *tg.ChannelParticipant:
-		return time.Unix(int64(p.Date), 0), true
-	case *tg.ChannelParticipantSelf:
-		return time.Unix(int64(p.Date), 0), true
-	case *tg.ChannelParticipantCreator:
-		return c.creatorDate, true
-	case *tg.ChannelParticipantAdmin:
-		return time.Unix(int64(p.Date), 0), true
-	case *tg.ChannelParticipantBanned:
-		return time.Unix(int64(p.Date), 0), true
-	case *tg.ChannelParticipantLeft:
-		return time.Time{}, false
-	default:
-		return time.Time{}, false
-	}
-}
-
-// InvitedBy returns user that invited this member.
-func (c ChannelMember) InvitedBy() (peers.User, bool) {
-	switch p := c.raw.(type) {
-	case *tg.ChannelParticipant:
-		return peers.User{}, false
-	case *tg.ChannelParticipantSelf:
-		return c.inviter, true
-	case *tg.ChannelParticipantCreator:
-		return peers.User{}, false
-	case *tg.ChannelParticipantAdmin:
-		_, has := p.GetInviterID()
-		return c.inviter, has
-	case *tg.ChannelParticipantBanned:
-		return peers.User{}, false
-	case *tg.ChannelParticipantLeft:
-		return peers.User{}, false
-	default:
-		return peers.User{}, false
-	}
-}
-
-// User returns member User object.
-func (c ChannelMember) User() peers.User {
-	return c.user
-}
-
 func (c *ChannelMembers) query(ctx context.Context, offset, limit int) (*tg.ChannelsChannelParticipants, error) {
 	raw := c.m.API()
 	p, err := raw.ChannelsGetParticipants(ctx, &tg.ChannelsGetParticipantsRequest{
@@ -158,13 +63,13 @@ func (c *ChannelMembers) ForEach(ctx context.Context, cb Callback) error {
 		if len(m.Participants) < 1 {
 			return nil
 		}
-		for i, participant := range m.Participants {
+		for i, member := range m.Participants {
 			var (
 				userID    int64
 				inviterID int64
 				err       error
 			)
-			switch p := participant.(type) {
+			switch p := member.(type) {
 			case *tg.ChannelParticipant:
 				userID = p.UserID
 			case *tg.ChannelParticipantSelf:
@@ -200,7 +105,7 @@ func (c *ChannelMembers) ForEach(ctx context.Context, cb Callback) error {
 				creatorDate: channelDate,
 				user:        user,
 				inviter:     peers.User{},
-				raw:         participant,
+				raw:         member,
 			}
 			if inviterID != 0 {
 				inviter, err := c.m.ResolveUserID(ctx, inviterID)
@@ -228,11 +133,84 @@ func (c *ChannelMembers) Count(ctx context.Context) (int, error) {
 	return m.Count, nil
 }
 
+// Peer returns chat object.
+func (c *ChannelMembers) Peer() peers.Peer {
+	return c.channel
+}
+
+// Kick kicks user member.
+//
+// Needed for parity with ChatMembers to define common interface.
+//
+// If revokeHistory is set, will delete all messages from this member.
+func (c *ChannelMembers) Kick(ctx context.Context, member tg.InputUserClass, revokeHistory bool) error {
+	p := convertInputUserToInputPeer(member)
+	if revokeHistory {
+		if _, err := c.m.API().ChannelsDeleteParticipantHistory(ctx, &tg.ChannelsDeleteParticipantHistoryRequest{
+			Channel:     c.channel.InputChannel(),
+			Participant: p,
+		}); err != nil {
+			return errors.Wrap(err, "revoke history")
+		}
+	}
+	return c.KickMember(ctx, p)
+}
+
+// KickMember kicks member.
+//
+// Unlike Kick, KickMember can be used to kick chat member that uses send-as-channel mode.
+func (c *ChannelMembers) KickMember(ctx context.Context, member tg.InputPeerClass) error {
+	return c.EditMemberRights(ctx, member, MemberRights{
+		DenyViewMessages: true,
+	})
+}
+
+// EditMemberRights edits member rights in this channel.
+func (c *ChannelMembers) EditMemberRights(
+	ctx context.Context,
+	member tg.InputPeerClass,
+	options MemberRights,
+) error {
+	return c.editMemberRights(ctx, member, options)
+}
+
+func (c *ChannelMembers) editMemberRights(ctx context.Context, p tg.InputPeerClass, options MemberRights) error {
+	if _, err := c.m.API().ChannelsEditBanned(ctx, &tg.ChannelsEditBannedRequest{
+		Channel:      c.channel.InputChannel(),
+		Participant:  p,
+		BannedRights: options.IntoChatBannedRights(),
+	}); err != nil {
+		return errors.Wrap(err, "edit member rights")
+	}
+	return nil
+}
+
+// EditRights edits rights of all members in this channel.
+func (c *ChannelMembers) EditRights(ctx context.Context, options MemberRights) error {
+	return editDefaultRights(ctx, c.m.API(), c.channel.InputPeer(), options)
+}
+
+// EditAdminRights edits admin rights of given user in this channel.
+func (c *ChannelMembers) EditAdminRights(
+	ctx context.Context,
+	admin tg.InputUserClass,
+	options AdminRights,
+) error {
+	if _, err := c.m.API().ChannelsEditAdmin(ctx, &tg.ChannelsEditAdminRequest{
+		Channel:     c.channel.InputChannel(),
+		UserID:      admin,
+		AdminRights: options.IntoChatAdminRights(),
+		Rank:        options.Rank,
+	}); err != nil {
+		return errors.Wrap(err, "edit admin rights")
+	}
+	return nil
+}
+
 // Channel returns recent channel members.
-func Channel(ctx context.Context, channel peers.Channel) (*ChannelMembers, error) {
-	m := channel.Manager()
+func Channel(channel peers.Channel) *ChannelMembers {
 	return &ChannelMembers{
-		m:       m,
+		m:       channel.Manager(),
 		channel: channel,
-	}, nil
+	}
 }

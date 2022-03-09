@@ -1,4 +1,4 @@
-package peers
+package members
 
 import (
 	"time"
@@ -55,8 +55,8 @@ func (b AdminRights) IntoChatAdminRights() (r tg.ChatAdminRights) {
 	return r
 }
 
-// ParticipantRights represents participant right settings.
-type ParticipantRights struct {
+// MemberRights represents member right settings.
+type MemberRights struct {
 	// If set, does not allow a user to view messages in a supergroup/channel/chat.
 	//
 	// In fact, user will be kicked.
@@ -90,12 +90,12 @@ type ParticipantRights struct {
 }
 
 // ApplyFor sets duration of validity of set rights.
-func (b *ParticipantRights) ApplyFor(d time.Duration) {
+func (b *MemberRights) ApplyFor(d time.Duration) {
 	b.UntilDate = time.Now().Add(d)
 }
 
-// IntoChatBannedRights converts ParticipantRights into tg.ChatBannedRights.
-func (b ParticipantRights) IntoChatBannedRights() (r tg.ChatBannedRights) {
+// IntoChatBannedRights converts MemberRights into tg.ChatBannedRights.
+func (b MemberRights) IntoChatBannedRights() (r tg.ChatBannedRights) {
 	r = tg.ChatBannedRights{
 		ViewMessages: b.DenyViewMessages,
 		SendMessages: b.DenySendMessages,

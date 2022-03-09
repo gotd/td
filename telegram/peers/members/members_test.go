@@ -1,13 +1,16 @@
 package members
 
 import (
+	"context"
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
 
 	"github.com/gotd/td/telegram/peers"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 	"github.com/gotd/td/tgmock"
 )
 
@@ -74,4 +77,52 @@ func getTestChatFull(participants tg.ChatParticipantsClass) *tg.ChatFull {
 	}
 	u.SetFlags()
 	return u
+}
+
+func getTestUser() *tg.User {
+	u := &tg.User{
+		Self:       false,
+		Bot:        false,
+		ID:         11,
+		AccessHash: 10,
+		FirstName:  "Julia",
+		LastName:   "Ann",
+		Username:   "aboba",
+	}
+	u.SetFlags()
+	return u
+}
+
+func getTestError() *tgerr.Error {
+	return &tgerr.Error{
+		Code:    1337,
+		Message: "TEST_ERROR",
+		Type:    "TEST_ERROR",
+	}
+}
+
+func TestEditRights(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	mock, m := testManager(t)
+
+	rights := tg.ChatBannedRights{
+		SendInline: true,
+	}
+	rights.SetFlags()
+	req := func(p Members) *tgmock.RequestBuilder {
+		return mock.ExpectCall(&tg.MessagesEditChatDefaultBannedRightsRequest{
+			Peer:         p.Peer().InputPeer(),
+			BannedRights: rights,
+		})
+	}
+	for _, p := range []Members{
+		Chat(m.Chat(getTestChat())),
+		Channel(m.Channel(getTestChannel())),
+	} {
+		req(p).ThenRPCErr(getTestError())
+		a.Error(p.EditRights(ctx, MemberRights{DenySendInline: true}))
+		req(p).ThenResult(&tg.Updates{})
+		a.NoError(p.EditRights(ctx, MemberRights{DenySendInline: true}))
+	}
 }

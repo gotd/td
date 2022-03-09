@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/gotd/td/telegram/peers"
+	"github.com/gotd/td/tg"
 )
 
 var _ = []Member{
@@ -39,4 +40,12 @@ type Members interface {
 	ForEach(ctx context.Context, cb Callback) error
 	// Count returns total count of members.
 	Count(ctx context.Context) (int, error)
+	// Peer returns chat object.
+	Peer() peers.Peer
+	// Kick kicks user member.
+	//
+	// If revokeHistory is set, will delete all messages from this member.
+	Kick(ctx context.Context, member tg.InputUserClass, revokeHistory bool) error
+	// EditRights edits rights of all members in this chat/channel.
+	EditRights(ctx context.Context, options MemberRights) error
 }
