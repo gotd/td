@@ -26,8 +26,10 @@ type multiChat interface {
 	SetDescription(ctx context.Context, about string) error
 
 	InviteLinks() InviteLinks
-	ToSupergroup() (Supergroup, bool)
 	ToBroadcast() (Broadcast, bool)
+	IsBroadcast() bool
+	ToSupergroup() (Supergroup, bool)
+	IsSupergroup() bool
 
 	SetReactions(ctx context.Context, r ...string) error
 	DisableReactions(ctx context.Context) error

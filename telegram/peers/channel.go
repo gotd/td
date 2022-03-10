@@ -100,6 +100,11 @@ func (c Channel) Sync(ctx context.Context) error {
 	return nil
 }
 
+// Manager returns attached Manager.
+func (c Channel) Manager() *Manager {
+	return c.m
+}
+
 // Report reports a peer for violation of telegram's Terms of Service.
 func (c Channel) Report(ctx context.Context, reason tg.ReportReasonClass, message string) error {
 	if _, err := c.m.api.AccountReportPeer(ctx, &tg.AccountReportPeerRequest{
@@ -130,7 +135,7 @@ func (c Channel) FullRaw(ctx context.Context) (*tg.ChannelFull, error) {
 
 // ToBroadcast tries to convert this Channel to Broadcast.
 func (c Channel) ToBroadcast() (Broadcast, bool) {
-	if !c.raw.Broadcast {
+	if !c.IsBroadcast() {
 		return Broadcast{}, false
 	}
 	return Broadcast{
@@ -138,14 +143,24 @@ func (c Channel) ToBroadcast() (Broadcast, bool) {
 	}, true
 }
 
+// IsBroadcast whether this Channel is Broadcast.
+func (c Channel) IsBroadcast() bool {
+	return c.raw.Broadcast
+}
+
 // ToSupergroup tries to convert this Channel to Supergroup.
 func (c Channel) ToSupergroup() (Supergroup, bool) {
-	if !c.raw.Megagroup {
+	if !c.IsSupergroup() {
 		return Supergroup{}, false
 	}
 	return Supergroup{
 		Channel: c,
 	}, true
+}
+
+// IsSupergroup whether this Channel is Supergroup.
+func (c Channel) IsSupergroup() bool {
+	return c.raw.Megagroup
 }
 
 // InviteLinks returns InviteLinks for this peer.
@@ -203,6 +218,7 @@ func (c Channel) NoForwards() bool {
 //
 // See https://core.telegram.org/api/rights.
 func (c Channel) AdminRights() (tg.ChatAdminRights, bool) {
+	// TODO(tdakkota): add wrapper for raw object?
 	return c.raw.GetAdminRights()
 }
 
@@ -210,6 +226,7 @@ func (c Channel) AdminRights() (tg.ChatAdminRights, bool) {
 //
 // See https://core.telegram.org/api/rights.
 func (c Channel) BannedRights() (tg.ChatBannedRights, bool) {
+	// TODO(tdakkota): add wrapper for raw object?
 	return c.raw.GetBannedRights()
 }
 
@@ -217,6 +234,7 @@ func (c Channel) BannedRights() (tg.ChatBannedRights, bool) {
 //
 // See https://core.telegram.org/api/rights.
 func (c Channel) DefaultBannedRights() (tg.ChatBannedRights, bool) {
+	// TODO(tdakkota): add wrapper for raw object?
 	return c.raw.GetDefaultBannedRights()
 }
 
@@ -263,36 +281,19 @@ func (c Channel) SetTitle(ctx context.Context, title string) error {
 
 // SetDescription sets new description for this Chat.
 func (c Channel) SetDescription(ctx context.Context, about string) error {
-	if _, err := c.m.api.MessagesEditChatAbout(ctx, &tg.MessagesEditChatAboutRequest{
-		Peer:  c.InputPeer(),
-		About: about,
-	}); err != nil {
-		return errors.Wrap(err, "edit channel about")
-	}
-	return nil
+	return c.m.editAbout(ctx, c.InputPeer(), about)
 }
 
 // SetReactions sets list of available reactions.
 //
 // Empty list disables reactions at all.
 func (c Channel) SetReactions(ctx context.Context, reactions ...string) error {
-	return c.setReactions(ctx, reactions...)
+	return c.m.editReactions(ctx, c.InputPeer(), reactions...)
 }
 
 // DisableReactions disables reactions.
 func (c Channel) DisableReactions(ctx context.Context) error {
-	return c.setReactions(ctx)
-}
-
-func (c Channel) setReactions(ctx context.Context, reactions ...string) error {
-	if _, err := c.m.api.MessagesSetChatAvailableReactions(ctx, &tg.MessagesSetChatAvailableReactionsRequest{
-		Peer:               c.InputPeer(),
-		AvailableReactions: reactions,
-	}); err != nil {
-		return errors.Wrap(err, "set reactions")
-	}
-
-	return nil
+	return c.m.editReactions(ctx, c.InputPeer())
 }
 
 // TODO(tdakkota): add more getters, helpers and convertors

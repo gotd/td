@@ -96,6 +96,11 @@ func (c Chat) Sync(ctx context.Context) error {
 	return nil
 }
 
+// Manager returns attached Manager.
+func (c Chat) Manager() *Manager {
+	return c.m
+}
+
 // Report reports a peer for violation of telegram's Terms of Service.
 func (c Chat) Report(ctx context.Context, reason tg.ReportReasonClass, message string) error {
 	if _, err := c.m.api.AccountReportPeer(ctx, &tg.AccountReportPeerRequest{
@@ -139,12 +144,22 @@ func (c Chat) InviteLinks() InviteLinks {
 
 // ToBroadcast tries to convert this Chat to Broadcast.
 func (c Chat) ToBroadcast() (Broadcast, bool) {
-	return Broadcast{}, false
+	return Broadcast{}, c.IsBroadcast()
+}
+
+// IsBroadcast whether this Chat is Broadcast.
+func (c Chat) IsBroadcast() bool {
+	return false
 }
 
 // ToSupergroup tries to convert this Chat to Supergroup.
 func (c Chat) ToSupergroup() (Supergroup, bool) {
-	return Supergroup{}, false
+	return Supergroup{}, c.IsSupergroup()
+}
+
+// IsSupergroup whether this Chat is Supergroup.
+func (c Chat) IsSupergroup() bool {
+	return false
 }
 
 // Creator whether the current user is the creator of this group.
@@ -196,6 +211,7 @@ func (c Chat) ParticipantsCount() int {
 //
 // See https://core.telegram.org/api/rights.
 func (c Chat) AdminRights() (tg.ChatAdminRights, bool) {
+	// TODO(tdakkota): add wrapper for raw object?
 	return c.raw.GetAdminRights()
 }
 
@@ -203,6 +219,7 @@ func (c Chat) AdminRights() (tg.ChatAdminRights, bool) {
 //
 // See https://core.telegram.org/api/rights.
 func (c Chat) DefaultBannedRights() (tg.ChatBannedRights, bool) {
+	// TODO(tdakkota): add wrapper for raw object?
 	return c.raw.GetDefaultBannedRights()
 }
 
@@ -240,13 +257,19 @@ func (c Chat) SetTitle(ctx context.Context, title string) error {
 
 // SetDescription sets new description for this Chat.
 func (c Chat) SetDescription(ctx context.Context, about string) error {
-	if _, err := c.m.api.MessagesEditChatAbout(ctx, &tg.MessagesEditChatAboutRequest{
-		Peer:  c.InputPeer(),
-		About: about,
-	}); err != nil {
-		return errors.Wrap(err, "edit chat about")
-	}
-	return nil
+	return c.m.editAbout(ctx, c.InputPeer(), about)
+}
+
+// SetReactions sets list of available reactions.
+//
+// Empty list disables reactions at all.
+func (c Chat) SetReactions(ctx context.Context, reactions ...string) error {
+	return c.m.editReactions(ctx, c.InputPeer(), reactions...)
+}
+
+// DisableReactions disables reactions.
+func (c Chat) DisableReactions(ctx context.Context) error {
+	return c.m.editReactions(ctx, c.InputPeer())
 }
 
 // LeaveAndDelete leaves this chat and removes the entire chat history of this user in this chat.
@@ -255,36 +278,21 @@ func (c Chat) LeaveAndDelete(ctx context.Context) error {
 }
 
 func (c Chat) deleteMe(ctx context.Context, revokeHistory bool) error {
+	return c.deleteUser(ctx, &tg.InputUserSelf{}, revokeHistory)
+}
+
+func (c Chat) deleteUser(ctx context.Context, user tg.InputUserClass, revokeHistory bool) error {
 	if _, err := c.m.api.MessagesDeleteChatUser(ctx, &tg.MessagesDeleteChatUserRequest{
 		RevokeHistory: revokeHistory,
 		ChatID:        c.raw.GetID(),
-		UserID:        &tg.InputUserSelf{},
+		UserID:        user,
 	}); err != nil {
-		return errors.Wrapf(err, "leave (revoke: %v)", revokeHistory)
+		_, self := user.(*tg.InputUserSelf)
+		if self {
+			return errors.Wrapf(err, "leave (revoke: %v)", revokeHistory)
+		}
+		return errors.Wrapf(err, "delete user (revoke: %v)", revokeHistory)
 	}
-	return nil
-}
-
-// SetReactions sets list of available reactions.
-//
-// Empty list disables reactions at all.
-func (c Chat) SetReactions(ctx context.Context, reactions ...string) error {
-	return c.setReactions(ctx, reactions...)
-}
-
-// DisableReactions disables reactions.
-func (c Chat) DisableReactions(ctx context.Context) error {
-	return c.setReactions(ctx)
-}
-
-func (c Chat) setReactions(ctx context.Context, reactions ...string) error {
-	if _, err := c.m.api.MessagesSetChatAvailableReactions(ctx, &tg.MessagesSetChatAvailableReactionsRequest{
-		Peer:               c.InputPeer(),
-		AvailableReactions: reactions,
-	}); err != nil {
-		return errors.Wrap(err, "set reactions")
-	}
-
 	return nil
 }
 
