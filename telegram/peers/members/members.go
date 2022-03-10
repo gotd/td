@@ -24,6 +24,10 @@ type Member interface {
 	InvitedBy() (peers.User, bool)
 	// User returns member User object.
 	User() peers.User
+	// Kick kicks this member.
+	//
+	// If revokeHistory is set, will delete all messages from this member.
+	Kick(ctx context.Context, revokeHistory bool) error
 }
 
 // Callback is type for member iterator callback.

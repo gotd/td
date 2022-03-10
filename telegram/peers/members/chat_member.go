@@ -1,6 +1,7 @@
 package members
 
 import (
+	"context"
 	"time"
 
 	"github.com/gotd/td/telegram/peers"
@@ -66,4 +67,11 @@ func (c ChatMember) InvitedBy() (peers.User, bool) {
 // User returns member User object.
 func (c ChatMember) User() peers.User {
 	return c.user
+}
+
+// Kick kicks this member.
+//
+// If revokeHistory is set, will delete all messages from this member.
+func (c ChatMember) Kick(ctx context.Context, revokeHistory bool) error {
+	return c.parent.Kick(ctx, c.user.InputUser(), revokeHistory)
 }
