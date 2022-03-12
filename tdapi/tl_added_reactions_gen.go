@@ -33,7 +33,7 @@ var (
 
 // AddedReactions represents TL type `addedReactions#77bf7590`.
 type AddedReactions struct {
-	// The total count of found reactions
+	// The total number of found reactions
 	TotalCount int32
 	// The list of added reactions
 	Reactions []AddedReaction

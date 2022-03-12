@@ -35,7 +35,7 @@ var (
 type ToggleSessionCanAcceptCallsRequest struct {
 	// Session identifier
 	SessionID int64
-	// True, if incoming calls can be accepted by the session
+	// Pass true to allow accepting incoming calls by the session; pass false otherwise
 	CanAcceptCalls bool
 }
 

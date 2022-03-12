@@ -35,7 +35,7 @@ var (
 type SearchEmojisRequest struct {
 	// Text to search for
 	Text string
-	// True, if only emojis, which exactly match text needs to be returned
+	// Pass true if only emojis, which exactly match the text, needs to be returned
 	ExactMatch bool
 	// List of possible IETF language tags of the user's input language; may be empty if
 	// unknown

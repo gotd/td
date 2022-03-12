@@ -39,7 +39,7 @@ type ValidateOrderInfoRequest struct {
 	MessageID int64
 	// The order information, provided by the user; pass null if empty
 	OrderInfo OrderInfo
-	// True, if the order information can be saved
+	// Pass true to save the order information
 	AllowSave bool
 }
 

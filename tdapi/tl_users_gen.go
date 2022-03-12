@@ -33,7 +33,7 @@ var (
 
 // Users represents TL type `users#9d955a12`.
 type Users struct {
-	// Approximate total count of users found
+	// Approximate total number of users found
 	TotalCount int32
 	// A list of user identifiers
 	UserIDs []int64

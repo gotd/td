@@ -44,7 +44,7 @@ type LanguagePackInfo struct {
 	// Name of the language in that language
 	NativeName string
 	// A language code to be used to apply plural forms. See https://www.unicode
-	// org/cldr/charts/latest/supplemental/language_plural_rules.html for more info
+	// org/cldr/charts/latest/supplemental/language_plural_rules.html for more information
 	PluralCode string
 	// True, if the language pack is official
 	IsOfficial bool

@@ -12668,6 +12668,909 @@ func (u *UpdateFileGenerationStop) GetGenerationID() (value int64) {
 	return u.GenerationID
 }
 
+// UpdateFileDownloads represents TL type `updateFileDownloads#e8cd12c7`.
+type UpdateFileDownloads struct {
+	// Total size of files in the file download list, in bytes
+	TotalSize int64
+	// Total number of files in the file download list
+	TotalCount int32
+	// Total downloaded size of files in the file download list, in bytes
+	DownloadedSize int64
+}
+
+// UpdateFileDownloadsTypeID is TL type id of UpdateFileDownloads.
+const UpdateFileDownloadsTypeID = 0xe8cd12c7
+
+// construct implements constructor of UpdateClass.
+func (u UpdateFileDownloads) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateFileDownloads.
+var (
+	_ bin.Encoder     = &UpdateFileDownloads{}
+	_ bin.Decoder     = &UpdateFileDownloads{}
+	_ bin.BareEncoder = &UpdateFileDownloads{}
+	_ bin.BareDecoder = &UpdateFileDownloads{}
+
+	_ UpdateClass = &UpdateFileDownloads{}
+)
+
+func (u *UpdateFileDownloads) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.TotalSize == 0) {
+		return false
+	}
+	if !(u.TotalCount == 0) {
+		return false
+	}
+	if !(u.DownloadedSize == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateFileDownloads) String() string {
+	if u == nil {
+		return "UpdateFileDownloads(nil)"
+	}
+	type Alias UpdateFileDownloads
+	return fmt.Sprintf("UpdateFileDownloads%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateFileDownloads) TypeID() uint32 {
+	return UpdateFileDownloadsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateFileDownloads) TypeName() string {
+	return "updateFileDownloads"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateFileDownloads) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateFileDownloads",
+		ID:   UpdateFileDownloadsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "TotalSize",
+			SchemaName: "total_size",
+		},
+		{
+			Name:       "TotalCount",
+			SchemaName: "total_count",
+		},
+		{
+			Name:       "DownloadedSize",
+			SchemaName: "downloaded_size",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateFileDownloads) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateFileDownloads#e8cd12c7 as nil")
+	}
+	b.PutID(UpdateFileDownloadsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateFileDownloads) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateFileDownloads#e8cd12c7 as nil")
+	}
+	b.PutInt53(u.TotalSize)
+	b.PutInt32(u.TotalCount)
+	b.PutInt53(u.DownloadedSize)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateFileDownloads) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateFileDownloads#e8cd12c7 to nil")
+	}
+	if err := b.ConsumeID(UpdateFileDownloadsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateFileDownloads#e8cd12c7: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateFileDownloads) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateFileDownloads#e8cd12c7 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateFileDownloads#e8cd12c7: field total_size: %w", err)
+		}
+		u.TotalSize = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateFileDownloads#e8cd12c7: field total_count: %w", err)
+		}
+		u.TotalCount = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateFileDownloads#e8cd12c7: field downloaded_size: %w", err)
+		}
+		u.DownloadedSize = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateFileDownloads) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateFileDownloads#e8cd12c7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateFileDownloads")
+	b.Comma()
+	b.FieldStart("total_size")
+	b.PutInt53(u.TotalSize)
+	b.Comma()
+	b.FieldStart("total_count")
+	b.PutInt32(u.TotalCount)
+	b.Comma()
+	b.FieldStart("downloaded_size")
+	b.PutInt53(u.DownloadedSize)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateFileDownloads) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateFileDownloads#e8cd12c7 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateFileDownloads"); err != nil {
+				return fmt.Errorf("unable to decode updateFileDownloads#e8cd12c7: %w", err)
+			}
+		case "total_size":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateFileDownloads#e8cd12c7: field total_size: %w", err)
+			}
+			u.TotalSize = value
+		case "total_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateFileDownloads#e8cd12c7: field total_count: %w", err)
+			}
+			u.TotalCount = value
+		case "downloaded_size":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateFileDownloads#e8cd12c7: field downloaded_size: %w", err)
+			}
+			u.DownloadedSize = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetTotalSize returns value of TotalSize field.
+func (u *UpdateFileDownloads) GetTotalSize() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.TotalSize
+}
+
+// GetTotalCount returns value of TotalCount field.
+func (u *UpdateFileDownloads) GetTotalCount() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.TotalCount
+}
+
+// GetDownloadedSize returns value of DownloadedSize field.
+func (u *UpdateFileDownloads) GetDownloadedSize() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.DownloadedSize
+}
+
+// UpdateFileAddedToDownloads represents TL type `updateFileAddedToDownloads#5ff5921a`.
+type UpdateFileAddedToDownloads struct {
+	// The added file download
+	FileDownload FileDownload
+	// New number of being downloaded and recently downloaded files found
+	Counts DownloadedFileCounts
+}
+
+// UpdateFileAddedToDownloadsTypeID is TL type id of UpdateFileAddedToDownloads.
+const UpdateFileAddedToDownloadsTypeID = 0x5ff5921a
+
+// construct implements constructor of UpdateClass.
+func (u UpdateFileAddedToDownloads) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateFileAddedToDownloads.
+var (
+	_ bin.Encoder     = &UpdateFileAddedToDownloads{}
+	_ bin.Decoder     = &UpdateFileAddedToDownloads{}
+	_ bin.BareEncoder = &UpdateFileAddedToDownloads{}
+	_ bin.BareDecoder = &UpdateFileAddedToDownloads{}
+
+	_ UpdateClass = &UpdateFileAddedToDownloads{}
+)
+
+func (u *UpdateFileAddedToDownloads) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.FileDownload.Zero()) {
+		return false
+	}
+	if !(u.Counts.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateFileAddedToDownloads) String() string {
+	if u == nil {
+		return "UpdateFileAddedToDownloads(nil)"
+	}
+	type Alias UpdateFileAddedToDownloads
+	return fmt.Sprintf("UpdateFileAddedToDownloads%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateFileAddedToDownloads) TypeID() uint32 {
+	return UpdateFileAddedToDownloadsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateFileAddedToDownloads) TypeName() string {
+	return "updateFileAddedToDownloads"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateFileAddedToDownloads) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateFileAddedToDownloads",
+		ID:   UpdateFileAddedToDownloadsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "FileDownload",
+			SchemaName: "file_download",
+		},
+		{
+			Name:       "Counts",
+			SchemaName: "counts",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateFileAddedToDownloads) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateFileAddedToDownloads#5ff5921a as nil")
+	}
+	b.PutID(UpdateFileAddedToDownloadsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateFileAddedToDownloads) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateFileAddedToDownloads#5ff5921a as nil")
+	}
+	if err := u.FileDownload.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateFileAddedToDownloads#5ff5921a: field file_download: %w", err)
+	}
+	if err := u.Counts.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateFileAddedToDownloads#5ff5921a: field counts: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateFileAddedToDownloads) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateFileAddedToDownloads#5ff5921a to nil")
+	}
+	if err := b.ConsumeID(UpdateFileAddedToDownloadsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateFileAddedToDownloads#5ff5921a: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateFileAddedToDownloads) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateFileAddedToDownloads#5ff5921a to nil")
+	}
+	{
+		if err := u.FileDownload.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateFileAddedToDownloads#5ff5921a: field file_download: %w", err)
+		}
+	}
+	{
+		if err := u.Counts.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateFileAddedToDownloads#5ff5921a: field counts: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateFileAddedToDownloads) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateFileAddedToDownloads#5ff5921a as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateFileAddedToDownloads")
+	b.Comma()
+	b.FieldStart("file_download")
+	if err := u.FileDownload.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateFileAddedToDownloads#5ff5921a: field file_download: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("counts")
+	if err := u.Counts.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateFileAddedToDownloads#5ff5921a: field counts: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateFileAddedToDownloads) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateFileAddedToDownloads#5ff5921a to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateFileAddedToDownloads"); err != nil {
+				return fmt.Errorf("unable to decode updateFileAddedToDownloads#5ff5921a: %w", err)
+			}
+		case "file_download":
+			if err := u.FileDownload.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateFileAddedToDownloads#5ff5921a: field file_download: %w", err)
+			}
+		case "counts":
+			if err := u.Counts.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateFileAddedToDownloads#5ff5921a: field counts: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetFileDownload returns value of FileDownload field.
+func (u *UpdateFileAddedToDownloads) GetFileDownload() (value FileDownload) {
+	if u == nil {
+		return
+	}
+	return u.FileDownload
+}
+
+// GetCounts returns value of Counts field.
+func (u *UpdateFileAddedToDownloads) GetCounts() (value DownloadedFileCounts) {
+	if u == nil {
+		return
+	}
+	return u.Counts
+}
+
+// UpdateFileDownload represents TL type `updateFileDownload#342f83ca`.
+type UpdateFileDownload struct {
+	// File identifier
+	FileID int32
+	// Point in time (Unix timestamp) when the file downloading was completed; 0 if the file
+	// downloading isn't completed
+	CompleteDate int32
+	// True, if downloading of the file is paused
+	IsPaused bool
+	// New number of being downloaded and recently downloaded files found
+	Counts DownloadedFileCounts
+}
+
+// UpdateFileDownloadTypeID is TL type id of UpdateFileDownload.
+const UpdateFileDownloadTypeID = 0x342f83ca
+
+// construct implements constructor of UpdateClass.
+func (u UpdateFileDownload) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateFileDownload.
+var (
+	_ bin.Encoder     = &UpdateFileDownload{}
+	_ bin.Decoder     = &UpdateFileDownload{}
+	_ bin.BareEncoder = &UpdateFileDownload{}
+	_ bin.BareDecoder = &UpdateFileDownload{}
+
+	_ UpdateClass = &UpdateFileDownload{}
+)
+
+func (u *UpdateFileDownload) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.FileID == 0) {
+		return false
+	}
+	if !(u.CompleteDate == 0) {
+		return false
+	}
+	if !(u.IsPaused == false) {
+		return false
+	}
+	if !(u.Counts.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateFileDownload) String() string {
+	if u == nil {
+		return "UpdateFileDownload(nil)"
+	}
+	type Alias UpdateFileDownload
+	return fmt.Sprintf("UpdateFileDownload%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateFileDownload) TypeID() uint32 {
+	return UpdateFileDownloadTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateFileDownload) TypeName() string {
+	return "updateFileDownload"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateFileDownload) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateFileDownload",
+		ID:   UpdateFileDownloadTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "FileID",
+			SchemaName: "file_id",
+		},
+		{
+			Name:       "CompleteDate",
+			SchemaName: "complete_date",
+		},
+		{
+			Name:       "IsPaused",
+			SchemaName: "is_paused",
+		},
+		{
+			Name:       "Counts",
+			SchemaName: "counts",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateFileDownload) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateFileDownload#342f83ca as nil")
+	}
+	b.PutID(UpdateFileDownloadTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateFileDownload) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateFileDownload#342f83ca as nil")
+	}
+	b.PutInt32(u.FileID)
+	b.PutInt32(u.CompleteDate)
+	b.PutBool(u.IsPaused)
+	if err := u.Counts.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateFileDownload#342f83ca: field counts: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateFileDownload) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateFileDownload#342f83ca to nil")
+	}
+	if err := b.ConsumeID(UpdateFileDownloadTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateFileDownload#342f83ca: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateFileDownload) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateFileDownload#342f83ca to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateFileDownload#342f83ca: field file_id: %w", err)
+		}
+		u.FileID = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateFileDownload#342f83ca: field complete_date: %w", err)
+		}
+		u.CompleteDate = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateFileDownload#342f83ca: field is_paused: %w", err)
+		}
+		u.IsPaused = value
+	}
+	{
+		if err := u.Counts.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateFileDownload#342f83ca: field counts: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateFileDownload) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateFileDownload#342f83ca as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateFileDownload")
+	b.Comma()
+	b.FieldStart("file_id")
+	b.PutInt32(u.FileID)
+	b.Comma()
+	b.FieldStart("complete_date")
+	b.PutInt32(u.CompleteDate)
+	b.Comma()
+	b.FieldStart("is_paused")
+	b.PutBool(u.IsPaused)
+	b.Comma()
+	b.FieldStart("counts")
+	if err := u.Counts.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateFileDownload#342f83ca: field counts: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateFileDownload) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateFileDownload#342f83ca to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateFileDownload"); err != nil {
+				return fmt.Errorf("unable to decode updateFileDownload#342f83ca: %w", err)
+			}
+		case "file_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateFileDownload#342f83ca: field file_id: %w", err)
+			}
+			u.FileID = value
+		case "complete_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateFileDownload#342f83ca: field complete_date: %w", err)
+			}
+			u.CompleteDate = value
+		case "is_paused":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateFileDownload#342f83ca: field is_paused: %w", err)
+			}
+			u.IsPaused = value
+		case "counts":
+			if err := u.Counts.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateFileDownload#342f83ca: field counts: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetFileID returns value of FileID field.
+func (u *UpdateFileDownload) GetFileID() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.FileID
+}
+
+// GetCompleteDate returns value of CompleteDate field.
+func (u *UpdateFileDownload) GetCompleteDate() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.CompleteDate
+}
+
+// GetIsPaused returns value of IsPaused field.
+func (u *UpdateFileDownload) GetIsPaused() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.IsPaused
+}
+
+// GetCounts returns value of Counts field.
+func (u *UpdateFileDownload) GetCounts() (value DownloadedFileCounts) {
+	if u == nil {
+		return
+	}
+	return u.Counts
+}
+
+// UpdateFileRemovedFromDownloads represents TL type `updateFileRemovedFromDownloads#6e7c14e8`.
+type UpdateFileRemovedFromDownloads struct {
+	// File identifier
+	FileID int32
+	// New number of being downloaded and recently downloaded files found
+	Counts DownloadedFileCounts
+}
+
+// UpdateFileRemovedFromDownloadsTypeID is TL type id of UpdateFileRemovedFromDownloads.
+const UpdateFileRemovedFromDownloadsTypeID = 0x6e7c14e8
+
+// construct implements constructor of UpdateClass.
+func (u UpdateFileRemovedFromDownloads) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateFileRemovedFromDownloads.
+var (
+	_ bin.Encoder     = &UpdateFileRemovedFromDownloads{}
+	_ bin.Decoder     = &UpdateFileRemovedFromDownloads{}
+	_ bin.BareEncoder = &UpdateFileRemovedFromDownloads{}
+	_ bin.BareDecoder = &UpdateFileRemovedFromDownloads{}
+
+	_ UpdateClass = &UpdateFileRemovedFromDownloads{}
+)
+
+func (u *UpdateFileRemovedFromDownloads) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.FileID == 0) {
+		return false
+	}
+	if !(u.Counts.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateFileRemovedFromDownloads) String() string {
+	if u == nil {
+		return "UpdateFileRemovedFromDownloads(nil)"
+	}
+	type Alias UpdateFileRemovedFromDownloads
+	return fmt.Sprintf("UpdateFileRemovedFromDownloads%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateFileRemovedFromDownloads) TypeID() uint32 {
+	return UpdateFileRemovedFromDownloadsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateFileRemovedFromDownloads) TypeName() string {
+	return "updateFileRemovedFromDownloads"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateFileRemovedFromDownloads) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateFileRemovedFromDownloads",
+		ID:   UpdateFileRemovedFromDownloadsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "FileID",
+			SchemaName: "file_id",
+		},
+		{
+			Name:       "Counts",
+			SchemaName: "counts",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateFileRemovedFromDownloads) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateFileRemovedFromDownloads#6e7c14e8 as nil")
+	}
+	b.PutID(UpdateFileRemovedFromDownloadsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateFileRemovedFromDownloads) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateFileRemovedFromDownloads#6e7c14e8 as nil")
+	}
+	b.PutInt32(u.FileID)
+	if err := u.Counts.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateFileRemovedFromDownloads#6e7c14e8: field counts: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateFileRemovedFromDownloads) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateFileRemovedFromDownloads#6e7c14e8 to nil")
+	}
+	if err := b.ConsumeID(UpdateFileRemovedFromDownloadsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateFileRemovedFromDownloads#6e7c14e8: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateFileRemovedFromDownloads) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateFileRemovedFromDownloads#6e7c14e8 to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateFileRemovedFromDownloads#6e7c14e8: field file_id: %w", err)
+		}
+		u.FileID = value
+	}
+	{
+		if err := u.Counts.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateFileRemovedFromDownloads#6e7c14e8: field counts: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateFileRemovedFromDownloads) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateFileRemovedFromDownloads#6e7c14e8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateFileRemovedFromDownloads")
+	b.Comma()
+	b.FieldStart("file_id")
+	b.PutInt32(u.FileID)
+	b.Comma()
+	b.FieldStart("counts")
+	if err := u.Counts.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateFileRemovedFromDownloads#6e7c14e8: field counts: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateFileRemovedFromDownloads) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateFileRemovedFromDownloads#6e7c14e8 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateFileRemovedFromDownloads"); err != nil {
+				return fmt.Errorf("unable to decode updateFileRemovedFromDownloads#6e7c14e8: %w", err)
+			}
+		case "file_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateFileRemovedFromDownloads#6e7c14e8: field file_id: %w", err)
+			}
+			u.FileID = value
+		case "counts":
+			if err := u.Counts.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateFileRemovedFromDownloads#6e7c14e8: field counts: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetFileID returns value of FileID field.
+func (u *UpdateFileRemovedFromDownloads) GetFileID() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.FileID
+}
+
+// GetCounts returns value of Counts field.
+func (u *UpdateFileRemovedFromDownloads) GetCounts() (value DownloadedFileCounts) {
+	if u == nil {
+		return
+	}
+	return u.Counts
+}
+
 // UpdateCall represents TL type `updateCall#4fb3d0dd`.
 type UpdateCall struct {
 	// New data about a call
@@ -21315,6 +22218,10 @@ const UpdateClassName = "Update"
 //  case *tdapi.UpdateFile: // updateFile#6cd875f
 //  case *tdapi.UpdateFileGenerationStart: // updateFileGenerationStart#cec5eec
 //  case *tdapi.UpdateFileGenerationStop: // updateFileGenerationStop#8f14fdeb
+//  case *tdapi.UpdateFileDownloads: // updateFileDownloads#e8cd12c7
+//  case *tdapi.UpdateFileAddedToDownloads: // updateFileAddedToDownloads#5ff5921a
+//  case *tdapi.UpdateFileDownload: // updateFileDownload#342f83ca
+//  case *tdapi.UpdateFileRemovedFromDownloads: // updateFileRemovedFromDownloads#6e7c14e8
 //  case *tdapi.UpdateCall: // updateCall#4fb3d0dd
 //  case *tdapi.UpdateGroupCall: // updateGroupCall#30324e00
 //  case *tdapi.UpdateGroupCallParticipant: // updateGroupCallParticipant#d0213cf9
@@ -21792,6 +22699,34 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateFileGenerationStopTypeID:
 		// Decoding updateFileGenerationStop#8f14fdeb.
 		v := UpdateFileGenerationStop{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateFileDownloadsTypeID:
+		// Decoding updateFileDownloads#e8cd12c7.
+		v := UpdateFileDownloads{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateFileAddedToDownloadsTypeID:
+		// Decoding updateFileAddedToDownloads#5ff5921a.
+		v := UpdateFileAddedToDownloads{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateFileDownloadTypeID:
+		// Decoding updateFileDownload#342f83ca.
+		v := UpdateFileDownload{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateFileRemovedFromDownloadsTypeID:
+		// Decoding updateFileRemovedFromDownloads#6e7c14e8.
+		v := UpdateFileRemovedFromDownloads{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -22476,6 +23411,34 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	case "updateFileGenerationStop":
 		// Decoding updateFileGenerationStop#8f14fdeb.
 		v := UpdateFileGenerationStop{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateFileDownloads":
+		// Decoding updateFileDownloads#e8cd12c7.
+		v := UpdateFileDownloads{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateFileAddedToDownloads":
+		// Decoding updateFileAddedToDownloads#5ff5921a.
+		v := UpdateFileAddedToDownloads{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateFileDownload":
+		// Decoding updateFileDownload#342f83ca.
+		v := UpdateFileDownload{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateFileRemovedFromDownloads":
+		// Decoding updateFileRemovedFromDownloads#6e7c14e8.
+		v := UpdateFileRemovedFromDownloads{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

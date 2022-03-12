@@ -33,7 +33,7 @@ var (
 
 // ChatInviteLinks represents TL type `chatInviteLinks#9b1eddfa`.
 type ChatInviteLinks struct {
-	// Approximate total count of chat invite links found
+	// Approximate total number of chat invite links found
 	TotalCount int32
 	// List of invite links
 	InviteLinks []ChatInviteLink

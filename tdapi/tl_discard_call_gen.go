@@ -35,11 +35,11 @@ var (
 type DiscardCallRequest struct {
 	// Call identifier
 	CallID int32
-	// True, if the user was disconnected
+	// Pass true if the user was disconnected
 	IsDisconnected bool
 	// The call duration, in seconds
 	Duration int32
-	// True, if the call was a video call
+	// Pass true if the call was a video call
 	IsVideo bool
 	// Identifier of the connection used during the call
 	ConnectionID int64

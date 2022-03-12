@@ -948,6 +948,268 @@ func (c *ChatReportReasonFake) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// ChatReportReasonIllegalDrugs represents TL type `chatReportReasonIllegalDrugs#cda95a55`.
+type ChatReportReasonIllegalDrugs struct {
+}
+
+// ChatReportReasonIllegalDrugsTypeID is TL type id of ChatReportReasonIllegalDrugs.
+const ChatReportReasonIllegalDrugsTypeID = 0xcda95a55
+
+// construct implements constructor of ChatReportReasonClass.
+func (c ChatReportReasonIllegalDrugs) construct() ChatReportReasonClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatReportReasonIllegalDrugs.
+var (
+	_ bin.Encoder     = &ChatReportReasonIllegalDrugs{}
+	_ bin.Decoder     = &ChatReportReasonIllegalDrugs{}
+	_ bin.BareEncoder = &ChatReportReasonIllegalDrugs{}
+	_ bin.BareDecoder = &ChatReportReasonIllegalDrugs{}
+
+	_ ChatReportReasonClass = &ChatReportReasonIllegalDrugs{}
+)
+
+func (c *ChatReportReasonIllegalDrugs) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatReportReasonIllegalDrugs) String() string {
+	if c == nil {
+		return "ChatReportReasonIllegalDrugs(nil)"
+	}
+	type Alias ChatReportReasonIllegalDrugs
+	return fmt.Sprintf("ChatReportReasonIllegalDrugs%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatReportReasonIllegalDrugs) TypeID() uint32 {
+	return ChatReportReasonIllegalDrugsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatReportReasonIllegalDrugs) TypeName() string {
+	return "chatReportReasonIllegalDrugs"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatReportReasonIllegalDrugs) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatReportReasonIllegalDrugs",
+		ID:   ChatReportReasonIllegalDrugsTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatReportReasonIllegalDrugs) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatReportReasonIllegalDrugs#cda95a55 as nil")
+	}
+	b.PutID(ChatReportReasonIllegalDrugsTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatReportReasonIllegalDrugs) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatReportReasonIllegalDrugs#cda95a55 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatReportReasonIllegalDrugs) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatReportReasonIllegalDrugs#cda95a55 to nil")
+	}
+	if err := b.ConsumeID(ChatReportReasonIllegalDrugsTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatReportReasonIllegalDrugs#cda95a55: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatReportReasonIllegalDrugs) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatReportReasonIllegalDrugs#cda95a55 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatReportReasonIllegalDrugs) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatReportReasonIllegalDrugs#cda95a55 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatReportReasonIllegalDrugs")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatReportReasonIllegalDrugs) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatReportReasonIllegalDrugs#cda95a55 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatReportReasonIllegalDrugs"); err != nil {
+				return fmt.Errorf("unable to decode chatReportReasonIllegalDrugs#cda95a55: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// ChatReportReasonPersonalDetails represents TL type `chatReportReasonPersonalDetails#42d38775`.
+type ChatReportReasonPersonalDetails struct {
+}
+
+// ChatReportReasonPersonalDetailsTypeID is TL type id of ChatReportReasonPersonalDetails.
+const ChatReportReasonPersonalDetailsTypeID = 0x42d38775
+
+// construct implements constructor of ChatReportReasonClass.
+func (c ChatReportReasonPersonalDetails) construct() ChatReportReasonClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatReportReasonPersonalDetails.
+var (
+	_ bin.Encoder     = &ChatReportReasonPersonalDetails{}
+	_ bin.Decoder     = &ChatReportReasonPersonalDetails{}
+	_ bin.BareEncoder = &ChatReportReasonPersonalDetails{}
+	_ bin.BareDecoder = &ChatReportReasonPersonalDetails{}
+
+	_ ChatReportReasonClass = &ChatReportReasonPersonalDetails{}
+)
+
+func (c *ChatReportReasonPersonalDetails) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatReportReasonPersonalDetails) String() string {
+	if c == nil {
+		return "ChatReportReasonPersonalDetails(nil)"
+	}
+	type Alias ChatReportReasonPersonalDetails
+	return fmt.Sprintf("ChatReportReasonPersonalDetails%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatReportReasonPersonalDetails) TypeID() uint32 {
+	return ChatReportReasonPersonalDetailsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatReportReasonPersonalDetails) TypeName() string {
+	return "chatReportReasonPersonalDetails"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatReportReasonPersonalDetails) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatReportReasonPersonalDetails",
+		ID:   ChatReportReasonPersonalDetailsTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatReportReasonPersonalDetails) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatReportReasonPersonalDetails#42d38775 as nil")
+	}
+	b.PutID(ChatReportReasonPersonalDetailsTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatReportReasonPersonalDetails) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatReportReasonPersonalDetails#42d38775 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatReportReasonPersonalDetails) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatReportReasonPersonalDetails#42d38775 to nil")
+	}
+	if err := b.ConsumeID(ChatReportReasonPersonalDetailsTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatReportReasonPersonalDetails#42d38775: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatReportReasonPersonalDetails) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatReportReasonPersonalDetails#42d38775 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatReportReasonPersonalDetails) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatReportReasonPersonalDetails#42d38775 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatReportReasonPersonalDetails")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatReportReasonPersonalDetails) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatReportReasonPersonalDetails#42d38775 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatReportReasonPersonalDetails"); err != nil {
+				return fmt.Errorf("unable to decode chatReportReasonPersonalDetails#42d38775: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // ChatReportReasonCustom represents TL type `chatReportReasonCustom#4cd37316`.
 type ChatReportReasonCustom struct {
 }
@@ -1097,6 +1359,8 @@ const ChatReportReasonClassName = "ChatReportReason"
 //  case *tdapi.ChatReportReasonCopyright: // chatReportReasonCopyright#3ad2dea0
 //  case *tdapi.ChatReportReasonUnrelatedLocation: // chatReportReasonUnrelatedLocation#282ad3
 //  case *tdapi.ChatReportReasonFake: // chatReportReasonFake#99e22d92
+//  case *tdapi.ChatReportReasonIllegalDrugs: // chatReportReasonIllegalDrugs#cda95a55
+//  case *tdapi.ChatReportReasonPersonalDetails: // chatReportReasonPersonalDetails#42d38775
 //  case *tdapi.ChatReportReasonCustom: // chatReportReasonCustom#4cd37316
 //  default: panic(v)
 //  }
@@ -1178,6 +1442,20 @@ func DecodeChatReportReason(buf *bin.Buffer) (ChatReportReasonClass, error) {
 			return nil, fmt.Errorf("unable to decode ChatReportReasonClass: %w", err)
 		}
 		return &v, nil
+	case ChatReportReasonIllegalDrugsTypeID:
+		// Decoding chatReportReasonIllegalDrugs#cda95a55.
+		v := ChatReportReasonIllegalDrugs{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatReportReasonClass: %w", err)
+		}
+		return &v, nil
+	case ChatReportReasonPersonalDetailsTypeID:
+		// Decoding chatReportReasonPersonalDetails#42d38775.
+		v := ChatReportReasonPersonalDetails{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatReportReasonClass: %w", err)
+		}
+		return &v, nil
 	case ChatReportReasonCustomTypeID:
 		// Decoding chatReportReasonCustom#4cd37316.
 		v := ChatReportReasonCustom{}
@@ -1242,6 +1520,20 @@ func DecodeTDLibJSONChatReportReason(buf tdjson.Decoder) (ChatReportReasonClass,
 	case "chatReportReasonFake":
 		// Decoding chatReportReasonFake#99e22d92.
 		v := ChatReportReasonFake{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatReportReasonClass: %w", err)
+		}
+		return &v, nil
+	case "chatReportReasonIllegalDrugs":
+		// Decoding chatReportReasonIllegalDrugs#cda95a55.
+		v := ChatReportReasonIllegalDrugs{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatReportReasonClass: %w", err)
+		}
+		return &v, nil
+	case "chatReportReasonPersonalDetails":
+		// Decoding chatReportReasonPersonalDetails#42d38775.
+		v := ChatReportReasonPersonalDetails{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatReportReasonClass: %w", err)
 		}

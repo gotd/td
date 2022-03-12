@@ -35,7 +35,7 @@ var (
 type ReportChatRequest struct {
 	// Chat identifier
 	ChatID int64
-	// Identifiers of reported messages, if any
+	// Identifiers of reported messages; may be empty to report the whole chat
 	MessageIDs []int64
 	// The reason for reporting the chat
 	Reason ChatReportReasonClass

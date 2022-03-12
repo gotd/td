@@ -39,7 +39,7 @@ type SetBackgroundRequest struct {
 	// Background type; pass null to use the default type of the remote background or to
 	// remove the current background
 	Type BackgroundTypeClass
-	// True, if the background is chosen for dark theme
+	// Pass true if the background is changed for a dark theme
 	ForDarkTheme bool
 }
 

@@ -33,7 +33,7 @@ var (
 
 // GetNetworkStatisticsRequest represents TL type `getNetworkStatistics#c537581e`.
 type GetNetworkStatisticsRequest struct {
-	// If true, returns only data for the current library launch
+	// Pass true to get statistics only for the current library launch
 	OnlyCurrent bool
 }
 

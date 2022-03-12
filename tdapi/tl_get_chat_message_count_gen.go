@@ -37,8 +37,8 @@ type GetChatMessageCountRequest struct {
 	ChatID int64
 	// Filter for message content; searchMessagesFilterEmpty is unsupported in this function
 	Filter SearchMessagesFilterClass
-	// If true, returns count that is available locally without sending network requests,
-	// returning -1 if the number of messages is unknown
+	// Pass true to get the number of messages without sending network requests, or -1 if the
+	// number of messages is unknown locally
 	ReturnLocal bool
 }
 

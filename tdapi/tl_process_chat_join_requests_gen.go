@@ -39,7 +39,7 @@ type ProcessChatJoinRequestsRequest struct {
 	// processed. Requires administrator privileges and can_invite_users right in the chat
 	// for own links and owner privileges for other links
 	InviteLink string
-	// True, if the requests are approved. Otherwise the requests are declined
+	// Pass true to approve all requests; pass false to decline them
 	Approve bool
 }
 

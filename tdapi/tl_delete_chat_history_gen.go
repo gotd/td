@@ -35,7 +35,7 @@ var (
 type DeleteChatHistoryRequest struct {
 	// Chat identifier
 	ChatID int64
-	// Pass true if the chat needs to be removed from the chat list
+	// Pass true to remove the chat from all chat lists
 	RemoveFromChatList bool
 	// Pass true to delete chat history for all users
 	Revoke bool

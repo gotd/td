@@ -42,9 +42,9 @@ type JoinGroupCallRequest struct {
 	AudioSourceID int32
 	// Group call join payload; received from tgcalls
 	Payload string
-	// True, if the user's microphone is muted
+	// Pass true to join the call with muted microphone
 	IsMuted bool
-	// True, if the user's video is enabled
+	// Pass true if the user's video is enabled
 	IsMyVideoEnabled bool
 	// If non-empty, invite hash to be used to join the group call without being muted by
 	// administrators

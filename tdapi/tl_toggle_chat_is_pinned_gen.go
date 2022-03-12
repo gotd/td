@@ -37,7 +37,7 @@ type ToggleChatIsPinnedRequest struct {
 	ChatList ChatListClass
 	// Chat identifier
 	ChatID int64
-	// True, if the chat is pinned
+	// Pass true to pin the chat; pass false to unpin it
 	IsPinned bool
 }
 

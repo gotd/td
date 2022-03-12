@@ -37,7 +37,7 @@ type CreateCallRequest struct {
 	UserID int64
 	// The call protocols supported by the application
 	Protocol CallProtocol
-	// True, if a video call needs to be created
+	// Pass true to create a video call
 	IsVideo bool
 }
 

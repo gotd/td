@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// CreateVideoChatRequest represents TL type `createVideoChat#c94de806`.
+// CreateVideoChatRequest represents TL type `createVideoChat#7ea4958d`.
 type CreateVideoChatRequest struct {
 	// Chat identifier, in which the video chat will be created
 	ChatID int64
@@ -41,10 +41,13 @@ type CreateVideoChatRequest struct {
 	// administrator; 0 to start the video chat immediately. The date must be at least 10
 	// seconds and at most 8 days in the future
 	StartDate int32
+	// Pass true to create an RTMP stream instead of an ordinary video chat; requires creator
+	// privileges
+	IsRtmpStream bool
 }
 
 // CreateVideoChatRequestTypeID is TL type id of CreateVideoChatRequest.
-const CreateVideoChatRequestTypeID = 0xc94de806
+const CreateVideoChatRequestTypeID = 0x7ea4958d
 
 // Ensuring interfaces in compile-time for CreateVideoChatRequest.
 var (
@@ -65,6 +68,9 @@ func (c *CreateVideoChatRequest) Zero() bool {
 		return false
 	}
 	if !(c.StartDate == 0) {
+		return false
+	}
+	if !(c.IsRtmpStream == false) {
 		return false
 	}
 
@@ -115,6 +121,10 @@ func (c *CreateVideoChatRequest) TypeInfo() tdp.Type {
 			Name:       "StartDate",
 			SchemaName: "start_date",
 		},
+		{
+			Name:       "IsRtmpStream",
+			SchemaName: "is_rtmp_stream",
+		},
 	}
 	return typ
 }
@@ -122,7 +132,7 @@ func (c *CreateVideoChatRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *CreateVideoChatRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createVideoChat#c94de806 as nil")
+		return fmt.Errorf("can't encode createVideoChat#7ea4958d as nil")
 	}
 	b.PutID(CreateVideoChatRequestTypeID)
 	return c.EncodeBare(b)
@@ -131,21 +141,22 @@ func (c *CreateVideoChatRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *CreateVideoChatRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createVideoChat#c94de806 as nil")
+		return fmt.Errorf("can't encode createVideoChat#7ea4958d as nil")
 	}
 	b.PutInt53(c.ChatID)
 	b.PutString(c.Title)
 	b.PutInt32(c.StartDate)
+	b.PutBool(c.IsRtmpStream)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *CreateVideoChatRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createVideoChat#c94de806 to nil")
+		return fmt.Errorf("can't decode createVideoChat#7ea4958d to nil")
 	}
 	if err := b.ConsumeID(CreateVideoChatRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode createVideoChat#c94de806: %w", err)
+		return fmt.Errorf("unable to decode createVideoChat#7ea4958d: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -153,28 +164,35 @@ func (c *CreateVideoChatRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *CreateVideoChatRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createVideoChat#c94de806 to nil")
+		return fmt.Errorf("can't decode createVideoChat#7ea4958d to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode createVideoChat#c94de806: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode createVideoChat#7ea4958d: field chat_id: %w", err)
 		}
 		c.ChatID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode createVideoChat#c94de806: field title: %w", err)
+			return fmt.Errorf("unable to decode createVideoChat#7ea4958d: field title: %w", err)
 		}
 		c.Title = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode createVideoChat#c94de806: field start_date: %w", err)
+			return fmt.Errorf("unable to decode createVideoChat#7ea4958d: field start_date: %w", err)
 		}
 		c.StartDate = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode createVideoChat#7ea4958d: field is_rtmp_stream: %w", err)
+		}
+		c.IsRtmpStream = value
 	}
 	return nil
 }
@@ -182,7 +200,7 @@ func (c *CreateVideoChatRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *CreateVideoChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createVideoChat#c94de806 as nil")
+		return fmt.Errorf("can't encode createVideoChat#7ea4958d as nil")
 	}
 	b.ObjStart()
 	b.PutID("createVideoChat")
@@ -196,6 +214,9 @@ func (c *CreateVideoChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("start_date")
 	b.PutInt32(c.StartDate)
 	b.Comma()
+	b.FieldStart("is_rtmp_stream")
+	b.PutBool(c.IsRtmpStream)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -204,33 +225,39 @@ func (c *CreateVideoChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *CreateVideoChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createVideoChat#c94de806 to nil")
+		return fmt.Errorf("can't decode createVideoChat#7ea4958d to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("createVideoChat"); err != nil {
-				return fmt.Errorf("unable to decode createVideoChat#c94de806: %w", err)
+				return fmt.Errorf("unable to decode createVideoChat#7ea4958d: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode createVideoChat#c94de806: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode createVideoChat#7ea4958d: field chat_id: %w", err)
 			}
 			c.ChatID = value
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode createVideoChat#c94de806: field title: %w", err)
+				return fmt.Errorf("unable to decode createVideoChat#7ea4958d: field title: %w", err)
 			}
 			c.Title = value
 		case "start_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode createVideoChat#c94de806: field start_date: %w", err)
+				return fmt.Errorf("unable to decode createVideoChat#7ea4958d: field start_date: %w", err)
 			}
 			c.StartDate = value
+		case "is_rtmp_stream":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode createVideoChat#7ea4958d: field is_rtmp_stream: %w", err)
+			}
+			c.IsRtmpStream = value
 		default:
 			return b.Skip()
 		}
@@ -262,7 +289,15 @@ func (c *CreateVideoChatRequest) GetStartDate() (value int32) {
 	return c.StartDate
 }
 
-// CreateVideoChat invokes method createVideoChat#c94de806 returning error if any.
+// GetIsRtmpStream returns value of IsRtmpStream field.
+func (c *CreateVideoChatRequest) GetIsRtmpStream() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.IsRtmpStream
+}
+
+// CreateVideoChat invokes method createVideoChat#7ea4958d returning error if any.
 func (c *Client) CreateVideoChat(ctx context.Context, request *CreateVideoChatRequest) (*GroupCallID, error) {
 	var result GroupCallID
 

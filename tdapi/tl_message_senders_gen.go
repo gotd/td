@@ -33,7 +33,7 @@ var (
 
 // MessageSenders represents TL type `messageSenders#f6929bcc`.
 type MessageSenders struct {
-	// Approximate total count of messages senders found
+	// Approximate total number of messages senders found
 	TotalCount int32
 	// List of message senders
 	Senders []MessageSenderClass

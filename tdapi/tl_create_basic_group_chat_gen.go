@@ -35,8 +35,8 @@ var (
 type CreateBasicGroupChatRequest struct {
 	// Basic group identifier
 	BasicGroupID int64
-	// If true, the chat will be created without network request. In this case all
-	// information about the chat except its type, title and photo can be incorrect
+	// Pass true to create the chat without a network request. In this case all information
+	// about the chat except its type, title and photo can be incorrect
 	Force bool
 }
 

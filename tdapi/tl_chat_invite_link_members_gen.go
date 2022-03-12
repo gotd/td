@@ -33,7 +33,7 @@ var (
 
 // ChatInviteLinkMembers represents TL type `chatInviteLinkMembers#c2ca3a61`.
 type ChatInviteLinkMembers struct {
-	// Approximate total count of chat members found
+	// Approximate total number of chat members found
 	TotalCount int32
 	// List of chat members, joined a chat via an invite link
 	Members []ChatInviteLinkMember

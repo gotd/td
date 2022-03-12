@@ -37,10 +37,10 @@ type PinChatMessageRequest struct {
 	ChatID int64
 	// Identifier of the new pinned message
 	MessageID int64
-	// True, if there must be no notification about the pinned message. Notifications are
-	// always disabled in channels and private chats
+	// Pass true to disable notification about the pinned message. Notifications are always
+	// disabled in channels and private chats
 	DisableNotification bool
-	// True, if the message needs to be pinned for one side only; private chats only
+	// Pass true to pin the message only for self; private chats only
 	OnlyForSelf bool
 }
 

@@ -37,15 +37,17 @@ type DownloadFileRequest struct {
 	FileID int32
 	// Priority of the download (1-32). The higher the priority, the earlier the file will be
 	// downloaded. If the priorities of two files are equal, then the last one for which
-	// downloadFile was called will be downloaded first
+	// downloadFile/addFileToDownloads was called will be downloaded first
 	Priority int32
 	// The starting position from which the file needs to be downloaded
 	Offset int32
 	// Number of bytes which need to be downloaded starting from the "offset" position before
 	// the download will automatically be canceled; use 0 to download without a limit
 	Limit int32
-	// If false, this request returns file state just after the download has been started. If
-	// true, this request returns file state only after
+	// Pass true to return response only after the file download has succeeded, has failed,
+	// has been canceled, or a new downloadFile request with different offset/limit
+	// parameters was sent; pass false to return file state immediately, just after the
+	// download has been started
 	Synchronous bool
 }
 
