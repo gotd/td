@@ -35,7 +35,8 @@ var (
 type AnswerInlineQueryRequest struct {
 	// Identifier of the inline query
 	InlineQueryID int64
-	// True, if the result of the query can be cached for the specified user
+	// Pass true if results may be cached and returned only for the user that sent the query.
+	// By default, results may be returned to any user who sends the same query
 	IsPersonal bool
 	// The results of the query
 	Results []InputInlineQueryResultClass

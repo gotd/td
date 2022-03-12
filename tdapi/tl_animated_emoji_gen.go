@@ -37,8 +37,8 @@ type AnimatedEmoji struct {
 	Sticker Sticker
 	// Emoji modifier fitzpatrick type; 0-6; 0 if none
 	FitzpatrickType int32
-	// File containing the sound to be played when the animated emoji is clicked if any; may
-	// be null. The sound is encoded with the Opus codec, and stored inside an OGG container
+	// File containing the sound to be played when the animated emoji is clicked; may be null
+	// The sound is encoded with the Opus codec, and stored inside an OGG container
 	Sound File
 }
 

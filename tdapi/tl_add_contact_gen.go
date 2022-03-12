@@ -33,10 +33,10 @@ var (
 
 // AddContactRequest represents TL type `addContact#6f707140`.
 type AddContactRequest struct {
-	// The contact to add or edit; phone number can be empty and needs to be specified only
+	// The contact to add or edit; phone number may be empty and needs to be specified only
 	// if known, vCard is ignored
 	Contact Contact
-	// True, if the new contact needs to be allowed to see current user's phone number. A
+	// Pass true to share the current user's phone number with the new contact. A
 	// corresponding rule to userPrivacySettingShowPhoneNumber will be added if needed. Use
 	// the field userFullInfo.need_phone_number_privacy_exception to check whether the
 	// current user needs to be asked to share their phone number

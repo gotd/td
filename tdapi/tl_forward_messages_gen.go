@@ -42,13 +42,12 @@ type ForwardMessagesRequest struct {
 	MessageIDs []int64
 	// Options to be used to send the messages; pass null to use default options
 	Options MessageSendOptions
-	// If true, content of the messages will be copied without reference to the original
-	// sender. Always true if the messages are forwarded to a secret chat or are local
+	// Pass true to copy content of the messages without reference to the original sender.
+	// Always true if the messages are forwarded to a secret chat or are local
 	SendCopy bool
-	// If true, media caption of message copies will be removed. Ignored if send_copy is
-	// false
+	// Pass true to remove media captions of message copies. Ignored if send_copy is false
 	RemoveCaption bool
-	// If true, messages will not be forwarded and instead fake messages will be returned
+	// Pass true to get fake messages instead of actually forwarding them
 	OnlyPreview bool
 }
 

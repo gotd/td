@@ -3992,6 +3992,172 @@ func (i *InternalLinkTypeUnsupportedProxy) DecodeTDLibJSON(b tdjson.Decoder) err
 	})
 }
 
+// InternalLinkTypeUserPhoneNumber represents TL type `internalLinkTypeUserPhoneNumber#8b6d9a69`.
+type InternalLinkTypeUserPhoneNumber struct {
+	// Phone number of the user
+	PhoneNumber string
+}
+
+// InternalLinkTypeUserPhoneNumberTypeID is TL type id of InternalLinkTypeUserPhoneNumber.
+const InternalLinkTypeUserPhoneNumberTypeID = 0x8b6d9a69
+
+// construct implements constructor of InternalLinkTypeClass.
+func (i InternalLinkTypeUserPhoneNumber) construct() InternalLinkTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InternalLinkTypeUserPhoneNumber.
+var (
+	_ bin.Encoder     = &InternalLinkTypeUserPhoneNumber{}
+	_ bin.Decoder     = &InternalLinkTypeUserPhoneNumber{}
+	_ bin.BareEncoder = &InternalLinkTypeUserPhoneNumber{}
+	_ bin.BareDecoder = &InternalLinkTypeUserPhoneNumber{}
+
+	_ InternalLinkTypeClass = &InternalLinkTypeUserPhoneNumber{}
+)
+
+func (i *InternalLinkTypeUserPhoneNumber) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.PhoneNumber == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InternalLinkTypeUserPhoneNumber) String() string {
+	if i == nil {
+		return "InternalLinkTypeUserPhoneNumber(nil)"
+	}
+	type Alias InternalLinkTypeUserPhoneNumber
+	return fmt.Sprintf("InternalLinkTypeUserPhoneNumber%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InternalLinkTypeUserPhoneNumber) TypeID() uint32 {
+	return InternalLinkTypeUserPhoneNumberTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InternalLinkTypeUserPhoneNumber) TypeName() string {
+	return "internalLinkTypeUserPhoneNumber"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InternalLinkTypeUserPhoneNumber) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "internalLinkTypeUserPhoneNumber",
+		ID:   InternalLinkTypeUserPhoneNumberTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PhoneNumber",
+			SchemaName: "phone_number",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InternalLinkTypeUserPhoneNumber) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeUserPhoneNumber#8b6d9a69 as nil")
+	}
+	b.PutID(InternalLinkTypeUserPhoneNumberTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InternalLinkTypeUserPhoneNumber) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeUserPhoneNumber#8b6d9a69 as nil")
+	}
+	b.PutString(i.PhoneNumber)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InternalLinkTypeUserPhoneNumber) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeUserPhoneNumber#8b6d9a69 to nil")
+	}
+	if err := b.ConsumeID(InternalLinkTypeUserPhoneNumberTypeID); err != nil {
+		return fmt.Errorf("unable to decode internalLinkTypeUserPhoneNumber#8b6d9a69: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InternalLinkTypeUserPhoneNumber) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeUserPhoneNumber#8b6d9a69 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeUserPhoneNumber#8b6d9a69: field phone_number: %w", err)
+		}
+		i.PhoneNumber = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InternalLinkTypeUserPhoneNumber) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeUserPhoneNumber#8b6d9a69 as nil")
+	}
+	b.ObjStart()
+	b.PutID("internalLinkTypeUserPhoneNumber")
+	b.Comma()
+	b.FieldStart("phone_number")
+	b.PutString(i.PhoneNumber)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InternalLinkTypeUserPhoneNumber) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeUserPhoneNumber#8b6d9a69 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("internalLinkTypeUserPhoneNumber"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeUserPhoneNumber#8b6d9a69: %w", err)
+			}
+		case "phone_number":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeUserPhoneNumber#8b6d9a69: field phone_number: %w", err)
+			}
+			i.PhoneNumber = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetPhoneNumber returns value of PhoneNumber field.
+func (i *InternalLinkTypeUserPhoneNumber) GetPhoneNumber() (value string) {
+	if i == nil {
+		return
+	}
+	return i.PhoneNumber
+}
+
 // InternalLinkTypeVideoChat represents TL type `internalLinkTypeVideoChat#8796f8b4`.
 type InternalLinkTypeVideoChat struct {
 	// Username of the chat with the video chat
@@ -4262,6 +4428,7 @@ const InternalLinkTypeClassName = "InternalLinkType"
 //  case *tdapi.InternalLinkTypeThemeSettings: // internalLinkTypeThemeSettings#c14d3916
 //  case *tdapi.InternalLinkTypeUnknownDeepLink: // internalLinkTypeUnknownDeepLink#2549d7db
 //  case *tdapi.InternalLinkTypeUnsupportedProxy: // internalLinkTypeUnsupportedProxy#de399f09
+//  case *tdapi.InternalLinkTypeUserPhoneNumber: // internalLinkTypeUserPhoneNumber#8b6d9a69
 //  case *tdapi.InternalLinkTypeVideoChat: // internalLinkTypeVideoChat#8796f8b4
 //  default: panic(v)
 //  }
@@ -4455,6 +4622,13 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
 		return &v, nil
+	case InternalLinkTypeUserPhoneNumberTypeID:
+		// Decoding internalLinkTypeUserPhoneNumber#8b6d9a69.
+		v := InternalLinkTypeUserPhoneNumber{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
 	case InternalLinkTypeVideoChatTypeID:
 		// Decoding internalLinkTypeVideoChat#8796f8b4.
 		v := InternalLinkTypeVideoChat{}
@@ -4631,6 +4805,13 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 	case "internalLinkTypeUnsupportedProxy":
 		// Decoding internalLinkTypeUnsupportedProxy#de399f09.
 		v := InternalLinkTypeUnsupportedProxy{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeUserPhoneNumber":
+		// Decoding internalLinkTypeUserPhoneNumber#8b6d9a69.
+		v := InternalLinkTypeUserPhoneNumber{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}

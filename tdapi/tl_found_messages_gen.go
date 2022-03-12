@@ -33,7 +33,7 @@ var (
 
 // FoundMessages represents TL type `foundMessages#2515f708`.
 type FoundMessages struct {
-	// Approximate total count of messages found; -1 if unknown
+	// Approximate total number of messages found; -1 if unknown
 	TotalCount int32
 	// List of messages
 	Messages []Message

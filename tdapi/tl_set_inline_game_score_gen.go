@@ -35,7 +35,7 @@ var (
 type SetInlineGameScoreRequest struct {
 	// Inline message identifier
 	InlineMessageID string
-	// True, if the message needs to be edited
+	// Pass true to edit the game message to include the current scoreboard
 	EditMessage bool
 	// User identifier
 	UserID int64

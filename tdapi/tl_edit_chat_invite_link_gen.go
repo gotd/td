@@ -44,8 +44,8 @@ type EditChatInviteLinkRequest struct {
 	// The maximum number of chat members that can join the chat via the link simultaneously;
 	// 0-99999; pass 0 if not limited
 	MemberLimit int32
-	// True, if the link only creates join request. If true, member_limit must not be
-	// specified
+	// Pass true if users joining the chat via the link need to be approved by chat
+	// administrators. In this case, member_limit must be 0
 	CreatesJoinRequest bool
 }
 

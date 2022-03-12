@@ -33,7 +33,7 @@ var (
 
 // ClearAllDraftMessagesRequest represents TL type `clearAllDraftMessages#fd3c74db`.
 type ClearAllDraftMessagesRequest struct {
-	// If true, local draft messages in secret chats will not be cleared
+	// Pass true to keep local message drafts in secret chats
 	ExcludeSecretChats bool
 }
 

@@ -38,9 +38,9 @@ type SetMessageReactionRequest struct {
 	// Identifier of the message
 	MessageID int64
 	// Text representation of the new chosen reaction. Can be an empty string or the
-	// currently chosen reaction to remove the reaction
+	// currently chosen non-big reaction to remove the reaction
 	Reaction string
-	// True, if the reaction is added with a big animation
+	// Pass true if the reaction is added with a big animation
 	IsBig bool
 }
 

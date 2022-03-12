@@ -37,7 +37,7 @@ type ToggleGroupCallParticipantIsMutedRequest struct {
 	GroupCallID int32
 	// Participant identifier
 	ParticipantID MessageSenderClass
-	// Pass true if the user must be muted and false otherwise
+	// Pass true to mute the user; pass false to unmute the them
 	IsMuted bool
 }
 

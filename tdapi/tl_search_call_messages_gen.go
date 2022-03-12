@@ -40,7 +40,7 @@ type SearchCallMessagesRequest struct {
 	// number of returned messages is chosen by TDLib and can be smaller than the specified
 	// limit
 	Limit int32
-	// If true, returns only messages with missed/declined calls
+	// Pass true to search only for messages with missed/declined calls
 	OnlyMissed bool
 }
 

@@ -35,7 +35,7 @@ var (
 type ToggleSessionCanAcceptSecretChatsRequest struct {
 	// Session identifier
 	SessionID int64
-	// True, if incoming secret chats can be accepted by the session
+	// Pass true to allow accepring secret chats by the session; pass false otherwise
 	CanAcceptSecretChats bool
 }
 

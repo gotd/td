@@ -35,8 +35,8 @@ var (
 type GetExternalLinkRequest struct {
 	// The HTTP link
 	Link string
-	// True, if the current user allowed the bot, returned in getExternalLinkInfo, to send
-	// them messages
+	// Pass true if the current user allowed the bot, returned in getExternalLinkInfo, to
+	// send them messages
 	AllowWriteAccess bool
 }
 

@@ -39,7 +39,7 @@ type OptimizeStorageRequest struct {
 	// Limit on the time that has passed since the last time a file was accessed (or creation
 	// time for some filesystems). Pass -1 to use the default limit
 	TTL int32
-	// Limit on the total count of files after deletion. Pass -1 to use the default limit
+	// Limit on the total number of files after deletion. Pass -1 to use the default limit
 	Count int32
 	// The amount of time after the creation of a file during which it can't be deleted, in
 	// seconds. Pass -1 to use the default value

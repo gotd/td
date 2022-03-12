@@ -33,7 +33,7 @@ var (
 
 // GetBackgroundsRequest represents TL type `getBackgrounds#ed88bf9`.
 type GetBackgroundsRequest struct {
-	// True, if the backgrounds must be ordered for dark theme
+	// Pass true to order returned backgrounds for a dark theme
 	ForDarkTheme bool
 }
 

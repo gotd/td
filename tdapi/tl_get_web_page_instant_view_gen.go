@@ -35,7 +35,7 @@ var (
 type GetWebPageInstantViewRequest struct {
 	// The web page URL
 	URL string
-	// If true, the full instant view for the web page will be returned
+	// Pass true to get full instant view for the web page
 	ForceFull bool
 }
 

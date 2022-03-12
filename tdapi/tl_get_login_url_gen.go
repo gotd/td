@@ -39,7 +39,7 @@ type GetLoginURLRequest struct {
 	MessageID int64
 	// Button identifier
 	ButtonID int64
-	// True, if the user allowed the bot to send them messages
+	// Pass true to allow the bot to send messages to the current user
 	AllowWriteAccess bool
 }
 

@@ -35,7 +35,7 @@ var (
 type TermsOfService struct {
 	// Text of the terms of service
 	Text FormattedText
-	// The minimum age of a user to be able to accept the terms; 0 if any
+	// The minimum age of a user to be able to accept the terms; 0 if age isn't restricted
 	MinUserAge int32
 	// True, if a blocking popup with terms of service must be shown to the user
 	ShowPopup bool

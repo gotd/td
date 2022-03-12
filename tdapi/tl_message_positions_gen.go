@@ -33,7 +33,7 @@ var (
 
 // MessagePositions represents TL type `messagePositions#912eab72`.
 type MessagePositions struct {
-	// Total count of messages found
+	// Total number of messages found
 	TotalCount int32
 	// List of message positions
 	Positions []MessagePosition

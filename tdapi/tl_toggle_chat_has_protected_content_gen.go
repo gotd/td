@@ -35,7 +35,7 @@ var (
 type ToggleChatHasProtectedContentRequest struct {
 	// Chat identifier
 	ChatID int64
-	// True, if chat content can't be saved locally, forwarded, or copied
+	// New value of has_protected_content
 	HasProtectedContent bool
 }
 

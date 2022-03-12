@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GroupCall represents TL type `groupCall#f6673c4d`.
+// GroupCall represents TL type `groupCall#9ac55fff`.
 type GroupCall struct {
 	// Group call identifier
 	ID int32
@@ -45,6 +45,8 @@ type GroupCall struct {
 	EnabledStartNotification bool
 	// True, if the call is active
 	IsActive bool
+	// True, if the chat is an RTMP stream instead of an ordinary video chat
+	IsRtmpStream bool
 	// True, if the call is joined
 	IsJoined bool
 	// True, if user was kicked from the call because of network loss and the call needs to
@@ -54,6 +56,8 @@ type GroupCall struct {
 	CanBeManaged bool
 	// Number of participants in the group call
 	ParticipantCount int32
+	// True, if group call participants, which are muted, aren't returned in participant list
+	HasHiddenListeners bool
 	// True, if all group call participants are loaded
 	LoadedAllParticipants bool
 	// At most 3 recently speaking users in the group call
@@ -79,7 +83,7 @@ type GroupCall struct {
 }
 
 // GroupCallTypeID is TL type id of GroupCall.
-const GroupCallTypeID = 0xf6673c4d
+const GroupCallTypeID = 0x9ac55fff
 
 // Ensuring interfaces in compile-time for GroupCall.
 var (
@@ -108,6 +112,9 @@ func (g *GroupCall) Zero() bool {
 	if !(g.IsActive == false) {
 		return false
 	}
+	if !(g.IsRtmpStream == false) {
+		return false
+	}
 	if !(g.IsJoined == false) {
 		return false
 	}
@@ -118,6 +125,9 @@ func (g *GroupCall) Zero() bool {
 		return false
 	}
 	if !(g.ParticipantCount == 0) {
+		return false
+	}
+	if !(g.HasHiddenListeners == false) {
 		return false
 	}
 	if !(g.LoadedAllParticipants == false) {
@@ -207,6 +217,10 @@ func (g *GroupCall) TypeInfo() tdp.Type {
 			SchemaName: "is_active",
 		},
 		{
+			Name:       "IsRtmpStream",
+			SchemaName: "is_rtmp_stream",
+		},
+		{
 			Name:       "IsJoined",
 			SchemaName: "is_joined",
 		},
@@ -221,6 +235,10 @@ func (g *GroupCall) TypeInfo() tdp.Type {
 		{
 			Name:       "ParticipantCount",
 			SchemaName: "participant_count",
+		},
+		{
+			Name:       "HasHiddenListeners",
+			SchemaName: "has_hidden_listeners",
 		},
 		{
 			Name:       "LoadedAllParticipants",
@@ -269,7 +287,7 @@ func (g *GroupCall) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GroupCall) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode groupCall#f6673c4d as nil")
+		return fmt.Errorf("can't encode groupCall#9ac55fff as nil")
 	}
 	b.PutID(GroupCallTypeID)
 	return g.EncodeBare(b)
@@ -278,22 +296,24 @@ func (g *GroupCall) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GroupCall) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode groupCall#f6673c4d as nil")
+		return fmt.Errorf("can't encode groupCall#9ac55fff as nil")
 	}
 	b.PutInt32(g.ID)
 	b.PutString(g.Title)
 	b.PutInt32(g.ScheduledStartDate)
 	b.PutBool(g.EnabledStartNotification)
 	b.PutBool(g.IsActive)
+	b.PutBool(g.IsRtmpStream)
 	b.PutBool(g.IsJoined)
 	b.PutBool(g.NeedRejoin)
 	b.PutBool(g.CanBeManaged)
 	b.PutInt32(g.ParticipantCount)
+	b.PutBool(g.HasHiddenListeners)
 	b.PutBool(g.LoadedAllParticipants)
 	b.PutInt(len(g.RecentSpeakers))
 	for idx, v := range g.RecentSpeakers {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare groupCall#f6673c4d: field recent_speakers element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare groupCall#9ac55fff: field recent_speakers element with index %d: %w", idx, err)
 		}
 	}
 	b.PutBool(g.IsMyVideoEnabled)
@@ -310,10 +330,10 @@ func (g *GroupCall) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GroupCall) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode groupCall#f6673c4d to nil")
+		return fmt.Errorf("can't decode groupCall#9ac55fff to nil")
 	}
 	if err := b.ConsumeID(GroupCallTypeID); err != nil {
-		return fmt.Errorf("unable to decode groupCall#f6673c4d: %w", err)
+		return fmt.Errorf("unable to decode groupCall#9ac55fff: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -321,82 +341,96 @@ func (g *GroupCall) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GroupCall) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode groupCall#f6673c4d to nil")
+		return fmt.Errorf("can't decode groupCall#9ac55fff to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#f6673c4d: field id: %w", err)
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field id: %w", err)
 		}
 		g.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#f6673c4d: field title: %w", err)
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field title: %w", err)
 		}
 		g.Title = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#f6673c4d: field scheduled_start_date: %w", err)
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field scheduled_start_date: %w", err)
 		}
 		g.ScheduledStartDate = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#f6673c4d: field enabled_start_notification: %w", err)
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field enabled_start_notification: %w", err)
 		}
 		g.EnabledStartNotification = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#f6673c4d: field is_active: %w", err)
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field is_active: %w", err)
 		}
 		g.IsActive = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#f6673c4d: field is_joined: %w", err)
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field is_rtmp_stream: %w", err)
+		}
+		g.IsRtmpStream = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field is_joined: %w", err)
 		}
 		g.IsJoined = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#f6673c4d: field need_rejoin: %w", err)
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field need_rejoin: %w", err)
 		}
 		g.NeedRejoin = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#f6673c4d: field can_be_managed: %w", err)
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field can_be_managed: %w", err)
 		}
 		g.CanBeManaged = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#f6673c4d: field participant_count: %w", err)
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field participant_count: %w", err)
 		}
 		g.ParticipantCount = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#f6673c4d: field loaded_all_participants: %w", err)
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field has_hidden_listeners: %w", err)
+		}
+		g.HasHiddenListeners = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field loaded_all_participants: %w", err)
 		}
 		g.LoadedAllParticipants = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#f6673c4d: field recent_speakers: %w", err)
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field recent_speakers: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -405,7 +439,7 @@ func (g *GroupCall) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value GroupCallRecentSpeaker
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare groupCall#f6673c4d: field recent_speakers: %w", err)
+				return fmt.Errorf("unable to decode bare groupCall#9ac55fff: field recent_speakers: %w", err)
 			}
 			g.RecentSpeakers = append(g.RecentSpeakers, value)
 		}
@@ -413,56 +447,56 @@ func (g *GroupCall) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#f6673c4d: field is_my_video_enabled: %w", err)
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field is_my_video_enabled: %w", err)
 		}
 		g.IsMyVideoEnabled = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#f6673c4d: field is_my_video_paused: %w", err)
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field is_my_video_paused: %w", err)
 		}
 		g.IsMyVideoPaused = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#f6673c4d: field can_enable_video: %w", err)
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field can_enable_video: %w", err)
 		}
 		g.CanEnableVideo = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#f6673c4d: field mute_new_participants: %w", err)
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field mute_new_participants: %w", err)
 		}
 		g.MuteNewParticipants = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#f6673c4d: field can_toggle_mute_new_participants: %w", err)
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field can_toggle_mute_new_participants: %w", err)
 		}
 		g.CanToggleMuteNewParticipants = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#f6673c4d: field record_duration: %w", err)
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field record_duration: %w", err)
 		}
 		g.RecordDuration = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#f6673c4d: field is_video_recorded: %w", err)
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field is_video_recorded: %w", err)
 		}
 		g.IsVideoRecorded = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#f6673c4d: field duration: %w", err)
+			return fmt.Errorf("unable to decode groupCall#9ac55fff: field duration: %w", err)
 		}
 		g.Duration = value
 	}
@@ -472,7 +506,7 @@ func (g *GroupCall) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GroupCall) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode groupCall#f6673c4d as nil")
+		return fmt.Errorf("can't encode groupCall#9ac55fff as nil")
 	}
 	b.ObjStart()
 	b.PutID("groupCall")
@@ -492,6 +526,9 @@ func (g *GroupCall) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("is_active")
 	b.PutBool(g.IsActive)
 	b.Comma()
+	b.FieldStart("is_rtmp_stream")
+	b.PutBool(g.IsRtmpStream)
+	b.Comma()
 	b.FieldStart("is_joined")
 	b.PutBool(g.IsJoined)
 	b.Comma()
@@ -504,6 +541,9 @@ func (g *GroupCall) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("participant_count")
 	b.PutInt32(g.ParticipantCount)
 	b.Comma()
+	b.FieldStart("has_hidden_listeners")
+	b.PutBool(g.HasHiddenListeners)
+	b.Comma()
 	b.FieldStart("loaded_all_participants")
 	b.PutBool(g.LoadedAllParticipants)
 	b.Comma()
@@ -511,7 +551,7 @@ func (g *GroupCall) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ArrStart()
 	for idx, v := range g.RecentSpeakers {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode groupCall#f6673c4d: field recent_speakers element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode groupCall#9ac55fff: field recent_speakers element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -550,132 +590,144 @@ func (g *GroupCall) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GroupCall) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode groupCall#f6673c4d to nil")
+		return fmt.Errorf("can't decode groupCall#9ac55fff to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("groupCall"); err != nil {
-				return fmt.Errorf("unable to decode groupCall#f6673c4d: %w", err)
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: %w", err)
 			}
 		case "id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode groupCall#f6673c4d: field id: %w", err)
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field id: %w", err)
 			}
 			g.ID = value
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode groupCall#f6673c4d: field title: %w", err)
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field title: %w", err)
 			}
 			g.Title = value
 		case "scheduled_start_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode groupCall#f6673c4d: field scheduled_start_date: %w", err)
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field scheduled_start_date: %w", err)
 			}
 			g.ScheduledStartDate = value
 		case "enabled_start_notification":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode groupCall#f6673c4d: field enabled_start_notification: %w", err)
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field enabled_start_notification: %w", err)
 			}
 			g.EnabledStartNotification = value
 		case "is_active":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode groupCall#f6673c4d: field is_active: %w", err)
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field is_active: %w", err)
 			}
 			g.IsActive = value
+		case "is_rtmp_stream":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field is_rtmp_stream: %w", err)
+			}
+			g.IsRtmpStream = value
 		case "is_joined":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode groupCall#f6673c4d: field is_joined: %w", err)
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field is_joined: %w", err)
 			}
 			g.IsJoined = value
 		case "need_rejoin":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode groupCall#f6673c4d: field need_rejoin: %w", err)
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field need_rejoin: %w", err)
 			}
 			g.NeedRejoin = value
 		case "can_be_managed":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode groupCall#f6673c4d: field can_be_managed: %w", err)
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field can_be_managed: %w", err)
 			}
 			g.CanBeManaged = value
 		case "participant_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode groupCall#f6673c4d: field participant_count: %w", err)
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field participant_count: %w", err)
 			}
 			g.ParticipantCount = value
+		case "has_hidden_listeners":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field has_hidden_listeners: %w", err)
+			}
+			g.HasHiddenListeners = value
 		case "loaded_all_participants":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode groupCall#f6673c4d: field loaded_all_participants: %w", err)
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field loaded_all_participants: %w", err)
 			}
 			g.LoadedAllParticipants = value
 		case "recent_speakers":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value GroupCallRecentSpeaker
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode groupCall#f6673c4d: field recent_speakers: %w", err)
+					return fmt.Errorf("unable to decode groupCall#9ac55fff: field recent_speakers: %w", err)
 				}
 				g.RecentSpeakers = append(g.RecentSpeakers, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode groupCall#f6673c4d: field recent_speakers: %w", err)
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field recent_speakers: %w", err)
 			}
 		case "is_my_video_enabled":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode groupCall#f6673c4d: field is_my_video_enabled: %w", err)
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field is_my_video_enabled: %w", err)
 			}
 			g.IsMyVideoEnabled = value
 		case "is_my_video_paused":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode groupCall#f6673c4d: field is_my_video_paused: %w", err)
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field is_my_video_paused: %w", err)
 			}
 			g.IsMyVideoPaused = value
 		case "can_enable_video":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode groupCall#f6673c4d: field can_enable_video: %w", err)
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field can_enable_video: %w", err)
 			}
 			g.CanEnableVideo = value
 		case "mute_new_participants":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode groupCall#f6673c4d: field mute_new_participants: %w", err)
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field mute_new_participants: %w", err)
 			}
 			g.MuteNewParticipants = value
 		case "can_toggle_mute_new_participants":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode groupCall#f6673c4d: field can_toggle_mute_new_participants: %w", err)
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field can_toggle_mute_new_participants: %w", err)
 			}
 			g.CanToggleMuteNewParticipants = value
 		case "record_duration":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode groupCall#f6673c4d: field record_duration: %w", err)
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field record_duration: %w", err)
 			}
 			g.RecordDuration = value
 		case "is_video_recorded":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode groupCall#f6673c4d: field is_video_recorded: %w", err)
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field is_video_recorded: %w", err)
 			}
 			g.IsVideoRecorded = value
 		case "duration":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode groupCall#f6673c4d: field duration: %w", err)
+				return fmt.Errorf("unable to decode groupCall#9ac55fff: field duration: %w", err)
 			}
 			g.Duration = value
 		default:
@@ -725,6 +777,14 @@ func (g *GroupCall) GetIsActive() (value bool) {
 	return g.IsActive
 }
 
+// GetIsRtmpStream returns value of IsRtmpStream field.
+func (g *GroupCall) GetIsRtmpStream() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.IsRtmpStream
+}
+
 // GetIsJoined returns value of IsJoined field.
 func (g *GroupCall) GetIsJoined() (value bool) {
 	if g == nil {
@@ -755,6 +815,14 @@ func (g *GroupCall) GetParticipantCount() (value int32) {
 		return
 	}
 	return g.ParticipantCount
+}
+
+// GetHasHiddenListeners returns value of HasHiddenListeners field.
+func (g *GroupCall) GetHasHiddenListeners() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.HasHiddenListeners
 }
 
 // GetLoadedAllParticipants returns value of LoadedAllParticipants field.

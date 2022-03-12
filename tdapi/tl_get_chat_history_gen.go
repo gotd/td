@@ -46,8 +46,7 @@ type GetChatHistoryRequest struct {
 	// -offset. For optimal performance, the number of returned messages is chosen by TDLib
 	// and can be smaller than the specified limit
 	Limit int32
-	// If true, returns only messages that are available locally without sending network
-	// requests
+	// Pass true to get only messages that are available without sending network requests
 	OnlyLocal bool
 }
 

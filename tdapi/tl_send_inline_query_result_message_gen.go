@@ -45,9 +45,9 @@ type SendInlineQueryResultMessageRequest struct {
 	QueryID int64
 	// Identifier of the inline result
 	ResultID string
-	// If true, there will be no mention of a bot, via which the message is sent. Can be used
-	// only for bots GetOption("animation_search_bot_username"),
-	// GetOption("photo_search_bot_username") and GetOption("venue_search_bot_username")
+	// Pass true to hide the bot, via which the message is sent. Can be used only for bots
+	// GetOption("animation_search_bot_username"), GetOption("photo_search_bot_username"),
+	// and GetOption("venue_search_bot_username")
 	HideViaBot bool
 }
 

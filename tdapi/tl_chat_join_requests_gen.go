@@ -33,7 +33,7 @@ var (
 
 // ChatJoinRequests represents TL type `chatJoinRequests#b2c5fd31`.
 type ChatJoinRequests struct {
-	// Approximate total count of requests found
+	// Approximate total number of requests found
 	TotalCount int32
 	// List of the requests
 	Requests []ChatJoinRequest

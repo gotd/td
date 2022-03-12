@@ -33,7 +33,7 @@ var (
 
 // GetLocalizationTargetInfoRequest represents TL type `getLocalizationTargetInfo#6e3d1f86`.
 type GetLocalizationTargetInfoRequest struct {
-	// If true, returns only locally available information without sending network requests
+	// Pass true to get only locally available information without sending network requests
 	OnlyLocal bool
 }
 

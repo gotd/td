@@ -35,7 +35,7 @@ var (
 type CreateNewSupergroupChatRequest struct {
 	// Title of the new chat; 1-128 characters
 	Title string
-	// True, if a channel chat needs to be created
+	// Pass true to create a channel chat
 	IsChannel bool
 	// Creates a new supergroup or channel and sends a corresponding
 	// messageSupergroupChatCreate. Returns the newly created chat
@@ -43,7 +43,7 @@ type CreateNewSupergroupChatRequest struct {
 	// Chat location if a location-based supergroup is being created; pass null to create an
 	// ordinary supergroup chat
 	Location ChatLocation
-	// True, if the supergroup is created for importing messages using importMessage
+	// Pass true to create a supergroup for importing messages using importMessage
 	ForImport bool
 }
 

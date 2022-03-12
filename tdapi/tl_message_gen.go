@@ -64,7 +64,7 @@ type Message struct {
 	CanGetAddedReactions bool
 	// True, if the message statistics are available through getMessageStatistics
 	CanGetStatistics bool
-	// True, if the message thread info is available through getMessageThread
+	// True, if information about the message thread is available through getMessageThread
 	CanGetMessageThread bool
 	// True, if chat members already viewed the message can be received through
 	// getMessageViewers

@@ -38,7 +38,7 @@ type SetGroupCallParticipantIsSpeakingRequest struct {
 	// Group call participant's synchronization audio source identifier, or 0 for the current
 	// user
 	AudioSource int32
-	// True, if the user is speaking
+	// Pass true if the user is speaking
 	IsSpeaking bool
 }
 

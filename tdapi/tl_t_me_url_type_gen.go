@@ -365,7 +365,7 @@ func (t *TMeURLTypeSupergroup) GetSupergroupID() (value int64) {
 
 // TMeURLTypeChatInvite represents TL type `tMeUrlTypeChatInvite#12b5da49`.
 type TMeURLTypeChatInvite struct {
-	// Chat invite link info
+	// Information about the chat invite link
 	Info ChatInviteLinkInfo
 }
 

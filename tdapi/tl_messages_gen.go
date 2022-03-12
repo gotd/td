@@ -33,7 +33,7 @@ var (
 
 // Messages represents TL type `messages#b34c8c60`.
 type Messages struct {
-	// Approximate total count of messages found
+	// Approximate total number of messages found
 	TotalCount int32
 	// List of messages; messages may be null
 	Messages []Message

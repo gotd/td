@@ -35,8 +35,7 @@ var (
 type SetChatAvailableReactionsRequest struct {
 	// Identifier of the chat
 	ChatID int64
-	// New list of reactions, available in the chat. All reactions must be active and order
-	// of the reactions must be the same as in updateReactions
+	// New list of reactions, available in the chat. All reactions must be active
 	AvailableReactions []string
 }
 

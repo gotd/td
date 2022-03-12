@@ -33,7 +33,7 @@ var (
 
 // ChatMembers represents TL type `chatMembers#8ecbb24`.
 type ChatMembers struct {
-	// Approximate total count of chat members found
+	// Approximate total number of chat members found
 	TotalCount int32
 	// A list of chat members
 	Members []ChatMember

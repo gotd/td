@@ -36,7 +36,7 @@ type GetChatNotificationSettingsExceptionsRequest struct {
 	// If specified, only chats from the scope will be returned; pass null to return chats
 	// from all scopes
 	Scope NotificationSettingsScopeClass
-	// If true, also chats with non-default sound will be returned
+	// Pass true to include in the response chats with only non-default sound
 	CompareSound bool
 }
 
