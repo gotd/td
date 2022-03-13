@@ -64,7 +64,7 @@ type User struct {
 	// True, if many users reported this user as a fake account
 	IsFake bool
 	// If false, the user is inaccessible, and the only information known about the user is
-	// inside this class. It can't be passed to any method except GetUser
+	// inside this class. Identifier of the user can't be passed to any method except GetUser
 	HaveAccess bool
 	// Type of the user
 	Type UserTypeClass
