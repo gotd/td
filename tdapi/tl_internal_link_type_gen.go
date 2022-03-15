@@ -1688,6 +1688,137 @@ func (i *InternalLinkTypeLanguagePack) GetLanguagePackID() (value string) {
 	return i.LanguagePackID
 }
 
+// InternalLinkTypeLanguageSettings represents TL type `internalLinkTypeLanguageSettings#b019e6e6`.
+type InternalLinkTypeLanguageSettings struct {
+}
+
+// InternalLinkTypeLanguageSettingsTypeID is TL type id of InternalLinkTypeLanguageSettings.
+const InternalLinkTypeLanguageSettingsTypeID = 0xb019e6e6
+
+// construct implements constructor of InternalLinkTypeClass.
+func (i InternalLinkTypeLanguageSettings) construct() InternalLinkTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InternalLinkTypeLanguageSettings.
+var (
+	_ bin.Encoder     = &InternalLinkTypeLanguageSettings{}
+	_ bin.Decoder     = &InternalLinkTypeLanguageSettings{}
+	_ bin.BareEncoder = &InternalLinkTypeLanguageSettings{}
+	_ bin.BareDecoder = &InternalLinkTypeLanguageSettings{}
+
+	_ InternalLinkTypeClass = &InternalLinkTypeLanguageSettings{}
+)
+
+func (i *InternalLinkTypeLanguageSettings) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InternalLinkTypeLanguageSettings) String() string {
+	if i == nil {
+		return "InternalLinkTypeLanguageSettings(nil)"
+	}
+	type Alias InternalLinkTypeLanguageSettings
+	return fmt.Sprintf("InternalLinkTypeLanguageSettings%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InternalLinkTypeLanguageSettings) TypeID() uint32 {
+	return InternalLinkTypeLanguageSettingsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InternalLinkTypeLanguageSettings) TypeName() string {
+	return "internalLinkTypeLanguageSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InternalLinkTypeLanguageSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "internalLinkTypeLanguageSettings",
+		ID:   InternalLinkTypeLanguageSettingsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InternalLinkTypeLanguageSettings) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeLanguageSettings#b019e6e6 as nil")
+	}
+	b.PutID(InternalLinkTypeLanguageSettingsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InternalLinkTypeLanguageSettings) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeLanguageSettings#b019e6e6 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InternalLinkTypeLanguageSettings) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeLanguageSettings#b019e6e6 to nil")
+	}
+	if err := b.ConsumeID(InternalLinkTypeLanguageSettingsTypeID); err != nil {
+		return fmt.Errorf("unable to decode internalLinkTypeLanguageSettings#b019e6e6: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InternalLinkTypeLanguageSettings) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeLanguageSettings#b019e6e6 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InternalLinkTypeLanguageSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeLanguageSettings#b019e6e6 as nil")
+	}
+	b.ObjStart()
+	b.PutID("internalLinkTypeLanguageSettings")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InternalLinkTypeLanguageSettings) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeLanguageSettings#b019e6e6 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("internalLinkTypeLanguageSettings"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeLanguageSettings#b019e6e6: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // InternalLinkTypeMessage represents TL type `internalLinkTypeMessage#3a535c52`.
 type InternalLinkTypeMessage struct {
 	// URL to be passed to getMessageLinkInfo
@@ -2558,6 +2689,137 @@ func (i *InternalLinkTypePhoneNumberConfirmation) GetPhoneNumber() (value string
 		return
 	}
 	return i.PhoneNumber
+}
+
+// InternalLinkTypePrivacyAndSecuritySettings represents TL type `internalLinkTypePrivacyAndSecuritySettings#ad5f6acf`.
+type InternalLinkTypePrivacyAndSecuritySettings struct {
+}
+
+// InternalLinkTypePrivacyAndSecuritySettingsTypeID is TL type id of InternalLinkTypePrivacyAndSecuritySettings.
+const InternalLinkTypePrivacyAndSecuritySettingsTypeID = 0xad5f6acf
+
+// construct implements constructor of InternalLinkTypeClass.
+func (i InternalLinkTypePrivacyAndSecuritySettings) construct() InternalLinkTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InternalLinkTypePrivacyAndSecuritySettings.
+var (
+	_ bin.Encoder     = &InternalLinkTypePrivacyAndSecuritySettings{}
+	_ bin.Decoder     = &InternalLinkTypePrivacyAndSecuritySettings{}
+	_ bin.BareEncoder = &InternalLinkTypePrivacyAndSecuritySettings{}
+	_ bin.BareDecoder = &InternalLinkTypePrivacyAndSecuritySettings{}
+
+	_ InternalLinkTypeClass = &InternalLinkTypePrivacyAndSecuritySettings{}
+)
+
+func (i *InternalLinkTypePrivacyAndSecuritySettings) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InternalLinkTypePrivacyAndSecuritySettings) String() string {
+	if i == nil {
+		return "InternalLinkTypePrivacyAndSecuritySettings(nil)"
+	}
+	type Alias InternalLinkTypePrivacyAndSecuritySettings
+	return fmt.Sprintf("InternalLinkTypePrivacyAndSecuritySettings%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InternalLinkTypePrivacyAndSecuritySettings) TypeID() uint32 {
+	return InternalLinkTypePrivacyAndSecuritySettingsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InternalLinkTypePrivacyAndSecuritySettings) TypeName() string {
+	return "internalLinkTypePrivacyAndSecuritySettings"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InternalLinkTypePrivacyAndSecuritySettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "internalLinkTypePrivacyAndSecuritySettings",
+		ID:   InternalLinkTypePrivacyAndSecuritySettingsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InternalLinkTypePrivacyAndSecuritySettings) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypePrivacyAndSecuritySettings#ad5f6acf as nil")
+	}
+	b.PutID(InternalLinkTypePrivacyAndSecuritySettingsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InternalLinkTypePrivacyAndSecuritySettings) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypePrivacyAndSecuritySettings#ad5f6acf as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InternalLinkTypePrivacyAndSecuritySettings) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypePrivacyAndSecuritySettings#ad5f6acf to nil")
+	}
+	if err := b.ConsumeID(InternalLinkTypePrivacyAndSecuritySettingsTypeID); err != nil {
+		return fmt.Errorf("unable to decode internalLinkTypePrivacyAndSecuritySettings#ad5f6acf: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InternalLinkTypePrivacyAndSecuritySettings) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypePrivacyAndSecuritySettings#ad5f6acf to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InternalLinkTypePrivacyAndSecuritySettings) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypePrivacyAndSecuritySettings#ad5f6acf as nil")
+	}
+	b.ObjStart()
+	b.PutID("internalLinkTypePrivacyAndSecuritySettings")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InternalLinkTypePrivacyAndSecuritySettings) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypePrivacyAndSecuritySettings#ad5f6acf to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("internalLinkTypePrivacyAndSecuritySettings"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypePrivacyAndSecuritySettings#ad5f6acf: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // InternalLinkTypeProxy represents TL type `internalLinkTypeProxy#b1b12cea`.
@@ -4415,10 +4677,12 @@ const InternalLinkTypeClassName = "InternalLinkType"
 //  case *tdapi.InternalLinkTypeFilterSettings: // internalLinkTypeFilterSettings#5981179b
 //  case *tdapi.InternalLinkTypeGame: // internalLinkTypeGame#f074adcd
 //  case *tdapi.InternalLinkTypeLanguagePack: // internalLinkTypeLanguagePack#a9870d6c
+//  case *tdapi.InternalLinkTypeLanguageSettings: // internalLinkTypeLanguageSettings#b019e6e6
 //  case *tdapi.InternalLinkTypeMessage: // internalLinkTypeMessage#3a535c52
 //  case *tdapi.InternalLinkTypeMessageDraft: // internalLinkTypeMessageDraft#276fbad5
 //  case *tdapi.InternalLinkTypePassportDataRequest: // internalLinkTypePassportDataRequest#c50fce81
 //  case *tdapi.InternalLinkTypePhoneNumberConfirmation: // internalLinkTypePhoneNumberConfirmation#68bf6b16
+//  case *tdapi.InternalLinkTypePrivacyAndSecuritySettings: // internalLinkTypePrivacyAndSecuritySettings#ad5f6acf
 //  case *tdapi.InternalLinkTypeProxy: // internalLinkTypeProxy#b1b12cea
 //  case *tdapi.InternalLinkTypePublicChat: // internalLinkTypePublicChat#a774573b
 //  case *tdapi.InternalLinkTypeQrCodeAuthentication: // internalLinkTypeQrCodeAuthentication#bf121924
@@ -4531,6 +4795,13 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
 		return &v, nil
+	case InternalLinkTypeLanguageSettingsTypeID:
+		// Decoding internalLinkTypeLanguageSettings#b019e6e6.
+		v := InternalLinkTypeLanguageSettings{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
 	case InternalLinkTypeMessageTypeID:
 		// Decoding internalLinkTypeMessage#3a535c52.
 		v := InternalLinkTypeMessage{}
@@ -4555,6 +4826,13 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 	case InternalLinkTypePhoneNumberConfirmationTypeID:
 		// Decoding internalLinkTypePhoneNumberConfirmation#68bf6b16.
 		v := InternalLinkTypePhoneNumberConfirmation{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case InternalLinkTypePrivacyAndSecuritySettingsTypeID:
+		// Decoding internalLinkTypePrivacyAndSecuritySettings#ad5f6acf.
+		v := InternalLinkTypePrivacyAndSecuritySettings{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
@@ -4718,6 +4996,13 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
 		return &v, nil
+	case "internalLinkTypeLanguageSettings":
+		// Decoding internalLinkTypeLanguageSettings#b019e6e6.
+		v := InternalLinkTypeLanguageSettings{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
 	case "internalLinkTypeMessage":
 		// Decoding internalLinkTypeMessage#3a535c52.
 		v := InternalLinkTypeMessage{}
@@ -4742,6 +5027,13 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 	case "internalLinkTypePhoneNumberConfirmation":
 		// Decoding internalLinkTypePhoneNumberConfirmation#68bf6b16.
 		v := InternalLinkTypePhoneNumberConfirmation{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypePrivacyAndSecuritySettings":
+		// Decoding internalLinkTypePrivacyAndSecuritySettings#ad5f6acf.
+		v := InternalLinkTypePrivacyAndSecuritySettings{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
