@@ -16,7 +16,7 @@ require (
 	github.com/klauspost/compress v1.15.1
 	github.com/quasilyte/go-ruleguard/dsl v0.3.17
 	github.com/rogpeppe/go-internal v1.8.1
-	github.com/stretchr/testify v1.7.0
+	github.com/stretchr/testify v1.7.1
 	go.uber.org/atomic v1.9.0
 	go.uber.org/multierr v1.8.0
 	go.uber.org/zap v1.21.0
