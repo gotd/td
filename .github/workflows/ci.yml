@@ -14,7 +14,7 @@ jobs:
       matrix:
         flags: [""]
         go:
-          - 1.17
+          - 1.18
         arch:
           - amd64
         runner:
@@ -24,14 +24,11 @@ jobs:
         include:
           - arch: 386
             runner: ubuntu-latest
-            go: 1.17
+            go: 1.18
           - arch: amd64
-            go: 1.17
+            go: 1.18
             runner: [self-hosted, linux, x64]
             flags: "-race"
-          - arch: amd64
-            runner: ubuntu-latest
-            go: 1.18.0-rc.1
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
