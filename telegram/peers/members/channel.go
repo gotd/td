@@ -13,6 +13,7 @@ import (
 // ChannelMembers is channel Members.
 type ChannelMembers struct {
 	m       *peers.Manager
+	filter  tg.ChannelParticipantsFilterClass
 	channel peers.Channel
 }
 
@@ -20,7 +21,7 @@ func (c *ChannelMembers) query(ctx context.Context, offset, limit int) (*tg.Chan
 	raw := c.m.API()
 	p, err := raw.ChannelsGetParticipants(ctx, &tg.ChannelsGetParticipantsRequest{
 		Channel: c.channel.InputChannel(),
-		Filter:  &tg.ChannelParticipantsRecent{},
+		Filter:  c.filter,
 		Offset:  offset,
 		Limit:   limit,
 	})
@@ -100,7 +101,7 @@ func (c *ChannelMembers) ForEach(ctx context.Context, cb Callback) error {
 			if err != nil {
 				return errors.Wrapf(err, "get member %d", userID)
 			}
-			member := ChannelMember{
+			chm := ChannelMember{
 				parent:      c,
 				creatorDate: channelDate,
 				user:        user,
@@ -112,10 +113,10 @@ func (c *ChannelMembers) ForEach(ctx context.Context, cb Callback) error {
 				if err != nil {
 					return errors.Wrapf(err, "get inviter %d", inviterID)
 				}
-				member.inviter = inviter
+				chm.inviter = inviter
 			}
 
-			if err := cb(member); err != nil {
+			if err := cb(chm); err != nil {
 				return errors.Wrapf(err, "callback (index: %d)", i)
 			}
 		}
@@ -209,8 +210,5 @@ func (c *ChannelMembers) EditAdminRights(
 
 // Channel returns recent channel members.
 func Channel(channel peers.Channel) *ChannelMembers {
-	return &ChannelMembers{
-		m:       channel.Manager(),
-		channel: channel,
-	}
+	return ChannelQuery{Channel: channel}.Recent()
 }
