@@ -5,7 +5,7 @@ go 1.17
 require (
 	github.com/cenkalti/backoff/v4 v4.1.2
 	github.com/go-faster/errors v0.5.0
-	github.com/go-faster/jx v0.32.2
+	github.com/go-faster/jx v0.33.0
 	github.com/go-faster/xor v0.3.0
 	github.com/go-openapi/inflect v0.19.0
 	github.com/gotd/getdoc v0.7.0
