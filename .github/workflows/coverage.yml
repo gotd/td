@@ -57,6 +57,6 @@ jobs:
           name: coverage
 
       - name: Send coverage
-        uses: codecov/codecov-action@v2.1.0
+        uses: codecov/codecov-action@v3
         with:
           file: profile.out
