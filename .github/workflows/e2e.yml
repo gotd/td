@@ -30,7 +30,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.go-env.outputs.modcache }}
-          key: e2e-${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          key: e2e-${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}-${{ hashFiles('**/go.mod') }}
           restore-keys: |
             e2e-${{ runner.os }}-go-
 

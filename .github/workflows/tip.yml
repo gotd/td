@@ -33,7 +33,7 @@ jobs:
         with:
           path: |
             ${{ steps.go-env.outputs.modcache }}
-          key: tip-${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          key: tip-${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}-${{ hashFiles('**/go.mod') }}
           restore-keys: |
             tip-${{ runner.os }}-go-
 
