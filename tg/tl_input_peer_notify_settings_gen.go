@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// InputPeerNotifySettings represents TL type `inputPeerNotifySettings#9c3d198e`.
+// InputPeerNotifySettings represents TL type `inputPeerNotifySettings#df1f002b`.
 // Notification settings.
 //
 // See https://core.telegram.org/constructor/inputPeerNotifySettings for reference.
@@ -56,11 +56,11 @@ type InputPeerNotifySettings struct {
 	// Name of an audio file for notification
 	//
 	// Use SetSound and GetSound helpers.
-	Sound string
+	Sound NotificationSoundClass
 }
 
 // InputPeerNotifySettingsTypeID is TL type id of InputPeerNotifySettings.
-const InputPeerNotifySettingsTypeID = 0x9c3d198e
+const InputPeerNotifySettingsTypeID = 0xdf1f002b
 
 // Ensuring interfaces in compile-time for InputPeerNotifySettings.
 var (
@@ -86,7 +86,7 @@ func (i *InputPeerNotifySettings) Zero() bool {
 	if !(i.MuteUntil == 0) {
 		return false
 	}
-	if !(i.Sound == "") {
+	if !(i.Sound == nil) {
 		return false
 	}
 
@@ -107,7 +107,7 @@ func (i *InputPeerNotifySettings) FillFrom(from interface {
 	GetShowPreviews() (value bool, ok bool)
 	GetSilent() (value bool, ok bool)
 	GetMuteUntil() (value int, ok bool)
-	GetSound() (value string, ok bool)
+	GetSound() (value NotificationSoundClass, ok bool)
 }) {
 	if val, ok := from.GetShowPreviews(); ok {
 		i.ShowPreviews = val
@@ -185,7 +185,7 @@ func (i *InputPeerNotifySettings) SetFlags() {
 	if !(i.MuteUntil == 0) {
 		i.Flags.Set(2)
 	}
-	if !(i.Sound == "") {
+	if !(i.Sound == nil) {
 		i.Flags.Set(3)
 	}
 }
@@ -193,7 +193,7 @@ func (i *InputPeerNotifySettings) SetFlags() {
 // Encode implements bin.Encoder.
 func (i *InputPeerNotifySettings) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerNotifySettings#9c3d198e as nil")
+		return fmt.Errorf("can't encode inputPeerNotifySettings#df1f002b as nil")
 	}
 	b.PutID(InputPeerNotifySettingsTypeID)
 	return i.EncodeBare(b)
@@ -202,11 +202,11 @@ func (i *InputPeerNotifySettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPeerNotifySettings) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerNotifySettings#9c3d198e as nil")
+		return fmt.Errorf("can't encode inputPeerNotifySettings#df1f002b as nil")
 	}
 	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputPeerNotifySettings#9c3d198e: field flags: %w", err)
+		return fmt.Errorf("unable to encode inputPeerNotifySettings#df1f002b: field flags: %w", err)
 	}
 	if i.Flags.Has(0) {
 		b.PutBool(i.ShowPreviews)
@@ -218,7 +218,12 @@ func (i *InputPeerNotifySettings) EncodeBare(b *bin.Buffer) error {
 		b.PutInt(i.MuteUntil)
 	}
 	if i.Flags.Has(3) {
-		b.PutString(i.Sound)
+		if i.Sound == nil {
+			return fmt.Errorf("unable to encode inputPeerNotifySettings#df1f002b: field sound is nil")
+		}
+		if err := i.Sound.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode inputPeerNotifySettings#df1f002b: field sound: %w", err)
+		}
 	}
 	return nil
 }
@@ -226,10 +231,10 @@ func (i *InputPeerNotifySettings) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputPeerNotifySettings) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerNotifySettings#9c3d198e to nil")
+		return fmt.Errorf("can't decode inputPeerNotifySettings#df1f002b to nil")
 	}
 	if err := b.ConsumeID(InputPeerNotifySettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: %w", err)
+		return fmt.Errorf("unable to decode inputPeerNotifySettings#df1f002b: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -237,38 +242,38 @@ func (i *InputPeerNotifySettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPeerNotifySettings) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerNotifySettings#9c3d198e to nil")
+		return fmt.Errorf("can't decode inputPeerNotifySettings#df1f002b to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field flags: %w", err)
+			return fmt.Errorf("unable to decode inputPeerNotifySettings#df1f002b: field flags: %w", err)
 		}
 	}
 	if i.Flags.Has(0) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field show_previews: %w", err)
+			return fmt.Errorf("unable to decode inputPeerNotifySettings#df1f002b: field show_previews: %w", err)
 		}
 		i.ShowPreviews = value
 	}
 	if i.Flags.Has(1) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field silent: %w", err)
+			return fmt.Errorf("unable to decode inputPeerNotifySettings#df1f002b: field silent: %w", err)
 		}
 		i.Silent = value
 	}
 	if i.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field mute_until: %w", err)
+			return fmt.Errorf("unable to decode inputPeerNotifySettings#df1f002b: field mute_until: %w", err)
 		}
 		i.MuteUntil = value
 	}
 	if i.Flags.Has(3) {
-		value, err := b.String()
+		value, err := DecodeNotificationSound(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field sound: %w", err)
+			return fmt.Errorf("unable to decode inputPeerNotifySettings#df1f002b: field sound: %w", err)
 		}
 		i.Sound = value
 	}
@@ -330,14 +335,14 @@ func (i *InputPeerNotifySettings) GetMuteUntil() (value int, ok bool) {
 }
 
 // SetSound sets value of Sound conditional field.
-func (i *InputPeerNotifySettings) SetSound(value string) {
+func (i *InputPeerNotifySettings) SetSound(value NotificationSoundClass) {
 	i.Flags.Set(3)
 	i.Sound = value
 }
 
 // GetSound returns value of Sound conditional field and
 // boolean which is true if field was set.
-func (i *InputPeerNotifySettings) GetSound() (value string, ok bool) {
+func (i *InputPeerNotifySettings) GetSound() (value NotificationSoundClass, ok bool) {
 	if i == nil {
 		return
 	}

@@ -210,6 +210,8 @@ type User struct {
 	// If set, this user was reported by many users as a fake or scam user: be careful when
 	// interacting with them.
 	Fake bool
+	// BotAttachMenu field of User.
+	BotAttachMenu bool
 	// ID of the user
 	ID int64
 	// Access hash of the user
@@ -329,6 +331,9 @@ func (u *User) Zero() bool {
 	if !(u.Fake == false) {
 		return false
 	}
+	if !(u.BotAttachMenu == false) {
+		return false
+	}
 	if !(u.ID == 0) {
 		return false
 	}
@@ -395,6 +400,7 @@ func (u *User) FillFrom(from interface {
 	GetScam() (value bool)
 	GetApplyMinPhoto() (value bool)
 	GetFake() (value bool)
+	GetBotAttachMenu() (value bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64, ok bool)
 	GetFirstName() (value string, ok bool)
@@ -423,6 +429,7 @@ func (u *User) FillFrom(from interface {
 	u.Scam = from.GetScam()
 	u.ApplyMinPhoto = from.GetApplyMinPhoto()
 	u.Fake = from.GetFake()
+	u.BotAttachMenu = from.GetBotAttachMenu()
 	u.ID = from.GetID()
 	if val, ok := from.GetAccessHash(); ok {
 		u.AccessHash = val
@@ -569,6 +576,11 @@ func (u *User) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(26),
 		},
 		{
+			Name:       "BotAttachMenu",
+			SchemaName: "bot_attach_menu",
+			Null:       !u.Flags.Has(27),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -677,6 +689,9 @@ func (u *User) SetFlags() {
 	}
 	if !(u.Fake == false) {
 		u.Flags.Set(26)
+	}
+	if !(u.BotAttachMenu == false) {
+		u.Flags.Set(27)
 	}
 	if !(u.AccessHash == 0) {
 		u.Flags.Set(0)
@@ -819,6 +834,7 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 	u.Scam = u.Flags.Has(24)
 	u.ApplyMinPhoto = u.Flags.Has(25)
 	u.Fake = u.Flags.Has(26)
+	u.BotAttachMenu = u.Flags.Has(27)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -1199,6 +1215,25 @@ func (u *User) GetFake() (value bool) {
 		return
 	}
 	return u.Flags.Has(26)
+}
+
+// SetBotAttachMenu sets value of BotAttachMenu conditional field.
+func (u *User) SetBotAttachMenu(value bool) {
+	if value {
+		u.Flags.Set(27)
+		u.BotAttachMenu = true
+	} else {
+		u.Flags.Unset(27)
+		u.BotAttachMenu = false
+	}
+}
+
+// GetBotAttachMenu returns value of BotAttachMenu conditional field.
+func (u *User) GetBotAttachMenu() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(27)
 }
 
 // GetID returns value of ID field.

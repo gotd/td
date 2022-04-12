@@ -2455,6 +2455,328 @@ func (k *KeyboardButtonUserProfile) GetUserID() (value int64) {
 	return k.UserID
 }
 
+// KeyboardButtonWebView represents TL type `keyboardButtonWebView#13767230`.
+//
+// See https://core.telegram.org/constructor/keyboardButtonWebView for reference.
+type KeyboardButtonWebView struct {
+	// Text field of KeyboardButtonWebView.
+	Text string
+	// URL field of KeyboardButtonWebView.
+	URL string
+}
+
+// KeyboardButtonWebViewTypeID is TL type id of KeyboardButtonWebView.
+const KeyboardButtonWebViewTypeID = 0x13767230
+
+// construct implements constructor of KeyboardButtonClass.
+func (k KeyboardButtonWebView) construct() KeyboardButtonClass { return &k }
+
+// Ensuring interfaces in compile-time for KeyboardButtonWebView.
+var (
+	_ bin.Encoder     = &KeyboardButtonWebView{}
+	_ bin.Decoder     = &KeyboardButtonWebView{}
+	_ bin.BareEncoder = &KeyboardButtonWebView{}
+	_ bin.BareDecoder = &KeyboardButtonWebView{}
+
+	_ KeyboardButtonClass = &KeyboardButtonWebView{}
+)
+
+func (k *KeyboardButtonWebView) Zero() bool {
+	if k == nil {
+		return true
+	}
+	if !(k.Text == "") {
+		return false
+	}
+	if !(k.URL == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (k *KeyboardButtonWebView) String() string {
+	if k == nil {
+		return "KeyboardButtonWebView(nil)"
+	}
+	type Alias KeyboardButtonWebView
+	return fmt.Sprintf("KeyboardButtonWebView%+v", Alias(*k))
+}
+
+// FillFrom fills KeyboardButtonWebView from given interface.
+func (k *KeyboardButtonWebView) FillFrom(from interface {
+	GetText() (value string)
+	GetURL() (value string)
+}) {
+	k.Text = from.GetText()
+	k.URL = from.GetURL()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*KeyboardButtonWebView) TypeID() uint32 {
+	return KeyboardButtonWebViewTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*KeyboardButtonWebView) TypeName() string {
+	return "keyboardButtonWebView"
+}
+
+// TypeInfo returns info about TL type.
+func (k *KeyboardButtonWebView) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "keyboardButtonWebView",
+		ID:   KeyboardButtonWebViewTypeID,
+	}
+	if k == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (k *KeyboardButtonWebView) Encode(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonWebView#13767230 as nil")
+	}
+	b.PutID(KeyboardButtonWebViewTypeID)
+	return k.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (k *KeyboardButtonWebView) EncodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonWebView#13767230 as nil")
+	}
+	b.PutString(k.Text)
+	b.PutString(k.URL)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (k *KeyboardButtonWebView) Decode(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonWebView#13767230 to nil")
+	}
+	if err := b.ConsumeID(KeyboardButtonWebViewTypeID); err != nil {
+		return fmt.Errorf("unable to decode keyboardButtonWebView#13767230: %w", err)
+	}
+	return k.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (k *KeyboardButtonWebView) DecodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonWebView#13767230 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonWebView#13767230: field text: %w", err)
+		}
+		k.Text = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonWebView#13767230: field url: %w", err)
+		}
+		k.URL = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (k *KeyboardButtonWebView) GetText() (value string) {
+	if k == nil {
+		return
+	}
+	return k.Text
+}
+
+// GetURL returns value of URL field.
+func (k *KeyboardButtonWebView) GetURL() (value string) {
+	if k == nil {
+		return
+	}
+	return k.URL
+}
+
+// KeyboardButtonSimpleWebView represents TL type `keyboardButtonSimpleWebView#a0c0505c`.
+//
+// See https://core.telegram.org/constructor/keyboardButtonSimpleWebView for reference.
+type KeyboardButtonSimpleWebView struct {
+	// Text field of KeyboardButtonSimpleWebView.
+	Text string
+	// URL field of KeyboardButtonSimpleWebView.
+	URL string
+}
+
+// KeyboardButtonSimpleWebViewTypeID is TL type id of KeyboardButtonSimpleWebView.
+const KeyboardButtonSimpleWebViewTypeID = 0xa0c0505c
+
+// construct implements constructor of KeyboardButtonClass.
+func (k KeyboardButtonSimpleWebView) construct() KeyboardButtonClass { return &k }
+
+// Ensuring interfaces in compile-time for KeyboardButtonSimpleWebView.
+var (
+	_ bin.Encoder     = &KeyboardButtonSimpleWebView{}
+	_ bin.Decoder     = &KeyboardButtonSimpleWebView{}
+	_ bin.BareEncoder = &KeyboardButtonSimpleWebView{}
+	_ bin.BareDecoder = &KeyboardButtonSimpleWebView{}
+
+	_ KeyboardButtonClass = &KeyboardButtonSimpleWebView{}
+)
+
+func (k *KeyboardButtonSimpleWebView) Zero() bool {
+	if k == nil {
+		return true
+	}
+	if !(k.Text == "") {
+		return false
+	}
+	if !(k.URL == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (k *KeyboardButtonSimpleWebView) String() string {
+	if k == nil {
+		return "KeyboardButtonSimpleWebView(nil)"
+	}
+	type Alias KeyboardButtonSimpleWebView
+	return fmt.Sprintf("KeyboardButtonSimpleWebView%+v", Alias(*k))
+}
+
+// FillFrom fills KeyboardButtonSimpleWebView from given interface.
+func (k *KeyboardButtonSimpleWebView) FillFrom(from interface {
+	GetText() (value string)
+	GetURL() (value string)
+}) {
+	k.Text = from.GetText()
+	k.URL = from.GetURL()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*KeyboardButtonSimpleWebView) TypeID() uint32 {
+	return KeyboardButtonSimpleWebViewTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*KeyboardButtonSimpleWebView) TypeName() string {
+	return "keyboardButtonSimpleWebView"
+}
+
+// TypeInfo returns info about TL type.
+func (k *KeyboardButtonSimpleWebView) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "keyboardButtonSimpleWebView",
+		ID:   KeyboardButtonSimpleWebViewTypeID,
+	}
+	if k == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (k *KeyboardButtonSimpleWebView) Encode(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonSimpleWebView#a0c0505c as nil")
+	}
+	b.PutID(KeyboardButtonSimpleWebViewTypeID)
+	return k.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (k *KeyboardButtonSimpleWebView) EncodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonSimpleWebView#a0c0505c as nil")
+	}
+	b.PutString(k.Text)
+	b.PutString(k.URL)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (k *KeyboardButtonSimpleWebView) Decode(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonSimpleWebView#a0c0505c to nil")
+	}
+	if err := b.ConsumeID(KeyboardButtonSimpleWebViewTypeID); err != nil {
+		return fmt.Errorf("unable to decode keyboardButtonSimpleWebView#a0c0505c: %w", err)
+	}
+	return k.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (k *KeyboardButtonSimpleWebView) DecodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonSimpleWebView#a0c0505c to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonSimpleWebView#a0c0505c: field text: %w", err)
+		}
+		k.Text = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonSimpleWebView#a0c0505c: field url: %w", err)
+		}
+		k.URL = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (k *KeyboardButtonSimpleWebView) GetText() (value string) {
+	if k == nil {
+		return
+	}
+	return k.Text
+}
+
+// GetURL returns value of URL field.
+func (k *KeyboardButtonSimpleWebView) GetURL() (value string) {
+	if k == nil {
+		return
+	}
+	return k.URL
+}
+
 // KeyboardButtonClassName is schema name of KeyboardButtonClass.
 const KeyboardButtonClassName = "KeyboardButton"
 
@@ -2481,6 +2803,8 @@ const KeyboardButtonClassName = "KeyboardButton"
 //  case *tg.KeyboardButtonRequestPoll: // keyboardButtonRequestPoll#bbc7515d
 //  case *tg.InputKeyboardButtonUserProfile: // inputKeyboardButtonUserProfile#e988037b
 //  case *tg.KeyboardButtonUserProfile: // keyboardButtonUserProfile#308660c1
+//  case *tg.KeyboardButtonWebView: // keyboardButtonWebView#13767230
+//  case *tg.KeyboardButtonSimpleWebView: // keyboardButtonSimpleWebView#a0c0505c
 //  default: panic(v)
 //  }
 type KeyboardButtonClass interface {
@@ -2599,6 +2923,20 @@ func DecodeKeyboardButton(buf *bin.Buffer) (KeyboardButtonClass, error) {
 	case KeyboardButtonUserProfileTypeID:
 		// Decoding keyboardButtonUserProfile#308660c1.
 		v := KeyboardButtonUserProfile{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
+		}
+		return &v, nil
+	case KeyboardButtonWebViewTypeID:
+		// Decoding keyboardButtonWebView#13767230.
+		v := KeyboardButtonWebView{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
+		}
+		return &v, nil
+	case KeyboardButtonSimpleWebViewTypeID:
+		// Decoding keyboardButtonSimpleWebView#a0c0505c.
+		v := KeyboardButtonSimpleWebView{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
 		}

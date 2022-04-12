@@ -178,8 +178,6 @@ type Chat struct {
 	Flags bin.Fields
 	// Whether the current user is the creator of the group
 	Creator bool
-	// Whether the current user was kicked from the group
-	Kicked bool
 	// Whether the current user has left the group
 	Left bool
 	// Whether the group was migrated¹
@@ -254,9 +252,6 @@ func (c *Chat) Zero() bool {
 	if !(c.Creator == false) {
 		return false
 	}
-	if !(c.Kicked == false) {
-		return false
-	}
 	if !(c.Left == false) {
 		return false
 	}
@@ -315,7 +310,6 @@ func (c *Chat) String() string {
 // FillFrom fills Chat from given interface.
 func (c *Chat) FillFrom(from interface {
 	GetCreator() (value bool)
-	GetKicked() (value bool)
 	GetLeft() (value bool)
 	GetDeactivated() (value bool)
 	GetCallActive() (value bool)
@@ -332,7 +326,6 @@ func (c *Chat) FillFrom(from interface {
 	GetDefaultBannedRights() (value ChatBannedRights, ok bool)
 }) {
 	c.Creator = from.GetCreator()
-	c.Kicked = from.GetKicked()
 	c.Left = from.GetLeft()
 	c.Deactivated = from.GetDeactivated()
 	c.CallActive = from.GetCallActive()
@@ -385,11 +378,6 @@ func (c *Chat) TypeInfo() tdp.Type {
 			Name:       "Creator",
 			SchemaName: "creator",
 			Null:       !c.Flags.Has(0),
-		},
-		{
-			Name:       "Kicked",
-			SchemaName: "kicked",
-			Null:       !c.Flags.Has(1),
 		},
 		{
 			Name:       "Left",
@@ -463,9 +451,6 @@ func (c *Chat) TypeInfo() tdp.Type {
 func (c *Chat) SetFlags() {
 	if !(c.Creator == false) {
 		c.Flags.Set(0)
-	}
-	if !(c.Kicked == false) {
-		c.Flags.Set(1)
 	}
 	if !(c.Left == false) {
 		c.Flags.Set(2)
@@ -565,7 +550,6 @@ func (c *Chat) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	c.Creator = c.Flags.Has(0)
-	c.Kicked = c.Flags.Has(1)
 	c.Left = c.Flags.Has(2)
 	c.Deactivated = c.Flags.Has(5)
 	c.CallActive = c.Flags.Has(23)
@@ -650,25 +634,6 @@ func (c *Chat) GetCreator() (value bool) {
 		return
 	}
 	return c.Flags.Has(0)
-}
-
-// SetKicked sets value of Kicked conditional field.
-func (c *Chat) SetKicked(value bool) {
-	if value {
-		c.Flags.Set(1)
-		c.Kicked = true
-	} else {
-		c.Flags.Unset(1)
-		c.Kicked = false
-	}
-}
-
-// GetKicked returns value of Kicked conditional field.
-func (c *Chat) GetKicked() (value bool) {
-	if c == nil {
-		return
-	}
-	return c.Flags.Has(1)
 }
 
 // SetLeft sets value of Left conditional field.

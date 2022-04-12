@@ -285,6 +285,32 @@ func (s KeyboardButtonClassArray) AsKeyboardButtonUserProfile() (to KeyboardButt
 	return to
 }
 
+// AsKeyboardButtonWebView returns copy with only KeyboardButtonWebView constructors.
+func (s KeyboardButtonClassArray) AsKeyboardButtonWebView() (to KeyboardButtonWebViewArray) {
+	for _, elem := range s {
+		value, ok := elem.(*KeyboardButtonWebView)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsKeyboardButtonSimpleWebView returns copy with only KeyboardButtonSimpleWebView constructors.
+func (s KeyboardButtonClassArray) AsKeyboardButtonSimpleWebView() (to KeyboardButtonSimpleWebViewArray) {
+	for _, elem := range s {
+		value, ok := elem.(*KeyboardButtonSimpleWebView)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // KeyboardButtonArray is adapter for slice of KeyboardButton.
 type KeyboardButtonArray []KeyboardButton
 
@@ -1339,6 +1365,170 @@ func (s *KeyboardButtonUserProfileArray) PopFirst() (v KeyboardButtonUserProfile
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *KeyboardButtonUserProfileArray) Pop() (v KeyboardButtonUserProfile, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// KeyboardButtonWebViewArray is adapter for slice of KeyboardButtonWebView.
+type KeyboardButtonWebViewArray []KeyboardButtonWebView
+
+// Sort sorts slice of KeyboardButtonWebView.
+func (s KeyboardButtonWebViewArray) Sort(less func(a, b KeyboardButtonWebView) bool) KeyboardButtonWebViewArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of KeyboardButtonWebView.
+func (s KeyboardButtonWebViewArray) SortStable(less func(a, b KeyboardButtonWebView) bool) KeyboardButtonWebViewArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of KeyboardButtonWebView.
+func (s KeyboardButtonWebViewArray) Retain(keep func(x KeyboardButtonWebView) bool) KeyboardButtonWebViewArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s KeyboardButtonWebViewArray) First() (v KeyboardButtonWebView, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s KeyboardButtonWebViewArray) Last() (v KeyboardButtonWebView, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *KeyboardButtonWebViewArray) PopFirst() (v KeyboardButtonWebView, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero KeyboardButtonWebView
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *KeyboardButtonWebViewArray) Pop() (v KeyboardButtonWebView, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// KeyboardButtonSimpleWebViewArray is adapter for slice of KeyboardButtonSimpleWebView.
+type KeyboardButtonSimpleWebViewArray []KeyboardButtonSimpleWebView
+
+// Sort sorts slice of KeyboardButtonSimpleWebView.
+func (s KeyboardButtonSimpleWebViewArray) Sort(less func(a, b KeyboardButtonSimpleWebView) bool) KeyboardButtonSimpleWebViewArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of KeyboardButtonSimpleWebView.
+func (s KeyboardButtonSimpleWebViewArray) SortStable(less func(a, b KeyboardButtonSimpleWebView) bool) KeyboardButtonSimpleWebViewArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of KeyboardButtonSimpleWebView.
+func (s KeyboardButtonSimpleWebViewArray) Retain(keep func(x KeyboardButtonSimpleWebView) bool) KeyboardButtonSimpleWebViewArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s KeyboardButtonSimpleWebViewArray) First() (v KeyboardButtonSimpleWebView, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s KeyboardButtonSimpleWebViewArray) Last() (v KeyboardButtonSimpleWebView, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *KeyboardButtonSimpleWebViewArray) PopFirst() (v KeyboardButtonSimpleWebView, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero KeyboardButtonSimpleWebView
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *KeyboardButtonSimpleWebViewArray) Pop() (v KeyboardButtonSimpleWebView, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

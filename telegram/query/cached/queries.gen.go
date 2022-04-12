@@ -98,6 +98,90 @@ func (s *AccountGetChatThemes) Fetch(ctx context.Context) (bool, error) {
 	}
 }
 
+type innerAccountGetSavedRingtones struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.AccountSavedRingtones
+}
+
+type AccountGetSavedRingtones struct {
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewAccountGetSavedRingtones creates new AccountGetSavedRingtones.
+func NewAccountGetSavedRingtones(raw *tg.Client) *AccountGetSavedRingtones {
+	q := &AccountGetSavedRingtones{
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *AccountGetSavedRingtones) store(v innerAccountGetSavedRingtones) {
+	s.last.Store(v)
+}
+
+func (s *AccountGetSavedRingtones) load() (innerAccountGetSavedRingtones, bool) {
+	v, ok := s.last.Load().(innerAccountGetSavedRingtones)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned AccountSavedRingtones must not be mutated.
+func (s *AccountGetSavedRingtones) Value() *tg.AccountSavedRingtones {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *AccountGetSavedRingtones) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *AccountGetSavedRingtones) Get(ctx context.Context) (*tg.AccountSavedRingtones, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *AccountGetSavedRingtones) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := lastHash
+	result, err := s.raw.AccountGetSavedRingtones(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute AccountGetSavedRingtones")
+	}
+
+	switch variant := result.(type) {
+	case *tg.AccountSavedRingtones:
+		hash := variant.Hash
+
+		s.store(innerAccountGetSavedRingtones{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.AccountSavedRingtonesNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
 type innerAccountGetThemes struct {
 	// Last received hash.
 	hash int64
@@ -429,6 +513,90 @@ func (s *MessagesGetAllStickers) Fetch(ctx context.Context) (bool, error) {
 		})
 		return true, nil
 	case *tg.MessagesAllStickersNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
+type innerMessagesGetAttachMenuBots struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.AttachMenuBots
+}
+
+type MessagesGetAttachMenuBots struct {
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewMessagesGetAttachMenuBots creates new MessagesGetAttachMenuBots.
+func NewMessagesGetAttachMenuBots(raw *tg.Client) *MessagesGetAttachMenuBots {
+	q := &MessagesGetAttachMenuBots{
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *MessagesGetAttachMenuBots) store(v innerMessagesGetAttachMenuBots) {
+	s.last.Store(v)
+}
+
+func (s *MessagesGetAttachMenuBots) load() (innerMessagesGetAttachMenuBots, bool) {
+	v, ok := s.last.Load().(innerMessagesGetAttachMenuBots)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned AttachMenuBots must not be mutated.
+func (s *MessagesGetAttachMenuBots) Value() *tg.AttachMenuBots {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *MessagesGetAttachMenuBots) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *MessagesGetAttachMenuBots) Get(ctx context.Context) (*tg.AttachMenuBots, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *MessagesGetAttachMenuBots) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := lastHash
+	result, err := s.raw.MessagesGetAttachMenuBots(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute MessagesGetAttachMenuBots")
+	}
+
+	switch variant := result.(type) {
+	case *tg.AttachMenuBots:
+		hash := variant.Hash
+
+		s.store(innerMessagesGetAttachMenuBots{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.AttachMenuBotsNotModified:
 		if lastHash == 0 {
 			return false, errors.Errorf("got unexpected %T result", result)
 		}

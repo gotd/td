@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// BotInfo represents TL type `botInfo#1b74b335`.
+// BotInfo represents TL type `botInfo#e4169b5d`.
 // Info about bots (available bot commands, etc)
 //
 // See https://core.telegram.org/constructor/botInfo for reference.
@@ -42,10 +42,12 @@ type BotInfo struct {
 	Description string
 	// Bot commands that can be used in the chat
 	Commands []BotCommand
+	// MenuButton field of BotInfo.
+	MenuButton BotMenuButtonClass
 }
 
 // BotInfoTypeID is TL type id of BotInfo.
-const BotInfoTypeID = 0x1b74b335
+const BotInfoTypeID = 0xe4169b5d
 
 // Ensuring interfaces in compile-time for BotInfo.
 var (
@@ -68,6 +70,9 @@ func (b *BotInfo) Zero() bool {
 	if !(b.Commands == nil) {
 		return false
 	}
+	if !(b.MenuButton == nil) {
+		return false
+	}
 
 	return true
 }
@@ -86,10 +91,12 @@ func (b *BotInfo) FillFrom(from interface {
 	GetUserID() (value int64)
 	GetDescription() (value string)
 	GetCommands() (value []BotCommand)
+	GetMenuButton() (value BotMenuButtonClass)
 }) {
 	b.UserID = from.GetUserID()
 	b.Description = from.GetDescription()
 	b.Commands = from.GetCommands()
+	b.MenuButton = from.GetMenuButton()
 }
 
 // TypeID returns type id in TL schema.
@@ -127,6 +134,10 @@ func (b *BotInfo) TypeInfo() tdp.Type {
 			Name:       "Commands",
 			SchemaName: "commands",
 		},
+		{
+			Name:       "MenuButton",
+			SchemaName: "menu_button",
+		},
 	}
 	return typ
 }
@@ -134,7 +145,7 @@ func (b *BotInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BotInfo) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botInfo#1b74b335 as nil")
+		return fmt.Errorf("can't encode botInfo#e4169b5d as nil")
 	}
 	buf.PutID(BotInfoTypeID)
 	return b.EncodeBare(buf)
@@ -143,15 +154,21 @@ func (b *BotInfo) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotInfo) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botInfo#1b74b335 as nil")
+		return fmt.Errorf("can't encode botInfo#e4169b5d as nil")
 	}
 	buf.PutLong(b.UserID)
 	buf.PutString(b.Description)
 	buf.PutVectorHeader(len(b.Commands))
 	for idx, v := range b.Commands {
 		if err := v.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode botInfo#1b74b335: field commands element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode botInfo#e4169b5d: field commands element with index %d: %w", idx, err)
 		}
+	}
+	if b.MenuButton == nil {
+		return fmt.Errorf("unable to encode botInfo#e4169b5d: field menu_button is nil")
+	}
+	if err := b.MenuButton.Encode(buf); err != nil {
+		return fmt.Errorf("unable to encode botInfo#e4169b5d: field menu_button: %w", err)
 	}
 	return nil
 }
@@ -159,10 +176,10 @@ func (b *BotInfo) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BotInfo) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botInfo#1b74b335 to nil")
+		return fmt.Errorf("can't decode botInfo#e4169b5d to nil")
 	}
 	if err := buf.ConsumeID(BotInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode botInfo#1b74b335: %w", err)
+		return fmt.Errorf("unable to decode botInfo#e4169b5d: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -170,26 +187,26 @@ func (b *BotInfo) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botInfo#1b74b335 to nil")
+		return fmt.Errorf("can't decode botInfo#e4169b5d to nil")
 	}
 	{
 		value, err := buf.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#1b74b335: field user_id: %w", err)
+			return fmt.Errorf("unable to decode botInfo#e4169b5d: field user_id: %w", err)
 		}
 		b.UserID = value
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#1b74b335: field description: %w", err)
+			return fmt.Errorf("unable to decode botInfo#e4169b5d: field description: %w", err)
 		}
 		b.Description = value
 	}
 	{
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#1b74b335: field commands: %w", err)
+			return fmt.Errorf("unable to decode botInfo#e4169b5d: field commands: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -198,10 +215,17 @@ func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotCommand
 			if err := value.Decode(buf); err != nil {
-				return fmt.Errorf("unable to decode botInfo#1b74b335: field commands: %w", err)
+				return fmt.Errorf("unable to decode botInfo#e4169b5d: field commands: %w", err)
 			}
 			b.Commands = append(b.Commands, value)
 		}
+	}
+	{
+		value, err := DecodeBotMenuButton(buf)
+		if err != nil {
+			return fmt.Errorf("unable to decode botInfo#e4169b5d: field menu_button: %w", err)
+		}
+		b.MenuButton = value
 	}
 	return nil
 }
@@ -228,4 +252,12 @@ func (b *BotInfo) GetCommands() (value []BotCommand) {
 		return
 	}
 	return b.Commands
+}
+
+// GetMenuButton returns value of MenuButton field.
+func (b *BotInfo) GetMenuButton() (value BotMenuButtonClass) {
+	if b == nil {
+		return
+	}
+	return b.MenuButton
 }

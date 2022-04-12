@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PeerNotifySettings represents TL type `peerNotifySettings#af509d20`.
+// PeerNotifySettings represents TL type `peerNotifySettings#a83b0426`.
 // Notification settings.
 //
 // See https://core.telegram.org/constructor/peerNotifySettings for reference.
@@ -53,14 +53,22 @@ type PeerNotifySettings struct {
 	//
 	// Use SetMuteUntil and GetMuteUntil helpers.
 	MuteUntil int
-	// Audio file name for notifications
+	// IosSound field of PeerNotifySettings.
 	//
-	// Use SetSound and GetSound helpers.
-	Sound string
+	// Use SetIosSound and GetIosSound helpers.
+	IosSound NotificationSoundClass
+	// AndroidSound field of PeerNotifySettings.
+	//
+	// Use SetAndroidSound and GetAndroidSound helpers.
+	AndroidSound NotificationSoundClass
+	// OtherSound field of PeerNotifySettings.
+	//
+	// Use SetOtherSound and GetOtherSound helpers.
+	OtherSound NotificationSoundClass
 }
 
 // PeerNotifySettingsTypeID is TL type id of PeerNotifySettings.
-const PeerNotifySettingsTypeID = 0xaf509d20
+const PeerNotifySettingsTypeID = 0xa83b0426
 
 // Ensuring interfaces in compile-time for PeerNotifySettings.
 var (
@@ -86,7 +94,13 @@ func (p *PeerNotifySettings) Zero() bool {
 	if !(p.MuteUntil == 0) {
 		return false
 	}
-	if !(p.Sound == "") {
+	if !(p.IosSound == nil) {
+		return false
+	}
+	if !(p.AndroidSound == nil) {
+		return false
+	}
+	if !(p.OtherSound == nil) {
 		return false
 	}
 
@@ -107,7 +121,9 @@ func (p *PeerNotifySettings) FillFrom(from interface {
 	GetShowPreviews() (value bool, ok bool)
 	GetSilent() (value bool, ok bool)
 	GetMuteUntil() (value int, ok bool)
-	GetSound() (value string, ok bool)
+	GetIosSound() (value NotificationSoundClass, ok bool)
+	GetAndroidSound() (value NotificationSoundClass, ok bool)
+	GetOtherSound() (value NotificationSoundClass, ok bool)
 }) {
 	if val, ok := from.GetShowPreviews(); ok {
 		p.ShowPreviews = val
@@ -121,8 +137,16 @@ func (p *PeerNotifySettings) FillFrom(from interface {
 		p.MuteUntil = val
 	}
 
-	if val, ok := from.GetSound(); ok {
-		p.Sound = val
+	if val, ok := from.GetIosSound(); ok {
+		p.IosSound = val
+	}
+
+	if val, ok := from.GetAndroidSound(); ok {
+		p.AndroidSound = val
+	}
+
+	if val, ok := from.GetOtherSound(); ok {
+		p.OtherSound = val
 	}
 
 }
@@ -166,9 +190,19 @@ func (p *PeerNotifySettings) TypeInfo() tdp.Type {
 			Null:       !p.Flags.Has(2),
 		},
 		{
-			Name:       "Sound",
-			SchemaName: "sound",
+			Name:       "IosSound",
+			SchemaName: "ios_sound",
 			Null:       !p.Flags.Has(3),
+		},
+		{
+			Name:       "AndroidSound",
+			SchemaName: "android_sound",
+			Null:       !p.Flags.Has(4),
+		},
+		{
+			Name:       "OtherSound",
+			SchemaName: "other_sound",
+			Null:       !p.Flags.Has(5),
 		},
 	}
 	return typ
@@ -185,15 +219,21 @@ func (p *PeerNotifySettings) SetFlags() {
 	if !(p.MuteUntil == 0) {
 		p.Flags.Set(2)
 	}
-	if !(p.Sound == "") {
+	if !(p.IosSound == nil) {
 		p.Flags.Set(3)
+	}
+	if !(p.AndroidSound == nil) {
+		p.Flags.Set(4)
+	}
+	if !(p.OtherSound == nil) {
+		p.Flags.Set(5)
 	}
 }
 
 // Encode implements bin.Encoder.
 func (p *PeerNotifySettings) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode peerNotifySettings#af509d20 as nil")
+		return fmt.Errorf("can't encode peerNotifySettings#a83b0426 as nil")
 	}
 	b.PutID(PeerNotifySettingsTypeID)
 	return p.EncodeBare(b)
@@ -202,11 +242,11 @@ func (p *PeerNotifySettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PeerNotifySettings) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode peerNotifySettings#af509d20 as nil")
+		return fmt.Errorf("can't encode peerNotifySettings#a83b0426 as nil")
 	}
 	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode peerNotifySettings#af509d20: field flags: %w", err)
+		return fmt.Errorf("unable to encode peerNotifySettings#a83b0426: field flags: %w", err)
 	}
 	if p.Flags.Has(0) {
 		b.PutBool(p.ShowPreviews)
@@ -218,7 +258,28 @@ func (p *PeerNotifySettings) EncodeBare(b *bin.Buffer) error {
 		b.PutInt(p.MuteUntil)
 	}
 	if p.Flags.Has(3) {
-		b.PutString(p.Sound)
+		if p.IosSound == nil {
+			return fmt.Errorf("unable to encode peerNotifySettings#a83b0426: field ios_sound is nil")
+		}
+		if err := p.IosSound.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode peerNotifySettings#a83b0426: field ios_sound: %w", err)
+		}
+	}
+	if p.Flags.Has(4) {
+		if p.AndroidSound == nil {
+			return fmt.Errorf("unable to encode peerNotifySettings#a83b0426: field android_sound is nil")
+		}
+		if err := p.AndroidSound.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode peerNotifySettings#a83b0426: field android_sound: %w", err)
+		}
+	}
+	if p.Flags.Has(5) {
+		if p.OtherSound == nil {
+			return fmt.Errorf("unable to encode peerNotifySettings#a83b0426: field other_sound is nil")
+		}
+		if err := p.OtherSound.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode peerNotifySettings#a83b0426: field other_sound: %w", err)
+		}
 	}
 	return nil
 }
@@ -226,10 +287,10 @@ func (p *PeerNotifySettings) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PeerNotifySettings) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode peerNotifySettings#af509d20 to nil")
+		return fmt.Errorf("can't decode peerNotifySettings#a83b0426 to nil")
 	}
 	if err := b.ConsumeID(PeerNotifySettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode peerNotifySettings#af509d20: %w", err)
+		return fmt.Errorf("unable to decode peerNotifySettings#a83b0426: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -237,40 +298,54 @@ func (p *PeerNotifySettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PeerNotifySettings) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode peerNotifySettings#af509d20 to nil")
+		return fmt.Errorf("can't decode peerNotifySettings#a83b0426 to nil")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field flags: %w", err)
+			return fmt.Errorf("unable to decode peerNotifySettings#a83b0426: field flags: %w", err)
 		}
 	}
 	if p.Flags.Has(0) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field show_previews: %w", err)
+			return fmt.Errorf("unable to decode peerNotifySettings#a83b0426: field show_previews: %w", err)
 		}
 		p.ShowPreviews = value
 	}
 	if p.Flags.Has(1) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field silent: %w", err)
+			return fmt.Errorf("unable to decode peerNotifySettings#a83b0426: field silent: %w", err)
 		}
 		p.Silent = value
 	}
 	if p.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field mute_until: %w", err)
+			return fmt.Errorf("unable to decode peerNotifySettings#a83b0426: field mute_until: %w", err)
 		}
 		p.MuteUntil = value
 	}
 	if p.Flags.Has(3) {
-		value, err := b.String()
+		value, err := DecodeNotificationSound(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field sound: %w", err)
+			return fmt.Errorf("unable to decode peerNotifySettings#a83b0426: field ios_sound: %w", err)
 		}
-		p.Sound = value
+		p.IosSound = value
+	}
+	if p.Flags.Has(4) {
+		value, err := DecodeNotificationSound(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode peerNotifySettings#a83b0426: field android_sound: %w", err)
+		}
+		p.AndroidSound = value
+	}
+	if p.Flags.Has(5) {
+		value, err := DecodeNotificationSound(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode peerNotifySettings#a83b0426: field other_sound: %w", err)
+		}
+		p.OtherSound = value
 	}
 	return nil
 }
@@ -329,20 +404,56 @@ func (p *PeerNotifySettings) GetMuteUntil() (value int, ok bool) {
 	return p.MuteUntil, true
 }
 
-// SetSound sets value of Sound conditional field.
-func (p *PeerNotifySettings) SetSound(value string) {
+// SetIosSound sets value of IosSound conditional field.
+func (p *PeerNotifySettings) SetIosSound(value NotificationSoundClass) {
 	p.Flags.Set(3)
-	p.Sound = value
+	p.IosSound = value
 }
 
-// GetSound returns value of Sound conditional field and
+// GetIosSound returns value of IosSound conditional field and
 // boolean which is true if field was set.
-func (p *PeerNotifySettings) GetSound() (value string, ok bool) {
+func (p *PeerNotifySettings) GetIosSound() (value NotificationSoundClass, ok bool) {
 	if p == nil {
 		return
 	}
 	if !p.Flags.Has(3) {
 		return value, false
 	}
-	return p.Sound, true
+	return p.IosSound, true
+}
+
+// SetAndroidSound sets value of AndroidSound conditional field.
+func (p *PeerNotifySettings) SetAndroidSound(value NotificationSoundClass) {
+	p.Flags.Set(4)
+	p.AndroidSound = value
+}
+
+// GetAndroidSound returns value of AndroidSound conditional field and
+// boolean which is true if field was set.
+func (p *PeerNotifySettings) GetAndroidSound() (value NotificationSoundClass, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(4) {
+		return value, false
+	}
+	return p.AndroidSound, true
+}
+
+// SetOtherSound sets value of OtherSound conditional field.
+func (p *PeerNotifySettings) SetOtherSound(value NotificationSoundClass) {
+	p.Flags.Set(5)
+	p.OtherSound = value
+}
+
+// GetOtherSound returns value of OtherSound conditional field and
+// boolean which is true if field was set.
+func (p *PeerNotifySettings) GetOtherSound() (value NotificationSoundClass, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(5) {
+		return value, false
+	}
+	return p.OtherSound, true
 }
