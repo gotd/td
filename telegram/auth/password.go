@@ -79,7 +79,7 @@ type UpdatePasswordOptions struct {
 // See https://core.telegram.org/api/srp#setting-a-new-2fa-password.
 func (c *Client) UpdatePassword(
 	ctx context.Context,
-	newPassword string,
+	newPassword []byte,
 	opts UpdatePasswordOptions,
 ) error {
 	p, err := c.api.AccountGetPassword(ctx)

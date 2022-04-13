@@ -80,10 +80,10 @@ func TestClient_UpdatePassword(t *testing.T) {
 		client *Client,
 	) {
 		m.ExpectCall(&tg.AccountGetPasswordRequest{}).ThenErr(testutil.TestError())
-		a.Error(client.UpdatePassword(ctx, "", UpdatePasswordOptions{}))
+		a.Error(client.UpdatePassword(ctx, []byte{}, UpdatePasswordOptions{}))
 
 		expectCall(a, m, false).ThenTrue()
-		a.NoError(client.UpdatePassword(ctx, "", UpdatePasswordOptions{
+		a.NoError(client.UpdatePassword(ctx, []byte{}, UpdatePasswordOptions{
 			Hint: "hint",
 		}))
 	}))
@@ -100,7 +100,7 @@ func TestClient_UpdatePassword(t *testing.T) {
 				CurrentAlgo:   testAlgo,
 				NewSecureAlgo: &tg.SecurePasswordKdfAlgoUnknown{},
 			})
-		a.ErrorIs(client.UpdatePassword(ctx, "", UpdatePasswordOptions{}), ErrPasswordNotProvided)
+		a.ErrorIs(client.UpdatePassword(ctx, []byte{}, UpdatePasswordOptions{}), ErrPasswordNotProvided)
 
 		m.ExpectCall(&tg.AccountGetPasswordRequest{}).
 			ThenResult(&tg.AccountPassword{
@@ -109,7 +109,7 @@ func TestClient_UpdatePassword(t *testing.T) {
 				CurrentAlgo:   testAlgo,
 				NewSecureAlgo: &tg.SecurePasswordKdfAlgoUnknown{},
 			})
-		a.ErrorIs(client.UpdatePassword(ctx, "", UpdatePasswordOptions{
+		a.ErrorIs(client.UpdatePassword(ctx, []byte{}, UpdatePasswordOptions{
 			Hint: "hint",
 			Password: func(ctx context.Context) (string, error) {
 				return "", testutil.TestError()
@@ -117,7 +117,7 @@ func TestClient_UpdatePassword(t *testing.T) {
 		}), testutil.TestError())
 
 		expectCall(a, m, true).ThenTrue()
-		a.NoError(client.UpdatePassword(ctx, "", UpdatePasswordOptions{
+		a.NoError(client.UpdatePassword(ctx, []byte{}, UpdatePasswordOptions{
 			Hint: "hint",
 			Password: func(ctx context.Context) (string, error) {
 				return "password", nil

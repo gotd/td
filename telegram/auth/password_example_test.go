@@ -15,7 +15,7 @@ func ExampleClient_UpdatePassword() {
 	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{})
 	if err := client.Run(ctx, func(ctx context.Context) error {
 		// Updating password.
-		if err := client.Auth().UpdatePassword(ctx, "new_password", auth.UpdatePasswordOptions{
+		if err := client.Auth().UpdatePassword(ctx, []byte("new_password"), auth.UpdatePasswordOptions{
 			// Hint sets new password hint.
 			Hint: "new password hint",
 			// Password will be called if old password is requested by Telegram.
