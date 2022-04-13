@@ -19,13 +19,13 @@ var ErrPasswordInvalid = errors.New("invalid password")
 // Password performs login via secure remote password (aka 2FA).
 //
 // Method can be called after SignIn to provide password if requested.
-func (c *Client) Password(ctx context.Context, password string) (*tg.AuthAuthorization, error) {
+func (c *Client) Password(ctx context.Context, password []byte) (*tg.AuthAuthorization, error) {
 	p, err := c.api.AccountGetPassword(ctx)
 	if err != nil {
 		return nil, errors.Wrap(err, "get SRP parameters")
 	}
 
-	a, err := PasswordHash([]byte(password), p.SRPID, p.SRPB, p.SecureRandom, p.CurrentAlgo)
+	a, err := PasswordHash(password, p.SRPID, p.SRPB, p.SecureRandom, p.CurrentAlgo)
 	if err != nil {
 		return nil, errors.Wrap(err, "compute password hash")
 	}

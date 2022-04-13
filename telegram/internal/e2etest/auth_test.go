@@ -25,7 +25,7 @@ func (m *mockFlow) SignIn(context.Context, string, string, string) (*tg.AuthAuth
 		return nil, auth.ErrPasswordAuthNeeded
 	}
 
-	return m.Password(context.Background(), "")
+	return m.Password(context.Background(), []byte{})
 }
 
 func (m *mockFlow) SendCode(context.Context, string, auth.SendCodeOptions) (*tg.AuthSentCode, error) {
@@ -36,7 +36,7 @@ func (m *mockFlow) SendCode(context.Context, string, auth.SendCodeOptions) (*tg.
 	}, nil
 }
 
-func (m *mockFlow) Password(context.Context, string) (*tg.AuthAuthorization, error) {
+func (m *mockFlow) Password(context.Context, []byte) (*tg.AuthAuthorization, error) {
 	return &tg.AuthAuthorization{
 		User: &tg.User{
 			ID:       10,

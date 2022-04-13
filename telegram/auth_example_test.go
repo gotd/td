@@ -68,6 +68,8 @@ func ExampleClient_Auth_password() {
 		phone       = os.Getenv("PHONE")
 		pass        = os.Getenv("PASSWORD")
 	)
+	passBytes := []byte(pass)
+
 	if appIDString == "" || appHash == "" || phone == "" || pass == "" {
 		log.Fatal("PHONE, PASSWORD, APP_ID or APP_HASH is not set")
 	}
@@ -89,7 +91,7 @@ func ExampleClient_Auth_password() {
 
 	check(client.Run(ctx, func(ctx context.Context) error {
 		return auth.NewFlow(
-			auth.Constant(phone, pass, auth.CodeAuthenticatorFunc(codeAsk)),
+			auth.Constant(phone, passBytes, auth.CodeAuthenticatorFunc(codeAsk)),
 			auth.SendCodeOptions{},
 		).Run(ctx, client.Auth())
 	}))

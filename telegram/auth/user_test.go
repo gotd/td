@@ -33,6 +33,9 @@ func TestClient_AuthSignIn(t *testing.T) {
 		password = "secret"
 		codeHash = "hash"
 	)
+
+	passwordBytes := []byte(password)
+
 	ctx := context.Background()
 	testUser := &tg.User{ID: 1}
 	invoker := tgmock.Invoker(func(body bin.Encoder) (bin.Encoder, error) {
@@ -114,13 +117,13 @@ func TestClient_AuthSignIn(t *testing.T) {
 		require.ErrorIs(t, signInErr, ErrPasswordAuthNeeded)
 
 		// 3. Provide 2FA password.
-		result, err := client.Password(ctx, password)
+		result, err := client.Password(ctx, passwordBytes)
 		require.NoError(t, err)
 		require.Equal(t, testUser, result.User)
 	})
 
 	flow := NewFlow(
-		Constant(phone, password, CodeAuthenticatorFunc(
+		Constant(phone, passwordBytes, CodeAuthenticatorFunc(
 			func(ctx context.Context, _ *tg.AuthSentCode) (string, error) {
 				return code, nil
 			},

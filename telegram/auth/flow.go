@@ -94,7 +94,7 @@ func (f Flow) Run(ctx context.Context, client FlowClient) error {
 type FlowClient interface {
 	SignIn(ctx context.Context, phone, code, codeHash string) (*tg.AuthAuthorization, error)
 	SendCode(ctx context.Context, phone string, options SendCodeOptions) (*tg.AuthSentCode, error)
-	Password(ctx context.Context, password string) (*tg.AuthAuthorization, error)
+	Password(ctx context.Context, password []byte) (*tg.AuthAuthorization, error)
 	SignUp(ctx context.Context, s SignUp) (*tg.AuthAuthorization, error)
 }
 
@@ -120,7 +120,7 @@ type UserInfo struct {
 // UserAuthenticator asks user for phone, password and received authentication code.
 type UserAuthenticator interface {
 	Phone(ctx context.Context) (string, error)
-	Password(ctx context.Context) (string, error)
+	Password(ctx context.Context) ([]byte, error)
 	AcceptTermsOfService(ctx context.Context, tos tg.HelpTermsOfService) error
 	SignUp(ctx context.Context) (UserInfo, error)
 	CodeAuthenticator
@@ -137,7 +137,8 @@ func (c noSignUp) AcceptTermsOfService(ctx context.Context, tos tg.HelpTermsOfSe
 }
 
 type constantAuth struct {
-	phone, password string
+	phone    string
+	password []byte
 	CodeAuthenticator
 	noSignUp
 }
@@ -146,12 +147,12 @@ func (c constantAuth) Phone(ctx context.Context) (string, error) {
 	return c.phone, nil
 }
 
-func (c constantAuth) Password(ctx context.Context) (string, error) {
+func (c constantAuth) Password(ctx context.Context) ([]byte, error) {
 	return c.password, nil
 }
 
 // Constant creates UserAuthenticator with constant phone and password.
-func Constant(phone, password string, code CodeAuthenticator) UserAuthenticator {
+func Constant(phone string, password []byte, code CodeAuthenticator) UserAuthenticator {
 	return constantAuth{
 		phone:             phone,
 		password:          password,
@@ -178,12 +179,12 @@ func (e envAuth) Phone(ctx context.Context) (string, error) {
 	return e.lookup("PHONE")
 }
 
-func (e envAuth) Password(ctx context.Context) (string, error) {
+func (e envAuth) Password(ctx context.Context) ([]byte, error) {
 	p, err := e.lookup("PASSWORD")
 	if err != nil {
-		return "", ErrPasswordNotProvided
+		return []byte{}, ErrPasswordNotProvided
 	}
-	return p, nil
+	return []byte(p), nil
 }
 
 // Env creates UserAuthenticator which gets phone and password from environment variables.
@@ -209,8 +210,8 @@ func (c codeOnlyAuth) Phone(ctx context.Context) (string, error) {
 	return c.phone, nil
 }
 
-func (c codeOnlyAuth) Password(ctx context.Context) (string, error) {
-	return "", ErrPasswordNotProvided
+func (c codeOnlyAuth) Password(ctx context.Context) ([]byte, error) {
+	return []byte{}, ErrPasswordNotProvided
 }
 
 // CodeOnly creates UserAuthenticator with constant phone and no password.
@@ -226,8 +227,10 @@ type testAuth struct {
 	phone string
 }
 
-func (t testAuth) Phone(ctx context.Context) (string, error)    { return t.phone, nil }
-func (t testAuth) Password(ctx context.Context) (string, error) { return "", ErrPasswordNotProvided }
+func (t testAuth) Phone(ctx context.Context) (string, error) { return t.phone, nil }
+func (t testAuth) Password(ctx context.Context) ([]byte, error) {
+	return []byte{}, ErrPasswordNotProvided
+}
 func (t testAuth) Code(ctx context.Context, sentCode *tg.AuthSentCode) (string, error) {
 	type notFlashing interface {
 		GetLength() int

@@ -3,6 +3,7 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"context"
 	"flag"
 	"fmt"
@@ -41,13 +42,13 @@ func (a termAuth) Phone(_ context.Context) (string, error) {
 	return a.phone, nil
 }
 
-func (a termAuth) Password(_ context.Context) (string, error) {
+func (a termAuth) Password(_ context.Context) ([]byte, error) {
 	fmt.Print("Enter 2FA password: ")
 	bytePwd, err := terminal.ReadPassword(0)
 	if err != nil {
-		return "", err
+		return []byte{}, err
 	}
-	return strings.TrimSpace(string(bytePwd)), nil
+	return bytes.TrimSpace(bytePwd), nil
 }
 
 func (a termAuth) Code(_ context.Context, _ *tg.AuthSentCode) (string, error) {

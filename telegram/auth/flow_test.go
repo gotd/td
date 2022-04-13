@@ -20,7 +20,7 @@ func askCode(code string, err error) auth.CodeAuthenticatorFunc {
 
 func TestConstantAuth(t *testing.T) {
 	a := require.New(t)
-	authConst := auth.Constant("phone", "password", askCode("123", nil))
+	authConst := auth.Constant("phone", []byte("password"), askCode("123", nil))
 	ctx := context.Background()
 
 	result, err := authConst.Code(ctx, nil)
@@ -31,9 +31,9 @@ func TestConstantAuth(t *testing.T) {
 	a.NoError(err)
 	a.Equal("phone", result)
 
-	result, err = authConst.Password(ctx)
+	byteResult, err := authConst.Password(ctx)
 	a.NoError(err)
-	a.Equal("password", result)
+	a.Equal("password", string(byteResult))
 }
 
 func TestCodeOnlyAuth(t *testing.T) {
@@ -78,9 +78,9 @@ func TestEnvAuth(t *testing.T) {
 	a.NoError(err)
 	a.Equal("phone", result)
 
-	result, err = authEnv.Password(ctx)
+	byteResult, err := authEnv.Password(ctx)
 	a.NoError(err)
-	a.Equal("password", result)
+	a.Equal("password", string(byteResult))
 }
 
 func TestTestAuth(t *testing.T) {
