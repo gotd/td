@@ -415,6 +415,32 @@ func (s MessageActionClassArray) AsMessageActionSetChatTheme() (to MessageAction
 	return to
 }
 
+// AsMessageActionWebViewDataSentMe returns copy with only MessageActionWebViewDataSentMe constructors.
+func (s MessageActionClassArray) AsMessageActionWebViewDataSentMe() (to MessageActionWebViewDataSentMeArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionWebViewDataSentMe)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMessageActionWebViewDataSent returns copy with only MessageActionWebViewDataSent constructors.
+func (s MessageActionClassArray) AsMessageActionWebViewDataSent() (to MessageActionWebViewDataSentArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionWebViewDataSent)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MessageActionChatCreateArray is adapter for slice of MessageActionChatCreate.
 type MessageActionChatCreateArray []MessageActionChatCreate
 
@@ -2289,6 +2315,170 @@ func (s *MessageActionSetChatThemeArray) PopFirst() (v MessageActionSetChatTheme
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MessageActionSetChatThemeArray) Pop() (v MessageActionSetChatTheme, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionWebViewDataSentMeArray is adapter for slice of MessageActionWebViewDataSentMe.
+type MessageActionWebViewDataSentMeArray []MessageActionWebViewDataSentMe
+
+// Sort sorts slice of MessageActionWebViewDataSentMe.
+func (s MessageActionWebViewDataSentMeArray) Sort(less func(a, b MessageActionWebViewDataSentMe) bool) MessageActionWebViewDataSentMeArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionWebViewDataSentMe.
+func (s MessageActionWebViewDataSentMeArray) SortStable(less func(a, b MessageActionWebViewDataSentMe) bool) MessageActionWebViewDataSentMeArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionWebViewDataSentMe.
+func (s MessageActionWebViewDataSentMeArray) Retain(keep func(x MessageActionWebViewDataSentMe) bool) MessageActionWebViewDataSentMeArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionWebViewDataSentMeArray) First() (v MessageActionWebViewDataSentMe, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionWebViewDataSentMeArray) Last() (v MessageActionWebViewDataSentMe, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionWebViewDataSentMeArray) PopFirst() (v MessageActionWebViewDataSentMe, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionWebViewDataSentMe
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionWebViewDataSentMeArray) Pop() (v MessageActionWebViewDataSentMe, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionWebViewDataSentArray is adapter for slice of MessageActionWebViewDataSent.
+type MessageActionWebViewDataSentArray []MessageActionWebViewDataSent
+
+// Sort sorts slice of MessageActionWebViewDataSent.
+func (s MessageActionWebViewDataSentArray) Sort(less func(a, b MessageActionWebViewDataSent) bool) MessageActionWebViewDataSentArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionWebViewDataSent.
+func (s MessageActionWebViewDataSentArray) SortStable(less func(a, b MessageActionWebViewDataSent) bool) MessageActionWebViewDataSentArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionWebViewDataSent.
+func (s MessageActionWebViewDataSentArray) Retain(keep func(x MessageActionWebViewDataSent) bool) MessageActionWebViewDataSentArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionWebViewDataSentArray) First() (v MessageActionWebViewDataSent, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionWebViewDataSentArray) Last() (v MessageActionWebViewDataSent, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionWebViewDataSentArray) PopFirst() (v MessageActionWebViewDataSent, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionWebViewDataSent
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionWebViewDataSentArray) Pop() (v MessageActionWebViewDataSent, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

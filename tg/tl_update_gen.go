@@ -19385,6 +19385,508 @@ func (u *UpdateMessageReactions) GetReactions() (value MessageReactions) {
 	return u.Reactions
 }
 
+// UpdateAttachMenuBots represents TL type `updateAttachMenuBots#17b7a20b`.
+//
+// See https://core.telegram.org/constructor/updateAttachMenuBots for reference.
+type UpdateAttachMenuBots struct {
+}
+
+// UpdateAttachMenuBotsTypeID is TL type id of UpdateAttachMenuBots.
+const UpdateAttachMenuBotsTypeID = 0x17b7a20b
+
+// construct implements constructor of UpdateClass.
+func (u UpdateAttachMenuBots) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateAttachMenuBots.
+var (
+	_ bin.Encoder     = &UpdateAttachMenuBots{}
+	_ bin.Decoder     = &UpdateAttachMenuBots{}
+	_ bin.BareEncoder = &UpdateAttachMenuBots{}
+	_ bin.BareDecoder = &UpdateAttachMenuBots{}
+
+	_ UpdateClass = &UpdateAttachMenuBots{}
+)
+
+func (u *UpdateAttachMenuBots) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateAttachMenuBots) String() string {
+	if u == nil {
+		return "UpdateAttachMenuBots(nil)"
+	}
+	type Alias UpdateAttachMenuBots
+	return fmt.Sprintf("UpdateAttachMenuBots%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateAttachMenuBots) TypeID() uint32 {
+	return UpdateAttachMenuBotsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateAttachMenuBots) TypeName() string {
+	return "updateAttachMenuBots"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateAttachMenuBots) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateAttachMenuBots",
+		ID:   UpdateAttachMenuBotsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateAttachMenuBots) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateAttachMenuBots#17b7a20b as nil")
+	}
+	b.PutID(UpdateAttachMenuBotsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateAttachMenuBots) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateAttachMenuBots#17b7a20b as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateAttachMenuBots) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateAttachMenuBots#17b7a20b to nil")
+	}
+	if err := b.ConsumeID(UpdateAttachMenuBotsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateAttachMenuBots#17b7a20b: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateAttachMenuBots) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateAttachMenuBots#17b7a20b to nil")
+	}
+	return nil
+}
+
+// UpdateWebViewResultSent represents TL type `updateWebViewResultSent#1592b79d`.
+//
+// See https://core.telegram.org/constructor/updateWebViewResultSent for reference.
+type UpdateWebViewResultSent struct {
+	// QueryID field of UpdateWebViewResultSent.
+	QueryID int64
+}
+
+// UpdateWebViewResultSentTypeID is TL type id of UpdateWebViewResultSent.
+const UpdateWebViewResultSentTypeID = 0x1592b79d
+
+// construct implements constructor of UpdateClass.
+func (u UpdateWebViewResultSent) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateWebViewResultSent.
+var (
+	_ bin.Encoder     = &UpdateWebViewResultSent{}
+	_ bin.Decoder     = &UpdateWebViewResultSent{}
+	_ bin.BareEncoder = &UpdateWebViewResultSent{}
+	_ bin.BareDecoder = &UpdateWebViewResultSent{}
+
+	_ UpdateClass = &UpdateWebViewResultSent{}
+)
+
+func (u *UpdateWebViewResultSent) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.QueryID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateWebViewResultSent) String() string {
+	if u == nil {
+		return "UpdateWebViewResultSent(nil)"
+	}
+	type Alias UpdateWebViewResultSent
+	return fmt.Sprintf("UpdateWebViewResultSent%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateWebViewResultSent from given interface.
+func (u *UpdateWebViewResultSent) FillFrom(from interface {
+	GetQueryID() (value int64)
+}) {
+	u.QueryID = from.GetQueryID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateWebViewResultSent) TypeID() uint32 {
+	return UpdateWebViewResultSentTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateWebViewResultSent) TypeName() string {
+	return "updateWebViewResultSent"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateWebViewResultSent) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateWebViewResultSent",
+		ID:   UpdateWebViewResultSentTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateWebViewResultSent) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateWebViewResultSent#1592b79d as nil")
+	}
+	b.PutID(UpdateWebViewResultSentTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateWebViewResultSent) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateWebViewResultSent#1592b79d as nil")
+	}
+	b.PutLong(u.QueryID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateWebViewResultSent) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateWebViewResultSent#1592b79d to nil")
+	}
+	if err := b.ConsumeID(UpdateWebViewResultSentTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateWebViewResultSent#1592b79d: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateWebViewResultSent) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateWebViewResultSent#1592b79d to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateWebViewResultSent#1592b79d: field query_id: %w", err)
+		}
+		u.QueryID = value
+	}
+	return nil
+}
+
+// GetQueryID returns value of QueryID field.
+func (u *UpdateWebViewResultSent) GetQueryID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.QueryID
+}
+
+// UpdateBotMenuButton represents TL type `updateBotMenuButton#14b85813`.
+//
+// See https://core.telegram.org/constructor/updateBotMenuButton for reference.
+type UpdateBotMenuButton struct {
+	// BotID field of UpdateBotMenuButton.
+	BotID int64
+	// Button field of UpdateBotMenuButton.
+	Button BotMenuButtonClass
+}
+
+// UpdateBotMenuButtonTypeID is TL type id of UpdateBotMenuButton.
+const UpdateBotMenuButtonTypeID = 0x14b85813
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBotMenuButton) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBotMenuButton.
+var (
+	_ bin.Encoder     = &UpdateBotMenuButton{}
+	_ bin.Decoder     = &UpdateBotMenuButton{}
+	_ bin.BareEncoder = &UpdateBotMenuButton{}
+	_ bin.BareDecoder = &UpdateBotMenuButton{}
+
+	_ UpdateClass = &UpdateBotMenuButton{}
+)
+
+func (u *UpdateBotMenuButton) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.BotID == 0) {
+		return false
+	}
+	if !(u.Button == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateBotMenuButton) String() string {
+	if u == nil {
+		return "UpdateBotMenuButton(nil)"
+	}
+	type Alias UpdateBotMenuButton
+	return fmt.Sprintf("UpdateBotMenuButton%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateBotMenuButton from given interface.
+func (u *UpdateBotMenuButton) FillFrom(from interface {
+	GetBotID() (value int64)
+	GetButton() (value BotMenuButtonClass)
+}) {
+	u.BotID = from.GetBotID()
+	u.Button = from.GetButton()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateBotMenuButton) TypeID() uint32 {
+	return UpdateBotMenuButtonTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateBotMenuButton) TypeName() string {
+	return "updateBotMenuButton"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBotMenuButton) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBotMenuButton",
+		ID:   UpdateBotMenuButtonTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "BotID",
+			SchemaName: "bot_id",
+		},
+		{
+			Name:       "Button",
+			SchemaName: "button",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateBotMenuButton) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBotMenuButton#14b85813 as nil")
+	}
+	b.PutID(UpdateBotMenuButtonTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateBotMenuButton) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBotMenuButton#14b85813 as nil")
+	}
+	b.PutLong(u.BotID)
+	if u.Button == nil {
+		return fmt.Errorf("unable to encode updateBotMenuButton#14b85813: field button is nil")
+	}
+	if err := u.Button.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateBotMenuButton#14b85813: field button: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateBotMenuButton) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBotMenuButton#14b85813 to nil")
+	}
+	if err := b.ConsumeID(UpdateBotMenuButtonTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateBotMenuButton#14b85813: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateBotMenuButton) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBotMenuButton#14b85813 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotMenuButton#14b85813: field bot_id: %w", err)
+		}
+		u.BotID = value
+	}
+	{
+		value, err := DecodeBotMenuButton(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotMenuButton#14b85813: field button: %w", err)
+		}
+		u.Button = value
+	}
+	return nil
+}
+
+// GetBotID returns value of BotID field.
+func (u *UpdateBotMenuButton) GetBotID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.BotID
+}
+
+// GetButton returns value of Button field.
+func (u *UpdateBotMenuButton) GetButton() (value BotMenuButtonClass) {
+	if u == nil {
+		return
+	}
+	return u.Button
+}
+
+// UpdateSavedRingtones represents TL type `updateSavedRingtones#74d8be99`.
+//
+// See https://core.telegram.org/constructor/updateSavedRingtones for reference.
+type UpdateSavedRingtones struct {
+}
+
+// UpdateSavedRingtonesTypeID is TL type id of UpdateSavedRingtones.
+const UpdateSavedRingtonesTypeID = 0x74d8be99
+
+// construct implements constructor of UpdateClass.
+func (u UpdateSavedRingtones) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateSavedRingtones.
+var (
+	_ bin.Encoder     = &UpdateSavedRingtones{}
+	_ bin.Decoder     = &UpdateSavedRingtones{}
+	_ bin.BareEncoder = &UpdateSavedRingtones{}
+	_ bin.BareDecoder = &UpdateSavedRingtones{}
+
+	_ UpdateClass = &UpdateSavedRingtones{}
+)
+
+func (u *UpdateSavedRingtones) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateSavedRingtones) String() string {
+	if u == nil {
+		return "UpdateSavedRingtones(nil)"
+	}
+	type Alias UpdateSavedRingtones
+	return fmt.Sprintf("UpdateSavedRingtones%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateSavedRingtones) TypeID() uint32 {
+	return UpdateSavedRingtonesTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateSavedRingtones) TypeName() string {
+	return "updateSavedRingtones"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateSavedRingtones) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateSavedRingtones",
+		ID:   UpdateSavedRingtonesTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateSavedRingtones) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSavedRingtones#74d8be99 as nil")
+	}
+	b.PutID(UpdateSavedRingtonesTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateSavedRingtones) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSavedRingtones#74d8be99 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateSavedRingtones) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSavedRingtones#74d8be99 to nil")
+	}
+	if err := b.ConsumeID(UpdateSavedRingtonesTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateSavedRingtones#74d8be99: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateSavedRingtones) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSavedRingtones#74d8be99 to nil")
+	}
+	return nil
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -19494,6 +19996,10 @@ const UpdateClassName = "Update"
 //  case *tg.UpdatePendingJoinRequests: // updatePendingJoinRequests#7063c3db
 //  case *tg.UpdateBotChatInviteRequester: // updateBotChatInviteRequester#11dfa986
 //  case *tg.UpdateMessageReactions: // updateMessageReactions#154798c3
+//  case *tg.UpdateAttachMenuBots: // updateAttachMenuBots#17b7a20b
+//  case *tg.UpdateWebViewResultSent: // updateWebViewResultSent#1592b79d
+//  case *tg.UpdateBotMenuButton: // updateBotMenuButton#14b85813
+//  case *tg.UpdateSavedRingtones: // updateSavedRingtones#74d8be99
 //  default: panic(v)
 //  }
 type UpdateClass interface {
@@ -20190,6 +20696,34 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateMessageReactionsTypeID:
 		// Decoding updateMessageReactions#154798c3.
 		v := UpdateMessageReactions{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateAttachMenuBotsTypeID:
+		// Decoding updateAttachMenuBots#17b7a20b.
+		v := UpdateAttachMenuBots{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateWebViewResultSentTypeID:
+		// Decoding updateWebViewResultSent#1592b79d.
+		v := UpdateWebViewResultSent{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateBotMenuButtonTypeID:
+		// Decoding updateBotMenuButton#14b85813.
+		v := UpdateBotMenuButton{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateSavedRingtonesTypeID:
+		// Decoding updateSavedRingtones#74d8be99.
+		v := UpdateSavedRingtones{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

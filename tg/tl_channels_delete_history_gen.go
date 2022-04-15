@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChannelsDeleteHistoryRequest represents TL type `channels.deleteHistory#af369d42`.
+// ChannelsDeleteHistoryRequest represents TL type `channels.deleteHistory#9baa9647`.
 // Delete the history of a supergroup¹
 //
 // Links:
@@ -39,6 +39,10 @@ var (
 //
 // See https://core.telegram.org/method/channels.deleteHistory for reference.
 type ChannelsDeleteHistoryRequest struct {
+	// Flags field of ChannelsDeleteHistoryRequest.
+	Flags bin.Fields
+	// ForEveryone field of ChannelsDeleteHistoryRequest.
+	ForEveryone bool
 	// Supergroup¹ whose history must be deleted
 	//
 	// Links:
@@ -49,7 +53,7 @@ type ChannelsDeleteHistoryRequest struct {
 }
 
 // ChannelsDeleteHistoryRequestTypeID is TL type id of ChannelsDeleteHistoryRequest.
-const ChannelsDeleteHistoryRequestTypeID = 0xaf369d42
+const ChannelsDeleteHistoryRequestTypeID = 0x9baa9647
 
 // Ensuring interfaces in compile-time for ChannelsDeleteHistoryRequest.
 var (
@@ -62,6 +66,12 @@ var (
 func (d *ChannelsDeleteHistoryRequest) Zero() bool {
 	if d == nil {
 		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.ForEveryone == false) {
+		return false
 	}
 	if !(d.Channel == nil) {
 		return false
@@ -84,9 +94,11 @@ func (d *ChannelsDeleteHistoryRequest) String() string {
 
 // FillFrom fills ChannelsDeleteHistoryRequest from given interface.
 func (d *ChannelsDeleteHistoryRequest) FillFrom(from interface {
+	GetForEveryone() (value bool)
 	GetChannel() (value InputChannelClass)
 	GetMaxID() (value int)
 }) {
+	d.ForEveryone = from.GetForEveryone()
 	d.Channel = from.GetChannel()
 	d.MaxID = from.GetMaxID()
 }
@@ -115,6 +127,11 @@ func (d *ChannelsDeleteHistoryRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "ForEveryone",
+			SchemaName: "for_everyone",
+			Null:       !d.Flags.Has(0),
+		},
+		{
 			Name:       "Channel",
 			SchemaName: "channel",
 		},
@@ -126,10 +143,17 @@ func (d *ChannelsDeleteHistoryRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (d *ChannelsDeleteHistoryRequest) SetFlags() {
+	if !(d.ForEveryone == false) {
+		d.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (d *ChannelsDeleteHistoryRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode channels.deleteHistory#af369d42 as nil")
+		return fmt.Errorf("can't encode channels.deleteHistory#9baa9647 as nil")
 	}
 	b.PutID(ChannelsDeleteHistoryRequestTypeID)
 	return d.EncodeBare(b)
@@ -138,13 +162,17 @@ func (d *ChannelsDeleteHistoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *ChannelsDeleteHistoryRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode channels.deleteHistory#af369d42 as nil")
+		return fmt.Errorf("can't encode channels.deleteHistory#9baa9647 as nil")
+	}
+	d.SetFlags()
+	if err := d.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channels.deleteHistory#9baa9647: field flags: %w", err)
 	}
 	if d.Channel == nil {
-		return fmt.Errorf("unable to encode channels.deleteHistory#af369d42: field channel is nil")
+		return fmt.Errorf("unable to encode channels.deleteHistory#9baa9647: field channel is nil")
 	}
 	if err := d.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.deleteHistory#af369d42: field channel: %w", err)
+		return fmt.Errorf("unable to encode channels.deleteHistory#9baa9647: field channel: %w", err)
 	}
 	b.PutInt(d.MaxID)
 	return nil
@@ -153,10 +181,10 @@ func (d *ChannelsDeleteHistoryRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (d *ChannelsDeleteHistoryRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode channels.deleteHistory#af369d42 to nil")
+		return fmt.Errorf("can't decode channels.deleteHistory#9baa9647 to nil")
 	}
 	if err := b.ConsumeID(ChannelsDeleteHistoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.deleteHistory#af369d42: %w", err)
+		return fmt.Errorf("unable to decode channels.deleteHistory#9baa9647: %w", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -164,23 +192,48 @@ func (d *ChannelsDeleteHistoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *ChannelsDeleteHistoryRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode channels.deleteHistory#af369d42 to nil")
+		return fmt.Errorf("can't decode channels.deleteHistory#9baa9647 to nil")
 	}
+	{
+		if err := d.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channels.deleteHistory#9baa9647: field flags: %w", err)
+		}
+	}
+	d.ForEveryone = d.Flags.Has(0)
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.deleteHistory#af369d42: field channel: %w", err)
+			return fmt.Errorf("unable to decode channels.deleteHistory#9baa9647: field channel: %w", err)
 		}
 		d.Channel = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.deleteHistory#af369d42: field max_id: %w", err)
+			return fmt.Errorf("unable to decode channels.deleteHistory#9baa9647: field max_id: %w", err)
 		}
 		d.MaxID = value
 	}
 	return nil
+}
+
+// SetForEveryone sets value of ForEveryone conditional field.
+func (d *ChannelsDeleteHistoryRequest) SetForEveryone(value bool) {
+	if value {
+		d.Flags.Set(0)
+		d.ForEveryone = true
+	} else {
+		d.Flags.Unset(0)
+		d.ForEveryone = false
+	}
+}
+
+// GetForEveryone returns value of ForEveryone conditional field.
+func (d *ChannelsDeleteHistoryRequest) GetForEveryone() (value bool) {
+	if d == nil {
+		return
+	}
+	return d.Flags.Has(0)
 }
 
 // GetChannel returns value of Channel field.
@@ -204,7 +257,7 @@ func (d *ChannelsDeleteHistoryRequest) GetChannelAsNotEmpty() (NotEmptyInputChan
 	return d.Channel.AsNotEmpty()
 }
 
-// ChannelsDeleteHistory invokes method channels.deleteHistory#af369d42 returning error if any.
+// ChannelsDeleteHistory invokes method channels.deleteHistory#9baa9647 returning error if any.
 // Delete the history of a supergroup¹
 //
 // Links:
@@ -215,12 +268,11 @@ func (d *ChannelsDeleteHistoryRequest) GetChannelAsNotEmpty() (NotEmptyInputChan
 //  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //
 // See https://core.telegram.org/method/channels.deleteHistory for reference.
-func (c *Client) ChannelsDeleteHistory(ctx context.Context, request *ChannelsDeleteHistoryRequest) (bool, error) {
-	var result BoolBox
+func (c *Client) ChannelsDeleteHistory(ctx context.Context, request *ChannelsDeleteHistoryRequest) (UpdatesClass, error) {
+	var result UpdatesBox
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
-		return false, err
+		return nil, err
 	}
-	_, ok := result.Bool.(*BoolTrue)
-	return ok, nil
+	return result.Updates, nil
 }

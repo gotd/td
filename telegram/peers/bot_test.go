@@ -35,6 +35,7 @@ func TestBot_BotInfo(t *testing.T) {
 		UserID:      u.raw.ID,
 		Description: "Test bot",
 		Commands:    nil,
+		MenuButton:  &tg.BotMenuButtonDefault{},
 	})
 	mock.ExpectCall(&tg.UsersGetFullUserRequest{ID: input}).ThenResult(&tg.UsersUserFull{
 		FullUser: testUserFull,

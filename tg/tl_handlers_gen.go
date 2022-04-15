@@ -1065,3 +1065,43 @@ func (u UpdateDispatcher) OnMessageReactions(handler MessageReactionsHandler) {
 		return handler(ctx, e, update.(*UpdateMessageReactions))
 	}
 }
+
+// AttachMenuBotsHandler is a AttachMenuBots event handler.
+type AttachMenuBotsHandler func(ctx context.Context, e Entities, update *UpdateAttachMenuBots) error
+
+// OnAttachMenuBots sets AttachMenuBots handler.
+func (u UpdateDispatcher) OnAttachMenuBots(handler AttachMenuBotsHandler) {
+	u.handlers[UpdateAttachMenuBotsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateAttachMenuBots))
+	}
+}
+
+// WebViewResultSentHandler is a WebViewResultSent event handler.
+type WebViewResultSentHandler func(ctx context.Context, e Entities, update *UpdateWebViewResultSent) error
+
+// OnWebViewResultSent sets WebViewResultSent handler.
+func (u UpdateDispatcher) OnWebViewResultSent(handler WebViewResultSentHandler) {
+	u.handlers[UpdateWebViewResultSentTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateWebViewResultSent))
+	}
+}
+
+// BotMenuButtonHandler is a BotMenuButton event handler.
+type BotMenuButtonHandler func(ctx context.Context, e Entities, update *UpdateBotMenuButton) error
+
+// OnBotMenuButton sets BotMenuButton handler.
+func (u UpdateDispatcher) OnBotMenuButton(handler BotMenuButtonHandler) {
+	u.handlers[UpdateBotMenuButtonTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotMenuButton))
+	}
+}
+
+// SavedRingtonesHandler is a SavedRingtones event handler.
+type SavedRingtonesHandler func(ctx context.Context, e Entities, update *UpdateSavedRingtones) error
+
+// OnSavedRingtones sets SavedRingtones handler.
+func (u UpdateDispatcher) OnSavedRingtones(handler SavedRingtonesHandler) {
+	u.handlers[UpdateSavedRingtonesTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateSavedRingtones))
+	}
+}

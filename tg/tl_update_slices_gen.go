@@ -1234,6 +1234,32 @@ func (s UpdateClassArray) AsUpdateMessageReactions() (to UpdateMessageReactionsA
 	return to
 }
 
+// AsUpdateWebViewResultSent returns copy with only UpdateWebViewResultSent constructors.
+func (s UpdateClassArray) AsUpdateWebViewResultSent() (to UpdateWebViewResultSentArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateWebViewResultSent)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateBotMenuButton returns copy with only UpdateBotMenuButton constructors.
+func (s UpdateClassArray) AsUpdateBotMenuButton() (to UpdateBotMenuButtonArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateBotMenuButton)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // UpdateNewMessageArray is adapter for slice of UpdateNewMessage.
 type UpdateNewMessageArray []UpdateNewMessage
 
@@ -8498,6 +8524,170 @@ func (s *UpdateMessageReactionsArray) PopFirst() (v UpdateMessageReactions, ok b
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *UpdateMessageReactionsArray) Pop() (v UpdateMessageReactions, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateWebViewResultSentArray is adapter for slice of UpdateWebViewResultSent.
+type UpdateWebViewResultSentArray []UpdateWebViewResultSent
+
+// Sort sorts slice of UpdateWebViewResultSent.
+func (s UpdateWebViewResultSentArray) Sort(less func(a, b UpdateWebViewResultSent) bool) UpdateWebViewResultSentArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateWebViewResultSent.
+func (s UpdateWebViewResultSentArray) SortStable(less func(a, b UpdateWebViewResultSent) bool) UpdateWebViewResultSentArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateWebViewResultSent.
+func (s UpdateWebViewResultSentArray) Retain(keep func(x UpdateWebViewResultSent) bool) UpdateWebViewResultSentArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateWebViewResultSentArray) First() (v UpdateWebViewResultSent, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateWebViewResultSentArray) Last() (v UpdateWebViewResultSent, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateWebViewResultSentArray) PopFirst() (v UpdateWebViewResultSent, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateWebViewResultSent
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateWebViewResultSentArray) Pop() (v UpdateWebViewResultSent, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateBotMenuButtonArray is adapter for slice of UpdateBotMenuButton.
+type UpdateBotMenuButtonArray []UpdateBotMenuButton
+
+// Sort sorts slice of UpdateBotMenuButton.
+func (s UpdateBotMenuButtonArray) Sort(less func(a, b UpdateBotMenuButton) bool) UpdateBotMenuButtonArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateBotMenuButton.
+func (s UpdateBotMenuButtonArray) SortStable(less func(a, b UpdateBotMenuButton) bool) UpdateBotMenuButtonArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateBotMenuButton.
+func (s UpdateBotMenuButtonArray) Retain(keep func(x UpdateBotMenuButton) bool) UpdateBotMenuButtonArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateBotMenuButtonArray) First() (v UpdateBotMenuButton, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateBotMenuButtonArray) Last() (v UpdateBotMenuButton, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateBotMenuButtonArray) PopFirst() (v UpdateBotMenuButton, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateBotMenuButton
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateBotMenuButtonArray) Pop() (v UpdateBotMenuButton, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

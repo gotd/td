@@ -1785,6 +1785,57 @@ func (s *ServerDispatcher) OnAccountChangeAuthorizationSettings(f func(ctx conte
 	s.handlers[AccountChangeAuthorizationSettingsRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnAccountGetSavedRingtones(f func(ctx context.Context, hash int64) (AccountSavedRingtonesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountGetSavedRingtonesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hash)
+		if err != nil {
+			return nil, err
+		}
+		return &AccountSavedRingtonesBox{SavedRingtones: response}, nil
+	}
+
+	s.handlers[AccountGetSavedRingtonesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountSaveRingtone(f func(ctx context.Context, request *AccountSaveRingtoneRequest) (AccountSavedRingtoneClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountSaveRingtoneRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &AccountSavedRingtoneBox{SavedRingtone: response}, nil
+	}
+
+	s.handlers[AccountSaveRingtoneRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountUploadRingtone(f func(ctx context.Context, request *AccountUploadRingtoneRequest) (DocumentClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountUploadRingtoneRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &DocumentBox{Document: response}, nil
+	}
+
+	s.handlers[AccountUploadRingtoneRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUsersGetUsers(f func(ctx context.Context, id []InputUserClass) ([]UserClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UsersGetUsersRequest
@@ -5076,6 +5127,150 @@ func (s *ServerDispatcher) OnMessagesSearchSentMedia(f func(ctx context.Context,
 	s.handlers[MessagesSearchSentMediaRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesGetAttachMenuBots(f func(ctx context.Context, hash int64) (AttachMenuBotsClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetAttachMenuBotsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hash)
+		if err != nil {
+			return nil, err
+		}
+		return &AttachMenuBotsBox{AttachMenuBots: response}, nil
+	}
+
+	s.handlers[MessagesGetAttachMenuBotsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetAttachMenuBot(f func(ctx context.Context, bot InputUserClass) (*AttachMenuBotsBot, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetAttachMenuBotRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Bot)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[MessagesGetAttachMenuBotRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesToggleBotInAttachMenu(f func(ctx context.Context, request *MessagesToggleBotInAttachMenuRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesToggleBotInAttachMenuRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesToggleBotInAttachMenuRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesRequestWebView(f func(ctx context.Context, request *MessagesRequestWebViewRequest) (*WebViewResultURL, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesRequestWebViewRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[MessagesRequestWebViewRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesProlongWebView(f func(ctx context.Context, request *MessagesProlongWebViewRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesProlongWebViewRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesProlongWebViewRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesRequestSimpleWebView(f func(ctx context.Context, request *MessagesRequestSimpleWebViewRequest) (*SimpleWebViewResultURL, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesRequestSimpleWebViewRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[MessagesRequestSimpleWebViewRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesSendWebViewResultMessage(f func(ctx context.Context, request *MessagesSendWebViewResultMessageRequest) (*WebViewMessageSent, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesSendWebViewResultMessageRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[MessagesSendWebViewResultMessageRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesSendWebViewData(f func(ctx context.Context, request *MessagesSendWebViewDataRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesSendWebViewDataRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[MessagesSendWebViewDataRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
@@ -6182,7 +6377,7 @@ func (s *ServerDispatcher) OnChannelsReadMessageContents(f func(ctx context.Cont
 	s.handlers[ChannelsReadMessageContentsRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnChannelsDeleteHistory(f func(ctx context.Context, request *ChannelsDeleteHistoryRequest) (bool, error)) {
+func (s *ServerDispatcher) OnChannelsDeleteHistory(f func(ctx context.Context, request *ChannelsDeleteHistoryRequest) (UpdatesClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request ChannelsDeleteHistoryRequest
 		if err := request.Decode(b); err != nil {
@@ -6193,11 +6388,7 @@ func (s *ServerDispatcher) OnChannelsDeleteHistory(f func(ctx context.Context, r
 		if err != nil {
 			return nil, err
 		}
-		if response {
-			return &BoolBox{Bool: &BoolTrue{}}, nil
-		}
-
-		return &BoolBox{Bool: &BoolFalse{}}, nil
+		return &UpdatesBox{Updates: response}, nil
 	}
 
 	s.handlers[ChannelsDeleteHistoryRequestTypeID] = handler
@@ -6531,6 +6722,86 @@ func (s *ServerDispatcher) OnBotsGetBotCommands(f func(ctx context.Context, requ
 	}
 
 	s.handlers[BotsGetBotCommandsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsSetBotMenuButton(f func(ctx context.Context, request *BotsSetBotMenuButtonRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsSetBotMenuButtonRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[BotsSetBotMenuButtonRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsGetBotMenuButton(f func(ctx context.Context, userid InputUserClass) (BotMenuButtonClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsGetBotMenuButtonRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.UserID)
+		if err != nil {
+			return nil, err
+		}
+		return &BotMenuButtonBox{BotMenuButton: response}, nil
+	}
+
+	s.handlers[BotsGetBotMenuButtonRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsSetBotBroadcastDefaultAdminRights(f func(ctx context.Context, adminrights ChatAdminRights) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsSetBotBroadcastDefaultAdminRightsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.AdminRights)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[BotsSetBotBroadcastDefaultAdminRightsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsSetBotGroupDefaultAdminRights(f func(ctx context.Context, adminrights ChatAdminRights) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsSetBotGroupDefaultAdminRightsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.AdminRights)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[BotsSetBotGroupDefaultAdminRightsRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnPaymentsGetPaymentForm(f func(ctx context.Context, request *PaymentsGetPaymentFormRequest) (*PaymentsPaymentForm, error)) {

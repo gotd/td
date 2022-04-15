@@ -4647,6 +4647,301 @@ func (m *MessageActionChatJoinedByRequest) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// MessageActionWebViewDataSentMe represents TL type `messageActionWebViewDataSentMe#47dd8079`.
+//
+// See https://core.telegram.org/constructor/messageActionWebViewDataSentMe for reference.
+type MessageActionWebViewDataSentMe struct {
+	// Text field of MessageActionWebViewDataSentMe.
+	Text string
+	// Data field of MessageActionWebViewDataSentMe.
+	Data string
+}
+
+// MessageActionWebViewDataSentMeTypeID is TL type id of MessageActionWebViewDataSentMe.
+const MessageActionWebViewDataSentMeTypeID = 0x47dd8079
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionWebViewDataSentMe) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionWebViewDataSentMe.
+var (
+	_ bin.Encoder     = &MessageActionWebViewDataSentMe{}
+	_ bin.Decoder     = &MessageActionWebViewDataSentMe{}
+	_ bin.BareEncoder = &MessageActionWebViewDataSentMe{}
+	_ bin.BareDecoder = &MessageActionWebViewDataSentMe{}
+
+	_ MessageActionClass = &MessageActionWebViewDataSentMe{}
+)
+
+func (m *MessageActionWebViewDataSentMe) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Text == "") {
+		return false
+	}
+	if !(m.Data == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionWebViewDataSentMe) String() string {
+	if m == nil {
+		return "MessageActionWebViewDataSentMe(nil)"
+	}
+	type Alias MessageActionWebViewDataSentMe
+	return fmt.Sprintf("MessageActionWebViewDataSentMe%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionWebViewDataSentMe from given interface.
+func (m *MessageActionWebViewDataSentMe) FillFrom(from interface {
+	GetText() (value string)
+	GetData() (value string)
+}) {
+	m.Text = from.GetText()
+	m.Data = from.GetData()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionWebViewDataSentMe) TypeID() uint32 {
+	return MessageActionWebViewDataSentMeTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionWebViewDataSentMe) TypeName() string {
+	return "messageActionWebViewDataSentMe"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionWebViewDataSentMe) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionWebViewDataSentMe",
+		ID:   MessageActionWebViewDataSentMeTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "Data",
+			SchemaName: "data",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionWebViewDataSentMe) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionWebViewDataSentMe#47dd8079 as nil")
+	}
+	b.PutID(MessageActionWebViewDataSentMeTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionWebViewDataSentMe) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionWebViewDataSentMe#47dd8079 as nil")
+	}
+	b.PutString(m.Text)
+	b.PutString(m.Data)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionWebViewDataSentMe) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionWebViewDataSentMe#47dd8079 to nil")
+	}
+	if err := b.ConsumeID(MessageActionWebViewDataSentMeTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionWebViewDataSentMe#47dd8079: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionWebViewDataSentMe) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionWebViewDataSentMe#47dd8079 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionWebViewDataSentMe#47dd8079: field text: %w", err)
+		}
+		m.Text = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionWebViewDataSentMe#47dd8079: field data: %w", err)
+		}
+		m.Data = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (m *MessageActionWebViewDataSentMe) GetText() (value string) {
+	if m == nil {
+		return
+	}
+	return m.Text
+}
+
+// GetData returns value of Data field.
+func (m *MessageActionWebViewDataSentMe) GetData() (value string) {
+	if m == nil {
+		return
+	}
+	return m.Data
+}
+
+// MessageActionWebViewDataSent represents TL type `messageActionWebViewDataSent#b4c38cb5`.
+//
+// See https://core.telegram.org/constructor/messageActionWebViewDataSent for reference.
+type MessageActionWebViewDataSent struct {
+	// Text field of MessageActionWebViewDataSent.
+	Text string
+}
+
+// MessageActionWebViewDataSentTypeID is TL type id of MessageActionWebViewDataSent.
+const MessageActionWebViewDataSentTypeID = 0xb4c38cb5
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionWebViewDataSent) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionWebViewDataSent.
+var (
+	_ bin.Encoder     = &MessageActionWebViewDataSent{}
+	_ bin.Decoder     = &MessageActionWebViewDataSent{}
+	_ bin.BareEncoder = &MessageActionWebViewDataSent{}
+	_ bin.BareDecoder = &MessageActionWebViewDataSent{}
+
+	_ MessageActionClass = &MessageActionWebViewDataSent{}
+)
+
+func (m *MessageActionWebViewDataSent) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Text == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionWebViewDataSent) String() string {
+	if m == nil {
+		return "MessageActionWebViewDataSent(nil)"
+	}
+	type Alias MessageActionWebViewDataSent
+	return fmt.Sprintf("MessageActionWebViewDataSent%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionWebViewDataSent from given interface.
+func (m *MessageActionWebViewDataSent) FillFrom(from interface {
+	GetText() (value string)
+}) {
+	m.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionWebViewDataSent) TypeID() uint32 {
+	return MessageActionWebViewDataSentTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionWebViewDataSent) TypeName() string {
+	return "messageActionWebViewDataSent"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionWebViewDataSent) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionWebViewDataSent",
+		ID:   MessageActionWebViewDataSentTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionWebViewDataSent) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionWebViewDataSent#b4c38cb5 as nil")
+	}
+	b.PutID(MessageActionWebViewDataSentTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionWebViewDataSent) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionWebViewDataSent#b4c38cb5 as nil")
+	}
+	b.PutString(m.Text)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionWebViewDataSent) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionWebViewDataSent#b4c38cb5 to nil")
+	}
+	if err := b.ConsumeID(MessageActionWebViewDataSentTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionWebViewDataSent#b4c38cb5: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionWebViewDataSent) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionWebViewDataSent#b4c38cb5 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionWebViewDataSent#b4c38cb5: field text: %w", err)
+		}
+		m.Text = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (m *MessageActionWebViewDataSent) GetText() (value string) {
+	if m == nil {
+		return
+	}
+	return m.Text
+}
+
 // MessageActionClassName is schema name of MessageActionClass.
 const MessageActionClassName = "MessageAction"
 
@@ -4690,6 +4985,8 @@ const MessageActionClassName = "MessageAction"
 //  case *tg.MessageActionGroupCallScheduled: // messageActionGroupCallScheduled#b3a07661
 //  case *tg.MessageActionSetChatTheme: // messageActionSetChatTheme#aa786345
 //  case *tg.MessageActionChatJoinedByRequest: // messageActionChatJoinedByRequest#ebbca3cb
+//  case *tg.MessageActionWebViewDataSentMe: // messageActionWebViewDataSentMe#47dd8079
+//  case *tg.MessageActionWebViewDataSent: // messageActionWebViewDataSent#b4c38cb5
 //  default: panic(v)
 //  }
 type MessageActionClass interface {
@@ -4924,6 +5221,20 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionChatJoinedByRequestTypeID:
 		// Decoding messageActionChatJoinedByRequest#ebbca3cb.
 		v := MessageActionChatJoinedByRequest{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionWebViewDataSentMeTypeID:
+		// Decoding messageActionWebViewDataSentMe#47dd8079.
+		v := MessageActionWebViewDataSentMe{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionWebViewDataSentTypeID:
+		// Decoding messageActionWebViewDataSent#b4c38cb5.
+		v := MessageActionWebViewDataSent{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}
