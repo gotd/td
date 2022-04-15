@@ -167,11 +167,6 @@ func (c Chat) Creator() bool {
 	return c.raw.GetCreator()
 }
 
-// Kicked the current user was kicked from the group.
-func (c Chat) Kicked() bool {
-	return c.raw.GetKicked()
-}
-
 // Left whether the current user has left this group.
 func (c Chat) Left() bool {
 	return c.raw.GetLeft()

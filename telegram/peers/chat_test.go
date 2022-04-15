@@ -14,7 +14,6 @@ func TestChatGetters(t *testing.T) {
 	u := Chat{
 		raw: &tg.Chat{
 			Creator:             true,
-			Kicked:              true,
 			Left:                true,
 			Deactivated:         true,
 			CallActive:          true,
@@ -41,7 +40,6 @@ func TestChatGetters(t *testing.T) {
 	a.Equal(u.raw.GetID(), u.ID())
 
 	a.Equal(u.raw.Creator, u.Creator())
-	a.Equal(u.raw.Kicked, u.Kicked())
 	a.Equal(u.raw.Left, u.Left())
 	a.Equal(u.raw.Deactivated, u.Deactivated())
 	a.Equal(u.raw.CallActive, u.CallActive())
