@@ -20,11 +20,16 @@ jobs:
         runner:
           - ubuntu-latest
           - macos-latest
-          - windows-latest
         include:
           - arch: 386
-            runner: ubuntu-latest
             go: 1.18
+            runner: ubuntu-latest
+
+          - arch: amd64
+            runner: windows-latest
+            go: 1.18
+            flags: "-p=1"
+
           - arch: amd64
             go: 1.18
             runner: [self-hosted, linux, x64]
