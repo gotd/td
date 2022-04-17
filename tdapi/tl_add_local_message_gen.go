@@ -37,7 +37,7 @@ type AddLocalMessageRequest struct {
 	ChatID int64
 	// Identifier of the sender of the message
 	SenderID MessageSenderClass
-	// Identifier of the message to reply to or 0
+	// Identifier of the replied message; 0 if none
 	ReplyToMessageID int64
 	// Pass true to disable notification for the message
 	DisableNotification bool

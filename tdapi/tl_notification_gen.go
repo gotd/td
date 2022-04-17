@@ -31,20 +31,20 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Notification represents TL type `notification#2f0343d0`.
+// Notification represents TL type `notification#81fa1b96`.
 type Notification struct {
 	// Unique persistent identifier of this notification
 	ID int32
 	// Notification date
 	Date int32
-	// True, if the notification was initially silent
-	IsSilent bool
+	// Identifier of the notification sound to be played; 0 if sound is disabled
+	SoundID int64
 	// Notification type
 	Type NotificationTypeClass
 }
 
 // NotificationTypeID is TL type id of Notification.
-const NotificationTypeID = 0x2f0343d0
+const NotificationTypeID = 0x81fa1b96
 
 // Ensuring interfaces in compile-time for Notification.
 var (
@@ -64,7 +64,7 @@ func (n *Notification) Zero() bool {
 	if !(n.Date == 0) {
 		return false
 	}
-	if !(n.IsSilent == false) {
+	if !(n.SoundID == 0) {
 		return false
 	}
 	if !(n.Type == nil) {
@@ -115,8 +115,8 @@ func (n *Notification) TypeInfo() tdp.Type {
 			SchemaName: "date",
 		},
 		{
-			Name:       "IsSilent",
-			SchemaName: "is_silent",
+			Name:       "SoundID",
+			SchemaName: "sound_id",
 		},
 		{
 			Name:       "Type",
@@ -129,7 +129,7 @@ func (n *Notification) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (n *Notification) Encode(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't encode notification#2f0343d0 as nil")
+		return fmt.Errorf("can't encode notification#81fa1b96 as nil")
 	}
 	b.PutID(NotificationTypeID)
 	return n.EncodeBare(b)
@@ -138,16 +138,16 @@ func (n *Notification) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (n *Notification) EncodeBare(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't encode notification#2f0343d0 as nil")
+		return fmt.Errorf("can't encode notification#81fa1b96 as nil")
 	}
 	b.PutInt32(n.ID)
 	b.PutInt32(n.Date)
-	b.PutBool(n.IsSilent)
+	b.PutLong(n.SoundID)
 	if n.Type == nil {
-		return fmt.Errorf("unable to encode notification#2f0343d0: field type is nil")
+		return fmt.Errorf("unable to encode notification#81fa1b96: field type is nil")
 	}
 	if err := n.Type.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode notification#2f0343d0: field type: %w", err)
+		return fmt.Errorf("unable to encode notification#81fa1b96: field type: %w", err)
 	}
 	return nil
 }
@@ -155,10 +155,10 @@ func (n *Notification) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (n *Notification) Decode(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't decode notification#2f0343d0 to nil")
+		return fmt.Errorf("can't decode notification#81fa1b96 to nil")
 	}
 	if err := b.ConsumeID(NotificationTypeID); err != nil {
-		return fmt.Errorf("unable to decode notification#2f0343d0: %w", err)
+		return fmt.Errorf("unable to decode notification#81fa1b96: %w", err)
 	}
 	return n.DecodeBare(b)
 }
@@ -166,33 +166,33 @@ func (n *Notification) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (n *Notification) DecodeBare(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't decode notification#2f0343d0 to nil")
+		return fmt.Errorf("can't decode notification#81fa1b96 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode notification#2f0343d0: field id: %w", err)
+			return fmt.Errorf("unable to decode notification#81fa1b96: field id: %w", err)
 		}
 		n.ID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode notification#2f0343d0: field date: %w", err)
+			return fmt.Errorf("unable to decode notification#81fa1b96: field date: %w", err)
 		}
 		n.Date = value
 	}
 	{
-		value, err := b.Bool()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode notification#2f0343d0: field is_silent: %w", err)
+			return fmt.Errorf("unable to decode notification#81fa1b96: field sound_id: %w", err)
 		}
-		n.IsSilent = value
+		n.SoundID = value
 	}
 	{
 		value, err := DecodeNotificationType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode notification#2f0343d0: field type: %w", err)
+			return fmt.Errorf("unable to decode notification#81fa1b96: field type: %w", err)
 		}
 		n.Type = value
 	}
@@ -202,7 +202,7 @@ func (n *Notification) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (n *Notification) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if n == nil {
-		return fmt.Errorf("can't encode notification#2f0343d0 as nil")
+		return fmt.Errorf("can't encode notification#81fa1b96 as nil")
 	}
 	b.ObjStart()
 	b.PutID("notification")
@@ -213,15 +213,15 @@ func (n *Notification) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("date")
 	b.PutInt32(n.Date)
 	b.Comma()
-	b.FieldStart("is_silent")
-	b.PutBool(n.IsSilent)
+	b.FieldStart("sound_id")
+	b.PutLong(n.SoundID)
 	b.Comma()
 	b.FieldStart("type")
 	if n.Type == nil {
-		return fmt.Errorf("unable to encode notification#2f0343d0: field type is nil")
+		return fmt.Errorf("unable to encode notification#81fa1b96: field type is nil")
 	}
 	if err := n.Type.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode notification#2f0343d0: field type: %w", err)
+		return fmt.Errorf("unable to encode notification#81fa1b96: field type: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -232,37 +232,37 @@ func (n *Notification) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (n *Notification) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if n == nil {
-		return fmt.Errorf("can't decode notification#2f0343d0 to nil")
+		return fmt.Errorf("can't decode notification#81fa1b96 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("notification"); err != nil {
-				return fmt.Errorf("unable to decode notification#2f0343d0: %w", err)
+				return fmt.Errorf("unable to decode notification#81fa1b96: %w", err)
 			}
 		case "id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode notification#2f0343d0: field id: %w", err)
+				return fmt.Errorf("unable to decode notification#81fa1b96: field id: %w", err)
 			}
 			n.ID = value
 		case "date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode notification#2f0343d0: field date: %w", err)
+				return fmt.Errorf("unable to decode notification#81fa1b96: field date: %w", err)
 			}
 			n.Date = value
-		case "is_silent":
-			value, err := b.Bool()
+		case "sound_id":
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode notification#2f0343d0: field is_silent: %w", err)
+				return fmt.Errorf("unable to decode notification#81fa1b96: field sound_id: %w", err)
 			}
-			n.IsSilent = value
+			n.SoundID = value
 		case "type":
 			value, err := DecodeTDLibJSONNotificationType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode notification#2f0343d0: field type: %w", err)
+				return fmt.Errorf("unable to decode notification#81fa1b96: field type: %w", err)
 			}
 			n.Type = value
 		default:
@@ -288,12 +288,12 @@ func (n *Notification) GetDate() (value int32) {
 	return n.Date
 }
 
-// GetIsSilent returns value of IsSilent field.
-func (n *Notification) GetIsSilent() (value bool) {
+// GetSoundID returns value of SoundID field.
+func (n *Notification) GetSoundID() (value int64) {
 	if n == nil {
 		return
 	}
-	return n.IsSilent
+	return n.SoundID
 }
 
 // GetType returns value of Type field.

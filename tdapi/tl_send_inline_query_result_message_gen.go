@@ -37,7 +37,7 @@ type SendInlineQueryResultMessageRequest struct {
 	ChatID int64
 	// If not 0, a message thread identifier in which the message will be sent
 	MessageThreadID int64
-	// Identifier of a message to reply to or 0
+	// Identifier of a replied message; 0 if none
 	ReplyToMessageID int64
 	// Options to be used to send the message; pass null to use default options
 	Options MessageSendOptions

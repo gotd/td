@@ -162,6 +162,250 @@ func (i *InternalLinkTypeActiveSessions) DecodeTDLibJSON(b tdjson.Decoder) error
 	})
 }
 
+// InternalLinkTypeAttachmentMenuBot represents TL type `internalLinkTypeAttachmentMenuBot#63932054`.
+type InternalLinkTypeAttachmentMenuBot struct {
+	// An internal link pointing to a chat; may be null if the current chat needs to be kept
+	ChatLink InternalLinkTypeClass
+	// Username of the bot
+	BotUsername string
+	// URL to be passed to openWebApp
+	URL string
+}
+
+// InternalLinkTypeAttachmentMenuBotTypeID is TL type id of InternalLinkTypeAttachmentMenuBot.
+const InternalLinkTypeAttachmentMenuBotTypeID = 0x63932054
+
+// construct implements constructor of InternalLinkTypeClass.
+func (i InternalLinkTypeAttachmentMenuBot) construct() InternalLinkTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InternalLinkTypeAttachmentMenuBot.
+var (
+	_ bin.Encoder     = &InternalLinkTypeAttachmentMenuBot{}
+	_ bin.Decoder     = &InternalLinkTypeAttachmentMenuBot{}
+	_ bin.BareEncoder = &InternalLinkTypeAttachmentMenuBot{}
+	_ bin.BareDecoder = &InternalLinkTypeAttachmentMenuBot{}
+
+	_ InternalLinkTypeClass = &InternalLinkTypeAttachmentMenuBot{}
+)
+
+func (i *InternalLinkTypeAttachmentMenuBot) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ChatLink == nil) {
+		return false
+	}
+	if !(i.BotUsername == "") {
+		return false
+	}
+	if !(i.URL == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InternalLinkTypeAttachmentMenuBot) String() string {
+	if i == nil {
+		return "InternalLinkTypeAttachmentMenuBot(nil)"
+	}
+	type Alias InternalLinkTypeAttachmentMenuBot
+	return fmt.Sprintf("InternalLinkTypeAttachmentMenuBot%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InternalLinkTypeAttachmentMenuBot) TypeID() uint32 {
+	return InternalLinkTypeAttachmentMenuBotTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InternalLinkTypeAttachmentMenuBot) TypeName() string {
+	return "internalLinkTypeAttachmentMenuBot"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InternalLinkTypeAttachmentMenuBot) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "internalLinkTypeAttachmentMenuBot",
+		ID:   InternalLinkTypeAttachmentMenuBotTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatLink",
+			SchemaName: "chat_link",
+		},
+		{
+			Name:       "BotUsername",
+			SchemaName: "bot_username",
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InternalLinkTypeAttachmentMenuBot) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeAttachmentMenuBot#63932054 as nil")
+	}
+	b.PutID(InternalLinkTypeAttachmentMenuBotTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InternalLinkTypeAttachmentMenuBot) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeAttachmentMenuBot#63932054 as nil")
+	}
+	if i.ChatLink == nil {
+		return fmt.Errorf("unable to encode internalLinkTypeAttachmentMenuBot#63932054: field chat_link is nil")
+	}
+	if err := i.ChatLink.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode internalLinkTypeAttachmentMenuBot#63932054: field chat_link: %w", err)
+	}
+	b.PutString(i.BotUsername)
+	b.PutString(i.URL)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InternalLinkTypeAttachmentMenuBot) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeAttachmentMenuBot#63932054 to nil")
+	}
+	if err := b.ConsumeID(InternalLinkTypeAttachmentMenuBotTypeID); err != nil {
+		return fmt.Errorf("unable to decode internalLinkTypeAttachmentMenuBot#63932054: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InternalLinkTypeAttachmentMenuBot) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeAttachmentMenuBot#63932054 to nil")
+	}
+	{
+		value, err := DecodeInternalLinkType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeAttachmentMenuBot#63932054: field chat_link: %w", err)
+		}
+		i.ChatLink = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeAttachmentMenuBot#63932054: field bot_username: %w", err)
+		}
+		i.BotUsername = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeAttachmentMenuBot#63932054: field url: %w", err)
+		}
+		i.URL = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InternalLinkTypeAttachmentMenuBot) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeAttachmentMenuBot#63932054 as nil")
+	}
+	b.ObjStart()
+	b.PutID("internalLinkTypeAttachmentMenuBot")
+	b.Comma()
+	b.FieldStart("chat_link")
+	if i.ChatLink == nil {
+		return fmt.Errorf("unable to encode internalLinkTypeAttachmentMenuBot#63932054: field chat_link is nil")
+	}
+	if err := i.ChatLink.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode internalLinkTypeAttachmentMenuBot#63932054: field chat_link: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("bot_username")
+	b.PutString(i.BotUsername)
+	b.Comma()
+	b.FieldStart("url")
+	b.PutString(i.URL)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InternalLinkTypeAttachmentMenuBot) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeAttachmentMenuBot#63932054 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("internalLinkTypeAttachmentMenuBot"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeAttachmentMenuBot#63932054: %w", err)
+			}
+		case "chat_link":
+			value, err := DecodeTDLibJSONInternalLinkType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeAttachmentMenuBot#63932054: field chat_link: %w", err)
+			}
+			i.ChatLink = value
+		case "bot_username":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeAttachmentMenuBot#63932054: field bot_username: %w", err)
+			}
+			i.BotUsername = value
+		case "url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeAttachmentMenuBot#63932054: field url: %w", err)
+			}
+			i.URL = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatLink returns value of ChatLink field.
+func (i *InternalLinkTypeAttachmentMenuBot) GetChatLink() (value InternalLinkTypeClass) {
+	if i == nil {
+		return
+	}
+	return i.ChatLink
+}
+
+// GetBotUsername returns value of BotUsername field.
+func (i *InternalLinkTypeAttachmentMenuBot) GetBotUsername() (value string) {
+	if i == nil {
+		return
+	}
+	return i.BotUsername
+}
+
+// GetURL returns value of URL field.
+func (i *InternalLinkTypeAttachmentMenuBot) GetURL() (value string) {
+	if i == nil {
+		return
+	}
+	return i.URL
+}
+
 // InternalLinkTypeAuthenticationCode represents TL type `internalLinkTypeAuthenticationCode#f3874ff2`.
 type InternalLinkTypeAuthenticationCode struct {
 	// The authentication code
@@ -694,16 +938,18 @@ func (i *InternalLinkTypeBotStart) GetStartParameter() (value string) {
 	return i.StartParameter
 }
 
-// InternalLinkTypeBotStartInGroup represents TL type `internalLinkTypeBotStartInGroup#c201649c`.
+// InternalLinkTypeBotStartInGroup represents TL type `internalLinkTypeBotStartInGroup#ca0d8cce`.
 type InternalLinkTypeBotStartInGroup struct {
 	// Username of the bot
 	BotUsername string
 	// The parameter to be passed to sendBotStartMessage
 	StartParameter string
+	// Expected administrator rights for the bot; may be null
+	AdministratorRights ChatAdministratorRights
 }
 
 // InternalLinkTypeBotStartInGroupTypeID is TL type id of InternalLinkTypeBotStartInGroup.
-const InternalLinkTypeBotStartInGroupTypeID = 0xc201649c
+const InternalLinkTypeBotStartInGroupTypeID = 0xca0d8cce
 
 // construct implements constructor of InternalLinkTypeClass.
 func (i InternalLinkTypeBotStartInGroup) construct() InternalLinkTypeClass { return &i }
@@ -726,6 +972,9 @@ func (i *InternalLinkTypeBotStartInGroup) Zero() bool {
 		return false
 	}
 	if !(i.StartParameter == "") {
+		return false
+	}
+	if !(i.AdministratorRights.Zero()) {
 		return false
 	}
 
@@ -772,6 +1021,10 @@ func (i *InternalLinkTypeBotStartInGroup) TypeInfo() tdp.Type {
 			Name:       "StartParameter",
 			SchemaName: "start_parameter",
 		},
+		{
+			Name:       "AdministratorRights",
+			SchemaName: "administrator_rights",
+		},
 	}
 	return typ
 }
@@ -779,7 +1032,7 @@ func (i *InternalLinkTypeBotStartInGroup) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InternalLinkTypeBotStartInGroup) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeBotStartInGroup#c201649c as nil")
+		return fmt.Errorf("can't encode internalLinkTypeBotStartInGroup#ca0d8cce as nil")
 	}
 	b.PutID(InternalLinkTypeBotStartInGroupTypeID)
 	return i.EncodeBare(b)
@@ -788,20 +1041,23 @@ func (i *InternalLinkTypeBotStartInGroup) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InternalLinkTypeBotStartInGroup) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeBotStartInGroup#c201649c as nil")
+		return fmt.Errorf("can't encode internalLinkTypeBotStartInGroup#ca0d8cce as nil")
 	}
 	b.PutString(i.BotUsername)
 	b.PutString(i.StartParameter)
+	if err := i.AdministratorRights.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode internalLinkTypeBotStartInGroup#ca0d8cce: field administrator_rights: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *InternalLinkTypeBotStartInGroup) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeBotStartInGroup#c201649c to nil")
+		return fmt.Errorf("can't decode internalLinkTypeBotStartInGroup#ca0d8cce to nil")
 	}
 	if err := b.ConsumeID(InternalLinkTypeBotStartInGroupTypeID); err != nil {
-		return fmt.Errorf("unable to decode internalLinkTypeBotStartInGroup#c201649c: %w", err)
+		return fmt.Errorf("unable to decode internalLinkTypeBotStartInGroup#ca0d8cce: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -809,21 +1065,26 @@ func (i *InternalLinkTypeBotStartInGroup) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InternalLinkTypeBotStartInGroup) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeBotStartInGroup#c201649c to nil")
+		return fmt.Errorf("can't decode internalLinkTypeBotStartInGroup#ca0d8cce to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode internalLinkTypeBotStartInGroup#c201649c: field bot_username: %w", err)
+			return fmt.Errorf("unable to decode internalLinkTypeBotStartInGroup#ca0d8cce: field bot_username: %w", err)
 		}
 		i.BotUsername = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode internalLinkTypeBotStartInGroup#c201649c: field start_parameter: %w", err)
+			return fmt.Errorf("unable to decode internalLinkTypeBotStartInGroup#ca0d8cce: field start_parameter: %w", err)
 		}
 		i.StartParameter = value
+	}
+	{
+		if err := i.AdministratorRights.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeBotStartInGroup#ca0d8cce: field administrator_rights: %w", err)
+		}
 	}
 	return nil
 }
@@ -831,7 +1092,7 @@ func (i *InternalLinkTypeBotStartInGroup) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InternalLinkTypeBotStartInGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeBotStartInGroup#c201649c as nil")
+		return fmt.Errorf("can't encode internalLinkTypeBotStartInGroup#ca0d8cce as nil")
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeBotStartInGroup")
@@ -842,6 +1103,11 @@ func (i *InternalLinkTypeBotStartInGroup) EncodeTDLibJSON(b tdjson.Encoder) erro
 	b.FieldStart("start_parameter")
 	b.PutString(i.StartParameter)
 	b.Comma()
+	b.FieldStart("administrator_rights")
+	if err := i.AdministratorRights.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode internalLinkTypeBotStartInGroup#ca0d8cce: field administrator_rights: %w", err)
+	}
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -850,27 +1116,31 @@ func (i *InternalLinkTypeBotStartInGroup) EncodeTDLibJSON(b tdjson.Encoder) erro
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InternalLinkTypeBotStartInGroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeBotStartInGroup#c201649c to nil")
+		return fmt.Errorf("can't decode internalLinkTypeBotStartInGroup#ca0d8cce to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("internalLinkTypeBotStartInGroup"); err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeBotStartInGroup#c201649c: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypeBotStartInGroup#ca0d8cce: %w", err)
 			}
 		case "bot_username":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeBotStartInGroup#c201649c: field bot_username: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypeBotStartInGroup#ca0d8cce: field bot_username: %w", err)
 			}
 			i.BotUsername = value
 		case "start_parameter":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeBotStartInGroup#c201649c: field start_parameter: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypeBotStartInGroup#ca0d8cce: field start_parameter: %w", err)
 			}
 			i.StartParameter = value
+		case "administrator_rights":
+			if err := i.AdministratorRights.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeBotStartInGroup#ca0d8cce: field administrator_rights: %w", err)
+			}
 		default:
 			return b.Skip()
 		}
@@ -892,6 +1162,214 @@ func (i *InternalLinkTypeBotStartInGroup) GetStartParameter() (value string) {
 		return
 	}
 	return i.StartParameter
+}
+
+// GetAdministratorRights returns value of AdministratorRights field.
+func (i *InternalLinkTypeBotStartInGroup) GetAdministratorRights() (value ChatAdministratorRights) {
+	if i == nil {
+		return
+	}
+	return i.AdministratorRights
+}
+
+// InternalLinkTypeBotAddToChannel represents TL type `internalLinkTypeBotAddToChannel#538ac2c0`.
+type InternalLinkTypeBotAddToChannel struct {
+	// Username of the bot
+	BotUsername string
+	// Expected administrator rights for the bot
+	AdministratorRights ChatAdministratorRights
+}
+
+// InternalLinkTypeBotAddToChannelTypeID is TL type id of InternalLinkTypeBotAddToChannel.
+const InternalLinkTypeBotAddToChannelTypeID = 0x538ac2c0
+
+// construct implements constructor of InternalLinkTypeClass.
+func (i InternalLinkTypeBotAddToChannel) construct() InternalLinkTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InternalLinkTypeBotAddToChannel.
+var (
+	_ bin.Encoder     = &InternalLinkTypeBotAddToChannel{}
+	_ bin.Decoder     = &InternalLinkTypeBotAddToChannel{}
+	_ bin.BareEncoder = &InternalLinkTypeBotAddToChannel{}
+	_ bin.BareDecoder = &InternalLinkTypeBotAddToChannel{}
+
+	_ InternalLinkTypeClass = &InternalLinkTypeBotAddToChannel{}
+)
+
+func (i *InternalLinkTypeBotAddToChannel) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.BotUsername == "") {
+		return false
+	}
+	if !(i.AdministratorRights.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InternalLinkTypeBotAddToChannel) String() string {
+	if i == nil {
+		return "InternalLinkTypeBotAddToChannel(nil)"
+	}
+	type Alias InternalLinkTypeBotAddToChannel
+	return fmt.Sprintf("InternalLinkTypeBotAddToChannel%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InternalLinkTypeBotAddToChannel) TypeID() uint32 {
+	return InternalLinkTypeBotAddToChannelTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InternalLinkTypeBotAddToChannel) TypeName() string {
+	return "internalLinkTypeBotAddToChannel"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InternalLinkTypeBotAddToChannel) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "internalLinkTypeBotAddToChannel",
+		ID:   InternalLinkTypeBotAddToChannelTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "BotUsername",
+			SchemaName: "bot_username",
+		},
+		{
+			Name:       "AdministratorRights",
+			SchemaName: "administrator_rights",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InternalLinkTypeBotAddToChannel) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeBotAddToChannel#538ac2c0 as nil")
+	}
+	b.PutID(InternalLinkTypeBotAddToChannelTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InternalLinkTypeBotAddToChannel) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeBotAddToChannel#538ac2c0 as nil")
+	}
+	b.PutString(i.BotUsername)
+	if err := i.AdministratorRights.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode internalLinkTypeBotAddToChannel#538ac2c0: field administrator_rights: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InternalLinkTypeBotAddToChannel) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeBotAddToChannel#538ac2c0 to nil")
+	}
+	if err := b.ConsumeID(InternalLinkTypeBotAddToChannelTypeID); err != nil {
+		return fmt.Errorf("unable to decode internalLinkTypeBotAddToChannel#538ac2c0: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InternalLinkTypeBotAddToChannel) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeBotAddToChannel#538ac2c0 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeBotAddToChannel#538ac2c0: field bot_username: %w", err)
+		}
+		i.BotUsername = value
+	}
+	{
+		if err := i.AdministratorRights.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeBotAddToChannel#538ac2c0: field administrator_rights: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InternalLinkTypeBotAddToChannel) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeBotAddToChannel#538ac2c0 as nil")
+	}
+	b.ObjStart()
+	b.PutID("internalLinkTypeBotAddToChannel")
+	b.Comma()
+	b.FieldStart("bot_username")
+	b.PutString(i.BotUsername)
+	b.Comma()
+	b.FieldStart("administrator_rights")
+	if err := i.AdministratorRights.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode internalLinkTypeBotAddToChannel#538ac2c0: field administrator_rights: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InternalLinkTypeBotAddToChannel) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeBotAddToChannel#538ac2c0 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("internalLinkTypeBotAddToChannel"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeBotAddToChannel#538ac2c0: %w", err)
+			}
+		case "bot_username":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeBotAddToChannel#538ac2c0: field bot_username: %w", err)
+			}
+			i.BotUsername = value
+		case "administrator_rights":
+			if err := i.AdministratorRights.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeBotAddToChannel#538ac2c0: field administrator_rights: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetBotUsername returns value of BotUsername field.
+func (i *InternalLinkTypeBotAddToChannel) GetBotUsername() (value string) {
+	if i == nil {
+		return
+	}
+	return i.BotUsername
+}
+
+// GetAdministratorRights returns value of AdministratorRights field.
+func (i *InternalLinkTypeBotAddToChannel) GetAdministratorRights() (value ChatAdministratorRights) {
+	if i == nil {
+		return
+	}
+	return i.AdministratorRights
 }
 
 // InternalLinkTypeChangePhoneNumber represents TL type `internalLinkTypeChangePhoneNumber#f0275b01`.
@@ -4668,10 +5146,12 @@ const InternalLinkTypeClassName = "InternalLinkType"
 //  }
 //  switch v := g.(type) {
 //  case *tdapi.InternalLinkTypeActiveSessions: // internalLinkTypeActiveSessions#706bbbad
+//  case *tdapi.InternalLinkTypeAttachmentMenuBot: // internalLinkTypeAttachmentMenuBot#63932054
 //  case *tdapi.InternalLinkTypeAuthenticationCode: // internalLinkTypeAuthenticationCode#f3874ff2
 //  case *tdapi.InternalLinkTypeBackground: // internalLinkTypeBackground#b0d2908
 //  case *tdapi.InternalLinkTypeBotStart: // internalLinkTypeBotStart#b812d93d
-//  case *tdapi.InternalLinkTypeBotStartInGroup: // internalLinkTypeBotStartInGroup#c201649c
+//  case *tdapi.InternalLinkTypeBotStartInGroup: // internalLinkTypeBotStartInGroup#ca0d8cce
+//  case *tdapi.InternalLinkTypeBotAddToChannel: // internalLinkTypeBotAddToChannel#538ac2c0
 //  case *tdapi.InternalLinkTypeChangePhoneNumber: // internalLinkTypeChangePhoneNumber#f0275b01
 //  case *tdapi.InternalLinkTypeChatInvite: // internalLinkTypeChatInvite#198c3cd9
 //  case *tdapi.InternalLinkTypeFilterSettings: // internalLinkTypeFilterSettings#5981179b
@@ -4732,6 +5212,13 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
 		return &v, nil
+	case InternalLinkTypeAttachmentMenuBotTypeID:
+		// Decoding internalLinkTypeAttachmentMenuBot#63932054.
+		v := InternalLinkTypeAttachmentMenuBot{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
 	case InternalLinkTypeAuthenticationCodeTypeID:
 		// Decoding internalLinkTypeAuthenticationCode#f3874ff2.
 		v := InternalLinkTypeAuthenticationCode{}
@@ -4754,8 +5241,15 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 		}
 		return &v, nil
 	case InternalLinkTypeBotStartInGroupTypeID:
-		// Decoding internalLinkTypeBotStartInGroup#c201649c.
+		// Decoding internalLinkTypeBotStartInGroup#ca0d8cce.
 		v := InternalLinkTypeBotStartInGroup{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case InternalLinkTypeBotAddToChannelTypeID:
+		// Decoding internalLinkTypeBotAddToChannel#538ac2c0.
+		v := InternalLinkTypeBotAddToChannel{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
@@ -4933,6 +5427,13 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
 		return &v, nil
+	case "internalLinkTypeAttachmentMenuBot":
+		// Decoding internalLinkTypeAttachmentMenuBot#63932054.
+		v := InternalLinkTypeAttachmentMenuBot{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
 	case "internalLinkTypeAuthenticationCode":
 		// Decoding internalLinkTypeAuthenticationCode#f3874ff2.
 		v := InternalLinkTypeAuthenticationCode{}
@@ -4955,8 +5456,15 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 		}
 		return &v, nil
 	case "internalLinkTypeBotStartInGroup":
-		// Decoding internalLinkTypeBotStartInGroup#c201649c.
+		// Decoding internalLinkTypeBotStartInGroup#ca0d8cce.
 		v := InternalLinkTypeBotStartInGroup{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeBotAddToChannel":
+		// Decoding internalLinkTypeBotAddToChannel#538ac2c0.
+		v := InternalLinkTypeBotAddToChannel{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}

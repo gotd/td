@@ -8975,6 +8975,372 @@ func (m *MessageWebsiteConnected) GetDomainName() (value string) {
 	return m.DomainName
 }
 
+// MessageWebAppDataSent represents TL type `messageWebAppDataSent#fb033912`.
+type MessageWebAppDataSent struct {
+	// Text of the keyboardButtonTypeWebApp button, which opened the web app
+	ButtonText string
+}
+
+// MessageWebAppDataSentTypeID is TL type id of MessageWebAppDataSent.
+const MessageWebAppDataSentTypeID = 0xfb033912
+
+// construct implements constructor of MessageContentClass.
+func (m MessageWebAppDataSent) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageWebAppDataSent.
+var (
+	_ bin.Encoder     = &MessageWebAppDataSent{}
+	_ bin.Decoder     = &MessageWebAppDataSent{}
+	_ bin.BareEncoder = &MessageWebAppDataSent{}
+	_ bin.BareDecoder = &MessageWebAppDataSent{}
+
+	_ MessageContentClass = &MessageWebAppDataSent{}
+)
+
+func (m *MessageWebAppDataSent) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.ButtonText == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageWebAppDataSent) String() string {
+	if m == nil {
+		return "MessageWebAppDataSent(nil)"
+	}
+	type Alias MessageWebAppDataSent
+	return fmt.Sprintf("MessageWebAppDataSent%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageWebAppDataSent) TypeID() uint32 {
+	return MessageWebAppDataSentTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageWebAppDataSent) TypeName() string {
+	return "messageWebAppDataSent"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageWebAppDataSent) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageWebAppDataSent",
+		ID:   MessageWebAppDataSentTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ButtonText",
+			SchemaName: "button_text",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageWebAppDataSent) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageWebAppDataSent#fb033912 as nil")
+	}
+	b.PutID(MessageWebAppDataSentTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageWebAppDataSent) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageWebAppDataSent#fb033912 as nil")
+	}
+	b.PutString(m.ButtonText)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageWebAppDataSent) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageWebAppDataSent#fb033912 to nil")
+	}
+	if err := b.ConsumeID(MessageWebAppDataSentTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageWebAppDataSent#fb033912: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageWebAppDataSent) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageWebAppDataSent#fb033912 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageWebAppDataSent#fb033912: field button_text: %w", err)
+		}
+		m.ButtonText = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageWebAppDataSent) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageWebAppDataSent#fb033912 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageWebAppDataSent")
+	b.Comma()
+	b.FieldStart("button_text")
+	b.PutString(m.ButtonText)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageWebAppDataSent) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageWebAppDataSent#fb033912 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageWebAppDataSent"); err != nil {
+				return fmt.Errorf("unable to decode messageWebAppDataSent#fb033912: %w", err)
+			}
+		case "button_text":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageWebAppDataSent#fb033912: field button_text: %w", err)
+			}
+			m.ButtonText = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetButtonText returns value of ButtonText field.
+func (m *MessageWebAppDataSent) GetButtonText() (value string) {
+	if m == nil {
+		return
+	}
+	return m.ButtonText
+}
+
+// MessageWebAppDataReceived represents TL type `messageWebAppDataReceived#ff7d1a15`.
+type MessageWebAppDataReceived struct {
+	// Text of the keyboardButtonTypeWebApp button, which opened the web app
+	ButtonText string
+	// Received data
+	Data string
+}
+
+// MessageWebAppDataReceivedTypeID is TL type id of MessageWebAppDataReceived.
+const MessageWebAppDataReceivedTypeID = 0xff7d1a15
+
+// construct implements constructor of MessageContentClass.
+func (m MessageWebAppDataReceived) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageWebAppDataReceived.
+var (
+	_ bin.Encoder     = &MessageWebAppDataReceived{}
+	_ bin.Decoder     = &MessageWebAppDataReceived{}
+	_ bin.BareEncoder = &MessageWebAppDataReceived{}
+	_ bin.BareDecoder = &MessageWebAppDataReceived{}
+
+	_ MessageContentClass = &MessageWebAppDataReceived{}
+)
+
+func (m *MessageWebAppDataReceived) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.ButtonText == "") {
+		return false
+	}
+	if !(m.Data == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageWebAppDataReceived) String() string {
+	if m == nil {
+		return "MessageWebAppDataReceived(nil)"
+	}
+	type Alias MessageWebAppDataReceived
+	return fmt.Sprintf("MessageWebAppDataReceived%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageWebAppDataReceived) TypeID() uint32 {
+	return MessageWebAppDataReceivedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageWebAppDataReceived) TypeName() string {
+	return "messageWebAppDataReceived"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageWebAppDataReceived) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageWebAppDataReceived",
+		ID:   MessageWebAppDataReceivedTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ButtonText",
+			SchemaName: "button_text",
+		},
+		{
+			Name:       "Data",
+			SchemaName: "data",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageWebAppDataReceived) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageWebAppDataReceived#ff7d1a15 as nil")
+	}
+	b.PutID(MessageWebAppDataReceivedTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageWebAppDataReceived) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageWebAppDataReceived#ff7d1a15 as nil")
+	}
+	b.PutString(m.ButtonText)
+	b.PutString(m.Data)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageWebAppDataReceived) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageWebAppDataReceived#ff7d1a15 to nil")
+	}
+	if err := b.ConsumeID(MessageWebAppDataReceivedTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageWebAppDataReceived#ff7d1a15: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageWebAppDataReceived) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageWebAppDataReceived#ff7d1a15 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageWebAppDataReceived#ff7d1a15: field button_text: %w", err)
+		}
+		m.ButtonText = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageWebAppDataReceived#ff7d1a15: field data: %w", err)
+		}
+		m.Data = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageWebAppDataReceived) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageWebAppDataReceived#ff7d1a15 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageWebAppDataReceived")
+	b.Comma()
+	b.FieldStart("button_text")
+	b.PutString(m.ButtonText)
+	b.Comma()
+	b.FieldStart("data")
+	b.PutString(m.Data)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageWebAppDataReceived) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageWebAppDataReceived#ff7d1a15 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageWebAppDataReceived"); err != nil {
+				return fmt.Errorf("unable to decode messageWebAppDataReceived#ff7d1a15: %w", err)
+			}
+		case "button_text":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageWebAppDataReceived#ff7d1a15: field button_text: %w", err)
+			}
+			m.ButtonText = value
+		case "data":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageWebAppDataReceived#ff7d1a15: field data: %w", err)
+			}
+			m.Data = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetButtonText returns value of ButtonText field.
+func (m *MessageWebAppDataReceived) GetButtonText() (value string) {
+	if m == nil {
+		return
+	}
+	return m.ButtonText
+}
+
+// GetData returns value of Data field.
+func (m *MessageWebAppDataReceived) GetData() (value string) {
+	if m == nil {
+		return
+	}
+	return m.Data
+}
+
 // MessagePassportDataSent represents TL type `messagePassportDataSent#26c5ed6b`.
 type MessagePassportDataSent struct {
 	// List of Telegram Passport element types sent
@@ -9844,6 +10210,8 @@ const MessageContentClassName = "MessageContent"
 //  case *tdapi.MessagePaymentSuccessfulBot: // messagePaymentSuccessfulBot#e5de169e
 //  case *tdapi.MessageContactRegistered: // messageContactRegistered#a678fcff
 //  case *tdapi.MessageWebsiteConnected: // messageWebsiteConnected#bff3a408
+//  case *tdapi.MessageWebAppDataSent: // messageWebAppDataSent#fb033912
+//  case *tdapi.MessageWebAppDataReceived: // messageWebAppDataReceived#ff7d1a15
 //  case *tdapi.MessagePassportDataSent: // messagePassportDataSent#26c5ed6b
 //  case *tdapi.MessagePassportDataReceived: // messagePassportDataReceived#e0b936b9
 //  case *tdapi.MessageProximityAlertTriggered: // messageProximityAlertTriggered#409f6d3
@@ -10190,6 +10558,20 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 	case MessageWebsiteConnectedTypeID:
 		// Decoding messageWebsiteConnected#bff3a408.
 		v := MessageWebsiteConnected{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case MessageWebAppDataSentTypeID:
+		// Decoding messageWebAppDataSent#fb033912.
+		v := MessageWebAppDataSent{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case MessageWebAppDataReceivedTypeID:
+		// Decoding messageWebAppDataReceived#ff7d1a15.
+		v := MessageWebAppDataReceived{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
@@ -10545,6 +10927,20 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 	case "messageWebsiteConnected":
 		// Decoding messageWebsiteConnected#bff3a408.
 		v := MessageWebsiteConnected{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "messageWebAppDataSent":
+		// Decoding messageWebAppDataSent#fb033912.
+		v := MessageWebAppDataSent{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "messageWebAppDataReceived":
+		// Decoding messageWebAppDataReceived#ff7d1a15.
+		v := MessageWebAppDataReceived{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}

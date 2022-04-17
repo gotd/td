@@ -555,6 +555,137 @@ func (f *FileTypeDocument) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// FileTypeNotificationSound represents TL type `fileTypeNotificationSound#c32f9f09`.
+type FileTypeNotificationSound struct {
+}
+
+// FileTypeNotificationSoundTypeID is TL type id of FileTypeNotificationSound.
+const FileTypeNotificationSoundTypeID = 0xc32f9f09
+
+// construct implements constructor of FileTypeClass.
+func (f FileTypeNotificationSound) construct() FileTypeClass { return &f }
+
+// Ensuring interfaces in compile-time for FileTypeNotificationSound.
+var (
+	_ bin.Encoder     = &FileTypeNotificationSound{}
+	_ bin.Decoder     = &FileTypeNotificationSound{}
+	_ bin.BareEncoder = &FileTypeNotificationSound{}
+	_ bin.BareDecoder = &FileTypeNotificationSound{}
+
+	_ FileTypeClass = &FileTypeNotificationSound{}
+)
+
+func (f *FileTypeNotificationSound) Zero() bool {
+	if f == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (f *FileTypeNotificationSound) String() string {
+	if f == nil {
+		return "FileTypeNotificationSound(nil)"
+	}
+	type Alias FileTypeNotificationSound
+	return fmt.Sprintf("FileTypeNotificationSound%+v", Alias(*f))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*FileTypeNotificationSound) TypeID() uint32 {
+	return FileTypeNotificationSoundTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*FileTypeNotificationSound) TypeName() string {
+	return "fileTypeNotificationSound"
+}
+
+// TypeInfo returns info about TL type.
+func (f *FileTypeNotificationSound) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "fileTypeNotificationSound",
+		ID:   FileTypeNotificationSoundTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (f *FileTypeNotificationSound) Encode(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeNotificationSound#c32f9f09 as nil")
+	}
+	b.PutID(FileTypeNotificationSoundTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *FileTypeNotificationSound) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeNotificationSound#c32f9f09 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (f *FileTypeNotificationSound) Decode(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypeNotificationSound#c32f9f09 to nil")
+	}
+	if err := b.ConsumeID(FileTypeNotificationSoundTypeID); err != nil {
+		return fmt.Errorf("unable to decode fileTypeNotificationSound#c32f9f09: %w", err)
+	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *FileTypeNotificationSound) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypeNotificationSound#c32f9f09 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (f *FileTypeNotificationSound) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeNotificationSound#c32f9f09 as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeNotificationSound")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (f *FileTypeNotificationSound) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypeNotificationSound#c32f9f09 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("fileTypeNotificationSound"); err != nil {
+				return fmt.Errorf("unable to decode fileTypeNotificationSound#c32f9f09: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // FileTypePhoto represents TL type `fileTypePhoto#998b71a5`.
 type FileTypePhoto struct {
 }
@@ -2142,6 +2273,7 @@ const FileTypeClassName = "FileType"
 //  case *tdapi.FileTypeAnimation: // fileTypeAnimation#eeaa7dba
 //  case *tdapi.FileTypeAudio: // fileTypeAudio#d5bbcea0
 //  case *tdapi.FileTypeDocument: // fileTypeDocument#de57030f
+//  case *tdapi.FileTypeNotificationSound: // fileTypeNotificationSound#c32f9f09
 //  case *tdapi.FileTypePhoto: // fileTypePhoto#998b71a5
 //  case *tdapi.FileTypeProfilePhoto: // fileTypeProfilePhoto#6afee3a3
 //  case *tdapi.FileTypeSecret: // fileTypeSecret#906d14f7
@@ -2209,6 +2341,13 @@ func DecodeFileType(buf *bin.Buffer) (FileTypeClass, error) {
 	case FileTypeDocumentTypeID:
 		// Decoding fileTypeDocument#de57030f.
 		v := FileTypeDocument{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
+		}
+		return &v, nil
+	case FileTypeNotificationSoundTypeID:
+		// Decoding fileTypeNotificationSound#c32f9f09.
+		v := FileTypeNotificationSound{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
 		}
@@ -2333,6 +2472,13 @@ func DecodeTDLibJSONFileType(buf tdjson.Decoder) (FileTypeClass, error) {
 	case "fileTypeDocument":
 		// Decoding fileTypeDocument#de57030f.
 		v := FileTypeDocument{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
+		}
+		return &v, nil
+	case "fileTypeNotificationSound":
+		// Decoding fileTypeNotificationSound#c32f9f09.
+		v := FileTypeNotificationSound{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
 		}

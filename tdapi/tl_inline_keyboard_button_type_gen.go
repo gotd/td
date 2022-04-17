@@ -199,7 +199,7 @@ func (i *InlineKeyboardButtonTypeURL) GetURL() (value string) {
 
 // InlineKeyboardButtonTypeLoginURL represents TL type `inlineKeyboardButtonTypeLoginUrl#b8455fa7`.
 type InlineKeyboardButtonTypeLoginURL struct {
-	// An HTTP URL to open
+	// An HTTP URL to pass to getLoginUrlInfo
 	URL string
 	// Unique button identifier
 	ID int64
@@ -429,6 +429,172 @@ func (i *InlineKeyboardButtonTypeLoginURL) GetForwardText() (value string) {
 		return
 	}
 	return i.ForwardText
+}
+
+// InlineKeyboardButtonTypeWebApp represents TL type `inlineKeyboardButtonTypeWebApp#96a685c8`.
+type InlineKeyboardButtonTypeWebApp struct {
+	// An HTTP URL to pass to openWebApp
+	URL string
+}
+
+// InlineKeyboardButtonTypeWebAppTypeID is TL type id of InlineKeyboardButtonTypeWebApp.
+const InlineKeyboardButtonTypeWebAppTypeID = 0x96a685c8
+
+// construct implements constructor of InlineKeyboardButtonTypeClass.
+func (i InlineKeyboardButtonTypeWebApp) construct() InlineKeyboardButtonTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InlineKeyboardButtonTypeWebApp.
+var (
+	_ bin.Encoder     = &InlineKeyboardButtonTypeWebApp{}
+	_ bin.Decoder     = &InlineKeyboardButtonTypeWebApp{}
+	_ bin.BareEncoder = &InlineKeyboardButtonTypeWebApp{}
+	_ bin.BareDecoder = &InlineKeyboardButtonTypeWebApp{}
+
+	_ InlineKeyboardButtonTypeClass = &InlineKeyboardButtonTypeWebApp{}
+)
+
+func (i *InlineKeyboardButtonTypeWebApp) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.URL == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InlineKeyboardButtonTypeWebApp) String() string {
+	if i == nil {
+		return "InlineKeyboardButtonTypeWebApp(nil)"
+	}
+	type Alias InlineKeyboardButtonTypeWebApp
+	return fmt.Sprintf("InlineKeyboardButtonTypeWebApp%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InlineKeyboardButtonTypeWebApp) TypeID() uint32 {
+	return InlineKeyboardButtonTypeWebAppTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InlineKeyboardButtonTypeWebApp) TypeName() string {
+	return "inlineKeyboardButtonTypeWebApp"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InlineKeyboardButtonTypeWebApp) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inlineKeyboardButtonTypeWebApp",
+		ID:   InlineKeyboardButtonTypeWebAppTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InlineKeyboardButtonTypeWebApp) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineKeyboardButtonTypeWebApp#96a685c8 as nil")
+	}
+	b.PutID(InlineKeyboardButtonTypeWebAppTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InlineKeyboardButtonTypeWebApp) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineKeyboardButtonTypeWebApp#96a685c8 as nil")
+	}
+	b.PutString(i.URL)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InlineKeyboardButtonTypeWebApp) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inlineKeyboardButtonTypeWebApp#96a685c8 to nil")
+	}
+	if err := b.ConsumeID(InlineKeyboardButtonTypeWebAppTypeID); err != nil {
+		return fmt.Errorf("unable to decode inlineKeyboardButtonTypeWebApp#96a685c8: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InlineKeyboardButtonTypeWebApp) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inlineKeyboardButtonTypeWebApp#96a685c8 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inlineKeyboardButtonTypeWebApp#96a685c8: field url: %w", err)
+		}
+		i.URL = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InlineKeyboardButtonTypeWebApp) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineKeyboardButtonTypeWebApp#96a685c8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inlineKeyboardButtonTypeWebApp")
+	b.Comma()
+	b.FieldStart("url")
+	b.PutString(i.URL)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InlineKeyboardButtonTypeWebApp) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inlineKeyboardButtonTypeWebApp#96a685c8 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("inlineKeyboardButtonTypeWebApp"); err != nil {
+				return fmt.Errorf("unable to decode inlineKeyboardButtonTypeWebApp#96a685c8: %w", err)
+			}
+		case "url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inlineKeyboardButtonTypeWebApp#96a685c8: field url: %w", err)
+			}
+			i.URL = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetURL returns value of URL field.
+func (i *InlineKeyboardButtonTypeWebApp) GetURL() (value string) {
+	if i == nil {
+		return
+	}
+	return i.URL
 }
 
 // InlineKeyboardButtonTypeCallback represents TL type `inlineKeyboardButtonTypeCallback#bccb7bfd`.
@@ -1406,6 +1572,7 @@ const InlineKeyboardButtonTypeClassName = "InlineKeyboardButtonType"
 //  switch v := g.(type) {
 //  case *tdapi.InlineKeyboardButtonTypeURL: // inlineKeyboardButtonTypeUrl#4365beac
 //  case *tdapi.InlineKeyboardButtonTypeLoginURL: // inlineKeyboardButtonTypeLoginUrl#b8455fa7
+//  case *tdapi.InlineKeyboardButtonTypeWebApp: // inlineKeyboardButtonTypeWebApp#96a685c8
 //  case *tdapi.InlineKeyboardButtonTypeCallback: // inlineKeyboardButtonTypeCallback#bccb7bfd
 //  case *tdapi.InlineKeyboardButtonTypeCallbackWithPassword: // inlineKeyboardButtonTypeCallbackWithPassword#361f4248
 //  case *tdapi.InlineKeyboardButtonTypeCallbackGame: // inlineKeyboardButtonTypeCallbackGame#e9255468
@@ -1453,6 +1620,13 @@ func DecodeInlineKeyboardButtonType(buf *bin.Buffer) (InlineKeyboardButtonTypeCl
 	case InlineKeyboardButtonTypeLoginURLTypeID:
 		// Decoding inlineKeyboardButtonTypeLoginUrl#b8455fa7.
 		v := InlineKeyboardButtonTypeLoginURL{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InlineKeyboardButtonTypeClass: %w", err)
+		}
+		return &v, nil
+	case InlineKeyboardButtonTypeWebAppTypeID:
+		// Decoding inlineKeyboardButtonTypeWebApp#96a685c8.
+		v := InlineKeyboardButtonTypeWebApp{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InlineKeyboardButtonTypeClass: %w", err)
 		}
@@ -1521,6 +1695,13 @@ func DecodeTDLibJSONInlineKeyboardButtonType(buf tdjson.Decoder) (InlineKeyboard
 	case "inlineKeyboardButtonTypeLoginUrl":
 		// Decoding inlineKeyboardButtonTypeLoginUrl#b8455fa7.
 		v := InlineKeyboardButtonTypeLoginURL{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InlineKeyboardButtonTypeClass: %w", err)
+		}
+		return &v, nil
+	case "inlineKeyboardButtonTypeWebApp":
+		// Decoding inlineKeyboardButtonTypeWebApp#96a685c8.
+		v := InlineKeyboardButtonTypeWebApp{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InlineKeyboardButtonTypeClass: %w", err)
 		}

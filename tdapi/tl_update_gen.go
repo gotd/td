@@ -8935,7 +8935,7 @@ func (u *UpdateNotification) GetNotification() (value Notification) {
 	return u.Notification
 }
 
-// UpdateNotificationGroup represents TL type `updateNotificationGroup#2ec53c49`.
+// UpdateNotificationGroup represents TL type `updateNotificationGroup#96cd9e06`.
 type UpdateNotificationGroup struct {
 	// Unique notification group identifier
 	NotificationGroupID int32
@@ -8946,8 +8946,8 @@ type UpdateNotificationGroup struct {
 	// Chat identifier, which notification settings must be applied to the added
 	// notifications
 	NotificationSettingsChatID int64
-	// True, if the notifications must be shown without sound
-	IsSilent bool
+	// Identifier of the notification sound to be played; 0 if sound is disabled
+	NotificationSoundID int64
 	// Total number of unread notifications in the group, can be bigger than number of active
 	// notifications
 	TotalCount int32
@@ -8958,7 +8958,7 @@ type UpdateNotificationGroup struct {
 }
 
 // UpdateNotificationGroupTypeID is TL type id of UpdateNotificationGroup.
-const UpdateNotificationGroupTypeID = 0x2ec53c49
+const UpdateNotificationGroupTypeID = 0x96cd9e06
 
 // construct implements constructor of UpdateClass.
 func (u UpdateNotificationGroup) construct() UpdateClass { return &u }
@@ -8989,7 +8989,7 @@ func (u *UpdateNotificationGroup) Zero() bool {
 	if !(u.NotificationSettingsChatID == 0) {
 		return false
 	}
-	if !(u.IsSilent == false) {
+	if !(u.NotificationSoundID == 0) {
 		return false
 	}
 	if !(u.TotalCount == 0) {
@@ -9054,8 +9054,8 @@ func (u *UpdateNotificationGroup) TypeInfo() tdp.Type {
 			SchemaName: "notification_settings_chat_id",
 		},
 		{
-			Name:       "IsSilent",
-			SchemaName: "is_silent",
+			Name:       "NotificationSoundID",
+			SchemaName: "notification_sound_id",
 		},
 		{
 			Name:       "TotalCount",
@@ -9076,7 +9076,7 @@ func (u *UpdateNotificationGroup) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UpdateNotificationGroup) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateNotificationGroup#2ec53c49 as nil")
+		return fmt.Errorf("can't encode updateNotificationGroup#96cd9e06 as nil")
 	}
 	b.PutID(UpdateNotificationGroupTypeID)
 	return u.EncodeBare(b)
@@ -9085,23 +9085,23 @@ func (u *UpdateNotificationGroup) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateNotificationGroup) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateNotificationGroup#2ec53c49 as nil")
+		return fmt.Errorf("can't encode updateNotificationGroup#96cd9e06 as nil")
 	}
 	b.PutInt32(u.NotificationGroupID)
 	if u.Type == nil {
-		return fmt.Errorf("unable to encode updateNotificationGroup#2ec53c49: field type is nil")
+		return fmt.Errorf("unable to encode updateNotificationGroup#96cd9e06: field type is nil")
 	}
 	if err := u.Type.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateNotificationGroup#2ec53c49: field type: %w", err)
+		return fmt.Errorf("unable to encode updateNotificationGroup#96cd9e06: field type: %w", err)
 	}
 	b.PutInt53(u.ChatID)
 	b.PutInt53(u.NotificationSettingsChatID)
-	b.PutBool(u.IsSilent)
+	b.PutLong(u.NotificationSoundID)
 	b.PutInt32(u.TotalCount)
 	b.PutInt(len(u.AddedNotifications))
 	for idx, v := range u.AddedNotifications {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare updateNotificationGroup#2ec53c49: field added_notifications element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare updateNotificationGroup#96cd9e06: field added_notifications element with index %d: %w", idx, err)
 		}
 	}
 	b.PutInt(len(u.RemovedNotificationIDs))
@@ -9114,10 +9114,10 @@ func (u *UpdateNotificationGroup) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UpdateNotificationGroup) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateNotificationGroup#2ec53c49 to nil")
+		return fmt.Errorf("can't decode updateNotificationGroup#96cd9e06 to nil")
 	}
 	if err := b.ConsumeID(UpdateNotificationGroupTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: %w", err)
+		return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -9125,54 +9125,54 @@ func (u *UpdateNotificationGroup) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateNotificationGroup) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateNotificationGroup#2ec53c49 to nil")
+		return fmt.Errorf("can't decode updateNotificationGroup#96cd9e06 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field notification_group_id: %w", err)
+			return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: field notification_group_id: %w", err)
 		}
 		u.NotificationGroupID = value
 	}
 	{
 		value, err := DecodeNotificationGroupType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field type: %w", err)
+			return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: field type: %w", err)
 		}
 		u.Type = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: field chat_id: %w", err)
 		}
 		u.ChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field notification_settings_chat_id: %w", err)
+			return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: field notification_settings_chat_id: %w", err)
 		}
 		u.NotificationSettingsChatID = value
 	}
 	{
-		value, err := b.Bool()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field is_silent: %w", err)
+			return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: field notification_sound_id: %w", err)
 		}
-		u.IsSilent = value
+		u.NotificationSoundID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field total_count: %w", err)
+			return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: field total_count: %w", err)
 		}
 		u.TotalCount = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field added_notifications: %w", err)
+			return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: field added_notifications: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -9181,7 +9181,7 @@ func (u *UpdateNotificationGroup) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value Notification
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare updateNotificationGroup#2ec53c49: field added_notifications: %w", err)
+				return fmt.Errorf("unable to decode bare updateNotificationGroup#96cd9e06: field added_notifications: %w", err)
 			}
 			u.AddedNotifications = append(u.AddedNotifications, value)
 		}
@@ -9189,7 +9189,7 @@ func (u *UpdateNotificationGroup) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field removed_notification_ids: %w", err)
+			return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: field removed_notification_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -9198,7 +9198,7 @@ func (u *UpdateNotificationGroup) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field removed_notification_ids: %w", err)
+				return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: field removed_notification_ids: %w", err)
 			}
 			u.RemovedNotificationIDs = append(u.RemovedNotificationIDs, value)
 		}
@@ -9209,7 +9209,7 @@ func (u *UpdateNotificationGroup) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UpdateNotificationGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateNotificationGroup#2ec53c49 as nil")
+		return fmt.Errorf("can't encode updateNotificationGroup#96cd9e06 as nil")
 	}
 	b.ObjStart()
 	b.PutID("updateNotificationGroup")
@@ -9219,10 +9219,10 @@ func (u *UpdateNotificationGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("type")
 	if u.Type == nil {
-		return fmt.Errorf("unable to encode updateNotificationGroup#2ec53c49: field type is nil")
+		return fmt.Errorf("unable to encode updateNotificationGroup#96cd9e06: field type is nil")
 	}
 	if err := u.Type.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode updateNotificationGroup#2ec53c49: field type: %w", err)
+		return fmt.Errorf("unable to encode updateNotificationGroup#96cd9e06: field type: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("chat_id")
@@ -9231,8 +9231,8 @@ func (u *UpdateNotificationGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("notification_settings_chat_id")
 	b.PutInt53(u.NotificationSettingsChatID)
 	b.Comma()
-	b.FieldStart("is_silent")
-	b.PutBool(u.IsSilent)
+	b.FieldStart("notification_sound_id")
+	b.PutLong(u.NotificationSoundID)
 	b.Comma()
 	b.FieldStart("total_count")
 	b.PutInt32(u.TotalCount)
@@ -9241,7 +9241,7 @@ func (u *UpdateNotificationGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ArrStart()
 	for idx, v := range u.AddedNotifications {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode updateNotificationGroup#2ec53c49: field added_notifications element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode updateNotificationGroup#96cd9e06: field added_notifications element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -9265,72 +9265,72 @@ func (u *UpdateNotificationGroup) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UpdateNotificationGroup) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateNotificationGroup#2ec53c49 to nil")
+		return fmt.Errorf("can't decode updateNotificationGroup#96cd9e06 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("updateNotificationGroup"); err != nil {
-				return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: %w", err)
+				return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: %w", err)
 			}
 		case "notification_group_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field notification_group_id: %w", err)
+				return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: field notification_group_id: %w", err)
 			}
 			u.NotificationGroupID = value
 		case "type":
 			value, err := DecodeTDLibJSONNotificationGroupType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field type: %w", err)
+				return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: field type: %w", err)
 			}
 			u.Type = value
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: field chat_id: %w", err)
 			}
 			u.ChatID = value
 		case "notification_settings_chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field notification_settings_chat_id: %w", err)
+				return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: field notification_settings_chat_id: %w", err)
 			}
 			u.NotificationSettingsChatID = value
-		case "is_silent":
-			value, err := b.Bool()
+		case "notification_sound_id":
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field is_silent: %w", err)
+				return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: field notification_sound_id: %w", err)
 			}
-			u.IsSilent = value
+			u.NotificationSoundID = value
 		case "total_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field total_count: %w", err)
+				return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: field total_count: %w", err)
 			}
 			u.TotalCount = value
 		case "added_notifications":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value Notification
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field added_notifications: %w", err)
+					return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: field added_notifications: %w", err)
 				}
 				u.AddedNotifications = append(u.AddedNotifications, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field added_notifications: %w", err)
+				return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: field added_notifications: %w", err)
 			}
 		case "removed_notification_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int32()
 				if err != nil {
-					return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field removed_notification_ids: %w", err)
+					return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: field removed_notification_ids: %w", err)
 				}
 				u.RemovedNotificationIDs = append(u.RemovedNotificationIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode updateNotificationGroup#2ec53c49: field removed_notification_ids: %w", err)
+				return fmt.Errorf("unable to decode updateNotificationGroup#96cd9e06: field removed_notification_ids: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -9371,12 +9371,12 @@ func (u *UpdateNotificationGroup) GetNotificationSettingsChatID() (value int64) 
 	return u.NotificationSettingsChatID
 }
 
-// GetIsSilent returns value of IsSilent field.
-func (u *UpdateNotificationGroup) GetIsSilent() (value bool) {
+// GetNotificationSoundID returns value of NotificationSoundID field.
+func (u *UpdateNotificationGroup) GetNotificationSoundID() (value int64) {
 	if u == nil {
 		return
 	}
-	return u.IsSilent
+	return u.NotificationSoundID
 }
 
 // GetTotalCount returns value of TotalCount field.
@@ -16474,6 +16474,196 @@ func (u *UpdateSavedAnimations) GetAnimationIDs() (value []int32) {
 	return u.AnimationIDs
 }
 
+// UpdateSavedNotificationSounds represents TL type `updateSavedNotificationSounds#5a6653b4`.
+type UpdateSavedNotificationSounds struct {
+	// The new list of identifiers of saved notification sounds
+	NotificationSoundIDs []int64
+}
+
+// UpdateSavedNotificationSoundsTypeID is TL type id of UpdateSavedNotificationSounds.
+const UpdateSavedNotificationSoundsTypeID = 0x5a6653b4
+
+// construct implements constructor of UpdateClass.
+func (u UpdateSavedNotificationSounds) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateSavedNotificationSounds.
+var (
+	_ bin.Encoder     = &UpdateSavedNotificationSounds{}
+	_ bin.Decoder     = &UpdateSavedNotificationSounds{}
+	_ bin.BareEncoder = &UpdateSavedNotificationSounds{}
+	_ bin.BareDecoder = &UpdateSavedNotificationSounds{}
+
+	_ UpdateClass = &UpdateSavedNotificationSounds{}
+)
+
+func (u *UpdateSavedNotificationSounds) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.NotificationSoundIDs == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateSavedNotificationSounds) String() string {
+	if u == nil {
+		return "UpdateSavedNotificationSounds(nil)"
+	}
+	type Alias UpdateSavedNotificationSounds
+	return fmt.Sprintf("UpdateSavedNotificationSounds%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateSavedNotificationSounds) TypeID() uint32 {
+	return UpdateSavedNotificationSoundsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateSavedNotificationSounds) TypeName() string {
+	return "updateSavedNotificationSounds"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateSavedNotificationSounds) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateSavedNotificationSounds",
+		ID:   UpdateSavedNotificationSoundsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "NotificationSoundIDs",
+			SchemaName: "notification_sound_ids",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateSavedNotificationSounds) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSavedNotificationSounds#5a6653b4 as nil")
+	}
+	b.PutID(UpdateSavedNotificationSoundsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateSavedNotificationSounds) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSavedNotificationSounds#5a6653b4 as nil")
+	}
+	b.PutInt(len(u.NotificationSoundIDs))
+	for _, v := range u.NotificationSoundIDs {
+		b.PutLong(v)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateSavedNotificationSounds) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSavedNotificationSounds#5a6653b4 to nil")
+	}
+	if err := b.ConsumeID(UpdateSavedNotificationSoundsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateSavedNotificationSounds#5a6653b4: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateSavedNotificationSounds) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSavedNotificationSounds#5a6653b4 to nil")
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateSavedNotificationSounds#5a6653b4: field notification_sound_ids: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.NotificationSoundIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateSavedNotificationSounds#5a6653b4: field notification_sound_ids: %w", err)
+			}
+			u.NotificationSoundIDs = append(u.NotificationSoundIDs, value)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateSavedNotificationSounds) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSavedNotificationSounds#5a6653b4 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateSavedNotificationSounds")
+	b.Comma()
+	b.FieldStart("notification_sound_ids")
+	b.ArrStart()
+	for _, v := range u.NotificationSoundIDs {
+		b.PutLong(v)
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateSavedNotificationSounds) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSavedNotificationSounds#5a6653b4 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateSavedNotificationSounds"); err != nil {
+				return fmt.Errorf("unable to decode updateSavedNotificationSounds#5a6653b4: %w", err)
+			}
+		case "notification_sound_ids":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				value, err := b.Long()
+				if err != nil {
+					return fmt.Errorf("unable to decode updateSavedNotificationSounds#5a6653b4: field notification_sound_ids: %w", err)
+				}
+				u.NotificationSoundIDs = append(u.NotificationSoundIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode updateSavedNotificationSounds#5a6653b4: field notification_sound_ids: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetNotificationSoundIDs returns value of NotificationSoundIDs field.
+func (u *UpdateSavedNotificationSounds) GetNotificationSoundIDs() (value []int64) {
+	if u == nil {
+		return
+	}
+	return u.NotificationSoundIDs
+}
+
 // UpdateSelectedBackground represents TL type `updateSelectedBackground#99bd205d`.
 type UpdateSelectedBackground struct {
 	// True, if background for dark theme has changed
@@ -17700,6 +17890,367 @@ func (u *UpdateUsersNearby) GetUsersNearby() (value []ChatNearby) {
 	return u.UsersNearby
 }
 
+// UpdateAttachmentMenuBots represents TL type `updateAttachmentMenuBots#b6b910c`.
+type UpdateAttachmentMenuBots struct {
+	// The new list of bots added to attachment menu. The bots must be shown in attachment
+	// menu only in private chats. The bots must not be shown on scheduled messages screen
+	Bots []AttachmentMenuBot
+}
+
+// UpdateAttachmentMenuBotsTypeID is TL type id of UpdateAttachmentMenuBots.
+const UpdateAttachmentMenuBotsTypeID = 0xb6b910c
+
+// construct implements constructor of UpdateClass.
+func (u UpdateAttachmentMenuBots) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateAttachmentMenuBots.
+var (
+	_ bin.Encoder     = &UpdateAttachmentMenuBots{}
+	_ bin.Decoder     = &UpdateAttachmentMenuBots{}
+	_ bin.BareEncoder = &UpdateAttachmentMenuBots{}
+	_ bin.BareDecoder = &UpdateAttachmentMenuBots{}
+
+	_ UpdateClass = &UpdateAttachmentMenuBots{}
+)
+
+func (u *UpdateAttachmentMenuBots) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Bots == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateAttachmentMenuBots) String() string {
+	if u == nil {
+		return "UpdateAttachmentMenuBots(nil)"
+	}
+	type Alias UpdateAttachmentMenuBots
+	return fmt.Sprintf("UpdateAttachmentMenuBots%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateAttachmentMenuBots) TypeID() uint32 {
+	return UpdateAttachmentMenuBotsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateAttachmentMenuBots) TypeName() string {
+	return "updateAttachmentMenuBots"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateAttachmentMenuBots) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateAttachmentMenuBots",
+		ID:   UpdateAttachmentMenuBotsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Bots",
+			SchemaName: "bots",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateAttachmentMenuBots) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateAttachmentMenuBots#b6b910c as nil")
+	}
+	b.PutID(UpdateAttachmentMenuBotsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateAttachmentMenuBots) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateAttachmentMenuBots#b6b910c as nil")
+	}
+	b.PutInt(len(u.Bots))
+	for idx, v := range u.Bots {
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare updateAttachmentMenuBots#b6b910c: field bots element with index %d: %w", idx, err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateAttachmentMenuBots) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateAttachmentMenuBots#b6b910c to nil")
+	}
+	if err := b.ConsumeID(UpdateAttachmentMenuBotsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateAttachmentMenuBots#b6b910c: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateAttachmentMenuBots) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateAttachmentMenuBots#b6b910c to nil")
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateAttachmentMenuBots#b6b910c: field bots: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.Bots = make([]AttachmentMenuBot, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value AttachmentMenuBot
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare updateAttachmentMenuBots#b6b910c: field bots: %w", err)
+			}
+			u.Bots = append(u.Bots, value)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateAttachmentMenuBots) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateAttachmentMenuBots#b6b910c as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateAttachmentMenuBots")
+	b.Comma()
+	b.FieldStart("bots")
+	b.ArrStart()
+	for idx, v := range u.Bots {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode updateAttachmentMenuBots#b6b910c: field bots element with index %d: %w", idx, err)
+		}
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateAttachmentMenuBots) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateAttachmentMenuBots#b6b910c to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateAttachmentMenuBots"); err != nil {
+				return fmt.Errorf("unable to decode updateAttachmentMenuBots#b6b910c: %w", err)
+			}
+		case "bots":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				var value AttachmentMenuBot
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode updateAttachmentMenuBots#b6b910c: field bots: %w", err)
+				}
+				u.Bots = append(u.Bots, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode updateAttachmentMenuBots#b6b910c: field bots: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetBots returns value of Bots field.
+func (u *UpdateAttachmentMenuBots) GetBots() (value []AttachmentMenuBot) {
+	if u == nil {
+		return
+	}
+	return u.Bots
+}
+
+// UpdateWebAppMessageSent represents TL type `updateWebAppMessageSent#58431229`.
+type UpdateWebAppMessageSent struct {
+	// Identifier of web app launch
+	WebAppLaunchID int64
+}
+
+// UpdateWebAppMessageSentTypeID is TL type id of UpdateWebAppMessageSent.
+const UpdateWebAppMessageSentTypeID = 0x58431229
+
+// construct implements constructor of UpdateClass.
+func (u UpdateWebAppMessageSent) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateWebAppMessageSent.
+var (
+	_ bin.Encoder     = &UpdateWebAppMessageSent{}
+	_ bin.Decoder     = &UpdateWebAppMessageSent{}
+	_ bin.BareEncoder = &UpdateWebAppMessageSent{}
+	_ bin.BareDecoder = &UpdateWebAppMessageSent{}
+
+	_ UpdateClass = &UpdateWebAppMessageSent{}
+)
+
+func (u *UpdateWebAppMessageSent) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.WebAppLaunchID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateWebAppMessageSent) String() string {
+	if u == nil {
+		return "UpdateWebAppMessageSent(nil)"
+	}
+	type Alias UpdateWebAppMessageSent
+	return fmt.Sprintf("UpdateWebAppMessageSent%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateWebAppMessageSent) TypeID() uint32 {
+	return UpdateWebAppMessageSentTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateWebAppMessageSent) TypeName() string {
+	return "updateWebAppMessageSent"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateWebAppMessageSent) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateWebAppMessageSent",
+		ID:   UpdateWebAppMessageSentTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "WebAppLaunchID",
+			SchemaName: "web_app_launch_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateWebAppMessageSent) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateWebAppMessageSent#58431229 as nil")
+	}
+	b.PutID(UpdateWebAppMessageSentTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateWebAppMessageSent) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateWebAppMessageSent#58431229 as nil")
+	}
+	b.PutLong(u.WebAppLaunchID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateWebAppMessageSent) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateWebAppMessageSent#58431229 to nil")
+	}
+	if err := b.ConsumeID(UpdateWebAppMessageSentTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateWebAppMessageSent#58431229: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateWebAppMessageSent) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateWebAppMessageSent#58431229 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateWebAppMessageSent#58431229: field web_app_launch_id: %w", err)
+		}
+		u.WebAppLaunchID = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateWebAppMessageSent) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateWebAppMessageSent#58431229 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateWebAppMessageSent")
+	b.Comma()
+	b.FieldStart("web_app_launch_id")
+	b.PutLong(u.WebAppLaunchID)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateWebAppMessageSent) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateWebAppMessageSent#58431229 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateWebAppMessageSent"); err != nil {
+				return fmt.Errorf("unable to decode updateWebAppMessageSent#58431229: %w", err)
+			}
+		case "web_app_launch_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateWebAppMessageSent#58431229: field web_app_launch_id: %w", err)
+			}
+			u.WebAppLaunchID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetWebAppLaunchID returns value of WebAppLaunchID field.
+func (u *UpdateWebAppMessageSent) GetWebAppLaunchID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.WebAppLaunchID
+}
+
 // UpdateReactions represents TL type `updateReactions#e769e4e7`.
 type UpdateReactions struct {
 	// The new list of supported reactions
@@ -18818,7 +19369,7 @@ type UpdateNewInlineQuery struct {
 	SenderUserID int64
 	// User location; may be null
 	UserLocation Location
-	// The type of the chat, from which the query originated; may be null if unknown
+	// The type of the chat from which the query originated; may be null if unknown
 	ChatType ChatTypeClass
 	// Text of the query
 	Query string
@@ -19466,7 +20017,7 @@ type UpdateNewCallbackQuery struct {
 	SenderUserID int64
 	// Identifier of the chat where the query was sent
 	ChatID int64
-	// Identifier of the message, from which the query originated
+	// Identifier of the message from which the query originated
 	MessageID int64
 	// Identifier that uniquely corresponds to the chat to which the message was sent
 	ChatInstance int64
@@ -19810,7 +20361,7 @@ type UpdateNewInlineCallbackQuery struct {
 	ID int64
 	// Identifier of the user who sent the query
 	SenderUserID int64
-	// Identifier of the inline message, from which the query originated
+	// Identifier of the inline message from which the query originated
 	InlineMessageID string
 	// An identifier uniquely corresponding to the chat a message was sent to
 	ChatInstance int64
@@ -22201,7 +22752,7 @@ const UpdateClassName = "Update"
 //  case *tdapi.UpdateChatOnlineMemberCount: // updateChatOnlineMemberCount#1d0caa9d
 //  case *tdapi.UpdateScopeNotificationSettings: // updateScopeNotificationSettings#b83ccb73
 //  case *tdapi.UpdateNotification: // updateNotification#8ee67ed4
-//  case *tdapi.UpdateNotificationGroup: // updateNotificationGroup#2ec53c49
+//  case *tdapi.UpdateNotificationGroup: // updateNotificationGroup#96cd9e06
 //  case *tdapi.UpdateActiveNotifications: // updateActiveNotifications#317d80f2
 //  case *tdapi.UpdateHavePendingNotifications: // updateHavePendingNotifications#aaee1db
 //  case *tdapi.UpdateDeleteMessages: // updateDeleteMessages#6a05bf9
@@ -22236,12 +22787,15 @@ const UpdateClassName = "Update"
 //  case *tdapi.UpdateRecentStickers: // updateRecentStickers#aefdf8dc
 //  case *tdapi.UpdateFavoriteStickers: // updateFavoriteStickers#113f2b6a
 //  case *tdapi.UpdateSavedAnimations: // updateSavedAnimations#1084a1c8
+//  case *tdapi.UpdateSavedNotificationSounds: // updateSavedNotificationSounds#5a6653b4
 //  case *tdapi.UpdateSelectedBackground: // updateSelectedBackground#99bd205d
 //  case *tdapi.UpdateChatThemes: // updateChatThemes#98dc58d5
 //  case *tdapi.UpdateLanguagePackStrings: // updateLanguagePackStrings#af87919f
 //  case *tdapi.UpdateConnectionState: // updateConnectionState#57939e2e
 //  case *tdapi.UpdateTermsOfService: // updateTermsOfService#b23cc55e
 //  case *tdapi.UpdateUsersNearby: // updateUsersNearby#97c8ab5
+//  case *tdapi.UpdateAttachmentMenuBots: // updateAttachmentMenuBots#b6b910c
+//  case *tdapi.UpdateWebAppMessageSent: // updateWebAppMessageSent#58431229
 //  case *tdapi.UpdateReactions: // updateReactions#e769e4e7
 //  case *tdapi.UpdateDiceEmojis: // updateDiceEmojis#9d0f91df
 //  case *tdapi.UpdateAnimatedEmojiMessageClicked: // updateAnimatedEmojiMessageClicked#a3167405
@@ -22585,7 +23139,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateNotificationGroupTypeID:
-		// Decoding updateNotificationGroup#2ec53c49.
+		// Decoding updateNotificationGroup#96cd9e06.
 		v := UpdateNotificationGroup{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -22829,6 +23383,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case UpdateSavedNotificationSoundsTypeID:
+		// Decoding updateSavedNotificationSounds#5a6653b4.
+		v := UpdateSavedNotificationSounds{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case UpdateSelectedBackgroundTypeID:
 		// Decoding updateSelectedBackground#99bd205d.
 		v := UpdateSelectedBackground{}
@@ -22867,6 +23428,20 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateUsersNearbyTypeID:
 		// Decoding updateUsersNearby#97c8ab5.
 		v := UpdateUsersNearby{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateAttachmentMenuBotsTypeID:
+		// Decoding updateAttachmentMenuBots#b6b910c.
+		v := UpdateAttachmentMenuBots{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateWebAppMessageSentTypeID:
+		// Decoding updateWebAppMessageSent#58431229.
+		v := UpdateWebAppMessageSent{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -23297,7 +23872,7 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 		}
 		return &v, nil
 	case "updateNotificationGroup":
-		// Decoding updateNotificationGroup#2ec53c49.
+		// Decoding updateNotificationGroup#96cd9e06.
 		v := UpdateNotificationGroup{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -23541,6 +24116,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case "updateSavedNotificationSounds":
+		// Decoding updateSavedNotificationSounds#5a6653b4.
+		v := UpdateSavedNotificationSounds{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case "updateSelectedBackground":
 		// Decoding updateSelectedBackground#99bd205d.
 		v := UpdateSelectedBackground{}
@@ -23579,6 +24161,20 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	case "updateUsersNearby":
 		// Decoding updateUsersNearby#97c8ab5.
 		v := UpdateUsersNearby{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateAttachmentMenuBots":
+		// Decoding updateAttachmentMenuBots#b6b910c.
+		v := UpdateAttachmentMenuBots{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateWebAppMessageSent":
+		// Decoding updateWebAppMessageSent#58431229.
+		v := UpdateWebAppMessageSent{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

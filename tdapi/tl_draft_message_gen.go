@@ -33,7 +33,7 @@ var (
 
 // DraftMessage represents TL type `draftMessage#51d71500`.
 type DraftMessage struct {
-	// Identifier of the message to reply to; 0 if none
+	// Identifier of the replied message; 0 if none
 	ReplyToMessageID int64
 	// Point in time (Unix timestamp) when the draft was created
 	Date int32

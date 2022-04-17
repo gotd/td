@@ -39,7 +39,7 @@ type TestProxyRequest struct {
 	Port int32
 	// Proxy type
 	Type ProxyTypeClass
-	// Identifier of a datacenter, with which to test connection
+	// Identifier of a datacenter with which to test connection
 	DCID int32
 	// The maximum overall timeout for the request
 	Timeout float64
