@@ -31,13 +31,12 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ScopeNotificationSettings represents TL type `scopeNotificationSettings#e69a2c3f`.
+// ScopeNotificationSettings represents TL type `scopeNotificationSettings#ad8a189b`.
 type ScopeNotificationSettings struct {
 	// Time left before notifications will be unmuted, in seconds
 	MuteFor int32
-	// The name of an audio file to be used for notification sounds; only applies to iOS
-	// applications
-	Sound string
+	// Identifier of the notification sound to be played; 0 if sound is disabled
+	SoundID int64
 	// True, if message content must be displayed in notifications
 	ShowPreview bool
 	// True, if notifications for incoming pinned messages will be created as for an ordinary
@@ -49,7 +48,7 @@ type ScopeNotificationSettings struct {
 }
 
 // ScopeNotificationSettingsTypeID is TL type id of ScopeNotificationSettings.
-const ScopeNotificationSettingsTypeID = 0xe69a2c3f
+const ScopeNotificationSettingsTypeID = 0xad8a189b
 
 // Ensuring interfaces in compile-time for ScopeNotificationSettings.
 var (
@@ -66,7 +65,7 @@ func (s *ScopeNotificationSettings) Zero() bool {
 	if !(s.MuteFor == 0) {
 		return false
 	}
-	if !(s.Sound == "") {
+	if !(s.SoundID == 0) {
 		return false
 	}
 	if !(s.ShowPreview == false) {
@@ -119,8 +118,8 @@ func (s *ScopeNotificationSettings) TypeInfo() tdp.Type {
 			SchemaName: "mute_for",
 		},
 		{
-			Name:       "Sound",
-			SchemaName: "sound",
+			Name:       "SoundID",
+			SchemaName: "sound_id",
 		},
 		{
 			Name:       "ShowPreview",
@@ -141,7 +140,7 @@ func (s *ScopeNotificationSettings) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *ScopeNotificationSettings) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode scopeNotificationSettings#e69a2c3f as nil")
+		return fmt.Errorf("can't encode scopeNotificationSettings#ad8a189b as nil")
 	}
 	b.PutID(ScopeNotificationSettingsTypeID)
 	return s.EncodeBare(b)
@@ -150,10 +149,10 @@ func (s *ScopeNotificationSettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *ScopeNotificationSettings) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode scopeNotificationSettings#e69a2c3f as nil")
+		return fmt.Errorf("can't encode scopeNotificationSettings#ad8a189b as nil")
 	}
 	b.PutInt32(s.MuteFor)
-	b.PutString(s.Sound)
+	b.PutLong(s.SoundID)
 	b.PutBool(s.ShowPreview)
 	b.PutBool(s.DisablePinnedMessageNotifications)
 	b.PutBool(s.DisableMentionNotifications)
@@ -163,10 +162,10 @@ func (s *ScopeNotificationSettings) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *ScopeNotificationSettings) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode scopeNotificationSettings#e69a2c3f to nil")
+		return fmt.Errorf("can't decode scopeNotificationSettings#ad8a189b to nil")
 	}
 	if err := b.ConsumeID(ScopeNotificationSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode scopeNotificationSettings#e69a2c3f: %w", err)
+		return fmt.Errorf("unable to decode scopeNotificationSettings#ad8a189b: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -174,40 +173,40 @@ func (s *ScopeNotificationSettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *ScopeNotificationSettings) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode scopeNotificationSettings#e69a2c3f to nil")
+		return fmt.Errorf("can't decode scopeNotificationSettings#ad8a189b to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode scopeNotificationSettings#e69a2c3f: field mute_for: %w", err)
+			return fmt.Errorf("unable to decode scopeNotificationSettings#ad8a189b: field mute_for: %w", err)
 		}
 		s.MuteFor = value
 	}
 	{
-		value, err := b.String()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode scopeNotificationSettings#e69a2c3f: field sound: %w", err)
+			return fmt.Errorf("unable to decode scopeNotificationSettings#ad8a189b: field sound_id: %w", err)
 		}
-		s.Sound = value
+		s.SoundID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode scopeNotificationSettings#e69a2c3f: field show_preview: %w", err)
+			return fmt.Errorf("unable to decode scopeNotificationSettings#ad8a189b: field show_preview: %w", err)
 		}
 		s.ShowPreview = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode scopeNotificationSettings#e69a2c3f: field disable_pinned_message_notifications: %w", err)
+			return fmt.Errorf("unable to decode scopeNotificationSettings#ad8a189b: field disable_pinned_message_notifications: %w", err)
 		}
 		s.DisablePinnedMessageNotifications = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode scopeNotificationSettings#e69a2c3f: field disable_mention_notifications: %w", err)
+			return fmt.Errorf("unable to decode scopeNotificationSettings#ad8a189b: field disable_mention_notifications: %w", err)
 		}
 		s.DisableMentionNotifications = value
 	}
@@ -217,7 +216,7 @@ func (s *ScopeNotificationSettings) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *ScopeNotificationSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode scopeNotificationSettings#e69a2c3f as nil")
+		return fmt.Errorf("can't encode scopeNotificationSettings#ad8a189b as nil")
 	}
 	b.ObjStart()
 	b.PutID("scopeNotificationSettings")
@@ -225,8 +224,8 @@ func (s *ScopeNotificationSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("mute_for")
 	b.PutInt32(s.MuteFor)
 	b.Comma()
-	b.FieldStart("sound")
-	b.PutString(s.Sound)
+	b.FieldStart("sound_id")
+	b.PutLong(s.SoundID)
 	b.Comma()
 	b.FieldStart("show_preview")
 	b.PutBool(s.ShowPreview)
@@ -245,43 +244,43 @@ func (s *ScopeNotificationSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *ScopeNotificationSettings) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode scopeNotificationSettings#e69a2c3f to nil")
+		return fmt.Errorf("can't decode scopeNotificationSettings#ad8a189b to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("scopeNotificationSettings"); err != nil {
-				return fmt.Errorf("unable to decode scopeNotificationSettings#e69a2c3f: %w", err)
+				return fmt.Errorf("unable to decode scopeNotificationSettings#ad8a189b: %w", err)
 			}
 		case "mute_for":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode scopeNotificationSettings#e69a2c3f: field mute_for: %w", err)
+				return fmt.Errorf("unable to decode scopeNotificationSettings#ad8a189b: field mute_for: %w", err)
 			}
 			s.MuteFor = value
-		case "sound":
-			value, err := b.String()
+		case "sound_id":
+			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode scopeNotificationSettings#e69a2c3f: field sound: %w", err)
+				return fmt.Errorf("unable to decode scopeNotificationSettings#ad8a189b: field sound_id: %w", err)
 			}
-			s.Sound = value
+			s.SoundID = value
 		case "show_preview":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode scopeNotificationSettings#e69a2c3f: field show_preview: %w", err)
+				return fmt.Errorf("unable to decode scopeNotificationSettings#ad8a189b: field show_preview: %w", err)
 			}
 			s.ShowPreview = value
 		case "disable_pinned_message_notifications":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode scopeNotificationSettings#e69a2c3f: field disable_pinned_message_notifications: %w", err)
+				return fmt.Errorf("unable to decode scopeNotificationSettings#ad8a189b: field disable_pinned_message_notifications: %w", err)
 			}
 			s.DisablePinnedMessageNotifications = value
 		case "disable_mention_notifications":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode scopeNotificationSettings#e69a2c3f: field disable_mention_notifications: %w", err)
+				return fmt.Errorf("unable to decode scopeNotificationSettings#ad8a189b: field disable_mention_notifications: %w", err)
 			}
 			s.DisableMentionNotifications = value
 		default:
@@ -299,12 +298,12 @@ func (s *ScopeNotificationSettings) GetMuteFor() (value int32) {
 	return s.MuteFor
 }
 
-// GetSound returns value of Sound field.
-func (s *ScopeNotificationSettings) GetSound() (value string) {
+// GetSoundID returns value of SoundID field.
+func (s *ScopeNotificationSettings) GetSoundID() (value int64) {
 	if s == nil {
 		return
 	}
-	return s.Sound
+	return s.SoundID
 }
 
 // GetShowPreview returns value of ShowPreview field.

@@ -293,7 +293,7 @@ func (u *UserTypeDeleted) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// UserTypeBot represents TL type `userTypeBot#4b3e8235`.
+// UserTypeBot represents TL type `userTypeBot#c6256f88`.
 type UserTypeBot struct {
 	// True, if the bot can be invited to basic group and supergroup chats
 	CanJoinGroups bool
@@ -308,10 +308,12 @@ type UserTypeBot struct {
 	// True, if the location of the user is expected to be sent with every inline query to
 	// this bot
 	NeedLocation bool
+	// True, if the bot can be added to attachment menu
+	CanBeAddedToAttachmentMenu bool
 }
 
 // UserTypeBotTypeID is TL type id of UserTypeBot.
-const UserTypeBotTypeID = 0x4b3e8235
+const UserTypeBotTypeID = 0xc6256f88
 
 // construct implements constructor of UserTypeClass.
 func (u UserTypeBot) construct() UserTypeClass { return &u }
@@ -343,6 +345,9 @@ func (u *UserTypeBot) Zero() bool {
 		return false
 	}
 	if !(u.NeedLocation == false) {
+		return false
+	}
+	if !(u.CanBeAddedToAttachmentMenu == false) {
 		return false
 	}
 
@@ -401,6 +406,10 @@ func (u *UserTypeBot) TypeInfo() tdp.Type {
 			Name:       "NeedLocation",
 			SchemaName: "need_location",
 		},
+		{
+			Name:       "CanBeAddedToAttachmentMenu",
+			SchemaName: "can_be_added_to_attachment_menu",
+		},
 	}
 	return typ
 }
@@ -408,7 +417,7 @@ func (u *UserTypeBot) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UserTypeBot) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userTypeBot#4b3e8235 as nil")
+		return fmt.Errorf("can't encode userTypeBot#c6256f88 as nil")
 	}
 	b.PutID(UserTypeBotTypeID)
 	return u.EncodeBare(b)
@@ -417,23 +426,24 @@ func (u *UserTypeBot) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserTypeBot) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userTypeBot#4b3e8235 as nil")
+		return fmt.Errorf("can't encode userTypeBot#c6256f88 as nil")
 	}
 	b.PutBool(u.CanJoinGroups)
 	b.PutBool(u.CanReadAllGroupMessages)
 	b.PutBool(u.IsInline)
 	b.PutString(u.InlineQueryPlaceholder)
 	b.PutBool(u.NeedLocation)
+	b.PutBool(u.CanBeAddedToAttachmentMenu)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *UserTypeBot) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userTypeBot#4b3e8235 to nil")
+		return fmt.Errorf("can't decode userTypeBot#c6256f88 to nil")
 	}
 	if err := b.ConsumeID(UserTypeBotTypeID); err != nil {
-		return fmt.Errorf("unable to decode userTypeBot#4b3e8235: %w", err)
+		return fmt.Errorf("unable to decode userTypeBot#c6256f88: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -441,42 +451,49 @@ func (u *UserTypeBot) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserTypeBot) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userTypeBot#4b3e8235 to nil")
+		return fmt.Errorf("can't decode userTypeBot#c6256f88 to nil")
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userTypeBot#4b3e8235: field can_join_groups: %w", err)
+			return fmt.Errorf("unable to decode userTypeBot#c6256f88: field can_join_groups: %w", err)
 		}
 		u.CanJoinGroups = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userTypeBot#4b3e8235: field can_read_all_group_messages: %w", err)
+			return fmt.Errorf("unable to decode userTypeBot#c6256f88: field can_read_all_group_messages: %w", err)
 		}
 		u.CanReadAllGroupMessages = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userTypeBot#4b3e8235: field is_inline: %w", err)
+			return fmt.Errorf("unable to decode userTypeBot#c6256f88: field is_inline: %w", err)
 		}
 		u.IsInline = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode userTypeBot#4b3e8235: field inline_query_placeholder: %w", err)
+			return fmt.Errorf("unable to decode userTypeBot#c6256f88: field inline_query_placeholder: %w", err)
 		}
 		u.InlineQueryPlaceholder = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode userTypeBot#4b3e8235: field need_location: %w", err)
+			return fmt.Errorf("unable to decode userTypeBot#c6256f88: field need_location: %w", err)
 		}
 		u.NeedLocation = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode userTypeBot#c6256f88: field can_be_added_to_attachment_menu: %w", err)
+		}
+		u.CanBeAddedToAttachmentMenu = value
 	}
 	return nil
 }
@@ -484,7 +501,7 @@ func (u *UserTypeBot) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UserTypeBot) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userTypeBot#4b3e8235 as nil")
+		return fmt.Errorf("can't encode userTypeBot#c6256f88 as nil")
 	}
 	b.ObjStart()
 	b.PutID("userTypeBot")
@@ -504,6 +521,9 @@ func (u *UserTypeBot) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("need_location")
 	b.PutBool(u.NeedLocation)
 	b.Comma()
+	b.FieldStart("can_be_added_to_attachment_menu")
+	b.PutBool(u.CanBeAddedToAttachmentMenu)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -512,45 +532,51 @@ func (u *UserTypeBot) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UserTypeBot) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userTypeBot#4b3e8235 to nil")
+		return fmt.Errorf("can't decode userTypeBot#c6256f88 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("userTypeBot"); err != nil {
-				return fmt.Errorf("unable to decode userTypeBot#4b3e8235: %w", err)
+				return fmt.Errorf("unable to decode userTypeBot#c6256f88: %w", err)
 			}
 		case "can_join_groups":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userTypeBot#4b3e8235: field can_join_groups: %w", err)
+				return fmt.Errorf("unable to decode userTypeBot#c6256f88: field can_join_groups: %w", err)
 			}
 			u.CanJoinGroups = value
 		case "can_read_all_group_messages":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userTypeBot#4b3e8235: field can_read_all_group_messages: %w", err)
+				return fmt.Errorf("unable to decode userTypeBot#c6256f88: field can_read_all_group_messages: %w", err)
 			}
 			u.CanReadAllGroupMessages = value
 		case "is_inline":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userTypeBot#4b3e8235: field is_inline: %w", err)
+				return fmt.Errorf("unable to decode userTypeBot#c6256f88: field is_inline: %w", err)
 			}
 			u.IsInline = value
 		case "inline_query_placeholder":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode userTypeBot#4b3e8235: field inline_query_placeholder: %w", err)
+				return fmt.Errorf("unable to decode userTypeBot#c6256f88: field inline_query_placeholder: %w", err)
 			}
 			u.InlineQueryPlaceholder = value
 		case "need_location":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode userTypeBot#4b3e8235: field need_location: %w", err)
+				return fmt.Errorf("unable to decode userTypeBot#c6256f88: field need_location: %w", err)
 			}
 			u.NeedLocation = value
+		case "can_be_added_to_attachment_menu":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode userTypeBot#c6256f88: field can_be_added_to_attachment_menu: %w", err)
+			}
+			u.CanBeAddedToAttachmentMenu = value
 		default:
 			return b.Skip()
 		}
@@ -596,6 +622,14 @@ func (u *UserTypeBot) GetNeedLocation() (value bool) {
 		return
 	}
 	return u.NeedLocation
+}
+
+// GetCanBeAddedToAttachmentMenu returns value of CanBeAddedToAttachmentMenu field.
+func (u *UserTypeBot) GetCanBeAddedToAttachmentMenu() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.CanBeAddedToAttachmentMenu
 }
 
 // UserTypeUnknown represents TL type `userTypeUnknown#d4d0613d`.
@@ -742,7 +776,7 @@ const UserTypeClassName = "UserType"
 //  switch v := g.(type) {
 //  case *tdapi.UserTypeRegular: // userTypeRegular#dc51699b
 //  case *tdapi.UserTypeDeleted: // userTypeDeleted#94403d24
-//  case *tdapi.UserTypeBot: // userTypeBot#4b3e8235
+//  case *tdapi.UserTypeBot: // userTypeBot#c6256f88
 //  case *tdapi.UserTypeUnknown: // userTypeUnknown#d4d0613d
 //  default: panic(v)
 //  }
@@ -790,7 +824,7 @@ func DecodeUserType(buf *bin.Buffer) (UserTypeClass, error) {
 		}
 		return &v, nil
 	case UserTypeBotTypeID:
-		// Decoding userTypeBot#4b3e8235.
+		// Decoding userTypeBot#c6256f88.
 		v := UserTypeBot{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserTypeClass: %w", err)
@@ -830,7 +864,7 @@ func DecodeTDLibJSONUserType(buf tdjson.Decoder) (UserTypeClass, error) {
 		}
 		return &v, nil
 	case "userTypeBot":
-		// Decoding userTypeBot#4b3e8235.
+		// Decoding userTypeBot#c6256f88.
 		v := UserTypeBot{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserTypeClass: %w", err)

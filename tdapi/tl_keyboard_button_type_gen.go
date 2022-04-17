@@ -624,6 +624,172 @@ func (k *KeyboardButtonTypeRequestPoll) GetForceQuiz() (value bool) {
 	return k.ForceQuiz
 }
 
+// KeyboardButtonTypeWebApp represents TL type `keyboardButtonTypeWebApp#70c8ff62`.
+type KeyboardButtonTypeWebApp struct {
+	// An HTTP URL to pass to getWebAppUrl
+	URL string
+}
+
+// KeyboardButtonTypeWebAppTypeID is TL type id of KeyboardButtonTypeWebApp.
+const KeyboardButtonTypeWebAppTypeID = 0x70c8ff62
+
+// construct implements constructor of KeyboardButtonTypeClass.
+func (k KeyboardButtonTypeWebApp) construct() KeyboardButtonTypeClass { return &k }
+
+// Ensuring interfaces in compile-time for KeyboardButtonTypeWebApp.
+var (
+	_ bin.Encoder     = &KeyboardButtonTypeWebApp{}
+	_ bin.Decoder     = &KeyboardButtonTypeWebApp{}
+	_ bin.BareEncoder = &KeyboardButtonTypeWebApp{}
+	_ bin.BareDecoder = &KeyboardButtonTypeWebApp{}
+
+	_ KeyboardButtonTypeClass = &KeyboardButtonTypeWebApp{}
+)
+
+func (k *KeyboardButtonTypeWebApp) Zero() bool {
+	if k == nil {
+		return true
+	}
+	if !(k.URL == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (k *KeyboardButtonTypeWebApp) String() string {
+	if k == nil {
+		return "KeyboardButtonTypeWebApp(nil)"
+	}
+	type Alias KeyboardButtonTypeWebApp
+	return fmt.Sprintf("KeyboardButtonTypeWebApp%+v", Alias(*k))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*KeyboardButtonTypeWebApp) TypeID() uint32 {
+	return KeyboardButtonTypeWebAppTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*KeyboardButtonTypeWebApp) TypeName() string {
+	return "keyboardButtonTypeWebApp"
+}
+
+// TypeInfo returns info about TL type.
+func (k *KeyboardButtonTypeWebApp) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "keyboardButtonTypeWebApp",
+		ID:   KeyboardButtonTypeWebAppTypeID,
+	}
+	if k == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (k *KeyboardButtonTypeWebApp) Encode(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonTypeWebApp#70c8ff62 as nil")
+	}
+	b.PutID(KeyboardButtonTypeWebAppTypeID)
+	return k.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (k *KeyboardButtonTypeWebApp) EncodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonTypeWebApp#70c8ff62 as nil")
+	}
+	b.PutString(k.URL)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (k *KeyboardButtonTypeWebApp) Decode(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonTypeWebApp#70c8ff62 to nil")
+	}
+	if err := b.ConsumeID(KeyboardButtonTypeWebAppTypeID); err != nil {
+		return fmt.Errorf("unable to decode keyboardButtonTypeWebApp#70c8ff62: %w", err)
+	}
+	return k.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (k *KeyboardButtonTypeWebApp) DecodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonTypeWebApp#70c8ff62 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonTypeWebApp#70c8ff62: field url: %w", err)
+		}
+		k.URL = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (k *KeyboardButtonTypeWebApp) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonTypeWebApp#70c8ff62 as nil")
+	}
+	b.ObjStart()
+	b.PutID("keyboardButtonTypeWebApp")
+	b.Comma()
+	b.FieldStart("url")
+	b.PutString(k.URL)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (k *KeyboardButtonTypeWebApp) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonTypeWebApp#70c8ff62 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("keyboardButtonTypeWebApp"); err != nil {
+				return fmt.Errorf("unable to decode keyboardButtonTypeWebApp#70c8ff62: %w", err)
+			}
+		case "url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode keyboardButtonTypeWebApp#70c8ff62: field url: %w", err)
+			}
+			k.URL = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetURL returns value of URL field.
+func (k *KeyboardButtonTypeWebApp) GetURL() (value string) {
+	if k == nil {
+		return
+	}
+	return k.URL
+}
+
 // KeyboardButtonTypeClassName is schema name of KeyboardButtonTypeClass.
 const KeyboardButtonTypeClassName = "KeyboardButtonType"
 
@@ -639,6 +805,7 @@ const KeyboardButtonTypeClassName = "KeyboardButtonType"
 //  case *tdapi.KeyboardButtonTypeRequestPhoneNumber: // keyboardButtonTypeRequestPhoneNumber#a4d9b7b9
 //  case *tdapi.KeyboardButtonTypeRequestLocation: // keyboardButtonTypeRequestLocation#f8828cfd
 //  case *tdapi.KeyboardButtonTypeRequestPoll: // keyboardButtonTypeRequestPoll#7164dcb8
+//  case *tdapi.KeyboardButtonTypeWebApp: // keyboardButtonTypeWebApp#70c8ff62
 //  default: panic(v)
 //  }
 type KeyboardButtonTypeClass interface {
@@ -698,6 +865,13 @@ func DecodeKeyboardButtonType(buf *bin.Buffer) (KeyboardButtonTypeClass, error) 
 			return nil, fmt.Errorf("unable to decode KeyboardButtonTypeClass: %w", err)
 		}
 		return &v, nil
+	case KeyboardButtonTypeWebAppTypeID:
+		// Decoding keyboardButtonTypeWebApp#70c8ff62.
+		v := KeyboardButtonTypeWebApp{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode KeyboardButtonTypeClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode KeyboardButtonTypeClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -734,6 +908,13 @@ func DecodeTDLibJSONKeyboardButtonType(buf tdjson.Decoder) (KeyboardButtonTypeCl
 	case "keyboardButtonTypeRequestPoll":
 		// Decoding keyboardButtonTypeRequestPoll#7164dcb8.
 		v := KeyboardButtonTypeRequestPoll{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode KeyboardButtonTypeClass: %w", err)
+		}
+		return &v, nil
+	case "keyboardButtonTypeWebApp":
+		// Decoding keyboardButtonTypeWebApp#70c8ff62.
+		v := KeyboardButtonTypeWebApp{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode KeyboardButtonTypeClass: %w", err)
 		}

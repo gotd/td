@@ -33,7 +33,7 @@ var (
 
 // CreateVideoChatRequest represents TL type `createVideoChat#7ea4958d`.
 type CreateVideoChatRequest struct {
-	// Chat identifier, in which the video chat will be created
+	// Identifier of a chat in which the video chat will be created
 	ChatID int64
 	// Group call title; if empty, chat title will be used
 	Title string

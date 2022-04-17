@@ -43,7 +43,7 @@ type GetMapThumbnailFileRequest struct {
 	Height int32
 	// Map scale; 1-3
 	Scale int32
-	// Identifier of a chat, in which the thumbnail will be shown. Use 0 if unknown
+	// Identifier of a chat in which the thumbnail will be shown. Use 0 if unknown
 	ChatID int64
 }
 

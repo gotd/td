@@ -5174,7 +5174,7 @@ type PageBlockChatLink struct {
 	Title string
 	// Chat photo; may be null
 	Photo ChatPhotoInfo
-	// Chat username, by which all other information about the chat can be resolved
+	// Chat username by which all other information about the chat can be resolved
 	Username string
 }
 

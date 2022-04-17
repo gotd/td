@@ -40,8 +40,8 @@ type SponsoredMessage struct {
 	SponsorChatID int64
 	// Information about the sponsor chat; may be null unless sponsor_chat_id == 0
 	SponsorChatInfo ChatInviteLinkInfo
-	// An internal link to be opened when the sponsored message is clicked; may be null. If
-	// null, the sponsor chat needs to be opened instead
+	// An internal link to be opened when the sponsored message is clicked; may be null if
+	// the sponsor chat needs to be opened instead
 	Link InternalLinkTypeClass
 	// Content of the message. Currently, can be only of the type messageText
 	Content MessageContentClass

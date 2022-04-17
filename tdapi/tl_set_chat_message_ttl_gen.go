@@ -35,8 +35,8 @@ var (
 type SetChatMessageTTLRequest struct {
 	// Chat identifier
 	ChatID int64
-	// New TTL value, in seconds; must be one of 0, 86400, 7 * 86400, or 31 * 86400 unless
-	// the chat is secret
+	// New TTL value, in seconds; unless the chat is secret, it must be from 0 up to 365 *
+	// 86400 and be divisible by 86400
 	TTL int32
 }
 

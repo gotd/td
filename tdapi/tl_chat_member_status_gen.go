@@ -267,47 +267,19 @@ func (c *ChatMemberStatusCreator) GetIsMember() (value bool) {
 	return c.IsMember
 }
 
-// ChatMemberStatusAdministrator represents TL type `chatMemberStatusAdministrator#4e6efea`.
+// ChatMemberStatusAdministrator represents TL type `chatMemberStatusAdministrator#fbd3841d`.
 type ChatMemberStatusAdministrator struct {
 	// A custom title of the administrator; 0-16 characters without emojis; applicable to
 	// supergroups only
 	CustomTitle string
 	// True, if the current user can edit the administrator privileges for the called user
 	CanBeEdited bool
-	// True, if the administrator can get chat event log, get chat statistics, get message
-	// statistics in channels, get channel members, see anonymous administrators in
-	// supergroups and ignore slow mode. Implied by any other privilege; applicable to
-	// supergroups and channels only
-	CanManageChat bool
-	// True, if the administrator can change the chat title, photo, and other settings
-	CanChangeInfo bool
-	// True, if the administrator can create channel posts; applicable to channels only
-	CanPostMessages bool
-	// True, if the administrator can edit messages of other users and pin messages;
-	// applicable to channels only
-	CanEditMessages bool
-	// True, if the administrator can delete messages of other users
-	CanDeleteMessages bool
-	// True, if the administrator can invite new users to the chat
-	CanInviteUsers bool
-	// True, if the administrator can restrict, ban, or unban chat members; always true for
-	// channels
-	CanRestrictMembers bool
-	// True, if the administrator can pin messages; applicable to basic groups and
-	// supergroups only
-	CanPinMessages bool
-	// True, if the administrator can add new administrators with a subset of their own
-	// privileges or demote administrators that were directly or indirectly promoted by them
-	CanPromoteMembers bool
-	// True, if the administrator can manage video chats
-	CanManageVideoChats bool
-	// True, if the administrator isn't shown in the chat member list and sends messages
-	// anonymously; applicable to supergroups only
-	IsAnonymous bool
+	// Rights of the administrator
+	Rights ChatAdministratorRights
 }
 
 // ChatMemberStatusAdministratorTypeID is TL type id of ChatMemberStatusAdministrator.
-const ChatMemberStatusAdministratorTypeID = 0x4e6efea
+const ChatMemberStatusAdministratorTypeID = 0xfbd3841d
 
 // construct implements constructor of ChatMemberStatusClass.
 func (c ChatMemberStatusAdministrator) construct() ChatMemberStatusClass { return &c }
@@ -332,37 +304,7 @@ func (c *ChatMemberStatusAdministrator) Zero() bool {
 	if !(c.CanBeEdited == false) {
 		return false
 	}
-	if !(c.CanManageChat == false) {
-		return false
-	}
-	if !(c.CanChangeInfo == false) {
-		return false
-	}
-	if !(c.CanPostMessages == false) {
-		return false
-	}
-	if !(c.CanEditMessages == false) {
-		return false
-	}
-	if !(c.CanDeleteMessages == false) {
-		return false
-	}
-	if !(c.CanInviteUsers == false) {
-		return false
-	}
-	if !(c.CanRestrictMembers == false) {
-		return false
-	}
-	if !(c.CanPinMessages == false) {
-		return false
-	}
-	if !(c.CanPromoteMembers == false) {
-		return false
-	}
-	if !(c.CanManageVideoChats == false) {
-		return false
-	}
-	if !(c.IsAnonymous == false) {
+	if !(c.Rights.Zero()) {
 		return false
 	}
 
@@ -410,48 +352,8 @@ func (c *ChatMemberStatusAdministrator) TypeInfo() tdp.Type {
 			SchemaName: "can_be_edited",
 		},
 		{
-			Name:       "CanManageChat",
-			SchemaName: "can_manage_chat",
-		},
-		{
-			Name:       "CanChangeInfo",
-			SchemaName: "can_change_info",
-		},
-		{
-			Name:       "CanPostMessages",
-			SchemaName: "can_post_messages",
-		},
-		{
-			Name:       "CanEditMessages",
-			SchemaName: "can_edit_messages",
-		},
-		{
-			Name:       "CanDeleteMessages",
-			SchemaName: "can_delete_messages",
-		},
-		{
-			Name:       "CanInviteUsers",
-			SchemaName: "can_invite_users",
-		},
-		{
-			Name:       "CanRestrictMembers",
-			SchemaName: "can_restrict_members",
-		},
-		{
-			Name:       "CanPinMessages",
-			SchemaName: "can_pin_messages",
-		},
-		{
-			Name:       "CanPromoteMembers",
-			SchemaName: "can_promote_members",
-		},
-		{
-			Name:       "CanManageVideoChats",
-			SchemaName: "can_manage_video_chats",
-		},
-		{
-			Name:       "IsAnonymous",
-			SchemaName: "is_anonymous",
+			Name:       "Rights",
+			SchemaName: "rights",
 		},
 	}
 	return typ
@@ -460,7 +362,7 @@ func (c *ChatMemberStatusAdministrator) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatMemberStatusAdministrator) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatMemberStatusAdministrator#4e6efea as nil")
+		return fmt.Errorf("can't encode chatMemberStatusAdministrator#fbd3841d as nil")
 	}
 	b.PutID(ChatMemberStatusAdministratorTypeID)
 	return c.EncodeBare(b)
@@ -469,31 +371,23 @@ func (c *ChatMemberStatusAdministrator) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatMemberStatusAdministrator) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatMemberStatusAdministrator#4e6efea as nil")
+		return fmt.Errorf("can't encode chatMemberStatusAdministrator#fbd3841d as nil")
 	}
 	b.PutString(c.CustomTitle)
 	b.PutBool(c.CanBeEdited)
-	b.PutBool(c.CanManageChat)
-	b.PutBool(c.CanChangeInfo)
-	b.PutBool(c.CanPostMessages)
-	b.PutBool(c.CanEditMessages)
-	b.PutBool(c.CanDeleteMessages)
-	b.PutBool(c.CanInviteUsers)
-	b.PutBool(c.CanRestrictMembers)
-	b.PutBool(c.CanPinMessages)
-	b.PutBool(c.CanPromoteMembers)
-	b.PutBool(c.CanManageVideoChats)
-	b.PutBool(c.IsAnonymous)
+	if err := c.Rights.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatMemberStatusAdministrator#fbd3841d: field rights: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChatMemberStatusAdministrator) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatMemberStatusAdministrator#4e6efea to nil")
+		return fmt.Errorf("can't decode chatMemberStatusAdministrator#fbd3841d to nil")
 	}
 	if err := b.ConsumeID(ChatMemberStatusAdministratorTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: %w", err)
+		return fmt.Errorf("unable to decode chatMemberStatusAdministrator#fbd3841d: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -501,98 +395,26 @@ func (c *ChatMemberStatusAdministrator) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatMemberStatusAdministrator) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatMemberStatusAdministrator#4e6efea to nil")
+		return fmt.Errorf("can't decode chatMemberStatusAdministrator#fbd3841d to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field custom_title: %w", err)
+			return fmt.Errorf("unable to decode chatMemberStatusAdministrator#fbd3841d: field custom_title: %w", err)
 		}
 		c.CustomTitle = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_be_edited: %w", err)
+			return fmt.Errorf("unable to decode chatMemberStatusAdministrator#fbd3841d: field can_be_edited: %w", err)
 		}
 		c.CanBeEdited = value
 	}
 	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_manage_chat: %w", err)
+		if err := c.Rights.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatMemberStatusAdministrator#fbd3841d: field rights: %w", err)
 		}
-		c.CanManageChat = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_change_info: %w", err)
-		}
-		c.CanChangeInfo = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_post_messages: %w", err)
-		}
-		c.CanPostMessages = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_edit_messages: %w", err)
-		}
-		c.CanEditMessages = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_delete_messages: %w", err)
-		}
-		c.CanDeleteMessages = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_invite_users: %w", err)
-		}
-		c.CanInviteUsers = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_restrict_members: %w", err)
-		}
-		c.CanRestrictMembers = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_pin_messages: %w", err)
-		}
-		c.CanPinMessages = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_promote_members: %w", err)
-		}
-		c.CanPromoteMembers = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_manage_video_chats: %w", err)
-		}
-		c.CanManageVideoChats = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field is_anonymous: %w", err)
-		}
-		c.IsAnonymous = value
 	}
 	return nil
 }
@@ -600,7 +422,7 @@ func (c *ChatMemberStatusAdministrator) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatMemberStatusAdministrator) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatMemberStatusAdministrator#4e6efea as nil")
+		return fmt.Errorf("can't encode chatMemberStatusAdministrator#fbd3841d as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatMemberStatusAdministrator")
@@ -611,38 +433,10 @@ func (c *ChatMemberStatusAdministrator) EncodeTDLibJSON(b tdjson.Encoder) error 
 	b.FieldStart("can_be_edited")
 	b.PutBool(c.CanBeEdited)
 	b.Comma()
-	b.FieldStart("can_manage_chat")
-	b.PutBool(c.CanManageChat)
-	b.Comma()
-	b.FieldStart("can_change_info")
-	b.PutBool(c.CanChangeInfo)
-	b.Comma()
-	b.FieldStart("can_post_messages")
-	b.PutBool(c.CanPostMessages)
-	b.Comma()
-	b.FieldStart("can_edit_messages")
-	b.PutBool(c.CanEditMessages)
-	b.Comma()
-	b.FieldStart("can_delete_messages")
-	b.PutBool(c.CanDeleteMessages)
-	b.Comma()
-	b.FieldStart("can_invite_users")
-	b.PutBool(c.CanInviteUsers)
-	b.Comma()
-	b.FieldStart("can_restrict_members")
-	b.PutBool(c.CanRestrictMembers)
-	b.Comma()
-	b.FieldStart("can_pin_messages")
-	b.PutBool(c.CanPinMessages)
-	b.Comma()
-	b.FieldStart("can_promote_members")
-	b.PutBool(c.CanPromoteMembers)
-	b.Comma()
-	b.FieldStart("can_manage_video_chats")
-	b.PutBool(c.CanManageVideoChats)
-	b.Comma()
-	b.FieldStart("is_anonymous")
-	b.PutBool(c.IsAnonymous)
+	b.FieldStart("rights")
+	if err := c.Rights.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatMemberStatusAdministrator#fbd3841d: field rights: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -652,93 +446,31 @@ func (c *ChatMemberStatusAdministrator) EncodeTDLibJSON(b tdjson.Encoder) error 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatMemberStatusAdministrator) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatMemberStatusAdministrator#4e6efea to nil")
+		return fmt.Errorf("can't decode chatMemberStatusAdministrator#fbd3841d to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatMemberStatusAdministrator"); err != nil {
-				return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: %w", err)
+				return fmt.Errorf("unable to decode chatMemberStatusAdministrator#fbd3841d: %w", err)
 			}
 		case "custom_title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field custom_title: %w", err)
+				return fmt.Errorf("unable to decode chatMemberStatusAdministrator#fbd3841d: field custom_title: %w", err)
 			}
 			c.CustomTitle = value
 		case "can_be_edited":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_be_edited: %w", err)
+				return fmt.Errorf("unable to decode chatMemberStatusAdministrator#fbd3841d: field can_be_edited: %w", err)
 			}
 			c.CanBeEdited = value
-		case "can_manage_chat":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_manage_chat: %w", err)
+		case "rights":
+			if err := c.Rights.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatMemberStatusAdministrator#fbd3841d: field rights: %w", err)
 			}
-			c.CanManageChat = value
-		case "can_change_info":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_change_info: %w", err)
-			}
-			c.CanChangeInfo = value
-		case "can_post_messages":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_post_messages: %w", err)
-			}
-			c.CanPostMessages = value
-		case "can_edit_messages":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_edit_messages: %w", err)
-			}
-			c.CanEditMessages = value
-		case "can_delete_messages":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_delete_messages: %w", err)
-			}
-			c.CanDeleteMessages = value
-		case "can_invite_users":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_invite_users: %w", err)
-			}
-			c.CanInviteUsers = value
-		case "can_restrict_members":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_restrict_members: %w", err)
-			}
-			c.CanRestrictMembers = value
-		case "can_pin_messages":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_pin_messages: %w", err)
-			}
-			c.CanPinMessages = value
-		case "can_promote_members":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_promote_members: %w", err)
-			}
-			c.CanPromoteMembers = value
-		case "can_manage_video_chats":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field can_manage_video_chats: %w", err)
-			}
-			c.CanManageVideoChats = value
-		case "is_anonymous":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatMemberStatusAdministrator#4e6efea: field is_anonymous: %w", err)
-			}
-			c.IsAnonymous = value
 		default:
 			return b.Skip()
 		}
@@ -762,92 +494,12 @@ func (c *ChatMemberStatusAdministrator) GetCanBeEdited() (value bool) {
 	return c.CanBeEdited
 }
 
-// GetCanManageChat returns value of CanManageChat field.
-func (c *ChatMemberStatusAdministrator) GetCanManageChat() (value bool) {
+// GetRights returns value of Rights field.
+func (c *ChatMemberStatusAdministrator) GetRights() (value ChatAdministratorRights) {
 	if c == nil {
 		return
 	}
-	return c.CanManageChat
-}
-
-// GetCanChangeInfo returns value of CanChangeInfo field.
-func (c *ChatMemberStatusAdministrator) GetCanChangeInfo() (value bool) {
-	if c == nil {
-		return
-	}
-	return c.CanChangeInfo
-}
-
-// GetCanPostMessages returns value of CanPostMessages field.
-func (c *ChatMemberStatusAdministrator) GetCanPostMessages() (value bool) {
-	if c == nil {
-		return
-	}
-	return c.CanPostMessages
-}
-
-// GetCanEditMessages returns value of CanEditMessages field.
-func (c *ChatMemberStatusAdministrator) GetCanEditMessages() (value bool) {
-	if c == nil {
-		return
-	}
-	return c.CanEditMessages
-}
-
-// GetCanDeleteMessages returns value of CanDeleteMessages field.
-func (c *ChatMemberStatusAdministrator) GetCanDeleteMessages() (value bool) {
-	if c == nil {
-		return
-	}
-	return c.CanDeleteMessages
-}
-
-// GetCanInviteUsers returns value of CanInviteUsers field.
-func (c *ChatMemberStatusAdministrator) GetCanInviteUsers() (value bool) {
-	if c == nil {
-		return
-	}
-	return c.CanInviteUsers
-}
-
-// GetCanRestrictMembers returns value of CanRestrictMembers field.
-func (c *ChatMemberStatusAdministrator) GetCanRestrictMembers() (value bool) {
-	if c == nil {
-		return
-	}
-	return c.CanRestrictMembers
-}
-
-// GetCanPinMessages returns value of CanPinMessages field.
-func (c *ChatMemberStatusAdministrator) GetCanPinMessages() (value bool) {
-	if c == nil {
-		return
-	}
-	return c.CanPinMessages
-}
-
-// GetCanPromoteMembers returns value of CanPromoteMembers field.
-func (c *ChatMemberStatusAdministrator) GetCanPromoteMembers() (value bool) {
-	if c == nil {
-		return
-	}
-	return c.CanPromoteMembers
-}
-
-// GetCanManageVideoChats returns value of CanManageVideoChats field.
-func (c *ChatMemberStatusAdministrator) GetCanManageVideoChats() (value bool) {
-	if c == nil {
-		return
-	}
-	return c.CanManageVideoChats
-}
-
-// GetIsAnonymous returns value of IsAnonymous field.
-func (c *ChatMemberStatusAdministrator) GetIsAnonymous() (value bool) {
-	if c == nil {
-		return
-	}
-	return c.IsAnonymous
+	return c.Rights
 }
 
 // ChatMemberStatusMember represents TL type `chatMemberStatusMember#32597455`.
@@ -1528,7 +1180,7 @@ const ChatMemberStatusClassName = "ChatMemberStatus"
 //  }
 //  switch v := g.(type) {
 //  case *tdapi.ChatMemberStatusCreator: // chatMemberStatusCreator#f6764afe
-//  case *tdapi.ChatMemberStatusAdministrator: // chatMemberStatusAdministrator#4e6efea
+//  case *tdapi.ChatMemberStatusAdministrator: // chatMemberStatusAdministrator#fbd3841d
 //  case *tdapi.ChatMemberStatusMember: // chatMemberStatusMember#32597455
 //  case *tdapi.ChatMemberStatusRestricted: // chatMemberStatusRestricted#630774a6
 //  case *tdapi.ChatMemberStatusLeft: // chatMemberStatusLeft#ffa74425
@@ -1572,7 +1224,7 @@ func DecodeChatMemberStatus(buf *bin.Buffer) (ChatMemberStatusClass, error) {
 		}
 		return &v, nil
 	case ChatMemberStatusAdministratorTypeID:
-		// Decoding chatMemberStatusAdministrator#4e6efea.
+		// Decoding chatMemberStatusAdministrator#fbd3841d.
 		v := ChatMemberStatusAdministrator{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatMemberStatusClass: %w", err)
@@ -1626,7 +1278,7 @@ func DecodeTDLibJSONChatMemberStatus(buf tdjson.Decoder) (ChatMemberStatusClass,
 		}
 		return &v, nil
 	case "chatMemberStatusAdministrator":
-		// Decoding chatMemberStatusAdministrator#4e6efea.
+		// Decoding chatMemberStatusAdministrator#fbd3841d.
 		v := ChatMemberStatusAdministrator{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatMemberStatusClass: %w", err)

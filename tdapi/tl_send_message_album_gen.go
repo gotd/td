@@ -37,7 +37,7 @@ type SendMessageAlbumRequest struct {
 	ChatID int64
 	// If not 0, a message thread identifier in which the messages will be sent
 	MessageThreadID int64
-	// Identifier of a message to reply to or 0
+	// Identifier of a replied message; 0 if none
 	ReplyToMessageID int64
 	// Options to be used to send the messages; pass null to use default options
 	Options MessageSendOptions
