@@ -26,12 +26,10 @@ func run(ctx context.Context) error {
 	log, _ := zap.NewDevelopment(zap.IncreaseLevel(zapcore.InfoLevel), zap.AddStacktrace(zapcore.FatalLevel))
 	defer func() { _ = log.Sync() }()
 
+	d := tg.NewUpdateDispatcher()
 	gaps := updates.New(updates.Config{
-		Handler: telegram.UpdateHandlerFunc(func(ctx context.Context, u tg.UpdatesClass) error {
-			log.Info("Updates", zap.Any("updates", u))
-			return nil
-		}),
-		Logger: log.Named("gaps"),
+		Handler: d,
+		Logger:  log.Named("gaps"),
 	})
 
 	// Initializing client from environment.
@@ -50,6 +48,16 @@ func run(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
+
+	// Setup message update handlers.
+	d.OnNewChannelMessage(func(ctx context.Context, e tg.Entities, update *tg.UpdateNewChannelMessage) error {
+		log.Info("Channel message", zap.Any("message", update.Message))
+		return nil
+	})
+	d.OnNewMessage(func(ctx context.Context, e tg.Entities, update *tg.UpdateNewMessage) error {
+		log.Info("Message", zap.Any("message", update.Message))
+		return nil
+	})
 
 	return client.Run(ctx, func(ctx context.Context) error {
 		// Note: you need to be authenticated here.
