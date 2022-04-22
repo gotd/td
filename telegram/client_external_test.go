@@ -77,7 +77,6 @@ const dialog = `— Да?
 — Ну тебе.`
 
 func TestExternalE2EUsersDialog(t *testing.T) {
-	t.Skip("https://github.com/gotd/td/issues/554")
 	testutil.SkipExternal(t)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
