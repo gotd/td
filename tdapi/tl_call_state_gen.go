@@ -881,7 +881,7 @@ func (c *CallStateHangingUp) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// CallStateDiscarded represents TL type `callStateDiscarded#f49fcfd1`.
+// CallStateDiscarded represents TL type `callStateDiscarded#531b7c45`.
 type CallStateDiscarded struct {
 	// The reason, why the call has ended
 	Reason CallDiscardReasonClass
@@ -889,10 +889,12 @@ type CallStateDiscarded struct {
 	NeedRating bool
 	// True, if the call debug information must be sent to the server
 	NeedDebugInformation bool
+	// True, if the call log must be sent to the server
+	NeedLog bool
 }
 
 // CallStateDiscardedTypeID is TL type id of CallStateDiscarded.
-const CallStateDiscardedTypeID = 0xf49fcfd1
+const CallStateDiscardedTypeID = 0x531b7c45
 
 // construct implements constructor of CallStateClass.
 func (c CallStateDiscarded) construct() CallStateClass { return &c }
@@ -918,6 +920,9 @@ func (c *CallStateDiscarded) Zero() bool {
 		return false
 	}
 	if !(c.NeedDebugInformation == false) {
+		return false
+	}
+	if !(c.NeedLog == false) {
 		return false
 	}
 
@@ -968,6 +973,10 @@ func (c *CallStateDiscarded) TypeInfo() tdp.Type {
 			Name:       "NeedDebugInformation",
 			SchemaName: "need_debug_information",
 		},
+		{
+			Name:       "NeedLog",
+			SchemaName: "need_log",
+		},
 	}
 	return typ
 }
@@ -975,7 +984,7 @@ func (c *CallStateDiscarded) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *CallStateDiscarded) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode callStateDiscarded#f49fcfd1 as nil")
+		return fmt.Errorf("can't encode callStateDiscarded#531b7c45 as nil")
 	}
 	b.PutID(CallStateDiscardedTypeID)
 	return c.EncodeBare(b)
@@ -984,26 +993,27 @@ func (c *CallStateDiscarded) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *CallStateDiscarded) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode callStateDiscarded#f49fcfd1 as nil")
+		return fmt.Errorf("can't encode callStateDiscarded#531b7c45 as nil")
 	}
 	if c.Reason == nil {
-		return fmt.Errorf("unable to encode callStateDiscarded#f49fcfd1: field reason is nil")
+		return fmt.Errorf("unable to encode callStateDiscarded#531b7c45: field reason is nil")
 	}
 	if err := c.Reason.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode callStateDiscarded#f49fcfd1: field reason: %w", err)
+		return fmt.Errorf("unable to encode callStateDiscarded#531b7c45: field reason: %w", err)
 	}
 	b.PutBool(c.NeedRating)
 	b.PutBool(c.NeedDebugInformation)
+	b.PutBool(c.NeedLog)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *CallStateDiscarded) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode callStateDiscarded#f49fcfd1 to nil")
+		return fmt.Errorf("can't decode callStateDiscarded#531b7c45 to nil")
 	}
 	if err := b.ConsumeID(CallStateDiscardedTypeID); err != nil {
-		return fmt.Errorf("unable to decode callStateDiscarded#f49fcfd1: %w", err)
+		return fmt.Errorf("unable to decode callStateDiscarded#531b7c45: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -1011,28 +1021,35 @@ func (c *CallStateDiscarded) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *CallStateDiscarded) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode callStateDiscarded#f49fcfd1 to nil")
+		return fmt.Errorf("can't decode callStateDiscarded#531b7c45 to nil")
 	}
 	{
 		value, err := DecodeCallDiscardReason(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode callStateDiscarded#f49fcfd1: field reason: %w", err)
+			return fmt.Errorf("unable to decode callStateDiscarded#531b7c45: field reason: %w", err)
 		}
 		c.Reason = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode callStateDiscarded#f49fcfd1: field need_rating: %w", err)
+			return fmt.Errorf("unable to decode callStateDiscarded#531b7c45: field need_rating: %w", err)
 		}
 		c.NeedRating = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode callStateDiscarded#f49fcfd1: field need_debug_information: %w", err)
+			return fmt.Errorf("unable to decode callStateDiscarded#531b7c45: field need_debug_information: %w", err)
 		}
 		c.NeedDebugInformation = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode callStateDiscarded#531b7c45: field need_log: %w", err)
+		}
+		c.NeedLog = value
 	}
 	return nil
 }
@@ -1040,17 +1057,17 @@ func (c *CallStateDiscarded) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *CallStateDiscarded) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode callStateDiscarded#f49fcfd1 as nil")
+		return fmt.Errorf("can't encode callStateDiscarded#531b7c45 as nil")
 	}
 	b.ObjStart()
 	b.PutID("callStateDiscarded")
 	b.Comma()
 	b.FieldStart("reason")
 	if c.Reason == nil {
-		return fmt.Errorf("unable to encode callStateDiscarded#f49fcfd1: field reason is nil")
+		return fmt.Errorf("unable to encode callStateDiscarded#531b7c45: field reason is nil")
 	}
 	if err := c.Reason.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode callStateDiscarded#f49fcfd1: field reason: %w", err)
+		return fmt.Errorf("unable to encode callStateDiscarded#531b7c45: field reason: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("need_rating")
@@ -1058,6 +1075,9 @@ func (c *CallStateDiscarded) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("need_debug_information")
 	b.PutBool(c.NeedDebugInformation)
+	b.Comma()
+	b.FieldStart("need_log")
+	b.PutBool(c.NeedLog)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -1067,33 +1087,39 @@ func (c *CallStateDiscarded) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *CallStateDiscarded) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode callStateDiscarded#f49fcfd1 to nil")
+		return fmt.Errorf("can't decode callStateDiscarded#531b7c45 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("callStateDiscarded"); err != nil {
-				return fmt.Errorf("unable to decode callStateDiscarded#f49fcfd1: %w", err)
+				return fmt.Errorf("unable to decode callStateDiscarded#531b7c45: %w", err)
 			}
 		case "reason":
 			value, err := DecodeTDLibJSONCallDiscardReason(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode callStateDiscarded#f49fcfd1: field reason: %w", err)
+				return fmt.Errorf("unable to decode callStateDiscarded#531b7c45: field reason: %w", err)
 			}
 			c.Reason = value
 		case "need_rating":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode callStateDiscarded#f49fcfd1: field need_rating: %w", err)
+				return fmt.Errorf("unable to decode callStateDiscarded#531b7c45: field need_rating: %w", err)
 			}
 			c.NeedRating = value
 		case "need_debug_information":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode callStateDiscarded#f49fcfd1: field need_debug_information: %w", err)
+				return fmt.Errorf("unable to decode callStateDiscarded#531b7c45: field need_debug_information: %w", err)
 			}
 			c.NeedDebugInformation = value
+		case "need_log":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode callStateDiscarded#531b7c45: field need_log: %w", err)
+			}
+			c.NeedLog = value
 		default:
 			return b.Skip()
 		}
@@ -1123,6 +1149,14 @@ func (c *CallStateDiscarded) GetNeedDebugInformation() (value bool) {
 		return
 	}
 	return c.NeedDebugInformation
+}
+
+// GetNeedLog returns value of NeedLog field.
+func (c *CallStateDiscarded) GetNeedLog() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.NeedLog
 }
 
 // CallStateError represents TL type `callStateError#c5df6495`.
@@ -1307,7 +1341,7 @@ const CallStateClassName = "CallState"
 //  case *tdapi.CallStateExchangingKeys: // callStateExchangingKeys#91d77a65
 //  case *tdapi.CallStateReady: // callStateReady#ce59c044
 //  case *tdapi.CallStateHangingUp: // callStateHangingUp#80d0f2aa
-//  case *tdapi.CallStateDiscarded: // callStateDiscarded#f49fcfd1
+//  case *tdapi.CallStateDiscarded: // callStateDiscarded#531b7c45
 //  case *tdapi.CallStateError: // callStateError#c5df6495
 //  default: panic(v)
 //  }
@@ -1369,7 +1403,7 @@ func DecodeCallState(buf *bin.Buffer) (CallStateClass, error) {
 		}
 		return &v, nil
 	case CallStateDiscardedTypeID:
-		// Decoding callStateDiscarded#f49fcfd1.
+		// Decoding callStateDiscarded#531b7c45.
 		v := CallStateDiscarded{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode CallStateClass: %w", err)
@@ -1423,7 +1457,7 @@ func DecodeTDLibJSONCallState(buf tdjson.Decoder) (CallStateClass, error) {
 		}
 		return &v, nil
 	case "callStateDiscarded":
-		// Decoding callStateDiscarded#f49fcfd1.
+		// Decoding callStateDiscarded#531b7c45.
 		v := CallStateDiscarded{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode CallStateClass: %w", err)
