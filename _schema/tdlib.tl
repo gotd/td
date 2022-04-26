@@ -2,7 +2,7 @@
 //
 // Source: https://raw.githubusercontent.com/tdlib/td/master/td/generate/scheme/telegram_api.tl
 // Layer:  140
-// SHA256: 513ceb0e44c4658e99d3d7f6c5a46b758bcacfa9f97073a894cbf5225cb2163a
+// SHA256: 110e1e927ee0527682e6303925b0ba05d6d71c61a118c109f28d623c02387b61
 
 int#a8509bda ? = Int;
 
@@ -2852,6 +2852,8 @@ phone.leaveGroupCallPresentation#1c50d144 call:InputGroupCall = Updates;
 phone.getGroupCallStreamChannels#1ab21940 call:InputGroupCall = phone.GroupCallStreamChannels;
 
 phone.getGroupCallStreamRtmpUrl#deb3abbf peer:InputPeer revoke:Bool = phone.GroupCallStreamRtmpUrl;
+
+phone.saveCallLog#41248786 peer:InputPhoneCall file:InputFile = Bool;
 
 langpack.getLangPack#f2f2330a lang_pack:string lang_code:string = LangPackDifference;
 
