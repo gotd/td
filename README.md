@@ -274,3 +274,13 @@ MIT License
 Created by Aleksandr (ernado) Razumov
 
 2020
+
+## Links
+
+- [Examples](https://github.com/gotd/td/tree/-/examples)
+- [Security policy](https://github.com/gotd/td/blob/-/.github/SECURITY.md)
+- [User support and dev chat](https://github.com/gotd/td/blob/-/.github/SUPPORT.md)
+- [Roadmap](https://github.com/gotd/td/blob/-/ROADMAP.md)
+- [Contributing](https://github.com/gotd/td/blob/-/CONTRIBUTING.md)
+- [Architecture](https://github.com/gotd/td/blob/-/ARCHITECTURE.md)
+- [Generated Go Documentation](https://ref.gotd.dev/pkg/github.com/gotd/td/tg.html)
