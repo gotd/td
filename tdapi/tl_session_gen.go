@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Session represents TL type `session#3fb2a777`.
+// Session represents TL type `session#8b189386`.
 type Session struct {
 	// Session identifier
 	ID int64
@@ -43,6 +43,9 @@ type Session struct {
 	CanAcceptSecretChats bool
 	// True, if incoming calls can be accepted by the session
 	CanAcceptCalls bool
+	// Session type based on the system and application version, which can be used to display
+	// a corresponding icon
+	Type SessionTypeClass
 	// Telegram API identifier, as provided by the application
 	APIID int32
 	// Name of the application, as provided by the application
@@ -75,7 +78,7 @@ type Session struct {
 }
 
 // SessionTypeID is TL type id of Session.
-const SessionTypeID = 0x3fb2a777
+const SessionTypeID = 0x8b189386
 
 // Ensuring interfaces in compile-time for Session.
 var (
@@ -102,6 +105,9 @@ func (s *Session) Zero() bool {
 		return false
 	}
 	if !(s.CanAcceptCalls == false) {
+		return false
+	}
+	if !(s.Type == nil) {
 		return false
 	}
 	if !(s.APIID == 0) {
@@ -197,6 +203,10 @@ func (s *Session) TypeInfo() tdp.Type {
 			SchemaName: "can_accept_calls",
 		},
 		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
 			Name:       "APIID",
 			SchemaName: "api_id",
 		},
@@ -251,7 +261,7 @@ func (s *Session) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *Session) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode session#3fb2a777 as nil")
+		return fmt.Errorf("can't encode session#8b189386 as nil")
 	}
 	b.PutID(SessionTypeID)
 	return s.EncodeBare(b)
@@ -260,13 +270,19 @@ func (s *Session) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *Session) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode session#3fb2a777 as nil")
+		return fmt.Errorf("can't encode session#8b189386 as nil")
 	}
 	b.PutLong(s.ID)
 	b.PutBool(s.IsCurrent)
 	b.PutBool(s.IsPasswordPending)
 	b.PutBool(s.CanAcceptSecretChats)
 	b.PutBool(s.CanAcceptCalls)
+	if s.Type == nil {
+		return fmt.Errorf("unable to encode session#8b189386: field type is nil")
+	}
+	if err := s.Type.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode session#8b189386: field type: %w", err)
+	}
 	b.PutInt32(s.APIID)
 	b.PutString(s.ApplicationName)
 	b.PutString(s.ApplicationVersion)
@@ -285,10 +301,10 @@ func (s *Session) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *Session) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode session#3fb2a777 to nil")
+		return fmt.Errorf("can't decode session#8b189386 to nil")
 	}
 	if err := b.ConsumeID(SessionTypeID); err != nil {
-		return fmt.Errorf("unable to decode session#3fb2a777: %w", err)
+		return fmt.Errorf("unable to decode session#8b189386: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -296,124 +312,131 @@ func (s *Session) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *Session) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode session#3fb2a777 to nil")
+		return fmt.Errorf("can't decode session#8b189386 to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode session#3fb2a777: field id: %w", err)
+			return fmt.Errorf("unable to decode session#8b189386: field id: %w", err)
 		}
 		s.ID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode session#3fb2a777: field is_current: %w", err)
+			return fmt.Errorf("unable to decode session#8b189386: field is_current: %w", err)
 		}
 		s.IsCurrent = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode session#3fb2a777: field is_password_pending: %w", err)
+			return fmt.Errorf("unable to decode session#8b189386: field is_password_pending: %w", err)
 		}
 		s.IsPasswordPending = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode session#3fb2a777: field can_accept_secret_chats: %w", err)
+			return fmt.Errorf("unable to decode session#8b189386: field can_accept_secret_chats: %w", err)
 		}
 		s.CanAcceptSecretChats = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode session#3fb2a777: field can_accept_calls: %w", err)
+			return fmt.Errorf("unable to decode session#8b189386: field can_accept_calls: %w", err)
 		}
 		s.CanAcceptCalls = value
 	}
 	{
+		value, err := DecodeSessionType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode session#8b189386: field type: %w", err)
+		}
+		s.Type = value
+	}
+	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode session#3fb2a777: field api_id: %w", err)
+			return fmt.Errorf("unable to decode session#8b189386: field api_id: %w", err)
 		}
 		s.APIID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode session#3fb2a777: field application_name: %w", err)
+			return fmt.Errorf("unable to decode session#8b189386: field application_name: %w", err)
 		}
 		s.ApplicationName = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode session#3fb2a777: field application_version: %w", err)
+			return fmt.Errorf("unable to decode session#8b189386: field application_version: %w", err)
 		}
 		s.ApplicationVersion = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode session#3fb2a777: field is_official_application: %w", err)
+			return fmt.Errorf("unable to decode session#8b189386: field is_official_application: %w", err)
 		}
 		s.IsOfficialApplication = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode session#3fb2a777: field device_model: %w", err)
+			return fmt.Errorf("unable to decode session#8b189386: field device_model: %w", err)
 		}
 		s.DeviceModel = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode session#3fb2a777: field platform: %w", err)
+			return fmt.Errorf("unable to decode session#8b189386: field platform: %w", err)
 		}
 		s.Platform = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode session#3fb2a777: field system_version: %w", err)
+			return fmt.Errorf("unable to decode session#8b189386: field system_version: %w", err)
 		}
 		s.SystemVersion = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode session#3fb2a777: field log_in_date: %w", err)
+			return fmt.Errorf("unable to decode session#8b189386: field log_in_date: %w", err)
 		}
 		s.LogInDate = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode session#3fb2a777: field last_active_date: %w", err)
+			return fmt.Errorf("unable to decode session#8b189386: field last_active_date: %w", err)
 		}
 		s.LastActiveDate = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode session#3fb2a777: field ip: %w", err)
+			return fmt.Errorf("unable to decode session#8b189386: field ip: %w", err)
 		}
 		s.IP = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode session#3fb2a777: field country: %w", err)
+			return fmt.Errorf("unable to decode session#8b189386: field country: %w", err)
 		}
 		s.Country = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode session#3fb2a777: field region: %w", err)
+			return fmt.Errorf("unable to decode session#8b189386: field region: %w", err)
 		}
 		s.Region = value
 	}
@@ -423,7 +446,7 @@ func (s *Session) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *Session) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode session#3fb2a777 as nil")
+		return fmt.Errorf("can't encode session#8b189386 as nil")
 	}
 	b.ObjStart()
 	b.PutID("session")
@@ -442,6 +465,14 @@ func (s *Session) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("can_accept_calls")
 	b.PutBool(s.CanAcceptCalls)
+	b.Comma()
+	b.FieldStart("type")
+	if s.Type == nil {
+		return fmt.Errorf("unable to encode session#8b189386: field type is nil")
+	}
+	if err := s.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode session#8b189386: field type: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("api_id")
 	b.PutInt32(s.APIID)
@@ -487,115 +518,121 @@ func (s *Session) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *Session) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode session#3fb2a777 to nil")
+		return fmt.Errorf("can't decode session#8b189386 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("session"); err != nil {
-				return fmt.Errorf("unable to decode session#3fb2a777: %w", err)
+				return fmt.Errorf("unable to decode session#8b189386: %w", err)
 			}
 		case "id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode session#3fb2a777: field id: %w", err)
+				return fmt.Errorf("unable to decode session#8b189386: field id: %w", err)
 			}
 			s.ID = value
 		case "is_current":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode session#3fb2a777: field is_current: %w", err)
+				return fmt.Errorf("unable to decode session#8b189386: field is_current: %w", err)
 			}
 			s.IsCurrent = value
 		case "is_password_pending":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode session#3fb2a777: field is_password_pending: %w", err)
+				return fmt.Errorf("unable to decode session#8b189386: field is_password_pending: %w", err)
 			}
 			s.IsPasswordPending = value
 		case "can_accept_secret_chats":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode session#3fb2a777: field can_accept_secret_chats: %w", err)
+				return fmt.Errorf("unable to decode session#8b189386: field can_accept_secret_chats: %w", err)
 			}
 			s.CanAcceptSecretChats = value
 		case "can_accept_calls":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode session#3fb2a777: field can_accept_calls: %w", err)
+				return fmt.Errorf("unable to decode session#8b189386: field can_accept_calls: %w", err)
 			}
 			s.CanAcceptCalls = value
+		case "type":
+			value, err := DecodeTDLibJSONSessionType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode session#8b189386: field type: %w", err)
+			}
+			s.Type = value
 		case "api_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode session#3fb2a777: field api_id: %w", err)
+				return fmt.Errorf("unable to decode session#8b189386: field api_id: %w", err)
 			}
 			s.APIID = value
 		case "application_name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode session#3fb2a777: field application_name: %w", err)
+				return fmt.Errorf("unable to decode session#8b189386: field application_name: %w", err)
 			}
 			s.ApplicationName = value
 		case "application_version":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode session#3fb2a777: field application_version: %w", err)
+				return fmt.Errorf("unable to decode session#8b189386: field application_version: %w", err)
 			}
 			s.ApplicationVersion = value
 		case "is_official_application":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode session#3fb2a777: field is_official_application: %w", err)
+				return fmt.Errorf("unable to decode session#8b189386: field is_official_application: %w", err)
 			}
 			s.IsOfficialApplication = value
 		case "device_model":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode session#3fb2a777: field device_model: %w", err)
+				return fmt.Errorf("unable to decode session#8b189386: field device_model: %w", err)
 			}
 			s.DeviceModel = value
 		case "platform":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode session#3fb2a777: field platform: %w", err)
+				return fmt.Errorf("unable to decode session#8b189386: field platform: %w", err)
 			}
 			s.Platform = value
 		case "system_version":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode session#3fb2a777: field system_version: %w", err)
+				return fmt.Errorf("unable to decode session#8b189386: field system_version: %w", err)
 			}
 			s.SystemVersion = value
 		case "log_in_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode session#3fb2a777: field log_in_date: %w", err)
+				return fmt.Errorf("unable to decode session#8b189386: field log_in_date: %w", err)
 			}
 			s.LogInDate = value
 		case "last_active_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode session#3fb2a777: field last_active_date: %w", err)
+				return fmt.Errorf("unable to decode session#8b189386: field last_active_date: %w", err)
 			}
 			s.LastActiveDate = value
 		case "ip":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode session#3fb2a777: field ip: %w", err)
+				return fmt.Errorf("unable to decode session#8b189386: field ip: %w", err)
 			}
 			s.IP = value
 		case "country":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode session#3fb2a777: field country: %w", err)
+				return fmt.Errorf("unable to decode session#8b189386: field country: %w", err)
 			}
 			s.Country = value
 		case "region":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode session#3fb2a777: field region: %w", err)
+				return fmt.Errorf("unable to decode session#8b189386: field region: %w", err)
 			}
 			s.Region = value
 		default:
@@ -643,6 +680,14 @@ func (s *Session) GetCanAcceptCalls() (value bool) {
 		return
 	}
 	return s.CanAcceptCalls
+}
+
+// GetType returns value of Type field.
+func (s *Session) GetType() (value SessionTypeClass) {
+	if s == nil {
+		return
+	}
+	return s.Type
 }
 
 // GetAPIID returns value of APIID field.
