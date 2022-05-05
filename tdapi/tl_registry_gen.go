@@ -760,7 +760,7 @@ func TypesMap() map[uint32]string {
 		NotificationGroupTypeCallsTypeID:                           "notificationGroupTypeCalls#5233c152",
 		NotificationSoundTypeID:                                    "notificationSound#f4ef6137",
 		NotificationSoundsTypeID:                                   "notificationSounds#7ba3c849",
-		NotificationTypeID:                                         "notification#81fa1b96",
+		NotificationTypeID:                                         "notification#2f0343d0",
 		NotificationGroupTypeID:                                    "notificationGroup#d02a41ba",
 		OptionValueBooleanTypeID:                                   "optionValueBoolean#3c35f1e",
 		OptionValueEmptyTypeID:                                     "optionValueEmpty#36c62493",
