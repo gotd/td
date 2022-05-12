@@ -60,6 +60,6 @@ func (g *Generator) makeErrors() {
 	// Ensure error order.
 	sort.SliceStable(g.errorChecks, func(i, j int) bool {
 		a, b := g.errorChecks[i], g.errorChecks[j]
-		return strings.Compare(a.Type, b.Type) < 0
+		return a.Type < b.Type
 	})
 }
