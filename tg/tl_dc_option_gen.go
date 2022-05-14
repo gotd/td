@@ -60,6 +60,8 @@ type DCOption struct {
 	CDN bool
 	// If set, this IP should be used when connecting through a proxy
 	Static bool
+	// ThisPortOnly field of DCOption.
+	ThisPortOnly bool
 	// DC ID
 	ID int
 	// IP address of DC
@@ -109,6 +111,9 @@ func (d *DCOption) Zero() bool {
 	if !(d.Static == false) {
 		return false
 	}
+	if !(d.ThisPortOnly == false) {
+		return false
+	}
 	if !(d.ID == 0) {
 		return false
 	}
@@ -141,6 +146,7 @@ func (d *DCOption) FillFrom(from interface {
 	GetTCPObfuscatedOnly() (value bool)
 	GetCDN() (value bool)
 	GetStatic() (value bool)
+	GetThisPortOnly() (value bool)
 	GetID() (value int)
 	GetIPAddress() (value string)
 	GetPort() (value int)
@@ -151,6 +157,7 @@ func (d *DCOption) FillFrom(from interface {
 	d.TCPObfuscatedOnly = from.GetTCPObfuscatedOnly()
 	d.CDN = from.GetCDN()
 	d.Static = from.GetStatic()
+	d.ThisPortOnly = from.GetThisPortOnly()
 	d.ID = from.GetID()
 	d.IPAddress = from.GetIPAddress()
 	d.Port = from.GetPort()
@@ -209,6 +216,11 @@ func (d *DCOption) TypeInfo() tdp.Type {
 			Null:       !d.Flags.Has(4),
 		},
 		{
+			Name:       "ThisPortOnly",
+			SchemaName: "this_port_only",
+			Null:       !d.Flags.Has(5),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -245,6 +257,9 @@ func (d *DCOption) SetFlags() {
 	}
 	if !(d.Static == false) {
 		d.Flags.Set(4)
+	}
+	if !(d.ThisPortOnly == false) {
+		d.Flags.Set(5)
 	}
 	if !(d.Secret == nil) {
 		d.Flags.Set(10)
@@ -304,6 +319,7 @@ func (d *DCOption) DecodeBare(b *bin.Buffer) error {
 	d.TCPObfuscatedOnly = d.Flags.Has(2)
 	d.CDN = d.Flags.Has(3)
 	d.Static = d.Flags.Has(4)
+	d.ThisPortOnly = d.Flags.Has(5)
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -428,6 +444,25 @@ func (d *DCOption) GetStatic() (value bool) {
 		return
 	}
 	return d.Flags.Has(4)
+}
+
+// SetThisPortOnly sets value of ThisPortOnly conditional field.
+func (d *DCOption) SetThisPortOnly(value bool) {
+	if value {
+		d.Flags.Set(5)
+		d.ThisPortOnly = true
+	} else {
+		d.Flags.Unset(5)
+		d.ThisPortOnly = false
+	}
+}
+
+// GetThisPortOnly returns value of ThisPortOnly conditional field.
+func (d *DCOption) GetThisPortOnly() (value bool) {
+	if d == nil {
+		return
+	}
+	return d.Flags.Has(5)
 }
 
 // GetID returns value of ID field.

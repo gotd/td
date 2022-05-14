@@ -1050,6 +1050,10 @@ type Channel struct {
 	Gigagroup bool
 	// Noforwards field of Channel.
 	Noforwards bool
+	// JoinToSend field of Channel.
+	JoinToSend bool
+	// JoinRequest field of Channel.
+	JoinRequest bool
 	// ID of the channel
 	ID int64
 	// Access hash
@@ -1172,6 +1176,12 @@ func (c *Channel) Zero() bool {
 	if !(c.Noforwards == false) {
 		return false
 	}
+	if !(c.JoinToSend == false) {
+		return false
+	}
+	if !(c.JoinRequest == false) {
+		return false
+	}
 	if !(c.ID == 0) {
 		return false
 	}
@@ -1237,6 +1247,8 @@ func (c *Channel) FillFrom(from interface {
 	GetFake() (value bool)
 	GetGigagroup() (value bool)
 	GetNoforwards() (value bool)
+	GetJoinToSend() (value bool)
+	GetJoinRequest() (value bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64, ok bool)
 	GetTitle() (value string)
@@ -1266,6 +1278,8 @@ func (c *Channel) FillFrom(from interface {
 	c.Fake = from.GetFake()
 	c.Gigagroup = from.GetGigagroup()
 	c.Noforwards = from.GetNoforwards()
+	c.JoinToSend = from.GetJoinToSend()
+	c.JoinRequest = from.GetJoinRequest()
 	c.ID = from.GetID()
 	if val, ok := from.GetAccessHash(); ok {
 		c.AccessHash = val
@@ -1409,6 +1423,16 @@ func (c *Channel) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(27),
 		},
 		{
+			Name:       "JoinToSend",
+			SchemaName: "join_to_send",
+			Null:       !c.Flags.Has(28),
+		},
+		{
+			Name:       "JoinRequest",
+			SchemaName: "join_request",
+			Null:       !c.Flags.Has(29),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -1515,6 +1539,12 @@ func (c *Channel) SetFlags() {
 	}
 	if !(c.Noforwards == false) {
 		c.Flags.Set(27)
+	}
+	if !(c.JoinToSend == false) {
+		c.Flags.Set(28)
+	}
+	if !(c.JoinRequest == false) {
+		c.Flags.Set(29)
 	}
 	if !(c.AccessHash == 0) {
 		c.Flags.Set(13)
@@ -1639,6 +1669,8 @@ func (c *Channel) DecodeBare(b *bin.Buffer) error {
 	c.Fake = c.Flags.Has(25)
 	c.Gigagroup = c.Flags.Has(26)
 	c.Noforwards = c.Flags.Has(27)
+	c.JoinToSend = c.Flags.Has(28)
+	c.JoinRequest = c.Flags.Has(29)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -2044,6 +2076,44 @@ func (c *Channel) GetNoforwards() (value bool) {
 		return
 	}
 	return c.Flags.Has(27)
+}
+
+// SetJoinToSend sets value of JoinToSend conditional field.
+func (c *Channel) SetJoinToSend(value bool) {
+	if value {
+		c.Flags.Set(28)
+		c.JoinToSend = true
+	} else {
+		c.Flags.Unset(28)
+		c.JoinToSend = false
+	}
+}
+
+// GetJoinToSend returns value of JoinToSend conditional field.
+func (c *Channel) GetJoinToSend() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(28)
+}
+
+// SetJoinRequest sets value of JoinRequest conditional field.
+func (c *Channel) SetJoinRequest(value bool) {
+	if value {
+		c.Flags.Set(29)
+		c.JoinRequest = true
+	} else {
+		c.Flags.Unset(29)
+		c.JoinRequest = false
+	}
+}
+
+// GetJoinRequest returns value of JoinRequest conditional field.
+func (c *Channel) GetJoinRequest() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(29)
 }
 
 // GetID returns value of ID field.

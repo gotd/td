@@ -61,6 +61,8 @@ type Config struct {
 	// Links:
 	//  1) https://core.telegram.org/api/pfs
 	PFSEnabled bool
+	// ForceTryIpv6 field of Config.
+	ForceTryIpv6 bool
 	// Current date at the server
 	Date int
 	// Expiration date of this config: when it expires it'll have to be refetched using help
@@ -246,6 +248,9 @@ func (c *Config) Zero() bool {
 	if !(c.PFSEnabled == false) {
 		return false
 	}
+	if !(c.ForceTryIpv6 == false) {
+		return false
+	}
 	if !(c.Date == 0) {
 		return false
 	}
@@ -400,6 +405,7 @@ func (c *Config) FillFrom(from interface {
 	GetRevokePmInbox() (value bool)
 	GetBlockedMode() (value bool)
 	GetPFSEnabled() (value bool)
+	GetForceTryIpv6() (value bool)
 	GetDate() (value int)
 	GetExpires() (value int)
 	GetTestMode() (value bool)
@@ -452,6 +458,7 @@ func (c *Config) FillFrom(from interface {
 	c.RevokePmInbox = from.GetRevokePmInbox()
 	c.BlockedMode = from.GetBlockedMode()
 	c.PFSEnabled = from.GetPFSEnabled()
+	c.ForceTryIpv6 = from.GetForceTryIpv6()
 	c.Date = from.GetDate()
 	c.Expires = from.GetExpires()
 	c.TestMode = from.GetTestMode()
@@ -582,6 +589,11 @@ func (c *Config) TypeInfo() tdp.Type {
 			Name:       "PFSEnabled",
 			SchemaName: "pfs_enabled",
 			Null:       !c.Flags.Has(13),
+		},
+		{
+			Name:       "ForceTryIpv6",
+			SchemaName: "force_try_ipv6",
+			Null:       !c.Flags.Has(14),
 		},
 		{
 			Name:       "Date",
@@ -795,6 +807,9 @@ func (c *Config) SetFlags() {
 	if !(c.PFSEnabled == false) {
 		c.Flags.Set(13)
 	}
+	if !(c.ForceTryIpv6 == false) {
+		c.Flags.Set(14)
+	}
 	if !(c.TmpSessions == 0) {
 		c.Flags.Set(0)
 	}
@@ -940,6 +955,7 @@ func (c *Config) DecodeBare(b *bin.Buffer) error {
 	c.RevokePmInbox = c.Flags.Has(6)
 	c.BlockedMode = c.Flags.Has(8)
 	c.PFSEnabled = c.Flags.Has(13)
+	c.ForceTryIpv6 = c.Flags.Has(14)
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -1392,6 +1408,25 @@ func (c *Config) GetPFSEnabled() (value bool) {
 		return
 	}
 	return c.Flags.Has(13)
+}
+
+// SetForceTryIpv6 sets value of ForceTryIpv6 conditional field.
+func (c *Config) SetForceTryIpv6(value bool) {
+	if value {
+		c.Flags.Set(14)
+		c.ForceTryIpv6 = true
+	} else {
+		c.Flags.Unset(14)
+		c.ForceTryIpv6 = false
+	}
+}
+
+// GetForceTryIpv6 returns value of ForceTryIpv6 conditional field.
+func (c *Config) GetForceTryIpv6() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(14)
 }
 
 // GetDate returns value of Date field.

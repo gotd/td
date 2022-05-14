@@ -7576,6 +7576,27 @@ func (s *ServerDispatcher) OnPhoneGetGroupCallStreamRtmpURL(f func(ctx context.C
 	s.handlers[PhoneGetGroupCallStreamRtmpURLRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnPhoneSaveCallLog(f func(ctx context.Context, request *PhoneSaveCallLogRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PhoneSaveCallLogRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[PhoneSaveCallLogRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnLangpackGetLangPack(f func(ctx context.Context, request *LangpackGetLangPackRequest) (*LangPackDifference, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request LangpackGetLangPackRequest
