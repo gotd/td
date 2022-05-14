@@ -32,7 +32,7 @@ var (
 )
 
 // Layer version of schema.
-const Layer = 140
+const Layer = 142
 
 // TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
@@ -708,7 +708,7 @@ func TypesMap() map[uint32]string {
 		PhoneCallAcceptedTypeID:                                  "phoneCallAccepted#3660c311",
 		PhoneCallTypeID:                                          "phoneCall#967f7c67",
 		PhoneCallDiscardedTypeID:                                 "phoneCallDiscarded#50ca4de1",
-		PhoneConnectionTypeID:                                    "phoneConnection#9d4c17c0",
+		PhoneConnectionTypeID:                                    "phoneConnection#9cc123c7",
 		PhoneConnectionWebrtcTypeID:                              "phoneConnectionWebrtc#635fe375",
 		PhoneCallProtocolTypeID:                                  "phoneCallProtocol#fc878fc8",
 		PhonePhoneCallTypeID:                                     "phone.phoneCall#ec82e140",
@@ -1445,6 +1445,7 @@ func TypesMap() map[uint32]string {
 		PhoneLeaveGroupCallPresentationRequestTypeID:                            "phone.leaveGroupCallPresentation#1c50d144",
 		PhoneGetGroupCallStreamChannelsRequestTypeID:                            "phone.getGroupCallStreamChannels#1ab21940",
 		PhoneGetGroupCallStreamRtmpURLRequestTypeID:                             "phone.getGroupCallStreamRtmpUrl#deb3abbf",
+		PhoneSaveCallLogRequestTypeID:                                           "phone.saveCallLog#41248786",
 		LangpackGetLangPackRequestTypeID:                                        "langpack.getLangPack#f2f2330a",
 		LangpackGetStringsRequestTypeID:                                         "langpack.getStrings#efea3803",
 		LangpackGetDifferenceRequestTypeID:                                      "langpack.getDifference#cd984aa5",
@@ -2884,6 +2885,7 @@ func NamesMap() map[string]uint32 {
 		"phone.leaveGroupCallPresentation":                                  PhoneLeaveGroupCallPresentationRequestTypeID,
 		"phone.getGroupCallStreamChannels":                                  PhoneGetGroupCallStreamChannelsRequestTypeID,
 		"phone.getGroupCallStreamRtmpUrl":                                   PhoneGetGroupCallStreamRtmpURLRequestTypeID,
+		"phone.saveCallLog":                                                 PhoneSaveCallLogRequestTypeID,
 		"langpack.getLangPack":                                              LangpackGetLangPackRequestTypeID,
 		"langpack.getStrings":                                               LangpackGetStringsRequestTypeID,
 		"langpack.getDifference":                                            LangpackGetDifferenceRequestTypeID,
@@ -4323,6 +4325,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		PhoneLeaveGroupCallPresentationRequestTypeID:                            func() bin.Object { return &PhoneLeaveGroupCallPresentationRequest{} },
 		PhoneGetGroupCallStreamChannelsRequestTypeID:                            func() bin.Object { return &PhoneGetGroupCallStreamChannelsRequest{} },
 		PhoneGetGroupCallStreamRtmpURLRequestTypeID:                             func() bin.Object { return &PhoneGetGroupCallStreamRtmpURLRequest{} },
+		PhoneSaveCallLogRequestTypeID:                                           func() bin.Object { return &PhoneSaveCallLogRequest{} },
 		LangpackGetLangPackRequestTypeID:                                        func() bin.Object { return &LangpackGetLangPackRequest{} },
 		LangpackGetStringsRequestTypeID:                                         func() bin.Object { return &LangpackGetStringsRequest{} },
 		LangpackGetDifferenceRequestTypeID:                                      func() bin.Object { return &LangpackGetDifferenceRequest{} },

@@ -44,6 +44,8 @@ type MessageReplyHeader struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// ReplyToScheduled field of MessageReplyHeader.
+	ReplyToScheduled bool
 	// ID of message to which this message is replying
 	ReplyToMsgID int
 	// For replies sent in channel discussion threads¹ of which the current user is not a
@@ -81,6 +83,9 @@ func (m *MessageReplyHeader) Zero() bool {
 	if !(m.Flags.Zero()) {
 		return false
 	}
+	if !(m.ReplyToScheduled == false) {
+		return false
+	}
 	if !(m.ReplyToMsgID == 0) {
 		return false
 	}
@@ -105,10 +110,12 @@ func (m *MessageReplyHeader) String() string {
 
 // FillFrom fills MessageReplyHeader from given interface.
 func (m *MessageReplyHeader) FillFrom(from interface {
+	GetReplyToScheduled() (value bool)
 	GetReplyToMsgID() (value int)
 	GetReplyToPeerID() (value PeerClass, ok bool)
 	GetReplyToTopID() (value int, ok bool)
 }) {
+	m.ReplyToScheduled = from.GetReplyToScheduled()
 	m.ReplyToMsgID = from.GetReplyToMsgID()
 	if val, ok := from.GetReplyToPeerID(); ok {
 		m.ReplyToPeerID = val
@@ -144,6 +151,11 @@ func (m *MessageReplyHeader) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "ReplyToScheduled",
+			SchemaName: "reply_to_scheduled",
+			Null:       !m.Flags.Has(2),
+		},
+		{
 			Name:       "ReplyToMsgID",
 			SchemaName: "reply_to_msg_id",
 		},
@@ -163,6 +175,9 @@ func (m *MessageReplyHeader) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (m *MessageReplyHeader) SetFlags() {
+	if !(m.ReplyToScheduled == false) {
+		m.Flags.Set(2)
+	}
 	if !(m.ReplyToPeerID == nil) {
 		m.Flags.Set(0)
 	}
@@ -225,6 +240,7 @@ func (m *MessageReplyHeader) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messageReplyHeader#a6d57763: field flags: %w", err)
 		}
 	}
+	m.ReplyToScheduled = m.Flags.Has(2)
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -247,6 +263,25 @@ func (m *MessageReplyHeader) DecodeBare(b *bin.Buffer) error {
 		m.ReplyToTopID = value
 	}
 	return nil
+}
+
+// SetReplyToScheduled sets value of ReplyToScheduled conditional field.
+func (m *MessageReplyHeader) SetReplyToScheduled(value bool) {
+	if value {
+		m.Flags.Set(2)
+		m.ReplyToScheduled = true
+	} else {
+		m.Flags.Unset(2)
+		m.ReplyToScheduled = false
+	}
+}
+
+// GetReplyToScheduled returns value of ReplyToScheduled conditional field.
+func (m *MessageReplyHeader) GetReplyToScheduled() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(2)
 }
 
 // GetReplyToMsgID returns value of ReplyToMsgID field.

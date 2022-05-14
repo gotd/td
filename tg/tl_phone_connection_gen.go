@@ -31,11 +31,15 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PhoneConnection represents TL type `phoneConnection#9d4c17c0`.
+// PhoneConnection represents TL type `phoneConnection#9cc123c7`.
 // Identifies an endpoint that can be used to connect to the other user in a phone call
 //
 // See https://core.telegram.org/constructor/phoneConnection for reference.
 type PhoneConnection struct {
+	// Flags field of PhoneConnection.
+	Flags bin.Fields
+	// TCP field of PhoneConnection.
+	TCP bool
 	// Endpoint ID
 	ID int64
 	// IP address of endpoint
@@ -49,7 +53,7 @@ type PhoneConnection struct {
 }
 
 // PhoneConnectionTypeID is TL type id of PhoneConnection.
-const PhoneConnectionTypeID = 0x9d4c17c0
+const PhoneConnectionTypeID = 0x9cc123c7
 
 // construct implements constructor of PhoneConnectionClass.
 func (p PhoneConnection) construct() PhoneConnectionClass { return &p }
@@ -67,6 +71,12 @@ var (
 func (p *PhoneConnection) Zero() bool {
 	if p == nil {
 		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.TCP == false) {
+		return false
 	}
 	if !(p.ID == 0) {
 		return false
@@ -98,12 +108,14 @@ func (p *PhoneConnection) String() string {
 
 // FillFrom fills PhoneConnection from given interface.
 func (p *PhoneConnection) FillFrom(from interface {
+	GetTCP() (value bool)
 	GetID() (value int64)
 	GetIP() (value string)
 	GetIpv6() (value string)
 	GetPort() (value int)
 	GetPeerTag() (value []byte)
 }) {
+	p.TCP = from.GetTCP()
 	p.ID = from.GetID()
 	p.IP = from.GetIP()
 	p.Ipv6 = from.GetIpv6()
@@ -135,6 +147,11 @@ func (p *PhoneConnection) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "TCP",
+			SchemaName: "tcp",
+			Null:       !p.Flags.Has(0),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -158,10 +175,17 @@ func (p *PhoneConnection) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (p *PhoneConnection) SetFlags() {
+	if !(p.TCP == false) {
+		p.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneConnection) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneConnection#9d4c17c0 as nil")
+		return fmt.Errorf("can't encode phoneConnection#9cc123c7 as nil")
 	}
 	b.PutID(PhoneConnectionTypeID)
 	return p.EncodeBare(b)
@@ -170,7 +194,11 @@ func (p *PhoneConnection) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhoneConnection) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneConnection#9d4c17c0 as nil")
+		return fmt.Errorf("can't encode phoneConnection#9cc123c7 as nil")
+	}
+	p.SetFlags()
+	if err := p.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode phoneConnection#9cc123c7: field flags: %w", err)
 	}
 	b.PutLong(p.ID)
 	b.PutString(p.IP)
@@ -183,10 +211,10 @@ func (p *PhoneConnection) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PhoneConnection) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneConnection#9d4c17c0 to nil")
+		return fmt.Errorf("can't decode phoneConnection#9cc123c7 to nil")
 	}
 	if err := b.ConsumeID(PhoneConnectionTypeID); err != nil {
-		return fmt.Errorf("unable to decode phoneConnection#9d4c17c0: %w", err)
+		return fmt.Errorf("unable to decode phoneConnection#9cc123c7: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -194,44 +222,69 @@ func (p *PhoneConnection) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhoneConnection) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneConnection#9d4c17c0 to nil")
+		return fmt.Errorf("can't decode phoneConnection#9cc123c7 to nil")
 	}
+	{
+		if err := p.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode phoneConnection#9cc123c7: field flags: %w", err)
+		}
+	}
+	p.TCP = p.Flags.Has(0)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneConnection#9d4c17c0: field id: %w", err)
+			return fmt.Errorf("unable to decode phoneConnection#9cc123c7: field id: %w", err)
 		}
 		p.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneConnection#9d4c17c0: field ip: %w", err)
+			return fmt.Errorf("unable to decode phoneConnection#9cc123c7: field ip: %w", err)
 		}
 		p.IP = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneConnection#9d4c17c0: field ipv6: %w", err)
+			return fmt.Errorf("unable to decode phoneConnection#9cc123c7: field ipv6: %w", err)
 		}
 		p.Ipv6 = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneConnection#9d4c17c0: field port: %w", err)
+			return fmt.Errorf("unable to decode phoneConnection#9cc123c7: field port: %w", err)
 		}
 		p.Port = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneConnection#9d4c17c0: field peer_tag: %w", err)
+			return fmt.Errorf("unable to decode phoneConnection#9cc123c7: field peer_tag: %w", err)
 		}
 		p.PeerTag = value
 	}
 	return nil
+}
+
+// SetTCP sets value of TCP conditional field.
+func (p *PhoneConnection) SetTCP(value bool) {
+	if value {
+		p.Flags.Set(0)
+		p.TCP = true
+	} else {
+		p.Flags.Unset(0)
+		p.TCP = false
+	}
+}
+
+// GetTCP returns value of TCP conditional field.
+func (p *PhoneConnection) GetTCP() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.Flags.Has(0)
 }
 
 // GetID returns value of ID field.
@@ -648,7 +701,7 @@ const PhoneConnectionClassName = "PhoneConnection"
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *tg.PhoneConnection: // phoneConnection#9d4c17c0
+//  case *tg.PhoneConnection: // phoneConnection#9cc123c7
 //  case *tg.PhoneConnectionWebrtc: // phoneConnectionWebrtc#635fe375
 //  default: panic(v)
 //  }
@@ -691,7 +744,7 @@ func DecodePhoneConnection(buf *bin.Buffer) (PhoneConnectionClass, error) {
 	}
 	switch id {
 	case PhoneConnectionTypeID:
-		// Decoding phoneConnection#9d4c17c0.
+		// Decoding phoneConnection#9cc123c7.
 		v := PhoneConnection{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PhoneConnectionClass: %w", err)

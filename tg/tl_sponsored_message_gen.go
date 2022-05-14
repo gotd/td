@@ -41,6 +41,8 @@ type SponsoredMessage struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// Recommended field of SponsoredMessage.
+	Recommended bool
 	// Message ID
 	RandomID []byte
 	// ID of the sender of the message
@@ -92,6 +94,9 @@ func (s *SponsoredMessage) Zero() bool {
 	if !(s.Flags.Zero()) {
 		return false
 	}
+	if !(s.Recommended == false) {
+		return false
+	}
 	if !(s.RandomID == nil) {
 		return false
 	}
@@ -131,6 +136,7 @@ func (s *SponsoredMessage) String() string {
 
 // FillFrom fills SponsoredMessage from given interface.
 func (s *SponsoredMessage) FillFrom(from interface {
+	GetRecommended() (value bool)
 	GetRandomID() (value []byte)
 	GetFromID() (value PeerClass, ok bool)
 	GetChatInvite() (value ChatInviteClass, ok bool)
@@ -140,6 +146,7 @@ func (s *SponsoredMessage) FillFrom(from interface {
 	GetMessage() (value string)
 	GetEntities() (value []MessageEntityClass, ok bool)
 }) {
+	s.Recommended = from.GetRecommended()
 	s.RandomID = from.GetRandomID()
 	if val, ok := from.GetFromID(); ok {
 		s.FromID = val
@@ -192,6 +199,11 @@ func (s *SponsoredMessage) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Recommended",
+			SchemaName: "recommended",
+			Null:       !s.Flags.Has(5),
+		},
+		{
 			Name:       "RandomID",
 			SchemaName: "random_id",
 		},
@@ -235,6 +247,9 @@ func (s *SponsoredMessage) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (s *SponsoredMessage) SetFlags() {
+	if !(s.Recommended == false) {
+		s.Flags.Set(5)
+	}
 	if !(s.FromID == nil) {
 		s.Flags.Set(3)
 	}
@@ -335,6 +350,7 @@ func (s *SponsoredMessage) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode sponsoredMessage#3a836df8: field flags: %w", err)
 		}
 	}
+	s.Recommended = s.Flags.Has(5)
 	{
 		value, err := b.Bytes()
 		if err != nil {
@@ -402,6 +418,25 @@ func (s *SponsoredMessage) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// SetRecommended sets value of Recommended conditional field.
+func (s *SponsoredMessage) SetRecommended(value bool) {
+	if value {
+		s.Flags.Set(5)
+		s.Recommended = true
+	} else {
+		s.Flags.Unset(5)
+		s.Recommended = false
+	}
+}
+
+// GetRecommended returns value of Recommended conditional field.
+func (s *SponsoredMessage) GetRecommended() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(5)
 }
 
 // GetRandomID returns value of RandomID field.
