@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/cenkalti/backoff/v4"
+	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/clock"
@@ -86,6 +87,9 @@ type Options struct {
 
 	MessageID mtproto.MessageIDSource
 	Clock     clock.Clock
+
+	// OpenTelemetry.
+	TracerProvider trace.TracerProvider
 }
 
 func (opt *Options) setDefaults() {
