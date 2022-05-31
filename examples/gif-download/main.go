@@ -141,7 +141,7 @@ func run(ctx context.Context) error {
 			// allows us to exhaust all gifs in "rm" mode.
 			h := hasher.Hasher{}
 			for {
-				result, err := api.MessagesGetSavedGifs(ctx, int(h.Sum()))
+				result, err := api.MessagesGetSavedGifs(ctx, int64(int(h.Sum())))
 				if err != nil {
 					return errors.Wrap(err, "get")
 				}
