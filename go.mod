@@ -4,8 +4,8 @@ go 1.17
 
 require (
 	github.com/cenkalti/backoff/v4 v4.1.3
-	github.com/go-faster/errors v0.6.0
-	github.com/go-faster/jx v0.35.1
+	github.com/go-faster/errors v0.6.1
+	github.com/go-faster/jx v0.35.2
 	github.com/go-faster/xor v0.3.0
 	github.com/go-openapi/inflect v0.19.0
 	github.com/gotd/getdoc v0.7.0
@@ -17,6 +17,8 @@ require (
 	github.com/quasilyte/go-ruleguard/dsl v0.3.21
 	github.com/rogpeppe/go-internal v1.8.1
 	github.com/stretchr/testify v1.7.1
+	go.opentelemetry.io/otel v1.7.0
+	go.opentelemetry.io/otel/trace v1.7.0
 	go.uber.org/atomic v1.9.0
 	go.uber.org/multierr v1.8.0
 	go.uber.org/zap v1.21.0
@@ -34,7 +36,6 @@ require (
 	github.com/andybalholm/cascadia v1.3.1 // indirect
 	github.com/benbjohnson/clock v1.1.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/google/go-cmp v0.5.2 // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/pkg/diff v0.0.0-20210226163009-20ebb0f2a09e // indirect

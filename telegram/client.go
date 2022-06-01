@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/cenkalti/backoff/v4"
+	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
 
@@ -15,6 +16,7 @@ import (
 	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/pool"
 	"github.com/gotd/td/internal/tdsync"
+	"github.com/gotd/td/oteltg"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/internal/manager"
@@ -117,6 +119,9 @@ type Client struct {
 	updateHandler UpdateHandler // immutable
 	// Denotes that no update mode is enabled.
 	noUpdatesMode bool // immutable
+
+	// Tracing.
+	tracer trace.Tracer
 }
 
 // NewClient creates new unstarted client.
@@ -151,6 +156,9 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		noUpdatesMode:    opt.NoUpdates,
 		mw:               opt.Middlewares,
 	}
+	if opt.TracerProvider != nil {
+		client.tracer = opt.TracerProvider.Tracer(oteltg.Name)
+	}
 	client.init()
 
 	// Including version into client logger to help with debugging.
@@ -177,6 +185,8 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		Clock:             opt.Clock,
 
 		Types: getTypesMapping(),
+
+		Tracer: client.tracer,
 	}
 	client.conn = client.createPrimaryConn(nil)
 

@@ -4,6 +4,7 @@ import (
 	"io"
 	"time"
 
+	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/bin"
@@ -72,11 +73,14 @@ type Options struct {
 	Key crypto.AuthKey
 	// Salt from server that can be used to restore previous connection.
 	Salt int64
-	// Cipher defines message crypto.
-	Cipher Cipher
+
+	// Tracer for OTEL.
+	Tracer trace.Tracer
 
 	// Private options.
 
+	// Cipher defines message crypto.
+	Cipher Cipher
 	// engine for replacing RPC engine.
 	engine *rpc.Engine
 }
