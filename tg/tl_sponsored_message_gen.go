@@ -32,7 +32,10 @@ var (
 )
 
 // SponsoredMessage represents TL type `sponsoredMessage#3a836df8`.
-// A sponsored message
+// A sponsored message¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/sponsored-messages
 //
 // See https://core.telegram.org/constructor/sponsoredMessage for reference.
 type SponsoredMessage struct {
