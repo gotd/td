@@ -40,33 +40,73 @@ var (
 //
 // See https://core.telegram.org/constructor/chatBannedRights for reference.
 type ChatBannedRights struct {
-	// Flags field of ChatBannedRights.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ViewMessages field of ChatBannedRights.
+	// If set, does not allow a user to view messages in a supergroup/channel/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	ViewMessages bool
-	// SendMessages field of ChatBannedRights.
+	// If set, does not allow a user to send messages in a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendMessages bool
-	// SendMedia field of ChatBannedRights.
+	// If set, does not allow a user to send any media in a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendMedia bool
-	// SendStickers field of ChatBannedRights.
+	// If set, does not allow a user to send stickers in a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendStickers bool
-	// SendGifs field of ChatBannedRights.
+	// If set, does not allow a user to send gifs in a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendGifs bool
-	// SendGames field of ChatBannedRights.
+	// If set, does not allow a user to send games in a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendGames bool
-	// SendInline field of ChatBannedRights.
+	// If set, does not allow a user to use inline bots in a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendInline bool
-	// EmbedLinks field of ChatBannedRights.
+	// If set, does not allow a user to embed links in the messages of a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	EmbedLinks bool
-	// SendPolls field of ChatBannedRights.
+	// If set, does not allow a user to send polls in a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendPolls bool
-	// ChangeInfo field of ChatBannedRights.
+	// If set, does not allow any user to change the description of a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	ChangeInfo bool
-	// InviteUsers field of ChatBannedRights.
+	// If set, does not allow any user to invite users in a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	InviteUsers bool
-	// PinMessages field of ChatBannedRights.
+	// If set, does not allow any user to pin messages in a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	PinMessages bool
-	// UntilDate field of ChatBannedRights.
+	// Validity of said permissions (it is considered forever any value less then 30 seconds
+	// or more then 366 days).
 	UntilDate int
 }
 
