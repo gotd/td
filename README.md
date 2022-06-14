@@ -11,6 +11,7 @@ A fast Telegram client in pure Go.
 * [Generated Go Documentation](https://ref.gotd.dev/pkg/github.com/gotd/td/tg.html)
 
 Before using this library, read [How To Not Get Banned](.github/SUPPORT.md#how-to-not-get-banned) guide.
+
 Due to limitations of `pkg.go.dev`, documentation for `tg` package is not shown, but there is [hosted version](https://ref.gotd.dev/pkg/github.com/gotd/td/tg.html).
 
 ## Usage
