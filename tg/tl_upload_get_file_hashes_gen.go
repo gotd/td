@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// UploadGetFileHashesRequest represents TL type `upload.getFileHashes#c7025931`.
+// UploadGetFileHashesRequest represents TL type `upload.getFileHashes#9156982a`.
 // Get SHA256 hashes for verifying downloaded files
 //
 // See https://core.telegram.org/method/upload.getFileHashes for reference.
@@ -39,11 +39,11 @@ type UploadGetFileHashesRequest struct {
 	// File
 	Location InputFileLocationClass
 	// Offset from which to get file hashes
-	Offset int
+	Offset int64
 }
 
 // UploadGetFileHashesRequestTypeID is TL type id of UploadGetFileHashesRequest.
-const UploadGetFileHashesRequestTypeID = 0xc7025931
+const UploadGetFileHashesRequestTypeID = 0x9156982a
 
 // Ensuring interfaces in compile-time for UploadGetFileHashesRequest.
 var (
@@ -79,7 +79,7 @@ func (g *UploadGetFileHashesRequest) String() string {
 // FillFrom fills UploadGetFileHashesRequest from given interface.
 func (g *UploadGetFileHashesRequest) FillFrom(from interface {
 	GetLocation() (value InputFileLocationClass)
-	GetOffset() (value int)
+	GetOffset() (value int64)
 }) {
 	g.Location = from.GetLocation()
 	g.Offset = from.GetOffset()
@@ -123,7 +123,7 @@ func (g *UploadGetFileHashesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *UploadGetFileHashesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode upload.getFileHashes#c7025931 as nil")
+		return fmt.Errorf("can't encode upload.getFileHashes#9156982a as nil")
 	}
 	b.PutID(UploadGetFileHashesRequestTypeID)
 	return g.EncodeBare(b)
@@ -132,25 +132,25 @@ func (g *UploadGetFileHashesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *UploadGetFileHashesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode upload.getFileHashes#c7025931 as nil")
+		return fmt.Errorf("can't encode upload.getFileHashes#9156982a as nil")
 	}
 	if g.Location == nil {
-		return fmt.Errorf("unable to encode upload.getFileHashes#c7025931: field location is nil")
+		return fmt.Errorf("unable to encode upload.getFileHashes#9156982a: field location is nil")
 	}
 	if err := g.Location.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode upload.getFileHashes#c7025931: field location: %w", err)
+		return fmt.Errorf("unable to encode upload.getFileHashes#9156982a: field location: %w", err)
 	}
-	b.PutInt(g.Offset)
+	b.PutLong(g.Offset)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *UploadGetFileHashesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode upload.getFileHashes#c7025931 to nil")
+		return fmt.Errorf("can't decode upload.getFileHashes#9156982a to nil")
 	}
 	if err := b.ConsumeID(UploadGetFileHashesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode upload.getFileHashes#c7025931: %w", err)
+		return fmt.Errorf("unable to decode upload.getFileHashes#9156982a: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -158,19 +158,19 @@ func (g *UploadGetFileHashesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *UploadGetFileHashesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode upload.getFileHashes#c7025931 to nil")
+		return fmt.Errorf("can't decode upload.getFileHashes#9156982a to nil")
 	}
 	{
 		value, err := DecodeInputFileLocation(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getFileHashes#c7025931: field location: %w", err)
+			return fmt.Errorf("unable to decode upload.getFileHashes#9156982a: field location: %w", err)
 		}
 		g.Location = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getFileHashes#c7025931: field offset: %w", err)
+			return fmt.Errorf("unable to decode upload.getFileHashes#9156982a: field offset: %w", err)
 		}
 		g.Offset = value
 	}
@@ -186,14 +186,14 @@ func (g *UploadGetFileHashesRequest) GetLocation() (value InputFileLocationClass
 }
 
 // GetOffset returns value of Offset field.
-func (g *UploadGetFileHashesRequest) GetOffset() (value int) {
+func (g *UploadGetFileHashesRequest) GetOffset() (value int64) {
 	if g == nil {
 		return
 	}
 	return g.Offset
 }
 
-// UploadGetFileHashes invokes method upload.getFileHashes#c7025931 returning error if any.
+// UploadGetFileHashes invokes method upload.getFileHashes#9156982a returning error if any.
 // Get SHA256 hashes for verifying downloaded files
 //
 // Possible errors:

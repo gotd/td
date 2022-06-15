@@ -31,12 +31,12 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// FileHash represents TL type `fileHash#6242c773`.
+// FileHash represents TL type `fileHash#f39b035c`.
 //
 // See https://core.telegram.org/constructor/fileHash for reference.
 type FileHash struct {
 	// Offset field of FileHash.
-	Offset int
+	Offset int64
 	// Limit field of FileHash.
 	Limit int
 	// Hash field of FileHash.
@@ -44,7 +44,7 @@ type FileHash struct {
 }
 
 // FileHashTypeID is TL type id of FileHash.
-const FileHashTypeID = 0x6242c773
+const FileHashTypeID = 0xf39b035c
 
 // Ensuring interfaces in compile-time for FileHash.
 var (
@@ -82,7 +82,7 @@ func (f *FileHash) String() string {
 
 // FillFrom fills FileHash from given interface.
 func (f *FileHash) FillFrom(from interface {
-	GetOffset() (value int)
+	GetOffset() (value int64)
 	GetLimit() (value int)
 	GetHash() (value []byte)
 }) {
@@ -133,7 +133,7 @@ func (f *FileHash) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *FileHash) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode fileHash#6242c773 as nil")
+		return fmt.Errorf("can't encode fileHash#f39b035c as nil")
 	}
 	b.PutID(FileHashTypeID)
 	return f.EncodeBare(b)
@@ -142,9 +142,9 @@ func (f *FileHash) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *FileHash) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode fileHash#6242c773 as nil")
+		return fmt.Errorf("can't encode fileHash#f39b035c as nil")
 	}
-	b.PutInt(f.Offset)
+	b.PutLong(f.Offset)
 	b.PutInt(f.Limit)
 	b.PutBytes(f.Hash)
 	return nil
@@ -153,10 +153,10 @@ func (f *FileHash) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (f *FileHash) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode fileHash#6242c773 to nil")
+		return fmt.Errorf("can't decode fileHash#f39b035c to nil")
 	}
 	if err := b.ConsumeID(FileHashTypeID); err != nil {
-		return fmt.Errorf("unable to decode fileHash#6242c773: %w", err)
+		return fmt.Errorf("unable to decode fileHash#f39b035c: %w", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -164,26 +164,26 @@ func (f *FileHash) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *FileHash) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode fileHash#6242c773 to nil")
+		return fmt.Errorf("can't decode fileHash#f39b035c to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode fileHash#6242c773: field offset: %w", err)
+			return fmt.Errorf("unable to decode fileHash#f39b035c: field offset: %w", err)
 		}
 		f.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode fileHash#6242c773: field limit: %w", err)
+			return fmt.Errorf("unable to decode fileHash#f39b035c: field limit: %w", err)
 		}
 		f.Limit = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode fileHash#6242c773: field hash: %w", err)
+			return fmt.Errorf("unable to decode fileHash#f39b035c: field hash: %w", err)
 		}
 		f.Hash = value
 	}
@@ -191,7 +191,7 @@ func (f *FileHash) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetOffset returns value of Offset field.
-func (f *FileHash) GetOffset() (value int) {
+func (f *FileHash) GetOffset() (value int64) {
 	if f == nil {
 		return
 	}

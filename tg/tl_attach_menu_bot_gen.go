@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AttachMenuBot represents TL type `attachMenuBot#e93cb772`.
+// AttachMenuBot represents TL type `attachMenuBot#c8aa2cd2`.
 //
 // See https://core.telegram.org/constructor/attachMenuBot for reference.
 type AttachMenuBot struct {
@@ -39,16 +39,20 @@ type AttachMenuBot struct {
 	Flags bin.Fields
 	// Inactive field of AttachMenuBot.
 	Inactive bool
+	// HasSettings field of AttachMenuBot.
+	HasSettings bool
 	// BotID field of AttachMenuBot.
 	BotID int64
 	// ShortName field of AttachMenuBot.
 	ShortName string
+	// PeerTypes field of AttachMenuBot.
+	PeerTypes []AttachMenuPeerTypeClass
 	// Icons field of AttachMenuBot.
 	Icons []AttachMenuBotIcon
 }
 
 // AttachMenuBotTypeID is TL type id of AttachMenuBot.
-const AttachMenuBotTypeID = 0xe93cb772
+const AttachMenuBotTypeID = 0xc8aa2cd2
 
 // Ensuring interfaces in compile-time for AttachMenuBot.
 var (
@@ -68,10 +72,16 @@ func (a *AttachMenuBot) Zero() bool {
 	if !(a.Inactive == false) {
 		return false
 	}
+	if !(a.HasSettings == false) {
+		return false
+	}
 	if !(a.BotID == 0) {
 		return false
 	}
 	if !(a.ShortName == "") {
+		return false
+	}
+	if !(a.PeerTypes == nil) {
 		return false
 	}
 	if !(a.Icons == nil) {
@@ -93,13 +103,17 @@ func (a *AttachMenuBot) String() string {
 // FillFrom fills AttachMenuBot from given interface.
 func (a *AttachMenuBot) FillFrom(from interface {
 	GetInactive() (value bool)
+	GetHasSettings() (value bool)
 	GetBotID() (value int64)
 	GetShortName() (value string)
+	GetPeerTypes() (value []AttachMenuPeerTypeClass)
 	GetIcons() (value []AttachMenuBotIcon)
 }) {
 	a.Inactive = from.GetInactive()
+	a.HasSettings = from.GetHasSettings()
 	a.BotID = from.GetBotID()
 	a.ShortName = from.GetShortName()
+	a.PeerTypes = from.GetPeerTypes()
 	a.Icons = from.GetIcons()
 }
 
@@ -132,12 +146,21 @@ func (a *AttachMenuBot) TypeInfo() tdp.Type {
 			Null:       !a.Flags.Has(0),
 		},
 		{
+			Name:       "HasSettings",
+			SchemaName: "has_settings",
+			Null:       !a.Flags.Has(1),
+		},
+		{
 			Name:       "BotID",
 			SchemaName: "bot_id",
 		},
 		{
 			Name:       "ShortName",
 			SchemaName: "short_name",
+		},
+		{
+			Name:       "PeerTypes",
+			SchemaName: "peer_types",
 		},
 		{
 			Name:       "Icons",
@@ -152,12 +175,15 @@ func (a *AttachMenuBot) SetFlags() {
 	if !(a.Inactive == false) {
 		a.Flags.Set(0)
 	}
+	if !(a.HasSettings == false) {
+		a.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (a *AttachMenuBot) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode attachMenuBot#e93cb772 as nil")
+		return fmt.Errorf("can't encode attachMenuBot#c8aa2cd2 as nil")
 	}
 	b.PutID(AttachMenuBotTypeID)
 	return a.EncodeBare(b)
@@ -166,18 +192,27 @@ func (a *AttachMenuBot) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AttachMenuBot) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode attachMenuBot#e93cb772 as nil")
+		return fmt.Errorf("can't encode attachMenuBot#c8aa2cd2 as nil")
 	}
 	a.SetFlags()
 	if err := a.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode attachMenuBot#e93cb772: field flags: %w", err)
+		return fmt.Errorf("unable to encode attachMenuBot#c8aa2cd2: field flags: %w", err)
 	}
 	b.PutLong(a.BotID)
 	b.PutString(a.ShortName)
+	b.PutVectorHeader(len(a.PeerTypes))
+	for idx, v := range a.PeerTypes {
+		if v == nil {
+			return fmt.Errorf("unable to encode attachMenuBot#c8aa2cd2: field peer_types element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode attachMenuBot#c8aa2cd2: field peer_types element with index %d: %w", idx, err)
+		}
+	}
 	b.PutVectorHeader(len(a.Icons))
 	for idx, v := range a.Icons {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode attachMenuBot#e93cb772: field icons element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode attachMenuBot#c8aa2cd2: field icons element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -186,10 +221,10 @@ func (a *AttachMenuBot) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (a *AttachMenuBot) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode attachMenuBot#e93cb772 to nil")
+		return fmt.Errorf("can't decode attachMenuBot#c8aa2cd2 to nil")
 	}
 	if err := b.ConsumeID(AttachMenuBotTypeID); err != nil {
-		return fmt.Errorf("unable to decode attachMenuBot#e93cb772: %w", err)
+		return fmt.Errorf("unable to decode attachMenuBot#c8aa2cd2: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -197,32 +232,50 @@ func (a *AttachMenuBot) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AttachMenuBot) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode attachMenuBot#e93cb772 to nil")
+		return fmt.Errorf("can't decode attachMenuBot#c8aa2cd2 to nil")
 	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode attachMenuBot#e93cb772: field flags: %w", err)
+			return fmt.Errorf("unable to decode attachMenuBot#c8aa2cd2: field flags: %w", err)
 		}
 	}
 	a.Inactive = a.Flags.Has(0)
+	a.HasSettings = a.Flags.Has(1)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode attachMenuBot#e93cb772: field bot_id: %w", err)
+			return fmt.Errorf("unable to decode attachMenuBot#c8aa2cd2: field bot_id: %w", err)
 		}
 		a.BotID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode attachMenuBot#e93cb772: field short_name: %w", err)
+			return fmt.Errorf("unable to decode attachMenuBot#c8aa2cd2: field short_name: %w", err)
 		}
 		a.ShortName = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode attachMenuBot#e93cb772: field icons: %w", err)
+			return fmt.Errorf("unable to decode attachMenuBot#c8aa2cd2: field peer_types: %w", err)
+		}
+
+		if headerLen > 0 {
+			a.PeerTypes = make([]AttachMenuPeerTypeClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeAttachMenuPeerType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode attachMenuBot#c8aa2cd2: field peer_types: %w", err)
+			}
+			a.PeerTypes = append(a.PeerTypes, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode attachMenuBot#c8aa2cd2: field icons: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -231,7 +284,7 @@ func (a *AttachMenuBot) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value AttachMenuBotIcon
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode attachMenuBot#e93cb772: field icons: %w", err)
+				return fmt.Errorf("unable to decode attachMenuBot#c8aa2cd2: field icons: %w", err)
 			}
 			a.Icons = append(a.Icons, value)
 		}
@@ -258,6 +311,25 @@ func (a *AttachMenuBot) GetInactive() (value bool) {
 	return a.Flags.Has(0)
 }
 
+// SetHasSettings sets value of HasSettings conditional field.
+func (a *AttachMenuBot) SetHasSettings(value bool) {
+	if value {
+		a.Flags.Set(1)
+		a.HasSettings = true
+	} else {
+		a.Flags.Unset(1)
+		a.HasSettings = false
+	}
+}
+
+// GetHasSettings returns value of HasSettings conditional field.
+func (a *AttachMenuBot) GetHasSettings() (value bool) {
+	if a == nil {
+		return
+	}
+	return a.Flags.Has(1)
+}
+
 // GetBotID returns value of BotID field.
 func (a *AttachMenuBot) GetBotID() (value int64) {
 	if a == nil {
@@ -274,10 +346,23 @@ func (a *AttachMenuBot) GetShortName() (value string) {
 	return a.ShortName
 }
 
+// GetPeerTypes returns value of PeerTypes field.
+func (a *AttachMenuBot) GetPeerTypes() (value []AttachMenuPeerTypeClass) {
+	if a == nil {
+		return
+	}
+	return a.PeerTypes
+}
+
 // GetIcons returns value of Icons field.
 func (a *AttachMenuBot) GetIcons() (value []AttachMenuBotIcon) {
 	if a == nil {
 		return
 	}
 	return a.Icons
+}
+
+// MapPeerTypes returns field PeerTypes wrapped in AttachMenuPeerTypeClassArray helper.
+func (a *AttachMenuBot) MapPeerTypes() (value AttachMenuPeerTypeClassArray) {
+	return AttachMenuPeerTypeClassArray(a.PeerTypes)
 }

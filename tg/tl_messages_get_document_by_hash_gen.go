@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesGetDocumentByHashRequest represents TL type `messages.getDocumentByHash#338e2464`.
+// MessagesGetDocumentByHashRequest represents TL type `messages.getDocumentByHash#b1f2061f`.
 // Get a document by its SHA256 hash, mainly used for gifs
 //
 // See https://core.telegram.org/method/messages.getDocumentByHash for reference.
@@ -39,13 +39,13 @@ type MessagesGetDocumentByHashRequest struct {
 	// SHA256 of file
 	SHA256 []byte
 	// Size of the file in bytes
-	Size int
+	Size int64
 	// Mime type
 	MimeType string
 }
 
 // MessagesGetDocumentByHashRequestTypeID is TL type id of MessagesGetDocumentByHashRequest.
-const MessagesGetDocumentByHashRequestTypeID = 0x338e2464
+const MessagesGetDocumentByHashRequestTypeID = 0xb1f2061f
 
 // Ensuring interfaces in compile-time for MessagesGetDocumentByHashRequest.
 var (
@@ -84,7 +84,7 @@ func (g *MessagesGetDocumentByHashRequest) String() string {
 // FillFrom fills MessagesGetDocumentByHashRequest from given interface.
 func (g *MessagesGetDocumentByHashRequest) FillFrom(from interface {
 	GetSHA256() (value []byte)
-	GetSize() (value int)
+	GetSize() (value int64)
 	GetMimeType() (value string)
 }) {
 	g.SHA256 = from.GetSHA256()
@@ -134,7 +134,7 @@ func (g *MessagesGetDocumentByHashRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetDocumentByHashRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getDocumentByHash#338e2464 as nil")
+		return fmt.Errorf("can't encode messages.getDocumentByHash#b1f2061f as nil")
 	}
 	b.PutID(MessagesGetDocumentByHashRequestTypeID)
 	return g.EncodeBare(b)
@@ -143,10 +143,10 @@ func (g *MessagesGetDocumentByHashRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetDocumentByHashRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getDocumentByHash#338e2464 as nil")
+		return fmt.Errorf("can't encode messages.getDocumentByHash#b1f2061f as nil")
 	}
 	b.PutBytes(g.SHA256)
-	b.PutInt(g.Size)
+	b.PutLong(g.Size)
 	b.PutString(g.MimeType)
 	return nil
 }
@@ -154,10 +154,10 @@ func (g *MessagesGetDocumentByHashRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *MessagesGetDocumentByHashRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getDocumentByHash#338e2464 to nil")
+		return fmt.Errorf("can't decode messages.getDocumentByHash#b1f2061f to nil")
 	}
 	if err := b.ConsumeID(MessagesGetDocumentByHashRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getDocumentByHash#338e2464: %w", err)
+		return fmt.Errorf("unable to decode messages.getDocumentByHash#b1f2061f: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -165,26 +165,26 @@ func (g *MessagesGetDocumentByHashRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetDocumentByHashRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getDocumentByHash#338e2464 to nil")
+		return fmt.Errorf("can't decode messages.getDocumentByHash#b1f2061f to nil")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDocumentByHash#338e2464: field sha256: %w", err)
+			return fmt.Errorf("unable to decode messages.getDocumentByHash#b1f2061f: field sha256: %w", err)
 		}
 		g.SHA256 = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDocumentByHash#338e2464: field size: %w", err)
+			return fmt.Errorf("unable to decode messages.getDocumentByHash#b1f2061f: field size: %w", err)
 		}
 		g.Size = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getDocumentByHash#338e2464: field mime_type: %w", err)
+			return fmt.Errorf("unable to decode messages.getDocumentByHash#b1f2061f: field mime_type: %w", err)
 		}
 		g.MimeType = value
 	}
@@ -200,7 +200,7 @@ func (g *MessagesGetDocumentByHashRequest) GetSHA256() (value []byte) {
 }
 
 // GetSize returns value of Size field.
-func (g *MessagesGetDocumentByHashRequest) GetSize() (value int) {
+func (g *MessagesGetDocumentByHashRequest) GetSize() (value int64) {
 	if g == nil {
 		return
 	}
@@ -215,7 +215,7 @@ func (g *MessagesGetDocumentByHashRequest) GetMimeType() (value string) {
 	return g.MimeType
 }
 
-// MessagesGetDocumentByHash invokes method messages.getDocumentByHash#338e2464 returning error if any.
+// MessagesGetDocumentByHash invokes method messages.getDocumentByHash#b1f2061f returning error if any.
 // Get a document by its SHA256 hash, mainly used for gifs
 //
 // Possible errors:

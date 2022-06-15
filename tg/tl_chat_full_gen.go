@@ -63,7 +63,7 @@ type ChatFull struct {
 	// Chat invite
 	//
 	// Use SetExportedInvite and GetExportedInvite helpers.
-	ExportedInvite ChatInviteExported
+	ExportedInvite ExportedChatInviteClass
 	// Info about bots that are in this chat
 	//
 	// Use SetBotInfo and GetBotInfo helpers.
@@ -160,7 +160,7 @@ func (c *ChatFull) Zero() bool {
 	if !(c.NotifySettings.Zero()) {
 		return false
 	}
-	if !(c.ExportedInvite.Zero()) {
+	if !(c.ExportedInvite == nil) {
 		return false
 	}
 	if !(c.BotInfo == nil) {
@@ -215,7 +215,7 @@ func (c *ChatFull) FillFrom(from interface {
 	GetParticipants() (value ChatParticipantsClass)
 	GetChatPhoto() (value PhotoClass, ok bool)
 	GetNotifySettings() (value PeerNotifySettings)
-	GetExportedInvite() (value ChatInviteExported, ok bool)
+	GetExportedInvite() (value ExportedChatInviteClass, ok bool)
 	GetBotInfo() (value []BotInfo, ok bool)
 	GetPinnedMsgID() (value int, ok bool)
 	GetFolderID() (value int, ok bool)
@@ -407,7 +407,7 @@ func (c *ChatFull) SetFlags() {
 	if !(c.ChatPhoto == nil) {
 		c.Flags.Set(2)
 	}
-	if !(c.ExportedInvite.Zero()) {
+	if !(c.ExportedInvite == nil) {
 		c.Flags.Set(13)
 	}
 	if !(c.BotInfo == nil) {
@@ -480,6 +480,9 @@ func (c *ChatFull) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode chatFull#d18ee226: field notify_settings: %w", err)
 	}
 	if c.Flags.Has(13) {
+		if c.ExportedInvite == nil {
+			return fmt.Errorf("unable to encode chatFull#d18ee226: field exported_invite is nil")
+		}
 		if err := c.ExportedInvite.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode chatFull#d18ee226: field exported_invite: %w", err)
 		}
@@ -592,9 +595,11 @@ func (c *ChatFull) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	if c.Flags.Has(13) {
-		if err := c.ExportedInvite.Decode(b); err != nil {
+		value, err := DecodeExportedChatInvite(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode chatFull#d18ee226: field exported_invite: %w", err)
 		}
+		c.ExportedInvite = value
 	}
 	if c.Flags.Has(3) {
 		headerLen, err := b.VectorHeader()
@@ -786,14 +791,14 @@ func (c *ChatFull) GetNotifySettings() (value PeerNotifySettings) {
 }
 
 // SetExportedInvite sets value of ExportedInvite conditional field.
-func (c *ChatFull) SetExportedInvite(value ChatInviteExported) {
+func (c *ChatFull) SetExportedInvite(value ExportedChatInviteClass) {
 	c.Flags.Set(13)
 	c.ExportedInvite = value
 }
 
 // GetExportedInvite returns value of ExportedInvite conditional field and
 // boolean which is true if field was set.
-func (c *ChatFull) GetExportedInvite() (value ChatInviteExported, ok bool) {
+func (c *ChatFull) GetExportedInvite() (value ExportedChatInviteClass, ok bool) {
 	if c == nil {
 		return
 	}
@@ -1069,7 +1074,7 @@ type ChannelFull struct {
 	// Invite link
 	//
 	// Use SetExportedInvite and GetExportedInvite helpers.
-	ExportedInvite ChatInviteExported
+	ExportedInvite ExportedChatInviteClass
 	// Info about bots in the channel/supergrup
 	BotInfo []BotInfo
 	// The chat ID from which this group was migrated¹
@@ -1273,7 +1278,7 @@ func (c *ChannelFull) Zero() bool {
 	if !(c.NotifySettings.Zero()) {
 		return false
 	}
-	if !(c.ExportedInvite.Zero()) {
+	if !(c.ExportedInvite == nil) {
 		return false
 	}
 	if !(c.BotInfo == nil) {
@@ -1378,7 +1383,7 @@ func (c *ChannelFull) FillFrom(from interface {
 	GetUnreadCount() (value int)
 	GetChatPhoto() (value PhotoClass)
 	GetNotifySettings() (value PeerNotifySettings)
-	GetExportedInvite() (value ChatInviteExported, ok bool)
+	GetExportedInvite() (value ExportedChatInviteClass, ok bool)
 	GetBotInfo() (value []BotInfo)
 	GetMigratedFromChatID() (value int64, ok bool)
 	GetMigratedFromMaxID() (value int, ok bool)
@@ -1808,7 +1813,7 @@ func (c *ChannelFull) SetFlags() {
 	if !(c.OnlineCount == 0) {
 		c.Flags.Set(13)
 	}
-	if !(c.ExportedInvite.Zero()) {
+	if !(c.ExportedInvite == nil) {
 		c.Flags.Set(23)
 	}
 	if !(c.MigratedFromChatID == 0) {
@@ -1924,6 +1929,9 @@ func (c *ChannelFull) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode channelFull#ea68a619: field notify_settings: %w", err)
 	}
 	if c.Flags.Has(23) {
+		if c.ExportedInvite == nil {
+			return fmt.Errorf("unable to encode channelFull#ea68a619: field exported_invite is nil")
+		}
 		if err := c.ExportedInvite.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode channelFull#ea68a619: field exported_invite: %w", err)
 		}
@@ -2144,9 +2152,11 @@ func (c *ChannelFull) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	if c.Flags.Has(23) {
-		if err := c.ExportedInvite.Decode(b); err != nil {
+		value, err := DecodeExportedChatInvite(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode channelFull#ea68a619: field exported_invite: %w", err)
 		}
+		c.ExportedInvite = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
@@ -2659,14 +2669,14 @@ func (c *ChannelFull) GetNotifySettings() (value PeerNotifySettings) {
 }
 
 // SetExportedInvite sets value of ExportedInvite conditional field.
-func (c *ChannelFull) SetExportedInvite(value ChatInviteExported) {
+func (c *ChannelFull) SetExportedInvite(value ExportedChatInviteClass) {
 	c.Flags.Set(23)
 	c.ExportedInvite = value
 }
 
 // GetExportedInvite returns value of ExportedInvite conditional field and
 // boolean which is true if field was set.
-func (c *ChannelFull) GetExportedInvite() (value ChatInviteExported, ok bool) {
+func (c *ChannelFull) GetExportedInvite() (value ExportedChatInviteClass, ok bool) {
 	if c == nil {
 		return
 	}
@@ -3106,7 +3116,7 @@ type ChatFullClass interface {
 	GetNotifySettings() (value PeerNotifySettings)
 
 	// Chat invite
-	GetExportedInvite() (value ChatInviteExported, ok bool)
+	GetExportedInvite() (value ExportedChatInviteClass, ok bool)
 
 	// Message ID of the last pinned message¹
 	//

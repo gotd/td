@@ -14161,7 +14161,7 @@ type UpdateDialogFilter struct {
 	//  1) https://core.telegram.org/api/folders
 	//
 	// Use SetFilter and GetFilter helpers.
-	Filter DialogFilter
+	Filter DialogFilterClass
 }
 
 // UpdateDialogFilterTypeID is TL type id of UpdateDialogFilter.
@@ -14190,7 +14190,7 @@ func (u *UpdateDialogFilter) Zero() bool {
 	if !(u.ID == 0) {
 		return false
 	}
-	if !(u.Filter.Zero()) {
+	if !(u.Filter == nil) {
 		return false
 	}
 
@@ -14209,7 +14209,7 @@ func (u *UpdateDialogFilter) String() string {
 // FillFrom fills UpdateDialogFilter from given interface.
 func (u *UpdateDialogFilter) FillFrom(from interface {
 	GetID() (value int)
-	GetFilter() (value DialogFilter, ok bool)
+	GetFilter() (value DialogFilterClass, ok bool)
 }) {
 	u.ID = from.GetID()
 	if val, ok := from.GetFilter(); ok {
@@ -14256,7 +14256,7 @@ func (u *UpdateDialogFilter) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (u *UpdateDialogFilter) SetFlags() {
-	if !(u.Filter.Zero()) {
+	if !(u.Filter == nil) {
 		u.Flags.Set(0)
 	}
 }
@@ -14281,6 +14281,9 @@ func (u *UpdateDialogFilter) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutInt(u.ID)
 	if u.Flags.Has(0) {
+		if u.Filter == nil {
+			return fmt.Errorf("unable to encode updateDialogFilter#26ffde7d: field filter is nil")
+		}
 		if err := u.Filter.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode updateDialogFilter#26ffde7d: field filter: %w", err)
 		}
@@ -14317,9 +14320,11 @@ func (u *UpdateDialogFilter) DecodeBare(b *bin.Buffer) error {
 		u.ID = value
 	}
 	if u.Flags.Has(0) {
-		if err := u.Filter.Decode(b); err != nil {
+		value, err := DecodeDialogFilter(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode updateDialogFilter#26ffde7d: field filter: %w", err)
 		}
+		u.Filter = value
 	}
 	return nil
 }
@@ -14333,14 +14338,14 @@ func (u *UpdateDialogFilter) GetID() (value int) {
 }
 
 // SetFilter sets value of Filter conditional field.
-func (u *UpdateDialogFilter) SetFilter(value DialogFilter) {
+func (u *UpdateDialogFilter) SetFilter(value DialogFilterClass) {
 	u.Flags.Set(0)
 	u.Filter = value
 }
 
 // GetFilter returns value of Filter conditional field and
 // boolean which is true if field was set.
-func (u *UpdateDialogFilter) GetFilter() (value DialogFilter, ok bool) {
+func (u *UpdateDialogFilter) GetFilter() (value DialogFilterClass, ok bool) {
 	if u == nil {
 		return
 	}
@@ -17270,7 +17275,7 @@ type UpdateChatParticipant struct {
 	// The invite that was used to join the group
 	//
 	// Use SetInvite and GetInvite helpers.
-	Invite ChatInviteExported
+	Invite ExportedChatInviteClass
 	// New qts value, see updates »¹ for more info.
 	//
 	// Links:
@@ -17319,7 +17324,7 @@ func (u *UpdateChatParticipant) Zero() bool {
 	if !(u.NewParticipant == nil) {
 		return false
 	}
-	if !(u.Invite.Zero()) {
+	if !(u.Invite == nil) {
 		return false
 	}
 	if !(u.Qts == 0) {
@@ -17346,7 +17351,7 @@ func (u *UpdateChatParticipant) FillFrom(from interface {
 	GetUserID() (value int64)
 	GetPrevParticipant() (value ChatParticipantClass, ok bool)
 	GetNewParticipant() (value ChatParticipantClass, ok bool)
-	GetInvite() (value ChatInviteExported, ok bool)
+	GetInvite() (value ExportedChatInviteClass, ok bool)
 	GetQts() (value int)
 }) {
 	u.ChatID = from.GetChatID()
@@ -17438,7 +17443,7 @@ func (u *UpdateChatParticipant) SetFlags() {
 	if !(u.NewParticipant == nil) {
 		u.Flags.Set(1)
 	}
-	if !(u.Invite.Zero()) {
+	if !(u.Invite == nil) {
 		u.Flags.Set(2)
 	}
 }
@@ -17482,6 +17487,9 @@ func (u *UpdateChatParticipant) EncodeBare(b *bin.Buffer) error {
 		}
 	}
 	if u.Flags.Has(2) {
+		if u.Invite == nil {
+			return fmt.Errorf("unable to encode updateChatParticipant#d087663a: field invite is nil")
+		}
 		if err := u.Invite.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode updateChatParticipant#d087663a: field invite: %w", err)
 		}
@@ -17554,9 +17562,11 @@ func (u *UpdateChatParticipant) DecodeBare(b *bin.Buffer) error {
 		u.NewParticipant = value
 	}
 	if u.Flags.Has(2) {
-		if err := u.Invite.Decode(b); err != nil {
+		value, err := DecodeExportedChatInvite(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode updateChatParticipant#d087663a: field invite: %w", err)
 		}
+		u.Invite = value
 	}
 	{
 		value, err := b.Int()
@@ -17637,14 +17647,14 @@ func (u *UpdateChatParticipant) GetNewParticipant() (value ChatParticipantClass,
 }
 
 // SetInvite sets value of Invite conditional field.
-func (u *UpdateChatParticipant) SetInvite(value ChatInviteExported) {
+func (u *UpdateChatParticipant) SetInvite(value ExportedChatInviteClass) {
 	u.Flags.Set(2)
 	u.Invite = value
 }
 
 // GetInvite returns value of Invite conditional field and
 // boolean which is true if field was set.
-func (u *UpdateChatParticipant) GetInvite() (value ChatInviteExported, ok bool) {
+func (u *UpdateChatParticipant) GetInvite() (value ExportedChatInviteClass, ok bool) {
 	if u == nil {
 		return
 	}
@@ -17698,7 +17708,7 @@ type UpdateChannelParticipant struct {
 	//  1) https://core.telegram.org/api/channel
 	//
 	// Use SetInvite and GetInvite helpers.
-	Invite ChatInviteExported
+	Invite ExportedChatInviteClass
 	// New qts value, see updates »¹ for more info.
 	//
 	// Links:
@@ -17747,7 +17757,7 @@ func (u *UpdateChannelParticipant) Zero() bool {
 	if !(u.NewParticipant == nil) {
 		return false
 	}
-	if !(u.Invite.Zero()) {
+	if !(u.Invite == nil) {
 		return false
 	}
 	if !(u.Qts == 0) {
@@ -17774,7 +17784,7 @@ func (u *UpdateChannelParticipant) FillFrom(from interface {
 	GetUserID() (value int64)
 	GetPrevParticipant() (value ChannelParticipantClass, ok bool)
 	GetNewParticipant() (value ChannelParticipantClass, ok bool)
-	GetInvite() (value ChatInviteExported, ok bool)
+	GetInvite() (value ExportedChatInviteClass, ok bool)
 	GetQts() (value int)
 }) {
 	u.ChannelID = from.GetChannelID()
@@ -17866,7 +17876,7 @@ func (u *UpdateChannelParticipant) SetFlags() {
 	if !(u.NewParticipant == nil) {
 		u.Flags.Set(1)
 	}
-	if !(u.Invite.Zero()) {
+	if !(u.Invite == nil) {
 		u.Flags.Set(2)
 	}
 }
@@ -17910,6 +17920,9 @@ func (u *UpdateChannelParticipant) EncodeBare(b *bin.Buffer) error {
 		}
 	}
 	if u.Flags.Has(2) {
+		if u.Invite == nil {
+			return fmt.Errorf("unable to encode updateChannelParticipant#985d3abb: field invite is nil")
+		}
 		if err := u.Invite.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode updateChannelParticipant#985d3abb: field invite: %w", err)
 		}
@@ -17982,9 +17995,11 @@ func (u *UpdateChannelParticipant) DecodeBare(b *bin.Buffer) error {
 		u.NewParticipant = value
 	}
 	if u.Flags.Has(2) {
-		if err := u.Invite.Decode(b); err != nil {
+		value, err := DecodeExportedChatInvite(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode updateChannelParticipant#985d3abb: field invite: %w", err)
 		}
+		u.Invite = value
 	}
 	{
 		value, err := b.Int()
@@ -18065,14 +18080,14 @@ func (u *UpdateChannelParticipant) GetNewParticipant() (value ChannelParticipant
 }
 
 // SetInvite sets value of Invite conditional field.
-func (u *UpdateChannelParticipant) SetInvite(value ChatInviteExported) {
+func (u *UpdateChannelParticipant) SetInvite(value ExportedChatInviteClass) {
 	u.Flags.Set(2)
 	u.Invite = value
 }
 
 // GetInvite returns value of Invite conditional field and
 // boolean which is true if field was set.
-func (u *UpdateChannelParticipant) GetInvite() (value ChatInviteExported, ok bool) {
+func (u *UpdateChannelParticipant) GetInvite() (value ExportedChatInviteClass, ok bool) {
 	if u == nil {
 		return
 	}
@@ -18931,7 +18946,7 @@ type UpdateBotChatInviteRequester struct {
 	// About field of UpdateBotChatInviteRequester.
 	About string
 	// Invite field of UpdateBotChatInviteRequester.
-	Invite ChatInviteExported
+	Invite ExportedChatInviteClass
 	// Qts field of UpdateBotChatInviteRequester.
 	Qts int
 }
@@ -18968,7 +18983,7 @@ func (u *UpdateBotChatInviteRequester) Zero() bool {
 	if !(u.About == "") {
 		return false
 	}
-	if !(u.Invite.Zero()) {
+	if !(u.Invite == nil) {
 		return false
 	}
 	if !(u.Qts == 0) {
@@ -18993,7 +19008,7 @@ func (u *UpdateBotChatInviteRequester) FillFrom(from interface {
 	GetDate() (value int)
 	GetUserID() (value int64)
 	GetAbout() (value string)
-	GetInvite() (value ChatInviteExported)
+	GetInvite() (value ExportedChatInviteClass)
 	GetQts() (value int)
 }) {
 	u.Peer = from.GetPeer()
@@ -19078,6 +19093,9 @@ func (u *UpdateBotChatInviteRequester) EncodeBare(b *bin.Buffer) error {
 	b.PutInt(u.Date)
 	b.PutLong(u.UserID)
 	b.PutString(u.About)
+	if u.Invite == nil {
+		return fmt.Errorf("unable to encode updateBotChatInviteRequester#11dfa986: field invite is nil")
+	}
 	if err := u.Invite.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateBotChatInviteRequester#11dfa986: field invite: %w", err)
 	}
@@ -19130,9 +19148,11 @@ func (u *UpdateBotChatInviteRequester) DecodeBare(b *bin.Buffer) error {
 		u.About = value
 	}
 	{
-		if err := u.Invite.Decode(b); err != nil {
+		value, err := DecodeExportedChatInvite(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode updateBotChatInviteRequester#11dfa986: field invite: %w", err)
 		}
+		u.Invite = value
 	}
 	{
 		value, err := b.Int()
@@ -19177,7 +19197,7 @@ func (u *UpdateBotChatInviteRequester) GetAbout() (value string) {
 }
 
 // GetInvite returns value of Invite field.
-func (u *UpdateBotChatInviteRequester) GetInvite() (value ChatInviteExported) {
+func (u *UpdateBotChatInviteRequester) GetInvite() (value ExportedChatInviteClass) {
 	if u == nil {
 		return
 	}
@@ -19887,6 +19907,279 @@ func (u *UpdateSavedRingtones) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// UpdateTranscribedAudio represents TL type `updateTranscribedAudio#84cd5a`.
+//
+// See https://core.telegram.org/constructor/updateTranscribedAudio for reference.
+type UpdateTranscribedAudio struct {
+	// Flags field of UpdateTranscribedAudio.
+	Flags bin.Fields
+	// Pending field of UpdateTranscribedAudio.
+	Pending bool
+	// Peer field of UpdateTranscribedAudio.
+	Peer PeerClass
+	// MsgID field of UpdateTranscribedAudio.
+	MsgID int
+	// TranscriptionID field of UpdateTranscribedAudio.
+	TranscriptionID int64
+	// Text field of UpdateTranscribedAudio.
+	Text string
+}
+
+// UpdateTranscribedAudioTypeID is TL type id of UpdateTranscribedAudio.
+const UpdateTranscribedAudioTypeID = 0x84cd5a
+
+// construct implements constructor of UpdateClass.
+func (u UpdateTranscribedAudio) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateTranscribedAudio.
+var (
+	_ bin.Encoder     = &UpdateTranscribedAudio{}
+	_ bin.Decoder     = &UpdateTranscribedAudio{}
+	_ bin.BareEncoder = &UpdateTranscribedAudio{}
+	_ bin.BareDecoder = &UpdateTranscribedAudio{}
+
+	_ UpdateClass = &UpdateTranscribedAudio{}
+)
+
+func (u *UpdateTranscribedAudio) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Pending == false) {
+		return false
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.MsgID == 0) {
+		return false
+	}
+	if !(u.TranscriptionID == 0) {
+		return false
+	}
+	if !(u.Text == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateTranscribedAudio) String() string {
+	if u == nil {
+		return "UpdateTranscribedAudio(nil)"
+	}
+	type Alias UpdateTranscribedAudio
+	return fmt.Sprintf("UpdateTranscribedAudio%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateTranscribedAudio from given interface.
+func (u *UpdateTranscribedAudio) FillFrom(from interface {
+	GetPending() (value bool)
+	GetPeer() (value PeerClass)
+	GetMsgID() (value int)
+	GetTranscriptionID() (value int64)
+	GetText() (value string)
+}) {
+	u.Pending = from.GetPending()
+	u.Peer = from.GetPeer()
+	u.MsgID = from.GetMsgID()
+	u.TranscriptionID = from.GetTranscriptionID()
+	u.Text = from.GetText()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateTranscribedAudio) TypeID() uint32 {
+	return UpdateTranscribedAudioTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateTranscribedAudio) TypeName() string {
+	return "updateTranscribedAudio"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateTranscribedAudio) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateTranscribedAudio",
+		ID:   UpdateTranscribedAudioTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Pending",
+			SchemaName: "pending",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "TranscriptionID",
+			SchemaName: "transcription_id",
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateTranscribedAudio) SetFlags() {
+	if !(u.Pending == false) {
+		u.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateTranscribedAudio) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateTranscribedAudio#84cd5a as nil")
+	}
+	b.PutID(UpdateTranscribedAudioTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateTranscribedAudio) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateTranscribedAudio#84cd5a as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateTranscribedAudio#84cd5a: field flags: %w", err)
+	}
+	if u.Peer == nil {
+		return fmt.Errorf("unable to encode updateTranscribedAudio#84cd5a: field peer is nil")
+	}
+	if err := u.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateTranscribedAudio#84cd5a: field peer: %w", err)
+	}
+	b.PutInt(u.MsgID)
+	b.PutLong(u.TranscriptionID)
+	b.PutString(u.Text)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateTranscribedAudio) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateTranscribedAudio#84cd5a to nil")
+	}
+	if err := b.ConsumeID(UpdateTranscribedAudioTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateTranscribedAudio#84cd5a: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateTranscribedAudio) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateTranscribedAudio#84cd5a to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateTranscribedAudio#84cd5a: field flags: %w", err)
+		}
+	}
+	u.Pending = u.Flags.Has(0)
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateTranscribedAudio#84cd5a: field peer: %w", err)
+		}
+		u.Peer = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateTranscribedAudio#84cd5a: field msg_id: %w", err)
+		}
+		u.MsgID = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateTranscribedAudio#84cd5a: field transcription_id: %w", err)
+		}
+		u.TranscriptionID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateTranscribedAudio#84cd5a: field text: %w", err)
+		}
+		u.Text = value
+	}
+	return nil
+}
+
+// SetPending sets value of Pending conditional field.
+func (u *UpdateTranscribedAudio) SetPending(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.Pending = true
+	} else {
+		u.Flags.Unset(0)
+		u.Pending = false
+	}
+}
+
+// GetPending returns value of Pending conditional field.
+func (u *UpdateTranscribedAudio) GetPending() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateTranscribedAudio) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
+	return u.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (u *UpdateTranscribedAudio) GetMsgID() (value int) {
+	if u == nil {
+		return
+	}
+	return u.MsgID
+}
+
+// GetTranscriptionID returns value of TranscriptionID field.
+func (u *UpdateTranscribedAudio) GetTranscriptionID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.TranscriptionID
+}
+
+// GetText returns value of Text field.
+func (u *UpdateTranscribedAudio) GetText() (value string) {
+	if u == nil {
+		return
+	}
+	return u.Text
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -20000,6 +20293,7 @@ const UpdateClassName = "Update"
 //  case *tg.UpdateWebViewResultSent: // updateWebViewResultSent#1592b79d
 //  case *tg.UpdateBotMenuButton: // updateBotMenuButton#14b85813
 //  case *tg.UpdateSavedRingtones: // updateSavedRingtones#74d8be99
+//  case *tg.UpdateTranscribedAudio: // updateTranscribedAudio#84cd5a
 //  default: panic(v)
 //  }
 type UpdateClass interface {
@@ -20724,6 +21018,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateSavedRingtonesTypeID:
 		// Decoding updateSavedRingtones#74d8be99.
 		v := UpdateSavedRingtones{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateTranscribedAudioTypeID:
+		// Decoding updateTranscribedAudio#84cd5a.
+		v := UpdateTranscribedAudio{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

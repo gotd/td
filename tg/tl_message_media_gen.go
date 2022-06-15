@@ -858,6 +858,8 @@ type MessageMediaDocument struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// Nopremium field of MessageMediaDocument.
+	Nopremium bool
 	// Attached document
 	//
 	// Use SetDocument and GetDocument helpers.
@@ -891,6 +893,9 @@ func (m *MessageMediaDocument) Zero() bool {
 	if !(m.Flags.Zero()) {
 		return false
 	}
+	if !(m.Nopremium == false) {
+		return false
+	}
 	if !(m.Document == nil) {
 		return false
 	}
@@ -912,9 +917,11 @@ func (m *MessageMediaDocument) String() string {
 
 // FillFrom fills MessageMediaDocument from given interface.
 func (m *MessageMediaDocument) FillFrom(from interface {
+	GetNopremium() (value bool)
 	GetDocument() (value DocumentClass, ok bool)
 	GetTTLSeconds() (value int, ok bool)
 }) {
+	m.Nopremium = from.GetNopremium()
 	if val, ok := from.GetDocument(); ok {
 		m.Document = val
 	}
@@ -949,6 +956,11 @@ func (m *MessageMediaDocument) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Nopremium",
+			SchemaName: "nopremium",
+			Null:       !m.Flags.Has(3),
+		},
+		{
 			Name:       "Document",
 			SchemaName: "document",
 			Null:       !m.Flags.Has(0),
@@ -964,6 +976,9 @@ func (m *MessageMediaDocument) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (m *MessageMediaDocument) SetFlags() {
+	if !(m.Nopremium == false) {
+		m.Flags.Set(3)
+	}
 	if !(m.Document == nil) {
 		m.Flags.Set(0)
 	}
@@ -1025,6 +1040,7 @@ func (m *MessageMediaDocument) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messageMediaDocument#9cb070d7: field flags: %w", err)
 		}
 	}
+	m.Nopremium = m.Flags.Has(3)
 	if m.Flags.Has(0) {
 		value, err := DecodeDocument(b)
 		if err != nil {
@@ -1040,6 +1056,25 @@ func (m *MessageMediaDocument) DecodeBare(b *bin.Buffer) error {
 		m.TTLSeconds = value
 	}
 	return nil
+}
+
+// SetNopremium sets value of Nopremium conditional field.
+func (m *MessageMediaDocument) SetNopremium(value bool) {
+	if value {
+		m.Flags.Set(3)
+		m.Nopremium = true
+	} else {
+		m.Flags.Unset(3)
+		m.Nopremium = false
+	}
+}
+
+// GetNopremium returns value of Nopremium conditional field.
+func (m *MessageMediaDocument) GetNopremium() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(3)
 }
 
 // SetDocument sets value of Document conditional field.

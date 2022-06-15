@@ -1917,6 +1917,10 @@ type MessageActionPaymentSentMe struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// RecurringInit field of MessageActionPaymentSentMe.
+	RecurringInit bool
+	// RecurringUsed field of MessageActionPaymentSentMe.
+	RecurringUsed bool
 	// Three-letter ISO 4217 currency¹ code
 	//
 	// Links:
@@ -1967,6 +1971,12 @@ func (m *MessageActionPaymentSentMe) Zero() bool {
 	if !(m.Flags.Zero()) {
 		return false
 	}
+	if !(m.RecurringInit == false) {
+		return false
+	}
+	if !(m.RecurringUsed == false) {
+		return false
+	}
 	if !(m.Currency == "") {
 		return false
 	}
@@ -2000,6 +2010,8 @@ func (m *MessageActionPaymentSentMe) String() string {
 
 // FillFrom fills MessageActionPaymentSentMe from given interface.
 func (m *MessageActionPaymentSentMe) FillFrom(from interface {
+	GetRecurringInit() (value bool)
+	GetRecurringUsed() (value bool)
 	GetCurrency() (value string)
 	GetTotalAmount() (value int64)
 	GetPayload() (value []byte)
@@ -2007,6 +2019,8 @@ func (m *MessageActionPaymentSentMe) FillFrom(from interface {
 	GetShippingOptionID() (value string, ok bool)
 	GetCharge() (value PaymentCharge)
 }) {
+	m.RecurringInit = from.GetRecurringInit()
+	m.RecurringUsed = from.GetRecurringUsed()
 	m.Currency = from.GetCurrency()
 	m.TotalAmount = from.GetTotalAmount()
 	m.Payload = from.GetPayload()
@@ -2045,6 +2059,16 @@ func (m *MessageActionPaymentSentMe) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "RecurringInit",
+			SchemaName: "recurring_init",
+			Null:       !m.Flags.Has(2),
+		},
+		{
+			Name:       "RecurringUsed",
+			SchemaName: "recurring_used",
+			Null:       !m.Flags.Has(3),
+		},
+		{
 			Name:       "Currency",
 			SchemaName: "currency",
 		},
@@ -2076,6 +2100,12 @@ func (m *MessageActionPaymentSentMe) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (m *MessageActionPaymentSentMe) SetFlags() {
+	if !(m.RecurringInit == false) {
+		m.Flags.Set(2)
+	}
+	if !(m.RecurringUsed == false) {
+		m.Flags.Set(3)
+	}
 	if !(m.Info.Zero()) {
 		m.Flags.Set(0)
 	}
@@ -2140,6 +2170,8 @@ func (m *MessageActionPaymentSentMe) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messageActionPaymentSentMe#8f31b327: field flags: %w", err)
 		}
 	}
+	m.RecurringInit = m.Flags.Has(2)
+	m.RecurringUsed = m.Flags.Has(3)
 	{
 		value, err := b.String()
 		if err != nil {
@@ -2179,6 +2211,44 @@ func (m *MessageActionPaymentSentMe) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// SetRecurringInit sets value of RecurringInit conditional field.
+func (m *MessageActionPaymentSentMe) SetRecurringInit(value bool) {
+	if value {
+		m.Flags.Set(2)
+		m.RecurringInit = true
+	} else {
+		m.Flags.Unset(2)
+		m.RecurringInit = false
+	}
+}
+
+// GetRecurringInit returns value of RecurringInit conditional field.
+func (m *MessageActionPaymentSentMe) GetRecurringInit() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(2)
+}
+
+// SetRecurringUsed sets value of RecurringUsed conditional field.
+func (m *MessageActionPaymentSentMe) SetRecurringUsed(value bool) {
+	if value {
+		m.Flags.Set(3)
+		m.RecurringUsed = true
+	} else {
+		m.Flags.Unset(3)
+		m.RecurringUsed = false
+	}
+}
+
+// GetRecurringUsed returns value of RecurringUsed conditional field.
+func (m *MessageActionPaymentSentMe) GetRecurringUsed() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(3)
 }
 
 // GetCurrency returns value of Currency field.
@@ -2249,11 +2319,17 @@ func (m *MessageActionPaymentSentMe) GetCharge() (value PaymentCharge) {
 	return m.Charge
 }
 
-// MessageActionPaymentSent represents TL type `messageActionPaymentSent#40699cd0`.
+// MessageActionPaymentSent represents TL type `messageActionPaymentSent#96163f56`.
 // A payment was sent
 //
 // See https://core.telegram.org/constructor/messageActionPaymentSent for reference.
 type MessageActionPaymentSent struct {
+	// Flags field of MessageActionPaymentSent.
+	Flags bin.Fields
+	// RecurringInit field of MessageActionPaymentSent.
+	RecurringInit bool
+	// RecurringUsed field of MessageActionPaymentSent.
+	RecurringUsed bool
 	// Three-letter ISO 4217 currency¹ code
 	//
 	// Links:
@@ -2267,10 +2343,14 @@ type MessageActionPaymentSent struct {
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
 	TotalAmount int64
+	// InvoiceSlug field of MessageActionPaymentSent.
+	//
+	// Use SetInvoiceSlug and GetInvoiceSlug helpers.
+	InvoiceSlug string
 }
 
 // MessageActionPaymentSentTypeID is TL type id of MessageActionPaymentSent.
-const MessageActionPaymentSentTypeID = 0x40699cd0
+const MessageActionPaymentSentTypeID = 0x96163f56
 
 // construct implements constructor of MessageActionClass.
 func (m MessageActionPaymentSent) construct() MessageActionClass { return &m }
@@ -2289,10 +2369,22 @@ func (m *MessageActionPaymentSent) Zero() bool {
 	if m == nil {
 		return true
 	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.RecurringInit == false) {
+		return false
+	}
+	if !(m.RecurringUsed == false) {
+		return false
+	}
 	if !(m.Currency == "") {
 		return false
 	}
 	if !(m.TotalAmount == 0) {
+		return false
+	}
+	if !(m.InvoiceSlug == "") {
 		return false
 	}
 
@@ -2310,11 +2402,20 @@ func (m *MessageActionPaymentSent) String() string {
 
 // FillFrom fills MessageActionPaymentSent from given interface.
 func (m *MessageActionPaymentSent) FillFrom(from interface {
+	GetRecurringInit() (value bool)
+	GetRecurringUsed() (value bool)
 	GetCurrency() (value string)
 	GetTotalAmount() (value int64)
+	GetInvoiceSlug() (value string, ok bool)
 }) {
+	m.RecurringInit = from.GetRecurringInit()
+	m.RecurringUsed = from.GetRecurringUsed()
 	m.Currency = from.GetCurrency()
 	m.TotalAmount = from.GetTotalAmount()
+	if val, ok := from.GetInvoiceSlug(); ok {
+		m.InvoiceSlug = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -2341,6 +2442,16 @@ func (m *MessageActionPaymentSent) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "RecurringInit",
+			SchemaName: "recurring_init",
+			Null:       !m.Flags.Has(2),
+		},
+		{
+			Name:       "RecurringUsed",
+			SchemaName: "recurring_used",
+			Null:       !m.Flags.Has(3),
+		},
+		{
 			Name:       "Currency",
 			SchemaName: "currency",
 		},
@@ -2348,14 +2459,32 @@ func (m *MessageActionPaymentSent) TypeInfo() tdp.Type {
 			Name:       "TotalAmount",
 			SchemaName: "total_amount",
 		},
+		{
+			Name:       "InvoiceSlug",
+			SchemaName: "invoice_slug",
+			Null:       !m.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MessageActionPaymentSent) SetFlags() {
+	if !(m.RecurringInit == false) {
+		m.Flags.Set(2)
+	}
+	if !(m.RecurringUsed == false) {
+		m.Flags.Set(3)
+	}
+	if !(m.InvoiceSlug == "") {
+		m.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (m *MessageActionPaymentSent) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionPaymentSent#40699cd0 as nil")
+		return fmt.Errorf("can't encode messageActionPaymentSent#96163f56 as nil")
 	}
 	b.PutID(MessageActionPaymentSentTypeID)
 	return m.EncodeBare(b)
@@ -2364,20 +2493,27 @@ func (m *MessageActionPaymentSent) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageActionPaymentSent) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionPaymentSent#40699cd0 as nil")
+		return fmt.Errorf("can't encode messageActionPaymentSent#96163f56 as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionPaymentSent#96163f56: field flags: %w", err)
 	}
 	b.PutString(m.Currency)
 	b.PutLong(m.TotalAmount)
+	if m.Flags.Has(0) {
+		b.PutString(m.InvoiceSlug)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageActionPaymentSent) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionPaymentSent#40699cd0 to nil")
+		return fmt.Errorf("can't decode messageActionPaymentSent#96163f56 to nil")
 	}
 	if err := b.ConsumeID(MessageActionPaymentSentTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageActionPaymentSent#40699cd0: %w", err)
+		return fmt.Errorf("unable to decode messageActionPaymentSent#96163f56: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -2385,23 +2521,75 @@ func (m *MessageActionPaymentSent) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageActionPaymentSent) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionPaymentSent#40699cd0 to nil")
+		return fmt.Errorf("can't decode messageActionPaymentSent#96163f56 to nil")
 	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionPaymentSent#96163f56: field flags: %w", err)
+		}
+	}
+	m.RecurringInit = m.Flags.Has(2)
+	m.RecurringUsed = m.Flags.Has(3)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionPaymentSent#40699cd0: field currency: %w", err)
+			return fmt.Errorf("unable to decode messageActionPaymentSent#96163f56: field currency: %w", err)
 		}
 		m.Currency = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionPaymentSent#40699cd0: field total_amount: %w", err)
+			return fmt.Errorf("unable to decode messageActionPaymentSent#96163f56: field total_amount: %w", err)
 		}
 		m.TotalAmount = value
 	}
+	if m.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionPaymentSent#96163f56: field invoice_slug: %w", err)
+		}
+		m.InvoiceSlug = value
+	}
 	return nil
+}
+
+// SetRecurringInit sets value of RecurringInit conditional field.
+func (m *MessageActionPaymentSent) SetRecurringInit(value bool) {
+	if value {
+		m.Flags.Set(2)
+		m.RecurringInit = true
+	} else {
+		m.Flags.Unset(2)
+		m.RecurringInit = false
+	}
+}
+
+// GetRecurringInit returns value of RecurringInit conditional field.
+func (m *MessageActionPaymentSent) GetRecurringInit() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(2)
+}
+
+// SetRecurringUsed sets value of RecurringUsed conditional field.
+func (m *MessageActionPaymentSent) SetRecurringUsed(value bool) {
+	if value {
+		m.Flags.Set(3)
+		m.RecurringUsed = true
+	} else {
+		m.Flags.Unset(3)
+		m.RecurringUsed = false
+	}
+}
+
+// GetRecurringUsed returns value of RecurringUsed conditional field.
+func (m *MessageActionPaymentSent) GetRecurringUsed() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(3)
 }
 
 // GetCurrency returns value of Currency field.
@@ -2418,6 +2606,24 @@ func (m *MessageActionPaymentSent) GetTotalAmount() (value int64) {
 		return
 	}
 	return m.TotalAmount
+}
+
+// SetInvoiceSlug sets value of InvoiceSlug conditional field.
+func (m *MessageActionPaymentSent) SetInvoiceSlug(value string) {
+	m.Flags.Set(0)
+	m.InvoiceSlug = value
+}
+
+// GetInvoiceSlug returns value of InvoiceSlug conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionPaymentSent) GetInvoiceSlug() (value string, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.InvoiceSlug, true
 }
 
 // MessageActionPhoneCall represents TL type `messageActionPhoneCall#80e11a7f`.
@@ -4970,7 +5176,7 @@ const MessageActionClassName = "MessageAction"
 //  case *tg.MessageActionHistoryClear: // messageActionHistoryClear#9fbab604
 //  case *tg.MessageActionGameScore: // messageActionGameScore#92a72876
 //  case *tg.MessageActionPaymentSentMe: // messageActionPaymentSentMe#8f31b327
-//  case *tg.MessageActionPaymentSent: // messageActionPaymentSent#40699cd0
+//  case *tg.MessageActionPaymentSent: // messageActionPaymentSent#96163f56
 //  case *tg.MessageActionPhoneCall: // messageActionPhoneCall#80e11a7f
 //  case *tg.MessageActionScreenshotTaken: // messageActionScreenshotTaken#4792929b
 //  case *tg.MessageActionCustomAction: // messageActionCustomAction#fae69f56
@@ -5121,7 +5327,7 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 		}
 		return &v, nil
 	case MessageActionPaymentSentTypeID:
-		// Decoding messageActionPaymentSent#40699cd0.
+		// Decoding messageActionPaymentSent#96163f56.
 		v := MessageActionPaymentSent{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)

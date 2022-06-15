@@ -55,7 +55,7 @@ type MessagesUpdateDialogFilterRequest struct {
 	//  1) https://core.telegram.org/api/folders
 	//
 	// Use SetFilter and GetFilter helpers.
-	Filter DialogFilter
+	Filter DialogFilterClass
 }
 
 // MessagesUpdateDialogFilterRequestTypeID is TL type id of MessagesUpdateDialogFilterRequest.
@@ -79,7 +79,7 @@ func (u *MessagesUpdateDialogFilterRequest) Zero() bool {
 	if !(u.ID == 0) {
 		return false
 	}
-	if !(u.Filter.Zero()) {
+	if !(u.Filter == nil) {
 		return false
 	}
 
@@ -98,7 +98,7 @@ func (u *MessagesUpdateDialogFilterRequest) String() string {
 // FillFrom fills MessagesUpdateDialogFilterRequest from given interface.
 func (u *MessagesUpdateDialogFilterRequest) FillFrom(from interface {
 	GetID() (value int)
-	GetFilter() (value DialogFilter, ok bool)
+	GetFilter() (value DialogFilterClass, ok bool)
 }) {
 	u.ID = from.GetID()
 	if val, ok := from.GetFilter(); ok {
@@ -145,7 +145,7 @@ func (u *MessagesUpdateDialogFilterRequest) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (u *MessagesUpdateDialogFilterRequest) SetFlags() {
-	if !(u.Filter.Zero()) {
+	if !(u.Filter == nil) {
 		u.Flags.Set(0)
 	}
 }
@@ -170,6 +170,9 @@ func (u *MessagesUpdateDialogFilterRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutInt(u.ID)
 	if u.Flags.Has(0) {
+		if u.Filter == nil {
+			return fmt.Errorf("unable to encode messages.updateDialogFilter#1ad4a04a: field filter is nil")
+		}
 		if err := u.Filter.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode messages.updateDialogFilter#1ad4a04a: field filter: %w", err)
 		}
@@ -206,9 +209,11 @@ func (u *MessagesUpdateDialogFilterRequest) DecodeBare(b *bin.Buffer) error {
 		u.ID = value
 	}
 	if u.Flags.Has(0) {
-		if err := u.Filter.Decode(b); err != nil {
+		value, err := DecodeDialogFilter(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode messages.updateDialogFilter#1ad4a04a: field filter: %w", err)
 		}
+		u.Filter = value
 	}
 	return nil
 }
@@ -222,14 +227,14 @@ func (u *MessagesUpdateDialogFilterRequest) GetID() (value int) {
 }
 
 // SetFilter sets value of Filter conditional field.
-func (u *MessagesUpdateDialogFilterRequest) SetFilter(value DialogFilter) {
+func (u *MessagesUpdateDialogFilterRequest) SetFilter(value DialogFilterClass) {
 	u.Flags.Set(0)
 	u.Filter = value
 }
 
 // GetFilter returns value of Filter conditional field and
 // boolean which is true if field was set.
-func (u *MessagesUpdateDialogFilterRequest) GetFilter() (value DialogFilter, ok bool) {
+func (u *MessagesUpdateDialogFilterRequest) GetFilter() (value DialogFilterClass, ok bool) {
 	if u == nil {
 		return
 	}

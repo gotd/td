@@ -43,7 +43,7 @@ type DialogFilterSuggested struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	Filter DialogFilter
+	Filter DialogFilterClass
 	// Folder¹ description
 	//
 	// Links:
@@ -66,7 +66,7 @@ func (d *DialogFilterSuggested) Zero() bool {
 	if d == nil {
 		return true
 	}
-	if !(d.Filter.Zero()) {
+	if !(d.Filter == nil) {
 		return false
 	}
 	if !(d.Description == "") {
@@ -87,7 +87,7 @@ func (d *DialogFilterSuggested) String() string {
 
 // FillFrom fills DialogFilterSuggested from given interface.
 func (d *DialogFilterSuggested) FillFrom(from interface {
-	GetFilter() (value DialogFilter)
+	GetFilter() (value DialogFilterClass)
 	GetDescription() (value string)
 }) {
 	d.Filter = from.GetFilter()
@@ -143,6 +143,9 @@ func (d *DialogFilterSuggested) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode dialogFilterSuggested#77744d4a as nil")
 	}
+	if d.Filter == nil {
+		return fmt.Errorf("unable to encode dialogFilterSuggested#77744d4a: field filter is nil")
+	}
 	if err := d.Filter.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode dialogFilterSuggested#77744d4a: field filter: %w", err)
 	}
@@ -167,9 +170,11 @@ func (d *DialogFilterSuggested) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode dialogFilterSuggested#77744d4a to nil")
 	}
 	{
-		if err := d.Filter.Decode(b); err != nil {
+		value, err := DecodeDialogFilter(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode dialogFilterSuggested#77744d4a: field filter: %w", err)
 		}
+		d.Filter = value
 	}
 	{
 		value, err := b.String()
@@ -182,7 +187,7 @@ func (d *DialogFilterSuggested) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetFilter returns value of Filter field.
-func (d *DialogFilterSuggested) GetFilter() (value DialogFilter) {
+func (d *DialogFilterSuggested) GetFilter() (value DialogFilterClass) {
 	if d == nil {
 		return
 	}

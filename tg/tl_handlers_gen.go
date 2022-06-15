@@ -1105,3 +1105,13 @@ func (u UpdateDispatcher) OnSavedRingtones(handler SavedRingtonesHandler) {
 		return handler(ctx, e, update.(*UpdateSavedRingtones))
 	}
 }
+
+// TranscribedAudioHandler is a TranscribedAudio event handler.
+type TranscribedAudioHandler func(ctx context.Context, e Entities, update *UpdateTranscribedAudio) error
+
+// OnTranscribedAudio sets TranscribedAudio handler.
+func (u UpdateDispatcher) OnTranscribedAudio(handler TranscribedAudioHandler) {
+	u.handlers[UpdateTranscribedAudioTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateTranscribedAudio))
+	}
+}

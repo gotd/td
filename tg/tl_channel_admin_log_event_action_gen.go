@@ -3953,7 +3953,7 @@ type ChannelAdminLogEventActionParticipantJoinByInvite struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Invite ChatInviteExported
+	Invite ExportedChatInviteClass
 }
 
 // ChannelAdminLogEventActionParticipantJoinByInviteTypeID is TL type id of ChannelAdminLogEventActionParticipantJoinByInvite.
@@ -3978,7 +3978,7 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.Invite.Zero()) {
+	if !(c.Invite == nil) {
 		return false
 	}
 
@@ -3996,7 +3996,7 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) String() string {
 
 // FillFrom fills ChannelAdminLogEventActionParticipantJoinByInvite from given interface.
 func (c *ChannelAdminLogEventActionParticipantJoinByInvite) FillFrom(from interface {
-	GetInvite() (value ChatInviteExported)
+	GetInvite() (value ExportedChatInviteClass)
 }) {
 	c.Invite = from.GetInvite()
 }
@@ -4046,6 +4046,9 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) EncodeBare(b *bin.Bu
 	if c == nil {
 		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantJoinByInvite#5cdada77 as nil")
 	}
+	if c.Invite == nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantJoinByInvite#5cdada77: field invite is nil")
+	}
 	if err := c.Invite.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantJoinByInvite#5cdada77: field invite: %w", err)
 	}
@@ -4069,15 +4072,17 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) DecodeBare(b *bin.Bu
 		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantJoinByInvite#5cdada77 to nil")
 	}
 	{
-		if err := c.Invite.Decode(b); err != nil {
+		value, err := DecodeExportedChatInvite(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantJoinByInvite#5cdada77: field invite: %w", err)
 		}
+		c.Invite = value
 	}
 	return nil
 }
 
 // GetInvite returns value of Invite field.
-func (c *ChannelAdminLogEventActionParticipantJoinByInvite) GetInvite() (value ChatInviteExported) {
+func (c *ChannelAdminLogEventActionParticipantJoinByInvite) GetInvite() (value ExportedChatInviteClass) {
 	if c == nil {
 		return
 	}
@@ -4090,7 +4095,7 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) GetInvite() (value C
 // See https://core.telegram.org/constructor/channelAdminLogEventActionExportedInviteDelete for reference.
 type ChannelAdminLogEventActionExportedInviteDelete struct {
 	// The deleted chat invite
-	Invite ChatInviteExported
+	Invite ExportedChatInviteClass
 }
 
 // ChannelAdminLogEventActionExportedInviteDeleteTypeID is TL type id of ChannelAdminLogEventActionExportedInviteDelete.
@@ -4115,7 +4120,7 @@ func (c *ChannelAdminLogEventActionExportedInviteDelete) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.Invite.Zero()) {
+	if !(c.Invite == nil) {
 		return false
 	}
 
@@ -4133,7 +4138,7 @@ func (c *ChannelAdminLogEventActionExportedInviteDelete) String() string {
 
 // FillFrom fills ChannelAdminLogEventActionExportedInviteDelete from given interface.
 func (c *ChannelAdminLogEventActionExportedInviteDelete) FillFrom(from interface {
-	GetInvite() (value ChatInviteExported)
+	GetInvite() (value ExportedChatInviteClass)
 }) {
 	c.Invite = from.GetInvite()
 }
@@ -4183,6 +4188,9 @@ func (c *ChannelAdminLogEventActionExportedInviteDelete) EncodeBare(b *bin.Buffe
 	if c == nil {
 		return fmt.Errorf("can't encode channelAdminLogEventActionExportedInviteDelete#5a50fca4 as nil")
 	}
+	if c.Invite == nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionExportedInviteDelete#5a50fca4: field invite is nil")
+	}
 	if err := c.Invite.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionExportedInviteDelete#5a50fca4: field invite: %w", err)
 	}
@@ -4206,15 +4214,17 @@ func (c *ChannelAdminLogEventActionExportedInviteDelete) DecodeBare(b *bin.Buffe
 		return fmt.Errorf("can't decode channelAdminLogEventActionExportedInviteDelete#5a50fca4 to nil")
 	}
 	{
-		if err := c.Invite.Decode(b); err != nil {
+		value, err := DecodeExportedChatInvite(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionExportedInviteDelete#5a50fca4: field invite: %w", err)
 		}
+		c.Invite = value
 	}
 	return nil
 }
 
 // GetInvite returns value of Invite field.
-func (c *ChannelAdminLogEventActionExportedInviteDelete) GetInvite() (value ChatInviteExported) {
+func (c *ChannelAdminLogEventActionExportedInviteDelete) GetInvite() (value ExportedChatInviteClass) {
 	if c == nil {
 		return
 	}
@@ -4227,7 +4237,7 @@ func (c *ChannelAdminLogEventActionExportedInviteDelete) GetInvite() (value Chat
 // See https://core.telegram.org/constructor/channelAdminLogEventActionExportedInviteRevoke for reference.
 type ChannelAdminLogEventActionExportedInviteRevoke struct {
 	// The invite link that was revoked
-	Invite ChatInviteExported
+	Invite ExportedChatInviteClass
 }
 
 // ChannelAdminLogEventActionExportedInviteRevokeTypeID is TL type id of ChannelAdminLogEventActionExportedInviteRevoke.
@@ -4252,7 +4262,7 @@ func (c *ChannelAdminLogEventActionExportedInviteRevoke) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.Invite.Zero()) {
+	if !(c.Invite == nil) {
 		return false
 	}
 
@@ -4270,7 +4280,7 @@ func (c *ChannelAdminLogEventActionExportedInviteRevoke) String() string {
 
 // FillFrom fills ChannelAdminLogEventActionExportedInviteRevoke from given interface.
 func (c *ChannelAdminLogEventActionExportedInviteRevoke) FillFrom(from interface {
-	GetInvite() (value ChatInviteExported)
+	GetInvite() (value ExportedChatInviteClass)
 }) {
 	c.Invite = from.GetInvite()
 }
@@ -4320,6 +4330,9 @@ func (c *ChannelAdminLogEventActionExportedInviteRevoke) EncodeBare(b *bin.Buffe
 	if c == nil {
 		return fmt.Errorf("can't encode channelAdminLogEventActionExportedInviteRevoke#410a134e as nil")
 	}
+	if c.Invite == nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionExportedInviteRevoke#410a134e: field invite is nil")
+	}
 	if err := c.Invite.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionExportedInviteRevoke#410a134e: field invite: %w", err)
 	}
@@ -4343,15 +4356,17 @@ func (c *ChannelAdminLogEventActionExportedInviteRevoke) DecodeBare(b *bin.Buffe
 		return fmt.Errorf("can't decode channelAdminLogEventActionExportedInviteRevoke#410a134e to nil")
 	}
 	{
-		if err := c.Invite.Decode(b); err != nil {
+		value, err := DecodeExportedChatInvite(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionExportedInviteRevoke#410a134e: field invite: %w", err)
 		}
+		c.Invite = value
 	}
 	return nil
 }
 
 // GetInvite returns value of Invite field.
-func (c *ChannelAdminLogEventActionExportedInviteRevoke) GetInvite() (value ChatInviteExported) {
+func (c *ChannelAdminLogEventActionExportedInviteRevoke) GetInvite() (value ExportedChatInviteClass) {
 	if c == nil {
 		return
 	}
@@ -4364,9 +4379,9 @@ func (c *ChannelAdminLogEventActionExportedInviteRevoke) GetInvite() (value Chat
 // See https://core.telegram.org/constructor/channelAdminLogEventActionExportedInviteEdit for reference.
 type ChannelAdminLogEventActionExportedInviteEdit struct {
 	// Previous chat invite information
-	PrevInvite ChatInviteExported
+	PrevInvite ExportedChatInviteClass
 	// New chat invite information
-	NewInvite ChatInviteExported
+	NewInvite ExportedChatInviteClass
 }
 
 // ChannelAdminLogEventActionExportedInviteEditTypeID is TL type id of ChannelAdminLogEventActionExportedInviteEdit.
@@ -4391,10 +4406,10 @@ func (c *ChannelAdminLogEventActionExportedInviteEdit) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.PrevInvite.Zero()) {
+	if !(c.PrevInvite == nil) {
 		return false
 	}
-	if !(c.NewInvite.Zero()) {
+	if !(c.NewInvite == nil) {
 		return false
 	}
 
@@ -4412,8 +4427,8 @@ func (c *ChannelAdminLogEventActionExportedInviteEdit) String() string {
 
 // FillFrom fills ChannelAdminLogEventActionExportedInviteEdit from given interface.
 func (c *ChannelAdminLogEventActionExportedInviteEdit) FillFrom(from interface {
-	GetPrevInvite() (value ChatInviteExported)
-	GetNewInvite() (value ChatInviteExported)
+	GetPrevInvite() (value ExportedChatInviteClass)
+	GetNewInvite() (value ExportedChatInviteClass)
 }) {
 	c.PrevInvite = from.GetPrevInvite()
 	c.NewInvite = from.GetNewInvite()
@@ -4468,8 +4483,14 @@ func (c *ChannelAdminLogEventActionExportedInviteEdit) EncodeBare(b *bin.Buffer)
 	if c == nil {
 		return fmt.Errorf("can't encode channelAdminLogEventActionExportedInviteEdit#e90ebb59 as nil")
 	}
+	if c.PrevInvite == nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionExportedInviteEdit#e90ebb59: field prev_invite is nil")
+	}
 	if err := c.PrevInvite.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionExportedInviteEdit#e90ebb59: field prev_invite: %w", err)
+	}
+	if c.NewInvite == nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionExportedInviteEdit#e90ebb59: field new_invite is nil")
 	}
 	if err := c.NewInvite.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionExportedInviteEdit#e90ebb59: field new_invite: %w", err)
@@ -4494,20 +4515,24 @@ func (c *ChannelAdminLogEventActionExportedInviteEdit) DecodeBare(b *bin.Buffer)
 		return fmt.Errorf("can't decode channelAdminLogEventActionExportedInviteEdit#e90ebb59 to nil")
 	}
 	{
-		if err := c.PrevInvite.Decode(b); err != nil {
+		value, err := DecodeExportedChatInvite(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionExportedInviteEdit#e90ebb59: field prev_invite: %w", err)
 		}
+		c.PrevInvite = value
 	}
 	{
-		if err := c.NewInvite.Decode(b); err != nil {
+		value, err := DecodeExportedChatInvite(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionExportedInviteEdit#e90ebb59: field new_invite: %w", err)
 		}
+		c.NewInvite = value
 	}
 	return nil
 }
 
 // GetPrevInvite returns value of PrevInvite field.
-func (c *ChannelAdminLogEventActionExportedInviteEdit) GetPrevInvite() (value ChatInviteExported) {
+func (c *ChannelAdminLogEventActionExportedInviteEdit) GetPrevInvite() (value ExportedChatInviteClass) {
 	if c == nil {
 		return
 	}
@@ -4515,7 +4540,7 @@ func (c *ChannelAdminLogEventActionExportedInviteEdit) GetPrevInvite() (value Ch
 }
 
 // GetNewInvite returns value of NewInvite field.
-func (c *ChannelAdminLogEventActionExportedInviteEdit) GetNewInvite() (value ChatInviteExported) {
+func (c *ChannelAdminLogEventActionExportedInviteEdit) GetNewInvite() (value ExportedChatInviteClass) {
 	if c == nil {
 		return
 	}
@@ -4829,7 +4854,7 @@ func (c *ChannelAdminLogEventActionChangeHistoryTTL) GetNewValue() (value int) {
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByRequest for reference.
 type ChannelAdminLogEventActionParticipantJoinByRequest struct {
 	// Invite field of ChannelAdminLogEventActionParticipantJoinByRequest.
-	Invite ChatInviteExported
+	Invite ExportedChatInviteClass
 	// ApprovedBy field of ChannelAdminLogEventActionParticipantJoinByRequest.
 	ApprovedBy int64
 }
@@ -4856,7 +4881,7 @@ func (c *ChannelAdminLogEventActionParticipantJoinByRequest) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.Invite.Zero()) {
+	if !(c.Invite == nil) {
 		return false
 	}
 	if !(c.ApprovedBy == 0) {
@@ -4877,7 +4902,7 @@ func (c *ChannelAdminLogEventActionParticipantJoinByRequest) String() string {
 
 // FillFrom fills ChannelAdminLogEventActionParticipantJoinByRequest from given interface.
 func (c *ChannelAdminLogEventActionParticipantJoinByRequest) FillFrom(from interface {
-	GetInvite() (value ChatInviteExported)
+	GetInvite() (value ExportedChatInviteClass)
 	GetApprovedBy() (value int64)
 }) {
 	c.Invite = from.GetInvite()
@@ -4933,6 +4958,9 @@ func (c *ChannelAdminLogEventActionParticipantJoinByRequest) EncodeBare(b *bin.B
 	if c == nil {
 		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantJoinByRequest#afb6144a as nil")
 	}
+	if c.Invite == nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantJoinByRequest#afb6144a: field invite is nil")
+	}
 	if err := c.Invite.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantJoinByRequest#afb6144a: field invite: %w", err)
 	}
@@ -4957,9 +4985,11 @@ func (c *ChannelAdminLogEventActionParticipantJoinByRequest) DecodeBare(b *bin.B
 		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantJoinByRequest#afb6144a to nil")
 	}
 	{
-		if err := c.Invite.Decode(b); err != nil {
+		value, err := DecodeExportedChatInvite(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantJoinByRequest#afb6144a: field invite: %w", err)
 		}
+		c.Invite = value
 	}
 	{
 		value, err := b.Long()
@@ -4972,7 +5002,7 @@ func (c *ChannelAdminLogEventActionParticipantJoinByRequest) DecodeBare(b *bin.B
 }
 
 // GetInvite returns value of Invite field.
-func (c *ChannelAdminLogEventActionParticipantJoinByRequest) GetInvite() (value ChatInviteExported) {
+func (c *ChannelAdminLogEventActionParticipantJoinByRequest) GetInvite() (value ExportedChatInviteClass) {
 	if c == nil {
 		return
 	}

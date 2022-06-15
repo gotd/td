@@ -31,24 +31,24 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// DialogFilterVector is a box for Vector<DialogFilter>
-type DialogFilterVector struct {
+// DialogFilterClassVector is a box for Vector<DialogFilter>
+type DialogFilterClassVector struct {
 	// Elements of Vector<DialogFilter>
-	Elems []DialogFilter
+	Elems []DialogFilterClass
 }
 
-// DialogFilterVectorTypeID is TL type id of DialogFilterVector.
-const DialogFilterVectorTypeID = bin.TypeVector
+// DialogFilterClassVectorTypeID is TL type id of DialogFilterClassVector.
+const DialogFilterClassVectorTypeID = bin.TypeVector
 
-// Ensuring interfaces in compile-time for DialogFilterVector.
+// Ensuring interfaces in compile-time for DialogFilterClassVector.
 var (
-	_ bin.Encoder     = &DialogFilterVector{}
-	_ bin.Decoder     = &DialogFilterVector{}
-	_ bin.BareEncoder = &DialogFilterVector{}
-	_ bin.BareDecoder = &DialogFilterVector{}
+	_ bin.Encoder     = &DialogFilterClassVector{}
+	_ bin.Decoder     = &DialogFilterClassVector{}
+	_ bin.BareEncoder = &DialogFilterClassVector{}
+	_ bin.BareDecoder = &DialogFilterClassVector{}
 )
 
-func (vec *DialogFilterVector) Zero() bool {
+func (vec *DialogFilterClassVector) Zero() bool {
 	if vec == nil {
 		return true
 	}
@@ -60,17 +60,17 @@ func (vec *DialogFilterVector) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (vec *DialogFilterVector) String() string {
+func (vec *DialogFilterClassVector) String() string {
 	if vec == nil {
-		return "DialogFilterVector(nil)"
+		return "DialogFilterClassVector(nil)"
 	}
-	type Alias DialogFilterVector
-	return fmt.Sprintf("DialogFilterVector%+v", Alias(*vec))
+	type Alias DialogFilterClassVector
+	return fmt.Sprintf("DialogFilterClassVector%+v", Alias(*vec))
 }
 
-// FillFrom fills DialogFilterVector from given interface.
-func (vec *DialogFilterVector) FillFrom(from interface {
-	GetElems() (value []DialogFilter)
+// FillFrom fills DialogFilterClassVector from given interface.
+func (vec *DialogFilterClassVector) FillFrom(from interface {
+	GetElems() (value []DialogFilterClass)
 }) {
 	vec.Elems = from.GetElems()
 }
@@ -78,20 +78,20 @@ func (vec *DialogFilterVector) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*DialogFilterVector) TypeID() uint32 {
-	return DialogFilterVectorTypeID
+func (*DialogFilterClassVector) TypeID() uint32 {
+	return DialogFilterClassVectorTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*DialogFilterVector) TypeName() string {
+func (*DialogFilterClassVector) TypeName() string {
 	return ""
 }
 
 // TypeInfo returns info about TL type.
-func (vec *DialogFilterVector) TypeInfo() tdp.Type {
+func (vec *DialogFilterClassVector) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "",
-		ID:   DialogFilterVectorTypeID,
+		ID:   DialogFilterClassVectorTypeID,
 	}
 	if vec == nil {
 		typ.Null = true
@@ -107,7 +107,7 @@ func (vec *DialogFilterVector) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (vec *DialogFilterVector) Encode(b *bin.Buffer) error {
+func (vec *DialogFilterClassVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't encode Vector<DialogFilter> as nil")
 	}
@@ -116,12 +116,15 @@ func (vec *DialogFilterVector) Encode(b *bin.Buffer) error {
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (vec *DialogFilterVector) EncodeBare(b *bin.Buffer) error {
+func (vec *DialogFilterClassVector) EncodeBare(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't encode Vector<DialogFilter> as nil")
 	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
+		if v == nil {
+			return fmt.Errorf("unable to encode Vector<DialogFilter>: field Elems element with index %d is nil", idx)
+		}
 		if err := v.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode Vector<DialogFilter>: field Elems element with index %d: %w", idx, err)
 		}
@@ -130,7 +133,7 @@ func (vec *DialogFilterVector) EncodeBare(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (vec *DialogFilterVector) Decode(b *bin.Buffer) error {
+func (vec *DialogFilterClassVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't decode Vector<DialogFilter> to nil")
 	}
@@ -139,7 +142,7 @@ func (vec *DialogFilterVector) Decode(b *bin.Buffer) error {
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (vec *DialogFilterVector) DecodeBare(b *bin.Buffer) error {
+func (vec *DialogFilterClassVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't decode Vector<DialogFilter> to nil")
 	}
@@ -150,11 +153,11 @@ func (vec *DialogFilterVector) DecodeBare(b *bin.Buffer) error {
 		}
 
 		if headerLen > 0 {
-			vec.Elems = make([]DialogFilter, 0, headerLen%bin.PreallocateLimit)
+			vec.Elems = make([]DialogFilterClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value DialogFilter
-			if err := value.Decode(b); err != nil {
+			value, err := DecodeDialogFilter(b)
+			if err != nil {
 				return fmt.Errorf("unable to decode Vector<DialogFilter>: field Elems: %w", err)
 			}
 			vec.Elems = append(vec.Elems, value)
@@ -164,9 +167,14 @@ func (vec *DialogFilterVector) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetElems returns value of Elems field.
-func (vec *DialogFilterVector) GetElems() (value []DialogFilter) {
+func (vec *DialogFilterClassVector) GetElems() (value []DialogFilterClass) {
 	if vec == nil {
 		return
 	}
 	return vec.Elems
+}
+
+// MapElems returns field Elems wrapped in DialogFilterClassArray helper.
+func (vec *DialogFilterClassVector) MapElems() (value DialogFilterClassArray) {
+	return DialogFilterClassArray(vec.Elems)
 }

@@ -37,7 +37,7 @@ var (
 // See https://core.telegram.org/constructor/messages.exportedChatInvite for reference.
 type MessagesExportedChatInvite struct {
 	// Info about the chat invite
-	Invite ChatInviteExported
+	Invite ExportedChatInviteClass
 	// Mentioned users
 	Users []UserClass
 }
@@ -62,7 +62,7 @@ func (e *MessagesExportedChatInvite) Zero() bool {
 	if e == nil {
 		return true
 	}
-	if !(e.Invite.Zero()) {
+	if !(e.Invite == nil) {
 		return false
 	}
 	if !(e.Users == nil) {
@@ -83,7 +83,7 @@ func (e *MessagesExportedChatInvite) String() string {
 
 // FillFrom fills MessagesExportedChatInvite from given interface.
 func (e *MessagesExportedChatInvite) FillFrom(from interface {
-	GetInvite() (value ChatInviteExported)
+	GetInvite() (value ExportedChatInviteClass)
 	GetUsers() (value []UserClass)
 }) {
 	e.Invite = from.GetInvite()
@@ -139,6 +139,9 @@ func (e *MessagesExportedChatInvite) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
 		return fmt.Errorf("can't encode messages.exportedChatInvite#1871be50 as nil")
 	}
+	if e.Invite == nil {
+		return fmt.Errorf("unable to encode messages.exportedChatInvite#1871be50: field invite is nil")
+	}
 	if err := e.Invite.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.exportedChatInvite#1871be50: field invite: %w", err)
 	}
@@ -171,9 +174,11 @@ func (e *MessagesExportedChatInvite) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode messages.exportedChatInvite#1871be50 to nil")
 	}
 	{
-		if err := e.Invite.Decode(b); err != nil {
+		value, err := DecodeExportedChatInvite(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode messages.exportedChatInvite#1871be50: field invite: %w", err)
 		}
+		e.Invite = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
@@ -196,7 +201,7 @@ func (e *MessagesExportedChatInvite) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetInvite returns value of Invite field.
-func (e *MessagesExportedChatInvite) GetInvite() (value ChatInviteExported) {
+func (e *MessagesExportedChatInvite) GetInvite() (value ExportedChatInviteClass) {
 	if e == nil {
 		return
 	}
@@ -222,9 +227,9 @@ func (e *MessagesExportedChatInvite) MapUsers() (value UserClassArray) {
 // See https://core.telegram.org/constructor/messages.exportedChatInviteReplaced for reference.
 type MessagesExportedChatInviteReplaced struct {
 	// The replaced chat invite
-	Invite ChatInviteExported
+	Invite ExportedChatInviteClass
 	// The invite that replaces the previous invite
-	NewInvite ChatInviteExported
+	NewInvite ExportedChatInviteClass
 	// Mentioned users
 	Users []UserClass
 }
@@ -249,10 +254,10 @@ func (e *MessagesExportedChatInviteReplaced) Zero() bool {
 	if e == nil {
 		return true
 	}
-	if !(e.Invite.Zero()) {
+	if !(e.Invite == nil) {
 		return false
 	}
-	if !(e.NewInvite.Zero()) {
+	if !(e.NewInvite == nil) {
 		return false
 	}
 	if !(e.Users == nil) {
@@ -273,8 +278,8 @@ func (e *MessagesExportedChatInviteReplaced) String() string {
 
 // FillFrom fills MessagesExportedChatInviteReplaced from given interface.
 func (e *MessagesExportedChatInviteReplaced) FillFrom(from interface {
-	GetInvite() (value ChatInviteExported)
-	GetNewInvite() (value ChatInviteExported)
+	GetInvite() (value ExportedChatInviteClass)
+	GetNewInvite() (value ExportedChatInviteClass)
 	GetUsers() (value []UserClass)
 }) {
 	e.Invite = from.GetInvite()
@@ -335,8 +340,14 @@ func (e *MessagesExportedChatInviteReplaced) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
 		return fmt.Errorf("can't encode messages.exportedChatInviteReplaced#222600ef as nil")
 	}
+	if e.Invite == nil {
+		return fmt.Errorf("unable to encode messages.exportedChatInviteReplaced#222600ef: field invite is nil")
+	}
 	if err := e.Invite.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.exportedChatInviteReplaced#222600ef: field invite: %w", err)
+	}
+	if e.NewInvite == nil {
+		return fmt.Errorf("unable to encode messages.exportedChatInviteReplaced#222600ef: field new_invite is nil")
 	}
 	if err := e.NewInvite.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.exportedChatInviteReplaced#222600ef: field new_invite: %w", err)
@@ -370,14 +381,18 @@ func (e *MessagesExportedChatInviteReplaced) DecodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't decode messages.exportedChatInviteReplaced#222600ef to nil")
 	}
 	{
-		if err := e.Invite.Decode(b); err != nil {
+		value, err := DecodeExportedChatInvite(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode messages.exportedChatInviteReplaced#222600ef: field invite: %w", err)
 		}
+		e.Invite = value
 	}
 	{
-		if err := e.NewInvite.Decode(b); err != nil {
+		value, err := DecodeExportedChatInvite(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode messages.exportedChatInviteReplaced#222600ef: field new_invite: %w", err)
 		}
+		e.NewInvite = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
@@ -400,7 +415,7 @@ func (e *MessagesExportedChatInviteReplaced) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetInvite returns value of Invite field.
-func (e *MessagesExportedChatInviteReplaced) GetInvite() (value ChatInviteExported) {
+func (e *MessagesExportedChatInviteReplaced) GetInvite() (value ExportedChatInviteClass) {
 	if e == nil {
 		return
 	}
@@ -408,7 +423,7 @@ func (e *MessagesExportedChatInviteReplaced) GetInvite() (value ChatInviteExport
 }
 
 // GetNewInvite returns value of NewInvite field.
-func (e *MessagesExportedChatInviteReplaced) GetNewInvite() (value ChatInviteExported) {
+func (e *MessagesExportedChatInviteReplaced) GetNewInvite() (value ExportedChatInviteClass) {
 	if e == nil {
 		return
 	}
@@ -464,7 +479,7 @@ type MessagesExportedChatInviteClass interface {
 	Zero() bool
 
 	// Info about the chat invite
-	GetInvite() (value ChatInviteExported)
+	GetInvite() (value ExportedChatInviteClass)
 
 	// Mentioned users
 	GetUsers() (value []UserClass)
