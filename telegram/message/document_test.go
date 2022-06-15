@@ -58,7 +58,7 @@ func TestDocumentByHash(t *testing.T) {
 	loc.FillFrom(doc)
 
 	hash := []byte{1, 2, 3}
-	size := 10
+	size := int64(10)
 	mime := "rustmustdie"
 
 	mock.ExpectCall(&tg.MessagesGetDocumentByHashRequest{

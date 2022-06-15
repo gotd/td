@@ -71,7 +71,7 @@ func (b *Builder) Document(
 // See https://core.telegram.org/api/files#re-using-pre-uploaded-files.
 type SearchDocumentBuilder struct {
 	hash    []byte
-	size    int
+	size    int64
 	mime    string
 	builder *DocumentBuilder
 }
@@ -126,7 +126,7 @@ func (u *SearchDocumentBuilder) applyMulti(ctx context.Context, b *multiMediaBui
 //
 // See https://core.telegram.org/api/files#re-using-pre-uploaded-files.
 func DocumentByHash(
-	hash []byte, size int, mime string,
+	hash []byte, size int64, mime string,
 	caption ...StyledTextOption,
 ) *SearchDocumentBuilder {
 	return &SearchDocumentBuilder{
@@ -141,7 +141,7 @@ func DocumentByHash(
 
 // DocumentByHash finds document by hash and sends as attachment.
 func (b *Builder) DocumentByHash(
-	ctx context.Context, hash []byte, size int, mime string,
+	ctx context.Context, hash []byte, size int64, mime string,
 	caption ...StyledTextOption,
 ) (tg.UpdatesClass, error) {
 	return b.Media(ctx, DocumentByHash(hash, size, mime, caption...))

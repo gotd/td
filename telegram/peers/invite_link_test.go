@@ -13,8 +13,8 @@ func TestInviteLinkGetters(t *testing.T) {
 	replacer := testExported
 	replacer.Link += "/aboba"
 	link := InviteLink{
-		raw:       testExported,
-		newInvite: replacer,
+		raw:       *testExported,
+		newInvite: *replacer,
 	}
 	a.Equal(testExported, link.Raw())
 	{

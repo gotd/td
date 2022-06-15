@@ -136,6 +136,17 @@ func (e InviteLinks) hideJoinRequest(ctx context.Context, approved bool, user tg
 	return nil
 }
 
+func (InviteLinks) chatInviteExportedFrom(v tg.ExportedChatInviteClass) (*tg.ChatInviteExported, error) {
+	// https://github.com/gotd/td/issues/788
+	// case *tg.ChatInvitePublicJoinRequests: // chatInvitePublicJoinRequests#ed107ab7 not supported
+	switch invite := v.(type) {
+	case *tg.ChatInviteExported:
+		return invite, nil
+	default:
+		return nil, errors.Errorf("unsupported %T", invite)
+	}
+}
+
 func (e InviteLinks) applyExportedInvite(
 	ctx context.Context,
 	r tg.MessagesExportedChatInviteClass,
@@ -146,10 +157,21 @@ func (e InviteLinks) applyExportedInvite(
 
 	switch r := r.(type) {
 	case *tg.MessagesExportedChatInviteReplaced:
-		return e.replacedLink(r.GetInvite(), r.GetNewInvite()), nil
+		from, err := e.chatInviteExportedFrom(r.GetInvite())
+		if err != nil {
+			return InviteLink{}, errors.Wrap(err, "from")
+		}
+		to, err := e.chatInviteExportedFrom(r.GetNewInvite())
+		if err != nil {
+			return InviteLink{}, errors.Wrap(err, "from")
+		}
+		return e.replacedLink(*from, *to), nil
 	}
-
-	return e.inviteLink(r.GetInvite()), nil
+	exported, err := e.chatInviteExportedFrom(r.GetInvite())
+	if err != nil {
+		return InviteLink{}, errors.Wrap(err, "convert invite")
+	}
+	return e.inviteLink(*exported), nil
 }
 
 func (e InviteLinks) newLink(
@@ -173,7 +195,11 @@ func (e InviteLinks) newLink(
 	if err != nil {
 		return InviteLink{}, errors.Wrap(err, "create invite")
 	}
-	return e.inviteLink(*invite), nil
+	exported, err := e.chatInviteExportedFrom(invite)
+	if err != nil {
+		return InviteLink{}, errors.Wrap(err, "convert invite")
+	}
+	return e.inviteLink(*exported), nil
 }
 
 // TODO(tdakkota): add methods with pagination, when query will be updated

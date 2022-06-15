@@ -29,6 +29,6 @@ type chunk struct {
 
 // schema is simple interface for different download schemas.
 type schema interface {
-	Chunk(ctx context.Context, offset, limit int) (chunk, error)
-	Hashes(ctx context.Context, offset int) ([]tg.FileHash, error)
+	Chunk(ctx context.Context, offset int64, limit int) (chunk, error)
+	Hashes(ctx context.Context, offset int64) ([]tg.FileHash, error)
 }

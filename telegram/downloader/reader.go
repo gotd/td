@@ -28,7 +28,7 @@ type reader struct {
 	verifier *verifier // immutable
 	partSize int       // immutable
 
-	offset    int
+	offset    int64
 	offsetMux sync.Mutex
 }
 
@@ -81,13 +81,13 @@ func (r *reader) nextHashed(ctx context.Context) (block, error) {
 func (r *reader) nextPlain(ctx context.Context) (block, error) {
 	r.offsetMux.Lock()
 	offset := r.offset
-	r.offset += r.partSize
+	r.offset += int64(r.partSize)
 	r.offsetMux.Unlock()
 
 	return r.next(ctx, offset, r.partSize)
 }
 
-func (r *reader) next(ctx context.Context, offset, limit int) (block, error) {
+func (r *reader) next(ctx context.Context, offset int64, limit int) (block, error) {
 	for {
 		ch, err := r.sch.Chunk(ctx, offset, limit)
 
@@ -100,7 +100,7 @@ func (r *reader) next(ctx context.Context, offset, limit int) (block, error) {
 
 		return block{
 			chunk:    ch,
-			offset:   int64(offset),
+			offset:   offset,
 			partSize: r.partSize,
 		}, nil
 	}

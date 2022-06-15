@@ -36,7 +36,7 @@ var _ schema = cdn{}
 
 // decrypt decrypts file chunk from Telegram CDN.
 // See https://core.telegram.org/cdn#decrypting-files.
-func (c cdn) decrypt(src []byte, offset int) ([]byte, error) {
+func (c cdn) decrypt(src []byte, offset int64) ([]byte, error) {
 	block, err := aes.NewCipher(c.redirect.EncryptionKey)
 	if err != nil {
 		return nil, errors.Wrap(err, "create cipher")
@@ -63,7 +63,7 @@ func (c cdn) decrypt(src []byte, offset int) ([]byte, error) {
 	return dst, nil
 }
 
-func (c cdn) Chunk(ctx context.Context, offset, limit int) (chunk, error) {
+func (c cdn) Chunk(ctx context.Context, offset int64, limit int) (chunk, error) {
 	r, err := c.cdn.UploadGetCDNFile(ctx, &tg.UploadGetCDNFileRequest{
 		Offset:    offset,
 		Limit:     limit,
@@ -90,7 +90,7 @@ func (c cdn) Chunk(ctx context.Context, offset, limit int) (chunk, error) {
 	}
 }
 
-func (c cdn) Hashes(ctx context.Context, offset int) ([]tg.FileHash, error) {
+func (c cdn) Hashes(ctx context.Context, offset int64) ([]tg.FileHash, error) {
 	return c.client.UploadGetCDNFileHashes(ctx, &tg.UploadGetCDNFileHashesRequest{
 		FileToken: c.redirect.FileToken,
 		Offset:    offset,

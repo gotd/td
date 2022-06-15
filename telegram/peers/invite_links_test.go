@@ -19,7 +19,7 @@ func testExportLinkOptions() ExportLinkOptions {
 	}
 }
 
-func testChatInviteExported() tg.ChatInviteExported {
+func testChatInviteExported() *tg.ChatInviteExported {
 	opts := testExportLinkOptions()
 	r := tg.ChatInviteExported{
 		AdminID:       getTestUser().ID,
@@ -29,7 +29,7 @@ func testChatInviteExported() tg.ChatInviteExported {
 		Title:         opts.Title,
 	}
 	r.SetFlags()
-	return r
+	return &r
 }
 
 func TestInviteLinks_newLink(t *testing.T) {
@@ -60,7 +60,7 @@ func TestInviteLinks_newLink(t *testing.T) {
 		ExpireDate:            int(opts.ExpireDate.Unix()),
 		UsageLimit:            opts.UsageLimit,
 		Title:                 opts.Title,
-	}).ThenResult(&result)
+	}).ThenResult(result)
 	got, err := links.ExportNew(ctx, opts)
 	a.NoError(err)
 	a.Equal(result, got.Raw())
