@@ -163,7 +163,7 @@ func (e InviteLinks) applyExportedInvite(
 		}
 		to, err := e.chatInviteExportedFrom(r.GetNewInvite())
 		if err != nil {
-			return InviteLink{}, errors.Wrap(err, "from")
+			return InviteLink{}, errors.Wrap(err, "to")
 		}
 		return e.replacedLink(*from, *to), nil
 	}
