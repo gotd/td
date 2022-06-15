@@ -31,12 +31,16 @@ func TestBot_BotInfo(t *testing.T) {
 
 	testUserFull := getTestUserFull()
 	testUserFull.ID = u.raw.ID
-	testUserFull.SetBotInfo(tg.BotInfo{
-		UserID:      u.raw.ID,
-		Description: "Test bot",
-		Commands:    nil,
-		MenuButton:  &tg.BotMenuButtonDefault{},
-	})
+	{
+		i := tg.BotInfo{
+			UserID:      u.raw.ID,
+			Description: "Test bot",
+			Commands:    nil,
+			MenuButton:  &tg.BotMenuButtonDefault{},
+		}
+		i.SetFlags()
+		testUserFull.SetBotInfo(i)
+	}
 	mock.ExpectCall(&tg.UsersGetFullUserRequest{ID: input}).ThenResult(&tg.UsersUserFull{
 		FullUser: testUserFull,
 	})

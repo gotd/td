@@ -44,14 +44,14 @@ type mockHashes struct {
 	ranges [][]tg.FileHash
 }
 
-func (m mockHashes) Chunk(ctx context.Context, offset, limit int) (chunk, error) {
+func (m mockHashes) Chunk(ctx context.Context, offset int64, limit int) (chunk, error) {
 	panic("implement me")
 }
 
-func (m mockHashes) Hashes(ctx context.Context, offset int) ([]tg.FileHash, error) {
+func (m mockHashes) Hashes(ctx context.Context, offset int64) ([]tg.FileHash, error) {
 	for _, r := range m.ranges {
 		last := r[len(r)-1]
-		if last.Offset+last.Limit <= offset {
+		if last.Offset+int64(last.Limit) <= offset {
 			continue
 		}
 		return r, nil

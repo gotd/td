@@ -133,7 +133,7 @@ func (e *EncryptedFileEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// EncryptedFile represents TL type `encryptedFile#4a70994c`.
+// EncryptedFile represents TL type `encryptedFile#a8008cd8`.
 // Encrypted file.
 //
 // See https://core.telegram.org/constructor/encryptedFile for reference.
@@ -143,7 +143,7 @@ type EncryptedFile struct {
 	// Checking sum depending on user ID
 	AccessHash int64
 	// File size in bytes
-	Size int
+	Size int64
 	// Number of data centre
 	DCID int
 	// 32-bit fingerprint of key used for file encryption
@@ -151,7 +151,7 @@ type EncryptedFile struct {
 }
 
 // EncryptedFileTypeID is TL type id of EncryptedFile.
-const EncryptedFileTypeID = 0x4a70994c
+const EncryptedFileTypeID = 0xa8008cd8
 
 // construct implements constructor of EncryptedFileClass.
 func (e EncryptedFile) construct() EncryptedFileClass { return &e }
@@ -202,7 +202,7 @@ func (e *EncryptedFile) String() string {
 func (e *EncryptedFile) FillFrom(from interface {
 	GetID() (value int64)
 	GetAccessHash() (value int64)
-	GetSize() (value int)
+	GetSize() (value int64)
 	GetDCID() (value int)
 	GetKeyFingerprint() (value int)
 }) {
@@ -263,7 +263,7 @@ func (e *EncryptedFile) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EncryptedFile) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode encryptedFile#4a70994c as nil")
+		return fmt.Errorf("can't encode encryptedFile#a8008cd8 as nil")
 	}
 	b.PutID(EncryptedFileTypeID)
 	return e.EncodeBare(b)
@@ -272,11 +272,11 @@ func (e *EncryptedFile) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EncryptedFile) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode encryptedFile#4a70994c as nil")
+		return fmt.Errorf("can't encode encryptedFile#a8008cd8 as nil")
 	}
 	b.PutLong(e.ID)
 	b.PutLong(e.AccessHash)
-	b.PutInt(e.Size)
+	b.PutLong(e.Size)
 	b.PutInt(e.DCID)
 	b.PutInt(e.KeyFingerprint)
 	return nil
@@ -285,10 +285,10 @@ func (e *EncryptedFile) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (e *EncryptedFile) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode encryptedFile#4a70994c to nil")
+		return fmt.Errorf("can't decode encryptedFile#a8008cd8 to nil")
 	}
 	if err := b.ConsumeID(EncryptedFileTypeID); err != nil {
-		return fmt.Errorf("unable to decode encryptedFile#4a70994c: %w", err)
+		return fmt.Errorf("unable to decode encryptedFile#a8008cd8: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -296,40 +296,40 @@ func (e *EncryptedFile) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EncryptedFile) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode encryptedFile#4a70994c to nil")
+		return fmt.Errorf("can't decode encryptedFile#a8008cd8 to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedFile#4a70994c: field id: %w", err)
+			return fmt.Errorf("unable to decode encryptedFile#a8008cd8: field id: %w", err)
 		}
 		e.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedFile#4a70994c: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode encryptedFile#a8008cd8: field access_hash: %w", err)
 		}
 		e.AccessHash = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedFile#4a70994c: field size: %w", err)
+			return fmt.Errorf("unable to decode encryptedFile#a8008cd8: field size: %w", err)
 		}
 		e.Size = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedFile#4a70994c: field dc_id: %w", err)
+			return fmt.Errorf("unable to decode encryptedFile#a8008cd8: field dc_id: %w", err)
 		}
 		e.DCID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedFile#4a70994c: field key_fingerprint: %w", err)
+			return fmt.Errorf("unable to decode encryptedFile#a8008cd8: field key_fingerprint: %w", err)
 		}
 		e.KeyFingerprint = value
 	}
@@ -353,7 +353,7 @@ func (e *EncryptedFile) GetAccessHash() (value int64) {
 }
 
 // GetSize returns value of Size field.
-func (e *EncryptedFile) GetSize() (value int) {
+func (e *EncryptedFile) GetSize() (value int64) {
 	if e == nil {
 		return
 	}
@@ -390,7 +390,7 @@ const EncryptedFileClassName = "EncryptedFile"
 //  }
 //  switch v := g.(type) {
 //  case *tg.EncryptedFileEmpty: // encryptedFileEmpty#c21f497e
-//  case *tg.EncryptedFile: // encryptedFile#4a70994c
+//  case *tg.EncryptedFile: // encryptedFile#a8008cd8
 //  default: panic(v)
 //  }
 type EncryptedFileClass interface {
@@ -458,7 +458,7 @@ func DecodeEncryptedFile(buf *bin.Buffer) (EncryptedFileClass, error) {
 		}
 		return &v, nil
 	case EncryptedFileTypeID:
-		// Decoding encryptedFile#4a70994c.
+		// Decoding encryptedFile#a8008cd8.
 		v := EncryptedFile{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode EncryptedFileClass: %w", err)

@@ -138,12 +138,12 @@ func (g *MessagesGetDialogFiltersRequest) DecodeBare(b *bin.Buffer) error {
 //  1) https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/method/messages.getDialogFilters for reference.
-func (c *Client) MessagesGetDialogFilters(ctx context.Context) ([]DialogFilter, error) {
-	var result DialogFilterVector
+func (c *Client) MessagesGetDialogFilters(ctx context.Context) ([]DialogFilterClass, error) {
+	var result DialogFilterClassVector
 
 	request := &MessagesGetDialogFiltersRequest{}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return []DialogFilter(result.Elems), nil
+	return []DialogFilterClass(result.Elems), nil
 }

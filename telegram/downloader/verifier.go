@@ -20,7 +20,7 @@ type verifier struct {
 	client schema
 
 	hashes []tg.FileHash
-	offset int
+	offset int64
 	mux    sync.Mutex
 }
 
@@ -66,12 +66,12 @@ func (v *verifier) update(hashes ...tg.FileHash) (tg.FileHash, bool) {
 	// Check if we have reached the end.
 	// If current state offset is equal the last offset + limit (right border)
 	// then we got all hashes.
-	if last.Offset == v.offset-last.Limit {
+	if last.Offset == v.offset-int64(last.Limit) {
 		return tg.FileHash{}, false
 	}
 
 	// Otherwise, we update current offset and add hashes to the end of queue.
-	v.offset = last.Offset + last.Limit
+	v.offset = last.Offset + int64(last.Limit)
 	v.hashes = append(v.hashes, hashes...)
 	return v.pop()
 }

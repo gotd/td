@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsGetPaymentFormRequest represents TL type `payments.getPaymentForm#8a333c8d`.
+// PaymentsGetPaymentFormRequest represents TL type `payments.getPaymentForm#37148dbb`.
 // Get a payment form
 //
 // See https://core.telegram.org/method/payments.getPaymentForm for reference.
@@ -41,10 +41,8 @@ type PaymentsGetPaymentFormRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// The peer where the payment form was sent
-	Peer InputPeerClass
-	// Message ID of payment form
-	MsgID int
+	// Invoice field of PaymentsGetPaymentFormRequest.
+	Invoice InputInvoiceClass
 	// A JSON object with the following keys, containing color theme information (integers,
 	// RGB24) to pass to the payment provider, to apply in eventual verification pages:
 	// bg_color - Background color text_color - Text color hint_color - Hint text color
@@ -56,7 +54,7 @@ type PaymentsGetPaymentFormRequest struct {
 }
 
 // PaymentsGetPaymentFormRequestTypeID is TL type id of PaymentsGetPaymentFormRequest.
-const PaymentsGetPaymentFormRequestTypeID = 0x8a333c8d
+const PaymentsGetPaymentFormRequestTypeID = 0x37148dbb
 
 // Ensuring interfaces in compile-time for PaymentsGetPaymentFormRequest.
 var (
@@ -73,10 +71,7 @@ func (g *PaymentsGetPaymentFormRequest) Zero() bool {
 	if !(g.Flags.Zero()) {
 		return false
 	}
-	if !(g.Peer == nil) {
-		return false
-	}
-	if !(g.MsgID == 0) {
+	if !(g.Invoice == nil) {
 		return false
 	}
 	if !(g.ThemeParams.Zero()) {
@@ -97,12 +92,10 @@ func (g *PaymentsGetPaymentFormRequest) String() string {
 
 // FillFrom fills PaymentsGetPaymentFormRequest from given interface.
 func (g *PaymentsGetPaymentFormRequest) FillFrom(from interface {
-	GetPeer() (value InputPeerClass)
-	GetMsgID() (value int)
+	GetInvoice() (value InputInvoiceClass)
 	GetThemeParams() (value DataJSON, ok bool)
 }) {
-	g.Peer = from.GetPeer()
-	g.MsgID = from.GetMsgID()
+	g.Invoice = from.GetInvoice()
 	if val, ok := from.GetThemeParams(); ok {
 		g.ThemeParams = val
 	}
@@ -133,12 +126,8 @@ func (g *PaymentsGetPaymentFormRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Peer",
-			SchemaName: "peer",
-		},
-		{
-			Name:       "MsgID",
-			SchemaName: "msg_id",
+			Name:       "Invoice",
+			SchemaName: "invoice",
 		},
 		{
 			Name:       "ThemeParams",
@@ -159,7 +148,7 @@ func (g *PaymentsGetPaymentFormRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (g *PaymentsGetPaymentFormRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getPaymentForm#8a333c8d as nil")
+		return fmt.Errorf("can't encode payments.getPaymentForm#37148dbb as nil")
 	}
 	b.PutID(PaymentsGetPaymentFormRequestTypeID)
 	return g.EncodeBare(b)
@@ -168,22 +157,21 @@ func (g *PaymentsGetPaymentFormRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *PaymentsGetPaymentFormRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode payments.getPaymentForm#8a333c8d as nil")
+		return fmt.Errorf("can't encode payments.getPaymentForm#37148dbb as nil")
 	}
 	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.getPaymentForm#8a333c8d: field flags: %w", err)
+		return fmt.Errorf("unable to encode payments.getPaymentForm#37148dbb: field flags: %w", err)
 	}
-	if g.Peer == nil {
-		return fmt.Errorf("unable to encode payments.getPaymentForm#8a333c8d: field peer is nil")
+	if g.Invoice == nil {
+		return fmt.Errorf("unable to encode payments.getPaymentForm#37148dbb: field invoice is nil")
 	}
-	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.getPaymentForm#8a333c8d: field peer: %w", err)
+	if err := g.Invoice.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.getPaymentForm#37148dbb: field invoice: %w", err)
 	}
-	b.PutInt(g.MsgID)
 	if g.Flags.Has(0) {
 		if err := g.ThemeParams.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode payments.getPaymentForm#8a333c8d: field theme_params: %w", err)
+			return fmt.Errorf("unable to encode payments.getPaymentForm#37148dbb: field theme_params: %w", err)
 		}
 	}
 	return nil
@@ -192,10 +180,10 @@ func (g *PaymentsGetPaymentFormRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *PaymentsGetPaymentFormRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getPaymentForm#8a333c8d to nil")
+		return fmt.Errorf("can't decode payments.getPaymentForm#37148dbb to nil")
 	}
 	if err := b.ConsumeID(PaymentsGetPaymentFormRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.getPaymentForm#8a333c8d: %w", err)
+		return fmt.Errorf("unable to decode payments.getPaymentForm#37148dbb: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -203,49 +191,34 @@ func (g *PaymentsGetPaymentFormRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *PaymentsGetPaymentFormRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode payments.getPaymentForm#8a333c8d to nil")
+		return fmt.Errorf("can't decode payments.getPaymentForm#37148dbb to nil")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.getPaymentForm#8a333c8d: field flags: %w", err)
+			return fmt.Errorf("unable to decode payments.getPaymentForm#37148dbb: field flags: %w", err)
 		}
 	}
 	{
-		value, err := DecodeInputPeer(b)
+		value, err := DecodeInputInvoice(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.getPaymentForm#8a333c8d: field peer: %w", err)
+			return fmt.Errorf("unable to decode payments.getPaymentForm#37148dbb: field invoice: %w", err)
 		}
-		g.Peer = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode payments.getPaymentForm#8a333c8d: field msg_id: %w", err)
-		}
-		g.MsgID = value
+		g.Invoice = value
 	}
 	if g.Flags.Has(0) {
 		if err := g.ThemeParams.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.getPaymentForm#8a333c8d: field theme_params: %w", err)
+			return fmt.Errorf("unable to decode payments.getPaymentForm#37148dbb: field theme_params: %w", err)
 		}
 	}
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (g *PaymentsGetPaymentFormRequest) GetPeer() (value InputPeerClass) {
+// GetInvoice returns value of Invoice field.
+func (g *PaymentsGetPaymentFormRequest) GetInvoice() (value InputInvoiceClass) {
 	if g == nil {
 		return
 	}
-	return g.Peer
-}
-
-// GetMsgID returns value of MsgID field.
-func (g *PaymentsGetPaymentFormRequest) GetMsgID() (value int) {
-	if g == nil {
-		return
-	}
-	return g.MsgID
+	return g.Invoice
 }
 
 // SetThemeParams sets value of ThemeParams conditional field.
@@ -266,7 +239,7 @@ func (g *PaymentsGetPaymentFormRequest) GetThemeParams() (value DataJSON, ok boo
 	return g.ThemeParams, true
 }
 
-// PaymentsGetPaymentForm invokes method payments.getPaymentForm#8a333c8d returning error if any.
+// PaymentsGetPaymentForm invokes method payments.getPaymentForm#37148dbb returning error if any.
 // Get a payment form
 //
 // Possible errors:

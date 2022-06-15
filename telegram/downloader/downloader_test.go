@@ -32,13 +32,13 @@ type mock struct {
 
 var testErr = testutil.TestError()
 
-func (m mock) getPart(offset, limit int) []byte {
+func (m mock) getPart(offset int64, limit int) []byte {
 	length := len(m.data)
-	if offset >= length {
+	if offset >= int64(length) {
 		return []byte{}
 	}
 
-	size := length - offset
+	size := length - int(offset)
 	if size > limit {
 		size = limit
 	}
@@ -116,7 +116,7 @@ func (m mock) UploadGetWebFile(ctx context.Context, request *tg.UploadGetWebFile
 	}
 
 	return &tg.UploadWebFile{
-		Bytes: m.getPart(request.Offset, request.Limit),
+		Bytes: m.getPart(int64(request.Offset), request.Limit),
 	}, nil
 }
 
@@ -138,7 +138,7 @@ func countHashes(data []byte, partSize int) (r [][]tg.FileHash) {
 			currentRange = make([]tg.FileHash, 0, 10)
 		}
 		currentRange = append(currentRange, tg.FileHash{
-			Offset: offset,
+			Offset: int64(offset),
 			Limit:  partSize,
 			Hash:   crypto.SHA256(batch),
 		})
@@ -161,7 +161,7 @@ func Test_countHashes(t *testing.T) {
 	for _, hashRange := range hashes {
 		for _, hash := range hashRange {
 			from := hash.Offset
-			to := hash.Offset + hash.Limit
+			to := int(hash.Offset) + hash.Limit
 			if to > len(data) {
 				to = len(data)
 			}

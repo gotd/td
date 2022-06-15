@@ -33,3 +33,208 @@ var (
 	_ = tgerr.Error{}
 	_ = tdjson.Encoder{}
 )
+
+// DialogFilterClassArray is adapter for slice of DialogFilterClass.
+type DialogFilterClassArray []DialogFilterClass
+
+// Sort sorts slice of DialogFilterClass.
+func (s DialogFilterClassArray) Sort(less func(a, b DialogFilterClass) bool) DialogFilterClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DialogFilterClass.
+func (s DialogFilterClassArray) SortStable(less func(a, b DialogFilterClass) bool) DialogFilterClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DialogFilterClass.
+func (s DialogFilterClassArray) Retain(keep func(x DialogFilterClass) bool) DialogFilterClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DialogFilterClassArray) First() (v DialogFilterClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DialogFilterClassArray) Last() (v DialogFilterClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DialogFilterClassArray) PopFirst() (v DialogFilterClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DialogFilterClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DialogFilterClassArray) Pop() (v DialogFilterClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsDialogFilter returns copy with only DialogFilter constructors.
+func (s DialogFilterClassArray) AsDialogFilter() (to DialogFilterArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DialogFilter)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// DialogFilterArray is adapter for slice of DialogFilter.
+type DialogFilterArray []DialogFilter
+
+// Sort sorts slice of DialogFilter.
+func (s DialogFilterArray) Sort(less func(a, b DialogFilter) bool) DialogFilterArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DialogFilter.
+func (s DialogFilterArray) SortStable(less func(a, b DialogFilter) bool) DialogFilterArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DialogFilter.
+func (s DialogFilterArray) Retain(keep func(x DialogFilter) bool) DialogFilterArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DialogFilterArray) First() (v DialogFilter, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DialogFilterArray) Last() (v DialogFilter, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DialogFilterArray) PopFirst() (v DialogFilter, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DialogFilter
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DialogFilterArray) Pop() (v DialogFilter, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of DialogFilter by ID.
+func (s DialogFilterArray) SortByID() DialogFilterArray {
+	return s.Sort(func(a, b DialogFilter) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of DialogFilter by ID.
+func (s DialogFilterArray) SortStableByID() DialogFilterArray {
+	return s.SortStable(func(a, b DialogFilter) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s DialogFilterArray) FillMap(to map[int]DialogFilter) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s DialogFilterArray) ToMap() map[int]DialogFilter {
+	r := make(map[int]DialogFilter, len(s))
+	s.FillMap(r)
+	return r
+}

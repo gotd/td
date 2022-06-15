@@ -121,12 +121,17 @@ type DialogFilter struct {
 // DialogFilterTypeID is TL type id of DialogFilter.
 const DialogFilterTypeID = 0x7438f7e8
 
+// construct implements constructor of DialogFilterClass.
+func (d DialogFilter) construct() DialogFilterClass { return &d }
+
 // Ensuring interfaces in compile-time for DialogFilter.
 var (
 	_ bin.Encoder     = &DialogFilter{}
 	_ bin.Decoder     = &DialogFilter{}
 	_ bin.BareEncoder = &DialogFilter{}
 	_ bin.BareDecoder = &DialogFilter{}
+
+	_ DialogFilterClass = &DialogFilter{}
 )
 
 func (d *DialogFilter) Zero() bool {
@@ -730,4 +735,193 @@ func (d *DialogFilter) MapIncludePeers() (value InputPeerClassArray) {
 // MapExcludePeers returns field ExcludePeers wrapped in InputPeerClassArray helper.
 func (d *DialogFilter) MapExcludePeers() (value InputPeerClassArray) {
 	return InputPeerClassArray(d.ExcludePeers)
+}
+
+// DialogFilterDefault represents TL type `dialogFilterDefault#363293ae`.
+//
+// See https://core.telegram.org/constructor/dialogFilterDefault for reference.
+type DialogFilterDefault struct {
+}
+
+// DialogFilterDefaultTypeID is TL type id of DialogFilterDefault.
+const DialogFilterDefaultTypeID = 0x363293ae
+
+// construct implements constructor of DialogFilterClass.
+func (d DialogFilterDefault) construct() DialogFilterClass { return &d }
+
+// Ensuring interfaces in compile-time for DialogFilterDefault.
+var (
+	_ bin.Encoder     = &DialogFilterDefault{}
+	_ bin.Decoder     = &DialogFilterDefault{}
+	_ bin.BareEncoder = &DialogFilterDefault{}
+	_ bin.BareDecoder = &DialogFilterDefault{}
+
+	_ DialogFilterClass = &DialogFilterDefault{}
+)
+
+func (d *DialogFilterDefault) Zero() bool {
+	if d == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (d *DialogFilterDefault) String() string {
+	if d == nil {
+		return "DialogFilterDefault(nil)"
+	}
+	type Alias DialogFilterDefault
+	return fmt.Sprintf("DialogFilterDefault%+v", Alias(*d))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*DialogFilterDefault) TypeID() uint32 {
+	return DialogFilterDefaultTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*DialogFilterDefault) TypeName() string {
+	return "dialogFilterDefault"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DialogFilterDefault) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "dialogFilterDefault",
+		ID:   DialogFilterDefaultTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (d *DialogFilterDefault) Encode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dialogFilterDefault#363293ae as nil")
+	}
+	b.PutID(DialogFilterDefaultTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DialogFilterDefault) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dialogFilterDefault#363293ae as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (d *DialogFilterDefault) Decode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dialogFilterDefault#363293ae to nil")
+	}
+	if err := b.ConsumeID(DialogFilterDefaultTypeID); err != nil {
+		return fmt.Errorf("unable to decode dialogFilterDefault#363293ae: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DialogFilterDefault) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dialogFilterDefault#363293ae to nil")
+	}
+	return nil
+}
+
+// DialogFilterClassName is schema name of DialogFilterClass.
+const DialogFilterClassName = "DialogFilter"
+
+// DialogFilterClass represents DialogFilter generic type.
+//
+// See https://core.telegram.org/type/DialogFilter for reference.
+//
+// Example:
+//  g, err := tg.DecodeDialogFilter(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.DialogFilter: // dialogFilter#7438f7e8
+//  case *tg.DialogFilterDefault: // dialogFilterDefault#363293ae
+//  default: panic(v)
+//  }
+type DialogFilterClass interface {
+	bin.Encoder
+	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
+	construct() DialogFilterClass
+
+	// TypeID returns type id in TL schema.
+	//
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// TypeName returns name of type in TL schema.
+	TypeName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+}
+
+// DecodeDialogFilter implements binary de-serialization for DialogFilterClass.
+func DecodeDialogFilter(buf *bin.Buffer) (DialogFilterClass, error) {
+	id, err := buf.PeekID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case DialogFilterTypeID:
+		// Decoding dialogFilter#7438f7e8.
+		v := DialogFilter{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode DialogFilterClass: %w", err)
+		}
+		return &v, nil
+	case DialogFilterDefaultTypeID:
+		// Decoding dialogFilterDefault#363293ae.
+		v := DialogFilterDefault{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode DialogFilterClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode DialogFilterClass: %w", bin.NewUnexpectedID(id))
+	}
+}
+
+// DialogFilter boxes the DialogFilterClass providing a helper.
+type DialogFilterBox struct {
+	DialogFilter DialogFilterClass
+}
+
+// Decode implements bin.Decoder for DialogFilterBox.
+func (b *DialogFilterBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode DialogFilterBox to nil")
+	}
+	v, err := DecodeDialogFilter(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.DialogFilter = v
+	return nil
+}
+
+// Encode implements bin.Encode for DialogFilterBox.
+func (b *DialogFilterBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.DialogFilter == nil {
+		return fmt.Errorf("unable to encode DialogFilterClass as nil")
+	}
+	return b.DialogFilter.Encode(buf)
 }

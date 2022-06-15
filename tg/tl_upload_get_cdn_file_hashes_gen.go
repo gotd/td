@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// UploadGetCDNFileHashesRequest represents TL type `upload.getCdnFileHashes#4da54231`.
+// UploadGetCDNFileHashesRequest represents TL type `upload.getCdnFileHashes#91dc3f31`.
 // Get SHA256 hashes for verifying downloaded CDN¹ files
 //
 // Links:
@@ -42,11 +42,11 @@ type UploadGetCDNFileHashesRequest struct {
 	// File
 	FileToken []byte
 	// Offset from which to start getting hashes
-	Offset int
+	Offset int64
 }
 
 // UploadGetCDNFileHashesRequestTypeID is TL type id of UploadGetCDNFileHashesRequest.
-const UploadGetCDNFileHashesRequestTypeID = 0x4da54231
+const UploadGetCDNFileHashesRequestTypeID = 0x91dc3f31
 
 // Ensuring interfaces in compile-time for UploadGetCDNFileHashesRequest.
 var (
@@ -82,7 +82,7 @@ func (g *UploadGetCDNFileHashesRequest) String() string {
 // FillFrom fills UploadGetCDNFileHashesRequest from given interface.
 func (g *UploadGetCDNFileHashesRequest) FillFrom(from interface {
 	GetFileToken() (value []byte)
-	GetOffset() (value int)
+	GetOffset() (value int64)
 }) {
 	g.FileToken = from.GetFileToken()
 	g.Offset = from.GetOffset()
@@ -126,7 +126,7 @@ func (g *UploadGetCDNFileHashesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *UploadGetCDNFileHashesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode upload.getCdnFileHashes#4da54231 as nil")
+		return fmt.Errorf("can't encode upload.getCdnFileHashes#91dc3f31 as nil")
 	}
 	b.PutID(UploadGetCDNFileHashesRequestTypeID)
 	return g.EncodeBare(b)
@@ -135,20 +135,20 @@ func (g *UploadGetCDNFileHashesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *UploadGetCDNFileHashesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode upload.getCdnFileHashes#4da54231 as nil")
+		return fmt.Errorf("can't encode upload.getCdnFileHashes#91dc3f31 as nil")
 	}
 	b.PutBytes(g.FileToken)
-	b.PutInt(g.Offset)
+	b.PutLong(g.Offset)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *UploadGetCDNFileHashesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode upload.getCdnFileHashes#4da54231 to nil")
+		return fmt.Errorf("can't decode upload.getCdnFileHashes#91dc3f31 to nil")
 	}
 	if err := b.ConsumeID(UploadGetCDNFileHashesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode upload.getCdnFileHashes#4da54231: %w", err)
+		return fmt.Errorf("unable to decode upload.getCdnFileHashes#91dc3f31: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -156,19 +156,19 @@ func (g *UploadGetCDNFileHashesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *UploadGetCDNFileHashesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode upload.getCdnFileHashes#4da54231 to nil")
+		return fmt.Errorf("can't decode upload.getCdnFileHashes#91dc3f31 to nil")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getCdnFileHashes#4da54231: field file_token: %w", err)
+			return fmt.Errorf("unable to decode upload.getCdnFileHashes#91dc3f31: field file_token: %w", err)
 		}
 		g.FileToken = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getCdnFileHashes#4da54231: field offset: %w", err)
+			return fmt.Errorf("unable to decode upload.getCdnFileHashes#91dc3f31: field offset: %w", err)
 		}
 		g.Offset = value
 	}
@@ -184,14 +184,14 @@ func (g *UploadGetCDNFileHashesRequest) GetFileToken() (value []byte) {
 }
 
 // GetOffset returns value of Offset field.
-func (g *UploadGetCDNFileHashesRequest) GetOffset() (value int) {
+func (g *UploadGetCDNFileHashesRequest) GetOffset() (value int64) {
 	if g == nil {
 		return
 	}
 	return g.Offset
 }
 
-// UploadGetCDNFileHashes invokes method upload.getCdnFileHashes#4da54231 returning error if any.
+// UploadGetCDNFileHashes invokes method upload.getCdnFileHashes#91dc3f31 returning error if any.
 // Get SHA256 hashes for verifying downloaded CDN¹ files
 //
 // Links:

@@ -82,12 +82,17 @@ type ChatInviteExported struct {
 // ChatInviteExportedTypeID is TL type id of ChatInviteExported.
 const ChatInviteExportedTypeID = 0xab4a819
 
+// construct implements constructor of ExportedChatInviteClass.
+func (c ChatInviteExported) construct() ExportedChatInviteClass { return &c }
+
 // Ensuring interfaces in compile-time for ChatInviteExported.
 var (
 	_ bin.Encoder     = &ChatInviteExported{}
 	_ bin.Decoder     = &ChatInviteExported{}
 	_ bin.BareEncoder = &ChatInviteExported{}
 	_ bin.BareDecoder = &ChatInviteExported{}
+
+	_ ExportedChatInviteClass = &ChatInviteExported{}
 )
 
 func (c *ChatInviteExported) Zero() bool {
@@ -627,4 +632,193 @@ func (c *ChatInviteExported) GetTitle() (value string, ok bool) {
 		return value, false
 	}
 	return c.Title, true
+}
+
+// ChatInvitePublicJoinRequests represents TL type `chatInvitePublicJoinRequests#ed107ab7`.
+//
+// See https://core.telegram.org/constructor/chatInvitePublicJoinRequests for reference.
+type ChatInvitePublicJoinRequests struct {
+}
+
+// ChatInvitePublicJoinRequestsTypeID is TL type id of ChatInvitePublicJoinRequests.
+const ChatInvitePublicJoinRequestsTypeID = 0xed107ab7
+
+// construct implements constructor of ExportedChatInviteClass.
+func (c ChatInvitePublicJoinRequests) construct() ExportedChatInviteClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatInvitePublicJoinRequests.
+var (
+	_ bin.Encoder     = &ChatInvitePublicJoinRequests{}
+	_ bin.Decoder     = &ChatInvitePublicJoinRequests{}
+	_ bin.BareEncoder = &ChatInvitePublicJoinRequests{}
+	_ bin.BareDecoder = &ChatInvitePublicJoinRequests{}
+
+	_ ExportedChatInviteClass = &ChatInvitePublicJoinRequests{}
+)
+
+func (c *ChatInvitePublicJoinRequests) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatInvitePublicJoinRequests) String() string {
+	if c == nil {
+		return "ChatInvitePublicJoinRequests(nil)"
+	}
+	type Alias ChatInvitePublicJoinRequests
+	return fmt.Sprintf("ChatInvitePublicJoinRequests%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatInvitePublicJoinRequests) TypeID() uint32 {
+	return ChatInvitePublicJoinRequestsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatInvitePublicJoinRequests) TypeName() string {
+	return "chatInvitePublicJoinRequests"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatInvitePublicJoinRequests) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatInvitePublicJoinRequests",
+		ID:   ChatInvitePublicJoinRequestsTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatInvitePublicJoinRequests) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatInvitePublicJoinRequests#ed107ab7 as nil")
+	}
+	b.PutID(ChatInvitePublicJoinRequestsTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatInvitePublicJoinRequests) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatInvitePublicJoinRequests#ed107ab7 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatInvitePublicJoinRequests) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatInvitePublicJoinRequests#ed107ab7 to nil")
+	}
+	if err := b.ConsumeID(ChatInvitePublicJoinRequestsTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatInvitePublicJoinRequests#ed107ab7: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatInvitePublicJoinRequests) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatInvitePublicJoinRequests#ed107ab7 to nil")
+	}
+	return nil
+}
+
+// ExportedChatInviteClassName is schema name of ExportedChatInviteClass.
+const ExportedChatInviteClassName = "ExportedChatInvite"
+
+// ExportedChatInviteClass represents ExportedChatInvite generic type.
+//
+// See https://core.telegram.org/type/ExportedChatInvite for reference.
+//
+// Example:
+//  g, err := tg.DecodeExportedChatInvite(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *tg.ChatInviteExported: // chatInviteExported#ab4a819
+//  case *tg.ChatInvitePublicJoinRequests: // chatInvitePublicJoinRequests#ed107ab7
+//  default: panic(v)
+//  }
+type ExportedChatInviteClass interface {
+	bin.Encoder
+	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
+	construct() ExportedChatInviteClass
+
+	// TypeID returns type id in TL schema.
+	//
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// TypeName returns name of type in TL schema.
+	TypeName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+}
+
+// DecodeExportedChatInvite implements binary de-serialization for ExportedChatInviteClass.
+func DecodeExportedChatInvite(buf *bin.Buffer) (ExportedChatInviteClass, error) {
+	id, err := buf.PeekID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case ChatInviteExportedTypeID:
+		// Decoding chatInviteExported#ab4a819.
+		v := ChatInviteExported{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ExportedChatInviteClass: %w", err)
+		}
+		return &v, nil
+	case ChatInvitePublicJoinRequestsTypeID:
+		// Decoding chatInvitePublicJoinRequests#ed107ab7.
+		v := ChatInvitePublicJoinRequests{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ExportedChatInviteClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode ExportedChatInviteClass: %w", bin.NewUnexpectedID(id))
+	}
+}
+
+// ExportedChatInvite boxes the ExportedChatInviteClass providing a helper.
+type ExportedChatInviteBox struct {
+	ExportedChatInvite ExportedChatInviteClass
+}
+
+// Decode implements bin.Decoder for ExportedChatInviteBox.
+func (b *ExportedChatInviteBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode ExportedChatInviteBox to nil")
+	}
+	v, err := DecodeExportedChatInvite(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.ExportedChatInvite = v
+	return nil
+}
+
+// Encode implements bin.Encode for ExportedChatInviteBox.
+func (b *ExportedChatInviteBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.ExportedChatInvite == nil {
+		return fmt.Errorf("unable to encode ExportedChatInviteClass as nil")
+	}
+	return b.ExportedChatInvite.Encode(buf)
 }

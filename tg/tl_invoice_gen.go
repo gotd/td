@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Invoice represents TL type `invoice#cd886e0`.
+// Invoice represents TL type `invoice#3e85a91b`.
 // Invoice
 //
 // See https://core.telegram.org/constructor/invoice for reference.
@@ -57,6 +57,8 @@ type Invoice struct {
 	PhoneToProvider bool
 	// Set this flag if user's email address should be sent to provider
 	EmailToProvider bool
+	// Recurring field of Invoice.
+	Recurring bool
 	// Three-letter ISO 4217 currency¹ code
 	//
 	// Links:
@@ -82,10 +84,14 @@ type Invoice struct {
 	//
 	// Use SetSuggestedTipAmounts and GetSuggestedTipAmounts helpers.
 	SuggestedTipAmounts []int64
+	// RecurringTermsURL field of Invoice.
+	//
+	// Use SetRecurringTermsURL and GetRecurringTermsURL helpers.
+	RecurringTermsURL string
 }
 
 // InvoiceTypeID is TL type id of Invoice.
-const InvoiceTypeID = 0xcd886e0
+const InvoiceTypeID = 0x3e85a91b
 
 // Ensuring interfaces in compile-time for Invoice.
 var (
@@ -126,6 +132,9 @@ func (i *Invoice) Zero() bool {
 	if !(i.EmailToProvider == false) {
 		return false
 	}
+	if !(i.Recurring == false) {
+		return false
+	}
 	if !(i.Currency == "") {
 		return false
 	}
@@ -136,6 +145,9 @@ func (i *Invoice) Zero() bool {
 		return false
 	}
 	if !(i.SuggestedTipAmounts == nil) {
+		return false
+	}
+	if !(i.RecurringTermsURL == "") {
 		return false
 	}
 
@@ -161,10 +173,12 @@ func (i *Invoice) FillFrom(from interface {
 	GetFlexible() (value bool)
 	GetPhoneToProvider() (value bool)
 	GetEmailToProvider() (value bool)
+	GetRecurring() (value bool)
 	GetCurrency() (value string)
 	GetPrices() (value []LabeledPrice)
 	GetMaxTipAmount() (value int64, ok bool)
 	GetSuggestedTipAmounts() (value []int64, ok bool)
+	GetRecurringTermsURL() (value string, ok bool)
 }) {
 	i.Test = from.GetTest()
 	i.NameRequested = from.GetNameRequested()
@@ -174,6 +188,7 @@ func (i *Invoice) FillFrom(from interface {
 	i.Flexible = from.GetFlexible()
 	i.PhoneToProvider = from.GetPhoneToProvider()
 	i.EmailToProvider = from.GetEmailToProvider()
+	i.Recurring = from.GetRecurring()
 	i.Currency = from.GetCurrency()
 	i.Prices = from.GetPrices()
 	if val, ok := from.GetMaxTipAmount(); ok {
@@ -182,6 +197,10 @@ func (i *Invoice) FillFrom(from interface {
 
 	if val, ok := from.GetSuggestedTipAmounts(); ok {
 		i.SuggestedTipAmounts = val
+	}
+
+	if val, ok := from.GetRecurringTermsURL(); ok {
+		i.RecurringTermsURL = val
 	}
 
 }
@@ -250,6 +269,11 @@ func (i *Invoice) TypeInfo() tdp.Type {
 			Null:       !i.Flags.Has(7),
 		},
 		{
+			Name:       "Recurring",
+			SchemaName: "recurring",
+			Null:       !i.Flags.Has(9),
+		},
+		{
 			Name:       "Currency",
 			SchemaName: "currency",
 		},
@@ -266,6 +290,11 @@ func (i *Invoice) TypeInfo() tdp.Type {
 			Name:       "SuggestedTipAmounts",
 			SchemaName: "suggested_tip_amounts",
 			Null:       !i.Flags.Has(8),
+		},
+		{
+			Name:       "RecurringTermsURL",
+			SchemaName: "recurring_terms_url",
+			Null:       !i.Flags.Has(9),
 		},
 	}
 	return typ
@@ -297,18 +326,24 @@ func (i *Invoice) SetFlags() {
 	if !(i.EmailToProvider == false) {
 		i.Flags.Set(7)
 	}
+	if !(i.Recurring == false) {
+		i.Flags.Set(9)
+	}
 	if !(i.MaxTipAmount == 0) {
 		i.Flags.Set(8)
 	}
 	if !(i.SuggestedTipAmounts == nil) {
 		i.Flags.Set(8)
 	}
+	if !(i.RecurringTermsURL == "") {
+		i.Flags.Set(9)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (i *Invoice) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invoice#cd886e0 as nil")
+		return fmt.Errorf("can't encode invoice#3e85a91b as nil")
 	}
 	b.PutID(InvoiceTypeID)
 	return i.EncodeBare(b)
@@ -317,17 +352,17 @@ func (i *Invoice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *Invoice) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invoice#cd886e0 as nil")
+		return fmt.Errorf("can't encode invoice#3e85a91b as nil")
 	}
 	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode invoice#cd886e0: field flags: %w", err)
+		return fmt.Errorf("unable to encode invoice#3e85a91b: field flags: %w", err)
 	}
 	b.PutString(i.Currency)
 	b.PutVectorHeader(len(i.Prices))
 	for idx, v := range i.Prices {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode invoice#cd886e0: field prices element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode invoice#3e85a91b: field prices element with index %d: %w", idx, err)
 		}
 	}
 	if i.Flags.Has(8) {
@@ -339,16 +374,19 @@ func (i *Invoice) EncodeBare(b *bin.Buffer) error {
 			b.PutLong(v)
 		}
 	}
+	if i.Flags.Has(9) {
+		b.PutString(i.RecurringTermsURL)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *Invoice) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invoice#cd886e0 to nil")
+		return fmt.Errorf("can't decode invoice#3e85a91b to nil")
 	}
 	if err := b.ConsumeID(InvoiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode invoice#cd886e0: %w", err)
+		return fmt.Errorf("unable to decode invoice#3e85a91b: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -356,11 +394,11 @@ func (i *Invoice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invoice#cd886e0 to nil")
+		return fmt.Errorf("can't decode invoice#3e85a91b to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode invoice#cd886e0: field flags: %w", err)
+			return fmt.Errorf("unable to decode invoice#3e85a91b: field flags: %w", err)
 		}
 	}
 	i.Test = i.Flags.Has(0)
@@ -371,17 +409,18 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 	i.Flexible = i.Flags.Has(5)
 	i.PhoneToProvider = i.Flags.Has(6)
 	i.EmailToProvider = i.Flags.Has(7)
+	i.Recurring = i.Flags.Has(9)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#cd886e0: field currency: %w", err)
+			return fmt.Errorf("unable to decode invoice#3e85a91b: field currency: %w", err)
 		}
 		i.Currency = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#cd886e0: field prices: %w", err)
+			return fmt.Errorf("unable to decode invoice#3e85a91b: field prices: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -390,7 +429,7 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value LabeledPrice
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode invoice#cd886e0: field prices: %w", err)
+				return fmt.Errorf("unable to decode invoice#3e85a91b: field prices: %w", err)
 			}
 			i.Prices = append(i.Prices, value)
 		}
@@ -398,14 +437,14 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 	if i.Flags.Has(8) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#cd886e0: field max_tip_amount: %w", err)
+			return fmt.Errorf("unable to decode invoice#3e85a91b: field max_tip_amount: %w", err)
 		}
 		i.MaxTipAmount = value
 	}
 	if i.Flags.Has(8) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#cd886e0: field suggested_tip_amounts: %w", err)
+			return fmt.Errorf("unable to decode invoice#3e85a91b: field suggested_tip_amounts: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -414,10 +453,17 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode invoice#cd886e0: field suggested_tip_amounts: %w", err)
+				return fmt.Errorf("unable to decode invoice#3e85a91b: field suggested_tip_amounts: %w", err)
 			}
 			i.SuggestedTipAmounts = append(i.SuggestedTipAmounts, value)
 		}
+	}
+	if i.Flags.Has(9) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode invoice#3e85a91b: field recurring_terms_url: %w", err)
+		}
+		i.RecurringTermsURL = value
 	}
 	return nil
 }
@@ -574,6 +620,25 @@ func (i *Invoice) GetEmailToProvider() (value bool) {
 	return i.Flags.Has(7)
 }
 
+// SetRecurring sets value of Recurring conditional field.
+func (i *Invoice) SetRecurring(value bool) {
+	if value {
+		i.Flags.Set(9)
+		i.Recurring = true
+	} else {
+		i.Flags.Unset(9)
+		i.Recurring = false
+	}
+}
+
+// GetRecurring returns value of Recurring conditional field.
+func (i *Invoice) GetRecurring() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.Flags.Has(9)
+}
+
 // GetCurrency returns value of Currency field.
 func (i *Invoice) GetCurrency() (value string) {
 	if i == nil {
@@ -624,4 +689,22 @@ func (i *Invoice) GetSuggestedTipAmounts() (value []int64, ok bool) {
 		return value, false
 	}
 	return i.SuggestedTipAmounts, true
+}
+
+// SetRecurringTermsURL sets value of RecurringTermsURL conditional field.
+func (i *Invoice) SetRecurringTermsURL(value string) {
+	i.Flags.Set(9)
+	i.RecurringTermsURL = value
+}
+
+// GetRecurringTermsURL returns value of RecurringTermsURL conditional field and
+// boolean which is true if field was set.
+func (i *Invoice) GetRecurringTermsURL() (value string, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(9) {
+		return value, false
+	}
+	return i.RecurringTermsURL, true
 }

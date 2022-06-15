@@ -32,7 +32,7 @@ type master struct {
 
 var _ schema = master{}
 
-func (c master) Chunk(ctx context.Context, offset, limit int) (chunk, error) {
+func (c master) Chunk(ctx context.Context, offset int64, limit int) (chunk, error) {
 	req := &tg.UploadGetFileRequest{
 		Offset:   offset,
 		Limit:    limit,
@@ -56,7 +56,7 @@ func (c master) Chunk(ctx context.Context, offset, limit int) (chunk, error) {
 	}
 }
 
-func (c master) Hashes(ctx context.Context, offset int) ([]tg.FileHash, error) {
+func (c master) Hashes(ctx context.Context, offset int64) ([]tg.FileHash, error) {
 	return c.client.UploadGetFileHashes(ctx, &tg.UploadGetFileHashesRequest{
 		Location: c.location,
 		Offset:   offset,

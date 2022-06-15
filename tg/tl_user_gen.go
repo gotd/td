@@ -212,6 +212,10 @@ type User struct {
 	Fake bool
 	// BotAttachMenu field of User.
 	BotAttachMenu bool
+	// Premium field of User.
+	Premium bool
+	// AttachMenuEnabled field of User.
+	AttachMenuEnabled bool
 	// ID of the user
 	ID int64
 	// Access hash of the user
@@ -334,6 +338,12 @@ func (u *User) Zero() bool {
 	if !(u.BotAttachMenu == false) {
 		return false
 	}
+	if !(u.Premium == false) {
+		return false
+	}
+	if !(u.AttachMenuEnabled == false) {
+		return false
+	}
 	if !(u.ID == 0) {
 		return false
 	}
@@ -401,6 +411,8 @@ func (u *User) FillFrom(from interface {
 	GetApplyMinPhoto() (value bool)
 	GetFake() (value bool)
 	GetBotAttachMenu() (value bool)
+	GetPremium() (value bool)
+	GetAttachMenuEnabled() (value bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64, ok bool)
 	GetFirstName() (value string, ok bool)
@@ -430,6 +442,8 @@ func (u *User) FillFrom(from interface {
 	u.ApplyMinPhoto = from.GetApplyMinPhoto()
 	u.Fake = from.GetFake()
 	u.BotAttachMenu = from.GetBotAttachMenu()
+	u.Premium = from.GetPremium()
+	u.AttachMenuEnabled = from.GetAttachMenuEnabled()
 	u.ID = from.GetID()
 	if val, ok := from.GetAccessHash(); ok {
 		u.AccessHash = val
@@ -581,6 +595,16 @@ func (u *User) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(27),
 		},
 		{
+			Name:       "Premium",
+			SchemaName: "premium",
+			Null:       !u.Flags.Has(28),
+		},
+		{
+			Name:       "AttachMenuEnabled",
+			SchemaName: "attach_menu_enabled",
+			Null:       !u.Flags.Has(29),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -692,6 +716,12 @@ func (u *User) SetFlags() {
 	}
 	if !(u.BotAttachMenu == false) {
 		u.Flags.Set(27)
+	}
+	if !(u.Premium == false) {
+		u.Flags.Set(28)
+	}
+	if !(u.AttachMenuEnabled == false) {
+		u.Flags.Set(29)
 	}
 	if !(u.AccessHash == 0) {
 		u.Flags.Set(0)
@@ -835,6 +865,8 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 	u.ApplyMinPhoto = u.Flags.Has(25)
 	u.Fake = u.Flags.Has(26)
 	u.BotAttachMenu = u.Flags.Has(27)
+	u.Premium = u.Flags.Has(28)
+	u.AttachMenuEnabled = u.Flags.Has(29)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -1234,6 +1266,44 @@ func (u *User) GetBotAttachMenu() (value bool) {
 		return
 	}
 	return u.Flags.Has(27)
+}
+
+// SetPremium sets value of Premium conditional field.
+func (u *User) SetPremium(value bool) {
+	if value {
+		u.Flags.Set(28)
+		u.Premium = true
+	} else {
+		u.Flags.Unset(28)
+		u.Premium = false
+	}
+}
+
+// GetPremium returns value of Premium conditional field.
+func (u *User) GetPremium() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(28)
+}
+
+// SetAttachMenuEnabled sets value of AttachMenuEnabled conditional field.
+func (u *User) SetAttachMenuEnabled(value bool) {
+	if value {
+		u.Flags.Set(29)
+		u.AttachMenuEnabled = true
+	} else {
+		u.Flags.Unset(29)
+		u.AttachMenuEnabled = false
+	}
+}
+
+// GetAttachMenuEnabled returns value of AttachMenuEnabled conditional field.
+func (u *User) GetAttachMenuEnabled() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(29)
 }
 
 // GetID returns value of ID field.

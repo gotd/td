@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AccountInitTakeoutSessionRequest represents TL type `account.initTakeoutSession#f05b4804`.
+// AccountInitTakeoutSessionRequest represents TL type `account.initTakeoutSession#8ef3eab0`.
 // Initialize account takeout session
 //
 // See https://core.telegram.org/method/account.initTakeoutSession for reference.
@@ -65,11 +65,11 @@ type AccountInitTakeoutSessionRequest struct {
 	// Maximum size of files to export
 	//
 	// Use SetFileMaxSize and GetFileMaxSize helpers.
-	FileMaxSize int
+	FileMaxSize int64
 }
 
 // AccountInitTakeoutSessionRequestTypeID is TL type id of AccountInitTakeoutSessionRequest.
-const AccountInitTakeoutSessionRequestTypeID = 0xf05b4804
+const AccountInitTakeoutSessionRequestTypeID = 0x8ef3eab0
 
 // Ensuring interfaces in compile-time for AccountInitTakeoutSessionRequest.
 var (
@@ -128,7 +128,7 @@ func (i *AccountInitTakeoutSessionRequest) FillFrom(from interface {
 	GetMessageMegagroups() (value bool)
 	GetMessageChannels() (value bool)
 	GetFiles() (value bool)
-	GetFileMaxSize() (value int, ok bool)
+	GetFileMaxSize() (value int64, ok bool)
 }) {
 	i.Contacts = from.GetContacts()
 	i.MessageUsers = from.GetMessageUsers()
@@ -232,7 +232,7 @@ func (i *AccountInitTakeoutSessionRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (i *AccountInitTakeoutSessionRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode account.initTakeoutSession#f05b4804 as nil")
+		return fmt.Errorf("can't encode account.initTakeoutSession#8ef3eab0 as nil")
 	}
 	b.PutID(AccountInitTakeoutSessionRequestTypeID)
 	return i.EncodeBare(b)
@@ -241,14 +241,14 @@ func (i *AccountInitTakeoutSessionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *AccountInitTakeoutSessionRequest) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode account.initTakeoutSession#f05b4804 as nil")
+		return fmt.Errorf("can't encode account.initTakeoutSession#8ef3eab0 as nil")
 	}
 	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.initTakeoutSession#f05b4804: field flags: %w", err)
+		return fmt.Errorf("unable to encode account.initTakeoutSession#8ef3eab0: field flags: %w", err)
 	}
 	if i.Flags.Has(5) {
-		b.PutInt(i.FileMaxSize)
+		b.PutLong(i.FileMaxSize)
 	}
 	return nil
 }
@@ -256,10 +256,10 @@ func (i *AccountInitTakeoutSessionRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *AccountInitTakeoutSessionRequest) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode account.initTakeoutSession#f05b4804 to nil")
+		return fmt.Errorf("can't decode account.initTakeoutSession#8ef3eab0 to nil")
 	}
 	if err := b.ConsumeID(AccountInitTakeoutSessionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.initTakeoutSession#f05b4804: %w", err)
+		return fmt.Errorf("unable to decode account.initTakeoutSession#8ef3eab0: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -267,11 +267,11 @@ func (i *AccountInitTakeoutSessionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *AccountInitTakeoutSessionRequest) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode account.initTakeoutSession#f05b4804 to nil")
+		return fmt.Errorf("can't decode account.initTakeoutSession#8ef3eab0 to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.initTakeoutSession#f05b4804: field flags: %w", err)
+			return fmt.Errorf("unable to decode account.initTakeoutSession#8ef3eab0: field flags: %w", err)
 		}
 	}
 	i.Contacts = i.Flags.Has(0)
@@ -281,9 +281,9 @@ func (i *AccountInitTakeoutSessionRequest) DecodeBare(b *bin.Buffer) error {
 	i.MessageChannels = i.Flags.Has(4)
 	i.Files = i.Flags.Has(5)
 	if i.Flags.Has(5) {
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.initTakeoutSession#f05b4804: field file_max_size: %w", err)
+			return fmt.Errorf("unable to decode account.initTakeoutSession#8ef3eab0: field file_max_size: %w", err)
 		}
 		i.FileMaxSize = value
 	}
@@ -405,14 +405,14 @@ func (i *AccountInitTakeoutSessionRequest) GetFiles() (value bool) {
 }
 
 // SetFileMaxSize sets value of FileMaxSize conditional field.
-func (i *AccountInitTakeoutSessionRequest) SetFileMaxSize(value int) {
+func (i *AccountInitTakeoutSessionRequest) SetFileMaxSize(value int64) {
 	i.Flags.Set(5)
 	i.FileMaxSize = value
 }
 
 // GetFileMaxSize returns value of FileMaxSize conditional field and
 // boolean which is true if field was set.
-func (i *AccountInitTakeoutSessionRequest) GetFileMaxSize() (value int, ok bool) {
+func (i *AccountInitTakeoutSessionRequest) GetFileMaxSize() (value int64, ok bool) {
 	if i == nil {
 		return
 	}
@@ -422,7 +422,7 @@ func (i *AccountInitTakeoutSessionRequest) GetFileMaxSize() (value int, ok bool)
 	return i.FileMaxSize, true
 }
 
-// AccountInitTakeoutSession invokes method account.initTakeoutSession#f05b4804 returning error if any.
+// AccountInitTakeoutSession invokes method account.initTakeoutSession#8ef3eab0 returning error if any.
 // Initialize account takeout session
 //
 // Possible errors:

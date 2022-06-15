@@ -39,8 +39,8 @@ func (l InviteLink) ReplacedWith() (InviteLink, bool) {
 }
 
 // Raw returns raw tg.ChatInviteExported.
-func (l InviteLink) Raw() tg.ChatInviteExported {
-	return l.raw
+func (l InviteLink) Raw() *tg.ChatInviteExported {
+	return &l.raw
 }
 
 // Revoked whether this chat invite was revoked

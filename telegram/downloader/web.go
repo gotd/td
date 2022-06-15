@@ -20,10 +20,10 @@ type web struct {
 
 var _ schema = web{}
 
-func (w web) Chunk(ctx context.Context, offset, limit int) (chunk, error) {
+func (w web) Chunk(ctx context.Context, offset int64, limit int) (chunk, error) {
 	file, err := w.client.UploadGetWebFile(ctx, &tg.UploadGetWebFileRequest{
 		Location: w.location,
-		Offset:   offset,
+		Offset:   int(offset),
 		Limit:    limit,
 	})
 	if err != nil {
@@ -33,6 +33,6 @@ func (w web) Chunk(ctx context.Context, offset, limit int) (chunk, error) {
 	return chunk{data: file.Bytes, tag: file.FileType}, nil
 }
 
-func (w web) Hashes(ctx context.Context, offset int) ([]tg.FileHash, error) {
+func (w web) Hashes(ctx context.Context, offset int64) ([]tg.FileHash, error) {
 	return nil, errHashesNotSupported
 }

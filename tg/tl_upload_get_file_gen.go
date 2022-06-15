@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// UploadGetFileRequest represents TL type `upload.getFile#b15a9afc`.
+// UploadGetFileRequest represents TL type `upload.getFile#be5335be`.
 // Returns content of a whole file or its part.
 //
 // See https://core.telegram.org/method/upload.getFile for reference.
@@ -52,13 +52,13 @@ type UploadGetFileRequest struct {
 	// File location
 	Location InputFileLocationClass
 	// Number of bytes to be skipped
-	Offset int
+	Offset int64
 	// Number of bytes to be returned
 	Limit int
 }
 
 // UploadGetFileRequestTypeID is TL type id of UploadGetFileRequest.
-const UploadGetFileRequestTypeID = 0xb15a9afc
+const UploadGetFileRequestTypeID = 0xbe5335be
 
 // Ensuring interfaces in compile-time for UploadGetFileRequest.
 var (
@@ -108,7 +108,7 @@ func (g *UploadGetFileRequest) FillFrom(from interface {
 	GetPrecise() (value bool)
 	GetCDNSupported() (value bool)
 	GetLocation() (value InputFileLocationClass)
-	GetOffset() (value int)
+	GetOffset() (value int64)
 	GetLimit() (value int)
 }) {
 	g.Precise = from.GetPrecise()
@@ -180,7 +180,7 @@ func (g *UploadGetFileRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (g *UploadGetFileRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode upload.getFile#b15a9afc as nil")
+		return fmt.Errorf("can't encode upload.getFile#be5335be as nil")
 	}
 	b.PutID(UploadGetFileRequestTypeID)
 	return g.EncodeBare(b)
@@ -189,19 +189,19 @@ func (g *UploadGetFileRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *UploadGetFileRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode upload.getFile#b15a9afc as nil")
+		return fmt.Errorf("can't encode upload.getFile#be5335be as nil")
 	}
 	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode upload.getFile#b15a9afc: field flags: %w", err)
+		return fmt.Errorf("unable to encode upload.getFile#be5335be: field flags: %w", err)
 	}
 	if g.Location == nil {
-		return fmt.Errorf("unable to encode upload.getFile#b15a9afc: field location is nil")
+		return fmt.Errorf("unable to encode upload.getFile#be5335be: field location is nil")
 	}
 	if err := g.Location.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode upload.getFile#b15a9afc: field location: %w", err)
+		return fmt.Errorf("unable to encode upload.getFile#be5335be: field location: %w", err)
 	}
-	b.PutInt(g.Offset)
+	b.PutLong(g.Offset)
 	b.PutInt(g.Limit)
 	return nil
 }
@@ -209,10 +209,10 @@ func (g *UploadGetFileRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *UploadGetFileRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode upload.getFile#b15a9afc to nil")
+		return fmt.Errorf("can't decode upload.getFile#be5335be to nil")
 	}
 	if err := b.ConsumeID(UploadGetFileRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode upload.getFile#b15a9afc: %w", err)
+		return fmt.Errorf("unable to decode upload.getFile#be5335be: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -220,11 +220,11 @@ func (g *UploadGetFileRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *UploadGetFileRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode upload.getFile#b15a9afc to nil")
+		return fmt.Errorf("can't decode upload.getFile#be5335be to nil")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode upload.getFile#b15a9afc: field flags: %w", err)
+			return fmt.Errorf("unable to decode upload.getFile#be5335be: field flags: %w", err)
 		}
 	}
 	g.Precise = g.Flags.Has(0)
@@ -232,21 +232,21 @@ func (g *UploadGetFileRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputFileLocation(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getFile#b15a9afc: field location: %w", err)
+			return fmt.Errorf("unable to decode upload.getFile#be5335be: field location: %w", err)
 		}
 		g.Location = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getFile#b15a9afc: field offset: %w", err)
+			return fmt.Errorf("unable to decode upload.getFile#be5335be: field offset: %w", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getFile#b15a9afc: field limit: %w", err)
+			return fmt.Errorf("unable to decode upload.getFile#be5335be: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -300,7 +300,7 @@ func (g *UploadGetFileRequest) GetLocation() (value InputFileLocationClass) {
 }
 
 // GetOffset returns value of Offset field.
-func (g *UploadGetFileRequest) GetOffset() (value int) {
+func (g *UploadGetFileRequest) GetOffset() (value int64) {
 	if g == nil {
 		return
 	}
@@ -315,7 +315,7 @@ func (g *UploadGetFileRequest) GetLimit() (value int) {
 	return g.Limit
 }
 
-// UploadGetFile invokes method upload.getFile#b15a9afc returning error if any.
+// UploadGetFile invokes method upload.getFile#be5335be returning error if any.
 // Returns content of a whole file or its part.
 //
 // Possible errors:

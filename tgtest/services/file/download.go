@@ -37,14 +37,14 @@ func (m *Service) openLocation(loc tg.InputFileLocationClass) (File, error) {
 	return f, nil
 }
 
-func (m *Service) getPart(loc tg.InputFileLocationClass, offset, limit int) ([]byte, error) {
+func (m *Service) getPart(loc tg.InputFileLocationClass, offset int64, limit int) ([]byte, error) {
 	f, err := m.openLocation(loc)
 	if err != nil {
 		return nil, err
 	}
 
 	r := make([]byte, limit)
-	n, err := f.ReadAt(r, int64(offset))
+	n, err := f.ReadAt(r, offset)
 	if err != nil {
 		return nil, errors.Wrap(err, "read from storage")
 	}
@@ -65,7 +65,7 @@ func (m *Service) UploadGetFile(ctx context.Context, request *tg.UploadGetFileRe
 	}, nil
 }
 
-func countHashes(data []byte, offset, partSize int) []tg.FileHash {
+func countHashes(data []byte, offset int64, partSize int) []tg.FileHash {
 	actions := data
 	batchSize := partSize
 	batches := make([][]byte, 0, (len(actions)+batchSize-1)/batchSize)
@@ -82,7 +82,7 @@ func countHashes(data []byte, offset, partSize int) []tg.FileHash {
 			Limit:  partSize,
 			Hash:   crypto.SHA256(batch),
 		})
-		offset += len(batch)
+		offset += int64(len(batch))
 	}
 	return currentRange
 }
@@ -97,9 +97,9 @@ func divAndCeil(a, b int) int {
 }
 
 // computeBatch computes hash range number for given offset.
-func computeBatch(offset, rangeSize, partSize int) int {
+func computeBatch(offset int64, rangeSize, partSize int) int {
 	// Compute number of parts in partSize from offset.
-	parts := divAndCeil(offset+1, partSize)
+	parts := divAndCeil(int(offset+1), partSize)
 	// Compute number of hash ranges in rangeSize.
 	batches := divAndCeil(parts, rangeSize)
 
@@ -115,7 +115,7 @@ func (m *Service) UploadGetFileHashes(
 		return nil, err
 	}
 
-	if request.Offset >= f.Size() {
+	if request.Offset >= int64(f.Size()) {
 		return nil, nil
 	}
 	partSize := m.hashPartSize
@@ -132,5 +132,5 @@ func (m *Service) UploadGetFileHashes(
 	}
 	r = r[:n]
 
-	return countHashes(r, low, partSize), nil
+	return countHashes(r, int64(low), partSize), nil
 }

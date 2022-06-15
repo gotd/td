@@ -39,6 +39,8 @@ type AvailableReaction struct {
 	Flags bin.Fields
 	// Inactive field of AvailableReaction.
 	Inactive bool
+	// Premium field of AvailableReaction.
+	Premium bool
 	// Reaction field of AvailableReaction.
 	Reaction string
 	// Title field of AvailableReaction.
@@ -84,6 +86,9 @@ func (a *AvailableReaction) Zero() bool {
 	if !(a.Inactive == false) {
 		return false
 	}
+	if !(a.Premium == false) {
+		return false
+	}
 	if !(a.Reaction == "") {
 		return false
 	}
@@ -127,6 +132,7 @@ func (a *AvailableReaction) String() string {
 // FillFrom fills AvailableReaction from given interface.
 func (a *AvailableReaction) FillFrom(from interface {
 	GetInactive() (value bool)
+	GetPremium() (value bool)
 	GetReaction() (value string)
 	GetTitle() (value string)
 	GetStaticIcon() (value DocumentClass)
@@ -138,6 +144,7 @@ func (a *AvailableReaction) FillFrom(from interface {
 	GetCenterIcon() (value DocumentClass, ok bool)
 }) {
 	a.Inactive = from.GetInactive()
+	a.Premium = from.GetPremium()
 	a.Reaction = from.GetReaction()
 	a.Title = from.GetTitle()
 	a.StaticIcon = from.GetStaticIcon()
@@ -182,6 +189,11 @@ func (a *AvailableReaction) TypeInfo() tdp.Type {
 			Name:       "Inactive",
 			SchemaName: "inactive",
 			Null:       !a.Flags.Has(0),
+		},
+		{
+			Name:       "Premium",
+			SchemaName: "premium",
+			Null:       !a.Flags.Has(2),
 		},
 		{
 			Name:       "Reaction",
@@ -229,6 +241,9 @@ func (a *AvailableReaction) TypeInfo() tdp.Type {
 func (a *AvailableReaction) SetFlags() {
 	if !(a.Inactive == false) {
 		a.Flags.Set(0)
+	}
+	if !(a.Premium == false) {
+		a.Flags.Set(2)
 	}
 	if !(a.AroundAnimation == nil) {
 		a.Flags.Set(1)
@@ -329,6 +344,7 @@ func (a *AvailableReaction) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	a.Inactive = a.Flags.Has(0)
+	a.Premium = a.Flags.Has(2)
 	{
 		value, err := b.String()
 		if err != nil {
@@ -412,6 +428,25 @@ func (a *AvailableReaction) GetInactive() (value bool) {
 		return
 	}
 	return a.Flags.Has(0)
+}
+
+// SetPremium sets value of Premium conditional field.
+func (a *AvailableReaction) SetPremium(value bool) {
+	if value {
+		a.Flags.Set(2)
+		a.Premium = true
+	} else {
+		a.Flags.Unset(2)
+		a.Premium = false
+	}
+}
+
+// GetPremium returns value of Premium conditional field.
+func (a *AvailableReaction) GetPremium() (value bool) {
+	if a == nil {
+		return
+	}
+	return a.Flags.Has(2)
 }
 
 // GetReaction returns value of Reaction field.

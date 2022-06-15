@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// UploadGetCDNFileRequest represents TL type `upload.getCdnFile#2000bcc3`.
+// UploadGetCDNFileRequest represents TL type `upload.getCdnFile#395f69da`.
 // Download a CDN¹ file.
 //
 // Links:
@@ -42,13 +42,13 @@ type UploadGetCDNFileRequest struct {
 	// File token
 	FileToken []byte
 	// Offset of chunk to download
-	Offset int
+	Offset int64
 	// Length of chunk to download
 	Limit int
 }
 
 // UploadGetCDNFileRequestTypeID is TL type id of UploadGetCDNFileRequest.
-const UploadGetCDNFileRequestTypeID = 0x2000bcc3
+const UploadGetCDNFileRequestTypeID = 0x395f69da
 
 // Ensuring interfaces in compile-time for UploadGetCDNFileRequest.
 var (
@@ -87,7 +87,7 @@ func (g *UploadGetCDNFileRequest) String() string {
 // FillFrom fills UploadGetCDNFileRequest from given interface.
 func (g *UploadGetCDNFileRequest) FillFrom(from interface {
 	GetFileToken() (value []byte)
-	GetOffset() (value int)
+	GetOffset() (value int64)
 	GetLimit() (value int)
 }) {
 	g.FileToken = from.GetFileToken()
@@ -137,7 +137,7 @@ func (g *UploadGetCDNFileRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *UploadGetCDNFileRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode upload.getCdnFile#2000bcc3 as nil")
+		return fmt.Errorf("can't encode upload.getCdnFile#395f69da as nil")
 	}
 	b.PutID(UploadGetCDNFileRequestTypeID)
 	return g.EncodeBare(b)
@@ -146,10 +146,10 @@ func (g *UploadGetCDNFileRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *UploadGetCDNFileRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode upload.getCdnFile#2000bcc3 as nil")
+		return fmt.Errorf("can't encode upload.getCdnFile#395f69da as nil")
 	}
 	b.PutBytes(g.FileToken)
-	b.PutInt(g.Offset)
+	b.PutLong(g.Offset)
 	b.PutInt(g.Limit)
 	return nil
 }
@@ -157,10 +157,10 @@ func (g *UploadGetCDNFileRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *UploadGetCDNFileRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode upload.getCdnFile#2000bcc3 to nil")
+		return fmt.Errorf("can't decode upload.getCdnFile#395f69da to nil")
 	}
 	if err := b.ConsumeID(UploadGetCDNFileRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode upload.getCdnFile#2000bcc3: %w", err)
+		return fmt.Errorf("unable to decode upload.getCdnFile#395f69da: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -168,26 +168,26 @@ func (g *UploadGetCDNFileRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *UploadGetCDNFileRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode upload.getCdnFile#2000bcc3 to nil")
+		return fmt.Errorf("can't decode upload.getCdnFile#395f69da to nil")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getCdnFile#2000bcc3: field file_token: %w", err)
+			return fmt.Errorf("unable to decode upload.getCdnFile#395f69da: field file_token: %w", err)
 		}
 		g.FileToken = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getCdnFile#2000bcc3: field offset: %w", err)
+			return fmt.Errorf("unable to decode upload.getCdnFile#395f69da: field offset: %w", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode upload.getCdnFile#2000bcc3: field limit: %w", err)
+			return fmt.Errorf("unable to decode upload.getCdnFile#395f69da: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -203,7 +203,7 @@ func (g *UploadGetCDNFileRequest) GetFileToken() (value []byte) {
 }
 
 // GetOffset returns value of Offset field.
-func (g *UploadGetCDNFileRequest) GetOffset() (value int) {
+func (g *UploadGetCDNFileRequest) GetOffset() (value int64) {
 	if g == nil {
 		return
 	}
@@ -218,7 +218,7 @@ func (g *UploadGetCDNFileRequest) GetLimit() (value int) {
 	return g.Limit
 }
 
-// UploadGetCDNFile invokes method upload.getCdnFile#2000bcc3 returning error if any.
+// UploadGetCDNFile invokes method upload.getCdnFile#395f69da returning error if any.
 // Download a CDN¹ file.
 //
 // Links:

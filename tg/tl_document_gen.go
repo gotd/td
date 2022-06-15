@@ -166,7 +166,7 @@ func (d *DocumentEmpty) GetID() (value int64) {
 	return d.ID
 }
 
-// Document represents TL type `document#1e87342b`.
+// Document represents TL type `document#8fd4c4d8`.
 // Document
 //
 // See https://core.telegram.org/constructor/document for reference.
@@ -190,7 +190,7 @@ type Document struct {
 	// MIME type
 	MimeType string
 	// Size
-	Size int
+	Size int64
 	// Thumbnails
 	//
 	// Use SetThumbs and GetThumbs helpers.
@@ -206,7 +206,7 @@ type Document struct {
 }
 
 // DocumentTypeID is TL type id of Document.
-const DocumentTypeID = 0x1e87342b
+const DocumentTypeID = 0x8fd4c4d8
 
 // construct implements constructor of DocumentClass.
 func (d Document) construct() DocumentClass { return &d }
@@ -278,7 +278,7 @@ func (d *Document) FillFrom(from interface {
 	GetFileReference() (value []byte)
 	GetDate() (value int)
 	GetMimeType() (value string)
-	GetSize() (value int)
+	GetSize() (value int64)
 	GetThumbs() (value []PhotoSizeClass, ok bool)
 	GetVideoThumbs() (value []VideoSize, ok bool)
 	GetDCID() (value int)
@@ -384,7 +384,7 @@ func (d *Document) SetFlags() {
 // Encode implements bin.Encoder.
 func (d *Document) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode document#1e87342b as nil")
+		return fmt.Errorf("can't encode document#8fd4c4d8 as nil")
 	}
 	b.PutID(DocumentTypeID)
 	return d.EncodeBare(b)
@@ -393,26 +393,26 @@ func (d *Document) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *Document) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode document#1e87342b as nil")
+		return fmt.Errorf("can't encode document#8fd4c4d8 as nil")
 	}
 	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode document#1e87342b: field flags: %w", err)
+		return fmt.Errorf("unable to encode document#8fd4c4d8: field flags: %w", err)
 	}
 	b.PutLong(d.ID)
 	b.PutLong(d.AccessHash)
 	b.PutBytes(d.FileReference)
 	b.PutInt(d.Date)
 	b.PutString(d.MimeType)
-	b.PutInt(d.Size)
+	b.PutLong(d.Size)
 	if d.Flags.Has(0) {
 		b.PutVectorHeader(len(d.Thumbs))
 		for idx, v := range d.Thumbs {
 			if v == nil {
-				return fmt.Errorf("unable to encode document#1e87342b: field thumbs element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode document#8fd4c4d8: field thumbs element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode document#1e87342b: field thumbs element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode document#8fd4c4d8: field thumbs element with index %d: %w", idx, err)
 			}
 		}
 	}
@@ -420,7 +420,7 @@ func (d *Document) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(d.VideoThumbs))
 		for idx, v := range d.VideoThumbs {
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode document#1e87342b: field video_thumbs element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode document#8fd4c4d8: field video_thumbs element with index %d: %w", idx, err)
 			}
 		}
 	}
@@ -428,10 +428,10 @@ func (d *Document) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(d.Attributes))
 	for idx, v := range d.Attributes {
 		if v == nil {
-			return fmt.Errorf("unable to encode document#1e87342b: field attributes element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode document#8fd4c4d8: field attributes element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode document#1e87342b: field attributes element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode document#8fd4c4d8: field attributes element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -440,10 +440,10 @@ func (d *Document) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (d *Document) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode document#1e87342b to nil")
+		return fmt.Errorf("can't decode document#8fd4c4d8 to nil")
 	}
 	if err := b.ConsumeID(DocumentTypeID); err != nil {
-		return fmt.Errorf("unable to decode document#1e87342b: %w", err)
+		return fmt.Errorf("unable to decode document#8fd4c4d8: %w", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -451,59 +451,59 @@ func (d *Document) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *Document) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode document#1e87342b to nil")
+		return fmt.Errorf("can't decode document#8fd4c4d8 to nil")
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field flags: %w", err)
+			return fmt.Errorf("unable to decode document#8fd4c4d8: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field id: %w", err)
+			return fmt.Errorf("unable to decode document#8fd4c4d8: field id: %w", err)
 		}
 		d.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode document#8fd4c4d8: field access_hash: %w", err)
 		}
 		d.AccessHash = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field file_reference: %w", err)
+			return fmt.Errorf("unable to decode document#8fd4c4d8: field file_reference: %w", err)
 		}
 		d.FileReference = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field date: %w", err)
+			return fmt.Errorf("unable to decode document#8fd4c4d8: field date: %w", err)
 		}
 		d.Date = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field mime_type: %w", err)
+			return fmt.Errorf("unable to decode document#8fd4c4d8: field mime_type: %w", err)
 		}
 		d.MimeType = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field size: %w", err)
+			return fmt.Errorf("unable to decode document#8fd4c4d8: field size: %w", err)
 		}
 		d.Size = value
 	}
 	if d.Flags.Has(0) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field thumbs: %w", err)
+			return fmt.Errorf("unable to decode document#8fd4c4d8: field thumbs: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -512,7 +512,7 @@ func (d *Document) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePhotoSize(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode document#1e87342b: field thumbs: %w", err)
+				return fmt.Errorf("unable to decode document#8fd4c4d8: field thumbs: %w", err)
 			}
 			d.Thumbs = append(d.Thumbs, value)
 		}
@@ -520,7 +520,7 @@ func (d *Document) DecodeBare(b *bin.Buffer) error {
 	if d.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field video_thumbs: %w", err)
+			return fmt.Errorf("unable to decode document#8fd4c4d8: field video_thumbs: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -529,7 +529,7 @@ func (d *Document) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value VideoSize
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode document#1e87342b: field video_thumbs: %w", err)
+				return fmt.Errorf("unable to decode document#8fd4c4d8: field video_thumbs: %w", err)
 			}
 			d.VideoThumbs = append(d.VideoThumbs, value)
 		}
@@ -537,14 +537,14 @@ func (d *Document) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field dc_id: %w", err)
+			return fmt.Errorf("unable to decode document#8fd4c4d8: field dc_id: %w", err)
 		}
 		d.DCID = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode document#1e87342b: field attributes: %w", err)
+			return fmt.Errorf("unable to decode document#8fd4c4d8: field attributes: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -553,7 +553,7 @@ func (d *Document) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocumentAttribute(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode document#1e87342b: field attributes: %w", err)
+				return fmt.Errorf("unable to decode document#8fd4c4d8: field attributes: %w", err)
 			}
 			d.Attributes = append(d.Attributes, value)
 		}
@@ -602,7 +602,7 @@ func (d *Document) GetMimeType() (value string) {
 }
 
 // GetSize returns value of Size field.
-func (d *Document) GetSize() (value int) {
+func (d *Document) GetSize() (value int64) {
 	if d == nil {
 		return
 	}
@@ -688,7 +688,7 @@ const DocumentClassName = "Document"
 //  }
 //  switch v := g.(type) {
 //  case *tg.DocumentEmpty: // documentEmpty#36f8c871
-//  case *tg.Document: // document#1e87342b
+//  case *tg.Document: // document#8fd4c4d8
 //  default: panic(v)
 //  }
 type DocumentClass interface {
@@ -761,7 +761,7 @@ func DecodeDocument(buf *bin.Buffer) (DocumentClass, error) {
 		}
 		return &v, nil
 	case DocumentTypeID:
-		// Decoding document#1e87342b.
+		// Decoding document#8fd4c4d8.
 		v := Document{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode DocumentClass: %w", err)

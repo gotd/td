@@ -31,23 +31,41 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// BotInfo represents TL type `botInfo#e4169b5d`.
+// BotInfo represents TL type `botInfo#8f300b57`.
 // Info about bots (available bot commands, etc)
 //
 // See https://core.telegram.org/constructor/botInfo for reference.
 type BotInfo struct {
+	// Flags field of BotInfo.
+	Flags bin.Fields
 	// ID of the bot
+	//
+	// Use SetUserID and GetUserID helpers.
 	UserID int64
 	// Description of the bot
+	//
+	// Use SetDescription and GetDescription helpers.
 	Description string
+	// DescriptionPhoto field of BotInfo.
+	//
+	// Use SetDescriptionPhoto and GetDescriptionPhoto helpers.
+	DescriptionPhoto PhotoClass
+	// DescriptionDocument field of BotInfo.
+	//
+	// Use SetDescriptionDocument and GetDescriptionDocument helpers.
+	DescriptionDocument DocumentClass
 	// Bot commands that can be used in the chat
+	//
+	// Use SetCommands and GetCommands helpers.
 	Commands []BotCommand
 	// MenuButton field of BotInfo.
+	//
+	// Use SetMenuButton and GetMenuButton helpers.
 	MenuButton BotMenuButtonClass
 }
 
 // BotInfoTypeID is TL type id of BotInfo.
-const BotInfoTypeID = 0xe4169b5d
+const BotInfoTypeID = 0x8f300b57
 
 // Ensuring interfaces in compile-time for BotInfo.
 var (
@@ -61,10 +79,19 @@ func (b *BotInfo) Zero() bool {
 	if b == nil {
 		return true
 	}
+	if !(b.Flags.Zero()) {
+		return false
+	}
 	if !(b.UserID == 0) {
 		return false
 	}
 	if !(b.Description == "") {
+		return false
+	}
+	if !(b.DescriptionPhoto == nil) {
+		return false
+	}
+	if !(b.DescriptionDocument == nil) {
 		return false
 	}
 	if !(b.Commands == nil) {
@@ -88,15 +115,37 @@ func (b *BotInfo) String() string {
 
 // FillFrom fills BotInfo from given interface.
 func (b *BotInfo) FillFrom(from interface {
-	GetUserID() (value int64)
-	GetDescription() (value string)
-	GetCommands() (value []BotCommand)
-	GetMenuButton() (value BotMenuButtonClass)
+	GetUserID() (value int64, ok bool)
+	GetDescription() (value string, ok bool)
+	GetDescriptionPhoto() (value PhotoClass, ok bool)
+	GetDescriptionDocument() (value DocumentClass, ok bool)
+	GetCommands() (value []BotCommand, ok bool)
+	GetMenuButton() (value BotMenuButtonClass, ok bool)
 }) {
-	b.UserID = from.GetUserID()
-	b.Description = from.GetDescription()
-	b.Commands = from.GetCommands()
-	b.MenuButton = from.GetMenuButton()
+	if val, ok := from.GetUserID(); ok {
+		b.UserID = val
+	}
+
+	if val, ok := from.GetDescription(); ok {
+		b.Description = val
+	}
+
+	if val, ok := from.GetDescriptionPhoto(); ok {
+		b.DescriptionPhoto = val
+	}
+
+	if val, ok := from.GetDescriptionDocument(); ok {
+		b.DescriptionDocument = val
+	}
+
+	if val, ok := from.GetCommands(); ok {
+		b.Commands = val
+	}
+
+	if val, ok := from.GetMenuButton(); ok {
+		b.MenuButton = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -125,27 +174,63 @@ func (b *BotInfo) TypeInfo() tdp.Type {
 		{
 			Name:       "UserID",
 			SchemaName: "user_id",
+			Null:       !b.Flags.Has(0),
 		},
 		{
 			Name:       "Description",
 			SchemaName: "description",
+			Null:       !b.Flags.Has(1),
+		},
+		{
+			Name:       "DescriptionPhoto",
+			SchemaName: "description_photo",
+			Null:       !b.Flags.Has(4),
+		},
+		{
+			Name:       "DescriptionDocument",
+			SchemaName: "description_document",
+			Null:       !b.Flags.Has(5),
 		},
 		{
 			Name:       "Commands",
 			SchemaName: "commands",
+			Null:       !b.Flags.Has(2),
 		},
 		{
 			Name:       "MenuButton",
 			SchemaName: "menu_button",
+			Null:       !b.Flags.Has(3),
 		},
 	}
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (b *BotInfo) SetFlags() {
+	if !(b.UserID == 0) {
+		b.Flags.Set(0)
+	}
+	if !(b.Description == "") {
+		b.Flags.Set(1)
+	}
+	if !(b.DescriptionPhoto == nil) {
+		b.Flags.Set(4)
+	}
+	if !(b.DescriptionDocument == nil) {
+		b.Flags.Set(5)
+	}
+	if !(b.Commands == nil) {
+		b.Flags.Set(2)
+	}
+	if !(b.MenuButton == nil) {
+		b.Flags.Set(3)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (b *BotInfo) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botInfo#e4169b5d as nil")
+		return fmt.Errorf("can't encode botInfo#8f300b57 as nil")
 	}
 	buf.PutID(BotInfoTypeID)
 	return b.EncodeBare(buf)
@@ -154,21 +239,49 @@ func (b *BotInfo) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotInfo) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botInfo#e4169b5d as nil")
+		return fmt.Errorf("can't encode botInfo#8f300b57 as nil")
 	}
-	buf.PutLong(b.UserID)
-	buf.PutString(b.Description)
-	buf.PutVectorHeader(len(b.Commands))
-	for idx, v := range b.Commands {
-		if err := v.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode botInfo#e4169b5d: field commands element with index %d: %w", idx, err)
+	b.SetFlags()
+	if err := b.Flags.Encode(buf); err != nil {
+		return fmt.Errorf("unable to encode botInfo#8f300b57: field flags: %w", err)
+	}
+	if b.Flags.Has(0) {
+		buf.PutLong(b.UserID)
+	}
+	if b.Flags.Has(1) {
+		buf.PutString(b.Description)
+	}
+	if b.Flags.Has(4) {
+		if b.DescriptionPhoto == nil {
+			return fmt.Errorf("unable to encode botInfo#8f300b57: field description_photo is nil")
+		}
+		if err := b.DescriptionPhoto.Encode(buf); err != nil {
+			return fmt.Errorf("unable to encode botInfo#8f300b57: field description_photo: %w", err)
 		}
 	}
-	if b.MenuButton == nil {
-		return fmt.Errorf("unable to encode botInfo#e4169b5d: field menu_button is nil")
+	if b.Flags.Has(5) {
+		if b.DescriptionDocument == nil {
+			return fmt.Errorf("unable to encode botInfo#8f300b57: field description_document is nil")
+		}
+		if err := b.DescriptionDocument.Encode(buf); err != nil {
+			return fmt.Errorf("unable to encode botInfo#8f300b57: field description_document: %w", err)
+		}
 	}
-	if err := b.MenuButton.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#e4169b5d: field menu_button: %w", err)
+	if b.Flags.Has(2) {
+		buf.PutVectorHeader(len(b.Commands))
+		for idx, v := range b.Commands {
+			if err := v.Encode(buf); err != nil {
+				return fmt.Errorf("unable to encode botInfo#8f300b57: field commands element with index %d: %w", idx, err)
+			}
+		}
+	}
+	if b.Flags.Has(3) {
+		if b.MenuButton == nil {
+			return fmt.Errorf("unable to encode botInfo#8f300b57: field menu_button is nil")
+		}
+		if err := b.MenuButton.Encode(buf); err != nil {
+			return fmt.Errorf("unable to encode botInfo#8f300b57: field menu_button: %w", err)
+		}
 	}
 	return nil
 }
@@ -176,10 +289,10 @@ func (b *BotInfo) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BotInfo) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botInfo#e4169b5d to nil")
+		return fmt.Errorf("can't decode botInfo#8f300b57 to nil")
 	}
 	if err := buf.ConsumeID(BotInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode botInfo#e4169b5d: %w", err)
+		return fmt.Errorf("unable to decode botInfo#8f300b57: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -187,26 +300,45 @@ func (b *BotInfo) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botInfo#e4169b5d to nil")
+		return fmt.Errorf("can't decode botInfo#8f300b57 to nil")
 	}
 	{
+		if err := b.Flags.Decode(buf); err != nil {
+			return fmt.Errorf("unable to decode botInfo#8f300b57: field flags: %w", err)
+		}
+	}
+	if b.Flags.Has(0) {
 		value, err := buf.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#e4169b5d: field user_id: %w", err)
+			return fmt.Errorf("unable to decode botInfo#8f300b57: field user_id: %w", err)
 		}
 		b.UserID = value
 	}
-	{
+	if b.Flags.Has(1) {
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#e4169b5d: field description: %w", err)
+			return fmt.Errorf("unable to decode botInfo#8f300b57: field description: %w", err)
 		}
 		b.Description = value
 	}
-	{
+	if b.Flags.Has(4) {
+		value, err := DecodePhoto(buf)
+		if err != nil {
+			return fmt.Errorf("unable to decode botInfo#8f300b57: field description_photo: %w", err)
+		}
+		b.DescriptionPhoto = value
+	}
+	if b.Flags.Has(5) {
+		value, err := DecodeDocument(buf)
+		if err != nil {
+			return fmt.Errorf("unable to decode botInfo#8f300b57: field description_document: %w", err)
+		}
+		b.DescriptionDocument = value
+	}
+	if b.Flags.Has(2) {
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#e4169b5d: field commands: %w", err)
+			return fmt.Errorf("unable to decode botInfo#8f300b57: field commands: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -215,49 +347,143 @@ func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotCommand
 			if err := value.Decode(buf); err != nil {
-				return fmt.Errorf("unable to decode botInfo#e4169b5d: field commands: %w", err)
+				return fmt.Errorf("unable to decode botInfo#8f300b57: field commands: %w", err)
 			}
 			b.Commands = append(b.Commands, value)
 		}
 	}
-	{
+	if b.Flags.Has(3) {
 		value, err := DecodeBotMenuButton(buf)
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#e4169b5d: field menu_button: %w", err)
+			return fmt.Errorf("unable to decode botInfo#8f300b57: field menu_button: %w", err)
 		}
 		b.MenuButton = value
 	}
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (b *BotInfo) GetUserID() (value int64) {
-	if b == nil {
-		return
-	}
-	return b.UserID
+// SetUserID sets value of UserID conditional field.
+func (b *BotInfo) SetUserID(value int64) {
+	b.Flags.Set(0)
+	b.UserID = value
 }
 
-// GetDescription returns value of Description field.
-func (b *BotInfo) GetDescription() (value string) {
+// GetUserID returns value of UserID conditional field and
+// boolean which is true if field was set.
+func (b *BotInfo) GetUserID() (value int64, ok bool) {
 	if b == nil {
 		return
 	}
-	return b.Description
+	if !b.Flags.Has(0) {
+		return value, false
+	}
+	return b.UserID, true
 }
 
-// GetCommands returns value of Commands field.
-func (b *BotInfo) GetCommands() (value []BotCommand) {
-	if b == nil {
-		return
-	}
-	return b.Commands
+// SetDescription sets value of Description conditional field.
+func (b *BotInfo) SetDescription(value string) {
+	b.Flags.Set(1)
+	b.Description = value
 }
 
-// GetMenuButton returns value of MenuButton field.
-func (b *BotInfo) GetMenuButton() (value BotMenuButtonClass) {
+// GetDescription returns value of Description conditional field and
+// boolean which is true if field was set.
+func (b *BotInfo) GetDescription() (value string, ok bool) {
 	if b == nil {
 		return
 	}
-	return b.MenuButton
+	if !b.Flags.Has(1) {
+		return value, false
+	}
+	return b.Description, true
+}
+
+// SetDescriptionPhoto sets value of DescriptionPhoto conditional field.
+func (b *BotInfo) SetDescriptionPhoto(value PhotoClass) {
+	b.Flags.Set(4)
+	b.DescriptionPhoto = value
+}
+
+// GetDescriptionPhoto returns value of DescriptionPhoto conditional field and
+// boolean which is true if field was set.
+func (b *BotInfo) GetDescriptionPhoto() (value PhotoClass, ok bool) {
+	if b == nil {
+		return
+	}
+	if !b.Flags.Has(4) {
+		return value, false
+	}
+	return b.DescriptionPhoto, true
+}
+
+// SetDescriptionDocument sets value of DescriptionDocument conditional field.
+func (b *BotInfo) SetDescriptionDocument(value DocumentClass) {
+	b.Flags.Set(5)
+	b.DescriptionDocument = value
+}
+
+// GetDescriptionDocument returns value of DescriptionDocument conditional field and
+// boolean which is true if field was set.
+func (b *BotInfo) GetDescriptionDocument() (value DocumentClass, ok bool) {
+	if b == nil {
+		return
+	}
+	if !b.Flags.Has(5) {
+		return value, false
+	}
+	return b.DescriptionDocument, true
+}
+
+// SetCommands sets value of Commands conditional field.
+func (b *BotInfo) SetCommands(value []BotCommand) {
+	b.Flags.Set(2)
+	b.Commands = value
+}
+
+// GetCommands returns value of Commands conditional field and
+// boolean which is true if field was set.
+func (b *BotInfo) GetCommands() (value []BotCommand, ok bool) {
+	if b == nil {
+		return
+	}
+	if !b.Flags.Has(2) {
+		return value, false
+	}
+	return b.Commands, true
+}
+
+// SetMenuButton sets value of MenuButton conditional field.
+func (b *BotInfo) SetMenuButton(value BotMenuButtonClass) {
+	b.Flags.Set(3)
+	b.MenuButton = value
+}
+
+// GetMenuButton returns value of MenuButton conditional field and
+// boolean which is true if field was set.
+func (b *BotInfo) GetMenuButton() (value BotMenuButtonClass, ok bool) {
+	if b == nil {
+		return
+	}
+	if !b.Flags.Has(3) {
+		return value, false
+	}
+	return b.MenuButton, true
+}
+
+// GetDescriptionPhotoAsNotEmpty returns mapped value of DescriptionPhoto conditional field and
+// boolean which is true if field was set.
+func (b *BotInfo) GetDescriptionPhotoAsNotEmpty() (*Photo, bool) {
+	if value, ok := b.GetDescriptionPhoto(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
+}
+
+// GetDescriptionDocumentAsNotEmpty returns mapped value of DescriptionDocument conditional field and
+// boolean which is true if field was set.
+func (b *BotInfo) GetDescriptionDocumentAsNotEmpty() (*Document, bool) {
+	if value, ok := b.GetDescriptionDocument(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
 }

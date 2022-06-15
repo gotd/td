@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsSendPaymentFormRequest represents TL type `payments.sendPaymentForm#30c3bc9d`.
+// PaymentsSendPaymentFormRequest represents TL type `payments.sendPaymentForm#2d03522f`.
 // Send compiled payment form
 //
 // See https://core.telegram.org/method/payments.sendPaymentForm for reference.
@@ -43,10 +43,8 @@ type PaymentsSendPaymentFormRequest struct {
 	Flags bin.Fields
 	// Form ID
 	FormID int64
-	// The peer where the payment form was sent
-	Peer InputPeerClass
-	// Message ID of form
-	MsgID int
+	// Invoice field of PaymentsSendPaymentFormRequest.
+	Invoice InputInvoiceClass
 	// ID of saved and validated order info¹
 	//
 	// Links:
@@ -73,7 +71,7 @@ type PaymentsSendPaymentFormRequest struct {
 }
 
 // PaymentsSendPaymentFormRequestTypeID is TL type id of PaymentsSendPaymentFormRequest.
-const PaymentsSendPaymentFormRequestTypeID = 0x30c3bc9d
+const PaymentsSendPaymentFormRequestTypeID = 0x2d03522f
 
 // Ensuring interfaces in compile-time for PaymentsSendPaymentFormRequest.
 var (
@@ -93,10 +91,7 @@ func (s *PaymentsSendPaymentFormRequest) Zero() bool {
 	if !(s.FormID == 0) {
 		return false
 	}
-	if !(s.Peer == nil) {
-		return false
-	}
-	if !(s.MsgID == 0) {
+	if !(s.Invoice == nil) {
 		return false
 	}
 	if !(s.RequestedInfoID == "") {
@@ -127,16 +122,14 @@ func (s *PaymentsSendPaymentFormRequest) String() string {
 // FillFrom fills PaymentsSendPaymentFormRequest from given interface.
 func (s *PaymentsSendPaymentFormRequest) FillFrom(from interface {
 	GetFormID() (value int64)
-	GetPeer() (value InputPeerClass)
-	GetMsgID() (value int)
+	GetInvoice() (value InputInvoiceClass)
 	GetRequestedInfoID() (value string, ok bool)
 	GetShippingOptionID() (value string, ok bool)
 	GetCredentials() (value InputPaymentCredentialsClass)
 	GetTipAmount() (value int64, ok bool)
 }) {
 	s.FormID = from.GetFormID()
-	s.Peer = from.GetPeer()
-	s.MsgID = from.GetMsgID()
+	s.Invoice = from.GetInvoice()
 	if val, ok := from.GetRequestedInfoID(); ok {
 		s.RequestedInfoID = val
 	}
@@ -180,12 +173,8 @@ func (s *PaymentsSendPaymentFormRequest) TypeInfo() tdp.Type {
 			SchemaName: "form_id",
 		},
 		{
-			Name:       "Peer",
-			SchemaName: "peer",
-		},
-		{
-			Name:       "MsgID",
-			SchemaName: "msg_id",
+			Name:       "Invoice",
+			SchemaName: "invoice",
 		},
 		{
 			Name:       "RequestedInfoID",
@@ -226,7 +215,7 @@ func (s *PaymentsSendPaymentFormRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (s *PaymentsSendPaymentFormRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode payments.sendPaymentForm#30c3bc9d as nil")
+		return fmt.Errorf("can't encode payments.sendPaymentForm#2d03522f as nil")
 	}
 	b.PutID(PaymentsSendPaymentFormRequestTypeID)
 	return s.EncodeBare(b)
@@ -235,20 +224,19 @@ func (s *PaymentsSendPaymentFormRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *PaymentsSendPaymentFormRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode payments.sendPaymentForm#30c3bc9d as nil")
+		return fmt.Errorf("can't encode payments.sendPaymentForm#2d03522f as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.sendPaymentForm#30c3bc9d: field flags: %w", err)
+		return fmt.Errorf("unable to encode payments.sendPaymentForm#2d03522f: field flags: %w", err)
 	}
 	b.PutLong(s.FormID)
-	if s.Peer == nil {
-		return fmt.Errorf("unable to encode payments.sendPaymentForm#30c3bc9d: field peer is nil")
+	if s.Invoice == nil {
+		return fmt.Errorf("unable to encode payments.sendPaymentForm#2d03522f: field invoice is nil")
 	}
-	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.sendPaymentForm#30c3bc9d: field peer: %w", err)
+	if err := s.Invoice.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.sendPaymentForm#2d03522f: field invoice: %w", err)
 	}
-	b.PutInt(s.MsgID)
 	if s.Flags.Has(0) {
 		b.PutString(s.RequestedInfoID)
 	}
@@ -256,10 +244,10 @@ func (s *PaymentsSendPaymentFormRequest) EncodeBare(b *bin.Buffer) error {
 		b.PutString(s.ShippingOptionID)
 	}
 	if s.Credentials == nil {
-		return fmt.Errorf("unable to encode payments.sendPaymentForm#30c3bc9d: field credentials is nil")
+		return fmt.Errorf("unable to encode payments.sendPaymentForm#2d03522f: field credentials is nil")
 	}
 	if err := s.Credentials.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.sendPaymentForm#30c3bc9d: field credentials: %w", err)
+		return fmt.Errorf("unable to encode payments.sendPaymentForm#2d03522f: field credentials: %w", err)
 	}
 	if s.Flags.Has(2) {
 		b.PutLong(s.TipAmount)
@@ -270,10 +258,10 @@ func (s *PaymentsSendPaymentFormRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *PaymentsSendPaymentFormRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode payments.sendPaymentForm#30c3bc9d to nil")
+		return fmt.Errorf("can't decode payments.sendPaymentForm#2d03522f to nil")
 	}
 	if err := b.ConsumeID(PaymentsSendPaymentFormRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.sendPaymentForm#30c3bc9d: %w", err)
+		return fmt.Errorf("unable to decode payments.sendPaymentForm#2d03522f: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -281,59 +269,52 @@ func (s *PaymentsSendPaymentFormRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *PaymentsSendPaymentFormRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode payments.sendPaymentForm#30c3bc9d to nil")
+		return fmt.Errorf("can't decode payments.sendPaymentForm#2d03522f to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.sendPaymentForm#30c3bc9d: field flags: %w", err)
+			return fmt.Errorf("unable to decode payments.sendPaymentForm#2d03522f: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.sendPaymentForm#30c3bc9d: field form_id: %w", err)
+			return fmt.Errorf("unable to decode payments.sendPaymentForm#2d03522f: field form_id: %w", err)
 		}
 		s.FormID = value
 	}
 	{
-		value, err := DecodeInputPeer(b)
+		value, err := DecodeInputInvoice(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.sendPaymentForm#30c3bc9d: field peer: %w", err)
+			return fmt.Errorf("unable to decode payments.sendPaymentForm#2d03522f: field invoice: %w", err)
 		}
-		s.Peer = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode payments.sendPaymentForm#30c3bc9d: field msg_id: %w", err)
-		}
-		s.MsgID = value
+		s.Invoice = value
 	}
 	if s.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.sendPaymentForm#30c3bc9d: field requested_info_id: %w", err)
+			return fmt.Errorf("unable to decode payments.sendPaymentForm#2d03522f: field requested_info_id: %w", err)
 		}
 		s.RequestedInfoID = value
 	}
 	if s.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.sendPaymentForm#30c3bc9d: field shipping_option_id: %w", err)
+			return fmt.Errorf("unable to decode payments.sendPaymentForm#2d03522f: field shipping_option_id: %w", err)
 		}
 		s.ShippingOptionID = value
 	}
 	{
 		value, err := DecodeInputPaymentCredentials(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.sendPaymentForm#30c3bc9d: field credentials: %w", err)
+			return fmt.Errorf("unable to decode payments.sendPaymentForm#2d03522f: field credentials: %w", err)
 		}
 		s.Credentials = value
 	}
 	if s.Flags.Has(2) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.sendPaymentForm#30c3bc9d: field tip_amount: %w", err)
+			return fmt.Errorf("unable to decode payments.sendPaymentForm#2d03522f: field tip_amount: %w", err)
 		}
 		s.TipAmount = value
 	}
@@ -348,20 +329,12 @@ func (s *PaymentsSendPaymentFormRequest) GetFormID() (value int64) {
 	return s.FormID
 }
 
-// GetPeer returns value of Peer field.
-func (s *PaymentsSendPaymentFormRequest) GetPeer() (value InputPeerClass) {
+// GetInvoice returns value of Invoice field.
+func (s *PaymentsSendPaymentFormRequest) GetInvoice() (value InputInvoiceClass) {
 	if s == nil {
 		return
 	}
-	return s.Peer
-}
-
-// GetMsgID returns value of MsgID field.
-func (s *PaymentsSendPaymentFormRequest) GetMsgID() (value int) {
-	if s == nil {
-		return
-	}
-	return s.MsgID
+	return s.Invoice
 }
 
 // SetRequestedInfoID sets value of RequestedInfoID conditional field.
@@ -426,7 +399,7 @@ func (s *PaymentsSendPaymentFormRequest) GetTipAmount() (value int64, ok bool) {
 	return s.TipAmount, true
 }
 
-// PaymentsSendPaymentForm invokes method payments.sendPaymentForm#30c3bc9d returning error if any.
+// PaymentsSendPaymentForm invokes method payments.sendPaymentForm#2d03522f returning error if any.
 // Send compiled payment form
 //
 // Possible errors:

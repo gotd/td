@@ -39,7 +39,7 @@ type MessagesExportedChatInvites struct {
 	// Number of invites exported by the admin
 	Count int
 	// Exported invites
-	Invites []ChatInviteExported
+	Invites []ExportedChatInviteClass
 	// Info about the admin
 	Users []UserClass
 }
@@ -84,7 +84,7 @@ func (e *MessagesExportedChatInvites) String() string {
 // FillFrom fills MessagesExportedChatInvites from given interface.
 func (e *MessagesExportedChatInvites) FillFrom(from interface {
 	GetCount() (value int)
-	GetInvites() (value []ChatInviteExported)
+	GetInvites() (value []ExportedChatInviteClass)
 	GetUsers() (value []UserClass)
 }) {
 	e.Count = from.GetCount()
@@ -148,6 +148,9 @@ func (e *MessagesExportedChatInvites) EncodeBare(b *bin.Buffer) error {
 	b.PutInt(e.Count)
 	b.PutVectorHeader(len(e.Invites))
 	for idx, v := range e.Invites {
+		if v == nil {
+			return fmt.Errorf("unable to encode messages.exportedChatInvites#bdc62dcc: field invites element with index %d is nil", idx)
+		}
 		if err := v.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode messages.exportedChatInvites#bdc62dcc: field invites element with index %d: %w", idx, err)
 		}
@@ -194,11 +197,11 @@ func (e *MessagesExportedChatInvites) DecodeBare(b *bin.Buffer) error {
 		}
 
 		if headerLen > 0 {
-			e.Invites = make([]ChatInviteExported, 0, headerLen%bin.PreallocateLimit)
+			e.Invites = make([]ExportedChatInviteClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value ChatInviteExported
-			if err := value.Decode(b); err != nil {
+			value, err := DecodeExportedChatInvite(b)
+			if err != nil {
 				return fmt.Errorf("unable to decode messages.exportedChatInvites#bdc62dcc: field invites: %w", err)
 			}
 			e.Invites = append(e.Invites, value)
@@ -233,7 +236,7 @@ func (e *MessagesExportedChatInvites) GetCount() (value int) {
 }
 
 // GetInvites returns value of Invites field.
-func (e *MessagesExportedChatInvites) GetInvites() (value []ChatInviteExported) {
+func (e *MessagesExportedChatInvites) GetInvites() (value []ExportedChatInviteClass) {
 	if e == nil {
 		return
 	}
@@ -246,6 +249,11 @@ func (e *MessagesExportedChatInvites) GetUsers() (value []UserClass) {
 		return
 	}
 	return e.Users
+}
+
+// MapInvites returns field Invites wrapped in ExportedChatInviteClassArray helper.
+func (e *MessagesExportedChatInvites) MapInvites() (value ExportedChatInviteClassArray) {
+	return ExportedChatInviteClassArray(e.Invites)
 }
 
 // MapUsers returns field Users wrapped in UserClassArray helper.
