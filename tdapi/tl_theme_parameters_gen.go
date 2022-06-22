@@ -31,10 +31,12 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ThemeParameters represents TL type `themeParameters#8d6f03d4`.
+// ThemeParameters represents TL type `themeParameters#d990fe6e`.
 type ThemeParameters struct {
 	// A color of the background in the RGB24 format
 	BackgroundColor int32
+	// A secondary color for the background in the RGB24 format
+	SecondaryBackgroundColor int32
 	// A color of text in the RGB24 format
 	TextColor int32
 	// A color of hints in the RGB24 format
@@ -48,7 +50,7 @@ type ThemeParameters struct {
 }
 
 // ThemeParametersTypeID is TL type id of ThemeParameters.
-const ThemeParametersTypeID = 0x8d6f03d4
+const ThemeParametersTypeID = 0xd990fe6e
 
 // Ensuring interfaces in compile-time for ThemeParameters.
 var (
@@ -63,6 +65,9 @@ func (t *ThemeParameters) Zero() bool {
 		return true
 	}
 	if !(t.BackgroundColor == 0) {
+		return false
+	}
+	if !(t.SecondaryBackgroundColor == 0) {
 		return false
 	}
 	if !(t.TextColor == 0) {
@@ -121,6 +126,10 @@ func (t *ThemeParameters) TypeInfo() tdp.Type {
 			SchemaName: "background_color",
 		},
 		{
+			Name:       "SecondaryBackgroundColor",
+			SchemaName: "secondary_background_color",
+		},
+		{
 			Name:       "TextColor",
 			SchemaName: "text_color",
 		},
@@ -147,7 +156,7 @@ func (t *ThemeParameters) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *ThemeParameters) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode themeParameters#8d6f03d4 as nil")
+		return fmt.Errorf("can't encode themeParameters#d990fe6e as nil")
 	}
 	b.PutID(ThemeParametersTypeID)
 	return t.EncodeBare(b)
@@ -156,9 +165,10 @@ func (t *ThemeParameters) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *ThemeParameters) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode themeParameters#8d6f03d4 as nil")
+		return fmt.Errorf("can't encode themeParameters#d990fe6e as nil")
 	}
 	b.PutInt32(t.BackgroundColor)
+	b.PutInt32(t.SecondaryBackgroundColor)
 	b.PutInt32(t.TextColor)
 	b.PutInt32(t.HintColor)
 	b.PutInt32(t.LinkColor)
@@ -170,10 +180,10 @@ func (t *ThemeParameters) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *ThemeParameters) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode themeParameters#8d6f03d4 to nil")
+		return fmt.Errorf("can't decode themeParameters#d990fe6e to nil")
 	}
 	if err := b.ConsumeID(ThemeParametersTypeID); err != nil {
-		return fmt.Errorf("unable to decode themeParameters#8d6f03d4: %w", err)
+		return fmt.Errorf("unable to decode themeParameters#d990fe6e: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -181,47 +191,54 @@ func (t *ThemeParameters) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *ThemeParameters) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode themeParameters#8d6f03d4 to nil")
+		return fmt.Errorf("can't decode themeParameters#d990fe6e to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode themeParameters#8d6f03d4: field background_color: %w", err)
+			return fmt.Errorf("unable to decode themeParameters#d990fe6e: field background_color: %w", err)
 		}
 		t.BackgroundColor = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode themeParameters#8d6f03d4: field text_color: %w", err)
+			return fmt.Errorf("unable to decode themeParameters#d990fe6e: field secondary_background_color: %w", err)
+		}
+		t.SecondaryBackgroundColor = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode themeParameters#d990fe6e: field text_color: %w", err)
 		}
 		t.TextColor = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode themeParameters#8d6f03d4: field hint_color: %w", err)
+			return fmt.Errorf("unable to decode themeParameters#d990fe6e: field hint_color: %w", err)
 		}
 		t.HintColor = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode themeParameters#8d6f03d4: field link_color: %w", err)
+			return fmt.Errorf("unable to decode themeParameters#d990fe6e: field link_color: %w", err)
 		}
 		t.LinkColor = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode themeParameters#8d6f03d4: field button_color: %w", err)
+			return fmt.Errorf("unable to decode themeParameters#d990fe6e: field button_color: %w", err)
 		}
 		t.ButtonColor = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode themeParameters#8d6f03d4: field button_text_color: %w", err)
+			return fmt.Errorf("unable to decode themeParameters#d990fe6e: field button_text_color: %w", err)
 		}
 		t.ButtonTextColor = value
 	}
@@ -231,13 +248,16 @@ func (t *ThemeParameters) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (t *ThemeParameters) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
-		return fmt.Errorf("can't encode themeParameters#8d6f03d4 as nil")
+		return fmt.Errorf("can't encode themeParameters#d990fe6e as nil")
 	}
 	b.ObjStart()
 	b.PutID("themeParameters")
 	b.Comma()
 	b.FieldStart("background_color")
 	b.PutInt32(t.BackgroundColor)
+	b.Comma()
+	b.FieldStart("secondary_background_color")
+	b.PutInt32(t.SecondaryBackgroundColor)
 	b.Comma()
 	b.FieldStart("text_color")
 	b.PutInt32(t.TextColor)
@@ -262,49 +282,55 @@ func (t *ThemeParameters) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (t *ThemeParameters) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
-		return fmt.Errorf("can't decode themeParameters#8d6f03d4 to nil")
+		return fmt.Errorf("can't decode themeParameters#d990fe6e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("themeParameters"); err != nil {
-				return fmt.Errorf("unable to decode themeParameters#8d6f03d4: %w", err)
+				return fmt.Errorf("unable to decode themeParameters#d990fe6e: %w", err)
 			}
 		case "background_color":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode themeParameters#8d6f03d4: field background_color: %w", err)
+				return fmt.Errorf("unable to decode themeParameters#d990fe6e: field background_color: %w", err)
 			}
 			t.BackgroundColor = value
+		case "secondary_background_color":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode themeParameters#d990fe6e: field secondary_background_color: %w", err)
+			}
+			t.SecondaryBackgroundColor = value
 		case "text_color":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode themeParameters#8d6f03d4: field text_color: %w", err)
+				return fmt.Errorf("unable to decode themeParameters#d990fe6e: field text_color: %w", err)
 			}
 			t.TextColor = value
 		case "hint_color":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode themeParameters#8d6f03d4: field hint_color: %w", err)
+				return fmt.Errorf("unable to decode themeParameters#d990fe6e: field hint_color: %w", err)
 			}
 			t.HintColor = value
 		case "link_color":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode themeParameters#8d6f03d4: field link_color: %w", err)
+				return fmt.Errorf("unable to decode themeParameters#d990fe6e: field link_color: %w", err)
 			}
 			t.LinkColor = value
 		case "button_color":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode themeParameters#8d6f03d4: field button_color: %w", err)
+				return fmt.Errorf("unable to decode themeParameters#d990fe6e: field button_color: %w", err)
 			}
 			t.ButtonColor = value
 		case "button_text_color":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode themeParameters#8d6f03d4: field button_text_color: %w", err)
+				return fmt.Errorf("unable to decode themeParameters#d990fe6e: field button_text_color: %w", err)
 			}
 			t.ButtonTextColor = value
 		default:
@@ -320,6 +346,14 @@ func (t *ThemeParameters) GetBackgroundColor() (value int32) {
 		return
 	}
 	return t.BackgroundColor
+}
+
+// GetSecondaryBackgroundColor returns value of SecondaryBackgroundColor field.
+func (t *ThemeParameters) GetSecondaryBackgroundColor() (value int32) {
+	if t == nil {
+		return
+	}
+	return t.SecondaryBackgroundColor
 }
 
 // GetTextColor returns value of TextColor field.

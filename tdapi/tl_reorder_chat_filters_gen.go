@@ -31,14 +31,17 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ReorderChatFiltersRequest represents TL type `reorderChatFilters#c3a5313d`.
+// ReorderChatFiltersRequest represents TL type `reorderChatFilters#b2ad65d1`.
 type ReorderChatFiltersRequest struct {
 	// Identifiers of chat filters in the new correct order
 	ChatFilterIDs []int32
+	// Position of the main chat list among chat filters, 0-based. Can be non-zero only for
+	// Premium users
+	MainChatListPosition int32
 }
 
 // ReorderChatFiltersRequestTypeID is TL type id of ReorderChatFiltersRequest.
-const ReorderChatFiltersRequestTypeID = 0xc3a5313d
+const ReorderChatFiltersRequestTypeID = 0xb2ad65d1
 
 // Ensuring interfaces in compile-time for ReorderChatFiltersRequest.
 var (
@@ -53,6 +56,9 @@ func (r *ReorderChatFiltersRequest) Zero() bool {
 		return true
 	}
 	if !(r.ChatFilterIDs == nil) {
+		return false
+	}
+	if !(r.MainChatListPosition == 0) {
 		return false
 	}
 
@@ -95,6 +101,10 @@ func (r *ReorderChatFiltersRequest) TypeInfo() tdp.Type {
 			Name:       "ChatFilterIDs",
 			SchemaName: "chat_filter_ids",
 		},
+		{
+			Name:       "MainChatListPosition",
+			SchemaName: "main_chat_list_position",
+		},
 	}
 	return typ
 }
@@ -102,7 +112,7 @@ func (r *ReorderChatFiltersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ReorderChatFiltersRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reorderChatFilters#c3a5313d as nil")
+		return fmt.Errorf("can't encode reorderChatFilters#b2ad65d1 as nil")
 	}
 	b.PutID(ReorderChatFiltersRequestTypeID)
 	return r.EncodeBare(b)
@@ -111,22 +121,23 @@ func (r *ReorderChatFiltersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ReorderChatFiltersRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reorderChatFilters#c3a5313d as nil")
+		return fmt.Errorf("can't encode reorderChatFilters#b2ad65d1 as nil")
 	}
 	b.PutInt(len(r.ChatFilterIDs))
 	for _, v := range r.ChatFilterIDs {
 		b.PutInt32(v)
 	}
+	b.PutInt32(r.MainChatListPosition)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (r *ReorderChatFiltersRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reorderChatFilters#c3a5313d to nil")
+		return fmt.Errorf("can't decode reorderChatFilters#b2ad65d1 to nil")
 	}
 	if err := b.ConsumeID(ReorderChatFiltersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode reorderChatFilters#c3a5313d: %w", err)
+		return fmt.Errorf("unable to decode reorderChatFilters#b2ad65d1: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -134,12 +145,12 @@ func (r *ReorderChatFiltersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ReorderChatFiltersRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reorderChatFilters#c3a5313d to nil")
+		return fmt.Errorf("can't decode reorderChatFilters#b2ad65d1 to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode reorderChatFilters#c3a5313d: field chat_filter_ids: %w", err)
+			return fmt.Errorf("unable to decode reorderChatFilters#b2ad65d1: field chat_filter_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -148,10 +159,17 @@ func (r *ReorderChatFiltersRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode reorderChatFilters#c3a5313d: field chat_filter_ids: %w", err)
+				return fmt.Errorf("unable to decode reorderChatFilters#b2ad65d1: field chat_filter_ids: %w", err)
 			}
 			r.ChatFilterIDs = append(r.ChatFilterIDs, value)
 		}
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode reorderChatFilters#b2ad65d1: field main_chat_list_position: %w", err)
+		}
+		r.MainChatListPosition = value
 	}
 	return nil
 }
@@ -159,7 +177,7 @@ func (r *ReorderChatFiltersRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (r *ReorderChatFiltersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reorderChatFilters#c3a5313d as nil")
+		return fmt.Errorf("can't encode reorderChatFilters#b2ad65d1 as nil")
 	}
 	b.ObjStart()
 	b.PutID("reorderChatFilters")
@@ -173,6 +191,9 @@ func (r *ReorderChatFiltersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.StripComma()
 	b.ArrEnd()
 	b.Comma()
+	b.FieldStart("main_chat_list_position")
+	b.PutInt32(r.MainChatListPosition)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -181,26 +202,32 @@ func (r *ReorderChatFiltersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (r *ReorderChatFiltersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reorderChatFilters#c3a5313d to nil")
+		return fmt.Errorf("can't decode reorderChatFilters#b2ad65d1 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("reorderChatFilters"); err != nil {
-				return fmt.Errorf("unable to decode reorderChatFilters#c3a5313d: %w", err)
+				return fmt.Errorf("unable to decode reorderChatFilters#b2ad65d1: %w", err)
 			}
 		case "chat_filter_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int32()
 				if err != nil {
-					return fmt.Errorf("unable to decode reorderChatFilters#c3a5313d: field chat_filter_ids: %w", err)
+					return fmt.Errorf("unable to decode reorderChatFilters#b2ad65d1: field chat_filter_ids: %w", err)
 				}
 				r.ChatFilterIDs = append(r.ChatFilterIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode reorderChatFilters#c3a5313d: field chat_filter_ids: %w", err)
+				return fmt.Errorf("unable to decode reorderChatFilters#b2ad65d1: field chat_filter_ids: %w", err)
 			}
+		case "main_chat_list_position":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode reorderChatFilters#b2ad65d1: field main_chat_list_position: %w", err)
+			}
+			r.MainChatListPosition = value
 		default:
 			return b.Skip()
 		}
@@ -216,13 +243,18 @@ func (r *ReorderChatFiltersRequest) GetChatFilterIDs() (value []int32) {
 	return r.ChatFilterIDs
 }
 
-// ReorderChatFilters invokes method reorderChatFilters#c3a5313d returning error if any.
-func (c *Client) ReorderChatFilters(ctx context.Context, chatfilterids []int32) error {
+// GetMainChatListPosition returns value of MainChatListPosition field.
+func (r *ReorderChatFiltersRequest) GetMainChatListPosition() (value int32) {
+	if r == nil {
+		return
+	}
+	return r.MainChatListPosition
+}
+
+// ReorderChatFilters invokes method reorderChatFilters#b2ad65d1 returning error if any.
+func (c *Client) ReorderChatFilters(ctx context.Context, request *ReorderChatFiltersRequest) error {
 	var ok Ok
 
-	request := &ReorderChatFiltersRequest{
-		ChatFilterIDs: chatfilterids,
-	}
 	if err := c.rpc.Invoke(ctx, request, &ok); err != nil {
 		return err
 	}

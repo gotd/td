@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AvailableReactions represents TL type `availableReactions#b83dc5b2`.
+// AvailableReactions represents TL type `availableReactions#58fdcd12`.
 type AvailableReactions struct {
 	// List of reactions
-	Reactions []string
+	Reactions []AvailableReaction
 }
 
 // AvailableReactionsTypeID is TL type id of AvailableReactions.
-const AvailableReactionsTypeID = 0xb83dc5b2
+const AvailableReactionsTypeID = 0x58fdcd12
 
 // Ensuring interfaces in compile-time for AvailableReactions.
 var (
@@ -102,7 +102,7 @@ func (a *AvailableReactions) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AvailableReactions) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode availableReactions#b83dc5b2 as nil")
+		return fmt.Errorf("can't encode availableReactions#58fdcd12 as nil")
 	}
 	b.PutID(AvailableReactionsTypeID)
 	return a.EncodeBare(b)
@@ -111,11 +111,13 @@ func (a *AvailableReactions) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AvailableReactions) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode availableReactions#b83dc5b2 as nil")
+		return fmt.Errorf("can't encode availableReactions#58fdcd12 as nil")
 	}
 	b.PutInt(len(a.Reactions))
-	for _, v := range a.Reactions {
-		b.PutString(v)
+	for idx, v := range a.Reactions {
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare availableReactions#58fdcd12: field reactions element with index %d: %w", idx, err)
+		}
 	}
 	return nil
 }
@@ -123,10 +125,10 @@ func (a *AvailableReactions) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (a *AvailableReactions) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode availableReactions#b83dc5b2 to nil")
+		return fmt.Errorf("can't decode availableReactions#58fdcd12 to nil")
 	}
 	if err := b.ConsumeID(AvailableReactionsTypeID); err != nil {
-		return fmt.Errorf("unable to decode availableReactions#b83dc5b2: %w", err)
+		return fmt.Errorf("unable to decode availableReactions#58fdcd12: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -134,21 +136,21 @@ func (a *AvailableReactions) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AvailableReactions) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode availableReactions#b83dc5b2 to nil")
+		return fmt.Errorf("can't decode availableReactions#58fdcd12 to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode availableReactions#b83dc5b2: field reactions: %w", err)
+			return fmt.Errorf("unable to decode availableReactions#58fdcd12: field reactions: %w", err)
 		}
 
 		if headerLen > 0 {
-			a.Reactions = make([]string, 0, headerLen%bin.PreallocateLimit)
+			a.Reactions = make([]AvailableReaction, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode availableReactions#b83dc5b2: field reactions: %w", err)
+			var value AvailableReaction
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare availableReactions#58fdcd12: field reactions: %w", err)
 			}
 			a.Reactions = append(a.Reactions, value)
 		}
@@ -159,15 +161,17 @@ func (a *AvailableReactions) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (a *AvailableReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
-		return fmt.Errorf("can't encode availableReactions#b83dc5b2 as nil")
+		return fmt.Errorf("can't encode availableReactions#58fdcd12 as nil")
 	}
 	b.ObjStart()
 	b.PutID("availableReactions")
 	b.Comma()
 	b.FieldStart("reactions")
 	b.ArrStart()
-	for _, v := range a.Reactions {
-		b.PutString(v)
+	for idx, v := range a.Reactions {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode availableReactions#58fdcd12: field reactions element with index %d: %w", idx, err)
+		}
 		b.Comma()
 	}
 	b.StripComma()
@@ -181,25 +185,25 @@ func (a *AvailableReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (a *AvailableReactions) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
-		return fmt.Errorf("can't decode availableReactions#b83dc5b2 to nil")
+		return fmt.Errorf("can't decode availableReactions#58fdcd12 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("availableReactions"); err != nil {
-				return fmt.Errorf("unable to decode availableReactions#b83dc5b2: %w", err)
+				return fmt.Errorf("unable to decode availableReactions#58fdcd12: %w", err)
 			}
 		case "reactions":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.String()
-				if err != nil {
-					return fmt.Errorf("unable to decode availableReactions#b83dc5b2: field reactions: %w", err)
+				var value AvailableReaction
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode availableReactions#58fdcd12: field reactions: %w", err)
 				}
 				a.Reactions = append(a.Reactions, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode availableReactions#b83dc5b2: field reactions: %w", err)
+				return fmt.Errorf("unable to decode availableReactions#58fdcd12: field reactions: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -209,7 +213,7 @@ func (a *AvailableReactions) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetReactions returns value of Reactions field.
-func (a *AvailableReactions) GetReactions() (value []string) {
+func (a *AvailableReactions) GetReactions() (value []AvailableReaction) {
 	if a == nil {
 		return
 	}

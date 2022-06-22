@@ -31,15 +31,15 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// File represents TL type `file#2dad6278`.
+// File represents TL type `file#4b4c4e34`.
 type File struct {
 	// Unique file identifier
 	ID int32
 	// File size, in bytes; 0 if unknown
-	Size int32
+	Size int64
 	// Approximate file size in bytes in case the exact file size is unknown. Can be used to
 	// show download/upload progress
-	ExpectedSize int32
+	ExpectedSize int64
 	// Information about the local copy of the file
 	Local LocalFile
 	// Information about the remote copy of the file
@@ -47,7 +47,7 @@ type File struct {
 }
 
 // FileTypeID is TL type id of File.
-const FileTypeID = 0x2dad6278
+const FileTypeID = 0x4b4c4e34
 
 // Ensuring interfaces in compile-time for File.
 var (
@@ -139,7 +139,7 @@ func (f *File) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *File) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode file#2dad6278 as nil")
+		return fmt.Errorf("can't encode file#4b4c4e34 as nil")
 	}
 	b.PutID(FileTypeID)
 	return f.EncodeBare(b)
@@ -148,16 +148,16 @@ func (f *File) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *File) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode file#2dad6278 as nil")
+		return fmt.Errorf("can't encode file#4b4c4e34 as nil")
 	}
 	b.PutInt32(f.ID)
-	b.PutInt32(f.Size)
-	b.PutInt32(f.ExpectedSize)
+	b.PutInt53(f.Size)
+	b.PutInt53(f.ExpectedSize)
 	if err := f.Local.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode file#2dad6278: field local: %w", err)
+		return fmt.Errorf("unable to encode file#4b4c4e34: field local: %w", err)
 	}
 	if err := f.Remote.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode file#2dad6278: field remote: %w", err)
+		return fmt.Errorf("unable to encode file#4b4c4e34: field remote: %w", err)
 	}
 	return nil
 }
@@ -165,10 +165,10 @@ func (f *File) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (f *File) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode file#2dad6278 to nil")
+		return fmt.Errorf("can't decode file#4b4c4e34 to nil")
 	}
 	if err := b.ConsumeID(FileTypeID); err != nil {
-		return fmt.Errorf("unable to decode file#2dad6278: %w", err)
+		return fmt.Errorf("unable to decode file#4b4c4e34: %w", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -176,37 +176,37 @@ func (f *File) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *File) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode file#2dad6278 to nil")
+		return fmt.Errorf("can't decode file#4b4c4e34 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode file#2dad6278: field id: %w", err)
+			return fmt.Errorf("unable to decode file#4b4c4e34: field id: %w", err)
 		}
 		f.ID = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode file#2dad6278: field size: %w", err)
+			return fmt.Errorf("unable to decode file#4b4c4e34: field size: %w", err)
 		}
 		f.Size = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode file#2dad6278: field expected_size: %w", err)
+			return fmt.Errorf("unable to decode file#4b4c4e34: field expected_size: %w", err)
 		}
 		f.ExpectedSize = value
 	}
 	{
 		if err := f.Local.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode file#2dad6278: field local: %w", err)
+			return fmt.Errorf("unable to decode file#4b4c4e34: field local: %w", err)
 		}
 	}
 	{
 		if err := f.Remote.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode file#2dad6278: field remote: %w", err)
+			return fmt.Errorf("unable to decode file#4b4c4e34: field remote: %w", err)
 		}
 	}
 	return nil
@@ -215,7 +215,7 @@ func (f *File) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (f *File) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if f == nil {
-		return fmt.Errorf("can't encode file#2dad6278 as nil")
+		return fmt.Errorf("can't encode file#4b4c4e34 as nil")
 	}
 	b.ObjStart()
 	b.PutID("file")
@@ -224,19 +224,19 @@ func (f *File) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutInt32(f.ID)
 	b.Comma()
 	b.FieldStart("size")
-	b.PutInt32(f.Size)
+	b.PutInt53(f.Size)
 	b.Comma()
 	b.FieldStart("expected_size")
-	b.PutInt32(f.ExpectedSize)
+	b.PutInt53(f.ExpectedSize)
 	b.Comma()
 	b.FieldStart("local")
 	if err := f.Local.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode file#2dad6278: field local: %w", err)
+		return fmt.Errorf("unable to encode file#4b4c4e34: field local: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("remote")
 	if err := f.Remote.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode file#2dad6278: field remote: %w", err)
+		return fmt.Errorf("unable to encode file#4b4c4e34: field remote: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -247,40 +247,40 @@ func (f *File) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (f *File) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if f == nil {
-		return fmt.Errorf("can't decode file#2dad6278 to nil")
+		return fmt.Errorf("can't decode file#4b4c4e34 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("file"); err != nil {
-				return fmt.Errorf("unable to decode file#2dad6278: %w", err)
+				return fmt.Errorf("unable to decode file#4b4c4e34: %w", err)
 			}
 		case "id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode file#2dad6278: field id: %w", err)
+				return fmt.Errorf("unable to decode file#4b4c4e34: field id: %w", err)
 			}
 			f.ID = value
 		case "size":
-			value, err := b.Int32()
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode file#2dad6278: field size: %w", err)
+				return fmt.Errorf("unable to decode file#4b4c4e34: field size: %w", err)
 			}
 			f.Size = value
 		case "expected_size":
-			value, err := b.Int32()
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode file#2dad6278: field expected_size: %w", err)
+				return fmt.Errorf("unable to decode file#4b4c4e34: field expected_size: %w", err)
 			}
 			f.ExpectedSize = value
 		case "local":
 			if err := f.Local.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode file#2dad6278: field local: %w", err)
+				return fmt.Errorf("unable to decode file#4b4c4e34: field local: %w", err)
 			}
 		case "remote":
 			if err := f.Remote.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode file#2dad6278: field remote: %w", err)
+				return fmt.Errorf("unable to decode file#4b4c4e34: field remote: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -298,7 +298,7 @@ func (f *File) GetID() (value int32) {
 }
 
 // GetSize returns value of Size field.
-func (f *File) GetSize() (value int32) {
+func (f *File) GetSize() (value int64) {
 	if f == nil {
 		return
 	}
@@ -306,7 +306,7 @@ func (f *File) GetSize() (value int32) {
 }
 
 // GetExpectedSize returns value of ExpectedSize field.
-func (f *File) GetExpectedSize() (value int32) {
+func (f *File) GetExpectedSize() (value int64) {
 	if f == nil {
 		return
 	}

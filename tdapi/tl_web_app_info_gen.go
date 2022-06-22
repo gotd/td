@@ -33,9 +33,9 @@ var (
 
 // WebAppInfo represents TL type `webAppInfo#2efdb2e8`.
 type WebAppInfo struct {
-	// Unique identifier for the web app launch
+	// Unique identifier for the Web App launch
 	LaunchID int64
-	// A web app URL to open in a web view
+	// A Web App URL to open in a web view
 	URL string
 }
 

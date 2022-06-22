@@ -33,7 +33,7 @@ var (
 
 // AnswerWebAppQueryRequest represents TL type `answerWebAppQuery#a0b49cf1`.
 type AnswerWebAppQueryRequest struct {
-	// Identifier of the web app query
+	// Identifier of the Web App query
 	WebAppQueryID string
 	// The result of the query
 	Result InputInlineQueryResultClass

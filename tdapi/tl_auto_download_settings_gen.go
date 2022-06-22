@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AutoDownloadSettings represents TL type `autoDownloadSettings#802ec5e3`.
+// AutoDownloadSettings represents TL type `autoDownloadSettings#cf7e4f4b`.
 type AutoDownloadSettings struct {
 	// True, if the auto-download is enabled
 	IsAutoDownloadEnabled bool
 	// The maximum size of a photo file to be auto-downloaded, in bytes
 	MaxPhotoFileSize int32
 	// The maximum size of a video file to be auto-downloaded, in bytes
-	MaxVideoFileSize int32
+	MaxVideoFileSize int64
 	// The maximum size of other file types to be auto-downloaded, in bytes
-	MaxOtherFileSize int32
+	MaxOtherFileSize int64
 	// The maximum suggested bitrate for uploaded videos, in kbit/s
 	VideoUploadBitrate int32
 	// True, if the beginning of video files needs to be preloaded for instant playback
@@ -53,7 +53,7 @@ type AutoDownloadSettings struct {
 }
 
 // AutoDownloadSettingsTypeID is TL type id of AutoDownloadSettings.
-const AutoDownloadSettingsTypeID = 0x802ec5e3
+const AutoDownloadSettingsTypeID = 0xcf7e4f4b
 
 // Ensuring interfaces in compile-time for AutoDownloadSettings.
 var (
@@ -166,7 +166,7 @@ func (a *AutoDownloadSettings) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AutoDownloadSettings) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode autoDownloadSettings#802ec5e3 as nil")
+		return fmt.Errorf("can't encode autoDownloadSettings#cf7e4f4b as nil")
 	}
 	b.PutID(AutoDownloadSettingsTypeID)
 	return a.EncodeBare(b)
@@ -175,12 +175,12 @@ func (a *AutoDownloadSettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AutoDownloadSettings) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode autoDownloadSettings#802ec5e3 as nil")
+		return fmt.Errorf("can't encode autoDownloadSettings#cf7e4f4b as nil")
 	}
 	b.PutBool(a.IsAutoDownloadEnabled)
 	b.PutInt32(a.MaxPhotoFileSize)
-	b.PutInt32(a.MaxVideoFileSize)
-	b.PutInt32(a.MaxOtherFileSize)
+	b.PutInt53(a.MaxVideoFileSize)
+	b.PutInt53(a.MaxOtherFileSize)
 	b.PutInt32(a.VideoUploadBitrate)
 	b.PutBool(a.PreloadLargeVideos)
 	b.PutBool(a.PreloadNextAudio)
@@ -191,10 +191,10 @@ func (a *AutoDownloadSettings) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (a *AutoDownloadSettings) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode autoDownloadSettings#802ec5e3 to nil")
+		return fmt.Errorf("can't decode autoDownloadSettings#cf7e4f4b to nil")
 	}
 	if err := b.ConsumeID(AutoDownloadSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: %w", err)
+		return fmt.Errorf("unable to decode autoDownloadSettings#cf7e4f4b: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -202,61 +202,61 @@ func (a *AutoDownloadSettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AutoDownloadSettings) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode autoDownloadSettings#802ec5e3 to nil")
+		return fmt.Errorf("can't decode autoDownloadSettings#cf7e4f4b to nil")
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field is_auto_download_enabled: %w", err)
+			return fmt.Errorf("unable to decode autoDownloadSettings#cf7e4f4b: field is_auto_download_enabled: %w", err)
 		}
 		a.IsAutoDownloadEnabled = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field max_photo_file_size: %w", err)
+			return fmt.Errorf("unable to decode autoDownloadSettings#cf7e4f4b: field max_photo_file_size: %w", err)
 		}
 		a.MaxPhotoFileSize = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field max_video_file_size: %w", err)
+			return fmt.Errorf("unable to decode autoDownloadSettings#cf7e4f4b: field max_video_file_size: %w", err)
 		}
 		a.MaxVideoFileSize = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field max_other_file_size: %w", err)
+			return fmt.Errorf("unable to decode autoDownloadSettings#cf7e4f4b: field max_other_file_size: %w", err)
 		}
 		a.MaxOtherFileSize = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field video_upload_bitrate: %w", err)
+			return fmt.Errorf("unable to decode autoDownloadSettings#cf7e4f4b: field video_upload_bitrate: %w", err)
 		}
 		a.VideoUploadBitrate = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field preload_large_videos: %w", err)
+			return fmt.Errorf("unable to decode autoDownloadSettings#cf7e4f4b: field preload_large_videos: %w", err)
 		}
 		a.PreloadLargeVideos = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field preload_next_audio: %w", err)
+			return fmt.Errorf("unable to decode autoDownloadSettings#cf7e4f4b: field preload_next_audio: %w", err)
 		}
 		a.PreloadNextAudio = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field use_less_data_for_calls: %w", err)
+			return fmt.Errorf("unable to decode autoDownloadSettings#cf7e4f4b: field use_less_data_for_calls: %w", err)
 		}
 		a.UseLessDataForCalls = value
 	}
@@ -266,7 +266,7 @@ func (a *AutoDownloadSettings) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (a *AutoDownloadSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
-		return fmt.Errorf("can't encode autoDownloadSettings#802ec5e3 as nil")
+		return fmt.Errorf("can't encode autoDownloadSettings#cf7e4f4b as nil")
 	}
 	b.ObjStart()
 	b.PutID("autoDownloadSettings")
@@ -278,10 +278,10 @@ func (a *AutoDownloadSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutInt32(a.MaxPhotoFileSize)
 	b.Comma()
 	b.FieldStart("max_video_file_size")
-	b.PutInt32(a.MaxVideoFileSize)
+	b.PutInt53(a.MaxVideoFileSize)
 	b.Comma()
 	b.FieldStart("max_other_file_size")
-	b.PutInt32(a.MaxOtherFileSize)
+	b.PutInt53(a.MaxOtherFileSize)
 	b.Comma()
 	b.FieldStart("video_upload_bitrate")
 	b.PutInt32(a.VideoUploadBitrate)
@@ -303,61 +303,61 @@ func (a *AutoDownloadSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (a *AutoDownloadSettings) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
-		return fmt.Errorf("can't decode autoDownloadSettings#802ec5e3 to nil")
+		return fmt.Errorf("can't decode autoDownloadSettings#cf7e4f4b to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("autoDownloadSettings"); err != nil {
-				return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: %w", err)
+				return fmt.Errorf("unable to decode autoDownloadSettings#cf7e4f4b: %w", err)
 			}
 		case "is_auto_download_enabled":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field is_auto_download_enabled: %w", err)
+				return fmt.Errorf("unable to decode autoDownloadSettings#cf7e4f4b: field is_auto_download_enabled: %w", err)
 			}
 			a.IsAutoDownloadEnabled = value
 		case "max_photo_file_size":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field max_photo_file_size: %w", err)
+				return fmt.Errorf("unable to decode autoDownloadSettings#cf7e4f4b: field max_photo_file_size: %w", err)
 			}
 			a.MaxPhotoFileSize = value
 		case "max_video_file_size":
-			value, err := b.Int32()
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field max_video_file_size: %w", err)
+				return fmt.Errorf("unable to decode autoDownloadSettings#cf7e4f4b: field max_video_file_size: %w", err)
 			}
 			a.MaxVideoFileSize = value
 		case "max_other_file_size":
-			value, err := b.Int32()
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field max_other_file_size: %w", err)
+				return fmt.Errorf("unable to decode autoDownloadSettings#cf7e4f4b: field max_other_file_size: %w", err)
 			}
 			a.MaxOtherFileSize = value
 		case "video_upload_bitrate":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field video_upload_bitrate: %w", err)
+				return fmt.Errorf("unable to decode autoDownloadSettings#cf7e4f4b: field video_upload_bitrate: %w", err)
 			}
 			a.VideoUploadBitrate = value
 		case "preload_large_videos":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field preload_large_videos: %w", err)
+				return fmt.Errorf("unable to decode autoDownloadSettings#cf7e4f4b: field preload_large_videos: %w", err)
 			}
 			a.PreloadLargeVideos = value
 		case "preload_next_audio":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field preload_next_audio: %w", err)
+				return fmt.Errorf("unable to decode autoDownloadSettings#cf7e4f4b: field preload_next_audio: %w", err)
 			}
 			a.PreloadNextAudio = value
 		case "use_less_data_for_calls":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode autoDownloadSettings#802ec5e3: field use_less_data_for_calls: %w", err)
+				return fmt.Errorf("unable to decode autoDownloadSettings#cf7e4f4b: field use_less_data_for_calls: %w", err)
 			}
 			a.UseLessDataForCalls = value
 		default:
@@ -384,7 +384,7 @@ func (a *AutoDownloadSettings) GetMaxPhotoFileSize() (value int32) {
 }
 
 // GetMaxVideoFileSize returns value of MaxVideoFileSize field.
-func (a *AutoDownloadSettings) GetMaxVideoFileSize() (value int32) {
+func (a *AutoDownloadSettings) GetMaxVideoFileSize() (value int64) {
 	if a == nil {
 		return
 	}
@@ -392,7 +392,7 @@ func (a *AutoDownloadSettings) GetMaxVideoFileSize() (value int32) {
 }
 
 // GetMaxOtherFileSize returns value of MaxOtherFileSize field.
-func (a *AutoDownloadSettings) GetMaxOtherFileSize() (value int32) {
+func (a *AutoDownloadSettings) GetMaxOtherFileSize() (value int64) {
 	if a == nil {
 		return
 	}

@@ -33,7 +33,8 @@ var (
 
 // SetBioRequest represents TL type `setBio#9f772354`.
 type SetBioRequest struct {
-	// The new value of the user bio; 0-70 characters without line feeds
+	// The new value of the user bio; 0-GetOption("bio_length_max") characters without line
+	// feeds
 	Bio string
 }
 

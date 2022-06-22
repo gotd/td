@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// DownloadFileRequest represents TL type `downloadFile#be50685a`.
+// DownloadFileRequest represents TL type `downloadFile#3f253234`.
 type DownloadFileRequest struct {
 	// Identifier of the file to download
 	FileID int32
@@ -40,10 +40,10 @@ type DownloadFileRequest struct {
 	// downloadFile/addFileToDownloads was called will be downloaded first
 	Priority int32
 	// The starting position from which the file needs to be downloaded
-	Offset int32
+	Offset int64
 	// Number of bytes which need to be downloaded starting from the "offset" position before
 	// the download will automatically be canceled; use 0 to download without a limit
-	Limit int32
+	Limit int64
 	// Pass true to return response only after the file download has succeeded, has failed,
 	// has been canceled, or a new downloadFile request with different offset/limit
 	// parameters was sent; pass false to return file state immediately, just after the
@@ -52,7 +52,7 @@ type DownloadFileRequest struct {
 }
 
 // DownloadFileRequestTypeID is TL type id of DownloadFileRequest.
-const DownloadFileRequestTypeID = 0xbe50685a
+const DownloadFileRequestTypeID = 0x3f253234
 
 // Ensuring interfaces in compile-time for DownloadFileRequest.
 var (
@@ -144,7 +144,7 @@ func (d *DownloadFileRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DownloadFileRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode downloadFile#be50685a as nil")
+		return fmt.Errorf("can't encode downloadFile#3f253234 as nil")
 	}
 	b.PutID(DownloadFileRequestTypeID)
 	return d.EncodeBare(b)
@@ -153,12 +153,12 @@ func (d *DownloadFileRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DownloadFileRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode downloadFile#be50685a as nil")
+		return fmt.Errorf("can't encode downloadFile#3f253234 as nil")
 	}
 	b.PutInt32(d.FileID)
 	b.PutInt32(d.Priority)
-	b.PutInt32(d.Offset)
-	b.PutInt32(d.Limit)
+	b.PutInt53(d.Offset)
+	b.PutInt53(d.Limit)
 	b.PutBool(d.Synchronous)
 	return nil
 }
@@ -166,10 +166,10 @@ func (d *DownloadFileRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (d *DownloadFileRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode downloadFile#be50685a to nil")
+		return fmt.Errorf("can't decode downloadFile#3f253234 to nil")
 	}
 	if err := b.ConsumeID(DownloadFileRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode downloadFile#be50685a: %w", err)
+		return fmt.Errorf("unable to decode downloadFile#3f253234: %w", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -177,40 +177,40 @@ func (d *DownloadFileRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DownloadFileRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode downloadFile#be50685a to nil")
+		return fmt.Errorf("can't decode downloadFile#3f253234 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode downloadFile#be50685a: field file_id: %w", err)
+			return fmt.Errorf("unable to decode downloadFile#3f253234: field file_id: %w", err)
 		}
 		d.FileID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode downloadFile#be50685a: field priority: %w", err)
+			return fmt.Errorf("unable to decode downloadFile#3f253234: field priority: %w", err)
 		}
 		d.Priority = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode downloadFile#be50685a: field offset: %w", err)
+			return fmt.Errorf("unable to decode downloadFile#3f253234: field offset: %w", err)
 		}
 		d.Offset = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode downloadFile#be50685a: field limit: %w", err)
+			return fmt.Errorf("unable to decode downloadFile#3f253234: field limit: %w", err)
 		}
 		d.Limit = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode downloadFile#be50685a: field synchronous: %w", err)
+			return fmt.Errorf("unable to decode downloadFile#3f253234: field synchronous: %w", err)
 		}
 		d.Synchronous = value
 	}
@@ -220,7 +220,7 @@ func (d *DownloadFileRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (d *DownloadFileRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
-		return fmt.Errorf("can't encode downloadFile#be50685a as nil")
+		return fmt.Errorf("can't encode downloadFile#3f253234 as nil")
 	}
 	b.ObjStart()
 	b.PutID("downloadFile")
@@ -232,10 +232,10 @@ func (d *DownloadFileRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutInt32(d.Priority)
 	b.Comma()
 	b.FieldStart("offset")
-	b.PutInt32(d.Offset)
+	b.PutInt53(d.Offset)
 	b.Comma()
 	b.FieldStart("limit")
-	b.PutInt32(d.Limit)
+	b.PutInt53(d.Limit)
 	b.Comma()
 	b.FieldStart("synchronous")
 	b.PutBool(d.Synchronous)
@@ -248,43 +248,43 @@ func (d *DownloadFileRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (d *DownloadFileRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
-		return fmt.Errorf("can't decode downloadFile#be50685a to nil")
+		return fmt.Errorf("can't decode downloadFile#3f253234 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("downloadFile"); err != nil {
-				return fmt.Errorf("unable to decode downloadFile#be50685a: %w", err)
+				return fmt.Errorf("unable to decode downloadFile#3f253234: %w", err)
 			}
 		case "file_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode downloadFile#be50685a: field file_id: %w", err)
+				return fmt.Errorf("unable to decode downloadFile#3f253234: field file_id: %w", err)
 			}
 			d.FileID = value
 		case "priority":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode downloadFile#be50685a: field priority: %w", err)
+				return fmt.Errorf("unable to decode downloadFile#3f253234: field priority: %w", err)
 			}
 			d.Priority = value
 		case "offset":
-			value, err := b.Int32()
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode downloadFile#be50685a: field offset: %w", err)
+				return fmt.Errorf("unable to decode downloadFile#3f253234: field offset: %w", err)
 			}
 			d.Offset = value
 		case "limit":
-			value, err := b.Int32()
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode downloadFile#be50685a: field limit: %w", err)
+				return fmt.Errorf("unable to decode downloadFile#3f253234: field limit: %w", err)
 			}
 			d.Limit = value
 		case "synchronous":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode downloadFile#be50685a: field synchronous: %w", err)
+				return fmt.Errorf("unable to decode downloadFile#3f253234: field synchronous: %w", err)
 			}
 			d.Synchronous = value
 		default:
@@ -311,7 +311,7 @@ func (d *DownloadFileRequest) GetPriority() (value int32) {
 }
 
 // GetOffset returns value of Offset field.
-func (d *DownloadFileRequest) GetOffset() (value int32) {
+func (d *DownloadFileRequest) GetOffset() (value int64) {
 	if d == nil {
 		return
 	}
@@ -319,7 +319,7 @@ func (d *DownloadFileRequest) GetOffset() (value int32) {
 }
 
 // GetLimit returns value of Limit field.
-func (d *DownloadFileRequest) GetLimit() (value int32) {
+func (d *DownloadFileRequest) GetLimit() (value int64) {
 	if d == nil {
 		return
 	}
@@ -334,7 +334,7 @@ func (d *DownloadFileRequest) GetSynchronous() (value bool) {
 	return d.Synchronous
 }
 
-// DownloadFile invokes method downloadFile#be50685a returning error if any.
+// DownloadFile invokes method downloadFile#3f253234 returning error if any.
 func (c *Client) DownloadFile(ctx context.Context, request *DownloadFileRequest) (*File, error) {
 	var result File
 

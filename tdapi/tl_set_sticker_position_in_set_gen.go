@@ -35,7 +35,7 @@ var (
 type SetStickerPositionInSetRequest struct {
 	// Sticker
 	Sticker InputFileClass
-	// New position of the sticker in the set, zero-based
+	// New position of the sticker in the set, 0-based
 	Position int32
 }
 

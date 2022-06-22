@@ -31,12 +31,12 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentReceipt represents TL type `paymentReceipt#e80d13b7`.
+// PaymentReceipt represents TL type `paymentReceipt#e819e6c1`.
 type PaymentReceipt struct {
 	// Product title
 	Title string
 	// Contains information about a successful payment
-	Description string
+	Description FormattedText
 	// Product photo; may be null
 	Photo Photo
 	// Point in time (Unix timestamp) when the payment was made
@@ -44,7 +44,7 @@ type PaymentReceipt struct {
 	// User identifier of the seller bot
 	SellerBotUserID int64
 	// User identifier of the payment provider bot
-	PaymentsProviderUserID int64
+	PaymentProviderUserID int64
 	// Information about the invoice
 	Invoice Invoice
 	// Order information; may be null
@@ -58,7 +58,7 @@ type PaymentReceipt struct {
 }
 
 // PaymentReceiptTypeID is TL type id of PaymentReceipt.
-const PaymentReceiptTypeID = 0xe80d13b7
+const PaymentReceiptTypeID = 0xe819e6c1
 
 // Ensuring interfaces in compile-time for PaymentReceipt.
 var (
@@ -75,7 +75,7 @@ func (p *PaymentReceipt) Zero() bool {
 	if !(p.Title == "") {
 		return false
 	}
-	if !(p.Description == "") {
+	if !(p.Description.Zero()) {
 		return false
 	}
 	if !(p.Photo.Zero()) {
@@ -87,7 +87,7 @@ func (p *PaymentReceipt) Zero() bool {
 	if !(p.SellerBotUserID == 0) {
 		return false
 	}
-	if !(p.PaymentsProviderUserID == 0) {
+	if !(p.PaymentProviderUserID == 0) {
 		return false
 	}
 	if !(p.Invoice.Zero()) {
@@ -162,8 +162,8 @@ func (p *PaymentReceipt) TypeInfo() tdp.Type {
 			SchemaName: "seller_bot_user_id",
 		},
 		{
-			Name:       "PaymentsProviderUserID",
-			SchemaName: "payments_provider_user_id",
+			Name:       "PaymentProviderUserID",
+			SchemaName: "payment_provider_user_id",
 		},
 		{
 			Name:       "Invoice",
@@ -192,7 +192,7 @@ func (p *PaymentReceipt) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PaymentReceipt) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode paymentReceipt#e80d13b7 as nil")
+		return fmt.Errorf("can't encode paymentReceipt#e819e6c1 as nil")
 	}
 	b.PutID(PaymentReceiptTypeID)
 	return p.EncodeBare(b)
@@ -201,24 +201,26 @@ func (p *PaymentReceipt) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PaymentReceipt) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode paymentReceipt#e80d13b7 as nil")
+		return fmt.Errorf("can't encode paymentReceipt#e819e6c1 as nil")
 	}
 	b.PutString(p.Title)
-	b.PutString(p.Description)
+	if err := p.Description.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode paymentReceipt#e819e6c1: field description: %w", err)
+	}
 	if err := p.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode paymentReceipt#e80d13b7: field photo: %w", err)
+		return fmt.Errorf("unable to encode paymentReceipt#e819e6c1: field photo: %w", err)
 	}
 	b.PutInt32(p.Date)
 	b.PutInt53(p.SellerBotUserID)
-	b.PutInt53(p.PaymentsProviderUserID)
+	b.PutInt53(p.PaymentProviderUserID)
 	if err := p.Invoice.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode paymentReceipt#e80d13b7: field invoice: %w", err)
+		return fmt.Errorf("unable to encode paymentReceipt#e819e6c1: field invoice: %w", err)
 	}
 	if err := p.OrderInfo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode paymentReceipt#e80d13b7: field order_info: %w", err)
+		return fmt.Errorf("unable to encode paymentReceipt#e819e6c1: field order_info: %w", err)
 	}
 	if err := p.ShippingOption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode paymentReceipt#e80d13b7: field shipping_option: %w", err)
+		return fmt.Errorf("unable to encode paymentReceipt#e819e6c1: field shipping_option: %w", err)
 	}
 	b.PutString(p.CredentialsTitle)
 	b.PutInt53(p.TipAmount)
@@ -228,10 +230,10 @@ func (p *PaymentReceipt) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PaymentReceipt) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode paymentReceipt#e80d13b7 to nil")
+		return fmt.Errorf("can't decode paymentReceipt#e819e6c1 to nil")
 	}
 	if err := b.ConsumeID(PaymentReceiptTypeID); err != nil {
-		return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: %w", err)
+		return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -239,74 +241,72 @@ func (p *PaymentReceipt) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PaymentReceipt) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode paymentReceipt#e80d13b7 to nil")
+		return fmt.Errorf("can't decode paymentReceipt#e819e6c1 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field title: %w", err)
+			return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field title: %w", err)
 		}
 		p.Title = value
 	}
 	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field description: %w", err)
+		if err := p.Description.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field description: %w", err)
 		}
-		p.Description = value
 	}
 	{
 		if err := p.Photo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field photo: %w", err)
+			return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field photo: %w", err)
 		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field date: %w", err)
+			return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field date: %w", err)
 		}
 		p.Date = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field seller_bot_user_id: %w", err)
+			return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field seller_bot_user_id: %w", err)
 		}
 		p.SellerBotUserID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field payments_provider_user_id: %w", err)
+			return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field payment_provider_user_id: %w", err)
 		}
-		p.PaymentsProviderUserID = value
+		p.PaymentProviderUserID = value
 	}
 	{
 		if err := p.Invoice.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field invoice: %w", err)
+			return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field invoice: %w", err)
 		}
 	}
 	{
 		if err := p.OrderInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field order_info: %w", err)
+			return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field order_info: %w", err)
 		}
 	}
 	{
 		if err := p.ShippingOption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field shipping_option: %w", err)
+			return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field shipping_option: %w", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field credentials_title: %w", err)
+			return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field credentials_title: %w", err)
 		}
 		p.CredentialsTitle = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field tip_amount: %w", err)
+			return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field tip_amount: %w", err)
 		}
 		p.TipAmount = value
 	}
@@ -316,7 +316,7 @@ func (p *PaymentReceipt) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (p *PaymentReceipt) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
-		return fmt.Errorf("can't encode paymentReceipt#e80d13b7 as nil")
+		return fmt.Errorf("can't encode paymentReceipt#e819e6c1 as nil")
 	}
 	b.ObjStart()
 	b.PutID("paymentReceipt")
@@ -325,11 +325,13 @@ func (p *PaymentReceipt) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutString(p.Title)
 	b.Comma()
 	b.FieldStart("description")
-	b.PutString(p.Description)
+	if err := p.Description.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode paymentReceipt#e819e6c1: field description: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("photo")
 	if err := p.Photo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode paymentReceipt#e80d13b7: field photo: %w", err)
+		return fmt.Errorf("unable to encode paymentReceipt#e819e6c1: field photo: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("date")
@@ -338,22 +340,22 @@ func (p *PaymentReceipt) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("seller_bot_user_id")
 	b.PutInt53(p.SellerBotUserID)
 	b.Comma()
-	b.FieldStart("payments_provider_user_id")
-	b.PutInt53(p.PaymentsProviderUserID)
+	b.FieldStart("payment_provider_user_id")
+	b.PutInt53(p.PaymentProviderUserID)
 	b.Comma()
 	b.FieldStart("invoice")
 	if err := p.Invoice.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode paymentReceipt#e80d13b7: field invoice: %w", err)
+		return fmt.Errorf("unable to encode paymentReceipt#e819e6c1: field invoice: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("order_info")
 	if err := p.OrderInfo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode paymentReceipt#e80d13b7: field order_info: %w", err)
+		return fmt.Errorf("unable to encode paymentReceipt#e819e6c1: field order_info: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("shipping_option")
 	if err := p.ShippingOption.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode paymentReceipt#e80d13b7: field shipping_option: %w", err)
+		return fmt.Errorf("unable to encode paymentReceipt#e819e6c1: field shipping_option: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("credentials_title")
@@ -370,71 +372,69 @@ func (p *PaymentReceipt) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (p *PaymentReceipt) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
-		return fmt.Errorf("can't decode paymentReceipt#e80d13b7 to nil")
+		return fmt.Errorf("can't decode paymentReceipt#e819e6c1 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("paymentReceipt"); err != nil {
-				return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: %w", err)
+				return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: %w", err)
 			}
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field title: %w", err)
+				return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field title: %w", err)
 			}
 			p.Title = value
 		case "description":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field description: %w", err)
+			if err := p.Description.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field description: %w", err)
 			}
-			p.Description = value
 		case "photo":
 			if err := p.Photo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field photo: %w", err)
+				return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field photo: %w", err)
 			}
 		case "date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field date: %w", err)
+				return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field date: %w", err)
 			}
 			p.Date = value
 		case "seller_bot_user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field seller_bot_user_id: %w", err)
+				return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field seller_bot_user_id: %w", err)
 			}
 			p.SellerBotUserID = value
-		case "payments_provider_user_id":
+		case "payment_provider_user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field payments_provider_user_id: %w", err)
+				return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field payment_provider_user_id: %w", err)
 			}
-			p.PaymentsProviderUserID = value
+			p.PaymentProviderUserID = value
 		case "invoice":
 			if err := p.Invoice.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field invoice: %w", err)
+				return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field invoice: %w", err)
 			}
 		case "order_info":
 			if err := p.OrderInfo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field order_info: %w", err)
+				return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field order_info: %w", err)
 			}
 		case "shipping_option":
 			if err := p.ShippingOption.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field shipping_option: %w", err)
+				return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field shipping_option: %w", err)
 			}
 		case "credentials_title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field credentials_title: %w", err)
+				return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field credentials_title: %w", err)
 			}
 			p.CredentialsTitle = value
 		case "tip_amount":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode paymentReceipt#e80d13b7: field tip_amount: %w", err)
+				return fmt.Errorf("unable to decode paymentReceipt#e819e6c1: field tip_amount: %w", err)
 			}
 			p.TipAmount = value
 		default:
@@ -453,7 +453,7 @@ func (p *PaymentReceipt) GetTitle() (value string) {
 }
 
 // GetDescription returns value of Description field.
-func (p *PaymentReceipt) GetDescription() (value string) {
+func (p *PaymentReceipt) GetDescription() (value FormattedText) {
 	if p == nil {
 		return
 	}
@@ -484,12 +484,12 @@ func (p *PaymentReceipt) GetSellerBotUserID() (value int64) {
 	return p.SellerBotUserID
 }
 
-// GetPaymentsProviderUserID returns value of PaymentsProviderUserID field.
-func (p *PaymentReceipt) GetPaymentsProviderUserID() (value int64) {
+// GetPaymentProviderUserID returns value of PaymentProviderUserID field.
+func (p *PaymentReceipt) GetPaymentProviderUserID() (value int64) {
 	if p == nil {
 		return
 	}
-	return p.PaymentsProviderUserID
+	return p.PaymentProviderUserID
 }
 
 // GetInvoice returns value of Invoice field.

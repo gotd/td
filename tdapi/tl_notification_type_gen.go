@@ -31,14 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// NotificationTypeNewMessage represents TL type `notificationTypeNewMessage#70691637`.
+// NotificationTypeNewMessage represents TL type `notificationTypeNewMessage#f0d0e3f2`.
 type NotificationTypeNewMessage struct {
 	// The message
 	Message Message
+	// True, if message content must be displayed in notifications
+	ShowPreview bool
 }
 
 // NotificationTypeNewMessageTypeID is TL type id of NotificationTypeNewMessage.
-const NotificationTypeNewMessageTypeID = 0x70691637
+const NotificationTypeNewMessageTypeID = 0xf0d0e3f2
 
 // construct implements constructor of NotificationTypeClass.
 func (n NotificationTypeNewMessage) construct() NotificationTypeClass { return &n }
@@ -58,6 +60,9 @@ func (n *NotificationTypeNewMessage) Zero() bool {
 		return true
 	}
 	if !(n.Message.Zero()) {
+		return false
+	}
+	if !(n.ShowPreview == false) {
 		return false
 	}
 
@@ -100,6 +105,10 @@ func (n *NotificationTypeNewMessage) TypeInfo() tdp.Type {
 			Name:       "Message",
 			SchemaName: "message",
 		},
+		{
+			Name:       "ShowPreview",
+			SchemaName: "show_preview",
+		},
 	}
 	return typ
 }
@@ -107,7 +116,7 @@ func (n *NotificationTypeNewMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (n *NotificationTypeNewMessage) Encode(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't encode notificationTypeNewMessage#70691637 as nil")
+		return fmt.Errorf("can't encode notificationTypeNewMessage#f0d0e3f2 as nil")
 	}
 	b.PutID(NotificationTypeNewMessageTypeID)
 	return n.EncodeBare(b)
@@ -116,21 +125,22 @@ func (n *NotificationTypeNewMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (n *NotificationTypeNewMessage) EncodeBare(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't encode notificationTypeNewMessage#70691637 as nil")
+		return fmt.Errorf("can't encode notificationTypeNewMessage#f0d0e3f2 as nil")
 	}
 	if err := n.Message.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode notificationTypeNewMessage#70691637: field message: %w", err)
+		return fmt.Errorf("unable to encode notificationTypeNewMessage#f0d0e3f2: field message: %w", err)
 	}
+	b.PutBool(n.ShowPreview)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (n *NotificationTypeNewMessage) Decode(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't decode notificationTypeNewMessage#70691637 to nil")
+		return fmt.Errorf("can't decode notificationTypeNewMessage#f0d0e3f2 to nil")
 	}
 	if err := b.ConsumeID(NotificationTypeNewMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode notificationTypeNewMessage#70691637: %w", err)
+		return fmt.Errorf("unable to decode notificationTypeNewMessage#f0d0e3f2: %w", err)
 	}
 	return n.DecodeBare(b)
 }
@@ -138,12 +148,19 @@ func (n *NotificationTypeNewMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (n *NotificationTypeNewMessage) DecodeBare(b *bin.Buffer) error {
 	if n == nil {
-		return fmt.Errorf("can't decode notificationTypeNewMessage#70691637 to nil")
+		return fmt.Errorf("can't decode notificationTypeNewMessage#f0d0e3f2 to nil")
 	}
 	{
 		if err := n.Message.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode notificationTypeNewMessage#70691637: field message: %w", err)
+			return fmt.Errorf("unable to decode notificationTypeNewMessage#f0d0e3f2: field message: %w", err)
 		}
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode notificationTypeNewMessage#f0d0e3f2: field show_preview: %w", err)
+		}
+		n.ShowPreview = value
 	}
 	return nil
 }
@@ -151,15 +168,18 @@ func (n *NotificationTypeNewMessage) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (n *NotificationTypeNewMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if n == nil {
-		return fmt.Errorf("can't encode notificationTypeNewMessage#70691637 as nil")
+		return fmt.Errorf("can't encode notificationTypeNewMessage#f0d0e3f2 as nil")
 	}
 	b.ObjStart()
 	b.PutID("notificationTypeNewMessage")
 	b.Comma()
 	b.FieldStart("message")
 	if err := n.Message.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode notificationTypeNewMessage#70691637: field message: %w", err)
+		return fmt.Errorf("unable to encode notificationTypeNewMessage#f0d0e3f2: field message: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("show_preview")
+	b.PutBool(n.ShowPreview)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -169,19 +189,25 @@ func (n *NotificationTypeNewMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (n *NotificationTypeNewMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if n == nil {
-		return fmt.Errorf("can't decode notificationTypeNewMessage#70691637 to nil")
+		return fmt.Errorf("can't decode notificationTypeNewMessage#f0d0e3f2 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("notificationTypeNewMessage"); err != nil {
-				return fmt.Errorf("unable to decode notificationTypeNewMessage#70691637: %w", err)
+				return fmt.Errorf("unable to decode notificationTypeNewMessage#f0d0e3f2: %w", err)
 			}
 		case "message":
 			if err := n.Message.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode notificationTypeNewMessage#70691637: field message: %w", err)
+				return fmt.Errorf("unable to decode notificationTypeNewMessage#f0d0e3f2: field message: %w", err)
 			}
+		case "show_preview":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode notificationTypeNewMessage#f0d0e3f2: field show_preview: %w", err)
+			}
+			n.ShowPreview = value
 		default:
 			return b.Skip()
 		}
@@ -195,6 +221,14 @@ func (n *NotificationTypeNewMessage) GetMessage() (value Message) {
 		return
 	}
 	return n.Message
+}
+
+// GetShowPreview returns value of ShowPreview field.
+func (n *NotificationTypeNewMessage) GetShowPreview() (value bool) {
+	if n == nil {
+		return
+	}
+	return n.ShowPreview
 }
 
 // NotificationTypeNewSecretChat represents TL type `notificationTypeNewSecretChat#4771c6b0`.
@@ -829,7 +863,7 @@ const NotificationTypeClassName = "NotificationType"
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *tdapi.NotificationTypeNewMessage: // notificationTypeNewMessage#70691637
+//  case *tdapi.NotificationTypeNewMessage: // notificationTypeNewMessage#f0d0e3f2
 //  case *tdapi.NotificationTypeNewSecretChat: // notificationTypeNewSecretChat#4771c6b0
 //  case *tdapi.NotificationTypeNewCall: // notificationTypeNewCall#66164179
 //  case *tdapi.NotificationTypeNewPushMessage: // notificationTypeNewPushMessage#d5949e32
@@ -865,7 +899,7 @@ func DecodeNotificationType(buf *bin.Buffer) (NotificationTypeClass, error) {
 	}
 	switch id {
 	case NotificationTypeNewMessageTypeID:
-		// Decoding notificationTypeNewMessage#70691637.
+		// Decoding notificationTypeNewMessage#f0d0e3f2.
 		v := NotificationTypeNewMessage{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode NotificationTypeClass: %w", err)
@@ -905,7 +939,7 @@ func DecodeTDLibJSONNotificationType(buf tdjson.Decoder) (NotificationTypeClass,
 	}
 	switch id {
 	case "notificationTypeNewMessage":
-		// Decoding notificationTypeNewMessage#70691637.
+		// Decoding notificationTypeNewMessage#f0d0e3f2.
 		v := NotificationTypeNewMessage{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode NotificationTypeClass: %w", err)

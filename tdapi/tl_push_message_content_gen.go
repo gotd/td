@@ -5056,6 +5056,172 @@ func (p *PushMessageContentChatJoinByRequest) DecodeTDLibJSON(b tdjson.Decoder) 
 	})
 }
 
+// PushMessageContentRecurringPayment represents TL type `pushMessageContentRecurringPayment#6083361a`.
+type PushMessageContentRecurringPayment struct {
+	// The paid amount
+	Amount string
+}
+
+// PushMessageContentRecurringPaymentTypeID is TL type id of PushMessageContentRecurringPayment.
+const PushMessageContentRecurringPaymentTypeID = 0x6083361a
+
+// construct implements constructor of PushMessageContentClass.
+func (p PushMessageContentRecurringPayment) construct() PushMessageContentClass { return &p }
+
+// Ensuring interfaces in compile-time for PushMessageContentRecurringPayment.
+var (
+	_ bin.Encoder     = &PushMessageContentRecurringPayment{}
+	_ bin.Decoder     = &PushMessageContentRecurringPayment{}
+	_ bin.BareEncoder = &PushMessageContentRecurringPayment{}
+	_ bin.BareDecoder = &PushMessageContentRecurringPayment{}
+
+	_ PushMessageContentClass = &PushMessageContentRecurringPayment{}
+)
+
+func (p *PushMessageContentRecurringPayment) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Amount == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PushMessageContentRecurringPayment) String() string {
+	if p == nil {
+		return "PushMessageContentRecurringPayment(nil)"
+	}
+	type Alias PushMessageContentRecurringPayment
+	return fmt.Sprintf("PushMessageContentRecurringPayment%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PushMessageContentRecurringPayment) TypeID() uint32 {
+	return PushMessageContentRecurringPaymentTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PushMessageContentRecurringPayment) TypeName() string {
+	return "pushMessageContentRecurringPayment"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PushMessageContentRecurringPayment) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pushMessageContentRecurringPayment",
+		ID:   PushMessageContentRecurringPaymentTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Amount",
+			SchemaName: "amount",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PushMessageContentRecurringPayment) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentRecurringPayment#6083361a as nil")
+	}
+	b.PutID(PushMessageContentRecurringPaymentTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PushMessageContentRecurringPayment) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentRecurringPayment#6083361a as nil")
+	}
+	b.PutString(p.Amount)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PushMessageContentRecurringPayment) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentRecurringPayment#6083361a to nil")
+	}
+	if err := b.ConsumeID(PushMessageContentRecurringPaymentTypeID); err != nil {
+		return fmt.Errorf("unable to decode pushMessageContentRecurringPayment#6083361a: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PushMessageContentRecurringPayment) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentRecurringPayment#6083361a to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode pushMessageContentRecurringPayment#6083361a: field amount: %w", err)
+		}
+		p.Amount = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentRecurringPayment) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentRecurringPayment#6083361a as nil")
+	}
+	b.ObjStart()
+	b.PutID("pushMessageContentRecurringPayment")
+	b.Comma()
+	b.FieldStart("amount")
+	b.PutString(p.Amount)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentRecurringPayment) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentRecurringPayment#6083361a to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("pushMessageContentRecurringPayment"); err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentRecurringPayment#6083361a: %w", err)
+			}
+		case "amount":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentRecurringPayment#6083361a: field amount: %w", err)
+			}
+			p.Amount = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetAmount returns value of Amount field.
+func (p *PushMessageContentRecurringPayment) GetAmount() (value string) {
+	if p == nil {
+		return
+	}
+	return p.Amount
+}
+
 // PushMessageContentMessageForwards represents TL type `pushMessageContentMessageForwards#8df8a81c`.
 type PushMessageContentMessageForwards struct {
 	// Number of forwarded messages
@@ -5561,6 +5727,7 @@ const PushMessageContentClassName = "PushMessageContent"
 //  case *tdapi.PushMessageContentChatDeleteMember: // pushMessageContentChatDeleteMember#23afa99f
 //  case *tdapi.PushMessageContentChatJoinByLink: // pushMessageContentChatJoinByLink#5c9bdf49
 //  case *tdapi.PushMessageContentChatJoinByRequest: // pushMessageContentChatJoinByRequest#f3bb6175
+//  case *tdapi.PushMessageContentRecurringPayment: // pushMessageContentRecurringPayment#6083361a
 //  case *tdapi.PushMessageContentMessageForwards: // pushMessageContentMessageForwards#8df8a81c
 //  case *tdapi.PushMessageContentMediaAlbum: // pushMessageContentMediaAlbum#d363e96f
 //  default: panic(v)
@@ -5776,6 +5943,13 @@ func DecodePushMessageContent(buf *bin.Buffer) (PushMessageContentClass, error) 
 			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
 		}
 		return &v, nil
+	case PushMessageContentRecurringPaymentTypeID:
+		// Decoding pushMessageContentRecurringPayment#6083361a.
+		v := PushMessageContentRecurringPayment{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
+		}
+		return &v, nil
 	case PushMessageContentMessageForwardsTypeID:
 		// Decoding pushMessageContentMessageForwards#8df8a81c.
 		v := PushMessageContentMessageForwards{}
@@ -5980,6 +6154,13 @@ func DecodeTDLibJSONPushMessageContent(buf tdjson.Decoder) (PushMessageContentCl
 	case "pushMessageContentChatJoinByRequest":
 		// Decoding pushMessageContentChatJoinByRequest#f3bb6175.
 		v := PushMessageContentChatJoinByRequest{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "pushMessageContentRecurringPayment":
+		// Decoding pushMessageContentRecurringPayment#6083361a.
+		v := PushMessageContentRecurringPayment{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
 		}

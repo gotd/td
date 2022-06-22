@@ -33,7 +33,7 @@ var (
 
 // CloseWebAppRequest represents TL type `closeWebApp#68a124c6`.
 type CloseWebAppRequest struct {
-	// Identifier of web app launch, received from openWebApp
+	// Identifier of Web App launch, received from openWebApp
 	WebAppLaunchID int64
 }
 

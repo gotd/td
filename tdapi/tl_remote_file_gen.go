@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// RemoteFile represents TL type `remoteFile#93644dd2`.
+// RemoteFile represents TL type `remoteFile#2c917856`.
 type RemoteFile struct {
 	// Remote file identifier; may be empty. Can be used by the current user across
 	// application restarts or even from other devices. Uniquely identifies a file, but a
@@ -46,11 +46,11 @@ type RemoteFile struct {
 	// True, if a remote copy is fully available
 	IsUploadingCompleted bool
 	// Size of the remote available part of the file, in bytes; 0 if unknown
-	UploadedSize int32
+	UploadedSize int64
 }
 
 // RemoteFileTypeID is TL type id of RemoteFile.
-const RemoteFileTypeID = 0x93644dd2
+const RemoteFileTypeID = 0x2c917856
 
 // Ensuring interfaces in compile-time for RemoteFile.
 var (
@@ -142,7 +142,7 @@ func (r *RemoteFile) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *RemoteFile) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode remoteFile#93644dd2 as nil")
+		return fmt.Errorf("can't encode remoteFile#2c917856 as nil")
 	}
 	b.PutID(RemoteFileTypeID)
 	return r.EncodeBare(b)
@@ -151,23 +151,23 @@ func (r *RemoteFile) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *RemoteFile) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode remoteFile#93644dd2 as nil")
+		return fmt.Errorf("can't encode remoteFile#2c917856 as nil")
 	}
 	b.PutString(r.ID)
 	b.PutString(r.UniqueID)
 	b.PutBool(r.IsUploadingActive)
 	b.PutBool(r.IsUploadingCompleted)
-	b.PutInt32(r.UploadedSize)
+	b.PutInt53(r.UploadedSize)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (r *RemoteFile) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode remoteFile#93644dd2 to nil")
+		return fmt.Errorf("can't decode remoteFile#2c917856 to nil")
 	}
 	if err := b.ConsumeID(RemoteFileTypeID); err != nil {
-		return fmt.Errorf("unable to decode remoteFile#93644dd2: %w", err)
+		return fmt.Errorf("unable to decode remoteFile#2c917856: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -175,40 +175,40 @@ func (r *RemoteFile) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *RemoteFile) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode remoteFile#93644dd2 to nil")
+		return fmt.Errorf("can't decode remoteFile#2c917856 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode remoteFile#93644dd2: field id: %w", err)
+			return fmt.Errorf("unable to decode remoteFile#2c917856: field id: %w", err)
 		}
 		r.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode remoteFile#93644dd2: field unique_id: %w", err)
+			return fmt.Errorf("unable to decode remoteFile#2c917856: field unique_id: %w", err)
 		}
 		r.UniqueID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode remoteFile#93644dd2: field is_uploading_active: %w", err)
+			return fmt.Errorf("unable to decode remoteFile#2c917856: field is_uploading_active: %w", err)
 		}
 		r.IsUploadingActive = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode remoteFile#93644dd2: field is_uploading_completed: %w", err)
+			return fmt.Errorf("unable to decode remoteFile#2c917856: field is_uploading_completed: %w", err)
 		}
 		r.IsUploadingCompleted = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode remoteFile#93644dd2: field uploaded_size: %w", err)
+			return fmt.Errorf("unable to decode remoteFile#2c917856: field uploaded_size: %w", err)
 		}
 		r.UploadedSize = value
 	}
@@ -218,7 +218,7 @@ func (r *RemoteFile) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (r *RemoteFile) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
-		return fmt.Errorf("can't encode remoteFile#93644dd2 as nil")
+		return fmt.Errorf("can't encode remoteFile#2c917856 as nil")
 	}
 	b.ObjStart()
 	b.PutID("remoteFile")
@@ -236,7 +236,7 @@ func (r *RemoteFile) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutBool(r.IsUploadingCompleted)
 	b.Comma()
 	b.FieldStart("uploaded_size")
-	b.PutInt32(r.UploadedSize)
+	b.PutInt53(r.UploadedSize)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -246,43 +246,43 @@ func (r *RemoteFile) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (r *RemoteFile) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
-		return fmt.Errorf("can't decode remoteFile#93644dd2 to nil")
+		return fmt.Errorf("can't decode remoteFile#2c917856 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("remoteFile"); err != nil {
-				return fmt.Errorf("unable to decode remoteFile#93644dd2: %w", err)
+				return fmt.Errorf("unable to decode remoteFile#2c917856: %w", err)
 			}
 		case "id":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode remoteFile#93644dd2: field id: %w", err)
+				return fmt.Errorf("unable to decode remoteFile#2c917856: field id: %w", err)
 			}
 			r.ID = value
 		case "unique_id":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode remoteFile#93644dd2: field unique_id: %w", err)
+				return fmt.Errorf("unable to decode remoteFile#2c917856: field unique_id: %w", err)
 			}
 			r.UniqueID = value
 		case "is_uploading_active":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode remoteFile#93644dd2: field is_uploading_active: %w", err)
+				return fmt.Errorf("unable to decode remoteFile#2c917856: field is_uploading_active: %w", err)
 			}
 			r.IsUploadingActive = value
 		case "is_uploading_completed":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode remoteFile#93644dd2: field is_uploading_completed: %w", err)
+				return fmt.Errorf("unable to decode remoteFile#2c917856: field is_uploading_completed: %w", err)
 			}
 			r.IsUploadingCompleted = value
 		case "uploaded_size":
-			value, err := b.Int32()
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode remoteFile#93644dd2: field uploaded_size: %w", err)
+				return fmt.Errorf("unable to decode remoteFile#2c917856: field uploaded_size: %w", err)
 			}
 			r.UploadedSize = value
 		default:
@@ -325,7 +325,7 @@ func (r *RemoteFile) GetIsUploadingCompleted() (value bool) {
 }
 
 // GetUploadedSize returns value of UploadedSize field.
-func (r *RemoteFile) GetUploadedSize() (value int32) {
+func (r *RemoteFile) GetUploadedSize() (value int64) {
 	if r == nil {
 		return
 	}

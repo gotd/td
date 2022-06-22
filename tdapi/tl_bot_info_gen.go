@@ -31,13 +31,17 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// BotInfo represents TL type `botInfo#729c7b7e`.
+// BotInfo represents TL type `botInfo#831a403e`.
 type BotInfo struct {
 	// The text that is shown on the bot's profile page and is sent together with the link
 	// when users share the bot
 	ShareText string
 	// Contains information about a bot
 	Description string
+	// Photo shown in the chat with the bot if the chat is empty; may be null
+	Photo Photo
+	// Animation shown in the chat with the bot if the chat is empty; may be null
+	Animation Animation
 	// Information about a button to show instead of the bot commands menu button; may be
 	// null if ordinary bot commands menu must be shown
 	MenuButton BotMenuButton
@@ -51,7 +55,7 @@ type BotInfo struct {
 }
 
 // BotInfoTypeID is TL type id of BotInfo.
-const BotInfoTypeID = 0x729c7b7e
+const BotInfoTypeID = 0x831a403e
 
 // Ensuring interfaces in compile-time for BotInfo.
 var (
@@ -69,6 +73,12 @@ func (b *BotInfo) Zero() bool {
 		return false
 	}
 	if !(b.Description == "") {
+		return false
+	}
+	if !(b.Photo.Zero()) {
+		return false
+	}
+	if !(b.Animation.Zero()) {
 		return false
 	}
 	if !(b.MenuButton.Zero()) {
@@ -128,6 +138,14 @@ func (b *BotInfo) TypeInfo() tdp.Type {
 			SchemaName: "description",
 		},
 		{
+			Name:       "Photo",
+			SchemaName: "photo",
+		},
+		{
+			Name:       "Animation",
+			SchemaName: "animation",
+		},
+		{
 			Name:       "MenuButton",
 			SchemaName: "menu_button",
 		},
@@ -150,7 +168,7 @@ func (b *BotInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BotInfo) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botInfo#729c7b7e as nil")
+		return fmt.Errorf("can't encode botInfo#831a403e as nil")
 	}
 	buf.PutID(BotInfoTypeID)
 	return b.EncodeBare(buf)
@@ -159,24 +177,30 @@ func (b *BotInfo) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BotInfo) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botInfo#729c7b7e as nil")
+		return fmt.Errorf("can't encode botInfo#831a403e as nil")
 	}
 	buf.PutString(b.ShareText)
 	buf.PutString(b.Description)
+	if err := b.Photo.Encode(buf); err != nil {
+		return fmt.Errorf("unable to encode botInfo#831a403e: field photo: %w", err)
+	}
+	if err := b.Animation.Encode(buf); err != nil {
+		return fmt.Errorf("unable to encode botInfo#831a403e: field animation: %w", err)
+	}
 	if err := b.MenuButton.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#729c7b7e: field menu_button: %w", err)
+		return fmt.Errorf("unable to encode botInfo#831a403e: field menu_button: %w", err)
 	}
 	buf.PutInt(len(b.Commands))
 	for idx, v := range b.Commands {
 		if err := v.EncodeBare(buf); err != nil {
-			return fmt.Errorf("unable to encode bare botInfo#729c7b7e: field commands element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare botInfo#831a403e: field commands element with index %d: %w", idx, err)
 		}
 	}
 	if err := b.DefaultGroupAdministratorRights.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#729c7b7e: field default_group_administrator_rights: %w", err)
+		return fmt.Errorf("unable to encode botInfo#831a403e: field default_group_administrator_rights: %w", err)
 	}
 	if err := b.DefaultChannelAdministratorRights.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#729c7b7e: field default_channel_administrator_rights: %w", err)
+		return fmt.Errorf("unable to encode botInfo#831a403e: field default_channel_administrator_rights: %w", err)
 	}
 	return nil
 }
@@ -184,10 +208,10 @@ func (b *BotInfo) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BotInfo) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botInfo#729c7b7e to nil")
+		return fmt.Errorf("can't decode botInfo#831a403e to nil")
 	}
 	if err := buf.ConsumeID(BotInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode botInfo#729c7b7e: %w", err)
+		return fmt.Errorf("unable to decode botInfo#831a403e: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -195,31 +219,41 @@ func (b *BotInfo) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botInfo#729c7b7e to nil")
+		return fmt.Errorf("can't decode botInfo#831a403e to nil")
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#729c7b7e: field share_text: %w", err)
+			return fmt.Errorf("unable to decode botInfo#831a403e: field share_text: %w", err)
 		}
 		b.ShareText = value
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#729c7b7e: field description: %w", err)
+			return fmt.Errorf("unable to decode botInfo#831a403e: field description: %w", err)
 		}
 		b.Description = value
 	}
 	{
+		if err := b.Photo.Decode(buf); err != nil {
+			return fmt.Errorf("unable to decode botInfo#831a403e: field photo: %w", err)
+		}
+	}
+	{
+		if err := b.Animation.Decode(buf); err != nil {
+			return fmt.Errorf("unable to decode botInfo#831a403e: field animation: %w", err)
+		}
+	}
+	{
 		if err := b.MenuButton.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode botInfo#729c7b7e: field menu_button: %w", err)
+			return fmt.Errorf("unable to decode botInfo#831a403e: field menu_button: %w", err)
 		}
 	}
 	{
 		headerLen, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode botInfo#729c7b7e: field commands: %w", err)
+			return fmt.Errorf("unable to decode botInfo#831a403e: field commands: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -228,19 +262,19 @@ func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotCommand
 			if err := value.DecodeBare(buf); err != nil {
-				return fmt.Errorf("unable to decode bare botInfo#729c7b7e: field commands: %w", err)
+				return fmt.Errorf("unable to decode bare botInfo#831a403e: field commands: %w", err)
 			}
 			b.Commands = append(b.Commands, value)
 		}
 	}
 	{
 		if err := b.DefaultGroupAdministratorRights.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode botInfo#729c7b7e: field default_group_administrator_rights: %w", err)
+			return fmt.Errorf("unable to decode botInfo#831a403e: field default_group_administrator_rights: %w", err)
 		}
 	}
 	{
 		if err := b.DefaultChannelAdministratorRights.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode botInfo#729c7b7e: field default_channel_administrator_rights: %w", err)
+			return fmt.Errorf("unable to decode botInfo#831a403e: field default_channel_administrator_rights: %w", err)
 		}
 	}
 	return nil
@@ -249,7 +283,7 @@ func (b *BotInfo) DecodeBare(buf *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (b *BotInfo) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
-		return fmt.Errorf("can't encode botInfo#729c7b7e as nil")
+		return fmt.Errorf("can't encode botInfo#831a403e as nil")
 	}
 	buf.ObjStart()
 	buf.PutID("botInfo")
@@ -260,16 +294,26 @@ func (b *BotInfo) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	buf.FieldStart("description")
 	buf.PutString(b.Description)
 	buf.Comma()
+	buf.FieldStart("photo")
+	if err := b.Photo.EncodeTDLibJSON(buf); err != nil {
+		return fmt.Errorf("unable to encode botInfo#831a403e: field photo: %w", err)
+	}
+	buf.Comma()
+	buf.FieldStart("animation")
+	if err := b.Animation.EncodeTDLibJSON(buf); err != nil {
+		return fmt.Errorf("unable to encode botInfo#831a403e: field animation: %w", err)
+	}
+	buf.Comma()
 	buf.FieldStart("menu_button")
 	if err := b.MenuButton.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#729c7b7e: field menu_button: %w", err)
+		return fmt.Errorf("unable to encode botInfo#831a403e: field menu_button: %w", err)
 	}
 	buf.Comma()
 	buf.FieldStart("commands")
 	buf.ArrStart()
 	for idx, v := range b.Commands {
 		if err := v.EncodeTDLibJSON(buf); err != nil {
-			return fmt.Errorf("unable to encode botInfo#729c7b7e: field commands element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode botInfo#831a403e: field commands element with index %d: %w", idx, err)
 		}
 		buf.Comma()
 	}
@@ -278,12 +322,12 @@ func (b *BotInfo) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	buf.Comma()
 	buf.FieldStart("default_group_administrator_rights")
 	if err := b.DefaultGroupAdministratorRights.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#729c7b7e: field default_group_administrator_rights: %w", err)
+		return fmt.Errorf("unable to encode botInfo#831a403e: field default_group_administrator_rights: %w", err)
 	}
 	buf.Comma()
 	buf.FieldStart("default_channel_administrator_rights")
 	if err := b.DefaultChannelAdministratorRights.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode botInfo#729c7b7e: field default_channel_administrator_rights: %w", err)
+		return fmt.Errorf("unable to encode botInfo#831a403e: field default_channel_administrator_rights: %w", err)
 	}
 	buf.Comma()
 	buf.StripComma()
@@ -294,49 +338,57 @@ func (b *BotInfo) EncodeTDLibJSON(buf tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (b *BotInfo) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
-		return fmt.Errorf("can't decode botInfo#729c7b7e to nil")
+		return fmt.Errorf("can't decode botInfo#831a403e to nil")
 	}
 
 	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := buf.ConsumeID("botInfo"); err != nil {
-				return fmt.Errorf("unable to decode botInfo#729c7b7e: %w", err)
+				return fmt.Errorf("unable to decode botInfo#831a403e: %w", err)
 			}
 		case "share_text":
 			value, err := buf.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode botInfo#729c7b7e: field share_text: %w", err)
+				return fmt.Errorf("unable to decode botInfo#831a403e: field share_text: %w", err)
 			}
 			b.ShareText = value
 		case "description":
 			value, err := buf.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode botInfo#729c7b7e: field description: %w", err)
+				return fmt.Errorf("unable to decode botInfo#831a403e: field description: %w", err)
 			}
 			b.Description = value
+		case "photo":
+			if err := b.Photo.DecodeTDLibJSON(buf); err != nil {
+				return fmt.Errorf("unable to decode botInfo#831a403e: field photo: %w", err)
+			}
+		case "animation":
+			if err := b.Animation.DecodeTDLibJSON(buf); err != nil {
+				return fmt.Errorf("unable to decode botInfo#831a403e: field animation: %w", err)
+			}
 		case "menu_button":
 			if err := b.MenuButton.DecodeTDLibJSON(buf); err != nil {
-				return fmt.Errorf("unable to decode botInfo#729c7b7e: field menu_button: %w", err)
+				return fmt.Errorf("unable to decode botInfo#831a403e: field menu_button: %w", err)
 			}
 		case "commands":
 			if err := buf.Arr(func(buf tdjson.Decoder) error {
 				var value BotCommand
 				if err := value.DecodeTDLibJSON(buf); err != nil {
-					return fmt.Errorf("unable to decode botInfo#729c7b7e: field commands: %w", err)
+					return fmt.Errorf("unable to decode botInfo#831a403e: field commands: %w", err)
 				}
 				b.Commands = append(b.Commands, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode botInfo#729c7b7e: field commands: %w", err)
+				return fmt.Errorf("unable to decode botInfo#831a403e: field commands: %w", err)
 			}
 		case "default_group_administrator_rights":
 			if err := b.DefaultGroupAdministratorRights.DecodeTDLibJSON(buf); err != nil {
-				return fmt.Errorf("unable to decode botInfo#729c7b7e: field default_group_administrator_rights: %w", err)
+				return fmt.Errorf("unable to decode botInfo#831a403e: field default_group_administrator_rights: %w", err)
 			}
 		case "default_channel_administrator_rights":
 			if err := b.DefaultChannelAdministratorRights.DecodeTDLibJSON(buf); err != nil {
-				return fmt.Errorf("unable to decode botInfo#729c7b7e: field default_channel_administrator_rights: %w", err)
+				return fmt.Errorf("unable to decode botInfo#831a403e: field default_channel_administrator_rights: %w", err)
 			}
 		default:
 			return buf.Skip()
@@ -359,6 +411,22 @@ func (b *BotInfo) GetDescription() (value string) {
 		return
 	}
 	return b.Description
+}
+
+// GetPhoto returns value of Photo field.
+func (b *BotInfo) GetPhoto() (value Photo) {
+	if b == nil {
+		return
+	}
+	return b.Photo
+}
+
+// GetAnimation returns value of Animation field.
+func (b *BotInfo) GetAnimation() (value Animation) {
+	if b == nil {
+		return
+	}
+	return b.Animation
 }
 
 // GetMenuButton returns value of MenuButton field.

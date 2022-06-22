@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Invoice represents TL type `invoice#eed5ccb4`.
+// Invoice represents TL type `invoice#43609f28`.
 type Invoice struct {
 	// ISO 4217 currency code
 	Currency string
@@ -41,6 +41,10 @@ type Invoice struct {
 	MaxTipAmount int64
 	// Suggested amounts of tip in the smallest units of the currency
 	SuggestedTipAmounts []int64
+	// An HTTP URL with terms of service for recurring payments. If non-empty, the invoice
+	// payment will result in recurring payments and the user must accept the terms of
+	// service before allowed to pay
+	RecurringPaymentTermsOfServiceURL string
 	// True, if the payment is a test payment
 	IsTest bool
 	// True, if the user's name is needed for payment
@@ -60,7 +64,7 @@ type Invoice struct {
 }
 
 // InvoiceTypeID is TL type id of Invoice.
-const InvoiceTypeID = 0xeed5ccb4
+const InvoiceTypeID = 0x43609f28
 
 // Ensuring interfaces in compile-time for Invoice.
 var (
@@ -84,6 +88,9 @@ func (i *Invoice) Zero() bool {
 		return false
 	}
 	if !(i.SuggestedTipAmounts == nil) {
+		return false
+	}
+	if !(i.RecurringPaymentTermsOfServiceURL == "") {
 		return false
 	}
 	if !(i.IsTest == false) {
@@ -163,6 +170,10 @@ func (i *Invoice) TypeInfo() tdp.Type {
 			SchemaName: "suggested_tip_amounts",
 		},
 		{
+			Name:       "RecurringPaymentTermsOfServiceURL",
+			SchemaName: "recurring_payment_terms_of_service_url",
+		},
+		{
 			Name:       "IsTest",
 			SchemaName: "is_test",
 		},
@@ -201,7 +212,7 @@ func (i *Invoice) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *Invoice) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invoice#eed5ccb4 as nil")
+		return fmt.Errorf("can't encode invoice#43609f28 as nil")
 	}
 	b.PutID(InvoiceTypeID)
 	return i.EncodeBare(b)
@@ -210,13 +221,13 @@ func (i *Invoice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *Invoice) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invoice#eed5ccb4 as nil")
+		return fmt.Errorf("can't encode invoice#43609f28 as nil")
 	}
 	b.PutString(i.Currency)
 	b.PutInt(len(i.PriceParts))
 	for idx, v := range i.PriceParts {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare invoice#eed5ccb4: field price_parts element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare invoice#43609f28: field price_parts element with index %d: %w", idx, err)
 		}
 	}
 	b.PutInt53(i.MaxTipAmount)
@@ -224,6 +235,7 @@ func (i *Invoice) EncodeBare(b *bin.Buffer) error {
 	for _, v := range i.SuggestedTipAmounts {
 		b.PutInt53(v)
 	}
+	b.PutString(i.RecurringPaymentTermsOfServiceURL)
 	b.PutBool(i.IsTest)
 	b.PutBool(i.NeedName)
 	b.PutBool(i.NeedPhoneNumber)
@@ -238,10 +250,10 @@ func (i *Invoice) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *Invoice) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invoice#eed5ccb4 to nil")
+		return fmt.Errorf("can't decode invoice#43609f28 to nil")
 	}
 	if err := b.ConsumeID(InvoiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode invoice#eed5ccb4: %w", err)
+		return fmt.Errorf("unable to decode invoice#43609f28: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -249,19 +261,19 @@ func (i *Invoice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invoice#eed5ccb4 to nil")
+		return fmt.Errorf("can't decode invoice#43609f28 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#eed5ccb4: field currency: %w", err)
+			return fmt.Errorf("unable to decode invoice#43609f28: field currency: %w", err)
 		}
 		i.Currency = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#eed5ccb4: field price_parts: %w", err)
+			return fmt.Errorf("unable to decode invoice#43609f28: field price_parts: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -270,7 +282,7 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value LabeledPricePart
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare invoice#eed5ccb4: field price_parts: %w", err)
+				return fmt.Errorf("unable to decode bare invoice#43609f28: field price_parts: %w", err)
 			}
 			i.PriceParts = append(i.PriceParts, value)
 		}
@@ -278,14 +290,14 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#eed5ccb4: field max_tip_amount: %w", err)
+			return fmt.Errorf("unable to decode invoice#43609f28: field max_tip_amount: %w", err)
 		}
 		i.MaxTipAmount = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#eed5ccb4: field suggested_tip_amounts: %w", err)
+			return fmt.Errorf("unable to decode invoice#43609f28: field suggested_tip_amounts: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -294,64 +306,71 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode invoice#eed5ccb4: field suggested_tip_amounts: %w", err)
+				return fmt.Errorf("unable to decode invoice#43609f28: field suggested_tip_amounts: %w", err)
 			}
 			i.SuggestedTipAmounts = append(i.SuggestedTipAmounts, value)
 		}
 	}
 	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode invoice#43609f28: field recurring_payment_terms_of_service_url: %w", err)
+		}
+		i.RecurringPaymentTermsOfServiceURL = value
+	}
+	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#eed5ccb4: field is_test: %w", err)
+			return fmt.Errorf("unable to decode invoice#43609f28: field is_test: %w", err)
 		}
 		i.IsTest = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#eed5ccb4: field need_name: %w", err)
+			return fmt.Errorf("unable to decode invoice#43609f28: field need_name: %w", err)
 		}
 		i.NeedName = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#eed5ccb4: field need_phone_number: %w", err)
+			return fmt.Errorf("unable to decode invoice#43609f28: field need_phone_number: %w", err)
 		}
 		i.NeedPhoneNumber = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#eed5ccb4: field need_email_address: %w", err)
+			return fmt.Errorf("unable to decode invoice#43609f28: field need_email_address: %w", err)
 		}
 		i.NeedEmailAddress = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#eed5ccb4: field need_shipping_address: %w", err)
+			return fmt.Errorf("unable to decode invoice#43609f28: field need_shipping_address: %w", err)
 		}
 		i.NeedShippingAddress = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#eed5ccb4: field send_phone_number_to_provider: %w", err)
+			return fmt.Errorf("unable to decode invoice#43609f28: field send_phone_number_to_provider: %w", err)
 		}
 		i.SendPhoneNumberToProvider = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#eed5ccb4: field send_email_address_to_provider: %w", err)
+			return fmt.Errorf("unable to decode invoice#43609f28: field send_email_address_to_provider: %w", err)
 		}
 		i.SendEmailAddressToProvider = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#eed5ccb4: field is_flexible: %w", err)
+			return fmt.Errorf("unable to decode invoice#43609f28: field is_flexible: %w", err)
 		}
 		i.IsFlexible = value
 	}
@@ -361,7 +380,7 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *Invoice) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invoice#eed5ccb4 as nil")
+		return fmt.Errorf("can't encode invoice#43609f28 as nil")
 	}
 	b.ObjStart()
 	b.PutID("invoice")
@@ -373,7 +392,7 @@ func (i *Invoice) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ArrStart()
 	for idx, v := range i.PriceParts {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode invoice#eed5ccb4: field price_parts element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode invoice#43609f28: field price_parts element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -391,6 +410,9 @@ func (i *Invoice) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.FieldStart("recurring_payment_terms_of_service_url")
+	b.PutString(i.RecurringPaymentTermsOfServiceURL)
 	b.Comma()
 	b.FieldStart("is_test")
 	b.PutBool(i.IsTest)
@@ -424,95 +446,101 @@ func (i *Invoice) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *Invoice) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invoice#eed5ccb4 to nil")
+		return fmt.Errorf("can't decode invoice#43609f28 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("invoice"); err != nil {
-				return fmt.Errorf("unable to decode invoice#eed5ccb4: %w", err)
+				return fmt.Errorf("unable to decode invoice#43609f28: %w", err)
 			}
 		case "currency":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode invoice#eed5ccb4: field currency: %w", err)
+				return fmt.Errorf("unable to decode invoice#43609f28: field currency: %w", err)
 			}
 			i.Currency = value
 		case "price_parts":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value LabeledPricePart
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode invoice#eed5ccb4: field price_parts: %w", err)
+					return fmt.Errorf("unable to decode invoice#43609f28: field price_parts: %w", err)
 				}
 				i.PriceParts = append(i.PriceParts, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode invoice#eed5ccb4: field price_parts: %w", err)
+				return fmt.Errorf("unable to decode invoice#43609f28: field price_parts: %w", err)
 			}
 		case "max_tip_amount":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode invoice#eed5ccb4: field max_tip_amount: %w", err)
+				return fmt.Errorf("unable to decode invoice#43609f28: field max_tip_amount: %w", err)
 			}
 			i.MaxTipAmount = value
 		case "suggested_tip_amounts":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int53()
 				if err != nil {
-					return fmt.Errorf("unable to decode invoice#eed5ccb4: field suggested_tip_amounts: %w", err)
+					return fmt.Errorf("unable to decode invoice#43609f28: field suggested_tip_amounts: %w", err)
 				}
 				i.SuggestedTipAmounts = append(i.SuggestedTipAmounts, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode invoice#eed5ccb4: field suggested_tip_amounts: %w", err)
+				return fmt.Errorf("unable to decode invoice#43609f28: field suggested_tip_amounts: %w", err)
 			}
+		case "recurring_payment_terms_of_service_url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode invoice#43609f28: field recurring_payment_terms_of_service_url: %w", err)
+			}
+			i.RecurringPaymentTermsOfServiceURL = value
 		case "is_test":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode invoice#eed5ccb4: field is_test: %w", err)
+				return fmt.Errorf("unable to decode invoice#43609f28: field is_test: %w", err)
 			}
 			i.IsTest = value
 		case "need_name":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode invoice#eed5ccb4: field need_name: %w", err)
+				return fmt.Errorf("unable to decode invoice#43609f28: field need_name: %w", err)
 			}
 			i.NeedName = value
 		case "need_phone_number":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode invoice#eed5ccb4: field need_phone_number: %w", err)
+				return fmt.Errorf("unable to decode invoice#43609f28: field need_phone_number: %w", err)
 			}
 			i.NeedPhoneNumber = value
 		case "need_email_address":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode invoice#eed5ccb4: field need_email_address: %w", err)
+				return fmt.Errorf("unable to decode invoice#43609f28: field need_email_address: %w", err)
 			}
 			i.NeedEmailAddress = value
 		case "need_shipping_address":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode invoice#eed5ccb4: field need_shipping_address: %w", err)
+				return fmt.Errorf("unable to decode invoice#43609f28: field need_shipping_address: %w", err)
 			}
 			i.NeedShippingAddress = value
 		case "send_phone_number_to_provider":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode invoice#eed5ccb4: field send_phone_number_to_provider: %w", err)
+				return fmt.Errorf("unable to decode invoice#43609f28: field send_phone_number_to_provider: %w", err)
 			}
 			i.SendPhoneNumberToProvider = value
 		case "send_email_address_to_provider":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode invoice#eed5ccb4: field send_email_address_to_provider: %w", err)
+				return fmt.Errorf("unable to decode invoice#43609f28: field send_email_address_to_provider: %w", err)
 			}
 			i.SendEmailAddressToProvider = value
 		case "is_flexible":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode invoice#eed5ccb4: field is_flexible: %w", err)
+				return fmt.Errorf("unable to decode invoice#43609f28: field is_flexible: %w", err)
 			}
 			i.IsFlexible = value
 		default:
@@ -552,6 +580,14 @@ func (i *Invoice) GetSuggestedTipAmounts() (value []int64) {
 		return
 	}
 	return i.SuggestedTipAmounts
+}
+
+// GetRecurringPaymentTermsOfServiceURL returns value of RecurringPaymentTermsOfServiceURL field.
+func (i *Invoice) GetRecurringPaymentTermsOfServiceURL() (value string) {
+	if i == nil {
+		return
+	}
+	return i.RecurringPaymentTermsOfServiceURL
 }
 
 // GetIsTest returns value of IsTest field.
