@@ -95,7 +95,7 @@ func TypesMap() map[uint32]string {
 		DecryptedMessage46TypeID:                       "decryptedMessage46#36b091de",
 		DecryptedMessageMediaPhotoTypeID:               "decryptedMessageMediaPhoto#f1fa8d78",
 		DecryptedMessageMediaVideoTypeID:               "decryptedMessageMediaVideo#970c8c0e",
-		DecryptedMessageMediaDocumentTypeID:            "decryptedMessageMediaDocument#7afe8ae2",
+		DecryptedMessageMediaDocument46TypeID:          "decryptedMessageMediaDocument46#7afe8ae2",
 		DocumentAttributeStickerTypeID:                 "documentAttributeSticker#3a556302",
 		DocumentAttributeAudioTypeID:                   "documentAttributeAudio#9852f9c6",
 		MessageEntityUnknownTypeID:                     "messageEntityUnknown#bb92ba95",
@@ -124,6 +124,7 @@ func TypesMap() map[uint32]string {
 		MessageEntityUnderlineTypeID:                   "messageEntityUnderline#9c4e7e8b",
 		MessageEntityStrikeTypeID:                      "messageEntityStrike#bf0693d4",
 		MessageEntityBlockquoteTypeID:                  "messageEntityBlockquote#20df5d0",
+		DecryptedMessageMediaDocumentTypeID:            "decryptedMessageMediaDocument#6abd9782",
 		TestDummyFunctionRequestTypeID:                 "test.dummyFunction#c8357709",
 	}
 }
@@ -192,7 +193,7 @@ func NamesMap() map[string]uint32 {
 		"decryptedMessage46":                       DecryptedMessage46TypeID,
 		"decryptedMessageMediaPhoto":               DecryptedMessageMediaPhotoTypeID,
 		"decryptedMessageMediaVideo":               DecryptedMessageMediaVideoTypeID,
-		"decryptedMessageMediaDocument":            DecryptedMessageMediaDocumentTypeID,
+		"decryptedMessageMediaDocument46":          DecryptedMessageMediaDocument46TypeID,
 		"documentAttributeSticker":                 DocumentAttributeStickerTypeID,
 		"documentAttributeAudio":                   DocumentAttributeAudioTypeID,
 		"messageEntityUnknown":                     MessageEntityUnknownTypeID,
@@ -221,6 +222,7 @@ func NamesMap() map[string]uint32 {
 		"messageEntityUnderline":                   MessageEntityUnderlineTypeID,
 		"messageEntityStrike":                      MessageEntityStrikeTypeID,
 		"messageEntityBlockquote":                  MessageEntityBlockquoteTypeID,
+		"decryptedMessageMediaDocument":            DecryptedMessageMediaDocumentTypeID,
 		"test.dummyFunction":                       TestDummyFunctionRequestTypeID,
 	}
 }
@@ -289,7 +291,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		DecryptedMessage46TypeID:                       func() bin.Object { return &DecryptedMessage46{} },
 		DecryptedMessageMediaPhotoTypeID:               func() bin.Object { return &DecryptedMessageMediaPhoto{} },
 		DecryptedMessageMediaVideoTypeID:               func() bin.Object { return &DecryptedMessageMediaVideo{} },
-		DecryptedMessageMediaDocumentTypeID:            func() bin.Object { return &DecryptedMessageMediaDocument{} },
+		DecryptedMessageMediaDocument46TypeID:          func() bin.Object { return &DecryptedMessageMediaDocument46{} },
 		DocumentAttributeStickerTypeID:                 func() bin.Object { return &DocumentAttributeSticker{} },
 		DocumentAttributeAudioTypeID:                   func() bin.Object { return &DocumentAttributeAudio{} },
 		MessageEntityUnknownTypeID:                     func() bin.Object { return &MessageEntityUnknown{} },
@@ -318,6 +320,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		MessageEntityUnderlineTypeID:                   func() bin.Object { return &MessageEntityUnderline{} },
 		MessageEntityStrikeTypeID:                      func() bin.Object { return &MessageEntityStrike{} },
 		MessageEntityBlockquoteTypeID:                  func() bin.Object { return &MessageEntityBlockquote{} },
+		DecryptedMessageMediaDocumentTypeID:            func() bin.Object { return &DecryptedMessageMediaDocument{} },
 		TestDummyFunctionRequestTypeID:                 func() bin.Object { return &TestDummyFunctionRequest{} },
 	}
 }
@@ -365,9 +368,10 @@ func ClassConstructorsMap() map[string][]uint32 {
 			DecryptedMessageMediaExternalDocumentTypeID,
 			DecryptedMessageMediaPhotoTypeID,
 			DecryptedMessageMediaVideoTypeID,
-			DecryptedMessageMediaDocumentTypeID,
+			DecryptedMessageMediaDocument46TypeID,
 			DecryptedMessageMediaVenueTypeID,
 			DecryptedMessageMediaWebPageTypeID,
+			DecryptedMessageMediaDocumentTypeID,
 		},
 		DocumentAttributeClassName: {
 			DocumentAttributeImageSizeTypeID,
