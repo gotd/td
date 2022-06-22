@@ -31,14 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// CallServerTypeTelegramReflector represents TL type `callServerTypeTelegramReflector#a6200634`.
+// CallServerTypeTelegramReflector represents TL type `callServerTypeTelegramReflector#32af3515`.
 type CallServerTypeTelegramReflector struct {
 	// A peer tag to be used with the reflector
 	PeerTag []byte
+	// True, if the server uses TCP instead of UDP
+	IsTCP bool
 }
 
 // CallServerTypeTelegramReflectorTypeID is TL type id of CallServerTypeTelegramReflector.
-const CallServerTypeTelegramReflectorTypeID = 0xa6200634
+const CallServerTypeTelegramReflectorTypeID = 0x32af3515
 
 // construct implements constructor of CallServerTypeClass.
 func (c CallServerTypeTelegramReflector) construct() CallServerTypeClass { return &c }
@@ -58,6 +60,9 @@ func (c *CallServerTypeTelegramReflector) Zero() bool {
 		return true
 	}
 	if !(c.PeerTag == nil) {
+		return false
+	}
+	if !(c.IsTCP == false) {
 		return false
 	}
 
@@ -100,6 +105,10 @@ func (c *CallServerTypeTelegramReflector) TypeInfo() tdp.Type {
 			Name:       "PeerTag",
 			SchemaName: "peer_tag",
 		},
+		{
+			Name:       "IsTCP",
+			SchemaName: "is_tcp",
+		},
 	}
 	return typ
 }
@@ -107,7 +116,7 @@ func (c *CallServerTypeTelegramReflector) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *CallServerTypeTelegramReflector) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode callServerTypeTelegramReflector#a6200634 as nil")
+		return fmt.Errorf("can't encode callServerTypeTelegramReflector#32af3515 as nil")
 	}
 	b.PutID(CallServerTypeTelegramReflectorTypeID)
 	return c.EncodeBare(b)
@@ -116,19 +125,20 @@ func (c *CallServerTypeTelegramReflector) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *CallServerTypeTelegramReflector) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode callServerTypeTelegramReflector#a6200634 as nil")
+		return fmt.Errorf("can't encode callServerTypeTelegramReflector#32af3515 as nil")
 	}
 	b.PutBytes(c.PeerTag)
+	b.PutBool(c.IsTCP)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *CallServerTypeTelegramReflector) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode callServerTypeTelegramReflector#a6200634 to nil")
+		return fmt.Errorf("can't decode callServerTypeTelegramReflector#32af3515 to nil")
 	}
 	if err := b.ConsumeID(CallServerTypeTelegramReflectorTypeID); err != nil {
-		return fmt.Errorf("unable to decode callServerTypeTelegramReflector#a6200634: %w", err)
+		return fmt.Errorf("unable to decode callServerTypeTelegramReflector#32af3515: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -136,14 +146,21 @@ func (c *CallServerTypeTelegramReflector) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *CallServerTypeTelegramReflector) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode callServerTypeTelegramReflector#a6200634 to nil")
+		return fmt.Errorf("can't decode callServerTypeTelegramReflector#32af3515 to nil")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode callServerTypeTelegramReflector#a6200634: field peer_tag: %w", err)
+			return fmt.Errorf("unable to decode callServerTypeTelegramReflector#32af3515: field peer_tag: %w", err)
 		}
 		c.PeerTag = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode callServerTypeTelegramReflector#32af3515: field is_tcp: %w", err)
+		}
+		c.IsTCP = value
 	}
 	return nil
 }
@@ -151,13 +168,16 @@ func (c *CallServerTypeTelegramReflector) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *CallServerTypeTelegramReflector) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode callServerTypeTelegramReflector#a6200634 as nil")
+		return fmt.Errorf("can't encode callServerTypeTelegramReflector#32af3515 as nil")
 	}
 	b.ObjStart()
 	b.PutID("callServerTypeTelegramReflector")
 	b.Comma()
 	b.FieldStart("peer_tag")
 	b.PutBytes(c.PeerTag)
+	b.Comma()
+	b.FieldStart("is_tcp")
+	b.PutBool(c.IsTCP)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -167,21 +187,27 @@ func (c *CallServerTypeTelegramReflector) EncodeTDLibJSON(b tdjson.Encoder) erro
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *CallServerTypeTelegramReflector) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode callServerTypeTelegramReflector#a6200634 to nil")
+		return fmt.Errorf("can't decode callServerTypeTelegramReflector#32af3515 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("callServerTypeTelegramReflector"); err != nil {
-				return fmt.Errorf("unable to decode callServerTypeTelegramReflector#a6200634: %w", err)
+				return fmt.Errorf("unable to decode callServerTypeTelegramReflector#32af3515: %w", err)
 			}
 		case "peer_tag":
 			value, err := b.Bytes()
 			if err != nil {
-				return fmt.Errorf("unable to decode callServerTypeTelegramReflector#a6200634: field peer_tag: %w", err)
+				return fmt.Errorf("unable to decode callServerTypeTelegramReflector#32af3515: field peer_tag: %w", err)
 			}
 			c.PeerTag = value
+		case "is_tcp":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode callServerTypeTelegramReflector#32af3515: field is_tcp: %w", err)
+			}
+			c.IsTCP = value
 		default:
 			return b.Skip()
 		}
@@ -195,6 +221,14 @@ func (c *CallServerTypeTelegramReflector) GetPeerTag() (value []byte) {
 		return
 	}
 	return c.PeerTag
+}
+
+// GetIsTCP returns value of IsTCP field.
+func (c *CallServerTypeTelegramReflector) GetIsTCP() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.IsTCP
 }
 
 // CallServerTypeWebrtc represents TL type `callServerTypeWebrtc#4a8afd65`.
@@ -476,7 +510,7 @@ const CallServerTypeClassName = "CallServerType"
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *tdapi.CallServerTypeTelegramReflector: // callServerTypeTelegramReflector#a6200634
+//  case *tdapi.CallServerTypeTelegramReflector: // callServerTypeTelegramReflector#32af3515
 //  case *tdapi.CallServerTypeWebrtc: // callServerTypeWebrtc#4a8afd65
 //  default: panic(v)
 //  }
@@ -510,7 +544,7 @@ func DecodeCallServerType(buf *bin.Buffer) (CallServerTypeClass, error) {
 	}
 	switch id {
 	case CallServerTypeTelegramReflectorTypeID:
-		// Decoding callServerTypeTelegramReflector#a6200634.
+		// Decoding callServerTypeTelegramReflector#32af3515.
 		v := CallServerTypeTelegramReflector{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode CallServerTypeClass: %w", err)
@@ -536,7 +570,7 @@ func DecodeTDLibJSONCallServerType(buf tdjson.Decoder) (CallServerTypeClass, err
 	}
 	switch id {
 	case "callServerTypeTelegramReflector":
-		// Decoding callServerTypeTelegramReflector#a6200634.
+		// Decoding callServerTypeTelegramReflector#32af3515.
 		v := CallServerTypeTelegramReflector{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode CallServerTypeClass: %w", err)

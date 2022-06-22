@@ -31,20 +31,20 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ReadFilePartRequest represents TL type `readFilePart#e7b23d3e`.
+// ReadFilePartRequest represents TL type `readFilePart#360ca70d`.
 type ReadFilePartRequest struct {
 	// Identifier of the file. The file must be located in the TDLib file cache
 	FileID int32
 	// The offset from which to read the file
-	Offset int32
+	Offset int64
 	// Number of bytes to read. An error will be returned if there are not enough bytes
 	// available in the file from the specified position. Pass 0 to read all available data
 	// from the specified position
-	Count int32
+	Count int64
 }
 
 // ReadFilePartRequestTypeID is TL type id of ReadFilePartRequest.
-const ReadFilePartRequestTypeID = 0xe7b23d3e
+const ReadFilePartRequestTypeID = 0x360ca70d
 
 // Ensuring interfaces in compile-time for ReadFilePartRequest.
 var (
@@ -122,7 +122,7 @@ func (r *ReadFilePartRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ReadFilePartRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode readFilePart#e7b23d3e as nil")
+		return fmt.Errorf("can't encode readFilePart#360ca70d as nil")
 	}
 	b.PutID(ReadFilePartRequestTypeID)
 	return r.EncodeBare(b)
@@ -131,21 +131,21 @@ func (r *ReadFilePartRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ReadFilePartRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode readFilePart#e7b23d3e as nil")
+		return fmt.Errorf("can't encode readFilePart#360ca70d as nil")
 	}
 	b.PutInt32(r.FileID)
-	b.PutInt32(r.Offset)
-	b.PutInt32(r.Count)
+	b.PutInt53(r.Offset)
+	b.PutInt53(r.Count)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (r *ReadFilePartRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode readFilePart#e7b23d3e to nil")
+		return fmt.Errorf("can't decode readFilePart#360ca70d to nil")
 	}
 	if err := b.ConsumeID(ReadFilePartRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode readFilePart#e7b23d3e: %w", err)
+		return fmt.Errorf("unable to decode readFilePart#360ca70d: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -153,26 +153,26 @@ func (r *ReadFilePartRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ReadFilePartRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode readFilePart#e7b23d3e to nil")
+		return fmt.Errorf("can't decode readFilePart#360ca70d to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode readFilePart#e7b23d3e: field file_id: %w", err)
+			return fmt.Errorf("unable to decode readFilePart#360ca70d: field file_id: %w", err)
 		}
 		r.FileID = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode readFilePart#e7b23d3e: field offset: %w", err)
+			return fmt.Errorf("unable to decode readFilePart#360ca70d: field offset: %w", err)
 		}
 		r.Offset = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode readFilePart#e7b23d3e: field count: %w", err)
+			return fmt.Errorf("unable to decode readFilePart#360ca70d: field count: %w", err)
 		}
 		r.Count = value
 	}
@@ -182,7 +182,7 @@ func (r *ReadFilePartRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (r *ReadFilePartRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
-		return fmt.Errorf("can't encode readFilePart#e7b23d3e as nil")
+		return fmt.Errorf("can't encode readFilePart#360ca70d as nil")
 	}
 	b.ObjStart()
 	b.PutID("readFilePart")
@@ -191,10 +191,10 @@ func (r *ReadFilePartRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutInt32(r.FileID)
 	b.Comma()
 	b.FieldStart("offset")
-	b.PutInt32(r.Offset)
+	b.PutInt53(r.Offset)
 	b.Comma()
 	b.FieldStart("count")
-	b.PutInt32(r.Count)
+	b.PutInt53(r.Count)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -204,31 +204,31 @@ func (r *ReadFilePartRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (r *ReadFilePartRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
-		return fmt.Errorf("can't decode readFilePart#e7b23d3e to nil")
+		return fmt.Errorf("can't decode readFilePart#360ca70d to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("readFilePart"); err != nil {
-				return fmt.Errorf("unable to decode readFilePart#e7b23d3e: %w", err)
+				return fmt.Errorf("unable to decode readFilePart#360ca70d: %w", err)
 			}
 		case "file_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode readFilePart#e7b23d3e: field file_id: %w", err)
+				return fmt.Errorf("unable to decode readFilePart#360ca70d: field file_id: %w", err)
 			}
 			r.FileID = value
 		case "offset":
-			value, err := b.Int32()
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode readFilePart#e7b23d3e: field offset: %w", err)
+				return fmt.Errorf("unable to decode readFilePart#360ca70d: field offset: %w", err)
 			}
 			r.Offset = value
 		case "count":
-			value, err := b.Int32()
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode readFilePart#e7b23d3e: field count: %w", err)
+				return fmt.Errorf("unable to decode readFilePart#360ca70d: field count: %w", err)
 			}
 			r.Count = value
 		default:
@@ -247,7 +247,7 @@ func (r *ReadFilePartRequest) GetFileID() (value int32) {
 }
 
 // GetOffset returns value of Offset field.
-func (r *ReadFilePartRequest) GetOffset() (value int32) {
+func (r *ReadFilePartRequest) GetOffset() (value int64) {
 	if r == nil {
 		return
 	}
@@ -255,14 +255,14 @@ func (r *ReadFilePartRequest) GetOffset() (value int32) {
 }
 
 // GetCount returns value of Count field.
-func (r *ReadFilePartRequest) GetCount() (value int32) {
+func (r *ReadFilePartRequest) GetCount() (value int64) {
 	if r == nil {
 		return
 	}
 	return r.Count
 }
 
-// ReadFilePart invokes method readFilePart#e7b23d3e returning error if any.
+// ReadFilePart invokes method readFilePart#360ca70d returning error if any.
 func (c *Client) ReadFilePart(ctx context.Context, request *ReadFilePartRequest) (*FilePart, error) {
 	var result FilePart
 

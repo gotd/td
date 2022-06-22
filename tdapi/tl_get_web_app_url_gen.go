@@ -37,7 +37,7 @@ type GetWebAppURLRequest struct {
 	BotUserID int64
 	// The URL from the keyboardButtonTypeWebApp button
 	URL string
-	// Preferred web app theme; pass null to use the default theme
+	// Preferred Web App theme; pass null to use the default theme
 	Theme ThemeParameters
 }
 

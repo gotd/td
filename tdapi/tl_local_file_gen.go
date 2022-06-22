@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// LocalFile represents TL type `localFile#ba7a24c3`.
+// LocalFile represents TL type `localFile#a2da9987`.
 type LocalFile struct {
 	// Local path to the locally available file part; may be empty
 	Path string
@@ -46,18 +46,18 @@ type LocalFile struct {
 	IsDownloadingCompleted bool
 	// Download will be started from this offset. downloaded_prefix_size is calculated from
 	// this offset
-	DownloadOffset int32
+	DownloadOffset int64
 	// If is_downloading_completed is false, then only some prefix of the file starting from
 	// download_offset is ready to be read. downloaded_prefix_size is the size of that prefix
 	// in bytes
-	DownloadedPrefixSize int32
+	DownloadedPrefixSize int64
 	// Total downloaded file size, in bytes. Can be used only for calculating download
 	// progress. The actual file size may be bigger, and some parts of it may contain garbage
-	DownloadedSize int32
+	DownloadedSize int64
 }
 
 // LocalFileTypeID is TL type id of LocalFile.
-const LocalFileTypeID = 0xba7a24c3
+const LocalFileTypeID = 0xa2da9987
 
 // Ensuring interfaces in compile-time for LocalFile.
 var (
@@ -170,7 +170,7 @@ func (l *LocalFile) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *LocalFile) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode localFile#ba7a24c3 as nil")
+		return fmt.Errorf("can't encode localFile#a2da9987 as nil")
 	}
 	b.PutID(LocalFileTypeID)
 	return l.EncodeBare(b)
@@ -179,26 +179,26 @@ func (l *LocalFile) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *LocalFile) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode localFile#ba7a24c3 as nil")
+		return fmt.Errorf("can't encode localFile#a2da9987 as nil")
 	}
 	b.PutString(l.Path)
 	b.PutBool(l.CanBeDownloaded)
 	b.PutBool(l.CanBeDeleted)
 	b.PutBool(l.IsDownloadingActive)
 	b.PutBool(l.IsDownloadingCompleted)
-	b.PutInt32(l.DownloadOffset)
-	b.PutInt32(l.DownloadedPrefixSize)
-	b.PutInt32(l.DownloadedSize)
+	b.PutInt53(l.DownloadOffset)
+	b.PutInt53(l.DownloadedPrefixSize)
+	b.PutInt53(l.DownloadedSize)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (l *LocalFile) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode localFile#ba7a24c3 to nil")
+		return fmt.Errorf("can't decode localFile#a2da9987 to nil")
 	}
 	if err := b.ConsumeID(LocalFileTypeID); err != nil {
-		return fmt.Errorf("unable to decode localFile#ba7a24c3: %w", err)
+		return fmt.Errorf("unable to decode localFile#a2da9987: %w", err)
 	}
 	return l.DecodeBare(b)
 }
@@ -206,61 +206,61 @@ func (l *LocalFile) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *LocalFile) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode localFile#ba7a24c3 to nil")
+		return fmt.Errorf("can't decode localFile#a2da9987 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode localFile#ba7a24c3: field path: %w", err)
+			return fmt.Errorf("unable to decode localFile#a2da9987: field path: %w", err)
 		}
 		l.Path = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode localFile#ba7a24c3: field can_be_downloaded: %w", err)
+			return fmt.Errorf("unable to decode localFile#a2da9987: field can_be_downloaded: %w", err)
 		}
 		l.CanBeDownloaded = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode localFile#ba7a24c3: field can_be_deleted: %w", err)
+			return fmt.Errorf("unable to decode localFile#a2da9987: field can_be_deleted: %w", err)
 		}
 		l.CanBeDeleted = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode localFile#ba7a24c3: field is_downloading_active: %w", err)
+			return fmt.Errorf("unable to decode localFile#a2da9987: field is_downloading_active: %w", err)
 		}
 		l.IsDownloadingActive = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode localFile#ba7a24c3: field is_downloading_completed: %w", err)
+			return fmt.Errorf("unable to decode localFile#a2da9987: field is_downloading_completed: %w", err)
 		}
 		l.IsDownloadingCompleted = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode localFile#ba7a24c3: field download_offset: %w", err)
+			return fmt.Errorf("unable to decode localFile#a2da9987: field download_offset: %w", err)
 		}
 		l.DownloadOffset = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode localFile#ba7a24c3: field downloaded_prefix_size: %w", err)
+			return fmt.Errorf("unable to decode localFile#a2da9987: field downloaded_prefix_size: %w", err)
 		}
 		l.DownloadedPrefixSize = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode localFile#ba7a24c3: field downloaded_size: %w", err)
+			return fmt.Errorf("unable to decode localFile#a2da9987: field downloaded_size: %w", err)
 		}
 		l.DownloadedSize = value
 	}
@@ -270,7 +270,7 @@ func (l *LocalFile) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (l *LocalFile) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if l == nil {
-		return fmt.Errorf("can't encode localFile#ba7a24c3 as nil")
+		return fmt.Errorf("can't encode localFile#a2da9987 as nil")
 	}
 	b.ObjStart()
 	b.PutID("localFile")
@@ -291,13 +291,13 @@ func (l *LocalFile) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutBool(l.IsDownloadingCompleted)
 	b.Comma()
 	b.FieldStart("download_offset")
-	b.PutInt32(l.DownloadOffset)
+	b.PutInt53(l.DownloadOffset)
 	b.Comma()
 	b.FieldStart("downloaded_prefix_size")
-	b.PutInt32(l.DownloadedPrefixSize)
+	b.PutInt53(l.DownloadedPrefixSize)
 	b.Comma()
 	b.FieldStart("downloaded_size")
-	b.PutInt32(l.DownloadedSize)
+	b.PutInt53(l.DownloadedSize)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -307,61 +307,61 @@ func (l *LocalFile) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (l *LocalFile) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if l == nil {
-		return fmt.Errorf("can't decode localFile#ba7a24c3 to nil")
+		return fmt.Errorf("can't decode localFile#a2da9987 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("localFile"); err != nil {
-				return fmt.Errorf("unable to decode localFile#ba7a24c3: %w", err)
+				return fmt.Errorf("unable to decode localFile#a2da9987: %w", err)
 			}
 		case "path":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode localFile#ba7a24c3: field path: %w", err)
+				return fmt.Errorf("unable to decode localFile#a2da9987: field path: %w", err)
 			}
 			l.Path = value
 		case "can_be_downloaded":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode localFile#ba7a24c3: field can_be_downloaded: %w", err)
+				return fmt.Errorf("unable to decode localFile#a2da9987: field can_be_downloaded: %w", err)
 			}
 			l.CanBeDownloaded = value
 		case "can_be_deleted":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode localFile#ba7a24c3: field can_be_deleted: %w", err)
+				return fmt.Errorf("unable to decode localFile#a2da9987: field can_be_deleted: %w", err)
 			}
 			l.CanBeDeleted = value
 		case "is_downloading_active":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode localFile#ba7a24c3: field is_downloading_active: %w", err)
+				return fmt.Errorf("unable to decode localFile#a2da9987: field is_downloading_active: %w", err)
 			}
 			l.IsDownloadingActive = value
 		case "is_downloading_completed":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode localFile#ba7a24c3: field is_downloading_completed: %w", err)
+				return fmt.Errorf("unable to decode localFile#a2da9987: field is_downloading_completed: %w", err)
 			}
 			l.IsDownloadingCompleted = value
 		case "download_offset":
-			value, err := b.Int32()
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode localFile#ba7a24c3: field download_offset: %w", err)
+				return fmt.Errorf("unable to decode localFile#a2da9987: field download_offset: %w", err)
 			}
 			l.DownloadOffset = value
 		case "downloaded_prefix_size":
-			value, err := b.Int32()
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode localFile#ba7a24c3: field downloaded_prefix_size: %w", err)
+				return fmt.Errorf("unable to decode localFile#a2da9987: field downloaded_prefix_size: %w", err)
 			}
 			l.DownloadedPrefixSize = value
 		case "downloaded_size":
-			value, err := b.Int32()
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode localFile#ba7a24c3: field downloaded_size: %w", err)
+				return fmt.Errorf("unable to decode localFile#a2da9987: field downloaded_size: %w", err)
 			}
 			l.DownloadedSize = value
 		default:
@@ -412,7 +412,7 @@ func (l *LocalFile) GetIsDownloadingCompleted() (value bool) {
 }
 
 // GetDownloadOffset returns value of DownloadOffset field.
-func (l *LocalFile) GetDownloadOffset() (value int32) {
+func (l *LocalFile) GetDownloadOffset() (value int64) {
 	if l == nil {
 		return
 	}
@@ -420,7 +420,7 @@ func (l *LocalFile) GetDownloadOffset() (value int32) {
 }
 
 // GetDownloadedPrefixSize returns value of DownloadedPrefixSize field.
-func (l *LocalFile) GetDownloadedPrefixSize() (value int32) {
+func (l *LocalFile) GetDownloadedPrefixSize() (value int64) {
 	if l == nil {
 		return
 	}
@@ -428,7 +428,7 @@ func (l *LocalFile) GetDownloadedPrefixSize() (value int32) {
 }
 
 // GetDownloadedSize returns value of DownloadedSize field.
-func (l *LocalFile) GetDownloadedSize() (value int32) {
+func (l *LocalFile) GetDownloadedSize() (value int64) {
 	if l == nil {
 		return
 	}

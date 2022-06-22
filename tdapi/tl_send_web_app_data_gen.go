@@ -35,7 +35,7 @@ var (
 type SendWebAppDataRequest struct {
 	// Identifier of the target bot
 	BotUserID int64
-	// Text of the keyboardButtonTypeWebApp button, which opened the web app
+	// Text of the keyboardButtonTypeWebApp button, which opened the Web App
 	ButtonText string
 	// Received data
 	Data string

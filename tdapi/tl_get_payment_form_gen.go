@@ -31,18 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetPaymentFormRequest represents TL type `getPaymentForm#90411057`.
+// GetPaymentFormRequest represents TL type `getPaymentForm#8d4f76d4`.
 type GetPaymentFormRequest struct {
-	// Chat identifier of the Invoice message
-	ChatID int64
-	// Message identifier
-	MessageID int64
+	// The invoice
+	InputInvoice InputInvoiceClass
 	// Preferred payment form theme; pass null to use the default theme
 	Theme ThemeParameters
 }
 
 // GetPaymentFormRequestTypeID is TL type id of GetPaymentFormRequest.
-const GetPaymentFormRequestTypeID = 0x90411057
+const GetPaymentFormRequestTypeID = 0x8d4f76d4
 
 // Ensuring interfaces in compile-time for GetPaymentFormRequest.
 var (
@@ -56,10 +54,7 @@ func (g *GetPaymentFormRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
-	if !(g.ChatID == 0) {
-		return false
-	}
-	if !(g.MessageID == 0) {
+	if !(g.InputInvoice == nil) {
 		return false
 	}
 	if !(g.Theme.Zero()) {
@@ -102,12 +97,8 @@ func (g *GetPaymentFormRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "ChatID",
-			SchemaName: "chat_id",
-		},
-		{
-			Name:       "MessageID",
-			SchemaName: "message_id",
+			Name:       "InputInvoice",
+			SchemaName: "input_invoice",
 		},
 		{
 			Name:       "Theme",
@@ -120,7 +111,7 @@ func (g *GetPaymentFormRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetPaymentFormRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getPaymentForm#90411057 as nil")
+		return fmt.Errorf("can't encode getPaymentForm#8d4f76d4 as nil")
 	}
 	b.PutID(GetPaymentFormRequestTypeID)
 	return g.EncodeBare(b)
@@ -129,12 +120,16 @@ func (g *GetPaymentFormRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetPaymentFormRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getPaymentForm#90411057 as nil")
+		return fmt.Errorf("can't encode getPaymentForm#8d4f76d4 as nil")
 	}
-	b.PutInt53(g.ChatID)
-	b.PutInt53(g.MessageID)
+	if g.InputInvoice == nil {
+		return fmt.Errorf("unable to encode getPaymentForm#8d4f76d4: field input_invoice is nil")
+	}
+	if err := g.InputInvoice.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode getPaymentForm#8d4f76d4: field input_invoice: %w", err)
+	}
 	if err := g.Theme.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getPaymentForm#90411057: field theme: %w", err)
+		return fmt.Errorf("unable to encode getPaymentForm#8d4f76d4: field theme: %w", err)
 	}
 	return nil
 }
@@ -142,10 +137,10 @@ func (g *GetPaymentFormRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetPaymentFormRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getPaymentForm#90411057 to nil")
+		return fmt.Errorf("can't decode getPaymentForm#8d4f76d4 to nil")
 	}
 	if err := b.ConsumeID(GetPaymentFormRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getPaymentForm#90411057: %w", err)
+		return fmt.Errorf("unable to decode getPaymentForm#8d4f76d4: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -153,25 +148,18 @@ func (g *GetPaymentFormRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetPaymentFormRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getPaymentForm#90411057 to nil")
+		return fmt.Errorf("can't decode getPaymentForm#8d4f76d4 to nil")
 	}
 	{
-		value, err := b.Int53()
+		value, err := DecodeInputInvoice(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode getPaymentForm#90411057: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode getPaymentForm#8d4f76d4: field input_invoice: %w", err)
 		}
-		g.ChatID = value
-	}
-	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode getPaymentForm#90411057: field message_id: %w", err)
-		}
-		g.MessageID = value
+		g.InputInvoice = value
 	}
 	{
 		if err := g.Theme.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode getPaymentForm#90411057: field theme: %w", err)
+			return fmt.Errorf("unable to decode getPaymentForm#8d4f76d4: field theme: %w", err)
 		}
 	}
 	return nil
@@ -180,20 +168,22 @@ func (g *GetPaymentFormRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetPaymentFormRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getPaymentForm#90411057 as nil")
+		return fmt.Errorf("can't encode getPaymentForm#8d4f76d4 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getPaymentForm")
 	b.Comma()
-	b.FieldStart("chat_id")
-	b.PutInt53(g.ChatID)
-	b.Comma()
-	b.FieldStart("message_id")
-	b.PutInt53(g.MessageID)
+	b.FieldStart("input_invoice")
+	if g.InputInvoice == nil {
+		return fmt.Errorf("unable to encode getPaymentForm#8d4f76d4: field input_invoice is nil")
+	}
+	if err := g.InputInvoice.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getPaymentForm#8d4f76d4: field input_invoice: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("theme")
 	if err := g.Theme.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getPaymentForm#90411057: field theme: %w", err)
+		return fmt.Errorf("unable to encode getPaymentForm#8d4f76d4: field theme: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -204,30 +194,24 @@ func (g *GetPaymentFormRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetPaymentFormRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getPaymentForm#90411057 to nil")
+		return fmt.Errorf("can't decode getPaymentForm#8d4f76d4 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getPaymentForm"); err != nil {
-				return fmt.Errorf("unable to decode getPaymentForm#90411057: %w", err)
+				return fmt.Errorf("unable to decode getPaymentForm#8d4f76d4: %w", err)
 			}
-		case "chat_id":
-			value, err := b.Int53()
+		case "input_invoice":
+			value, err := DecodeTDLibJSONInputInvoice(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode getPaymentForm#90411057: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode getPaymentForm#8d4f76d4: field input_invoice: %w", err)
 			}
-			g.ChatID = value
-		case "message_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode getPaymentForm#90411057: field message_id: %w", err)
-			}
-			g.MessageID = value
+			g.InputInvoice = value
 		case "theme":
 			if err := g.Theme.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode getPaymentForm#90411057: field theme: %w", err)
+				return fmt.Errorf("unable to decode getPaymentForm#8d4f76d4: field theme: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -236,20 +220,12 @@ func (g *GetPaymentFormRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetChatID returns value of ChatID field.
-func (g *GetPaymentFormRequest) GetChatID() (value int64) {
+// GetInputInvoice returns value of InputInvoice field.
+func (g *GetPaymentFormRequest) GetInputInvoice() (value InputInvoiceClass) {
 	if g == nil {
 		return
 	}
-	return g.ChatID
-}
-
-// GetMessageID returns value of MessageID field.
-func (g *GetPaymentFormRequest) GetMessageID() (value int64) {
-	if g == nil {
-		return
-	}
-	return g.MessageID
+	return g.InputInvoice
 }
 
 // GetTheme returns value of Theme field.
@@ -260,7 +236,7 @@ func (g *GetPaymentFormRequest) GetTheme() (value ThemeParameters) {
 	return g.Theme
 }
 
-// GetPaymentForm invokes method getPaymentForm#90411057 returning error if any.
+// GetPaymentForm invokes method getPaymentForm#8d4f76d4 returning error if any.
 func (c *Client) GetPaymentForm(ctx context.Context, request *GetPaymentFormRequest) (*PaymentForm, error) {
 	var result PaymentForm
 

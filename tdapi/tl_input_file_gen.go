@@ -529,7 +529,7 @@ func (i *InputFileLocal) GetPath() (value string) {
 	return i.Path
 }
 
-// InputFileGenerated represents TL type `inputFileGenerated#95d2ba33`.
+// InputFileGenerated represents TL type `inputFileGenerated#b0862800`.
 type InputFileGenerated struct {
 	// Local path to a file from which the file is generated; may be empty if there is no
 	// such file
@@ -539,11 +539,11 @@ type InputFileGenerated struct {
 	// TDLib usage
 	Conversion string
 	// Expected size of the generated file, in bytes; 0 if unknown
-	ExpectedSize int32
+	ExpectedSize int64
 }
 
 // InputFileGeneratedTypeID is TL type id of InputFileGenerated.
-const InputFileGeneratedTypeID = 0x95d2ba33
+const InputFileGeneratedTypeID = 0xb0862800
 
 // construct implements constructor of InputFileClass.
 func (i InputFileGenerated) construct() InputFileClass { return &i }
@@ -626,7 +626,7 @@ func (i *InputFileGenerated) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputFileGenerated) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputFileGenerated#95d2ba33 as nil")
+		return fmt.Errorf("can't encode inputFileGenerated#b0862800 as nil")
 	}
 	b.PutID(InputFileGeneratedTypeID)
 	return i.EncodeBare(b)
@@ -635,21 +635,21 @@ func (i *InputFileGenerated) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputFileGenerated) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputFileGenerated#95d2ba33 as nil")
+		return fmt.Errorf("can't encode inputFileGenerated#b0862800 as nil")
 	}
 	b.PutString(i.OriginalPath)
 	b.PutString(i.Conversion)
-	b.PutInt32(i.ExpectedSize)
+	b.PutInt53(i.ExpectedSize)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *InputFileGenerated) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputFileGenerated#95d2ba33 to nil")
+		return fmt.Errorf("can't decode inputFileGenerated#b0862800 to nil")
 	}
 	if err := b.ConsumeID(InputFileGeneratedTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputFileGenerated#95d2ba33: %w", err)
+		return fmt.Errorf("unable to decode inputFileGenerated#b0862800: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -657,26 +657,26 @@ func (i *InputFileGenerated) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputFileGenerated) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputFileGenerated#95d2ba33 to nil")
+		return fmt.Errorf("can't decode inputFileGenerated#b0862800 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputFileGenerated#95d2ba33: field original_path: %w", err)
+			return fmt.Errorf("unable to decode inputFileGenerated#b0862800: field original_path: %w", err)
 		}
 		i.OriginalPath = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputFileGenerated#95d2ba33: field conversion: %w", err)
+			return fmt.Errorf("unable to decode inputFileGenerated#b0862800: field conversion: %w", err)
 		}
 		i.Conversion = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputFileGenerated#95d2ba33: field expected_size: %w", err)
+			return fmt.Errorf("unable to decode inputFileGenerated#b0862800: field expected_size: %w", err)
 		}
 		i.ExpectedSize = value
 	}
@@ -686,7 +686,7 @@ func (i *InputFileGenerated) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InputFileGenerated) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputFileGenerated#95d2ba33 as nil")
+		return fmt.Errorf("can't encode inputFileGenerated#b0862800 as nil")
 	}
 	b.ObjStart()
 	b.PutID("inputFileGenerated")
@@ -698,7 +698,7 @@ func (i *InputFileGenerated) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutString(i.Conversion)
 	b.Comma()
 	b.FieldStart("expected_size")
-	b.PutInt32(i.ExpectedSize)
+	b.PutInt53(i.ExpectedSize)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -708,31 +708,31 @@ func (i *InputFileGenerated) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InputFileGenerated) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputFileGenerated#95d2ba33 to nil")
+		return fmt.Errorf("can't decode inputFileGenerated#b0862800 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("inputFileGenerated"); err != nil {
-				return fmt.Errorf("unable to decode inputFileGenerated#95d2ba33: %w", err)
+				return fmt.Errorf("unable to decode inputFileGenerated#b0862800: %w", err)
 			}
 		case "original_path":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputFileGenerated#95d2ba33: field original_path: %w", err)
+				return fmt.Errorf("unable to decode inputFileGenerated#b0862800: field original_path: %w", err)
 			}
 			i.OriginalPath = value
 		case "conversion":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputFileGenerated#95d2ba33: field conversion: %w", err)
+				return fmt.Errorf("unable to decode inputFileGenerated#b0862800: field conversion: %w", err)
 			}
 			i.Conversion = value
 		case "expected_size":
-			value, err := b.Int32()
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputFileGenerated#95d2ba33: field expected_size: %w", err)
+				return fmt.Errorf("unable to decode inputFileGenerated#b0862800: field expected_size: %w", err)
 			}
 			i.ExpectedSize = value
 		default:
@@ -759,7 +759,7 @@ func (i *InputFileGenerated) GetConversion() (value string) {
 }
 
 // GetExpectedSize returns value of ExpectedSize field.
-func (i *InputFileGenerated) GetExpectedSize() (value int32) {
+func (i *InputFileGenerated) GetExpectedSize() (value int64) {
 	if i == nil {
 		return
 	}
@@ -780,7 +780,7 @@ const InputFileClassName = "InputFile"
 //  case *tdapi.InputFileID: // inputFileId#6aa08b0d
 //  case *tdapi.InputFileRemote: // inputFileRemote#f9968b3e
 //  case *tdapi.InputFileLocal: // inputFileLocal#7a8c8ac7
-//  case *tdapi.InputFileGenerated: // inputFileGenerated#95d2ba33
+//  case *tdapi.InputFileGenerated: // inputFileGenerated#b0862800
 //  default: panic(v)
 //  }
 type InputFileClass interface {
@@ -834,7 +834,7 @@ func DecodeInputFile(buf *bin.Buffer) (InputFileClass, error) {
 		}
 		return &v, nil
 	case InputFileGeneratedTypeID:
-		// Decoding inputFileGenerated#95d2ba33.
+		// Decoding inputFileGenerated#b0862800.
 		v := InputFileGenerated{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputFileClass: %w", err)
@@ -874,7 +874,7 @@ func DecodeTDLibJSONInputFile(buf tdjson.Decoder) (InputFileClass, error) {
 		}
 		return &v, nil
 	case "inputFileGenerated":
-		// Decoding inputFileGenerated#95d2ba33.
+		// Decoding inputFileGenerated#b0862800.
 		v := InputFileGenerated{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputFileClass: %w", err)

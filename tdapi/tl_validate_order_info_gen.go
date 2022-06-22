@@ -31,12 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ValidateOrderInfoRequest represents TL type `validateOrderInfo#90a9c4`.
+// ValidateOrderInfoRequest represents TL type `validateOrderInfo#b5985fcf`.
 type ValidateOrderInfoRequest struct {
-	// Chat identifier of the Invoice message
-	ChatID int64
-	// Message identifier
-	MessageID int64
+	// The invoice
+	InputInvoice InputInvoiceClass
 	// The order information, provided by the user; pass null if empty
 	OrderInfo OrderInfo
 	// Pass true to save the order information
@@ -44,7 +42,7 @@ type ValidateOrderInfoRequest struct {
 }
 
 // ValidateOrderInfoRequestTypeID is TL type id of ValidateOrderInfoRequest.
-const ValidateOrderInfoRequestTypeID = 0x90a9c4
+const ValidateOrderInfoRequestTypeID = 0xb5985fcf
 
 // Ensuring interfaces in compile-time for ValidateOrderInfoRequest.
 var (
@@ -58,10 +56,7 @@ func (v *ValidateOrderInfoRequest) Zero() bool {
 	if v == nil {
 		return true
 	}
-	if !(v.ChatID == 0) {
-		return false
-	}
-	if !(v.MessageID == 0) {
+	if !(v.InputInvoice == nil) {
 		return false
 	}
 	if !(v.OrderInfo.Zero()) {
@@ -107,12 +102,8 @@ func (v *ValidateOrderInfoRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "ChatID",
-			SchemaName: "chat_id",
-		},
-		{
-			Name:       "MessageID",
-			SchemaName: "message_id",
+			Name:       "InputInvoice",
+			SchemaName: "input_invoice",
 		},
 		{
 			Name:       "OrderInfo",
@@ -129,7 +120,7 @@ func (v *ValidateOrderInfoRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (v *ValidateOrderInfoRequest) Encode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode validateOrderInfo#90a9c4 as nil")
+		return fmt.Errorf("can't encode validateOrderInfo#b5985fcf as nil")
 	}
 	b.PutID(ValidateOrderInfoRequestTypeID)
 	return v.EncodeBare(b)
@@ -138,12 +129,16 @@ func (v *ValidateOrderInfoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (v *ValidateOrderInfoRequest) EncodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode validateOrderInfo#90a9c4 as nil")
+		return fmt.Errorf("can't encode validateOrderInfo#b5985fcf as nil")
 	}
-	b.PutInt53(v.ChatID)
-	b.PutInt53(v.MessageID)
+	if v.InputInvoice == nil {
+		return fmt.Errorf("unable to encode validateOrderInfo#b5985fcf: field input_invoice is nil")
+	}
+	if err := v.InputInvoice.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode validateOrderInfo#b5985fcf: field input_invoice: %w", err)
+	}
 	if err := v.OrderInfo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode validateOrderInfo#90a9c4: field order_info: %w", err)
+		return fmt.Errorf("unable to encode validateOrderInfo#b5985fcf: field order_info: %w", err)
 	}
 	b.PutBool(v.AllowSave)
 	return nil
@@ -152,10 +147,10 @@ func (v *ValidateOrderInfoRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (v *ValidateOrderInfoRequest) Decode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode validateOrderInfo#90a9c4 to nil")
+		return fmt.Errorf("can't decode validateOrderInfo#b5985fcf to nil")
 	}
 	if err := b.ConsumeID(ValidateOrderInfoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode validateOrderInfo#90a9c4: %w", err)
+		return fmt.Errorf("unable to decode validateOrderInfo#b5985fcf: %w", err)
 	}
 	return v.DecodeBare(b)
 }
@@ -163,31 +158,24 @@ func (v *ValidateOrderInfoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (v *ValidateOrderInfoRequest) DecodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode validateOrderInfo#90a9c4 to nil")
+		return fmt.Errorf("can't decode validateOrderInfo#b5985fcf to nil")
 	}
 	{
-		value, err := b.Int53()
+		value, err := DecodeInputInvoice(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode validateOrderInfo#90a9c4: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode validateOrderInfo#b5985fcf: field input_invoice: %w", err)
 		}
-		v.ChatID = value
-	}
-	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode validateOrderInfo#90a9c4: field message_id: %w", err)
-		}
-		v.MessageID = value
+		v.InputInvoice = value
 	}
 	{
 		if err := v.OrderInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode validateOrderInfo#90a9c4: field order_info: %w", err)
+			return fmt.Errorf("unable to decode validateOrderInfo#b5985fcf: field order_info: %w", err)
 		}
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode validateOrderInfo#90a9c4: field allow_save: %w", err)
+			return fmt.Errorf("unable to decode validateOrderInfo#b5985fcf: field allow_save: %w", err)
 		}
 		v.AllowSave = value
 	}
@@ -197,20 +185,22 @@ func (v *ValidateOrderInfoRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (v *ValidateOrderInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if v == nil {
-		return fmt.Errorf("can't encode validateOrderInfo#90a9c4 as nil")
+		return fmt.Errorf("can't encode validateOrderInfo#b5985fcf as nil")
 	}
 	b.ObjStart()
 	b.PutID("validateOrderInfo")
 	b.Comma()
-	b.FieldStart("chat_id")
-	b.PutInt53(v.ChatID)
-	b.Comma()
-	b.FieldStart("message_id")
-	b.PutInt53(v.MessageID)
+	b.FieldStart("input_invoice")
+	if v.InputInvoice == nil {
+		return fmt.Errorf("unable to encode validateOrderInfo#b5985fcf: field input_invoice is nil")
+	}
+	if err := v.InputInvoice.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode validateOrderInfo#b5985fcf: field input_invoice: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("order_info")
 	if err := v.OrderInfo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode validateOrderInfo#90a9c4: field order_info: %w", err)
+		return fmt.Errorf("unable to encode validateOrderInfo#b5985fcf: field order_info: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("allow_save")
@@ -224,35 +214,29 @@ func (v *ValidateOrderInfoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (v *ValidateOrderInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if v == nil {
-		return fmt.Errorf("can't decode validateOrderInfo#90a9c4 to nil")
+		return fmt.Errorf("can't decode validateOrderInfo#b5985fcf to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("validateOrderInfo"); err != nil {
-				return fmt.Errorf("unable to decode validateOrderInfo#90a9c4: %w", err)
+				return fmt.Errorf("unable to decode validateOrderInfo#b5985fcf: %w", err)
 			}
-		case "chat_id":
-			value, err := b.Int53()
+		case "input_invoice":
+			value, err := DecodeTDLibJSONInputInvoice(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode validateOrderInfo#90a9c4: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode validateOrderInfo#b5985fcf: field input_invoice: %w", err)
 			}
-			v.ChatID = value
-		case "message_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode validateOrderInfo#90a9c4: field message_id: %w", err)
-			}
-			v.MessageID = value
+			v.InputInvoice = value
 		case "order_info":
 			if err := v.OrderInfo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode validateOrderInfo#90a9c4: field order_info: %w", err)
+				return fmt.Errorf("unable to decode validateOrderInfo#b5985fcf: field order_info: %w", err)
 			}
 		case "allow_save":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode validateOrderInfo#90a9c4: field allow_save: %w", err)
+				return fmt.Errorf("unable to decode validateOrderInfo#b5985fcf: field allow_save: %w", err)
 			}
 			v.AllowSave = value
 		default:
@@ -262,20 +246,12 @@ func (v *ValidateOrderInfoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetChatID returns value of ChatID field.
-func (v *ValidateOrderInfoRequest) GetChatID() (value int64) {
+// GetInputInvoice returns value of InputInvoice field.
+func (v *ValidateOrderInfoRequest) GetInputInvoice() (value InputInvoiceClass) {
 	if v == nil {
 		return
 	}
-	return v.ChatID
-}
-
-// GetMessageID returns value of MessageID field.
-func (v *ValidateOrderInfoRequest) GetMessageID() (value int64) {
-	if v == nil {
-		return
-	}
-	return v.MessageID
+	return v.InputInvoice
 }
 
 // GetOrderInfo returns value of OrderInfo field.
@@ -294,7 +270,7 @@ func (v *ValidateOrderInfoRequest) GetAllowSave() (value bool) {
 	return v.AllowSave
 }
 
-// ValidateOrderInfo invokes method validateOrderInfo#90a9c4 returning error if any.
+// ValidateOrderInfo invokes method validateOrderInfo#b5985fcf returning error if any.
 func (c *Client) ValidateOrderInfo(ctx context.Context, request *ValidateOrderInfoRequest) (*ValidatedOrderInfo, error) {
 	var result ValidatedOrderInfo
 

@@ -47,7 +47,7 @@ type SecretChat struct {
 	KeyHash []byte
 	// Secret chat layer; determines features supported by the chat partner's application.
 	// Nested text entities and underline and strikethrough entities are supported if the
-	// layer >= 101
+	// layer >= 101, files bigger than 2000MB are supported if the layer >= 143
 	Layer int32
 }
 

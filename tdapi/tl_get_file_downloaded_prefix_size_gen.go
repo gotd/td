@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetFileDownloadedPrefixSizeRequest represents TL type `getFileDownloadedPrefixSize#9c8724a0`.
+// GetFileDownloadedPrefixSizeRequest represents TL type `getFileDownloadedPrefixSize#3304bd2d`.
 type GetFileDownloadedPrefixSizeRequest struct {
 	// Identifier of the file
 	FileID int32
 	// Offset from which downloaded prefix size needs to be calculated
-	Offset int32
+	Offset int64
 }
 
 // GetFileDownloadedPrefixSizeRequestTypeID is TL type id of GetFileDownloadedPrefixSizeRequest.
-const GetFileDownloadedPrefixSizeRequestTypeID = 0x9c8724a0
+const GetFileDownloadedPrefixSizeRequestTypeID = 0x3304bd2d
 
 // Ensuring interfaces in compile-time for GetFileDownloadedPrefixSizeRequest.
 var (
@@ -111,7 +111,7 @@ func (g *GetFileDownloadedPrefixSizeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetFileDownloadedPrefixSizeRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getFileDownloadedPrefixSize#9c8724a0 as nil")
+		return fmt.Errorf("can't encode getFileDownloadedPrefixSize#3304bd2d as nil")
 	}
 	b.PutID(GetFileDownloadedPrefixSizeRequestTypeID)
 	return g.EncodeBare(b)
@@ -120,20 +120,20 @@ func (g *GetFileDownloadedPrefixSizeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetFileDownloadedPrefixSizeRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getFileDownloadedPrefixSize#9c8724a0 as nil")
+		return fmt.Errorf("can't encode getFileDownloadedPrefixSize#3304bd2d as nil")
 	}
 	b.PutInt32(g.FileID)
-	b.PutInt32(g.Offset)
+	b.PutInt53(g.Offset)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetFileDownloadedPrefixSizeRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getFileDownloadedPrefixSize#9c8724a0 to nil")
+		return fmt.Errorf("can't decode getFileDownloadedPrefixSize#3304bd2d to nil")
 	}
 	if err := b.ConsumeID(GetFileDownloadedPrefixSizeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getFileDownloadedPrefixSize#9c8724a0: %w", err)
+		return fmt.Errorf("unable to decode getFileDownloadedPrefixSize#3304bd2d: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -141,19 +141,19 @@ func (g *GetFileDownloadedPrefixSizeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetFileDownloadedPrefixSizeRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getFileDownloadedPrefixSize#9c8724a0 to nil")
+		return fmt.Errorf("can't decode getFileDownloadedPrefixSize#3304bd2d to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getFileDownloadedPrefixSize#9c8724a0: field file_id: %w", err)
+			return fmt.Errorf("unable to decode getFileDownloadedPrefixSize#3304bd2d: field file_id: %w", err)
 		}
 		g.FileID = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getFileDownloadedPrefixSize#9c8724a0: field offset: %w", err)
+			return fmt.Errorf("unable to decode getFileDownloadedPrefixSize#3304bd2d: field offset: %w", err)
 		}
 		g.Offset = value
 	}
@@ -163,7 +163,7 @@ func (g *GetFileDownloadedPrefixSizeRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetFileDownloadedPrefixSizeRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getFileDownloadedPrefixSize#9c8724a0 as nil")
+		return fmt.Errorf("can't encode getFileDownloadedPrefixSize#3304bd2d as nil")
 	}
 	b.ObjStart()
 	b.PutID("getFileDownloadedPrefixSize")
@@ -172,7 +172,7 @@ func (g *GetFileDownloadedPrefixSizeRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 	b.PutInt32(g.FileID)
 	b.Comma()
 	b.FieldStart("offset")
-	b.PutInt32(g.Offset)
+	b.PutInt53(g.Offset)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -182,25 +182,25 @@ func (g *GetFileDownloadedPrefixSizeRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetFileDownloadedPrefixSizeRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getFileDownloadedPrefixSize#9c8724a0 to nil")
+		return fmt.Errorf("can't decode getFileDownloadedPrefixSize#3304bd2d to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getFileDownloadedPrefixSize"); err != nil {
-				return fmt.Errorf("unable to decode getFileDownloadedPrefixSize#9c8724a0: %w", err)
+				return fmt.Errorf("unable to decode getFileDownloadedPrefixSize#3304bd2d: %w", err)
 			}
 		case "file_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getFileDownloadedPrefixSize#9c8724a0: field file_id: %w", err)
+				return fmt.Errorf("unable to decode getFileDownloadedPrefixSize#3304bd2d: field file_id: %w", err)
 			}
 			g.FileID = value
 		case "offset":
-			value, err := b.Int32()
+			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getFileDownloadedPrefixSize#9c8724a0: field offset: %w", err)
+				return fmt.Errorf("unable to decode getFileDownloadedPrefixSize#3304bd2d: field offset: %w", err)
 			}
 			g.Offset = value
 		default:
@@ -219,16 +219,16 @@ func (g *GetFileDownloadedPrefixSizeRequest) GetFileID() (value int32) {
 }
 
 // GetOffset returns value of Offset field.
-func (g *GetFileDownloadedPrefixSizeRequest) GetOffset() (value int32) {
+func (g *GetFileDownloadedPrefixSizeRequest) GetOffset() (value int64) {
 	if g == nil {
 		return
 	}
 	return g.Offset
 }
 
-// GetFileDownloadedPrefixSize invokes method getFileDownloadedPrefixSize#9c8724a0 returning error if any.
-func (c *Client) GetFileDownloadedPrefixSize(ctx context.Context, request *GetFileDownloadedPrefixSizeRequest) (*Count, error) {
-	var result Count
+// GetFileDownloadedPrefixSize invokes method getFileDownloadedPrefixSize#3304bd2d returning error if any.
+func (c *Client) GetFileDownloadedPrefixSize(ctx context.Context, request *GetFileDownloadedPrefixSizeRequest) (*FileDownloadedPrefixSize, error) {
+	var result FileDownloadedPrefixSize
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err

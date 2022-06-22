@@ -31,12 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SendPaymentFormRequest represents TL type `sendPaymentForm#5b9133ff`.
+// SendPaymentFormRequest represents TL type `sendPaymentForm#c66e388a`.
 type SendPaymentFormRequest struct {
-	// Chat identifier of the Invoice message
-	ChatID int64
-	// Message identifier
-	MessageID int64
+	// The invoice
+	InputInvoice InputInvoiceClass
 	// Payment form identifier returned by getPaymentForm
 	PaymentFormID int64
 	// Identifier returned by validateOrderInfo, or an empty string
@@ -50,7 +48,7 @@ type SendPaymentFormRequest struct {
 }
 
 // SendPaymentFormRequestTypeID is TL type id of SendPaymentFormRequest.
-const SendPaymentFormRequestTypeID = 0x5b9133ff
+const SendPaymentFormRequestTypeID = 0xc66e388a
 
 // Ensuring interfaces in compile-time for SendPaymentFormRequest.
 var (
@@ -64,10 +62,7 @@ func (s *SendPaymentFormRequest) Zero() bool {
 	if s == nil {
 		return true
 	}
-	if !(s.ChatID == 0) {
-		return false
-	}
-	if !(s.MessageID == 0) {
+	if !(s.InputInvoice == nil) {
 		return false
 	}
 	if !(s.PaymentFormID == 0) {
@@ -122,12 +117,8 @@ func (s *SendPaymentFormRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "ChatID",
-			SchemaName: "chat_id",
-		},
-		{
-			Name:       "MessageID",
-			SchemaName: "message_id",
+			Name:       "InputInvoice",
+			SchemaName: "input_invoice",
 		},
 		{
 			Name:       "PaymentFormID",
@@ -156,7 +147,7 @@ func (s *SendPaymentFormRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendPaymentFormRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendPaymentForm#5b9133ff as nil")
+		return fmt.Errorf("can't encode sendPaymentForm#c66e388a as nil")
 	}
 	b.PutID(SendPaymentFormRequestTypeID)
 	return s.EncodeBare(b)
@@ -165,18 +156,22 @@ func (s *SendPaymentFormRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendPaymentFormRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendPaymentForm#5b9133ff as nil")
+		return fmt.Errorf("can't encode sendPaymentForm#c66e388a as nil")
 	}
-	b.PutInt53(s.ChatID)
-	b.PutInt53(s.MessageID)
+	if s.InputInvoice == nil {
+		return fmt.Errorf("unable to encode sendPaymentForm#c66e388a: field input_invoice is nil")
+	}
+	if err := s.InputInvoice.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode sendPaymentForm#c66e388a: field input_invoice: %w", err)
+	}
 	b.PutLong(s.PaymentFormID)
 	b.PutString(s.OrderInfoID)
 	b.PutString(s.ShippingOptionID)
 	if s.Credentials == nil {
-		return fmt.Errorf("unable to encode sendPaymentForm#5b9133ff: field credentials is nil")
+		return fmt.Errorf("unable to encode sendPaymentForm#c66e388a: field credentials is nil")
 	}
 	if err := s.Credentials.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sendPaymentForm#5b9133ff: field credentials: %w", err)
+		return fmt.Errorf("unable to encode sendPaymentForm#c66e388a: field credentials: %w", err)
 	}
 	b.PutInt53(s.TipAmount)
 	return nil
@@ -185,10 +180,10 @@ func (s *SendPaymentFormRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SendPaymentFormRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendPaymentForm#5b9133ff to nil")
+		return fmt.Errorf("can't decode sendPaymentForm#c66e388a to nil")
 	}
 	if err := b.ConsumeID(SendPaymentFormRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: %w", err)
+		return fmt.Errorf("unable to decode sendPaymentForm#c66e388a: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -196,54 +191,47 @@ func (s *SendPaymentFormRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendPaymentFormRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendPaymentForm#5b9133ff to nil")
+		return fmt.Errorf("can't decode sendPaymentForm#c66e388a to nil")
 	}
 	{
-		value, err := b.Int53()
+		value, err := DecodeInputInvoice(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode sendPaymentForm#c66e388a: field input_invoice: %w", err)
 		}
-		s.ChatID = value
-	}
-	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field message_id: %w", err)
-		}
-		s.MessageID = value
+		s.InputInvoice = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field payment_form_id: %w", err)
+			return fmt.Errorf("unable to decode sendPaymentForm#c66e388a: field payment_form_id: %w", err)
 		}
 		s.PaymentFormID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field order_info_id: %w", err)
+			return fmt.Errorf("unable to decode sendPaymentForm#c66e388a: field order_info_id: %w", err)
 		}
 		s.OrderInfoID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field shipping_option_id: %w", err)
+			return fmt.Errorf("unable to decode sendPaymentForm#c66e388a: field shipping_option_id: %w", err)
 		}
 		s.ShippingOptionID = value
 	}
 	{
 		value, err := DecodeInputCredentials(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field credentials: %w", err)
+			return fmt.Errorf("unable to decode sendPaymentForm#c66e388a: field credentials: %w", err)
 		}
 		s.Credentials = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field tip_amount: %w", err)
+			return fmt.Errorf("unable to decode sendPaymentForm#c66e388a: field tip_amount: %w", err)
 		}
 		s.TipAmount = value
 	}
@@ -253,16 +241,18 @@ func (s *SendPaymentFormRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SendPaymentFormRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendPaymentForm#5b9133ff as nil")
+		return fmt.Errorf("can't encode sendPaymentForm#c66e388a as nil")
 	}
 	b.ObjStart()
 	b.PutID("sendPaymentForm")
 	b.Comma()
-	b.FieldStart("chat_id")
-	b.PutInt53(s.ChatID)
-	b.Comma()
-	b.FieldStart("message_id")
-	b.PutInt53(s.MessageID)
+	b.FieldStart("input_invoice")
+	if s.InputInvoice == nil {
+		return fmt.Errorf("unable to encode sendPaymentForm#c66e388a: field input_invoice is nil")
+	}
+	if err := s.InputInvoice.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode sendPaymentForm#c66e388a: field input_invoice: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("payment_form_id")
 	b.PutLong(s.PaymentFormID)
@@ -275,10 +265,10 @@ func (s *SendPaymentFormRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("credentials")
 	if s.Credentials == nil {
-		return fmt.Errorf("unable to encode sendPaymentForm#5b9133ff: field credentials is nil")
+		return fmt.Errorf("unable to encode sendPaymentForm#c66e388a: field credentials is nil")
 	}
 	if err := s.Credentials.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sendPaymentForm#5b9133ff: field credentials: %w", err)
+		return fmt.Errorf("unable to encode sendPaymentForm#c66e388a: field credentials: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("tip_amount")
@@ -292,55 +282,49 @@ func (s *SendPaymentFormRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SendPaymentFormRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendPaymentForm#5b9133ff to nil")
+		return fmt.Errorf("can't decode sendPaymentForm#c66e388a to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("sendPaymentForm"); err != nil {
-				return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: %w", err)
+				return fmt.Errorf("unable to decode sendPaymentForm#c66e388a: %w", err)
 			}
-		case "chat_id":
-			value, err := b.Int53()
+		case "input_invoice":
+			value, err := DecodeTDLibJSONInputInvoice(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode sendPaymentForm#c66e388a: field input_invoice: %w", err)
 			}
-			s.ChatID = value
-		case "message_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field message_id: %w", err)
-			}
-			s.MessageID = value
+			s.InputInvoice = value
 		case "payment_form_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field payment_form_id: %w", err)
+				return fmt.Errorf("unable to decode sendPaymentForm#c66e388a: field payment_form_id: %w", err)
 			}
 			s.PaymentFormID = value
 		case "order_info_id":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field order_info_id: %w", err)
+				return fmt.Errorf("unable to decode sendPaymentForm#c66e388a: field order_info_id: %w", err)
 			}
 			s.OrderInfoID = value
 		case "shipping_option_id":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field shipping_option_id: %w", err)
+				return fmt.Errorf("unable to decode sendPaymentForm#c66e388a: field shipping_option_id: %w", err)
 			}
 			s.ShippingOptionID = value
 		case "credentials":
 			value, err := DecodeTDLibJSONInputCredentials(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field credentials: %w", err)
+				return fmt.Errorf("unable to decode sendPaymentForm#c66e388a: field credentials: %w", err)
 			}
 			s.Credentials = value
 		case "tip_amount":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendPaymentForm#5b9133ff: field tip_amount: %w", err)
+				return fmt.Errorf("unable to decode sendPaymentForm#c66e388a: field tip_amount: %w", err)
 			}
 			s.TipAmount = value
 		default:
@@ -350,20 +334,12 @@ func (s *SendPaymentFormRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetChatID returns value of ChatID field.
-func (s *SendPaymentFormRequest) GetChatID() (value int64) {
+// GetInputInvoice returns value of InputInvoice field.
+func (s *SendPaymentFormRequest) GetInputInvoice() (value InputInvoiceClass) {
 	if s == nil {
 		return
 	}
-	return s.ChatID
-}
-
-// GetMessageID returns value of MessageID field.
-func (s *SendPaymentFormRequest) GetMessageID() (value int64) {
-	if s == nil {
-		return
-	}
-	return s.MessageID
+	return s.InputInvoice
 }
 
 // GetPaymentFormID returns value of PaymentFormID field.
@@ -406,7 +382,7 @@ func (s *SendPaymentFormRequest) GetTipAmount() (value int64) {
 	return s.TipAmount
 }
 
-// SendPaymentForm invokes method sendPaymentForm#5b9133ff returning error if any.
+// SendPaymentForm invokes method sendPaymentForm#c66e388a returning error if any.
 func (c *Client) SendPaymentForm(ctx context.Context, request *SendPaymentFormRequest) (*PaymentResult, error) {
 	var result PaymentResult
 

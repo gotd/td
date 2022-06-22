@@ -40,11 +40,20 @@ type ChatFilter struct {
 	// "Cat", "Crown", "Favorite", "Flower", "Game", "Home", "Love", "Mask", "Party",
 	// "Sport", "Study", "Trade", "Travel", "Work".
 	IconName string
-	// The chat identifiers of pinned chats in the filtered chat list
+	// The chat identifiers of pinned chats in the filtered chat list. There can be up to
+	// GetOption("chat_filter_chosen_chat_count_max") pinned and always included non-secret
+	// chats and the same number of secret chats, but the limit can be increased with
+	// Telegram Premium
 	PinnedChatIDs []int64
-	// The chat identifiers of always included chats in the filtered chat list
+	// The chat identifiers of always included chats in the filtered chat list. There can be
+	// up to GetOption("chat_filter_chosen_chat_count_max") pinned and always included
+	// non-secret chats and the same number of secret chats, but the limit can be increased
+	// with Telegram Premium
 	IncludedChatIDs []int64
-	// The chat identifiers of always excluded chats in the filtered chat list
+	// The chat identifiers of always excluded chats in the filtered chat list. There can be
+	// up to GetOption("chat_filter_chosen_chat_count_max") always excluded non-secret chats
+	// and the same number of secret chats, but the limit can be increased with Telegram
+	// Premium
 	ExcludedChatIDs []int64
 	// True, if muted chats need to be excluded
 	ExcludeMuted bool

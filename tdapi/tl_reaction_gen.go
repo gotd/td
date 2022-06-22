@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Reaction represents TL type `reaction#ff6c56f1`.
+// Reaction represents TL type `reaction#e40908bc`.
 type Reaction struct {
 	// Text representation of the reaction
 	Reaction string
@@ -39,6 +39,8 @@ type Reaction struct {
 	Title string
 	// True, if the reaction can be added to new messages and enabled in chats
 	IsActive bool
+	// True, if the reaction is available only for Premium users
+	IsPremium bool
 	// Static icon for the reaction
 	StaticIcon Sticker
 	// Appear animation for the reaction
@@ -56,7 +58,7 @@ type Reaction struct {
 }
 
 // ReactionTypeID is TL type id of Reaction.
-const ReactionTypeID = 0xff6c56f1
+const ReactionTypeID = 0xe40908bc
 
 // Ensuring interfaces in compile-time for Reaction.
 var (
@@ -77,6 +79,9 @@ func (r *Reaction) Zero() bool {
 		return false
 	}
 	if !(r.IsActive == false) {
+		return false
+	}
+	if !(r.IsPremium == false) {
 		return false
 	}
 	if !(r.StaticIcon.Zero()) {
@@ -149,6 +154,10 @@ func (r *Reaction) TypeInfo() tdp.Type {
 			SchemaName: "is_active",
 		},
 		{
+			Name:       "IsPremium",
+			SchemaName: "is_premium",
+		},
+		{
 			Name:       "StaticIcon",
 			SchemaName: "static_icon",
 		},
@@ -183,7 +192,7 @@ func (r *Reaction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *Reaction) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reaction#ff6c56f1 as nil")
+		return fmt.Errorf("can't encode reaction#e40908bc as nil")
 	}
 	b.PutID(ReactionTypeID)
 	return r.EncodeBare(b)
@@ -192,31 +201,32 @@ func (r *Reaction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *Reaction) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reaction#ff6c56f1 as nil")
+		return fmt.Errorf("can't encode reaction#e40908bc as nil")
 	}
 	b.PutString(r.Reaction)
 	b.PutString(r.Title)
 	b.PutBool(r.IsActive)
+	b.PutBool(r.IsPremium)
 	if err := r.StaticIcon.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode reaction#ff6c56f1: field static_icon: %w", err)
+		return fmt.Errorf("unable to encode reaction#e40908bc: field static_icon: %w", err)
 	}
 	if err := r.AppearAnimation.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode reaction#ff6c56f1: field appear_animation: %w", err)
+		return fmt.Errorf("unable to encode reaction#e40908bc: field appear_animation: %w", err)
 	}
 	if err := r.SelectAnimation.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode reaction#ff6c56f1: field select_animation: %w", err)
+		return fmt.Errorf("unable to encode reaction#e40908bc: field select_animation: %w", err)
 	}
 	if err := r.ActivateAnimation.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode reaction#ff6c56f1: field activate_animation: %w", err)
+		return fmt.Errorf("unable to encode reaction#e40908bc: field activate_animation: %w", err)
 	}
 	if err := r.EffectAnimation.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode reaction#ff6c56f1: field effect_animation: %w", err)
+		return fmt.Errorf("unable to encode reaction#e40908bc: field effect_animation: %w", err)
 	}
 	if err := r.AroundAnimation.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode reaction#ff6c56f1: field around_animation: %w", err)
+		return fmt.Errorf("unable to encode reaction#e40908bc: field around_animation: %w", err)
 	}
 	if err := r.CenterAnimation.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode reaction#ff6c56f1: field center_animation: %w", err)
+		return fmt.Errorf("unable to encode reaction#e40908bc: field center_animation: %w", err)
 	}
 	return nil
 }
@@ -224,10 +234,10 @@ func (r *Reaction) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *Reaction) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reaction#ff6c56f1 to nil")
+		return fmt.Errorf("can't decode reaction#e40908bc to nil")
 	}
 	if err := b.ConsumeID(ReactionTypeID); err != nil {
-		return fmt.Errorf("unable to decode reaction#ff6c56f1: %w", err)
+		return fmt.Errorf("unable to decode reaction#e40908bc: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -235,62 +245,69 @@ func (r *Reaction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *Reaction) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reaction#ff6c56f1 to nil")
+		return fmt.Errorf("can't decode reaction#e40908bc to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode reaction#ff6c56f1: field reaction: %w", err)
+			return fmt.Errorf("unable to decode reaction#e40908bc: field reaction: %w", err)
 		}
 		r.Reaction = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode reaction#ff6c56f1: field title: %w", err)
+			return fmt.Errorf("unable to decode reaction#e40908bc: field title: %w", err)
 		}
 		r.Title = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode reaction#ff6c56f1: field is_active: %w", err)
+			return fmt.Errorf("unable to decode reaction#e40908bc: field is_active: %w", err)
 		}
 		r.IsActive = value
 	}
 	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode reaction#e40908bc: field is_premium: %w", err)
+		}
+		r.IsPremium = value
+	}
+	{
 		if err := r.StaticIcon.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode reaction#ff6c56f1: field static_icon: %w", err)
+			return fmt.Errorf("unable to decode reaction#e40908bc: field static_icon: %w", err)
 		}
 	}
 	{
 		if err := r.AppearAnimation.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode reaction#ff6c56f1: field appear_animation: %w", err)
+			return fmt.Errorf("unable to decode reaction#e40908bc: field appear_animation: %w", err)
 		}
 	}
 	{
 		if err := r.SelectAnimation.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode reaction#ff6c56f1: field select_animation: %w", err)
+			return fmt.Errorf("unable to decode reaction#e40908bc: field select_animation: %w", err)
 		}
 	}
 	{
 		if err := r.ActivateAnimation.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode reaction#ff6c56f1: field activate_animation: %w", err)
+			return fmt.Errorf("unable to decode reaction#e40908bc: field activate_animation: %w", err)
 		}
 	}
 	{
 		if err := r.EffectAnimation.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode reaction#ff6c56f1: field effect_animation: %w", err)
+			return fmt.Errorf("unable to decode reaction#e40908bc: field effect_animation: %w", err)
 		}
 	}
 	{
 		if err := r.AroundAnimation.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode reaction#ff6c56f1: field around_animation: %w", err)
+			return fmt.Errorf("unable to decode reaction#e40908bc: field around_animation: %w", err)
 		}
 	}
 	{
 		if err := r.CenterAnimation.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode reaction#ff6c56f1: field center_animation: %w", err)
+			return fmt.Errorf("unable to decode reaction#e40908bc: field center_animation: %w", err)
 		}
 	}
 	return nil
@@ -299,7 +316,7 @@ func (r *Reaction) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (r *Reaction) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reaction#ff6c56f1 as nil")
+		return fmt.Errorf("can't encode reaction#e40908bc as nil")
 	}
 	b.ObjStart()
 	b.PutID("reaction")
@@ -313,39 +330,42 @@ func (r *Reaction) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("is_active")
 	b.PutBool(r.IsActive)
 	b.Comma()
+	b.FieldStart("is_premium")
+	b.PutBool(r.IsPremium)
+	b.Comma()
 	b.FieldStart("static_icon")
 	if err := r.StaticIcon.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode reaction#ff6c56f1: field static_icon: %w", err)
+		return fmt.Errorf("unable to encode reaction#e40908bc: field static_icon: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("appear_animation")
 	if err := r.AppearAnimation.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode reaction#ff6c56f1: field appear_animation: %w", err)
+		return fmt.Errorf("unable to encode reaction#e40908bc: field appear_animation: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("select_animation")
 	if err := r.SelectAnimation.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode reaction#ff6c56f1: field select_animation: %w", err)
+		return fmt.Errorf("unable to encode reaction#e40908bc: field select_animation: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("activate_animation")
 	if err := r.ActivateAnimation.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode reaction#ff6c56f1: field activate_animation: %w", err)
+		return fmt.Errorf("unable to encode reaction#e40908bc: field activate_animation: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("effect_animation")
 	if err := r.EffectAnimation.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode reaction#ff6c56f1: field effect_animation: %w", err)
+		return fmt.Errorf("unable to encode reaction#e40908bc: field effect_animation: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("around_animation")
 	if err := r.AroundAnimation.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode reaction#ff6c56f1: field around_animation: %w", err)
+		return fmt.Errorf("unable to encode reaction#e40908bc: field around_animation: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("center_animation")
 	if err := r.CenterAnimation.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode reaction#ff6c56f1: field center_animation: %w", err)
+		return fmt.Errorf("unable to encode reaction#e40908bc: field center_animation: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -356,60 +376,66 @@ func (r *Reaction) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (r *Reaction) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reaction#ff6c56f1 to nil")
+		return fmt.Errorf("can't decode reaction#e40908bc to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("reaction"); err != nil {
-				return fmt.Errorf("unable to decode reaction#ff6c56f1: %w", err)
+				return fmt.Errorf("unable to decode reaction#e40908bc: %w", err)
 			}
 		case "reaction":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode reaction#ff6c56f1: field reaction: %w", err)
+				return fmt.Errorf("unable to decode reaction#e40908bc: field reaction: %w", err)
 			}
 			r.Reaction = value
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode reaction#ff6c56f1: field title: %w", err)
+				return fmt.Errorf("unable to decode reaction#e40908bc: field title: %w", err)
 			}
 			r.Title = value
 		case "is_active":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode reaction#ff6c56f1: field is_active: %w", err)
+				return fmt.Errorf("unable to decode reaction#e40908bc: field is_active: %w", err)
 			}
 			r.IsActive = value
+		case "is_premium":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode reaction#e40908bc: field is_premium: %w", err)
+			}
+			r.IsPremium = value
 		case "static_icon":
 			if err := r.StaticIcon.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode reaction#ff6c56f1: field static_icon: %w", err)
+				return fmt.Errorf("unable to decode reaction#e40908bc: field static_icon: %w", err)
 			}
 		case "appear_animation":
 			if err := r.AppearAnimation.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode reaction#ff6c56f1: field appear_animation: %w", err)
+				return fmt.Errorf("unable to decode reaction#e40908bc: field appear_animation: %w", err)
 			}
 		case "select_animation":
 			if err := r.SelectAnimation.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode reaction#ff6c56f1: field select_animation: %w", err)
+				return fmt.Errorf("unable to decode reaction#e40908bc: field select_animation: %w", err)
 			}
 		case "activate_animation":
 			if err := r.ActivateAnimation.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode reaction#ff6c56f1: field activate_animation: %w", err)
+				return fmt.Errorf("unable to decode reaction#e40908bc: field activate_animation: %w", err)
 			}
 		case "effect_animation":
 			if err := r.EffectAnimation.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode reaction#ff6c56f1: field effect_animation: %w", err)
+				return fmt.Errorf("unable to decode reaction#e40908bc: field effect_animation: %w", err)
 			}
 		case "around_animation":
 			if err := r.AroundAnimation.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode reaction#ff6c56f1: field around_animation: %w", err)
+				return fmt.Errorf("unable to decode reaction#e40908bc: field around_animation: %w", err)
 			}
 		case "center_animation":
 			if err := r.CenterAnimation.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode reaction#ff6c56f1: field center_animation: %w", err)
+				return fmt.Errorf("unable to decode reaction#e40908bc: field center_animation: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -440,6 +466,14 @@ func (r *Reaction) GetIsActive() (value bool) {
 		return
 	}
 	return r.IsActive
+}
+
+// GetIsPremium returns value of IsPremium field.
+func (r *Reaction) GetIsPremium() (value bool) {
+	if r == nil {
+		return
+	}
+	return r.IsPremium
 }
 
 // GetStaticIcon returns value of StaticIcon field.

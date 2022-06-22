@@ -1301,7 +1301,8 @@ func (i *InputMessageDocument) GetCaption() (value FormattedText) {
 
 // InputMessagePhoto represents TL type `inputMessagePhoto#72d8e2dd`.
 type InputMessagePhoto struct {
-	// Photo to send
+	// Photo to send. The photo must be at most 10 MB in size. The photo's width and height
+	// must not exceed 10000 in total. Width and height ratio must be at most 20
 	Photo InputFileClass
 	// Photo thumbnail to be sent; pass null to skip thumbnail uploading. The thumbnail is
 	// sent to the other party only in secret chats
