@@ -3227,47 +3227,47 @@ func (d *DecryptedMessageMediaVideo) GetCaption() (value string) {
 	return d.Caption
 }
 
-// DecryptedMessageMediaDocument represents TL type `decryptedMessageMediaDocument#7afe8ae2`.
+// DecryptedMessageMediaDocument46 represents TL type `decryptedMessageMediaDocument46#7afe8ae2`.
 //
-// See https://core.telegram.org/constructor/decryptedMessageMediaDocument for reference.
-type DecryptedMessageMediaDocument struct {
-	// Thumb field of DecryptedMessageMediaDocument.
+// See https://core.telegram.org/constructor/decryptedMessageMediaDocument46 for reference.
+type DecryptedMessageMediaDocument46 struct {
+	// Thumb field of DecryptedMessageMediaDocument46.
 	Thumb []byte
-	// ThumbW field of DecryptedMessageMediaDocument.
+	// ThumbW field of DecryptedMessageMediaDocument46.
 	ThumbW int
-	// ThumbH field of DecryptedMessageMediaDocument.
+	// ThumbH field of DecryptedMessageMediaDocument46.
 	ThumbH int
-	// MimeType field of DecryptedMessageMediaDocument.
+	// MimeType field of DecryptedMessageMediaDocument46.
 	MimeType string
-	// Size field of DecryptedMessageMediaDocument.
+	// Size field of DecryptedMessageMediaDocument46.
 	Size int
-	// Key field of DecryptedMessageMediaDocument.
+	// Key field of DecryptedMessageMediaDocument46.
 	Key []byte
-	// Iv field of DecryptedMessageMediaDocument.
+	// Iv field of DecryptedMessageMediaDocument46.
 	Iv []byte
-	// Attributes field of DecryptedMessageMediaDocument.
+	// Attributes field of DecryptedMessageMediaDocument46.
 	Attributes []DocumentAttributeClass
-	// Caption field of DecryptedMessageMediaDocument.
+	// Caption field of DecryptedMessageMediaDocument46.
 	Caption string
 }
 
-// DecryptedMessageMediaDocumentTypeID is TL type id of DecryptedMessageMediaDocument.
-const DecryptedMessageMediaDocumentTypeID = 0x7afe8ae2
+// DecryptedMessageMediaDocument46TypeID is TL type id of DecryptedMessageMediaDocument46.
+const DecryptedMessageMediaDocument46TypeID = 0x7afe8ae2
 
 // construct implements constructor of DecryptedMessageMediaClass.
-func (d DecryptedMessageMediaDocument) construct() DecryptedMessageMediaClass { return &d }
+func (d DecryptedMessageMediaDocument46) construct() DecryptedMessageMediaClass { return &d }
 
-// Ensuring interfaces in compile-time for DecryptedMessageMediaDocument.
+// Ensuring interfaces in compile-time for DecryptedMessageMediaDocument46.
 var (
-	_ bin.Encoder     = &DecryptedMessageMediaDocument{}
-	_ bin.Decoder     = &DecryptedMessageMediaDocument{}
-	_ bin.BareEncoder = &DecryptedMessageMediaDocument{}
-	_ bin.BareDecoder = &DecryptedMessageMediaDocument{}
+	_ bin.Encoder     = &DecryptedMessageMediaDocument46{}
+	_ bin.Decoder     = &DecryptedMessageMediaDocument46{}
+	_ bin.BareEncoder = &DecryptedMessageMediaDocument46{}
+	_ bin.BareDecoder = &DecryptedMessageMediaDocument46{}
 
-	_ DecryptedMessageMediaClass = &DecryptedMessageMediaDocument{}
+	_ DecryptedMessageMediaClass = &DecryptedMessageMediaDocument46{}
 )
 
-func (d *DecryptedMessageMediaDocument) Zero() bool {
+func (d *DecryptedMessageMediaDocument46) Zero() bool {
 	if d == nil {
 		return true
 	}
@@ -3303,31 +3303,31 @@ func (d *DecryptedMessageMediaDocument) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (d *DecryptedMessageMediaDocument) String() string {
+func (d *DecryptedMessageMediaDocument46) String() string {
 	if d == nil {
-		return "DecryptedMessageMediaDocument(nil)"
+		return "DecryptedMessageMediaDocument46(nil)"
 	}
-	type Alias DecryptedMessageMediaDocument
-	return fmt.Sprintf("DecryptedMessageMediaDocument%+v", Alias(*d))
+	type Alias DecryptedMessageMediaDocument46
+	return fmt.Sprintf("DecryptedMessageMediaDocument46%+v", Alias(*d))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*DecryptedMessageMediaDocument) TypeID() uint32 {
-	return DecryptedMessageMediaDocumentTypeID
+func (*DecryptedMessageMediaDocument46) TypeID() uint32 {
+	return DecryptedMessageMediaDocument46TypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*DecryptedMessageMediaDocument) TypeName() string {
-	return "decryptedMessageMediaDocument"
+func (*DecryptedMessageMediaDocument46) TypeName() string {
+	return "decryptedMessageMediaDocument46"
 }
 
 // TypeInfo returns info about TL type.
-func (d *DecryptedMessageMediaDocument) TypeInfo() tdp.Type {
+func (d *DecryptedMessageMediaDocument46) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "decryptedMessageMediaDocument",
-		ID:   DecryptedMessageMediaDocumentTypeID,
+		Name: "decryptedMessageMediaDocument46",
+		ID:   DecryptedMessageMediaDocument46TypeID,
 	}
 	if d == nil {
 		typ.Null = true
@@ -3375,18 +3375,18 @@ func (d *DecryptedMessageMediaDocument) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (d *DecryptedMessageMediaDocument) Encode(b *bin.Buffer) error {
+func (d *DecryptedMessageMediaDocument46) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaDocument#7afe8ae2 as nil")
+		return fmt.Errorf("can't encode decryptedMessageMediaDocument46#7afe8ae2 as nil")
 	}
-	b.PutID(DecryptedMessageMediaDocumentTypeID)
+	b.PutID(DecryptedMessageMediaDocument46TypeID)
 	return d.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (d *DecryptedMessageMediaDocument) EncodeBare(b *bin.Buffer) error {
+func (d *DecryptedMessageMediaDocument46) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode decryptedMessageMediaDocument#7afe8ae2 as nil")
+		return fmt.Errorf("can't encode decryptedMessageMediaDocument46#7afe8ae2 as nil")
 	}
 	b.PutBytes(d.Thumb)
 	b.PutInt(d.ThumbW)
@@ -3398,10 +3398,10 @@ func (d *DecryptedMessageMediaDocument) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(d.Attributes))
 	for idx, v := range d.Attributes {
 		if v == nil {
-			return fmt.Errorf("unable to encode decryptedMessageMediaDocument#7afe8ae2: field attributes element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode decryptedMessageMediaDocument46#7afe8ae2: field attributes element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode decryptedMessageMediaDocument#7afe8ae2: field attributes element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode decryptedMessageMediaDocument46#7afe8ae2: field attributes element with index %d: %w", idx, err)
 		}
 	}
 	b.PutString(d.Caption)
@@ -3409,74 +3409,74 @@ func (d *DecryptedMessageMediaDocument) EncodeBare(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (d *DecryptedMessageMediaDocument) Decode(b *bin.Buffer) error {
+func (d *DecryptedMessageMediaDocument46) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaDocument#7afe8ae2 to nil")
+		return fmt.Errorf("can't decode decryptedMessageMediaDocument46#7afe8ae2 to nil")
 	}
-	if err := b.ConsumeID(DecryptedMessageMediaDocumentTypeID); err != nil {
-		return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: %w", err)
+	if err := b.ConsumeID(DecryptedMessageMediaDocument46TypeID); err != nil {
+		return fmt.Errorf("unable to decode decryptedMessageMediaDocument46#7afe8ae2: %w", err)
 	}
 	return d.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (d *DecryptedMessageMediaDocument) DecodeBare(b *bin.Buffer) error {
+func (d *DecryptedMessageMediaDocument46) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode decryptedMessageMediaDocument#7afe8ae2 to nil")
+		return fmt.Errorf("can't decode decryptedMessageMediaDocument46#7afe8ae2 to nil")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field thumb: %w", err)
+			return fmt.Errorf("unable to decode decryptedMessageMediaDocument46#7afe8ae2: field thumb: %w", err)
 		}
 		d.Thumb = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field thumb_w: %w", err)
+			return fmt.Errorf("unable to decode decryptedMessageMediaDocument46#7afe8ae2: field thumb_w: %w", err)
 		}
 		d.ThumbW = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field thumb_h: %w", err)
+			return fmt.Errorf("unable to decode decryptedMessageMediaDocument46#7afe8ae2: field thumb_h: %w", err)
 		}
 		d.ThumbH = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field mime_type: %w", err)
+			return fmt.Errorf("unable to decode decryptedMessageMediaDocument46#7afe8ae2: field mime_type: %w", err)
 		}
 		d.MimeType = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field size: %w", err)
+			return fmt.Errorf("unable to decode decryptedMessageMediaDocument46#7afe8ae2: field size: %w", err)
 		}
 		d.Size = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field key: %w", err)
+			return fmt.Errorf("unable to decode decryptedMessageMediaDocument46#7afe8ae2: field key: %w", err)
 		}
 		d.Key = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field iv: %w", err)
+			return fmt.Errorf("unable to decode decryptedMessageMediaDocument46#7afe8ae2: field iv: %w", err)
 		}
 		d.Iv = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field attributes: %w", err)
+			return fmt.Errorf("unable to decode decryptedMessageMediaDocument46#7afe8ae2: field attributes: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -3485,7 +3485,7 @@ func (d *DecryptedMessageMediaDocument) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocumentAttribute(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field attributes: %w", err)
+				return fmt.Errorf("unable to decode decryptedMessageMediaDocument46#7afe8ae2: field attributes: %w", err)
 			}
 			d.Attributes = append(d.Attributes, value)
 		}
@@ -3493,7 +3493,7 @@ func (d *DecryptedMessageMediaDocument) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: field caption: %w", err)
+			return fmt.Errorf("unable to decode decryptedMessageMediaDocument46#7afe8ae2: field caption: %w", err)
 		}
 		d.Caption = value
 	}
@@ -3501,7 +3501,7 @@ func (d *DecryptedMessageMediaDocument) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetThumb returns value of Thumb field.
-func (d *DecryptedMessageMediaDocument) GetThumb() (value []byte) {
+func (d *DecryptedMessageMediaDocument46) GetThumb() (value []byte) {
 	if d == nil {
 		return
 	}
@@ -3509,7 +3509,7 @@ func (d *DecryptedMessageMediaDocument) GetThumb() (value []byte) {
 }
 
 // GetThumbW returns value of ThumbW field.
-func (d *DecryptedMessageMediaDocument) GetThumbW() (value int) {
+func (d *DecryptedMessageMediaDocument46) GetThumbW() (value int) {
 	if d == nil {
 		return
 	}
@@ -3517,7 +3517,7 @@ func (d *DecryptedMessageMediaDocument) GetThumbW() (value int) {
 }
 
 // GetThumbH returns value of ThumbH field.
-func (d *DecryptedMessageMediaDocument) GetThumbH() (value int) {
+func (d *DecryptedMessageMediaDocument46) GetThumbH() (value int) {
 	if d == nil {
 		return
 	}
@@ -3525,7 +3525,7 @@ func (d *DecryptedMessageMediaDocument) GetThumbH() (value int) {
 }
 
 // GetMimeType returns value of MimeType field.
-func (d *DecryptedMessageMediaDocument) GetMimeType() (value string) {
+func (d *DecryptedMessageMediaDocument46) GetMimeType() (value string) {
 	if d == nil {
 		return
 	}
@@ -3533,7 +3533,7 @@ func (d *DecryptedMessageMediaDocument) GetMimeType() (value string) {
 }
 
 // GetSize returns value of Size field.
-func (d *DecryptedMessageMediaDocument) GetSize() (value int) {
+func (d *DecryptedMessageMediaDocument46) GetSize() (value int) {
 	if d == nil {
 		return
 	}
@@ -3541,7 +3541,7 @@ func (d *DecryptedMessageMediaDocument) GetSize() (value int) {
 }
 
 // GetKey returns value of Key field.
-func (d *DecryptedMessageMediaDocument) GetKey() (value []byte) {
+func (d *DecryptedMessageMediaDocument46) GetKey() (value []byte) {
 	if d == nil {
 		return
 	}
@@ -3549,7 +3549,7 @@ func (d *DecryptedMessageMediaDocument) GetKey() (value []byte) {
 }
 
 // GetIv returns value of Iv field.
-func (d *DecryptedMessageMediaDocument) GetIv() (value []byte) {
+func (d *DecryptedMessageMediaDocument46) GetIv() (value []byte) {
 	if d == nil {
 		return
 	}
@@ -3557,7 +3557,7 @@ func (d *DecryptedMessageMediaDocument) GetIv() (value []byte) {
 }
 
 // GetAttributes returns value of Attributes field.
-func (d *DecryptedMessageMediaDocument) GetAttributes() (value []DocumentAttributeClass) {
+func (d *DecryptedMessageMediaDocument46) GetAttributes() (value []DocumentAttributeClass) {
 	if d == nil {
 		return
 	}
@@ -3565,7 +3565,7 @@ func (d *DecryptedMessageMediaDocument) GetAttributes() (value []DocumentAttribu
 }
 
 // GetCaption returns value of Caption field.
-func (d *DecryptedMessageMediaDocument) GetCaption() (value string) {
+func (d *DecryptedMessageMediaDocument46) GetCaption() (value string) {
 	if d == nil {
 		return
 	}
@@ -3951,6 +3951,351 @@ func (d *DecryptedMessageMediaWebPage) GetURL() (value string) {
 	return d.URL
 }
 
+// DecryptedMessageMediaDocument represents TL type `decryptedMessageMediaDocument#6abd9782`.
+//
+// See https://core.telegram.org/constructor/decryptedMessageMediaDocument for reference.
+type DecryptedMessageMediaDocument struct {
+	// Thumb field of DecryptedMessageMediaDocument.
+	Thumb []byte
+	// ThumbW field of DecryptedMessageMediaDocument.
+	ThumbW int
+	// ThumbH field of DecryptedMessageMediaDocument.
+	ThumbH int
+	// MimeType field of DecryptedMessageMediaDocument.
+	MimeType string
+	// Size field of DecryptedMessageMediaDocument.
+	Size int64
+	// Key field of DecryptedMessageMediaDocument.
+	Key []byte
+	// Iv field of DecryptedMessageMediaDocument.
+	Iv []byte
+	// Attributes field of DecryptedMessageMediaDocument.
+	Attributes []DocumentAttributeClass
+	// Caption field of DecryptedMessageMediaDocument.
+	Caption string
+}
+
+// DecryptedMessageMediaDocumentTypeID is TL type id of DecryptedMessageMediaDocument.
+const DecryptedMessageMediaDocumentTypeID = 0x6abd9782
+
+// construct implements constructor of DecryptedMessageMediaClass.
+func (d DecryptedMessageMediaDocument) construct() DecryptedMessageMediaClass { return &d }
+
+// Ensuring interfaces in compile-time for DecryptedMessageMediaDocument.
+var (
+	_ bin.Encoder     = &DecryptedMessageMediaDocument{}
+	_ bin.Decoder     = &DecryptedMessageMediaDocument{}
+	_ bin.BareEncoder = &DecryptedMessageMediaDocument{}
+	_ bin.BareDecoder = &DecryptedMessageMediaDocument{}
+
+	_ DecryptedMessageMediaClass = &DecryptedMessageMediaDocument{}
+)
+
+func (d *DecryptedMessageMediaDocument) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Thumb == nil) {
+		return false
+	}
+	if !(d.ThumbW == 0) {
+		return false
+	}
+	if !(d.ThumbH == 0) {
+		return false
+	}
+	if !(d.MimeType == "") {
+		return false
+	}
+	if !(d.Size == 0) {
+		return false
+	}
+	if !(d.Key == nil) {
+		return false
+	}
+	if !(d.Iv == nil) {
+		return false
+	}
+	if !(d.Attributes == nil) {
+		return false
+	}
+	if !(d.Caption == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (d *DecryptedMessageMediaDocument) String() string {
+	if d == nil {
+		return "DecryptedMessageMediaDocument(nil)"
+	}
+	type Alias DecryptedMessageMediaDocument
+	return fmt.Sprintf("DecryptedMessageMediaDocument%+v", Alias(*d))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*DecryptedMessageMediaDocument) TypeID() uint32 {
+	return DecryptedMessageMediaDocumentTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*DecryptedMessageMediaDocument) TypeName() string {
+	return "decryptedMessageMediaDocument"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageMediaDocument) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageMediaDocument",
+		ID:   DecryptedMessageMediaDocumentTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Thumb",
+			SchemaName: "thumb",
+		},
+		{
+			Name:       "ThumbW",
+			SchemaName: "thumb_w",
+		},
+		{
+			Name:       "ThumbH",
+			SchemaName: "thumb_h",
+		},
+		{
+			Name:       "MimeType",
+			SchemaName: "mime_type",
+		},
+		{
+			Name:       "Size",
+			SchemaName: "size",
+		},
+		{
+			Name:       "Key",
+			SchemaName: "key",
+		},
+		{
+			Name:       "Iv",
+			SchemaName: "iv",
+		},
+		{
+			Name:       "Attributes",
+			SchemaName: "attributes",
+		},
+		{
+			Name:       "Caption",
+			SchemaName: "caption",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (d *DecryptedMessageMediaDocument) Encode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageMediaDocument#6abd9782 as nil")
+	}
+	b.PutID(DecryptedMessageMediaDocumentTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageMediaDocument) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageMediaDocument#6abd9782 as nil")
+	}
+	b.PutBytes(d.Thumb)
+	b.PutInt(d.ThumbW)
+	b.PutInt(d.ThumbH)
+	b.PutString(d.MimeType)
+	b.PutLong(d.Size)
+	b.PutBytes(d.Key)
+	b.PutBytes(d.Iv)
+	b.PutVectorHeader(len(d.Attributes))
+	for idx, v := range d.Attributes {
+		if v == nil {
+			return fmt.Errorf("unable to encode decryptedMessageMediaDocument#6abd9782: field attributes element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode decryptedMessageMediaDocument#6abd9782: field attributes element with index %d: %w", idx, err)
+		}
+	}
+	b.PutString(d.Caption)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (d *DecryptedMessageMediaDocument) Decode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageMediaDocument#6abd9782 to nil")
+	}
+	if err := b.ConsumeID(DecryptedMessageMediaDocumentTypeID); err != nil {
+		return fmt.Errorf("unable to decode decryptedMessageMediaDocument#6abd9782: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageMediaDocument) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageMediaDocument#6abd9782 to nil")
+	}
+	{
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#6abd9782: field thumb: %w", err)
+		}
+		d.Thumb = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#6abd9782: field thumb_w: %w", err)
+		}
+		d.ThumbW = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#6abd9782: field thumb_h: %w", err)
+		}
+		d.ThumbH = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#6abd9782: field mime_type: %w", err)
+		}
+		d.MimeType = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#6abd9782: field size: %w", err)
+		}
+		d.Size = value
+	}
+	{
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#6abd9782: field key: %w", err)
+		}
+		d.Key = value
+	}
+	{
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#6abd9782: field iv: %w", err)
+		}
+		d.Iv = value
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#6abd9782: field attributes: %w", err)
+		}
+
+		if headerLen > 0 {
+			d.Attributes = make([]DocumentAttributeClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeDocumentAttribute(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode decryptedMessageMediaDocument#6abd9782: field attributes: %w", err)
+			}
+			d.Attributes = append(d.Attributes, value)
+		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode decryptedMessageMediaDocument#6abd9782: field caption: %w", err)
+		}
+		d.Caption = value
+	}
+	return nil
+}
+
+// GetThumb returns value of Thumb field.
+func (d *DecryptedMessageMediaDocument) GetThumb() (value []byte) {
+	if d == nil {
+		return
+	}
+	return d.Thumb
+}
+
+// GetThumbW returns value of ThumbW field.
+func (d *DecryptedMessageMediaDocument) GetThumbW() (value int) {
+	if d == nil {
+		return
+	}
+	return d.ThumbW
+}
+
+// GetThumbH returns value of ThumbH field.
+func (d *DecryptedMessageMediaDocument) GetThumbH() (value int) {
+	if d == nil {
+		return
+	}
+	return d.ThumbH
+}
+
+// GetMimeType returns value of MimeType field.
+func (d *DecryptedMessageMediaDocument) GetMimeType() (value string) {
+	if d == nil {
+		return
+	}
+	return d.MimeType
+}
+
+// GetSize returns value of Size field.
+func (d *DecryptedMessageMediaDocument) GetSize() (value int64) {
+	if d == nil {
+		return
+	}
+	return d.Size
+}
+
+// GetKey returns value of Key field.
+func (d *DecryptedMessageMediaDocument) GetKey() (value []byte) {
+	if d == nil {
+		return
+	}
+	return d.Key
+}
+
+// GetIv returns value of Iv field.
+func (d *DecryptedMessageMediaDocument) GetIv() (value []byte) {
+	if d == nil {
+		return
+	}
+	return d.Iv
+}
+
+// GetAttributes returns value of Attributes field.
+func (d *DecryptedMessageMediaDocument) GetAttributes() (value []DocumentAttributeClass) {
+	if d == nil {
+		return
+	}
+	return d.Attributes
+}
+
+// GetCaption returns value of Caption field.
+func (d *DecryptedMessageMediaDocument) GetCaption() (value string) {
+	if d == nil {
+		return
+	}
+	return d.Caption
+}
+
 // DecryptedMessageMediaClassName is schema name of DecryptedMessageMediaClass.
 const DecryptedMessageMediaClassName = "DecryptedMessageMedia"
 
@@ -3976,9 +4321,10 @@ const DecryptedMessageMediaClassName = "DecryptedMessageMedia"
 //  case *e2e.DecryptedMessageMediaExternalDocument: // decryptedMessageMediaExternalDocument#fa95b0dd
 //  case *e2e.DecryptedMessageMediaPhoto: // decryptedMessageMediaPhoto#f1fa8d78
 //  case *e2e.DecryptedMessageMediaVideo: // decryptedMessageMediaVideo#970c8c0e
-//  case *e2e.DecryptedMessageMediaDocument: // decryptedMessageMediaDocument#7afe8ae2
+//  case *e2e.DecryptedMessageMediaDocument46: // decryptedMessageMediaDocument46#7afe8ae2
 //  case *e2e.DecryptedMessageMediaVenue: // decryptedMessageMediaVenue#8a0df56f
 //  case *e2e.DecryptedMessageMediaWebPage: // decryptedMessageMediaWebPage#e50511d8
+//  case *e2e.DecryptedMessageMediaDocument: // decryptedMessageMediaDocument#6abd9782
 //  default: panic(v)
 //  }
 type DecryptedMessageMediaClass interface {
@@ -4091,9 +4437,9 @@ func DecodeDecryptedMessageMedia(buf *bin.Buffer) (DecryptedMessageMediaClass, e
 			return nil, fmt.Errorf("unable to decode DecryptedMessageMediaClass: %w", err)
 		}
 		return &v, nil
-	case DecryptedMessageMediaDocumentTypeID:
-		// Decoding decryptedMessageMediaDocument#7afe8ae2.
-		v := DecryptedMessageMediaDocument{}
+	case DecryptedMessageMediaDocument46TypeID:
+		// Decoding decryptedMessageMediaDocument46#7afe8ae2.
+		v := DecryptedMessageMediaDocument46{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode DecryptedMessageMediaClass: %w", err)
 		}
@@ -4108,6 +4454,13 @@ func DecodeDecryptedMessageMedia(buf *bin.Buffer) (DecryptedMessageMediaClass, e
 	case DecryptedMessageMediaWebPageTypeID:
 		// Decoding decryptedMessageMediaWebPage#e50511d8.
 		v := DecryptedMessageMediaWebPage{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode DecryptedMessageMediaClass: %w", err)
+		}
+		return &v, nil
+	case DecryptedMessageMediaDocumentTypeID:
+		// Decoding decryptedMessageMediaDocument#6abd9782.
+		v := DecryptedMessageMediaDocument{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode DecryptedMessageMediaClass: %w", err)
 		}
