@@ -32,7 +32,7 @@ jobs:
 
           - arch: amd64
             go: 1.18
-            runner: [self-hosted, linux, x64]
+            runner: ubuntu-latest
             flags: "-race"
     steps:
       - name: Checkout code
