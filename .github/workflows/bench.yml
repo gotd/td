@@ -9,7 +9,7 @@ on:
 
 jobs:
   benchmark:
-    runs-on: [self-hosted, linux, x64]
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout latest code
         uses: actions/checkout@v3
@@ -32,7 +32,7 @@ jobs:
 
       # Run all benchmarks.
       - name: Run benchmarks
-        run: go test -v -bench . -run ^$ ./... | tee benchmark.txt
+        run: go test -benchtime 100ms -v -bench . -run ^$ ./... | tee benchmark.txt
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
