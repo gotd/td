@@ -40,7 +40,8 @@ type ChatFilterInfo struct {
 	// The chosen or default icon name for short filter representation. One of "All",
 	// "Unread", "Unmuted", "Bots", "Channels", "Groups", "Private", "Custom", "Setup", "Cat"
 	// "Crown", "Favorite", "Flower", "Game", "Home", "Love", "Mask", "Party", "Sport",
-	// "Study", "Trade", "Travel", "Work"
+	// "Study", "Trade", "Travel", "Work", "Airplane", "Book", "Light", "Like", "Money",
+	// "Note", "Palette"
 	IconName string
 }
 
