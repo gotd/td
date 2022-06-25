@@ -38,7 +38,8 @@ type ChatFilter struct {
 	// The chosen icon name for short filter representation. If non-empty, must be one of
 	// "All", "Unread", "Unmuted", "Bots", "Channels", "Groups", "Private", "Custom", "Setup"
 	// "Cat", "Crown", "Favorite", "Flower", "Game", "Home", "Love", "Mask", "Party",
-	// "Sport", "Study", "Trade", "Travel", "Work".
+	// "Sport", "Study", "Trade", "Travel", "Work", "Airplane", "Book", "Light", "Like",
+	// "Money", "Note", "Palette".
 	IconName string
 	// The chat identifiers of pinned chats in the filtered chat list. There can be up to
 	// GetOption("chat_filter_chosen_chat_count_max") pinned and always included non-secret
