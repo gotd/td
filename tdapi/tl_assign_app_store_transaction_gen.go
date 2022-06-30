@@ -35,7 +35,7 @@ var (
 type AssignAppStoreTransactionRequest struct {
 	// App Store receipt
 	Receipt []byte
-	// True, if this is restore of Premium purchase
+	// Pass true if this is a restore of a Telegram Premium purchase
 	IsRestore bool
 }
 
