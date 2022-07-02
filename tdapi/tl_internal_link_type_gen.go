@@ -738,16 +738,19 @@ func (i *InternalLinkTypeBackground) GetBackgroundName() (value string) {
 	return i.BackgroundName
 }
 
-// InternalLinkTypeBotStart represents TL type `internalLinkTypeBotStart#b812d93d`.
+// InternalLinkTypeBotStart represents TL type `internalLinkTypeBotStart#3f985fed`.
 type InternalLinkTypeBotStart struct {
 	// Username of the bot
 	BotUsername string
 	// The parameter to be passed to sendBotStartMessage
 	StartParameter string
+	// True, if sendBotStartMessage must be called automatically without showing the START
+	// button
+	Autostart bool
 }
 
 // InternalLinkTypeBotStartTypeID is TL type id of InternalLinkTypeBotStart.
-const InternalLinkTypeBotStartTypeID = 0xb812d93d
+const InternalLinkTypeBotStartTypeID = 0x3f985fed
 
 // construct implements constructor of InternalLinkTypeClass.
 func (i InternalLinkTypeBotStart) construct() InternalLinkTypeClass { return &i }
@@ -770,6 +773,9 @@ func (i *InternalLinkTypeBotStart) Zero() bool {
 		return false
 	}
 	if !(i.StartParameter == "") {
+		return false
+	}
+	if !(i.Autostart == false) {
 		return false
 	}
 
@@ -816,6 +822,10 @@ func (i *InternalLinkTypeBotStart) TypeInfo() tdp.Type {
 			Name:       "StartParameter",
 			SchemaName: "start_parameter",
 		},
+		{
+			Name:       "Autostart",
+			SchemaName: "autostart",
+		},
 	}
 	return typ
 }
@@ -823,7 +833,7 @@ func (i *InternalLinkTypeBotStart) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InternalLinkTypeBotStart) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeBotStart#b812d93d as nil")
+		return fmt.Errorf("can't encode internalLinkTypeBotStart#3f985fed as nil")
 	}
 	b.PutID(InternalLinkTypeBotStartTypeID)
 	return i.EncodeBare(b)
@@ -832,20 +842,21 @@ func (i *InternalLinkTypeBotStart) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InternalLinkTypeBotStart) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeBotStart#b812d93d as nil")
+		return fmt.Errorf("can't encode internalLinkTypeBotStart#3f985fed as nil")
 	}
 	b.PutString(i.BotUsername)
 	b.PutString(i.StartParameter)
+	b.PutBool(i.Autostart)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *InternalLinkTypeBotStart) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeBotStart#b812d93d to nil")
+		return fmt.Errorf("can't decode internalLinkTypeBotStart#3f985fed to nil")
 	}
 	if err := b.ConsumeID(InternalLinkTypeBotStartTypeID); err != nil {
-		return fmt.Errorf("unable to decode internalLinkTypeBotStart#b812d93d: %w", err)
+		return fmt.Errorf("unable to decode internalLinkTypeBotStart#3f985fed: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -853,21 +864,28 @@ func (i *InternalLinkTypeBotStart) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InternalLinkTypeBotStart) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeBotStart#b812d93d to nil")
+		return fmt.Errorf("can't decode internalLinkTypeBotStart#3f985fed to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode internalLinkTypeBotStart#b812d93d: field bot_username: %w", err)
+			return fmt.Errorf("unable to decode internalLinkTypeBotStart#3f985fed: field bot_username: %w", err)
 		}
 		i.BotUsername = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode internalLinkTypeBotStart#b812d93d: field start_parameter: %w", err)
+			return fmt.Errorf("unable to decode internalLinkTypeBotStart#3f985fed: field start_parameter: %w", err)
 		}
 		i.StartParameter = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeBotStart#3f985fed: field autostart: %w", err)
+		}
+		i.Autostart = value
 	}
 	return nil
 }
@@ -875,7 +893,7 @@ func (i *InternalLinkTypeBotStart) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InternalLinkTypeBotStart) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeBotStart#b812d93d as nil")
+		return fmt.Errorf("can't encode internalLinkTypeBotStart#3f985fed as nil")
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeBotStart")
@@ -886,6 +904,9 @@ func (i *InternalLinkTypeBotStart) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("start_parameter")
 	b.PutString(i.StartParameter)
 	b.Comma()
+	b.FieldStart("autostart")
+	b.PutBool(i.Autostart)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -894,27 +915,33 @@ func (i *InternalLinkTypeBotStart) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InternalLinkTypeBotStart) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeBotStart#b812d93d to nil")
+		return fmt.Errorf("can't decode internalLinkTypeBotStart#3f985fed to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("internalLinkTypeBotStart"); err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeBotStart#b812d93d: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypeBotStart#3f985fed: %w", err)
 			}
 		case "bot_username":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeBotStart#b812d93d: field bot_username: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypeBotStart#3f985fed: field bot_username: %w", err)
 			}
 			i.BotUsername = value
 		case "start_parameter":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeBotStart#b812d93d: field start_parameter: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypeBotStart#3f985fed: field start_parameter: %w", err)
 			}
 			i.StartParameter = value
+		case "autostart":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeBotStart#3f985fed: field autostart: %w", err)
+			}
+			i.Autostart = value
 		default:
 			return b.Skip()
 		}
@@ -936,6 +963,14 @@ func (i *InternalLinkTypeBotStart) GetStartParameter() (value string) {
 		return
 	}
 	return i.StartParameter
+}
+
+// GetAutostart returns value of Autostart field.
+func (i *InternalLinkTypeBotStart) GetAutostart() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.Autostart
 }
 
 // InternalLinkTypeBotStartInGroup represents TL type `internalLinkTypeBotStartInGroup#ca0d8cce`.
@@ -5481,7 +5516,7 @@ const InternalLinkTypeClassName = "InternalLinkType"
 //  case *tdapi.InternalLinkTypeAttachmentMenuBot: // internalLinkTypeAttachmentMenuBot#644c4225
 //  case *tdapi.InternalLinkTypeAuthenticationCode: // internalLinkTypeAuthenticationCode#f3874ff2
 //  case *tdapi.InternalLinkTypeBackground: // internalLinkTypeBackground#b0d2908
-//  case *tdapi.InternalLinkTypeBotStart: // internalLinkTypeBotStart#b812d93d
+//  case *tdapi.InternalLinkTypeBotStart: // internalLinkTypeBotStart#3f985fed
 //  case *tdapi.InternalLinkTypeBotStartInGroup: // internalLinkTypeBotStartInGroup#ca0d8cce
 //  case *tdapi.InternalLinkTypeBotAddToChannel: // internalLinkTypeBotAddToChannel#538ac2c0
 //  case *tdapi.InternalLinkTypeChangePhoneNumber: // internalLinkTypeChangePhoneNumber#f0275b01
@@ -5568,7 +5603,7 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 		}
 		return &v, nil
 	case InternalLinkTypeBotStartTypeID:
-		// Decoding internalLinkTypeBotStart#b812d93d.
+		// Decoding internalLinkTypeBotStart#3f985fed.
 		v := InternalLinkTypeBotStart{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
@@ -5797,7 +5832,7 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 		}
 		return &v, nil
 	case "internalLinkTypeBotStart":
-		// Decoding internalLinkTypeBotStart#b812d93d.
+		// Decoding internalLinkTypeBotStart#3f985fed.
 		v := InternalLinkTypeBotStart{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)

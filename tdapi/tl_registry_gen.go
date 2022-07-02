@@ -865,7 +865,7 @@ func TypesMap() map[uint32]string {
 		InternalLinkTypeAttachmentMenuBotTypeID:                    "internalLinkTypeAttachmentMenuBot#644c4225",
 		InternalLinkTypeAuthenticationCodeTypeID:                   "internalLinkTypeAuthenticationCode#f3874ff2",
 		InternalLinkTypeBackgroundTypeID:                           "internalLinkTypeBackground#b0d2908",
-		InternalLinkTypeBotStartTypeID:                             "internalLinkTypeBotStart#b812d93d",
+		InternalLinkTypeBotStartTypeID:                             "internalLinkTypeBotStart#3f985fed",
 		InternalLinkTypeBotStartInGroupTypeID:                      "internalLinkTypeBotStartInGroup#ca0d8cce",
 		InternalLinkTypeBotAddToChannelTypeID:                      "internalLinkTypeBotAddToChannel#538ac2c0",
 		InternalLinkTypeChangePhoneNumberTypeID:                    "internalLinkTypeChangePhoneNumber#f0275b01",

@@ -38,8 +38,7 @@ type PremiumFeatures struct {
 	// The list of limits, increased for Premium users
 	Limits []PremiumLimit
 	// An internal link to be opened to pay for Telegram Premium if store payment isn't
-	// possible; may be null if direct payment isn't available. If the link has type
-	// internalLinkTypeBotStart, then sendBotStartMessage must be called automatically
+	// possible; may be null if direct payment isn't available
 	PaymentLink InternalLinkTypeClass
 }
 
