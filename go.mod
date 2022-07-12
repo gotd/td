@@ -17,8 +17,8 @@ require (
 	github.com/quasilyte/go-ruleguard/dsl v0.3.21
 	github.com/rogpeppe/go-internal v1.8.1
 	github.com/stretchr/testify v1.8.0
-	go.opentelemetry.io/otel v1.7.0
-	go.opentelemetry.io/otel/trace v1.7.0
+	go.opentelemetry.io/otel v1.8.0
+	go.opentelemetry.io/otel/trace v1.8.0
 	go.uber.org/atomic v1.9.0
 	go.uber.org/multierr v1.8.0
 	go.uber.org/zap v1.21.0
