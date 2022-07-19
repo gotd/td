@@ -132,6 +132,9 @@ issues:
     - linters: [ staticcheck ]
       text: "SA1019: telegram.+ is deprecated:"
 
+    - linters: [ staticcheck ]
+      text: 'SA1019: strings\.Title has been deprecated'
+
     - linters: [ revive ]
       text: "if-return: redundant if ...; err != nil check, just return error instead."
 
