@@ -6,6 +6,7 @@ import (
 	"net"
 	"net/http"
 	"net/url"
+	"time"
 
 	"github.com/go-faster/errors"
 
@@ -30,7 +31,8 @@ func (c *Cluster) Up(ctx context.Context) error {
 
 		mux := http.NewServeMux()
 		srv := http.Server{
-			Handler: mux,
+			ReadHeaderTimeout: time.Second * 10,
+			Handler:           mux,
 			BaseContext: func(net.Listener) context.Context {
 				return ctx
 			},
