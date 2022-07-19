@@ -2,7 +2,7 @@
 //
 // Source: https://raw.githubusercontent.com/tdlib/td/master/td/generate/scheme/telegram_api.tl
 // Layer:  143
-// SHA256: 886d0e6c10075f2becedae648f0c32e47e2457f5ec7656450ddd80c0234fcc7b
+// SHA256: 62d3cf4a7078b0d0fc87560b1ed08dff7a790b1d3ae5a62124569aaf8ee2332d
 
 int#a8509bda ? = Int;
 
@@ -40,6 +40,8 @@ inputStickerSetThumbLegacy#dbaeae9 stickerset:InputStickerSet volume_id:long loc
 test.useError#ee75af01 = Error;
 
 test.useConfigSimple#f9b7b23d = help.ConfigSimple;
+
+test.parseInputAppEvent#bb0d87f1 = InputAppEvent;
 
 
 ---types---
