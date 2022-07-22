@@ -145,9 +145,9 @@ directly.
 // Grab these from https://my.telegram.org/apps.
 // Never share it or hardcode!
 client := telegram.NewClient(appID, appHash, telegram.Options{})
-client.Run(ctx, func(ctx context.Context) error) {
+client.Run(ctx, func(ctx context.Context) error {
   // Grab token from @BotFather.
-  if err := client.Auth().Bot(ctx, "token:12345"); err != nil {
+  if _, err := client.Auth().Bot(ctx, "token:12345"); err != nil {
     return err
   }
   state, err := client.API().UpdatesGetState(ctx)
@@ -157,7 +157,7 @@ client.Run(ctx, func(ctx context.Context) error) {
   // Got state: &{Pts:197 Qts:0 Date:1606855030 Seq:1 UnreadCount:106}
   // This will close client and cleanup resources.
   return nil
-}
+})
 ```
 
 ### Generated code
