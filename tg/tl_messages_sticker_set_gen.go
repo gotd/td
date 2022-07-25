@@ -259,6 +259,7 @@ func (s *MessagesStickerSet) MapDocuments() (value DocumentClassArray) {
 }
 
 // MessagesStickerSetNotModified represents TL type `messages.stickerSetNotModified#d3f924eb`.
+// The stickerset hasn't changed
 //
 // See https://core.telegram.org/constructor/messages.stickerSetNotModified for reference.
 type MessagesStickerSetNotModified struct {

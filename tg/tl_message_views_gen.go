@@ -41,7 +41,7 @@ type MessageViews struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Viewcount of message
+	// View count of message
 	//
 	// Use SetViews and GetViews helpers.
 	Views int

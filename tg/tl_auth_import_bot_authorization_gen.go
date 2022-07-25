@@ -255,11 +255,10 @@ func (i *AuthImportBotAuthorizationRequest) GetBotAuthToken() (value string) {
 // Login as a bot
 //
 // Possible errors:
-//  400 ACCESS_TOKEN_EXPIRED: Bot token expired.
-//  400 ACCESS_TOKEN_INVALID: The provided token is not valid.
-//  400 API_ID_INVALID: The api_id/api_hash combination is invalid.
+//  400 ACCESS_TOKEN_EXPIRED: Access token expired.
+//  400 ACCESS_TOKEN_INVALID: Access token invalid.
+//  400 API_ID_INVALID: API ID invalid.
 //  400 API_ID_PUBLISHED_FLOOD: This API id was published somewhere, you can't use it now.
-//  401 AUTH_KEY_INVALID: Auth key invalid.
 //
 // See https://core.telegram.org/method/auth.importBotAuthorization for reference.
 // Can be used by bots.

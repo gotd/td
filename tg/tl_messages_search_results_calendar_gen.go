@@ -32,30 +32,43 @@ var (
 )
 
 // MessagesSearchResultsCalendar represents TL type `messages.searchResultsCalendar#147ee23c`.
+// Information about found messages sent on a specific day
 //
 // See https://core.telegram.org/constructor/messages.searchResultsCalendar for reference.
 type MessagesSearchResultsCalendar struct {
-	// Flags field of MessagesSearchResultsCalendar.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Inexact field of MessagesSearchResultsCalendar.
+	// If set, indicates that the results may be inexact
 	Inexact bool
-	// Count field of MessagesSearchResultsCalendar.
+	// Total number of results matching query
 	Count int
-	// MinDate field of MessagesSearchResultsCalendar.
+	// Starting timestamp of attached messages
 	MinDate int
-	// MinMsgID field of MessagesSearchResultsCalendar.
+	// Ending timestamp of attached messages
 	MinMsgID int
-	// OffsetIDOffset field of MessagesSearchResultsCalendar.
+	// Indicates the absolute position of messages[0] within the total result set with count
+	// count. This is useful, for example, if we need to display a progress/total counter
+	// (like photo 134 of 200, for all media in a chat, we could simply use photo
+	// ${offset_id_offset} of ${count}.
 	//
 	// Use SetOffsetIDOffset and GetOffsetIDOffset helpers.
 	OffsetIDOffset int
-	// Periods field of MessagesSearchResultsCalendar.
+	// Used to split the messages by days: multiple SearchResultsCalendarPeriod¹
+	// constructors are returned, each containing information about the first, last and total
+	// number of messages matching the filter that were sent on a specific day.  This
+	// information can be easily used to split the returned messages by day.
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/SearchResultsCalendarPeriod
 	Periods []SearchResultsCalendarPeriod
-	// Messages field of MessagesSearchResultsCalendar.
+	// Messages
 	Messages []MessageClass
-	// Chats field of MessagesSearchResultsCalendar.
+	// Mentioned chats
 	Chats []ChatClass
-	// Users field of MessagesSearchResultsCalendar.
+	// Mentioned users
 	Users []UserClass
 }
 

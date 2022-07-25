@@ -178,6 +178,7 @@ func (a *AuthAcceptLoginTokenRequest) GetToken() (value []byte) {
 //  1) https://core.telegram.org/api/qr-login
 //
 // Possible errors:
+//  400 AUTH_TOKEN_EXPIRED: The authorization token has expired.
 //  400 AUTH_TOKEN_INVALIDX: The specified auth token is invalid.
 //
 // See https://core.telegram.org/method/auth.acceptLoginToken for reference.

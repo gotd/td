@@ -143,9 +143,9 @@ type InputGeoPoint struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Latitide
+	// Latitude
 	Lat float64
-	// Longtitude
+	// Longitude
 	Long float64
 	// The estimated horizontal accuracy of the location, in meters; as defined by the sender.
 	//

@@ -32,12 +32,13 @@ var (
 )
 
 // MessagesSearchResultsPositions represents TL type `messages.searchResultsPositions#53b22baf`.
+// Information about sparse positions of messages
 //
 // See https://core.telegram.org/constructor/messages.searchResultsPositions for reference.
 type MessagesSearchResultsPositions struct {
-	// Count field of MessagesSearchResultsPositions.
+	// Total number of found messages
 	Count int
-	// Positions field of MessagesSearchResultsPositions.
+	// List of message positions
 	Positions []SearchResultPosition
 }
 

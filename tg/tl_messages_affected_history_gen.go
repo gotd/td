@@ -36,7 +36,7 @@ var (
 //
 // See https://core.telegram.org/constructor/messages.affectedHistory for reference.
 type MessagesAffectedHistory struct {
-	// Number of events occured in a text box
+	// Number of events occurred in a text box
 	Pts int
 	// Number of affected events
 	PtsCount int

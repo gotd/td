@@ -578,12 +578,15 @@ func (s *AuthSentCodeTypeFlashCall) GetPattern() (value string) {
 }
 
 // AuthSentCodeTypeMissedCall represents TL type `auth.sentCodeTypeMissedCall#82006484`.
+// The code will be sent via a flash phone call, that will be closed immediately. The
+// last digits of the phone number that calls are the code that must be entered manually
+// by the user.
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeMissedCall for reference.
 type AuthSentCodeTypeMissedCall struct {
-	// Prefix field of AuthSentCodeTypeMissedCall.
+	// Prefix of the phone number from which the call will be made
 	Prefix string
-	// Length field of AuthSentCodeTypeMissedCall.
+	// Length of the verification code
 	Length int
 }
 

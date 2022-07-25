@@ -270,6 +270,7 @@ func (s *MessagesStartBotRequest) GetStartParam() (value string) {
 //  400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //  400 MSG_ID_INVALID: Invalid message ID provided.
 //  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
 //  400 START_PARAM_EMPTY: The start parameter is empty.
 //  400 START_PARAM_INVALID: Start parameter invalid.
 //  400 START_PARAM_TOO_LONG: Start parameter is too long.

@@ -32,11 +32,11 @@ var (
 )
 
 // AuthExportAuthorizationRequest represents TL type `auth.exportAuthorization#e5bfffcd`.
-// Returns data for copying authorization to another data-centre.
+// Returns data for copying authorization to another data-center.
 //
 // See https://core.telegram.org/method/auth.exportAuthorization for reference.
 type AuthExportAuthorizationRequest struct {
-	// Number of a target data-centre
+	// Number of a target data-center
 	DCID int
 }
 
@@ -162,7 +162,7 @@ func (e *AuthExportAuthorizationRequest) GetDCID() (value int) {
 }
 
 // AuthExportAuthorization invokes method auth.exportAuthorization#e5bfffcd returning error if any.
-// Returns data for copying authorization to another data-centre.
+// Returns data for copying authorization to another data-center.
 //
 // Possible errors:
 //  400 DC_ID_INVALID: The provided DC ID is invalid.

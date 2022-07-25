@@ -32,7 +32,7 @@ var (
 )
 
 // LangpackGetDifferenceRequest represents TL type `langpack.getDifference#cd984aa5`.
-// Get new strings in languagepack
+// Get new strings in language pack
 //
 // See https://core.telegram.org/method/langpack.getDifference for reference.
 type LangpackGetDifferenceRequest struct {
@@ -216,7 +216,7 @@ func (g *LangpackGetDifferenceRequest) GetFromVersion() (value int) {
 }
 
 // LangpackGetDifference invokes method langpack.getDifference#cd984aa5 returning error if any.
-// Get new strings in languagepack
+// Get new strings in language pack
 //
 // Possible errors:
 //  400 LANG_PACK_INVALID: The provided language pack is invalid.

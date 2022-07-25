@@ -32,10 +32,17 @@ var (
 )
 
 // PhoneGetGroupCallStreamChannelsRequest represents TL type `phone.getGroupCallStreamChannels#1ab21940`.
+// Get info about RTMP streams in a group call or livestream.
+// This method should be invoked to the same group/channel-related DC used for
+// downloading livestream chunks¹.
+// As usual, the media DC is preferred, if available.
+//
+// Links:
+//  1) https://core.telegram.org/api/files#downloading-files
 //
 // See https://core.telegram.org/method/phone.getGroupCallStreamChannels for reference.
 type PhoneGetGroupCallStreamChannelsRequest struct {
-	// Call field of PhoneGetGroupCallStreamChannelsRequest.
+	// Group call or livestream
 	Call InputGroupCall
 }
 
@@ -161,6 +168,17 @@ func (g *PhoneGetGroupCallStreamChannelsRequest) GetCall() (value InputGroupCall
 }
 
 // PhoneGetGroupCallStreamChannels invokes method phone.getGroupCallStreamChannels#1ab21940 returning error if any.
+// Get info about RTMP streams in a group call or livestream.
+// This method should be invoked to the same group/channel-related DC used for
+// downloading livestream chunks¹.
+// As usual, the media DC is preferred, if available.
+//
+// Links:
+//  1) https://core.telegram.org/api/files#downloading-files
+//
+// Possible errors:
+//  400 GROUPCALL_INVALID: The specified group call is invalid.
+//  400 GROUPCALL_JOIN_MISSING: You haven't joined this group call.
 //
 // See https://core.telegram.org/method/phone.getGroupCallStreamChannels for reference.
 func (c *Client) PhoneGetGroupCallStreamChannels(ctx context.Context, call InputGroupCall) (*PhoneGroupCallStreamChannels, error) {

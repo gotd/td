@@ -32,34 +32,41 @@ var (
 )
 
 // AvailableReaction represents TL type `availableReaction#c077ec01`.
+// Animations associated with a message reaction
 //
 // See https://core.telegram.org/constructor/availableReaction for reference.
 type AvailableReaction struct {
-	// Flags field of AvailableReaction.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Inactive field of AvailableReaction.
+	// If not set, the reaction can be added to new messages and enabled in chats.
 	Inactive bool
 	// Premium field of AvailableReaction.
 	Premium bool
-	// Reaction field of AvailableReaction.
+	// Reaction emoji
 	Reaction string
-	// Title field of AvailableReaction.
+	// Reaction description
 	Title string
-	// StaticIcon field of AvailableReaction.
+	// Static icon for the reaction
 	StaticIcon DocumentClass
-	// AppearAnimation field of AvailableReaction.
+	// The animated sticker to show when the user opens the reaction dropdown
 	AppearAnimation DocumentClass
-	// SelectAnimation field of AvailableReaction.
+	// The animated sticker to show when the user selects this reaction
 	SelectAnimation DocumentClass
-	// ActivateAnimation field of AvailableReaction.
+	// The animated sticker to show when the reaction is chosen and activated
 	ActivateAnimation DocumentClass
-	// EffectAnimation field of AvailableReaction.
+	// The background effect (still an animated sticker) to play under the activate_animation
+	// when the reaction is chosen and activated
 	EffectAnimation DocumentClass
-	// AroundAnimation field of AvailableReaction.
+	// The animation that plays around the button when you press an existing reaction (played
+	// together with center_icon).
 	//
 	// Use SetAroundAnimation and GetAroundAnimation helpers.
 	AroundAnimation DocumentClass
-	// CenterIcon field of AvailableReaction.
+	// The animation of the emoji inside the button when you press an existing reaction
+	// (played together with around_animation).
 	//
 	// Use SetCenterIcon and GetCenterIcon helpers.
 	CenterIcon DocumentClass

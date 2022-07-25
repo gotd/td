@@ -32,14 +32,16 @@ var (
 )
 
 // MessagesSearchSentMediaRequest represents TL type `messages.searchSentMedia#107e31a0`.
+// View and search recently sent media.
+// This method does not support pagination.
 //
 // See https://core.telegram.org/method/messages.searchSentMedia for reference.
 type MessagesSearchSentMediaRequest struct {
-	// Q field of MessagesSearchSentMediaRequest.
+	// Optional search query
 	Q string
-	// Filter field of MessagesSearchSentMediaRequest.
+	// Message filter
 	Filter MessagesFilterClass
-	// Limit field of MessagesSearchSentMediaRequest.
+	// Maximum number of results to return (max 100).
 	Limit int
 }
 
@@ -220,6 +222,8 @@ func (s *MessagesSearchSentMediaRequest) GetLimit() (value int) {
 }
 
 // MessagesSearchSentMedia invokes method messages.searchSentMedia#107e31a0 returning error if any.
+// View and search recently sent media.
+// This method does not support pagination.
 //
 // See https://core.telegram.org/method/messages.searchSentMedia for reference.
 func (c *Client) MessagesSearchSentMedia(ctx context.Context, request *MessagesSearchSentMediaRequest) (MessagesMessagesClass, error) {

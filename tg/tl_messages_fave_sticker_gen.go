@@ -32,13 +32,13 @@ var (
 )
 
 // MessagesFaveStickerRequest represents TL type `messages.faveSticker#b9ffc55b`.
-// Mark a sticker as favorite
+// Mark or unmark a sticker as favorite
 //
 // See https://core.telegram.org/method/messages.faveSticker for reference.
 type MessagesFaveStickerRequest struct {
-	// Sticker to mark as favorite
+	// Sticker in question
 	ID InputDocumentClass
-	// Unfavorite
+	// Whether to add or remove a sticker from favorites
 	Unfave bool
 }
 
@@ -199,7 +199,7 @@ func (f *MessagesFaveStickerRequest) GetIDAsNotEmpty() (*InputDocument, bool) {
 }
 
 // MessagesFaveSticker invokes method messages.faveSticker#b9ffc55b returning error if any.
-// Mark a sticker as favorite
+// Mark or unmark a sticker as favorite
 //
 // Possible errors:
 //  400 STICKER_ID_INVALID: The provided sticker ID is invalid.

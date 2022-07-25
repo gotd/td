@@ -32,7 +32,7 @@ var (
 )
 
 // EncryptedFileEmpty represents TL type `encryptedFileEmpty#c21f497e`.
-// Empty constructor, unexisitng file.
+// Empty constructor, non-existing file.
 //
 // See https://core.telegram.org/constructor/encryptedFileEmpty for reference.
 type EncryptedFileEmpty struct {
@@ -144,7 +144,7 @@ type EncryptedFile struct {
 	AccessHash int64
 	// File size in bytes
 	Size int64
-	// Number of data centre
+	// Number of data center
 	DCID int
 	// 32-bit fingerprint of key used for file encryption
 	KeyFingerprint int

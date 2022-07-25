@@ -32,6 +32,7 @@ var (
 )
 
 // MessagesAvailableReactionsNotModified represents TL type `messages.availableReactionsNotModified#9f071957`.
+// No new reactions are available
 //
 // See https://core.telegram.org/constructor/messages.availableReactionsNotModified for reference.
 type MessagesAvailableReactionsNotModified struct {
@@ -133,12 +134,22 @@ func (a *MessagesAvailableReactionsNotModified) DecodeBare(b *bin.Buffer) error 
 }
 
 // MessagesAvailableReactions represents TL type `messages.availableReactions#768e3aad`.
+// Animations and metadata associated with message reactions »¹
+//
+// Links:
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/constructor/messages.availableReactions for reference.
 type MessagesAvailableReactions struct {
-	// Hash field of MessagesAvailableReactions.
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
-	// Reactions field of MessagesAvailableReactions.
+	// Animations and metadata associated with message reactions »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/reactions
 	Reactions []AvailableReaction
 }
 

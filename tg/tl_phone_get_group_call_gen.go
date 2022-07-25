@@ -194,6 +194,9 @@ func (g *PhoneGetGroupCallRequest) GetLimit() (value int) {
 // PhoneGetGroupCall invokes method phone.getGroupCall#41845db returning error if any.
 // Get info about a group call
 //
+// Possible errors:
+//  400 GROUPCALL_INVALID: The specified group call is invalid.
+//
 // See https://core.telegram.org/method/phone.getGroupCall for reference.
 func (c *Client) PhoneGetGroupCall(ctx context.Context, request *PhoneGetGroupCallRequest) (*PhoneGroupCall, error) {
 	var result PhoneGroupCall

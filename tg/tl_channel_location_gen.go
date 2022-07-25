@@ -138,7 +138,7 @@ func (c *ChannelLocationEmpty) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/channelLocation for reference.
 type ChannelLocation struct {
-	// Geographical location of supergrup
+	// Geographical location of supergroup
 	GeoPoint GeoPointClass
 	// Textual description of the address
 	Address string

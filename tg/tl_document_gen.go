@@ -178,7 +178,7 @@ type Document struct {
 	Flags bin.Fields
 	// Document ID
 	ID int64
-	// Check sum, dependant on document ID
+	// Check sum, dependent on document ID
 	AccessHash int64
 	// File reference¹
 	//

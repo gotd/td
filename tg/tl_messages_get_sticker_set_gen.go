@@ -38,7 +38,10 @@ var (
 type MessagesGetStickerSetRequest struct {
 	// Stickerset
 	Stickerset InputStickerSetClass
-	// Hash field of MessagesGetStickerSetRequest.
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 }
 
@@ -197,8 +200,7 @@ func (g *MessagesGetStickerSetRequest) GetHash() (value int) {
 // Get info about a stickerset
 //
 // Possible errors:
-//  400 EMOTICON_STICKERPACK_MISSING:
-//  400 STICKERSET_INVALID: The provided sticker set is invalid.
+//  406 STICKERSET_INVALID: The provided sticker set is invalid.
 //
 // See https://core.telegram.org/method/messages.getStickerSet for reference.
 // Can be used by bots.

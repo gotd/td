@@ -60,9 +60,16 @@ type CodeSettings struct {
 	// Links:
 	//  1) https://developers.google.com/identity/sms-retriever/overview
 	AllowAppHash bool
-	// AllowMissedCall field of CodeSettings.
+	// Whether this device supports receiving the code using the auth.codeTypeMissedCall¹
+	// method
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/auth.codeTypeMissedCall
 	AllowMissedCall bool
-	// LogoutTokens field of CodeSettings.
+	// Previously stored logout tokens, see the documentation for more info »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/auth#logout-tokens
 	//
 	// Use SetLogoutTokens and GetLogoutTokens helpers.
 	LogoutTokens [][]byte

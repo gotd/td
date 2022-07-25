@@ -36,7 +36,7 @@ var (
 //
 // See https://core.telegram.org/method/messages.checkChatInvite for reference.
 type MessagesCheckChatInviteRequest struct {
-	// Invite hash in t.me/joinchat/hash
+	// Invite hash in t.me/joinchat/hash or t.me/+hash
 	Hash string
 }
 
@@ -165,8 +165,9 @@ func (c *MessagesCheckChatInviteRequest) GetHash() (value string) {
 // Check the validity of a chat invite link and get basic info about it
 //
 // Possible errors:
+//  406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //  400 INVITE_HASH_EMPTY: The invite hash is empty.
-//  400 INVITE_HASH_EXPIRED: The invite link has expired.
+//  406 INVITE_HASH_EXPIRED: The invite link has expired.
 //  400 INVITE_HASH_INVALID: The invite hash is invalid.
 //
 // See https://core.telegram.org/method/messages.checkChatInvite for reference.

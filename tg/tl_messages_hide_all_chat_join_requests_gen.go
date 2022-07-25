@@ -32,16 +32,29 @@ var (
 )
 
 // MessagesHideAllChatJoinRequestsRequest represents TL type `messages.hideAllChatJoinRequests#e085f4ea`.
+// Dismiss or approve all join requests¹ related to a specific chat or channel.
+//
+// Links:
+//  1) https://core.telegram.org/api/invites#join-requests
 //
 // See https://core.telegram.org/method/messages.hideAllChatJoinRequests for reference.
 type MessagesHideAllChatJoinRequestsRequest struct {
-	// Flags field of MessagesHideAllChatJoinRequestsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Approved field of MessagesHideAllChatJoinRequestsRequest.
+	// Whether to dismiss or approve all chat join requests »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/invites#join-requests
 	Approved bool
-	// Peer field of MessagesHideAllChatJoinRequestsRequest.
+	// The chat or channel
 	Peer InputPeerClass
-	// Link field of MessagesHideAllChatJoinRequestsRequest.
+	// Only dismiss or approve join requests »¹ initiated using this invite link
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/invites#join-requests
 	//
 	// Use SetLink and GetLink helpers.
 	Link string
@@ -267,6 +280,10 @@ func (h *MessagesHideAllChatJoinRequestsRequest) GetLink() (value string, ok boo
 }
 
 // MessagesHideAllChatJoinRequests invokes method messages.hideAllChatJoinRequests#e085f4ea returning error if any.
+// Dismiss or approve all join requests¹ related to a specific chat or channel.
+//
+// Links:
+//  1) https://core.telegram.org/api/invites#join-requests
 //
 // See https://core.telegram.org/method/messages.hideAllChatJoinRequests for reference.
 func (c *Client) MessagesHideAllChatJoinRequests(ctx context.Context, request *MessagesHideAllChatJoinRequestsRequest) (UpdatesClass, error) {

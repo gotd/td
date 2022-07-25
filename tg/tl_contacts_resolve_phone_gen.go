@@ -32,10 +32,12 @@ var (
 )
 
 // ContactsResolvePhoneRequest represents TL type `contacts.resolvePhone#8af94344`.
+// Resolve a phone number to get user info, if their privacy settings allow it.
 //
 // See https://core.telegram.org/method/contacts.resolvePhone for reference.
 type ContactsResolvePhoneRequest struct {
-	// Phone field of ContactsResolvePhoneRequest.
+	// Phone number in international format, possibly obtained from a t.me/+number or
+	// tg://resolve?phone=number URI.
 	Phone string
 }
 
@@ -161,6 +163,7 @@ func (r *ContactsResolvePhoneRequest) GetPhone() (value string) {
 }
 
 // ContactsResolvePhone invokes method contacts.resolvePhone#8af94344 returning error if any.
+// Resolve a phone number to get user info, if their privacy settings allow it.
 //
 // See https://core.telegram.org/method/contacts.resolvePhone for reference.
 func (c *Client) ContactsResolvePhone(ctx context.Context, phone string) (*ContactsResolvedPeer, error) {

@@ -32,14 +32,17 @@ var (
 )
 
 // MessagesMigrateChatRequest represents TL type `messages.migrateChat#a2875319`.
-// Turn a legacy group into a supergroup¹
+// Turn a basic group into a supergroup¹
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel#migration
 //
 // See https://core.telegram.org/method/messages.migrateChat for reference.
 type MessagesMigrateChatRequest struct {
-	// Legacy group to migrate
+	// Basic group¹ to migrate
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel#basic-groups
 	ChatID int64
 }
 
@@ -165,10 +168,10 @@ func (m *MessagesMigrateChatRequest) GetChatID() (value int64) {
 }
 
 // MessagesMigrateChat invokes method messages.migrateChat#a2875319 returning error if any.
-// Turn a legacy group into a supergroup¹
+// Turn a basic group into a supergroup¹
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel#migration
 //
 // Possible errors:
 //  400 CHANNELS_TOO_MUCH: You have joined too many channels/supergroups.

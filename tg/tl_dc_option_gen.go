@@ -32,7 +32,7 @@ var (
 )
 
 // DCOption represents TL type `dcOption#18b7a10d`.
-// Data centre
+// Data center
 //
 // See https://core.telegram.org/constructor/dcOption for reference.
 type DCOption struct {

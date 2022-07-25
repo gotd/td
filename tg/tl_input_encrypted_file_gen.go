@@ -138,7 +138,7 @@ func (i *InputEncryptedFileEmpty) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/inputEncryptedFileUploaded for reference.
 type InputEncryptedFileUploaded struct {
-	// Random file ID created by clien
+	// Random file ID created by client
 	ID int64
 	// Number of saved parts
 	Parts int
@@ -522,7 +522,7 @@ func (i *InputEncryptedFile) GetAccessHash() (value int64) {
 }
 
 // InputEncryptedFileBigUploaded represents TL type `inputEncryptedFileBigUploaded#2dc173c8`.
-// Assigns a new big encrypted file (over 10Mb in size), saved in parts using the method
+// Assigns a new big encrypted file (over 10 MB in size), saved in parts using the method
 // upload.saveBigFilePart¹.
 //
 // Links:
@@ -783,7 +783,7 @@ type NotEmptyInputEncryptedFile interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Random file ID created by clien
+	// Random file ID created by client
 	GetID() (value int64)
 }
 

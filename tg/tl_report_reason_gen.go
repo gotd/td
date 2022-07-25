@@ -848,6 +848,7 @@ func (i *InputReportReasonFake) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputReportReasonIllegalDrugs represents TL type `inputReportReasonIllegalDrugs#a8eb2be`.
+// Report for illegal drugs
 //
 // See https://core.telegram.org/constructor/inputReportReasonIllegalDrugs for reference.
 type InputReportReasonIllegalDrugs struct {
@@ -949,6 +950,7 @@ func (i *InputReportReasonIllegalDrugs) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputReportReasonPersonalDetails represents TL type `inputReportReasonPersonalDetails#9ec7863d`.
+// Report for divulgation of personal details
 //
 // See https://core.telegram.org/constructor/inputReportReasonPersonalDetails for reference.
 type InputReportReasonPersonalDetails struct {

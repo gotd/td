@@ -364,7 +364,6 @@ func (g *MessagesGetHistoryRequest) GetHash() (value int64) {
 // Gets back the conversation history with one interlocutor / within a chat
 //
 // Possible errors:
-//  401 AUTH_KEY_PERM_EMPTY: The temporary auth key must be binded to the permanent auth key to use these methods.
 //  400 CHANNEL_INVALID: The provided channel is invalid.
 //  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //  400 CHAT_ID_INVALID: The provided chat id is invalid.

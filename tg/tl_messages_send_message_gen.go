@@ -49,7 +49,11 @@ type MessagesSendMessageRequest struct {
 	Background bool
 	// Clear the draft field
 	ClearDraft bool
-	// Noforwards field of MessagesSendMessageRequest.
+	// Only for bots, disallows forwarding and saving of the messages, even if the
+	// destination chat doesn't have content protection¹ enabled
+	//
+	// Links:
+	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
 	Noforwards bool
 	// The destination where the message will be sent
 	Peer InputPeerClass
@@ -79,7 +83,7 @@ type MessagesSendMessageRequest struct {
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
-	// SendAs field of MessagesSendMessageRequest.
+	// Send this message as the specified peer
 	//
 	// Use SetSendAs and GetSendAs helpers.
 	SendAs InputPeerClass
@@ -702,7 +706,6 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 // Sends a message to a chat
 //
 // Possible errors:
-//  401 AUTH_KEY_PERM_EMPTY: The temporary auth key must be binded to the permanent auth key to use these methods.
 //  400 BOT_DOMAIN_INVALID: Bot domain invalid.
 //  400 BOT_INVALID: This is not a valid bot.
 //  400 BUTTON_DATA_INVALID: The data of one or more of the buttons you provided is invalid.
@@ -721,19 +724,21 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //  400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //  400 MESSAGE_EMPTY: The provided message is empty.
 //  400 MESSAGE_TOO_LONG: The provided message is too long.
-//  400 MSG_ID_INVALID: Provided reply_to_msg_id is invalid.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
 //  400 PEER_ID_INVALID: The provided peer id is invalid.
 //  400 PINNED_DIALOGS_TOO_MUCH: Too many pinned dialogs.
 //  400 POLL_OPTION_INVALID: Invalid poll option provided.
+//  500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
 //  400 REPLY_MARKUP_INVALID: The provided reply markup is invalid.
 //  400 REPLY_MARKUP_TOO_LONG: The specified reply_markup is too long.
 //  400 SCHEDULE_BOT_NOT_ALLOWED: Bots cannot schedule messages.
 //  400 SCHEDULE_DATE_TOO_LATE: You can't schedule a message this far in the future.
 //  400 SCHEDULE_STATUS_PRIVATE: Can't schedule until user is online, if the user's last seen timestamp is hidden by their privacy settings.
 //  400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
-//  420 SLOWMODE_WAIT_X: Slowmode is enabled in this chat: you must wait for the specified number of seconds before sending another message to the chat.
+//  400 SEND_AS_PEER_INVALID: You can't send messages as the specified peer.
+//  420 SLOWMODE_WAIT_%d: Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
 //  400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
-//  400 USER_IS_BLOCKED: You were blocked by this user.
+//  403 USER_IS_BLOCKED: You were blocked by this user.
 //  400 USER_IS_BOT: Bots can't send messages to other bots.
 //  400 YOU_BLOCKED_USER: You blocked this user.
 //

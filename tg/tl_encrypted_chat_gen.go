@@ -761,7 +761,7 @@ func (e *EncryptedChatRequested) GetGA() (value []byte) {
 type EncryptedChat struct {
 	// Chat ID
 	ID int
-	// Check sum dependant on the user ID
+	// Check sum dependent on the user ID
 	AccessHash int64
 	// Date chat was created
 	Date int

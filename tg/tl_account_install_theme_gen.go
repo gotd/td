@@ -51,7 +51,7 @@ type AccountInstallThemeRequest struct {
 	//
 	// Use SetFormat and GetFormat helpers.
 	Format string
-	// BaseTheme field of AccountInstallThemeRequest.
+	// Indicates a basic theme provided by all clients
 	//
 	// Use SetBaseTheme and GetBaseTheme helpers.
 	BaseTheme BaseThemeClass

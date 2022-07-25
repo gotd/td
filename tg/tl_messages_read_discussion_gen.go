@@ -230,6 +230,7 @@ func (r *MessagesReadDiscussionRequest) GetReadMaxID() (value int) {
 //  1) https://core.telegram.org/api/threads
 //
 // Possible errors:
+//  400 MSG_ID_INVALID: Invalid message ID provided.
 //  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.readDiscussion for reference.

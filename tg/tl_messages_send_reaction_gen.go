@@ -32,18 +32,22 @@ var (
 )
 
 // MessagesSendReactionRequest represents TL type `messages.sendReaction#25690ce4`.
+// React to message
 //
 // See https://core.telegram.org/method/messages.sendReaction for reference.
 type MessagesSendReactionRequest struct {
-	// Flags field of MessagesSendReactionRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Big field of MessagesSendReactionRequest.
+	// Whether a bigger and longer reaction should be shown
 	Big bool
-	// Peer field of MessagesSendReactionRequest.
+	// Peer
 	Peer InputPeerClass
-	// MsgID field of MessagesSendReactionRequest.
+	// Message ID to react to
 	MsgID int
-	// Reaction field of MessagesSendReactionRequest.
+	// Reaction (a UTF8 emoji)
 	//
 	// Use SetReaction and GetReaction helpers.
 	Reaction string
@@ -294,6 +298,15 @@ func (s *MessagesSendReactionRequest) GetReaction() (value string, ok bool) {
 }
 
 // MessagesSendReaction invokes method messages.sendReaction#25690ce4 returning error if any.
+// React to message
+//
+// Possible errors:
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//  400 MESSAGE_NOT_MODIFIED: The provided message data is identical to the previous message data, the message wasn't modified.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 REACTION_EMPTY: Empty reaction provided.
+//  400 REACTION_INVALID: The specified reaction is invalid.
 //
 // See https://core.telegram.org/method/messages.sendReaction for reference.
 func (c *Client) MessagesSendReaction(ctx context.Context, request *MessagesSendReactionRequest) (UpdatesClass, error) {

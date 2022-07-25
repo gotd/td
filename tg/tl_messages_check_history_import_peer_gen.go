@@ -189,6 +189,7 @@ func (c *MessagesCheckHistoryImportPeerRequest) GetPeer() (value InputPeerClass)
 //  2) https://core.telegram.org/type/messages.CheckedHistoryImportPeer
 //
 // Possible errors:
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //  400 USER_NOT_MUTUAL_CONTACT: The provided user is not a mutual contact.
 //
 // See https://core.telegram.org/method/messages.checkHistoryImportPeer for reference.

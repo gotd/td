@@ -32,12 +32,16 @@ var (
 )
 
 // MessagesGetMessagesReactionsRequest represents TL type `messages.getMessagesReactions#8bba90e6`.
+// Get message reactions »¹
+//
+// Links:
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getMessagesReactions for reference.
 type MessagesGetMessagesReactionsRequest struct {
-	// Peer field of MessagesGetMessagesReactionsRequest.
+	// Peer
 	Peer InputPeerClass
-	// ID field of MessagesGetMessagesReactionsRequest.
+	// Message IDs
 	ID []int
 }
 
@@ -206,8 +210,13 @@ func (g *MessagesGetMessagesReactionsRequest) GetID() (value []int) {
 }
 
 // MessagesGetMessagesReactions invokes method messages.getMessagesReactions#8bba90e6 returning error if any.
+// Get message reactions »¹
+//
+// Links:
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getMessagesReactions for reference.
+// Can be used by bots.
 func (c *Client) MessagesGetMessagesReactions(ctx context.Context, request *MessagesGetMessagesReactionsRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

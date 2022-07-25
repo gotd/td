@@ -50,11 +50,11 @@ type MessagesDeleteHistoryRequest struct {
 	Peer InputPeerClass
 	// Maximum ID of message to delete
 	MaxID int
-	// MinDate field of MessagesDeleteHistoryRequest.
+	// Delete all messages newer than this UNIX timestamp
 	//
 	// Use SetMinDate and GetMinDate helpers.
 	MinDate int
-	// MaxDate field of MessagesDeleteHistoryRequest.
+	// Delete all messages older than this UNIX timestamp
 	//
 	// Use SetMaxDate and GetMaxDate helpers.
 	MaxDate int
@@ -387,6 +387,7 @@ func (d *MessagesDeleteHistoryRequest) GetMaxDate() (value int, ok bool) {
 // Possible errors:
 //  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //  400 CHAT_ID_INVALID: The provided chat id is invalid.
+//  400 MAX_DATE_INVALID: The specified maximum date is invalid.
 //  400 MESSAGE_ID_INVALID: The provided message id is invalid.
 //  400 MSG_ID_INVALID: Invalid message ID provided.
 //  400 PEER_ID_INVALID: The provided peer id is invalid.

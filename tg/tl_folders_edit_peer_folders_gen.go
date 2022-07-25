@@ -186,6 +186,7 @@ func (e *FoldersEditPeerFoldersRequest) GetFolderPeers() (value []InputFolderPee
 //  1) https://core.telegram.org/api/folders#peer-folders
 //
 // Possible errors:
+//  400 CHAT_ID_INVALID: The provided chat id is invalid.
 //  400 FOLDER_ID_INVALID: Invalid folder ID.
 //
 // See https://core.telegram.org/method/folders.editPeerFolders for reference.

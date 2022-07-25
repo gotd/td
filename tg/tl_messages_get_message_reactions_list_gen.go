@@ -32,24 +32,38 @@ var (
 )
 
 // MessagesGetMessageReactionsListRequest represents TL type `messages.getMessageReactionsList#e0ee6b77`.
+// Get message reaction¹ list, along with the sender of each reaction.
+//
+// Links:
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getMessageReactionsList for reference.
 type MessagesGetMessageReactionsListRequest struct {
-	// Flags field of MessagesGetMessageReactionsListRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of MessagesGetMessageReactionsListRequest.
+	// Peer
 	Peer InputPeerClass
-	// ID field of MessagesGetMessageReactionsListRequest.
+	// Message ID
 	ID int
-	// Reaction field of MessagesGetMessageReactionsListRequest.
+	// Get only reactions of this type (UTF8 emoji)
 	//
 	// Use SetReaction and GetReaction helpers.
 	Reaction string
-	// Offset field of MessagesGetMessageReactionsListRequest.
+	// Offset (typically taken from the next_offset field of the returned messages
+	// MessageReactionsList¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/messages.MessageReactionsList
 	//
 	// Use SetOffset and GetOffset helpers.
 	Offset string
-	// Limit field of MessagesGetMessageReactionsListRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -334,6 +348,10 @@ func (g *MessagesGetMessageReactionsListRequest) GetLimit() (value int) {
 }
 
 // MessagesGetMessageReactionsList invokes method messages.getMessageReactionsList#e0ee6b77 returning error if any.
+// Get message reaction¹ list, along with the sender of each reaction.
+//
+// Links:
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getMessageReactionsList for reference.
 func (c *Client) MessagesGetMessageReactionsList(ctx context.Context, request *MessagesGetMessageReactionsListRequest) (*MessagesMessageReactionsList, error) {

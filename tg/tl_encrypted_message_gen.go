@@ -42,8 +42,8 @@ type EncryptedMessage struct {
 	ChatID int
 	// Date of sending
 	Date int
-	// TL-serialising of DecryptedMessage¹ type, encrypted with the key creatied at stage of
-	// chat initialization
+	// TL-serialization of DecryptedMessage¹ type, encrypted with the key created at chat
+	// initialization
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/DecryptedMessage
@@ -294,7 +294,7 @@ type EncryptedMessageService struct {
 	ChatID int
 	// Date of sending
 	Date int
-	// TL-serialising of DecryptedMessage¹ type, encrypted with the key creatied at stage of
+	// TL-serialization of the DecryptedMessage¹ type, encrypted with the key created at
 	// chat initialization
 	//
 	// Links:
@@ -547,8 +547,8 @@ type EncryptedMessageClass interface {
 	// Date of sending
 	GetDate() (value int)
 
-	// TL-serialising of DecryptedMessage¹ type, encrypted with the key creatied at stage of
-	// chat initialization
+	// TL-serialization of DecryptedMessage¹ type, encrypted with the key created at chat
+	// initialization
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/DecryptedMessage

@@ -71,7 +71,7 @@ type StatsBroadcastStats struct {
 	ViewsBySourceGraph StatsGraphClass
 	// New followers by source graph (absolute)
 	NewFollowersBySourceGraph StatsGraphClass
-	// Subscriber language graph (piechart)
+	// Subscriber language graph (pie chart)
 	LanguagesGraph StatsGraphClass
 	// Recent message interactions
 	RecentMessageInteractions []MessageInteractionCounters

@@ -19,9 +19,10 @@ func (Generator) errDef(err getdoc.Error) errCheckDef {
 	var parts []string
 	for _, p := range strings.Split(err.Type, "_") {
 		switch p {
-		case "X", "*":
+		case "X", "*", "%d":
 			continue
 		default:
+			p = strings.ReplaceAll(p, "%d", "")
 			parts = append(parts, p)
 		}
 	}

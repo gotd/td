@@ -32,12 +32,16 @@ var (
 )
 
 // MessagesToggleNoForwardsRequest represents TL type `messages.toggleNoForwards#b11eafa2`.
+// Enable or disable content protection¹ on a channel or chat
+//
+// Links:
+//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
 //
 // See https://core.telegram.org/method/messages.toggleNoForwards for reference.
 type MessagesToggleNoForwardsRequest struct {
-	// Peer field of MessagesToggleNoForwardsRequest.
+	// The chat or channel
 	Peer InputPeerClass
-	// Enabled field of MessagesToggleNoForwardsRequest.
+	// Enable or disable content protection
 	Enabled bool
 }
 
@@ -193,6 +197,10 @@ func (t *MessagesToggleNoForwardsRequest) GetEnabled() (value bool) {
 }
 
 // MessagesToggleNoForwards invokes method messages.toggleNoForwards#b11eafa2 returning error if any.
+// Enable or disable content protection¹ on a channel or chat
+//
+// Links:
+//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
 //
 // See https://core.telegram.org/method/messages.toggleNoForwards for reference.
 func (c *Client) MessagesToggleNoForwards(ctx context.Context, request *MessagesToggleNoForwardsRequest) (UpdatesClass, error) {

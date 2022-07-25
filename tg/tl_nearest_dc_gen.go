@@ -32,15 +32,15 @@ var (
 )
 
 // NearestDC represents TL type `nearestDc#8e1a1775`.
-// Nearest data centre, according to geo-ip.
+// Nearest data center, according to geo-ip.
 //
 // See https://core.telegram.org/constructor/nearestDc for reference.
 type NearestDC struct {
 	// Country code determined by geo-ip
 	Country string
-	// Number of current data centre
+	// Number of current data center
 	ThisDC int
-	// Number of nearest data centre
+	// Number of nearest data center
 	NearestDC int
 }
 

@@ -47,9 +47,9 @@ type Authorization struct {
 	OfficialApp bool
 	// Whether the session is still waiting for a 2FA password
 	PasswordPending bool
-	// EncryptedRequestsDisabled field of Authorization.
+	// Whether this session will accept encrypted chats
 	EncryptedRequestsDisabled bool
-	// CallRequestsDisabled field of Authorization.
+	// Whether this session will accept phone calls
 	CallRequestsDisabled bool
 	// Identifier
 	Hash int64

@@ -243,7 +243,6 @@ func (e *ChannelsEditBannedRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel
 //  1) https://core.telegram.org/api/channel
 //
 // Possible errors:
-//  400 CHANNEL_ADD_INVALID: Internal error.
 //  400 CHANNEL_INVALID: The provided channel is invalid.
 //  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
@@ -252,7 +251,6 @@ func (e *ChannelsEditBannedRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel
 //  400 MSG_ID_INVALID: Invalid message ID provided.
 //  400 PARTICIPANT_ID_INVALID: The specified participant ID is invalid.
 //  400 PEER_ID_INVALID: The provided peer id is invalid.
-//  400 PINNED_DIALOGS_TOO_MUCH: Too many pinned dialogs.
 //  400 USER_ADMIN_INVALID: You're not an admin.
 //  400 USER_ID_INVALID: The provided user ID is invalid.
 //

@@ -32,10 +32,10 @@ var (
 )
 
 // UpdateNewMessage represents TL type `updateNewMessage#1f2b0afd`.
-// New message in a private chat or in a legacy group¹.
+// New message in a private chat or in a basic group¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/constructor/updateNewMessage for reference.
 type UpdateNewMessage struct {
@@ -238,7 +238,7 @@ type UpdateMessageID struct {
 	// Links:
 	//  1) https://core.telegram.org/type/Message
 	ID int
-	// Previuosly transferred client random_id identifier
+	// Previously transferred client random_id identifier
 	RandomID int64
 }
 
@@ -600,8 +600,8 @@ func (u *UpdateDeleteMessages) GetPtsCount() (value int) {
 
 // UpdateUserTyping represents TL type `updateUserTyping#c01e857f`.
 // The user is preparing a message; typing, recording, uploading, etc. This update is
-// valid for 6 seconds. If no repeated update received after 6 seconds, it should be
-// considered that the user stopped doing whatever he's been doing.
+// valid for 6 seconds. If no further updates of this kind are received after 6 seconds,
+// it should be considered that the user stopped doing whatever they were doing
 //
 // See https://core.telegram.org/constructor/updateUserTyping for reference.
 type UpdateUserTyping struct {
@@ -772,8 +772,8 @@ func (u *UpdateUserTyping) GetAction() (value SendMessageActionClass) {
 
 // UpdateChatUserTyping represents TL type `updateChatUserTyping#83487af0`.
 // The user is preparing a message in a group; typing, recording, uploading, etc. This
-// update is valid for 6 seconds. If no repeated update received after 6 seconds, it
-// should be considered that the user stopped doing whatever he's been doing.
+// update is valid for 6 seconds. If no further updates of this kind are received after 6
+// seconds, it should be considered that the user stopped doing whatever they were doing
 //
 // See https://core.telegram.org/constructor/updateChatUserTyping for reference.
 type UpdateChatUserTyping struct {
@@ -2982,7 +2982,7 @@ func (u *UpdateDCOptions) GetDCOptions() (value []DCOption) {
 //
 // See https://core.telegram.org/constructor/updateNotifySettings for reference.
 type UpdateNotifySettings struct {
-	// Nofication source
+	// Notification source
 	Peer NotifyPeerClass
 	// New notification settings
 	NotifySettings PeerNotifySettings
@@ -6095,10 +6095,10 @@ func (u *UpdateChannelMessageViews) GetViews() (value int) {
 }
 
 // UpdateChatParticipantAdmin represents TL type `updateChatParticipantAdmin#d7ca61a2`.
-// Admin permissions of a user in a legacy group¹ were changed
+// Admin permissions of a user in a basic group¹ were changed
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/constructor/updateChatParticipantAdmin for reference.
 type UpdateChatParticipantAdmin struct {
@@ -18110,7 +18110,7 @@ func (u *UpdateChannelParticipant) GetQts() (value int) {
 //
 // See https://core.telegram.org/constructor/updateBotStopped for reference.
 type UpdateBotStopped struct {
-	// The bot ID
+	// The user ID
 	UserID int64
 	// When did this action occur
 	Date int
@@ -18728,14 +18728,18 @@ func (u *UpdateBotCommands) GetCommands() (value []BotCommand) {
 }
 
 // UpdatePendingJoinRequests represents TL type `updatePendingJoinRequests#7063c3db`.
+// Someone has requested to join a chat or channel
 //
 // See https://core.telegram.org/constructor/updatePendingJoinRequests for reference.
 type UpdatePendingJoinRequests struct {
-	// Peer field of UpdatePendingJoinRequests.
+	// Chat or channel
 	Peer PeerClass
-	// RequestsPending field of UpdatePendingJoinRequests.
+	// Number of pending join requests »¹ for the chat or channel
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/invites#join-requests
 	RequestsPending int
-	// RecentRequesters field of UpdatePendingJoinRequests.
+	// IDs of users that have recently requested to join
 	RecentRequesters []int64
 }
 
@@ -18934,20 +18938,34 @@ func (u *UpdatePendingJoinRequests) GetRecentRequesters() (value []int64) {
 }
 
 // UpdateBotChatInviteRequester represents TL type `updateBotChatInviteRequester#11dfa986`.
+// Someone has requested to join a chat or channel (bots only, users will receive an
+// updatePendingJoinRequests¹, instead)
+//
+// Links:
+//  1) https://core.telegram.org/constructor/updatePendingJoinRequests
 //
 // See https://core.telegram.org/constructor/updateBotChatInviteRequester for reference.
 type UpdateBotChatInviteRequester struct {
-	// Peer field of UpdateBotChatInviteRequester.
+	// The chat or channel in question
 	Peer PeerClass
-	// Date field of UpdateBotChatInviteRequester.
+	// When was the join request »¹ made
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/invites#join-requests
 	Date int
-	// UserID field of UpdateBotChatInviteRequester.
+	// The user ID that is asking to join the chat or channel
 	UserID int64
-	// About field of UpdateBotChatInviteRequester.
+	// Bio of the user
 	About string
-	// Invite field of UpdateBotChatInviteRequester.
+	// Chat invite link that was used by the user to send the join request »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/invites#join-requests
 	Invite ExportedChatInviteClass
-	// Qts field of UpdateBotChatInviteRequester.
+	// QTS¹ event sequence identifier
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Qts int
 }
 
@@ -19213,14 +19231,18 @@ func (u *UpdateBotChatInviteRequester) GetQts() (value int) {
 }
 
 // UpdateMessageReactions represents TL type `updateMessageReactions#154798c3`.
+// New message reactions »¹ are available
+//
+// Links:
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/constructor/updateMessageReactions for reference.
 type UpdateMessageReactions struct {
-	// Peer field of UpdateMessageReactions.
+	// Peer
 	Peer PeerClass
-	// MsgID field of UpdateMessageReactions.
+	// Message ID
 	MsgID int
-	// Reactions field of UpdateMessageReactions.
+	// Reactions
 	Reactions MessageReactions
 }
 

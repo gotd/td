@@ -32,7 +32,7 @@ var (
 )
 
 // AuthExportedAuthorization represents TL type `auth.exportedAuthorization#b434e2b8`.
-// Data for copying of authorization between data centres.
+// Data for copying of authorization between data centers.
 //
 // See https://core.telegram.org/constructor/auth.exportedAuthorization for reference.
 type AuthExportedAuthorization struct {

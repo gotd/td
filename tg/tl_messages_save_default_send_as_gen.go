@@ -32,12 +32,13 @@ var (
 )
 
 // MessagesSaveDefaultSendAsRequest represents TL type `messages.saveDefaultSendAs#ccfddf96`.
+// Change the default peer that should be used when sending messages to a specific group
 //
 // See https://core.telegram.org/method/messages.saveDefaultSendAs for reference.
 type MessagesSaveDefaultSendAsRequest struct {
-	// Peer field of MessagesSaveDefaultSendAsRequest.
+	// Group
 	Peer InputPeerClass
-	// SendAs field of MessagesSaveDefaultSendAsRequest.
+	// The default peer that should be used when sending messages to the group
 	SendAs InputPeerClass
 }
 
@@ -198,6 +199,10 @@ func (s *MessagesSaveDefaultSendAsRequest) GetSendAs() (value InputPeerClass) {
 }
 
 // MessagesSaveDefaultSendAs invokes method messages.saveDefaultSendAs#ccfddf96 returning error if any.
+// Change the default peer that should be used when sending messages to a specific group
+//
+// Possible errors:
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.saveDefaultSendAs for reference.
 func (c *Client) MessagesSaveDefaultSendAs(ctx context.Context, request *MessagesSaveDefaultSendAsRequest) (bool, error) {

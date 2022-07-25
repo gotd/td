@@ -338,7 +338,7 @@ func (p *PhoneCallDiscardReasonHangup) DecodeBare(b *bin.Buffer) error {
 }
 
 // PhoneCallDiscardReasonBusy represents TL type `phoneCallDiscardReasonBusy#faf7e8c9`.
-// The phone call was discared because the user is busy in another call
+// The phone call was discarded because the user is busy in another call
 //
 // See https://core.telegram.org/constructor/phoneCallDiscardReasonBusy for reference.
 type PhoneCallDiscardReasonBusy struct {

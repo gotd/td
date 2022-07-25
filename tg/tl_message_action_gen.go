@@ -448,7 +448,7 @@ func (m *MessageActionChatEditTitle) GetTitle() (value string) {
 //
 // See https://core.telegram.org/constructor/messageActionChatEditPhoto for reference.
 type MessageActionChatEditPhoto struct {
-	// New group pofile photo
+	// New group profile photo
 	Photo PhotoClass
 }
 
@@ -1384,7 +1384,7 @@ func (m *MessageActionChatMigrateTo) GetChannelID() (value int64) {
 //
 // See https://core.telegram.org/constructor/messageActionChannelMigrateFrom for reference.
 type MessageActionChannelMigrateFrom struct {
-	// The old chat tite
+	// The old chat title
 	Title string
 	// The old chat ID
 	ChatID int64
@@ -4753,6 +4753,7 @@ func (m *MessageActionSetChatTheme) GetEmoticon() (value string) {
 }
 
 // MessageActionChatJoinedByRequest represents TL type `messageActionChatJoinedByRequest#ebbca3cb`.
+// A user was accepted into the group by an admin
 //
 // See https://core.telegram.org/constructor/messageActionChatJoinedByRequest for reference.
 type MessageActionChatJoinedByRequest struct {

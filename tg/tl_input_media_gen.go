@@ -769,7 +769,7 @@ func (i *InputMediaGeoPoint) GetGeoPoint() (value InputGeoPointClass) {
 }
 
 // InputMediaContact represents TL type `inputMediaContact#f8ab7dfb`.
-// Phonebook contact
+// Phone book contact
 //
 // See https://core.telegram.org/constructor/inputMediaContact for reference.
 type InputMediaContact struct {

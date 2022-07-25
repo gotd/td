@@ -540,7 +540,7 @@ func (e *MessagesEditMessageRequest) MapEntities() (value MessageEntityClassArra
 //  400 BUTTON_URL_INVALID: Button URL invalid.
 //  400 CHANNEL_INVALID: The provided channel is invalid.
 //  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //  403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //  400 ENTITIES_TOO_LONG: You provided too many styled message entities.
 //  403 INLINE_BOT_REQUIRED: Only the inline bot can edit message.
@@ -553,7 +553,7 @@ func (e *MessagesEditMessageRequest) MapEntities() (value MessageEntityClassArra
 //  400 MESSAGE_EDIT_TIME_EXPIRED: You can't edit this message anymore, too much time has passed since its creation.
 //  400 MESSAGE_EMPTY: The provided message is empty.
 //  400 MESSAGE_ID_INVALID: The provided message id is invalid.
-//  400 MESSAGE_NOT_MODIFIED: The message text has not changed.
+//  400 MESSAGE_NOT_MODIFIED: The provided message data is identical to the previous message data, the message wasn't modified.
 //  400 MESSAGE_TOO_LONG: The provided message is too long.
 //  400 MSG_ID_INVALID: Invalid message ID provided.
 //  400 PEER_ID_INVALID: The provided peer id is invalid.

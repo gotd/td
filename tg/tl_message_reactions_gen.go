@@ -32,18 +32,36 @@ var (
 )
 
 // MessageReactions represents TL type `messageReactions#4f2b9479`.
+// Message reactions »¹
+//
+// Links:
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/constructor/messageReactions for reference.
 type MessageReactions struct {
-	// Flags field of MessageReactions.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Min field of MessageReactions.
+	// Similar to min¹ objects, used for message reaction »² constructors that are the
+	// same for all users so they don't have the reactions sent by the current user (you can
+	// use messages.getMessagesReactions³ to get the full reaction info).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/min
+	//  2) https://core.telegram.org/api/reactions
+	//  3) https://core.telegram.org/method/messages.getMessagesReactions
 	Min bool
-	// CanSeeList field of MessageReactions.
+	// Whether messages.getMessageReactionsList¹ can be used to see how each specific peer
+	// reacted to the message
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.getMessageReactionsList
 	CanSeeList bool
-	// Results field of MessageReactions.
+	// Reactions
 	Results []ReactionCount
-	// RecentReactions field of MessageReactions.
+	// List of recent peers and their reactions
 	//
 	// Use SetRecentReactions and GetRecentReactions helpers.
 	RecentReactions []MessagePeerReaction

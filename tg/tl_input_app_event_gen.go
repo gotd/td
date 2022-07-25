@@ -32,7 +32,7 @@ var (
 )
 
 // InputAppEvent represents TL type `inputAppEvent#1d1b1245`.
-// Event that occured in the application.
+// Event that occurred in the application.
 //
 // See https://core.telegram.org/constructor/inputAppEvent for reference.
 type InputAppEvent struct {

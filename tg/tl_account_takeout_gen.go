@@ -32,7 +32,7 @@ var (
 )
 
 // AccountTakeout represents TL type `account.takeout#4dba4501`.
-// Takout info
+// Takeout info
 //
 // See https://core.telegram.org/constructor/account.takeout for reference.
 type AccountTakeout struct {

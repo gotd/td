@@ -32,20 +32,30 @@ var (
 )
 
 // MessagesGetUnreadReactionsRequest represents TL type `messages.getUnreadReactions#e85bae1a`.
+// Get unread reactions to messages you sent
 //
 // See https://core.telegram.org/method/messages.getUnreadReactions for reference.
 type MessagesGetUnreadReactionsRequest struct {
-	// Peer field of MessagesGetUnreadReactionsRequest.
+	// Peer
 	Peer InputPeerClass
-	// OffsetID field of MessagesGetUnreadReactionsRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetID int
-	// AddOffset field of MessagesGetUnreadReactionsRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	AddOffset int
-	// Limit field of MessagesGetUnreadReactionsRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
-	// MaxID field of MessagesGetUnreadReactionsRequest.
+	// Only return reactions for messages up until this message ID
 	MaxID int
-	// MinID field of MessagesGetUnreadReactionsRequest.
+	// Only return reactions for messages starting from this message ID
 	MinID int
 }
 
@@ -301,8 +311,10 @@ func (g *MessagesGetUnreadReactionsRequest) GetMinID() (value int) {
 }
 
 // MessagesGetUnreadReactions invokes method messages.getUnreadReactions#e85bae1a returning error if any.
+// Get unread reactions to messages you sent
 //
 // See https://core.telegram.org/method/messages.getUnreadReactions for reference.
+// Can be used by bots.
 func (c *Client) MessagesGetUnreadReactions(ctx context.Context, request *MessagesGetUnreadReactionsRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
 

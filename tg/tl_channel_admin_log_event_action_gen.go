@@ -2451,7 +2451,7 @@ type ChannelAdminLogEventActionDefaultBannedRights struct {
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	PrevBannedRights ChatBannedRights
-	// New glboal banned rights¹.
+	// New global banned rights¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
@@ -4850,12 +4850,13 @@ func (c *ChannelAdminLogEventActionChangeHistoryTTL) GetNewValue() (value int) {
 }
 
 // ChannelAdminLogEventActionParticipantJoinByRequest represents TL type `channelAdminLogEventActionParticipantJoinByRequest#afb6144a`.
+// A new member was accepted to the chat by an admin
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByRequest for reference.
 type ChannelAdminLogEventActionParticipantJoinByRequest struct {
-	// Invite field of ChannelAdminLogEventActionParticipantJoinByRequest.
+	// The invite link that was used to join the chat
 	Invite ExportedChatInviteClass
-	// ApprovedBy field of ChannelAdminLogEventActionParticipantJoinByRequest.
+	// ID of the admin that approved the invite
 	ApprovedBy int64
 }
 
@@ -5018,10 +5019,11 @@ func (c *ChannelAdminLogEventActionParticipantJoinByRequest) GetApprovedBy() (va
 }
 
 // ChannelAdminLogEventActionToggleNoForwards represents TL type `channelAdminLogEventActionToggleNoForwards#cb2ac766`.
+// Forwards were enabled or disabled
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleNoForwards for reference.
 type ChannelAdminLogEventActionToggleNoForwards struct {
-	// NewValue field of ChannelAdminLogEventActionToggleNoForwards.
+	// Old value
 	NewValue bool
 }
 
@@ -5154,10 +5156,11 @@ func (c *ChannelAdminLogEventActionToggleNoForwards) GetNewValue() (value bool) 
 }
 
 // ChannelAdminLogEventActionSendMessage represents TL type `channelAdminLogEventActionSendMessage#278f2868`.
+// A message was posted in a channel
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionSendMessage for reference.
 type ChannelAdminLogEventActionSendMessage struct {
-	// Message field of ChannelAdminLogEventActionSendMessage.
+	// The message that was sent
 	Message MessageClass
 }
 
@@ -5293,12 +5296,16 @@ func (c *ChannelAdminLogEventActionSendMessage) GetMessage() (value MessageClass
 }
 
 // ChannelAdminLogEventActionChangeAvailableReactions represents TL type `channelAdminLogEventActionChangeAvailableReactions#9cf7f76a`.
+// The set of allowed message reactions »¹ for this channel has changed
+//
+// Links:
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeAvailableReactions for reference.
 type ChannelAdminLogEventActionChangeAvailableReactions struct {
-	// PrevValue field of ChannelAdminLogEventActionChangeAvailableReactions.
+	// Previously allowed reaction emojis
 	PrevValue []string
-	// NewValue field of ChannelAdminLogEventActionChangeAvailableReactions.
+	// New allowed reaction emojis
 	NewValue []string
 }
 

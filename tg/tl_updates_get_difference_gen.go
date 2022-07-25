@@ -309,8 +309,8 @@ func (g *UpdatesGetDifferenceRequest) GetQts() (value int) {
 //  1) https://core.telegram.org/api/updates
 //
 // Possible errors:
-//  401 AUTH_KEY_PERM_EMPTY: The temporary auth key must be binded to the permanent auth key to use these methods.
 //  400 CDN_METHOD_INVALID: You can't call this method in a CDN DC.
+//  400 CHANNEL_INVALID: The provided channel is invalid.
 //  403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //  400 DATE_EMPTY: Date empty.
 //  400 MSG_ID_INVALID: Invalid message ID provided.

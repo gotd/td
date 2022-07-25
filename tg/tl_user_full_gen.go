@@ -45,7 +45,7 @@ type UserFull struct {
 	Blocked bool
 	// Whether this user can make VoIP calls
 	PhoneCallsAvailable bool
-	// Whether this user's privacy settings allow you to call him
+	// Whether this user's privacy settings allow you to call them
 	PhoneCallsPrivate bool
 	// Whether you can pin messages in the chat with this user, you can do this only for a
 	// chat with yourself
@@ -57,7 +57,7 @@ type UserFull struct {
 	HasScheduled bool
 	// Whether the user can receive video calls
 	VideoCallsAvailable bool
-	// ID field of UserFull.
+	// User ID
 	ID int64
 	// Bio of the user
 	//
@@ -100,7 +100,7 @@ type UserFull struct {
 	//
 	// Use SetThemeEmoticon and GetThemeEmoticon helpers.
 	ThemeEmoticon string
-	// PrivateForwardName field of UserFull.
+	// Anonymized text to be shown instead of the the user's name on forwarded messages
 	//
 	// Use SetPrivateForwardName and GetPrivateForwardName helpers.
 	PrivateForwardName string

@@ -60,7 +60,7 @@ type Dialog struct {
 	// Links:
 	//  1) https://core.telegram.org/api/mentions
 	UnreadMentionsCount int
-	// UnreadReactionsCount field of Dialog.
+	// Number of unread reactions to messages you sent
 	UnreadReactionsCount int
 	// Notification settings
 	NotifySettings PeerNotifySettings

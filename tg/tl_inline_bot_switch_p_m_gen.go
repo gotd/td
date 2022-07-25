@@ -32,7 +32,7 @@ var (
 )
 
 // InlineBotSwitchPM represents TL type `inlineBotSwitchPM#3c20629f`.
-// The bot requested the user to message him in private
+// The bot requested the user to message them in private
 //
 // See https://core.telegram.org/constructor/inlineBotSwitchPM for reference.
 type InlineBotSwitchPM struct {

@@ -32,16 +32,20 @@ var (
 )
 
 // ReactionCount represents TL type `reactionCount#6fb250d1`.
+// Reactions
 //
 // See https://core.telegram.org/constructor/reactionCount for reference.
 type ReactionCount struct {
-	// Flags field of ReactionCount.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Chosen field of ReactionCount.
+	// Whether the current user sent this reaction
 	Chosen bool
-	// Reaction field of ReactionCount.
+	// Reaction (a UTF8 emoji)
 	Reaction string
-	// Count field of ReactionCount.
+	// NUmber of users that reacted with this emoji
 	Count int
 }
 

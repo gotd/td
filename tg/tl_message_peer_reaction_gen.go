@@ -32,18 +32,25 @@ var (
 )
 
 // MessagePeerReaction represents TL type `messagePeerReaction#51b67eff`.
+// How a certain peer reacted to the message
 //
 // See https://core.telegram.org/constructor/messagePeerReaction for reference.
 type MessagePeerReaction struct {
-	// Flags field of MessagePeerReaction.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Big field of MessagePeerReaction.
+	// Whether the specified message reaction »¹ should elicit a bigger and longer reaction
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/reactions
 	Big bool
-	// Unread field of MessagePeerReaction.
+	// Whether the reaction wasn't yet marked as read by the current user
 	Unread bool
-	// PeerID field of MessagePeerReaction.
+	// Peer that reacted to the message
 	PeerID PeerClass
-	// Reaction field of MessagePeerReaction.
+	// Reaction emoji
 	Reaction string
 }
 

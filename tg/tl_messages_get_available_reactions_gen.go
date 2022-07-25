@@ -32,10 +32,17 @@ var (
 )
 
 // MessagesGetAvailableReactionsRequest represents TL type `messages.getAvailableReactions#18dea0ac`.
+// Obtain available message reactions »¹
+//
+// Links:
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getAvailableReactions for reference.
 type MessagesGetAvailableReactionsRequest struct {
-	// Hash field of MessagesGetAvailableReactionsRequest.
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 }
 
@@ -161,6 +168,10 @@ func (g *MessagesGetAvailableReactionsRequest) GetHash() (value int) {
 }
 
 // MessagesGetAvailableReactions invokes method messages.getAvailableReactions#18dea0ac returning error if any.
+// Obtain available message reactions »¹
+//
+// Links:
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getAvailableReactions for reference.
 func (c *Client) MessagesGetAvailableReactions(ctx context.Context, hash int) (MessagesAvailableReactionsClass, error) {

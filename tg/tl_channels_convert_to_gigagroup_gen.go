@@ -188,6 +188,7 @@ func (c *ChannelsConvertToGigagroupRequest) GetChannelAsNotEmpty() (NotEmptyInpu
 //  3) https://core.telegram.org/api/config#channel-suggestions
 //
 // Possible errors:
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //  400 PARTICIPANTS_TOO_FEW: Not enough participants.
 //
 // See https://core.telegram.org/method/channels.convertToGigagroup for reference.

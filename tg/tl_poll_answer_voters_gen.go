@@ -43,7 +43,7 @@ type PollAnswerVoters struct {
 	Flags bin.Fields
 	// Whether we have chosen this answer
 	Chosen bool
-	// For quizes, whether the option we have chosen is correct
+	// For quizzes, whether the option we have chosen is correct
 	Correct bool
 	// The param that has to be passed to messages.sendVote¹.
 	//

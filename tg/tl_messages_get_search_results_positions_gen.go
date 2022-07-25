@@ -32,16 +32,31 @@ var (
 )
 
 // MessagesGetSearchResultsPositionsRequest represents TL type `messages.getSearchResultsPositions#6e9583a3`.
+// Returns sparse positions of messages of the specified type in the chat to be used for
+// shared media scroll implementation.
+// Returns the results in reverse chronological order (i.e., in order of decreasing
+// message_id).
 //
 // See https://core.telegram.org/method/messages.getSearchResultsPositions for reference.
 type MessagesGetSearchResultsPositionsRequest struct {
-	// Peer field of MessagesGetSearchResultsPositionsRequest.
+	// Peer where to search
 	Peer InputPeerClass
-	// Filter field of MessagesGetSearchResultsPositionsRequest.
+	// Message filter, inputMessagesFilterEmpty¹, inputMessagesFilterMyMentions² filters
+	// are not supported by this method.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputMessagesFilterEmpty
+	//  2) https://core.telegram.org/constructor/inputMessagesFilterMyMentions
 	Filter MessagesFilterClass
-	// OffsetID field of MessagesGetSearchResultsPositionsRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetID int
-	// Limit field of MessagesGetSearchResultsPositionsRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -252,6 +267,10 @@ func (g *MessagesGetSearchResultsPositionsRequest) GetLimit() (value int) {
 }
 
 // MessagesGetSearchResultsPositions invokes method messages.getSearchResultsPositions#6e9583a3 returning error if any.
+// Returns sparse positions of messages of the specified type in the chat to be used for
+// shared media scroll implementation.
+// Returns the results in reverse chronological order (i.e., in order of decreasing
+// message_id).
 //
 // See https://core.telegram.org/method/messages.getSearchResultsPositions for reference.
 func (c *Client) MessagesGetSearchResultsPositions(ctx context.Context, request *MessagesGetSearchResultsPositionsRequest) (*MessagesSearchResultsPositions, error) {

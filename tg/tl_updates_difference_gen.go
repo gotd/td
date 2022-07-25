@@ -583,7 +583,7 @@ func (d *UpdatesDifference) MapUsers() (value UserClassArray) {
 //
 // See https://core.telegram.org/constructor/updates.differenceSlice for reference.
 type UpdatesDifferenceSlice struct {
-	// List of new messgaes
+	// List of new messages
 	NewMessages []MessageClass
 	// New messages from the encrypted event sequence¹
 	//

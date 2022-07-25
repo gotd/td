@@ -32,18 +32,29 @@ var (
 )
 
 // AccountChangeAuthorizationSettingsRequest represents TL type `account.changeAuthorizationSettings#40f48462`.
+// Change authorization settings
 //
 // See https://core.telegram.org/method/account.changeAuthorizationSettings for reference.
 type AccountChangeAuthorizationSettingsRequest struct {
-	// Flags field of AccountChangeAuthorizationSettingsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Hash field of AccountChangeAuthorizationSettingsRequest.
+	// Session ID from the authorization¹ constructor, fetchable using account
+	// getAuthorizations²
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/authorization
+	//  2) https://core.telegram.org/method/account.getAuthorizations
 	Hash int64
-	// EncryptedRequestsDisabled field of AccountChangeAuthorizationSettingsRequest.
+	// Whether to enable or disable receiving encrypted chats: if the flag is not set, the
+	// previous setting is not changed
 	//
 	// Use SetEncryptedRequestsDisabled and GetEncryptedRequestsDisabled helpers.
 	EncryptedRequestsDisabled bool
-	// CallRequestsDisabled field of AccountChangeAuthorizationSettingsRequest.
+	// Whether to enable or disable receiving calls: if the flag is not set, the previous
+	// setting is not changed
 	//
 	// Use SetCallRequestsDisabled and GetCallRequestsDisabled helpers.
 	CallRequestsDisabled bool
@@ -275,6 +286,10 @@ func (c *AccountChangeAuthorizationSettingsRequest) GetCallRequestsDisabled() (v
 }
 
 // AccountChangeAuthorizationSettings invokes method account.changeAuthorizationSettings#40f48462 returning error if any.
+// Change authorization settings
+//
+// Possible errors:
+//  400 HASH_INVALID: The provided hash is invalid.
 //
 // See https://core.telegram.org/method/account.changeAuthorizationSettings for reference.
 func (c *Client) AccountChangeAuthorizationSettings(ctx context.Context, request *AccountChangeAuthorizationSettingsRequest) (bool, error) {

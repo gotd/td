@@ -215,6 +215,7 @@ func (c *MessagesCreateChatRequest) MapUsers() (value InputUserClassArray) {
 // Creates a new chat.
 //
 // Possible errors:
+//  500 CHAT_ID_GENERATE_FAILED: Failure while generating the chat ID.
 //  400 CHAT_INVALID: Invalid chat.
 //  400 CHAT_TITLE_EMPTY: No chat title provided.
 //  400 INPUT_USER_DEACTIVATED: The specified user was deleted.

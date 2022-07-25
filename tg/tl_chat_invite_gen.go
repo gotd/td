@@ -202,11 +202,14 @@ type ChatInvite struct {
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	Megagroup bool
-	// RequestNeeded field of ChatInvite.
+	// Whether the join request »¹ must be first approved by an administrator
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/invites#join-requests
 	RequestNeeded bool
 	// Chat/supergroup/channel title
 	Title string
-	// About field of ChatInvite.
+	// Description of the group of channel
 	//
 	// Use SetAbout and GetAbout helpers.
 	About string

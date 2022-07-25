@@ -45,7 +45,7 @@ type PhoneToggleGroupCallSettingsRequest struct {
 	ResetInviteHash bool
 	// Group call
 	Call InputGroupCall
-	// Whether all users will bthat join this group calle muted by default upon joining the
+	// Whether all users will that join this group call are muted by default upon joining the
 	// group call
 	//
 	// Use SetJoinMuted and GetJoinMuted helpers.

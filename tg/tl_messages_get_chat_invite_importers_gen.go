@@ -36,9 +36,15 @@ var (
 //
 // See https://core.telegram.org/method/messages.getChatInviteImporters for reference.
 type MessagesGetChatInviteImportersRequest struct {
-	// Flags field of MessagesGetChatInviteImportersRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Requested field of MessagesGetChatInviteImportersRequest.
+	// If set, only returns info about users with pending join requests »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/invites#join-requests
 	Requested bool
 	// Chat
 	Peer InputPeerClass
@@ -46,7 +52,11 @@ type MessagesGetChatInviteImportersRequest struct {
 	//
 	// Use SetLink and GetLink helpers.
 	Link string
-	// Q field of MessagesGetChatInviteImportersRequest.
+	// Search for a user in the pending join requests »¹ list: only available when the
+	// requested flag is set, cannot be used together with a specific link.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/invites#join-requests
 	//
 	// Use SetQ and GetQ helpers.
 	Q string
@@ -412,6 +422,13 @@ func (g *MessagesGetChatInviteImportersRequest) GetLimit() (value int) {
 
 // MessagesGetChatInviteImporters invokes method messages.getChatInviteImporters#df04dd4e returning error if any.
 // Get info about the users that joined the chat using a specific chat invite
+//
+// Possible errors:
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  400 INVITE_HASH_EXPIRED: The invite link has expired.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//  400 SEARCH_WITH_LINK_NOT_SUPPORTED: You cannot provide a search query and an invite link at the same time.
 //
 // See https://core.telegram.org/method/messages.getChatInviteImporters for reference.
 func (c *Client) MessagesGetChatInviteImporters(ctx context.Context, request *MessagesGetChatInviteImportersRequest) (*MessagesChatInviteImporters, error) {

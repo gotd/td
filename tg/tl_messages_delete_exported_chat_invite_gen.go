@@ -196,6 +196,9 @@ func (d *MessagesDeleteExportedChatInviteRequest) GetLink() (value string) {
 // MessagesDeleteExportedChatInvite invokes method messages.deleteExportedChatInvite#d464a42b returning error if any.
 // Delete a chat invite
 //
+// Possible errors:
+//  400 INVITE_REVOKED_MISSING: The specified invite link was already revoked or is invalid.
+//
 // See https://core.telegram.org/method/messages.deleteExportedChatInvite for reference.
 func (c *Client) MessagesDeleteExportedChatInvite(ctx context.Context, request *MessagesDeleteExportedChatInviteRequest) (bool, error) {
 	var result BoolBox

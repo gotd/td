@@ -278,7 +278,7 @@ func (i *InputSecureFileUploaded) GetSecret() (value []byte) {
 }
 
 // InputSecureFile represents TL type `inputSecureFile#5367e5be`.
-// Preuploaded passport¹ file, for more info see the passport docs »²
+// Pre-uploaded passport¹ file, for more info see the passport docs »²
 //
 // Links:
 //  1) https://core.telegram.org/passport

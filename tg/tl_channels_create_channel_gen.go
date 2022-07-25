@@ -448,7 +448,7 @@ func (c *ChannelsCreateChannelRequest) GetGeoPointAsNotEmpty() (*InputGeoPoint, 
 //  400 CHANNELS_TOO_MUCH: You have joined too many channels/supergroups.
 //  400 CHAT_ABOUT_TOO_LONG: Chat about too long.
 //  400 CHAT_TITLE_EMPTY: No chat title provided.
-//  403 USER_RESTRICTED: You're spamreported, you can't create channels or chats.
+//  406 USER_RESTRICTED: You're spamreported, you can't create channels or chats.
 //
 // See https://core.telegram.org/method/channels.createChannel for reference.
 func (c *Client) ChannelsCreateChannel(ctx context.Context, request *ChannelsCreateChannelRequest) (UpdatesClass, error) {

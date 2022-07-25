@@ -32,11 +32,21 @@ var (
 )
 
 // ChannelsGetFullChannelRequest represents TL type `channels.getFullChannel#8736a09`.
-// Get full info about a channel
+// Get full info about a supergroup¹, gigagroup² or channel³
+//
+// Links:
+//  1) https://core.telegram.org/api/channel#supergroups
+//  2) https://core.telegram.org/api/channel#gigagroups
+//  3) https://core.telegram.org/api/channel#channels
 //
 // See https://core.telegram.org/method/channels.getFullChannel for reference.
 type ChannelsGetFullChannelRequest struct {
-	// The channel to get info about
+	// The channel¹, supergroup² or gigagroup³ to get info about
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel#channels
+	//  2) https://core.telegram.org/api/channel#supergroups
+	//  3) https://core.telegram.org/api/channel#gigagroups
 	Channel InputChannelClass
 }
 
@@ -172,11 +182,16 @@ func (g *ChannelsGetFullChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 }
 
 // ChannelsGetFullChannel invokes method channels.getFullChannel#8736a09 returning error if any.
-// Get full info about a channel
+// Get full info about a supergroup¹, gigagroup² or channel³
+//
+// Links:
+//  1) https://core.telegram.org/api/channel#supergroups
+//  2) https://core.telegram.org/api/channel#gigagroups
+//  3) https://core.telegram.org/api/channel#channels
 //
 // Possible errors:
 //  400 CHANNEL_INVALID: The provided channel is invalid.
-//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//  406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //  403 CHANNEL_PUBLIC_GROUP_NA: channel/supergroup not available.
 //  400 CHAT_NOT_MODIFIED: The pinned message wasn't modified.
 //  400 MSG_ID_INVALID: Invalid message ID provided.

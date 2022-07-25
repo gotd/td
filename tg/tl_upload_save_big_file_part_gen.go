@@ -32,7 +32,7 @@ var (
 )
 
 // UploadSaveBigFilePartRequest represents TL type `upload.saveBigFilePart#de7b673d`.
-// Saves a part of a large file (over 10Mb in size) to be later passed to one of the
+// Saves a part of a large file (over 10 MB in size) to be later passed to one of the
 // methods.
 //
 // See https://core.telegram.org/method/upload.saveBigFilePart for reference.
@@ -244,7 +244,7 @@ func (s *UploadSaveBigFilePartRequest) GetBytes() (value []byte) {
 }
 
 // UploadSaveBigFilePart invokes method upload.saveBigFilePart#de7b673d returning error if any.
-// Saves a part of a large file (over 10Mb in size) to be later passed to one of the
+// Saves a part of a large file (over 10 MB in size) to be later passed to one of the
 // methods.
 //
 // Possible errors:

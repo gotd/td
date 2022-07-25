@@ -36,19 +36,28 @@ var (
 //
 // See https://core.telegram.org/constructor/chatInviteImporter for reference.
 type ChatInviteImporter struct {
-	// Flags field of ChatInviteImporter.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Requested field of ChatInviteImporter.
+	// Whether this user currently has a pending join request »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/invites#join-requests
 	Requested bool
 	// The user
 	UserID int64
 	// When did the user join
 	Date int
-	// About field of ChatInviteImporter.
+	// For users with pending requests, contains bio of the user that requested to join
 	//
 	// Use SetAbout and GetAbout helpers.
 	About string
-	// ApprovedBy field of ChatInviteImporter.
+	// The administrator that approved the join request »¹ of the user
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/invites#join-requests
 	//
 	// Use SetApprovedBy and GetApprovedBy helpers.
 	ApprovedBy int64

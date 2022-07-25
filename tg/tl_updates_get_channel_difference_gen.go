@@ -336,6 +336,7 @@ func (g *UpdatesGetChannelDifferenceRequest) GetFilterAsNotEmpty() (*ChannelMess
 //  400 MSG_ID_INVALID: Invalid message ID provided.
 //  400 PERSISTENT_TIMESTAMP_EMPTY: Persistent timestamp empty.
 //  400 PERSISTENT_TIMESTAMP_INVALID: Persistent timestamp invalid.
+//  500 PERSISTENT_TIMESTAMP_OUTDATED: Channel internal replication issues, try again later (treat this like an RPC_CALL_FAIL).
 //  400 PINNED_DIALOGS_TOO_MUCH: Too many pinned dialogs.
 //  400 RANGES_INVALID: Invalid range provided.
 //  400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
