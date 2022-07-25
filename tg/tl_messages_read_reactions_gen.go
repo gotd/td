@@ -32,10 +32,14 @@ var (
 )
 
 // MessagesReadReactionsRequest represents TL type `messages.readReactions#82e251d7`.
+// Mark message reactions »¹ as read
+//
+// Links:
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.readReactions for reference.
 type MessagesReadReactionsRequest struct {
-	// Peer field of MessagesReadReactionsRequest.
+	// Peer
 	Peer InputPeerClass
 }
 
@@ -166,8 +170,13 @@ func (r *MessagesReadReactionsRequest) GetPeer() (value InputPeerClass) {
 }
 
 // MessagesReadReactions invokes method messages.readReactions#82e251d7 returning error if any.
+// Mark message reactions »¹ as read
+//
+// Links:
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.readReactions for reference.
+// Can be used by bots.
 func (c *Client) MessagesReadReactions(ctx context.Context, peer InputPeerClass) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory
 

@@ -255,7 +255,7 @@ func (i *InputFile) GetMD5Checksum() (value string) {
 }
 
 // InputFileBig represents TL type `inputFileBig#fa4f0bb5`.
-// Assigns a big file (over 10Mb in size), saved in part using the method upload
+// Assigns a big file (over 10 MB in size), saved in part using the method upload
 // saveBigFilePart¹.
 //
 // Links:

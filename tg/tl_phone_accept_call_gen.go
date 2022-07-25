@@ -224,6 +224,7 @@ func (a *PhoneAcceptCallRequest) GetProtocol() (value PhoneCallProtocol) {
 // Possible errors:
 //  400 CALL_ALREADY_ACCEPTED: The call was already accepted.
 //  400 CALL_ALREADY_DECLINED: The call was already declined.
+//  500 CALL_OCCUPY_FAILED: The call failed because the user is already making another call.
 //  400 CALL_PEER_INVALID: The provided call peer object is invalid.
 //  400 CALL_PROTOCOL_FLAGS_INVALID: Call protocol flags invalid.
 //

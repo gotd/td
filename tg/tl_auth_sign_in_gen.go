@@ -222,11 +222,12 @@ func (s *AuthSignInRequest) GetPhoneCode() (value string) {
 // Signs in a user with a validated phone number.
 //
 // Possible errors:
-//  400 PHONE_CODE_EMPTY: phone_code from the SMS is empty.
-//  400 PHONE_CODE_EXPIRED: SMS expired.
-//  400 PHONE_CODE_INVALID: Invalid SMS code was sent.
-//  400 PHONE_NUMBER_INVALID: Invalid phone number.
-//  400 PHONE_NUMBER_UNOCCUPIED: The code is valid but no user with the given number is registered.
+//  400 PHONE_CODE_EMPTY: phone_code is missing.
+//  400 PHONE_CODE_EXPIRED: The phone code you provided has expired.
+//  400 PHONE_CODE_INVALID: The provided phone code is invalid.
+//  406 PHONE_NUMBER_INVALID: The phone number is invalid.
+//  400 PHONE_NUMBER_UNOCCUPIED: The phone number is not yet being used.
+//  500 SIGN_IN_FAILED: Failure while signing in.
 //
 // See https://core.telegram.org/method/auth.signIn for reference.
 func (c *Client) AuthSignIn(ctx context.Context, request *AuthSignInRequest) (AuthAuthorizationClass, error) {

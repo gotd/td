@@ -32,28 +32,33 @@ var (
 )
 
 // MessagesTranslateTextRequest represents TL type `messages.translateText#24ce6dee`.
+// Translate a given text
 //
 // See https://core.telegram.org/method/messages.translateText for reference.
 type MessagesTranslateTextRequest struct {
-	// Flags field of MessagesTranslateTextRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of MessagesTranslateTextRequest.
+	// If the text is a chat message, the peer ID
 	//
 	// Use SetPeer and GetPeer helpers.
 	Peer InputPeerClass
-	// MsgID field of MessagesTranslateTextRequest.
+	// If the text is a chat message, the message ID
 	//
 	// Use SetMsgID and GetMsgID helpers.
 	MsgID int
-	// Text field of MessagesTranslateTextRequest.
+	// The text to translate
 	//
 	// Use SetText and GetText helpers.
 	Text string
-	// FromLang field of MessagesTranslateTextRequest.
+	// Two-letter ISO 639-1 language code of the language from which the message is
+	// translated, if not set will be autodetected
 	//
 	// Use SetFromLang and GetFromLang helpers.
 	FromLang string
-	// ToLang field of MessagesTranslateTextRequest.
+	// Two-letter ISO 639-1 language code of the language to which the message is translated
 	ToLang string
 }
 
@@ -376,8 +381,10 @@ func (t *MessagesTranslateTextRequest) GetToLang() (value string) {
 }
 
 // MessagesTranslateText invokes method messages.translateText#24ce6dee returning error if any.
+// Translate a given text
 //
 // See https://core.telegram.org/method/messages.translateText for reference.
+// Can be used by bots.
 func (c *Client) MessagesTranslateText(ctx context.Context, request *MessagesTranslateTextRequest) (MessagesTranslatedTextClass, error) {
 	var result MessagesTranslatedTextBox
 

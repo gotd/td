@@ -55,11 +55,12 @@ type MessagesEditExportedChatInviteRequest struct {
 	//
 	// Use SetUsageLimit and GetUsageLimit helpers.
 	UsageLimit int
-	// RequestNeeded field of MessagesEditExportedChatInviteRequest.
+	// Whether admin confirmation is required before admitting each separate user into the
+	// chat
 	//
 	// Use SetRequestNeeded and GetRequestNeeded helpers.
 	RequestNeeded bool
-	// Title field of MessagesEditExportedChatInviteRequest.
+	// Description of the invite link, visible only to administrators
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
@@ -445,6 +446,7 @@ func (e *MessagesEditExportedChatInviteRequest) GetTitle() (value string, ok boo
 // Edit an exported chat invite
 //
 // Possible errors:
+//  403 EDIT_BOT_INVITE_FORBIDDEN: Normal users can't edit invites that were created by bots.
 //  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.editExportedChatInvite for reference.

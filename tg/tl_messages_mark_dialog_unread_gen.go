@@ -225,6 +225,9 @@ func (m *MessagesMarkDialogUnreadRequest) GetPeer() (value InputDialogPeerClass)
 // MessagesMarkDialogUnread invokes method messages.markDialogUnread#c286d98f returning error if any.
 // Manually mark dialog as unread
 //
+// Possible errors:
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/messages.markDialogUnread for reference.
 func (c *Client) MessagesMarkDialogUnread(ctx context.Context, request *MessagesMarkDialogUnreadRequest) (bool, error) {
 	var result BoolBox

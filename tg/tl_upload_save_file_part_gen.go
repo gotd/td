@@ -32,7 +32,7 @@ var (
 )
 
 // UploadSaveFilePartRequest represents TL type `upload.saveFilePart#b304a621`.
-// Saves a part of file for futher sending to one of the methods.
+// Saves a part of file for further sending to one of the methods.
 //
 // See https://core.telegram.org/method/upload.saveFilePart for reference.
 type UploadSaveFilePartRequest struct {
@@ -216,7 +216,7 @@ func (s *UploadSaveFilePartRequest) GetBytes() (value []byte) {
 }
 
 // UploadSaveFilePart invokes method upload.saveFilePart#b304a621 returning error if any.
-// Saves a part of file for futher sending to one of the methods.
+// Saves a part of file for further sending to one of the methods.
 //
 // Possible errors:
 //  400 FILE_PART_EMPTY: The provided file part is empty.

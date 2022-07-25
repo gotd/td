@@ -32,7 +32,7 @@ var (
 )
 
 // MessagesMessages represents TL type `messages.messages#8c718e87`.
-// Full list of messages with auxilary data.
+// Full list of messages with auxiliary data.
 //
 // See https://core.telegram.org/constructor/messages.messages for reference.
 type MessagesMessages struct {

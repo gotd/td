@@ -48,7 +48,7 @@ type Theme struct {
 	// Whether this theme is meant to be used as a chat theme¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/blog/chat-themes-interactive-emoji-read-receipts
+	//  1) https://telegram.org/blog/chat-themes-interactive-emoji-read-receipts
 	ForChat bool
 	// Theme ID
 	ID int64
@@ -66,7 +66,7 @@ type Theme struct {
 	//
 	// Use SetSettings and GetSettings helpers.
 	Settings []ThemeSettings
-	// Emoticon field of Theme.
+	// Theme emoji
 	//
 	// Use SetEmoticon and GetEmoticon helpers.
 	Emoticon string

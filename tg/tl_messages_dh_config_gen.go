@@ -181,7 +181,7 @@ type MessagesDhConfig struct {
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
 	P []byte
-	// Vestion of set of parameters
+	// Version of set of parameters
 	Version int
 	// Random sequence of bytes of assigned length
 	Random []byte

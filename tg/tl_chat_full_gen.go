@@ -32,7 +32,10 @@ var (
 )
 
 // ChatFull represents TL type `chatFull#d18ee226`.
-// Detailed chat info
+// Full info about a basic group¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/constructor/chatFull for reference.
 type ChatFull struct {
@@ -102,15 +105,21 @@ type ChatFull struct {
 	//
 	// Use SetThemeEmoticon and GetThemeEmoticon helpers.
 	ThemeEmoticon string
-	// RequestsPending field of ChatFull.
+	// Pending join requests »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/invites#join-requests
 	//
 	// Use SetRequestsPending and GetRequestsPending helpers.
 	RequestsPending int
-	// RecentRequesters field of ChatFull.
+	// IDs of users who requested to join recently
 	//
 	// Use SetRecentRequesters and GetRecentRequesters helpers.
 	RecentRequesters []int64
-	// AvailableReactions field of ChatFull.
+	// Allowed message reactions »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/reactions
 	//
 	// Use SetAvailableReactions and GetAvailableReactions helpers.
 	AvailableReactions []string
@@ -989,10 +998,12 @@ func (c *ChatFull) GetAvailableReactions() (value []string, ok bool) {
 }
 
 // ChannelFull represents TL type `channelFull#ea68a619`.
-// Full info about a channel/supergroup¹
+// Full info about a channel¹, supergroup² or gigagroup³.
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel#channels
+//  2) https://core.telegram.org/api/channel#supergroups
+//  3) https://core.telegram.org/api/channel#gigagroups
 //
 // See https://core.telegram.org/constructor/channelFull for reference.
 type ChannelFull struct {
@@ -1001,7 +1012,7 @@ type ChannelFull struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Can we vew the participant list?
+	// Can we view the participant list?
 	CanViewParticipants bool
 	// Can we set the channel's username?
 	CanSetUsername bool
@@ -1075,7 +1086,7 @@ type ChannelFull struct {
 	//
 	// Use SetExportedInvite and GetExportedInvite helpers.
 	ExportedInvite ExportedChatInviteClass
-	// Info about bots in the channel/supergrup
+	// Info about bots in the channel/supergroup
 	BotInfo []BotInfo
 	// The chat ID from which this group was migrated¹
 	//
@@ -1130,7 +1141,7 @@ type ChannelFull struct {
 	// Use SetSlowmodeSeconds and GetSlowmodeSeconds helpers.
 	SlowmodeSeconds int
 	// Indicates when the user will be allowed to send another message in the supergroup
-	// (unixdate)
+	// (unixtime)
 	//
 	// Use SetSlowmodeNextSendDate and GetSlowmodeNextSendDate helpers.
 	SlowmodeNextSendDate int
@@ -1171,19 +1182,25 @@ type ChannelFull struct {
 	//
 	// Use SetThemeEmoticon and GetThemeEmoticon helpers.
 	ThemeEmoticon string
-	// RequestsPending field of ChannelFull.
+	// Pending join requests »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/invites#join-requests
 	//
 	// Use SetRequestsPending and GetRequestsPending helpers.
 	RequestsPending int
-	// RecentRequesters field of ChannelFull.
+	// IDs of users who requested to join recently
 	//
 	// Use SetRecentRequesters and GetRecentRequesters helpers.
 	RecentRequesters []int64
-	// DefaultSendAs field of ChannelFull.
+	// Default peer used for sending messages to this channel
 	//
 	// Use SetDefaultSendAs and GetDefaultSendAs helpers.
 	DefaultSendAs PeerClass
-	// AvailableReactions field of ChannelFull.
+	// Allowed message reactions »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/reactions
 	//
 	// Use SetAvailableReactions and GetAvailableReactions helpers.
 	AvailableReactions []string
@@ -3146,12 +3163,18 @@ type ChatFullClass interface {
 	// Emoji representing a specific chat theme
 	GetThemeEmoticon() (value string, ok bool)
 
-	// RequestsPending field of ChatFull.
+	// Pending join requests »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/invites#join-requests
 	GetRequestsPending() (value int, ok bool)
 
-	// RecentRequesters field of ChatFull.
+	// IDs of users who requested to join recently
 	GetRecentRequesters() (value []int64, ok bool)
-	// AvailableReactions field of ChatFull.
+	// Allowed message reactions »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/reactions
 	GetAvailableReactions() (value []string, ok bool)
 }
 

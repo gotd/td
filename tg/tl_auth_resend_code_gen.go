@@ -203,9 +203,9 @@ func (r *AuthResendCodeRequest) GetPhoneCodeHash() (value string) {
 //  1) https://core.telegram.org/api/auth
 //
 // Possible errors:
-//  400 PHONE_CODE_EXPIRED: The phone code you provided has expired, this may happen if it was sent to any chat on telegram (if the code is sent through a telegram chat (not the official account) to avoid it append or prepend to the code some chars).
+//  400 PHONE_CODE_EXPIRED: The phone code you provided has expired.
 //  400 PHONE_CODE_HASH_EMPTY: phone_code_hash is missing.
-//  400 PHONE_NUMBER_INVALID: The phone number is invalid.
+//  406 PHONE_NUMBER_INVALID: The phone number is invalid.
 //  406 SEND_CODE_UNAVAILABLE: Returned when all available options for this type of number were already used (e.g. flash-call, then SMS, then this error might be returned to trigger a second resend).
 //
 // See https://core.telegram.org/method/auth.resendCode for reference.

@@ -36,14 +36,13 @@ var (
 //
 // See https://core.telegram.org/constructor/updates.state for reference.
 type UpdatesState struct {
-	// Number of events occured in a text box
+	// Number of events occurred in a text box
 	Pts int
-	// Position in a sequence of updates in secret chats. For further detailes refer to
-	// article secret chats¹Parameter was added in eigth layer².
+	// Position in a sequence of updates in secret chats. For further details refer to
+	// article secret chats¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/end-to-end
-	//  2) https://core.telegram.org/api/layers#layer-8
 	Qts int
 	// Date of condition
 	Date int

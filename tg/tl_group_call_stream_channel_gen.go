@@ -32,14 +32,20 @@ var (
 )
 
 // GroupCallStreamChannel represents TL type `groupCallStreamChannel#80eb48af`.
+// Info about an RTMP stream in a group call or livestream
 //
 // See https://core.telegram.org/constructor/groupCallStreamChannel for reference.
 type GroupCallStreamChannel struct {
-	// Channel field of GroupCallStreamChannel.
+	// Channel ID
 	Channel int
-	// Scale field of GroupCallStreamChannel.
+	// Specifies the duration of the video segment to fetch in milliseconds, by bitshifting
+	// 1000 to the right scale times: duration_ms := 1000 >> scale.
 	Scale int
-	// LastTimestampMs field of GroupCallStreamChannel.
+	// Last seen timestamp to easily start fetching livestream chunks using
+	// inputGroupCallStream¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputGroupCallStream
 	LastTimestampMs int64
 }
 

@@ -45,7 +45,8 @@ type MessagesExportChatInviteRequest struct {
 	// links before creating a new one. Kept for bot API BC, should not be used by modern
 	// clients.
 	LegacyRevokePermanent bool
-	// RequestNeeded field of MessagesExportChatInviteRequest.
+	// Whether admin confirmation is required before admitting each separate user into the
+	// chat
 	RequestNeeded bool
 	// Chat
 	Peer InputPeerClass
@@ -57,7 +58,7 @@ type MessagesExportChatInviteRequest struct {
 	//
 	// Use SetUsageLimit and GetUsageLimit helpers.
 	UsageLimit int
-	// Title field of MessagesExportChatInviteRequest.
+	// Description of the invite link, visible only to administrators
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string

@@ -32,14 +32,15 @@ var (
 )
 
 // UsersUserFull represents TL type `users.userFull#3b6d152e`.
+// Full user information
 //
 // See https://core.telegram.org/constructor/users.userFull for reference.
 type UsersUserFull struct {
-	// FullUser field of UsersUserFull.
+	// Full user information
 	FullUser UserFull
-	// Chats field of UsersUserFull.
+	// Mentioned chats
 	Chats []ChatClass
-	// Users field of UsersUserFull.
+	// Mentioned users
 	Users []UserClass
 }
 

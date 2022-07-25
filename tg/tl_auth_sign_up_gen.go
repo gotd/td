@@ -246,13 +246,13 @@ func (s *AuthSignUpRequest) GetLastName() (value string) {
 // Registers a validated phone number in the system.
 //
 // Possible errors:
-//  400 FIRSTNAME_INVALID: Invalid first name.
-//  400 LASTNAME_INVALID: Invalid last name.
-//  400 PHONE_CODE_EMPTY: phone_code from a SMS is empty.
-//  400 PHONE_CODE_EXPIRED: SMS expired.
-//  400 PHONE_CODE_INVALID: Invalid SMS code was sent.
+//  400 FIRSTNAME_INVALID: The first name is invalid.
+//  400 LASTNAME_INVALID: The last name is invalid.
+//  400 PHONE_CODE_EMPTY: phone_code is missing.
+//  400 PHONE_CODE_EXPIRED: The phone code you provided has expired.
+//  400 PHONE_CODE_INVALID: The provided phone code is invalid.
 //  400 PHONE_NUMBER_FLOOD: You asked for the code too many times.
-//  400 PHONE_NUMBER_INVALID: Invalid phone number.
+//  406 PHONE_NUMBER_INVALID: The phone number is invalid.
 //  400 PHONE_NUMBER_OCCUPIED: The phone number is already in use.
 //
 // See https://core.telegram.org/method/auth.signUp for reference.

@@ -32,14 +32,15 @@ var (
 )
 
 // ChannelsSendAsPeers represents TL type `channels.sendAsPeers#8356cda9`.
+// A list of peers that can be used to send messages in a specific group
 //
 // See https://core.telegram.org/constructor/channels.sendAsPeers for reference.
 type ChannelsSendAsPeers struct {
-	// Peers field of ChannelsSendAsPeers.
+	// Peers that can be used to send messages to the group
 	Peers []PeerClass
-	// Chats field of ChannelsSendAsPeers.
+	// Mentioned chats
 	Chats []ChatClass
-	// Users field of ChannelsSendAsPeers.
+	// Mentioned users
 	Users []UserClass
 }
 

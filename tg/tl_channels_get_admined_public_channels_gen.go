@@ -253,8 +253,8 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) GetCheckLimit() (value bool) {
 //  3) https://core.telegram.org/api/channel
 //
 // Possible errors:
-//  400 CHANNELS_ADMIN_LOCATED_TOO_MUCH: Returned if both the check_limit and the by_location flags are set and the user has reached the limit of public geogroups.
-//  400 CHANNELS_ADMIN_PUBLIC_TOO_MUCH: Returned if the check_limit flag is set and the user has reached the limit of public channels/supergroups.
+//  400 CHANNELS_ADMIN_LOCATED_TOO_MUCH: The user has reached the limit of public geogroups.
+//  400 CHANNELS_ADMIN_PUBLIC_TOO_MUCH: You're admin of too many public channels, make some channels private to change the username of this channel.
 //
 // See https://core.telegram.org/method/channels.getAdminedPublicChannels for reference.
 func (c *Client) ChannelsGetAdminedPublicChannels(ctx context.Context, request *ChannelsGetAdminedPublicChannelsRequest) (MessagesChatsClass, error) {

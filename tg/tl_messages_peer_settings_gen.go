@@ -32,14 +32,15 @@ var (
 )
 
 // MessagesPeerSettings represents TL type `messages.peerSettings#6880b94d`.
+// Peer settings
 //
 // See https://core.telegram.org/constructor/messages.peerSettings for reference.
 type MessagesPeerSettings struct {
-	// Settings field of MessagesPeerSettings.
+	// Peer settings
 	Settings PeerSettings
-	// Chats field of MessagesPeerSettings.
+	// Mentioned chats
 	Chats []ChatClass
-	// Users field of MessagesPeerSettings.
+	// Mentioned users
 	Users []UserClass
 }
 

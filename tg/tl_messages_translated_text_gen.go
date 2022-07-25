@@ -32,6 +32,7 @@ var (
 )
 
 // MessagesTranslateNoResult represents TL type `messages.translateNoResult#67ca4737`.
+// No translation is available
 //
 // See https://core.telegram.org/constructor/messages.translateNoResult for reference.
 type MessagesTranslateNoResult struct {
@@ -133,10 +134,11 @@ func (t *MessagesTranslateNoResult) DecodeBare(b *bin.Buffer) error {
 }
 
 // MessagesTranslateResultText represents TL type `messages.translateResultText#a214f7d0`.
+// Translated text
 //
 // See https://core.telegram.org/constructor/messages.translateResultText for reference.
 type MessagesTranslateResultText struct {
-	// Text field of MessagesTranslateResultText.
+	// Translated text
 	Text string
 }
 

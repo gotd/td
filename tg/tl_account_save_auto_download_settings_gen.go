@@ -41,9 +41,9 @@ type AccountSaveAutoDownloadSettingsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether to save settings in the low data usage preset
+	// Whether to save media in the low data usage preset
 	Low bool
-	// Whether to save settings in the high data usage preset
+	// Whether to save media in the high data usage preset
 	High bool
 	// Media autodownload settings
 	Settings AutoDownloadSettings

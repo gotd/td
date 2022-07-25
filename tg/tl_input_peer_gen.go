@@ -240,7 +240,7 @@ func (i *InputPeerSelf) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/inputPeerChat for reference.
 type InputPeerChat struct {
-	// Chat idientifier
+	// Chat identifier
 	ChatID int64
 }
 

@@ -45,7 +45,8 @@ type ChatInviteExported struct {
 	Revoked bool
 	// Whether this chat invite has no expiration
 	Permanent bool
-	// RequestNeeded field of ChatInviteExported.
+	// Whether users importing this invite link will have to be approved to join the channel
+	// or group
 	RequestNeeded bool
 	// Chat invitation link
 	Link string
@@ -69,11 +70,11 @@ type ChatInviteExported struct {
 	//
 	// Use SetUsage and GetUsage helpers.
 	Usage int
-	// Requested field of ChatInviteExported.
+	// Number of users that have already used this link to join
 	//
 	// Use SetRequested and GetRequested helpers.
 	Requested int
-	// Title field of ChatInviteExported.
+	// Custom description for the invite link, visible only to admins
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string

@@ -32,7 +32,7 @@ var (
 )
 
 // AuthImportAuthorizationRequest represents TL type `auth.importAuthorization#a57a7dad`.
-// Logs in a user using a key transmitted from his native data-centre.
+// Logs in a user using a key transmitted from his native data-center.
 //
 // See https://core.telegram.org/method/auth.importAuthorization for reference.
 type AuthImportAuthorizationRequest struct {
@@ -189,7 +189,7 @@ func (i *AuthImportAuthorizationRequest) GetBytes() (value []byte) {
 }
 
 // AuthImportAuthorization invokes method auth.importAuthorization#a57a7dad returning error if any.
-// Logs in a user using a key transmitted from his native data-centre.
+// Logs in a user using a key transmitted from his native data-center.
 //
 // Possible errors:
 //  400 AUTH_BYTES_INVALID: The provided authorization is invalid.

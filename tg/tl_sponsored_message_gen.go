@@ -52,15 +52,15 @@ type SponsoredMessage struct {
 	//
 	// Use SetFromID and GetFromID helpers.
 	FromID PeerClass
-	// ChatInvite field of SponsoredMessage.
+	// Information about the chat invite hash specified in chat_invite_hash
 	//
 	// Use SetChatInvite and GetChatInvite helpers.
 	ChatInvite ChatInviteClass
-	// ChatInviteHash field of SponsoredMessage.
+	// Chat invite
 	//
 	// Use SetChatInviteHash and GetChatInviteHash helpers.
 	ChatInviteHash string
-	// ChannelPost field of SponsoredMessage.
+	// Optional link to a channel post if from_id points to a channel
 	//
 	// Use SetChannelPost and GetChannelPost helpers.
 	ChannelPost int

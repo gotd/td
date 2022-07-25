@@ -49,7 +49,7 @@ type PageTableCell struct {
 	AlignRight bool
 	// Vertically centered block
 	ValignMiddle bool
-	// Block vertically-alligned to the bottom
+	// Block vertically-aligned to the bottom
 	ValignBottom bool
 	// Content
 	//

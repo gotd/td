@@ -32,11 +32,11 @@ var (
 )
 
 // ContactsImportedContacts represents TL type `contacts.importedContacts#77d01c3b`.
-// Info on succesfully imported contacts.
+// Info on successfully imported contacts.
 //
 // See https://core.telegram.org/constructor/contacts.importedContacts for reference.
 type ContactsImportedContacts struct {
-	// List of succesfully imported contacts
+	// List of successfully imported contacts
 	Imported []ImportedContact
 	// Popular contacts
 	PopularInvites []PopularContact

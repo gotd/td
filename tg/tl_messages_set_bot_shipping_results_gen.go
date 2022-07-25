@@ -49,7 +49,7 @@ type MessagesSetBotShippingResultsRequest struct {
 	// Unique identifier for the query to be answered
 	QueryID int64
 	// Error message in human readable form that explains why it is impossible to complete
-	// the order (e.g. "Sorry, delivery to your desired address is unavailable'). Telegram
+	// the order (e.g. "Sorry, delivery to your desired address is unavailable"). Telegram
 	// will display this message to the user.
 	//
 	// Use SetError and GetError helpers.

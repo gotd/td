@@ -32,7 +32,7 @@ var (
 )
 
 // MessagesSentEncryptedMessage represents TL type `messages.sentEncryptedMessage#560f8935`.
-// Message without file attachemts sent to an encrypted file.
+// Message without file attachments sent to an encrypted file.
 //
 // See https://core.telegram.org/constructor/messages.sentEncryptedMessage for reference.
 type MessagesSentEncryptedMessage struct {

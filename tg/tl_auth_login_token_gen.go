@@ -359,7 +359,7 @@ func (l *AuthLoginTokenMigrateTo) GetToken() (value []byte) {
 }
 
 // AuthLoginTokenSuccess represents TL type `auth.loginTokenSuccess#390d5c5e`.
-// Login via token (QR code) succeded!
+// Login via token (QR code) succeeded!
 //
 // See https://core.telegram.org/constructor/auth.loginTokenSuccess for reference.
 type AuthLoginTokenSuccess struct {

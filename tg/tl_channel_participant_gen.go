@@ -36,7 +36,7 @@ var (
 //
 // See https://core.telegram.org/constructor/channelParticipant for reference.
 type ChannelParticipant struct {
-	// Pariticipant user ID
+	// Participant user ID
 	UserID int64
 	// Date joined
 	Date int
@@ -198,9 +198,12 @@ func (c *ChannelParticipant) GetDate() (value int) {
 //
 // See https://core.telegram.org/constructor/channelParticipantSelf for reference.
 type ChannelParticipantSelf struct {
-	// Flags field of ChannelParticipantSelf.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ViaRequest field of ChannelParticipantSelf.
+	// Whether I joined upon specific approval of an admin
 	ViaRequest bool
 	// User ID
 	UserID int64

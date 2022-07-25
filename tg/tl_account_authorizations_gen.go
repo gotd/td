@@ -36,7 +36,7 @@ var (
 //
 // See https://core.telegram.org/constructor/account.authorizations for reference.
 type AccountAuthorizations struct {
-	// AuthorizationTTLDays field of AccountAuthorizations.
+	// Time-to-live of session
 	AuthorizationTTLDays int
 	// Logged-in sessions
 	Authorizations []Authorization

@@ -126,7 +126,7 @@ type ChannelAdminLogEventsFilter struct {
 	GroupCall bool
 	// Invite events
 	Invites bool
-	// Send field of ChannelAdminLogEventsFilter.
+	// A message was posted in a channel
 	Send bool
 }
 

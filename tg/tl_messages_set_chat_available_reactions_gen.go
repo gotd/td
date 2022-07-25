@@ -32,12 +32,17 @@ var (
 )
 
 // MessagesSetChatAvailableReactionsRequest represents TL type `messages.setChatAvailableReactions#14050ea6`.
+// Change the set of message reactions »¹ that can be used in a certain group,
+// supergroup or channel
+//
+// Links:
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.setChatAvailableReactions for reference.
 type MessagesSetChatAvailableReactionsRequest struct {
-	// Peer field of MessagesSetChatAvailableReactionsRequest.
+	// Group where to apply changes
 	Peer InputPeerClass
-	// AvailableReactions field of MessagesSetChatAvailableReactionsRequest.
+	// Allowed reaction emojis
 	AvailableReactions []string
 }
 
@@ -206,6 +211,11 @@ func (s *MessagesSetChatAvailableReactionsRequest) GetAvailableReactions() (valu
 }
 
 // MessagesSetChatAvailableReactions invokes method messages.setChatAvailableReactions#14050ea6 returning error if any.
+// Change the set of message reactions »¹ that can be used in a certain group,
+// supergroup or channel
+//
+// Links:
+//  1) https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.setChatAvailableReactions for reference.
 func (c *Client) MessagesSetChatAvailableReactions(ctx context.Context, request *MessagesSetChatAvailableReactionsRequest) (UpdatesClass, error) {

@@ -32,10 +32,10 @@ var (
 )
 
 // MessagesEditChatAdminRequest represents TL type `messages.editChatAdmin#a85bd1c2`.
-// Make a user admin in a legacy group¹.
+// Make a user admin in a basic group¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/method/messages.editChatAdmin for reference.
 type MessagesEditChatAdminRequest struct {
@@ -43,7 +43,7 @@ type MessagesEditChatAdminRequest struct {
 	ChatID int64
 	// The user to make admin
 	UserID InputUserClass
-	// Whether to make him admin
+	// Whether to make them admin
 	IsAdmin bool
 }
 
@@ -224,10 +224,10 @@ func (e *MessagesEditChatAdminRequest) GetIsAdmin() (value bool) {
 }
 
 // MessagesEditChatAdmin invokes method messages.editChatAdmin#a85bd1c2 returning error if any.
-// Make a user admin in a legacy group¹.
+// Make a user admin in a basic group¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1) https://core.telegram.org/api/channel#basic-groups
 //
 // Possible errors:
 //  400 CHAT_ID_INVALID: The provided chat id is invalid.

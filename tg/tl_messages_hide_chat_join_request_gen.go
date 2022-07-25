@@ -32,16 +32,29 @@ var (
 )
 
 // MessagesHideChatJoinRequestRequest represents TL type `messages.hideChatJoinRequest#7fe7e815`.
+// Dismiss or approve a chat join request¹ related to a specific chat or channel.
+//
+// Links:
+//  1) https://core.telegram.org/api/invites#join-requests
 //
 // See https://core.telegram.org/method/messages.hideChatJoinRequest for reference.
 type MessagesHideChatJoinRequestRequest struct {
-	// Flags field of MessagesHideChatJoinRequestRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Approved field of MessagesHideChatJoinRequestRequest.
+	// Whether to dismiss or approve the chat join request »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/invites#join-requests
 	Approved bool
-	// Peer field of MessagesHideChatJoinRequestRequest.
+	// The chat or channel
 	Peer InputPeerClass
-	// UserID field of MessagesHideChatJoinRequestRequest.
+	// The user whose join request »¹ should be dismissed or approved
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/invites#join-requests
 	UserID InputUserClass
 }
 
@@ -251,8 +264,16 @@ func (h *MessagesHideChatJoinRequestRequest) GetUserID() (value InputUserClass) 
 }
 
 // MessagesHideChatJoinRequest invokes method messages.hideChatJoinRequest#7fe7e815 returning error if any.
+// Dismiss or approve a chat join request¹ related to a specific chat or channel.
+//
+// Links:
+//  1) https://core.telegram.org/api/invites#join-requests
+//
+// Possible errors:
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.hideChatJoinRequest for reference.
+// Can be used by bots.
 func (c *Client) MessagesHideChatJoinRequest(ctx context.Context, request *MessagesHideChatJoinRequestRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

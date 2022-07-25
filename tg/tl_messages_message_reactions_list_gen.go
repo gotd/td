@@ -32,20 +32,28 @@ var (
 )
 
 // MessagesMessageReactionsList represents TL type `messages.messageReactionsList#31bd492d`.
+// List of peers that reacted to a specific message
 //
 // See https://core.telegram.org/constructor/messages.messageReactionsList for reference.
 type MessagesMessageReactionsList struct {
-	// Flags field of MessagesMessageReactionsList.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Count field of MessagesMessageReactionsList.
+	// Total number of reactions matching query
 	Count int
-	// Reactions field of MessagesMessageReactionsList.
+	// List of peers that reacted to a specific message
 	Reactions []MessagePeerReaction
-	// Chats field of MessagesMessageReactionsList.
+	// Mentioned chats
 	Chats []ChatClass
-	// Users field of MessagesMessageReactionsList.
+	// Mentioned users
 	Users []UserClass
-	// NextOffset field of MessagesMessageReactionsList.
+	// If set, indicates the next offset to use to load more results by invoking messages
+	// getMessageReactionsList¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.getMessageReactionsList
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string

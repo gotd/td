@@ -32,12 +32,13 @@ var (
 )
 
 // ChannelsDeleteParticipantHistoryRequest represents TL type `channels.deleteParticipantHistory#367544db`.
+// Delete all messages sent by a specific participant of a given supergroup
 //
 // See https://core.telegram.org/method/channels.deleteParticipantHistory for reference.
 type ChannelsDeleteParticipantHistoryRequest struct {
-	// Channel field of ChannelsDeleteParticipantHistoryRequest.
+	// Supergroup
 	Channel InputChannelClass
-	// Participant field of ChannelsDeleteParticipantHistoryRequest.
+	// The participant whose messages should be deleted
 	Participant InputPeerClass
 }
 
@@ -203,8 +204,15 @@ func (d *ChannelsDeleteParticipantHistoryRequest) GetChannelAsNotEmpty() (NotEmp
 }
 
 // ChannelsDeleteParticipantHistory invokes method channels.deleteParticipantHistory#367544db returning error if any.
+// Delete all messages sent by a specific participant of a given supergroup
+//
+// Possible errors:
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  400 MSG_ID_INVALID: Invalid message ID provided.
+//  400 PARTICIPANT_ID_INVALID: The specified participant ID is invalid.
 //
 // See https://core.telegram.org/method/channels.deleteParticipantHistory for reference.
+// Can be used by bots.
 func (c *Client) ChannelsDeleteParticipantHistory(ctx context.Context, request *ChannelsDeleteParticipantHistoryRequest) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory
 

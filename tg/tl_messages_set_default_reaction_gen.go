@@ -32,10 +32,15 @@ var (
 )
 
 // MessagesSetDefaultReactionRequest represents TL type `messages.setDefaultReaction#d960c4d4`.
+// Change default emoji reaction to use in the quick reaction menu: the value is synced
+// across devices and can be fetched using help.getAppConfig, reactions_default field¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/config#client-configuration
 //
 // See https://core.telegram.org/method/messages.setDefaultReaction for reference.
 type MessagesSetDefaultReactionRequest struct {
-	// Reaction field of MessagesSetDefaultReactionRequest.
+	// New emoji reaction
 	Reaction string
 }
 
@@ -161,6 +166,11 @@ func (s *MessagesSetDefaultReactionRequest) GetReaction() (value string) {
 }
 
 // MessagesSetDefaultReaction invokes method messages.setDefaultReaction#d960c4d4 returning error if any.
+// Change default emoji reaction to use in the quick reaction menu: the value is synced
+// across devices and can be fetched using help.getAppConfig, reactions_default field¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/config#client-configuration
 //
 // See https://core.telegram.org/method/messages.setDefaultReaction for reference.
 func (c *Client) MessagesSetDefaultReaction(ctx context.Context, reaction string) (bool, error) {

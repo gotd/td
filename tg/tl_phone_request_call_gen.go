@@ -311,6 +311,8 @@ func (r *PhoneRequestCallRequest) GetProtocol() (value PhoneCallProtocol) {
 //
 // Possible errors:
 //  400 CALL_PROTOCOL_FLAGS_INVALID: Call protocol flags invalid.
+//  400 INPUT_USER_DEACTIVATED: The specified user was deleted.
+//  500 PARTICIPANT_CALL_FAILED: Failure while making call.
 //  400 PARTICIPANT_VERSION_OUTDATED: The other participant does not use an up to date telegram client with support for calls.
 //  400 USER_ID_INVALID: The provided user ID is invalid.
 //  403 USER_IS_BLOCKED: You were blocked by this user.

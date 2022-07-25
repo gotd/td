@@ -278,7 +278,10 @@ type Message struct {
 	// Links:
 	//  1) https://core.telegram.org/api/pin
 	Pinned bool
-	// Noforwards field of Message.
+	// Whether this message is protected¹ and thus cannot be forwarded
+	//
+	// Links:
+	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
 	Noforwards bool
 	// ID of the message
 	ID int
@@ -351,7 +354,7 @@ type Message struct {
 	//
 	// Use SetGroupedID and GetGroupedID helpers.
 	GroupedID int64
-	// Reactions field of Message.
+	// Reactions to this message
 	//
 	// Use SetReactions and GetReactions helpers.
 	Reactions MessageReactions

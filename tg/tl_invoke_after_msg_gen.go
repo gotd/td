@@ -32,7 +32,7 @@ var (
 )
 
 // InvokeAfterMsgRequest represents TL type `invokeAfterMsg#cb9f372d`.
-// Invokes a query after successfull completion of one of the previous queries.
+// Invokes a query after successful completion of one of the previous queries.
 //
 // See https://core.telegram.org/constructor/invokeAfterMsg for reference.
 type InvokeAfterMsgRequest struct {

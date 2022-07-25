@@ -32,7 +32,7 @@ var (
 )
 
 // HelpGetSupportRequest represents TL type `help.getSupport#9cdf08cd`.
-// Returns the support user for the 'ask a question' feature.
+// Returns the support user for the "ask a question" feature.
 //
 // See https://core.telegram.org/method/help.getSupport for reference.
 type HelpGetSupportRequest struct {
@@ -129,7 +129,7 @@ func (g *HelpGetSupportRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // HelpGetSupport invokes method help.getSupport#9cdf08cd returning error if any.
-// Returns the support user for the 'ask a question' feature.
+// Returns the support user for the "ask a question" feature.
 //
 // See https://core.telegram.org/method/help.getSupport for reference.
 func (c *Client) HelpGetSupport(ctx context.Context) (*HelpSupport, error) {

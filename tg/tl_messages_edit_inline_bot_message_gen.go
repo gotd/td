@@ -458,7 +458,7 @@ func (e *MessagesEditInlineBotMessageRequest) MapEntities() (value MessageEntity
 //
 // Possible errors:
 //  400 MESSAGE_ID_INVALID: The provided message id is invalid.
-//  400 MESSAGE_NOT_MODIFIED: The message text has not changed.
+//  400 MESSAGE_NOT_MODIFIED: The provided message data is identical to the previous message data, the message wasn't modified.
 //
 // See https://core.telegram.org/method/messages.editInlineBotMessage for reference.
 // Can be used by bots.

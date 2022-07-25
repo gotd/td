@@ -65,7 +65,7 @@ type Page struct {
 	Photos []PhotoClass
 	// Media in page
 	Documents []DocumentClass
-	// Viewcount
+	// View count
 	//
 	// Use SetViews and GetViews helpers.
 	Views int

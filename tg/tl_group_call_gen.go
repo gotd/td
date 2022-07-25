@@ -247,9 +247,14 @@ type GroupCall struct {
 	CanStartVideo bool
 	// Whether the group call is currently being recorded
 	RecordVideoActive bool
-	// RtmpStream field of GroupCall.
+	// Whether RTMP streams are allowed
 	RtmpStream bool
-	// ListenersHidden field of GroupCall.
+	// Whether the listeners list is hidden and cannot be fetched using phone
+	// getGroupParticipants¹. The phone.groupParticipants.count and groupCall
+	// participants_count counters will still include listeners.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/phone.getGroupParticipants
 	ListenersHidden bool
 	// Group call ID
 	ID int64

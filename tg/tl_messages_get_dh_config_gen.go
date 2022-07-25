@@ -37,7 +37,7 @@ var (
 //
 // See https://core.telegram.org/method/messages.getDhConfig for reference.
 type MessagesGetDhConfigRequest struct {
-	// Value of the version parameter from messages.dhConfig¹, avialable at the client
+	// Value of the version parameter from messages.dhConfig¹, available at the client
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/messages.dhConfig

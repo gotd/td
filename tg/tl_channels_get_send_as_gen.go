@@ -32,10 +32,11 @@ var (
 )
 
 // ChannelsGetSendAsRequest represents TL type `channels.getSendAs#dc770ee`.
+// Obtains a list of peers that can be used to send messages in a specific group
 //
 // See https://core.telegram.org/method/channels.getSendAs for reference.
 type ChannelsGetSendAsRequest struct {
-	// Peer field of ChannelsGetSendAsRequest.
+	// The group where we intend to send messages
 	Peer InputPeerClass
 }
 
@@ -166,8 +167,13 @@ func (g *ChannelsGetSendAsRequest) GetPeer() (value InputPeerClass) {
 }
 
 // ChannelsGetSendAs invokes method channels.getSendAs#dc770ee returning error if any.
+// Obtains a list of peers that can be used to send messages in a specific group
+//
+// Possible errors:
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/channels.getSendAs for reference.
+// Can be used by bots.
 func (c *Client) ChannelsGetSendAs(ctx context.Context, peer InputPeerClass) (*ChannelsSendAsPeers, error) {
 	var result ChannelsSendAsPeers
 

@@ -175,6 +175,7 @@ func (d *FoldersDeleteFolderRequest) GetFolderID() (value int) {
 //
 // Possible errors:
 //  400 FOLDER_ID_EMPTY: An empty folder ID was specified.
+//  400 FOLDER_ID_INVALID: Invalid folder ID.
 //
 // See https://core.telegram.org/method/folders.deleteFolder for reference.
 func (c *Client) FoldersDeleteFolder(ctx context.Context, folderid int) (UpdatesClass, error) {

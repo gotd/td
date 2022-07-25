@@ -277,7 +277,10 @@ func (c *UpdatesChannelDifferenceEmpty) GetTimeout() (value int, ok bool) {
 // UpdatesChannelDifferenceTooLong represents TL type `updates.channelDifferenceTooLong#a4bcc6fe`.
 // The provided pts + limit < remote pts. Simply, there are too many updates to be
 // fetched (more than limit), the client has to resolve the update gap in one of the
-// following ways:
+// following ways (assuming the existence of a persistent database to locally store
+// messages):
+// It should be also noted that some messages like live location messages shouldn't be
+// deleted.
 //
 // See https://core.telegram.org/constructor/updates.channelDifferenceTooLong for reference.
 type UpdatesChannelDifferenceTooLong struct {

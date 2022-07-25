@@ -45,20 +45,20 @@ type AccountInitTakeoutSessionRequest struct {
 	Contacts bool
 	// Whether to export messages in private chats
 	MessageUsers bool
-	// Whether to export messages in legacy groups¹
+	// Whether to export messages in basic groups¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/channel
+	//  1) https://core.telegram.org/api/channel#basic-groups
 	MessageChats bool
 	// Whether to export messages in supergroups¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/channel
+	//  1) https://core.telegram.org/api/channel#supergroups
 	MessageMegagroups bool
 	// Whether to export messages in channels¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/channel
+	//  1) https://core.telegram.org/api/channel#channels
 	MessageChannels bool
 	// Whether to export files
 	Files bool
@@ -426,7 +426,7 @@ func (i *AccountInitTakeoutSessionRequest) GetFileMaxSize() (value int64, ok boo
 // Initialize account takeout session
 //
 // Possible errors:
-//  420 TAKEOUT_INIT_DELAY_X: Wait X seconds before initing takeout.
+//  420 TAKEOUT_INIT_DELAY_%d: Wait %d seconds before initializing takeout.
 //
 // See https://core.telegram.org/method/account.initTakeoutSession for reference.
 func (c *Client) AccountInitTakeoutSession(ctx context.Context, request *AccountInitTakeoutSessionRequest) (*AccountTakeout, error) {

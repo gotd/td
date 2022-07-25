@@ -32,14 +32,15 @@ var (
 )
 
 // SearchResultPosition represents TL type `searchResultPosition#7f648b67`.
+// Information about a message in a specific position
 //
 // See https://core.telegram.org/constructor/searchResultPosition for reference.
 type SearchResultPosition struct {
-	// MsgID field of SearchResultPosition.
+	// Message ID
 	MsgID int
-	// Date field of SearchResultPosition.
+	// When was the message sent
 	Date int
-	// Offset field of SearchResultPosition.
+	// 0-based message position in the full list of suitable messages
 	Offset int
 }
 

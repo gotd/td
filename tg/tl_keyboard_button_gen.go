@@ -828,7 +828,7 @@ func (k *KeyboardButtonRequestGeoLocation) GetText() (value string) {
 
 // KeyboardButtonSwitchInline represents TL type `keyboardButtonSwitchInline#568a748`.
 // Button to force a user to switch to inline mode Pressing the button will prompt the
-// user to select one of their chats, open that chat and insert the bot‘s username and
+// user to select one of their chats, open that chat and insert the bot's username and
 // the specified inline query in the input field.
 //
 // See https://core.telegram.org/constructor/keyboardButtonSwitchInline for reference.
@@ -838,7 +838,7 @@ type KeyboardButtonSwitchInline struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// If set, pressing the button will insert the bot‘s username and the specified inline
+	// If set, pressing the button will insert the bot's username and the specified inline
 	// query in the current chat's input field.
 	SamePeer bool
 	// Button label
@@ -2129,12 +2129,13 @@ func (k *KeyboardButtonRequestPoll) GetText() (value string) {
 }
 
 // InputKeyboardButtonUserProfile represents TL type `inputKeyboardButtonUserProfile#e988037b`.
+// Button that links directly to a user profile
 //
 // See https://core.telegram.org/constructor/inputKeyboardButtonUserProfile for reference.
 type InputKeyboardButtonUserProfile struct {
-	// Text field of InputKeyboardButtonUserProfile.
+	// Button text
 	Text string
-	// UserID field of InputKeyboardButtonUserProfile.
+	// User ID
 	UserID InputUserClass
 }
 
@@ -2295,12 +2296,13 @@ func (i *InputKeyboardButtonUserProfile) GetUserID() (value InputUserClass) {
 }
 
 // KeyboardButtonUserProfile represents TL type `keyboardButtonUserProfile#308660c1`.
+// Button that links directly to a user profile
 //
 // See https://core.telegram.org/constructor/keyboardButtonUserProfile for reference.
 type KeyboardButtonUserProfile struct {
-	// Text field of KeyboardButtonUserProfile.
+	// Button text
 	Text string
-	// UserID field of KeyboardButtonUserProfile.
+	// User ID
 	UserID int64
 }
 

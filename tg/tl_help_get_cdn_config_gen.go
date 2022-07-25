@@ -137,9 +137,6 @@ func (g *HelpGetCDNConfigRequest) DecodeBare(b *bin.Buffer) error {
 // Links:
 //  1) https://core.telegram.org/cdn
 //
-// Possible errors:
-//  401 AUTH_KEY_PERM_EMPTY: The temporary auth key must be binded to the permanent auth key to use these methods.
-//
 // See https://core.telegram.org/method/help.getCdnConfig for reference.
 // Can be used by bots.
 func (c *Client) HelpGetCDNConfig(ctx context.Context) (*CDNConfig, error) {

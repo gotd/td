@@ -166,7 +166,7 @@ func (c *AccountCheckUsernameRequest) GetUsername() (value string) {
 // Validates a username and checks availability.
 //
 // Possible errors:
-//  400 USERNAME_INVALID: Unacceptable username.
+//  400 USERNAME_INVALID: The provided username is not valid.
 //
 // See https://core.telegram.org/method/account.checkUsername for reference.
 func (c *Client) AccountCheckUsername(ctx context.Context, username string) (bool, error) {

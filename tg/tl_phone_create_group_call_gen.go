@@ -41,7 +41,11 @@ type PhoneCreateGroupCallRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// RtmpStream field of PhoneCreateGroupCallRequest.
+	// Whether RTMP stream support should be enabled: only the group/supergroup/channel¹
+	// owner can use this flag.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	RtmpStream bool
 	// Associate the group call or livestream to the provided group/supergroup/channel¹
 	//
@@ -354,6 +358,7 @@ func (c *PhoneCreateGroupCallRequest) GetScheduleDate() (value int, ok bool) {
 //
 // Possible errors:
 //  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
 //  400 SCHEDULE_DATE_INVALID: Invalid schedule date provided.
 //
 // See https://core.telegram.org/method/phone.createGroupCall for reference.

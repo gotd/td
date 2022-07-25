@@ -389,6 +389,11 @@ func (g *MessagesGetExportedChatInvitesRequest) GetLimit() (value int) {
 // MessagesGetExportedChatInvites invokes method messages.getExportedChatInvites#a2b5a3f6 returning error if any.
 // Get info about the chat invites of a specific chat
 //
+// Possible errors:
+//  400 ADMIN_ID_INVALID: The specified admin ID is invalid.
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/messages.getExportedChatInvites for reference.
 func (c *Client) MessagesGetExportedChatInvites(ctx context.Context, request *MessagesGetExportedChatInvitesRequest) (*MessagesExportedChatInvites, error) {
 	var result MessagesExportedChatInvites

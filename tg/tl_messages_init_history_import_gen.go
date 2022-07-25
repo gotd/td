@@ -246,7 +246,7 @@ func (i *MessagesInitHistoryImportRequest) GetMediaCount() (value int) {
 // Possible errors:
 //  400 IMPORT_FILE_INVALID: The specified chat export file is invalid.
 //  400 IMPORT_FORMAT_UNRECOGNIZED: The specified chat export file was exported from an unsupported chat app.
-//  406 PREVIOUS_CHAT_IMPORT_ACTIVE_WAIT_5MIN: Import for this chat is already in progress, wait 5 minutes before starting a new one.
+//  406 PREVIOUS_CHAT_IMPORT_ACTIVE_WAIT_%dMIN: Import for this chat is already in progress, wait %d minutes before starting a new one.
 //
 // See https://core.telegram.org/method/messages.initHistoryImport for reference.
 func (c *Client) MessagesInitHistoryImport(ctx context.Context, request *MessagesInitHistoryImportRequest) (*MessagesHistoryImport, error) {

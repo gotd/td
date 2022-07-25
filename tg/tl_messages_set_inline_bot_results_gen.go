@@ -55,7 +55,7 @@ type MessagesSetInlineBotResultsRequest struct {
 	CacheTime int
 	// Pass the offset that a client should send in the next query with the same text to
 	// receive more results. Pass an empty string if there are no more results or if you
-	// don‘t support pagination. Offset length can’t exceed 64 bytes.
+	// don't support pagination. Offset length can't exceed 64 bytes.
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string
@@ -460,6 +460,7 @@ func (s *MessagesSetInlineBotResultsRequest) MapResults() (value InputBotInlineR
 //  400 SEND_MESSAGE_TYPE_INVALID: The message type is invalid.
 //  400 START_PARAM_INVALID: Start parameter invalid.
 //  400 STICKER_DOCUMENT_INVALID: The specified sticker document is invalid.
+//  400 URL_INVALID: Invalid URL provided.
 //  403 USER_BOT_INVALID: This method can only be called by a bot.
 //  400 VIDEO_TITLE_EMPTY: The specified video title is empty.
 //  400 WEBDOCUMENT_INVALID: Invalid webdocument URL provided.

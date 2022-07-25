@@ -32,16 +32,25 @@ var (
 )
 
 // SearchResultsCalendarPeriod represents TL type `searchResultsCalendarPeriod#c9b0539f`.
+// Information about found messages sent on a specific day, used to split the messages in
+// messages.searchResultsCalendar¹ constructors by days.
+// Multiple searchResultsCalendarPeriod constructors are returned in messages
+// searchResultsCalendar¹, each containing information about the first, last and total
+// number of messages matching the filter that were sent on a specific day.
+//
+// Links:
+//  1) https://core.telegram.org/constructor/messages.searchResultsCalendar
+//  2) https://core.telegram.org/constructor/messages.searchResultsCalendar
 //
 // See https://core.telegram.org/constructor/searchResultsCalendarPeriod for reference.
 type SearchResultsCalendarPeriod struct {
-	// Date field of SearchResultsCalendarPeriod.
+	// The day this object is referring to.
 	Date int
-	// MinMsgID field of SearchResultsCalendarPeriod.
+	// First message ID that was sent on this day.
 	MinMsgID int
-	// MaxMsgID field of SearchResultsCalendarPeriod.
+	// Last message ID that was sent on this day.
 	MaxMsgID int
-	// Count field of SearchResultsCalendarPeriod.
+	// All messages that were sent on this day.
 	Count int
 }
 

@@ -32,7 +32,8 @@ var (
 )
 
 // PeerSettings represents TL type `peerSettings#a518110d`.
-// Peer settings
+// List of actions that are possible when interacting with this user, to be shown as
+// suggested actions in the chat bar
 //
 // See https://core.telegram.org/constructor/peerSettings for reference.
 type PeerSettings struct {
@@ -51,29 +52,39 @@ type PeerSettings struct {
 	ShareContact bool
 	// Whether a special exception for contacts is needed
 	NeedContactsException bool
-	// Whether we can report a geogroup is irrelevant for this location
+	// Whether we can report a geogroup as irrelevant for this location
 	ReportGeo bool
-	// Whether this peer was automatically archived according to privacy settings¹
+	// Whether this peer was automatically archived according to privacy settings¹ and can
+	// be unarchived
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/globalPrivacySettings
 	Autoarchived bool
-	// Whether we can invite members to a group or channel¹
+	// If set, this is a recently created group chat to which new members can be invited
+	InviteMembers bool
+	// This flag is set if request_chat_title and request_chat_date fields are set and the
+	// join request »¹ is related to a channel (otherwise if only the request fields are
+	// set, the join request »² is related to a chat).
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/channel
-	InviteMembers bool
-	// RequestChatBroadcast field of PeerSettings.
+	//  1) https://core.telegram.org/api/invites#join-requests
+	//  2) https://core.telegram.org/api/invites#join-requests
 	RequestChatBroadcast bool
 	// Distance in meters between us and this peer
 	//
 	// Use SetGeoDistance and GetGeoDistance helpers.
 	GeoDistance int
-	// RequestChatTitle field of PeerSettings.
+	// If set, this is a private chat with an administrator of a chat or channel to which the
+	// user sent a join request, and this field contains the chat/channel's title.
 	//
 	// Use SetRequestChatTitle and GetRequestChatTitle helpers.
 	RequestChatTitle string
-	// RequestChatDate field of PeerSettings.
+	// If set, this is a private chat with an administrator of a chat or channel to which the
+	// user sent a join request, and this field contains the timestamp when the join request
+	// »¹ was sent.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/invites#join-requests
 	//
 	// Use SetRequestChatDate and GetRequestChatDate helpers.
 	RequestChatDate int

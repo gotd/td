@@ -3252,12 +3252,13 @@ func (m *MessageEntityBankCard) GetLength() (value int) {
 }
 
 // MessageEntitySpoiler represents TL type `messageEntitySpoiler#32ca960f`.
+// Message entity representing a spoiler
 //
 // See https://core.telegram.org/constructor/messageEntitySpoiler for reference.
 type MessageEntitySpoiler struct {
-	// Offset field of MessageEntitySpoiler.
+	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
-	// Length field of MessageEntitySpoiler.
+	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
 }
 

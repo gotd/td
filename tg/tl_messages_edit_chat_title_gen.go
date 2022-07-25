@@ -32,7 +32,7 @@ var (
 )
 
 // MessagesEditChatTitleRequest represents TL type `messages.editChatTitle#73783ffd`.
-// Chanages chat name and sends a service message on it.
+// Changes chat name and sends a service message on it.
 //
 // See https://core.telegram.org/method/messages.editChatTitle for reference.
 type MessagesEditChatTitleRequest struct {
@@ -189,7 +189,7 @@ func (e *MessagesEditChatTitleRequest) GetTitle() (value string) {
 }
 
 // MessagesEditChatTitle invokes method messages.editChatTitle#73783ffd returning error if any.
-// Chanages chat name and sends a service message on it.
+// Changes chat name and sends a service message on it.
 //
 // Possible errors:
 //  400 CHAT_ID_INVALID: The provided chat id is invalid.

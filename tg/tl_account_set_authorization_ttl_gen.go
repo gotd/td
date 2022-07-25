@@ -32,10 +32,11 @@ var (
 )
 
 // AccountSetAuthorizationTTLRequest represents TL type `account.setAuthorizationTTL#bf899aa0`.
+// Set time-to-live of current session
 //
 // See https://core.telegram.org/method/account.setAuthorizationTTL for reference.
 type AccountSetAuthorizationTTLRequest struct {
-	// AuthorizationTTLDays field of AccountSetAuthorizationTTLRequest.
+	// Time-to-live of current session in days
 	AuthorizationTTLDays int
 }
 
@@ -161,6 +162,10 @@ func (s *AccountSetAuthorizationTTLRequest) GetAuthorizationTTLDays() (value int
 }
 
 // AccountSetAuthorizationTTL invokes method account.setAuthorizationTTL#bf899aa0 returning error if any.
+// Set time-to-live of current session
+//
+// Possible errors:
+//  406 FRESH_RESET_AUTHORISATION_FORBIDDEN: You can't logout other sessions if less than 24 hours have passed since you logged on the current session.
 //
 // See https://core.telegram.org/method/account.setAuthorizationTTL for reference.
 func (c *Client) AccountSetAuthorizationTTL(ctx context.Context, authorizationttldays int) (bool, error) {

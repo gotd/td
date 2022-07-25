@@ -32,16 +32,31 @@ var (
 )
 
 // MessagesGetSearchResultsCalendarRequest represents TL type `messages.getSearchResultsCalendar#49f0bde9`.
+// Returns information about the next messages of the specified type in the chat split by
+// days.
+// Returns the results in reverse chronological order.
+// Can return partial results for the last returned day.
 //
 // See https://core.telegram.org/method/messages.getSearchResultsCalendar for reference.
 type MessagesGetSearchResultsCalendarRequest struct {
-	// Peer field of MessagesGetSearchResultsCalendarRequest.
+	// Peer where to search
 	Peer InputPeerClass
-	// Filter field of MessagesGetSearchResultsCalendarRequest.
+	// Message filter, inputMessagesFilterEmpty¹, inputMessagesFilterMyMentions² filters
+	// are not supported by this method.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputMessagesFilterEmpty
+	//  2) https://core.telegram.org/constructor/inputMessagesFilterMyMentions
 	Filter MessagesFilterClass
-	// OffsetID field of MessagesGetSearchResultsCalendarRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetID int
-	// OffsetDate field of MessagesGetSearchResultsCalendarRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetDate int
 }
 
@@ -252,6 +267,13 @@ func (g *MessagesGetSearchResultsCalendarRequest) GetOffsetDate() (value int) {
 }
 
 // MessagesGetSearchResultsCalendar invokes method messages.getSearchResultsCalendar#49f0bde9 returning error if any.
+// Returns information about the next messages of the specified type in the chat split by
+// days.
+// Returns the results in reverse chronological order.
+// Can return partial results for the last returned day.
+//
+// Possible errors:
+//  400 FILTER_NOT_SUPPORTED: The specified filter cannot be used in this context.
 //
 // See https://core.telegram.org/method/messages.getSearchResultsCalendar for reference.
 func (c *Client) MessagesGetSearchResultsCalendar(ctx context.Context, request *MessagesGetSearchResultsCalendarRequest) (*MessagesSearchResultsCalendar, error) {

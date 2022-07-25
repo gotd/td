@@ -39,7 +39,7 @@ var (
 type ChannelsReportSpamRequest struct {
 	// Supergroup
 	Channel InputChannelClass
-	// Participant field of ChannelsReportSpamRequest.
+	// Participant whose messages should be reported
 	Participant InputPeerClass
 	// IDs of spam messages
 	ID []int

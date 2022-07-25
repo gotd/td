@@ -175,7 +175,7 @@ func (u *PhotosUpdateProfilePhotoRequest) GetIDAsNotEmpty() (*InputPhoto, bool) 
 // Installs a previously uploaded photo as a profile photo.
 //
 // Possible errors:
-//  400 ALBUM_PHOTOS_TOO_MANY: Too many.
+//  400 ALBUM_PHOTOS_TOO_MANY: You have uploaded too many profile photos, delete some before retrying.
 //  400 FILE_PARTS_INVALID: The number of file parts is invalid.
 //  400 IMAGE_PROCESS_FAILED: Failure while processing image.
 //  400 LOCATION_INVALID: The provided location is invalid.

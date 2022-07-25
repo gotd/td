@@ -420,7 +420,7 @@ func (p *PageBlockSubtitle) GetText() (value RichTextClass) {
 type PageBlockAuthorDate struct {
 	// Author name
 	Author RichTextClass
-	// Date of pubblication
+	// Date of publication
 	PublishedDate int
 }
 

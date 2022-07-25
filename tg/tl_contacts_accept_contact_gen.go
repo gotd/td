@@ -32,7 +32,7 @@ var (
 )
 
 // ContactsAcceptContactRequest represents TL type `contacts.acceptContact#f831a20f`.
-// If the peer settings¹ of a new user allow us to add him as contact, add that user as
+// If the peer settings¹ of a new user allow us to add them as contact, add that user as
 // contact
 //
 // Links:
@@ -171,7 +171,7 @@ func (a *ContactsAcceptContactRequest) GetID() (value InputUserClass) {
 }
 
 // ContactsAcceptContact invokes method contacts.acceptContact#f831a20f returning error if any.
-// If the peer settings¹ of a new user allow us to add him as contact, add that user as
+// If the peer settings¹ of a new user allow us to add them as contact, add that user as
 // contact
 //
 // Links:

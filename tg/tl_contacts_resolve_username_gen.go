@@ -165,7 +165,6 @@ func (r *ContactsResolveUsernameRequest) GetUsername() (value string) {
 // Resolve a @username to get peer info
 //
 // Possible errors:
-//  401 AUTH_KEY_PERM_EMPTY: The temporary auth key must be binded to the permanent auth key to use these methods.
 //  400 CONNECTION_LAYER_INVALID: Layer invalid.
 //  400 USERNAME_INVALID: The provided username is not valid.
 //  400 USERNAME_NOT_OCCUPIED: The provided username is not occupied.

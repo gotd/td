@@ -143,7 +143,7 @@ type GeoPoint struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Longtitude
+	// Longitude
 	Long float64
 	// Latitude
 	Lat float64

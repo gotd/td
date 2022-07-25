@@ -32,11 +32,17 @@ var (
 )
 
 // MessagesGetFullChatRequest represents TL type `messages.getFullChat#aeb00b34`.
-// Returns full chat info according to its ID.
+// Get full info about a basic group¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/method/messages.getFullChat for reference.
 type MessagesGetFullChatRequest struct {
-	// Chat ID
+	// Basic group¹ ID.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel#basic-groups
 	ChatID int64
 }
 
@@ -162,7 +168,10 @@ func (g *MessagesGetFullChatRequest) GetChatID() (value int64) {
 }
 
 // MessagesGetFullChat invokes method messages.getFullChat#aeb00b34 returning error if any.
-// Returns full chat info according to its ID.
+// Get full info about a basic group¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel#basic-groups
 //
 // Possible errors:
 //  400 CHAT_ID_INVALID: The provided chat id is invalid.

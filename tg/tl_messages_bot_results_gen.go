@@ -49,7 +49,7 @@ type MessagesBotResults struct {
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string
-	// Whether the bot requested the user to message him in private
+	// Whether the bot requested the user to message them in private
 	//
 	// Use SetSwitchPm and GetSwitchPm helpers.
 	SwitchPm InlineBotSwitchPM

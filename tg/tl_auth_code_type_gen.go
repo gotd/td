@@ -32,8 +32,8 @@ var (
 )
 
 // AuthCodeTypeSMS represents TL type `auth.codeTypeSms#72a3158c`.
-// Type of verification code that will be sent next if you call the resendCode method:
-// SMS code
+// The next time, the authentication code will be delivered via an immediately canceled
+// incoming call.
 //
 // See https://core.telegram.org/constructor/auth.codeTypeSms for reference.
 type AuthCodeTypeSMS struct {
@@ -135,8 +135,7 @@ func (c *AuthCodeTypeSMS) DecodeBare(b *bin.Buffer) error {
 }
 
 // AuthCodeTypeCall represents TL type `auth.codeTypeCall#741cd3e3`.
-// Type of verification code that will be sent next if you call the resendCode method:
-// SMS code
+// The next time, the authentication code is to be delivered via an outgoing phone call.
 //
 // See https://core.telegram.org/constructor/auth.codeTypeCall for reference.
 type AuthCodeTypeCall struct {
@@ -238,8 +237,8 @@ func (c *AuthCodeTypeCall) DecodeBare(b *bin.Buffer) error {
 }
 
 // AuthCodeTypeFlashCall represents TL type `auth.codeTypeFlashCall#226ccefb`.
-// Type of verification code that will be sent next if you call the resendCode method:
-// SMS code
+// The next time, the authentication code will be delivered via an immediately canceled
+// incoming call.
 //
 // See https://core.telegram.org/constructor/auth.codeTypeFlashCall for reference.
 type AuthCodeTypeFlashCall struct {
@@ -341,6 +340,8 @@ func (c *AuthCodeTypeFlashCall) DecodeBare(b *bin.Buffer) error {
 }
 
 // AuthCodeTypeMissedCall represents TL type `auth.codeTypeMissedCall#d61ad6ee`.
+// The next time, the authentication code will be delivered via an immediately canceled
+// incoming call, handled manually by the user.
 //
 // See https://core.telegram.org/constructor/auth.codeTypeMissedCall for reference.
 type AuthCodeTypeMissedCall struct {

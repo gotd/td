@@ -82,7 +82,7 @@ type MessagesSendInlineBotResultRequest struct {
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
-	// SendAs field of MessagesSendInlineBotResultRequest.
+	// Send this message as the specified peer
 	//
 	// Use SetSendAs and GetSendAs helpers.
 	SendAs InputPeerClass
@@ -597,10 +597,11 @@ func (s *MessagesSendInlineBotResultRequest) GetSendAs() (value InputPeerClass, 
 //  400 MSG_ID_INVALID: Invalid message ID provided.
 //  400 PEER_ID_INVALID: The provided peer id is invalid.
 //  400 QUERY_ID_EMPTY: The query ID is empty.
+//  500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
 //  400 RESULT_ID_EMPTY: Result ID empty.
 //  400 SCHEDULE_DATE_TOO_LATE: You can't schedule a message this far in the future.
 //  400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
-//  420 SLOWMODE_WAIT_X: Slowmode is enabled in this chat: you must wait for the specified number of seconds before sending another message to the chat.
+//  420 SLOWMODE_WAIT_%d: Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
 //  400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
 //  400 WEBPAGE_CURL_FAILED: Failure while fetching the webpage with cURL.
 //  400 WEBPAGE_MEDIA_EMPTY: Webpage media empty.

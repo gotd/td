@@ -189,7 +189,10 @@ type Chat struct {
 	CallActive bool
 	// Whether there's anyone in the group call
 	CallNotEmpty bool
-	// Noforwards field of Chat.
+	// Whether this group is protected¹, thus does not allow forwarding messages from it
+	//
+	// Links:
+	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
 	Noforwards bool
 	// ID of the group
 	ID int64
@@ -1048,7 +1051,11 @@ type Channel struct {
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	Gigagroup bool
-	// Noforwards field of Channel.
+	// Whether this channel or group is protected¹, thus does not allow forwarding messages
+	// from it
+	//
+	// Links:
+	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
 	Noforwards bool
 	// JoinToSend field of Channel.
 	JoinToSend bool
@@ -2822,7 +2829,10 @@ type FullChat interface {
 	// Whether there's anyone in the group call
 	GetCallNotEmpty() (value bool)
 
-	// Noforwards field of Chat.
+	// Whether this group is protected¹, thus does not allow forwarding messages from it
+	//
+	// Links:
+	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
 	GetNoforwards() (value bool)
 
 	// ID of the group

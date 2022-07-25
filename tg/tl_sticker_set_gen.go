@@ -50,7 +50,7 @@ type StickerSet struct {
 	Masks bool
 	// Is this an animated stickerpack
 	Animated bool
-	// Videos field of StickerSet.
+	// Is this a video stickerpack
 	Videos bool
 	// When was this stickerset installed
 	//

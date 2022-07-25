@@ -61,7 +61,7 @@ type PageRelatedArticle struct {
 	//
 	// Use SetAuthor and GetAuthor helpers.
 	Author string
-	// Date of pubblication
+	// Date of publication
 	//
 	// Use SetPublishedDate and GetPublishedDate helpers.
 	PublishedDate int

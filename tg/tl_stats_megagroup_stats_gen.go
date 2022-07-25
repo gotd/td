@@ -55,7 +55,7 @@ type StatsMegagroupStats struct {
 	MembersGraph StatsGraphClass
 	// New members by source graph
 	NewMembersBySourceGraph StatsGraphClass
-	// Subscriber language graph (piechart)
+	// Subscriber language graph (pie chart)
 	LanguagesGraph StatsGraphClass
 	// Message activity graph (stacked bar graph, message type)
 	MessagesGraph StatsGraphClass
