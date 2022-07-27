@@ -54,6 +54,11 @@ func (p Protocol) Codec() Codec {
 	return p.codec()
 }
 
+// CodecNoHeader is Codec without header.
+func (p Protocol) CodecNoHeader() Codec {
+	return codec.NoHeader{Codec: p.codec()}
+}
+
 // Handshake inits given net.Conn as MTProto connection.
 func (p Protocol) Handshake(conn net.Conn) (Conn, error) {
 	connCodec := p.codec()
