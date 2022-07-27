@@ -2,6 +2,7 @@ package tgtest
 
 import (
 	"context"
+	"crypto/rsa"
 	"io"
 	"net"
 	"time"
@@ -47,6 +48,13 @@ type Server struct {
 	// type map for logging.
 	types *tmap.Map   // immutable
 	log   *zap.Logger // immutable
+}
+
+// NewPrivateKey creates new private key from RSA private key.
+func NewPrivateKey(k *rsa.PrivateKey) exchange.PrivateKey {
+	return exchange.PrivateKey{
+		RSA: k,
+	}
 }
 
 // NewServer creates new Server.
