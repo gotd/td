@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AccountDeleteAccountRequest represents TL type `account.deleteAccount#418d4e0b`.
+// AccountDeleteAccountRequest represents TL type `account.deleteAccount#a2c0cf74`.
 // Delete the user's account from the telegram servers. Can be used, for example, to
 // delete the account of a user that provided the login code, but forgot the 2FA password
 // and no recovery method is configured¹.
@@ -41,12 +41,18 @@ var (
 //
 // See https://core.telegram.org/method/account.deleteAccount for reference.
 type AccountDeleteAccountRequest struct {
+	// Flags field of AccountDeleteAccountRequest.
+	Flags bin.Fields
 	// Why is the account being deleted, can be empty
 	Reason string
+	// Password field of AccountDeleteAccountRequest.
+	//
+	// Use SetPassword and GetPassword helpers.
+	Password InputCheckPasswordSRPClass
 }
 
 // AccountDeleteAccountRequestTypeID is TL type id of AccountDeleteAccountRequest.
-const AccountDeleteAccountRequestTypeID = 0x418d4e0b
+const AccountDeleteAccountRequestTypeID = 0xa2c0cf74
 
 // Ensuring interfaces in compile-time for AccountDeleteAccountRequest.
 var (
@@ -60,7 +66,13 @@ func (d *AccountDeleteAccountRequest) Zero() bool {
 	if d == nil {
 		return true
 	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
 	if !(d.Reason == "") {
+		return false
+	}
+	if !(d.Password == nil) {
 		return false
 	}
 
@@ -79,8 +91,13 @@ func (d *AccountDeleteAccountRequest) String() string {
 // FillFrom fills AccountDeleteAccountRequest from given interface.
 func (d *AccountDeleteAccountRequest) FillFrom(from interface {
 	GetReason() (value string)
+	GetPassword() (value InputCheckPasswordSRPClass, ok bool)
 }) {
 	d.Reason = from.GetReason()
+	if val, ok := from.GetPassword(); ok {
+		d.Password = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -110,14 +127,26 @@ func (d *AccountDeleteAccountRequest) TypeInfo() tdp.Type {
 			Name:       "Reason",
 			SchemaName: "reason",
 		},
+		{
+			Name:       "Password",
+			SchemaName: "password",
+			Null:       !d.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (d *AccountDeleteAccountRequest) SetFlags() {
+	if !(d.Password == nil) {
+		d.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (d *AccountDeleteAccountRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode account.deleteAccount#418d4e0b as nil")
+		return fmt.Errorf("can't encode account.deleteAccount#a2c0cf74 as nil")
 	}
 	b.PutID(AccountDeleteAccountRequestTypeID)
 	return d.EncodeBare(b)
@@ -126,19 +155,31 @@ func (d *AccountDeleteAccountRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *AccountDeleteAccountRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode account.deleteAccount#418d4e0b as nil")
+		return fmt.Errorf("can't encode account.deleteAccount#a2c0cf74 as nil")
+	}
+	d.SetFlags()
+	if err := d.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode account.deleteAccount#a2c0cf74: field flags: %w", err)
 	}
 	b.PutString(d.Reason)
+	if d.Flags.Has(0) {
+		if d.Password == nil {
+			return fmt.Errorf("unable to encode account.deleteAccount#a2c0cf74: field password is nil")
+		}
+		if err := d.Password.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode account.deleteAccount#a2c0cf74: field password: %w", err)
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (d *AccountDeleteAccountRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode account.deleteAccount#418d4e0b to nil")
+		return fmt.Errorf("can't decode account.deleteAccount#a2c0cf74 to nil")
 	}
 	if err := b.ConsumeID(AccountDeleteAccountRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.deleteAccount#418d4e0b: %w", err)
+		return fmt.Errorf("unable to decode account.deleteAccount#a2c0cf74: %w", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -146,14 +187,26 @@ func (d *AccountDeleteAccountRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *AccountDeleteAccountRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode account.deleteAccount#418d4e0b to nil")
+		return fmt.Errorf("can't decode account.deleteAccount#a2c0cf74 to nil")
+	}
+	{
+		if err := d.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode account.deleteAccount#a2c0cf74: field flags: %w", err)
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.deleteAccount#418d4e0b: field reason: %w", err)
+			return fmt.Errorf("unable to decode account.deleteAccount#a2c0cf74: field reason: %w", err)
 		}
 		d.Reason = value
+	}
+	if d.Flags.Has(0) {
+		value, err := DecodeInputCheckPasswordSRP(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode account.deleteAccount#a2c0cf74: field password: %w", err)
+		}
+		d.Password = value
 	}
 	return nil
 }
@@ -166,7 +219,34 @@ func (d *AccountDeleteAccountRequest) GetReason() (value string) {
 	return d.Reason
 }
 
-// AccountDeleteAccount invokes method account.deleteAccount#418d4e0b returning error if any.
+// SetPassword sets value of Password conditional field.
+func (d *AccountDeleteAccountRequest) SetPassword(value InputCheckPasswordSRPClass) {
+	d.Flags.Set(0)
+	d.Password = value
+}
+
+// GetPassword returns value of Password conditional field and
+// boolean which is true if field was set.
+func (d *AccountDeleteAccountRequest) GetPassword() (value InputCheckPasswordSRPClass, ok bool) {
+	if d == nil {
+		return
+	}
+	if !d.Flags.Has(0) {
+		return value, false
+	}
+	return d.Password, true
+}
+
+// GetPasswordAsNotEmpty returns mapped value of Password conditional field and
+// boolean which is true if field was set.
+func (d *AccountDeleteAccountRequest) GetPasswordAsNotEmpty() (*InputCheckPasswordSRP, bool) {
+	if value, ok := d.GetPassword(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
+}
+
+// AccountDeleteAccount invokes method account.deleteAccount#a2c0cf74 returning error if any.
 // Delete the user's account from the telegram servers. Can be used, for example, to
 // delete the account of a user that provided the login code, but forgot the 2FA password
 // and no recovery method is configured¹.
@@ -178,12 +258,9 @@ func (d *AccountDeleteAccountRequest) GetReason() (value string) {
 //  420 2FA_CONFIRM_WAIT_%d: Since this account is active and protected by a 2FA password, we will delete it in 1 week for security purposes. You can cancel this process at any time, you'll be able to reset your account in %d seconds.
 //
 // See https://core.telegram.org/method/account.deleteAccount for reference.
-func (c *Client) AccountDeleteAccount(ctx context.Context, reason string) (bool, error) {
+func (c *Client) AccountDeleteAccount(ctx context.Context, request *AccountDeleteAccountRequest) (bool, error) {
 	var result BoolBox
 
-	request := &AccountDeleteAccountRequest{
-		Reason: reason,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return false, err
 	}

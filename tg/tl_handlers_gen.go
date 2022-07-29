@@ -1115,3 +1115,13 @@ func (u UpdateDispatcher) OnTranscribedAudio(handler TranscribedAudioHandler) {
 		return handler(ctx, e, update.(*UpdateTranscribedAudio))
 	}
 }
+
+// ReadFeaturedEmojiStickersHandler is a ReadFeaturedEmojiStickers event handler.
+type ReadFeaturedEmojiStickersHandler func(ctx context.Context, e Entities, update *UpdateReadFeaturedEmojiStickers) error
+
+// OnReadFeaturedEmojiStickers sets ReadFeaturedEmojiStickers handler.
+func (u UpdateDispatcher) OnReadFeaturedEmojiStickers(handler ReadFeaturedEmojiStickersHandler) {
+	u.handlers[UpdateReadFeaturedEmojiStickersTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateReadFeaturedEmojiStickers))
+	}
+}

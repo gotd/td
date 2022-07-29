@@ -5149,6 +5149,194 @@ func (m *MessageActionWebViewDataSent) GetText() (value string) {
 	return m.Text
 }
 
+// MessageActionGiftPremium represents TL type `messageActionGiftPremium#aba0f5c6`.
+//
+// See https://core.telegram.org/constructor/messageActionGiftPremium for reference.
+type MessageActionGiftPremium struct {
+	// Currency field of MessageActionGiftPremium.
+	Currency string
+	// Amount field of MessageActionGiftPremium.
+	Amount int64
+	// Months field of MessageActionGiftPremium.
+	Months int
+}
+
+// MessageActionGiftPremiumTypeID is TL type id of MessageActionGiftPremium.
+const MessageActionGiftPremiumTypeID = 0xaba0f5c6
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionGiftPremium) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionGiftPremium.
+var (
+	_ bin.Encoder     = &MessageActionGiftPremium{}
+	_ bin.Decoder     = &MessageActionGiftPremium{}
+	_ bin.BareEncoder = &MessageActionGiftPremium{}
+	_ bin.BareDecoder = &MessageActionGiftPremium{}
+
+	_ MessageActionClass = &MessageActionGiftPremium{}
+)
+
+func (m *MessageActionGiftPremium) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Currency == "") {
+		return false
+	}
+	if !(m.Amount == 0) {
+		return false
+	}
+	if !(m.Months == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionGiftPremium) String() string {
+	if m == nil {
+		return "MessageActionGiftPremium(nil)"
+	}
+	type Alias MessageActionGiftPremium
+	return fmt.Sprintf("MessageActionGiftPremium%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionGiftPremium from given interface.
+func (m *MessageActionGiftPremium) FillFrom(from interface {
+	GetCurrency() (value string)
+	GetAmount() (value int64)
+	GetMonths() (value int)
+}) {
+	m.Currency = from.GetCurrency()
+	m.Amount = from.GetAmount()
+	m.Months = from.GetMonths()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionGiftPremium) TypeID() uint32 {
+	return MessageActionGiftPremiumTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionGiftPremium) TypeName() string {
+	return "messageActionGiftPremium"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionGiftPremium) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionGiftPremium",
+		ID:   MessageActionGiftPremiumTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Currency",
+			SchemaName: "currency",
+		},
+		{
+			Name:       "Amount",
+			SchemaName: "amount",
+		},
+		{
+			Name:       "Months",
+			SchemaName: "months",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionGiftPremium) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionGiftPremium#aba0f5c6 as nil")
+	}
+	b.PutID(MessageActionGiftPremiumTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionGiftPremium) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionGiftPremium#aba0f5c6 as nil")
+	}
+	b.PutString(m.Currency)
+	b.PutLong(m.Amount)
+	b.PutInt(m.Months)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionGiftPremium) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionGiftPremium#aba0f5c6 to nil")
+	}
+	if err := b.ConsumeID(MessageActionGiftPremiumTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionGiftPremium#aba0f5c6: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionGiftPremium) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionGiftPremium#aba0f5c6 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftPremium#aba0f5c6: field currency: %w", err)
+		}
+		m.Currency = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftPremium#aba0f5c6: field amount: %w", err)
+		}
+		m.Amount = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftPremium#aba0f5c6: field months: %w", err)
+		}
+		m.Months = value
+	}
+	return nil
+}
+
+// GetCurrency returns value of Currency field.
+func (m *MessageActionGiftPremium) GetCurrency() (value string) {
+	if m == nil {
+		return
+	}
+	return m.Currency
+}
+
+// GetAmount returns value of Amount field.
+func (m *MessageActionGiftPremium) GetAmount() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.Amount
+}
+
+// GetMonths returns value of Months field.
+func (m *MessageActionGiftPremium) GetMonths() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Months
+}
+
 // MessageActionClassName is schema name of MessageActionClass.
 const MessageActionClassName = "MessageAction"
 
@@ -5194,6 +5382,7 @@ const MessageActionClassName = "MessageAction"
 //  case *tg.MessageActionChatJoinedByRequest: // messageActionChatJoinedByRequest#ebbca3cb
 //  case *tg.MessageActionWebViewDataSentMe: // messageActionWebViewDataSentMe#47dd8079
 //  case *tg.MessageActionWebViewDataSent: // messageActionWebViewDataSent#b4c38cb5
+//  case *tg.MessageActionGiftPremium: // messageActionGiftPremium#aba0f5c6
 //  default: panic(v)
 //  }
 type MessageActionClass interface {
@@ -5442,6 +5631,13 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionWebViewDataSentTypeID:
 		// Decoding messageActionWebViewDataSent#b4c38cb5.
 		v := MessageActionWebViewDataSent{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionGiftPremiumTypeID:
+		// Decoding messageActionGiftPremium#aba0f5c6.
+		v := MessageActionGiftPremium{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}

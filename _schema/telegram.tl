@@ -2,8 +2,8 @@
 //
 // Source: https://raw.githubusercontent.com/telegramdesktop/tdesktop/dev/Telegram/Resources/tl/api.tl
 // Merge:  _schema/legacy.tl
-// Layer:  143
-// SHA256: d6f4e62f672967f02dadb40526f45fc83302660917c25d54cc582f55a2b0ec36
+// Layer:  144
+// SHA256: 4d4c5adf6d67cfb12d5b309020a3d05fef86758a03baf45bcf306fffe311cc4f
 
 boolFalse#bc799737 = Bool;
 
@@ -277,6 +277,8 @@ messageActionWebViewDataSentMe#47dd8079 text:string data:string = MessageAction;
 
 messageActionWebViewDataSent#b4c38cb5 text:string = MessageAction;
 
+messageActionGiftPremium#aba0f5c6 currency:string amount:long months:int = MessageAction;
+
 dialog#a8edd0f5 flags:# pinned:flags.2?true unread_mark:flags.3?true peer:Peer top_message:int read_inbox_max_id:int read_outbox_max_id:int unread_count:int unread_mentions_count:int unread_reactions_count:int notify_settings:PeerNotifySettings pts:flags.0?int draft:flags.1?DraftMessage folder_id:flags.4?int = Dialog;
 
 dialogFolder#71bd134c flags:# pinned:flags.2?true folder:Folder peer:Peer top_message:int unread_muted_peers_count:int unread_unmuted_peers_count:int unread_muted_messages_count:int unread_unmuted_messages_count:int = Dialog;
@@ -347,7 +349,7 @@ inputReportReasonIllegalDrugs#a8eb2be = ReportReason;
 
 inputReportReasonPersonalDetails#9ec7863d = ReportReason;
 
-userFull#8c72ea81 flags:# blocked:flags.0?true phone_calls_available:flags.4?true phone_calls_private:flags.5?true can_pin_message:flags.7?true has_scheduled:flags.12?true video_calls_available:flags.13?true id:long about:flags.1?string settings:PeerSettings profile_photo:flags.2?Photo notify_settings:PeerNotifySettings bot_info:flags.3?BotInfo pinned_msg_id:flags.6?int common_chats_count:int folder_id:flags.11?int ttl_period:flags.14?int theme_emoticon:flags.15?string private_forward_name:flags.16?string bot_group_admin_rights:flags.17?ChatAdminRights bot_broadcast_admin_rights:flags.18?ChatAdminRights = UserFull;
+userFull#c4b1fc3f flags:# blocked:flags.0?true phone_calls_available:flags.4?true phone_calls_private:flags.5?true can_pin_message:flags.7?true has_scheduled:flags.12?true video_calls_available:flags.13?true voice_messages_forbidden:flags.20?true id:long about:flags.1?string settings:PeerSettings profile_photo:flags.2?Photo notify_settings:PeerNotifySettings bot_info:flags.3?BotInfo pinned_msg_id:flags.6?int common_chats_count:int folder_id:flags.11?int ttl_period:flags.14?int theme_emoticon:flags.15?string private_forward_name:flags.16?string bot_group_admin_rights:flags.17?ChatAdminRights bot_broadcast_admin_rights:flags.18?ChatAdminRights premium_gifts:flags.19?Vector<PremiumGiftOption> = UserFull;
 
 contact#145ade0b user_id:long mutual:Bool = Contact;
 
@@ -485,7 +487,7 @@ updateChatParticipantAdmin#d7ca61a2 chat_id:long user_id:long is_admin:Bool vers
 
 updateNewStickerSet#688a30aa stickerset:messages.StickerSet = Update;
 
-updateStickerSetsOrder#bb2d201 flags:# masks:flags.0?true order:Vector<long> = Update;
+updateStickerSetsOrder#bb2d201 flags:# masks:flags.0?true emojis:flags.1?true order:Vector<long> = Update;
 
 updateStickerSets#43ae3dec = Update;
 
@@ -622,6 +624,8 @@ updateBotMenuButton#14b85813 bot_id:long button:BotMenuButton = Update;
 updateSavedRingtones#74d8be99 = Update;
 
 updateTranscribedAudio#84cd5a flags:# pending:flags.0?true peer:Peer msg_id:int transcription_id:long text:string = Update;
+
+updateReadFeaturedEmojiStickers#fb4c496c = Update;
 
 updates.state#a56c2a3e pts:int qts:int date:int seq:int unread_count:int = updates.State;
 
@@ -777,6 +781,8 @@ inputPrivacyKeyPhoneNumber#352dafa = InputPrivacyKey;
 
 inputPrivacyKeyAddedByPhone#d1219bdd = InputPrivacyKey;
 
+inputPrivacyKeyVoiceMessages#aee69d68 = InputPrivacyKey;
+
 privacyKeyStatusTimestamp#bc2eab30 = PrivacyKey;
 
 privacyKeyChatInvite#500e6dfa = PrivacyKey;
@@ -792,6 +798,8 @@ privacyKeyProfilePhoto#96151fed = PrivacyKey;
 privacyKeyPhoneNumber#d19ae46d = PrivacyKey;
 
 privacyKeyAddedByPhone#42ffd42b = PrivacyKey;
+
+privacyKeyVoiceMessages#697f414 = PrivacyKey;
 
 inputPrivacyValueAllowContacts#d09e07b = InputPrivacyRule;
 
@@ -842,6 +850,8 @@ documentAttributeAudio#9852f9c6 flags:# voice:flags.10?true duration:int title:f
 documentAttributeFilename#15590068 file_name:string = DocumentAttribute;
 
 documentAttributeHasStickers#9801d2f7 = DocumentAttribute;
+
+documentAttributeCustomEmoji#fd149899 flags:# free:flags.0?true alt:string stickerset:InputStickerSet = DocumentAttribute;
 
 messages.stickersNotModified#f1749a22 = messages.Stickers;
 
@@ -899,7 +909,9 @@ inputStickerSetDice#e67f520e emoticon:string = InputStickerSet;
 
 inputStickerSetAnimatedEmojiAnimations#cde3739 = InputStickerSet;
 
-stickerSet#d7df217a flags:# archived:flags.1?true official:flags.2?true masks:flags.3?true animated:flags.5?true videos:flags.6?true installed_date:flags.0?int id:long access_hash:long title:string short_name:string thumbs:flags.4?Vector<PhotoSize> thumb_dc_id:flags.4?int thumb_version:flags.4?int count:int hash:int = StickerSet;
+inputStickerSetPremiumGifts#c88b3b02 = InputStickerSet;
+
+stickerSet#2dd14edc flags:# archived:flags.1?true official:flags.2?true masks:flags.3?true animated:flags.5?true videos:flags.6?true emojis:flags.7?true installed_date:flags.0?int id:long access_hash:long title:string short_name:string thumbs:flags.4?Vector<PhotoSize> thumb_dc_id:flags.4?int thumb_version:flags.4?int thumb_document_id:flags.8?long count:int hash:int = StickerSet;
 
 messages.stickerSet#b60a24a6 set:StickerSet packs:Vector<StickerPack> documents:Vector<Document> = messages.StickerSet;
 
@@ -988,6 +1000,8 @@ messageEntityBlockquote#20df5d0 offset:int length:int = MessageEntity;
 messageEntityBankCard#761e6af4 offset:int length:int = MessageEntity;
 
 messageEntitySpoiler#32ca960f offset:int length:int = MessageEntity;
+
+messageEntityCustomEmoji#c8cf05f8 offset:int length:int document_id:long = MessageEntity;
 
 inputChannelEmpty#ee8c1e86 = InputChannel;
 
@@ -1155,7 +1169,7 @@ draftMessage#fd8e711f flags:# no_webpage:flags.1?true reply_to_msg_id:flags.0?in
 
 messages.featuredStickersNotModified#c6dc0c66 count:int = messages.FeaturedStickers;
 
-messages.featuredStickers#84c02310 hash:long count:int sets:Vector<StickerSetCovered> unread:Vector<long> = messages.FeaturedStickers;
+messages.featuredStickers#be382906 flags:# premium:flags.0?true hash:long count:int sets:Vector<StickerSetCovered> unread:Vector<long> = messages.FeaturedStickers;
 
 messages.recentStickersNotModified#b17f890 = messages.RecentStickers;
 
@@ -1170,6 +1184,8 @@ messages.stickerSetInstallResultArchive#35e410a8 sets:Vector<StickerSetCovered> 
 stickerSetCovered#6410a5d2 set:StickerSet cover:Document = StickerSetCovered;
 
 stickerSetMultiCovered#3407e51b set:StickerSet covers:Vector<Document> = StickerSetCovered;
+
+stickerSetFullCovered#1aed5ee5 set:StickerSet packs:Vector<StickerPack> documents:Vector<Document> = StickerSetCovered;
 
 maskCoords#aed6dbb2 n:int x:double y:double zoom:double = MaskCoords;
 
@@ -1311,7 +1327,7 @@ inputWebFileGeoPointLocation#9f2221c9 geo_point:InputGeoPoint access_hash:long w
 
 upload.webFile#21e753bc size:int mime_type:string file_type:storage.FileType mtime:int bytes:bytes = upload.WebFile;
 
-payments.paymentForm#b0133b37 flags:# can_save_credentials:flags.2?true password_missing:flags.3?true form_id:long bot_id:long title:string description:string photo:flags.5?WebDocument invoice:Invoice provider_id:long url:string native_provider:flags.4?string native_params:flags.4?DataJSON saved_info:flags.0?PaymentRequestedInfo saved_credentials:flags.1?PaymentSavedCredentials users:Vector<User> = payments.PaymentForm;
+payments.paymentForm#a0058751 flags:# can_save_credentials:flags.2?true password_missing:flags.3?true form_id:long bot_id:long title:string description:string photo:flags.5?WebDocument invoice:Invoice provider_id:long url:string native_provider:flags.4?string native_params:flags.4?DataJSON additional_methods:flags.6?Vector<PaymentFormMethod> saved_info:flags.0?PaymentRequestedInfo saved_credentials:flags.1?Vector<PaymentSavedCredentials> users:Vector<User> = payments.PaymentForm;
 
 payments.validatedRequestedInfo#d1451883 flags:# id:flags.0?string shipping_options:flags.1?Vector<ShippingOption> = payments.ValidatedRequestedInfo;
 
@@ -2003,6 +2019,14 @@ messages.transcribedAudio#93752c52 flags:# pending:flags.0?true transcription_id
 
 help.premiumPromo#8a4f3c29 status_text:string status_entities:Vector<MessageEntity> video_sections:Vector<string> videos:Vector<Document> currency:string monthly_amount:long users:Vector<User> = help.PremiumPromo;
 
+inputStorePaymentPremiumSubscription#a6751e66 flags:# restore:flags.0?true = InputStorePaymentPurpose;
+
+inputStorePaymentGiftPremium#616f7fe8 user_id:InputUser currency:string amount:long = InputStorePaymentPurpose;
+
+premiumGiftOption#74c34319 flags:# months:int currency:string amount:long bot_url:string store_product:flags.0?string = PremiumGiftOption;
+
+paymentFormMethod#88f8f21b url:string title:string = PaymentFormMethod;
+
 
 ---functions---
 
@@ -2084,7 +2108,7 @@ account.getPrivacy#dadbc950 key:InputPrivacyKey = account.PrivacyRules;
 
 account.setPrivacy#c9f81ce8 key:InputPrivacyKey rules:Vector<InputPrivacyRule> = account.PrivacyRules;
 
-account.deleteAccount#418d4e0b reason:string = Bool;
+account.deleteAccount#a2c0cf74 flags:# reason:string password:flags.0?InputCheckPasswordSRP = Bool;
 
 account.getAccountTTL#8fc711d = AccountDaysTTL;
 
@@ -2354,7 +2378,7 @@ messages.migrateChat#a2875319 chat_id:long = Updates;
 
 messages.searchGlobal#4bc6589a flags:# folder_id:flags.0?int q:string filter:MessagesFilter min_date:int max_date:int offset_rate:int offset_peer:InputPeer offset_id:int limit:int = messages.Messages;
 
-messages.reorderStickerSets#78337739 flags:# masks:flags.0?true order:Vector<long> = Bool;
+messages.reorderStickerSets#78337739 flags:# masks:flags.0?true emojis:flags.1?true order:Vector<long> = Bool;
 
 messages.getDocumentByHash#b1f2061f sha256:bytes size:long mime_type:string = Document;
 
@@ -2394,7 +2418,7 @@ messages.saveRecentSticker#392718f8 flags:# attached:flags.0?true id:InputDocume
 
 messages.clearRecentStickers#8999602d flags:# attached:flags.0?true = Bool;
 
-messages.getArchivedStickers#57f17692 flags:# masks:flags.0?true offset_id:long limit:int = messages.ArchivedStickers;
+messages.getArchivedStickers#57f17692 flags:# masks:flags.0?true emojis:flags.1?true offset_id:long limit:int = messages.ArchivedStickers;
 
 messages.getMaskStickers#640f82b8 hash:long = messages.AllStickers;
 
@@ -2596,6 +2620,12 @@ messages.transcribeAudio#269e9a49 peer:InputPeer msg_id:int = messages.Transcrib
 
 messages.rateTranscribedAudio#7f1d072f peer:InputPeer msg_id:int transcription_id:long good:Bool = Bool;
 
+messages.getCustomEmojiDocuments#d9ab0f54 document_id:Vector<long> = Vector<Document>;
+
+messages.getEmojiStickers#fbfca18f hash:long = messages.AllStickers;
+
+messages.getFeaturedEmojiStickers#ecf6736 hash:long = messages.FeaturedStickers;
+
 updates.getState#edd4882a = updates.State;
 
 updates.getDifference#25939651 flags:# pts:int pts_total_limit:flags.0?int date:int qts:int = updates.Difference;
@@ -2788,13 +2818,11 @@ payments.getBankCardData#2e79d779 number:string = payments.BankCardData;
 
 payments.exportInvoice#f91b065 invoice_media:InputMedia = payments.ExportedInvoice;
 
-payments.assignAppStoreTransaction#fec13c6 flags:# restore:flags.0?true transaction_id:string receipt:bytes = Updates;
+payments.assignAppStoreTransaction#80ed747d receipt:bytes purpose:InputStorePaymentPurpose = Updates;
 
-payments.assignPlayMarketTransaction#4faa4aed purchase_token:string = Updates;
+payments.assignPlayMarketTransaction#dffd50d3 receipt:DataJSON purpose:InputStorePaymentPurpose = Updates;
 
-payments.restorePlayMarketReceipt#d164e36a receipt:bytes = Updates;
-
-payments.canPurchasePremium#aa6a90c8 = Bool;
+payments.canPurchasePremium#9fc19eb6 purpose:InputStorePaymentPurpose = Bool;
 
 payments.requestRecurringPayment#146e958d user_id:InputUser recurring_init_charge:string invoice_media:InputMedia = Updates;
 
@@ -2930,4 +2958,4 @@ test.useError#ee75af01 = Error;
 
 test.useConfigSimple#f9b7b23d = help.ConfigSimple;
 
-// LAYER 143
+// LAYER 144

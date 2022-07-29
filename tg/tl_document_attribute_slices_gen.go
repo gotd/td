@@ -181,6 +181,19 @@ func (s DocumentAttributeClassArray) AsDocumentAttributeFilename() (to DocumentA
 	return to
 }
 
+// AsDocumentAttributeCustomEmoji returns copy with only DocumentAttributeCustomEmoji constructors.
+func (s DocumentAttributeClassArray) AsDocumentAttributeCustomEmoji() (to DocumentAttributeCustomEmojiArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DocumentAttributeCustomEmoji)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // DocumentAttributeImageSizeArray is adapter for slice of DocumentAttributeImageSize.
 type DocumentAttributeImageSizeArray []DocumentAttributeImageSize
 
@@ -579,6 +592,88 @@ func (s *DocumentAttributeFilenameArray) PopFirst() (v DocumentAttributeFilename
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *DocumentAttributeFilenameArray) Pop() (v DocumentAttributeFilename, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DocumentAttributeCustomEmojiArray is adapter for slice of DocumentAttributeCustomEmoji.
+type DocumentAttributeCustomEmojiArray []DocumentAttributeCustomEmoji
+
+// Sort sorts slice of DocumentAttributeCustomEmoji.
+func (s DocumentAttributeCustomEmojiArray) Sort(less func(a, b DocumentAttributeCustomEmoji) bool) DocumentAttributeCustomEmojiArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DocumentAttributeCustomEmoji.
+func (s DocumentAttributeCustomEmojiArray) SortStable(less func(a, b DocumentAttributeCustomEmoji) bool) DocumentAttributeCustomEmojiArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DocumentAttributeCustomEmoji.
+func (s DocumentAttributeCustomEmojiArray) Retain(keep func(x DocumentAttributeCustomEmoji) bool) DocumentAttributeCustomEmojiArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DocumentAttributeCustomEmojiArray) First() (v DocumentAttributeCustomEmoji, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DocumentAttributeCustomEmojiArray) Last() (v DocumentAttributeCustomEmoji, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DocumentAttributeCustomEmojiArray) PopFirst() (v DocumentAttributeCustomEmoji, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DocumentAttributeCustomEmoji
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DocumentAttributeCustomEmojiArray) Pop() (v DocumentAttributeCustomEmoji, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

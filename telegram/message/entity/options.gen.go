@@ -375,3 +375,23 @@ func Spoiler() Formatter {
 func (b *Builder) Spoiler(s string) *Builder {
 	return b.Format(s, Spoiler())
 }
+
+// CustomEmoji creates Formatter of CustomEmoji message entity.
+//
+// See https://core.telegram.org/constructor/messageEntityCustomEmoji.
+func CustomEmoji(documentID int64) Formatter {
+	return func(offset, length int) tg.MessageEntityClass {
+		return &tg.MessageEntityCustomEmoji{
+			Offset:     offset,
+			Length:     length,
+			DocumentID: documentID,
+		}
+	}
+}
+
+// CustomEmoji adds and formats message as CustomEmoji message entity.
+//
+// See https://core.telegram.org/constructor/messageEntityCustomEmoji.
+func (b *Builder) CustomEmoji(s string, documentID int64) *Builder {
+	return b.Format(s, CustomEmoji(documentID))
+}

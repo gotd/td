@@ -201,3 +201,13 @@ func Spoiler(s string) StyledTextOption {
 		return nil
 	})
 }
+
+// CustomEmoji formats text as CustomEmoji entity.
+//
+// See https://core.telegram.org/constructor/messageEntityCustomEmoji.
+func CustomEmoji(s string, documentID int64) StyledTextOption {
+	return styledTextOption(s, func(b *textBuilder) error {
+		b.CustomEmoji(s, documentID)
+		return nil
+	})
+}

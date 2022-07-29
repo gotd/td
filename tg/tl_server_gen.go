@@ -649,14 +649,14 @@ func (s *ServerDispatcher) OnAccountSetPrivacy(f func(ctx context.Context, reque
 	s.handlers[AccountSetPrivacyRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnAccountDeleteAccount(f func(ctx context.Context, reason string) (bool, error)) {
+func (s *ServerDispatcher) OnAccountDeleteAccount(f func(ctx context.Context, request *AccountDeleteAccountRequest) (bool, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request AccountDeleteAccountRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.Reason)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
@@ -5309,6 +5309,57 @@ func (s *ServerDispatcher) OnMessagesRateTranscribedAudio(f func(ctx context.Con
 	s.handlers[MessagesRateTranscribedAudioRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesGetCustomEmojiDocuments(f func(ctx context.Context, documentid []int64) ([]DocumentClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetCustomEmojiDocumentsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.DocumentID)
+		if err != nil {
+			return nil, err
+		}
+		return &DocumentClassVector{Elems: response}, nil
+	}
+
+	s.handlers[MessagesGetCustomEmojiDocumentsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetEmojiStickers(f func(ctx context.Context, hash int64) (MessagesAllStickersClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetEmojiStickersRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hash)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesAllStickersBox{AllStickers: response}, nil
+	}
+
+	s.handlers[MessagesGetEmojiStickersRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetFeaturedEmojiStickers(f func(ctx context.Context, hash int64) (MessagesFeaturedStickersClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetFeaturedEmojiStickersRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hash)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesFeaturedStickersBox{FeaturedStickers: response}, nil
+	}
+
+	s.handlers[MessagesGetFeaturedEmojiStickersRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
@@ -7050,14 +7101,14 @@ func (s *ServerDispatcher) OnPaymentsAssignAppStoreTransaction(f func(ctx contex
 	s.handlers[PaymentsAssignAppStoreTransactionRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnPaymentsAssignPlayMarketTransaction(f func(ctx context.Context, purchasetoken string) (UpdatesClass, error)) {
+func (s *ServerDispatcher) OnPaymentsAssignPlayMarketTransaction(f func(ctx context.Context, request *PaymentsAssignPlayMarketTransactionRequest) (UpdatesClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request PaymentsAssignPlayMarketTransactionRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.PurchaseToken)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
@@ -7067,31 +7118,14 @@ func (s *ServerDispatcher) OnPaymentsAssignPlayMarketTransaction(f func(ctx cont
 	s.handlers[PaymentsAssignPlayMarketTransactionRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnPaymentsRestorePlayMarketReceipt(f func(ctx context.Context, receipt []byte) (UpdatesClass, error)) {
-	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request PaymentsRestorePlayMarketReceiptRequest
-		if err := request.Decode(b); err != nil {
-			return nil, err
-		}
-
-		response, err := f(ctx, request.Receipt)
-		if err != nil {
-			return nil, err
-		}
-		return &UpdatesBox{Updates: response}, nil
-	}
-
-	s.handlers[PaymentsRestorePlayMarketReceiptRequestTypeID] = handler
-}
-
-func (s *ServerDispatcher) OnPaymentsCanPurchasePremium(f func(ctx context.Context) (bool, error)) {
+func (s *ServerDispatcher) OnPaymentsCanPurchasePremium(f func(ctx context.Context, purpose InputStorePaymentPurposeClass) (bool, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request PaymentsCanPurchasePremiumRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx)
+		response, err := f(ctx, request.Purpose)
 		if err != nil {
 			return nil, err
 		}
