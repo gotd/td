@@ -43,6 +43,8 @@ type MessagesGetArchivedStickersRequest struct {
 	Flags bin.Fields
 	// Get mask stickers
 	Masks bool
+	// Emojis field of MessagesGetArchivedStickersRequest.
+	Emojis bool
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
@@ -76,6 +78,9 @@ func (g *MessagesGetArchivedStickersRequest) Zero() bool {
 	if !(g.Masks == false) {
 		return false
 	}
+	if !(g.Emojis == false) {
+		return false
+	}
 	if !(g.OffsetID == 0) {
 		return false
 	}
@@ -98,10 +103,12 @@ func (g *MessagesGetArchivedStickersRequest) String() string {
 // FillFrom fills MessagesGetArchivedStickersRequest from given interface.
 func (g *MessagesGetArchivedStickersRequest) FillFrom(from interface {
 	GetMasks() (value bool)
+	GetEmojis() (value bool)
 	GetOffsetID() (value int64)
 	GetLimit() (value int)
 }) {
 	g.Masks = from.GetMasks()
+	g.Emojis = from.GetEmojis()
 	g.OffsetID = from.GetOffsetID()
 	g.Limit = from.GetLimit()
 }
@@ -135,6 +142,11 @@ func (g *MessagesGetArchivedStickersRequest) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(0),
 		},
 		{
+			Name:       "Emojis",
+			SchemaName: "emojis",
+			Null:       !g.Flags.Has(1),
+		},
+		{
 			Name:       "OffsetID",
 			SchemaName: "offset_id",
 		},
@@ -150,6 +162,9 @@ func (g *MessagesGetArchivedStickersRequest) TypeInfo() tdp.Type {
 func (g *MessagesGetArchivedStickersRequest) SetFlags() {
 	if !(g.Masks == false) {
 		g.Flags.Set(0)
+	}
+	if !(g.Emojis == false) {
+		g.Flags.Set(1)
 	}
 }
 
@@ -198,6 +213,7 @@ func (g *MessagesGetArchivedStickersRequest) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	g.Masks = g.Flags.Has(0)
+	g.Emojis = g.Flags.Has(1)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -232,6 +248,25 @@ func (g *MessagesGetArchivedStickersRequest) GetMasks() (value bool) {
 		return
 	}
 	return g.Flags.Has(0)
+}
+
+// SetEmojis sets value of Emojis conditional field.
+func (g *MessagesGetArchivedStickersRequest) SetEmojis(value bool) {
+	if value {
+		g.Flags.Set(1)
+		g.Emojis = true
+	} else {
+		g.Flags.Unset(1)
+		g.Emojis = false
+	}
+}
+
+// GetEmojis returns value of Emojis conditional field.
+func (g *MessagesGetArchivedStickersRequest) GetEmojis() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(1)
 }
 
 // GetOffsetID returns value of OffsetID field.

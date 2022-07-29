@@ -1418,6 +1418,225 @@ func (d *DocumentAttributeHasStickers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// DocumentAttributeCustomEmoji represents TL type `documentAttributeCustomEmoji#fd149899`.
+//
+// See https://core.telegram.org/constructor/documentAttributeCustomEmoji for reference.
+type DocumentAttributeCustomEmoji struct {
+	// Flags field of DocumentAttributeCustomEmoji.
+	Flags bin.Fields
+	// Free field of DocumentAttributeCustomEmoji.
+	Free bool
+	// Alt field of DocumentAttributeCustomEmoji.
+	Alt string
+	// Stickerset field of DocumentAttributeCustomEmoji.
+	Stickerset InputStickerSetClass
+}
+
+// DocumentAttributeCustomEmojiTypeID is TL type id of DocumentAttributeCustomEmoji.
+const DocumentAttributeCustomEmojiTypeID = 0xfd149899
+
+// construct implements constructor of DocumentAttributeClass.
+func (d DocumentAttributeCustomEmoji) construct() DocumentAttributeClass { return &d }
+
+// Ensuring interfaces in compile-time for DocumentAttributeCustomEmoji.
+var (
+	_ bin.Encoder     = &DocumentAttributeCustomEmoji{}
+	_ bin.Decoder     = &DocumentAttributeCustomEmoji{}
+	_ bin.BareEncoder = &DocumentAttributeCustomEmoji{}
+	_ bin.BareDecoder = &DocumentAttributeCustomEmoji{}
+
+	_ DocumentAttributeClass = &DocumentAttributeCustomEmoji{}
+)
+
+func (d *DocumentAttributeCustomEmoji) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.Free == false) {
+		return false
+	}
+	if !(d.Alt == "") {
+		return false
+	}
+	if !(d.Stickerset == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (d *DocumentAttributeCustomEmoji) String() string {
+	if d == nil {
+		return "DocumentAttributeCustomEmoji(nil)"
+	}
+	type Alias DocumentAttributeCustomEmoji
+	return fmt.Sprintf("DocumentAttributeCustomEmoji%+v", Alias(*d))
+}
+
+// FillFrom fills DocumentAttributeCustomEmoji from given interface.
+func (d *DocumentAttributeCustomEmoji) FillFrom(from interface {
+	GetFree() (value bool)
+	GetAlt() (value string)
+	GetStickerset() (value InputStickerSetClass)
+}) {
+	d.Free = from.GetFree()
+	d.Alt = from.GetAlt()
+	d.Stickerset = from.GetStickerset()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*DocumentAttributeCustomEmoji) TypeID() uint32 {
+	return DocumentAttributeCustomEmojiTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*DocumentAttributeCustomEmoji) TypeName() string {
+	return "documentAttributeCustomEmoji"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DocumentAttributeCustomEmoji) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "documentAttributeCustomEmoji",
+		ID:   DocumentAttributeCustomEmojiTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Free",
+			SchemaName: "free",
+			Null:       !d.Flags.Has(0),
+		},
+		{
+			Name:       "Alt",
+			SchemaName: "alt",
+		},
+		{
+			Name:       "Stickerset",
+			SchemaName: "stickerset",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (d *DocumentAttributeCustomEmoji) SetFlags() {
+	if !(d.Free == false) {
+		d.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (d *DocumentAttributeCustomEmoji) Encode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode documentAttributeCustomEmoji#fd149899 as nil")
+	}
+	b.PutID(DocumentAttributeCustomEmojiTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DocumentAttributeCustomEmoji) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode documentAttributeCustomEmoji#fd149899 as nil")
+	}
+	d.SetFlags()
+	if err := d.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode documentAttributeCustomEmoji#fd149899: field flags: %w", err)
+	}
+	b.PutString(d.Alt)
+	if d.Stickerset == nil {
+		return fmt.Errorf("unable to encode documentAttributeCustomEmoji#fd149899: field stickerset is nil")
+	}
+	if err := d.Stickerset.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode documentAttributeCustomEmoji#fd149899: field stickerset: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (d *DocumentAttributeCustomEmoji) Decode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode documentAttributeCustomEmoji#fd149899 to nil")
+	}
+	if err := b.ConsumeID(DocumentAttributeCustomEmojiTypeID); err != nil {
+		return fmt.Errorf("unable to decode documentAttributeCustomEmoji#fd149899: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DocumentAttributeCustomEmoji) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode documentAttributeCustomEmoji#fd149899 to nil")
+	}
+	{
+		if err := d.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode documentAttributeCustomEmoji#fd149899: field flags: %w", err)
+		}
+	}
+	d.Free = d.Flags.Has(0)
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode documentAttributeCustomEmoji#fd149899: field alt: %w", err)
+		}
+		d.Alt = value
+	}
+	{
+		value, err := DecodeInputStickerSet(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode documentAttributeCustomEmoji#fd149899: field stickerset: %w", err)
+		}
+		d.Stickerset = value
+	}
+	return nil
+}
+
+// SetFree sets value of Free conditional field.
+func (d *DocumentAttributeCustomEmoji) SetFree(value bool) {
+	if value {
+		d.Flags.Set(0)
+		d.Free = true
+	} else {
+		d.Flags.Unset(0)
+		d.Free = false
+	}
+}
+
+// GetFree returns value of Free conditional field.
+func (d *DocumentAttributeCustomEmoji) GetFree() (value bool) {
+	if d == nil {
+		return
+	}
+	return d.Flags.Has(0)
+}
+
+// GetAlt returns value of Alt field.
+func (d *DocumentAttributeCustomEmoji) GetAlt() (value string) {
+	if d == nil {
+		return
+	}
+	return d.Alt
+}
+
+// GetStickerset returns value of Stickerset field.
+func (d *DocumentAttributeCustomEmoji) GetStickerset() (value InputStickerSetClass) {
+	if d == nil {
+		return
+	}
+	return d.Stickerset
+}
+
 // DocumentAttributeClassName is schema name of DocumentAttributeClass.
 const DocumentAttributeClassName = "DocumentAttribute"
 
@@ -1438,6 +1657,7 @@ const DocumentAttributeClassName = "DocumentAttribute"
 //  case *tg.DocumentAttributeAudio: // documentAttributeAudio#9852f9c6
 //  case *tg.DocumentAttributeFilename: // documentAttributeFilename#15590068
 //  case *tg.DocumentAttributeHasStickers: // documentAttributeHasStickers#9801d2f7
+//  case *tg.DocumentAttributeCustomEmoji: // documentAttributeCustomEmoji#fd149899
 //  default: panic(v)
 //  }
 type DocumentAttributeClass interface {
@@ -1511,6 +1731,13 @@ func DecodeDocumentAttribute(buf *bin.Buffer) (DocumentAttributeClass, error) {
 	case DocumentAttributeHasStickersTypeID:
 		// Decoding documentAttributeHasStickers#9801d2f7.
 		v := DocumentAttributeHasStickers{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode DocumentAttributeClass: %w", err)
+		}
+		return &v, nil
+	case DocumentAttributeCustomEmojiTypeID:
+		// Decoding documentAttributeCustomEmoji#fd149899.
+		v := DocumentAttributeCustomEmoji{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode DocumentAttributeClass: %w", err)
 		}

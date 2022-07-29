@@ -606,6 +606,90 @@ func (s *MessagesGetAttachMenuBots) Fetch(ctx context.Context) (bool, error) {
 	}
 }
 
+type innerMessagesGetEmojiStickers struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.MessagesAllStickers
+}
+
+type MessagesGetEmojiStickers struct {
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewMessagesGetEmojiStickers creates new MessagesGetEmojiStickers.
+func NewMessagesGetEmojiStickers(raw *tg.Client) *MessagesGetEmojiStickers {
+	q := &MessagesGetEmojiStickers{
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *MessagesGetEmojiStickers) store(v innerMessagesGetEmojiStickers) {
+	s.last.Store(v)
+}
+
+func (s *MessagesGetEmojiStickers) load() (innerMessagesGetEmojiStickers, bool) {
+	v, ok := s.last.Load().(innerMessagesGetEmojiStickers)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned MessagesAllStickers must not be mutated.
+func (s *MessagesGetEmojiStickers) Value() *tg.MessagesAllStickers {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *MessagesGetEmojiStickers) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *MessagesGetEmojiStickers) Get(ctx context.Context) (*tg.MessagesAllStickers, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *MessagesGetEmojiStickers) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := lastHash
+	result, err := s.raw.MessagesGetEmojiStickers(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute MessagesGetEmojiStickers")
+	}
+
+	switch variant := result.(type) {
+	case *tg.MessagesAllStickers:
+		hash := variant.Hash
+
+		s.store(innerMessagesGetEmojiStickers{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.MessagesAllStickersNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
 type innerMessagesGetFavedStickers struct {
 	// Last received hash.
 	hash int64
@@ -681,6 +765,90 @@ func (s *MessagesGetFavedStickers) Fetch(ctx context.Context) (bool, error) {
 		})
 		return true, nil
 	case *tg.MessagesFavedStickersNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
+type innerMessagesGetFeaturedEmojiStickers struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.MessagesFeaturedStickers
+}
+
+type MessagesGetFeaturedEmojiStickers struct {
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewMessagesGetFeaturedEmojiStickers creates new MessagesGetFeaturedEmojiStickers.
+func NewMessagesGetFeaturedEmojiStickers(raw *tg.Client) *MessagesGetFeaturedEmojiStickers {
+	q := &MessagesGetFeaturedEmojiStickers{
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *MessagesGetFeaturedEmojiStickers) store(v innerMessagesGetFeaturedEmojiStickers) {
+	s.last.Store(v)
+}
+
+func (s *MessagesGetFeaturedEmojiStickers) load() (innerMessagesGetFeaturedEmojiStickers, bool) {
+	v, ok := s.last.Load().(innerMessagesGetFeaturedEmojiStickers)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned MessagesFeaturedStickers must not be mutated.
+func (s *MessagesGetFeaturedEmojiStickers) Value() *tg.MessagesFeaturedStickers {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *MessagesGetFeaturedEmojiStickers) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *MessagesGetFeaturedEmojiStickers) Get(ctx context.Context) (*tg.MessagesFeaturedStickers, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *MessagesGetFeaturedEmojiStickers) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := lastHash
+	result, err := s.raw.MessagesGetFeaturedEmojiStickers(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute MessagesGetFeaturedEmojiStickers")
+	}
+
+	switch variant := result.(type) {
+	case *tg.MessagesFeaturedStickers:
+		hash := variant.Hash
+
+		s.store(innerMessagesGetFeaturedEmojiStickers{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.MessagesFeaturedStickersNotModified:
 		if lastHash == 0 {
 			return false, errors.Errorf("got unexpected %T result", result)
 		}

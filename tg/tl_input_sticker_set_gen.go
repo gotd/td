@@ -773,6 +773,107 @@ func (i *InputStickerSetAnimatedEmojiAnimations) DecodeBare(b *bin.Buffer) error
 	return nil
 }
 
+// InputStickerSetPremiumGifts represents TL type `inputStickerSetPremiumGifts#c88b3b02`.
+//
+// See https://core.telegram.org/constructor/inputStickerSetPremiumGifts for reference.
+type InputStickerSetPremiumGifts struct {
+}
+
+// InputStickerSetPremiumGiftsTypeID is TL type id of InputStickerSetPremiumGifts.
+const InputStickerSetPremiumGiftsTypeID = 0xc88b3b02
+
+// construct implements constructor of InputStickerSetClass.
+func (i InputStickerSetPremiumGifts) construct() InputStickerSetClass { return &i }
+
+// Ensuring interfaces in compile-time for InputStickerSetPremiumGifts.
+var (
+	_ bin.Encoder     = &InputStickerSetPremiumGifts{}
+	_ bin.Decoder     = &InputStickerSetPremiumGifts{}
+	_ bin.BareEncoder = &InputStickerSetPremiumGifts{}
+	_ bin.BareDecoder = &InputStickerSetPremiumGifts{}
+
+	_ InputStickerSetClass = &InputStickerSetPremiumGifts{}
+)
+
+func (i *InputStickerSetPremiumGifts) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputStickerSetPremiumGifts) String() string {
+	if i == nil {
+		return "InputStickerSetPremiumGifts(nil)"
+	}
+	type Alias InputStickerSetPremiumGifts
+	return fmt.Sprintf("InputStickerSetPremiumGifts%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputStickerSetPremiumGifts) TypeID() uint32 {
+	return InputStickerSetPremiumGiftsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputStickerSetPremiumGifts) TypeName() string {
+	return "inputStickerSetPremiumGifts"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputStickerSetPremiumGifts) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputStickerSetPremiumGifts",
+		ID:   InputStickerSetPremiumGiftsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputStickerSetPremiumGifts) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStickerSetPremiumGifts#c88b3b02 as nil")
+	}
+	b.PutID(InputStickerSetPremiumGiftsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputStickerSetPremiumGifts) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStickerSetPremiumGifts#c88b3b02 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputStickerSetPremiumGifts) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputStickerSetPremiumGifts#c88b3b02 to nil")
+	}
+	if err := b.ConsumeID(InputStickerSetPremiumGiftsTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputStickerSetPremiumGifts#c88b3b02: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputStickerSetPremiumGifts) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputStickerSetPremiumGifts#c88b3b02 to nil")
+	}
+	return nil
+}
+
 // InputStickerSetClassName is schema name of InputStickerSetClass.
 const InputStickerSetClassName = "InputStickerSet"
 
@@ -792,6 +893,7 @@ const InputStickerSetClassName = "InputStickerSet"
 //  case *tg.InputStickerSetAnimatedEmoji: // inputStickerSetAnimatedEmoji#28703c8
 //  case *tg.InputStickerSetDice: // inputStickerSetDice#e67f520e
 //  case *tg.InputStickerSetAnimatedEmojiAnimations: // inputStickerSetAnimatedEmojiAnimations#cde3739
+//  case *tg.InputStickerSetPremiumGifts: // inputStickerSetPremiumGifts#c88b3b02
 //  default: panic(v)
 //  }
 type InputStickerSetClass interface {
@@ -858,6 +960,13 @@ func DecodeInputStickerSet(buf *bin.Buffer) (InputStickerSetClass, error) {
 	case InputStickerSetAnimatedEmojiAnimationsTypeID:
 		// Decoding inputStickerSetAnimatedEmojiAnimations#cde3739.
 		v := InputStickerSetAnimatedEmojiAnimations{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputStickerSetClass: %w", err)
+		}
+		return &v, nil
+	case InputStickerSetPremiumGiftsTypeID:
+		// Decoding inputStickerSetPremiumGifts#c88b3b02.
+		v := InputStickerSetPremiumGifts{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputStickerSetClass: %w", err)
 		}

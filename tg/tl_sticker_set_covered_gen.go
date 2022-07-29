@@ -383,6 +383,232 @@ func (s *StickerSetMultiCovered) MapCovers() (value DocumentClassArray) {
 	return DocumentClassArray(s.Covers)
 }
 
+// StickerSetFullCovered represents TL type `stickerSetFullCovered#1aed5ee5`.
+//
+// See https://core.telegram.org/constructor/stickerSetFullCovered for reference.
+type StickerSetFullCovered struct {
+	// Set field of StickerSetFullCovered.
+	Set StickerSet
+	// Packs field of StickerSetFullCovered.
+	Packs []StickerPack
+	// Documents field of StickerSetFullCovered.
+	Documents []DocumentClass
+}
+
+// StickerSetFullCoveredTypeID is TL type id of StickerSetFullCovered.
+const StickerSetFullCoveredTypeID = 0x1aed5ee5
+
+// construct implements constructor of StickerSetCoveredClass.
+func (s StickerSetFullCovered) construct() StickerSetCoveredClass { return &s }
+
+// Ensuring interfaces in compile-time for StickerSetFullCovered.
+var (
+	_ bin.Encoder     = &StickerSetFullCovered{}
+	_ bin.Decoder     = &StickerSetFullCovered{}
+	_ bin.BareEncoder = &StickerSetFullCovered{}
+	_ bin.BareDecoder = &StickerSetFullCovered{}
+
+	_ StickerSetCoveredClass = &StickerSetFullCovered{}
+)
+
+func (s *StickerSetFullCovered) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Set.Zero()) {
+		return false
+	}
+	if !(s.Packs == nil) {
+		return false
+	}
+	if !(s.Documents == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *StickerSetFullCovered) String() string {
+	if s == nil {
+		return "StickerSetFullCovered(nil)"
+	}
+	type Alias StickerSetFullCovered
+	return fmt.Sprintf("StickerSetFullCovered%+v", Alias(*s))
+}
+
+// FillFrom fills StickerSetFullCovered from given interface.
+func (s *StickerSetFullCovered) FillFrom(from interface {
+	GetSet() (value StickerSet)
+	GetPacks() (value []StickerPack)
+	GetDocuments() (value []DocumentClass)
+}) {
+	s.Set = from.GetSet()
+	s.Packs = from.GetPacks()
+	s.Documents = from.GetDocuments()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*StickerSetFullCovered) TypeID() uint32 {
+	return StickerSetFullCoveredTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*StickerSetFullCovered) TypeName() string {
+	return "stickerSetFullCovered"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StickerSetFullCovered) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stickerSetFullCovered",
+		ID:   StickerSetFullCoveredTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Set",
+			SchemaName: "set",
+		},
+		{
+			Name:       "Packs",
+			SchemaName: "packs",
+		},
+		{
+			Name:       "Documents",
+			SchemaName: "documents",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *StickerSetFullCovered) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode stickerSetFullCovered#1aed5ee5 as nil")
+	}
+	b.PutID(StickerSetFullCoveredTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StickerSetFullCovered) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode stickerSetFullCovered#1aed5ee5 as nil")
+	}
+	if err := s.Set.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode stickerSetFullCovered#1aed5ee5: field set: %w", err)
+	}
+	b.PutVectorHeader(len(s.Packs))
+	for idx, v := range s.Packs {
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode stickerSetFullCovered#1aed5ee5: field packs element with index %d: %w", idx, err)
+		}
+	}
+	b.PutVectorHeader(len(s.Documents))
+	for idx, v := range s.Documents {
+		if v == nil {
+			return fmt.Errorf("unable to encode stickerSetFullCovered#1aed5ee5: field documents element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode stickerSetFullCovered#1aed5ee5: field documents element with index %d: %w", idx, err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *StickerSetFullCovered) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode stickerSetFullCovered#1aed5ee5 to nil")
+	}
+	if err := b.ConsumeID(StickerSetFullCoveredTypeID); err != nil {
+		return fmt.Errorf("unable to decode stickerSetFullCovered#1aed5ee5: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StickerSetFullCovered) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode stickerSetFullCovered#1aed5ee5 to nil")
+	}
+	{
+		if err := s.Set.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode stickerSetFullCovered#1aed5ee5: field set: %w", err)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode stickerSetFullCovered#1aed5ee5: field packs: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.Packs = make([]StickerPack, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value StickerPack
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode stickerSetFullCovered#1aed5ee5: field packs: %w", err)
+			}
+			s.Packs = append(s.Packs, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode stickerSetFullCovered#1aed5ee5: field documents: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.Documents = make([]DocumentClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeDocument(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode stickerSetFullCovered#1aed5ee5: field documents: %w", err)
+			}
+			s.Documents = append(s.Documents, value)
+		}
+	}
+	return nil
+}
+
+// GetSet returns value of Set field.
+func (s *StickerSetFullCovered) GetSet() (value StickerSet) {
+	if s == nil {
+		return
+	}
+	return s.Set
+}
+
+// GetPacks returns value of Packs field.
+func (s *StickerSetFullCovered) GetPacks() (value []StickerPack) {
+	if s == nil {
+		return
+	}
+	return s.Packs
+}
+
+// GetDocuments returns value of Documents field.
+func (s *StickerSetFullCovered) GetDocuments() (value []DocumentClass) {
+	if s == nil {
+		return
+	}
+	return s.Documents
+}
+
+// MapDocuments returns field Documents wrapped in DocumentClassArray helper.
+func (s *StickerSetFullCovered) MapDocuments() (value DocumentClassArray) {
+	return DocumentClassArray(s.Documents)
+}
+
 // StickerSetCoveredClassName is schema name of StickerSetCoveredClass.
 const StickerSetCoveredClassName = "StickerSetCovered"
 
@@ -398,6 +624,7 @@ const StickerSetCoveredClassName = "StickerSetCovered"
 //  switch v := g.(type) {
 //  case *tg.StickerSetCovered: // stickerSetCovered#6410a5d2
 //  case *tg.StickerSetMultiCovered: // stickerSetMultiCovered#3407e51b
+//  case *tg.StickerSetFullCovered: // stickerSetFullCovered#1aed5ee5
 //  default: panic(v)
 //  }
 type StickerSetCoveredClass interface {
@@ -439,6 +666,13 @@ func DecodeStickerSetCovered(buf *bin.Buffer) (StickerSetCoveredClass, error) {
 	case StickerSetMultiCoveredTypeID:
 		// Decoding stickerSetMultiCovered#3407e51b.
 		v := StickerSetMultiCovered{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StickerSetCoveredClass: %w", err)
+		}
+		return &v, nil
+	case StickerSetFullCoveredTypeID:
+		// Decoding stickerSetFullCovered#1aed5ee5.
+		v := StickerSetFullCovered{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StickerSetCoveredClass: %w", err)
 		}

@@ -43,6 +43,8 @@ type MessagesReorderStickerSetsRequest struct {
 	Flags bin.Fields
 	// Reorder mask stickersets
 	Masks bool
+	// Emojis field of MessagesReorderStickerSetsRequest.
+	Emojis bool
 	// New stickerset order by stickerset IDs
 	Order []int64
 }
@@ -68,6 +70,9 @@ func (r *MessagesReorderStickerSetsRequest) Zero() bool {
 	if !(r.Masks == false) {
 		return false
 	}
+	if !(r.Emojis == false) {
+		return false
+	}
 	if !(r.Order == nil) {
 		return false
 	}
@@ -87,9 +92,11 @@ func (r *MessagesReorderStickerSetsRequest) String() string {
 // FillFrom fills MessagesReorderStickerSetsRequest from given interface.
 func (r *MessagesReorderStickerSetsRequest) FillFrom(from interface {
 	GetMasks() (value bool)
+	GetEmojis() (value bool)
 	GetOrder() (value []int64)
 }) {
 	r.Masks = from.GetMasks()
+	r.Emojis = from.GetEmojis()
 	r.Order = from.GetOrder()
 }
 
@@ -122,6 +129,11 @@ func (r *MessagesReorderStickerSetsRequest) TypeInfo() tdp.Type {
 			Null:       !r.Flags.Has(0),
 		},
 		{
+			Name:       "Emojis",
+			SchemaName: "emojis",
+			Null:       !r.Flags.Has(1),
+		},
+		{
 			Name:       "Order",
 			SchemaName: "order",
 		},
@@ -133,6 +145,9 @@ func (r *MessagesReorderStickerSetsRequest) TypeInfo() tdp.Type {
 func (r *MessagesReorderStickerSetsRequest) SetFlags() {
 	if !(r.Masks == false) {
 		r.Flags.Set(0)
+	}
+	if !(r.Emojis == false) {
+		r.Flags.Set(1)
 	}
 }
 
@@ -183,6 +198,7 @@ func (r *MessagesReorderStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	r.Masks = r.Flags.Has(0)
+	r.Emojis = r.Flags.Has(1)
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -220,6 +236,25 @@ func (r *MessagesReorderStickerSetsRequest) GetMasks() (value bool) {
 		return
 	}
 	return r.Flags.Has(0)
+}
+
+// SetEmojis sets value of Emojis conditional field.
+func (r *MessagesReorderStickerSetsRequest) SetEmojis(value bool) {
+	if value {
+		r.Flags.Set(1)
+		r.Emojis = true
+	} else {
+		r.Flags.Unset(1)
+		r.Emojis = false
+	}
+}
+
+// GetEmojis returns value of Emojis conditional field.
+func (r *MessagesReorderStickerSetsRequest) GetEmojis() (value bool) {
+	if r == nil {
+		return
+	}
+	return r.Flags.Has(1)
 }
 
 // GetOrder returns value of Order field.

@@ -850,6 +850,107 @@ func (p *PrivacyKeyAddedByPhone) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// PrivacyKeyVoiceMessages represents TL type `privacyKeyVoiceMessages#697f414`.
+//
+// See https://core.telegram.org/constructor/privacyKeyVoiceMessages for reference.
+type PrivacyKeyVoiceMessages struct {
+}
+
+// PrivacyKeyVoiceMessagesTypeID is TL type id of PrivacyKeyVoiceMessages.
+const PrivacyKeyVoiceMessagesTypeID = 0x697f414
+
+// construct implements constructor of PrivacyKeyClass.
+func (p PrivacyKeyVoiceMessages) construct() PrivacyKeyClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyKeyVoiceMessages.
+var (
+	_ bin.Encoder     = &PrivacyKeyVoiceMessages{}
+	_ bin.Decoder     = &PrivacyKeyVoiceMessages{}
+	_ bin.BareEncoder = &PrivacyKeyVoiceMessages{}
+	_ bin.BareDecoder = &PrivacyKeyVoiceMessages{}
+
+	_ PrivacyKeyClass = &PrivacyKeyVoiceMessages{}
+)
+
+func (p *PrivacyKeyVoiceMessages) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PrivacyKeyVoiceMessages) String() string {
+	if p == nil {
+		return "PrivacyKeyVoiceMessages(nil)"
+	}
+	type Alias PrivacyKeyVoiceMessages
+	return fmt.Sprintf("PrivacyKeyVoiceMessages%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PrivacyKeyVoiceMessages) TypeID() uint32 {
+	return PrivacyKeyVoiceMessagesTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PrivacyKeyVoiceMessages) TypeName() string {
+	return "privacyKeyVoiceMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PrivacyKeyVoiceMessages) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "privacyKeyVoiceMessages",
+		ID:   PrivacyKeyVoiceMessagesTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PrivacyKeyVoiceMessages) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyKeyVoiceMessages#697f414 as nil")
+	}
+	b.PutID(PrivacyKeyVoiceMessagesTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyKeyVoiceMessages) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyKeyVoiceMessages#697f414 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PrivacyKeyVoiceMessages) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyKeyVoiceMessages#697f414 to nil")
+	}
+	if err := b.ConsumeID(PrivacyKeyVoiceMessagesTypeID); err != nil {
+		return fmt.Errorf("unable to decode privacyKeyVoiceMessages#697f414: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyKeyVoiceMessages) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyKeyVoiceMessages#697f414 to nil")
+	}
+	return nil
+}
+
 // PrivacyKeyClassName is schema name of PrivacyKeyClass.
 const PrivacyKeyClassName = "PrivacyKey"
 
@@ -871,6 +972,7 @@ const PrivacyKeyClassName = "PrivacyKey"
 //  case *tg.PrivacyKeyProfilePhoto: // privacyKeyProfilePhoto#96151fed
 //  case *tg.PrivacyKeyPhoneNumber: // privacyKeyPhoneNumber#d19ae46d
 //  case *tg.PrivacyKeyAddedByPhone: // privacyKeyAddedByPhone#42ffd42b
+//  case *tg.PrivacyKeyVoiceMessages: // privacyKeyVoiceMessages#697f414
 //  default: panic(v)
 //  }
 type PrivacyKeyClass interface {
@@ -951,6 +1053,13 @@ func DecodePrivacyKey(buf *bin.Buffer) (PrivacyKeyClass, error) {
 	case PrivacyKeyAddedByPhoneTypeID:
 		// Decoding privacyKeyAddedByPhone#42ffd42b.
 		v := PrivacyKeyAddedByPhone{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PrivacyKeyClass: %w", err)
+		}
+		return &v, nil
+	case PrivacyKeyVoiceMessagesTypeID:
+		// Decoding privacyKeyVoiceMessages#697f414.
+		v := PrivacyKeyVoiceMessages{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PrivacyKeyClass: %w", err)
 		}

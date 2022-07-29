@@ -31,22 +31,18 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsAssignAppStoreTransactionRequest represents TL type `payments.assignAppStoreTransaction#fec13c6`.
+// PaymentsAssignAppStoreTransactionRequest represents TL type `payments.assignAppStoreTransaction#80ed747d`.
 //
 // See https://core.telegram.org/method/payments.assignAppStoreTransaction for reference.
 type PaymentsAssignAppStoreTransactionRequest struct {
-	// Flags field of PaymentsAssignAppStoreTransactionRequest.
-	Flags bin.Fields
-	// Restore field of PaymentsAssignAppStoreTransactionRequest.
-	Restore bool
-	// TransactionID field of PaymentsAssignAppStoreTransactionRequest.
-	TransactionID string
 	// Receipt field of PaymentsAssignAppStoreTransactionRequest.
 	Receipt []byte
+	// Purpose field of PaymentsAssignAppStoreTransactionRequest.
+	Purpose InputStorePaymentPurposeClass
 }
 
 // PaymentsAssignAppStoreTransactionRequestTypeID is TL type id of PaymentsAssignAppStoreTransactionRequest.
-const PaymentsAssignAppStoreTransactionRequestTypeID = 0xfec13c6
+const PaymentsAssignAppStoreTransactionRequestTypeID = 0x80ed747d
 
 // Ensuring interfaces in compile-time for PaymentsAssignAppStoreTransactionRequest.
 var (
@@ -60,16 +56,10 @@ func (a *PaymentsAssignAppStoreTransactionRequest) Zero() bool {
 	if a == nil {
 		return true
 	}
-	if !(a.Flags.Zero()) {
-		return false
-	}
-	if !(a.Restore == false) {
-		return false
-	}
-	if !(a.TransactionID == "") {
-		return false
-	}
 	if !(a.Receipt == nil) {
+		return false
+	}
+	if !(a.Purpose == nil) {
 		return false
 	}
 
@@ -87,13 +77,11 @@ func (a *PaymentsAssignAppStoreTransactionRequest) String() string {
 
 // FillFrom fills PaymentsAssignAppStoreTransactionRequest from given interface.
 func (a *PaymentsAssignAppStoreTransactionRequest) FillFrom(from interface {
-	GetRestore() (value bool)
-	GetTransactionID() (value string)
 	GetReceipt() (value []byte)
+	GetPurpose() (value InputStorePaymentPurposeClass)
 }) {
-	a.Restore = from.GetRestore()
-	a.TransactionID = from.GetTransactionID()
 	a.Receipt = from.GetReceipt()
+	a.Purpose = from.GetPurpose()
 }
 
 // TypeID returns type id in TL schema.
@@ -120,33 +108,21 @@ func (a *PaymentsAssignAppStoreTransactionRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Restore",
-			SchemaName: "restore",
-			Null:       !a.Flags.Has(0),
-		},
-		{
-			Name:       "TransactionID",
-			SchemaName: "transaction_id",
-		},
-		{
 			Name:       "Receipt",
 			SchemaName: "receipt",
+		},
+		{
+			Name:       "Purpose",
+			SchemaName: "purpose",
 		},
 	}
 	return typ
 }
 
-// SetFlags sets flags for non-zero fields.
-func (a *PaymentsAssignAppStoreTransactionRequest) SetFlags() {
-	if !(a.Restore == false) {
-		a.Flags.Set(0)
-	}
-}
-
 // Encode implements bin.Encoder.
 func (a *PaymentsAssignAppStoreTransactionRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode payments.assignAppStoreTransaction#fec13c6 as nil")
+		return fmt.Errorf("can't encode payments.assignAppStoreTransaction#80ed747d as nil")
 	}
 	b.PutID(PaymentsAssignAppStoreTransactionRequestTypeID)
 	return a.EncodeBare(b)
@@ -155,24 +131,25 @@ func (a *PaymentsAssignAppStoreTransactionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *PaymentsAssignAppStoreTransactionRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode payments.assignAppStoreTransaction#fec13c6 as nil")
+		return fmt.Errorf("can't encode payments.assignAppStoreTransaction#80ed747d as nil")
 	}
-	a.SetFlags()
-	if err := a.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.assignAppStoreTransaction#fec13c6: field flags: %w", err)
-	}
-	b.PutString(a.TransactionID)
 	b.PutBytes(a.Receipt)
+	if a.Purpose == nil {
+		return fmt.Errorf("unable to encode payments.assignAppStoreTransaction#80ed747d: field purpose is nil")
+	}
+	if err := a.Purpose.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.assignAppStoreTransaction#80ed747d: field purpose: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (a *PaymentsAssignAppStoreTransactionRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode payments.assignAppStoreTransaction#fec13c6 to nil")
+		return fmt.Errorf("can't decode payments.assignAppStoreTransaction#80ed747d to nil")
 	}
 	if err := b.ConsumeID(PaymentsAssignAppStoreTransactionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.assignAppStoreTransaction#fec13c6: %w", err)
+		return fmt.Errorf("unable to decode payments.assignAppStoreTransaction#80ed747d: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -180,56 +157,23 @@ func (a *PaymentsAssignAppStoreTransactionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *PaymentsAssignAppStoreTransactionRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode payments.assignAppStoreTransaction#fec13c6 to nil")
-	}
-	{
-		if err := a.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.assignAppStoreTransaction#fec13c6: field flags: %w", err)
-		}
-	}
-	a.Restore = a.Flags.Has(0)
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode payments.assignAppStoreTransaction#fec13c6: field transaction_id: %w", err)
-		}
-		a.TransactionID = value
+		return fmt.Errorf("can't decode payments.assignAppStoreTransaction#80ed747d to nil")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.assignAppStoreTransaction#fec13c6: field receipt: %w", err)
+			return fmt.Errorf("unable to decode payments.assignAppStoreTransaction#80ed747d: field receipt: %w", err)
 		}
 		a.Receipt = value
 	}
+	{
+		value, err := DecodeInputStorePaymentPurpose(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.assignAppStoreTransaction#80ed747d: field purpose: %w", err)
+		}
+		a.Purpose = value
+	}
 	return nil
-}
-
-// SetRestore sets value of Restore conditional field.
-func (a *PaymentsAssignAppStoreTransactionRequest) SetRestore(value bool) {
-	if value {
-		a.Flags.Set(0)
-		a.Restore = true
-	} else {
-		a.Flags.Unset(0)
-		a.Restore = false
-	}
-}
-
-// GetRestore returns value of Restore conditional field.
-func (a *PaymentsAssignAppStoreTransactionRequest) GetRestore() (value bool) {
-	if a == nil {
-		return
-	}
-	return a.Flags.Has(0)
-}
-
-// GetTransactionID returns value of TransactionID field.
-func (a *PaymentsAssignAppStoreTransactionRequest) GetTransactionID() (value string) {
-	if a == nil {
-		return
-	}
-	return a.TransactionID
 }
 
 // GetReceipt returns value of Receipt field.
@@ -240,7 +184,15 @@ func (a *PaymentsAssignAppStoreTransactionRequest) GetReceipt() (value []byte) {
 	return a.Receipt
 }
 
-// PaymentsAssignAppStoreTransaction invokes method payments.assignAppStoreTransaction#fec13c6 returning error if any.
+// GetPurpose returns value of Purpose field.
+func (a *PaymentsAssignAppStoreTransactionRequest) GetPurpose() (value InputStorePaymentPurposeClass) {
+	if a == nil {
+		return
+	}
+	return a.Purpose
+}
+
+// PaymentsAssignAppStoreTransaction invokes method payments.assignAppStoreTransaction#80ed747d returning error if any.
 //
 // See https://core.telegram.org/method/payments.assignAppStoreTransaction for reference.
 func (c *Client) PaymentsAssignAppStoreTransaction(ctx context.Context, request *PaymentsAssignAppStoreTransactionRequest) (UpdatesClass, error) {

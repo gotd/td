@@ -31,16 +31,18 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsAssignPlayMarketTransactionRequest represents TL type `payments.assignPlayMarketTransaction#4faa4aed`.
+// PaymentsAssignPlayMarketTransactionRequest represents TL type `payments.assignPlayMarketTransaction#dffd50d3`.
 //
 // See https://core.telegram.org/method/payments.assignPlayMarketTransaction for reference.
 type PaymentsAssignPlayMarketTransactionRequest struct {
-	// PurchaseToken field of PaymentsAssignPlayMarketTransactionRequest.
-	PurchaseToken string
+	// Receipt field of PaymentsAssignPlayMarketTransactionRequest.
+	Receipt DataJSON
+	// Purpose field of PaymentsAssignPlayMarketTransactionRequest.
+	Purpose InputStorePaymentPurposeClass
 }
 
 // PaymentsAssignPlayMarketTransactionRequestTypeID is TL type id of PaymentsAssignPlayMarketTransactionRequest.
-const PaymentsAssignPlayMarketTransactionRequestTypeID = 0x4faa4aed
+const PaymentsAssignPlayMarketTransactionRequestTypeID = 0xdffd50d3
 
 // Ensuring interfaces in compile-time for PaymentsAssignPlayMarketTransactionRequest.
 var (
@@ -54,7 +56,10 @@ func (a *PaymentsAssignPlayMarketTransactionRequest) Zero() bool {
 	if a == nil {
 		return true
 	}
-	if !(a.PurchaseToken == "") {
+	if !(a.Receipt.Zero()) {
+		return false
+	}
+	if !(a.Purpose == nil) {
 		return false
 	}
 
@@ -72,9 +77,11 @@ func (a *PaymentsAssignPlayMarketTransactionRequest) String() string {
 
 // FillFrom fills PaymentsAssignPlayMarketTransactionRequest from given interface.
 func (a *PaymentsAssignPlayMarketTransactionRequest) FillFrom(from interface {
-	GetPurchaseToken() (value string)
+	GetReceipt() (value DataJSON)
+	GetPurpose() (value InputStorePaymentPurposeClass)
 }) {
-	a.PurchaseToken = from.GetPurchaseToken()
+	a.Receipt = from.GetReceipt()
+	a.Purpose = from.GetPurpose()
 }
 
 // TypeID returns type id in TL schema.
@@ -101,8 +108,12 @@ func (a *PaymentsAssignPlayMarketTransactionRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "PurchaseToken",
-			SchemaName: "purchase_token",
+			Name:       "Receipt",
+			SchemaName: "receipt",
+		},
+		{
+			Name:       "Purpose",
+			SchemaName: "purpose",
 		},
 	}
 	return typ
@@ -111,7 +122,7 @@ func (a *PaymentsAssignPlayMarketTransactionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *PaymentsAssignPlayMarketTransactionRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode payments.assignPlayMarketTransaction#4faa4aed as nil")
+		return fmt.Errorf("can't encode payments.assignPlayMarketTransaction#dffd50d3 as nil")
 	}
 	b.PutID(PaymentsAssignPlayMarketTransactionRequestTypeID)
 	return a.EncodeBare(b)
@@ -120,19 +131,27 @@ func (a *PaymentsAssignPlayMarketTransactionRequest) Encode(b *bin.Buffer) error
 // EncodeBare implements bin.BareEncoder.
 func (a *PaymentsAssignPlayMarketTransactionRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode payments.assignPlayMarketTransaction#4faa4aed as nil")
+		return fmt.Errorf("can't encode payments.assignPlayMarketTransaction#dffd50d3 as nil")
 	}
-	b.PutString(a.PurchaseToken)
+	if err := a.Receipt.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.assignPlayMarketTransaction#dffd50d3: field receipt: %w", err)
+	}
+	if a.Purpose == nil {
+		return fmt.Errorf("unable to encode payments.assignPlayMarketTransaction#dffd50d3: field purpose is nil")
+	}
+	if err := a.Purpose.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.assignPlayMarketTransaction#dffd50d3: field purpose: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (a *PaymentsAssignPlayMarketTransactionRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode payments.assignPlayMarketTransaction#4faa4aed to nil")
+		return fmt.Errorf("can't decode payments.assignPlayMarketTransaction#dffd50d3 to nil")
 	}
 	if err := b.ConsumeID(PaymentsAssignPlayMarketTransactionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.assignPlayMarketTransaction#4faa4aed: %w", err)
+		return fmt.Errorf("unable to decode payments.assignPlayMarketTransaction#dffd50d3: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -140,35 +159,45 @@ func (a *PaymentsAssignPlayMarketTransactionRequest) Decode(b *bin.Buffer) error
 // DecodeBare implements bin.BareDecoder.
 func (a *PaymentsAssignPlayMarketTransactionRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode payments.assignPlayMarketTransaction#4faa4aed to nil")
+		return fmt.Errorf("can't decode payments.assignPlayMarketTransaction#dffd50d3 to nil")
 	}
 	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode payments.assignPlayMarketTransaction#4faa4aed: field purchase_token: %w", err)
+		if err := a.Receipt.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode payments.assignPlayMarketTransaction#dffd50d3: field receipt: %w", err)
 		}
-		a.PurchaseToken = value
+	}
+	{
+		value, err := DecodeInputStorePaymentPurpose(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.assignPlayMarketTransaction#dffd50d3: field purpose: %w", err)
+		}
+		a.Purpose = value
 	}
 	return nil
 }
 
-// GetPurchaseToken returns value of PurchaseToken field.
-func (a *PaymentsAssignPlayMarketTransactionRequest) GetPurchaseToken() (value string) {
+// GetReceipt returns value of Receipt field.
+func (a *PaymentsAssignPlayMarketTransactionRequest) GetReceipt() (value DataJSON) {
 	if a == nil {
 		return
 	}
-	return a.PurchaseToken
+	return a.Receipt
 }
 
-// PaymentsAssignPlayMarketTransaction invokes method payments.assignPlayMarketTransaction#4faa4aed returning error if any.
+// GetPurpose returns value of Purpose field.
+func (a *PaymentsAssignPlayMarketTransactionRequest) GetPurpose() (value InputStorePaymentPurposeClass) {
+	if a == nil {
+		return
+	}
+	return a.Purpose
+}
+
+// PaymentsAssignPlayMarketTransaction invokes method payments.assignPlayMarketTransaction#dffd50d3 returning error if any.
 //
 // See https://core.telegram.org/method/payments.assignPlayMarketTransaction for reference.
-func (c *Client) PaymentsAssignPlayMarketTransaction(ctx context.Context, purchasetoken string) (UpdatesClass, error) {
+func (c *Client) PaymentsAssignPlayMarketTransaction(ctx context.Context, request *PaymentsAssignPlayMarketTransactionRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 
-	request := &PaymentsAssignPlayMarketTransactionRequest{
-		PurchaseToken: purchasetoken,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

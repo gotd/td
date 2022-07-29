@@ -6465,6 +6465,8 @@ type UpdateStickerSetsOrder struct {
 	Flags bin.Fields
 	// Whether the updated stickers are mask stickers
 	Masks bool
+	// Emojis field of UpdateStickerSetsOrder.
+	Emojis bool
 	// New sticker order by sticker ID
 	Order []int64
 }
@@ -6495,6 +6497,9 @@ func (u *UpdateStickerSetsOrder) Zero() bool {
 	if !(u.Masks == false) {
 		return false
 	}
+	if !(u.Emojis == false) {
+		return false
+	}
 	if !(u.Order == nil) {
 		return false
 	}
@@ -6514,9 +6519,11 @@ func (u *UpdateStickerSetsOrder) String() string {
 // FillFrom fills UpdateStickerSetsOrder from given interface.
 func (u *UpdateStickerSetsOrder) FillFrom(from interface {
 	GetMasks() (value bool)
+	GetEmojis() (value bool)
 	GetOrder() (value []int64)
 }) {
 	u.Masks = from.GetMasks()
+	u.Emojis = from.GetEmojis()
 	u.Order = from.GetOrder()
 }
 
@@ -6549,6 +6556,11 @@ func (u *UpdateStickerSetsOrder) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(0),
 		},
 		{
+			Name:       "Emojis",
+			SchemaName: "emojis",
+			Null:       !u.Flags.Has(1),
+		},
+		{
 			Name:       "Order",
 			SchemaName: "order",
 		},
@@ -6560,6 +6572,9 @@ func (u *UpdateStickerSetsOrder) TypeInfo() tdp.Type {
 func (u *UpdateStickerSetsOrder) SetFlags() {
 	if !(u.Masks == false) {
 		u.Flags.Set(0)
+	}
+	if !(u.Emojis == false) {
+		u.Flags.Set(1)
 	}
 }
 
@@ -6610,6 +6625,7 @@ func (u *UpdateStickerSetsOrder) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	u.Masks = u.Flags.Has(0)
+	u.Emojis = u.Flags.Has(1)
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -6647,6 +6663,25 @@ func (u *UpdateStickerSetsOrder) GetMasks() (value bool) {
 		return
 	}
 	return u.Flags.Has(0)
+}
+
+// SetEmojis sets value of Emojis conditional field.
+func (u *UpdateStickerSetsOrder) SetEmojis(value bool) {
+	if value {
+		u.Flags.Set(1)
+		u.Emojis = true
+	} else {
+		u.Flags.Unset(1)
+		u.Emojis = false
+	}
+}
+
+// GetEmojis returns value of Emojis conditional field.
+func (u *UpdateStickerSetsOrder) GetEmojis() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(1)
 }
 
 // GetOrder returns value of Order field.
@@ -20202,6 +20237,107 @@ func (u *UpdateTranscribedAudio) GetText() (value string) {
 	return u.Text
 }
 
+// UpdateReadFeaturedEmojiStickers represents TL type `updateReadFeaturedEmojiStickers#fb4c496c`.
+//
+// See https://core.telegram.org/constructor/updateReadFeaturedEmojiStickers for reference.
+type UpdateReadFeaturedEmojiStickers struct {
+}
+
+// UpdateReadFeaturedEmojiStickersTypeID is TL type id of UpdateReadFeaturedEmojiStickers.
+const UpdateReadFeaturedEmojiStickersTypeID = 0xfb4c496c
+
+// construct implements constructor of UpdateClass.
+func (u UpdateReadFeaturedEmojiStickers) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateReadFeaturedEmojiStickers.
+var (
+	_ bin.Encoder     = &UpdateReadFeaturedEmojiStickers{}
+	_ bin.Decoder     = &UpdateReadFeaturedEmojiStickers{}
+	_ bin.BareEncoder = &UpdateReadFeaturedEmojiStickers{}
+	_ bin.BareDecoder = &UpdateReadFeaturedEmojiStickers{}
+
+	_ UpdateClass = &UpdateReadFeaturedEmojiStickers{}
+)
+
+func (u *UpdateReadFeaturedEmojiStickers) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateReadFeaturedEmojiStickers) String() string {
+	if u == nil {
+		return "UpdateReadFeaturedEmojiStickers(nil)"
+	}
+	type Alias UpdateReadFeaturedEmojiStickers
+	return fmt.Sprintf("UpdateReadFeaturedEmojiStickers%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateReadFeaturedEmojiStickers) TypeID() uint32 {
+	return UpdateReadFeaturedEmojiStickersTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateReadFeaturedEmojiStickers) TypeName() string {
+	return "updateReadFeaturedEmojiStickers"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateReadFeaturedEmojiStickers) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateReadFeaturedEmojiStickers",
+		ID:   UpdateReadFeaturedEmojiStickersTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateReadFeaturedEmojiStickers) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateReadFeaturedEmojiStickers#fb4c496c as nil")
+	}
+	b.PutID(UpdateReadFeaturedEmojiStickersTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateReadFeaturedEmojiStickers) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateReadFeaturedEmojiStickers#fb4c496c as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateReadFeaturedEmojiStickers) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateReadFeaturedEmojiStickers#fb4c496c to nil")
+	}
+	if err := b.ConsumeID(UpdateReadFeaturedEmojiStickersTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateReadFeaturedEmojiStickers#fb4c496c: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateReadFeaturedEmojiStickers) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateReadFeaturedEmojiStickers#fb4c496c to nil")
+	}
+	return nil
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -20316,6 +20452,7 @@ const UpdateClassName = "Update"
 //  case *tg.UpdateBotMenuButton: // updateBotMenuButton#14b85813
 //  case *tg.UpdateSavedRingtones: // updateSavedRingtones#74d8be99
 //  case *tg.UpdateTranscribedAudio: // updateTranscribedAudio#84cd5a
+//  case *tg.UpdateReadFeaturedEmojiStickers: // updateReadFeaturedEmojiStickers#fb4c496c
 //  default: panic(v)
 //  }
 type UpdateClass interface {
@@ -21047,6 +21184,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateTranscribedAudioTypeID:
 		// Decoding updateTranscribedAudio#84cd5a.
 		v := UpdateTranscribedAudio{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateReadFeaturedEmojiStickersTypeID:
+		// Decoding updateReadFeaturedEmojiStickers#fb4c496c.
+		v := UpdateReadFeaturedEmojiStickers{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

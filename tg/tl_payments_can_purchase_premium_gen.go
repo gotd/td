@@ -31,14 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsCanPurchasePremiumRequest represents TL type `payments.canPurchasePremium#aa6a90c8`.
+// PaymentsCanPurchasePremiumRequest represents TL type `payments.canPurchasePremium#9fc19eb6`.
 //
 // See https://core.telegram.org/method/payments.canPurchasePremium for reference.
 type PaymentsCanPurchasePremiumRequest struct {
+	// Purpose field of PaymentsCanPurchasePremiumRequest.
+	Purpose InputStorePaymentPurposeClass
 }
 
 // PaymentsCanPurchasePremiumRequestTypeID is TL type id of PaymentsCanPurchasePremiumRequest.
-const PaymentsCanPurchasePremiumRequestTypeID = 0xaa6a90c8
+const PaymentsCanPurchasePremiumRequestTypeID = 0x9fc19eb6
 
 // Ensuring interfaces in compile-time for PaymentsCanPurchasePremiumRequest.
 var (
@@ -52,6 +54,9 @@ func (c *PaymentsCanPurchasePremiumRequest) Zero() bool {
 	if c == nil {
 		return true
 	}
+	if !(c.Purpose == nil) {
+		return false
+	}
 
 	return true
 }
@@ -63,6 +68,13 @@ func (c *PaymentsCanPurchasePremiumRequest) String() string {
 	}
 	type Alias PaymentsCanPurchasePremiumRequest
 	return fmt.Sprintf("PaymentsCanPurchasePremiumRequest%+v", Alias(*c))
+}
+
+// FillFrom fills PaymentsCanPurchasePremiumRequest from given interface.
+func (c *PaymentsCanPurchasePremiumRequest) FillFrom(from interface {
+	GetPurpose() (value InputStorePaymentPurposeClass)
+}) {
+	c.Purpose = from.GetPurpose()
 }
 
 // TypeID returns type id in TL schema.
@@ -87,14 +99,19 @@ func (c *PaymentsCanPurchasePremiumRequest) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Purpose",
+			SchemaName: "purpose",
+		},
+	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
 func (c *PaymentsCanPurchasePremiumRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode payments.canPurchasePremium#aa6a90c8 as nil")
+		return fmt.Errorf("can't encode payments.canPurchasePremium#9fc19eb6 as nil")
 	}
 	b.PutID(PaymentsCanPurchasePremiumRequestTypeID)
 	return c.EncodeBare(b)
@@ -103,7 +120,13 @@ func (c *PaymentsCanPurchasePremiumRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *PaymentsCanPurchasePremiumRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode payments.canPurchasePremium#aa6a90c8 as nil")
+		return fmt.Errorf("can't encode payments.canPurchasePremium#9fc19eb6 as nil")
+	}
+	if c.Purpose == nil {
+		return fmt.Errorf("unable to encode payments.canPurchasePremium#9fc19eb6: field purpose is nil")
+	}
+	if err := c.Purpose.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode payments.canPurchasePremium#9fc19eb6: field purpose: %w", err)
 	}
 	return nil
 }
@@ -111,10 +134,10 @@ func (c *PaymentsCanPurchasePremiumRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *PaymentsCanPurchasePremiumRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode payments.canPurchasePremium#aa6a90c8 to nil")
+		return fmt.Errorf("can't decode payments.canPurchasePremium#9fc19eb6 to nil")
 	}
 	if err := b.ConsumeID(PaymentsCanPurchasePremiumRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.canPurchasePremium#aa6a90c8: %w", err)
+		return fmt.Errorf("unable to decode payments.canPurchasePremium#9fc19eb6: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -122,18 +145,35 @@ func (c *PaymentsCanPurchasePremiumRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *PaymentsCanPurchasePremiumRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode payments.canPurchasePremium#aa6a90c8 to nil")
+		return fmt.Errorf("can't decode payments.canPurchasePremium#9fc19eb6 to nil")
+	}
+	{
+		value, err := DecodeInputStorePaymentPurpose(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode payments.canPurchasePremium#9fc19eb6: field purpose: %w", err)
+		}
+		c.Purpose = value
 	}
 	return nil
 }
 
-// PaymentsCanPurchasePremium invokes method payments.canPurchasePremium#aa6a90c8 returning error if any.
+// GetPurpose returns value of Purpose field.
+func (c *PaymentsCanPurchasePremiumRequest) GetPurpose() (value InputStorePaymentPurposeClass) {
+	if c == nil {
+		return
+	}
+	return c.Purpose
+}
+
+// PaymentsCanPurchasePremium invokes method payments.canPurchasePremium#9fc19eb6 returning error if any.
 //
 // See https://core.telegram.org/method/payments.canPurchasePremium for reference.
-func (c *Client) PaymentsCanPurchasePremium(ctx context.Context) (bool, error) {
+func (c *Client) PaymentsCanPurchasePremium(ctx context.Context, purpose InputStorePaymentPurposeClass) (bool, error) {
 	var result BoolBox
 
-	request := &PaymentsCanPurchasePremiumRequest{}
+	request := &PaymentsCanPurchasePremiumRequest{
+		Purpose: purpose,
+	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return false, err
 	}

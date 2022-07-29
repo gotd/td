@@ -166,11 +166,15 @@ func (f *MessagesFeaturedStickersNotModified) GetCount() (value int) {
 	return f.Count
 }
 
-// MessagesFeaturedStickers represents TL type `messages.featuredStickers#84c02310`.
+// MessagesFeaturedStickers represents TL type `messages.featuredStickers#be382906`.
 // Featured stickersets
 //
 // See https://core.telegram.org/constructor/messages.featuredStickers for reference.
 type MessagesFeaturedStickers struct {
+	// Flags field of MessagesFeaturedStickers.
+	Flags bin.Fields
+	// Premium field of MessagesFeaturedStickers.
+	Premium bool
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
@@ -185,7 +189,7 @@ type MessagesFeaturedStickers struct {
 }
 
 // MessagesFeaturedStickersTypeID is TL type id of MessagesFeaturedStickers.
-const MessagesFeaturedStickersTypeID = 0x84c02310
+const MessagesFeaturedStickersTypeID = 0xbe382906
 
 // construct implements constructor of MessagesFeaturedStickersClass.
 func (f MessagesFeaturedStickers) construct() MessagesFeaturedStickersClass { return &f }
@@ -203,6 +207,12 @@ var (
 func (f *MessagesFeaturedStickers) Zero() bool {
 	if f == nil {
 		return true
+	}
+	if !(f.Flags.Zero()) {
+		return false
+	}
+	if !(f.Premium == false) {
+		return false
 	}
 	if !(f.Hash == 0) {
 		return false
@@ -231,11 +241,13 @@ func (f *MessagesFeaturedStickers) String() string {
 
 // FillFrom fills MessagesFeaturedStickers from given interface.
 func (f *MessagesFeaturedStickers) FillFrom(from interface {
+	GetPremium() (value bool)
 	GetHash() (value int64)
 	GetCount() (value int)
 	GetSets() (value []StickerSetCoveredClass)
 	GetUnread() (value []int64)
 }) {
+	f.Premium = from.GetPremium()
 	f.Hash = from.GetHash()
 	f.Count = from.GetCount()
 	f.Sets = from.GetSets()
@@ -266,6 +278,11 @@ func (f *MessagesFeaturedStickers) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Premium",
+			SchemaName: "premium",
+			Null:       !f.Flags.Has(0),
+		},
+		{
 			Name:       "Hash",
 			SchemaName: "hash",
 		},
@@ -285,10 +302,17 @@ func (f *MessagesFeaturedStickers) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (f *MessagesFeaturedStickers) SetFlags() {
+	if !(f.Premium == false) {
+		f.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (f *MessagesFeaturedStickers) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode messages.featuredStickers#84c02310 as nil")
+		return fmt.Errorf("can't encode messages.featuredStickers#be382906 as nil")
 	}
 	b.PutID(MessagesFeaturedStickersTypeID)
 	return f.EncodeBare(b)
@@ -297,17 +321,21 @@ func (f *MessagesFeaturedStickers) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *MessagesFeaturedStickers) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode messages.featuredStickers#84c02310 as nil")
+		return fmt.Errorf("can't encode messages.featuredStickers#be382906 as nil")
+	}
+	f.SetFlags()
+	if err := f.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.featuredStickers#be382906: field flags: %w", err)
 	}
 	b.PutLong(f.Hash)
 	b.PutInt(f.Count)
 	b.PutVectorHeader(len(f.Sets))
 	for idx, v := range f.Sets {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.featuredStickers#84c02310: field sets element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.featuredStickers#be382906: field sets element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.featuredStickers#84c02310: field sets element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.featuredStickers#be382906: field sets element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(f.Unread))
@@ -320,10 +348,10 @@ func (f *MessagesFeaturedStickers) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (f *MessagesFeaturedStickers) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode messages.featuredStickers#84c02310 to nil")
+		return fmt.Errorf("can't decode messages.featuredStickers#be382906 to nil")
 	}
 	if err := b.ConsumeID(MessagesFeaturedStickersTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.featuredStickers#84c02310: %w", err)
+		return fmt.Errorf("unable to decode messages.featuredStickers#be382906: %w", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -331,26 +359,32 @@ func (f *MessagesFeaturedStickers) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *MessagesFeaturedStickers) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode messages.featuredStickers#84c02310 to nil")
+		return fmt.Errorf("can't decode messages.featuredStickers#be382906 to nil")
 	}
+	{
+		if err := f.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.featuredStickers#be382906: field flags: %w", err)
+		}
+	}
+	f.Premium = f.Flags.Has(0)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.featuredStickers#84c02310: field hash: %w", err)
+			return fmt.Errorf("unable to decode messages.featuredStickers#be382906: field hash: %w", err)
 		}
 		f.Hash = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.featuredStickers#84c02310: field count: %w", err)
+			return fmt.Errorf("unable to decode messages.featuredStickers#be382906: field count: %w", err)
 		}
 		f.Count = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.featuredStickers#84c02310: field sets: %w", err)
+			return fmt.Errorf("unable to decode messages.featuredStickers#be382906: field sets: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -359,7 +393,7 @@ func (f *MessagesFeaturedStickers) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeStickerSetCovered(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.featuredStickers#84c02310: field sets: %w", err)
+				return fmt.Errorf("unable to decode messages.featuredStickers#be382906: field sets: %w", err)
 			}
 			f.Sets = append(f.Sets, value)
 		}
@@ -367,7 +401,7 @@ func (f *MessagesFeaturedStickers) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.featuredStickers#84c02310: field unread: %w", err)
+			return fmt.Errorf("unable to decode messages.featuredStickers#be382906: field unread: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -376,12 +410,31 @@ func (f *MessagesFeaturedStickers) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.featuredStickers#84c02310: field unread: %w", err)
+				return fmt.Errorf("unable to decode messages.featuredStickers#be382906: field unread: %w", err)
 			}
 			f.Unread = append(f.Unread, value)
 		}
 	}
 	return nil
+}
+
+// SetPremium sets value of Premium conditional field.
+func (f *MessagesFeaturedStickers) SetPremium(value bool) {
+	if value {
+		f.Flags.Set(0)
+		f.Premium = true
+	} else {
+		f.Flags.Unset(0)
+		f.Premium = false
+	}
+}
+
+// GetPremium returns value of Premium conditional field.
+func (f *MessagesFeaturedStickers) GetPremium() (value bool) {
+	if f == nil {
+		return
+	}
+	return f.Flags.Has(0)
 }
 
 // GetHash returns value of Hash field.
@@ -435,7 +488,7 @@ const MessagesFeaturedStickersClassName = "messages.FeaturedStickers"
 //  }
 //  switch v := g.(type) {
 //  case *tg.MessagesFeaturedStickersNotModified: // messages.featuredStickersNotModified#c6dc0c66
-//  case *tg.MessagesFeaturedStickers: // messages.featuredStickers#84c02310
+//  case *tg.MessagesFeaturedStickers: // messages.featuredStickers#be382906
 //  default: panic(v)
 //  }
 type MessagesFeaturedStickersClass interface {
@@ -488,7 +541,7 @@ func DecodeMessagesFeaturedStickers(buf *bin.Buffer) (MessagesFeaturedStickersCl
 		}
 		return &v, nil
 	case MessagesFeaturedStickersTypeID:
-		// Decoding messages.featuredStickers#84c02310.
+		// Decoding messages.featuredStickers#be382906.
 		v := MessagesFeaturedStickers{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessagesFeaturedStickersClass: %w", err)
