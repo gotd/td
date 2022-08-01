@@ -37,7 +37,7 @@ func (c *Client) Invoke(ctx context.Context, input bin.Encoder, output bin.Decod
 			} else {
 				attrs = append(attrs, attribute.String("tg.method.name", name))
 			}
-			spanName = fmt.Sprintf("Invoke: %s#%x", name, id)
+			spanName = fmt.Sprintf("Invoke: %s", name)
 		}
 		spanCtx, span := c.tracer.Start(ctx, spanName,
 			trace.WithAttributes(attrs...),
