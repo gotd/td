@@ -366,15 +366,16 @@ const AttachMenuBotsClassName = "AttachMenuBots"
 // See https://core.telegram.org/type/AttachMenuBots for reference.
 //
 // Example:
-//  g, err := tg.DecodeAttachMenuBots(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.AttachMenuBotsNotModified: // attachMenuBotsNotModified#f1d88a5c
-//  case *tg.AttachMenuBots: // attachMenuBots#3c4301c0
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeAttachMenuBots(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.AttachMenuBotsNotModified: // attachMenuBotsNotModified#f1d88a5c
+//	case *tg.AttachMenuBots: // attachMenuBots#3c4301c0
+//	default: panic(v)
+//	}
 type AttachMenuBotsClass interface {
 	bin.Encoder
 	bin.Decoder

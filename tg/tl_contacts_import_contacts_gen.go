@@ -38,7 +38,7 @@ var (
 // number.
 //
 // Links:
-//  1) https://core.telegram.org/method/contacts.addContact
+//  1. https://core.telegram.org/method/contacts.addContact
 //
 // See https://core.telegram.org/method/contacts.importContacts for reference.
 type ContactsImportContactsRequest struct {
@@ -189,7 +189,7 @@ func (i *ContactsImportContactsRequest) GetContacts() (value []InputPhoneContact
 // number.
 //
 // Links:
-//  1) https://core.telegram.org/method/contacts.addContact
+//  1. https://core.telegram.org/method/contacts.addContact
 //
 // See https://core.telegram.org/method/contacts.importContacts for reference.
 func (c *Client) ContactsImportContacts(ctx context.Context, contacts []InputPhoneContact) (*ContactsImportedContacts, error) {

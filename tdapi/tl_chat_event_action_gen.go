@@ -6621,48 +6621,49 @@ const ChatEventActionClassName = "ChatEventAction"
 // ChatEventActionClass represents ChatEventAction generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeChatEventAction(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.ChatEventMessageEdited: // chatEventMessageEdited#e64ff5f8
-//  case *tdapi.ChatEventMessageDeleted: // chatEventMessageDeleted#cac649f7
-//  case *tdapi.ChatEventMessagePinned: // chatEventMessagePinned#1a26ad1a
-//  case *tdapi.ChatEventMessageUnpinned: // chatEventMessageUnpinned#e9943b17
-//  case *tdapi.ChatEventPollStopped: // chatEventPollStopped#77cc8be5
-//  case *tdapi.ChatEventMemberJoined: // chatEventMemberJoined#f1f70924
-//  case *tdapi.ChatEventMemberJoinedByInviteLink: // chatEventMemberJoinedByInviteLink#f0e6d5bd
-//  case *tdapi.ChatEventMemberJoinedByRequest: // chatEventMemberJoinedByRequest#9dc87e3f
-//  case *tdapi.ChatEventMemberInvited: // chatEventMemberInvited#38d7bfc9
-//  case *tdapi.ChatEventMemberLeft: // chatEventMemberLeft#c778400f
-//  case *tdapi.ChatEventMemberPromoted: // chatEventMemberPromoted#1f4f6861
-//  case *tdapi.ChatEventMemberRestricted: // chatEventMemberRestricted#5f951e05
-//  case *tdapi.ChatEventAvailableReactionsChanged: // chatEventAvailableReactionsChanged#9ac93274
-//  case *tdapi.ChatEventDescriptionChanged: // chatEventDescriptionChanged#254cf1e
-//  case *tdapi.ChatEventLinkedChatChanged: // chatEventLinkedChatChanged#6b2271af
-//  case *tdapi.ChatEventLocationChanged: // chatEventLocationChanged#e7cdfd4e
-//  case *tdapi.ChatEventMessageTTLChanged: // chatEventMessageTtlChanged#2e46b9b3
-//  case *tdapi.ChatEventPermissionsChanged: // chatEventPermissionsChanged#b1d337a8
-//  case *tdapi.ChatEventPhotoChanged: // chatEventPhotoChanged#cfa062c3
-//  case *tdapi.ChatEventSlowModeDelayChanged: // chatEventSlowModeDelayChanged#9d763c0b
-//  case *tdapi.ChatEventStickerSetChanged: // chatEventStickerSetChanged#b5e7558f
-//  case *tdapi.ChatEventTitleChanged: // chatEventTitleChanged#43990ad2
-//  case *tdapi.ChatEventUsernameChanged: // chatEventUsernameChanged#6707b56b
-//  case *tdapi.ChatEventHasProtectedContentToggled: // chatEventHasProtectedContentToggled#f5044201
-//  case *tdapi.ChatEventInvitesToggled: // chatEventInvitesToggled#fc45966b
-//  case *tdapi.ChatEventIsAllHistoryAvailableToggled: // chatEventIsAllHistoryAvailableToggled#a0b03c15
-//  case *tdapi.ChatEventSignMessagesToggled: // chatEventSignMessagesToggled#b1b9281e
-//  case *tdapi.ChatEventInviteLinkEdited: // chatEventInviteLinkEdited#e4920d62
-//  case *tdapi.ChatEventInviteLinkRevoked: // chatEventInviteLinkRevoked#a1dbffe3
-//  case *tdapi.ChatEventInviteLinkDeleted: // chatEventInviteLinkDeleted#acda6167
-//  case *tdapi.ChatEventVideoChatCreated: // chatEventVideoChatCreated#6ca68a7b
-//  case *tdapi.ChatEventVideoChatEnded: // chatEventVideoChatEnded#61286c48
-//  case *tdapi.ChatEventVideoChatMuteNewParticipantsToggled: // chatEventVideoChatMuteNewParticipantsToggled#f87507fe
-//  case *tdapi.ChatEventVideoChatParticipantIsMutedToggled: // chatEventVideoChatParticipantIsMutedToggled#1f1058f7
-//  case *tdapi.ChatEventVideoChatParticipantVolumeLevelChanged: // chatEventVideoChatParticipantVolumeLevelChanged#436f92be
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeChatEventAction(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.ChatEventMessageEdited: // chatEventMessageEdited#e64ff5f8
+//	case *tdapi.ChatEventMessageDeleted: // chatEventMessageDeleted#cac649f7
+//	case *tdapi.ChatEventMessagePinned: // chatEventMessagePinned#1a26ad1a
+//	case *tdapi.ChatEventMessageUnpinned: // chatEventMessageUnpinned#e9943b17
+//	case *tdapi.ChatEventPollStopped: // chatEventPollStopped#77cc8be5
+//	case *tdapi.ChatEventMemberJoined: // chatEventMemberJoined#f1f70924
+//	case *tdapi.ChatEventMemberJoinedByInviteLink: // chatEventMemberJoinedByInviteLink#f0e6d5bd
+//	case *tdapi.ChatEventMemberJoinedByRequest: // chatEventMemberJoinedByRequest#9dc87e3f
+//	case *tdapi.ChatEventMemberInvited: // chatEventMemberInvited#38d7bfc9
+//	case *tdapi.ChatEventMemberLeft: // chatEventMemberLeft#c778400f
+//	case *tdapi.ChatEventMemberPromoted: // chatEventMemberPromoted#1f4f6861
+//	case *tdapi.ChatEventMemberRestricted: // chatEventMemberRestricted#5f951e05
+//	case *tdapi.ChatEventAvailableReactionsChanged: // chatEventAvailableReactionsChanged#9ac93274
+//	case *tdapi.ChatEventDescriptionChanged: // chatEventDescriptionChanged#254cf1e
+//	case *tdapi.ChatEventLinkedChatChanged: // chatEventLinkedChatChanged#6b2271af
+//	case *tdapi.ChatEventLocationChanged: // chatEventLocationChanged#e7cdfd4e
+//	case *tdapi.ChatEventMessageTTLChanged: // chatEventMessageTtlChanged#2e46b9b3
+//	case *tdapi.ChatEventPermissionsChanged: // chatEventPermissionsChanged#b1d337a8
+//	case *tdapi.ChatEventPhotoChanged: // chatEventPhotoChanged#cfa062c3
+//	case *tdapi.ChatEventSlowModeDelayChanged: // chatEventSlowModeDelayChanged#9d763c0b
+//	case *tdapi.ChatEventStickerSetChanged: // chatEventStickerSetChanged#b5e7558f
+//	case *tdapi.ChatEventTitleChanged: // chatEventTitleChanged#43990ad2
+//	case *tdapi.ChatEventUsernameChanged: // chatEventUsernameChanged#6707b56b
+//	case *tdapi.ChatEventHasProtectedContentToggled: // chatEventHasProtectedContentToggled#f5044201
+//	case *tdapi.ChatEventInvitesToggled: // chatEventInvitesToggled#fc45966b
+//	case *tdapi.ChatEventIsAllHistoryAvailableToggled: // chatEventIsAllHistoryAvailableToggled#a0b03c15
+//	case *tdapi.ChatEventSignMessagesToggled: // chatEventSignMessagesToggled#b1b9281e
+//	case *tdapi.ChatEventInviteLinkEdited: // chatEventInviteLinkEdited#e4920d62
+//	case *tdapi.ChatEventInviteLinkRevoked: // chatEventInviteLinkRevoked#a1dbffe3
+//	case *tdapi.ChatEventInviteLinkDeleted: // chatEventInviteLinkDeleted#acda6167
+//	case *tdapi.ChatEventVideoChatCreated: // chatEventVideoChatCreated#6ca68a7b
+//	case *tdapi.ChatEventVideoChatEnded: // chatEventVideoChatEnded#61286c48
+//	case *tdapi.ChatEventVideoChatMuteNewParticipantsToggled: // chatEventVideoChatMuteNewParticipantsToggled#f87507fe
+//	case *tdapi.ChatEventVideoChatParticipantIsMutedToggled: // chatEventVideoChatParticipantIsMutedToggled#1f1058f7
+//	case *tdapi.ChatEventVideoChatParticipantVolumeLevelChanged: // chatEventVideoChatParticipantVolumeLevelChanged#436f92be
+//	default: panic(v)
+//	}
 type ChatEventActionClass interface {
 	bin.Encoder
 	bin.Decoder

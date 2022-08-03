@@ -5243,30 +5243,31 @@ const InputMessageContentClassName = "InputMessageContent"
 // InputMessageContentClass represents InputMessageContent generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeInputMessageContent(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.InputMessageText: // inputMessageText#eb9b098
-//  case *tdapi.InputMessageAnimation: // inputMessageAnimation#11579cfa
-//  case *tdapi.InputMessageAudio: // inputMessageAudio#daa400b2
-//  case *tdapi.InputMessageDocument: // inputMessageDocument#615b72b9
-//  case *tdapi.InputMessagePhoto: // inputMessagePhoto#72d8e2dd
-//  case *tdapi.InputMessageSticker: // inputMessageSticker#3ff1b6f9
-//  case *tdapi.InputMessageVideo: // inputMessageVideo#791281b1
-//  case *tdapi.InputMessageVideoNote: // inputMessageVideoNote#10a2dcfb
-//  case *tdapi.InputMessageVoiceNote: // inputMessageVoiceNote#7f58b3e9
-//  case *tdapi.InputMessageLocation: // inputMessageLocation#26aae970
-//  case *tdapi.InputMessageVenue: // inputMessageVenue#564d99fd
-//  case *tdapi.InputMessageContact: // inputMessageContact#c5710cff
-//  case *tdapi.InputMessageDice: // inputMessageDice#322967a9
-//  case *tdapi.InputMessageGame: // inputMessageGame#4aae6ae2
-//  case *tdapi.InputMessageInvoice: // inputMessageInvoice#3deb040f
-//  case *tdapi.InputMessagePoll: // inputMessagePoll#fe79770
-//  case *tdapi.InputMessageForwarded: // inputMessageForwarded#651a73f8
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeInputMessageContent(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.InputMessageText: // inputMessageText#eb9b098
+//	case *tdapi.InputMessageAnimation: // inputMessageAnimation#11579cfa
+//	case *tdapi.InputMessageAudio: // inputMessageAudio#daa400b2
+//	case *tdapi.InputMessageDocument: // inputMessageDocument#615b72b9
+//	case *tdapi.InputMessagePhoto: // inputMessagePhoto#72d8e2dd
+//	case *tdapi.InputMessageSticker: // inputMessageSticker#3ff1b6f9
+//	case *tdapi.InputMessageVideo: // inputMessageVideo#791281b1
+//	case *tdapi.InputMessageVideoNote: // inputMessageVideoNote#10a2dcfb
+//	case *tdapi.InputMessageVoiceNote: // inputMessageVoiceNote#7f58b3e9
+//	case *tdapi.InputMessageLocation: // inputMessageLocation#26aae970
+//	case *tdapi.InputMessageVenue: // inputMessageVenue#564d99fd
+//	case *tdapi.InputMessageContact: // inputMessageContact#c5710cff
+//	case *tdapi.InputMessageDice: // inputMessageDice#322967a9
+//	case *tdapi.InputMessageGame: // inputMessageGame#4aae6ae2
+//	case *tdapi.InputMessageInvoice: // inputMessageInvoice#3deb040f
+//	case *tdapi.InputMessagePoll: // inputMessagePoll#fe79770
+//	case *tdapi.InputMessageForwarded: // inputMessageForwarded#651a73f8
+//	default: panic(v)
+//	}
 type InputMessageContentClass interface {
 	bin.Encoder
 	bin.Decoder

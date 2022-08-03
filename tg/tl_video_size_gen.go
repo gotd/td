@@ -35,7 +35,7 @@ var (
 // Animated profile picture¹ in MPEG4 format
 //
 // Links:
-//  1) https://core.telegram.org/api/files#animated-profile-pictures
+//  1. https://core.telegram.org/api/files#animated-profile-pictures
 //
 // See https://core.telegram.org/constructor/videoSize for reference.
 type VideoSize struct {

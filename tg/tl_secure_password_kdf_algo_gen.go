@@ -413,16 +413,17 @@ const SecurePasswordKdfAlgoClassName = "SecurePasswordKdfAlgo"
 // See https://core.telegram.org/type/SecurePasswordKdfAlgo for reference.
 //
 // Example:
-//  g, err := tg.DecodeSecurePasswordKdfAlgo(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.SecurePasswordKdfAlgoUnknown: // securePasswordKdfAlgoUnknown#4a8537
-//  case *tg.SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000: // securePasswordKdfAlgoPBKDF2HMACSHA512iter100000#bbf2dda0
-//  case *tg.SecurePasswordKdfAlgoSHA512: // securePasswordKdfAlgoSHA512#86471d92
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeSecurePasswordKdfAlgo(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.SecurePasswordKdfAlgoUnknown: // securePasswordKdfAlgoUnknown#4a8537
+//	case *tg.SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000: // securePasswordKdfAlgoPBKDF2HMACSHA512iter100000#bbf2dda0
+//	case *tg.SecurePasswordKdfAlgoSHA512: // securePasswordKdfAlgoSHA512#86471d92
+//	default: panic(v)
+//	}
 type SecurePasswordKdfAlgoClass interface {
 	bin.Encoder
 	bin.Decoder

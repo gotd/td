@@ -696,18 +696,19 @@ const CheckChatUsernameResultClassName = "CheckChatUsernameResult"
 // CheckChatUsernameResultClass represents CheckChatUsernameResult generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeCheckChatUsernameResult(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.CheckChatUsernameResultOk: // checkChatUsernameResultOk#a6a7bb5c
-//  case *tdapi.CheckChatUsernameResultUsernameInvalid: // checkChatUsernameResultUsernameInvalid#da087756
-//  case *tdapi.CheckChatUsernameResultUsernameOccupied: // checkChatUsernameResultUsernameOccupied#4ebb3729
-//  case *tdapi.CheckChatUsernameResultPublicChatsTooMuch: // checkChatUsernameResultPublicChatsTooMuch#3327d23d
-//  case *tdapi.CheckChatUsernameResultPublicGroupsUnavailable: // checkChatUsernameResultPublicGroupsUnavailable#fce914d7
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeCheckChatUsernameResult(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.CheckChatUsernameResultOk: // checkChatUsernameResultOk#a6a7bb5c
+//	case *tdapi.CheckChatUsernameResultUsernameInvalid: // checkChatUsernameResultUsernameInvalid#da087756
+//	case *tdapi.CheckChatUsernameResultUsernameOccupied: // checkChatUsernameResultUsernameOccupied#4ebb3729
+//	case *tdapi.CheckChatUsernameResultPublicChatsTooMuch: // checkChatUsernameResultPublicChatsTooMuch#3327d23d
+//	case *tdapi.CheckChatUsernameResultPublicGroupsUnavailable: // checkChatUsernameResultPublicGroupsUnavailable#fce914d7
+//	default: panic(v)
+//	}
 type CheckChatUsernameResultClass interface {
 	bin.Encoder
 	bin.Decoder

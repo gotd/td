@@ -2618,18 +2618,19 @@ const ChatClassName = "Chat"
 // See https://core.telegram.org/type/Chat for reference.
 //
 // Example:
-//  g, err := tg.DecodeChat(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.ChatEmpty: // chatEmpty#29562865
-//  case *tg.Chat: // chat#41cbf256
-//  case *tg.ChatForbidden: // chatForbidden#6592a1a7
-//  case *tg.Channel: // channel#8261ac61
-//  case *tg.ChannelForbidden: // channelForbidden#17d493d5
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeChat(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.ChatEmpty: // chatEmpty#29562865
+//	case *tg.Chat: // chat#41cbf256
+//	case *tg.ChatForbidden: // chatForbidden#6592a1a7
+//	case *tg.Channel: // channel#8261ac61
+//	case *tg.ChannelForbidden: // channelForbidden#17d493d5
+//	default: panic(v)
+//	}
 type ChatClass interface {
 	bin.Encoder
 	bin.Decoder

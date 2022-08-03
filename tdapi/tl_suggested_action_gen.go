@@ -894,19 +894,20 @@ const SuggestedActionClassName = "SuggestedAction"
 // SuggestedActionClass represents SuggestedAction generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeSuggestedAction(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.SuggestedActionEnableArchiveAndMuteNewChats: // suggestedActionEnableArchiveAndMuteNewChats#7841ec4f
-//  case *tdapi.SuggestedActionCheckPassword: // suggestedActionCheckPassword#71e072b7
-//  case *tdapi.SuggestedActionCheckPhoneNumber: // suggestedActionCheckPhoneNumber#26ab77eb
-//  case *tdapi.SuggestedActionViewChecksHint: // suggestedActionViewChecksHint#35203547
-//  case *tdapi.SuggestedActionConvertToBroadcastGroup: // suggestedActionConvertToBroadcastGroup#c67a2e38
-//  case *tdapi.SuggestedActionSetPassword: // suggestedActionSetPassword#6f147d98
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeSuggestedAction(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.SuggestedActionEnableArchiveAndMuteNewChats: // suggestedActionEnableArchiveAndMuteNewChats#7841ec4f
+//	case *tdapi.SuggestedActionCheckPassword: // suggestedActionCheckPassword#71e072b7
+//	case *tdapi.SuggestedActionCheckPhoneNumber: // suggestedActionCheckPhoneNumber#26ab77eb
+//	case *tdapi.SuggestedActionViewChecksHint: // suggestedActionViewChecksHint#35203547
+//	case *tdapi.SuggestedActionConvertToBroadcastGroup: // suggestedActionConvertToBroadcastGroup#c67a2e38
+//	case *tdapi.SuggestedActionSetPassword: // suggestedActionSetPassword#6f147d98
+//	default: panic(v)
+//	}
 type SuggestedActionClass interface {
 	bin.Encoder
 	bin.Decoder

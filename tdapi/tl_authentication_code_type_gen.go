@@ -901,18 +901,19 @@ const AuthenticationCodeTypeClassName = "AuthenticationCodeType"
 // AuthenticationCodeTypeClass represents AuthenticationCodeType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeAuthenticationCodeType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.AuthenticationCodeTypeTelegramMessage: // authenticationCodeTypeTelegramMessage#7bf49b2a
-//  case *tdapi.AuthenticationCodeTypeSMS: // authenticationCodeTypeSms#3960e288
-//  case *tdapi.AuthenticationCodeTypeCall: // authenticationCodeTypeCall#61876c67
-//  case *tdapi.AuthenticationCodeTypeFlashCall: // authenticationCodeTypeFlashCall#533379a2
-//  case *tdapi.AuthenticationCodeTypeMissedCall: // authenticationCodeTypeMissedCall#29bb0a87
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeAuthenticationCodeType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.AuthenticationCodeTypeTelegramMessage: // authenticationCodeTypeTelegramMessage#7bf49b2a
+//	case *tdapi.AuthenticationCodeTypeSMS: // authenticationCodeTypeSms#3960e288
+//	case *tdapi.AuthenticationCodeTypeCall: // authenticationCodeTypeCall#61876c67
+//	case *tdapi.AuthenticationCodeTypeFlashCall: // authenticationCodeTypeFlashCall#533379a2
+//	case *tdapi.AuthenticationCodeTypeMissedCall: // authenticationCodeTypeMissedCall#29bb0a87
+//	default: panic(v)
+//	}
 type AuthenticationCodeTypeClass interface {
 	bin.Encoder
 	bin.Decoder

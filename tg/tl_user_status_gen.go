@@ -717,19 +717,20 @@ const UserStatusClassName = "UserStatus"
 // See https://core.telegram.org/type/UserStatus for reference.
 //
 // Example:
-//  g, err := tg.DecodeUserStatus(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.UserStatusEmpty: // userStatusEmpty#9d05049
-//  case *tg.UserStatusOnline: // userStatusOnline#edb93949
-//  case *tg.UserStatusOffline: // userStatusOffline#8c703f
-//  case *tg.UserStatusRecently: // userStatusRecently#e26f42f1
-//  case *tg.UserStatusLastWeek: // userStatusLastWeek#7bf09fc
-//  case *tg.UserStatusLastMonth: // userStatusLastMonth#77ebc742
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeUserStatus(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.UserStatusEmpty: // userStatusEmpty#9d05049
+//	case *tg.UserStatusOnline: // userStatusOnline#edb93949
+//	case *tg.UserStatusOffline: // userStatusOffline#8c703f
+//	case *tg.UserStatusRecently: // userStatusRecently#e26f42f1
+//	case *tg.UserStatusLastWeek: // userStatusLastWeek#7bf09fc
+//	case *tg.UserStatusLastMonth: // userStatusLastMonth#77ebc742
+//	default: panic(v)
+//	}
 type UserStatusClass interface {
 	bin.Encoder
 	bin.Decoder

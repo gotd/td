@@ -35,7 +35,7 @@ var (
 // A sponsored message¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/sponsored-messages
+//  1. https://core.telegram.org/api/sponsored-messages
 //
 // See https://core.telegram.org/constructor/sponsoredMessage for reference.
 type SponsoredMessage struct {

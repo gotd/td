@@ -36,8 +36,8 @@ var (
 // requestPasswordRecovery².
 //
 // Links:
-//  1) https://core.telegram.org/api/srp
-//  2) https://core.telegram.org/method/auth.requestPasswordRecovery
+//  1. https://core.telegram.org/api/srp
+//  2. https://core.telegram.org/method/auth.requestPasswordRecovery
 //
 // See https://core.telegram.org/method/auth.recoverPassword for reference.
 type AuthRecoverPasswordRequest struct {
@@ -240,12 +240,13 @@ func (r *AuthRecoverPasswordRequest) GetNewSettings() (value AccountPasswordInpu
 // requestPasswordRecovery².
 //
 // Links:
-//  1) https://core.telegram.org/api/srp
-//  2) https://core.telegram.org/method/auth.requestPasswordRecovery
+//  1. https://core.telegram.org/api/srp
+//  2. https://core.telegram.org/method/auth.requestPasswordRecovery
 //
 // Possible errors:
-//  400 CODE_EMPTY: The provided code is empty.
-//  400 NEW_SETTINGS_INVALID: The new password settings are invalid.
+//
+//	400 CODE_EMPTY: The provided code is empty.
+//	400 NEW_SETTINGS_INVALID: The new password settings are invalid.
 //
 // See https://core.telegram.org/method/auth.recoverPassword for reference.
 func (c *Client) AuthRecoverPassword(ctx context.Context, request *AuthRecoverPasswordRequest) (AuthAuthorizationClass, error) {

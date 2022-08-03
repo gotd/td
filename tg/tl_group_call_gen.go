@@ -1022,15 +1022,16 @@ const GroupCallClassName = "GroupCall"
 // See https://core.telegram.org/type/GroupCall for reference.
 //
 // Example:
-//  g, err := tg.DecodeGroupCall(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.GroupCallDiscarded: // groupCallDiscarded#7780bcb4
-//  case *tg.GroupCall: // groupCall#d597650c
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeGroupCall(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.GroupCallDiscarded: // groupCallDiscarded#7780bcb4
+//	case *tg.GroupCall: // groupCall#d597650c
+//	default: panic(v)
+//	}
 type GroupCallClass interface {
 	bin.Encoder
 	bin.Decoder

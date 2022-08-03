@@ -35,7 +35,7 @@ var (
 // Verify an email address for telegram passport¹.
 //
 // Links:
-//  1) https://core.telegram.org/passport
+//  1. https://core.telegram.org/passport
 //
 // See https://core.telegram.org/method/account.verifyEmail for reference.
 type AccountVerifyEmailRequest struct {
@@ -195,11 +195,12 @@ func (v *AccountVerifyEmailRequest) GetCode() (value string) {
 // Verify an email address for telegram passport¹.
 //
 // Links:
-//  1) https://core.telegram.org/passport
+//  1. https://core.telegram.org/passport
 //
 // Possible errors:
-//  400 EMAIL_INVALID: The specified email is invalid.
-//  400 EMAIL_VERIFY_EXPIRED: The verification email has expired.
+//
+//	400 EMAIL_INVALID: The specified email is invalid.
+//	400 EMAIL_VERIFY_EXPIRED: The verification email has expired.
 //
 // See https://core.telegram.org/method/account.verifyEmail for reference.
 func (c *Client) AccountVerifyEmail(ctx context.Context, request *AccountVerifyEmailRequest) (bool, error) {

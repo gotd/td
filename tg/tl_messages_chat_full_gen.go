@@ -35,10 +35,10 @@ var (
 // Full info about a channel¹, supergroup², gigagroup³ or basic group⁴.
 //
 // Links:
-//  1) https://core.telegram.org/api/channel#channels
-//  2) https://core.telegram.org/api/channel#supergroups
-//  3) https://core.telegram.org/api/channel#gigagroups
-//  4) https://core.telegram.org/api/channel#basic-groups
+//  1. https://core.telegram.org/api/channel#channels
+//  2. https://core.telegram.org/api/channel#supergroups
+//  3. https://core.telegram.org/api/channel#gigagroups
+//  4. https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/constructor/messages.chatFull for reference.
 type MessagesChatFull struct {

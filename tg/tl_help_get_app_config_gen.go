@@ -35,7 +35,7 @@ var (
 // Get app-specific configuration, see client configuration¹ for more info on the result.
 //
 // Links:
-//  1) https://core.telegram.org/api/config#client-configuration
+//  1. https://core.telegram.org/api/config#client-configuration
 //
 // See https://core.telegram.org/method/help.getAppConfig for reference.
 type HelpGetAppConfigRequest struct {
@@ -135,7 +135,7 @@ func (g *HelpGetAppConfigRequest) DecodeBare(b *bin.Buffer) error {
 // Get app-specific configuration, see client configuration¹ for more info on the result.
 //
 // Links:
-//  1) https://core.telegram.org/api/config#client-configuration
+//  1. https://core.telegram.org/api/config#client-configuration
 //
 // See https://core.telegram.org/method/help.getAppConfig for reference.
 func (c *Client) HelpGetAppConfig(ctx context.Context) (JSONValueClass, error) {

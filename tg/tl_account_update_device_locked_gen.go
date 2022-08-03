@@ -36,7 +36,7 @@ var (
 // incoming PUSH notifications¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/push-updates
+//  1. https://core.telegram.org/api/push-updates
 //
 // See https://core.telegram.org/method/account.updateDeviceLocked for reference.
 type AccountUpdateDeviceLockedRequest struct {
@@ -173,7 +173,7 @@ func (u *AccountUpdateDeviceLockedRequest) GetPeriod() (value int) {
 // incoming PUSH notifications¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/push-updates
+//  1. https://core.telegram.org/api/push-updates
 //
 // See https://core.telegram.org/method/account.updateDeviceLocked for reference.
 func (c *Client) AccountUpdateDeviceLocked(ctx context.Context, period int) (bool, error) {

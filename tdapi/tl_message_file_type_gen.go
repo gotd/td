@@ -500,16 +500,17 @@ const MessageFileTypeClassName = "MessageFileType"
 // MessageFileTypeClass represents MessageFileType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeMessageFileType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.MessageFileTypePrivate: // messageFileTypePrivate#e0e44ed4
-//  case *tdapi.MessageFileTypeGroup: // messageFileTypeGroup#f2e58f68
-//  case *tdapi.MessageFileTypeUnknown: // messageFileTypeUnknown#461dbab2
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeMessageFileType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.MessageFileTypePrivate: // messageFileTypePrivate#e0e44ed4
+//	case *tdapi.MessageFileTypeGroup: // messageFileTypeGroup#f2e58f68
+//	case *tdapi.MessageFileTypeUnknown: // messageFileTypeUnknown#461dbab2
+//	default: panic(v)
+//	}
 type MessageFileTypeClass interface {
 	bin.Encoder
 	bin.Decoder

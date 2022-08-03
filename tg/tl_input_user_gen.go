@@ -404,7 +404,7 @@ func (i *InputUser) GetAccessHash() (value int64) {
 // Defines a min¹ user that was seen in a certain message of a certain chat.
 //
 // Links:
-//  1) https://core.telegram.org/api/min
+//  1. https://core.telegram.org/api/min
 //
 // See https://core.telegram.org/constructor/inputUserFromMessage for reference.
 type InputUserFromMessage struct {
@@ -605,17 +605,18 @@ const InputUserClassName = "InputUser"
 // See https://core.telegram.org/type/InputUser for reference.
 //
 // Example:
-//  g, err := tg.DecodeInputUser(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InputUserEmpty: // inputUserEmpty#b98886cf
-//  case *tg.InputUserSelf: // inputUserSelf#f7c1b13f
-//  case *tg.InputUser: // inputUser#f21158c6
-//  case *tg.InputUserFromMessage: // inputUserFromMessage#1da448e2
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeInputUser(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputUserEmpty: // inputUserEmpty#b98886cf
+//	case *tg.InputUserSelf: // inputUserSelf#f7c1b13f
+//	case *tg.InputUser: // inputUser#f21158c6
+//	case *tg.InputUserFromMessage: // inputUserFromMessage#1da448e2
+//	default: panic(v)
+//	}
 type InputUserClass interface {
 	bin.Encoder
 	bin.Decoder

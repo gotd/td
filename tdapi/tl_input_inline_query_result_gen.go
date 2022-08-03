@@ -5187,25 +5187,26 @@ const InputInlineQueryResultClassName = "InputInlineQueryResult"
 // InputInlineQueryResultClass represents InputInlineQueryResult generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeInputInlineQueryResult(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.InputInlineQueryResultAnimation: // inputInlineQueryResultAnimation#a7335216
-//  case *tdapi.InputInlineQueryResultArticle: // inputInlineQueryResultArticle#75a3d10c
-//  case *tdapi.InputInlineQueryResultAudio: // inputInlineQueryResultAudio#4b1c35d4
-//  case *tdapi.InputInlineQueryResultContact: // inputInlineQueryResultContact#6e08b5d2
-//  case *tdapi.InputInlineQueryResultDocument: // inputInlineQueryResultDocument#227fd0cd
-//  case *tdapi.InputInlineQueryResultGame: // inputInlineQueryResultGame#39951fd7
-//  case *tdapi.InputInlineQueryResultLocation: // inputInlineQueryResultLocation#8f7cbe56
-//  case *tdapi.InputInlineQueryResultPhoto: // inputInlineQueryResultPhoto#bd0b361f
-//  case *tdapi.InputInlineQueryResultSticker: // inputInlineQueryResultSticker#10550459
-//  case *tdapi.InputInlineQueryResultVenue: // inputInlineQueryResultVenue#2049c13d
-//  case *tdapi.InputInlineQueryResultVideo: // inputInlineQueryResultVideo#66c344e7
-//  case *tdapi.InputInlineQueryResultVoiceNote: // inputInlineQueryResultVoiceNote#954da949
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeInputInlineQueryResult(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.InputInlineQueryResultAnimation: // inputInlineQueryResultAnimation#a7335216
+//	case *tdapi.InputInlineQueryResultArticle: // inputInlineQueryResultArticle#75a3d10c
+//	case *tdapi.InputInlineQueryResultAudio: // inputInlineQueryResultAudio#4b1c35d4
+//	case *tdapi.InputInlineQueryResultContact: // inputInlineQueryResultContact#6e08b5d2
+//	case *tdapi.InputInlineQueryResultDocument: // inputInlineQueryResultDocument#227fd0cd
+//	case *tdapi.InputInlineQueryResultGame: // inputInlineQueryResultGame#39951fd7
+//	case *tdapi.InputInlineQueryResultLocation: // inputInlineQueryResultLocation#8f7cbe56
+//	case *tdapi.InputInlineQueryResultPhoto: // inputInlineQueryResultPhoto#bd0b361f
+//	case *tdapi.InputInlineQueryResultSticker: // inputInlineQueryResultSticker#10550459
+//	case *tdapi.InputInlineQueryResultVenue: // inputInlineQueryResultVenue#2049c13d
+//	case *tdapi.InputInlineQueryResultVideo: // inputInlineQueryResultVideo#66c344e7
+//	case *tdapi.InputInlineQueryResultVoiceNote: // inputInlineQueryResultVoiceNote#954da949
+//	default: panic(v)
+//	}
 type InputInlineQueryResultClass interface {
 	bin.Encoder
 	bin.Decoder

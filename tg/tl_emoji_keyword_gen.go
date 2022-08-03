@@ -389,15 +389,16 @@ const EmojiKeywordClassName = "EmojiKeyword"
 // See https://core.telegram.org/type/EmojiKeyword for reference.
 //
 // Example:
-//  g, err := tg.DecodeEmojiKeyword(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.EmojiKeyword: // emojiKeyword#d5b3b9f9
-//  case *tg.EmojiKeywordDeleted: // emojiKeywordDeleted#236df622
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeEmojiKeyword(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.EmojiKeyword: // emojiKeyword#d5b3b9f9
+//	case *tg.EmojiKeywordDeleted: // emojiKeywordDeleted#236df622
+//	default: panic(v)
+//	}
 type EmojiKeywordClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -617,16 +617,17 @@ const StickerSetCoveredClassName = "StickerSetCovered"
 // See https://core.telegram.org/type/StickerSetCovered for reference.
 //
 // Example:
-//  g, err := tg.DecodeStickerSetCovered(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.StickerSetCovered: // stickerSetCovered#6410a5d2
-//  case *tg.StickerSetMultiCovered: // stickerSetMultiCovered#3407e51b
-//  case *tg.StickerSetFullCovered: // stickerSetFullCovered#1aed5ee5
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeStickerSetCovered(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.StickerSetCovered: // stickerSetCovered#6410a5d2
+//	case *tg.StickerSetMultiCovered: // stickerSetMultiCovered#3407e51b
+//	case *tg.StickerSetFullCovered: // stickerSetFullCovered#1aed5ee5
+//	default: panic(v)
+//	}
 type StickerSetCoveredClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -36,7 +36,7 @@ var (
 // servers
 //
 // Links:
-//  1) https://core.telegram.org/api/files
+//  1. https://core.telegram.org/api/files
 //
 // See https://core.telegram.org/constructor/upload.webFile for reference.
 type UploadWebFile struct {

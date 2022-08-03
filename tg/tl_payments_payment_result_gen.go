@@ -314,15 +314,16 @@ const PaymentsPaymentResultClassName = "payments.PaymentResult"
 // See https://core.telegram.org/type/payments.PaymentResult for reference.
 //
 // Example:
-//  g, err := tg.DecodePaymentsPaymentResult(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.PaymentsPaymentResult: // payments.paymentResult#4e5f810d
-//  case *tg.PaymentsPaymentVerificationNeeded: // payments.paymentVerificationNeeded#d8411139
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodePaymentsPaymentResult(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.PaymentsPaymentResult: // payments.paymentResult#4e5f810d
+//	case *tg.PaymentsPaymentVerificationNeeded: // payments.paymentVerificationNeeded#d8411139
+//	default: panic(v)
+//	}
 type PaymentsPaymentResultClass interface {
 	bin.Encoder
 	bin.Decoder

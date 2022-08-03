@@ -526,7 +526,7 @@ func (i *InputEncryptedFile) GetAccessHash() (value int64) {
 // upload.saveBigFilePart¹.
 //
 // Links:
-//  1) https://core.telegram.org/method/upload.saveBigFilePart
+//  1. https://core.telegram.org/method/upload.saveBigFilePart
 //
 // See https://core.telegram.org/constructor/inputEncryptedFileBigUploaded for reference.
 type InputEncryptedFileBigUploaded struct {
@@ -722,17 +722,18 @@ const InputEncryptedFileClassName = "InputEncryptedFile"
 // See https://core.telegram.org/type/InputEncryptedFile for reference.
 //
 // Example:
-//  g, err := tg.DecodeInputEncryptedFile(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InputEncryptedFileEmpty: // inputEncryptedFileEmpty#1837c364
-//  case *tg.InputEncryptedFileUploaded: // inputEncryptedFileUploaded#64bd0306
-//  case *tg.InputEncryptedFile: // inputEncryptedFile#5a17b5e5
-//  case *tg.InputEncryptedFileBigUploaded: // inputEncryptedFileBigUploaded#2dc173c8
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeInputEncryptedFile(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputEncryptedFileEmpty: // inputEncryptedFileEmpty#1837c364
+//	case *tg.InputEncryptedFileUploaded: // inputEncryptedFileUploaded#64bd0306
+//	case *tg.InputEncryptedFile: // inputEncryptedFile#5a17b5e5
+//	case *tg.InputEncryptedFileBigUploaded: // inputEncryptedFileBigUploaded#2dc173c8
+//	default: panic(v)
+//	}
 type InputEncryptedFileClass interface {
 	bin.Encoder
 	bin.Decoder

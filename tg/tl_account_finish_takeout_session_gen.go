@@ -194,7 +194,8 @@ func (f *AccountFinishTakeoutSessionRequest) GetSuccess() (value bool) {
 // Finish account takeout session
 //
 // Possible errors:
-//  403 TAKEOUT_REQUIRED: A takeout session has to be initialized, first.
+//
+//	403 TAKEOUT_REQUIRED: A takeout session has to be initialized, first.
 //
 // See https://core.telegram.org/method/account.finishTakeoutSession for reference.
 func (c *Client) AccountFinishTakeoutSession(ctx context.Context, request *AccountFinishTakeoutSessionRequest) (bool, error) {

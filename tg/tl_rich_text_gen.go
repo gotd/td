@@ -2438,29 +2438,30 @@ const RichTextClassName = "RichText"
 // See https://core.telegram.org/type/RichText for reference.
 //
 // Example:
-//  g, err := tg.DecodeRichText(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.TextEmpty: // textEmpty#dc3d824f
-//  case *tg.TextPlain: // textPlain#744694e0
-//  case *tg.TextBold: // textBold#6724abc4
-//  case *tg.TextItalic: // textItalic#d912a59c
-//  case *tg.TextUnderline: // textUnderline#c12622c4
-//  case *tg.TextStrike: // textStrike#9bf8bb95
-//  case *tg.TextFixed: // textFixed#6c3f19b9
-//  case *tg.TextURL: // textUrl#3c2884c1
-//  case *tg.TextEmail: // textEmail#de5a0dd6
-//  case *tg.TextConcat: // textConcat#7e6260d7
-//  case *tg.TextSubscript: // textSubscript#ed6a8504
-//  case *tg.TextSuperscript: // textSuperscript#c7fb5e01
-//  case *tg.TextMarked: // textMarked#34b8621
-//  case *tg.TextPhone: // textPhone#1ccb966a
-//  case *tg.TextImage: // textImage#81ccf4f
-//  case *tg.TextAnchor: // textAnchor#35553762
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeRichText(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.TextEmpty: // textEmpty#dc3d824f
+//	case *tg.TextPlain: // textPlain#744694e0
+//	case *tg.TextBold: // textBold#6724abc4
+//	case *tg.TextItalic: // textItalic#d912a59c
+//	case *tg.TextUnderline: // textUnderline#c12622c4
+//	case *tg.TextStrike: // textStrike#9bf8bb95
+//	case *tg.TextFixed: // textFixed#6c3f19b9
+//	case *tg.TextURL: // textUrl#3c2884c1
+//	case *tg.TextEmail: // textEmail#de5a0dd6
+//	case *tg.TextConcat: // textConcat#7e6260d7
+//	case *tg.TextSubscript: // textSubscript#ed6a8504
+//	case *tg.TextSuperscript: // textSuperscript#c7fb5e01
+//	case *tg.TextMarked: // textMarked#34b8621
+//	case *tg.TextPhone: // textPhone#1ccb966a
+//	case *tg.TextImage: // textImage#81ccf4f
+//	case *tg.TextAnchor: // textAnchor#35553762
+//	default: panic(v)
+//	}
 type RichTextClass interface {
 	bin.Encoder
 	bin.Decoder

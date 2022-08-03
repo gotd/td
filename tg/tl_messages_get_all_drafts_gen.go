@@ -35,7 +35,7 @@ var (
 // Save get all message drafts¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/drafts
+//  1. https://core.telegram.org/api/drafts
 //
 // See https://core.telegram.org/method/messages.getAllDrafts for reference.
 type MessagesGetAllDraftsRequest struct {
@@ -135,7 +135,7 @@ func (g *MessagesGetAllDraftsRequest) DecodeBare(b *bin.Buffer) error {
 // Save get all message drafts¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/drafts
+//  1. https://core.telegram.org/api/drafts
 //
 // See https://core.telegram.org/method/messages.getAllDrafts for reference.
 func (c *Client) MessagesGetAllDrafts(ctx context.Context) (UpdatesClass, error) {

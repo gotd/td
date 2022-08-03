@@ -2556,7 +2556,7 @@ func (i *InputMediaGame) GetID() (value InputGameClass) {
 // Generated invoice of a bot payment¹
 //
 // Links:
-//  1) https://core.telegram.org/bots/payments
+//  1. https://core.telegram.org/bots/payments
 //
 // See https://core.telegram.org/constructor/inputMediaInvoice for reference.
 type InputMediaInvoice struct {
@@ -2952,7 +2952,7 @@ func (i *InputMediaInvoice) GetStartParam() (value string, ok bool) {
 // Live geolocation¹
 //
 // Links:
-//  1) https://core.telegram.org/api/live-location
+//  1. https://core.telegram.org/api/live-location
 //
 // See https://core.telegram.org/constructor/inputMediaGeoLive for reference.
 type InputMediaGeoLive struct {
@@ -3644,7 +3644,7 @@ func (i *InputMediaPoll) MapSolutionEntities() (value MessageEntityClassArray, o
 // Send a dice-based animated sticker¹
 //
 // Links:
-//  1) https://core.telegram.org/api/dice
+//  1. https://core.telegram.org/api/dice
 //
 // See https://core.telegram.org/constructor/inputMediaDice for reference.
 type InputMediaDice struct {
@@ -3786,28 +3786,29 @@ const InputMediaClassName = "InputMedia"
 // See https://core.telegram.org/type/InputMedia for reference.
 //
 // Example:
-//  g, err := tg.DecodeInputMedia(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InputMediaEmpty: // inputMediaEmpty#9664f57f
-//  case *tg.InputMediaUploadedPhoto: // inputMediaUploadedPhoto#1e287d04
-//  case *tg.InputMediaPhoto: // inputMediaPhoto#b3ba0635
-//  case *tg.InputMediaGeoPoint: // inputMediaGeoPoint#f9c44144
-//  case *tg.InputMediaContact: // inputMediaContact#f8ab7dfb
-//  case *tg.InputMediaUploadedDocument: // inputMediaUploadedDocument#5b38c6c1
-//  case *tg.InputMediaDocument: // inputMediaDocument#33473058
-//  case *tg.InputMediaVenue: // inputMediaVenue#c13d1c11
-//  case *tg.InputMediaPhotoExternal: // inputMediaPhotoExternal#e5bbfe1a
-//  case *tg.InputMediaDocumentExternal: // inputMediaDocumentExternal#fb52dc99
-//  case *tg.InputMediaGame: // inputMediaGame#d33f43f3
-//  case *tg.InputMediaInvoice: // inputMediaInvoice#d9799874
-//  case *tg.InputMediaGeoLive: // inputMediaGeoLive#971fa843
-//  case *tg.InputMediaPoll: // inputMediaPoll#f94e5f1
-//  case *tg.InputMediaDice: // inputMediaDice#e66fbf7b
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeInputMedia(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputMediaEmpty: // inputMediaEmpty#9664f57f
+//	case *tg.InputMediaUploadedPhoto: // inputMediaUploadedPhoto#1e287d04
+//	case *tg.InputMediaPhoto: // inputMediaPhoto#b3ba0635
+//	case *tg.InputMediaGeoPoint: // inputMediaGeoPoint#f9c44144
+//	case *tg.InputMediaContact: // inputMediaContact#f8ab7dfb
+//	case *tg.InputMediaUploadedDocument: // inputMediaUploadedDocument#5b38c6c1
+//	case *tg.InputMediaDocument: // inputMediaDocument#33473058
+//	case *tg.InputMediaVenue: // inputMediaVenue#c13d1c11
+//	case *tg.InputMediaPhotoExternal: // inputMediaPhotoExternal#e5bbfe1a
+//	case *tg.InputMediaDocumentExternal: // inputMediaDocumentExternal#fb52dc99
+//	case *tg.InputMediaGame: // inputMediaGame#d33f43f3
+//	case *tg.InputMediaInvoice: // inputMediaInvoice#d9799874
+//	case *tg.InputMediaGeoLive: // inputMediaGeoLive#971fa843
+//	case *tg.InputMediaPoll: // inputMediaPoll#f94e5f1
+//	case *tg.InputMediaDice: // inputMediaDice#e66fbf7b
+//	default: panic(v)
+//	}
 type InputMediaClass interface {
 	bin.Encoder
 	bin.Decoder

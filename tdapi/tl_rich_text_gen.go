@@ -3364,30 +3364,31 @@ const RichTextClassName = "RichText"
 // RichTextClass represents RichText generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeRichText(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.RichTextPlain: // richTextPlain#1cc42966
-//  case *tdapi.RichTextBold: // richTextBold#63970f6c
-//  case *tdapi.RichTextItalic: // richTextItalic#6e77f03f
-//  case *tdapi.RichTextUnderline: // richTextUnderline#e00cfd8c
-//  case *tdapi.RichTextStrikethrough: // richTextStrikethrough#2b1e6a51
-//  case *tdapi.RichTextFixed: // richTextFixed#b43681c7
-//  case *tdapi.RichTextURL: // richTextUrl#500cf14
-//  case *tdapi.RichTextEmailAddress: // richTextEmailAddress#262a2f7
-//  case *tdapi.RichTextSubscript: // richTextSubscript#cc405a4c
-//  case *tdapi.RichTextSuperscript: // richTextSuperscript#e9377563
-//  case *tdapi.RichTextMarked: // richTextMarked#b42ed382
-//  case *tdapi.RichTextPhoneNumber: // richTextPhoneNumber#7a91543
-//  case *tdapi.RichTextIcon: // richTextIcon#a7c42b02
-//  case *tdapi.RichTextReference: // richTextReference#bb9a1276
-//  case *tdapi.RichTextAnchor: // richTextAnchor#4e7f1034
-//  case *tdapi.RichTextAnchorLink: // richTextAnchorLink#a41fd2d6
-//  case *tdapi.RichTexts: // richTexts#94b21889
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeRichText(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.RichTextPlain: // richTextPlain#1cc42966
+//	case *tdapi.RichTextBold: // richTextBold#63970f6c
+//	case *tdapi.RichTextItalic: // richTextItalic#6e77f03f
+//	case *tdapi.RichTextUnderline: // richTextUnderline#e00cfd8c
+//	case *tdapi.RichTextStrikethrough: // richTextStrikethrough#2b1e6a51
+//	case *tdapi.RichTextFixed: // richTextFixed#b43681c7
+//	case *tdapi.RichTextURL: // richTextUrl#500cf14
+//	case *tdapi.RichTextEmailAddress: // richTextEmailAddress#262a2f7
+//	case *tdapi.RichTextSubscript: // richTextSubscript#cc405a4c
+//	case *tdapi.RichTextSuperscript: // richTextSuperscript#e9377563
+//	case *tdapi.RichTextMarked: // richTextMarked#b42ed382
+//	case *tdapi.RichTextPhoneNumber: // richTextPhoneNumber#7a91543
+//	case *tdapi.RichTextIcon: // richTextIcon#a7c42b02
+//	case *tdapi.RichTextReference: // richTextReference#bb9a1276
+//	case *tdapi.RichTextAnchor: // richTextAnchor#4e7f1034
+//	case *tdapi.RichTextAnchorLink: // richTextAnchorLink#a41fd2d6
+//	case *tdapi.RichTexts: // richTexts#94b21889
+//	default: panic(v)
+//	}
 type RichTextClass interface {
 	bin.Encoder
 	bin.Decoder

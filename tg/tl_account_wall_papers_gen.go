@@ -329,15 +329,16 @@ const AccountWallPapersClassName = "account.WallPapers"
 // See https://core.telegram.org/type/account.WallPapers for reference.
 //
 // Example:
-//  g, err := tg.DecodeAccountWallPapers(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.AccountWallPapersNotModified: // account.wallPapersNotModified#1c199183
-//  case *tg.AccountWallPapers: // account.wallPapers#cdc3858c
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeAccountWallPapers(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.AccountWallPapersNotModified: // account.wallPapersNotModified#1c199183
+//	case *tg.AccountWallPapers: // account.wallPapers#cdc3858c
+//	default: panic(v)
+//	}
 type AccountWallPapersClass interface {
 	bin.Encoder
 	bin.Decoder

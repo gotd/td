@@ -749,18 +749,19 @@ const AuthSentCodeTypeClassName = "auth.SentCodeType"
 // See https://core.telegram.org/type/auth.SentCodeType for reference.
 //
 // Example:
-//  g, err := tg.DecodeAuthSentCodeType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.AuthSentCodeTypeApp: // auth.sentCodeTypeApp#3dbb5986
-//  case *tg.AuthSentCodeTypeSMS: // auth.sentCodeTypeSms#c000bba2
-//  case *tg.AuthSentCodeTypeCall: // auth.sentCodeTypeCall#5353e5a7
-//  case *tg.AuthSentCodeTypeFlashCall: // auth.sentCodeTypeFlashCall#ab03c6d9
-//  case *tg.AuthSentCodeTypeMissedCall: // auth.sentCodeTypeMissedCall#82006484
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeAuthSentCodeType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.AuthSentCodeTypeApp: // auth.sentCodeTypeApp#3dbb5986
+//	case *tg.AuthSentCodeTypeSMS: // auth.sentCodeTypeSms#c000bba2
+//	case *tg.AuthSentCodeTypeCall: // auth.sentCodeTypeCall#5353e5a7
+//	case *tg.AuthSentCodeTypeFlashCall: // auth.sentCodeTypeFlashCall#ab03c6d9
+//	case *tg.AuthSentCodeTypeMissedCall: // auth.sentCodeTypeMissedCall#82006484
+//	default: panic(v)
+//	}
 type AuthSentCodeTypeClass interface {
 	bin.Encoder
 	bin.Decoder

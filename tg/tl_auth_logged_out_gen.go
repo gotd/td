@@ -35,7 +35,7 @@ var (
 // Logout token »¹ to be used on subsequent authorizations
 //
 // Links:
-//  1) https://core.telegram.org/api/auth#logout-tokens
+//  1. https://core.telegram.org/api/auth#logout-tokens
 //
 // See https://core.telegram.org/constructor/auth.loggedOut for reference.
 type AuthLoggedOut struct {

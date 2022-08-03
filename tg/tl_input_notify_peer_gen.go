@@ -379,7 +379,7 @@ func (i *InputNotifyChats) DecodeBare(b *bin.Buffer) error {
 // All channels¹
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/inputNotifyBroadcasts for reference.
 type InputNotifyBroadcasts struct {
@@ -488,17 +488,18 @@ const InputNotifyPeerClassName = "InputNotifyPeer"
 // See https://core.telegram.org/type/InputNotifyPeer for reference.
 //
 // Example:
-//  g, err := tg.DecodeInputNotifyPeer(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InputNotifyPeer: // inputNotifyPeer#b8bc5b0c
-//  case *tg.InputNotifyUsers: // inputNotifyUsers#193b4417
-//  case *tg.InputNotifyChats: // inputNotifyChats#4a95e84e
-//  case *tg.InputNotifyBroadcasts: // inputNotifyBroadcasts#b1db7c7e
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeInputNotifyPeer(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputNotifyPeer: // inputNotifyPeer#b8bc5b0c
+//	case *tg.InputNotifyUsers: // inputNotifyUsers#193b4417
+//	case *tg.InputNotifyChats: // inputNotifyChats#4a95e84e
+//	case *tg.InputNotifyBroadcasts: // inputNotifyBroadcasts#b1db7c7e
+//	default: panic(v)
+//	}
 type InputNotifyPeerClass interface {
 	bin.Encoder
 	bin.Decoder

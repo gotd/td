@@ -202,8 +202,9 @@ func (g *MessagesGetInlineGameHighScoresRequest) GetUserID() (value InputUserCla
 // Get highscores of a game sent using an inline bot
 //
 // Possible errors:
-//  400 MESSAGE_ID_INVALID: The provided message id is invalid.
-//  400 USER_BOT_REQUIRED: This method can only be called by a bot.
+//
+//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/messages.getInlineGameHighScores for reference.
 // Can be used by bots.

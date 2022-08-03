@@ -35,9 +35,9 @@ var (
 // Convert a supergroup¹ to a gigagroup², when requested by channel suggestions³.
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
-//  2) https://core.telegram.org/api/channel
-//  3) https://core.telegram.org/api/config#channel-suggestions
+//  1. https://core.telegram.org/api/channel
+//  2. https://core.telegram.org/api/channel
+//  3. https://core.telegram.org/api/config#channel-suggestions
 //
 // See https://core.telegram.org/method/channels.convertToGigagroup for reference.
 type ChannelsConvertToGigagroupRequest struct {
@@ -183,13 +183,14 @@ func (c *ChannelsConvertToGigagroupRequest) GetChannelAsNotEmpty() (NotEmptyInpu
 // Convert a supergroup¹ to a gigagroup², when requested by channel suggestions³.
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
-//  2) https://core.telegram.org/api/channel
-//  3) https://core.telegram.org/api/config#channel-suggestions
+//  1. https://core.telegram.org/api/channel
+//  2. https://core.telegram.org/api/channel
+//  3. https://core.telegram.org/api/config#channel-suggestions
 //
 // Possible errors:
-//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//  400 PARTICIPANTS_TOO_FEW: Not enough participants.
+//
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	400 PARTICIPANTS_TOO_FEW: Not enough participants.
 //
 // See https://core.telegram.org/method/channels.convertToGigagroup for reference.
 func (c *Client) ChannelsConvertToGigagroup(ctx context.Context, channel InputChannelClass) (UpdatesClass, error) {

@@ -1332,19 +1332,20 @@ const CallStateClassName = "CallState"
 // CallStateClass represents CallState generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeCallState(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.CallStatePending: // callStatePending#3ff56c2c
-//  case *tdapi.CallStateExchangingKeys: // callStateExchangingKeys#91d77a65
-//  case *tdapi.CallStateReady: // callStateReady#ce59c044
-//  case *tdapi.CallStateHangingUp: // callStateHangingUp#80d0f2aa
-//  case *tdapi.CallStateDiscarded: // callStateDiscarded#531b7c45
-//  case *tdapi.CallStateError: // callStateError#c5df6495
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeCallState(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.CallStatePending: // callStatePending#3ff56c2c
+//	case *tdapi.CallStateExchangingKeys: // callStateExchangingKeys#91d77a65
+//	case *tdapi.CallStateReady: // callStateReady#ce59c044
+//	case *tdapi.CallStateHangingUp: // callStateHangingUp#80d0f2aa
+//	case *tdapi.CallStateDiscarded: // callStateDiscarded#531b7c45
+//	case *tdapi.CallStateError: // callStateError#c5df6495
+//	default: panic(v)
+//	}
 type CallStateClass interface {
 	bin.Encoder
 	bin.Decoder

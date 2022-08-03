@@ -384,15 +384,16 @@ const EncryptedFileClassName = "EncryptedFile"
 // See https://core.telegram.org/type/EncryptedFile for reference.
 //
 // Example:
-//  g, err := tg.DecodeEncryptedFile(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.EncryptedFileEmpty: // encryptedFileEmpty#c21f497e
-//  case *tg.EncryptedFile: // encryptedFile#a8008cd8
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeEncryptedFile(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.EncryptedFileEmpty: // encryptedFileEmpty#c21f497e
+//	case *tg.EncryptedFile: // encryptedFile#a8008cd8
+//	default: panic(v)
+//	}
 type EncryptedFileClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -392,15 +392,16 @@ const InputStorePaymentPurposeClassName = "InputStorePaymentPurpose"
 // See https://core.telegram.org/type/InputStorePaymentPurpose for reference.
 //
 // Example:
-//  g, err := tg.DecodeInputStorePaymentPurpose(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InputStorePaymentPremiumSubscription: // inputStorePaymentPremiumSubscription#a6751e66
-//  case *tg.InputStorePaymentGiftPremium: // inputStorePaymentGiftPremium#616f7fe8
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeInputStorePaymentPurpose(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputStorePaymentPremiumSubscription: // inputStorePaymentPremiumSubscription#a6751e66
+//	case *tg.InputStorePaymentGiftPremium: // inputStorePaymentGiftPremium#616f7fe8
+//	default: panic(v)
+//	}
 type InputStorePaymentPurposeClass interface {
 	bin.Encoder
 	bin.Decoder

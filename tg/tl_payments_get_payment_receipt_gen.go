@@ -197,7 +197,8 @@ func (g *PaymentsGetPaymentReceiptRequest) GetMsgID() (value int) {
 // Get payment receipt
 //
 // Possible errors:
-//  400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//
+//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
 //
 // See https://core.telegram.org/method/payments.getPaymentReceipt for reference.
 func (c *Client) PaymentsGetPaymentReceipt(ctx context.Context, request *PaymentsGetPaymentReceiptRequest) (*PaymentsPaymentReceipt, error) {

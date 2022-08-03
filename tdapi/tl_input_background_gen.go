@@ -380,15 +380,16 @@ const InputBackgroundClassName = "InputBackground"
 // InputBackgroundClass represents InputBackground generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeInputBackground(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.InputBackgroundLocal: // inputBackgroundLocal#97dd74a4
-//  case *tdapi.InputBackgroundRemote: // inputBackgroundRemote#ef9c3219
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeInputBackground(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.InputBackgroundLocal: // inputBackgroundLocal#97dd74a4
+//	case *tdapi.InputBackgroundRemote: // inputBackgroundRemote#ef9c3219
+//	default: panic(v)
+//	}
 type InputBackgroundClass interface {
 	bin.Encoder
 	bin.Decoder

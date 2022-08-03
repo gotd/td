@@ -36,7 +36,7 @@ var (
 // & so on)
 //
 // Links:
-//  1) https://core.telegram.org/passport
+//  1. https://core.telegram.org/passport
 //
 // See https://core.telegram.org/constructor/account.passwordSettings for reference.
 type AccountPasswordSettings struct {

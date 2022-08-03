@@ -137,7 +137,7 @@ func (i *InputCheckPasswordEmpty) DecodeBare(b *bin.Buffer) error {
 // Constructor for checking the validity of a 2FA SRP password (see SRP¹)
 //
 // Links:
-//  1) https://core.telegram.org/api/srp
+//  1. https://core.telegram.org/api/srp
 //
 // See https://core.telegram.org/constructor/inputCheckPasswordSRP for reference.
 type InputCheckPasswordSRP struct {
@@ -342,15 +342,16 @@ const InputCheckPasswordSRPClassName = "InputCheckPasswordSRP"
 // See https://core.telegram.org/type/InputCheckPasswordSRP for reference.
 //
 // Example:
-//  g, err := tg.DecodeInputCheckPasswordSRP(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InputCheckPasswordEmpty: // inputCheckPasswordEmpty#9880f658
-//  case *tg.InputCheckPasswordSRP: // inputCheckPasswordSRP#d27ff082
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeInputCheckPasswordSRP(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputCheckPasswordEmpty: // inputCheckPasswordEmpty#9880f658
+//	case *tg.InputCheckPasswordSRP: // inputCheckPasswordSRP#d27ff082
+//	default: panic(v)
+//	}
 type InputCheckPasswordSRPClass interface {
 	bin.Encoder
 	bin.Decoder

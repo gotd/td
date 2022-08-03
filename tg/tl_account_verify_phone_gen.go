@@ -35,7 +35,7 @@ var (
 // Verify a phone number for telegram passport¹.
 //
 // Links:
-//  1) https://core.telegram.org/passport
+//  1. https://core.telegram.org/passport
 //
 // See https://core.telegram.org/method/account.verifyPhone for reference.
 type AccountVerifyPhoneRequest struct {
@@ -228,12 +228,13 @@ func (v *AccountVerifyPhoneRequest) GetPhoneCode() (value string) {
 // Verify a phone number for telegram passport¹.
 //
 // Links:
-//  1) https://core.telegram.org/passport
+//  1. https://core.telegram.org/passport
 //
 // Possible errors:
-//  400 PHONE_CODE_EMPTY: phone_code is missing.
-//  400 PHONE_CODE_EXPIRED: The phone code you provided has expired.
-//  400 PHONE_NUMBER_INVALID: The phone number is invalid.
+//
+//	400 PHONE_CODE_EMPTY: phone_code is missing.
+//	400 PHONE_CODE_EXPIRED: The phone code you provided has expired.
+//	400 PHONE_NUMBER_INVALID: The phone number is invalid.
 //
 // See https://core.telegram.org/method/account.verifyPhone for reference.
 func (c *Client) AccountVerifyPhone(ctx context.Context, request *AccountVerifyPhoneRequest) (bool, error) {

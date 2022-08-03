@@ -35,7 +35,7 @@ var (
 // Dismiss or approve a chat join request¹ related to a specific chat or channel.
 //
 // Links:
-//  1) https://core.telegram.org/api/invites#join-requests
+//  1. https://core.telegram.org/api/invites#join-requests
 //
 // See https://core.telegram.org/method/messages.hideChatJoinRequest for reference.
 type MessagesHideChatJoinRequestRequest struct {
@@ -267,10 +267,11 @@ func (h *MessagesHideChatJoinRequestRequest) GetUserID() (value InputUserClass) 
 // Dismiss or approve a chat join request¹ related to a specific chat or channel.
 //
 // Links:
-//  1) https://core.telegram.org/api/invites#join-requests
+//  1. https://core.telegram.org/api/invites#join-requests
 //
 // Possible errors:
-//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.hideChatJoinRequest for reference.
 // Can be used by bots.

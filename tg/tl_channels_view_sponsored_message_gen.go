@@ -202,7 +202,8 @@ func (v *ChannelsViewSponsoredMessageRequest) GetChannelAsNotEmpty() (NotEmptyIn
 // Mark a specific sponsored message as read
 //
 // Possible errors:
-//  400 CHANNEL_INVALID: The provided channel is invalid.
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.viewSponsoredMessage for reference.
 func (c *Client) ChannelsViewSponsoredMessage(ctx context.Context, request *ChannelsViewSponsoredMessageRequest) (bool, error) {

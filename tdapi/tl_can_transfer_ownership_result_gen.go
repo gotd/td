@@ -637,17 +637,18 @@ const CanTransferOwnershipResultClassName = "CanTransferOwnershipResult"
 // CanTransferOwnershipResultClass represents CanTransferOwnershipResult generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeCanTransferOwnershipResult(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.CanTransferOwnershipResultOk: // canTransferOwnershipResultOk#faa48643
-//  case *tdapi.CanTransferOwnershipResultPasswordNeeded: // canTransferOwnershipResultPasswordNeeded#5c4a4adf
-//  case *tdapi.CanTransferOwnershipResultPasswordTooFresh: // canTransferOwnershipResultPasswordTooFresh#305d9b11
-//  case *tdapi.CanTransferOwnershipResultSessionTooFresh: // canTransferOwnershipResultSessionTooFresh#3ab0c8e1
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeCanTransferOwnershipResult(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.CanTransferOwnershipResultOk: // canTransferOwnershipResultOk#faa48643
+//	case *tdapi.CanTransferOwnershipResultPasswordNeeded: // canTransferOwnershipResultPasswordNeeded#5c4a4adf
+//	case *tdapi.CanTransferOwnershipResultPasswordTooFresh: // canTransferOwnershipResultPasswordTooFresh#305d9b11
+//	case *tdapi.CanTransferOwnershipResultSessionTooFresh: // canTransferOwnershipResultSessionTooFresh#3ab0c8e1
+//	default: panic(v)
+//	}
 type CanTransferOwnershipResultClass interface {
 	bin.Encoder
 	bin.Decoder

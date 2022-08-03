@@ -35,8 +35,8 @@ var (
 // Get saved Telegram Passport¹ document, for more info see the passport docs »²
 //
 // Links:
-//  1) https://core.telegram.org/passport
-//  2) https://core.telegram.org/passport/encryption#encryption
+//  1. https://core.telegram.org/passport
+//  2. https://core.telegram.org/passport/encryption#encryption
 //
 // See https://core.telegram.org/method/account.getSecureValue for reference.
 type AccountGetSecureValueRequest struct {
@@ -192,8 +192,8 @@ func (g *AccountGetSecureValueRequest) MapTypes() (value SecureValueTypeClassArr
 // Get saved Telegram Passport¹ document, for more info see the passport docs »²
 //
 // Links:
-//  1) https://core.telegram.org/passport
-//  2) https://core.telegram.org/passport/encryption#encryption
+//  1. https://core.telegram.org/passport
+//  2. https://core.telegram.org/passport/encryption#encryption
 //
 // See https://core.telegram.org/method/account.getSecureValue for reference.
 func (c *Client) AccountGetSecureValue(ctx context.Context, types []SecureValueTypeClass) ([]SecureValue, error) {

@@ -1454,17 +1454,18 @@ const WebPageClassName = "WebPage"
 // See https://core.telegram.org/type/WebPage for reference.
 //
 // Example:
-//  g, err := tg.DecodeWebPage(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.WebPageEmpty: // webPageEmpty#eb1477e8
-//  case *tg.WebPagePending: // webPagePending#c586da1c
-//  case *tg.WebPage: // webPage#e89c45b2
-//  case *tg.WebPageNotModified: // webPageNotModified#7311ca11
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeWebPage(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.WebPageEmpty: // webPageEmpty#eb1477e8
+//	case *tg.WebPagePending: // webPagePending#c586da1c
+//	case *tg.WebPage: // webPage#e89c45b2
+//	case *tg.WebPageNotModified: // webPageNotModified#7311ca11
+//	default: panic(v)
+//	}
 type WebPageClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -561,17 +561,18 @@ const MaskPointClassName = "MaskPoint"
 // MaskPointClass represents MaskPoint generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeMaskPoint(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.MaskPointForehead: // maskPointForehead#3d3e96c5
-//  case *tdapi.MaskPointEyes: // maskPointEyes#68351b4d
-//  case *tdapi.MaskPointMouth: // maskPointMouth#188b29de
-//  case *tdapi.MaskPointChin: // maskPointChin#1fe36187
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeMaskPoint(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.MaskPointForehead: // maskPointForehead#3d3e96c5
+//	case *tdapi.MaskPointEyes: // maskPointEyes#68351b4d
+//	case *tdapi.MaskPointMouth: // maskPointMouth#188b29de
+//	case *tdapi.MaskPointChin: // maskPointChin#1fe36187
+//	default: panic(v)
+//	}
 type MaskPointClass interface {
 	bin.Encoder
 	bin.Decoder

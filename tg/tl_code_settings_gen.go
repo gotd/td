@@ -36,8 +36,8 @@ var (
 // Example implementations: telegram for android¹, tdlib².
 //
 // Links:
-//  1) https://github.com/DrKLO/Telegram/blob/master/TMessagesProj/src/main/java/org/telegram/ui/LoginActivity.java
-//  2) https://github.com/tdlib/td/tree/master/td/telegram/SendCodeHelper.cpp
+//  1. https://github.com/DrKLO/Telegram/blob/master/TMessagesProj/src/main/java/org/telegram/ui/LoginActivity.java
+//  2. https://github.com/tdlib/td/tree/master/td/telegram/SendCodeHelper.cpp
 //
 // See https://core.telegram.org/constructor/codeSettings for reference.
 type CodeSettings struct {

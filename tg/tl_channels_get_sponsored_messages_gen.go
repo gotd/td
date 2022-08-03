@@ -175,7 +175,8 @@ func (g *ChannelsGetSponsoredMessagesRequest) GetChannelAsNotEmpty() (NotEmptyIn
 // Get a list of sponsored messages
 //
 // Possible errors:
-//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//
+//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //
 // See https://core.telegram.org/method/channels.getSponsoredMessages for reference.
 func (c *Client) ChannelsGetSponsoredMessages(ctx context.Context, channel InputChannelClass) (*MessagesSponsoredMessages, error) {

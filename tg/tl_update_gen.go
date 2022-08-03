@@ -35,7 +35,7 @@ var (
 // New message in a private chat or in a basic group¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/channel#basic-groups
+//  1. https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/constructor/updateNewMessage for reference.
 type UpdateNewMessage struct {
@@ -4416,7 +4416,7 @@ func (u *UpdateReadHistoryOutbox) GetPtsCount() (value int) {
 // An instant view¹ webpage preview was generated
 //
 // Links:
-//  1) https://instantview.telegram.org
+//  1. https://instantview.telegram.org
 //
 // See https://core.telegram.org/constructor/updateWebPage for reference.
 type UpdateWebPage struct {
@@ -4619,7 +4619,7 @@ func (u *UpdateWebPage) GetPtsCount() (value int) {
 // Contents of messages in the common message box¹ were read
 //
 // Links:
-//  1) https://core.telegram.org/api/updates
+//  1. https://core.telegram.org/api/updates
 //
 // See https://core.telegram.org/constructor/updateReadMessagesContents for reference.
 type UpdateReadMessagesContents struct {
@@ -5174,7 +5174,7 @@ func (u *UpdateChannel) GetChannelID() (value int64) {
 // A new message was sent in a channel/supergroup¹
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateNewChannelMessage for reference.
 type UpdateNewChannelMessage struct {
@@ -5377,7 +5377,7 @@ func (u *UpdateNewChannelMessage) GetPtsCount() (value int) {
 // Incoming messages in a channel/supergroup¹ were read
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateReadChannelInbox for reference.
 type UpdateReadChannelInbox struct {
@@ -5671,7 +5671,7 @@ func (u *UpdateReadChannelInbox) GetPts() (value int) {
 // Some messages in a supergroup/channel¹ were deleted
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateDeleteChannelMessages for reference.
 type UpdateDeleteChannelMessages struct {
@@ -6098,7 +6098,7 @@ func (u *UpdateChannelMessageViews) GetViews() (value int) {
 // Admin permissions of a user in a basic group¹ were changed
 //
 // Links:
-//  1) https://core.telegram.org/api/channel#basic-groups
+//  1. https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/constructor/updateChatParticipantAdmin for reference.
 type UpdateChatParticipantAdmin struct {
@@ -6697,7 +6697,7 @@ func (u *UpdateStickerSetsOrder) GetOrder() (value []int64) {
 // getAllStickers¹
 //
 // Links:
-//  1) https://core.telegram.org/method/messages.getAllStickers
+//  1. https://core.telegram.org/method/messages.getAllStickers
 //
 // See https://core.telegram.org/constructor/updateStickerSets for reference.
 type UpdateStickerSets struct {
@@ -6803,7 +6803,7 @@ func (u *UpdateStickerSets) DecodeBare(b *bin.Buffer) error {
 // getSavedGifs¹
 //
 // Links:
-//  1) https://core.telegram.org/method/messages.getSavedGifs
+//  1. https://core.telegram.org/method/messages.getSavedGifs
 //
 // See https://core.telegram.org/constructor/updateSavedGifs for reference.
 type UpdateSavedGifs struct {
@@ -7253,7 +7253,7 @@ func (u *UpdateBotInlineQuery) GetOffset() (value string) {
 // enable these updates for your bot.
 //
 // Links:
-//  1) https://core.telegram.org/bots/inline#collecting-feedback
+//  1. https://core.telegram.org/bots/inline#collecting-feedback
 //
 // See https://core.telegram.org/constructor/updateBotInlineSend for reference.
 type UpdateBotInlineSend struct {
@@ -7574,7 +7574,7 @@ func (u *UpdateBotInlineSend) GetMsgID() (value InputBotInlineMessageIDClass, ok
 // A message was edited in a channel/supergroup¹
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateEditChannelMessage for reference.
 type UpdateEditChannelMessage struct {
@@ -8684,7 +8684,7 @@ func (u *UpdateInlineBotCallbackQuery) GetGameShortName() (value string, ok bool
 // Outgoing messages in a channel/supergroup¹ were read
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateReadChannelOutbox for reference.
 type UpdateReadChannelOutbox struct {
@@ -8849,7 +8849,7 @@ func (u *UpdateReadChannelOutbox) GetMaxID() (value int) {
 // Notifies a change of a message draft¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/drafts
+//  1. https://core.telegram.org/api/drafts
 //
 // See https://core.telegram.org/constructor/updateDraftMessage for reference.
 type UpdateDraftMessage struct {
@@ -9229,7 +9229,7 @@ func (u *UpdateRecentStickers) DecodeBare(b *bin.Buffer) error {
 // help.getConfig¹
 //
 // Links:
-//  1) https://core.telegram.org/method/help.getConfig
+//  1. https://core.telegram.org/method/help.getConfig
 //
 // See https://core.telegram.org/constructor/updateConfig for reference.
 type UpdateConfig struct {
@@ -9335,8 +9335,8 @@ func (u *UpdateConfig) DecodeBare(b *bin.Buffer) error {
 // getState²
 //
 // Links:
-//  1) https://core.telegram.org/api/updates
-//  2) https://core.telegram.org/api/updates#fetching-state
+//  1. https://core.telegram.org/api/updates
+//  2. https://core.telegram.org/api/updates#fetching-state
 //
 // See https://core.telegram.org/constructor/updatePtsChanged for reference.
 type UpdatePtsChanged struct {
@@ -9441,7 +9441,7 @@ func (u *UpdatePtsChanged) DecodeBare(b *bin.Buffer) error {
 // A webpage preview of a link in a channel/supergroup¹ message was generated
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateChannelWebPage for reference.
 type UpdateChannelWebPage struct {
@@ -11225,7 +11225,7 @@ func (u *UpdatePhoneCall) GetPhoneCall() (value PhoneCallClass) {
 // using langpack.getDifference¹
 //
 // Links:
-//  1) https://core.telegram.org/method/langpack.getDifference
+//  1. https://core.telegram.org/method/langpack.getDifference
 //
 // See https://core.telegram.org/constructor/updateLangPackTooLong for reference.
 type UpdateLangPackTooLong struct {
@@ -11499,7 +11499,7 @@ func (u *UpdateLangPack) GetDifference() (value LangPackDifference) {
 // getFavedStickers¹ to refetch the new list
 //
 // Links:
-//  1) https://core.telegram.org/method/messages.getFavedStickers
+//  1. https://core.telegram.org/method/messages.getFavedStickers
 //
 // See https://core.telegram.org/constructor/updateFavedStickers for reference.
 type UpdateFavedStickers struct {
@@ -11604,7 +11604,7 @@ func (u *UpdateFavedStickers) DecodeBare(b *bin.Buffer) error {
 // The specified channel/supergroup¹ messages were read
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateChannelReadMessagesContents for reference.
 type UpdateChannelReadMessagesContents struct {
@@ -11887,7 +11887,7 @@ func (u *UpdateContactsReset) DecodeBare(b *bin.Buffer) error {
 // The history of a channel/supergroup¹ was hidden.
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateChannelAvailableMessages for reference.
 type UpdateChannelAvailableMessages struct {
@@ -12479,7 +12479,7 @@ func (u *UpdateMessagePoll) GetResults() (value PollResults) {
 // Default banned rights in a normal chat¹ were updated
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateChatDefaultBannedRights for reference.
 type UpdateChatDefaultBannedRights struct {
@@ -12676,7 +12676,7 @@ func (u *UpdateChatDefaultBannedRights) GetVersion() (value int) {
 // The peer list of a peer folder¹ was updated
 //
 // Links:
-//  1) https://core.telegram.org/api/folders#peer-folders
+//  1. https://core.telegram.org/api/folders#peer-folders
 //
 // See https://core.telegram.org/constructor/updateFolderPeers for reference.
 type UpdateFolderPeers struct {
@@ -13214,7 +13214,7 @@ func (u *UpdatePeerLocated) MapPeers() (value PeerLocatedClassArray) {
 // A message was added to the schedule queue of a chat¹
 //
 // Links:
-//  1) https://core.telegram.org/api/scheduled-messages
+//  1. https://core.telegram.org/api/scheduled-messages
 //
 // See https://core.telegram.org/constructor/updateNewScheduledMessage for reference.
 type UpdateNewScheduledMessage struct {
@@ -13357,7 +13357,7 @@ func (u *UpdateNewScheduledMessage) GetMessage() (value MessageClass) {
 // Some scheduled messages¹ were deleted from the schedule queue of a chat
 //
 // Links:
-//  1) https://core.telegram.org/api/scheduled-messages
+//  1. https://core.telegram.org/api/scheduled-messages
 //
 // See https://core.telegram.org/constructor/updateDeleteScheduledMessages for reference.
 type UpdateDeleteScheduledMessages struct {
@@ -14176,7 +14176,7 @@ func (u *UpdateMessagePollVote) GetQts() (value int) {
 // A new folder¹ was added
 //
 // Links:
-//  1) https://core.telegram.org/api/folders
+//  1. https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/constructor/updateDialogFilter for reference.
 type UpdateDialogFilter struct {
@@ -14394,7 +14394,7 @@ func (u *UpdateDialogFilter) GetFilter() (value DialogFilterClass, ok bool) {
 // New folder¹ order
 //
 // Links:
-//  1) https://core.telegram.org/api/folders
+//  1. https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/constructor/updateDialogFilterOrder for reference.
 type UpdateDialogFilterOrder struct {
@@ -14548,7 +14548,7 @@ func (u *UpdateDialogFilterOrder) GetOrder() (value []int) {
 // Clients should update folder¹ info
 //
 // Links:
-//  1) https://core.telegram.org/api/folders
+//  1. https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/constructor/updateDialogFilters for reference.
 type UpdateDialogFilters struct {
@@ -15004,7 +15004,7 @@ func (u *UpdateChannelMessageForwards) GetForwards() (value int) {
 // Incoming comments in a discussion thread¹ were marked as read
 //
 // Links:
-//  1) https://core.telegram.org/api/threads
+//  1. https://core.telegram.org/api/threads
 //
 // See https://core.telegram.org/constructor/updateReadChannelDiscussionInbox for reference.
 type UpdateReadChannelDiscussionInbox struct {
@@ -15330,7 +15330,7 @@ func (u *UpdateReadChannelDiscussionInbox) GetBroadcastPost() (value int, ok boo
 // Outgoing comments in a discussion thread¹ were marked as read
 //
 // Links:
-//  1) https://core.telegram.org/api/threads
+//  1. https://core.telegram.org/api/threads
 //
 // See https://core.telegram.org/constructor/updateReadChannelDiscussionOutbox for reference.
 type UpdateReadChannelDiscussionOutbox struct {
@@ -15698,8 +15698,8 @@ func (u *UpdatePeerBlocked) GetBlocked() (value bool) {
 // A user is typing in a supergroup, channel¹ or message thread²
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
-//  2) https://core.telegram.org/api/threads
+//  1. https://core.telegram.org/api/channel
+//  2. https://core.telegram.org/api/threads
 //
 // See https://core.telegram.org/constructor/updateChannelUserTyping for reference.
 type UpdateChannelUserTyping struct {
@@ -16269,7 +16269,7 @@ func (u *UpdatePinnedMessages) GetPtsCount() (value int) {
 // Messages were pinned/unpinned in a channel/supergroup¹
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updatePinnedChannelMessages for reference.
 type UpdatePinnedChannelMessages struct {
@@ -17711,7 +17711,7 @@ func (u *UpdateChatParticipant) GetQts() (value int) {
 // A participant has left, joined, was banned or admined in a channel or supergroup¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateChannelParticipant for reference.
 type UpdateChannelParticipant struct {
@@ -18554,7 +18554,7 @@ func (u *UpdateGroupCallConnection) GetParams() (value DataJSON) {
 // The command set¹ of a certain bot in a certain chat has changed.
 //
 // Links:
-//  1) https://core.telegram.org/bots/api#june-25-2021
+//  1. https://core.telegram.org/bots/api#june-25-2021
 //
 // See https://core.telegram.org/constructor/updateBotCommands for reference.
 type UpdateBotCommands struct {
@@ -18977,7 +18977,7 @@ func (u *UpdatePendingJoinRequests) GetRecentRequesters() (value []int64) {
 // updatePendingJoinRequests¹, instead)
 //
 // Links:
-//  1) https://core.telegram.org/constructor/updatePendingJoinRequests
+//  1. https://core.telegram.org/constructor/updatePendingJoinRequests
 //
 // See https://core.telegram.org/constructor/updateBotChatInviteRequester for reference.
 type UpdateBotChatInviteRequester struct {
@@ -19269,7 +19269,7 @@ func (u *UpdateBotChatInviteRequester) GetQts() (value int) {
 // New message reactions »¹ are available
 //
 // Links:
-//  1) https://core.telegram.org/api/reactions
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/constructor/updateMessageReactions for reference.
 type UpdateMessageReactions struct {
@@ -20346,115 +20346,116 @@ const UpdateClassName = "Update"
 // See https://core.telegram.org/type/Update for reference.
 //
 // Example:
-//  g, err := tg.DecodeUpdate(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.UpdateNewMessage: // updateNewMessage#1f2b0afd
-//  case *tg.UpdateMessageID: // updateMessageID#4e90bfd6
-//  case *tg.UpdateDeleteMessages: // updateDeleteMessages#a20db0e5
-//  case *tg.UpdateUserTyping: // updateUserTyping#c01e857f
-//  case *tg.UpdateChatUserTyping: // updateChatUserTyping#83487af0
-//  case *tg.UpdateChatParticipants: // updateChatParticipants#7761198
-//  case *tg.UpdateUserStatus: // updateUserStatus#e5bdf8de
-//  case *tg.UpdateUserName: // updateUserName#c3f202e0
-//  case *tg.UpdateUserPhoto: // updateUserPhoto#f227868c
-//  case *tg.UpdateNewEncryptedMessage: // updateNewEncryptedMessage#12bcbd9a
-//  case *tg.UpdateEncryptedChatTyping: // updateEncryptedChatTyping#1710f156
-//  case *tg.UpdateEncryption: // updateEncryption#b4a2e88d
-//  case *tg.UpdateEncryptedMessagesRead: // updateEncryptedMessagesRead#38fe25b7
-//  case *tg.UpdateChatParticipantAdd: // updateChatParticipantAdd#3dda5451
-//  case *tg.UpdateChatParticipantDelete: // updateChatParticipantDelete#e32f3d77
-//  case *tg.UpdateDCOptions: // updateDcOptions#8e5e9873
-//  case *tg.UpdateNotifySettings: // updateNotifySettings#bec268ef
-//  case *tg.UpdateServiceNotification: // updateServiceNotification#ebe46819
-//  case *tg.UpdatePrivacy: // updatePrivacy#ee3b272a
-//  case *tg.UpdateUserPhone: // updateUserPhone#5492a13
-//  case *tg.UpdateReadHistoryInbox: // updateReadHistoryInbox#9c974fdf
-//  case *tg.UpdateReadHistoryOutbox: // updateReadHistoryOutbox#2f2f21bf
-//  case *tg.UpdateWebPage: // updateWebPage#7f891213
-//  case *tg.UpdateReadMessagesContents: // updateReadMessagesContents#68c13933
-//  case *tg.UpdateChannelTooLong: // updateChannelTooLong#108d941f
-//  case *tg.UpdateChannel: // updateChannel#635b4c09
-//  case *tg.UpdateNewChannelMessage: // updateNewChannelMessage#62ba04d9
-//  case *tg.UpdateReadChannelInbox: // updateReadChannelInbox#922e6e10
-//  case *tg.UpdateDeleteChannelMessages: // updateDeleteChannelMessages#c32d5b12
-//  case *tg.UpdateChannelMessageViews: // updateChannelMessageViews#f226ac08
-//  case *tg.UpdateChatParticipantAdmin: // updateChatParticipantAdmin#d7ca61a2
-//  case *tg.UpdateNewStickerSet: // updateNewStickerSet#688a30aa
-//  case *tg.UpdateStickerSetsOrder: // updateStickerSetsOrder#bb2d201
-//  case *tg.UpdateStickerSets: // updateStickerSets#43ae3dec
-//  case *tg.UpdateSavedGifs: // updateSavedGifs#9375341e
-//  case *tg.UpdateBotInlineQuery: // updateBotInlineQuery#496f379c
-//  case *tg.UpdateBotInlineSend: // updateBotInlineSend#12f12a07
-//  case *tg.UpdateEditChannelMessage: // updateEditChannelMessage#1b3f4df7
-//  case *tg.UpdateBotCallbackQuery: // updateBotCallbackQuery#b9cfc48d
-//  case *tg.UpdateEditMessage: // updateEditMessage#e40370a3
-//  case *tg.UpdateInlineBotCallbackQuery: // updateInlineBotCallbackQuery#691e9052
-//  case *tg.UpdateReadChannelOutbox: // updateReadChannelOutbox#b75f99a9
-//  case *tg.UpdateDraftMessage: // updateDraftMessage#ee2bb969
-//  case *tg.UpdateReadFeaturedStickers: // updateReadFeaturedStickers#571d2742
-//  case *tg.UpdateRecentStickers: // updateRecentStickers#9a422c20
-//  case *tg.UpdateConfig: // updateConfig#a229dd06
-//  case *tg.UpdatePtsChanged: // updatePtsChanged#3354678f
-//  case *tg.UpdateChannelWebPage: // updateChannelWebPage#2f2ba99f
-//  case *tg.UpdateDialogPinned: // updateDialogPinned#6e6fe51c
-//  case *tg.UpdatePinnedDialogs: // updatePinnedDialogs#fa0f3ca2
-//  case *tg.UpdateBotWebhookJSON: // updateBotWebhookJSON#8317c0c3
-//  case *tg.UpdateBotWebhookJSONQuery: // updateBotWebhookJSONQuery#9b9240a6
-//  case *tg.UpdateBotShippingQuery: // updateBotShippingQuery#b5aefd7d
-//  case *tg.UpdateBotPrecheckoutQuery: // updateBotPrecheckoutQuery#8caa9a96
-//  case *tg.UpdatePhoneCall: // updatePhoneCall#ab0f6b1e
-//  case *tg.UpdateLangPackTooLong: // updateLangPackTooLong#46560264
-//  case *tg.UpdateLangPack: // updateLangPack#56022f4d
-//  case *tg.UpdateFavedStickers: // updateFavedStickers#e511996d
-//  case *tg.UpdateChannelReadMessagesContents: // updateChannelReadMessagesContents#44bdd535
-//  case *tg.UpdateContactsReset: // updateContactsReset#7084a7be
-//  case *tg.UpdateChannelAvailableMessages: // updateChannelAvailableMessages#b23fc698
-//  case *tg.UpdateDialogUnreadMark: // updateDialogUnreadMark#e16459c3
-//  case *tg.UpdateMessagePoll: // updateMessagePoll#aca1657b
-//  case *tg.UpdateChatDefaultBannedRights: // updateChatDefaultBannedRights#54c01850
-//  case *tg.UpdateFolderPeers: // updateFolderPeers#19360dc0
-//  case *tg.UpdatePeerSettings: // updatePeerSettings#6a7e7366
-//  case *tg.UpdatePeerLocated: // updatePeerLocated#b4afcfb0
-//  case *tg.UpdateNewScheduledMessage: // updateNewScheduledMessage#39a51dfb
-//  case *tg.UpdateDeleteScheduledMessages: // updateDeleteScheduledMessages#90866cee
-//  case *tg.UpdateTheme: // updateTheme#8216fba3
-//  case *tg.UpdateGeoLiveViewed: // updateGeoLiveViewed#871fb939
-//  case *tg.UpdateLoginToken: // updateLoginToken#564fe691
-//  case *tg.UpdateMessagePollVote: // updateMessagePollVote#106395c9
-//  case *tg.UpdateDialogFilter: // updateDialogFilter#26ffde7d
-//  case *tg.UpdateDialogFilterOrder: // updateDialogFilterOrder#a5d72105
-//  case *tg.UpdateDialogFilters: // updateDialogFilters#3504914f
-//  case *tg.UpdatePhoneCallSignalingData: // updatePhoneCallSignalingData#2661bf09
-//  case *tg.UpdateChannelMessageForwards: // updateChannelMessageForwards#d29a27f4
-//  case *tg.UpdateReadChannelDiscussionInbox: // updateReadChannelDiscussionInbox#d6b19546
-//  case *tg.UpdateReadChannelDiscussionOutbox: // updateReadChannelDiscussionOutbox#695c9e7c
-//  case *tg.UpdatePeerBlocked: // updatePeerBlocked#246a4b22
-//  case *tg.UpdateChannelUserTyping: // updateChannelUserTyping#8c88c923
-//  case *tg.UpdatePinnedMessages: // updatePinnedMessages#ed85eab5
-//  case *tg.UpdatePinnedChannelMessages: // updatePinnedChannelMessages#5bb98608
-//  case *tg.UpdateChat: // updateChat#f89a6a4e
-//  case *tg.UpdateGroupCallParticipants: // updateGroupCallParticipants#f2ebdb4e
-//  case *tg.UpdateGroupCall: // updateGroupCall#14b24500
-//  case *tg.UpdatePeerHistoryTTL: // updatePeerHistoryTTL#bb9bb9a5
-//  case *tg.UpdateChatParticipant: // updateChatParticipant#d087663a
-//  case *tg.UpdateChannelParticipant: // updateChannelParticipant#985d3abb
-//  case *tg.UpdateBotStopped: // updateBotStopped#c4870a49
-//  case *tg.UpdateGroupCallConnection: // updateGroupCallConnection#b783982
-//  case *tg.UpdateBotCommands: // updateBotCommands#4d712f2e
-//  case *tg.UpdatePendingJoinRequests: // updatePendingJoinRequests#7063c3db
-//  case *tg.UpdateBotChatInviteRequester: // updateBotChatInviteRequester#11dfa986
-//  case *tg.UpdateMessageReactions: // updateMessageReactions#154798c3
-//  case *tg.UpdateAttachMenuBots: // updateAttachMenuBots#17b7a20b
-//  case *tg.UpdateWebViewResultSent: // updateWebViewResultSent#1592b79d
-//  case *tg.UpdateBotMenuButton: // updateBotMenuButton#14b85813
-//  case *tg.UpdateSavedRingtones: // updateSavedRingtones#74d8be99
-//  case *tg.UpdateTranscribedAudio: // updateTranscribedAudio#84cd5a
-//  case *tg.UpdateReadFeaturedEmojiStickers: // updateReadFeaturedEmojiStickers#fb4c496c
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeUpdate(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.UpdateNewMessage: // updateNewMessage#1f2b0afd
+//	case *tg.UpdateMessageID: // updateMessageID#4e90bfd6
+//	case *tg.UpdateDeleteMessages: // updateDeleteMessages#a20db0e5
+//	case *tg.UpdateUserTyping: // updateUserTyping#c01e857f
+//	case *tg.UpdateChatUserTyping: // updateChatUserTyping#83487af0
+//	case *tg.UpdateChatParticipants: // updateChatParticipants#7761198
+//	case *tg.UpdateUserStatus: // updateUserStatus#e5bdf8de
+//	case *tg.UpdateUserName: // updateUserName#c3f202e0
+//	case *tg.UpdateUserPhoto: // updateUserPhoto#f227868c
+//	case *tg.UpdateNewEncryptedMessage: // updateNewEncryptedMessage#12bcbd9a
+//	case *tg.UpdateEncryptedChatTyping: // updateEncryptedChatTyping#1710f156
+//	case *tg.UpdateEncryption: // updateEncryption#b4a2e88d
+//	case *tg.UpdateEncryptedMessagesRead: // updateEncryptedMessagesRead#38fe25b7
+//	case *tg.UpdateChatParticipantAdd: // updateChatParticipantAdd#3dda5451
+//	case *tg.UpdateChatParticipantDelete: // updateChatParticipantDelete#e32f3d77
+//	case *tg.UpdateDCOptions: // updateDcOptions#8e5e9873
+//	case *tg.UpdateNotifySettings: // updateNotifySettings#bec268ef
+//	case *tg.UpdateServiceNotification: // updateServiceNotification#ebe46819
+//	case *tg.UpdatePrivacy: // updatePrivacy#ee3b272a
+//	case *tg.UpdateUserPhone: // updateUserPhone#5492a13
+//	case *tg.UpdateReadHistoryInbox: // updateReadHistoryInbox#9c974fdf
+//	case *tg.UpdateReadHistoryOutbox: // updateReadHistoryOutbox#2f2f21bf
+//	case *tg.UpdateWebPage: // updateWebPage#7f891213
+//	case *tg.UpdateReadMessagesContents: // updateReadMessagesContents#68c13933
+//	case *tg.UpdateChannelTooLong: // updateChannelTooLong#108d941f
+//	case *tg.UpdateChannel: // updateChannel#635b4c09
+//	case *tg.UpdateNewChannelMessage: // updateNewChannelMessage#62ba04d9
+//	case *tg.UpdateReadChannelInbox: // updateReadChannelInbox#922e6e10
+//	case *tg.UpdateDeleteChannelMessages: // updateDeleteChannelMessages#c32d5b12
+//	case *tg.UpdateChannelMessageViews: // updateChannelMessageViews#f226ac08
+//	case *tg.UpdateChatParticipantAdmin: // updateChatParticipantAdmin#d7ca61a2
+//	case *tg.UpdateNewStickerSet: // updateNewStickerSet#688a30aa
+//	case *tg.UpdateStickerSetsOrder: // updateStickerSetsOrder#bb2d201
+//	case *tg.UpdateStickerSets: // updateStickerSets#43ae3dec
+//	case *tg.UpdateSavedGifs: // updateSavedGifs#9375341e
+//	case *tg.UpdateBotInlineQuery: // updateBotInlineQuery#496f379c
+//	case *tg.UpdateBotInlineSend: // updateBotInlineSend#12f12a07
+//	case *tg.UpdateEditChannelMessage: // updateEditChannelMessage#1b3f4df7
+//	case *tg.UpdateBotCallbackQuery: // updateBotCallbackQuery#b9cfc48d
+//	case *tg.UpdateEditMessage: // updateEditMessage#e40370a3
+//	case *tg.UpdateInlineBotCallbackQuery: // updateInlineBotCallbackQuery#691e9052
+//	case *tg.UpdateReadChannelOutbox: // updateReadChannelOutbox#b75f99a9
+//	case *tg.UpdateDraftMessage: // updateDraftMessage#ee2bb969
+//	case *tg.UpdateReadFeaturedStickers: // updateReadFeaturedStickers#571d2742
+//	case *tg.UpdateRecentStickers: // updateRecentStickers#9a422c20
+//	case *tg.UpdateConfig: // updateConfig#a229dd06
+//	case *tg.UpdatePtsChanged: // updatePtsChanged#3354678f
+//	case *tg.UpdateChannelWebPage: // updateChannelWebPage#2f2ba99f
+//	case *tg.UpdateDialogPinned: // updateDialogPinned#6e6fe51c
+//	case *tg.UpdatePinnedDialogs: // updatePinnedDialogs#fa0f3ca2
+//	case *tg.UpdateBotWebhookJSON: // updateBotWebhookJSON#8317c0c3
+//	case *tg.UpdateBotWebhookJSONQuery: // updateBotWebhookJSONQuery#9b9240a6
+//	case *tg.UpdateBotShippingQuery: // updateBotShippingQuery#b5aefd7d
+//	case *tg.UpdateBotPrecheckoutQuery: // updateBotPrecheckoutQuery#8caa9a96
+//	case *tg.UpdatePhoneCall: // updatePhoneCall#ab0f6b1e
+//	case *tg.UpdateLangPackTooLong: // updateLangPackTooLong#46560264
+//	case *tg.UpdateLangPack: // updateLangPack#56022f4d
+//	case *tg.UpdateFavedStickers: // updateFavedStickers#e511996d
+//	case *tg.UpdateChannelReadMessagesContents: // updateChannelReadMessagesContents#44bdd535
+//	case *tg.UpdateContactsReset: // updateContactsReset#7084a7be
+//	case *tg.UpdateChannelAvailableMessages: // updateChannelAvailableMessages#b23fc698
+//	case *tg.UpdateDialogUnreadMark: // updateDialogUnreadMark#e16459c3
+//	case *tg.UpdateMessagePoll: // updateMessagePoll#aca1657b
+//	case *tg.UpdateChatDefaultBannedRights: // updateChatDefaultBannedRights#54c01850
+//	case *tg.UpdateFolderPeers: // updateFolderPeers#19360dc0
+//	case *tg.UpdatePeerSettings: // updatePeerSettings#6a7e7366
+//	case *tg.UpdatePeerLocated: // updatePeerLocated#b4afcfb0
+//	case *tg.UpdateNewScheduledMessage: // updateNewScheduledMessage#39a51dfb
+//	case *tg.UpdateDeleteScheduledMessages: // updateDeleteScheduledMessages#90866cee
+//	case *tg.UpdateTheme: // updateTheme#8216fba3
+//	case *tg.UpdateGeoLiveViewed: // updateGeoLiveViewed#871fb939
+//	case *tg.UpdateLoginToken: // updateLoginToken#564fe691
+//	case *tg.UpdateMessagePollVote: // updateMessagePollVote#106395c9
+//	case *tg.UpdateDialogFilter: // updateDialogFilter#26ffde7d
+//	case *tg.UpdateDialogFilterOrder: // updateDialogFilterOrder#a5d72105
+//	case *tg.UpdateDialogFilters: // updateDialogFilters#3504914f
+//	case *tg.UpdatePhoneCallSignalingData: // updatePhoneCallSignalingData#2661bf09
+//	case *tg.UpdateChannelMessageForwards: // updateChannelMessageForwards#d29a27f4
+//	case *tg.UpdateReadChannelDiscussionInbox: // updateReadChannelDiscussionInbox#d6b19546
+//	case *tg.UpdateReadChannelDiscussionOutbox: // updateReadChannelDiscussionOutbox#695c9e7c
+//	case *tg.UpdatePeerBlocked: // updatePeerBlocked#246a4b22
+//	case *tg.UpdateChannelUserTyping: // updateChannelUserTyping#8c88c923
+//	case *tg.UpdatePinnedMessages: // updatePinnedMessages#ed85eab5
+//	case *tg.UpdatePinnedChannelMessages: // updatePinnedChannelMessages#5bb98608
+//	case *tg.UpdateChat: // updateChat#f89a6a4e
+//	case *tg.UpdateGroupCallParticipants: // updateGroupCallParticipants#f2ebdb4e
+//	case *tg.UpdateGroupCall: // updateGroupCall#14b24500
+//	case *tg.UpdatePeerHistoryTTL: // updatePeerHistoryTTL#bb9bb9a5
+//	case *tg.UpdateChatParticipant: // updateChatParticipant#d087663a
+//	case *tg.UpdateChannelParticipant: // updateChannelParticipant#985d3abb
+//	case *tg.UpdateBotStopped: // updateBotStopped#c4870a49
+//	case *tg.UpdateGroupCallConnection: // updateGroupCallConnection#b783982
+//	case *tg.UpdateBotCommands: // updateBotCommands#4d712f2e
+//	case *tg.UpdatePendingJoinRequests: // updatePendingJoinRequests#7063c3db
+//	case *tg.UpdateBotChatInviteRequester: // updateBotChatInviteRequester#11dfa986
+//	case *tg.UpdateMessageReactions: // updateMessageReactions#154798c3
+//	case *tg.UpdateAttachMenuBots: // updateAttachMenuBots#17b7a20b
+//	case *tg.UpdateWebViewResultSent: // updateWebViewResultSent#1592b79d
+//	case *tg.UpdateBotMenuButton: // updateBotMenuButton#14b85813
+//	case *tg.UpdateSavedRingtones: // updateSavedRingtones#74d8be99
+//	case *tg.UpdateTranscribedAudio: // updateTranscribedAudio#84cd5a
+//	case *tg.UpdateReadFeaturedEmojiStickers: // updateReadFeaturedEmojiStickers#fb4c496c
+//	default: panic(v)
+//	}
 type UpdateClass interface {
 	bin.Encoder
 	bin.Decoder

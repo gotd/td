@@ -276,15 +276,16 @@ const MessagesTranslatedTextClassName = "messages.TranslatedText"
 // See https://core.telegram.org/type/messages.TranslatedText for reference.
 //
 // Example:
-//  g, err := tg.DecodeMessagesTranslatedText(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.MessagesTranslateNoResult: // messages.translateNoResult#67ca4737
-//  case *tg.MessagesTranslateResultText: // messages.translateResultText#a214f7d0
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeMessagesTranslatedText(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.MessagesTranslateNoResult: // messages.translateNoResult#67ca4737
+//	case *tg.MessagesTranslateResultText: // messages.translateResultText#a214f7d0
+//	default: panic(v)
+//	}
 type MessagesTranslatedTextClass interface {
 	bin.Encoder
 	bin.Decoder

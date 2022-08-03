@@ -1174,19 +1174,20 @@ const ChatMemberStatusClassName = "ChatMemberStatus"
 // ChatMemberStatusClass represents ChatMemberStatus generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeChatMemberStatus(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.ChatMemberStatusCreator: // chatMemberStatusCreator#f6764afe
-//  case *tdapi.ChatMemberStatusAdministrator: // chatMemberStatusAdministrator#fbd3841d
-//  case *tdapi.ChatMemberStatusMember: // chatMemberStatusMember#32597455
-//  case *tdapi.ChatMemberStatusRestricted: // chatMemberStatusRestricted#630774a6
-//  case *tdapi.ChatMemberStatusLeft: // chatMemberStatusLeft#ffa74425
-//  case *tdapi.ChatMemberStatusBanned: // chatMemberStatusBanned#9d714eb6
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeChatMemberStatus(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.ChatMemberStatusCreator: // chatMemberStatusCreator#f6764afe
+//	case *tdapi.ChatMemberStatusAdministrator: // chatMemberStatusAdministrator#fbd3841d
+//	case *tdapi.ChatMemberStatusMember: // chatMemberStatusMember#32597455
+//	case *tdapi.ChatMemberStatusRestricted: // chatMemberStatusRestricted#630774a6
+//	case *tdapi.ChatMemberStatusLeft: // chatMemberStatusLeft#ffa74425
+//	case *tdapi.ChatMemberStatusBanned: // chatMemberStatusBanned#9d714eb6
+//	default: panic(v)
+//	}
 type ChatMemberStatusClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -35,7 +35,7 @@ var (
 // Verify an email to use as 2FA recovery method¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/srp
+//  1. https://core.telegram.org/api/srp
 //
 // See https://core.telegram.org/method/account.confirmPasswordEmail for reference.
 type AccountConfirmPasswordEmailRequest struct {
@@ -171,11 +171,12 @@ func (c *AccountConfirmPasswordEmailRequest) GetCode() (value string) {
 // Verify an email to use as 2FA recovery method¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/srp
+//  1. https://core.telegram.org/api/srp
 //
 // Possible errors:
-//  400 CODE_INVALID: Code invalid.
-//  400 EMAIL_HASH_EXPIRED: Email hash expired.
+//
+//	400 CODE_INVALID: Code invalid.
+//	400 EMAIL_HASH_EXPIRED: Email hash expired.
 //
 // See https://core.telegram.org/method/account.confirmPasswordEmail for reference.
 func (c *Client) AccountConfirmPasswordEmail(ctx context.Context, code string) (bool, error) {

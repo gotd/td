@@ -192,7 +192,8 @@ func (r *MessagesReadEncryptedHistoryRequest) GetMaxDate() (value int) {
 // Marks message history within a secret chat as read.
 //
 // Possible errors:
-//  400 MSG_WAIT_FAILED: A waiting call returned an error.
+//
+//	400 MSG_WAIT_FAILED: A waiting call returned an error.
 //
 // See https://core.telegram.org/method/messages.readEncryptedHistory for reference.
 func (c *Client) MessagesReadEncryptedHistory(ctx context.Context, request *MessagesReadEncryptedHistoryRequest) (bool, error) {

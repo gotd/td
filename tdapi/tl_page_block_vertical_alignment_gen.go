@@ -430,16 +430,17 @@ const PageBlockVerticalAlignmentClassName = "PageBlockVerticalAlignment"
 // PageBlockVerticalAlignmentClass represents PageBlockVerticalAlignment generic type.
 //
 // Example:
-//  g, err := tdapi.DecodePageBlockVerticalAlignment(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.PageBlockVerticalAlignmentTop: // pageBlockVerticalAlignmentTop#ba719a6
-//  case *tdapi.PageBlockVerticalAlignmentMiddle: // pageBlockVerticalAlignmentMiddle#81741df5
-//  case *tdapi.PageBlockVerticalAlignmentBottom: // pageBlockVerticalAlignmentBottom#7cb97dd6
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodePageBlockVerticalAlignment(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.PageBlockVerticalAlignmentTop: // pageBlockVerticalAlignmentTop#ba719a6
+//	case *tdapi.PageBlockVerticalAlignmentMiddle: // pageBlockVerticalAlignmentMiddle#81741df5
+//	case *tdapi.PageBlockVerticalAlignmentBottom: // pageBlockVerticalAlignmentBottom#7cb97dd6
+//	default: panic(v)
+//	}
 type PageBlockVerticalAlignmentClass interface {
 	bin.Encoder
 	bin.Decoder

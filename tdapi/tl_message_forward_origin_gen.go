@@ -970,18 +970,19 @@ const MessageForwardOriginClassName = "MessageForwardOrigin"
 // MessageForwardOriginClass represents MessageForwardOrigin generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeMessageForwardOrigin(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.MessageForwardOriginUser: // messageForwardOriginUser#ead478d1
-//  case *tdapi.MessageForwardOriginChat: // messageForwardOriginChat#5af51364
-//  case *tdapi.MessageForwardOriginHiddenUser: // messageForwardOriginHiddenUser#efd4eee3
-//  case *tdapi.MessageForwardOriginChannel: // messageForwardOriginChannel#58dabee3
-//  case *tdapi.MessageForwardOriginMessageImport: // messageForwardOriginMessageImport#d3eb2e21
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeMessageForwardOrigin(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.MessageForwardOriginUser: // messageForwardOriginUser#ead478d1
+//	case *tdapi.MessageForwardOriginChat: // messageForwardOriginChat#5af51364
+//	case *tdapi.MessageForwardOriginHiddenUser: // messageForwardOriginHiddenUser#efd4eee3
+//	case *tdapi.MessageForwardOriginChannel: // messageForwardOriginChannel#58dabee3
+//	case *tdapi.MessageForwardOriginMessageImport: // messageForwardOriginMessageImport#d3eb2e21
+//	default: panic(v)
+//	}
 type MessageForwardOriginClass interface {
 	bin.Encoder
 	bin.Decoder

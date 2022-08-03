@@ -2195,26 +2195,27 @@ const InputPassportElementClassName = "InputPassportElement"
 // InputPassportElementClass represents InputPassportElement generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeInputPassportElement(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.InputPassportElementPersonalDetails: // inputPassportElementPersonalDetails#9d2843f
-//  case *tdapi.InputPassportElementPassport: // inputPassportElementPassport#e2603564
-//  case *tdapi.InputPassportElementDriverLicense: // inputPassportElementDriverLicense#122b14d0
-//  case *tdapi.InputPassportElementIdentityCard: // inputPassportElementIdentityCard#ff67f882
-//  case *tdapi.InputPassportElementInternalPassport: // inputPassportElementInternalPassport#2aa3872b
-//  case *tdapi.InputPassportElementAddress: // inputPassportElementAddress#1b83ec10
-//  case *tdapi.InputPassportElementUtilityBill: // inputPassportElementUtilityBill#52cd9181
-//  case *tdapi.InputPassportElementBankStatement: // inputPassportElementBankStatement#fe6a5788
-//  case *tdapi.InputPassportElementRentalAgreement: // inputPassportElementRentalAgreement#677b9c2b
-//  case *tdapi.InputPassportElementPassportRegistration: // inputPassportElementPassportRegistration#4e5aa050
-//  case *tdapi.InputPassportElementTemporaryRegistration: // inputPassportElementTemporaryRegistration#8df64de1
-//  case *tdapi.InputPassportElementPhoneNumber: // inputPassportElementPhoneNumber#4ea3cc39
-//  case *tdapi.InputPassportElementEmailAddress: // inputPassportElementEmailAddress#f12e9425
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeInputPassportElement(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.InputPassportElementPersonalDetails: // inputPassportElementPersonalDetails#9d2843f
+//	case *tdapi.InputPassportElementPassport: // inputPassportElementPassport#e2603564
+//	case *tdapi.InputPassportElementDriverLicense: // inputPassportElementDriverLicense#122b14d0
+//	case *tdapi.InputPassportElementIdentityCard: // inputPassportElementIdentityCard#ff67f882
+//	case *tdapi.InputPassportElementInternalPassport: // inputPassportElementInternalPassport#2aa3872b
+//	case *tdapi.InputPassportElementAddress: // inputPassportElementAddress#1b83ec10
+//	case *tdapi.InputPassportElementUtilityBill: // inputPassportElementUtilityBill#52cd9181
+//	case *tdapi.InputPassportElementBankStatement: // inputPassportElementBankStatement#fe6a5788
+//	case *tdapi.InputPassportElementRentalAgreement: // inputPassportElementRentalAgreement#677b9c2b
+//	case *tdapi.InputPassportElementPassportRegistration: // inputPassportElementPassportRegistration#4e5aa050
+//	case *tdapi.InputPassportElementTemporaryRegistration: // inputPassportElementTemporaryRegistration#8df64de1
+//	case *tdapi.InputPassportElementPhoneNumber: // inputPassportElementPhoneNumber#4ea3cc39
+//	case *tdapi.InputPassportElementEmailAddress: // inputPassportElementEmailAddress#f12e9425
+//	default: panic(v)
+//	}
 type InputPassportElementClass interface {
 	bin.Encoder
 	bin.Decoder

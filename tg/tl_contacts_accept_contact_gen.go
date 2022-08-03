@@ -36,7 +36,7 @@ var (
 // contact
 //
 // Links:
-//  1) https://core.telegram.org/constructor/peerSettings
+//  1. https://core.telegram.org/constructor/peerSettings
 //
 // See https://core.telegram.org/method/contacts.acceptContact for reference.
 type ContactsAcceptContactRequest struct {
@@ -175,13 +175,14 @@ func (a *ContactsAcceptContactRequest) GetID() (value InputUserClass) {
 // contact
 //
 // Links:
-//  1) https://core.telegram.org/constructor/peerSettings
+//  1. https://core.telegram.org/constructor/peerSettings
 //
 // Possible errors:
-//  400 CONTACT_ADD_MISSING: Contact to add is missing.
-//  400 CONTACT_ID_INVALID: The provided contact ID is invalid.
-//  400 CONTACT_REQ_MISSING: Missing contact request.
-//  400 MSG_ID_INVALID: Invalid message ID provided.
+//
+//	400 CONTACT_ADD_MISSING: Contact to add is missing.
+//	400 CONTACT_ID_INVALID: The provided contact ID is invalid.
+//	400 CONTACT_REQ_MISSING: Missing contact request.
+//	400 MSG_ID_INVALID: Invalid message ID provided.
 //
 // See https://core.telegram.org/method/contacts.acceptContact for reference.
 func (c *Client) ContactsAcceptContact(ctx context.Context, id InputUserClass) (UpdatesClass, error) {

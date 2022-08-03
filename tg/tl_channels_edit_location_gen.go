@@ -242,9 +242,10 @@ func (e *ChannelsEditLocationRequest) GetGeoPointAsNotEmpty() (*InputGeoPoint, b
 // Edit location of geogroup
 //
 // Possible errors:
-//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//  400 CHAT_NOT_MODIFIED: The pinned message wasn't modified.
-//  400 MEGAGROUP_REQUIRED: You can only use this method on a supergroup.
+//
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	400 CHAT_NOT_MODIFIED: The pinned message wasn't modified.
+//	400 MEGAGROUP_REQUIRED: You can only use this method on a supergroup.
 //
 // See https://core.telegram.org/method/channels.editLocation for reference.
 func (c *Client) ChannelsEditLocation(ctx context.Context, request *ChannelsEditLocationRequest) (bool, error) {

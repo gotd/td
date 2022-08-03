@@ -301,7 +301,8 @@ func (u *AccountUploadThemeRequest) GetMimeType() (value string) {
 // Upload theme
 //
 // Possible errors:
-//  400 THEME_FILE_INVALID: Invalid theme file provided.
+//
+//	400 THEME_FILE_INVALID: Invalid theme file provided.
 //
 // See https://core.telegram.org/method/account.uploadTheme for reference.
 func (c *Client) AccountUploadTheme(ctx context.Context, request *AccountUploadThemeRequest) (DocumentClass, error) {

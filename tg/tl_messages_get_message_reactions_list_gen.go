@@ -35,7 +35,7 @@ var (
 // Get message reaction¹ list, along with the sender of each reaction.
 //
 // Links:
-//  1) https://core.telegram.org/api/reactions
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getMessageReactionsList for reference.
 type MessagesGetMessageReactionsListRequest struct {
@@ -351,7 +351,7 @@ func (g *MessagesGetMessageReactionsListRequest) GetLimit() (value int) {
 // Get message reaction¹ list, along with the sender of each reaction.
 //
 // Links:
-//  1) https://core.telegram.org/api/reactions
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getMessageReactionsList for reference.
 func (c *Client) MessagesGetMessageReactionsList(ctx context.Context, request *MessagesGetMessageReactionsListRequest) (*MessagesMessageReactionsList, error) {

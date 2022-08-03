@@ -990,17 +990,18 @@ const ReplyMarkupClassName = "ReplyMarkup"
 // ReplyMarkupClass represents ReplyMarkup generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeReplyMarkup(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.ReplyMarkupRemoveKeyboard: // replyMarkupRemoveKeyboard#d6cc5171
-//  case *tdapi.ReplyMarkupForceReply: // replyMarkupForceReply#41a6f99f
-//  case *tdapi.ReplyMarkupShowKeyboard: // replyMarkupShowKeyboard#f64168f4
-//  case *tdapi.ReplyMarkupInlineKeyboard: // replyMarkupInlineKeyboard#92ac0efb
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeReplyMarkup(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.ReplyMarkupRemoveKeyboard: // replyMarkupRemoveKeyboard#d6cc5171
+//	case *tdapi.ReplyMarkupForceReply: // replyMarkupForceReply#41a6f99f
+//	case *tdapi.ReplyMarkupShowKeyboard: // replyMarkupShowKeyboard#f64168f4
+//	case *tdapi.ReplyMarkupInlineKeyboard: // replyMarkupInlineKeyboard#92ac0efb
+//	default: panic(v)
+//	}
 type ReplyMarkupClass interface {
 	bin.Encoder
 	bin.Decoder

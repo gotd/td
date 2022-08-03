@@ -409,15 +409,16 @@ const HelpDeepLinkInfoClassName = "help.DeepLinkInfo"
 // See https://core.telegram.org/type/help.DeepLinkInfo for reference.
 //
 // Example:
-//  g, err := tg.DecodeHelpDeepLinkInfo(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.HelpDeepLinkInfoEmpty: // help.deepLinkInfoEmpty#66afa166
-//  case *tg.HelpDeepLinkInfo: // help.deepLinkInfo#6a4ee832
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeHelpDeepLinkInfo(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.HelpDeepLinkInfoEmpty: // help.deepLinkInfoEmpty#66afa166
+//	case *tg.HelpDeepLinkInfo: // help.deepLinkInfo#6a4ee832
+//	default: panic(v)
+//	}
 type HelpDeepLinkInfoClass interface {
 	bin.Encoder
 	bin.Decoder

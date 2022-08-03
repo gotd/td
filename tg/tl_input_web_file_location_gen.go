@@ -476,15 +476,16 @@ const InputWebFileLocationClassName = "InputWebFileLocation"
 // See https://core.telegram.org/type/InputWebFileLocation for reference.
 //
 // Example:
-//  g, err := tg.DecodeInputWebFileLocation(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InputWebFileLocation: // inputWebFileLocation#c239d686
-//  case *tg.InputWebFileGeoPointLocation: // inputWebFileGeoPointLocation#9f2221c9
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeInputWebFileLocation(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputWebFileLocation: // inputWebFileLocation#c239d686
+//	case *tg.InputWebFileGeoPointLocation: // inputWebFileGeoPointLocation#9f2221c9
+//	default: panic(v)
+//	}
 type InputWebFileLocationClass interface {
 	bin.Encoder
 	bin.Decoder

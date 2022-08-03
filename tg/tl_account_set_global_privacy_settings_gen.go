@@ -165,7 +165,8 @@ func (s *AccountSetGlobalPrivacySettingsRequest) GetSettings() (value GlobalPriv
 // Set global privacy settings
 //
 // Possible errors:
-//  400 AUTOARCHIVE_NOT_AVAILABLE: The autoarchive setting is not available at this time: please check the value of the autoarchive_setting_available field in client config » before calling this method.
+//
+//	400 AUTOARCHIVE_NOT_AVAILABLE: The autoarchive setting is not available at this time: please check the value of the autoarchive_setting_available field in client config » before calling this method.
 //
 // See https://core.telegram.org/method/account.setGlobalPrivacySettings for reference.
 func (c *Client) AccountSetGlobalPrivacySettings(ctx context.Context, settings GlobalPrivacySettings) (*GlobalPrivacySettings, error) {

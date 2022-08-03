@@ -1722,24 +1722,25 @@ const AuthorizationStateClassName = "AuthorizationState"
 // AuthorizationStateClass represents AuthorizationState generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeAuthorizationState(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.AuthorizationStateWaitTdlibParameters: // authorizationStateWaitTdlibParameters#35ecf25c
-//  case *tdapi.AuthorizationStateWaitEncryptionKey: // authorizationStateWaitEncryptionKey#247bf548
-//  case *tdapi.AuthorizationStateWaitPhoneNumber: // authorizationStateWaitPhoneNumber#124354e3
-//  case *tdapi.AuthorizationStateWaitCode: // authorizationStateWaitCode#3234501
-//  case *tdapi.AuthorizationStateWaitOtherDeviceConfirmation: // authorizationStateWaitOtherDeviceConfirmation#334518ea
-//  case *tdapi.AuthorizationStateWaitRegistration: // authorizationStateWaitRegistration#20cdaeaf
-//  case *tdapi.AuthorizationStateWaitPassword: // authorizationStateWaitPassword#b2dc47c
-//  case *tdapi.AuthorizationStateReady: // authorizationStateReady#92a21447
-//  case *tdapi.AuthorizationStateLoggingOut: // authorizationStateLoggingOut#934b576
-//  case *tdapi.AuthorizationStateClosing: // authorizationStateClosing#1a93364f
-//  case *tdapi.AuthorizationStateClosed: // authorizationStateClosed#5af5a360
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeAuthorizationState(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.AuthorizationStateWaitTdlibParameters: // authorizationStateWaitTdlibParameters#35ecf25c
+//	case *tdapi.AuthorizationStateWaitEncryptionKey: // authorizationStateWaitEncryptionKey#247bf548
+//	case *tdapi.AuthorizationStateWaitPhoneNumber: // authorizationStateWaitPhoneNumber#124354e3
+//	case *tdapi.AuthorizationStateWaitCode: // authorizationStateWaitCode#3234501
+//	case *tdapi.AuthorizationStateWaitOtherDeviceConfirmation: // authorizationStateWaitOtherDeviceConfirmation#334518ea
+//	case *tdapi.AuthorizationStateWaitRegistration: // authorizationStateWaitRegistration#20cdaeaf
+//	case *tdapi.AuthorizationStateWaitPassword: // authorizationStateWaitPassword#b2dc47c
+//	case *tdapi.AuthorizationStateReady: // authorizationStateReady#92a21447
+//	case *tdapi.AuthorizationStateLoggingOut: // authorizationStateLoggingOut#934b576
+//	case *tdapi.AuthorizationStateClosing: // authorizationStateClosing#1a93364f
+//	case *tdapi.AuthorizationStateClosed: // authorizationStateClosed#5af5a360
+//	default: panic(v)
+//	}
 type AuthorizationStateClass interface {
 	bin.Encoder
 	bin.Decoder

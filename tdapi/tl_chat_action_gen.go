@@ -2212,28 +2212,29 @@ const ChatActionClassName = "ChatAction"
 // ChatActionClass represents ChatAction generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeChatAction(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.ChatActionTyping: // chatActionTyping#16a83437
-//  case *tdapi.ChatActionRecordingVideo: // chatActionRecordingVideo#ce85792
-//  case *tdapi.ChatActionUploadingVideo: // chatActionUploadingVideo#49902c36
-//  case *tdapi.ChatActionRecordingVoiceNote: // chatActionRecordingVoiceNote#cfc9ed76
-//  case *tdapi.ChatActionUploadingVoiceNote: // chatActionUploadingVoiceNote#db6c8a6e
-//  case *tdapi.ChatActionUploadingPhoto: // chatActionUploadingPhoto#26feeb47
-//  case *tdapi.ChatActionUploadingDocument: // chatActionUploadingDocument#a01b64a
-//  case *tdapi.ChatActionChoosingSticker: // chatActionChoosingSticker#1637c521
-//  case *tdapi.ChatActionChoosingLocation: // chatActionChoosingLocation#87b96324
-//  case *tdapi.ChatActionChoosingContact: // chatActionChoosingContact#b7220418
-//  case *tdapi.ChatActionStartPlayingGame: // chatActionStartPlayingGame#cc63a7fc
-//  case *tdapi.ChatActionRecordingVideoNote: // chatActionRecordingVideoNote#fc2081
-//  case *tdapi.ChatActionUploadingVideoNote: // chatActionUploadingVideoNote#45e0de76
-//  case *tdapi.ChatActionWatchingAnimations: // chatActionWatchingAnimations#7a5e26b1
-//  case *tdapi.ChatActionCancel: // chatActionCancel#452c30b6
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeChatAction(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.ChatActionTyping: // chatActionTyping#16a83437
+//	case *tdapi.ChatActionRecordingVideo: // chatActionRecordingVideo#ce85792
+//	case *tdapi.ChatActionUploadingVideo: // chatActionUploadingVideo#49902c36
+//	case *tdapi.ChatActionRecordingVoiceNote: // chatActionRecordingVoiceNote#cfc9ed76
+//	case *tdapi.ChatActionUploadingVoiceNote: // chatActionUploadingVoiceNote#db6c8a6e
+//	case *tdapi.ChatActionUploadingPhoto: // chatActionUploadingPhoto#26feeb47
+//	case *tdapi.ChatActionUploadingDocument: // chatActionUploadingDocument#a01b64a
+//	case *tdapi.ChatActionChoosingSticker: // chatActionChoosingSticker#1637c521
+//	case *tdapi.ChatActionChoosingLocation: // chatActionChoosingLocation#87b96324
+//	case *tdapi.ChatActionChoosingContact: // chatActionChoosingContact#b7220418
+//	case *tdapi.ChatActionStartPlayingGame: // chatActionStartPlayingGame#cc63a7fc
+//	case *tdapi.ChatActionRecordingVideoNote: // chatActionRecordingVideoNote#fc2081
+//	case *tdapi.ChatActionUploadingVideoNote: // chatActionUploadingVideoNote#45e0de76
+//	case *tdapi.ChatActionWatchingAnimations: // chatActionWatchingAnimations#7a5e26b1
+//	case *tdapi.ChatActionCancel: // chatActionCancel#452c30b6
+//	default: panic(v)
+//	}
 type ChatActionClass interface {
 	bin.Encoder
 	bin.Decoder

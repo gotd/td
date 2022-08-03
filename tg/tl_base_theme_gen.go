@@ -549,18 +549,19 @@ const BaseThemeClassName = "BaseTheme"
 // See https://core.telegram.org/type/BaseTheme for reference.
 //
 // Example:
-//  g, err := tg.DecodeBaseTheme(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.BaseThemeClassic: // baseThemeClassic#c3a12462
-//  case *tg.BaseThemeDay: // baseThemeDay#fbd81688
-//  case *tg.BaseThemeNight: // baseThemeNight#b7b31ea8
-//  case *tg.BaseThemeTinted: // baseThemeTinted#6d5f77ee
-//  case *tg.BaseThemeArctic: // baseThemeArctic#5b11125a
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeBaseTheme(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.BaseThemeClassic: // baseThemeClassic#c3a12462
+//	case *tg.BaseThemeDay: // baseThemeDay#fbd81688
+//	case *tg.BaseThemeNight: // baseThemeNight#b7b31ea8
+//	case *tg.BaseThemeTinted: // baseThemeTinted#6d5f77ee
+//	case *tg.BaseThemeArctic: // baseThemeArctic#5b11125a
+//	default: panic(v)
+//	}
 type BaseThemeClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -612,16 +612,17 @@ const TargetChatClassName = "TargetChat"
 // TargetChatClass represents TargetChat generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeTargetChat(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.TargetChatCurrent: // targetChatCurrent#e729d110
-//  case *tdapi.TargetChatChosen: // targetChatChosen#edaccad2
-//  case *tdapi.TargetChatInternalLink: // targetChatInternalLink#dd788fe0
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeTargetChat(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.TargetChatCurrent: // targetChatCurrent#e729d110
+//	case *tdapi.TargetChatChosen: // targetChatChosen#edaccad2
+//	case *tdapi.TargetChatInternalLink: // targetChatInternalLink#dd788fe0
+//	default: panic(v)
+//	}
 type TargetChatClass interface {
 	bin.Encoder
 	bin.Decoder

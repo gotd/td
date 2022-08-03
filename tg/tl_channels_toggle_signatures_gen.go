@@ -202,9 +202,10 @@ func (t *ChannelsToggleSignaturesRequest) GetChannelAsNotEmpty() (NotEmptyInputC
 // Enable/disable message signatures in channels
 //
 // Possible errors:
-//  400 CHANNEL_INVALID: The provided channel is invalid.
-//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//  400 CHAT_ID_INVALID: The provided chat id is invalid.
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	400 CHAT_ID_INVALID: The provided chat id is invalid.
 //
 // See https://core.telegram.org/method/channels.toggleSignatures for reference.
 func (c *Client) ChannelsToggleSignatures(ctx context.Context, request *ChannelsToggleSignaturesRequest) (UpdatesClass, error) {

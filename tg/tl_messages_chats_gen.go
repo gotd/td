@@ -193,7 +193,7 @@ func (c *MessagesChats) MapChats() (value ChatClassArray) {
 // Partial list of chats, more would have to be fetched with pagination¹
 //
 // Links:
-//  1) https://core.telegram.org/api/offsets
+//  1. https://core.telegram.org/api/offsets
 //
 // See https://core.telegram.org/constructor/messages.chatsSlice for reference.
 type MessagesChatsSlice struct {
@@ -385,15 +385,16 @@ const MessagesChatsClassName = "messages.Chats"
 // See https://core.telegram.org/type/messages.Chats for reference.
 //
 // Example:
-//  g, err := tg.DecodeMessagesChats(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.MessagesChats: // messages.chats#64ff9fd5
-//  case *tg.MessagesChatsSlice: // messages.chatsSlice#9cd81144
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeMessagesChats(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.MessagesChats: // messages.chats#64ff9fd5
+//	case *tg.MessagesChatsSlice: // messages.chatsSlice#9cd81144
+//	default: panic(v)
+//	}
 type MessagesChatsClass interface {
 	bin.Encoder
 	bin.Decoder

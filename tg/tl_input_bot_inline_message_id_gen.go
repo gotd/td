@@ -445,15 +445,16 @@ const InputBotInlineMessageIDClassName = "InputBotInlineMessageID"
 // See https://core.telegram.org/type/InputBotInlineMessageID for reference.
 //
 // Example:
-//  g, err := tg.DecodeInputBotInlineMessageID(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InputBotInlineMessageID: // inputBotInlineMessageID#890c3d89
-//  case *tg.InputBotInlineMessageID64: // inputBotInlineMessageID64#b6d915d7
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeInputBotInlineMessageID(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputBotInlineMessageID: // inputBotInlineMessageID#890c3d89
+//	case *tg.InputBotInlineMessageID64: // inputBotInlineMessageID64#b6d915d7
+//	default: panic(v)
+//	}
 type InputBotInlineMessageIDClass interface {
 	bin.Encoder
 	bin.Decoder

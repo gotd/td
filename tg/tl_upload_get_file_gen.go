@@ -319,17 +319,18 @@ func (g *UploadGetFileRequest) GetLimit() (value int) {
 // Returns content of a whole file or its part.
 //
 // Possible errors:
-//  400 CHANNEL_INVALID: The provided channel is invalid.
-//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//  400 FILE_REFERENCE_*: The file reference expired, it must be refreshed.
-//  406 FILEREF_UPGRADE_NEEDED: The client has to be updated in order to support file references.
-//  400 FILE_ID_INVALID: The provided file id is invalid.
-//  400 FILE_REFERENCE_EXPIRED: File reference expired, it must be refetched as described in the documentation.
-//  400 LIMIT_INVALID: The provided limit is invalid.
-//  400 LOCATION_INVALID: The provided location is invalid.
-//  400 MSG_ID_INVALID: Invalid message ID provided.
-//  400 OFFSET_INVALID: The provided offset is invalid.
-//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	400 FILE_REFERENCE_*: The file reference expired, it must be refreshed.
+//	406 FILEREF_UPGRADE_NEEDED: The client has to be updated in order to support file references.
+//	400 FILE_ID_INVALID: The provided file id is invalid.
+//	400 FILE_REFERENCE_EXPIRED: File reference expired, it must be refetched as described in the documentation.
+//	400 LIMIT_INVALID: The provided limit is invalid.
+//	400 LOCATION_INVALID: The provided location is invalid.
+//	400 MSG_ID_INVALID: Invalid message ID provided.
+//	400 OFFSET_INVALID: The provided offset is invalid.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/upload.getFile for reference.
 // Can be used by bots.

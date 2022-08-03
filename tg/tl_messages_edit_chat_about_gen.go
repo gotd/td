@@ -35,7 +35,7 @@ var (
 // Edit the description of a group/supergroup/channel¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/messages.editChatAbout for reference.
 type MessagesEditChatAboutRequest struct {
@@ -203,18 +203,19 @@ func (e *MessagesEditChatAboutRequest) GetAbout() (value string) {
 // Edit the description of a group/supergroup/channel¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // Possible errors:
-//  400 CHANNEL_INVALID: The provided channel is invalid.
-//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//  400 CHAT_ABOUT_NOT_MODIFIED: About text has not changed.
-//  400 CHAT_ABOUT_TOO_LONG: Chat about too long.
-//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//  400 CHAT_ID_INVALID: The provided chat id is invalid.
-//  400 CHAT_NOT_MODIFIED: The pinned message wasn't modified.
-//  403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
-//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	400 CHAT_ABOUT_NOT_MODIFIED: About text has not changed.
+//	400 CHAT_ABOUT_TOO_LONG: Chat about too long.
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	400 CHAT_ID_INVALID: The provided chat id is invalid.
+//	400 CHAT_NOT_MODIFIED: The pinned message wasn't modified.
+//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.editChatAbout for reference.
 // Can be used by bots.

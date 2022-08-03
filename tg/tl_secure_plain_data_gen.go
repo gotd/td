@@ -35,8 +35,8 @@ var (
 // Phone number to use in telegram passport¹: it must be verified, first »².
 //
 // Links:
-//  1) https://core.telegram.org/passport
-//  2) https://core.telegram.org/passport/encryption#secureplaindata
+//  1. https://core.telegram.org/passport
+//  2. https://core.telegram.org/passport/encryption#secureplaindata
 //
 // See https://core.telegram.org/constructor/securePlainPhone for reference.
 type SecurePlainPhone struct {
@@ -174,8 +174,8 @@ func (s *SecurePlainPhone) GetPhone() (value string) {
 // Email address to use in telegram passport¹: it must be verified, first »².
 //
 // Links:
-//  1) https://core.telegram.org/passport
-//  2) https://core.telegram.org/passport/encryption#secureplaindata
+//  1. https://core.telegram.org/passport
+//  2. https://core.telegram.org/passport/encryption#secureplaindata
 //
 // See https://core.telegram.org/constructor/securePlainEmail for reference.
 type SecurePlainEmail struct {
@@ -317,15 +317,16 @@ const SecurePlainDataClassName = "SecurePlainData"
 // See https://core.telegram.org/type/SecurePlainData for reference.
 //
 // Example:
-//  g, err := tg.DecodeSecurePlainData(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.SecurePlainPhone: // securePlainPhone#7d6099dd
-//  case *tg.SecurePlainEmail: // securePlainEmail#21ec5a5f
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeSecurePlainData(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.SecurePlainPhone: // securePlainPhone#7d6099dd
+//	case *tg.SecurePlainEmail: // securePlainEmail#21ec5a5f
+//	default: panic(v)
+//	}
 type SecurePlainDataClass interface {
 	bin.Encoder
 	bin.Decoder

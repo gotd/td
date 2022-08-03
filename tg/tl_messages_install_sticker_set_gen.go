@@ -197,7 +197,8 @@ func (i *MessagesInstallStickerSetRequest) GetArchived() (value bool) {
 // Install a stickerset
 //
 // Possible errors:
-//  400 STICKERSET_INVALID: The provided sticker set is invalid.
+//
+//	400 STICKERSET_INVALID: The provided sticker set is invalid.
 //
 // See https://core.telegram.org/method/messages.installStickerSet for reference.
 func (c *Client) MessagesInstallStickerSet(ctx context.Context, request *MessagesInstallStickerSetRequest) (MessagesStickerSetInstallResultClass, error) {

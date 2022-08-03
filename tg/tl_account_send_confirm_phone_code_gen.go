@@ -35,7 +35,7 @@ var (
 // Send confirmation code to cancel account deletion, for more info click here »¹
 //
 // Links:
-//  1) https://core.telegram.org/api/account-deletion
+//  1. https://core.telegram.org/api/account-deletion
 //
 // See https://core.telegram.org/method/account.sendConfirmPhoneCode for reference.
 type AccountSendConfirmPhoneCodeRequest struct {
@@ -198,10 +198,11 @@ func (s *AccountSendConfirmPhoneCodeRequest) GetSettings() (value CodeSettings) 
 // Send confirmation code to cancel account deletion, for more info click here »¹
 //
 // Links:
-//  1) https://core.telegram.org/api/account-deletion
+//  1. https://core.telegram.org/api/account-deletion
 //
 // Possible errors:
-//  400 HASH_INVALID: The provided hash is invalid.
+//
+//	400 HASH_INVALID: The provided hash is invalid.
 //
 // See https://core.telegram.org/method/account.sendConfirmPhoneCode for reference.
 func (c *Client) AccountSendConfirmPhoneCode(ctx context.Context, request *AccountSendConfirmPhoneCodeRequest) (*AuthSentCode, error) {

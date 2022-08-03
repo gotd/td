@@ -4304,29 +4304,30 @@ const DecryptedMessageMediaClassName = "DecryptedMessageMedia"
 // See https://core.telegram.org/type/DecryptedMessageMedia for reference.
 //
 // Example:
-//  g, err := e2e.DecodeDecryptedMessageMedia(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *e2e.DecryptedMessageMediaEmpty: // decryptedMessageMediaEmpty#89f5c4a
-//  case *e2e.DecryptedMessageMediaPhoto23: // decryptedMessageMediaPhoto23#32798a8c
-//  case *e2e.DecryptedMessageMediaVideo8: // decryptedMessageMediaVideo8#4cee6ef3
-//  case *e2e.DecryptedMessageMediaGeoPoint: // decryptedMessageMediaGeoPoint#35480a59
-//  case *e2e.DecryptedMessageMediaContact: // decryptedMessageMediaContact#588a0a97
-//  case *e2e.DecryptedMessageMediaDocument23: // decryptedMessageMediaDocument23#b095434b
-//  case *e2e.DecryptedMessageMediaAudio8: // decryptedMessageMediaAudio8#6080758f
-//  case *e2e.DecryptedMessageMediaVideo23: // decryptedMessageMediaVideo23#524a415d
-//  case *e2e.DecryptedMessageMediaAudio: // decryptedMessageMediaAudio#57e0a9cb
-//  case *e2e.DecryptedMessageMediaExternalDocument: // decryptedMessageMediaExternalDocument#fa95b0dd
-//  case *e2e.DecryptedMessageMediaPhoto: // decryptedMessageMediaPhoto#f1fa8d78
-//  case *e2e.DecryptedMessageMediaVideo: // decryptedMessageMediaVideo#970c8c0e
-//  case *e2e.DecryptedMessageMediaDocument46: // decryptedMessageMediaDocument46#7afe8ae2
-//  case *e2e.DecryptedMessageMediaVenue: // decryptedMessageMediaVenue#8a0df56f
-//  case *e2e.DecryptedMessageMediaWebPage: // decryptedMessageMediaWebPage#e50511d8
-//  case *e2e.DecryptedMessageMediaDocument: // decryptedMessageMediaDocument#6abd9782
-//  default: panic(v)
-//  }
+//
+//	g, err := e2e.DecodeDecryptedMessageMedia(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *e2e.DecryptedMessageMediaEmpty: // decryptedMessageMediaEmpty#89f5c4a
+//	case *e2e.DecryptedMessageMediaPhoto23: // decryptedMessageMediaPhoto23#32798a8c
+//	case *e2e.DecryptedMessageMediaVideo8: // decryptedMessageMediaVideo8#4cee6ef3
+//	case *e2e.DecryptedMessageMediaGeoPoint: // decryptedMessageMediaGeoPoint#35480a59
+//	case *e2e.DecryptedMessageMediaContact: // decryptedMessageMediaContact#588a0a97
+//	case *e2e.DecryptedMessageMediaDocument23: // decryptedMessageMediaDocument23#b095434b
+//	case *e2e.DecryptedMessageMediaAudio8: // decryptedMessageMediaAudio8#6080758f
+//	case *e2e.DecryptedMessageMediaVideo23: // decryptedMessageMediaVideo23#524a415d
+//	case *e2e.DecryptedMessageMediaAudio: // decryptedMessageMediaAudio#57e0a9cb
+//	case *e2e.DecryptedMessageMediaExternalDocument: // decryptedMessageMediaExternalDocument#fa95b0dd
+//	case *e2e.DecryptedMessageMediaPhoto: // decryptedMessageMediaPhoto#f1fa8d78
+//	case *e2e.DecryptedMessageMediaVideo: // decryptedMessageMediaVideo#970c8c0e
+//	case *e2e.DecryptedMessageMediaDocument46: // decryptedMessageMediaDocument46#7afe8ae2
+//	case *e2e.DecryptedMessageMediaVenue: // decryptedMessageMediaVenue#8a0df56f
+//	case *e2e.DecryptedMessageMediaWebPage: // decryptedMessageMediaWebPage#e50511d8
+//	case *e2e.DecryptedMessageMediaDocument: // decryptedMessageMediaDocument#6abd9782
+//	default: panic(v)
+//	}
 type DecryptedMessageMediaClass interface {
 	bin.Encoder
 	bin.Decoder

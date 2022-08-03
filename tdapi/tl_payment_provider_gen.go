@@ -637,16 +637,17 @@ const PaymentProviderClassName = "PaymentProvider"
 // PaymentProviderClass represents PaymentProvider generic type.
 //
 // Example:
-//  g, err := tdapi.DecodePaymentProvider(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.PaymentProviderSmartGlocal: // paymentProviderSmartGlocal#6b5122ee
-//  case *tdapi.PaymentProviderStripe: // paymentProviderStripe#1614e19b
-//  case *tdapi.PaymentProviderOther: // paymentProviderOther#b050e0e4
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodePaymentProvider(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.PaymentProviderSmartGlocal: // paymentProviderSmartGlocal#6b5122ee
+//	case *tdapi.PaymentProviderStripe: // paymentProviderStripe#1614e19b
+//	case *tdapi.PaymentProviderOther: // paymentProviderOther#b050e0e4
+//	default: panic(v)
+//	}
 type PaymentProviderClass interface {
 	bin.Encoder
 	bin.Decoder

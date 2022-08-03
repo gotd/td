@@ -437,15 +437,16 @@ const VectorPathCommandClassName = "VectorPathCommand"
 // VectorPathCommandClass represents VectorPathCommand generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeVectorPathCommand(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.VectorPathCommandLine: // vectorPathCommandLine#db663c8a
-//  case *tdapi.VectorPathCommandCubicBezierCurve: // vectorPathCommandCubicBezierCurve#494c3e3a
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeVectorPathCommand(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.VectorPathCommandLine: // vectorPathCommandLine#db663c8a
+//	case *tdapi.VectorPathCommandCubicBezierCurve: // vectorPathCommandCubicBezierCurve#494c3e3a
+//	default: panic(v)
+//	}
 type VectorPathCommandClass interface {
 	bin.Encoder
 	bin.Decoder

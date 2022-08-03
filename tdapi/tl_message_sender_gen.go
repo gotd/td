@@ -369,15 +369,16 @@ const MessageSenderClassName = "MessageSender"
 // MessageSenderClass represents MessageSender generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeMessageSender(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.MessageSenderUser: // messageSenderUser#ebf760e3
-//  case *tdapi.MessageSenderChat: // messageSenderChat#f1b71131
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeMessageSender(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.MessageSenderUser: // messageSenderUser#ebf760e3
+//	case *tdapi.MessageSenderChat: // messageSenderChat#f1b71131
+//	default: panic(v)
+//	}
 type MessageSenderClass interface {
 	bin.Encoder
 	bin.Decoder

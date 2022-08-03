@@ -224,8 +224,9 @@ func (g *AccountGetThemeRequest) GetDocumentID() (value int64) {
 // Get theme information
 //
 // Possible errors:
-//  400 THEME_FORMAT_INVALID: Invalid theme format provided.
-//  400 THEME_INVALID: Invalid theme provided.
+//
+//	400 THEME_FORMAT_INVALID: Invalid theme format provided.
+//	400 THEME_INVALID: Invalid theme provided.
 //
 // See https://core.telegram.org/method/account.getTheme for reference.
 func (c *Client) AccountGetTheme(ctx context.Context, request *AccountGetThemeRequest) (*Theme, error) {

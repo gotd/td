@@ -505,15 +505,16 @@ const CallServerTypeClassName = "CallServerType"
 // CallServerTypeClass represents CallServerType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeCallServerType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.CallServerTypeTelegramReflector: // callServerTypeTelegramReflector#32af3515
-//  case *tdapi.CallServerTypeWebrtc: // callServerTypeWebrtc#4a8afd65
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeCallServerType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.CallServerTypeTelegramReflector: // callServerTypeTelegramReflector#32af3515
+//	case *tdapi.CallServerTypeWebrtc: // callServerTypeWebrtc#4a8afd65
+//	default: panic(v)
+//	}
 type CallServerTypeClass interface {
 	bin.Encoder
 	bin.Decoder

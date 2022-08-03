@@ -450,17 +450,18 @@ const AuthCodeTypeClassName = "auth.CodeType"
 // See https://core.telegram.org/type/auth.CodeType for reference.
 //
 // Example:
-//  g, err := tg.DecodeAuthCodeType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.AuthCodeTypeSMS: // auth.codeTypeSms#72a3158c
-//  case *tg.AuthCodeTypeCall: // auth.codeTypeCall#741cd3e3
-//  case *tg.AuthCodeTypeFlashCall: // auth.codeTypeFlashCall#226ccefb
-//  case *tg.AuthCodeTypeMissedCall: // auth.codeTypeMissedCall#d61ad6ee
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeAuthCodeType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.AuthCodeTypeSMS: // auth.codeTypeSms#72a3158c
+//	case *tg.AuthCodeTypeCall: // auth.codeTypeCall#741cd3e3
+//	case *tg.AuthCodeTypeFlashCall: // auth.codeTypeFlashCall#226ccefb
+//	case *tg.AuthCodeTypeMissedCall: // auth.codeTypeMissedCall#d61ad6ee
+//	default: panic(v)
+//	}
 type AuthCodeTypeClass interface {
 	bin.Encoder
 	bin.Decoder

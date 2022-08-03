@@ -36,7 +36,7 @@ var (
 // the flags are inverted: if set, a flag does not allow a user to do X.
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/chatBannedRights for reference.
 type ChatBannedRights struct {

@@ -36,7 +36,7 @@ var (
 // actual RTMP livestream with phone.createGroupCall¹ (the rtmp_stream flag must be set).
 //
 // Links:
-//  1) https://core.telegram.org/method/phone.createGroupCall
+//  1. https://core.telegram.org/method/phone.createGroupCall
 //
 // See https://core.telegram.org/method/phone.getGroupCallStreamRtmpUrl for reference.
 type PhoneGetGroupCallStreamRtmpURLRequest struct {
@@ -202,7 +202,7 @@ func (g *PhoneGetGroupCallStreamRtmpURLRequest) GetRevoke() (value bool) {
 // actual RTMP livestream with phone.createGroupCall¹ (the rtmp_stream flag must be set).
 //
 // Links:
-//  1) https://core.telegram.org/method/phone.createGroupCall
+//  1. https://core.telegram.org/method/phone.createGroupCall
 //
 // See https://core.telegram.org/method/phone.getGroupCallStreamRtmpUrl for reference.
 func (c *Client) PhoneGetGroupCallStreamRtmpURL(ctx context.Context, request *PhoneGetGroupCallStreamRtmpURLRequest) (*PhoneGroupCallStreamRtmpURL, error) {

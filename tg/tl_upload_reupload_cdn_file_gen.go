@@ -35,7 +35,7 @@ var (
 // Request a reupload of a certain file to a CDN DC¹.
 //
 // Links:
-//  1) https://core.telegram.org/cdn
+//  1. https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/method/upload.reuploadCdnFile for reference.
 type UploadReuploadCDNFileRequest struct {
@@ -195,10 +195,11 @@ func (r *UploadReuploadCDNFileRequest) GetRequestToken() (value []byte) {
 // Request a reupload of a certain file to a CDN DC¹.
 //
 // Links:
-//  1) https://core.telegram.org/cdn
+//  1. https://core.telegram.org/cdn
 //
 // Possible errors:
-//  400 RSA_DECRYPT_FAILED: Internal RSA decryption failed.
+//
+//	400 RSA_DECRYPT_FAILED: Internal RSA decryption failed.
 //
 // See https://core.telegram.org/method/upload.reuploadCdnFile for reference.
 // Can be used by bots.

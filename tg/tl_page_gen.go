@@ -35,7 +35,7 @@ var (
 // Instant view¹ page
 //
 // Links:
-//  1) https://instantview.telegram.org
+//  1. https://instantview.telegram.org
 //
 // See https://core.telegram.org/constructor/page for reference.
 type Page struct {

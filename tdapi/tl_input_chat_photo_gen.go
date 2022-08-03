@@ -591,16 +591,17 @@ const InputChatPhotoClassName = "InputChatPhoto"
 // InputChatPhotoClass represents InputChatPhoto generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeInputChatPhoto(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.InputChatPhotoPrevious: // inputChatPhotoPrevious#160e9d1
-//  case *tdapi.InputChatPhotoStatic: // inputChatPhotoStatic#75f7e2b3
-//  case *tdapi.InputChatPhotoAnimation: // inputChatPhotoAnimation#56a3422
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeInputChatPhoto(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.InputChatPhotoPrevious: // inputChatPhotoPrevious#160e9d1
+//	case *tdapi.InputChatPhotoStatic: // inputChatPhotoStatic#75f7e2b3
+//	case *tdapi.InputChatPhotoAnimation: // inputChatPhotoAnimation#56a3422
+//	default: panic(v)
+//	}
 type InputChatPhotoClass interface {
 	bin.Encoder
 	bin.Decoder

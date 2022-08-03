@@ -471,15 +471,16 @@ const MessageSendingStateClassName = "MessageSendingState"
 // MessageSendingStateClass represents MessageSendingState generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeMessageSendingState(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.MessageSendingStatePending: // messageSendingStatePending#ada359c2
-//  case *tdapi.MessageSendingStateFailed: // messageSendingStateFailed#982ce904
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeMessageSendingState(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.MessageSendingStatePending: // messageSendingStatePending#ada359c2
+//	case *tdapi.MessageSendingStateFailed: // messageSendingStateFailed#982ce904
+//	default: panic(v)
+//	}
 type MessageSendingStateClass interface {
 	bin.Encoder
 	bin.Decoder

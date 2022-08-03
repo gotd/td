@@ -1166,20 +1166,21 @@ const ChatActionBarClassName = "ChatActionBar"
 // ChatActionBarClass represents ChatActionBar generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeChatActionBar(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.ChatActionBarReportSpam: // chatActionBarReportSpam#b1c0e61a
-//  case *tdapi.ChatActionBarReportUnrelatedLocation: // chatActionBarReportUnrelatedLocation#2d30d701
-//  case *tdapi.ChatActionBarInviteMembers: // chatActionBarInviteMembers#76557c70
-//  case *tdapi.ChatActionBarReportAddBlock: // chatActionBarReportAddBlock#c9832bed
-//  case *tdapi.ChatActionBarAddContact: // chatActionBarAddContact#d44a5811
-//  case *tdapi.ChatActionBarSharePhoneNumber: // chatActionBarSharePhoneNumber#218efd9
-//  case *tdapi.ChatActionBarJoinRequest: // chatActionBarJoinRequest#3dd18308
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeChatActionBar(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.ChatActionBarReportSpam: // chatActionBarReportSpam#b1c0e61a
+//	case *tdapi.ChatActionBarReportUnrelatedLocation: // chatActionBarReportUnrelatedLocation#2d30d701
+//	case *tdapi.ChatActionBarInviteMembers: // chatActionBarInviteMembers#76557c70
+//	case *tdapi.ChatActionBarReportAddBlock: // chatActionBarReportAddBlock#c9832bed
+//	case *tdapi.ChatActionBarAddContact: // chatActionBarAddContact#d44a5811
+//	case *tdapi.ChatActionBarSharePhoneNumber: // chatActionBarSharePhoneNumber#218efd9
+//	case *tdapi.ChatActionBarJoinRequest: // chatActionBarJoinRequest#3dd18308
+//	default: panic(v)
+//	}
 type ChatActionBarClass interface {
 	bin.Encoder
 	bin.Decoder

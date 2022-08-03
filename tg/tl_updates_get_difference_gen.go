@@ -35,7 +35,7 @@ var (
 // Get new updates¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/updates
+//  1. https://core.telegram.org/api/updates
 //
 // See https://core.telegram.org/method/updates.getDifference for reference.
 type UpdatesGetDifferenceRequest struct {
@@ -306,16 +306,17 @@ func (g *UpdatesGetDifferenceRequest) GetQts() (value int) {
 // Get new updates¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/updates
+//  1. https://core.telegram.org/api/updates
 //
 // Possible errors:
-//  400 CDN_METHOD_INVALID: You can't call this method in a CDN DC.
-//  400 CHANNEL_INVALID: The provided channel is invalid.
-//  403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
-//  400 DATE_EMPTY: Date empty.
-//  400 MSG_ID_INVALID: Invalid message ID provided.
-//  400 PERSISTENT_TIMESTAMP_EMPTY: Persistent timestamp empty.
-//  400 PERSISTENT_TIMESTAMP_INVALID: Persistent timestamp invalid.
+//
+//	400 CDN_METHOD_INVALID: You can't call this method in a CDN DC.
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
+//	400 DATE_EMPTY: Date empty.
+//	400 MSG_ID_INVALID: Invalid message ID provided.
+//	400 PERSISTENT_TIMESTAMP_EMPTY: Persistent timestamp empty.
+//	400 PERSISTENT_TIMESTAMP_INVALID: Persistent timestamp invalid.
 //
 // See https://core.telegram.org/method/updates.getDifference for reference.
 // Can be used by bots.

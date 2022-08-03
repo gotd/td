@@ -501,16 +501,17 @@ const ResetPasswordResultClassName = "ResetPasswordResult"
 // ResetPasswordResultClass represents ResetPasswordResult generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeResetPasswordResult(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.ResetPasswordResultOk: // resetPasswordResultOk#acb763f9
-//  case *tdapi.ResetPasswordResultPending: // resetPasswordResultPending#4729dc59
-//  case *tdapi.ResetPasswordResultDeclined: // resetPasswordResultDeclined#b857e0cb
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeResetPasswordResult(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.ResetPasswordResultOk: // resetPasswordResultOk#acb763f9
+//	case *tdapi.ResetPasswordResultPending: // resetPasswordResultPending#4729dc59
+//	case *tdapi.ResetPasswordResultDeclined: // resetPasswordResultDeclined#b857e0cb
+//	default: panic(v)
+//	}
 type ResetPasswordResultClass interface {
 	bin.Encoder
 	bin.Decoder

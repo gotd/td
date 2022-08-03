@@ -769,17 +769,18 @@ const UserTypeClassName = "UserType"
 // UserTypeClass represents UserType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeUserType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.UserTypeRegular: // userTypeRegular#dc51699b
-//  case *tdapi.UserTypeDeleted: // userTypeDeleted#94403d24
-//  case *tdapi.UserTypeBot: // userTypeBot#c6256f88
-//  case *tdapi.UserTypeUnknown: // userTypeUnknown#d4d0613d
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeUserType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.UserTypeRegular: // userTypeRegular#dc51699b
+//	case *tdapi.UserTypeDeleted: // userTypeDeleted#94403d24
+//	case *tdapi.UserTypeBot: // userTypeBot#c6256f88
+//	case *tdapi.UserTypeUnknown: // userTypeUnknown#d4d0613d
+//	default: panic(v)
+//	}
 type UserTypeClass interface {
 	bin.Encoder
 	bin.Decoder

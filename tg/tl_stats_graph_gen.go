@@ -36,8 +36,8 @@ var (
 // loadAsyncGraph² to reduce server load
 //
 // Links:
-//  1) https://core.telegram.org/api/stats
-//  2) https://core.telegram.org/method/stats.loadAsyncGraph
+//  1. https://core.telegram.org/api/stats
+//  2. https://core.telegram.org/method/stats.loadAsyncGraph
 //
 // See https://core.telegram.org/constructor/statsGraphAsync for reference.
 type StatsGraphAsync struct {
@@ -175,7 +175,7 @@ func (s *StatsGraphAsync) GetToken() (value string) {
 // An error occurred while generating the statistics graph¹
 //
 // Links:
-//  1) https://core.telegram.org/api/stats
+//  1. https://core.telegram.org/api/stats
 //
 // See https://core.telegram.org/constructor/statsGraphError for reference.
 type StatsGraphError struct {
@@ -313,7 +313,7 @@ func (s *StatsGraphError) GetError() (value string) {
 // Channel statistics graph¹
 //
 // Links:
-//  1) https://core.telegram.org/api/stats
+//  1. https://core.telegram.org/api/stats
 //
 // See https://core.telegram.org/constructor/statsGraph for reference.
 type StatsGraph struct {
@@ -524,16 +524,17 @@ const StatsGraphClassName = "StatsGraph"
 // See https://core.telegram.org/type/StatsGraph for reference.
 //
 // Example:
-//  g, err := tg.DecodeStatsGraph(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.StatsGraphAsync: // statsGraphAsync#4a27eb2d
-//  case *tg.StatsGraphError: // statsGraphError#bedc9822
-//  case *tg.StatsGraph: // statsGraph#8ea464b6
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeStatsGraph(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.StatsGraphAsync: // statsGraphAsync#4a27eb2d
+//	case *tg.StatsGraphError: // statsGraphError#bedc9822
+//	case *tg.StatsGraph: // statsGraph#8ea464b6
+//	default: panic(v)
+//	}
 type StatsGraphClass interface {
 	bin.Encoder
 	bin.Decoder

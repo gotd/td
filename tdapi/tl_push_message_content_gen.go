@@ -5696,42 +5696,43 @@ const PushMessageContentClassName = "PushMessageContent"
 // PushMessageContentClass represents PushMessageContent generic type.
 //
 // Example:
-//  g, err := tdapi.DecodePushMessageContent(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.PushMessageContentHidden: // pushMessageContentHidden#ed1bb85c
-//  case *tdapi.PushMessageContentAnimation: // pushMessageContentAnimation#3da4dfe4
-//  case *tdapi.PushMessageContentAudio: // pushMessageContentAudio#16be7872
-//  case *tdapi.PushMessageContentContact: // pushMessageContentContact#ff458a54
-//  case *tdapi.PushMessageContentContactRegistered: // pushMessageContentContactRegistered#ede1e5a0
-//  case *tdapi.PushMessageContentDocument: // pushMessageContentDocument#e4adae01
-//  case *tdapi.PushMessageContentGame: // pushMessageContentGame#e14bb91b
-//  case *tdapi.PushMessageContentGameScore: // pushMessageContentGameScore#35b8cd88
-//  case *tdapi.PushMessageContentInvoice: // pushMessageContentInvoice#98c88bbc
-//  case *tdapi.PushMessageContentLocation: // pushMessageContentLocation#b33a97b3
-//  case *tdapi.PushMessageContentPhoto: // pushMessageContentPhoto#861dc52
-//  case *tdapi.PushMessageContentPoll: // pushMessageContentPoll#fd5a743a
-//  case *tdapi.PushMessageContentScreenshotTaken: // pushMessageContentScreenshotTaken#cc51ff9
-//  case *tdapi.PushMessageContentSticker: // pushMessageContentSticker#5c98bdd3
-//  case *tdapi.PushMessageContentText: // pushMessageContentText#105ddea9
-//  case *tdapi.PushMessageContentVideo: // pushMessageContentVideo#127ad12f
-//  case *tdapi.PushMessageContentVideoNote: // pushMessageContentVideoNote#bd13f97f
-//  case *tdapi.PushMessageContentVoiceNote: // pushMessageContentVoiceNote#54cac8b
-//  case *tdapi.PushMessageContentBasicGroupChatCreate: // pushMessageContentBasicGroupChatCreate#81f1defc
-//  case *tdapi.PushMessageContentChatAddMembers: // pushMessageContentChatAddMembers#bf337b3a
-//  case *tdapi.PushMessageContentChatChangePhoto: // pushMessageContentChatChangePhoto#bd96521d
-//  case *tdapi.PushMessageContentChatChangeTitle: // pushMessageContentChatChangeTitle#8ae1f6a3
-//  case *tdapi.PushMessageContentChatSetTheme: // pushMessageContentChatSetTheme#a5d3b68
-//  case *tdapi.PushMessageContentChatDeleteMember: // pushMessageContentChatDeleteMember#23afa99f
-//  case *tdapi.PushMessageContentChatJoinByLink: // pushMessageContentChatJoinByLink#5c9bdf49
-//  case *tdapi.PushMessageContentChatJoinByRequest: // pushMessageContentChatJoinByRequest#f3bb6175
-//  case *tdapi.PushMessageContentRecurringPayment: // pushMessageContentRecurringPayment#6083361a
-//  case *tdapi.PushMessageContentMessageForwards: // pushMessageContentMessageForwards#8df8a81c
-//  case *tdapi.PushMessageContentMediaAlbum: // pushMessageContentMediaAlbum#d363e96f
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodePushMessageContent(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.PushMessageContentHidden: // pushMessageContentHidden#ed1bb85c
+//	case *tdapi.PushMessageContentAnimation: // pushMessageContentAnimation#3da4dfe4
+//	case *tdapi.PushMessageContentAudio: // pushMessageContentAudio#16be7872
+//	case *tdapi.PushMessageContentContact: // pushMessageContentContact#ff458a54
+//	case *tdapi.PushMessageContentContactRegistered: // pushMessageContentContactRegistered#ede1e5a0
+//	case *tdapi.PushMessageContentDocument: // pushMessageContentDocument#e4adae01
+//	case *tdapi.PushMessageContentGame: // pushMessageContentGame#e14bb91b
+//	case *tdapi.PushMessageContentGameScore: // pushMessageContentGameScore#35b8cd88
+//	case *tdapi.PushMessageContentInvoice: // pushMessageContentInvoice#98c88bbc
+//	case *tdapi.PushMessageContentLocation: // pushMessageContentLocation#b33a97b3
+//	case *tdapi.PushMessageContentPhoto: // pushMessageContentPhoto#861dc52
+//	case *tdapi.PushMessageContentPoll: // pushMessageContentPoll#fd5a743a
+//	case *tdapi.PushMessageContentScreenshotTaken: // pushMessageContentScreenshotTaken#cc51ff9
+//	case *tdapi.PushMessageContentSticker: // pushMessageContentSticker#5c98bdd3
+//	case *tdapi.PushMessageContentText: // pushMessageContentText#105ddea9
+//	case *tdapi.PushMessageContentVideo: // pushMessageContentVideo#127ad12f
+//	case *tdapi.PushMessageContentVideoNote: // pushMessageContentVideoNote#bd13f97f
+//	case *tdapi.PushMessageContentVoiceNote: // pushMessageContentVoiceNote#54cac8b
+//	case *tdapi.PushMessageContentBasicGroupChatCreate: // pushMessageContentBasicGroupChatCreate#81f1defc
+//	case *tdapi.PushMessageContentChatAddMembers: // pushMessageContentChatAddMembers#bf337b3a
+//	case *tdapi.PushMessageContentChatChangePhoto: // pushMessageContentChatChangePhoto#bd96521d
+//	case *tdapi.PushMessageContentChatChangeTitle: // pushMessageContentChatChangeTitle#8ae1f6a3
+//	case *tdapi.PushMessageContentChatSetTheme: // pushMessageContentChatSetTheme#a5d3b68
+//	case *tdapi.PushMessageContentChatDeleteMember: // pushMessageContentChatDeleteMember#23afa99f
+//	case *tdapi.PushMessageContentChatJoinByLink: // pushMessageContentChatJoinByLink#5c9bdf49
+//	case *tdapi.PushMessageContentChatJoinByRequest: // pushMessageContentChatJoinByRequest#f3bb6175
+//	case *tdapi.PushMessageContentRecurringPayment: // pushMessageContentRecurringPayment#6083361a
+//	case *tdapi.PushMessageContentMessageForwards: // pushMessageContentMessageForwards#8df8a81c
+//	case *tdapi.PushMessageContentMediaAlbum: // pushMessageContentMediaAlbum#d363e96f
+//	default: panic(v)
+//	}
 type PushMessageContentClass interface {
 	bin.Encoder
 	bin.Decoder

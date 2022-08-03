@@ -220,9 +220,10 @@ func (s *AccountSetPrivacyRequest) MapRules() (value InputPrivacyRuleClassArray)
 // Change privacy settings of current account
 //
 // Possible errors:
-//  400 PRIVACY_KEY_INVALID: The privacy key is invalid.
-//  400 PRIVACY_TOO_LONG: Too many privacy rules were specified, the current limit is 1000.
-//  400 PRIVACY_VALUE_INVALID: The specified privacy rule combination is invalid.
+//
+//	400 PRIVACY_KEY_INVALID: The privacy key is invalid.
+//	400 PRIVACY_TOO_LONG: Too many privacy rules were specified, the current limit is 1000.
+//	400 PRIVACY_VALUE_INVALID: The specified privacy rule combination is invalid.
 //
 // See https://core.telegram.org/method/account.setPrivacy for reference.
 func (c *Client) AccountSetPrivacy(ctx context.Context, request *AccountSetPrivacyRequest) (*AccountPrivacyRules, error) {

@@ -201,9 +201,10 @@ func (s *MessagesSetChatThemeRequest) GetEmoticon() (value string) {
 // Change the chat theme of a certain chat
 //
 // Possible errors:
-//  400 EMOJI_INVALID: The specified theme emoji is valid.
-//  400 EMOJI_NOT_MODIFIED: The theme wasn't changed.
-//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//
+//	400 EMOJI_INVALID: The specified theme emoji is valid.
+//	400 EMOJI_NOT_MODIFIED: The theme wasn't changed.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.setChatTheme for reference.
 func (c *Client) MessagesSetChatTheme(ctx context.Context, request *MessagesSetChatThemeRequest) (UpdatesClass, error) {

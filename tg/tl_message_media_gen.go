@@ -2118,7 +2118,7 @@ func (m *MessageMediaInvoice) GetStartParam() (value string) {
 // Indicates a live geolocation¹
 //
 // Links:
-//  1) https://core.telegram.org/api/live-location
+//  1. https://core.telegram.org/api/live-location
 //
 // See https://core.telegram.org/constructor/messageMediaGeoLive for reference.
 type MessageMediaGeoLive struct {
@@ -2574,7 +2574,7 @@ func (m *MessageMediaPoll) GetResults() (value PollResults) {
 // Dice-based animated sticker¹
 //
 // Links:
-//  1) https://core.telegram.org/api/dice
+//  1. https://core.telegram.org/api/dice
 //
 // See https://core.telegram.org/constructor/messageMediaDice for reference.
 type MessageMediaDice struct {
@@ -2746,26 +2746,27 @@ const MessageMediaClassName = "MessageMedia"
 // See https://core.telegram.org/type/MessageMedia for reference.
 //
 // Example:
-//  g, err := tg.DecodeMessageMedia(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.MessageMediaEmpty: // messageMediaEmpty#3ded6320
-//  case *tg.MessageMediaPhoto: // messageMediaPhoto#695150d7
-//  case *tg.MessageMediaGeo: // messageMediaGeo#56e0d474
-//  case *tg.MessageMediaContact: // messageMediaContact#70322949
-//  case *tg.MessageMediaUnsupported: // messageMediaUnsupported#9f84f49e
-//  case *tg.MessageMediaDocument: // messageMediaDocument#9cb070d7
-//  case *tg.MessageMediaWebPage: // messageMediaWebPage#a32dd600
-//  case *tg.MessageMediaVenue: // messageMediaVenue#2ec0533f
-//  case *tg.MessageMediaGame: // messageMediaGame#fdb19008
-//  case *tg.MessageMediaInvoice: // messageMediaInvoice#84551347
-//  case *tg.MessageMediaGeoLive: // messageMediaGeoLive#b940c666
-//  case *tg.MessageMediaPoll: // messageMediaPoll#4bd6e798
-//  case *tg.MessageMediaDice: // messageMediaDice#3f7ee58b
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeMessageMedia(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.MessageMediaEmpty: // messageMediaEmpty#3ded6320
+//	case *tg.MessageMediaPhoto: // messageMediaPhoto#695150d7
+//	case *tg.MessageMediaGeo: // messageMediaGeo#56e0d474
+//	case *tg.MessageMediaContact: // messageMediaContact#70322949
+//	case *tg.MessageMediaUnsupported: // messageMediaUnsupported#9f84f49e
+//	case *tg.MessageMediaDocument: // messageMediaDocument#9cb070d7
+//	case *tg.MessageMediaWebPage: // messageMediaWebPage#a32dd600
+//	case *tg.MessageMediaVenue: // messageMediaVenue#2ec0533f
+//	case *tg.MessageMediaGame: // messageMediaGame#fdb19008
+//	case *tg.MessageMediaInvoice: // messageMediaInvoice#84551347
+//	case *tg.MessageMediaGeoLive: // messageMediaGeoLive#b940c666
+//	case *tg.MessageMediaPoll: // messageMediaPoll#4bd6e798
+//	case *tg.MessageMediaDice: // messageMediaDice#3f7ee58b
+//	default: panic(v)
+//	}
 type MessageMediaClass interface {
 	bin.Encoder
 	bin.Decoder

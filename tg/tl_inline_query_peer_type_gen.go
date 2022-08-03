@@ -239,7 +239,7 @@ func (i *InlineQueryPeerTypePM) DecodeBare(b *bin.Buffer) error {
 // The inline query was sent in a chat¹
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/inlineQueryPeerTypeChat for reference.
 type InlineQueryPeerTypeChat struct {
@@ -344,7 +344,7 @@ func (i *InlineQueryPeerTypeChat) DecodeBare(b *bin.Buffer) error {
 // The inline query was sent in a supergroup¹
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/inlineQueryPeerTypeMegagroup for reference.
 type InlineQueryPeerTypeMegagroup struct {
@@ -449,7 +449,7 @@ func (i *InlineQueryPeerTypeMegagroup) DecodeBare(b *bin.Buffer) error {
 // The inline query was sent in a channel¹
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/inlineQueryPeerTypeBroadcast for reference.
 type InlineQueryPeerTypeBroadcast struct {
@@ -558,18 +558,19 @@ const InlineQueryPeerTypeClassName = "InlineQueryPeerType"
 // See https://core.telegram.org/type/InlineQueryPeerType for reference.
 //
 // Example:
-//  g, err := tg.DecodeInlineQueryPeerType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InlineQueryPeerTypeSameBotPM: // inlineQueryPeerTypeSameBotPM#3081ed9d
-//  case *tg.InlineQueryPeerTypePM: // inlineQueryPeerTypePM#833c0fac
-//  case *tg.InlineQueryPeerTypeChat: // inlineQueryPeerTypeChat#d766c50a
-//  case *tg.InlineQueryPeerTypeMegagroup: // inlineQueryPeerTypeMegagroup#5ec4be43
-//  case *tg.InlineQueryPeerTypeBroadcast: // inlineQueryPeerTypeBroadcast#6334ee9a
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeInlineQueryPeerType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InlineQueryPeerTypeSameBotPM: // inlineQueryPeerTypeSameBotPM#3081ed9d
+//	case *tg.InlineQueryPeerTypePM: // inlineQueryPeerTypePM#833c0fac
+//	case *tg.InlineQueryPeerTypeChat: // inlineQueryPeerTypeChat#d766c50a
+//	case *tg.InlineQueryPeerTypeMegagroup: // inlineQueryPeerTypeMegagroup#5ec4be43
+//	case *tg.InlineQueryPeerTypeBroadcast: // inlineQueryPeerTypeBroadcast#6334ee9a
+//	default: panic(v)
+//	}
 type InlineQueryPeerTypeClass interface {
 	bin.Encoder
 	bin.Decoder

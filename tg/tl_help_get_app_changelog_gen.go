@@ -37,8 +37,8 @@ var (
 // updateServiceNotification² updates with app-specific changelogs.
 //
 // Links:
-//  1) https://core.telegram.org/constructor/updates
-//  2) https://core.telegram.org/constructor/updateServiceNotification
+//  1. https://core.telegram.org/constructor/updates
+//  2. https://core.telegram.org/constructor/updateServiceNotification
 //
 // See https://core.telegram.org/method/help.getAppChangelog for reference.
 type HelpGetAppChangelogRequest struct {
@@ -173,8 +173,8 @@ func (g *HelpGetAppChangelogRequest) GetPrevAppVersion() (value string) {
 // updateServiceNotification² updates with app-specific changelogs.
 //
 // Links:
-//  1) https://core.telegram.org/constructor/updates
-//  2) https://core.telegram.org/constructor/updateServiceNotification
+//  1. https://core.telegram.org/constructor/updates
+//  2. https://core.telegram.org/constructor/updateServiceNotification
 //
 // See https://core.telegram.org/method/help.getAppChangelog for reference.
 func (c *Client) HelpGetAppChangelog(ctx context.Context, prevappversion string) (UpdatesClass, error) {

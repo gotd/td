@@ -561,17 +561,18 @@ const NotificationGroupTypeClassName = "NotificationGroupType"
 // NotificationGroupTypeClass represents NotificationGroupType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeNotificationGroupType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.NotificationGroupTypeMessages: // notificationGroupTypeMessages#9a86331d
-//  case *tdapi.NotificationGroupTypeMentions: // notificationGroupTypeMentions#85ca89ad
-//  case *tdapi.NotificationGroupTypeSecretChat: // notificationGroupTypeSecretChat#52e54e34
-//  case *tdapi.NotificationGroupTypeCalls: // notificationGroupTypeCalls#5233c152
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeNotificationGroupType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.NotificationGroupTypeMessages: // notificationGroupTypeMessages#9a86331d
+//	case *tdapi.NotificationGroupTypeMentions: // notificationGroupTypeMentions#85ca89ad
+//	case *tdapi.NotificationGroupTypeSecretChat: // notificationGroupTypeSecretChat#52e54e34
+//	case *tdapi.NotificationGroupTypeCalls: // notificationGroupTypeCalls#5233c152
+//	default: panic(v)
+//	}
 type NotificationGroupTypeClass interface {
 	bin.Encoder
 	bin.Decoder

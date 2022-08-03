@@ -37,7 +37,7 @@ var (
 // settings¹.
 //
 // Links:
-//  1) https://core.telegram.org/constructor/peerSettings
+//  1. https://core.telegram.org/constructor/peerSettings
 //
 // See https://core.telegram.org/method/messages.hidePeerSettingsBar for reference.
 type MessagesHidePeerSettingsBarRequest struct {
@@ -177,7 +177,7 @@ func (h *MessagesHidePeerSettingsBarRequest) GetPeer() (value InputPeerClass) {
 // settings¹.
 //
 // Links:
-//  1) https://core.telegram.org/constructor/peerSettings
+//  1. https://core.telegram.org/constructor/peerSettings
 //
 // See https://core.telegram.org/method/messages.hidePeerSettingsBar for reference.
 func (c *Client) MessagesHidePeerSettingsBar(ctx context.Context, peer InputPeerClass) (bool, error) {

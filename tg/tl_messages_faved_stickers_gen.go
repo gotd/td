@@ -371,15 +371,16 @@ const MessagesFavedStickersClassName = "messages.FavedStickers"
 // See https://core.telegram.org/type/messages.FavedStickers for reference.
 //
 // Example:
-//  g, err := tg.DecodeMessagesFavedStickers(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.MessagesFavedStickersNotModified: // messages.favedStickersNotModified#9e8fa6d3
-//  case *tg.MessagesFavedStickers: // messages.favedStickers#2cb51097
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeMessagesFavedStickers(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.MessagesFavedStickersNotModified: // messages.favedStickersNotModified#9e8fa6d3
+//	case *tg.MessagesFavedStickers: // messages.favedStickers#2cb51097
+//	default: panic(v)
+//	}
 type MessagesFavedStickersClass interface {
 	bin.Encoder
 	bin.Decoder

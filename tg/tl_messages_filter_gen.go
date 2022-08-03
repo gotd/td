@@ -1423,7 +1423,7 @@ func (i *InputMessagesFilterRoundVideo) DecodeBare(b *bin.Buffer) error {
 // Return only messages where the current user was mentioned¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/mentions
+//  1. https://core.telegram.org/api/mentions
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterMyMentions for reference.
 type InputMessagesFilterMyMentions struct {
@@ -1838,30 +1838,31 @@ const MessagesFilterClassName = "MessagesFilter"
 // See https://core.telegram.org/type/MessagesFilter for reference.
 //
 // Example:
-//  g, err := tg.DecodeMessagesFilter(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InputMessagesFilterEmpty: // inputMessagesFilterEmpty#57e2f66c
-//  case *tg.InputMessagesFilterPhotos: // inputMessagesFilterPhotos#9609a51c
-//  case *tg.InputMessagesFilterVideo: // inputMessagesFilterVideo#9fc00e65
-//  case *tg.InputMessagesFilterPhotoVideo: // inputMessagesFilterPhotoVideo#56e9f0e4
-//  case *tg.InputMessagesFilterDocument: // inputMessagesFilterDocument#9eddf188
-//  case *tg.InputMessagesFilterURL: // inputMessagesFilterUrl#7ef0dd87
-//  case *tg.InputMessagesFilterGif: // inputMessagesFilterGif#ffc86587
-//  case *tg.InputMessagesFilterVoice: // inputMessagesFilterVoice#50f5c392
-//  case *tg.InputMessagesFilterMusic: // inputMessagesFilterMusic#3751b49e
-//  case *tg.InputMessagesFilterChatPhotos: // inputMessagesFilterChatPhotos#3a20ecb8
-//  case *tg.InputMessagesFilterPhoneCalls: // inputMessagesFilterPhoneCalls#80c99768
-//  case *tg.InputMessagesFilterRoundVoice: // inputMessagesFilterRoundVoice#7a7c17a4
-//  case *tg.InputMessagesFilterRoundVideo: // inputMessagesFilterRoundVideo#b549da53
-//  case *tg.InputMessagesFilterMyMentions: // inputMessagesFilterMyMentions#c1f8e69a
-//  case *tg.InputMessagesFilterGeo: // inputMessagesFilterGeo#e7026d0d
-//  case *tg.InputMessagesFilterContacts: // inputMessagesFilterContacts#e062db83
-//  case *tg.InputMessagesFilterPinned: // inputMessagesFilterPinned#1bb00451
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeMessagesFilter(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputMessagesFilterEmpty: // inputMessagesFilterEmpty#57e2f66c
+//	case *tg.InputMessagesFilterPhotos: // inputMessagesFilterPhotos#9609a51c
+//	case *tg.InputMessagesFilterVideo: // inputMessagesFilterVideo#9fc00e65
+//	case *tg.InputMessagesFilterPhotoVideo: // inputMessagesFilterPhotoVideo#56e9f0e4
+//	case *tg.InputMessagesFilterDocument: // inputMessagesFilterDocument#9eddf188
+//	case *tg.InputMessagesFilterURL: // inputMessagesFilterUrl#7ef0dd87
+//	case *tg.InputMessagesFilterGif: // inputMessagesFilterGif#ffc86587
+//	case *tg.InputMessagesFilterVoice: // inputMessagesFilterVoice#50f5c392
+//	case *tg.InputMessagesFilterMusic: // inputMessagesFilterMusic#3751b49e
+//	case *tg.InputMessagesFilterChatPhotos: // inputMessagesFilterChatPhotos#3a20ecb8
+//	case *tg.InputMessagesFilterPhoneCalls: // inputMessagesFilterPhoneCalls#80c99768
+//	case *tg.InputMessagesFilterRoundVoice: // inputMessagesFilterRoundVoice#7a7c17a4
+//	case *tg.InputMessagesFilterRoundVideo: // inputMessagesFilterRoundVideo#b549da53
+//	case *tg.InputMessagesFilterMyMentions: // inputMessagesFilterMyMentions#c1f8e69a
+//	case *tg.InputMessagesFilterGeo: // inputMessagesFilterGeo#e7026d0d
+//	case *tg.InputMessagesFilterContacts: // inputMessagesFilterContacts#e062db83
+//	case *tg.InputMessagesFilterPinned: // inputMessagesFilterPinned#1bb00451
+//	default: panic(v)
+//	}
 type MessagesFilterClass interface {
 	bin.Encoder
 	bin.Decoder

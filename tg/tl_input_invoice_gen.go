@@ -339,15 +339,16 @@ const InputInvoiceClassName = "InputInvoice"
 // See https://core.telegram.org/type/InputInvoice for reference.
 //
 // Example:
-//  g, err := tg.DecodeInputInvoice(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InputInvoiceMessage: // inputInvoiceMessage#c5b56859
-//  case *tg.InputInvoiceSlug: // inputInvoiceSlug#c326caef
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeInputInvoice(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputInvoiceMessage: // inputInvoiceMessage#c5b56859
+//	case *tg.InputInvoiceSlug: // inputInvoiceSlug#c326caef
+//	default: panic(v)
+//	}
 type InputInvoiceClass interface {
 	bin.Encoder
 	bin.Decoder

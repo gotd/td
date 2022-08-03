@@ -138,7 +138,7 @@ func (p *PasswordKdfAlgoUnknown) DecodeBare(b *bin.Buffer) error {
 // This key derivation algorithm defines that SRP 2FA login¹ must be used
 //
 // Links:
-//  1) https://core.telegram.org/api/srp
+//  1. https://core.telegram.org/api/srp
 //
 // See https://core.telegram.org/constructor/passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow for reference.
 type PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow struct {
@@ -375,15 +375,16 @@ const PasswordKdfAlgoClassName = "PasswordKdfAlgo"
 // See https://core.telegram.org/type/PasswordKdfAlgo for reference.
 //
 // Example:
-//  g, err := tg.DecodePasswordKdfAlgo(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.PasswordKdfAlgoUnknown: // passwordKdfAlgoUnknown#d45ab096
-//  case *tg.PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow: // passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow#3a912d4a
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodePasswordKdfAlgo(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.PasswordKdfAlgoUnknown: // passwordKdfAlgoUnknown#d45ab096
+//	case *tg.PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow: // passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow#3a912d4a
+//	default: panic(v)
+//	}
 type PasswordKdfAlgoClass interface {
 	bin.Encoder
 	bin.Decoder

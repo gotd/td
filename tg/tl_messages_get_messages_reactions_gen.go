@@ -35,7 +35,7 @@ var (
 // Get message reactions »¹
 //
 // Links:
-//  1) https://core.telegram.org/api/reactions
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getMessagesReactions for reference.
 type MessagesGetMessagesReactionsRequest struct {
@@ -213,7 +213,7 @@ func (g *MessagesGetMessagesReactionsRequest) GetID() (value []int) {
 // Get message reactions »¹
 //
 // Links:
-//  1) https://core.telegram.org/api/reactions
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getMessagesReactions for reference.
 // Can be used by bots.

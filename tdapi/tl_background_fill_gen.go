@@ -628,16 +628,17 @@ const BackgroundFillClassName = "BackgroundFill"
 // BackgroundFillClass represents BackgroundFill generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeBackgroundFill(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.BackgroundFillSolid: // backgroundFillSolid#3c3dbc1d
-//  case *tdapi.BackgroundFillGradient: // backgroundFillGradient#925ff17f
-//  case *tdapi.BackgroundFillFreeformGradient: // backgroundFillFreeformGradient#fa31756a
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeBackgroundFill(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.BackgroundFillSolid: // backgroundFillSolid#3c3dbc1d
+//	case *tdapi.BackgroundFillGradient: // backgroundFillGradient#925ff17f
+//	case *tdapi.BackgroundFillFreeformGradient: // backgroundFillFreeformGradient#fa31756a
+//	default: panic(v)
+//	}
 type BackgroundFillClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -38,7 +38,7 @@ var (
 // configuration for more info »¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/config#client-configuration
+//  1. https://core.telegram.org/api/config#client-configuration
 //
 // See https://core.telegram.org/method/messages.getMessageReadParticipants for reference.
 type MessagesGetMessageReadParticipantsRequest struct {
@@ -206,10 +206,11 @@ func (g *MessagesGetMessageReadParticipantsRequest) GetMsgID() (value int) {
 // configuration for more info »¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/config#client-configuration
+//  1. https://core.telegram.org/api/config#client-configuration
 //
 // Possible errors:
-//  400 CHAT_TOO_BIG: This method is not available for groups with more than chat_read_mark_size_threshold members, see client configuration ».
+//
+//	400 CHAT_TOO_BIG: This method is not available for groups with more than chat_read_mark_size_threshold members, see client configuration ».
 //
 // See https://core.telegram.org/method/messages.getMessageReadParticipants for reference.
 func (c *Client) MessagesGetMessageReadParticipants(ctx context.Context, request *MessagesGetMessageReadParticipantsRequest) ([]int64, error) {

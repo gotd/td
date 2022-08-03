@@ -1060,19 +1060,20 @@ const JSONValueClassName = "JsonValue"
 // JSONValueClass represents JsonValue generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeJSONValue(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.JSONValueNull: // jsonValueNull#fa76e0cd
-//  case *tdapi.JSONValueBoolean: // jsonValueBoolean#8050d3b0
-//  case *tdapi.JSONValueNumber: // jsonValueNumber#c3c0146f
-//  case *tdapi.JSONValueString: // jsonValueString#5f3ebdb1
-//  case *tdapi.JSONValueArray: // jsonValueArray#eccdb0d8
-//  case *tdapi.JSONValueObject: // jsonValueObject#c67bff40
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeJSONValue(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.JSONValueNull: // jsonValueNull#fa76e0cd
+//	case *tdapi.JSONValueBoolean: // jsonValueBoolean#8050d3b0
+//	case *tdapi.JSONValueNumber: // jsonValueNumber#c3c0146f
+//	case *tdapi.JSONValueString: // jsonValueString#5f3ebdb1
+//	case *tdapi.JSONValueArray: // jsonValueArray#eccdb0d8
+//	case *tdapi.JSONValueObject: // jsonValueObject#c67bff40
+//	default: panic(v)
+//	}
 type JSONValueClass interface {
 	bin.Encoder
 	bin.Decoder

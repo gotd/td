@@ -692,18 +692,19 @@ const NetworkTypeClassName = "NetworkType"
 // NetworkTypeClass represents NetworkType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeNetworkType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.NetworkTypeNone: // networkTypeNone#8a7a5f11
-//  case *tdapi.NetworkTypeMobile: // networkTypeMobile#30d46e4f
-//  case *tdapi.NetworkTypeMobileRoaming: // networkTypeMobileRoaming#aa7496f0
-//  case *tdapi.NetworkTypeWiFi: // networkTypeWiFi#da37e13a
-//  case *tdapi.NetworkTypeOther: // networkTypeOther#73c2879b
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeNetworkType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.NetworkTypeNone: // networkTypeNone#8a7a5f11
+//	case *tdapi.NetworkTypeMobile: // networkTypeMobile#30d46e4f
+//	case *tdapi.NetworkTypeMobileRoaming: // networkTypeMobileRoaming#aa7496f0
+//	case *tdapi.NetworkTypeWiFi: // networkTypeWiFi#da37e13a
+//	case *tdapi.NetworkTypeOther: // networkTypeOther#73c2879b
+//	default: panic(v)
+//	}
 type NetworkTypeClass interface {
 	bin.Encoder
 	bin.Decoder

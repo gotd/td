@@ -35,7 +35,7 @@ var (
 // Information about a message thread¹
 //
 // Links:
-//  1) https://core.telegram.org/api/threads
+//  1. https://core.telegram.org/api/threads
 //
 // See https://core.telegram.org/constructor/messages.discussionMessage for reference.
 type MessagesDiscussionMessage struct {

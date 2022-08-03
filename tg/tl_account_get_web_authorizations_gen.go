@@ -35,7 +35,7 @@ var (
 // Get web login widget¹ authorizations
 //
 // Links:
-//  1) https://core.telegram.org/widgets/login
+//  1. https://core.telegram.org/widgets/login
 //
 // See https://core.telegram.org/method/account.getWebAuthorizations for reference.
 type AccountGetWebAuthorizationsRequest struct {
@@ -135,7 +135,7 @@ func (g *AccountGetWebAuthorizationsRequest) DecodeBare(b *bin.Buffer) error {
 // Get web login widget¹ authorizations
 //
 // Links:
-//  1) https://core.telegram.org/widgets/login
+//  1. https://core.telegram.org/widgets/login
 //
 // See https://core.telegram.org/method/account.getWebAuthorizations for reference.
 func (c *Client) AccountGetWebAuthorizations(ctx context.Context) (*AccountWebAuthorizations, error) {

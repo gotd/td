@@ -175,7 +175,7 @@ func (i *InputDialogPeer) GetPeer() (value InputPeerClass) {
 // All peers in a peer folder¹
 //
 // Links:
-//  1) https://core.telegram.org/api/folders#peer-folders
+//  1. https://core.telegram.org/api/folders#peer-folders
 //
 // See https://core.telegram.org/constructor/inputDialogPeerFolder for reference.
 type InputDialogPeerFolder struct {
@@ -320,15 +320,16 @@ const InputDialogPeerClassName = "InputDialogPeer"
 // See https://core.telegram.org/type/InputDialogPeer for reference.
 //
 // Example:
-//  g, err := tg.DecodeInputDialogPeer(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InputDialogPeer: // inputDialogPeer#fcaafeb7
-//  case *tg.InputDialogPeerFolder: // inputDialogPeerFolder#64600527
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeInputDialogPeer(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputDialogPeer: // inputDialogPeer#fcaafeb7
+//	case *tg.InputDialogPeerFolder: // inputDialogPeerFolder#64600527
+//	default: panic(v)
+//	}
 type InputDialogPeerClass interface {
 	bin.Encoder
 	bin.Decoder

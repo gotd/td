@@ -2264,30 +2264,31 @@ const SearchMessagesFilterClassName = "SearchMessagesFilter"
 // SearchMessagesFilterClass represents SearchMessagesFilter generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeSearchMessagesFilter(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.SearchMessagesFilterEmpty: // searchMessagesFilterEmpty#cc2e1337
-//  case *tdapi.SearchMessagesFilterAnimation: // searchMessagesFilterAnimation#f6b800c5
-//  case *tdapi.SearchMessagesFilterAudio: // searchMessagesFilterAudio#33b5147b
-//  case *tdapi.SearchMessagesFilterDocument: // searchMessagesFilterDocument#5af9f74f
-//  case *tdapi.SearchMessagesFilterPhoto: // searchMessagesFilterPhoto#37309b05
-//  case *tdapi.SearchMessagesFilterVideo: // searchMessagesFilterVideo#6e2f92e
-//  case *tdapi.SearchMessagesFilterVoiceNote: // searchMessagesFilterVoiceNote#6dc2227d
-//  case *tdapi.SearchMessagesFilterPhotoAndVideo: // searchMessagesFilterPhotoAndVideo#5097e193
-//  case *tdapi.SearchMessagesFilterURL: // searchMessagesFilterUrl#92ffe18b
-//  case *tdapi.SearchMessagesFilterChatPhoto: // searchMessagesFilterChatPhoto#b5a0d35f
-//  case *tdapi.SearchMessagesFilterVideoNote: // searchMessagesFilterVideoNote#21a2e3f9
-//  case *tdapi.SearchMessagesFilterVoiceAndVideoNote: // searchMessagesFilterVoiceAndVideoNote#279680e3
-//  case *tdapi.SearchMessagesFilterMention: // searchMessagesFilterMention#7748c89c
-//  case *tdapi.SearchMessagesFilterUnreadMention: // searchMessagesFilterUnreadMention#fa4aadc3
-//  case *tdapi.SearchMessagesFilterUnreadReaction: // searchMessagesFilterUnreadReaction#adc43100
-//  case *tdapi.SearchMessagesFilterFailedToSend: // searchMessagesFilterFailedToSend#dc74d6fc
-//  case *tdapi.SearchMessagesFilterPinned: // searchMessagesFilterPinned#16294d48
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeSearchMessagesFilter(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.SearchMessagesFilterEmpty: // searchMessagesFilterEmpty#cc2e1337
+//	case *tdapi.SearchMessagesFilterAnimation: // searchMessagesFilterAnimation#f6b800c5
+//	case *tdapi.SearchMessagesFilterAudio: // searchMessagesFilterAudio#33b5147b
+//	case *tdapi.SearchMessagesFilterDocument: // searchMessagesFilterDocument#5af9f74f
+//	case *tdapi.SearchMessagesFilterPhoto: // searchMessagesFilterPhoto#37309b05
+//	case *tdapi.SearchMessagesFilterVideo: // searchMessagesFilterVideo#6e2f92e
+//	case *tdapi.SearchMessagesFilterVoiceNote: // searchMessagesFilterVoiceNote#6dc2227d
+//	case *tdapi.SearchMessagesFilterPhotoAndVideo: // searchMessagesFilterPhotoAndVideo#5097e193
+//	case *tdapi.SearchMessagesFilterURL: // searchMessagesFilterUrl#92ffe18b
+//	case *tdapi.SearchMessagesFilterChatPhoto: // searchMessagesFilterChatPhoto#b5a0d35f
+//	case *tdapi.SearchMessagesFilterVideoNote: // searchMessagesFilterVideoNote#21a2e3f9
+//	case *tdapi.SearchMessagesFilterVoiceAndVideoNote: // searchMessagesFilterVoiceAndVideoNote#279680e3
+//	case *tdapi.SearchMessagesFilterMention: // searchMessagesFilterMention#7748c89c
+//	case *tdapi.SearchMessagesFilterUnreadMention: // searchMessagesFilterUnreadMention#fa4aadc3
+//	case *tdapi.SearchMessagesFilterUnreadReaction: // searchMessagesFilterUnreadReaction#adc43100
+//	case *tdapi.SearchMessagesFilterFailedToSend: // searchMessagesFilterFailedToSend#dc74d6fc
+//	case *tdapi.SearchMessagesFilterPinned: // searchMessagesFilterPinned#16294d48
+//	default: panic(v)
+//	}
 type SearchMessagesFilterClass interface {
 	bin.Encoder
 	bin.Decoder

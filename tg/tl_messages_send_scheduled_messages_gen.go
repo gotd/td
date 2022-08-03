@@ -210,8 +210,9 @@ func (s *MessagesSendScheduledMessagesRequest) GetID() (value []int) {
 // Send scheduled messages right away
 //
 // Possible errors:
-//  400 MESSAGE_ID_INVALID: The provided message id is invalid.
-//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//
+//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.sendScheduledMessages for reference.
 func (c *Client) MessagesSendScheduledMessages(ctx context.Context, request *MessagesSendScheduledMessagesRequest) (UpdatesClass, error) {

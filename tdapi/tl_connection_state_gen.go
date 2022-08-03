@@ -692,18 +692,19 @@ const ConnectionStateClassName = "ConnectionState"
 // ConnectionStateClass represents ConnectionState generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeConnectionState(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.ConnectionStateWaitingForNetwork: // connectionStateWaitingForNetwork#650dd758
-//  case *tdapi.ConnectionStateConnectingToProxy: // connectionStateConnectingToProxy#fa721359
-//  case *tdapi.ConnectionStateConnecting: // connectionStateConnecting#b29bfa62
-//  case *tdapi.ConnectionStateUpdating: // connectionStateUpdating#f4c9c2b7
-//  case *tdapi.ConnectionStateReady: // connectionStateReady#2e5b4ec
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeConnectionState(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.ConnectionStateWaitingForNetwork: // connectionStateWaitingForNetwork#650dd758
+//	case *tdapi.ConnectionStateConnectingToProxy: // connectionStateConnectingToProxy#fa721359
+//	case *tdapi.ConnectionStateConnecting: // connectionStateConnecting#b29bfa62
+//	case *tdapi.ConnectionStateUpdating: // connectionStateUpdating#f4c9c2b7
+//	case *tdapi.ConnectionStateReady: // connectionStateReady#2e5b4ec
+//	default: panic(v)
+//	}
 type ConnectionStateClass interface {
 	bin.Encoder
 	bin.Decoder

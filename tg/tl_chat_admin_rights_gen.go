@@ -35,7 +35,7 @@ var (
 // Represents the rights of an admin in a channel/supergroup¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/chatAdminRights for reference.
 type ChatAdminRights struct {

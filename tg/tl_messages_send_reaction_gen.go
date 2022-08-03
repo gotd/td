@@ -301,12 +301,13 @@ func (s *MessagesSendReactionRequest) GetReaction() (value string, ok bool) {
 // React to message
 //
 // Possible errors:
-//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//  400 MESSAGE_ID_INVALID: The provided message id is invalid.
-//  400 MESSAGE_NOT_MODIFIED: The provided message data is identical to the previous message data, the message wasn't modified.
-//  400 PEER_ID_INVALID: The provided peer id is invalid.
-//  400 REACTION_EMPTY: Empty reaction provided.
-//  400 REACTION_INVALID: The specified reaction is invalid.
+//
+//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//	400 MESSAGE_NOT_MODIFIED: The provided message data is identical to the previous message data, the message wasn't modified.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 REACTION_EMPTY: Empty reaction provided.
+//	400 REACTION_INVALID: The specified reaction is invalid.
 //
 // See https://core.telegram.org/method/messages.sendReaction for reference.
 func (c *Client) MessagesSendReaction(ctx context.Context, request *MessagesSendReactionRequest) (UpdatesClass, error) {

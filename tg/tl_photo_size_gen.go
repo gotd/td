@@ -1170,19 +1170,20 @@ const PhotoSizeClassName = "PhotoSize"
 // See https://core.telegram.org/type/PhotoSize for reference.
 //
 // Example:
-//  g, err := tg.DecodePhotoSize(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.PhotoSizeEmpty: // photoSizeEmpty#e17e23c
-//  case *tg.PhotoSize: // photoSize#75c78e60
-//  case *tg.PhotoCachedSize: // photoCachedSize#21e1ad6
-//  case *tg.PhotoStrippedSize: // photoStrippedSize#e0b0bc2e
-//  case *tg.PhotoSizeProgressive: // photoSizeProgressive#fa3efb95
-//  case *tg.PhotoPathSize: // photoPathSize#d8214d41
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodePhotoSize(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.PhotoSizeEmpty: // photoSizeEmpty#e17e23c
+//	case *tg.PhotoSize: // photoSize#75c78e60
+//	case *tg.PhotoCachedSize: // photoCachedSize#21e1ad6
+//	case *tg.PhotoStrippedSize: // photoStrippedSize#e0b0bc2e
+//	case *tg.PhotoSizeProgressive: // photoSizeProgressive#fa3efb95
+//	case *tg.PhotoPathSize: // photoPathSize#d8214d41
+//	default: panic(v)
+//	}
 type PhotoSizeClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -35,7 +35,7 @@ var (
 // Send the verification email code for telegram passport¹.
 //
 // Links:
-//  1) https://core.telegram.org/passport
+//  1. https://core.telegram.org/passport
 //
 // See https://core.telegram.org/method/account.sendVerifyEmailCode for reference.
 type AccountSendVerifyEmailCodeRequest struct {
@@ -168,10 +168,11 @@ func (s *AccountSendVerifyEmailCodeRequest) GetEmail() (value string) {
 // Send the verification email code for telegram passport¹.
 //
 // Links:
-//  1) https://core.telegram.org/passport
+//  1. https://core.telegram.org/passport
 //
 // Possible errors:
-//  400 EMAIL_INVALID: The specified email is invalid.
+//
+//	400 EMAIL_INVALID: The specified email is invalid.
 //
 // See https://core.telegram.org/method/account.sendVerifyEmailCode for reference.
 func (c *Client) AccountSendVerifyEmailCode(ctx context.Context, email string) (*AccountSentEmailCode, error) {

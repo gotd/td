@@ -321,15 +321,16 @@ const MessagesAllStickersClassName = "messages.AllStickers"
 // See https://core.telegram.org/type/messages.AllStickers for reference.
 //
 // Example:
-//  g, err := tg.DecodeMessagesAllStickers(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.MessagesAllStickersNotModified: // messages.allStickersNotModified#e86602c3
-//  case *tg.MessagesAllStickers: // messages.allStickers#cdbbcebb
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeMessagesAllStickers(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.MessagesAllStickersNotModified: // messages.allStickersNotModified#e86602c3
+//	case *tg.MessagesAllStickers: // messages.allStickers#cdbbcebb
+//	default: panic(v)
+//	}
 type MessagesAllStickersClass interface {
 	bin.Encoder
 	bin.Decoder

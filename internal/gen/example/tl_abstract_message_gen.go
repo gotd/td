@@ -840,18 +840,19 @@ const AbstractMessageClassName = "AbstractMessage"
 // See https://localhost:80/doc/type/AbstractMessage for reference.
 //
 // Example:
-//  g, err := td.DecodeAbstractMessage(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *td.BigMessage: // bigMessage#7490dcc5
-//  case *td.NoMessage: // noMessage#ee6324c4
-//  case *td.TargetsMessage: // targetsMessage#cc6136f1
-//  case *td.FieldsMessage: // fieldsMessage#947225b5
-//  case *td.BytesMessage: // bytesMessage#f990a67d
-//  default: panic(v)
-//  }
+//
+//	g, err := td.DecodeAbstractMessage(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *td.BigMessage: // bigMessage#7490dcc5
+//	case *td.NoMessage: // noMessage#ee6324c4
+//	case *td.TargetsMessage: // targetsMessage#cc6136f1
+//	case *td.FieldsMessage: // fieldsMessage#947225b5
+//	case *td.BytesMessage: // bytesMessage#f990a67d
+//	default: panic(v)
+//	}
 type AbstractMessageClass interface {
 	bin.Encoder
 	bin.Decoder

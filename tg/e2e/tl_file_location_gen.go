@@ -418,15 +418,16 @@ const FileLocationClassName = "FileLocation"
 // See https://core.telegram.org/type/FileLocation for reference.
 //
 // Example:
-//  g, err := e2e.DecodeFileLocation(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *e2e.FileLocationUnavailable: // fileLocationUnavailable#7c596b46
-//  case *e2e.FileLocation: // fileLocation#53d69076
-//  default: panic(v)
-//  }
+//
+//	g, err := e2e.DecodeFileLocation(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *e2e.FileLocationUnavailable: // fileLocationUnavailable#7c596b46
+//	case *e2e.FileLocation: // fileLocation#53d69076
+//	default: panic(v)
+//	}
 type FileLocationClass interface {
 	bin.Encoder
 	bin.Decoder

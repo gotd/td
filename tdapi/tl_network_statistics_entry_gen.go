@@ -605,15 +605,16 @@ const NetworkStatisticsEntryClassName = "NetworkStatisticsEntry"
 // NetworkStatisticsEntryClass represents NetworkStatisticsEntry generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeNetworkStatisticsEntry(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.NetworkStatisticsEntryFile: // networkStatisticsEntryFile#b3b8f62
-//  case *tdapi.NetworkStatisticsEntryCall: // networkStatisticsEntryCall#2bedbbad
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeNetworkStatisticsEntry(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.NetworkStatisticsEntryFile: // networkStatisticsEntryFile#b3b8f62
+//	case *tdapi.NetworkStatisticsEntryCall: // networkStatisticsEntryCall#2bedbbad
+//	default: panic(v)
+//	}
 type NetworkStatisticsEntryClass interface {
 	bin.Encoder
 	bin.Decoder

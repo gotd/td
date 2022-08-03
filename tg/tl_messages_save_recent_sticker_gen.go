@@ -258,7 +258,8 @@ func (s *MessagesSaveRecentStickerRequest) GetIDAsNotEmpty() (*InputDocument, bo
 // Add/remove sticker from recent stickers list
 //
 // Possible errors:
-//  400 STICKER_ID_INVALID: The provided sticker ID is invalid.
+//
+//	400 STICKER_ID_INVALID: The provided sticker ID is invalid.
 //
 // See https://core.telegram.org/method/messages.saveRecentSticker for reference.
 func (c *Client) MessagesSaveRecentSticker(ctx context.Context, request *MessagesSaveRecentStickerRequest) (bool, error) {

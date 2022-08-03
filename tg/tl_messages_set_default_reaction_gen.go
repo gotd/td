@@ -36,7 +36,7 @@ var (
 // across devices and can be fetched using help.getAppConfig, reactions_default field¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/config#client-configuration
+//  1. https://core.telegram.org/api/config#client-configuration
 //
 // See https://core.telegram.org/method/messages.setDefaultReaction for reference.
 type MessagesSetDefaultReactionRequest struct {
@@ -170,7 +170,7 @@ func (s *MessagesSetDefaultReactionRequest) GetReaction() (value string) {
 // across devices and can be fetched using help.getAppConfig, reactions_default field¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/config#client-configuration
+//  1. https://core.telegram.org/api/config#client-configuration
 //
 // See https://core.telegram.org/method/messages.setDefaultReaction for reference.
 func (c *Client) MessagesSetDefaultReaction(ctx context.Context, reaction string) (bool, error) {

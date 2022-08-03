@@ -368,15 +368,16 @@ const ChatSourceClassName = "ChatSource"
 // ChatSourceClass represents ChatSource generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeChatSource(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.ChatSourceMtprotoProxy: // chatSourceMtprotoProxy#177d1803
-//  case *tdapi.ChatSourcePublicServiceAnnouncement: // chatSourcePublicServiceAnnouncement#ec6a6694
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeChatSource(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.ChatSourceMtprotoProxy: // chatSourceMtprotoProxy#177d1803
+//	case *tdapi.ChatSourcePublicServiceAnnouncement: // chatSourcePublicServiceAnnouncement#ec6a6694
+//	default: panic(v)
+//	}
 type ChatSourceClass interface {
 	bin.Encoder
 	bin.Decoder

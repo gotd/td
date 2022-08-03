@@ -769,17 +769,18 @@ const ChatTypeClassName = "ChatType"
 // ChatTypeClass represents ChatType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeChatType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.ChatTypePrivate: // chatTypePrivate#5e1e6374
-//  case *tdapi.ChatTypeBasicGroup: // chatTypeBasicGroup#3a0c4c5c
-//  case *tdapi.ChatTypeSupergroup: // chatTypeSupergroup#a83a5a6a
-//  case *tdapi.ChatTypeSecret: // chatTypeSecret#3366ab31
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeChatType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.ChatTypePrivate: // chatTypePrivate#5e1e6374
+//	case *tdapi.ChatTypeBasicGroup: // chatTypeBasicGroup#3a0c4c5c
+//	case *tdapi.ChatTypeSupergroup: // chatTypeSupergroup#a83a5a6a
+//	case *tdapi.ChatTypeSecret: // chatTypeSecret#3366ab31
+//	default: panic(v)
+//	}
 type ChatTypeClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -796,18 +796,19 @@ const KeyboardButtonTypeClassName = "KeyboardButtonType"
 // KeyboardButtonTypeClass represents KeyboardButtonType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeKeyboardButtonType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.KeyboardButtonTypeText: // keyboardButtonTypeText#96519938
-//  case *tdapi.KeyboardButtonTypeRequestPhoneNumber: // keyboardButtonTypeRequestPhoneNumber#a4d9b7b9
-//  case *tdapi.KeyboardButtonTypeRequestLocation: // keyboardButtonTypeRequestLocation#f8828cfd
-//  case *tdapi.KeyboardButtonTypeRequestPoll: // keyboardButtonTypeRequestPoll#7164dcb8
-//  case *tdapi.KeyboardButtonTypeWebApp: // keyboardButtonTypeWebApp#70c8ff62
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeKeyboardButtonType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.KeyboardButtonTypeText: // keyboardButtonTypeText#96519938
+//	case *tdapi.KeyboardButtonTypeRequestPhoneNumber: // keyboardButtonTypeRequestPhoneNumber#a4d9b7b9
+//	case *tdapi.KeyboardButtonTypeRequestLocation: // keyboardButtonTypeRequestLocation#f8828cfd
+//	case *tdapi.KeyboardButtonTypeRequestPoll: // keyboardButtonTypeRequestPoll#7164dcb8
+//	case *tdapi.KeyboardButtonTypeWebApp: // keyboardButtonTypeWebApp#70c8ff62
+//	default: panic(v)
+//	}
 type KeyboardButtonTypeClass interface {
 	bin.Encoder
 	bin.Decoder

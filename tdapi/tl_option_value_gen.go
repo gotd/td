@@ -666,17 +666,18 @@ const OptionValueClassName = "OptionValue"
 // OptionValueClass represents OptionValue generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeOptionValue(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.OptionValueBoolean: // optionValueBoolean#3c35f1e
-//  case *tdapi.OptionValueEmpty: // optionValueEmpty#36c62493
-//  case *tdapi.OptionValueInteger: // optionValueInteger#f4dcc2e4
-//  case *tdapi.OptionValueString: // optionValueString#2d136e94
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeOptionValue(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.OptionValueBoolean: // optionValueBoolean#3c35f1e
+//	case *tdapi.OptionValueEmpty: // optionValueEmpty#36c62493
+//	case *tdapi.OptionValueInteger: // optionValueInteger#f4dcc2e4
+//	case *tdapi.OptionValueString: // optionValueString#2d136e94
+//	default: panic(v)
+//	}
 type OptionValueClass interface {
 	bin.Encoder
 	bin.Decoder

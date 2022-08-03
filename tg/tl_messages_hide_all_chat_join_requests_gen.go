@@ -35,7 +35,7 @@ var (
 // Dismiss or approve all join requests¹ related to a specific chat or channel.
 //
 // Links:
-//  1) https://core.telegram.org/api/invites#join-requests
+//  1. https://core.telegram.org/api/invites#join-requests
 //
 // See https://core.telegram.org/method/messages.hideAllChatJoinRequests for reference.
 type MessagesHideAllChatJoinRequestsRequest struct {
@@ -283,7 +283,7 @@ func (h *MessagesHideAllChatJoinRequestsRequest) GetLink() (value string, ok boo
 // Dismiss or approve all join requests¹ related to a specific chat or channel.
 //
 // Links:
-//  1) https://core.telegram.org/api/invites#join-requests
+//  1. https://core.telegram.org/api/invites#join-requests
 //
 // See https://core.telegram.org/method/messages.hideAllChatJoinRequests for reference.
 func (c *Client) MessagesHideAllChatJoinRequests(ctx context.Context, request *MessagesHideAllChatJoinRequestsRequest) (UpdatesClass, error) {

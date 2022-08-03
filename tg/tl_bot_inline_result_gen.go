@@ -931,15 +931,16 @@ const BotInlineResultClassName = "BotInlineResult"
 // See https://core.telegram.org/type/BotInlineResult for reference.
 //
 // Example:
-//  g, err := tg.DecodeBotInlineResult(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.BotInlineResult: // botInlineResult#11965f3a
-//  case *tg.BotInlineMediaResult: // botInlineMediaResult#17db940b
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeBotInlineResult(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.BotInlineResult: // botInlineResult#11965f3a
+//	case *tg.BotInlineMediaResult: // botInlineMediaResult#17db940b
+//	default: panic(v)
+//	}
 type BotInlineResultClass interface {
 	bin.Encoder
 	bin.Decoder

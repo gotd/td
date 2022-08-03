@@ -2668,32 +2668,33 @@ const TextEntityTypeClassName = "TextEntityType"
 // TextEntityTypeClass represents TextEntityType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeTextEntityType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.TextEntityTypeMention: // textEntityTypeMention#37b3df65
-//  case *tdapi.TextEntityTypeHashtag: // textEntityTypeHashtag#c2f7a2dd
-//  case *tdapi.TextEntityTypeCashtag: // textEntityTypeCashtag#48e4374b
-//  case *tdapi.TextEntityTypeBotCommand: // textEntityTypeBotCommand#bb652bb3
-//  case *tdapi.TextEntityTypeURL: // textEntityTypeUrl#b1c0d47c
-//  case *tdapi.TextEntityTypeEmailAddress: // textEntityTypeEmailAddress#54f81821
-//  case *tdapi.TextEntityTypePhoneNumber: // textEntityTypePhoneNumber#bad9aa2a
-//  case *tdapi.TextEntityTypeBankCardNumber: // textEntityTypeBankCardNumber#6513910
-//  case *tdapi.TextEntityTypeBold: // textEntityTypeBold#bcc0e1b0
-//  case *tdapi.TextEntityTypeItalic: // textEntityTypeItalic#f8f3965d
-//  case *tdapi.TextEntityTypeUnderline: // textEntityTypeUnderline#2f39cf92
-//  case *tdapi.TextEntityTypeStrikethrough: // textEntityTypeStrikethrough#394fc4fa
-//  case *tdapi.TextEntityTypeSpoiler: // textEntityTypeSpoiler#206d15bb
-//  case *tdapi.TextEntityTypeCode: // textEntityTypeCode#c5e9c94a
-//  case *tdapi.TextEntityTypePre: // textEntityTypePre#62491c8e
-//  case *tdapi.TextEntityTypePreCode: // textEntityTypePreCode#c7a77aab
-//  case *tdapi.TextEntityTypeTextURL: // textEntityTypeTextUrl#1a912463
-//  case *tdapi.TextEntityTypeMentionName: // textEntityTypeMentionName#a25cd5af
-//  case *tdapi.TextEntityTypeMediaTimestamp: // textEntityTypeMediaTimestamp#9236da10
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeTextEntityType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.TextEntityTypeMention: // textEntityTypeMention#37b3df65
+//	case *tdapi.TextEntityTypeHashtag: // textEntityTypeHashtag#c2f7a2dd
+//	case *tdapi.TextEntityTypeCashtag: // textEntityTypeCashtag#48e4374b
+//	case *tdapi.TextEntityTypeBotCommand: // textEntityTypeBotCommand#bb652bb3
+//	case *tdapi.TextEntityTypeURL: // textEntityTypeUrl#b1c0d47c
+//	case *tdapi.TextEntityTypeEmailAddress: // textEntityTypeEmailAddress#54f81821
+//	case *tdapi.TextEntityTypePhoneNumber: // textEntityTypePhoneNumber#bad9aa2a
+//	case *tdapi.TextEntityTypeBankCardNumber: // textEntityTypeBankCardNumber#6513910
+//	case *tdapi.TextEntityTypeBold: // textEntityTypeBold#bcc0e1b0
+//	case *tdapi.TextEntityTypeItalic: // textEntityTypeItalic#f8f3965d
+//	case *tdapi.TextEntityTypeUnderline: // textEntityTypeUnderline#2f39cf92
+//	case *tdapi.TextEntityTypeStrikethrough: // textEntityTypeStrikethrough#394fc4fa
+//	case *tdapi.TextEntityTypeSpoiler: // textEntityTypeSpoiler#206d15bb
+//	case *tdapi.TextEntityTypeCode: // textEntityTypeCode#c5e9c94a
+//	case *tdapi.TextEntityTypePre: // textEntityTypePre#62491c8e
+//	case *tdapi.TextEntityTypePreCode: // textEntityTypePreCode#c7a77aab
+//	case *tdapi.TextEntityTypeTextURL: // textEntityTypeTextUrl#1a912463
+//	case *tdapi.TextEntityTypeMentionName: // textEntityTypeMentionName#a25cd5af
+//	case *tdapi.TextEntityTypeMediaTimestamp: // textEntityTypeMediaTimestamp#9236da10
+//	default: panic(v)
+//	}
 type TextEntityTypeClass interface {
 	bin.Encoder
 	bin.Decoder

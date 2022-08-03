@@ -1085,21 +1085,22 @@ const UserPrivacySettingClassName = "UserPrivacySetting"
 // UserPrivacySettingClass represents UserPrivacySetting generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeUserPrivacySetting(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.UserPrivacySettingShowStatus: // userPrivacySettingShowStatus#6f0884fe
-//  case *tdapi.UserPrivacySettingShowProfilePhoto: // userPrivacySettingShowProfilePhoto#53f3c9f5
-//  case *tdapi.UserPrivacySettingShowLinkInForwardedMessages: // userPrivacySettingShowLinkInForwardedMessages#2353b6e6
-//  case *tdapi.UserPrivacySettingShowPhoneNumber: // userPrivacySettingShowPhoneNumber#d0d1a229
-//  case *tdapi.UserPrivacySettingAllowChatInvites: // userPrivacySettingAllowChatInvites#4bcc1d27
-//  case *tdapi.UserPrivacySettingAllowCalls: // userPrivacySettingAllowCalls#c9f0c705
-//  case *tdapi.UserPrivacySettingAllowPeerToPeerCalls: // userPrivacySettingAllowPeerToPeerCalls#1502b940
-//  case *tdapi.UserPrivacySettingAllowFindingByPhoneNumber: // userPrivacySettingAllowFindingByPhoneNumber#91ee6d51
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeUserPrivacySetting(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.UserPrivacySettingShowStatus: // userPrivacySettingShowStatus#6f0884fe
+//	case *tdapi.UserPrivacySettingShowProfilePhoto: // userPrivacySettingShowProfilePhoto#53f3c9f5
+//	case *tdapi.UserPrivacySettingShowLinkInForwardedMessages: // userPrivacySettingShowLinkInForwardedMessages#2353b6e6
+//	case *tdapi.UserPrivacySettingShowPhoneNumber: // userPrivacySettingShowPhoneNumber#d0d1a229
+//	case *tdapi.UserPrivacySettingAllowChatInvites: // userPrivacySettingAllowChatInvites#4bcc1d27
+//	case *tdapi.UserPrivacySettingAllowCalls: // userPrivacySettingAllowCalls#c9f0c705
+//	case *tdapi.UserPrivacySettingAllowPeerToPeerCalls: // userPrivacySettingAllowPeerToPeerCalls#1502b940
+//	case *tdapi.UserPrivacySettingAllowFindingByPhoneNumber: // userPrivacySettingAllowFindingByPhoneNumber#91ee6d51
+//	default: panic(v)
+//	}
 type UserPrivacySettingClass interface {
 	bin.Encoder
 	bin.Decoder

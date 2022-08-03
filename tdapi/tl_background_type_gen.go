@@ -693,16 +693,17 @@ const BackgroundTypeClassName = "BackgroundType"
 // BackgroundTypeClass represents BackgroundType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeBackgroundType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.BackgroundTypeWallpaper: // backgroundTypeWallpaper#758c4c7b
-//  case *tdapi.BackgroundTypePattern: // backgroundTypePattern#4ce716fd
-//  case *tdapi.BackgroundTypeFill: // backgroundTypeFill#3b301c2c
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeBackgroundType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.BackgroundTypeWallpaper: // backgroundTypeWallpaper#758c4c7b
+//	case *tdapi.BackgroundTypePattern: // backgroundTypePattern#4ce716fd
+//	case *tdapi.BackgroundTypeFill: // backgroundTypeFill#3b301c2c
+//	default: panic(v)
+//	}
 type BackgroundTypeClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -372,15 +372,16 @@ const InputGeoPointClassName = "InputGeoPoint"
 // See https://core.telegram.org/type/InputGeoPoint for reference.
 //
 // Example:
-//  g, err := tg.DecodeInputGeoPoint(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InputGeoPointEmpty: // inputGeoPointEmpty#e4c123d6
-//  case *tg.InputGeoPoint: // inputGeoPoint#48222faf
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeInputGeoPoint(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputGeoPointEmpty: // inputGeoPointEmpty#e4c123d6
+//	case *tg.InputGeoPoint: // inputGeoPoint#48222faf
+//	default: panic(v)
+//	}
 type InputGeoPointClass interface {
 	bin.Encoder
 	bin.Decoder

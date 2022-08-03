@@ -735,17 +735,18 @@ const InputCredentialsClassName = "InputCredentials"
 // InputCredentialsClass represents InputCredentials generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeInputCredentials(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.InputCredentialsSaved: // inputCredentialsSaved#86bdbe2c
-//  case *tdapi.InputCredentialsNew: // inputCredentialsNew#ce8bf12a
-//  case *tdapi.InputCredentialsApplePay: // inputCredentialsApplePay#b5b2d6d1
-//  case *tdapi.InputCredentialsGooglePay: // inputCredentialsGooglePay#32544764
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeInputCredentials(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.InputCredentialsSaved: // inputCredentialsSaved#86bdbe2c
+//	case *tdapi.InputCredentialsNew: // inputCredentialsNew#ce8bf12a
+//	case *tdapi.InputCredentialsApplePay: // inputCredentialsApplePay#b5b2d6d1
+//	case *tdapi.InputCredentialsGooglePay: // inputCredentialsGooglePay#32544764
+//	default: panic(v)
+//	}
 type InputCredentialsClass interface {
 	bin.Encoder
 	bin.Decoder

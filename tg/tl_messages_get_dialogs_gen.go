@@ -397,8 +397,9 @@ func (g *MessagesGetDialogsRequest) GetHash() (value int64) {
 // Returns the current user dialog list.
 //
 // Possible errors:
-//  400 FOLDER_ID_INVALID: Invalid folder ID.
-//  400 OFFSET_PEER_ID_INVALID: The provided offset peer is invalid.
+//
+//	400 FOLDER_ID_INVALID: Invalid folder ID.
+//	400 OFFSET_PEER_ID_INVALID: The provided offset peer is invalid.
 //
 // See https://core.telegram.org/method/messages.getDialogs for reference.
 func (c *Client) MessagesGetDialogs(ctx context.Context, request *MessagesGetDialogsRequest) (MessagesDialogsClass, error) {
