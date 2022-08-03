@@ -142,6 +142,19 @@ func (s InputWebFileLocationClassArray) AsInputWebFileGeoPointLocation() (to Inp
 	return to
 }
 
+// AsInputWebFileAudioAlbumThumbLocation returns copy with only InputWebFileAudioAlbumThumbLocation constructors.
+func (s InputWebFileLocationClassArray) AsInputWebFileAudioAlbumThumbLocation() (to InputWebFileAudioAlbumThumbLocationArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputWebFileAudioAlbumThumbLocation)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // InputWebFileLocationArray is adapter for slice of InputWebFileLocation.
 type InputWebFileLocationArray []InputWebFileLocation
 
@@ -294,6 +307,88 @@ func (s *InputWebFileGeoPointLocationArray) PopFirst() (v InputWebFileGeoPointLo
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *InputWebFileGeoPointLocationArray) Pop() (v InputWebFileGeoPointLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputWebFileAudioAlbumThumbLocationArray is adapter for slice of InputWebFileAudioAlbumThumbLocation.
+type InputWebFileAudioAlbumThumbLocationArray []InputWebFileAudioAlbumThumbLocation
+
+// Sort sorts slice of InputWebFileAudioAlbumThumbLocation.
+func (s InputWebFileAudioAlbumThumbLocationArray) Sort(less func(a, b InputWebFileAudioAlbumThumbLocation) bool) InputWebFileAudioAlbumThumbLocationArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputWebFileAudioAlbumThumbLocation.
+func (s InputWebFileAudioAlbumThumbLocationArray) SortStable(less func(a, b InputWebFileAudioAlbumThumbLocation) bool) InputWebFileAudioAlbumThumbLocationArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputWebFileAudioAlbumThumbLocation.
+func (s InputWebFileAudioAlbumThumbLocationArray) Retain(keep func(x InputWebFileAudioAlbumThumbLocation) bool) InputWebFileAudioAlbumThumbLocationArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputWebFileAudioAlbumThumbLocationArray) First() (v InputWebFileAudioAlbumThumbLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputWebFileAudioAlbumThumbLocationArray) Last() (v InputWebFileAudioAlbumThumbLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputWebFileAudioAlbumThumbLocationArray) PopFirst() (v InputWebFileAudioAlbumThumbLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputWebFileAudioAlbumThumbLocation
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputWebFileAudioAlbumThumbLocationArray) Pop() (v InputWebFileAudioAlbumThumbLocation, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
