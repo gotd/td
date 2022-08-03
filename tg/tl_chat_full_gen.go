@@ -35,7 +35,7 @@ var (
 // Full info about a basic group¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/channel#basic-groups
+//  1. https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/constructor/chatFull for reference.
 type ChatFull struct {
@@ -1001,9 +1001,9 @@ func (c *ChatFull) GetAvailableReactions() (value []string, ok bool) {
 // Full info about a channel¹, supergroup² or gigagroup³.
 //
 // Links:
-//  1) https://core.telegram.org/api/channel#channels
-//  2) https://core.telegram.org/api/channel#supergroups
-//  3) https://core.telegram.org/api/channel#gigagroups
+//  1. https://core.telegram.org/api/channel#channels
+//  2. https://core.telegram.org/api/channel#supergroups
+//  3. https://core.telegram.org/api/channel#gigagroups
 //
 // See https://core.telegram.org/constructor/channelFull for reference.
 type ChannelFull struct {
@@ -3087,15 +3087,16 @@ const ChatFullClassName = "ChatFull"
 // See https://core.telegram.org/type/ChatFull for reference.
 //
 // Example:
-//  g, err := tg.DecodeChatFull(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.ChatFull: // chatFull#d18ee226
-//  case *tg.ChannelFull: // channelFull#ea68a619
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeChatFull(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.ChatFull: // chatFull#d18ee226
+//	case *tg.ChannelFull: // channelFull#ea68a619
+//	default: panic(v)
+//	}
 type ChatFullClass interface {
 	bin.Encoder
 	bin.Decoder

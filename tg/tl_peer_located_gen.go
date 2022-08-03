@@ -368,15 +368,16 @@ const PeerLocatedClassName = "PeerLocated"
 // See https://core.telegram.org/type/PeerLocated for reference.
 //
 // Example:
-//  g, err := tg.DecodePeerLocated(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.PeerLocated: // peerLocated#ca461b5d
-//  case *tg.PeerSelfLocated: // peerSelfLocated#f8ec284b
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodePeerLocated(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.PeerLocated: // peerLocated#ca461b5d
+//	case *tg.PeerSelfLocated: // peerSelfLocated#f8ec284b
+//	default: panic(v)
+//	}
 type PeerLocatedClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -37,7 +37,7 @@ var (
 // retry importing only the contacts that weren't imported successfully.
 //
 // Links:
-//  1) https://core.telegram.org/method/contacts.importContacts
+//  1. https://core.telegram.org/method/contacts.importContacts
 //
 // See https://core.telegram.org/constructor/inputPhoneContact for reference.
 type InputPhoneContact struct {

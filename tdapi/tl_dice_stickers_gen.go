@@ -507,15 +507,16 @@ const DiceStickersClassName = "DiceStickers"
 // DiceStickersClass represents DiceStickers generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeDiceStickers(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.DiceStickersRegular: // diceStickersRegular#d3dfecce
-//  case *tdapi.DiceStickersSlotMachine: // diceStickersSlotMachine#e9a28cac
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeDiceStickers(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.DiceStickersRegular: // diceStickersRegular#d3dfecce
+//	case *tdapi.DiceStickersSlotMachine: // diceStickersSlotMachine#e9a28cac
+//	default: panic(v)
+//	}
 type DiceStickersClass interface {
 	bin.Encoder
 	bin.Decoder

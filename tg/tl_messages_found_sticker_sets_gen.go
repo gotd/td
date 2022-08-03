@@ -329,15 +329,16 @@ const MessagesFoundStickerSetsClassName = "messages.FoundStickerSets"
 // See https://core.telegram.org/type/messages.FoundStickerSets for reference.
 //
 // Example:
-//  g, err := tg.DecodeMessagesFoundStickerSets(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.MessagesFoundStickerSetsNotModified: // messages.foundStickerSetsNotModified#d54b65d
-//  case *tg.MessagesFoundStickerSets: // messages.foundStickerSets#8af09dd2
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeMessagesFoundStickerSets(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.MessagesFoundStickerSetsNotModified: // messages.foundStickerSetsNotModified#d54b65d
+//	case *tg.MessagesFoundStickerSets: // messages.foundStickerSets#8af09dd2
+//	default: panic(v)
+//	}
 type MessagesFoundStickerSetsClass interface {
 	bin.Encoder
 	bin.Decoder

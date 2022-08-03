@@ -336,15 +336,16 @@ const InputThemeClassName = "InputTheme"
 // See https://core.telegram.org/type/InputTheme for reference.
 //
 // Example:
-//  g, err := tg.DecodeInputTheme(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InputTheme: // inputTheme#3c5693e9
-//  case *tg.InputThemeSlug: // inputThemeSlug#f5890df1
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeInputTheme(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputTheme: // inputTheme#3c5693e9
+//	case *tg.InputThemeSlug: // inputThemeSlug#f5890df1
+//	default: panic(v)
+//	}
 type InputThemeClass interface {
 	bin.Encoder
 	bin.Decoder

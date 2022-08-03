@@ -2070,24 +2070,25 @@ const DeviceTokenClassName = "DeviceToken"
 // DeviceTokenClass represents DeviceToken generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeDeviceToken(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.DeviceTokenFirebaseCloudMessaging: // deviceTokenFirebaseCloudMessaging#d0714a07
-//  case *tdapi.DeviceTokenApplePush: // deviceTokenApplePush#17196bc3
-//  case *tdapi.DeviceTokenApplePushVoIP: // deviceTokenApplePushVoIP#2ff045e9
-//  case *tdapi.DeviceTokenWindowsPush: // deviceTokenWindowsPush#abed428f
-//  case *tdapi.DeviceTokenMicrosoftPush: // deviceTokenMicrosoftPush#48f8e04c
-//  case *tdapi.DeviceTokenMicrosoftPushVoIP: // deviceTokenMicrosoftPushVoIP#d12ca351
-//  case *tdapi.DeviceTokenWebPush: // deviceTokenWebPush#9affdef7
-//  case *tdapi.DeviceTokenSimplePush: // deviceTokenSimplePush#2f49a60
-//  case *tdapi.DeviceTokenUbuntuPush: // deviceTokenUbuntuPush#6a3c0d26
-//  case *tdapi.DeviceTokenBlackBerryPush: // deviceTokenBlackBerryPush#5cef0102
-//  case *tdapi.DeviceTokenTizenPush: // deviceTokenTizenPush#aef0da33
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeDeviceToken(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.DeviceTokenFirebaseCloudMessaging: // deviceTokenFirebaseCloudMessaging#d0714a07
+//	case *tdapi.DeviceTokenApplePush: // deviceTokenApplePush#17196bc3
+//	case *tdapi.DeviceTokenApplePushVoIP: // deviceTokenApplePushVoIP#2ff045e9
+//	case *tdapi.DeviceTokenWindowsPush: // deviceTokenWindowsPush#abed428f
+//	case *tdapi.DeviceTokenMicrosoftPush: // deviceTokenMicrosoftPush#48f8e04c
+//	case *tdapi.DeviceTokenMicrosoftPushVoIP: // deviceTokenMicrosoftPushVoIP#d12ca351
+//	case *tdapi.DeviceTokenWebPush: // deviceTokenWebPush#9affdef7
+//	case *tdapi.DeviceTokenSimplePush: // deviceTokenSimplePush#2f49a60
+//	case *tdapi.DeviceTokenUbuntuPush: // deviceTokenUbuntuPush#6a3c0d26
+//	case *tdapi.DeviceTokenBlackBerryPush: // deviceTokenBlackBerryPush#5cef0102
+//	case *tdapi.DeviceTokenTizenPush: // deviceTokenTizenPush#aef0da33
+//	default: panic(v)
+//	}
 type DeviceTokenClass interface {
 	bin.Encoder
 	bin.Decoder

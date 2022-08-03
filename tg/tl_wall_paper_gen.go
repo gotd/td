@@ -467,7 +467,7 @@ func (w *WallPaper) GetSettings() (value WallPaperSettings, ok bool) {
 // Also used for some default wallpapers which contain only colours.
 //
 // Links:
-//  1) https://core.telegram.org/method/account.saveWallPaper
+//  1. https://core.telegram.org/method/account.saveWallPaper
 //
 // See https://core.telegram.org/constructor/wallPaperNoFile for reference.
 type WallPaperNoFile struct {
@@ -748,15 +748,16 @@ const WallPaperClassName = "WallPaper"
 // See https://core.telegram.org/type/WallPaper for reference.
 //
 // Example:
-//  g, err := tg.DecodeWallPaper(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.WallPaper: // wallPaper#a437c3ed
-//  case *tg.WallPaperNoFile: // wallPaperNoFile#e0804116
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeWallPaper(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.WallPaper: // wallPaper#a437c3ed
+//	case *tg.WallPaperNoFile: // wallPaperNoFile#e0804116
+//	default: panic(v)
+//	}
 type WallPaperClass interface {
 	bin.Encoder
 	bin.Decoder

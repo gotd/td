@@ -250,7 +250,8 @@ func (e *HelpEditUserInfoRequest) MapEntities() (value MessageEntityClassArray) 
 // Internal use
 //
 // Possible errors:
-//  400 USER_INVALID: Invalid user provided.
+//
+//	400 USER_INVALID: Invalid user provided.
 //
 // See https://core.telegram.org/method/help.editUserInfo for reference.
 func (c *Client) HelpEditUserInfo(ctx context.Context, request *HelpEditUserInfoRequest) (HelpUserInfoClass, error) {

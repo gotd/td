@@ -35,7 +35,7 @@ var (
 // Edit peers in peer folder¹
 //
 // Links:
-//  1) https://core.telegram.org/api/folders#peer-folders
+//  1. https://core.telegram.org/api/folders#peer-folders
 //
 // See https://core.telegram.org/method/folders.editPeerFolders for reference.
 type FoldersEditPeerFoldersRequest struct {
@@ -183,11 +183,12 @@ func (e *FoldersEditPeerFoldersRequest) GetFolderPeers() (value []InputFolderPee
 // Edit peers in peer folder¹
 //
 // Links:
-//  1) https://core.telegram.org/api/folders#peer-folders
+//  1. https://core.telegram.org/api/folders#peer-folders
 //
 // Possible errors:
-//  400 CHAT_ID_INVALID: The provided chat id is invalid.
-//  400 FOLDER_ID_INVALID: Invalid folder ID.
+//
+//	400 CHAT_ID_INVALID: The provided chat id is invalid.
+//	400 FOLDER_ID_INVALID: Invalid folder ID.
 //
 // See https://core.telegram.org/method/folders.editPeerFolders for reference.
 func (c *Client) FoldersEditPeerFolders(ctx context.Context, folderpeers []InputFolderPeer) (UpdatesClass, error) {

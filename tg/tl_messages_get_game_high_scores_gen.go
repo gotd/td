@@ -229,9 +229,10 @@ func (g *MessagesGetGameHighScoresRequest) GetUserID() (value InputUserClass) {
 // Get highscores of a game
 //
 // Possible errors:
-//  400 MESSAGE_ID_INVALID: The provided message id is invalid.
-//  400 PEER_ID_INVALID: The provided peer id is invalid.
-//  400 USER_BOT_REQUIRED: This method can only be called by a bot.
+//
+//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/messages.getGameHighScores for reference.
 // Can be used by bots.

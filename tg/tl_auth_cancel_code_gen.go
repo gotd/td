@@ -195,8 +195,9 @@ func (c *AuthCancelCodeRequest) GetPhoneCodeHash() (value string) {
 // Cancel the login verification code
 //
 // Possible errors:
-//  400 PHONE_CODE_EXPIRED: The phone code you provided has expired.
-//  406 PHONE_NUMBER_INVALID: The phone number is invalid.
+//
+//	400 PHONE_CODE_EXPIRED: The phone code you provided has expired.
+//	406 PHONE_NUMBER_INVALID: The phone number is invalid.
 //
 // See https://core.telegram.org/method/auth.cancelCode for reference.
 func (c *Client) AuthCancelCode(ctx context.Context, request *AuthCancelCodeRequest) (bool, error) {

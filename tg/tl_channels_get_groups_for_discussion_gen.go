@@ -39,10 +39,10 @@ var (
 // enabled using channels.togglePreHistoryHidden³, first.
 //
 // Links:
-//  1) https://core.telegram.org/api/discussion
-//  2) https://core.telegram.org/api/channel#basic-groups
-//  3) https://core.telegram.org/api/channel#supergroups
-//  4) https://core.telegram.org/method/channels.togglePreHistoryHidden
+//  1. https://core.telegram.org/api/discussion
+//  2. https://core.telegram.org/api/channel#basic-groups
+//  3. https://core.telegram.org/api/channel#supergroups
+//  4. https://core.telegram.org/method/channels.togglePreHistoryHidden
 //
 // See https://core.telegram.org/method/channels.getGroupsForDiscussion for reference.
 type ChannelsGetGroupsForDiscussionRequest struct {
@@ -146,10 +146,10 @@ func (g *ChannelsGetGroupsForDiscussionRequest) DecodeBare(b *bin.Buffer) error 
 // enabled using channels.togglePreHistoryHidden³, first.
 //
 // Links:
-//  1) https://core.telegram.org/api/discussion
-//  2) https://core.telegram.org/api/channel#basic-groups
-//  3) https://core.telegram.org/api/channel#supergroups
-//  4) https://core.telegram.org/method/channels.togglePreHistoryHidden
+//  1. https://core.telegram.org/api/discussion
+//  2. https://core.telegram.org/api/channel#basic-groups
+//  3. https://core.telegram.org/api/channel#supergroups
+//  4. https://core.telegram.org/method/channels.togglePreHistoryHidden
 //
 // See https://core.telegram.org/method/channels.getGroupsForDiscussion for reference.
 func (c *Client) ChannelsGetGroupsForDiscussion(ctx context.Context) (MessagesChatsClass, error) {

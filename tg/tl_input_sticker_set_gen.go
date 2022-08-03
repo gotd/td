@@ -536,7 +536,7 @@ func (i *InputStickerSetAnimatedEmoji) DecodeBare(b *bin.Buffer) error {
 // Used for fetching animated dice stickers¹
 //
 // Links:
-//  1) https://core.telegram.org/api/dice
+//  1. https://core.telegram.org/api/dice
 //
 // See https://core.telegram.org/constructor/inputStickerSetDice for reference.
 type InputStickerSetDice struct {
@@ -882,20 +882,21 @@ const InputStickerSetClassName = "InputStickerSet"
 // See https://core.telegram.org/type/InputStickerSet for reference.
 //
 // Example:
-//  g, err := tg.DecodeInputStickerSet(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InputStickerSetEmpty: // inputStickerSetEmpty#ffb62b95
-//  case *tg.InputStickerSetID: // inputStickerSetID#9de7a269
-//  case *tg.InputStickerSetShortName: // inputStickerSetShortName#861cc8a0
-//  case *tg.InputStickerSetAnimatedEmoji: // inputStickerSetAnimatedEmoji#28703c8
-//  case *tg.InputStickerSetDice: // inputStickerSetDice#e67f520e
-//  case *tg.InputStickerSetAnimatedEmojiAnimations: // inputStickerSetAnimatedEmojiAnimations#cde3739
-//  case *tg.InputStickerSetPremiumGifts: // inputStickerSetPremiumGifts#c88b3b02
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeInputStickerSet(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputStickerSetEmpty: // inputStickerSetEmpty#ffb62b95
+//	case *tg.InputStickerSetID: // inputStickerSetID#9de7a269
+//	case *tg.InputStickerSetShortName: // inputStickerSetShortName#861cc8a0
+//	case *tg.InputStickerSetAnimatedEmoji: // inputStickerSetAnimatedEmoji#28703c8
+//	case *tg.InputStickerSetDice: // inputStickerSetDice#e67f520e
+//	case *tg.InputStickerSetAnimatedEmojiAnimations: // inputStickerSetAnimatedEmojiAnimations#cde3739
+//	case *tg.InputStickerSetPremiumGifts: // inputStickerSetPremiumGifts#c88b3b02
+//	default: panic(v)
+//	}
 type InputStickerSetClass interface {
 	bin.Encoder
 	bin.Decoder

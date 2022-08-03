@@ -165,7 +165,8 @@ func (s *StickersSuggestShortNameRequest) GetTitle() (value string) {
 // Suggests a short name for a given stickerpack name
 //
 // Possible errors:
-//  400 TITLE_INVALID: The specified stickerpack title is invalid.
+//
+//	400 TITLE_INVALID: The specified stickerpack title is invalid.
 //
 // See https://core.telegram.org/method/stickers.suggestShortName for reference.
 func (c *Client) StickersSuggestShortName(ctx context.Context, title string) (*StickersSuggestedShortName, error) {

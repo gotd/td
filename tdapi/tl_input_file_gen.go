@@ -772,17 +772,18 @@ const InputFileClassName = "InputFile"
 // InputFileClass represents InputFile generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeInputFile(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.InputFileID: // inputFileId#6aa08b0d
-//  case *tdapi.InputFileRemote: // inputFileRemote#f9968b3e
-//  case *tdapi.InputFileLocal: // inputFileLocal#7a8c8ac7
-//  case *tdapi.InputFileGenerated: // inputFileGenerated#b0862800
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeInputFile(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.InputFileID: // inputFileId#6aa08b0d
+//	case *tdapi.InputFileRemote: // inputFileRemote#f9968b3e
+//	case *tdapi.InputFileLocal: // inputFileLocal#7a8c8ac7
+//	case *tdapi.InputFileGenerated: // inputFileGenerated#b0862800
+//	default: panic(v)
+//	}
 type InputFileClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -593,15 +593,16 @@ const HelpPromoDataClassName = "help.PromoData"
 // See https://core.telegram.org/type/help.PromoData for reference.
 //
 // Example:
-//  g, err := tg.DecodeHelpPromoData(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.HelpPromoDataEmpty: // help.promoDataEmpty#98f6ac75
-//  case *tg.HelpPromoData: // help.promoData#8c39793f
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeHelpPromoData(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.HelpPromoDataEmpty: // help.promoDataEmpty#98f6ac75
+//	case *tg.HelpPromoData: // help.promoData#8c39793f
+//	default: panic(v)
+//	}
 type HelpPromoDataClass interface {
 	bin.Encoder
 	bin.Decoder

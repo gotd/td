@@ -215,9 +215,10 @@ func (i *PhoneInviteToGroupCallRequest) MapUsers() (value InputUserClassArray) {
 // Invite a set of users to a group call.
 //
 // Possible errors:
-//  403 GROUPCALL_FORBIDDEN: The group call has already ended.
-//  400 INVITE_FORBIDDEN_WITH_JOINAS: If the user has anonymously joined a group call as a channel, they can't invite other users to the group call because that would cause deanonymization, because the invite would be sent using the original user ID, not the anonymized channel ID.
-//  400 USER_ALREADY_INVITED: You have already invited this user.
+//
+//	403 GROUPCALL_FORBIDDEN: The group call has already ended.
+//	400 INVITE_FORBIDDEN_WITH_JOINAS: If the user has anonymously joined a group call as a channel, they can't invite other users to the group call because that would cause deanonymization, because the invite would be sent using the original user ID, not the anonymized channel ID.
+//	400 USER_ALREADY_INVITED: You have already invited this user.
 //
 // See https://core.telegram.org/method/phone.inviteToGroupCall for reference.
 func (c *Client) PhoneInviteToGroupCall(ctx context.Context, request *PhoneInviteToGroupCallRequest) (UpdatesClass, error) {

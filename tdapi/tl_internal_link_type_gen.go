@@ -5507,44 +5507,45 @@ const InternalLinkTypeClassName = "InternalLinkType"
 // InternalLinkTypeClass represents InternalLinkType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeInternalLinkType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.InternalLinkTypeActiveSessions: // internalLinkTypeActiveSessions#706bbbad
-//  case *tdapi.InternalLinkTypeAttachmentMenuBot: // internalLinkTypeAttachmentMenuBot#644c4225
-//  case *tdapi.InternalLinkTypeAuthenticationCode: // internalLinkTypeAuthenticationCode#f3874ff2
-//  case *tdapi.InternalLinkTypeBackground: // internalLinkTypeBackground#b0d2908
-//  case *tdapi.InternalLinkTypeBotStart: // internalLinkTypeBotStart#3f985fed
-//  case *tdapi.InternalLinkTypeBotStartInGroup: // internalLinkTypeBotStartInGroup#ca0d8cce
-//  case *tdapi.InternalLinkTypeBotAddToChannel: // internalLinkTypeBotAddToChannel#538ac2c0
-//  case *tdapi.InternalLinkTypeChangePhoneNumber: // internalLinkTypeChangePhoneNumber#f0275b01
-//  case *tdapi.InternalLinkTypeChatInvite: // internalLinkTypeChatInvite#198c3cd9
-//  case *tdapi.InternalLinkTypeFilterSettings: // internalLinkTypeFilterSettings#5981179b
-//  case *tdapi.InternalLinkTypeGame: // internalLinkTypeGame#f074adcd
-//  case *tdapi.InternalLinkTypeInvoice: // internalLinkTypeInvoice#f34c6dac
-//  case *tdapi.InternalLinkTypeLanguagePack: // internalLinkTypeLanguagePack#a9870d6c
-//  case *tdapi.InternalLinkTypeLanguageSettings: // internalLinkTypeLanguageSettings#b019e6e6
-//  case *tdapi.InternalLinkTypeMessage: // internalLinkTypeMessage#3a535c52
-//  case *tdapi.InternalLinkTypeMessageDraft: // internalLinkTypeMessageDraft#276fbad5
-//  case *tdapi.InternalLinkTypePassportDataRequest: // internalLinkTypePassportDataRequest#c50fce81
-//  case *tdapi.InternalLinkTypePhoneNumberConfirmation: // internalLinkTypePhoneNumberConfirmation#68bf6b16
-//  case *tdapi.InternalLinkTypePremiumFeatures: // internalLinkTypePremiumFeatures#48884f49
-//  case *tdapi.InternalLinkTypePrivacyAndSecuritySettings: // internalLinkTypePrivacyAndSecuritySettings#ad5f6acf
-//  case *tdapi.InternalLinkTypeProxy: // internalLinkTypeProxy#b1b12cea
-//  case *tdapi.InternalLinkTypePublicChat: // internalLinkTypePublicChat#a774573b
-//  case *tdapi.InternalLinkTypeQrCodeAuthentication: // internalLinkTypeQrCodeAuthentication#bf121924
-//  case *tdapi.InternalLinkTypeSettings: // internalLinkTypeSettings#177545b4
-//  case *tdapi.InternalLinkTypeStickerSet: // internalLinkTypeStickerSet#e06e56b9
-//  case *tdapi.InternalLinkTypeTheme: // internalLinkTypeTheme#f405f807
-//  case *tdapi.InternalLinkTypeThemeSettings: // internalLinkTypeThemeSettings#c14d3916
-//  case *tdapi.InternalLinkTypeUnknownDeepLink: // internalLinkTypeUnknownDeepLink#2549d7db
-//  case *tdapi.InternalLinkTypeUnsupportedProxy: // internalLinkTypeUnsupportedProxy#de399f09
-//  case *tdapi.InternalLinkTypeUserPhoneNumber: // internalLinkTypeUserPhoneNumber#8b6d9a69
-//  case *tdapi.InternalLinkTypeVideoChat: // internalLinkTypeVideoChat#8796f8b4
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeInternalLinkType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.InternalLinkTypeActiveSessions: // internalLinkTypeActiveSessions#706bbbad
+//	case *tdapi.InternalLinkTypeAttachmentMenuBot: // internalLinkTypeAttachmentMenuBot#644c4225
+//	case *tdapi.InternalLinkTypeAuthenticationCode: // internalLinkTypeAuthenticationCode#f3874ff2
+//	case *tdapi.InternalLinkTypeBackground: // internalLinkTypeBackground#b0d2908
+//	case *tdapi.InternalLinkTypeBotStart: // internalLinkTypeBotStart#3f985fed
+//	case *tdapi.InternalLinkTypeBotStartInGroup: // internalLinkTypeBotStartInGroup#ca0d8cce
+//	case *tdapi.InternalLinkTypeBotAddToChannel: // internalLinkTypeBotAddToChannel#538ac2c0
+//	case *tdapi.InternalLinkTypeChangePhoneNumber: // internalLinkTypeChangePhoneNumber#f0275b01
+//	case *tdapi.InternalLinkTypeChatInvite: // internalLinkTypeChatInvite#198c3cd9
+//	case *tdapi.InternalLinkTypeFilterSettings: // internalLinkTypeFilterSettings#5981179b
+//	case *tdapi.InternalLinkTypeGame: // internalLinkTypeGame#f074adcd
+//	case *tdapi.InternalLinkTypeInvoice: // internalLinkTypeInvoice#f34c6dac
+//	case *tdapi.InternalLinkTypeLanguagePack: // internalLinkTypeLanguagePack#a9870d6c
+//	case *tdapi.InternalLinkTypeLanguageSettings: // internalLinkTypeLanguageSettings#b019e6e6
+//	case *tdapi.InternalLinkTypeMessage: // internalLinkTypeMessage#3a535c52
+//	case *tdapi.InternalLinkTypeMessageDraft: // internalLinkTypeMessageDraft#276fbad5
+//	case *tdapi.InternalLinkTypePassportDataRequest: // internalLinkTypePassportDataRequest#c50fce81
+//	case *tdapi.InternalLinkTypePhoneNumberConfirmation: // internalLinkTypePhoneNumberConfirmation#68bf6b16
+//	case *tdapi.InternalLinkTypePremiumFeatures: // internalLinkTypePremiumFeatures#48884f49
+//	case *tdapi.InternalLinkTypePrivacyAndSecuritySettings: // internalLinkTypePrivacyAndSecuritySettings#ad5f6acf
+//	case *tdapi.InternalLinkTypeProxy: // internalLinkTypeProxy#b1b12cea
+//	case *tdapi.InternalLinkTypePublicChat: // internalLinkTypePublicChat#a774573b
+//	case *tdapi.InternalLinkTypeQrCodeAuthentication: // internalLinkTypeQrCodeAuthentication#bf121924
+//	case *tdapi.InternalLinkTypeSettings: // internalLinkTypeSettings#177545b4
+//	case *tdapi.InternalLinkTypeStickerSet: // internalLinkTypeStickerSet#e06e56b9
+//	case *tdapi.InternalLinkTypeTheme: // internalLinkTypeTheme#f405f807
+//	case *tdapi.InternalLinkTypeThemeSettings: // internalLinkTypeThemeSettings#c14d3916
+//	case *tdapi.InternalLinkTypeUnknownDeepLink: // internalLinkTypeUnknownDeepLink#2549d7db
+//	case *tdapi.InternalLinkTypeUnsupportedProxy: // internalLinkTypeUnsupportedProxy#de399f09
+//	case *tdapi.InternalLinkTypeUserPhoneNumber: // internalLinkTypeUserPhoneNumber#8b6d9a69
+//	case *tdapi.InternalLinkTypeVideoChat: // internalLinkTypeVideoChat#8796f8b4
+//	default: panic(v)
+//	}
 type InternalLinkTypeClass interface {
 	bin.Encoder
 	bin.Decoder

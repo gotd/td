@@ -35,7 +35,7 @@ var (
 // Send an album or grouped media¹
 //
 // Links:
-//  1) https://core.telegram.org/api/files#albums-grouped-media
+//  1. https://core.telegram.org/api/files#albums-grouped-media
 //
 // See https://core.telegram.org/method/messages.sendMultiMedia for reference.
 type MessagesSendMultiMediaRequest struct {
@@ -532,23 +532,24 @@ func (s *MessagesSendMultiMediaRequest) GetSendAs() (value InputPeerClass, ok bo
 // Send an album or grouped media¹
 //
 // Links:
-//  1) https://core.telegram.org/api/files#albums-grouped-media
+//  1. https://core.telegram.org/api/files#albums-grouped-media
 //
 // Possible errors:
-//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//  400 CHAT_FORWARDS_RESTRICTED: You can't forward messages from a protected chat.
-//  403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
-//  400 MEDIA_CAPTION_TOO_LONG: The caption is too long.
-//  400 MEDIA_EMPTY: The provided media object is invalid.
-//  400 MEDIA_INVALID: Media invalid.
-//  400 MULTI_MEDIA_TOO_LONG: Too many media files for album.
-//  400 PEER_ID_INVALID: The provided peer id is invalid.
-//  500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
-//  400 RANDOM_ID_EMPTY: Random ID empty.
-//  400 SCHEDULE_DATE_TOO_LATE: You can't schedule a message this far in the future.
-//  400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
-//  420 SLOWMODE_WAIT_%d: Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
+//
+//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	400 CHAT_FORWARDS_RESTRICTED: You can't forward messages from a protected chat.
+//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
+//	400 MEDIA_CAPTION_TOO_LONG: The caption is too long.
+//	400 MEDIA_EMPTY: The provided media object is invalid.
+//	400 MEDIA_INVALID: Media invalid.
+//	400 MULTI_MEDIA_TOO_LONG: Too many media files for album.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
+//	400 RANDOM_ID_EMPTY: Random ID empty.
+//	400 SCHEDULE_DATE_TOO_LATE: You can't schedule a message this far in the future.
+//	400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
+//	420 SLOWMODE_WAIT_%d: Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
 //
 // See https://core.telegram.org/method/messages.sendMultiMedia for reference.
 // Can be used by bots.

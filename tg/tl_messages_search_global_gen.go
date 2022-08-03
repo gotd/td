@@ -450,8 +450,9 @@ func (s *MessagesSearchGlobalRequest) GetLimit() (value int) {
 // Search for messages and peers globally
 //
 // Possible errors:
-//  400 FOLDER_ID_INVALID: Invalid folder ID.
-//  400 SEARCH_QUERY_EMPTY: The search query is empty.
+//
+//	400 FOLDER_ID_INVALID: Invalid folder ID.
+//	400 SEARCH_QUERY_EMPTY: The search query is empty.
 //
 // See https://core.telegram.org/method/messages.searchGlobal for reference.
 func (c *Client) MessagesSearchGlobal(ctx context.Context, request *MessagesSearchGlobalRequest) (MessagesMessagesClass, error) {

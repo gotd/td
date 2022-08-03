@@ -686,17 +686,18 @@ const PremiumSourceClassName = "PremiumSource"
 // PremiumSourceClass represents PremiumSource generic type.
 //
 // Example:
-//  g, err := tdapi.DecodePremiumSource(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.PremiumSourceLimitExceeded: // premiumSourceLimitExceeded#85ae8702
-//  case *tdapi.PremiumSourceFeature: // premiumSourceFeature#1a929325
-//  case *tdapi.PremiumSourceLink: // premiumSourceLink#7f42999c
-//  case *tdapi.PremiumSourceSettings: // premiumSourceSettings#eef88535
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodePremiumSource(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.PremiumSourceLimitExceeded: // premiumSourceLimitExceeded#85ae8702
+//	case *tdapi.PremiumSourceFeature: // premiumSourceFeature#1a929325
+//	case *tdapi.PremiumSourceLink: // premiumSourceLink#7f42999c
+//	case *tdapi.PremiumSourceSettings: // premiumSourceSettings#eef88535
+//	default: panic(v)
+//	}
 type PremiumSourceClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -670,16 +670,17 @@ const LanguagePackStringValueClassName = "LanguagePackStringValue"
 // LanguagePackStringValueClass represents LanguagePackStringValue generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeLanguagePackStringValue(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.LanguagePackStringValueOrdinary: // languagePackStringValueOrdinary#f124a660
-//  case *tdapi.LanguagePackStringValuePluralized: // languagePackStringValuePluralized#71a812c5
-//  case *tdapi.LanguagePackStringValueDeleted: // languagePackStringValueDeleted#6d5cb6fa
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeLanguagePackStringValue(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.LanguagePackStringValueOrdinary: // languagePackStringValueOrdinary#f124a660
+//	case *tdapi.LanguagePackStringValuePluralized: // languagePackStringValuePluralized#71a812c5
+//	case *tdapi.LanguagePackStringValueDeleted: // languagePackStringValueDeleted#6d5cb6fa
+//	default: panic(v)
+//	}
 type LanguagePackStringValueClass interface {
 	bin.Encoder
 	bin.Decoder

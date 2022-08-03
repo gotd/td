@@ -35,7 +35,7 @@ var (
 // Upload a media file associated with an imported chat, click here for more info »¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/import
+//  1. https://core.telegram.org/api/import
 //
 // See https://core.telegram.org/method/messages.uploadImportedMedia for reference.
 type MessagesUploadImportedMediaRequest struct {
@@ -263,7 +263,7 @@ func (u *MessagesUploadImportedMediaRequest) GetMedia() (value InputMediaClass) 
 // Upload a media file associated with an imported chat, click here for more info »¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/import
+//  1. https://core.telegram.org/api/import
 //
 // See https://core.telegram.org/method/messages.uploadImportedMedia for reference.
 func (c *Client) MessagesUploadImportedMedia(ctx context.Context, request *MessagesUploadImportedMediaRequest) (MessageMediaClass, error) {

@@ -644,7 +644,7 @@ func (i *InputDocumentFileLocation) GetThumbSize() (value string) {
 // Location of encrypted telegram passport¹ file.
 //
 // Links:
-//  1) https://core.telegram.org/passport
+//  1. https://core.telegram.org/passport
 //
 // See https://core.telegram.org/constructor/inputSecureFileLocation for reference.
 type InputSecureFileLocation struct {
@@ -917,7 +917,7 @@ func (i *InputTakeoutFileLocation) DecodeBare(b *bin.Buffer) error {
 // Use this object to download a photo with upload.getFile¹ method
 //
 // Links:
-//  1) https://core.telegram.org/method/upload.getFile
+//  1. https://core.telegram.org/method/upload.getFile
 //
 // See https://core.telegram.org/constructor/inputPhotoFileLocation for reference.
 type InputPhotoFileLocation struct {
@@ -1643,7 +1643,7 @@ func (i *InputPeerPhotoFileLocation) GetPhotoID() (value int64) {
 // Location of stickerset thumbnail (see files¹)
 //
 // Links:
-//  1) https://core.telegram.org/api/files
+//  1. https://core.telegram.org/api/files
 //
 // See https://core.telegram.org/constructor/inputStickerSetThumb for reference.
 type InputStickerSetThumb struct {
@@ -2563,25 +2563,26 @@ const InputFileLocationClassName = "InputFileLocation"
 // See https://core.telegram.org/type/InputFileLocation for reference.
 //
 // Example:
-//  g, err := tg.DecodeInputFileLocation(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InputFileLocation: // inputFileLocation#dfdaabe1
-//  case *tg.InputEncryptedFileLocation: // inputEncryptedFileLocation#f5235d55
-//  case *tg.InputDocumentFileLocation: // inputDocumentFileLocation#bad07584
-//  case *tg.InputSecureFileLocation: // inputSecureFileLocation#cbc7ee28
-//  case *tg.InputTakeoutFileLocation: // inputTakeoutFileLocation#29be5899
-//  case *tg.InputPhotoFileLocation: // inputPhotoFileLocation#40181ffe
-//  case *tg.InputPhotoLegacyFileLocation: // inputPhotoLegacyFileLocation#d83466f3
-//  case *tg.InputPeerPhotoFileLocation: // inputPeerPhotoFileLocation#37257e99
-//  case *tg.InputStickerSetThumb: // inputStickerSetThumb#9d84f3db
-//  case *tg.InputGroupCallStream: // inputGroupCallStream#598a92a
-//  case *tg.InputPeerPhotoFileLocationLegacy: // inputPeerPhotoFileLocationLegacy#27d69997
-//  case *tg.InputStickerSetThumbLegacy: // inputStickerSetThumbLegacy#dbaeae9
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeInputFileLocation(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputFileLocation: // inputFileLocation#dfdaabe1
+//	case *tg.InputEncryptedFileLocation: // inputEncryptedFileLocation#f5235d55
+//	case *tg.InputDocumentFileLocation: // inputDocumentFileLocation#bad07584
+//	case *tg.InputSecureFileLocation: // inputSecureFileLocation#cbc7ee28
+//	case *tg.InputTakeoutFileLocation: // inputTakeoutFileLocation#29be5899
+//	case *tg.InputPhotoFileLocation: // inputPhotoFileLocation#40181ffe
+//	case *tg.InputPhotoLegacyFileLocation: // inputPhotoLegacyFileLocation#d83466f3
+//	case *tg.InputPeerPhotoFileLocation: // inputPeerPhotoFileLocation#37257e99
+//	case *tg.InputStickerSetThumb: // inputStickerSetThumb#9d84f3db
+//	case *tg.InputGroupCallStream: // inputGroupCallStream#598a92a
+//	case *tg.InputPeerPhotoFileLocationLegacy: // inputPeerPhotoFileLocationLegacy#27d69997
+//	case *tg.InputStickerSetThumbLegacy: // inputStickerSetThumbLegacy#dbaeae9
+//	default: panic(v)
+//	}
 type InputFileLocationClass interface {
 	bin.Encoder
 	bin.Decoder

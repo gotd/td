@@ -567,16 +567,17 @@ const InputChatPhotoClassName = "InputChatPhoto"
 // See https://core.telegram.org/type/InputChatPhoto for reference.
 //
 // Example:
-//  g, err := tg.DecodeInputChatPhoto(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InputChatPhotoEmpty: // inputChatPhotoEmpty#1ca48f57
-//  case *tg.InputChatUploadedPhoto: // inputChatUploadedPhoto#c642724e
-//  case *tg.InputChatPhoto: // inputChatPhoto#8953ad37
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeInputChatPhoto(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputChatPhotoEmpty: // inputChatPhotoEmpty#1ca48f57
+//	case *tg.InputChatUploadedPhoto: // inputChatUploadedPhoto#c642724e
+//	case *tg.InputChatPhoto: // inputChatPhoto#8953ad37
+//	default: panic(v)
+//	}
 type InputChatPhotoClass interface {
 	bin.Encoder
 	bin.Decoder

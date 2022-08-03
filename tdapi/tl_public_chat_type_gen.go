@@ -299,15 +299,16 @@ const PublicChatTypeClassName = "PublicChatType"
 // PublicChatTypeClass represents PublicChatType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodePublicChatType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.PublicChatTypeHasUsername: // publicChatTypeHasUsername#14e8a07e
-//  case *tdapi.PublicChatTypeIsLocationBased: // publicChatTypeIsLocationBased#468e6090
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodePublicChatType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.PublicChatTypeHasUsername: // publicChatTypeHasUsername#14e8a07e
+//	case *tdapi.PublicChatTypeIsLocationBased: // publicChatTypeIsLocationBased#468e6090
+//	default: panic(v)
+//	}
 type PublicChatTypeClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -1637,15 +1637,16 @@ const ChatStatisticsClassName = "ChatStatistics"
 // ChatStatisticsClass represents ChatStatistics generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeChatStatistics(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.ChatStatisticsSupergroup: // chatStatisticsSupergroup#c67549ef
-//  case *tdapi.ChatStatisticsChannel: // chatStatisticsChannel#9be23786
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeChatStatistics(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.ChatStatisticsSupergroup: // chatStatisticsSupergroup#c67549ef
+//	case *tdapi.ChatStatisticsChannel: // chatStatisticsChannel#9be23786
+//	default: panic(v)
+//	}
 type ChatStatisticsClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -1478,24 +1478,25 @@ const PremiumFeatureClassName = "PremiumFeature"
 // PremiumFeatureClass represents PremiumFeature generic type.
 //
 // Example:
-//  g, err := tdapi.DecodePremiumFeature(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.PremiumFeatureIncreasedLimits: // premiumFeatureIncreasedLimits#6a6be1b7
-//  case *tdapi.PremiumFeatureIncreasedUploadFileSize: // premiumFeatureIncreasedUploadFileSize#6ccce473
-//  case *tdapi.PremiumFeatureImprovedDownloadSpeed: // premiumFeatureImprovedDownloadSpeed#f00b4a3e
-//  case *tdapi.PremiumFeatureVoiceRecognition: // premiumFeatureVoiceRecognition#4cc89fde
-//  case *tdapi.PremiumFeatureDisabledAds: // premiumFeatureDisabledAds#8847624a
-//  case *tdapi.PremiumFeatureUniqueReactions: // premiumFeatureUniqueReactions#2db3b017
-//  case *tdapi.PremiumFeatureUniqueStickers: // premiumFeatureUniqueStickers#82b97c00
-//  case *tdapi.PremiumFeatureAdvancedChatManagement: // premiumFeatureAdvancedChatManagement#2f774d1a
-//  case *tdapi.PremiumFeatureProfileBadge: // premiumFeatureProfileBadge#ded30c2
-//  case *tdapi.PremiumFeatureAnimatedProfilePhoto: // premiumFeatureAnimatedProfilePhoto#f9fecce6
-//  case *tdapi.PremiumFeatureAppIcons: // premiumFeatureAppIcons#5e79f489
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodePremiumFeature(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.PremiumFeatureIncreasedLimits: // premiumFeatureIncreasedLimits#6a6be1b7
+//	case *tdapi.PremiumFeatureIncreasedUploadFileSize: // premiumFeatureIncreasedUploadFileSize#6ccce473
+//	case *tdapi.PremiumFeatureImprovedDownloadSpeed: // premiumFeatureImprovedDownloadSpeed#f00b4a3e
+//	case *tdapi.PremiumFeatureVoiceRecognition: // premiumFeatureVoiceRecognition#4cc89fde
+//	case *tdapi.PremiumFeatureDisabledAds: // premiumFeatureDisabledAds#8847624a
+//	case *tdapi.PremiumFeatureUniqueReactions: // premiumFeatureUniqueReactions#2db3b017
+//	case *tdapi.PremiumFeatureUniqueStickers: // premiumFeatureUniqueStickers#82b97c00
+//	case *tdapi.PremiumFeatureAdvancedChatManagement: // premiumFeatureAdvancedChatManagement#2f774d1a
+//	case *tdapi.PremiumFeatureProfileBadge: // premiumFeatureProfileBadge#ded30c2
+//	case *tdapi.PremiumFeatureAnimatedProfilePhoto: // premiumFeatureAnimatedProfilePhoto#f9fecce6
+//	case *tdapi.PremiumFeatureAppIcons: // premiumFeatureAppIcons#5e79f489
+//	default: panic(v)
+//	}
 type PremiumFeatureClass interface {
 	bin.Encoder
 	bin.Decoder

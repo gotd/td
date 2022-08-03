@@ -975,15 +975,16 @@ const DialogClassName = "Dialog"
 // See https://core.telegram.org/type/Dialog for reference.
 //
 // Example:
-//  g, err := tg.DecodeDialog(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.Dialog: // dialog#a8edd0f5
-//  case *tg.DialogFolder: // dialogFolder#71bd134c
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeDialog(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.Dialog: // dialog#a8edd0f5
+//	case *tg.DialogFolder: // dialogFolder#71bd134c
+//	default: panic(v)
+//	}
 type DialogClass interface {
 	bin.Encoder
 	bin.Decoder

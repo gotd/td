@@ -858,17 +858,18 @@ const NotificationTypeClassName = "NotificationType"
 // NotificationTypeClass represents NotificationType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeNotificationType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.NotificationTypeNewMessage: // notificationTypeNewMessage#f0d0e3f2
-//  case *tdapi.NotificationTypeNewSecretChat: // notificationTypeNewSecretChat#4771c6b0
-//  case *tdapi.NotificationTypeNewCall: // notificationTypeNewCall#66164179
-//  case *tdapi.NotificationTypeNewPushMessage: // notificationTypeNewPushMessage#d5949e32
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeNotificationType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.NotificationTypeNewMessage: // notificationTypeNewMessage#f0d0e3f2
+//	case *tdapi.NotificationTypeNewSecretChat: // notificationTypeNewSecretChat#4771c6b0
+//	case *tdapi.NotificationTypeNewCall: // notificationTypeNewCall#66164179
+//	case *tdapi.NotificationTypeNewPushMessage: // notificationTypeNewPushMessage#d5949e32
+//	default: panic(v)
+//	}
 type NotificationTypeClass interface {
 	bin.Encoder
 	bin.Decoder

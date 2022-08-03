@@ -35,7 +35,7 @@ var (
 // Telegram Passport¹ authorization form
 //
 // Links:
-//  1) https://core.telegram.org/passport
+//  1. https://core.telegram.org/passport
 //
 // See https://core.telegram.org/constructor/account.authorizationForm for reference.
 type AccountAuthorizationForm struct {

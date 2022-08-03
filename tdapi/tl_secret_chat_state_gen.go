@@ -430,16 +430,17 @@ const SecretChatStateClassName = "SecretChatState"
 // SecretChatStateClass represents SecretChatState generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeSecretChatState(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.SecretChatStatePending: // secretChatStatePending#9e6c967c
-//  case *tdapi.SecretChatStateReady: // secretChatStateReady#9ff4b7e9
-//  case *tdapi.SecretChatStateClosed: // secretChatStateClosed#8c1006ed
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeSecretChatState(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.SecretChatStatePending: // secretChatStatePending#9e6c967c
+//	case *tdapi.SecretChatStateReady: // secretChatStateReady#9ff4b7e9
+//	case *tdapi.SecretChatStateClosed: // secretChatStateClosed#8c1006ed
+//	default: panic(v)
+//	}
 type SecretChatStateClass interface {
 	bin.Encoder
 	bin.Decoder

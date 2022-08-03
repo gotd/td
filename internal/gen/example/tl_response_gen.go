@@ -293,15 +293,16 @@ const ResponseClassName = "Response"
 // See https://localhost:80/doc/type/Response for reference.
 //
 // Example:
-//  g, err := td.DecodeResponse(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *td.ResponseID: // responseID#85d7fd8b
-//  case *td.ResponseText: // responseText#cb0244f2
-//  default: panic(v)
-//  }
+//
+//	g, err := td.DecodeResponse(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *td.ResponseID: // responseID#85d7fd8b
+//	case *td.ResponseText: // responseText#cb0244f2
+//	default: panic(v)
+//	}
 type ResponseClass interface {
 	bin.Encoder
 	bin.Decoder

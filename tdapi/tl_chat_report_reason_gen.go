@@ -1347,23 +1347,24 @@ const ChatReportReasonClassName = "ChatReportReason"
 // ChatReportReasonClass represents ChatReportReason generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeChatReportReason(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.ChatReportReasonSpam: // chatReportReasonSpam#e18d10a1
-//  case *tdapi.ChatReportReasonViolence: // chatReportReasonViolence#b0b637fd
-//  case *tdapi.ChatReportReasonPornography: // chatReportReasonPornography#2b123871
-//  case *tdapi.ChatReportReasonChildAbuse: // chatReportReasonChildAbuse#c02e9ebd
-//  case *tdapi.ChatReportReasonCopyright: // chatReportReasonCopyright#3ad2dea0
-//  case *tdapi.ChatReportReasonUnrelatedLocation: // chatReportReasonUnrelatedLocation#282ad3
-//  case *tdapi.ChatReportReasonFake: // chatReportReasonFake#99e22d92
-//  case *tdapi.ChatReportReasonIllegalDrugs: // chatReportReasonIllegalDrugs#cda95a55
-//  case *tdapi.ChatReportReasonPersonalDetails: // chatReportReasonPersonalDetails#42d38775
-//  case *tdapi.ChatReportReasonCustom: // chatReportReasonCustom#4cd37316
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeChatReportReason(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.ChatReportReasonSpam: // chatReportReasonSpam#e18d10a1
+//	case *tdapi.ChatReportReasonViolence: // chatReportReasonViolence#b0b637fd
+//	case *tdapi.ChatReportReasonPornography: // chatReportReasonPornography#2b123871
+//	case *tdapi.ChatReportReasonChildAbuse: // chatReportReasonChildAbuse#c02e9ebd
+//	case *tdapi.ChatReportReasonCopyright: // chatReportReasonCopyright#3ad2dea0
+//	case *tdapi.ChatReportReasonUnrelatedLocation: // chatReportReasonUnrelatedLocation#282ad3
+//	case *tdapi.ChatReportReasonFake: // chatReportReasonFake#99e22d92
+//	case *tdapi.ChatReportReasonIllegalDrugs: // chatReportReasonIllegalDrugs#cda95a55
+//	case *tdapi.ChatReportReasonPersonalDetails: // chatReportReasonPersonalDetails#42d38775
+//	case *tdapi.ChatReportReasonCustom: // chatReportReasonCustom#4cd37316
+//	default: panic(v)
+//	}
 type ChatReportReasonClass interface {
 	bin.Encoder
 	bin.Decoder

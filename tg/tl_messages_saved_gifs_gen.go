@@ -329,15 +329,16 @@ const MessagesSavedGifsClassName = "messages.SavedGifs"
 // See https://core.telegram.org/type/messages.SavedGifs for reference.
 //
 // Example:
-//  g, err := tg.DecodeMessagesSavedGifs(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.MessagesSavedGifsNotModified: // messages.savedGifsNotModified#e8025ca2
-//  case *tg.MessagesSavedGifs: // messages.savedGifs#84a02a0d
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeMessagesSavedGifs(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.MessagesSavedGifsNotModified: // messages.savedGifsNotModified#e8025ca2
+//	case *tg.MessagesSavedGifs: // messages.savedGifs#84a02a0d
+//	default: panic(v)
+//	}
 type MessagesSavedGifsClass interface {
 	bin.Encoder
 	bin.Decoder

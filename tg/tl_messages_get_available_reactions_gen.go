@@ -35,7 +35,7 @@ var (
 // Obtain available message reactions »¹
 //
 // Links:
-//  1) https://core.telegram.org/api/reactions
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getAvailableReactions for reference.
 type MessagesGetAvailableReactionsRequest struct {
@@ -171,7 +171,7 @@ func (g *MessagesGetAvailableReactionsRequest) GetHash() (value int) {
 // Obtain available message reactions »¹
 //
 // Links:
-//  1) https://core.telegram.org/api/reactions
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getAvailableReactions for reference.
 func (c *Client) MessagesGetAvailableReactions(ctx context.Context, hash int) (MessagesAvailableReactionsClass, error) {

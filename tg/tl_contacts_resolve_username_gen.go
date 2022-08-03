@@ -165,9 +165,10 @@ func (r *ContactsResolveUsernameRequest) GetUsername() (value string) {
 // Resolve a @username to get peer info
 //
 // Possible errors:
-//  400 CONNECTION_LAYER_INVALID: Layer invalid.
-//  400 USERNAME_INVALID: The provided username is not valid.
-//  400 USERNAME_NOT_OCCUPIED: The provided username is not occupied.
+//
+//	400 CONNECTION_LAYER_INVALID: Layer invalid.
+//	400 USERNAME_INVALID: The provided username is not valid.
+//	400 USERNAME_NOT_OCCUPIED: The provided username is not occupied.
 //
 // See https://core.telegram.org/method/contacts.resolveUsername for reference.
 // Can be used by bots.

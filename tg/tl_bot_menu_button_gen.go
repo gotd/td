@@ -402,16 +402,17 @@ const BotMenuButtonClassName = "BotMenuButton"
 // See https://core.telegram.org/type/BotMenuButton for reference.
 //
 // Example:
-//  g, err := tg.DecodeBotMenuButton(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.BotMenuButtonDefault: // botMenuButtonDefault#7533a588
-//  case *tg.BotMenuButtonCommands: // botMenuButtonCommands#4258c205
-//  case *tg.BotMenuButton: // botMenuButton#c7b57ce6
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeBotMenuButton(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.BotMenuButtonDefault: // botMenuButtonDefault#7533a588
+//	case *tg.BotMenuButtonCommands: // botMenuButtonCommands#4258c205
+//	case *tg.BotMenuButton: // botMenuButton#c7b57ce6
+//	default: panic(v)
+//	}
 type BotMenuButtonClass interface {
 	bin.Encoder
 	bin.Decoder

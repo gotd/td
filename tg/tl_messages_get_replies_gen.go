@@ -403,8 +403,9 @@ func (g *MessagesGetRepliesRequest) GetHash() (value int64) {
 // Get messages in a reply thread
 //
 // Possible errors:
-//  400 MSG_ID_INVALID: Invalid message ID provided.
-//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//
+//	400 MSG_ID_INVALID: Invalid message ID provided.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.getReplies for reference.
 func (c *Client) MessagesGetReplies(ctx context.Context, request *MessagesGetRepliesRequest) (MessagesMessagesClass, error) {

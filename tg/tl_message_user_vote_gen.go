@@ -225,7 +225,7 @@ func (m *MessageUserVote) GetDate() (value int) {
 // messages.getPollVotes¹)
 //
 // Links:
-//  1) https://core.telegram.org/method/messages.getPollVotes
+//  1. https://core.telegram.org/method/messages.getPollVotes
 //
 // See https://core.telegram.org/constructor/messageUserVoteInputOption for reference.
 type MessageUserVoteInputOption struct {
@@ -596,16 +596,17 @@ const MessageUserVoteClassName = "MessageUserVote"
 // See https://core.telegram.org/type/MessageUserVote for reference.
 //
 // Example:
-//  g, err := tg.DecodeMessageUserVote(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.MessageUserVote: // messageUserVote#34d247b4
-//  case *tg.MessageUserVoteInputOption: // messageUserVoteInputOption#3ca5b0ec
-//  case *tg.MessageUserVoteMultiple: // messageUserVoteMultiple#8a65e557
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeMessageUserVote(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.MessageUserVote: // messageUserVote#34d247b4
+//	case *tg.MessageUserVoteInputOption: // messageUserVoteInputOption#3ca5b0ec
+//	case *tg.MessageUserVoteMultiple: // messageUserVoteMultiple#8a65e557
+//	default: panic(v)
+//	}
 type MessageUserVoteClass interface {
 	bin.Encoder
 	bin.Decoder

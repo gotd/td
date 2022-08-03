@@ -954,20 +954,21 @@ const ThumbnailFormatClassName = "ThumbnailFormat"
 // ThumbnailFormatClass represents ThumbnailFormat generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeThumbnailFormat(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.ThumbnailFormatJpeg: // thumbnailFormatJpeg#d90c5488
-//  case *tdapi.ThumbnailFormatGif: // thumbnailFormatGif#4aa3258a
-//  case *tdapi.ThumbnailFormatMpeg4: // thumbnailFormatMpeg4#109b57fe
-//  case *tdapi.ThumbnailFormatPng: // thumbnailFormatPng#5e0697f5
-//  case *tdapi.ThumbnailFormatTgs: // thumbnailFormatTgs#4e694852
-//  case *tdapi.ThumbnailFormatWebm: // thumbnailFormatWebm#d8a7e727
-//  case *tdapi.ThumbnailFormatWebp: // thumbnailFormatWebp#fcce4c12
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeThumbnailFormat(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.ThumbnailFormatJpeg: // thumbnailFormatJpeg#d90c5488
+//	case *tdapi.ThumbnailFormatGif: // thumbnailFormatGif#4aa3258a
+//	case *tdapi.ThumbnailFormatMpeg4: // thumbnailFormatMpeg4#109b57fe
+//	case *tdapi.ThumbnailFormatPng: // thumbnailFormatPng#5e0697f5
+//	case *tdapi.ThumbnailFormatTgs: // thumbnailFormatTgs#4e694852
+//	case *tdapi.ThumbnailFormatWebm: // thumbnailFormatWebm#d8a7e727
+//	case *tdapi.ThumbnailFormatWebp: // thumbnailFormatWebp#fcce4c12
+//	default: panic(v)
+//	}
 type ThumbnailFormatClass interface {
 	bin.Encoder
 	bin.Decoder

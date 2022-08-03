@@ -1834,30 +1834,31 @@ const TextEntityTypeClassName = "TextEntityType"
 // See https://localhost:80/doc/type/TextEntityType for reference.
 //
 // Example:
-//  g, err := td.DecodeTextEntityType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *td.TextEntityTypeMention: // textEntityTypeMention#37b3df65
-//  case *td.TextEntityTypeHashtag: // textEntityTypeHashtag#c2f7a2dd
-//  case *td.TextEntityTypeCashtag: // textEntityTypeCashtag#48e4374b
-//  case *td.TextEntityTypeBotCommand: // textEntityTypeBotCommand#bb652bb3
-//  case *td.TextEntityTypeURL: // textEntityTypeUrl#b1c0d47c
-//  case *td.TextEntityTypeEmailAddress: // textEntityTypeEmailAddress#54f81821
-//  case *td.TextEntityTypePhoneNumber: // textEntityTypePhoneNumber#bad9aa2a
-//  case *td.TextEntityTypeBankCardNumber: // textEntityTypeBankCardNumber#6513910
-//  case *td.TextEntityTypeBold: // textEntityTypeBold#bcc0e1b0
-//  case *td.TextEntityTypeItalic: // textEntityTypeItalic#f8f3965d
-//  case *td.TextEntityTypeUnderline: // textEntityTypeUnderline#2f39cf92
-//  case *td.TextEntityTypeStrikethrough: // textEntityTypeStrikethrough#394fc4fa
-//  case *td.TextEntityTypeCode: // textEntityTypeCode#c5e9c94a
-//  case *td.TextEntityTypePre: // textEntityTypePre#62491c8e
-//  case *td.TextEntityTypePreCode: // textEntityTypePreCode#c7a77aab
-//  case *td.TextEntityTypeTextURL: // textEntityTypeTextUrl#1a912463
-//  case *td.TextEntityTypeMentionName: // textEntityTypeMentionName#d0d2685d
-//  default: panic(v)
-//  }
+//
+//	g, err := td.DecodeTextEntityType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *td.TextEntityTypeMention: // textEntityTypeMention#37b3df65
+//	case *td.TextEntityTypeHashtag: // textEntityTypeHashtag#c2f7a2dd
+//	case *td.TextEntityTypeCashtag: // textEntityTypeCashtag#48e4374b
+//	case *td.TextEntityTypeBotCommand: // textEntityTypeBotCommand#bb652bb3
+//	case *td.TextEntityTypeURL: // textEntityTypeUrl#b1c0d47c
+//	case *td.TextEntityTypeEmailAddress: // textEntityTypeEmailAddress#54f81821
+//	case *td.TextEntityTypePhoneNumber: // textEntityTypePhoneNumber#bad9aa2a
+//	case *td.TextEntityTypeBankCardNumber: // textEntityTypeBankCardNumber#6513910
+//	case *td.TextEntityTypeBold: // textEntityTypeBold#bcc0e1b0
+//	case *td.TextEntityTypeItalic: // textEntityTypeItalic#f8f3965d
+//	case *td.TextEntityTypeUnderline: // textEntityTypeUnderline#2f39cf92
+//	case *td.TextEntityTypeStrikethrough: // textEntityTypeStrikethrough#394fc4fa
+//	case *td.TextEntityTypeCode: // textEntityTypeCode#c5e9c94a
+//	case *td.TextEntityTypePre: // textEntityTypePre#62491c8e
+//	case *td.TextEntityTypePreCode: // textEntityTypePreCode#c7a77aab
+//	case *td.TextEntityTypeTextURL: // textEntityTypeTextUrl#1a912463
+//	case *td.TextEntityTypeMentionName: // textEntityTypeMentionName#d0d2685d
+//	default: panic(v)
+//	}
 type TextEntityTypeClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -137,7 +137,7 @@ func (a *MessagesAvailableReactionsNotModified) DecodeBare(b *bin.Buffer) error 
 // Animations and metadata associated with message reactions »¹
 //
 // Links:
-//  1) https://core.telegram.org/api/reactions
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/constructor/messages.availableReactions for reference.
 type MessagesAvailableReactions struct {
@@ -327,15 +327,16 @@ const MessagesAvailableReactionsClassName = "messages.AvailableReactions"
 // See https://core.telegram.org/type/messages.AvailableReactions for reference.
 //
 // Example:
-//  g, err := tg.DecodeMessagesAvailableReactions(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.MessagesAvailableReactionsNotModified: // messages.availableReactionsNotModified#9f071957
-//  case *tg.MessagesAvailableReactions: // messages.availableReactions#768e3aad
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeMessagesAvailableReactions(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.MessagesAvailableReactionsNotModified: // messages.availableReactionsNotModified#9f071957
+//	case *tg.MessagesAvailableReactions: // messages.availableReactions#768e3aad
+//	default: panic(v)
+//	}
 type MessagesAvailableReactionsClass interface {
 	bin.Encoder
 	bin.Decoder

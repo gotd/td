@@ -451,15 +451,16 @@ const MessagesExportedChatInviteClassName = "messages.ExportedChatInvite"
 // See https://core.telegram.org/type/messages.ExportedChatInvite for reference.
 //
 // Example:
-//  g, err := tg.DecodeMessagesExportedChatInvite(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.MessagesExportedChatInvite: // messages.exportedChatInvite#1871be50
-//  case *tg.MessagesExportedChatInviteReplaced: // messages.exportedChatInviteReplaced#222600ef
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeMessagesExportedChatInvite(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.MessagesExportedChatInvite: // messages.exportedChatInvite#1871be50
+//	case *tg.MessagesExportedChatInviteReplaced: // messages.exportedChatInviteReplaced#222600ef
+//	default: panic(v)
+//	}
 type MessagesExportedChatInviteClass interface {
 	bin.Encoder
 	bin.Decoder

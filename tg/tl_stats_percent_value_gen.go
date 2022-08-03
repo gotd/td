@@ -36,7 +36,7 @@ var (
 // Compute the percentage simply by doing part * total / 100
 //
 // Links:
-//  1) https://core.telegram.org/api/stats
+//  1. https://core.telegram.org/api/stats
 //
 // See https://core.telegram.org/constructor/statsPercentValue for reference.
 type StatsPercentValue struct {

@@ -35,7 +35,7 @@ var (
 // Get SHA256 hashes for verifying downloaded CDN¹ files
 //
 // Links:
-//  1) https://core.telegram.org/cdn
+//  1. https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/method/upload.getCdnFileHashes for reference.
 type UploadGetCDNFileHashesRequest struct {
@@ -195,11 +195,12 @@ func (g *UploadGetCDNFileHashesRequest) GetOffset() (value int64) {
 // Get SHA256 hashes for verifying downloaded CDN¹ files
 //
 // Links:
-//  1) https://core.telegram.org/cdn
+//  1. https://core.telegram.org/cdn
 //
 // Possible errors:
-//  400 CDN_METHOD_INVALID: You can't call this method in a CDN DC.
-//  400 RSA_DECRYPT_FAILED: Internal RSA decryption failed.
+//
+//	400 CDN_METHOD_INVALID: You can't call this method in a CDN DC.
+//	400 RSA_DECRYPT_FAILED: Internal RSA decryption failed.
 //
 // See https://core.telegram.org/method/upload.getCdnFileHashes for reference.
 // Can be used by bots.

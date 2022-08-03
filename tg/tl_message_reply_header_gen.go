@@ -35,7 +35,7 @@ var (
 // Message replies and thread¹ information
 //
 // Links:
-//  1) https://core.telegram.org/api/threads
+//  1. https://core.telegram.org/api/threads
 //
 // See https://core.telegram.org/constructor/messageReplyHeader for reference.
 type MessageReplyHeader struct {

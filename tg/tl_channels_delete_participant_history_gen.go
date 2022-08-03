@@ -207,9 +207,10 @@ func (d *ChannelsDeleteParticipantHistoryRequest) GetChannelAsNotEmpty() (NotEmp
 // Delete all messages sent by a specific participant of a given supergroup
 //
 // Possible errors:
-//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//  400 MSG_ID_INVALID: Invalid message ID provided.
-//  400 PARTICIPANT_ID_INVALID: The specified participant ID is invalid.
+//
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	400 MSG_ID_INVALID: Invalid message ID provided.
+//	400 PARTICIPANT_ID_INVALID: The specified participant ID is invalid.
 //
 // See https://core.telegram.org/method/channels.deleteParticipantHistory for reference.
 // Can be used by bots.

@@ -36,7 +36,7 @@ var (
 // here for more info about imported chats »¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/import
+//  1. https://core.telegram.org/api/import
 //
 // See https://core.telegram.org/method/messages.checkHistoryImport for reference.
 type MessagesCheckHistoryImportRequest struct {
@@ -170,7 +170,7 @@ func (c *MessagesCheckHistoryImportRequest) GetImportHead() (value string) {
 // here for more info about imported chats »¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/import
+//  1. https://core.telegram.org/api/import
 //
 // See https://core.telegram.org/method/messages.checkHistoryImport for reference.
 func (c *Client) MessagesCheckHistoryImport(ctx context.Context, importhead string) (*MessagesHistoryImportParsed, error) {

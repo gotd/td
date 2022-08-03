@@ -638,16 +638,17 @@ const ProxyTypeClassName = "ProxyType"
 // ProxyTypeClass represents ProxyType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeProxyType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.ProxyTypeSocks5: // proxyTypeSocks5#caf342b3
-//  case *tdapi.ProxyTypeHTTP: // proxyTypeHttp#a3c7c777
-//  case *tdapi.ProxyTypeMtproto: // proxyTypeMtproto#8ae31ffd
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeProxyType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.ProxyTypeSocks5: // proxyTypeSocks5#caf342b3
+//	case *tdapi.ProxyTypeHTTP: // proxyTypeHttp#a3c7c777
+//	case *tdapi.ProxyTypeMtproto: // proxyTypeMtproto#8ae31ffd
+//	default: panic(v)
+//	}
 type ProxyTypeClass interface {
 	bin.Encoder
 	bin.Decoder

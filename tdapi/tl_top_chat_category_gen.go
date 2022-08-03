@@ -954,20 +954,21 @@ const TopChatCategoryClassName = "TopChatCategory"
 // TopChatCategoryClass represents TopChatCategory generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeTopChatCategory(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.TopChatCategoryUsers: // topChatCategoryUsers#3d324d80
-//  case *tdapi.TopChatCategoryBots: // topChatCategoryBots#a1feeb15
-//  case *tdapi.TopChatCategoryGroups: // topChatCategoryGroups#5b32d08e
-//  case *tdapi.TopChatCategoryChannels: // topChatCategoryChannels#e22600e3
-//  case *tdapi.TopChatCategoryInlineBots: // topChatCategoryInlineBots#1678eb7c
-//  case *tdapi.TopChatCategoryCalls: // topChatCategoryCalls#153b50dd
-//  case *tdapi.TopChatCategoryForwardChats: // topChatCategoryForwardChats#6515b7d5
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeTopChatCategory(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.TopChatCategoryUsers: // topChatCategoryUsers#3d324d80
+//	case *tdapi.TopChatCategoryBots: // topChatCategoryBots#a1feeb15
+//	case *tdapi.TopChatCategoryGroups: // topChatCategoryGroups#5b32d08e
+//	case *tdapi.TopChatCategoryChannels: // topChatCategoryChannels#e22600e3
+//	case *tdapi.TopChatCategoryInlineBots: // topChatCategoryInlineBots#1678eb7c
+//	case *tdapi.TopChatCategoryCalls: // topChatCategoryCalls#153b50dd
+//	case *tdapi.TopChatCategoryForwardChats: // topChatCategoryForwardChats#6515b7d5
+//	default: panic(v)
+//	}
 type TopChatCategoryClass interface {
 	bin.Encoder
 	bin.Decoder

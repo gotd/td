@@ -35,7 +35,7 @@ var (
 // Login token (for QR code login¹)
 //
 // Links:
-//  1) https://core.telegram.org/api/qr-login
+//  1. https://core.telegram.org/api/qr-login
 //
 // See https://core.telegram.org/constructor/auth.loginToken for reference.
 type AuthLoginToken struct {
@@ -506,16 +506,17 @@ const AuthLoginTokenClassName = "auth.LoginToken"
 // See https://core.telegram.org/type/auth.LoginToken for reference.
 //
 // Example:
-//  g, err := tg.DecodeAuthLoginToken(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.AuthLoginToken: // auth.loginToken#629f1980
-//  case *tg.AuthLoginTokenMigrateTo: // auth.loginTokenMigrateTo#68e9916
-//  case *tg.AuthLoginTokenSuccess: // auth.loginTokenSuccess#390d5c5e
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeAuthLoginToken(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.AuthLoginToken: // auth.loginToken#629f1980
+//	case *tg.AuthLoginTokenMigrateTo: // auth.loginTokenMigrateTo#68e9916
+//	case *tg.AuthLoginTokenSuccess: // auth.loginTokenSuccess#390d5c5e
+//	default: panic(v)
+//	}
 type AuthLoginTokenClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -137,7 +137,7 @@ func (p *HelpPassportConfigNotModified) DecodeBare(b *bin.Buffer) error {
 // Telegram passport¹ configuration
 //
 // Links:
-//  1) https://core.telegram.org/passport
+//  1. https://core.telegram.org/passport
 //
 // See https://core.telegram.org/constructor/help.passportConfig for reference.
 type HelpPassportConfig struct {
@@ -309,15 +309,16 @@ const HelpPassportConfigClassName = "help.PassportConfig"
 // See https://core.telegram.org/type/help.PassportConfig for reference.
 //
 // Example:
-//  g, err := tg.DecodeHelpPassportConfig(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.HelpPassportConfigNotModified: // help.passportConfigNotModified#bfb9f457
-//  case *tg.HelpPassportConfig: // help.passportConfig#a098d6af
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeHelpPassportConfig(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.HelpPassportConfigNotModified: // help.passportConfigNotModified#bfb9f457
+//	case *tg.HelpPassportConfig: // help.passportConfig#a098d6af
+//	default: panic(v)
+//	}
 type HelpPassportConfigClass interface {
 	bin.Encoder
 	bin.Decoder

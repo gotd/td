@@ -363,7 +363,8 @@ func (j *PhoneJoinGroupCallRequest) GetParams() (value DataJSON) {
 // Join a group call
 //
 // Possible errors:
-//  400 GROUPCALL_SSRC_DUPLICATE_MUCH: The app needs to retry joining the group call with a new SSRC value.
+//
+//	400 GROUPCALL_SSRC_DUPLICATE_MUCH: The app needs to retry joining the group call with a new SSRC value.
 //
 // See https://core.telegram.org/method/phone.joinGroupCall for reference.
 func (c *Client) PhoneJoinGroupCall(ctx context.Context, request *PhoneJoinGroupCallRequest) (UpdatesClass, error) {

@@ -35,7 +35,7 @@ var (
 // Mark message reactions »¹ as read
 //
 // Links:
-//  1) https://core.telegram.org/api/reactions
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.readReactions for reference.
 type MessagesReadReactionsRequest struct {
@@ -173,7 +173,7 @@ func (r *MessagesReadReactionsRequest) GetPeer() (value InputPeerClass) {
 // Mark message reactions »¹ as read
 //
 // Links:
-//  1) https://core.telegram.org/api/reactions
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.readReactions for reference.
 // Can be used by bots.

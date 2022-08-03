@@ -299,15 +299,16 @@ const BoolClassName = "Bool"
 // BoolClass represents Bool generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeBool(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.BoolFalse: // boolFalse#bc799737
-//  case *tdapi.BoolTrue: // boolTrue#997275b5
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeBool(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.BoolFalse: // boolFalse#bc799737
+//	case *tdapi.BoolTrue: // boolTrue#997275b5
+//	default: panic(v)
+//	}
 type BoolClass interface {
 	bin.Encoder
 	bin.Decoder

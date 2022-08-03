@@ -1321,21 +1321,22 @@ const UserPrivacySettingRuleClassName = "UserPrivacySettingRule"
 // UserPrivacySettingRuleClass represents UserPrivacySettingRule generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeUserPrivacySettingRule(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.UserPrivacySettingRuleAllowAll: // userPrivacySettingRuleAllowAll#8abf1c3f
-//  case *tdapi.UserPrivacySettingRuleAllowContacts: // userPrivacySettingRuleAllowContacts#8f2f2d10
-//  case *tdapi.UserPrivacySettingRuleAllowUsers: // userPrivacySettingRuleAllowUsers#d1570b70
-//  case *tdapi.UserPrivacySettingRuleAllowChatMembers: // userPrivacySettingRuleAllowChatMembers#f249b617
-//  case *tdapi.UserPrivacySettingRuleRestrictAll: // userPrivacySettingRuleRestrictAll#ac2a9550
-//  case *tdapi.UserPrivacySettingRuleRestrictContacts: // userPrivacySettingRuleRestrictContacts#3c1acd02
-//  case *tdapi.UserPrivacySettingRuleRestrictUsers: // userPrivacySettingRuleRestrictUsers#4d392a91
-//  case *tdapi.UserPrivacySettingRuleRestrictChatMembers: // userPrivacySettingRuleRestrictChatMembers#fc00b920
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeUserPrivacySettingRule(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.UserPrivacySettingRuleAllowAll: // userPrivacySettingRuleAllowAll#8abf1c3f
+//	case *tdapi.UserPrivacySettingRuleAllowContacts: // userPrivacySettingRuleAllowContacts#8f2f2d10
+//	case *tdapi.UserPrivacySettingRuleAllowUsers: // userPrivacySettingRuleAllowUsers#d1570b70
+//	case *tdapi.UserPrivacySettingRuleAllowChatMembers: // userPrivacySettingRuleAllowChatMembers#f249b617
+//	case *tdapi.UserPrivacySettingRuleRestrictAll: // userPrivacySettingRuleRestrictAll#ac2a9550
+//	case *tdapi.UserPrivacySettingRuleRestrictContacts: // userPrivacySettingRuleRestrictContacts#3c1acd02
+//	case *tdapi.UserPrivacySettingRuleRestrictUsers: // userPrivacySettingRuleRestrictUsers#4d392a91
+//	case *tdapi.UserPrivacySettingRuleRestrictChatMembers: // userPrivacySettingRuleRestrictChatMembers#fc00b920
+//	default: panic(v)
+//	}
 type UserPrivacySettingRuleClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -989,20 +989,21 @@ const ChatMembersFilterClassName = "ChatMembersFilter"
 // ChatMembersFilterClass represents ChatMembersFilter generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeChatMembersFilter(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.ChatMembersFilterContacts: // chatMembersFilterContacts#69c480a7
-//  case *tdapi.ChatMembersFilterAdministrators: // chatMembersFilterAdministrators#b47cbc1c
-//  case *tdapi.ChatMembersFilterMembers: // chatMembersFilterMembers#27f71596
-//  case *tdapi.ChatMembersFilterMention: // chatMembersFilterMention#330bedf7
-//  case *tdapi.ChatMembersFilterRestricted: // chatMembersFilterRestricted#4ae15abd
-//  case *tdapi.ChatMembersFilterBanned: // chatMembersFilterBanned#90f34f48
-//  case *tdapi.ChatMembersFilterBots: // chatMembersFilterBots#ab355888
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeChatMembersFilter(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.ChatMembersFilterContacts: // chatMembersFilterContacts#69c480a7
+//	case *tdapi.ChatMembersFilterAdministrators: // chatMembersFilterAdministrators#b47cbc1c
+//	case *tdapi.ChatMembersFilterMembers: // chatMembersFilterMembers#27f71596
+//	case *tdapi.ChatMembersFilterMention: // chatMembersFilterMention#330bedf7
+//	case *tdapi.ChatMembersFilterRestricted: // chatMembersFilterRestricted#4ae15abd
+//	case *tdapi.ChatMembersFilterBanned: // chatMembersFilterBanned#90f34f48
+//	case *tdapi.ChatMembersFilterBots: // chatMembersFilterBots#ab355888
+//	default: panic(v)
+//	}
 type ChatMembersFilterClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -569,16 +569,17 @@ const StatisticalGraphClassName = "StatisticalGraph"
 // StatisticalGraphClass represents StatisticalGraph generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeStatisticalGraph(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.StatisticalGraphData: // statisticalGraphData#89732e2c
-//  case *tdapi.StatisticalGraphAsync: // statisticalGraphAsync#19fb2b9f
-//  case *tdapi.StatisticalGraphError: // statisticalGraphError#c3fda052
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeStatisticalGraph(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.StatisticalGraphData: // statisticalGraphData#89732e2c
+//	case *tdapi.StatisticalGraphAsync: // statisticalGraphAsync#19fb2b9f
+//	case *tdapi.StatisticalGraphError: // statisticalGraphError#c3fda052
+//	default: panic(v)
+//	}
 type StatisticalGraphClass interface {
 	bin.Encoder
 	bin.Decoder

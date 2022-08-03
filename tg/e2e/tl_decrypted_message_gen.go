@@ -1648,19 +1648,20 @@ const DecryptedMessageClassName = "DecryptedMessage"
 // See https://core.telegram.org/type/DecryptedMessage for reference.
 //
 // Example:
-//  g, err := e2e.DecodeDecryptedMessage(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *e2e.DecryptedMessage8: // decryptedMessage8#1f814f1f
-//  case *e2e.DecryptedMessageService8: // decryptedMessageService8#aa48327d
-//  case *e2e.DecryptedMessage23: // decryptedMessage23#204d3878
-//  case *e2e.DecryptedMessageService: // decryptedMessageService#73164160
-//  case *e2e.DecryptedMessage46: // decryptedMessage46#36b091de
-//  case *e2e.DecryptedMessage: // decryptedMessage#91cc4674
-//  default: panic(v)
-//  }
+//
+//	g, err := e2e.DecodeDecryptedMessage(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *e2e.DecryptedMessage8: // decryptedMessage8#1f814f1f
+//	case *e2e.DecryptedMessageService8: // decryptedMessageService8#aa48327d
+//	case *e2e.DecryptedMessage23: // decryptedMessage23#204d3878
+//	case *e2e.DecryptedMessageService: // decryptedMessageService#73164160
+//	case *e2e.DecryptedMessage46: // decryptedMessage46#36b091de
+//	case *e2e.DecryptedMessage: // decryptedMessage#91cc4674
+//	default: panic(v)
+//	}
 type DecryptedMessageClass interface {
 	bin.Encoder
 	bin.Decoder

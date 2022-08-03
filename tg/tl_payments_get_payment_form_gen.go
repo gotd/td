@@ -243,7 +243,8 @@ func (g *PaymentsGetPaymentFormRequest) GetThemeParams() (value DataJSON, ok boo
 // Get a payment form
 //
 // Possible errors:
-//  400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//
+//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
 //
 // See https://core.telegram.org/method/payments.getPaymentForm for reference.
 func (c *Client) PaymentsGetPaymentForm(ctx context.Context, request *PaymentsGetPaymentFormRequest) (*PaymentsPaymentForm, error) {

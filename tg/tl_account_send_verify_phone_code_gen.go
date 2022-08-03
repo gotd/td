@@ -35,7 +35,7 @@ var (
 // Send the verification phone code for telegram passport¹.
 //
 // Links:
-//  1) https://core.telegram.org/passport
+//  1. https://core.telegram.org/passport
 //
 // See https://core.telegram.org/method/account.sendVerifyPhoneCode for reference.
 type AccountSendVerifyPhoneCodeRequest struct {
@@ -195,10 +195,11 @@ func (s *AccountSendVerifyPhoneCodeRequest) GetSettings() (value CodeSettings) {
 // Send the verification phone code for telegram passport¹.
 //
 // Links:
-//  1) https://core.telegram.org/passport
+//  1. https://core.telegram.org/passport
 //
 // Possible errors:
-//  400 PHONE_NUMBER_INVALID: The phone number is invalid.
+//
+//	400 PHONE_NUMBER_INVALID: The phone number is invalid.
 //
 // See https://core.telegram.org/method/account.sendVerifyPhoneCode for reference.
 func (c *Client) AccountSendVerifyPhoneCode(ctx context.Context, request *AccountSendVerifyPhoneCodeRequest) (*AuthSentCode, error) {

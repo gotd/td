@@ -170,7 +170,8 @@ func (g *ChannelsGetSendAsRequest) GetPeer() (value InputPeerClass) {
 // Obtains a list of peers that can be used to send messages in a specific group
 //
 // Possible errors:
-//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/channels.getSendAs for reference.
 // Can be used by bots.

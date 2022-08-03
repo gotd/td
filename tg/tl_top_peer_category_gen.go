@@ -855,21 +855,22 @@ const TopPeerCategoryClassName = "TopPeerCategory"
 // See https://core.telegram.org/type/TopPeerCategory for reference.
 //
 // Example:
-//  g, err := tg.DecodeTopPeerCategory(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.TopPeerCategoryBotsPM: // topPeerCategoryBotsPM#ab661b5b
-//  case *tg.TopPeerCategoryBotsInline: // topPeerCategoryBotsInline#148677e2
-//  case *tg.TopPeerCategoryCorrespondents: // topPeerCategoryCorrespondents#637b7ed
-//  case *tg.TopPeerCategoryGroups: // topPeerCategoryGroups#bd17a14a
-//  case *tg.TopPeerCategoryChannels: // topPeerCategoryChannels#161d9628
-//  case *tg.TopPeerCategoryPhoneCalls: // topPeerCategoryPhoneCalls#1e76a78c
-//  case *tg.TopPeerCategoryForwardUsers: // topPeerCategoryForwardUsers#a8406ca9
-//  case *tg.TopPeerCategoryForwardChats: // topPeerCategoryForwardChats#fbeec0f0
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeTopPeerCategory(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.TopPeerCategoryBotsPM: // topPeerCategoryBotsPM#ab661b5b
+//	case *tg.TopPeerCategoryBotsInline: // topPeerCategoryBotsInline#148677e2
+//	case *tg.TopPeerCategoryCorrespondents: // topPeerCategoryCorrespondents#637b7ed
+//	case *tg.TopPeerCategoryGroups: // topPeerCategoryGroups#bd17a14a
+//	case *tg.TopPeerCategoryChannels: // topPeerCategoryChannels#161d9628
+//	case *tg.TopPeerCategoryPhoneCalls: // topPeerCategoryPhoneCalls#1e76a78c
+//	case *tg.TopPeerCategoryForwardUsers: // topPeerCategoryForwardUsers#a8406ca9
+//	case *tg.TopPeerCategoryForwardChats: // topPeerCategoryForwardChats#fbeec0f0
+//	default: panic(v)
+//	}
 type TopPeerCategoryClass interface {
 	bin.Encoder
 	bin.Decoder

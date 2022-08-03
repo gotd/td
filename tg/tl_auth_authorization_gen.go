@@ -333,7 +333,7 @@ func (a *AuthAuthorization) GetUser() (value UserClass) {
 // basic information and sign up¹
 //
 // Links:
-//  1) https://core.telegram.org/api/auth
+//  1. https://core.telegram.org/api/auth
 //
 // See https://core.telegram.org/constructor/auth.authorizationSignUpRequired for reference.
 type AuthAuthorizationSignUpRequired struct {
@@ -518,15 +518,16 @@ const AuthAuthorizationClassName = "auth.Authorization"
 // See https://core.telegram.org/type/auth.Authorization for reference.
 //
 // Example:
-//  g, err := tg.DecodeAuthAuthorization(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.AuthAuthorization: // auth.authorization#33fb7bb8
-//  case *tg.AuthAuthorizationSignUpRequired: // auth.authorizationSignUpRequired#44747e9a
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeAuthAuthorization(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.AuthAuthorization: // auth.authorization#33fb7bb8
+//	case *tg.AuthAuthorizationSignUpRequired: // auth.authorizationSignUpRequired#44747e9a
+//	default: panic(v)
+//	}
 type AuthAuthorizationClass interface {
 	bin.Encoder
 	bin.Decoder

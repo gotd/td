@@ -596,17 +596,18 @@ const StickerTypeClassName = "StickerType"
 // StickerTypeClass represents StickerType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeStickerType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.StickerTypeStatic: // stickerTypeStatic#6b8e3cd1
-//  case *tdapi.StickerTypeAnimated: // stickerTypeAnimated#691926ad
-//  case *tdapi.StickerTypeVideo: // stickerTypeVideo#1f22af74
-//  case *tdapi.StickerTypeMask: // stickerTypeMask#cdf254e3
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeStickerType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.StickerTypeStatic: // stickerTypeStatic#6b8e3cd1
+//	case *tdapi.StickerTypeAnimated: // stickerTypeAnimated#691926ad
+//	case *tdapi.StickerTypeVideo: // stickerTypeVideo#1f22af74
+//	case *tdapi.StickerTypeMask: // stickerTypeMask#cdf254e3
+//	default: panic(v)
+//	}
 type StickerTypeClass interface {
 	bin.Encoder
 	bin.Decoder

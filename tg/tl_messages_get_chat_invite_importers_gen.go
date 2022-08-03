@@ -424,11 +424,12 @@ func (g *MessagesGetChatInviteImportersRequest) GetLimit() (value int) {
 // Get info about the users that joined the chat using a specific chat invite
 //
 // Possible errors:
-//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//  400 INVITE_HASH_EXPIRED: The invite link has expired.
-//  400 PEER_ID_INVALID: The provided peer id is invalid.
-//  400 SEARCH_WITH_LINK_NOT_SUPPORTED: You cannot provide a search query and an invite link at the same time.
+//
+//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	400 INVITE_HASH_EXPIRED: The invite link has expired.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 SEARCH_WITH_LINK_NOT_SUPPORTED: You cannot provide a search query and an invite link at the same time.
 //
 // See https://core.telegram.org/method/messages.getChatInviteImporters for reference.
 func (c *Client) MessagesGetChatInviteImporters(ctx context.Context, request *MessagesGetChatInviteImportersRequest) (*MessagesChatInviteImporters, error) {

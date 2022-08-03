@@ -412,15 +412,16 @@ const MsgDetailedInfoClassName = "MsgDetailedInfo"
 // MsgDetailedInfoClass represents MsgDetailedInfo generic type.
 //
 // Example:
-//  g, err := mt.DecodeMsgDetailedInfo(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *mt.MsgDetailedInfo: // msg_detailed_info#276d3ec6
-//  case *mt.MsgNewDetailedInfo: // msg_new_detailed_info#809db6df
-//  default: panic(v)
-//  }
+//
+//	g, err := mt.DecodeMsgDetailedInfo(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *mt.MsgDetailedInfo: // msg_detailed_info#276d3ec6
+//	case *mt.MsgNewDetailedInfo: // msg_new_detailed_info#809db6df
+//	default: panic(v)
+//	}
 type MsgDetailedInfoClass interface {
 	bin.Encoder
 	bin.Decoder

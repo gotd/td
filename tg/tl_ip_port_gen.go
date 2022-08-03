@@ -388,15 +388,16 @@ const IPPortClassName = "IpPort"
 // See https://core.telegram.org/type/IpPort for reference.
 //
 // Example:
-//  g, err := tg.DecodeIPPort(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.IPPort: // ipPort#d433ad73
-//  case *tg.IPPortSecret: // ipPortSecret#37982646
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeIPPort(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.IPPort: // ipPort#d433ad73
+//	case *tg.IPPortSecret: // ipPortSecret#37982646
+//	default: panic(v)
+//	}
 type IPPortClass interface {
 	bin.Encoder
 	bin.Decoder

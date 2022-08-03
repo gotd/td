@@ -1347,23 +1347,24 @@ const PremiumLimitTypeClassName = "PremiumLimitType"
 // PremiumLimitTypeClass represents PremiumLimitType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodePremiumLimitType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.PremiumLimitTypeSupergroupCount: // premiumLimitTypeSupergroupCount#f13ff385
-//  case *tdapi.PremiumLimitTypePinnedChatCount: // premiumLimitTypePinnedChatCount#c47543e1
-//  case *tdapi.PremiumLimitTypeCreatedPublicChatCount: // premiumLimitTypeCreatedPublicChatCount#1a96beb9
-//  case *tdapi.PremiumLimitTypeSavedAnimationCount: // premiumLimitTypeSavedAnimationCount#fed27d89
-//  case *tdapi.PremiumLimitTypeFavoriteStickerCount: // premiumLimitTypeFavoriteStickerCount#2621e223
-//  case *tdapi.PremiumLimitTypeChatFilterCount: // premiumLimitTypeChatFilterCount#d99572a2
-//  case *tdapi.PremiumLimitTypeChatFilterChosenChatCount: // premiumLimitTypeChatFilterChosenChatCount#7aaa205f
-//  case *tdapi.PremiumLimitTypePinnedArchivedChatCount: // premiumLimitTypePinnedArchivedChatCount#588b2a0c
-//  case *tdapi.PremiumLimitTypeCaptionLength: // premiumLimitTypeCaptionLength#1185d83a
-//  case *tdapi.PremiumLimitTypeBioLength: // premiumLimitTypeBioLength#bba28603
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodePremiumLimitType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.PremiumLimitTypeSupergroupCount: // premiumLimitTypeSupergroupCount#f13ff385
+//	case *tdapi.PremiumLimitTypePinnedChatCount: // premiumLimitTypePinnedChatCount#c47543e1
+//	case *tdapi.PremiumLimitTypeCreatedPublicChatCount: // premiumLimitTypeCreatedPublicChatCount#1a96beb9
+//	case *tdapi.PremiumLimitTypeSavedAnimationCount: // premiumLimitTypeSavedAnimationCount#fed27d89
+//	case *tdapi.PremiumLimitTypeFavoriteStickerCount: // premiumLimitTypeFavoriteStickerCount#2621e223
+//	case *tdapi.PremiumLimitTypeChatFilterCount: // premiumLimitTypeChatFilterCount#d99572a2
+//	case *tdapi.PremiumLimitTypeChatFilterChosenChatCount: // premiumLimitTypeChatFilterChosenChatCount#7aaa205f
+//	case *tdapi.PremiumLimitTypePinnedArchivedChatCount: // premiumLimitTypePinnedArchivedChatCount#588b2a0c
+//	case *tdapi.PremiumLimitTypeCaptionLength: // premiumLimitTypeCaptionLength#1185d83a
+//	case *tdapi.PremiumLimitTypeBioLength: // premiumLimitTypeBioLength#bba28603
+//	default: panic(v)
+//	}
 type PremiumLimitTypeClass interface {
 	bin.Encoder
 	bin.Decoder

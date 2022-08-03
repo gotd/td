@@ -329,15 +329,16 @@ const MessagesStickersClassName = "messages.Stickers"
 // See https://core.telegram.org/type/messages.Stickers for reference.
 //
 // Example:
-//  g, err := tg.DecodeMessagesStickers(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.MessagesStickersNotModified: // messages.stickersNotModified#f1749a22
-//  case *tg.MessagesStickers: // messages.stickers#30a6ec7e
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeMessagesStickers(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.MessagesStickersNotModified: // messages.stickersNotModified#f1749a22
+//	case *tg.MessagesStickers: // messages.stickers#30a6ec7e
+//	default: panic(v)
+//	}
 type MessagesStickersClass interface {
 	bin.Encoder
 	bin.Decoder

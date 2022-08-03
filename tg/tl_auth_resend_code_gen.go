@@ -36,7 +36,7 @@ var (
 // return value of the previous auth.sendCode/auth.resendCode: see login¹ for more info.
 //
 // Links:
-//  1) https://core.telegram.org/api/auth
+//  1. https://core.telegram.org/api/auth
 //
 // See https://core.telegram.org/method/auth.resendCode for reference.
 type AuthResendCodeRequest struct {
@@ -200,13 +200,14 @@ func (r *AuthResendCodeRequest) GetPhoneCodeHash() (value string) {
 // return value of the previous auth.sendCode/auth.resendCode: see login¹ for more info.
 //
 // Links:
-//  1) https://core.telegram.org/api/auth
+//  1. https://core.telegram.org/api/auth
 //
 // Possible errors:
-//  400 PHONE_CODE_EXPIRED: The phone code you provided has expired.
-//  400 PHONE_CODE_HASH_EMPTY: phone_code_hash is missing.
-//  406 PHONE_NUMBER_INVALID: The phone number is invalid.
-//  406 SEND_CODE_UNAVAILABLE: Returned when all available options for this type of number were already used (e.g. flash-call, then SMS, then this error might be returned to trigger a second resend).
+//
+//	400 PHONE_CODE_EXPIRED: The phone code you provided has expired.
+//	400 PHONE_CODE_HASH_EMPTY: phone_code_hash is missing.
+//	406 PHONE_NUMBER_INVALID: The phone number is invalid.
+//	406 SEND_CODE_UNAVAILABLE: Returned when all available options for this type of number were already used (e.g. flash-call, then SMS, then this error might be returned to trigger a second resend).
 //
 // See https://core.telegram.org/method/auth.resendCode for reference.
 func (c *Client) AuthResendCode(ctx context.Context, request *AuthResendCodeRequest) (*AuthSentCode, error) {

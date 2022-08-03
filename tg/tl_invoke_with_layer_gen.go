@@ -35,7 +35,7 @@ var (
 // Invoke the specified query using the specified API layer¹
 //
 // Links:
-//  1) https://core.telegram.org/api/invoking#layers
+//  1. https://core.telegram.org/api/invoking#layers
 //
 // See https://core.telegram.org/constructor/invokeWithLayer for reference.
 type InvokeWithLayerRequest struct {

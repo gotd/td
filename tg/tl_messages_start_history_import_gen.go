@@ -37,9 +37,9 @@ var (
 // uploading all files using messages.uploadImportedMedia³.
 //
 // Links:
-//  1) https://core.telegram.org/api/import
-//  2) https://core.telegram.org/method/messages.initHistoryImport
-//  3) https://core.telegram.org/method/messages.uploadImportedMedia
+//  1. https://core.telegram.org/api/import
+//  2. https://core.telegram.org/method/messages.initHistoryImport
+//  3. https://core.telegram.org/method/messages.uploadImportedMedia
 //
 // See https://core.telegram.org/method/messages.startHistoryImport for reference.
 type MessagesStartHistoryImportRequest struct {
@@ -212,12 +212,13 @@ func (s *MessagesStartHistoryImportRequest) GetImportID() (value int64) {
 // uploading all files using messages.uploadImportedMedia³.
 //
 // Links:
-//  1) https://core.telegram.org/api/import
-//  2) https://core.telegram.org/method/messages.initHistoryImport
-//  3) https://core.telegram.org/method/messages.uploadImportedMedia
+//  1. https://core.telegram.org/api/import
+//  2. https://core.telegram.org/method/messages.initHistoryImport
+//  3. https://core.telegram.org/method/messages.uploadImportedMedia
 //
 // Possible errors:
-//  400 IMPORT_ID_INVALID: The specified import ID is invalid.
+//
+//	400 IMPORT_ID_INVALID: The specified import ID is invalid.
 //
 // See https://core.telegram.org/method/messages.startHistoryImport for reference.
 func (c *Client) MessagesStartHistoryImport(ctx context.Context, request *MessagesStartHistoryImportRequest) (bool, error) {

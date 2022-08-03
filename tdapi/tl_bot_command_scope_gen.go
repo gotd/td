@@ -1093,20 +1093,21 @@ const BotCommandScopeClassName = "BotCommandScope"
 // BotCommandScopeClass represents BotCommandScope generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeBotCommandScope(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.BotCommandScopeDefault: // botCommandScopeDefault#2f6cb2ab
-//  case *tdapi.BotCommandScopeAllPrivateChats: // botCommandScopeAllPrivateChats#eb716739
-//  case *tdapi.BotCommandScopeAllGroupChats: // botCommandScopeAllGroupChats#c585c85e
-//  case *tdapi.BotCommandScopeAllChatAdministrators: // botCommandScopeAllChatAdministrators#771c1551
-//  case *tdapi.BotCommandScopeChat: // botCommandScopeChat#e65b22a5
-//  case *tdapi.BotCommandScopeChatAdministrators: // botCommandScopeChatAdministrators#42bcfe4e
-//  case *tdapi.BotCommandScopeChatMember: // botCommandScopeChatMember#f36696f2
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeBotCommandScope(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.BotCommandScopeDefault: // botCommandScopeDefault#2f6cb2ab
+//	case *tdapi.BotCommandScopeAllPrivateChats: // botCommandScopeAllPrivateChats#eb716739
+//	case *tdapi.BotCommandScopeAllGroupChats: // botCommandScopeAllGroupChats#c585c85e
+//	case *tdapi.BotCommandScopeAllChatAdministrators: // botCommandScopeAllChatAdministrators#771c1551
+//	case *tdapi.BotCommandScopeChat: // botCommandScopeChat#e65b22a5
+//	case *tdapi.BotCommandScopeChatAdministrators: // botCommandScopeChatAdministrators#42bcfe4e
+//	case *tdapi.BotCommandScopeChatMember: // botCommandScopeChatMember#f36696f2
+//	default: panic(v)
+//	}
 type BotCommandScopeClass interface {
 	bin.Encoder
 	bin.Decoder

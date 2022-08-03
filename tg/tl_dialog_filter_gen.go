@@ -35,7 +35,7 @@ var (
 // Dialog filter AKA folder¹
 //
 // Links:
-//  1) https://core.telegram.org/api/folders
+//  1. https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/constructor/dialogFilter for reference.
 type DialogFilter struct {
@@ -846,15 +846,16 @@ const DialogFilterClassName = "DialogFilter"
 // See https://core.telegram.org/type/DialogFilter for reference.
 //
 // Example:
-//  g, err := tg.DecodeDialogFilter(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.DialogFilter: // dialogFilter#7438f7e8
-//  case *tg.DialogFilterDefault: // dialogFilterDefault#363293ae
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeDialogFilter(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.DialogFilter: // dialogFilter#7438f7e8
+//	case *tg.DialogFilterDefault: // dialogFilterDefault#363293ae
+//	default: panic(v)
+//	}
 type DialogFilterClass interface {
 	bin.Encoder
 	bin.Decoder

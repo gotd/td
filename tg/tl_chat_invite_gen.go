@@ -875,16 +875,17 @@ const ChatInviteClassName = "ChatInvite"
 // See https://core.telegram.org/type/ChatInvite for reference.
 //
 // Example:
-//  g, err := tg.DecodeChatInvite(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.ChatInviteAlready: // chatInviteAlready#5a686d7c
-//  case *tg.ChatInvite: // chatInvite#300c44c1
-//  case *tg.ChatInvitePeek: // chatInvitePeek#61695cb0
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeChatInvite(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.ChatInviteAlready: // chatInviteAlready#5a686d7c
+//	case *tg.ChatInvite: // chatInvite#300c44c1
+//	case *tg.ChatInvitePeek: // chatInvitePeek#61695cb0
+//	default: panic(v)
+//	}
 type ChatInviteClass interface {
 	bin.Encoder
 	bin.Decoder

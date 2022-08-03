@@ -35,7 +35,7 @@ var (
 // Reset all active web telegram login¹ sessions
 //
 // Links:
-//  1) https://core.telegram.org/widgets/login
+//  1. https://core.telegram.org/widgets/login
 //
 // See https://core.telegram.org/method/account.resetWebAuthorizations for reference.
 type AccountResetWebAuthorizationsRequest struct {
@@ -135,7 +135,7 @@ func (r *AccountResetWebAuthorizationsRequest) DecodeBare(b *bin.Buffer) error {
 // Reset all active web telegram login¹ sessions
 //
 // Links:
-//  1) https://core.telegram.org/widgets/login
+//  1. https://core.telegram.org/widgets/login
 //
 // See https://core.telegram.org/method/account.resetWebAuthorizations for reference.
 func (c *Client) AccountResetWebAuthorizations(ctx context.Context) (bool, error) {

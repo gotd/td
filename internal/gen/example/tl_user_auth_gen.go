@@ -293,15 +293,16 @@ const UserAuthClassName = "user.Auth"
 // See https://localhost:80/doc/type/user.Auth for reference.
 //
 // Example:
-//  g, err := td.DecodeUserAuth(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *td.UserAuth: // user.auth#f4815592
-//  case *td.UserAuthPassword: // user.authPassword#5981e317
-//  default: panic(v)
-//  }
+//
+//	g, err := td.DecodeUserAuth(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *td.UserAuth: // user.auth#f4815592
+//	case *td.UserAuthPassword: // user.authPassword#5981e317
+//	default: panic(v)
+//	}
 type UserAuthClass interface {
 	bin.Encoder
 	bin.Decoder

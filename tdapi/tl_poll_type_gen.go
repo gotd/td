@@ -404,15 +404,16 @@ const PollTypeClassName = "PollType"
 // PollTypeClass represents PollType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodePollType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.PollTypeRegular: // pollTypeRegular#2638f022
-//  case *tdapi.PollTypeQuiz: // pollTypeQuiz#27293c99
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodePollType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.PollTypeRegular: // pollTypeRegular#2638f022
+//	case *tdapi.PollTypeQuiz: // pollTypeQuiz#27293c99
+//	default: panic(v)
+//	}
 type PollTypeClass interface {
 	bin.Encoder
 	bin.Decoder

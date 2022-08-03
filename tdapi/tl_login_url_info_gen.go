@@ -506,15 +506,16 @@ const LoginURLInfoClassName = "LoginUrlInfo"
 // LoginURLInfoClass represents LoginUrlInfo generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeLoginURLInfo(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.LoginURLInfoOpen: // loginUrlInfoOpen#bfaf12d4
-//  case *tdapi.LoginURLInfoRequestConfirmation: // loginUrlInfoRequestConfirmation#7edb242f
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeLoginURLInfo(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.LoginURLInfoOpen: // loginUrlInfoOpen#bfaf12d4
+//	case *tdapi.LoginURLInfoRequestConfirmation: // loginUrlInfoRequestConfirmation#7edb242f
+//	default: panic(v)
+//	}
 type LoginURLInfoClass interface {
 	bin.Encoder
 	bin.Decoder

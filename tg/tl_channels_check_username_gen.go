@@ -205,10 +205,11 @@ func (c *ChannelsCheckUsernameRequest) GetChannelAsNotEmpty() (NotEmptyInputChan
 // Check if a username is free and can be assigned to a channel/supergroup
 //
 // Possible errors:
-//  400 CHANNELS_ADMIN_PUBLIC_TOO_MUCH: You're admin of too many public channels, make some channels private to change the username of this channel.
-//  400 CHANNEL_INVALID: The provided channel is invalid.
-//  400 CHAT_ID_INVALID: The provided chat id is invalid.
-//  400 USERNAME_INVALID: The provided username is not valid.
+//
+//	400 CHANNELS_ADMIN_PUBLIC_TOO_MUCH: You're admin of too many public channels, make some channels private to change the username of this channel.
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 CHAT_ID_INVALID: The provided chat id is invalid.
+//	400 USERNAME_INVALID: The provided username is not valid.
 //
 // See https://core.telegram.org/method/channels.checkUsername for reference.
 func (c *Client) ChannelsCheckUsername(ctx context.Context, request *ChannelsCheckUsernameRequest) (bool, error) {

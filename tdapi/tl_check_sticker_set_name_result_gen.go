@@ -430,16 +430,17 @@ const CheckStickerSetNameResultClassName = "CheckStickerSetNameResult"
 // CheckStickerSetNameResultClass represents CheckStickerSetNameResult generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeCheckStickerSetNameResult(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.CheckStickerSetNameResultOk: // checkStickerSetNameResultOk#ac4bf258
-//  case *tdapi.CheckStickerSetNameResultNameInvalid: // checkStickerSetNameResultNameInvalid#a9bf234
-//  case *tdapi.CheckStickerSetNameResultNameOccupied: // checkStickerSetNameResultNameOccupied#3c60dc88
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeCheckStickerSetNameResult(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.CheckStickerSetNameResultOk: // checkStickerSetNameResultOk#ac4bf258
+//	case *tdapi.CheckStickerSetNameResultNameInvalid: // checkStickerSetNameResultNameInvalid#a9bf234
+//	case *tdapi.CheckStickerSetNameResultNameOccupied: // checkStickerSetNameResultNameOccupied#3c60dc88
+//	default: panic(v)
+//	}
 type CheckStickerSetNameResultClass interface {
 	bin.Encoder
 	bin.Decoder

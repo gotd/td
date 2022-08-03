@@ -701,17 +701,18 @@ const TMeURLTypeClassName = "TMeUrlType"
 // TMeURLTypeClass represents TMeUrlType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeTMeURLType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.TMeURLTypeUser: // tMeUrlTypeUser#7787c1a
-//  case *tdapi.TMeURLTypeSupergroup: // tMeUrlTypeSupergroup#af5536a8
-//  case *tdapi.TMeURLTypeChatInvite: // tMeUrlTypeChatInvite#12b5da49
-//  case *tdapi.TMeURLTypeStickerSet: // tMeUrlTypeStickerSet#5f83ccec
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeTMeURLType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.TMeURLTypeUser: // tMeUrlTypeUser#7787c1a
+//	case *tdapi.TMeURLTypeSupergroup: // tMeUrlTypeSupergroup#af5536a8
+//	case *tdapi.TMeURLTypeChatInvite: // tMeUrlTypeChatInvite#12b5da49
+//	case *tdapi.TMeURLTypeStickerSet: // tMeUrlTypeStickerSet#5f83ccec
+//	default: panic(v)
+//	}
 type TMeURLTypeClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -35,7 +35,7 @@ var (
 // Get and increase the view counter of a message sent or forwarded from a channel¹
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/messages.getMessagesViews for reference.
 type MessagesGetMessagesViewsRequest struct {
@@ -240,14 +240,15 @@ func (g *MessagesGetMessagesViewsRequest) GetIncrement() (value bool) {
 // Get and increase the view counter of a message sent or forwarded from a channel¹
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // Possible errors:
-//  400 CHANNEL_INVALID: The provided channel is invalid.
-//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//  400 CHAT_ID_INVALID: The provided chat id is invalid.
-//  400 MSG_ID_INVALID: Invalid message ID provided.
-//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	400 CHAT_ID_INVALID: The provided chat id is invalid.
+//	400 MSG_ID_INVALID: Invalid message ID provided.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.getMessagesViews for reference.
 func (c *Client) MessagesGetMessagesViews(ctx context.Context, request *MessagesGetMessagesViewsRequest) (*MessagesMessageViews, error) {

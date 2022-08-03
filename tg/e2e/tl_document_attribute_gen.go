@@ -1702,23 +1702,24 @@ const DocumentAttributeClassName = "DocumentAttribute"
 // See https://core.telegram.org/type/DocumentAttribute for reference.
 //
 // Example:
-//  g, err := e2e.DecodeDocumentAttribute(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *e2e.DocumentAttributeImageSize: // documentAttributeImageSize#6c37c15c
-//  case *e2e.DocumentAttributeAnimated: // documentAttributeAnimated#11b58939
-//  case *e2e.DocumentAttributeSticker23: // documentAttributeSticker23#fb0a5727
-//  case *e2e.DocumentAttributeVideo: // documentAttributeVideo#5910cccb
-//  case *e2e.DocumentAttributeAudio23: // documentAttributeAudio23#51448e5
-//  case *e2e.DocumentAttributeFilename: // documentAttributeFilename#15590068
-//  case *e2e.DocumentAttributeAudio45: // documentAttributeAudio45#ded218e0
-//  case *e2e.DocumentAttributeSticker: // documentAttributeSticker#3a556302
-//  case *e2e.DocumentAttributeAudio: // documentAttributeAudio#9852f9c6
-//  case *e2e.DocumentAttributeVideo66: // documentAttributeVideo66#ef02ce6
-//  default: panic(v)
-//  }
+//
+//	g, err := e2e.DecodeDocumentAttribute(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *e2e.DocumentAttributeImageSize: // documentAttributeImageSize#6c37c15c
+//	case *e2e.DocumentAttributeAnimated: // documentAttributeAnimated#11b58939
+//	case *e2e.DocumentAttributeSticker23: // documentAttributeSticker23#fb0a5727
+//	case *e2e.DocumentAttributeVideo: // documentAttributeVideo#5910cccb
+//	case *e2e.DocumentAttributeAudio23: // documentAttributeAudio23#51448e5
+//	case *e2e.DocumentAttributeFilename: // documentAttributeFilename#15590068
+//	case *e2e.DocumentAttributeAudio45: // documentAttributeAudio45#ded218e0
+//	case *e2e.DocumentAttributeSticker: // documentAttributeSticker#3a556302
+//	case *e2e.DocumentAttributeAudio: // documentAttributeAudio#9852f9c6
+//	case *e2e.DocumentAttributeVideo66: // documentAttributeVideo66#ef02ce6
+//	default: panic(v)
+//	}
 type DocumentAttributeClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -704,7 +704,7 @@ func (i *InputPeerChannel) GetAccessHash() (value int64) {
 // Defines a min¹ user that was seen in a certain message of a certain chat.
 //
 // Links:
-//  1) https://core.telegram.org/api/min
+//  1. https://core.telegram.org/api/min
 //
 // See https://core.telegram.org/constructor/inputPeerUserFromMessage for reference.
 type InputPeerUserFromMessage struct {
@@ -901,7 +901,7 @@ func (i *InputPeerUserFromMessage) GetUserID() (value int64) {
 // Defines a min¹ channel that was seen in a certain message of a certain chat.
 //
 // Links:
-//  1) https://core.telegram.org/api/min
+//  1. https://core.telegram.org/api/min
 //
 // See https://core.telegram.org/constructor/inputPeerChannelFromMessage for reference.
 type InputPeerChannelFromMessage struct {
@@ -1102,20 +1102,21 @@ const InputPeerClassName = "InputPeer"
 // See https://core.telegram.org/type/InputPeer for reference.
 //
 // Example:
-//  g, err := tg.DecodeInputPeer(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InputPeerEmpty: // inputPeerEmpty#7f3b18ea
-//  case *tg.InputPeerSelf: // inputPeerSelf#7da07ec9
-//  case *tg.InputPeerChat: // inputPeerChat#35a95cb9
-//  case *tg.InputPeerUser: // inputPeerUser#dde8a54c
-//  case *tg.InputPeerChannel: // inputPeerChannel#27bcbbfc
-//  case *tg.InputPeerUserFromMessage: // inputPeerUserFromMessage#a87b0a1c
-//  case *tg.InputPeerChannelFromMessage: // inputPeerChannelFromMessage#bd2a0840
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeInputPeer(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputPeerEmpty: // inputPeerEmpty#7f3b18ea
+//	case *tg.InputPeerSelf: // inputPeerSelf#7da07ec9
+//	case *tg.InputPeerChat: // inputPeerChat#35a95cb9
+//	case *tg.InputPeerUser: // inputPeerUser#dde8a54c
+//	case *tg.InputPeerChannel: // inputPeerChannel#27bcbbfc
+//	case *tg.InputPeerUserFromMessage: // inputPeerUserFromMessage#a87b0a1c
+//	case *tg.InputPeerChannelFromMessage: // inputPeerChannelFromMessage#bd2a0840
+//	default: panic(v)
+//	}
 type InputPeerClass interface {
 	bin.Encoder
 	bin.Decoder

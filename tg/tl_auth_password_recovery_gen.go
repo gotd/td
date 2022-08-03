@@ -36,8 +36,8 @@ var (
 // configured².
 //
 // Links:
-//  1) https://core.telegram.org/api/srp
-//  2) https://core.telegram.org/api/srp#email-verification
+//  1. https://core.telegram.org/api/srp
+//  2. https://core.telegram.org/api/srp#email-verification
 //
 // See https://core.telegram.org/constructor/auth.passwordRecovery for reference.
 type AuthPasswordRecovery struct {

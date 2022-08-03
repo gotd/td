@@ -35,7 +35,7 @@ var (
 // Load channel statistics graph¹ asynchronously
 //
 // Links:
-//  1) https://core.telegram.org/api/stats
+//  1. https://core.telegram.org/api/stats
 //
 // See https://core.telegram.org/method/stats.loadAsyncGraph for reference.
 type StatsLoadAsyncGraphRequest struct {
@@ -240,12 +240,13 @@ func (l *StatsLoadAsyncGraphRequest) GetX() (value int64, ok bool) {
 // Load channel statistics graph¹ asynchronously
 //
 // Links:
-//  1) https://core.telegram.org/api/stats
+//  1. https://core.telegram.org/api/stats
 //
 // Possible errors:
-//  400 GRAPH_EXPIRED_RELOAD: This graph has expired, please obtain a new graph token.
-//  400 GRAPH_INVALID_RELOAD: Invalid graph token provided, please reload the stats and provide the updated token.
-//  400 GRAPH_OUTDATED_RELOAD: The graph is outdated, please get a new async token using stats.getBroadcastStats.
+//
+//	400 GRAPH_EXPIRED_RELOAD: This graph has expired, please obtain a new graph token.
+//	400 GRAPH_INVALID_RELOAD: Invalid graph token provided, please reload the stats and provide the updated token.
+//	400 GRAPH_OUTDATED_RELOAD: The graph is outdated, please get a new async token using stats.getBroadcastStats.
 //
 // See https://core.telegram.org/method/stats.loadAsyncGraph for reference.
 func (c *Client) StatsLoadAsyncGraph(ctx context.Context, request *StatsLoadAsyncGraphRequest) (StatsGraphClass, error) {

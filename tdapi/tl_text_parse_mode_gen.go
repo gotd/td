@@ -335,15 +335,16 @@ const TextParseModeClassName = "TextParseMode"
 // TextParseModeClass represents TextParseMode generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeTextParseMode(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.TextParseModeMarkdown: // textParseModeMarkdown#157648bf
-//  case *tdapi.TextParseModeHTML: // textParseModeHTML#62f4c5f3
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeTextParseMode(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.TextParseModeMarkdown: // textParseModeMarkdown#157648bf
+//	case *tdapi.TextParseModeHTML: // textParseModeHTML#62f4c5f3
+//	default: panic(v)
+//	}
 type TextParseModeClass interface {
 	bin.Encoder
 	bin.Decoder

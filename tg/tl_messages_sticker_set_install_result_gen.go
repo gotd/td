@@ -304,15 +304,16 @@ const MessagesStickerSetInstallResultClassName = "messages.StickerSetInstallResu
 // See https://core.telegram.org/type/messages.StickerSetInstallResult for reference.
 //
 // Example:
-//  g, err := tg.DecodeMessagesStickerSetInstallResult(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.MessagesStickerSetInstallResultSuccess: // messages.stickerSetInstallResultSuccess#38641628
-//  case *tg.MessagesStickerSetInstallResultArchive: // messages.stickerSetInstallResultArchive#35e410a8
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeMessagesStickerSetInstallResult(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.MessagesStickerSetInstallResultSuccess: // messages.stickerSetInstallResultSuccess#38641628
+//	case *tg.MessagesStickerSetInstallResultArchive: // messages.stickerSetInstallResultArchive#35e410a8
+//	default: panic(v)
+//	}
 type MessagesStickerSetInstallResultClass interface {
 	bin.Encoder
 	bin.Decoder

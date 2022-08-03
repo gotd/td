@@ -465,16 +465,17 @@ const ChatListClassName = "ChatList"
 // ChatListClass represents ChatList generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeChatList(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.ChatListMain: // chatListMain#e8195bac
-//  case *tdapi.ChatListArchive: // chatListArchive#159f6ec3
-//  case *tdapi.ChatListFilter: // chatListFilter#876fee39
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeChatList(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.ChatListMain: // chatListMain#e8195bac
+//	case *tdapi.ChatListArchive: // chatListArchive#159f6ec3
+//	case *tdapi.ChatListFilter: // chatListFilter#876fee39
+//	default: panic(v)
+//	}
 type ChatListClass interface {
 	bin.Encoder
 	bin.Decoder

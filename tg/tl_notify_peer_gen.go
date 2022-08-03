@@ -485,17 +485,18 @@ const NotifyPeerClassName = "NotifyPeer"
 // See https://core.telegram.org/type/NotifyPeer for reference.
 //
 // Example:
-//  g, err := tg.DecodeNotifyPeer(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.NotifyPeer: // notifyPeer#9fd40bd8
-//  case *tg.NotifyUsers: // notifyUsers#b4c83b4c
-//  case *tg.NotifyChats: // notifyChats#c007cec3
-//  case *tg.NotifyBroadcasts: // notifyBroadcasts#d612e8ef
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeNotifyPeer(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.NotifyPeer: // notifyPeer#9fd40bd8
+//	case *tg.NotifyUsers: // notifyUsers#b4c83b4c
+//	case *tg.NotifyChats: // notifyChats#c007cec3
+//	case *tg.NotifyBroadcasts: // notifyBroadcasts#d612e8ef
+//	default: panic(v)
+//	}
 type NotifyPeerClass interface {
 	bin.Encoder
 	bin.Decoder

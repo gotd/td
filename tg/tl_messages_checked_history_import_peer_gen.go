@@ -36,7 +36,7 @@ var (
 // click here for more info »¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/import
+//  1. https://core.telegram.org/api/import
 //
 // See https://core.telegram.org/constructor/messages.checkedHistoryImportPeer for reference.
 type MessagesCheckedHistoryImportPeer struct {

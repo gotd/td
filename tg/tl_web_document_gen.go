@@ -301,7 +301,7 @@ func (w *WebDocument) MapAttributes() (value DocumentAttributeClassArray) {
 // Remote document that can be downloaded without proxying through telegram¹
 //
 // Links:
-//  1) https://core.telegram.org/api/files
+//  1. https://core.telegram.org/api/files
 //
 // See https://core.telegram.org/constructor/webDocumentNoProxy for reference.
 type WebDocumentNoProxy struct {
@@ -547,15 +547,16 @@ const WebDocumentClassName = "WebDocument"
 // See https://core.telegram.org/type/WebDocument for reference.
 //
 // Example:
-//  g, err := tg.DecodeWebDocument(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.WebDocument: // webDocument#1c570ed1
-//  case *tg.WebDocumentNoProxy: // webDocumentNoProxy#f9c8bcc6
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeWebDocument(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.WebDocument: // webDocument#1c570ed1
+//	case *tg.WebDocumentNoProxy: // webDocumentNoProxy#f9c8bcc6
+//	default: panic(v)
+//	}
 type WebDocumentClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -170,8 +170,9 @@ func (g *MessagesGetPeerSettingsRequest) GetPeer() (value InputPeerClass) {
 // Get peer settings
 //
 // Possible errors:
-//  400 CHANNEL_INVALID: The provided channel is invalid.
-//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.getPeerSettings for reference.
 func (c *Client) MessagesGetPeerSettings(ctx context.Context, peer InputPeerClass) (*MessagesPeerSettings, error) {

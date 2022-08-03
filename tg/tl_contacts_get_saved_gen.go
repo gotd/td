@@ -132,7 +132,8 @@ func (g *ContactsGetSavedRequest) DecodeBare(b *bin.Buffer) error {
 // Get all contacts
 //
 // Possible errors:
-//  403 TAKEOUT_REQUIRED: A takeout session has to be initialized, first.
+//
+//	403 TAKEOUT_REQUIRED: A takeout session has to be initialized, first.
 //
 // See https://core.telegram.org/method/contacts.getSaved for reference.
 func (c *Client) ContactsGetSaved(ctx context.Context) ([]SavedPhoneContact, error) {

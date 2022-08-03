@@ -970,7 +970,7 @@ func (d *UpdatesDifferenceSlice) MapUsers() (value UserClassArray) {
 // The difference is too long¹, and the specified state must be used to refetch updates.
 //
 // Links:
-//  1) https://core.telegram.org/api/updates#recovering-gaps
+//  1. https://core.telegram.org/api/updates#recovering-gaps
 //
 // See https://core.telegram.org/constructor/updates.differenceTooLong for reference.
 type UpdatesDifferenceTooLong struct {
@@ -1112,17 +1112,18 @@ const UpdatesDifferenceClassName = "updates.Difference"
 // See https://core.telegram.org/type/updates.Difference for reference.
 //
 // Example:
-//  g, err := tg.DecodeUpdatesDifference(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.UpdatesDifferenceEmpty: // updates.differenceEmpty#5d75a138
-//  case *tg.UpdatesDifference: // updates.difference#f49ca0
-//  case *tg.UpdatesDifferenceSlice: // updates.differenceSlice#a8fb1981
-//  case *tg.UpdatesDifferenceTooLong: // updates.differenceTooLong#4afe8f6d
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeUpdatesDifference(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.UpdatesDifferenceEmpty: // updates.differenceEmpty#5d75a138
+//	case *tg.UpdatesDifference: // updates.difference#f49ca0
+//	case *tg.UpdatesDifferenceSlice: // updates.differenceSlice#a8fb1981
+//	case *tg.UpdatesDifferenceTooLong: // updates.differenceTooLong#4afe8f6d
+//	default: panic(v)
+//	}
 type UpdatesDifferenceClass interface {
 	bin.Encoder
 	bin.Decoder

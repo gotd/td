@@ -6560,42 +6560,43 @@ const PageBlockClassName = "PageBlock"
 // PageBlockClass represents PageBlock generic type.
 //
 // Example:
-//  g, err := tdapi.DecodePageBlock(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.PageBlockTitle: // pageBlockTitle#6122b610
-//  case *tdapi.PageBlockSubtitle: // pageBlockSubtitle#fc451e7
-//  case *tdapi.PageBlockAuthorDate: // pageBlockAuthorDate#4d7ff410
-//  case *tdapi.PageBlockHeader: // pageBlockHeader#539ddd9b
-//  case *tdapi.PageBlockSubheader: // pageBlockSubheader#4b567326
-//  case *tdapi.PageBlockKicker: // pageBlockKicker#5123864b
-//  case *tdapi.PageBlockParagraph: // pageBlockParagraph#467a0766
-//  case *tdapi.PageBlockPreformatted: // pageBlockPreformatted#c070d93e
-//  case *tdapi.PageBlockFooter: // pageBlockFooter#34d5d728
-//  case *tdapi.PageBlockDivider: // pageBlockDivider#db20b188
-//  case *tdapi.PageBlockAnchor: // pageBlockAnchor#ce0d37b0
-//  case *tdapi.PageBlockList: // pageBlockList#584af35a
-//  case *tdapi.PageBlockBlockQuote: // pageBlockBlockQuote#62d08a9e
-//  case *tdapi.PageBlockPullQuote: // pageBlockPullQuote#1d38810d
-//  case *tdapi.PageBlockAnimation: // pageBlockAnimation#50cde009
-//  case *tdapi.PageBlockAudio: // pageBlockAudio#fc390813
-//  case *tdapi.PageBlockPhoto: // pageBlockPhoto#18e41684
-//  case *tdapi.PageBlockVideo: // pageBlockVideo#1e669d32
-//  case *tdapi.PageBlockVoiceNote: // pageBlockVoiceNote#6cad827f
-//  case *tdapi.PageBlockCover: // pageBlockCover#39f23300
-//  case *tdapi.PageBlockEmbedded: // pageBlockEmbedded#8c369d9d
-//  case *tdapi.PageBlockEmbeddedPost: // pageBlockEmbeddedPost#bc57cdf5
-//  case *tdapi.PageBlockCollage: // pageBlockCollage#40bcaaf0
-//  case *tdapi.PageBlockSlideshow: // pageBlockSlideshow#1107d496
-//  case *tdapi.PageBlockChatLink: // pageBlockChatLink#f3f4550b
-//  case *tdapi.PageBlockTable: // pageBlockTable#cc6352c3
-//  case *tdapi.PageBlockDetails: // pageBlockDetails#990a0c0b
-//  case *tdapi.PageBlockRelatedArticles: // pageBlockRelatedArticles#936d81e6
-//  case *tdapi.PageBlockMap: // pageBlockMap#5a0f7013
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodePageBlock(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.PageBlockTitle: // pageBlockTitle#6122b610
+//	case *tdapi.PageBlockSubtitle: // pageBlockSubtitle#fc451e7
+//	case *tdapi.PageBlockAuthorDate: // pageBlockAuthorDate#4d7ff410
+//	case *tdapi.PageBlockHeader: // pageBlockHeader#539ddd9b
+//	case *tdapi.PageBlockSubheader: // pageBlockSubheader#4b567326
+//	case *tdapi.PageBlockKicker: // pageBlockKicker#5123864b
+//	case *tdapi.PageBlockParagraph: // pageBlockParagraph#467a0766
+//	case *tdapi.PageBlockPreformatted: // pageBlockPreformatted#c070d93e
+//	case *tdapi.PageBlockFooter: // pageBlockFooter#34d5d728
+//	case *tdapi.PageBlockDivider: // pageBlockDivider#db20b188
+//	case *tdapi.PageBlockAnchor: // pageBlockAnchor#ce0d37b0
+//	case *tdapi.PageBlockList: // pageBlockList#584af35a
+//	case *tdapi.PageBlockBlockQuote: // pageBlockBlockQuote#62d08a9e
+//	case *tdapi.PageBlockPullQuote: // pageBlockPullQuote#1d38810d
+//	case *tdapi.PageBlockAnimation: // pageBlockAnimation#50cde009
+//	case *tdapi.PageBlockAudio: // pageBlockAudio#fc390813
+//	case *tdapi.PageBlockPhoto: // pageBlockPhoto#18e41684
+//	case *tdapi.PageBlockVideo: // pageBlockVideo#1e669d32
+//	case *tdapi.PageBlockVoiceNote: // pageBlockVoiceNote#6cad827f
+//	case *tdapi.PageBlockCover: // pageBlockCover#39f23300
+//	case *tdapi.PageBlockEmbedded: // pageBlockEmbedded#8c369d9d
+//	case *tdapi.PageBlockEmbeddedPost: // pageBlockEmbeddedPost#bc57cdf5
+//	case *tdapi.PageBlockCollage: // pageBlockCollage#40bcaaf0
+//	case *tdapi.PageBlockSlideshow: // pageBlockSlideshow#1107d496
+//	case *tdapi.PageBlockChatLink: // pageBlockChatLink#f3f4550b
+//	case *tdapi.PageBlockTable: // pageBlockTable#cc6352c3
+//	case *tdapi.PageBlockDetails: // pageBlockDetails#990a0c0b
+//	case *tdapi.PageBlockRelatedArticles: // pageBlockRelatedArticles#936d81e6
+//	case *tdapi.PageBlockMap: // pageBlockMap#5a0f7013
+//	default: panic(v)
+//	}
 type PageBlockClass interface {
 	bin.Encoder
 	bin.Decoder

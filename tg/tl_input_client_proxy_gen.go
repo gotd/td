@@ -35,7 +35,7 @@ var (
 // Info about an MTProxy¹ used to connect.
 //
 // Links:
-//  1) https://core.telegram.org/mtproto/mtproto-transports#transport-obfuscation
+//  1. https://core.telegram.org/mtproto/mtproto-transports#transport-obfuscation
 //
 // See https://core.telegram.org/constructor/inputClientProxy for reference.
 type InputClientProxy struct {

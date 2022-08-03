@@ -39,8 +39,8 @@ var (
 // be shown to the user, before actually initializing the import.
 //
 // Links:
-//  1) https://core.telegram.org/api/import
-//  2) https://core.telegram.org/type/messages.CheckedHistoryImportPeer
+//  1. https://core.telegram.org/api/import
+//  2. https://core.telegram.org/type/messages.CheckedHistoryImportPeer
 //
 // See https://core.telegram.org/method/messages.checkHistoryImportPeer for reference.
 type MessagesCheckHistoryImportPeerRequest struct {
@@ -185,12 +185,13 @@ func (c *MessagesCheckHistoryImportPeerRequest) GetPeer() (value InputPeerClass)
 // be shown to the user, before actually initializing the import.
 //
 // Links:
-//  1) https://core.telegram.org/api/import
-//  2) https://core.telegram.org/type/messages.CheckedHistoryImportPeer
+//  1. https://core.telegram.org/api/import
+//  2. https://core.telegram.org/type/messages.CheckedHistoryImportPeer
 //
 // Possible errors:
-//  400 PEER_ID_INVALID: The provided peer id is invalid.
-//  400 USER_NOT_MUTUAL_CONTACT: The provided user is not a mutual contact.
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 USER_NOT_MUTUAL_CONTACT: The provided user is not a mutual contact.
 //
 // See https://core.telegram.org/method/messages.checkHistoryImportPeer for reference.
 func (c *Client) MessagesCheckHistoryImportPeer(ctx context.Context, peer InputPeerClass) (*MessagesCheckedHistoryImportPeer, error) {

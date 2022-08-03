@@ -212,7 +212,7 @@ func (d *DraftMessageEmpty) GetDate() (value int, ok bool) {
 // Represents a message draft¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/drafts
+//  1. https://core.telegram.org/api/drafts
 //
 // See https://core.telegram.org/constructor/draftMessage for reference.
 type DraftMessage struct {
@@ -562,15 +562,16 @@ const DraftMessageClassName = "DraftMessage"
 // See https://core.telegram.org/type/DraftMessage for reference.
 //
 // Example:
-//  g, err := tg.DecodeDraftMessage(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.DraftMessageEmpty: // draftMessageEmpty#1b0c841a
-//  case *tg.DraftMessage: // draftMessage#fd8e711f
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeDraftMessage(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.DraftMessageEmpty: // draftMessageEmpty#1b0c841a
+//	case *tg.DraftMessage: // draftMessage#fd8e711f
+//	default: panic(v)
+//	}
 type DraftMessageClass interface {
 	bin.Encoder
 	bin.Decoder

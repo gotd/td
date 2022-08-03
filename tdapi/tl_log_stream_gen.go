@@ -534,16 +534,17 @@ const LogStreamClassName = "LogStream"
 // LogStreamClass represents LogStream generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeLogStream(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.LogStreamDefault: // logStreamDefault#52e296bc
-//  case *tdapi.LogStreamFile: // logStreamFile#5b528de5
-//  case *tdapi.LogStreamEmpty: // logStreamEmpty#e233f1cc
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeLogStream(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.LogStreamDefault: // logStreamDefault#52e296bc
+//	case *tdapi.LogStreamFile: // logStreamFile#5b528de5
+//	case *tdapi.LogStreamEmpty: // logStreamEmpty#e233f1cc
+//	default: panic(v)
+//	}
 type LogStreamClass interface {
 	bin.Encoder
 	bin.Decoder

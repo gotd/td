@@ -334,15 +334,16 @@ const MessageSchedulingStateClassName = "MessageSchedulingState"
 // MessageSchedulingStateClass represents MessageSchedulingState generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeMessageSchedulingState(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.MessageSchedulingStateSendAtDate: // messageSchedulingStateSendAtDate#a773ffe7
-//  case *tdapi.MessageSchedulingStateSendWhenOnline: // messageSchedulingStateSendWhenOnline#7cbfd808
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeMessageSchedulingState(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.MessageSchedulingStateSendAtDate: // messageSchedulingStateSendAtDate#a773ffe7
+//	case *tdapi.MessageSchedulingStateSendWhenOnline: // messageSchedulingStateSendWhenOnline#7cbfd808
+//	default: panic(v)
+//	}
 type MessageSchedulingStateClass interface {
 	bin.Encoder
 	bin.Decoder

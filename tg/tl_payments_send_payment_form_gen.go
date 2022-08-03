@@ -403,7 +403,8 @@ func (s *PaymentsSendPaymentFormRequest) GetTipAmount() (value int64, ok bool) {
 // Send compiled payment form
 //
 // Possible errors:
-//  400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//
+//	400 MESSAGE_ID_INVALID: The provided message id is invalid.
 //
 // See https://core.telegram.org/method/payments.sendPaymentForm for reference.
 func (c *Client) PaymentsSendPaymentForm(ctx context.Context, request *PaymentsSendPaymentFormRequest) (PaymentsPaymentResultClass, error) {

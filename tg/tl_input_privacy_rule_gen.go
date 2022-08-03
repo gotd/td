@@ -1059,21 +1059,22 @@ const InputPrivacyRuleClassName = "InputPrivacyRule"
 // See https://core.telegram.org/type/InputPrivacyRule for reference.
 //
 // Example:
-//  g, err := tg.DecodeInputPrivacyRule(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InputPrivacyValueAllowContacts: // inputPrivacyValueAllowContacts#d09e07b
-//  case *tg.InputPrivacyValueAllowAll: // inputPrivacyValueAllowAll#184b35ce
-//  case *tg.InputPrivacyValueAllowUsers: // inputPrivacyValueAllowUsers#131cc67f
-//  case *tg.InputPrivacyValueDisallowContacts: // inputPrivacyValueDisallowContacts#ba52007
-//  case *tg.InputPrivacyValueDisallowAll: // inputPrivacyValueDisallowAll#d66b66c9
-//  case *tg.InputPrivacyValueDisallowUsers: // inputPrivacyValueDisallowUsers#90110467
-//  case *tg.InputPrivacyValueAllowChatParticipants: // inputPrivacyValueAllowChatParticipants#840649cf
-//  case *tg.InputPrivacyValueDisallowChatParticipants: // inputPrivacyValueDisallowChatParticipants#e94f0f86
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeInputPrivacyRule(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputPrivacyValueAllowContacts: // inputPrivacyValueAllowContacts#d09e07b
+//	case *tg.InputPrivacyValueAllowAll: // inputPrivacyValueAllowAll#184b35ce
+//	case *tg.InputPrivacyValueAllowUsers: // inputPrivacyValueAllowUsers#131cc67f
+//	case *tg.InputPrivacyValueDisallowContacts: // inputPrivacyValueDisallowContacts#ba52007
+//	case *tg.InputPrivacyValueDisallowAll: // inputPrivacyValueDisallowAll#d66b66c9
+//	case *tg.InputPrivacyValueDisallowUsers: // inputPrivacyValueDisallowUsers#90110467
+//	case *tg.InputPrivacyValueAllowChatParticipants: // inputPrivacyValueAllowChatParticipants#840649cf
+//	case *tg.InputPrivacyValueDisallowChatParticipants: // inputPrivacyValueDisallowChatParticipants#e94f0f86
+//	default: panic(v)
+//	}
 type InputPrivacyRuleClass interface {
 	bin.Encoder
 	bin.Decoder

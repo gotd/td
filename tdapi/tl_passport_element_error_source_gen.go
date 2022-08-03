@@ -1325,22 +1325,23 @@ const PassportElementErrorSourceClassName = "PassportElementErrorSource"
 // PassportElementErrorSourceClass represents PassportElementErrorSource generic type.
 //
 // Example:
-//  g, err := tdapi.DecodePassportElementErrorSource(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.PassportElementErrorSourceUnspecified: // passportElementErrorSourceUnspecified#e9734842
-//  case *tdapi.PassportElementErrorSourceDataField: // passportElementErrorSourceDataField#ed9a5ce8
-//  case *tdapi.PassportElementErrorSourceFrontSide: // passportElementErrorSourceFrontSide#70fd7334
-//  case *tdapi.PassportElementErrorSourceReverseSide: // passportElementErrorSourceReverseSide#725bf9f7
-//  case *tdapi.PassportElementErrorSourceSelfie: // passportElementErrorSourceSelfie#d07e1428
-//  case *tdapi.PassportElementErrorSourceTranslationFile: // passportElementErrorSourceTranslationFile#d6e53714
-//  case *tdapi.PassportElementErrorSourceTranslationFiles: // passportElementErrorSourceTranslationFiles#22a5a41c
-//  case *tdapi.PassportElementErrorSourceFile: // passportElementErrorSourceFile#786c3b30
-//  case *tdapi.PassportElementErrorSourceFiles: // passportElementErrorSourceFiles#70e6a6d2
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodePassportElementErrorSource(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.PassportElementErrorSourceUnspecified: // passportElementErrorSourceUnspecified#e9734842
+//	case *tdapi.PassportElementErrorSourceDataField: // passportElementErrorSourceDataField#ed9a5ce8
+//	case *tdapi.PassportElementErrorSourceFrontSide: // passportElementErrorSourceFrontSide#70fd7334
+//	case *tdapi.PassportElementErrorSourceReverseSide: // passportElementErrorSourceReverseSide#725bf9f7
+//	case *tdapi.PassportElementErrorSourceSelfie: // passportElementErrorSourceSelfie#d07e1428
+//	case *tdapi.PassportElementErrorSourceTranslationFile: // passportElementErrorSourceTranslationFile#d6e53714
+//	case *tdapi.PassportElementErrorSourceTranslationFiles: // passportElementErrorSourceTranslationFiles#22a5a41c
+//	case *tdapi.PassportElementErrorSourceFile: // passportElementErrorSourceFile#786c3b30
+//	case *tdapi.PassportElementErrorSourceFiles: // passportElementErrorSourceFiles#70e6a6d2
+//	default: panic(v)
+//	}
 type PassportElementErrorSourceClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -443,7 +443,7 @@ func (i *InputPrivacyKeyPhoneP2P) DecodeBare(b *bin.Buffer) error {
 // Whether messages forwarded from this user will be anonymous¹
 //
 // Links:
-//  1) https://telegram.org/blog/unsend-privacy-emoji#anonymous-forwarding
+//  1. https://telegram.org/blog/unsend-privacy-emoji#anonymous-forwarding
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyForwards for reference.
 type InputPrivacyKeyForwards struct {
@@ -959,22 +959,23 @@ const InputPrivacyKeyClassName = "InputPrivacyKey"
 // See https://core.telegram.org/type/InputPrivacyKey for reference.
 //
 // Example:
-//  g, err := tg.DecodeInputPrivacyKey(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InputPrivacyKeyStatusTimestamp: // inputPrivacyKeyStatusTimestamp#4f96cb18
-//  case *tg.InputPrivacyKeyChatInvite: // inputPrivacyKeyChatInvite#bdfb0426
-//  case *tg.InputPrivacyKeyPhoneCall: // inputPrivacyKeyPhoneCall#fabadc5f
-//  case *tg.InputPrivacyKeyPhoneP2P: // inputPrivacyKeyPhoneP2P#db9e70d2
-//  case *tg.InputPrivacyKeyForwards: // inputPrivacyKeyForwards#a4dd4c08
-//  case *tg.InputPrivacyKeyProfilePhoto: // inputPrivacyKeyProfilePhoto#5719bacc
-//  case *tg.InputPrivacyKeyPhoneNumber: // inputPrivacyKeyPhoneNumber#352dafa
-//  case *tg.InputPrivacyKeyAddedByPhone: // inputPrivacyKeyAddedByPhone#d1219bdd
-//  case *tg.InputPrivacyKeyVoiceMessages: // inputPrivacyKeyVoiceMessages#aee69d68
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeInputPrivacyKey(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputPrivacyKeyStatusTimestamp: // inputPrivacyKeyStatusTimestamp#4f96cb18
+//	case *tg.InputPrivacyKeyChatInvite: // inputPrivacyKeyChatInvite#bdfb0426
+//	case *tg.InputPrivacyKeyPhoneCall: // inputPrivacyKeyPhoneCall#fabadc5f
+//	case *tg.InputPrivacyKeyPhoneP2P: // inputPrivacyKeyPhoneP2P#db9e70d2
+//	case *tg.InputPrivacyKeyForwards: // inputPrivacyKeyForwards#a4dd4c08
+//	case *tg.InputPrivacyKeyProfilePhoto: // inputPrivacyKeyProfilePhoto#5719bacc
+//	case *tg.InputPrivacyKeyPhoneNumber: // inputPrivacyKeyPhoneNumber#352dafa
+//	case *tg.InputPrivacyKeyAddedByPhone: // inputPrivacyKeyAddedByPhone#d1219bdd
+//	case *tg.InputPrivacyKeyVoiceMessages: // inputPrivacyKeyVoiceMessages#aee69d68
+//	default: panic(v)
+//	}
 type InputPrivacyKeyClass interface {
 	bin.Encoder
 	bin.Decoder

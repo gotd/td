@@ -593,15 +593,16 @@ const HelpAppUpdateClassName = "help.AppUpdate"
 // See https://core.telegram.org/type/help.AppUpdate for reference.
 //
 // Example:
-//  g, err := tg.DecodeHelpAppUpdate(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.HelpAppUpdate: // help.appUpdate#ccbbce30
-//  case *tg.HelpNoAppUpdate: // help.noAppUpdate#c45a6536
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeHelpAppUpdate(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.HelpAppUpdate: // help.appUpdate#ccbbce30
+//	case *tg.HelpNoAppUpdate: // help.noAppUpdate#c45a6536
+//	default: panic(v)
+//	}
 type HelpAppUpdateClass interface {
 	bin.Encoder
 	bin.Decoder

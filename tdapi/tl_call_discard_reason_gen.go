@@ -692,18 +692,19 @@ const CallDiscardReasonClassName = "CallDiscardReason"
 // CallDiscardReasonClass represents CallDiscardReason generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeCallDiscardReason(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.CallDiscardReasonEmpty: // callDiscardReasonEmpty#b4f66fc3
-//  case *tdapi.CallDiscardReasonMissed: // callDiscardReasonMissed#64283a7c
-//  case *tdapi.CallDiscardReasonDeclined: // callDiscardReasonDeclined#98e36c32
-//  case *tdapi.CallDiscardReasonDisconnected: // callDiscardReasonDisconnected#aff563a2
-//  case *tdapi.CallDiscardReasonHungUp: // callDiscardReasonHungUp#1a1ea5e6
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeCallDiscardReason(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.CallDiscardReasonEmpty: // callDiscardReasonEmpty#b4f66fc3
+//	case *tdapi.CallDiscardReasonMissed: // callDiscardReasonMissed#64283a7c
+//	case *tdapi.CallDiscardReasonDeclined: // callDiscardReasonDeclined#98e36c32
+//	case *tdapi.CallDiscardReasonDisconnected: // callDiscardReasonDisconnected#aff563a2
+//	case *tdapi.CallDiscardReasonHungUp: // callDiscardReasonHungUp#1a1ea5e6
+//	default: panic(v)
+//	}
 type CallDiscardReasonClass interface {
 	bin.Encoder
 	bin.Decoder

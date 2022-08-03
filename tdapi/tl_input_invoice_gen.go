@@ -403,15 +403,16 @@ const InputInvoiceClassName = "InputInvoice"
 // InputInvoiceClass represents InputInvoice generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeInputInvoice(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.InputInvoiceMessage: // inputInvoiceMessage#58dcea10
-//  case *tdapi.InputInvoiceName: // inputInvoiceName#b1ca16f3
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeInputInvoice(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.InputInvoiceMessage: // inputInvoiceMessage#58dcea10
+//	case *tdapi.InputInvoiceName: // inputInvoiceName#b1ca16f3
+//	default: panic(v)
+//	}
 type InputInvoiceClass interface {
 	bin.Encoder
 	bin.Decoder

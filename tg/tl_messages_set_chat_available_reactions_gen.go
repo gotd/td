@@ -36,7 +36,7 @@ var (
 // supergroup or channel
 //
 // Links:
-//  1) https://core.telegram.org/api/reactions
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.setChatAvailableReactions for reference.
 type MessagesSetChatAvailableReactionsRequest struct {
@@ -215,7 +215,7 @@ func (s *MessagesSetChatAvailableReactionsRequest) GetAvailableReactions() (valu
 // supergroup or channel
 //
 // Links:
-//  1) https://core.telegram.org/api/reactions
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.setChatAvailableReactions for reference.
 func (c *Client) MessagesSetChatAvailableReactions(ctx context.Context, request *MessagesSetChatAvailableReactionsRequest) (UpdatesClass, error) {

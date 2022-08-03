@@ -2981,25 +2981,26 @@ const InlineQueryResultClassName = "InlineQueryResult"
 // InlineQueryResultClass represents InlineQueryResult generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeInlineQueryResult(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.InlineQueryResultArticle: // inlineQueryResultArticle#c4c82d9
-//  case *tdapi.InlineQueryResultContact: // inlineQueryResultContact#f5278212
-//  case *tdapi.InlineQueryResultLocation: // inlineQueryResultLocation#1bc6ab10
-//  case *tdapi.InlineQueryResultVenue: // inlineQueryResultVenue#4c5b105e
-//  case *tdapi.InlineQueryResultGame: // inlineQueryResultGame#65bd7c7b
-//  case *tdapi.InlineQueryResultAnimation: // inlineQueryResultAnimation#77cded0b
-//  case *tdapi.InlineQueryResultAudio: // inlineQueryResultAudio#3239d2f8
-//  case *tdapi.InlineQueryResultDocument: // inlineQueryResultDocument#a71d0c45
-//  case *tdapi.InlineQueryResultPhoto: // inlineQueryResultPhoto#6e2b1dd0
-//  case *tdapi.InlineQueryResultSticker: // inlineQueryResultSticker#91d6560b
-//  case *tdapi.InlineQueryResultVideo: // inlineQueryResultVideo#ae2742e5
-//  case *tdapi.InlineQueryResultVoiceNote: // inlineQueryResultVoiceNote#8ee8142f
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeInlineQueryResult(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.InlineQueryResultArticle: // inlineQueryResultArticle#c4c82d9
+//	case *tdapi.InlineQueryResultContact: // inlineQueryResultContact#f5278212
+//	case *tdapi.InlineQueryResultLocation: // inlineQueryResultLocation#1bc6ab10
+//	case *tdapi.InlineQueryResultVenue: // inlineQueryResultVenue#4c5b105e
+//	case *tdapi.InlineQueryResultGame: // inlineQueryResultGame#65bd7c7b
+//	case *tdapi.InlineQueryResultAnimation: // inlineQueryResultAnimation#77cded0b
+//	case *tdapi.InlineQueryResultAudio: // inlineQueryResultAudio#3239d2f8
+//	case *tdapi.InlineQueryResultDocument: // inlineQueryResultDocument#a71d0c45
+//	case *tdapi.InlineQueryResultPhoto: // inlineQueryResultPhoto#6e2b1dd0
+//	case *tdapi.InlineQueryResultSticker: // inlineQueryResultSticker#91d6560b
+//	case *tdapi.InlineQueryResultVideo: // inlineQueryResultVideo#ae2742e5
+//	case *tdapi.InlineQueryResultVoiceNote: // inlineQueryResultVoiceNote#8ee8142f
+//	default: panic(v)
+//	}
 type InlineQueryResultClass interface {
 	bin.Encoder
 	bin.Decoder

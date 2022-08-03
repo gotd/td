@@ -35,7 +35,7 @@ var (
 // Unpin¹ all pinned messages
 //
 // Links:
-//  1) https://core.telegram.org/api/pin
+//  1. https://core.telegram.org/api/pin
 //
 // See https://core.telegram.org/method/messages.unpinAllMessages for reference.
 type MessagesUnpinAllMessagesRequest struct {
@@ -173,7 +173,7 @@ func (u *MessagesUnpinAllMessagesRequest) GetPeer() (value InputPeerClass) {
 // Unpin¹ all pinned messages
 //
 // Links:
-//  1) https://core.telegram.org/api/pin
+//  1. https://core.telegram.org/api/pin
 //
 // See https://core.telegram.org/method/messages.unpinAllMessages for reference.
 // Can be used by bots.

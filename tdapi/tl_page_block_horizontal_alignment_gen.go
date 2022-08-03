@@ -430,16 +430,17 @@ const PageBlockHorizontalAlignmentClassName = "PageBlockHorizontalAlignment"
 // PageBlockHorizontalAlignmentClass represents PageBlockHorizontalAlignment generic type.
 //
 // Example:
-//  g, err := tdapi.DecodePageBlockHorizontalAlignment(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.PageBlockHorizontalAlignmentLeft: // pageBlockHorizontalAlignmentLeft#329627e9
-//  case *tdapi.PageBlockHorizontalAlignmentCenter: // pageBlockHorizontalAlignmentCenter#c3d8c4ea
-//  case *tdapi.PageBlockHorizontalAlignmentRight: // pageBlockHorizontalAlignmentRight#51bd6efe
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodePageBlockHorizontalAlignment(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.PageBlockHorizontalAlignmentLeft: // pageBlockHorizontalAlignmentLeft#329627e9
+//	case *tdapi.PageBlockHorizontalAlignmentCenter: // pageBlockHorizontalAlignmentCenter#c3d8c4ea
+//	case *tdapi.PageBlockHorizontalAlignmentRight: // pageBlockHorizontalAlignmentRight#51bd6efe
+//	default: panic(v)
+//	}
 type PageBlockHorizontalAlignmentClass interface {
 	bin.Encoder
 	bin.Decoder

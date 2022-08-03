@@ -592,15 +592,16 @@ const PhotoClassName = "Photo"
 // See https://core.telegram.org/type/Photo for reference.
 //
 // Example:
-//  g, err := tg.DecodePhoto(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.PhotoEmpty: // photoEmpty#2331b22d
-//  case *tg.Photo: // photo#fb197a65
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodePhoto(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.PhotoEmpty: // photoEmpty#2331b22d
+//	case *tg.Photo: // photo#fb197a65
+//	default: panic(v)
+//	}
 type PhotoClass interface {
 	bin.Encoder
 	bin.Decoder

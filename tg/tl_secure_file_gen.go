@@ -137,8 +137,8 @@ func (s *SecureFileEmpty) DecodeBare(b *bin.Buffer) error {
 // Secure passport¹ file, for more info see the passport docs »²
 //
 // Links:
-//  1) https://core.telegram.org/passport
-//  2) https://core.telegram.org/passport/encryption#inputsecurefile
+//  1. https://core.telegram.org/passport
+//  2. https://core.telegram.org/passport/encryption#inputsecurefile
 //
 // See https://core.telegram.org/constructor/secureFile for reference.
 type SecureFile struct {
@@ -442,15 +442,16 @@ const SecureFileClassName = "SecureFile"
 // See https://core.telegram.org/type/SecureFile for reference.
 //
 // Example:
-//  g, err := tg.DecodeSecureFile(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.SecureFileEmpty: // secureFileEmpty#64199744
-//  case *tg.SecureFile: // secureFile#7d09c27e
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeSecureFile(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.SecureFileEmpty: // secureFileEmpty#64199744
+//	case *tg.SecureFile: // secureFile#7d09c27e
+//	default: panic(v)
+//	}
 type SecureFileClass interface {
 	bin.Encoder
 	bin.Decoder

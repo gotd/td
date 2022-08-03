@@ -446,8 +446,9 @@ func (e *MessagesEditExportedChatInviteRequest) GetTitle() (value string, ok boo
 // Edit an exported chat invite
 //
 // Possible errors:
-//  403 EDIT_BOT_INVITE_FORBIDDEN: Normal users can't edit invites that were created by bots.
-//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//
+//	403 EDIT_BOT_INVITE_FORBIDDEN: Normal users can't edit invites that were created by bots.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.editExportedChatInvite for reference.
 // Can be used by bots.

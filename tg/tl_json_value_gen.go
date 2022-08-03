@@ -854,19 +854,20 @@ const JSONValueClassName = "JSONValue"
 // See https://core.telegram.org/type/JSONValue for reference.
 //
 // Example:
-//  g, err := tg.DecodeJSONValue(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.JSONNull: // jsonNull#3f6d7b68
-//  case *tg.JSONBool: // jsonBool#c7345e6a
-//  case *tg.JSONNumber: // jsonNumber#2be0dfa4
-//  case *tg.JSONString: // jsonString#b71e767a
-//  case *tg.JSONArray: // jsonArray#f7444763
-//  case *tg.JSONObject: // jsonObject#99c1d49d
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeJSONValue(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.JSONNull: // jsonNull#3f6d7b68
+//	case *tg.JSONBool: // jsonBool#c7345e6a
+//	case *tg.JSONNumber: // jsonNumber#2be0dfa4
+//	case *tg.JSONString: // jsonString#b71e767a
+//	case *tg.JSONArray: // jsonArray#f7444763
+//	case *tg.JSONObject: // jsonObject#99c1d49d
+//	default: panic(v)
+//	}
 type JSONValueClass interface {
 	bin.Encoder
 	bin.Decoder

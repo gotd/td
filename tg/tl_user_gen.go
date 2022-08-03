@@ -1520,15 +1520,16 @@ const UserClassName = "User"
 // See https://core.telegram.org/type/User for reference.
 //
 // Example:
-//  g, err := tg.DecodeUser(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.UserEmpty: // userEmpty#d3bc4b7a
-//  case *tg.User: // user#3ff6ecb0
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeUser(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.UserEmpty: // userEmpty#d3bc4b7a
+//	case *tg.User: // user#3ff6ecb0
+//	default: panic(v)
+//	}
 type UserClass interface {
 	bin.Encoder
 	bin.Decoder

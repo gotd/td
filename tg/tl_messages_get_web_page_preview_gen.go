@@ -263,7 +263,8 @@ func (g *MessagesGetWebPagePreviewRequest) MapEntities() (value MessageEntityCla
 // Get preview of webpage
 //
 // Possible errors:
-//  400 MESSAGE_EMPTY: The provided message is empty.
+//
+//	400 MESSAGE_EMPTY: The provided message is empty.
 //
 // See https://core.telegram.org/method/messages.getWebPagePreview for reference.
 func (c *Client) MessagesGetWebPagePreview(ctx context.Context, request *MessagesGetWebPagePreviewRequest) (MessageMediaClass, error) {

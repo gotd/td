@@ -35,7 +35,7 @@ var (
 // Abort a pending 2FA password reset, see here for more info »¹
 //
 // Links:
-//  1) https://core.telegram.org/api/srp#password-reset
+//  1. https://core.telegram.org/api/srp#password-reset
 //
 // See https://core.telegram.org/method/account.declinePasswordReset for reference.
 type AccountDeclinePasswordResetRequest struct {
@@ -135,10 +135,11 @@ func (d *AccountDeclinePasswordResetRequest) DecodeBare(b *bin.Buffer) error {
 // Abort a pending 2FA password reset, see here for more info »¹
 //
 // Links:
-//  1) https://core.telegram.org/api/srp#password-reset
+//  1. https://core.telegram.org/api/srp#password-reset
 //
 // Possible errors:
-//  400 RESET_REQUEST_MISSING: No password reset is in progress.
+//
+//	400 RESET_REQUEST_MISSING: No password reset is in progress.
 //
 // See https://core.telegram.org/method/account.declinePasswordReset for reference.
 func (c *Client) AccountDeclinePasswordReset(ctx context.Context) (bool, error) {

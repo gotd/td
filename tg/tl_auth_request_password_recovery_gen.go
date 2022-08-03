@@ -36,8 +36,8 @@ var (
 // configured².
 //
 // Links:
-//  1) https://core.telegram.org/api/srp
-//  2) https://core.telegram.org/api/srp#email-verification
+//  1. https://core.telegram.org/api/srp
+//  2. https://core.telegram.org/api/srp#email-verification
 //
 // See https://core.telegram.org/method/auth.requestPasswordRecovery for reference.
 type AuthRequestPasswordRecoveryRequest struct {
@@ -138,12 +138,13 @@ func (r *AuthRequestPasswordRecoveryRequest) DecodeBare(b *bin.Buffer) error {
 // configured².
 //
 // Links:
-//  1) https://core.telegram.org/api/srp
-//  2) https://core.telegram.org/api/srp#email-verification
+//  1. https://core.telegram.org/api/srp
+//  2. https://core.telegram.org/api/srp#email-verification
 //
 // Possible errors:
-//  400 PASSWORD_EMPTY: The provided password is empty.
-//  400 PASSWORD_RECOVERY_NA: No email was set, can't recover password via email.
+//
+//	400 PASSWORD_EMPTY: The provided password is empty.
+//	400 PASSWORD_RECOVERY_NA: No email was set, can't recover password via email.
 //
 // See https://core.telegram.org/method/auth.requestPasswordRecovery for reference.
 func (c *Client) AuthRequestPasswordRecovery(ctx context.Context) (*AuthPasswordRecovery, error) {

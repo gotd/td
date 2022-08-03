@@ -443,7 +443,7 @@ func (p *PrivacyKeyPhoneP2P) DecodeBare(b *bin.Buffer) error {
 // Whether messages forwarded from the user will be anonymously forwarded¹
 //
 // Links:
-//  1) https://telegram.org/blog/unsend-privacy-emoji#anonymous-forwarding
+//  1. https://telegram.org/blog/unsend-privacy-emoji#anonymous-forwarding
 //
 // See https://core.telegram.org/constructor/privacyKeyForwards for reference.
 type PrivacyKeyForwards struct {
@@ -959,22 +959,23 @@ const PrivacyKeyClassName = "PrivacyKey"
 // See https://core.telegram.org/type/PrivacyKey for reference.
 //
 // Example:
-//  g, err := tg.DecodePrivacyKey(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.PrivacyKeyStatusTimestamp: // privacyKeyStatusTimestamp#bc2eab30
-//  case *tg.PrivacyKeyChatInvite: // privacyKeyChatInvite#500e6dfa
-//  case *tg.PrivacyKeyPhoneCall: // privacyKeyPhoneCall#3d662b7b
-//  case *tg.PrivacyKeyPhoneP2P: // privacyKeyPhoneP2P#39491cc8
-//  case *tg.PrivacyKeyForwards: // privacyKeyForwards#69ec56a3
-//  case *tg.PrivacyKeyProfilePhoto: // privacyKeyProfilePhoto#96151fed
-//  case *tg.PrivacyKeyPhoneNumber: // privacyKeyPhoneNumber#d19ae46d
-//  case *tg.PrivacyKeyAddedByPhone: // privacyKeyAddedByPhone#42ffd42b
-//  case *tg.PrivacyKeyVoiceMessages: // privacyKeyVoiceMessages#697f414
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodePrivacyKey(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.PrivacyKeyStatusTimestamp: // privacyKeyStatusTimestamp#bc2eab30
+//	case *tg.PrivacyKeyChatInvite: // privacyKeyChatInvite#500e6dfa
+//	case *tg.PrivacyKeyPhoneCall: // privacyKeyPhoneCall#3d662b7b
+//	case *tg.PrivacyKeyPhoneP2P: // privacyKeyPhoneP2P#39491cc8
+//	case *tg.PrivacyKeyForwards: // privacyKeyForwards#69ec56a3
+//	case *tg.PrivacyKeyProfilePhoto: // privacyKeyProfilePhoto#96151fed
+//	case *tg.PrivacyKeyPhoneNumber: // privacyKeyPhoneNumber#d19ae46d
+//	case *tg.PrivacyKeyAddedByPhone: // privacyKeyAddedByPhone#42ffd42b
+//	case *tg.PrivacyKeyVoiceMessages: // privacyKeyVoiceMessages#697f414
+//	default: panic(v)
+//	}
 type PrivacyKeyClass interface {
 	bin.Encoder
 	bin.Decoder

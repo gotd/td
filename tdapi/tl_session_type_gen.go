@@ -2264,30 +2264,31 @@ const SessionTypeClassName = "SessionType"
 // SessionTypeClass represents SessionType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeSessionType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.SessionTypeAndroid: // sessionTypeAndroid#84836098
-//  case *tdapi.SessionTypeApple: // sessionTypeApple#9399d24b
-//  case *tdapi.SessionTypeBrave: // sessionTypeBrave#b778e9ed
-//  case *tdapi.SessionTypeChrome: // sessionTypeChrome#5dc92969
-//  case *tdapi.SessionTypeEdge: // sessionTypeEdge#dfe0cb5b
-//  case *tdapi.SessionTypeFirefox: // sessionTypeFirefox#7e83fda4
-//  case *tdapi.SessionTypeIpad: // sessionTypeIpad#4d2abeef
-//  case *tdapi.SessionTypeIphone: // sessionTypeIphone#5d182bd
-//  case *tdapi.SessionTypeLinux: // sessionTypeLinux#a757ba69
-//  case *tdapi.SessionTypeMAC: // sessionTypeMac#db81caa1
-//  case *tdapi.SessionTypeOpera: // sessionTypeOpera#a8c21c7a
-//  case *tdapi.SessionTypeSafari: // sessionTypeSafari#2a5b9c59
-//  case *tdapi.SessionTypeUbuntu: // sessionTypeUbuntu#5d8f6ac5
-//  case *tdapi.SessionTypeUnknown: // sessionTypeUnknown#df17030
-//  case *tdapi.SessionTypeVivaldi: // sessionTypeVivaldi#42c985ef
-//  case *tdapi.SessionTypeWindows: // sessionTypeWindows#9c1272a8
-//  case *tdapi.SessionTypeXbox: // sessionTypeXbox#6ea39dac
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeSessionType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.SessionTypeAndroid: // sessionTypeAndroid#84836098
+//	case *tdapi.SessionTypeApple: // sessionTypeApple#9399d24b
+//	case *tdapi.SessionTypeBrave: // sessionTypeBrave#b778e9ed
+//	case *tdapi.SessionTypeChrome: // sessionTypeChrome#5dc92969
+//	case *tdapi.SessionTypeEdge: // sessionTypeEdge#dfe0cb5b
+//	case *tdapi.SessionTypeFirefox: // sessionTypeFirefox#7e83fda4
+//	case *tdapi.SessionTypeIpad: // sessionTypeIpad#4d2abeef
+//	case *tdapi.SessionTypeIphone: // sessionTypeIphone#5d182bd
+//	case *tdapi.SessionTypeLinux: // sessionTypeLinux#a757ba69
+//	case *tdapi.SessionTypeMAC: // sessionTypeMac#db81caa1
+//	case *tdapi.SessionTypeOpera: // sessionTypeOpera#a8c21c7a
+//	case *tdapi.SessionTypeSafari: // sessionTypeSafari#2a5b9c59
+//	case *tdapi.SessionTypeUbuntu: // sessionTypeUbuntu#5d8f6ac5
+//	case *tdapi.SessionTypeUnknown: // sessionTypeUnknown#df17030
+//	case *tdapi.SessionTypeVivaldi: // sessionTypeVivaldi#42c985ef
+//	case *tdapi.SessionTypeWindows: // sessionTypeWindows#9c1272a8
+//	case *tdapi.SessionTypeXbox: // sessionTypeXbox#6ea39dac
+//	default: panic(v)
+//	}
 type SessionTypeClass interface {
 	bin.Encoder
 	bin.Decoder

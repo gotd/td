@@ -36,7 +36,7 @@ var (
 // here for more info »¹
 //
 // Links:
-//  1) https://core.telegram.org/api/srp#password-reset
+//  1. https://core.telegram.org/api/srp#password-reset
 //
 // See https://core.telegram.org/method/account.resetPassword for reference.
 type AccountResetPasswordRequest struct {
@@ -137,7 +137,7 @@ func (r *AccountResetPasswordRequest) DecodeBare(b *bin.Buffer) error {
 // here for more info »¹
 //
 // Links:
-//  1) https://core.telegram.org/api/srp#password-reset
+//  1. https://core.telegram.org/api/srp#password-reset
 //
 // See https://core.telegram.org/method/account.resetPassword for reference.
 func (c *Client) AccountResetPassword(ctx context.Context) (AccountResetPasswordResultClass, error) {

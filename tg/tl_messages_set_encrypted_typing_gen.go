@@ -197,7 +197,8 @@ func (s *MessagesSetEncryptedTypingRequest) GetTyping() (value bool) {
 // Send typing event by the current user to a secret chat.
 //
 // Possible errors:
-//  400 CHAT_ID_INVALID: The provided chat id is invalid.
+//
+//	400 CHAT_ID_INVALID: The provided chat id is invalid.
 //
 // See https://core.telegram.org/method/messages.setEncryptedTyping for reference.
 func (c *Client) MessagesSetEncryptedTyping(ctx context.Context, request *MessagesSetEncryptedTypingRequest) (bool, error) {

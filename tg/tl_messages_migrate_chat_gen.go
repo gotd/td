@@ -35,7 +35,7 @@ var (
 // Turn a basic group into a supergroup¹
 //
 // Links:
-//  1) https://core.telegram.org/api/channel#migration
+//  1. https://core.telegram.org/api/channel#migration
 //
 // See https://core.telegram.org/method/messages.migrateChat for reference.
 type MessagesMigrateChatRequest struct {
@@ -171,13 +171,14 @@ func (m *MessagesMigrateChatRequest) GetChatID() (value int64) {
 // Turn a basic group into a supergroup¹
 //
 // Links:
-//  1) https://core.telegram.org/api/channel#migration
+//  1. https://core.telegram.org/api/channel#migration
 //
 // Possible errors:
-//  400 CHANNELS_TOO_MUCH: You have joined too many channels/supergroups.
-//  403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//  400 CHAT_ID_INVALID: The provided chat id is invalid.
-//  400 PEER_ID_INVALID: The provided peer id is invalid.
+//
+//	400 CHANNELS_TOO_MUCH: You have joined too many channels/supergroups.
+//	403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	400 CHAT_ID_INVALID: The provided chat id is invalid.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.migrateChat for reference.
 func (c *Client) MessagesMigrateChat(ctx context.Context, chatid int64) (UpdatesClass, error) {

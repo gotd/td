@@ -333,7 +333,7 @@ func (i *InputWallPaperSlug) GetSlug() (value string) {
 // wallpapers using account.saveWallPaper¹, specifying just the wallpaper ID.
 //
 // Links:
-//  1) https://core.telegram.org/method/account.saveWallPaper
+//  1. https://core.telegram.org/method/account.saveWallPaper
 //
 // See https://core.telegram.org/constructor/inputWallPaperNoFile for reference.
 type InputWallPaperNoFile struct {
@@ -475,16 +475,17 @@ const InputWallPaperClassName = "InputWallPaper"
 // See https://core.telegram.org/type/InputWallPaper for reference.
 //
 // Example:
-//  g, err := tg.DecodeInputWallPaper(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.InputWallPaper: // inputWallPaper#e630b979
-//  case *tg.InputWallPaperSlug: // inputWallPaperSlug#72091c80
-//  case *tg.InputWallPaperNoFile: // inputWallPaperNoFile#967a462e
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeInputWallPaper(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.InputWallPaper: // inputWallPaper#e630b979
+//	case *tg.InputWallPaperSlug: // inputWallPaperSlug#72091c80
+//	case *tg.InputWallPaperNoFile: // inputWallPaperNoFile#967a462e
+//	default: panic(v)
+//	}
 type InputWallPaperClass interface {
 	bin.Encoder
 	bin.Decoder

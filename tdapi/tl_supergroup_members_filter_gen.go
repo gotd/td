@@ -1294,21 +1294,22 @@ const SupergroupMembersFilterClassName = "SupergroupMembersFilter"
 // SupergroupMembersFilterClass represents SupergroupMembersFilter generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeSupergroupMembersFilter(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.SupergroupMembersFilterRecent: // supergroupMembersFilterRecent#4639e5d5
-//  case *tdapi.SupergroupMembersFilterContacts: // supergroupMembersFilterContacts#b3885578
-//  case *tdapi.SupergroupMembersFilterAdministrators: // supergroupMembersFilterAdministrators#82fc8457
-//  case *tdapi.SupergroupMembersFilterSearch: // supergroupMembersFilterSearch#9ae39fbb
-//  case *tdapi.SupergroupMembersFilterRestricted: // supergroupMembersFilterRestricted#bdf8501e
-//  case *tdapi.SupergroupMembersFilterBanned: // supergroupMembersFilterBanned#b7d7610d
-//  case *tdapi.SupergroupMembersFilterMention: // supergroupMembersFilterMention#3880091c
-//  case *tdapi.SupergroupMembersFilterBots: // supergroupMembersFilterBots#1d5571a6
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeSupergroupMembersFilter(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.SupergroupMembersFilterRecent: // supergroupMembersFilterRecent#4639e5d5
+//	case *tdapi.SupergroupMembersFilterContacts: // supergroupMembersFilterContacts#b3885578
+//	case *tdapi.SupergroupMembersFilterAdministrators: // supergroupMembersFilterAdministrators#82fc8457
+//	case *tdapi.SupergroupMembersFilterSearch: // supergroupMembersFilterSearch#9ae39fbb
+//	case *tdapi.SupergroupMembersFilterRestricted: // supergroupMembersFilterRestricted#bdf8501e
+//	case *tdapi.SupergroupMembersFilterBanned: // supergroupMembersFilterBanned#b7d7610d
+//	case *tdapi.SupergroupMembersFilterMention: // supergroupMembersFilterMention#3880091c
+//	case *tdapi.SupergroupMembersFilterBots: // supergroupMembersFilterBots#1d5571a6
+//	default: panic(v)
+//	}
 type SupergroupMembersFilterClass interface {
 	bin.Encoder
 	bin.Decoder

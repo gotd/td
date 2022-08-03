@@ -1297,17 +1297,18 @@ const MessagesMessagesClassName = "messages.Messages"
 // See https://core.telegram.org/type/messages.Messages for reference.
 //
 // Example:
-//  g, err := tg.DecodeMessagesMessages(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.MessagesMessages: // messages.messages#8c718e87
-//  case *tg.MessagesMessagesSlice: // messages.messagesSlice#3a54685e
-//  case *tg.MessagesChannelMessages: // messages.channelMessages#64479808
-//  case *tg.MessagesMessagesNotModified: // messages.messagesNotModified#74535f21
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeMessagesMessages(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.MessagesMessages: // messages.messages#8c718e87
+//	case *tg.MessagesMessagesSlice: // messages.messagesSlice#3a54685e
+//	case *tg.MessagesChannelMessages: // messages.channelMessages#64479808
+//	case *tg.MessagesMessagesNotModified: // messages.messagesNotModified#74535f21
+//	default: panic(v)
+//	}
 type MessagesMessagesClass interface {
 	bin.Encoder
 	bin.Decoder

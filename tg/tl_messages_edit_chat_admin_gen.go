@@ -35,7 +35,7 @@ var (
 // Make a user admin in a basic group¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/channel#basic-groups
+//  1. https://core.telegram.org/api/channel#basic-groups
 //
 // See https://core.telegram.org/method/messages.editChatAdmin for reference.
 type MessagesEditChatAdminRequest struct {
@@ -227,13 +227,14 @@ func (e *MessagesEditChatAdminRequest) GetIsAdmin() (value bool) {
 // Make a user admin in a basic group¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/channel#basic-groups
+//  1. https://core.telegram.org/api/channel#basic-groups
 //
 // Possible errors:
-//  400 CHAT_ID_INVALID: The provided chat id is invalid.
-//  400 PEER_ID_INVALID: The provided peer id is invalid.
-//  400 USER_ID_INVALID: The provided user ID is invalid.
-//  400 USER_NOT_PARTICIPANT: You're not a member of this supergroup/channel.
+//
+//	400 CHAT_ID_INVALID: The provided chat id is invalid.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 USER_ID_INVALID: The provided user ID is invalid.
+//	400 USER_NOT_PARTICIPANT: You're not a member of this supergroup/channel.
 //
 // See https://core.telegram.org/method/messages.editChatAdmin for reference.
 func (c *Client) MessagesEditChatAdmin(ctx context.Context, request *MessagesEditChatAdminRequest) (bool, error) {

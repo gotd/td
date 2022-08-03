@@ -1216,22 +1216,23 @@ const CallProblemClassName = "CallProblem"
 // CallProblemClass represents CallProblem generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeCallProblem(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.CallProblemEcho: // callProblemEcho#2fc01184
-//  case *tdapi.CallProblemNoise: // callProblemNoise#3ec4808f
-//  case *tdapi.CallProblemInterruptions: // callProblemInterruptions#42ba1c62
-//  case *tdapi.CallProblemDistortedSpeech: // callProblemDistortedSpeech#16a5bd05
-//  case *tdapi.CallProblemSilentLocal: // callProblemSilentLocal#f1e6f36
-//  case *tdapi.CallProblemSilentRemote: // callProblemSilentRemote#2230f89a
-//  case *tdapi.CallProblemDropped: // callProblemDropped#b809e381
-//  case *tdapi.CallProblemDistortedVideo: // callProblemDistortedVideo#16f6620a
-//  case *tdapi.CallProblemPixelatedVideo: // callProblemPixelatedVideo#7e1526d3
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeCallProblem(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.CallProblemEcho: // callProblemEcho#2fc01184
+//	case *tdapi.CallProblemNoise: // callProblemNoise#3ec4808f
+//	case *tdapi.CallProblemInterruptions: // callProblemInterruptions#42ba1c62
+//	case *tdapi.CallProblemDistortedSpeech: // callProblemDistortedSpeech#16a5bd05
+//	case *tdapi.CallProblemSilentLocal: // callProblemSilentLocal#f1e6f36
+//	case *tdapi.CallProblemSilentRemote: // callProblemSilentRemote#2230f89a
+//	case *tdapi.CallProblemDropped: // callProblemDropped#b809e381
+//	case *tdapi.CallProblemDistortedVideo: // callProblemDistortedVideo#16f6620a
+//	case *tdapi.CallProblemPixelatedVideo: // callProblemPixelatedVideo#7e1526d3
+//	default: panic(v)
+//	}
 type CallProblemClass interface {
 	bin.Encoder
 	bin.Decoder

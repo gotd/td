@@ -35,7 +35,7 @@ var (
 // Download a CDN¹ file.
 //
 // Links:
-//  1) https://core.telegram.org/cdn
+//  1. https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/method/upload.getCdnFile for reference.
 type UploadGetCDNFileRequest struct {
@@ -222,7 +222,7 @@ func (g *UploadGetCDNFileRequest) GetLimit() (value int) {
 // Download a CDN¹ file.
 //
 // Links:
-//  1) https://core.telegram.org/cdn
+//  1. https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/method/upload.getCdnFile for reference.
 func (c *Client) UploadGetCDNFile(ctx context.Context, request *UploadGetCDNFileRequest) (UploadCDNFileClass, error) {

@@ -1331,12 +1331,12 @@ func (k *KeyboardButtonBuy) GetText() (value string) {
 // link, the url of this constructor must be used.
 //
 // Links:
-//  1) https://telegram.org/blog/privacy-discussions-web-bots#meet-seamless-web-bots
-//  2) https://core.telegram.org/method/messages.requestUrlAuth
-//  3) https://core.telegram.org/constructor/urlAuthResultRequest
-//  4) https://core.telegram.org/method/messages.acceptUrlAuth
-//  5) https://core.telegram.org/constructor/urlAuthResultAccepted
-//  6) https://core.telegram.org/constructor/urlAuthResultDefault
+//  1. https://telegram.org/blog/privacy-discussions-web-bots#meet-seamless-web-bots
+//  2. https://core.telegram.org/method/messages.requestUrlAuth
+//  3. https://core.telegram.org/constructor/urlAuthResultRequest
+//  4. https://core.telegram.org/method/messages.acceptUrlAuth
+//  5. https://core.telegram.org/constructor/urlAuthResultAccepted
+//  6. https://core.telegram.org/constructor/urlAuthResultDefault
 //
 // See https://core.telegram.org/constructor/keyboardButtonUrlAuth for reference.
 type KeyboardButtonURLAuth struct {
@@ -1609,8 +1609,8 @@ func (k *KeyboardButtonURLAuth) GetButtonID() (value int) {
 // Button to request a user to authorize¹ via URL using Seamless Telegram Login².
 //
 // Links:
-//  1) https://core.telegram.org/method/messages.acceptUrlAuth
-//  2) https://telegram.org/blog/privacy-discussions-web-bots#meet-seamless-web-bots
+//  1. https://core.telegram.org/method/messages.acceptUrlAuth
+//  2. https://telegram.org/blog/privacy-discussions-web-bots#meet-seamless-web-bots
 //
 // See https://core.telegram.org/constructor/inputKeyboardButtonUrlAuth for reference.
 type InputKeyboardButtonURLAuth struct {
@@ -2787,28 +2787,29 @@ const KeyboardButtonClassName = "KeyboardButton"
 // See https://core.telegram.org/type/KeyboardButton for reference.
 //
 // Example:
-//  g, err := tg.DecodeKeyboardButton(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.KeyboardButton: // keyboardButton#a2fa4880
-//  case *tg.KeyboardButtonURL: // keyboardButtonUrl#258aff05
-//  case *tg.KeyboardButtonCallback: // keyboardButtonCallback#35bbdb6b
-//  case *tg.KeyboardButtonRequestPhone: // keyboardButtonRequestPhone#b16a6c29
-//  case *tg.KeyboardButtonRequestGeoLocation: // keyboardButtonRequestGeoLocation#fc796b3f
-//  case *tg.KeyboardButtonSwitchInline: // keyboardButtonSwitchInline#568a748
-//  case *tg.KeyboardButtonGame: // keyboardButtonGame#50f41ccf
-//  case *tg.KeyboardButtonBuy: // keyboardButtonBuy#afd93fbb
-//  case *tg.KeyboardButtonURLAuth: // keyboardButtonUrlAuth#10b78d29
-//  case *tg.InputKeyboardButtonURLAuth: // inputKeyboardButtonUrlAuth#d02e7fd4
-//  case *tg.KeyboardButtonRequestPoll: // keyboardButtonRequestPoll#bbc7515d
-//  case *tg.InputKeyboardButtonUserProfile: // inputKeyboardButtonUserProfile#e988037b
-//  case *tg.KeyboardButtonUserProfile: // keyboardButtonUserProfile#308660c1
-//  case *tg.KeyboardButtonWebView: // keyboardButtonWebView#13767230
-//  case *tg.KeyboardButtonSimpleWebView: // keyboardButtonSimpleWebView#a0c0505c
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeKeyboardButton(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.KeyboardButton: // keyboardButton#a2fa4880
+//	case *tg.KeyboardButtonURL: // keyboardButtonUrl#258aff05
+//	case *tg.KeyboardButtonCallback: // keyboardButtonCallback#35bbdb6b
+//	case *tg.KeyboardButtonRequestPhone: // keyboardButtonRequestPhone#b16a6c29
+//	case *tg.KeyboardButtonRequestGeoLocation: // keyboardButtonRequestGeoLocation#fc796b3f
+//	case *tg.KeyboardButtonSwitchInline: // keyboardButtonSwitchInline#568a748
+//	case *tg.KeyboardButtonGame: // keyboardButtonGame#50f41ccf
+//	case *tg.KeyboardButtonBuy: // keyboardButtonBuy#afd93fbb
+//	case *tg.KeyboardButtonURLAuth: // keyboardButtonUrlAuth#10b78d29
+//	case *tg.InputKeyboardButtonURLAuth: // inputKeyboardButtonUrlAuth#d02e7fd4
+//	case *tg.KeyboardButtonRequestPoll: // keyboardButtonRequestPoll#bbc7515d
+//	case *tg.InputKeyboardButtonUserProfile: // inputKeyboardButtonUserProfile#e988037b
+//	case *tg.KeyboardButtonUserProfile: // keyboardButtonUserProfile#308660c1
+//	case *tg.KeyboardButtonWebView: // keyboardButtonWebView#13767230
+//	case *tg.KeyboardButtonSimpleWebView: // keyboardButtonSimpleWebView#a0c0505c
+//	default: panic(v)
+//	}
 type KeyboardButtonClass interface {
 	bin.Encoder
 	bin.Decoder

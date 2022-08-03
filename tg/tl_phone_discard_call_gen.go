@@ -307,8 +307,9 @@ func (d *PhoneDiscardCallRequest) GetConnectionID() (value int64) {
 // Refuse or end running call
 //
 // Possible errors:
-//  400 CALL_ALREADY_ACCEPTED: The call was already accepted.
-//  400 CALL_PEER_INVALID: The provided call peer object is invalid.
+//
+//	400 CALL_ALREADY_ACCEPTED: The call was already accepted.
+//	400 CALL_PEER_INVALID: The provided call peer object is invalid.
 //
 // See https://core.telegram.org/method/phone.discardCall for reference.
 func (c *Client) PhoneDiscardCall(ctx context.Context, request *PhoneDiscardCallRequest) (UpdatesClass, error) {

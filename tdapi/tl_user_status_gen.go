@@ -893,19 +893,20 @@ const UserStatusClassName = "UserStatus"
 // UserStatusClass represents UserStatus generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeUserStatus(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.UserStatusEmpty: // userStatusEmpty#9d05049
-//  case *tdapi.UserStatusOnline: // userStatusOnline#a4d64774
-//  case *tdapi.UserStatusOffline: // userStatusOffline#d2b38d05
-//  case *tdapi.UserStatusRecently: // userStatusRecently#e26f42f1
-//  case *tdapi.UserStatusLastWeek: // userStatusLastWeek#7bf09fc
-//  case *tdapi.UserStatusLastMonth: // userStatusLastMonth#77ebc742
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeUserStatus(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.UserStatusEmpty: // userStatusEmpty#9d05049
+//	case *tdapi.UserStatusOnline: // userStatusOnline#a4d64774
+//	case *tdapi.UserStatusOffline: // userStatusOffline#d2b38d05
+//	case *tdapi.UserStatusRecently: // userStatusRecently#e26f42f1
+//	case *tdapi.UserStatusLastWeek: // userStatusLastWeek#7bf09fc
+//	case *tdapi.UserStatusLastMonth: // userStatusLastMonth#77ebc742
+//	default: panic(v)
+//	}
 type UserStatusClass interface {
 	bin.Encoder
 	bin.Decoder

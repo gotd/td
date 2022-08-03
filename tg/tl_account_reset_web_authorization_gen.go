@@ -35,7 +35,7 @@ var (
 // Log out an active web telegram login¹ session
 //
 // Links:
-//  1) https://core.telegram.org/widgets/login
+//  1. https://core.telegram.org/widgets/login
 //
 // See https://core.telegram.org/method/account.resetWebAuthorization for reference.
 type AccountResetWebAuthorizationRequest struct {
@@ -171,10 +171,11 @@ func (r *AccountResetWebAuthorizationRequest) GetHash() (value int64) {
 // Log out an active web telegram login¹ session
 //
 // Links:
-//  1) https://core.telegram.org/widgets/login
+//  1. https://core.telegram.org/widgets/login
 //
 // Possible errors:
-//  400 HASH_INVALID: The provided hash is invalid.
+//
+//	400 HASH_INVALID: The provided hash is invalid.
 //
 // See https://core.telegram.org/method/account.resetWebAuthorization for reference.
 func (c *Client) AccountResetWebAuthorization(ctx context.Context, hash int64) (bool, error) {

@@ -38,8 +38,8 @@ var (
 // For more info, see login via QR code¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/qr-login
-//  2) https://core.telegram.org/api/qr-login
+//  1. https://core.telegram.org/api/qr-login
+//  2. https://core.telegram.org/api/qr-login
 //
 // See https://core.telegram.org/method/auth.exportLoginToken for reference.
 type AuthExportLoginTokenRequest struct {
@@ -248,11 +248,12 @@ func (e *AuthExportLoginTokenRequest) GetExceptIDs() (value []int64) {
 // For more info, see login via QR code¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/qr-login
-//  2) https://core.telegram.org/api/qr-login
+//  1. https://core.telegram.org/api/qr-login
+//  2. https://core.telegram.org/api/qr-login
 //
 // Possible errors:
-//  400 API_ID_INVALID: API ID invalid.
+//
+//	400 API_ID_INVALID: API ID invalid.
 //
 // See https://core.telegram.org/method/auth.exportLoginToken for reference.
 func (c *Client) AuthExportLoginToken(ctx context.Context, request *AuthExportLoginTokenRequest) (AuthLoginTokenClass, error) {

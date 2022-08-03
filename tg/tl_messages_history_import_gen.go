@@ -35,7 +35,7 @@ var (
 // ID of a specific chat import session, click here for more info »¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/import
+//  1. https://core.telegram.org/api/import
 //
 // See https://core.telegram.org/constructor/messages.historyImport for reference.
 type MessagesHistoryImport struct {

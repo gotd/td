@@ -569,16 +569,17 @@ const CallbackQueryPayloadClassName = "CallbackQueryPayload"
 // CallbackQueryPayloadClass represents CallbackQueryPayload generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeCallbackQueryPayload(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.CallbackQueryPayloadData: // callbackQueryPayloadData#8a1e3c66
-//  case *tdapi.CallbackQueryPayloadDataWithPassword: // callbackQueryPayloadDataWithPassword#4fe2d8f2
-//  case *tdapi.CallbackQueryPayloadGame: // callbackQueryPayloadGame#4db2ec38
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeCallbackQueryPayload(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.CallbackQueryPayloadData: // callbackQueryPayloadData#8a1e3c66
+//	case *tdapi.CallbackQueryPayloadDataWithPassword: // callbackQueryPayloadDataWithPassword#4fe2d8f2
+//	case *tdapi.CallbackQueryPayloadGame: // callbackQueryPayloadGame#4db2ec38
+//	default: panic(v)
+//	}
 type CallbackQueryPayloadClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -430,16 +430,17 @@ const GroupCallVideoQualityClassName = "GroupCallVideoQuality"
 // GroupCallVideoQualityClass represents GroupCallVideoQuality generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeGroupCallVideoQuality(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.GroupCallVideoQualityThumbnail: // groupCallVideoQualityThumbnail#e9661380
-//  case *tdapi.GroupCallVideoQualityMedium: // groupCallVideoQualityMedium#178abcaa
-//  case *tdapi.GroupCallVideoQualityFull: // groupCallVideoQualityFull#81491637
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeGroupCallVideoQuality(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.GroupCallVideoQualityThumbnail: // groupCallVideoQualityThumbnail#e9661380
+//	case *tdapi.GroupCallVideoQualityMedium: // groupCallVideoQualityMedium#178abcaa
+//	case *tdapi.GroupCallVideoQualityFull: // groupCallVideoQualityFull#81491637
+//	default: panic(v)
+//	}
 type GroupCallVideoQualityClass interface {
 	bin.Encoder
 	bin.Decoder

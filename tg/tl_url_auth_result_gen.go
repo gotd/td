@@ -35,7 +35,7 @@ var (
 // Details about the authorization request, for more info click here »¹
 //
 // Links:
-//  1) https://core.telegram.org/api/url-authorization
+//  1. https://core.telegram.org/api/url-authorization
 //
 // See https://core.telegram.org/constructor/urlAuthResultRequest for reference.
 type URLAuthResultRequest struct {
@@ -266,7 +266,7 @@ func (u *URLAuthResultRequest) GetDomain() (value string) {
 // Details about an accepted authorization request, for more info click here »¹
 //
 // Links:
-//  1) https://core.telegram.org/api/url-authorization
+//  1. https://core.telegram.org/api/url-authorization
 //
 // See https://core.telegram.org/constructor/urlAuthResultAccepted for reference.
 type URLAuthResultAccepted struct {
@@ -404,7 +404,7 @@ func (u *URLAuthResultAccepted) GetURL() (value string) {
 // Details about an accepted authorization request, for more info click here »¹
 //
 // Links:
-//  1) https://core.telegram.org/api/url-authorization
+//  1. https://core.telegram.org/api/url-authorization
 //
 // See https://core.telegram.org/constructor/urlAuthResultDefault for reference.
 type URLAuthResultDefault struct {
@@ -513,16 +513,17 @@ const URLAuthResultClassName = "UrlAuthResult"
 // See https://core.telegram.org/type/UrlAuthResult for reference.
 //
 // Example:
-//  g, err := tg.DecodeURLAuthResult(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.URLAuthResultRequest: // urlAuthResultRequest#92d33a0e
-//  case *tg.URLAuthResultAccepted: // urlAuthResultAccepted#8f8c0e4e
-//  case *tg.URLAuthResultDefault: // urlAuthResultDefault#a9d6db1f
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeURLAuthResult(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.URLAuthResultRequest: // urlAuthResultRequest#92d33a0e
+//	case *tg.URLAuthResultAccepted: // urlAuthResultAccepted#8f8c0e4e
+//	case *tg.URLAuthResultDefault: // urlAuthResultDefault#a9d6db1f
+//	default: panic(v)
+//	}
 type URLAuthResultClass interface {
 	bin.Encoder
 	bin.Decoder

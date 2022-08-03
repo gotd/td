@@ -430,16 +430,17 @@ const NotificationSettingsScopeClassName = "NotificationSettingsScope"
 // NotificationSettingsScopeClass represents NotificationSettingsScope generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeNotificationSettingsScope(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.NotificationSettingsScopePrivateChats: // notificationSettingsScopePrivateChats#37e04d67
-//  case *tdapi.NotificationSettingsScopeGroupChats: // notificationSettingsScopeGroupChats#483fd1f3
-//  case *tdapi.NotificationSettingsScopeChannelChats: // notificationSettingsScopeChannelChats#20aa0588
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeNotificationSettingsScope(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.NotificationSettingsScopePrivateChats: // notificationSettingsScopePrivateChats#37e04d67
+//	case *tdapi.NotificationSettingsScopeGroupChats: // notificationSettingsScopeGroupChats#483fd1f3
+//	case *tdapi.NotificationSettingsScopeChannelChats: // notificationSettingsScopeChannelChats#20aa0588
+//	default: panic(v)
+//	}
 type NotificationSettingsScopeClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -1242,7 +1242,7 @@ func (m *MessageActionChannelCreate) GetTitle() (value string) {
 // Indicates the chat was migrated¹ to the specified supergroup
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/messageActionChatMigrateTo for reference.
 type MessageActionChatMigrateTo struct {
@@ -1380,7 +1380,7 @@ func (m *MessageActionChatMigrateTo) GetChannelID() (value int64) {
 // Indicates the channel was migrated¹ from the specified chat
 //
 // Links:
-//  1) https://core.telegram.org/api/channel
+//  1. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/messageActionChannelMigrateFrom for reference.
 type MessageActionChannelMigrateFrom struct {
@@ -3161,7 +3161,7 @@ func (m *MessageActionCustomAction) GetMessage() (value string) {
 // Login »¹
 //
 // Links:
-//  1) https://core.telegram.org/widgets/login
+//  1. https://core.telegram.org/widgets/login
 //
 // See https://core.telegram.org/constructor/messageActionBotAllowed for reference.
 type MessageActionBotAllowed struct {
@@ -3299,7 +3299,7 @@ func (m *MessageActionBotAllowed) GetDomain() (value string) {
 // Secure telegram passport¹ values were received
 //
 // Links:
-//  1) https://core.telegram.org/passport
+//  1. https://core.telegram.org/passport
 //
 // See https://core.telegram.org/constructor/messageActionSecureValuesSentMe for reference.
 type MessageActionSecureValuesSentMe struct {
@@ -3480,7 +3480,7 @@ func (m *MessageActionSecureValuesSentMe) GetCredentials() (value SecureCredenti
 // Request for secure telegram passport¹ values was sent
 //
 // Links:
-//  1) https://core.telegram.org/passport
+//  1. https://core.telegram.org/passport
 //
 // See https://core.telegram.org/constructor/messageActionSecureValuesSent for reference.
 type MessageActionSecureValuesSent struct {
@@ -5345,46 +5345,47 @@ const MessageActionClassName = "MessageAction"
 // See https://core.telegram.org/type/MessageAction for reference.
 //
 // Example:
-//  g, err := tg.DecodeMessageAction(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.MessageActionEmpty: // messageActionEmpty#b6aef7b0
-//  case *tg.MessageActionChatCreate: // messageActionChatCreate#bd47cbad
-//  case *tg.MessageActionChatEditTitle: // messageActionChatEditTitle#b5a1ce5a
-//  case *tg.MessageActionChatEditPhoto: // messageActionChatEditPhoto#7fcb13a8
-//  case *tg.MessageActionChatDeletePhoto: // messageActionChatDeletePhoto#95e3fbef
-//  case *tg.MessageActionChatAddUser: // messageActionChatAddUser#15cefd00
-//  case *tg.MessageActionChatDeleteUser: // messageActionChatDeleteUser#a43f30cc
-//  case *tg.MessageActionChatJoinedByLink: // messageActionChatJoinedByLink#31224c3
-//  case *tg.MessageActionChannelCreate: // messageActionChannelCreate#95d2ac92
-//  case *tg.MessageActionChatMigrateTo: // messageActionChatMigrateTo#e1037f92
-//  case *tg.MessageActionChannelMigrateFrom: // messageActionChannelMigrateFrom#ea3948e9
-//  case *tg.MessageActionPinMessage: // messageActionPinMessage#94bd38ed
-//  case *tg.MessageActionHistoryClear: // messageActionHistoryClear#9fbab604
-//  case *tg.MessageActionGameScore: // messageActionGameScore#92a72876
-//  case *tg.MessageActionPaymentSentMe: // messageActionPaymentSentMe#8f31b327
-//  case *tg.MessageActionPaymentSent: // messageActionPaymentSent#96163f56
-//  case *tg.MessageActionPhoneCall: // messageActionPhoneCall#80e11a7f
-//  case *tg.MessageActionScreenshotTaken: // messageActionScreenshotTaken#4792929b
-//  case *tg.MessageActionCustomAction: // messageActionCustomAction#fae69f56
-//  case *tg.MessageActionBotAllowed: // messageActionBotAllowed#abe9affe
-//  case *tg.MessageActionSecureValuesSentMe: // messageActionSecureValuesSentMe#1b287353
-//  case *tg.MessageActionSecureValuesSent: // messageActionSecureValuesSent#d95c6154
-//  case *tg.MessageActionContactSignUp: // messageActionContactSignUp#f3f25f76
-//  case *tg.MessageActionGeoProximityReached: // messageActionGeoProximityReached#98e0d697
-//  case *tg.MessageActionGroupCall: // messageActionGroupCall#7a0d7f42
-//  case *tg.MessageActionInviteToGroupCall: // messageActionInviteToGroupCall#502f92f7
-//  case *tg.MessageActionSetMessagesTTL: // messageActionSetMessagesTTL#aa1afbfd
-//  case *tg.MessageActionGroupCallScheduled: // messageActionGroupCallScheduled#b3a07661
-//  case *tg.MessageActionSetChatTheme: // messageActionSetChatTheme#aa786345
-//  case *tg.MessageActionChatJoinedByRequest: // messageActionChatJoinedByRequest#ebbca3cb
-//  case *tg.MessageActionWebViewDataSentMe: // messageActionWebViewDataSentMe#47dd8079
-//  case *tg.MessageActionWebViewDataSent: // messageActionWebViewDataSent#b4c38cb5
-//  case *tg.MessageActionGiftPremium: // messageActionGiftPremium#aba0f5c6
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeMessageAction(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.MessageActionEmpty: // messageActionEmpty#b6aef7b0
+//	case *tg.MessageActionChatCreate: // messageActionChatCreate#bd47cbad
+//	case *tg.MessageActionChatEditTitle: // messageActionChatEditTitle#b5a1ce5a
+//	case *tg.MessageActionChatEditPhoto: // messageActionChatEditPhoto#7fcb13a8
+//	case *tg.MessageActionChatDeletePhoto: // messageActionChatDeletePhoto#95e3fbef
+//	case *tg.MessageActionChatAddUser: // messageActionChatAddUser#15cefd00
+//	case *tg.MessageActionChatDeleteUser: // messageActionChatDeleteUser#a43f30cc
+//	case *tg.MessageActionChatJoinedByLink: // messageActionChatJoinedByLink#31224c3
+//	case *tg.MessageActionChannelCreate: // messageActionChannelCreate#95d2ac92
+//	case *tg.MessageActionChatMigrateTo: // messageActionChatMigrateTo#e1037f92
+//	case *tg.MessageActionChannelMigrateFrom: // messageActionChannelMigrateFrom#ea3948e9
+//	case *tg.MessageActionPinMessage: // messageActionPinMessage#94bd38ed
+//	case *tg.MessageActionHistoryClear: // messageActionHistoryClear#9fbab604
+//	case *tg.MessageActionGameScore: // messageActionGameScore#92a72876
+//	case *tg.MessageActionPaymentSentMe: // messageActionPaymentSentMe#8f31b327
+//	case *tg.MessageActionPaymentSent: // messageActionPaymentSent#96163f56
+//	case *tg.MessageActionPhoneCall: // messageActionPhoneCall#80e11a7f
+//	case *tg.MessageActionScreenshotTaken: // messageActionScreenshotTaken#4792929b
+//	case *tg.MessageActionCustomAction: // messageActionCustomAction#fae69f56
+//	case *tg.MessageActionBotAllowed: // messageActionBotAllowed#abe9affe
+//	case *tg.MessageActionSecureValuesSentMe: // messageActionSecureValuesSentMe#1b287353
+//	case *tg.MessageActionSecureValuesSent: // messageActionSecureValuesSent#d95c6154
+//	case *tg.MessageActionContactSignUp: // messageActionContactSignUp#f3f25f76
+//	case *tg.MessageActionGeoProximityReached: // messageActionGeoProximityReached#98e0d697
+//	case *tg.MessageActionGroupCall: // messageActionGroupCall#7a0d7f42
+//	case *tg.MessageActionInviteToGroupCall: // messageActionInviteToGroupCall#502f92f7
+//	case *tg.MessageActionSetMessagesTTL: // messageActionSetMessagesTTL#aa1afbfd
+//	case *tg.MessageActionGroupCallScheduled: // messageActionGroupCallScheduled#b3a07661
+//	case *tg.MessageActionSetChatTheme: // messageActionSetChatTheme#aa786345
+//	case *tg.MessageActionChatJoinedByRequest: // messageActionChatJoinedByRequest#ebbca3cb
+//	case *tg.MessageActionWebViewDataSentMe: // messageActionWebViewDataSentMe#47dd8079
+//	case *tg.MessageActionWebViewDataSent: // messageActionWebViewDataSent#b4c38cb5
+//	case *tg.MessageActionGiftPremium: // messageActionGiftPremium#aba0f5c6
+//	default: panic(v)
+//	}
 type MessageActionClass interface {
 	bin.Encoder
 	bin.Decoder

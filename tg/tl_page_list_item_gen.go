@@ -337,15 +337,16 @@ const PageListItemClassName = "PageListItem"
 // See https://core.telegram.org/type/PageListItem for reference.
 //
 // Example:
-//  g, err := tg.DecodePageListItem(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.PageListItemText: // pageListItemText#b92fb6cd
-//  case *tg.PageListItemBlocks: // pageListItemBlocks#25e073fc
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodePageListItem(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.PageListItemText: // pageListItemText#b92fb6cd
+//	case *tg.PageListItemBlocks: // pageListItemBlocks#25e073fc
+//	default: panic(v)
+//	}
 type PageListItemClass interface {
 	bin.Encoder
 	bin.Decoder

@@ -37,7 +37,7 @@ var (
 // StickerSet¹.
 //
 // Links:
-//  1) https://core.telegram.org/type/StickerSet
+//  1. https://core.telegram.org/type/StickerSet
 //
 // See https://core.telegram.org/constructor/stickerPack for reference.
 type StickerPack struct {

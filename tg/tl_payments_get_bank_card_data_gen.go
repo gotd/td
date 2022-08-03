@@ -165,7 +165,8 @@ func (g *PaymentsGetBankCardDataRequest) GetNumber() (value string) {
 // Get info about a credit card
 //
 // Possible errors:
-//  400 BANK_CARD_NUMBER_INVALID: The specified card number is invalid.
+//
+//	400 BANK_CARD_NUMBER_INVALID: The specified card number is invalid.
 //
 // See https://core.telegram.org/method/payments.getBankCardData for reference.
 func (c *Client) PaymentsGetBankCardData(ctx context.Context, number string) (*PaymentsBankCardData, error) {

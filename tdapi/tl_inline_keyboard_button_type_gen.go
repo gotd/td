@@ -1565,22 +1565,23 @@ const InlineKeyboardButtonTypeClassName = "InlineKeyboardButtonType"
 // InlineKeyboardButtonTypeClass represents InlineKeyboardButtonType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeInlineKeyboardButtonType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.InlineKeyboardButtonTypeURL: // inlineKeyboardButtonTypeUrl#4365beac
-//  case *tdapi.InlineKeyboardButtonTypeLoginURL: // inlineKeyboardButtonTypeLoginUrl#b8455fa7
-//  case *tdapi.InlineKeyboardButtonTypeWebApp: // inlineKeyboardButtonTypeWebApp#96a685c8
-//  case *tdapi.InlineKeyboardButtonTypeCallback: // inlineKeyboardButtonTypeCallback#bccb7bfd
-//  case *tdapi.InlineKeyboardButtonTypeCallbackWithPassword: // inlineKeyboardButtonTypeCallbackWithPassword#361f4248
-//  case *tdapi.InlineKeyboardButtonTypeCallbackGame: // inlineKeyboardButtonTypeCallbackGame#e9255468
-//  case *tdapi.InlineKeyboardButtonTypeSwitchInline: // inlineKeyboardButtonTypeSwitchInline#86abc4d5
-//  case *tdapi.InlineKeyboardButtonTypeBuy: // inlineKeyboardButtonTypeBuy#511b3c70
-//  case *tdapi.InlineKeyboardButtonTypeUser: // inlineKeyboardButtonTypeUser#6d77e5a2
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeInlineKeyboardButtonType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.InlineKeyboardButtonTypeURL: // inlineKeyboardButtonTypeUrl#4365beac
+//	case *tdapi.InlineKeyboardButtonTypeLoginURL: // inlineKeyboardButtonTypeLoginUrl#b8455fa7
+//	case *tdapi.InlineKeyboardButtonTypeWebApp: // inlineKeyboardButtonTypeWebApp#96a685c8
+//	case *tdapi.InlineKeyboardButtonTypeCallback: // inlineKeyboardButtonTypeCallback#bccb7bfd
+//	case *tdapi.InlineKeyboardButtonTypeCallbackWithPassword: // inlineKeyboardButtonTypeCallbackWithPassword#361f4248
+//	case *tdapi.InlineKeyboardButtonTypeCallbackGame: // inlineKeyboardButtonTypeCallbackGame#e9255468
+//	case *tdapi.InlineKeyboardButtonTypeSwitchInline: // inlineKeyboardButtonTypeSwitchInline#86abc4d5
+//	case *tdapi.InlineKeyboardButtonTypeBuy: // inlineKeyboardButtonTypeBuy#511b3c70
+//	case *tdapi.InlineKeyboardButtonTypeUser: // inlineKeyboardButtonTypeUser#6d77e5a2
+//	default: panic(v)
+//	}
 type InlineKeyboardButtonTypeClass interface {
 	bin.Encoder
 	bin.Decoder

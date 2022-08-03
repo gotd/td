@@ -37,8 +37,8 @@ var (
 // For more info, see login via QR code¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/qr-login
-//  2) https://core.telegram.org/api/qr-login
+//  1. https://core.telegram.org/api/qr-login
+//  2. https://core.telegram.org/api/qr-login
 //
 // See https://core.telegram.org/method/auth.importLoginToken for reference.
 type AuthImportLoginTokenRequest struct {
@@ -173,14 +173,15 @@ func (i *AuthImportLoginTokenRequest) GetToken() (value []byte) {
 // For more info, see login via QR code¹.
 //
 // Links:
-//  1) https://core.telegram.org/api/qr-login
-//  2) https://core.telegram.org/api/qr-login
+//  1. https://core.telegram.org/api/qr-login
+//  2. https://core.telegram.org/api/qr-login
 //
 // Possible errors:
-//  400 AUTH_TOKEN_ALREADY_ACCEPTED: The specified auth token was already accepted.
-//  400 AUTH_TOKEN_EXPIRED: The authorization token has expired.
-//  400 AUTH_TOKEN_INVALID: The specified auth token is invalid.
-//  400 AUTH_TOKEN_INVALIDX: The specified auth token is invalid.
+//
+//	400 AUTH_TOKEN_ALREADY_ACCEPTED: The specified auth token was already accepted.
+//	400 AUTH_TOKEN_EXPIRED: The authorization token has expired.
+//	400 AUTH_TOKEN_INVALID: The specified auth token is invalid.
+//	400 AUTH_TOKEN_INVALIDX: The specified auth token is invalid.
 //
 // See https://core.telegram.org/method/auth.importLoginToken for reference.
 func (c *Client) AuthImportLoginToken(ctx context.Context, token []byte) (AuthLoginTokenClass, error) {

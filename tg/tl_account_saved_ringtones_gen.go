@@ -324,15 +324,16 @@ const AccountSavedRingtonesClassName = "account.SavedRingtones"
 // See https://core.telegram.org/type/account.SavedRingtones for reference.
 //
 // Example:
-//  g, err := tg.DecodeAccountSavedRingtones(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.AccountSavedRingtonesNotModified: // account.savedRingtonesNotModified#fbf6e8b1
-//  case *tg.AccountSavedRingtones: // account.savedRingtones#c1e92cc5
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeAccountSavedRingtones(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.AccountSavedRingtonesNotModified: // account.savedRingtonesNotModified#fbf6e8b1
+//	case *tg.AccountSavedRingtones: // account.savedRingtones#c1e92cc5
+//	default: panic(v)
+//	}
 type AccountSavedRingtonesClass interface {
 	bin.Encoder
 	bin.Decoder

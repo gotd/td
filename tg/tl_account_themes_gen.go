@@ -321,15 +321,16 @@ const AccountThemesClassName = "account.Themes"
 // See https://core.telegram.org/type/account.Themes for reference.
 //
 // Example:
-//  g, err := tg.DecodeAccountThemes(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tg.AccountThemesNotModified: // account.themesNotModified#f41eb622
-//  case *tg.AccountThemes: // account.themes#9a3d8c6d
-//  default: panic(v)
-//  }
+//
+//	g, err := tg.DecodeAccountThemes(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.AccountThemesNotModified: // account.themesNotModified#f41eb622
+//	case *tg.AccountThemes: // account.themes#9a3d8c6d
+//	default: panic(v)
+//	}
 type AccountThemesClass interface {
 	bin.Encoder
 	bin.Decoder

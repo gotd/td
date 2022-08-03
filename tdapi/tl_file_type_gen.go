@@ -2264,30 +2264,31 @@ const FileTypeClassName = "FileType"
 // FileTypeClass represents FileType generic type.
 //
 // Example:
-//  g, err := tdapi.DecodeFileType(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *tdapi.FileTypeNone: // fileTypeNone#77637ea5
-//  case *tdapi.FileTypeAnimation: // fileTypeAnimation#eeaa7dba
-//  case *tdapi.FileTypeAudio: // fileTypeAudio#d5bbcea0
-//  case *tdapi.FileTypeDocument: // fileTypeDocument#de57030f
-//  case *tdapi.FileTypeNotificationSound: // fileTypeNotificationSound#c32f9f09
-//  case *tdapi.FileTypePhoto: // fileTypePhoto#998b71a5
-//  case *tdapi.FileTypeProfilePhoto: // fileTypeProfilePhoto#6afee3a3
-//  case *tdapi.FileTypeSecret: // fileTypeSecret#906d14f7
-//  case *tdapi.FileTypeSecretThumbnail: // fileTypeSecretThumbnail#ac797636
-//  case *tdapi.FileTypeSecure: // fileTypeSecure#ab69bf26
-//  case *tdapi.FileTypeSticker: // fileTypeSticker#1c537c69
-//  case *tdapi.FileTypeThumbnail: // fileTypeThumbnail#ff42215e
-//  case *tdapi.FileTypeUnknown: // fileTypeUnknown#8819ed50
-//  case *tdapi.FileTypeVideo: // fileTypeVideo#5548871b
-//  case *tdapi.FileTypeVideoNote: // fileTypeVideoNote#e119a79f
-//  case *tdapi.FileTypeVoiceNote: // fileTypeVoiceNote#dce96e43
-//  case *tdapi.FileTypeWallpaper: // fileTypeWallpaper#6e8ffc9c
-//  default: panic(v)
-//  }
+//
+//	g, err := tdapi.DecodeFileType(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tdapi.FileTypeNone: // fileTypeNone#77637ea5
+//	case *tdapi.FileTypeAnimation: // fileTypeAnimation#eeaa7dba
+//	case *tdapi.FileTypeAudio: // fileTypeAudio#d5bbcea0
+//	case *tdapi.FileTypeDocument: // fileTypeDocument#de57030f
+//	case *tdapi.FileTypeNotificationSound: // fileTypeNotificationSound#c32f9f09
+//	case *tdapi.FileTypePhoto: // fileTypePhoto#998b71a5
+//	case *tdapi.FileTypeProfilePhoto: // fileTypeProfilePhoto#6afee3a3
+//	case *tdapi.FileTypeSecret: // fileTypeSecret#906d14f7
+//	case *tdapi.FileTypeSecretThumbnail: // fileTypeSecretThumbnail#ac797636
+//	case *tdapi.FileTypeSecure: // fileTypeSecure#ab69bf26
+//	case *tdapi.FileTypeSticker: // fileTypeSticker#1c537c69
+//	case *tdapi.FileTypeThumbnail: // fileTypeThumbnail#ff42215e
+//	case *tdapi.FileTypeUnknown: // fileTypeUnknown#8819ed50
+//	case *tdapi.FileTypeVideo: // fileTypeVideo#5548871b
+//	case *tdapi.FileTypeVideoNote: // fileTypeVideoNote#e119a79f
+//	case *tdapi.FileTypeVoiceNote: // fileTypeVoiceNote#dce96e43
+//	case *tdapi.FileTypeWallpaper: // fileTypeWallpaper#6e8ffc9c
+//	default: panic(v)
+//	}
 type FileTypeClass interface {
 	bin.Encoder
 	bin.Decoder
