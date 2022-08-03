@@ -697,6 +697,7 @@ func TypesMap() map[uint32]string {
 		InputWebDocumentTypeID:                                   "inputWebDocument#9bed434d",
 		InputWebFileLocationTypeID:                               "inputWebFileLocation#c239d686",
 		InputWebFileGeoPointLocationTypeID:                       "inputWebFileGeoPointLocation#9f2221c9",
+		InputWebFileAudioAlbumThumbLocationTypeID:                "inputWebFileAudioAlbumThumbLocation#f46fe924",
 		UploadWebFileTypeID:                                      "upload.webFile#21e753bc",
 		PaymentsPaymentFormTypeID:                                "payments.paymentForm#a0058751",
 		PaymentsValidatedRequestedInfoTypeID:                     "payments.validatedRequestedInfo#d1451883",
@@ -2175,6 +2176,7 @@ func NamesMap() map[string]uint32 {
 		"inputWebDocument":                                   InputWebDocumentTypeID,
 		"inputWebFileLocation":                               InputWebFileLocationTypeID,
 		"inputWebFileGeoPointLocation":                       InputWebFileGeoPointLocationTypeID,
+		"inputWebFileAudioAlbumThumbLocation":                InputWebFileAudioAlbumThumbLocationTypeID,
 		"upload.webFile":                                     UploadWebFileTypeID,
 		"payments.paymentForm":                               PaymentsPaymentFormTypeID,
 		"payments.validatedRequestedInfo":                    PaymentsValidatedRequestedInfoTypeID,
@@ -3653,6 +3655,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		InputWebDocumentTypeID:                                   func() bin.Object { return &InputWebDocument{} },
 		InputWebFileLocationTypeID:                               func() bin.Object { return &InputWebFileLocation{} },
 		InputWebFileGeoPointLocationTypeID:                       func() bin.Object { return &InputWebFileGeoPointLocation{} },
+		InputWebFileAudioAlbumThumbLocationTypeID:                func() bin.Object { return &InputWebFileAudioAlbumThumbLocation{} },
 		UploadWebFileTypeID:                                      func() bin.Object { return &UploadWebFile{} },
 		PaymentsPaymentFormTypeID:                                func() bin.Object { return &PaymentsPaymentForm{} },
 		PaymentsValidatedRequestedInfoTypeID:                     func() bin.Object { return &PaymentsValidatedRequestedInfo{} },
@@ -4957,6 +4960,7 @@ func ClassConstructorsMap() map[string][]uint32 {
 		InputWebFileLocationClassName: {
 			InputWebFileLocationTypeID,
 			InputWebFileGeoPointLocationTypeID,
+			InputWebFileAudioAlbumThumbLocationTypeID,
 		},
 		JSONValueClassName: {
 			JSONNullTypeID,

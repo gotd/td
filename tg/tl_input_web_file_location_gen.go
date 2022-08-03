@@ -468,6 +468,280 @@ func (i *InputWebFileGeoPointLocation) GetScale() (value int) {
 	return i.Scale
 }
 
+// InputWebFileAudioAlbumThumbLocation represents TL type `inputWebFileAudioAlbumThumbLocation#f46fe924`.
+//
+// See https://core.telegram.org/constructor/inputWebFileAudioAlbumThumbLocation for reference.
+type InputWebFileAudioAlbumThumbLocation struct {
+	// Flags field of InputWebFileAudioAlbumThumbLocation.
+	Flags bin.Fields
+	// Document field of InputWebFileAudioAlbumThumbLocation.
+	//
+	// Use SetDocument and GetDocument helpers.
+	Document InputDocumentClass
+	// Title field of InputWebFileAudioAlbumThumbLocation.
+	//
+	// Use SetTitle and GetTitle helpers.
+	Title string
+	// Performer field of InputWebFileAudioAlbumThumbLocation.
+	//
+	// Use SetPerformer and GetPerformer helpers.
+	Performer string
+}
+
+// InputWebFileAudioAlbumThumbLocationTypeID is TL type id of InputWebFileAudioAlbumThumbLocation.
+const InputWebFileAudioAlbumThumbLocationTypeID = 0xf46fe924
+
+// construct implements constructor of InputWebFileLocationClass.
+func (i InputWebFileAudioAlbumThumbLocation) construct() InputWebFileLocationClass { return &i }
+
+// Ensuring interfaces in compile-time for InputWebFileAudioAlbumThumbLocation.
+var (
+	_ bin.Encoder     = &InputWebFileAudioAlbumThumbLocation{}
+	_ bin.Decoder     = &InputWebFileAudioAlbumThumbLocation{}
+	_ bin.BareEncoder = &InputWebFileAudioAlbumThumbLocation{}
+	_ bin.BareDecoder = &InputWebFileAudioAlbumThumbLocation{}
+
+	_ InputWebFileLocationClass = &InputWebFileAudioAlbumThumbLocation{}
+)
+
+func (i *InputWebFileAudioAlbumThumbLocation) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.Document == nil) {
+		return false
+	}
+	if !(i.Title == "") {
+		return false
+	}
+	if !(i.Performer == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputWebFileAudioAlbumThumbLocation) String() string {
+	if i == nil {
+		return "InputWebFileAudioAlbumThumbLocation(nil)"
+	}
+	type Alias InputWebFileAudioAlbumThumbLocation
+	return fmt.Sprintf("InputWebFileAudioAlbumThumbLocation%+v", Alias(*i))
+}
+
+// FillFrom fills InputWebFileAudioAlbumThumbLocation from given interface.
+func (i *InputWebFileAudioAlbumThumbLocation) FillFrom(from interface {
+	GetDocument() (value InputDocumentClass, ok bool)
+	GetTitle() (value string, ok bool)
+	GetPerformer() (value string, ok bool)
+}) {
+	if val, ok := from.GetDocument(); ok {
+		i.Document = val
+	}
+
+	if val, ok := from.GetTitle(); ok {
+		i.Title = val
+	}
+
+	if val, ok := from.GetPerformer(); ok {
+		i.Performer = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputWebFileAudioAlbumThumbLocation) TypeID() uint32 {
+	return InputWebFileAudioAlbumThumbLocationTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputWebFileAudioAlbumThumbLocation) TypeName() string {
+	return "inputWebFileAudioAlbumThumbLocation"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputWebFileAudioAlbumThumbLocation) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputWebFileAudioAlbumThumbLocation",
+		ID:   InputWebFileAudioAlbumThumbLocationTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Document",
+			SchemaName: "document",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+			Null:       !i.Flags.Has(1),
+		},
+		{
+			Name:       "Performer",
+			SchemaName: "performer",
+			Null:       !i.Flags.Has(1),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (i *InputWebFileAudioAlbumThumbLocation) SetFlags() {
+	if !(i.Document == nil) {
+		i.Flags.Set(0)
+	}
+	if !(i.Title == "") {
+		i.Flags.Set(1)
+	}
+	if !(i.Performer == "") {
+		i.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (i *InputWebFileAudioAlbumThumbLocation) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputWebFileAudioAlbumThumbLocation#f46fe924 as nil")
+	}
+	b.PutID(InputWebFileAudioAlbumThumbLocationTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputWebFileAudioAlbumThumbLocation) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputWebFileAudioAlbumThumbLocation#f46fe924 as nil")
+	}
+	i.SetFlags()
+	if err := i.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputWebFileAudioAlbumThumbLocation#f46fe924: field flags: %w", err)
+	}
+	if i.Flags.Has(0) {
+		if i.Document == nil {
+			return fmt.Errorf("unable to encode inputWebFileAudioAlbumThumbLocation#f46fe924: field document is nil")
+		}
+		if err := i.Document.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode inputWebFileAudioAlbumThumbLocation#f46fe924: field document: %w", err)
+		}
+	}
+	if i.Flags.Has(1) {
+		b.PutString(i.Title)
+	}
+	if i.Flags.Has(1) {
+		b.PutString(i.Performer)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputWebFileAudioAlbumThumbLocation) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputWebFileAudioAlbumThumbLocation#f46fe924 to nil")
+	}
+	if err := b.ConsumeID(InputWebFileAudioAlbumThumbLocationTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputWebFileAudioAlbumThumbLocation#f46fe924: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputWebFileAudioAlbumThumbLocation) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputWebFileAudioAlbumThumbLocation#f46fe924 to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputWebFileAudioAlbumThumbLocation#f46fe924: field flags: %w", err)
+		}
+	}
+	if i.Flags.Has(0) {
+		value, err := DecodeInputDocument(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputWebFileAudioAlbumThumbLocation#f46fe924: field document: %w", err)
+		}
+		i.Document = value
+	}
+	if i.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputWebFileAudioAlbumThumbLocation#f46fe924: field title: %w", err)
+		}
+		i.Title = value
+	}
+	if i.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputWebFileAudioAlbumThumbLocation#f46fe924: field performer: %w", err)
+		}
+		i.Performer = value
+	}
+	return nil
+}
+
+// SetDocument sets value of Document conditional field.
+func (i *InputWebFileAudioAlbumThumbLocation) SetDocument(value InputDocumentClass) {
+	i.Flags.Set(0)
+	i.Document = value
+}
+
+// GetDocument returns value of Document conditional field and
+// boolean which is true if field was set.
+func (i *InputWebFileAudioAlbumThumbLocation) GetDocument() (value InputDocumentClass, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.Document, true
+}
+
+// SetTitle sets value of Title conditional field.
+func (i *InputWebFileAudioAlbumThumbLocation) SetTitle(value string) {
+	i.Flags.Set(1)
+	i.Title = value
+}
+
+// GetTitle returns value of Title conditional field and
+// boolean which is true if field was set.
+func (i *InputWebFileAudioAlbumThumbLocation) GetTitle() (value string, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.Title, true
+}
+
+// SetPerformer sets value of Performer conditional field.
+func (i *InputWebFileAudioAlbumThumbLocation) SetPerformer(value string) {
+	i.Flags.Set(1)
+	i.Performer = value
+}
+
+// GetPerformer returns value of Performer conditional field and
+// boolean which is true if field was set.
+func (i *InputWebFileAudioAlbumThumbLocation) GetPerformer() (value string, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.Performer, true
+}
+
 // InputWebFileLocationClassName is schema name of InputWebFileLocationClass.
 const InputWebFileLocationClassName = "InputWebFileLocation"
 
@@ -484,6 +758,7 @@ const InputWebFileLocationClassName = "InputWebFileLocation"
 //	switch v := g.(type) {
 //	case *tg.InputWebFileLocation: // inputWebFileLocation#c239d686
 //	case *tg.InputWebFileGeoPointLocation: // inputWebFileGeoPointLocation#9f2221c9
+//	case *tg.InputWebFileAudioAlbumThumbLocation: // inputWebFileAudioAlbumThumbLocation#f46fe924
 //	default: panic(v)
 //	}
 type InputWebFileLocationClass interface {
@@ -503,9 +778,6 @@ type InputWebFileLocationClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-
-	// Access hash
-	GetAccessHash() (value int64)
 }
 
 // DecodeInputWebFileLocation implements binary de-serialization for InputWebFileLocationClass.
@@ -525,6 +797,13 @@ func DecodeInputWebFileLocation(buf *bin.Buffer) (InputWebFileLocationClass, err
 	case InputWebFileGeoPointLocationTypeID:
 		// Decoding inputWebFileGeoPointLocation#9f2221c9.
 		v := InputWebFileGeoPointLocation{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputWebFileLocationClass: %w", err)
+		}
+		return &v, nil
+	case InputWebFileAudioAlbumThumbLocationTypeID:
+		// Decoding inputWebFileAudioAlbumThumbLocation#f46fe924.
+		v := InputWebFileAudioAlbumThumbLocation{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputWebFileLocationClass: %w", err)
 		}
