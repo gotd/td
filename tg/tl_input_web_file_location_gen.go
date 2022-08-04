@@ -474,6 +474,8 @@ func (i *InputWebFileGeoPointLocation) GetScale() (value int) {
 type InputWebFileAudioAlbumThumbLocation struct {
 	// Flags field of InputWebFileAudioAlbumThumbLocation.
 	Flags bin.Fields
+	// Small field of InputWebFileAudioAlbumThumbLocation.
+	Small bool
 	// Document field of InputWebFileAudioAlbumThumbLocation.
 	//
 	// Use SetDocument and GetDocument helpers.
@@ -511,6 +513,9 @@ func (i *InputWebFileAudioAlbumThumbLocation) Zero() bool {
 	if !(i.Flags.Zero()) {
 		return false
 	}
+	if !(i.Small == false) {
+		return false
+	}
 	if !(i.Document == nil) {
 		return false
 	}
@@ -535,10 +540,12 @@ func (i *InputWebFileAudioAlbumThumbLocation) String() string {
 
 // FillFrom fills InputWebFileAudioAlbumThumbLocation from given interface.
 func (i *InputWebFileAudioAlbumThumbLocation) FillFrom(from interface {
+	GetSmall() (value bool)
 	GetDocument() (value InputDocumentClass, ok bool)
 	GetTitle() (value string, ok bool)
 	GetPerformer() (value string, ok bool)
 }) {
+	i.Small = from.GetSmall()
 	if val, ok := from.GetDocument(); ok {
 		i.Document = val
 	}
@@ -577,6 +584,11 @@ func (i *InputWebFileAudioAlbumThumbLocation) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Small",
+			SchemaName: "small",
+			Null:       !i.Flags.Has(2),
+		},
+		{
 			Name:       "Document",
 			SchemaName: "document",
 			Null:       !i.Flags.Has(0),
@@ -597,6 +609,9 @@ func (i *InputWebFileAudioAlbumThumbLocation) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (i *InputWebFileAudioAlbumThumbLocation) SetFlags() {
+	if !(i.Small == false) {
+		i.Flags.Set(2)
+	}
 	if !(i.Document == nil) {
 		i.Flags.Set(0)
 	}
@@ -664,6 +679,7 @@ func (i *InputWebFileAudioAlbumThumbLocation) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inputWebFileAudioAlbumThumbLocation#f46fe924: field flags: %w", err)
 		}
 	}
+	i.Small = i.Flags.Has(2)
 	if i.Flags.Has(0) {
 		value, err := DecodeInputDocument(b)
 		if err != nil {
@@ -686,6 +702,25 @@ func (i *InputWebFileAudioAlbumThumbLocation) DecodeBare(b *bin.Buffer) error {
 		i.Performer = value
 	}
 	return nil
+}
+
+// SetSmall sets value of Small conditional field.
+func (i *InputWebFileAudioAlbumThumbLocation) SetSmall(value bool) {
+	if value {
+		i.Flags.Set(2)
+		i.Small = true
+	} else {
+		i.Flags.Unset(2)
+		i.Small = false
+	}
+}
+
+// GetSmall returns value of Small conditional field.
+func (i *InputWebFileAudioAlbumThumbLocation) GetSmall() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.Flags.Has(2)
 }
 
 // SetDocument sets value of Document conditional field.
