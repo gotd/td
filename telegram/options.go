@@ -76,6 +76,8 @@ type Options struct {
 	MaxRetries int
 	// ExchangeTimeout is timeout of every key exchange request.
 	ExchangeTimeout time.Duration
+	// DialTimeout is timeout of creating connection.
+	DialTimeout time.Duration
 
 	// CompressThreshold is a threshold in bytes to determine that message
 	// is large enough to be compressed using GZIP.
