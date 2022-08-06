@@ -74,6 +74,8 @@ type Options struct {
 	RetryInterval time.Duration
 	// MaxRetries is limit of send retries.
 	MaxRetries int
+	// ExchangeTimeout is timeout of every key exchange request.
+	ExchangeTimeout time.Duration
 
 	// CompressThreshold is a threshold in bytes to determine that message
 	// is large enough to be compressed using GZIP.

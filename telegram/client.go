@@ -182,6 +182,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		MaxRetries:        opt.MaxRetries,
 		CompressThreshold: opt.CompressThreshold,
 		MessageID:         opt.MessageID,
+		ExchangeTimeout:   opt.ExchangeTimeout,
 		Clock:             opt.Clock,
 
 		Types: getTypesMapping(),
