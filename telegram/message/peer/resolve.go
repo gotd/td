@@ -28,7 +28,6 @@ type Promise func(ctx context.Context) (tg.InputPeerClass, error)
 //	+1 (311) 555-0123
 //	+1 311 555-6162
 //	13115556162
-//
 func Resolve(r Resolver, from string) Promise {
 	from = strings.TrimSpace(from)
 
@@ -88,7 +87,6 @@ func ResolvePhone(r Resolver, phone string) Promise {
 //
 //	@telegram
 //	telegram
-//
 func ResolveDomain(r Resolver, domain string) Promise {
 	return func(ctx context.Context) (tg.InputPeerClass, error) {
 		domain = strings.TrimPrefix(domain, "@")
@@ -114,7 +112,6 @@ func validateDomain(domain string) error {
 //	https://t.me/telegram
 //	tg:resolve?domain=telegram
 //	tg://resolve?domain=telegram
-//
 func ResolveDeeplink(r Resolver, u string) Promise {
 	return func(ctx context.Context) (tg.InputPeerClass, error) {
 		link, err := deeplink.Expect(u, deeplink.Resolve)

@@ -7,11 +7,11 @@ import (
 
 // ZapPreferNoWith suggests replace expressions like
 //
-// 	l.With(...).Debug("")
+//	l.With(...).Debug("")
 //
 // to
 //
-// 	l.Debug("", ...).
+//	l.Debug("", ...).
 //
 // where l is a *zap.Logger.
 func ZapPreferNoWith(m dsl.Matcher) {
@@ -25,11 +25,11 @@ func ZapPreferNoWith(m dsl.Matcher) {
 
 // UberStyleErrors detects error messages like
 //
-// 	errors.Wrap(err, "failed to do something")
+//	errors.Wrap(err, "failed to do something")
 //
 // but you should avoid "failed to" and use
 //
-// 	errors.Wrap(err, "do something")
+//	errors.Wrap(err, "do something")
 //
 // according to https://github.com/uber-go/guide/blob/master/style.md#error-wrapping.
 func UberStyleErrors(m dsl.Matcher) {
@@ -48,12 +48,11 @@ func UberStyleErrors(m dsl.Matcher) {
 
 // UnnecessaryErrorFormat detects unnecessary error formatting like
 //
-// 	errors.New("error")
+//	errors.New("error")
 //
 // and suggests instead
 //
-// 	errors.New("error")
-//
+//	errors.New("error")
 func UnnecessaryErrorFormat(m dsl.Matcher) {
 	m.Match("fmt.Errorf($msg)").Suggest("errors.New($msg)")
 	m.Match("errors.Errorf($msg)").Suggest("errors.New($msg)")

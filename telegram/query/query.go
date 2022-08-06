@@ -60,7 +60,6 @@ func (q *Query) GetParticipants(channel tg.InputChannelClass) *participants.GetP
 // Shorthand for
 //
 //	query.NewQuery(raw).GetParticipants(channel)
-//
 func GetParticipants(raw *tg.Client, channel tg.InputChannelClass) *participants.GetParticipantsQueryBuilder {
 	return NewQuery(raw).GetParticipants(channel)
 }
@@ -74,7 +73,6 @@ func (q *Query) GetBlocked() *blocked.GetBlockedQueryBuilder {
 // Shorthand for
 //
 //	query.NewQuery(raw).GetBlocked()
-//
 func GetBlocked(raw *tg.Client) *blocked.GetBlockedQueryBuilder {
 	return NewQuery(raw).GetBlocked()
 }
@@ -88,7 +86,6 @@ func (q *Query) GetUserPhotos(user tg.InputUserClass) *photos.GetUserPhotosQuery
 // Shorthand for
 //
 //	query.NewQuery(raw).GetUserPhotos(user)
-//
 func GetUserPhotos(raw *tg.Client, user tg.InputUserClass) *photos.GetUserPhotosQueryBuilder {
 	return NewQuery(raw).GetUserPhotos(user)
 }
@@ -102,7 +99,6 @@ func (q *Query) GetDialogs() *dialogs.GetDialogsQueryBuilder {
 // Shorthand for
 //
 //	query.NewQuery(raw).Messages()
-//
 func Messages(raw *tg.Client) *messages.QueryBuilder {
 	return NewQuery(raw).Messages()
 }
@@ -111,7 +107,6 @@ func Messages(raw *tg.Client) *messages.QueryBuilder {
 // Shorthand for
 //
 //	query.NewQuery(raw).GetDialogs()
-//
 func GetDialogs(raw *tg.Client) *dialogs.GetDialogsQueryBuilder {
 	return NewQuery(raw).GetDialogs()
 }
@@ -125,7 +120,6 @@ func (q *Query) GetOldFeaturedStickers() *featured.GetOldFeaturedStickersQueryBu
 // Shorthand for
 //
 //	query.NewQuery(raw).GetOldFeaturedStickers()
-//
 func GetOldFeaturedStickers(raw *tg.Client) *featured.GetOldFeaturedStickersQueryBuilder {
 	return NewQuery(raw).GetOldFeaturedStickers()
 }

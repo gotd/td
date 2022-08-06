@@ -4,8 +4,8 @@
 // This package is not intended to be used directly.
 //
 // Ref:
-//	* https://core.telegram.org/mtproto/serialize
-//	* https://core.telegram.org/mtproto/TL-abstract-types
+//   - https://core.telegram.org/mtproto/serialize
+//   - https://core.telegram.org/mtproto/TL-abstract-types
 package bin
 
 // Basic TL types.

@@ -21,7 +21,7 @@ const (
 // test authentication.
 //
 // Reference:
-//	* https://github.com/telegramdesktop/tdesktop/blob/5f665b8ecb48802cd13cfb48ec834b946459274a/docs/api_credentials.md
+//   - https://github.com/telegramdesktop/tdesktop/blob/5f665b8ecb48802cd13cfb48ec834b946459274a/docs/api_credentials.md
 const (
 	TestAppID   = constant.TestAppID
 	TestAppHash = constant.TestAppHash

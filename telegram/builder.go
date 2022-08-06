@@ -39,9 +39,10 @@ func sessionDir() (string, error) {
 // using environment variables.
 //
 // Variables:
-// 	SESSION_FILE:        path to session file
-// 	SESSION_DIR:         path to session directory, if SESSION_FILE is not set
-// 	ALL_PROXY, NO_PROXY: see https://pkg.go.dev/golang.org/x/net/proxy#FromEnvironment
+//
+//	SESSION_FILE:        path to session file
+//	SESSION_DIR:         path to session directory, if SESSION_FILE is not set
+//	ALL_PROXY, NO_PROXY: see https://pkg.go.dev/golang.org/x/net/proxy#FromEnvironment
 func OptionsFromEnvironment(opts Options) (Options, error) {
 	// Setting up session storage if not provided.
 	if opts.SessionStorage == nil {
@@ -77,8 +78,9 @@ func OptionsFromEnvironment(opts Options) (Options, error) {
 // but does not connect to server.
 //
 // Variables:
-// 	APP_ID:   app_id of Telegram app.
-// 	APP_HASH: app_hash of Telegram app.
+//
+//	APP_ID:   app_id of Telegram app.
+//	APP_HASH: app_hash of Telegram app.
 func ClientFromEnvironment(opts Options) (*Client, error) {
 	appID, err := strconv.Atoi(os.Getenv("APP_ID"))
 	if err != nil {

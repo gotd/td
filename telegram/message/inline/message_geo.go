@@ -30,7 +30,7 @@ func MessageGeo(point tg.InputGeoPointClass) *MessageMediaGeoBuilder {
 // Heading sets for live locations¹, a direction in which the location moves, in degrees; 1-360.
 //
 // Links:
-//  1) https://core.telegram.org/api/live-location
+//  1. https://core.telegram.org/api/live-location
 func (b *MessageMediaGeoBuilder) Heading(heading int) *MessageMediaGeoBuilder {
 	b.message.Heading = heading
 	return b
@@ -51,7 +51,7 @@ func (b *MessageMediaGeoBuilder) PeriodSeconds(period int) *MessageMediaGeoBuild
 // alerts, in meters (0-100000)
 //
 // Links:
-//  1) https://core.telegram.org/api/live-location
+//  1. https://core.telegram.org/api/live-location
 func (b *MessageMediaGeoBuilder) ProximityNotificationRadius(radius int) *MessageMediaGeoBuilder {
 	b.message.ProximityNotificationRadius = radius
 	return b

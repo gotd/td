@@ -4,6 +4,7 @@
 // in correct order.
 //
 // Limitations:
+//
 //  1. Manager cannot verify stateless types of updates
 //     (tg.UpdatesClass without Seq, or tg.UpdateClass without Pts or Qts).
 //
