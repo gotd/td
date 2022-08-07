@@ -60,6 +60,7 @@ func sha1d(r []byte, authKey Key, msgKey bin.Int128, x int) []byte {
 // See https://core.telegram.org/mtproto/description_v1#defining-aes-key-and-initialization-vector
 //
 // Example:
+//
 //	key, iv := crypto.OldKeys(authKey, messageKey, crypto.Client)
 //	cipher, err := aes.NewCipher(key[:])
 //	if err != nil {

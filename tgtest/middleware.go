@@ -11,9 +11,8 @@ import (
 // Including:
 //
 //	tg.InvokeWithLayerRequest
-// 	tg.InitConnectionRequest
+//	tg.InitConnectionRequest
 //	tg.InvokeWithoutUpdatesRequest
-//
 func UnpackInvoke(next Handler) Handler {
 	return HandlerFunc(func(srv *Server, req *Request) error {
 		id, err := req.Buf.PeekID()

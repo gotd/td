@@ -24,7 +24,6 @@ type Account struct {
 // Shorthand for:
 //
 //	ReadFS(os.DirFS(root), passcode)
-//
 func Read(root string, passcode []byte) ([]Account, error) {
 	return ReadFS(os.DirFS(root), passcode)
 }

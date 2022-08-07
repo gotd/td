@@ -98,6 +98,7 @@ func aesIV(sha256a, sha256b []byte, v *bin.Int256) {
 // See https://core.telegram.org/mtproto/description#defining-aes-key-and-initialization-vector
 //
 // Example:
+//
 //	key, iv := crypto.Keys(authKey, messageKey, crypto.Client)
 //	cipher, err := aes.NewCipher(key[:])
 //	if err != nil {

@@ -14,13 +14,12 @@ import (
 // JoinLink joins to private chat using given link or hash.
 // Input examples:
 //
-//  t.me/+AAAAAAAAAAAAAAAA
-//  https://t.me/+AAAAAAAAAAAAAAAA
-//  t.me/joinchat/AAAAAAAAAAAAAAAA
-//  https://t.me/joinchat/AAAAAAAAAAAAAAAA
-//  tg:join?invite=AAAAAAAAAAAAAAAA
-//  tg://join?invite=AAAAAAAAAAAAAAAA
-//
+//	t.me/+AAAAAAAAAAAAAAAA
+//	https://t.me/+AAAAAAAAAAAAAAAA
+//	t.me/joinchat/AAAAAAAAAAAAAAAA
+//	https://t.me/joinchat/AAAAAAAAAAAAAAAA
+//	tg:join?invite=AAAAAAAAAAAAAAAA
+//	tg://join?invite=AAAAAAAAAAAAAAAA
 func (s *Sender) JoinLink(ctx context.Context, link string) (tg.UpdatesClass, error) {
 	hash := link
 	if deeplink.IsDeeplinkLike(link) {

@@ -25,7 +25,6 @@ import (
 //	+1 (311) 555-0123
 //	+1 311 555-6162
 //	13115556162
-//
 func (m *Manager) Resolve(ctx context.Context, from string) (Peer, error) {
 	from = strings.TrimSpace(from)
 
@@ -158,7 +157,6 @@ func (m *Manager) findPeerClass(p tg.PeerClass, users []tg.UserClass, chats []tg
 //
 //	@telegram
 //	telegram
-//
 func (m *Manager) ResolveDomain(ctx context.Context, domain string) (Peer, error) {
 	domain = strings.TrimPrefix(domain, "@")
 
@@ -205,7 +203,6 @@ func (m *Manager) ResolveDomain(ctx context.Context, domain string) (Peer, error
 //	https://t.me/telegram
 //	tg:resolve?domain=telegram
 //	tg://resolve?domain=telegram
-//
 func (m *Manager) ResolveDeeplink(ctx context.Context, u string) (Peer, error) {
 	link, err := deeplink.Expect(u, deeplink.Resolve)
 	if err != nil {

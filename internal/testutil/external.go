@@ -14,7 +14,8 @@ import (
 // like TestExternalE2EConnect.
 //
 // Run all tests with following command in module root:
-// 	GOTD_TEST_EXTERNAL=1 go test -v -run ^TestExternalE2E ./...
+//
+//	GOTD_TEST_EXTERNAL=1 go test -v -run ^TestExternalE2E ./...
 func SkipExternal(tb testing.TB) {
 	const env = "GOTD_TEST_EXTERNAL"
 

@@ -27,5 +27,5 @@ func StopTimer(t Timer) {
 	}
 }
 
-// Ticker abstracts a channel that delivers ``ticks'' of a clock at intervals.
+// Ticker abstracts a channel that delivers “ticks” of a clock at intervals.
 type Ticker = neo.Ticker

@@ -89,13 +89,12 @@ func splitByWords(s string) []string {
 
 // pascal converts the given name into a PascalCase.
 //
-//	user_info 	 => UserInfo
-//	full_name 	 => FullName
-//	user_id   	 => UserID
-//	full-admin	 => FullAdmin
-//  cdnConfig    => CDNConfig
-//  cdn_1_config => CDN1Config
-//
+//		user_info 	 => UserInfo
+//		full_name 	 => FullName
+//		user_id   	 => UserID
+//		full-admin	 => FullAdmin
+//	 cdnConfig    => CDNConfig
+//	 cdn_1_config => CDN1Config
 func pascal(s string) string {
 	words := splitByWords(s)
 	return pascalWords(words)
@@ -107,7 +106,6 @@ func pascal(s string) string {
 //	full_name  => fullName
 //	user_id    => userID
 //	full-admin => fullAdmin
-//
 func camel(s string) string {
 	words := splitByWords(s)
 	if len(words) == 1 {

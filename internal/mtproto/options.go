@@ -122,7 +122,7 @@ func (opt *Options) setDefaults() {
 		opt.MaxRetries = 5
 	}
 	if opt.DialTimeout == 0 {
-		opt.DialTimeout = 15 * time.Second
+		opt.DialTimeout = 35 * time.Second
 	}
 	if opt.ExchangeTimeout == 0 {
 		opt.ExchangeTimeout = exchange.DefaultTimeout

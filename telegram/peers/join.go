@@ -22,13 +22,12 @@ var _ = []updateWithChats{
 // JoinLink joins to private chat using given link or hash.
 // Input examples:
 //
-//  t.me/+AAAAAAAAAAAAAAAA
-//  https://t.me/+AAAAAAAAAAAAAAAA
-//  t.me/joinchat/AAAAAAAAAAAAAAAA
-//  https://t.me/joinchat/AAAAAAAAAAAAAAAA
-//  tg:join?invite=AAAAAAAAAAAAAAAA
-//  tg://join?invite=AAAAAAAAAAAAAAAA
-//
+//	t.me/+AAAAAAAAAAAAAAAA
+//	https://t.me/+AAAAAAAAAAAAAAAA
+//	t.me/joinchat/AAAAAAAAAAAAAAAA
+//	https://t.me/joinchat/AAAAAAAAAAAAAAAA
+//	tg:join?invite=AAAAAAAAAAAAAAAA
+//	tg://join?invite=AAAAAAAAAAAAAAAA
 func (m *Manager) JoinLink(ctx context.Context, link string) (Peer, error) {
 	l, err := deeplink.Expect(link, deeplink.Join)
 	if err != nil {

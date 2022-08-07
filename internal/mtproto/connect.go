@@ -62,6 +62,17 @@ func (c *Conn) createAuthKey(ctx context.Context) error {
 	c.exchangeLock.Lock()
 	defer c.exchangeLock.Unlock()
 
+	if ce := c.log.Check(zap.DebugLevel, "Initializing new key exchange"); ce != nil {
+		// Useful for debugging i/o timeout errors on tcp reads or writes.
+		fields := []zap.Field{
+			zap.Duration("timeout", c.exchangeTimeout),
+		}
+		if deadline, ok := ctx.Deadline(); ok {
+			fields = append(fields, zap.Time("context_deadline", deadline))
+		}
+		ce.Write(fields...)
+	}
+
 	r, err := exchange.NewExchanger(c.conn, c.dcID).
 		WithClock(c.clock).
 		WithLogger(c.log.Named("exchange")).

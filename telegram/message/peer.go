@@ -77,7 +77,6 @@ func (s *Sender) Self() *RequestBuilder {
 //	+13115552368
 //	+1 (311) 555-0123
 //	+1 311 555-6162
-//
 func (s *Sender) Resolve(from string, decorators ...peer.PromiseDecorator) *RequestBuilder {
 	return s.builder(peer.Resolve(s.resolver, from), decorators)
 }
@@ -86,9 +85,9 @@ func (s *Sender) Resolve(from string, decorators ...peer.PromiseDecorator) *Requ
 // It resolves peer of message using given Resolver.
 // Input example:
 //
-// 	+13115552368
-// 	+1 (311) 555-0123
-// 	+1 311 555-6162
+//	+13115552368
+//	+1 (311) 555-0123
+//	+1 311 555-6162
 //
 // NB: ResolvePhone just deletes any non-digit symbols from phone argument.
 // For now, Telegram sends contact number as string like "13115552368".
@@ -103,7 +102,6 @@ func (s *Sender) ResolvePhone(phone string, decorators ...peer.PromiseDecorator)
 //
 //	@telegram
 //	telegram
-//
 func (s *Sender) ResolveDomain(domain string, decorators ...peer.PromiseDecorator) *RequestBuilder {
 	return s.builder(peer.ResolveDomain(s.resolver, domain), decorators)
 }
@@ -117,7 +115,6 @@ func (s *Sender) ResolveDomain(domain string, decorators ...peer.PromiseDecorato
 //	https://t.me/telegram
 //	tg:resolve?domain=telegram
 //	tg://resolve?domain=telegram
-//
 func (s *Sender) ResolveDeeplink(link string, decorators ...peer.PromiseDecorator) *RequestBuilder {
 	return s.builder(peer.ResolveDeeplink(s.resolver, link), decorators)
 }
@@ -171,8 +168,7 @@ func (s *Sender) Answer(
 // Reply uses given message update to create message for same chat and create a reply.
 // Shorthand for
 //
-// 	sender.Answer(uctx, upd).ReplyMsg(upd.GetMessage())
-//
+//	sender.Answer(uctx, upd).ReplyMsg(upd.GetMessage())
 func (s *Sender) Reply(uctx tg.Entities, upd AnswerableMessageUpdate, decorators ...peer.PromiseDecorator) *Builder {
 	return s.Answer(uctx, upd, decorators...).ReplyMsg(upd.GetMessage())
 }

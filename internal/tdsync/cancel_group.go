@@ -20,13 +20,14 @@ type CancellableGroup struct {
 // NewCancellableGroup creates new CancellableGroup.
 //
 // Example:
-//		g := NewCancellableGroup(ctx)
-//		g.Go(func(ctx context.Context) error {
-//			<-ctx.Done()
-//			return ctx.Err()
-//		})
-//		g.Cancel()
-//		g.Wait()
+//
+//	g := NewCancellableGroup(ctx)
+//	g.Go(func(ctx context.Context) error {
+//		<-ctx.Done()
+//		return ctx.Err()
+//	})
+//	g.Cancel()
+//	g.Wait()
 func NewCancellableGroup(parent context.Context) *CancellableGroup {
 	ctx, cancel := context.WithCancel(parent)
 	group, groupCtx := errgroup.WithContext(ctx)
