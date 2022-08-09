@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/constructor/payments.exportedInvoice for reference.
 type PaymentsExportedInvoice struct {
-	// URL field of PaymentsExportedInvoice.
+	//
 	URL string
 }
 

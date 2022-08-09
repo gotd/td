@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/method/phone.saveCallLog for reference.
 type PhoneSaveCallLogRequest struct {
-	// Peer field of PhoneSaveCallLogRequest.
+	//
 	Peer InputPhoneCall
-	// File field of PhoneSaveCallLogRequest.
+	//
 	File InputFileClass
 }
 
@@ -195,6 +195,7 @@ func (s *PhoneSaveCallLogRequest) GetFile() (value InputFileClass) {
 // PhoneSaveCallLog invokes method phone.saveCallLog#41248786 returning error if any.
 //
 // See https://core.telegram.org/method/phone.saveCallLog for reference.
+// Can be used by bots.
 func (c *Client) PhoneSaveCallLog(ctx context.Context, request *PhoneSaveCallLogRequest) (bool, error) {
 	var result BoolBox
 

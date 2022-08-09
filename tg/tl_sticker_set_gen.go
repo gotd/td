@@ -52,7 +52,7 @@ type StickerSet struct {
 	Animated bool
 	// Is this a video stickerpack
 	Videos bool
-	// Emojis field of StickerSet.
+	//
 	Emojis bool
 	// When was this stickerset installed
 	//
@@ -78,7 +78,7 @@ type StickerSet struct {
 	//
 	// Use SetThumbVersion and GetThumbVersion helpers.
 	ThumbVersion int
-	// ThumbDocumentID field of StickerSet.
+	//
 	//
 	// Use SetThumbDocumentID and GetThumbDocumentID helpers.
 	ThumbDocumentID int64

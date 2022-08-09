@@ -35,19 +35,22 @@ var (
 //
 // See https://core.telegram.org/constructor/attachMenuBot for reference.
 type AttachMenuBot struct {
-	// Flags field of AttachMenuBot.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Inactive field of AttachMenuBot.
+	//
 	Inactive bool
-	// HasSettings field of AttachMenuBot.
+	//
 	HasSettings bool
-	// BotID field of AttachMenuBot.
+	//
 	BotID int64
-	// ShortName field of AttachMenuBot.
+	//
 	ShortName string
-	// PeerTypes field of AttachMenuBot.
+	//
 	PeerTypes []AttachMenuPeerTypeClass
-	// Icons field of AttachMenuBot.
+	//
 	Icons []AttachMenuBotIcon
 }
 

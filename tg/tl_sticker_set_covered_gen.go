@@ -387,11 +387,11 @@ func (s *StickerSetMultiCovered) MapCovers() (value DocumentClassArray) {
 //
 // See https://core.telegram.org/constructor/stickerSetFullCovered for reference.
 type StickerSetFullCovered struct {
-	// Set field of StickerSetFullCovered.
+	//
 	Set StickerSet
-	// Packs field of StickerSetFullCovered.
+	//
 	Packs []StickerPack
-	// Documents field of StickerSetFullCovered.
+	//
 	Documents []DocumentClass
 }
 

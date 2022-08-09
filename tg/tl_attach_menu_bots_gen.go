@@ -136,11 +136,11 @@ func (a *AttachMenuBotsNotModified) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/attachMenuBots for reference.
 type AttachMenuBots struct {
-	// Hash field of AttachMenuBots.
+	//
 	Hash int64
-	// Bots field of AttachMenuBots.
+	//
 	Bots []AttachMenuBot
-	// Users field of AttachMenuBots.
+	//
 	Users []UserClass
 }
 

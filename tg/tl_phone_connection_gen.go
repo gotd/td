@@ -36,9 +36,12 @@ var (
 //
 // See https://core.telegram.org/constructor/phoneConnection for reference.
 type PhoneConnection struct {
-	// Flags field of PhoneConnection.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// TCP field of PhoneConnection.
+	//
 	TCP bool
 	// Endpoint ID
 	ID int64

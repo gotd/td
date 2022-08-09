@@ -383,8 +383,13 @@ func (t *MessagesTranslateTextRequest) GetToLang() (value string) {
 // MessagesTranslateText invokes method messages.translateText#24ce6dee returning error if any.
 // Translate a given text
 //
+// Possible errors:
+//
+//	400 MSG_ID_INVALID: Invalid message ID provided.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 TO_LANG_INVALID: The specified destination language is invalid.
+//
 // See https://core.telegram.org/method/messages.translateText for reference.
-// Can be used by bots.
 func (c *Client) MessagesTranslateText(ctx context.Context, request *MessagesTranslateTextRequest) (MessagesTranslatedTextClass, error) {
 	var result MessagesTranslatedTextBox
 

@@ -1422,13 +1422,16 @@ func (d *DocumentAttributeHasStickers) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/documentAttributeCustomEmoji for reference.
 type DocumentAttributeCustomEmoji struct {
-	// Flags field of DocumentAttributeCustomEmoji.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Free field of DocumentAttributeCustomEmoji.
+	//
 	Free bool
-	// Alt field of DocumentAttributeCustomEmoji.
+	//
 	Alt string
-	// Stickerset field of DocumentAttributeCustomEmoji.
+	//
 	Stickerset InputStickerSetClass
 }
 

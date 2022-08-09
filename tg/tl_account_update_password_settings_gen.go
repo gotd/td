@@ -213,6 +213,7 @@ func (u *AccountUpdatePasswordSettingsRequest) GetPasswordAsNotEmpty() (*InputCh
 //	400 EMAIL_INVALID: The specified email is invalid.
 //	400 EMAIL_UNCONFIRMED: Email unconfirmed.
 //	400 NEW_SALT_INVALID: The new salt is invalid.
+//	400 NEW_SETTINGS_EMPTY: No password is set on the current account, and no new password was specified in new_settings.
 //	400 NEW_SETTINGS_INVALID: The new password settings are invalid.
 //	400 PASSWORD_HASH_INVALID: The provided password hash is invalid.
 //	400 SRP_ID_INVALID: Invalid SRP ID provided.

@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/constructor/inputInvoiceMessage for reference.
 type InputInvoiceMessage struct {
-	// Peer field of InputInvoiceMessage.
+	//
 	Peer InputPeerClass
-	// MsgID field of InputInvoiceMessage.
+	//
 	MsgID int
 }
 
@@ -201,7 +201,7 @@ func (i *InputInvoiceMessage) GetMsgID() (value int) {
 //
 // See https://core.telegram.org/constructor/inputInvoiceSlug for reference.
 type InputInvoiceSlug struct {
-	// Slug field of InputInvoiceSlug.
+	//
 	Slug string
 }
 

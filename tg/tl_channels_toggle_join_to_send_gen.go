@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/method/channels.toggleJoinToSend for reference.
 type ChannelsToggleJoinToSendRequest struct {
-	// Channel field of ChannelsToggleJoinToSendRequest.
+	//
 	Channel InputChannelClass
-	// Enabled field of ChannelsToggleJoinToSendRequest.
+	//
 	Enabled bool
 }
 
@@ -200,6 +200,7 @@ func (t *ChannelsToggleJoinToSendRequest) GetChannelAsNotEmpty() (NotEmptyInputC
 // ChannelsToggleJoinToSend invokes method channels.toggleJoinToSend#e4cb9580 returning error if any.
 //
 // See https://core.telegram.org/method/channels.toggleJoinToSend for reference.
+// Can be used by bots.
 func (c *Client) ChannelsToggleJoinToSend(ctx context.Context, request *ChannelsToggleJoinToSendRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

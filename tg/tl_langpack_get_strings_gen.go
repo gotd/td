@@ -233,6 +233,7 @@ func (g *LangpackGetStringsRequest) GetKeys() (value []string) {
 //
 // Possible errors:
 //
+//	400 LANG_CODE_NOT_SUPPORTED: The specified language code is not supported.
 //	400 LANG_PACK_INVALID: The provided language pack is invalid.
 //
 // See https://core.telegram.org/method/langpack.getStrings for reference.

@@ -6465,7 +6465,7 @@ type UpdateStickerSetsOrder struct {
 	Flags bin.Fields
 	// Whether the updated stickers are mask stickers
 	Masks bool
-	// Emojis field of UpdateStickerSetsOrder.
+	//
 	Emojis bool
 	// New sticker order by sticker ID
 	Order []int64
@@ -19567,7 +19567,7 @@ func (u *UpdateAttachMenuBots) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/updateWebViewResultSent for reference.
 type UpdateWebViewResultSent struct {
-	// QueryID field of UpdateWebViewResultSent.
+	//
 	QueryID int64
 }
 
@@ -19701,9 +19701,9 @@ func (u *UpdateWebViewResultSent) GetQueryID() (value int64) {
 //
 // See https://core.telegram.org/constructor/updateBotMenuButton for reference.
 type UpdateBotMenuButton struct {
-	// BotID field of UpdateBotMenuButton.
+	//
 	BotID int64
-	// Button field of UpdateBotMenuButton.
+	//
 	Button BotMenuButtonClass
 }
 
@@ -19968,17 +19968,20 @@ func (u *UpdateSavedRingtones) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/updateTranscribedAudio for reference.
 type UpdateTranscribedAudio struct {
-	// Flags field of UpdateTranscribedAudio.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Pending field of UpdateTranscribedAudio.
+	//
 	Pending bool
-	// Peer field of UpdateTranscribedAudio.
+	//
 	Peer PeerClass
-	// MsgID field of UpdateTranscribedAudio.
+	//
 	MsgID int
-	// TranscriptionID field of UpdateTranscribedAudio.
+	//
 	TranscriptionID int64
-	// Text field of UpdateTranscribedAudio.
+	//
 	Text string
 }
 

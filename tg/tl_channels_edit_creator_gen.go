@@ -248,6 +248,7 @@ func (e *ChannelsEditCreatorRequest) GetPasswordAsNotEmpty() (*InputCheckPasswor
 //
 // Possible errors:
 //
+//	400 CHANNELS_ADMIN_PUBLIC_TOO_MUCH: You're admin of too many public channels, make some channels private to change the username of this channel.
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.

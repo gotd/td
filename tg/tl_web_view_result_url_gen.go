@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/constructor/webViewResultUrl for reference.
 type WebViewResultURL struct {
-	// QueryID field of WebViewResultURL.
+	//
 	QueryID int64
-	// URL field of WebViewResultURL.
+	//
 	URL string
 }
 

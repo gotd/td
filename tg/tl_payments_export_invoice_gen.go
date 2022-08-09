@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/method/payments.exportInvoice for reference.
 type PaymentsExportInvoiceRequest struct {
-	// InvoiceMedia field of PaymentsExportInvoiceRequest.
+	//
 	InvoiceMedia InputMediaClass
 }
 
@@ -168,6 +168,7 @@ func (e *PaymentsExportInvoiceRequest) GetInvoiceMedia() (value InputMediaClass)
 // PaymentsExportInvoice invokes method payments.exportInvoice#f91b065 returning error if any.
 //
 // See https://core.telegram.org/method/payments.exportInvoice for reference.
+// Can be used by bots.
 func (c *Client) PaymentsExportInvoice(ctx context.Context, invoicemedia InputMediaClass) (*PaymentsExportedInvoice, error) {
 	var result PaymentsExportedInvoice
 

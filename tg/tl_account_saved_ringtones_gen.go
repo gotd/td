@@ -136,9 +136,9 @@ func (s *AccountSavedRingtonesNotModified) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/account.savedRingtones for reference.
 type AccountSavedRingtones struct {
-	// Hash field of AccountSavedRingtones.
+	//
 	Hash int64
-	// Ringtones field of AccountSavedRingtones.
+	//
 	Ringtones []DocumentClass
 }
 

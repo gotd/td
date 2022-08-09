@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/method/account.getSavedRingtones for reference.
 type AccountGetSavedRingtonesRequest struct {
-	// Hash field of AccountGetSavedRingtonesRequest.
+	//
 	Hash int64
 }
 
@@ -163,6 +163,7 @@ func (g *AccountGetSavedRingtonesRequest) GetHash() (value int64) {
 // AccountGetSavedRingtones invokes method account.getSavedRingtones#e1902288 returning error if any.
 //
 // See https://core.telegram.org/method/account.getSavedRingtones for reference.
+// Can be used by bots.
 func (c *Client) AccountGetSavedRingtones(ctx context.Context, hash int64) (AccountSavedRingtonesClass, error) {
 	var result AccountSavedRingtonesBox
 

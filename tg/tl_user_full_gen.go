@@ -57,7 +57,7 @@ type UserFull struct {
 	HasScheduled bool
 	// Whether the user can receive video calls
 	VideoCallsAvailable bool
-	// VoiceMessagesForbidden field of UserFull.
+	//
 	VoiceMessagesForbidden bool
 	// User ID
 	ID int64
@@ -106,15 +106,15 @@ type UserFull struct {
 	//
 	// Use SetPrivateForwardName and GetPrivateForwardName helpers.
 	PrivateForwardName string
-	// BotGroupAdminRights field of UserFull.
+	//
 	//
 	// Use SetBotGroupAdminRights and GetBotGroupAdminRights helpers.
 	BotGroupAdminRights ChatAdminRights
-	// BotBroadcastAdminRights field of UserFull.
+	//
 	//
 	// Use SetBotBroadcastAdminRights and GetBotBroadcastAdminRights helpers.
 	BotBroadcastAdminRights ChatAdminRights
-	// PremiumGifts field of UserFull.
+	//
 	//
 	// Use SetPremiumGifts and GetPremiumGifts helpers.
 	PremiumGifts []PremiumGiftOption

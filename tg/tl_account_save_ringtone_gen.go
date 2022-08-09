@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/method/account.saveRingtone for reference.
 type AccountSaveRingtoneRequest struct {
-	// ID field of AccountSaveRingtoneRequest.
+	//
 	ID InputDocumentClass
-	// Unsave field of AccountSaveRingtoneRequest.
+	//
 	Unsave bool
 }
 
@@ -200,6 +200,7 @@ func (s *AccountSaveRingtoneRequest) GetIDAsNotEmpty() (*InputDocument, bool) {
 // AccountSaveRingtone invokes method account.saveRingtone#3dea5b03 returning error if any.
 //
 // See https://core.telegram.org/method/account.saveRingtone for reference.
+// Can be used by bots.
 func (c *Client) AccountSaveRingtone(ctx context.Context, request *AccountSaveRingtoneRequest) (AccountSavedRingtoneClass, error) {
 	var result AccountSavedRingtoneBox
 

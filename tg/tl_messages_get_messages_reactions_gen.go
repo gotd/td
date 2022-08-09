@@ -216,7 +216,6 @@ func (g *MessagesGetMessagesReactionsRequest) GetID() (value []int) {
 //  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getMessagesReactions for reference.
-// Can be used by bots.
 func (c *Client) MessagesGetMessagesReactions(ctx context.Context, request *MessagesGetMessagesReactionsRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

@@ -542,8 +542,10 @@ func (e *MessagesEditMessageRequest) MapEntities() (value MessageEntityClassArra
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	400 CHAT_FORWARDS_RESTRICTED: You can't forward messages from a protected chat.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 ENTITIES_TOO_LONG: You provided too many styled message entities.
+//	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
 //	403 INLINE_BOT_REQUIRED: Only the inline bot can edit message.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //	400 MEDIA_CAPTION_TOO_LONG: The caption is too long.

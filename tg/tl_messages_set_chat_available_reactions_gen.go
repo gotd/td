@@ -217,6 +217,12 @@ func (s *MessagesSetChatAvailableReactionsRequest) GetAvailableReactions() (valu
 // Links:
 //  1. https://core.telegram.org/api/reactions
 //
+// Possible errors:
+//
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	400 CHAT_NOT_MODIFIED: The pinned message wasn't modified.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/messages.setChatAvailableReactions for reference.
 func (c *Client) MessagesSetChatAvailableReactions(ctx context.Context, request *MessagesSetChatAvailableReactionsRequest) (UpdatesClass, error) {
 	var result UpdatesBox

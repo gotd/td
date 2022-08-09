@@ -35,9 +35,12 @@ var (
 //
 // See https://core.telegram.org/constructor/inputStorePaymentPremiumSubscription for reference.
 type InputStorePaymentPremiumSubscription struct {
-	// Flags field of InputStorePaymentPremiumSubscription.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Restore field of InputStorePaymentPremiumSubscription.
+	//
 	Restore bool
 }
 
@@ -195,11 +198,11 @@ func (i *InputStorePaymentPremiumSubscription) GetRestore() (value bool) {
 //
 // See https://core.telegram.org/constructor/inputStorePaymentGiftPremium for reference.
 type InputStorePaymentGiftPremium struct {
-	// UserID field of InputStorePaymentGiftPremium.
+	//
 	UserID InputUserClass
-	// Currency field of InputStorePaymentGiftPremium.
+	//
 	Currency string
-	// Amount field of InputStorePaymentGiftPremium.
+	//
 	Amount int64
 }
 

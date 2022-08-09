@@ -36,7 +36,10 @@ var (
 //
 // See https://core.telegram.org/constructor/botInfo for reference.
 type BotInfo struct {
-	// Flags field of BotInfo.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// ID of the bot
 	//
@@ -46,11 +49,11 @@ type BotInfo struct {
 	//
 	// Use SetDescription and GetDescription helpers.
 	Description string
-	// DescriptionPhoto field of BotInfo.
+	//
 	//
 	// Use SetDescriptionPhoto and GetDescriptionPhoto helpers.
 	DescriptionPhoto PhotoClass
-	// DescriptionDocument field of BotInfo.
+	//
 	//
 	// Use SetDescriptionDocument and GetDescriptionDocument helpers.
 	DescriptionDocument DocumentClass
@@ -58,7 +61,7 @@ type BotInfo struct {
 	//
 	// Use SetCommands and GetCommands helpers.
 	Commands []BotCommand
-	// MenuButton field of BotInfo.
+	//
 	//
 	// Use SetMenuButton and GetMenuButton helpers.
 	MenuButton BotMenuButtonClass

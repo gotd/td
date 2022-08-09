@@ -328,6 +328,7 @@ func (u *PhotosUploadProfilePhotoRequest) GetVideoStartTs() (value float64, ok b
 //	400 PHOTO_CROP_SIZE_SMALL: Photo is too small.
 //	400 PHOTO_EXT_INVALID: The extension of the photo is invalid.
 //	400 PHOTO_FILE_MISSING: Profile photo file missing.
+//	400 PHOTO_INVALID: Photo invalid.
 //	400 VIDEO_FILE_INVALID: The specified video file is invalid.
 //
 // See https://core.telegram.org/method/photos.uploadProfilePhoto for reference.

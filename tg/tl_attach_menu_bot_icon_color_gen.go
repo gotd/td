@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/constructor/attachMenuBotIconColor for reference.
 type AttachMenuBotIconColor struct {
-	// Name field of AttachMenuBotIconColor.
+	//
 	Name string
-	// Color field of AttachMenuBotIconColor.
+	//
 	Color int
 }
 

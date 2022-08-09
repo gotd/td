@@ -35,13 +35,13 @@ var (
 //
 // See https://core.telegram.org/method/messages.sendWebViewData for reference.
 type MessagesSendWebViewDataRequest struct {
-	// Bot field of MessagesSendWebViewDataRequest.
+	//
 	Bot InputUserClass
-	// RandomID field of MessagesSendWebViewDataRequest.
+	//
 	RandomID int64
-	// ButtonText field of MessagesSendWebViewDataRequest.
+	//
 	ButtonText string
-	// Data field of MessagesSendWebViewDataRequest.
+	//
 	Data string
 }
 
@@ -249,6 +249,7 @@ func (s *MessagesSendWebViewDataRequest) GetData() (value string) {
 // MessagesSendWebViewData invokes method messages.sendWebViewData#dc0242c8 returning error if any.
 //
 // See https://core.telegram.org/method/messages.sendWebViewData for reference.
+// Can be used by bots.
 func (c *Client) MessagesSendWebViewData(ctx context.Context, request *MessagesSendWebViewDataRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

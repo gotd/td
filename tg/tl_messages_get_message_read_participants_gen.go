@@ -211,6 +211,8 @@ func (g *MessagesGetMessageReadParticipantsRequest) GetMsgID() (value int) {
 // Possible errors:
 //
 //	400 CHAT_TOO_BIG: This method is not available for groups with more than chat_read_mark_size_threshold members, see client configuration ».
+//	400 MSG_ID_INVALID: Invalid message ID provided.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.getMessageReadParticipants for reference.
 func (c *Client) MessagesGetMessageReadParticipants(ctx context.Context, request *MessagesGetMessageReadParticipantsRequest) ([]int64, error) {

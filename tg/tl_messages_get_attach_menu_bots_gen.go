@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/method/messages.getAttachMenuBots for reference.
 type MessagesGetAttachMenuBotsRequest struct {
-	// Hash field of MessagesGetAttachMenuBotsRequest.
+	//
 	Hash int64
 }
 
@@ -163,6 +163,7 @@ func (g *MessagesGetAttachMenuBotsRequest) GetHash() (value int64) {
 // MessagesGetAttachMenuBots invokes method messages.getAttachMenuBots#16fcc2cb returning error if any.
 //
 // See https://core.telegram.org/method/messages.getAttachMenuBots for reference.
+// Can be used by bots.
 func (c *Client) MessagesGetAttachMenuBots(ctx context.Context, hash int64) (AttachMenuBotsClass, error) {
 	var result AttachMenuBotsBox
 

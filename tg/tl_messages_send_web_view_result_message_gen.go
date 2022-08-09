@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/method/messages.sendWebViewResultMessage for reference.
 type MessagesSendWebViewResultMessageRequest struct {
-	// BotQueryID field of MessagesSendWebViewResultMessageRequest.
+	//
 	BotQueryID string
-	// Result field of MessagesSendWebViewResultMessageRequest.
+	//
 	Result InputBotInlineResultClass
 }
 
@@ -195,6 +195,7 @@ func (s *MessagesSendWebViewResultMessageRequest) GetResult() (value InputBotInl
 // MessagesSendWebViewResultMessage invokes method messages.sendWebViewResultMessage#a4314f5 returning error if any.
 //
 // See https://core.telegram.org/method/messages.sendWebViewResultMessage for reference.
+// Can be used by bots.
 func (c *Client) MessagesSendWebViewResultMessage(ctx context.Context, request *MessagesSendWebViewResultMessageRequest) (*WebViewMessageSent, error) {
 	var result WebViewMessageSent
 

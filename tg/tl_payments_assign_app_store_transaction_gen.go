@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/method/payments.assignAppStoreTransaction for reference.
 type PaymentsAssignAppStoreTransactionRequest struct {
-	// Receipt field of PaymentsAssignAppStoreTransactionRequest.
+	//
 	Receipt []byte
-	// Purpose field of PaymentsAssignAppStoreTransactionRequest.
+	//
 	Purpose InputStorePaymentPurposeClass
 }
 
@@ -195,6 +195,7 @@ func (a *PaymentsAssignAppStoreTransactionRequest) GetPurpose() (value InputStor
 // PaymentsAssignAppStoreTransaction invokes method payments.assignAppStoreTransaction#80ed747d returning error if any.
 //
 // See https://core.telegram.org/method/payments.assignAppStoreTransaction for reference.
+// Can be used by bots.
 func (c *Client) PaymentsAssignAppStoreTransaction(ctx context.Context, request *PaymentsAssignAppStoreTransactionRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

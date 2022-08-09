@@ -713,6 +713,7 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 CHAT_FORWARDS_RESTRICTED: You can't forward messages from a protected chat.
+//	403 CHAT_GUEST_SEND_FORBIDDEN:
 //	400 CHAT_RESTRICTED: You can't send messages in this chat, you were restricted.
 //	403 CHAT_SEND_GIFS_FORBIDDEN: You can't send gifs in this chat.
 //	403 CHAT_SEND_MEDIA_FORBIDDEN: You can't send media in this chat.
@@ -720,12 +721,15 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	403 CHAT_SEND_STICKERS_FORBIDDEN: You can't send stickers in this chat.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 CURRENCY_TOTAL_AMOUNT_INVALID: The total amount of all prices is invalid.
+//	400 DOCUMENT_INVALID: The specified document is invalid.
 //	400 EMOTICON_INVALID: The specified emoji is invalid.
+//	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
 //	400 EXTERNAL_URL_INVALID: External URL invalid.
 //	400 FILE_PARTS_INVALID: The number of file parts is invalid.
 //	400 FILE_PART_LENGTH_INVALID: The length of a file part is invalid.
 //	400 FILE_REFERENCE_EMPTY: An empty file reference was specified.
 //	400 FILE_REFERENCE_EXPIRED: File reference expired, it must be refetched as described in the documentation.
+//	500 FILE_WRITE_FAILED:
 //	400 GAME_BOT_INVALID: Bots can't send another bot's game.
 //	400 IMAGE_PROCESS_FAILED: Failure while processing image.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
@@ -744,6 +748,7 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 POLL_OPTION_DUPLICATE: Duplicate poll options provided.
 //	400 POLL_OPTION_INVALID: Invalid poll option provided.
 //	400 POLL_QUESTION_INVALID: One of the poll questions is not acceptable.
+//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //	400 QUIZ_CORRECT_ANSWERS_EMPTY: No correct quiz answer was specified.
 //	400 QUIZ_CORRECT_ANSWERS_TOO_MUCH: You specified too many correct answers in a quiz, quizzes can only have one right answer!
 //	400 QUIZ_CORRECT_ANSWER_INVALID: An invalid value was provided to the correct_answers field.
@@ -751,6 +756,7 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
 //	400 REPLY_MARKUP_BUY_EMPTY: Reply markup for buy button empty.
 //	400 REPLY_MARKUP_INVALID: The provided reply markup is invalid.
+//	400 REPLY_MARKUP_TOO_LONG: The specified reply_markup is too long.
 //	400 SCHEDULE_BOT_NOT_ALLOWED: Bots cannot schedule messages.
 //	400 SCHEDULE_DATE_TOO_LATE: You can't schedule a message this far in the future.
 //	400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
@@ -761,6 +767,7 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	403 USER_IS_BLOCKED: You were blocked by this user.
 //	400 USER_IS_BOT: Bots can't send messages to other bots.
 //	400 VIDEO_CONTENT_TYPE_INVALID: The video's content type is invalid.
+//	400 WEBDOCUMENT_MIME_INVALID: Invalid webdocument mime type provided.
 //	400 WEBPAGE_CURL_FAILED: Failure while fetching the webpage with cURL.
 //	400 WEBPAGE_MEDIA_EMPTY: Webpage media empty.
 //	400 YOU_BLOCKED_USER: You blocked this user.

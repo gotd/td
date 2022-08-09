@@ -191,6 +191,10 @@ func (e *PhoneEditGroupCallTitleRequest) GetTitle() (value string) {
 // PhoneEditGroupCallTitle invokes method phone.editGroupCallTitle#1ca6ac0a returning error if any.
 // Edit the title of a group call or livestream
 //
+// Possible errors:
+//
+//	403 GROUPCALL_FORBIDDEN: The group call has already ended.
+//
 // See https://core.telegram.org/method/phone.editGroupCallTitle for reference.
 func (c *Client) PhoneEditGroupCallTitle(ctx context.Context, request *PhoneEditGroupCallTitleRequest) (UpdatesClass, error) {
 	var result UpdatesBox

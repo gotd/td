@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/method/bots.setBotBroadcastDefaultAdminRights for reference.
 type BotsSetBotBroadcastDefaultAdminRightsRequest struct {
-	// AdminRights field of BotsSetBotBroadcastDefaultAdminRightsRequest.
+	//
 	AdminRights ChatAdminRights
 }
 
@@ -163,6 +163,7 @@ func (s *BotsSetBotBroadcastDefaultAdminRightsRequest) GetAdminRights() (value C
 // BotsSetBotBroadcastDefaultAdminRights invokes method bots.setBotBroadcastDefaultAdminRights#788464e1 returning error if any.
 //
 // See https://core.telegram.org/method/bots.setBotBroadcastDefaultAdminRights for reference.
+// Can be used by bots.
 func (c *Client) BotsSetBotBroadcastDefaultAdminRights(ctx context.Context, adminrights ChatAdminRights) (bool, error) {
 	var result BoolBox
 

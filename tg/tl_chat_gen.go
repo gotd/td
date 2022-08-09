@@ -1057,9 +1057,9 @@ type Channel struct {
 	// Links:
 	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
 	Noforwards bool
-	// JoinToSend field of Channel.
+	//
 	JoinToSend bool
-	// JoinRequest field of Channel.
+	//
 	JoinRequest bool
 	// ID of the channel
 	ID int64

@@ -1038,9 +1038,9 @@ type ChannelFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/discussion
 	Blocked bool
-	// Flags2 field of ChannelFull.
+	//
 	Flags2 bin.Fields
-	// CanDeleteChannel field of ChannelFull.
+	//
 	CanDeleteChannel bool
 	// ID of the channel
 	ID int64

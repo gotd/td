@@ -1917,9 +1917,9 @@ type MessageActionPaymentSentMe struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// RecurringInit field of MessageActionPaymentSentMe.
+	//
 	RecurringInit bool
-	// RecurringUsed field of MessageActionPaymentSentMe.
+	//
 	RecurringUsed bool
 	// Three-letter ISO 4217 currency¹ code
 	//
@@ -2324,11 +2324,14 @@ func (m *MessageActionPaymentSentMe) GetCharge() (value PaymentCharge) {
 //
 // See https://core.telegram.org/constructor/messageActionPaymentSent for reference.
 type MessageActionPaymentSent struct {
-	// Flags field of MessageActionPaymentSent.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// RecurringInit field of MessageActionPaymentSent.
+	//
 	RecurringInit bool
-	// RecurringUsed field of MessageActionPaymentSent.
+	//
 	RecurringUsed bool
 	// Three-letter ISO 4217 currency¹ code
 	//
@@ -2343,7 +2346,7 @@ type MessageActionPaymentSent struct {
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
 	TotalAmount int64
-	// InvoiceSlug field of MessageActionPaymentSent.
+	//
 	//
 	// Use SetInvoiceSlug and GetInvoiceSlug helpers.
 	InvoiceSlug string
@@ -4858,9 +4861,9 @@ func (m *MessageActionChatJoinedByRequest) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/messageActionWebViewDataSentMe for reference.
 type MessageActionWebViewDataSentMe struct {
-	// Text field of MessageActionWebViewDataSentMe.
+	//
 	Text string
-	// Data field of MessageActionWebViewDataSentMe.
+	//
 	Data string
 }
 
@@ -5019,7 +5022,7 @@ func (m *MessageActionWebViewDataSentMe) GetData() (value string) {
 //
 // See https://core.telegram.org/constructor/messageActionWebViewDataSent for reference.
 type MessageActionWebViewDataSent struct {
-	// Text field of MessageActionWebViewDataSent.
+	//
 	Text string
 }
 
@@ -5153,11 +5156,11 @@ func (m *MessageActionWebViewDataSent) GetText() (value string) {
 //
 // See https://core.telegram.org/constructor/messageActionGiftPremium for reference.
 type MessageActionGiftPremium struct {
-	// Currency field of MessageActionGiftPremium.
+	//
 	Currency string
-	// Amount field of MessageActionGiftPremium.
+	//
 	Amount int64
-	// Months field of MessageActionGiftPremium.
+	//
 	Months int
 }
 

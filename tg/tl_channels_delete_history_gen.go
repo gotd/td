@@ -39,9 +39,12 @@ var (
 //
 // See https://core.telegram.org/method/channels.deleteHistory for reference.
 type ChannelsDeleteHistoryRequest struct {
-	// Flags field of ChannelsDeleteHistoryRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ForEveryone field of ChannelsDeleteHistoryRequest.
+	//
 	ForEveryone bool
 	// Supergroup¹ whose history must be deleted
 	//
@@ -266,7 +269,9 @@ func (d *ChannelsDeleteHistoryRequest) GetChannelAsNotEmpty() (NotEmptyInputChan
 // Possible errors:
 //
 //	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 CHANNEL_PARICIPANT_MISSING:
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //
 // See https://core.telegram.org/method/channels.deleteHistory for reference.
 func (c *Client) ChannelsDeleteHistory(ctx context.Context, request *ChannelsDeleteHistoryRequest) (UpdatesClass, error) {

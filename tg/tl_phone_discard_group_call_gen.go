@@ -164,6 +164,10 @@ func (d *PhoneDiscardGroupCallRequest) GetCall() (value InputGroupCall) {
 // PhoneDiscardGroupCall invokes method phone.discardGroupCall#7a777135 returning error if any.
 // Terminate a group call
 //
+// Possible errors:
+//
+//	400 GROUPCALL_ALREADY_DISCARDED: The group call was already discarded.
+//
 // See https://core.telegram.org/method/phone.discardGroupCall for reference.
 func (c *Client) PhoneDiscardGroupCall(ctx context.Context, call InputGroupCall) (UpdatesClass, error) {
 	var result UpdatesBox
