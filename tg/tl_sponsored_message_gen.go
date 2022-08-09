@@ -44,7 +44,7 @@ type SponsoredMessage struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Recommended field of SponsoredMessage.
+	//
 	Recommended bool
 	// Message ID
 	RandomID []byte

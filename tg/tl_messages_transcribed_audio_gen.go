@@ -35,13 +35,16 @@ var (
 //
 // See https://core.telegram.org/constructor/messages.transcribedAudio for reference.
 type MessagesTranscribedAudio struct {
-	// Flags field of MessagesTranscribedAudio.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Pending field of MessagesTranscribedAudio.
+	//
 	Pending bool
-	// TranscriptionID field of MessagesTranscribedAudio.
+	//
 	TranscriptionID int64
-	// Text field of MessagesTranscribedAudio.
+	//
 	Text string
 }
 

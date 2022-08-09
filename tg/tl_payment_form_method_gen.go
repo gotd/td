@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/constructor/paymentFormMethod for reference.
 type PaymentFormMethod struct {
-	// URL field of PaymentFormMethod.
+	//
 	URL string
-	// Title field of PaymentFormMethod.
+	//
 	Title string
 }
 

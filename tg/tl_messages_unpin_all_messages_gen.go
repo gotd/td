@@ -175,6 +175,11 @@ func (u *MessagesUnpinAllMessagesRequest) GetPeer() (value InputPeerClass) {
 // Links:
 //  1. https://core.telegram.org/api/pin
 //
+// Possible errors:
+//
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	400 CHAT_NOT_MODIFIED: The pinned message wasn't modified.
+//
 // See https://core.telegram.org/method/messages.unpinAllMessages for reference.
 // Can be used by bots.
 func (c *Client) MessagesUnpinAllMessages(ctx context.Context, peer InputPeerClass) (*MessagesAffectedHistory, error) {

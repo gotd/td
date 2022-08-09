@@ -196,6 +196,10 @@ func (g *BotsGetBotCommandsRequest) GetLangCode() (value string) {
 // BotsGetBotCommands invokes method bots.getBotCommands#e34c0dd6 returning error if any.
 // Obtain a list of bot commands for the specified bot scope and language code
 //
+// Possible errors:
+//
+//	400 USER_BOT_INVALID: This method can only be called by a bot.
+//
 // See https://core.telegram.org/method/bots.getBotCommands for reference.
 // Can be used by bots.
 func (c *Client) BotsGetBotCommands(ctx context.Context, request *BotsGetBotCommandsRequest) ([]BotCommand, error) {

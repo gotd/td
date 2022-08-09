@@ -36,9 +36,15 @@ var (
 //
 // See https://core.telegram.org/constructor/messageEntityUnknown for reference.
 type MessageEntityUnknown struct {
-	// Offset of message entity within message (in UTF-8 codepoints)
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length of message entity within message (in UTF-8 codepoints)
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 }
 
@@ -192,9 +198,15 @@ func (m *MessageEntityUnknown) GetLength() (value int) {
 //
 // See https://core.telegram.org/constructor/messageEntityMention for reference.
 type MessageEntityMention struct {
-	// Offset of message entity within message (in UTF-8 codepoints)
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length of message entity within message (in UTF-8 codepoints)
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 }
 
@@ -345,9 +357,15 @@ func (m *MessageEntityMention) GetLength() (value int) {
 //
 // See https://core.telegram.org/constructor/messageEntityHashtag for reference.
 type MessageEntityHashtag struct {
-	// Offset of message entity within message (in UTF-8 codepoints)
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length of message entity within message (in UTF-8 codepoints)
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 }
 
@@ -498,9 +516,15 @@ func (m *MessageEntityHashtag) GetLength() (value int) {
 //
 // See https://core.telegram.org/constructor/messageEntityBotCommand for reference.
 type MessageEntityBotCommand struct {
-	// Offset of message entity within message (in UTF-8 codepoints)
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length of message entity within message (in UTF-8 codepoints)
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 }
 
@@ -657,9 +681,15 @@ func (m *MessageEntityBotCommand) GetLength() (value int) {
 //
 // See https://core.telegram.org/constructor/messageEntityUrl for reference.
 type MessageEntityURL struct {
-	// Offset of message entity within message (in UTF-8 codepoints)
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length of message entity within message (in UTF-8 codepoints)
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 }
 
@@ -813,9 +843,15 @@ func (m *MessageEntityURL) GetLength() (value int) {
 //
 // See https://core.telegram.org/constructor/messageEntityEmail for reference.
 type MessageEntityEmail struct {
-	// Offset of message entity within message (in UTF-8 codepoints)
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length of message entity within message (in UTF-8 codepoints)
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 }
 
@@ -966,9 +1002,15 @@ func (m *MessageEntityEmail) GetLength() (value int) {
 //
 // See https://core.telegram.org/constructor/messageEntityBold for reference.
 type MessageEntityBold struct {
-	// Offset of message entity within message (in UTF-8 codepoints)
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length of message entity within message (in UTF-8 codepoints)
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 }
 
@@ -1119,9 +1161,15 @@ func (m *MessageEntityBold) GetLength() (value int) {
 //
 // See https://core.telegram.org/constructor/messageEntityItalic for reference.
 type MessageEntityItalic struct {
-	// Offset of message entity within message (in UTF-8 codepoints)
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length of message entity within message (in UTF-8 codepoints)
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 }
 
@@ -1272,9 +1320,15 @@ func (m *MessageEntityItalic) GetLength() (value int) {
 //
 // See https://core.telegram.org/constructor/messageEntityCode for reference.
 type MessageEntityCode struct {
-	// Offset of message entity within message (in UTF-8 codepoints)
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length of message entity within message (in UTF-8 codepoints)
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 }
 
@@ -1426,9 +1480,15 @@ func (m *MessageEntityCode) GetLength() (value int) {
 //
 // See https://core.telegram.org/constructor/messageEntityPre for reference.
 type MessageEntityPre struct {
-	// Offset of message entity within message (in UTF-8 codepoints)
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length of message entity within message (in UTF-8 codepoints)
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 	// Programming language of the code
 	Language string
@@ -1610,9 +1670,15 @@ func (m *MessageEntityPre) GetLanguage() (value string) {
 //
 // See https://core.telegram.org/constructor/messageEntityTextUrl for reference.
 type MessageEntityTextURL struct {
-	// Offset of message entity within message (in UTF-8 codepoints)
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length of message entity within message (in UTF-8 codepoints)
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 	// The actual URL
 	URL string
@@ -1793,9 +1859,15 @@ func (m *MessageEntityTextURL) GetURL() (value string) {
 //
 // See https://core.telegram.org/constructor/messageEntityMentionName for reference.
 type MessageEntityMentionName struct {
-	// Offset of message entity within message (in UTF-8 codepoints)
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length of message entity within message (in UTF-8 codepoints)
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 	// Identifier of the user that was mentioned
 	UserID int
@@ -1971,9 +2043,15 @@ func (m *MessageEntityMentionName) GetUserID() (value int) {
 //
 // See https://core.telegram.org/constructor/messageEntityPhone for reference.
 type MessageEntityPhone struct {
-	// Offset of message entity within message (in UTF-8 codepoints)
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length of message entity within message (in UTF-8 codepoints)
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 }
 
@@ -2124,9 +2202,15 @@ func (m *MessageEntityPhone) GetLength() (value int) {
 //
 // See https://core.telegram.org/constructor/messageEntityCashtag for reference.
 type MessageEntityCashtag struct {
-	// Offset of message entity within message (in UTF-8 codepoints)
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length of message entity within message (in UTF-8 codepoints)
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 }
 
@@ -2277,9 +2361,15 @@ func (m *MessageEntityCashtag) GetLength() (value int) {
 //
 // See https://core.telegram.org/constructor/messageEntityBankCard for reference.
 type MessageEntityBankCard struct {
-	// Offset of message entity within message (in UTF-8 codepoints)
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length of message entity within message (in UTF-8 codepoints)
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 }
 
@@ -2430,9 +2520,15 @@ func (m *MessageEntityBankCard) GetLength() (value int) {
 //
 // See https://core.telegram.org/constructor/messageEntityUnderline for reference.
 type MessageEntityUnderline struct {
-	// Offset of message entity within message (in UTF-8 codepoints)
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length of message entity within message (in UTF-8 codepoints)
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 }
 
@@ -2583,9 +2679,15 @@ func (m *MessageEntityUnderline) GetLength() (value int) {
 //
 // See https://core.telegram.org/constructor/messageEntityStrike for reference.
 type MessageEntityStrike struct {
-	// Offset of message entity within message (in UTF-8 codepoints)
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length of message entity within message (in UTF-8 codepoints)
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 }
 
@@ -2736,9 +2838,15 @@ func (m *MessageEntityStrike) GetLength() (value int) {
 //
 // See https://core.telegram.org/constructor/messageEntityBlockquote for reference.
 type MessageEntityBlockquote struct {
-	// Offset of message entity within message (in UTF-8 codepoints)
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length of message entity within message (in UTF-8 codepoints)
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 }
 
@@ -2936,9 +3044,15 @@ type MessageEntityClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Offset of message entity within message (in UTF-8 codepoints)
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	GetOffset() (value int)
-	// Length of message entity within message (in UTF-8 codepoints)
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	GetLength() (value int)
 }
 

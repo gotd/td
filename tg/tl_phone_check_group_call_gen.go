@@ -206,6 +206,10 @@ func (c *PhoneCheckGroupCallRequest) GetSources() (value []int) {
 // Check whether the group call Server Forwarding Unit is currently receiving the streams
 // with the specified WebRTC source IDs
 //
+// Possible errors:
+//
+//	400 GROUPCALL_JOIN_MISSING: You haven't joined this group call.
+//
 // See https://core.telegram.org/method/phone.checkGroupCall for reference.
 func (c *Client) PhoneCheckGroupCall(ctx context.Context, request *PhoneCheckGroupCallRequest) ([]int, error) {
 	var result IntVector

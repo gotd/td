@@ -43,7 +43,7 @@ type AvailableReaction struct {
 	Flags bin.Fields
 	// If not set, the reaction can be added to new messages and enabled in chats.
 	Inactive bool
-	// Premium field of AvailableReaction.
+	//
 	Premium bool
 	// Reaction emoji
 	Reaction string

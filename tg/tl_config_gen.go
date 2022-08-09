@@ -61,7 +61,7 @@ type Config struct {
 	// Links:
 	//  1) https://core.telegram.org/api/pfs
 	PFSEnabled bool
-	// ForceTryIpv6 field of Config.
+	//
 	ForceTryIpv6 bool
 	// Current date at the server
 	Date int

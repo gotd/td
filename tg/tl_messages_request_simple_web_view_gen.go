@@ -35,13 +35,16 @@ var (
 //
 // See https://core.telegram.org/method/messages.requestSimpleWebView for reference.
 type MessagesRequestSimpleWebViewRequest struct {
-	// Flags field of MessagesRequestSimpleWebViewRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Bot field of MessagesRequestSimpleWebViewRequest.
+	//
 	Bot InputUserClass
-	// URL field of MessagesRequestSimpleWebViewRequest.
+	//
 	URL string
-	// ThemeParams field of MessagesRequestSimpleWebViewRequest.
+	//
 	//
 	// Use SetThemeParams and GetThemeParams helpers.
 	ThemeParams DataJSON
@@ -261,6 +264,7 @@ func (r *MessagesRequestSimpleWebViewRequest) GetThemeParams() (value DataJSON, 
 // MessagesRequestSimpleWebView invokes method messages.requestSimpleWebView#6abb2f73 returning error if any.
 //
 // See https://core.telegram.org/method/messages.requestSimpleWebView for reference.
+// Can be used by bots.
 func (c *Client) MessagesRequestSimpleWebView(ctx context.Context, request *MessagesRequestSimpleWebViewRequest) (*SimpleWebViewResultURL, error) {
 	var result SimpleWebViewResultURL
 

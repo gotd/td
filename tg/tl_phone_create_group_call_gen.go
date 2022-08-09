@@ -358,7 +358,10 @@ func (c *PhoneCreateGroupCallRequest) GetScheduleDate() (value int, ok bool) {
 //
 // Possible errors:
 //
+//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	500 CHAT_FROM_CALL_CHANGED:
+//	400 CREATE_CALL_FAILED:
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 SCHEDULE_DATE_INVALID: Invalid schedule date provided.
 //

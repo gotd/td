@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/method/bots.setBotMenuButton for reference.
 type BotsSetBotMenuButtonRequest struct {
-	// UserID field of BotsSetBotMenuButtonRequest.
+	//
 	UserID InputUserClass
-	// Button field of BotsSetBotMenuButtonRequest.
+	//
 	Button BotMenuButtonClass
 }
 
@@ -200,6 +200,7 @@ func (s *BotsSetBotMenuButtonRequest) GetButton() (value BotMenuButtonClass) {
 // BotsSetBotMenuButton invokes method bots.setBotMenuButton#4504d54f returning error if any.
 //
 // See https://core.telegram.org/method/bots.setBotMenuButton for reference.
+// Can be used by bots.
 func (c *Client) BotsSetBotMenuButton(ctx context.Context, request *BotsSetBotMenuButtonRequest) (bool, error) {
 	var result BoolBox
 

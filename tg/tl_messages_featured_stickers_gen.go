@@ -171,9 +171,12 @@ func (f *MessagesFeaturedStickersNotModified) GetCount() (value int) {
 //
 // See https://core.telegram.org/constructor/messages.featuredStickers for reference.
 type MessagesFeaturedStickers struct {
-	// Flags field of MessagesFeaturedStickers.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Premium field of MessagesFeaturedStickers.
+	//
 	Premium bool
 	// Hash for pagination, for more info click here¹
 	//

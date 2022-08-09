@@ -309,6 +309,7 @@ func (d *PhoneDiscardCallRequest) GetConnectionID() (value int64) {
 // Possible errors:
 //
 //	400 CALL_ALREADY_ACCEPTED: The call was already accepted.
+//	500 CALL_OCCUPY_FAILED: The call failed because the user is already making another call.
 //	400 CALL_PEER_INVALID: The provided call peer object is invalid.
 //
 // See https://core.telegram.org/method/phone.discardCall for reference.

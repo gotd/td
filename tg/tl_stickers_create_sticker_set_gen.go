@@ -524,6 +524,7 @@ func (c *StickersCreateStickerSetRequest) GetThumbAsNotEmpty() (*InputDocument, 
 //	400 STICKER_THUMB_PNG_NOPNG: Incorrect stickerset thumb file provided, PNG / WEBP expected.
 //	400 STICKER_THUMB_TGS_NOTGS: Incorrect stickerset TGS thumb file provided.
 //	400 STICKER_VIDEO_BIG: The specified video sticker is too big.
+//	400 STICKER_VIDEO_NODOC:
 //	400 STICKER_VIDEO_NOWEBM: The specified video sticker is not in webm format.
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //

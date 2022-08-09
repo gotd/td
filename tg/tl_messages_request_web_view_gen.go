@@ -35,33 +35,36 @@ var (
 //
 // See https://core.telegram.org/method/messages.requestWebView for reference.
 type MessagesRequestWebViewRequest struct {
-	// Flags field of MessagesRequestWebViewRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// FromBotMenu field of MessagesRequestWebViewRequest.
+	//
 	FromBotMenu bool
-	// Silent field of MessagesRequestWebViewRequest.
+	//
 	Silent bool
-	// Peer field of MessagesRequestWebViewRequest.
+	//
 	Peer InputPeerClass
-	// Bot field of MessagesRequestWebViewRequest.
+	//
 	Bot InputUserClass
-	// URL field of MessagesRequestWebViewRequest.
+	//
 	//
 	// Use SetURL and GetURL helpers.
 	URL string
-	// StartParam field of MessagesRequestWebViewRequest.
+	//
 	//
 	// Use SetStartParam and GetStartParam helpers.
 	StartParam string
-	// ThemeParams field of MessagesRequestWebViewRequest.
+	//
 	//
 	// Use SetThemeParams and GetThemeParams helpers.
 	ThemeParams DataJSON
-	// ReplyToMsgID field of MessagesRequestWebViewRequest.
+	//
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	// SendAs field of MessagesRequestWebViewRequest.
+	//
 	//
 	// Use SetSendAs and GetSendAs helpers.
 	SendAs InputPeerClass
@@ -533,6 +536,7 @@ func (r *MessagesRequestWebViewRequest) GetSendAs() (value InputPeerClass, ok bo
 // MessagesRequestWebView invokes method messages.requestWebView#91b15831 returning error if any.
 //
 // See https://core.telegram.org/method/messages.requestWebView for reference.
+// Can be used by bots.
 func (c *Client) MessagesRequestWebView(ctx context.Context, request *MessagesRequestWebViewRequest) (*WebViewResultURL, error) {
 	var result WebViewResultURL
 

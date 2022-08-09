@@ -35,17 +35,20 @@ var (
 //
 // See https://core.telegram.org/constructor/premiumGiftOption for reference.
 type PremiumGiftOption struct {
-	// Flags field of PremiumGiftOption.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Months field of PremiumGiftOption.
+	//
 	Months int
-	// Currency field of PremiumGiftOption.
+	//
 	Currency string
-	// Amount field of PremiumGiftOption.
+	//
 	Amount int64
-	// BotURL field of PremiumGiftOption.
+	//
 	BotURL string
-	// StoreProduct field of PremiumGiftOption.
+	//
 	//
 	// Use SetStoreProduct and GetStoreProduct helpers.
 	StoreProduct string

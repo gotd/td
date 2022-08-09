@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/constructor/attachMenuBotsBot for reference.
 type AttachMenuBotsBot struct {
-	// Bot field of AttachMenuBotsBot.
+	//
 	Bot AttachMenuBot
-	// Users field of AttachMenuBotsBot.
+	//
 	Users []UserClass
 }
 

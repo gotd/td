@@ -137,6 +137,10 @@ func (c *AccountCancelPasswordEmailRequest) DecodeBare(b *bin.Buffer) error {
 // Links:
 //  1. https://core.telegram.org/api/srp
 //
+// Possible errors:
+//
+//	400 EMAIL_HASH_EXPIRED: Email hash expired.
+//
 // See https://core.telegram.org/method/account.cancelPasswordEmail for reference.
 func (c *Client) AccountCancelPasswordEmail(ctx context.Context) (bool, error) {
 	var result BoolBox

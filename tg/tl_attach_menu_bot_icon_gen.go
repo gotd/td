@@ -35,13 +35,16 @@ var (
 //
 // See https://core.telegram.org/constructor/attachMenuBotIcon for reference.
 type AttachMenuBotIcon struct {
-	// Flags field of AttachMenuBotIcon.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Name field of AttachMenuBotIcon.
+	//
 	Name string
-	// Icon field of AttachMenuBotIcon.
+	//
 	Icon DocumentClass
-	// Colors field of AttachMenuBotIcon.
+	//
 	//
 	// Use SetColors and GetColors helpers.
 	Colors []AttachMenuBotIconColor

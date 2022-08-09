@@ -57,7 +57,7 @@ type Invoice struct {
 	PhoneToProvider bool
 	// Set this flag if user's email address should be sent to provider
 	EmailToProvider bool
-	// Recurring field of Invoice.
+	//
 	Recurring bool
 	// Three-letter ISO 4217 currency¹ code
 	//
@@ -84,7 +84,7 @@ type Invoice struct {
 	//
 	// Use SetSuggestedTipAmounts and GetSuggestedTipAmounts helpers.
 	SuggestedTipAmounts []int64
-	// RecurringTermsURL field of Invoice.
+	//
 	//
 	// Use SetRecurringTermsURL and GetRecurringTermsURL helpers.
 	RecurringTermsURL string

@@ -387,6 +387,7 @@ func (d *MessagesDeleteHistoryRequest) GetMaxDate() (value int, ok bool) {
 // Possible errors:
 //
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 CHAT_ID_INVALID: The provided chat id is invalid.
 //	400 MAX_DATE_INVALID: The specified maximum date is invalid.
 //	400 MESSAGE_ID_INVALID: The provided message id is invalid.

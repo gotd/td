@@ -35,19 +35,19 @@ var (
 //
 // See https://core.telegram.org/constructor/help.premiumPromo for reference.
 type HelpPremiumPromo struct {
-	// StatusText field of HelpPremiumPromo.
+	//
 	StatusText string
-	// StatusEntities field of HelpPremiumPromo.
+	//
 	StatusEntities []MessageEntityClass
-	// VideoSections field of HelpPremiumPromo.
+	//
 	VideoSections []string
-	// Videos field of HelpPremiumPromo.
+	//
 	Videos []DocumentClass
-	// Currency field of HelpPremiumPromo.
+	//
 	Currency string
-	// MonthlyAmount field of HelpPremiumPromo.
+	//
 	MonthlyAmount int64
-	// Users field of HelpPremiumPromo.
+	//
 	Users []UserClass
 }
 

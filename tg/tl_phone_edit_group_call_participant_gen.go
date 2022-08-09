@@ -517,6 +517,8 @@ func (e *PhoneEditGroupCallParticipantRequest) GetPresentationPaused() (value bo
 //
 // Possible errors:
 //
+//	403 GROUPCALL_FORBIDDEN: The group call has already ended.
+//	400 PARTICIPANT_JOIN_MISSING: Trying to enable a presentation, when the user hasn't joined the Video Chat with phone.joinGroupCall.
 //	400 USER_VOLUME_INVALID: The specified user volume is invalid.
 //
 // See https://core.telegram.org/method/phone.editGroupCallParticipant for reference.

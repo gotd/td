@@ -184,6 +184,7 @@ func (j *ChannelsJoinChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChanne
 //	406 INVITE_HASH_EXPIRED: The invite link has expired.
 //	400 INVITE_HASH_INVALID: The invite hash is invalid.
 //	400 INVITE_REQUEST_SENT: You have successfully requested to join this chat or channel.
+//	500 MEMBER_CHAT_ADD_FAILED:
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 USERS_TOO_MUCH: The maximum number of users has been exceeded (to create a chat, for example).

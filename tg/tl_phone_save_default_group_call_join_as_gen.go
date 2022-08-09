@@ -202,6 +202,10 @@ func (s *PhoneSaveDefaultGroupCallJoinAsRequest) GetJoinAs() (value InputPeerCla
 // PhoneSaveDefaultGroupCallJoinAs invokes method phone.saveDefaultGroupCallJoinAs#575e1f8c returning error if any.
 // Set the default peer that will be used to join a group call in a specific dialog.
 //
+// Possible errors:
+//
+//	400 JOIN_AS_PEER_INVALID: The specified peer cannot be used to join a group call.
+//
 // See https://core.telegram.org/method/phone.saveDefaultGroupCallJoinAs for reference.
 func (c *Client) PhoneSaveDefaultGroupCallJoinAs(ctx context.Context, request *PhoneSaveDefaultGroupCallJoinAsRequest) (bool, error) {
 	var result BoolBox

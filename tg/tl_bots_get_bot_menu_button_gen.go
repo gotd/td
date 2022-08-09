@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/method/bots.getBotMenuButton for reference.
 type BotsGetBotMenuButtonRequest struct {
-	// UserID field of BotsGetBotMenuButtonRequest.
+	//
 	UserID InputUserClass
 }
 
@@ -167,7 +167,12 @@ func (g *BotsGetBotMenuButtonRequest) GetUserID() (value InputUserClass) {
 
 // BotsGetBotMenuButton invokes method bots.getBotMenuButton#9c60eb28 returning error if any.
 //
+// Possible errors:
+//
+//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
+//
 // See https://core.telegram.org/method/bots.getBotMenuButton for reference.
+// Can be used by bots.
 func (c *Client) BotsGetBotMenuButton(ctx context.Context, userid InputUserClass) (BotMenuButtonClass, error) {
 	var result BotMenuButtonBox
 

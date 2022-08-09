@@ -2461,9 +2461,9 @@ func (k *KeyboardButtonUserProfile) GetUserID() (value int64) {
 //
 // See https://core.telegram.org/constructor/keyboardButtonWebView for reference.
 type KeyboardButtonWebView struct {
-	// Text field of KeyboardButtonWebView.
+	//
 	Text string
-	// URL field of KeyboardButtonWebView.
+	//
 	URL string
 }
 
@@ -2622,9 +2622,9 @@ func (k *KeyboardButtonWebView) GetURL() (value string) {
 //
 // See https://core.telegram.org/constructor/keyboardButtonSimpleWebView for reference.
 type KeyboardButtonSimpleWebView struct {
-	// Text field of KeyboardButtonSimpleWebView.
+	//
 	Text string
-	// URL field of KeyboardButtonSimpleWebView.
+	//
 	URL string
 }
 

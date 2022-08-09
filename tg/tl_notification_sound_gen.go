@@ -237,9 +237,9 @@ func (n *NotificationSoundNone) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/notificationSoundLocal for reference.
 type NotificationSoundLocal struct {
-	// Title field of NotificationSoundLocal.
+	//
 	Title string
-	// Data field of NotificationSoundLocal.
+	//
 	Data string
 }
 
@@ -398,7 +398,7 @@ func (n *NotificationSoundLocal) GetData() (value string) {
 //
 // See https://core.telegram.org/constructor/notificationSoundRingtone for reference.
 type NotificationSoundRingtone struct {
-	// ID field of NotificationSoundRingtone.
+	//
 	ID int64
 }
 

@@ -172,6 +172,10 @@ func (c *MessagesCheckHistoryImportRequest) GetImportHead() (value string) {
 // Links:
 //  1. https://core.telegram.org/api/import
 //
+// Possible errors:
+//
+//	400 IMPORT_FORMAT_UNRECOGNIZED: The specified chat export file was exported from an unsupported chat app.
+//
 // See https://core.telegram.org/method/messages.checkHistoryImport for reference.
 func (c *Client) MessagesCheckHistoryImport(ctx context.Context, importhead string) (*MessagesHistoryImportParsed, error) {
 	var result MessagesHistoryImportParsed

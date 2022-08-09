@@ -136,7 +136,7 @@ func (s *AccountSavedRingtone) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/account.savedRingtoneConverted for reference.
 type AccountSavedRingtoneConverted struct {
-	// Document field of AccountSavedRingtoneConverted.
+	//
 	Document DocumentClass
 }
 

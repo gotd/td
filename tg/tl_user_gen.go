@@ -210,11 +210,11 @@ type User struct {
 	// If set, this user was reported by many users as a fake or scam user: be careful when
 	// interacting with them.
 	Fake bool
-	// BotAttachMenu field of User.
+	//
 	BotAttachMenu bool
-	// Premium field of User.
+	//
 	Premium bool
-	// AttachMenuEnabled field of User.
+	//
 	AttachMenuEnabled bool
 	// ID of the user
 	ID int64

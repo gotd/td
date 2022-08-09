@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/method/messages.transcribeAudio for reference.
 type MessagesTranscribeAudioRequest struct {
-	// Peer field of MessagesTranscribeAudioRequest.
+	//
 	Peer InputPeerClass
-	// MsgID field of MessagesTranscribeAudioRequest.
+	//
 	MsgID int
 }
 
@@ -195,6 +195,7 @@ func (t *MessagesTranscribeAudioRequest) GetMsgID() (value int) {
 // MessagesTranscribeAudio invokes method messages.transcribeAudio#269e9a49 returning error if any.
 //
 // See https://core.telegram.org/method/messages.transcribeAudio for reference.
+// Can be used by bots.
 func (c *Client) MessagesTranscribeAudio(ctx context.Context, request *MessagesTranscribeAudioRequest) (*MessagesTranscribedAudio, error) {
 	var result MessagesTranscribedAudio
 

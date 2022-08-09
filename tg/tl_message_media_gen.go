@@ -858,7 +858,7 @@ type MessageMediaDocument struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Nopremium field of MessageMediaDocument.
+	//
 	Nopremium bool
 	// Attached document
 	//

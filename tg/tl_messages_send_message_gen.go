@@ -712,20 +712,24 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //	400 BUTTON_DATA_INVALID: The data of one or more of the buttons you provided is invalid.
 //	400 BUTTON_TYPE_INVALID: The type of one or more of the buttons you provided is invalid.
 //	400 BUTTON_URL_INVALID: Button URL invalid.
+//	400 BUTTON_USER_PRIVACY_RESTRICTED:
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	403 CHAT_GUEST_SEND_FORBIDDEN:
 //	400 CHAT_ID_INVALID: The provided chat id is invalid.
 //	400 CHAT_RESTRICTED: You can't send messages in this chat, you were restricted.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 ENCRYPTION_DECLINED: The secret chat was declined.
 //	400 ENTITIES_TOO_LONG: You provided too many styled message entities.
+//	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
 //	400 ENTITY_MENTION_USER_INVALID: You mentioned an invalid user.
 //	400 FROM_MESSAGE_BOT_DISABLED: Bots can't use fromMessage min constructors.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //	400 MESSAGE_EMPTY: The provided message is empty.
 //	400 MESSAGE_TOO_LONG: The provided message is too long.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
+//	406 PAYMENT_UNSUPPORTED:
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 PINNED_DIALOGS_TOO_MUCH: Too many pinned dialogs.
 //	400 POLL_OPTION_INVALID: Invalid poll option provided.
@@ -741,6 +745,7 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
 //	403 USER_IS_BLOCKED: You were blocked by this user.
 //	400 USER_IS_BOT: Bots can't send messages to other bots.
+//	400 WC_CONVERT_URL_INVALID: WC convert URL invalid.
 //	400 YOU_BLOCKED_USER: You blocked this user.
 //
 // See https://core.telegram.org/method/messages.sendMessage for reference.

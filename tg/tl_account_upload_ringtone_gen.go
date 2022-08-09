@@ -35,11 +35,11 @@ var (
 //
 // See https://core.telegram.org/method/account.uploadRingtone for reference.
 type AccountUploadRingtoneRequest struct {
-	// File field of AccountUploadRingtoneRequest.
+	//
 	File InputFileClass
-	// FileName field of AccountUploadRingtoneRequest.
+	//
 	FileName string
-	// MimeType field of AccountUploadRingtoneRequest.
+	//
 	MimeType string
 }
 
@@ -222,6 +222,7 @@ func (u *AccountUploadRingtoneRequest) GetMimeType() (value string) {
 // AccountUploadRingtone invokes method account.uploadRingtone#831a83a2 returning error if any.
 //
 // See https://core.telegram.org/method/account.uploadRingtone for reference.
+// Can be used by bots.
 func (c *Client) AccountUploadRingtone(ctx context.Context, request *AccountUploadRingtoneRequest) (DocumentClass, error) {
 	var result DocumentBox
 

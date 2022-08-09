@@ -35,9 +35,12 @@ var (
 //
 // See https://core.telegram.org/constructor/webViewMessageSent for reference.
 type WebViewMessageSent struct {
-	// Flags field of WebViewMessageSent.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// MsgID field of WebViewMessageSent.
+	//
 	//
 	// Use SetMsgID and GetMsgID helpers.
 	MsgID InputBotInlineMessageIDClass

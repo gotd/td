@@ -353,6 +353,11 @@ func (t *PhoneToggleGroupCallRecordRequest) GetVideoPortrait() (value bool, ok b
 // Start or stop recording a group call: the recorded audio and video streams will be
 // automatically sent to Saved messages (the chat with ourselves).
 //
+// Possible errors:
+//
+//	403 GROUPCALL_FORBIDDEN: The group call has already ended.
+//	400 GROUPCALL_NOT_MODIFIED: Group call settings weren't modified.
+//
 // See https://core.telegram.org/method/phone.toggleGroupCallRecord for reference.
 func (c *Client) PhoneToggleGroupCallRecord(ctx context.Context, request *PhoneToggleGroupCallRecordRequest) (UpdatesClass, error) {
 	var result UpdatesBox

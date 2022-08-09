@@ -35,21 +35,24 @@ var (
 //
 // See https://core.telegram.org/method/messages.prolongWebView for reference.
 type MessagesProlongWebViewRequest struct {
-	// Flags field of MessagesProlongWebViewRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Silent field of MessagesProlongWebViewRequest.
+	//
 	Silent bool
-	// Peer field of MessagesProlongWebViewRequest.
+	//
 	Peer InputPeerClass
-	// Bot field of MessagesProlongWebViewRequest.
+	//
 	Bot InputUserClass
-	// QueryID field of MessagesProlongWebViewRequest.
+	//
 	QueryID int64
-	// ReplyToMsgID field of MessagesProlongWebViewRequest.
+	//
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	// SendAs field of MessagesProlongWebViewRequest.
+	//
 	//
 	// Use SetSendAs and GetSendAs helpers.
 	SendAs InputPeerClass
@@ -381,6 +384,7 @@ func (p *MessagesProlongWebViewRequest) GetSendAs() (value InputPeerClass, ok bo
 // MessagesProlongWebView invokes method messages.prolongWebView#ea5fbcce returning error if any.
 //
 // See https://core.telegram.org/method/messages.prolongWebView for reference.
+// Can be used by bots.
 func (c *Client) MessagesProlongWebView(ctx context.Context, request *MessagesProlongWebViewRequest) (bool, error) {
 	var result BoolBox
 

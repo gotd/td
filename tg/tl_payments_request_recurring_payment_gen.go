@@ -35,11 +35,11 @@ var (
 //
 // See https://core.telegram.org/method/payments.requestRecurringPayment for reference.
 type PaymentsRequestRecurringPaymentRequest struct {
-	// UserID field of PaymentsRequestRecurringPaymentRequest.
+	//
 	UserID InputUserClass
-	// RecurringInitCharge field of PaymentsRequestRecurringPaymentRequest.
+	//
 	RecurringInitCharge string
-	// InvoiceMedia field of PaymentsRequestRecurringPaymentRequest.
+	//
 	InvoiceMedia InputMediaClass
 }
 
@@ -227,6 +227,7 @@ func (r *PaymentsRequestRecurringPaymentRequest) GetInvoiceMedia() (value InputM
 // PaymentsRequestRecurringPayment invokes method payments.requestRecurringPayment#146e958d returning error if any.
 //
 // See https://core.telegram.org/method/payments.requestRecurringPayment for reference.
+// Can be used by bots.
 func (c *Client) PaymentsRequestRecurringPayment(ctx context.Context, request *PaymentsRequestRecurringPaymentRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

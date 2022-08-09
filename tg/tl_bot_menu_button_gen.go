@@ -237,9 +237,9 @@ func (b *BotMenuButtonCommands) DecodeBare(buf *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/botMenuButton for reference.
 type BotMenuButton struct {
-	// Text field of BotMenuButton.
+	//
 	Text string
-	// URL field of BotMenuButton.
+	//
 	URL string
 }
 

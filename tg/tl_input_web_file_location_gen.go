@@ -472,19 +472,22 @@ func (i *InputWebFileGeoPointLocation) GetScale() (value int) {
 //
 // See https://core.telegram.org/constructor/inputWebFileAudioAlbumThumbLocation for reference.
 type InputWebFileAudioAlbumThumbLocation struct {
-	// Flags field of InputWebFileAudioAlbumThumbLocation.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Small field of InputWebFileAudioAlbumThumbLocation.
+	//
 	Small bool
-	// Document field of InputWebFileAudioAlbumThumbLocation.
+	//
 	//
 	// Use SetDocument and GetDocument helpers.
 	Document InputDocumentClass
-	// Title field of InputWebFileAudioAlbumThumbLocation.
+	//
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// Performer field of InputWebFileAudioAlbumThumbLocation.
+	//
 	//
 	// Use SetPerformer and GetPerformer helpers.
 	Performer string

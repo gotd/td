@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/method/messages.getAttachMenuBot for reference.
 type MessagesGetAttachMenuBotRequest struct {
-	// Bot field of MessagesGetAttachMenuBotRequest.
+	//
 	Bot InputUserClass
 }
 
@@ -167,7 +167,12 @@ func (g *MessagesGetAttachMenuBotRequest) GetBot() (value InputUserClass) {
 
 // MessagesGetAttachMenuBot invokes method messages.getAttachMenuBot#77216192 returning error if any.
 //
+// Possible errors:
+//
+//	400 BOT_INVALID: This is not a valid bot.
+//
 // See https://core.telegram.org/method/messages.getAttachMenuBot for reference.
+// Can be used by bots.
 func (c *Client) MessagesGetAttachMenuBot(ctx context.Context, bot InputUserClass) (*AttachMenuBotsBot, error) {
 	var result AttachMenuBotsBot
 

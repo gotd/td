@@ -41,11 +41,14 @@ var (
 //
 // See https://core.telegram.org/method/account.deleteAccount for reference.
 type AccountDeleteAccountRequest struct {
-	// Flags field of AccountDeleteAccountRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Why is the account being deleted, can be empty
 	Reason string
-	// Password field of AccountDeleteAccountRequest.
+	//
 	//
 	// Use SetPassword and GetPassword helpers.
 	Password InputCheckPasswordSRPClass

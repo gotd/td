@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/method/channels.toggleJoinRequest for reference.
 type ChannelsToggleJoinRequestRequest struct {
-	// Channel field of ChannelsToggleJoinRequestRequest.
+	//
 	Channel InputChannelClass
-	// Enabled field of ChannelsToggleJoinRequestRequest.
+	//
 	Enabled bool
 }
 
@@ -200,6 +200,7 @@ func (t *ChannelsToggleJoinRequestRequest) GetChannelAsNotEmpty() (NotEmptyInput
 // ChannelsToggleJoinRequest invokes method channels.toggleJoinRequest#4c2985b6 returning error if any.
 //
 // See https://core.telegram.org/method/channels.toggleJoinRequest for reference.
+// Can be used by bots.
 func (c *Client) ChannelsToggleJoinRequest(ctx context.Context, request *ChannelsToggleJoinRequestRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

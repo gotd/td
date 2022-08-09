@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/method/messages.getFeaturedEmojiStickers for reference.
 type MessagesGetFeaturedEmojiStickersRequest struct {
-	// Hash field of MessagesGetFeaturedEmojiStickersRequest.
+	//
 	Hash int64
 }
 
@@ -163,6 +163,7 @@ func (g *MessagesGetFeaturedEmojiStickersRequest) GetHash() (value int64) {
 // MessagesGetFeaturedEmojiStickers invokes method messages.getFeaturedEmojiStickers#ecf6736 returning error if any.
 //
 // See https://core.telegram.org/method/messages.getFeaturedEmojiStickers for reference.
+// Can be used by bots.
 func (c *Client) MessagesGetFeaturedEmojiStickers(ctx context.Context, hash int64) (MessagesFeaturedStickersClass, error) {
 	var result MessagesFeaturedStickersBox
 

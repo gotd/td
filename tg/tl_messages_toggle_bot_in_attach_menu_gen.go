@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/method/messages.toggleBotInAttachMenu for reference.
 type MessagesToggleBotInAttachMenuRequest struct {
-	// Bot field of MessagesToggleBotInAttachMenuRequest.
+	//
 	Bot InputUserClass
-	// Enabled field of MessagesToggleBotInAttachMenuRequest.
+	//
 	Enabled bool
 }
 
@@ -195,6 +195,7 @@ func (t *MessagesToggleBotInAttachMenuRequest) GetEnabled() (value bool) {
 // MessagesToggleBotInAttachMenu invokes method messages.toggleBotInAttachMenu#1aee33af returning error if any.
 //
 // See https://core.telegram.org/method/messages.toggleBotInAttachMenu for reference.
+// Can be used by bots.
 func (c *Client) MessagesToggleBotInAttachMenu(ctx context.Context, request *MessagesToggleBotInAttachMenuRequest) (bool, error) {
 	var result BoolBox
 

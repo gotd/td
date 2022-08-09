@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/method/payments.canPurchasePremium for reference.
 type PaymentsCanPurchasePremiumRequest struct {
-	// Purpose field of PaymentsCanPurchasePremiumRequest.
+	//
 	Purpose InputStorePaymentPurposeClass
 }
 
@@ -168,6 +168,7 @@ func (c *PaymentsCanPurchasePremiumRequest) GetPurpose() (value InputStorePaymen
 // PaymentsCanPurchasePremium invokes method payments.canPurchasePremium#9fc19eb6 returning error if any.
 //
 // See https://core.telegram.org/method/payments.canPurchasePremium for reference.
+// Can be used by bots.
 func (c *Client) PaymentsCanPurchasePremium(ctx context.Context, purpose InputStorePaymentPurposeClass) (bool, error) {
 	var result BoolBox
 
