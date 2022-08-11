@@ -32,12 +32,19 @@ var (
 )
 
 // AttachMenuBotIconColor represents TL type `attachMenuBotIconColor#4576f3f0`.
+// Represents an attachment menu icon color for bot web apps »¹
+//
+// Links:
+//  1. https://core.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu
 //
 // See https://core.telegram.org/constructor/attachMenuBotIconColor for reference.
 type AttachMenuBotIconColor struct {
-	//
+	// One of the following values: light_icon - Color of the attachment menu icon (light
+	// mode) light_text - Color of the attachment menu label, once selected (light mode)
+	// dark_icon - Color of the attachment menu icon (dark mode) dark_text - Color of the
+	// attachment menu label, once selected (dark mode)
 	Name string
-	//
+	// Color in RGB24 format
 	Color int
 }
 

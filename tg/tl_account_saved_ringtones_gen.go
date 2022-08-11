@@ -32,6 +32,7 @@ var (
 )
 
 // AccountSavedRingtonesNotModified represents TL type `account.savedRingtonesNotModified#fbf6e8b1`.
+// The notification sound list hasn't changed.
 //
 // See https://core.telegram.org/constructor/account.savedRingtonesNotModified for reference.
 type AccountSavedRingtonesNotModified struct {
@@ -133,12 +134,16 @@ func (s *AccountSavedRingtonesNotModified) DecodeBare(b *bin.Buffer) error {
 }
 
 // AccountSavedRingtones represents TL type `account.savedRingtones#c1e92cc5`.
+// A list of saved notification sounds
 //
 // See https://core.telegram.org/constructor/account.savedRingtones for reference.
 type AccountSavedRingtones struct {
+	// Hash for pagination, for more info click here¹
 	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
-	//
+	// Saved notification sounds
 	Ringtones []DocumentClass
 }
 

@@ -32,6 +32,7 @@ var (
 )
 
 // InputStorePaymentPremiumSubscription represents TL type `inputStorePaymentPremiumSubscription#a6751e66`.
+// Info about a Telegram Premium purchase
 //
 // See https://core.telegram.org/constructor/inputStorePaymentPremiumSubscription for reference.
 type InputStorePaymentPremiumSubscription struct {
@@ -195,14 +196,24 @@ func (i *InputStorePaymentPremiumSubscription) GetRestore() (value bool) {
 }
 
 // InputStorePaymentGiftPremium represents TL type `inputStorePaymentGiftPremium#616f7fe8`.
+// Info about a gifted Telegram Premium purchase
 //
 // See https://core.telegram.org/constructor/inputStorePaymentGiftPremium for reference.
 type InputStorePaymentGiftPremium struct {
-	//
+	// The user to which the Telegram Premium subscription was gifted
 	UserID InputUserClass
+	// Three-letter ISO 4217 currency¹ code
 	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
+	// Price of the product in the smallest units of the currency (integer, not float/double)
+	// For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
 	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	Amount int64
 }
 

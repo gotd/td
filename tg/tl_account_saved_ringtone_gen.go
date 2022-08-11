@@ -32,6 +32,8 @@ var (
 )
 
 // AccountSavedRingtone represents TL type `account.savedRingtone#b7263f6d`.
+// The notification sound was already in MP3 format and was saved without any
+// modification
 //
 // See https://core.telegram.org/constructor/account.savedRingtone for reference.
 type AccountSavedRingtone struct {
@@ -133,10 +135,15 @@ func (s *AccountSavedRingtone) DecodeBare(b *bin.Buffer) error {
 }
 
 // AccountSavedRingtoneConverted represents TL type `account.savedRingtoneConverted#1f307eb7`.
+// The notification sound was not in MP3 format and was successfully converted and saved,
+// use the returned Document¹ to refer to the notification sound from now on
+//
+// Links:
+//  1. https://core.telegram.org/type/Document
 //
 // See https://core.telegram.org/constructor/account.savedRingtoneConverted for reference.
 type AccountSavedRingtoneConverted struct {
-	//
+	// The converted notification sound
 	Document DocumentClass
 }
 

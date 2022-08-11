@@ -851,6 +851,7 @@ func (i *InputPrivacyKeyAddedByPhone) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputPrivacyKeyVoiceMessages represents TL type `inputPrivacyKeyVoiceMessages#aee69d68`.
+// Whether people can send you voice messages
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyVoiceMessages for reference.
 type InputPrivacyKeyVoiceMessages struct {

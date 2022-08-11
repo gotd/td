@@ -61,7 +61,10 @@ type Config struct {
 	// Links:
 	//  1) https://core.telegram.org/api/pfs
 	PFSEnabled bool
+	// Whether to forcefully try connecting using IPv6 dcOptions¹
 	//
+	// Links:
+	//  1) https://core.telegram.org/type/DcOption
 	ForceTryIpv6 bool
 	// Current date at the server
 	Date int

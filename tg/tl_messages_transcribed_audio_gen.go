@@ -32,6 +32,7 @@ var (
 )
 
 // MessagesTranscribedAudio represents TL type `messages.transcribedAudio#93752c52`.
+// Transcribed text from a voice message
 //
 // See https://core.telegram.org/constructor/messages.transcribedAudio for reference.
 type MessagesTranscribedAudio struct {
@@ -40,11 +41,16 @@ type MessagesTranscribedAudio struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// Whether the transcription is partial because audio transcription is still in progress,
+	// if set the user may receive further updateTranscribedAudio¹ updates with the updated
+	// transcription.
 	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/updateTranscribedAudio
 	Pending bool
-	//
+	// Transcription ID
 	TranscriptionID int64
-	//
+	// Transcripted text
 	Text string
 }
 

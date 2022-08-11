@@ -393,6 +393,7 @@ func (g *MessagesGetExportedChatInvitesRequest) GetLimit() (value int) {
 //
 //	400 ADMIN_ID_INVALID: The specified admin ID is invalid.
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.getExportedChatInvites for reference.

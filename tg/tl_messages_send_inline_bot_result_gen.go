@@ -592,6 +592,7 @@ func (s *MessagesSendInlineBotResultRequest) GetSendAs() (value InputPeerClass, 
 //	403 CHAT_SEND_MEDIA_FORBIDDEN: You can't send media in this chat.
 //	403 CHAT_SEND_STICKERS_FORBIDDEN: You can't send stickers in this chat.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
+//	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
 //	400 INLINE_RESULT_EXPIRED: The inline query expired.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //	400 MEDIA_EMPTY: The provided media object is invalid.

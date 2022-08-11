@@ -176,7 +176,7 @@ type MessagesFeaturedStickers struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Whether this is a premium stickerset
 	Premium bool
 	// Hash for pagination, for more info click here¹
 	//
