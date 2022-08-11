@@ -32,12 +32,16 @@ var (
 )
 
 // InputInvoiceMessage represents TL type `inputInvoiceMessage#c5b56859`.
+// An invoice contained in a messageMediaInvoice¹ message.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/messageMediaInvoice
 //
 // See https://core.telegram.org/constructor/inputInvoiceMessage for reference.
 type InputInvoiceMessage struct {
-	//
+	// Chat where the invoice was sent
 	Peer InputPeerClass
-	//
+	// Message ID
 	MsgID int
 }
 
@@ -198,10 +202,15 @@ func (i *InputInvoiceMessage) GetMsgID() (value int) {
 }
 
 // InputInvoiceSlug represents TL type `inputInvoiceSlug#c326caef`.
+// An invoice slug taken from a t.me/invoice/ link or from the premium_invoice_slug app
+// config parameter »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/config#client-configuration
 //
 // See https://core.telegram.org/constructor/inputInvoiceSlug for reference.
 type InputInvoiceSlug struct {
-	//
+	// The invoice slug
 	Slug string
 }
 

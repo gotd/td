@@ -705,6 +705,7 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 // Possible errors:
 //
 //	400 BOT_PAYMENTS_DISABLED: Please enable bot payments in botfather before calling this method.
+//	400 BOT_POLLS_DISABLED:
 //	400 BROADCAST_PUBLIC_VOTERS_FORBIDDEN: You can't forward polls with public voters.
 //	400 BUTTON_DATA_INVALID: The data of one or more of the buttons you provided is invalid.
 //	400 BUTTON_TYPE_INVALID: The type of one or more of the buttons you provided is invalid.

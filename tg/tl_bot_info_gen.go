@@ -49,11 +49,11 @@ type BotInfo struct {
 	//
 	// Use SetDescription and GetDescription helpers.
 	Description string
-	//
+	// Description photo
 	//
 	// Use SetDescriptionPhoto and GetDescriptionPhoto helpers.
 	DescriptionPhoto PhotoClass
-	//
+	// Description animation in MPEG4 format
 	//
 	// Use SetDescriptionDocument and GetDescriptionDocument helpers.
 	DescriptionDocument DocumentClass
@@ -61,7 +61,7 @@ type BotInfo struct {
 	//
 	// Use SetCommands and GetCommands helpers.
 	Commands []BotCommand
-	//
+	// Indicates the action to execute when pressing the in-UI menu button for bots
 	//
 	// Use SetMenuButton and GetMenuButton helpers.
 	MenuButton BotMenuButtonClass

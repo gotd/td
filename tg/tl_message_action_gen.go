@@ -2329,7 +2329,7 @@ type MessageActionPaymentSent struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Whether this is a recurring payment
 	RecurringInit bool
 	//
 	RecurringUsed bool
@@ -2346,7 +2346,11 @@ type MessageActionPaymentSent struct {
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
 	TotalAmount int64
+	// An invoice slug taken from a t.me/invoice/ link or from the premium_invoice_slug app
+	// config parameter »¹
 	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#client-configuration
 	//
 	// Use SetInvoiceSlug and GetInvoiceSlug helpers.
 	InvoiceSlug string
@@ -5153,14 +5157,24 @@ func (m *MessageActionWebViewDataSent) GetText() (value string) {
 }
 
 // MessageActionGiftPremium represents TL type `messageActionGiftPremium#aba0f5c6`.
+// Info about a gifted Telegram Premium subscription
 //
 // See https://core.telegram.org/constructor/messageActionGiftPremium for reference.
 type MessageActionGiftPremium struct {
+	// Three-letter ISO 4217 currency¹ code
 	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
+	// Price of the gift in the smallest units of the currency (integer, not float/double).
+	// For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
 	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	Amount int64
-	//
+	// Duration of the gifted Telegram Premium subscription
 	Months int
 }
 

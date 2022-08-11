@@ -32,6 +32,10 @@ var (
 )
 
 // AttachMenuBot represents TL type `attachMenuBot#c8aa2cd2`.
+// Represents a bot web app that can be launched from the attachment menu »¹
+//
+// Links:
+//  1. https://core.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu
 //
 // See https://core.telegram.org/constructor/attachMenuBot for reference.
 type AttachMenuBot struct {
@@ -40,17 +44,21 @@ type AttachMenuBot struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// Whether this bot attachment menu entry should be shown in the attachment menu (toggle
+	// using messages.toggleBotInAttachMenu¹)
 	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.toggleBotInAttachMenu
 	Inactive bool
-	//
+	// True, if the bot supports the "settings_button_pressed" event
 	HasSettings bool
-	//
+	// Bot ID
 	BotID int64
-	//
+	// Attachment menu item name
 	ShortName string
-	//
+	// List of peer types where this attachment should be shown
 	PeerTypes []AttachMenuPeerTypeClass
-	//
+	// Attachment menu icon
 	Icons []AttachMenuBotIcon
 }
 

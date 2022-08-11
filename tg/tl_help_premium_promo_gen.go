@@ -32,22 +32,38 @@ var (
 )
 
 // HelpPremiumPromo represents TL type `help.premiumPromo#8a4f3c29`.
+// Telegram Premium promotion information
 //
 // See https://core.telegram.org/constructor/help.premiumPromo for reference.
 type HelpPremiumPromo struct {
-	//
+	// Description of the current state of the user's Telegram Premium subscription
 	StatusText string
+	// Message entities for styled text¹
 	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	StatusEntities []MessageEntityClass
+	// A list of premium feature identifiers »¹, associated to each video
 	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
 	VideoSections []string
-	//
+	// A list of videos
 	Videos []DocumentClass
+	// Three-letter ISO 4217 currency¹ code
 	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
+	// Monthly price of the product in the smallest units of the currency (integer, not
+	// float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp
+	// parameter in currencies.json¹, it shows the number of digits past the decimal point
+	// for each currency (2 for the majority of currencies).
 	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	MonthlyAmount int64
-	//
+	// Related user information
 	Users []UserClass
 }
 

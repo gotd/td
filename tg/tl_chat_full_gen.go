@@ -1038,9 +1038,12 @@ type ChannelFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/discussion
 	Blocked bool
+	// Flags, see TL conditional fields¹
 	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags2 bin.Fields
-	//
+	// Can we delete this channel?
 	CanDeleteChannel bool
 	// ID of the channel
 	ID int64

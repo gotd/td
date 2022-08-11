@@ -67,6 +67,7 @@ const (
 	ErrBotMissing                       = "BOT_MISSING"
 	ErrBotOnesideNotAvail               = "BOT_ONESIDE_NOT_AVAIL"
 	ErrBotPaymentsDisabled              = "BOT_PAYMENTS_DISABLED"
+	ErrBotPollsDisabled                 = "BOT_POLLS_DISABLED"
 	ErrBotResponseTimeout               = "BOT_RESPONSE_TIMEOUT"
 	ErrBotScoreNotModified              = "BOT_SCORE_NOT_MODIFIED"
 	ErrBroadcastForbidden               = "BROADCAST_FORBIDDEN"
@@ -146,6 +147,7 @@ const (
 	ErrEmojiNotModified                 = "EMOJI_NOT_MODIFIED"
 	ErrEmoticonEmpty                    = "EMOTICON_EMPTY"
 	ErrEmoticonInvalid                  = "EMOTICON_INVALID"
+	ErrEmoticonStickerpackMissing       = "EMOTICON_STICKERPACK_MISSING"
 	ErrEncryptedMessageInvalid          = "ENCRYPTED_MESSAGE_INVALID"
 	ErrEncryptionAlreadyAccepted        = "ENCRYPTION_ALREADY_ACCEPTED"
 	ErrEncryptionAlreadyDeclined        = "ENCRYPTION_ALREADY_DECLINED"
@@ -637,6 +639,11 @@ func IsBotPaymentsDisabled(err error) bool {
 	return tgerr.Is(err, ErrBotPaymentsDisabled)
 }
 
+// IsBotPollsDisabled reports whether err is BOT_POLLS_DISABLED.
+func IsBotPollsDisabled(err error) bool {
+	return tgerr.Is(err, ErrBotPollsDisabled)
+}
+
 // IsBotResponseTimeout reports whether err is BOT_RESPONSE_TIMEOUT.
 func IsBotResponseTimeout(err error) bool {
 	return tgerr.Is(err, ErrBotResponseTimeout)
@@ -1030,6 +1037,11 @@ func IsEmoticonEmpty(err error) bool {
 // IsEmoticonInvalid reports whether err is EMOTICON_INVALID.
 func IsEmoticonInvalid(err error) bool {
 	return tgerr.Is(err, ErrEmoticonInvalid)
+}
+
+// IsEmoticonStickerpackMissing reports whether err is EMOTICON_STICKERPACK_MISSING.
+func IsEmoticonStickerpackMissing(err error) bool {
+	return tgerr.Is(err, ErrEmoticonStickerpackMissing)
 }
 
 // IsEncryptedMessageInvalid reports whether err is ENCRYPTED_MESSAGE_INVALID.

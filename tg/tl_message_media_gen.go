@@ -858,7 +858,8 @@ type MessageMediaDocument struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Whether this is a normal sticker, if not set this is a premium sticker and a premium
+	// sticker animation must be played.
 	Nopremium bool
 	// Attached document
 	//
