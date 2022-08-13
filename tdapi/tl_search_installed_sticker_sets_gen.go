@@ -31,10 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SearchInstalledStickerSetsRequest represents TL type `searchInstalledStickerSets#2899d990`.
+// SearchInstalledStickerSetsRequest represents TL type `searchInstalledStickerSets#7e5e7fa4`.
 type SearchInstalledStickerSetsRequest struct {
-	// Pass true to return mask sticker sets; pass false to return ordinary sticker sets
-	IsMasks bool
+	// Type of the sticker sets to search for
+	StickerType StickerTypeClass
 	// Query to search for
 	Query string
 	// The maximum number of sticker sets to return
@@ -42,7 +42,7 @@ type SearchInstalledStickerSetsRequest struct {
 }
 
 // SearchInstalledStickerSetsRequestTypeID is TL type id of SearchInstalledStickerSetsRequest.
-const SearchInstalledStickerSetsRequestTypeID = 0x2899d990
+const SearchInstalledStickerSetsRequestTypeID = 0x7e5e7fa4
 
 // Ensuring interfaces in compile-time for SearchInstalledStickerSetsRequest.
 var (
@@ -56,7 +56,7 @@ func (s *SearchInstalledStickerSetsRequest) Zero() bool {
 	if s == nil {
 		return true
 	}
-	if !(s.IsMasks == false) {
+	if !(s.StickerType == nil) {
 		return false
 	}
 	if !(s.Query == "") {
@@ -102,8 +102,8 @@ func (s *SearchInstalledStickerSetsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "IsMasks",
-			SchemaName: "is_masks",
+			Name:       "StickerType",
+			SchemaName: "sticker_type",
 		},
 		{
 			Name:       "Query",
@@ -120,7 +120,7 @@ func (s *SearchInstalledStickerSetsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SearchInstalledStickerSetsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchInstalledStickerSets#2899d990 as nil")
+		return fmt.Errorf("can't encode searchInstalledStickerSets#7e5e7fa4 as nil")
 	}
 	b.PutID(SearchInstalledStickerSetsRequestTypeID)
 	return s.EncodeBare(b)
@@ -129,9 +129,14 @@ func (s *SearchInstalledStickerSetsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SearchInstalledStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchInstalledStickerSets#2899d990 as nil")
+		return fmt.Errorf("can't encode searchInstalledStickerSets#7e5e7fa4 as nil")
 	}
-	b.PutBool(s.IsMasks)
+	if s.StickerType == nil {
+		return fmt.Errorf("unable to encode searchInstalledStickerSets#7e5e7fa4: field sticker_type is nil")
+	}
+	if err := s.StickerType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode searchInstalledStickerSets#7e5e7fa4: field sticker_type: %w", err)
+	}
 	b.PutString(s.Query)
 	b.PutInt32(s.Limit)
 	return nil
@@ -140,10 +145,10 @@ func (s *SearchInstalledStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SearchInstalledStickerSetsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchInstalledStickerSets#2899d990 to nil")
+		return fmt.Errorf("can't decode searchInstalledStickerSets#7e5e7fa4 to nil")
 	}
 	if err := b.ConsumeID(SearchInstalledStickerSetsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode searchInstalledStickerSets#2899d990: %w", err)
+		return fmt.Errorf("unable to decode searchInstalledStickerSets#7e5e7fa4: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -151,26 +156,26 @@ func (s *SearchInstalledStickerSetsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SearchInstalledStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchInstalledStickerSets#2899d990 to nil")
+		return fmt.Errorf("can't decode searchInstalledStickerSets#7e5e7fa4 to nil")
 	}
 	{
-		value, err := b.Bool()
+		value, err := DecodeStickerType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode searchInstalledStickerSets#2899d990: field is_masks: %w", err)
+			return fmt.Errorf("unable to decode searchInstalledStickerSets#7e5e7fa4: field sticker_type: %w", err)
 		}
-		s.IsMasks = value
+		s.StickerType = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchInstalledStickerSets#2899d990: field query: %w", err)
+			return fmt.Errorf("unable to decode searchInstalledStickerSets#7e5e7fa4: field query: %w", err)
 		}
 		s.Query = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchInstalledStickerSets#2899d990: field limit: %w", err)
+			return fmt.Errorf("unable to decode searchInstalledStickerSets#7e5e7fa4: field limit: %w", err)
 		}
 		s.Limit = value
 	}
@@ -180,13 +185,18 @@ func (s *SearchInstalledStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SearchInstalledStickerSetsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchInstalledStickerSets#2899d990 as nil")
+		return fmt.Errorf("can't encode searchInstalledStickerSets#7e5e7fa4 as nil")
 	}
 	b.ObjStart()
 	b.PutID("searchInstalledStickerSets")
 	b.Comma()
-	b.FieldStart("is_masks")
-	b.PutBool(s.IsMasks)
+	b.FieldStart("sticker_type")
+	if s.StickerType == nil {
+		return fmt.Errorf("unable to encode searchInstalledStickerSets#7e5e7fa4: field sticker_type is nil")
+	}
+	if err := s.StickerType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode searchInstalledStickerSets#7e5e7fa4: field sticker_type: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("query")
 	b.PutString(s.Query)
@@ -202,31 +212,31 @@ func (s *SearchInstalledStickerSetsRequest) EncodeTDLibJSON(b tdjson.Encoder) er
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SearchInstalledStickerSetsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchInstalledStickerSets#2899d990 to nil")
+		return fmt.Errorf("can't decode searchInstalledStickerSets#7e5e7fa4 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("searchInstalledStickerSets"); err != nil {
-				return fmt.Errorf("unable to decode searchInstalledStickerSets#2899d990: %w", err)
+				return fmt.Errorf("unable to decode searchInstalledStickerSets#7e5e7fa4: %w", err)
 			}
-		case "is_masks":
-			value, err := b.Bool()
+		case "sticker_type":
+			value, err := DecodeTDLibJSONStickerType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode searchInstalledStickerSets#2899d990: field is_masks: %w", err)
+				return fmt.Errorf("unable to decode searchInstalledStickerSets#7e5e7fa4: field sticker_type: %w", err)
 			}
-			s.IsMasks = value
+			s.StickerType = value
 		case "query":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchInstalledStickerSets#2899d990: field query: %w", err)
+				return fmt.Errorf("unable to decode searchInstalledStickerSets#7e5e7fa4: field query: %w", err)
 			}
 			s.Query = value
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchInstalledStickerSets#2899d990: field limit: %w", err)
+				return fmt.Errorf("unable to decode searchInstalledStickerSets#7e5e7fa4: field limit: %w", err)
 			}
 			s.Limit = value
 		default:
@@ -236,12 +246,12 @@ func (s *SearchInstalledStickerSetsRequest) DecodeTDLibJSON(b tdjson.Decoder) er
 	})
 }
 
-// GetIsMasks returns value of IsMasks field.
-func (s *SearchInstalledStickerSetsRequest) GetIsMasks() (value bool) {
+// GetStickerType returns value of StickerType field.
+func (s *SearchInstalledStickerSetsRequest) GetStickerType() (value StickerTypeClass) {
 	if s == nil {
 		return
 	}
-	return s.IsMasks
+	return s.StickerType
 }
 
 // GetQuery returns value of Query field.
@@ -260,7 +270,7 @@ func (s *SearchInstalledStickerSetsRequest) GetLimit() (value int32) {
 	return s.Limit
 }
 
-// SearchInstalledStickerSets invokes method searchInstalledStickerSets#2899d990 returning error if any.
+// SearchInstalledStickerSets invokes method searchInstalledStickerSets#7e5e7fa4 returning error if any.
 func (c *Client) SearchInstalledStickerSets(ctx context.Context, request *SearchInstalledStickerSetsRequest) (*StickerSets, error) {
 	var result StickerSets
 

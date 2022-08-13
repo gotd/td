@@ -31,27 +31,27 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StickerTypeStatic represents TL type `stickerTypeStatic#6b8e3cd1`.
-type StickerTypeStatic struct {
+// StickerTypeRegular represents TL type `stickerTypeRegular#35bc575`.
+type StickerTypeRegular struct {
 }
 
-// StickerTypeStaticTypeID is TL type id of StickerTypeStatic.
-const StickerTypeStaticTypeID = 0x6b8e3cd1
+// StickerTypeRegularTypeID is TL type id of StickerTypeRegular.
+const StickerTypeRegularTypeID = 0x35bc575
 
 // construct implements constructor of StickerTypeClass.
-func (s StickerTypeStatic) construct() StickerTypeClass { return &s }
+func (s StickerTypeRegular) construct() StickerTypeClass { return &s }
 
-// Ensuring interfaces in compile-time for StickerTypeStatic.
+// Ensuring interfaces in compile-time for StickerTypeRegular.
 var (
-	_ bin.Encoder     = &StickerTypeStatic{}
-	_ bin.Decoder     = &StickerTypeStatic{}
-	_ bin.BareEncoder = &StickerTypeStatic{}
-	_ bin.BareDecoder = &StickerTypeStatic{}
+	_ bin.Encoder     = &StickerTypeRegular{}
+	_ bin.Decoder     = &StickerTypeRegular{}
+	_ bin.BareEncoder = &StickerTypeRegular{}
+	_ bin.BareDecoder = &StickerTypeRegular{}
 
-	_ StickerTypeClass = &StickerTypeStatic{}
+	_ StickerTypeClass = &StickerTypeRegular{}
 )
 
-func (s *StickerTypeStatic) Zero() bool {
+func (s *StickerTypeRegular) Zero() bool {
 	if s == nil {
 		return true
 	}
@@ -60,31 +60,31 @@ func (s *StickerTypeStatic) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (s *StickerTypeStatic) String() string {
+func (s *StickerTypeRegular) String() string {
 	if s == nil {
-		return "StickerTypeStatic(nil)"
+		return "StickerTypeRegular(nil)"
 	}
-	type Alias StickerTypeStatic
-	return fmt.Sprintf("StickerTypeStatic%+v", Alias(*s))
+	type Alias StickerTypeRegular
+	return fmt.Sprintf("StickerTypeRegular%+v", Alias(*s))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*StickerTypeStatic) TypeID() uint32 {
-	return StickerTypeStaticTypeID
+func (*StickerTypeRegular) TypeID() uint32 {
+	return StickerTypeRegularTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*StickerTypeStatic) TypeName() string {
-	return "stickerTypeStatic"
+func (*StickerTypeRegular) TypeName() string {
+	return "stickerTypeRegular"
 }
 
 // TypeInfo returns info about TL type.
-func (s *StickerTypeStatic) TypeInfo() tdp.Type {
+func (s *StickerTypeRegular) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "stickerTypeStatic",
-		ID:   StickerTypeStaticTypeID,
+		Name: "stickerTypeRegular",
+		ID:   StickerTypeRegularTypeID,
 	}
 	if s == nil {
 		typ.Null = true
@@ -95,48 +95,48 @@ func (s *StickerTypeStatic) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (s *StickerTypeStatic) Encode(b *bin.Buffer) error {
+func (s *StickerTypeRegular) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickerTypeStatic#6b8e3cd1 as nil")
+		return fmt.Errorf("can't encode stickerTypeRegular#35bc575 as nil")
 	}
-	b.PutID(StickerTypeStaticTypeID)
+	b.PutID(StickerTypeRegularTypeID)
 	return s.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (s *StickerTypeStatic) EncodeBare(b *bin.Buffer) error {
+func (s *StickerTypeRegular) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickerTypeStatic#6b8e3cd1 as nil")
+		return fmt.Errorf("can't encode stickerTypeRegular#35bc575 as nil")
 	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (s *StickerTypeStatic) Decode(b *bin.Buffer) error {
+func (s *StickerTypeRegular) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickerTypeStatic#6b8e3cd1 to nil")
+		return fmt.Errorf("can't decode stickerTypeRegular#35bc575 to nil")
 	}
-	if err := b.ConsumeID(StickerTypeStaticTypeID); err != nil {
-		return fmt.Errorf("unable to decode stickerTypeStatic#6b8e3cd1: %w", err)
+	if err := b.ConsumeID(StickerTypeRegularTypeID); err != nil {
+		return fmt.Errorf("unable to decode stickerTypeRegular#35bc575: %w", err)
 	}
 	return s.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (s *StickerTypeStatic) DecodeBare(b *bin.Buffer) error {
+func (s *StickerTypeRegular) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickerTypeStatic#6b8e3cd1 to nil")
+		return fmt.Errorf("can't decode stickerTypeRegular#35bc575 to nil")
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (s *StickerTypeStatic) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (s *StickerTypeRegular) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickerTypeStatic#6b8e3cd1 as nil")
+		return fmt.Errorf("can't encode stickerTypeRegular#35bc575 as nil")
 	}
 	b.ObjStart()
-	b.PutID("stickerTypeStatic")
+	b.PutID("stickerTypeRegular")
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -144,16 +144,16 @@ func (s *StickerTypeStatic) EncodeTDLibJSON(b tdjson.Encoder) error {
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (s *StickerTypeStatic) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (s *StickerTypeRegular) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickerTypeStatic#6b8e3cd1 to nil")
+		return fmt.Errorf("can't decode stickerTypeRegular#35bc575 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("stickerTypeStatic"); err != nil {
-				return fmt.Errorf("unable to decode stickerTypeStatic#6b8e3cd1: %w", err)
+			if err := b.ConsumeID("stickerTypeRegular"); err != nil {
+				return fmt.Errorf("unable to decode stickerTypeRegular#35bc575: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -162,276 +162,12 @@ func (s *StickerTypeStatic) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// StickerTypeAnimated represents TL type `stickerTypeAnimated#691926ad`.
-type StickerTypeAnimated struct {
-}
-
-// StickerTypeAnimatedTypeID is TL type id of StickerTypeAnimated.
-const StickerTypeAnimatedTypeID = 0x691926ad
-
-// construct implements constructor of StickerTypeClass.
-func (s StickerTypeAnimated) construct() StickerTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for StickerTypeAnimated.
-var (
-	_ bin.Encoder     = &StickerTypeAnimated{}
-	_ bin.Decoder     = &StickerTypeAnimated{}
-	_ bin.BareEncoder = &StickerTypeAnimated{}
-	_ bin.BareDecoder = &StickerTypeAnimated{}
-
-	_ StickerTypeClass = &StickerTypeAnimated{}
-)
-
-func (s *StickerTypeAnimated) Zero() bool {
-	if s == nil {
-		return true
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (s *StickerTypeAnimated) String() string {
-	if s == nil {
-		return "StickerTypeAnimated(nil)"
-	}
-	type Alias StickerTypeAnimated
-	return fmt.Sprintf("StickerTypeAnimated%+v", Alias(*s))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*StickerTypeAnimated) TypeID() uint32 {
-	return StickerTypeAnimatedTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*StickerTypeAnimated) TypeName() string {
-	return "stickerTypeAnimated"
-}
-
-// TypeInfo returns info about TL type.
-func (s *StickerTypeAnimated) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "stickerTypeAnimated",
-		ID:   StickerTypeAnimatedTypeID,
-	}
-	if s == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (s *StickerTypeAnimated) Encode(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't encode stickerTypeAnimated#691926ad as nil")
-	}
-	b.PutID(StickerTypeAnimatedTypeID)
-	return s.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (s *StickerTypeAnimated) EncodeBare(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't encode stickerTypeAnimated#691926ad as nil")
-	}
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (s *StickerTypeAnimated) Decode(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't decode stickerTypeAnimated#691926ad to nil")
-	}
-	if err := b.ConsumeID(StickerTypeAnimatedTypeID); err != nil {
-		return fmt.Errorf("unable to decode stickerTypeAnimated#691926ad: %w", err)
-	}
-	return s.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (s *StickerTypeAnimated) DecodeBare(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't decode stickerTypeAnimated#691926ad to nil")
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (s *StickerTypeAnimated) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if s == nil {
-		return fmt.Errorf("can't encode stickerTypeAnimated#691926ad as nil")
-	}
-	b.ObjStart()
-	b.PutID("stickerTypeAnimated")
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (s *StickerTypeAnimated) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if s == nil {
-		return fmt.Errorf("can't decode stickerTypeAnimated#691926ad to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("stickerTypeAnimated"); err != nil {
-				return fmt.Errorf("unable to decode stickerTypeAnimated#691926ad: %w", err)
-			}
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// StickerTypeVideo represents TL type `stickerTypeVideo#1f22af74`.
-type StickerTypeVideo struct {
-}
-
-// StickerTypeVideoTypeID is TL type id of StickerTypeVideo.
-const StickerTypeVideoTypeID = 0x1f22af74
-
-// construct implements constructor of StickerTypeClass.
-func (s StickerTypeVideo) construct() StickerTypeClass { return &s }
-
-// Ensuring interfaces in compile-time for StickerTypeVideo.
-var (
-	_ bin.Encoder     = &StickerTypeVideo{}
-	_ bin.Decoder     = &StickerTypeVideo{}
-	_ bin.BareEncoder = &StickerTypeVideo{}
-	_ bin.BareDecoder = &StickerTypeVideo{}
-
-	_ StickerTypeClass = &StickerTypeVideo{}
-)
-
-func (s *StickerTypeVideo) Zero() bool {
-	if s == nil {
-		return true
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (s *StickerTypeVideo) String() string {
-	if s == nil {
-		return "StickerTypeVideo(nil)"
-	}
-	type Alias StickerTypeVideo
-	return fmt.Sprintf("StickerTypeVideo%+v", Alias(*s))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*StickerTypeVideo) TypeID() uint32 {
-	return StickerTypeVideoTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*StickerTypeVideo) TypeName() string {
-	return "stickerTypeVideo"
-}
-
-// TypeInfo returns info about TL type.
-func (s *StickerTypeVideo) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "stickerTypeVideo",
-		ID:   StickerTypeVideoTypeID,
-	}
-	if s == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (s *StickerTypeVideo) Encode(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't encode stickerTypeVideo#1f22af74 as nil")
-	}
-	b.PutID(StickerTypeVideoTypeID)
-	return s.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (s *StickerTypeVideo) EncodeBare(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't encode stickerTypeVideo#1f22af74 as nil")
-	}
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (s *StickerTypeVideo) Decode(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't decode stickerTypeVideo#1f22af74 to nil")
-	}
-	if err := b.ConsumeID(StickerTypeVideoTypeID); err != nil {
-		return fmt.Errorf("unable to decode stickerTypeVideo#1f22af74: %w", err)
-	}
-	return s.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (s *StickerTypeVideo) DecodeBare(b *bin.Buffer) error {
-	if s == nil {
-		return fmt.Errorf("can't decode stickerTypeVideo#1f22af74 to nil")
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (s *StickerTypeVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if s == nil {
-		return fmt.Errorf("can't encode stickerTypeVideo#1f22af74 as nil")
-	}
-	b.ObjStart()
-	b.PutID("stickerTypeVideo")
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (s *StickerTypeVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if s == nil {
-		return fmt.Errorf("can't decode stickerTypeVideo#1f22af74 to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("stickerTypeVideo"); err != nil {
-				return fmt.Errorf("unable to decode stickerTypeVideo#1f22af74: %w", err)
-			}
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// StickerTypeMask represents TL type `stickerTypeMask#cdf254e3`.
+// StickerTypeMask represents TL type `stickerTypeMask#96c63694`.
 type StickerTypeMask struct {
-	// Position where the mask is placed; may be null
-	MaskPosition MaskPosition
 }
 
 // StickerTypeMaskTypeID is TL type id of StickerTypeMask.
-const StickerTypeMaskTypeID = 0xcdf254e3
+const StickerTypeMaskTypeID = 0x96c63694
 
 // construct implements constructor of StickerTypeClass.
 func (s StickerTypeMask) construct() StickerTypeClass { return &s }
@@ -449,9 +185,6 @@ var (
 func (s *StickerTypeMask) Zero() bool {
 	if s == nil {
 		return true
-	}
-	if !(s.MaskPosition.Zero()) {
-		return false
 	}
 
 	return true
@@ -488,19 +221,14 @@ func (s *StickerTypeMask) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "MaskPosition",
-			SchemaName: "mask_position",
-		},
-	}
+	typ.Fields = []tdp.Field{}
 	return typ
 }
 
 // Encode implements bin.Encoder.
 func (s *StickerTypeMask) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickerTypeMask#cdf254e3 as nil")
+		return fmt.Errorf("can't encode stickerTypeMask#96c63694 as nil")
 	}
 	b.PutID(StickerTypeMaskTypeID)
 	return s.EncodeBare(b)
@@ -509,10 +237,7 @@ func (s *StickerTypeMask) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StickerTypeMask) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickerTypeMask#cdf254e3 as nil")
-	}
-	if err := s.MaskPosition.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stickerTypeMask#cdf254e3: field mask_position: %w", err)
+		return fmt.Errorf("can't encode stickerTypeMask#96c63694 as nil")
 	}
 	return nil
 }
@@ -520,10 +245,10 @@ func (s *StickerTypeMask) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StickerTypeMask) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickerTypeMask#cdf254e3 to nil")
+		return fmt.Errorf("can't decode stickerTypeMask#96c63694 to nil")
 	}
 	if err := b.ConsumeID(StickerTypeMaskTypeID); err != nil {
-		return fmt.Errorf("unable to decode stickerTypeMask#cdf254e3: %w", err)
+		return fmt.Errorf("unable to decode stickerTypeMask#96c63694: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -531,12 +256,7 @@ func (s *StickerTypeMask) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StickerTypeMask) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickerTypeMask#cdf254e3 to nil")
-	}
-	{
-		if err := s.MaskPosition.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stickerTypeMask#cdf254e3: field mask_position: %w", err)
-		}
+		return fmt.Errorf("can't decode stickerTypeMask#96c63694 to nil")
 	}
 	return nil
 }
@@ -544,15 +264,10 @@ func (s *StickerTypeMask) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *StickerTypeMask) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickerTypeMask#cdf254e3 as nil")
+		return fmt.Errorf("can't encode stickerTypeMask#96c63694 as nil")
 	}
 	b.ObjStart()
 	b.PutID("stickerTypeMask")
-	b.Comma()
-	b.FieldStart("mask_position")
-	if err := s.MaskPosition.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode stickerTypeMask#cdf254e3: field mask_position: %w", err)
-	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -562,18 +277,14 @@ func (s *StickerTypeMask) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *StickerTypeMask) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickerTypeMask#cdf254e3 to nil")
+		return fmt.Errorf("can't decode stickerTypeMask#96c63694 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("stickerTypeMask"); err != nil {
-				return fmt.Errorf("unable to decode stickerTypeMask#cdf254e3: %w", err)
-			}
-		case "mask_position":
-			if err := s.MaskPosition.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode stickerTypeMask#cdf254e3: field mask_position: %w", err)
+				return fmt.Errorf("unable to decode stickerTypeMask#96c63694: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -582,12 +293,135 @@ func (s *StickerTypeMask) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetMaskPosition returns value of MaskPosition field.
-func (s *StickerTypeMask) GetMaskPosition() (value MaskPosition) {
+// StickerTypeCustomEmoji represents TL type `stickerTypeCustomEmoji#f8cd7787`.
+type StickerTypeCustomEmoji struct {
+}
+
+// StickerTypeCustomEmojiTypeID is TL type id of StickerTypeCustomEmoji.
+const StickerTypeCustomEmojiTypeID = 0xf8cd7787
+
+// construct implements constructor of StickerTypeClass.
+func (s StickerTypeCustomEmoji) construct() StickerTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for StickerTypeCustomEmoji.
+var (
+	_ bin.Encoder     = &StickerTypeCustomEmoji{}
+	_ bin.Decoder     = &StickerTypeCustomEmoji{}
+	_ bin.BareEncoder = &StickerTypeCustomEmoji{}
+	_ bin.BareDecoder = &StickerTypeCustomEmoji{}
+
+	_ StickerTypeClass = &StickerTypeCustomEmoji{}
+)
+
+func (s *StickerTypeCustomEmoji) Zero() bool {
 	if s == nil {
-		return
+		return true
 	}
-	return s.MaskPosition
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *StickerTypeCustomEmoji) String() string {
+	if s == nil {
+		return "StickerTypeCustomEmoji(nil)"
+	}
+	type Alias StickerTypeCustomEmoji
+	return fmt.Sprintf("StickerTypeCustomEmoji%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*StickerTypeCustomEmoji) TypeID() uint32 {
+	return StickerTypeCustomEmojiTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*StickerTypeCustomEmoji) TypeName() string {
+	return "stickerTypeCustomEmoji"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StickerTypeCustomEmoji) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stickerTypeCustomEmoji",
+		ID:   StickerTypeCustomEmojiTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *StickerTypeCustomEmoji) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode stickerTypeCustomEmoji#f8cd7787 as nil")
+	}
+	b.PutID(StickerTypeCustomEmojiTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StickerTypeCustomEmoji) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode stickerTypeCustomEmoji#f8cd7787 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *StickerTypeCustomEmoji) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode stickerTypeCustomEmoji#f8cd7787 to nil")
+	}
+	if err := b.ConsumeID(StickerTypeCustomEmojiTypeID); err != nil {
+		return fmt.Errorf("unable to decode stickerTypeCustomEmoji#f8cd7787: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StickerTypeCustomEmoji) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode stickerTypeCustomEmoji#f8cd7787 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *StickerTypeCustomEmoji) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode stickerTypeCustomEmoji#f8cd7787 as nil")
+	}
+	b.ObjStart()
+	b.PutID("stickerTypeCustomEmoji")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *StickerTypeCustomEmoji) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode stickerTypeCustomEmoji#f8cd7787 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("stickerTypeCustomEmoji"); err != nil {
+				return fmt.Errorf("unable to decode stickerTypeCustomEmoji#f8cd7787: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
 }
 
 // StickerTypeClassName is schema name of StickerTypeClass.
@@ -602,10 +436,9 @@ const StickerTypeClassName = "StickerType"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tdapi.StickerTypeStatic: // stickerTypeStatic#6b8e3cd1
-//	case *tdapi.StickerTypeAnimated: // stickerTypeAnimated#691926ad
-//	case *tdapi.StickerTypeVideo: // stickerTypeVideo#1f22af74
-//	case *tdapi.StickerTypeMask: // stickerTypeMask#cdf254e3
+//	case *tdapi.StickerTypeRegular: // stickerTypeRegular#35bc575
+//	case *tdapi.StickerTypeMask: // stickerTypeMask#96c63694
+//	case *tdapi.StickerTypeCustomEmoji: // stickerTypeCustomEmoji#f8cd7787
 //	default: panic(v)
 //	}
 type StickerTypeClass interface {
@@ -637,30 +470,23 @@ func DecodeStickerType(buf *bin.Buffer) (StickerTypeClass, error) {
 		return nil, err
 	}
 	switch id {
-	case StickerTypeStaticTypeID:
-		// Decoding stickerTypeStatic#6b8e3cd1.
-		v := StickerTypeStatic{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode StickerTypeClass: %w", err)
-		}
-		return &v, nil
-	case StickerTypeAnimatedTypeID:
-		// Decoding stickerTypeAnimated#691926ad.
-		v := StickerTypeAnimated{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode StickerTypeClass: %w", err)
-		}
-		return &v, nil
-	case StickerTypeVideoTypeID:
-		// Decoding stickerTypeVideo#1f22af74.
-		v := StickerTypeVideo{}
+	case StickerTypeRegularTypeID:
+		// Decoding stickerTypeRegular#35bc575.
+		v := StickerTypeRegular{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StickerTypeClass: %w", err)
 		}
 		return &v, nil
 	case StickerTypeMaskTypeID:
-		// Decoding stickerTypeMask#cdf254e3.
+		// Decoding stickerTypeMask#96c63694.
 		v := StickerTypeMask{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StickerTypeClass: %w", err)
+		}
+		return &v, nil
+	case StickerTypeCustomEmojiTypeID:
+		// Decoding stickerTypeCustomEmoji#f8cd7787.
+		v := StickerTypeCustomEmoji{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StickerTypeClass: %w", err)
 		}
@@ -677,30 +503,23 @@ func DecodeTDLibJSONStickerType(buf tdjson.Decoder) (StickerTypeClass, error) {
 		return nil, err
 	}
 	switch id {
-	case "stickerTypeStatic":
-		// Decoding stickerTypeStatic#6b8e3cd1.
-		v := StickerTypeStatic{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode StickerTypeClass: %w", err)
-		}
-		return &v, nil
-	case "stickerTypeAnimated":
-		// Decoding stickerTypeAnimated#691926ad.
-		v := StickerTypeAnimated{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode StickerTypeClass: %w", err)
-		}
-		return &v, nil
-	case "stickerTypeVideo":
-		// Decoding stickerTypeVideo#1f22af74.
-		v := StickerTypeVideo{}
+	case "stickerTypeRegular":
+		// Decoding stickerTypeRegular#35bc575.
+		v := StickerTypeRegular{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StickerTypeClass: %w", err)
 		}
 		return &v, nil
 	case "stickerTypeMask":
-		// Decoding stickerTypeMask#cdf254e3.
+		// Decoding stickerTypeMask#96c63694.
 		v := StickerTypeMask{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StickerTypeClass: %w", err)
+		}
+		return &v, nil
+	case "stickerTypeCustomEmoji":
+		// Decoding stickerTypeCustomEmoji#f8cd7787.
+		v := StickerTypeCustomEmoji{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StickerTypeClass: %w", err)
 		}

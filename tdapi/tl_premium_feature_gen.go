@@ -948,6 +948,137 @@ func (p *PremiumFeatureUniqueStickers) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// PremiumFeatureCustomEmoji represents TL type `premiumFeatureCustomEmoji#4f6ddb4c`.
+type PremiumFeatureCustomEmoji struct {
+}
+
+// PremiumFeatureCustomEmojiTypeID is TL type id of PremiumFeatureCustomEmoji.
+const PremiumFeatureCustomEmojiTypeID = 0x4f6ddb4c
+
+// construct implements constructor of PremiumFeatureClass.
+func (p PremiumFeatureCustomEmoji) construct() PremiumFeatureClass { return &p }
+
+// Ensuring interfaces in compile-time for PremiumFeatureCustomEmoji.
+var (
+	_ bin.Encoder     = &PremiumFeatureCustomEmoji{}
+	_ bin.Decoder     = &PremiumFeatureCustomEmoji{}
+	_ bin.BareEncoder = &PremiumFeatureCustomEmoji{}
+	_ bin.BareDecoder = &PremiumFeatureCustomEmoji{}
+
+	_ PremiumFeatureClass = &PremiumFeatureCustomEmoji{}
+)
+
+func (p *PremiumFeatureCustomEmoji) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PremiumFeatureCustomEmoji) String() string {
+	if p == nil {
+		return "PremiumFeatureCustomEmoji(nil)"
+	}
+	type Alias PremiumFeatureCustomEmoji
+	return fmt.Sprintf("PremiumFeatureCustomEmoji%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PremiumFeatureCustomEmoji) TypeID() uint32 {
+	return PremiumFeatureCustomEmojiTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PremiumFeatureCustomEmoji) TypeName() string {
+	return "premiumFeatureCustomEmoji"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PremiumFeatureCustomEmoji) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "premiumFeatureCustomEmoji",
+		ID:   PremiumFeatureCustomEmojiTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PremiumFeatureCustomEmoji) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureCustomEmoji#4f6ddb4c as nil")
+	}
+	b.PutID(PremiumFeatureCustomEmojiTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PremiumFeatureCustomEmoji) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureCustomEmoji#4f6ddb4c as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PremiumFeatureCustomEmoji) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureCustomEmoji#4f6ddb4c to nil")
+	}
+	if err := b.ConsumeID(PremiumFeatureCustomEmojiTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumFeatureCustomEmoji#4f6ddb4c: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PremiumFeatureCustomEmoji) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureCustomEmoji#4f6ddb4c to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PremiumFeatureCustomEmoji) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureCustomEmoji#4f6ddb4c as nil")
+	}
+	b.ObjStart()
+	b.PutID("premiumFeatureCustomEmoji")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PremiumFeatureCustomEmoji) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureCustomEmoji#4f6ddb4c to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("premiumFeatureCustomEmoji"); err != nil {
+				return fmt.Errorf("unable to decode premiumFeatureCustomEmoji#4f6ddb4c: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // PremiumFeatureAdvancedChatManagement represents TL type `premiumFeatureAdvancedChatManagement#2f774d1a`.
 type PremiumFeatureAdvancedChatManagement struct {
 }
@@ -1491,6 +1622,7 @@ const PremiumFeatureClassName = "PremiumFeature"
 //	case *tdapi.PremiumFeatureDisabledAds: // premiumFeatureDisabledAds#8847624a
 //	case *tdapi.PremiumFeatureUniqueReactions: // premiumFeatureUniqueReactions#2db3b017
 //	case *tdapi.PremiumFeatureUniqueStickers: // premiumFeatureUniqueStickers#82b97c00
+//	case *tdapi.PremiumFeatureCustomEmoji: // premiumFeatureCustomEmoji#4f6ddb4c
 //	case *tdapi.PremiumFeatureAdvancedChatManagement: // premiumFeatureAdvancedChatManagement#2f774d1a
 //	case *tdapi.PremiumFeatureProfileBadge: // premiumFeatureProfileBadge#ded30c2
 //	case *tdapi.PremiumFeatureAnimatedProfilePhoto: // premiumFeatureAnimatedProfilePhoto#f9fecce6
@@ -1571,6 +1703,13 @@ func DecodePremiumFeature(buf *bin.Buffer) (PremiumFeatureClass, error) {
 	case PremiumFeatureUniqueStickersTypeID:
 		// Decoding premiumFeatureUniqueStickers#82b97c00.
 		v := PremiumFeatureUniqueStickers{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
+		}
+		return &v, nil
+	case PremiumFeatureCustomEmojiTypeID:
+		// Decoding premiumFeatureCustomEmoji#4f6ddb4c.
+		v := PremiumFeatureCustomEmoji{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
 		}
@@ -1660,6 +1799,13 @@ func DecodeTDLibJSONPremiumFeature(buf tdjson.Decoder) (PremiumFeatureClass, err
 	case "premiumFeatureUniqueStickers":
 		// Decoding premiumFeatureUniqueStickers#82b97c00.
 		v := PremiumFeatureUniqueStickers{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
+		}
+		return &v, nil
+	case "premiumFeatureCustomEmoji":
+		// Decoding premiumFeatureCustomEmoji#4f6ddb4c.
+		v := PremiumFeatureCustomEmoji{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
 		}

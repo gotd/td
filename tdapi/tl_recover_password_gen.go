@@ -35,7 +35,7 @@ var (
 type RecoverPasswordRequest struct {
 	// Recovery code to check
 	RecoveryCode string
-	// New password of the user; may be empty to remove the password
+	// New 2-step verification password of the user; may be empty to remove the password
 	NewPassword string
 	// New password hint; may be empty
 	NewHint string

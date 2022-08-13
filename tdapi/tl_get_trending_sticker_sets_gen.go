@@ -31,8 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetTrendingStickerSetsRequest represents TL type `getTrendingStickerSets#72394329`.
+// GetTrendingStickerSetsRequest represents TL type `getTrendingStickerSets#e058455e`.
 type GetTrendingStickerSetsRequest struct {
+	// Type of the sticker sets to return
+	StickerType StickerTypeClass
 	// The offset from which to return the sticker sets; must be non-negative
 	Offset int32
 	// The maximum number of sticker sets to be returned; up to 100. For optimal performance,
@@ -42,7 +44,7 @@ type GetTrendingStickerSetsRequest struct {
 }
 
 // GetTrendingStickerSetsRequestTypeID is TL type id of GetTrendingStickerSetsRequest.
-const GetTrendingStickerSetsRequestTypeID = 0x72394329
+const GetTrendingStickerSetsRequestTypeID = 0xe058455e
 
 // Ensuring interfaces in compile-time for GetTrendingStickerSetsRequest.
 var (
@@ -55,6 +57,9 @@ var (
 func (g *GetTrendingStickerSetsRequest) Zero() bool {
 	if g == nil {
 		return true
+	}
+	if !(g.StickerType == nil) {
+		return false
 	}
 	if !(g.Offset == 0) {
 		return false
@@ -99,6 +104,10 @@ func (g *GetTrendingStickerSetsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "StickerType",
+			SchemaName: "sticker_type",
+		},
+		{
 			Name:       "Offset",
 			SchemaName: "offset",
 		},
@@ -113,7 +122,7 @@ func (g *GetTrendingStickerSetsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetTrendingStickerSetsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getTrendingStickerSets#72394329 as nil")
+		return fmt.Errorf("can't encode getTrendingStickerSets#e058455e as nil")
 	}
 	b.PutID(GetTrendingStickerSetsRequestTypeID)
 	return g.EncodeBare(b)
@@ -122,7 +131,13 @@ func (g *GetTrendingStickerSetsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetTrendingStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getTrendingStickerSets#72394329 as nil")
+		return fmt.Errorf("can't encode getTrendingStickerSets#e058455e as nil")
+	}
+	if g.StickerType == nil {
+		return fmt.Errorf("unable to encode getTrendingStickerSets#e058455e: field sticker_type is nil")
+	}
+	if err := g.StickerType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode getTrendingStickerSets#e058455e: field sticker_type: %w", err)
 	}
 	b.PutInt32(g.Offset)
 	b.PutInt32(g.Limit)
@@ -132,10 +147,10 @@ func (g *GetTrendingStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetTrendingStickerSetsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getTrendingStickerSets#72394329 to nil")
+		return fmt.Errorf("can't decode getTrendingStickerSets#e058455e to nil")
 	}
 	if err := b.ConsumeID(GetTrendingStickerSetsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getTrendingStickerSets#72394329: %w", err)
+		return fmt.Errorf("unable to decode getTrendingStickerSets#e058455e: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -143,19 +158,26 @@ func (g *GetTrendingStickerSetsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetTrendingStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getTrendingStickerSets#72394329 to nil")
+		return fmt.Errorf("can't decode getTrendingStickerSets#e058455e to nil")
+	}
+	{
+		value, err := DecodeStickerType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode getTrendingStickerSets#e058455e: field sticker_type: %w", err)
+		}
+		g.StickerType = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getTrendingStickerSets#72394329: field offset: %w", err)
+			return fmt.Errorf("unable to decode getTrendingStickerSets#e058455e: field offset: %w", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getTrendingStickerSets#72394329: field limit: %w", err)
+			return fmt.Errorf("unable to decode getTrendingStickerSets#e058455e: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -165,10 +187,18 @@ func (g *GetTrendingStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetTrendingStickerSetsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getTrendingStickerSets#72394329 as nil")
+		return fmt.Errorf("can't encode getTrendingStickerSets#e058455e as nil")
 	}
 	b.ObjStart()
 	b.PutID("getTrendingStickerSets")
+	b.Comma()
+	b.FieldStart("sticker_type")
+	if g.StickerType == nil {
+		return fmt.Errorf("unable to encode getTrendingStickerSets#e058455e: field sticker_type is nil")
+	}
+	if err := g.StickerType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getTrendingStickerSets#e058455e: field sticker_type: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("offset")
 	b.PutInt32(g.Offset)
@@ -184,25 +214,31 @@ func (g *GetTrendingStickerSetsRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetTrendingStickerSetsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getTrendingStickerSets#72394329 to nil")
+		return fmt.Errorf("can't decode getTrendingStickerSets#e058455e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getTrendingStickerSets"); err != nil {
-				return fmt.Errorf("unable to decode getTrendingStickerSets#72394329: %w", err)
+				return fmt.Errorf("unable to decode getTrendingStickerSets#e058455e: %w", err)
 			}
+		case "sticker_type":
+			value, err := DecodeTDLibJSONStickerType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode getTrendingStickerSets#e058455e: field sticker_type: %w", err)
+			}
+			g.StickerType = value
 		case "offset":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getTrendingStickerSets#72394329: field offset: %w", err)
+				return fmt.Errorf("unable to decode getTrendingStickerSets#e058455e: field offset: %w", err)
 			}
 			g.Offset = value
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getTrendingStickerSets#72394329: field limit: %w", err)
+				return fmt.Errorf("unable to decode getTrendingStickerSets#e058455e: field limit: %w", err)
 			}
 			g.Limit = value
 		default:
@@ -210,6 +246,14 @@ func (g *GetTrendingStickerSetsRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 		}
 		return nil
 	})
+}
+
+// GetStickerType returns value of StickerType field.
+func (g *GetTrendingStickerSetsRequest) GetStickerType() (value StickerTypeClass) {
+	if g == nil {
+		return
+	}
+	return g.StickerType
 }
 
 // GetOffset returns value of Offset field.
@@ -228,7 +272,7 @@ func (g *GetTrendingStickerSetsRequest) GetLimit() (value int32) {
 	return g.Limit
 }
 
-// GetTrendingStickerSets invokes method getTrendingStickerSets#72394329 returning error if any.
+// GetTrendingStickerSets invokes method getTrendingStickerSets#e058455e returning error if any.
 func (c *Client) GetTrendingStickerSets(ctx context.Context, request *GetTrendingStickerSetsRequest) (*TrendingStickerSets, error) {
 	var result TrendingStickerSets
 

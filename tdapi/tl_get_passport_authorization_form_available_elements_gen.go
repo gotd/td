@@ -35,7 +35,7 @@ var (
 type GetPassportAuthorizationFormAvailableElementsRequest struct {
 	// Authorization form identifier
 	AutorizationFormID int32
-	// Password of the current user
+	// The 2-step verification password of the current user
 	Password string
 }
 

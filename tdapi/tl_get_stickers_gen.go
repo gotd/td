@@ -31,16 +31,21 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetStickersRequest represents TL type `getStickers#a0ef757c`.
+// GetStickersRequest represents TL type `getStickers#19afca52`.
 type GetStickersRequest struct {
+	// Type of the sticker sets to return
+	StickerType StickerTypeClass
 	// String representation of emoji. If empty, returns all known installed stickers
 	Emoji string
 	// The maximum number of stickers to be returned
 	Limit int32
+	// Chat identifier for which to return stickers. Available custom emoji may be different
+	// for different chats
+	ChatID int64
 }
 
 // GetStickersRequestTypeID is TL type id of GetStickersRequest.
-const GetStickersRequestTypeID = 0xa0ef757c
+const GetStickersRequestTypeID = 0x19afca52
 
 // Ensuring interfaces in compile-time for GetStickersRequest.
 var (
@@ -54,10 +59,16 @@ func (g *GetStickersRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
+	if !(g.StickerType == nil) {
+		return false
+	}
 	if !(g.Emoji == "") {
 		return false
 	}
 	if !(g.Limit == 0) {
+		return false
+	}
+	if !(g.ChatID == 0) {
 		return false
 	}
 
@@ -97,12 +108,20 @@ func (g *GetStickersRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "StickerType",
+			SchemaName: "sticker_type",
+		},
+		{
 			Name:       "Emoji",
 			SchemaName: "emoji",
 		},
 		{
 			Name:       "Limit",
 			SchemaName: "limit",
+		},
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
 		},
 	}
 	return typ
@@ -111,7 +130,7 @@ func (g *GetStickersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getStickers#a0ef757c as nil")
+		return fmt.Errorf("can't encode getStickers#19afca52 as nil")
 	}
 	b.PutID(GetStickersRequestTypeID)
 	return g.EncodeBare(b)
@@ -120,20 +139,27 @@ func (g *GetStickersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getStickers#a0ef757c as nil")
+		return fmt.Errorf("can't encode getStickers#19afca52 as nil")
+	}
+	if g.StickerType == nil {
+		return fmt.Errorf("unable to encode getStickers#19afca52: field sticker_type is nil")
+	}
+	if err := g.StickerType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode getStickers#19afca52: field sticker_type: %w", err)
 	}
 	b.PutString(g.Emoji)
 	b.PutInt32(g.Limit)
+	b.PutInt53(g.ChatID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getStickers#a0ef757c to nil")
+		return fmt.Errorf("can't decode getStickers#19afca52 to nil")
 	}
 	if err := b.ConsumeID(GetStickersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getStickers#a0ef757c: %w", err)
+		return fmt.Errorf("unable to decode getStickers#19afca52: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -141,21 +167,35 @@ func (g *GetStickersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetStickersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getStickers#a0ef757c to nil")
+		return fmt.Errorf("can't decode getStickers#19afca52 to nil")
+	}
+	{
+		value, err := DecodeStickerType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode getStickers#19afca52: field sticker_type: %w", err)
+		}
+		g.StickerType = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode getStickers#a0ef757c: field emoji: %w", err)
+			return fmt.Errorf("unable to decode getStickers#19afca52: field emoji: %w", err)
 		}
 		g.Emoji = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getStickers#a0ef757c: field limit: %w", err)
+			return fmt.Errorf("unable to decode getStickers#19afca52: field limit: %w", err)
 		}
 		g.Limit = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode getStickers#19afca52: field chat_id: %w", err)
+		}
+		g.ChatID = value
 	}
 	return nil
 }
@@ -163,16 +203,27 @@ func (g *GetStickersRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetStickersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getStickers#a0ef757c as nil")
+		return fmt.Errorf("can't encode getStickers#19afca52 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getStickers")
+	b.Comma()
+	b.FieldStart("sticker_type")
+	if g.StickerType == nil {
+		return fmt.Errorf("unable to encode getStickers#19afca52: field sticker_type is nil")
+	}
+	if err := g.StickerType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getStickers#19afca52: field sticker_type: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("emoji")
 	b.PutString(g.Emoji)
 	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
+	b.Comma()
+	b.FieldStart("chat_id")
+	b.PutInt53(g.ChatID)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -182,32 +233,52 @@ func (g *GetStickersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetStickersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getStickers#a0ef757c to nil")
+		return fmt.Errorf("can't decode getStickers#19afca52 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getStickers"); err != nil {
-				return fmt.Errorf("unable to decode getStickers#a0ef757c: %w", err)
+				return fmt.Errorf("unable to decode getStickers#19afca52: %w", err)
 			}
+		case "sticker_type":
+			value, err := DecodeTDLibJSONStickerType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode getStickers#19afca52: field sticker_type: %w", err)
+			}
+			g.StickerType = value
 		case "emoji":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode getStickers#a0ef757c: field emoji: %w", err)
+				return fmt.Errorf("unable to decode getStickers#19afca52: field emoji: %w", err)
 			}
 			g.Emoji = value
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getStickers#a0ef757c: field limit: %w", err)
+				return fmt.Errorf("unable to decode getStickers#19afca52: field limit: %w", err)
 			}
 			g.Limit = value
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode getStickers#19afca52: field chat_id: %w", err)
+			}
+			g.ChatID = value
 		default:
 			return b.Skip()
 		}
 		return nil
 	})
+}
+
+// GetStickerType returns value of StickerType field.
+func (g *GetStickersRequest) GetStickerType() (value StickerTypeClass) {
+	if g == nil {
+		return
+	}
+	return g.StickerType
 }
 
 // GetEmoji returns value of Emoji field.
@@ -226,7 +297,15 @@ func (g *GetStickersRequest) GetLimit() (value int32) {
 	return g.Limit
 }
 
-// GetStickers invokes method getStickers#a0ef757c returning error if any.
+// GetChatID returns value of ChatID field.
+func (g *GetStickersRequest) GetChatID() (value int64) {
+	if g == nil {
+		return
+	}
+	return g.ChatID
+}
+
+// GetStickers invokes method getStickers#19afca52 returning error if any.
 func (c *Client) GetStickers(ctx context.Context, request *GetStickersRequest) (*Stickers, error) {
 	var result Stickers
 

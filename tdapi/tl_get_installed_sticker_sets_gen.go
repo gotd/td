@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetInstalledStickerSetsRequest represents TL type `getInstalledStickerSets#48642965`.
+// GetInstalledStickerSetsRequest represents TL type `getInstalledStickerSets#612ef6f6`.
 type GetInstalledStickerSetsRequest struct {
-	// Pass true to return mask sticker sets; pass false to return ordinary sticker sets
-	IsMasks bool
+	// Type of the sticker sets to return
+	StickerType StickerTypeClass
 }
 
 // GetInstalledStickerSetsRequestTypeID is TL type id of GetInstalledStickerSetsRequest.
-const GetInstalledStickerSetsRequestTypeID = 0x48642965
+const GetInstalledStickerSetsRequestTypeID = 0x612ef6f6
 
 // Ensuring interfaces in compile-time for GetInstalledStickerSetsRequest.
 var (
@@ -52,7 +52,7 @@ func (g *GetInstalledStickerSetsRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
-	if !(g.IsMasks == false) {
+	if !(g.StickerType == nil) {
 		return false
 	}
 
@@ -92,8 +92,8 @@ func (g *GetInstalledStickerSetsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "IsMasks",
-			SchemaName: "is_masks",
+			Name:       "StickerType",
+			SchemaName: "sticker_type",
 		},
 	}
 	return typ
@@ -102,7 +102,7 @@ func (g *GetInstalledStickerSetsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetInstalledStickerSetsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getInstalledStickerSets#48642965 as nil")
+		return fmt.Errorf("can't encode getInstalledStickerSets#612ef6f6 as nil")
 	}
 	b.PutID(GetInstalledStickerSetsRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,19 +111,24 @@ func (g *GetInstalledStickerSetsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetInstalledStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getInstalledStickerSets#48642965 as nil")
+		return fmt.Errorf("can't encode getInstalledStickerSets#612ef6f6 as nil")
 	}
-	b.PutBool(g.IsMasks)
+	if g.StickerType == nil {
+		return fmt.Errorf("unable to encode getInstalledStickerSets#612ef6f6: field sticker_type is nil")
+	}
+	if err := g.StickerType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode getInstalledStickerSets#612ef6f6: field sticker_type: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetInstalledStickerSetsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getInstalledStickerSets#48642965 to nil")
+		return fmt.Errorf("can't decode getInstalledStickerSets#612ef6f6 to nil")
 	}
 	if err := b.ConsumeID(GetInstalledStickerSetsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getInstalledStickerSets#48642965: %w", err)
+		return fmt.Errorf("unable to decode getInstalledStickerSets#612ef6f6: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -131,14 +136,14 @@ func (g *GetInstalledStickerSetsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetInstalledStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getInstalledStickerSets#48642965 to nil")
+		return fmt.Errorf("can't decode getInstalledStickerSets#612ef6f6 to nil")
 	}
 	{
-		value, err := b.Bool()
+		value, err := DecodeStickerType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode getInstalledStickerSets#48642965: field is_masks: %w", err)
+			return fmt.Errorf("unable to decode getInstalledStickerSets#612ef6f6: field sticker_type: %w", err)
 		}
-		g.IsMasks = value
+		g.StickerType = value
 	}
 	return nil
 }
@@ -146,13 +151,18 @@ func (g *GetInstalledStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetInstalledStickerSetsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getInstalledStickerSets#48642965 as nil")
+		return fmt.Errorf("can't encode getInstalledStickerSets#612ef6f6 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getInstalledStickerSets")
 	b.Comma()
-	b.FieldStart("is_masks")
-	b.PutBool(g.IsMasks)
+	b.FieldStart("sticker_type")
+	if g.StickerType == nil {
+		return fmt.Errorf("unable to encode getInstalledStickerSets#612ef6f6: field sticker_type is nil")
+	}
+	if err := g.StickerType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getInstalledStickerSets#612ef6f6: field sticker_type: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -162,21 +172,21 @@ func (g *GetInstalledStickerSetsRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetInstalledStickerSetsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getInstalledStickerSets#48642965 to nil")
+		return fmt.Errorf("can't decode getInstalledStickerSets#612ef6f6 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getInstalledStickerSets"); err != nil {
-				return fmt.Errorf("unable to decode getInstalledStickerSets#48642965: %w", err)
+				return fmt.Errorf("unable to decode getInstalledStickerSets#612ef6f6: %w", err)
 			}
-		case "is_masks":
-			value, err := b.Bool()
+		case "sticker_type":
+			value, err := DecodeTDLibJSONStickerType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode getInstalledStickerSets#48642965: field is_masks: %w", err)
+				return fmt.Errorf("unable to decode getInstalledStickerSets#612ef6f6: field sticker_type: %w", err)
 			}
-			g.IsMasks = value
+			g.StickerType = value
 		default:
 			return b.Skip()
 		}
@@ -184,20 +194,20 @@ func (g *GetInstalledStickerSetsRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 	})
 }
 
-// GetIsMasks returns value of IsMasks field.
-func (g *GetInstalledStickerSetsRequest) GetIsMasks() (value bool) {
+// GetStickerType returns value of StickerType field.
+func (g *GetInstalledStickerSetsRequest) GetStickerType() (value StickerTypeClass) {
 	if g == nil {
 		return
 	}
-	return g.IsMasks
+	return g.StickerType
 }
 
-// GetInstalledStickerSets invokes method getInstalledStickerSets#48642965 returning error if any.
-func (c *Client) GetInstalledStickerSets(ctx context.Context, ismasks bool) (*StickerSets, error) {
+// GetInstalledStickerSets invokes method getInstalledStickerSets#612ef6f6 returning error if any.
+func (c *Client) GetInstalledStickerSets(ctx context.Context, stickertype StickerTypeClass) (*StickerSets, error) {
 	var result StickerSets
 
 	request := &GetInstalledStickerSetsRequest{
-		IsMasks: ismasks,
+		StickerType: stickertype,
 	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err

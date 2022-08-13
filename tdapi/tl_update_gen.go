@@ -15513,16 +15513,16 @@ func (u *UpdateStickerSet) GetStickerSet() (value StickerSet) {
 	return u.StickerSet
 }
 
-// UpdateInstalledStickerSets represents TL type `updateInstalledStickerSets#6dc3c1f8`.
+// UpdateInstalledStickerSets represents TL type `updateInstalledStickerSets#82cd5388`.
 type UpdateInstalledStickerSets struct {
-	// True, if the list of installed mask sticker sets was updated
-	IsMasks bool
+	// Type of the affected stickers
+	StickerType StickerTypeClass
 	// The new list of installed ordinary sticker sets
 	StickerSetIDs []int64
 }
 
 // UpdateInstalledStickerSetsTypeID is TL type id of UpdateInstalledStickerSets.
-const UpdateInstalledStickerSetsTypeID = 0x6dc3c1f8
+const UpdateInstalledStickerSetsTypeID = 0x82cd5388
 
 // construct implements constructor of UpdateClass.
 func (u UpdateInstalledStickerSets) construct() UpdateClass { return &u }
@@ -15541,7 +15541,7 @@ func (u *UpdateInstalledStickerSets) Zero() bool {
 	if u == nil {
 		return true
 	}
-	if !(u.IsMasks == false) {
+	if !(u.StickerType == nil) {
 		return false
 	}
 	if !(u.StickerSetIDs == nil) {
@@ -15584,8 +15584,8 @@ func (u *UpdateInstalledStickerSets) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "IsMasks",
-			SchemaName: "is_masks",
+			Name:       "StickerType",
+			SchemaName: "sticker_type",
 		},
 		{
 			Name:       "StickerSetIDs",
@@ -15598,7 +15598,7 @@ func (u *UpdateInstalledStickerSets) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UpdateInstalledStickerSets) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateInstalledStickerSets#6dc3c1f8 as nil")
+		return fmt.Errorf("can't encode updateInstalledStickerSets#82cd5388 as nil")
 	}
 	b.PutID(UpdateInstalledStickerSetsTypeID)
 	return u.EncodeBare(b)
@@ -15607,9 +15607,14 @@ func (u *UpdateInstalledStickerSets) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateInstalledStickerSets) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateInstalledStickerSets#6dc3c1f8 as nil")
+		return fmt.Errorf("can't encode updateInstalledStickerSets#82cd5388 as nil")
 	}
-	b.PutBool(u.IsMasks)
+	if u.StickerType == nil {
+		return fmt.Errorf("unable to encode updateInstalledStickerSets#82cd5388: field sticker_type is nil")
+	}
+	if err := u.StickerType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateInstalledStickerSets#82cd5388: field sticker_type: %w", err)
+	}
 	b.PutInt(len(u.StickerSetIDs))
 	for _, v := range u.StickerSetIDs {
 		b.PutLong(v)
@@ -15620,10 +15625,10 @@ func (u *UpdateInstalledStickerSets) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UpdateInstalledStickerSets) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateInstalledStickerSets#6dc3c1f8 to nil")
+		return fmt.Errorf("can't decode updateInstalledStickerSets#82cd5388 to nil")
 	}
 	if err := b.ConsumeID(UpdateInstalledStickerSetsTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateInstalledStickerSets#6dc3c1f8: %w", err)
+		return fmt.Errorf("unable to decode updateInstalledStickerSets#82cd5388: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -15631,19 +15636,19 @@ func (u *UpdateInstalledStickerSets) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateInstalledStickerSets) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateInstalledStickerSets#6dc3c1f8 to nil")
+		return fmt.Errorf("can't decode updateInstalledStickerSets#82cd5388 to nil")
 	}
 	{
-		value, err := b.Bool()
+		value, err := DecodeStickerType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updateInstalledStickerSets#6dc3c1f8: field is_masks: %w", err)
+			return fmt.Errorf("unable to decode updateInstalledStickerSets#82cd5388: field sticker_type: %w", err)
 		}
-		u.IsMasks = value
+		u.StickerType = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateInstalledStickerSets#6dc3c1f8: field sticker_set_ids: %w", err)
+			return fmt.Errorf("unable to decode updateInstalledStickerSets#82cd5388: field sticker_set_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -15652,7 +15657,7 @@ func (u *UpdateInstalledStickerSets) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateInstalledStickerSets#6dc3c1f8: field sticker_set_ids: %w", err)
+				return fmt.Errorf("unable to decode updateInstalledStickerSets#82cd5388: field sticker_set_ids: %w", err)
 			}
 			u.StickerSetIDs = append(u.StickerSetIDs, value)
 		}
@@ -15663,13 +15668,18 @@ func (u *UpdateInstalledStickerSets) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UpdateInstalledStickerSets) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateInstalledStickerSets#6dc3c1f8 as nil")
+		return fmt.Errorf("can't encode updateInstalledStickerSets#82cd5388 as nil")
 	}
 	b.ObjStart()
 	b.PutID("updateInstalledStickerSets")
 	b.Comma()
-	b.FieldStart("is_masks")
-	b.PutBool(u.IsMasks)
+	b.FieldStart("sticker_type")
+	if u.StickerType == nil {
+		return fmt.Errorf("unable to encode updateInstalledStickerSets#82cd5388: field sticker_type is nil")
+	}
+	if err := u.StickerType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateInstalledStickerSets#82cd5388: field sticker_type: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("sticker_set_ids")
 	b.ArrStart()
@@ -15688,31 +15698,31 @@ func (u *UpdateInstalledStickerSets) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UpdateInstalledStickerSets) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateInstalledStickerSets#6dc3c1f8 to nil")
+		return fmt.Errorf("can't decode updateInstalledStickerSets#82cd5388 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("updateInstalledStickerSets"); err != nil {
-				return fmt.Errorf("unable to decode updateInstalledStickerSets#6dc3c1f8: %w", err)
+				return fmt.Errorf("unable to decode updateInstalledStickerSets#82cd5388: %w", err)
 			}
-		case "is_masks":
-			value, err := b.Bool()
+		case "sticker_type":
+			value, err := DecodeTDLibJSONStickerType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updateInstalledStickerSets#6dc3c1f8: field is_masks: %w", err)
+				return fmt.Errorf("unable to decode updateInstalledStickerSets#82cd5388: field sticker_type: %w", err)
 			}
-			u.IsMasks = value
+			u.StickerType = value
 		case "sticker_set_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Long()
 				if err != nil {
-					return fmt.Errorf("unable to decode updateInstalledStickerSets#6dc3c1f8: field sticker_set_ids: %w", err)
+					return fmt.Errorf("unable to decode updateInstalledStickerSets#82cd5388: field sticker_set_ids: %w", err)
 				}
 				u.StickerSetIDs = append(u.StickerSetIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode updateInstalledStickerSets#6dc3c1f8: field sticker_set_ids: %w", err)
+				return fmt.Errorf("unable to decode updateInstalledStickerSets#82cd5388: field sticker_set_ids: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -15721,12 +15731,12 @@ func (u *UpdateInstalledStickerSets) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetIsMasks returns value of IsMasks field.
-func (u *UpdateInstalledStickerSets) GetIsMasks() (value bool) {
+// GetStickerType returns value of StickerType field.
+func (u *UpdateInstalledStickerSets) GetStickerType() (value StickerTypeClass) {
 	if u == nil {
 		return
 	}
-	return u.IsMasks
+	return u.StickerType
 }
 
 // GetStickerSetIDs returns value of StickerSetIDs field.
@@ -15737,14 +15747,16 @@ func (u *UpdateInstalledStickerSets) GetStickerSetIDs() (value []int64) {
 	return u.StickerSetIDs
 }
 
-// UpdateTrendingStickerSets represents TL type `updateTrendingStickerSets#1e33794c`.
+// UpdateTrendingStickerSets represents TL type `updateTrendingStickerSets#4b7a50a7`.
 type UpdateTrendingStickerSets struct {
+	// Type of the affected stickers
+	StickerType StickerTypeClass
 	// The prefix of the list of trending sticker sets with the newest trending sticker sets
 	StickerSets TrendingStickerSets
 }
 
 // UpdateTrendingStickerSetsTypeID is TL type id of UpdateTrendingStickerSets.
-const UpdateTrendingStickerSetsTypeID = 0x1e33794c
+const UpdateTrendingStickerSetsTypeID = 0x4b7a50a7
 
 // construct implements constructor of UpdateClass.
 func (u UpdateTrendingStickerSets) construct() UpdateClass { return &u }
@@ -15762,6 +15774,9 @@ var (
 func (u *UpdateTrendingStickerSets) Zero() bool {
 	if u == nil {
 		return true
+	}
+	if !(u.StickerType == nil) {
+		return false
 	}
 	if !(u.StickerSets.Zero()) {
 		return false
@@ -15803,6 +15818,10 @@ func (u *UpdateTrendingStickerSets) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "StickerType",
+			SchemaName: "sticker_type",
+		},
+		{
 			Name:       "StickerSets",
 			SchemaName: "sticker_sets",
 		},
@@ -15813,7 +15832,7 @@ func (u *UpdateTrendingStickerSets) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UpdateTrendingStickerSets) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateTrendingStickerSets#1e33794c as nil")
+		return fmt.Errorf("can't encode updateTrendingStickerSets#4b7a50a7 as nil")
 	}
 	b.PutID(UpdateTrendingStickerSetsTypeID)
 	return u.EncodeBare(b)
@@ -15822,10 +15841,16 @@ func (u *UpdateTrendingStickerSets) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateTrendingStickerSets) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateTrendingStickerSets#1e33794c as nil")
+		return fmt.Errorf("can't encode updateTrendingStickerSets#4b7a50a7 as nil")
+	}
+	if u.StickerType == nil {
+		return fmt.Errorf("unable to encode updateTrendingStickerSets#4b7a50a7: field sticker_type is nil")
+	}
+	if err := u.StickerType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateTrendingStickerSets#4b7a50a7: field sticker_type: %w", err)
 	}
 	if err := u.StickerSets.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateTrendingStickerSets#1e33794c: field sticker_sets: %w", err)
+		return fmt.Errorf("unable to encode updateTrendingStickerSets#4b7a50a7: field sticker_sets: %w", err)
 	}
 	return nil
 }
@@ -15833,10 +15858,10 @@ func (u *UpdateTrendingStickerSets) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UpdateTrendingStickerSets) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateTrendingStickerSets#1e33794c to nil")
+		return fmt.Errorf("can't decode updateTrendingStickerSets#4b7a50a7 to nil")
 	}
 	if err := b.ConsumeID(UpdateTrendingStickerSetsTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateTrendingStickerSets#1e33794c: %w", err)
+		return fmt.Errorf("unable to decode updateTrendingStickerSets#4b7a50a7: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -15844,11 +15869,18 @@ func (u *UpdateTrendingStickerSets) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateTrendingStickerSets) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateTrendingStickerSets#1e33794c to nil")
+		return fmt.Errorf("can't decode updateTrendingStickerSets#4b7a50a7 to nil")
+	}
+	{
+		value, err := DecodeStickerType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateTrendingStickerSets#4b7a50a7: field sticker_type: %w", err)
+		}
+		u.StickerType = value
 	}
 	{
 		if err := u.StickerSets.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateTrendingStickerSets#1e33794c: field sticker_sets: %w", err)
+			return fmt.Errorf("unable to decode updateTrendingStickerSets#4b7a50a7: field sticker_sets: %w", err)
 		}
 	}
 	return nil
@@ -15857,14 +15889,22 @@ func (u *UpdateTrendingStickerSets) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UpdateTrendingStickerSets) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateTrendingStickerSets#1e33794c as nil")
+		return fmt.Errorf("can't encode updateTrendingStickerSets#4b7a50a7 as nil")
 	}
 	b.ObjStart()
 	b.PutID("updateTrendingStickerSets")
 	b.Comma()
+	b.FieldStart("sticker_type")
+	if u.StickerType == nil {
+		return fmt.Errorf("unable to encode updateTrendingStickerSets#4b7a50a7: field sticker_type is nil")
+	}
+	if err := u.StickerType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateTrendingStickerSets#4b7a50a7: field sticker_type: %w", err)
+	}
+	b.Comma()
 	b.FieldStart("sticker_sets")
 	if err := u.StickerSets.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode updateTrendingStickerSets#1e33794c: field sticker_sets: %w", err)
+		return fmt.Errorf("unable to encode updateTrendingStickerSets#4b7a50a7: field sticker_sets: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -15875,24 +15915,38 @@ func (u *UpdateTrendingStickerSets) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UpdateTrendingStickerSets) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateTrendingStickerSets#1e33794c to nil")
+		return fmt.Errorf("can't decode updateTrendingStickerSets#4b7a50a7 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("updateTrendingStickerSets"); err != nil {
-				return fmt.Errorf("unable to decode updateTrendingStickerSets#1e33794c: %w", err)
+				return fmt.Errorf("unable to decode updateTrendingStickerSets#4b7a50a7: %w", err)
 			}
+		case "sticker_type":
+			value, err := DecodeTDLibJSONStickerType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode updateTrendingStickerSets#4b7a50a7: field sticker_type: %w", err)
+			}
+			u.StickerType = value
 		case "sticker_sets":
 			if err := u.StickerSets.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode updateTrendingStickerSets#1e33794c: field sticker_sets: %w", err)
+				return fmt.Errorf("unable to decode updateTrendingStickerSets#4b7a50a7: field sticker_sets: %w", err)
 			}
 		default:
 			return b.Skip()
 		}
 		return nil
 	})
+}
+
+// GetStickerType returns value of StickerType field.
+func (u *UpdateTrendingStickerSets) GetStickerType() (value StickerTypeClass) {
+	if u == nil {
+		return
+	}
+	return u.StickerType
 }
 
 // GetStickerSets returns value of StickerSets field.
@@ -22817,8 +22871,8 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateUnreadChatCount: // updateUnreadChatCount#76e19242
 //	case *tdapi.UpdateOption: // updateOption#35b17404
 //	case *tdapi.UpdateStickerSet: // updateStickerSet#70035dcc
-//	case *tdapi.UpdateInstalledStickerSets: // updateInstalledStickerSets#6dc3c1f8
-//	case *tdapi.UpdateTrendingStickerSets: // updateTrendingStickerSets#1e33794c
+//	case *tdapi.UpdateInstalledStickerSets: // updateInstalledStickerSets#82cd5388
+//	case *tdapi.UpdateTrendingStickerSets: // updateTrendingStickerSets#4b7a50a7
 //	case *tdapi.UpdateRecentStickers: // updateRecentStickers#aefdf8dc
 //	case *tdapi.UpdateFavoriteStickers: // updateFavoriteStickers#113f2b6a
 //	case *tdapi.UpdateSavedAnimations: // updateSavedAnimations#1084a1c8
@@ -23384,14 +23438,14 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateInstalledStickerSetsTypeID:
-		// Decoding updateInstalledStickerSets#6dc3c1f8.
+		// Decoding updateInstalledStickerSets#82cd5388.
 		v := UpdateInstalledStickerSets{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
 	case UpdateTrendingStickerSetsTypeID:
-		// Decoding updateTrendingStickerSets#1e33794c.
+		// Decoding updateTrendingStickerSets#4b7a50a7.
 		v := UpdateTrendingStickerSets{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -24117,14 +24171,14 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 		}
 		return &v, nil
 	case "updateInstalledStickerSets":
-		// Decoding updateInstalledStickerSets#6dc3c1f8.
+		// Decoding updateInstalledStickerSets#82cd5388.
 		v := UpdateInstalledStickerSets{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
 	case "updateTrendingStickerSets":
-		// Decoding updateTrendingStickerSets#1e33794c.
+		// Decoding updateTrendingStickerSets#4b7a50a7.
 		v := UpdateTrendingStickerSets{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)

@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AssignAppStoreTransactionRequest represents TL type `assignAppStoreTransaction#a8eaf77f`.
+// AssignAppStoreTransactionRequest represents TL type `assignAppStoreTransaction#86f30bb0`.
 type AssignAppStoreTransactionRequest struct {
 	// App Store receipt
 	Receipt []byte
-	// Pass true if this is a restore of a Telegram Premium purchase
-	IsRestore bool
+	// Transaction purpose
+	Purpose StorePaymentPurposeClass
 }
 
 // AssignAppStoreTransactionRequestTypeID is TL type id of AssignAppStoreTransactionRequest.
-const AssignAppStoreTransactionRequestTypeID = 0xa8eaf77f
+const AssignAppStoreTransactionRequestTypeID = 0x86f30bb0
 
 // Ensuring interfaces in compile-time for AssignAppStoreTransactionRequest.
 var (
@@ -57,7 +57,7 @@ func (a *AssignAppStoreTransactionRequest) Zero() bool {
 	if !(a.Receipt == nil) {
 		return false
 	}
-	if !(a.IsRestore == false) {
+	if !(a.Purpose == nil) {
 		return false
 	}
 
@@ -101,8 +101,8 @@ func (a *AssignAppStoreTransactionRequest) TypeInfo() tdp.Type {
 			SchemaName: "receipt",
 		},
 		{
-			Name:       "IsRestore",
-			SchemaName: "is_restore",
+			Name:       "Purpose",
+			SchemaName: "purpose",
 		},
 	}
 	return typ
@@ -111,7 +111,7 @@ func (a *AssignAppStoreTransactionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AssignAppStoreTransactionRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode assignAppStoreTransaction#a8eaf77f as nil")
+		return fmt.Errorf("can't encode assignAppStoreTransaction#86f30bb0 as nil")
 	}
 	b.PutID(AssignAppStoreTransactionRequestTypeID)
 	return a.EncodeBare(b)
@@ -120,20 +120,25 @@ func (a *AssignAppStoreTransactionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AssignAppStoreTransactionRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode assignAppStoreTransaction#a8eaf77f as nil")
+		return fmt.Errorf("can't encode assignAppStoreTransaction#86f30bb0 as nil")
 	}
 	b.PutBytes(a.Receipt)
-	b.PutBool(a.IsRestore)
+	if a.Purpose == nil {
+		return fmt.Errorf("unable to encode assignAppStoreTransaction#86f30bb0: field purpose is nil")
+	}
+	if err := a.Purpose.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode assignAppStoreTransaction#86f30bb0: field purpose: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (a *AssignAppStoreTransactionRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode assignAppStoreTransaction#a8eaf77f to nil")
+		return fmt.Errorf("can't decode assignAppStoreTransaction#86f30bb0 to nil")
 	}
 	if err := b.ConsumeID(AssignAppStoreTransactionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode assignAppStoreTransaction#a8eaf77f: %w", err)
+		return fmt.Errorf("unable to decode assignAppStoreTransaction#86f30bb0: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -141,21 +146,21 @@ func (a *AssignAppStoreTransactionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AssignAppStoreTransactionRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode assignAppStoreTransaction#a8eaf77f to nil")
+		return fmt.Errorf("can't decode assignAppStoreTransaction#86f30bb0 to nil")
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode assignAppStoreTransaction#a8eaf77f: field receipt: %w", err)
+			return fmt.Errorf("unable to decode assignAppStoreTransaction#86f30bb0: field receipt: %w", err)
 		}
 		a.Receipt = value
 	}
 	{
-		value, err := b.Bool()
+		value, err := DecodeStorePaymentPurpose(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode assignAppStoreTransaction#a8eaf77f: field is_restore: %w", err)
+			return fmt.Errorf("unable to decode assignAppStoreTransaction#86f30bb0: field purpose: %w", err)
 		}
-		a.IsRestore = value
+		a.Purpose = value
 	}
 	return nil
 }
@@ -163,7 +168,7 @@ func (a *AssignAppStoreTransactionRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (a *AssignAppStoreTransactionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
-		return fmt.Errorf("can't encode assignAppStoreTransaction#a8eaf77f as nil")
+		return fmt.Errorf("can't encode assignAppStoreTransaction#86f30bb0 as nil")
 	}
 	b.ObjStart()
 	b.PutID("assignAppStoreTransaction")
@@ -171,8 +176,13 @@ func (a *AssignAppStoreTransactionRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 	b.FieldStart("receipt")
 	b.PutBytes(a.Receipt)
 	b.Comma()
-	b.FieldStart("is_restore")
-	b.PutBool(a.IsRestore)
+	b.FieldStart("purpose")
+	if a.Purpose == nil {
+		return fmt.Errorf("unable to encode assignAppStoreTransaction#86f30bb0: field purpose is nil")
+	}
+	if err := a.Purpose.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode assignAppStoreTransaction#86f30bb0: field purpose: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -182,27 +192,27 @@ func (a *AssignAppStoreTransactionRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (a *AssignAppStoreTransactionRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
-		return fmt.Errorf("can't decode assignAppStoreTransaction#a8eaf77f to nil")
+		return fmt.Errorf("can't decode assignAppStoreTransaction#86f30bb0 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("assignAppStoreTransaction"); err != nil {
-				return fmt.Errorf("unable to decode assignAppStoreTransaction#a8eaf77f: %w", err)
+				return fmt.Errorf("unable to decode assignAppStoreTransaction#86f30bb0: %w", err)
 			}
 		case "receipt":
 			value, err := b.Bytes()
 			if err != nil {
-				return fmt.Errorf("unable to decode assignAppStoreTransaction#a8eaf77f: field receipt: %w", err)
+				return fmt.Errorf("unable to decode assignAppStoreTransaction#86f30bb0: field receipt: %w", err)
 			}
 			a.Receipt = value
-		case "is_restore":
-			value, err := b.Bool()
+		case "purpose":
+			value, err := DecodeTDLibJSONStorePaymentPurpose(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode assignAppStoreTransaction#a8eaf77f: field is_restore: %w", err)
+				return fmt.Errorf("unable to decode assignAppStoreTransaction#86f30bb0: field purpose: %w", err)
 			}
-			a.IsRestore = value
+			a.Purpose = value
 		default:
 			return b.Skip()
 		}
@@ -218,15 +228,15 @@ func (a *AssignAppStoreTransactionRequest) GetReceipt() (value []byte) {
 	return a.Receipt
 }
 
-// GetIsRestore returns value of IsRestore field.
-func (a *AssignAppStoreTransactionRequest) GetIsRestore() (value bool) {
+// GetPurpose returns value of Purpose field.
+func (a *AssignAppStoreTransactionRequest) GetPurpose() (value StorePaymentPurposeClass) {
 	if a == nil {
 		return
 	}
-	return a.IsRestore
+	return a.Purpose
 }
 
-// AssignAppStoreTransaction invokes method assignAppStoreTransaction#a8eaf77f returning error if any.
+// AssignAppStoreTransaction invokes method assignAppStoreTransaction#86f30bb0 returning error if any.
 func (c *Client) AssignAppStoreTransaction(ctx context.Context, request *AssignAppStoreTransactionRequest) error {
 	var ok Ok
 

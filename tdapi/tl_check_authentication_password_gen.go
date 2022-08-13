@@ -33,7 +33,7 @@ var (
 
 // CheckAuthenticationPasswordRequest represents TL type `checkAuthenticationPassword#87424ba0`.
 type CheckAuthenticationPasswordRequest struct {
-	// The password to check
+	// The 2-step verification password to check
 	Password string
 }
 

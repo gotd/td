@@ -35,8 +35,8 @@ var (
 type SetChatNotificationSettingsRequest struct {
 	// Chat identifier
 	ChatID int64
-	// New notification settings for the chat. If the chat is muted for more than 1 week, it
-	// is considered to be muted forever
+	// New notification settings for the chat. If the chat is muted for more than 366 days,
+	// it is considered to be muted forever
 	NotificationSettings ChatNotificationSettings
 }
 

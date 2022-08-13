@@ -1079,6 +1079,139 @@ func (u *UserPrivacySettingAllowFindingByPhoneNumber) DecodeTDLibJSON(b tdjson.D
 	})
 }
 
+// UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages represents TL type `userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages#14272e3c`.
+type UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages struct {
+}
+
+// UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessagesTypeID is TL type id of UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages.
+const UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessagesTypeID = 0x14272e3c
+
+// construct implements constructor of UserPrivacySettingClass.
+func (u UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages) construct() UserPrivacySettingClass {
+	return &u
+}
+
+// Ensuring interfaces in compile-time for UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages.
+var (
+	_ bin.Encoder     = &UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages{}
+	_ bin.Decoder     = &UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages{}
+	_ bin.BareEncoder = &UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages{}
+	_ bin.BareDecoder = &UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages{}
+
+	_ UserPrivacySettingClass = &UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages{}
+)
+
+func (u *UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages) String() string {
+	if u == nil {
+		return "UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages(nil)"
+	}
+	type Alias UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages
+	return fmt.Sprintf("UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages) TypeID() uint32 {
+	return UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessagesTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages) TypeName() string {
+	return "userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages",
+		ID:   UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessagesTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages#14272e3c as nil")
+	}
+	b.PutID(UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessagesTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages#14272e3c as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages#14272e3c to nil")
+	}
+	if err := b.ConsumeID(UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessagesTypeID); err != nil {
+		return fmt.Errorf("unable to decode userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages#14272e3c: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages#14272e3c to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages#14272e3c as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages#14272e3c to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages"); err != nil {
+				return fmt.Errorf("unable to decode userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages#14272e3c: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // UserPrivacySettingClassName is schema name of UserPrivacySettingClass.
 const UserPrivacySettingClassName = "UserPrivacySetting"
 
@@ -1099,6 +1232,7 @@ const UserPrivacySettingClassName = "UserPrivacySetting"
 //	case *tdapi.UserPrivacySettingAllowCalls: // userPrivacySettingAllowCalls#c9f0c705
 //	case *tdapi.UserPrivacySettingAllowPeerToPeerCalls: // userPrivacySettingAllowPeerToPeerCalls#1502b940
 //	case *tdapi.UserPrivacySettingAllowFindingByPhoneNumber: // userPrivacySettingAllowFindingByPhoneNumber#91ee6d51
+//	case *tdapi.UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages: // userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages#14272e3c
 //	default: panic(v)
 //	}
 type UserPrivacySettingClass interface {
@@ -1186,6 +1320,13 @@ func DecodeUserPrivacySetting(buf *bin.Buffer) (UserPrivacySettingClass, error) 
 			return nil, fmt.Errorf("unable to decode UserPrivacySettingClass: %w", err)
 		}
 		return &v, nil
+	case UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessagesTypeID:
+		// Decoding userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages#14272e3c.
+		v := UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserPrivacySettingClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode UserPrivacySettingClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -1250,6 +1391,13 @@ func DecodeTDLibJSONUserPrivacySetting(buf tdjson.Decoder) (UserPrivacySettingCl
 	case "userPrivacySettingAllowFindingByPhoneNumber":
 		// Decoding userPrivacySettingAllowFindingByPhoneNumber#91ee6d51.
 		v := UserPrivacySettingAllowFindingByPhoneNumber{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserPrivacySettingClass: %w", err)
+		}
+		return &v, nil
+	case "userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages":
+		// Decoding userPrivacySettingAllowPrivateVoiceAndVideoNoteMessages#14272e3c.
+		v := UserPrivacySettingAllowPrivateVoiceAndVideoNoteMessages{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserPrivacySettingClass: %w", err)
 		}

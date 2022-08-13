@@ -33,7 +33,7 @@ var (
 
 // CreateTemporaryPasswordRequest represents TL type `createTemporaryPassword#9f0d6f86`.
 type CreateTemporaryPasswordRequest struct {
-	// Persistent user password
+	// The 2-step verification password of the current user
 	Password string
 	// Time during which the temporary password will be valid, in seconds; must be between 60
 	// and 86400

@@ -2494,6 +2494,172 @@ func (t *TextEntityTypeMentionName) GetUserID() (value int64) {
 	return t.UserID
 }
 
+// TextEntityTypeCustomEmoji represents TL type `textEntityTypeCustomEmoji#66ceacc5`.
+type TextEntityTypeCustomEmoji struct {
+	// Unique identifier of the custom emoji
+	CustomEmojiID int64
+}
+
+// TextEntityTypeCustomEmojiTypeID is TL type id of TextEntityTypeCustomEmoji.
+const TextEntityTypeCustomEmojiTypeID = 0x66ceacc5
+
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypeCustomEmoji) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypeCustomEmoji.
+var (
+	_ bin.Encoder     = &TextEntityTypeCustomEmoji{}
+	_ bin.Decoder     = &TextEntityTypeCustomEmoji{}
+	_ bin.BareEncoder = &TextEntityTypeCustomEmoji{}
+	_ bin.BareDecoder = &TextEntityTypeCustomEmoji{}
+
+	_ TextEntityTypeClass = &TextEntityTypeCustomEmoji{}
+)
+
+func (t *TextEntityTypeCustomEmoji) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.CustomEmojiID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TextEntityTypeCustomEmoji) String() string {
+	if t == nil {
+		return "TextEntityTypeCustomEmoji(nil)"
+	}
+	type Alias TextEntityTypeCustomEmoji
+	return fmt.Sprintf("TextEntityTypeCustomEmoji%+v", Alias(*t))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TextEntityTypeCustomEmoji) TypeID() uint32 {
+	return TextEntityTypeCustomEmojiTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TextEntityTypeCustomEmoji) TypeName() string {
+	return "textEntityTypeCustomEmoji"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextEntityTypeCustomEmoji) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textEntityTypeCustomEmoji",
+		ID:   TextEntityTypeCustomEmojiTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "CustomEmojiID",
+			SchemaName: "custom_emoji_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TextEntityTypeCustomEmoji) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeCustomEmoji#66ceacc5 as nil")
+	}
+	b.PutID(TextEntityTypeCustomEmojiTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypeCustomEmoji) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeCustomEmoji#66ceacc5 as nil")
+	}
+	b.PutLong(t.CustomEmojiID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TextEntityTypeCustomEmoji) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeCustomEmoji#66ceacc5 to nil")
+	}
+	if err := b.ConsumeID(TextEntityTypeCustomEmojiTypeID); err != nil {
+		return fmt.Errorf("unable to decode textEntityTypeCustomEmoji#66ceacc5: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypeCustomEmoji) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeCustomEmoji#66ceacc5 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode textEntityTypeCustomEmoji#66ceacc5: field custom_emoji_id: %w", err)
+		}
+		t.CustomEmojiID = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypeCustomEmoji) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeCustomEmoji#66ceacc5 as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypeCustomEmoji")
+	b.Comma()
+	b.FieldStart("custom_emoji_id")
+	b.PutLong(t.CustomEmojiID)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypeCustomEmoji) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeCustomEmoji#66ceacc5 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("textEntityTypeCustomEmoji"); err != nil {
+				return fmt.Errorf("unable to decode textEntityTypeCustomEmoji#66ceacc5: %w", err)
+			}
+		case "custom_emoji_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode textEntityTypeCustomEmoji#66ceacc5: field custom_emoji_id: %w", err)
+			}
+			t.CustomEmojiID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetCustomEmojiID returns value of CustomEmojiID field.
+func (t *TextEntityTypeCustomEmoji) GetCustomEmojiID() (value int64) {
+	if t == nil {
+		return
+	}
+	return t.CustomEmojiID
+}
+
 // TextEntityTypeMediaTimestamp represents TL type `textEntityTypeMediaTimestamp#9236da10`.
 type TextEntityTypeMediaTimestamp struct {
 	// Timestamp from which a video/audio/video note/voice note playing must start, in
@@ -2692,6 +2858,7 @@ const TextEntityTypeClassName = "TextEntityType"
 //	case *tdapi.TextEntityTypePreCode: // textEntityTypePreCode#c7a77aab
 //	case *tdapi.TextEntityTypeTextURL: // textEntityTypeTextUrl#1a912463
 //	case *tdapi.TextEntityTypeMentionName: // textEntityTypeMentionName#a25cd5af
+//	case *tdapi.TextEntityTypeCustomEmoji: // textEntityTypeCustomEmoji#66ceacc5
 //	case *tdapi.TextEntityTypeMediaTimestamp: // textEntityTypeMediaTimestamp#9236da10
 //	default: panic(v)
 //	}
@@ -2850,6 +3017,13 @@ func DecodeTextEntityType(buf *bin.Buffer) (TextEntityTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
 		}
 		return &v, nil
+	case TextEntityTypeCustomEmojiTypeID:
+		// Decoding textEntityTypeCustomEmoji#66ceacc5.
+		v := TextEntityTypeCustomEmoji{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+		}
+		return &v, nil
 	case TextEntityTypeMediaTimestampTypeID:
 		// Decoding textEntityTypeMediaTimestamp#9236da10.
 		v := TextEntityTypeMediaTimestamp{}
@@ -2991,6 +3165,13 @@ func DecodeTDLibJSONTextEntityType(buf tdjson.Decoder) (TextEntityTypeClass, err
 	case "textEntityTypeMentionName":
 		// Decoding textEntityTypeMentionName#a25cd5af.
 		v := TextEntityTypeMentionName{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+		}
+		return &v, nil
+	case "textEntityTypeCustomEmoji":
+		// Decoding textEntityTypeCustomEmoji#66ceacc5.
+		v := TextEntityTypeCustomEmoji{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
 		}

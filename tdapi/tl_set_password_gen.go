@@ -33,9 +33,9 @@ var (
 
 // SetPasswordRequest represents TL type `setPassword#b8db46dd`.
 type SetPasswordRequest struct {
-	// Previous password of the user
+	// Previous 2-step verification password of the user
 	OldPassword string
-	// New password of the user; may be empty to remove the password
+	// New 2-step verification password of the user; may be empty to remove the password
 	NewPassword string
 	// New password hint; may be empty
 	NewHint string

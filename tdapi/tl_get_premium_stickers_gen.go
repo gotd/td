@@ -31,12 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetPremiumStickersRequest represents TL type `getPremiumStickers#8a2b9a2`.
+// GetPremiumStickersRequest represents TL type `getPremiumStickers#ef410a50`.
 type GetPremiumStickersRequest struct {
+	// The maximum number of stickers to be returned; 0-100
+	Limit int32
 }
 
 // GetPremiumStickersRequestTypeID is TL type id of GetPremiumStickersRequest.
-const GetPremiumStickersRequestTypeID = 0x8a2b9a2
+const GetPremiumStickersRequestTypeID = 0xef410a50
 
 // Ensuring interfaces in compile-time for GetPremiumStickersRequest.
 var (
@@ -49,6 +51,9 @@ var (
 func (g *GetPremiumStickersRequest) Zero() bool {
 	if g == nil {
 		return true
+	}
+	if !(g.Limit == 0) {
+		return false
 	}
 
 	return true
@@ -85,14 +90,19 @@ func (g *GetPremiumStickersRequest) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
 func (g *GetPremiumStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getPremiumStickers#8a2b9a2 as nil")
+		return fmt.Errorf("can't encode getPremiumStickers#ef410a50 as nil")
 	}
 	b.PutID(GetPremiumStickersRequestTypeID)
 	return g.EncodeBare(b)
@@ -101,18 +111,19 @@ func (g *GetPremiumStickersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetPremiumStickersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getPremiumStickers#8a2b9a2 as nil")
+		return fmt.Errorf("can't encode getPremiumStickers#ef410a50 as nil")
 	}
+	b.PutInt32(g.Limit)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetPremiumStickersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getPremiumStickers#8a2b9a2 to nil")
+		return fmt.Errorf("can't decode getPremiumStickers#ef410a50 to nil")
 	}
 	if err := b.ConsumeID(GetPremiumStickersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getPremiumStickers#8a2b9a2: %w", err)
+		return fmt.Errorf("unable to decode getPremiumStickers#ef410a50: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -120,7 +131,14 @@ func (g *GetPremiumStickersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetPremiumStickersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getPremiumStickers#8a2b9a2 to nil")
+		return fmt.Errorf("can't decode getPremiumStickers#ef410a50 to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode getPremiumStickers#ef410a50: field limit: %w", err)
+		}
+		g.Limit = value
 	}
 	return nil
 }
@@ -128,10 +146,13 @@ func (g *GetPremiumStickersRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetPremiumStickersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getPremiumStickers#8a2b9a2 as nil")
+		return fmt.Errorf("can't encode getPremiumStickers#ef410a50 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getPremiumStickers")
+	b.Comma()
+	b.FieldStart("limit")
+	b.PutInt32(g.Limit)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -141,15 +162,21 @@ func (g *GetPremiumStickersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetPremiumStickersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getPremiumStickers#8a2b9a2 to nil")
+		return fmt.Errorf("can't decode getPremiumStickers#ef410a50 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getPremiumStickers"); err != nil {
-				return fmt.Errorf("unable to decode getPremiumStickers#8a2b9a2: %w", err)
+				return fmt.Errorf("unable to decode getPremiumStickers#ef410a50: %w", err)
 			}
+		case "limit":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getPremiumStickers#ef410a50: field limit: %w", err)
+			}
+			g.Limit = value
 		default:
 			return b.Skip()
 		}
@@ -157,11 +184,21 @@ func (g *GetPremiumStickersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetPremiumStickers invokes method getPremiumStickers#8a2b9a2 returning error if any.
-func (c *Client) GetPremiumStickers(ctx context.Context) (*Stickers, error) {
+// GetLimit returns value of Limit field.
+func (g *GetPremiumStickersRequest) GetLimit() (value int32) {
+	if g == nil {
+		return
+	}
+	return g.Limit
+}
+
+// GetPremiumStickers invokes method getPremiumStickers#ef410a50 returning error if any.
+func (c *Client) GetPremiumStickers(ctx context.Context, limit int32) (*Stickers, error) {
 	var result Stickers
 
-	request := &GetPremiumStickersRequest{}
+	request := &GetPremiumStickersRequest{
+		Limit: limit,
+	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

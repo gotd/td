@@ -31,14 +31,17 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// DeleteAccountRequest represents TL type `deleteAccount#b84ad084`.
+// DeleteAccountRequest represents TL type `deleteAccount#533276c6`.
 type DeleteAccountRequest struct {
 	// The reason why the account was deleted; optional
 	Reason string
+	// The 2-step verification password of the current user. If not specified, account
+	// deletion can be canceled within one week
+	Password string
 }
 
 // DeleteAccountRequestTypeID is TL type id of DeleteAccountRequest.
-const DeleteAccountRequestTypeID = 0xb84ad084
+const DeleteAccountRequestTypeID = 0x533276c6
 
 // Ensuring interfaces in compile-time for DeleteAccountRequest.
 var (
@@ -53,6 +56,9 @@ func (d *DeleteAccountRequest) Zero() bool {
 		return true
 	}
 	if !(d.Reason == "") {
+		return false
+	}
+	if !(d.Password == "") {
 		return false
 	}
 
@@ -95,6 +101,10 @@ func (d *DeleteAccountRequest) TypeInfo() tdp.Type {
 			Name:       "Reason",
 			SchemaName: "reason",
 		},
+		{
+			Name:       "Password",
+			SchemaName: "password",
+		},
 	}
 	return typ
 }
@@ -102,7 +112,7 @@ func (d *DeleteAccountRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DeleteAccountRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode deleteAccount#b84ad084 as nil")
+		return fmt.Errorf("can't encode deleteAccount#533276c6 as nil")
 	}
 	b.PutID(DeleteAccountRequestTypeID)
 	return d.EncodeBare(b)
@@ -111,19 +121,20 @@ func (d *DeleteAccountRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DeleteAccountRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode deleteAccount#b84ad084 as nil")
+		return fmt.Errorf("can't encode deleteAccount#533276c6 as nil")
 	}
 	b.PutString(d.Reason)
+	b.PutString(d.Password)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (d *DeleteAccountRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode deleteAccount#b84ad084 to nil")
+		return fmt.Errorf("can't decode deleteAccount#533276c6 to nil")
 	}
 	if err := b.ConsumeID(DeleteAccountRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode deleteAccount#b84ad084: %w", err)
+		return fmt.Errorf("unable to decode deleteAccount#533276c6: %w", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -131,14 +142,21 @@ func (d *DeleteAccountRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DeleteAccountRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode deleteAccount#b84ad084 to nil")
+		return fmt.Errorf("can't decode deleteAccount#533276c6 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode deleteAccount#b84ad084: field reason: %w", err)
+			return fmt.Errorf("unable to decode deleteAccount#533276c6: field reason: %w", err)
 		}
 		d.Reason = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode deleteAccount#533276c6: field password: %w", err)
+		}
+		d.Password = value
 	}
 	return nil
 }
@@ -146,13 +164,16 @@ func (d *DeleteAccountRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (d *DeleteAccountRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
-		return fmt.Errorf("can't encode deleteAccount#b84ad084 as nil")
+		return fmt.Errorf("can't encode deleteAccount#533276c6 as nil")
 	}
 	b.ObjStart()
 	b.PutID("deleteAccount")
 	b.Comma()
 	b.FieldStart("reason")
 	b.PutString(d.Reason)
+	b.Comma()
+	b.FieldStart("password")
+	b.PutString(d.Password)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -162,21 +183,27 @@ func (d *DeleteAccountRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (d *DeleteAccountRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
-		return fmt.Errorf("can't decode deleteAccount#b84ad084 to nil")
+		return fmt.Errorf("can't decode deleteAccount#533276c6 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("deleteAccount"); err != nil {
-				return fmt.Errorf("unable to decode deleteAccount#b84ad084: %w", err)
+				return fmt.Errorf("unable to decode deleteAccount#533276c6: %w", err)
 			}
 		case "reason":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode deleteAccount#b84ad084: field reason: %w", err)
+				return fmt.Errorf("unable to decode deleteAccount#533276c6: field reason: %w", err)
 			}
 			d.Reason = value
+		case "password":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode deleteAccount#533276c6: field password: %w", err)
+			}
+			d.Password = value
 		default:
 			return b.Skip()
 		}
@@ -192,13 +219,18 @@ func (d *DeleteAccountRequest) GetReason() (value string) {
 	return d.Reason
 }
 
-// DeleteAccount invokes method deleteAccount#b84ad084 returning error if any.
-func (c *Client) DeleteAccount(ctx context.Context, reason string) error {
+// GetPassword returns value of Password field.
+func (d *DeleteAccountRequest) GetPassword() (value string) {
+	if d == nil {
+		return
+	}
+	return d.Password
+}
+
+// DeleteAccount invokes method deleteAccount#533276c6 returning error if any.
+func (c *Client) DeleteAccount(ctx context.Context, request *DeleteAccountRequest) error {
 	var ok Ok
 
-	request := &DeleteAccountRequest{
-		Reason: reason,
-	}
 	if err := c.rpc.Invoke(ctx, request, &ok); err != nil {
 		return err
 	}

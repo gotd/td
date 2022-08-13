@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Sticker represents TL type `sticker#f31dfc6a`.
+// Sticker represents TL type `sticker#bf632756`.
 type Sticker struct {
 	// The identifier of the sticker set to which the sticker belongs; 0 if none
 	SetID int64
@@ -41,22 +41,29 @@ type Sticker struct {
 	Height int32
 	// Emoji corresponding to the sticker
 	Emoji string
+	// Sticker format
+	Format StickerFormatClass
 	// Sticker type
 	Type StickerTypeClass
+	// Position where the mask is placed; may be null even the sticker is a mask
+	MaskPosition MaskPosition
+	// Identifier of the emoji if the sticker is a custom emoji
+	CustomEmojiID int64
 	// Sticker's outline represented as a list of closed vector paths; may be empty. The
 	// coordinate system origin is in the upper-left corner
 	Outline []ClosedVectorPath
 	// Sticker thumbnail in WEBP or JPEG format; may be null
 	Thumbnail Thumbnail
-	// Premium animation of the sticker; may be null. If present, only Premium users can send
-	// the sticker
+	// True, if only Premium users can use the sticker
+	IsPremium bool
+	// Premium animation of the sticker; may be null
 	PremiumAnimation File
 	// File containing the sticker
 	Sticker File
 }
 
 // StickerTypeID is TL type id of Sticker.
-const StickerTypeID = 0xf31dfc6a
+const StickerTypeID = 0xbf632756
 
 // Ensuring interfaces in compile-time for Sticker.
 var (
@@ -82,13 +89,25 @@ func (s *Sticker) Zero() bool {
 	if !(s.Emoji == "") {
 		return false
 	}
+	if !(s.Format == nil) {
+		return false
+	}
 	if !(s.Type == nil) {
+		return false
+	}
+	if !(s.MaskPosition.Zero()) {
+		return false
+	}
+	if !(s.CustomEmojiID == 0) {
 		return false
 	}
 	if !(s.Outline == nil) {
 		return false
 	}
 	if !(s.Thumbnail.Zero()) {
+		return false
+	}
+	if !(s.IsPremium == false) {
 		return false
 	}
 	if !(s.PremiumAnimation.Zero()) {
@@ -150,8 +169,20 @@ func (s *Sticker) TypeInfo() tdp.Type {
 			SchemaName: "emoji",
 		},
 		{
+			Name:       "Format",
+			SchemaName: "format",
+		},
+		{
 			Name:       "Type",
 			SchemaName: "type",
+		},
+		{
+			Name:       "MaskPosition",
+			SchemaName: "mask_position",
+		},
+		{
+			Name:       "CustomEmojiID",
+			SchemaName: "custom_emoji_id",
 		},
 		{
 			Name:       "Outline",
@@ -160,6 +191,10 @@ func (s *Sticker) TypeInfo() tdp.Type {
 		{
 			Name:       "Thumbnail",
 			SchemaName: "thumbnail",
+		},
+		{
+			Name:       "IsPremium",
+			SchemaName: "is_premium",
 		},
 		{
 			Name:       "PremiumAnimation",
@@ -176,7 +211,7 @@ func (s *Sticker) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *Sticker) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sticker#f31dfc6a as nil")
+		return fmt.Errorf("can't encode sticker#bf632756 as nil")
 	}
 	b.PutID(StickerTypeID)
 	return s.EncodeBare(b)
@@ -185,32 +220,43 @@ func (s *Sticker) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *Sticker) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sticker#f31dfc6a as nil")
+		return fmt.Errorf("can't encode sticker#bf632756 as nil")
 	}
 	b.PutLong(s.SetID)
 	b.PutInt32(s.Width)
 	b.PutInt32(s.Height)
 	b.PutString(s.Emoji)
+	if s.Format == nil {
+		return fmt.Errorf("unable to encode sticker#bf632756: field format is nil")
+	}
+	if err := s.Format.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode sticker#bf632756: field format: %w", err)
+	}
 	if s.Type == nil {
-		return fmt.Errorf("unable to encode sticker#f31dfc6a: field type is nil")
+		return fmt.Errorf("unable to encode sticker#bf632756: field type is nil")
 	}
 	if err := s.Type.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sticker#f31dfc6a: field type: %w", err)
+		return fmt.Errorf("unable to encode sticker#bf632756: field type: %w", err)
 	}
+	if err := s.MaskPosition.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode sticker#bf632756: field mask_position: %w", err)
+	}
+	b.PutLong(s.CustomEmojiID)
 	b.PutInt(len(s.Outline))
 	for idx, v := range s.Outline {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare sticker#f31dfc6a: field outline element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare sticker#bf632756: field outline element with index %d: %w", idx, err)
 		}
 	}
 	if err := s.Thumbnail.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sticker#f31dfc6a: field thumbnail: %w", err)
+		return fmt.Errorf("unable to encode sticker#bf632756: field thumbnail: %w", err)
 	}
+	b.PutBool(s.IsPremium)
 	if err := s.PremiumAnimation.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sticker#f31dfc6a: field premium_animation: %w", err)
+		return fmt.Errorf("unable to encode sticker#bf632756: field premium_animation: %w", err)
 	}
 	if err := s.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sticker#f31dfc6a: field sticker: %w", err)
+		return fmt.Errorf("unable to encode sticker#bf632756: field sticker: %w", err)
 	}
 	return nil
 }
@@ -218,10 +264,10 @@ func (s *Sticker) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *Sticker) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sticker#f31dfc6a to nil")
+		return fmt.Errorf("can't decode sticker#bf632756 to nil")
 	}
 	if err := b.ConsumeID(StickerTypeID); err != nil {
-		return fmt.Errorf("unable to decode sticker#f31dfc6a: %w", err)
+		return fmt.Errorf("unable to decode sticker#bf632756: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -229,47 +275,66 @@ func (s *Sticker) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *Sticker) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sticker#f31dfc6a to nil")
+		return fmt.Errorf("can't decode sticker#bf632756 to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode sticker#f31dfc6a: field set_id: %w", err)
+			return fmt.Errorf("unable to decode sticker#bf632756: field set_id: %w", err)
 		}
 		s.SetID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode sticker#f31dfc6a: field width: %w", err)
+			return fmt.Errorf("unable to decode sticker#bf632756: field width: %w", err)
 		}
 		s.Width = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode sticker#f31dfc6a: field height: %w", err)
+			return fmt.Errorf("unable to decode sticker#bf632756: field height: %w", err)
 		}
 		s.Height = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode sticker#f31dfc6a: field emoji: %w", err)
+			return fmt.Errorf("unable to decode sticker#bf632756: field emoji: %w", err)
 		}
 		s.Emoji = value
 	}
 	{
+		value, err := DecodeStickerFormat(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode sticker#bf632756: field format: %w", err)
+		}
+		s.Format = value
+	}
+	{
 		value, err := DecodeStickerType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sticker#f31dfc6a: field type: %w", err)
+			return fmt.Errorf("unable to decode sticker#bf632756: field type: %w", err)
 		}
 		s.Type = value
 	}
 	{
+		if err := s.MaskPosition.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode sticker#bf632756: field mask_position: %w", err)
+		}
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode sticker#bf632756: field custom_emoji_id: %w", err)
+		}
+		s.CustomEmojiID = value
+	}
+	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode sticker#f31dfc6a: field outline: %w", err)
+			return fmt.Errorf("unable to decode sticker#bf632756: field outline: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -278,24 +343,31 @@ func (s *Sticker) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value ClosedVectorPath
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare sticker#f31dfc6a: field outline: %w", err)
+				return fmt.Errorf("unable to decode bare sticker#bf632756: field outline: %w", err)
 			}
 			s.Outline = append(s.Outline, value)
 		}
 	}
 	{
 		if err := s.Thumbnail.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode sticker#f31dfc6a: field thumbnail: %w", err)
+			return fmt.Errorf("unable to decode sticker#bf632756: field thumbnail: %w", err)
 		}
 	}
 	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode sticker#bf632756: field is_premium: %w", err)
+		}
+		s.IsPremium = value
+	}
+	{
 		if err := s.PremiumAnimation.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode sticker#f31dfc6a: field premium_animation: %w", err)
+			return fmt.Errorf("unable to decode sticker#bf632756: field premium_animation: %w", err)
 		}
 	}
 	{
 		if err := s.Sticker.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode sticker#f31dfc6a: field sticker: %w", err)
+			return fmt.Errorf("unable to decode sticker#bf632756: field sticker: %w", err)
 		}
 	}
 	return nil
@@ -304,7 +376,7 @@ func (s *Sticker) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *Sticker) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sticker#f31dfc6a as nil")
+		return fmt.Errorf("can't encode sticker#bf632756 as nil")
 	}
 	b.ObjStart()
 	b.PutID("sticker")
@@ -321,19 +393,35 @@ func (s *Sticker) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("emoji")
 	b.PutString(s.Emoji)
 	b.Comma()
+	b.FieldStart("format")
+	if s.Format == nil {
+		return fmt.Errorf("unable to encode sticker#bf632756: field format is nil")
+	}
+	if err := s.Format.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode sticker#bf632756: field format: %w", err)
+	}
+	b.Comma()
 	b.FieldStart("type")
 	if s.Type == nil {
-		return fmt.Errorf("unable to encode sticker#f31dfc6a: field type is nil")
+		return fmt.Errorf("unable to encode sticker#bf632756: field type is nil")
 	}
 	if err := s.Type.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sticker#f31dfc6a: field type: %w", err)
+		return fmt.Errorf("unable to encode sticker#bf632756: field type: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("mask_position")
+	if err := s.MaskPosition.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode sticker#bf632756: field mask_position: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("custom_emoji_id")
+	b.PutLong(s.CustomEmojiID)
 	b.Comma()
 	b.FieldStart("outline")
 	b.ArrStart()
 	for idx, v := range s.Outline {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode sticker#f31dfc6a: field outline element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode sticker#bf632756: field outline element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -342,17 +430,20 @@ func (s *Sticker) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("thumbnail")
 	if err := s.Thumbnail.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sticker#f31dfc6a: field thumbnail: %w", err)
+		return fmt.Errorf("unable to encode sticker#bf632756: field thumbnail: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("is_premium")
+	b.PutBool(s.IsPremium)
 	b.Comma()
 	b.FieldStart("premium_animation")
 	if err := s.PremiumAnimation.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sticker#f31dfc6a: field premium_animation: %w", err)
+		return fmt.Errorf("unable to encode sticker#bf632756: field premium_animation: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("sticker")
 	if err := s.Sticker.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sticker#f31dfc6a: field sticker: %w", err)
+		return fmt.Errorf("unable to encode sticker#bf632756: field sticker: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -363,67 +454,89 @@ func (s *Sticker) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *Sticker) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sticker#f31dfc6a to nil")
+		return fmt.Errorf("can't decode sticker#bf632756 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("sticker"); err != nil {
-				return fmt.Errorf("unable to decode sticker#f31dfc6a: %w", err)
+				return fmt.Errorf("unable to decode sticker#bf632756: %w", err)
 			}
 		case "set_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode sticker#f31dfc6a: field set_id: %w", err)
+				return fmt.Errorf("unable to decode sticker#bf632756: field set_id: %w", err)
 			}
 			s.SetID = value
 		case "width":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode sticker#f31dfc6a: field width: %w", err)
+				return fmt.Errorf("unable to decode sticker#bf632756: field width: %w", err)
 			}
 			s.Width = value
 		case "height":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode sticker#f31dfc6a: field height: %w", err)
+				return fmt.Errorf("unable to decode sticker#bf632756: field height: %w", err)
 			}
 			s.Height = value
 		case "emoji":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode sticker#f31dfc6a: field emoji: %w", err)
+				return fmt.Errorf("unable to decode sticker#bf632756: field emoji: %w", err)
 			}
 			s.Emoji = value
+		case "format":
+			value, err := DecodeTDLibJSONStickerFormat(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode sticker#bf632756: field format: %w", err)
+			}
+			s.Format = value
 		case "type":
 			value, err := DecodeTDLibJSONStickerType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sticker#f31dfc6a: field type: %w", err)
+				return fmt.Errorf("unable to decode sticker#bf632756: field type: %w", err)
 			}
 			s.Type = value
+		case "mask_position":
+			if err := s.MaskPosition.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode sticker#bf632756: field mask_position: %w", err)
+			}
+		case "custom_emoji_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode sticker#bf632756: field custom_emoji_id: %w", err)
+			}
+			s.CustomEmojiID = value
 		case "outline":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value ClosedVectorPath
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode sticker#f31dfc6a: field outline: %w", err)
+					return fmt.Errorf("unable to decode sticker#bf632756: field outline: %w", err)
 				}
 				s.Outline = append(s.Outline, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode sticker#f31dfc6a: field outline: %w", err)
+				return fmt.Errorf("unable to decode sticker#bf632756: field outline: %w", err)
 			}
 		case "thumbnail":
 			if err := s.Thumbnail.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode sticker#f31dfc6a: field thumbnail: %w", err)
+				return fmt.Errorf("unable to decode sticker#bf632756: field thumbnail: %w", err)
 			}
+		case "is_premium":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode sticker#bf632756: field is_premium: %w", err)
+			}
+			s.IsPremium = value
 		case "premium_animation":
 			if err := s.PremiumAnimation.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode sticker#f31dfc6a: field premium_animation: %w", err)
+				return fmt.Errorf("unable to decode sticker#bf632756: field premium_animation: %w", err)
 			}
 		case "sticker":
 			if err := s.Sticker.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode sticker#f31dfc6a: field sticker: %w", err)
+				return fmt.Errorf("unable to decode sticker#bf632756: field sticker: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -464,12 +577,36 @@ func (s *Sticker) GetEmoji() (value string) {
 	return s.Emoji
 }
 
+// GetFormat returns value of Format field.
+func (s *Sticker) GetFormat() (value StickerFormatClass) {
+	if s == nil {
+		return
+	}
+	return s.Format
+}
+
 // GetType returns value of Type field.
 func (s *Sticker) GetType() (value StickerTypeClass) {
 	if s == nil {
 		return
 	}
 	return s.Type
+}
+
+// GetMaskPosition returns value of MaskPosition field.
+func (s *Sticker) GetMaskPosition() (value MaskPosition) {
+	if s == nil {
+		return
+	}
+	return s.MaskPosition
+}
+
+// GetCustomEmojiID returns value of CustomEmojiID field.
+func (s *Sticker) GetCustomEmojiID() (value int64) {
+	if s == nil {
+		return
+	}
+	return s.CustomEmojiID
 }
 
 // GetOutline returns value of Outline field.
@@ -486,6 +623,14 @@ func (s *Sticker) GetThumbnail() (value Thumbnail) {
 		return
 	}
 	return s.Thumbnail
+}
+
+// GetIsPremium returns value of IsPremium field.
+func (s *Sticker) GetIsPremium() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.IsPremium
 }
 
 // GetPremiumAnimation returns value of PremiumAnimation field.
