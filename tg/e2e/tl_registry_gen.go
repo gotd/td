@@ -125,6 +125,8 @@ func TypesMap() map[uint32]string {
 		MessageEntityStrikeTypeID:                      "messageEntityStrike#bf0693d4",
 		MessageEntityBlockquoteTypeID:                  "messageEntityBlockquote#20df5d0",
 		DecryptedMessageMediaDocumentTypeID:            "decryptedMessageMediaDocument#6abd9782",
+		MessageEntitySpoilerTypeID:                     "messageEntitySpoiler#32ca960f",
+		MessageEntityCustomEmojiTypeID:                 "messageEntityCustomEmoji#c8cf05f8",
 		TestDummyFunctionRequestTypeID:                 "test.dummyFunction#c8357709",
 	}
 }
@@ -223,6 +225,8 @@ func NamesMap() map[string]uint32 {
 		"messageEntityStrike":                      MessageEntityStrikeTypeID,
 		"messageEntityBlockquote":                  MessageEntityBlockquoteTypeID,
 		"decryptedMessageMediaDocument":            DecryptedMessageMediaDocumentTypeID,
+		"messageEntitySpoiler":                     MessageEntitySpoilerTypeID,
+		"messageEntityCustomEmoji":                 MessageEntityCustomEmojiTypeID,
 		"test.dummyFunction":                       TestDummyFunctionRequestTypeID,
 	}
 }
@@ -321,6 +325,8 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		MessageEntityStrikeTypeID:                      func() bin.Object { return &MessageEntityStrike{} },
 		MessageEntityBlockquoteTypeID:                  func() bin.Object { return &MessageEntityBlockquote{} },
 		DecryptedMessageMediaDocumentTypeID:            func() bin.Object { return &DecryptedMessageMediaDocument{} },
+		MessageEntitySpoilerTypeID:                     func() bin.Object { return &MessageEntitySpoiler{} },
+		MessageEntityCustomEmojiTypeID:                 func() bin.Object { return &MessageEntityCustomEmoji{} },
 		TestDummyFunctionRequestTypeID:                 func() bin.Object { return &TestDummyFunctionRequest{} },
 	}
 }
@@ -412,6 +418,8 @@ func ClassConstructorsMap() map[string][]uint32 {
 			MessageEntityUnderlineTypeID,
 			MessageEntityStrikeTypeID,
 			MessageEntityBlockquoteTypeID,
+			MessageEntitySpoilerTypeID,
+			MessageEntityCustomEmojiTypeID,
 		},
 		PhotoSizeClassName: {
 			PhotoSizeEmptyTypeID,
