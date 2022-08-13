@@ -216,7 +216,6 @@ func (d *ChannelsDeleteParticipantHistoryRequest) GetChannelAsNotEmpty() (NotEmp
 //	400 PARTICIPANT_ID_INVALID: The specified participant ID is invalid.
 //
 // See https://core.telegram.org/method/channels.deleteParticipantHistory for reference.
-// Can be used by bots.
 func (c *Client) ChannelsDeleteParticipantHistory(ctx context.Context, request *ChannelsDeleteParticipantHistoryRequest) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory
 

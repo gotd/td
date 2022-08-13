@@ -3534,14 +3534,25 @@ func (m *MessageEntitySpoiler) GetLength() (value int) {
 }
 
 // MessageEntityCustomEmoji represents TL type `messageEntityCustomEmoji#c8cf05f8`.
+// Represents a custom emoji
 //
 // See https://core.telegram.org/constructor/messageEntityCustomEmoji for reference.
 type MessageEntityCustomEmoji struct {
+	// Offset of message entity within message (in UTF-16 code units¹)
 	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
+	// Length of message entity within message (in UTF-16 code units¹)
 	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
+	// Document ID of the custom emoji, use messages.getCustomEmojiDocuments¹ to fetch the
+	// emoji animation and the actual emoji it represents.
 	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.getCustomEmojiDocuments
 	DocumentID int64
 }
 

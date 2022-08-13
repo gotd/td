@@ -32,12 +32,17 @@ var (
 )
 
 // ChannelsToggleJoinToSendRequest represents TL type `channels.toggleJoinToSend#e4cb9580`.
+// Set whether all users should join a discussion group in order to comment on a post
+// »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/discussion#requiring-users-to-join-the-group
 //
 // See https://core.telegram.org/method/channels.toggleJoinToSend for reference.
 type ChannelsToggleJoinToSendRequest struct {
-	//
+	// Discussion group
 	Channel InputChannelClass
-	//
+	// Toggle
 	Enabled bool
 }
 
@@ -198,9 +203,13 @@ func (t *ChannelsToggleJoinToSendRequest) GetChannelAsNotEmpty() (NotEmptyInputC
 }
 
 // ChannelsToggleJoinToSend invokes method channels.toggleJoinToSend#e4cb9580 returning error if any.
+// Set whether all users should join a discussion group in order to comment on a post
+// »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/discussion#requiring-users-to-join-the-group
 //
 // See https://core.telegram.org/method/channels.toggleJoinToSend for reference.
-// Can be used by bots.
 func (c *Client) ChannelsToggleJoinToSend(ctx context.Context, request *ChannelsToggleJoinToSendRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

@@ -176,7 +176,6 @@ func (r *MessagesReadReactionsRequest) GetPeer() (value InputPeerClass) {
 //  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.readReactions for reference.
-// Can be used by bots.
 func (c *Client) MessagesReadReactions(ctx context.Context, peer InputPeerClass) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory
 

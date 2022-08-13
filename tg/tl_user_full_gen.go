@@ -57,7 +57,7 @@ type UserFull struct {
 	HasScheduled bool
 	// Whether the user can receive video calls
 	VideoCallsAvailable bool
-	//
+	// Whether this user doesn't allow sending voice messages in a private chat with them
 	VoiceMessagesForbidden bool
 	// User ID
 	ID int64
@@ -106,11 +106,15 @@ type UserFull struct {
 	//
 	// Use SetPrivateForwardName and GetPrivateForwardName helpers.
 	PrivateForwardName string
-	//
+	// A suggested default set of administrator rights for the bot, to be shown when adding
+	// the bot as admin to a supergroup (only a suggestion, the admin right set may be
+	// modified by the user before adding the bot as admin)
 	//
 	// Use SetBotGroupAdminRights and GetBotGroupAdminRights helpers.
 	BotGroupAdminRights ChatAdminRights
-	//
+	// A suggested default set of administrator rights for the bot, to be shown when adding
+	// the bot as admin to a channel (only a suggestion, the admin right set may be modified
+	// by the user before adding the bot as admin)
 	//
 	// Use SetBotBroadcastAdminRights and GetBotBroadcastAdminRights helpers.
 	BotBroadcastAdminRights ChatAdminRights

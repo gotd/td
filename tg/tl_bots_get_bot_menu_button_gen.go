@@ -32,10 +32,16 @@ var (
 )
 
 // BotsGetBotMenuButtonRequest represents TL type `bots.getBotMenuButton#9c60eb28`.
+// Gets the menu button action for a given user or for all users, previously set using
+// bots.setBotMenuButton¹; users can see this information in the botInfo² constructor.
+//
+// Links:
+//  1. https://core.telegram.org/method/bots.setBotMenuButton
+//  2. https://core.telegram.org/constructor/botInfo
 //
 // See https://core.telegram.org/method/bots.getBotMenuButton for reference.
 type BotsGetBotMenuButtonRequest struct {
-	//
+	// User ID or empty for the default menu button.
 	UserID InputUserClass
 }
 
@@ -166,6 +172,12 @@ func (g *BotsGetBotMenuButtonRequest) GetUserID() (value InputUserClass) {
 }
 
 // BotsGetBotMenuButton invokes method bots.getBotMenuButton#9c60eb28 returning error if any.
+// Gets the menu button action for a given user or for all users, previously set using
+// bots.setBotMenuButton¹; users can see this information in the botInfo² constructor.
+//
+// Links:
+//  1. https://core.telegram.org/method/bots.setBotMenuButton
+//  2. https://core.telegram.org/constructor/botInfo
 //
 // Possible errors:
 //

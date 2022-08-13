@@ -32,7 +32,7 @@ var (
 )
 
 // PrivacyKeyStatusTimestamp represents TL type `privacyKeyStatusTimestamp#bc2eab30`.
-// Whether we can see the last online timestamp
+// Whether we can see the last online timestamp of this user
 //
 // See https://core.telegram.org/constructor/privacyKeyStatusTimestamp for reference.
 type PrivacyKeyStatusTimestamp struct {
@@ -338,7 +338,7 @@ func (p *PrivacyKeyPhoneCall) DecodeBare(b *bin.Buffer) error {
 }
 
 // PrivacyKeyPhoneP2P represents TL type `privacyKeyPhoneP2P#39491cc8`.
-// Whether P2P connections in phone calls are allowed
+// Whether P2P connections in phone calls with this user are allowed
 //
 // See https://core.telegram.org/constructor/privacyKeyPhoneP2P for reference.
 type PrivacyKeyPhoneP2P struct {
@@ -749,7 +749,7 @@ func (p *PrivacyKeyPhoneNumber) DecodeBare(b *bin.Buffer) error {
 }
 
 // PrivacyKeyAddedByPhone represents TL type `privacyKeyAddedByPhone#42ffd42b`.
-// Whether people can add you to their contact list by your phone number
+// Whether this user can be added to our contact list by their phone number
 //
 // See https://core.telegram.org/constructor/privacyKeyAddedByPhone for reference.
 type PrivacyKeyAddedByPhone struct {
@@ -851,6 +851,7 @@ func (p *PrivacyKeyAddedByPhone) DecodeBare(b *bin.Buffer) error {
 }
 
 // PrivacyKeyVoiceMessages represents TL type `privacyKeyVoiceMessages#697f414`.
+// Whether the user accepts voice messages
 //
 // See https://core.telegram.org/constructor/privacyKeyVoiceMessages for reference.
 type PrivacyKeyVoiceMessages struct {

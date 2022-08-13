@@ -6465,7 +6465,7 @@ type UpdateStickerSetsOrder struct {
 	Flags bin.Fields
 	// Whether the updated stickers are mask stickers
 	Masks bool
-	//
+	// Whether the updated stickers are custom emoji stickers
 	Emojis bool
 	// New sticker order by sticker ID
 	Order []int64
@@ -19463,6 +19463,12 @@ func (u *UpdateMessageReactions) GetReactions() (value MessageReactions) {
 }
 
 // UpdateAttachMenuBots represents TL type `updateAttachMenuBots#17b7a20b`.
+// The list of added bot web apps »¹ has changed, use messages.getAttachMenuBots² to
+// fetch the updated list.
+//
+// Links:
+//  1. https://core.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu
+//  2. https://core.telegram.org/method/messages.getAttachMenuBots
 //
 // See https://core.telegram.org/constructor/updateAttachMenuBots for reference.
 type UpdateAttachMenuBots struct {
@@ -19698,12 +19704,13 @@ func (u *UpdateWebViewResultSent) GetQueryID() (value int64) {
 }
 
 // UpdateBotMenuButton represents TL type `updateBotMenuButton#14b85813`.
+// The menu button behavior for the specified bot has changed
 //
 // See https://core.telegram.org/constructor/updateBotMenuButton for reference.
 type UpdateBotMenuButton struct {
-	//
+	// Bot ID
 	BotID int64
-	//
+	// New menu button
 	Button BotMenuButtonClass
 }
 
@@ -19864,6 +19871,11 @@ func (u *UpdateBotMenuButton) GetButton() (value BotMenuButtonClass) {
 }
 
 // UpdateSavedRingtones represents TL type `updateSavedRingtones#74d8be99`.
+// The list of saved notification sounds has changed, use account.getSavedRingtones¹ to
+// fetch the new list.
+//
+// Links:
+//  1. https://core.telegram.org/method/account.getSavedRingtones
 //
 // See https://core.telegram.org/constructor/updateSavedRingtones for reference.
 type UpdateSavedRingtones struct {
@@ -19965,6 +19977,10 @@ func (u *UpdateSavedRingtones) DecodeBare(b *bin.Buffer) error {
 }
 
 // UpdateTranscribedAudio represents TL type `updateTranscribedAudio#84cd5a`.
+// A pending transcription initiated with messages.transcribeAudio¹ was updated.
+//
+// Links:
+//  1. https://core.telegram.org/method/messages.transcribeAudio
 //
 // See https://core.telegram.org/constructor/updateTranscribedAudio for reference.
 type UpdateTranscribedAudio struct {
@@ -19973,15 +19989,19 @@ type UpdateTranscribedAudio struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// Whether this transcription is still pending and further updateTranscribedAudio¹ about
+	// it will be sent in the future.
 	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/updateTranscribedAudio
 	Pending bool
-	//
+	// Peer of the transcribed message
 	Peer PeerClass
-	//
+	// Transcribed message ID
 	MsgID int
-	//
+	// Transcription ID
 	TranscriptionID int64
-	//
+	// Transcribed text
 	Text string
 }
 

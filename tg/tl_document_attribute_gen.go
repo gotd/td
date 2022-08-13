@@ -1419,6 +1419,7 @@ func (d *DocumentAttributeHasStickers) DecodeBare(b *bin.Buffer) error {
 }
 
 // DocumentAttributeCustomEmoji represents TL type `documentAttributeCustomEmoji#fd149899`.
+// Info about a custom emoji
 //
 // See https://core.telegram.org/constructor/documentAttributeCustomEmoji for reference.
 type DocumentAttributeCustomEmoji struct {
@@ -1429,9 +1430,9 @@ type DocumentAttributeCustomEmoji struct {
 	Flags bin.Fields
 	//
 	Free bool
-	//
+	// The actual emoji
 	Alt string
-	//
+	// The emoji stickerset to which this emoji belongs.
 	Stickerset InputStickerSetClass
 }
 

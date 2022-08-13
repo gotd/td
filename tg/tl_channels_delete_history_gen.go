@@ -44,7 +44,7 @@ type ChannelsDeleteHistoryRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Whether the history should be deleted for everyone
 	ForEveryone bool
 	// Supergroup¹ whose history must be deleted
 	//

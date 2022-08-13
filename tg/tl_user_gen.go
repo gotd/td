@@ -212,7 +212,7 @@ type User struct {
 	Fake bool
 	//
 	BotAttachMenu bool
-	//
+	// Whether this user is a Telegram Premium user
 	Premium bool
 	//
 	AttachMenuEnabled bool

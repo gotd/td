@@ -32,10 +32,11 @@ var (
 )
 
 // BotsSetBotBroadcastDefaultAdminRightsRequest represents TL type `bots.setBotBroadcastDefaultAdminRights#788464e1`.
+// Set the default suggested admin rights for bots being added as admins to channels.
 //
 // See https://core.telegram.org/method/bots.setBotBroadcastDefaultAdminRights for reference.
 type BotsSetBotBroadcastDefaultAdminRightsRequest struct {
-	//
+	// Admin rights
 	AdminRights ChatAdminRights
 }
 
@@ -161,6 +162,11 @@ func (s *BotsSetBotBroadcastDefaultAdminRightsRequest) GetAdminRights() (value C
 }
 
 // BotsSetBotBroadcastDefaultAdminRights invokes method bots.setBotBroadcastDefaultAdminRights#788464e1 returning error if any.
+// Set the default suggested admin rights for bots being added as admins to channels.
+//
+// Possible errors:
+//
+//	400 RIGHTS_NOT_MODIFIED:
 //
 // See https://core.telegram.org/method/bots.setBotBroadcastDefaultAdminRights for reference.
 // Can be used by bots.

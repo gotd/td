@@ -194,6 +194,10 @@ func (s *MessagesSendWebViewResultMessageRequest) GetResult() (value InputBotInl
 
 // MessagesSendWebViewResultMessage invokes method messages.sendWebViewResultMessage#a4314f5 returning error if any.
 //
+// Possible errors:
+//
+//	400 QUERY_ID_INVALID: The query ID is invalid.
+//
 // See https://core.telegram.org/method/messages.sendWebViewResultMessage for reference.
 // Can be used by bots.
 func (c *Client) MessagesSendWebViewResultMessage(ctx context.Context, request *MessagesSendWebViewResultMessageRequest) (*WebViewMessageSent, error) {

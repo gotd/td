@@ -32,12 +32,16 @@ var (
 )
 
 // MessagesToggleBotInAttachMenuRequest represents TL type `messages.toggleBotInAttachMenu#1aee33af`.
+// Enable or disable web bot attachment menu »¹
+//
+// Links:
+//  1. https://core.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu
 //
 // See https://core.telegram.org/method/messages.toggleBotInAttachMenu for reference.
 type MessagesToggleBotInAttachMenuRequest struct {
-	//
+	// Bot ID
 	Bot InputUserClass
-	//
+	// Toggle
 	Enabled bool
 }
 
@@ -193,9 +197,12 @@ func (t *MessagesToggleBotInAttachMenuRequest) GetEnabled() (value bool) {
 }
 
 // MessagesToggleBotInAttachMenu invokes method messages.toggleBotInAttachMenu#1aee33af returning error if any.
+// Enable or disable web bot attachment menu »¹
+//
+// Links:
+//  1. https://core.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu
 //
 // See https://core.telegram.org/method/messages.toggleBotInAttachMenu for reference.
-// Can be used by bots.
 func (c *Client) MessagesToggleBotInAttachMenu(ctx context.Context, request *MessagesToggleBotInAttachMenuRequest) (bool, error) {
 	var result BoolBox
 

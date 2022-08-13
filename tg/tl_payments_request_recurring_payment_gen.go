@@ -227,7 +227,6 @@ func (r *PaymentsRequestRecurringPaymentRequest) GetInvoiceMedia() (value InputM
 // PaymentsRequestRecurringPayment invokes method payments.requestRecurringPayment#146e958d returning error if any.
 //
 // See https://core.telegram.org/method/payments.requestRecurringPayment for reference.
-// Can be used by bots.
 func (c *Client) PaymentsRequestRecurringPayment(ctx context.Context, request *PaymentsRequestRecurringPaymentRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

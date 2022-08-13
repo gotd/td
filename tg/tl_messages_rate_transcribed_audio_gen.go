@@ -32,16 +32,17 @@ var (
 )
 
 // MessagesRateTranscribedAudioRequest represents TL type `messages.rateTranscribedAudio#7f1d072f`.
+// Rate transcribed voice message
 //
 // See https://core.telegram.org/method/messages.rateTranscribedAudio for reference.
 type MessagesRateTranscribedAudioRequest struct {
-	//
+	// Peer where the voice message was sent
 	Peer InputPeerClass
-	//
+	// Message ID
 	MsgID int
-	//
+	// Transcription ID
 	TranscriptionID int64
-	//
+	// Whether the transcription was correct
 	Good bool
 }
 
@@ -247,9 +248,9 @@ func (r *MessagesRateTranscribedAudioRequest) GetGood() (value bool) {
 }
 
 // MessagesRateTranscribedAudio invokes method messages.rateTranscribedAudio#7f1d072f returning error if any.
+// Rate transcribed voice message
 //
 // See https://core.telegram.org/method/messages.rateTranscribedAudio for reference.
-// Can be used by bots.
 func (c *Client) MessagesRateTranscribedAudio(ctx context.Context, request *MessagesRateTranscribedAudioRequest) (bool, error) {
 	var result BoolBox
 

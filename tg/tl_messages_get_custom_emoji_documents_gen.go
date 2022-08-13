@@ -32,10 +32,21 @@ var (
 )
 
 // MessagesGetCustomEmojiDocumentsRequest represents TL type `messages.getCustomEmojiDocuments#d9ab0f54`.
+// Fetch info about custom emojis.
+// Returns a list of documents¹ with the animated custom emoji in TGS format, and a
+// documentAttributeCustomEmoji² attribute with the original emoji and info about the
+// emoji stickerset this custom emoji belongs to.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/document
+//  2. https://core.telegram.org/constructor/documentAttributeCustomEmoji
 //
 // See https://core.telegram.org/method/messages.getCustomEmojiDocuments for reference.
 type MessagesGetCustomEmojiDocumentsRequest struct {
+	// Custom emoji IDs from a messageEntityCustomEmoji¹.
 	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messageEntityCustomEmoji
 	DocumentID []int64
 }
 
@@ -174,6 +185,14 @@ func (g *MessagesGetCustomEmojiDocumentsRequest) GetDocumentID() (value []int64)
 }
 
 // MessagesGetCustomEmojiDocuments invokes method messages.getCustomEmojiDocuments#d9ab0f54 returning error if any.
+// Fetch info about custom emojis.
+// Returns a list of documents¹ with the animated custom emoji in TGS format, and a
+// documentAttributeCustomEmoji² attribute with the original emoji and info about the
+// emoji stickerset this custom emoji belongs to.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/document
+//  2. https://core.telegram.org/constructor/documentAttributeCustomEmoji
 //
 // See https://core.telegram.org/method/messages.getCustomEmojiDocuments for reference.
 // Can be used by bots.
