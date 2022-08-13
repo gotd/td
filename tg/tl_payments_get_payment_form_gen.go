@@ -41,7 +41,7 @@ type PaymentsGetPaymentFormRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Invoice
 	Invoice InputInvoiceClass
 	// A JSON object with the following keys, containing color theme information (integers,
 	// RGB24) to pass to the payment provider, to apply in eventual verification pages:

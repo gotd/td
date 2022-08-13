@@ -32,14 +32,19 @@ var (
 )
 
 // AccountUploadRingtoneRequest represents TL type `account.uploadRingtone#831a83a2`.
+// Upload notification sound, use account.saveRingtone¹ to convert it and add it to the
+// list of saved notification sounds.
+//
+// Links:
+//  1. https://core.telegram.org/method/account.saveRingtone
 //
 // See https://core.telegram.org/method/account.uploadRingtone for reference.
 type AccountUploadRingtoneRequest struct {
-	//
+	// Notification sound
 	File InputFileClass
-	//
+	// File name
 	FileName string
-	//
+	// MIME type of file
 	MimeType string
 }
 
@@ -220,9 +225,13 @@ func (u *AccountUploadRingtoneRequest) GetMimeType() (value string) {
 }
 
 // AccountUploadRingtone invokes method account.uploadRingtone#831a83a2 returning error if any.
+// Upload notification sound, use account.saveRingtone¹ to convert it and add it to the
+// list of saved notification sounds.
+//
+// Links:
+//  1. https://core.telegram.org/method/account.saveRingtone
 //
 // See https://core.telegram.org/method/account.uploadRingtone for reference.
-// Can be used by bots.
 func (c *Client) AccountUploadRingtone(ctx context.Context, request *AccountUploadRingtoneRequest) (DocumentClass, error) {
 	var result DocumentBox
 

@@ -32,10 +32,15 @@ var (
 )
 
 // MessagesGetAttachMenuBotRequest represents TL type `messages.getAttachMenuBot#77216192`.
+// Returns attachment menu entry for a bot web app that can be launched from the
+// attachment menu »¹
+//
+// Links:
+//  1. https://core.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu
 //
 // See https://core.telegram.org/method/messages.getAttachMenuBot for reference.
 type MessagesGetAttachMenuBotRequest struct {
-	//
+	// Bot ID
 	Bot InputUserClass
 }
 
@@ -166,13 +171,17 @@ func (g *MessagesGetAttachMenuBotRequest) GetBot() (value InputUserClass) {
 }
 
 // MessagesGetAttachMenuBot invokes method messages.getAttachMenuBot#77216192 returning error if any.
+// Returns attachment menu entry for a bot web app that can be launched from the
+// attachment menu »¹
+//
+// Links:
+//  1. https://core.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu
 //
 // Possible errors:
 //
 //	400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/messages.getAttachMenuBot for reference.
-// Can be used by bots.
 func (c *Client) MessagesGetAttachMenuBot(ctx context.Context, bot InputUserClass) (*AttachMenuBotsBot, error) {
 	var result AttachMenuBotsBot
 

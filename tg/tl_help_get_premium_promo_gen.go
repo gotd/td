@@ -32,6 +32,7 @@ var (
 )
 
 // HelpGetPremiumPromoRequest represents TL type `help.getPremiumPromo#b81b93d4`.
+// Get Telegram Premim promotion information
 //
 // See https://core.telegram.org/method/help.getPremiumPromo for reference.
 type HelpGetPremiumPromoRequest struct {
@@ -128,9 +129,9 @@ func (g *HelpGetPremiumPromoRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // HelpGetPremiumPromo invokes method help.getPremiumPromo#b81b93d4 returning error if any.
+// Get Telegram Premim promotion information
 //
 // See https://core.telegram.org/method/help.getPremiumPromo for reference.
-// Can be used by bots.
 func (c *Client) HelpGetPremiumPromo(ctx context.Context) (*HelpPremiumPromo, error) {
 	var result HelpPremiumPromo
 

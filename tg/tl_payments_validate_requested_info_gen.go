@@ -43,7 +43,7 @@ type PaymentsValidateRequestedInfoRequest struct {
 	Flags bin.Fields
 	// Save order information to re-use it for future orders
 	Save bool
-	//
+	// Invoice
 	Invoice InputInvoiceClass
 	// Requested order information
 	Info PaymentRequestedInfo

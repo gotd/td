@@ -32,12 +32,13 @@ var (
 )
 
 // PhoneSaveCallLogRequest represents TL type `phone.saveCallLog#41248786`.
+// Save phone call debug information
 //
 // See https://core.telegram.org/method/phone.saveCallLog for reference.
 type PhoneSaveCallLogRequest struct {
-	//
+	// Phone call
 	Peer InputPhoneCall
-	//
+	// Logs
 	File InputFileClass
 }
 
@@ -193,9 +194,9 @@ func (s *PhoneSaveCallLogRequest) GetFile() (value InputFileClass) {
 }
 
 // PhoneSaveCallLog invokes method phone.saveCallLog#41248786 returning error if any.
+// Save phone call debug information
 //
 // See https://core.telegram.org/method/phone.saveCallLog for reference.
-// Can be used by bots.
 func (c *Client) PhoneSaveCallLog(ctx context.Context, request *PhoneSaveCallLogRequest) (bool, error) {
 	var result BoolBox
 

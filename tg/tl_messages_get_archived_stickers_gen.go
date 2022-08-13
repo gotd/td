@@ -43,7 +43,7 @@ type MessagesGetArchivedStickersRequest struct {
 	Flags bin.Fields
 	// Get mask stickers
 	Masks bool
-	//
+	// Get custom emoji stickers
 	Emojis bool
 	// Offsets for pagination, for more info click here¹
 	//

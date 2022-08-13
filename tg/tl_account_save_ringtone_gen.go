@@ -32,12 +32,27 @@ var (
 )
 
 // AccountSaveRingtoneRequest represents TL type `account.saveRingtone#3dea5b03`.
+// Save or remove saved notification sound.
+// If the notification sound is already in MP3 format, account.savedRingtone¹ will be
+// returned.
+// Otherwise, it will be automatically converted and a account.savedRingtoneConverted²
+// will be returned, containing a new document³ object that should be used to refer to
+// the ringtone from now on (ie when deleting it using the unsave parameter, or when
+// downloading it).
+//
+// Links:
+//  1. https://core.telegram.org/constructor/account.savedRingtone
+//  2. https://core.telegram.org/constructor/account.savedRingtoneConverted
+//  3. https://core.telegram.org/constructor/document
 //
 // See https://core.telegram.org/method/account.saveRingtone for reference.
 type AccountSaveRingtoneRequest struct {
+	// Notification sound uploaded using account.uploadRingtone¹
 	//
+	// Links:
+	//  1) https://core.telegram.org/method/account.uploadRingtone
 	ID InputDocumentClass
-	//
+	// Whether to add or delete the notification sound
 	Unsave bool
 }
 
@@ -198,9 +213,20 @@ func (s *AccountSaveRingtoneRequest) GetIDAsNotEmpty() (*InputDocument, bool) {
 }
 
 // AccountSaveRingtone invokes method account.saveRingtone#3dea5b03 returning error if any.
+// Save or remove saved notification sound.
+// If the notification sound is already in MP3 format, account.savedRingtone¹ will be
+// returned.
+// Otherwise, it will be automatically converted and a account.savedRingtoneConverted²
+// will be returned, containing a new document³ object that should be used to refer to
+// the ringtone from now on (ie when deleting it using the unsave parameter, or when
+// downloading it).
+//
+// Links:
+//  1. https://core.telegram.org/constructor/account.savedRingtone
+//  2. https://core.telegram.org/constructor/account.savedRingtoneConverted
+//  3. https://core.telegram.org/constructor/document
 //
 // See https://core.telegram.org/method/account.saveRingtone for reference.
-// Can be used by bots.
 func (c *Client) AccountSaveRingtone(ctx context.Context, request *AccountSaveRingtoneRequest) (AccountSavedRingtoneClass, error) {
 	var result AccountSavedRingtoneBox
 

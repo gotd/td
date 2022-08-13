@@ -193,6 +193,7 @@ func (a *BotsAnswerWebhookJSONQueryRequest) GetData() (value DataJSON) {
 //
 // Possible errors:
 //
+//	400 DATA_JSON_INVALID: The provided JSON data is invalid.
 //	400 QUERY_ID_INVALID: The query ID is invalid.
 //	403 USER_BOT_INVALID: This method can only be called by a bot.
 //

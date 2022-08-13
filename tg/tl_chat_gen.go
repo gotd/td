@@ -1057,9 +1057,19 @@ type Channel struct {
 	// Links:
 	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
 	Noforwards bool
+	// Whether a user needs to join the supergroup before they can send messages: can be
+	// false only for discussion groups »¹, toggle using channels.toggleJoinToSend²
 	//
+	// Links:
+	//  1) https://core.telegram.org/api/discussion
+	//  2) https://core.telegram.org/method/channels.toggleJoinToSend
 	JoinToSend bool
+	// Whether a user's join request will have to be approved by administrators¹, toggle
+	// using channels.toggleJoinToSend²
 	//
+	// Links:
+	//  1) https://core.telegram.org/api/invites#join-requests
+	//  2) https://core.telegram.org/method/channels.toggleJoinRequest
 	JoinRequest bool
 	// ID of the channel
 	ID int64

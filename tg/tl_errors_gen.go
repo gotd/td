@@ -349,6 +349,7 @@ const (
 	ErrResultIDInvalid                  = "RESULT_ID_INVALID"
 	ErrResultTypeInvalid                = "RESULT_TYPE_INVALID"
 	ErrRevoteNotAllowed                 = "REVOTE_NOT_ALLOWED"
+	ErrRightsNotModified                = "RIGHTS_NOT_MODIFIED"
 	ErrRightForbidden                   = "RIGHT_FORBIDDEN"
 	ErrRsaDecryptFailed                 = "RSA_DECRYPT_FAILED"
 	ErrScheduleBotNotAllowed            = "SCHEDULE_BOT_NOT_ALLOWED"
@@ -2047,6 +2048,11 @@ func IsResultTypeInvalid(err error) bool {
 // IsRevoteNotAllowed reports whether err is REVOTE_NOT_ALLOWED.
 func IsRevoteNotAllowed(err error) bool {
 	return tgerr.Is(err, ErrRevoteNotAllowed)
+}
+
+// IsRightsNotModified reports whether err is RIGHTS_NOT_MODIFIED.
+func IsRightsNotModified(err error) bool {
+	return tgerr.Is(err, ErrRightsNotModified)
 }
 
 // IsRightForbidden reports whether err is RIGHT_FORBIDDEN.

@@ -536,7 +536,6 @@ func (r *MessagesRequestWebViewRequest) GetSendAs() (value InputPeerClass, ok bo
 // MessagesRequestWebView invokes method messages.requestWebView#91b15831 returning error if any.
 //
 // See https://core.telegram.org/method/messages.requestWebView for reference.
-// Can be used by bots.
 func (c *Client) MessagesRequestWebView(ctx context.Context, request *MessagesRequestWebViewRequest) (*WebViewResultURL, error) {
 	var result WebViewResultURL
 

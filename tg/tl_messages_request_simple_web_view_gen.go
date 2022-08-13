@@ -264,7 +264,6 @@ func (r *MessagesRequestSimpleWebViewRequest) GetThemeParams() (value DataJSON, 
 // MessagesRequestSimpleWebView invokes method messages.requestSimpleWebView#6abb2f73 returning error if any.
 //
 // See https://core.telegram.org/method/messages.requestSimpleWebView for reference.
-// Can be used by bots.
 func (c *Client) MessagesRequestSimpleWebView(ctx context.Context, request *MessagesRequestSimpleWebViewRequest) (*SimpleWebViewResultURL, error) {
 	var result SimpleWebViewResultURL
 

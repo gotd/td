@@ -384,7 +384,6 @@ func (p *MessagesProlongWebViewRequest) GetSendAs() (value InputPeerClass, ok bo
 // MessagesProlongWebView invokes method messages.prolongWebView#ea5fbcce returning error if any.
 //
 // See https://core.telegram.org/method/messages.prolongWebView for reference.
-// Can be used by bots.
 func (c *Client) MessagesProlongWebView(ctx context.Context, request *MessagesProlongWebViewRequest) (bool, error) {
 	var result BoolBox
 

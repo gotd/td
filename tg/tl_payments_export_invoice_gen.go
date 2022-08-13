@@ -32,10 +32,11 @@ var (
 )
 
 // PaymentsExportInvoiceRequest represents TL type `payments.exportInvoice#f91b065`.
+// Export invoice
 //
 // See https://core.telegram.org/method/payments.exportInvoice for reference.
 type PaymentsExportInvoiceRequest struct {
-	//
+	// Invoice
 	InvoiceMedia InputMediaClass
 }
 
@@ -166,6 +167,11 @@ func (e *PaymentsExportInvoiceRequest) GetInvoiceMedia() (value InputMediaClass)
 }
 
 // PaymentsExportInvoice invokes method payments.exportInvoice#f91b065 returning error if any.
+// Export invoice
+//
+// Possible errors:
+//
+//	400 MEDIA_INVALID: Media invalid.
 //
 // See https://core.telegram.org/method/payments.exportInvoice for reference.
 // Can be used by bots.

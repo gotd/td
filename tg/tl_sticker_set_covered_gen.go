@@ -199,7 +199,7 @@ func (s *StickerSetCovered) GetCover() (value DocumentClass) {
 }
 
 // StickerSetMultiCovered represents TL type `stickerSetMultiCovered#3407e51b`.
-// Stickerset, with a specific stickers as preview
+// Stickerset, with a specific set of stickers as preview
 //
 // See https://core.telegram.org/constructor/stickerSetMultiCovered for reference.
 type StickerSetMultiCovered struct {

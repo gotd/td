@@ -195,7 +195,6 @@ func (a *PaymentsAssignPlayMarketTransactionRequest) GetPurpose() (value InputSt
 // PaymentsAssignPlayMarketTransaction invokes method payments.assignPlayMarketTransaction#dffd50d3 returning error if any.
 //
 // See https://core.telegram.org/method/payments.assignPlayMarketTransaction for reference.
-// Can be used by bots.
 func (c *Client) PaymentsAssignPlayMarketTransaction(ctx context.Context, request *PaymentsAssignPlayMarketTransactionRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

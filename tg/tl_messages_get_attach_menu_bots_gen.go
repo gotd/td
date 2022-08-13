@@ -32,10 +32,17 @@ var (
 )
 
 // MessagesGetAttachMenuBotsRequest represents TL type `messages.getAttachMenuBots#16fcc2cb`.
+// Returns installed attachment menu bot web apps »¹
+//
+// Links:
+//  1. https://core.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu
 //
 // See https://core.telegram.org/method/messages.getAttachMenuBots for reference.
 type MessagesGetAttachMenuBotsRequest struct {
+	// Hash for pagination, for more info click here¹
 	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
 }
 
@@ -161,9 +168,12 @@ func (g *MessagesGetAttachMenuBotsRequest) GetHash() (value int64) {
 }
 
 // MessagesGetAttachMenuBots invokes method messages.getAttachMenuBots#16fcc2cb returning error if any.
+// Returns installed attachment menu bot web apps »¹
+//
+// Links:
+//  1. https://core.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu
 //
 // See https://core.telegram.org/method/messages.getAttachMenuBots for reference.
-// Can be used by bots.
 func (c *Client) MessagesGetAttachMenuBots(ctx context.Context, hash int64) (AttachMenuBotsClass, error) {
 	var result AttachMenuBotsBox
 

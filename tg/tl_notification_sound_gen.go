@@ -32,6 +32,7 @@ var (
 )
 
 // NotificationSoundDefault represents TL type `notificationSoundDefault#97e8bebe`.
+// Indicates the default notification sound should be used
 //
 // See https://core.telegram.org/constructor/notificationSoundDefault for reference.
 type NotificationSoundDefault struct {
@@ -133,6 +134,7 @@ func (n *NotificationSoundDefault) DecodeBare(b *bin.Buffer) error {
 }
 
 // NotificationSoundNone represents TL type `notificationSoundNone#6f0c34df`.
+// No notification sound should be used
 //
 // See https://core.telegram.org/constructor/notificationSoundNone for reference.
 type NotificationSoundNone struct {
@@ -234,12 +236,14 @@ func (n *NotificationSoundNone) DecodeBare(b *bin.Buffer) error {
 }
 
 // NotificationSoundLocal represents TL type `notificationSoundLocal#830b9ae4`.
+// Indicates a specific local notification sound should be used
 //
 // See https://core.telegram.org/constructor/notificationSoundLocal for reference.
 type NotificationSoundLocal struct {
-	//
+	// Notification sound title
 	Title string
-	//
+	// Notification sound identifier (arbitrary data used by the client to identify a
+	// specific local notification sound)
 	Data string
 }
 
@@ -395,10 +399,14 @@ func (n *NotificationSoundLocal) GetData() (value string) {
 }
 
 // NotificationSoundRingtone represents TL type `notificationSoundRingtone#ff6c8049`.
+// A specific previously uploaded notification sound should be used
 //
 // See https://core.telegram.org/constructor/notificationSoundRingtone for reference.
 type NotificationSoundRingtone struct {
+	// Document ID of notification sound uploaded using account.uploadRingtone¹
 	//
+	// Links:
+	//  1) https://core.telegram.org/method/account.uploadRingtone
 	ID int64
 }
 

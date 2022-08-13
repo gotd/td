@@ -43,7 +43,7 @@ type PaymentsSendPaymentFormRequest struct {
 	Flags bin.Fields
 	// Form ID
 	FormID int64
-	//
+	// Invoice
 	Invoice InputInvoiceClass
 	// ID of saved and validated order info¹
 	//

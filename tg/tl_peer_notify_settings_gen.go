@@ -53,15 +53,15 @@ type PeerNotifySettings struct {
 	//
 	// Use SetMuteUntil and GetMuteUntil helpers.
 	MuteUntil int
-	//
+	// Notification sound for the official iOS application
 	//
 	// Use SetIosSound and GetIosSound helpers.
 	IosSound NotificationSoundClass
-	//
+	// Notification sound for the official android application
 	//
 	// Use SetAndroidSound and GetAndroidSound helpers.
 	AndroidSound NotificationSoundClass
-	//
+	// Notification sound for other applications
 	//
 	// Use SetOtherSound and GetOtherSound helpers.
 	OtherSound NotificationSoundClass

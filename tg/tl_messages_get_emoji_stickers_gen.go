@@ -32,10 +32,14 @@ var (
 )
 
 // MessagesGetEmojiStickersRequest represents TL type `messages.getEmojiStickers#fbfca18f`.
+// Gets the list of currently installed custom emoji stickersets.
 //
 // See https://core.telegram.org/method/messages.getEmojiStickers for reference.
 type MessagesGetEmojiStickersRequest struct {
+	// Hash for pagination, for more info click here¹
 	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
 }
 
@@ -161,9 +165,9 @@ func (g *MessagesGetEmojiStickersRequest) GetHash() (value int64) {
 }
 
 // MessagesGetEmojiStickers invokes method messages.getEmojiStickers#fbfca18f returning error if any.
+// Gets the list of currently installed custom emoji stickersets.
 //
 // See https://core.telegram.org/method/messages.getEmojiStickers for reference.
-// Can be used by bots.
 func (c *Client) MessagesGetEmojiStickers(ctx context.Context, hash int64) (MessagesAllStickersClass, error) {
 	var result MessagesAllStickersBox
 

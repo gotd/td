@@ -32,10 +32,14 @@ var (
 )
 
 // AccountGetSavedRingtonesRequest represents TL type `account.getSavedRingtones#e1902288`.
+// Fetch saved notification sounds
 //
 // See https://core.telegram.org/method/account.getSavedRingtones for reference.
 type AccountGetSavedRingtonesRequest struct {
+	// Hash for pagination, for more info click here¹
 	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
 }
 
@@ -161,9 +165,9 @@ func (g *AccountGetSavedRingtonesRequest) GetHash() (value int64) {
 }
 
 // AccountGetSavedRingtones invokes method account.getSavedRingtones#e1902288 returning error if any.
+// Fetch saved notification sounds
 //
 // See https://core.telegram.org/method/account.getSavedRingtones for reference.
-// Can be used by bots.
 func (c *Client) AccountGetSavedRingtones(ctx context.Context, hash int64) (AccountSavedRingtonesClass, error) {
 	var result AccountSavedRingtonesBox
 

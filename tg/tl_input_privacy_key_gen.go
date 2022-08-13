@@ -32,7 +32,7 @@ var (
 )
 
 // InputPrivacyKeyStatusTimestamp represents TL type `inputPrivacyKeyStatusTimestamp#4f96cb18`.
-// Whether we can see the exact last online timestamp of the user
+// Whether people will be able to see your exact last online timestamp
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyStatusTimestamp for reference.
 type InputPrivacyKeyStatusTimestamp struct {
@@ -134,7 +134,7 @@ func (i *InputPrivacyKeyStatusTimestamp) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputPrivacyKeyChatInvite represents TL type `inputPrivacyKeyChatInvite#bdfb0426`.
-// Whether the user can be invited to chats
+// Whether people will be able to invite you to chats
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyChatInvite for reference.
 type InputPrivacyKeyChatInvite struct {
@@ -236,7 +236,7 @@ func (i *InputPrivacyKeyChatInvite) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputPrivacyKeyPhoneCall represents TL type `inputPrivacyKeyPhoneCall#fabadc5f`.
-// Whether the user will accept phone calls
+// Whether you will accept phone calls
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyPhoneCall for reference.
 type InputPrivacyKeyPhoneCall struct {
@@ -338,7 +338,7 @@ func (i *InputPrivacyKeyPhoneCall) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputPrivacyKeyPhoneP2P represents TL type `inputPrivacyKeyPhoneP2P#db9e70d2`.
-// Whether the user allows P2P communication during VoIP calls
+// Whether to allow P2P communication during VoIP calls
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyPhoneP2P for reference.
 type InputPrivacyKeyPhoneP2P struct {
@@ -440,7 +440,7 @@ func (i *InputPrivacyKeyPhoneP2P) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputPrivacyKeyForwards represents TL type `inputPrivacyKeyForwards#a4dd4c08`.
-// Whether messages forwarded from this user will be anonymous¹
+// Whether messages forwarded from you will be anonymous¹
 //
 // Links:
 //  1. https://telegram.org/blog/unsend-privacy-emoji#anonymous-forwarding
@@ -545,7 +545,7 @@ func (i *InputPrivacyKeyForwards) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputPrivacyKeyProfilePhoto represents TL type `inputPrivacyKeyProfilePhoto#5719bacc`.
-// Whether people will be able to see the user's profile picture
+// Whether people will be able to see your profile picture
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyProfilePhoto for reference.
 type InputPrivacyKeyProfilePhoto struct {
@@ -647,7 +647,7 @@ func (i *InputPrivacyKeyProfilePhoto) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputPrivacyKeyPhoneNumber represents TL type `inputPrivacyKeyPhoneNumber#352dafa`.
-// Whether people will be able to see the user's phone number
+// Whether people will be able to see your phone number
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyPhoneNumber for reference.
 type InputPrivacyKeyPhoneNumber struct {

@@ -32,12 +32,13 @@ var (
 )
 
 // BotsSetBotMenuButtonRequest represents TL type `bots.setBotMenuButton#4504d54f`.
+// Sets the menu button action for a given user or for all users
 //
 // See https://core.telegram.org/method/bots.setBotMenuButton for reference.
 type BotsSetBotMenuButtonRequest struct {
-	//
+	// User ID
 	UserID InputUserClass
-	//
+	// Bot menu button action
 	Button BotMenuButtonClass
 }
 
@@ -198,6 +199,7 @@ func (s *BotsSetBotMenuButtonRequest) GetButton() (value BotMenuButtonClass) {
 }
 
 // BotsSetBotMenuButton invokes method bots.setBotMenuButton#4504d54f returning error if any.
+// Sets the menu button action for a given user or for all users
 //
 // See https://core.telegram.org/method/bots.setBotMenuButton for reference.
 // Can be used by bots.

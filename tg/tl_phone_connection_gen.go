@@ -41,7 +41,7 @@ type PhoneConnection struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Whether TCP should be used
 	TCP bool
 	// Endpoint ID
 	ID int64

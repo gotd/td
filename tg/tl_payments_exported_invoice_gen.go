@@ -32,10 +32,11 @@ var (
 )
 
 // PaymentsExportedInvoice represents TL type `payments.exportedInvoice#aed0cbd9`.
+// Exported invoice
 //
 // See https://core.telegram.org/constructor/payments.exportedInvoice for reference.
 type PaymentsExportedInvoice struct {
-	//
+	// Exported invoice URL
 	URL string
 }
 

@@ -54,11 +54,11 @@ type PaymentsPaymentForm struct {
 	FormID int64
 	// Bot ID
 	BotID int64
-	//
+	// Form title
 	Title string
-	//
+	// Description
 	Description string
-	//
+	// Product photo
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo WebDocumentClass
@@ -81,7 +81,7 @@ type PaymentsPaymentForm struct {
 	//
 	// Use SetNativeParams and GetNativeParams helpers.
 	NativeParams DataJSON
-	//
+	// Additional payment methods
 	//
 	// Use SetAdditionalMethods and GetAdditionalMethods helpers.
 	AdditionalMethods []PaymentFormMethod

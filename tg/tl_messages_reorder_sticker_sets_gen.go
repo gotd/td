@@ -43,7 +43,7 @@ type MessagesReorderStickerSetsRequest struct {
 	Flags bin.Fields
 	// Reorder mask stickersets
 	Masks bool
-	//
+	// Reorder custom emoji stickersets
 	Emojis bool
 	// New stickerset order by stickerset IDs
 	Order []int64

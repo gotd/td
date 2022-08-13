@@ -32,6 +32,7 @@ var (
 )
 
 // PremiumGiftOption represents TL type `premiumGiftOption#74c34319`.
+// Telegram Premium gift option
 //
 // See https://core.telegram.org/constructor/premiumGiftOption for reference.
 type PremiumGiftOption struct {
@@ -40,11 +41,20 @@ type PremiumGiftOption struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Duration of gifted Telegram Premium subscription
 	Months int
+	// Three-letter ISO 4217 currency¹ code
 	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
+	// Price of the product in the smallest units of the currency (integer, not float/double)
+	// For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
 	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	Amount int64
 	//
 	BotURL string

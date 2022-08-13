@@ -52,7 +52,7 @@ type StickerSet struct {
 	Animated bool
 	// Is this a video stickerpack
 	Videos bool
-	//
+	// This is a custom emoji stickerset
 	Emojis bool
 	// When was this stickerset installed
 	//
@@ -78,7 +78,11 @@ type StickerSet struct {
 	//
 	// Use SetThumbVersion and GetThumbVersion helpers.
 	ThumbVersion int
+	// Document ID of custom emoji thumbnail, fetch the document using messages
+	// getCustomEmojiDocuments¹
 	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.getCustomEmojiDocuments
 	//
 	// Use SetThumbDocumentID and GetThumbDocumentID helpers.
 	ThumbDocumentID int64

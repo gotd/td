@@ -314,7 +314,6 @@ func (g *MessagesGetUnreadReactionsRequest) GetMinID() (value int) {
 // Get unread reactions to messages you sent
 //
 // See https://core.telegram.org/method/messages.getUnreadReactions for reference.
-// Can be used by bots.
 func (c *Client) MessagesGetUnreadReactions(ctx context.Context, request *MessagesGetUnreadReactionsRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
 
