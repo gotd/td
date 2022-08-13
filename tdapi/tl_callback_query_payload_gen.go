@@ -199,7 +199,7 @@ func (c *CallbackQueryPayloadData) GetData() (value []byte) {
 
 // CallbackQueryPayloadDataWithPassword represents TL type `callbackQueryPayloadDataWithPassword#4fe2d8f2`.
 type CallbackQueryPayloadDataWithPassword struct {
-	// The password for the current user
+	// The 2-step verification password for the current user
 	Password string
 	// Data that was attached to the callback button
 	Data []byte

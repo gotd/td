@@ -31,17 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ReorderInstalledStickerSetsRequest represents TL type `reorderInstalledStickerSets#4c37c303`.
+// ReorderInstalledStickerSetsRequest represents TL type `reorderInstalledStickerSets#4a830a78`.
 type ReorderInstalledStickerSetsRequest struct {
-	// Pass true to change the order of mask sticker sets; pass false to change the order of
-	// ordinary sticker sets
-	IsMasks bool
+	// Type of the sticker sets to reorder
+	StickerType StickerTypeClass
 	// Identifiers of installed sticker sets in the new correct order
 	StickerSetIDs []int64
 }
 
 // ReorderInstalledStickerSetsRequestTypeID is TL type id of ReorderInstalledStickerSetsRequest.
-const ReorderInstalledStickerSetsRequestTypeID = 0x4c37c303
+const ReorderInstalledStickerSetsRequestTypeID = 0x4a830a78
 
 // Ensuring interfaces in compile-time for ReorderInstalledStickerSetsRequest.
 var (
@@ -55,7 +54,7 @@ func (r *ReorderInstalledStickerSetsRequest) Zero() bool {
 	if r == nil {
 		return true
 	}
-	if !(r.IsMasks == false) {
+	if !(r.StickerType == nil) {
 		return false
 	}
 	if !(r.StickerSetIDs == nil) {
@@ -98,8 +97,8 @@ func (r *ReorderInstalledStickerSetsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "IsMasks",
-			SchemaName: "is_masks",
+			Name:       "StickerType",
+			SchemaName: "sticker_type",
 		},
 		{
 			Name:       "StickerSetIDs",
@@ -112,7 +111,7 @@ func (r *ReorderInstalledStickerSetsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ReorderInstalledStickerSetsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reorderInstalledStickerSets#4c37c303 as nil")
+		return fmt.Errorf("can't encode reorderInstalledStickerSets#4a830a78 as nil")
 	}
 	b.PutID(ReorderInstalledStickerSetsRequestTypeID)
 	return r.EncodeBare(b)
@@ -121,9 +120,14 @@ func (r *ReorderInstalledStickerSetsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ReorderInstalledStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reorderInstalledStickerSets#4c37c303 as nil")
+		return fmt.Errorf("can't encode reorderInstalledStickerSets#4a830a78 as nil")
 	}
-	b.PutBool(r.IsMasks)
+	if r.StickerType == nil {
+		return fmt.Errorf("unable to encode reorderInstalledStickerSets#4a830a78: field sticker_type is nil")
+	}
+	if err := r.StickerType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode reorderInstalledStickerSets#4a830a78: field sticker_type: %w", err)
+	}
 	b.PutInt(len(r.StickerSetIDs))
 	for _, v := range r.StickerSetIDs {
 		b.PutLong(v)
@@ -134,10 +138,10 @@ func (r *ReorderInstalledStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *ReorderInstalledStickerSetsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reorderInstalledStickerSets#4c37c303 to nil")
+		return fmt.Errorf("can't decode reorderInstalledStickerSets#4a830a78 to nil")
 	}
 	if err := b.ConsumeID(ReorderInstalledStickerSetsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode reorderInstalledStickerSets#4c37c303: %w", err)
+		return fmt.Errorf("unable to decode reorderInstalledStickerSets#4a830a78: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -145,19 +149,19 @@ func (r *ReorderInstalledStickerSetsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ReorderInstalledStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reorderInstalledStickerSets#4c37c303 to nil")
+		return fmt.Errorf("can't decode reorderInstalledStickerSets#4a830a78 to nil")
 	}
 	{
-		value, err := b.Bool()
+		value, err := DecodeStickerType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode reorderInstalledStickerSets#4c37c303: field is_masks: %w", err)
+			return fmt.Errorf("unable to decode reorderInstalledStickerSets#4a830a78: field sticker_type: %w", err)
 		}
-		r.IsMasks = value
+		r.StickerType = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode reorderInstalledStickerSets#4c37c303: field sticker_set_ids: %w", err)
+			return fmt.Errorf("unable to decode reorderInstalledStickerSets#4a830a78: field sticker_set_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -166,7 +170,7 @@ func (r *ReorderInstalledStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode reorderInstalledStickerSets#4c37c303: field sticker_set_ids: %w", err)
+				return fmt.Errorf("unable to decode reorderInstalledStickerSets#4a830a78: field sticker_set_ids: %w", err)
 			}
 			r.StickerSetIDs = append(r.StickerSetIDs, value)
 		}
@@ -177,13 +181,18 @@ func (r *ReorderInstalledStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (r *ReorderInstalledStickerSetsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reorderInstalledStickerSets#4c37c303 as nil")
+		return fmt.Errorf("can't encode reorderInstalledStickerSets#4a830a78 as nil")
 	}
 	b.ObjStart()
 	b.PutID("reorderInstalledStickerSets")
 	b.Comma()
-	b.FieldStart("is_masks")
-	b.PutBool(r.IsMasks)
+	b.FieldStart("sticker_type")
+	if r.StickerType == nil {
+		return fmt.Errorf("unable to encode reorderInstalledStickerSets#4a830a78: field sticker_type is nil")
+	}
+	if err := r.StickerType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode reorderInstalledStickerSets#4a830a78: field sticker_type: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("sticker_set_ids")
 	b.ArrStart()
@@ -202,31 +211,31 @@ func (r *ReorderInstalledStickerSetsRequest) EncodeTDLibJSON(b tdjson.Encoder) e
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (r *ReorderInstalledStickerSetsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reorderInstalledStickerSets#4c37c303 to nil")
+		return fmt.Errorf("can't decode reorderInstalledStickerSets#4a830a78 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("reorderInstalledStickerSets"); err != nil {
-				return fmt.Errorf("unable to decode reorderInstalledStickerSets#4c37c303: %w", err)
+				return fmt.Errorf("unable to decode reorderInstalledStickerSets#4a830a78: %w", err)
 			}
-		case "is_masks":
-			value, err := b.Bool()
+		case "sticker_type":
+			value, err := DecodeTDLibJSONStickerType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode reorderInstalledStickerSets#4c37c303: field is_masks: %w", err)
+				return fmt.Errorf("unable to decode reorderInstalledStickerSets#4a830a78: field sticker_type: %w", err)
 			}
-			r.IsMasks = value
+			r.StickerType = value
 		case "sticker_set_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Long()
 				if err != nil {
-					return fmt.Errorf("unable to decode reorderInstalledStickerSets#4c37c303: field sticker_set_ids: %w", err)
+					return fmt.Errorf("unable to decode reorderInstalledStickerSets#4a830a78: field sticker_set_ids: %w", err)
 				}
 				r.StickerSetIDs = append(r.StickerSetIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode reorderInstalledStickerSets#4c37c303: field sticker_set_ids: %w", err)
+				return fmt.Errorf("unable to decode reorderInstalledStickerSets#4a830a78: field sticker_set_ids: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -235,12 +244,12 @@ func (r *ReorderInstalledStickerSetsRequest) DecodeTDLibJSON(b tdjson.Decoder) e
 	})
 }
 
-// GetIsMasks returns value of IsMasks field.
-func (r *ReorderInstalledStickerSetsRequest) GetIsMasks() (value bool) {
+// GetStickerType returns value of StickerType field.
+func (r *ReorderInstalledStickerSetsRequest) GetStickerType() (value StickerTypeClass) {
 	if r == nil {
 		return
 	}
-	return r.IsMasks
+	return r.StickerType
 }
 
 // GetStickerSetIDs returns value of StickerSetIDs field.
@@ -251,7 +260,7 @@ func (r *ReorderInstalledStickerSetsRequest) GetStickerSetIDs() (value []int64) 
 	return r.StickerSetIDs
 }
 
-// ReorderInstalledStickerSets invokes method reorderInstalledStickerSets#4c37c303 returning error if any.
+// ReorderInstalledStickerSets invokes method reorderInstalledStickerSets#4a830a78 returning error if any.
 func (c *Client) ReorderInstalledStickerSets(ctx context.Context, request *ReorderInstalledStickerSetsRequest) error {
 	var ok Ok
 

@@ -31,12 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// CanPurchasePremiumRequest represents TL type `canPurchasePremium#3e8cfc81`.
+// CanPurchasePremiumRequest represents TL type `canPurchasePremium#e9de1cc0`.
 type CanPurchasePremiumRequest struct {
+	// Transaction purpose
+	Purpose StorePaymentPurposeClass
 }
 
 // CanPurchasePremiumRequestTypeID is TL type id of CanPurchasePremiumRequest.
-const CanPurchasePremiumRequestTypeID = 0x3e8cfc81
+const CanPurchasePremiumRequestTypeID = 0xe9de1cc0
 
 // Ensuring interfaces in compile-time for CanPurchasePremiumRequest.
 var (
@@ -49,6 +51,9 @@ var (
 func (c *CanPurchasePremiumRequest) Zero() bool {
 	if c == nil {
 		return true
+	}
+	if !(c.Purpose == nil) {
+		return false
 	}
 
 	return true
@@ -85,14 +90,19 @@ func (c *CanPurchasePremiumRequest) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Purpose",
+			SchemaName: "purpose",
+		},
+	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
 func (c *CanPurchasePremiumRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode canPurchasePremium#3e8cfc81 as nil")
+		return fmt.Errorf("can't encode canPurchasePremium#e9de1cc0 as nil")
 	}
 	b.PutID(CanPurchasePremiumRequestTypeID)
 	return c.EncodeBare(b)
@@ -101,7 +111,13 @@ func (c *CanPurchasePremiumRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *CanPurchasePremiumRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode canPurchasePremium#3e8cfc81 as nil")
+		return fmt.Errorf("can't encode canPurchasePremium#e9de1cc0 as nil")
+	}
+	if c.Purpose == nil {
+		return fmt.Errorf("unable to encode canPurchasePremium#e9de1cc0: field purpose is nil")
+	}
+	if err := c.Purpose.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode canPurchasePremium#e9de1cc0: field purpose: %w", err)
 	}
 	return nil
 }
@@ -109,10 +125,10 @@ func (c *CanPurchasePremiumRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *CanPurchasePremiumRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode canPurchasePremium#3e8cfc81 to nil")
+		return fmt.Errorf("can't decode canPurchasePremium#e9de1cc0 to nil")
 	}
 	if err := b.ConsumeID(CanPurchasePremiumRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode canPurchasePremium#3e8cfc81: %w", err)
+		return fmt.Errorf("unable to decode canPurchasePremium#e9de1cc0: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -120,7 +136,14 @@ func (c *CanPurchasePremiumRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *CanPurchasePremiumRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode canPurchasePremium#3e8cfc81 to nil")
+		return fmt.Errorf("can't decode canPurchasePremium#e9de1cc0 to nil")
+	}
+	{
+		value, err := DecodeStorePaymentPurpose(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode canPurchasePremium#e9de1cc0: field purpose: %w", err)
+		}
+		c.Purpose = value
 	}
 	return nil
 }
@@ -128,10 +151,18 @@ func (c *CanPurchasePremiumRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *CanPurchasePremiumRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode canPurchasePremium#3e8cfc81 as nil")
+		return fmt.Errorf("can't encode canPurchasePremium#e9de1cc0 as nil")
 	}
 	b.ObjStart()
 	b.PutID("canPurchasePremium")
+	b.Comma()
+	b.FieldStart("purpose")
+	if c.Purpose == nil {
+		return fmt.Errorf("unable to encode canPurchasePremium#e9de1cc0: field purpose is nil")
+	}
+	if err := c.Purpose.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode canPurchasePremium#e9de1cc0: field purpose: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -141,15 +172,21 @@ func (c *CanPurchasePremiumRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *CanPurchasePremiumRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode canPurchasePremium#3e8cfc81 to nil")
+		return fmt.Errorf("can't decode canPurchasePremium#e9de1cc0 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("canPurchasePremium"); err != nil {
-				return fmt.Errorf("unable to decode canPurchasePremium#3e8cfc81: %w", err)
+				return fmt.Errorf("unable to decode canPurchasePremium#e9de1cc0: %w", err)
 			}
+		case "purpose":
+			value, err := DecodeTDLibJSONStorePaymentPurpose(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode canPurchasePremium#e9de1cc0: field purpose: %w", err)
+			}
+			c.Purpose = value
 		default:
 			return b.Skip()
 		}
@@ -157,11 +194,21 @@ func (c *CanPurchasePremiumRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// CanPurchasePremium invokes method canPurchasePremium#3e8cfc81 returning error if any.
-func (c *Client) CanPurchasePremium(ctx context.Context) error {
+// GetPurpose returns value of Purpose field.
+func (c *CanPurchasePremiumRequest) GetPurpose() (value StorePaymentPurposeClass) {
+	if c == nil {
+		return
+	}
+	return c.Purpose
+}
+
+// CanPurchasePremium invokes method canPurchasePremium#e9de1cc0 returning error if any.
+func (c *Client) CanPurchasePremium(ctx context.Context, purpose StorePaymentPurposeClass) error {
 	var ok Ok
 
-	request := &CanPurchasePremiumRequest{}
+	request := &CanPurchasePremiumRequest{
+		Purpose: purpose,
+	}
 	if err := c.rpc.Invoke(ctx, request, &ok); err != nil {
 		return err
 	}

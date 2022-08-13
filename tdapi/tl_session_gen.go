@@ -37,7 +37,8 @@ type Session struct {
 	ID int64
 	// True, if this session is the current session
 	IsCurrent bool
-	// True, if a password is needed to complete authorization of the session
+	// True, if a 2-step verification password is needed to complete authorization of the
+	// session
 	IsPasswordPending bool
 	// True, if incoming secret chats can be accepted by the session
 	CanAcceptSecretChats bool

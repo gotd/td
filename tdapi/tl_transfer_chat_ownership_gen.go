@@ -38,7 +38,7 @@ type TransferChatOwnershipRequest struct {
 	// Identifier of the user to which transfer the ownership. The ownership can't be
 	// transferred to a bot or to a deleted user
 	UserID int64
-	// The password of the current user
+	// The 2-step verification password of the current user
 	Password string
 }
 

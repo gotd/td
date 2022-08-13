@@ -35,7 +35,7 @@ var (
 type SetPassportElementRequest struct {
 	// Input Telegram Passport element
 	Element InputPassportElementClass
-	// Password of the current user
+	// The 2-step verification password of the current user
 	Password string
 }
 

@@ -65,6 +65,7 @@ type Message struct {
 	// True, if the message statistics are available through getMessageStatistics
 	CanGetStatistics bool
 	// True, if information about the message thread is available through getMessageThread
+	// and getMessageThreadHistory
 	CanGetMessageThread bool
 	// True, if chat members already viewed the message can be received through
 	// getMessageViewers

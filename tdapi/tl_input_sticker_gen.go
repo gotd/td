@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// InputSticker represents TL type `inputSticker#345af62e`.
+// InputSticker represents TL type `inputSticker#9b1829b0`.
 type InputSticker struct {
 	// File with the sticker; must fit in a 512x512 square. For WEBP stickers and masks the
 	// file must be in PNG format, which will be converted to WEBP server-side. Otherwise,
@@ -40,12 +40,14 @@ type InputSticker struct {
 	Sticker InputFileClass
 	// Emojis corresponding to the sticker
 	Emojis string
-	// Sticker type
-	Type StickerTypeClass
+	// Sticker format
+	Format StickerFormatClass
+	// Position where the mask is placed; pass null if not specified
+	MaskPosition MaskPosition
 }
 
 // InputStickerTypeID is TL type id of InputSticker.
-const InputStickerTypeID = 0x345af62e
+const InputStickerTypeID = 0x9b1829b0
 
 // Ensuring interfaces in compile-time for InputSticker.
 var (
@@ -65,7 +67,10 @@ func (i *InputSticker) Zero() bool {
 	if !(i.Emojis == "") {
 		return false
 	}
-	if !(i.Type == nil) {
+	if !(i.Format == nil) {
+		return false
+	}
+	if !(i.MaskPosition.Zero()) {
 		return false
 	}
 
@@ -113,8 +118,12 @@ func (i *InputSticker) TypeInfo() tdp.Type {
 			SchemaName: "emojis",
 		},
 		{
-			Name:       "Type",
-			SchemaName: "type",
+			Name:       "Format",
+			SchemaName: "format",
+		},
+		{
+			Name:       "MaskPosition",
+			SchemaName: "mask_position",
 		},
 	}
 	return typ
@@ -123,7 +132,7 @@ func (i *InputSticker) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputSticker) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputSticker#345af62e as nil")
+		return fmt.Errorf("can't encode inputSticker#9b1829b0 as nil")
 	}
 	b.PutID(InputStickerTypeID)
 	return i.EncodeBare(b)
@@ -132,20 +141,23 @@ func (i *InputSticker) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputSticker) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputSticker#345af62e as nil")
+		return fmt.Errorf("can't encode inputSticker#9b1829b0 as nil")
 	}
 	if i.Sticker == nil {
-		return fmt.Errorf("unable to encode inputSticker#345af62e: field sticker is nil")
+		return fmt.Errorf("unable to encode inputSticker#9b1829b0: field sticker is nil")
 	}
 	if err := i.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputSticker#345af62e: field sticker: %w", err)
+		return fmt.Errorf("unable to encode inputSticker#9b1829b0: field sticker: %w", err)
 	}
 	b.PutString(i.Emojis)
-	if i.Type == nil {
-		return fmt.Errorf("unable to encode inputSticker#345af62e: field type is nil")
+	if i.Format == nil {
+		return fmt.Errorf("unable to encode inputSticker#9b1829b0: field format is nil")
 	}
-	if err := i.Type.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputSticker#345af62e: field type: %w", err)
+	if err := i.Format.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputSticker#9b1829b0: field format: %w", err)
+	}
+	if err := i.MaskPosition.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputSticker#9b1829b0: field mask_position: %w", err)
 	}
 	return nil
 }
@@ -153,10 +165,10 @@ func (i *InputSticker) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputSticker) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputSticker#345af62e to nil")
+		return fmt.Errorf("can't decode inputSticker#9b1829b0 to nil")
 	}
 	if err := b.ConsumeID(InputStickerTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputSticker#345af62e: %w", err)
+		return fmt.Errorf("unable to decode inputSticker#9b1829b0: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -164,28 +176,33 @@ func (i *InputSticker) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputSticker) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputSticker#345af62e to nil")
+		return fmt.Errorf("can't decode inputSticker#9b1829b0 to nil")
 	}
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputSticker#345af62e: field sticker: %w", err)
+			return fmt.Errorf("unable to decode inputSticker#9b1829b0: field sticker: %w", err)
 		}
 		i.Sticker = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputSticker#345af62e: field emojis: %w", err)
+			return fmt.Errorf("unable to decode inputSticker#9b1829b0: field emojis: %w", err)
 		}
 		i.Emojis = value
 	}
 	{
-		value, err := DecodeStickerType(b)
+		value, err := DecodeStickerFormat(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputSticker#345af62e: field type: %w", err)
+			return fmt.Errorf("unable to decode inputSticker#9b1829b0: field format: %w", err)
 		}
-		i.Type = value
+		i.Format = value
+	}
+	{
+		if err := i.MaskPosition.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputSticker#9b1829b0: field mask_position: %w", err)
+		}
 	}
 	return nil
 }
@@ -193,28 +210,33 @@ func (i *InputSticker) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InputSticker) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputSticker#345af62e as nil")
+		return fmt.Errorf("can't encode inputSticker#9b1829b0 as nil")
 	}
 	b.ObjStart()
 	b.PutID("inputSticker")
 	b.Comma()
 	b.FieldStart("sticker")
 	if i.Sticker == nil {
-		return fmt.Errorf("unable to encode inputSticker#345af62e: field sticker is nil")
+		return fmt.Errorf("unable to encode inputSticker#9b1829b0: field sticker is nil")
 	}
 	if err := i.Sticker.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputSticker#345af62e: field sticker: %w", err)
+		return fmt.Errorf("unable to encode inputSticker#9b1829b0: field sticker: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("emojis")
 	b.PutString(i.Emojis)
 	b.Comma()
-	b.FieldStart("type")
-	if i.Type == nil {
-		return fmt.Errorf("unable to encode inputSticker#345af62e: field type is nil")
+	b.FieldStart("format")
+	if i.Format == nil {
+		return fmt.Errorf("unable to encode inputSticker#9b1829b0: field format is nil")
 	}
-	if err := i.Type.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputSticker#345af62e: field type: %w", err)
+	if err := i.Format.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputSticker#9b1829b0: field format: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("mask_position")
+	if err := i.MaskPosition.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputSticker#9b1829b0: field mask_position: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -225,33 +247,37 @@ func (i *InputSticker) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InputSticker) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputSticker#345af62e to nil")
+		return fmt.Errorf("can't decode inputSticker#9b1829b0 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("inputSticker"); err != nil {
-				return fmt.Errorf("unable to decode inputSticker#345af62e: %w", err)
+				return fmt.Errorf("unable to decode inputSticker#9b1829b0: %w", err)
 			}
 		case "sticker":
 			value, err := DecodeTDLibJSONInputFile(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputSticker#345af62e: field sticker: %w", err)
+				return fmt.Errorf("unable to decode inputSticker#9b1829b0: field sticker: %w", err)
 			}
 			i.Sticker = value
 		case "emojis":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputSticker#345af62e: field emojis: %w", err)
+				return fmt.Errorf("unable to decode inputSticker#9b1829b0: field emojis: %w", err)
 			}
 			i.Emojis = value
-		case "type":
-			value, err := DecodeTDLibJSONStickerType(b)
+		case "format":
+			value, err := DecodeTDLibJSONStickerFormat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputSticker#345af62e: field type: %w", err)
+				return fmt.Errorf("unable to decode inputSticker#9b1829b0: field format: %w", err)
 			}
-			i.Type = value
+			i.Format = value
+		case "mask_position":
+			if err := i.MaskPosition.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputSticker#9b1829b0: field mask_position: %w", err)
+			}
 		default:
 			return b.Skip()
 		}
@@ -275,10 +301,18 @@ func (i *InputSticker) GetEmojis() (value string) {
 	return i.Emojis
 }
 
-// GetType returns value of Type field.
-func (i *InputSticker) GetType() (value StickerTypeClass) {
+// GetFormat returns value of Format field.
+func (i *InputSticker) GetFormat() (value StickerFormatClass) {
 	if i == nil {
 		return
 	}
-	return i.Type
+	return i.Format
+}
+
+// GetMaskPosition returns value of MaskPosition field.
+func (i *InputSticker) GetMaskPosition() (value MaskPosition) {
+	if i == nil {
+		return
+	}
+	return i.MaskPosition
 }

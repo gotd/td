@@ -31,10 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetArchivedStickerSetsRequest represents TL type `getArchivedStickerSets#7706ef86`.
+// GetArchivedStickerSetsRequest represents TL type `getArchivedStickerSets#3bb8424d`.
 type GetArchivedStickerSetsRequest struct {
-	// Pass true to return mask stickers sets; pass false to return ordinary sticker sets
-	IsMasks bool
+	// Type of the sticker sets to return
+	StickerType StickerTypeClass
 	// Identifier of the sticker set from which to return the result
 	OffsetStickerSetID int64
 	// The maximum number of sticker sets to return; up to 100
@@ -42,7 +42,7 @@ type GetArchivedStickerSetsRequest struct {
 }
 
 // GetArchivedStickerSetsRequestTypeID is TL type id of GetArchivedStickerSetsRequest.
-const GetArchivedStickerSetsRequestTypeID = 0x7706ef86
+const GetArchivedStickerSetsRequestTypeID = 0x3bb8424d
 
 // Ensuring interfaces in compile-time for GetArchivedStickerSetsRequest.
 var (
@@ -56,7 +56,7 @@ func (g *GetArchivedStickerSetsRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
-	if !(g.IsMasks == false) {
+	if !(g.StickerType == nil) {
 		return false
 	}
 	if !(g.OffsetStickerSetID == 0) {
@@ -102,8 +102,8 @@ func (g *GetArchivedStickerSetsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "IsMasks",
-			SchemaName: "is_masks",
+			Name:       "StickerType",
+			SchemaName: "sticker_type",
 		},
 		{
 			Name:       "OffsetStickerSetID",
@@ -120,7 +120,7 @@ func (g *GetArchivedStickerSetsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetArchivedStickerSetsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getArchivedStickerSets#7706ef86 as nil")
+		return fmt.Errorf("can't encode getArchivedStickerSets#3bb8424d as nil")
 	}
 	b.PutID(GetArchivedStickerSetsRequestTypeID)
 	return g.EncodeBare(b)
@@ -129,9 +129,14 @@ func (g *GetArchivedStickerSetsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetArchivedStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getArchivedStickerSets#7706ef86 as nil")
+		return fmt.Errorf("can't encode getArchivedStickerSets#3bb8424d as nil")
 	}
-	b.PutBool(g.IsMasks)
+	if g.StickerType == nil {
+		return fmt.Errorf("unable to encode getArchivedStickerSets#3bb8424d: field sticker_type is nil")
+	}
+	if err := g.StickerType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode getArchivedStickerSets#3bb8424d: field sticker_type: %w", err)
+	}
 	b.PutLong(g.OffsetStickerSetID)
 	b.PutInt32(g.Limit)
 	return nil
@@ -140,10 +145,10 @@ func (g *GetArchivedStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetArchivedStickerSetsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getArchivedStickerSets#7706ef86 to nil")
+		return fmt.Errorf("can't decode getArchivedStickerSets#3bb8424d to nil")
 	}
 	if err := b.ConsumeID(GetArchivedStickerSetsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getArchivedStickerSets#7706ef86: %w", err)
+		return fmt.Errorf("unable to decode getArchivedStickerSets#3bb8424d: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -151,26 +156,26 @@ func (g *GetArchivedStickerSetsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetArchivedStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getArchivedStickerSets#7706ef86 to nil")
+		return fmt.Errorf("can't decode getArchivedStickerSets#3bb8424d to nil")
 	}
 	{
-		value, err := b.Bool()
+		value, err := DecodeStickerType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode getArchivedStickerSets#7706ef86: field is_masks: %w", err)
+			return fmt.Errorf("unable to decode getArchivedStickerSets#3bb8424d: field sticker_type: %w", err)
 		}
-		g.IsMasks = value
+		g.StickerType = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode getArchivedStickerSets#7706ef86: field offset_sticker_set_id: %w", err)
+			return fmt.Errorf("unable to decode getArchivedStickerSets#3bb8424d: field offset_sticker_set_id: %w", err)
 		}
 		g.OffsetStickerSetID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getArchivedStickerSets#7706ef86: field limit: %w", err)
+			return fmt.Errorf("unable to decode getArchivedStickerSets#3bb8424d: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -180,13 +185,18 @@ func (g *GetArchivedStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetArchivedStickerSetsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getArchivedStickerSets#7706ef86 as nil")
+		return fmt.Errorf("can't encode getArchivedStickerSets#3bb8424d as nil")
 	}
 	b.ObjStart()
 	b.PutID("getArchivedStickerSets")
 	b.Comma()
-	b.FieldStart("is_masks")
-	b.PutBool(g.IsMasks)
+	b.FieldStart("sticker_type")
+	if g.StickerType == nil {
+		return fmt.Errorf("unable to encode getArchivedStickerSets#3bb8424d: field sticker_type is nil")
+	}
+	if err := g.StickerType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getArchivedStickerSets#3bb8424d: field sticker_type: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("offset_sticker_set_id")
 	b.PutLong(g.OffsetStickerSetID)
@@ -202,31 +212,31 @@ func (g *GetArchivedStickerSetsRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetArchivedStickerSetsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getArchivedStickerSets#7706ef86 to nil")
+		return fmt.Errorf("can't decode getArchivedStickerSets#3bb8424d to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getArchivedStickerSets"); err != nil {
-				return fmt.Errorf("unable to decode getArchivedStickerSets#7706ef86: %w", err)
+				return fmt.Errorf("unable to decode getArchivedStickerSets#3bb8424d: %w", err)
 			}
-		case "is_masks":
-			value, err := b.Bool()
+		case "sticker_type":
+			value, err := DecodeTDLibJSONStickerType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode getArchivedStickerSets#7706ef86: field is_masks: %w", err)
+				return fmt.Errorf("unable to decode getArchivedStickerSets#3bb8424d: field sticker_type: %w", err)
 			}
-			g.IsMasks = value
+			g.StickerType = value
 		case "offset_sticker_set_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode getArchivedStickerSets#7706ef86: field offset_sticker_set_id: %w", err)
+				return fmt.Errorf("unable to decode getArchivedStickerSets#3bb8424d: field offset_sticker_set_id: %w", err)
 			}
 			g.OffsetStickerSetID = value
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getArchivedStickerSets#7706ef86: field limit: %w", err)
+				return fmt.Errorf("unable to decode getArchivedStickerSets#3bb8424d: field limit: %w", err)
 			}
 			g.Limit = value
 		default:
@@ -236,12 +246,12 @@ func (g *GetArchivedStickerSetsRequest) DecodeTDLibJSON(b tdjson.Decoder) error 
 	})
 }
 
-// GetIsMasks returns value of IsMasks field.
-func (g *GetArchivedStickerSetsRequest) GetIsMasks() (value bool) {
+// GetStickerType returns value of StickerType field.
+func (g *GetArchivedStickerSetsRequest) GetStickerType() (value StickerTypeClass) {
 	if g == nil {
 		return
 	}
-	return g.IsMasks
+	return g.StickerType
 }
 
 // GetOffsetStickerSetID returns value of OffsetStickerSetID field.
@@ -260,7 +270,7 @@ func (g *GetArchivedStickerSetsRequest) GetLimit() (value int32) {
 	return g.Limit
 }
 
-// GetArchivedStickerSets invokes method getArchivedStickerSets#7706ef86 returning error if any.
+// GetArchivedStickerSets invokes method getArchivedStickerSets#3bb8424d returning error if any.
 func (c *Client) GetArchivedStickerSets(ctx context.Context, request *GetArchivedStickerSetsRequest) (*StickerSets, error) {
 	var result StickerSets
 

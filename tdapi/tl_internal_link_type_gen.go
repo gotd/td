@@ -4208,6 +4208,137 @@ func (i *InternalLinkTypeQrCodeAuthentication) DecodeTDLibJSON(b tdjson.Decoder)
 	})
 }
 
+// InternalLinkTypeRestorePurchases represents TL type `internalLinkTypeRestorePurchases#24203483`.
+type InternalLinkTypeRestorePurchases struct {
+}
+
+// InternalLinkTypeRestorePurchasesTypeID is TL type id of InternalLinkTypeRestorePurchases.
+const InternalLinkTypeRestorePurchasesTypeID = 0x24203483
+
+// construct implements constructor of InternalLinkTypeClass.
+func (i InternalLinkTypeRestorePurchases) construct() InternalLinkTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InternalLinkTypeRestorePurchases.
+var (
+	_ bin.Encoder     = &InternalLinkTypeRestorePurchases{}
+	_ bin.Decoder     = &InternalLinkTypeRestorePurchases{}
+	_ bin.BareEncoder = &InternalLinkTypeRestorePurchases{}
+	_ bin.BareDecoder = &InternalLinkTypeRestorePurchases{}
+
+	_ InternalLinkTypeClass = &InternalLinkTypeRestorePurchases{}
+)
+
+func (i *InternalLinkTypeRestorePurchases) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InternalLinkTypeRestorePurchases) String() string {
+	if i == nil {
+		return "InternalLinkTypeRestorePurchases(nil)"
+	}
+	type Alias InternalLinkTypeRestorePurchases
+	return fmt.Sprintf("InternalLinkTypeRestorePurchases%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InternalLinkTypeRestorePurchases) TypeID() uint32 {
+	return InternalLinkTypeRestorePurchasesTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InternalLinkTypeRestorePurchases) TypeName() string {
+	return "internalLinkTypeRestorePurchases"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InternalLinkTypeRestorePurchases) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "internalLinkTypeRestorePurchases",
+		ID:   InternalLinkTypeRestorePurchasesTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InternalLinkTypeRestorePurchases) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeRestorePurchases#24203483 as nil")
+	}
+	b.PutID(InternalLinkTypeRestorePurchasesTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InternalLinkTypeRestorePurchases) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeRestorePurchases#24203483 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InternalLinkTypeRestorePurchases) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeRestorePurchases#24203483 to nil")
+	}
+	if err := b.ConsumeID(InternalLinkTypeRestorePurchasesTypeID); err != nil {
+		return fmt.Errorf("unable to decode internalLinkTypeRestorePurchases#24203483: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InternalLinkTypeRestorePurchases) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeRestorePurchases#24203483 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InternalLinkTypeRestorePurchases) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeRestorePurchases#24203483 as nil")
+	}
+	b.ObjStart()
+	b.PutID("internalLinkTypeRestorePurchases")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InternalLinkTypeRestorePurchases) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeRestorePurchases#24203483 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("internalLinkTypeRestorePurchases"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeRestorePurchases#24203483: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // InternalLinkTypeSettings represents TL type `internalLinkTypeSettings#177545b4`.
 type InternalLinkTypeSettings struct {
 }
@@ -5536,6 +5667,7 @@ const InternalLinkTypeClassName = "InternalLinkType"
 //	case *tdapi.InternalLinkTypeProxy: // internalLinkTypeProxy#b1b12cea
 //	case *tdapi.InternalLinkTypePublicChat: // internalLinkTypePublicChat#a774573b
 //	case *tdapi.InternalLinkTypeQrCodeAuthentication: // internalLinkTypeQrCodeAuthentication#bf121924
+//	case *tdapi.InternalLinkTypeRestorePurchases: // internalLinkTypeRestorePurchases#24203483
 //	case *tdapi.InternalLinkTypeSettings: // internalLinkTypeSettings#177545b4
 //	case *tdapi.InternalLinkTypeStickerSet: // internalLinkTypeStickerSet#e06e56b9
 //	case *tdapi.InternalLinkTypeTheme: // internalLinkTypeTheme#f405f807
@@ -5732,6 +5864,13 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 	case InternalLinkTypeQrCodeAuthenticationTypeID:
 		// Decoding internalLinkTypeQrCodeAuthentication#bf121924.
 		v := InternalLinkTypeQrCodeAuthentication{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case InternalLinkTypeRestorePurchasesTypeID:
+		// Decoding internalLinkTypeRestorePurchases#24203483.
+		v := InternalLinkTypeRestorePurchases{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
@@ -5961,6 +6100,13 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 	case "internalLinkTypeQrCodeAuthentication":
 		// Decoding internalLinkTypeQrCodeAuthentication#bf121924.
 		v := InternalLinkTypeQrCodeAuthentication{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeRestorePurchases":
+		// Decoding internalLinkTypeRestorePurchases#24203483.
+		v := InternalLinkTypeRestorePurchases{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}

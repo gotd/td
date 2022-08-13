@@ -33,12 +33,13 @@ var (
 
 // AnimatedEmoji represents TL type `animatedEmoji#93b7fec9`.
 type AnimatedEmoji struct {
-	// Animated sticker for the emoji
+	// Sticker for the emoji; may be null if yet unknown for a custom emoji. If the sticker
+	// is a custom emoji, it can have arbitrary format different from stickerFormatTgs
 	Sticker Sticker
 	// Emoji modifier fitzpatrick type; 0-6; 0 if none
 	FitzpatrickType int32
-	// File containing the sound to be played when the animated emoji is clicked; may be null
-	// The sound is encoded with the Opus codec, and stored inside an OGG container
+	// File containing the sound to be played when the sticker is clicked; may be null. The
+	// sound is encoded with the Opus codec, and stored inside an OGG container
 	Sound File
 }
 

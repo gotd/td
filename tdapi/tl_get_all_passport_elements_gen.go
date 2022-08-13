@@ -33,7 +33,7 @@ var (
 
 // GetAllPassportElementsRequest represents TL type `getAllPassportElements#86782aeb`.
 type GetAllPassportElementsRequest struct {
-	// Password of the current user
+	// The 2-step verification password of the current user
 	Password string
 }
 

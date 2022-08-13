@@ -33,7 +33,7 @@ var (
 
 // GetRecoveryEmailAddressRequest represents TL type `getRecoveryEmailAddress#a0f1b9fd`.
 type GetRecoveryEmailAddressRequest struct {
-	// The password for the current user
+	// The 2-step verification password for the current user
 	Password string
 }
 
