@@ -2992,6 +2992,353 @@ func (m *MessageEntityBlockquote) GetLength() (value int) {
 	return m.Length
 }
 
+// MessageEntitySpoiler represents TL type `messageEntitySpoiler#32ca960f`.
+// Message entity representing a spoiler
+//
+// See https://core.telegram.org/constructor/messageEntitySpoiler for reference.
+type MessageEntitySpoiler struct {
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
+	Offset int
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
+	Length int
+}
+
+// MessageEntitySpoilerTypeID is TL type id of MessageEntitySpoiler.
+const MessageEntitySpoilerTypeID = 0x32ca960f
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntitySpoiler) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntitySpoiler.
+var (
+	_ bin.Encoder     = &MessageEntitySpoiler{}
+	_ bin.Decoder     = &MessageEntitySpoiler{}
+	_ bin.BareEncoder = &MessageEntitySpoiler{}
+	_ bin.BareDecoder = &MessageEntitySpoiler{}
+
+	_ MessageEntityClass = &MessageEntitySpoiler{}
+)
+
+func (m *MessageEntitySpoiler) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageEntitySpoiler) String() string {
+	if m == nil {
+		return "MessageEntitySpoiler(nil)"
+	}
+	type Alias MessageEntitySpoiler
+	return fmt.Sprintf("MessageEntitySpoiler%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageEntitySpoiler) TypeID() uint32 {
+	return MessageEntitySpoilerTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageEntitySpoiler) TypeName() string {
+	return "messageEntitySpoiler"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageEntitySpoiler) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageEntitySpoiler",
+		ID:   MessageEntitySpoilerTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+		{
+			Name:       "Length",
+			SchemaName: "length",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageEntitySpoiler) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageEntitySpoiler#32ca960f as nil")
+	}
+	b.PutID(MessageEntitySpoilerTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageEntitySpoiler) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageEntitySpoiler#32ca960f as nil")
+	}
+	b.PutInt(m.Offset)
+	b.PutInt(m.Length)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageEntitySpoiler) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageEntitySpoiler#32ca960f to nil")
+	}
+	if err := b.ConsumeID(MessageEntitySpoilerTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageEntitySpoiler#32ca960f: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageEntitySpoiler) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageEntitySpoiler#32ca960f to nil")
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntitySpoiler#32ca960f: field offset: %w", err)
+		}
+		m.Offset = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntitySpoiler#32ca960f: field length: %w", err)
+		}
+		m.Length = value
+	}
+	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntitySpoiler) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntitySpoiler) GetLength() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Length
+}
+
+// MessageEntityCustomEmoji represents TL type `messageEntityCustomEmoji#c8cf05f8`.
+// Represents a custom emoji
+//
+// See https://core.telegram.org/constructor/messageEntityCustomEmoji for reference.
+type MessageEntityCustomEmoji struct {
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
+	Offset int
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
+	Length int
+	// Document ID of the custom emoji, use messages.getCustomEmojiDocuments¹ to fetch the
+	// emoji animation and the actual emoji it represents.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.getCustomEmojiDocuments
+	DocumentID int64
+}
+
+// MessageEntityCustomEmojiTypeID is TL type id of MessageEntityCustomEmoji.
+const MessageEntityCustomEmojiTypeID = 0xc8cf05f8
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityCustomEmoji) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityCustomEmoji.
+var (
+	_ bin.Encoder     = &MessageEntityCustomEmoji{}
+	_ bin.Decoder     = &MessageEntityCustomEmoji{}
+	_ bin.BareEncoder = &MessageEntityCustomEmoji{}
+	_ bin.BareDecoder = &MessageEntityCustomEmoji{}
+
+	_ MessageEntityClass = &MessageEntityCustomEmoji{}
+)
+
+func (m *MessageEntityCustomEmoji) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+	if !(m.DocumentID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageEntityCustomEmoji) String() string {
+	if m == nil {
+		return "MessageEntityCustomEmoji(nil)"
+	}
+	type Alias MessageEntityCustomEmoji
+	return fmt.Sprintf("MessageEntityCustomEmoji%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageEntityCustomEmoji) TypeID() uint32 {
+	return MessageEntityCustomEmojiTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageEntityCustomEmoji) TypeName() string {
+	return "messageEntityCustomEmoji"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageEntityCustomEmoji) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageEntityCustomEmoji",
+		ID:   MessageEntityCustomEmojiTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+		{
+			Name:       "Length",
+			SchemaName: "length",
+		},
+		{
+			Name:       "DocumentID",
+			SchemaName: "document_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageEntityCustomEmoji) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageEntityCustomEmoji#c8cf05f8 as nil")
+	}
+	b.PutID(MessageEntityCustomEmojiTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageEntityCustomEmoji) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageEntityCustomEmoji#c8cf05f8 as nil")
+	}
+	b.PutInt(m.Offset)
+	b.PutInt(m.Length)
+	b.PutLong(m.DocumentID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageEntityCustomEmoji) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageEntityCustomEmoji#c8cf05f8 to nil")
+	}
+	if err := b.ConsumeID(MessageEntityCustomEmojiTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageEntityCustomEmoji#c8cf05f8: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageEntityCustomEmoji) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageEntityCustomEmoji#c8cf05f8 to nil")
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntityCustomEmoji#c8cf05f8: field offset: %w", err)
+		}
+		m.Offset = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntityCustomEmoji#c8cf05f8: field length: %w", err)
+		}
+		m.Length = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntityCustomEmoji#c8cf05f8: field document_id: %w", err)
+		}
+		m.DocumentID = value
+	}
+	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityCustomEmoji) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityCustomEmoji) GetLength() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Length
+}
+
+// GetDocumentID returns value of DocumentID field.
+func (m *MessageEntityCustomEmoji) GetDocumentID() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.DocumentID
+}
+
 // MessageEntityClassName is schema name of MessageEntityClass.
 const MessageEntityClassName = "MessageEntity"
 
@@ -3024,6 +3371,8 @@ const MessageEntityClassName = "MessageEntity"
 //	case *e2e.MessageEntityUnderline: // messageEntityUnderline#9c4e7e8b
 //	case *e2e.MessageEntityStrike: // messageEntityStrike#bf0693d4
 //	case *e2e.MessageEntityBlockquote: // messageEntityBlockquote#20df5d0
+//	case *e2e.MessageEntitySpoiler: // messageEntitySpoiler#32ca960f
+//	case *e2e.MessageEntityCustomEmoji: // messageEntityCustomEmoji#c8cf05f8
 //	default: panic(v)
 //	}
 type MessageEntityClass interface {
@@ -3185,6 +3534,20 @@ func DecodeMessageEntity(buf *bin.Buffer) (MessageEntityClass, error) {
 	case MessageEntityBlockquoteTypeID:
 		// Decoding messageEntityBlockquote#20df5d0.
 		v := MessageEntityBlockquote{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+		}
+		return &v, nil
+	case MessageEntitySpoilerTypeID:
+		// Decoding messageEntitySpoiler#32ca960f.
+		v := MessageEntitySpoiler{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+		}
+		return &v, nil
+	case MessageEntityCustomEmojiTypeID:
+		// Decoding messageEntityCustomEmoji#c8cf05f8.
+		v := MessageEntityCustomEmoji{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
 		}
