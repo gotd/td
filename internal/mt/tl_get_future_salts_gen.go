@@ -150,16 +150,3 @@ func (g *GetFutureSaltsRequest) GetNum() (value int) {
 	}
 	return g.Num
 }
-
-// GetFutureSalts invokes method get_future_salts#b921bd04 returning error if any.
-func (c *Client) GetFutureSalts(ctx context.Context, num int) (*FutureSalts, error) {
-	var result FutureSalts
-
-	request := &GetFutureSaltsRequest{
-		Num: num,
-	}
-	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
-		return nil, err
-	}
-	return &result, nil
-}

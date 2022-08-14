@@ -150,16 +150,3 @@ func (r *RPCDropAnswerRequest) GetReqMsgID() (value int64) {
 	}
 	return r.ReqMsgID
 }
-
-// RPCDropAnswer invokes method rpc_drop_answer#58e4a740 returning error if any.
-func (c *Client) RPCDropAnswer(ctx context.Context, reqmsgid int64) (RPCDropAnswerClass, error) {
-	var result RPCDropAnswerBox
-
-	request := &RPCDropAnswerRequest{
-		ReqMsgID: reqmsgid,
-	}
-	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
-		return nil, err
-	}
-	return result.RpcDropAnswer, nil
-}

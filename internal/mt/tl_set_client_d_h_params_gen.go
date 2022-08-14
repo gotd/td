@@ -200,13 +200,3 @@ func (s *SetClientDHParamsRequest) GetEncryptedData() (value []byte) {
 	}
 	return s.EncryptedData
 }
-
-// SetClientDHParams invokes method set_client_DH_params#f5045f1f returning error if any.
-func (c *Client) SetClientDHParams(ctx context.Context, request *SetClientDHParamsRequest) (SetClientDHParamsAnswerClass, error) {
-	var result SetClientDHParamsAnswerBox
-
-	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
-		return nil, err
-	}
-	return result.Set_client_DH_params_answer, nil
-}

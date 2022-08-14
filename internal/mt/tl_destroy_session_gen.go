@@ -150,16 +150,3 @@ func (d *DestroySessionRequest) GetSessionID() (value int64) {
 	}
 	return d.SessionID
 }
-
-// DestroySession invokes method destroy_session#e7512126 returning error if any.
-func (c *Client) DestroySession(ctx context.Context, sessionid int64) (DestroySessionResClass, error) {
-	var result DestroySessionResBox
-
-	request := &DestroySessionRequest{
-		SessionID: sessionid,
-	}
-	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
-		return nil, err
-	}
-	return result.DestroySessionRes, nil
-}
