@@ -556,6 +556,306 @@ func (p *PQInnerDataDC) GetDC() (value int) {
 	return p.DC
 }
 
+// PQInnerDataTempDC represents TL type `p_q_inner_data_temp_dc#56fddf88`.
+type PQInnerDataTempDC struct {
+	// Pq field of PQInnerDataTempDC.
+	Pq []byte
+	// P field of PQInnerDataTempDC.
+	P []byte
+	// Q field of PQInnerDataTempDC.
+	Q []byte
+	// Nonce field of PQInnerDataTempDC.
+	Nonce bin.Int128
+	// ServerNonce field of PQInnerDataTempDC.
+	ServerNonce bin.Int128
+	// NewNonce field of PQInnerDataTempDC.
+	NewNonce bin.Int256
+	// DC field of PQInnerDataTempDC.
+	DC int
+	// ExpiresIn field of PQInnerDataTempDC.
+	ExpiresIn int
+}
+
+// PQInnerDataTempDCTypeID is TL type id of PQInnerDataTempDC.
+const PQInnerDataTempDCTypeID = 0x56fddf88
+
+// construct implements constructor of PQInnerDataClass.
+func (p PQInnerDataTempDC) construct() PQInnerDataClass { return &p }
+
+// Ensuring interfaces in compile-time for PQInnerDataTempDC.
+var (
+	_ bin.Encoder     = &PQInnerDataTempDC{}
+	_ bin.Decoder     = &PQInnerDataTempDC{}
+	_ bin.BareEncoder = &PQInnerDataTempDC{}
+	_ bin.BareDecoder = &PQInnerDataTempDC{}
+
+	_ PQInnerDataClass = &PQInnerDataTempDC{}
+)
+
+func (p *PQInnerDataTempDC) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Pq == nil) {
+		return false
+	}
+	if !(p.P == nil) {
+		return false
+	}
+	if !(p.Q == nil) {
+		return false
+	}
+	if !(p.Nonce == bin.Int128{}) {
+		return false
+	}
+	if !(p.ServerNonce == bin.Int128{}) {
+		return false
+	}
+	if !(p.NewNonce == bin.Int256{}) {
+		return false
+	}
+	if !(p.DC == 0) {
+		return false
+	}
+	if !(p.ExpiresIn == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PQInnerDataTempDC) String() string {
+	if p == nil {
+		return "PQInnerDataTempDC(nil)"
+	}
+	type Alias PQInnerDataTempDC
+	return fmt.Sprintf("PQInnerDataTempDC%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PQInnerDataTempDC) TypeID() uint32 {
+	return PQInnerDataTempDCTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PQInnerDataTempDC) TypeName() string {
+	return "p_q_inner_data_temp_dc"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PQInnerDataTempDC) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "p_q_inner_data_temp_dc",
+		ID:   PQInnerDataTempDCTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Pq",
+			SchemaName: "pq",
+		},
+		{
+			Name:       "P",
+			SchemaName: "p",
+		},
+		{
+			Name:       "Q",
+			SchemaName: "q",
+		},
+		{
+			Name:       "Nonce",
+			SchemaName: "nonce",
+		},
+		{
+			Name:       "ServerNonce",
+			SchemaName: "server_nonce",
+		},
+		{
+			Name:       "NewNonce",
+			SchemaName: "new_nonce",
+		},
+		{
+			Name:       "DC",
+			SchemaName: "dc",
+		},
+		{
+			Name:       "ExpiresIn",
+			SchemaName: "expires_in",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PQInnerDataTempDC) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode p_q_inner_data_temp_dc#56fddf88 as nil")
+	}
+	b.PutID(PQInnerDataTempDCTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PQInnerDataTempDC) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode p_q_inner_data_temp_dc#56fddf88 as nil")
+	}
+	b.PutBytes(p.Pq)
+	b.PutBytes(p.P)
+	b.PutBytes(p.Q)
+	b.PutInt128(p.Nonce)
+	b.PutInt128(p.ServerNonce)
+	b.PutInt256(p.NewNonce)
+	b.PutInt(p.DC)
+	b.PutInt(p.ExpiresIn)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PQInnerDataTempDC) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode p_q_inner_data_temp_dc#56fddf88 to nil")
+	}
+	if err := b.ConsumeID(PQInnerDataTempDCTypeID); err != nil {
+		return fmt.Errorf("unable to decode p_q_inner_data_temp_dc#56fddf88: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PQInnerDataTempDC) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode p_q_inner_data_temp_dc#56fddf88 to nil")
+	}
+	{
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode p_q_inner_data_temp_dc#56fddf88: field pq: %w", err)
+		}
+		p.Pq = value
+	}
+	{
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode p_q_inner_data_temp_dc#56fddf88: field p: %w", err)
+		}
+		p.P = value
+	}
+	{
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode p_q_inner_data_temp_dc#56fddf88: field q: %w", err)
+		}
+		p.Q = value
+	}
+	{
+		value, err := b.Int128()
+		if err != nil {
+			return fmt.Errorf("unable to decode p_q_inner_data_temp_dc#56fddf88: field nonce: %w", err)
+		}
+		p.Nonce = value
+	}
+	{
+		value, err := b.Int128()
+		if err != nil {
+			return fmt.Errorf("unable to decode p_q_inner_data_temp_dc#56fddf88: field server_nonce: %w", err)
+		}
+		p.ServerNonce = value
+	}
+	{
+		value, err := b.Int256()
+		if err != nil {
+			return fmt.Errorf("unable to decode p_q_inner_data_temp_dc#56fddf88: field new_nonce: %w", err)
+		}
+		p.NewNonce = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode p_q_inner_data_temp_dc#56fddf88: field dc: %w", err)
+		}
+		p.DC = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode p_q_inner_data_temp_dc#56fddf88: field expires_in: %w", err)
+		}
+		p.ExpiresIn = value
+	}
+	return nil
+}
+
+// GetPq returns value of Pq field.
+func (p *PQInnerDataTempDC) GetPq() (value []byte) {
+	if p == nil {
+		return
+	}
+	return p.Pq
+}
+
+// GetP returns value of P field.
+func (p *PQInnerDataTempDC) GetP() (value []byte) {
+	if p == nil {
+		return
+	}
+	return p.P
+}
+
+// GetQ returns value of Q field.
+func (p *PQInnerDataTempDC) GetQ() (value []byte) {
+	if p == nil {
+		return
+	}
+	return p.Q
+}
+
+// GetNonce returns value of Nonce field.
+func (p *PQInnerDataTempDC) GetNonce() (value bin.Int128) {
+	if p == nil {
+		return
+	}
+	return p.Nonce
+}
+
+// GetServerNonce returns value of ServerNonce field.
+func (p *PQInnerDataTempDC) GetServerNonce() (value bin.Int128) {
+	if p == nil {
+		return
+	}
+	return p.ServerNonce
+}
+
+// GetNewNonce returns value of NewNonce field.
+func (p *PQInnerDataTempDC) GetNewNonce() (value bin.Int256) {
+	if p == nil {
+		return
+	}
+	return p.NewNonce
+}
+
+// GetDC returns value of DC field.
+func (p *PQInnerDataTempDC) GetDC() (value int) {
+	if p == nil {
+		return
+	}
+	return p.DC
+}
+
+// GetExpiresIn returns value of ExpiresIn field.
+func (p *PQInnerDataTempDC) GetExpiresIn() (value int) {
+	if p == nil {
+		return
+	}
+	return p.ExpiresIn
+}
+
 // PQInnerDataClassName is schema name of PQInnerDataClass.
 const PQInnerDataClassName = "P_Q_inner_data"
 
@@ -570,6 +870,7 @@ const PQInnerDataClassName = "P_Q_inner_data"
 //	switch v := g.(type) {
 //	case *mt.PQInnerData: // p_q_inner_data#83c95aec
 //	case *mt.PQInnerDataDC: // p_q_inner_data_dc#a9f55f95
+//	case *mt.PQInnerDataTempDC: // p_q_inner_data_temp_dc#56fddf88
 //	default: panic(v)
 //	}
 type PQInnerDataClass interface {
@@ -621,6 +922,13 @@ func DecodePQInnerData(buf *bin.Buffer) (PQInnerDataClass, error) {
 	case PQInnerDataDCTypeID:
 		// Decoding p_q_inner_data_dc#a9f55f95.
 		v := PQInnerDataDC{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PQInnerDataClass: %w", err)
+		}
+		return &v, nil
+	case PQInnerDataTempDCTypeID:
+		// Decoding p_q_inner_data_temp_dc#56fddf88.
+		v := PQInnerDataTempDC{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PQInnerDataClass: %w", err)
 		}

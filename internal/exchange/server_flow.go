@@ -37,6 +37,60 @@ func serverError(code int32, err error) error {
 	}
 }
 
+// req_pq#60469778 or req_pq_multi#be7e8ef1
+type reqPQ struct {
+	Type  uint32
+	Nonce bin.Int128
+}
+
+func (r *reqPQ) Decode(b *bin.Buffer) error {
+	var (
+		legacy mt.ReqPqRequest
+		multi  mt.ReqPqMultiRequest
+	)
+	id, err := b.PeekID()
+	if err != nil {
+		return err
+	}
+	r.Type = id
+	switch id {
+	case legacy.TypeID():
+		if err := legacy.Decode(b); err != nil {
+			return err
+		}
+		r.Nonce = legacy.Nonce
+		return nil
+	case multi.TypeID():
+		if err := multi.Decode(b); err != nil {
+			return err
+		}
+		r.Nonce = multi.Nonce
+		return nil
+	default:
+		return bin.NewUnexpectedID(id)
+	}
+}
+
+type reqOrDH struct {
+	Type uint32
+	DH   mt.ReqDHParamsRequest
+	Req  reqPQ
+}
+
+func (r *reqOrDH) Decode(b *bin.Buffer) error {
+	id, err := b.PeekID()
+	if err != nil {
+		return err
+	}
+	r.Type = id
+	switch id {
+	case r.DH.TypeID():
+		return r.DH.Decode(b)
+	default:
+		return r.Req.Decode(b)
+	}
+}
+
 // Run runs server-side flow.
 // If b parameter is not nil, it will be used as first read message.
 // Otherwise, it will be read from connection.
@@ -46,11 +100,11 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 	}
 
 	// 1. Client sends query to server
-	//
+	// req_pq#60469778 nonce:int128 = ResPQ; // legacy
 	// req_pq_multi#be7e8ef1 nonce:int128 = ResPQ;
-	var pqReq mt.ReqPqMultiRequest
+	var req reqPQ
 	b := new(bin.Buffer)
-	if err := s.readUnencrypted(ctx, b, &pqReq); err != nil {
+	if err := s.readUnencrypted(ctx, b, &req); err != nil {
 		return ServerExchangeResult{}, err
 	}
 	s.log.Debug("Received client ReqPqMultiRequest")
@@ -68,10 +122,11 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 		return ServerExchangeResult{}, errors.Wrap(err, "generate pq")
 	}
 
+SendResPQ:
 	s.log.Debug("Sending ResPQ", zap.String("pq", pq.String()))
 	if err := s.writeUnencrypted(ctx, b, &mt.ResPQ{
 		Pq:          pq.Bytes(),
-		Nonce:       pqReq.Nonce,
+		Nonce:       req.Nonce,
 		ServerNonce: serverNonce,
 		ServerPublicKeyFingerprints: []int64{
 			s.key.Fingerprint(),
@@ -84,15 +139,25 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 	//
 	// req_DH_params#d712e4be nonce:int128 server_nonce:int128 p:string
 	//  q:string public_key_fingerprint:long encrypted_data:string = Server_DH_Params
-	var dhParams mt.ReqDHParamsRequest
+	var dhParams reqOrDH
 	if err := s.readUnencrypted(ctx, b, &dhParams); err != nil {
 		return ServerExchangeResult{}, err
 	}
-	s.log.Debug("Received client ReqDHParamsRequest")
+	switch dhParams.Type {
+	case mt.ReqPqRequestTypeID, mt.ReqPqMultiRequestTypeID:
+		// Client can send fake req_pq on start. Ignore it.
+		//
+		// Next one should be not fake.
+		s.log.Debug("Received ReqPQ again")
+		req = dhParams.Req
+		goto SendResPQ
+	default:
+		s.log.Debug("Received client ReqDHParamsRequest")
+	}
 
 	var innerData mt.PQInnerData
 	{
-		r, err := crypto.DecodeRSAPad(dhParams.EncryptedData, s.key.RSA)
+		r, err := crypto.DecodeRSAPad(dhParams.DH.EncryptedData, s.key.RSA)
 		if err != nil {
 			return ServerExchangeResult{}, wrapKeyNotFound(err)
 		}
@@ -133,7 +198,7 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 	}
 
 	data := mt.ServerDHInnerData{
-		Nonce:       pqReq.Nonce,
+		Nonce:       req.Nonce,
 		ServerNonce: serverNonce,
 		G:           g,
 		GA:          ga.Bytes(),
@@ -155,7 +220,7 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 	s.log.Debug("Sending ServerDHParamsOk", zap.Int("g", g))
 	// 5. Server responds with Server_DH_Params.
 	if err := s.writeUnencrypted(ctx, b, &mt.ServerDHParamsOk{
-		Nonce:           pqReq.Nonce,
+		Nonce:           req.Nonce,
 		ServerNonce:     serverNonce,
 		EncryptedAnswer: answer,
 	}); err != nil {
@@ -193,7 +258,7 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 	// 	new_nonce_hash1:int128 = Set_client_DH_params_answer;
 	s.log.Debug("Sending DhGenOk")
 	if err := s.writeUnencrypted(ctx, b, &mt.DhGenOk{
-		Nonce:         pqReq.Nonce,
+		Nonce:         req.Nonce,
 		ServerNonce:   serverNonce,
 		NewNonceHash1: crypto.NonceHash1(innerData.NewNonce, authKey),
 	}); err != nil {
