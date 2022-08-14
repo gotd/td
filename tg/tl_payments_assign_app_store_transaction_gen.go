@@ -32,12 +32,14 @@ var (
 )
 
 // PaymentsAssignAppStoreTransactionRequest represents TL type `payments.assignAppStoreTransaction#80ed747d`.
+// Informs server about a purchase made through the App Store: for official applications
+// only.
 //
 // See https://core.telegram.org/method/payments.assignAppStoreTransaction for reference.
 type PaymentsAssignAppStoreTransactionRequest struct {
-	//
+	// Receipt
 	Receipt []byte
-	//
+	// Payment purpose
 	Purpose InputStorePaymentPurposeClass
 }
 
@@ -193,6 +195,8 @@ func (a *PaymentsAssignAppStoreTransactionRequest) GetPurpose() (value InputStor
 }
 
 // PaymentsAssignAppStoreTransaction invokes method payments.assignAppStoreTransaction#80ed747d returning error if any.
+// Informs server about a purchase made through the App Store: for official applications
+// only.
 //
 // See https://core.telegram.org/method/payments.assignAppStoreTransaction for reference.
 func (c *Client) PaymentsAssignAppStoreTransaction(ctx context.Context, request *PaymentsAssignAppStoreTransactionRequest) (UpdatesClass, error) {

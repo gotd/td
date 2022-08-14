@@ -32,6 +32,7 @@ var (
 )
 
 // MessagesProlongWebViewRequest represents TL type `messages.prolongWebView#ea5fbcce`.
+// Indicate to the server (from the user side) that the user is still using a web app.
 //
 // See https://core.telegram.org/method/messages.prolongWebView for reference.
 type MessagesProlongWebViewRequest struct {
@@ -40,19 +41,34 @@ type MessagesProlongWebViewRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// Whether the inline message that will be sent by the bot on behalf of the user once the
+	// web app interaction is terminated¹ should be sent silently (no notifications for the
+	// receivers).
 	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.sendWebViewResultMessage
 	Silent bool
-	//
+	// Dialog where the web app was opened.
 	Peer InputPeerClass
+	// Bot that owns the web app¹
 	//
+	// Links:
+	//  1) https://core.telegram.org/bots/webapps
 	Bot InputUserClass
+	// Web app interaction ID obtained from messages.requestWebView¹
 	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.requestWebView
 	QueryID int64
+	// Whether the inline message that will be sent by the bot on behalf of the user once the
+	// web app interaction is terminated¹ should be sent in reply to this message ID.
 	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.sendWebViewResultMessage
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	//
+	// Open the web app as the specified peer
 	//
 	// Use SetSendAs and GetSendAs helpers.
 	SendAs InputPeerClass
@@ -382,6 +398,7 @@ func (p *MessagesProlongWebViewRequest) GetSendAs() (value InputPeerClass, ok bo
 }
 
 // MessagesProlongWebView invokes method messages.prolongWebView#ea5fbcce returning error if any.
+// Indicate to the server (from the user side) that the user is still using a web app.
 //
 // See https://core.telegram.org/method/messages.prolongWebView for reference.
 func (c *Client) MessagesProlongWebView(ctx context.Context, request *MessagesProlongWebViewRequest) (bool, error) {

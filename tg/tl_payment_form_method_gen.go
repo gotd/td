@@ -32,13 +32,13 @@ var (
 )
 
 // PaymentFormMethod represents TL type `paymentFormMethod#88f8f21b`.
-// Represents a payment method
+// Represents an additional payment method
 //
 // See https://core.telegram.org/constructor/paymentFormMethod for reference.
 type PaymentFormMethod struct {
-	//
+	// URL to open in a webview to process the payment
 	URL string
-	//
+	// Payment method description
 	Title string
 }
 

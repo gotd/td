@@ -118,7 +118,7 @@ type UserFull struct {
 	//
 	// Use SetBotBroadcastAdminRights and GetBotBroadcastAdminRights helpers.
 	BotBroadcastAdminRights ChatAdminRights
-	//
+	// List of Telegram Premium subscriptions we gifted to or were gifted by this user
 	//
 	// Use SetPremiumGifts and GetPremiumGifts helpers.
 	PremiumGifts []PremiumGiftOption

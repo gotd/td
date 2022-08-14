@@ -32,12 +32,14 @@ var (
 )
 
 // PaymentsAssignPlayMarketTransactionRequest represents TL type `payments.assignPlayMarketTransaction#dffd50d3`.
+// Informs server about a purchase made through the Play Store: for official applications
+// only.
 //
 // See https://core.telegram.org/method/payments.assignPlayMarketTransaction for reference.
 type PaymentsAssignPlayMarketTransactionRequest struct {
-	//
+	// Receipt
 	Receipt DataJSON
-	//
+	// Payment purpose
 	Purpose InputStorePaymentPurposeClass
 }
 
@@ -193,6 +195,8 @@ func (a *PaymentsAssignPlayMarketTransactionRequest) GetPurpose() (value InputSt
 }
 
 // PaymentsAssignPlayMarketTransaction invokes method payments.assignPlayMarketTransaction#dffd50d3 returning error if any.
+// Informs server about a purchase made through the Play Store: for official applications
+// only.
 //
 // See https://core.telegram.org/method/payments.assignPlayMarketTransaction for reference.
 func (c *Client) PaymentsAssignPlayMarketTransaction(ctx context.Context, request *PaymentsAssignPlayMarketTransactionRequest) (UpdatesClass, error) {

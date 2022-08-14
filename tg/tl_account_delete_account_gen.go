@@ -32,12 +32,14 @@ var (
 )
 
 // AccountDeleteAccountRequest represents TL type `account.deleteAccount#a2c0cf74`.
-// Delete the user's account from the telegram servers. Can be used, for example, to
-// delete the account of a user that provided the login code, but forgot the 2FA password
-// and no recovery method is configured¹.
+// Delete the user's account from the telegram servers.
+// Can also be used to delete the account of a user that provided the login code, but
+// forgot the 2FA password and no recovery method is configured, see here »¹ for more
+// info on password recovery, and here »² for more info on account deletion.
 //
 // Links:
-//  1. https://core.telegram.org/api/srp
+//  1. https://core.telegram.org/api/srp#password-recovery
+//  2. https://core.telegram.org/api/account-deletion
 //
 // See https://core.telegram.org/method/account.deleteAccount for reference.
 type AccountDeleteAccountRequest struct {
@@ -48,7 +50,12 @@ type AccountDeleteAccountRequest struct {
 	Flags bin.Fields
 	// Why is the account being deleted, can be empty
 	Reason string
+	// 2FA password¹: this field can be omitted even for accounts with 2FA enabled: in this
+	// case account account deletion will be delayed by 7 days as specified in the docs »²
 	//
+	// Links:
+	//  1) https://core.telegram.org/api/srp
+	//  2) https://core.telegram.org/api/account-deletion
 	//
 	// Use SetPassword and GetPassword helpers.
 	Password InputCheckPasswordSRPClass
@@ -250,12 +257,14 @@ func (d *AccountDeleteAccountRequest) GetPasswordAsNotEmpty() (*InputCheckPasswo
 }
 
 // AccountDeleteAccount invokes method account.deleteAccount#a2c0cf74 returning error if any.
-// Delete the user's account from the telegram servers. Can be used, for example, to
-// delete the account of a user that provided the login code, but forgot the 2FA password
-// and no recovery method is configured¹.
+// Delete the user's account from the telegram servers.
+// Can also be used to delete the account of a user that provided the login code, but
+// forgot the 2FA password and no recovery method is configured, see here »¹ for more
+// info on password recovery, and here »² for more info on account deletion.
 //
 // Links:
-//  1. https://core.telegram.org/api/srp
+//  1. https://core.telegram.org/api/srp#password-recovery
+//  2. https://core.telegram.org/api/account-deletion
 //
 // Possible errors:
 //

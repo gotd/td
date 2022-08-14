@@ -32,12 +32,13 @@ var (
 )
 
 // WebViewResultURL represents TL type `webViewResultUrl#c14557c`.
+// Contains the webview URL with appropriate theme and user info parameters added
 //
 // See https://core.telegram.org/constructor/webViewResultUrl for reference.
 type WebViewResultURL struct {
-	//
+	// Webview session ID
 	QueryID int64
-	//
+	// Webview URL to open
 	URL string
 }
 

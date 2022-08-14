@@ -32,16 +32,24 @@ var (
 )
 
 // MessagesSendWebViewDataRequest represents TL type `messages.sendWebViewData#dc0242c8`.
+// Used by the user to relay data from an opened reply keyboard bot web app¹ to the bot
+// that owns it.
+//
+// Links:
+//  1. https://core.telegram.org/bots/webapps
 //
 // See https://core.telegram.org/method/messages.sendWebViewData for reference.
 type MessagesSendWebViewDataRequest struct {
-	//
+	// Bot that owns the web app
 	Bot InputUserClass
-	//
+	// Unique client message ID to prevent duplicate sending of the same event
 	RandomID int64
+	// Text of the keyboardButtonSimpleWebView¹ that was pressed to open the web app.
 	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/keyboardButtonSimpleWebView
 	ButtonText string
-	//
+	// Data to relay to the bot.
 	Data string
 }
 
@@ -247,6 +255,11 @@ func (s *MessagesSendWebViewDataRequest) GetData() (value string) {
 }
 
 // MessagesSendWebViewData invokes method messages.sendWebViewData#dc0242c8 returning error if any.
+// Used by the user to relay data from an opened reply keyboard bot web app¹ to the bot
+// that owns it.
+//
+// Links:
+//  1. https://core.telegram.org/bots/webapps
 //
 // See https://core.telegram.org/method/messages.sendWebViewData for reference.
 func (c *Client) MessagesSendWebViewData(ctx context.Context, request *MessagesSendWebViewDataRequest) (UpdatesClass, error) {

@@ -1917,9 +1917,9 @@ type MessageActionPaymentSentMe struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Whether this is the first payment of a recurring payment we just subscribed to
 	RecurringInit bool
-	//
+	// Whether this payment is part of a recurring payment
 	RecurringUsed bool
 	// Three-letter ISO 4217 currency¹ code
 	//
@@ -2329,9 +2329,9 @@ type MessageActionPaymentSent struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether this is a recurring payment
+	// Whether this is the first payment of a recurring payment we just subscribed to
 	RecurringInit bool
-	//
+	// Whether this payment is part of a recurring payment
 	RecurringUsed bool
 	// Three-letter ISO 4217 currency¹ code
 	//
@@ -4862,12 +4862,20 @@ func (m *MessageActionChatJoinedByRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // MessageActionWebViewDataSentMe represents TL type `messageActionWebViewDataSentMe#47dd8079`.
+// Data from an opened reply keyboard bot web app¹ was relayed to the bot that owns it
+// (bot side service message).
+//
+// Links:
+//  1. https://core.telegram.org/bots/webapps
 //
 // See https://core.telegram.org/constructor/messageActionWebViewDataSentMe for reference.
 type MessageActionWebViewDataSentMe struct {
+	// Text of the keyboardButtonSimpleWebView¹ that was pressed to open the web app.
 	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/keyboardButtonSimpleWebView
 	Text string
-	//
+	// Relayed data.
 	Data string
 }
 
@@ -5023,10 +5031,18 @@ func (m *MessageActionWebViewDataSentMe) GetData() (value string) {
 }
 
 // MessageActionWebViewDataSent represents TL type `messageActionWebViewDataSent#b4c38cb5`.
+// Data from an opened reply keyboard bot web app¹ was relayed to the bot that owns it
+// (user side service message).
+//
+// Links:
+//  1. https://core.telegram.org/bots/webapps
 //
 // See https://core.telegram.org/constructor/messageActionWebViewDataSent for reference.
 type MessageActionWebViewDataSent struct {
+	// Text of the keyboardButtonSimpleWebView¹ that was pressed to open the web app.
 	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/keyboardButtonSimpleWebView
 	Text string
 }
 

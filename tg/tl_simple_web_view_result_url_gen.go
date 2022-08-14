@@ -32,10 +32,11 @@ var (
 )
 
 // SimpleWebViewResultURL represents TL type `simpleWebViewResultUrl#882f76bb`.
+// Contains the webview URL with appropriate theme parameters added
 //
 // See https://core.telegram.org/constructor/simpleWebViewResultUrl for reference.
 type SimpleWebViewResultURL struct {
-	//
+	// URL
 	URL string
 }
 
