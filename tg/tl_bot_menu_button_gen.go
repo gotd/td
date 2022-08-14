@@ -234,7 +234,10 @@ func (b *BotMenuButtonCommands) DecodeBare(buf *bin.Buffer) error {
 }
 
 // BotMenuButton represents TL type `botMenuButton#c7b57ce6`.
-// Indicates the action to execute when pressing the in-UI menu button for bots
+// URL of a web app¹ to open when the user clicks on the button
+//
+// Links:
+//  1. https://core.telegram.org/bots/webapps#launching-web-apps-from-the-menu-button
 //
 // See https://core.telegram.org/constructor/botMenuButton for reference.
 type BotMenuButton struct {

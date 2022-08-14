@@ -32,7 +32,7 @@ var (
 )
 
 // MessagesGetHistoryRequest represents TL type `messages.getHistory#4423e6c5`.
-// Gets back the conversation history with one interlocutor / within a chat
+// Returns the conversation history with one interlocutor / within a chat
 //
 // See https://core.telegram.org/method/messages.getHistory for reference.
 type MessagesGetHistoryRequest struct {
@@ -361,7 +361,7 @@ func (g *MessagesGetHistoryRequest) GetHash() (value int64) {
 }
 
 // MessagesGetHistory invokes method messages.getHistory#4423e6c5 returning error if any.
-// Gets back the conversation history with one interlocutor / within a chat
+// Returns the conversation history with one interlocutor / within a chat
 //
 // Possible errors:
 //

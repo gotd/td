@@ -32,10 +32,12 @@ var (
 )
 
 // PaymentsCanPurchasePremiumRequest represents TL type `payments.canPurchasePremium#9fc19eb6`.
+// Checks whether Telegram Premium purchase is possible. Must be called before in-store
+// Premium purchase.
 //
 // See https://core.telegram.org/method/payments.canPurchasePremium for reference.
 type PaymentsCanPurchasePremiumRequest struct {
-	//
+	// Payment purpose
 	Purpose InputStorePaymentPurposeClass
 }
 
@@ -166,6 +168,8 @@ func (c *PaymentsCanPurchasePremiumRequest) GetPurpose() (value InputStorePaymen
 }
 
 // PaymentsCanPurchasePremium invokes method payments.canPurchasePremium#9fc19eb6 returning error if any.
+// Checks whether Telegram Premium purchase is possible. Must be called before in-store
+// Premium purchase.
 //
 // See https://core.telegram.org/method/payments.canPurchasePremium for reference.
 func (c *Client) PaymentsCanPurchasePremium(ctx context.Context, purpose InputStorePaymentPurposeClass) (bool, error) {

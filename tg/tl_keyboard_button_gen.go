@@ -2458,12 +2458,24 @@ func (k *KeyboardButtonUserProfile) GetUserID() (value int64) {
 }
 
 // KeyboardButtonWebView represents TL type `keyboardButtonWebView#13767230`.
+// Button to open a bot web app¹ using messages.requestWebView², sending over user
+// information after user confirmation.
+// Can only be sent or received as part of an inline keyboard, use
+// keyboardButtonSimpleWebView¹ for reply keyboards.
+//
+// Links:
+//  1. https://core.telegram.org/bots/webapps
+//  2. https://core.telegram.org/method/messages.requestWebView
+//  3. https://core.telegram.org/constructor/keyboardButtonSimpleWebView
 //
 // See https://core.telegram.org/constructor/keyboardButtonWebView for reference.
 type KeyboardButtonWebView struct {
-	//
+	// Button text
 	Text string
+	// Web app url¹
 	//
+	// Links:
+	//  1) https://core.telegram.org/bots/webapps
 	URL string
 }
 
@@ -2619,12 +2631,24 @@ func (k *KeyboardButtonWebView) GetURL() (value string) {
 }
 
 // KeyboardButtonSimpleWebView represents TL type `keyboardButtonSimpleWebView#a0c0505c`.
+// Button to open a bot web app¹ using messages.requestSimpleWebView², without sending
+// user information to the web app.
+// Can only be sent or received as part of a reply keyboard, use keyboardButtonWebView¹
+// for inline keyboards.
+//
+// Links:
+//  1. https://core.telegram.org/bots/webapps
+//  2. https://core.telegram.org/method/messages.requestSimpleWebView
+//  3. https://core.telegram.org/constructor/keyboardButtonWebView
 //
 // See https://core.telegram.org/constructor/keyboardButtonSimpleWebView for reference.
 type KeyboardButtonSimpleWebView struct {
-	//
+	// Button text
 	Text string
+	// Web app URL¹
 	//
+	// Links:
+	//  1) https://core.telegram.org/bots/webapps
 	URL string
 }
 

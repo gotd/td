@@ -32,6 +32,13 @@ var (
 )
 
 // MessagesRequestWebViewRequest represents TL type `messages.requestWebView#91b15831`.
+// Open a bot web app¹, sending over user information after user confirmation.
+// After calling this method, until the user closes the webview, messages
+// prolongWebView¹ must be called every 60 seconds.
+//
+// Links:
+//  1. https://core.telegram.org/bots/webapps
+//  2. https://core.telegram.org/method/messages.prolongWebView
 //
 // See https://core.telegram.org/method/messages.requestWebView for reference.
 type MessagesRequestWebViewRequest struct {
@@ -40,31 +47,49 @@ type MessagesRequestWebViewRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Whether the webview was opened after clicking on the bot's menu button.
 	FromBotMenu bool
+	// Whether the inline message that will be sent by the bot on behalf of the user once the
+	// web app interaction is terminated¹ should be sent silently (no notifications for the
+	// receivers).
 	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.sendWebViewResultMessage
 	Silent bool
-	//
+	// Dialog where the web app is being opened
 	Peer InputPeerClass
+	// Bot that owns the web app¹
 	//
+	// Links:
+	//  1) https://core.telegram.org/bots/webapps
 	Bot InputUserClass
+	// Web app URL¹
 	//
+	// Links:
+	//  1) https://core.telegram.org/bots/webapps
 	//
 	// Use SetURL and GetURL helpers.
 	URL string
-	//
+	// If the web app was opened from the attachment menu using a https://t
+	// me/username?attach=botusername&startattach=data or https://t
+	// me/botusername?startattach=data link, start_param should contain the data from the
+	// startattach parameter.
 	//
 	// Use SetStartParam and GetStartParam helpers.
 	StartParam string
-	//
+	// Theme parameters for the web app
 	//
 	// Use SetThemeParams and GetThemeParams helpers.
 	ThemeParams DataJSON
+	// Whether the inline message that will be sent by the bot on behalf of the user once the
+	// web app interaction is terminated¹ should be sent in reply to this message ID.
 	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.sendWebViewResultMessage
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	//
+	// Open the web app as the specified peer
 	//
 	// Use SetSendAs and GetSendAs helpers.
 	SendAs InputPeerClass
@@ -534,6 +559,13 @@ func (r *MessagesRequestWebViewRequest) GetSendAs() (value InputPeerClass, ok bo
 }
 
 // MessagesRequestWebView invokes method messages.requestWebView#91b15831 returning error if any.
+// Open a bot web app¹, sending over user information after user confirmation.
+// After calling this method, until the user closes the webview, messages
+// prolongWebView¹ must be called every 60 seconds.
+//
+// Links:
+//  1. https://core.telegram.org/bots/webapps
+//  2. https://core.telegram.org/method/messages.prolongWebView
 //
 // See https://core.telegram.org/method/messages.requestWebView for reference.
 func (c *Client) MessagesRequestWebView(ctx context.Context, request *MessagesRequestWebViewRequest) (*WebViewResultURL, error) {

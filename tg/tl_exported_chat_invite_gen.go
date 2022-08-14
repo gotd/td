@@ -636,6 +636,11 @@ func (c *ChatInviteExported) GetTitle() (value string, ok bool) {
 }
 
 // ChatInvitePublicJoinRequests represents TL type `chatInvitePublicJoinRequests#ed107ab7`.
+// Used in updates and in the channel log to indicate when a user is requesting to join
+// or has joined a discussion group¹
+//
+// Links:
+//  1. https://core.telegram.org/api/discussion#requiring-users-to-join-the-group
 //
 // See https://core.telegram.org/constructor/chatInvitePublicJoinRequests for reference.
 type ChatInvitePublicJoinRequests struct {

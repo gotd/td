@@ -32,7 +32,7 @@ var (
 )
 
 // MessagesSearchRequest represents TL type `messages.search#a0fda762`.
-// Gets back found messages
+// Returns found messages
 //
 // See https://core.telegram.org/method/messages.search for reference.
 type MessagesSearchRequest struct {
@@ -588,7 +588,7 @@ func (s *MessagesSearchRequest) GetHash() (value int64) {
 }
 
 // MessagesSearch invokes method messages.search#a0fda762 returning error if any.
-// Gets back found messages
+// Returns found messages
 //
 // Possible errors:
 //

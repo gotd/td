@@ -32,6 +32,7 @@ var (
 )
 
 // WebViewMessageSent represents TL type `webViewMessageSent#c94511c`.
+// Info about a sent inline webview message
 //
 // See https://core.telegram.org/constructor/webViewMessageSent for reference.
 type WebViewMessageSent struct {
@@ -40,7 +41,7 @@ type WebViewMessageSent struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Message ID
 	//
 	// Use SetMsgID and GetMsgID helpers.
 	MsgID InputBotInlineMessageIDClass

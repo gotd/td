@@ -19570,10 +19570,15 @@ func (u *UpdateAttachMenuBots) DecodeBare(b *bin.Buffer) error {
 }
 
 // UpdateWebViewResultSent represents TL type `updateWebViewResultSent#1592b79d`.
+// Indicates to a bot that a webview was closed and an inline message was sent on behalf
+// of the user using messages.sendWebViewResultMessage¹
+//
+// Links:
+//  1. https://core.telegram.org/method/messages.sendWebViewResultMessage
 //
 // See https://core.telegram.org/constructor/updateWebViewResultSent for reference.
 type UpdateWebViewResultSent struct {
-	//
+	// Web app interaction ID
 	QueryID int64
 }
 
@@ -20261,6 +20266,7 @@ func (u *UpdateTranscribedAudio) GetText() (value string) {
 }
 
 // UpdateReadFeaturedEmojiStickers represents TL type `updateReadFeaturedEmojiStickers#fb4c496c`.
+// Some featured emoji stickers were marked as read
 //
 // See https://core.telegram.org/constructor/updateReadFeaturedEmojiStickers for reference.
 type UpdateReadFeaturedEmojiStickers struct {

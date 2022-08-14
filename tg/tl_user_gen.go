@@ -210,11 +210,17 @@ type User struct {
 	// If set, this user was reported by many users as a fake or scam user: be careful when
 	// interacting with them.
 	Fake bool
+	// Whether this bot offers an attachment menu web app¹
 	//
+	// Links:
+	//  1) https://core.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu
 	BotAttachMenu bool
 	// Whether this user is a Telegram Premium user
 	Premium bool
+	// Whether we installed the attachment menu web app¹ offered by this bot
 	//
+	// Links:
+	//  1) https://core.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu
 	AttachMenuEnabled bool
 	// ID of the user
 	ID int64
