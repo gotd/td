@@ -150,3 +150,16 @@ func (r *ReqPqMultiRequest) GetNonce() (value bin.Int128) {
 	}
 	return r.Nonce
 }
+
+// ReqPqMulti invokes method req_pq_multi#be7e8ef1 returning error if any.
+func (c *Client) ReqPqMulti(ctx context.Context, nonce bin.Int128) (*ResPQ, error) {
+	var result ResPQ
+
+	request := &ReqPqMultiRequest{
+		Nonce: nonce,
+	}
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -37,6 +37,7 @@ func TypesMap() map[uint32]string {
 		ResPQTypeID:                      "resPQ#5162463",
 		PQInnerDataTypeID:                "p_q_inner_data#83c95aec",
 		PQInnerDataDCTypeID:              "p_q_inner_data_dc#a9f55f95",
+		PQInnerDataTempDCTypeID:          "p_q_inner_data_temp_dc#56fddf88",
 		ServerDHParamsFailTypeID:         "server_DH_params_fail#79cb045d",
 		ServerDHParamsOkTypeID:           "server_DH_params_ok#d0e8075c",
 		ServerDHInnerDataTypeID:          "server_DH_inner_data#b5890dba",
@@ -87,6 +88,7 @@ func NamesMap() map[string]uint32 {
 		"resPQ":                      ResPQTypeID,
 		"p_q_inner_data":             PQInnerDataTypeID,
 		"p_q_inner_data_dc":          PQInnerDataDCTypeID,
+		"p_q_inner_data_temp_dc":     PQInnerDataTempDCTypeID,
 		"server_DH_params_fail":      ServerDHParamsFailTypeID,
 		"server_DH_params_ok":        ServerDHParamsOkTypeID,
 		"server_DH_inner_data":       ServerDHInnerDataTypeID,
@@ -137,6 +139,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		ResPQTypeID:                      func() bin.Object { return &ResPQ{} },
 		PQInnerDataTypeID:                func() bin.Object { return &PQInnerData{} },
 		PQInnerDataDCTypeID:              func() bin.Object { return &PQInnerDataDC{} },
+		PQInnerDataTempDCTypeID:          func() bin.Object { return &PQInnerDataTempDC{} },
 		ServerDHParamsFailTypeID:         func() bin.Object { return &ServerDHParamsFail{} },
 		ServerDHParamsOkTypeID:           func() bin.Object { return &ServerDHParamsOk{} },
 		ServerDHInnerDataTypeID:          func() bin.Object { return &ServerDHInnerData{} },
@@ -199,6 +202,7 @@ func ClassConstructorsMap() map[string][]uint32 {
 		PQInnerDataClassName: {
 			PQInnerDataTypeID,
 			PQInnerDataDCTypeID,
+			PQInnerDataTempDCTypeID,
 		},
 		RPCDropAnswerClassName: {
 			RPCAnswerUnknownTypeID,

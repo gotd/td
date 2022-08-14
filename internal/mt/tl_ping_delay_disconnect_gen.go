@@ -175,3 +175,13 @@ func (p *PingDelayDisconnectRequest) GetDisconnectDelay() (value int) {
 	}
 	return p.DisconnectDelay
 }
+
+// PingDelayDisconnect invokes method ping_delay_disconnect#f3427b8c returning error if any.
+func (c *Client) PingDelayDisconnect(ctx context.Context, request *PingDelayDisconnectRequest) (*Pong, error) {
+	var result Pong
+
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}
