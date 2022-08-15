@@ -44,7 +44,7 @@ type HelpCountry struct {
 	// Whether this country should not be shown in the list
 	Hidden bool
 	// ISO code of country
-	Iso2 string
+	ISO2 string
 	// Name of the country in the country's language
 	DefaultName string
 	// Name of the country in the user's language, if different from the original name
@@ -76,7 +76,7 @@ func (c *HelpCountry) Zero() bool {
 	if !(c.Hidden == false) {
 		return false
 	}
-	if !(c.Iso2 == "") {
+	if !(c.ISO2 == "") {
 		return false
 	}
 	if !(c.DefaultName == "") {
@@ -104,13 +104,13 @@ func (c *HelpCountry) String() string {
 // FillFrom fills HelpCountry from given interface.
 func (c *HelpCountry) FillFrom(from interface {
 	GetHidden() (value bool)
-	GetIso2() (value string)
+	GetISO2() (value string)
 	GetDefaultName() (value string)
 	GetName() (value string, ok bool)
 	GetCountryCodes() (value []HelpCountryCode)
 }) {
 	c.Hidden = from.GetHidden()
-	c.Iso2 = from.GetIso2()
+	c.ISO2 = from.GetISO2()
 	c.DefaultName = from.GetDefaultName()
 	if val, ok := from.GetName(); ok {
 		c.Name = val
@@ -148,7 +148,7 @@ func (c *HelpCountry) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(0),
 		},
 		{
-			Name:       "Iso2",
+			Name:       "ISO2",
 			SchemaName: "iso2",
 		},
 		{
@@ -196,7 +196,7 @@ func (c *HelpCountry) EncodeBare(b *bin.Buffer) error {
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode help.country#c3878e23: field flags: %w", err)
 	}
-	b.PutString(c.Iso2)
+	b.PutString(c.ISO2)
 	b.PutString(c.DefaultName)
 	if c.Flags.Has(1) {
 		b.PutString(c.Name)
@@ -237,7 +237,7 @@ func (c *HelpCountry) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode help.country#c3878e23: field iso2: %w", err)
 		}
-		c.Iso2 = value
+		c.ISO2 = value
 	}
 	{
 		value, err := b.String()
@@ -292,12 +292,12 @@ func (c *HelpCountry) GetHidden() (value bool) {
 	return c.Flags.Has(0)
 }
 
-// GetIso2 returns value of Iso2 field.
-func (c *HelpCountry) GetIso2() (value string) {
+// GetISO2 returns value of ISO2 field.
+func (c *HelpCountry) GetISO2() (value string) {
 	if c == nil {
 		return
 	}
-	return c.Iso2
+	return c.ISO2
 }
 
 // GetDefaultName returns value of DefaultName field.
