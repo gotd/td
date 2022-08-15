@@ -45,7 +45,7 @@ type PostAddress struct {
 	// State, if applicable (empty otherwise)
 	State string
 	// ISO 3166-1 alpha-2 country code
-	CountryIso2 string
+	CountryISO2 string
 	// Address post code
 	PostCode string
 }
@@ -77,7 +77,7 @@ func (p *PostAddress) Zero() bool {
 	if !(p.State == "") {
 		return false
 	}
-	if !(p.CountryIso2 == "") {
+	if !(p.CountryISO2 == "") {
 		return false
 	}
 	if !(p.PostCode == "") {
@@ -102,14 +102,14 @@ func (p *PostAddress) FillFrom(from interface {
 	GetStreetLine2() (value string)
 	GetCity() (value string)
 	GetState() (value string)
-	GetCountryIso2() (value string)
+	GetCountryISO2() (value string)
 	GetPostCode() (value string)
 }) {
 	p.StreetLine1 = from.GetStreetLine1()
 	p.StreetLine2 = from.GetStreetLine2()
 	p.City = from.GetCity()
 	p.State = from.GetState()
-	p.CountryIso2 = from.GetCountryIso2()
+	p.CountryISO2 = from.GetCountryISO2()
 	p.PostCode = from.GetPostCode()
 }
 
@@ -153,7 +153,7 @@ func (p *PostAddress) TypeInfo() tdp.Type {
 			SchemaName: "state",
 		},
 		{
-			Name:       "CountryIso2",
+			Name:       "CountryISO2",
 			SchemaName: "country_iso2",
 		},
 		{
@@ -182,7 +182,7 @@ func (p *PostAddress) EncodeBare(b *bin.Buffer) error {
 	b.PutString(p.StreetLine2)
 	b.PutString(p.City)
 	b.PutString(p.State)
-	b.PutString(p.CountryIso2)
+	b.PutString(p.CountryISO2)
 	b.PutString(p.PostCode)
 	return nil
 }
@@ -236,7 +236,7 @@ func (p *PostAddress) DecodeBare(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode postAddress#1e8caaeb: field country_iso2: %w", err)
 		}
-		p.CountryIso2 = value
+		p.CountryISO2 = value
 	}
 	{
 		value, err := b.String()
@@ -280,12 +280,12 @@ func (p *PostAddress) GetState() (value string) {
 	return p.State
 }
 
-// GetCountryIso2 returns value of CountryIso2 field.
-func (p *PostAddress) GetCountryIso2() (value string) {
+// GetCountryISO2 returns value of CountryISO2 field.
+func (p *PostAddress) GetCountryISO2() (value string) {
 	if p == nil {
 		return
 	}
-	return p.CountryIso2
+	return p.CountryISO2
 }
 
 // GetPostCode returns value of PostCode field.
