@@ -201,6 +201,10 @@ func (s *BotsSetBotMenuButtonRequest) GetButton() (value BotMenuButtonClass) {
 // BotsSetBotMenuButton invokes method bots.setBotMenuButton#4504d54f returning error if any.
 // Sets the menu button action for a given user or for all users
 //
+// Possible errors:
+//
+//	400 BUTTON_TEXT_INVALID: The specified button text is invalid.
+//
 // See https://core.telegram.org/method/bots.setBotMenuButton for reference.
 // Can be used by bots.
 func (c *Client) BotsSetBotMenuButton(ctx context.Context, request *BotsSetBotMenuButtonRequest) (bool, error) {

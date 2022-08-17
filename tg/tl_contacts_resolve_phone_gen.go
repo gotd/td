@@ -165,10 +165,6 @@ func (r *ContactsResolvePhoneRequest) GetPhone() (value string) {
 // ContactsResolvePhone invokes method contacts.resolvePhone#8af94344 returning error if any.
 // Resolve a phone number to get user info, if their privacy settings allow it.
 //
-// Possible errors:
-//
-//	400 PHONE_NOT_OCCUPIED:
-//
 // See https://core.telegram.org/method/contacts.resolvePhone for reference.
 func (c *Client) ContactsResolvePhone(ctx context.Context, phone string) (*ContactsResolvedPeer, error) {
 	var result ContactsResolvedPeer

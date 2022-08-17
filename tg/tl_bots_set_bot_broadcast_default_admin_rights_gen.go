@@ -166,7 +166,7 @@ func (s *BotsSetBotBroadcastDefaultAdminRightsRequest) GetAdminRights() (value C
 //
 // Possible errors:
 //
-//	400 RIGHTS_NOT_MODIFIED:
+//	400 RIGHTS_NOT_MODIFIED: The new admin rights are equal to the old rights, no change was made.
 //
 // See https://core.telegram.org/method/bots.setBotBroadcastDefaultAdminRights for reference.
 // Can be used by bots.

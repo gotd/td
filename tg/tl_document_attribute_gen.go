@@ -1428,7 +1428,7 @@ type DocumentAttributeCustomEmoji struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Whether this custom emoji can be sent by non-Premium users
 	Free bool
 	// The actual emoji
 	Alt string

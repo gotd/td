@@ -41,7 +41,7 @@ type InputStorePaymentPremiumSubscription struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Pass true if this is a restore of a Telegram Premium purchase; only for the App Store
 	Restore bool
 }
 

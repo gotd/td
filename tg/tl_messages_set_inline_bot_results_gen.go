@@ -456,7 +456,7 @@ func (s *MessagesSetInlineBotResultsRequest) MapResults() (value InputBotInlineR
 //	400 REPLY_MARKUP_INVALID: The provided reply markup is invalid.
 //	400 RESULTS_TOO_MUCH: Too many results were provided.
 //	400 RESULT_ID_DUPLICATE: You provided a duplicate result ID.
-//	400 RESULT_ID_INVALID:
+//	400 RESULT_ID_INVALID: One of the specified result IDs is invalid.
 //	400 RESULT_TYPE_INVALID: Result type invalid.
 //	400 SEND_MESSAGE_MEDIA_INVALID: Invalid media provided.
 //	400 SEND_MESSAGE_TYPE_INVALID: The message type is invalid.

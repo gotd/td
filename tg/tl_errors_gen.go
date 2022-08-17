@@ -50,6 +50,7 @@ const (
 	ErrAuthBytesInvalid                 = "AUTH_BYTES_INVALID"
 	ErrAuthRestart                      = "AUTH_RESTART"
 	ErrAuthTokenAlreadyAccepted         = "AUTH_TOKEN_ALREADY_ACCEPTED"
+	ErrAuthTokenException               = "AUTH_TOKEN_EXCEPTION"
 	ErrAuthTokenExpired                 = "AUTH_TOKEN_EXPIRED"
 	ErrAuthTokenInvalid                 = "AUTH_TOKEN_INVALID"
 	ErrAuthTokenInvalidx                = "AUTH_TOKEN_INVALIDX"
@@ -75,6 +76,7 @@ const (
 	ErrBroadcastPublicVotersForbidden   = "BROADCAST_PUBLIC_VOTERS_FORBIDDEN"
 	ErrBroadcastRequired                = "BROADCAST_REQUIRED"
 	ErrButtonDataInvalid                = "BUTTON_DATA_INVALID"
+	ErrButtonTextInvalid                = "BUTTON_TEXT_INVALID"
 	ErrButtonTypeInvalid                = "BUTTON_TYPE_INVALID"
 	ErrButtonURLInvalid                 = "BUTTON_URL_INVALID"
 	ErrButtonUserPrivacyRestricted      = "BUTTON_USER_PRIVACY_RESTRICTED"
@@ -175,7 +177,6 @@ const (
 	ErrFileReferenceExpired             = "FILE_REFERENCE_EXPIRED"
 	ErrFileReferenceInvalid             = "FILE_REFERENCE_INVALID"
 	ErrFileTitleEmpty                   = "FILE_TITLE_EMPTY"
-	ErrFileWriteFailed                  = "FILE_WRITE_FAILED"
 	ErrFilterIDInvalid                  = "FILTER_ID_INVALID"
 	ErrFilterIncludeEmpty               = "FILTER_INCLUDE_EMPTY"
 	ErrFilterNotSupported               = "FILTER_NOT_SUPPORTED"
@@ -195,7 +196,6 @@ const (
 	ErrGraphExpiredReload               = "GRAPH_EXPIRED_RELOAD"
 	ErrGraphInvalidReload               = "GRAPH_INVALID_RELOAD"
 	ErrGraphOutdatedReload              = "GRAPH_OUTDATED_RELOAD"
-	ErrGroupcallAddParticipantsFailed   = "GROUPCALL_ADD_PARTICIPANTS_FAILED"
 	ErrGroupcallAlreadyDiscarded        = "GROUPCALL_ALREADY_DISCARDED"
 	ErrGroupcallAlreadyStarted          = "GROUPCALL_ALREADY_STARTED"
 	ErrGroupcallForbidden               = "GROUPCALL_FORBIDDEN"
@@ -241,7 +241,6 @@ const (
 	ErrMegagroupIDInvalid               = "MEGAGROUP_ID_INVALID"
 	ErrMegagroupPrehistoryHidden        = "MEGAGROUP_PREHISTORY_HIDDEN"
 	ErrMegagroupRequired                = "MEGAGROUP_REQUIRED"
-	ErrMemberChatAddFailed              = "MEMBER_CHAT_ADD_FAILED"
 	ErrMessageAuthorRequired            = "MESSAGE_AUTHOR_REQUIRED"
 	ErrMessageDeleteForbidden           = "MESSAGE_DELETE_FORBIDDEN"
 	ErrMessageEditTimeExpired           = "MESSAGE_EDIT_TIME_EXPIRED"
@@ -254,7 +253,6 @@ const (
 	ErrMethodInvalid                    = "METHOD_INVALID"
 	ErrMsgIDInvalid                     = "MSG_ID_INVALID"
 	ErrMsgWaitFailed                    = "MSG_WAIT_FAILED"
-	ErrMtprotoClusterInvalid            = "MTPROTO_CLUSTER_INVALID"
 	ErrMultiMediaTooLong                = "MULTI_MEDIA_TOO_LONG"
 	ErrNewSaltInvalid                   = "NEW_SALT_INVALID"
 	ErrNewSettingsEmpty                 = "NEW_SETTINGS_EMPTY"
@@ -268,7 +266,6 @@ const (
 	ErrPackShortNameOccupied            = "PACK_SHORT_NAME_OCCUPIED"
 	ErrPackTitleInvalid                 = "PACK_TITLE_INVALID"
 	ErrParticipantsTooFew               = "PARTICIPANTS_TOO_FEW"
-	ErrParticipantCallFailed            = "PARTICIPANT_CALL_FAILED"
 	ErrParticipantIDInvalid             = "PARTICIPANT_ID_INVALID"
 	ErrParticipantJoinMissing           = "PARTICIPANT_JOIN_MISSING"
 	ErrParticipantVersionOutdated       = "PARTICIPANT_VERSION_OUTDATED"
@@ -290,7 +287,6 @@ const (
 	ErrPhoneCodeExpired                 = "PHONE_CODE_EXPIRED"
 	ErrPhoneCodeHashEmpty               = "PHONE_CODE_HASH_EMPTY"
 	ErrPhoneCodeInvalid                 = "PHONE_CODE_INVALID"
-	ErrPhoneNotOccupied                 = "PHONE_NOT_OCCUPIED"
 	ErrPhoneNumberAppSignupForbidden    = "PHONE_NUMBER_APP_SIGNUP_FORBIDDEN"
 	ErrPhoneNumberBanned                = "PHONE_NUMBER_BANNED"
 	ErrPhoneNumberFlood                 = "PHONE_NUMBER_FLOOD"
@@ -454,6 +450,7 @@ const (
 	ErrVideoContentTypeInvalid          = "VIDEO_CONTENT_TYPE_INVALID"
 	ErrVideoFileInvalid                 = "VIDEO_FILE_INVALID"
 	ErrVideoTitleEmpty                  = "VIDEO_TITLE_EMPTY"
+	ErrVoiceMessagesForbidden           = "VOICE_MESSAGES_FORBIDDEN"
 	ErrWallpaperFileInvalid             = "WALLPAPER_FILE_INVALID"
 	ErrWallpaperInvalid                 = "WALLPAPER_INVALID"
 	ErrWallpaperMimeInvalid             = "WALLPAPER_MIME_INVALID"
@@ -553,6 +550,11 @@ func IsAuthRestart(err error) bool {
 // IsAuthTokenAlreadyAccepted reports whether err is AUTH_TOKEN_ALREADY_ACCEPTED.
 func IsAuthTokenAlreadyAccepted(err error) bool {
 	return tgerr.Is(err, ErrAuthTokenAlreadyAccepted)
+}
+
+// IsAuthTokenException reports whether err is AUTH_TOKEN_EXCEPTION.
+func IsAuthTokenException(err error) bool {
+	return tgerr.Is(err, ErrAuthTokenException)
 }
 
 // IsAuthTokenExpired reports whether err is AUTH_TOKEN_EXPIRED.
@@ -678,6 +680,11 @@ func IsBroadcastRequired(err error) bool {
 // IsButtonDataInvalid reports whether err is BUTTON_DATA_INVALID.
 func IsButtonDataInvalid(err error) bool {
 	return tgerr.Is(err, ErrButtonDataInvalid)
+}
+
+// IsButtonTextInvalid reports whether err is BUTTON_TEXT_INVALID.
+func IsButtonTextInvalid(err error) bool {
+	return tgerr.Is(err, ErrButtonTextInvalid)
 }
 
 // IsButtonTypeInvalid reports whether err is BUTTON_TYPE_INVALID.
@@ -1180,11 +1187,6 @@ func IsFileTitleEmpty(err error) bool {
 	return tgerr.Is(err, ErrFileTitleEmpty)
 }
 
-// IsFileWriteFailed reports whether err is FILE_WRITE_FAILED.
-func IsFileWriteFailed(err error) bool {
-	return tgerr.Is(err, ErrFileWriteFailed)
-}
-
 // IsFilterIDInvalid reports whether err is FILTER_ID_INVALID.
 func IsFilterIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrFilterIDInvalid)
@@ -1278,11 +1280,6 @@ func IsGraphInvalidReload(err error) bool {
 // IsGraphOutdatedReload reports whether err is GRAPH_OUTDATED_RELOAD.
 func IsGraphOutdatedReload(err error) bool {
 	return tgerr.Is(err, ErrGraphOutdatedReload)
-}
-
-// IsGroupcallAddParticipantsFailed reports whether err is GROUPCALL_ADD_PARTICIPANTS_FAILED.
-func IsGroupcallAddParticipantsFailed(err error) bool {
-	return tgerr.Is(err, ErrGroupcallAddParticipantsFailed)
 }
 
 // IsGroupcallAlreadyDiscarded reports whether err is GROUPCALL_ALREADY_DISCARDED.
@@ -1510,11 +1507,6 @@ func IsMegagroupRequired(err error) bool {
 	return tgerr.Is(err, ErrMegagroupRequired)
 }
 
-// IsMemberChatAddFailed reports whether err is MEMBER_CHAT_ADD_FAILED.
-func IsMemberChatAddFailed(err error) bool {
-	return tgerr.Is(err, ErrMemberChatAddFailed)
-}
-
 // IsMessageAuthorRequired reports whether err is MESSAGE_AUTHOR_REQUIRED.
 func IsMessageAuthorRequired(err error) bool {
 	return tgerr.Is(err, ErrMessageAuthorRequired)
@@ -1573,11 +1565,6 @@ func IsMsgIDInvalid(err error) bool {
 // IsMsgWaitFailed reports whether err is MSG_WAIT_FAILED.
 func IsMsgWaitFailed(err error) bool {
 	return tgerr.Is(err, ErrMsgWaitFailed)
-}
-
-// IsMtprotoClusterInvalid reports whether err is MTPROTO_CLUSTER_INVALID.
-func IsMtprotoClusterInvalid(err error) bool {
-	return tgerr.Is(err, ErrMtprotoClusterInvalid)
 }
 
 // IsMultiMediaTooLong reports whether err is MULTI_MEDIA_TOO_LONG.
@@ -1643,11 +1630,6 @@ func IsPackTitleInvalid(err error) bool {
 // IsParticipantsTooFew reports whether err is PARTICIPANTS_TOO_FEW.
 func IsParticipantsTooFew(err error) bool {
 	return tgerr.Is(err, ErrParticipantsTooFew)
-}
-
-// IsParticipantCallFailed reports whether err is PARTICIPANT_CALL_FAILED.
-func IsParticipantCallFailed(err error) bool {
-	return tgerr.Is(err, ErrParticipantCallFailed)
 }
 
 // IsParticipantIDInvalid reports whether err is PARTICIPANT_ID_INVALID.
@@ -1753,11 +1735,6 @@ func IsPhoneCodeHashEmpty(err error) bool {
 // IsPhoneCodeInvalid reports whether err is PHONE_CODE_INVALID.
 func IsPhoneCodeInvalid(err error) bool {
 	return tgerr.Is(err, ErrPhoneCodeInvalid)
-}
-
-// IsPhoneNotOccupied reports whether err is PHONE_NOT_OCCUPIED.
-func IsPhoneNotOccupied(err error) bool {
-	return tgerr.Is(err, ErrPhoneNotOccupied)
 }
 
 // IsPhoneNumberAppSignupForbidden reports whether err is PHONE_NUMBER_APP_SIGNUP_FORBIDDEN.
@@ -2573,6 +2550,11 @@ func IsVideoFileInvalid(err error) bool {
 // IsVideoTitleEmpty reports whether err is VIDEO_TITLE_EMPTY.
 func IsVideoTitleEmpty(err error) bool {
 	return tgerr.Is(err, ErrVideoTitleEmpty)
+}
+
+// IsVoiceMessagesForbidden reports whether err is VOICE_MESSAGES_FORBIDDEN.
+func IsVoiceMessagesForbidden(err error) bool {
+	return tgerr.Is(err, ErrVoiceMessagesForbidden)
 }
 
 // IsWallpaperFileInvalid reports whether err is WALLPAPER_FILE_INVALID.
