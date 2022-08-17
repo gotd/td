@@ -329,7 +329,6 @@ func (g *UploadGetFileRequest) GetLimit() (value int) {
 //	400 LIMIT_INVALID: The provided limit is invalid.
 //	400 LOCATION_INVALID: The provided location is invalid.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
-//	403 MTPROTO_CLUSTER_INVALID:
 //	400 OFFSET_INVALID: The provided offset is invalid.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //

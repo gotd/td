@@ -209,6 +209,10 @@ func (t *ChannelsToggleJoinToSendRequest) GetChannelAsNotEmpty() (NotEmptyInputC
 // Links:
 //  1. https://core.telegram.org/api/discussion#requiring-users-to-join-the-group
 //
+// Possible errors:
+//
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//
 // See https://core.telegram.org/method/channels.toggleJoinToSend for reference.
 func (c *Client) ChannelsToggleJoinToSend(ctx context.Context, request *ChannelsToggleJoinToSendRequest) (UpdatesClass, error) {
 	var result UpdatesBox

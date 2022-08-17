@@ -56,9 +56,10 @@ type PremiumGiftOption struct {
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
 	Amount int64
-	//
+	// A t.me/$invoice link to an invoice for in-app payment, using the official Premium bot;
+	// may be empty if direct payment isn't available.
 	BotURL string
-	//
+	// An identifier for the App Store/Play Store product associated with the Premium gift.
 	//
 	// Use SetStoreProduct and GetStoreProduct helpers.
 	StoreProduct string

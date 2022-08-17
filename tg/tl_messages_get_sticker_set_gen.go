@@ -201,7 +201,7 @@ func (g *MessagesGetStickerSetRequest) GetHash() (value int) {
 //
 // Possible errors:
 //
-//	400 EMOTICON_STICKERPACK_MISSING:
+//	400 EMOTICON_STICKERPACK_MISSING: inputStickerSetDice.emoji cannot be empty.
 //	406 STICKERSET_INVALID: The provided sticker set is invalid.
 //
 // See https://core.telegram.org/method/messages.getStickerSet for reference.

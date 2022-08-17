@@ -35,11 +35,11 @@ var (
 //
 // See https://core.telegram.org/method/payments.requestRecurringPayment for reference.
 type PaymentsRequestRecurringPaymentRequest struct {
-	//
+	// UserID field of PaymentsRequestRecurringPaymentRequest.
 	UserID InputUserClass
-	//
+	// RecurringInitCharge field of PaymentsRequestRecurringPaymentRequest.
 	RecurringInitCharge string
-	//
+	// InvoiceMedia field of PaymentsRequestRecurringPaymentRequest.
 	InvoiceMedia InputMediaClass
 }
 

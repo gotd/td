@@ -605,6 +605,7 @@ func (s *MessagesSendInlineBotResultRequest) GetSendAs() (value InputPeerClass, 
 //	400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
 //	420 SLOWMODE_WAIT_%d: Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
+//	400 VOICE_MESSAGES_FORBIDDEN: This user's privacy settings forbid you from sending voice messages.
 //	400 WEBPAGE_CURL_FAILED: Failure while fetching the webpage with cURL.
 //	400 WEBPAGE_MEDIA_EMPTY: Webpage media empty.
 //	400 YOU_BLOCKED_USER: You blocked this user.

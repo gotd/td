@@ -774,6 +774,7 @@ func (i *InputStickerSetAnimatedEmojiAnimations) DecodeBare(b *bin.Buffer) error
 }
 
 // InputStickerSetPremiumGifts represents TL type `inputStickerSetPremiumGifts#c88b3b02`.
+// Stickers to show when receiving a gifted Telegram Premium subscription
 //
 // See https://core.telegram.org/constructor/inputStickerSetPremiumGifts for reference.
 type InputStickerSetPremiumGifts struct {

@@ -32,7 +32,7 @@ var (
 )
 
 // StickerSetCovered represents TL type `stickerSetCovered#6410a5d2`.
-// Stickerset, with a specific sticker as preview
+// Stickerset with a single sticker as preview
 //
 // See https://core.telegram.org/constructor/stickerSetCovered for reference.
 type StickerSetCovered struct {
@@ -199,7 +199,7 @@ func (s *StickerSetCovered) GetCover() (value DocumentClass) {
 }
 
 // StickerSetMultiCovered represents TL type `stickerSetMultiCovered#3407e51b`.
-// Stickerset, with a specific set of stickers as preview
+// Stickerset, with multiple stickers as preview
 //
 // See https://core.telegram.org/constructor/stickerSetMultiCovered for reference.
 type StickerSetMultiCovered struct {
@@ -384,14 +384,20 @@ func (s *StickerSetMultiCovered) MapCovers() (value DocumentClassArray) {
 }
 
 // StickerSetFullCovered represents TL type `stickerSetFullCovered#1aed5ee5`.
+// Stickerset preview with all stickers of the stickerset included.
+// Used when there are only a few stickers in the stickerset, to avoid a further call to
+// messages.getStickerSet¹.
+//
+// Links:
+//  1. https://core.telegram.org/method/messages.getStickerSet
 //
 // See https://core.telegram.org/constructor/stickerSetFullCovered for reference.
 type StickerSetFullCovered struct {
-	//
+	// Stickerset
 	Set StickerSet
-	//
+	// Emoji information about every sticker in the stickerset
 	Packs []StickerPack
-	//
+	// Stickers
 	Documents []DocumentClass
 }
 

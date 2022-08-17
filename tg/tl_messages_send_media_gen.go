@@ -714,7 +714,7 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 CHAT_FORWARDS_RESTRICTED: You can't forward messages from a protected chat.
-//	403 CHAT_GUEST_SEND_FORBIDDEN:
+//	403 CHAT_GUEST_SEND_FORBIDDEN: You join the discussion group before commenting, see here » for more info.
 //	400 CHAT_RESTRICTED: You can't send messages in this chat, you were restricted.
 //	403 CHAT_SEND_GIFS_FORBIDDEN: You can't send gifs in this chat.
 //	403 CHAT_SEND_MEDIA_FORBIDDEN: You can't send media in this chat.
@@ -730,7 +730,6 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 FILE_PART_LENGTH_INVALID: The length of a file part is invalid.
 //	400 FILE_REFERENCE_EMPTY: An empty file reference was specified.
 //	400 FILE_REFERENCE_EXPIRED: File reference expired, it must be refetched as described in the documentation.
-//	500 FILE_WRITE_FAILED:
 //	400 GAME_BOT_INVALID: Bots can't send another bot's game.
 //	400 IMAGE_PROCESS_FAILED: Failure while processing image.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
