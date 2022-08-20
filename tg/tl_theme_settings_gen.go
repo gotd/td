@@ -59,7 +59,10 @@ type ThemeSettings struct {
 	//
 	// Use SetMessageColors and GetMessageColors helpers.
 	MessageColors []int
-	// Wallpaper
+	// Wallpaper¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers
 	//
 	// Use SetWallpaper and GetWallpaper helpers.
 	Wallpaper WallPaperClass

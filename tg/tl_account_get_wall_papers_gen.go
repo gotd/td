@@ -32,7 +32,10 @@ var (
 )
 
 // AccountGetWallPapersRequest represents TL type `account.getWallPapers#7967d36`.
-// Returns a list of available wallpapers.
+// Returns a list of available wallpapers¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/method/account.getWallPapers for reference.
 type AccountGetWallPapersRequest struct {
@@ -165,7 +168,10 @@ func (g *AccountGetWallPapersRequest) GetHash() (value int64) {
 }
 
 // AccountGetWallPapers invokes method account.getWallPapers#7967d36 returning error if any.
-// Returns a list of available wallpapers.
+// Returns a list of available wallpapers¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/method/account.getWallPapers for reference.
 func (c *Client) AccountGetWallPapers(ctx context.Context, hash int64) (AccountWallPapersClass, error) {

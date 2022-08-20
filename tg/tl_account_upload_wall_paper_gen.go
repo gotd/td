@@ -32,7 +32,10 @@ var (
 )
 
 // AccountUploadWallPaperRequest represents TL type `account.uploadWallPaper#dd853661`.
-// Create and upload a new wallpaper
+// Create and upload a new wallpaper¹
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/method/account.uploadWallPaper for reference.
 type AccountUploadWallPaperRequest struct {
@@ -221,7 +224,10 @@ func (u *AccountUploadWallPaperRequest) GetSettings() (value WallPaperSettings) 
 }
 
 // AccountUploadWallPaper invokes method account.uploadWallPaper#dd853661 returning error if any.
-// Create and upload a new wallpaper
+// Create and upload a new wallpaper¹
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
 //
 // Possible errors:
 //

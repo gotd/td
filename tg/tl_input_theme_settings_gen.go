@@ -59,11 +59,17 @@ type InputThemeSettings struct {
 	//
 	// Use SetMessageColors and GetMessageColors helpers.
 	MessageColors []int
-	// Wallpaper
+	// Wallpaper¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers
 	//
 	// Use SetWallpaper and GetWallpaper helpers.
 	Wallpaper InputWallPaperClass
-	// Wallpaper settings
+	// Wallpaper¹ settings.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers
 	//
 	// Use SetWallpaperSettings and GetWallpaperSettings helpers.
 	WallpaperSettings WallPaperSettings

@@ -32,11 +32,17 @@ var (
 )
 
 // AccountGetWallPaperRequest represents TL type `account.getWallPaper#fc8ddbea`.
-// Get info about a certain wallpaper
+// Get info about a certain wallpaper¹
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/method/account.getWallPaper for reference.
 type AccountGetWallPaperRequest struct {
-	// The wallpaper to get info about
+	// The wallpaper¹ to get info about
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers
 	Wallpaper InputWallPaperClass
 }
 
@@ -167,7 +173,10 @@ func (g *AccountGetWallPaperRequest) GetWallpaper() (value InputWallPaperClass) 
 }
 
 // AccountGetWallPaper invokes method account.getWallPaper#fc8ddbea returning error if any.
-// Get info about a certain wallpaper
+// Get info about a certain wallpaper¹
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
 //
 // Possible errors:
 //

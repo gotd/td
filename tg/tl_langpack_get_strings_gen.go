@@ -36,7 +36,10 @@ var (
 //
 // See https://core.telegram.org/method/langpack.getStrings for reference.
 type LangpackGetStringsRequest struct {
-	// Language pack name
+	// Language pack name, usually obtained from a language pack link¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#language-pack-links
 	LangPack string
 	// Language code
 	LangCode string

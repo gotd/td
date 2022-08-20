@@ -35,7 +35,7 @@ var (
 // Start a conversation with a bot using a deep linking parameter¹
 //
 // Links:
-//  1. https://core.telegram.org/bots#deep-linking
+//  1. https://core.telegram.org/api/links#bot-links
 //
 // See https://core.telegram.org/method/messages.startBot for reference.
 type MessagesStartBotRequest struct {
@@ -48,7 +48,7 @@ type MessagesStartBotRequest struct {
 	// Deep linking parameter¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/bots#deep-linking
+	//  1) https://core.telegram.org/api/links#bot-links
 	StartParam string
 }
 
@@ -262,7 +262,7 @@ func (s *MessagesStartBotRequest) GetStartParam() (value string) {
 // Start a conversation with a bot using a deep linking parameter¹
 //
 // Links:
-//  1. https://core.telegram.org/bots#deep-linking
+//  1. https://core.telegram.org/api/links#bot-links
 //
 // Possible errors:
 //

@@ -32,11 +32,17 @@ var (
 )
 
 // AccountSaveWallPaperRequest represents TL type `account.saveWallPaper#6c5a5b37`.
-// Install/uninstall wallpaper
+// Install/uninstall wallpaper¹
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/method/account.saveWallPaper for reference.
 type AccountSaveWallPaperRequest struct {
-	// Wallpaper to save
+	// Wallpaper¹ to install or uninstall
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers
 	Wallpaper InputWallPaperClass
 	// Uninstall wallpaper?
 	Unsave bool
@@ -221,7 +227,10 @@ func (s *AccountSaveWallPaperRequest) GetSettings() (value WallPaperSettings) {
 }
 
 // AccountSaveWallPaper invokes method account.saveWallPaper#6c5a5b37 returning error if any.
-// Install/uninstall wallpaper
+// Install/uninstall wallpaper¹
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
 //
 // Possible errors:
 //
