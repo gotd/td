@@ -90,7 +90,14 @@ type ChatAdminRights struct {
 	// If set, allows the admin to change group call/livestream settings
 	ManageCall bool
 	// Set this flag if none of the other flags are set, but you still want the user to be an
-	// admin.
+	// admin: if this or any of the other flags are set, the admin can get the chat admin
+	// log¹, get chat statistics², get message statistics in channels³, get channel
+	// members, see anonymous administrators in supergroups and ignore slow mode.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/recent-actions
+	//  2) https://core.telegram.org/api/stats
+	//  3) https://core.telegram.org/api/stats
 	Other bool
 }
 

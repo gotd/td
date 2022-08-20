@@ -32,7 +32,10 @@ var (
 )
 
 // AccountWallPapersNotModified represents TL type `account.wallPapersNotModified#1c199183`.
-// No new wallpapers were found
+// No new wallpapers¹ were found
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/constructor/account.wallPapersNotModified for reference.
 type AccountWallPapersNotModified struct {
@@ -134,7 +137,10 @@ func (w *AccountWallPapersNotModified) DecodeBare(b *bin.Buffer) error {
 }
 
 // AccountWallPapers represents TL type `account.wallPapers#cdc3858c`.
-// Installed wallpapers
+// Installed wallpapers¹
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/constructor/account.wallPapers for reference.
 type AccountWallPapers struct {
@@ -143,7 +149,10 @@ type AccountWallPapers struct {
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
-	// Wallpapers
+	// Wallpapers¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers
 	Wallpapers []WallPaperClass
 }
 

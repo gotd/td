@@ -206,7 +206,10 @@ func (i *InputGameID) GetAccessHash() (value int64) {
 type InputGameShortName struct {
 	// The bot that provides the game
 	BotID InputUserClass
-	// The game's short name
+	// The game's short name, usually obtained from a game link »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#game-links
 	ShortName string
 }
 

@@ -32,13 +32,22 @@ var (
 )
 
 // AccountInstallWallPaperRequest represents TL type `account.installWallPaper#feed5769`.
-// Install wallpaper
+// Install wallpaper¹
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/method/account.installWallPaper for reference.
 type AccountInstallWallPaperRequest struct {
-	// Wallpaper to install
+	// Wallpaper¹ to install
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers
 	Wallpaper InputWallPaperClass
-	// Wallpaper settings
+	// Wallpaper¹ settings
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers
 	Settings WallPaperSettings
 }
 
@@ -194,7 +203,10 @@ func (i *AccountInstallWallPaperRequest) GetSettings() (value WallPaperSettings)
 }
 
 // AccountInstallWallPaper invokes method account.installWallPaper#feed5769 returning error if any.
-// Install wallpaper
+// Install wallpaper¹
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
 //
 // Possible errors:
 //

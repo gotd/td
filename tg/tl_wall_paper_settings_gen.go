@@ -32,7 +32,10 @@ var (
 )
 
 // WallPaperSettings represents TL type `wallPaperSettings#1dc1bca4`.
-// Wallpaper settings
+// Wallpaper¹ rendering information.
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/constructor/wallPaperSettings for reference.
 type WallPaperSettings struct {
@@ -41,37 +44,54 @@ type WallPaperSettings struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// If set, the wallpaper must be downscaled to fit in 450x450 square and then box-blurred
-	// with radius 12
+	// For image wallpapers »¹: if set, the JPEG must be downscaled to fit in 450x450
+	// square and then box-blurred with radius 12.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers#image-wallpapers
 	Blur bool
-	// If set, the background needs to be slightly moved when device is rotated
+	// If set, the background needs to be slightly moved when the device is rotated.
 	Motion bool
-	// If set, a PNG pattern is to be combined with the color chosen by the user: the main
-	// color of the background in RGB24 format
+	// Used for solid »¹, [gradient »]/api/wallpapers#gradient-fill) and freeform gradient
+	// »² fills.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers#solid-fill
+	//  2) https://core.telegram.org/api/wallpapers#freeform-gradient-fill
 	//
 	// Use SetBackgroundColor and GetBackgroundColor helpers.
 	BackgroundColor int
-	// If set, a PNG pattern is to be combined with the first and second background colors
-	// (RGB24 format) in a top-bottom gradient
+	// Used for gradient »¹ and freeform gradient »² fills.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers#gradient-fill
+	//  2) https://core.telegram.org/api/wallpapers#freeform-gradient-fill
 	//
 	// Use SetSecondBackgroundColor and GetSecondBackgroundColor helpers.
 	SecondBackgroundColor int
-	// If set, a PNG pattern is to be combined with the first, second and third background
-	// colors (RGB24 format) in a freeform gradient
+	// Used for freeform gradient »¹ fills.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers#freeform-gradient-fill
 	//
 	// Use SetThirdBackgroundColor and GetThirdBackgroundColor helpers.
 	ThirdBackgroundColor int
-	// If set, a PNG pattern is to be combined with the first, second, third and fourth
-	// background colors (RGB24 format) in a freeform gradient
+	// Used for freeform gradient »¹ fills.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers#freeform-gradient-fill
 	//
 	// Use SetFourthBackgroundColor and GetFourthBackgroundColor helpers.
 	FourthBackgroundColor int
-	// Intensity of the pattern when it is shown above the main background color, 0-100
+	// Used for pattern wallpapers »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers#pattern-wallpapers
 	//
 	// Use SetIntensity and GetIntensity helpers.
 	Intensity int
 	// Clockwise rotation angle of the gradient, in degrees; 0-359. Should be always
-	// divisible by 45
+	// divisible by 45.
 	//
 	// Use SetRotation and GetRotation helpers.
 	Rotation int

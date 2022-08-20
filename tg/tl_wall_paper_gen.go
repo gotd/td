@@ -32,7 +32,10 @@ var (
 )
 
 // WallPaper represents TL type `wallPaper#a437c3ed`.
-// Wallpaper settings.
+// Represents a wallpaper¹ based on an image.
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/constructor/wallPaper for reference.
 type WallPaper struct {
@@ -43,21 +46,32 @@ type WallPaper struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Creator of the wallpaper
+	// Whether we created this wallpaper
 	Creator bool
 	// Whether this is the default wallpaper
 	Default bool
-	// Pattern
+	// Whether this is a pattern wallpaper »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers#pattern-wallpaper
 	Pattern bool
-	// Dark mode
+	// Whether this wallpaper should be used in dark mode.
 	Dark bool
 	// Access hash
 	AccessHash int64
-	// Unique wallpaper ID
+	// Unique wallpaper ID, used when generating wallpaper links¹ or importing wallpaper
+	// links².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#wallpaper-links
+	//  2) https://core.telegram.org/api/wallpapers
 	Slug string
 	// The actual wallpaper
 	Document DocumentClass
-	// Wallpaper settings
+	// Info on how to generate the wallpaper, according to these instructions »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers
 	//
 	// Use SetSettings and GetSettings helpers.
 	Settings WallPaperSettings
@@ -462,12 +476,10 @@ func (w *WallPaper) GetSettings() (value WallPaperSettings, ok bool) {
 }
 
 // WallPaperNoFile represents TL type `wallPaperNoFile#e0804116`.
-// Wallpaper with no file access hash, used for example when deleting (unsave=true)
-// wallpapers using account.saveWallPaper¹, specifying just the wallpaper ID.
-// Also used for some default wallpapers which contain only colours.
+// Represents a wallpaper¹ only based on colors/gradients.
 //
 // Links:
-//  1. https://core.telegram.org/method/account.saveWallPaper
+//  1. https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/constructor/wallPaperNoFile for reference.
 type WallPaperNoFile struct {
@@ -480,9 +492,9 @@ type WallPaperNoFile struct {
 	Flags bin.Fields
 	// Whether this is the default wallpaper
 	Default bool
-	// Dark mode
+	// Whether this wallpaper should be used in dark mode.
 	Dark bool
-	// Wallpaper settings
+	// Info on how to generate the wallpaper.
 	//
 	// Use SetSettings and GetSettings helpers.
 	Settings WallPaperSettings
@@ -782,10 +794,13 @@ type WallPaperClass interface {
 	// Whether this is the default wallpaper
 	GetDefault() (value bool)
 
-	// Dark mode
+	// Whether this wallpaper should be used in dark mode.
 	GetDark() (value bool)
 
-	// Wallpaper settings
+	// Info on how to generate the wallpaper, according to these instructions »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers
 	GetSettings() (value WallPaperSettings, ok bool)
 }
 

@@ -32,11 +32,17 @@ var (
 )
 
 // InputWallPaper represents TL type `inputWallPaper#e630b979`.
-// Wallpaper
+// Wallpaper¹
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/constructor/inputWallPaper for reference.
 type InputWallPaper struct {
-	// Wallpaper ID
+	// Wallpaper¹ ID
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers
 	ID int64
 	// Access hash
 	AccessHash int64
@@ -194,7 +200,11 @@ func (i *InputWallPaper) GetAccessHash() (value int64) {
 }
 
 // InputWallPaperSlug represents TL type `inputWallPaperSlug#72091c80`.
-// Wallpaper by slug (a unique ID)
+// Wallpaper¹ by slug (a unique ID, obtained from a wallpaper link »²)
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
+//  2. https://core.telegram.org/api/links#wallpaper-links
 //
 // See https://core.telegram.org/constructor/inputWallPaperSlug for reference.
 type InputWallPaperSlug struct {
@@ -329,11 +339,12 @@ func (i *InputWallPaperSlug) GetSlug() (value string) {
 }
 
 // InputWallPaperNoFile represents TL type `inputWallPaperNoFile#967a462e`.
-// Wallpaper with no file access hash, used for example when deleting (unsave=true)
-// wallpapers using account.saveWallPaper¹, specifying just the wallpaper ID.
+// Wallpaper¹ with no file access hash, used for example when deleting (unsave=true)
+// wallpapers using account.saveWallPaper², specifying just the wallpaper ID.
 //
 // Links:
-//  1. https://core.telegram.org/method/account.saveWallPaper
+//  1. https://core.telegram.org/api/wallpapers
+//  2. https://core.telegram.org/method/account.saveWallPaper
 //
 // See https://core.telegram.org/constructor/inputWallPaperNoFile for reference.
 type InputWallPaperNoFile struct {
