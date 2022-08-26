@@ -1,3 +1,4 @@
+// Binary mktyping generates TypingActionBuilder.
 package main
 
 import (
