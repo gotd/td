@@ -271,7 +271,7 @@ func (s *channelState) getDifference() error {
 			s.log.Warn("SetChannelPts error", zap.Error(err))
 		}
 
-		s.pts.SetState(diff.Pts)
+		s.pts.SetState(diff.Pts, "updates.channelDifference")
 		if seconds, ok := diff.GetTimeout(); ok {
 			s.diffTimeout = time.Now().Add(time.Second * time.Duration(seconds))
 		}
@@ -287,7 +287,7 @@ func (s *channelState) getDifference() error {
 			s.log.Warn("SetChannelPts error", zap.Error(err))
 		}
 
-		s.pts.SetState(diff.Pts)
+		s.pts.SetState(diff.Pts, "updates.channelDifferenceEmpty")
 		if seconds, ok := diff.GetTimeout(); ok {
 			s.diffTimeout = time.Now().Add(time.Second * time.Duration(seconds))
 		}
@@ -307,7 +307,7 @@ func (s *channelState) getDifference() error {
 				s.log.Warn("SetChannelPts error", zap.Error(err))
 			}
 
-			s.pts.SetState(remotePts)
+			s.pts.SetState(remotePts, "updates.channelDifferenceTooLong dialog new pts")
 		}
 
 		s.onTooLong(s.channelID)

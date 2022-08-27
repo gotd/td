@@ -109,7 +109,7 @@ func (s *state) applyCombined(ctx context.Context, comb *tg.UpdatesCombined) (pt
 		}
 
 		s.date = comb.Date
-		s.seq.SetState(comb.Seq)
+		s.seq.SetState(comb.Seq, "seq update")
 	case setDate:
 		if err := s.storage.SetDate(s.selfID, comb.Date); err != nil {
 			s.log.Error("SetDate error", zap.Error(err))
@@ -119,7 +119,7 @@ func (s *state) applyCombined(ctx context.Context, comb *tg.UpdatesCombined) (pt
 		if err := s.storage.SetSeq(s.selfID, comb.Seq); err != nil {
 			s.log.Error("SetSeq error", zap.Error(err))
 		}
-		s.seq.SetState(comb.Seq)
+		s.seq.SetState(comb.Seq, "seq update")
 	}
 
 	return ptsChanged, nil
