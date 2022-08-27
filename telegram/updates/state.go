@@ -339,14 +339,14 @@ func (s *state) getDifference() error {
 
 	s.log.Debug("Getting difference")
 
-	setState := func(state tg.UpdatesState) {
+	setState := func(state tg.UpdatesState, reason string) {
 		if err := s.storage.SetState(s.selfID, State{}.fromRemote(&state)); err != nil {
 			s.log.Warn("SetState error", zap.Error(err))
 		}
 
-		s.pts.SetState(state.Pts)
-		s.qts.SetState(state.Qts)
-		s.seq.SetState(state.Seq)
+		s.pts.SetState(state.Pts, reason)
+		s.qts.SetState(state.Qts, reason)
+		s.seq.SetState(state.Seq, reason)
 		s.date = state.Date
 	}
 
@@ -384,7 +384,7 @@ func (s *state) getDifference() error {
 			}
 		}
 
-		setState(diff.State)
+		setState(diff.State, "updates.Difference")
 		return nil
 
 	// No events.
@@ -394,7 +394,7 @@ func (s *state) getDifference() error {
 		}
 
 		s.date = diff.Date
-		s.seq.SetState(diff.Seq)
+		s.seq.SetState(diff.Seq, "updates.differenceEmpty")
 		return nil
 
 	// Incomplete list of occurred events.
@@ -423,7 +423,7 @@ func (s *state) getDifference() error {
 			}
 		}
 
-		setState(diff.IntermediateState)
+		setState(diff.IntermediateState, "updates.differenceSlice")
 		return s.getDifference()
 
 	// The difference is too long, and the specified state must be used to refetch updates.
@@ -431,7 +431,7 @@ func (s *state) getDifference() error {
 		if err := s.storage.SetPts(s.selfID, diff.Pts); err != nil {
 			s.log.Error("SetPts error", zap.Error(err))
 		}
-		s.pts.SetState(diff.Pts)
+		s.pts.SetState(diff.Pts, "updates.differenceTooLong")
 		return s.getDifference()
 
 	default:

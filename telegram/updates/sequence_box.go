@@ -47,7 +47,7 @@ func newSequenceBox(cfg sequenceConfig) *sequenceBox {
 func (s *sequenceBox) Handle(u update) error {
 	log := s.log.With(zap.Int("upd_from", u.start()), zap.Int("upd_to", u.end()))
 	if checkGap(s.state, u.State, u.Count) == gapIgnore {
-		log.Debug("Outdated update, skip", zap.Int("state", s.state))
+		log.Debug("Outdated update, skipping", zap.Int("state", s.state))
 		return nil
 	}
 
@@ -80,7 +80,7 @@ func (s *sequenceBox) Handle(u update) error {
 		}
 
 		log.Debug("Accepted")
-		s.state = u.State
+		s.setState(u.State, "update")
 		return nil
 
 	case gapRefetch:
@@ -159,13 +159,22 @@ loop:
 		zap.Int("accepted_count", len(accepted)),
 	)
 
-	s.state = state
+	s.setState(state, "pending updates")
 	return nil
 }
 
 func (s *sequenceBox) State() int { return s.state }
 
-func (s *sequenceBox) SetState(state int) {
-	s.log.Debug("Forced set state", zap.Int("state", state))
+func (s *sequenceBox) SetState(state int, reason string) {
+	s.setState(state, reason)
+}
+
+func (s *sequenceBox) setState(state int, reason string) {
+	old := s.state
 	s.state = state
+	s.log.Debug("State changed",
+		zap.Int("old", old),
+		zap.Int("new", state),
+		zap.String("reason", reason),
+	)
 }
