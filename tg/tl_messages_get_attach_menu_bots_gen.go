@@ -35,7 +35,7 @@ var (
 // Returns installed attachment menu bot web apps »¹
 //
 // Links:
-//  1. https://core.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu
+//  1. https://core.telegram.org/api/bots/attach
 //
 // See https://core.telegram.org/method/messages.getAttachMenuBots for reference.
 type MessagesGetAttachMenuBotsRequest struct {
@@ -171,7 +171,7 @@ func (g *MessagesGetAttachMenuBotsRequest) GetHash() (value int64) {
 // Returns installed attachment menu bot web apps »¹
 //
 // Links:
-//  1. https://core.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu
+//  1. https://core.telegram.org/api/bots/attach
 //
 // See https://core.telegram.org/method/messages.getAttachMenuBots for reference.
 func (c *Client) MessagesGetAttachMenuBots(ctx context.Context, hash int64) (AttachMenuBotsClass, error) {

@@ -198,7 +198,10 @@ func (i *InputTheme) GetAccessHash() (value int64) {
 //
 // See https://core.telegram.org/constructor/inputThemeSlug for reference.
 type InputThemeSlug struct {
-	// Unique theme ID
+	// Unique theme ID obtained from a theme deep link »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#theme-links
 	Slug string
 }
 

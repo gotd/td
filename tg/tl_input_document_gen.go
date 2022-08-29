@@ -134,7 +134,7 @@ func (i *InputDocumentEmpty) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputDocument represents TL type `inputDocument#1abfb575`.
-// Defines a video for subsequent interaction.
+// Defines a document for subsequent interaction.
 //
 // See https://core.telegram.org/constructor/inputDocument for reference.
 type InputDocument struct {

@@ -47,7 +47,10 @@ type MessagesRequestWebViewRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether the webview was opened after clicking on the bot's menu button.
+	// Whether the webview was opened by clicking on the bot's menu button »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/menu
 	FromBotMenu bool
 	// Whether the inline message that will be sent by the bot on behalf of the user once the
 	// web app interaction is terminated¹ should be sent silently (no notifications for the
@@ -56,24 +59,29 @@ type MessagesRequestWebViewRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/method/messages.sendWebViewResultMessage
 	Silent bool
-	// Dialog where the web app is being opened
+	// Dialog where the web app is being opened, and where the resulting message will be sent
+	// (see the docs for more info »¹).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/webapps
 	Peer InputPeerClass
 	// Bot that owns the web app¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/bots/webapps
+	//  1) https://core.telegram.org/api/bots/webapps
 	Bot InputUserClass
 	// Web app URL¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/bots/webapps
+	//  1) https://core.telegram.org/api/bots/webapps
 	//
 	// Use SetURL and GetURL helpers.
 	URL string
-	// If the web app was opened from the attachment menu using a https://t
-	// me/username?attach=botusername&startattach=data or https://t
-	// me/botusername?startattach=data link, start_param should contain the data from the
-	// startattach parameter.
+	// If the web app was opened from the attachment menu using a attachment menu deep link¹
+	// start_param should contain the data from the startattach parameter.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#bot-attachment-menu-links
 	//
 	// Use SetStartParam and GetStartParam helpers.
 	StartParam string
@@ -89,7 +97,8 @@ type MessagesRequestWebViewRequest struct {
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	// Open the web app as the specified peer
+	// Open the web app as the specified peer, sending the resulting the message as the
+	// specified peer.
 	//
 	// Use SetSendAs and GetSendAs helpers.
 	SendAs InputPeerClass

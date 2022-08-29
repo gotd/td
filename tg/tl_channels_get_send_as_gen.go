@@ -172,6 +172,7 @@ func (g *ChannelsGetSendAsRequest) GetPeer() (value InputPeerClass) {
 // Possible errors:
 //
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	400 CHAT_ID_INVALID: The provided chat id is invalid.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/channels.getSendAs for reference.

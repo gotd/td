@@ -32,7 +32,12 @@ var (
 )
 
 // BotsSetBotGroupDefaultAdminRightsRequest represents TL type `bots.setBotGroupDefaultAdminRights#925ec9ea`.
-// Set the default suggested admin rights for bots being added as admins to groups.
+// Set the default suggested admin rights¹ for bots being added as admins to groups, see
+// here for more info on how to handle them »².
+//
+// Links:
+//  1. https://core.telegram.org/api/rights#suggested-bot-rights
+//  2. https://core.telegram.org/api/rights#suggested-bot-rights
 //
 // See https://core.telegram.org/method/bots.setBotGroupDefaultAdminRights for reference.
 type BotsSetBotGroupDefaultAdminRightsRequest struct {
@@ -162,7 +167,12 @@ func (s *BotsSetBotGroupDefaultAdminRightsRequest) GetAdminRights() (value ChatA
 }
 
 // BotsSetBotGroupDefaultAdminRights invokes method bots.setBotGroupDefaultAdminRights#925ec9ea returning error if any.
-// Set the default suggested admin rights for bots being added as admins to groups.
+// Set the default suggested admin rights¹ for bots being added as admins to groups, see
+// here for more info on how to handle them »².
+//
+// Links:
+//  1. https://core.telegram.org/api/rights#suggested-bot-rights
+//  2. https://core.telegram.org/api/rights#suggested-bot-rights
 //
 // Possible errors:
 //

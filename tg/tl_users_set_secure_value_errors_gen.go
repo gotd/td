@@ -240,6 +240,7 @@ func (s *UsersSetSecureValueErrorsRequest) MapErrors() (value SecureValueErrorCl
 // Possible errors:
 //
 //	403 USER_BOT_INVALID: This method can only be called by a bot.
+//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/users.setSecureValueErrors for reference.

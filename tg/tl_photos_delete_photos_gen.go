@@ -32,7 +32,7 @@ var (
 )
 
 // PhotosDeletePhotosRequest represents TL type `photos.deletePhotos#87cf7f2f`.
-// Deletes profile photos.
+// Deletes profile photos. The method returns a list of successfully deleted photo IDs.
 //
 // See https://core.telegram.org/method/photos.deletePhotos for reference.
 type PhotosDeletePhotosRequest struct {
@@ -185,7 +185,7 @@ func (d *PhotosDeletePhotosRequest) MapID() (value InputPhotoClassArray) {
 }
 
 // PhotosDeletePhotos invokes method photos.deletePhotos#87cf7f2f returning error if any.
-// Deletes profile photos.
+// Deletes profile photos. The method returns a list of successfully deleted photo IDs.
 //
 // See https://core.telegram.org/method/photos.deletePhotos for reference.
 func (c *Client) PhotosDeletePhotos(ctx context.Context, id []InputPhotoClass) ([]int64, error) {

@@ -137,7 +137,7 @@ func (a *AttachMenuBotsNotModified) DecodeBare(b *bin.Buffer) error {
 // Represents a list of bot web apps that can be launched from the attachment menu »¹
 //
 // Links:
-//  1. https://core.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu
+//  1. https://core.telegram.org/api/bots/attach
 //
 // See https://core.telegram.org/constructor/attachMenuBots for reference.
 type AttachMenuBots struct {
@@ -149,7 +149,7 @@ type AttachMenuBots struct {
 	// List of bot web apps that can be launched from the attachment menu »¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu
+	//  1) https://core.telegram.org/api/bots/attach
 	Bots []AttachMenuBot
 	// Info about related users/bots
 	Users []UserClass

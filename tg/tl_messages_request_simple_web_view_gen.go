@@ -35,7 +35,7 @@ var (
 // Open a bot web app¹.
 //
 // Links:
-//  1. https://core.telegram.org/bots/webapps
+//  1. https://core.telegram.org/api/bots/webapps
 //
 // See https://core.telegram.org/method/messages.requestSimpleWebView for reference.
 type MessagesRequestSimpleWebViewRequest struct {
@@ -269,7 +269,7 @@ func (r *MessagesRequestSimpleWebViewRequest) GetThemeParams() (value DataJSON, 
 // Open a bot web app¹.
 //
 // Links:
-//  1. https://core.telegram.org/bots/webapps
+//  1. https://core.telegram.org/api/bots/webapps
 //
 // See https://core.telegram.org/method/messages.requestSimpleWebView for reference.
 func (c *Client) MessagesRequestSimpleWebView(ctx context.Context, request *MessagesRequestSimpleWebViewRequest) (*SimpleWebViewResultURL, error) {

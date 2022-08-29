@@ -53,7 +53,7 @@ type MessagesProlongWebViewRequest struct {
 	// Bot that owns the web app¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/bots/webapps
+	//  1) https://core.telegram.org/api/bots/webapps
 	Bot InputUserClass
 	// Web app interaction ID obtained from messages.requestWebView¹
 	//

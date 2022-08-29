@@ -36,8 +36,11 @@ var (
 //
 // See https://core.telegram.org/method/contacts.resolvePhone for reference.
 type ContactsResolvePhoneRequest struct {
-	// Phone number in international format, possibly obtained from a t.me/+number or
-	// tg://resolve?phone=number URI.
+	// Phone number in international format, possibly obtained from a phone number deep
+	// link¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#phone-number-links
 	Phone string
 }
 
@@ -164,6 +167,10 @@ func (r *ContactsResolvePhoneRequest) GetPhone() (value string) {
 
 // ContactsResolvePhone invokes method contacts.resolvePhone#8af94344 returning error if any.
 // Resolve a phone number to get user info, if their privacy settings allow it.
+//
+// Possible errors:
+//
+//	400 PHONE_NOT_OCCUPIED: No user is associated to the specified phone number.
 //
 // See https://core.telegram.org/method/contacts.resolvePhone for reference.
 func (c *Client) ContactsResolvePhone(ctx context.Context, phone string) (*ContactsResolvedPeer, error) {

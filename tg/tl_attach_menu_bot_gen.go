@@ -35,7 +35,7 @@ var (
 // Represents a bot web app that can be launched from the attachment menu »¹
 //
 // Links:
-//  1. https://core.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu
+//  1. https://core.telegram.org/api/bots/attach
 //
 // See https://core.telegram.org/constructor/attachMenuBot for reference.
 type AttachMenuBot struct {
@@ -50,7 +50,10 @@ type AttachMenuBot struct {
 	// Links:
 	//  1) https://core.telegram.org/method/messages.toggleBotInAttachMenu
 	Inactive bool
-	// True, if the bot supports the "settings_button_pressed" event
+	// True, if the bot supports the "settings_button_pressed" event »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/webapps#settings_button_pressed
 	HasSettings bool
 	// Bot ID
 	BotID int64

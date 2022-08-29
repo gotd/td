@@ -2587,7 +2587,15 @@ type InputMediaInvoice struct {
 	// JSON-encoded data about the invoice, which will be shared with the payment provider. A
 	// detailed description of required fields should be provided by the payment provider.
 	ProviderData DataJSON
-	// Start parameter
+	// Unique bot deep links start parameter¹. If present, forwarded copies of the sent
+	// message will have a URL button with a deep link² to the bot (instead of a Pay button)
+	// with the value used as the start parameter. If absent, forwarded copies of the sent
+	// message will have a Pay button, allowing multiple users to pay directly from the
+	// forwarded message, using the same invoice.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#not-invoice
+	//  2) https://core.telegram.org/api/links#bot-links
 	//
 	// Use SetStartParam and GetStartParam helpers.
 	StartParam string

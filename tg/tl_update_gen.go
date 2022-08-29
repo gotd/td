@@ -19463,11 +19463,11 @@ func (u *UpdateMessageReactions) GetReactions() (value MessageReactions) {
 }
 
 // UpdateAttachMenuBots represents TL type `updateAttachMenuBots#17b7a20b`.
-// The list of added bot web apps »¹ has changed, use messages.getAttachMenuBots² to
-// fetch the updated list.
+// The list of installed attachment menu entries »¹ has changed, use messages
+// getAttachMenuBots² to fetch the updated list.
 //
 // Links:
-//  1. https://core.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu
+//  1. https://core.telegram.org/api/bots/attach
 //  2. https://core.telegram.org/method/messages.getAttachMenuBots
 //
 // See https://core.telegram.org/constructor/updateAttachMenuBots for reference.
@@ -19982,10 +19982,12 @@ func (u *UpdateSavedRingtones) DecodeBare(b *bin.Buffer) error {
 }
 
 // UpdateTranscribedAudio represents TL type `updateTranscribedAudio#84cd5a`.
-// A pending transcription initiated with messages.transcribeAudio¹ was updated.
+// A pending voice message transcription »¹ initiated with messages.transcribeAudio²
+// was updated.
 //
 // Links:
-//  1. https://core.telegram.org/method/messages.transcribeAudio
+//  1. https://core.telegram.org/api/transcribe
+//  2. https://core.telegram.org/method/messages.transcribeAudio
 //
 // See https://core.telegram.org/constructor/updateTranscribedAudio for reference.
 type UpdateTranscribedAudio struct {

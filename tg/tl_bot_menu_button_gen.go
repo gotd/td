@@ -32,6 +32,11 @@ var (
 )
 
 // BotMenuButtonDefault represents TL type `botMenuButtonDefault#7533a588`.
+// Placeholder bot menu button¹ never returned to users: see the docs for more info².
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/menu
+//  2. https://core.telegram.org/api/bots/menu
 //
 // See https://core.telegram.org/constructor/botMenuButtonDefault for reference.
 type BotMenuButtonDefault struct {
@@ -133,6 +138,10 @@ func (b *BotMenuButtonDefault) DecodeBare(buf *bin.Buffer) error {
 }
 
 // BotMenuButtonCommands represents TL type `botMenuButtonCommands#4258c205`.
+// Bot menu button¹ that opens the bot command list when clicked.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/menu
 //
 // See https://core.telegram.org/constructor/botMenuButtonCommands for reference.
 type BotMenuButtonCommands struct {
@@ -234,10 +243,11 @@ func (b *BotMenuButtonCommands) DecodeBare(buf *bin.Buffer) error {
 }
 
 // BotMenuButton represents TL type `botMenuButton#c7b57ce6`.
-// URL of a web app¹ to open when the user clicks on the button
+// Bot menu button¹ that opens a web app² when clicked.
 //
 // Links:
-//  1. https://core.telegram.org/bots/webapps#launching-web-apps-from-the-menu-button
+//  1. https://core.telegram.org/api/bots/menu
+//  2. https://core.telegram.org/api/bots/webapps
 //
 // See https://core.telegram.org/constructor/botMenuButton for reference.
 type BotMenuButton struct {
@@ -246,7 +256,7 @@ type BotMenuButton struct {
 	// URL of a web app¹ to open when the user clicks on the button
 	//
 	// Links:
-	//  1) https://core.telegram.org/bots/webapps#launching-web-apps-from-the-menu-button
+	//  1) https://core.telegram.org/api/bots/webapps
 	URL string
 }
 

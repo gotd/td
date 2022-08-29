@@ -194,13 +194,24 @@ func (i *InputWebFileLocation) GetAccessHash() (value int64) {
 }
 
 // InputWebFileGeoPointLocation represents TL type `inputWebFileGeoPointLocation#9f2221c9`.
-// Geolocation
+// Used to download a server-generated image with the map preview from a geoPoint¹, see
+// the webfile docs for more info »².
+//
+// Links:
+//  1. https://core.telegram.org/constructor/geoPoint
+//  2. https://core.telegram.org/api/files#downloading-webfiles
 //
 // See https://core.telegram.org/constructor/inputWebFileGeoPointLocation for reference.
 type InputWebFileGeoPointLocation struct {
-	// Geolocation
+	// Generated from the lat, long and accuracy_radius parameters of the geoPoint¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/geoPoint
 	GeoPoint InputGeoPointClass
-	// Access hash
+	// Access hash of the geoPoint¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/geoPoint
 	AccessHash int64
 	// Map width in pixels before applying scale; 16-1024
 	W int
@@ -469,6 +480,12 @@ func (i *InputWebFileGeoPointLocation) GetScale() (value int) {
 }
 
 // InputWebFileAudioAlbumThumbLocation represents TL type `inputWebFileAudioAlbumThumbLocation#f46fe924`.
+// Used to download an album cover for any music file using upload.getWebFile¹, see the
+// webfile docs for more info »².
+//
+// Links:
+//  1. https://core.telegram.org/method/upload.getWebFile
+//  2. https://core.telegram.org/api/files#downloading-webfiles
 //
 // See https://core.telegram.org/constructor/inputWebFileAudioAlbumThumbLocation for reference.
 type InputWebFileAudioAlbumThumbLocation struct {
@@ -477,17 +494,20 @@ type InputWebFileAudioAlbumThumbLocation struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Used to return a thumbnail with 100x100 resolution (instead of the default 600x600)
 	Small bool
-	//
+	// The audio file in question: must NOT be provided in secret chats, provide the title
+	// and performer fields instead.
 	//
 	// Use SetDocument and GetDocument helpers.
 	Document InputDocumentClass
-	//
+	// Song title: should only be used in secret chats, in normal chats provide document
+	// instead, as it has more lax rate limits.
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	//
+	// Song performer: should only be used in secret chats, in normal chats provide document
+	// instead, as it has more lax rate limits.
 	//
 	// Use SetPerformer and GetPerformer helpers.
 	Performer string

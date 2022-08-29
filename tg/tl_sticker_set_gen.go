@@ -64,7 +64,10 @@ type StickerSet struct {
 	AccessHash int64
 	// Title of stickerset
 	Title string
-	// Short name of stickerset to use in tg://addstickers?set=short_name
+	// Short name of stickerset, used when sharing stickerset using stickerset deep links¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#stickerset-links
 	ShortName string
 	// Stickerset thumbnail
 	//

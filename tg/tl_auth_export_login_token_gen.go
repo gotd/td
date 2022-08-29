@@ -34,12 +34,13 @@ var (
 // AuthExportLoginTokenRequest represents TL type `auth.exportLoginToken#b7e085fe`.
 // Generate a login token, for login via QR code¹.
 // The generated login token should be encoded using base64url, then shown as a
-// tg://login?token=base64encodedtoken URL in the QR code.
+// tg://login?token=base64encodedtoken deep link »² in the QR code.
 // For more info, see login via QR code¹.
 //
 // Links:
 //  1. https://core.telegram.org/api/qr-login
-//  2. https://core.telegram.org/api/qr-login
+//  2. https://core.telegram.org/api/links#qr-code-login-links
+//  3. https://core.telegram.org/api/qr-login
 //
 // See https://core.telegram.org/method/auth.exportLoginToken for reference.
 type AuthExportLoginTokenRequest struct {
@@ -244,12 +245,13 @@ func (e *AuthExportLoginTokenRequest) GetExceptIDs() (value []int64) {
 // AuthExportLoginToken invokes method auth.exportLoginToken#b7e085fe returning error if any.
 // Generate a login token, for login via QR code¹.
 // The generated login token should be encoded using base64url, then shown as a
-// tg://login?token=base64encodedtoken URL in the QR code.
+// tg://login?token=base64encodedtoken deep link »² in the QR code.
 // For more info, see login via QR code¹.
 //
 // Links:
 //  1. https://core.telegram.org/api/qr-login
-//  2. https://core.telegram.org/api/qr-login
+//  2. https://core.telegram.org/api/links#qr-code-login-links
+//  3. https://core.telegram.org/api/qr-login
 //
 // Possible errors:
 //
