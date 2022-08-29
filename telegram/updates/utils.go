@@ -52,35 +52,36 @@ func getDialogPts(dialog tg.DialogClass) (int, error) {
 	return pts, nil
 }
 
-func msgsToUpdates(msgs []tg.MessageClass) []tg.UpdateClass {
-	var updates []tg.UpdateClass
+func msgsToUpdates(msgs []tg.MessageClass, channel bool) []tg.UpdateClass {
+	updates := make([]tg.UpdateClass, 0, len(msgs))
 	for _, msg := range msgs {
-		if msg, ok := msg.(*tg.Message); ok {
-			if _, ok := msg.PeerID.(*tg.PeerChannel); ok {
-				updates = append(updates, &tg.UpdateNewChannelMessage{
-					Message:  msg,
-					Pts:      -1,
-					PtsCount: -1,
-				})
-				continue
-			}
+		if channel {
+			updates = append(updates, &tg.UpdateNewChannelMessage{
+				Message:  msg,
+				Pts:      -1,
+				PtsCount: -1,
+			})
+			continue
 		}
+
 		updates = append(updates, &tg.UpdateNewMessage{
 			Message:  msg,
 			Pts:      -1,
 			PtsCount: -1,
 		})
 	}
+
 	return updates
 }
 
 func encryptedMsgsToUpdates(msgs []tg.EncryptedMessageClass) []tg.UpdateClass {
-	var updates []tg.UpdateClass
+	updates := make([]tg.UpdateClass, 0, len(msgs))
 	for _, msg := range msgs {
 		updates = append(updates, &tg.UpdateNewEncryptedMessage{
 			Message: msg,
 			Qts:     -1,
 		})
 	}
+
 	return updates
 }
