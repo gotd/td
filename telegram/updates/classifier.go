@@ -39,6 +39,8 @@ func isCommonQtsUpdate(u tg.UpdateClass) (qts int, ok bool) {
 		return u.Qts, true
 	case *tg.UpdateBotStopped:
 		return u.Qts, true
+	case *tg.UpdateChannelParticipant:
+		return u.Qts, true
 	}
 
 	return
@@ -60,9 +62,6 @@ func isChannelPtsUpdate(u tg.UpdateClass) (channelID int64, pts, ptsCount int, o
 		return u.ChannelID, u.Pts, u.PtsCount, true, nil
 	case *tg.UpdatePinnedChannelMessages:
 		return u.ChannelID, u.Pts, u.PtsCount, true, nil
-	case *tg.UpdateChannelParticipant:
-		// TODO: ptsCount 1?
-		return u.ChannelID, u.Qts, 0, true, nil
 	}
 
 	return
