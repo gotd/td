@@ -32,7 +32,10 @@ var (
 )
 
 // MessagesTranscribedAudio represents TL type `messages.transcribedAudio#93752c52`.
-// Transcribed text from a voice message
+// Transcribed text from a voice message »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/transcribe
 //
 // See https://core.telegram.org/constructor/messages.transcribedAudio for reference.
 type MessagesTranscribedAudio struct {

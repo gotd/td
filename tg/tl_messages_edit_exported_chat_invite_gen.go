@@ -447,7 +447,7 @@ func (e *MessagesEditExportedChatInviteRequest) GetTitle() (value string, ok boo
 //
 // Possible errors:
 //
-//	400 CHAT_INVITE_PERMANENT:
+//	400 CHAT_INVITE_PERMANENT: You can't set an expiration date on permanent invite links.
 //	403 EDIT_BOT_INVITE_FORBIDDEN: Normal users can't edit invites that were created by bots.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //

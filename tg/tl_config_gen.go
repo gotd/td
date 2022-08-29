@@ -165,9 +165,10 @@ type Config struct {
 	// If during a VoIP call a packet isn't received for the specified period of time, the
 	// call must be aborted
 	CallPacketTimeoutMs int
-	// The domain to use to parse in-app links.For example t.me indicates that t.me/username
-	// links should parsed to @username, t.me/addsticker/name should be parsed to the
-	// appropriate stickerset and so on...
+	// The domain to use to parse deep links »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links
 	MeURLPrefix string
 	// URL to use to auto-update the current app
 	//
@@ -196,7 +197,7 @@ type Config struct {
 	// DC ID to use to download webfiles¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/files
+	//  1) https://core.telegram.org/api/files#downloading-webfiles
 	WebfileDCID int
 	// Suggested language code
 	//

@@ -32,7 +32,10 @@ var (
 )
 
 // PaymentsExportInvoiceRequest represents TL type `payments.exportInvoice#f91b065`.
-// Export invoice
+// Generate an invoice deep link¹
+//
+// Links:
+//  1. https://core.telegram.org/api/links#invoice-links
 //
 // See https://core.telegram.org/method/payments.exportInvoice for reference.
 type PaymentsExportInvoiceRequest struct {
@@ -167,7 +170,10 @@ func (e *PaymentsExportInvoiceRequest) GetInvoiceMedia() (value InputMediaClass)
 }
 
 // PaymentsExportInvoice invokes method payments.exportInvoice#f91b065 returning error if any.
-// Export invoice
+// Generate an invoice deep link¹
+//
+// Links:
+//  1. https://core.telegram.org/api/links#invoice-links
 //
 // Possible errors:
 //

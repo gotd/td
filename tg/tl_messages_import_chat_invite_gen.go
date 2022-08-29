@@ -36,7 +36,10 @@ var (
 //
 // See https://core.telegram.org/method/messages.importChatInvite for reference.
 type MessagesImportChatInviteRequest struct {
-	// hash from t.me/joinchat/hash
+	// hash from a chat invite deep link¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#chat-invite-links
 	Hash string
 }
 

@@ -2464,7 +2464,7 @@ func (k *KeyboardButtonUserProfile) GetUserID() (value int64) {
 // keyboardButtonSimpleWebView¹ for reply keyboards.
 //
 // Links:
-//  1. https://core.telegram.org/bots/webapps
+//  1. https://core.telegram.org/api/bots/webapps
 //  2. https://core.telegram.org/method/messages.requestWebView
 //  3. https://core.telegram.org/constructor/keyboardButtonSimpleWebView
 //
@@ -2475,7 +2475,7 @@ type KeyboardButtonWebView struct {
 	// Web app url¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/bots/webapps
+	//  1) https://core.telegram.org/api/bots/webapps
 	URL string
 }
 
@@ -2637,7 +2637,7 @@ func (k *KeyboardButtonWebView) GetURL() (value string) {
 // for inline keyboards.
 //
 // Links:
-//  1. https://core.telegram.org/bots/webapps
+//  1. https://core.telegram.org/api/bots/webapps
 //  2. https://core.telegram.org/method/messages.requestSimpleWebView
 //  3. https://core.telegram.org/constructor/keyboardButtonWebView
 //
@@ -2648,7 +2648,7 @@ type KeyboardButtonSimpleWebView struct {
 	// Web app URL¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/bots/webapps
+	//  1) https://core.telegram.org/api/bots/webapps
 	URL string
 }
 

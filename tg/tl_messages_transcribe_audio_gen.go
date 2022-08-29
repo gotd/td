@@ -32,7 +32,10 @@ var (
 )
 
 // MessagesTranscribeAudioRequest represents TL type `messages.transcribeAudio#269e9a49`.
-// Transcribe voice message
+// Transcribe voice message¹
+//
+// Links:
+//  1. https://core.telegram.org/api/transcribe
 //
 // See https://core.telegram.org/method/messages.transcribeAudio for reference.
 type MessagesTranscribeAudioRequest struct {
@@ -194,7 +197,10 @@ func (t *MessagesTranscribeAudioRequest) GetMsgID() (value int) {
 }
 
 // MessagesTranscribeAudio invokes method messages.transcribeAudio#269e9a49 returning error if any.
-// Transcribe voice message
+// Transcribe voice message¹
+//
+// Links:
+//  1. https://core.telegram.org/api/transcribe
 //
 // See https://core.telegram.org/method/messages.transcribeAudio for reference.
 func (c *Client) MessagesTranscribeAudio(ctx context.Context, request *MessagesTranscribeAudioRequest) (*MessagesTranscribedAudio, error) {

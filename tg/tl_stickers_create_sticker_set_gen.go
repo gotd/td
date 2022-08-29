@@ -51,8 +51,13 @@ type StickersCreateStickerSetRequest struct {
 	UserID InputUserClass
 	// Stickerset name, 1-64 chars
 	Title string
-	// Sticker set name. Can contain only English letters, digits and underscores. Must end
-	// with "by" ( is case insensitive); 1-64 characters
+	// Short name of sticker set, to be used in sticker deep links »¹. Can contain only
+	// english letters, digits and underscores. Must begin with a letter, can't contain
+	// consecutive underscores and must end in "_by_<bot_username>". <bot_username> is case
+	// insensitive. 1-64 characters.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#stickerset-links
 	ShortName string
 	// Thumbnail
 	//
@@ -519,12 +524,12 @@ func (c *StickersCreateStickerSetRequest) GetThumbAsNotEmpty() (*InputDocument, 
 //	400 STICKER_GIF_DIMENSIONS: The specified video sticker has invalid dimensions.
 //	400 STICKER_PNG_DIMENSIONS: Sticker png dimensions invalid.
 //	400 STICKER_PNG_NOPNG: One of the specified stickers is not a valid PNG file.
-//	400 STICKER_TGS_NODOC: Incorrect document type for sticker.
+//	400 STICKER_TGS_NODOC: You must send the animated sticker as a document.
 //	400 STICKER_TGS_NOTGS: Invalid TGS sticker provided.
 //	400 STICKER_THUMB_PNG_NOPNG: Incorrect stickerset thumb file provided, PNG / WEBP expected.
 //	400 STICKER_THUMB_TGS_NOTGS: Incorrect stickerset TGS thumb file provided.
 //	400 STICKER_VIDEO_BIG: The specified video sticker is too big.
-//	400 STICKER_VIDEO_NODOC:
+//	400 STICKER_VIDEO_NODOC: You must send the video sticker as a document.
 //	400 STICKER_VIDEO_NOWEBM: The specified video sticker is not in webm format.
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //

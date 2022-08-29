@@ -36,7 +36,7 @@ var (
 // attachment menu »¹
 //
 // Links:
-//  1. https://core.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu
+//  1. https://core.telegram.org/api/bots/attach
 //
 // See https://core.telegram.org/method/messages.getAttachMenuBot for reference.
 type MessagesGetAttachMenuBotRequest struct {
@@ -175,7 +175,7 @@ func (g *MessagesGetAttachMenuBotRequest) GetBot() (value InputUserClass) {
 // attachment menu »¹
 //
 // Links:
-//  1. https://core.telegram.org/bots/webapps#launching-web-apps-from-the-attachment-menu
+//  1. https://core.telegram.org/api/bots/attach
 //
 // Possible errors:
 //

@@ -310,9 +310,9 @@ func (s *MessagesSendReactionRequest) GetReaction() (value string, ok bool) {
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
+//	400 REACTIONS_TOO_MANY: The message already has exactly reactions_uniq_max reaction emojis, you can't react with a new emoji, see the docs for more info ».
 //	400 REACTION_EMPTY: Empty reaction provided.
 //	400 REACTION_INVALID: The specified reaction is invalid.
-//	500 SEND_REACTION_RESULT1_INVALID:
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
 //
 // See https://core.telegram.org/method/messages.sendReaction for reference.

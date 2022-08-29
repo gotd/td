@@ -33,6 +33,8 @@ var (
 
 // MessagesReceivedQueueRequest represents TL type `messages.receivedQueue#55a5bb66`.
 // Confirms receipt of messages in a secret chat by client, cancels push notifications.
+// The method returns a list of random_ids of messages for which push notifications were
+// cancelled.
 //
 // See https://core.telegram.org/method/messages.receivedQueue for reference.
 type MessagesReceivedQueueRequest struct {
@@ -163,6 +165,8 @@ func (r *MessagesReceivedQueueRequest) GetMaxQts() (value int) {
 
 // MessagesReceivedQueue invokes method messages.receivedQueue#55a5bb66 returning error if any.
 // Confirms receipt of messages in a secret chat by client, cancels push notifications.
+// The method returns a list of random_ids of messages for which push notifications were
+// cancelled.
 //
 // Possible errors:
 //

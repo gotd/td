@@ -32,7 +32,10 @@ var (
 )
 
 // PhoneExportGroupCallInviteRequest represents TL type `phone.exportGroupCallInvite#e6aa647f`.
-// Get an invite link for a group call or livestream
+// Get an invite link¹ for a group call or livestream
+//
+// Links:
+//  1. https://core.telegram.org/api/links#voice-chat-video-chat-livestream-links
 //
 // See https://core.telegram.org/method/phone.exportGroupCallInvite for reference.
 type PhoneExportGroupCallInviteRequest struct {
@@ -41,8 +44,9 @@ type PhoneExportGroupCallInviteRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// For livestreams, if set, users that join using this link will be able to speak without
-	// explicitly requesting permission by (for example by raising their hand).
+	// For livestreams or muted group chats, if set, users that join using this link will be
+	// able to speak without explicitly requesting permission by (for example by raising
+	// their hand).
 	CanSelfUnmute bool
 	// The group call
 	Call InputGroupCall
@@ -219,7 +223,10 @@ func (e *PhoneExportGroupCallInviteRequest) GetCall() (value InputGroupCall) {
 }
 
 // PhoneExportGroupCallInvite invokes method phone.exportGroupCallInvite#e6aa647f returning error if any.
-// Get an invite link for a group call or livestream
+// Get an invite link¹ for a group call or livestream
+//
+// Links:
+//  1. https://core.telegram.org/api/links#voice-chat-video-chat-livestream-links
 //
 // See https://core.telegram.org/method/phone.exportGroupCallInvite for reference.
 func (c *Client) PhoneExportGroupCallInvite(ctx context.Context, request *PhoneExportGroupCallInviteRequest) (*PhoneExportedGroupCallInvite, error) {

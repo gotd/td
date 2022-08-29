@@ -134,7 +134,10 @@ func (d *HelpDeepLinkInfoEmpty) DecodeBare(b *bin.Buffer) error {
 }
 
 // HelpDeepLinkInfo represents TL type `help.deepLinkInfo#6a4ee832`.
-// Deep linking info
+// Deep link info, see the here for more details¹
+//
+// Links:
+//  1. https://core.telegram.org/api/links#unsupported-links
 //
 // See https://core.telegram.org/constructor/help.deepLinkInfo for reference.
 type HelpDeepLinkInfo struct {

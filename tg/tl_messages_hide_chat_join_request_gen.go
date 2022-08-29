@@ -272,6 +272,7 @@ func (h *MessagesHideChatJoinRequestRequest) GetUserID() (value InputUserClass) 
 // Possible errors:
 //
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/messages.hideChatJoinRequest for reference.
 // Can be used by bots.

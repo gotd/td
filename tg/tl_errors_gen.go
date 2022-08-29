@@ -68,7 +68,6 @@ const (
 	ErrBotMissing                       = "BOT_MISSING"
 	ErrBotOnesideNotAvail               = "BOT_ONESIDE_NOT_AVAIL"
 	ErrBotPaymentsDisabled              = "BOT_PAYMENTS_DISABLED"
-	ErrBotPollsDisabled                 = "BOT_POLLS_DISABLED"
 	ErrBotResponseTimeout               = "BOT_RESPONSE_TIMEOUT"
 	ErrBotScoreNotModified              = "BOT_SCORE_NOT_MODIFIED"
 	ErrBroadcastForbidden               = "BROADCAST_FORBIDDEN"
@@ -101,7 +100,6 @@ const (
 	ErrChatAdminInviteRequired          = "CHAT_ADMIN_INVITE_REQUIRED"
 	ErrChatAdminRequired                = "CHAT_ADMIN_REQUIRED"
 	ErrChatForwardsRestricted           = "CHAT_FORWARDS_RESTRICTED"
-	ErrChatFromCallChanged              = "CHAT_FROM_CALL_CHANGED"
 	ErrChatGuestSendForbidden           = "CHAT_GUEST_SEND_FORBIDDEN"
 	ErrChatIDEmpty                      = "CHAT_ID_EMPTY"
 	ErrChatIDGenerateFailed             = "CHAT_ID_GENERATE_FAILED"
@@ -109,7 +107,6 @@ const (
 	ErrChatInvalid                      = "CHAT_INVALID"
 	ErrChatInvitePermanent              = "CHAT_INVITE_PERMANENT"
 	ErrChatLinkExists                   = "CHAT_LINK_EXISTS"
-	ErrChatMembersChannel               = "CHAT_MEMBERS_CHANNEL"
 	ErrChatNotModified                  = "CHAT_NOT_MODIFIED"
 	ErrChatRestricted                   = "CHAT_RESTRICTED"
 	ErrChatSendGameForbidden            = "CHAT_SEND_GAME_FORBIDDEN"
@@ -277,7 +274,6 @@ const (
 	ErrPasswordRequired                 = "PASSWORD_REQUIRED"
 	ErrPasswordTooFresh                 = "PASSWORD_TOO_FRESH"
 	ErrPaymentProviderInvalid           = "PAYMENT_PROVIDER_INVALID"
-	ErrPaymentUnsupported               = "PAYMENT_UNSUPPORTED"
 	ErrPeerIDInvalid                    = "PEER_ID_INVALID"
 	ErrPeerIDNotSupported               = "PEER_ID_NOT_SUPPORTED"
 	ErrPersistentTimestampEmpty         = "PERSISTENT_TIMESTAMP_EMPTY"
@@ -287,6 +283,7 @@ const (
 	ErrPhoneCodeExpired                 = "PHONE_CODE_EXPIRED"
 	ErrPhoneCodeHashEmpty               = "PHONE_CODE_HASH_EMPTY"
 	ErrPhoneCodeInvalid                 = "PHONE_CODE_INVALID"
+	ErrPhoneNotOccupied                 = "PHONE_NOT_OCCUPIED"
 	ErrPhoneNumberAppSignupForbidden    = "PHONE_NUMBER_APP_SIGNUP_FORBIDDEN"
 	ErrPhoneNumberBanned                = "PHONE_NUMBER_BANNED"
 	ErrPhoneNumberFlood                 = "PHONE_NUMBER_FLOOD"
@@ -333,6 +330,7 @@ const (
 	ErrRandomIDInvalid                  = "RANDOM_ID_INVALID"
 	ErrRandomLengthInvalid              = "RANDOM_LENGTH_INVALID"
 	ErrRangesInvalid                    = "RANGES_INVALID"
+	ErrReactionsTooMany                 = "REACTIONS_TOO_MANY"
 	ErrReactionEmpty                    = "REACTION_EMPTY"
 	ErrReactionInvalid                  = "REACTION_INVALID"
 	ErrReplyMarkupBuyEmpty              = "REPLY_MARKUP_BUY_EMPTY"
@@ -361,7 +359,6 @@ const (
 	ErrSendCodeUnavailable              = "SEND_CODE_UNAVAILABLE"
 	ErrSendMessageMediaInvalid          = "SEND_MESSAGE_MEDIA_INVALID"
 	ErrSendMessageTypeInvalid           = "SEND_MESSAGE_TYPE_INVALID"
-	ErrSendReactionResult1Invalid       = "SEND_REACTION_RESULT1_INVALID"
 	ErrSensitiveChangeForbidden         = "SENSITIVE_CHANGE_FORBIDDEN"
 	ErrSessionTooFresh                  = "SESSION_TOO_FRESH"
 	ErrSettingsInvalid                  = "SETTINGS_INVALID"
@@ -642,11 +639,6 @@ func IsBotPaymentsDisabled(err error) bool {
 	return tgerr.Is(err, ErrBotPaymentsDisabled)
 }
 
-// IsBotPollsDisabled reports whether err is BOT_POLLS_DISABLED.
-func IsBotPollsDisabled(err error) bool {
-	return tgerr.Is(err, ErrBotPollsDisabled)
-}
-
 // IsBotResponseTimeout reports whether err is BOT_RESPONSE_TIMEOUT.
 func IsBotResponseTimeout(err error) bool {
 	return tgerr.Is(err, ErrBotResponseTimeout)
@@ -807,11 +799,6 @@ func IsChatForwardsRestricted(err error) bool {
 	return tgerr.Is(err, ErrChatForwardsRestricted)
 }
 
-// IsChatFromCallChanged reports whether err is CHAT_FROM_CALL_CHANGED.
-func IsChatFromCallChanged(err error) bool {
-	return tgerr.Is(err, ErrChatFromCallChanged)
-}
-
 // IsChatGuestSendForbidden reports whether err is CHAT_GUEST_SEND_FORBIDDEN.
 func IsChatGuestSendForbidden(err error) bool {
 	return tgerr.Is(err, ErrChatGuestSendForbidden)
@@ -845,11 +832,6 @@ func IsChatInvitePermanent(err error) bool {
 // IsChatLinkExists reports whether err is CHAT_LINK_EXISTS.
 func IsChatLinkExists(err error) bool {
 	return tgerr.Is(err, ErrChatLinkExists)
-}
-
-// IsChatMembersChannel reports whether err is CHAT_MEMBERS_CHANNEL.
-func IsChatMembersChannel(err error) bool {
-	return tgerr.Is(err, ErrChatMembersChannel)
 }
 
 // IsChatNotModified reports whether err is CHAT_NOT_MODIFIED.
@@ -1687,11 +1669,6 @@ func IsPaymentProviderInvalid(err error) bool {
 	return tgerr.Is(err, ErrPaymentProviderInvalid)
 }
 
-// IsPaymentUnsupported reports whether err is PAYMENT_UNSUPPORTED.
-func IsPaymentUnsupported(err error) bool {
-	return tgerr.Is(err, ErrPaymentUnsupported)
-}
-
 // IsPeerIDInvalid reports whether err is PEER_ID_INVALID.
 func IsPeerIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrPeerIDInvalid)
@@ -1735,6 +1712,11 @@ func IsPhoneCodeHashEmpty(err error) bool {
 // IsPhoneCodeInvalid reports whether err is PHONE_CODE_INVALID.
 func IsPhoneCodeInvalid(err error) bool {
 	return tgerr.Is(err, ErrPhoneCodeInvalid)
+}
+
+// IsPhoneNotOccupied reports whether err is PHONE_NOT_OCCUPIED.
+func IsPhoneNotOccupied(err error) bool {
+	return tgerr.Is(err, ErrPhoneNotOccupied)
 }
 
 // IsPhoneNumberAppSignupForbidden reports whether err is PHONE_NUMBER_APP_SIGNUP_FORBIDDEN.
@@ -1967,6 +1949,11 @@ func IsRangesInvalid(err error) bool {
 	return tgerr.Is(err, ErrRangesInvalid)
 }
 
+// IsReactionsTooMany reports whether err is REACTIONS_TOO_MANY.
+func IsReactionsTooMany(err error) bool {
+	return tgerr.Is(err, ErrReactionsTooMany)
+}
+
 // IsReactionEmpty reports whether err is REACTION_EMPTY.
 func IsReactionEmpty(err error) bool {
 	return tgerr.Is(err, ErrReactionEmpty)
@@ -2105,11 +2092,6 @@ func IsSendMessageMediaInvalid(err error) bool {
 // IsSendMessageTypeInvalid reports whether err is SEND_MESSAGE_TYPE_INVALID.
 func IsSendMessageTypeInvalid(err error) bool {
 	return tgerr.Is(err, ErrSendMessageTypeInvalid)
-}
-
-// IsSendReactionResult1Invalid reports whether err is SEND_REACTION_RESULT1_INVALID.
-func IsSendReactionResult1Invalid(err error) bool {
-	return tgerr.Is(err, ErrSendReactionResult1Invalid)
 }
 
 // IsSensitiveChangeForbidden reports whether err is SENSITIVE_CHANGE_FORBIDDEN.

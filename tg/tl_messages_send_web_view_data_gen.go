@@ -36,7 +36,7 @@ var (
 // that owns it.
 //
 // Links:
-//  1. https://core.telegram.org/bots/webapps
+//  1. https://core.telegram.org/api/bots/webapps
 //
 // See https://core.telegram.org/method/messages.sendWebViewData for reference.
 type MessagesSendWebViewDataRequest struct {
@@ -49,7 +49,10 @@ type MessagesSendWebViewDataRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/keyboardButtonSimpleWebView
 	ButtonText string
-	// Data to relay to the bot.
+	// Data to relay to the bot, obtained from a web_app_data_send JS event¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/web-events#web_app_data_send
 	Data string
 }
 
@@ -259,7 +262,7 @@ func (s *MessagesSendWebViewDataRequest) GetData() (value string) {
 // that owns it.
 //
 // Links:
-//  1. https://core.telegram.org/bots/webapps
+//  1. https://core.telegram.org/api/bots/webapps
 //
 // See https://core.telegram.org/method/messages.sendWebViewData for reference.
 func (c *Client) MessagesSendWebViewData(ctx context.Context, request *MessagesSendWebViewDataRequest) (UpdatesClass, error) {

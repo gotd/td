@@ -106,15 +106,21 @@ type UserFull struct {
 	//
 	// Use SetPrivateForwardName and GetPrivateForwardName helpers.
 	PrivateForwardName string
-	// A suggested default set of administrator rights for the bot, to be shown when adding
-	// the bot as admin to a supergroup (only a suggestion, the admin right set may be
-	// modified by the user before adding the bot as admin)
+	// A suggested set of administrator rights¹ for the bot, to be shown when adding the bot
+	// as admin to a group, see here for more info on how to handle them »².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rights#suggested-bot-rights
+	//  2) https://core.telegram.org/api/rights#suggested-bot-rights
 	//
 	// Use SetBotGroupAdminRights and GetBotGroupAdminRights helpers.
 	BotGroupAdminRights ChatAdminRights
-	// A suggested default set of administrator rights for the bot, to be shown when adding
-	// the bot as admin to a channel (only a suggestion, the admin right set may be modified
-	// by the user before adding the bot as admin)
+	// A suggested set of administrator rights¹ for the bot, to be shown when adding the bot
+	// as admin to a channel, see here for more info on how to handle them »².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rights#suggested-bot-rights
+	//  2) https://core.telegram.org/api/rights#suggested-bot-rights
 	//
 	// Use SetBotBroadcastAdminRights and GetBotBroadcastAdminRights helpers.
 	BotBroadcastAdminRights ChatAdminRights

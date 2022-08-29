@@ -2346,11 +2346,12 @@ type MessageActionPaymentSent struct {
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
 	TotalAmount int64
-	// An invoice slug taken from a t.me/invoice/ link or from the premium_invoice_slug app
-	// config parameter »¹
+	// An invoice slug taken from an invoice deep link¹ or from the premium_invoice_slug app
+	// config parameter »²
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/config#client-configuration
+	//  1) https://core.telegram.org/api/links#invoice-links
+	//  2) https://core.telegram.org/api/config#client-configuration
 	//
 	// Use SetInvoiceSlug and GetInvoiceSlug helpers.
 	InvoiceSlug string
@@ -4866,7 +4867,7 @@ func (m *MessageActionChatJoinedByRequest) DecodeBare(b *bin.Buffer) error {
 // (bot side service message).
 //
 // Links:
-//  1. https://core.telegram.org/bots/webapps
+//  1. https://core.telegram.org/api/bots/webapps
 //
 // See https://core.telegram.org/constructor/messageActionWebViewDataSentMe for reference.
 type MessageActionWebViewDataSentMe struct {
@@ -5035,7 +5036,7 @@ func (m *MessageActionWebViewDataSentMe) GetData() (value string) {
 // (user side service message).
 //
 // Links:
-//  1. https://core.telegram.org/bots/webapps
+//  1. https://core.telegram.org/api/bots/webapps
 //
 // See https://core.telegram.org/constructor/messageActionWebViewDataSent for reference.
 type MessageActionWebViewDataSent struct {

@@ -49,7 +49,11 @@ type PhoneJoinGroupCallRequest struct {
 	Call InputGroupCall
 	// Join the group call, presenting yourself as the specified user/channel
 	JoinAs InputPeerClass
-	// The invitation hash from the invite link: https://t.me/username?voicechat=hash
+	// The invitation hash from the invite link »¹, if provided allows speaking in a
+	// livestream or muted group chat.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#video-chat-video-chat-livestream-links
 	//
 	// Use SetInviteHash and GetInviteHash helpers.
 	InviteHash string

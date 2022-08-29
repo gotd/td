@@ -32,11 +32,17 @@ var (
 )
 
 // InputStickerSetShortName represents TL type `inputStickerSetShortName#861cc8a0`.
-// Stickerset by short name, from tg://addstickers?set=short_name
+// Stickerset by short name, from a stickerset deep link »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/links#stickerset-links
 //
 // See https://core.telegram.org/constructor/inputStickerSetShortName for reference.
 type InputStickerSetShortName struct {
-	// From tg://addstickers?set=short_name
+	// Short name from a stickerset deep link »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#stickerset-links
 	ShortName string
 }
 

@@ -738,6 +738,7 @@ func (d *DialogFilter) MapExcludePeers() (value InputPeerClassArray) {
 }
 
 // DialogFilterDefault represents TL type `dialogFilterDefault#363293ae`.
+// Used only when reordering folders to indicate the default (all chats) folder.
 //
 // See https://core.telegram.org/constructor/dialogFilterDefault for reference.
 type DialogFilterDefault struct {

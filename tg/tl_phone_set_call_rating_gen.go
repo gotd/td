@@ -32,7 +32,7 @@ var (
 )
 
 // PhoneSetCallRatingRequest represents TL type `phone.setCallRating#59ead627`.
-// Rate a call
+// Rate a call, returns info about the rating message sent to the official VoIP bot.
 //
 // See https://core.telegram.org/method/phone.setCallRating for reference.
 type PhoneSetCallRatingRequest struct {
@@ -272,7 +272,7 @@ func (s *PhoneSetCallRatingRequest) GetComment() (value string) {
 }
 
 // PhoneSetCallRating invokes method phone.setCallRating#59ead627 returning error if any.
-// Rate a call
+// Rate a call, returns info about the rating message sent to the official VoIP bot.
 //
 // Possible errors:
 //

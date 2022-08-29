@@ -385,8 +385,8 @@ func (s *StickerSetMultiCovered) MapCovers() (value DocumentClassArray) {
 
 // StickerSetFullCovered represents TL type `stickerSetFullCovered#1aed5ee5`.
 // Stickerset preview with all stickers of the stickerset included.
-// Used when there are only a few stickers in the stickerset, to avoid a further call to
-// messages.getStickerSet¹.
+// Currently used only for custom emoji stickersets, to avoid a further call to messages
+// getStickerSet¹.
 //
 // Links:
 //  1. https://core.telegram.org/method/messages.getStickerSet

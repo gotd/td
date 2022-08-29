@@ -32,7 +32,10 @@ var (
 )
 
 // MessagesRateTranscribedAudioRequest represents TL type `messages.rateTranscribedAudio#7f1d072f`.
-// Rate transcribed voice message
+// Rate transcribed voice message¹
+//
+// Links:
+//  1. https://core.telegram.org/api/transcribe
 //
 // See https://core.telegram.org/method/messages.rateTranscribedAudio for reference.
 type MessagesRateTranscribedAudioRequest struct {
@@ -248,7 +251,10 @@ func (r *MessagesRateTranscribedAudioRequest) GetGood() (value bool) {
 }
 
 // MessagesRateTranscribedAudio invokes method messages.rateTranscribedAudio#7f1d072f returning error if any.
-// Rate transcribed voice message
+// Rate transcribed voice message¹
+//
+// Links:
+//  1. https://core.telegram.org/api/transcribe
 //
 // See https://core.telegram.org/method/messages.rateTranscribedAudio for reference.
 func (c *Client) MessagesRateTranscribedAudio(ctx context.Context, request *MessagesRateTranscribedAudioRequest) (bool, error) {

@@ -202,11 +202,12 @@ func (i *InputInvoiceMessage) GetMsgID() (value int) {
 }
 
 // InputInvoiceSlug represents TL type `inputInvoiceSlug#c326caef`.
-// An invoice slug taken from a t.me/invoice/ link or from the premium_invoice_slug app
-// config parameter »¹
+// An invoice slug taken from an invoice deep link¹ or from the premium_invoice_slug app
+// config parameter »²
 //
 // Links:
-//  1. https://core.telegram.org/api/config#client-configuration
+//  1. https://core.telegram.org/api/links#invoice-links
+//  2. https://core.telegram.org/api/config#client-configuration
 //
 // See https://core.telegram.org/constructor/inputInvoiceSlug for reference.
 type InputInvoiceSlug struct {

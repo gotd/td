@@ -38,7 +38,7 @@ var (
 type UploadFile struct {
 	// File type
 	Type StorageFileTypeClass
-	// Modification type
+	// Modification time
 	Mtime int
 	// Binary data, file content
 	Bytes []byte

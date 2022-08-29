@@ -52,12 +52,12 @@ type WallPaperSettings struct {
 	Blur bool
 	// If set, the background needs to be slightly moved when the device is rotated.
 	Motion bool
-	// Used for solid »¹, [gradient »]/api/wallpapers#gradient-fill) and freeform gradient
-	// »² fills.
+	// Used for solid »¹, gradient »² and freeform gradient »³ fills.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/wallpapers#solid-fill
-	//  2) https://core.telegram.org/api/wallpapers#freeform-gradient-fill
+	//  2) https://core.telegram.org/api/wallpapers#gradient-fill
+	//  3) https://core.telegram.org/api/wallpapers#freeform-gradient-fill
 	//
 	// Use SetBackgroundColor and GetBackgroundColor helpers.
 	BackgroundColor int
