@@ -259,7 +259,7 @@ func (s *channelState) getDifference() error {
 
 		if len(diff.NewMessages) > 0 {
 			if err := s.handler.Handle(s.ctx, &tg.Updates{
-				Updates: msgsToUpdates(diff.NewMessages),
+				Updates: msgsToUpdates(diff.NewMessages, true),
 				Users:   diff.Users,
 				Chats:   diff.Chats,
 			}); err != nil {

@@ -374,7 +374,7 @@ func (s *state) getDifference() error {
 		if len(diff.NewMessages) > 0 || len(diff.NewEncryptedMessages) > 0 {
 			if err := s.handler.Handle(s.ctx, &tg.Updates{
 				Updates: append(
-					msgsToUpdates(diff.NewMessages),
+					msgsToUpdates(diff.NewMessages, false),
 					encryptedMsgsToUpdates(diff.NewEncryptedMessages)...,
 				),
 				Users: diff.Users,
@@ -413,7 +413,7 @@ func (s *state) getDifference() error {
 		if len(diff.NewMessages) > 0 || len(diff.NewEncryptedMessages) > 0 {
 			if err := s.handler.Handle(s.ctx, &tg.Updates{
 				Updates: append(
-					msgsToUpdates(diff.NewMessages),
+					msgsToUpdates(diff.NewMessages, false),
 					encryptedMsgsToUpdates(diff.NewEncryptedMessages)...,
 				),
 				Users: diff.Users,
