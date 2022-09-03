@@ -258,13 +258,15 @@ func (c Chat) SetDescription(ctx context.Context, about string) error {
 // SetReactions sets list of available reactions.
 //
 // Empty list disables reactions at all.
-func (c Chat) SetReactions(ctx context.Context, reactions ...string) error {
-	return c.m.editReactions(ctx, c.InputPeer(), reactions...)
+func (c Chat) SetReactions(ctx context.Context, reactions ...tg.ReactionClass) error {
+	return c.m.editReactions(ctx, c.InputPeer(), &tg.ChatReactionsSome{
+		Reactions: reactions,
+	})
 }
 
 // DisableReactions disables reactions.
 func (c Chat) DisableReactions(ctx context.Context) error {
-	return c.m.editReactions(ctx, c.InputPeer())
+	return c.m.editReactions(ctx, c.InputPeer(), &tg.ChatReactionsNone{})
 }
 
 // LeaveAndDelete leaves this chat and removes the entire chat history of this user in this chat.

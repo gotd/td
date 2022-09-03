@@ -171,7 +171,7 @@ func (s *Sender) reportSpam(ctx context.Context, p tg.InputPeerClass) (bool, err
 
 func (s *Sender) sendReaction(
 	ctx context.Context,
-	p tg.InputPeerClass, msgID int, reaction string,
+	p tg.InputPeerClass, msgID int, reaction ...tg.ReactionClass,
 ) (tg.UpdatesClass, error) {
 	return s.raw.MessagesSendReaction(ctx, &tg.MessagesSendReactionRequest{
 		Peer:     p,

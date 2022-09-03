@@ -14,20 +14,23 @@ func TestRequestBuilder_Reaction(t *testing.T) {
 	ctx := context.Background()
 	sender, mock := testSender(t)
 
+	reaction := []tg.ReactionClass{
+		&tg.ReactionEmoji{Emoticon: "A"},
+	}
 	mock.ExpectCall(&tg.MessagesSendReactionRequest{
 		Peer:     &tg.InputPeerSelf{},
 		MsgID:    10,
-		Reaction: "A",
+		Reaction: reaction,
 	}).ThenResult(&tg.Updates{})
-	_, err := sender.Self().Reaction(ctx, 10, "A")
+	_, err := sender.Self().Reaction(ctx, 10, reaction[0])
 	require.NoError(t, err)
 
 	mock.ExpectCall(&tg.MessagesSendReactionRequest{
 		Peer:     &tg.InputPeerSelf{},
 		MsgID:    10,
-		Reaction: "A",
+		Reaction: reaction,
 	}).ThenRPCErr(testRPCError())
-	_, err = sender.Self().Reaction(ctx, 10, "A")
+	_, err = sender.Self().Reaction(ctx, 10, reaction[0])
 	require.Error(t, err)
 }
 

@@ -21,7 +21,7 @@ func (m *Manager) editAbout(ctx context.Context, p tg.InputPeerClass, about stri
 	return nil
 }
 
-func (m *Manager) editReactions(ctx context.Context, p tg.InputPeerClass, reactions ...string) error {
+func (m *Manager) editReactions(ctx context.Context, p tg.InputPeerClass, reactions tg.ChatReactionsClass) error {
 	if _, err := m.api.MessagesSetChatAvailableReactions(ctx, &tg.MessagesSetChatAvailableReactionsRequest{
 		Peer:               p,
 		AvailableReactions: reactions,
