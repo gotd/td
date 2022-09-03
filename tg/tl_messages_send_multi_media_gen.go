@@ -59,6 +59,8 @@ type MessagesSendMultiMediaRequest struct {
 	// Links:
 	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
 	Noforwards bool
+	// UpdateStickersetsOrder field of MessagesSendMultiMediaRequest.
+	UpdateStickersetsOrder bool
 	// The destination chat
 	Peer InputPeerClass
 	// The message to reply to
@@ -107,6 +109,9 @@ func (s *MessagesSendMultiMediaRequest) Zero() bool {
 	if !(s.Noforwards == false) {
 		return false
 	}
+	if !(s.UpdateStickersetsOrder == false) {
+		return false
+	}
 	if !(s.Peer == nil) {
 		return false
 	}
@@ -141,6 +146,7 @@ func (s *MessagesSendMultiMediaRequest) FillFrom(from interface {
 	GetBackground() (value bool)
 	GetClearDraft() (value bool)
 	GetNoforwards() (value bool)
+	GetUpdateStickersetsOrder() (value bool)
 	GetPeer() (value InputPeerClass)
 	GetReplyToMsgID() (value int, ok bool)
 	GetMultiMedia() (value []InputSingleMedia)
@@ -151,6 +157,7 @@ func (s *MessagesSendMultiMediaRequest) FillFrom(from interface {
 	s.Background = from.GetBackground()
 	s.ClearDraft = from.GetClearDraft()
 	s.Noforwards = from.GetNoforwards()
+	s.UpdateStickersetsOrder = from.GetUpdateStickersetsOrder()
 	s.Peer = from.GetPeer()
 	if val, ok := from.GetReplyToMsgID(); ok {
 		s.ReplyToMsgID = val
@@ -211,6 +218,11 @@ func (s *MessagesSendMultiMediaRequest) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(14),
 		},
 		{
+			Name:       "UpdateStickersetsOrder",
+			SchemaName: "update_stickersets_order",
+			Null:       !s.Flags.Has(15),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -250,6 +262,9 @@ func (s *MessagesSendMultiMediaRequest) SetFlags() {
 	}
 	if !(s.Noforwards == false) {
 		s.Flags.Set(14)
+	}
+	if !(s.UpdateStickersetsOrder == false) {
+		s.Flags.Set(15)
 	}
 	if !(s.ReplyToMsgID == 0) {
 		s.Flags.Set(0)
@@ -334,6 +349,7 @@ func (s *MessagesSendMultiMediaRequest) DecodeBare(b *bin.Buffer) error {
 	s.Background = s.Flags.Has(6)
 	s.ClearDraft = s.Flags.Has(7)
 	s.Noforwards = s.Flags.Has(14)
+	s.UpdateStickersetsOrder = s.Flags.Has(15)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -456,6 +472,25 @@ func (s *MessagesSendMultiMediaRequest) GetNoforwards() (value bool) {
 		return
 	}
 	return s.Flags.Has(14)
+}
+
+// SetUpdateStickersetsOrder sets value of UpdateStickersetsOrder conditional field.
+func (s *MessagesSendMultiMediaRequest) SetUpdateStickersetsOrder(value bool) {
+	if value {
+		s.Flags.Set(15)
+		s.UpdateStickersetsOrder = true
+	} else {
+		s.Flags.Unset(15)
+		s.UpdateStickersetsOrder = false
+	}
+}
+
+// GetUpdateStickersetsOrder returns value of UpdateStickersetsOrder conditional field.
+func (s *MessagesSendMultiMediaRequest) GetUpdateStickersetsOrder() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(15)
 }
 
 // GetPeer returns value of Peer field.

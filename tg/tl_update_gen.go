@@ -6692,7 +6692,7 @@ func (u *UpdateStickerSetsOrder) GetOrder() (value []int64) {
 	return u.Order
 }
 
-// UpdateStickerSets represents TL type `updateStickerSets#43ae3dec`.
+// UpdateStickerSets represents TL type `updateStickerSets#31c24808`.
 // Installed stickersets have changed, the client should refetch them using messages
 // getAllStickers¹
 //
@@ -6701,10 +6701,16 @@ func (u *UpdateStickerSetsOrder) GetOrder() (value []int64) {
 //
 // See https://core.telegram.org/constructor/updateStickerSets for reference.
 type UpdateStickerSets struct {
+	// Flags field of UpdateStickerSets.
+	Flags bin.Fields
+	// Masks field of UpdateStickerSets.
+	Masks bool
+	// Emojis field of UpdateStickerSets.
+	Emojis bool
 }
 
 // UpdateStickerSetsTypeID is TL type id of UpdateStickerSets.
-const UpdateStickerSetsTypeID = 0x43ae3dec
+const UpdateStickerSetsTypeID = 0x31c24808
 
 // construct implements constructor of UpdateClass.
 func (u UpdateStickerSets) construct() UpdateClass { return &u }
@@ -6723,6 +6729,15 @@ func (u *UpdateStickerSets) Zero() bool {
 	if u == nil {
 		return true
 	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Masks == false) {
+		return false
+	}
+	if !(u.Emojis == false) {
+		return false
+	}
 
 	return true
 }
@@ -6734,6 +6749,15 @@ func (u *UpdateStickerSets) String() string {
 	}
 	type Alias UpdateStickerSets
 	return fmt.Sprintf("UpdateStickerSets%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateStickerSets from given interface.
+func (u *UpdateStickerSets) FillFrom(from interface {
+	GetMasks() (value bool)
+	GetEmojis() (value bool)
+}) {
+	u.Masks = from.GetMasks()
+	u.Emojis = from.GetEmojis()
 }
 
 // TypeID returns type id in TL schema.
@@ -6758,14 +6782,35 @@ func (u *UpdateStickerSets) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Masks",
+			SchemaName: "masks",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Emojis",
+			SchemaName: "emojis",
+			Null:       !u.Flags.Has(1),
+		},
+	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateStickerSets) SetFlags() {
+	if !(u.Masks == false) {
+		u.Flags.Set(0)
+	}
+	if !(u.Emojis == false) {
+		u.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *UpdateStickerSets) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateStickerSets#43ae3dec as nil")
+		return fmt.Errorf("can't encode updateStickerSets#31c24808 as nil")
 	}
 	b.PutID(UpdateStickerSetsTypeID)
 	return u.EncodeBare(b)
@@ -6774,7 +6819,11 @@ func (u *UpdateStickerSets) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateStickerSets) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateStickerSets#43ae3dec as nil")
+		return fmt.Errorf("can't encode updateStickerSets#31c24808 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateStickerSets#31c24808: field flags: %w", err)
 	}
 	return nil
 }
@@ -6782,10 +6831,10 @@ func (u *UpdateStickerSets) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UpdateStickerSets) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateStickerSets#43ae3dec to nil")
+		return fmt.Errorf("can't decode updateStickerSets#31c24808 to nil")
 	}
 	if err := b.ConsumeID(UpdateStickerSetsTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateStickerSets#43ae3dec: %w", err)
+		return fmt.Errorf("unable to decode updateStickerSets#31c24808: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -6793,9 +6842,54 @@ func (u *UpdateStickerSets) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateStickerSets) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateStickerSets#43ae3dec to nil")
+		return fmt.Errorf("can't decode updateStickerSets#31c24808 to nil")
 	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateStickerSets#31c24808: field flags: %w", err)
+		}
+	}
+	u.Masks = u.Flags.Has(0)
+	u.Emojis = u.Flags.Has(1)
 	return nil
+}
+
+// SetMasks sets value of Masks conditional field.
+func (u *UpdateStickerSets) SetMasks(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.Masks = true
+	} else {
+		u.Flags.Unset(0)
+		u.Masks = false
+	}
+}
+
+// GetMasks returns value of Masks conditional field.
+func (u *UpdateStickerSets) GetMasks() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(0)
+}
+
+// SetEmojis sets value of Emojis conditional field.
+func (u *UpdateStickerSets) SetEmojis(value bool) {
+	if value {
+		u.Flags.Set(1)
+		u.Emojis = true
+	} else {
+		u.Flags.Unset(1)
+		u.Emojis = false
+	}
+}
+
+// GetEmojis returns value of Emojis conditional field.
+func (u *UpdateStickerSets) GetEmojis() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(1)
 }
 
 // UpdateSavedGifs represents TL type `updateSavedGifs#9375341e`.
@@ -20369,6 +20463,596 @@ func (u *UpdateReadFeaturedEmojiStickers) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// UpdateUserEmojiStatus represents TL type `updateUserEmojiStatus#28373599`.
+//
+// See https://core.telegram.org/constructor/updateUserEmojiStatus for reference.
+type UpdateUserEmojiStatus struct {
+	// UserID field of UpdateUserEmojiStatus.
+	UserID int64
+	// EmojiStatus field of UpdateUserEmojiStatus.
+	EmojiStatus EmojiStatusClass
+}
+
+// UpdateUserEmojiStatusTypeID is TL type id of UpdateUserEmojiStatus.
+const UpdateUserEmojiStatusTypeID = 0x28373599
+
+// construct implements constructor of UpdateClass.
+func (u UpdateUserEmojiStatus) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateUserEmojiStatus.
+var (
+	_ bin.Encoder     = &UpdateUserEmojiStatus{}
+	_ bin.Decoder     = &UpdateUserEmojiStatus{}
+	_ bin.BareEncoder = &UpdateUserEmojiStatus{}
+	_ bin.BareDecoder = &UpdateUserEmojiStatus{}
+
+	_ UpdateClass = &UpdateUserEmojiStatus{}
+)
+
+func (u *UpdateUserEmojiStatus) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.EmojiStatus == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateUserEmojiStatus) String() string {
+	if u == nil {
+		return "UpdateUserEmojiStatus(nil)"
+	}
+	type Alias UpdateUserEmojiStatus
+	return fmt.Sprintf("UpdateUserEmojiStatus%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateUserEmojiStatus from given interface.
+func (u *UpdateUserEmojiStatus) FillFrom(from interface {
+	GetUserID() (value int64)
+	GetEmojiStatus() (value EmojiStatusClass)
+}) {
+	u.UserID = from.GetUserID()
+	u.EmojiStatus = from.GetEmojiStatus()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateUserEmojiStatus) TypeID() uint32 {
+	return UpdateUserEmojiStatusTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateUserEmojiStatus) TypeName() string {
+	return "updateUserEmojiStatus"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateUserEmojiStatus) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateUserEmojiStatus",
+		ID:   UpdateUserEmojiStatusTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "EmojiStatus",
+			SchemaName: "emoji_status",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateUserEmojiStatus) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateUserEmojiStatus#28373599 as nil")
+	}
+	b.PutID(UpdateUserEmojiStatusTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateUserEmojiStatus) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateUserEmojiStatus#28373599 as nil")
+	}
+	b.PutLong(u.UserID)
+	if u.EmojiStatus == nil {
+		return fmt.Errorf("unable to encode updateUserEmojiStatus#28373599: field emoji_status is nil")
+	}
+	if err := u.EmojiStatus.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateUserEmojiStatus#28373599: field emoji_status: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateUserEmojiStatus) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateUserEmojiStatus#28373599 to nil")
+	}
+	if err := b.ConsumeID(UpdateUserEmojiStatusTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateUserEmojiStatus#28373599: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateUserEmojiStatus) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateUserEmojiStatus#28373599 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateUserEmojiStatus#28373599: field user_id: %w", err)
+		}
+		u.UserID = value
+	}
+	{
+		value, err := DecodeEmojiStatus(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateUserEmojiStatus#28373599: field emoji_status: %w", err)
+		}
+		u.EmojiStatus = value
+	}
+	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateUserEmojiStatus) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.UserID
+}
+
+// GetEmojiStatus returns value of EmojiStatus field.
+func (u *UpdateUserEmojiStatus) GetEmojiStatus() (value EmojiStatusClass) {
+	if u == nil {
+		return
+	}
+	return u.EmojiStatus
+}
+
+// UpdateRecentEmojiStatuses represents TL type `updateRecentEmojiStatuses#30f443db`.
+//
+// See https://core.telegram.org/constructor/updateRecentEmojiStatuses for reference.
+type UpdateRecentEmojiStatuses struct {
+}
+
+// UpdateRecentEmojiStatusesTypeID is TL type id of UpdateRecentEmojiStatuses.
+const UpdateRecentEmojiStatusesTypeID = 0x30f443db
+
+// construct implements constructor of UpdateClass.
+func (u UpdateRecentEmojiStatuses) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateRecentEmojiStatuses.
+var (
+	_ bin.Encoder     = &UpdateRecentEmojiStatuses{}
+	_ bin.Decoder     = &UpdateRecentEmojiStatuses{}
+	_ bin.BareEncoder = &UpdateRecentEmojiStatuses{}
+	_ bin.BareDecoder = &UpdateRecentEmojiStatuses{}
+
+	_ UpdateClass = &UpdateRecentEmojiStatuses{}
+)
+
+func (u *UpdateRecentEmojiStatuses) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateRecentEmojiStatuses) String() string {
+	if u == nil {
+		return "UpdateRecentEmojiStatuses(nil)"
+	}
+	type Alias UpdateRecentEmojiStatuses
+	return fmt.Sprintf("UpdateRecentEmojiStatuses%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateRecentEmojiStatuses) TypeID() uint32 {
+	return UpdateRecentEmojiStatusesTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateRecentEmojiStatuses) TypeName() string {
+	return "updateRecentEmojiStatuses"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateRecentEmojiStatuses) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateRecentEmojiStatuses",
+		ID:   UpdateRecentEmojiStatusesTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateRecentEmojiStatuses) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateRecentEmojiStatuses#30f443db as nil")
+	}
+	b.PutID(UpdateRecentEmojiStatusesTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateRecentEmojiStatuses) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateRecentEmojiStatuses#30f443db as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateRecentEmojiStatuses) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateRecentEmojiStatuses#30f443db to nil")
+	}
+	if err := b.ConsumeID(UpdateRecentEmojiStatusesTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateRecentEmojiStatuses#30f443db: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateRecentEmojiStatuses) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateRecentEmojiStatuses#30f443db to nil")
+	}
+	return nil
+}
+
+// UpdateRecentReactions represents TL type `updateRecentReactions#6f7863f4`.
+//
+// See https://core.telegram.org/constructor/updateRecentReactions for reference.
+type UpdateRecentReactions struct {
+}
+
+// UpdateRecentReactionsTypeID is TL type id of UpdateRecentReactions.
+const UpdateRecentReactionsTypeID = 0x6f7863f4
+
+// construct implements constructor of UpdateClass.
+func (u UpdateRecentReactions) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateRecentReactions.
+var (
+	_ bin.Encoder     = &UpdateRecentReactions{}
+	_ bin.Decoder     = &UpdateRecentReactions{}
+	_ bin.BareEncoder = &UpdateRecentReactions{}
+	_ bin.BareDecoder = &UpdateRecentReactions{}
+
+	_ UpdateClass = &UpdateRecentReactions{}
+)
+
+func (u *UpdateRecentReactions) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateRecentReactions) String() string {
+	if u == nil {
+		return "UpdateRecentReactions(nil)"
+	}
+	type Alias UpdateRecentReactions
+	return fmt.Sprintf("UpdateRecentReactions%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateRecentReactions) TypeID() uint32 {
+	return UpdateRecentReactionsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateRecentReactions) TypeName() string {
+	return "updateRecentReactions"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateRecentReactions) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateRecentReactions",
+		ID:   UpdateRecentReactionsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateRecentReactions) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateRecentReactions#6f7863f4 as nil")
+	}
+	b.PutID(UpdateRecentReactionsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateRecentReactions) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateRecentReactions#6f7863f4 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateRecentReactions) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateRecentReactions#6f7863f4 to nil")
+	}
+	if err := b.ConsumeID(UpdateRecentReactionsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateRecentReactions#6f7863f4: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateRecentReactions) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateRecentReactions#6f7863f4 to nil")
+	}
+	return nil
+}
+
+// UpdateMoveStickerSetToTop represents TL type `updateMoveStickerSetToTop#86fccf85`.
+//
+// See https://core.telegram.org/constructor/updateMoveStickerSetToTop for reference.
+type UpdateMoveStickerSetToTop struct {
+	// Flags field of UpdateMoveStickerSetToTop.
+	Flags bin.Fields
+	// Masks field of UpdateMoveStickerSetToTop.
+	Masks bool
+	// Emojis field of UpdateMoveStickerSetToTop.
+	Emojis bool
+	// Stickerset field of UpdateMoveStickerSetToTop.
+	Stickerset int64
+}
+
+// UpdateMoveStickerSetToTopTypeID is TL type id of UpdateMoveStickerSetToTop.
+const UpdateMoveStickerSetToTopTypeID = 0x86fccf85
+
+// construct implements constructor of UpdateClass.
+func (u UpdateMoveStickerSetToTop) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateMoveStickerSetToTop.
+var (
+	_ bin.Encoder     = &UpdateMoveStickerSetToTop{}
+	_ bin.Decoder     = &UpdateMoveStickerSetToTop{}
+	_ bin.BareEncoder = &UpdateMoveStickerSetToTop{}
+	_ bin.BareDecoder = &UpdateMoveStickerSetToTop{}
+
+	_ UpdateClass = &UpdateMoveStickerSetToTop{}
+)
+
+func (u *UpdateMoveStickerSetToTop) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Masks == false) {
+		return false
+	}
+	if !(u.Emojis == false) {
+		return false
+	}
+	if !(u.Stickerset == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateMoveStickerSetToTop) String() string {
+	if u == nil {
+		return "UpdateMoveStickerSetToTop(nil)"
+	}
+	type Alias UpdateMoveStickerSetToTop
+	return fmt.Sprintf("UpdateMoveStickerSetToTop%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateMoveStickerSetToTop from given interface.
+func (u *UpdateMoveStickerSetToTop) FillFrom(from interface {
+	GetMasks() (value bool)
+	GetEmojis() (value bool)
+	GetStickerset() (value int64)
+}) {
+	u.Masks = from.GetMasks()
+	u.Emojis = from.GetEmojis()
+	u.Stickerset = from.GetStickerset()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateMoveStickerSetToTop) TypeID() uint32 {
+	return UpdateMoveStickerSetToTopTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateMoveStickerSetToTop) TypeName() string {
+	return "updateMoveStickerSetToTop"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateMoveStickerSetToTop) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateMoveStickerSetToTop",
+		ID:   UpdateMoveStickerSetToTopTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Masks",
+			SchemaName: "masks",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Emojis",
+			SchemaName: "emojis",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "Stickerset",
+			SchemaName: "stickerset",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateMoveStickerSetToTop) SetFlags() {
+	if !(u.Masks == false) {
+		u.Flags.Set(0)
+	}
+	if !(u.Emojis == false) {
+		u.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateMoveStickerSetToTop) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateMoveStickerSetToTop#86fccf85 as nil")
+	}
+	b.PutID(UpdateMoveStickerSetToTopTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateMoveStickerSetToTop) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateMoveStickerSetToTop#86fccf85 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateMoveStickerSetToTop#86fccf85: field flags: %w", err)
+	}
+	b.PutLong(u.Stickerset)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateMoveStickerSetToTop) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateMoveStickerSetToTop#86fccf85 to nil")
+	}
+	if err := b.ConsumeID(UpdateMoveStickerSetToTopTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateMoveStickerSetToTop#86fccf85: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateMoveStickerSetToTop) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateMoveStickerSetToTop#86fccf85 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateMoveStickerSetToTop#86fccf85: field flags: %w", err)
+		}
+	}
+	u.Masks = u.Flags.Has(0)
+	u.Emojis = u.Flags.Has(1)
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMoveStickerSetToTop#86fccf85: field stickerset: %w", err)
+		}
+		u.Stickerset = value
+	}
+	return nil
+}
+
+// SetMasks sets value of Masks conditional field.
+func (u *UpdateMoveStickerSetToTop) SetMasks(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.Masks = true
+	} else {
+		u.Flags.Unset(0)
+		u.Masks = false
+	}
+}
+
+// GetMasks returns value of Masks conditional field.
+func (u *UpdateMoveStickerSetToTop) GetMasks() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(0)
+}
+
+// SetEmojis sets value of Emojis conditional field.
+func (u *UpdateMoveStickerSetToTop) SetEmojis(value bool) {
+	if value {
+		u.Flags.Set(1)
+		u.Emojis = true
+	} else {
+		u.Flags.Unset(1)
+		u.Emojis = false
+	}
+}
+
+// GetEmojis returns value of Emojis conditional field.
+func (u *UpdateMoveStickerSetToTop) GetEmojis() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(1)
+}
+
+// GetStickerset returns value of Stickerset field.
+func (u *UpdateMoveStickerSetToTop) GetStickerset() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.Stickerset
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -20416,7 +21100,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateChatParticipantAdmin: // updateChatParticipantAdmin#d7ca61a2
 //	case *tg.UpdateNewStickerSet: // updateNewStickerSet#688a30aa
 //	case *tg.UpdateStickerSetsOrder: // updateStickerSetsOrder#bb2d201
-//	case *tg.UpdateStickerSets: // updateStickerSets#43ae3dec
+//	case *tg.UpdateStickerSets: // updateStickerSets#31c24808
 //	case *tg.UpdateSavedGifs: // updateSavedGifs#9375341e
 //	case *tg.UpdateBotInlineQuery: // updateBotInlineQuery#496f379c
 //	case *tg.UpdateBotInlineSend: // updateBotInlineSend#12f12a07
@@ -20485,6 +21169,10 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateSavedRingtones: // updateSavedRingtones#74d8be99
 //	case *tg.UpdateTranscribedAudio: // updateTranscribedAudio#84cd5a
 //	case *tg.UpdateReadFeaturedEmojiStickers: // updateReadFeaturedEmojiStickers#fb4c496c
+//	case *tg.UpdateUserEmojiStatus: // updateUserEmojiStatus#28373599
+//	case *tg.UpdateRecentEmojiStatuses: // updateRecentEmojiStatuses#30f443db
+//	case *tg.UpdateRecentReactions: // updateRecentReactions#6f7863f4
+//	case *tg.UpdateMoveStickerSetToTop: // updateMoveStickerSetToTop#86fccf85
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -20745,7 +21433,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateStickerSetsTypeID:
-		// Decoding updateStickerSets#43ae3dec.
+		// Decoding updateStickerSets#31c24808.
 		v := UpdateStickerSets{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -21223,6 +21911,34 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateReadFeaturedEmojiStickersTypeID:
 		// Decoding updateReadFeaturedEmojiStickers#fb4c496c.
 		v := UpdateReadFeaturedEmojiStickers{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateUserEmojiStatusTypeID:
+		// Decoding updateUserEmojiStatus#28373599.
+		v := UpdateUserEmojiStatus{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateRecentEmojiStatusesTypeID:
+		// Decoding updateRecentEmojiStatuses#30f443db.
+		v := UpdateRecentEmojiStatuses{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateRecentReactionsTypeID:
+		// Decoding updateRecentReactions#6f7863f4.
+		v := UpdateRecentReactions{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateMoveStickerSetToTopTypeID:
+		// Decoding updateMoveStickerSetToTop#86fccf85.
+		v := UpdateMoveStickerSetToTop{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

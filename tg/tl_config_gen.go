@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Config represents TL type `config#330b4067`.
+// Config represents TL type `config#232566ac`.
 // Current configuration
 //
 // See https://core.telegram.org/constructor/config for reference.
@@ -211,10 +211,14 @@ type Config struct {
 	//
 	// Use SetBaseLangPackVersion and GetBaseLangPackVersion helpers.
 	BaseLangPackVersion int
+	// ReactionsDefault field of Config.
+	//
+	// Use SetReactionsDefault and GetReactionsDefault helpers.
+	ReactionsDefault ReactionClass
 }
 
 // ConfigTypeID is TL type id of Config.
-const ConfigTypeID = 0x330b4067
+const ConfigTypeID = 0x232566ac
 
 // Ensuring interfaces in compile-time for Config.
 var (
@@ -387,6 +391,9 @@ func (c *Config) Zero() bool {
 	if !(c.BaseLangPackVersion == 0) {
 		return false
 	}
+	if !(c.ReactionsDefault == nil) {
+		return false
+	}
 
 	return true
 }
@@ -454,6 +461,7 @@ func (c *Config) FillFrom(from interface {
 	GetSuggestedLangCode() (value string, ok bool)
 	GetLangPackVersion() (value int, ok bool)
 	GetBaseLangPackVersion() (value int, ok bool)
+	GetReactionsDefault() (value ReactionClass, ok bool)
 }) {
 	c.PhonecallsEnabled = from.GetPhonecallsEnabled()
 	c.DefaultP2PContacts = from.GetDefaultP2PContacts()
@@ -532,6 +540,10 @@ func (c *Config) FillFrom(from interface {
 
 	if val, ok := from.GetBaseLangPackVersion(); ok {
 		c.BaseLangPackVersion = val
+	}
+
+	if val, ok := from.GetReactionsDefault(); ok {
+		c.ReactionsDefault = val
 	}
 
 }
@@ -784,6 +796,11 @@ func (c *Config) TypeInfo() tdp.Type {
 			SchemaName: "base_lang_pack_version",
 			Null:       !c.Flags.Has(2),
 		},
+		{
+			Name:       "ReactionsDefault",
+			SchemaName: "reactions_default",
+			Null:       !c.Flags.Has(15),
+		},
 	}
 	return typ
 }
@@ -841,12 +858,15 @@ func (c *Config) SetFlags() {
 	if !(c.BaseLangPackVersion == 0) {
 		c.Flags.Set(2)
 	}
+	if !(c.ReactionsDefault == nil) {
+		c.Flags.Set(15)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (c *Config) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode config#330b4067 as nil")
+		return fmt.Errorf("can't encode config#232566ac as nil")
 	}
 	b.PutID(ConfigTypeID)
 	return c.EncodeBare(b)
@@ -855,11 +875,11 @@ func (c *Config) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *Config) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode config#330b4067 as nil")
+		return fmt.Errorf("can't encode config#232566ac as nil")
 	}
 	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode config#330b4067: field flags: %w", err)
+		return fmt.Errorf("unable to encode config#232566ac: field flags: %w", err)
 	}
 	b.PutInt(c.Date)
 	b.PutInt(c.Expires)
@@ -868,7 +888,7 @@ func (c *Config) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(c.DCOptions))
 	for idx, v := range c.DCOptions {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode config#330b4067: field dc_options element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode config#232566ac: field dc_options element with index %d: %w", idx, err)
 		}
 	}
 	b.PutString(c.DCTxtDomainName)
@@ -928,16 +948,24 @@ func (c *Config) EncodeBare(b *bin.Buffer) error {
 	if c.Flags.Has(2) {
 		b.PutInt(c.BaseLangPackVersion)
 	}
+	if c.Flags.Has(15) {
+		if c.ReactionsDefault == nil {
+			return fmt.Errorf("unable to encode config#232566ac: field reactions_default is nil")
+		}
+		if err := c.ReactionsDefault.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode config#232566ac: field reactions_default: %w", err)
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *Config) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode config#330b4067 to nil")
+		return fmt.Errorf("can't decode config#232566ac to nil")
 	}
 	if err := b.ConsumeID(ConfigTypeID); err != nil {
-		return fmt.Errorf("unable to decode config#330b4067: %w", err)
+		return fmt.Errorf("unable to decode config#232566ac: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -945,11 +973,11 @@ func (c *Config) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *Config) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode config#330b4067 to nil")
+		return fmt.Errorf("can't decode config#232566ac to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field flags: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field flags: %w", err)
 		}
 	}
 	c.PhonecallsEnabled = c.Flags.Has(1)
@@ -963,35 +991,35 @@ func (c *Config) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field date: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field date: %w", err)
 		}
 		c.Date = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field expires: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field expires: %w", err)
 		}
 		c.Expires = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field test_mode: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field test_mode: %w", err)
 		}
 		c.TestMode = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field this_dc: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field this_dc: %w", err)
 		}
 		c.ThisDC = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field dc_options: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field dc_options: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -1000,7 +1028,7 @@ func (c *Config) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value DCOption
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode config#330b4067: field dc_options: %w", err)
+				return fmt.Errorf("unable to decode config#232566ac: field dc_options: %w", err)
 			}
 			c.DCOptions = append(c.DCOptions, value)
 		}
@@ -1008,275 +1036,282 @@ func (c *Config) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field dc_txt_domain_name: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field dc_txt_domain_name: %w", err)
 		}
 		c.DCTxtDomainName = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field chat_size_max: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field chat_size_max: %w", err)
 		}
 		c.ChatSizeMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field megagroup_size_max: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field megagroup_size_max: %w", err)
 		}
 		c.MegagroupSizeMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field forwarded_count_max: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field forwarded_count_max: %w", err)
 		}
 		c.ForwardedCountMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field online_update_period_ms: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field online_update_period_ms: %w", err)
 		}
 		c.OnlineUpdatePeriodMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field offline_blur_timeout_ms: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field offline_blur_timeout_ms: %w", err)
 		}
 		c.OfflineBlurTimeoutMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field offline_idle_timeout_ms: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field offline_idle_timeout_ms: %w", err)
 		}
 		c.OfflineIdleTimeoutMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field online_cloud_timeout_ms: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field online_cloud_timeout_ms: %w", err)
 		}
 		c.OnlineCloudTimeoutMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field notify_cloud_delay_ms: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field notify_cloud_delay_ms: %w", err)
 		}
 		c.NotifyCloudDelayMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field notify_default_delay_ms: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field notify_default_delay_ms: %w", err)
 		}
 		c.NotifyDefaultDelayMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field push_chat_period_ms: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field push_chat_period_ms: %w", err)
 		}
 		c.PushChatPeriodMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field push_chat_limit: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field push_chat_limit: %w", err)
 		}
 		c.PushChatLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field saved_gifs_limit: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field saved_gifs_limit: %w", err)
 		}
 		c.SavedGifsLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field edit_time_limit: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field edit_time_limit: %w", err)
 		}
 		c.EditTimeLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field revoke_time_limit: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field revoke_time_limit: %w", err)
 		}
 		c.RevokeTimeLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field revoke_pm_time_limit: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field revoke_pm_time_limit: %w", err)
 		}
 		c.RevokePmTimeLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field rating_e_decay: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field rating_e_decay: %w", err)
 		}
 		c.RatingEDecay = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field stickers_recent_limit: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field stickers_recent_limit: %w", err)
 		}
 		c.StickersRecentLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field stickers_faved_limit: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field stickers_faved_limit: %w", err)
 		}
 		c.StickersFavedLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field channels_read_media_period: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field channels_read_media_period: %w", err)
 		}
 		c.ChannelsReadMediaPeriod = value
 	}
 	if c.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field tmp_sessions: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field tmp_sessions: %w", err)
 		}
 		c.TmpSessions = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field pinned_dialogs_count_max: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field pinned_dialogs_count_max: %w", err)
 		}
 		c.PinnedDialogsCountMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field pinned_infolder_count_max: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field pinned_infolder_count_max: %w", err)
 		}
 		c.PinnedInfolderCountMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field call_receive_timeout_ms: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field call_receive_timeout_ms: %w", err)
 		}
 		c.CallReceiveTimeoutMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field call_ring_timeout_ms: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field call_ring_timeout_ms: %w", err)
 		}
 		c.CallRingTimeoutMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field call_connect_timeout_ms: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field call_connect_timeout_ms: %w", err)
 		}
 		c.CallConnectTimeoutMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field call_packet_timeout_ms: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field call_packet_timeout_ms: %w", err)
 		}
 		c.CallPacketTimeoutMs = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field me_url_prefix: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field me_url_prefix: %w", err)
 		}
 		c.MeURLPrefix = value
 	}
 	if c.Flags.Has(7) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field autoupdate_url_prefix: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field autoupdate_url_prefix: %w", err)
 		}
 		c.AutoupdateURLPrefix = value
 	}
 	if c.Flags.Has(9) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field gif_search_username: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field gif_search_username: %w", err)
 		}
 		c.GifSearchUsername = value
 	}
 	if c.Flags.Has(10) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field venue_search_username: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field venue_search_username: %w", err)
 		}
 		c.VenueSearchUsername = value
 	}
 	if c.Flags.Has(11) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field img_search_username: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field img_search_username: %w", err)
 		}
 		c.ImgSearchUsername = value
 	}
 	if c.Flags.Has(12) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field static_maps_provider: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field static_maps_provider: %w", err)
 		}
 		c.StaticMapsProvider = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field caption_length_max: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field caption_length_max: %w", err)
 		}
 		c.CaptionLengthMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field message_length_max: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field message_length_max: %w", err)
 		}
 		c.MessageLengthMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field webfile_dc_id: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field webfile_dc_id: %w", err)
 		}
 		c.WebfileDCID = value
 	}
 	if c.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field suggested_lang_code: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field suggested_lang_code: %w", err)
 		}
 		c.SuggestedLangCode = value
 	}
 	if c.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field lang_pack_version: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field lang_pack_version: %w", err)
 		}
 		c.LangPackVersion = value
 	}
 	if c.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#330b4067: field base_lang_pack_version: %w", err)
+			return fmt.Errorf("unable to decode config#232566ac: field base_lang_pack_version: %w", err)
 		}
 		c.BaseLangPackVersion = value
+	}
+	if c.Flags.Has(15) {
+		value, err := DecodeReaction(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode config#232566ac: field reactions_default: %w", err)
+		}
+		c.ReactionsDefault = value
 	}
 	return nil
 }
@@ -1873,4 +1908,22 @@ func (c *Config) GetBaseLangPackVersion() (value int, ok bool) {
 		return value, false
 	}
 	return c.BaseLangPackVersion, true
+}
+
+// SetReactionsDefault sets value of ReactionsDefault conditional field.
+func (c *Config) SetReactionsDefault(value ReactionClass) {
+	c.Flags.Set(15)
+	c.ReactionsDefault = value
+}
+
+// GetReactionsDefault returns value of ReactionsDefault conditional field and
+// boolean which is true if field was set.
+func (c *Config) GetReactionsDefault() (value ReactionClass, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(15) {
+		return value, false
+	}
+	return c.ReactionsDefault, true
 }

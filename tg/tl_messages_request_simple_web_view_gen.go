@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesRequestSimpleWebViewRequest represents TL type `messages.requestSimpleWebView#6abb2f73`.
+// MessagesRequestSimpleWebViewRequest represents TL type `messages.requestSimpleWebView#299bec8e`.
 // Open a bot web app¹.
 //
 // Links:
@@ -52,10 +52,12 @@ type MessagesRequestSimpleWebViewRequest struct {
 	//
 	// Use SetThemeParams and GetThemeParams helpers.
 	ThemeParams DataJSON
+	// Platform field of MessagesRequestSimpleWebViewRequest.
+	Platform string
 }
 
 // MessagesRequestSimpleWebViewRequestTypeID is TL type id of MessagesRequestSimpleWebViewRequest.
-const MessagesRequestSimpleWebViewRequestTypeID = 0x6abb2f73
+const MessagesRequestSimpleWebViewRequestTypeID = 0x299bec8e
 
 // Ensuring interfaces in compile-time for MessagesRequestSimpleWebViewRequest.
 var (
@@ -81,6 +83,9 @@ func (r *MessagesRequestSimpleWebViewRequest) Zero() bool {
 	if !(r.ThemeParams.Zero()) {
 		return false
 	}
+	if !(r.Platform == "") {
+		return false
+	}
 
 	return true
 }
@@ -99,6 +104,7 @@ func (r *MessagesRequestSimpleWebViewRequest) FillFrom(from interface {
 	GetBot() (value InputUserClass)
 	GetURL() (value string)
 	GetThemeParams() (value DataJSON, ok bool)
+	GetPlatform() (value string)
 }) {
 	r.Bot = from.GetBot()
 	r.URL = from.GetURL()
@@ -106,6 +112,7 @@ func (r *MessagesRequestSimpleWebViewRequest) FillFrom(from interface {
 		r.ThemeParams = val
 	}
 
+	r.Platform = from.GetPlatform()
 }
 
 // TypeID returns type id in TL schema.
@@ -144,6 +151,10 @@ func (r *MessagesRequestSimpleWebViewRequest) TypeInfo() tdp.Type {
 			SchemaName: "theme_params",
 			Null:       !r.Flags.Has(0),
 		},
+		{
+			Name:       "Platform",
+			SchemaName: "platform",
+		},
 	}
 	return typ
 }
@@ -158,7 +169,7 @@ func (r *MessagesRequestSimpleWebViewRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (r *MessagesRequestSimpleWebViewRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.requestSimpleWebView#6abb2f73 as nil")
+		return fmt.Errorf("can't encode messages.requestSimpleWebView#299bec8e as nil")
 	}
 	b.PutID(MessagesRequestSimpleWebViewRequestTypeID)
 	return r.EncodeBare(b)
@@ -167,34 +178,35 @@ func (r *MessagesRequestSimpleWebViewRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesRequestSimpleWebViewRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.requestSimpleWebView#6abb2f73 as nil")
+		return fmt.Errorf("can't encode messages.requestSimpleWebView#299bec8e as nil")
 	}
 	r.SetFlags()
 	if err := r.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.requestSimpleWebView#6abb2f73: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.requestSimpleWebView#299bec8e: field flags: %w", err)
 	}
 	if r.Bot == nil {
-		return fmt.Errorf("unable to encode messages.requestSimpleWebView#6abb2f73: field bot is nil")
+		return fmt.Errorf("unable to encode messages.requestSimpleWebView#299bec8e: field bot is nil")
 	}
 	if err := r.Bot.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.requestSimpleWebView#6abb2f73: field bot: %w", err)
+		return fmt.Errorf("unable to encode messages.requestSimpleWebView#299bec8e: field bot: %w", err)
 	}
 	b.PutString(r.URL)
 	if r.Flags.Has(0) {
 		if err := r.ThemeParams.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.requestSimpleWebView#6abb2f73: field theme_params: %w", err)
+			return fmt.Errorf("unable to encode messages.requestSimpleWebView#299bec8e: field theme_params: %w", err)
 		}
 	}
+	b.PutString(r.Platform)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (r *MessagesRequestSimpleWebViewRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.requestSimpleWebView#6abb2f73 to nil")
+		return fmt.Errorf("can't decode messages.requestSimpleWebView#299bec8e to nil")
 	}
 	if err := b.ConsumeID(MessagesRequestSimpleWebViewRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.requestSimpleWebView#6abb2f73: %w", err)
+		return fmt.Errorf("unable to decode messages.requestSimpleWebView#299bec8e: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -202,31 +214,38 @@ func (r *MessagesRequestSimpleWebViewRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesRequestSimpleWebViewRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.requestSimpleWebView#6abb2f73 to nil")
+		return fmt.Errorf("can't decode messages.requestSimpleWebView#299bec8e to nil")
 	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.requestSimpleWebView#6abb2f73: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.requestSimpleWebView#299bec8e: field flags: %w", err)
 		}
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestSimpleWebView#6abb2f73: field bot: %w", err)
+			return fmt.Errorf("unable to decode messages.requestSimpleWebView#299bec8e: field bot: %w", err)
 		}
 		r.Bot = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestSimpleWebView#6abb2f73: field url: %w", err)
+			return fmt.Errorf("unable to decode messages.requestSimpleWebView#299bec8e: field url: %w", err)
 		}
 		r.URL = value
 	}
 	if r.Flags.Has(0) {
 		if err := r.ThemeParams.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.requestSimpleWebView#6abb2f73: field theme_params: %w", err)
+			return fmt.Errorf("unable to decode messages.requestSimpleWebView#299bec8e: field theme_params: %w", err)
 		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.requestSimpleWebView#299bec8e: field platform: %w", err)
+		}
+		r.Platform = value
 	}
 	return nil
 }
@@ -265,7 +284,15 @@ func (r *MessagesRequestSimpleWebViewRequest) GetThemeParams() (value DataJSON, 
 	return r.ThemeParams, true
 }
 
-// MessagesRequestSimpleWebView invokes method messages.requestSimpleWebView#6abb2f73 returning error if any.
+// GetPlatform returns value of Platform field.
+func (r *MessagesRequestSimpleWebViewRequest) GetPlatform() (value string) {
+	if r == nil {
+		return
+	}
+	return r.Platform
+}
+
+// MessagesRequestSimpleWebView invokes method messages.requestSimpleWebView#299bec8e returning error if any.
 // Open a bot web app¹.
 //
 // Links:

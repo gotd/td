@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesSetChatAvailableReactionsRequest represents TL type `messages.setChatAvailableReactions#14050ea6`.
+// MessagesSetChatAvailableReactionsRequest represents TL type `messages.setChatAvailableReactions#feb16771`.
 // Change the set of message reactions »¹ that can be used in a certain group,
 // supergroup or channel
 //
@@ -43,11 +43,11 @@ type MessagesSetChatAvailableReactionsRequest struct {
 	// Group where to apply changes
 	Peer InputPeerClass
 	// Allowed reaction emojis
-	AvailableReactions []string
+	AvailableReactions ChatReactionsClass
 }
 
 // MessagesSetChatAvailableReactionsRequestTypeID is TL type id of MessagesSetChatAvailableReactionsRequest.
-const MessagesSetChatAvailableReactionsRequestTypeID = 0x14050ea6
+const MessagesSetChatAvailableReactionsRequestTypeID = 0xfeb16771
 
 // Ensuring interfaces in compile-time for MessagesSetChatAvailableReactionsRequest.
 var (
@@ -83,7 +83,7 @@ func (s *MessagesSetChatAvailableReactionsRequest) String() string {
 // FillFrom fills MessagesSetChatAvailableReactionsRequest from given interface.
 func (s *MessagesSetChatAvailableReactionsRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
-	GetAvailableReactions() (value []string)
+	GetAvailableReactions() (value ChatReactionsClass)
 }) {
 	s.Peer = from.GetPeer()
 	s.AvailableReactions = from.GetAvailableReactions()
@@ -127,7 +127,7 @@ func (s *MessagesSetChatAvailableReactionsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSetChatAvailableReactionsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setChatAvailableReactions#14050ea6 as nil")
+		return fmt.Errorf("can't encode messages.setChatAvailableReactions#feb16771 as nil")
 	}
 	b.PutID(MessagesSetChatAvailableReactionsRequestTypeID)
 	return s.EncodeBare(b)
@@ -136,17 +136,19 @@ func (s *MessagesSetChatAvailableReactionsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSetChatAvailableReactionsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setChatAvailableReactions#14050ea6 as nil")
+		return fmt.Errorf("can't encode messages.setChatAvailableReactions#feb16771 as nil")
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.setChatAvailableReactions#14050ea6: field peer is nil")
+		return fmt.Errorf("unable to encode messages.setChatAvailableReactions#feb16771: field peer is nil")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.setChatAvailableReactions#14050ea6: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.setChatAvailableReactions#feb16771: field peer: %w", err)
 	}
-	b.PutVectorHeader(len(s.AvailableReactions))
-	for _, v := range s.AvailableReactions {
-		b.PutString(v)
+	if s.AvailableReactions == nil {
+		return fmt.Errorf("unable to encode messages.setChatAvailableReactions#feb16771: field available_reactions is nil")
+	}
+	if err := s.AvailableReactions.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.setChatAvailableReactions#feb16771: field available_reactions: %w", err)
 	}
 	return nil
 }
@@ -154,10 +156,10 @@ func (s *MessagesSetChatAvailableReactionsRequest) EncodeBare(b *bin.Buffer) err
 // Decode implements bin.Decoder.
 func (s *MessagesSetChatAvailableReactionsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setChatAvailableReactions#14050ea6 to nil")
+		return fmt.Errorf("can't decode messages.setChatAvailableReactions#feb16771 to nil")
 	}
 	if err := b.ConsumeID(MessagesSetChatAvailableReactionsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.setChatAvailableReactions#14050ea6: %w", err)
+		return fmt.Errorf("unable to decode messages.setChatAvailableReactions#feb16771: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -165,31 +167,21 @@ func (s *MessagesSetChatAvailableReactionsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSetChatAvailableReactionsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setChatAvailableReactions#14050ea6 to nil")
+		return fmt.Errorf("can't decode messages.setChatAvailableReactions#feb16771 to nil")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setChatAvailableReactions#14050ea6: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.setChatAvailableReactions#feb16771: field peer: %w", err)
 		}
 		s.Peer = value
 	}
 	{
-		headerLen, err := b.VectorHeader()
+		value, err := DecodeChatReactions(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setChatAvailableReactions#14050ea6: field available_reactions: %w", err)
+			return fmt.Errorf("unable to decode messages.setChatAvailableReactions#feb16771: field available_reactions: %w", err)
 		}
-
-		if headerLen > 0 {
-			s.AvailableReactions = make([]string, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode messages.setChatAvailableReactions#14050ea6: field available_reactions: %w", err)
-			}
-			s.AvailableReactions = append(s.AvailableReactions, value)
-		}
+		s.AvailableReactions = value
 	}
 	return nil
 }
@@ -203,14 +195,14 @@ func (s *MessagesSetChatAvailableReactionsRequest) GetPeer() (value InputPeerCla
 }
 
 // GetAvailableReactions returns value of AvailableReactions field.
-func (s *MessagesSetChatAvailableReactionsRequest) GetAvailableReactions() (value []string) {
+func (s *MessagesSetChatAvailableReactionsRequest) GetAvailableReactions() (value ChatReactionsClass) {
 	if s == nil {
 		return
 	}
 	return s.AvailableReactions
 }
 
-// MessagesSetChatAvailableReactions invokes method messages.setChatAvailableReactions#14050ea6 returning error if any.
+// MessagesSetChatAvailableReactions invokes method messages.setChatAvailableReactions#feb16771 returning error if any.
 // Change the set of message reactions »¹ that can be used in a certain group,
 // supergroup or channel
 //

@@ -741,6 +741,498 @@ func (s *AuthSentCodeTypeMissedCall) GetLength() (value int) {
 	return s.Length
 }
 
+// AuthSentCodeTypeEmailCode represents TL type `auth.sentCodeTypeEmailCode#5a159841`.
+//
+// See https://core.telegram.org/constructor/auth.sentCodeTypeEmailCode for reference.
+type AuthSentCodeTypeEmailCode struct {
+	// Flags field of AuthSentCodeTypeEmailCode.
+	Flags bin.Fields
+	// AppleSigninAllowed field of AuthSentCodeTypeEmailCode.
+	AppleSigninAllowed bool
+	// GoogleSigninAllowed field of AuthSentCodeTypeEmailCode.
+	GoogleSigninAllowed bool
+	// EmailPattern field of AuthSentCodeTypeEmailCode.
+	EmailPattern string
+	// Length field of AuthSentCodeTypeEmailCode.
+	Length int
+	// NextPhoneLoginDate field of AuthSentCodeTypeEmailCode.
+	//
+	// Use SetNextPhoneLoginDate and GetNextPhoneLoginDate helpers.
+	NextPhoneLoginDate int
+}
+
+// AuthSentCodeTypeEmailCodeTypeID is TL type id of AuthSentCodeTypeEmailCode.
+const AuthSentCodeTypeEmailCodeTypeID = 0x5a159841
+
+// construct implements constructor of AuthSentCodeTypeClass.
+func (s AuthSentCodeTypeEmailCode) construct() AuthSentCodeTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for AuthSentCodeTypeEmailCode.
+var (
+	_ bin.Encoder     = &AuthSentCodeTypeEmailCode{}
+	_ bin.Decoder     = &AuthSentCodeTypeEmailCode{}
+	_ bin.BareEncoder = &AuthSentCodeTypeEmailCode{}
+	_ bin.BareDecoder = &AuthSentCodeTypeEmailCode{}
+
+	_ AuthSentCodeTypeClass = &AuthSentCodeTypeEmailCode{}
+)
+
+func (s *AuthSentCodeTypeEmailCode) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.AppleSigninAllowed == false) {
+		return false
+	}
+	if !(s.GoogleSigninAllowed == false) {
+		return false
+	}
+	if !(s.EmailPattern == "") {
+		return false
+	}
+	if !(s.Length == 0) {
+		return false
+	}
+	if !(s.NextPhoneLoginDate == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *AuthSentCodeTypeEmailCode) String() string {
+	if s == nil {
+		return "AuthSentCodeTypeEmailCode(nil)"
+	}
+	type Alias AuthSentCodeTypeEmailCode
+	return fmt.Sprintf("AuthSentCodeTypeEmailCode%+v", Alias(*s))
+}
+
+// FillFrom fills AuthSentCodeTypeEmailCode from given interface.
+func (s *AuthSentCodeTypeEmailCode) FillFrom(from interface {
+	GetAppleSigninAllowed() (value bool)
+	GetGoogleSigninAllowed() (value bool)
+	GetEmailPattern() (value string)
+	GetLength() (value int)
+	GetNextPhoneLoginDate() (value int, ok bool)
+}) {
+	s.AppleSigninAllowed = from.GetAppleSigninAllowed()
+	s.GoogleSigninAllowed = from.GetGoogleSigninAllowed()
+	s.EmailPattern = from.GetEmailPattern()
+	s.Length = from.GetLength()
+	if val, ok := from.GetNextPhoneLoginDate(); ok {
+		s.NextPhoneLoginDate = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*AuthSentCodeTypeEmailCode) TypeID() uint32 {
+	return AuthSentCodeTypeEmailCodeTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*AuthSentCodeTypeEmailCode) TypeName() string {
+	return "auth.sentCodeTypeEmailCode"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AuthSentCodeTypeEmailCode) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.sentCodeTypeEmailCode",
+		ID:   AuthSentCodeTypeEmailCodeTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "AppleSigninAllowed",
+			SchemaName: "apple_signin_allowed",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "GoogleSigninAllowed",
+			SchemaName: "google_signin_allowed",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "EmailPattern",
+			SchemaName: "email_pattern",
+		},
+		{
+			Name:       "Length",
+			SchemaName: "length",
+		},
+		{
+			Name:       "NextPhoneLoginDate",
+			SchemaName: "next_phone_login_date",
+			Null:       !s.Flags.Has(2),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (s *AuthSentCodeTypeEmailCode) SetFlags() {
+	if !(s.AppleSigninAllowed == false) {
+		s.Flags.Set(0)
+	}
+	if !(s.GoogleSigninAllowed == false) {
+		s.Flags.Set(1)
+	}
+	if !(s.NextPhoneLoginDate == 0) {
+		s.Flags.Set(2)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (s *AuthSentCodeTypeEmailCode) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode auth.sentCodeTypeEmailCode#5a159841 as nil")
+	}
+	b.PutID(AuthSentCodeTypeEmailCodeTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *AuthSentCodeTypeEmailCode) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode auth.sentCodeTypeEmailCode#5a159841 as nil")
+	}
+	s.SetFlags()
+	if err := s.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode auth.sentCodeTypeEmailCode#5a159841: field flags: %w", err)
+	}
+	b.PutString(s.EmailPattern)
+	b.PutInt(s.Length)
+	if s.Flags.Has(2) {
+		b.PutInt(s.NextPhoneLoginDate)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *AuthSentCodeTypeEmailCode) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode auth.sentCodeTypeEmailCode#5a159841 to nil")
+	}
+	if err := b.ConsumeID(AuthSentCodeTypeEmailCodeTypeID); err != nil {
+		return fmt.Errorf("unable to decode auth.sentCodeTypeEmailCode#5a159841: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AuthSentCodeTypeEmailCode) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode auth.sentCodeTypeEmailCode#5a159841 to nil")
+	}
+	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode auth.sentCodeTypeEmailCode#5a159841: field flags: %w", err)
+		}
+	}
+	s.AppleSigninAllowed = s.Flags.Has(0)
+	s.GoogleSigninAllowed = s.Flags.Has(1)
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode auth.sentCodeTypeEmailCode#5a159841: field email_pattern: %w", err)
+		}
+		s.EmailPattern = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode auth.sentCodeTypeEmailCode#5a159841: field length: %w", err)
+		}
+		s.Length = value
+	}
+	if s.Flags.Has(2) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode auth.sentCodeTypeEmailCode#5a159841: field next_phone_login_date: %w", err)
+		}
+		s.NextPhoneLoginDate = value
+	}
+	return nil
+}
+
+// SetAppleSigninAllowed sets value of AppleSigninAllowed conditional field.
+func (s *AuthSentCodeTypeEmailCode) SetAppleSigninAllowed(value bool) {
+	if value {
+		s.Flags.Set(0)
+		s.AppleSigninAllowed = true
+	} else {
+		s.Flags.Unset(0)
+		s.AppleSigninAllowed = false
+	}
+}
+
+// GetAppleSigninAllowed returns value of AppleSigninAllowed conditional field.
+func (s *AuthSentCodeTypeEmailCode) GetAppleSigninAllowed() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(0)
+}
+
+// SetGoogleSigninAllowed sets value of GoogleSigninAllowed conditional field.
+func (s *AuthSentCodeTypeEmailCode) SetGoogleSigninAllowed(value bool) {
+	if value {
+		s.Flags.Set(1)
+		s.GoogleSigninAllowed = true
+	} else {
+		s.Flags.Unset(1)
+		s.GoogleSigninAllowed = false
+	}
+}
+
+// GetGoogleSigninAllowed returns value of GoogleSigninAllowed conditional field.
+func (s *AuthSentCodeTypeEmailCode) GetGoogleSigninAllowed() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(1)
+}
+
+// GetEmailPattern returns value of EmailPattern field.
+func (s *AuthSentCodeTypeEmailCode) GetEmailPattern() (value string) {
+	if s == nil {
+		return
+	}
+	return s.EmailPattern
+}
+
+// GetLength returns value of Length field.
+func (s *AuthSentCodeTypeEmailCode) GetLength() (value int) {
+	if s == nil {
+		return
+	}
+	return s.Length
+}
+
+// SetNextPhoneLoginDate sets value of NextPhoneLoginDate conditional field.
+func (s *AuthSentCodeTypeEmailCode) SetNextPhoneLoginDate(value int) {
+	s.Flags.Set(2)
+	s.NextPhoneLoginDate = value
+}
+
+// GetNextPhoneLoginDate returns value of NextPhoneLoginDate conditional field and
+// boolean which is true if field was set.
+func (s *AuthSentCodeTypeEmailCode) GetNextPhoneLoginDate() (value int, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(2) {
+		return value, false
+	}
+	return s.NextPhoneLoginDate, true
+}
+
+// AuthSentCodeTypeSetUpEmailRequired represents TL type `auth.sentCodeTypeSetUpEmailRequired#a5491dea`.
+//
+// See https://core.telegram.org/constructor/auth.sentCodeTypeSetUpEmailRequired for reference.
+type AuthSentCodeTypeSetUpEmailRequired struct {
+	// Flags field of AuthSentCodeTypeSetUpEmailRequired.
+	Flags bin.Fields
+	// AppleSigninAllowed field of AuthSentCodeTypeSetUpEmailRequired.
+	AppleSigninAllowed bool
+	// GoogleSigninAllowed field of AuthSentCodeTypeSetUpEmailRequired.
+	GoogleSigninAllowed bool
+}
+
+// AuthSentCodeTypeSetUpEmailRequiredTypeID is TL type id of AuthSentCodeTypeSetUpEmailRequired.
+const AuthSentCodeTypeSetUpEmailRequiredTypeID = 0xa5491dea
+
+// construct implements constructor of AuthSentCodeTypeClass.
+func (s AuthSentCodeTypeSetUpEmailRequired) construct() AuthSentCodeTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for AuthSentCodeTypeSetUpEmailRequired.
+var (
+	_ bin.Encoder     = &AuthSentCodeTypeSetUpEmailRequired{}
+	_ bin.Decoder     = &AuthSentCodeTypeSetUpEmailRequired{}
+	_ bin.BareEncoder = &AuthSentCodeTypeSetUpEmailRequired{}
+	_ bin.BareDecoder = &AuthSentCodeTypeSetUpEmailRequired{}
+
+	_ AuthSentCodeTypeClass = &AuthSentCodeTypeSetUpEmailRequired{}
+)
+
+func (s *AuthSentCodeTypeSetUpEmailRequired) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.AppleSigninAllowed == false) {
+		return false
+	}
+	if !(s.GoogleSigninAllowed == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *AuthSentCodeTypeSetUpEmailRequired) String() string {
+	if s == nil {
+		return "AuthSentCodeTypeSetUpEmailRequired(nil)"
+	}
+	type Alias AuthSentCodeTypeSetUpEmailRequired
+	return fmt.Sprintf("AuthSentCodeTypeSetUpEmailRequired%+v", Alias(*s))
+}
+
+// FillFrom fills AuthSentCodeTypeSetUpEmailRequired from given interface.
+func (s *AuthSentCodeTypeSetUpEmailRequired) FillFrom(from interface {
+	GetAppleSigninAllowed() (value bool)
+	GetGoogleSigninAllowed() (value bool)
+}) {
+	s.AppleSigninAllowed = from.GetAppleSigninAllowed()
+	s.GoogleSigninAllowed = from.GetGoogleSigninAllowed()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*AuthSentCodeTypeSetUpEmailRequired) TypeID() uint32 {
+	return AuthSentCodeTypeSetUpEmailRequiredTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*AuthSentCodeTypeSetUpEmailRequired) TypeName() string {
+	return "auth.sentCodeTypeSetUpEmailRequired"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AuthSentCodeTypeSetUpEmailRequired) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.sentCodeTypeSetUpEmailRequired",
+		ID:   AuthSentCodeTypeSetUpEmailRequiredTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "AppleSigninAllowed",
+			SchemaName: "apple_signin_allowed",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "GoogleSigninAllowed",
+			SchemaName: "google_signin_allowed",
+			Null:       !s.Flags.Has(1),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (s *AuthSentCodeTypeSetUpEmailRequired) SetFlags() {
+	if !(s.AppleSigninAllowed == false) {
+		s.Flags.Set(0)
+	}
+	if !(s.GoogleSigninAllowed == false) {
+		s.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (s *AuthSentCodeTypeSetUpEmailRequired) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode auth.sentCodeTypeSetUpEmailRequired#a5491dea as nil")
+	}
+	b.PutID(AuthSentCodeTypeSetUpEmailRequiredTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *AuthSentCodeTypeSetUpEmailRequired) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode auth.sentCodeTypeSetUpEmailRequired#a5491dea as nil")
+	}
+	s.SetFlags()
+	if err := s.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode auth.sentCodeTypeSetUpEmailRequired#a5491dea: field flags: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *AuthSentCodeTypeSetUpEmailRequired) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode auth.sentCodeTypeSetUpEmailRequired#a5491dea to nil")
+	}
+	if err := b.ConsumeID(AuthSentCodeTypeSetUpEmailRequiredTypeID); err != nil {
+		return fmt.Errorf("unable to decode auth.sentCodeTypeSetUpEmailRequired#a5491dea: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AuthSentCodeTypeSetUpEmailRequired) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode auth.sentCodeTypeSetUpEmailRequired#a5491dea to nil")
+	}
+	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode auth.sentCodeTypeSetUpEmailRequired#a5491dea: field flags: %w", err)
+		}
+	}
+	s.AppleSigninAllowed = s.Flags.Has(0)
+	s.GoogleSigninAllowed = s.Flags.Has(1)
+	return nil
+}
+
+// SetAppleSigninAllowed sets value of AppleSigninAllowed conditional field.
+func (s *AuthSentCodeTypeSetUpEmailRequired) SetAppleSigninAllowed(value bool) {
+	if value {
+		s.Flags.Set(0)
+		s.AppleSigninAllowed = true
+	} else {
+		s.Flags.Unset(0)
+		s.AppleSigninAllowed = false
+	}
+}
+
+// GetAppleSigninAllowed returns value of AppleSigninAllowed conditional field.
+func (s *AuthSentCodeTypeSetUpEmailRequired) GetAppleSigninAllowed() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(0)
+}
+
+// SetGoogleSigninAllowed sets value of GoogleSigninAllowed conditional field.
+func (s *AuthSentCodeTypeSetUpEmailRequired) SetGoogleSigninAllowed(value bool) {
+	if value {
+		s.Flags.Set(1)
+		s.GoogleSigninAllowed = true
+	} else {
+		s.Flags.Unset(1)
+		s.GoogleSigninAllowed = false
+	}
+}
+
+// GetGoogleSigninAllowed returns value of GoogleSigninAllowed conditional field.
+func (s *AuthSentCodeTypeSetUpEmailRequired) GetGoogleSigninAllowed() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(1)
+}
+
 // AuthSentCodeTypeClassName is schema name of AuthSentCodeTypeClass.
 const AuthSentCodeTypeClassName = "auth.SentCodeType"
 
@@ -760,6 +1252,8 @@ const AuthSentCodeTypeClassName = "auth.SentCodeType"
 //	case *tg.AuthSentCodeTypeCall: // auth.sentCodeTypeCall#5353e5a7
 //	case *tg.AuthSentCodeTypeFlashCall: // auth.sentCodeTypeFlashCall#ab03c6d9
 //	case *tg.AuthSentCodeTypeMissedCall: // auth.sentCodeTypeMissedCall#82006484
+//	case *tg.AuthSentCodeTypeEmailCode: // auth.sentCodeTypeEmailCode#5a159841
+//	case *tg.AuthSentCodeTypeSetUpEmailRequired: // auth.sentCodeTypeSetUpEmailRequired#a5491dea
 //	default: panic(v)
 //	}
 type AuthSentCodeTypeClass interface {
@@ -819,6 +1313,20 @@ func DecodeAuthSentCodeType(buf *bin.Buffer) (AuthSentCodeTypeClass, error) {
 	case AuthSentCodeTypeMissedCallTypeID:
 		// Decoding auth.sentCodeTypeMissedCall#82006484.
 		v := AuthSentCodeTypeMissedCall{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthSentCodeTypeClass: %w", err)
+		}
+		return &v, nil
+	case AuthSentCodeTypeEmailCodeTypeID:
+		// Decoding auth.sentCodeTypeEmailCode#5a159841.
+		v := AuthSentCodeTypeEmailCode{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthSentCodeTypeClass: %w", err)
+		}
+		return &v, nil
+	case AuthSentCodeTypeSetUpEmailRequiredTypeID:
+		// Decoding auth.sentCodeTypeSetUpEmailRequired#a5491dea.
+		v := AuthSentCodeTypeSetUpEmailRequired{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthSentCodeTypeClass: %w", err)
 		}

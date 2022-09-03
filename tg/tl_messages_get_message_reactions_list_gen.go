@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesGetMessageReactionsListRequest represents TL type `messages.getMessageReactionsList#e0ee6b77`.
+// MessagesGetMessageReactionsListRequest represents TL type `messages.getMessageReactionsList#461b3f48`.
 // Get message reaction¹ list, along with the sender of each reaction.
 //
 // Links:
@@ -51,7 +51,7 @@ type MessagesGetMessageReactionsListRequest struct {
 	// Get only reactions of this type (UTF8 emoji)
 	//
 	// Use SetReaction and GetReaction helpers.
-	Reaction string
+	Reaction ReactionClass
 	// Offset (typically taken from the next_offset field of the returned messages
 	// MessageReactionsList¹)
 	//
@@ -68,7 +68,7 @@ type MessagesGetMessageReactionsListRequest struct {
 }
 
 // MessagesGetMessageReactionsListRequestTypeID is TL type id of MessagesGetMessageReactionsListRequest.
-const MessagesGetMessageReactionsListRequestTypeID = 0xe0ee6b77
+const MessagesGetMessageReactionsListRequestTypeID = 0x461b3f48
 
 // Ensuring interfaces in compile-time for MessagesGetMessageReactionsListRequest.
 var (
@@ -91,7 +91,7 @@ func (g *MessagesGetMessageReactionsListRequest) Zero() bool {
 	if !(g.ID == 0) {
 		return false
 	}
-	if !(g.Reaction == "") {
+	if !(g.Reaction == nil) {
 		return false
 	}
 	if !(g.Offset == "") {
@@ -117,7 +117,7 @@ func (g *MessagesGetMessageReactionsListRequest) String() string {
 func (g *MessagesGetMessageReactionsListRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
 	GetID() (value int)
-	GetReaction() (value string, ok bool)
+	GetReaction() (value ReactionClass, ok bool)
 	GetOffset() (value string, ok bool)
 	GetLimit() (value int)
 }) {
@@ -185,7 +185,7 @@ func (g *MessagesGetMessageReactionsListRequest) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (g *MessagesGetMessageReactionsListRequest) SetFlags() {
-	if !(g.Reaction == "") {
+	if !(g.Reaction == nil) {
 		g.Flags.Set(0)
 	}
 	if !(g.Offset == "") {
@@ -196,7 +196,7 @@ func (g *MessagesGetMessageReactionsListRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (g *MessagesGetMessageReactionsListRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getMessageReactionsList#e0ee6b77 as nil")
+		return fmt.Errorf("can't encode messages.getMessageReactionsList#461b3f48 as nil")
 	}
 	b.PutID(MessagesGetMessageReactionsListRequestTypeID)
 	return g.EncodeBare(b)
@@ -205,21 +205,26 @@ func (g *MessagesGetMessageReactionsListRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetMessageReactionsListRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getMessageReactionsList#e0ee6b77 as nil")
+		return fmt.Errorf("can't encode messages.getMessageReactionsList#461b3f48 as nil")
 	}
 	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getMessageReactionsList#e0ee6b77: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.getMessageReactionsList#461b3f48: field flags: %w", err)
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getMessageReactionsList#e0ee6b77: field peer is nil")
+		return fmt.Errorf("unable to encode messages.getMessageReactionsList#461b3f48: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getMessageReactionsList#e0ee6b77: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.getMessageReactionsList#461b3f48: field peer: %w", err)
 	}
 	b.PutInt(g.ID)
 	if g.Flags.Has(0) {
-		b.PutString(g.Reaction)
+		if g.Reaction == nil {
+			return fmt.Errorf("unable to encode messages.getMessageReactionsList#461b3f48: field reaction is nil")
+		}
+		if err := g.Reaction.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.getMessageReactionsList#461b3f48: field reaction: %w", err)
+		}
 	}
 	if g.Flags.Has(1) {
 		b.PutString(g.Offset)
@@ -231,10 +236,10 @@ func (g *MessagesGetMessageReactionsListRequest) EncodeBare(b *bin.Buffer) error
 // Decode implements bin.Decoder.
 func (g *MessagesGetMessageReactionsListRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getMessageReactionsList#e0ee6b77 to nil")
+		return fmt.Errorf("can't decode messages.getMessageReactionsList#461b3f48 to nil")
 	}
 	if err := b.ConsumeID(MessagesGetMessageReactionsListRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getMessageReactionsList#e0ee6b77: %w", err)
+		return fmt.Errorf("unable to decode messages.getMessageReactionsList#461b3f48: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -242,45 +247,45 @@ func (g *MessagesGetMessageReactionsListRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetMessageReactionsListRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getMessageReactionsList#e0ee6b77 to nil")
+		return fmt.Errorf("can't decode messages.getMessageReactionsList#461b3f48 to nil")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.getMessageReactionsList#e0ee6b77: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.getMessageReactionsList#461b3f48: field flags: %w", err)
 		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getMessageReactionsList#e0ee6b77: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.getMessageReactionsList#461b3f48: field peer: %w", err)
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getMessageReactionsList#e0ee6b77: field id: %w", err)
+			return fmt.Errorf("unable to decode messages.getMessageReactionsList#461b3f48: field id: %w", err)
 		}
 		g.ID = value
 	}
 	if g.Flags.Has(0) {
-		value, err := b.String()
+		value, err := DecodeReaction(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getMessageReactionsList#e0ee6b77: field reaction: %w", err)
+			return fmt.Errorf("unable to decode messages.getMessageReactionsList#461b3f48: field reaction: %w", err)
 		}
 		g.Reaction = value
 	}
 	if g.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getMessageReactionsList#e0ee6b77: field offset: %w", err)
+			return fmt.Errorf("unable to decode messages.getMessageReactionsList#461b3f48: field offset: %w", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getMessageReactionsList#e0ee6b77: field limit: %w", err)
+			return fmt.Errorf("unable to decode messages.getMessageReactionsList#461b3f48: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -304,14 +309,14 @@ func (g *MessagesGetMessageReactionsListRequest) GetID() (value int) {
 }
 
 // SetReaction sets value of Reaction conditional field.
-func (g *MessagesGetMessageReactionsListRequest) SetReaction(value string) {
+func (g *MessagesGetMessageReactionsListRequest) SetReaction(value ReactionClass) {
 	g.Flags.Set(0)
 	g.Reaction = value
 }
 
 // GetReaction returns value of Reaction conditional field and
 // boolean which is true if field was set.
-func (g *MessagesGetMessageReactionsListRequest) GetReaction() (value string, ok bool) {
+func (g *MessagesGetMessageReactionsListRequest) GetReaction() (value ReactionClass, ok bool) {
 	if g == nil {
 		return
 	}
@@ -347,7 +352,7 @@ func (g *MessagesGetMessageReactionsListRequest) GetLimit() (value int) {
 	return g.Limit
 }
 
-// MessagesGetMessageReactionsList invokes method messages.getMessageReactionsList#e0ee6b77 returning error if any.
+// MessagesGetMessageReactionsList invokes method messages.getMessageReactionsList#461b3f48 returning error if any.
 // Get message reaction¹ list, along with the sender of each reaction.
 //
 // Links:

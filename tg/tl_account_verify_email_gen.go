@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AccountVerifyEmailRequest represents TL type `account.verifyEmail#ecba39db`.
+// AccountVerifyEmailRequest represents TL type `account.verifyEmail#32da4cf`.
 // Verify an email address for telegram passport¹.
 //
 // Links:
@@ -39,14 +39,14 @@ var (
 //
 // See https://core.telegram.org/method/account.verifyEmail for reference.
 type AccountVerifyEmailRequest struct {
-	// The email to verify
-	Email string
-	// The verification code that was received
-	Code string
+	// Purpose field of AccountVerifyEmailRequest.
+	Purpose EmailVerifyPurposeClass
+	// Verification field of AccountVerifyEmailRequest.
+	Verification EmailVerificationClass
 }
 
 // AccountVerifyEmailRequestTypeID is TL type id of AccountVerifyEmailRequest.
-const AccountVerifyEmailRequestTypeID = 0xecba39db
+const AccountVerifyEmailRequestTypeID = 0x32da4cf
 
 // Ensuring interfaces in compile-time for AccountVerifyEmailRequest.
 var (
@@ -60,10 +60,10 @@ func (v *AccountVerifyEmailRequest) Zero() bool {
 	if v == nil {
 		return true
 	}
-	if !(v.Email == "") {
+	if !(v.Purpose == nil) {
 		return false
 	}
-	if !(v.Code == "") {
+	if !(v.Verification == nil) {
 		return false
 	}
 
@@ -81,11 +81,11 @@ func (v *AccountVerifyEmailRequest) String() string {
 
 // FillFrom fills AccountVerifyEmailRequest from given interface.
 func (v *AccountVerifyEmailRequest) FillFrom(from interface {
-	GetEmail() (value string)
-	GetCode() (value string)
+	GetPurpose() (value EmailVerifyPurposeClass)
+	GetVerification() (value EmailVerificationClass)
 }) {
-	v.Email = from.GetEmail()
-	v.Code = from.GetCode()
+	v.Purpose = from.GetPurpose()
+	v.Verification = from.GetVerification()
 }
 
 // TypeID returns type id in TL schema.
@@ -112,12 +112,12 @@ func (v *AccountVerifyEmailRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Email",
-			SchemaName: "email",
+			Name:       "Purpose",
+			SchemaName: "purpose",
 		},
 		{
-			Name:       "Code",
-			SchemaName: "code",
+			Name:       "Verification",
+			SchemaName: "verification",
 		},
 	}
 	return typ
@@ -126,7 +126,7 @@ func (v *AccountVerifyEmailRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (v *AccountVerifyEmailRequest) Encode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode account.verifyEmail#ecba39db as nil")
+		return fmt.Errorf("can't encode account.verifyEmail#32da4cf as nil")
 	}
 	b.PutID(AccountVerifyEmailRequestTypeID)
 	return v.EncodeBare(b)
@@ -135,20 +135,30 @@ func (v *AccountVerifyEmailRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (v *AccountVerifyEmailRequest) EncodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode account.verifyEmail#ecba39db as nil")
+		return fmt.Errorf("can't encode account.verifyEmail#32da4cf as nil")
 	}
-	b.PutString(v.Email)
-	b.PutString(v.Code)
+	if v.Purpose == nil {
+		return fmt.Errorf("unable to encode account.verifyEmail#32da4cf: field purpose is nil")
+	}
+	if err := v.Purpose.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode account.verifyEmail#32da4cf: field purpose: %w", err)
+	}
+	if v.Verification == nil {
+		return fmt.Errorf("unable to encode account.verifyEmail#32da4cf: field verification is nil")
+	}
+	if err := v.Verification.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode account.verifyEmail#32da4cf: field verification: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (v *AccountVerifyEmailRequest) Decode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode account.verifyEmail#ecba39db to nil")
+		return fmt.Errorf("can't decode account.verifyEmail#32da4cf to nil")
 	}
 	if err := b.ConsumeID(AccountVerifyEmailRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.verifyEmail#ecba39db: %w", err)
+		return fmt.Errorf("unable to decode account.verifyEmail#32da4cf: %w", err)
 	}
 	return v.DecodeBare(b)
 }
@@ -156,42 +166,42 @@ func (v *AccountVerifyEmailRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (v *AccountVerifyEmailRequest) DecodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode account.verifyEmail#ecba39db to nil")
+		return fmt.Errorf("can't decode account.verifyEmail#32da4cf to nil")
 	}
 	{
-		value, err := b.String()
+		value, err := DecodeEmailVerifyPurpose(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.verifyEmail#ecba39db: field email: %w", err)
+			return fmt.Errorf("unable to decode account.verifyEmail#32da4cf: field purpose: %w", err)
 		}
-		v.Email = value
+		v.Purpose = value
 	}
 	{
-		value, err := b.String()
+		value, err := DecodeEmailVerification(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.verifyEmail#ecba39db: field code: %w", err)
+			return fmt.Errorf("unable to decode account.verifyEmail#32da4cf: field verification: %w", err)
 		}
-		v.Code = value
+		v.Verification = value
 	}
 	return nil
 }
 
-// GetEmail returns value of Email field.
-func (v *AccountVerifyEmailRequest) GetEmail() (value string) {
+// GetPurpose returns value of Purpose field.
+func (v *AccountVerifyEmailRequest) GetPurpose() (value EmailVerifyPurposeClass) {
 	if v == nil {
 		return
 	}
-	return v.Email
+	return v.Purpose
 }
 
-// GetCode returns value of Code field.
-func (v *AccountVerifyEmailRequest) GetCode() (value string) {
+// GetVerification returns value of Verification field.
+func (v *AccountVerifyEmailRequest) GetVerification() (value EmailVerificationClass) {
 	if v == nil {
 		return
 	}
-	return v.Code
+	return v.Verification
 }
 
-// AccountVerifyEmail invokes method account.verifyEmail#ecba39db returning error if any.
+// AccountVerifyEmail invokes method account.verifyEmail#32da4cf returning error if any.
 // Verify an email address for telegram passport¹.
 //
 // Links:
@@ -203,12 +213,11 @@ func (v *AccountVerifyEmailRequest) GetCode() (value string) {
 //	400 EMAIL_VERIFY_EXPIRED: The verification email has expired.
 //
 // See https://core.telegram.org/method/account.verifyEmail for reference.
-func (c *Client) AccountVerifyEmail(ctx context.Context, request *AccountVerifyEmailRequest) (bool, error) {
-	var result BoolBox
+func (c *Client) AccountVerifyEmail(ctx context.Context, request *AccountVerifyEmailRequest) (AccountEmailVerifiedClass, error) {
+	var result AccountEmailVerifiedBox
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
-		return false, err
+		return nil, err
 	}
-	_, ok := result.Bool.(*BoolTrue)
-	return ok, nil
+	return result.EmailVerified, nil
 }
