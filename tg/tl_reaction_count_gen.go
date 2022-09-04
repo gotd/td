@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ReactionCount represents TL type `reactionCount#6fb250d1`.
+// ReactionCount represents TL type `reactionCount#a3d1cb80`.
 // Reactions
 //
 // See https://core.telegram.org/constructor/reactionCount for reference.
@@ -41,16 +41,18 @@ type ReactionCount struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether the current user sent this reaction
-	Chosen bool
+	// ChosenOrder field of ReactionCount.
+	//
+	// Use SetChosenOrder and GetChosenOrder helpers.
+	ChosenOrder int
 	// Reaction (a UTF8 emoji)
-	Reaction string
+	Reaction ReactionClass
 	// NUmber of users that reacted with this emoji
 	Count int
 }
 
 // ReactionCountTypeID is TL type id of ReactionCount.
-const ReactionCountTypeID = 0x6fb250d1
+const ReactionCountTypeID = 0xa3d1cb80
 
 // Ensuring interfaces in compile-time for ReactionCount.
 var (
@@ -67,10 +69,10 @@ func (r *ReactionCount) Zero() bool {
 	if !(r.Flags.Zero()) {
 		return false
 	}
-	if !(r.Chosen == false) {
+	if !(r.ChosenOrder == 0) {
 		return false
 	}
-	if !(r.Reaction == "") {
+	if !(r.Reaction == nil) {
 		return false
 	}
 	if !(r.Count == 0) {
@@ -91,11 +93,14 @@ func (r *ReactionCount) String() string {
 
 // FillFrom fills ReactionCount from given interface.
 func (r *ReactionCount) FillFrom(from interface {
-	GetChosen() (value bool)
-	GetReaction() (value string)
+	GetChosenOrder() (value int, ok bool)
+	GetReaction() (value ReactionClass)
 	GetCount() (value int)
 }) {
-	r.Chosen = from.GetChosen()
+	if val, ok := from.GetChosenOrder(); ok {
+		r.ChosenOrder = val
+	}
+
 	r.Reaction = from.GetReaction()
 	r.Count = from.GetCount()
 }
@@ -124,8 +129,8 @@ func (r *ReactionCount) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Chosen",
-			SchemaName: "chosen",
+			Name:       "ChosenOrder",
+			SchemaName: "chosen_order",
 			Null:       !r.Flags.Has(0),
 		},
 		{
@@ -142,7 +147,7 @@ func (r *ReactionCount) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (r *ReactionCount) SetFlags() {
-	if !(r.Chosen == false) {
+	if !(r.ChosenOrder == 0) {
 		r.Flags.Set(0)
 	}
 }
@@ -150,7 +155,7 @@ func (r *ReactionCount) SetFlags() {
 // Encode implements bin.Encoder.
 func (r *ReactionCount) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reactionCount#6fb250d1 as nil")
+		return fmt.Errorf("can't encode reactionCount#a3d1cb80 as nil")
 	}
 	b.PutID(ReactionCountTypeID)
 	return r.EncodeBare(b)
@@ -159,13 +164,21 @@ func (r *ReactionCount) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ReactionCount) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reactionCount#6fb250d1 as nil")
+		return fmt.Errorf("can't encode reactionCount#a3d1cb80 as nil")
 	}
 	r.SetFlags()
 	if err := r.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode reactionCount#6fb250d1: field flags: %w", err)
+		return fmt.Errorf("unable to encode reactionCount#a3d1cb80: field flags: %w", err)
 	}
-	b.PutString(r.Reaction)
+	if r.Flags.Has(0) {
+		b.PutInt(r.ChosenOrder)
+	}
+	if r.Reaction == nil {
+		return fmt.Errorf("unable to encode reactionCount#a3d1cb80: field reaction is nil")
+	}
+	if err := r.Reaction.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode reactionCount#a3d1cb80: field reaction: %w", err)
+	}
 	b.PutInt(r.Count)
 	return nil
 }
@@ -173,10 +186,10 @@ func (r *ReactionCount) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *ReactionCount) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reactionCount#6fb250d1 to nil")
+		return fmt.Errorf("can't decode reactionCount#a3d1cb80 to nil")
 	}
 	if err := b.ConsumeID(ReactionCountTypeID); err != nil {
-		return fmt.Errorf("unable to decode reactionCount#6fb250d1: %w", err)
+		return fmt.Errorf("unable to decode reactionCount#a3d1cb80: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -184,52 +197,57 @@ func (r *ReactionCount) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ReactionCount) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reactionCount#6fb250d1 to nil")
+		return fmt.Errorf("can't decode reactionCount#a3d1cb80 to nil")
 	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode reactionCount#6fb250d1: field flags: %w", err)
+			return fmt.Errorf("unable to decode reactionCount#a3d1cb80: field flags: %w", err)
 		}
 	}
-	r.Chosen = r.Flags.Has(0)
-	{
-		value, err := b.String()
+	if r.Flags.Has(0) {
+		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode reactionCount#6fb250d1: field reaction: %w", err)
+			return fmt.Errorf("unable to decode reactionCount#a3d1cb80: field chosen_order: %w", err)
+		}
+		r.ChosenOrder = value
+	}
+	{
+		value, err := DecodeReaction(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode reactionCount#a3d1cb80: field reaction: %w", err)
 		}
 		r.Reaction = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode reactionCount#6fb250d1: field count: %w", err)
+			return fmt.Errorf("unable to decode reactionCount#a3d1cb80: field count: %w", err)
 		}
 		r.Count = value
 	}
 	return nil
 }
 
-// SetChosen sets value of Chosen conditional field.
-func (r *ReactionCount) SetChosen(value bool) {
-	if value {
-		r.Flags.Set(0)
-		r.Chosen = true
-	} else {
-		r.Flags.Unset(0)
-		r.Chosen = false
-	}
+// SetChosenOrder sets value of ChosenOrder conditional field.
+func (r *ReactionCount) SetChosenOrder(value int) {
+	r.Flags.Set(0)
+	r.ChosenOrder = value
 }
 
-// GetChosen returns value of Chosen conditional field.
-func (r *ReactionCount) GetChosen() (value bool) {
+// GetChosenOrder returns value of ChosenOrder conditional field and
+// boolean which is true if field was set.
+func (r *ReactionCount) GetChosenOrder() (value int, ok bool) {
 	if r == nil {
 		return
 	}
-	return r.Flags.Has(0)
+	if !r.Flags.Has(0) {
+		return value, false
+	}
+	return r.ChosenOrder, true
 }
 
 // GetReaction returns value of Reaction field.
-func (r *ReactionCount) GetReaction() (value string) {
+func (r *ReactionCount) GetReaction() (value ReactionClass) {
 	if r == nil {
 		return
 	}

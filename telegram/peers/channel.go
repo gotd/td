@@ -287,13 +287,15 @@ func (c Channel) SetDescription(ctx context.Context, about string) error {
 // SetReactions sets list of available reactions.
 //
 // Empty list disables reactions at all.
-func (c Channel) SetReactions(ctx context.Context, reactions ...string) error {
-	return c.m.editReactions(ctx, c.InputPeer(), reactions...)
+func (c Channel) SetReactions(ctx context.Context, reactions ...tg.ReactionClass) error {
+	return c.m.editReactions(ctx, c.InputPeer(), &tg.ChatReactionsSome{
+		Reactions: reactions,
+	})
 }
 
 // DisableReactions disables reactions.
 func (c Channel) DisableReactions(ctx context.Context) error {
-	return c.m.editReactions(ctx, c.InputPeer())
+	return c.m.editReactions(ctx, c.InputPeer(), &tg.ChatReactionsNone{})
 }
 
 // TODO(tdakkota): add more getters, helpers and convertors

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AccountPassword represents TL type `account.password#185b184f`.
+// AccountPassword represents TL type `account.password#957b50fb`.
 // Configuration for two-factor authorization
 //
 // See https://core.telegram.org/constructor/account.password for reference.
@@ -102,10 +102,14 @@ type AccountPassword struct {
 	//
 	// Use SetPendingResetDate and GetPendingResetDate helpers.
 	PendingResetDate int
+	// LoginEmailPattern field of AccountPassword.
+	//
+	// Use SetLoginEmailPattern and GetLoginEmailPattern helpers.
+	LoginEmailPattern string
 }
 
 // AccountPasswordTypeID is TL type id of AccountPassword.
-const AccountPasswordTypeID = 0x185b184f
+const AccountPasswordTypeID = 0x957b50fb
 
 // Ensuring interfaces in compile-time for AccountPassword.
 var (
@@ -158,6 +162,9 @@ func (p *AccountPassword) Zero() bool {
 	if !(p.PendingResetDate == 0) {
 		return false
 	}
+	if !(p.LoginEmailPattern == "") {
+		return false
+	}
 
 	return true
 }
@@ -185,6 +192,7 @@ func (p *AccountPassword) FillFrom(from interface {
 	GetNewSecureAlgo() (value SecurePasswordKdfAlgoClass)
 	GetSecureRandom() (value []byte)
 	GetPendingResetDate() (value int, ok bool)
+	GetLoginEmailPattern() (value string, ok bool)
 }) {
 	p.HasRecovery = from.GetHasRecovery()
 	p.HasSecureValues = from.GetHasSecureValues()
@@ -214,6 +222,10 @@ func (p *AccountPassword) FillFrom(from interface {
 	p.SecureRandom = from.GetSecureRandom()
 	if val, ok := from.GetPendingResetDate(); ok {
 		p.PendingResetDate = val
+	}
+
+	if val, ok := from.GetLoginEmailPattern(); ok {
+		p.LoginEmailPattern = val
 	}
 
 }
@@ -298,6 +310,11 @@ func (p *AccountPassword) TypeInfo() tdp.Type {
 			SchemaName: "pending_reset_date",
 			Null:       !p.Flags.Has(5),
 		},
+		{
+			Name:       "LoginEmailPattern",
+			SchemaName: "login_email_pattern",
+			Null:       !p.Flags.Has(6),
+		},
 	}
 	return typ
 }
@@ -331,12 +348,15 @@ func (p *AccountPassword) SetFlags() {
 	if !(p.PendingResetDate == 0) {
 		p.Flags.Set(5)
 	}
+	if !(p.LoginEmailPattern == "") {
+		p.Flags.Set(6)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (p *AccountPassword) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode account.password#185b184f as nil")
+		return fmt.Errorf("can't encode account.password#957b50fb as nil")
 	}
 	b.PutID(AccountPasswordTypeID)
 	return p.EncodeBare(b)
@@ -345,18 +365,18 @@ func (p *AccountPassword) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *AccountPassword) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode account.password#185b184f as nil")
+		return fmt.Errorf("can't encode account.password#957b50fb as nil")
 	}
 	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.password#185b184f: field flags: %w", err)
+		return fmt.Errorf("unable to encode account.password#957b50fb: field flags: %w", err)
 	}
 	if p.Flags.Has(2) {
 		if p.CurrentAlgo == nil {
-			return fmt.Errorf("unable to encode account.password#185b184f: field current_algo is nil")
+			return fmt.Errorf("unable to encode account.password#957b50fb: field current_algo is nil")
 		}
 		if err := p.CurrentAlgo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode account.password#185b184f: field current_algo: %w", err)
+			return fmt.Errorf("unable to encode account.password#957b50fb: field current_algo: %w", err)
 		}
 	}
 	if p.Flags.Has(2) {
@@ -372,20 +392,23 @@ func (p *AccountPassword) EncodeBare(b *bin.Buffer) error {
 		b.PutString(p.EmailUnconfirmedPattern)
 	}
 	if p.NewAlgo == nil {
-		return fmt.Errorf("unable to encode account.password#185b184f: field new_algo is nil")
+		return fmt.Errorf("unable to encode account.password#957b50fb: field new_algo is nil")
 	}
 	if err := p.NewAlgo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.password#185b184f: field new_algo: %w", err)
+		return fmt.Errorf("unable to encode account.password#957b50fb: field new_algo: %w", err)
 	}
 	if p.NewSecureAlgo == nil {
-		return fmt.Errorf("unable to encode account.password#185b184f: field new_secure_algo is nil")
+		return fmt.Errorf("unable to encode account.password#957b50fb: field new_secure_algo is nil")
 	}
 	if err := p.NewSecureAlgo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.password#185b184f: field new_secure_algo: %w", err)
+		return fmt.Errorf("unable to encode account.password#957b50fb: field new_secure_algo: %w", err)
 	}
 	b.PutBytes(p.SecureRandom)
 	if p.Flags.Has(5) {
 		b.PutInt(p.PendingResetDate)
+	}
+	if p.Flags.Has(6) {
+		b.PutString(p.LoginEmailPattern)
 	}
 	return nil
 }
@@ -393,10 +416,10 @@ func (p *AccountPassword) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *AccountPassword) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode account.password#185b184f to nil")
+		return fmt.Errorf("can't decode account.password#957b50fb to nil")
 	}
 	if err := b.ConsumeID(AccountPasswordTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.password#185b184f: %w", err)
+		return fmt.Errorf("unable to decode account.password#957b50fb: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -404,11 +427,11 @@ func (p *AccountPassword) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *AccountPassword) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode account.password#185b184f to nil")
+		return fmt.Errorf("can't decode account.password#957b50fb to nil")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field flags: %w", err)
+			return fmt.Errorf("unable to decode account.password#957b50fb: field flags: %w", err)
 		}
 	}
 	p.HasRecovery = p.Flags.Has(0)
@@ -417,65 +440,72 @@ func (p *AccountPassword) DecodeBare(b *bin.Buffer) error {
 	if p.Flags.Has(2) {
 		value, err := DecodePasswordKdfAlgo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field current_algo: %w", err)
+			return fmt.Errorf("unable to decode account.password#957b50fb: field current_algo: %w", err)
 		}
 		p.CurrentAlgo = value
 	}
 	if p.Flags.Has(2) {
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field srp_B: %w", err)
+			return fmt.Errorf("unable to decode account.password#957b50fb: field srp_B: %w", err)
 		}
 		p.SRPB = value
 	}
 	if p.Flags.Has(2) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field srp_id: %w", err)
+			return fmt.Errorf("unable to decode account.password#957b50fb: field srp_id: %w", err)
 		}
 		p.SRPID = value
 	}
 	if p.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field hint: %w", err)
+			return fmt.Errorf("unable to decode account.password#957b50fb: field hint: %w", err)
 		}
 		p.Hint = value
 	}
 	if p.Flags.Has(4) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field email_unconfirmed_pattern: %w", err)
+			return fmt.Errorf("unable to decode account.password#957b50fb: field email_unconfirmed_pattern: %w", err)
 		}
 		p.EmailUnconfirmedPattern = value
 	}
 	{
 		value, err := DecodePasswordKdfAlgo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field new_algo: %w", err)
+			return fmt.Errorf("unable to decode account.password#957b50fb: field new_algo: %w", err)
 		}
 		p.NewAlgo = value
 	}
 	{
 		value, err := DecodeSecurePasswordKdfAlgo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field new_secure_algo: %w", err)
+			return fmt.Errorf("unable to decode account.password#957b50fb: field new_secure_algo: %w", err)
 		}
 		p.NewSecureAlgo = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field secure_random: %w", err)
+			return fmt.Errorf("unable to decode account.password#957b50fb: field secure_random: %w", err)
 		}
 		p.SecureRandom = value
 	}
 	if p.Flags.Has(5) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.password#185b184f: field pending_reset_date: %w", err)
+			return fmt.Errorf("unable to decode account.password#957b50fb: field pending_reset_date: %w", err)
 		}
 		p.PendingResetDate = value
+	}
+	if p.Flags.Has(6) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode account.password#957b50fb: field login_email_pattern: %w", err)
+		}
+		p.LoginEmailPattern = value
 	}
 	return nil
 }
@@ -667,4 +697,22 @@ func (p *AccountPassword) GetPendingResetDate() (value int, ok bool) {
 		return value, false
 	}
 	return p.PendingResetDate, true
+}
+
+// SetLoginEmailPattern sets value of LoginEmailPattern conditional field.
+func (p *AccountPassword) SetLoginEmailPattern(value string) {
+	p.Flags.Set(6)
+	p.LoginEmailPattern = value
+}
+
+// GetLoginEmailPattern returns value of LoginEmailPattern conditional field and
+// boolean which is true if field was set.
+func (p *AccountPassword) GetLoginEmailPattern() (value string, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(6) {
+		return value, false
+	}
+	return p.LoginEmailPattern, true
 }

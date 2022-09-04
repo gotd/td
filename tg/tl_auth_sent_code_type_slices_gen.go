@@ -181,6 +181,32 @@ func (s AuthSentCodeTypeClassArray) AsAuthSentCodeTypeMissedCall() (to AuthSentC
 	return to
 }
 
+// AsAuthSentCodeTypeEmailCode returns copy with only AuthSentCodeTypeEmailCode constructors.
+func (s AuthSentCodeTypeClassArray) AsAuthSentCodeTypeEmailCode() (to AuthSentCodeTypeEmailCodeArray) {
+	for _, elem := range s {
+		value, ok := elem.(*AuthSentCodeTypeEmailCode)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsAuthSentCodeTypeSetUpEmailRequired returns copy with only AuthSentCodeTypeSetUpEmailRequired constructors.
+func (s AuthSentCodeTypeClassArray) AsAuthSentCodeTypeSetUpEmailRequired() (to AuthSentCodeTypeSetUpEmailRequiredArray) {
+	for _, elem := range s {
+		value, ok := elem.(*AuthSentCodeTypeSetUpEmailRequired)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // AuthSentCodeTypeAppArray is adapter for slice of AuthSentCodeTypeApp.
 type AuthSentCodeTypeAppArray []AuthSentCodeTypeApp
 
@@ -579,6 +605,170 @@ func (s *AuthSentCodeTypeMissedCallArray) PopFirst() (v AuthSentCodeTypeMissedCa
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *AuthSentCodeTypeMissedCallArray) Pop() (v AuthSentCodeTypeMissedCall, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AuthSentCodeTypeEmailCodeArray is adapter for slice of AuthSentCodeTypeEmailCode.
+type AuthSentCodeTypeEmailCodeArray []AuthSentCodeTypeEmailCode
+
+// Sort sorts slice of AuthSentCodeTypeEmailCode.
+func (s AuthSentCodeTypeEmailCodeArray) Sort(less func(a, b AuthSentCodeTypeEmailCode) bool) AuthSentCodeTypeEmailCodeArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of AuthSentCodeTypeEmailCode.
+func (s AuthSentCodeTypeEmailCodeArray) SortStable(less func(a, b AuthSentCodeTypeEmailCode) bool) AuthSentCodeTypeEmailCodeArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of AuthSentCodeTypeEmailCode.
+func (s AuthSentCodeTypeEmailCodeArray) Retain(keep func(x AuthSentCodeTypeEmailCode) bool) AuthSentCodeTypeEmailCodeArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s AuthSentCodeTypeEmailCodeArray) First() (v AuthSentCodeTypeEmailCode, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s AuthSentCodeTypeEmailCodeArray) Last() (v AuthSentCodeTypeEmailCode, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *AuthSentCodeTypeEmailCodeArray) PopFirst() (v AuthSentCodeTypeEmailCode, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero AuthSentCodeTypeEmailCode
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *AuthSentCodeTypeEmailCodeArray) Pop() (v AuthSentCodeTypeEmailCode, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AuthSentCodeTypeSetUpEmailRequiredArray is adapter for slice of AuthSentCodeTypeSetUpEmailRequired.
+type AuthSentCodeTypeSetUpEmailRequiredArray []AuthSentCodeTypeSetUpEmailRequired
+
+// Sort sorts slice of AuthSentCodeTypeSetUpEmailRequired.
+func (s AuthSentCodeTypeSetUpEmailRequiredArray) Sort(less func(a, b AuthSentCodeTypeSetUpEmailRequired) bool) AuthSentCodeTypeSetUpEmailRequiredArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of AuthSentCodeTypeSetUpEmailRequired.
+func (s AuthSentCodeTypeSetUpEmailRequiredArray) SortStable(less func(a, b AuthSentCodeTypeSetUpEmailRequired) bool) AuthSentCodeTypeSetUpEmailRequiredArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of AuthSentCodeTypeSetUpEmailRequired.
+func (s AuthSentCodeTypeSetUpEmailRequiredArray) Retain(keep func(x AuthSentCodeTypeSetUpEmailRequired) bool) AuthSentCodeTypeSetUpEmailRequiredArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s AuthSentCodeTypeSetUpEmailRequiredArray) First() (v AuthSentCodeTypeSetUpEmailRequired, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s AuthSentCodeTypeSetUpEmailRequiredArray) Last() (v AuthSentCodeTypeSetUpEmailRequired, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *AuthSentCodeTypeSetUpEmailRequiredArray) PopFirst() (v AuthSentCodeTypeSetUpEmailRequired, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero AuthSentCodeTypeSetUpEmailRequired
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *AuthSentCodeTypeSetUpEmailRequiredArray) Pop() (v AuthSentCodeTypeSetUpEmailRequired, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AccountSendVerifyEmailCodeRequest represents TL type `account.sendVerifyEmailCode#7011509f`.
+// AccountSendVerifyEmailCodeRequest represents TL type `account.sendVerifyEmailCode#98e037bb`.
 // Send the verification email code for telegram passport¹.
 //
 // Links:
@@ -39,12 +39,14 @@ var (
 //
 // See https://core.telegram.org/method/account.sendVerifyEmailCode for reference.
 type AccountSendVerifyEmailCodeRequest struct {
+	// Purpose field of AccountSendVerifyEmailCodeRequest.
+	Purpose EmailVerifyPurposeClass
 	// The email where to send the code
 	Email string
 }
 
 // AccountSendVerifyEmailCodeRequestTypeID is TL type id of AccountSendVerifyEmailCodeRequest.
-const AccountSendVerifyEmailCodeRequestTypeID = 0x7011509f
+const AccountSendVerifyEmailCodeRequestTypeID = 0x98e037bb
 
 // Ensuring interfaces in compile-time for AccountSendVerifyEmailCodeRequest.
 var (
@@ -57,6 +59,9 @@ var (
 func (s *AccountSendVerifyEmailCodeRequest) Zero() bool {
 	if s == nil {
 		return true
+	}
+	if !(s.Purpose == nil) {
+		return false
 	}
 	if !(s.Email == "") {
 		return false
@@ -76,8 +81,10 @@ func (s *AccountSendVerifyEmailCodeRequest) String() string {
 
 // FillFrom fills AccountSendVerifyEmailCodeRequest from given interface.
 func (s *AccountSendVerifyEmailCodeRequest) FillFrom(from interface {
+	GetPurpose() (value EmailVerifyPurposeClass)
 	GetEmail() (value string)
 }) {
+	s.Purpose = from.GetPurpose()
 	s.Email = from.GetEmail()
 }
 
@@ -105,6 +112,10 @@ func (s *AccountSendVerifyEmailCodeRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Purpose",
+			SchemaName: "purpose",
+		},
+		{
 			Name:       "Email",
 			SchemaName: "email",
 		},
@@ -115,7 +126,7 @@ func (s *AccountSendVerifyEmailCodeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *AccountSendVerifyEmailCodeRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.sendVerifyEmailCode#7011509f as nil")
+		return fmt.Errorf("can't encode account.sendVerifyEmailCode#98e037bb as nil")
 	}
 	b.PutID(AccountSendVerifyEmailCodeRequestTypeID)
 	return s.EncodeBare(b)
@@ -124,7 +135,13 @@ func (s *AccountSendVerifyEmailCodeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AccountSendVerifyEmailCodeRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode account.sendVerifyEmailCode#7011509f as nil")
+		return fmt.Errorf("can't encode account.sendVerifyEmailCode#98e037bb as nil")
+	}
+	if s.Purpose == nil {
+		return fmt.Errorf("unable to encode account.sendVerifyEmailCode#98e037bb: field purpose is nil")
+	}
+	if err := s.Purpose.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode account.sendVerifyEmailCode#98e037bb: field purpose: %w", err)
 	}
 	b.PutString(s.Email)
 	return nil
@@ -133,10 +150,10 @@ func (s *AccountSendVerifyEmailCodeRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *AccountSendVerifyEmailCodeRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.sendVerifyEmailCode#7011509f to nil")
+		return fmt.Errorf("can't decode account.sendVerifyEmailCode#98e037bb to nil")
 	}
 	if err := b.ConsumeID(AccountSendVerifyEmailCodeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.sendVerifyEmailCode#7011509f: %w", err)
+		return fmt.Errorf("unable to decode account.sendVerifyEmailCode#98e037bb: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -144,16 +161,31 @@ func (s *AccountSendVerifyEmailCodeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AccountSendVerifyEmailCodeRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode account.sendVerifyEmailCode#7011509f to nil")
+		return fmt.Errorf("can't decode account.sendVerifyEmailCode#98e037bb to nil")
+	}
+	{
+		value, err := DecodeEmailVerifyPurpose(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode account.sendVerifyEmailCode#98e037bb: field purpose: %w", err)
+		}
+		s.Purpose = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.sendVerifyEmailCode#7011509f: field email: %w", err)
+			return fmt.Errorf("unable to decode account.sendVerifyEmailCode#98e037bb: field email: %w", err)
 		}
 		s.Email = value
 	}
 	return nil
+}
+
+// GetPurpose returns value of Purpose field.
+func (s *AccountSendVerifyEmailCodeRequest) GetPurpose() (value EmailVerifyPurposeClass) {
+	if s == nil {
+		return
+	}
+	return s.Purpose
 }
 
 // GetEmail returns value of Email field.
@@ -164,7 +196,7 @@ func (s *AccountSendVerifyEmailCodeRequest) GetEmail() (value string) {
 	return s.Email
 }
 
-// AccountSendVerifyEmailCode invokes method account.sendVerifyEmailCode#7011509f returning error if any.
+// AccountSendVerifyEmailCode invokes method account.sendVerifyEmailCode#98e037bb returning error if any.
 // Send the verification email code for telegram passport¹.
 //
 // Links:
@@ -175,12 +207,9 @@ func (s *AccountSendVerifyEmailCodeRequest) GetEmail() (value string) {
 //	400 EMAIL_INVALID: The specified email is invalid.
 //
 // See https://core.telegram.org/method/account.sendVerifyEmailCode for reference.
-func (c *Client) AccountSendVerifyEmailCode(ctx context.Context, email string) (*AccountSentEmailCode, error) {
+func (c *Client) AccountSendVerifyEmailCode(ctx context.Context, request *AccountSendVerifyEmailCodeRequest) (*AccountSentEmailCode, error) {
 	var result AccountSentEmailCode
 
-	request := &AccountSendVerifyEmailCodeRequest{
-		Email: email,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

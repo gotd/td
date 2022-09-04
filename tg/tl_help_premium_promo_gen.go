@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// HelpPremiumPromo represents TL type `help.premiumPromo#8a4f3c29`.
+// HelpPremiumPromo represents TL type `help.premiumPromo#5334759c`.
 // Telegram Premium promotion information
 //
 // See https://core.telegram.org/constructor/help.premiumPromo for reference.
@@ -50,25 +50,14 @@ type HelpPremiumPromo struct {
 	VideoSections []string
 	// A list of videos
 	Videos []DocumentClass
-	// Three-letter ISO 4217 currency¹ code
-	//
-	// Links:
-	//  1) https://core.telegram.org/bots/payments#supported-currencies
-	Currency string
-	// Monthly price of the product in the smallest units of the currency (integer, not
-	// float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp
-	// parameter in currencies.json¹, it shows the number of digits past the decimal point
-	// for each currency (2 for the majority of currencies).
-	//
-	// Links:
-	//  1) https://core.telegram.org/bots/payments/currencies.json
-	MonthlyAmount int64
+	// PeriodOptions field of HelpPremiumPromo.
+	PeriodOptions []PremiumSubscriptionOption
 	// Related user information
 	Users []UserClass
 }
 
 // HelpPremiumPromoTypeID is TL type id of HelpPremiumPromo.
-const HelpPremiumPromoTypeID = 0x8a4f3c29
+const HelpPremiumPromoTypeID = 0x5334759c
 
 // Ensuring interfaces in compile-time for HelpPremiumPromo.
 var (
@@ -94,10 +83,7 @@ func (p *HelpPremiumPromo) Zero() bool {
 	if !(p.Videos == nil) {
 		return false
 	}
-	if !(p.Currency == "") {
-		return false
-	}
-	if !(p.MonthlyAmount == 0) {
+	if !(p.PeriodOptions == nil) {
 		return false
 	}
 	if !(p.Users == nil) {
@@ -122,16 +108,14 @@ func (p *HelpPremiumPromo) FillFrom(from interface {
 	GetStatusEntities() (value []MessageEntityClass)
 	GetVideoSections() (value []string)
 	GetVideos() (value []DocumentClass)
-	GetCurrency() (value string)
-	GetMonthlyAmount() (value int64)
+	GetPeriodOptions() (value []PremiumSubscriptionOption)
 	GetUsers() (value []UserClass)
 }) {
 	p.StatusText = from.GetStatusText()
 	p.StatusEntities = from.GetStatusEntities()
 	p.VideoSections = from.GetVideoSections()
 	p.Videos = from.GetVideos()
-	p.Currency = from.GetCurrency()
-	p.MonthlyAmount = from.GetMonthlyAmount()
+	p.PeriodOptions = from.GetPeriodOptions()
 	p.Users = from.GetUsers()
 }
 
@@ -175,12 +159,8 @@ func (p *HelpPremiumPromo) TypeInfo() tdp.Type {
 			SchemaName: "videos",
 		},
 		{
-			Name:       "Currency",
-			SchemaName: "currency",
-		},
-		{
-			Name:       "MonthlyAmount",
-			SchemaName: "monthly_amount",
+			Name:       "PeriodOptions",
+			SchemaName: "period_options",
 		},
 		{
 			Name:       "Users",
@@ -193,7 +173,7 @@ func (p *HelpPremiumPromo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *HelpPremiumPromo) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode help.premiumPromo#8a4f3c29 as nil")
+		return fmt.Errorf("can't encode help.premiumPromo#5334759c as nil")
 	}
 	b.PutID(HelpPremiumPromoTypeID)
 	return p.EncodeBare(b)
@@ -202,16 +182,16 @@ func (p *HelpPremiumPromo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *HelpPremiumPromo) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode help.premiumPromo#8a4f3c29 as nil")
+		return fmt.Errorf("can't encode help.premiumPromo#5334759c as nil")
 	}
 	b.PutString(p.StatusText)
 	b.PutVectorHeader(len(p.StatusEntities))
 	for idx, v := range p.StatusEntities {
 		if v == nil {
-			return fmt.Errorf("unable to encode help.premiumPromo#8a4f3c29: field status_entities element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode help.premiumPromo#5334759c: field status_entities element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.premiumPromo#8a4f3c29: field status_entities element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode help.premiumPromo#5334759c: field status_entities element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(p.VideoSections))
@@ -221,21 +201,25 @@ func (p *HelpPremiumPromo) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(p.Videos))
 	for idx, v := range p.Videos {
 		if v == nil {
-			return fmt.Errorf("unable to encode help.premiumPromo#8a4f3c29: field videos element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode help.premiumPromo#5334759c: field videos element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.premiumPromo#8a4f3c29: field videos element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode help.premiumPromo#5334759c: field videos element with index %d: %w", idx, err)
 		}
 	}
-	b.PutString(p.Currency)
-	b.PutLong(p.MonthlyAmount)
+	b.PutVectorHeader(len(p.PeriodOptions))
+	for idx, v := range p.PeriodOptions {
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode help.premiumPromo#5334759c: field period_options element with index %d: %w", idx, err)
+		}
+	}
 	b.PutVectorHeader(len(p.Users))
 	for idx, v := range p.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode help.premiumPromo#8a4f3c29: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode help.premiumPromo#5334759c: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.premiumPromo#8a4f3c29: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode help.premiumPromo#5334759c: field users element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -244,10 +228,10 @@ func (p *HelpPremiumPromo) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *HelpPremiumPromo) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode help.premiumPromo#8a4f3c29 to nil")
+		return fmt.Errorf("can't decode help.premiumPromo#5334759c to nil")
 	}
 	if err := b.ConsumeID(HelpPremiumPromoTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.premiumPromo#8a4f3c29: %w", err)
+		return fmt.Errorf("unable to decode help.premiumPromo#5334759c: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -255,19 +239,19 @@ func (p *HelpPremiumPromo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *HelpPremiumPromo) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode help.premiumPromo#8a4f3c29 to nil")
+		return fmt.Errorf("can't decode help.premiumPromo#5334759c to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.premiumPromo#8a4f3c29: field status_text: %w", err)
+			return fmt.Errorf("unable to decode help.premiumPromo#5334759c: field status_text: %w", err)
 		}
 		p.StatusText = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.premiumPromo#8a4f3c29: field status_entities: %w", err)
+			return fmt.Errorf("unable to decode help.premiumPromo#5334759c: field status_entities: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -276,7 +260,7 @@ func (p *HelpPremiumPromo) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode help.premiumPromo#8a4f3c29: field status_entities: %w", err)
+				return fmt.Errorf("unable to decode help.premiumPromo#5334759c: field status_entities: %w", err)
 			}
 			p.StatusEntities = append(p.StatusEntities, value)
 		}
@@ -284,7 +268,7 @@ func (p *HelpPremiumPromo) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.premiumPromo#8a4f3c29: field video_sections: %w", err)
+			return fmt.Errorf("unable to decode help.premiumPromo#5334759c: field video_sections: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -293,7 +277,7 @@ func (p *HelpPremiumPromo) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode help.premiumPromo#8a4f3c29: field video_sections: %w", err)
+				return fmt.Errorf("unable to decode help.premiumPromo#5334759c: field video_sections: %w", err)
 			}
 			p.VideoSections = append(p.VideoSections, value)
 		}
@@ -301,7 +285,7 @@ func (p *HelpPremiumPromo) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.premiumPromo#8a4f3c29: field videos: %w", err)
+			return fmt.Errorf("unable to decode help.premiumPromo#5334759c: field videos: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -310,29 +294,32 @@ func (p *HelpPremiumPromo) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocument(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode help.premiumPromo#8a4f3c29: field videos: %w", err)
+				return fmt.Errorf("unable to decode help.premiumPromo#5334759c: field videos: %w", err)
 			}
 			p.Videos = append(p.Videos, value)
 		}
 	}
 	{
-		value, err := b.String()
+		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.premiumPromo#8a4f3c29: field currency: %w", err)
+			return fmt.Errorf("unable to decode help.premiumPromo#5334759c: field period_options: %w", err)
 		}
-		p.Currency = value
-	}
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode help.premiumPromo#8a4f3c29: field monthly_amount: %w", err)
+
+		if headerLen > 0 {
+			p.PeriodOptions = make([]PremiumSubscriptionOption, 0, headerLen%bin.PreallocateLimit)
 		}
-		p.MonthlyAmount = value
+		for idx := 0; idx < headerLen; idx++ {
+			var value PremiumSubscriptionOption
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode help.premiumPromo#5334759c: field period_options: %w", err)
+			}
+			p.PeriodOptions = append(p.PeriodOptions, value)
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.premiumPromo#8a4f3c29: field users: %w", err)
+			return fmt.Errorf("unable to decode help.premiumPromo#5334759c: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -341,7 +328,7 @@ func (p *HelpPremiumPromo) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode help.premiumPromo#8a4f3c29: field users: %w", err)
+				return fmt.Errorf("unable to decode help.premiumPromo#5334759c: field users: %w", err)
 			}
 			p.Users = append(p.Users, value)
 		}
@@ -381,20 +368,12 @@ func (p *HelpPremiumPromo) GetVideos() (value []DocumentClass) {
 	return p.Videos
 }
 
-// GetCurrency returns value of Currency field.
-func (p *HelpPremiumPromo) GetCurrency() (value string) {
+// GetPeriodOptions returns value of PeriodOptions field.
+func (p *HelpPremiumPromo) GetPeriodOptions() (value []PremiumSubscriptionOption) {
 	if p == nil {
 		return
 	}
-	return p.Currency
-}
-
-// GetMonthlyAmount returns value of MonthlyAmount field.
-func (p *HelpPremiumPromo) GetMonthlyAmount() (value int64) {
-	if p == nil {
-		return
-	}
-	return p.MonthlyAmount
+	return p.PeriodOptions
 }
 
 // GetUsers returns value of Users field.

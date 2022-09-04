@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesSetDefaultReactionRequest represents TL type `messages.setDefaultReaction#d960c4d4`.
+// MessagesSetDefaultReactionRequest represents TL type `messages.setDefaultReaction#4f47a016`.
 // Change default emoji reaction to use in the quick reaction menu: the value is synced
 // across devices and can be fetched using help.getAppConfig, reactions_default field¹.
 //
@@ -41,11 +41,11 @@ var (
 // See https://core.telegram.org/method/messages.setDefaultReaction for reference.
 type MessagesSetDefaultReactionRequest struct {
 	// New emoji reaction
-	Reaction string
+	Reaction ReactionClass
 }
 
 // MessagesSetDefaultReactionRequestTypeID is TL type id of MessagesSetDefaultReactionRequest.
-const MessagesSetDefaultReactionRequestTypeID = 0xd960c4d4
+const MessagesSetDefaultReactionRequestTypeID = 0x4f47a016
 
 // Ensuring interfaces in compile-time for MessagesSetDefaultReactionRequest.
 var (
@@ -59,7 +59,7 @@ func (s *MessagesSetDefaultReactionRequest) Zero() bool {
 	if s == nil {
 		return true
 	}
-	if !(s.Reaction == "") {
+	if !(s.Reaction == nil) {
 		return false
 	}
 
@@ -77,7 +77,7 @@ func (s *MessagesSetDefaultReactionRequest) String() string {
 
 // FillFrom fills MessagesSetDefaultReactionRequest from given interface.
 func (s *MessagesSetDefaultReactionRequest) FillFrom(from interface {
-	GetReaction() (value string)
+	GetReaction() (value ReactionClass)
 }) {
 	s.Reaction = from.GetReaction()
 }
@@ -116,7 +116,7 @@ func (s *MessagesSetDefaultReactionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSetDefaultReactionRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setDefaultReaction#d960c4d4 as nil")
+		return fmt.Errorf("can't encode messages.setDefaultReaction#4f47a016 as nil")
 	}
 	b.PutID(MessagesSetDefaultReactionRequestTypeID)
 	return s.EncodeBare(b)
@@ -125,19 +125,24 @@ func (s *MessagesSetDefaultReactionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSetDefaultReactionRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setDefaultReaction#d960c4d4 as nil")
+		return fmt.Errorf("can't encode messages.setDefaultReaction#4f47a016 as nil")
 	}
-	b.PutString(s.Reaction)
+	if s.Reaction == nil {
+		return fmt.Errorf("unable to encode messages.setDefaultReaction#4f47a016: field reaction is nil")
+	}
+	if err := s.Reaction.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.setDefaultReaction#4f47a016: field reaction: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *MessagesSetDefaultReactionRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setDefaultReaction#d960c4d4 to nil")
+		return fmt.Errorf("can't decode messages.setDefaultReaction#4f47a016 to nil")
 	}
 	if err := b.ConsumeID(MessagesSetDefaultReactionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.setDefaultReaction#d960c4d4: %w", err)
+		return fmt.Errorf("unable to decode messages.setDefaultReaction#4f47a016: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -145,12 +150,12 @@ func (s *MessagesSetDefaultReactionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSetDefaultReactionRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setDefaultReaction#d960c4d4 to nil")
+		return fmt.Errorf("can't decode messages.setDefaultReaction#4f47a016 to nil")
 	}
 	{
-		value, err := b.String()
+		value, err := DecodeReaction(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setDefaultReaction#d960c4d4: field reaction: %w", err)
+			return fmt.Errorf("unable to decode messages.setDefaultReaction#4f47a016: field reaction: %w", err)
 		}
 		s.Reaction = value
 	}
@@ -158,14 +163,14 @@ func (s *MessagesSetDefaultReactionRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetReaction returns value of Reaction field.
-func (s *MessagesSetDefaultReactionRequest) GetReaction() (value string) {
+func (s *MessagesSetDefaultReactionRequest) GetReaction() (value ReactionClass) {
 	if s == nil {
 		return
 	}
 	return s.Reaction
 }
 
-// MessagesSetDefaultReaction invokes method messages.setDefaultReaction#d960c4d4 returning error if any.
+// MessagesSetDefaultReaction invokes method messages.setDefaultReaction#4f47a016 returning error if any.
 // Change default emoji reaction to use in the quick reaction menu: the value is synced
 // across devices and can be fetched using help.getAppConfig, reactions_default field¹.
 //
@@ -173,7 +178,7 @@ func (s *MessagesSetDefaultReactionRequest) GetReaction() (value string) {
 //  1. https://core.telegram.org/api/config#client-configuration
 //
 // See https://core.telegram.org/method/messages.setDefaultReaction for reference.
-func (c *Client) MessagesSetDefaultReaction(ctx context.Context, reaction string) (bool, error) {
+func (c *Client) MessagesSetDefaultReaction(ctx context.Context, reaction ReactionClass) (bool, error) {
 	var result BoolBox
 
 	request := &MessagesSetDefaultReactionRequest{

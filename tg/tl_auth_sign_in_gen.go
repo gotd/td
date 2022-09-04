@@ -31,11 +31,13 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AuthSignInRequest represents TL type `auth.signIn#bcd51581`.
+// AuthSignInRequest represents TL type `auth.signIn#8d52a951`.
 // Signs in a user with a validated phone number.
 //
 // See https://core.telegram.org/method/auth.signIn for reference.
 type AuthSignInRequest struct {
+	// Flags field of AuthSignInRequest.
+	Flags bin.Fields
 	// Phone number in the international format
 	PhoneNumber string
 	// SMS-message ID, obtained from auth.sendCode¹
@@ -44,11 +46,17 @@ type AuthSignInRequest struct {
 	//  1) https://core.telegram.org/method/auth.sendCode
 	PhoneCodeHash string
 	// Valid numerical code from the SMS-message
+	//
+	// Use SetPhoneCode and GetPhoneCode helpers.
 	PhoneCode string
+	// EmailVerification field of AuthSignInRequest.
+	//
+	// Use SetEmailVerification and GetEmailVerification helpers.
+	EmailVerification EmailVerificationClass
 }
 
 // AuthSignInRequestTypeID is TL type id of AuthSignInRequest.
-const AuthSignInRequestTypeID = 0xbcd51581
+const AuthSignInRequestTypeID = 0x8d52a951
 
 // Ensuring interfaces in compile-time for AuthSignInRequest.
 var (
@@ -62,6 +70,9 @@ func (s *AuthSignInRequest) Zero() bool {
 	if s == nil {
 		return true
 	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
 	if !(s.PhoneNumber == "") {
 		return false
 	}
@@ -69,6 +80,9 @@ func (s *AuthSignInRequest) Zero() bool {
 		return false
 	}
 	if !(s.PhoneCode == "") {
+		return false
+	}
+	if !(s.EmailVerification == nil) {
 		return false
 	}
 
@@ -88,11 +102,19 @@ func (s *AuthSignInRequest) String() string {
 func (s *AuthSignInRequest) FillFrom(from interface {
 	GetPhoneNumber() (value string)
 	GetPhoneCodeHash() (value string)
-	GetPhoneCode() (value string)
+	GetPhoneCode() (value string, ok bool)
+	GetEmailVerification() (value EmailVerificationClass, ok bool)
 }) {
 	s.PhoneNumber = from.GetPhoneNumber()
 	s.PhoneCodeHash = from.GetPhoneCodeHash()
-	s.PhoneCode = from.GetPhoneCode()
+	if val, ok := from.GetPhoneCode(); ok {
+		s.PhoneCode = val
+	}
+
+	if val, ok := from.GetEmailVerification(); ok {
+		s.EmailVerification = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -129,15 +151,31 @@ func (s *AuthSignInRequest) TypeInfo() tdp.Type {
 		{
 			Name:       "PhoneCode",
 			SchemaName: "phone_code",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "EmailVerification",
+			SchemaName: "email_verification",
+			Null:       !s.Flags.Has(1),
 		},
 	}
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *AuthSignInRequest) SetFlags() {
+	if !(s.PhoneCode == "") {
+		s.Flags.Set(0)
+	}
+	if !(s.EmailVerification == nil) {
+		s.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *AuthSignInRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode auth.signIn#bcd51581 as nil")
+		return fmt.Errorf("can't encode auth.signIn#8d52a951 as nil")
 	}
 	b.PutID(AuthSignInRequestTypeID)
 	return s.EncodeBare(b)
@@ -146,21 +184,35 @@ func (s *AuthSignInRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AuthSignInRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode auth.signIn#bcd51581 as nil")
+		return fmt.Errorf("can't encode auth.signIn#8d52a951 as nil")
+	}
+	s.SetFlags()
+	if err := s.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode auth.signIn#8d52a951: field flags: %w", err)
 	}
 	b.PutString(s.PhoneNumber)
 	b.PutString(s.PhoneCodeHash)
-	b.PutString(s.PhoneCode)
+	if s.Flags.Has(0) {
+		b.PutString(s.PhoneCode)
+	}
+	if s.Flags.Has(1) {
+		if s.EmailVerification == nil {
+			return fmt.Errorf("unable to encode auth.signIn#8d52a951: field email_verification is nil")
+		}
+		if err := s.EmailVerification.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode auth.signIn#8d52a951: field email_verification: %w", err)
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *AuthSignInRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode auth.signIn#bcd51581 to nil")
+		return fmt.Errorf("can't decode auth.signIn#8d52a951 to nil")
 	}
 	if err := b.ConsumeID(AuthSignInRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.signIn#bcd51581: %w", err)
+		return fmt.Errorf("unable to decode auth.signIn#8d52a951: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -168,28 +220,40 @@ func (s *AuthSignInRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AuthSignInRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode auth.signIn#bcd51581 to nil")
+		return fmt.Errorf("can't decode auth.signIn#8d52a951 to nil")
+	}
+	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode auth.signIn#8d52a951: field flags: %w", err)
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.signIn#bcd51581: field phone_number: %w", err)
+			return fmt.Errorf("unable to decode auth.signIn#8d52a951: field phone_number: %w", err)
 		}
 		s.PhoneNumber = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.signIn#bcd51581: field phone_code_hash: %w", err)
+			return fmt.Errorf("unable to decode auth.signIn#8d52a951: field phone_code_hash: %w", err)
 		}
 		s.PhoneCodeHash = value
 	}
-	{
+	if s.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.signIn#bcd51581: field phone_code: %w", err)
+			return fmt.Errorf("unable to decode auth.signIn#8d52a951: field phone_code: %w", err)
 		}
 		s.PhoneCode = value
+	}
+	if s.Flags.Has(1) {
+		value, err := DecodeEmailVerification(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode auth.signIn#8d52a951: field email_verification: %w", err)
+		}
+		s.EmailVerification = value
 	}
 	return nil
 }
@@ -210,15 +274,43 @@ func (s *AuthSignInRequest) GetPhoneCodeHash() (value string) {
 	return s.PhoneCodeHash
 }
 
-// GetPhoneCode returns value of PhoneCode field.
-func (s *AuthSignInRequest) GetPhoneCode() (value string) {
+// SetPhoneCode sets value of PhoneCode conditional field.
+func (s *AuthSignInRequest) SetPhoneCode(value string) {
+	s.Flags.Set(0)
+	s.PhoneCode = value
+}
+
+// GetPhoneCode returns value of PhoneCode conditional field and
+// boolean which is true if field was set.
+func (s *AuthSignInRequest) GetPhoneCode() (value string, ok bool) {
 	if s == nil {
 		return
 	}
-	return s.PhoneCode
+	if !s.Flags.Has(0) {
+		return value, false
+	}
+	return s.PhoneCode, true
 }
 
-// AuthSignIn invokes method auth.signIn#bcd51581 returning error if any.
+// SetEmailVerification sets value of EmailVerification conditional field.
+func (s *AuthSignInRequest) SetEmailVerification(value EmailVerificationClass) {
+	s.Flags.Set(1)
+	s.EmailVerification = value
+}
+
+// GetEmailVerification returns value of EmailVerification conditional field and
+// boolean which is true if field was set.
+func (s *AuthSignInRequest) GetEmailVerification() (value EmailVerificationClass, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(1) {
+		return value, false
+	}
+	return s.EmailVerification, true
+}
+
+// AuthSignIn invokes method auth.signIn#8d52a951 returning error if any.
 // Signs in a user with a validated phone number.
 //
 // Possible errors:

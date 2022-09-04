@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesSendReactionRequest represents TL type `messages.sendReaction#25690ce4`.
+// MessagesSendReactionRequest represents TL type `messages.sendReaction#d30d78d4`.
 // React to message
 //
 // See https://core.telegram.org/method/messages.sendReaction for reference.
@@ -43,6 +43,8 @@ type MessagesSendReactionRequest struct {
 	Flags bin.Fields
 	// Whether a bigger and longer reaction should be shown
 	Big bool
+	// AddToRecent field of MessagesSendReactionRequest.
+	AddToRecent bool
 	// Peer
 	Peer InputPeerClass
 	// Message ID to react to
@@ -50,11 +52,11 @@ type MessagesSendReactionRequest struct {
 	// Reaction (a UTF8 emoji)
 	//
 	// Use SetReaction and GetReaction helpers.
-	Reaction string
+	Reaction []ReactionClass
 }
 
 // MessagesSendReactionRequestTypeID is TL type id of MessagesSendReactionRequest.
-const MessagesSendReactionRequestTypeID = 0x25690ce4
+const MessagesSendReactionRequestTypeID = 0xd30d78d4
 
 // Ensuring interfaces in compile-time for MessagesSendReactionRequest.
 var (
@@ -74,13 +76,16 @@ func (s *MessagesSendReactionRequest) Zero() bool {
 	if !(s.Big == false) {
 		return false
 	}
+	if !(s.AddToRecent == false) {
+		return false
+	}
 	if !(s.Peer == nil) {
 		return false
 	}
 	if !(s.MsgID == 0) {
 		return false
 	}
-	if !(s.Reaction == "") {
+	if !(s.Reaction == nil) {
 		return false
 	}
 
@@ -99,11 +104,13 @@ func (s *MessagesSendReactionRequest) String() string {
 // FillFrom fills MessagesSendReactionRequest from given interface.
 func (s *MessagesSendReactionRequest) FillFrom(from interface {
 	GetBig() (value bool)
+	GetAddToRecent() (value bool)
 	GetPeer() (value InputPeerClass)
 	GetMsgID() (value int)
-	GetReaction() (value string, ok bool)
+	GetReaction() (value []ReactionClass, ok bool)
 }) {
 	s.Big = from.GetBig()
+	s.AddToRecent = from.GetAddToRecent()
 	s.Peer = from.GetPeer()
 	s.MsgID = from.GetMsgID()
 	if val, ok := from.GetReaction(); ok {
@@ -141,6 +148,11 @@ func (s *MessagesSendReactionRequest) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(1),
 		},
 		{
+			Name:       "AddToRecent",
+			SchemaName: "add_to_recent",
+			Null:       !s.Flags.Has(2),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -162,7 +174,10 @@ func (s *MessagesSendReactionRequest) SetFlags() {
 	if !(s.Big == false) {
 		s.Flags.Set(1)
 	}
-	if !(s.Reaction == "") {
+	if !(s.AddToRecent == false) {
+		s.Flags.Set(2)
+	}
+	if !(s.Reaction == nil) {
 		s.Flags.Set(0)
 	}
 }
@@ -170,7 +185,7 @@ func (s *MessagesSendReactionRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (s *MessagesSendReactionRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendReaction#25690ce4 as nil")
+		return fmt.Errorf("can't encode messages.sendReaction#d30d78d4 as nil")
 	}
 	b.PutID(MessagesSendReactionRequestTypeID)
 	return s.EncodeBare(b)
@@ -179,21 +194,29 @@ func (s *MessagesSendReactionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSendReactionRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendReaction#25690ce4 as nil")
+		return fmt.Errorf("can't encode messages.sendReaction#d30d78d4 as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendReaction#25690ce4: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.sendReaction#d30d78d4: field flags: %w", err)
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.sendReaction#25690ce4: field peer is nil")
+		return fmt.Errorf("unable to encode messages.sendReaction#d30d78d4: field peer is nil")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendReaction#25690ce4: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.sendReaction#d30d78d4: field peer: %w", err)
 	}
 	b.PutInt(s.MsgID)
 	if s.Flags.Has(0) {
-		b.PutString(s.Reaction)
+		b.PutVectorHeader(len(s.Reaction))
+		for idx, v := range s.Reaction {
+			if v == nil {
+				return fmt.Errorf("unable to encode messages.sendReaction#d30d78d4: field reaction element with index %d is nil", idx)
+			}
+			if err := v.Encode(b); err != nil {
+				return fmt.Errorf("unable to encode messages.sendReaction#d30d78d4: field reaction element with index %d: %w", idx, err)
+			}
+		}
 	}
 	return nil
 }
@@ -201,10 +224,10 @@ func (s *MessagesSendReactionRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *MessagesSendReactionRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendReaction#25690ce4 to nil")
+		return fmt.Errorf("can't decode messages.sendReaction#d30d78d4 to nil")
 	}
 	if err := b.ConsumeID(MessagesSendReactionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendReaction#25690ce4: %w", err)
+		return fmt.Errorf("unable to decode messages.sendReaction#d30d78d4: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -212,34 +235,45 @@ func (s *MessagesSendReactionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSendReactionRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendReaction#25690ce4 to nil")
+		return fmt.Errorf("can't decode messages.sendReaction#d30d78d4 to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.sendReaction#25690ce4: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.sendReaction#d30d78d4: field flags: %w", err)
 		}
 	}
 	s.Big = s.Flags.Has(1)
+	s.AddToRecent = s.Flags.Has(2)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendReaction#25690ce4: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.sendReaction#d30d78d4: field peer: %w", err)
 		}
 		s.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendReaction#25690ce4: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.sendReaction#d30d78d4: field msg_id: %w", err)
 		}
 		s.MsgID = value
 	}
 	if s.Flags.Has(0) {
-		value, err := b.String()
+		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendReaction#25690ce4: field reaction: %w", err)
+			return fmt.Errorf("unable to decode messages.sendReaction#d30d78d4: field reaction: %w", err)
 		}
-		s.Reaction = value
+
+		if headerLen > 0 {
+			s.Reaction = make([]ReactionClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeReaction(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode messages.sendReaction#d30d78d4: field reaction: %w", err)
+			}
+			s.Reaction = append(s.Reaction, value)
+		}
 	}
 	return nil
 }
@@ -263,6 +297,25 @@ func (s *MessagesSendReactionRequest) GetBig() (value bool) {
 	return s.Flags.Has(1)
 }
 
+// SetAddToRecent sets value of AddToRecent conditional field.
+func (s *MessagesSendReactionRequest) SetAddToRecent(value bool) {
+	if value {
+		s.Flags.Set(2)
+		s.AddToRecent = true
+	} else {
+		s.Flags.Unset(2)
+		s.AddToRecent = false
+	}
+}
+
+// GetAddToRecent returns value of AddToRecent conditional field.
+func (s *MessagesSendReactionRequest) GetAddToRecent() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(2)
+}
+
 // GetPeer returns value of Peer field.
 func (s *MessagesSendReactionRequest) GetPeer() (value InputPeerClass) {
 	if s == nil {
@@ -280,14 +333,14 @@ func (s *MessagesSendReactionRequest) GetMsgID() (value int) {
 }
 
 // SetReaction sets value of Reaction conditional field.
-func (s *MessagesSendReactionRequest) SetReaction(value string) {
+func (s *MessagesSendReactionRequest) SetReaction(value []ReactionClass) {
 	s.Flags.Set(0)
 	s.Reaction = value
 }
 
 // GetReaction returns value of Reaction conditional field and
 // boolean which is true if field was set.
-func (s *MessagesSendReactionRequest) GetReaction() (value string, ok bool) {
+func (s *MessagesSendReactionRequest) GetReaction() (value []ReactionClass, ok bool) {
 	if s == nil {
 		return
 	}
@@ -297,7 +350,15 @@ func (s *MessagesSendReactionRequest) GetReaction() (value string, ok bool) {
 	return s.Reaction, true
 }
 
-// MessagesSendReaction invokes method messages.sendReaction#25690ce4 returning error if any.
+// MapReaction returns field Reaction wrapped in ReactionClassArray helper.
+func (s *MessagesSendReactionRequest) MapReaction() (value ReactionClassArray, ok bool) {
+	if !s.Flags.Has(0) {
+		return value, false
+	}
+	return ReactionClassArray(s.Reaction), true
+}
+
+// MessagesSendReaction invokes method messages.sendReaction#d30d78d4 returning error if any.
 // React to message
 //
 // Possible errors:

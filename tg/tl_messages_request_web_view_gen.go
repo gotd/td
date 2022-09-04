@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesRequestWebViewRequest represents TL type `messages.requestWebView#91b15831`.
+// MessagesRequestWebViewRequest represents TL type `messages.requestWebView#fc87a53c`.
 // Open a bot web app¹, sending over user information after user confirmation.
 // After calling this method, until the user closes the webview, messages
 // prolongWebView¹ must be called every 60 seconds.
@@ -89,6 +89,8 @@ type MessagesRequestWebViewRequest struct {
 	//
 	// Use SetThemeParams and GetThemeParams helpers.
 	ThemeParams DataJSON
+	// Platform field of MessagesRequestWebViewRequest.
+	Platform string
 	// Whether the inline message that will be sent by the bot on behalf of the user once the
 	// web app interaction is terminated¹ should be sent in reply to this message ID.
 	//
@@ -105,7 +107,7 @@ type MessagesRequestWebViewRequest struct {
 }
 
 // MessagesRequestWebViewRequestTypeID is TL type id of MessagesRequestWebViewRequest.
-const MessagesRequestWebViewRequestTypeID = 0x91b15831
+const MessagesRequestWebViewRequestTypeID = 0xfc87a53c
 
 // Ensuring interfaces in compile-time for MessagesRequestWebViewRequest.
 var (
@@ -143,6 +145,9 @@ func (r *MessagesRequestWebViewRequest) Zero() bool {
 	if !(r.ThemeParams.Zero()) {
 		return false
 	}
+	if !(r.Platform == "") {
+		return false
+	}
 	if !(r.ReplyToMsgID == 0) {
 		return false
 	}
@@ -171,6 +176,7 @@ func (r *MessagesRequestWebViewRequest) FillFrom(from interface {
 	GetURL() (value string, ok bool)
 	GetStartParam() (value string, ok bool)
 	GetThemeParams() (value DataJSON, ok bool)
+	GetPlatform() (value string)
 	GetReplyToMsgID() (value int, ok bool)
 	GetSendAs() (value InputPeerClass, ok bool)
 }) {
@@ -190,6 +196,7 @@ func (r *MessagesRequestWebViewRequest) FillFrom(from interface {
 		r.ThemeParams = val
 	}
 
+	r.Platform = from.GetPlatform()
 	if val, ok := from.GetReplyToMsgID(); ok {
 		r.ReplyToMsgID = val
 	}
@@ -257,6 +264,10 @@ func (r *MessagesRequestWebViewRequest) TypeInfo() tdp.Type {
 			Null:       !r.Flags.Has(2),
 		},
 		{
+			Name:       "Platform",
+			SchemaName: "platform",
+		},
+		{
 			Name:       "ReplyToMsgID",
 			SchemaName: "reply_to_msg_id",
 			Null:       !r.Flags.Has(0),
@@ -298,7 +309,7 @@ func (r *MessagesRequestWebViewRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (r *MessagesRequestWebViewRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.requestWebView#91b15831 as nil")
+		return fmt.Errorf("can't encode messages.requestWebView#fc87a53c as nil")
 	}
 	b.PutID(MessagesRequestWebViewRequestTypeID)
 	return r.EncodeBare(b)
@@ -307,23 +318,23 @@ func (r *MessagesRequestWebViewRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesRequestWebViewRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.requestWebView#91b15831 as nil")
+		return fmt.Errorf("can't encode messages.requestWebView#fc87a53c as nil")
 	}
 	r.SetFlags()
 	if err := r.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.requestWebView#91b15831: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.requestWebView#fc87a53c: field flags: %w", err)
 	}
 	if r.Peer == nil {
-		return fmt.Errorf("unable to encode messages.requestWebView#91b15831: field peer is nil")
+		return fmt.Errorf("unable to encode messages.requestWebView#fc87a53c: field peer is nil")
 	}
 	if err := r.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.requestWebView#91b15831: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.requestWebView#fc87a53c: field peer: %w", err)
 	}
 	if r.Bot == nil {
-		return fmt.Errorf("unable to encode messages.requestWebView#91b15831: field bot is nil")
+		return fmt.Errorf("unable to encode messages.requestWebView#fc87a53c: field bot is nil")
 	}
 	if err := r.Bot.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.requestWebView#91b15831: field bot: %w", err)
+		return fmt.Errorf("unable to encode messages.requestWebView#fc87a53c: field bot: %w", err)
 	}
 	if r.Flags.Has(1) {
 		b.PutString(r.URL)
@@ -333,18 +344,19 @@ func (r *MessagesRequestWebViewRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	if r.Flags.Has(2) {
 		if err := r.ThemeParams.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.requestWebView#91b15831: field theme_params: %w", err)
+			return fmt.Errorf("unable to encode messages.requestWebView#fc87a53c: field theme_params: %w", err)
 		}
 	}
+	b.PutString(r.Platform)
 	if r.Flags.Has(0) {
 		b.PutInt(r.ReplyToMsgID)
 	}
 	if r.Flags.Has(13) {
 		if r.SendAs == nil {
-			return fmt.Errorf("unable to encode messages.requestWebView#91b15831: field send_as is nil")
+			return fmt.Errorf("unable to encode messages.requestWebView#fc87a53c: field send_as is nil")
 		}
 		if err := r.SendAs.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.requestWebView#91b15831: field send_as: %w", err)
+			return fmt.Errorf("unable to encode messages.requestWebView#fc87a53c: field send_as: %w", err)
 		}
 	}
 	return nil
@@ -353,10 +365,10 @@ func (r *MessagesRequestWebViewRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *MessagesRequestWebViewRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.requestWebView#91b15831 to nil")
+		return fmt.Errorf("can't decode messages.requestWebView#fc87a53c to nil")
 	}
 	if err := b.ConsumeID(MessagesRequestWebViewRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.requestWebView#91b15831: %w", err)
+		return fmt.Errorf("unable to decode messages.requestWebView#fc87a53c: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -364,11 +376,11 @@ func (r *MessagesRequestWebViewRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesRequestWebViewRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.requestWebView#91b15831 to nil")
+		return fmt.Errorf("can't decode messages.requestWebView#fc87a53c to nil")
 	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.requestWebView#91b15831: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.requestWebView#fc87a53c: field flags: %w", err)
 		}
 	}
 	r.FromBotMenu = r.Flags.Has(4)
@@ -376,47 +388,54 @@ func (r *MessagesRequestWebViewRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestWebView#91b15831: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.requestWebView#fc87a53c: field peer: %w", err)
 		}
 		r.Peer = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestWebView#91b15831: field bot: %w", err)
+			return fmt.Errorf("unable to decode messages.requestWebView#fc87a53c: field bot: %w", err)
 		}
 		r.Bot = value
 	}
 	if r.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestWebView#91b15831: field url: %w", err)
+			return fmt.Errorf("unable to decode messages.requestWebView#fc87a53c: field url: %w", err)
 		}
 		r.URL = value
 	}
 	if r.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestWebView#91b15831: field start_param: %w", err)
+			return fmt.Errorf("unable to decode messages.requestWebView#fc87a53c: field start_param: %w", err)
 		}
 		r.StartParam = value
 	}
 	if r.Flags.Has(2) {
 		if err := r.ThemeParams.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.requestWebView#91b15831: field theme_params: %w", err)
+			return fmt.Errorf("unable to decode messages.requestWebView#fc87a53c: field theme_params: %w", err)
 		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.requestWebView#fc87a53c: field platform: %w", err)
+		}
+		r.Platform = value
 	}
 	if r.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestWebView#91b15831: field reply_to_msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.requestWebView#fc87a53c: field reply_to_msg_id: %w", err)
 		}
 		r.ReplyToMsgID = value
 	}
 	if r.Flags.Has(13) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestWebView#91b15831: field send_as: %w", err)
+			return fmt.Errorf("unable to decode messages.requestWebView#fc87a53c: field send_as: %w", err)
 		}
 		r.SendAs = value
 	}
@@ -531,6 +550,14 @@ func (r *MessagesRequestWebViewRequest) GetThemeParams() (value DataJSON, ok boo
 	return r.ThemeParams, true
 }
 
+// GetPlatform returns value of Platform field.
+func (r *MessagesRequestWebViewRequest) GetPlatform() (value string) {
+	if r == nil {
+		return
+	}
+	return r.Platform
+}
+
 // SetReplyToMsgID sets value of ReplyToMsgID conditional field.
 func (r *MessagesRequestWebViewRequest) SetReplyToMsgID(value int) {
 	r.Flags.Set(0)
@@ -567,7 +594,7 @@ func (r *MessagesRequestWebViewRequest) GetSendAs() (value InputPeerClass, ok bo
 	return r.SendAs, true
 }
 
-// MessagesRequestWebView invokes method messages.requestWebView#91b15831 returning error if any.
+// MessagesRequestWebView invokes method messages.requestWebView#fc87a53c returning error if any.
 // Open a bot web app¹, sending over user information after user confirmation.
 // After calling this method, until the user closes the webview, messages
 // prolongWebView¹ must be called every 60 seconds.

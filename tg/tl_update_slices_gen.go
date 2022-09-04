@@ -545,6 +545,19 @@ func (s UpdateClassArray) AsUpdateStickerSetsOrder() (to UpdateStickerSetsOrderA
 	return to
 }
 
+// AsUpdateStickerSets returns copy with only UpdateStickerSets constructors.
+func (s UpdateClassArray) AsUpdateStickerSets() (to UpdateStickerSetsArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateStickerSets)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // AsUpdateBotInlineQuery returns copy with only UpdateBotInlineQuery constructors.
 func (s UpdateClassArray) AsUpdateBotInlineQuery() (to UpdateBotInlineQueryArray) {
 	for _, elem := range s {
@@ -1264,6 +1277,32 @@ func (s UpdateClassArray) AsUpdateBotMenuButton() (to UpdateBotMenuButtonArray) 
 func (s UpdateClassArray) AsUpdateTranscribedAudio() (to UpdateTranscribedAudioArray) {
 	for _, elem := range s {
 		value, ok := elem.(*UpdateTranscribedAudio)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateUserEmojiStatus returns copy with only UpdateUserEmojiStatus constructors.
+func (s UpdateClassArray) AsUpdateUserEmojiStatus() (to UpdateUserEmojiStatusArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateUserEmojiStatus)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateMoveStickerSetToTop returns copy with only UpdateMoveStickerSetToTop constructors.
+func (s UpdateClassArray) AsUpdateMoveStickerSetToTop() (to UpdateMoveStickerSetToTopArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateMoveStickerSetToTop)
 		if !ok {
 			continue
 		}
@@ -4079,6 +4118,88 @@ func (s *UpdateStickerSetsOrderArray) PopFirst() (v UpdateStickerSetsOrder, ok b
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *UpdateStickerSetsOrderArray) Pop() (v UpdateStickerSetsOrder, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateStickerSetsArray is adapter for slice of UpdateStickerSets.
+type UpdateStickerSetsArray []UpdateStickerSets
+
+// Sort sorts slice of UpdateStickerSets.
+func (s UpdateStickerSetsArray) Sort(less func(a, b UpdateStickerSets) bool) UpdateStickerSetsArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateStickerSets.
+func (s UpdateStickerSetsArray) SortStable(less func(a, b UpdateStickerSets) bool) UpdateStickerSetsArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateStickerSets.
+func (s UpdateStickerSetsArray) Retain(keep func(x UpdateStickerSets) bool) UpdateStickerSetsArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateStickerSetsArray) First() (v UpdateStickerSets, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateStickerSetsArray) Last() (v UpdateStickerSets, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateStickerSetsArray) PopFirst() (v UpdateStickerSets, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateStickerSets
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateStickerSetsArray) Pop() (v UpdateStickerSets, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -8783,6 +8904,170 @@ func (s *UpdateTranscribedAudioArray) PopFirst() (v UpdateTranscribedAudio, ok b
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *UpdateTranscribedAudioArray) Pop() (v UpdateTranscribedAudio, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateUserEmojiStatusArray is adapter for slice of UpdateUserEmojiStatus.
+type UpdateUserEmojiStatusArray []UpdateUserEmojiStatus
+
+// Sort sorts slice of UpdateUserEmojiStatus.
+func (s UpdateUserEmojiStatusArray) Sort(less func(a, b UpdateUserEmojiStatus) bool) UpdateUserEmojiStatusArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateUserEmojiStatus.
+func (s UpdateUserEmojiStatusArray) SortStable(less func(a, b UpdateUserEmojiStatus) bool) UpdateUserEmojiStatusArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateUserEmojiStatus.
+func (s UpdateUserEmojiStatusArray) Retain(keep func(x UpdateUserEmojiStatus) bool) UpdateUserEmojiStatusArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateUserEmojiStatusArray) First() (v UpdateUserEmojiStatus, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateUserEmojiStatusArray) Last() (v UpdateUserEmojiStatus, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateUserEmojiStatusArray) PopFirst() (v UpdateUserEmojiStatus, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateUserEmojiStatus
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateUserEmojiStatusArray) Pop() (v UpdateUserEmojiStatus, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateMoveStickerSetToTopArray is adapter for slice of UpdateMoveStickerSetToTop.
+type UpdateMoveStickerSetToTopArray []UpdateMoveStickerSetToTop
+
+// Sort sorts slice of UpdateMoveStickerSetToTop.
+func (s UpdateMoveStickerSetToTopArray) Sort(less func(a, b UpdateMoveStickerSetToTop) bool) UpdateMoveStickerSetToTopArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateMoveStickerSetToTop.
+func (s UpdateMoveStickerSetToTopArray) SortStable(less func(a, b UpdateMoveStickerSetToTop) bool) UpdateMoveStickerSetToTopArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateMoveStickerSetToTop.
+func (s UpdateMoveStickerSetToTopArray) Retain(keep func(x UpdateMoveStickerSetToTop) bool) UpdateMoveStickerSetToTopArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateMoveStickerSetToTopArray) First() (v UpdateMoveStickerSetToTop, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateMoveStickerSetToTopArray) Last() (v UpdateMoveStickerSetToTop, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateMoveStickerSetToTopArray) PopFirst() (v UpdateMoveStickerSetToTop, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateMoveStickerSetToTop
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateMoveStickerSetToTopArray) Pop() (v UpdateMoveStickerSetToTop, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

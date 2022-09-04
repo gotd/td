@@ -14,13 +14,13 @@ type RequestBuilder struct {
 }
 
 // Reaction sends reaction for given message.
-func (b *RequestBuilder) Reaction(ctx context.Context, msgID int, reaction string) (tg.UpdatesClass, error) {
+func (b *RequestBuilder) Reaction(ctx context.Context, msgID int, reaction ...tg.ReactionClass) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
 		return nil, errors.Wrap(err, "peer")
 	}
 
-	upd, err := b.sender.sendReaction(ctx, p, msgID, reaction)
+	upd, err := b.sender.sendReaction(ctx, p, msgID, reaction...)
 	if err != nil {
 		return nil, errors.Wrap(err, "send reaction")
 	}

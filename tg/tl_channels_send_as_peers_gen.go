@@ -31,13 +31,13 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChannelsSendAsPeers represents TL type `channels.sendAsPeers#8356cda9`.
+// ChannelsSendAsPeers represents TL type `channels.sendAsPeers#f496b0c6`.
 // A list of peers that can be used to send messages in a specific group
 //
 // See https://core.telegram.org/constructor/channels.sendAsPeers for reference.
 type ChannelsSendAsPeers struct {
 	// Peers that can be used to send messages to the group
-	Peers []PeerClass
+	Peers []SendAsPeer
 	// Mentioned chats
 	Chats []ChatClass
 	// Mentioned users
@@ -45,7 +45,7 @@ type ChannelsSendAsPeers struct {
 }
 
 // ChannelsSendAsPeersTypeID is TL type id of ChannelsSendAsPeers.
-const ChannelsSendAsPeersTypeID = 0x8356cda9
+const ChannelsSendAsPeersTypeID = 0xf496b0c6
 
 // Ensuring interfaces in compile-time for ChannelsSendAsPeers.
 var (
@@ -83,7 +83,7 @@ func (s *ChannelsSendAsPeers) String() string {
 
 // FillFrom fills ChannelsSendAsPeers from given interface.
 func (s *ChannelsSendAsPeers) FillFrom(from interface {
-	GetPeers() (value []PeerClass)
+	GetPeers() (value []SendAsPeer)
 	GetChats() (value []ChatClass)
 	GetUsers() (value []UserClass)
 }) {
@@ -134,7 +134,7 @@ func (s *ChannelsSendAsPeers) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *ChannelsSendAsPeers) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode channels.sendAsPeers#8356cda9 as nil")
+		return fmt.Errorf("can't encode channels.sendAsPeers#f496b0c6 as nil")
 	}
 	b.PutID(ChannelsSendAsPeersTypeID)
 	return s.EncodeBare(b)
@@ -143,33 +143,30 @@ func (s *ChannelsSendAsPeers) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *ChannelsSendAsPeers) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode channels.sendAsPeers#8356cda9 as nil")
+		return fmt.Errorf("can't encode channels.sendAsPeers#f496b0c6 as nil")
 	}
 	b.PutVectorHeader(len(s.Peers))
 	for idx, v := range s.Peers {
-		if v == nil {
-			return fmt.Errorf("unable to encode channels.sendAsPeers#8356cda9: field peers element with index %d is nil", idx)
-		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channels.sendAsPeers#8356cda9: field peers element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode channels.sendAsPeers#f496b0c6: field peers element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(s.Chats))
 	for idx, v := range s.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode channels.sendAsPeers#8356cda9: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode channels.sendAsPeers#f496b0c6: field chats element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channels.sendAsPeers#8356cda9: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode channels.sendAsPeers#f496b0c6: field chats element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(s.Users))
 	for idx, v := range s.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode channels.sendAsPeers#8356cda9: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode channels.sendAsPeers#f496b0c6: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channels.sendAsPeers#8356cda9: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode channels.sendAsPeers#f496b0c6: field users element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -178,10 +175,10 @@ func (s *ChannelsSendAsPeers) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *ChannelsSendAsPeers) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode channels.sendAsPeers#8356cda9 to nil")
+		return fmt.Errorf("can't decode channels.sendAsPeers#f496b0c6 to nil")
 	}
 	if err := b.ConsumeID(ChannelsSendAsPeersTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.sendAsPeers#8356cda9: %w", err)
+		return fmt.Errorf("unable to decode channels.sendAsPeers#f496b0c6: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -189,21 +186,21 @@ func (s *ChannelsSendAsPeers) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *ChannelsSendAsPeers) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode channels.sendAsPeers#8356cda9 to nil")
+		return fmt.Errorf("can't decode channels.sendAsPeers#f496b0c6 to nil")
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.sendAsPeers#8356cda9: field peers: %w", err)
+			return fmt.Errorf("unable to decode channels.sendAsPeers#f496b0c6: field peers: %w", err)
 		}
 
 		if headerLen > 0 {
-			s.Peers = make([]PeerClass, 0, headerLen%bin.PreallocateLimit)
+			s.Peers = make([]SendAsPeer, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodePeer(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode channels.sendAsPeers#8356cda9: field peers: %w", err)
+			var value SendAsPeer
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode channels.sendAsPeers#f496b0c6: field peers: %w", err)
 			}
 			s.Peers = append(s.Peers, value)
 		}
@@ -211,7 +208,7 @@ func (s *ChannelsSendAsPeers) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.sendAsPeers#8356cda9: field chats: %w", err)
+			return fmt.Errorf("unable to decode channels.sendAsPeers#f496b0c6: field chats: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -220,7 +217,7 @@ func (s *ChannelsSendAsPeers) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode channels.sendAsPeers#8356cda9: field chats: %w", err)
+				return fmt.Errorf("unable to decode channels.sendAsPeers#f496b0c6: field chats: %w", err)
 			}
 			s.Chats = append(s.Chats, value)
 		}
@@ -228,7 +225,7 @@ func (s *ChannelsSendAsPeers) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.sendAsPeers#8356cda9: field users: %w", err)
+			return fmt.Errorf("unable to decode channels.sendAsPeers#f496b0c6: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -237,7 +234,7 @@ func (s *ChannelsSendAsPeers) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode channels.sendAsPeers#8356cda9: field users: %w", err)
+				return fmt.Errorf("unable to decode channels.sendAsPeers#f496b0c6: field users: %w", err)
 			}
 			s.Users = append(s.Users, value)
 		}
@@ -246,7 +243,7 @@ func (s *ChannelsSendAsPeers) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetPeers returns value of Peers field.
-func (s *ChannelsSendAsPeers) GetPeers() (value []PeerClass) {
+func (s *ChannelsSendAsPeers) GetPeers() (value []SendAsPeer) {
 	if s == nil {
 		return
 	}
@@ -267,11 +264,6 @@ func (s *ChannelsSendAsPeers) GetUsers() (value []UserClass) {
 		return
 	}
 	return s.Users
-}
-
-// MapPeers returns field Peers wrapped in PeerClassArray helper.
-func (s *ChannelsSendAsPeers) MapPeers() (value PeerClassArray) {
-	return PeerClassArray(s.Peers)
 }
 
 // MapChats returns field Chats wrapped in ChatClassArray helper.

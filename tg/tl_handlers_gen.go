@@ -1125,3 +1125,43 @@ func (u UpdateDispatcher) OnReadFeaturedEmojiStickers(handler ReadFeaturedEmojiS
 		return handler(ctx, e, update.(*UpdateReadFeaturedEmojiStickers))
 	}
 }
+
+// UserEmojiStatusHandler is a UserEmojiStatus event handler.
+type UserEmojiStatusHandler func(ctx context.Context, e Entities, update *UpdateUserEmojiStatus) error
+
+// OnUserEmojiStatus sets UserEmojiStatus handler.
+func (u UpdateDispatcher) OnUserEmojiStatus(handler UserEmojiStatusHandler) {
+	u.handlers[UpdateUserEmojiStatusTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateUserEmojiStatus))
+	}
+}
+
+// RecentEmojiStatusesHandler is a RecentEmojiStatuses event handler.
+type RecentEmojiStatusesHandler func(ctx context.Context, e Entities, update *UpdateRecentEmojiStatuses) error
+
+// OnRecentEmojiStatuses sets RecentEmojiStatuses handler.
+func (u UpdateDispatcher) OnRecentEmojiStatuses(handler RecentEmojiStatusesHandler) {
+	u.handlers[UpdateRecentEmojiStatusesTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateRecentEmojiStatuses))
+	}
+}
+
+// RecentReactionsHandler is a RecentReactions event handler.
+type RecentReactionsHandler func(ctx context.Context, e Entities, update *UpdateRecentReactions) error
+
+// OnRecentReactions sets RecentReactions handler.
+func (u UpdateDispatcher) OnRecentReactions(handler RecentReactionsHandler) {
+	u.handlers[UpdateRecentReactionsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateRecentReactions))
+	}
+}
+
+// MoveStickerSetToTopHandler is a MoveStickerSetToTop event handler.
+type MoveStickerSetToTopHandler func(ctx context.Context, e Entities, update *UpdateMoveStickerSetToTop) error
+
+// OnMoveStickerSetToTop sets MoveStickerSetToTop handler.
+func (u UpdateDispatcher) OnMoveStickerSetToTop(handler MoveStickerSetToTopHandler) {
+	u.handlers[UpdateMoveStickerSetToTopTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateMoveStickerSetToTop))
+	}
+}

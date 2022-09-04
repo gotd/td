@@ -1118,14 +1118,14 @@ func (s *ServerDispatcher) OnAccountVerifyPhone(f func(ctx context.Context, requ
 	s.handlers[AccountVerifyPhoneRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnAccountSendVerifyEmailCode(f func(ctx context.Context, email string) (*AccountSentEmailCode, error)) {
+func (s *ServerDispatcher) OnAccountSendVerifyEmailCode(f func(ctx context.Context, request *AccountSendVerifyEmailCodeRequest) (*AccountSentEmailCode, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request AccountSendVerifyEmailCodeRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.Email)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
@@ -1135,7 +1135,7 @@ func (s *ServerDispatcher) OnAccountSendVerifyEmailCode(f func(ctx context.Conte
 	s.handlers[AccountSendVerifyEmailCodeRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnAccountVerifyEmail(f func(ctx context.Context, request *AccountVerifyEmailRequest) (bool, error)) {
+func (s *ServerDispatcher) OnAccountVerifyEmail(f func(ctx context.Context, request *AccountVerifyEmailRequest) (AccountEmailVerifiedClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request AccountVerifyEmailRequest
 		if err := request.Decode(b); err != nil {
@@ -1146,11 +1146,7 @@ func (s *ServerDispatcher) OnAccountVerifyEmail(f func(ctx context.Context, requ
 		if err != nil {
 			return nil, err
 		}
-		if response {
-			return &BoolBox{Bool: &BoolTrue{}}, nil
-		}
-
-		return &BoolBox{Bool: &BoolFalse{}}, nil
+		return &AccountEmailVerifiedBox{EmailVerified: response}, nil
 	}
 
 	s.handlers[AccountVerifyEmailRequestTypeID] = handler
@@ -1834,6 +1830,82 @@ func (s *ServerDispatcher) OnAccountUploadRingtone(f func(ctx context.Context, r
 	}
 
 	s.handlers[AccountUploadRingtoneRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountUpdateEmojiStatus(f func(ctx context.Context, emojistatus EmojiStatusClass) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountUpdateEmojiStatusRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.EmojiStatus)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AccountUpdateEmojiStatusRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountGetDefaultEmojiStatuses(f func(ctx context.Context, hash int64) (AccountEmojiStatusesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountGetDefaultEmojiStatusesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hash)
+		if err != nil {
+			return nil, err
+		}
+		return &AccountEmojiStatusesBox{EmojiStatuses: response}, nil
+	}
+
+	s.handlers[AccountGetDefaultEmojiStatusesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountGetRecentEmojiStatuses(f func(ctx context.Context, hash int64) (AccountEmojiStatusesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountGetRecentEmojiStatusesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hash)
+		if err != nil {
+			return nil, err
+		}
+		return &AccountEmojiStatusesBox{EmojiStatuses: response}, nil
+	}
+
+	s.handlers[AccountGetRecentEmojiStatusesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountClearRecentEmojiStatuses(f func(ctx context.Context) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountClearRecentEmojiStatusesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AccountClearRecentEmojiStatusesRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnUsersGetUsers(f func(ctx context.Context, id []InputUserClass) ([]UserClass, error)) {
@@ -5038,7 +5110,7 @@ func (s *ServerDispatcher) OnMessagesGetAvailableReactions(f func(ctx context.Co
 	s.handlers[MessagesGetAvailableReactionsRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesSetDefaultReaction(f func(ctx context.Context, reaction string) (bool, error)) {
+func (s *ServerDispatcher) OnMessagesSetDefaultReaction(f func(ctx context.Context, reaction ReactionClass) (bool, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesSetDefaultReactionRequest
 		if err := request.Decode(b); err != nil {
@@ -5358,6 +5430,82 @@ func (s *ServerDispatcher) OnMessagesGetFeaturedEmojiStickers(f func(ctx context
 	}
 
 	s.handlers[MessagesGetFeaturedEmojiStickersRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesReportReaction(f func(ctx context.Context, request *MessagesReportReactionRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesReportReactionRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesReportReactionRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetTopReactions(f func(ctx context.Context, request *MessagesGetTopReactionsRequest) (MessagesReactionsClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetTopReactionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesReactionsBox{Reactions: response}, nil
+	}
+
+	s.handlers[MessagesGetTopReactionsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetRecentReactions(f func(ctx context.Context, request *MessagesGetRecentReactionsRequest) (MessagesReactionsClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetRecentReactionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesReactionsBox{Reactions: response}, nil
+	}
+
+	s.handlers[MessagesGetRecentReactionsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesClearRecentReactions(f func(ctx context.Context) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesClearRecentReactionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesClearRecentReactionsRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
@@ -7137,23 +7285,6 @@ func (s *ServerDispatcher) OnPaymentsCanPurchasePremium(f func(ctx context.Conte
 	}
 
 	s.handlers[PaymentsCanPurchasePremiumRequestTypeID] = handler
-}
-
-func (s *ServerDispatcher) OnPaymentsRequestRecurringPayment(f func(ctx context.Context, request *PaymentsRequestRecurringPaymentRequest) (UpdatesClass, error)) {
-	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request PaymentsRequestRecurringPaymentRequest
-		if err := request.Decode(b); err != nil {
-			return nil, err
-		}
-
-		response, err := f(ctx, &request)
-		if err != nil {
-			return nil, err
-		}
-		return &UpdatesBox{Updates: response}, nil
-	}
-
-	s.handlers[PaymentsRequestRecurringPaymentRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnStickersCreateStickerSet(f func(ctx context.Context, request *StickersCreateStickerSetRequest) (MessagesStickerSetClass, error)) {

@@ -31,7 +31,7 @@ type multiChat interface {
 	ToSupergroup() (Supergroup, bool)
 	IsSupergroup() bool
 
-	SetReactions(ctx context.Context, r ...string) error
+	SetReactions(ctx context.Context, r ...tg.ReactionClass) error
 	DisableReactions(ctx context.Context) error
 }
 
@@ -45,13 +45,20 @@ func TestReactions(t *testing.T) {
 	ctx := context.Background()
 	mock, m := testManager(t)
 
-	req := func(p Peer, r ...string) *tgmock.RequestBuilder {
+	req := func(p Peer, r ...tg.ReactionClass) *tgmock.RequestBuilder {
+		var reactions tg.ChatReactionsClass = &tg.ChatReactionsSome{Reactions: r}
+		if len(r) == 0 {
+			reactions = &tg.ChatReactionsNone{}
+		}
 		return mock.ExpectCall(&tg.MessagesSetChatAvailableReactionsRequest{
 			Peer:               p.InputPeer(),
-			AvailableReactions: r,
+			AvailableReactions: reactions,
 		})
 	}
-	reactions := []string{"a", "b", "c"}
+	reactions := []tg.ReactionClass{
+		&tg.ReactionEmoji{Emoticon: "👍"},
+		&tg.ReactionEmoji{Emoticon: "A"},
+	}
 	for _, p := range []multiChat{
 		m.Chat(getTestChat()),
 		m.Channel(getTestChannel()),
