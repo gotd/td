@@ -1165,3 +1165,13 @@ func (u UpdateDispatcher) OnMoveStickerSetToTop(handler MoveStickerSetToTopHandl
 		return handler(ctx, e, update.(*UpdateMoveStickerSetToTop))
 	}
 }
+
+// MessageExtendedMediaHandler is a MessageExtendedMedia event handler.
+type MessageExtendedMediaHandler func(ctx context.Context, e Entities, update *UpdateMessageExtendedMedia) error
+
+// OnMessageExtendedMedia sets MessageExtendedMedia handler.
+func (u UpdateDispatcher) OnMessageExtendedMedia(handler MessageExtendedMediaHandler) {
+	u.handlers[UpdateMessageExtendedMediaTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateMessageExtendedMedia))
+	}
+}

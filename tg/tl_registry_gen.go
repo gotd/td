@@ -32,7 +32,7 @@ var (
 )
 
 // Layer version of schema.
-const Layer = 145
+const Layer = 146
 
 // TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
@@ -67,7 +67,7 @@ func TypesMap() map[uint32]string {
 		InputMediaPhotoExternalTypeID:                            "inputMediaPhotoExternal#e5bbfe1a",
 		InputMediaDocumentExternalTypeID:                         "inputMediaDocumentExternal#fb52dc99",
 		InputMediaGameTypeID:                                     "inputMediaGame#d33f43f3",
-		InputMediaInvoiceTypeID:                                  "inputMediaInvoice#d9799874",
+		InputMediaInvoiceTypeID:                                  "inputMediaInvoice#8eb5a6d5",
 		InputMediaGeoLiveTypeID:                                  "inputMediaGeoLive#971fa843",
 		InputMediaPollTypeID:                                     "inputMediaPoll#f94e5f1",
 		InputMediaDiceTypeID:                                     "inputMediaDice#e66fbf7b",
@@ -137,7 +137,7 @@ func TypesMap() map[uint32]string {
 		MessageMediaWebPageTypeID:                                "messageMediaWebPage#a32dd600",
 		MessageMediaVenueTypeID:                                  "messageMediaVenue#2ec0533f",
 		MessageMediaGameTypeID:                                   "messageMediaGame#fdb19008",
-		MessageMediaInvoiceTypeID:                                "messageMediaInvoice#84551347",
+		MessageMediaInvoiceTypeID:                                "messageMediaInvoice#f6a548d3",
 		MessageMediaGeoLiveTypeID:                                "messageMediaGeoLive#b940c666",
 		MessageMediaPollTypeID:                                   "messageMediaPoll#4bd6e798",
 		MessageMediaDiceTypeID:                                   "messageMediaDice#3f7ee58b",
@@ -352,6 +352,7 @@ func TypesMap() map[uint32]string {
 		UpdateRecentEmojiStatusesTypeID:                          "updateRecentEmojiStatuses#30f443db",
 		UpdateRecentReactionsTypeID:                              "updateRecentReactions#6f7863f4",
 		UpdateMoveStickerSetToTopTypeID:                          "updateMoveStickerSetToTop#86fccf85",
+		UpdateMessageExtendedMediaTypeID:                         "updateMessageExtendedMedia#5a73a98c",
 		UpdatesStateTypeID:                                       "updates.state#a56c2a3e",
 		UpdatesDifferenceEmptyTypeID:                             "updates.differenceEmpty#5d75a138",
 		UpdatesDifferenceTypeID:                                  "updates.difference#f49ca0",
@@ -1080,6 +1081,8 @@ func TypesMap() map[uint32]string {
 		AccountEmailVerifiedLoginTypeID:                                         "account.emailVerifiedLogin#e1bb0d61",
 		PremiumSubscriptionOptionTypeID:                                         "premiumSubscriptionOption#b6f11ebe",
 		SendAsPeerTypeID:                                                        "sendAsPeer#b81c7034",
+		MessageExtendedMediaPreviewTypeID:                                       "messageExtendedMediaPreview#ad628cc8",
+		MessageExtendedMediaTypeID:                                              "messageExtendedMedia#ee479c64",
 		InvokeAfterMsgRequestTypeID:                                             "invokeAfterMsg#cb9f372d",
 		InvokeAfterMsgsRequestTypeID:                                            "invokeAfterMsgs#3dc4b4f0",
 		InitConnectionRequestTypeID:                                             "initConnection#c1cd5ea9",
@@ -1386,6 +1389,7 @@ func TypesMap() map[uint32]string {
 		MessagesGetTopReactionsRequestTypeID:                                    "messages.getTopReactions#bb8125ba",
 		MessagesGetRecentReactionsRequestTypeID:                                 "messages.getRecentReactions#39461db2",
 		MessagesClearRecentReactionsRequestTypeID:                               "messages.clearRecentReactions#9dfeefb4",
+		MessagesGetExtendedMediaRequestTypeID:                                   "messages.getExtendedMedia#84f80814",
 		UpdatesGetStateRequestTypeID:                                            "updates.getState#edd4882a",
 		UpdatesGetDifferenceRequestTypeID:                                       "updates.getDifference#25939651",
 		UpdatesGetChannelDifferenceRequestTypeID:                                "updates.getChannelDifference#3173d78",
@@ -1869,6 +1873,7 @@ func NamesMap() map[string]uint32 {
 		"updateRecentEmojiStatuses":                          UpdateRecentEmojiStatusesTypeID,
 		"updateRecentReactions":                              UpdateRecentReactionsTypeID,
 		"updateMoveStickerSetToTop":                          UpdateMoveStickerSetToTopTypeID,
+		"updateMessageExtendedMedia":                         UpdateMessageExtendedMediaTypeID,
 		"updates.state":                                      UpdatesStateTypeID,
 		"updates.differenceEmpty":                            UpdatesDifferenceEmptyTypeID,
 		"updates.difference":                                 UpdatesDifferenceTypeID,
@@ -2597,6 +2602,8 @@ func NamesMap() map[string]uint32 {
 		"account.emailVerifiedLogin":                                        AccountEmailVerifiedLoginTypeID,
 		"premiumSubscriptionOption":                                         PremiumSubscriptionOptionTypeID,
 		"sendAsPeer":                                                        SendAsPeerTypeID,
+		"messageExtendedMediaPreview":                                       MessageExtendedMediaPreviewTypeID,
+		"messageExtendedMedia":                                              MessageExtendedMediaTypeID,
 		"invokeAfterMsg":                                                    InvokeAfterMsgRequestTypeID,
 		"invokeAfterMsgs":                                                   InvokeAfterMsgsRequestTypeID,
 		"initConnection":                                                    InitConnectionRequestTypeID,
@@ -2903,6 +2910,7 @@ func NamesMap() map[string]uint32 {
 		"messages.getTopReactions":                                          MessagesGetTopReactionsRequestTypeID,
 		"messages.getRecentReactions":                                       MessagesGetRecentReactionsRequestTypeID,
 		"messages.clearRecentReactions":                                     MessagesClearRecentReactionsRequestTypeID,
+		"messages.getExtendedMedia":                                         MessagesGetExtendedMediaRequestTypeID,
 		"updates.getState":                                                  UpdatesGetStateRequestTypeID,
 		"updates.getDifference":                                             UpdatesGetDifferenceRequestTypeID,
 		"updates.getChannelDifference":                                      UpdatesGetChannelDifferenceRequestTypeID,
@@ -3386,6 +3394,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		UpdateRecentEmojiStatusesTypeID:                          func() bin.Object { return &UpdateRecentEmojiStatuses{} },
 		UpdateRecentReactionsTypeID:                              func() bin.Object { return &UpdateRecentReactions{} },
 		UpdateMoveStickerSetToTopTypeID:                          func() bin.Object { return &UpdateMoveStickerSetToTop{} },
+		UpdateMessageExtendedMediaTypeID:                         func() bin.Object { return &UpdateMessageExtendedMedia{} },
 		UpdatesStateTypeID:                                       func() bin.Object { return &UpdatesState{} },
 		UpdatesDifferenceEmptyTypeID:                             func() bin.Object { return &UpdatesDifferenceEmpty{} },
 		UpdatesDifferenceTypeID:                                  func() bin.Object { return &UpdatesDifference{} },
@@ -4114,6 +4123,8 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		AccountEmailVerifiedLoginTypeID:                                         func() bin.Object { return &AccountEmailVerifiedLogin{} },
 		PremiumSubscriptionOptionTypeID:                                         func() bin.Object { return &PremiumSubscriptionOption{} },
 		SendAsPeerTypeID:                                                        func() bin.Object { return &SendAsPeer{} },
+		MessageExtendedMediaPreviewTypeID:                                       func() bin.Object { return &MessageExtendedMediaPreview{} },
+		MessageExtendedMediaTypeID:                                              func() bin.Object { return &MessageExtendedMedia{} },
 		InvokeAfterMsgRequestTypeID:                                             func() bin.Object { return &InvokeAfterMsgRequest{} },
 		InvokeAfterMsgsRequestTypeID:                                            func() bin.Object { return &InvokeAfterMsgsRequest{} },
 		InitConnectionRequestTypeID:                                             func() bin.Object { return &InitConnectionRequest{} },
@@ -4420,6 +4431,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		MessagesGetTopReactionsRequestTypeID:                                    func() bin.Object { return &MessagesGetTopReactionsRequest{} },
 		MessagesGetRecentReactionsRequestTypeID:                                 func() bin.Object { return &MessagesGetRecentReactionsRequest{} },
 		MessagesClearRecentReactionsRequestTypeID:                               func() bin.Object { return &MessagesClearRecentReactionsRequest{} },
+		MessagesGetExtendedMediaRequestTypeID:                                   func() bin.Object { return &MessagesGetExtendedMediaRequest{} },
 		UpdatesGetStateRequestTypeID:                                            func() bin.Object { return &UpdatesGetStateRequest{} },
 		UpdatesGetDifferenceRequestTypeID:                                       func() bin.Object { return &UpdatesGetDifferenceRequest{} },
 		UpdatesGetChannelDifferenceRequestTypeID:                                func() bin.Object { return &UpdatesGetChannelDifferenceRequest{} },
@@ -5201,6 +5213,10 @@ func ClassConstructorsMap() map[string][]uint32 {
 			MessageEntitySpoilerTypeID,
 			MessageEntityCustomEmojiTypeID,
 		},
+		MessageExtendedMediaClassName: {
+			MessageExtendedMediaPreviewTypeID,
+			MessageExtendedMediaTypeID,
+		},
 		MessageMediaClassName: {
 			MessageMediaEmptyTypeID,
 			MessageMediaPhotoTypeID,
@@ -5693,6 +5709,7 @@ func ClassConstructorsMap() map[string][]uint32 {
 			UpdateRecentEmojiStatusesTypeID,
 			UpdateRecentReactionsTypeID,
 			UpdateMoveStickerSetToTopTypeID,
+			UpdateMessageExtendedMediaTypeID,
 		},
 		UpdatesChannelDifferenceClassName: {
 			UpdatesChannelDifferenceEmptyTypeID,

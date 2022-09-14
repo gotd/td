@@ -21053,6 +21053,204 @@ func (u *UpdateMoveStickerSetToTop) GetStickerset() (value int64) {
 	return u.Stickerset
 }
 
+// UpdateMessageExtendedMedia represents TL type `updateMessageExtendedMedia#5a73a98c`.
+//
+// See https://core.telegram.org/constructor/updateMessageExtendedMedia for reference.
+type UpdateMessageExtendedMedia struct {
+	// Peer field of UpdateMessageExtendedMedia.
+	Peer PeerClass
+	// MsgID field of UpdateMessageExtendedMedia.
+	MsgID int
+	// ExtendedMedia field of UpdateMessageExtendedMedia.
+	ExtendedMedia MessageExtendedMediaClass
+}
+
+// UpdateMessageExtendedMediaTypeID is TL type id of UpdateMessageExtendedMedia.
+const UpdateMessageExtendedMediaTypeID = 0x5a73a98c
+
+// construct implements constructor of UpdateClass.
+func (u UpdateMessageExtendedMedia) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateMessageExtendedMedia.
+var (
+	_ bin.Encoder     = &UpdateMessageExtendedMedia{}
+	_ bin.Decoder     = &UpdateMessageExtendedMedia{}
+	_ bin.BareEncoder = &UpdateMessageExtendedMedia{}
+	_ bin.BareDecoder = &UpdateMessageExtendedMedia{}
+
+	_ UpdateClass = &UpdateMessageExtendedMedia{}
+)
+
+func (u *UpdateMessageExtendedMedia) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.MsgID == 0) {
+		return false
+	}
+	if !(u.ExtendedMedia == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateMessageExtendedMedia) String() string {
+	if u == nil {
+		return "UpdateMessageExtendedMedia(nil)"
+	}
+	type Alias UpdateMessageExtendedMedia
+	return fmt.Sprintf("UpdateMessageExtendedMedia%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateMessageExtendedMedia from given interface.
+func (u *UpdateMessageExtendedMedia) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+	GetMsgID() (value int)
+	GetExtendedMedia() (value MessageExtendedMediaClass)
+}) {
+	u.Peer = from.GetPeer()
+	u.MsgID = from.GetMsgID()
+	u.ExtendedMedia = from.GetExtendedMedia()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateMessageExtendedMedia) TypeID() uint32 {
+	return UpdateMessageExtendedMediaTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateMessageExtendedMedia) TypeName() string {
+	return "updateMessageExtendedMedia"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateMessageExtendedMedia) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateMessageExtendedMedia",
+		ID:   UpdateMessageExtendedMediaTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "ExtendedMedia",
+			SchemaName: "extended_media",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateMessageExtendedMedia) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateMessageExtendedMedia#5a73a98c as nil")
+	}
+	b.PutID(UpdateMessageExtendedMediaTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateMessageExtendedMedia) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateMessageExtendedMedia#5a73a98c as nil")
+	}
+	if u.Peer == nil {
+		return fmt.Errorf("unable to encode updateMessageExtendedMedia#5a73a98c: field peer is nil")
+	}
+	if err := u.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateMessageExtendedMedia#5a73a98c: field peer: %w", err)
+	}
+	b.PutInt(u.MsgID)
+	if u.ExtendedMedia == nil {
+		return fmt.Errorf("unable to encode updateMessageExtendedMedia#5a73a98c: field extended_media is nil")
+	}
+	if err := u.ExtendedMedia.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateMessageExtendedMedia#5a73a98c: field extended_media: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateMessageExtendedMedia) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateMessageExtendedMedia#5a73a98c to nil")
+	}
+	if err := b.ConsumeID(UpdateMessageExtendedMediaTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateMessageExtendedMedia#5a73a98c: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateMessageExtendedMedia) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateMessageExtendedMedia#5a73a98c to nil")
+	}
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessageExtendedMedia#5a73a98c: field peer: %w", err)
+		}
+		u.Peer = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessageExtendedMedia#5a73a98c: field msg_id: %w", err)
+		}
+		u.MsgID = value
+	}
+	{
+		value, err := DecodeMessageExtendedMedia(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateMessageExtendedMedia#5a73a98c: field extended_media: %w", err)
+		}
+		u.ExtendedMedia = value
+	}
+	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateMessageExtendedMedia) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
+	return u.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (u *UpdateMessageExtendedMedia) GetMsgID() (value int) {
+	if u == nil {
+		return
+	}
+	return u.MsgID
+}
+
+// GetExtendedMedia returns value of ExtendedMedia field.
+func (u *UpdateMessageExtendedMedia) GetExtendedMedia() (value MessageExtendedMediaClass) {
+	if u == nil {
+		return
+	}
+	return u.ExtendedMedia
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -21173,6 +21371,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateRecentEmojiStatuses: // updateRecentEmojiStatuses#30f443db
 //	case *tg.UpdateRecentReactions: // updateRecentReactions#6f7863f4
 //	case *tg.UpdateMoveStickerSetToTop: // updateMoveStickerSetToTop#86fccf85
+//	case *tg.UpdateMessageExtendedMedia: // updateMessageExtendedMedia#5a73a98c
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -21939,6 +22138,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateMoveStickerSetToTopTypeID:
 		// Decoding updateMoveStickerSetToTop#86fccf85.
 		v := UpdateMoveStickerSetToTop{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateMessageExtendedMediaTypeID:
+		// Decoding updateMessageExtendedMedia#5a73a98c.
+		v := UpdateMessageExtendedMedia{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

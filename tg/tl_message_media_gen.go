@@ -1664,7 +1664,7 @@ func (m *MessageMediaGame) GetGame() (value Game) {
 	return m.Game
 }
 
-// MessageMediaInvoice represents TL type `messageMediaInvoice#84551347`.
+// MessageMediaInvoice represents TL type `messageMediaInvoice#f6a548d3`.
 // Invoice
 //
 // See https://core.telegram.org/constructor/messageMediaInvoice for reference.
@@ -1712,10 +1712,14 @@ type MessageMediaInvoice struct {
 	TotalAmount int64
 	// Unique bot deep-linking parameter that can be used to generate this invoice
 	StartParam string
+	// ExtendedMedia field of MessageMediaInvoice.
+	//
+	// Use SetExtendedMedia and GetExtendedMedia helpers.
+	ExtendedMedia MessageExtendedMediaClass
 }
 
 // MessageMediaInvoiceTypeID is TL type id of MessageMediaInvoice.
-const MessageMediaInvoiceTypeID = 0x84551347
+const MessageMediaInvoiceTypeID = 0xf6a548d3
 
 // construct implements constructor of MessageMediaClass.
 func (m MessageMediaInvoice) construct() MessageMediaClass { return &m }
@@ -1764,6 +1768,9 @@ func (m *MessageMediaInvoice) Zero() bool {
 	if !(m.StartParam == "") {
 		return false
 	}
+	if !(m.ExtendedMedia == nil) {
+		return false
+	}
 
 	return true
 }
@@ -1788,6 +1795,7 @@ func (m *MessageMediaInvoice) FillFrom(from interface {
 	GetCurrency() (value string)
 	GetTotalAmount() (value int64)
 	GetStartParam() (value string)
+	GetExtendedMedia() (value MessageExtendedMediaClass, ok bool)
 }) {
 	m.ShippingAddressRequested = from.GetShippingAddressRequested()
 	m.Test = from.GetTest()
@@ -1804,6 +1812,10 @@ func (m *MessageMediaInvoice) FillFrom(from interface {
 	m.Currency = from.GetCurrency()
 	m.TotalAmount = from.GetTotalAmount()
 	m.StartParam = from.GetStartParam()
+	if val, ok := from.GetExtendedMedia(); ok {
+		m.ExtendedMedia = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -1869,6 +1881,11 @@ func (m *MessageMediaInvoice) TypeInfo() tdp.Type {
 			Name:       "StartParam",
 			SchemaName: "start_param",
 		},
+		{
+			Name:       "ExtendedMedia",
+			SchemaName: "extended_media",
+			Null:       !m.Flags.Has(4),
+		},
 	}
 	return typ
 }
@@ -1887,12 +1904,15 @@ func (m *MessageMediaInvoice) SetFlags() {
 	if !(m.ReceiptMsgID == 0) {
 		m.Flags.Set(2)
 	}
+	if !(m.ExtendedMedia == nil) {
+		m.Flags.Set(4)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (m *MessageMediaInvoice) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageMediaInvoice#84551347 as nil")
+		return fmt.Errorf("can't encode messageMediaInvoice#f6a548d3 as nil")
 	}
 	b.PutID(MessageMediaInvoiceTypeID)
 	return m.EncodeBare(b)
@@ -1901,20 +1921,20 @@ func (m *MessageMediaInvoice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageMediaInvoice) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageMediaInvoice#84551347 as nil")
+		return fmt.Errorf("can't encode messageMediaInvoice#f6a548d3 as nil")
 	}
 	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageMediaInvoice#84551347: field flags: %w", err)
+		return fmt.Errorf("unable to encode messageMediaInvoice#f6a548d3: field flags: %w", err)
 	}
 	b.PutString(m.Title)
 	b.PutString(m.Description)
 	if m.Flags.Has(0) {
 		if m.Photo == nil {
-			return fmt.Errorf("unable to encode messageMediaInvoice#84551347: field photo is nil")
+			return fmt.Errorf("unable to encode messageMediaInvoice#f6a548d3: field photo is nil")
 		}
 		if err := m.Photo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageMediaInvoice#84551347: field photo: %w", err)
+			return fmt.Errorf("unable to encode messageMediaInvoice#f6a548d3: field photo: %w", err)
 		}
 	}
 	if m.Flags.Has(2) {
@@ -1923,16 +1943,24 @@ func (m *MessageMediaInvoice) EncodeBare(b *bin.Buffer) error {
 	b.PutString(m.Currency)
 	b.PutLong(m.TotalAmount)
 	b.PutString(m.StartParam)
+	if m.Flags.Has(4) {
+		if m.ExtendedMedia == nil {
+			return fmt.Errorf("unable to encode messageMediaInvoice#f6a548d3: field extended_media is nil")
+		}
+		if err := m.ExtendedMedia.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messageMediaInvoice#f6a548d3: field extended_media: %w", err)
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageMediaInvoice) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageMediaInvoice#84551347 to nil")
+		return fmt.Errorf("can't decode messageMediaInvoice#f6a548d3 to nil")
 	}
 	if err := b.ConsumeID(MessageMediaInvoiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageMediaInvoice#84551347: %w", err)
+		return fmt.Errorf("unable to decode messageMediaInvoice#f6a548d3: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -1940,11 +1968,11 @@ func (m *MessageMediaInvoice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageMediaInvoice) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageMediaInvoice#84551347 to nil")
+		return fmt.Errorf("can't decode messageMediaInvoice#f6a548d3 to nil")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field flags: %w", err)
+			return fmt.Errorf("unable to decode messageMediaInvoice#f6a548d3: field flags: %w", err)
 		}
 	}
 	m.ShippingAddressRequested = m.Flags.Has(1)
@@ -1952,51 +1980,58 @@ func (m *MessageMediaInvoice) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field title: %w", err)
+			return fmt.Errorf("unable to decode messageMediaInvoice#f6a548d3: field title: %w", err)
 		}
 		m.Title = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field description: %w", err)
+			return fmt.Errorf("unable to decode messageMediaInvoice#f6a548d3: field description: %w", err)
 		}
 		m.Description = value
 	}
 	if m.Flags.Has(0) {
 		value, err := DecodeWebDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field photo: %w", err)
+			return fmt.Errorf("unable to decode messageMediaInvoice#f6a548d3: field photo: %w", err)
 		}
 		m.Photo = value
 	}
 	if m.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field receipt_msg_id: %w", err)
+			return fmt.Errorf("unable to decode messageMediaInvoice#f6a548d3: field receipt_msg_id: %w", err)
 		}
 		m.ReceiptMsgID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field currency: %w", err)
+			return fmt.Errorf("unable to decode messageMediaInvoice#f6a548d3: field currency: %w", err)
 		}
 		m.Currency = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field total_amount: %w", err)
+			return fmt.Errorf("unable to decode messageMediaInvoice#f6a548d3: field total_amount: %w", err)
 		}
 		m.TotalAmount = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field start_param: %w", err)
+			return fmt.Errorf("unable to decode messageMediaInvoice#f6a548d3: field start_param: %w", err)
 		}
 		m.StartParam = value
+	}
+	if m.Flags.Has(4) {
+		value, err := DecodeMessageExtendedMedia(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaInvoice#f6a548d3: field extended_media: %w", err)
+		}
+		m.ExtendedMedia = value
 	}
 	return nil
 }
@@ -2113,6 +2148,24 @@ func (m *MessageMediaInvoice) GetStartParam() (value string) {
 		return
 	}
 	return m.StartParam
+}
+
+// SetExtendedMedia sets value of ExtendedMedia conditional field.
+func (m *MessageMediaInvoice) SetExtendedMedia(value MessageExtendedMediaClass) {
+	m.Flags.Set(4)
+	m.ExtendedMedia = value
+}
+
+// GetExtendedMedia returns value of ExtendedMedia conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaInvoice) GetExtendedMedia() (value MessageExtendedMediaClass, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(4) {
+		return value, false
+	}
+	return m.ExtendedMedia, true
 }
 
 // MessageMediaGeoLive represents TL type `messageMediaGeoLive#b940c666`.
@@ -2762,7 +2815,7 @@ const MessageMediaClassName = "MessageMedia"
 //	case *tg.MessageMediaWebPage: // messageMediaWebPage#a32dd600
 //	case *tg.MessageMediaVenue: // messageMediaVenue#2ec0533f
 //	case *tg.MessageMediaGame: // messageMediaGame#fdb19008
-//	case *tg.MessageMediaInvoice: // messageMediaInvoice#84551347
+//	case *tg.MessageMediaInvoice: // messageMediaInvoice#f6a548d3
 //	case *tg.MessageMediaGeoLive: // messageMediaGeoLive#b940c666
 //	case *tg.MessageMediaPoll: // messageMediaPoll#4bd6e798
 //	case *tg.MessageMediaDice: // messageMediaDice#3f7ee58b
@@ -2858,7 +2911,7 @@ func DecodeMessageMedia(buf *bin.Buffer) (MessageMediaClass, error) {
 		}
 		return &v, nil
 	case MessageMediaInvoiceTypeID:
-		// Decoding messageMediaInvoice#84551347.
+		// Decoding messageMediaInvoice#f6a548d3.
 		v := MessageMediaInvoice{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageMediaClass: %w", err)
