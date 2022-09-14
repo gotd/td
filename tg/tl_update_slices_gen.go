@@ -1312,6 +1312,19 @@ func (s UpdateClassArray) AsUpdateMoveStickerSetToTop() (to UpdateMoveStickerSet
 	return to
 }
 
+// AsUpdateMessageExtendedMedia returns copy with only UpdateMessageExtendedMedia constructors.
+func (s UpdateClassArray) AsUpdateMessageExtendedMedia() (to UpdateMessageExtendedMediaArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateMessageExtendedMedia)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // UpdateNewMessageArray is adapter for slice of UpdateNewMessage.
 type UpdateNewMessageArray []UpdateNewMessage
 
@@ -9068,6 +9081,88 @@ func (s *UpdateMoveStickerSetToTopArray) PopFirst() (v UpdateMoveStickerSetToTop
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *UpdateMoveStickerSetToTopArray) Pop() (v UpdateMoveStickerSetToTop, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateMessageExtendedMediaArray is adapter for slice of UpdateMessageExtendedMedia.
+type UpdateMessageExtendedMediaArray []UpdateMessageExtendedMedia
+
+// Sort sorts slice of UpdateMessageExtendedMedia.
+func (s UpdateMessageExtendedMediaArray) Sort(less func(a, b UpdateMessageExtendedMedia) bool) UpdateMessageExtendedMediaArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateMessageExtendedMedia.
+func (s UpdateMessageExtendedMediaArray) SortStable(less func(a, b UpdateMessageExtendedMedia) bool) UpdateMessageExtendedMediaArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateMessageExtendedMedia.
+func (s UpdateMessageExtendedMediaArray) Retain(keep func(x UpdateMessageExtendedMedia) bool) UpdateMessageExtendedMediaArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateMessageExtendedMediaArray) First() (v UpdateMessageExtendedMedia, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateMessageExtendedMediaArray) Last() (v UpdateMessageExtendedMedia, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateMessageExtendedMediaArray) PopFirst() (v UpdateMessageExtendedMedia, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateMessageExtendedMedia
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateMessageExtendedMediaArray) Pop() (v UpdateMessageExtendedMedia, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

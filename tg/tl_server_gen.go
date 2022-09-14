@@ -5508,6 +5508,23 @@ func (s *ServerDispatcher) OnMessagesClearRecentReactions(f func(ctx context.Con
 	s.handlers[MessagesClearRecentReactionsRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesGetExtendedMedia(f func(ctx context.Context, request *MessagesGetExtendedMediaRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetExtendedMediaRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[MessagesGetExtendedMediaRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
