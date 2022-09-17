@@ -162,172 +162,6 @@ func (a *AuthorizationStateWaitTdlibParameters) DecodeTDLibJSON(b tdjson.Decoder
 	})
 }
 
-// AuthorizationStateWaitEncryptionKey represents TL type `authorizationStateWaitEncryptionKey#247bf548`.
-type AuthorizationStateWaitEncryptionKey struct {
-	// True, if the database is currently encrypted
-	IsEncrypted bool
-}
-
-// AuthorizationStateWaitEncryptionKeyTypeID is TL type id of AuthorizationStateWaitEncryptionKey.
-const AuthorizationStateWaitEncryptionKeyTypeID = 0x247bf548
-
-// construct implements constructor of AuthorizationStateClass.
-func (a AuthorizationStateWaitEncryptionKey) construct() AuthorizationStateClass { return &a }
-
-// Ensuring interfaces in compile-time for AuthorizationStateWaitEncryptionKey.
-var (
-	_ bin.Encoder     = &AuthorizationStateWaitEncryptionKey{}
-	_ bin.Decoder     = &AuthorizationStateWaitEncryptionKey{}
-	_ bin.BareEncoder = &AuthorizationStateWaitEncryptionKey{}
-	_ bin.BareDecoder = &AuthorizationStateWaitEncryptionKey{}
-
-	_ AuthorizationStateClass = &AuthorizationStateWaitEncryptionKey{}
-)
-
-func (a *AuthorizationStateWaitEncryptionKey) Zero() bool {
-	if a == nil {
-		return true
-	}
-	if !(a.IsEncrypted == false) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (a *AuthorizationStateWaitEncryptionKey) String() string {
-	if a == nil {
-		return "AuthorizationStateWaitEncryptionKey(nil)"
-	}
-	type Alias AuthorizationStateWaitEncryptionKey
-	return fmt.Sprintf("AuthorizationStateWaitEncryptionKey%+v", Alias(*a))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*AuthorizationStateWaitEncryptionKey) TypeID() uint32 {
-	return AuthorizationStateWaitEncryptionKeyTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*AuthorizationStateWaitEncryptionKey) TypeName() string {
-	return "authorizationStateWaitEncryptionKey"
-}
-
-// TypeInfo returns info about TL type.
-func (a *AuthorizationStateWaitEncryptionKey) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "authorizationStateWaitEncryptionKey",
-		ID:   AuthorizationStateWaitEncryptionKeyTypeID,
-	}
-	if a == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "IsEncrypted",
-			SchemaName: "is_encrypted",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (a *AuthorizationStateWaitEncryptionKey) Encode(b *bin.Buffer) error {
-	if a == nil {
-		return fmt.Errorf("can't encode authorizationStateWaitEncryptionKey#247bf548 as nil")
-	}
-	b.PutID(AuthorizationStateWaitEncryptionKeyTypeID)
-	return a.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (a *AuthorizationStateWaitEncryptionKey) EncodeBare(b *bin.Buffer) error {
-	if a == nil {
-		return fmt.Errorf("can't encode authorizationStateWaitEncryptionKey#247bf548 as nil")
-	}
-	b.PutBool(a.IsEncrypted)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (a *AuthorizationStateWaitEncryptionKey) Decode(b *bin.Buffer) error {
-	if a == nil {
-		return fmt.Errorf("can't decode authorizationStateWaitEncryptionKey#247bf548 to nil")
-	}
-	if err := b.ConsumeID(AuthorizationStateWaitEncryptionKeyTypeID); err != nil {
-		return fmt.Errorf("unable to decode authorizationStateWaitEncryptionKey#247bf548: %w", err)
-	}
-	return a.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (a *AuthorizationStateWaitEncryptionKey) DecodeBare(b *bin.Buffer) error {
-	if a == nil {
-		return fmt.Errorf("can't decode authorizationStateWaitEncryptionKey#247bf548 to nil")
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode authorizationStateWaitEncryptionKey#247bf548: field is_encrypted: %w", err)
-		}
-		a.IsEncrypted = value
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (a *AuthorizationStateWaitEncryptionKey) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if a == nil {
-		return fmt.Errorf("can't encode authorizationStateWaitEncryptionKey#247bf548 as nil")
-	}
-	b.ObjStart()
-	b.PutID("authorizationStateWaitEncryptionKey")
-	b.Comma()
-	b.FieldStart("is_encrypted")
-	b.PutBool(a.IsEncrypted)
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (a *AuthorizationStateWaitEncryptionKey) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if a == nil {
-		return fmt.Errorf("can't decode authorizationStateWaitEncryptionKey#247bf548 to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("authorizationStateWaitEncryptionKey"); err != nil {
-				return fmt.Errorf("unable to decode authorizationStateWaitEncryptionKey#247bf548: %w", err)
-			}
-		case "is_encrypted":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode authorizationStateWaitEncryptionKey#247bf548: field is_encrypted: %w", err)
-			}
-			a.IsEncrypted = value
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetIsEncrypted returns value of IsEncrypted field.
-func (a *AuthorizationStateWaitEncryptionKey) GetIsEncrypted() (value bool) {
-	if a == nil {
-		return
-	}
-	return a.IsEncrypted
-}
-
 // AuthorizationStateWaitPhoneNumber represents TL type `authorizationStateWaitPhoneNumber#124354e3`.
 type AuthorizationStateWaitPhoneNumber struct {
 }
@@ -457,6 +291,475 @@ func (a *AuthorizationStateWaitPhoneNumber) DecodeTDLibJSON(b tdjson.Decoder) er
 		}
 		return nil
 	})
+}
+
+// AuthorizationStateWaitEmailAddress represents TL type `authorizationStateWaitEmailAddress#3e0471c7`.
+type AuthorizationStateWaitEmailAddress struct {
+	// True, if authorization through Apple ID is allowed
+	AllowAppleID bool
+	// True, if authorization through Google ID is allowed
+	AllowGoogleID bool
+}
+
+// AuthorizationStateWaitEmailAddressTypeID is TL type id of AuthorizationStateWaitEmailAddress.
+const AuthorizationStateWaitEmailAddressTypeID = 0x3e0471c7
+
+// construct implements constructor of AuthorizationStateClass.
+func (a AuthorizationStateWaitEmailAddress) construct() AuthorizationStateClass { return &a }
+
+// Ensuring interfaces in compile-time for AuthorizationStateWaitEmailAddress.
+var (
+	_ bin.Encoder     = &AuthorizationStateWaitEmailAddress{}
+	_ bin.Decoder     = &AuthorizationStateWaitEmailAddress{}
+	_ bin.BareEncoder = &AuthorizationStateWaitEmailAddress{}
+	_ bin.BareDecoder = &AuthorizationStateWaitEmailAddress{}
+
+	_ AuthorizationStateClass = &AuthorizationStateWaitEmailAddress{}
+)
+
+func (a *AuthorizationStateWaitEmailAddress) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.AllowAppleID == false) {
+		return false
+	}
+	if !(a.AllowGoogleID == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (a *AuthorizationStateWaitEmailAddress) String() string {
+	if a == nil {
+		return "AuthorizationStateWaitEmailAddress(nil)"
+	}
+	type Alias AuthorizationStateWaitEmailAddress
+	return fmt.Sprintf("AuthorizationStateWaitEmailAddress%+v", Alias(*a))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*AuthorizationStateWaitEmailAddress) TypeID() uint32 {
+	return AuthorizationStateWaitEmailAddressTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*AuthorizationStateWaitEmailAddress) TypeName() string {
+	return "authorizationStateWaitEmailAddress"
+}
+
+// TypeInfo returns info about TL type.
+func (a *AuthorizationStateWaitEmailAddress) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "authorizationStateWaitEmailAddress",
+		ID:   AuthorizationStateWaitEmailAddressTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "AllowAppleID",
+			SchemaName: "allow_apple_id",
+		},
+		{
+			Name:       "AllowGoogleID",
+			SchemaName: "allow_google_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (a *AuthorizationStateWaitEmailAddress) Encode(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authorizationStateWaitEmailAddress#3e0471c7 as nil")
+	}
+	b.PutID(AuthorizationStateWaitEmailAddressTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *AuthorizationStateWaitEmailAddress) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authorizationStateWaitEmailAddress#3e0471c7 as nil")
+	}
+	b.PutBool(a.AllowAppleID)
+	b.PutBool(a.AllowGoogleID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (a *AuthorizationStateWaitEmailAddress) Decode(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authorizationStateWaitEmailAddress#3e0471c7 to nil")
+	}
+	if err := b.ConsumeID(AuthorizationStateWaitEmailAddressTypeID); err != nil {
+		return fmt.Errorf("unable to decode authorizationStateWaitEmailAddress#3e0471c7: %w", err)
+	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *AuthorizationStateWaitEmailAddress) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authorizationStateWaitEmailAddress#3e0471c7 to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode authorizationStateWaitEmailAddress#3e0471c7: field allow_apple_id: %w", err)
+		}
+		a.AllowAppleID = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode authorizationStateWaitEmailAddress#3e0471c7: field allow_google_id: %w", err)
+		}
+		a.AllowGoogleID = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AuthorizationStateWaitEmailAddress) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authorizationStateWaitEmailAddress#3e0471c7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("authorizationStateWaitEmailAddress")
+	b.Comma()
+	b.FieldStart("allow_apple_id")
+	b.PutBool(a.AllowAppleID)
+	b.Comma()
+	b.FieldStart("allow_google_id")
+	b.PutBool(a.AllowGoogleID)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AuthorizationStateWaitEmailAddress) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authorizationStateWaitEmailAddress#3e0471c7 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("authorizationStateWaitEmailAddress"); err != nil {
+				return fmt.Errorf("unable to decode authorizationStateWaitEmailAddress#3e0471c7: %w", err)
+			}
+		case "allow_apple_id":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode authorizationStateWaitEmailAddress#3e0471c7: field allow_apple_id: %w", err)
+			}
+			a.AllowAppleID = value
+		case "allow_google_id":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode authorizationStateWaitEmailAddress#3e0471c7: field allow_google_id: %w", err)
+			}
+			a.AllowGoogleID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetAllowAppleID returns value of AllowAppleID field.
+func (a *AuthorizationStateWaitEmailAddress) GetAllowAppleID() (value bool) {
+	if a == nil {
+		return
+	}
+	return a.AllowAppleID
+}
+
+// GetAllowGoogleID returns value of AllowGoogleID field.
+func (a *AuthorizationStateWaitEmailAddress) GetAllowGoogleID() (value bool) {
+	if a == nil {
+		return
+	}
+	return a.AllowGoogleID
+}
+
+// AuthorizationStateWaitEmailCode represents TL type `authorizationStateWaitEmailCode#a6308e9`.
+type AuthorizationStateWaitEmailCode struct {
+	// True, if authorization through Apple ID is allowed
+	AllowAppleID bool
+	// True, if authorization through Google ID is allowed
+	AllowGoogleID bool
+	// Information about the sent authentication code
+	CodeInfo EmailAddressAuthenticationCodeInfo
+	// Point in time (Unix timestamp) when the user will be able to authorize with a code
+	// sent to the user's phone number; 0 if unknown
+	NextPhoneNumberAuthorizationDate int32
+}
+
+// AuthorizationStateWaitEmailCodeTypeID is TL type id of AuthorizationStateWaitEmailCode.
+const AuthorizationStateWaitEmailCodeTypeID = 0xa6308e9
+
+// construct implements constructor of AuthorizationStateClass.
+func (a AuthorizationStateWaitEmailCode) construct() AuthorizationStateClass { return &a }
+
+// Ensuring interfaces in compile-time for AuthorizationStateWaitEmailCode.
+var (
+	_ bin.Encoder     = &AuthorizationStateWaitEmailCode{}
+	_ bin.Decoder     = &AuthorizationStateWaitEmailCode{}
+	_ bin.BareEncoder = &AuthorizationStateWaitEmailCode{}
+	_ bin.BareDecoder = &AuthorizationStateWaitEmailCode{}
+
+	_ AuthorizationStateClass = &AuthorizationStateWaitEmailCode{}
+)
+
+func (a *AuthorizationStateWaitEmailCode) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.AllowAppleID == false) {
+		return false
+	}
+	if !(a.AllowGoogleID == false) {
+		return false
+	}
+	if !(a.CodeInfo.Zero()) {
+		return false
+	}
+	if !(a.NextPhoneNumberAuthorizationDate == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (a *AuthorizationStateWaitEmailCode) String() string {
+	if a == nil {
+		return "AuthorizationStateWaitEmailCode(nil)"
+	}
+	type Alias AuthorizationStateWaitEmailCode
+	return fmt.Sprintf("AuthorizationStateWaitEmailCode%+v", Alias(*a))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*AuthorizationStateWaitEmailCode) TypeID() uint32 {
+	return AuthorizationStateWaitEmailCodeTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*AuthorizationStateWaitEmailCode) TypeName() string {
+	return "authorizationStateWaitEmailCode"
+}
+
+// TypeInfo returns info about TL type.
+func (a *AuthorizationStateWaitEmailCode) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "authorizationStateWaitEmailCode",
+		ID:   AuthorizationStateWaitEmailCodeTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "AllowAppleID",
+			SchemaName: "allow_apple_id",
+		},
+		{
+			Name:       "AllowGoogleID",
+			SchemaName: "allow_google_id",
+		},
+		{
+			Name:       "CodeInfo",
+			SchemaName: "code_info",
+		},
+		{
+			Name:       "NextPhoneNumberAuthorizationDate",
+			SchemaName: "next_phone_number_authorization_date",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (a *AuthorizationStateWaitEmailCode) Encode(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authorizationStateWaitEmailCode#a6308e9 as nil")
+	}
+	b.PutID(AuthorizationStateWaitEmailCodeTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *AuthorizationStateWaitEmailCode) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authorizationStateWaitEmailCode#a6308e9 as nil")
+	}
+	b.PutBool(a.AllowAppleID)
+	b.PutBool(a.AllowGoogleID)
+	if err := a.CodeInfo.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode authorizationStateWaitEmailCode#a6308e9: field code_info: %w", err)
+	}
+	b.PutInt32(a.NextPhoneNumberAuthorizationDate)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (a *AuthorizationStateWaitEmailCode) Decode(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authorizationStateWaitEmailCode#a6308e9 to nil")
+	}
+	if err := b.ConsumeID(AuthorizationStateWaitEmailCodeTypeID); err != nil {
+		return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#a6308e9: %w", err)
+	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *AuthorizationStateWaitEmailCode) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authorizationStateWaitEmailCode#a6308e9 to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#a6308e9: field allow_apple_id: %w", err)
+		}
+		a.AllowAppleID = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#a6308e9: field allow_google_id: %w", err)
+		}
+		a.AllowGoogleID = value
+	}
+	{
+		if err := a.CodeInfo.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#a6308e9: field code_info: %w", err)
+		}
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#a6308e9: field next_phone_number_authorization_date: %w", err)
+		}
+		a.NextPhoneNumberAuthorizationDate = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AuthorizationStateWaitEmailCode) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authorizationStateWaitEmailCode#a6308e9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("authorizationStateWaitEmailCode")
+	b.Comma()
+	b.FieldStart("allow_apple_id")
+	b.PutBool(a.AllowAppleID)
+	b.Comma()
+	b.FieldStart("allow_google_id")
+	b.PutBool(a.AllowGoogleID)
+	b.Comma()
+	b.FieldStart("code_info")
+	if err := a.CodeInfo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode authorizationStateWaitEmailCode#a6308e9: field code_info: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("next_phone_number_authorization_date")
+	b.PutInt32(a.NextPhoneNumberAuthorizationDate)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AuthorizationStateWaitEmailCode) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authorizationStateWaitEmailCode#a6308e9 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("authorizationStateWaitEmailCode"); err != nil {
+				return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#a6308e9: %w", err)
+			}
+		case "allow_apple_id":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#a6308e9: field allow_apple_id: %w", err)
+			}
+			a.AllowAppleID = value
+		case "allow_google_id":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#a6308e9: field allow_google_id: %w", err)
+			}
+			a.AllowGoogleID = value
+		case "code_info":
+			if err := a.CodeInfo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#a6308e9: field code_info: %w", err)
+			}
+		case "next_phone_number_authorization_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#a6308e9: field next_phone_number_authorization_date: %w", err)
+			}
+			a.NextPhoneNumberAuthorizationDate = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetAllowAppleID returns value of AllowAppleID field.
+func (a *AuthorizationStateWaitEmailCode) GetAllowAppleID() (value bool) {
+	if a == nil {
+		return
+	}
+	return a.AllowAppleID
+}
+
+// GetAllowGoogleID returns value of AllowGoogleID field.
+func (a *AuthorizationStateWaitEmailCode) GetAllowGoogleID() (value bool) {
+	if a == nil {
+		return
+	}
+	return a.AllowGoogleID
+}
+
+// GetCodeInfo returns value of CodeInfo field.
+func (a *AuthorizationStateWaitEmailCode) GetCodeInfo() (value EmailAddressAuthenticationCodeInfo) {
+	if a == nil {
+		return
+	}
+	return a.CodeInfo
+}
+
+// GetNextPhoneNumberAuthorizationDate returns value of NextPhoneNumberAuthorizationDate field.
+func (a *AuthorizationStateWaitEmailCode) GetNextPhoneNumberAuthorizationDate() (value int32) {
+	if a == nil {
+		return
+	}
+	return a.NextPhoneNumberAuthorizationDate
 }
 
 // AuthorizationStateWaitCode represents TL type `authorizationStateWaitCode#3234501`.
@@ -1729,8 +2032,9 @@ const AuthorizationStateClassName = "AuthorizationState"
 //	}
 //	switch v := g.(type) {
 //	case *tdapi.AuthorizationStateWaitTdlibParameters: // authorizationStateWaitTdlibParameters#35ecf25c
-//	case *tdapi.AuthorizationStateWaitEncryptionKey: // authorizationStateWaitEncryptionKey#247bf548
 //	case *tdapi.AuthorizationStateWaitPhoneNumber: // authorizationStateWaitPhoneNumber#124354e3
+//	case *tdapi.AuthorizationStateWaitEmailAddress: // authorizationStateWaitEmailAddress#3e0471c7
+//	case *tdapi.AuthorizationStateWaitEmailCode: // authorizationStateWaitEmailCode#a6308e9
 //	case *tdapi.AuthorizationStateWaitCode: // authorizationStateWaitCode#3234501
 //	case *tdapi.AuthorizationStateWaitOtherDeviceConfirmation: // authorizationStateWaitOtherDeviceConfirmation#334518ea
 //	case *tdapi.AuthorizationStateWaitRegistration: // authorizationStateWaitRegistration#20cdaeaf
@@ -1777,16 +2081,23 @@ func DecodeAuthorizationState(buf *bin.Buffer) (AuthorizationStateClass, error) 
 			return nil, fmt.Errorf("unable to decode AuthorizationStateClass: %w", err)
 		}
 		return &v, nil
-	case AuthorizationStateWaitEncryptionKeyTypeID:
-		// Decoding authorizationStateWaitEncryptionKey#247bf548.
-		v := AuthorizationStateWaitEncryptionKey{}
+	case AuthorizationStateWaitPhoneNumberTypeID:
+		// Decoding authorizationStateWaitPhoneNumber#124354e3.
+		v := AuthorizationStateWaitPhoneNumber{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthorizationStateClass: %w", err)
 		}
 		return &v, nil
-	case AuthorizationStateWaitPhoneNumberTypeID:
-		// Decoding authorizationStateWaitPhoneNumber#124354e3.
-		v := AuthorizationStateWaitPhoneNumber{}
+	case AuthorizationStateWaitEmailAddressTypeID:
+		// Decoding authorizationStateWaitEmailAddress#3e0471c7.
+		v := AuthorizationStateWaitEmailAddress{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthorizationStateClass: %w", err)
+		}
+		return &v, nil
+	case AuthorizationStateWaitEmailCodeTypeID:
+		// Decoding authorizationStateWaitEmailCode#a6308e9.
+		v := AuthorizationStateWaitEmailCode{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthorizationStateClass: %w", err)
 		}
@@ -1866,16 +2177,23 @@ func DecodeTDLibJSONAuthorizationState(buf tdjson.Decoder) (AuthorizationStateCl
 			return nil, fmt.Errorf("unable to decode AuthorizationStateClass: %w", err)
 		}
 		return &v, nil
-	case "authorizationStateWaitEncryptionKey":
-		// Decoding authorizationStateWaitEncryptionKey#247bf548.
-		v := AuthorizationStateWaitEncryptionKey{}
+	case "authorizationStateWaitPhoneNumber":
+		// Decoding authorizationStateWaitPhoneNumber#124354e3.
+		v := AuthorizationStateWaitPhoneNumber{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthorizationStateClass: %w", err)
 		}
 		return &v, nil
-	case "authorizationStateWaitPhoneNumber":
-		// Decoding authorizationStateWaitPhoneNumber#124354e3.
-		v := AuthorizationStateWaitPhoneNumber{}
+	case "authorizationStateWaitEmailAddress":
+		// Decoding authorizationStateWaitEmailAddress#3e0471c7.
+		v := AuthorizationStateWaitEmailAddress{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthorizationStateClass: %w", err)
+		}
+		return &v, nil
+	case "authorizationStateWaitEmailCode":
+		// Decoding authorizationStateWaitEmailCode#a6308e9.
+		v := AuthorizationStateWaitEmailCode{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthorizationStateClass: %w", err)
 		}

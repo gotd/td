@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetWebAppURLRequest represents TL type `getWebAppUrl#5f689ab3`.
+// GetWebAppURLRequest represents TL type `getWebAppUrl#64c42cbe`.
 type GetWebAppURLRequest struct {
 	// Identifier of the target bot
 	BotUserID int64
@@ -39,10 +39,12 @@ type GetWebAppURLRequest struct {
 	URL string
 	// Preferred Web App theme; pass null to use the default theme
 	Theme ThemeParameters
+	// Short name of the application; 0-64 English letters, digits, and underscores
+	ApplicationName string
 }
 
 // GetWebAppURLRequestTypeID is TL type id of GetWebAppURLRequest.
-const GetWebAppURLRequestTypeID = 0x5f689ab3
+const GetWebAppURLRequestTypeID = 0x64c42cbe
 
 // Ensuring interfaces in compile-time for GetWebAppURLRequest.
 var (
@@ -63,6 +65,9 @@ func (g *GetWebAppURLRequest) Zero() bool {
 		return false
 	}
 	if !(g.Theme.Zero()) {
+		return false
+	}
+	if !(g.ApplicationName == "") {
 		return false
 	}
 
@@ -113,6 +118,10 @@ func (g *GetWebAppURLRequest) TypeInfo() tdp.Type {
 			Name:       "Theme",
 			SchemaName: "theme",
 		},
+		{
+			Name:       "ApplicationName",
+			SchemaName: "application_name",
+		},
 	}
 	return typ
 }
@@ -120,7 +129,7 @@ func (g *GetWebAppURLRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetWebAppURLRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getWebAppUrl#5f689ab3 as nil")
+		return fmt.Errorf("can't encode getWebAppUrl#64c42cbe as nil")
 	}
 	b.PutID(GetWebAppURLRequestTypeID)
 	return g.EncodeBare(b)
@@ -129,23 +138,24 @@ func (g *GetWebAppURLRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetWebAppURLRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getWebAppUrl#5f689ab3 as nil")
+		return fmt.Errorf("can't encode getWebAppUrl#64c42cbe as nil")
 	}
 	b.PutInt53(g.BotUserID)
 	b.PutString(g.URL)
 	if err := g.Theme.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getWebAppUrl#5f689ab3: field theme: %w", err)
+		return fmt.Errorf("unable to encode getWebAppUrl#64c42cbe: field theme: %w", err)
 	}
+	b.PutString(g.ApplicationName)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetWebAppURLRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getWebAppUrl#5f689ab3 to nil")
+		return fmt.Errorf("can't decode getWebAppUrl#64c42cbe to nil")
 	}
 	if err := b.ConsumeID(GetWebAppURLRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getWebAppUrl#5f689ab3: %w", err)
+		return fmt.Errorf("unable to decode getWebAppUrl#64c42cbe: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -153,26 +163,33 @@ func (g *GetWebAppURLRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetWebAppURLRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getWebAppUrl#5f689ab3 to nil")
+		return fmt.Errorf("can't decode getWebAppUrl#64c42cbe to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getWebAppUrl#5f689ab3: field bot_user_id: %w", err)
+			return fmt.Errorf("unable to decode getWebAppUrl#64c42cbe: field bot_user_id: %w", err)
 		}
 		g.BotUserID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode getWebAppUrl#5f689ab3: field url: %w", err)
+			return fmt.Errorf("unable to decode getWebAppUrl#64c42cbe: field url: %w", err)
 		}
 		g.URL = value
 	}
 	{
 		if err := g.Theme.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode getWebAppUrl#5f689ab3: field theme: %w", err)
+			return fmt.Errorf("unable to decode getWebAppUrl#64c42cbe: field theme: %w", err)
 		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode getWebAppUrl#64c42cbe: field application_name: %w", err)
+		}
+		g.ApplicationName = value
 	}
 	return nil
 }
@@ -180,7 +197,7 @@ func (g *GetWebAppURLRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetWebAppURLRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getWebAppUrl#5f689ab3 as nil")
+		return fmt.Errorf("can't encode getWebAppUrl#64c42cbe as nil")
 	}
 	b.ObjStart()
 	b.PutID("getWebAppUrl")
@@ -193,8 +210,11 @@ func (g *GetWebAppURLRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("theme")
 	if err := g.Theme.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getWebAppUrl#5f689ab3: field theme: %w", err)
+		return fmt.Errorf("unable to encode getWebAppUrl#64c42cbe: field theme: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("application_name")
+	b.PutString(g.ApplicationName)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -204,31 +224,37 @@ func (g *GetWebAppURLRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetWebAppURLRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getWebAppUrl#5f689ab3 to nil")
+		return fmt.Errorf("can't decode getWebAppUrl#64c42cbe to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getWebAppUrl"); err != nil {
-				return fmt.Errorf("unable to decode getWebAppUrl#5f689ab3: %w", err)
+				return fmt.Errorf("unable to decode getWebAppUrl#64c42cbe: %w", err)
 			}
 		case "bot_user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getWebAppUrl#5f689ab3: field bot_user_id: %w", err)
+				return fmt.Errorf("unable to decode getWebAppUrl#64c42cbe: field bot_user_id: %w", err)
 			}
 			g.BotUserID = value
 		case "url":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode getWebAppUrl#5f689ab3: field url: %w", err)
+				return fmt.Errorf("unable to decode getWebAppUrl#64c42cbe: field url: %w", err)
 			}
 			g.URL = value
 		case "theme":
 			if err := g.Theme.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode getWebAppUrl#5f689ab3: field theme: %w", err)
+				return fmt.Errorf("unable to decode getWebAppUrl#64c42cbe: field theme: %w", err)
 			}
+		case "application_name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getWebAppUrl#64c42cbe: field application_name: %w", err)
+			}
+			g.ApplicationName = value
 		default:
 			return b.Skip()
 		}
@@ -260,7 +286,15 @@ func (g *GetWebAppURLRequest) GetTheme() (value ThemeParameters) {
 	return g.Theme
 }
 
-// GetWebAppURL invokes method getWebAppUrl#5f689ab3 returning error if any.
+// GetApplicationName returns value of ApplicationName field.
+func (g *GetWebAppURLRequest) GetApplicationName() (value string) {
+	if g == nil {
+		return
+	}
+	return g.ApplicationName
+}
+
+// GetWebAppURL invokes method getWebAppUrl#64c42cbe returning error if any.
 func (c *Client) GetWebAppURL(ctx context.Context, request *GetWebAppURLRequest) (*HTTPURL, error) {
 	var result HTTPURL
 

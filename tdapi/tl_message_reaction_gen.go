@@ -31,10 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessageReaction represents TL type `messageReaction#7c4179cb`.
+// MessageReaction represents TL type `messageReaction#2bb15e3a`.
 type MessageReaction struct {
-	// Text representation of the reaction
-	Reaction string
+	// Type of the reaction
+	Type ReactionTypeClass
 	// Number of times the reaction was added
 	TotalCount int32
 	// True, if the reaction is chosen by the current user
@@ -45,7 +45,7 @@ type MessageReaction struct {
 }
 
 // MessageReactionTypeID is TL type id of MessageReaction.
-const MessageReactionTypeID = 0x7c4179cb
+const MessageReactionTypeID = 0x2bb15e3a
 
 // Ensuring interfaces in compile-time for MessageReaction.
 var (
@@ -59,7 +59,7 @@ func (m *MessageReaction) Zero() bool {
 	if m == nil {
 		return true
 	}
-	if !(m.Reaction == "") {
+	if !(m.Type == nil) {
 		return false
 	}
 	if !(m.TotalCount == 0) {
@@ -108,8 +108,8 @@ func (m *MessageReaction) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Reaction",
-			SchemaName: "reaction",
+			Name:       "Type",
+			SchemaName: "type",
 		},
 		{
 			Name:       "TotalCount",
@@ -130,7 +130,7 @@ func (m *MessageReaction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageReaction) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageReaction#7c4179cb as nil")
+		return fmt.Errorf("can't encode messageReaction#2bb15e3a as nil")
 	}
 	b.PutID(MessageReactionTypeID)
 	return m.EncodeBare(b)
@@ -139,18 +139,23 @@ func (m *MessageReaction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageReaction) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageReaction#7c4179cb as nil")
+		return fmt.Errorf("can't encode messageReaction#2bb15e3a as nil")
 	}
-	b.PutString(m.Reaction)
+	if m.Type == nil {
+		return fmt.Errorf("unable to encode messageReaction#2bb15e3a: field type is nil")
+	}
+	if err := m.Type.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageReaction#2bb15e3a: field type: %w", err)
+	}
 	b.PutInt32(m.TotalCount)
 	b.PutBool(m.IsChosen)
 	b.PutInt(len(m.RecentSenderIDs))
 	for idx, v := range m.RecentSenderIDs {
 		if v == nil {
-			return fmt.Errorf("unable to encode messageReaction#7c4179cb: field recent_sender_ids element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messageReaction#2bb15e3a: field recent_sender_ids element with index %d is nil", idx)
 		}
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare messageReaction#7c4179cb: field recent_sender_ids element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare messageReaction#2bb15e3a: field recent_sender_ids element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -159,10 +164,10 @@ func (m *MessageReaction) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageReaction) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageReaction#7c4179cb to nil")
+		return fmt.Errorf("can't decode messageReaction#2bb15e3a to nil")
 	}
 	if err := b.ConsumeID(MessageReactionTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageReaction#7c4179cb: %w", err)
+		return fmt.Errorf("unable to decode messageReaction#2bb15e3a: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -170,33 +175,33 @@ func (m *MessageReaction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageReaction) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageReaction#7c4179cb to nil")
+		return fmt.Errorf("can't decode messageReaction#2bb15e3a to nil")
 	}
 	{
-		value, err := b.String()
+		value, err := DecodeReactionType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReaction#7c4179cb: field reaction: %w", err)
+			return fmt.Errorf("unable to decode messageReaction#2bb15e3a: field type: %w", err)
 		}
-		m.Reaction = value
+		m.Type = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReaction#7c4179cb: field total_count: %w", err)
+			return fmt.Errorf("unable to decode messageReaction#2bb15e3a: field total_count: %w", err)
 		}
 		m.TotalCount = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReaction#7c4179cb: field is_chosen: %w", err)
+			return fmt.Errorf("unable to decode messageReaction#2bb15e3a: field is_chosen: %w", err)
 		}
 		m.IsChosen = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageReaction#7c4179cb: field recent_sender_ids: %w", err)
+			return fmt.Errorf("unable to decode messageReaction#2bb15e3a: field recent_sender_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -205,7 +210,7 @@ func (m *MessageReaction) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageSender(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messageReaction#7c4179cb: field recent_sender_ids: %w", err)
+				return fmt.Errorf("unable to decode messageReaction#2bb15e3a: field recent_sender_ids: %w", err)
 			}
 			m.RecentSenderIDs = append(m.RecentSenderIDs, value)
 		}
@@ -216,13 +221,18 @@ func (m *MessageReaction) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageReaction) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageReaction#7c4179cb as nil")
+		return fmt.Errorf("can't encode messageReaction#2bb15e3a as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageReaction")
 	b.Comma()
-	b.FieldStart("reaction")
-	b.PutString(m.Reaction)
+	b.FieldStart("type")
+	if m.Type == nil {
+		return fmt.Errorf("unable to encode messageReaction#2bb15e3a: field type is nil")
+	}
+	if err := m.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageReaction#2bb15e3a: field type: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("total_count")
 	b.PutInt32(m.TotalCount)
@@ -234,10 +244,10 @@ func (m *MessageReaction) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ArrStart()
 	for idx, v := range m.RecentSenderIDs {
 		if v == nil {
-			return fmt.Errorf("unable to encode messageReaction#7c4179cb: field recent_sender_ids element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messageReaction#2bb15e3a: field recent_sender_ids element with index %d is nil", idx)
 		}
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode messageReaction#7c4179cb: field recent_sender_ids element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messageReaction#2bb15e3a: field recent_sender_ids element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -252,43 +262,43 @@ func (m *MessageReaction) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageReaction) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageReaction#7c4179cb to nil")
+		return fmt.Errorf("can't decode messageReaction#2bb15e3a to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageReaction"); err != nil {
-				return fmt.Errorf("unable to decode messageReaction#7c4179cb: %w", err)
+				return fmt.Errorf("unable to decode messageReaction#2bb15e3a: %w", err)
 			}
-		case "reaction":
-			value, err := b.String()
+		case "type":
+			value, err := DecodeTDLibJSONReactionType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messageReaction#7c4179cb: field reaction: %w", err)
+				return fmt.Errorf("unable to decode messageReaction#2bb15e3a: field type: %w", err)
 			}
-			m.Reaction = value
+			m.Type = value
 		case "total_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageReaction#7c4179cb: field total_count: %w", err)
+				return fmt.Errorf("unable to decode messageReaction#2bb15e3a: field total_count: %w", err)
 			}
 			m.TotalCount = value
 		case "is_chosen":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageReaction#7c4179cb: field is_chosen: %w", err)
+				return fmt.Errorf("unable to decode messageReaction#2bb15e3a: field is_chosen: %w", err)
 			}
 			m.IsChosen = value
 		case "recent_sender_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONMessageSender(b)
 				if err != nil {
-					return fmt.Errorf("unable to decode messageReaction#7c4179cb: field recent_sender_ids: %w", err)
+					return fmt.Errorf("unable to decode messageReaction#2bb15e3a: field recent_sender_ids: %w", err)
 				}
 				m.RecentSenderIDs = append(m.RecentSenderIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode messageReaction#7c4179cb: field recent_sender_ids: %w", err)
+				return fmt.Errorf("unable to decode messageReaction#2bb15e3a: field recent_sender_ids: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -297,12 +307,12 @@ func (m *MessageReaction) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetReaction returns value of Reaction field.
-func (m *MessageReaction) GetReaction() (value string) {
+// GetType returns value of Type field.
+func (m *MessageReaction) GetType() (value ReactionTypeClass) {
 	if m == nil {
 		return
 	}
-	return m.Reaction
+	return m.Type
 }
 
 // GetTotalCount returns value of TotalCount field.

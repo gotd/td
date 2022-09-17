@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SetChatAvailableReactionsRequest represents TL type `setChatAvailableReactions#2e5c0f2e`.
+// SetChatAvailableReactionsRequest represents TL type `setChatAvailableReactions#feb3e06`.
 type SetChatAvailableReactionsRequest struct {
 	// Identifier of the chat
 	ChatID int64
-	// New list of reactions, available in the chat. All reactions must be active
-	AvailableReactions []string
+	// Reactions available in the chat. All emoji reactions must be active
+	AvailableReactions ChatAvailableReactionsClass
 }
 
 // SetChatAvailableReactionsRequestTypeID is TL type id of SetChatAvailableReactionsRequest.
-const SetChatAvailableReactionsRequestTypeID = 0x2e5c0f2e
+const SetChatAvailableReactionsRequestTypeID = 0xfeb3e06
 
 // Ensuring interfaces in compile-time for SetChatAvailableReactionsRequest.
 var (
@@ -111,7 +111,7 @@ func (s *SetChatAvailableReactionsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SetChatAvailableReactionsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setChatAvailableReactions#2e5c0f2e as nil")
+		return fmt.Errorf("can't encode setChatAvailableReactions#feb3e06 as nil")
 	}
 	b.PutID(SetChatAvailableReactionsRequestTypeID)
 	return s.EncodeBare(b)
@@ -120,12 +120,14 @@ func (s *SetChatAvailableReactionsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SetChatAvailableReactionsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setChatAvailableReactions#2e5c0f2e as nil")
+		return fmt.Errorf("can't encode setChatAvailableReactions#feb3e06 as nil")
 	}
 	b.PutInt53(s.ChatID)
-	b.PutInt(len(s.AvailableReactions))
-	for _, v := range s.AvailableReactions {
-		b.PutString(v)
+	if s.AvailableReactions == nil {
+		return fmt.Errorf("unable to encode setChatAvailableReactions#feb3e06: field available_reactions is nil")
+	}
+	if err := s.AvailableReactions.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode setChatAvailableReactions#feb3e06: field available_reactions: %w", err)
 	}
 	return nil
 }
@@ -133,10 +135,10 @@ func (s *SetChatAvailableReactionsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SetChatAvailableReactionsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setChatAvailableReactions#2e5c0f2e to nil")
+		return fmt.Errorf("can't decode setChatAvailableReactions#feb3e06 to nil")
 	}
 	if err := b.ConsumeID(SetChatAvailableReactionsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode setChatAvailableReactions#2e5c0f2e: %w", err)
+		return fmt.Errorf("unable to decode setChatAvailableReactions#feb3e06: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -144,31 +146,21 @@ func (s *SetChatAvailableReactionsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SetChatAvailableReactionsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setChatAvailableReactions#2e5c0f2e to nil")
+		return fmt.Errorf("can't decode setChatAvailableReactions#feb3e06 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode setChatAvailableReactions#2e5c0f2e: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode setChatAvailableReactions#feb3e06: field chat_id: %w", err)
 		}
 		s.ChatID = value
 	}
 	{
-		headerLen, err := b.Int()
+		value, err := DecodeChatAvailableReactions(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode setChatAvailableReactions#2e5c0f2e: field available_reactions: %w", err)
+			return fmt.Errorf("unable to decode setChatAvailableReactions#feb3e06: field available_reactions: %w", err)
 		}
-
-		if headerLen > 0 {
-			s.AvailableReactions = make([]string, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode setChatAvailableReactions#2e5c0f2e: field available_reactions: %w", err)
-			}
-			s.AvailableReactions = append(s.AvailableReactions, value)
-		}
+		s.AvailableReactions = value
 	}
 	return nil
 }
@@ -176,7 +168,7 @@ func (s *SetChatAvailableReactionsRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SetChatAvailableReactionsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setChatAvailableReactions#2e5c0f2e as nil")
+		return fmt.Errorf("can't encode setChatAvailableReactions#feb3e06 as nil")
 	}
 	b.ObjStart()
 	b.PutID("setChatAvailableReactions")
@@ -185,13 +177,12 @@ func (s *SetChatAvailableReactionsRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 	b.PutInt53(s.ChatID)
 	b.Comma()
 	b.FieldStart("available_reactions")
-	b.ArrStart()
-	for _, v := range s.AvailableReactions {
-		b.PutString(v)
-		b.Comma()
+	if s.AvailableReactions == nil {
+		return fmt.Errorf("unable to encode setChatAvailableReactions#feb3e06: field available_reactions is nil")
 	}
-	b.StripComma()
-	b.ArrEnd()
+	if err := s.AvailableReactions.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode setChatAvailableReactions#feb3e06: field available_reactions: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -201,32 +192,27 @@ func (s *SetChatAvailableReactionsRequest) EncodeTDLibJSON(b tdjson.Encoder) err
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SetChatAvailableReactionsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setChatAvailableReactions#2e5c0f2e to nil")
+		return fmt.Errorf("can't decode setChatAvailableReactions#feb3e06 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("setChatAvailableReactions"); err != nil {
-				return fmt.Errorf("unable to decode setChatAvailableReactions#2e5c0f2e: %w", err)
+				return fmt.Errorf("unable to decode setChatAvailableReactions#feb3e06: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode setChatAvailableReactions#2e5c0f2e: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode setChatAvailableReactions#feb3e06: field chat_id: %w", err)
 			}
 			s.ChatID = value
 		case "available_reactions":
-			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.String()
-				if err != nil {
-					return fmt.Errorf("unable to decode setChatAvailableReactions#2e5c0f2e: field available_reactions: %w", err)
-				}
-				s.AvailableReactions = append(s.AvailableReactions, value)
-				return nil
-			}); err != nil {
-				return fmt.Errorf("unable to decode setChatAvailableReactions#2e5c0f2e: field available_reactions: %w", err)
+			value, err := DecodeTDLibJSONChatAvailableReactions(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode setChatAvailableReactions#feb3e06: field available_reactions: %w", err)
 			}
+			s.AvailableReactions = value
 		default:
 			return b.Skip()
 		}
@@ -243,14 +229,14 @@ func (s *SetChatAvailableReactionsRequest) GetChatID() (value int64) {
 }
 
 // GetAvailableReactions returns value of AvailableReactions field.
-func (s *SetChatAvailableReactionsRequest) GetAvailableReactions() (value []string) {
+func (s *SetChatAvailableReactionsRequest) GetAvailableReactions() (value ChatAvailableReactionsClass) {
 	if s == nil {
 		return
 	}
 	return s.AvailableReactions
 }
 
-// SetChatAvailableReactions invokes method setChatAvailableReactions#2e5c0f2e returning error if any.
+// SetChatAvailableReactions invokes method setChatAvailableReactions#feb3e06 returning error if any.
 func (c *Client) SetChatAvailableReactions(ctx context.Context, request *SetChatAvailableReactionsRequest) error {
 	var ok Ok
 

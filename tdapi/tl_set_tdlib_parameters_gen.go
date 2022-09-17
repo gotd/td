@@ -31,14 +31,52 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SetTdlibParametersRequest represents TL type `setTdlibParameters#8e00ae53`.
+// SetTdlibParametersRequest represents TL type `setTdlibParameters#52898239`.
 type SetTdlibParametersRequest struct {
-	// Parameters for TDLib initialization
-	Parameters TdlibParameters
+	// Pass true to use Telegram test environment instead of the production environment
+	UseTestDC bool
+	// The path to the directory for the persistent database; if empty, the current working
+	// directory will be used
+	DatabaseDirectory string
+	// The path to the directory for storing files; if empty, database_directory will be used
+	FilesDirectory string
+	// Encryption key for the database
+	DatabaseEncryptionKey []byte
+	// Pass true to keep information about downloaded and uploaded files between application
+	// restarts
+	UseFileDatabase bool
+	// Pass true to keep cache of users, basic groups, supergroups, channels and secret chats
+	// between restarts. Implies use_file_database
+	UseChatInfoDatabase bool
+	// Pass true to keep cache of chats and messages between restarts. Implies
+	// use_chat_info_database
+	UseMessageDatabase bool
+	// Pass true to enable support for secret chats
+	UseSecretChats bool
+	// Application identifier for Telegram API access, which can be obtained at https://my
+	// telegram.org
+	APIID int32
+	// Application identifier hash for Telegram API access, which can be obtained at
+	// https://my.telegram.org
+	APIHash string
+	// IETF language tag of the user's operating system language; must be non-empty
+	SystemLanguageCode string
+	// Model of the device the application is being run on; must be non-empty
+	DeviceModel string
+	// Version of the operating system the application is being run on. If empty, the version
+	// is automatically detected by TDLib
+	SystemVersion string
+	// Application version; must be non-empty
+	ApplicationVersion string
+	// Pass true to automatically delete old files in background
+	EnableStorageOptimizer bool
+	// Pass true to ignore original file names for downloaded files. Otherwise, downloaded
+	// files are saved under names as close as possible to the original name
+	IgnoreFileNames bool
 }
 
 // SetTdlibParametersRequestTypeID is TL type id of SetTdlibParametersRequest.
-const SetTdlibParametersRequestTypeID = 0x8e00ae53
+const SetTdlibParametersRequestTypeID = 0x52898239
 
 // Ensuring interfaces in compile-time for SetTdlibParametersRequest.
 var (
@@ -52,7 +90,52 @@ func (s *SetTdlibParametersRequest) Zero() bool {
 	if s == nil {
 		return true
 	}
-	if !(s.Parameters.Zero()) {
+	if !(s.UseTestDC == false) {
+		return false
+	}
+	if !(s.DatabaseDirectory == "") {
+		return false
+	}
+	if !(s.FilesDirectory == "") {
+		return false
+	}
+	if !(s.DatabaseEncryptionKey == nil) {
+		return false
+	}
+	if !(s.UseFileDatabase == false) {
+		return false
+	}
+	if !(s.UseChatInfoDatabase == false) {
+		return false
+	}
+	if !(s.UseMessageDatabase == false) {
+		return false
+	}
+	if !(s.UseSecretChats == false) {
+		return false
+	}
+	if !(s.APIID == 0) {
+		return false
+	}
+	if !(s.APIHash == "") {
+		return false
+	}
+	if !(s.SystemLanguageCode == "") {
+		return false
+	}
+	if !(s.DeviceModel == "") {
+		return false
+	}
+	if !(s.SystemVersion == "") {
+		return false
+	}
+	if !(s.ApplicationVersion == "") {
+		return false
+	}
+	if !(s.EnableStorageOptimizer == false) {
+		return false
+	}
+	if !(s.IgnoreFileNames == false) {
 		return false
 	}
 
@@ -92,8 +175,68 @@ func (s *SetTdlibParametersRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Parameters",
-			SchemaName: "parameters",
+			Name:       "UseTestDC",
+			SchemaName: "use_test_dc",
+		},
+		{
+			Name:       "DatabaseDirectory",
+			SchemaName: "database_directory",
+		},
+		{
+			Name:       "FilesDirectory",
+			SchemaName: "files_directory",
+		},
+		{
+			Name:       "DatabaseEncryptionKey",
+			SchemaName: "database_encryption_key",
+		},
+		{
+			Name:       "UseFileDatabase",
+			SchemaName: "use_file_database",
+		},
+		{
+			Name:       "UseChatInfoDatabase",
+			SchemaName: "use_chat_info_database",
+		},
+		{
+			Name:       "UseMessageDatabase",
+			SchemaName: "use_message_database",
+		},
+		{
+			Name:       "UseSecretChats",
+			SchemaName: "use_secret_chats",
+		},
+		{
+			Name:       "APIID",
+			SchemaName: "api_id",
+		},
+		{
+			Name:       "APIHash",
+			SchemaName: "api_hash",
+		},
+		{
+			Name:       "SystemLanguageCode",
+			SchemaName: "system_language_code",
+		},
+		{
+			Name:       "DeviceModel",
+			SchemaName: "device_model",
+		},
+		{
+			Name:       "SystemVersion",
+			SchemaName: "system_version",
+		},
+		{
+			Name:       "ApplicationVersion",
+			SchemaName: "application_version",
+		},
+		{
+			Name:       "EnableStorageOptimizer",
+			SchemaName: "enable_storage_optimizer",
+		},
+		{
+			Name:       "IgnoreFileNames",
+			SchemaName: "ignore_file_names",
 		},
 	}
 	return typ
@@ -102,7 +245,7 @@ func (s *SetTdlibParametersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SetTdlibParametersRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setTdlibParameters#8e00ae53 as nil")
+		return fmt.Errorf("can't encode setTdlibParameters#52898239 as nil")
 	}
 	b.PutID(SetTdlibParametersRequestTypeID)
 	return s.EncodeBare(b)
@@ -111,21 +254,34 @@ func (s *SetTdlibParametersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SetTdlibParametersRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setTdlibParameters#8e00ae53 as nil")
+		return fmt.Errorf("can't encode setTdlibParameters#52898239 as nil")
 	}
-	if err := s.Parameters.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode setTdlibParameters#8e00ae53: field parameters: %w", err)
-	}
+	b.PutBool(s.UseTestDC)
+	b.PutString(s.DatabaseDirectory)
+	b.PutString(s.FilesDirectory)
+	b.PutBytes(s.DatabaseEncryptionKey)
+	b.PutBool(s.UseFileDatabase)
+	b.PutBool(s.UseChatInfoDatabase)
+	b.PutBool(s.UseMessageDatabase)
+	b.PutBool(s.UseSecretChats)
+	b.PutInt32(s.APIID)
+	b.PutString(s.APIHash)
+	b.PutString(s.SystemLanguageCode)
+	b.PutString(s.DeviceModel)
+	b.PutString(s.SystemVersion)
+	b.PutString(s.ApplicationVersion)
+	b.PutBool(s.EnableStorageOptimizer)
+	b.PutBool(s.IgnoreFileNames)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *SetTdlibParametersRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setTdlibParameters#8e00ae53 to nil")
+		return fmt.Errorf("can't decode setTdlibParameters#52898239 to nil")
 	}
 	if err := b.ConsumeID(SetTdlibParametersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode setTdlibParameters#8e00ae53: %w", err)
+		return fmt.Errorf("unable to decode setTdlibParameters#52898239: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -133,12 +289,119 @@ func (s *SetTdlibParametersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SetTdlibParametersRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setTdlibParameters#8e00ae53 to nil")
+		return fmt.Errorf("can't decode setTdlibParameters#52898239 to nil")
 	}
 	{
-		if err := s.Parameters.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode setTdlibParameters#8e00ae53: field parameters: %w", err)
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode setTdlibParameters#52898239: field use_test_dc: %w", err)
 		}
+		s.UseTestDC = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode setTdlibParameters#52898239: field database_directory: %w", err)
+		}
+		s.DatabaseDirectory = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode setTdlibParameters#52898239: field files_directory: %w", err)
+		}
+		s.FilesDirectory = value
+	}
+	{
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode setTdlibParameters#52898239: field database_encryption_key: %w", err)
+		}
+		s.DatabaseEncryptionKey = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode setTdlibParameters#52898239: field use_file_database: %w", err)
+		}
+		s.UseFileDatabase = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode setTdlibParameters#52898239: field use_chat_info_database: %w", err)
+		}
+		s.UseChatInfoDatabase = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode setTdlibParameters#52898239: field use_message_database: %w", err)
+		}
+		s.UseMessageDatabase = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode setTdlibParameters#52898239: field use_secret_chats: %w", err)
+		}
+		s.UseSecretChats = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode setTdlibParameters#52898239: field api_id: %w", err)
+		}
+		s.APIID = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode setTdlibParameters#52898239: field api_hash: %w", err)
+		}
+		s.APIHash = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode setTdlibParameters#52898239: field system_language_code: %w", err)
+		}
+		s.SystemLanguageCode = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode setTdlibParameters#52898239: field device_model: %w", err)
+		}
+		s.DeviceModel = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode setTdlibParameters#52898239: field system_version: %w", err)
+		}
+		s.SystemVersion = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode setTdlibParameters#52898239: field application_version: %w", err)
+		}
+		s.ApplicationVersion = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode setTdlibParameters#52898239: field enable_storage_optimizer: %w", err)
+		}
+		s.EnableStorageOptimizer = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode setTdlibParameters#52898239: field ignore_file_names: %w", err)
+		}
+		s.IgnoreFileNames = value
 	}
 	return nil
 }
@@ -146,15 +409,58 @@ func (s *SetTdlibParametersRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SetTdlibParametersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setTdlibParameters#8e00ae53 as nil")
+		return fmt.Errorf("can't encode setTdlibParameters#52898239 as nil")
 	}
 	b.ObjStart()
 	b.PutID("setTdlibParameters")
 	b.Comma()
-	b.FieldStart("parameters")
-	if err := s.Parameters.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode setTdlibParameters#8e00ae53: field parameters: %w", err)
-	}
+	b.FieldStart("use_test_dc")
+	b.PutBool(s.UseTestDC)
+	b.Comma()
+	b.FieldStart("database_directory")
+	b.PutString(s.DatabaseDirectory)
+	b.Comma()
+	b.FieldStart("files_directory")
+	b.PutString(s.FilesDirectory)
+	b.Comma()
+	b.FieldStart("database_encryption_key")
+	b.PutBytes(s.DatabaseEncryptionKey)
+	b.Comma()
+	b.FieldStart("use_file_database")
+	b.PutBool(s.UseFileDatabase)
+	b.Comma()
+	b.FieldStart("use_chat_info_database")
+	b.PutBool(s.UseChatInfoDatabase)
+	b.Comma()
+	b.FieldStart("use_message_database")
+	b.PutBool(s.UseMessageDatabase)
+	b.Comma()
+	b.FieldStart("use_secret_chats")
+	b.PutBool(s.UseSecretChats)
+	b.Comma()
+	b.FieldStart("api_id")
+	b.PutInt32(s.APIID)
+	b.Comma()
+	b.FieldStart("api_hash")
+	b.PutString(s.APIHash)
+	b.Comma()
+	b.FieldStart("system_language_code")
+	b.PutString(s.SystemLanguageCode)
+	b.Comma()
+	b.FieldStart("device_model")
+	b.PutString(s.DeviceModel)
+	b.Comma()
+	b.FieldStart("system_version")
+	b.PutString(s.SystemVersion)
+	b.Comma()
+	b.FieldStart("application_version")
+	b.PutString(s.ApplicationVersion)
+	b.Comma()
+	b.FieldStart("enable_storage_optimizer")
+	b.PutBool(s.EnableStorageOptimizer)
+	b.Comma()
+	b.FieldStart("ignore_file_names")
+	b.PutBool(s.IgnoreFileNames)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -164,19 +470,111 @@ func (s *SetTdlibParametersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SetTdlibParametersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setTdlibParameters#8e00ae53 to nil")
+		return fmt.Errorf("can't decode setTdlibParameters#52898239 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("setTdlibParameters"); err != nil {
-				return fmt.Errorf("unable to decode setTdlibParameters#8e00ae53: %w", err)
+				return fmt.Errorf("unable to decode setTdlibParameters#52898239: %w", err)
 			}
-		case "parameters":
-			if err := s.Parameters.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode setTdlibParameters#8e00ae53: field parameters: %w", err)
+		case "use_test_dc":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode setTdlibParameters#52898239: field use_test_dc: %w", err)
 			}
+			s.UseTestDC = value
+		case "database_directory":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setTdlibParameters#52898239: field database_directory: %w", err)
+			}
+			s.DatabaseDirectory = value
+		case "files_directory":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setTdlibParameters#52898239: field files_directory: %w", err)
+			}
+			s.FilesDirectory = value
+		case "database_encryption_key":
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode setTdlibParameters#52898239: field database_encryption_key: %w", err)
+			}
+			s.DatabaseEncryptionKey = value
+		case "use_file_database":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode setTdlibParameters#52898239: field use_file_database: %w", err)
+			}
+			s.UseFileDatabase = value
+		case "use_chat_info_database":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode setTdlibParameters#52898239: field use_chat_info_database: %w", err)
+			}
+			s.UseChatInfoDatabase = value
+		case "use_message_database":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode setTdlibParameters#52898239: field use_message_database: %w", err)
+			}
+			s.UseMessageDatabase = value
+		case "use_secret_chats":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode setTdlibParameters#52898239: field use_secret_chats: %w", err)
+			}
+			s.UseSecretChats = value
+		case "api_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode setTdlibParameters#52898239: field api_id: %w", err)
+			}
+			s.APIID = value
+		case "api_hash":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setTdlibParameters#52898239: field api_hash: %w", err)
+			}
+			s.APIHash = value
+		case "system_language_code":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setTdlibParameters#52898239: field system_language_code: %w", err)
+			}
+			s.SystemLanguageCode = value
+		case "device_model":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setTdlibParameters#52898239: field device_model: %w", err)
+			}
+			s.DeviceModel = value
+		case "system_version":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setTdlibParameters#52898239: field system_version: %w", err)
+			}
+			s.SystemVersion = value
+		case "application_version":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode setTdlibParameters#52898239: field application_version: %w", err)
+			}
+			s.ApplicationVersion = value
+		case "enable_storage_optimizer":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode setTdlibParameters#52898239: field enable_storage_optimizer: %w", err)
+			}
+			s.EnableStorageOptimizer = value
+		case "ignore_file_names":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode setTdlibParameters#52898239: field ignore_file_names: %w", err)
+			}
+			s.IgnoreFileNames = value
 		default:
 			return b.Skip()
 		}
@@ -184,21 +582,138 @@ func (s *SetTdlibParametersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetParameters returns value of Parameters field.
-func (s *SetTdlibParametersRequest) GetParameters() (value TdlibParameters) {
+// GetUseTestDC returns value of UseTestDC field.
+func (s *SetTdlibParametersRequest) GetUseTestDC() (value bool) {
 	if s == nil {
 		return
 	}
-	return s.Parameters
+	return s.UseTestDC
 }
 
-// SetTdlibParameters invokes method setTdlibParameters#8e00ae53 returning error if any.
-func (c *Client) SetTdlibParameters(ctx context.Context, parameters TdlibParameters) error {
+// GetDatabaseDirectory returns value of DatabaseDirectory field.
+func (s *SetTdlibParametersRequest) GetDatabaseDirectory() (value string) {
+	if s == nil {
+		return
+	}
+	return s.DatabaseDirectory
+}
+
+// GetFilesDirectory returns value of FilesDirectory field.
+func (s *SetTdlibParametersRequest) GetFilesDirectory() (value string) {
+	if s == nil {
+		return
+	}
+	return s.FilesDirectory
+}
+
+// GetDatabaseEncryptionKey returns value of DatabaseEncryptionKey field.
+func (s *SetTdlibParametersRequest) GetDatabaseEncryptionKey() (value []byte) {
+	if s == nil {
+		return
+	}
+	return s.DatabaseEncryptionKey
+}
+
+// GetUseFileDatabase returns value of UseFileDatabase field.
+func (s *SetTdlibParametersRequest) GetUseFileDatabase() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.UseFileDatabase
+}
+
+// GetUseChatInfoDatabase returns value of UseChatInfoDatabase field.
+func (s *SetTdlibParametersRequest) GetUseChatInfoDatabase() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.UseChatInfoDatabase
+}
+
+// GetUseMessageDatabase returns value of UseMessageDatabase field.
+func (s *SetTdlibParametersRequest) GetUseMessageDatabase() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.UseMessageDatabase
+}
+
+// GetUseSecretChats returns value of UseSecretChats field.
+func (s *SetTdlibParametersRequest) GetUseSecretChats() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.UseSecretChats
+}
+
+// GetAPIID returns value of APIID field.
+func (s *SetTdlibParametersRequest) GetAPIID() (value int32) {
+	if s == nil {
+		return
+	}
+	return s.APIID
+}
+
+// GetAPIHash returns value of APIHash field.
+func (s *SetTdlibParametersRequest) GetAPIHash() (value string) {
+	if s == nil {
+		return
+	}
+	return s.APIHash
+}
+
+// GetSystemLanguageCode returns value of SystemLanguageCode field.
+func (s *SetTdlibParametersRequest) GetSystemLanguageCode() (value string) {
+	if s == nil {
+		return
+	}
+	return s.SystemLanguageCode
+}
+
+// GetDeviceModel returns value of DeviceModel field.
+func (s *SetTdlibParametersRequest) GetDeviceModel() (value string) {
+	if s == nil {
+		return
+	}
+	return s.DeviceModel
+}
+
+// GetSystemVersion returns value of SystemVersion field.
+func (s *SetTdlibParametersRequest) GetSystemVersion() (value string) {
+	if s == nil {
+		return
+	}
+	return s.SystemVersion
+}
+
+// GetApplicationVersion returns value of ApplicationVersion field.
+func (s *SetTdlibParametersRequest) GetApplicationVersion() (value string) {
+	if s == nil {
+		return
+	}
+	return s.ApplicationVersion
+}
+
+// GetEnableStorageOptimizer returns value of EnableStorageOptimizer field.
+func (s *SetTdlibParametersRequest) GetEnableStorageOptimizer() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.EnableStorageOptimizer
+}
+
+// GetIgnoreFileNames returns value of IgnoreFileNames field.
+func (s *SetTdlibParametersRequest) GetIgnoreFileNames() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.IgnoreFileNames
+}
+
+// SetTdlibParameters invokes method setTdlibParameters#52898239 returning error if any.
+func (c *Client) SetTdlibParameters(ctx context.Context, request *SetTdlibParametersRequest) error {
 	var ok Ok
 
-	request := &SetTdlibParametersRequest{
-		Parameters: parameters,
-	}
 	if err := c.rpc.Invoke(ctx, request, &ok); err != nil {
 		return err
 	}
