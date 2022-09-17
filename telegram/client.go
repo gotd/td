@@ -53,6 +53,15 @@ type clientConn interface {
 
 // Client represents a MTProto client to Telegram.
 type Client struct {
+	// Put migration in the header of the structure to ensure 64-bit alignment,
+	// otherwise it will cause the atomic operation of connsCounter to panic.
+	// DO NOT change the order of members arbitrarily.
+	// Ref: https://pkg.go.dev/sync/atomic#pkg-note-BUG
+
+	// Migration state.
+	migrationTimeout time.Duration // immutable
+	migration        chan struct{}
+
 	// tg provides RPC calls via Client. Uses invoker below.
 	tg *tg.Client // immutable
 	// invoker implements tg.Invoker on top of Client and mw.
@@ -86,9 +95,6 @@ type Client struct {
 
 	// Restart signal channel.
 	restart chan struct{} // immutable
-	// Migration state.
-	migrationTimeout time.Duration // immutable
-	migration        chan struct{}
 
 	// Connections to non-primary DC.
 	subConns    map[int]CloseInvoker
