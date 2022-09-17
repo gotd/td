@@ -31,15 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetMessageAddedReactionsRequest represents TL type `getMessageAddedReactions#aac3b631`.
+// GetMessageAddedReactionsRequest represents TL type `getMessageAddedReactions#7dc6ae52`.
 type GetMessageAddedReactionsRequest struct {
 	// Identifier of the chat to which the message belongs
 	ChatID int64
 	// Identifier of the message
 	MessageID int64
-	// If non-empty, only added reactions with the specified text representation will be
-	// returned
-	Reaction string
+	// Type of the reactions to return; pass null to return all added reactions
+	ReactionType ReactionTypeClass
 	// Offset of the first entry to return as received from the previous request; use empty
 	// string to get the first chunk of results
 	Offset string
@@ -49,7 +48,7 @@ type GetMessageAddedReactionsRequest struct {
 }
 
 // GetMessageAddedReactionsRequestTypeID is TL type id of GetMessageAddedReactionsRequest.
-const GetMessageAddedReactionsRequestTypeID = 0xaac3b631
+const GetMessageAddedReactionsRequestTypeID = 0x7dc6ae52
 
 // Ensuring interfaces in compile-time for GetMessageAddedReactionsRequest.
 var (
@@ -69,7 +68,7 @@ func (g *GetMessageAddedReactionsRequest) Zero() bool {
 	if !(g.MessageID == 0) {
 		return false
 	}
-	if !(g.Reaction == "") {
+	if !(g.ReactionType == nil) {
 		return false
 	}
 	if !(g.Offset == "") {
@@ -123,8 +122,8 @@ func (g *GetMessageAddedReactionsRequest) TypeInfo() tdp.Type {
 			SchemaName: "message_id",
 		},
 		{
-			Name:       "Reaction",
-			SchemaName: "reaction",
+			Name:       "ReactionType",
+			SchemaName: "reaction_type",
 		},
 		{
 			Name:       "Offset",
@@ -141,7 +140,7 @@ func (g *GetMessageAddedReactionsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetMessageAddedReactionsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getMessageAddedReactions#aac3b631 as nil")
+		return fmt.Errorf("can't encode getMessageAddedReactions#7dc6ae52 as nil")
 	}
 	b.PutID(GetMessageAddedReactionsRequestTypeID)
 	return g.EncodeBare(b)
@@ -150,11 +149,16 @@ func (g *GetMessageAddedReactionsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetMessageAddedReactionsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getMessageAddedReactions#aac3b631 as nil")
+		return fmt.Errorf("can't encode getMessageAddedReactions#7dc6ae52 as nil")
 	}
 	b.PutInt53(g.ChatID)
 	b.PutInt53(g.MessageID)
-	b.PutString(g.Reaction)
+	if g.ReactionType == nil {
+		return fmt.Errorf("unable to encode getMessageAddedReactions#7dc6ae52: field reaction_type is nil")
+	}
+	if err := g.ReactionType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode getMessageAddedReactions#7dc6ae52: field reaction_type: %w", err)
+	}
 	b.PutString(g.Offset)
 	b.PutInt32(g.Limit)
 	return nil
@@ -163,10 +167,10 @@ func (g *GetMessageAddedReactionsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetMessageAddedReactionsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getMessageAddedReactions#aac3b631 to nil")
+		return fmt.Errorf("can't decode getMessageAddedReactions#7dc6ae52 to nil")
 	}
 	if err := b.ConsumeID(GetMessageAddedReactionsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getMessageAddedReactions#aac3b631: %w", err)
+		return fmt.Errorf("unable to decode getMessageAddedReactions#7dc6ae52: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -174,40 +178,40 @@ func (g *GetMessageAddedReactionsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetMessageAddedReactionsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getMessageAddedReactions#aac3b631 to nil")
+		return fmt.Errorf("can't decode getMessageAddedReactions#7dc6ae52 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getMessageAddedReactions#aac3b631: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode getMessageAddedReactions#7dc6ae52: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getMessageAddedReactions#aac3b631: field message_id: %w", err)
+			return fmt.Errorf("unable to decode getMessageAddedReactions#7dc6ae52: field message_id: %w", err)
 		}
 		g.MessageID = value
 	}
 	{
-		value, err := b.String()
+		value, err := DecodeReactionType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode getMessageAddedReactions#aac3b631: field reaction: %w", err)
+			return fmt.Errorf("unable to decode getMessageAddedReactions#7dc6ae52: field reaction_type: %w", err)
 		}
-		g.Reaction = value
+		g.ReactionType = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode getMessageAddedReactions#aac3b631: field offset: %w", err)
+			return fmt.Errorf("unable to decode getMessageAddedReactions#7dc6ae52: field offset: %w", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getMessageAddedReactions#aac3b631: field limit: %w", err)
+			return fmt.Errorf("unable to decode getMessageAddedReactions#7dc6ae52: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -217,7 +221,7 @@ func (g *GetMessageAddedReactionsRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetMessageAddedReactionsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getMessageAddedReactions#aac3b631 as nil")
+		return fmt.Errorf("can't encode getMessageAddedReactions#7dc6ae52 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getMessageAddedReactions")
@@ -228,8 +232,13 @@ func (g *GetMessageAddedReactionsRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 	b.FieldStart("message_id")
 	b.PutInt53(g.MessageID)
 	b.Comma()
-	b.FieldStart("reaction")
-	b.PutString(g.Reaction)
+	b.FieldStart("reaction_type")
+	if g.ReactionType == nil {
+		return fmt.Errorf("unable to encode getMessageAddedReactions#7dc6ae52: field reaction_type is nil")
+	}
+	if err := g.ReactionType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getMessageAddedReactions#7dc6ae52: field reaction_type: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("offset")
 	b.PutString(g.Offset)
@@ -245,43 +254,43 @@ func (g *GetMessageAddedReactionsRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetMessageAddedReactionsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getMessageAddedReactions#aac3b631 to nil")
+		return fmt.Errorf("can't decode getMessageAddedReactions#7dc6ae52 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getMessageAddedReactions"); err != nil {
-				return fmt.Errorf("unable to decode getMessageAddedReactions#aac3b631: %w", err)
+				return fmt.Errorf("unable to decode getMessageAddedReactions#7dc6ae52: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getMessageAddedReactions#aac3b631: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode getMessageAddedReactions#7dc6ae52: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getMessageAddedReactions#aac3b631: field message_id: %w", err)
+				return fmt.Errorf("unable to decode getMessageAddedReactions#7dc6ae52: field message_id: %w", err)
 			}
 			g.MessageID = value
-		case "reaction":
-			value, err := b.String()
+		case "reaction_type":
+			value, err := DecodeTDLibJSONReactionType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode getMessageAddedReactions#aac3b631: field reaction: %w", err)
+				return fmt.Errorf("unable to decode getMessageAddedReactions#7dc6ae52: field reaction_type: %w", err)
 			}
-			g.Reaction = value
+			g.ReactionType = value
 		case "offset":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode getMessageAddedReactions#aac3b631: field offset: %w", err)
+				return fmt.Errorf("unable to decode getMessageAddedReactions#7dc6ae52: field offset: %w", err)
 			}
 			g.Offset = value
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getMessageAddedReactions#aac3b631: field limit: %w", err)
+				return fmt.Errorf("unable to decode getMessageAddedReactions#7dc6ae52: field limit: %w", err)
 			}
 			g.Limit = value
 		default:
@@ -307,12 +316,12 @@ func (g *GetMessageAddedReactionsRequest) GetMessageID() (value int64) {
 	return g.MessageID
 }
 
-// GetReaction returns value of Reaction field.
-func (g *GetMessageAddedReactionsRequest) GetReaction() (value string) {
+// GetReactionType returns value of ReactionType field.
+func (g *GetMessageAddedReactionsRequest) GetReactionType() (value ReactionTypeClass) {
 	if g == nil {
 		return
 	}
-	return g.Reaction
+	return g.ReactionType
 }
 
 // GetOffset returns value of Offset field.
@@ -331,7 +340,7 @@ func (g *GetMessageAddedReactionsRequest) GetLimit() (value int32) {
 	return g.Limit
 }
 
-// GetMessageAddedReactions invokes method getMessageAddedReactions#aac3b631 returning error if any.
+// GetMessageAddedReactions invokes method getMessageAddedReactions#7dc6ae52 returning error if any.
 func (c *Client) GetMessageAddedReactions(ctx context.Context, request *GetMessageAddedReactionsRequest) (*AddedReactions, error) {
 	var result AddedReactions
 

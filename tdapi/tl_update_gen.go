@@ -4834,16 +4834,16 @@ func (u *UpdateChatActionBar) GetActionBar() (value ChatActionBarClass) {
 	return u.ActionBar
 }
 
-// UpdateChatAvailableReactions represents TL type `updateChatAvailableReactions#852fb10d`.
+// UpdateChatAvailableReactions represents TL type `updateChatAvailableReactions#8ab413f9`.
 type UpdateChatAvailableReactions struct {
 	// Chat identifier
 	ChatID int64
-	// The new list of reactions, available in the chat
-	AvailableReactions []string
+	// The new reactions, available in the chat
+	AvailableReactions ChatAvailableReactionsClass
 }
 
 // UpdateChatAvailableReactionsTypeID is TL type id of UpdateChatAvailableReactions.
-const UpdateChatAvailableReactionsTypeID = 0x852fb10d
+const UpdateChatAvailableReactionsTypeID = 0x8ab413f9
 
 // construct implements constructor of UpdateClass.
 func (u UpdateChatAvailableReactions) construct() UpdateClass { return &u }
@@ -4919,7 +4919,7 @@ func (u *UpdateChatAvailableReactions) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UpdateChatAvailableReactions) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatAvailableReactions#852fb10d as nil")
+		return fmt.Errorf("can't encode updateChatAvailableReactions#8ab413f9 as nil")
 	}
 	b.PutID(UpdateChatAvailableReactionsTypeID)
 	return u.EncodeBare(b)
@@ -4928,12 +4928,14 @@ func (u *UpdateChatAvailableReactions) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateChatAvailableReactions) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatAvailableReactions#852fb10d as nil")
+		return fmt.Errorf("can't encode updateChatAvailableReactions#8ab413f9 as nil")
 	}
 	b.PutInt53(u.ChatID)
-	b.PutInt(len(u.AvailableReactions))
-	for _, v := range u.AvailableReactions {
-		b.PutString(v)
+	if u.AvailableReactions == nil {
+		return fmt.Errorf("unable to encode updateChatAvailableReactions#8ab413f9: field available_reactions is nil")
+	}
+	if err := u.AvailableReactions.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatAvailableReactions#8ab413f9: field available_reactions: %w", err)
 	}
 	return nil
 }
@@ -4941,10 +4943,10 @@ func (u *UpdateChatAvailableReactions) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UpdateChatAvailableReactions) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatAvailableReactions#852fb10d to nil")
+		return fmt.Errorf("can't decode updateChatAvailableReactions#8ab413f9 to nil")
 	}
 	if err := b.ConsumeID(UpdateChatAvailableReactionsTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatAvailableReactions#852fb10d: %w", err)
+		return fmt.Errorf("unable to decode updateChatAvailableReactions#8ab413f9: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -4952,31 +4954,21 @@ func (u *UpdateChatAvailableReactions) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateChatAvailableReactions) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatAvailableReactions#852fb10d to nil")
+		return fmt.Errorf("can't decode updateChatAvailableReactions#8ab413f9 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChatAvailableReactions#852fb10d: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode updateChatAvailableReactions#8ab413f9: field chat_id: %w", err)
 		}
 		u.ChatID = value
 	}
 	{
-		headerLen, err := b.Int()
+		value, err := DecodeChatAvailableReactions(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChatAvailableReactions#852fb10d: field available_reactions: %w", err)
+			return fmt.Errorf("unable to decode updateChatAvailableReactions#8ab413f9: field available_reactions: %w", err)
 		}
-
-		if headerLen > 0 {
-			u.AvailableReactions = make([]string, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateChatAvailableReactions#852fb10d: field available_reactions: %w", err)
-			}
-			u.AvailableReactions = append(u.AvailableReactions, value)
-		}
+		u.AvailableReactions = value
 	}
 	return nil
 }
@@ -4984,7 +4976,7 @@ func (u *UpdateChatAvailableReactions) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UpdateChatAvailableReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatAvailableReactions#852fb10d as nil")
+		return fmt.Errorf("can't encode updateChatAvailableReactions#8ab413f9 as nil")
 	}
 	b.ObjStart()
 	b.PutID("updateChatAvailableReactions")
@@ -4993,13 +4985,12 @@ func (u *UpdateChatAvailableReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.PutInt53(u.ChatID)
 	b.Comma()
 	b.FieldStart("available_reactions")
-	b.ArrStart()
-	for _, v := range u.AvailableReactions {
-		b.PutString(v)
-		b.Comma()
+	if u.AvailableReactions == nil {
+		return fmt.Errorf("unable to encode updateChatAvailableReactions#8ab413f9: field available_reactions is nil")
 	}
-	b.StripComma()
-	b.ArrEnd()
+	if err := u.AvailableReactions.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatAvailableReactions#8ab413f9: field available_reactions: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -5009,32 +5000,27 @@ func (u *UpdateChatAvailableReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UpdateChatAvailableReactions) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatAvailableReactions#852fb10d to nil")
+		return fmt.Errorf("can't decode updateChatAvailableReactions#8ab413f9 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatAvailableReactions"); err != nil {
-				return fmt.Errorf("unable to decode updateChatAvailableReactions#852fb10d: %w", err)
+				return fmt.Errorf("unable to decode updateChatAvailableReactions#8ab413f9: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateChatAvailableReactions#852fb10d: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode updateChatAvailableReactions#8ab413f9: field chat_id: %w", err)
 			}
 			u.ChatID = value
 		case "available_reactions":
-			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.String()
-				if err != nil {
-					return fmt.Errorf("unable to decode updateChatAvailableReactions#852fb10d: field available_reactions: %w", err)
-				}
-				u.AvailableReactions = append(u.AvailableReactions, value)
-				return nil
-			}); err != nil {
-				return fmt.Errorf("unable to decode updateChatAvailableReactions#852fb10d: field available_reactions: %w", err)
+			value, err := DecodeTDLibJSONChatAvailableReactions(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatAvailableReactions#8ab413f9: field available_reactions: %w", err)
 			}
+			u.AvailableReactions = value
 		default:
 			return b.Skip()
 		}
@@ -5051,7 +5037,7 @@ func (u *UpdateChatAvailableReactions) GetChatID() (value int64) {
 }
 
 // GetAvailableReactions returns value of AvailableReactions field.
-func (u *UpdateChatAvailableReactions) GetAvailableReactions() (value []string) {
+func (u *UpdateChatAvailableReactions) GetAvailableReactions() (value ChatAvailableReactionsClass) {
 	if u == nil {
 		return
 	}
@@ -18339,33 +18325,33 @@ func (u *UpdateWebAppMessageSent) GetWebAppLaunchID() (value int64) {
 	return u.WebAppLaunchID
 }
 
-// UpdateReactions represents TL type `updateReactions#e769e4e7`.
-type UpdateReactions struct {
-	// The new list of supported reactions
-	Reactions []Reaction
+// UpdateActiveEmojiReactions represents TL type `updateActiveEmojiReactions#691ffcb7`.
+type UpdateActiveEmojiReactions struct {
+	// The new list of active emoji reactions
+	Emojis []string
 }
 
-// UpdateReactionsTypeID is TL type id of UpdateReactions.
-const UpdateReactionsTypeID = 0xe769e4e7
+// UpdateActiveEmojiReactionsTypeID is TL type id of UpdateActiveEmojiReactions.
+const UpdateActiveEmojiReactionsTypeID = 0x691ffcb7
 
 // construct implements constructor of UpdateClass.
-func (u UpdateReactions) construct() UpdateClass { return &u }
+func (u UpdateActiveEmojiReactions) construct() UpdateClass { return &u }
 
-// Ensuring interfaces in compile-time for UpdateReactions.
+// Ensuring interfaces in compile-time for UpdateActiveEmojiReactions.
 var (
-	_ bin.Encoder     = &UpdateReactions{}
-	_ bin.Decoder     = &UpdateReactions{}
-	_ bin.BareEncoder = &UpdateReactions{}
-	_ bin.BareDecoder = &UpdateReactions{}
+	_ bin.Encoder     = &UpdateActiveEmojiReactions{}
+	_ bin.Decoder     = &UpdateActiveEmojiReactions{}
+	_ bin.BareEncoder = &UpdateActiveEmojiReactions{}
+	_ bin.BareDecoder = &UpdateActiveEmojiReactions{}
 
-	_ UpdateClass = &UpdateReactions{}
+	_ UpdateClass = &UpdateActiveEmojiReactions{}
 )
 
-func (u *UpdateReactions) Zero() bool {
+func (u *UpdateActiveEmojiReactions) Zero() bool {
 	if u == nil {
 		return true
 	}
-	if !(u.Reactions == nil) {
+	if !(u.Emojis == nil) {
 		return false
 	}
 
@@ -18373,31 +18359,31 @@ func (u *UpdateReactions) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (u *UpdateReactions) String() string {
+func (u *UpdateActiveEmojiReactions) String() string {
 	if u == nil {
-		return "UpdateReactions(nil)"
+		return "UpdateActiveEmojiReactions(nil)"
 	}
-	type Alias UpdateReactions
-	return fmt.Sprintf("UpdateReactions%+v", Alias(*u))
+	type Alias UpdateActiveEmojiReactions
+	return fmt.Sprintf("UpdateActiveEmojiReactions%+v", Alias(*u))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateReactions) TypeID() uint32 {
-	return UpdateReactionsTypeID
+func (*UpdateActiveEmojiReactions) TypeID() uint32 {
+	return UpdateActiveEmojiReactionsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*UpdateReactions) TypeName() string {
-	return "updateReactions"
+func (*UpdateActiveEmojiReactions) TypeName() string {
+	return "updateActiveEmojiReactions"
 }
 
 // TypeInfo returns info about TL type.
-func (u *UpdateReactions) TypeInfo() tdp.Type {
+func (u *UpdateActiveEmojiReactions) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "updateReactions",
-		ID:   UpdateReactionsTypeID,
+		Name: "updateActiveEmojiReactions",
+		ID:   UpdateActiveEmojiReactionsTypeID,
 	}
 	if u == nil {
 		typ.Null = true
@@ -18405,86 +18391,82 @@ func (u *UpdateReactions) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Reactions",
-			SchemaName: "reactions",
+			Name:       "Emojis",
+			SchemaName: "emojis",
 		},
 	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
-func (u *UpdateReactions) Encode(b *bin.Buffer) error {
+func (u *UpdateActiveEmojiReactions) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateReactions#e769e4e7 as nil")
+		return fmt.Errorf("can't encode updateActiveEmojiReactions#691ffcb7 as nil")
 	}
-	b.PutID(UpdateReactionsTypeID)
+	b.PutID(UpdateActiveEmojiReactionsTypeID)
 	return u.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (u *UpdateReactions) EncodeBare(b *bin.Buffer) error {
+func (u *UpdateActiveEmojiReactions) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateReactions#e769e4e7 as nil")
+		return fmt.Errorf("can't encode updateActiveEmojiReactions#691ffcb7 as nil")
 	}
-	b.PutInt(len(u.Reactions))
-	for idx, v := range u.Reactions {
-		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare updateReactions#e769e4e7: field reactions element with index %d: %w", idx, err)
-		}
+	b.PutInt(len(u.Emojis))
+	for _, v := range u.Emojis {
+		b.PutString(v)
 	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (u *UpdateReactions) Decode(b *bin.Buffer) error {
+func (u *UpdateActiveEmojiReactions) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateReactions#e769e4e7 to nil")
+		return fmt.Errorf("can't decode updateActiveEmojiReactions#691ffcb7 to nil")
 	}
-	if err := b.ConsumeID(UpdateReactionsTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateReactions#e769e4e7: %w", err)
+	if err := b.ConsumeID(UpdateActiveEmojiReactionsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateActiveEmojiReactions#691ffcb7: %w", err)
 	}
 	return u.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (u *UpdateReactions) DecodeBare(b *bin.Buffer) error {
+func (u *UpdateActiveEmojiReactions) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateReactions#e769e4e7 to nil")
+		return fmt.Errorf("can't decode updateActiveEmojiReactions#691ffcb7 to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateReactions#e769e4e7: field reactions: %w", err)
+			return fmt.Errorf("unable to decode updateActiveEmojiReactions#691ffcb7: field emojis: %w", err)
 		}
 
 		if headerLen > 0 {
-			u.Reactions = make([]Reaction, 0, headerLen%bin.PreallocateLimit)
+			u.Emojis = make([]string, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value Reaction
-			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare updateReactions#e769e4e7: field reactions: %w", err)
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateActiveEmojiReactions#691ffcb7: field emojis: %w", err)
 			}
-			u.Reactions = append(u.Reactions, value)
+			u.Emojis = append(u.Emojis, value)
 		}
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (u *UpdateReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (u *UpdateActiveEmojiReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateReactions#e769e4e7 as nil")
+		return fmt.Errorf("can't encode updateActiveEmojiReactions#691ffcb7 as nil")
 	}
 	b.ObjStart()
-	b.PutID("updateReactions")
+	b.PutID("updateActiveEmojiReactions")
 	b.Comma()
-	b.FieldStart("reactions")
+	b.FieldStart("emojis")
 	b.ArrStart()
-	for idx, v := range u.Reactions {
-		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode updateReactions#e769e4e7: field reactions element with index %d: %w", idx, err)
-		}
+	for _, v := range u.Emojis {
+		b.PutString(v)
 		b.Comma()
 	}
 	b.StripComma()
@@ -18496,27 +18478,27 @@ func (u *UpdateReactions) EncodeTDLibJSON(b tdjson.Encoder) error {
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (u *UpdateReactions) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (u *UpdateActiveEmojiReactions) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateReactions#e769e4e7 to nil")
+		return fmt.Errorf("can't decode updateActiveEmojiReactions#691ffcb7 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("updateReactions"); err != nil {
-				return fmt.Errorf("unable to decode updateReactions#e769e4e7: %w", err)
+			if err := b.ConsumeID("updateActiveEmojiReactions"); err != nil {
+				return fmt.Errorf("unable to decode updateActiveEmojiReactions#691ffcb7: %w", err)
 			}
-		case "reactions":
+		case "emojis":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				var value Reaction
-				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode updateReactions#e769e4e7: field reactions: %w", err)
+				value, err := b.String()
+				if err != nil {
+					return fmt.Errorf("unable to decode updateActiveEmojiReactions#691ffcb7: field emojis: %w", err)
 				}
-				u.Reactions = append(u.Reactions, value)
+				u.Emojis = append(u.Emojis, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode updateReactions#e769e4e7: field reactions: %w", err)
+				return fmt.Errorf("unable to decode updateActiveEmojiReactions#691ffcb7: field emojis: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -18525,12 +18507,188 @@ func (u *UpdateReactions) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetReactions returns value of Reactions field.
-func (u *UpdateReactions) GetReactions() (value []Reaction) {
+// GetEmojis returns value of Emojis field.
+func (u *UpdateActiveEmojiReactions) GetEmojis() (value []string) {
 	if u == nil {
 		return
 	}
-	return u.Reactions
+	return u.Emojis
+}
+
+// UpdateDefaultReactionType represents TL type `updateDefaultReactionType#4b615105`.
+type UpdateDefaultReactionType struct {
+	// The new type of the default reaction
+	ReactionType ReactionTypeClass
+}
+
+// UpdateDefaultReactionTypeTypeID is TL type id of UpdateDefaultReactionType.
+const UpdateDefaultReactionTypeTypeID = 0x4b615105
+
+// construct implements constructor of UpdateClass.
+func (u UpdateDefaultReactionType) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateDefaultReactionType.
+var (
+	_ bin.Encoder     = &UpdateDefaultReactionType{}
+	_ bin.Decoder     = &UpdateDefaultReactionType{}
+	_ bin.BareEncoder = &UpdateDefaultReactionType{}
+	_ bin.BareDecoder = &UpdateDefaultReactionType{}
+
+	_ UpdateClass = &UpdateDefaultReactionType{}
+)
+
+func (u *UpdateDefaultReactionType) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ReactionType == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateDefaultReactionType) String() string {
+	if u == nil {
+		return "UpdateDefaultReactionType(nil)"
+	}
+	type Alias UpdateDefaultReactionType
+	return fmt.Sprintf("UpdateDefaultReactionType%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateDefaultReactionType) TypeID() uint32 {
+	return UpdateDefaultReactionTypeTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateDefaultReactionType) TypeName() string {
+	return "updateDefaultReactionType"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateDefaultReactionType) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateDefaultReactionType",
+		ID:   UpdateDefaultReactionTypeTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ReactionType",
+			SchemaName: "reaction_type",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateDefaultReactionType) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateDefaultReactionType#4b615105 as nil")
+	}
+	b.PutID(UpdateDefaultReactionTypeTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateDefaultReactionType) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateDefaultReactionType#4b615105 as nil")
+	}
+	if u.ReactionType == nil {
+		return fmt.Errorf("unable to encode updateDefaultReactionType#4b615105: field reaction_type is nil")
+	}
+	if err := u.ReactionType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateDefaultReactionType#4b615105: field reaction_type: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateDefaultReactionType) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateDefaultReactionType#4b615105 to nil")
+	}
+	if err := b.ConsumeID(UpdateDefaultReactionTypeTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateDefaultReactionType#4b615105: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateDefaultReactionType) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateDefaultReactionType#4b615105 to nil")
+	}
+	{
+		value, err := DecodeReactionType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateDefaultReactionType#4b615105: field reaction_type: %w", err)
+		}
+		u.ReactionType = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateDefaultReactionType) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateDefaultReactionType#4b615105 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateDefaultReactionType")
+	b.Comma()
+	b.FieldStart("reaction_type")
+	if u.ReactionType == nil {
+		return fmt.Errorf("unable to encode updateDefaultReactionType#4b615105: field reaction_type is nil")
+	}
+	if err := u.ReactionType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateDefaultReactionType#4b615105: field reaction_type: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateDefaultReactionType) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateDefaultReactionType#4b615105 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateDefaultReactionType"); err != nil {
+				return fmt.Errorf("unable to decode updateDefaultReactionType#4b615105: %w", err)
+			}
+		case "reaction_type":
+			value, err := DecodeTDLibJSONReactionType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode updateDefaultReactionType#4b615105: field reaction_type: %w", err)
+			}
+			u.ReactionType = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetReactionType returns value of ReactionType field.
+func (u *UpdateDefaultReactionType) GetReactionType() (value ReactionTypeClass) {
+	if u == nil {
+		return
+	}
+	return u.ReactionType
 }
 
 // UpdateDiceEmojis represents TL type `updateDiceEmojis#9d0f91df`.
@@ -22821,7 +22979,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateChatReadInbox: // updateChatReadInbox#d07036e7
 //	case *tdapi.UpdateChatReadOutbox: // updateChatReadOutbox#2a385285
 //	case *tdapi.UpdateChatActionBar: // updateChatActionBar#d9a258c2
-//	case *tdapi.UpdateChatAvailableReactions: // updateChatAvailableReactions#852fb10d
+//	case *tdapi.UpdateChatAvailableReactions: // updateChatAvailableReactions#8ab413f9
 //	case *tdapi.UpdateChatDraftMessage: // updateChatDraftMessage#2bf257d4
 //	case *tdapi.UpdateChatMessageSender: // updateChatMessageSender#77705241
 //	case *tdapi.UpdateChatMessageTTL: // updateChatMessageTtl#dde0a978
@@ -22885,7 +23043,8 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateUsersNearby: // updateUsersNearby#97c8ab5
 //	case *tdapi.UpdateAttachmentMenuBots: // updateAttachmentMenuBots#b6b910c
 //	case *tdapi.UpdateWebAppMessageSent: // updateWebAppMessageSent#58431229
-//	case *tdapi.UpdateReactions: // updateReactions#e769e4e7
+//	case *tdapi.UpdateActiveEmojiReactions: // updateActiveEmojiReactions#691ffcb7
+//	case *tdapi.UpdateDefaultReactionType: // updateDefaultReactionType#4b615105
 //	case *tdapi.UpdateDiceEmojis: // updateDiceEmojis#9d0f91df
 //	case *tdapi.UpdateAnimatedEmojiMessageClicked: // updateAnimatedEmojiMessageClicked#a3167405
 //	case *tdapi.UpdateAnimationSearchParameters: // updateAnimationSearchParameters#6016ef01
@@ -23088,7 +23247,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateChatAvailableReactionsTypeID:
-		// Decoding updateChatAvailableReactions#852fb10d.
+		// Decoding updateChatAvailableReactions#8ab413f9.
 		v := UpdateChatAvailableReactions{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -23535,9 +23694,16 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case UpdateReactionsTypeID:
-		// Decoding updateReactions#e769e4e7.
-		v := UpdateReactions{}
+	case UpdateActiveEmojiReactionsTypeID:
+		// Decoding updateActiveEmojiReactions#691ffcb7.
+		v := UpdateActiveEmojiReactions{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateDefaultReactionTypeTypeID:
+		// Decoding updateDefaultReactionType#4b615105.
+		v := UpdateDefaultReactionType{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -23821,7 +23987,7 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 		}
 		return &v, nil
 	case "updateChatAvailableReactions":
-		// Decoding updateChatAvailableReactions#852fb10d.
+		// Decoding updateChatAvailableReactions#8ab413f9.
 		v := UpdateChatAvailableReactions{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -24268,9 +24434,16 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case "updateReactions":
-		// Decoding updateReactions#e769e4e7.
-		v := UpdateReactions{}
+	case "updateActiveEmojiReactions":
+		// Decoding updateActiveEmojiReactions#691ffcb7.
+		v := UpdateActiveEmojiReactions{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateDefaultReactionType":
+		// Decoding updateDefaultReactionType#4b615105.
+		v := UpdateDefaultReactionType{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

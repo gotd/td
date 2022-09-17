@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AvailableReaction represents TL type `availableReaction#6963e721`.
+// AvailableReaction represents TL type `availableReaction#f9024387`.
 type AvailableReaction struct {
-	// Text representation of the reaction
-	Reaction string
+	// Type of the reaction
+	Type ReactionTypeClass
 	// True, if Telegram Premium is needed to send the reaction
 	NeedsPremium bool
 }
 
 // AvailableReactionTypeID is TL type id of AvailableReaction.
-const AvailableReactionTypeID = 0x6963e721
+const AvailableReactionTypeID = 0xf9024387
 
 // Ensuring interfaces in compile-time for AvailableReaction.
 var (
@@ -54,7 +54,7 @@ func (a *AvailableReaction) Zero() bool {
 	if a == nil {
 		return true
 	}
-	if !(a.Reaction == "") {
+	if !(a.Type == nil) {
 		return false
 	}
 	if !(a.NeedsPremium == false) {
@@ -97,8 +97,8 @@ func (a *AvailableReaction) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Reaction",
-			SchemaName: "reaction",
+			Name:       "Type",
+			SchemaName: "type",
 		},
 		{
 			Name:       "NeedsPremium",
@@ -111,7 +111,7 @@ func (a *AvailableReaction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AvailableReaction) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode availableReaction#6963e721 as nil")
+		return fmt.Errorf("can't encode availableReaction#f9024387 as nil")
 	}
 	b.PutID(AvailableReactionTypeID)
 	return a.EncodeBare(b)
@@ -120,9 +120,14 @@ func (a *AvailableReaction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AvailableReaction) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode availableReaction#6963e721 as nil")
+		return fmt.Errorf("can't encode availableReaction#f9024387 as nil")
 	}
-	b.PutString(a.Reaction)
+	if a.Type == nil {
+		return fmt.Errorf("unable to encode availableReaction#f9024387: field type is nil")
+	}
+	if err := a.Type.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode availableReaction#f9024387: field type: %w", err)
+	}
 	b.PutBool(a.NeedsPremium)
 	return nil
 }
@@ -130,10 +135,10 @@ func (a *AvailableReaction) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (a *AvailableReaction) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode availableReaction#6963e721 to nil")
+		return fmt.Errorf("can't decode availableReaction#f9024387 to nil")
 	}
 	if err := b.ConsumeID(AvailableReactionTypeID); err != nil {
-		return fmt.Errorf("unable to decode availableReaction#6963e721: %w", err)
+		return fmt.Errorf("unable to decode availableReaction#f9024387: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -141,19 +146,19 @@ func (a *AvailableReaction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AvailableReaction) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode availableReaction#6963e721 to nil")
+		return fmt.Errorf("can't decode availableReaction#f9024387 to nil")
 	}
 	{
-		value, err := b.String()
+		value, err := DecodeReactionType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode availableReaction#6963e721: field reaction: %w", err)
+			return fmt.Errorf("unable to decode availableReaction#f9024387: field type: %w", err)
 		}
-		a.Reaction = value
+		a.Type = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode availableReaction#6963e721: field needs_premium: %w", err)
+			return fmt.Errorf("unable to decode availableReaction#f9024387: field needs_premium: %w", err)
 		}
 		a.NeedsPremium = value
 	}
@@ -163,13 +168,18 @@ func (a *AvailableReaction) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (a *AvailableReaction) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
-		return fmt.Errorf("can't encode availableReaction#6963e721 as nil")
+		return fmt.Errorf("can't encode availableReaction#f9024387 as nil")
 	}
 	b.ObjStart()
 	b.PutID("availableReaction")
 	b.Comma()
-	b.FieldStart("reaction")
-	b.PutString(a.Reaction)
+	b.FieldStart("type")
+	if a.Type == nil {
+		return fmt.Errorf("unable to encode availableReaction#f9024387: field type is nil")
+	}
+	if err := a.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode availableReaction#f9024387: field type: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("needs_premium")
 	b.PutBool(a.NeedsPremium)
@@ -182,25 +192,25 @@ func (a *AvailableReaction) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (a *AvailableReaction) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
-		return fmt.Errorf("can't decode availableReaction#6963e721 to nil")
+		return fmt.Errorf("can't decode availableReaction#f9024387 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("availableReaction"); err != nil {
-				return fmt.Errorf("unable to decode availableReaction#6963e721: %w", err)
+				return fmt.Errorf("unable to decode availableReaction#f9024387: %w", err)
 			}
-		case "reaction":
-			value, err := b.String()
+		case "type":
+			value, err := DecodeTDLibJSONReactionType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode availableReaction#6963e721: field reaction: %w", err)
+				return fmt.Errorf("unable to decode availableReaction#f9024387: field type: %w", err)
 			}
-			a.Reaction = value
+			a.Type = value
 		case "needs_premium":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode availableReaction#6963e721: field needs_premium: %w", err)
+				return fmt.Errorf("unable to decode availableReaction#f9024387: field needs_premium: %w", err)
 			}
 			a.NeedsPremium = value
 		default:
@@ -210,12 +220,12 @@ func (a *AvailableReaction) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetReaction returns value of Reaction field.
-func (a *AvailableReaction) GetReaction() (value string) {
+// GetType returns value of Type field.
+func (a *AvailableReaction) GetType() (value ReactionTypeClass) {
 	if a == nil {
 		return
 	}
-	return a.Reaction
+	return a.Type
 }
 
 // GetNeedsPremium returns value of NeedsPremium field.

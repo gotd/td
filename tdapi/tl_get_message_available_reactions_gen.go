@@ -31,16 +31,18 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetMessageAvailableReactionsRequest represents TL type `getMessageAvailableReactions#c3fa54f`.
+// GetMessageAvailableReactionsRequest represents TL type `getMessageAvailableReactions#76db86b2`.
 type GetMessageAvailableReactionsRequest struct {
 	// Identifier of the chat to which the message belongs
 	ChatID int64
 	// Identifier of the message
 	MessageID int64
+	// Number of reaction per row, 5-25
+	RowSize int32
 }
 
 // GetMessageAvailableReactionsRequestTypeID is TL type id of GetMessageAvailableReactionsRequest.
-const GetMessageAvailableReactionsRequestTypeID = 0xc3fa54f
+const GetMessageAvailableReactionsRequestTypeID = 0x76db86b2
 
 // Ensuring interfaces in compile-time for GetMessageAvailableReactionsRequest.
 var (
@@ -58,6 +60,9 @@ func (g *GetMessageAvailableReactionsRequest) Zero() bool {
 		return false
 	}
 	if !(g.MessageID == 0) {
+		return false
+	}
+	if !(g.RowSize == 0) {
 		return false
 	}
 
@@ -104,6 +109,10 @@ func (g *GetMessageAvailableReactionsRequest) TypeInfo() tdp.Type {
 			Name:       "MessageID",
 			SchemaName: "message_id",
 		},
+		{
+			Name:       "RowSize",
+			SchemaName: "row_size",
+		},
 	}
 	return typ
 }
@@ -111,7 +120,7 @@ func (g *GetMessageAvailableReactionsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetMessageAvailableReactionsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getMessageAvailableReactions#c3fa54f as nil")
+		return fmt.Errorf("can't encode getMessageAvailableReactions#76db86b2 as nil")
 	}
 	b.PutID(GetMessageAvailableReactionsRequestTypeID)
 	return g.EncodeBare(b)
@@ -120,20 +129,21 @@ func (g *GetMessageAvailableReactionsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetMessageAvailableReactionsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getMessageAvailableReactions#c3fa54f as nil")
+		return fmt.Errorf("can't encode getMessageAvailableReactions#76db86b2 as nil")
 	}
 	b.PutInt53(g.ChatID)
 	b.PutInt53(g.MessageID)
+	b.PutInt32(g.RowSize)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetMessageAvailableReactionsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getMessageAvailableReactions#c3fa54f to nil")
+		return fmt.Errorf("can't decode getMessageAvailableReactions#76db86b2 to nil")
 	}
 	if err := b.ConsumeID(GetMessageAvailableReactionsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getMessageAvailableReactions#c3fa54f: %w", err)
+		return fmt.Errorf("unable to decode getMessageAvailableReactions#76db86b2: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -141,21 +151,28 @@ func (g *GetMessageAvailableReactionsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetMessageAvailableReactionsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getMessageAvailableReactions#c3fa54f to nil")
+		return fmt.Errorf("can't decode getMessageAvailableReactions#76db86b2 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getMessageAvailableReactions#c3fa54f: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode getMessageAvailableReactions#76db86b2: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getMessageAvailableReactions#c3fa54f: field message_id: %w", err)
+			return fmt.Errorf("unable to decode getMessageAvailableReactions#76db86b2: field message_id: %w", err)
 		}
 		g.MessageID = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode getMessageAvailableReactions#76db86b2: field row_size: %w", err)
+		}
+		g.RowSize = value
 	}
 	return nil
 }
@@ -163,7 +180,7 @@ func (g *GetMessageAvailableReactionsRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetMessageAvailableReactionsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getMessageAvailableReactions#c3fa54f as nil")
+		return fmt.Errorf("can't encode getMessageAvailableReactions#76db86b2 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getMessageAvailableReactions")
@@ -174,6 +191,9 @@ func (g *GetMessageAvailableReactionsRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	b.FieldStart("message_id")
 	b.PutInt53(g.MessageID)
 	b.Comma()
+	b.FieldStart("row_size")
+	b.PutInt32(g.RowSize)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -182,27 +202,33 @@ func (g *GetMessageAvailableReactionsRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetMessageAvailableReactionsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getMessageAvailableReactions#c3fa54f to nil")
+		return fmt.Errorf("can't decode getMessageAvailableReactions#76db86b2 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getMessageAvailableReactions"); err != nil {
-				return fmt.Errorf("unable to decode getMessageAvailableReactions#c3fa54f: %w", err)
+				return fmt.Errorf("unable to decode getMessageAvailableReactions#76db86b2: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getMessageAvailableReactions#c3fa54f: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode getMessageAvailableReactions#76db86b2: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getMessageAvailableReactions#c3fa54f: field message_id: %w", err)
+				return fmt.Errorf("unable to decode getMessageAvailableReactions#76db86b2: field message_id: %w", err)
 			}
 			g.MessageID = value
+		case "row_size":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode getMessageAvailableReactions#76db86b2: field row_size: %w", err)
+			}
+			g.RowSize = value
 		default:
 			return b.Skip()
 		}
@@ -226,7 +252,15 @@ func (g *GetMessageAvailableReactionsRequest) GetMessageID() (value int64) {
 	return g.MessageID
 }
 
-// GetMessageAvailableReactions invokes method getMessageAvailableReactions#c3fa54f returning error if any.
+// GetRowSize returns value of RowSize field.
+func (g *GetMessageAvailableReactionsRequest) GetRowSize() (value int32) {
+	if g == nil {
+		return
+	}
+	return g.RowSize
+}
+
+// GetMessageAvailableReactions invokes method getMessageAvailableReactions#76db86b2 returning error if any.
 func (c *Client) GetMessageAvailableReactions(ctx context.Context, request *GetMessageAvailableReactionsRequest) (*AvailableReactions, error) {
 	var result AvailableReactions
 

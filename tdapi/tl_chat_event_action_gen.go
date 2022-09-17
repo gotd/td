@@ -2251,16 +2251,16 @@ func (c *ChatEventMemberRestricted) GetNewStatus() (value ChatMemberStatusClass)
 	return c.NewStatus
 }
 
-// ChatEventAvailableReactionsChanged represents TL type `chatEventAvailableReactionsChanged#9ac93274`.
+// ChatEventAvailableReactionsChanged represents TL type `chatEventAvailableReactionsChanged#97b8e0bf`.
 type ChatEventAvailableReactionsChanged struct {
 	// Previous chat available reactions
-	OldAvailableReactions []string
+	OldAvailableReactions ChatAvailableReactionsClass
 	// New chat available reactions
-	NewAvailableReactions []string
+	NewAvailableReactions ChatAvailableReactionsClass
 }
 
 // ChatEventAvailableReactionsChangedTypeID is TL type id of ChatEventAvailableReactionsChanged.
-const ChatEventAvailableReactionsChangedTypeID = 0x9ac93274
+const ChatEventAvailableReactionsChangedTypeID = 0x97b8e0bf
 
 // construct implements constructor of ChatEventActionClass.
 func (c ChatEventAvailableReactionsChanged) construct() ChatEventActionClass { return &c }
@@ -2336,7 +2336,7 @@ func (c *ChatEventAvailableReactionsChanged) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatEventAvailableReactionsChanged) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventAvailableReactionsChanged#9ac93274 as nil")
+		return fmt.Errorf("can't encode chatEventAvailableReactionsChanged#97b8e0bf as nil")
 	}
 	b.PutID(ChatEventAvailableReactionsChangedTypeID)
 	return c.EncodeBare(b)
@@ -2345,15 +2345,19 @@ func (c *ChatEventAvailableReactionsChanged) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatEventAvailableReactionsChanged) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventAvailableReactionsChanged#9ac93274 as nil")
+		return fmt.Errorf("can't encode chatEventAvailableReactionsChanged#97b8e0bf as nil")
 	}
-	b.PutInt(len(c.OldAvailableReactions))
-	for _, v := range c.OldAvailableReactions {
-		b.PutString(v)
+	if c.OldAvailableReactions == nil {
+		return fmt.Errorf("unable to encode chatEventAvailableReactionsChanged#97b8e0bf: field old_available_reactions is nil")
 	}
-	b.PutInt(len(c.NewAvailableReactions))
-	for _, v := range c.NewAvailableReactions {
-		b.PutString(v)
+	if err := c.OldAvailableReactions.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventAvailableReactionsChanged#97b8e0bf: field old_available_reactions: %w", err)
+	}
+	if c.NewAvailableReactions == nil {
+		return fmt.Errorf("unable to encode chatEventAvailableReactionsChanged#97b8e0bf: field new_available_reactions is nil")
+	}
+	if err := c.NewAvailableReactions.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventAvailableReactionsChanged#97b8e0bf: field new_available_reactions: %w", err)
 	}
 	return nil
 }
@@ -2361,10 +2365,10 @@ func (c *ChatEventAvailableReactionsChanged) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatEventAvailableReactionsChanged) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventAvailableReactionsChanged#9ac93274 to nil")
+		return fmt.Errorf("can't decode chatEventAvailableReactionsChanged#97b8e0bf to nil")
 	}
 	if err := b.ConsumeID(ChatEventAvailableReactionsChangedTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#9ac93274: %w", err)
+		return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#97b8e0bf: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -2372,41 +2376,21 @@ func (c *ChatEventAvailableReactionsChanged) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatEventAvailableReactionsChanged) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventAvailableReactionsChanged#9ac93274 to nil")
+		return fmt.Errorf("can't decode chatEventAvailableReactionsChanged#97b8e0bf to nil")
 	}
 	{
-		headerLen, err := b.Int()
+		value, err := DecodeChatAvailableReactions(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#9ac93274: field old_available_reactions: %w", err)
+			return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#97b8e0bf: field old_available_reactions: %w", err)
 		}
-
-		if headerLen > 0 {
-			c.OldAvailableReactions = make([]string, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#9ac93274: field old_available_reactions: %w", err)
-			}
-			c.OldAvailableReactions = append(c.OldAvailableReactions, value)
-		}
+		c.OldAvailableReactions = value
 	}
 	{
-		headerLen, err := b.Int()
+		value, err := DecodeChatAvailableReactions(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#9ac93274: field new_available_reactions: %w", err)
+			return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#97b8e0bf: field new_available_reactions: %w", err)
 		}
-
-		if headerLen > 0 {
-			c.NewAvailableReactions = make([]string, 0, headerLen%bin.PreallocateLimit)
-		}
-		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#9ac93274: field new_available_reactions: %w", err)
-			}
-			c.NewAvailableReactions = append(c.NewAvailableReactions, value)
-		}
+		c.NewAvailableReactions = value
 	}
 	return nil
 }
@@ -2414,28 +2398,26 @@ func (c *ChatEventAvailableReactionsChanged) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatEventAvailableReactionsChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventAvailableReactionsChanged#9ac93274 as nil")
+		return fmt.Errorf("can't encode chatEventAvailableReactionsChanged#97b8e0bf as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatEventAvailableReactionsChanged")
 	b.Comma()
 	b.FieldStart("old_available_reactions")
-	b.ArrStart()
-	for _, v := range c.OldAvailableReactions {
-		b.PutString(v)
-		b.Comma()
+	if c.OldAvailableReactions == nil {
+		return fmt.Errorf("unable to encode chatEventAvailableReactionsChanged#97b8e0bf: field old_available_reactions is nil")
 	}
-	b.StripComma()
-	b.ArrEnd()
+	if err := c.OldAvailableReactions.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventAvailableReactionsChanged#97b8e0bf: field old_available_reactions: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("new_available_reactions")
-	b.ArrStart()
-	for _, v := range c.NewAvailableReactions {
-		b.PutString(v)
-		b.Comma()
+	if c.NewAvailableReactions == nil {
+		return fmt.Errorf("unable to encode chatEventAvailableReactionsChanged#97b8e0bf: field new_available_reactions is nil")
 	}
-	b.StripComma()
-	b.ArrEnd()
+	if err := c.NewAvailableReactions.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventAvailableReactionsChanged#97b8e0bf: field new_available_reactions: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -2445,37 +2427,27 @@ func (c *ChatEventAvailableReactionsChanged) EncodeTDLibJSON(b tdjson.Encoder) e
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatEventAvailableReactionsChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventAvailableReactionsChanged#9ac93274 to nil")
+		return fmt.Errorf("can't decode chatEventAvailableReactionsChanged#97b8e0bf to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatEventAvailableReactionsChanged"); err != nil {
-				return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#9ac93274: %w", err)
+				return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#97b8e0bf: %w", err)
 			}
 		case "old_available_reactions":
-			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.String()
-				if err != nil {
-					return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#9ac93274: field old_available_reactions: %w", err)
-				}
-				c.OldAvailableReactions = append(c.OldAvailableReactions, value)
-				return nil
-			}); err != nil {
-				return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#9ac93274: field old_available_reactions: %w", err)
+			value, err := DecodeTDLibJSONChatAvailableReactions(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#97b8e0bf: field old_available_reactions: %w", err)
 			}
+			c.OldAvailableReactions = value
 		case "new_available_reactions":
-			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.String()
-				if err != nil {
-					return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#9ac93274: field new_available_reactions: %w", err)
-				}
-				c.NewAvailableReactions = append(c.NewAvailableReactions, value)
-				return nil
-			}); err != nil {
-				return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#9ac93274: field new_available_reactions: %w", err)
+			value, err := DecodeTDLibJSONChatAvailableReactions(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventAvailableReactionsChanged#97b8e0bf: field new_available_reactions: %w", err)
 			}
+			c.NewAvailableReactions = value
 		default:
 			return b.Skip()
 		}
@@ -2484,7 +2456,7 @@ func (c *ChatEventAvailableReactionsChanged) DecodeTDLibJSON(b tdjson.Decoder) e
 }
 
 // GetOldAvailableReactions returns value of OldAvailableReactions field.
-func (c *ChatEventAvailableReactionsChanged) GetOldAvailableReactions() (value []string) {
+func (c *ChatEventAvailableReactionsChanged) GetOldAvailableReactions() (value ChatAvailableReactionsClass) {
 	if c == nil {
 		return
 	}
@@ -2492,7 +2464,7 @@ func (c *ChatEventAvailableReactionsChanged) GetOldAvailableReactions() (value [
 }
 
 // GetNewAvailableReactions returns value of NewAvailableReactions field.
-func (c *ChatEventAvailableReactionsChanged) GetNewAvailableReactions() (value []string) {
+func (c *ChatEventAvailableReactionsChanged) GetNewAvailableReactions() (value ChatAvailableReactionsClass) {
 	if c == nil {
 		return
 	}
@@ -6639,7 +6611,7 @@ const ChatEventActionClassName = "ChatEventAction"
 //	case *tdapi.ChatEventMemberLeft: // chatEventMemberLeft#c778400f
 //	case *tdapi.ChatEventMemberPromoted: // chatEventMemberPromoted#1f4f6861
 //	case *tdapi.ChatEventMemberRestricted: // chatEventMemberRestricted#5f951e05
-//	case *tdapi.ChatEventAvailableReactionsChanged: // chatEventAvailableReactionsChanged#9ac93274
+//	case *tdapi.ChatEventAvailableReactionsChanged: // chatEventAvailableReactionsChanged#97b8e0bf
 //	case *tdapi.ChatEventDescriptionChanged: // chatEventDescriptionChanged#254cf1e
 //	case *tdapi.ChatEventLinkedChatChanged: // chatEventLinkedChatChanged#6b2271af
 //	case *tdapi.ChatEventLocationChanged: // chatEventLocationChanged#e7cdfd4e
@@ -6778,7 +6750,7 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 		}
 		return &v, nil
 	case ChatEventAvailableReactionsChangedTypeID:
-		// Decoding chatEventAvailableReactionsChanged#9ac93274.
+		// Decoding chatEventAvailableReactionsChanged#97b8e0bf.
 		v := ChatEventAvailableReactionsChanged{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
@@ -7035,7 +7007,7 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 		}
 		return &v, nil
 	case "chatEventAvailableReactionsChanged":
-		// Decoding chatEventAvailableReactionsChanged#9ac93274.
+		// Decoding chatEventAvailableReactionsChanged#97b8e0bf.
 		v := ChatEventAvailableReactionsChanged{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)

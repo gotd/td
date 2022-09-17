@@ -2035,6 +2035,172 @@ func (i *InternalLinkTypeGame) GetGameShortName() (value string) {
 	return i.GameShortName
 }
 
+// InternalLinkTypeInstantView represents TL type `internalLinkTypeInstantView#3cc171c4`.
+type InternalLinkTypeInstantView struct {
+	// URL to be passed to getWebPageInstantView
+	URL string
+}
+
+// InternalLinkTypeInstantViewTypeID is TL type id of InternalLinkTypeInstantView.
+const InternalLinkTypeInstantViewTypeID = 0x3cc171c4
+
+// construct implements constructor of InternalLinkTypeClass.
+func (i InternalLinkTypeInstantView) construct() InternalLinkTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InternalLinkTypeInstantView.
+var (
+	_ bin.Encoder     = &InternalLinkTypeInstantView{}
+	_ bin.Decoder     = &InternalLinkTypeInstantView{}
+	_ bin.BareEncoder = &InternalLinkTypeInstantView{}
+	_ bin.BareDecoder = &InternalLinkTypeInstantView{}
+
+	_ InternalLinkTypeClass = &InternalLinkTypeInstantView{}
+)
+
+func (i *InternalLinkTypeInstantView) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.URL == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InternalLinkTypeInstantView) String() string {
+	if i == nil {
+		return "InternalLinkTypeInstantView(nil)"
+	}
+	type Alias InternalLinkTypeInstantView
+	return fmt.Sprintf("InternalLinkTypeInstantView%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InternalLinkTypeInstantView) TypeID() uint32 {
+	return InternalLinkTypeInstantViewTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InternalLinkTypeInstantView) TypeName() string {
+	return "internalLinkTypeInstantView"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InternalLinkTypeInstantView) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "internalLinkTypeInstantView",
+		ID:   InternalLinkTypeInstantViewTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InternalLinkTypeInstantView) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeInstantView#3cc171c4 as nil")
+	}
+	b.PutID(InternalLinkTypeInstantViewTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InternalLinkTypeInstantView) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeInstantView#3cc171c4 as nil")
+	}
+	b.PutString(i.URL)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InternalLinkTypeInstantView) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeInstantView#3cc171c4 to nil")
+	}
+	if err := b.ConsumeID(InternalLinkTypeInstantViewTypeID); err != nil {
+		return fmt.Errorf("unable to decode internalLinkTypeInstantView#3cc171c4: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InternalLinkTypeInstantView) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeInstantView#3cc171c4 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeInstantView#3cc171c4: field url: %w", err)
+		}
+		i.URL = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InternalLinkTypeInstantView) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeInstantView#3cc171c4 as nil")
+	}
+	b.ObjStart()
+	b.PutID("internalLinkTypeInstantView")
+	b.Comma()
+	b.FieldStart("url")
+	b.PutString(i.URL)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InternalLinkTypeInstantView) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeInstantView#3cc171c4 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("internalLinkTypeInstantView"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeInstantView#3cc171c4: %w", err)
+			}
+		case "url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeInstantView#3cc171c4: field url: %w", err)
+			}
+			i.URL = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetURL returns value of URL field.
+func (i *InternalLinkTypeInstantView) GetURL() (value string) {
+	if i == nil {
+		return
+	}
+	return i.URL
+}
+
 // InternalLinkTypeInvoice represents TL type `internalLinkTypeInvoice#f34c6dac`.
 type InternalLinkTypeInvoice struct {
 	// Name of the invoice
@@ -5655,6 +5821,7 @@ const InternalLinkTypeClassName = "InternalLinkType"
 //	case *tdapi.InternalLinkTypeChatInvite: // internalLinkTypeChatInvite#198c3cd9
 //	case *tdapi.InternalLinkTypeFilterSettings: // internalLinkTypeFilterSettings#5981179b
 //	case *tdapi.InternalLinkTypeGame: // internalLinkTypeGame#f074adcd
+//	case *tdapi.InternalLinkTypeInstantView: // internalLinkTypeInstantView#3cc171c4
 //	case *tdapi.InternalLinkTypeInvoice: // internalLinkTypeInvoice#f34c6dac
 //	case *tdapi.InternalLinkTypeLanguagePack: // internalLinkTypeLanguagePack#a9870d6c
 //	case *tdapi.InternalLinkTypeLanguageSettings: // internalLinkTypeLanguageSettings#b019e6e6
@@ -5780,6 +5947,13 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 	case InternalLinkTypeGameTypeID:
 		// Decoding internalLinkTypeGame#f074adcd.
 		v := InternalLinkTypeGame{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case InternalLinkTypeInstantViewTypeID:
+		// Decoding internalLinkTypeInstantView#3cc171c4.
+		v := InternalLinkTypeInstantView{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
@@ -6016,6 +6190,13 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 	case "internalLinkTypeGame":
 		// Decoding internalLinkTypeGame#f074adcd.
 		v := InternalLinkTypeGame{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeInstantView":
+		// Decoding internalLinkTypeInstantView#3cc171c4.
+		v := InternalLinkTypeInstantView{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}

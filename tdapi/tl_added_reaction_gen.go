@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AddedReaction represents TL type `addedReaction#1b17c6bc`.
+// AddedReaction represents TL type `addedReaction#bc9c9b4f`.
 type AddedReaction struct {
-	// Text representation of the reaction
-	Reaction string
+	// Type of the reaction
+	Type ReactionTypeClass
 	// Identifier of the chat member, applied the reaction
 	SenderID MessageSenderClass
 }
 
 // AddedReactionTypeID is TL type id of AddedReaction.
-const AddedReactionTypeID = 0x1b17c6bc
+const AddedReactionTypeID = 0xbc9c9b4f
 
 // Ensuring interfaces in compile-time for AddedReaction.
 var (
@@ -54,7 +54,7 @@ func (a *AddedReaction) Zero() bool {
 	if a == nil {
 		return true
 	}
-	if !(a.Reaction == "") {
+	if !(a.Type == nil) {
 		return false
 	}
 	if !(a.SenderID == nil) {
@@ -97,8 +97,8 @@ func (a *AddedReaction) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Reaction",
-			SchemaName: "reaction",
+			Name:       "Type",
+			SchemaName: "type",
 		},
 		{
 			Name:       "SenderID",
@@ -111,7 +111,7 @@ func (a *AddedReaction) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AddedReaction) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode addedReaction#1b17c6bc as nil")
+		return fmt.Errorf("can't encode addedReaction#bc9c9b4f as nil")
 	}
 	b.PutID(AddedReactionTypeID)
 	return a.EncodeBare(b)
@@ -120,14 +120,19 @@ func (a *AddedReaction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AddedReaction) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode addedReaction#1b17c6bc as nil")
+		return fmt.Errorf("can't encode addedReaction#bc9c9b4f as nil")
 	}
-	b.PutString(a.Reaction)
+	if a.Type == nil {
+		return fmt.Errorf("unable to encode addedReaction#bc9c9b4f: field type is nil")
+	}
+	if err := a.Type.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode addedReaction#bc9c9b4f: field type: %w", err)
+	}
 	if a.SenderID == nil {
-		return fmt.Errorf("unable to encode addedReaction#1b17c6bc: field sender_id is nil")
+		return fmt.Errorf("unable to encode addedReaction#bc9c9b4f: field sender_id is nil")
 	}
 	if err := a.SenderID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode addedReaction#1b17c6bc: field sender_id: %w", err)
+		return fmt.Errorf("unable to encode addedReaction#bc9c9b4f: field sender_id: %w", err)
 	}
 	return nil
 }
@@ -135,10 +140,10 @@ func (a *AddedReaction) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (a *AddedReaction) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode addedReaction#1b17c6bc to nil")
+		return fmt.Errorf("can't decode addedReaction#bc9c9b4f to nil")
 	}
 	if err := b.ConsumeID(AddedReactionTypeID); err != nil {
-		return fmt.Errorf("unable to decode addedReaction#1b17c6bc: %w", err)
+		return fmt.Errorf("unable to decode addedReaction#bc9c9b4f: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -146,19 +151,19 @@ func (a *AddedReaction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AddedReaction) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode addedReaction#1b17c6bc to nil")
+		return fmt.Errorf("can't decode addedReaction#bc9c9b4f to nil")
 	}
 	{
-		value, err := b.String()
+		value, err := DecodeReactionType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode addedReaction#1b17c6bc: field reaction: %w", err)
+			return fmt.Errorf("unable to decode addedReaction#bc9c9b4f: field type: %w", err)
 		}
-		a.Reaction = value
+		a.Type = value
 	}
 	{
 		value, err := DecodeMessageSender(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode addedReaction#1b17c6bc: field sender_id: %w", err)
+			return fmt.Errorf("unable to decode addedReaction#bc9c9b4f: field sender_id: %w", err)
 		}
 		a.SenderID = value
 	}
@@ -168,20 +173,25 @@ func (a *AddedReaction) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (a *AddedReaction) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
-		return fmt.Errorf("can't encode addedReaction#1b17c6bc as nil")
+		return fmt.Errorf("can't encode addedReaction#bc9c9b4f as nil")
 	}
 	b.ObjStart()
 	b.PutID("addedReaction")
 	b.Comma()
-	b.FieldStart("reaction")
-	b.PutString(a.Reaction)
+	b.FieldStart("type")
+	if a.Type == nil {
+		return fmt.Errorf("unable to encode addedReaction#bc9c9b4f: field type is nil")
+	}
+	if err := a.Type.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode addedReaction#bc9c9b4f: field type: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("sender_id")
 	if a.SenderID == nil {
-		return fmt.Errorf("unable to encode addedReaction#1b17c6bc: field sender_id is nil")
+		return fmt.Errorf("unable to encode addedReaction#bc9c9b4f: field sender_id is nil")
 	}
 	if err := a.SenderID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode addedReaction#1b17c6bc: field sender_id: %w", err)
+		return fmt.Errorf("unable to encode addedReaction#bc9c9b4f: field sender_id: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -192,25 +202,25 @@ func (a *AddedReaction) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (a *AddedReaction) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
-		return fmt.Errorf("can't decode addedReaction#1b17c6bc to nil")
+		return fmt.Errorf("can't decode addedReaction#bc9c9b4f to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("addedReaction"); err != nil {
-				return fmt.Errorf("unable to decode addedReaction#1b17c6bc: %w", err)
+				return fmt.Errorf("unable to decode addedReaction#bc9c9b4f: %w", err)
 			}
-		case "reaction":
-			value, err := b.String()
+		case "type":
+			value, err := DecodeTDLibJSONReactionType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode addedReaction#1b17c6bc: field reaction: %w", err)
+				return fmt.Errorf("unable to decode addedReaction#bc9c9b4f: field type: %w", err)
 			}
-			a.Reaction = value
+			a.Type = value
 		case "sender_id":
 			value, err := DecodeTDLibJSONMessageSender(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode addedReaction#1b17c6bc: field sender_id: %w", err)
+				return fmt.Errorf("unable to decode addedReaction#bc9c9b4f: field sender_id: %w", err)
 			}
 			a.SenderID = value
 		default:
@@ -220,12 +230,12 @@ func (a *AddedReaction) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetReaction returns value of Reaction field.
-func (a *AddedReaction) GetReaction() (value string) {
+// GetType returns value of Type field.
+func (a *AddedReaction) GetType() (value ReactionTypeClass) {
 	if a == nil {
 		return
 	}
-	return a.Reaction
+	return a.Type
 }
 
 // GetSenderID returns value of SenderID field.
