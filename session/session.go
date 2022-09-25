@@ -54,6 +54,9 @@ type Config struct {
 	WebfileDCID int
 }
 
+// ConfigFromTG converts tg.Config to Config.
+//
+// Note that Config is the subset of tg.Config, so data loss is possible.
 func ConfigFromTG(c tg.Config) Config {
 	return Config{
 		BlockedMode:     c.BlockedMode,
@@ -70,6 +73,9 @@ func ConfigFromTG(c tg.Config) Config {
 	}
 }
 
+// TG returns tg.Config from Config.
+//
+// Note that config is the subset of tg.Config, so some fields will be unset.
 func (c Config) TG() tg.Config {
 	return tg.Config{
 		BlockedMode:     c.BlockedMode,
