@@ -76,7 +76,7 @@ func (c *Client) saveSession(cfg tg.Config, s mtproto.Session) error {
 	}
 
 	// Updating previous data.
-	data.Config = cfg
+	data.Config = session.ConfigFromTG(cfg)
 	data.AuthKey = s.Key.Value[:]
 	data.AuthKeyID = s.Key.ID[:]
 	data.DC = cfg.ThisDC

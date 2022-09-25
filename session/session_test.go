@@ -6,8 +6,6 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-
-	"github.com/gotd/td/tg"
 )
 
 func testStorage(storage Storage) func(t *testing.T) {
@@ -23,7 +21,7 @@ func testStorage(storage Storage) func(t *testing.T) {
 		a.ErrorIs(err, ErrNotFound)
 
 		data := &Data{
-			Config:    tg.Config{},
+			Config:    Config{},
 			DC:        2,
 			Addr:      "localhost:8080",
 			AuthKey:   bytes.Repeat([]byte{'a'}, 256),
