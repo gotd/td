@@ -10,9 +10,85 @@ import (
 	"github.com/gotd/td/tg"
 )
 
+// Config is subset of tg.Config.
+type Config struct {
+	// Indicates that telegram is probably censored by governments/ISPs in the current region
+	BlockedMode bool
+	// Whether pfs¹ was used
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/pfs
+	PFSEnabled bool
+	// Whether to forcefully try connecting using IPv6 dcOptions¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/DcOption
+	ForceTryIpv6 bool
+	// Current date at the server
+	Date int
+	// Expiration date of this config: when it expires it'll have to be refetched using help
+	// getConfig¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/help.getConfig
+	Expires int
+	// Whether we're connected to the test DCs
+	TestMode bool
+	// ID of the DC that returned the reply
+	ThisDC int
+	// DC IP list
+	DCOptions []tg.DCOption
+	// Domain name for fetching encrypted DC list from DNS TXT record
+	DCTxtDomainName string
+	// Temporary passport¹ sessions
+	//
+	// Links:
+	//  1) https://core.telegram.org/passport
+	//
+	// Use SetTmpSessions and GetTmpSessions helpers.
+	TmpSessions int
+	// DC ID to use to download webfiles¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files#downloading-webfiles
+	WebfileDCID int
+}
+
+func ConfigFromTG(c tg.Config) Config {
+	return Config{
+		BlockedMode:     c.BlockedMode,
+		ForceTryIpv6:    c.ForceTryIpv6,
+		PFSEnabled:      c.PFSEnabled,
+		Date:            c.Date,
+		Expires:         c.Expires,
+		TestMode:        c.TestMode,
+		ThisDC:          c.ThisDC,
+		DCOptions:       c.DCOptions,
+		DCTxtDomainName: c.DCTxtDomainName,
+		WebfileDCID:     c.WebfileDCID,
+		TmpSessions:     c.TmpSessions,
+	}
+}
+
+func (c Config) TG() tg.Config {
+	return tg.Config{
+		BlockedMode:     c.BlockedMode,
+		ForceTryIpv6:    c.ForceTryIpv6,
+		PFSEnabled:      c.PFSEnabled,
+		Date:            c.Date,
+		Expires:         c.Expires,
+		TestMode:        c.TestMode,
+		ThisDC:          c.ThisDC,
+		DCOptions:       c.DCOptions,
+		DCTxtDomainName: c.DCTxtDomainName,
+		WebfileDCID:     c.WebfileDCID,
+		TmpSessions:     c.TmpSessions,
+	}
+}
+
 // Data of session.
 type Data struct {
-	Config    tg.Config
+	Config    Config
 	DC        int
 	Addr      string
 	AuthKey   []byte
