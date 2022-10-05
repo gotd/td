@@ -233,7 +233,7 @@ Special thanks:
   * Multiple major refactorings, including critical cryptographical scope reduction
   * Code generation improvements (vector support, multiple modes for pretty-print)
   * And many other cool things and performance improvements
-* [xjem](https://github.com/xjem)
+* [shadowspore](https://github.com/shadowspore)
   * Background pings
   * Links in generated documentation
   * Message acknowledgements
@@ -273,7 +273,7 @@ Created by Aleksandr (ernado) Razumov
 
 ## Links
 
-- [Examples](https://github.com/gotd/td/tree/-/examples)
+- [Examples](https://github.com/gotd/td/blob/-/examples/README.md)
 - [Security policy](https://github.com/gotd/td/blob/-/.github/SECURITY.md)
 - [User support and dev chat](https://github.com/gotd/td/blob/-/.github/SUPPORT.md)
 - [Roadmap](https://github.com/gotd/td/blob/-/ROADMAP.md)
