@@ -40,7 +40,7 @@ type Supergroup struct {
 	// Point in time (Unix timestamp) when the current user joined, or the point in time when
 	// the supergroup or channel was created, in case the user is not a member
 	Date int32
-	// Status of the current user in the supergroup or channel; custom title will be always
+	// Status of the current user in the supergroup or channel; custom title will always be
 	// empty
 	Status ChatMemberStatusClass
 	// Number of members in the supergroup or channel; 0 if unknown. Currently, it is

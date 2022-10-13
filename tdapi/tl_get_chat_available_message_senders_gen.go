@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetChatAvailableMessageSendersRequest represents TL type `getChatAvailableMessageSenders#a41d7c58`.
+// GetChatAvailableMessageSendersRequest represents TL type `getChatAvailableMessageSenders#450fe92b`.
 type GetChatAvailableMessageSendersRequest struct {
 	// Chat identifier
 	ChatID int64
 }
 
 // GetChatAvailableMessageSendersRequestTypeID is TL type id of GetChatAvailableMessageSendersRequest.
-const GetChatAvailableMessageSendersRequestTypeID = 0xa41d7c58
+const GetChatAvailableMessageSendersRequestTypeID = 0x450fe92b
 
 // Ensuring interfaces in compile-time for GetChatAvailableMessageSendersRequest.
 var (
@@ -102,7 +102,7 @@ func (g *GetChatAvailableMessageSendersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetChatAvailableMessageSendersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatAvailableMessageSenders#a41d7c58 as nil")
+		return fmt.Errorf("can't encode getChatAvailableMessageSenders#450fe92b as nil")
 	}
 	b.PutID(GetChatAvailableMessageSendersRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,7 +111,7 @@ func (g *GetChatAvailableMessageSendersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetChatAvailableMessageSendersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatAvailableMessageSenders#a41d7c58 as nil")
+		return fmt.Errorf("can't encode getChatAvailableMessageSenders#450fe92b as nil")
 	}
 	b.PutInt53(g.ChatID)
 	return nil
@@ -120,10 +120,10 @@ func (g *GetChatAvailableMessageSendersRequest) EncodeBare(b *bin.Buffer) error 
 // Decode implements bin.Decoder.
 func (g *GetChatAvailableMessageSendersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatAvailableMessageSenders#a41d7c58 to nil")
+		return fmt.Errorf("can't decode getChatAvailableMessageSenders#450fe92b to nil")
 	}
 	if err := b.ConsumeID(GetChatAvailableMessageSendersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getChatAvailableMessageSenders#a41d7c58: %w", err)
+		return fmt.Errorf("unable to decode getChatAvailableMessageSenders#450fe92b: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -131,12 +131,12 @@ func (g *GetChatAvailableMessageSendersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetChatAvailableMessageSendersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatAvailableMessageSenders#a41d7c58 to nil")
+		return fmt.Errorf("can't decode getChatAvailableMessageSenders#450fe92b to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatAvailableMessageSenders#a41d7c58: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode getChatAvailableMessageSenders#450fe92b: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
@@ -146,7 +146,7 @@ func (g *GetChatAvailableMessageSendersRequest) DecodeBare(b *bin.Buffer) error 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetChatAvailableMessageSendersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatAvailableMessageSenders#a41d7c58 as nil")
+		return fmt.Errorf("can't encode getChatAvailableMessageSenders#450fe92b as nil")
 	}
 	b.ObjStart()
 	b.PutID("getChatAvailableMessageSenders")
@@ -162,19 +162,19 @@ func (g *GetChatAvailableMessageSendersRequest) EncodeTDLibJSON(b tdjson.Encoder
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetChatAvailableMessageSendersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatAvailableMessageSenders#a41d7c58 to nil")
+		return fmt.Errorf("can't decode getChatAvailableMessageSenders#450fe92b to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getChatAvailableMessageSenders"); err != nil {
-				return fmt.Errorf("unable to decode getChatAvailableMessageSenders#a41d7c58: %w", err)
+				return fmt.Errorf("unable to decode getChatAvailableMessageSenders#450fe92b: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatAvailableMessageSenders#a41d7c58: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode getChatAvailableMessageSenders#450fe92b: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		default:
@@ -192,9 +192,9 @@ func (g *GetChatAvailableMessageSendersRequest) GetChatID() (value int64) {
 	return g.ChatID
 }
 
-// GetChatAvailableMessageSenders invokes method getChatAvailableMessageSenders#a41d7c58 returning error if any.
-func (c *Client) GetChatAvailableMessageSenders(ctx context.Context, chatid int64) (*MessageSenders, error) {
-	var result MessageSenders
+// GetChatAvailableMessageSenders invokes method getChatAvailableMessageSenders#450fe92b returning error if any.
+func (c *Client) GetChatAvailableMessageSenders(ctx context.Context, chatid int64) (*ChatMessageSenders, error) {
+	var result ChatMessageSenders
 
 	request := &GetChatAvailableMessageSendersRequest{
 		ChatID: chatid,
