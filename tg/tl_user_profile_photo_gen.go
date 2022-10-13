@@ -148,10 +148,7 @@ type UserProfilePhoto struct {
 	// Links:
 	//  1) https://core.telegram.org/api/files#animated-profile-pictures
 	HasVideo bool
-	// Identifier of the respective photoParameter added in Layer 2¹
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/layers#layer-2
+	// Identifier of the respective photo
 	PhotoID int64
 	// Stripped thumbnail¹
 	//

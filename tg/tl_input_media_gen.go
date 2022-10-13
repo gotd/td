@@ -2594,7 +2594,7 @@ type InputMediaInvoice struct {
 	// forwarded message, using the same invoice.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/links#not-invoice
+	//  1) https://core.telegram.org/api/links#bot-links
 	//  2) https://core.telegram.org/api/links#bot-links
 	//
 	// Use SetStartParam and GetStartParam helpers.

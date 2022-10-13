@@ -54,10 +54,7 @@ type MessagesSetTypingRequest struct {
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
-	// Type of actionParameter added in Layer 17¹.
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/layers#layer-17
+	// Type of action
 	Action SendMessageActionClass
 }
 

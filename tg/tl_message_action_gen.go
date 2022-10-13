@@ -2351,7 +2351,7 @@ type MessageActionPaymentSent struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/links#invoice-links
-	//  2) https://core.telegram.org/api/config#client-configuration
+	//  2) https://core.telegram.org/api/config#premium-invoice-slug
 	//
 	// Use SetInvoiceSlug and GetInvoiceSlug helpers.
 	InvoiceSlug string

@@ -32,11 +32,21 @@ var (
 )
 
 // HelpGetRecentMeURLsRequest represents TL type `help.getRecentMeUrls#3dc0f114`.
-// Get recently used t.me links
+// Get recently used t.me links.
+// When installing official applications from "Download Telegram" buttons present in t
+// me¹ pages, a referral parameter is passed to applications after installation.
+// If, after downloading the application, the user creates a new account (instead of
+// logging into an existing one), the referral parameter should be imported using this
+// method, which returns the t.me² pages the user recently opened, before installing
+// Telegram.
+//
+// Links:
+//  1. https://t.me
+//  2. https://t.me
 //
 // See https://core.telegram.org/method/help.getRecentMeUrls for reference.
 type HelpGetRecentMeURLsRequest struct {
-	// Referer
+	// Referrer
 	Referer string
 }
 
@@ -162,7 +172,17 @@ func (g *HelpGetRecentMeURLsRequest) GetReferer() (value string) {
 }
 
 // HelpGetRecentMeURLs invokes method help.getRecentMeUrls#3dc0f114 returning error if any.
-// Get recently used t.me links
+// Get recently used t.me links.
+// When installing official applications from "Download Telegram" buttons present in t
+// me¹ pages, a referral parameter is passed to applications after installation.
+// If, after downloading the application, the user creates a new account (instead of
+// logging into an existing one), the referral parameter should be imported using this
+// method, which returns the t.me² pages the user recently opened, before installing
+// Telegram.
+//
+// Links:
+//  1. https://t.me
+//  2. https://t.me
 //
 // See https://core.telegram.org/method/help.getRecentMeUrls for reference.
 func (c *Client) HelpGetRecentMeURLs(ctx context.Context, referer string) (*HelpRecentMeURLs, error) {

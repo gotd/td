@@ -41,10 +41,11 @@ type AccountUploadThemeRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Theme file uploaded as described in files »¹
+	// Previously uploaded¹ theme file with platform-specific colors for UI components, can
+	// be left unset when creating themes that only modify the wallpaper or accent colors.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/files
+	//  1) https://core.telegram.org/api/themes#uploading-theme-files
 	File InputFileClass
 	// Thumbnail
 	//

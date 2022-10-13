@@ -59,10 +59,15 @@ type InputThemeSettings struct {
 	//
 	// Use SetMessageColors and GetMessageColors helpers.
 	MessageColors []int
-	// Wallpaper¹
+	// inputWallPaper¹ or inputWallPaperSlug² when passing wallpaper files for image³ or
+	// pattern⁴ wallpapers, inputWallPaperNoFile⁵ with id=0 otherwise.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/wallpapers
+	//  1) https://core.telegram.org/constructor/inputWallPaper
+	//  2) https://core.telegram.org/constructor/inputWallPaper
+	//  3) https://core.telegram.org/api/wallpapers#image-wallpapers
+	//  4) https://core.telegram.org/api/wallpapers#pattern-wallpapers
+	//  5) https://core.telegram.org/constructor/inputWallPaperNoFile
 	//
 	// Use SetWallpaper and GetWallpaper helpers.
 	Wallpaper InputWallPaperClass

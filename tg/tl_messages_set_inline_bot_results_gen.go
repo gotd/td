@@ -460,6 +460,7 @@ func (s *MessagesSetInlineBotResultsRequest) MapResults() (value InputBotInlineR
 //	400 RESULT_TYPE_INVALID: Result type invalid.
 //	400 SEND_MESSAGE_MEDIA_INVALID: Invalid media provided.
 //	400 SEND_MESSAGE_TYPE_INVALID: The message type is invalid.
+//	400 START_PARAM_EMPTY: The start parameter is empty.
 //	400 START_PARAM_INVALID: Start parameter invalid.
 //	400 STICKER_DOCUMENT_INVALID: The specified sticker document is invalid.
 //	400 URL_INVALID: Invalid URL provided.

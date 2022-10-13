@@ -210,6 +210,7 @@ const (
 	ErrInlineBotRequired                = "INLINE_BOT_REQUIRED"
 	ErrInlineResultExpired              = "INLINE_RESULT_EXPIRED"
 	ErrInputFilterInvalid               = "INPUT_FILTER_INVALID"
+	ErrInputTextEmpty                   = "INPUT_TEXT_EMPTY"
 	ErrInputUserDeactivated             = "INPUT_USER_DEACTIVATED"
 	ErrInviteForbiddenWithJoinas        = "INVITE_FORBIDDEN_WITH_JOINAS"
 	ErrInviteHashEmpty                  = "INVITE_HASH_EMPTY"
@@ -217,6 +218,7 @@ const (
 	ErrInviteHashInvalid                = "INVITE_HASH_INVALID"
 	ErrInviteRequestSent                = "INVITE_REQUEST_SENT"
 	ErrInviteRevokedMissing             = "INVITE_REVOKED_MISSING"
+	ErrInvoicePayloadInvalid            = "INVOICE_PAYLOAD_INVALID"
 	ErrJoinAsPeerInvalid                = "JOIN_AS_PEER_INVALID"
 	ErrLangCodeInvalid                  = "LANG_CODE_INVALID"
 	ErrLangCodeNotSupported             = "LANG_CODE_NOT_SUPPORTED"
@@ -248,6 +250,7 @@ const (
 	ErrMessagePollClosed                = "MESSAGE_POLL_CLOSED"
 	ErrMessageTooLong                   = "MESSAGE_TOO_LONG"
 	ErrMethodInvalid                    = "METHOD_INVALID"
+	ErrMinDateInvalid                   = "MIN_DATE_INVALID"
 	ErrMsgIDInvalid                     = "MSG_ID_INVALID"
 	ErrMsgWaitFailed                    = "MSG_WAIT_FAILED"
 	ErrMultiMediaTooLong                = "MULTI_MEDIA_TOO_LONG"
@@ -316,6 +319,7 @@ const (
 	ErrPrivacyKeyInvalid                = "PRIVACY_KEY_INVALID"
 	ErrPrivacyTooLong                   = "PRIVACY_TOO_LONG"
 	ErrPrivacyValueInvalid              = "PRIVACY_VALUE_INVALID"
+	ErrPublicChannelMissing             = "PUBLIC_CHANNEL_MISSING"
 	ErrPublicKeyRequired                = "PUBLIC_KEY_REQUIRED"
 	ErrQueryIDEmpty                     = "QUERY_ID_EMPTY"
 	ErrQueryIDInvalid                   = "QUERY_ID_INVALID"
@@ -1349,6 +1353,11 @@ func IsInputFilterInvalid(err error) bool {
 	return tgerr.Is(err, ErrInputFilterInvalid)
 }
 
+// IsInputTextEmpty reports whether err is INPUT_TEXT_EMPTY.
+func IsInputTextEmpty(err error) bool {
+	return tgerr.Is(err, ErrInputTextEmpty)
+}
+
 // IsInputUserDeactivated reports whether err is INPUT_USER_DEACTIVATED.
 func IsInputUserDeactivated(err error) bool {
 	return tgerr.Is(err, ErrInputUserDeactivated)
@@ -1382,6 +1391,11 @@ func IsInviteRequestSent(err error) bool {
 // IsInviteRevokedMissing reports whether err is INVITE_REVOKED_MISSING.
 func IsInviteRevokedMissing(err error) bool {
 	return tgerr.Is(err, ErrInviteRevokedMissing)
+}
+
+// IsInvoicePayloadInvalid reports whether err is INVOICE_PAYLOAD_INVALID.
+func IsInvoicePayloadInvalid(err error) bool {
+	return tgerr.Is(err, ErrInvoicePayloadInvalid)
 }
 
 // IsJoinAsPeerInvalid reports whether err is JOIN_AS_PEER_INVALID.
@@ -1537,6 +1551,11 @@ func IsMessageTooLong(err error) bool {
 // IsMethodInvalid reports whether err is METHOD_INVALID.
 func IsMethodInvalid(err error) bool {
 	return tgerr.Is(err, ErrMethodInvalid)
+}
+
+// IsMinDateInvalid reports whether err is MIN_DATE_INVALID.
+func IsMinDateInvalid(err error) bool {
+	return tgerr.Is(err, ErrMinDateInvalid)
 }
 
 // IsMsgIDInvalid reports whether err is MSG_ID_INVALID.
@@ -1877,6 +1896,11 @@ func IsPrivacyTooLong(err error) bool {
 // IsPrivacyValueInvalid reports whether err is PRIVACY_VALUE_INVALID.
 func IsPrivacyValueInvalid(err error) bool {
 	return tgerr.Is(err, ErrPrivacyValueInvalid)
+}
+
+// IsPublicChannelMissing reports whether err is PUBLIC_CHANNEL_MISSING.
+func IsPublicChannelMissing(err error) bool {
+	return tgerr.Is(err, ErrPublicChannelMissing)
 }
 
 // IsPublicKeyRequired reports whether err is PUBLIC_KEY_REQUIRED.

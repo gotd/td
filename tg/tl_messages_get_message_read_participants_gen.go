@@ -33,12 +33,14 @@ var (
 
 // MessagesGetMessageReadParticipantsRequest represents TL type `messages.getMessageReadParticipants#2c6f97b7`.
 // Get which users read a specific message: only available for groups and supergroups
-// with less than chat_read_mark_size_threshold members, read receipts will be stored for
-// chat_read_mark_expire_period seconds after the message was sent, see client
-// configuration for more info »¹.
+// with less than chat_read_mark_size_threshold members¹, read receipts will be stored
+// for chat_read_mark_expire_period seconds after the message was sent², see client
+// configuration for more info »³.
 //
 // Links:
-//  1. https://core.telegram.org/api/config#client-configuration
+//  1. https://core.telegram.org/api/config#chat-read-mark-size-threshold
+//  2. https://core.telegram.org/api/config#chat-read-mark-expire-period
+//  3. https://core.telegram.org/api/config#client-configuration
 //
 // See https://core.telegram.org/method/messages.getMessageReadParticipants for reference.
 type MessagesGetMessageReadParticipantsRequest struct {
@@ -201,12 +203,14 @@ func (g *MessagesGetMessageReadParticipantsRequest) GetMsgID() (value int) {
 
 // MessagesGetMessageReadParticipants invokes method messages.getMessageReadParticipants#2c6f97b7 returning error if any.
 // Get which users read a specific message: only available for groups and supergroups
-// with less than chat_read_mark_size_threshold members, read receipts will be stored for
-// chat_read_mark_expire_period seconds after the message was sent, see client
-// configuration for more info »¹.
+// with less than chat_read_mark_size_threshold members¹, read receipts will be stored
+// for chat_read_mark_expire_period seconds after the message was sent², see client
+// configuration for more info »³.
 //
 // Links:
-//  1. https://core.telegram.org/api/config#client-configuration
+//  1. https://core.telegram.org/api/config#chat-read-mark-size-threshold
+//  2. https://core.telegram.org/api/config#chat-read-mark-expire-period
+//  3. https://core.telegram.org/api/config#client-configuration
 //
 // Possible errors:
 //

@@ -43,7 +43,10 @@ type MessagesReorderStickerSetsRequest struct {
 	Flags bin.Fields
 	// Reorder mask stickersets
 	Masks bool
-	// Reorder custom emoji stickersets
+	// Reorder custom emoji stickersets¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	Emojis bool
 	// New stickerset order by stickerset IDs
 	Order []int64
