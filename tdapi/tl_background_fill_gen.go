@@ -203,7 +203,7 @@ type BackgroundFillGradient struct {
 	TopColor int32
 	// A bottom color of the background in the RGB24 format
 	BottomColor int32
-	// Clockwise rotation angle of the gradient, in degrees; 0-359. Must be always divisible
+	// Clockwise rotation angle of the gradient, in degrees; 0-359. Must always be divisible
 	// by 45
 	RotationAngle int32
 }

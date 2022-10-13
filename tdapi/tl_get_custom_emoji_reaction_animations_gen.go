@@ -31,12 +31,12 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetCustomEmojiReactionAnimationsRequest represents TL type `getCustomEmojiReactionAnimations#9d30601f`.
+// GetCustomEmojiReactionAnimationsRequest represents TL type `getCustomEmojiReactionAnimations#49748dd2`.
 type GetCustomEmojiReactionAnimationsRequest struct {
 }
 
 // GetCustomEmojiReactionAnimationsRequestTypeID is TL type id of GetCustomEmojiReactionAnimationsRequest.
-const GetCustomEmojiReactionAnimationsRequestTypeID = 0x9d30601f
+const GetCustomEmojiReactionAnimationsRequestTypeID = 0x49748dd2
 
 // Ensuring interfaces in compile-time for GetCustomEmojiReactionAnimationsRequest.
 var (
@@ -92,7 +92,7 @@ func (g *GetCustomEmojiReactionAnimationsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetCustomEmojiReactionAnimationsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getCustomEmojiReactionAnimations#9d30601f as nil")
+		return fmt.Errorf("can't encode getCustomEmojiReactionAnimations#49748dd2 as nil")
 	}
 	b.PutID(GetCustomEmojiReactionAnimationsRequestTypeID)
 	return g.EncodeBare(b)
@@ -101,7 +101,7 @@ func (g *GetCustomEmojiReactionAnimationsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetCustomEmojiReactionAnimationsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getCustomEmojiReactionAnimations#9d30601f as nil")
+		return fmt.Errorf("can't encode getCustomEmojiReactionAnimations#49748dd2 as nil")
 	}
 	return nil
 }
@@ -109,10 +109,10 @@ func (g *GetCustomEmojiReactionAnimationsRequest) EncodeBare(b *bin.Buffer) erro
 // Decode implements bin.Decoder.
 func (g *GetCustomEmojiReactionAnimationsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getCustomEmojiReactionAnimations#9d30601f to nil")
+		return fmt.Errorf("can't decode getCustomEmojiReactionAnimations#49748dd2 to nil")
 	}
 	if err := b.ConsumeID(GetCustomEmojiReactionAnimationsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getCustomEmojiReactionAnimations#9d30601f: %w", err)
+		return fmt.Errorf("unable to decode getCustomEmojiReactionAnimations#49748dd2: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -120,7 +120,7 @@ func (g *GetCustomEmojiReactionAnimationsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetCustomEmojiReactionAnimationsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getCustomEmojiReactionAnimations#9d30601f to nil")
+		return fmt.Errorf("can't decode getCustomEmojiReactionAnimations#49748dd2 to nil")
 	}
 	return nil
 }
@@ -128,7 +128,7 @@ func (g *GetCustomEmojiReactionAnimationsRequest) DecodeBare(b *bin.Buffer) erro
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetCustomEmojiReactionAnimationsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getCustomEmojiReactionAnimations#9d30601f as nil")
+		return fmt.Errorf("can't encode getCustomEmojiReactionAnimations#49748dd2 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getCustomEmojiReactionAnimations")
@@ -141,14 +141,14 @@ func (g *GetCustomEmojiReactionAnimationsRequest) EncodeTDLibJSON(b tdjson.Encod
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetCustomEmojiReactionAnimationsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getCustomEmojiReactionAnimations#9d30601f to nil")
+		return fmt.Errorf("can't decode getCustomEmojiReactionAnimations#49748dd2 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getCustomEmojiReactionAnimations"); err != nil {
-				return fmt.Errorf("unable to decode getCustomEmojiReactionAnimations#9d30601f: %w", err)
+				return fmt.Errorf("unable to decode getCustomEmojiReactionAnimations#49748dd2: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -157,9 +157,9 @@ func (g *GetCustomEmojiReactionAnimationsRequest) DecodeTDLibJSON(b tdjson.Decod
 	})
 }
 
-// GetCustomEmojiReactionAnimations invokes method getCustomEmojiReactionAnimations#9d30601f returning error if any.
-func (c *Client) GetCustomEmojiReactionAnimations(ctx context.Context) (*Files, error) {
-	var result Files
+// GetCustomEmojiReactionAnimations invokes method getCustomEmojiReactionAnimations#49748dd2 returning error if any.
+func (c *Client) GetCustomEmojiReactionAnimations(ctx context.Context) (*Stickers, error) {
+	var result Stickers
 
 	request := &GetCustomEmojiReactionAnimationsRequest{}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {

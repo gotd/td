@@ -1025,8 +1025,8 @@ type InputMessageDocument struct {
 	Document InputFileClass
 	// Document thumbnail; pass null to skip thumbnail uploading
 	Thumbnail InputThumbnail
-	// If true, automatic file type detection will be disabled and the document will be
-	// always sent as file. Always true for files sent to secret chats
+	// If true, automatic file type detection will be disabled and the document will always
+	// be sent as file. Always true for files sent to secret chats
 	DisableContentTypeDetection bool
 	// Document caption; pass null to use an empty caption;
 	// 0-GetOption("message_caption_length_max") characters
@@ -4054,7 +4054,7 @@ func (i *InputMessageGame) GetGameShortName() (value string) {
 	return i.GameShortName
 }
 
-// InputMessageInvoice represents TL type `inputMessageInvoice#3deb040f`.
+// InputMessageInvoice represents TL type `inputMessageInvoice#34cd1d60`.
 type InputMessageInvoice struct {
 	// Invoice
 	Invoice Invoice
@@ -4079,10 +4079,13 @@ type InputMessageInvoice struct {
 	// Unique invoice bot deep link parameter for the generation of this invoice. If empty,
 	// it would be possible to pay directly from forwards of the invoice message
 	StartParameter string
+	// The content of extended media attached to the invoice. The content of the message to
+	// be sent. Must be one of the following types: inputMessagePhoto, inputMessageVideo
+	ExtendedMediaContent InputMessageContentClass
 }
 
 // InputMessageInvoiceTypeID is TL type id of InputMessageInvoice.
-const InputMessageInvoiceTypeID = 0x3deb040f
+const InputMessageInvoiceTypeID = 0x34cd1d60
 
 // construct implements constructor of InputMessageContentClass.
 func (i InputMessageInvoice) construct() InputMessageContentClass { return &i }
@@ -4132,6 +4135,9 @@ func (i *InputMessageInvoice) Zero() bool {
 		return false
 	}
 	if !(i.StartParameter == "") {
+		return false
+	}
+	if !(i.ExtendedMediaContent == nil) {
 		return false
 	}
 
@@ -4214,6 +4220,10 @@ func (i *InputMessageInvoice) TypeInfo() tdp.Type {
 			Name:       "StartParameter",
 			SchemaName: "start_parameter",
 		},
+		{
+			Name:       "ExtendedMediaContent",
+			SchemaName: "extended_media_content",
+		},
 	}
 	return typ
 }
@@ -4221,7 +4231,7 @@ func (i *InputMessageInvoice) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessageInvoice) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageInvoice#3deb040f as nil")
+		return fmt.Errorf("can't encode inputMessageInvoice#34cd1d60 as nil")
 	}
 	b.PutID(InputMessageInvoiceTypeID)
 	return i.EncodeBare(b)
@@ -4230,10 +4240,10 @@ func (i *InputMessageInvoice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessageInvoice) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageInvoice#3deb040f as nil")
+		return fmt.Errorf("can't encode inputMessageInvoice#34cd1d60 as nil")
 	}
 	if err := i.Invoice.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageInvoice#3deb040f: field invoice: %w", err)
+		return fmt.Errorf("unable to encode inputMessageInvoice#34cd1d60: field invoice: %w", err)
 	}
 	b.PutString(i.Title)
 	b.PutString(i.Description)
@@ -4245,16 +4255,22 @@ func (i *InputMessageInvoice) EncodeBare(b *bin.Buffer) error {
 	b.PutString(i.ProviderToken)
 	b.PutString(i.ProviderData)
 	b.PutString(i.StartParameter)
+	if i.ExtendedMediaContent == nil {
+		return fmt.Errorf("unable to encode inputMessageInvoice#34cd1d60: field extended_media_content is nil")
+	}
+	if err := i.ExtendedMediaContent.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputMessageInvoice#34cd1d60: field extended_media_content: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *InputMessageInvoice) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageInvoice#3deb040f to nil")
+		return fmt.Errorf("can't decode inputMessageInvoice#34cd1d60 to nil")
 	}
 	if err := b.ConsumeID(InputMessageInvoiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: %w", err)
+		return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -4262,82 +4278,89 @@ func (i *InputMessageInvoice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessageInvoice) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageInvoice#3deb040f to nil")
+		return fmt.Errorf("can't decode inputMessageInvoice#34cd1d60 to nil")
 	}
 	{
 		if err := i.Invoice.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field invoice: %w", err)
+			return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field invoice: %w", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field title: %w", err)
+			return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field title: %w", err)
 		}
 		i.Title = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field description: %w", err)
+			return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field description: %w", err)
 		}
 		i.Description = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field photo_url: %w", err)
+			return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field photo_url: %w", err)
 		}
 		i.PhotoURL = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field photo_size: %w", err)
+			return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field photo_size: %w", err)
 		}
 		i.PhotoSize = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field photo_width: %w", err)
+			return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field photo_width: %w", err)
 		}
 		i.PhotoWidth = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field photo_height: %w", err)
+			return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field photo_height: %w", err)
 		}
 		i.PhotoHeight = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field payload: %w", err)
+			return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field payload: %w", err)
 		}
 		i.Payload = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field provider_token: %w", err)
+			return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field provider_token: %w", err)
 		}
 		i.ProviderToken = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field provider_data: %w", err)
+			return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field provider_data: %w", err)
 		}
 		i.ProviderData = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field start_parameter: %w", err)
+			return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field start_parameter: %w", err)
 		}
 		i.StartParameter = value
+	}
+	{
+		value, err := DecodeInputMessageContent(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field extended_media_content: %w", err)
+		}
+		i.ExtendedMediaContent = value
 	}
 	return nil
 }
@@ -4345,14 +4368,14 @@ func (i *InputMessageInvoice) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InputMessageInvoice) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageInvoice#3deb040f as nil")
+		return fmt.Errorf("can't encode inputMessageInvoice#34cd1d60 as nil")
 	}
 	b.ObjStart()
 	b.PutID("inputMessageInvoice")
 	b.Comma()
 	b.FieldStart("invoice")
 	if err := i.Invoice.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageInvoice#3deb040f: field invoice: %w", err)
+		return fmt.Errorf("unable to encode inputMessageInvoice#34cd1d60: field invoice: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("title")
@@ -4385,6 +4408,14 @@ func (i *InputMessageInvoice) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("start_parameter")
 	b.PutString(i.StartParameter)
 	b.Comma()
+	b.FieldStart("extended_media_content")
+	if i.ExtendedMediaContent == nil {
+		return fmt.Errorf("unable to encode inputMessageInvoice#34cd1d60: field extended_media_content is nil")
+	}
+	if err := i.ExtendedMediaContent.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputMessageInvoice#34cd1d60: field extended_media_content: %w", err)
+	}
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -4393,79 +4424,85 @@ func (i *InputMessageInvoice) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InputMessageInvoice) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageInvoice#3deb040f to nil")
+		return fmt.Errorf("can't decode inputMessageInvoice#34cd1d60 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("inputMessageInvoice"); err != nil {
-				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: %w", err)
+				return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: %w", err)
 			}
 		case "invoice":
 			if err := i.Invoice.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field invoice: %w", err)
+				return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field invoice: %w", err)
 			}
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field title: %w", err)
+				return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field title: %w", err)
 			}
 			i.Title = value
 		case "description":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field description: %w", err)
+				return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field description: %w", err)
 			}
 			i.Description = value
 		case "photo_url":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field photo_url: %w", err)
+				return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field photo_url: %w", err)
 			}
 			i.PhotoURL = value
 		case "photo_size":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field photo_size: %w", err)
+				return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field photo_size: %w", err)
 			}
 			i.PhotoSize = value
 		case "photo_width":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field photo_width: %w", err)
+				return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field photo_width: %w", err)
 			}
 			i.PhotoWidth = value
 		case "photo_height":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field photo_height: %w", err)
+				return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field photo_height: %w", err)
 			}
 			i.PhotoHeight = value
 		case "payload":
 			value, err := b.Bytes()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field payload: %w", err)
+				return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field payload: %w", err)
 			}
 			i.Payload = value
 		case "provider_token":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field provider_token: %w", err)
+				return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field provider_token: %w", err)
 			}
 			i.ProviderToken = value
 		case "provider_data":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field provider_data: %w", err)
+				return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field provider_data: %w", err)
 			}
 			i.ProviderData = value
 		case "start_parameter":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageInvoice#3deb040f: field start_parameter: %w", err)
+				return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field start_parameter: %w", err)
 			}
 			i.StartParameter = value
+		case "extended_media_content":
+			value, err := DecodeTDLibJSONInputMessageContent(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageInvoice#34cd1d60: field extended_media_content: %w", err)
+			}
+			i.ExtendedMediaContent = value
 		default:
 			return b.Skip()
 		}
@@ -4559,6 +4596,14 @@ func (i *InputMessageInvoice) GetStartParameter() (value string) {
 		return
 	}
 	return i.StartParameter
+}
+
+// GetExtendedMediaContent returns value of ExtendedMediaContent field.
+func (i *InputMessageInvoice) GetExtendedMediaContent() (value InputMessageContentClass) {
+	if i == nil {
+		return
+	}
+	return i.ExtendedMediaContent
 }
 
 // InputMessagePoll represents TL type `inputMessagePoll#fe79770`.
@@ -5263,7 +5308,7 @@ const InputMessageContentClassName = "InputMessageContent"
 //	case *tdapi.InputMessageContact: // inputMessageContact#c5710cff
 //	case *tdapi.InputMessageDice: // inputMessageDice#322967a9
 //	case *tdapi.InputMessageGame: // inputMessageGame#4aae6ae2
-//	case *tdapi.InputMessageInvoice: // inputMessageInvoice#3deb040f
+//	case *tdapi.InputMessageInvoice: // inputMessageInvoice#34cd1d60
 //	case *tdapi.InputMessagePoll: // inputMessagePoll#fe79770
 //	case *tdapi.InputMessageForwarded: // inputMessageForwarded#651a73f8
 //	default: panic(v)
@@ -5396,7 +5441,7 @@ func DecodeInputMessageContent(buf *bin.Buffer) (InputMessageContentClass, error
 		}
 		return &v, nil
 	case InputMessageInvoiceTypeID:
-		// Decoding inputMessageInvoice#3deb040f.
+		// Decoding inputMessageInvoice#34cd1d60.
 		v := InputMessageInvoice{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
@@ -5527,7 +5572,7 @@ func DecodeTDLibJSONInputMessageContent(buf tdjson.Decoder) (InputMessageContent
 		}
 		return &v, nil
 	case "inputMessageInvoice":
-		// Decoding inputMessageInvoice#3deb040f.
+		// Decoding inputMessageInvoice#34cd1d60.
 		v := InputMessageInvoice{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)

@@ -31,11 +31,15 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AnimatedEmoji represents TL type `animatedEmoji#93b7fec9`.
+// AnimatedEmoji represents TL type `animatedEmoji#52309ebf`.
 type AnimatedEmoji struct {
 	// Sticker for the emoji; may be null if yet unknown for a custom emoji. If the sticker
 	// is a custom emoji, it can have arbitrary format different from stickerFormatTgs
 	Sticker Sticker
+	// Expected width of the sticker, which can be used if the sticker is null
+	StickerWidth int32
+	// Expected height of the sticker, which can be used if the sticker is null
+	StickerHeight int32
 	// Emoji modifier fitzpatrick type; 0-6; 0 if none
 	FitzpatrickType int32
 	// File containing the sound to be played when the sticker is clicked; may be null. The
@@ -44,7 +48,7 @@ type AnimatedEmoji struct {
 }
 
 // AnimatedEmojiTypeID is TL type id of AnimatedEmoji.
-const AnimatedEmojiTypeID = 0x93b7fec9
+const AnimatedEmojiTypeID = 0x52309ebf
 
 // Ensuring interfaces in compile-time for AnimatedEmoji.
 var (
@@ -59,6 +63,12 @@ func (a *AnimatedEmoji) Zero() bool {
 		return true
 	}
 	if !(a.Sticker.Zero()) {
+		return false
+	}
+	if !(a.StickerWidth == 0) {
+		return false
+	}
+	if !(a.StickerHeight == 0) {
 		return false
 	}
 	if !(a.FitzpatrickType == 0) {
@@ -108,6 +118,14 @@ func (a *AnimatedEmoji) TypeInfo() tdp.Type {
 			SchemaName: "sticker",
 		},
 		{
+			Name:       "StickerWidth",
+			SchemaName: "sticker_width",
+		},
+		{
+			Name:       "StickerHeight",
+			SchemaName: "sticker_height",
+		},
+		{
 			Name:       "FitzpatrickType",
 			SchemaName: "fitzpatrick_type",
 		},
@@ -122,7 +140,7 @@ func (a *AnimatedEmoji) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AnimatedEmoji) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode animatedEmoji#93b7fec9 as nil")
+		return fmt.Errorf("can't encode animatedEmoji#52309ebf as nil")
 	}
 	b.PutID(AnimatedEmojiTypeID)
 	return a.EncodeBare(b)
@@ -131,14 +149,16 @@ func (a *AnimatedEmoji) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AnimatedEmoji) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode animatedEmoji#93b7fec9 as nil")
+		return fmt.Errorf("can't encode animatedEmoji#52309ebf as nil")
 	}
 	if err := a.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode animatedEmoji#93b7fec9: field sticker: %w", err)
+		return fmt.Errorf("unable to encode animatedEmoji#52309ebf: field sticker: %w", err)
 	}
+	b.PutInt32(a.StickerWidth)
+	b.PutInt32(a.StickerHeight)
 	b.PutInt32(a.FitzpatrickType)
 	if err := a.Sound.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode animatedEmoji#93b7fec9: field sound: %w", err)
+		return fmt.Errorf("unable to encode animatedEmoji#52309ebf: field sound: %w", err)
 	}
 	return nil
 }
@@ -146,10 +166,10 @@ func (a *AnimatedEmoji) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (a *AnimatedEmoji) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode animatedEmoji#93b7fec9 to nil")
+		return fmt.Errorf("can't decode animatedEmoji#52309ebf to nil")
 	}
 	if err := b.ConsumeID(AnimatedEmojiTypeID); err != nil {
-		return fmt.Errorf("unable to decode animatedEmoji#93b7fec9: %w", err)
+		return fmt.Errorf("unable to decode animatedEmoji#52309ebf: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -157,23 +177,37 @@ func (a *AnimatedEmoji) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AnimatedEmoji) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode animatedEmoji#93b7fec9 to nil")
+		return fmt.Errorf("can't decode animatedEmoji#52309ebf to nil")
 	}
 	{
 		if err := a.Sticker.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode animatedEmoji#93b7fec9: field sticker: %w", err)
+			return fmt.Errorf("unable to decode animatedEmoji#52309ebf: field sticker: %w", err)
 		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode animatedEmoji#93b7fec9: field fitzpatrick_type: %w", err)
+			return fmt.Errorf("unable to decode animatedEmoji#52309ebf: field sticker_width: %w", err)
+		}
+		a.StickerWidth = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode animatedEmoji#52309ebf: field sticker_height: %w", err)
+		}
+		a.StickerHeight = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode animatedEmoji#52309ebf: field fitzpatrick_type: %w", err)
 		}
 		a.FitzpatrickType = value
 	}
 	{
 		if err := a.Sound.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode animatedEmoji#93b7fec9: field sound: %w", err)
+			return fmt.Errorf("unable to decode animatedEmoji#52309ebf: field sound: %w", err)
 		}
 	}
 	return nil
@@ -182,22 +216,28 @@ func (a *AnimatedEmoji) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (a *AnimatedEmoji) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
-		return fmt.Errorf("can't encode animatedEmoji#93b7fec9 as nil")
+		return fmt.Errorf("can't encode animatedEmoji#52309ebf as nil")
 	}
 	b.ObjStart()
 	b.PutID("animatedEmoji")
 	b.Comma()
 	b.FieldStart("sticker")
 	if err := a.Sticker.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode animatedEmoji#93b7fec9: field sticker: %w", err)
+		return fmt.Errorf("unable to encode animatedEmoji#52309ebf: field sticker: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("sticker_width")
+	b.PutInt32(a.StickerWidth)
+	b.Comma()
+	b.FieldStart("sticker_height")
+	b.PutInt32(a.StickerHeight)
 	b.Comma()
 	b.FieldStart("fitzpatrick_type")
 	b.PutInt32(a.FitzpatrickType)
 	b.Comma()
 	b.FieldStart("sound")
 	if err := a.Sound.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode animatedEmoji#93b7fec9: field sound: %w", err)
+		return fmt.Errorf("unable to encode animatedEmoji#52309ebf: field sound: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -208,28 +248,40 @@ func (a *AnimatedEmoji) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (a *AnimatedEmoji) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
-		return fmt.Errorf("can't decode animatedEmoji#93b7fec9 to nil")
+		return fmt.Errorf("can't decode animatedEmoji#52309ebf to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("animatedEmoji"); err != nil {
-				return fmt.Errorf("unable to decode animatedEmoji#93b7fec9: %w", err)
+				return fmt.Errorf("unable to decode animatedEmoji#52309ebf: %w", err)
 			}
 		case "sticker":
 			if err := a.Sticker.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode animatedEmoji#93b7fec9: field sticker: %w", err)
+				return fmt.Errorf("unable to decode animatedEmoji#52309ebf: field sticker: %w", err)
 			}
+		case "sticker_width":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode animatedEmoji#52309ebf: field sticker_width: %w", err)
+			}
+			a.StickerWidth = value
+		case "sticker_height":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode animatedEmoji#52309ebf: field sticker_height: %w", err)
+			}
+			a.StickerHeight = value
 		case "fitzpatrick_type":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode animatedEmoji#93b7fec9: field fitzpatrick_type: %w", err)
+				return fmt.Errorf("unable to decode animatedEmoji#52309ebf: field fitzpatrick_type: %w", err)
 			}
 			a.FitzpatrickType = value
 		case "sound":
 			if err := a.Sound.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode animatedEmoji#93b7fec9: field sound: %w", err)
+				return fmt.Errorf("unable to decode animatedEmoji#52309ebf: field sound: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -244,6 +296,22 @@ func (a *AnimatedEmoji) GetSticker() (value Sticker) {
 		return
 	}
 	return a.Sticker
+}
+
+// GetStickerWidth returns value of StickerWidth field.
+func (a *AnimatedEmoji) GetStickerWidth() (value int32) {
+	if a == nil {
+		return
+	}
+	return a.StickerWidth
+}
+
+// GetStickerHeight returns value of StickerHeight field.
+func (a *AnimatedEmoji) GetStickerHeight() (value int32) {
+	if a == nil {
+		return
+	}
+	return a.StickerHeight
 }
 
 // GetFitzpatrickType returns value of FitzpatrickType field.
