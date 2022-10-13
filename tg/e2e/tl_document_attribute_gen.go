@@ -387,36 +387,35 @@ func (d *DocumentAttributeSticker23) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// DocumentAttributeVideo represents TL type `documentAttributeVideo#5910cccb`.
-// Defines a video
+// DocumentAttributeVideo23 represents TL type `documentAttributeVideo23#5910cccb`.
 //
-// See https://core.telegram.org/constructor/documentAttributeVideo for reference.
-type DocumentAttributeVideo struct {
-	// Duration in seconds
+// See https://core.telegram.org/constructor/documentAttributeVideo23 for reference.
+type DocumentAttributeVideo23 struct {
+	// Duration field of DocumentAttributeVideo23.
 	Duration int
-	// Video width
+	// W field of DocumentAttributeVideo23.
 	W int
-	// Video height
+	// H field of DocumentAttributeVideo23.
 	H int
 }
 
-// DocumentAttributeVideoTypeID is TL type id of DocumentAttributeVideo.
-const DocumentAttributeVideoTypeID = 0x5910cccb
+// DocumentAttributeVideo23TypeID is TL type id of DocumentAttributeVideo23.
+const DocumentAttributeVideo23TypeID = 0x5910cccb
 
 // construct implements constructor of DocumentAttributeClass.
-func (d DocumentAttributeVideo) construct() DocumentAttributeClass { return &d }
+func (d DocumentAttributeVideo23) construct() DocumentAttributeClass { return &d }
 
-// Ensuring interfaces in compile-time for DocumentAttributeVideo.
+// Ensuring interfaces in compile-time for DocumentAttributeVideo23.
 var (
-	_ bin.Encoder     = &DocumentAttributeVideo{}
-	_ bin.Decoder     = &DocumentAttributeVideo{}
-	_ bin.BareEncoder = &DocumentAttributeVideo{}
-	_ bin.BareDecoder = &DocumentAttributeVideo{}
+	_ bin.Encoder     = &DocumentAttributeVideo23{}
+	_ bin.Decoder     = &DocumentAttributeVideo23{}
+	_ bin.BareEncoder = &DocumentAttributeVideo23{}
+	_ bin.BareDecoder = &DocumentAttributeVideo23{}
 
-	_ DocumentAttributeClass = &DocumentAttributeVideo{}
+	_ DocumentAttributeClass = &DocumentAttributeVideo23{}
 )
 
-func (d *DocumentAttributeVideo) Zero() bool {
+func (d *DocumentAttributeVideo23) Zero() bool {
 	if d == nil {
 		return true
 	}
@@ -434,31 +433,31 @@ func (d *DocumentAttributeVideo) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (d *DocumentAttributeVideo) String() string {
+func (d *DocumentAttributeVideo23) String() string {
 	if d == nil {
-		return "DocumentAttributeVideo(nil)"
+		return "DocumentAttributeVideo23(nil)"
 	}
-	type Alias DocumentAttributeVideo
-	return fmt.Sprintf("DocumentAttributeVideo%+v", Alias(*d))
+	type Alias DocumentAttributeVideo23
+	return fmt.Sprintf("DocumentAttributeVideo23%+v", Alias(*d))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*DocumentAttributeVideo) TypeID() uint32 {
-	return DocumentAttributeVideoTypeID
+func (*DocumentAttributeVideo23) TypeID() uint32 {
+	return DocumentAttributeVideo23TypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*DocumentAttributeVideo) TypeName() string {
-	return "documentAttributeVideo"
+func (*DocumentAttributeVideo23) TypeName() string {
+	return "documentAttributeVideo23"
 }
 
 // TypeInfo returns info about TL type.
-func (d *DocumentAttributeVideo) TypeInfo() tdp.Type {
+func (d *DocumentAttributeVideo23) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "documentAttributeVideo",
-		ID:   DocumentAttributeVideoTypeID,
+		Name: "documentAttributeVideo23",
+		ID:   DocumentAttributeVideo23TypeID,
 	}
 	if d == nil {
 		typ.Null = true
@@ -482,18 +481,18 @@ func (d *DocumentAttributeVideo) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (d *DocumentAttributeVideo) Encode(b *bin.Buffer) error {
+func (d *DocumentAttributeVideo23) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode documentAttributeVideo#5910cccb as nil")
+		return fmt.Errorf("can't encode documentAttributeVideo23#5910cccb as nil")
 	}
-	b.PutID(DocumentAttributeVideoTypeID)
+	b.PutID(DocumentAttributeVideo23TypeID)
 	return d.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (d *DocumentAttributeVideo) EncodeBare(b *bin.Buffer) error {
+func (d *DocumentAttributeVideo23) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode documentAttributeVideo#5910cccb as nil")
+		return fmt.Errorf("can't encode documentAttributeVideo23#5910cccb as nil")
 	}
 	b.PutInt(d.Duration)
 	b.PutInt(d.W)
@@ -502,39 +501,39 @@ func (d *DocumentAttributeVideo) EncodeBare(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (d *DocumentAttributeVideo) Decode(b *bin.Buffer) error {
+func (d *DocumentAttributeVideo23) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode documentAttributeVideo#5910cccb to nil")
+		return fmt.Errorf("can't decode documentAttributeVideo23#5910cccb to nil")
 	}
-	if err := b.ConsumeID(DocumentAttributeVideoTypeID); err != nil {
-		return fmt.Errorf("unable to decode documentAttributeVideo#5910cccb: %w", err)
+	if err := b.ConsumeID(DocumentAttributeVideo23TypeID); err != nil {
+		return fmt.Errorf("unable to decode documentAttributeVideo23#5910cccb: %w", err)
 	}
 	return d.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (d *DocumentAttributeVideo) DecodeBare(b *bin.Buffer) error {
+func (d *DocumentAttributeVideo23) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode documentAttributeVideo#5910cccb to nil")
+		return fmt.Errorf("can't decode documentAttributeVideo23#5910cccb to nil")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode documentAttributeVideo#5910cccb: field duration: %w", err)
+			return fmt.Errorf("unable to decode documentAttributeVideo23#5910cccb: field duration: %w", err)
 		}
 		d.Duration = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode documentAttributeVideo#5910cccb: field w: %w", err)
+			return fmt.Errorf("unable to decode documentAttributeVideo23#5910cccb: field w: %w", err)
 		}
 		d.W = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode documentAttributeVideo#5910cccb: field h: %w", err)
+			return fmt.Errorf("unable to decode documentAttributeVideo23#5910cccb: field h: %w", err)
 		}
 		d.H = value
 	}
@@ -542,7 +541,7 @@ func (d *DocumentAttributeVideo) DecodeBare(b *bin.Buffer) error {
 }
 
 // GetDuration returns value of Duration field.
-func (d *DocumentAttributeVideo) GetDuration() (value int) {
+func (d *DocumentAttributeVideo23) GetDuration() (value int) {
 	if d == nil {
 		return
 	}
@@ -550,7 +549,7 @@ func (d *DocumentAttributeVideo) GetDuration() (value int) {
 }
 
 // GetW returns value of W field.
-func (d *DocumentAttributeVideo) GetW() (value int) {
+func (d *DocumentAttributeVideo23) GetW() (value int) {
 	if d == nil {
 		return
 	}
@@ -558,7 +557,7 @@ func (d *DocumentAttributeVideo) GetW() (value int) {
 }
 
 // GetH returns value of H field.
-func (d *DocumentAttributeVideo) GetH() (value int) {
+func (d *DocumentAttributeVideo23) GetH() (value int) {
 	if d == nil {
 		return
 	}
@@ -1466,39 +1465,43 @@ func (d *DocumentAttributeAudio) GetWaveform() (value []byte, ok bool) {
 	return d.Waveform, true
 }
 
-// DocumentAttributeVideo66 represents TL type `documentAttributeVideo66#ef02ce6`.
+// DocumentAttributeVideo represents TL type `documentAttributeVideo#ef02ce6`.
+// Defines a video
 //
-// See https://core.telegram.org/constructor/documentAttributeVideo66 for reference.
-type DocumentAttributeVideo66 struct {
-	// Flags field of DocumentAttributeVideo66.
+// See https://core.telegram.org/constructor/documentAttributeVideo for reference.
+type DocumentAttributeVideo struct {
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// RoundMessage field of DocumentAttributeVideo66.
+	// Whether this is a round video
 	RoundMessage bool
-	// Duration field of DocumentAttributeVideo66.
+	// Duration in seconds
 	Duration int
-	// W field of DocumentAttributeVideo66.
+	// Video width
 	W int
-	// H field of DocumentAttributeVideo66.
+	// Video height
 	H int
 }
 
-// DocumentAttributeVideo66TypeID is TL type id of DocumentAttributeVideo66.
-const DocumentAttributeVideo66TypeID = 0xef02ce6
+// DocumentAttributeVideoTypeID is TL type id of DocumentAttributeVideo.
+const DocumentAttributeVideoTypeID = 0xef02ce6
 
 // construct implements constructor of DocumentAttributeClass.
-func (d DocumentAttributeVideo66) construct() DocumentAttributeClass { return &d }
+func (d DocumentAttributeVideo) construct() DocumentAttributeClass { return &d }
 
-// Ensuring interfaces in compile-time for DocumentAttributeVideo66.
+// Ensuring interfaces in compile-time for DocumentAttributeVideo.
 var (
-	_ bin.Encoder     = &DocumentAttributeVideo66{}
-	_ bin.Decoder     = &DocumentAttributeVideo66{}
-	_ bin.BareEncoder = &DocumentAttributeVideo66{}
-	_ bin.BareDecoder = &DocumentAttributeVideo66{}
+	_ bin.Encoder     = &DocumentAttributeVideo{}
+	_ bin.Decoder     = &DocumentAttributeVideo{}
+	_ bin.BareEncoder = &DocumentAttributeVideo{}
+	_ bin.BareDecoder = &DocumentAttributeVideo{}
 
-	_ DocumentAttributeClass = &DocumentAttributeVideo66{}
+	_ DocumentAttributeClass = &DocumentAttributeVideo{}
 )
 
-func (d *DocumentAttributeVideo66) Zero() bool {
+func (d *DocumentAttributeVideo) Zero() bool {
 	if d == nil {
 		return true
 	}
@@ -1522,31 +1525,31 @@ func (d *DocumentAttributeVideo66) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (d *DocumentAttributeVideo66) String() string {
+func (d *DocumentAttributeVideo) String() string {
 	if d == nil {
-		return "DocumentAttributeVideo66(nil)"
+		return "DocumentAttributeVideo(nil)"
 	}
-	type Alias DocumentAttributeVideo66
-	return fmt.Sprintf("DocumentAttributeVideo66%+v", Alias(*d))
+	type Alias DocumentAttributeVideo
+	return fmt.Sprintf("DocumentAttributeVideo%+v", Alias(*d))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*DocumentAttributeVideo66) TypeID() uint32 {
-	return DocumentAttributeVideo66TypeID
+func (*DocumentAttributeVideo) TypeID() uint32 {
+	return DocumentAttributeVideoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*DocumentAttributeVideo66) TypeName() string {
-	return "documentAttributeVideo66"
+func (*DocumentAttributeVideo) TypeName() string {
+	return "documentAttributeVideo"
 }
 
 // TypeInfo returns info about TL type.
-func (d *DocumentAttributeVideo66) TypeInfo() tdp.Type {
+func (d *DocumentAttributeVideo) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "documentAttributeVideo66",
-		ID:   DocumentAttributeVideo66TypeID,
+		Name: "documentAttributeVideo",
+		ID:   DocumentAttributeVideoTypeID,
 	}
 	if d == nil {
 		typ.Null = true
@@ -1575,29 +1578,29 @@ func (d *DocumentAttributeVideo66) TypeInfo() tdp.Type {
 }
 
 // SetFlags sets flags for non-zero fields.
-func (d *DocumentAttributeVideo66) SetFlags() {
+func (d *DocumentAttributeVideo) SetFlags() {
 	if !(d.RoundMessage == false) {
 		d.Flags.Set(0)
 	}
 }
 
 // Encode implements bin.Encoder.
-func (d *DocumentAttributeVideo66) Encode(b *bin.Buffer) error {
+func (d *DocumentAttributeVideo) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode documentAttributeVideo66#ef02ce6 as nil")
+		return fmt.Errorf("can't encode documentAttributeVideo#ef02ce6 as nil")
 	}
-	b.PutID(DocumentAttributeVideo66TypeID)
+	b.PutID(DocumentAttributeVideoTypeID)
 	return d.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (d *DocumentAttributeVideo66) EncodeBare(b *bin.Buffer) error {
+func (d *DocumentAttributeVideo) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode documentAttributeVideo66#ef02ce6 as nil")
+		return fmt.Errorf("can't encode documentAttributeVideo#ef02ce6 as nil")
 	}
 	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode documentAttributeVideo66#ef02ce6: field flags: %w", err)
+		return fmt.Errorf("unable to encode documentAttributeVideo#ef02ce6: field flags: %w", err)
 	}
 	b.PutInt(d.Duration)
 	b.PutInt(d.W)
@@ -1606,45 +1609,45 @@ func (d *DocumentAttributeVideo66) EncodeBare(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (d *DocumentAttributeVideo66) Decode(b *bin.Buffer) error {
+func (d *DocumentAttributeVideo) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode documentAttributeVideo66#ef02ce6 to nil")
+		return fmt.Errorf("can't decode documentAttributeVideo#ef02ce6 to nil")
 	}
-	if err := b.ConsumeID(DocumentAttributeVideo66TypeID); err != nil {
-		return fmt.Errorf("unable to decode documentAttributeVideo66#ef02ce6: %w", err)
+	if err := b.ConsumeID(DocumentAttributeVideoTypeID); err != nil {
+		return fmt.Errorf("unable to decode documentAttributeVideo#ef02ce6: %w", err)
 	}
 	return d.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (d *DocumentAttributeVideo66) DecodeBare(b *bin.Buffer) error {
+func (d *DocumentAttributeVideo) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode documentAttributeVideo66#ef02ce6 to nil")
+		return fmt.Errorf("can't decode documentAttributeVideo#ef02ce6 to nil")
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode documentAttributeVideo66#ef02ce6: field flags: %w", err)
+			return fmt.Errorf("unable to decode documentAttributeVideo#ef02ce6: field flags: %w", err)
 		}
 	}
 	d.RoundMessage = d.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode documentAttributeVideo66#ef02ce6: field duration: %w", err)
+			return fmt.Errorf("unable to decode documentAttributeVideo#ef02ce6: field duration: %w", err)
 		}
 		d.Duration = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode documentAttributeVideo66#ef02ce6: field w: %w", err)
+			return fmt.Errorf("unable to decode documentAttributeVideo#ef02ce6: field w: %w", err)
 		}
 		d.W = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode documentAttributeVideo66#ef02ce6: field h: %w", err)
+			return fmt.Errorf("unable to decode documentAttributeVideo#ef02ce6: field h: %w", err)
 		}
 		d.H = value
 	}
@@ -1652,7 +1655,7 @@ func (d *DocumentAttributeVideo66) DecodeBare(b *bin.Buffer) error {
 }
 
 // SetRoundMessage sets value of RoundMessage conditional field.
-func (d *DocumentAttributeVideo66) SetRoundMessage(value bool) {
+func (d *DocumentAttributeVideo) SetRoundMessage(value bool) {
 	if value {
 		d.Flags.Set(0)
 		d.RoundMessage = true
@@ -1663,7 +1666,7 @@ func (d *DocumentAttributeVideo66) SetRoundMessage(value bool) {
 }
 
 // GetRoundMessage returns value of RoundMessage conditional field.
-func (d *DocumentAttributeVideo66) GetRoundMessage() (value bool) {
+func (d *DocumentAttributeVideo) GetRoundMessage() (value bool) {
 	if d == nil {
 		return
 	}
@@ -1671,7 +1674,7 @@ func (d *DocumentAttributeVideo66) GetRoundMessage() (value bool) {
 }
 
 // GetDuration returns value of Duration field.
-func (d *DocumentAttributeVideo66) GetDuration() (value int) {
+func (d *DocumentAttributeVideo) GetDuration() (value int) {
 	if d == nil {
 		return
 	}
@@ -1679,7 +1682,7 @@ func (d *DocumentAttributeVideo66) GetDuration() (value int) {
 }
 
 // GetW returns value of W field.
-func (d *DocumentAttributeVideo66) GetW() (value int) {
+func (d *DocumentAttributeVideo) GetW() (value int) {
 	if d == nil {
 		return
 	}
@@ -1687,7 +1690,7 @@ func (d *DocumentAttributeVideo66) GetW() (value int) {
 }
 
 // GetH returns value of H field.
-func (d *DocumentAttributeVideo66) GetH() (value int) {
+func (d *DocumentAttributeVideo) GetH() (value int) {
 	if d == nil {
 		return
 	}
@@ -1711,13 +1714,13 @@ const DocumentAttributeClassName = "DocumentAttribute"
 //	case *e2e.DocumentAttributeImageSize: // documentAttributeImageSize#6c37c15c
 //	case *e2e.DocumentAttributeAnimated: // documentAttributeAnimated#11b58939
 //	case *e2e.DocumentAttributeSticker23: // documentAttributeSticker23#fb0a5727
-//	case *e2e.DocumentAttributeVideo: // documentAttributeVideo#5910cccb
+//	case *e2e.DocumentAttributeVideo23: // documentAttributeVideo23#5910cccb
 //	case *e2e.DocumentAttributeAudio23: // documentAttributeAudio23#51448e5
 //	case *e2e.DocumentAttributeFilename: // documentAttributeFilename#15590068
 //	case *e2e.DocumentAttributeAudio45: // documentAttributeAudio45#ded218e0
 //	case *e2e.DocumentAttributeSticker: // documentAttributeSticker#3a556302
 //	case *e2e.DocumentAttributeAudio: // documentAttributeAudio#9852f9c6
-//	case *e2e.DocumentAttributeVideo66: // documentAttributeVideo66#ef02ce6
+//	case *e2e.DocumentAttributeVideo: // documentAttributeVideo#ef02ce6
 //	default: panic(v)
 //	}
 type DocumentAttributeClass interface {
@@ -1767,9 +1770,9 @@ func DecodeDocumentAttribute(buf *bin.Buffer) (DocumentAttributeClass, error) {
 			return nil, fmt.Errorf("unable to decode DocumentAttributeClass: %w", err)
 		}
 		return &v, nil
-	case DocumentAttributeVideoTypeID:
-		// Decoding documentAttributeVideo#5910cccb.
-		v := DocumentAttributeVideo{}
+	case DocumentAttributeVideo23TypeID:
+		// Decoding documentAttributeVideo23#5910cccb.
+		v := DocumentAttributeVideo23{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode DocumentAttributeClass: %w", err)
 		}
@@ -1809,9 +1812,9 @@ func DecodeDocumentAttribute(buf *bin.Buffer) (DocumentAttributeClass, error) {
 			return nil, fmt.Errorf("unable to decode DocumentAttributeClass: %w", err)
 		}
 		return &v, nil
-	case DocumentAttributeVideo66TypeID:
-		// Decoding documentAttributeVideo66#ef02ce6.
-		v := DocumentAttributeVideo66{}
+	case DocumentAttributeVideoTypeID:
+		// Decoding documentAttributeVideo#ef02ce6.
+		v := DocumentAttributeVideo{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode DocumentAttributeClass: %w", err)
 		}
