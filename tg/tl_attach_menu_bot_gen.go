@@ -53,7 +53,7 @@ type AttachMenuBot struct {
 	// True, if the bot supports the "settings_button_pressed" event »¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/bots/webapps#settings_button_pressed
+	//  1) https://core.telegram.org/api/bots/webapps#settings-button-pressed
 	HasSettings bool
 	// Bot ID
 	BotID int64

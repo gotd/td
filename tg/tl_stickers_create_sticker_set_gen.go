@@ -53,8 +53,8 @@ type StickersCreateStickerSetRequest struct {
 	Title string
 	// Short name of sticker set, to be used in sticker deep links »¹. Can contain only
 	// english letters, digits and underscores. Must begin with a letter, can't contain
-	// consecutive underscores and must end in "_by_<bot_username>". <bot_username> is case
-	// insensitive. 1-64 characters.
+	// consecutive underscores and, if called by a bot, must end in "_by_<bot_username>".
+	// <bot_username> is case insensitive. 1-64 characters.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/links#stickerset-links
@@ -513,7 +513,6 @@ func (c *StickersCreateStickerSetRequest) GetThumbAsNotEmpty() (*InputDocument, 
 //
 // Possible errors:
 //
-//	400 BOT_MISSING: This method can only be run by a bot.
 //	400 PACK_SHORT_NAME_INVALID: Short pack name invalid.
 //	400 PACK_SHORT_NAME_OCCUPIED: A stickerpack with this name already exists.
 //	400 PACK_TITLE_INVALID: The stickerpack title is invalid.

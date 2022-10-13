@@ -343,6 +343,7 @@ func (g *StatsGetMessagePublicForwardsRequest) GetChannelAsNotEmpty() (NotEmptyI
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stats.getMessagePublicForwards for reference.
 func (c *Client) StatsGetMessagePublicForwards(ctx context.Context, request *StatsGetMessagePublicForwardsRequest) (MessagesMessagesClass, error) {

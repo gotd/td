@@ -41,7 +41,11 @@ type AccountCreateThemeRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Unique theme ID
+	// Unique theme ID used to generate theme deep links¹, can be empty to autogenerate a
+	// random ID.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#theme-links
 	Slug string
 	// Theme name
 	Title string
@@ -49,7 +53,8 @@ type AccountCreateThemeRequest struct {
 	//
 	// Use SetDocument and GetDocument helpers.
 	Document InputDocumentClass
-	// Theme settings
+	// Theme settings, multiple values can be provided for the different base themes
+	// (day/night mode, etc).
 	//
 	// Use SetSettings and GetSettings helpers.
 	Settings []InputThemeSettings

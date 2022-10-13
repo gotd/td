@@ -205,7 +205,6 @@ func (c *StickersChangeStickerPositionRequest) GetStickerAsNotEmpty() (*InputDoc
 //
 // Possible errors:
 //
-//	400 BOT_MISSING: This method can only be run by a bot.
 //	400 STICKER_INVALID: The provided sticker is invalid.
 //
 // See https://core.telegram.org/method/stickers.changeStickerPosition for reference.

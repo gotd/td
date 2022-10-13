@@ -41,9 +41,15 @@ type MessagesGetArchivedStickersRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Get mask stickers
+	// Get mask stickers¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stickers#mask-stickers
 	Masks bool
-	// Get custom emoji stickers
+	// Get custom emoji stickers¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	Emojis bool
 	// Offsets for pagination, for more info click here¹
 	//

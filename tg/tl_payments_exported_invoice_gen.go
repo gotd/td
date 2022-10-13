@@ -42,7 +42,7 @@ type PaymentsExportedInvoice struct {
 	// Exported invoice deep link¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/links#invoice-link
+	//  1) https://core.telegram.org/api/links#invoice-links
 	URL string
 }
 

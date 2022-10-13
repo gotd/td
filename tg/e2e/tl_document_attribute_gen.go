@@ -1176,7 +1176,11 @@ type DocumentAttributeAudio struct {
 	//
 	// Use SetPerformer and GetPerformer helpers.
 	Performer string
-	// Waveform
+	// Waveform: consists in a series of bitpacked 5-bit values. Example implementation:
+	// android¹.
+	//
+	// Links:
+	//  1) https://github.com/DrKLO/Telegram/blob/96dce2c9aabc33b87db61d830aa087b6b03fe397/TMessagesProj/jni/audio.c#L546
 	//
 	// Use SetWaveform and GetWaveform helpers.
 	Waveform []byte

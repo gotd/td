@@ -207,7 +207,7 @@ func (i *InputInvoiceMessage) GetMsgID() (value int) {
 //
 // Links:
 //  1. https://core.telegram.org/api/links#invoice-links
-//  2. https://core.telegram.org/api/config#client-configuration
+//  2. https://core.telegram.org/api/config#premium-invoice-slug
 //
 // See https://core.telegram.org/constructor/inputInvoiceSlug for reference.
 type InputInvoiceSlug struct {

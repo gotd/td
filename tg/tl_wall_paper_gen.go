@@ -53,7 +53,7 @@ type WallPaper struct {
 	// Whether this is a pattern wallpaper »¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/wallpapers#pattern-wallpaper
+	//  1) https://core.telegram.org/api/wallpapers#pattern-wallpapers
 	Pattern bool
 	// Whether this wallpaper should be used in dark mode.
 	Dark bool

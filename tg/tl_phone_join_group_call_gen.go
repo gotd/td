@@ -53,7 +53,7 @@ type PhoneJoinGroupCallRequest struct {
 	// livestream or muted group chat.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/links#video-chat-video-chat-livestream-links
+	//  1) https://core.telegram.org/api/links#voice-chatvideo-chatlivestream-links
 	//
 	// Use SetInviteHash and GetInviteHash helpers.
 	InviteHash string

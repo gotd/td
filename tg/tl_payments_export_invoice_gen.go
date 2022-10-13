@@ -177,7 +177,10 @@ func (e *PaymentsExportInvoiceRequest) GetInvoiceMedia() (value InputMediaClass)
 //
 // Possible errors:
 //
+//	400 CURRENCY_TOTAL_AMOUNT_INVALID: The total amount of all prices is invalid.
+//	400 INVOICE_PAYLOAD_INVALID: The specified invoice payload is invalid.
 //	400 MEDIA_INVALID: Media invalid.
+//	400 PAYMENT_PROVIDER_INVALID: The specified payment provider is invalid.
 //
 // See https://core.telegram.org/method/payments.exportInvoice for reference.
 // Can be used by bots.

@@ -607,10 +607,7 @@ func (u *UpdateDeleteMessages) GetPtsCount() (value int) {
 type UpdateUserTyping struct {
 	// User id
 	UserID int64
-	// Action typeParam added in Layer 17¹.
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/layers#layer-17
+	// Action type
 	Action SendMessageActionClass
 }
 
@@ -781,10 +778,7 @@ type UpdateChatUserTyping struct {
 	ChatID int64
 	// Peer that started typing (can be the chat itself, in case of anonymous admins).
 	FromID PeerClass
-	// Type of actionParameter added in Layer 17¹.
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/layers#layer-17
+	// Type of action
 	Action SendMessageActionClass
 }
 
@@ -1300,10 +1294,7 @@ type UpdateUserName struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/userFull
 	LastName string
-	// New username.Parameter added in Layer 18¹.
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/layers#layer-18
+	// New username.
 	Username string
 }
 
@@ -3160,7 +3151,7 @@ type UpdateServiceNotification struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// (boolTrue) if the message must be displayed in a popup.
+	// If set, the message must be displayed in a popup.
 	Popup bool
 	// When was the notification receivedThe message must also be stored locally as part of
 	// the message history with the user id 777000 (Telegram Notifications).
@@ -18648,7 +18639,7 @@ func (u *UpdateGroupCallConnection) GetParams() (value DataJSON) {
 // The command set¹ of a certain bot in a certain chat has changed.
 //
 // Links:
-//  1. https://core.telegram.org/bots/api#june-25-2021
+//  1. https://core.telegram.org/api/bots/commands
 //
 // See https://core.telegram.org/constructor/updateBotCommands for reference.
 type UpdateBotCommands struct {
@@ -20362,7 +20353,10 @@ func (u *UpdateTranscribedAudio) GetText() (value string) {
 }
 
 // UpdateReadFeaturedEmojiStickers represents TL type `updateReadFeaturedEmojiStickers#fb4c496c`.
-// Some featured emoji stickers were marked as read
+// Some featured custom emoji stickers¹ were marked as read
+//
+// Links:
+//  1. https://core.telegram.org/api/custom-emoji
 //
 // See https://core.telegram.org/constructor/updateReadFeaturedEmojiStickers for reference.
 type UpdateReadFeaturedEmojiStickers struct {

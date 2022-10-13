@@ -41,11 +41,13 @@ type PeerNotifySettings struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Display text in notifications
+	// (Ternary value) If set, indicates whether or not to display previews of messages in
+	// notifications; otherwise the default behavior should be used.
 	//
 	// Use SetShowPreviews and GetShowPreviews helpers.
 	ShowPreviews bool
-	// Mute peer?
+	// (Ternary value) If set, indicates whether to mute or unmute the peer; otherwise the
+	// default behavior should be used.
 	//
 	// Use SetSilent and GetSilent helpers.
 	Silent bool

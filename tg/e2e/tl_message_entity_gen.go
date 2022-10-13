@@ -3166,11 +3166,12 @@ type MessageEntityCustomEmoji struct {
 	// Links:
 	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
-	// Document ID of the custom emoji, use messages.getCustomEmojiDocuments¹ to fetch the
+	// Document ID of the custom emoji¹, use messages.getCustomEmojiDocuments² to fetch the
 	// emoji animation and the actual emoji it represents.
 	//
 	// Links:
-	//  1) https://core.telegram.org/method/messages.getCustomEmojiDocuments
+	//  1) https://core.telegram.org/api/custom-emoji
+	//  2) https://core.telegram.org/method/messages.getCustomEmojiDocuments
 	DocumentID int64
 }
 

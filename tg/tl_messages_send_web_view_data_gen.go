@@ -52,7 +52,7 @@ type MessagesSendWebViewDataRequest struct {
 	// Data to relay to the bot, obtained from a web_app_data_send JS event¹.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/web-events#web_app_data_send
+	//  1) https://core.telegram.org/api/web-events#web-app-data-send
 	Data string
 }
 

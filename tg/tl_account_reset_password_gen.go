@@ -139,6 +139,10 @@ func (r *AccountResetPasswordRequest) DecodeBare(b *bin.Buffer) error {
 // Links:
 //  1. https://core.telegram.org/api/srp#password-reset
 //
+// Possible errors:
+//
+//	400 PASSWORD_EMPTY: The provided password is empty.
+//
 // See https://core.telegram.org/method/account.resetPassword for reference.
 func (c *Client) AccountResetPassword(ctx context.Context) (AccountResetPasswordResultClass, error) {
 	var result AccountResetPasswordResultBox

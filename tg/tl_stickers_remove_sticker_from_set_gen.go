@@ -178,7 +178,7 @@ func (r *StickersRemoveStickerFromSetRequest) GetStickerAsNotEmpty() (*InputDocu
 //
 // Possible errors:
 //
-//	400 BOT_MISSING: This method can only be run by a bot.
+//	400 BOT_MISSING: Only bots can call this method, please use @stickers if you're a user.
 //	400 STICKER_INVALID: The provided sticker is invalid.
 //
 // See https://core.telegram.org/method/stickers.removeStickerFromSet for reference.
