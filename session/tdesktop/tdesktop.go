@@ -50,14 +50,10 @@ func ReadFS(root fs.FS, passcode []byte) ([]Account, error) {
 			keyFile = fileKey(fmt.Sprintf("data#%d", account+1))
 		}
 
+		mtpConfig := MTPConfig{}
 		mtpConfigFile, err := open(root, path.Join(keyFile, "config"))
-		if err != nil {
-			return nil, errors.Wrap(err, "open mtp config")
-		}
-
-		mtpConfig, err := readMTPConfig(mtpConfigFile, kd.localKey)
-		if err != nil {
-			return nil, errors.Wrap(err, "read mtp config")
+		if err == nil {
+			mtpConfig, _ = readMTPConfig(mtpConfigFile, kd.localKey)
 		}
 
 		mtpDataFile, err := open(root, keyFile)
