@@ -50,16 +50,6 @@ func ReadFS(root fs.FS, passcode []byte) ([]Account, error) {
 			keyFile = fileKey(fmt.Sprintf("data#%d", account+1))
 		}
 
-		mtpConfigFile, err := open(root, path.Join(keyFile, "config"))
-		if err != nil {
-			return nil, errors.Wrap(err, "open mtp config")
-		}
-
-		mtpConfig, err := readMTPConfig(mtpConfigFile, kd.localKey)
-		if err != nil {
-			return nil, errors.Wrap(err, "read mtp config")
-		}
-
 		mtpDataFile, err := open(root, keyFile)
 		if err != nil {
 			return nil, errors.Wrap(err, "open key_data")
@@ -70,11 +60,20 @@ func ReadFS(root fs.FS, passcode []byte) ([]Account, error) {
 			return nil, errors.Wrap(err, "read mtp")
 		}
 
-		r = append(r, Account{
+		a := Account{
 			IDx:           account,
 			Authorization: mtpData,
-			Config:        mtpConfig,
-		})
+		}
+		mtpConfigFile, err := open(root, path.Join(keyFile, "config"))
+		if err != nil {
+			return nil, errors.Wrap(err, "open mtp config")
+		}
+		mtpConfig, err := readMTPConfig(mtpConfigFile, kd.localKey)
+		// HACK: ignoring error, because config is optional.
+		if err == nil {
+			a.Config = mtpConfig
+		}
+		r = append(r, a)
 	}
 
 	return r, nil
