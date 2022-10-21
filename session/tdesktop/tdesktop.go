@@ -65,14 +65,14 @@ func ReadFS(root fs.FS, passcode []byte) ([]Account, error) {
 			Authorization: mtpData,
 		}
 		mtpConfigFile, err := open(root, path.Join(keyFile, "config"))
-		if err != nil {
-			return nil, errors.Wrap(err, "open mtp config")
-		}
-		mtpConfig, err := readMTPConfig(mtpConfigFile, kd.localKey)
-		// HACK: ignoring error, because config is optional.
 		if err == nil {
-			a.Config = mtpConfig
+			mtpConfig, err := readMTPConfig(mtpConfigFile, kd.localKey)
+			// HACK: ignoring error, because config is optional.
+			if err == nil {
+				a.Config = mtpConfig
+			}
 		}
+
 		r = append(r, a)
 	}
 
