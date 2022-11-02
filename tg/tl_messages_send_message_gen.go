@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesSendMessageRequest represents TL type `messages.sendMessage#d9d75a4`.
+// MessagesSendMessageRequest represents TL type `messages.sendMessage#1cc20387`.
 // Sends a message to a chat
 //
 // See https://core.telegram.org/method/messages.sendMessage for reference.
@@ -63,6 +63,10 @@ type MessagesSendMessageRequest struct {
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
+	// TopMsgID field of MessagesSendMessageRequest.
+	//
+	// Use SetTopMsgID and GetTopMsgID helpers.
+	TopMsgID int
 	// The message
 	Message string
 	// Unique client message ID required to prevent message resending
@@ -92,7 +96,7 @@ type MessagesSendMessageRequest struct {
 }
 
 // MessagesSendMessageRequestTypeID is TL type id of MessagesSendMessageRequest.
-const MessagesSendMessageRequestTypeID = 0xd9d75a4
+const MessagesSendMessageRequestTypeID = 0x1cc20387
 
 // Ensuring interfaces in compile-time for MessagesSendMessageRequest.
 var (
@@ -131,6 +135,9 @@ func (s *MessagesSendMessageRequest) Zero() bool {
 		return false
 	}
 	if !(s.ReplyToMsgID == 0) {
+		return false
+	}
+	if !(s.TopMsgID == 0) {
 		return false
 	}
 	if !(s.Message == "") {
@@ -174,6 +181,7 @@ func (s *MessagesSendMessageRequest) FillFrom(from interface {
 	GetUpdateStickersetsOrder() (value bool)
 	GetPeer() (value InputPeerClass)
 	GetReplyToMsgID() (value int, ok bool)
+	GetTopMsgID() (value int, ok bool)
 	GetMessage() (value string)
 	GetRandomID() (value int64)
 	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
@@ -190,6 +198,10 @@ func (s *MessagesSendMessageRequest) FillFrom(from interface {
 	s.Peer = from.GetPeer()
 	if val, ok := from.GetReplyToMsgID(); ok {
 		s.ReplyToMsgID = val
+	}
+
+	if val, ok := from.GetTopMsgID(); ok {
+		s.TopMsgID = val
 	}
 
 	s.Message = from.GetMessage()
@@ -275,6 +287,11 @@ func (s *MessagesSendMessageRequest) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(0),
 		},
 		{
+			Name:       "TopMsgID",
+			SchemaName: "top_msg_id",
+			Null:       !s.Flags.Has(9),
+		},
+		{
 			Name:       "Message",
 			SchemaName: "message",
 		},
@@ -329,6 +346,9 @@ func (s *MessagesSendMessageRequest) SetFlags() {
 	if !(s.ReplyToMsgID == 0) {
 		s.Flags.Set(0)
 	}
+	if !(s.TopMsgID == 0) {
+		s.Flags.Set(9)
+	}
 	if !(s.ReplyMarkup == nil) {
 		s.Flags.Set(2)
 	}
@@ -346,7 +366,7 @@ func (s *MessagesSendMessageRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (s *MessagesSendMessageRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendMessage#d9d75a4 as nil")
+		return fmt.Errorf("can't encode messages.sendMessage#1cc20387 as nil")
 	}
 	b.PutID(MessagesSendMessageRequestTypeID)
 	return s.EncodeBare(b)
@@ -355,39 +375,42 @@ func (s *MessagesSendMessageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSendMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendMessage#d9d75a4 as nil")
+		return fmt.Errorf("can't encode messages.sendMessage#1cc20387 as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendMessage#d9d75a4: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.sendMessage#1cc20387: field flags: %w", err)
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.sendMessage#d9d75a4: field peer is nil")
+		return fmt.Errorf("unable to encode messages.sendMessage#1cc20387: field peer is nil")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendMessage#d9d75a4: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.sendMessage#1cc20387: field peer: %w", err)
 	}
 	if s.Flags.Has(0) {
 		b.PutInt(s.ReplyToMsgID)
+	}
+	if s.Flags.Has(9) {
+		b.PutInt(s.TopMsgID)
 	}
 	b.PutString(s.Message)
 	b.PutLong(s.RandomID)
 	if s.Flags.Has(2) {
 		if s.ReplyMarkup == nil {
-			return fmt.Errorf("unable to encode messages.sendMessage#d9d75a4: field reply_markup is nil")
+			return fmt.Errorf("unable to encode messages.sendMessage#1cc20387: field reply_markup is nil")
 		}
 		if err := s.ReplyMarkup.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.sendMessage#d9d75a4: field reply_markup: %w", err)
+			return fmt.Errorf("unable to encode messages.sendMessage#1cc20387: field reply_markup: %w", err)
 		}
 	}
 	if s.Flags.Has(3) {
 		b.PutVectorHeader(len(s.Entities))
 		for idx, v := range s.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode messages.sendMessage#d9d75a4: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode messages.sendMessage#1cc20387: field entities element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode messages.sendMessage#d9d75a4: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode messages.sendMessage#1cc20387: field entities element with index %d: %w", idx, err)
 			}
 		}
 	}
@@ -396,10 +419,10 @@ func (s *MessagesSendMessageRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	if s.Flags.Has(13) {
 		if s.SendAs == nil {
-			return fmt.Errorf("unable to encode messages.sendMessage#d9d75a4: field send_as is nil")
+			return fmt.Errorf("unable to encode messages.sendMessage#1cc20387: field send_as is nil")
 		}
 		if err := s.SendAs.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.sendMessage#d9d75a4: field send_as: %w", err)
+			return fmt.Errorf("unable to encode messages.sendMessage#1cc20387: field send_as: %w", err)
 		}
 	}
 	return nil
@@ -408,10 +431,10 @@ func (s *MessagesSendMessageRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *MessagesSendMessageRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendMessage#d9d75a4 to nil")
+		return fmt.Errorf("can't decode messages.sendMessage#1cc20387 to nil")
 	}
 	if err := b.ConsumeID(MessagesSendMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: %w", err)
+		return fmt.Errorf("unable to decode messages.sendMessage#1cc20387: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -419,11 +442,11 @@ func (s *MessagesSendMessageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSendMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendMessage#d9d75a4 to nil")
+		return fmt.Errorf("can't decode messages.sendMessage#1cc20387 to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMessage#1cc20387: field flags: %w", err)
 		}
 	}
 	s.NoWebpage = s.Flags.Has(1)
@@ -435,42 +458,49 @@ func (s *MessagesSendMessageRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMessage#1cc20387: field peer: %w", err)
 		}
 		s.Peer = value
 	}
 	if s.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: field reply_to_msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMessage#1cc20387: field reply_to_msg_id: %w", err)
 		}
 		s.ReplyToMsgID = value
+	}
+	if s.Flags.Has(9) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.sendMessage#1cc20387: field top_msg_id: %w", err)
+		}
+		s.TopMsgID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: field message: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMessage#1cc20387: field message: %w", err)
 		}
 		s.Message = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: field random_id: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMessage#1cc20387: field random_id: %w", err)
 		}
 		s.RandomID = value
 	}
 	if s.Flags.Has(2) {
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: field reply_markup: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMessage#1cc20387: field reply_markup: %w", err)
 		}
 		s.ReplyMarkup = value
 	}
 	if s.Flags.Has(3) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: field entities: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMessage#1cc20387: field entities: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -479,7 +509,7 @@ func (s *MessagesSendMessageRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: field entities: %w", err)
+				return fmt.Errorf("unable to decode messages.sendMessage#1cc20387: field entities: %w", err)
 			}
 			s.Entities = append(s.Entities, value)
 		}
@@ -487,14 +517,14 @@ func (s *MessagesSendMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if s.Flags.Has(10) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: field schedule_date: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMessage#1cc20387: field schedule_date: %w", err)
 		}
 		s.ScheduleDate = value
 	}
 	if s.Flags.Has(13) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMessage#d9d75a4: field send_as: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMessage#1cc20387: field send_as: %w", err)
 		}
 		s.SendAs = value
 	}
@@ -641,6 +671,24 @@ func (s *MessagesSendMessageRequest) GetReplyToMsgID() (value int, ok bool) {
 	return s.ReplyToMsgID, true
 }
 
+// SetTopMsgID sets value of TopMsgID conditional field.
+func (s *MessagesSendMessageRequest) SetTopMsgID(value int) {
+	s.Flags.Set(9)
+	s.TopMsgID = value
+}
+
+// GetTopMsgID returns value of TopMsgID conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSendMessageRequest) GetTopMsgID() (value int, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(9) {
+		return value, false
+	}
+	return s.TopMsgID, true
+}
+
 // GetMessage returns value of Message field.
 func (s *MessagesSendMessageRequest) GetMessage() (value string) {
 	if s == nil {
@@ -737,7 +785,7 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 	return MessageEntityClassArray(s.Entities), true
 }
 
-// MessagesSendMessage invokes method messages.sendMessage#d9d75a4 returning error if any.
+// MessagesSendMessage invokes method messages.sendMessage#1cc20387 returning error if any.
 // Sends a message to a chat
 //
 // Possible errors:

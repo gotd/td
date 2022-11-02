@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AccountGetThemeRequest represents TL type `account.getTheme#8d9d742b`.
+// AccountGetThemeRequest represents TL type `account.getTheme#3a5869ec`.
 // Get theme information
 //
 // See https://core.telegram.org/method/account.getTheme for reference.
@@ -40,12 +40,10 @@ type AccountGetThemeRequest struct {
 	Format string
 	// Theme
 	Theme InputThemeClass
-	// Document ID
-	DocumentID int64
 }
 
 // AccountGetThemeRequestTypeID is TL type id of AccountGetThemeRequest.
-const AccountGetThemeRequestTypeID = 0x8d9d742b
+const AccountGetThemeRequestTypeID = 0x3a5869ec
 
 // Ensuring interfaces in compile-time for AccountGetThemeRequest.
 var (
@@ -65,9 +63,6 @@ func (g *AccountGetThemeRequest) Zero() bool {
 	if !(g.Theme == nil) {
 		return false
 	}
-	if !(g.DocumentID == 0) {
-		return false
-	}
 
 	return true
 }
@@ -85,11 +80,9 @@ func (g *AccountGetThemeRequest) String() string {
 func (g *AccountGetThemeRequest) FillFrom(from interface {
 	GetFormat() (value string)
 	GetTheme() (value InputThemeClass)
-	GetDocumentID() (value int64)
 }) {
 	g.Format = from.GetFormat()
 	g.Theme = from.GetTheme()
-	g.DocumentID = from.GetDocumentID()
 }
 
 // TypeID returns type id in TL schema.
@@ -123,10 +116,6 @@ func (g *AccountGetThemeRequest) TypeInfo() tdp.Type {
 			Name:       "Theme",
 			SchemaName: "theme",
 		},
-		{
-			Name:       "DocumentID",
-			SchemaName: "document_id",
-		},
 	}
 	return typ
 }
@@ -134,7 +123,7 @@ func (g *AccountGetThemeRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *AccountGetThemeRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getTheme#8d9d742b as nil")
+		return fmt.Errorf("can't encode account.getTheme#3a5869ec as nil")
 	}
 	b.PutID(AccountGetThemeRequestTypeID)
 	return g.EncodeBare(b)
@@ -143,26 +132,25 @@ func (g *AccountGetThemeRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *AccountGetThemeRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode account.getTheme#8d9d742b as nil")
+		return fmt.Errorf("can't encode account.getTheme#3a5869ec as nil")
 	}
 	b.PutString(g.Format)
 	if g.Theme == nil {
-		return fmt.Errorf("unable to encode account.getTheme#8d9d742b: field theme is nil")
+		return fmt.Errorf("unable to encode account.getTheme#3a5869ec: field theme is nil")
 	}
 	if err := g.Theme.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.getTheme#8d9d742b: field theme: %w", err)
+		return fmt.Errorf("unable to encode account.getTheme#3a5869ec: field theme: %w", err)
 	}
-	b.PutLong(g.DocumentID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *AccountGetThemeRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getTheme#8d9d742b to nil")
+		return fmt.Errorf("can't decode account.getTheme#3a5869ec to nil")
 	}
 	if err := b.ConsumeID(AccountGetThemeRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.getTheme#8d9d742b: %w", err)
+		return fmt.Errorf("unable to decode account.getTheme#3a5869ec: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -170,28 +158,21 @@ func (g *AccountGetThemeRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *AccountGetThemeRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode account.getTheme#8d9d742b to nil")
+		return fmt.Errorf("can't decode account.getTheme#3a5869ec to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getTheme#8d9d742b: field format: %w", err)
+			return fmt.Errorf("unable to decode account.getTheme#3a5869ec: field format: %w", err)
 		}
 		g.Format = value
 	}
 	{
 		value, err := DecodeInputTheme(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.getTheme#8d9d742b: field theme: %w", err)
+			return fmt.Errorf("unable to decode account.getTheme#3a5869ec: field theme: %w", err)
 		}
 		g.Theme = value
-	}
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode account.getTheme#8d9d742b: field document_id: %w", err)
-		}
-		g.DocumentID = value
 	}
 	return nil
 }
@@ -212,15 +193,7 @@ func (g *AccountGetThemeRequest) GetTheme() (value InputThemeClass) {
 	return g.Theme
 }
 
-// GetDocumentID returns value of DocumentID field.
-func (g *AccountGetThemeRequest) GetDocumentID() (value int64) {
-	if g == nil {
-		return
-	}
-	return g.DocumentID
-}
-
-// AccountGetTheme invokes method account.getTheme#8d9d742b returning error if any.
+// AccountGetTheme invokes method account.getTheme#3a5869ec returning error if any.
 // Get theme information
 //
 // Possible errors:

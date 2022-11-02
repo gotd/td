@@ -5472,6 +5472,1009 @@ func (c *ChannelAdminLogEventActionChangeAvailableReactions) GetNewValue() (valu
 	return c.NewValue
 }
 
+// ChannelAdminLogEventActionChangeUsernames represents TL type `channelAdminLogEventActionChangeUsernames#f04fb3a9`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionChangeUsernames for reference.
+type ChannelAdminLogEventActionChangeUsernames struct {
+	// PrevValue field of ChannelAdminLogEventActionChangeUsernames.
+	PrevValue []string
+	// NewValue field of ChannelAdminLogEventActionChangeUsernames.
+	NewValue []string
+}
+
+// ChannelAdminLogEventActionChangeUsernamesTypeID is TL type id of ChannelAdminLogEventActionChangeUsernames.
+const ChannelAdminLogEventActionChangeUsernamesTypeID = 0xf04fb3a9
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionChangeUsernames) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeUsernames.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionChangeUsernames{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionChangeUsernames{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeUsernames{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeUsernames{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeUsernames{}
+)
+
+func (c *ChannelAdminLogEventActionChangeUsernames) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PrevValue == nil) {
+		return false
+	}
+	if !(c.NewValue == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionChangeUsernames) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionChangeUsernames(nil)"
+	}
+	type Alias ChannelAdminLogEventActionChangeUsernames
+	return fmt.Sprintf("ChannelAdminLogEventActionChangeUsernames%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionChangeUsernames from given interface.
+func (c *ChannelAdminLogEventActionChangeUsernames) FillFrom(from interface {
+	GetPrevValue() (value []string)
+	GetNewValue() (value []string)
+}) {
+	c.PrevValue = from.GetPrevValue()
+	c.NewValue = from.GetNewValue()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChannelAdminLogEventActionChangeUsernames) TypeID() uint32 {
+	return ChannelAdminLogEventActionChangeUsernamesTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChannelAdminLogEventActionChangeUsernames) TypeName() string {
+	return "channelAdminLogEventActionChangeUsernames"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionChangeUsernames) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionChangeUsernames",
+		ID:   ChannelAdminLogEventActionChangeUsernamesTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevValue",
+			SchemaName: "prev_value",
+		},
+		{
+			Name:       "NewValue",
+			SchemaName: "new_value",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionChangeUsernames) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionChangeUsernames#f04fb3a9 as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionChangeUsernamesTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionChangeUsernames) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionChangeUsernames#f04fb3a9 as nil")
+	}
+	b.PutVectorHeader(len(c.PrevValue))
+	for _, v := range c.PrevValue {
+		b.PutString(v)
+	}
+	b.PutVectorHeader(len(c.NewValue))
+	for _, v := range c.NewValue {
+		b.PutString(v)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionChangeUsernames) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionChangeUsernames#f04fb3a9 to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionChangeUsernamesTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionChangeUsernames#f04fb3a9: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionChangeUsernames) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionChangeUsernames#f04fb3a9 to nil")
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionChangeUsernames#f04fb3a9: field prev_value: %w", err)
+		}
+
+		if headerLen > 0 {
+			c.PrevValue = make([]string, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode channelAdminLogEventActionChangeUsernames#f04fb3a9: field prev_value: %w", err)
+			}
+			c.PrevValue = append(c.PrevValue, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionChangeUsernames#f04fb3a9: field new_value: %w", err)
+		}
+
+		if headerLen > 0 {
+			c.NewValue = make([]string, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode channelAdminLogEventActionChangeUsernames#f04fb3a9: field new_value: %w", err)
+			}
+			c.NewValue = append(c.NewValue, value)
+		}
+	}
+	return nil
+}
+
+// GetPrevValue returns value of PrevValue field.
+func (c *ChannelAdminLogEventActionChangeUsernames) GetPrevValue() (value []string) {
+	if c == nil {
+		return
+	}
+	return c.PrevValue
+}
+
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionChangeUsernames) GetNewValue() (value []string) {
+	if c == nil {
+		return
+	}
+	return c.NewValue
+}
+
+// ChannelAdminLogEventActionToggleForum represents TL type `channelAdminLogEventActionToggleForum#2cc6383`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionToggleForum for reference.
+type ChannelAdminLogEventActionToggleForum struct {
+	// NewValue field of ChannelAdminLogEventActionToggleForum.
+	NewValue bool
+}
+
+// ChannelAdminLogEventActionToggleForumTypeID is TL type id of ChannelAdminLogEventActionToggleForum.
+const ChannelAdminLogEventActionToggleForumTypeID = 0x2cc6383
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionToggleForum) construct() ChannelAdminLogEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionToggleForum.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionToggleForum{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionToggleForum{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionToggleForum{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionToggleForum{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionToggleForum{}
+)
+
+func (c *ChannelAdminLogEventActionToggleForum) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.NewValue == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionToggleForum) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionToggleForum(nil)"
+	}
+	type Alias ChannelAdminLogEventActionToggleForum
+	return fmt.Sprintf("ChannelAdminLogEventActionToggleForum%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionToggleForum from given interface.
+func (c *ChannelAdminLogEventActionToggleForum) FillFrom(from interface {
+	GetNewValue() (value bool)
+}) {
+	c.NewValue = from.GetNewValue()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChannelAdminLogEventActionToggleForum) TypeID() uint32 {
+	return ChannelAdminLogEventActionToggleForumTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChannelAdminLogEventActionToggleForum) TypeName() string {
+	return "channelAdminLogEventActionToggleForum"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionToggleForum) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionToggleForum",
+		ID:   ChannelAdminLogEventActionToggleForumTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "NewValue",
+			SchemaName: "new_value",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionToggleForum) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionToggleForum#2cc6383 as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionToggleForumTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionToggleForum) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionToggleForum#2cc6383 as nil")
+	}
+	b.PutBool(c.NewValue)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionToggleForum) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionToggleForum#2cc6383 to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionToggleForumTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionToggleForum#2cc6383: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionToggleForum) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionToggleForum#2cc6383 to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionToggleForum#2cc6383: field new_value: %w", err)
+		}
+		c.NewValue = value
+	}
+	return nil
+}
+
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionToggleForum) GetNewValue() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.NewValue
+}
+
+// ChannelAdminLogEventActionCreateTopic represents TL type `channelAdminLogEventActionCreateTopic#58707d28`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionCreateTopic for reference.
+type ChannelAdminLogEventActionCreateTopic struct {
+	// Topic field of ChannelAdminLogEventActionCreateTopic.
+	Topic ForumTopicClass
+}
+
+// ChannelAdminLogEventActionCreateTopicTypeID is TL type id of ChannelAdminLogEventActionCreateTopic.
+const ChannelAdminLogEventActionCreateTopicTypeID = 0x58707d28
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionCreateTopic) construct() ChannelAdminLogEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionCreateTopic.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionCreateTopic{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionCreateTopic{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionCreateTopic{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionCreateTopic{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionCreateTopic{}
+)
+
+func (c *ChannelAdminLogEventActionCreateTopic) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Topic == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionCreateTopic) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionCreateTopic(nil)"
+	}
+	type Alias ChannelAdminLogEventActionCreateTopic
+	return fmt.Sprintf("ChannelAdminLogEventActionCreateTopic%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionCreateTopic from given interface.
+func (c *ChannelAdminLogEventActionCreateTopic) FillFrom(from interface {
+	GetTopic() (value ForumTopicClass)
+}) {
+	c.Topic = from.GetTopic()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChannelAdminLogEventActionCreateTopic) TypeID() uint32 {
+	return ChannelAdminLogEventActionCreateTopicTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChannelAdminLogEventActionCreateTopic) TypeName() string {
+	return "channelAdminLogEventActionCreateTopic"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionCreateTopic) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionCreateTopic",
+		ID:   ChannelAdminLogEventActionCreateTopicTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Topic",
+			SchemaName: "topic",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionCreateTopic) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionCreateTopic#58707d28 as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionCreateTopicTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionCreateTopic) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionCreateTopic#58707d28 as nil")
+	}
+	if c.Topic == nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionCreateTopic#58707d28: field topic is nil")
+	}
+	if err := c.Topic.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionCreateTopic#58707d28: field topic: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionCreateTopic) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionCreateTopic#58707d28 to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionCreateTopicTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionCreateTopic#58707d28: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionCreateTopic) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionCreateTopic#58707d28 to nil")
+	}
+	{
+		value, err := DecodeForumTopic(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionCreateTopic#58707d28: field topic: %w", err)
+		}
+		c.Topic = value
+	}
+	return nil
+}
+
+// GetTopic returns value of Topic field.
+func (c *ChannelAdminLogEventActionCreateTopic) GetTopic() (value ForumTopicClass) {
+	if c == nil {
+		return
+	}
+	return c.Topic
+}
+
+// ChannelAdminLogEventActionEditTopic represents TL type `channelAdminLogEventActionEditTopic#f06fe208`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionEditTopic for reference.
+type ChannelAdminLogEventActionEditTopic struct {
+	// PrevTopic field of ChannelAdminLogEventActionEditTopic.
+	PrevTopic ForumTopicClass
+	// NewTopic field of ChannelAdminLogEventActionEditTopic.
+	NewTopic ForumTopicClass
+}
+
+// ChannelAdminLogEventActionEditTopicTypeID is TL type id of ChannelAdminLogEventActionEditTopic.
+const ChannelAdminLogEventActionEditTopicTypeID = 0xf06fe208
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionEditTopic) construct() ChannelAdminLogEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionEditTopic.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionEditTopic{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionEditTopic{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionEditTopic{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionEditTopic{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionEditTopic{}
+)
+
+func (c *ChannelAdminLogEventActionEditTopic) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PrevTopic == nil) {
+		return false
+	}
+	if !(c.NewTopic == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionEditTopic) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionEditTopic(nil)"
+	}
+	type Alias ChannelAdminLogEventActionEditTopic
+	return fmt.Sprintf("ChannelAdminLogEventActionEditTopic%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionEditTopic from given interface.
+func (c *ChannelAdminLogEventActionEditTopic) FillFrom(from interface {
+	GetPrevTopic() (value ForumTopicClass)
+	GetNewTopic() (value ForumTopicClass)
+}) {
+	c.PrevTopic = from.GetPrevTopic()
+	c.NewTopic = from.GetNewTopic()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChannelAdminLogEventActionEditTopic) TypeID() uint32 {
+	return ChannelAdminLogEventActionEditTopicTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChannelAdminLogEventActionEditTopic) TypeName() string {
+	return "channelAdminLogEventActionEditTopic"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionEditTopic) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionEditTopic",
+		ID:   ChannelAdminLogEventActionEditTopicTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevTopic",
+			SchemaName: "prev_topic",
+		},
+		{
+			Name:       "NewTopic",
+			SchemaName: "new_topic",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionEditTopic) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionEditTopic#f06fe208 as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionEditTopicTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionEditTopic) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionEditTopic#f06fe208 as nil")
+	}
+	if c.PrevTopic == nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionEditTopic#f06fe208: field prev_topic is nil")
+	}
+	if err := c.PrevTopic.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionEditTopic#f06fe208: field prev_topic: %w", err)
+	}
+	if c.NewTopic == nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionEditTopic#f06fe208: field new_topic is nil")
+	}
+	if err := c.NewTopic.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionEditTopic#f06fe208: field new_topic: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionEditTopic) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionEditTopic#f06fe208 to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionEditTopicTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionEditTopic#f06fe208: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionEditTopic) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionEditTopic#f06fe208 to nil")
+	}
+	{
+		value, err := DecodeForumTopic(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionEditTopic#f06fe208: field prev_topic: %w", err)
+		}
+		c.PrevTopic = value
+	}
+	{
+		value, err := DecodeForumTopic(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionEditTopic#f06fe208: field new_topic: %w", err)
+		}
+		c.NewTopic = value
+	}
+	return nil
+}
+
+// GetPrevTopic returns value of PrevTopic field.
+func (c *ChannelAdminLogEventActionEditTopic) GetPrevTopic() (value ForumTopicClass) {
+	if c == nil {
+		return
+	}
+	return c.PrevTopic
+}
+
+// GetNewTopic returns value of NewTopic field.
+func (c *ChannelAdminLogEventActionEditTopic) GetNewTopic() (value ForumTopicClass) {
+	if c == nil {
+		return
+	}
+	return c.NewTopic
+}
+
+// ChannelAdminLogEventActionDeleteTopic represents TL type `channelAdminLogEventActionDeleteTopic#ae168909`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionDeleteTopic for reference.
+type ChannelAdminLogEventActionDeleteTopic struct {
+	// Topic field of ChannelAdminLogEventActionDeleteTopic.
+	Topic ForumTopicClass
+}
+
+// ChannelAdminLogEventActionDeleteTopicTypeID is TL type id of ChannelAdminLogEventActionDeleteTopic.
+const ChannelAdminLogEventActionDeleteTopicTypeID = 0xae168909
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionDeleteTopic) construct() ChannelAdminLogEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionDeleteTopic.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionDeleteTopic{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionDeleteTopic{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionDeleteTopic{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionDeleteTopic{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionDeleteTopic{}
+)
+
+func (c *ChannelAdminLogEventActionDeleteTopic) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Topic == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionDeleteTopic) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionDeleteTopic(nil)"
+	}
+	type Alias ChannelAdminLogEventActionDeleteTopic
+	return fmt.Sprintf("ChannelAdminLogEventActionDeleteTopic%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionDeleteTopic from given interface.
+func (c *ChannelAdminLogEventActionDeleteTopic) FillFrom(from interface {
+	GetTopic() (value ForumTopicClass)
+}) {
+	c.Topic = from.GetTopic()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChannelAdminLogEventActionDeleteTopic) TypeID() uint32 {
+	return ChannelAdminLogEventActionDeleteTopicTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChannelAdminLogEventActionDeleteTopic) TypeName() string {
+	return "channelAdminLogEventActionDeleteTopic"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionDeleteTopic) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionDeleteTopic",
+		ID:   ChannelAdminLogEventActionDeleteTopicTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Topic",
+			SchemaName: "topic",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionDeleteTopic) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionDeleteTopic#ae168909 as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionDeleteTopicTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionDeleteTopic) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionDeleteTopic#ae168909 as nil")
+	}
+	if c.Topic == nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionDeleteTopic#ae168909: field topic is nil")
+	}
+	if err := c.Topic.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionDeleteTopic#ae168909: field topic: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionDeleteTopic) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionDeleteTopic#ae168909 to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionDeleteTopicTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionDeleteTopic#ae168909: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionDeleteTopic) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionDeleteTopic#ae168909 to nil")
+	}
+	{
+		value, err := DecodeForumTopic(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionDeleteTopic#ae168909: field topic: %w", err)
+		}
+		c.Topic = value
+	}
+	return nil
+}
+
+// GetTopic returns value of Topic field.
+func (c *ChannelAdminLogEventActionDeleteTopic) GetTopic() (value ForumTopicClass) {
+	if c == nil {
+		return
+	}
+	return c.Topic
+}
+
+// ChannelAdminLogEventActionPinTopic represents TL type `channelAdminLogEventActionPinTopic#5d8d353b`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionPinTopic for reference.
+type ChannelAdminLogEventActionPinTopic struct {
+	// Flags field of ChannelAdminLogEventActionPinTopic.
+	Flags bin.Fields
+	// PrevTopic field of ChannelAdminLogEventActionPinTopic.
+	//
+	// Use SetPrevTopic and GetPrevTopic helpers.
+	PrevTopic ForumTopicClass
+	// NewTopic field of ChannelAdminLogEventActionPinTopic.
+	//
+	// Use SetNewTopic and GetNewTopic helpers.
+	NewTopic ForumTopicClass
+}
+
+// ChannelAdminLogEventActionPinTopicTypeID is TL type id of ChannelAdminLogEventActionPinTopic.
+const ChannelAdminLogEventActionPinTopicTypeID = 0x5d8d353b
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionPinTopic) construct() ChannelAdminLogEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionPinTopic.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionPinTopic{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionPinTopic{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionPinTopic{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionPinTopic{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionPinTopic{}
+)
+
+func (c *ChannelAdminLogEventActionPinTopic) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.PrevTopic == nil) {
+		return false
+	}
+	if !(c.NewTopic == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionPinTopic) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionPinTopic(nil)"
+	}
+	type Alias ChannelAdminLogEventActionPinTopic
+	return fmt.Sprintf("ChannelAdminLogEventActionPinTopic%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionPinTopic from given interface.
+func (c *ChannelAdminLogEventActionPinTopic) FillFrom(from interface {
+	GetPrevTopic() (value ForumTopicClass, ok bool)
+	GetNewTopic() (value ForumTopicClass, ok bool)
+}) {
+	if val, ok := from.GetPrevTopic(); ok {
+		c.PrevTopic = val
+	}
+
+	if val, ok := from.GetNewTopic(); ok {
+		c.NewTopic = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChannelAdminLogEventActionPinTopic) TypeID() uint32 {
+	return ChannelAdminLogEventActionPinTopicTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChannelAdminLogEventActionPinTopic) TypeName() string {
+	return "channelAdminLogEventActionPinTopic"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionPinTopic) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionPinTopic",
+		ID:   ChannelAdminLogEventActionPinTopicTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevTopic",
+			SchemaName: "prev_topic",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "NewTopic",
+			SchemaName: "new_topic",
+			Null:       !c.Flags.Has(1),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (c *ChannelAdminLogEventActionPinTopic) SetFlags() {
+	if !(c.PrevTopic == nil) {
+		c.Flags.Set(0)
+	}
+	if !(c.NewTopic == nil) {
+		c.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionPinTopic) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionPinTopic#5d8d353b as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionPinTopicTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionPinTopic) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionPinTopic#5d8d353b as nil")
+	}
+	c.SetFlags()
+	if err := c.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionPinTopic#5d8d353b: field flags: %w", err)
+	}
+	if c.Flags.Has(0) {
+		if c.PrevTopic == nil {
+			return fmt.Errorf("unable to encode channelAdminLogEventActionPinTopic#5d8d353b: field prev_topic is nil")
+		}
+		if err := c.PrevTopic.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode channelAdminLogEventActionPinTopic#5d8d353b: field prev_topic: %w", err)
+		}
+	}
+	if c.Flags.Has(1) {
+		if c.NewTopic == nil {
+			return fmt.Errorf("unable to encode channelAdminLogEventActionPinTopic#5d8d353b: field new_topic is nil")
+		}
+		if err := c.NewTopic.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode channelAdminLogEventActionPinTopic#5d8d353b: field new_topic: %w", err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionPinTopic) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionPinTopic#5d8d353b to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionPinTopicTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionPinTopic#5d8d353b: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionPinTopic) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionPinTopic#5d8d353b to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionPinTopic#5d8d353b: field flags: %w", err)
+		}
+	}
+	if c.Flags.Has(0) {
+		value, err := DecodeForumTopic(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionPinTopic#5d8d353b: field prev_topic: %w", err)
+		}
+		c.PrevTopic = value
+	}
+	if c.Flags.Has(1) {
+		value, err := DecodeForumTopic(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionPinTopic#5d8d353b: field new_topic: %w", err)
+		}
+		c.NewTopic = value
+	}
+	return nil
+}
+
+// SetPrevTopic sets value of PrevTopic conditional field.
+func (c *ChannelAdminLogEventActionPinTopic) SetPrevTopic(value ForumTopicClass) {
+	c.Flags.Set(0)
+	c.PrevTopic = value
+}
+
+// GetPrevTopic returns value of PrevTopic conditional field and
+// boolean which is true if field was set.
+func (c *ChannelAdminLogEventActionPinTopic) GetPrevTopic() (value ForumTopicClass, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(0) {
+		return value, false
+	}
+	return c.PrevTopic, true
+}
+
+// SetNewTopic sets value of NewTopic conditional field.
+func (c *ChannelAdminLogEventActionPinTopic) SetNewTopic(value ForumTopicClass) {
+	c.Flags.Set(1)
+	c.NewTopic = value
+}
+
+// GetNewTopic returns value of NewTopic conditional field and
+// boolean which is true if field was set.
+func (c *ChannelAdminLogEventActionPinTopic) GetNewTopic() (value ForumTopicClass, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(1) {
+		return value, false
+	}
+	return c.NewTopic, true
+}
+
 // ChannelAdminLogEventActionClassName is schema name of ChannelAdminLogEventActionClass.
 const ChannelAdminLogEventActionClassName = "ChannelAdminLogEventAction"
 
@@ -5522,6 +6525,12 @@ const ChannelAdminLogEventActionClassName = "ChannelAdminLogEventAction"
 //	case *tg.ChannelAdminLogEventActionToggleNoForwards: // channelAdminLogEventActionToggleNoForwards#cb2ac766
 //	case *tg.ChannelAdminLogEventActionSendMessage: // channelAdminLogEventActionSendMessage#278f2868
 //	case *tg.ChannelAdminLogEventActionChangeAvailableReactions: // channelAdminLogEventActionChangeAvailableReactions#be4e0ef8
+//	case *tg.ChannelAdminLogEventActionChangeUsernames: // channelAdminLogEventActionChangeUsernames#f04fb3a9
+//	case *tg.ChannelAdminLogEventActionToggleForum: // channelAdminLogEventActionToggleForum#2cc6383
+//	case *tg.ChannelAdminLogEventActionCreateTopic: // channelAdminLogEventActionCreateTopic#58707d28
+//	case *tg.ChannelAdminLogEventActionEditTopic: // channelAdminLogEventActionEditTopic#f06fe208
+//	case *tg.ChannelAdminLogEventActionDeleteTopic: // channelAdminLogEventActionDeleteTopic#ae168909
+//	case *tg.ChannelAdminLogEventActionPinTopic: // channelAdminLogEventActionPinTopic#5d8d353b
 //	default: panic(v)
 //	}
 type ChannelAdminLogEventActionClass interface {
@@ -5798,6 +6807,48 @@ func DecodeChannelAdminLogEventAction(buf *bin.Buffer) (ChannelAdminLogEventActi
 	case ChannelAdminLogEventActionChangeAvailableReactionsTypeID:
 		// Decoding channelAdminLogEventActionChangeAvailableReactions#be4e0ef8.
 		v := ChannelAdminLogEventActionChangeAvailableReactions{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionChangeUsernamesTypeID:
+		// Decoding channelAdminLogEventActionChangeUsernames#f04fb3a9.
+		v := ChannelAdminLogEventActionChangeUsernames{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionToggleForumTypeID:
+		// Decoding channelAdminLogEventActionToggleForum#2cc6383.
+		v := ChannelAdminLogEventActionToggleForum{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionCreateTopicTypeID:
+		// Decoding channelAdminLogEventActionCreateTopic#58707d28.
+		v := ChannelAdminLogEventActionCreateTopic{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionEditTopicTypeID:
+		// Decoding channelAdminLogEventActionEditTopic#f06fe208.
+		v := ChannelAdminLogEventActionEditTopic{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionDeleteTopicTypeID:
+		// Decoding channelAdminLogEventActionDeleteTopic#ae168909.
+		v := ChannelAdminLogEventActionDeleteTopic{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionPinTopicTypeID:
+		// Decoding channelAdminLogEventActionPinTopic#5d8d353b.
+		v := ChannelAdminLogEventActionPinTopic{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
 		}

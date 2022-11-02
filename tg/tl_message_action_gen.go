@@ -5371,6 +5371,502 @@ func (m *MessageActionGiftPremium) GetMonths() (value int) {
 	return m.Months
 }
 
+// MessageActionTopicCreate represents TL type `messageActionTopicCreate#d999256`.
+//
+// See https://core.telegram.org/constructor/messageActionTopicCreate for reference.
+type MessageActionTopicCreate struct {
+	// Flags field of MessageActionTopicCreate.
+	Flags bin.Fields
+	// Title field of MessageActionTopicCreate.
+	Title string
+	// IconColor field of MessageActionTopicCreate.
+	IconColor int
+	// IconEmojiID field of MessageActionTopicCreate.
+	//
+	// Use SetIconEmojiID and GetIconEmojiID helpers.
+	IconEmojiID int64
+}
+
+// MessageActionTopicCreateTypeID is TL type id of MessageActionTopicCreate.
+const MessageActionTopicCreateTypeID = 0xd999256
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionTopicCreate) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionTopicCreate.
+var (
+	_ bin.Encoder     = &MessageActionTopicCreate{}
+	_ bin.Decoder     = &MessageActionTopicCreate{}
+	_ bin.BareEncoder = &MessageActionTopicCreate{}
+	_ bin.BareDecoder = &MessageActionTopicCreate{}
+
+	_ MessageActionClass = &MessageActionTopicCreate{}
+)
+
+func (m *MessageActionTopicCreate) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Title == "") {
+		return false
+	}
+	if !(m.IconColor == 0) {
+		return false
+	}
+	if !(m.IconEmojiID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionTopicCreate) String() string {
+	if m == nil {
+		return "MessageActionTopicCreate(nil)"
+	}
+	type Alias MessageActionTopicCreate
+	return fmt.Sprintf("MessageActionTopicCreate%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionTopicCreate from given interface.
+func (m *MessageActionTopicCreate) FillFrom(from interface {
+	GetTitle() (value string)
+	GetIconColor() (value int)
+	GetIconEmojiID() (value int64, ok bool)
+}) {
+	m.Title = from.GetTitle()
+	m.IconColor = from.GetIconColor()
+	if val, ok := from.GetIconEmojiID(); ok {
+		m.IconEmojiID = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionTopicCreate) TypeID() uint32 {
+	return MessageActionTopicCreateTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionTopicCreate) TypeName() string {
+	return "messageActionTopicCreate"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionTopicCreate) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionTopicCreate",
+		ID:   MessageActionTopicCreateTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "IconColor",
+			SchemaName: "icon_color",
+		},
+		{
+			Name:       "IconEmojiID",
+			SchemaName: "icon_emoji_id",
+			Null:       !m.Flags.Has(0),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MessageActionTopicCreate) SetFlags() {
+	if !(m.IconEmojiID == 0) {
+		m.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionTopicCreate) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionTopicCreate#d999256 as nil")
+	}
+	b.PutID(MessageActionTopicCreateTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionTopicCreate) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionTopicCreate#d999256 as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionTopicCreate#d999256: field flags: %w", err)
+	}
+	b.PutString(m.Title)
+	b.PutInt(m.IconColor)
+	if m.Flags.Has(0) {
+		b.PutLong(m.IconEmojiID)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionTopicCreate) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionTopicCreate#d999256 to nil")
+	}
+	if err := b.ConsumeID(MessageActionTopicCreateTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionTopicCreate#d999256: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionTopicCreate) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionTopicCreate#d999256 to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionTopicCreate#d999256: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionTopicCreate#d999256: field title: %w", err)
+		}
+		m.Title = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionTopicCreate#d999256: field icon_color: %w", err)
+		}
+		m.IconColor = value
+	}
+	if m.Flags.Has(0) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionTopicCreate#d999256: field icon_emoji_id: %w", err)
+		}
+		m.IconEmojiID = value
+	}
+	return nil
+}
+
+// GetTitle returns value of Title field.
+func (m *MessageActionTopicCreate) GetTitle() (value string) {
+	if m == nil {
+		return
+	}
+	return m.Title
+}
+
+// GetIconColor returns value of IconColor field.
+func (m *MessageActionTopicCreate) GetIconColor() (value int) {
+	if m == nil {
+		return
+	}
+	return m.IconColor
+}
+
+// SetIconEmojiID sets value of IconEmojiID conditional field.
+func (m *MessageActionTopicCreate) SetIconEmojiID(value int64) {
+	m.Flags.Set(0)
+	m.IconEmojiID = value
+}
+
+// GetIconEmojiID returns value of IconEmojiID conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionTopicCreate) GetIconEmojiID() (value int64, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.IconEmojiID, true
+}
+
+// MessageActionTopicEdit represents TL type `messageActionTopicEdit#b18a431c`.
+//
+// See https://core.telegram.org/constructor/messageActionTopicEdit for reference.
+type MessageActionTopicEdit struct {
+	// Flags field of MessageActionTopicEdit.
+	Flags bin.Fields
+	// Title field of MessageActionTopicEdit.
+	//
+	// Use SetTitle and GetTitle helpers.
+	Title string
+	// IconEmojiID field of MessageActionTopicEdit.
+	//
+	// Use SetIconEmojiID and GetIconEmojiID helpers.
+	IconEmojiID int64
+	// Closed field of MessageActionTopicEdit.
+	//
+	// Use SetClosed and GetClosed helpers.
+	Closed bool
+}
+
+// MessageActionTopicEditTypeID is TL type id of MessageActionTopicEdit.
+const MessageActionTopicEditTypeID = 0xb18a431c
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionTopicEdit) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionTopicEdit.
+var (
+	_ bin.Encoder     = &MessageActionTopicEdit{}
+	_ bin.Decoder     = &MessageActionTopicEdit{}
+	_ bin.BareEncoder = &MessageActionTopicEdit{}
+	_ bin.BareDecoder = &MessageActionTopicEdit{}
+
+	_ MessageActionClass = &MessageActionTopicEdit{}
+)
+
+func (m *MessageActionTopicEdit) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Title == "") {
+		return false
+	}
+	if !(m.IconEmojiID == 0) {
+		return false
+	}
+	if !(m.Closed == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionTopicEdit) String() string {
+	if m == nil {
+		return "MessageActionTopicEdit(nil)"
+	}
+	type Alias MessageActionTopicEdit
+	return fmt.Sprintf("MessageActionTopicEdit%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionTopicEdit from given interface.
+func (m *MessageActionTopicEdit) FillFrom(from interface {
+	GetTitle() (value string, ok bool)
+	GetIconEmojiID() (value int64, ok bool)
+	GetClosed() (value bool, ok bool)
+}) {
+	if val, ok := from.GetTitle(); ok {
+		m.Title = val
+	}
+
+	if val, ok := from.GetIconEmojiID(); ok {
+		m.IconEmojiID = val
+	}
+
+	if val, ok := from.GetClosed(); ok {
+		m.Closed = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionTopicEdit) TypeID() uint32 {
+	return MessageActionTopicEditTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionTopicEdit) TypeName() string {
+	return "messageActionTopicEdit"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionTopicEdit) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionTopicEdit",
+		ID:   MessageActionTopicEditTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Title",
+			SchemaName: "title",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "IconEmojiID",
+			SchemaName: "icon_emoji_id",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "Closed",
+			SchemaName: "closed",
+			Null:       !m.Flags.Has(2),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MessageActionTopicEdit) SetFlags() {
+	if !(m.Title == "") {
+		m.Flags.Set(0)
+	}
+	if !(m.IconEmojiID == 0) {
+		m.Flags.Set(1)
+	}
+	if !(m.Closed == false) {
+		m.Flags.Set(2)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionTopicEdit) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionTopicEdit#b18a431c as nil")
+	}
+	b.PutID(MessageActionTopicEditTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionTopicEdit) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionTopicEdit#b18a431c as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionTopicEdit#b18a431c: field flags: %w", err)
+	}
+	if m.Flags.Has(0) {
+		b.PutString(m.Title)
+	}
+	if m.Flags.Has(1) {
+		b.PutLong(m.IconEmojiID)
+	}
+	if m.Flags.Has(2) {
+		b.PutBool(m.Closed)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionTopicEdit) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionTopicEdit#b18a431c to nil")
+	}
+	if err := b.ConsumeID(MessageActionTopicEditTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionTopicEdit#b18a431c: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionTopicEdit) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionTopicEdit#b18a431c to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionTopicEdit#b18a431c: field flags: %w", err)
+		}
+	}
+	if m.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionTopicEdit#b18a431c: field title: %w", err)
+		}
+		m.Title = value
+	}
+	if m.Flags.Has(1) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionTopicEdit#b18a431c: field icon_emoji_id: %w", err)
+		}
+		m.IconEmojiID = value
+	}
+	if m.Flags.Has(2) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionTopicEdit#b18a431c: field closed: %w", err)
+		}
+		m.Closed = value
+	}
+	return nil
+}
+
+// SetTitle sets value of Title conditional field.
+func (m *MessageActionTopicEdit) SetTitle(value string) {
+	m.Flags.Set(0)
+	m.Title = value
+}
+
+// GetTitle returns value of Title conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionTopicEdit) GetTitle() (value string, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.Title, true
+}
+
+// SetIconEmojiID sets value of IconEmojiID conditional field.
+func (m *MessageActionTopicEdit) SetIconEmojiID(value int64) {
+	m.Flags.Set(1)
+	m.IconEmojiID = value
+}
+
+// GetIconEmojiID returns value of IconEmojiID conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionTopicEdit) GetIconEmojiID() (value int64, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(1) {
+		return value, false
+	}
+	return m.IconEmojiID, true
+}
+
+// SetClosed sets value of Closed conditional field.
+func (m *MessageActionTopicEdit) SetClosed(value bool) {
+	m.Flags.Set(2)
+	m.Closed = value
+}
+
+// GetClosed returns value of Closed conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionTopicEdit) GetClosed() (value bool, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(2) {
+		return value, false
+	}
+	return m.Closed, true
+}
+
 // MessageActionClassName is schema name of MessageActionClass.
 const MessageActionClassName = "MessageAction"
 
@@ -5418,6 +5914,8 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionWebViewDataSentMe: // messageActionWebViewDataSentMe#47dd8079
 //	case *tg.MessageActionWebViewDataSent: // messageActionWebViewDataSent#b4c38cb5
 //	case *tg.MessageActionGiftPremium: // messageActionGiftPremium#aba0f5c6
+//	case *tg.MessageActionTopicCreate: // messageActionTopicCreate#d999256
+//	case *tg.MessageActionTopicEdit: // messageActionTopicEdit#b18a431c
 //	default: panic(v)
 //	}
 type MessageActionClass interface {
@@ -5673,6 +6171,20 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionGiftPremiumTypeID:
 		// Decoding messageActionGiftPremium#aba0f5c6.
 		v := MessageActionGiftPremium{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionTopicCreateTypeID:
+		// Decoding messageActionTopicCreate#d999256.
+		v := MessageActionTopicCreate{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionTopicEditTypeID:
+		// Decoding messageActionTopicEdit#b18a431c.
+		v := MessageActionTopicEdit{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}

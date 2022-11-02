@@ -31,13 +31,19 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesGetUnreadReactionsRequest represents TL type `messages.getUnreadReactions#e85bae1a`.
+// MessagesGetUnreadReactionsRequest represents TL type `messages.getUnreadReactions#3223495b`.
 // Get unread reactions to messages you sent
 //
 // See https://core.telegram.org/method/messages.getUnreadReactions for reference.
 type MessagesGetUnreadReactionsRequest struct {
+	// Flags field of MessagesGetUnreadReactionsRequest.
+	Flags bin.Fields
 	// Peer
 	Peer InputPeerClass
+	// TopMsgID field of MessagesGetUnreadReactionsRequest.
+	//
+	// Use SetTopMsgID and GetTopMsgID helpers.
+	TopMsgID int
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
@@ -60,7 +66,7 @@ type MessagesGetUnreadReactionsRequest struct {
 }
 
 // MessagesGetUnreadReactionsRequestTypeID is TL type id of MessagesGetUnreadReactionsRequest.
-const MessagesGetUnreadReactionsRequestTypeID = 0xe85bae1a
+const MessagesGetUnreadReactionsRequestTypeID = 0x3223495b
 
 // Ensuring interfaces in compile-time for MessagesGetUnreadReactionsRequest.
 var (
@@ -74,7 +80,13 @@ func (g *MessagesGetUnreadReactionsRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
 	if !(g.Peer == nil) {
+		return false
+	}
+	if !(g.TopMsgID == 0) {
 		return false
 	}
 	if !(g.OffsetID == 0) {
@@ -108,6 +120,7 @@ func (g *MessagesGetUnreadReactionsRequest) String() string {
 // FillFrom fills MessagesGetUnreadReactionsRequest from given interface.
 func (g *MessagesGetUnreadReactionsRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
+	GetTopMsgID() (value int, ok bool)
 	GetOffsetID() (value int)
 	GetAddOffset() (value int)
 	GetLimit() (value int)
@@ -115,6 +128,10 @@ func (g *MessagesGetUnreadReactionsRequest) FillFrom(from interface {
 	GetMinID() (value int)
 }) {
 	g.Peer = from.GetPeer()
+	if val, ok := from.GetTopMsgID(); ok {
+		g.TopMsgID = val
+	}
+
 	g.OffsetID = from.GetOffsetID()
 	g.AddOffset = from.GetAddOffset()
 	g.Limit = from.GetLimit()
@@ -150,6 +167,11 @@ func (g *MessagesGetUnreadReactionsRequest) TypeInfo() tdp.Type {
 			SchemaName: "peer",
 		},
 		{
+			Name:       "TopMsgID",
+			SchemaName: "top_msg_id",
+			Null:       !g.Flags.Has(0),
+		},
+		{
 			Name:       "OffsetID",
 			SchemaName: "offset_id",
 		},
@@ -173,10 +195,17 @@ func (g *MessagesGetUnreadReactionsRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *MessagesGetUnreadReactionsRequest) SetFlags() {
+	if !(g.TopMsgID == 0) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetUnreadReactionsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getUnreadReactions#e85bae1a as nil")
+		return fmt.Errorf("can't encode messages.getUnreadReactions#3223495b as nil")
 	}
 	b.PutID(MessagesGetUnreadReactionsRequestTypeID)
 	return g.EncodeBare(b)
@@ -185,13 +214,20 @@ func (g *MessagesGetUnreadReactionsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetUnreadReactionsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getUnreadReactions#e85bae1a as nil")
+		return fmt.Errorf("can't encode messages.getUnreadReactions#3223495b as nil")
+	}
+	g.SetFlags()
+	if err := g.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.getUnreadReactions#3223495b: field flags: %w", err)
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getUnreadReactions#e85bae1a: field peer is nil")
+		return fmt.Errorf("unable to encode messages.getUnreadReactions#3223495b: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getUnreadReactions#e85bae1a: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.getUnreadReactions#3223495b: field peer: %w", err)
+	}
+	if g.Flags.Has(0) {
+		b.PutInt(g.TopMsgID)
 	}
 	b.PutInt(g.OffsetID)
 	b.PutInt(g.AddOffset)
@@ -204,10 +240,10 @@ func (g *MessagesGetUnreadReactionsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *MessagesGetUnreadReactionsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getUnreadReactions#e85bae1a to nil")
+		return fmt.Errorf("can't decode messages.getUnreadReactions#3223495b to nil")
 	}
 	if err := b.ConsumeID(MessagesGetUnreadReactionsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getUnreadReactions#e85bae1a: %w", err)
+		return fmt.Errorf("unable to decode messages.getUnreadReactions#3223495b: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -215,47 +251,59 @@ func (g *MessagesGetUnreadReactionsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetUnreadReactionsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getUnreadReactions#e85bae1a to nil")
+		return fmt.Errorf("can't decode messages.getUnreadReactions#3223495b to nil")
+	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.getUnreadReactions#3223495b: field flags: %w", err)
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getUnreadReactions#e85bae1a: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.getUnreadReactions#3223495b: field peer: %w", err)
 		}
 		g.Peer = value
+	}
+	if g.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.getUnreadReactions#3223495b: field top_msg_id: %w", err)
+		}
+		g.TopMsgID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getUnreadReactions#e85bae1a: field offset_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getUnreadReactions#3223495b: field offset_id: %w", err)
 		}
 		g.OffsetID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getUnreadReactions#e85bae1a: field add_offset: %w", err)
+			return fmt.Errorf("unable to decode messages.getUnreadReactions#3223495b: field add_offset: %w", err)
 		}
 		g.AddOffset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getUnreadReactions#e85bae1a: field limit: %w", err)
+			return fmt.Errorf("unable to decode messages.getUnreadReactions#3223495b: field limit: %w", err)
 		}
 		g.Limit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getUnreadReactions#e85bae1a: field max_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getUnreadReactions#3223495b: field max_id: %w", err)
 		}
 		g.MaxID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getUnreadReactions#e85bae1a: field min_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getUnreadReactions#3223495b: field min_id: %w", err)
 		}
 		g.MinID = value
 	}
@@ -268,6 +316,24 @@ func (g *MessagesGetUnreadReactionsRequest) GetPeer() (value InputPeerClass) {
 		return
 	}
 	return g.Peer
+}
+
+// SetTopMsgID sets value of TopMsgID conditional field.
+func (g *MessagesGetUnreadReactionsRequest) SetTopMsgID(value int) {
+	g.Flags.Set(0)
+	g.TopMsgID = value
+}
+
+// GetTopMsgID returns value of TopMsgID conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetUnreadReactionsRequest) GetTopMsgID() (value int, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(0) {
+		return value, false
+	}
+	return g.TopMsgID, true
 }
 
 // GetOffsetID returns value of OffsetID field.
@@ -310,7 +376,7 @@ func (g *MessagesGetUnreadReactionsRequest) GetMinID() (value int) {
 	return g.MinID
 }
 
-// MessagesGetUnreadReactions invokes method messages.getUnreadReactions#e85bae1a returning error if any.
+// MessagesGetUnreadReactions invokes method messages.getUnreadReactions#3223495b returning error if any.
 // Get unread reactions to messages you sent
 //
 // See https://core.telegram.org/method/messages.getUnreadReactions for reference.

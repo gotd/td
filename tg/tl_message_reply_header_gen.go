@@ -46,6 +46,8 @@ type MessageReplyHeader struct {
 	Flags bin.Fields
 	// Whether this message replies to a scheduled message
 	ReplyToScheduled bool
+	// ForumTopic field of MessageReplyHeader.
+	ForumTopic bool
 	// ID of message to which this message is replying
 	ReplyToMsgID int
 	// For replies sent in channel discussion threads¹ of which the current user is not a
@@ -86,6 +88,9 @@ func (m *MessageReplyHeader) Zero() bool {
 	if !(m.ReplyToScheduled == false) {
 		return false
 	}
+	if !(m.ForumTopic == false) {
+		return false
+	}
 	if !(m.ReplyToMsgID == 0) {
 		return false
 	}
@@ -111,11 +116,13 @@ func (m *MessageReplyHeader) String() string {
 // FillFrom fills MessageReplyHeader from given interface.
 func (m *MessageReplyHeader) FillFrom(from interface {
 	GetReplyToScheduled() (value bool)
+	GetForumTopic() (value bool)
 	GetReplyToMsgID() (value int)
 	GetReplyToPeerID() (value PeerClass, ok bool)
 	GetReplyToTopID() (value int, ok bool)
 }) {
 	m.ReplyToScheduled = from.GetReplyToScheduled()
+	m.ForumTopic = from.GetForumTopic()
 	m.ReplyToMsgID = from.GetReplyToMsgID()
 	if val, ok := from.GetReplyToPeerID(); ok {
 		m.ReplyToPeerID = val
@@ -156,6 +163,11 @@ func (m *MessageReplyHeader) TypeInfo() tdp.Type {
 			Null:       !m.Flags.Has(2),
 		},
 		{
+			Name:       "ForumTopic",
+			SchemaName: "forum_topic",
+			Null:       !m.Flags.Has(3),
+		},
+		{
 			Name:       "ReplyToMsgID",
 			SchemaName: "reply_to_msg_id",
 		},
@@ -177,6 +189,9 @@ func (m *MessageReplyHeader) TypeInfo() tdp.Type {
 func (m *MessageReplyHeader) SetFlags() {
 	if !(m.ReplyToScheduled == false) {
 		m.Flags.Set(2)
+	}
+	if !(m.ForumTopic == false) {
+		m.Flags.Set(3)
 	}
 	if !(m.ReplyToPeerID == nil) {
 		m.Flags.Set(0)
@@ -241,6 +256,7 @@ func (m *MessageReplyHeader) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	m.ReplyToScheduled = m.Flags.Has(2)
+	m.ForumTopic = m.Flags.Has(3)
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -282,6 +298,25 @@ func (m *MessageReplyHeader) GetReplyToScheduled() (value bool) {
 		return
 	}
 	return m.Flags.Has(2)
+}
+
+// SetForumTopic sets value of ForumTopic conditional field.
+func (m *MessageReplyHeader) SetForumTopic(value bool) {
+	if value {
+		m.Flags.Set(3)
+		m.ForumTopic = true
+	} else {
+		m.Flags.Unset(3)
+		m.ForumTopic = false
+	}
+}
+
+// GetForumTopic returns value of ForumTopic conditional field.
+func (m *MessageReplyHeader) GetForumTopic() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(3)
 }
 
 // GetReplyToMsgID returns value of ReplyToMsgID field.

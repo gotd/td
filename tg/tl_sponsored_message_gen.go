@@ -46,6 +46,8 @@ type SponsoredMessage struct {
 	Flags bin.Fields
 	// Whether the message needs to be labeled as "recommended" instead of "sponsored"
 	Recommended bool
+	// ShowPeerPhoto field of SponsoredMessage.
+	ShowPeerPhoto bool
 	// Message ID
 	RandomID []byte
 	// ID of the sender of the message
@@ -100,6 +102,9 @@ func (s *SponsoredMessage) Zero() bool {
 	if !(s.Recommended == false) {
 		return false
 	}
+	if !(s.ShowPeerPhoto == false) {
+		return false
+	}
 	if !(s.RandomID == nil) {
 		return false
 	}
@@ -140,6 +145,7 @@ func (s *SponsoredMessage) String() string {
 // FillFrom fills SponsoredMessage from given interface.
 func (s *SponsoredMessage) FillFrom(from interface {
 	GetRecommended() (value bool)
+	GetShowPeerPhoto() (value bool)
 	GetRandomID() (value []byte)
 	GetFromID() (value PeerClass, ok bool)
 	GetChatInvite() (value ChatInviteClass, ok bool)
@@ -150,6 +156,7 @@ func (s *SponsoredMessage) FillFrom(from interface {
 	GetEntities() (value []MessageEntityClass, ok bool)
 }) {
 	s.Recommended = from.GetRecommended()
+	s.ShowPeerPhoto = from.GetShowPeerPhoto()
 	s.RandomID = from.GetRandomID()
 	if val, ok := from.GetFromID(); ok {
 		s.FromID = val
@@ -207,6 +214,11 @@ func (s *SponsoredMessage) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(5),
 		},
 		{
+			Name:       "ShowPeerPhoto",
+			SchemaName: "show_peer_photo",
+			Null:       !s.Flags.Has(6),
+		},
+		{
 			Name:       "RandomID",
 			SchemaName: "random_id",
 		},
@@ -252,6 +264,9 @@ func (s *SponsoredMessage) TypeInfo() tdp.Type {
 func (s *SponsoredMessage) SetFlags() {
 	if !(s.Recommended == false) {
 		s.Flags.Set(5)
+	}
+	if !(s.ShowPeerPhoto == false) {
+		s.Flags.Set(6)
 	}
 	if !(s.FromID == nil) {
 		s.Flags.Set(3)
@@ -354,6 +369,7 @@ func (s *SponsoredMessage) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	s.Recommended = s.Flags.Has(5)
+	s.ShowPeerPhoto = s.Flags.Has(6)
 	{
 		value, err := b.Bytes()
 		if err != nil {
@@ -440,6 +456,25 @@ func (s *SponsoredMessage) GetRecommended() (value bool) {
 		return
 	}
 	return s.Flags.Has(5)
+}
+
+// SetShowPeerPhoto sets value of ShowPeerPhoto conditional field.
+func (s *SponsoredMessage) SetShowPeerPhoto(value bool) {
+	if value {
+		s.Flags.Set(6)
+		s.ShowPeerPhoto = true
+	} else {
+		s.Flags.Unset(6)
+		s.ShowPeerPhoto = false
+	}
+}
+
+// GetShowPeerPhoto returns value of ShowPeerPhoto conditional field.
+func (s *SponsoredMessage) GetShowPeerPhoto() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(6)
 }
 
 // GetRandomID returns value of RandomID field.

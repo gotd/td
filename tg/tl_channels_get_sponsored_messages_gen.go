@@ -181,8 +181,8 @@ func (g *ChannelsGetSponsoredMessagesRequest) GetChannelAsNotEmpty() (NotEmptyIn
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //
 // See https://core.telegram.org/method/channels.getSponsoredMessages for reference.
-func (c *Client) ChannelsGetSponsoredMessages(ctx context.Context, channel InputChannelClass) (*MessagesSponsoredMessages, error) {
-	var result MessagesSponsoredMessages
+func (c *Client) ChannelsGetSponsoredMessages(ctx context.Context, channel InputChannelClass) (MessagesSponsoredMessagesClass, error) {
+	var result MessagesSponsoredMessagesBox
 
 	request := &ChannelsGetSponsoredMessagesRequest{
 		Channel: channel,
@@ -190,5 +190,5 @@ func (c *Client) ChannelsGetSponsoredMessages(ctx context.Context, channel Input
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.SponsoredMessages, nil
 }

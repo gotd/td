@@ -454,6 +454,32 @@ func (s MessageActionClassArray) AsMessageActionGiftPremium() (to MessageActionG
 	return to
 }
 
+// AsMessageActionTopicCreate returns copy with only MessageActionTopicCreate constructors.
+func (s MessageActionClassArray) AsMessageActionTopicCreate() (to MessageActionTopicCreateArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionTopicCreate)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMessageActionTopicEdit returns copy with only MessageActionTopicEdit constructors.
+func (s MessageActionClassArray) AsMessageActionTopicEdit() (to MessageActionTopicEditArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionTopicEdit)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MessageActionChatCreateArray is adapter for slice of MessageActionChatCreate.
 type MessageActionChatCreateArray []MessageActionChatCreate
 
@@ -2574,6 +2600,170 @@ func (s *MessageActionGiftPremiumArray) PopFirst() (v MessageActionGiftPremium, 
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MessageActionGiftPremiumArray) Pop() (v MessageActionGiftPremium, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionTopicCreateArray is adapter for slice of MessageActionTopicCreate.
+type MessageActionTopicCreateArray []MessageActionTopicCreate
+
+// Sort sorts slice of MessageActionTopicCreate.
+func (s MessageActionTopicCreateArray) Sort(less func(a, b MessageActionTopicCreate) bool) MessageActionTopicCreateArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionTopicCreate.
+func (s MessageActionTopicCreateArray) SortStable(less func(a, b MessageActionTopicCreate) bool) MessageActionTopicCreateArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionTopicCreate.
+func (s MessageActionTopicCreateArray) Retain(keep func(x MessageActionTopicCreate) bool) MessageActionTopicCreateArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionTopicCreateArray) First() (v MessageActionTopicCreate, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionTopicCreateArray) Last() (v MessageActionTopicCreate, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionTopicCreateArray) PopFirst() (v MessageActionTopicCreate, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionTopicCreate
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionTopicCreateArray) Pop() (v MessageActionTopicCreate, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionTopicEditArray is adapter for slice of MessageActionTopicEdit.
+type MessageActionTopicEditArray []MessageActionTopicEdit
+
+// Sort sorts slice of MessageActionTopicEdit.
+func (s MessageActionTopicEditArray) Sort(less func(a, b MessageActionTopicEdit) bool) MessageActionTopicEditArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionTopicEdit.
+func (s MessageActionTopicEditArray) SortStable(less func(a, b MessageActionTopicEdit) bool) MessageActionTopicEditArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionTopicEdit.
+func (s MessageActionTopicEditArray) Retain(keep func(x MessageActionTopicEdit) bool) MessageActionTopicEditArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionTopicEditArray) First() (v MessageActionTopicEdit, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionTopicEditArray) Last() (v MessageActionTopicEdit, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionTopicEditArray) PopFirst() (v MessageActionTopicEdit, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionTopicEdit
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionTopicEditArray) Pop() (v MessageActionTopicEdit, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

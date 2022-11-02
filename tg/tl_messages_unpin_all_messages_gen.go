@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesUnpinAllMessagesRequest represents TL type `messages.unpinAllMessages#f025bc8b`.
+// MessagesUnpinAllMessagesRequest represents TL type `messages.unpinAllMessages#ee22b9a8`.
 // Unpin¹ all pinned messages
 //
 // Links:
@@ -39,12 +39,18 @@ var (
 //
 // See https://core.telegram.org/method/messages.unpinAllMessages for reference.
 type MessagesUnpinAllMessagesRequest struct {
+	// Flags field of MessagesUnpinAllMessagesRequest.
+	Flags bin.Fields
 	// Chat where to unpin
 	Peer InputPeerClass
+	// TopMsgID field of MessagesUnpinAllMessagesRequest.
+	//
+	// Use SetTopMsgID and GetTopMsgID helpers.
+	TopMsgID int
 }
 
 // MessagesUnpinAllMessagesRequestTypeID is TL type id of MessagesUnpinAllMessagesRequest.
-const MessagesUnpinAllMessagesRequestTypeID = 0xf025bc8b
+const MessagesUnpinAllMessagesRequestTypeID = 0xee22b9a8
 
 // Ensuring interfaces in compile-time for MessagesUnpinAllMessagesRequest.
 var (
@@ -58,7 +64,13 @@ func (u *MessagesUnpinAllMessagesRequest) Zero() bool {
 	if u == nil {
 		return true
 	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
 	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.TopMsgID == 0) {
 		return false
 	}
 
@@ -77,8 +89,13 @@ func (u *MessagesUnpinAllMessagesRequest) String() string {
 // FillFrom fills MessagesUnpinAllMessagesRequest from given interface.
 func (u *MessagesUnpinAllMessagesRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
+	GetTopMsgID() (value int, ok bool)
 }) {
 	u.Peer = from.GetPeer()
+	if val, ok := from.GetTopMsgID(); ok {
+		u.TopMsgID = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -108,14 +125,26 @@ func (u *MessagesUnpinAllMessagesRequest) TypeInfo() tdp.Type {
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
+		{
+			Name:       "TopMsgID",
+			SchemaName: "top_msg_id",
+			Null:       !u.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *MessagesUnpinAllMessagesRequest) SetFlags() {
+	if !(u.TopMsgID == 0) {
+		u.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *MessagesUnpinAllMessagesRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode messages.unpinAllMessages#f025bc8b as nil")
+		return fmt.Errorf("can't encode messages.unpinAllMessages#ee22b9a8 as nil")
 	}
 	b.PutID(MessagesUnpinAllMessagesRequestTypeID)
 	return u.EncodeBare(b)
@@ -124,13 +153,20 @@ func (u *MessagesUnpinAllMessagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *MessagesUnpinAllMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode messages.unpinAllMessages#f025bc8b as nil")
+		return fmt.Errorf("can't encode messages.unpinAllMessages#ee22b9a8 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.unpinAllMessages#ee22b9a8: field flags: %w", err)
 	}
 	if u.Peer == nil {
-		return fmt.Errorf("unable to encode messages.unpinAllMessages#f025bc8b: field peer is nil")
+		return fmt.Errorf("unable to encode messages.unpinAllMessages#ee22b9a8: field peer is nil")
 	}
 	if err := u.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.unpinAllMessages#f025bc8b: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.unpinAllMessages#ee22b9a8: field peer: %w", err)
+	}
+	if u.Flags.Has(0) {
+		b.PutInt(u.TopMsgID)
 	}
 	return nil
 }
@@ -138,10 +174,10 @@ func (u *MessagesUnpinAllMessagesRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *MessagesUnpinAllMessagesRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode messages.unpinAllMessages#f025bc8b to nil")
+		return fmt.Errorf("can't decode messages.unpinAllMessages#ee22b9a8 to nil")
 	}
 	if err := b.ConsumeID(MessagesUnpinAllMessagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.unpinAllMessages#f025bc8b: %w", err)
+		return fmt.Errorf("unable to decode messages.unpinAllMessages#ee22b9a8: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -149,14 +185,26 @@ func (u *MessagesUnpinAllMessagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *MessagesUnpinAllMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode messages.unpinAllMessages#f025bc8b to nil")
+		return fmt.Errorf("can't decode messages.unpinAllMessages#ee22b9a8 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.unpinAllMessages#ee22b9a8: field flags: %w", err)
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.unpinAllMessages#f025bc8b: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.unpinAllMessages#ee22b9a8: field peer: %w", err)
 		}
 		u.Peer = value
+	}
+	if u.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.unpinAllMessages#ee22b9a8: field top_msg_id: %w", err)
+		}
+		u.TopMsgID = value
 	}
 	return nil
 }
@@ -169,7 +217,25 @@ func (u *MessagesUnpinAllMessagesRequest) GetPeer() (value InputPeerClass) {
 	return u.Peer
 }
 
-// MessagesUnpinAllMessages invokes method messages.unpinAllMessages#f025bc8b returning error if any.
+// SetTopMsgID sets value of TopMsgID conditional field.
+func (u *MessagesUnpinAllMessagesRequest) SetTopMsgID(value int) {
+	u.Flags.Set(0)
+	u.TopMsgID = value
+}
+
+// GetTopMsgID returns value of TopMsgID conditional field and
+// boolean which is true if field was set.
+func (u *MessagesUnpinAllMessagesRequest) GetTopMsgID() (value int, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.TopMsgID, true
+}
+
+// MessagesUnpinAllMessages invokes method messages.unpinAllMessages#ee22b9a8 returning error if any.
 // Unpin¹ all pinned messages
 //
 // Links:
@@ -182,12 +248,9 @@ func (u *MessagesUnpinAllMessagesRequest) GetPeer() (value InputPeerClass) {
 //
 // See https://core.telegram.org/method/messages.unpinAllMessages for reference.
 // Can be used by bots.
-func (c *Client) MessagesUnpinAllMessages(ctx context.Context, peer InputPeerClass) (*MessagesAffectedHistory, error) {
+func (c *Client) MessagesUnpinAllMessages(ctx context.Context, request *MessagesUnpinAllMessagesRequest) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory
 
-	request := &MessagesUnpinAllMessagesRequest{
-		Peer: peer,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

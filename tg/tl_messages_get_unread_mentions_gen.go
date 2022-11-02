@@ -31,13 +31,19 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesGetUnreadMentionsRequest represents TL type `messages.getUnreadMentions#46578472`.
+// MessagesGetUnreadMentionsRequest represents TL type `messages.getUnreadMentions#f107e790`.
 // Get unread messages where we were mentioned
 //
 // See https://core.telegram.org/method/messages.getUnreadMentions for reference.
 type MessagesGetUnreadMentionsRequest struct {
+	// Flags field of MessagesGetUnreadMentionsRequest.
+	Flags bin.Fields
 	// Peer where to look for mentions
 	Peer InputPeerClass
+	// TopMsgID field of MessagesGetUnreadMentionsRequest.
+	//
+	// Use SetTopMsgID and GetTopMsgID helpers.
+	TopMsgID int
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
@@ -66,7 +72,7 @@ type MessagesGetUnreadMentionsRequest struct {
 }
 
 // MessagesGetUnreadMentionsRequestTypeID is TL type id of MessagesGetUnreadMentionsRequest.
-const MessagesGetUnreadMentionsRequestTypeID = 0x46578472
+const MessagesGetUnreadMentionsRequestTypeID = 0xf107e790
 
 // Ensuring interfaces in compile-time for MessagesGetUnreadMentionsRequest.
 var (
@@ -80,7 +86,13 @@ func (g *MessagesGetUnreadMentionsRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
 	if !(g.Peer == nil) {
+		return false
+	}
+	if !(g.TopMsgID == 0) {
 		return false
 	}
 	if !(g.OffsetID == 0) {
@@ -114,6 +126,7 @@ func (g *MessagesGetUnreadMentionsRequest) String() string {
 // FillFrom fills MessagesGetUnreadMentionsRequest from given interface.
 func (g *MessagesGetUnreadMentionsRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
+	GetTopMsgID() (value int, ok bool)
 	GetOffsetID() (value int)
 	GetAddOffset() (value int)
 	GetLimit() (value int)
@@ -121,6 +134,10 @@ func (g *MessagesGetUnreadMentionsRequest) FillFrom(from interface {
 	GetMinID() (value int)
 }) {
 	g.Peer = from.GetPeer()
+	if val, ok := from.GetTopMsgID(); ok {
+		g.TopMsgID = val
+	}
+
 	g.OffsetID = from.GetOffsetID()
 	g.AddOffset = from.GetAddOffset()
 	g.Limit = from.GetLimit()
@@ -156,6 +173,11 @@ func (g *MessagesGetUnreadMentionsRequest) TypeInfo() tdp.Type {
 			SchemaName: "peer",
 		},
 		{
+			Name:       "TopMsgID",
+			SchemaName: "top_msg_id",
+			Null:       !g.Flags.Has(0),
+		},
+		{
 			Name:       "OffsetID",
 			SchemaName: "offset_id",
 		},
@@ -179,10 +201,17 @@ func (g *MessagesGetUnreadMentionsRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *MessagesGetUnreadMentionsRequest) SetFlags() {
+	if !(g.TopMsgID == 0) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetUnreadMentionsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getUnreadMentions#46578472 as nil")
+		return fmt.Errorf("can't encode messages.getUnreadMentions#f107e790 as nil")
 	}
 	b.PutID(MessagesGetUnreadMentionsRequestTypeID)
 	return g.EncodeBare(b)
@@ -191,13 +220,20 @@ func (g *MessagesGetUnreadMentionsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetUnreadMentionsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getUnreadMentions#46578472 as nil")
+		return fmt.Errorf("can't encode messages.getUnreadMentions#f107e790 as nil")
+	}
+	g.SetFlags()
+	if err := g.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.getUnreadMentions#f107e790: field flags: %w", err)
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getUnreadMentions#46578472: field peer is nil")
+		return fmt.Errorf("unable to encode messages.getUnreadMentions#f107e790: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getUnreadMentions#46578472: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.getUnreadMentions#f107e790: field peer: %w", err)
+	}
+	if g.Flags.Has(0) {
+		b.PutInt(g.TopMsgID)
 	}
 	b.PutInt(g.OffsetID)
 	b.PutInt(g.AddOffset)
@@ -210,10 +246,10 @@ func (g *MessagesGetUnreadMentionsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *MessagesGetUnreadMentionsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getUnreadMentions#46578472 to nil")
+		return fmt.Errorf("can't decode messages.getUnreadMentions#f107e790 to nil")
 	}
 	if err := b.ConsumeID(MessagesGetUnreadMentionsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getUnreadMentions#46578472: %w", err)
+		return fmt.Errorf("unable to decode messages.getUnreadMentions#f107e790: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -221,47 +257,59 @@ func (g *MessagesGetUnreadMentionsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetUnreadMentionsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getUnreadMentions#46578472 to nil")
+		return fmt.Errorf("can't decode messages.getUnreadMentions#f107e790 to nil")
+	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.getUnreadMentions#f107e790: field flags: %w", err)
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getUnreadMentions#46578472: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.getUnreadMentions#f107e790: field peer: %w", err)
 		}
 		g.Peer = value
+	}
+	if g.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.getUnreadMentions#f107e790: field top_msg_id: %w", err)
+		}
+		g.TopMsgID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getUnreadMentions#46578472: field offset_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getUnreadMentions#f107e790: field offset_id: %w", err)
 		}
 		g.OffsetID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getUnreadMentions#46578472: field add_offset: %w", err)
+			return fmt.Errorf("unable to decode messages.getUnreadMentions#f107e790: field add_offset: %w", err)
 		}
 		g.AddOffset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getUnreadMentions#46578472: field limit: %w", err)
+			return fmt.Errorf("unable to decode messages.getUnreadMentions#f107e790: field limit: %w", err)
 		}
 		g.Limit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getUnreadMentions#46578472: field max_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getUnreadMentions#f107e790: field max_id: %w", err)
 		}
 		g.MaxID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getUnreadMentions#46578472: field min_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getUnreadMentions#f107e790: field min_id: %w", err)
 		}
 		g.MinID = value
 	}
@@ -274,6 +322,24 @@ func (g *MessagesGetUnreadMentionsRequest) GetPeer() (value InputPeerClass) {
 		return
 	}
 	return g.Peer
+}
+
+// SetTopMsgID sets value of TopMsgID conditional field.
+func (g *MessagesGetUnreadMentionsRequest) SetTopMsgID(value int) {
+	g.Flags.Set(0)
+	g.TopMsgID = value
+}
+
+// GetTopMsgID returns value of TopMsgID conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetUnreadMentionsRequest) GetTopMsgID() (value int, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(0) {
+		return value, false
+	}
+	return g.TopMsgID, true
 }
 
 // GetOffsetID returns value of OffsetID field.
@@ -316,7 +382,7 @@ func (g *MessagesGetUnreadMentionsRequest) GetMinID() (value int) {
 	return g.MinID
 }
 
-// MessagesGetUnreadMentions invokes method messages.getUnreadMentions#46578472 returning error if any.
+// MessagesGetUnreadMentions invokes method messages.getUnreadMentions#f107e790 returning error if any.
 // Get unread messages where we were mentioned
 //
 // Possible errors:

@@ -383,7 +383,7 @@ func (s *StickerSetMultiCovered) MapCovers() (value DocumentClassArray) {
 	return DocumentClassArray(s.Covers)
 }
 
-// StickerSetFullCovered represents TL type `stickerSetFullCovered#1aed5ee5`.
+// StickerSetFullCovered represents TL type `stickerSetFullCovered#40d13c0e`.
 // Stickerset preview with all stickers of the stickerset included.
 // Currently used only for custom emoji stickersets¹, to avoid a further call to
 // messages.getStickerSet².
@@ -398,12 +398,14 @@ type StickerSetFullCovered struct {
 	Set StickerSet
 	// Emoji information about every sticker in the stickerset
 	Packs []StickerPack
+	// Keywords field of StickerSetFullCovered.
+	Keywords []StickerKeyword
 	// Stickers
 	Documents []DocumentClass
 }
 
 // StickerSetFullCoveredTypeID is TL type id of StickerSetFullCovered.
-const StickerSetFullCoveredTypeID = 0x1aed5ee5
+const StickerSetFullCoveredTypeID = 0x40d13c0e
 
 // construct implements constructor of StickerSetCoveredClass.
 func (s StickerSetFullCovered) construct() StickerSetCoveredClass { return &s }
@@ -428,6 +430,9 @@ func (s *StickerSetFullCovered) Zero() bool {
 	if !(s.Packs == nil) {
 		return false
 	}
+	if !(s.Keywords == nil) {
+		return false
+	}
 	if !(s.Documents == nil) {
 		return false
 	}
@@ -448,10 +453,12 @@ func (s *StickerSetFullCovered) String() string {
 func (s *StickerSetFullCovered) FillFrom(from interface {
 	GetSet() (value StickerSet)
 	GetPacks() (value []StickerPack)
+	GetKeywords() (value []StickerKeyword)
 	GetDocuments() (value []DocumentClass)
 }) {
 	s.Set = from.GetSet()
 	s.Packs = from.GetPacks()
+	s.Keywords = from.GetKeywords()
 	s.Documents = from.GetDocuments()
 }
 
@@ -487,6 +494,10 @@ func (s *StickerSetFullCovered) TypeInfo() tdp.Type {
 			SchemaName: "packs",
 		},
 		{
+			Name:       "Keywords",
+			SchemaName: "keywords",
+		},
+		{
 			Name:       "Documents",
 			SchemaName: "documents",
 		},
@@ -497,7 +508,7 @@ func (s *StickerSetFullCovered) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StickerSetFullCovered) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickerSetFullCovered#1aed5ee5 as nil")
+		return fmt.Errorf("can't encode stickerSetFullCovered#40d13c0e as nil")
 	}
 	b.PutID(StickerSetFullCoveredTypeID)
 	return s.EncodeBare(b)
@@ -506,24 +517,30 @@ func (s *StickerSetFullCovered) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StickerSetFullCovered) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickerSetFullCovered#1aed5ee5 as nil")
+		return fmt.Errorf("can't encode stickerSetFullCovered#40d13c0e as nil")
 	}
 	if err := s.Set.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stickerSetFullCovered#1aed5ee5: field set: %w", err)
+		return fmt.Errorf("unable to encode stickerSetFullCovered#40d13c0e: field set: %w", err)
 	}
 	b.PutVectorHeader(len(s.Packs))
 	for idx, v := range s.Packs {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stickerSetFullCovered#1aed5ee5: field packs element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode stickerSetFullCovered#40d13c0e: field packs element with index %d: %w", idx, err)
+		}
+	}
+	b.PutVectorHeader(len(s.Keywords))
+	for idx, v := range s.Keywords {
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode stickerSetFullCovered#40d13c0e: field keywords element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(s.Documents))
 	for idx, v := range s.Documents {
 		if v == nil {
-			return fmt.Errorf("unable to encode stickerSetFullCovered#1aed5ee5: field documents element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode stickerSetFullCovered#40d13c0e: field documents element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stickerSetFullCovered#1aed5ee5: field documents element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode stickerSetFullCovered#40d13c0e: field documents element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -532,10 +549,10 @@ func (s *StickerSetFullCovered) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StickerSetFullCovered) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickerSetFullCovered#1aed5ee5 to nil")
+		return fmt.Errorf("can't decode stickerSetFullCovered#40d13c0e to nil")
 	}
 	if err := b.ConsumeID(StickerSetFullCoveredTypeID); err != nil {
-		return fmt.Errorf("unable to decode stickerSetFullCovered#1aed5ee5: %w", err)
+		return fmt.Errorf("unable to decode stickerSetFullCovered#40d13c0e: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -543,17 +560,17 @@ func (s *StickerSetFullCovered) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StickerSetFullCovered) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickerSetFullCovered#1aed5ee5 to nil")
+		return fmt.Errorf("can't decode stickerSetFullCovered#40d13c0e to nil")
 	}
 	{
 		if err := s.Set.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stickerSetFullCovered#1aed5ee5: field set: %w", err)
+			return fmt.Errorf("unable to decode stickerSetFullCovered#40d13c0e: field set: %w", err)
 		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSetFullCovered#1aed5ee5: field packs: %w", err)
+			return fmt.Errorf("unable to decode stickerSetFullCovered#40d13c0e: field packs: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -562,7 +579,7 @@ func (s *StickerSetFullCovered) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value StickerPack
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode stickerSetFullCovered#1aed5ee5: field packs: %w", err)
+				return fmt.Errorf("unable to decode stickerSetFullCovered#40d13c0e: field packs: %w", err)
 			}
 			s.Packs = append(s.Packs, value)
 		}
@@ -570,7 +587,24 @@ func (s *StickerSetFullCovered) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSetFullCovered#1aed5ee5: field documents: %w", err)
+			return fmt.Errorf("unable to decode stickerSetFullCovered#40d13c0e: field keywords: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.Keywords = make([]StickerKeyword, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value StickerKeyword
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode stickerSetFullCovered#40d13c0e: field keywords: %w", err)
+			}
+			s.Keywords = append(s.Keywords, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode stickerSetFullCovered#40d13c0e: field documents: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -579,7 +613,7 @@ func (s *StickerSetFullCovered) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeDocument(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode stickerSetFullCovered#1aed5ee5: field documents: %w", err)
+				return fmt.Errorf("unable to decode stickerSetFullCovered#40d13c0e: field documents: %w", err)
 			}
 			s.Documents = append(s.Documents, value)
 		}
@@ -601,6 +635,14 @@ func (s *StickerSetFullCovered) GetPacks() (value []StickerPack) {
 		return
 	}
 	return s.Packs
+}
+
+// GetKeywords returns value of Keywords field.
+func (s *StickerSetFullCovered) GetKeywords() (value []StickerKeyword) {
+	if s == nil {
+		return
+	}
+	return s.Keywords
 }
 
 // GetDocuments returns value of Documents field.
@@ -632,7 +674,7 @@ const StickerSetCoveredClassName = "StickerSetCovered"
 //	switch v := g.(type) {
 //	case *tg.StickerSetCovered: // stickerSetCovered#6410a5d2
 //	case *tg.StickerSetMultiCovered: // stickerSetMultiCovered#3407e51b
-//	case *tg.StickerSetFullCovered: // stickerSetFullCovered#1aed5ee5
+//	case *tg.StickerSetFullCovered: // stickerSetFullCovered#40d13c0e
 //	default: panic(v)
 //	}
 type StickerSetCoveredClass interface {
@@ -679,7 +721,7 @@ func DecodeStickerSetCovered(buf *bin.Buffer) (StickerSetCoveredClass, error) {
 		}
 		return &v, nil
 	case StickerSetFullCoveredTypeID:
-		// Decoding stickerSetFullCovered#1aed5ee5.
+		// Decoding stickerSetFullCovered#40d13c0e.
 		v := StickerSetFullCovered{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StickerSetCoveredClass: %w", err)
