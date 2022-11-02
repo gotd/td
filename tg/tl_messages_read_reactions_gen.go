@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesReadReactionsRequest represents TL type `messages.readReactions#82e251d7`.
+// MessagesReadReactionsRequest represents TL type `messages.readReactions#54aa7f8e`.
 // Mark message reactions »¹ as read
 //
 // Links:
@@ -39,12 +39,18 @@ var (
 //
 // See https://core.telegram.org/method/messages.readReactions for reference.
 type MessagesReadReactionsRequest struct {
+	// Flags field of MessagesReadReactionsRequest.
+	Flags bin.Fields
 	// Peer
 	Peer InputPeerClass
+	// TopMsgID field of MessagesReadReactionsRequest.
+	//
+	// Use SetTopMsgID and GetTopMsgID helpers.
+	TopMsgID int
 }
 
 // MessagesReadReactionsRequestTypeID is TL type id of MessagesReadReactionsRequest.
-const MessagesReadReactionsRequestTypeID = 0x82e251d7
+const MessagesReadReactionsRequestTypeID = 0x54aa7f8e
 
 // Ensuring interfaces in compile-time for MessagesReadReactionsRequest.
 var (
@@ -58,7 +64,13 @@ func (r *MessagesReadReactionsRequest) Zero() bool {
 	if r == nil {
 		return true
 	}
+	if !(r.Flags.Zero()) {
+		return false
+	}
 	if !(r.Peer == nil) {
+		return false
+	}
+	if !(r.TopMsgID == 0) {
 		return false
 	}
 
@@ -77,8 +89,13 @@ func (r *MessagesReadReactionsRequest) String() string {
 // FillFrom fills MessagesReadReactionsRequest from given interface.
 func (r *MessagesReadReactionsRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
+	GetTopMsgID() (value int, ok bool)
 }) {
 	r.Peer = from.GetPeer()
+	if val, ok := from.GetTopMsgID(); ok {
+		r.TopMsgID = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -108,14 +125,26 @@ func (r *MessagesReadReactionsRequest) TypeInfo() tdp.Type {
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
+		{
+			Name:       "TopMsgID",
+			SchemaName: "top_msg_id",
+			Null:       !r.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (r *MessagesReadReactionsRequest) SetFlags() {
+	if !(r.TopMsgID == 0) {
+		r.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (r *MessagesReadReactionsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.readReactions#82e251d7 as nil")
+		return fmt.Errorf("can't encode messages.readReactions#54aa7f8e as nil")
 	}
 	b.PutID(MessagesReadReactionsRequestTypeID)
 	return r.EncodeBare(b)
@@ -124,13 +153,20 @@ func (r *MessagesReadReactionsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesReadReactionsRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.readReactions#82e251d7 as nil")
+		return fmt.Errorf("can't encode messages.readReactions#54aa7f8e as nil")
+	}
+	r.SetFlags()
+	if err := r.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.readReactions#54aa7f8e: field flags: %w", err)
 	}
 	if r.Peer == nil {
-		return fmt.Errorf("unable to encode messages.readReactions#82e251d7: field peer is nil")
+		return fmt.Errorf("unable to encode messages.readReactions#54aa7f8e: field peer is nil")
 	}
 	if err := r.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.readReactions#82e251d7: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.readReactions#54aa7f8e: field peer: %w", err)
+	}
+	if r.Flags.Has(0) {
+		b.PutInt(r.TopMsgID)
 	}
 	return nil
 }
@@ -138,10 +174,10 @@ func (r *MessagesReadReactionsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *MessagesReadReactionsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.readReactions#82e251d7 to nil")
+		return fmt.Errorf("can't decode messages.readReactions#54aa7f8e to nil")
 	}
 	if err := b.ConsumeID(MessagesReadReactionsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.readReactions#82e251d7: %w", err)
+		return fmt.Errorf("unable to decode messages.readReactions#54aa7f8e: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -149,14 +185,26 @@ func (r *MessagesReadReactionsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesReadReactionsRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.readReactions#82e251d7 to nil")
+		return fmt.Errorf("can't decode messages.readReactions#54aa7f8e to nil")
+	}
+	{
+		if err := r.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.readReactions#54aa7f8e: field flags: %w", err)
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.readReactions#82e251d7: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.readReactions#54aa7f8e: field peer: %w", err)
 		}
 		r.Peer = value
+	}
+	if r.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.readReactions#54aa7f8e: field top_msg_id: %w", err)
+		}
+		r.TopMsgID = value
 	}
 	return nil
 }
@@ -169,7 +217,25 @@ func (r *MessagesReadReactionsRequest) GetPeer() (value InputPeerClass) {
 	return r.Peer
 }
 
-// MessagesReadReactions invokes method messages.readReactions#82e251d7 returning error if any.
+// SetTopMsgID sets value of TopMsgID conditional field.
+func (r *MessagesReadReactionsRequest) SetTopMsgID(value int) {
+	r.Flags.Set(0)
+	r.TopMsgID = value
+}
+
+// GetTopMsgID returns value of TopMsgID conditional field and
+// boolean which is true if field was set.
+func (r *MessagesReadReactionsRequest) GetTopMsgID() (value int, ok bool) {
+	if r == nil {
+		return
+	}
+	if !r.Flags.Has(0) {
+		return value, false
+	}
+	return r.TopMsgID, true
+}
+
+// MessagesReadReactions invokes method messages.readReactions#54aa7f8e returning error if any.
 // Mark message reactions »¹ as read
 //
 // Links:
@@ -180,12 +246,9 @@ func (r *MessagesReadReactionsRequest) GetPeer() (value InputPeerClass) {
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.readReactions for reference.
-func (c *Client) MessagesReadReactions(ctx context.Context, peer InputPeerClass) (*MessagesAffectedHistory, error) {
+func (c *Client) MessagesReadReactions(ctx context.Context, request *MessagesReadReactionsRequest) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory
 
-	request := &MessagesReadReactionsRequest{
-		Peer: peer,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

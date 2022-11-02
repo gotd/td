@@ -477,6 +477,172 @@ func (n *NotifyBroadcasts) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// NotifyForumTopic represents TL type `notifyForumTopic#226e6308`.
+//
+// See https://core.telegram.org/constructor/notifyForumTopic for reference.
+type NotifyForumTopic struct {
+	// Peer field of NotifyForumTopic.
+	Peer PeerClass
+	// TopMsgID field of NotifyForumTopic.
+	TopMsgID int
+}
+
+// NotifyForumTopicTypeID is TL type id of NotifyForumTopic.
+const NotifyForumTopicTypeID = 0x226e6308
+
+// construct implements constructor of NotifyPeerClass.
+func (n NotifyForumTopic) construct() NotifyPeerClass { return &n }
+
+// Ensuring interfaces in compile-time for NotifyForumTopic.
+var (
+	_ bin.Encoder     = &NotifyForumTopic{}
+	_ bin.Decoder     = &NotifyForumTopic{}
+	_ bin.BareEncoder = &NotifyForumTopic{}
+	_ bin.BareDecoder = &NotifyForumTopic{}
+
+	_ NotifyPeerClass = &NotifyForumTopic{}
+)
+
+func (n *NotifyForumTopic) Zero() bool {
+	if n == nil {
+		return true
+	}
+	if !(n.Peer == nil) {
+		return false
+	}
+	if !(n.TopMsgID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (n *NotifyForumTopic) String() string {
+	if n == nil {
+		return "NotifyForumTopic(nil)"
+	}
+	type Alias NotifyForumTopic
+	return fmt.Sprintf("NotifyForumTopic%+v", Alias(*n))
+}
+
+// FillFrom fills NotifyForumTopic from given interface.
+func (n *NotifyForumTopic) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+	GetTopMsgID() (value int)
+}) {
+	n.Peer = from.GetPeer()
+	n.TopMsgID = from.GetTopMsgID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*NotifyForumTopic) TypeID() uint32 {
+	return NotifyForumTopicTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*NotifyForumTopic) TypeName() string {
+	return "notifyForumTopic"
+}
+
+// TypeInfo returns info about TL type.
+func (n *NotifyForumTopic) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "notifyForumTopic",
+		ID:   NotifyForumTopicTypeID,
+	}
+	if n == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "TopMsgID",
+			SchemaName: "top_msg_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (n *NotifyForumTopic) Encode(b *bin.Buffer) error {
+	if n == nil {
+		return fmt.Errorf("can't encode notifyForumTopic#226e6308 as nil")
+	}
+	b.PutID(NotifyForumTopicTypeID)
+	return n.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (n *NotifyForumTopic) EncodeBare(b *bin.Buffer) error {
+	if n == nil {
+		return fmt.Errorf("can't encode notifyForumTopic#226e6308 as nil")
+	}
+	if n.Peer == nil {
+		return fmt.Errorf("unable to encode notifyForumTopic#226e6308: field peer is nil")
+	}
+	if err := n.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode notifyForumTopic#226e6308: field peer: %w", err)
+	}
+	b.PutInt(n.TopMsgID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (n *NotifyForumTopic) Decode(b *bin.Buffer) error {
+	if n == nil {
+		return fmt.Errorf("can't decode notifyForumTopic#226e6308 to nil")
+	}
+	if err := b.ConsumeID(NotifyForumTopicTypeID); err != nil {
+		return fmt.Errorf("unable to decode notifyForumTopic#226e6308: %w", err)
+	}
+	return n.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (n *NotifyForumTopic) DecodeBare(b *bin.Buffer) error {
+	if n == nil {
+		return fmt.Errorf("can't decode notifyForumTopic#226e6308 to nil")
+	}
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode notifyForumTopic#226e6308: field peer: %w", err)
+		}
+		n.Peer = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode notifyForumTopic#226e6308: field top_msg_id: %w", err)
+		}
+		n.TopMsgID = value
+	}
+	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (n *NotifyForumTopic) GetPeer() (value PeerClass) {
+	if n == nil {
+		return
+	}
+	return n.Peer
+}
+
+// GetTopMsgID returns value of TopMsgID field.
+func (n *NotifyForumTopic) GetTopMsgID() (value int) {
+	if n == nil {
+		return
+	}
+	return n.TopMsgID
+}
+
 // NotifyPeerClassName is schema name of NotifyPeerClass.
 const NotifyPeerClassName = "NotifyPeer"
 
@@ -495,6 +661,7 @@ const NotifyPeerClassName = "NotifyPeer"
 //	case *tg.NotifyUsers: // notifyUsers#b4c83b4c
 //	case *tg.NotifyChats: // notifyChats#c007cec3
 //	case *tg.NotifyBroadcasts: // notifyBroadcasts#d612e8ef
+//	case *tg.NotifyForumTopic: // notifyForumTopic#226e6308
 //	default: panic(v)
 //	}
 type NotifyPeerClass interface {
@@ -547,6 +714,13 @@ func DecodeNotifyPeer(buf *bin.Buffer) (NotifyPeerClass, error) {
 	case NotifyBroadcastsTypeID:
 		// Decoding notifyBroadcasts#d612e8ef.
 		v := NotifyBroadcasts{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode NotifyPeerClass: %w", err)
+		}
+		return &v, nil
+	case NotifyForumTopicTypeID:
+		// Decoding notifyForumTopic#226e6308.
+		v := NotifyForumTopic{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode NotifyPeerClass: %w", err)
 		}

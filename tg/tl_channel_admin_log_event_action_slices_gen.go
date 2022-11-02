@@ -558,6 +558,84 @@ func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionChange
 	return to
 }
 
+// AsChannelAdminLogEventActionChangeUsernames returns copy with only ChannelAdminLogEventActionChangeUsernames constructors.
+func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionChangeUsernames() (to ChannelAdminLogEventActionChangeUsernamesArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelAdminLogEventActionChangeUsernames)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsChannelAdminLogEventActionToggleForum returns copy with only ChannelAdminLogEventActionToggleForum constructors.
+func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionToggleForum() (to ChannelAdminLogEventActionToggleForumArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelAdminLogEventActionToggleForum)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsChannelAdminLogEventActionCreateTopic returns copy with only ChannelAdminLogEventActionCreateTopic constructors.
+func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionCreateTopic() (to ChannelAdminLogEventActionCreateTopicArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelAdminLogEventActionCreateTopic)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsChannelAdminLogEventActionEditTopic returns copy with only ChannelAdminLogEventActionEditTopic constructors.
+func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionEditTopic() (to ChannelAdminLogEventActionEditTopicArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelAdminLogEventActionEditTopic)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsChannelAdminLogEventActionDeleteTopic returns copy with only ChannelAdminLogEventActionDeleteTopic constructors.
+func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionDeleteTopic() (to ChannelAdminLogEventActionDeleteTopicArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelAdminLogEventActionDeleteTopic)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsChannelAdminLogEventActionPinTopic returns copy with only ChannelAdminLogEventActionPinTopic constructors.
+func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionPinTopic() (to ChannelAdminLogEventActionPinTopicArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelAdminLogEventActionPinTopic)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // ChannelAdminLogEventActionChangeTitleArray is adapter for slice of ChannelAdminLogEventActionChangeTitle.
 type ChannelAdminLogEventActionChangeTitleArray []ChannelAdminLogEventActionChangeTitle
 
@@ -3334,6 +3412,498 @@ func (s *ChannelAdminLogEventActionChangeAvailableReactionsArray) PopFirst() (v 
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *ChannelAdminLogEventActionChangeAvailableReactionsArray) Pop() (v ChannelAdminLogEventActionChangeAvailableReactions, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// ChannelAdminLogEventActionChangeUsernamesArray is adapter for slice of ChannelAdminLogEventActionChangeUsernames.
+type ChannelAdminLogEventActionChangeUsernamesArray []ChannelAdminLogEventActionChangeUsernames
+
+// Sort sorts slice of ChannelAdminLogEventActionChangeUsernames.
+func (s ChannelAdminLogEventActionChangeUsernamesArray) Sort(less func(a, b ChannelAdminLogEventActionChangeUsernames) bool) ChannelAdminLogEventActionChangeUsernamesArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelAdminLogEventActionChangeUsernames.
+func (s ChannelAdminLogEventActionChangeUsernamesArray) SortStable(less func(a, b ChannelAdminLogEventActionChangeUsernames) bool) ChannelAdminLogEventActionChangeUsernamesArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelAdminLogEventActionChangeUsernames.
+func (s ChannelAdminLogEventActionChangeUsernamesArray) Retain(keep func(x ChannelAdminLogEventActionChangeUsernames) bool) ChannelAdminLogEventActionChangeUsernamesArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelAdminLogEventActionChangeUsernamesArray) First() (v ChannelAdminLogEventActionChangeUsernames, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelAdminLogEventActionChangeUsernamesArray) Last() (v ChannelAdminLogEventActionChangeUsernames, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionChangeUsernamesArray) PopFirst() (v ChannelAdminLogEventActionChangeUsernames, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChannelAdminLogEventActionChangeUsernames
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionChangeUsernamesArray) Pop() (v ChannelAdminLogEventActionChangeUsernames, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// ChannelAdminLogEventActionToggleForumArray is adapter for slice of ChannelAdminLogEventActionToggleForum.
+type ChannelAdminLogEventActionToggleForumArray []ChannelAdminLogEventActionToggleForum
+
+// Sort sorts slice of ChannelAdminLogEventActionToggleForum.
+func (s ChannelAdminLogEventActionToggleForumArray) Sort(less func(a, b ChannelAdminLogEventActionToggleForum) bool) ChannelAdminLogEventActionToggleForumArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelAdminLogEventActionToggleForum.
+func (s ChannelAdminLogEventActionToggleForumArray) SortStable(less func(a, b ChannelAdminLogEventActionToggleForum) bool) ChannelAdminLogEventActionToggleForumArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelAdminLogEventActionToggleForum.
+func (s ChannelAdminLogEventActionToggleForumArray) Retain(keep func(x ChannelAdminLogEventActionToggleForum) bool) ChannelAdminLogEventActionToggleForumArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelAdminLogEventActionToggleForumArray) First() (v ChannelAdminLogEventActionToggleForum, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelAdminLogEventActionToggleForumArray) Last() (v ChannelAdminLogEventActionToggleForum, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionToggleForumArray) PopFirst() (v ChannelAdminLogEventActionToggleForum, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChannelAdminLogEventActionToggleForum
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionToggleForumArray) Pop() (v ChannelAdminLogEventActionToggleForum, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// ChannelAdminLogEventActionCreateTopicArray is adapter for slice of ChannelAdminLogEventActionCreateTopic.
+type ChannelAdminLogEventActionCreateTopicArray []ChannelAdminLogEventActionCreateTopic
+
+// Sort sorts slice of ChannelAdminLogEventActionCreateTopic.
+func (s ChannelAdminLogEventActionCreateTopicArray) Sort(less func(a, b ChannelAdminLogEventActionCreateTopic) bool) ChannelAdminLogEventActionCreateTopicArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelAdminLogEventActionCreateTopic.
+func (s ChannelAdminLogEventActionCreateTopicArray) SortStable(less func(a, b ChannelAdminLogEventActionCreateTopic) bool) ChannelAdminLogEventActionCreateTopicArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelAdminLogEventActionCreateTopic.
+func (s ChannelAdminLogEventActionCreateTopicArray) Retain(keep func(x ChannelAdminLogEventActionCreateTopic) bool) ChannelAdminLogEventActionCreateTopicArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelAdminLogEventActionCreateTopicArray) First() (v ChannelAdminLogEventActionCreateTopic, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelAdminLogEventActionCreateTopicArray) Last() (v ChannelAdminLogEventActionCreateTopic, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionCreateTopicArray) PopFirst() (v ChannelAdminLogEventActionCreateTopic, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChannelAdminLogEventActionCreateTopic
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionCreateTopicArray) Pop() (v ChannelAdminLogEventActionCreateTopic, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// ChannelAdminLogEventActionEditTopicArray is adapter for slice of ChannelAdminLogEventActionEditTopic.
+type ChannelAdminLogEventActionEditTopicArray []ChannelAdminLogEventActionEditTopic
+
+// Sort sorts slice of ChannelAdminLogEventActionEditTopic.
+func (s ChannelAdminLogEventActionEditTopicArray) Sort(less func(a, b ChannelAdminLogEventActionEditTopic) bool) ChannelAdminLogEventActionEditTopicArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelAdminLogEventActionEditTopic.
+func (s ChannelAdminLogEventActionEditTopicArray) SortStable(less func(a, b ChannelAdminLogEventActionEditTopic) bool) ChannelAdminLogEventActionEditTopicArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelAdminLogEventActionEditTopic.
+func (s ChannelAdminLogEventActionEditTopicArray) Retain(keep func(x ChannelAdminLogEventActionEditTopic) bool) ChannelAdminLogEventActionEditTopicArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelAdminLogEventActionEditTopicArray) First() (v ChannelAdminLogEventActionEditTopic, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelAdminLogEventActionEditTopicArray) Last() (v ChannelAdminLogEventActionEditTopic, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionEditTopicArray) PopFirst() (v ChannelAdminLogEventActionEditTopic, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChannelAdminLogEventActionEditTopic
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionEditTopicArray) Pop() (v ChannelAdminLogEventActionEditTopic, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// ChannelAdminLogEventActionDeleteTopicArray is adapter for slice of ChannelAdminLogEventActionDeleteTopic.
+type ChannelAdminLogEventActionDeleteTopicArray []ChannelAdminLogEventActionDeleteTopic
+
+// Sort sorts slice of ChannelAdminLogEventActionDeleteTopic.
+func (s ChannelAdminLogEventActionDeleteTopicArray) Sort(less func(a, b ChannelAdminLogEventActionDeleteTopic) bool) ChannelAdminLogEventActionDeleteTopicArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelAdminLogEventActionDeleteTopic.
+func (s ChannelAdminLogEventActionDeleteTopicArray) SortStable(less func(a, b ChannelAdminLogEventActionDeleteTopic) bool) ChannelAdminLogEventActionDeleteTopicArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelAdminLogEventActionDeleteTopic.
+func (s ChannelAdminLogEventActionDeleteTopicArray) Retain(keep func(x ChannelAdminLogEventActionDeleteTopic) bool) ChannelAdminLogEventActionDeleteTopicArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelAdminLogEventActionDeleteTopicArray) First() (v ChannelAdminLogEventActionDeleteTopic, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelAdminLogEventActionDeleteTopicArray) Last() (v ChannelAdminLogEventActionDeleteTopic, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionDeleteTopicArray) PopFirst() (v ChannelAdminLogEventActionDeleteTopic, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChannelAdminLogEventActionDeleteTopic
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionDeleteTopicArray) Pop() (v ChannelAdminLogEventActionDeleteTopic, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// ChannelAdminLogEventActionPinTopicArray is adapter for slice of ChannelAdminLogEventActionPinTopic.
+type ChannelAdminLogEventActionPinTopicArray []ChannelAdminLogEventActionPinTopic
+
+// Sort sorts slice of ChannelAdminLogEventActionPinTopic.
+func (s ChannelAdminLogEventActionPinTopicArray) Sort(less func(a, b ChannelAdminLogEventActionPinTopic) bool) ChannelAdminLogEventActionPinTopicArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelAdminLogEventActionPinTopic.
+func (s ChannelAdminLogEventActionPinTopicArray) SortStable(less func(a, b ChannelAdminLogEventActionPinTopic) bool) ChannelAdminLogEventActionPinTopicArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelAdminLogEventActionPinTopic.
+func (s ChannelAdminLogEventActionPinTopicArray) Retain(keep func(x ChannelAdminLogEventActionPinTopic) bool) ChannelAdminLogEventActionPinTopicArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelAdminLogEventActionPinTopicArray) First() (v ChannelAdminLogEventActionPinTopic, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelAdminLogEventActionPinTopicArray) Last() (v ChannelAdminLogEventActionPinTopic, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionPinTopicArray) PopFirst() (v ChannelAdminLogEventActionPinTopic, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChannelAdminLogEventActionPinTopic
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionPinTopicArray) Pop() (v ChannelAdminLogEventActionPinTopic, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

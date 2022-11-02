@@ -1175,3 +1175,13 @@ func (u UpdateDispatcher) OnMessageExtendedMedia(handler MessageExtendedMediaHan
 		return handler(ctx, e, update.(*UpdateMessageExtendedMedia))
 	}
 }
+
+// ChannelPinnedTopicHandler is a ChannelPinnedTopic event handler.
+type ChannelPinnedTopicHandler func(ctx context.Context, e Entities, update *UpdateChannelPinnedTopic) error
+
+// OnChannelPinnedTopic sets ChannelPinnedTopic handler.
+func (u UpdateDispatcher) OnChannelPinnedTopic(handler ChannelPinnedTopicHandler) {
+	u.handlers[UpdateChannelPinnedTopicTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChannelPinnedTopic))
+	}
+}

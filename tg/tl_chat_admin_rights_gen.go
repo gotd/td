@@ -99,6 +99,8 @@ type ChatAdminRights struct {
 	//  2) https://core.telegram.org/api/stats
 	//  3) https://core.telegram.org/api/stats
 	Other bool
+	// ManageTopics field of ChatAdminRights.
+	ManageTopics bool
 }
 
 // ChatAdminRightsTypeID is TL type id of ChatAdminRights.
@@ -152,6 +154,9 @@ func (c *ChatAdminRights) Zero() bool {
 	if !(c.Other == false) {
 		return false
 	}
+	if !(c.ManageTopics == false) {
+		return false
+	}
 
 	return true
 }
@@ -178,6 +183,7 @@ func (c *ChatAdminRights) FillFrom(from interface {
 	GetAnonymous() (value bool)
 	GetManageCall() (value bool)
 	GetOther() (value bool)
+	GetManageTopics() (value bool)
 }) {
 	c.ChangeInfo = from.GetChangeInfo()
 	c.PostMessages = from.GetPostMessages()
@@ -190,6 +196,7 @@ func (c *ChatAdminRights) FillFrom(from interface {
 	c.Anonymous = from.GetAnonymous()
 	c.ManageCall = from.GetManageCall()
 	c.Other = from.GetOther()
+	c.ManageTopics = from.GetManageTopics()
 }
 
 // TypeID returns type id in TL schema.
@@ -270,6 +277,11 @@ func (c *ChatAdminRights) TypeInfo() tdp.Type {
 			SchemaName: "other",
 			Null:       !c.Flags.Has(12),
 		},
+		{
+			Name:       "ManageTopics",
+			SchemaName: "manage_topics",
+			Null:       !c.Flags.Has(13),
+		},
 	}
 	return typ
 }
@@ -308,6 +320,9 @@ func (c *ChatAdminRights) SetFlags() {
 	}
 	if !(c.Other == false) {
 		c.Flags.Set(12)
+	}
+	if !(c.ManageTopics == false) {
+		c.Flags.Set(13)
 	}
 }
 
@@ -364,6 +379,7 @@ func (c *ChatAdminRights) DecodeBare(b *bin.Buffer) error {
 	c.Anonymous = c.Flags.Has(10)
 	c.ManageCall = c.Flags.Has(11)
 	c.Other = c.Flags.Has(12)
+	c.ManageTopics = c.Flags.Has(13)
 	return nil
 }
 
@@ -574,4 +590,23 @@ func (c *ChatAdminRights) GetOther() (value bool) {
 		return
 	}
 	return c.Flags.Has(12)
+}
+
+// SetManageTopics sets value of ManageTopics conditional field.
+func (c *ChatAdminRights) SetManageTopics(value bool) {
+	if value {
+		c.Flags.Set(13)
+		c.ManageTopics = true
+	} else {
+		c.Flags.Unset(13)
+		c.ManageTopics = false
+	}
+}
+
+// GetManageTopics returns value of ManageTopics conditional field.
+func (c *ChatAdminRights) GetManageTopics() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(13)
 }

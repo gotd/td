@@ -105,6 +105,8 @@ type ChatBannedRights struct {
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	PinMessages bool
+	// ManageTopics field of ChatBannedRights.
+	ManageTopics bool
 	// Validity of said permissions (it is considered forever any value less then 30 seconds
 	// or more then 366 days).
 	UntilDate int
@@ -164,6 +166,9 @@ func (c *ChatBannedRights) Zero() bool {
 	if !(c.PinMessages == false) {
 		return false
 	}
+	if !(c.ManageTopics == false) {
+		return false
+	}
 	if !(c.UntilDate == 0) {
 		return false
 	}
@@ -194,6 +199,7 @@ func (c *ChatBannedRights) FillFrom(from interface {
 	GetChangeInfo() (value bool)
 	GetInviteUsers() (value bool)
 	GetPinMessages() (value bool)
+	GetManageTopics() (value bool)
 	GetUntilDate() (value int)
 }) {
 	c.ViewMessages = from.GetViewMessages()
@@ -208,6 +214,7 @@ func (c *ChatBannedRights) FillFrom(from interface {
 	c.ChangeInfo = from.GetChangeInfo()
 	c.InviteUsers = from.GetInviteUsers()
 	c.PinMessages = from.GetPinMessages()
+	c.ManageTopics = from.GetManageTopics()
 	c.UntilDate = from.GetUntilDate()
 }
 
@@ -295,6 +302,11 @@ func (c *ChatBannedRights) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(17),
 		},
 		{
+			Name:       "ManageTopics",
+			SchemaName: "manage_topics",
+			Null:       !c.Flags.Has(18),
+		},
+		{
 			Name:       "UntilDate",
 			SchemaName: "until_date",
 		},
@@ -339,6 +351,9 @@ func (c *ChatBannedRights) SetFlags() {
 	}
 	if !(c.PinMessages == false) {
 		c.Flags.Set(17)
+	}
+	if !(c.ManageTopics == false) {
+		c.Flags.Set(18)
 	}
 }
 
@@ -397,6 +412,7 @@ func (c *ChatBannedRights) DecodeBare(b *bin.Buffer) error {
 	c.ChangeInfo = c.Flags.Has(10)
 	c.InviteUsers = c.Flags.Has(15)
 	c.PinMessages = c.Flags.Has(17)
+	c.ManageTopics = c.Flags.Has(18)
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -633,6 +649,25 @@ func (c *ChatBannedRights) GetPinMessages() (value bool) {
 		return
 	}
 	return c.Flags.Has(17)
+}
+
+// SetManageTopics sets value of ManageTopics conditional field.
+func (c *ChatBannedRights) SetManageTopics(value bool) {
+	if value {
+		c.Flags.Set(18)
+		c.ManageTopics = true
+	} else {
+		c.Flags.Unset(18)
+		c.ManageTopics = false
+	}
+}
+
+// GetManageTopics returns value of ManageTopics conditional field.
+func (c *ChatBannedRights) GetManageTopics() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(18)
 }
 
 // GetUntilDate returns value of UntilDate field.

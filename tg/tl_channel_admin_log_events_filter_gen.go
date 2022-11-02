@@ -128,6 +128,8 @@ type ChannelAdminLogEventsFilter struct {
 	Invites bool
 	// A message was posted in a channel
 	Send bool
+	// Forums field of ChannelAdminLogEventsFilter.
+	Forums bool
 }
 
 // ChannelAdminLogEventsFilterTypeID is TL type id of ChannelAdminLogEventsFilter.
@@ -199,6 +201,9 @@ func (c *ChannelAdminLogEventsFilter) Zero() bool {
 	if !(c.Send == false) {
 		return false
 	}
+	if !(c.Forums == false) {
+		return false
+	}
 
 	return true
 }
@@ -231,6 +236,7 @@ func (c *ChannelAdminLogEventsFilter) FillFrom(from interface {
 	GetGroupCall() (value bool)
 	GetInvites() (value bool)
 	GetSend() (value bool)
+	GetForums() (value bool)
 }) {
 	c.Join = from.GetJoin()
 	c.Leave = from.GetLeave()
@@ -249,6 +255,7 @@ func (c *ChannelAdminLogEventsFilter) FillFrom(from interface {
 	c.GroupCall = from.GetGroupCall()
 	c.Invites = from.GetInvites()
 	c.Send = from.GetSend()
+	c.Forums = from.GetForums()
 }
 
 // TypeID returns type id in TL schema.
@@ -359,6 +366,11 @@ func (c *ChannelAdminLogEventsFilter) TypeInfo() tdp.Type {
 			SchemaName: "send",
 			Null:       !c.Flags.Has(16),
 		},
+		{
+			Name:       "Forums",
+			SchemaName: "forums",
+			Null:       !c.Flags.Has(17),
+		},
 	}
 	return typ
 }
@@ -415,6 +427,9 @@ func (c *ChannelAdminLogEventsFilter) SetFlags() {
 	}
 	if !(c.Send == false) {
 		c.Flags.Set(16)
+	}
+	if !(c.Forums == false) {
+		c.Flags.Set(17)
 	}
 }
 
@@ -477,6 +492,7 @@ func (c *ChannelAdminLogEventsFilter) DecodeBare(b *bin.Buffer) error {
 	c.GroupCall = c.Flags.Has(14)
 	c.Invites = c.Flags.Has(15)
 	c.Send = c.Flags.Has(16)
+	c.Forums = c.Flags.Has(17)
 	return nil
 }
 
@@ -801,4 +817,23 @@ func (c *ChannelAdminLogEventsFilter) GetSend() (value bool) {
 		return
 	}
 	return c.Flags.Has(16)
+}
+
+// SetForums sets value of Forums conditional field.
+func (c *ChannelAdminLogEventsFilter) SetForums(value bool) {
+	if value {
+		c.Flags.Set(17)
+		c.Forums = true
+	} else {
+		c.Flags.Unset(17)
+		c.Forums = false
+	}
+}
+
+// GetForums returns value of Forums conditional field.
+func (c *ChannelAdminLogEventsFilter) GetForums() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(17)
 }

@@ -1908,6 +1908,48 @@ func (s *ServerDispatcher) OnAccountClearRecentEmojiStatuses(f func(ctx context.
 	s.handlers[AccountClearRecentEmojiStatusesRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnAccountReorderUsernames(f func(ctx context.Context, order []string) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountReorderUsernamesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Order)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AccountReorderUsernamesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountToggleUsername(f func(ctx context.Context, request *AccountToggleUsernameRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountToggleUsernameRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AccountToggleUsernameRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUsersGetUsers(f func(ctx context.Context, id []InputUserClass) ([]UserClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UsersGetUsersRequest
@@ -3936,14 +3978,14 @@ func (s *ServerDispatcher) OnMessagesGetUnreadMentions(f func(ctx context.Contex
 	s.handlers[MessagesGetUnreadMentionsRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesReadMentions(f func(ctx context.Context, peer InputPeerClass) (*MessagesAffectedHistory, error)) {
+func (s *ServerDispatcher) OnMessagesReadMentions(f func(ctx context.Context, request *MessagesReadMentionsRequest) (*MessagesAffectedHistory, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesReadMentionsRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.Peer)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
@@ -4597,14 +4639,14 @@ func (s *ServerDispatcher) OnMessagesReadDiscussion(f func(ctx context.Context, 
 	s.handlers[MessagesReadDiscussionRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesUnpinAllMessages(f func(ctx context.Context, peer InputPeerClass) (*MessagesAffectedHistory, error)) {
+func (s *ServerDispatcher) OnMessagesUnpinAllMessages(f func(ctx context.Context, request *MessagesUnpinAllMessagesRequest) (*MessagesAffectedHistory, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesUnpinAllMessagesRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.Peer)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
@@ -5165,14 +5207,14 @@ func (s *ServerDispatcher) OnMessagesGetUnreadReactions(f func(ctx context.Conte
 	s.handlers[MessagesGetUnreadReactionsRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesReadReactions(f func(ctx context.Context, peer InputPeerClass) (*MessagesAffectedHistory, error)) {
+func (s *ServerDispatcher) OnMessagesReadReactions(f func(ctx context.Context, request *MessagesReadReactionsRequest) (*MessagesAffectedHistory, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesReadReactionsRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.Peer)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
@@ -6847,7 +6889,7 @@ func (s *ServerDispatcher) OnChannelsViewSponsoredMessage(f func(ctx context.Con
 	s.handlers[ChannelsViewSponsoredMessageRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnChannelsGetSponsoredMessages(f func(ctx context.Context, channel InputChannelClass) (*MessagesSponsoredMessages, error)) {
+func (s *ServerDispatcher) OnChannelsGetSponsoredMessages(f func(ctx context.Context, channel InputChannelClass) (MessagesSponsoredMessagesClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request ChannelsGetSponsoredMessagesRequest
 		if err := request.Decode(b); err != nil {
@@ -6858,7 +6900,7 @@ func (s *ServerDispatcher) OnChannelsGetSponsoredMessages(f func(ctx context.Con
 		if err != nil {
 			return nil, err
 		}
-		return response, nil
+		return &MessagesSponsoredMessagesBox{SponsoredMessages: response}, nil
 	}
 
 	s.handlers[ChannelsGetSponsoredMessagesRequestTypeID] = handler
@@ -6930,6 +6972,188 @@ func (s *ServerDispatcher) OnChannelsToggleJoinRequest(f func(ctx context.Contex
 	}
 
 	s.handlers[ChannelsToggleJoinRequestRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChannelsReorderUsernames(f func(ctx context.Context, request *ChannelsReorderUsernamesRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsReorderUsernamesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[ChannelsReorderUsernamesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChannelsToggleUsername(f func(ctx context.Context, request *ChannelsToggleUsernameRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsToggleUsernameRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[ChannelsToggleUsernameRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChannelsDeactivateAllUsernames(f func(ctx context.Context, channel InputChannelClass) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsDeactivateAllUsernamesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Channel)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[ChannelsDeactivateAllUsernamesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChannelsToggleForum(f func(ctx context.Context, request *ChannelsToggleForumRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsToggleForumRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[ChannelsToggleForumRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChannelsCreateForumTopic(f func(ctx context.Context, request *ChannelsCreateForumTopicRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsCreateForumTopicRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[ChannelsCreateForumTopicRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChannelsGetForumTopics(f func(ctx context.Context, request *ChannelsGetForumTopicsRequest) (*MessagesForumTopics, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsGetForumTopicsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[ChannelsGetForumTopicsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChannelsGetForumTopicsByID(f func(ctx context.Context, request *ChannelsGetForumTopicsByIDRequest) (*MessagesForumTopics, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsGetForumTopicsByIDRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[ChannelsGetForumTopicsByIDRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChannelsEditForumTopic(f func(ctx context.Context, request *ChannelsEditForumTopicRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsEditForumTopicRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[ChannelsEditForumTopicRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChannelsUpdatePinnedForumTopic(f func(ctx context.Context, request *ChannelsUpdatePinnedForumTopicRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsUpdatePinnedForumTopicRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[ChannelsUpdatePinnedForumTopicRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChannelsDeleteTopicHistory(f func(ctx context.Context, request *ChannelsDeleteTopicHistoryRequest) (*MessagesAffectedHistory, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsDeleteTopicHistoryRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[ChannelsDeleteTopicHistoryRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnBotsSendCustomRequest(f func(ctx context.Context, request *BotsSendCustomRequestRequest) (*DataJSON, error)) {

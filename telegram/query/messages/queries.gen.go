@@ -401,6 +401,12 @@ func (b *GetUnreadMentionsQueryBuilder) Peer(paramPeer tg.InputPeerClass) *GetUn
 	return b
 }
 
+// TopMsgID sets TopMsgID field of GetUnreadMentions query.
+func (b *GetUnreadMentionsQueryBuilder) TopMsgID(paramTopMsgID int) *GetUnreadMentionsQueryBuilder {
+	b.req.TopMsgID = paramTopMsgID
+	return b
+}
+
 // Query implements Query interface.
 func (b *GetUnreadMentionsQueryBuilder) Query(ctx context.Context, req Request) (tg.MessagesMessagesClass, error) {
 	r := &tg.MessagesGetUnreadMentionsRequest{
@@ -408,6 +414,7 @@ func (b *GetUnreadMentionsQueryBuilder) Query(ctx context.Context, req Request) 
 	}
 
 	r.Peer = b.req.Peer
+	r.TopMsgID = b.req.TopMsgID
 	r.AddOffset = req.AddOffset
 	r.OffsetID = req.OffsetID
 	return b.raw.MessagesGetUnreadMentions(ctx, r)
@@ -500,6 +507,12 @@ func (b *GetUnreadReactionsQueryBuilder) Peer(paramPeer tg.InputPeerClass) *GetU
 	return b
 }
 
+// TopMsgID sets TopMsgID field of GetUnreadReactions query.
+func (b *GetUnreadReactionsQueryBuilder) TopMsgID(paramTopMsgID int) *GetUnreadReactionsQueryBuilder {
+	b.req.TopMsgID = paramTopMsgID
+	return b
+}
+
 // Query implements Query interface.
 func (b *GetUnreadReactionsQueryBuilder) Query(ctx context.Context, req Request) (tg.MessagesMessagesClass, error) {
 	r := &tg.MessagesGetUnreadReactionsRequest{
@@ -507,6 +520,7 @@ func (b *GetUnreadReactionsQueryBuilder) Query(ctx context.Context, req Request)
 	}
 
 	r.Peer = b.req.Peer
+	r.TopMsgID = b.req.TopMsgID
 	r.AddOffset = req.AddOffset
 	r.OffsetID = req.OffsetID
 	return b.raw.MessagesGetUnreadReactions(ctx, r)

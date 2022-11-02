@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesProlongWebViewRequest represents TL type `messages.prolongWebView#ea5fbcce`.
+// MessagesProlongWebViewRequest represents TL type `messages.prolongWebView#7ff34309`.
 // Indicate to the server (from the user side) that the user is still using a web app.
 //
 // See https://core.telegram.org/method/messages.prolongWebView for reference.
@@ -68,6 +68,10 @@ type MessagesProlongWebViewRequest struct {
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
+	// TopMsgID field of MessagesProlongWebViewRequest.
+	//
+	// Use SetTopMsgID and GetTopMsgID helpers.
+	TopMsgID int
 	// Open the web app as the specified peer
 	//
 	// Use SetSendAs and GetSendAs helpers.
@@ -75,7 +79,7 @@ type MessagesProlongWebViewRequest struct {
 }
 
 // MessagesProlongWebViewRequestTypeID is TL type id of MessagesProlongWebViewRequest.
-const MessagesProlongWebViewRequestTypeID = 0xea5fbcce
+const MessagesProlongWebViewRequestTypeID = 0x7ff34309
 
 // Ensuring interfaces in compile-time for MessagesProlongWebViewRequest.
 var (
@@ -107,6 +111,9 @@ func (p *MessagesProlongWebViewRequest) Zero() bool {
 	if !(p.ReplyToMsgID == 0) {
 		return false
 	}
+	if !(p.TopMsgID == 0) {
+		return false
+	}
 	if !(p.SendAs == nil) {
 		return false
 	}
@@ -130,6 +137,7 @@ func (p *MessagesProlongWebViewRequest) FillFrom(from interface {
 	GetBot() (value InputUserClass)
 	GetQueryID() (value int64)
 	GetReplyToMsgID() (value int, ok bool)
+	GetTopMsgID() (value int, ok bool)
 	GetSendAs() (value InputPeerClass, ok bool)
 }) {
 	p.Silent = from.GetSilent()
@@ -138,6 +146,10 @@ func (p *MessagesProlongWebViewRequest) FillFrom(from interface {
 	p.QueryID = from.GetQueryID()
 	if val, ok := from.GetReplyToMsgID(); ok {
 		p.ReplyToMsgID = val
+	}
+
+	if val, ok := from.GetTopMsgID(); ok {
+		p.TopMsgID = val
 	}
 
 	if val, ok := from.GetSendAs(); ok {
@@ -192,6 +204,11 @@ func (p *MessagesProlongWebViewRequest) TypeInfo() tdp.Type {
 			Null:       !p.Flags.Has(0),
 		},
 		{
+			Name:       "TopMsgID",
+			SchemaName: "top_msg_id",
+			Null:       !p.Flags.Has(9),
+		},
+		{
 			Name:       "SendAs",
 			SchemaName: "send_as",
 			Null:       !p.Flags.Has(13),
@@ -208,6 +225,9 @@ func (p *MessagesProlongWebViewRequest) SetFlags() {
 	if !(p.ReplyToMsgID == 0) {
 		p.Flags.Set(0)
 	}
+	if !(p.TopMsgID == 0) {
+		p.Flags.Set(9)
+	}
 	if !(p.SendAs == nil) {
 		p.Flags.Set(13)
 	}
@@ -216,7 +236,7 @@ func (p *MessagesProlongWebViewRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (p *MessagesProlongWebViewRequest) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode messages.prolongWebView#ea5fbcce as nil")
+		return fmt.Errorf("can't encode messages.prolongWebView#7ff34309 as nil")
 	}
 	b.PutID(MessagesProlongWebViewRequestTypeID)
 	return p.EncodeBare(b)
@@ -225,34 +245,37 @@ func (p *MessagesProlongWebViewRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *MessagesProlongWebViewRequest) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode messages.prolongWebView#ea5fbcce as nil")
+		return fmt.Errorf("can't encode messages.prolongWebView#7ff34309 as nil")
 	}
 	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.prolongWebView#ea5fbcce: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.prolongWebView#7ff34309: field flags: %w", err)
 	}
 	if p.Peer == nil {
-		return fmt.Errorf("unable to encode messages.prolongWebView#ea5fbcce: field peer is nil")
+		return fmt.Errorf("unable to encode messages.prolongWebView#7ff34309: field peer is nil")
 	}
 	if err := p.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.prolongWebView#ea5fbcce: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.prolongWebView#7ff34309: field peer: %w", err)
 	}
 	if p.Bot == nil {
-		return fmt.Errorf("unable to encode messages.prolongWebView#ea5fbcce: field bot is nil")
+		return fmt.Errorf("unable to encode messages.prolongWebView#7ff34309: field bot is nil")
 	}
 	if err := p.Bot.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.prolongWebView#ea5fbcce: field bot: %w", err)
+		return fmt.Errorf("unable to encode messages.prolongWebView#7ff34309: field bot: %w", err)
 	}
 	b.PutLong(p.QueryID)
 	if p.Flags.Has(0) {
 		b.PutInt(p.ReplyToMsgID)
 	}
+	if p.Flags.Has(9) {
+		b.PutInt(p.TopMsgID)
+	}
 	if p.Flags.Has(13) {
 		if p.SendAs == nil {
-			return fmt.Errorf("unable to encode messages.prolongWebView#ea5fbcce: field send_as is nil")
+			return fmt.Errorf("unable to encode messages.prolongWebView#7ff34309: field send_as is nil")
 		}
 		if err := p.SendAs.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.prolongWebView#ea5fbcce: field send_as: %w", err)
+			return fmt.Errorf("unable to encode messages.prolongWebView#7ff34309: field send_as: %w", err)
 		}
 	}
 	return nil
@@ -261,10 +284,10 @@ func (p *MessagesProlongWebViewRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *MessagesProlongWebViewRequest) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode messages.prolongWebView#ea5fbcce to nil")
+		return fmt.Errorf("can't decode messages.prolongWebView#7ff34309 to nil")
 	}
 	if err := b.ConsumeID(MessagesProlongWebViewRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.prolongWebView#ea5fbcce: %w", err)
+		return fmt.Errorf("unable to decode messages.prolongWebView#7ff34309: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -272,46 +295,53 @@ func (p *MessagesProlongWebViewRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *MessagesProlongWebViewRequest) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode messages.prolongWebView#ea5fbcce to nil")
+		return fmt.Errorf("can't decode messages.prolongWebView#7ff34309 to nil")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.prolongWebView#ea5fbcce: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.prolongWebView#7ff34309: field flags: %w", err)
 		}
 	}
 	p.Silent = p.Flags.Has(5)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.prolongWebView#ea5fbcce: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.prolongWebView#7ff34309: field peer: %w", err)
 		}
 		p.Peer = value
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.prolongWebView#ea5fbcce: field bot: %w", err)
+			return fmt.Errorf("unable to decode messages.prolongWebView#7ff34309: field bot: %w", err)
 		}
 		p.Bot = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.prolongWebView#ea5fbcce: field query_id: %w", err)
+			return fmt.Errorf("unable to decode messages.prolongWebView#7ff34309: field query_id: %w", err)
 		}
 		p.QueryID = value
 	}
 	if p.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.prolongWebView#ea5fbcce: field reply_to_msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.prolongWebView#7ff34309: field reply_to_msg_id: %w", err)
 		}
 		p.ReplyToMsgID = value
+	}
+	if p.Flags.Has(9) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.prolongWebView#7ff34309: field top_msg_id: %w", err)
+		}
+		p.TopMsgID = value
 	}
 	if p.Flags.Has(13) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.prolongWebView#ea5fbcce: field send_as: %w", err)
+			return fmt.Errorf("unable to decode messages.prolongWebView#7ff34309: field send_as: %w", err)
 		}
 		p.SendAs = value
 	}
@@ -379,6 +409,24 @@ func (p *MessagesProlongWebViewRequest) GetReplyToMsgID() (value int, ok bool) {
 	return p.ReplyToMsgID, true
 }
 
+// SetTopMsgID sets value of TopMsgID conditional field.
+func (p *MessagesProlongWebViewRequest) SetTopMsgID(value int) {
+	p.Flags.Set(9)
+	p.TopMsgID = value
+}
+
+// GetTopMsgID returns value of TopMsgID conditional field and
+// boolean which is true if field was set.
+func (p *MessagesProlongWebViewRequest) GetTopMsgID() (value int, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(9) {
+		return value, false
+	}
+	return p.TopMsgID, true
+}
+
 // SetSendAs sets value of SendAs conditional field.
 func (p *MessagesProlongWebViewRequest) SetSendAs(value InputPeerClass) {
 	p.Flags.Set(13)
@@ -397,7 +445,7 @@ func (p *MessagesProlongWebViewRequest) GetSendAs() (value InputPeerClass, ok bo
 	return p.SendAs, true
 }
 
-// MessagesProlongWebView invokes method messages.prolongWebView#ea5fbcce returning error if any.
+// MessagesProlongWebView invokes method messages.prolongWebView#7ff34309 returning error if any.
 // Indicate to the server (from the user side) that the user is still using a web app.
 //
 // See https://core.telegram.org/method/messages.prolongWebView for reference.
