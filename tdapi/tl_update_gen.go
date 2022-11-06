@@ -8545,6 +8545,206 @@ func (u *UpdateChatOnlineMemberCount) GetOnlineMemberCount() (value int32) {
 	return u.OnlineMemberCount
 }
 
+// UpdateForumTopicInfo represents TL type `updateForumTopicInfo#6b6f2cc9`.
+type UpdateForumTopicInfo struct {
+	// Chat identifier
+	ChatID int64
+	// New information about the topic
+	Info ForumTopicInfo
+}
+
+// UpdateForumTopicInfoTypeID is TL type id of UpdateForumTopicInfo.
+const UpdateForumTopicInfoTypeID = 0x6b6f2cc9
+
+// construct implements constructor of UpdateClass.
+func (u UpdateForumTopicInfo) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateForumTopicInfo.
+var (
+	_ bin.Encoder     = &UpdateForumTopicInfo{}
+	_ bin.Decoder     = &UpdateForumTopicInfo{}
+	_ bin.BareEncoder = &UpdateForumTopicInfo{}
+	_ bin.BareDecoder = &UpdateForumTopicInfo{}
+
+	_ UpdateClass = &UpdateForumTopicInfo{}
+)
+
+func (u *UpdateForumTopicInfo) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.Info.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateForumTopicInfo) String() string {
+	if u == nil {
+		return "UpdateForumTopicInfo(nil)"
+	}
+	type Alias UpdateForumTopicInfo
+	return fmt.Sprintf("UpdateForumTopicInfo%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateForumTopicInfo) TypeID() uint32 {
+	return UpdateForumTopicInfoTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateForumTopicInfo) TypeName() string {
+	return "updateForumTopicInfo"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateForumTopicInfo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateForumTopicInfo",
+		ID:   UpdateForumTopicInfoTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "Info",
+			SchemaName: "info",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateForumTopicInfo) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateForumTopicInfo#6b6f2cc9 as nil")
+	}
+	b.PutID(UpdateForumTopicInfoTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateForumTopicInfo) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateForumTopicInfo#6b6f2cc9 as nil")
+	}
+	b.PutInt53(u.ChatID)
+	if err := u.Info.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateForumTopicInfo#6b6f2cc9: field info: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateForumTopicInfo) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateForumTopicInfo#6b6f2cc9 to nil")
+	}
+	if err := b.ConsumeID(UpdateForumTopicInfoTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateForumTopicInfo#6b6f2cc9: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateForumTopicInfo) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateForumTopicInfo#6b6f2cc9 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateForumTopicInfo#6b6f2cc9: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		if err := u.Info.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateForumTopicInfo#6b6f2cc9: field info: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateForumTopicInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateForumTopicInfo#6b6f2cc9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateForumTopicInfo")
+	b.Comma()
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.Comma()
+	b.FieldStart("info")
+	if err := u.Info.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateForumTopicInfo#6b6f2cc9: field info: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateForumTopicInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateForumTopicInfo#6b6f2cc9 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateForumTopicInfo"); err != nil {
+				return fmt.Errorf("unable to decode updateForumTopicInfo#6b6f2cc9: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateForumTopicInfo#6b6f2cc9: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "info":
+			if err := u.Info.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateForumTopicInfo#6b6f2cc9: field info: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateForumTopicInfo) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetInfo returns value of Info field.
+func (u *UpdateForumTopicInfo) GetInfo() (value ForumTopicInfo) {
+	if u == nil {
+		return
+	}
+	return u.Info
+}
+
 // UpdateScopeNotificationSettings represents TL type `updateScopeNotificationSettings#b83ccb73`.
 type UpdateScopeNotificationSettings struct {
 	// Types of chats for which notification settings were updated
@@ -22997,6 +23197,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateChatIsMarkedAsUnread: // updateChatIsMarkedAsUnread#57853334
 //	case *tdapi.UpdateChatFilters: // updateChatFilters#a00973c1
 //	case *tdapi.UpdateChatOnlineMemberCount: // updateChatOnlineMemberCount#1d0caa9d
+//	case *tdapi.UpdateForumTopicInfo: // updateForumTopicInfo#6b6f2cc9
 //	case *tdapi.UpdateScopeNotificationSettings: // updateScopeNotificationSettings#b83ccb73
 //	case *tdapi.UpdateNotification: // updateNotification#8ee67ed4
 //	case *tdapi.UpdateNotificationGroup: // updateNotificationGroup#96cd9e06
@@ -23368,6 +23569,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateChatOnlineMemberCountTypeID:
 		// Decoding updateChatOnlineMemberCount#1d0caa9d.
 		v := UpdateChatOnlineMemberCount{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateForumTopicInfoTypeID:
+		// Decoding updateForumTopicInfo#6b6f2cc9.
+		v := UpdateForumTopicInfo{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -24108,6 +24316,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	case "updateChatOnlineMemberCount":
 		// Decoding updateChatOnlineMemberCount#1d0caa9d.
 		v := UpdateChatOnlineMemberCount{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateForumTopicInfo":
+		// Decoding updateForumTopicInfo#6b6f2cc9.
+		v := UpdateForumTopicInfo{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

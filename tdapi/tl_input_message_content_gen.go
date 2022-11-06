@@ -2777,7 +2777,7 @@ type InputMessageVoiceNote struct {
 	VoiceNote InputFileClass
 	// Duration of the voice note, in seconds
 	Duration int32
-	// Waveform representation of the voice note, in 5-bit format
+	// Waveform representation of the voice note in 5-bit format
 	Waveform []byte
 	// Voice note caption; pass null to use an empty caption;
 	// 0-GetOption("message_caption_length_max") characters

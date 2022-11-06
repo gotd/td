@@ -33,7 +33,8 @@ var (
 
 // BasicGroupFullInfo represents TL type `basicGroupFullInfo#f191cfca`.
 type BasicGroupFullInfo struct {
-	// Chat photo; may be null
+	// Chat photo; may be null if empty or unknown. If non-null, then it is the same photo as
+	// in chat.photo
 	Photo ChatPhoto
 	// Contains full information about a basic group
 	Description string

@@ -35,7 +35,8 @@ var (
 type SetSupergroupUsernameRequest struct {
 	// Identifier of the supergroup or channel
 	SupergroupID int64
-	// New value of the username. Use an empty string to remove the username
+	// New value of the username. Use an empty string to remove the username. The username
+	// can't be completely removed if there is another active or disabled username
 	Username string
 }
 

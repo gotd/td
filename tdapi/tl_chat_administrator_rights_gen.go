@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatAdministratorRights represents TL type `chatAdministratorRights#6ffd893e`.
+// ChatAdministratorRights represents TL type `chatAdministratorRights#ad77eac7`.
 type ChatAdministratorRights struct {
 	// True, if the administrator can get chat event log, get chat statistics, get message
 	// statistics in channels, get channel members, see anonymous administrators in
@@ -55,6 +55,8 @@ type ChatAdministratorRights struct {
 	// True, if the administrator can pin messages; applicable to basic groups and
 	// supergroups only
 	CanPinMessages bool
+	// True, if the administrator can manage topics; applicable to forum supergroups only
+	CanManageTopics bool
 	// True, if the administrator can add new administrators with a subset of their own
 	// privileges or demote administrators that were directly or indirectly promoted by them
 	CanPromoteMembers bool
@@ -66,7 +68,7 @@ type ChatAdministratorRights struct {
 }
 
 // ChatAdministratorRightsTypeID is TL type id of ChatAdministratorRights.
-const ChatAdministratorRightsTypeID = 0x6ffd893e
+const ChatAdministratorRightsTypeID = 0xad77eac7
 
 // Ensuring interfaces in compile-time for ChatAdministratorRights.
 var (
@@ -102,6 +104,9 @@ func (c *ChatAdministratorRights) Zero() bool {
 		return false
 	}
 	if !(c.CanPinMessages == false) {
+		return false
+	}
+	if !(c.CanManageTopics == false) {
 		return false
 	}
 	if !(c.CanPromoteMembers == false) {
@@ -182,6 +187,10 @@ func (c *ChatAdministratorRights) TypeInfo() tdp.Type {
 			SchemaName: "can_pin_messages",
 		},
 		{
+			Name:       "CanManageTopics",
+			SchemaName: "can_manage_topics",
+		},
+		{
 			Name:       "CanPromoteMembers",
 			SchemaName: "can_promote_members",
 		},
@@ -200,7 +209,7 @@ func (c *ChatAdministratorRights) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatAdministratorRights) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatAdministratorRights#6ffd893e as nil")
+		return fmt.Errorf("can't encode chatAdministratorRights#ad77eac7 as nil")
 	}
 	b.PutID(ChatAdministratorRightsTypeID)
 	return c.EncodeBare(b)
@@ -209,7 +218,7 @@ func (c *ChatAdministratorRights) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatAdministratorRights) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatAdministratorRights#6ffd893e as nil")
+		return fmt.Errorf("can't encode chatAdministratorRights#ad77eac7 as nil")
 	}
 	b.PutBool(c.CanManageChat)
 	b.PutBool(c.CanChangeInfo)
@@ -219,6 +228,7 @@ func (c *ChatAdministratorRights) EncodeBare(b *bin.Buffer) error {
 	b.PutBool(c.CanInviteUsers)
 	b.PutBool(c.CanRestrictMembers)
 	b.PutBool(c.CanPinMessages)
+	b.PutBool(c.CanManageTopics)
 	b.PutBool(c.CanPromoteMembers)
 	b.PutBool(c.CanManageVideoChats)
 	b.PutBool(c.IsAnonymous)
@@ -228,10 +238,10 @@ func (c *ChatAdministratorRights) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatAdministratorRights) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatAdministratorRights#6ffd893e to nil")
+		return fmt.Errorf("can't decode chatAdministratorRights#ad77eac7 to nil")
 	}
 	if err := b.ConsumeID(ChatAdministratorRightsTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: %w", err)
+		return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -239,82 +249,89 @@ func (c *ChatAdministratorRights) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatAdministratorRights) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatAdministratorRights#6ffd893e to nil")
+		return fmt.Errorf("can't decode chatAdministratorRights#ad77eac7 to nil")
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field can_manage_chat: %w", err)
+			return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_manage_chat: %w", err)
 		}
 		c.CanManageChat = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field can_change_info: %w", err)
+			return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_change_info: %w", err)
 		}
 		c.CanChangeInfo = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field can_post_messages: %w", err)
+			return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_post_messages: %w", err)
 		}
 		c.CanPostMessages = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field can_edit_messages: %w", err)
+			return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_edit_messages: %w", err)
 		}
 		c.CanEditMessages = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field can_delete_messages: %w", err)
+			return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_delete_messages: %w", err)
 		}
 		c.CanDeleteMessages = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field can_invite_users: %w", err)
+			return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_invite_users: %w", err)
 		}
 		c.CanInviteUsers = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field can_restrict_members: %w", err)
+			return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_restrict_members: %w", err)
 		}
 		c.CanRestrictMembers = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field can_pin_messages: %w", err)
+			return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_pin_messages: %w", err)
 		}
 		c.CanPinMessages = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field can_promote_members: %w", err)
+			return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_manage_topics: %w", err)
+		}
+		c.CanManageTopics = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_promote_members: %w", err)
 		}
 		c.CanPromoteMembers = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field can_manage_video_chats: %w", err)
+			return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_manage_video_chats: %w", err)
 		}
 		c.CanManageVideoChats = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field is_anonymous: %w", err)
+			return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field is_anonymous: %w", err)
 		}
 		c.IsAnonymous = value
 	}
@@ -324,7 +341,7 @@ func (c *ChatAdministratorRights) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatAdministratorRights) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatAdministratorRights#6ffd893e as nil")
+		return fmt.Errorf("can't encode chatAdministratorRights#ad77eac7 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatAdministratorRights")
@@ -353,6 +370,9 @@ func (c *ChatAdministratorRights) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("can_pin_messages")
 	b.PutBool(c.CanPinMessages)
 	b.Comma()
+	b.FieldStart("can_manage_topics")
+	b.PutBool(c.CanManageTopics)
+	b.Comma()
 	b.FieldStart("can_promote_members")
 	b.PutBool(c.CanPromoteMembers)
 	b.Comma()
@@ -370,79 +390,85 @@ func (c *ChatAdministratorRights) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatAdministratorRights) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatAdministratorRights#6ffd893e to nil")
+		return fmt.Errorf("can't decode chatAdministratorRights#ad77eac7 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatAdministratorRights"); err != nil {
-				return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: %w", err)
+				return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: %w", err)
 			}
 		case "can_manage_chat":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field can_manage_chat: %w", err)
+				return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_manage_chat: %w", err)
 			}
 			c.CanManageChat = value
 		case "can_change_info":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field can_change_info: %w", err)
+				return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_change_info: %w", err)
 			}
 			c.CanChangeInfo = value
 		case "can_post_messages":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field can_post_messages: %w", err)
+				return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_post_messages: %w", err)
 			}
 			c.CanPostMessages = value
 		case "can_edit_messages":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field can_edit_messages: %w", err)
+				return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_edit_messages: %w", err)
 			}
 			c.CanEditMessages = value
 		case "can_delete_messages":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field can_delete_messages: %w", err)
+				return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_delete_messages: %w", err)
 			}
 			c.CanDeleteMessages = value
 		case "can_invite_users":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field can_invite_users: %w", err)
+				return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_invite_users: %w", err)
 			}
 			c.CanInviteUsers = value
 		case "can_restrict_members":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field can_restrict_members: %w", err)
+				return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_restrict_members: %w", err)
 			}
 			c.CanRestrictMembers = value
 		case "can_pin_messages":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field can_pin_messages: %w", err)
+				return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_pin_messages: %w", err)
 			}
 			c.CanPinMessages = value
+		case "can_manage_topics":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_manage_topics: %w", err)
+			}
+			c.CanManageTopics = value
 		case "can_promote_members":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field can_promote_members: %w", err)
+				return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_promote_members: %w", err)
 			}
 			c.CanPromoteMembers = value
 		case "can_manage_video_chats":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field can_manage_video_chats: %w", err)
+				return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field can_manage_video_chats: %w", err)
 			}
 			c.CanManageVideoChats = value
 		case "is_anonymous":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatAdministratorRights#6ffd893e: field is_anonymous: %w", err)
+				return fmt.Errorf("unable to decode chatAdministratorRights#ad77eac7: field is_anonymous: %w", err)
 			}
 			c.IsAnonymous = value
 		default:
@@ -514,6 +540,14 @@ func (c *ChatAdministratorRights) GetCanPinMessages() (value bool) {
 		return
 	}
 	return c.CanPinMessages
+}
+
+// GetCanManageTopics returns value of CanManageTopics field.
+func (c *ChatAdministratorRights) GetCanManageTopics() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.CanManageTopics
 }
 
 // GetCanPromoteMembers returns value of CanPromoteMembers field.

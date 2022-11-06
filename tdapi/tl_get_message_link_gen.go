@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetMessageLinkRequest represents TL type `getMessageLink#a0312f6f`.
+// GetMessageLinkRequest represents TL type `getMessageLink#c556ef7a`.
 type GetMessageLinkRequest struct {
 	// Identifier of the chat to which the message belongs
 	ChatID int64
@@ -42,13 +42,13 @@ type GetMessageLinkRequest struct {
 	MediaTimestamp int32
 	// Pass true to create a link for the whole media album
 	ForAlbum bool
-	// Pass true to create a link to the message as a channel post comment, or from a message
-	// thread
-	ForComment bool
+	// Pass true to create a link to the message as a channel post comment, in a message
+	// thread, or a forum topic
+	InMessageThread bool
 }
 
 // GetMessageLinkRequestTypeID is TL type id of GetMessageLinkRequest.
-const GetMessageLinkRequestTypeID = 0xa0312f6f
+const GetMessageLinkRequestTypeID = 0xc556ef7a
 
 // Ensuring interfaces in compile-time for GetMessageLinkRequest.
 var (
@@ -74,7 +74,7 @@ func (g *GetMessageLinkRequest) Zero() bool {
 	if !(g.ForAlbum == false) {
 		return false
 	}
-	if !(g.ForComment == false) {
+	if !(g.InMessageThread == false) {
 		return false
 	}
 
@@ -130,8 +130,8 @@ func (g *GetMessageLinkRequest) TypeInfo() tdp.Type {
 			SchemaName: "for_album",
 		},
 		{
-			Name:       "ForComment",
-			SchemaName: "for_comment",
+			Name:       "InMessageThread",
+			SchemaName: "in_message_thread",
 		},
 	}
 	return typ
@@ -140,7 +140,7 @@ func (g *GetMessageLinkRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetMessageLinkRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getMessageLink#a0312f6f as nil")
+		return fmt.Errorf("can't encode getMessageLink#c556ef7a as nil")
 	}
 	b.PutID(GetMessageLinkRequestTypeID)
 	return g.EncodeBare(b)
@@ -149,23 +149,23 @@ func (g *GetMessageLinkRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetMessageLinkRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getMessageLink#a0312f6f as nil")
+		return fmt.Errorf("can't encode getMessageLink#c556ef7a as nil")
 	}
 	b.PutInt53(g.ChatID)
 	b.PutInt53(g.MessageID)
 	b.PutInt32(g.MediaTimestamp)
 	b.PutBool(g.ForAlbum)
-	b.PutBool(g.ForComment)
+	b.PutBool(g.InMessageThread)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *GetMessageLinkRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getMessageLink#a0312f6f to nil")
+		return fmt.Errorf("can't decode getMessageLink#c556ef7a to nil")
 	}
 	if err := b.ConsumeID(GetMessageLinkRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getMessageLink#a0312f6f: %w", err)
+		return fmt.Errorf("unable to decode getMessageLink#c556ef7a: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -173,42 +173,42 @@ func (g *GetMessageLinkRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetMessageLinkRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getMessageLink#a0312f6f to nil")
+		return fmt.Errorf("can't decode getMessageLink#c556ef7a to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getMessageLink#a0312f6f: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode getMessageLink#c556ef7a: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getMessageLink#a0312f6f: field message_id: %w", err)
+			return fmt.Errorf("unable to decode getMessageLink#c556ef7a: field message_id: %w", err)
 		}
 		g.MessageID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getMessageLink#a0312f6f: field media_timestamp: %w", err)
+			return fmt.Errorf("unable to decode getMessageLink#c556ef7a: field media_timestamp: %w", err)
 		}
 		g.MediaTimestamp = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode getMessageLink#a0312f6f: field for_album: %w", err)
+			return fmt.Errorf("unable to decode getMessageLink#c556ef7a: field for_album: %w", err)
 		}
 		g.ForAlbum = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode getMessageLink#a0312f6f: field for_comment: %w", err)
+			return fmt.Errorf("unable to decode getMessageLink#c556ef7a: field in_message_thread: %w", err)
 		}
-		g.ForComment = value
+		g.InMessageThread = value
 	}
 	return nil
 }
@@ -216,7 +216,7 @@ func (g *GetMessageLinkRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetMessageLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getMessageLink#a0312f6f as nil")
+		return fmt.Errorf("can't encode getMessageLink#c556ef7a as nil")
 	}
 	b.ObjStart()
 	b.PutID("getMessageLink")
@@ -233,8 +233,8 @@ func (g *GetMessageLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("for_album")
 	b.PutBool(g.ForAlbum)
 	b.Comma()
-	b.FieldStart("for_comment")
-	b.PutBool(g.ForComment)
+	b.FieldStart("in_message_thread")
+	b.PutBool(g.InMessageThread)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -244,45 +244,45 @@ func (g *GetMessageLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetMessageLinkRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getMessageLink#a0312f6f to nil")
+		return fmt.Errorf("can't decode getMessageLink#c556ef7a to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getMessageLink"); err != nil {
-				return fmt.Errorf("unable to decode getMessageLink#a0312f6f: %w", err)
+				return fmt.Errorf("unable to decode getMessageLink#c556ef7a: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getMessageLink#a0312f6f: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode getMessageLink#c556ef7a: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getMessageLink#a0312f6f: field message_id: %w", err)
+				return fmt.Errorf("unable to decode getMessageLink#c556ef7a: field message_id: %w", err)
 			}
 			g.MessageID = value
 		case "media_timestamp":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getMessageLink#a0312f6f: field media_timestamp: %w", err)
+				return fmt.Errorf("unable to decode getMessageLink#c556ef7a: field media_timestamp: %w", err)
 			}
 			g.MediaTimestamp = value
 		case "for_album":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode getMessageLink#a0312f6f: field for_album: %w", err)
+				return fmt.Errorf("unable to decode getMessageLink#c556ef7a: field for_album: %w", err)
 			}
 			g.ForAlbum = value
-		case "for_comment":
+		case "in_message_thread":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode getMessageLink#a0312f6f: field for_comment: %w", err)
+				return fmt.Errorf("unable to decode getMessageLink#c556ef7a: field in_message_thread: %w", err)
 			}
-			g.ForComment = value
+			g.InMessageThread = value
 		default:
 			return b.Skip()
 		}
@@ -322,15 +322,15 @@ func (g *GetMessageLinkRequest) GetForAlbum() (value bool) {
 	return g.ForAlbum
 }
 
-// GetForComment returns value of ForComment field.
-func (g *GetMessageLinkRequest) GetForComment() (value bool) {
+// GetInMessageThread returns value of InMessageThread field.
+func (g *GetMessageLinkRequest) GetInMessageThread() (value bool) {
 	if g == nil {
 		return
 	}
-	return g.ForComment
+	return g.InMessageThread
 }
 
-// GetMessageLink invokes method getMessageLink#a0312f6f returning error if any.
+// GetMessageLink invokes method getMessageLink#c556ef7a returning error if any.
 func (c *Client) GetMessageLink(ctx context.Context, request *GetMessageLinkRequest) (*MessageLink, error) {
 	var result MessageLink
 
