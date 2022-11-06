@@ -33,7 +33,7 @@ func PollAnswer(text string) PollAnswerOption {
 		i := len(p.input.Poll.Answers)
 		p.input.Poll.Answers = append(p.input.Poll.Answers, tg.PollAnswer{
 			Text:   text,
-			Option: []byte(text + strconv.Itoa(i)),
+			Option: []byte(strconv.Itoa(i)),
 		})
 	}
 }
@@ -43,7 +43,7 @@ func CorrectPollAnswer(text string) PollAnswerOption {
 	return func(p *pollAnswerBuilder) {
 		p.input.Poll.Quiz = true
 		i := len(p.input.Poll.Answers)
-		option := []byte(text + strconv.Itoa(i))
+		option := []byte(strconv.Itoa(i))
 		p.input.Poll.Answers = append(p.input.Poll.Answers, tg.PollAnswer{
 			Text:   text,
 			Option: option,
