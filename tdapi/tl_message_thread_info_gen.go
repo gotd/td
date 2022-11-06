@@ -37,7 +37,7 @@ type MessageThreadInfo struct {
 	ChatID int64
 	// Message thread identifier, unique within the chat
 	MessageThreadID int64
-	// Information about the message thread
+	// Information about the message thread; may be null for forum topic threads
 	ReplyInfo MessageReplyInfo
 	// Approximate number of unread messages in the message thread
 	UnreadMessageCount int32

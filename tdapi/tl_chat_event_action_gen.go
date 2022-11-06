@@ -4471,6 +4471,254 @@ func (c *ChatEventUsernameChanged) GetNewUsername() (value string) {
 	return c.NewUsername
 }
 
+// ChatEventActiveUsernamesChanged represents TL type `chatEventActiveUsernamesChanged#95e54656`.
+type ChatEventActiveUsernamesChanged struct {
+	// Previous list of active usernames
+	OldUsernames []string
+	// New list of active usernames
+	NewUsernames []string
+}
+
+// ChatEventActiveUsernamesChangedTypeID is TL type id of ChatEventActiveUsernamesChanged.
+const ChatEventActiveUsernamesChangedTypeID = 0x95e54656
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventActiveUsernamesChanged) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventActiveUsernamesChanged.
+var (
+	_ bin.Encoder     = &ChatEventActiveUsernamesChanged{}
+	_ bin.Decoder     = &ChatEventActiveUsernamesChanged{}
+	_ bin.BareEncoder = &ChatEventActiveUsernamesChanged{}
+	_ bin.BareDecoder = &ChatEventActiveUsernamesChanged{}
+
+	_ ChatEventActionClass = &ChatEventActiveUsernamesChanged{}
+)
+
+func (c *ChatEventActiveUsernamesChanged) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.OldUsernames == nil) {
+		return false
+	}
+	if !(c.NewUsernames == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventActiveUsernamesChanged) String() string {
+	if c == nil {
+		return "ChatEventActiveUsernamesChanged(nil)"
+	}
+	type Alias ChatEventActiveUsernamesChanged
+	return fmt.Sprintf("ChatEventActiveUsernamesChanged%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventActiveUsernamesChanged) TypeID() uint32 {
+	return ChatEventActiveUsernamesChangedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventActiveUsernamesChanged) TypeName() string {
+	return "chatEventActiveUsernamesChanged"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventActiveUsernamesChanged) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventActiveUsernamesChanged",
+		ID:   ChatEventActiveUsernamesChangedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "OldUsernames",
+			SchemaName: "old_usernames",
+		},
+		{
+			Name:       "NewUsernames",
+			SchemaName: "new_usernames",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventActiveUsernamesChanged) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventActiveUsernamesChanged#95e54656 as nil")
+	}
+	b.PutID(ChatEventActiveUsernamesChangedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventActiveUsernamesChanged) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventActiveUsernamesChanged#95e54656 as nil")
+	}
+	b.PutInt(len(c.OldUsernames))
+	for _, v := range c.OldUsernames {
+		b.PutString(v)
+	}
+	b.PutInt(len(c.NewUsernames))
+	for _, v := range c.NewUsernames {
+		b.PutString(v)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventActiveUsernamesChanged) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventActiveUsernamesChanged#95e54656 to nil")
+	}
+	if err := b.ConsumeID(ChatEventActiveUsernamesChangedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventActiveUsernamesChanged#95e54656: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventActiveUsernamesChanged) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventActiveUsernamesChanged#95e54656 to nil")
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventActiveUsernamesChanged#95e54656: field old_usernames: %w", err)
+		}
+
+		if headerLen > 0 {
+			c.OldUsernames = make([]string, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventActiveUsernamesChanged#95e54656: field old_usernames: %w", err)
+			}
+			c.OldUsernames = append(c.OldUsernames, value)
+		}
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventActiveUsernamesChanged#95e54656: field new_usernames: %w", err)
+		}
+
+		if headerLen > 0 {
+			c.NewUsernames = make([]string, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventActiveUsernamesChanged#95e54656: field new_usernames: %w", err)
+			}
+			c.NewUsernames = append(c.NewUsernames, value)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventActiveUsernamesChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventActiveUsernamesChanged#95e54656 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventActiveUsernamesChanged")
+	b.Comma()
+	b.FieldStart("old_usernames")
+	b.ArrStart()
+	for _, v := range c.OldUsernames {
+		b.PutString(v)
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.FieldStart("new_usernames")
+	b.ArrStart()
+	for _, v := range c.NewUsernames {
+		b.PutString(v)
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventActiveUsernamesChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventActiveUsernamesChanged#95e54656 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventActiveUsernamesChanged"); err != nil {
+				return fmt.Errorf("unable to decode chatEventActiveUsernamesChanged#95e54656: %w", err)
+			}
+		case "old_usernames":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				value, err := b.String()
+				if err != nil {
+					return fmt.Errorf("unable to decode chatEventActiveUsernamesChanged#95e54656: field old_usernames: %w", err)
+				}
+				c.OldUsernames = append(c.OldUsernames, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode chatEventActiveUsernamesChanged#95e54656: field old_usernames: %w", err)
+			}
+		case "new_usernames":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				value, err := b.String()
+				if err != nil {
+					return fmt.Errorf("unable to decode chatEventActiveUsernamesChanged#95e54656: field new_usernames: %w", err)
+				}
+				c.NewUsernames = append(c.NewUsernames, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode chatEventActiveUsernamesChanged#95e54656: field new_usernames: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetOldUsernames returns value of OldUsernames field.
+func (c *ChatEventActiveUsernamesChanged) GetOldUsernames() (value []string) {
+	if c == nil {
+		return
+	}
+	return c.OldUsernames
+}
+
+// GetNewUsernames returns value of NewUsernames field.
+func (c *ChatEventActiveUsernamesChanged) GetNewUsernames() (value []string) {
+	if c == nil {
+		return
+	}
+	return c.NewUsernames
+}
+
 // ChatEventHasProtectedContentToggled represents TL type `chatEventHasProtectedContentToggled#f5044201`.
 type ChatEventHasProtectedContentToggled struct {
 	// New value of has_protected_content
@@ -6587,6 +6835,1070 @@ func (c *ChatEventVideoChatParticipantVolumeLevelChanged) GetVolumeLevel() (valu
 	return c.VolumeLevel
 }
 
+// ChatEventIsForumToggled represents TL type `chatEventIsForumToggled#5a63d119`.
+type ChatEventIsForumToggled struct {
+	// New value of is_forum
+	IsForum bool
+}
+
+// ChatEventIsForumToggledTypeID is TL type id of ChatEventIsForumToggled.
+const ChatEventIsForumToggledTypeID = 0x5a63d119
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventIsForumToggled) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventIsForumToggled.
+var (
+	_ bin.Encoder     = &ChatEventIsForumToggled{}
+	_ bin.Decoder     = &ChatEventIsForumToggled{}
+	_ bin.BareEncoder = &ChatEventIsForumToggled{}
+	_ bin.BareDecoder = &ChatEventIsForumToggled{}
+
+	_ ChatEventActionClass = &ChatEventIsForumToggled{}
+)
+
+func (c *ChatEventIsForumToggled) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.IsForum == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventIsForumToggled) String() string {
+	if c == nil {
+		return "ChatEventIsForumToggled(nil)"
+	}
+	type Alias ChatEventIsForumToggled
+	return fmt.Sprintf("ChatEventIsForumToggled%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventIsForumToggled) TypeID() uint32 {
+	return ChatEventIsForumToggledTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventIsForumToggled) TypeName() string {
+	return "chatEventIsForumToggled"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventIsForumToggled) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventIsForumToggled",
+		ID:   ChatEventIsForumToggledTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "IsForum",
+			SchemaName: "is_forum",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventIsForumToggled) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventIsForumToggled#5a63d119 as nil")
+	}
+	b.PutID(ChatEventIsForumToggledTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventIsForumToggled) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventIsForumToggled#5a63d119 as nil")
+	}
+	b.PutBool(c.IsForum)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventIsForumToggled) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventIsForumToggled#5a63d119 to nil")
+	}
+	if err := b.ConsumeID(ChatEventIsForumToggledTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventIsForumToggled#5a63d119: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventIsForumToggled) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventIsForumToggled#5a63d119 to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventIsForumToggled#5a63d119: field is_forum: %w", err)
+		}
+		c.IsForum = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventIsForumToggled) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventIsForumToggled#5a63d119 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventIsForumToggled")
+	b.Comma()
+	b.FieldStart("is_forum")
+	b.PutBool(c.IsForum)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventIsForumToggled) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventIsForumToggled#5a63d119 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventIsForumToggled"); err != nil {
+				return fmt.Errorf("unable to decode chatEventIsForumToggled#5a63d119: %w", err)
+			}
+		case "is_forum":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventIsForumToggled#5a63d119: field is_forum: %w", err)
+			}
+			c.IsForum = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetIsForum returns value of IsForum field.
+func (c *ChatEventIsForumToggled) GetIsForum() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.IsForum
+}
+
+// ChatEventForumTopicCreated represents TL type `chatEventForumTopicCreated#7785fb42`.
+type ChatEventForumTopicCreated struct {
+	// Information about the topic
+	TopicInfo ForumTopicInfo
+}
+
+// ChatEventForumTopicCreatedTypeID is TL type id of ChatEventForumTopicCreated.
+const ChatEventForumTopicCreatedTypeID = 0x7785fb42
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventForumTopicCreated) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventForumTopicCreated.
+var (
+	_ bin.Encoder     = &ChatEventForumTopicCreated{}
+	_ bin.Decoder     = &ChatEventForumTopicCreated{}
+	_ bin.BareEncoder = &ChatEventForumTopicCreated{}
+	_ bin.BareDecoder = &ChatEventForumTopicCreated{}
+
+	_ ChatEventActionClass = &ChatEventForumTopicCreated{}
+)
+
+func (c *ChatEventForumTopicCreated) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.TopicInfo.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventForumTopicCreated) String() string {
+	if c == nil {
+		return "ChatEventForumTopicCreated(nil)"
+	}
+	type Alias ChatEventForumTopicCreated
+	return fmt.Sprintf("ChatEventForumTopicCreated%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventForumTopicCreated) TypeID() uint32 {
+	return ChatEventForumTopicCreatedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventForumTopicCreated) TypeName() string {
+	return "chatEventForumTopicCreated"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventForumTopicCreated) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventForumTopicCreated",
+		ID:   ChatEventForumTopicCreatedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "TopicInfo",
+			SchemaName: "topic_info",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventForumTopicCreated) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventForumTopicCreated#7785fb42 as nil")
+	}
+	b.PutID(ChatEventForumTopicCreatedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventForumTopicCreated) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventForumTopicCreated#7785fb42 as nil")
+	}
+	if err := c.TopicInfo.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventForumTopicCreated#7785fb42: field topic_info: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventForumTopicCreated) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventForumTopicCreated#7785fb42 to nil")
+	}
+	if err := b.ConsumeID(ChatEventForumTopicCreatedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventForumTopicCreated#7785fb42: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventForumTopicCreated) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventForumTopicCreated#7785fb42 to nil")
+	}
+	{
+		if err := c.TopicInfo.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatEventForumTopicCreated#7785fb42: field topic_info: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventForumTopicCreated) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventForumTopicCreated#7785fb42 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventForumTopicCreated")
+	b.Comma()
+	b.FieldStart("topic_info")
+	if err := c.TopicInfo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventForumTopicCreated#7785fb42: field topic_info: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventForumTopicCreated) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventForumTopicCreated#7785fb42 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventForumTopicCreated"); err != nil {
+				return fmt.Errorf("unable to decode chatEventForumTopicCreated#7785fb42: %w", err)
+			}
+		case "topic_info":
+			if err := c.TopicInfo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatEventForumTopicCreated#7785fb42: field topic_info: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetTopicInfo returns value of TopicInfo field.
+func (c *ChatEventForumTopicCreated) GetTopicInfo() (value ForumTopicInfo) {
+	if c == nil {
+		return
+	}
+	return c.TopicInfo
+}
+
+// ChatEventForumTopicEdited represents TL type `chatEventForumTopicEdited#60da2c0c`.
+type ChatEventForumTopicEdited struct {
+	// Old information about the topic
+	OldTopicInfo ForumTopicInfo
+	// New information about the topic
+	NewTopicInfo ForumTopicInfo
+}
+
+// ChatEventForumTopicEditedTypeID is TL type id of ChatEventForumTopicEdited.
+const ChatEventForumTopicEditedTypeID = 0x60da2c0c
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventForumTopicEdited) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventForumTopicEdited.
+var (
+	_ bin.Encoder     = &ChatEventForumTopicEdited{}
+	_ bin.Decoder     = &ChatEventForumTopicEdited{}
+	_ bin.BareEncoder = &ChatEventForumTopicEdited{}
+	_ bin.BareDecoder = &ChatEventForumTopicEdited{}
+
+	_ ChatEventActionClass = &ChatEventForumTopicEdited{}
+)
+
+func (c *ChatEventForumTopicEdited) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.OldTopicInfo.Zero()) {
+		return false
+	}
+	if !(c.NewTopicInfo.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventForumTopicEdited) String() string {
+	if c == nil {
+		return "ChatEventForumTopicEdited(nil)"
+	}
+	type Alias ChatEventForumTopicEdited
+	return fmt.Sprintf("ChatEventForumTopicEdited%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventForumTopicEdited) TypeID() uint32 {
+	return ChatEventForumTopicEditedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventForumTopicEdited) TypeName() string {
+	return "chatEventForumTopicEdited"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventForumTopicEdited) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventForumTopicEdited",
+		ID:   ChatEventForumTopicEditedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "OldTopicInfo",
+			SchemaName: "old_topic_info",
+		},
+		{
+			Name:       "NewTopicInfo",
+			SchemaName: "new_topic_info",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventForumTopicEdited) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventForumTopicEdited#60da2c0c as nil")
+	}
+	b.PutID(ChatEventForumTopicEditedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventForumTopicEdited) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventForumTopicEdited#60da2c0c as nil")
+	}
+	if err := c.OldTopicInfo.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventForumTopicEdited#60da2c0c: field old_topic_info: %w", err)
+	}
+	if err := c.NewTopicInfo.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventForumTopicEdited#60da2c0c: field new_topic_info: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventForumTopicEdited) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventForumTopicEdited#60da2c0c to nil")
+	}
+	if err := b.ConsumeID(ChatEventForumTopicEditedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventForumTopicEdited#60da2c0c: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventForumTopicEdited) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventForumTopicEdited#60da2c0c to nil")
+	}
+	{
+		if err := c.OldTopicInfo.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatEventForumTopicEdited#60da2c0c: field old_topic_info: %w", err)
+		}
+	}
+	{
+		if err := c.NewTopicInfo.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatEventForumTopicEdited#60da2c0c: field new_topic_info: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventForumTopicEdited) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventForumTopicEdited#60da2c0c as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventForumTopicEdited")
+	b.Comma()
+	b.FieldStart("old_topic_info")
+	if err := c.OldTopicInfo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventForumTopicEdited#60da2c0c: field old_topic_info: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("new_topic_info")
+	if err := c.NewTopicInfo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventForumTopicEdited#60da2c0c: field new_topic_info: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventForumTopicEdited) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventForumTopicEdited#60da2c0c to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventForumTopicEdited"); err != nil {
+				return fmt.Errorf("unable to decode chatEventForumTopicEdited#60da2c0c: %w", err)
+			}
+		case "old_topic_info":
+			if err := c.OldTopicInfo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatEventForumTopicEdited#60da2c0c: field old_topic_info: %w", err)
+			}
+		case "new_topic_info":
+			if err := c.NewTopicInfo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatEventForumTopicEdited#60da2c0c: field new_topic_info: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetOldTopicInfo returns value of OldTopicInfo field.
+func (c *ChatEventForumTopicEdited) GetOldTopicInfo() (value ForumTopicInfo) {
+	if c == nil {
+		return
+	}
+	return c.OldTopicInfo
+}
+
+// GetNewTopicInfo returns value of NewTopicInfo field.
+func (c *ChatEventForumTopicEdited) GetNewTopicInfo() (value ForumTopicInfo) {
+	if c == nil {
+		return
+	}
+	return c.NewTopicInfo
+}
+
+// ChatEventForumTopicToggleIsClosed represents TL type `chatEventForumTopicToggleIsClosed#c69e4d3a`.
+type ChatEventForumTopicToggleIsClosed struct {
+	// New information about the topic
+	TopicInfo ForumTopicInfo
+}
+
+// ChatEventForumTopicToggleIsClosedTypeID is TL type id of ChatEventForumTopicToggleIsClosed.
+const ChatEventForumTopicToggleIsClosedTypeID = 0xc69e4d3a
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventForumTopicToggleIsClosed) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventForumTopicToggleIsClosed.
+var (
+	_ bin.Encoder     = &ChatEventForumTopicToggleIsClosed{}
+	_ bin.Decoder     = &ChatEventForumTopicToggleIsClosed{}
+	_ bin.BareEncoder = &ChatEventForumTopicToggleIsClosed{}
+	_ bin.BareDecoder = &ChatEventForumTopicToggleIsClosed{}
+
+	_ ChatEventActionClass = &ChatEventForumTopicToggleIsClosed{}
+)
+
+func (c *ChatEventForumTopicToggleIsClosed) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.TopicInfo.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventForumTopicToggleIsClosed) String() string {
+	if c == nil {
+		return "ChatEventForumTopicToggleIsClosed(nil)"
+	}
+	type Alias ChatEventForumTopicToggleIsClosed
+	return fmt.Sprintf("ChatEventForumTopicToggleIsClosed%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventForumTopicToggleIsClosed) TypeID() uint32 {
+	return ChatEventForumTopicToggleIsClosedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventForumTopicToggleIsClosed) TypeName() string {
+	return "chatEventForumTopicToggleIsClosed"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventForumTopicToggleIsClosed) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventForumTopicToggleIsClosed",
+		ID:   ChatEventForumTopicToggleIsClosedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "TopicInfo",
+			SchemaName: "topic_info",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventForumTopicToggleIsClosed) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventForumTopicToggleIsClosed#c69e4d3a as nil")
+	}
+	b.PutID(ChatEventForumTopicToggleIsClosedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventForumTopicToggleIsClosed) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventForumTopicToggleIsClosed#c69e4d3a as nil")
+	}
+	if err := c.TopicInfo.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventForumTopicToggleIsClosed#c69e4d3a: field topic_info: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventForumTopicToggleIsClosed) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventForumTopicToggleIsClosed#c69e4d3a to nil")
+	}
+	if err := b.ConsumeID(ChatEventForumTopicToggleIsClosedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventForumTopicToggleIsClosed#c69e4d3a: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventForumTopicToggleIsClosed) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventForumTopicToggleIsClosed#c69e4d3a to nil")
+	}
+	{
+		if err := c.TopicInfo.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatEventForumTopicToggleIsClosed#c69e4d3a: field topic_info: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventForumTopicToggleIsClosed) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventForumTopicToggleIsClosed#c69e4d3a as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventForumTopicToggleIsClosed")
+	b.Comma()
+	b.FieldStart("topic_info")
+	if err := c.TopicInfo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventForumTopicToggleIsClosed#c69e4d3a: field topic_info: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventForumTopicToggleIsClosed) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventForumTopicToggleIsClosed#c69e4d3a to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventForumTopicToggleIsClosed"); err != nil {
+				return fmt.Errorf("unable to decode chatEventForumTopicToggleIsClosed#c69e4d3a: %w", err)
+			}
+		case "topic_info":
+			if err := c.TopicInfo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatEventForumTopicToggleIsClosed#c69e4d3a: field topic_info: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetTopicInfo returns value of TopicInfo field.
+func (c *ChatEventForumTopicToggleIsClosed) GetTopicInfo() (value ForumTopicInfo) {
+	if c == nil {
+		return
+	}
+	return c.TopicInfo
+}
+
+// ChatEventForumTopicDeleted represents TL type `chatEventForumTopicDeleted#b08f290d`.
+type ChatEventForumTopicDeleted struct {
+	// Information about the topic
+	TopicInfo ForumTopicInfo
+}
+
+// ChatEventForumTopicDeletedTypeID is TL type id of ChatEventForumTopicDeleted.
+const ChatEventForumTopicDeletedTypeID = 0xb08f290d
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventForumTopicDeleted) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventForumTopicDeleted.
+var (
+	_ bin.Encoder     = &ChatEventForumTopicDeleted{}
+	_ bin.Decoder     = &ChatEventForumTopicDeleted{}
+	_ bin.BareEncoder = &ChatEventForumTopicDeleted{}
+	_ bin.BareDecoder = &ChatEventForumTopicDeleted{}
+
+	_ ChatEventActionClass = &ChatEventForumTopicDeleted{}
+)
+
+func (c *ChatEventForumTopicDeleted) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.TopicInfo.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventForumTopicDeleted) String() string {
+	if c == nil {
+		return "ChatEventForumTopicDeleted(nil)"
+	}
+	type Alias ChatEventForumTopicDeleted
+	return fmt.Sprintf("ChatEventForumTopicDeleted%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventForumTopicDeleted) TypeID() uint32 {
+	return ChatEventForumTopicDeletedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventForumTopicDeleted) TypeName() string {
+	return "chatEventForumTopicDeleted"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventForumTopicDeleted) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventForumTopicDeleted",
+		ID:   ChatEventForumTopicDeletedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "TopicInfo",
+			SchemaName: "topic_info",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventForumTopicDeleted) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventForumTopicDeleted#b08f290d as nil")
+	}
+	b.PutID(ChatEventForumTopicDeletedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventForumTopicDeleted) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventForumTopicDeleted#b08f290d as nil")
+	}
+	if err := c.TopicInfo.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventForumTopicDeleted#b08f290d: field topic_info: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventForumTopicDeleted) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventForumTopicDeleted#b08f290d to nil")
+	}
+	if err := b.ConsumeID(ChatEventForumTopicDeletedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventForumTopicDeleted#b08f290d: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventForumTopicDeleted) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventForumTopicDeleted#b08f290d to nil")
+	}
+	{
+		if err := c.TopicInfo.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatEventForumTopicDeleted#b08f290d: field topic_info: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventForumTopicDeleted) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventForumTopicDeleted#b08f290d as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventForumTopicDeleted")
+	b.Comma()
+	b.FieldStart("topic_info")
+	if err := c.TopicInfo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventForumTopicDeleted#b08f290d: field topic_info: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventForumTopicDeleted) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventForumTopicDeleted#b08f290d to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventForumTopicDeleted"); err != nil {
+				return fmt.Errorf("unable to decode chatEventForumTopicDeleted#b08f290d: %w", err)
+			}
+		case "topic_info":
+			if err := c.TopicInfo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatEventForumTopicDeleted#b08f290d: field topic_info: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetTopicInfo returns value of TopicInfo field.
+func (c *ChatEventForumTopicDeleted) GetTopicInfo() (value ForumTopicInfo) {
+	if c == nil {
+		return
+	}
+	return c.TopicInfo
+}
+
+// ChatEventForumTopicPinned represents TL type `chatEventForumTopicPinned#7fc523ee`.
+type ChatEventForumTopicPinned struct {
+	// Information about the old pinned topic; may be null
+	OldTopicInfo ForumTopicInfo
+	// Information about the new pinned topic; may be null
+	NewTopicInfo ForumTopicInfo
+}
+
+// ChatEventForumTopicPinnedTypeID is TL type id of ChatEventForumTopicPinned.
+const ChatEventForumTopicPinnedTypeID = 0x7fc523ee
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventForumTopicPinned) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventForumTopicPinned.
+var (
+	_ bin.Encoder     = &ChatEventForumTopicPinned{}
+	_ bin.Decoder     = &ChatEventForumTopicPinned{}
+	_ bin.BareEncoder = &ChatEventForumTopicPinned{}
+	_ bin.BareDecoder = &ChatEventForumTopicPinned{}
+
+	_ ChatEventActionClass = &ChatEventForumTopicPinned{}
+)
+
+func (c *ChatEventForumTopicPinned) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.OldTopicInfo.Zero()) {
+		return false
+	}
+	if !(c.NewTopicInfo.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventForumTopicPinned) String() string {
+	if c == nil {
+		return "ChatEventForumTopicPinned(nil)"
+	}
+	type Alias ChatEventForumTopicPinned
+	return fmt.Sprintf("ChatEventForumTopicPinned%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventForumTopicPinned) TypeID() uint32 {
+	return ChatEventForumTopicPinnedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventForumTopicPinned) TypeName() string {
+	return "chatEventForumTopicPinned"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventForumTopicPinned) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventForumTopicPinned",
+		ID:   ChatEventForumTopicPinnedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "OldTopicInfo",
+			SchemaName: "old_topic_info",
+		},
+		{
+			Name:       "NewTopicInfo",
+			SchemaName: "new_topic_info",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventForumTopicPinned) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventForumTopicPinned#7fc523ee as nil")
+	}
+	b.PutID(ChatEventForumTopicPinnedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventForumTopicPinned) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventForumTopicPinned#7fc523ee as nil")
+	}
+	if err := c.OldTopicInfo.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventForumTopicPinned#7fc523ee: field old_topic_info: %w", err)
+	}
+	if err := c.NewTopicInfo.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventForumTopicPinned#7fc523ee: field new_topic_info: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventForumTopicPinned) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventForumTopicPinned#7fc523ee to nil")
+	}
+	if err := b.ConsumeID(ChatEventForumTopicPinnedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventForumTopicPinned#7fc523ee: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventForumTopicPinned) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventForumTopicPinned#7fc523ee to nil")
+	}
+	{
+		if err := c.OldTopicInfo.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatEventForumTopicPinned#7fc523ee: field old_topic_info: %w", err)
+		}
+	}
+	{
+		if err := c.NewTopicInfo.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatEventForumTopicPinned#7fc523ee: field new_topic_info: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventForumTopicPinned) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventForumTopicPinned#7fc523ee as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventForumTopicPinned")
+	b.Comma()
+	b.FieldStart("old_topic_info")
+	if err := c.OldTopicInfo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventForumTopicPinned#7fc523ee: field old_topic_info: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("new_topic_info")
+	if err := c.NewTopicInfo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventForumTopicPinned#7fc523ee: field new_topic_info: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventForumTopicPinned) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventForumTopicPinned#7fc523ee to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventForumTopicPinned"); err != nil {
+				return fmt.Errorf("unable to decode chatEventForumTopicPinned#7fc523ee: %w", err)
+			}
+		case "old_topic_info":
+			if err := c.OldTopicInfo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatEventForumTopicPinned#7fc523ee: field old_topic_info: %w", err)
+			}
+		case "new_topic_info":
+			if err := c.NewTopicInfo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatEventForumTopicPinned#7fc523ee: field new_topic_info: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetOldTopicInfo returns value of OldTopicInfo field.
+func (c *ChatEventForumTopicPinned) GetOldTopicInfo() (value ForumTopicInfo) {
+	if c == nil {
+		return
+	}
+	return c.OldTopicInfo
+}
+
+// GetNewTopicInfo returns value of NewTopicInfo field.
+func (c *ChatEventForumTopicPinned) GetNewTopicInfo() (value ForumTopicInfo) {
+	if c == nil {
+		return
+	}
+	return c.NewTopicInfo
+}
+
 // ChatEventActionClassName is schema name of ChatEventActionClass.
 const ChatEventActionClassName = "ChatEventAction"
 
@@ -6622,6 +7934,7 @@ const ChatEventActionClassName = "ChatEventAction"
 //	case *tdapi.ChatEventStickerSetChanged: // chatEventStickerSetChanged#b5e7558f
 //	case *tdapi.ChatEventTitleChanged: // chatEventTitleChanged#43990ad2
 //	case *tdapi.ChatEventUsernameChanged: // chatEventUsernameChanged#6707b56b
+//	case *tdapi.ChatEventActiveUsernamesChanged: // chatEventActiveUsernamesChanged#95e54656
 //	case *tdapi.ChatEventHasProtectedContentToggled: // chatEventHasProtectedContentToggled#f5044201
 //	case *tdapi.ChatEventInvitesToggled: // chatEventInvitesToggled#fc45966b
 //	case *tdapi.ChatEventIsAllHistoryAvailableToggled: // chatEventIsAllHistoryAvailableToggled#a0b03c15
@@ -6634,6 +7947,12 @@ const ChatEventActionClassName = "ChatEventAction"
 //	case *tdapi.ChatEventVideoChatMuteNewParticipantsToggled: // chatEventVideoChatMuteNewParticipantsToggled#f87507fe
 //	case *tdapi.ChatEventVideoChatParticipantIsMutedToggled: // chatEventVideoChatParticipantIsMutedToggled#1f1058f7
 //	case *tdapi.ChatEventVideoChatParticipantVolumeLevelChanged: // chatEventVideoChatParticipantVolumeLevelChanged#436f92be
+//	case *tdapi.ChatEventIsForumToggled: // chatEventIsForumToggled#5a63d119
+//	case *tdapi.ChatEventForumTopicCreated: // chatEventForumTopicCreated#7785fb42
+//	case *tdapi.ChatEventForumTopicEdited: // chatEventForumTopicEdited#60da2c0c
+//	case *tdapi.ChatEventForumTopicToggleIsClosed: // chatEventForumTopicToggleIsClosed#c69e4d3a
+//	case *tdapi.ChatEventForumTopicDeleted: // chatEventForumTopicDeleted#b08f290d
+//	case *tdapi.ChatEventForumTopicPinned: // chatEventForumTopicPinned#7fc523ee
 //	default: panic(v)
 //	}
 type ChatEventActionClass interface {
@@ -6826,6 +8145,13 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
+	case ChatEventActiveUsernamesChangedTypeID:
+		// Decoding chatEventActiveUsernamesChanged#95e54656.
+		v := ChatEventActiveUsernamesChanged{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
 	case ChatEventHasProtectedContentToggledTypeID:
 		// Decoding chatEventHasProtectedContentToggled#f5044201.
 		v := ChatEventHasProtectedContentToggled{}
@@ -6906,6 +8232,48 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 	case ChatEventVideoChatParticipantVolumeLevelChangedTypeID:
 		// Decoding chatEventVideoChatParticipantVolumeLevelChanged#436f92be.
 		v := ChatEventVideoChatParticipantVolumeLevelChanged{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventIsForumToggledTypeID:
+		// Decoding chatEventIsForumToggled#5a63d119.
+		v := ChatEventIsForumToggled{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventForumTopicCreatedTypeID:
+		// Decoding chatEventForumTopicCreated#7785fb42.
+		v := ChatEventForumTopicCreated{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventForumTopicEditedTypeID:
+		// Decoding chatEventForumTopicEdited#60da2c0c.
+		v := ChatEventForumTopicEdited{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventForumTopicToggleIsClosedTypeID:
+		// Decoding chatEventForumTopicToggleIsClosed#c69e4d3a.
+		v := ChatEventForumTopicToggleIsClosed{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventForumTopicDeletedTypeID:
+		// Decoding chatEventForumTopicDeleted#b08f290d.
+		v := ChatEventForumTopicDeleted{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventForumTopicPinnedTypeID:
+		// Decoding chatEventForumTopicPinned#7fc523ee.
+		v := ChatEventForumTopicPinned{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -7083,6 +8451,13 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
+	case "chatEventActiveUsernamesChanged":
+		// Decoding chatEventActiveUsernamesChanged#95e54656.
+		v := ChatEventActiveUsernamesChanged{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
 	case "chatEventHasProtectedContentToggled":
 		// Decoding chatEventHasProtectedContentToggled#f5044201.
 		v := ChatEventHasProtectedContentToggled{}
@@ -7163,6 +8538,48 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 	case "chatEventVideoChatParticipantVolumeLevelChanged":
 		// Decoding chatEventVideoChatParticipantVolumeLevelChanged#436f92be.
 		v := ChatEventVideoChatParticipantVolumeLevelChanged{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventIsForumToggled":
+		// Decoding chatEventIsForumToggled#5a63d119.
+		v := ChatEventIsForumToggled{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventForumTopicCreated":
+		// Decoding chatEventForumTopicCreated#7785fb42.
+		v := ChatEventForumTopicCreated{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventForumTopicEdited":
+		// Decoding chatEventForumTopicEdited#60da2c0c.
+		v := ChatEventForumTopicEdited{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventForumTopicToggleIsClosed":
+		// Decoding chatEventForumTopicToggleIsClosed#c69e4d3a.
+		v := ChatEventForumTopicToggleIsClosed{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventForumTopicDeleted":
+		// Decoding chatEventForumTopicDeleted#b08f290d.
+		v := ChatEventForumTopicDeleted{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventForumTopicPinned":
+		// Decoding chatEventForumTopicPinned#7fc523ee.
+		v := ChatEventForumTopicPinned{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}

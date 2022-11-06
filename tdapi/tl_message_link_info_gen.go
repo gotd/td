@@ -31,12 +31,15 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessageLinkInfo represents TL type `messageLinkInfo#c57d442a`.
+// MessageLinkInfo represents TL type `messageLinkInfo#2b96fb50`.
 type MessageLinkInfo struct {
 	// True, if the link is a public link for a message in a chat
 	IsPublic bool
 	// If found, identifier of the chat to which the message belongs, 0 otherwise
 	ChatID int64
+	// If found, identifier of the message thread in which to open the message, or which to
+	// open in case of a missing message
+	MessageThreadID int64
 	// If found, the linked message; may be null
 	Message Message
 	// Timestamp from which the video/audio/video note/voice note playing must start, in
@@ -45,12 +48,10 @@ type MessageLinkInfo struct {
 	MediaTimestamp int32
 	// True, if the whole media album to which the message belongs is linked
 	ForAlbum bool
-	// True, if the message is linked as a channel post comment or from a message thread
-	ForComment bool
 }
 
 // MessageLinkInfoTypeID is TL type id of MessageLinkInfo.
-const MessageLinkInfoTypeID = 0xc57d442a
+const MessageLinkInfoTypeID = 0x2b96fb50
 
 // Ensuring interfaces in compile-time for MessageLinkInfo.
 var (
@@ -70,6 +71,9 @@ func (m *MessageLinkInfo) Zero() bool {
 	if !(m.ChatID == 0) {
 		return false
 	}
+	if !(m.MessageThreadID == 0) {
+		return false
+	}
 	if !(m.Message.Zero()) {
 		return false
 	}
@@ -77,9 +81,6 @@ func (m *MessageLinkInfo) Zero() bool {
 		return false
 	}
 	if !(m.ForAlbum == false) {
-		return false
-	}
-	if !(m.ForComment == false) {
 		return false
 	}
 
@@ -127,6 +128,10 @@ func (m *MessageLinkInfo) TypeInfo() tdp.Type {
 			SchemaName: "chat_id",
 		},
 		{
+			Name:       "MessageThreadID",
+			SchemaName: "message_thread_id",
+		},
+		{
 			Name:       "Message",
 			SchemaName: "message",
 		},
@@ -138,10 +143,6 @@ func (m *MessageLinkInfo) TypeInfo() tdp.Type {
 			Name:       "ForAlbum",
 			SchemaName: "for_album",
 		},
-		{
-			Name:       "ForComment",
-			SchemaName: "for_comment",
-		},
 	}
 	return typ
 }
@@ -149,7 +150,7 @@ func (m *MessageLinkInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageLinkInfo) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageLinkInfo#c57d442a as nil")
+		return fmt.Errorf("can't encode messageLinkInfo#2b96fb50 as nil")
 	}
 	b.PutID(MessageLinkInfoTypeID)
 	return m.EncodeBare(b)
@@ -158,26 +159,26 @@ func (m *MessageLinkInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageLinkInfo) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageLinkInfo#c57d442a as nil")
+		return fmt.Errorf("can't encode messageLinkInfo#2b96fb50 as nil")
 	}
 	b.PutBool(m.IsPublic)
 	b.PutInt53(m.ChatID)
+	b.PutInt53(m.MessageThreadID)
 	if err := m.Message.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageLinkInfo#c57d442a: field message: %w", err)
+		return fmt.Errorf("unable to encode messageLinkInfo#2b96fb50: field message: %w", err)
 	}
 	b.PutInt32(m.MediaTimestamp)
 	b.PutBool(m.ForAlbum)
-	b.PutBool(m.ForComment)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageLinkInfo) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageLinkInfo#c57d442a to nil")
+		return fmt.Errorf("can't decode messageLinkInfo#2b96fb50 to nil")
 	}
 	if err := b.ConsumeID(MessageLinkInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: %w", err)
+		return fmt.Errorf("unable to decode messageLinkInfo#2b96fb50: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -185,47 +186,47 @@ func (m *MessageLinkInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageLinkInfo) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageLinkInfo#c57d442a to nil")
+		return fmt.Errorf("can't decode messageLinkInfo#2b96fb50 to nil")
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: field is_public: %w", err)
+			return fmt.Errorf("unable to decode messageLinkInfo#2b96fb50: field is_public: %w", err)
 		}
 		m.IsPublic = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode messageLinkInfo#2b96fb50: field chat_id: %w", err)
 		}
 		m.ChatID = value
 	}
 	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageLinkInfo#2b96fb50: field message_thread_id: %w", err)
+		}
+		m.MessageThreadID = value
+	}
+	{
 		if err := m.Message.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: field message: %w", err)
+			return fmt.Errorf("unable to decode messageLinkInfo#2b96fb50: field message: %w", err)
 		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: field media_timestamp: %w", err)
+			return fmt.Errorf("unable to decode messageLinkInfo#2b96fb50: field media_timestamp: %w", err)
 		}
 		m.MediaTimestamp = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: field for_album: %w", err)
+			return fmt.Errorf("unable to decode messageLinkInfo#2b96fb50: field for_album: %w", err)
 		}
 		m.ForAlbum = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: field for_comment: %w", err)
-		}
-		m.ForComment = value
 	}
 	return nil
 }
@@ -233,7 +234,7 @@ func (m *MessageLinkInfo) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageLinkInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageLinkInfo#c57d442a as nil")
+		return fmt.Errorf("can't encode messageLinkInfo#2b96fb50 as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageLinkInfo")
@@ -244,9 +245,12 @@ func (m *MessageLinkInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("chat_id")
 	b.PutInt53(m.ChatID)
 	b.Comma()
+	b.FieldStart("message_thread_id")
+	b.PutInt53(m.MessageThreadID)
+	b.Comma()
 	b.FieldStart("message")
 	if err := m.Message.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageLinkInfo#c57d442a: field message: %w", err)
+		return fmt.Errorf("unable to encode messageLinkInfo#2b96fb50: field message: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("media_timestamp")
@@ -254,9 +258,6 @@ func (m *MessageLinkInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("for_album")
 	b.PutBool(m.ForAlbum)
-	b.Comma()
-	b.FieldStart("for_comment")
-	b.PutBool(m.ForComment)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -266,49 +267,49 @@ func (m *MessageLinkInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageLinkInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageLinkInfo#c57d442a to nil")
+		return fmt.Errorf("can't decode messageLinkInfo#2b96fb50 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageLinkInfo"); err != nil {
-				return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: %w", err)
+				return fmt.Errorf("unable to decode messageLinkInfo#2b96fb50: %w", err)
 			}
 		case "is_public":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: field is_public: %w", err)
+				return fmt.Errorf("unable to decode messageLinkInfo#2b96fb50: field is_public: %w", err)
 			}
 			m.IsPublic = value
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode messageLinkInfo#2b96fb50: field chat_id: %w", err)
 			}
 			m.ChatID = value
+		case "message_thread_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageLinkInfo#2b96fb50: field message_thread_id: %w", err)
+			}
+			m.MessageThreadID = value
 		case "message":
 			if err := m.Message.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: field message: %w", err)
+				return fmt.Errorf("unable to decode messageLinkInfo#2b96fb50: field message: %w", err)
 			}
 		case "media_timestamp":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: field media_timestamp: %w", err)
+				return fmt.Errorf("unable to decode messageLinkInfo#2b96fb50: field media_timestamp: %w", err)
 			}
 			m.MediaTimestamp = value
 		case "for_album":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: field for_album: %w", err)
+				return fmt.Errorf("unable to decode messageLinkInfo#2b96fb50: field for_album: %w", err)
 			}
 			m.ForAlbum = value
-		case "for_comment":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode messageLinkInfo#c57d442a: field for_comment: %w", err)
-			}
-			m.ForComment = value
 		default:
 			return b.Skip()
 		}
@@ -330,6 +331,14 @@ func (m *MessageLinkInfo) GetChatID() (value int64) {
 		return
 	}
 	return m.ChatID
+}
+
+// GetMessageThreadID returns value of MessageThreadID field.
+func (m *MessageLinkInfo) GetMessageThreadID() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.MessageThreadID
 }
 
 // GetMessage returns value of Message field.
@@ -354,12 +363,4 @@ func (m *MessageLinkInfo) GetForAlbum() (value bool) {
 		return
 	}
 	return m.ForAlbum
-}
-
-// GetForComment returns value of ForComment field.
-func (m *MessageLinkInfo) GetForComment() (value bool) {
-	if m == nil {
-		return
-	}
-	return m.ForComment
 }

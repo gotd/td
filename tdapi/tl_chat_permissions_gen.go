@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatPermissions represents TL type `chatPermissions#5e73d8df`.
+// ChatPermissions represents TL type `chatPermissions#ce31de89`.
 type ChatPermissions struct {
 	// True, if the user can send text messages, contacts, locations, and venues
 	CanSendMessages bool
@@ -52,10 +52,12 @@ type ChatPermissions struct {
 	CanInviteUsers bool
 	// True, if the user can pin messages
 	CanPinMessages bool
+	// True, if the user can manage topics
+	CanManageTopics bool
 }
 
 // ChatPermissionsTypeID is TL type id of ChatPermissions.
-const ChatPermissionsTypeID = 0x5e73d8df
+const ChatPermissionsTypeID = 0xce31de89
 
 // Ensuring interfaces in compile-time for ChatPermissions.
 var (
@@ -91,6 +93,9 @@ func (c *ChatPermissions) Zero() bool {
 		return false
 	}
 	if !(c.CanPinMessages == false) {
+		return false
+	}
+	if !(c.CanManageTopics == false) {
 		return false
 	}
 
@@ -161,6 +166,10 @@ func (c *ChatPermissions) TypeInfo() tdp.Type {
 			Name:       "CanPinMessages",
 			SchemaName: "can_pin_messages",
 		},
+		{
+			Name:       "CanManageTopics",
+			SchemaName: "can_manage_topics",
+		},
 	}
 	return typ
 }
@@ -168,7 +177,7 @@ func (c *ChatPermissions) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatPermissions) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatPermissions#5e73d8df as nil")
+		return fmt.Errorf("can't encode chatPermissions#ce31de89 as nil")
 	}
 	b.PutID(ChatPermissionsTypeID)
 	return c.EncodeBare(b)
@@ -177,7 +186,7 @@ func (c *ChatPermissions) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatPermissions) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatPermissions#5e73d8df as nil")
+		return fmt.Errorf("can't encode chatPermissions#ce31de89 as nil")
 	}
 	b.PutBool(c.CanSendMessages)
 	b.PutBool(c.CanSendMediaMessages)
@@ -187,16 +196,17 @@ func (c *ChatPermissions) EncodeBare(b *bin.Buffer) error {
 	b.PutBool(c.CanChangeInfo)
 	b.PutBool(c.CanInviteUsers)
 	b.PutBool(c.CanPinMessages)
+	b.PutBool(c.CanManageTopics)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChatPermissions) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatPermissions#5e73d8df to nil")
+		return fmt.Errorf("can't decode chatPermissions#ce31de89 to nil")
 	}
 	if err := b.ConsumeID(ChatPermissionsTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatPermissions#5e73d8df: %w", err)
+		return fmt.Errorf("unable to decode chatPermissions#ce31de89: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -204,63 +214,70 @@ func (c *ChatPermissions) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatPermissions) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatPermissions#5e73d8df to nil")
+		return fmt.Errorf("can't decode chatPermissions#ce31de89 to nil")
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPermissions#5e73d8df: field can_send_messages: %w", err)
+			return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_send_messages: %w", err)
 		}
 		c.CanSendMessages = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPermissions#5e73d8df: field can_send_media_messages: %w", err)
+			return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_send_media_messages: %w", err)
 		}
 		c.CanSendMediaMessages = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPermissions#5e73d8df: field can_send_polls: %w", err)
+			return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_send_polls: %w", err)
 		}
 		c.CanSendPolls = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPermissions#5e73d8df: field can_send_other_messages: %w", err)
+			return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_send_other_messages: %w", err)
 		}
 		c.CanSendOtherMessages = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPermissions#5e73d8df: field can_add_web_page_previews: %w", err)
+			return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_add_web_page_previews: %w", err)
 		}
 		c.CanAddWebPagePreviews = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPermissions#5e73d8df: field can_change_info: %w", err)
+			return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_change_info: %w", err)
 		}
 		c.CanChangeInfo = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPermissions#5e73d8df: field can_invite_users: %w", err)
+			return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_invite_users: %w", err)
 		}
 		c.CanInviteUsers = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPermissions#5e73d8df: field can_pin_messages: %w", err)
+			return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_pin_messages: %w", err)
 		}
 		c.CanPinMessages = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_manage_topics: %w", err)
+		}
+		c.CanManageTopics = value
 	}
 	return nil
 }
@@ -268,7 +285,7 @@ func (c *ChatPermissions) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatPermissions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatPermissions#5e73d8df as nil")
+		return fmt.Errorf("can't encode chatPermissions#ce31de89 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatPermissions")
@@ -297,6 +314,9 @@ func (c *ChatPermissions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("can_pin_messages")
 	b.PutBool(c.CanPinMessages)
 	b.Comma()
+	b.FieldStart("can_manage_topics")
+	b.PutBool(c.CanManageTopics)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -305,63 +325,69 @@ func (c *ChatPermissions) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatPermissions) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatPermissions#5e73d8df to nil")
+		return fmt.Errorf("can't decode chatPermissions#ce31de89 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatPermissions"); err != nil {
-				return fmt.Errorf("unable to decode chatPermissions#5e73d8df: %w", err)
+				return fmt.Errorf("unable to decode chatPermissions#ce31de89: %w", err)
 			}
 		case "can_send_messages":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatPermissions#5e73d8df: field can_send_messages: %w", err)
+				return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_send_messages: %w", err)
 			}
 			c.CanSendMessages = value
 		case "can_send_media_messages":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatPermissions#5e73d8df: field can_send_media_messages: %w", err)
+				return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_send_media_messages: %w", err)
 			}
 			c.CanSendMediaMessages = value
 		case "can_send_polls":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatPermissions#5e73d8df: field can_send_polls: %w", err)
+				return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_send_polls: %w", err)
 			}
 			c.CanSendPolls = value
 		case "can_send_other_messages":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatPermissions#5e73d8df: field can_send_other_messages: %w", err)
+				return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_send_other_messages: %w", err)
 			}
 			c.CanSendOtherMessages = value
 		case "can_add_web_page_previews":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatPermissions#5e73d8df: field can_add_web_page_previews: %w", err)
+				return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_add_web_page_previews: %w", err)
 			}
 			c.CanAddWebPagePreviews = value
 		case "can_change_info":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatPermissions#5e73d8df: field can_change_info: %w", err)
+				return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_change_info: %w", err)
 			}
 			c.CanChangeInfo = value
 		case "can_invite_users":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatPermissions#5e73d8df: field can_invite_users: %w", err)
+				return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_invite_users: %w", err)
 			}
 			c.CanInviteUsers = value
 		case "can_pin_messages":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatPermissions#5e73d8df: field can_pin_messages: %w", err)
+				return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_pin_messages: %w", err)
 			}
 			c.CanPinMessages = value
+		case "can_manage_topics":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_manage_topics: %w", err)
+			}
+			c.CanManageTopics = value
 		default:
 			return b.Skip()
 		}
@@ -431,4 +457,12 @@ func (c *ChatPermissions) GetCanPinMessages() (value bool) {
 		return
 	}
 	return c.CanPinMessages
+}
+
+// GetCanManageTopics returns value of CanManageTopics field.
+func (c *ChatPermissions) GetCanManageTopics() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.CanManageTopics
 }

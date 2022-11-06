@@ -7716,6 +7716,607 @@ func (m *MessageChatSetTTL) GetTTL() (value int32) {
 	return m.TTL
 }
 
+// MessageForumTopicCreated represents TL type `messageForumTopicCreated#b8ce47d1`.
+type MessageForumTopicCreated struct {
+	// Name of the topic
+	Name string
+	// Icon of the topic
+	Icon ForumTopicIcon
+}
+
+// MessageForumTopicCreatedTypeID is TL type id of MessageForumTopicCreated.
+const MessageForumTopicCreatedTypeID = 0xb8ce47d1
+
+// construct implements constructor of MessageContentClass.
+func (m MessageForumTopicCreated) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageForumTopicCreated.
+var (
+	_ bin.Encoder     = &MessageForumTopicCreated{}
+	_ bin.Decoder     = &MessageForumTopicCreated{}
+	_ bin.BareEncoder = &MessageForumTopicCreated{}
+	_ bin.BareDecoder = &MessageForumTopicCreated{}
+
+	_ MessageContentClass = &MessageForumTopicCreated{}
+)
+
+func (m *MessageForumTopicCreated) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Name == "") {
+		return false
+	}
+	if !(m.Icon.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageForumTopicCreated) String() string {
+	if m == nil {
+		return "MessageForumTopicCreated(nil)"
+	}
+	type Alias MessageForumTopicCreated
+	return fmt.Sprintf("MessageForumTopicCreated%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageForumTopicCreated) TypeID() uint32 {
+	return MessageForumTopicCreatedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageForumTopicCreated) TypeName() string {
+	return "messageForumTopicCreated"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageForumTopicCreated) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageForumTopicCreated",
+		ID:   MessageForumTopicCreatedTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Name",
+			SchemaName: "name",
+		},
+		{
+			Name:       "Icon",
+			SchemaName: "icon",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageForumTopicCreated) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageForumTopicCreated#b8ce47d1 as nil")
+	}
+	b.PutID(MessageForumTopicCreatedTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageForumTopicCreated) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageForumTopicCreated#b8ce47d1 as nil")
+	}
+	b.PutString(m.Name)
+	if err := m.Icon.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageForumTopicCreated#b8ce47d1: field icon: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageForumTopicCreated) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageForumTopicCreated#b8ce47d1 to nil")
+	}
+	if err := b.ConsumeID(MessageForumTopicCreatedTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageForumTopicCreated#b8ce47d1: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageForumTopicCreated) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageForumTopicCreated#b8ce47d1 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageForumTopicCreated#b8ce47d1: field name: %w", err)
+		}
+		m.Name = value
+	}
+	{
+		if err := m.Icon.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageForumTopicCreated#b8ce47d1: field icon: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageForumTopicCreated) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageForumTopicCreated#b8ce47d1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageForumTopicCreated")
+	b.Comma()
+	b.FieldStart("name")
+	b.PutString(m.Name)
+	b.Comma()
+	b.FieldStart("icon")
+	if err := m.Icon.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageForumTopicCreated#b8ce47d1: field icon: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageForumTopicCreated) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageForumTopicCreated#b8ce47d1 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageForumTopicCreated"); err != nil {
+				return fmt.Errorf("unable to decode messageForumTopicCreated#b8ce47d1: %w", err)
+			}
+		case "name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageForumTopicCreated#b8ce47d1: field name: %w", err)
+			}
+			m.Name = value
+		case "icon":
+			if err := m.Icon.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode messageForumTopicCreated#b8ce47d1: field icon: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetName returns value of Name field.
+func (m *MessageForumTopicCreated) GetName() (value string) {
+	if m == nil {
+		return
+	}
+	return m.Name
+}
+
+// GetIcon returns value of Icon field.
+func (m *MessageForumTopicCreated) GetIcon() (value ForumTopicIcon) {
+	if m == nil {
+		return
+	}
+	return m.Icon
+}
+
+// MessageForumTopicEdited represents TL type `messageForumTopicEdited#c0b780`.
+type MessageForumTopicEdited struct {
+	// If non-empty, the new name of the topic
+	Name string
+	// True, if icon's custom_emoji_id is changed
+	EditIconCustomEmojiID bool
+	// New unique identifier of the custom emoji shown on the topic icon; 0 if none. Must be
+	// ignored if edit_icon_custom_emoji_id is false
+	IconCustomEmojiID int64
+}
+
+// MessageForumTopicEditedTypeID is TL type id of MessageForumTopicEdited.
+const MessageForumTopicEditedTypeID = 0xc0b780
+
+// construct implements constructor of MessageContentClass.
+func (m MessageForumTopicEdited) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageForumTopicEdited.
+var (
+	_ bin.Encoder     = &MessageForumTopicEdited{}
+	_ bin.Decoder     = &MessageForumTopicEdited{}
+	_ bin.BareEncoder = &MessageForumTopicEdited{}
+	_ bin.BareDecoder = &MessageForumTopicEdited{}
+
+	_ MessageContentClass = &MessageForumTopicEdited{}
+)
+
+func (m *MessageForumTopicEdited) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Name == "") {
+		return false
+	}
+	if !(m.EditIconCustomEmojiID == false) {
+		return false
+	}
+	if !(m.IconCustomEmojiID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageForumTopicEdited) String() string {
+	if m == nil {
+		return "MessageForumTopicEdited(nil)"
+	}
+	type Alias MessageForumTopicEdited
+	return fmt.Sprintf("MessageForumTopicEdited%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageForumTopicEdited) TypeID() uint32 {
+	return MessageForumTopicEditedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageForumTopicEdited) TypeName() string {
+	return "messageForumTopicEdited"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageForumTopicEdited) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageForumTopicEdited",
+		ID:   MessageForumTopicEditedTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Name",
+			SchemaName: "name",
+		},
+		{
+			Name:       "EditIconCustomEmojiID",
+			SchemaName: "edit_icon_custom_emoji_id",
+		},
+		{
+			Name:       "IconCustomEmojiID",
+			SchemaName: "icon_custom_emoji_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageForumTopicEdited) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageForumTopicEdited#c0b780 as nil")
+	}
+	b.PutID(MessageForumTopicEditedTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageForumTopicEdited) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageForumTopicEdited#c0b780 as nil")
+	}
+	b.PutString(m.Name)
+	b.PutBool(m.EditIconCustomEmojiID)
+	b.PutLong(m.IconCustomEmojiID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageForumTopicEdited) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageForumTopicEdited#c0b780 to nil")
+	}
+	if err := b.ConsumeID(MessageForumTopicEditedTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageForumTopicEdited#c0b780: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageForumTopicEdited) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageForumTopicEdited#c0b780 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageForumTopicEdited#c0b780: field name: %w", err)
+		}
+		m.Name = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageForumTopicEdited#c0b780: field edit_icon_custom_emoji_id: %w", err)
+		}
+		m.EditIconCustomEmojiID = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageForumTopicEdited#c0b780: field icon_custom_emoji_id: %w", err)
+		}
+		m.IconCustomEmojiID = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageForumTopicEdited) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageForumTopicEdited#c0b780 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageForumTopicEdited")
+	b.Comma()
+	b.FieldStart("name")
+	b.PutString(m.Name)
+	b.Comma()
+	b.FieldStart("edit_icon_custom_emoji_id")
+	b.PutBool(m.EditIconCustomEmojiID)
+	b.Comma()
+	b.FieldStart("icon_custom_emoji_id")
+	b.PutLong(m.IconCustomEmojiID)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageForumTopicEdited) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageForumTopicEdited#c0b780 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageForumTopicEdited"); err != nil {
+				return fmt.Errorf("unable to decode messageForumTopicEdited#c0b780: %w", err)
+			}
+		case "name":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageForumTopicEdited#c0b780: field name: %w", err)
+			}
+			m.Name = value
+		case "edit_icon_custom_emoji_id":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageForumTopicEdited#c0b780: field edit_icon_custom_emoji_id: %w", err)
+			}
+			m.EditIconCustomEmojiID = value
+		case "icon_custom_emoji_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageForumTopicEdited#c0b780: field icon_custom_emoji_id: %w", err)
+			}
+			m.IconCustomEmojiID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetName returns value of Name field.
+func (m *MessageForumTopicEdited) GetName() (value string) {
+	if m == nil {
+		return
+	}
+	return m.Name
+}
+
+// GetEditIconCustomEmojiID returns value of EditIconCustomEmojiID field.
+func (m *MessageForumTopicEdited) GetEditIconCustomEmojiID() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.EditIconCustomEmojiID
+}
+
+// GetIconCustomEmojiID returns value of IconCustomEmojiID field.
+func (m *MessageForumTopicEdited) GetIconCustomEmojiID() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.IconCustomEmojiID
+}
+
+// MessageForumTopicIsClosedToggled represents TL type `messageForumTopicIsClosedToggled#4b578fe0`.
+type MessageForumTopicIsClosedToggled struct {
+	// True if the topic was closed or reopened
+	IsClosed bool
+}
+
+// MessageForumTopicIsClosedToggledTypeID is TL type id of MessageForumTopicIsClosedToggled.
+const MessageForumTopicIsClosedToggledTypeID = 0x4b578fe0
+
+// construct implements constructor of MessageContentClass.
+func (m MessageForumTopicIsClosedToggled) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageForumTopicIsClosedToggled.
+var (
+	_ bin.Encoder     = &MessageForumTopicIsClosedToggled{}
+	_ bin.Decoder     = &MessageForumTopicIsClosedToggled{}
+	_ bin.BareEncoder = &MessageForumTopicIsClosedToggled{}
+	_ bin.BareDecoder = &MessageForumTopicIsClosedToggled{}
+
+	_ MessageContentClass = &MessageForumTopicIsClosedToggled{}
+)
+
+func (m *MessageForumTopicIsClosedToggled) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.IsClosed == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageForumTopicIsClosedToggled) String() string {
+	if m == nil {
+		return "MessageForumTopicIsClosedToggled(nil)"
+	}
+	type Alias MessageForumTopicIsClosedToggled
+	return fmt.Sprintf("MessageForumTopicIsClosedToggled%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageForumTopicIsClosedToggled) TypeID() uint32 {
+	return MessageForumTopicIsClosedToggledTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageForumTopicIsClosedToggled) TypeName() string {
+	return "messageForumTopicIsClosedToggled"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageForumTopicIsClosedToggled) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageForumTopicIsClosedToggled",
+		ID:   MessageForumTopicIsClosedToggledTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "IsClosed",
+			SchemaName: "is_closed",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageForumTopicIsClosedToggled) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageForumTopicIsClosedToggled#4b578fe0 as nil")
+	}
+	b.PutID(MessageForumTopicIsClosedToggledTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageForumTopicIsClosedToggled) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageForumTopicIsClosedToggled#4b578fe0 as nil")
+	}
+	b.PutBool(m.IsClosed)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageForumTopicIsClosedToggled) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageForumTopicIsClosedToggled#4b578fe0 to nil")
+	}
+	if err := b.ConsumeID(MessageForumTopicIsClosedToggledTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageForumTopicIsClosedToggled#4b578fe0: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageForumTopicIsClosedToggled) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageForumTopicIsClosedToggled#4b578fe0 to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageForumTopicIsClosedToggled#4b578fe0: field is_closed: %w", err)
+		}
+		m.IsClosed = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageForumTopicIsClosedToggled) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageForumTopicIsClosedToggled#4b578fe0 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageForumTopicIsClosedToggled")
+	b.Comma()
+	b.FieldStart("is_closed")
+	b.PutBool(m.IsClosed)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageForumTopicIsClosedToggled) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageForumTopicIsClosedToggled#4b578fe0 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageForumTopicIsClosedToggled"); err != nil {
+				return fmt.Errorf("unable to decode messageForumTopicIsClosedToggled#4b578fe0: %w", err)
+			}
+		case "is_closed":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageForumTopicIsClosedToggled#4b578fe0: field is_closed: %w", err)
+			}
+			m.IsClosed = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetIsClosed returns value of IsClosed field.
+func (m *MessageForumTopicIsClosedToggled) GetIsClosed() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.IsClosed
+}
+
 // MessageCustomServiceAction represents TL type `messageCustomServiceAction#5595c772`.
 type MessageCustomServiceAction struct {
 	// Message text to be shown in the chat
@@ -8119,7 +8720,7 @@ func (m *MessageGameScore) GetScore() (value int32) {
 
 // MessagePaymentSuccessful represents TL type `messagePaymentSuccessful#53d93cdc`.
 type MessagePaymentSuccessful struct {
-	// Identifier of the chat, containing the corresponding invoice message; 0 if unknown
+	// Identifier of the chat, containing the corresponding invoice message
 	InvoiceChatID int64
 	// Identifier of the message with the corresponding invoice; can be 0 or an identifier of
 	// a deleted message
@@ -10721,6 +11322,9 @@ const MessageContentClassName = "MessageContent"
 //	case *tdapi.MessageScreenshotTaken: // messageScreenshotTaken#a2b86dab
 //	case *tdapi.MessageChatSetTheme: // messageChatSetTheme#99ae9408
 //	case *tdapi.MessageChatSetTTL: // messageChatSetTtl#6be353b1
+//	case *tdapi.MessageForumTopicCreated: // messageForumTopicCreated#b8ce47d1
+//	case *tdapi.MessageForumTopicEdited: // messageForumTopicEdited#c0b780
+//	case *tdapi.MessageForumTopicIsClosedToggled: // messageForumTopicIsClosedToggled#4b578fe0
 //	case *tdapi.MessageCustomServiceAction: // messageCustomServiceAction#5595c772
 //	case *tdapi.MessageGameScore: // messageGameScore#50299d7f
 //	case *tdapi.MessagePaymentSuccessful: // messagePaymentSuccessful#53d93cdc
@@ -11034,6 +11638,27 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 	case MessageChatSetTTLTypeID:
 		// Decoding messageChatSetTtl#6be353b1.
 		v := MessageChatSetTTL{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case MessageForumTopicCreatedTypeID:
+		// Decoding messageForumTopicCreated#b8ce47d1.
+		v := MessageForumTopicCreated{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case MessageForumTopicEditedTypeID:
+		// Decoding messageForumTopicEdited#c0b780.
+		v := MessageForumTopicEdited{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case MessageForumTopicIsClosedToggledTypeID:
+		// Decoding messageForumTopicIsClosedToggled#4b578fe0.
+		v := MessageForumTopicIsClosedToggled{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
@@ -11410,6 +12035,27 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 	case "messageChatSetTtl":
 		// Decoding messageChatSetTtl#6be353b1.
 		v := MessageChatSetTTL{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "messageForumTopicCreated":
+		// Decoding messageForumTopicCreated#b8ce47d1.
+		v := MessageForumTopicCreated{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "messageForumTopicEdited":
+		// Decoding messageForumTopicEdited#c0b780.
+		v := MessageForumTopicEdited{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "messageForumTopicIsClosedToggled":
+		// Decoding messageForumTopicIsClosedToggled#4b578fe0.
+		v := MessageForumTopicIsClosedToggled{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}

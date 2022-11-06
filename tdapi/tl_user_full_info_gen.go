@@ -33,7 +33,8 @@ var (
 
 // UserFullInfo represents TL type `userFullInfo#2d163af6`.
 type UserFullInfo struct {
-	// User profile photo; may be null
+	// User profile photo; may be null if empty or unknown. If non-null, then it is the same
+	// photo as in user.profile_photo and chat.photo
 	Photo ChatPhoto
 	// True, if the user is blocked by the current user
 	IsBlocked bool

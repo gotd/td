@@ -33,7 +33,8 @@ var (
 
 // SetUsernameRequest represents TL type `setUsername#1a385c1e`.
 type SetUsernameRequest struct {
-	// The new value of the username. Use an empty string to remove the username
+	// The new value of the username. Use an empty string to remove the username. The
+	// username can't be completely removed if there is another active or disabled username
 	Username string
 }
 

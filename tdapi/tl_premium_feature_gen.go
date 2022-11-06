@@ -1603,6 +1603,137 @@ func (p *PremiumFeatureAnimatedProfilePhoto) DecodeTDLibJSON(b tdjson.Decoder) e
 	})
 }
 
+// PremiumFeatureForumTopicIcon represents TL type `premiumFeatureForumTopicIcon#ceef6342`.
+type PremiumFeatureForumTopicIcon struct {
+}
+
+// PremiumFeatureForumTopicIconTypeID is TL type id of PremiumFeatureForumTopicIcon.
+const PremiumFeatureForumTopicIconTypeID = 0xceef6342
+
+// construct implements constructor of PremiumFeatureClass.
+func (p PremiumFeatureForumTopicIcon) construct() PremiumFeatureClass { return &p }
+
+// Ensuring interfaces in compile-time for PremiumFeatureForumTopicIcon.
+var (
+	_ bin.Encoder     = &PremiumFeatureForumTopicIcon{}
+	_ bin.Decoder     = &PremiumFeatureForumTopicIcon{}
+	_ bin.BareEncoder = &PremiumFeatureForumTopicIcon{}
+	_ bin.BareDecoder = &PremiumFeatureForumTopicIcon{}
+
+	_ PremiumFeatureClass = &PremiumFeatureForumTopicIcon{}
+)
+
+func (p *PremiumFeatureForumTopicIcon) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PremiumFeatureForumTopicIcon) String() string {
+	if p == nil {
+		return "PremiumFeatureForumTopicIcon(nil)"
+	}
+	type Alias PremiumFeatureForumTopicIcon
+	return fmt.Sprintf("PremiumFeatureForumTopicIcon%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PremiumFeatureForumTopicIcon) TypeID() uint32 {
+	return PremiumFeatureForumTopicIconTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PremiumFeatureForumTopicIcon) TypeName() string {
+	return "premiumFeatureForumTopicIcon"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PremiumFeatureForumTopicIcon) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "premiumFeatureForumTopicIcon",
+		ID:   PremiumFeatureForumTopicIconTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PremiumFeatureForumTopicIcon) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureForumTopicIcon#ceef6342 as nil")
+	}
+	b.PutID(PremiumFeatureForumTopicIconTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PremiumFeatureForumTopicIcon) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureForumTopicIcon#ceef6342 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PremiumFeatureForumTopicIcon) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureForumTopicIcon#ceef6342 to nil")
+	}
+	if err := b.ConsumeID(PremiumFeatureForumTopicIconTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumFeatureForumTopicIcon#ceef6342: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PremiumFeatureForumTopicIcon) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureForumTopicIcon#ceef6342 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PremiumFeatureForumTopicIcon) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureForumTopicIcon#ceef6342 as nil")
+	}
+	b.ObjStart()
+	b.PutID("premiumFeatureForumTopicIcon")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PremiumFeatureForumTopicIcon) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureForumTopicIcon#ceef6342 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("premiumFeatureForumTopicIcon"); err != nil {
+				return fmt.Errorf("unable to decode premiumFeatureForumTopicIcon#ceef6342: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // PremiumFeatureAppIcons represents TL type `premiumFeatureAppIcons#5e79f489`.
 type PremiumFeatureAppIcons struct {
 }
@@ -1758,6 +1889,7 @@ const PremiumFeatureClassName = "PremiumFeature"
 //	case *tdapi.PremiumFeatureProfileBadge: // premiumFeatureProfileBadge#ded30c2
 //	case *tdapi.PremiumFeatureEmojiStatus: // premiumFeatureEmojiStatus#fdd2cce1
 //	case *tdapi.PremiumFeatureAnimatedProfilePhoto: // premiumFeatureAnimatedProfilePhoto#f9fecce6
+//	case *tdapi.PremiumFeatureForumTopicIcon: // premiumFeatureForumTopicIcon#ceef6342
 //	case *tdapi.PremiumFeatureAppIcons: // premiumFeatureAppIcons#5e79f489
 //	default: panic(v)
 //	}
@@ -1874,6 +2006,13 @@ func DecodePremiumFeature(buf *bin.Buffer) (PremiumFeatureClass, error) {
 			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
 		}
 		return &v, nil
+	case PremiumFeatureForumTopicIconTypeID:
+		// Decoding premiumFeatureForumTopicIcon#ceef6342.
+		v := PremiumFeatureForumTopicIcon{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
+		}
+		return &v, nil
 	case PremiumFeatureAppIconsTypeID:
 		// Decoding premiumFeatureAppIcons#5e79f489.
 		v := PremiumFeatureAppIcons{}
@@ -1973,6 +2112,13 @@ func DecodeTDLibJSONPremiumFeature(buf tdjson.Decoder) (PremiumFeatureClass, err
 	case "premiumFeatureAnimatedProfilePhoto":
 		// Decoding premiumFeatureAnimatedProfilePhoto#f9fecce6.
 		v := PremiumFeatureAnimatedProfilePhoto{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
+		}
+		return &v, nil
+	case "premiumFeatureForumTopicIcon":
+		// Decoding premiumFeatureForumTopicIcon#ceef6342.
+		v := PremiumFeatureForumTopicIcon{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
 		}
