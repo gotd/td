@@ -732,7 +732,7 @@ func (m *MessagesMessagesSlice) MapUsers() (value UserClassArray) {
 	return UserClassArray(m.Users)
 }
 
-// MessagesChannelMessages represents TL type `messages.channelMessages#64479808`.
+// MessagesChannelMessages represents TL type `messages.channelMessages#c776ba4e`.
 // Channel messages
 //
 // See https://core.telegram.org/constructor/messages.channelMessages for reference.
@@ -760,6 +760,8 @@ type MessagesChannelMessages struct {
 	OffsetIDOffset int
 	// Found messages
 	Messages []MessageClass
+	// Topics field of MessagesChannelMessages.
+	Topics []ForumTopicClass
 	// Chats
 	Chats []ChatClass
 	// Users
@@ -767,7 +769,7 @@ type MessagesChannelMessages struct {
 }
 
 // MessagesChannelMessagesTypeID is TL type id of MessagesChannelMessages.
-const MessagesChannelMessagesTypeID = 0x64479808
+const MessagesChannelMessagesTypeID = 0xc776ba4e
 
 // construct implements constructor of MessagesMessagesClass.
 func (c MessagesChannelMessages) construct() MessagesMessagesClass { return &c }
@@ -804,6 +806,9 @@ func (c *MessagesChannelMessages) Zero() bool {
 	if !(c.Messages == nil) {
 		return false
 	}
+	if !(c.Topics == nil) {
+		return false
+	}
 	if !(c.Chats == nil) {
 		return false
 	}
@@ -830,6 +835,7 @@ func (c *MessagesChannelMessages) FillFrom(from interface {
 	GetCount() (value int)
 	GetOffsetIDOffset() (value int, ok bool)
 	GetMessages() (value []MessageClass)
+	GetTopics() (value []ForumTopicClass)
 	GetChats() (value []ChatClass)
 	GetUsers() (value []UserClass)
 }) {
@@ -841,6 +847,7 @@ func (c *MessagesChannelMessages) FillFrom(from interface {
 	}
 
 	c.Messages = from.GetMessages()
+	c.Topics = from.GetTopics()
 	c.Chats = from.GetChats()
 	c.Users = from.GetUsers()
 }
@@ -891,6 +898,10 @@ func (c *MessagesChannelMessages) TypeInfo() tdp.Type {
 			SchemaName: "messages",
 		},
 		{
+			Name:       "Topics",
+			SchemaName: "topics",
+		},
+		{
 			Name:       "Chats",
 			SchemaName: "chats",
 		},
@@ -915,7 +926,7 @@ func (c *MessagesChannelMessages) SetFlags() {
 // Encode implements bin.Encoder.
 func (c *MessagesChannelMessages) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.channelMessages#64479808 as nil")
+		return fmt.Errorf("can't encode messages.channelMessages#c776ba4e as nil")
 	}
 	b.PutID(MessagesChannelMessagesTypeID)
 	return c.EncodeBare(b)
@@ -924,11 +935,11 @@ func (c *MessagesChannelMessages) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *MessagesChannelMessages) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.channelMessages#64479808 as nil")
+		return fmt.Errorf("can't encode messages.channelMessages#c776ba4e as nil")
 	}
 	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.channelMessages#64479808: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.channelMessages#c776ba4e: field flags: %w", err)
 	}
 	b.PutInt(c.Pts)
 	b.PutInt(c.Count)
@@ -938,28 +949,37 @@ func (c *MessagesChannelMessages) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(c.Messages))
 	for idx, v := range c.Messages {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.channelMessages#64479808: field messages element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.channelMessages#c776ba4e: field messages element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.channelMessages#64479808: field messages element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.channelMessages#c776ba4e: field messages element with index %d: %w", idx, err)
+		}
+	}
+	b.PutVectorHeader(len(c.Topics))
+	for idx, v := range c.Topics {
+		if v == nil {
+			return fmt.Errorf("unable to encode messages.channelMessages#c776ba4e: field topics element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.channelMessages#c776ba4e: field topics element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(c.Chats))
 	for idx, v := range c.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.channelMessages#64479808: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.channelMessages#c776ba4e: field chats element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.channelMessages#64479808: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.channelMessages#c776ba4e: field chats element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(c.Users))
 	for idx, v := range c.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.channelMessages#64479808: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.channelMessages#c776ba4e: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.channelMessages#64479808: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.channelMessages#c776ba4e: field users element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -968,10 +988,10 @@ func (c *MessagesChannelMessages) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *MessagesChannelMessages) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.channelMessages#64479808 to nil")
+		return fmt.Errorf("can't decode messages.channelMessages#c776ba4e to nil")
 	}
 	if err := b.ConsumeID(MessagesChannelMessagesTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.channelMessages#64479808: %w", err)
+		return fmt.Errorf("unable to decode messages.channelMessages#c776ba4e: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -979,39 +999,39 @@ func (c *MessagesChannelMessages) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *MessagesChannelMessages) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.channelMessages#64479808 to nil")
+		return fmt.Errorf("can't decode messages.channelMessages#c776ba4e to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.channelMessages#64479808: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.channelMessages#c776ba4e: field flags: %w", err)
 		}
 	}
 	c.Inexact = c.Flags.Has(1)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.channelMessages#64479808: field pts: %w", err)
+			return fmt.Errorf("unable to decode messages.channelMessages#c776ba4e: field pts: %w", err)
 		}
 		c.Pts = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.channelMessages#64479808: field count: %w", err)
+			return fmt.Errorf("unable to decode messages.channelMessages#c776ba4e: field count: %w", err)
 		}
 		c.Count = value
 	}
 	if c.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.channelMessages#64479808: field offset_id_offset: %w", err)
+			return fmt.Errorf("unable to decode messages.channelMessages#c776ba4e: field offset_id_offset: %w", err)
 		}
 		c.OffsetIDOffset = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.channelMessages#64479808: field messages: %w", err)
+			return fmt.Errorf("unable to decode messages.channelMessages#c776ba4e: field messages: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -1020,7 +1040,7 @@ func (c *MessagesChannelMessages) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessage(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.channelMessages#64479808: field messages: %w", err)
+				return fmt.Errorf("unable to decode messages.channelMessages#c776ba4e: field messages: %w", err)
 			}
 			c.Messages = append(c.Messages, value)
 		}
@@ -1028,7 +1048,24 @@ func (c *MessagesChannelMessages) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.channelMessages#64479808: field chats: %w", err)
+			return fmt.Errorf("unable to decode messages.channelMessages#c776ba4e: field topics: %w", err)
+		}
+
+		if headerLen > 0 {
+			c.Topics = make([]ForumTopicClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeForumTopic(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode messages.channelMessages#c776ba4e: field topics: %w", err)
+			}
+			c.Topics = append(c.Topics, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.channelMessages#c776ba4e: field chats: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -1037,7 +1074,7 @@ func (c *MessagesChannelMessages) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.channelMessages#64479808: field chats: %w", err)
+				return fmt.Errorf("unable to decode messages.channelMessages#c776ba4e: field chats: %w", err)
 			}
 			c.Chats = append(c.Chats, value)
 		}
@@ -1045,7 +1082,7 @@ func (c *MessagesChannelMessages) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.channelMessages#64479808: field users: %w", err)
+			return fmt.Errorf("unable to decode messages.channelMessages#c776ba4e: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -1054,7 +1091,7 @@ func (c *MessagesChannelMessages) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.channelMessages#64479808: field users: %w", err)
+				return fmt.Errorf("unable to decode messages.channelMessages#c776ba4e: field users: %w", err)
 			}
 			c.Users = append(c.Users, value)
 		}
@@ -1123,6 +1160,14 @@ func (c *MessagesChannelMessages) GetMessages() (value []MessageClass) {
 	return c.Messages
 }
 
+// GetTopics returns value of Topics field.
+func (c *MessagesChannelMessages) GetTopics() (value []ForumTopicClass) {
+	if c == nil {
+		return
+	}
+	return c.Topics
+}
+
 // GetChats returns value of Chats field.
 func (c *MessagesChannelMessages) GetChats() (value []ChatClass) {
 	if c == nil {
@@ -1142,6 +1187,11 @@ func (c *MessagesChannelMessages) GetUsers() (value []UserClass) {
 // MapMessages returns field Messages wrapped in MessageClassArray helper.
 func (c *MessagesChannelMessages) MapMessages() (value MessageClassArray) {
 	return MessageClassArray(c.Messages)
+}
+
+// MapTopics returns field Topics wrapped in ForumTopicClassArray helper.
+func (c *MessagesChannelMessages) MapTopics() (value ForumTopicClassArray) {
+	return ForumTopicClassArray(c.Topics)
 }
 
 // MapChats returns field Chats wrapped in ChatClassArray helper.
@@ -1305,7 +1355,7 @@ const MessagesMessagesClassName = "messages.Messages"
 //	switch v := g.(type) {
 //	case *tg.MessagesMessages: // messages.messages#8c718e87
 //	case *tg.MessagesMessagesSlice: // messages.messagesSlice#3a54685e
-//	case *tg.MessagesChannelMessages: // messages.channelMessages#64479808
+//	case *tg.MessagesChannelMessages: // messages.channelMessages#c776ba4e
 //	case *tg.MessagesMessagesNotModified: // messages.messagesNotModified#74535f21
 //	default: panic(v)
 //	}
@@ -1406,7 +1456,7 @@ func DecodeMessagesMessages(buf *bin.Buffer) (MessagesMessagesClass, error) {
 		}
 		return &v, nil
 	case MessagesChannelMessagesTypeID:
-		// Decoding messages.channelMessages#64479808.
+		// Decoding messages.channelMessages#c776ba4e.
 		v := MessagesChannelMessages{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessagesMessagesClass: %w", err)

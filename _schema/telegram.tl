@@ -2,8 +2,8 @@
 //
 // Source: https://raw.githubusercontent.com/telegramdesktop/tdesktop/dev/Telegram/Resources/tl/api.tl
 // Merge:  _schema/legacy.tl
-// Layer:  148
-// SHA256: 19fd5971d04078f793254cd1e591d1e9ad9aed8ace833187bc55edb5c7ffa541
+// Layer:  149
+// SHA256: ad5229b179d1350bca43eee099a5c538613f9d4148b7933cd87a4fca02e2cc8f
 
 boolFalse#bc799737 = Bool;
 
@@ -383,7 +383,7 @@ messages.messages#8c718e87 messages:Vector<Message> chats:Vector<Chat> users:Vec
 
 messages.messagesSlice#3a54685e flags:# inexact:flags.1?true count:int next_rate:flags.0?int offset_id_offset:flags.2?int messages:Vector<Message> chats:Vector<Chat> users:Vector<User> = messages.Messages;
 
-messages.channelMessages#64479808 flags:# inexact:flags.1?true pts:int count:int offset_id_offset:flags.2?int messages:Vector<Message> chats:Vector<Chat> users:Vector<User> = messages.Messages;
+messages.channelMessages#c776ba4e flags:# inexact:flags.1?true pts:int count:int offset_id_offset:flags.2?int messages:Vector<Message> topics:Vector<ForumTopic> chats:Vector<Chat> users:Vector<User> = messages.Messages;
 
 messages.messagesNotModified#74535f21 count:int = messages.Messages;
 
@@ -643,7 +643,9 @@ updateMoveStickerSetToTop#86fccf85 flags:# masks:flags.0?true emojis:flags.1?tru
 
 updateMessageExtendedMedia#5a73a98c peer:Peer msg_id:int extended_media:MessageExtendedMedia = Update;
 
-updateChannelPinnedTopic#f694b0ae flags:# channel_id:long topic_id:flags.0?int = Update;
+updateChannelPinnedTopic#192efbe3 flags:# pinned:flags.0?true channel_id:long topic_id:int = Update;
+
+updateChannelPinnedTopics#fe198602 flags:# channel_id:long order:flags.0?Vector<int> = Update;
 
 updates.state#a56c2a3e pts:int qts:int date:int seq:int unread_count:int = updates.State;
 
@@ -2129,7 +2131,7 @@ username#b4073647 flags:# editable:flags.0?true active:flags.1?true username:str
 
 forumTopicDeleted#23f109b id:int = ForumTopic;
 
-forumTopic#71701da9 flags:# my:flags.1?true closed:flags.2?true pinned:flags.3?true id:int date:int title:string icon_color:int icon_emoji_id:flags.0?long top_message:int read_inbox_max_id:int read_outbox_max_id:int unread_count:int unread_mentions_count:int unread_reactions_count:int from_id:Peer notify_settings:PeerNotifySettings draft:flags.4?DraftMessage = ForumTopic;
+forumTopic#71701da9 flags:# my:flags.1?true closed:flags.2?true pinned:flags.3?true short:flags.5?true id:int date:int title:string icon_color:int icon_emoji_id:flags.0?long top_message:int read_inbox_max_id:int read_outbox_max_id:int unread_count:int unread_mentions_count:int unread_reactions_count:int from_id:Peer notify_settings:PeerNotifySettings draft:flags.4?DraftMessage = ForumTopic;
 
 messages.forumTopics#367617d3 flags:# order_by_create_date:flags.0?true count:int topics:Vector<ForumTopic> messages:Vector<Message> chats:Vector<Chat> users:Vector<User> pts:int = messages.ForumTopics;
 
@@ -2932,6 +2934,8 @@ channels.updatePinnedForumTopic#6c2d9026 channel:InputChannel topic_id:int pinne
 
 channels.deleteTopicHistory#34435f2d channel:InputChannel top_msg_id:int = messages.AffectedHistory;
 
+channels.reorderPinnedForumTopics#2950a18f flags:# force:flags.0?true channel:InputChannel order:Vector<int> = Updates;
+
 bots.sendCustomRequest#aa2769ed custom_method:string params:DataJSON = DataJSON;
 
 bots.answerWebhookJSONQuery#e6213f4d query_id:long data:DataJSON = Bool;
@@ -3104,4 +3108,4 @@ test.useError#ee75af01 = Error;
 
 test.useConfigSimple#f9b7b23d = help.ConfigSimple;
 
-// LAYER 148
+// LAYER 149

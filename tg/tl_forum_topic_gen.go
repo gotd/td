@@ -177,6 +177,8 @@ type ForumTopic struct {
 	Closed bool
 	// Pinned field of ForumTopic.
 	Pinned bool
+	// Short field of ForumTopic.
+	Short bool
 	// ID field of ForumTopic.
 	ID int
 	// Date field of ForumTopic.
@@ -243,6 +245,9 @@ func (f *ForumTopic) Zero() bool {
 	if !(f.Pinned == false) {
 		return false
 	}
+	if !(f.Short == false) {
+		return false
+	}
 	if !(f.ID == 0) {
 		return false
 	}
@@ -303,6 +308,7 @@ func (f *ForumTopic) FillFrom(from interface {
 	GetMy() (value bool)
 	GetClosed() (value bool)
 	GetPinned() (value bool)
+	GetShort() (value bool)
 	GetID() (value int)
 	GetDate() (value int)
 	GetTitle() (value string)
@@ -321,6 +327,7 @@ func (f *ForumTopic) FillFrom(from interface {
 	f.My = from.GetMy()
 	f.Closed = from.GetClosed()
 	f.Pinned = from.GetPinned()
+	f.Short = from.GetShort()
 	f.ID = from.GetID()
 	f.Date = from.GetDate()
 	f.Title = from.GetTitle()
@@ -380,6 +387,11 @@ func (f *ForumTopic) TypeInfo() tdp.Type {
 			Name:       "Pinned",
 			SchemaName: "pinned",
 			Null:       !f.Flags.Has(3),
+		},
+		{
+			Name:       "Short",
+			SchemaName: "short",
+			Null:       !f.Flags.Has(5),
 		},
 		{
 			Name:       "ID",
@@ -453,6 +465,9 @@ func (f *ForumTopic) SetFlags() {
 	}
 	if !(f.Pinned == false) {
 		f.Flags.Set(3)
+	}
+	if !(f.Short == false) {
+		f.Flags.Set(5)
 	}
 	if !(f.IconEmojiID == 0) {
 		f.Flags.Set(0)
@@ -537,6 +552,7 @@ func (f *ForumTopic) DecodeBare(b *bin.Buffer) error {
 	f.My = f.Flags.Has(1)
 	f.Closed = f.Flags.Has(2)
 	f.Pinned = f.Flags.Has(3)
+	f.Short = f.Flags.Has(5)
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -691,6 +707,25 @@ func (f *ForumTopic) GetPinned() (value bool) {
 		return
 	}
 	return f.Flags.Has(3)
+}
+
+// SetShort sets value of Short conditional field.
+func (f *ForumTopic) SetShort(value bool) {
+	if value {
+		f.Flags.Set(5)
+		f.Short = true
+	} else {
+		f.Flags.Unset(5)
+		f.Short = false
+	}
+}
+
+// GetShort returns value of Short conditional field.
+func (f *ForumTopic) GetShort() (value bool) {
+	if f == nil {
+		return
+	}
+	return f.Flags.Has(5)
 }
 
 // GetID returns value of ID field.
