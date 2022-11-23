@@ -1185,3 +1185,13 @@ func (u UpdateDispatcher) OnChannelPinnedTopic(handler ChannelPinnedTopicHandler
 		return handler(ctx, e, update.(*UpdateChannelPinnedTopic))
 	}
 }
+
+// ChannelPinnedTopicsHandler is a ChannelPinnedTopics event handler.
+type ChannelPinnedTopicsHandler func(ctx context.Context, e Entities, update *UpdateChannelPinnedTopics) error
+
+// OnChannelPinnedTopics sets ChannelPinnedTopics handler.
+func (u UpdateDispatcher) OnChannelPinnedTopics(handler ChannelPinnedTopicsHandler) {
+	u.handlers[UpdateChannelPinnedTopicsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChannelPinnedTopics))
+	}
+}

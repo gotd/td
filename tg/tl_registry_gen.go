@@ -32,7 +32,7 @@ var (
 )
 
 // Layer version of schema.
-const Layer = 148
+const Layer = 149
 
 // TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
@@ -226,7 +226,7 @@ func TypesMap() map[uint32]string {
 		MessagesDialogsNotModifiedTypeID:                         "messages.dialogsNotModified#f0e3e596",
 		MessagesMessagesTypeID:                                   "messages.messages#8c718e87",
 		MessagesMessagesSliceTypeID:                              "messages.messagesSlice#3a54685e",
-		MessagesChannelMessagesTypeID:                            "messages.channelMessages#64479808",
+		MessagesChannelMessagesTypeID:                            "messages.channelMessages#c776ba4e",
 		MessagesMessagesNotModifiedTypeID:                        "messages.messagesNotModified#74535f21",
 		MessagesChatsTypeID:                                      "messages.chats#64ff9fd5",
 		MessagesChatsSliceTypeID:                                 "messages.chatsSlice#9cd81144",
@@ -356,7 +356,8 @@ func TypesMap() map[uint32]string {
 		UpdateRecentReactionsTypeID:                              "updateRecentReactions#6f7863f4",
 		UpdateMoveStickerSetToTopTypeID:                          "updateMoveStickerSetToTop#86fccf85",
 		UpdateMessageExtendedMediaTypeID:                         "updateMessageExtendedMedia#5a73a98c",
-		UpdateChannelPinnedTopicTypeID:                           "updateChannelPinnedTopic#f694b0ae",
+		UpdateChannelPinnedTopicTypeID:                           "updateChannelPinnedTopic#192efbe3",
+		UpdateChannelPinnedTopicsTypeID:                          "updateChannelPinnedTopics#fe198602",
 		UpdatesStateTypeID:                                       "updates.state#a56c2a3e",
 		UpdatesDifferenceEmptyTypeID:                             "updates.differenceEmpty#5d75a138",
 		UpdatesDifferenceTypeID:                                  "updates.difference#f49ca0",
@@ -1499,6 +1500,7 @@ func TypesMap() map[uint32]string {
 		ChannelsEditForumTopicRequestTypeID:                                     "channels.editForumTopic#6c883e2d",
 		ChannelsUpdatePinnedForumTopicRequestTypeID:                             "channels.updatePinnedForumTopic#6c2d9026",
 		ChannelsDeleteTopicHistoryRequestTypeID:                                 "channels.deleteTopicHistory#34435f2d",
+		ChannelsReorderPinnedForumTopicsRequestTypeID:                           "channels.reorderPinnedForumTopics#2950a18f",
 		BotsSendCustomRequestRequestTypeID:                                      "bots.sendCustomRequest#aa2769ed",
 		BotsAnswerWebhookJSONQueryRequestTypeID:                                 "bots.answerWebhookJSONQuery#e6213f4d",
 		BotsSetBotCommandsRequestTypeID:                                         "bots.setBotCommands#517165a",
@@ -1908,6 +1910,7 @@ func NamesMap() map[string]uint32 {
 		"updateMoveStickerSetToTop":                          UpdateMoveStickerSetToTopTypeID,
 		"updateMessageExtendedMedia":                         UpdateMessageExtendedMediaTypeID,
 		"updateChannelPinnedTopic":                           UpdateChannelPinnedTopicTypeID,
+		"updateChannelPinnedTopics":                          UpdateChannelPinnedTopicsTypeID,
 		"updates.state":                                      UpdatesStateTypeID,
 		"updates.differenceEmpty":                            UpdatesDifferenceEmptyTypeID,
 		"updates.difference":                                 UpdatesDifferenceTypeID,
@@ -3050,6 +3053,7 @@ func NamesMap() map[string]uint32 {
 		"channels.editForumTopic":                                           ChannelsEditForumTopicRequestTypeID,
 		"channels.updatePinnedForumTopic":                                   ChannelsUpdatePinnedForumTopicRequestTypeID,
 		"channels.deleteTopicHistory":                                       ChannelsDeleteTopicHistoryRequestTypeID,
+		"channels.reorderPinnedForumTopics":                                 ChannelsReorderPinnedForumTopicsRequestTypeID,
 		"bots.sendCustomRequest":                                            BotsSendCustomRequestRequestTypeID,
 		"bots.answerWebhookJSONQuery":                                       BotsAnswerWebhookJSONQueryRequestTypeID,
 		"bots.setBotCommands":                                               BotsSetBotCommandsRequestTypeID,
@@ -3459,6 +3463,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		UpdateMoveStickerSetToTopTypeID:                          func() bin.Object { return &UpdateMoveStickerSetToTop{} },
 		UpdateMessageExtendedMediaTypeID:                         func() bin.Object { return &UpdateMessageExtendedMedia{} },
 		UpdateChannelPinnedTopicTypeID:                           func() bin.Object { return &UpdateChannelPinnedTopic{} },
+		UpdateChannelPinnedTopicsTypeID:                          func() bin.Object { return &UpdateChannelPinnedTopics{} },
 		UpdatesStateTypeID:                                       func() bin.Object { return &UpdatesState{} },
 		UpdatesDifferenceEmptyTypeID:                             func() bin.Object { return &UpdatesDifferenceEmpty{} },
 		UpdatesDifferenceTypeID:                                  func() bin.Object { return &UpdatesDifference{} },
@@ -4601,6 +4606,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		ChannelsEditForumTopicRequestTypeID:                                     func() bin.Object { return &ChannelsEditForumTopicRequest{} },
 		ChannelsUpdatePinnedForumTopicRequestTypeID:                             func() bin.Object { return &ChannelsUpdatePinnedForumTopicRequest{} },
 		ChannelsDeleteTopicHistoryRequestTypeID:                                 func() bin.Object { return &ChannelsDeleteTopicHistoryRequest{} },
+		ChannelsReorderPinnedForumTopicsRequestTypeID:                           func() bin.Object { return &ChannelsReorderPinnedForumTopicsRequest{} },
 		BotsSendCustomRequestRequestTypeID:                                      func() bin.Object { return &BotsSendCustomRequestRequest{} },
 		BotsAnswerWebhookJSONQueryRequestTypeID:                                 func() bin.Object { return &BotsAnswerWebhookJSONQueryRequest{} },
 		BotsSetBotCommandsRequestTypeID:                                         func() bin.Object { return &BotsSetBotCommandsRequest{} },
@@ -5820,6 +5826,7 @@ func ClassConstructorsMap() map[string][]uint32 {
 			UpdateMoveStickerSetToTopTypeID,
 			UpdateMessageExtendedMediaTypeID,
 			UpdateChannelPinnedTopicTypeID,
+			UpdateChannelPinnedTopicsTypeID,
 		},
 		UpdatesChannelDifferenceClassName: {
 			UpdatesChannelDifferenceEmptyTypeID,

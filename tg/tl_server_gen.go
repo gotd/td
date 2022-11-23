@@ -7156,6 +7156,23 @@ func (s *ServerDispatcher) OnChannelsDeleteTopicHistory(f func(ctx context.Conte
 	s.handlers[ChannelsDeleteTopicHistoryRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnChannelsReorderPinnedForumTopics(f func(ctx context.Context, request *ChannelsReorderPinnedForumTopicsRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsReorderPinnedForumTopicsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[ChannelsReorderPinnedForumTopicsRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnBotsSendCustomRequest(f func(ctx context.Context, request *BotsSendCustomRequestRequest) (*DataJSON, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request BotsSendCustomRequestRequest
