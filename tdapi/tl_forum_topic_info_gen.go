@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ForumTopicInfo represents TL type `forumTopicInfo#d38f7a5a`.
+// ForumTopicInfo represents TL type `forumTopicInfo#8ff3df9e`.
 type ForumTopicInfo struct {
 	// Message thread identifier of the topic
 	MessageThreadID int64
@@ -43,14 +43,18 @@ type ForumTopicInfo struct {
 	CreationDate int32
 	// Identifier of the creator of the topic
 	CreatorID MessageSenderClass
+	// True, if the topic is the General topic list
+	IsGeneral bool
 	// True, if the topic was created by the current user
 	IsOutgoing bool
 	// True, if the topic is closed
 	IsClosed bool
+	// True, if the topic is hidden above the topic list and closed; for General topic only
+	IsHidden bool
 }
 
 // ForumTopicInfoTypeID is TL type id of ForumTopicInfo.
-const ForumTopicInfoTypeID = 0xd38f7a5a
+const ForumTopicInfoTypeID = 0x8ff3df9e
 
 // Ensuring interfaces in compile-time for ForumTopicInfo.
 var (
@@ -79,10 +83,16 @@ func (f *ForumTopicInfo) Zero() bool {
 	if !(f.CreatorID == nil) {
 		return false
 	}
+	if !(f.IsGeneral == false) {
+		return false
+	}
 	if !(f.IsOutgoing == false) {
 		return false
 	}
 	if !(f.IsClosed == false) {
+		return false
+	}
+	if !(f.IsHidden == false) {
 		return false
 	}
 
@@ -142,12 +152,20 @@ func (f *ForumTopicInfo) TypeInfo() tdp.Type {
 			SchemaName: "creator_id",
 		},
 		{
+			Name:       "IsGeneral",
+			SchemaName: "is_general",
+		},
+		{
 			Name:       "IsOutgoing",
 			SchemaName: "is_outgoing",
 		},
 		{
 			Name:       "IsClosed",
 			SchemaName: "is_closed",
+		},
+		{
+			Name:       "IsHidden",
+			SchemaName: "is_hidden",
 		},
 	}
 	return typ
@@ -156,7 +174,7 @@ func (f *ForumTopicInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *ForumTopicInfo) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode forumTopicInfo#d38f7a5a as nil")
+		return fmt.Errorf("can't encode forumTopicInfo#8ff3df9e as nil")
 	}
 	b.PutID(ForumTopicInfoTypeID)
 	return f.EncodeBare(b)
@@ -165,32 +183,34 @@ func (f *ForumTopicInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *ForumTopicInfo) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode forumTopicInfo#d38f7a5a as nil")
+		return fmt.Errorf("can't encode forumTopicInfo#8ff3df9e as nil")
 	}
 	b.PutInt53(f.MessageThreadID)
 	b.PutString(f.Name)
 	if err := f.Icon.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode forumTopicInfo#d38f7a5a: field icon: %w", err)
+		return fmt.Errorf("unable to encode forumTopicInfo#8ff3df9e: field icon: %w", err)
 	}
 	b.PutInt32(f.CreationDate)
 	if f.CreatorID == nil {
-		return fmt.Errorf("unable to encode forumTopicInfo#d38f7a5a: field creator_id is nil")
+		return fmt.Errorf("unable to encode forumTopicInfo#8ff3df9e: field creator_id is nil")
 	}
 	if err := f.CreatorID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode forumTopicInfo#d38f7a5a: field creator_id: %w", err)
+		return fmt.Errorf("unable to encode forumTopicInfo#8ff3df9e: field creator_id: %w", err)
 	}
+	b.PutBool(f.IsGeneral)
 	b.PutBool(f.IsOutgoing)
 	b.PutBool(f.IsClosed)
+	b.PutBool(f.IsHidden)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (f *ForumTopicInfo) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode forumTopicInfo#d38f7a5a to nil")
+		return fmt.Errorf("can't decode forumTopicInfo#8ff3df9e to nil")
 	}
 	if err := b.ConsumeID(ForumTopicInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode forumTopicInfo#d38f7a5a: %w", err)
+		return fmt.Errorf("unable to decode forumTopicInfo#8ff3df9e: %w", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -198,54 +218,68 @@ func (f *ForumTopicInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *ForumTopicInfo) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode forumTopicInfo#d38f7a5a to nil")
+		return fmt.Errorf("can't decode forumTopicInfo#8ff3df9e to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode forumTopicInfo#d38f7a5a: field message_thread_id: %w", err)
+			return fmt.Errorf("unable to decode forumTopicInfo#8ff3df9e: field message_thread_id: %w", err)
 		}
 		f.MessageThreadID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode forumTopicInfo#d38f7a5a: field name: %w", err)
+			return fmt.Errorf("unable to decode forumTopicInfo#8ff3df9e: field name: %w", err)
 		}
 		f.Name = value
 	}
 	{
 		if err := f.Icon.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode forumTopicInfo#d38f7a5a: field icon: %w", err)
+			return fmt.Errorf("unable to decode forumTopicInfo#8ff3df9e: field icon: %w", err)
 		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode forumTopicInfo#d38f7a5a: field creation_date: %w", err)
+			return fmt.Errorf("unable to decode forumTopicInfo#8ff3df9e: field creation_date: %w", err)
 		}
 		f.CreationDate = value
 	}
 	{
 		value, err := DecodeMessageSender(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode forumTopicInfo#d38f7a5a: field creator_id: %w", err)
+			return fmt.Errorf("unable to decode forumTopicInfo#8ff3df9e: field creator_id: %w", err)
 		}
 		f.CreatorID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode forumTopicInfo#d38f7a5a: field is_outgoing: %w", err)
+			return fmt.Errorf("unable to decode forumTopicInfo#8ff3df9e: field is_general: %w", err)
+		}
+		f.IsGeneral = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode forumTopicInfo#8ff3df9e: field is_outgoing: %w", err)
 		}
 		f.IsOutgoing = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode forumTopicInfo#d38f7a5a: field is_closed: %w", err)
+			return fmt.Errorf("unable to decode forumTopicInfo#8ff3df9e: field is_closed: %w", err)
 		}
 		f.IsClosed = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode forumTopicInfo#8ff3df9e: field is_hidden: %w", err)
+		}
+		f.IsHidden = value
 	}
 	return nil
 }
@@ -253,7 +287,7 @@ func (f *ForumTopicInfo) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (f *ForumTopicInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if f == nil {
-		return fmt.Errorf("can't encode forumTopicInfo#d38f7a5a as nil")
+		return fmt.Errorf("can't encode forumTopicInfo#8ff3df9e as nil")
 	}
 	b.ObjStart()
 	b.PutID("forumTopicInfo")
@@ -266,7 +300,7 @@ func (f *ForumTopicInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("icon")
 	if err := f.Icon.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode forumTopicInfo#d38f7a5a: field icon: %w", err)
+		return fmt.Errorf("unable to encode forumTopicInfo#8ff3df9e: field icon: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("creation_date")
@@ -274,17 +308,23 @@ func (f *ForumTopicInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("creator_id")
 	if f.CreatorID == nil {
-		return fmt.Errorf("unable to encode forumTopicInfo#d38f7a5a: field creator_id is nil")
+		return fmt.Errorf("unable to encode forumTopicInfo#8ff3df9e: field creator_id is nil")
 	}
 	if err := f.CreatorID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode forumTopicInfo#d38f7a5a: field creator_id: %w", err)
+		return fmt.Errorf("unable to encode forumTopicInfo#8ff3df9e: field creator_id: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("is_general")
+	b.PutBool(f.IsGeneral)
 	b.Comma()
 	b.FieldStart("is_outgoing")
 	b.PutBool(f.IsOutgoing)
 	b.Comma()
 	b.FieldStart("is_closed")
 	b.PutBool(f.IsClosed)
+	b.Comma()
+	b.FieldStart("is_hidden")
+	b.PutBool(f.IsHidden)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -294,55 +334,67 @@ func (f *ForumTopicInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (f *ForumTopicInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if f == nil {
-		return fmt.Errorf("can't decode forumTopicInfo#d38f7a5a to nil")
+		return fmt.Errorf("can't decode forumTopicInfo#8ff3df9e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("forumTopicInfo"); err != nil {
-				return fmt.Errorf("unable to decode forumTopicInfo#d38f7a5a: %w", err)
+				return fmt.Errorf("unable to decode forumTopicInfo#8ff3df9e: %w", err)
 			}
 		case "message_thread_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode forumTopicInfo#d38f7a5a: field message_thread_id: %w", err)
+				return fmt.Errorf("unable to decode forumTopicInfo#8ff3df9e: field message_thread_id: %w", err)
 			}
 			f.MessageThreadID = value
 		case "name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode forumTopicInfo#d38f7a5a: field name: %w", err)
+				return fmt.Errorf("unable to decode forumTopicInfo#8ff3df9e: field name: %w", err)
 			}
 			f.Name = value
 		case "icon":
 			if err := f.Icon.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode forumTopicInfo#d38f7a5a: field icon: %w", err)
+				return fmt.Errorf("unable to decode forumTopicInfo#8ff3df9e: field icon: %w", err)
 			}
 		case "creation_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode forumTopicInfo#d38f7a5a: field creation_date: %w", err)
+				return fmt.Errorf("unable to decode forumTopicInfo#8ff3df9e: field creation_date: %w", err)
 			}
 			f.CreationDate = value
 		case "creator_id":
 			value, err := DecodeTDLibJSONMessageSender(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode forumTopicInfo#d38f7a5a: field creator_id: %w", err)
+				return fmt.Errorf("unable to decode forumTopicInfo#8ff3df9e: field creator_id: %w", err)
 			}
 			f.CreatorID = value
+		case "is_general":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode forumTopicInfo#8ff3df9e: field is_general: %w", err)
+			}
+			f.IsGeneral = value
 		case "is_outgoing":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode forumTopicInfo#d38f7a5a: field is_outgoing: %w", err)
+				return fmt.Errorf("unable to decode forumTopicInfo#8ff3df9e: field is_outgoing: %w", err)
 			}
 			f.IsOutgoing = value
 		case "is_closed":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode forumTopicInfo#d38f7a5a: field is_closed: %w", err)
+				return fmt.Errorf("unable to decode forumTopicInfo#8ff3df9e: field is_closed: %w", err)
 			}
 			f.IsClosed = value
+		case "is_hidden":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode forumTopicInfo#8ff3df9e: field is_hidden: %w", err)
+			}
+			f.IsHidden = value
 		default:
 			return b.Skip()
 		}
@@ -390,6 +442,14 @@ func (f *ForumTopicInfo) GetCreatorID() (value MessageSenderClass) {
 	return f.CreatorID
 }
 
+// GetIsGeneral returns value of IsGeneral field.
+func (f *ForumTopicInfo) GetIsGeneral() (value bool) {
+	if f == nil {
+		return
+	}
+	return f.IsGeneral
+}
+
 // GetIsOutgoing returns value of IsOutgoing field.
 func (f *ForumTopicInfo) GetIsOutgoing() (value bool) {
 	if f == nil {
@@ -404,4 +464,12 @@ func (f *ForumTopicInfo) GetIsClosed() (value bool) {
 		return
 	}
 	return f.IsClosed
+}
+
+// GetIsHidden returns value of IsHidden field.
+func (f *ForumTopicInfo) GetIsHidden() (value bool) {
+	if f == nil {
+		return
+	}
+	return f.IsHidden
 }

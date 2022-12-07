@@ -35,7 +35,7 @@ var (
 type ForumTopic struct {
 	// Basic information about the topic
 	Info ForumTopicInfo
-	// Last message in the topic; may be null
+	// Last message in the topic; may be null if unknown
 	LastMessage Message
 	// True, if the topic is pinned in the topic list
 	IsPinned bool

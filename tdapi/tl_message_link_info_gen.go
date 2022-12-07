@@ -37,8 +37,8 @@ type MessageLinkInfo struct {
 	IsPublic bool
 	// If found, identifier of the chat to which the message belongs, 0 otherwise
 	ChatID int64
-	// If found, identifier of the message thread in which to open the message, or which to
-	// open in case of a missing message
+	// If found, identifier of the message thread in which to open the message, or a forum
+	// topic to open if the message is missing
 	MessageThreadID int64
 	// If found, the linked message; may be null
 	Message Message

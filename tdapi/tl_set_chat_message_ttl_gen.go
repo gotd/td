@@ -36,7 +36,7 @@ type SetChatMessageTTLRequest struct {
 	// Chat identifier
 	ChatID int64
 	// New TTL value, in seconds; unless the chat is secret, it must be from 0 up to 365 *
-	// 86400 and be divisible by 86400
+	// 86400 and be divisible by 86400. If 0, then messages aren't deleted automatically
 	TTL int32
 }
 

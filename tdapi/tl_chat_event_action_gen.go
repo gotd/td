@@ -231,14 +231,17 @@ func (c *ChatEventMessageEdited) GetNewMessage() (value Message) {
 	return c.NewMessage
 }
 
-// ChatEventMessageDeleted represents TL type `chatEventMessageDeleted#cac649f7`.
+// ChatEventMessageDeleted represents TL type `chatEventMessageDeleted#37bfcd73`.
 type ChatEventMessageDeleted struct {
 	// Deleted message
 	Message Message
+	// True, if the message deletion can be reported via
+	// reportSupergroupAntiSpamFalsePositive
+	CanReportAntiSpamFalsePositive bool
 }
 
 // ChatEventMessageDeletedTypeID is TL type id of ChatEventMessageDeleted.
-const ChatEventMessageDeletedTypeID = 0xcac649f7
+const ChatEventMessageDeletedTypeID = 0x37bfcd73
 
 // construct implements constructor of ChatEventActionClass.
 func (c ChatEventMessageDeleted) construct() ChatEventActionClass { return &c }
@@ -258,6 +261,9 @@ func (c *ChatEventMessageDeleted) Zero() bool {
 		return true
 	}
 	if !(c.Message.Zero()) {
+		return false
+	}
+	if !(c.CanReportAntiSpamFalsePositive == false) {
 		return false
 	}
 
@@ -300,6 +306,10 @@ func (c *ChatEventMessageDeleted) TypeInfo() tdp.Type {
 			Name:       "Message",
 			SchemaName: "message",
 		},
+		{
+			Name:       "CanReportAntiSpamFalsePositive",
+			SchemaName: "can_report_anti_spam_false_positive",
+		},
 	}
 	return typ
 }
@@ -307,7 +317,7 @@ func (c *ChatEventMessageDeleted) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatEventMessageDeleted) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventMessageDeleted#cac649f7 as nil")
+		return fmt.Errorf("can't encode chatEventMessageDeleted#37bfcd73 as nil")
 	}
 	b.PutID(ChatEventMessageDeletedTypeID)
 	return c.EncodeBare(b)
@@ -316,21 +326,22 @@ func (c *ChatEventMessageDeleted) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatEventMessageDeleted) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventMessageDeleted#cac649f7 as nil")
+		return fmt.Errorf("can't encode chatEventMessageDeleted#37bfcd73 as nil")
 	}
 	if err := c.Message.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatEventMessageDeleted#cac649f7: field message: %w", err)
+		return fmt.Errorf("unable to encode chatEventMessageDeleted#37bfcd73: field message: %w", err)
 	}
+	b.PutBool(c.CanReportAntiSpamFalsePositive)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChatEventMessageDeleted) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventMessageDeleted#cac649f7 to nil")
+		return fmt.Errorf("can't decode chatEventMessageDeleted#37bfcd73 to nil")
 	}
 	if err := b.ConsumeID(ChatEventMessageDeletedTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventMessageDeleted#cac649f7: %w", err)
+		return fmt.Errorf("unable to decode chatEventMessageDeleted#37bfcd73: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -338,12 +349,19 @@ func (c *ChatEventMessageDeleted) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatEventMessageDeleted) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventMessageDeleted#cac649f7 to nil")
+		return fmt.Errorf("can't decode chatEventMessageDeleted#37bfcd73 to nil")
 	}
 	{
 		if err := c.Message.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatEventMessageDeleted#cac649f7: field message: %w", err)
+			return fmt.Errorf("unable to decode chatEventMessageDeleted#37bfcd73: field message: %w", err)
 		}
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventMessageDeleted#37bfcd73: field can_report_anti_spam_false_positive: %w", err)
+		}
+		c.CanReportAntiSpamFalsePositive = value
 	}
 	return nil
 }
@@ -351,15 +369,18 @@ func (c *ChatEventMessageDeleted) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatEventMessageDeleted) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventMessageDeleted#cac649f7 as nil")
+		return fmt.Errorf("can't encode chatEventMessageDeleted#37bfcd73 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatEventMessageDeleted")
 	b.Comma()
 	b.FieldStart("message")
 	if err := c.Message.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatEventMessageDeleted#cac649f7: field message: %w", err)
+		return fmt.Errorf("unable to encode chatEventMessageDeleted#37bfcd73: field message: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("can_report_anti_spam_false_positive")
+	b.PutBool(c.CanReportAntiSpamFalsePositive)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -369,19 +390,25 @@ func (c *ChatEventMessageDeleted) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatEventMessageDeleted) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventMessageDeleted#cac649f7 to nil")
+		return fmt.Errorf("can't decode chatEventMessageDeleted#37bfcd73 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatEventMessageDeleted"); err != nil {
-				return fmt.Errorf("unable to decode chatEventMessageDeleted#cac649f7: %w", err)
+				return fmt.Errorf("unable to decode chatEventMessageDeleted#37bfcd73: %w", err)
 			}
 		case "message":
 			if err := c.Message.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatEventMessageDeleted#cac649f7: field message: %w", err)
+				return fmt.Errorf("unable to decode chatEventMessageDeleted#37bfcd73: field message: %w", err)
 			}
+		case "can_report_anti_spam_false_positive":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventMessageDeleted#37bfcd73: field can_report_anti_spam_false_positive: %w", err)
+			}
+			c.CanReportAntiSpamFalsePositive = value
 		default:
 			return b.Skip()
 		}
@@ -395,6 +422,14 @@ func (c *ChatEventMessageDeleted) GetMessage() (value Message) {
 		return
 	}
 	return c.Message
+}
+
+// GetCanReportAntiSpamFalsePositive returns value of CanReportAntiSpamFalsePositive field.
+func (c *ChatEventMessageDeleted) GetCanReportAntiSpamFalsePositive() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.CanReportAntiSpamFalsePositive
 }
 
 // ChatEventMessagePinned represents TL type `chatEventMessagePinned#1a26ad1a`.
@@ -5217,6 +5252,172 @@ func (c *ChatEventIsAllHistoryAvailableToggled) GetIsAllHistoryAvailable() (valu
 	return c.IsAllHistoryAvailable
 }
 
+// ChatEventIsAggressiveAntiSpamEnabledToggled represents TL type `chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196`.
+type ChatEventIsAggressiveAntiSpamEnabledToggled struct {
+	// New value of is_aggressive_anti_spam_enabled
+	IsAggressiveAntiSpamEnabled bool
+}
+
+// ChatEventIsAggressiveAntiSpamEnabledToggledTypeID is TL type id of ChatEventIsAggressiveAntiSpamEnabledToggled.
+const ChatEventIsAggressiveAntiSpamEnabledToggledTypeID = 0x54a3f196
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventIsAggressiveAntiSpamEnabledToggled) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventIsAggressiveAntiSpamEnabledToggled.
+var (
+	_ bin.Encoder     = &ChatEventIsAggressiveAntiSpamEnabledToggled{}
+	_ bin.Decoder     = &ChatEventIsAggressiveAntiSpamEnabledToggled{}
+	_ bin.BareEncoder = &ChatEventIsAggressiveAntiSpamEnabledToggled{}
+	_ bin.BareDecoder = &ChatEventIsAggressiveAntiSpamEnabledToggled{}
+
+	_ ChatEventActionClass = &ChatEventIsAggressiveAntiSpamEnabledToggled{}
+)
+
+func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.IsAggressiveAntiSpamEnabled == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) String() string {
+	if c == nil {
+		return "ChatEventIsAggressiveAntiSpamEnabledToggled(nil)"
+	}
+	type Alias ChatEventIsAggressiveAntiSpamEnabledToggled
+	return fmt.Sprintf("ChatEventIsAggressiveAntiSpamEnabledToggled%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventIsAggressiveAntiSpamEnabledToggled) TypeID() uint32 {
+	return ChatEventIsAggressiveAntiSpamEnabledToggledTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventIsAggressiveAntiSpamEnabledToggled) TypeName() string {
+	return "chatEventIsAggressiveAntiSpamEnabledToggled"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventIsAggressiveAntiSpamEnabledToggled",
+		ID:   ChatEventIsAggressiveAntiSpamEnabledToggledTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "IsAggressiveAntiSpamEnabled",
+			SchemaName: "is_aggressive_anti_spam_enabled",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196 as nil")
+	}
+	b.PutID(ChatEventIsAggressiveAntiSpamEnabledToggledTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196 as nil")
+	}
+	b.PutBool(c.IsAggressiveAntiSpamEnabled)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196 to nil")
+	}
+	if err := b.ConsumeID(ChatEventIsAggressiveAntiSpamEnabledToggledTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196 to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196: field is_aggressive_anti_spam_enabled: %w", err)
+		}
+		c.IsAggressiveAntiSpamEnabled = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventIsAggressiveAntiSpamEnabledToggled")
+	b.Comma()
+	b.FieldStart("is_aggressive_anti_spam_enabled")
+	b.PutBool(c.IsAggressiveAntiSpamEnabled)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventIsAggressiveAntiSpamEnabledToggled"); err != nil {
+				return fmt.Errorf("unable to decode chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196: %w", err)
+			}
+		case "is_aggressive_anti_spam_enabled":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196: field is_aggressive_anti_spam_enabled: %w", err)
+			}
+			c.IsAggressiveAntiSpamEnabled = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetIsAggressiveAntiSpamEnabled returns value of IsAggressiveAntiSpamEnabled field.
+func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) GetIsAggressiveAntiSpamEnabled() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.IsAggressiveAntiSpamEnabled
+}
+
 // ChatEventSignMessagesToggled represents TL type `chatEventSignMessagesToggled#b1b9281e`.
 type ChatEventSignMessagesToggled struct {
 	// New value of sign_messages
@@ -7533,6 +7734,172 @@ func (c *ChatEventForumTopicToggleIsClosed) GetTopicInfo() (value ForumTopicInfo
 	return c.TopicInfo
 }
 
+// ChatEventForumTopicToggleIsHidden represents TL type `chatEventForumTopicToggleIsHidden#a015ef2e`.
+type ChatEventForumTopicToggleIsHidden struct {
+	// New information about the topic
+	TopicInfo ForumTopicInfo
+}
+
+// ChatEventForumTopicToggleIsHiddenTypeID is TL type id of ChatEventForumTopicToggleIsHidden.
+const ChatEventForumTopicToggleIsHiddenTypeID = 0xa015ef2e
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventForumTopicToggleIsHidden) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventForumTopicToggleIsHidden.
+var (
+	_ bin.Encoder     = &ChatEventForumTopicToggleIsHidden{}
+	_ bin.Decoder     = &ChatEventForumTopicToggleIsHidden{}
+	_ bin.BareEncoder = &ChatEventForumTopicToggleIsHidden{}
+	_ bin.BareDecoder = &ChatEventForumTopicToggleIsHidden{}
+
+	_ ChatEventActionClass = &ChatEventForumTopicToggleIsHidden{}
+)
+
+func (c *ChatEventForumTopicToggleIsHidden) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.TopicInfo.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventForumTopicToggleIsHidden) String() string {
+	if c == nil {
+		return "ChatEventForumTopicToggleIsHidden(nil)"
+	}
+	type Alias ChatEventForumTopicToggleIsHidden
+	return fmt.Sprintf("ChatEventForumTopicToggleIsHidden%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventForumTopicToggleIsHidden) TypeID() uint32 {
+	return ChatEventForumTopicToggleIsHiddenTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventForumTopicToggleIsHidden) TypeName() string {
+	return "chatEventForumTopicToggleIsHidden"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventForumTopicToggleIsHidden) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventForumTopicToggleIsHidden",
+		ID:   ChatEventForumTopicToggleIsHiddenTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "TopicInfo",
+			SchemaName: "topic_info",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventForumTopicToggleIsHidden) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventForumTopicToggleIsHidden#a015ef2e as nil")
+	}
+	b.PutID(ChatEventForumTopicToggleIsHiddenTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventForumTopicToggleIsHidden) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventForumTopicToggleIsHidden#a015ef2e as nil")
+	}
+	if err := c.TopicInfo.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventForumTopicToggleIsHidden#a015ef2e: field topic_info: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventForumTopicToggleIsHidden) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventForumTopicToggleIsHidden#a015ef2e to nil")
+	}
+	if err := b.ConsumeID(ChatEventForumTopicToggleIsHiddenTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventForumTopicToggleIsHidden#a015ef2e: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventForumTopicToggleIsHidden) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventForumTopicToggleIsHidden#a015ef2e to nil")
+	}
+	{
+		if err := c.TopicInfo.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatEventForumTopicToggleIsHidden#a015ef2e: field topic_info: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventForumTopicToggleIsHidden) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventForumTopicToggleIsHidden#a015ef2e as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventForumTopicToggleIsHidden")
+	b.Comma()
+	b.FieldStart("topic_info")
+	if err := c.TopicInfo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventForumTopicToggleIsHidden#a015ef2e: field topic_info: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventForumTopicToggleIsHidden) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventForumTopicToggleIsHidden#a015ef2e to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventForumTopicToggleIsHidden"); err != nil {
+				return fmt.Errorf("unable to decode chatEventForumTopicToggleIsHidden#a015ef2e: %w", err)
+			}
+		case "topic_info":
+			if err := c.TopicInfo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatEventForumTopicToggleIsHidden#a015ef2e: field topic_info: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetTopicInfo returns value of TopicInfo field.
+func (c *ChatEventForumTopicToggleIsHidden) GetTopicInfo() (value ForumTopicInfo) {
+	if c == nil {
+		return
+	}
+	return c.TopicInfo
+}
+
 // ChatEventForumTopicDeleted represents TL type `chatEventForumTopicDeleted#b08f290d`.
 type ChatEventForumTopicDeleted struct {
 	// Information about the topic
@@ -7912,7 +8279,7 @@ const ChatEventActionClassName = "ChatEventAction"
 //	}
 //	switch v := g.(type) {
 //	case *tdapi.ChatEventMessageEdited: // chatEventMessageEdited#e64ff5f8
-//	case *tdapi.ChatEventMessageDeleted: // chatEventMessageDeleted#cac649f7
+//	case *tdapi.ChatEventMessageDeleted: // chatEventMessageDeleted#37bfcd73
 //	case *tdapi.ChatEventMessagePinned: // chatEventMessagePinned#1a26ad1a
 //	case *tdapi.ChatEventMessageUnpinned: // chatEventMessageUnpinned#e9943b17
 //	case *tdapi.ChatEventPollStopped: // chatEventPollStopped#77cc8be5
@@ -7938,6 +8305,7 @@ const ChatEventActionClassName = "ChatEventAction"
 //	case *tdapi.ChatEventHasProtectedContentToggled: // chatEventHasProtectedContentToggled#f5044201
 //	case *tdapi.ChatEventInvitesToggled: // chatEventInvitesToggled#fc45966b
 //	case *tdapi.ChatEventIsAllHistoryAvailableToggled: // chatEventIsAllHistoryAvailableToggled#a0b03c15
+//	case *tdapi.ChatEventIsAggressiveAntiSpamEnabledToggled: // chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196
 //	case *tdapi.ChatEventSignMessagesToggled: // chatEventSignMessagesToggled#b1b9281e
 //	case *tdapi.ChatEventInviteLinkEdited: // chatEventInviteLinkEdited#e4920d62
 //	case *tdapi.ChatEventInviteLinkRevoked: // chatEventInviteLinkRevoked#a1dbffe3
@@ -7951,6 +8319,7 @@ const ChatEventActionClassName = "ChatEventAction"
 //	case *tdapi.ChatEventForumTopicCreated: // chatEventForumTopicCreated#7785fb42
 //	case *tdapi.ChatEventForumTopicEdited: // chatEventForumTopicEdited#60da2c0c
 //	case *tdapi.ChatEventForumTopicToggleIsClosed: // chatEventForumTopicToggleIsClosed#c69e4d3a
+//	case *tdapi.ChatEventForumTopicToggleIsHidden: // chatEventForumTopicToggleIsHidden#a015ef2e
 //	case *tdapi.ChatEventForumTopicDeleted: // chatEventForumTopicDeleted#b08f290d
 //	case *tdapi.ChatEventForumTopicPinned: // chatEventForumTopicPinned#7fc523ee
 //	default: panic(v)
@@ -7992,7 +8361,7 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 		}
 		return &v, nil
 	case ChatEventMessageDeletedTypeID:
-		// Decoding chatEventMessageDeleted#cac649f7.
+		// Decoding chatEventMessageDeleted#37bfcd73.
 		v := ChatEventMessageDeleted{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
@@ -8173,6 +8542,13 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
+	case ChatEventIsAggressiveAntiSpamEnabledToggledTypeID:
+		// Decoding chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196.
+		v := ChatEventIsAggressiveAntiSpamEnabledToggled{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
 	case ChatEventSignMessagesToggledTypeID:
 		// Decoding chatEventSignMessagesToggled#b1b9281e.
 		v := ChatEventSignMessagesToggled{}
@@ -8264,6 +8640,13 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
+	case ChatEventForumTopicToggleIsHiddenTypeID:
+		// Decoding chatEventForumTopicToggleIsHidden#a015ef2e.
+		v := ChatEventForumTopicToggleIsHidden{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
 	case ChatEventForumTopicDeletedTypeID:
 		// Decoding chatEventForumTopicDeleted#b08f290d.
 		v := ChatEventForumTopicDeleted{}
@@ -8298,7 +8681,7 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 		}
 		return &v, nil
 	case "chatEventMessageDeleted":
-		// Decoding chatEventMessageDeleted#cac649f7.
+		// Decoding chatEventMessageDeleted#37bfcd73.
 		v := ChatEventMessageDeleted{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
@@ -8479,6 +8862,13 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
+	case "chatEventIsAggressiveAntiSpamEnabledToggled":
+		// Decoding chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196.
+		v := ChatEventIsAggressiveAntiSpamEnabledToggled{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
 	case "chatEventSignMessagesToggled":
 		// Decoding chatEventSignMessagesToggled#b1b9281e.
 		v := ChatEventSignMessagesToggled{}
@@ -8566,6 +8956,13 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 	case "chatEventForumTopicToggleIsClosed":
 		// Decoding chatEventForumTopicToggleIsClosed#c69e4d3a.
 		v := ChatEventForumTopicToggleIsClosed{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventForumTopicToggleIsHidden":
+		// Decoding chatEventForumTopicToggleIsHidden#a015ef2e.
+		v := ChatEventForumTopicToggleIsHidden{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}

@@ -35,7 +35,7 @@ var (
 type ToggleGroupCallScreenSharingIsPausedRequest struct {
 	// Group call identifier
 	GroupCallID int32
-	// True if screen sharing is paused
+	// True, if screen sharing is paused
 	IsPaused bool
 }
 

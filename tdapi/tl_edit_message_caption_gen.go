@@ -39,7 +39,7 @@ type EditMessageCaptionRequest struct {
 	MessageID int64
 	// The new message reply markup; pass null if none; for bots only
 	ReplyMarkup ReplyMarkupClass
-	// New message content caption; 0-GetOption("message_caption_length_max") characters;
+	// New message content caption; 0-getOption("message_caption_length_max") characters;
 	// pass null to remove caption
 	Caption FormattedText
 }
