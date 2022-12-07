@@ -40,7 +40,8 @@ type ChatMember struct {
 	// Identifier of a user that invited/promoted/banned this member in the chat; 0 if
 	// unknown
 	InviterUserID int64
-	// Point in time (Unix timestamp) when the user joined the chat
+	// Point in time (Unix timestamp) when the user joined/was promoted/was banned in the
+	// chat
 	JoinedChatDate int32
 	// Status of the member in the chat
 	Status ChatMemberStatusClass

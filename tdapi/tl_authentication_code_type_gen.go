@@ -895,6 +895,206 @@ func (a *AuthenticationCodeTypeMissedCall) GetLength() (value int32) {
 	return a.Length
 }
 
+// AuthenticationCodeTypeFragment represents TL type `authenticationCodeTypeFragment#810f74cd`.
+type AuthenticationCodeTypeFragment struct {
+	// URL to open to receive the code
+	URL string
+	// Length of the code
+	Length int32
+}
+
+// AuthenticationCodeTypeFragmentTypeID is TL type id of AuthenticationCodeTypeFragment.
+const AuthenticationCodeTypeFragmentTypeID = 0x810f74cd
+
+// construct implements constructor of AuthenticationCodeTypeClass.
+func (a AuthenticationCodeTypeFragment) construct() AuthenticationCodeTypeClass { return &a }
+
+// Ensuring interfaces in compile-time for AuthenticationCodeTypeFragment.
+var (
+	_ bin.Encoder     = &AuthenticationCodeTypeFragment{}
+	_ bin.Decoder     = &AuthenticationCodeTypeFragment{}
+	_ bin.BareEncoder = &AuthenticationCodeTypeFragment{}
+	_ bin.BareDecoder = &AuthenticationCodeTypeFragment{}
+
+	_ AuthenticationCodeTypeClass = &AuthenticationCodeTypeFragment{}
+)
+
+func (a *AuthenticationCodeTypeFragment) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.URL == "") {
+		return false
+	}
+	if !(a.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (a *AuthenticationCodeTypeFragment) String() string {
+	if a == nil {
+		return "AuthenticationCodeTypeFragment(nil)"
+	}
+	type Alias AuthenticationCodeTypeFragment
+	return fmt.Sprintf("AuthenticationCodeTypeFragment%+v", Alias(*a))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*AuthenticationCodeTypeFragment) TypeID() uint32 {
+	return AuthenticationCodeTypeFragmentTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*AuthenticationCodeTypeFragment) TypeName() string {
+	return "authenticationCodeTypeFragment"
+}
+
+// TypeInfo returns info about TL type.
+func (a *AuthenticationCodeTypeFragment) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "authenticationCodeTypeFragment",
+		ID:   AuthenticationCodeTypeFragmentTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "Length",
+			SchemaName: "length",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (a *AuthenticationCodeTypeFragment) Encode(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeFragment#810f74cd as nil")
+	}
+	b.PutID(AuthenticationCodeTypeFragmentTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *AuthenticationCodeTypeFragment) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeFragment#810f74cd as nil")
+	}
+	b.PutString(a.URL)
+	b.PutInt32(a.Length)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (a *AuthenticationCodeTypeFragment) Decode(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeFragment#810f74cd to nil")
+	}
+	if err := b.ConsumeID(AuthenticationCodeTypeFragmentTypeID); err != nil {
+		return fmt.Errorf("unable to decode authenticationCodeTypeFragment#810f74cd: %w", err)
+	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *AuthenticationCodeTypeFragment) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeFragment#810f74cd to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode authenticationCodeTypeFragment#810f74cd: field url: %w", err)
+		}
+		a.URL = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode authenticationCodeTypeFragment#810f74cd: field length: %w", err)
+		}
+		a.Length = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AuthenticationCodeTypeFragment) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeFragment#810f74cd as nil")
+	}
+	b.ObjStart()
+	b.PutID("authenticationCodeTypeFragment")
+	b.Comma()
+	b.FieldStart("url")
+	b.PutString(a.URL)
+	b.Comma()
+	b.FieldStart("length")
+	b.PutInt32(a.Length)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AuthenticationCodeTypeFragment) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeFragment#810f74cd to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("authenticationCodeTypeFragment"); err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeFragment#810f74cd: %w", err)
+			}
+		case "url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeFragment#810f74cd: field url: %w", err)
+			}
+			a.URL = value
+		case "length":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeFragment#810f74cd: field length: %w", err)
+			}
+			a.Length = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetURL returns value of URL field.
+func (a *AuthenticationCodeTypeFragment) GetURL() (value string) {
+	if a == nil {
+		return
+	}
+	return a.URL
+}
+
+// GetLength returns value of Length field.
+func (a *AuthenticationCodeTypeFragment) GetLength() (value int32) {
+	if a == nil {
+		return
+	}
+	return a.Length
+}
+
 // AuthenticationCodeTypeClassName is schema name of AuthenticationCodeTypeClass.
 const AuthenticationCodeTypeClassName = "AuthenticationCodeType"
 
@@ -912,6 +1112,7 @@ const AuthenticationCodeTypeClassName = "AuthenticationCodeType"
 //	case *tdapi.AuthenticationCodeTypeCall: // authenticationCodeTypeCall#61876c67
 //	case *tdapi.AuthenticationCodeTypeFlashCall: // authenticationCodeTypeFlashCall#533379a2
 //	case *tdapi.AuthenticationCodeTypeMissedCall: // authenticationCodeTypeMissedCall#29bb0a87
+//	case *tdapi.AuthenticationCodeTypeFragment: // authenticationCodeTypeFragment#810f74cd
 //	default: panic(v)
 //	}
 type AuthenticationCodeTypeClass interface {
@@ -978,6 +1179,13 @@ func DecodeAuthenticationCodeType(buf *bin.Buffer) (AuthenticationCodeTypeClass,
 			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
 		}
 		return &v, nil
+	case AuthenticationCodeTypeFragmentTypeID:
+		// Decoding authenticationCodeTypeFragment#810f74cd.
+		v := AuthenticationCodeTypeFragment{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -1021,6 +1229,13 @@ func DecodeTDLibJSONAuthenticationCodeType(buf tdjson.Decoder) (AuthenticationCo
 	case "authenticationCodeTypeMissedCall":
 		// Decoding authenticationCodeTypeMissedCall#29bb0a87.
 		v := AuthenticationCodeTypeMissedCall{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
+		}
+		return &v, nil
+	case "authenticationCodeTypeFragment":
+		// Decoding authenticationCodeTypeFragment#810f74cd.
+		v := AuthenticationCodeTypeFragment{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
 		}

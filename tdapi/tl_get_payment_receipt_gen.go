@@ -33,7 +33,7 @@ var (
 
 // GetPaymentReceiptRequest represents TL type `getPaymentReceipt#3c6cb956`.
 type GetPaymentReceiptRequest struct {
-	// Chat identifier of the PaymentSuccessful message
+	// Chat identifier of the messagePaymentSuccessful message
 	ChatID int64
 	// Message identifier
 	MessageID int64

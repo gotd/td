@@ -37,7 +37,7 @@ type GroupCallParticipantVideoInfo struct {
 	SourceGroups []GroupCallVideoSourceGroup
 	// Video channel endpoint identifier
 	EndpointID string
-	// True if the video is paused. This flag needs to be ignored, if new video frames are
+	// True, if the video is paused. This flag needs to be ignored, if new video frames are
 	// received
 	IsPaused bool
 }

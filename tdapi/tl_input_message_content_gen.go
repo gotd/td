@@ -33,7 +33,7 @@ var (
 
 // InputMessageText represents TL type `inputMessageText#eb9b098`.
 type InputMessageText struct {
-	// Formatted text to be sent; 1-GetOption("message_text_length_max") characters. Only
+	// Formatted text to be sent; 1-getOption("message_text_length_max") characters. Only
 	// Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, Code, Pre, PreCode,
 	// TextUrl and MentionName entities are allowed to be specified manually
 	Text FormattedText
@@ -282,7 +282,7 @@ type InputMessageAnimation struct {
 	// Height of the animation; may be replaced by the server
 	Height int32
 	// Animation caption; pass null to use an empty caption;
-	// 0-GetOption("message_caption_length_max") characters
+	// 0-getOption("message_caption_length_max") characters
 	Caption FormattedText
 }
 
@@ -685,7 +685,7 @@ type InputMessageAudio struct {
 	// Performer of the audio; 0-64 characters, may be replaced by the server
 	Performer string
 	// Audio caption; pass null to use an empty caption;
-	// 0-GetOption("message_caption_length_max") characters
+	// 0-getOption("message_caption_length_max") characters
 	Caption FormattedText
 }
 
@@ -1029,7 +1029,7 @@ type InputMessageDocument struct {
 	// be sent as file. Always true for files sent to secret chats
 	DisableContentTypeDetection bool
 	// Document caption; pass null to use an empty caption;
-	// 0-GetOption("message_caption_length_max") characters
+	// 0-getOption("message_caption_length_max") characters
 	Caption FormattedText
 }
 
@@ -1314,7 +1314,7 @@ type InputMessagePhoto struct {
 	// Photo height
 	Height int32
 	// Photo caption; pass null to use an empty caption;
-	// 0-GetOption("message_caption_length_max") characters
+	// 0-getOption("message_caption_length_max") characters
 	Caption FormattedText
 	// Photo TTL (Time To Live), in seconds (0-60). A non-zero TTL can be specified only in
 	// private chats
@@ -2036,7 +2036,7 @@ type InputMessageVideo struct {
 	// True, if the video is supposed to be streamed
 	SupportsStreaming bool
 	// Video caption; pass null to use an empty caption;
-	// 0-GetOption("message_caption_length_max") characters
+	// 0-getOption("message_caption_length_max") characters
 	Caption FormattedText
 	// Video TTL (Time To Live), in seconds (0-60). A non-zero TTL can be specified only in
 	// private chats
@@ -2780,7 +2780,7 @@ type InputMessageVoiceNote struct {
 	// Waveform representation of the voice note in 5-bit format
 	Waveform []byte
 	// Voice note caption; pass null to use an empty caption;
-	// 0-GetOption("message_caption_length_max") characters
+	// 0-getOption("message_caption_length_max") characters
 	Caption FormattedText
 }
 

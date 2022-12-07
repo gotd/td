@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// CreateNewSupergroupChatRequest represents TL type `createNewSupergroupChat#ce83a6c1`.
+// CreateNewSupergroupChatRequest represents TL type `createNewSupergroupChat#d32c5491`.
 type CreateNewSupergroupChatRequest struct {
 	// Title of the new chat; 1-128 characters
 	Title string
@@ -43,12 +43,15 @@ type CreateNewSupergroupChatRequest struct {
 	// Chat location if a location-based supergroup is being created; pass null to create an
 	// ordinary supergroup chat
 	Location ChatLocation
+	// Message TTL value, in seconds; must be from 0 up to 365 * 86400 and be divisible by
+	// 86400. If 0, then messages aren't deleted automatically
+	MessageTTL int32
 	// Pass true to create a supergroup for importing messages using importMessage
 	ForImport bool
 }
 
 // CreateNewSupergroupChatRequestTypeID is TL type id of CreateNewSupergroupChatRequest.
-const CreateNewSupergroupChatRequestTypeID = 0xce83a6c1
+const CreateNewSupergroupChatRequestTypeID = 0xd32c5491
 
 // Ensuring interfaces in compile-time for CreateNewSupergroupChatRequest.
 var (
@@ -72,6 +75,9 @@ func (c *CreateNewSupergroupChatRequest) Zero() bool {
 		return false
 	}
 	if !(c.Location.Zero()) {
+		return false
+	}
+	if !(c.MessageTTL == 0) {
 		return false
 	}
 	if !(c.ForImport == false) {
@@ -130,6 +136,10 @@ func (c *CreateNewSupergroupChatRequest) TypeInfo() tdp.Type {
 			SchemaName: "location",
 		},
 		{
+			Name:       "MessageTTL",
+			SchemaName: "message_ttl",
+		},
+		{
 			Name:       "ForImport",
 			SchemaName: "for_import",
 		},
@@ -140,7 +150,7 @@ func (c *CreateNewSupergroupChatRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *CreateNewSupergroupChatRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createNewSupergroupChat#ce83a6c1 as nil")
+		return fmt.Errorf("can't encode createNewSupergroupChat#d32c5491 as nil")
 	}
 	b.PutID(CreateNewSupergroupChatRequestTypeID)
 	return c.EncodeBare(b)
@@ -149,14 +159,15 @@ func (c *CreateNewSupergroupChatRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *CreateNewSupergroupChatRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createNewSupergroupChat#ce83a6c1 as nil")
+		return fmt.Errorf("can't encode createNewSupergroupChat#d32c5491 as nil")
 	}
 	b.PutString(c.Title)
 	b.PutBool(c.IsChannel)
 	b.PutString(c.Description)
 	if err := c.Location.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode createNewSupergroupChat#ce83a6c1: field location: %w", err)
+		return fmt.Errorf("unable to encode createNewSupergroupChat#d32c5491: field location: %w", err)
 	}
+	b.PutInt32(c.MessageTTL)
 	b.PutBool(c.ForImport)
 	return nil
 }
@@ -164,10 +175,10 @@ func (c *CreateNewSupergroupChatRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *CreateNewSupergroupChatRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createNewSupergroupChat#ce83a6c1 to nil")
+		return fmt.Errorf("can't decode createNewSupergroupChat#d32c5491 to nil")
 	}
 	if err := b.ConsumeID(CreateNewSupergroupChatRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode createNewSupergroupChat#ce83a6c1: %w", err)
+		return fmt.Errorf("unable to decode createNewSupergroupChat#d32c5491: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -175,38 +186,45 @@ func (c *CreateNewSupergroupChatRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *CreateNewSupergroupChatRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createNewSupergroupChat#ce83a6c1 to nil")
+		return fmt.Errorf("can't decode createNewSupergroupChat#d32c5491 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode createNewSupergroupChat#ce83a6c1: field title: %w", err)
+			return fmt.Errorf("unable to decode createNewSupergroupChat#d32c5491: field title: %w", err)
 		}
 		c.Title = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode createNewSupergroupChat#ce83a6c1: field is_channel: %w", err)
+			return fmt.Errorf("unable to decode createNewSupergroupChat#d32c5491: field is_channel: %w", err)
 		}
 		c.IsChannel = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode createNewSupergroupChat#ce83a6c1: field description: %w", err)
+			return fmt.Errorf("unable to decode createNewSupergroupChat#d32c5491: field description: %w", err)
 		}
 		c.Description = value
 	}
 	{
 		if err := c.Location.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode createNewSupergroupChat#ce83a6c1: field location: %w", err)
+			return fmt.Errorf("unable to decode createNewSupergroupChat#d32c5491: field location: %w", err)
 		}
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode createNewSupergroupChat#d32c5491: field message_ttl: %w", err)
+		}
+		c.MessageTTL = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode createNewSupergroupChat#ce83a6c1: field for_import: %w", err)
+			return fmt.Errorf("unable to decode createNewSupergroupChat#d32c5491: field for_import: %w", err)
 		}
 		c.ForImport = value
 	}
@@ -216,7 +234,7 @@ func (c *CreateNewSupergroupChatRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *CreateNewSupergroupChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createNewSupergroupChat#ce83a6c1 as nil")
+		return fmt.Errorf("can't encode createNewSupergroupChat#d32c5491 as nil")
 	}
 	b.ObjStart()
 	b.PutID("createNewSupergroupChat")
@@ -232,8 +250,11 @@ func (c *CreateNewSupergroupChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	b.Comma()
 	b.FieldStart("location")
 	if err := c.Location.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode createNewSupergroupChat#ce83a6c1: field location: %w", err)
+		return fmt.Errorf("unable to encode createNewSupergroupChat#d32c5491: field location: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("message_ttl")
+	b.PutInt32(c.MessageTTL)
 	b.Comma()
 	b.FieldStart("for_import")
 	b.PutBool(c.ForImport)
@@ -246,41 +267,47 @@ func (c *CreateNewSupergroupChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *CreateNewSupergroupChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createNewSupergroupChat#ce83a6c1 to nil")
+		return fmt.Errorf("can't decode createNewSupergroupChat#d32c5491 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("createNewSupergroupChat"); err != nil {
-				return fmt.Errorf("unable to decode createNewSupergroupChat#ce83a6c1: %w", err)
+				return fmt.Errorf("unable to decode createNewSupergroupChat#d32c5491: %w", err)
 			}
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode createNewSupergroupChat#ce83a6c1: field title: %w", err)
+				return fmt.Errorf("unable to decode createNewSupergroupChat#d32c5491: field title: %w", err)
 			}
 			c.Title = value
 		case "is_channel":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode createNewSupergroupChat#ce83a6c1: field is_channel: %w", err)
+				return fmt.Errorf("unable to decode createNewSupergroupChat#d32c5491: field is_channel: %w", err)
 			}
 			c.IsChannel = value
 		case "description":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode createNewSupergroupChat#ce83a6c1: field description: %w", err)
+				return fmt.Errorf("unable to decode createNewSupergroupChat#d32c5491: field description: %w", err)
 			}
 			c.Description = value
 		case "location":
 			if err := c.Location.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode createNewSupergroupChat#ce83a6c1: field location: %w", err)
+				return fmt.Errorf("unable to decode createNewSupergroupChat#d32c5491: field location: %w", err)
 			}
+		case "message_ttl":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode createNewSupergroupChat#d32c5491: field message_ttl: %w", err)
+			}
+			c.MessageTTL = value
 		case "for_import":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode createNewSupergroupChat#ce83a6c1: field for_import: %w", err)
+				return fmt.Errorf("unable to decode createNewSupergroupChat#d32c5491: field for_import: %w", err)
 			}
 			c.ForImport = value
 		default:
@@ -322,6 +349,14 @@ func (c *CreateNewSupergroupChatRequest) GetLocation() (value ChatLocation) {
 	return c.Location
 }
 
+// GetMessageTTL returns value of MessageTTL field.
+func (c *CreateNewSupergroupChatRequest) GetMessageTTL() (value int32) {
+	if c == nil {
+		return
+	}
+	return c.MessageTTL
+}
+
 // GetForImport returns value of ForImport field.
 func (c *CreateNewSupergroupChatRequest) GetForImport() (value bool) {
 	if c == nil {
@@ -330,7 +365,7 @@ func (c *CreateNewSupergroupChatRequest) GetForImport() (value bool) {
 	return c.ForImport
 }
 
-// CreateNewSupergroupChat invokes method createNewSupergroupChat#ce83a6c1 returning error if any.
+// CreateNewSupergroupChat invokes method createNewSupergroupChat#d32c5491 returning error if any.
 func (c *Client) CreateNewSupergroupChat(ctx context.Context, request *CreateNewSupergroupChatRequest) (*Chat, error) {
 	var result Chat
 

@@ -5596,6 +5596,172 @@ func (i *InternalLinkTypeUserPhoneNumber) GetPhoneNumber() (value string) {
 	return i.PhoneNumber
 }
 
+// InternalLinkTypeUserToken represents TL type `internalLinkTypeUserToken#a8d7db59`.
+type InternalLinkTypeUserToken struct {
+	// The token
+	Token string
+}
+
+// InternalLinkTypeUserTokenTypeID is TL type id of InternalLinkTypeUserToken.
+const InternalLinkTypeUserTokenTypeID = 0xa8d7db59
+
+// construct implements constructor of InternalLinkTypeClass.
+func (i InternalLinkTypeUserToken) construct() InternalLinkTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InternalLinkTypeUserToken.
+var (
+	_ bin.Encoder     = &InternalLinkTypeUserToken{}
+	_ bin.Decoder     = &InternalLinkTypeUserToken{}
+	_ bin.BareEncoder = &InternalLinkTypeUserToken{}
+	_ bin.BareDecoder = &InternalLinkTypeUserToken{}
+
+	_ InternalLinkTypeClass = &InternalLinkTypeUserToken{}
+)
+
+func (i *InternalLinkTypeUserToken) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Token == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InternalLinkTypeUserToken) String() string {
+	if i == nil {
+		return "InternalLinkTypeUserToken(nil)"
+	}
+	type Alias InternalLinkTypeUserToken
+	return fmt.Sprintf("InternalLinkTypeUserToken%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InternalLinkTypeUserToken) TypeID() uint32 {
+	return InternalLinkTypeUserTokenTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InternalLinkTypeUserToken) TypeName() string {
+	return "internalLinkTypeUserToken"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InternalLinkTypeUserToken) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "internalLinkTypeUserToken",
+		ID:   InternalLinkTypeUserTokenTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Token",
+			SchemaName: "token",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InternalLinkTypeUserToken) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeUserToken#a8d7db59 as nil")
+	}
+	b.PutID(InternalLinkTypeUserTokenTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InternalLinkTypeUserToken) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeUserToken#a8d7db59 as nil")
+	}
+	b.PutString(i.Token)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InternalLinkTypeUserToken) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeUserToken#a8d7db59 to nil")
+	}
+	if err := b.ConsumeID(InternalLinkTypeUserTokenTypeID); err != nil {
+		return fmt.Errorf("unable to decode internalLinkTypeUserToken#a8d7db59: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InternalLinkTypeUserToken) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeUserToken#a8d7db59 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeUserToken#a8d7db59: field token: %w", err)
+		}
+		i.Token = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InternalLinkTypeUserToken) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeUserToken#a8d7db59 as nil")
+	}
+	b.ObjStart()
+	b.PutID("internalLinkTypeUserToken")
+	b.Comma()
+	b.FieldStart("token")
+	b.PutString(i.Token)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InternalLinkTypeUserToken) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeUserToken#a8d7db59 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("internalLinkTypeUserToken"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeUserToken#a8d7db59: %w", err)
+			}
+		case "token":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeUserToken#a8d7db59: field token: %w", err)
+			}
+			i.Token = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetToken returns value of Token field.
+func (i *InternalLinkTypeUserToken) GetToken() (value string) {
+	if i == nil {
+		return
+	}
+	return i.Token
+}
+
 // InternalLinkTypeVideoChat represents TL type `internalLinkTypeVideoChat#8796f8b4`.
 type InternalLinkTypeVideoChat struct {
 	// Username of the chat with the video chat
@@ -5876,6 +6042,7 @@ const InternalLinkTypeClassName = "InternalLinkType"
 //	case *tdapi.InternalLinkTypeUnknownDeepLink: // internalLinkTypeUnknownDeepLink#2549d7db
 //	case *tdapi.InternalLinkTypeUnsupportedProxy: // internalLinkTypeUnsupportedProxy#de399f09
 //	case *tdapi.InternalLinkTypeUserPhoneNumber: // internalLinkTypeUserPhoneNumber#8b6d9a69
+//	case *tdapi.InternalLinkTypeUserToken: // internalLinkTypeUserToken#a8d7db59
 //	case *tdapi.InternalLinkTypeVideoChat: // internalLinkTypeVideoChat#8796f8b4
 //	default: panic(v)
 //	}
@@ -6132,6 +6299,13 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
 		return &v, nil
+	case InternalLinkTypeUserTokenTypeID:
+		// Decoding internalLinkTypeUserToken#a8d7db59.
+		v := InternalLinkTypeUserToken{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
 	case InternalLinkTypeVideoChatTypeID:
 		// Decoding internalLinkTypeVideoChat#8796f8b4.
 		v := InternalLinkTypeVideoChat{}
@@ -6371,6 +6545,13 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 	case "internalLinkTypeUserPhoneNumber":
 		// Decoding internalLinkTypeUserPhoneNumber#8b6d9a69.
 		v := InternalLinkTypeUserPhoneNumber{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeUserToken":
+		// Decoding internalLinkTypeUserToken#a8d7db59.
+		v := InternalLinkTypeUserToken{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}

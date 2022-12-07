@@ -424,29 +424,29 @@ func (c *CheckChatUsernameResultUsernameOccupied) DecodeTDLibJSON(b tdjson.Decod
 	})
 }
 
-// CheckChatUsernameResultPublicChatsTooMuch represents TL type `checkChatUsernameResultPublicChatsTooMuch#3327d23d`.
-type CheckChatUsernameResultPublicChatsTooMuch struct {
+// CheckChatUsernameResultUsernamePurchasable represents TL type `checkChatUsernameResultUsernamePurchasable#59ce59`.
+type CheckChatUsernameResultUsernamePurchasable struct {
 }
 
-// CheckChatUsernameResultPublicChatsTooMuchTypeID is TL type id of CheckChatUsernameResultPublicChatsTooMuch.
-const CheckChatUsernameResultPublicChatsTooMuchTypeID = 0x3327d23d
+// CheckChatUsernameResultUsernamePurchasableTypeID is TL type id of CheckChatUsernameResultUsernamePurchasable.
+const CheckChatUsernameResultUsernamePurchasableTypeID = 0x59ce59
 
 // construct implements constructor of CheckChatUsernameResultClass.
-func (c CheckChatUsernameResultPublicChatsTooMuch) construct() CheckChatUsernameResultClass {
+func (c CheckChatUsernameResultUsernamePurchasable) construct() CheckChatUsernameResultClass {
 	return &c
 }
 
-// Ensuring interfaces in compile-time for CheckChatUsernameResultPublicChatsTooMuch.
+// Ensuring interfaces in compile-time for CheckChatUsernameResultUsernamePurchasable.
 var (
-	_ bin.Encoder     = &CheckChatUsernameResultPublicChatsTooMuch{}
-	_ bin.Decoder     = &CheckChatUsernameResultPublicChatsTooMuch{}
-	_ bin.BareEncoder = &CheckChatUsernameResultPublicChatsTooMuch{}
-	_ bin.BareDecoder = &CheckChatUsernameResultPublicChatsTooMuch{}
+	_ bin.Encoder     = &CheckChatUsernameResultUsernamePurchasable{}
+	_ bin.Decoder     = &CheckChatUsernameResultUsernamePurchasable{}
+	_ bin.BareEncoder = &CheckChatUsernameResultUsernamePurchasable{}
+	_ bin.BareDecoder = &CheckChatUsernameResultUsernamePurchasable{}
 
-	_ CheckChatUsernameResultClass = &CheckChatUsernameResultPublicChatsTooMuch{}
+	_ CheckChatUsernameResultClass = &CheckChatUsernameResultUsernamePurchasable{}
 )
 
-func (c *CheckChatUsernameResultPublicChatsTooMuch) Zero() bool {
+func (c *CheckChatUsernameResultUsernamePurchasable) Zero() bool {
 	if c == nil {
 		return true
 	}
@@ -455,31 +455,31 @@ func (c *CheckChatUsernameResultPublicChatsTooMuch) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (c *CheckChatUsernameResultPublicChatsTooMuch) String() string {
+func (c *CheckChatUsernameResultUsernamePurchasable) String() string {
 	if c == nil {
-		return "CheckChatUsernameResultPublicChatsTooMuch(nil)"
+		return "CheckChatUsernameResultUsernamePurchasable(nil)"
 	}
-	type Alias CheckChatUsernameResultPublicChatsTooMuch
-	return fmt.Sprintf("CheckChatUsernameResultPublicChatsTooMuch%+v", Alias(*c))
+	type Alias CheckChatUsernameResultUsernamePurchasable
+	return fmt.Sprintf("CheckChatUsernameResultUsernamePurchasable%+v", Alias(*c))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*CheckChatUsernameResultPublicChatsTooMuch) TypeID() uint32 {
-	return CheckChatUsernameResultPublicChatsTooMuchTypeID
+func (*CheckChatUsernameResultUsernamePurchasable) TypeID() uint32 {
+	return CheckChatUsernameResultUsernamePurchasableTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*CheckChatUsernameResultPublicChatsTooMuch) TypeName() string {
-	return "checkChatUsernameResultPublicChatsTooMuch"
+func (*CheckChatUsernameResultUsernamePurchasable) TypeName() string {
+	return "checkChatUsernameResultUsernamePurchasable"
 }
 
 // TypeInfo returns info about TL type.
-func (c *CheckChatUsernameResultPublicChatsTooMuch) TypeInfo() tdp.Type {
+func (c *CheckChatUsernameResultUsernamePurchasable) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "checkChatUsernameResultPublicChatsTooMuch",
-		ID:   CheckChatUsernameResultPublicChatsTooMuchTypeID,
+		Name: "checkChatUsernameResultUsernamePurchasable",
+		ID:   CheckChatUsernameResultUsernamePurchasableTypeID,
 	}
 	if c == nil {
 		typ.Null = true
@@ -490,48 +490,48 @@ func (c *CheckChatUsernameResultPublicChatsTooMuch) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (c *CheckChatUsernameResultPublicChatsTooMuch) Encode(b *bin.Buffer) error {
+func (c *CheckChatUsernameResultUsernamePurchasable) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode checkChatUsernameResultPublicChatsTooMuch#3327d23d as nil")
+		return fmt.Errorf("can't encode checkChatUsernameResultUsernamePurchasable#59ce59 as nil")
 	}
-	b.PutID(CheckChatUsernameResultPublicChatsTooMuchTypeID)
+	b.PutID(CheckChatUsernameResultUsernamePurchasableTypeID)
 	return c.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (c *CheckChatUsernameResultPublicChatsTooMuch) EncodeBare(b *bin.Buffer) error {
+func (c *CheckChatUsernameResultUsernamePurchasable) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode checkChatUsernameResultPublicChatsTooMuch#3327d23d as nil")
+		return fmt.Errorf("can't encode checkChatUsernameResultUsernamePurchasable#59ce59 as nil")
 	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (c *CheckChatUsernameResultPublicChatsTooMuch) Decode(b *bin.Buffer) error {
+func (c *CheckChatUsernameResultUsernamePurchasable) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode checkChatUsernameResultPublicChatsTooMuch#3327d23d to nil")
+		return fmt.Errorf("can't decode checkChatUsernameResultUsernamePurchasable#59ce59 to nil")
 	}
-	if err := b.ConsumeID(CheckChatUsernameResultPublicChatsTooMuchTypeID); err != nil {
-		return fmt.Errorf("unable to decode checkChatUsernameResultPublicChatsTooMuch#3327d23d: %w", err)
+	if err := b.ConsumeID(CheckChatUsernameResultUsernamePurchasableTypeID); err != nil {
+		return fmt.Errorf("unable to decode checkChatUsernameResultUsernamePurchasable#59ce59: %w", err)
 	}
 	return c.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (c *CheckChatUsernameResultPublicChatsTooMuch) DecodeBare(b *bin.Buffer) error {
+func (c *CheckChatUsernameResultUsernamePurchasable) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode checkChatUsernameResultPublicChatsTooMuch#3327d23d to nil")
+		return fmt.Errorf("can't decode checkChatUsernameResultUsernamePurchasable#59ce59 to nil")
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *CheckChatUsernameResultPublicChatsTooMuch) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (c *CheckChatUsernameResultUsernamePurchasable) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode checkChatUsernameResultPublicChatsTooMuch#3327d23d as nil")
+		return fmt.Errorf("can't encode checkChatUsernameResultUsernamePurchasable#59ce59 as nil")
 	}
 	b.ObjStart()
-	b.PutID("checkChatUsernameResultPublicChatsTooMuch")
+	b.PutID("checkChatUsernameResultUsernamePurchasable")
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -539,16 +539,149 @@ func (c *CheckChatUsernameResultPublicChatsTooMuch) EncodeTDLibJSON(b tdjson.Enc
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *CheckChatUsernameResultPublicChatsTooMuch) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (c *CheckChatUsernameResultUsernamePurchasable) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode checkChatUsernameResultPublicChatsTooMuch#3327d23d to nil")
+		return fmt.Errorf("can't decode checkChatUsernameResultUsernamePurchasable#59ce59 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("checkChatUsernameResultPublicChatsTooMuch"); err != nil {
-				return fmt.Errorf("unable to decode checkChatUsernameResultPublicChatsTooMuch#3327d23d: %w", err)
+			if err := b.ConsumeID("checkChatUsernameResultUsernamePurchasable"); err != nil {
+				return fmt.Errorf("unable to decode checkChatUsernameResultUsernamePurchasable#59ce59: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// CheckChatUsernameResultPublicChatsTooMany represents TL type `checkChatUsernameResultPublicChatsTooMany#d8b46c7c`.
+type CheckChatUsernameResultPublicChatsTooMany struct {
+}
+
+// CheckChatUsernameResultPublicChatsTooManyTypeID is TL type id of CheckChatUsernameResultPublicChatsTooMany.
+const CheckChatUsernameResultPublicChatsTooManyTypeID = 0xd8b46c7c
+
+// construct implements constructor of CheckChatUsernameResultClass.
+func (c CheckChatUsernameResultPublicChatsTooMany) construct() CheckChatUsernameResultClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for CheckChatUsernameResultPublicChatsTooMany.
+var (
+	_ bin.Encoder     = &CheckChatUsernameResultPublicChatsTooMany{}
+	_ bin.Decoder     = &CheckChatUsernameResultPublicChatsTooMany{}
+	_ bin.BareEncoder = &CheckChatUsernameResultPublicChatsTooMany{}
+	_ bin.BareDecoder = &CheckChatUsernameResultPublicChatsTooMany{}
+
+	_ CheckChatUsernameResultClass = &CheckChatUsernameResultPublicChatsTooMany{}
+)
+
+func (c *CheckChatUsernameResultPublicChatsTooMany) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *CheckChatUsernameResultPublicChatsTooMany) String() string {
+	if c == nil {
+		return "CheckChatUsernameResultPublicChatsTooMany(nil)"
+	}
+	type Alias CheckChatUsernameResultPublicChatsTooMany
+	return fmt.Sprintf("CheckChatUsernameResultPublicChatsTooMany%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*CheckChatUsernameResultPublicChatsTooMany) TypeID() uint32 {
+	return CheckChatUsernameResultPublicChatsTooManyTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*CheckChatUsernameResultPublicChatsTooMany) TypeName() string {
+	return "checkChatUsernameResultPublicChatsTooMany"
+}
+
+// TypeInfo returns info about TL type.
+func (c *CheckChatUsernameResultPublicChatsTooMany) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "checkChatUsernameResultPublicChatsTooMany",
+		ID:   CheckChatUsernameResultPublicChatsTooManyTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *CheckChatUsernameResultPublicChatsTooMany) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode checkChatUsernameResultPublicChatsTooMany#d8b46c7c as nil")
+	}
+	b.PutID(CheckChatUsernameResultPublicChatsTooManyTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *CheckChatUsernameResultPublicChatsTooMany) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode checkChatUsernameResultPublicChatsTooMany#d8b46c7c as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *CheckChatUsernameResultPublicChatsTooMany) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode checkChatUsernameResultPublicChatsTooMany#d8b46c7c to nil")
+	}
+	if err := b.ConsumeID(CheckChatUsernameResultPublicChatsTooManyTypeID); err != nil {
+		return fmt.Errorf("unable to decode checkChatUsernameResultPublicChatsTooMany#d8b46c7c: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *CheckChatUsernameResultPublicChatsTooMany) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode checkChatUsernameResultPublicChatsTooMany#d8b46c7c to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *CheckChatUsernameResultPublicChatsTooMany) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode checkChatUsernameResultPublicChatsTooMany#d8b46c7c as nil")
+	}
+	b.ObjStart()
+	b.PutID("checkChatUsernameResultPublicChatsTooMany")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *CheckChatUsernameResultPublicChatsTooMany) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode checkChatUsernameResultPublicChatsTooMany#d8b46c7c to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("checkChatUsernameResultPublicChatsTooMany"); err != nil {
+				return fmt.Errorf("unable to decode checkChatUsernameResultPublicChatsTooMany#d8b46c7c: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -705,7 +838,8 @@ const CheckChatUsernameResultClassName = "CheckChatUsernameResult"
 //	case *tdapi.CheckChatUsernameResultOk: // checkChatUsernameResultOk#a6a7bb5c
 //	case *tdapi.CheckChatUsernameResultUsernameInvalid: // checkChatUsernameResultUsernameInvalid#da087756
 //	case *tdapi.CheckChatUsernameResultUsernameOccupied: // checkChatUsernameResultUsernameOccupied#4ebb3729
-//	case *tdapi.CheckChatUsernameResultPublicChatsTooMuch: // checkChatUsernameResultPublicChatsTooMuch#3327d23d
+//	case *tdapi.CheckChatUsernameResultUsernamePurchasable: // checkChatUsernameResultUsernamePurchasable#59ce59
+//	case *tdapi.CheckChatUsernameResultPublicChatsTooMany: // checkChatUsernameResultPublicChatsTooMany#d8b46c7c
 //	case *tdapi.CheckChatUsernameResultPublicGroupsUnavailable: // checkChatUsernameResultPublicGroupsUnavailable#fce914d7
 //	default: panic(v)
 //	}
@@ -759,9 +893,16 @@ func DecodeCheckChatUsernameResult(buf *bin.Buffer) (CheckChatUsernameResultClas
 			return nil, fmt.Errorf("unable to decode CheckChatUsernameResultClass: %w", err)
 		}
 		return &v, nil
-	case CheckChatUsernameResultPublicChatsTooMuchTypeID:
-		// Decoding checkChatUsernameResultPublicChatsTooMuch#3327d23d.
-		v := CheckChatUsernameResultPublicChatsTooMuch{}
+	case CheckChatUsernameResultUsernamePurchasableTypeID:
+		// Decoding checkChatUsernameResultUsernamePurchasable#59ce59.
+		v := CheckChatUsernameResultUsernamePurchasable{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CheckChatUsernameResultClass: %w", err)
+		}
+		return &v, nil
+	case CheckChatUsernameResultPublicChatsTooManyTypeID:
+		// Decoding checkChatUsernameResultPublicChatsTooMany#d8b46c7c.
+		v := CheckChatUsernameResultPublicChatsTooMany{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode CheckChatUsernameResultClass: %w", err)
 		}
@@ -806,9 +947,16 @@ func DecodeTDLibJSONCheckChatUsernameResult(buf tdjson.Decoder) (CheckChatUserna
 			return nil, fmt.Errorf("unable to decode CheckChatUsernameResultClass: %w", err)
 		}
 		return &v, nil
-	case "checkChatUsernameResultPublicChatsTooMuch":
-		// Decoding checkChatUsernameResultPublicChatsTooMuch#3327d23d.
-		v := CheckChatUsernameResultPublicChatsTooMuch{}
+	case "checkChatUsernameResultUsernamePurchasable":
+		// Decoding checkChatUsernameResultUsernamePurchasable#59ce59.
+		v := CheckChatUsernameResultUsernamePurchasable{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CheckChatUsernameResultClass: %w", err)
+		}
+		return &v, nil
+	case "checkChatUsernameResultPublicChatsTooMany":
+		// Decoding checkChatUsernameResultPublicChatsTooMany#d8b46c7c.
+		v := CheckChatUsernameResultPublicChatsTooMany{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode CheckChatUsernameResultClass: %w", err)
 		}

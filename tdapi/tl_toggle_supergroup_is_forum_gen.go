@@ -36,7 +36,7 @@ type ToggleSupergroupIsForumRequest struct {
 	// Identifier of the supergroup
 	SupergroupID int64
 	// New value of is_forum. A supergroup can be converted to a forum, only if it has at
-	// least GetOption("forum_member_count_min") members
+	// least getOption("forum_member_count_min") members
 	IsForum bool
 }
 

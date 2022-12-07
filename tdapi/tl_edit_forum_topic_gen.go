@@ -31,22 +31,24 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// EditForumTopicRequest represents TL type `editForumTopic#f2c261b0`.
+// EditForumTopicRequest represents TL type `editForumTopic#a7769060`.
 type EditForumTopicRequest struct {
 	// Identifier of the chat
 	ChatID int64
 	// Message thread identifier of the forum topic
 	MessageThreadID int64
-	// New name of the topic; 1-128 characters
+	// New name of the topic; 0-128 characters. If empty, the previous topic name is kept
 	Name string
-	// Identifier of the new custom emoji for topic icon. Telegram Premium users can use any
-	// custom emoji, other users can use only a custom emoji returned by
-	// getForumTopicDefaultIcons
+	// Pass true to edit the icon of the topic. Icon of the General topic can't be edited
+	EditIconCustomEmoji bool
+	// Identifier of the new custom emoji for topic icon; pass 0 to remove the custom emoji.
+	// Ignored if edit_icon_custom_emoji is false. Telegram Premium users can use any custom
+	// emoji, other users can use only a custom emoji returned by getForumTopicDefaultIcons
 	IconCustomEmojiID int64
 }
 
 // EditForumTopicRequestTypeID is TL type id of EditForumTopicRequest.
-const EditForumTopicRequestTypeID = 0xf2c261b0
+const EditForumTopicRequestTypeID = 0xa7769060
 
 // Ensuring interfaces in compile-time for EditForumTopicRequest.
 var (
@@ -67,6 +69,9 @@ func (e *EditForumTopicRequest) Zero() bool {
 		return false
 	}
 	if !(e.Name == "") {
+		return false
+	}
+	if !(e.EditIconCustomEmoji == false) {
 		return false
 	}
 	if !(e.IconCustomEmojiID == 0) {
@@ -121,6 +126,10 @@ func (e *EditForumTopicRequest) TypeInfo() tdp.Type {
 			SchemaName: "name",
 		},
 		{
+			Name:       "EditIconCustomEmoji",
+			SchemaName: "edit_icon_custom_emoji",
+		},
+		{
 			Name:       "IconCustomEmojiID",
 			SchemaName: "icon_custom_emoji_id",
 		},
@@ -131,7 +140,7 @@ func (e *EditForumTopicRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EditForumTopicRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editForumTopic#f2c261b0 as nil")
+		return fmt.Errorf("can't encode editForumTopic#a7769060 as nil")
 	}
 	b.PutID(EditForumTopicRequestTypeID)
 	return e.EncodeBare(b)
@@ -140,11 +149,12 @@ func (e *EditForumTopicRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EditForumTopicRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editForumTopic#f2c261b0 as nil")
+		return fmt.Errorf("can't encode editForumTopic#a7769060 as nil")
 	}
 	b.PutInt53(e.ChatID)
 	b.PutInt53(e.MessageThreadID)
 	b.PutString(e.Name)
+	b.PutBool(e.EditIconCustomEmoji)
 	b.PutLong(e.IconCustomEmojiID)
 	return nil
 }
@@ -152,10 +162,10 @@ func (e *EditForumTopicRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (e *EditForumTopicRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editForumTopic#f2c261b0 to nil")
+		return fmt.Errorf("can't decode editForumTopic#a7769060 to nil")
 	}
 	if err := b.ConsumeID(EditForumTopicRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode editForumTopic#f2c261b0: %w", err)
+		return fmt.Errorf("unable to decode editForumTopic#a7769060: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -163,33 +173,40 @@ func (e *EditForumTopicRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EditForumTopicRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editForumTopic#f2c261b0 to nil")
+		return fmt.Errorf("can't decode editForumTopic#a7769060 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode editForumTopic#f2c261b0: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode editForumTopic#a7769060: field chat_id: %w", err)
 		}
 		e.ChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode editForumTopic#f2c261b0: field message_thread_id: %w", err)
+			return fmt.Errorf("unable to decode editForumTopic#a7769060: field message_thread_id: %w", err)
 		}
 		e.MessageThreadID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode editForumTopic#f2c261b0: field name: %w", err)
+			return fmt.Errorf("unable to decode editForumTopic#a7769060: field name: %w", err)
 		}
 		e.Name = value
 	}
 	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode editForumTopic#a7769060: field edit_icon_custom_emoji: %w", err)
+		}
+		e.EditIconCustomEmoji = value
+	}
+	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode editForumTopic#f2c261b0: field icon_custom_emoji_id: %w", err)
+			return fmt.Errorf("unable to decode editForumTopic#a7769060: field icon_custom_emoji_id: %w", err)
 		}
 		e.IconCustomEmojiID = value
 	}
@@ -199,7 +216,7 @@ func (e *EditForumTopicRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (e *EditForumTopicRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editForumTopic#f2c261b0 as nil")
+		return fmt.Errorf("can't encode editForumTopic#a7769060 as nil")
 	}
 	b.ObjStart()
 	b.PutID("editForumTopic")
@@ -213,6 +230,9 @@ func (e *EditForumTopicRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("name")
 	b.PutString(e.Name)
 	b.Comma()
+	b.FieldStart("edit_icon_custom_emoji")
+	b.PutBool(e.EditIconCustomEmoji)
+	b.Comma()
 	b.FieldStart("icon_custom_emoji_id")
 	b.PutLong(e.IconCustomEmojiID)
 	b.Comma()
@@ -224,37 +244,43 @@ func (e *EditForumTopicRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (e *EditForumTopicRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editForumTopic#f2c261b0 to nil")
+		return fmt.Errorf("can't decode editForumTopic#a7769060 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("editForumTopic"); err != nil {
-				return fmt.Errorf("unable to decode editForumTopic#f2c261b0: %w", err)
+				return fmt.Errorf("unable to decode editForumTopic#a7769060: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode editForumTopic#f2c261b0: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode editForumTopic#a7769060: field chat_id: %w", err)
 			}
 			e.ChatID = value
 		case "message_thread_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode editForumTopic#f2c261b0: field message_thread_id: %w", err)
+				return fmt.Errorf("unable to decode editForumTopic#a7769060: field message_thread_id: %w", err)
 			}
 			e.MessageThreadID = value
 		case "name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode editForumTopic#f2c261b0: field name: %w", err)
+				return fmt.Errorf("unable to decode editForumTopic#a7769060: field name: %w", err)
 			}
 			e.Name = value
+		case "edit_icon_custom_emoji":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode editForumTopic#a7769060: field edit_icon_custom_emoji: %w", err)
+			}
+			e.EditIconCustomEmoji = value
 		case "icon_custom_emoji_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode editForumTopic#f2c261b0: field icon_custom_emoji_id: %w", err)
+				return fmt.Errorf("unable to decode editForumTopic#a7769060: field icon_custom_emoji_id: %w", err)
 			}
 			e.IconCustomEmojiID = value
 		default:
@@ -288,6 +314,14 @@ func (e *EditForumTopicRequest) GetName() (value string) {
 	return e.Name
 }
 
+// GetEditIconCustomEmoji returns value of EditIconCustomEmoji field.
+func (e *EditForumTopicRequest) GetEditIconCustomEmoji() (value bool) {
+	if e == nil {
+		return
+	}
+	return e.EditIconCustomEmoji
+}
+
 // GetIconCustomEmojiID returns value of IconCustomEmojiID field.
 func (e *EditForumTopicRequest) GetIconCustomEmojiID() (value int64) {
 	if e == nil {
@@ -296,7 +330,7 @@ func (e *EditForumTopicRequest) GetIconCustomEmojiID() (value int64) {
 	return e.IconCustomEmojiID
 }
 
-// EditForumTopic invokes method editForumTopic#f2c261b0 returning error if any.
+// EditForumTopic invokes method editForumTopic#a7769060 returning error if any.
 func (c *Client) EditForumTopic(ctx context.Context, request *EditForumTopicRequest) error {
 	var ok Ok
 
