@@ -442,6 +442,107 @@ func (c *AuthCodeTypeMissedCall) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// AuthCodeTypeFragmentSMS represents TL type `auth.codeTypeFragmentSms#6ed998c`.
+//
+// See https://core.telegram.org/constructor/auth.codeTypeFragmentSms for reference.
+type AuthCodeTypeFragmentSMS struct {
+}
+
+// AuthCodeTypeFragmentSMSTypeID is TL type id of AuthCodeTypeFragmentSMS.
+const AuthCodeTypeFragmentSMSTypeID = 0x6ed998c
+
+// construct implements constructor of AuthCodeTypeClass.
+func (c AuthCodeTypeFragmentSMS) construct() AuthCodeTypeClass { return &c }
+
+// Ensuring interfaces in compile-time for AuthCodeTypeFragmentSMS.
+var (
+	_ bin.Encoder     = &AuthCodeTypeFragmentSMS{}
+	_ bin.Decoder     = &AuthCodeTypeFragmentSMS{}
+	_ bin.BareEncoder = &AuthCodeTypeFragmentSMS{}
+	_ bin.BareDecoder = &AuthCodeTypeFragmentSMS{}
+
+	_ AuthCodeTypeClass = &AuthCodeTypeFragmentSMS{}
+)
+
+func (c *AuthCodeTypeFragmentSMS) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *AuthCodeTypeFragmentSMS) String() string {
+	if c == nil {
+		return "AuthCodeTypeFragmentSMS(nil)"
+	}
+	type Alias AuthCodeTypeFragmentSMS
+	return fmt.Sprintf("AuthCodeTypeFragmentSMS%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*AuthCodeTypeFragmentSMS) TypeID() uint32 {
+	return AuthCodeTypeFragmentSMSTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*AuthCodeTypeFragmentSMS) TypeName() string {
+	return "auth.codeTypeFragmentSms"
+}
+
+// TypeInfo returns info about TL type.
+func (c *AuthCodeTypeFragmentSMS) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.codeTypeFragmentSms",
+		ID:   AuthCodeTypeFragmentSMSTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *AuthCodeTypeFragmentSMS) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode auth.codeTypeFragmentSms#6ed998c as nil")
+	}
+	b.PutID(AuthCodeTypeFragmentSMSTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *AuthCodeTypeFragmentSMS) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode auth.codeTypeFragmentSms#6ed998c as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *AuthCodeTypeFragmentSMS) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode auth.codeTypeFragmentSms#6ed998c to nil")
+	}
+	if err := b.ConsumeID(AuthCodeTypeFragmentSMSTypeID); err != nil {
+		return fmt.Errorf("unable to decode auth.codeTypeFragmentSms#6ed998c: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *AuthCodeTypeFragmentSMS) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode auth.codeTypeFragmentSms#6ed998c to nil")
+	}
+	return nil
+}
+
 // AuthCodeTypeClassName is schema name of AuthCodeTypeClass.
 const AuthCodeTypeClassName = "auth.CodeType"
 
@@ -460,6 +561,7 @@ const AuthCodeTypeClassName = "auth.CodeType"
 //	case *tg.AuthCodeTypeCall: // auth.codeTypeCall#741cd3e3
 //	case *tg.AuthCodeTypeFlashCall: // auth.codeTypeFlashCall#226ccefb
 //	case *tg.AuthCodeTypeMissedCall: // auth.codeTypeMissedCall#d61ad6ee
+//	case *tg.AuthCodeTypeFragmentSMS: // auth.codeTypeFragmentSms#6ed998c
 //	default: panic(v)
 //	}
 type AuthCodeTypeClass interface {
@@ -512,6 +614,13 @@ func DecodeAuthCodeType(buf *bin.Buffer) (AuthCodeTypeClass, error) {
 	case AuthCodeTypeMissedCallTypeID:
 		// Decoding auth.codeTypeMissedCall#d61ad6ee.
 		v := AuthCodeTypeMissedCall{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthCodeTypeClass: %w", err)
+		}
+		return &v, nil
+	case AuthCodeTypeFragmentSMSTypeID:
+		// Decoding auth.codeTypeFragmentSms#6ed998c.
+		v := AuthCodeTypeFragmentSMS{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthCodeTypeClass: %w", err)
 		}

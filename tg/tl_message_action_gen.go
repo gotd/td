@@ -4328,17 +4328,23 @@ func (m *MessageActionInviteToGroupCall) GetUsers() (value []int64) {
 	return m.Users
 }
 
-// MessageActionSetMessagesTTL represents TL type `messageActionSetMessagesTTL#aa1afbfd`.
+// MessageActionSetMessagesTTL represents TL type `messageActionSetMessagesTTL#3c134d7b`.
 // The Time-To-Live of messages in this chat was changed.
 //
 // See https://core.telegram.org/constructor/messageActionSetMessagesTTL for reference.
 type MessageActionSetMessagesTTL struct {
+	// Flags field of MessageActionSetMessagesTTL.
+	Flags bin.Fields
 	// New Time-To-Live
 	Period int
+	// AutoSettingFrom field of MessageActionSetMessagesTTL.
+	//
+	// Use SetAutoSettingFrom and GetAutoSettingFrom helpers.
+	AutoSettingFrom int64
 }
 
 // MessageActionSetMessagesTTLTypeID is TL type id of MessageActionSetMessagesTTL.
-const MessageActionSetMessagesTTLTypeID = 0xaa1afbfd
+const MessageActionSetMessagesTTLTypeID = 0x3c134d7b
 
 // construct implements constructor of MessageActionClass.
 func (m MessageActionSetMessagesTTL) construct() MessageActionClass { return &m }
@@ -4357,7 +4363,13 @@ func (m *MessageActionSetMessagesTTL) Zero() bool {
 	if m == nil {
 		return true
 	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
 	if !(m.Period == 0) {
+		return false
+	}
+	if !(m.AutoSettingFrom == 0) {
 		return false
 	}
 
@@ -4376,8 +4388,13 @@ func (m *MessageActionSetMessagesTTL) String() string {
 // FillFrom fills MessageActionSetMessagesTTL from given interface.
 func (m *MessageActionSetMessagesTTL) FillFrom(from interface {
 	GetPeriod() (value int)
+	GetAutoSettingFrom() (value int64, ok bool)
 }) {
 	m.Period = from.GetPeriod()
+	if val, ok := from.GetAutoSettingFrom(); ok {
+		m.AutoSettingFrom = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -4407,14 +4424,26 @@ func (m *MessageActionSetMessagesTTL) TypeInfo() tdp.Type {
 			Name:       "Period",
 			SchemaName: "period",
 		},
+		{
+			Name:       "AutoSettingFrom",
+			SchemaName: "auto_setting_from",
+			Null:       !m.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MessageActionSetMessagesTTL) SetFlags() {
+	if !(m.AutoSettingFrom == 0) {
+		m.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (m *MessageActionSetMessagesTTL) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionSetMessagesTTL#aa1afbfd as nil")
+		return fmt.Errorf("can't encode messageActionSetMessagesTTL#3c134d7b as nil")
 	}
 	b.PutID(MessageActionSetMessagesTTLTypeID)
 	return m.EncodeBare(b)
@@ -4423,19 +4452,26 @@ func (m *MessageActionSetMessagesTTL) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageActionSetMessagesTTL) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionSetMessagesTTL#aa1afbfd as nil")
+		return fmt.Errorf("can't encode messageActionSetMessagesTTL#3c134d7b as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionSetMessagesTTL#3c134d7b: field flags: %w", err)
 	}
 	b.PutInt(m.Period)
+	if m.Flags.Has(0) {
+		b.PutLong(m.AutoSettingFrom)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageActionSetMessagesTTL) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionSetMessagesTTL#aa1afbfd to nil")
+		return fmt.Errorf("can't decode messageActionSetMessagesTTL#3c134d7b to nil")
 	}
 	if err := b.ConsumeID(MessageActionSetMessagesTTLTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageActionSetMessagesTTL#aa1afbfd: %w", err)
+		return fmt.Errorf("unable to decode messageActionSetMessagesTTL#3c134d7b: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -4443,14 +4479,26 @@ func (m *MessageActionSetMessagesTTL) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageActionSetMessagesTTL) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionSetMessagesTTL#aa1afbfd to nil")
+		return fmt.Errorf("can't decode messageActionSetMessagesTTL#3c134d7b to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionSetMessagesTTL#3c134d7b: field flags: %w", err)
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionSetMessagesTTL#aa1afbfd: field period: %w", err)
+			return fmt.Errorf("unable to decode messageActionSetMessagesTTL#3c134d7b: field period: %w", err)
 		}
 		m.Period = value
+	}
+	if m.Flags.Has(0) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionSetMessagesTTL#3c134d7b: field auto_setting_from: %w", err)
+		}
+		m.AutoSettingFrom = value
 	}
 	return nil
 }
@@ -4461,6 +4509,24 @@ func (m *MessageActionSetMessagesTTL) GetPeriod() (value int) {
 		return
 	}
 	return m.Period
+}
+
+// SetAutoSettingFrom sets value of AutoSettingFrom conditional field.
+func (m *MessageActionSetMessagesTTL) SetAutoSettingFrom(value int64) {
+	m.Flags.Set(0)
+	m.AutoSettingFrom = value
+}
+
+// GetAutoSettingFrom returns value of AutoSettingFrom conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionSetMessagesTTL) GetAutoSettingFrom() (value int64, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.AutoSettingFrom, true
 }
 
 // MessageActionGroupCallScheduled represents TL type `messageActionGroupCallScheduled#b3a07661`.
@@ -5598,7 +5664,7 @@ func (m *MessageActionTopicCreate) GetIconEmojiID() (value int64, ok bool) {
 	return m.IconEmojiID, true
 }
 
-// MessageActionTopicEdit represents TL type `messageActionTopicEdit#b18a431c`.
+// MessageActionTopicEdit represents TL type `messageActionTopicEdit#c0944820`.
 //
 // See https://core.telegram.org/constructor/messageActionTopicEdit for reference.
 type MessageActionTopicEdit struct {
@@ -5616,10 +5682,14 @@ type MessageActionTopicEdit struct {
 	//
 	// Use SetClosed and GetClosed helpers.
 	Closed bool
+	// Hidden field of MessageActionTopicEdit.
+	//
+	// Use SetHidden and GetHidden helpers.
+	Hidden bool
 }
 
 // MessageActionTopicEditTypeID is TL type id of MessageActionTopicEdit.
-const MessageActionTopicEditTypeID = 0xb18a431c
+const MessageActionTopicEditTypeID = 0xc0944820
 
 // construct implements constructor of MessageActionClass.
 func (m MessageActionTopicEdit) construct() MessageActionClass { return &m }
@@ -5650,6 +5720,9 @@ func (m *MessageActionTopicEdit) Zero() bool {
 	if !(m.Closed == false) {
 		return false
 	}
+	if !(m.Hidden == false) {
+		return false
+	}
 
 	return true
 }
@@ -5668,6 +5741,7 @@ func (m *MessageActionTopicEdit) FillFrom(from interface {
 	GetTitle() (value string, ok bool)
 	GetIconEmojiID() (value int64, ok bool)
 	GetClosed() (value bool, ok bool)
+	GetHidden() (value bool, ok bool)
 }) {
 	if val, ok := from.GetTitle(); ok {
 		m.Title = val
@@ -5679,6 +5753,10 @@ func (m *MessageActionTopicEdit) FillFrom(from interface {
 
 	if val, ok := from.GetClosed(); ok {
 		m.Closed = val
+	}
+
+	if val, ok := from.GetHidden(); ok {
+		m.Hidden = val
 	}
 
 }
@@ -5721,6 +5799,11 @@ func (m *MessageActionTopicEdit) TypeInfo() tdp.Type {
 			SchemaName: "closed",
 			Null:       !m.Flags.Has(2),
 		},
+		{
+			Name:       "Hidden",
+			SchemaName: "hidden",
+			Null:       !m.Flags.Has(3),
+		},
 	}
 	return typ
 }
@@ -5736,12 +5819,15 @@ func (m *MessageActionTopicEdit) SetFlags() {
 	if !(m.Closed == false) {
 		m.Flags.Set(2)
 	}
+	if !(m.Hidden == false) {
+		m.Flags.Set(3)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (m *MessageActionTopicEdit) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionTopicEdit#b18a431c as nil")
+		return fmt.Errorf("can't encode messageActionTopicEdit#c0944820 as nil")
 	}
 	b.PutID(MessageActionTopicEditTypeID)
 	return m.EncodeBare(b)
@@ -5750,11 +5836,11 @@ func (m *MessageActionTopicEdit) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageActionTopicEdit) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionTopicEdit#b18a431c as nil")
+		return fmt.Errorf("can't encode messageActionTopicEdit#c0944820 as nil")
 	}
 	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageActionTopicEdit#b18a431c: field flags: %w", err)
+		return fmt.Errorf("unable to encode messageActionTopicEdit#c0944820: field flags: %w", err)
 	}
 	if m.Flags.Has(0) {
 		b.PutString(m.Title)
@@ -5765,16 +5851,19 @@ func (m *MessageActionTopicEdit) EncodeBare(b *bin.Buffer) error {
 	if m.Flags.Has(2) {
 		b.PutBool(m.Closed)
 	}
+	if m.Flags.Has(3) {
+		b.PutBool(m.Hidden)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageActionTopicEdit) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionTopicEdit#b18a431c to nil")
+		return fmt.Errorf("can't decode messageActionTopicEdit#c0944820 to nil")
 	}
 	if err := b.ConsumeID(MessageActionTopicEditTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageActionTopicEdit#b18a431c: %w", err)
+		return fmt.Errorf("unable to decode messageActionTopicEdit#c0944820: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -5782,33 +5871,40 @@ func (m *MessageActionTopicEdit) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageActionTopicEdit) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionTopicEdit#b18a431c to nil")
+		return fmt.Errorf("can't decode messageActionTopicEdit#c0944820 to nil")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageActionTopicEdit#b18a431c: field flags: %w", err)
+			return fmt.Errorf("unable to decode messageActionTopicEdit#c0944820: field flags: %w", err)
 		}
 	}
 	if m.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionTopicEdit#b18a431c: field title: %w", err)
+			return fmt.Errorf("unable to decode messageActionTopicEdit#c0944820: field title: %w", err)
 		}
 		m.Title = value
 	}
 	if m.Flags.Has(1) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionTopicEdit#b18a431c: field icon_emoji_id: %w", err)
+			return fmt.Errorf("unable to decode messageActionTopicEdit#c0944820: field icon_emoji_id: %w", err)
 		}
 		m.IconEmojiID = value
 	}
 	if m.Flags.Has(2) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionTopicEdit#b18a431c: field closed: %w", err)
+			return fmt.Errorf("unable to decode messageActionTopicEdit#c0944820: field closed: %w", err)
 		}
 		m.Closed = value
+	}
+	if m.Flags.Has(3) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionTopicEdit#c0944820: field hidden: %w", err)
+		}
+		m.Hidden = value
 	}
 	return nil
 }
@@ -5867,6 +5963,24 @@ func (m *MessageActionTopicEdit) GetClosed() (value bool, ok bool) {
 	return m.Closed, true
 }
 
+// SetHidden sets value of Hidden conditional field.
+func (m *MessageActionTopicEdit) SetHidden(value bool) {
+	m.Flags.Set(3)
+	m.Hidden = value
+}
+
+// GetHidden returns value of Hidden conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionTopicEdit) GetHidden() (value bool, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(3) {
+		return value, false
+	}
+	return m.Hidden, true
+}
+
 // MessageActionClassName is schema name of MessageActionClass.
 const MessageActionClassName = "MessageAction"
 
@@ -5907,7 +6021,7 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionGeoProximityReached: // messageActionGeoProximityReached#98e0d697
 //	case *tg.MessageActionGroupCall: // messageActionGroupCall#7a0d7f42
 //	case *tg.MessageActionInviteToGroupCall: // messageActionInviteToGroupCall#502f92f7
-//	case *tg.MessageActionSetMessagesTTL: // messageActionSetMessagesTTL#aa1afbfd
+//	case *tg.MessageActionSetMessagesTTL: // messageActionSetMessagesTTL#3c134d7b
 //	case *tg.MessageActionGroupCallScheduled: // messageActionGroupCallScheduled#b3a07661
 //	case *tg.MessageActionSetChatTheme: // messageActionSetChatTheme#aa786345
 //	case *tg.MessageActionChatJoinedByRequest: // messageActionChatJoinedByRequest#ebbca3cb
@@ -5915,7 +6029,7 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionWebViewDataSent: // messageActionWebViewDataSent#b4c38cb5
 //	case *tg.MessageActionGiftPremium: // messageActionGiftPremium#aba0f5c6
 //	case *tg.MessageActionTopicCreate: // messageActionTopicCreate#d999256
-//	case *tg.MessageActionTopicEdit: // messageActionTopicEdit#b18a431c
+//	case *tg.MessageActionTopicEdit: // messageActionTopicEdit#c0944820
 //	default: panic(v)
 //	}
 type MessageActionClass interface {
@@ -6127,7 +6241,7 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 		}
 		return &v, nil
 	case MessageActionSetMessagesTTLTypeID:
-		// Decoding messageActionSetMessagesTTL#aa1afbfd.
+		// Decoding messageActionSetMessagesTTL#3c134d7b.
 		v := MessageActionSetMessagesTTL{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
@@ -6183,7 +6297,7 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 		}
 		return &v, nil
 	case MessageActionTopicEditTypeID:
-		// Decoding messageActionTopicEdit#b18a431c.
+		// Decoding messageActionTopicEdit#c0944820.
 		v := MessageActionTopicEdit{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
