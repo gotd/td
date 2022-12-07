@@ -6475,6 +6475,142 @@ func (c *ChannelAdminLogEventActionPinTopic) GetNewTopic() (value ForumTopicClas
 	return c.NewTopic, true
 }
 
+// ChannelAdminLogEventActionToggleAntiSpam represents TL type `channelAdminLogEventActionToggleAntiSpam#64f36dfc`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionToggleAntiSpam for reference.
+type ChannelAdminLogEventActionToggleAntiSpam struct {
+	// NewValue field of ChannelAdminLogEventActionToggleAntiSpam.
+	NewValue bool
+}
+
+// ChannelAdminLogEventActionToggleAntiSpamTypeID is TL type id of ChannelAdminLogEventActionToggleAntiSpam.
+const ChannelAdminLogEventActionToggleAntiSpamTypeID = 0x64f36dfc
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionToggleAntiSpam) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionToggleAntiSpam.
+var (
+	_ bin.Encoder     = &ChannelAdminLogEventActionToggleAntiSpam{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionToggleAntiSpam{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionToggleAntiSpam{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionToggleAntiSpam{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionToggleAntiSpam{}
+)
+
+func (c *ChannelAdminLogEventActionToggleAntiSpam) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.NewValue == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionToggleAntiSpam) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionToggleAntiSpam(nil)"
+	}
+	type Alias ChannelAdminLogEventActionToggleAntiSpam
+	return fmt.Sprintf("ChannelAdminLogEventActionToggleAntiSpam%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionToggleAntiSpam from given interface.
+func (c *ChannelAdminLogEventActionToggleAntiSpam) FillFrom(from interface {
+	GetNewValue() (value bool)
+}) {
+	c.NewValue = from.GetNewValue()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChannelAdminLogEventActionToggleAntiSpam) TypeID() uint32 {
+	return ChannelAdminLogEventActionToggleAntiSpamTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChannelAdminLogEventActionToggleAntiSpam) TypeName() string {
+	return "channelAdminLogEventActionToggleAntiSpam"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionToggleAntiSpam) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionToggleAntiSpam",
+		ID:   ChannelAdminLogEventActionToggleAntiSpamTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "NewValue",
+			SchemaName: "new_value",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionToggleAntiSpam) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionToggleAntiSpam#64f36dfc as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionToggleAntiSpamTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionToggleAntiSpam) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionToggleAntiSpam#64f36dfc as nil")
+	}
+	b.PutBool(c.NewValue)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionToggleAntiSpam) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionToggleAntiSpam#64f36dfc to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionToggleAntiSpamTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionToggleAntiSpam#64f36dfc: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionToggleAntiSpam) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionToggleAntiSpam#64f36dfc to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionToggleAntiSpam#64f36dfc: field new_value: %w", err)
+		}
+		c.NewValue = value
+	}
+	return nil
+}
+
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionToggleAntiSpam) GetNewValue() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.NewValue
+}
+
 // ChannelAdminLogEventActionClassName is schema name of ChannelAdminLogEventActionClass.
 const ChannelAdminLogEventActionClassName = "ChannelAdminLogEventAction"
 
@@ -6531,6 +6667,7 @@ const ChannelAdminLogEventActionClassName = "ChannelAdminLogEventAction"
 //	case *tg.ChannelAdminLogEventActionEditTopic: // channelAdminLogEventActionEditTopic#f06fe208
 //	case *tg.ChannelAdminLogEventActionDeleteTopic: // channelAdminLogEventActionDeleteTopic#ae168909
 //	case *tg.ChannelAdminLogEventActionPinTopic: // channelAdminLogEventActionPinTopic#5d8d353b
+//	case *tg.ChannelAdminLogEventActionToggleAntiSpam: // channelAdminLogEventActionToggleAntiSpam#64f36dfc
 //	default: panic(v)
 //	}
 type ChannelAdminLogEventActionClass interface {
@@ -6849,6 +6986,13 @@ func DecodeChannelAdminLogEventAction(buf *bin.Buffer) (ChannelAdminLogEventActi
 	case ChannelAdminLogEventActionPinTopicTypeID:
 		// Decoding channelAdminLogEventActionPinTopic#5d8d353b.
 		v := ChannelAdminLogEventActionPinTopic{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionToggleAntiSpamTypeID:
+		// Decoding channelAdminLogEventActionToggleAntiSpam#64f36dfc.
+		v := ChannelAdminLogEventActionToggleAntiSpam{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
 		}

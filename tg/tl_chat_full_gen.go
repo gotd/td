@@ -1037,6 +1037,8 @@ type ChannelFull struct {
 	Flags2 bin.Fields
 	// Can we delete this channel?
 	CanDeleteChannel bool
+	// Antispam field of ChannelFull.
+	Antispam bool
 	// ID of the channel
 	ID int64
 	// Info about the channel
@@ -1254,6 +1256,9 @@ func (c *ChannelFull) Zero() bool {
 	if !(c.CanDeleteChannel == false) {
 		return false
 	}
+	if !(c.Antispam == false) {
+		return false
+	}
 	if !(c.ID == 0) {
 		return false
 	}
@@ -1383,6 +1388,7 @@ func (c *ChannelFull) FillFrom(from interface {
 	GetCanViewStats() (value bool)
 	GetBlocked() (value bool)
 	GetCanDeleteChannel() (value bool)
+	GetAntispam() (value bool)
 	GetID() (value int64)
 	GetAbout() (value string)
 	GetParticipantsCount() (value int, ok bool)
@@ -1428,6 +1434,7 @@ func (c *ChannelFull) FillFrom(from interface {
 	c.CanViewStats = from.GetCanViewStats()
 	c.Blocked = from.GetBlocked()
 	c.CanDeleteChannel = from.GetCanDeleteChannel()
+	c.Antispam = from.GetAntispam()
 	c.ID = from.GetID()
 	c.About = from.GetAbout()
 	if val, ok := from.GetParticipantsCount(); ok {
@@ -1610,6 +1617,11 @@ func (c *ChannelFull) TypeInfo() tdp.Type {
 			Name:       "CanDeleteChannel",
 			SchemaName: "can_delete_channel",
 			Null:       !c.Flags2.Has(0),
+		},
+		{
+			Name:       "Antispam",
+			SchemaName: "antispam",
+			Null:       !c.Flags2.Has(1),
 		},
 		{
 			Name:       "ID",
@@ -1809,6 +1821,9 @@ func (c *ChannelFull) SetFlags() {
 	}
 	if !(c.CanDeleteChannel == false) {
 		c.Flags2.Set(0)
+	}
+	if !(c.Antispam == false) {
+		c.Flags2.Set(1)
 	}
 	if !(c.ParticipantsCount == 0) {
 		c.Flags.Set(0)
@@ -2083,6 +2098,7 @@ func (c *ChannelFull) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	c.CanDeleteChannel = c.Flags2.Has(0)
+	c.Antispam = c.Flags2.Has(1)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -2524,6 +2540,25 @@ func (c *ChannelFull) GetCanDeleteChannel() (value bool) {
 		return
 	}
 	return c.Flags2.Has(0)
+}
+
+// SetAntispam sets value of Antispam conditional field.
+func (c *ChannelFull) SetAntispam(value bool) {
+	if value {
+		c.Flags2.Set(1)
+		c.Antispam = true
+	} else {
+		c.Flags2.Unset(1)
+		c.Antispam = false
+	}
+}
+
+// GetAntispam returns value of Antispam conditional field.
+func (c *ChannelFull) GetAntispam() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags2.Has(1)
 }
 
 // GetID returns value of ID field.

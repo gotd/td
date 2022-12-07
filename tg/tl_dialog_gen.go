@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Dialog represents TL type `dialog#a8edd0f5`.
+// Dialog represents TL type `dialog#d58a08c6`.
 // Chat
 //
 // See https://core.telegram.org/constructor/dialog for reference.
@@ -82,10 +82,14 @@ type Dialog struct {
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
+	// TTLPeriod field of Dialog.
+	//
+	// Use SetTTLPeriod and GetTTLPeriod helpers.
+	TTLPeriod int
 }
 
 // DialogTypeID is TL type id of Dialog.
-const DialogTypeID = 0xa8edd0f5
+const DialogTypeID = 0xd58a08c6
 
 // construct implements constructor of DialogClass.
 func (d Dialog) construct() DialogClass { return &d }
@@ -146,6 +150,9 @@ func (d *Dialog) Zero() bool {
 	if !(d.FolderID == 0) {
 		return false
 	}
+	if !(d.TTLPeriod == 0) {
+		return false
+	}
 
 	return true
 }
@@ -174,6 +181,7 @@ func (d *Dialog) FillFrom(from interface {
 	GetPts() (value int, ok bool)
 	GetDraft() (value DraftMessageClass, ok bool)
 	GetFolderID() (value int, ok bool)
+	GetTTLPeriod() (value int, ok bool)
 }) {
 	d.Pinned = from.GetPinned()
 	d.UnreadMark = from.GetUnreadMark()
@@ -195,6 +203,10 @@ func (d *Dialog) FillFrom(from interface {
 
 	if val, ok := from.GetFolderID(); ok {
 		d.FolderID = val
+	}
+
+	if val, ok := from.GetTTLPeriod(); ok {
+		d.TTLPeriod = val
 	}
 
 }
@@ -279,6 +291,11 @@ func (d *Dialog) TypeInfo() tdp.Type {
 			SchemaName: "folder_id",
 			Null:       !d.Flags.Has(4),
 		},
+		{
+			Name:       "TTLPeriod",
+			SchemaName: "ttl_period",
+			Null:       !d.Flags.Has(5),
+		},
 	}
 	return typ
 }
@@ -300,12 +317,15 @@ func (d *Dialog) SetFlags() {
 	if !(d.FolderID == 0) {
 		d.Flags.Set(4)
 	}
+	if !(d.TTLPeriod == 0) {
+		d.Flags.Set(5)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (d *Dialog) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dialog#a8edd0f5 as nil")
+		return fmt.Errorf("can't encode dialog#d58a08c6 as nil")
 	}
 	b.PutID(DialogTypeID)
 	return d.EncodeBare(b)
@@ -314,17 +334,17 @@ func (d *Dialog) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *Dialog) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode dialog#a8edd0f5 as nil")
+		return fmt.Errorf("can't encode dialog#d58a08c6 as nil")
 	}
 	d.SetFlags()
 	if err := d.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode dialog#a8edd0f5: field flags: %w", err)
+		return fmt.Errorf("unable to encode dialog#d58a08c6: field flags: %w", err)
 	}
 	if d.Peer == nil {
-		return fmt.Errorf("unable to encode dialog#a8edd0f5: field peer is nil")
+		return fmt.Errorf("unable to encode dialog#d58a08c6: field peer is nil")
 	}
 	if err := d.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode dialog#a8edd0f5: field peer: %w", err)
+		return fmt.Errorf("unable to encode dialog#d58a08c6: field peer: %w", err)
 	}
 	b.PutInt(d.TopMessage)
 	b.PutInt(d.ReadInboxMaxID)
@@ -333,21 +353,24 @@ func (d *Dialog) EncodeBare(b *bin.Buffer) error {
 	b.PutInt(d.UnreadMentionsCount)
 	b.PutInt(d.UnreadReactionsCount)
 	if err := d.NotifySettings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode dialog#a8edd0f5: field notify_settings: %w", err)
+		return fmt.Errorf("unable to encode dialog#d58a08c6: field notify_settings: %w", err)
 	}
 	if d.Flags.Has(0) {
 		b.PutInt(d.Pts)
 	}
 	if d.Flags.Has(1) {
 		if d.Draft == nil {
-			return fmt.Errorf("unable to encode dialog#a8edd0f5: field draft is nil")
+			return fmt.Errorf("unable to encode dialog#d58a08c6: field draft is nil")
 		}
 		if err := d.Draft.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode dialog#a8edd0f5: field draft: %w", err)
+			return fmt.Errorf("unable to encode dialog#d58a08c6: field draft: %w", err)
 		}
 	}
 	if d.Flags.Has(4) {
 		b.PutInt(d.FolderID)
+	}
+	if d.Flags.Has(5) {
+		b.PutInt(d.TTLPeriod)
 	}
 	return nil
 }
@@ -355,10 +378,10 @@ func (d *Dialog) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (d *Dialog) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dialog#a8edd0f5 to nil")
+		return fmt.Errorf("can't decode dialog#d58a08c6 to nil")
 	}
 	if err := b.ConsumeID(DialogTypeID); err != nil {
-		return fmt.Errorf("unable to decode dialog#a8edd0f5: %w", err)
+		return fmt.Errorf("unable to decode dialog#d58a08c6: %w", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -366,11 +389,11 @@ func (d *Dialog) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *Dialog) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode dialog#a8edd0f5 to nil")
+		return fmt.Errorf("can't decode dialog#d58a08c6 to nil")
 	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode dialog#a8edd0f5: field flags: %w", err)
+			return fmt.Errorf("unable to decode dialog#d58a08c6: field flags: %w", err)
 		}
 	}
 	d.Pinned = d.Flags.Has(2)
@@ -378,77 +401,84 @@ func (d *Dialog) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode dialog#a8edd0f5: field peer: %w", err)
+			return fmt.Errorf("unable to decode dialog#d58a08c6: field peer: %w", err)
 		}
 		d.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialog#a8edd0f5: field top_message: %w", err)
+			return fmt.Errorf("unable to decode dialog#d58a08c6: field top_message: %w", err)
 		}
 		d.TopMessage = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialog#a8edd0f5: field read_inbox_max_id: %w", err)
+			return fmt.Errorf("unable to decode dialog#d58a08c6: field read_inbox_max_id: %w", err)
 		}
 		d.ReadInboxMaxID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialog#a8edd0f5: field read_outbox_max_id: %w", err)
+			return fmt.Errorf("unable to decode dialog#d58a08c6: field read_outbox_max_id: %w", err)
 		}
 		d.ReadOutboxMaxID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialog#a8edd0f5: field unread_count: %w", err)
+			return fmt.Errorf("unable to decode dialog#d58a08c6: field unread_count: %w", err)
 		}
 		d.UnreadCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialog#a8edd0f5: field unread_mentions_count: %w", err)
+			return fmt.Errorf("unable to decode dialog#d58a08c6: field unread_mentions_count: %w", err)
 		}
 		d.UnreadMentionsCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialog#a8edd0f5: field unread_reactions_count: %w", err)
+			return fmt.Errorf("unable to decode dialog#d58a08c6: field unread_reactions_count: %w", err)
 		}
 		d.UnreadReactionsCount = value
 	}
 	{
 		if err := d.NotifySettings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode dialog#a8edd0f5: field notify_settings: %w", err)
+			return fmt.Errorf("unable to decode dialog#d58a08c6: field notify_settings: %w", err)
 		}
 	}
 	if d.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialog#a8edd0f5: field pts: %w", err)
+			return fmt.Errorf("unable to decode dialog#d58a08c6: field pts: %w", err)
 		}
 		d.Pts = value
 	}
 	if d.Flags.Has(1) {
 		value, err := DecodeDraftMessage(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode dialog#a8edd0f5: field draft: %w", err)
+			return fmt.Errorf("unable to decode dialog#d58a08c6: field draft: %w", err)
 		}
 		d.Draft = value
 	}
 	if d.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode dialog#a8edd0f5: field folder_id: %w", err)
+			return fmt.Errorf("unable to decode dialog#d58a08c6: field folder_id: %w", err)
 		}
 		d.FolderID = value
+	}
+	if d.Flags.Has(5) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode dialog#d58a08c6: field ttl_period: %w", err)
+		}
+		d.TTLPeriod = value
 	}
 	return nil
 }
@@ -607,6 +637,24 @@ func (d *Dialog) GetFolderID() (value int, ok bool) {
 		return value, false
 	}
 	return d.FolderID, true
+}
+
+// SetTTLPeriod sets value of TTLPeriod conditional field.
+func (d *Dialog) SetTTLPeriod(value int) {
+	d.Flags.Set(5)
+	d.TTLPeriod = value
+}
+
+// GetTTLPeriod returns value of TTLPeriod conditional field and
+// boolean which is true if field was set.
+func (d *Dialog) GetTTLPeriod() (value int, ok bool) {
+	if d == nil {
+		return
+	}
+	if !d.Flags.Has(5) {
+		return value, false
+	}
+	return d.TTLPeriod, true
 }
 
 // DialogFolder represents TL type `dialogFolder#71bd134c`.
@@ -981,7 +1029,7 @@ const DialogClassName = "Dialog"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tg.Dialog: // dialog#a8edd0f5
+//	case *tg.Dialog: // dialog#d58a08c6
 //	case *tg.DialogFolder: // dialogFolder#71bd134c
 //	default: panic(v)
 //	}
@@ -1031,7 +1079,7 @@ func DecodeDialog(buf *bin.Buffer) (DialogClass, error) {
 	}
 	switch id {
 	case DialogTypeID:
-		// Decoding dialog#a8edd0f5.
+		// Decoding dialog#d58a08c6.
 		v := Dialog{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode DialogClass: %w", err)

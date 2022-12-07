@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChannelsCreateChannelRequest represents TL type `channels.createChannel#3d5fb10f`.
+// ChannelsCreateChannelRequest represents TL type `channels.createChannel#91006707`.
 // Create a supergroup/channel¹.
 //
 // Links:
@@ -72,10 +72,14 @@ type ChannelsCreateChannelRequest struct {
 	//
 	// Use SetAddress and GetAddress helpers.
 	Address string
+	// TTLPeriod field of ChannelsCreateChannelRequest.
+	//
+	// Use SetTTLPeriod and GetTTLPeriod helpers.
+	TTLPeriod int
 }
 
 // ChannelsCreateChannelRequestTypeID is TL type id of ChannelsCreateChannelRequest.
-const ChannelsCreateChannelRequestTypeID = 0x3d5fb10f
+const ChannelsCreateChannelRequestTypeID = 0x91006707
 
 // Ensuring interfaces in compile-time for ChannelsCreateChannelRequest.
 var (
@@ -113,6 +117,9 @@ func (c *ChannelsCreateChannelRequest) Zero() bool {
 	if !(c.Address == "") {
 		return false
 	}
+	if !(c.TTLPeriod == 0) {
+		return false
+	}
 
 	return true
 }
@@ -135,6 +142,7 @@ func (c *ChannelsCreateChannelRequest) FillFrom(from interface {
 	GetAbout() (value string)
 	GetGeoPoint() (value InputGeoPointClass, ok bool)
 	GetAddress() (value string, ok bool)
+	GetTTLPeriod() (value int, ok bool)
 }) {
 	c.Broadcast = from.GetBroadcast()
 	c.Megagroup = from.GetMegagroup()
@@ -147,6 +155,10 @@ func (c *ChannelsCreateChannelRequest) FillFrom(from interface {
 
 	if val, ok := from.GetAddress(); ok {
 		c.Address = val
+	}
+
+	if val, ok := from.GetTTLPeriod(); ok {
+		c.TTLPeriod = val
 	}
 
 }
@@ -207,6 +219,11 @@ func (c *ChannelsCreateChannelRequest) TypeInfo() tdp.Type {
 			SchemaName: "address",
 			Null:       !c.Flags.Has(2),
 		},
+		{
+			Name:       "TTLPeriod",
+			SchemaName: "ttl_period",
+			Null:       !c.Flags.Has(4),
+		},
 	}
 	return typ
 }
@@ -228,12 +245,15 @@ func (c *ChannelsCreateChannelRequest) SetFlags() {
 	if !(c.Address == "") {
 		c.Flags.Set(2)
 	}
+	if !(c.TTLPeriod == 0) {
+		c.Flags.Set(4)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (c *ChannelsCreateChannelRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channels.createChannel#3d5fb10f as nil")
+		return fmt.Errorf("can't encode channels.createChannel#91006707 as nil")
 	}
 	b.PutID(ChannelsCreateChannelRequestTypeID)
 	return c.EncodeBare(b)
@@ -242,24 +262,27 @@ func (c *ChannelsCreateChannelRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelsCreateChannelRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channels.createChannel#3d5fb10f as nil")
+		return fmt.Errorf("can't encode channels.createChannel#91006707 as nil")
 	}
 	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.createChannel#3d5fb10f: field flags: %w", err)
+		return fmt.Errorf("unable to encode channels.createChannel#91006707: field flags: %w", err)
 	}
 	b.PutString(c.Title)
 	b.PutString(c.About)
 	if c.Flags.Has(2) {
 		if c.GeoPoint == nil {
-			return fmt.Errorf("unable to encode channels.createChannel#3d5fb10f: field geo_point is nil")
+			return fmt.Errorf("unable to encode channels.createChannel#91006707: field geo_point is nil")
 		}
 		if err := c.GeoPoint.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channels.createChannel#3d5fb10f: field geo_point: %w", err)
+			return fmt.Errorf("unable to encode channels.createChannel#91006707: field geo_point: %w", err)
 		}
 	}
 	if c.Flags.Has(2) {
 		b.PutString(c.Address)
+	}
+	if c.Flags.Has(4) {
+		b.PutInt(c.TTLPeriod)
 	}
 	return nil
 }
@@ -267,10 +290,10 @@ func (c *ChannelsCreateChannelRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChannelsCreateChannelRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channels.createChannel#3d5fb10f to nil")
+		return fmt.Errorf("can't decode channels.createChannel#91006707 to nil")
 	}
 	if err := b.ConsumeID(ChannelsCreateChannelRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.createChannel#3d5fb10f: %w", err)
+		return fmt.Errorf("unable to decode channels.createChannel#91006707: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -278,11 +301,11 @@ func (c *ChannelsCreateChannelRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelsCreateChannelRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channels.createChannel#3d5fb10f to nil")
+		return fmt.Errorf("can't decode channels.createChannel#91006707 to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channels.createChannel#3d5fb10f: field flags: %w", err)
+			return fmt.Errorf("unable to decode channels.createChannel#91006707: field flags: %w", err)
 		}
 	}
 	c.Broadcast = c.Flags.Has(0)
@@ -291,30 +314,37 @@ func (c *ChannelsCreateChannelRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.createChannel#3d5fb10f: field title: %w", err)
+			return fmt.Errorf("unable to decode channels.createChannel#91006707: field title: %w", err)
 		}
 		c.Title = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.createChannel#3d5fb10f: field about: %w", err)
+			return fmt.Errorf("unable to decode channels.createChannel#91006707: field about: %w", err)
 		}
 		c.About = value
 	}
 	if c.Flags.Has(2) {
 		value, err := DecodeInputGeoPoint(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.createChannel#3d5fb10f: field geo_point: %w", err)
+			return fmt.Errorf("unable to decode channels.createChannel#91006707: field geo_point: %w", err)
 		}
 		c.GeoPoint = value
 	}
 	if c.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.createChannel#3d5fb10f: field address: %w", err)
+			return fmt.Errorf("unable to decode channels.createChannel#91006707: field address: %w", err)
 		}
 		c.Address = value
+	}
+	if c.Flags.Has(4) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channels.createChannel#91006707: field ttl_period: %w", err)
+		}
+		c.TTLPeriod = value
 	}
 	return nil
 }
@@ -428,6 +458,24 @@ func (c *ChannelsCreateChannelRequest) GetAddress() (value string, ok bool) {
 	return c.Address, true
 }
 
+// SetTTLPeriod sets value of TTLPeriod conditional field.
+func (c *ChannelsCreateChannelRequest) SetTTLPeriod(value int) {
+	c.Flags.Set(4)
+	c.TTLPeriod = value
+}
+
+// GetTTLPeriod returns value of TTLPeriod conditional field and
+// boolean which is true if field was set.
+func (c *ChannelsCreateChannelRequest) GetTTLPeriod() (value int, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(4) {
+		return value, false
+	}
+	return c.TTLPeriod, true
+}
+
 // GetGeoPointAsNotEmpty returns mapped value of GeoPoint conditional field and
 // boolean which is true if field was set.
 func (c *ChannelsCreateChannelRequest) GetGeoPointAsNotEmpty() (*InputGeoPoint, bool) {
@@ -437,7 +485,7 @@ func (c *ChannelsCreateChannelRequest) GetGeoPointAsNotEmpty() (*InputGeoPoint, 
 	return nil, false
 }
 
-// ChannelsCreateChannel invokes method channels.createChannel#3d5fb10f returning error if any.
+// ChannelsCreateChannel invokes method channels.createChannel#91006707 returning error if any.
 // Create a supergroup/channel¹.
 //
 // Links:

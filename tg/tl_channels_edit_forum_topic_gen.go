@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChannelsEditForumTopicRequest represents TL type `channels.editForumTopic#6c883e2d`.
+// ChannelsEditForumTopicRequest represents TL type `channels.editForumTopic#f4dfa185`.
 //
 // See https://core.telegram.org/method/channels.editForumTopic for reference.
 type ChannelsEditForumTopicRequest struct {
@@ -53,10 +53,14 @@ type ChannelsEditForumTopicRequest struct {
 	//
 	// Use SetClosed and GetClosed helpers.
 	Closed bool
+	// Hidden field of ChannelsEditForumTopicRequest.
+	//
+	// Use SetHidden and GetHidden helpers.
+	Hidden bool
 }
 
 // ChannelsEditForumTopicRequestTypeID is TL type id of ChannelsEditForumTopicRequest.
-const ChannelsEditForumTopicRequestTypeID = 0x6c883e2d
+const ChannelsEditForumTopicRequestTypeID = 0xf4dfa185
 
 // Ensuring interfaces in compile-time for ChannelsEditForumTopicRequest.
 var (
@@ -88,6 +92,9 @@ func (e *ChannelsEditForumTopicRequest) Zero() bool {
 	if !(e.Closed == false) {
 		return false
 	}
+	if !(e.Hidden == false) {
+		return false
+	}
 
 	return true
 }
@@ -108,6 +115,7 @@ func (e *ChannelsEditForumTopicRequest) FillFrom(from interface {
 	GetTitle() (value string, ok bool)
 	GetIconEmojiID() (value int64, ok bool)
 	GetClosed() (value bool, ok bool)
+	GetHidden() (value bool, ok bool)
 }) {
 	e.Channel = from.GetChannel()
 	e.TopicID = from.GetTopicID()
@@ -121,6 +129,10 @@ func (e *ChannelsEditForumTopicRequest) FillFrom(from interface {
 
 	if val, ok := from.GetClosed(); ok {
 		e.Closed = val
+	}
+
+	if val, ok := from.GetHidden(); ok {
+		e.Hidden = val
 	}
 
 }
@@ -171,6 +183,11 @@ func (e *ChannelsEditForumTopicRequest) TypeInfo() tdp.Type {
 			SchemaName: "closed",
 			Null:       !e.Flags.Has(2),
 		},
+		{
+			Name:       "Hidden",
+			SchemaName: "hidden",
+			Null:       !e.Flags.Has(3),
+		},
 	}
 	return typ
 }
@@ -186,12 +203,15 @@ func (e *ChannelsEditForumTopicRequest) SetFlags() {
 	if !(e.Closed == false) {
 		e.Flags.Set(2)
 	}
+	if !(e.Hidden == false) {
+		e.Flags.Set(3)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (e *ChannelsEditForumTopicRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editForumTopic#6c883e2d as nil")
+		return fmt.Errorf("can't encode channels.editForumTopic#f4dfa185 as nil")
 	}
 	b.PutID(ChannelsEditForumTopicRequestTypeID)
 	return e.EncodeBare(b)
@@ -200,17 +220,17 @@ func (e *ChannelsEditForumTopicRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *ChannelsEditForumTopicRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editForumTopic#6c883e2d as nil")
+		return fmt.Errorf("can't encode channels.editForumTopic#f4dfa185 as nil")
 	}
 	e.SetFlags()
 	if err := e.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editForumTopic#6c883e2d: field flags: %w", err)
+		return fmt.Errorf("unable to encode channels.editForumTopic#f4dfa185: field flags: %w", err)
 	}
 	if e.Channel == nil {
-		return fmt.Errorf("unable to encode channels.editForumTopic#6c883e2d: field channel is nil")
+		return fmt.Errorf("unable to encode channels.editForumTopic#f4dfa185: field channel is nil")
 	}
 	if err := e.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editForumTopic#6c883e2d: field channel: %w", err)
+		return fmt.Errorf("unable to encode channels.editForumTopic#f4dfa185: field channel: %w", err)
 	}
 	b.PutInt(e.TopicID)
 	if e.Flags.Has(0) {
@@ -222,16 +242,19 @@ func (e *ChannelsEditForumTopicRequest) EncodeBare(b *bin.Buffer) error {
 	if e.Flags.Has(2) {
 		b.PutBool(e.Closed)
 	}
+	if e.Flags.Has(3) {
+		b.PutBool(e.Hidden)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (e *ChannelsEditForumTopicRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editForumTopic#6c883e2d to nil")
+		return fmt.Errorf("can't decode channels.editForumTopic#f4dfa185 to nil")
 	}
 	if err := b.ConsumeID(ChannelsEditForumTopicRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.editForumTopic#6c883e2d: %w", err)
+		return fmt.Errorf("unable to decode channels.editForumTopic#f4dfa185: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -239,47 +262,54 @@ func (e *ChannelsEditForumTopicRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *ChannelsEditForumTopicRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editForumTopic#6c883e2d to nil")
+		return fmt.Errorf("can't decode channels.editForumTopic#f4dfa185 to nil")
 	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channels.editForumTopic#6c883e2d: field flags: %w", err)
+			return fmt.Errorf("unable to decode channels.editForumTopic#f4dfa185: field flags: %w", err)
 		}
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editForumTopic#6c883e2d: field channel: %w", err)
+			return fmt.Errorf("unable to decode channels.editForumTopic#f4dfa185: field channel: %w", err)
 		}
 		e.Channel = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editForumTopic#6c883e2d: field topic_id: %w", err)
+			return fmt.Errorf("unable to decode channels.editForumTopic#f4dfa185: field topic_id: %w", err)
 		}
 		e.TopicID = value
 	}
 	if e.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editForumTopic#6c883e2d: field title: %w", err)
+			return fmt.Errorf("unable to decode channels.editForumTopic#f4dfa185: field title: %w", err)
 		}
 		e.Title = value
 	}
 	if e.Flags.Has(1) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editForumTopic#6c883e2d: field icon_emoji_id: %w", err)
+			return fmt.Errorf("unable to decode channels.editForumTopic#f4dfa185: field icon_emoji_id: %w", err)
 		}
 		e.IconEmojiID = value
 	}
 	if e.Flags.Has(2) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editForumTopic#6c883e2d: field closed: %w", err)
+			return fmt.Errorf("unable to decode channels.editForumTopic#f4dfa185: field closed: %w", err)
 		}
 		e.Closed = value
+	}
+	if e.Flags.Has(3) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode channels.editForumTopic#f4dfa185: field hidden: %w", err)
+		}
+		e.Hidden = value
 	}
 	return nil
 }
@@ -354,12 +384,30 @@ func (e *ChannelsEditForumTopicRequest) GetClosed() (value bool, ok bool) {
 	return e.Closed, true
 }
 
+// SetHidden sets value of Hidden conditional field.
+func (e *ChannelsEditForumTopicRequest) SetHidden(value bool) {
+	e.Flags.Set(3)
+	e.Hidden = value
+}
+
+// GetHidden returns value of Hidden conditional field and
+// boolean which is true if field was set.
+func (e *ChannelsEditForumTopicRequest) GetHidden() (value bool, ok bool) {
+	if e == nil {
+		return
+	}
+	if !e.Flags.Has(3) {
+		return value, false
+	}
+	return e.Hidden, true
+}
+
 // GetChannelAsNotEmpty returns mapped value of Channel field.
 func (e *ChannelsEditForumTopicRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
 	return e.Channel.AsNotEmpty()
 }
 
-// ChannelsEditForumTopic invokes method channels.editForumTopic#6c883e2d returning error if any.
+// ChannelsEditForumTopic invokes method channels.editForumTopic#f4dfa185 returning error if any.
 //
 // See https://core.telegram.org/method/channels.editForumTopic for reference.
 func (c *Client) ChannelsEditForumTopic(ctx context.Context, request *ChannelsEditForumTopicRequest) (UpdatesClass, error) {

@@ -400,6 +400,23 @@ func (s *ServerDispatcher) OnAuthCheckRecoveryPassword(f func(ctx context.Contex
 	s.handlers[AuthCheckRecoveryPasswordRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnAuthImportWebTokenAuthorization(f func(ctx context.Context, request *AuthImportWebTokenAuthorizationRequest) (AuthAuthorizationClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AuthImportWebTokenAuthorizationRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &AuthAuthorizationBox{Authorization: response}, nil
+	}
+
+	s.handlers[AuthImportWebTokenAuthorizationRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnAccountRegisterDevice(f func(ctx context.Context, request *AccountRegisterDeviceRequest) (bool, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request AccountRegisterDeviceRequest
@@ -2384,6 +2401,40 @@ func (s *ServerDispatcher) OnContactsResolvePhone(f func(ctx context.Context, ph
 	}
 
 	s.handlers[ContactsResolvePhoneRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnContactsExportContactToken(f func(ctx context.Context) (*ExportedContactToken, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ContactsExportContactTokenRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[ContactsExportContactTokenRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnContactsImportContactToken(f func(ctx context.Context, token string) (UserClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ContactsImportContactTokenRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Token)
+		if err != nil {
+			return nil, err
+		}
+		return &UserBox{User: response}, nil
+	}
+
+	s.handlers[ContactsImportContactTokenRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnMessagesGetMessages(f func(ctx context.Context, id []InputMessageClass) (MessagesMessagesClass, error)) {
@@ -5567,6 +5618,44 @@ func (s *ServerDispatcher) OnMessagesGetExtendedMedia(f func(ctx context.Context
 	s.handlers[MessagesGetExtendedMediaRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesSetDefaultHistoryTTL(f func(ctx context.Context, period int) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesSetDefaultHistoryTTLRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Period)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesSetDefaultHistoryTTLRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetDefaultHistoryTTL(f func(ctx context.Context) (*DefaultHistoryTTL, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetDefaultHistoryTTLRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[MessagesGetDefaultHistoryTTLRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
@@ -7171,6 +7260,44 @@ func (s *ServerDispatcher) OnChannelsReorderPinnedForumTopics(f func(ctx context
 	}
 
 	s.handlers[ChannelsReorderPinnedForumTopicsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChannelsToggleAntiSpam(f func(ctx context.Context, request *ChannelsToggleAntiSpamRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsToggleAntiSpamRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[ChannelsToggleAntiSpamRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChannelsReportAntiSpamFalsePositive(f func(ctx context.Context, request *ChannelsReportAntiSpamFalsePositiveRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsReportAntiSpamFalsePositiveRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[ChannelsReportAntiSpamFalsePositiveRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnBotsSendCustomRequest(f func(ctx context.Context, request *BotsSendCustomRequestRequest) (*DataJSON, error)) {

@@ -31,19 +31,25 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesCreateChatRequest represents TL type `messages.createChat#9cb126e`.
+// MessagesCreateChatRequest represents TL type `messages.createChat#34a818`.
 // Creates a new chat.
 //
 // See https://core.telegram.org/method/messages.createChat for reference.
 type MessagesCreateChatRequest struct {
+	// Flags field of MessagesCreateChatRequest.
+	Flags bin.Fields
 	// List of user IDs to be invited
 	Users []InputUserClass
 	// Chat name
 	Title string
+	// TTLPeriod field of MessagesCreateChatRequest.
+	//
+	// Use SetTTLPeriod and GetTTLPeriod helpers.
+	TTLPeriod int
 }
 
 // MessagesCreateChatRequestTypeID is TL type id of MessagesCreateChatRequest.
-const MessagesCreateChatRequestTypeID = 0x9cb126e
+const MessagesCreateChatRequestTypeID = 0x34a818
 
 // Ensuring interfaces in compile-time for MessagesCreateChatRequest.
 var (
@@ -57,10 +63,16 @@ func (c *MessagesCreateChatRequest) Zero() bool {
 	if c == nil {
 		return true
 	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
 	if !(c.Users == nil) {
 		return false
 	}
 	if !(c.Title == "") {
+		return false
+	}
+	if !(c.TTLPeriod == 0) {
 		return false
 	}
 
@@ -80,9 +92,14 @@ func (c *MessagesCreateChatRequest) String() string {
 func (c *MessagesCreateChatRequest) FillFrom(from interface {
 	GetUsers() (value []InputUserClass)
 	GetTitle() (value string)
+	GetTTLPeriod() (value int, ok bool)
 }) {
 	c.Users = from.GetUsers()
 	c.Title = from.GetTitle()
+	if val, ok := from.GetTTLPeriod(); ok {
+		c.TTLPeriod = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -116,14 +133,26 @@ func (c *MessagesCreateChatRequest) TypeInfo() tdp.Type {
 			Name:       "Title",
 			SchemaName: "title",
 		},
+		{
+			Name:       "TTLPeriod",
+			SchemaName: "ttl_period",
+			Null:       !c.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (c *MessagesCreateChatRequest) SetFlags() {
+	if !(c.TTLPeriod == 0) {
+		c.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (c *MessagesCreateChatRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.createChat#9cb126e as nil")
+		return fmt.Errorf("can't encode messages.createChat#34a818 as nil")
 	}
 	b.PutID(MessagesCreateChatRequestTypeID)
 	return c.EncodeBare(b)
@@ -132,28 +161,35 @@ func (c *MessagesCreateChatRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *MessagesCreateChatRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode messages.createChat#9cb126e as nil")
+		return fmt.Errorf("can't encode messages.createChat#34a818 as nil")
+	}
+	c.SetFlags()
+	if err := c.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.createChat#34a818: field flags: %w", err)
 	}
 	b.PutVectorHeader(len(c.Users))
 	for idx, v := range c.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.createChat#9cb126e: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.createChat#34a818: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.createChat#9cb126e: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.createChat#34a818: field users element with index %d: %w", idx, err)
 		}
 	}
 	b.PutString(c.Title)
+	if c.Flags.Has(0) {
+		b.PutInt(c.TTLPeriod)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *MessagesCreateChatRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.createChat#9cb126e to nil")
+		return fmt.Errorf("can't decode messages.createChat#34a818 to nil")
 	}
 	if err := b.ConsumeID(MessagesCreateChatRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.createChat#9cb126e: %w", err)
+		return fmt.Errorf("unable to decode messages.createChat#34a818: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -161,12 +197,17 @@ func (c *MessagesCreateChatRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *MessagesCreateChatRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode messages.createChat#9cb126e to nil")
+		return fmt.Errorf("can't decode messages.createChat#34a818 to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.createChat#34a818: field flags: %w", err)
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.createChat#9cb126e: field users: %w", err)
+			return fmt.Errorf("unable to decode messages.createChat#34a818: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -175,7 +216,7 @@ func (c *MessagesCreateChatRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.createChat#9cb126e: field users: %w", err)
+				return fmt.Errorf("unable to decode messages.createChat#34a818: field users: %w", err)
 			}
 			c.Users = append(c.Users, value)
 		}
@@ -183,9 +224,16 @@ func (c *MessagesCreateChatRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.createChat#9cb126e: field title: %w", err)
+			return fmt.Errorf("unable to decode messages.createChat#34a818: field title: %w", err)
 		}
 		c.Title = value
+	}
+	if c.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.createChat#34a818: field ttl_period: %w", err)
+		}
+		c.TTLPeriod = value
 	}
 	return nil
 }
@@ -206,12 +254,30 @@ func (c *MessagesCreateChatRequest) GetTitle() (value string) {
 	return c.Title
 }
 
+// SetTTLPeriod sets value of TTLPeriod conditional field.
+func (c *MessagesCreateChatRequest) SetTTLPeriod(value int) {
+	c.Flags.Set(0)
+	c.TTLPeriod = value
+}
+
+// GetTTLPeriod returns value of TTLPeriod conditional field and
+// boolean which is true if field was set.
+func (c *MessagesCreateChatRequest) GetTTLPeriod() (value int, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(0) {
+		return value, false
+	}
+	return c.TTLPeriod, true
+}
+
 // MapUsers returns field Users wrapped in InputUserClassArray helper.
 func (c *MessagesCreateChatRequest) MapUsers() (value InputUserClassArray) {
 	return InputUserClassArray(c.Users)
 }
 
-// MessagesCreateChat invokes method messages.createChat#9cb126e returning error if any.
+// MessagesCreateChat invokes method messages.createChat#34a818 returning error if any.
 // Creates a new chat.
 //
 // Possible errors:

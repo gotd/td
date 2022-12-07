@@ -179,6 +179,8 @@ type ForumTopic struct {
 	Pinned bool
 	// Short field of ForumTopic.
 	Short bool
+	// Hidden field of ForumTopic.
+	Hidden bool
 	// ID field of ForumTopic.
 	ID int
 	// Date field of ForumTopic.
@@ -248,6 +250,9 @@ func (f *ForumTopic) Zero() bool {
 	if !(f.Short == false) {
 		return false
 	}
+	if !(f.Hidden == false) {
+		return false
+	}
 	if !(f.ID == 0) {
 		return false
 	}
@@ -309,6 +314,7 @@ func (f *ForumTopic) FillFrom(from interface {
 	GetClosed() (value bool)
 	GetPinned() (value bool)
 	GetShort() (value bool)
+	GetHidden() (value bool)
 	GetID() (value int)
 	GetDate() (value int)
 	GetTitle() (value string)
@@ -328,6 +334,7 @@ func (f *ForumTopic) FillFrom(from interface {
 	f.Closed = from.GetClosed()
 	f.Pinned = from.GetPinned()
 	f.Short = from.GetShort()
+	f.Hidden = from.GetHidden()
 	f.ID = from.GetID()
 	f.Date = from.GetDate()
 	f.Title = from.GetTitle()
@@ -392,6 +399,11 @@ func (f *ForumTopic) TypeInfo() tdp.Type {
 			Name:       "Short",
 			SchemaName: "short",
 			Null:       !f.Flags.Has(5),
+		},
+		{
+			Name:       "Hidden",
+			SchemaName: "hidden",
+			Null:       !f.Flags.Has(6),
 		},
 		{
 			Name:       "ID",
@@ -468,6 +480,9 @@ func (f *ForumTopic) SetFlags() {
 	}
 	if !(f.Short == false) {
 		f.Flags.Set(5)
+	}
+	if !(f.Hidden == false) {
+		f.Flags.Set(6)
 	}
 	if !(f.IconEmojiID == 0) {
 		f.Flags.Set(0)
@@ -553,6 +568,7 @@ func (f *ForumTopic) DecodeBare(b *bin.Buffer) error {
 	f.Closed = f.Flags.Has(2)
 	f.Pinned = f.Flags.Has(3)
 	f.Short = f.Flags.Has(5)
+	f.Hidden = f.Flags.Has(6)
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -726,6 +742,25 @@ func (f *ForumTopic) GetShort() (value bool) {
 		return
 	}
 	return f.Flags.Has(5)
+}
+
+// SetHidden sets value of Hidden conditional field.
+func (f *ForumTopic) SetHidden(value bool) {
+	if value {
+		f.Flags.Set(6)
+		f.Hidden = true
+	} else {
+		f.Flags.Unset(6)
+		f.Hidden = false
+	}
+}
+
+// GetHidden returns value of Hidden conditional field.
+func (f *ForumTopic) GetHidden() (value bool) {
+	if f == nil {
+		return
+	}
+	return f.Flags.Has(6)
 }
 
 // GetID returns value of ID field.

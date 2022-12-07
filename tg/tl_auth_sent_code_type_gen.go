@@ -1233,6 +1233,167 @@ func (s *AuthSentCodeTypeSetUpEmailRequired) GetGoogleSigninAllowed() (value boo
 	return s.Flags.Has(1)
 }
 
+// AuthSentCodeTypeFragmentSMS represents TL type `auth.sentCodeTypeFragmentSms#d9565c39`.
+//
+// See https://core.telegram.org/constructor/auth.sentCodeTypeFragmentSms for reference.
+type AuthSentCodeTypeFragmentSMS struct {
+	// URL field of AuthSentCodeTypeFragmentSMS.
+	URL string
+	// Length field of AuthSentCodeTypeFragmentSMS.
+	Length int
+}
+
+// AuthSentCodeTypeFragmentSMSTypeID is TL type id of AuthSentCodeTypeFragmentSMS.
+const AuthSentCodeTypeFragmentSMSTypeID = 0xd9565c39
+
+// construct implements constructor of AuthSentCodeTypeClass.
+func (s AuthSentCodeTypeFragmentSMS) construct() AuthSentCodeTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for AuthSentCodeTypeFragmentSMS.
+var (
+	_ bin.Encoder     = &AuthSentCodeTypeFragmentSMS{}
+	_ bin.Decoder     = &AuthSentCodeTypeFragmentSMS{}
+	_ bin.BareEncoder = &AuthSentCodeTypeFragmentSMS{}
+	_ bin.BareDecoder = &AuthSentCodeTypeFragmentSMS{}
+
+	_ AuthSentCodeTypeClass = &AuthSentCodeTypeFragmentSMS{}
+)
+
+func (s *AuthSentCodeTypeFragmentSMS) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.URL == "") {
+		return false
+	}
+	if !(s.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *AuthSentCodeTypeFragmentSMS) String() string {
+	if s == nil {
+		return "AuthSentCodeTypeFragmentSMS(nil)"
+	}
+	type Alias AuthSentCodeTypeFragmentSMS
+	return fmt.Sprintf("AuthSentCodeTypeFragmentSMS%+v", Alias(*s))
+}
+
+// FillFrom fills AuthSentCodeTypeFragmentSMS from given interface.
+func (s *AuthSentCodeTypeFragmentSMS) FillFrom(from interface {
+	GetURL() (value string)
+	GetLength() (value int)
+}) {
+	s.URL = from.GetURL()
+	s.Length = from.GetLength()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*AuthSentCodeTypeFragmentSMS) TypeID() uint32 {
+	return AuthSentCodeTypeFragmentSMSTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*AuthSentCodeTypeFragmentSMS) TypeName() string {
+	return "auth.sentCodeTypeFragmentSms"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AuthSentCodeTypeFragmentSMS) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.sentCodeTypeFragmentSms",
+		ID:   AuthSentCodeTypeFragmentSMSTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "Length",
+			SchemaName: "length",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *AuthSentCodeTypeFragmentSMS) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode auth.sentCodeTypeFragmentSms#d9565c39 as nil")
+	}
+	b.PutID(AuthSentCodeTypeFragmentSMSTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *AuthSentCodeTypeFragmentSMS) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode auth.sentCodeTypeFragmentSms#d9565c39 as nil")
+	}
+	b.PutString(s.URL)
+	b.PutInt(s.Length)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *AuthSentCodeTypeFragmentSMS) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode auth.sentCodeTypeFragmentSms#d9565c39 to nil")
+	}
+	if err := b.ConsumeID(AuthSentCodeTypeFragmentSMSTypeID); err != nil {
+		return fmt.Errorf("unable to decode auth.sentCodeTypeFragmentSms#d9565c39: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AuthSentCodeTypeFragmentSMS) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode auth.sentCodeTypeFragmentSms#d9565c39 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode auth.sentCodeTypeFragmentSms#d9565c39: field url: %w", err)
+		}
+		s.URL = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode auth.sentCodeTypeFragmentSms#d9565c39: field length: %w", err)
+		}
+		s.Length = value
+	}
+	return nil
+}
+
+// GetURL returns value of URL field.
+func (s *AuthSentCodeTypeFragmentSMS) GetURL() (value string) {
+	if s == nil {
+		return
+	}
+	return s.URL
+}
+
+// GetLength returns value of Length field.
+func (s *AuthSentCodeTypeFragmentSMS) GetLength() (value int) {
+	if s == nil {
+		return
+	}
+	return s.Length
+}
+
 // AuthSentCodeTypeClassName is schema name of AuthSentCodeTypeClass.
 const AuthSentCodeTypeClassName = "auth.SentCodeType"
 
@@ -1254,6 +1415,7 @@ const AuthSentCodeTypeClassName = "auth.SentCodeType"
 //	case *tg.AuthSentCodeTypeMissedCall: // auth.sentCodeTypeMissedCall#82006484
 //	case *tg.AuthSentCodeTypeEmailCode: // auth.sentCodeTypeEmailCode#5a159841
 //	case *tg.AuthSentCodeTypeSetUpEmailRequired: // auth.sentCodeTypeSetUpEmailRequired#a5491dea
+//	case *tg.AuthSentCodeTypeFragmentSMS: // auth.sentCodeTypeFragmentSms#d9565c39
 //	default: panic(v)
 //	}
 type AuthSentCodeTypeClass interface {
@@ -1327,6 +1489,13 @@ func DecodeAuthSentCodeType(buf *bin.Buffer) (AuthSentCodeTypeClass, error) {
 	case AuthSentCodeTypeSetUpEmailRequiredTypeID:
 		// Decoding auth.sentCodeTypeSetUpEmailRequired#a5491dea.
 		v := AuthSentCodeTypeSetUpEmailRequired{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthSentCodeTypeClass: %w", err)
+		}
+		return &v, nil
+	case AuthSentCodeTypeFragmentSMSTypeID:
+		// Decoding auth.sentCodeTypeFragmentSms#d9565c39.
+		v := AuthSentCodeTypeFragmentSMS{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthSentCodeTypeClass: %w", err)
 		}
