@@ -13,7 +13,7 @@ require (
 	github.com/gotd/neo v0.1.5
 	github.com/gotd/tl v0.4.0
 	github.com/k0kubun/pp/v3 v3.2.0
-	github.com/klauspost/compress v1.15.12
+	github.com/klauspost/compress v1.15.13
 	github.com/quasilyte/go-ruleguard/dsl v0.3.21
 	github.com/rogpeppe/go-internal v1.9.0
 	github.com/stretchr/testify v1.8.1
