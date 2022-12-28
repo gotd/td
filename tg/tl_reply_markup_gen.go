@@ -480,6 +480,8 @@ type ReplyKeyboardMarkup struct {
 	// A user requests to change the bot's language, bot replies to the request with a
 	// keyboard to select the new language. Other users in the group don't see the keyboard.
 	Selective bool
+	// Persistent field of ReplyKeyboardMarkup.
+	Persistent bool
 	// Button row
 	Rows []KeyboardButtonRow
 	// The placeholder to be shown in the input field when the keyboard is active; 1-64
@@ -521,6 +523,9 @@ func (r *ReplyKeyboardMarkup) Zero() bool {
 	if !(r.Selective == false) {
 		return false
 	}
+	if !(r.Persistent == false) {
+		return false
+	}
 	if !(r.Rows == nil) {
 		return false
 	}
@@ -545,12 +550,14 @@ func (r *ReplyKeyboardMarkup) FillFrom(from interface {
 	GetResize() (value bool)
 	GetSingleUse() (value bool)
 	GetSelective() (value bool)
+	GetPersistent() (value bool)
 	GetRows() (value []KeyboardButtonRow)
 	GetPlaceholder() (value string, ok bool)
 }) {
 	r.Resize = from.GetResize()
 	r.SingleUse = from.GetSingleUse()
 	r.Selective = from.GetSelective()
+	r.Persistent = from.GetPersistent()
 	r.Rows = from.GetRows()
 	if val, ok := from.GetPlaceholder(); ok {
 		r.Placeholder = val
@@ -597,6 +604,11 @@ func (r *ReplyKeyboardMarkup) TypeInfo() tdp.Type {
 			Null:       !r.Flags.Has(2),
 		},
 		{
+			Name:       "Persistent",
+			SchemaName: "persistent",
+			Null:       !r.Flags.Has(4),
+		},
+		{
 			Name:       "Rows",
 			SchemaName: "rows",
 		},
@@ -619,6 +631,9 @@ func (r *ReplyKeyboardMarkup) SetFlags() {
 	}
 	if !(r.Selective == false) {
 		r.Flags.Set(2)
+	}
+	if !(r.Persistent == false) {
+		r.Flags.Set(4)
 	}
 	if !(r.Placeholder == "") {
 		r.Flags.Set(3)
@@ -679,6 +694,7 @@ func (r *ReplyKeyboardMarkup) DecodeBare(b *bin.Buffer) error {
 	r.Resize = r.Flags.Has(0)
 	r.SingleUse = r.Flags.Has(1)
 	r.Selective = r.Flags.Has(2)
+	r.Persistent = r.Flags.Has(4)
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -761,6 +777,25 @@ func (r *ReplyKeyboardMarkup) GetSelective() (value bool) {
 		return
 	}
 	return r.Flags.Has(2)
+}
+
+// SetPersistent sets value of Persistent conditional field.
+func (r *ReplyKeyboardMarkup) SetPersistent(value bool) {
+	if value {
+		r.Flags.Set(4)
+		r.Persistent = true
+	} else {
+		r.Flags.Unset(4)
+		r.Persistent = false
+	}
+}
+
+// GetPersistent returns value of Persistent conditional field.
+func (r *ReplyKeyboardMarkup) GetPersistent() (value bool) {
+	if r == nil {
+		return
+	}
+	return r.Flags.Has(4)
 }
 
 // GetRows returns value of Rows field.

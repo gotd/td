@@ -1039,6 +1039,8 @@ type ChannelFull struct {
 	CanDeleteChannel bool
 	// Antispam field of ChannelFull.
 	Antispam bool
+	// ParticipantsHidden field of ChannelFull.
+	ParticipantsHidden bool
 	// ID of the channel
 	ID int64
 	// Info about the channel
@@ -1259,6 +1261,9 @@ func (c *ChannelFull) Zero() bool {
 	if !(c.Antispam == false) {
 		return false
 	}
+	if !(c.ParticipantsHidden == false) {
+		return false
+	}
 	if !(c.ID == 0) {
 		return false
 	}
@@ -1389,6 +1394,7 @@ func (c *ChannelFull) FillFrom(from interface {
 	GetBlocked() (value bool)
 	GetCanDeleteChannel() (value bool)
 	GetAntispam() (value bool)
+	GetParticipantsHidden() (value bool)
 	GetID() (value int64)
 	GetAbout() (value string)
 	GetParticipantsCount() (value int, ok bool)
@@ -1435,6 +1441,7 @@ func (c *ChannelFull) FillFrom(from interface {
 	c.Blocked = from.GetBlocked()
 	c.CanDeleteChannel = from.GetCanDeleteChannel()
 	c.Antispam = from.GetAntispam()
+	c.ParticipantsHidden = from.GetParticipantsHidden()
 	c.ID = from.GetID()
 	c.About = from.GetAbout()
 	if val, ok := from.GetParticipantsCount(); ok {
@@ -1622,6 +1629,11 @@ func (c *ChannelFull) TypeInfo() tdp.Type {
 			Name:       "Antispam",
 			SchemaName: "antispam",
 			Null:       !c.Flags2.Has(1),
+		},
+		{
+			Name:       "ParticipantsHidden",
+			SchemaName: "participants_hidden",
+			Null:       !c.Flags2.Has(2),
 		},
 		{
 			Name:       "ID",
@@ -1824,6 +1836,9 @@ func (c *ChannelFull) SetFlags() {
 	}
 	if !(c.Antispam == false) {
 		c.Flags2.Set(1)
+	}
+	if !(c.ParticipantsHidden == false) {
+		c.Flags2.Set(2)
 	}
 	if !(c.ParticipantsCount == 0) {
 		c.Flags.Set(0)
@@ -2099,6 +2114,7 @@ func (c *ChannelFull) DecodeBare(b *bin.Buffer) error {
 	}
 	c.CanDeleteChannel = c.Flags2.Has(0)
 	c.Antispam = c.Flags2.Has(1)
+	c.ParticipantsHidden = c.Flags2.Has(2)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -2559,6 +2575,25 @@ func (c *ChannelFull) GetAntispam() (value bool) {
 		return
 	}
 	return c.Flags2.Has(1)
+}
+
+// SetParticipantsHidden sets value of ParticipantsHidden conditional field.
+func (c *ChannelFull) SetParticipantsHidden(value bool) {
+	if value {
+		c.Flags2.Set(2)
+		c.ParticipantsHidden = true
+	} else {
+		c.Flags2.Unset(2)
+		c.ParticipantsHidden = false
+	}
+}
+
+// GetParticipantsHidden returns value of ParticipantsHidden conditional field.
+func (c *ChannelFull) GetParticipantsHidden() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags2.Has(2)
 }
 
 // GetID returns value of ID field.

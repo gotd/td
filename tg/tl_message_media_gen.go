@@ -143,6 +143,8 @@ type MessageMediaPhoto struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// Spoiler field of MessageMediaPhoto.
+	Spoiler bool
 	// Photo
 	//
 	// Use SetPhoto and GetPhoto helpers.
@@ -176,6 +178,9 @@ func (m *MessageMediaPhoto) Zero() bool {
 	if !(m.Flags.Zero()) {
 		return false
 	}
+	if !(m.Spoiler == false) {
+		return false
+	}
 	if !(m.Photo == nil) {
 		return false
 	}
@@ -197,9 +202,11 @@ func (m *MessageMediaPhoto) String() string {
 
 // FillFrom fills MessageMediaPhoto from given interface.
 func (m *MessageMediaPhoto) FillFrom(from interface {
+	GetSpoiler() (value bool)
 	GetPhoto() (value PhotoClass, ok bool)
 	GetTTLSeconds() (value int, ok bool)
 }) {
+	m.Spoiler = from.GetSpoiler()
 	if val, ok := from.GetPhoto(); ok {
 		m.Photo = val
 	}
@@ -234,6 +241,11 @@ func (m *MessageMediaPhoto) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Spoiler",
+			SchemaName: "spoiler",
+			Null:       !m.Flags.Has(3),
+		},
+		{
 			Name:       "Photo",
 			SchemaName: "photo",
 			Null:       !m.Flags.Has(0),
@@ -249,6 +261,9 @@ func (m *MessageMediaPhoto) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (m *MessageMediaPhoto) SetFlags() {
+	if !(m.Spoiler == false) {
+		m.Flags.Set(3)
+	}
 	if !(m.Photo == nil) {
 		m.Flags.Set(0)
 	}
@@ -310,6 +325,7 @@ func (m *MessageMediaPhoto) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messageMediaPhoto#695150d7: field flags: %w", err)
 		}
 	}
+	m.Spoiler = m.Flags.Has(3)
 	if m.Flags.Has(0) {
 		value, err := DecodePhoto(b)
 		if err != nil {
@@ -325,6 +341,25 @@ func (m *MessageMediaPhoto) DecodeBare(b *bin.Buffer) error {
 		m.TTLSeconds = value
 	}
 	return nil
+}
+
+// SetSpoiler sets value of Spoiler conditional field.
+func (m *MessageMediaPhoto) SetSpoiler(value bool) {
+	if value {
+		m.Flags.Set(3)
+		m.Spoiler = true
+	} else {
+		m.Flags.Unset(3)
+		m.Spoiler = false
+	}
+}
+
+// GetSpoiler returns value of Spoiler conditional field.
+func (m *MessageMediaPhoto) GetSpoiler() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(3)
 }
 
 // SetPhoto sets value of Photo conditional field.
@@ -861,6 +896,8 @@ type MessageMediaDocument struct {
 	// Whether this is a normal sticker, if not set this is a premium sticker and a premium
 	// sticker animation must be played.
 	Nopremium bool
+	// Spoiler field of MessageMediaDocument.
+	Spoiler bool
 	// Attached document
 	//
 	// Use SetDocument and GetDocument helpers.
@@ -897,6 +934,9 @@ func (m *MessageMediaDocument) Zero() bool {
 	if !(m.Nopremium == false) {
 		return false
 	}
+	if !(m.Spoiler == false) {
+		return false
+	}
 	if !(m.Document == nil) {
 		return false
 	}
@@ -919,10 +959,12 @@ func (m *MessageMediaDocument) String() string {
 // FillFrom fills MessageMediaDocument from given interface.
 func (m *MessageMediaDocument) FillFrom(from interface {
 	GetNopremium() (value bool)
+	GetSpoiler() (value bool)
 	GetDocument() (value DocumentClass, ok bool)
 	GetTTLSeconds() (value int, ok bool)
 }) {
 	m.Nopremium = from.GetNopremium()
+	m.Spoiler = from.GetSpoiler()
 	if val, ok := from.GetDocument(); ok {
 		m.Document = val
 	}
@@ -962,6 +1004,11 @@ func (m *MessageMediaDocument) TypeInfo() tdp.Type {
 			Null:       !m.Flags.Has(3),
 		},
 		{
+			Name:       "Spoiler",
+			SchemaName: "spoiler",
+			Null:       !m.Flags.Has(4),
+		},
+		{
 			Name:       "Document",
 			SchemaName: "document",
 			Null:       !m.Flags.Has(0),
@@ -979,6 +1026,9 @@ func (m *MessageMediaDocument) TypeInfo() tdp.Type {
 func (m *MessageMediaDocument) SetFlags() {
 	if !(m.Nopremium == false) {
 		m.Flags.Set(3)
+	}
+	if !(m.Spoiler == false) {
+		m.Flags.Set(4)
 	}
 	if !(m.Document == nil) {
 		m.Flags.Set(0)
@@ -1042,6 +1092,7 @@ func (m *MessageMediaDocument) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	m.Nopremium = m.Flags.Has(3)
+	m.Spoiler = m.Flags.Has(4)
 	if m.Flags.Has(0) {
 		value, err := DecodeDocument(b)
 		if err != nil {
@@ -1076,6 +1127,25 @@ func (m *MessageMediaDocument) GetNopremium() (value bool) {
 		return
 	}
 	return m.Flags.Has(3)
+}
+
+// SetSpoiler sets value of Spoiler conditional field.
+func (m *MessageMediaDocument) SetSpoiler(value bool) {
+	if value {
+		m.Flags.Set(4)
+		m.Spoiler = true
+	} else {
+		m.Flags.Unset(4)
+		m.Spoiler = false
+	}
+}
+
+// GetSpoiler returns value of Spoiler conditional field.
+func (m *MessageMediaDocument) GetSpoiler() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(4)
 }
 
 // SetDocument sets value of Document conditional field.

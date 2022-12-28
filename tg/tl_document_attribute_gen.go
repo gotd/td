@@ -1434,6 +1434,8 @@ type DocumentAttributeCustomEmoji struct {
 	Flags bin.Fields
 	// Whether this custom emoji can be sent by non-Premium users
 	Free bool
+	// TextColor field of DocumentAttributeCustomEmoji.
+	TextColor bool
 	// The actual emoji
 	Alt string
 	// The emoji stickerset to which this emoji belongs.
@@ -1466,6 +1468,9 @@ func (d *DocumentAttributeCustomEmoji) Zero() bool {
 	if !(d.Free == false) {
 		return false
 	}
+	if !(d.TextColor == false) {
+		return false
+	}
 	if !(d.Alt == "") {
 		return false
 	}
@@ -1488,10 +1493,12 @@ func (d *DocumentAttributeCustomEmoji) String() string {
 // FillFrom fills DocumentAttributeCustomEmoji from given interface.
 func (d *DocumentAttributeCustomEmoji) FillFrom(from interface {
 	GetFree() (value bool)
+	GetTextColor() (value bool)
 	GetAlt() (value string)
 	GetStickerset() (value InputStickerSetClass)
 }) {
 	d.Free = from.GetFree()
+	d.TextColor = from.GetTextColor()
 	d.Alt = from.GetAlt()
 	d.Stickerset = from.GetStickerset()
 }
@@ -1525,6 +1532,11 @@ func (d *DocumentAttributeCustomEmoji) TypeInfo() tdp.Type {
 			Null:       !d.Flags.Has(0),
 		},
 		{
+			Name:       "TextColor",
+			SchemaName: "text_color",
+			Null:       !d.Flags.Has(1),
+		},
+		{
 			Name:       "Alt",
 			SchemaName: "alt",
 		},
@@ -1540,6 +1552,9 @@ func (d *DocumentAttributeCustomEmoji) TypeInfo() tdp.Type {
 func (d *DocumentAttributeCustomEmoji) SetFlags() {
 	if !(d.Free == false) {
 		d.Flags.Set(0)
+	}
+	if !(d.TextColor == false) {
+		d.Flags.Set(1)
 	}
 }
 
@@ -1593,6 +1608,7 @@ func (d *DocumentAttributeCustomEmoji) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	d.Free = d.Flags.Has(0)
+	d.TextColor = d.Flags.Has(1)
 	{
 		value, err := b.String()
 		if err != nil {
@@ -1627,6 +1643,25 @@ func (d *DocumentAttributeCustomEmoji) GetFree() (value bool) {
 		return
 	}
 	return d.Flags.Has(0)
+}
+
+// SetTextColor sets value of TextColor conditional field.
+func (d *DocumentAttributeCustomEmoji) SetTextColor(value bool) {
+	if value {
+		d.Flags.Set(1)
+		d.TextColor = true
+	} else {
+		d.Flags.Unset(1)
+		d.TextColor = false
+	}
+}
+
+// GetTextColor returns value of TextColor conditional field.
+func (d *DocumentAttributeCustomEmoji) GetTextColor() (value bool) {
+	if d == nil {
+		return
+	}
+	return d.Flags.Has(1)
 }
 
 // GetAlt returns value of Alt field.

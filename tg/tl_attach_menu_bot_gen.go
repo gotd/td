@@ -55,6 +55,8 @@ type AttachMenuBot struct {
 	// Links:
 	//  1) https://core.telegram.org/api/bots/webapps#settings-button-pressed
 	HasSettings bool
+	// RequestWriteAccess field of AttachMenuBot.
+	RequestWriteAccess bool
 	// Bot ID
 	BotID int64
 	// Attachment menu item name
@@ -89,6 +91,9 @@ func (a *AttachMenuBot) Zero() bool {
 	if !(a.HasSettings == false) {
 		return false
 	}
+	if !(a.RequestWriteAccess == false) {
+		return false
+	}
 	if !(a.BotID == 0) {
 		return false
 	}
@@ -118,6 +123,7 @@ func (a *AttachMenuBot) String() string {
 func (a *AttachMenuBot) FillFrom(from interface {
 	GetInactive() (value bool)
 	GetHasSettings() (value bool)
+	GetRequestWriteAccess() (value bool)
 	GetBotID() (value int64)
 	GetShortName() (value string)
 	GetPeerTypes() (value []AttachMenuPeerTypeClass)
@@ -125,6 +131,7 @@ func (a *AttachMenuBot) FillFrom(from interface {
 }) {
 	a.Inactive = from.GetInactive()
 	a.HasSettings = from.GetHasSettings()
+	a.RequestWriteAccess = from.GetRequestWriteAccess()
 	a.BotID = from.GetBotID()
 	a.ShortName = from.GetShortName()
 	a.PeerTypes = from.GetPeerTypes()
@@ -165,6 +172,11 @@ func (a *AttachMenuBot) TypeInfo() tdp.Type {
 			Null:       !a.Flags.Has(1),
 		},
 		{
+			Name:       "RequestWriteAccess",
+			SchemaName: "request_write_access",
+			Null:       !a.Flags.Has(2),
+		},
+		{
 			Name:       "BotID",
 			SchemaName: "bot_id",
 		},
@@ -191,6 +203,9 @@ func (a *AttachMenuBot) SetFlags() {
 	}
 	if !(a.HasSettings == false) {
 		a.Flags.Set(1)
+	}
+	if !(a.RequestWriteAccess == false) {
+		a.Flags.Set(2)
 	}
 }
 
@@ -255,6 +270,7 @@ func (a *AttachMenuBot) DecodeBare(b *bin.Buffer) error {
 	}
 	a.Inactive = a.Flags.Has(0)
 	a.HasSettings = a.Flags.Has(1)
+	a.RequestWriteAccess = a.Flags.Has(2)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -342,6 +358,25 @@ func (a *AttachMenuBot) GetHasSettings() (value bool) {
 		return
 	}
 	return a.Flags.Has(1)
+}
+
+// SetRequestWriteAccess sets value of RequestWriteAccess conditional field.
+func (a *AttachMenuBot) SetRequestWriteAccess(value bool) {
+	if value {
+		a.Flags.Set(2)
+		a.RequestWriteAccess = true
+	} else {
+		a.Flags.Unset(2)
+		a.RequestWriteAccess = false
+	}
+}
+
+// GetRequestWriteAccess returns value of RequestWriteAccess conditional field.
+func (a *AttachMenuBot) GetRequestWriteAccess() (value bool) {
+	if a == nil {
+		return
+	}
+	return a.Flags.Has(2)
 }
 
 // GetBotID returns value of BotID field.

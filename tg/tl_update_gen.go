@@ -1514,230 +1514,6 @@ func (u *UpdateUserName) GetUsernames() (value []Username) {
 	return u.Usernames
 }
 
-// UpdateUserPhoto represents TL type `updateUserPhoto#f227868c`.
-// Change of contact's profile photo.
-//
-// See https://core.telegram.org/constructor/updateUserPhoto for reference.
-type UpdateUserPhoto struct {
-	// User identifier
-	UserID int64
-	// Date of photo update.
-	Date int
-	// New profile photo
-	Photo UserProfilePhotoClass
-	// (boolTrue¹), if one of the previously used photos is set a profile photo.
-	//
-	// Links:
-	//  1) https://core.telegram.org/constructor/boolTrue
-	Previous bool
-}
-
-// UpdateUserPhotoTypeID is TL type id of UpdateUserPhoto.
-const UpdateUserPhotoTypeID = 0xf227868c
-
-// construct implements constructor of UpdateClass.
-func (u UpdateUserPhoto) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateUserPhoto.
-var (
-	_ bin.Encoder     = &UpdateUserPhoto{}
-	_ bin.Decoder     = &UpdateUserPhoto{}
-	_ bin.BareEncoder = &UpdateUserPhoto{}
-	_ bin.BareDecoder = &UpdateUserPhoto{}
-
-	_ UpdateClass = &UpdateUserPhoto{}
-)
-
-func (u *UpdateUserPhoto) Zero() bool {
-	if u == nil {
-		return true
-	}
-	if !(u.UserID == 0) {
-		return false
-	}
-	if !(u.Date == 0) {
-		return false
-	}
-	if !(u.Photo == nil) {
-		return false
-	}
-	if !(u.Previous == false) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (u *UpdateUserPhoto) String() string {
-	if u == nil {
-		return "UpdateUserPhoto(nil)"
-	}
-	type Alias UpdateUserPhoto
-	return fmt.Sprintf("UpdateUserPhoto%+v", Alias(*u))
-}
-
-// FillFrom fills UpdateUserPhoto from given interface.
-func (u *UpdateUserPhoto) FillFrom(from interface {
-	GetUserID() (value int64)
-	GetDate() (value int)
-	GetPhoto() (value UserProfilePhotoClass)
-	GetPrevious() (value bool)
-}) {
-	u.UserID = from.GetUserID()
-	u.Date = from.GetDate()
-	u.Photo = from.GetPhoto()
-	u.Previous = from.GetPrevious()
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateUserPhoto) TypeID() uint32 {
-	return UpdateUserPhotoTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*UpdateUserPhoto) TypeName() string {
-	return "updateUserPhoto"
-}
-
-// TypeInfo returns info about TL type.
-func (u *UpdateUserPhoto) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "updateUserPhoto",
-		ID:   UpdateUserPhotoTypeID,
-	}
-	if u == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "UserID",
-			SchemaName: "user_id",
-		},
-		{
-			Name:       "Date",
-			SchemaName: "date",
-		},
-		{
-			Name:       "Photo",
-			SchemaName: "photo",
-		},
-		{
-			Name:       "Previous",
-			SchemaName: "previous",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (u *UpdateUserPhoto) Encode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateUserPhoto#f227868c as nil")
-	}
-	b.PutID(UpdateUserPhotoTypeID)
-	return u.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (u *UpdateUserPhoto) EncodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateUserPhoto#f227868c as nil")
-	}
-	b.PutLong(u.UserID)
-	b.PutInt(u.Date)
-	if u.Photo == nil {
-		return fmt.Errorf("unable to encode updateUserPhoto#f227868c: field photo is nil")
-	}
-	if err := u.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateUserPhoto#f227868c: field photo: %w", err)
-	}
-	b.PutBool(u.Previous)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (u *UpdateUserPhoto) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateUserPhoto#f227868c to nil")
-	}
-	if err := b.ConsumeID(UpdateUserPhotoTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateUserPhoto#f227868c: %w", err)
-	}
-	return u.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (u *UpdateUserPhoto) DecodeBare(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateUserPhoto#f227868c to nil")
-	}
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateUserPhoto#f227868c: field user_id: %w", err)
-		}
-		u.UserID = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateUserPhoto#f227868c: field date: %w", err)
-		}
-		u.Date = value
-	}
-	{
-		value, err := DecodeUserProfilePhoto(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode updateUserPhoto#f227868c: field photo: %w", err)
-		}
-		u.Photo = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateUserPhoto#f227868c: field previous: %w", err)
-		}
-		u.Previous = value
-	}
-	return nil
-}
-
-// GetUserID returns value of UserID field.
-func (u *UpdateUserPhoto) GetUserID() (value int64) {
-	if u == nil {
-		return
-	}
-	return u.UserID
-}
-
-// GetDate returns value of Date field.
-func (u *UpdateUserPhoto) GetDate() (value int) {
-	if u == nil {
-		return
-	}
-	return u.Date
-}
-
-// GetPhoto returns value of Photo field.
-func (u *UpdateUserPhoto) GetPhoto() (value UserProfilePhotoClass) {
-	if u == nil {
-		return
-	}
-	return u.Photo
-}
-
-// GetPrevious returns value of Previous field.
-func (u *UpdateUserPhoto) GetPrevious() (value bool) {
-	if u == nil {
-		return
-	}
-	return u.Previous
-}
-
 // UpdateNewEncryptedMessage represents TL type `updateNewEncryptedMessage#12bcbd9a`.
 // New encrypted message.
 //
@@ -21885,6 +21661,140 @@ func (u *UpdateChannelPinnedTopics) GetOrder() (value []int, ok bool) {
 	return u.Order, true
 }
 
+// UpdateUser represents TL type `updateUser#20529438`.
+//
+// See https://core.telegram.org/constructor/updateUser for reference.
+type UpdateUser struct {
+	// UserID field of UpdateUser.
+	UserID int64
+}
+
+// UpdateUserTypeID is TL type id of UpdateUser.
+const UpdateUserTypeID = 0x20529438
+
+// construct implements constructor of UpdateClass.
+func (u UpdateUser) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateUser.
+var (
+	_ bin.Encoder     = &UpdateUser{}
+	_ bin.Decoder     = &UpdateUser{}
+	_ bin.BareEncoder = &UpdateUser{}
+	_ bin.BareDecoder = &UpdateUser{}
+
+	_ UpdateClass = &UpdateUser{}
+)
+
+func (u *UpdateUser) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateUser) String() string {
+	if u == nil {
+		return "UpdateUser(nil)"
+	}
+	type Alias UpdateUser
+	return fmt.Sprintf("UpdateUser%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateUser from given interface.
+func (u *UpdateUser) FillFrom(from interface {
+	GetUserID() (value int64)
+}) {
+	u.UserID = from.GetUserID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateUser) TypeID() uint32 {
+	return UpdateUserTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateUser) TypeName() string {
+	return "updateUser"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateUser) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateUser",
+		ID:   UpdateUserTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateUser) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateUser#20529438 as nil")
+	}
+	b.PutID(UpdateUserTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateUser) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateUser#20529438 as nil")
+	}
+	b.PutLong(u.UserID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateUser) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateUser#20529438 to nil")
+	}
+	if err := b.ConsumeID(UpdateUserTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateUser#20529438: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateUser) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateUser#20529438 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateUser#20529438: field user_id: %w", err)
+		}
+		u.UserID = value
+	}
+	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateUser) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.UserID
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -21907,7 +21817,6 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateChatParticipants: // updateChatParticipants#7761198
 //	case *tg.UpdateUserStatus: // updateUserStatus#e5bdf8de
 //	case *tg.UpdateUserName: // updateUserName#a7848924
-//	case *tg.UpdateUserPhoto: // updateUserPhoto#f227868c
 //	case *tg.UpdateNewEncryptedMessage: // updateNewEncryptedMessage#12bcbd9a
 //	case *tg.UpdateEncryptedChatTyping: // updateEncryptedChatTyping#1710f156
 //	case *tg.UpdateEncryption: // updateEncryption#b4a2e88d
@@ -22008,6 +21917,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateMessageExtendedMedia: // updateMessageExtendedMedia#5a73a98c
 //	case *tg.UpdateChannelPinnedTopic: // updateChannelPinnedTopic#192efbe3
 //	case *tg.UpdateChannelPinnedTopics: // updateChannelPinnedTopics#fe198602
+//	case *tg.UpdateUser: // updateUser#20529438
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -22088,13 +21998,6 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateUserNameTypeID:
 		// Decoding updateUserName#a7848924.
 		v := UpdateUserName{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
-	case UpdateUserPhotoTypeID:
-		// Decoding updateUserPhoto#f227868c.
-		v := UpdateUserPhoto{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -22795,6 +22698,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateChannelPinnedTopicsTypeID:
 		// Decoding updateChannelPinnedTopics#fe198602.
 		v := UpdateChannelPinnedTopics{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateUserTypeID:
+		// Decoding updateUser#20529438.
+		v := UpdateUser{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

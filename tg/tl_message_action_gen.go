@@ -5981,6 +5981,246 @@ func (m *MessageActionTopicEdit) GetHidden() (value bool, ok bool) {
 	return m.Hidden, true
 }
 
+// MessageActionSuggestProfilePhoto represents TL type `messageActionSuggestProfilePhoto#57de635e`.
+//
+// See https://core.telegram.org/constructor/messageActionSuggestProfilePhoto for reference.
+type MessageActionSuggestProfilePhoto struct {
+	// Photo field of MessageActionSuggestProfilePhoto.
+	Photo PhotoClass
+}
+
+// MessageActionSuggestProfilePhotoTypeID is TL type id of MessageActionSuggestProfilePhoto.
+const MessageActionSuggestProfilePhotoTypeID = 0x57de635e
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionSuggestProfilePhoto) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionSuggestProfilePhoto.
+var (
+	_ bin.Encoder     = &MessageActionSuggestProfilePhoto{}
+	_ bin.Decoder     = &MessageActionSuggestProfilePhoto{}
+	_ bin.BareEncoder = &MessageActionSuggestProfilePhoto{}
+	_ bin.BareDecoder = &MessageActionSuggestProfilePhoto{}
+
+	_ MessageActionClass = &MessageActionSuggestProfilePhoto{}
+)
+
+func (m *MessageActionSuggestProfilePhoto) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Photo == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionSuggestProfilePhoto) String() string {
+	if m == nil {
+		return "MessageActionSuggestProfilePhoto(nil)"
+	}
+	type Alias MessageActionSuggestProfilePhoto
+	return fmt.Sprintf("MessageActionSuggestProfilePhoto%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionSuggestProfilePhoto from given interface.
+func (m *MessageActionSuggestProfilePhoto) FillFrom(from interface {
+	GetPhoto() (value PhotoClass)
+}) {
+	m.Photo = from.GetPhoto()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionSuggestProfilePhoto) TypeID() uint32 {
+	return MessageActionSuggestProfilePhotoTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionSuggestProfilePhoto) TypeName() string {
+	return "messageActionSuggestProfilePhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionSuggestProfilePhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionSuggestProfilePhoto",
+		ID:   MessageActionSuggestProfilePhotoTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionSuggestProfilePhoto) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionSuggestProfilePhoto#57de635e as nil")
+	}
+	b.PutID(MessageActionSuggestProfilePhotoTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionSuggestProfilePhoto) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionSuggestProfilePhoto#57de635e as nil")
+	}
+	if m.Photo == nil {
+		return fmt.Errorf("unable to encode messageActionSuggestProfilePhoto#57de635e: field photo is nil")
+	}
+	if err := m.Photo.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionSuggestProfilePhoto#57de635e: field photo: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionSuggestProfilePhoto) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionSuggestProfilePhoto#57de635e to nil")
+	}
+	if err := b.ConsumeID(MessageActionSuggestProfilePhotoTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionSuggestProfilePhoto#57de635e: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionSuggestProfilePhoto) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionSuggestProfilePhoto#57de635e to nil")
+	}
+	{
+		value, err := DecodePhoto(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionSuggestProfilePhoto#57de635e: field photo: %w", err)
+		}
+		m.Photo = value
+	}
+	return nil
+}
+
+// GetPhoto returns value of Photo field.
+func (m *MessageActionSuggestProfilePhoto) GetPhoto() (value PhotoClass) {
+	if m == nil {
+		return
+	}
+	return m.Photo
+}
+
+// MessageActionAttachMenuBotAllowed represents TL type `messageActionAttachMenuBotAllowed#e7e75f97`.
+//
+// See https://core.telegram.org/constructor/messageActionAttachMenuBotAllowed for reference.
+type MessageActionAttachMenuBotAllowed struct {
+}
+
+// MessageActionAttachMenuBotAllowedTypeID is TL type id of MessageActionAttachMenuBotAllowed.
+const MessageActionAttachMenuBotAllowedTypeID = 0xe7e75f97
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionAttachMenuBotAllowed) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionAttachMenuBotAllowed.
+var (
+	_ bin.Encoder     = &MessageActionAttachMenuBotAllowed{}
+	_ bin.Decoder     = &MessageActionAttachMenuBotAllowed{}
+	_ bin.BareEncoder = &MessageActionAttachMenuBotAllowed{}
+	_ bin.BareDecoder = &MessageActionAttachMenuBotAllowed{}
+
+	_ MessageActionClass = &MessageActionAttachMenuBotAllowed{}
+)
+
+func (m *MessageActionAttachMenuBotAllowed) Zero() bool {
+	if m == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionAttachMenuBotAllowed) String() string {
+	if m == nil {
+		return "MessageActionAttachMenuBotAllowed(nil)"
+	}
+	type Alias MessageActionAttachMenuBotAllowed
+	return fmt.Sprintf("MessageActionAttachMenuBotAllowed%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionAttachMenuBotAllowed) TypeID() uint32 {
+	return MessageActionAttachMenuBotAllowedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionAttachMenuBotAllowed) TypeName() string {
+	return "messageActionAttachMenuBotAllowed"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionAttachMenuBotAllowed) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionAttachMenuBotAllowed",
+		ID:   MessageActionAttachMenuBotAllowedTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionAttachMenuBotAllowed) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionAttachMenuBotAllowed#e7e75f97 as nil")
+	}
+	b.PutID(MessageActionAttachMenuBotAllowedTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionAttachMenuBotAllowed) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionAttachMenuBotAllowed#e7e75f97 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionAttachMenuBotAllowed) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionAttachMenuBotAllowed#e7e75f97 to nil")
+	}
+	if err := b.ConsumeID(MessageActionAttachMenuBotAllowedTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionAttachMenuBotAllowed#e7e75f97: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionAttachMenuBotAllowed) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionAttachMenuBotAllowed#e7e75f97 to nil")
+	}
+	return nil
+}
+
 // MessageActionClassName is schema name of MessageActionClass.
 const MessageActionClassName = "MessageAction"
 
@@ -6030,6 +6270,8 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionGiftPremium: // messageActionGiftPremium#aba0f5c6
 //	case *tg.MessageActionTopicCreate: // messageActionTopicCreate#d999256
 //	case *tg.MessageActionTopicEdit: // messageActionTopicEdit#c0944820
+//	case *tg.MessageActionSuggestProfilePhoto: // messageActionSuggestProfilePhoto#57de635e
+//	case *tg.MessageActionAttachMenuBotAllowed: // messageActionAttachMenuBotAllowed#e7e75f97
 //	default: panic(v)
 //	}
 type MessageActionClass interface {
@@ -6299,6 +6541,20 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionTopicEditTypeID:
 		// Decoding messageActionTopicEdit#c0944820.
 		v := MessageActionTopicEdit{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionSuggestProfilePhotoTypeID:
+		// Decoding messageActionSuggestProfilePhoto#57de635e.
+		v := MessageActionSuggestProfilePhoto{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionAttachMenuBotAllowedTypeID:
+		// Decoding messageActionAttachMenuBotAllowed#e7e75f97.
+		v := MessageActionAttachMenuBotAllowed{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}

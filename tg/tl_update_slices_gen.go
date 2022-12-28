@@ -220,19 +220,6 @@ func (s UpdateClassArray) AsUpdateUserName() (to UpdateUserNameArray) {
 	return to
 }
 
-// AsUpdateUserPhoto returns copy with only UpdateUserPhoto constructors.
-func (s UpdateClassArray) AsUpdateUserPhoto() (to UpdateUserPhotoArray) {
-	for _, elem := range s {
-		value, ok := elem.(*UpdateUserPhoto)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
 // AsUpdateNewEncryptedMessage returns copy with only UpdateNewEncryptedMessage constructors.
 func (s UpdateClassArray) AsUpdateNewEncryptedMessage() (to UpdateNewEncryptedMessageArray) {
 	for _, elem := range s {
@@ -1351,6 +1338,19 @@ func (s UpdateClassArray) AsUpdateChannelPinnedTopics() (to UpdateChannelPinnedT
 	return to
 }
 
+// AsUpdateUser returns copy with only UpdateUser constructors.
+func (s UpdateClassArray) AsUpdateUser() (to UpdateUserArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateUser)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // UpdateNewMessageArray is adapter for slice of UpdateNewMessage.
 type UpdateNewMessageArray []UpdateNewMessage
 
@@ -2033,102 +2033,6 @@ func (s *UpdateUserNameArray) Pop() (v UpdateUserName, ok bool) {
 	*s = a
 
 	return v, true
-}
-
-// UpdateUserPhotoArray is adapter for slice of UpdateUserPhoto.
-type UpdateUserPhotoArray []UpdateUserPhoto
-
-// Sort sorts slice of UpdateUserPhoto.
-func (s UpdateUserPhotoArray) Sort(less func(a, b UpdateUserPhoto) bool) UpdateUserPhotoArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of UpdateUserPhoto.
-func (s UpdateUserPhotoArray) SortStable(less func(a, b UpdateUserPhoto) bool) UpdateUserPhotoArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of UpdateUserPhoto.
-func (s UpdateUserPhotoArray) Retain(keep func(x UpdateUserPhoto) bool) UpdateUserPhotoArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s UpdateUserPhotoArray) First() (v UpdateUserPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s UpdateUserPhotoArray) Last() (v UpdateUserPhoto, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateUserPhotoArray) PopFirst() (v UpdateUserPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero UpdateUserPhoto
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateUserPhotoArray) Pop() (v UpdateUserPhoto, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// SortByDate sorts slice of UpdateUserPhoto by Date.
-func (s UpdateUserPhotoArray) SortByDate() UpdateUserPhotoArray {
-	return s.Sort(func(a, b UpdateUserPhoto) bool {
-		return a.GetDate() < b.GetDate()
-	})
-}
-
-// SortStableByDate sorts slice of UpdateUserPhoto by Date.
-func (s UpdateUserPhotoArray) SortStableByDate() UpdateUserPhotoArray {
-	return s.SortStable(func(a, b UpdateUserPhoto) bool {
-		return a.GetDate() < b.GetDate()
-	})
 }
 
 // UpdateNewEncryptedMessageArray is adapter for slice of UpdateNewEncryptedMessage.
@@ -9353,6 +9257,88 @@ func (s *UpdateChannelPinnedTopicsArray) PopFirst() (v UpdateChannelPinnedTopics
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *UpdateChannelPinnedTopicsArray) Pop() (v UpdateChannelPinnedTopics, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateUserArray is adapter for slice of UpdateUser.
+type UpdateUserArray []UpdateUser
+
+// Sort sorts slice of UpdateUser.
+func (s UpdateUserArray) Sort(less func(a, b UpdateUser) bool) UpdateUserArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateUser.
+func (s UpdateUserArray) SortStable(less func(a, b UpdateUser) bool) UpdateUserArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateUser.
+func (s UpdateUserArray) Retain(keep func(x UpdateUser) bool) UpdateUserArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateUserArray) First() (v UpdateUser, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateUserArray) Last() (v UpdateUser, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateUserArray) PopFirst() (v UpdateUser, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateUser
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateUserArray) Pop() (v UpdateUser, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

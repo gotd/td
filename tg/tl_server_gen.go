@@ -5707,14 +5707,14 @@ func (s *ServerDispatcher) OnUpdatesGetChannelDifference(f func(ctx context.Cont
 	s.handlers[UpdatesGetChannelDifferenceRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnPhotosUpdateProfilePhoto(f func(ctx context.Context, id InputPhotoClass) (*PhotosPhoto, error)) {
+func (s *ServerDispatcher) OnPhotosUpdateProfilePhoto(f func(ctx context.Context, request *PhotosUpdateProfilePhotoRequest) (*PhotosPhoto, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request PhotosUpdateProfilePhotoRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.ID)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
@@ -5773,6 +5773,23 @@ func (s *ServerDispatcher) OnPhotosGetUserPhotos(f func(ctx context.Context, req
 	}
 
 	s.handlers[PhotosGetUserPhotosRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnPhotosUploadContactProfilePhoto(f func(ctx context.Context, request *PhotosUploadContactProfilePhotoRequest) (*PhotosPhoto, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request PhotosUploadContactProfilePhotoRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[PhotosUploadContactProfilePhotoRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnUploadSaveFilePart(f func(ctx context.Context, request *UploadSaveFilePartRequest) (bool, error)) {
@@ -7298,6 +7315,23 @@ func (s *ServerDispatcher) OnChannelsReportAntiSpamFalsePositive(f func(ctx cont
 	}
 
 	s.handlers[ChannelsReportAntiSpamFalsePositiveRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChannelsToggleParticipantsHidden(f func(ctx context.Context, request *ChannelsToggleParticipantsHiddenRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsToggleParticipantsHiddenRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[ChannelsToggleParticipantsHiddenRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnBotsSendCustomRequest(f func(ctx context.Context, request *BotsSendCustomRequestRequest) (*DataJSON, error)) {

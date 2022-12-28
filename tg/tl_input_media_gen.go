@@ -143,6 +143,8 @@ type InputMediaUploadedPhoto struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// Spoiler field of InputMediaUploadedPhoto.
+	Spoiler bool
 	// The uploaded file¹
 	//
 	// Links:
@@ -181,6 +183,9 @@ func (i *InputMediaUploadedPhoto) Zero() bool {
 	if !(i.Flags.Zero()) {
 		return false
 	}
+	if !(i.Spoiler == false) {
+		return false
+	}
 	if !(i.File == nil) {
 		return false
 	}
@@ -205,10 +210,12 @@ func (i *InputMediaUploadedPhoto) String() string {
 
 // FillFrom fills InputMediaUploadedPhoto from given interface.
 func (i *InputMediaUploadedPhoto) FillFrom(from interface {
+	GetSpoiler() (value bool)
 	GetFile() (value InputFileClass)
 	GetStickers() (value []InputDocumentClass, ok bool)
 	GetTTLSeconds() (value int, ok bool)
 }) {
+	i.Spoiler = from.GetSpoiler()
 	i.File = from.GetFile()
 	if val, ok := from.GetStickers(); ok {
 		i.Stickers = val
@@ -244,6 +251,11 @@ func (i *InputMediaUploadedPhoto) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Spoiler",
+			SchemaName: "spoiler",
+			Null:       !i.Flags.Has(2),
+		},
+		{
 			Name:       "File",
 			SchemaName: "file",
 		},
@@ -263,6 +275,9 @@ func (i *InputMediaUploadedPhoto) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (i *InputMediaUploadedPhoto) SetFlags() {
+	if !(i.Spoiler == false) {
+		i.Flags.Set(2)
+	}
 	if !(i.Stickers == nil) {
 		i.Flags.Set(0)
 	}
@@ -333,6 +348,7 @@ func (i *InputMediaUploadedPhoto) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inputMediaUploadedPhoto#1e287d04: field flags: %w", err)
 		}
 	}
+	i.Spoiler = i.Flags.Has(2)
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
@@ -365,6 +381,25 @@ func (i *InputMediaUploadedPhoto) DecodeBare(b *bin.Buffer) error {
 		i.TTLSeconds = value
 	}
 	return nil
+}
+
+// SetSpoiler sets value of Spoiler conditional field.
+func (i *InputMediaUploadedPhoto) SetSpoiler(value bool) {
+	if value {
+		i.Flags.Set(2)
+		i.Spoiler = true
+	} else {
+		i.Flags.Unset(2)
+		i.Spoiler = false
+	}
+}
+
+// GetSpoiler returns value of Spoiler conditional field.
+func (i *InputMediaUploadedPhoto) GetSpoiler() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.Flags.Has(2)
 }
 
 // GetFile returns value of File field.
@@ -429,6 +464,8 @@ type InputMediaPhoto struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// Spoiler field of InputMediaPhoto.
+	Spoiler bool
 	// Photo to be forwarded
 	ID InputPhotoClass
 	// Time to live in seconds of self-destructing photo
@@ -460,6 +497,9 @@ func (i *InputMediaPhoto) Zero() bool {
 	if !(i.Flags.Zero()) {
 		return false
 	}
+	if !(i.Spoiler == false) {
+		return false
+	}
 	if !(i.ID == nil) {
 		return false
 	}
@@ -481,9 +521,11 @@ func (i *InputMediaPhoto) String() string {
 
 // FillFrom fills InputMediaPhoto from given interface.
 func (i *InputMediaPhoto) FillFrom(from interface {
+	GetSpoiler() (value bool)
 	GetID() (value InputPhotoClass)
 	GetTTLSeconds() (value int, ok bool)
 }) {
+	i.Spoiler = from.GetSpoiler()
 	i.ID = from.GetID()
 	if val, ok := from.GetTTLSeconds(); ok {
 		i.TTLSeconds = val
@@ -515,6 +557,11 @@ func (i *InputMediaPhoto) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Spoiler",
+			SchemaName: "spoiler",
+			Null:       !i.Flags.Has(1),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -529,6 +576,9 @@ func (i *InputMediaPhoto) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (i *InputMediaPhoto) SetFlags() {
+	if !(i.Spoiler == false) {
+		i.Flags.Set(1)
+	}
 	if !(i.TTLSeconds == 0) {
 		i.Flags.Set(0)
 	}
@@ -585,6 +635,7 @@ func (i *InputMediaPhoto) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inputMediaPhoto#b3ba0635: field flags: %w", err)
 		}
 	}
+	i.Spoiler = i.Flags.Has(1)
 	{
 		value, err := DecodeInputPhoto(b)
 		if err != nil {
@@ -600,6 +651,25 @@ func (i *InputMediaPhoto) DecodeBare(b *bin.Buffer) error {
 		i.TTLSeconds = value
 	}
 	return nil
+}
+
+// SetSpoiler sets value of Spoiler conditional field.
+func (i *InputMediaPhoto) SetSpoiler(value bool) {
+	if value {
+		i.Flags.Set(1)
+		i.Spoiler = true
+	} else {
+		i.Flags.Unset(1)
+		i.Spoiler = false
+	}
+}
+
+// GetSpoiler returns value of Spoiler conditional field.
+func (i *InputMediaPhoto) GetSpoiler() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.Flags.Has(1)
 }
 
 // GetID returns value of ID field.
@@ -999,6 +1069,8 @@ type InputMediaUploadedDocument struct {
 	NosoundVideo bool
 	// Force the media file to be uploaded as document
 	ForceFile bool
+	// Spoiler field of InputMediaUploadedDocument.
+	Spoiler bool
 	// The uploaded file¹
 	//
 	// Links:
@@ -1051,6 +1123,9 @@ func (i *InputMediaUploadedDocument) Zero() bool {
 	if !(i.ForceFile == false) {
 		return false
 	}
+	if !(i.Spoiler == false) {
+		return false
+	}
 	if !(i.File == nil) {
 		return false
 	}
@@ -1086,6 +1161,7 @@ func (i *InputMediaUploadedDocument) String() string {
 func (i *InputMediaUploadedDocument) FillFrom(from interface {
 	GetNosoundVideo() (value bool)
 	GetForceFile() (value bool)
+	GetSpoiler() (value bool)
 	GetFile() (value InputFileClass)
 	GetThumb() (value InputFileClass, ok bool)
 	GetMimeType() (value string)
@@ -1095,6 +1171,7 @@ func (i *InputMediaUploadedDocument) FillFrom(from interface {
 }) {
 	i.NosoundVideo = from.GetNosoundVideo()
 	i.ForceFile = from.GetForceFile()
+	i.Spoiler = from.GetSpoiler()
 	i.File = from.GetFile()
 	if val, ok := from.GetThumb(); ok {
 		i.Thumb = val
@@ -1146,6 +1223,11 @@ func (i *InputMediaUploadedDocument) TypeInfo() tdp.Type {
 			Null:       !i.Flags.Has(4),
 		},
 		{
+			Name:       "Spoiler",
+			SchemaName: "spoiler",
+			Null:       !i.Flags.Has(5),
+		},
+		{
 			Name:       "File",
 			SchemaName: "file",
 		},
@@ -1183,6 +1265,9 @@ func (i *InputMediaUploadedDocument) SetFlags() {
 	}
 	if !(i.ForceFile == false) {
 		i.Flags.Set(4)
+	}
+	if !(i.Spoiler == false) {
+		i.Flags.Set(5)
 	}
 	if !(i.Thumb == nil) {
 		i.Flags.Set(2)
@@ -1277,6 +1362,7 @@ func (i *InputMediaUploadedDocument) DecodeBare(b *bin.Buffer) error {
 	}
 	i.NosoundVideo = i.Flags.Has(3)
 	i.ForceFile = i.Flags.Has(4)
+	i.Spoiler = i.Flags.Has(5)
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
@@ -1380,6 +1466,25 @@ func (i *InputMediaUploadedDocument) GetForceFile() (value bool) {
 	return i.Flags.Has(4)
 }
 
+// SetSpoiler sets value of Spoiler conditional field.
+func (i *InputMediaUploadedDocument) SetSpoiler(value bool) {
+	if value {
+		i.Flags.Set(5)
+		i.Spoiler = true
+	} else {
+		i.Flags.Unset(5)
+		i.Spoiler = false
+	}
+}
+
+// GetSpoiler returns value of Spoiler conditional field.
+func (i *InputMediaUploadedDocument) GetSpoiler() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.Flags.Has(5)
+}
+
 // GetFile returns value of File field.
 func (i *InputMediaUploadedDocument) GetFile() (value InputFileClass) {
 	if i == nil {
@@ -1481,6 +1586,8 @@ type InputMediaDocument struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// Spoiler field of InputMediaDocument.
+	Spoiler bool
 	// The document to be forwarded.
 	ID InputDocumentClass
 	// Time to live of self-destructing document
@@ -1517,6 +1624,9 @@ func (i *InputMediaDocument) Zero() bool {
 	if !(i.Flags.Zero()) {
 		return false
 	}
+	if !(i.Spoiler == false) {
+		return false
+	}
 	if !(i.ID == nil) {
 		return false
 	}
@@ -1541,10 +1651,12 @@ func (i *InputMediaDocument) String() string {
 
 // FillFrom fills InputMediaDocument from given interface.
 func (i *InputMediaDocument) FillFrom(from interface {
+	GetSpoiler() (value bool)
 	GetID() (value InputDocumentClass)
 	GetTTLSeconds() (value int, ok bool)
 	GetQuery() (value string, ok bool)
 }) {
+	i.Spoiler = from.GetSpoiler()
 	i.ID = from.GetID()
 	if val, ok := from.GetTTLSeconds(); ok {
 		i.TTLSeconds = val
@@ -1580,6 +1692,11 @@ func (i *InputMediaDocument) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Spoiler",
+			SchemaName: "spoiler",
+			Null:       !i.Flags.Has(2),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -1599,6 +1716,9 @@ func (i *InputMediaDocument) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (i *InputMediaDocument) SetFlags() {
+	if !(i.Spoiler == false) {
+		i.Flags.Set(2)
+	}
 	if !(i.TTLSeconds == 0) {
 		i.Flags.Set(0)
 	}
@@ -1661,6 +1781,7 @@ func (i *InputMediaDocument) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inputMediaDocument#33473058: field flags: %w", err)
 		}
 	}
+	i.Spoiler = i.Flags.Has(2)
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {
@@ -1683,6 +1804,25 @@ func (i *InputMediaDocument) DecodeBare(b *bin.Buffer) error {
 		i.Query = value
 	}
 	return nil
+}
+
+// SetSpoiler sets value of Spoiler conditional field.
+func (i *InputMediaDocument) SetSpoiler(value bool) {
+	if value {
+		i.Flags.Set(2)
+		i.Spoiler = true
+	} else {
+		i.Flags.Unset(2)
+		i.Spoiler = false
+	}
+}
+
+// GetSpoiler returns value of Spoiler conditional field.
+func (i *InputMediaDocument) GetSpoiler() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.Flags.Has(2)
 }
 
 // GetID returns value of ID field.
@@ -2014,6 +2154,8 @@ type InputMediaPhotoExternal struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// Spoiler field of InputMediaPhotoExternal.
+	Spoiler bool
 	// URL of the photo
 	URL string
 	// Self-destruct time to live of photo
@@ -2045,6 +2187,9 @@ func (i *InputMediaPhotoExternal) Zero() bool {
 	if !(i.Flags.Zero()) {
 		return false
 	}
+	if !(i.Spoiler == false) {
+		return false
+	}
 	if !(i.URL == "") {
 		return false
 	}
@@ -2066,9 +2211,11 @@ func (i *InputMediaPhotoExternal) String() string {
 
 // FillFrom fills InputMediaPhotoExternal from given interface.
 func (i *InputMediaPhotoExternal) FillFrom(from interface {
+	GetSpoiler() (value bool)
 	GetURL() (value string)
 	GetTTLSeconds() (value int, ok bool)
 }) {
+	i.Spoiler = from.GetSpoiler()
 	i.URL = from.GetURL()
 	if val, ok := from.GetTTLSeconds(); ok {
 		i.TTLSeconds = val
@@ -2100,6 +2247,11 @@ func (i *InputMediaPhotoExternal) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Spoiler",
+			SchemaName: "spoiler",
+			Null:       !i.Flags.Has(1),
+		},
+		{
 			Name:       "URL",
 			SchemaName: "url",
 		},
@@ -2114,6 +2266,9 @@ func (i *InputMediaPhotoExternal) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (i *InputMediaPhotoExternal) SetFlags() {
+	if !(i.Spoiler == false) {
+		i.Flags.Set(1)
+	}
 	if !(i.TTLSeconds == 0) {
 		i.Flags.Set(0)
 	}
@@ -2165,6 +2320,7 @@ func (i *InputMediaPhotoExternal) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inputMediaPhotoExternal#e5bbfe1a: field flags: %w", err)
 		}
 	}
+	i.Spoiler = i.Flags.Has(1)
 	{
 		value, err := b.String()
 		if err != nil {
@@ -2180,6 +2336,25 @@ func (i *InputMediaPhotoExternal) DecodeBare(b *bin.Buffer) error {
 		i.TTLSeconds = value
 	}
 	return nil
+}
+
+// SetSpoiler sets value of Spoiler conditional field.
+func (i *InputMediaPhotoExternal) SetSpoiler(value bool) {
+	if value {
+		i.Flags.Set(1)
+		i.Spoiler = true
+	} else {
+		i.Flags.Unset(1)
+		i.Spoiler = false
+	}
+}
+
+// GetSpoiler returns value of Spoiler conditional field.
+func (i *InputMediaPhotoExternal) GetSpoiler() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.Flags.Has(1)
 }
 
 // GetURL returns value of URL field.
@@ -2218,6 +2393,8 @@ type InputMediaDocumentExternal struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// Spoiler field of InputMediaDocumentExternal.
+	Spoiler bool
 	// URL of the document
 	URL string
 	// Self-destruct time to live of document
@@ -2249,6 +2426,9 @@ func (i *InputMediaDocumentExternal) Zero() bool {
 	if !(i.Flags.Zero()) {
 		return false
 	}
+	if !(i.Spoiler == false) {
+		return false
+	}
 	if !(i.URL == "") {
 		return false
 	}
@@ -2270,9 +2450,11 @@ func (i *InputMediaDocumentExternal) String() string {
 
 // FillFrom fills InputMediaDocumentExternal from given interface.
 func (i *InputMediaDocumentExternal) FillFrom(from interface {
+	GetSpoiler() (value bool)
 	GetURL() (value string)
 	GetTTLSeconds() (value int, ok bool)
 }) {
+	i.Spoiler = from.GetSpoiler()
 	i.URL = from.GetURL()
 	if val, ok := from.GetTTLSeconds(); ok {
 		i.TTLSeconds = val
@@ -2304,6 +2486,11 @@ func (i *InputMediaDocumentExternal) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Spoiler",
+			SchemaName: "spoiler",
+			Null:       !i.Flags.Has(1),
+		},
+		{
 			Name:       "URL",
 			SchemaName: "url",
 		},
@@ -2318,6 +2505,9 @@ func (i *InputMediaDocumentExternal) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (i *InputMediaDocumentExternal) SetFlags() {
+	if !(i.Spoiler == false) {
+		i.Flags.Set(1)
+	}
 	if !(i.TTLSeconds == 0) {
 		i.Flags.Set(0)
 	}
@@ -2369,6 +2559,7 @@ func (i *InputMediaDocumentExternal) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inputMediaDocumentExternal#fb52dc99: field flags: %w", err)
 		}
 	}
+	i.Spoiler = i.Flags.Has(1)
 	{
 		value, err := b.String()
 		if err != nil {
@@ -2384,6 +2575,25 @@ func (i *InputMediaDocumentExternal) DecodeBare(b *bin.Buffer) error {
 		i.TTLSeconds = value
 	}
 	return nil
+}
+
+// SetSpoiler sets value of Spoiler conditional field.
+func (i *InputMediaDocumentExternal) SetSpoiler(value bool) {
+	if value {
+		i.Flags.Set(1)
+		i.Spoiler = true
+	} else {
+		i.Flags.Unset(1)
+		i.Spoiler = false
+	}
+}
+
+// GetSpoiler returns value of Spoiler conditional field.
+func (i *InputMediaDocumentExternal) GetSpoiler() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.Flags.Has(1)
 }
 
 // GetURL returns value of URL field.

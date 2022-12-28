@@ -480,6 +480,19 @@ func (s MessageActionClassArray) AsMessageActionTopicEdit() (to MessageActionTop
 	return to
 }
 
+// AsMessageActionSuggestProfilePhoto returns copy with only MessageActionSuggestProfilePhoto constructors.
+func (s MessageActionClassArray) AsMessageActionSuggestProfilePhoto() (to MessageActionSuggestProfilePhotoArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionSuggestProfilePhoto)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MessageActionChatCreateArray is adapter for slice of MessageActionChatCreate.
 type MessageActionChatCreateArray []MessageActionChatCreate
 
@@ -2764,6 +2777,88 @@ func (s *MessageActionTopicEditArray) PopFirst() (v MessageActionTopicEdit, ok b
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MessageActionTopicEditArray) Pop() (v MessageActionTopicEdit, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionSuggestProfilePhotoArray is adapter for slice of MessageActionSuggestProfilePhoto.
+type MessageActionSuggestProfilePhotoArray []MessageActionSuggestProfilePhoto
+
+// Sort sorts slice of MessageActionSuggestProfilePhoto.
+func (s MessageActionSuggestProfilePhotoArray) Sort(less func(a, b MessageActionSuggestProfilePhoto) bool) MessageActionSuggestProfilePhotoArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionSuggestProfilePhoto.
+func (s MessageActionSuggestProfilePhotoArray) SortStable(less func(a, b MessageActionSuggestProfilePhoto) bool) MessageActionSuggestProfilePhotoArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionSuggestProfilePhoto.
+func (s MessageActionSuggestProfilePhotoArray) Retain(keep func(x MessageActionSuggestProfilePhoto) bool) MessageActionSuggestProfilePhotoArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionSuggestProfilePhotoArray) First() (v MessageActionSuggestProfilePhoto, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionSuggestProfilePhotoArray) Last() (v MessageActionSuggestProfilePhoto, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionSuggestProfilePhotoArray) PopFirst() (v MessageActionSuggestProfilePhoto, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionSuggestProfilePhoto
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionSuggestProfilePhotoArray) Pop() (v MessageActionSuggestProfilePhoto, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

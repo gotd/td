@@ -148,6 +148,8 @@ type UserProfilePhoto struct {
 	// Links:
 	//  1) https://core.telegram.org/api/files#animated-profile-pictures
 	HasVideo bool
+	// Personal field of UserProfilePhoto.
+	Personal bool
 	// Identifier of the respective photo
 	PhotoID int64
 	// Stripped thumbnail¹
@@ -187,6 +189,9 @@ func (u *UserProfilePhoto) Zero() bool {
 	if !(u.HasVideo == false) {
 		return false
 	}
+	if !(u.Personal == false) {
+		return false
+	}
 	if !(u.PhotoID == 0) {
 		return false
 	}
@@ -212,11 +217,13 @@ func (u *UserProfilePhoto) String() string {
 // FillFrom fills UserProfilePhoto from given interface.
 func (u *UserProfilePhoto) FillFrom(from interface {
 	GetHasVideo() (value bool)
+	GetPersonal() (value bool)
 	GetPhotoID() (value int64)
 	GetStrippedThumb() (value []byte, ok bool)
 	GetDCID() (value int)
 }) {
 	u.HasVideo = from.GetHasVideo()
+	u.Personal = from.GetPersonal()
 	u.PhotoID = from.GetPhotoID()
 	if val, ok := from.GetStrippedThumb(); ok {
 		u.StrippedThumb = val
@@ -254,6 +261,11 @@ func (u *UserProfilePhoto) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(0),
 		},
 		{
+			Name:       "Personal",
+			SchemaName: "personal",
+			Null:       !u.Flags.Has(2),
+		},
+		{
 			Name:       "PhotoID",
 			SchemaName: "photo_id",
 		},
@@ -274,6 +286,9 @@ func (u *UserProfilePhoto) TypeInfo() tdp.Type {
 func (u *UserProfilePhoto) SetFlags() {
 	if !(u.HasVideo == false) {
 		u.Flags.Set(0)
+	}
+	if !(u.Personal == false) {
+		u.Flags.Set(2)
 	}
 	if !(u.StrippedThumb == nil) {
 		u.Flags.Set(1)
@@ -328,6 +343,7 @@ func (u *UserProfilePhoto) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	u.HasVideo = u.Flags.Has(0)
+	u.Personal = u.Flags.Has(2)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -369,6 +385,25 @@ func (u *UserProfilePhoto) GetHasVideo() (value bool) {
 		return
 	}
 	return u.Flags.Has(0)
+}
+
+// SetPersonal sets value of Personal conditional field.
+func (u *UserProfilePhoto) SetPersonal(value bool) {
+	if value {
+		u.Flags.Set(2)
+		u.Personal = true
+	} else {
+		u.Flags.Unset(2)
+		u.Personal = false
+	}
+}
+
+// GetPersonal returns value of Personal conditional field.
+func (u *UserProfilePhoto) GetPersonal() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(2)
 }
 
 // GetPhotoID returns value of PhotoID field.
