@@ -82,7 +82,7 @@ func (m *Manager) applyUpdates(updates []tg.UpdateClass) {
 			m.needUpdate.add(userPeerID(update.UserID))
 		case *tg.UpdateUserName:
 			m.needUpdate.add(userPeerID(update.UserID))
-		case *tg.UpdateUserPhoto:
+		case *tg.UpdateUser:
 			m.needUpdate.add(userPeerID(update.UserID))
 		case *tg.UpdateUserPhone:
 			m.needUpdate.add(userPeerID(update.UserID))
