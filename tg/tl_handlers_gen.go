@@ -186,16 +186,6 @@ func (u UpdateDispatcher) OnUserName(handler UserNameHandler) {
 	}
 }
 
-// UserPhotoHandler is a UserPhoto event handler.
-type UserPhotoHandler func(ctx context.Context, e Entities, update *UpdateUserPhoto) error
-
-// OnUserPhoto sets UserPhoto handler.
-func (u UpdateDispatcher) OnUserPhoto(handler UserPhotoHandler) {
-	u.handlers[UpdateUserPhotoTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
-		return handler(ctx, e, update.(*UpdateUserPhoto))
-	}
-}
-
 // NewEncryptedMessageHandler is a NewEncryptedMessage event handler.
 type NewEncryptedMessageHandler func(ctx context.Context, e Entities, update *UpdateNewEncryptedMessage) error
 
@@ -1193,5 +1183,15 @@ type ChannelPinnedTopicsHandler func(ctx context.Context, e Entities, update *Up
 func (u UpdateDispatcher) OnChannelPinnedTopics(handler ChannelPinnedTopicsHandler) {
 	u.handlers[UpdateChannelPinnedTopicsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
 		return handler(ctx, e, update.(*UpdateChannelPinnedTopics))
+	}
+}
+
+// UserHandler is a User event handler.
+type UserHandler func(ctx context.Context, e Entities, update *UpdateUser) error
+
+// OnUser sets User handler.
+func (u UpdateDispatcher) OnUser(handler UserHandler) {
+	u.handlers[UpdateUserTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateUser))
 	}
 }

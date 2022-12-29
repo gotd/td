@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesToggleBotInAttachMenuRequest represents TL type `messages.toggleBotInAttachMenu#1aee33af`.
+// MessagesToggleBotInAttachMenuRequest represents TL type `messages.toggleBotInAttachMenu#69f59d69`.
 // Enable or disable web bot attachment menu »¹
 //
 // Links:
@@ -39,6 +39,10 @@ var (
 //
 // See https://core.telegram.org/method/messages.toggleBotInAttachMenu for reference.
 type MessagesToggleBotInAttachMenuRequest struct {
+	// Flags field of MessagesToggleBotInAttachMenuRequest.
+	Flags bin.Fields
+	// WriteAllowed field of MessagesToggleBotInAttachMenuRequest.
+	WriteAllowed bool
 	// Bot ID
 	Bot InputUserClass
 	// Toggle
@@ -46,7 +50,7 @@ type MessagesToggleBotInAttachMenuRequest struct {
 }
 
 // MessagesToggleBotInAttachMenuRequestTypeID is TL type id of MessagesToggleBotInAttachMenuRequest.
-const MessagesToggleBotInAttachMenuRequestTypeID = 0x1aee33af
+const MessagesToggleBotInAttachMenuRequestTypeID = 0x69f59d69
 
 // Ensuring interfaces in compile-time for MessagesToggleBotInAttachMenuRequest.
 var (
@@ -59,6 +63,12 @@ var (
 func (t *MessagesToggleBotInAttachMenuRequest) Zero() bool {
 	if t == nil {
 		return true
+	}
+	if !(t.Flags.Zero()) {
+		return false
+	}
+	if !(t.WriteAllowed == false) {
+		return false
 	}
 	if !(t.Bot == nil) {
 		return false
@@ -81,9 +91,11 @@ func (t *MessagesToggleBotInAttachMenuRequest) String() string {
 
 // FillFrom fills MessagesToggleBotInAttachMenuRequest from given interface.
 func (t *MessagesToggleBotInAttachMenuRequest) FillFrom(from interface {
+	GetWriteAllowed() (value bool)
 	GetBot() (value InputUserClass)
 	GetEnabled() (value bool)
 }) {
+	t.WriteAllowed = from.GetWriteAllowed()
 	t.Bot = from.GetBot()
 	t.Enabled = from.GetEnabled()
 }
@@ -112,6 +124,11 @@ func (t *MessagesToggleBotInAttachMenuRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "WriteAllowed",
+			SchemaName: "write_allowed",
+			Null:       !t.Flags.Has(0),
+		},
+		{
 			Name:       "Bot",
 			SchemaName: "bot",
 		},
@@ -123,10 +140,17 @@ func (t *MessagesToggleBotInAttachMenuRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (t *MessagesToggleBotInAttachMenuRequest) SetFlags() {
+	if !(t.WriteAllowed == false) {
+		t.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (t *MessagesToggleBotInAttachMenuRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode messages.toggleBotInAttachMenu#1aee33af as nil")
+		return fmt.Errorf("can't encode messages.toggleBotInAttachMenu#69f59d69 as nil")
 	}
 	b.PutID(MessagesToggleBotInAttachMenuRequestTypeID)
 	return t.EncodeBare(b)
@@ -135,13 +159,17 @@ func (t *MessagesToggleBotInAttachMenuRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *MessagesToggleBotInAttachMenuRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode messages.toggleBotInAttachMenu#1aee33af as nil")
+		return fmt.Errorf("can't encode messages.toggleBotInAttachMenu#69f59d69 as nil")
+	}
+	t.SetFlags()
+	if err := t.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.toggleBotInAttachMenu#69f59d69: field flags: %w", err)
 	}
 	if t.Bot == nil {
-		return fmt.Errorf("unable to encode messages.toggleBotInAttachMenu#1aee33af: field bot is nil")
+		return fmt.Errorf("unable to encode messages.toggleBotInAttachMenu#69f59d69: field bot is nil")
 	}
 	if err := t.Bot.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.toggleBotInAttachMenu#1aee33af: field bot: %w", err)
+		return fmt.Errorf("unable to encode messages.toggleBotInAttachMenu#69f59d69: field bot: %w", err)
 	}
 	b.PutBool(t.Enabled)
 	return nil
@@ -150,10 +178,10 @@ func (t *MessagesToggleBotInAttachMenuRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *MessagesToggleBotInAttachMenuRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode messages.toggleBotInAttachMenu#1aee33af to nil")
+		return fmt.Errorf("can't decode messages.toggleBotInAttachMenu#69f59d69 to nil")
 	}
 	if err := b.ConsumeID(MessagesToggleBotInAttachMenuRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.toggleBotInAttachMenu#1aee33af: %w", err)
+		return fmt.Errorf("unable to decode messages.toggleBotInAttachMenu#69f59d69: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -161,23 +189,48 @@ func (t *MessagesToggleBotInAttachMenuRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *MessagesToggleBotInAttachMenuRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode messages.toggleBotInAttachMenu#1aee33af to nil")
+		return fmt.Errorf("can't decode messages.toggleBotInAttachMenu#69f59d69 to nil")
 	}
+	{
+		if err := t.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.toggleBotInAttachMenu#69f59d69: field flags: %w", err)
+		}
+	}
+	t.WriteAllowed = t.Flags.Has(0)
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.toggleBotInAttachMenu#1aee33af: field bot: %w", err)
+			return fmt.Errorf("unable to decode messages.toggleBotInAttachMenu#69f59d69: field bot: %w", err)
 		}
 		t.Bot = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.toggleBotInAttachMenu#1aee33af: field enabled: %w", err)
+			return fmt.Errorf("unable to decode messages.toggleBotInAttachMenu#69f59d69: field enabled: %w", err)
 		}
 		t.Enabled = value
 	}
 	return nil
+}
+
+// SetWriteAllowed sets value of WriteAllowed conditional field.
+func (t *MessagesToggleBotInAttachMenuRequest) SetWriteAllowed(value bool) {
+	if value {
+		t.Flags.Set(0)
+		t.WriteAllowed = true
+	} else {
+		t.Flags.Unset(0)
+		t.WriteAllowed = false
+	}
+}
+
+// GetWriteAllowed returns value of WriteAllowed conditional field.
+func (t *MessagesToggleBotInAttachMenuRequest) GetWriteAllowed() (value bool) {
+	if t == nil {
+		return
+	}
+	return t.Flags.Has(0)
 }
 
 // GetBot returns value of Bot field.
@@ -196,7 +249,7 @@ func (t *MessagesToggleBotInAttachMenuRequest) GetEnabled() (value bool) {
 	return t.Enabled
 }
 
-// MessagesToggleBotInAttachMenu invokes method messages.toggleBotInAttachMenu#1aee33af returning error if any.
+// MessagesToggleBotInAttachMenu invokes method messages.toggleBotInAttachMenu#69f59d69 returning error if any.
 // Enable or disable web bot attachment menu »¹
 //
 // Links:

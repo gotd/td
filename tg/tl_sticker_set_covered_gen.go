@@ -658,6 +658,140 @@ func (s *StickerSetFullCovered) MapDocuments() (value DocumentClassArray) {
 	return DocumentClassArray(s.Documents)
 }
 
+// StickerSetNoCovered represents TL type `stickerSetNoCovered#77b15d1c`.
+//
+// See https://core.telegram.org/constructor/stickerSetNoCovered for reference.
+type StickerSetNoCovered struct {
+	// Set field of StickerSetNoCovered.
+	Set StickerSet
+}
+
+// StickerSetNoCoveredTypeID is TL type id of StickerSetNoCovered.
+const StickerSetNoCoveredTypeID = 0x77b15d1c
+
+// construct implements constructor of StickerSetCoveredClass.
+func (s StickerSetNoCovered) construct() StickerSetCoveredClass { return &s }
+
+// Ensuring interfaces in compile-time for StickerSetNoCovered.
+var (
+	_ bin.Encoder     = &StickerSetNoCovered{}
+	_ bin.Decoder     = &StickerSetNoCovered{}
+	_ bin.BareEncoder = &StickerSetNoCovered{}
+	_ bin.BareDecoder = &StickerSetNoCovered{}
+
+	_ StickerSetCoveredClass = &StickerSetNoCovered{}
+)
+
+func (s *StickerSetNoCovered) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Set.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *StickerSetNoCovered) String() string {
+	if s == nil {
+		return "StickerSetNoCovered(nil)"
+	}
+	type Alias StickerSetNoCovered
+	return fmt.Sprintf("StickerSetNoCovered%+v", Alias(*s))
+}
+
+// FillFrom fills StickerSetNoCovered from given interface.
+func (s *StickerSetNoCovered) FillFrom(from interface {
+	GetSet() (value StickerSet)
+}) {
+	s.Set = from.GetSet()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*StickerSetNoCovered) TypeID() uint32 {
+	return StickerSetNoCoveredTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*StickerSetNoCovered) TypeName() string {
+	return "stickerSetNoCovered"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StickerSetNoCovered) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stickerSetNoCovered",
+		ID:   StickerSetNoCoveredTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Set",
+			SchemaName: "set",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *StickerSetNoCovered) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode stickerSetNoCovered#77b15d1c as nil")
+	}
+	b.PutID(StickerSetNoCoveredTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StickerSetNoCovered) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode stickerSetNoCovered#77b15d1c as nil")
+	}
+	if err := s.Set.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode stickerSetNoCovered#77b15d1c: field set: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *StickerSetNoCovered) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode stickerSetNoCovered#77b15d1c to nil")
+	}
+	if err := b.ConsumeID(StickerSetNoCoveredTypeID); err != nil {
+		return fmt.Errorf("unable to decode stickerSetNoCovered#77b15d1c: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StickerSetNoCovered) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode stickerSetNoCovered#77b15d1c to nil")
+	}
+	{
+		if err := s.Set.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode stickerSetNoCovered#77b15d1c: field set: %w", err)
+		}
+	}
+	return nil
+}
+
+// GetSet returns value of Set field.
+func (s *StickerSetNoCovered) GetSet() (value StickerSet) {
+	if s == nil {
+		return
+	}
+	return s.Set
+}
+
 // StickerSetCoveredClassName is schema name of StickerSetCoveredClass.
 const StickerSetCoveredClassName = "StickerSetCovered"
 
@@ -675,6 +809,7 @@ const StickerSetCoveredClassName = "StickerSetCovered"
 //	case *tg.StickerSetCovered: // stickerSetCovered#6410a5d2
 //	case *tg.StickerSetMultiCovered: // stickerSetMultiCovered#3407e51b
 //	case *tg.StickerSetFullCovered: // stickerSetFullCovered#40d13c0e
+//	case *tg.StickerSetNoCovered: // stickerSetNoCovered#77b15d1c
 //	default: panic(v)
 //	}
 type StickerSetCoveredClass interface {
@@ -723,6 +858,13 @@ func DecodeStickerSetCovered(buf *bin.Buffer) (StickerSetCoveredClass, error) {
 	case StickerSetFullCoveredTypeID:
 		// Decoding stickerSetFullCovered#40d13c0e.
 		v := StickerSetFullCovered{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StickerSetCoveredClass: %w", err)
+		}
+		return &v, nil
+	case StickerSetNoCoveredTypeID:
+		// Decoding stickerSetNoCovered#77b15d1c.
+		v := StickerSetNoCovered{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StickerSetCoveredClass: %w", err)
 		}

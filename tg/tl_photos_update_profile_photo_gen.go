@@ -31,17 +31,21 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PhotosUpdateProfilePhotoRequest represents TL type `photos.updateProfilePhoto#72d4742c`.
+// PhotosUpdateProfilePhotoRequest represents TL type `photos.updateProfilePhoto#1c3d5956`.
 // Installs a previously uploaded photo as a profile photo.
 //
 // See https://core.telegram.org/method/photos.updateProfilePhoto for reference.
 type PhotosUpdateProfilePhotoRequest struct {
+	// Flags field of PhotosUpdateProfilePhotoRequest.
+	Flags bin.Fields
+	// Fallback field of PhotosUpdateProfilePhotoRequest.
+	Fallback bool
 	// Input photo
 	ID InputPhotoClass
 }
 
 // PhotosUpdateProfilePhotoRequestTypeID is TL type id of PhotosUpdateProfilePhotoRequest.
-const PhotosUpdateProfilePhotoRequestTypeID = 0x72d4742c
+const PhotosUpdateProfilePhotoRequestTypeID = 0x1c3d5956
 
 // Ensuring interfaces in compile-time for PhotosUpdateProfilePhotoRequest.
 var (
@@ -54,6 +58,12 @@ var (
 func (u *PhotosUpdateProfilePhotoRequest) Zero() bool {
 	if u == nil {
 		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Fallback == false) {
+		return false
 	}
 	if !(u.ID == nil) {
 		return false
@@ -73,8 +83,10 @@ func (u *PhotosUpdateProfilePhotoRequest) String() string {
 
 // FillFrom fills PhotosUpdateProfilePhotoRequest from given interface.
 func (u *PhotosUpdateProfilePhotoRequest) FillFrom(from interface {
+	GetFallback() (value bool)
 	GetID() (value InputPhotoClass)
 }) {
+	u.Fallback = from.GetFallback()
 	u.ID = from.GetID()
 }
 
@@ -102,6 +114,11 @@ func (u *PhotosUpdateProfilePhotoRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Fallback",
+			SchemaName: "fallback",
+			Null:       !u.Flags.Has(0),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -109,10 +126,17 @@ func (u *PhotosUpdateProfilePhotoRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *PhotosUpdateProfilePhotoRequest) SetFlags() {
+	if !(u.Fallback == false) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *PhotosUpdateProfilePhotoRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode photos.updateProfilePhoto#72d4742c as nil")
+		return fmt.Errorf("can't encode photos.updateProfilePhoto#1c3d5956 as nil")
 	}
 	b.PutID(PhotosUpdateProfilePhotoRequestTypeID)
 	return u.EncodeBare(b)
@@ -121,13 +145,17 @@ func (u *PhotosUpdateProfilePhotoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *PhotosUpdateProfilePhotoRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode photos.updateProfilePhoto#72d4742c as nil")
+		return fmt.Errorf("can't encode photos.updateProfilePhoto#1c3d5956 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode photos.updateProfilePhoto#1c3d5956: field flags: %w", err)
 	}
 	if u.ID == nil {
-		return fmt.Errorf("unable to encode photos.updateProfilePhoto#72d4742c: field id is nil")
+		return fmt.Errorf("unable to encode photos.updateProfilePhoto#1c3d5956: field id is nil")
 	}
 	if err := u.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode photos.updateProfilePhoto#72d4742c: field id: %w", err)
+		return fmt.Errorf("unable to encode photos.updateProfilePhoto#1c3d5956: field id: %w", err)
 	}
 	return nil
 }
@@ -135,10 +163,10 @@ func (u *PhotosUpdateProfilePhotoRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *PhotosUpdateProfilePhotoRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode photos.updateProfilePhoto#72d4742c to nil")
+		return fmt.Errorf("can't decode photos.updateProfilePhoto#1c3d5956 to nil")
 	}
 	if err := b.ConsumeID(PhotosUpdateProfilePhotoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode photos.updateProfilePhoto#72d4742c: %w", err)
+		return fmt.Errorf("unable to decode photos.updateProfilePhoto#1c3d5956: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -146,16 +174,41 @@ func (u *PhotosUpdateProfilePhotoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *PhotosUpdateProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode photos.updateProfilePhoto#72d4742c to nil")
+		return fmt.Errorf("can't decode photos.updateProfilePhoto#1c3d5956 to nil")
 	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode photos.updateProfilePhoto#1c3d5956: field flags: %w", err)
+		}
+	}
+	u.Fallback = u.Flags.Has(0)
 	{
 		value, err := DecodeInputPhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.updateProfilePhoto#72d4742c: field id: %w", err)
+			return fmt.Errorf("unable to decode photos.updateProfilePhoto#1c3d5956: field id: %w", err)
 		}
 		u.ID = value
 	}
 	return nil
+}
+
+// SetFallback sets value of Fallback conditional field.
+func (u *PhotosUpdateProfilePhotoRequest) SetFallback(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.Fallback = true
+	} else {
+		u.Flags.Unset(0)
+		u.Fallback = false
+	}
+}
+
+// GetFallback returns value of Fallback conditional field.
+func (u *PhotosUpdateProfilePhotoRequest) GetFallback() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(0)
 }
 
 // GetID returns value of ID field.
@@ -171,7 +224,7 @@ func (u *PhotosUpdateProfilePhotoRequest) GetIDAsNotEmpty() (*InputPhoto, bool) 
 	return u.ID.AsNotEmpty()
 }
 
-// PhotosUpdateProfilePhoto invokes method photos.updateProfilePhoto#72d4742c returning error if any.
+// PhotosUpdateProfilePhoto invokes method photos.updateProfilePhoto#1c3d5956 returning error if any.
 // Installs a previously uploaded photo as a profile photo.
 //
 // Possible errors:
@@ -185,12 +238,9 @@ func (u *PhotosUpdateProfilePhotoRequest) GetIDAsNotEmpty() (*InputPhoto, bool) 
 //	400 PHOTO_ID_INVALID: Photo ID invalid.
 //
 // See https://core.telegram.org/method/photos.updateProfilePhoto for reference.
-func (c *Client) PhotosUpdateProfilePhoto(ctx context.Context, id InputPhotoClass) (*PhotosPhoto, error) {
+func (c *Client) PhotosUpdateProfilePhoto(ctx context.Context, request *PhotosUpdateProfilePhotoRequest) (*PhotosPhoto, error) {
 	var result PhotosPhoto
 
-	request := &PhotosUpdateProfilePhotoRequest{
-		ID: id,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

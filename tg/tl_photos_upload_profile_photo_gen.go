@@ -41,6 +41,8 @@ type PhotosUploadProfilePhotoRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// Fallback field of PhotosUploadProfilePhotoRequest.
+	Fallback bool
 	// File saved in parts by means of upload.saveFilePart¹ method
 	//
 	// Links:
@@ -80,6 +82,9 @@ func (u *PhotosUploadProfilePhotoRequest) Zero() bool {
 	if !(u.Flags.Zero()) {
 		return false
 	}
+	if !(u.Fallback == false) {
+		return false
+	}
 	if !(u.File == nil) {
 		return false
 	}
@@ -104,10 +109,12 @@ func (u *PhotosUploadProfilePhotoRequest) String() string {
 
 // FillFrom fills PhotosUploadProfilePhotoRequest from given interface.
 func (u *PhotosUploadProfilePhotoRequest) FillFrom(from interface {
+	GetFallback() (value bool)
 	GetFile() (value InputFileClass, ok bool)
 	GetVideo() (value InputFileClass, ok bool)
 	GetVideoStartTs() (value float64, ok bool)
 }) {
+	u.Fallback = from.GetFallback()
 	if val, ok := from.GetFile(); ok {
 		u.File = val
 	}
@@ -146,6 +153,11 @@ func (u *PhotosUploadProfilePhotoRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Fallback",
+			SchemaName: "fallback",
+			Null:       !u.Flags.Has(3),
+		},
+		{
 			Name:       "File",
 			SchemaName: "file",
 			Null:       !u.Flags.Has(0),
@@ -166,6 +178,9 @@ func (u *PhotosUploadProfilePhotoRequest) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (u *PhotosUploadProfilePhotoRequest) SetFlags() {
+	if !(u.Fallback == false) {
+		u.Flags.Set(3)
+	}
 	if !(u.File == nil) {
 		u.Flags.Set(0)
 	}
@@ -238,6 +253,7 @@ func (u *PhotosUploadProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode photos.uploadProfilePhoto#89f30f69: field flags: %w", err)
 		}
 	}
+	u.Fallback = u.Flags.Has(3)
 	if u.Flags.Has(0) {
 		value, err := DecodeInputFile(b)
 		if err != nil {
@@ -260,6 +276,25 @@ func (u *PhotosUploadProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
 		u.VideoStartTs = value
 	}
 	return nil
+}
+
+// SetFallback sets value of Fallback conditional field.
+func (u *PhotosUploadProfilePhotoRequest) SetFallback(value bool) {
+	if value {
+		u.Flags.Set(3)
+		u.Fallback = true
+	} else {
+		u.Flags.Unset(3)
+		u.Fallback = false
+	}
+}
+
+// GetFallback returns value of Fallback conditional field.
+func (u *PhotosUploadProfilePhotoRequest) GetFallback() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(3)
 }
 
 // SetFile sets value of File conditional field.
