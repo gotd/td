@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetPassportAuthorizationFormAvailableElementsRequest represents TL type `getPassportAuthorizationFormAvailableElements#6799d4e2`.
+// GetPassportAuthorizationFormAvailableElementsRequest represents TL type `getPassportAuthorizationFormAvailableElements#3fb314fc`.
 type GetPassportAuthorizationFormAvailableElementsRequest struct {
 	// Authorization form identifier
-	AutorizationFormID int32
+	AuthorizationFormID int32
 	// The 2-step verification password of the current user
 	Password string
 }
 
 // GetPassportAuthorizationFormAvailableElementsRequestTypeID is TL type id of GetPassportAuthorizationFormAvailableElementsRequest.
-const GetPassportAuthorizationFormAvailableElementsRequestTypeID = 0x6799d4e2
+const GetPassportAuthorizationFormAvailableElementsRequestTypeID = 0x3fb314fc
 
 // Ensuring interfaces in compile-time for GetPassportAuthorizationFormAvailableElementsRequest.
 var (
@@ -54,7 +54,7 @@ func (g *GetPassportAuthorizationFormAvailableElementsRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
-	if !(g.AutorizationFormID == 0) {
+	if !(g.AuthorizationFormID == 0) {
 		return false
 	}
 	if !(g.Password == "") {
@@ -97,8 +97,8 @@ func (g *GetPassportAuthorizationFormAvailableElementsRequest) TypeInfo() tdp.Ty
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "AutorizationFormID",
-			SchemaName: "autorization_form_id",
+			Name:       "AuthorizationFormID",
+			SchemaName: "authorization_form_id",
 		},
 		{
 			Name:       "Password",
@@ -111,7 +111,7 @@ func (g *GetPassportAuthorizationFormAvailableElementsRequest) TypeInfo() tdp.Ty
 // Encode implements bin.Encoder.
 func (g *GetPassportAuthorizationFormAvailableElementsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getPassportAuthorizationFormAvailableElements#6799d4e2 as nil")
+		return fmt.Errorf("can't encode getPassportAuthorizationFormAvailableElements#3fb314fc as nil")
 	}
 	b.PutID(GetPassportAuthorizationFormAvailableElementsRequestTypeID)
 	return g.EncodeBare(b)
@@ -120,9 +120,9 @@ func (g *GetPassportAuthorizationFormAvailableElementsRequest) Encode(b *bin.Buf
 // EncodeBare implements bin.BareEncoder.
 func (g *GetPassportAuthorizationFormAvailableElementsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getPassportAuthorizationFormAvailableElements#6799d4e2 as nil")
+		return fmt.Errorf("can't encode getPassportAuthorizationFormAvailableElements#3fb314fc as nil")
 	}
-	b.PutInt32(g.AutorizationFormID)
+	b.PutInt32(g.AuthorizationFormID)
 	b.PutString(g.Password)
 	return nil
 }
@@ -130,10 +130,10 @@ func (g *GetPassportAuthorizationFormAvailableElementsRequest) EncodeBare(b *bin
 // Decode implements bin.Decoder.
 func (g *GetPassportAuthorizationFormAvailableElementsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getPassportAuthorizationFormAvailableElements#6799d4e2 to nil")
+		return fmt.Errorf("can't decode getPassportAuthorizationFormAvailableElements#3fb314fc to nil")
 	}
 	if err := b.ConsumeID(GetPassportAuthorizationFormAvailableElementsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getPassportAuthorizationFormAvailableElements#6799d4e2: %w", err)
+		return fmt.Errorf("unable to decode getPassportAuthorizationFormAvailableElements#3fb314fc: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -141,19 +141,19 @@ func (g *GetPassportAuthorizationFormAvailableElementsRequest) Decode(b *bin.Buf
 // DecodeBare implements bin.BareDecoder.
 func (g *GetPassportAuthorizationFormAvailableElementsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getPassportAuthorizationFormAvailableElements#6799d4e2 to nil")
+		return fmt.Errorf("can't decode getPassportAuthorizationFormAvailableElements#3fb314fc to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getPassportAuthorizationFormAvailableElements#6799d4e2: field autorization_form_id: %w", err)
+			return fmt.Errorf("unable to decode getPassportAuthorizationFormAvailableElements#3fb314fc: field authorization_form_id: %w", err)
 		}
-		g.AutorizationFormID = value
+		g.AuthorizationFormID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode getPassportAuthorizationFormAvailableElements#6799d4e2: field password: %w", err)
+			return fmt.Errorf("unable to decode getPassportAuthorizationFormAvailableElements#3fb314fc: field password: %w", err)
 		}
 		g.Password = value
 	}
@@ -163,13 +163,13 @@ func (g *GetPassportAuthorizationFormAvailableElementsRequest) DecodeBare(b *bin
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetPassportAuthorizationFormAvailableElementsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getPassportAuthorizationFormAvailableElements#6799d4e2 as nil")
+		return fmt.Errorf("can't encode getPassportAuthorizationFormAvailableElements#3fb314fc as nil")
 	}
 	b.ObjStart()
 	b.PutID("getPassportAuthorizationFormAvailableElements")
 	b.Comma()
-	b.FieldStart("autorization_form_id")
-	b.PutInt32(g.AutorizationFormID)
+	b.FieldStart("authorization_form_id")
+	b.PutInt32(g.AuthorizationFormID)
 	b.Comma()
 	b.FieldStart("password")
 	b.PutString(g.Password)
@@ -182,25 +182,25 @@ func (g *GetPassportAuthorizationFormAvailableElementsRequest) EncodeTDLibJSON(b
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetPassportAuthorizationFormAvailableElementsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getPassportAuthorizationFormAvailableElements#6799d4e2 to nil")
+		return fmt.Errorf("can't decode getPassportAuthorizationFormAvailableElements#3fb314fc to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getPassportAuthorizationFormAvailableElements"); err != nil {
-				return fmt.Errorf("unable to decode getPassportAuthorizationFormAvailableElements#6799d4e2: %w", err)
+				return fmt.Errorf("unable to decode getPassportAuthorizationFormAvailableElements#3fb314fc: %w", err)
 			}
-		case "autorization_form_id":
+		case "authorization_form_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getPassportAuthorizationFormAvailableElements#6799d4e2: field autorization_form_id: %w", err)
+				return fmt.Errorf("unable to decode getPassportAuthorizationFormAvailableElements#3fb314fc: field authorization_form_id: %w", err)
 			}
-			g.AutorizationFormID = value
+			g.AuthorizationFormID = value
 		case "password":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode getPassportAuthorizationFormAvailableElements#6799d4e2: field password: %w", err)
+				return fmt.Errorf("unable to decode getPassportAuthorizationFormAvailableElements#3fb314fc: field password: %w", err)
 			}
 			g.Password = value
 		default:
@@ -210,12 +210,12 @@ func (g *GetPassportAuthorizationFormAvailableElementsRequest) DecodeTDLibJSON(b
 	})
 }
 
-// GetAutorizationFormID returns value of AutorizationFormID field.
-func (g *GetPassportAuthorizationFormAvailableElementsRequest) GetAutorizationFormID() (value int32) {
+// GetAuthorizationFormID returns value of AuthorizationFormID field.
+func (g *GetPassportAuthorizationFormAvailableElementsRequest) GetAuthorizationFormID() (value int32) {
 	if g == nil {
 		return
 	}
-	return g.AutorizationFormID
+	return g.AuthorizationFormID
 }
 
 // GetPassword returns value of Password field.
@@ -226,7 +226,7 @@ func (g *GetPassportAuthorizationFormAvailableElementsRequest) GetPassword() (va
 	return g.Password
 }
 
-// GetPassportAuthorizationFormAvailableElements invokes method getPassportAuthorizationFormAvailableElements#6799d4e2 returning error if any.
+// GetPassportAuthorizationFormAvailableElements invokes method getPassportAuthorizationFormAvailableElements#3fb314fc returning error if any.
 func (c *Client) GetPassportAuthorizationFormAvailableElements(ctx context.Context, request *GetPassportAuthorizationFormAvailableElementsRequest) (*PassportElementsWithErrors, error) {
 	var result PassportElementsWithErrors
 

@@ -267,7 +267,7 @@ func (i *InputMessageText) GetClearDraft() (value bool) {
 	return i.ClearDraft
 }
 
-// InputMessageAnimation represents TL type `inputMessageAnimation#11579cfa`.
+// InputMessageAnimation represents TL type `inputMessageAnimation#cd68f5fe`.
 type InputMessageAnimation struct {
 	// Animation file to be sent
 	Animation InputFileClass
@@ -284,10 +284,13 @@ type InputMessageAnimation struct {
 	// Animation caption; pass null to use an empty caption;
 	// 0-getOption("message_caption_length_max") characters
 	Caption FormattedText
+	// True, if the animation preview must be covered by a spoiler animation; not supported
+	// in secret chats
+	HasSpoiler bool
 }
 
 // InputMessageAnimationTypeID is TL type id of InputMessageAnimation.
-const InputMessageAnimationTypeID = 0x11579cfa
+const InputMessageAnimationTypeID = 0xcd68f5fe
 
 // construct implements constructor of InputMessageContentClass.
 func (i InputMessageAnimation) construct() InputMessageContentClass { return &i }
@@ -325,6 +328,9 @@ func (i *InputMessageAnimation) Zero() bool {
 		return false
 	}
 	if !(i.Caption.Zero()) {
+		return false
+	}
+	if !(i.HasSpoiler == false) {
 		return false
 	}
 
@@ -391,6 +397,10 @@ func (i *InputMessageAnimation) TypeInfo() tdp.Type {
 			Name:       "Caption",
 			SchemaName: "caption",
 		},
+		{
+			Name:       "HasSpoiler",
+			SchemaName: "has_spoiler",
+		},
 	}
 	return typ
 }
@@ -398,7 +408,7 @@ func (i *InputMessageAnimation) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessageAnimation) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageAnimation#11579cfa as nil")
+		return fmt.Errorf("can't encode inputMessageAnimation#cd68f5fe as nil")
 	}
 	b.PutID(InputMessageAnimationTypeID)
 	return i.EncodeBare(b)
@@ -407,16 +417,16 @@ func (i *InputMessageAnimation) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessageAnimation) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageAnimation#11579cfa as nil")
+		return fmt.Errorf("can't encode inputMessageAnimation#cd68f5fe as nil")
 	}
 	if i.Animation == nil {
-		return fmt.Errorf("unable to encode inputMessageAnimation#11579cfa: field animation is nil")
+		return fmt.Errorf("unable to encode inputMessageAnimation#cd68f5fe: field animation is nil")
 	}
 	if err := i.Animation.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageAnimation#11579cfa: field animation: %w", err)
+		return fmt.Errorf("unable to encode inputMessageAnimation#cd68f5fe: field animation: %w", err)
 	}
 	if err := i.Thumbnail.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageAnimation#11579cfa: field thumbnail: %w", err)
+		return fmt.Errorf("unable to encode inputMessageAnimation#cd68f5fe: field thumbnail: %w", err)
 	}
 	b.PutInt(len(i.AddedStickerFileIDs))
 	for _, v := range i.AddedStickerFileIDs {
@@ -426,18 +436,19 @@ func (i *InputMessageAnimation) EncodeBare(b *bin.Buffer) error {
 	b.PutInt32(i.Width)
 	b.PutInt32(i.Height)
 	if err := i.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageAnimation#11579cfa: field caption: %w", err)
+		return fmt.Errorf("unable to encode inputMessageAnimation#cd68f5fe: field caption: %w", err)
 	}
+	b.PutBool(i.HasSpoiler)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *InputMessageAnimation) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageAnimation#11579cfa to nil")
+		return fmt.Errorf("can't decode inputMessageAnimation#cd68f5fe to nil")
 	}
 	if err := b.ConsumeID(InputMessageAnimationTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: %w", err)
+		return fmt.Errorf("unable to decode inputMessageAnimation#cd68f5fe: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -445,24 +456,24 @@ func (i *InputMessageAnimation) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessageAnimation) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageAnimation#11579cfa to nil")
+		return fmt.Errorf("can't decode inputMessageAnimation#cd68f5fe to nil")
 	}
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field animation: %w", err)
+			return fmt.Errorf("unable to decode inputMessageAnimation#cd68f5fe: field animation: %w", err)
 		}
 		i.Animation = value
 	}
 	{
 		if err := i.Thumbnail.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field thumbnail: %w", err)
+			return fmt.Errorf("unable to decode inputMessageAnimation#cd68f5fe: field thumbnail: %w", err)
 		}
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field added_sticker_file_ids: %w", err)
+			return fmt.Errorf("unable to decode inputMessageAnimation#cd68f5fe: field added_sticker_file_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -471,7 +482,7 @@ func (i *InputMessageAnimation) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field added_sticker_file_ids: %w", err)
+				return fmt.Errorf("unable to decode inputMessageAnimation#cd68f5fe: field added_sticker_file_ids: %w", err)
 			}
 			i.AddedStickerFileIDs = append(i.AddedStickerFileIDs, value)
 		}
@@ -479,28 +490,35 @@ func (i *InputMessageAnimation) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field duration: %w", err)
+			return fmt.Errorf("unable to decode inputMessageAnimation#cd68f5fe: field duration: %w", err)
 		}
 		i.Duration = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field width: %w", err)
+			return fmt.Errorf("unable to decode inputMessageAnimation#cd68f5fe: field width: %w", err)
 		}
 		i.Width = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field height: %w", err)
+			return fmt.Errorf("unable to decode inputMessageAnimation#cd68f5fe: field height: %w", err)
 		}
 		i.Height = value
 	}
 	{
 		if err := i.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field caption: %w", err)
+			return fmt.Errorf("unable to decode inputMessageAnimation#cd68f5fe: field caption: %w", err)
 		}
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMessageAnimation#cd68f5fe: field has_spoiler: %w", err)
+		}
+		i.HasSpoiler = value
 	}
 	return nil
 }
@@ -508,22 +526,22 @@ func (i *InputMessageAnimation) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InputMessageAnimation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageAnimation#11579cfa as nil")
+		return fmt.Errorf("can't encode inputMessageAnimation#cd68f5fe as nil")
 	}
 	b.ObjStart()
 	b.PutID("inputMessageAnimation")
 	b.Comma()
 	b.FieldStart("animation")
 	if i.Animation == nil {
-		return fmt.Errorf("unable to encode inputMessageAnimation#11579cfa: field animation is nil")
+		return fmt.Errorf("unable to encode inputMessageAnimation#cd68f5fe: field animation is nil")
 	}
 	if err := i.Animation.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageAnimation#11579cfa: field animation: %w", err)
+		return fmt.Errorf("unable to encode inputMessageAnimation#cd68f5fe: field animation: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("thumbnail")
 	if err := i.Thumbnail.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageAnimation#11579cfa: field thumbnail: %w", err)
+		return fmt.Errorf("unable to encode inputMessageAnimation#cd68f5fe: field thumbnail: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("added_sticker_file_ids")
@@ -546,8 +564,11 @@ func (i *InputMessageAnimation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("caption")
 	if err := i.Caption.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageAnimation#11579cfa: field caption: %w", err)
+		return fmt.Errorf("unable to encode inputMessageAnimation#cd68f5fe: field caption: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("has_spoiler")
+	b.PutBool(i.HasSpoiler)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -557,58 +578,64 @@ func (i *InputMessageAnimation) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InputMessageAnimation) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageAnimation#11579cfa to nil")
+		return fmt.Errorf("can't decode inputMessageAnimation#cd68f5fe to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("inputMessageAnimation"); err != nil {
-				return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: %w", err)
+				return fmt.Errorf("unable to decode inputMessageAnimation#cd68f5fe: %w", err)
 			}
 		case "animation":
 			value, err := DecodeTDLibJSONInputFile(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field animation: %w", err)
+				return fmt.Errorf("unable to decode inputMessageAnimation#cd68f5fe: field animation: %w", err)
 			}
 			i.Animation = value
 		case "thumbnail":
 			if err := i.Thumbnail.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field thumbnail: %w", err)
+				return fmt.Errorf("unable to decode inputMessageAnimation#cd68f5fe: field thumbnail: %w", err)
 			}
 		case "added_sticker_file_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int32()
 				if err != nil {
-					return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field added_sticker_file_ids: %w", err)
+					return fmt.Errorf("unable to decode inputMessageAnimation#cd68f5fe: field added_sticker_file_ids: %w", err)
 				}
 				i.AddedStickerFileIDs = append(i.AddedStickerFileIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field added_sticker_file_ids: %w", err)
+				return fmt.Errorf("unable to decode inputMessageAnimation#cd68f5fe: field added_sticker_file_ids: %w", err)
 			}
 		case "duration":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field duration: %w", err)
+				return fmt.Errorf("unable to decode inputMessageAnimation#cd68f5fe: field duration: %w", err)
 			}
 			i.Duration = value
 		case "width":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field width: %w", err)
+				return fmt.Errorf("unable to decode inputMessageAnimation#cd68f5fe: field width: %w", err)
 			}
 			i.Width = value
 		case "height":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field height: %w", err)
+				return fmt.Errorf("unable to decode inputMessageAnimation#cd68f5fe: field height: %w", err)
 			}
 			i.Height = value
 		case "caption":
 			if err := i.Caption.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode inputMessageAnimation#11579cfa: field caption: %w", err)
+				return fmt.Errorf("unable to decode inputMessageAnimation#cd68f5fe: field caption: %w", err)
 			}
+		case "has_spoiler":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageAnimation#cd68f5fe: field has_spoiler: %w", err)
+			}
+			i.HasSpoiler = value
 		default:
 			return b.Skip()
 		}
@@ -670,6 +697,14 @@ func (i *InputMessageAnimation) GetCaption() (value FormattedText) {
 		return
 	}
 	return i.Caption
+}
+
+// GetHasSpoiler returns value of HasSpoiler field.
+func (i *InputMessageAnimation) GetHasSpoiler() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.HasSpoiler
 }
 
 // InputMessageAudio represents TL type `inputMessageAudio#daa400b2`.
@@ -1299,7 +1334,7 @@ func (i *InputMessageDocument) GetCaption() (value FormattedText) {
 	return i.Caption
 }
 
-// InputMessagePhoto represents TL type `inputMessagePhoto#72d8e2dd`.
+// InputMessagePhoto represents TL type `inputMessagePhoto#600db6e`.
 type InputMessagePhoto struct {
 	// Photo to send. The photo must be at most 10 MB in size. The photo's width and height
 	// must not exceed 10000 in total. Width and height ratio must be at most 20
@@ -1316,13 +1351,16 @@ type InputMessagePhoto struct {
 	// Photo caption; pass null to use an empty caption;
 	// 0-getOption("message_caption_length_max") characters
 	Caption FormattedText
-	// Photo TTL (Time To Live), in seconds (0-60). A non-zero TTL can be specified only in
-	// private chats
-	TTL int32
+	// Photo self-destruct time, in seconds (0-60). A non-zero self-destruct time can be
+	// specified only in private chats
+	SelfDestructTime int32
+	// True, if the photo preview must be covered by a spoiler animation; not supported in
+	// secret chats
+	HasSpoiler bool
 }
 
 // InputMessagePhotoTypeID is TL type id of InputMessagePhoto.
-const InputMessagePhotoTypeID = 0x72d8e2dd
+const InputMessagePhotoTypeID = 0x600db6e
 
 // construct implements constructor of InputMessageContentClass.
 func (i InputMessagePhoto) construct() InputMessageContentClass { return &i }
@@ -1359,7 +1397,10 @@ func (i *InputMessagePhoto) Zero() bool {
 	if !(i.Caption.Zero()) {
 		return false
 	}
-	if !(i.TTL == 0) {
+	if !(i.SelfDestructTime == 0) {
+		return false
+	}
+	if !(i.HasSpoiler == false) {
 		return false
 	}
 
@@ -1423,8 +1464,12 @@ func (i *InputMessagePhoto) TypeInfo() tdp.Type {
 			SchemaName: "caption",
 		},
 		{
-			Name:       "TTL",
-			SchemaName: "ttl",
+			Name:       "SelfDestructTime",
+			SchemaName: "self_destruct_time",
+		},
+		{
+			Name:       "HasSpoiler",
+			SchemaName: "has_spoiler",
 		},
 	}
 	return typ
@@ -1433,7 +1478,7 @@ func (i *InputMessagePhoto) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessagePhoto) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagePhoto#72d8e2dd as nil")
+		return fmt.Errorf("can't encode inputMessagePhoto#600db6e as nil")
 	}
 	b.PutID(InputMessagePhotoTypeID)
 	return i.EncodeBare(b)
@@ -1442,16 +1487,16 @@ func (i *InputMessagePhoto) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessagePhoto) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagePhoto#72d8e2dd as nil")
+		return fmt.Errorf("can't encode inputMessagePhoto#600db6e as nil")
 	}
 	if i.Photo == nil {
-		return fmt.Errorf("unable to encode inputMessagePhoto#72d8e2dd: field photo is nil")
+		return fmt.Errorf("unable to encode inputMessagePhoto#600db6e: field photo is nil")
 	}
 	if err := i.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessagePhoto#72d8e2dd: field photo: %w", err)
+		return fmt.Errorf("unable to encode inputMessagePhoto#600db6e: field photo: %w", err)
 	}
 	if err := i.Thumbnail.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessagePhoto#72d8e2dd: field thumbnail: %w", err)
+		return fmt.Errorf("unable to encode inputMessagePhoto#600db6e: field thumbnail: %w", err)
 	}
 	b.PutInt(len(i.AddedStickerFileIDs))
 	for _, v := range i.AddedStickerFileIDs {
@@ -1460,19 +1505,20 @@ func (i *InputMessagePhoto) EncodeBare(b *bin.Buffer) error {
 	b.PutInt32(i.Width)
 	b.PutInt32(i.Height)
 	if err := i.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessagePhoto#72d8e2dd: field caption: %w", err)
+		return fmt.Errorf("unable to encode inputMessagePhoto#600db6e: field caption: %w", err)
 	}
-	b.PutInt32(i.TTL)
+	b.PutInt32(i.SelfDestructTime)
+	b.PutBool(i.HasSpoiler)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *InputMessagePhoto) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagePhoto#72d8e2dd to nil")
+		return fmt.Errorf("can't decode inputMessagePhoto#600db6e to nil")
 	}
 	if err := b.ConsumeID(InputMessagePhotoTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: %w", err)
+		return fmt.Errorf("unable to decode inputMessagePhoto#600db6e: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1480,24 +1526,24 @@ func (i *InputMessagePhoto) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessagePhoto) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagePhoto#72d8e2dd to nil")
+		return fmt.Errorf("can't decode inputMessagePhoto#600db6e to nil")
 	}
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field photo: %w", err)
+			return fmt.Errorf("unable to decode inputMessagePhoto#600db6e: field photo: %w", err)
 		}
 		i.Photo = value
 	}
 	{
 		if err := i.Thumbnail.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field thumbnail: %w", err)
+			return fmt.Errorf("unable to decode inputMessagePhoto#600db6e: field thumbnail: %w", err)
 		}
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field added_sticker_file_ids: %w", err)
+			return fmt.Errorf("unable to decode inputMessagePhoto#600db6e: field added_sticker_file_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -1506,7 +1552,7 @@ func (i *InputMessagePhoto) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field added_sticker_file_ids: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePhoto#600db6e: field added_sticker_file_ids: %w", err)
 			}
 			i.AddedStickerFileIDs = append(i.AddedStickerFileIDs, value)
 		}
@@ -1514,28 +1560,35 @@ func (i *InputMessagePhoto) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field width: %w", err)
+			return fmt.Errorf("unable to decode inputMessagePhoto#600db6e: field width: %w", err)
 		}
 		i.Width = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field height: %w", err)
+			return fmt.Errorf("unable to decode inputMessagePhoto#600db6e: field height: %w", err)
 		}
 		i.Height = value
 	}
 	{
 		if err := i.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field caption: %w", err)
+			return fmt.Errorf("unable to decode inputMessagePhoto#600db6e: field caption: %w", err)
 		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field ttl: %w", err)
+			return fmt.Errorf("unable to decode inputMessagePhoto#600db6e: field self_destruct_time: %w", err)
 		}
-		i.TTL = value
+		i.SelfDestructTime = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMessagePhoto#600db6e: field has_spoiler: %w", err)
+		}
+		i.HasSpoiler = value
 	}
 	return nil
 }
@@ -1543,22 +1596,22 @@ func (i *InputMessagePhoto) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InputMessagePhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessagePhoto#72d8e2dd as nil")
+		return fmt.Errorf("can't encode inputMessagePhoto#600db6e as nil")
 	}
 	b.ObjStart()
 	b.PutID("inputMessagePhoto")
 	b.Comma()
 	b.FieldStart("photo")
 	if i.Photo == nil {
-		return fmt.Errorf("unable to encode inputMessagePhoto#72d8e2dd: field photo is nil")
+		return fmt.Errorf("unable to encode inputMessagePhoto#600db6e: field photo is nil")
 	}
 	if err := i.Photo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessagePhoto#72d8e2dd: field photo: %w", err)
+		return fmt.Errorf("unable to encode inputMessagePhoto#600db6e: field photo: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("thumbnail")
 	if err := i.Thumbnail.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessagePhoto#72d8e2dd: field thumbnail: %w", err)
+		return fmt.Errorf("unable to encode inputMessagePhoto#600db6e: field thumbnail: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("added_sticker_file_ids")
@@ -1578,11 +1631,14 @@ func (i *InputMessagePhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("caption")
 	if err := i.Caption.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessagePhoto#72d8e2dd: field caption: %w", err)
+		return fmt.Errorf("unable to encode inputMessagePhoto#600db6e: field caption: %w", err)
 	}
 	b.Comma()
-	b.FieldStart("ttl")
-	b.PutInt32(i.TTL)
+	b.FieldStart("self_destruct_time")
+	b.PutInt32(i.SelfDestructTime)
+	b.Comma()
+	b.FieldStart("has_spoiler")
+	b.PutBool(i.HasSpoiler)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -1592,58 +1648,64 @@ func (i *InputMessagePhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InputMessagePhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessagePhoto#72d8e2dd to nil")
+		return fmt.Errorf("can't decode inputMessagePhoto#600db6e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("inputMessagePhoto"); err != nil {
-				return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePhoto#600db6e: %w", err)
 			}
 		case "photo":
 			value, err := DecodeTDLibJSONInputFile(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field photo: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePhoto#600db6e: field photo: %w", err)
 			}
 			i.Photo = value
 		case "thumbnail":
 			if err := i.Thumbnail.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field thumbnail: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePhoto#600db6e: field thumbnail: %w", err)
 			}
 		case "added_sticker_file_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int32()
 				if err != nil {
-					return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field added_sticker_file_ids: %w", err)
+					return fmt.Errorf("unable to decode inputMessagePhoto#600db6e: field added_sticker_file_ids: %w", err)
 				}
 				i.AddedStickerFileIDs = append(i.AddedStickerFileIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field added_sticker_file_ids: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePhoto#600db6e: field added_sticker_file_ids: %w", err)
 			}
 		case "width":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field width: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePhoto#600db6e: field width: %w", err)
 			}
 			i.Width = value
 		case "height":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field height: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePhoto#600db6e: field height: %w", err)
 			}
 			i.Height = value
 		case "caption":
 			if err := i.Caption.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field caption: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePhoto#600db6e: field caption: %w", err)
 			}
-		case "ttl":
+		case "self_destruct_time":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessagePhoto#72d8e2dd: field ttl: %w", err)
+				return fmt.Errorf("unable to decode inputMessagePhoto#600db6e: field self_destruct_time: %w", err)
 			}
-			i.TTL = value
+			i.SelfDestructTime = value
+		case "has_spoiler":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessagePhoto#600db6e: field has_spoiler: %w", err)
+			}
+			i.HasSpoiler = value
 		default:
 			return b.Skip()
 		}
@@ -1699,12 +1761,20 @@ func (i *InputMessagePhoto) GetCaption() (value FormattedText) {
 	return i.Caption
 }
 
-// GetTTL returns value of TTL field.
-func (i *InputMessagePhoto) GetTTL() (value int32) {
+// GetSelfDestructTime returns value of SelfDestructTime field.
+func (i *InputMessagePhoto) GetSelfDestructTime() (value int32) {
 	if i == nil {
 		return
 	}
-	return i.TTL
+	return i.SelfDestructTime
+}
+
+// GetHasSpoiler returns value of HasSpoiler field.
+func (i *InputMessagePhoto) GetHasSpoiler() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.HasSpoiler
 }
 
 // InputMessageSticker represents TL type `inputMessageSticker#3ff1b6f9`.
@@ -2019,7 +2089,7 @@ func (i *InputMessageSticker) GetEmoji() (value string) {
 	return i.Emoji
 }
 
-// InputMessageVideo represents TL type `inputMessageVideo#791281b1`.
+// InputMessageVideo represents TL type `inputMessageVideo#a2d4e2b2`.
 type InputMessageVideo struct {
 	// Video to be sent
 	Video InputFileClass
@@ -2038,13 +2108,16 @@ type InputMessageVideo struct {
 	// Video caption; pass null to use an empty caption;
 	// 0-getOption("message_caption_length_max") characters
 	Caption FormattedText
-	// Video TTL (Time To Live), in seconds (0-60). A non-zero TTL can be specified only in
-	// private chats
-	TTL int32
+	// Video self-destruct time, in seconds (0-60). A non-zero self-destruct time can be
+	// specified only in private chats
+	SelfDestructTime int32
+	// True, if the video preview must be covered by a spoiler animation; not supported in
+	// secret chats
+	HasSpoiler bool
 }
 
 // InputMessageVideoTypeID is TL type id of InputMessageVideo.
-const InputMessageVideoTypeID = 0x791281b1
+const InputMessageVideoTypeID = 0xa2d4e2b2
 
 // construct implements constructor of InputMessageContentClass.
 func (i InputMessageVideo) construct() InputMessageContentClass { return &i }
@@ -2087,7 +2160,10 @@ func (i *InputMessageVideo) Zero() bool {
 	if !(i.Caption.Zero()) {
 		return false
 	}
-	if !(i.TTL == 0) {
+	if !(i.SelfDestructTime == 0) {
+		return false
+	}
+	if !(i.HasSpoiler == false) {
 		return false
 	}
 
@@ -2159,8 +2235,12 @@ func (i *InputMessageVideo) TypeInfo() tdp.Type {
 			SchemaName: "caption",
 		},
 		{
-			Name:       "TTL",
-			SchemaName: "ttl",
+			Name:       "SelfDestructTime",
+			SchemaName: "self_destruct_time",
+		},
+		{
+			Name:       "HasSpoiler",
+			SchemaName: "has_spoiler",
 		},
 	}
 	return typ
@@ -2169,7 +2249,7 @@ func (i *InputMessageVideo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessageVideo) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageVideo#791281b1 as nil")
+		return fmt.Errorf("can't encode inputMessageVideo#a2d4e2b2 as nil")
 	}
 	b.PutID(InputMessageVideoTypeID)
 	return i.EncodeBare(b)
@@ -2178,16 +2258,16 @@ func (i *InputMessageVideo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessageVideo) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageVideo#791281b1 as nil")
+		return fmt.Errorf("can't encode inputMessageVideo#a2d4e2b2 as nil")
 	}
 	if i.Video == nil {
-		return fmt.Errorf("unable to encode inputMessageVideo#791281b1: field video is nil")
+		return fmt.Errorf("unable to encode inputMessageVideo#a2d4e2b2: field video is nil")
 	}
 	if err := i.Video.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageVideo#791281b1: field video: %w", err)
+		return fmt.Errorf("unable to encode inputMessageVideo#a2d4e2b2: field video: %w", err)
 	}
 	if err := i.Thumbnail.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageVideo#791281b1: field thumbnail: %w", err)
+		return fmt.Errorf("unable to encode inputMessageVideo#a2d4e2b2: field thumbnail: %w", err)
 	}
 	b.PutInt(len(i.AddedStickerFileIDs))
 	for _, v := range i.AddedStickerFileIDs {
@@ -2198,19 +2278,20 @@ func (i *InputMessageVideo) EncodeBare(b *bin.Buffer) error {
 	b.PutInt32(i.Height)
 	b.PutBool(i.SupportsStreaming)
 	if err := i.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageVideo#791281b1: field caption: %w", err)
+		return fmt.Errorf("unable to encode inputMessageVideo#a2d4e2b2: field caption: %w", err)
 	}
-	b.PutInt32(i.TTL)
+	b.PutInt32(i.SelfDestructTime)
+	b.PutBool(i.HasSpoiler)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *InputMessageVideo) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageVideo#791281b1 to nil")
+		return fmt.Errorf("can't decode inputMessageVideo#a2d4e2b2 to nil")
 	}
 	if err := b.ConsumeID(InputMessageVideoTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessageVideo#791281b1: %w", err)
+		return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -2218,24 +2299,24 @@ func (i *InputMessageVideo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessageVideo) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageVideo#791281b1 to nil")
+		return fmt.Errorf("can't decode inputMessageVideo#a2d4e2b2 to nil")
 	}
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field video: %w", err)
+			return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field video: %w", err)
 		}
 		i.Video = value
 	}
 	{
 		if err := i.Thumbnail.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field thumbnail: %w", err)
+			return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field thumbnail: %w", err)
 		}
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field added_sticker_file_ids: %w", err)
+			return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field added_sticker_file_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -2244,7 +2325,7 @@ func (i *InputMessageVideo) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field added_sticker_file_ids: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field added_sticker_file_ids: %w", err)
 			}
 			i.AddedStickerFileIDs = append(i.AddedStickerFileIDs, value)
 		}
@@ -2252,42 +2333,49 @@ func (i *InputMessageVideo) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field duration: %w", err)
+			return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field duration: %w", err)
 		}
 		i.Duration = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field width: %w", err)
+			return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field width: %w", err)
 		}
 		i.Width = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field height: %w", err)
+			return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field height: %w", err)
 		}
 		i.Height = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field supports_streaming: %w", err)
+			return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field supports_streaming: %w", err)
 		}
 		i.SupportsStreaming = value
 	}
 	{
 		if err := i.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field caption: %w", err)
+			return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field caption: %w", err)
 		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field ttl: %w", err)
+			return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field self_destruct_time: %w", err)
 		}
-		i.TTL = value
+		i.SelfDestructTime = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field has_spoiler: %w", err)
+		}
+		i.HasSpoiler = value
 	}
 	return nil
 }
@@ -2295,22 +2383,22 @@ func (i *InputMessageVideo) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InputMessageVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageVideo#791281b1 as nil")
+		return fmt.Errorf("can't encode inputMessageVideo#a2d4e2b2 as nil")
 	}
 	b.ObjStart()
 	b.PutID("inputMessageVideo")
 	b.Comma()
 	b.FieldStart("video")
 	if i.Video == nil {
-		return fmt.Errorf("unable to encode inputMessageVideo#791281b1: field video is nil")
+		return fmt.Errorf("unable to encode inputMessageVideo#a2d4e2b2: field video is nil")
 	}
 	if err := i.Video.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageVideo#791281b1: field video: %w", err)
+		return fmt.Errorf("unable to encode inputMessageVideo#a2d4e2b2: field video: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("thumbnail")
 	if err := i.Thumbnail.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageVideo#791281b1: field thumbnail: %w", err)
+		return fmt.Errorf("unable to encode inputMessageVideo#a2d4e2b2: field thumbnail: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("added_sticker_file_ids")
@@ -2336,11 +2424,14 @@ func (i *InputMessageVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("caption")
 	if err := i.Caption.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageVideo#791281b1: field caption: %w", err)
+		return fmt.Errorf("unable to encode inputMessageVideo#a2d4e2b2: field caption: %w", err)
 	}
 	b.Comma()
-	b.FieldStart("ttl")
-	b.PutInt32(i.TTL)
+	b.FieldStart("self_destruct_time")
+	b.PutInt32(i.SelfDestructTime)
+	b.Comma()
+	b.FieldStart("has_spoiler")
+	b.PutBool(i.HasSpoiler)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -2350,70 +2441,76 @@ func (i *InputMessageVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InputMessageVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageVideo#791281b1 to nil")
+		return fmt.Errorf("can't decode inputMessageVideo#a2d4e2b2 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("inputMessageVideo"); err != nil {
-				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: %w", err)
 			}
 		case "video":
 			value, err := DecodeTDLibJSONInputFile(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field video: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field video: %w", err)
 			}
 			i.Video = value
 		case "thumbnail":
 			if err := i.Thumbnail.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field thumbnail: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field thumbnail: %w", err)
 			}
 		case "added_sticker_file_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int32()
 				if err != nil {
-					return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field added_sticker_file_ids: %w", err)
+					return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field added_sticker_file_ids: %w", err)
 				}
 				i.AddedStickerFileIDs = append(i.AddedStickerFileIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field added_sticker_file_ids: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field added_sticker_file_ids: %w", err)
 			}
 		case "duration":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field duration: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field duration: %w", err)
 			}
 			i.Duration = value
 		case "width":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field width: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field width: %w", err)
 			}
 			i.Width = value
 		case "height":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field height: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field height: %w", err)
 			}
 			i.Height = value
 		case "supports_streaming":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field supports_streaming: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field supports_streaming: %w", err)
 			}
 			i.SupportsStreaming = value
 		case "caption":
 			if err := i.Caption.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field caption: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field caption: %w", err)
 			}
-		case "ttl":
+		case "self_destruct_time":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageVideo#791281b1: field ttl: %w", err)
+				return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field self_destruct_time: %w", err)
 			}
-			i.TTL = value
+			i.SelfDestructTime = value
+		case "has_spoiler":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageVideo#a2d4e2b2: field has_spoiler: %w", err)
+			}
+			i.HasSpoiler = value
 		default:
 			return b.Skip()
 		}
@@ -2485,12 +2582,20 @@ func (i *InputMessageVideo) GetCaption() (value FormattedText) {
 	return i.Caption
 }
 
-// GetTTL returns value of TTL field.
-func (i *InputMessageVideo) GetTTL() (value int32) {
+// GetSelfDestructTime returns value of SelfDestructTime field.
+func (i *InputMessageVideo) GetSelfDestructTime() (value int32) {
 	if i == nil {
 		return
 	}
-	return i.TTL
+	return i.SelfDestructTime
+}
+
+// GetHasSpoiler returns value of HasSpoiler field.
+func (i *InputMessageVideo) GetHasSpoiler() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.HasSpoiler
 }
 
 // InputMessageVideoNote represents TL type `inputMessageVideoNote#10a2dcfb`.
@@ -5295,12 +5400,12 @@ const InputMessageContentClassName = "InputMessageContent"
 //	}
 //	switch v := g.(type) {
 //	case *tdapi.InputMessageText: // inputMessageText#eb9b098
-//	case *tdapi.InputMessageAnimation: // inputMessageAnimation#11579cfa
+//	case *tdapi.InputMessageAnimation: // inputMessageAnimation#cd68f5fe
 //	case *tdapi.InputMessageAudio: // inputMessageAudio#daa400b2
 //	case *tdapi.InputMessageDocument: // inputMessageDocument#615b72b9
-//	case *tdapi.InputMessagePhoto: // inputMessagePhoto#72d8e2dd
+//	case *tdapi.InputMessagePhoto: // inputMessagePhoto#600db6e
 //	case *tdapi.InputMessageSticker: // inputMessageSticker#3ff1b6f9
-//	case *tdapi.InputMessageVideo: // inputMessageVideo#791281b1
+//	case *tdapi.InputMessageVideo: // inputMessageVideo#a2d4e2b2
 //	case *tdapi.InputMessageVideoNote: // inputMessageVideoNote#10a2dcfb
 //	case *tdapi.InputMessageVoiceNote: // inputMessageVoiceNote#7f58b3e9
 //	case *tdapi.InputMessageLocation: // inputMessageLocation#26aae970
@@ -5350,7 +5455,7 @@ func DecodeInputMessageContent(buf *bin.Buffer) (InputMessageContentClass, error
 		}
 		return &v, nil
 	case InputMessageAnimationTypeID:
-		// Decoding inputMessageAnimation#11579cfa.
+		// Decoding inputMessageAnimation#cd68f5fe.
 		v := InputMessageAnimation{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
@@ -5371,7 +5476,7 @@ func DecodeInputMessageContent(buf *bin.Buffer) (InputMessageContentClass, error
 		}
 		return &v, nil
 	case InputMessagePhotoTypeID:
-		// Decoding inputMessagePhoto#72d8e2dd.
+		// Decoding inputMessagePhoto#600db6e.
 		v := InputMessagePhoto{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
@@ -5385,7 +5490,7 @@ func DecodeInputMessageContent(buf *bin.Buffer) (InputMessageContentClass, error
 		}
 		return &v, nil
 	case InputMessageVideoTypeID:
-		// Decoding inputMessageVideo#791281b1.
+		// Decoding inputMessageVideo#a2d4e2b2.
 		v := InputMessageVideo{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
@@ -5481,7 +5586,7 @@ func DecodeTDLibJSONInputMessageContent(buf tdjson.Decoder) (InputMessageContent
 		}
 		return &v, nil
 	case "inputMessageAnimation":
-		// Decoding inputMessageAnimation#11579cfa.
+		// Decoding inputMessageAnimation#cd68f5fe.
 		v := InputMessageAnimation{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
@@ -5502,7 +5607,7 @@ func DecodeTDLibJSONInputMessageContent(buf tdjson.Decoder) (InputMessageContent
 		}
 		return &v, nil
 	case "inputMessagePhoto":
-		// Decoding inputMessagePhoto#72d8e2dd.
+		// Decoding inputMessagePhoto#600db6e.
 		v := InputMessagePhoto{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
@@ -5516,7 +5621,7 @@ func DecodeTDLibJSONInputMessageContent(buf tdjson.Decoder) (InputMessageContent
 		}
 		return &v, nil
 	case "inputMessageVideo":
-		// Decoding inputMessageVideo#791281b1.
+		// Decoding inputMessageVideo#a2d4e2b2.
 		v := InputMessageVideo{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)

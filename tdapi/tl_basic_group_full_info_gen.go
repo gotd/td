@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// BasicGroupFullInfo represents TL type `basicGroupFullInfo#f191cfca`.
+// BasicGroupFullInfo represents TL type `basicGroupFullInfo#d62e521e`.
 type BasicGroupFullInfo struct {
 	// Chat photo; may be null if empty or unknown. If non-null, then it is the same photo as
 	// in chat.photo
@@ -42,6 +42,13 @@ type BasicGroupFullInfo struct {
 	CreatorUserID int64
 	// Group members
 	Members []ChatMember
+	// True, if non-administrators and non-bots can be hidden in responses to
+	// getSupergroupMembers and searchChatMembers for non-administrators after upgrading the
+	// basic group to a supergroup
+	CanHideMembers bool
+	// True, if aggressive anti-spam checks can be enabled or disabled in the supergroup
+	// after upgrading the basic group to a supergroup
+	CanToggleAggressiveAntiSpam bool
 	// Primary invite link for this group; may be null. For chat administrators with
 	// can_invite_users right only. Updated only after the basic group is opened
 	InviteLink ChatInviteLink
@@ -50,7 +57,7 @@ type BasicGroupFullInfo struct {
 }
 
 // BasicGroupFullInfoTypeID is TL type id of BasicGroupFullInfo.
-const BasicGroupFullInfoTypeID = 0xf191cfca
+const BasicGroupFullInfoTypeID = 0xd62e521e
 
 // Ensuring interfaces in compile-time for BasicGroupFullInfo.
 var (
@@ -74,6 +81,12 @@ func (b *BasicGroupFullInfo) Zero() bool {
 		return false
 	}
 	if !(b.Members == nil) {
+		return false
+	}
+	if !(b.CanHideMembers == false) {
+		return false
+	}
+	if !(b.CanToggleAggressiveAntiSpam == false) {
 		return false
 	}
 	if !(b.InviteLink.Zero()) {
@@ -135,6 +148,14 @@ func (b *BasicGroupFullInfo) TypeInfo() tdp.Type {
 			SchemaName: "members",
 		},
 		{
+			Name:       "CanHideMembers",
+			SchemaName: "can_hide_members",
+		},
+		{
+			Name:       "CanToggleAggressiveAntiSpam",
+			SchemaName: "can_toggle_aggressive_anti_spam",
+		},
+		{
 			Name:       "InviteLink",
 			SchemaName: "invite_link",
 		},
@@ -149,7 +170,7 @@ func (b *BasicGroupFullInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BasicGroupFullInfo) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode basicGroupFullInfo#f191cfca as nil")
+		return fmt.Errorf("can't encode basicGroupFullInfo#d62e521e as nil")
 	}
 	buf.PutID(BasicGroupFullInfoTypeID)
 	return b.EncodeBare(buf)
@@ -158,26 +179,28 @@ func (b *BasicGroupFullInfo) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BasicGroupFullInfo) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode basicGroupFullInfo#f191cfca as nil")
+		return fmt.Errorf("can't encode basicGroupFullInfo#d62e521e as nil")
 	}
 	if err := b.Photo.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode basicGroupFullInfo#f191cfca: field photo: %w", err)
+		return fmt.Errorf("unable to encode basicGroupFullInfo#d62e521e: field photo: %w", err)
 	}
 	buf.PutString(b.Description)
 	buf.PutInt53(b.CreatorUserID)
 	buf.PutInt(len(b.Members))
 	for idx, v := range b.Members {
 		if err := v.EncodeBare(buf); err != nil {
-			return fmt.Errorf("unable to encode bare basicGroupFullInfo#f191cfca: field members element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare basicGroupFullInfo#d62e521e: field members element with index %d: %w", idx, err)
 		}
 	}
+	buf.PutBool(b.CanHideMembers)
+	buf.PutBool(b.CanToggleAggressiveAntiSpam)
 	if err := b.InviteLink.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode basicGroupFullInfo#f191cfca: field invite_link: %w", err)
+		return fmt.Errorf("unable to encode basicGroupFullInfo#d62e521e: field invite_link: %w", err)
 	}
 	buf.PutInt(len(b.BotCommands))
 	for idx, v := range b.BotCommands {
 		if err := v.EncodeBare(buf); err != nil {
-			return fmt.Errorf("unable to encode bare basicGroupFullInfo#f191cfca: field bot_commands element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare basicGroupFullInfo#d62e521e: field bot_commands element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -186,10 +209,10 @@ func (b *BasicGroupFullInfo) EncodeBare(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BasicGroupFullInfo) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode basicGroupFullInfo#f191cfca to nil")
+		return fmt.Errorf("can't decode basicGroupFullInfo#d62e521e to nil")
 	}
 	if err := buf.ConsumeID(BasicGroupFullInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode basicGroupFullInfo#f191cfca: %w", err)
+		return fmt.Errorf("unable to decode basicGroupFullInfo#d62e521e: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -197,31 +220,31 @@ func (b *BasicGroupFullInfo) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BasicGroupFullInfo) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode basicGroupFullInfo#f191cfca to nil")
+		return fmt.Errorf("can't decode basicGroupFullInfo#d62e521e to nil")
 	}
 	{
 		if err := b.Photo.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode basicGroupFullInfo#f191cfca: field photo: %w", err)
+			return fmt.Errorf("unable to decode basicGroupFullInfo#d62e521e: field photo: %w", err)
 		}
 	}
 	{
 		value, err := buf.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode basicGroupFullInfo#f191cfca: field description: %w", err)
+			return fmt.Errorf("unable to decode basicGroupFullInfo#d62e521e: field description: %w", err)
 		}
 		b.Description = value
 	}
 	{
 		value, err := buf.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode basicGroupFullInfo#f191cfca: field creator_user_id: %w", err)
+			return fmt.Errorf("unable to decode basicGroupFullInfo#d62e521e: field creator_user_id: %w", err)
 		}
 		b.CreatorUserID = value
 	}
 	{
 		headerLen, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode basicGroupFullInfo#f191cfca: field members: %w", err)
+			return fmt.Errorf("unable to decode basicGroupFullInfo#d62e521e: field members: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -230,20 +253,34 @@ func (b *BasicGroupFullInfo) DecodeBare(buf *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value ChatMember
 			if err := value.DecodeBare(buf); err != nil {
-				return fmt.Errorf("unable to decode bare basicGroupFullInfo#f191cfca: field members: %w", err)
+				return fmt.Errorf("unable to decode bare basicGroupFullInfo#d62e521e: field members: %w", err)
 			}
 			b.Members = append(b.Members, value)
 		}
 	}
 	{
+		value, err := buf.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode basicGroupFullInfo#d62e521e: field can_hide_members: %w", err)
+		}
+		b.CanHideMembers = value
+	}
+	{
+		value, err := buf.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode basicGroupFullInfo#d62e521e: field can_toggle_aggressive_anti_spam: %w", err)
+		}
+		b.CanToggleAggressiveAntiSpam = value
+	}
+	{
 		if err := b.InviteLink.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode basicGroupFullInfo#f191cfca: field invite_link: %w", err)
+			return fmt.Errorf("unable to decode basicGroupFullInfo#d62e521e: field invite_link: %w", err)
 		}
 	}
 	{
 		headerLen, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode basicGroupFullInfo#f191cfca: field bot_commands: %w", err)
+			return fmt.Errorf("unable to decode basicGroupFullInfo#d62e521e: field bot_commands: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -252,7 +289,7 @@ func (b *BasicGroupFullInfo) DecodeBare(buf *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value BotCommands
 			if err := value.DecodeBare(buf); err != nil {
-				return fmt.Errorf("unable to decode bare basicGroupFullInfo#f191cfca: field bot_commands: %w", err)
+				return fmt.Errorf("unable to decode bare basicGroupFullInfo#d62e521e: field bot_commands: %w", err)
 			}
 			b.BotCommands = append(b.BotCommands, value)
 		}
@@ -263,14 +300,14 @@ func (b *BasicGroupFullInfo) DecodeBare(buf *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (b *BasicGroupFullInfo) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
-		return fmt.Errorf("can't encode basicGroupFullInfo#f191cfca as nil")
+		return fmt.Errorf("can't encode basicGroupFullInfo#d62e521e as nil")
 	}
 	buf.ObjStart()
 	buf.PutID("basicGroupFullInfo")
 	buf.Comma()
 	buf.FieldStart("photo")
 	if err := b.Photo.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode basicGroupFullInfo#f191cfca: field photo: %w", err)
+		return fmt.Errorf("unable to encode basicGroupFullInfo#d62e521e: field photo: %w", err)
 	}
 	buf.Comma()
 	buf.FieldStart("description")
@@ -283,23 +320,29 @@ func (b *BasicGroupFullInfo) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	buf.ArrStart()
 	for idx, v := range b.Members {
 		if err := v.EncodeTDLibJSON(buf); err != nil {
-			return fmt.Errorf("unable to encode basicGroupFullInfo#f191cfca: field members element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode basicGroupFullInfo#d62e521e: field members element with index %d: %w", idx, err)
 		}
 		buf.Comma()
 	}
 	buf.StripComma()
 	buf.ArrEnd()
 	buf.Comma()
+	buf.FieldStart("can_hide_members")
+	buf.PutBool(b.CanHideMembers)
+	buf.Comma()
+	buf.FieldStart("can_toggle_aggressive_anti_spam")
+	buf.PutBool(b.CanToggleAggressiveAntiSpam)
+	buf.Comma()
 	buf.FieldStart("invite_link")
 	if err := b.InviteLink.EncodeTDLibJSON(buf); err != nil {
-		return fmt.Errorf("unable to encode basicGroupFullInfo#f191cfca: field invite_link: %w", err)
+		return fmt.Errorf("unable to encode basicGroupFullInfo#d62e521e: field invite_link: %w", err)
 	}
 	buf.Comma()
 	buf.FieldStart("bot_commands")
 	buf.ArrStart()
 	for idx, v := range b.BotCommands {
 		if err := v.EncodeTDLibJSON(buf); err != nil {
-			return fmt.Errorf("unable to encode basicGroupFullInfo#f191cfca: field bot_commands element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode basicGroupFullInfo#d62e521e: field bot_commands element with index %d: %w", idx, err)
 		}
 		buf.Comma()
 	}
@@ -314,56 +357,68 @@ func (b *BasicGroupFullInfo) EncodeTDLibJSON(buf tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (b *BasicGroupFullInfo) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
-		return fmt.Errorf("can't decode basicGroupFullInfo#f191cfca to nil")
+		return fmt.Errorf("can't decode basicGroupFullInfo#d62e521e to nil")
 	}
 
 	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := buf.ConsumeID("basicGroupFullInfo"); err != nil {
-				return fmt.Errorf("unable to decode basicGroupFullInfo#f191cfca: %w", err)
+				return fmt.Errorf("unable to decode basicGroupFullInfo#d62e521e: %w", err)
 			}
 		case "photo":
 			if err := b.Photo.DecodeTDLibJSON(buf); err != nil {
-				return fmt.Errorf("unable to decode basicGroupFullInfo#f191cfca: field photo: %w", err)
+				return fmt.Errorf("unable to decode basicGroupFullInfo#d62e521e: field photo: %w", err)
 			}
 		case "description":
 			value, err := buf.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode basicGroupFullInfo#f191cfca: field description: %w", err)
+				return fmt.Errorf("unable to decode basicGroupFullInfo#d62e521e: field description: %w", err)
 			}
 			b.Description = value
 		case "creator_user_id":
 			value, err := buf.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode basicGroupFullInfo#f191cfca: field creator_user_id: %w", err)
+				return fmt.Errorf("unable to decode basicGroupFullInfo#d62e521e: field creator_user_id: %w", err)
 			}
 			b.CreatorUserID = value
 		case "members":
 			if err := buf.Arr(func(buf tdjson.Decoder) error {
 				var value ChatMember
 				if err := value.DecodeTDLibJSON(buf); err != nil {
-					return fmt.Errorf("unable to decode basicGroupFullInfo#f191cfca: field members: %w", err)
+					return fmt.Errorf("unable to decode basicGroupFullInfo#d62e521e: field members: %w", err)
 				}
 				b.Members = append(b.Members, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode basicGroupFullInfo#f191cfca: field members: %w", err)
+				return fmt.Errorf("unable to decode basicGroupFullInfo#d62e521e: field members: %w", err)
 			}
+		case "can_hide_members":
+			value, err := buf.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode basicGroupFullInfo#d62e521e: field can_hide_members: %w", err)
+			}
+			b.CanHideMembers = value
+		case "can_toggle_aggressive_anti_spam":
+			value, err := buf.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode basicGroupFullInfo#d62e521e: field can_toggle_aggressive_anti_spam: %w", err)
+			}
+			b.CanToggleAggressiveAntiSpam = value
 		case "invite_link":
 			if err := b.InviteLink.DecodeTDLibJSON(buf); err != nil {
-				return fmt.Errorf("unable to decode basicGroupFullInfo#f191cfca: field invite_link: %w", err)
+				return fmt.Errorf("unable to decode basicGroupFullInfo#d62e521e: field invite_link: %w", err)
 			}
 		case "bot_commands":
 			if err := buf.Arr(func(buf tdjson.Decoder) error {
 				var value BotCommands
 				if err := value.DecodeTDLibJSON(buf); err != nil {
-					return fmt.Errorf("unable to decode basicGroupFullInfo#f191cfca: field bot_commands: %w", err)
+					return fmt.Errorf("unable to decode basicGroupFullInfo#d62e521e: field bot_commands: %w", err)
 				}
 				b.BotCommands = append(b.BotCommands, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode basicGroupFullInfo#f191cfca: field bot_commands: %w", err)
+				return fmt.Errorf("unable to decode basicGroupFullInfo#d62e521e: field bot_commands: %w", err)
 			}
 		default:
 			return buf.Skip()
@@ -402,6 +457,22 @@ func (b *BasicGroupFullInfo) GetMembers() (value []ChatMember) {
 		return
 	}
 	return b.Members
+}
+
+// GetCanHideMembers returns value of CanHideMembers field.
+func (b *BasicGroupFullInfo) GetCanHideMembers() (value bool) {
+	if b == nil {
+		return
+	}
+	return b.CanHideMembers
+}
+
+// GetCanToggleAggressiveAntiSpam returns value of CanToggleAggressiveAntiSpam field.
+func (b *BasicGroupFullInfo) GetCanToggleAggressiveAntiSpam() (value bool) {
+	if b == nil {
+		return
+	}
+	return b.CanToggleAggressiveAntiSpam
 }
 
 // GetInviteLink returns value of InviteLink field.

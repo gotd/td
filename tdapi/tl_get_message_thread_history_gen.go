@@ -45,8 +45,7 @@ type GetMessageThreadHistoryRequest struct {
 	Offset int32
 	// The maximum number of messages to be returned; must be positive and can't be greater
 	// than 100. If the offset is negative, the limit must be greater than or equal to
-	// -offset. For optimal performance, the number of returned messages is chosen by TDLib
-	// and can be smaller than the specified limit
+	// -offset.
 	Limit int32
 }
 

@@ -31,19 +31,19 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// CreateNewBasicGroupChatRequest represents TL type `createNewBasicGroupChat#68be940`.
+// CreateNewBasicGroupChatRequest represents TL type `createNewBasicGroupChat#c479e224`.
 type CreateNewBasicGroupChatRequest struct {
 	// Identifiers of users to be added to the basic group
 	UserIDs []int64
 	// Title of the new basic group; 1-128 characters
 	Title string
-	// Message TTL value, in seconds; must be from 0 up to 365 * 86400 and be divisible by
-	// 86400. If 0, then messages aren't deleted automatically
-	MessageTTL int32
+	// Message auto-delete time value, in seconds; must be from 0 up to 365 * 86400 and be
+	// divisible by 86400. If 0, then messages aren't deleted automatically
+	MessageAutoDeleteTime int32
 }
 
 // CreateNewBasicGroupChatRequestTypeID is TL type id of CreateNewBasicGroupChatRequest.
-const CreateNewBasicGroupChatRequestTypeID = 0x68be940
+const CreateNewBasicGroupChatRequestTypeID = 0xc479e224
 
 // Ensuring interfaces in compile-time for CreateNewBasicGroupChatRequest.
 var (
@@ -63,7 +63,7 @@ func (c *CreateNewBasicGroupChatRequest) Zero() bool {
 	if !(c.Title == "") {
 		return false
 	}
-	if !(c.MessageTTL == 0) {
+	if !(c.MessageAutoDeleteTime == 0) {
 		return false
 	}
 
@@ -111,8 +111,8 @@ func (c *CreateNewBasicGroupChatRequest) TypeInfo() tdp.Type {
 			SchemaName: "title",
 		},
 		{
-			Name:       "MessageTTL",
-			SchemaName: "message_ttl",
+			Name:       "MessageAutoDeleteTime",
+			SchemaName: "message_auto_delete_time",
 		},
 	}
 	return typ
@@ -121,7 +121,7 @@ func (c *CreateNewBasicGroupChatRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *CreateNewBasicGroupChatRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createNewBasicGroupChat#68be940 as nil")
+		return fmt.Errorf("can't encode createNewBasicGroupChat#c479e224 as nil")
 	}
 	b.PutID(CreateNewBasicGroupChatRequestTypeID)
 	return c.EncodeBare(b)
@@ -130,24 +130,24 @@ func (c *CreateNewBasicGroupChatRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *CreateNewBasicGroupChatRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createNewBasicGroupChat#68be940 as nil")
+		return fmt.Errorf("can't encode createNewBasicGroupChat#c479e224 as nil")
 	}
 	b.PutInt(len(c.UserIDs))
 	for _, v := range c.UserIDs {
 		b.PutInt53(v)
 	}
 	b.PutString(c.Title)
-	b.PutInt32(c.MessageTTL)
+	b.PutInt32(c.MessageAutoDeleteTime)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *CreateNewBasicGroupChatRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createNewBasicGroupChat#68be940 to nil")
+		return fmt.Errorf("can't decode createNewBasicGroupChat#c479e224 to nil")
 	}
 	if err := b.ConsumeID(CreateNewBasicGroupChatRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode createNewBasicGroupChat#68be940: %w", err)
+		return fmt.Errorf("unable to decode createNewBasicGroupChat#c479e224: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -155,12 +155,12 @@ func (c *CreateNewBasicGroupChatRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *CreateNewBasicGroupChatRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createNewBasicGroupChat#68be940 to nil")
+		return fmt.Errorf("can't decode createNewBasicGroupChat#c479e224 to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode createNewBasicGroupChat#68be940: field user_ids: %w", err)
+			return fmt.Errorf("unable to decode createNewBasicGroupChat#c479e224: field user_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -169,7 +169,7 @@ func (c *CreateNewBasicGroupChatRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode createNewBasicGroupChat#68be940: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode createNewBasicGroupChat#c479e224: field user_ids: %w", err)
 			}
 			c.UserIDs = append(c.UserIDs, value)
 		}
@@ -177,16 +177,16 @@ func (c *CreateNewBasicGroupChatRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode createNewBasicGroupChat#68be940: field title: %w", err)
+			return fmt.Errorf("unable to decode createNewBasicGroupChat#c479e224: field title: %w", err)
 		}
 		c.Title = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode createNewBasicGroupChat#68be940: field message_ttl: %w", err)
+			return fmt.Errorf("unable to decode createNewBasicGroupChat#c479e224: field message_auto_delete_time: %w", err)
 		}
-		c.MessageTTL = value
+		c.MessageAutoDeleteTime = value
 	}
 	return nil
 }
@@ -194,7 +194,7 @@ func (c *CreateNewBasicGroupChatRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *CreateNewBasicGroupChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode createNewBasicGroupChat#68be940 as nil")
+		return fmt.Errorf("can't encode createNewBasicGroupChat#c479e224 as nil")
 	}
 	b.ObjStart()
 	b.PutID("createNewBasicGroupChat")
@@ -211,8 +211,8 @@ func (c *CreateNewBasicGroupChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 	b.FieldStart("title")
 	b.PutString(c.Title)
 	b.Comma()
-	b.FieldStart("message_ttl")
-	b.PutInt32(c.MessageTTL)
+	b.FieldStart("message_auto_delete_time")
+	b.PutInt32(c.MessageAutoDeleteTime)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -222,38 +222,38 @@ func (c *CreateNewBasicGroupChatRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *CreateNewBasicGroupChatRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode createNewBasicGroupChat#68be940 to nil")
+		return fmt.Errorf("can't decode createNewBasicGroupChat#c479e224 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("createNewBasicGroupChat"); err != nil {
-				return fmt.Errorf("unable to decode createNewBasicGroupChat#68be940: %w", err)
+				return fmt.Errorf("unable to decode createNewBasicGroupChat#c479e224: %w", err)
 			}
 		case "user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int53()
 				if err != nil {
-					return fmt.Errorf("unable to decode createNewBasicGroupChat#68be940: field user_ids: %w", err)
+					return fmt.Errorf("unable to decode createNewBasicGroupChat#c479e224: field user_ids: %w", err)
 				}
 				c.UserIDs = append(c.UserIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode createNewBasicGroupChat#68be940: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode createNewBasicGroupChat#c479e224: field user_ids: %w", err)
 			}
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode createNewBasicGroupChat#68be940: field title: %w", err)
+				return fmt.Errorf("unable to decode createNewBasicGroupChat#c479e224: field title: %w", err)
 			}
 			c.Title = value
-		case "message_ttl":
+		case "message_auto_delete_time":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode createNewBasicGroupChat#68be940: field message_ttl: %w", err)
+				return fmt.Errorf("unable to decode createNewBasicGroupChat#c479e224: field message_auto_delete_time: %w", err)
 			}
-			c.MessageTTL = value
+			c.MessageAutoDeleteTime = value
 		default:
 			return b.Skip()
 		}
@@ -277,15 +277,15 @@ func (c *CreateNewBasicGroupChatRequest) GetTitle() (value string) {
 	return c.Title
 }
 
-// GetMessageTTL returns value of MessageTTL field.
-func (c *CreateNewBasicGroupChatRequest) GetMessageTTL() (value int32) {
+// GetMessageAutoDeleteTime returns value of MessageAutoDeleteTime field.
+func (c *CreateNewBasicGroupChatRequest) GetMessageAutoDeleteTime() (value int32) {
 	if c == nil {
 		return
 	}
-	return c.MessageTTL
+	return c.MessageAutoDeleteTime
 }
 
-// CreateNewBasicGroupChat invokes method createNewBasicGroupChat#68be940 returning error if any.
+// CreateNewBasicGroupChat invokes method createNewBasicGroupChat#c479e224 returning error if any.
 func (c *Client) CreateNewBasicGroupChat(ctx context.Context, request *CreateNewBasicGroupChatRequest) (*Chat, error) {
 	var result Chat
 

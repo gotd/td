@@ -44,9 +44,7 @@ type Supergroup struct {
 	// empty
 	Status ChatMemberStatusClass
 	// Number of members in the supergroup or channel; 0 if unknown. Currently, it is
-	// guaranteed to be known only if the supergroup or channel was received through
-	// searchPublicChats, searchChatsNearby, getInactiveSupergroupChats,
-	// getSuitableDiscussionChats, getGroupsInCommon, or getUserPrivacySettingRules
+	// guaranteed to be known only if the supergroup or channel was received
 	MemberCount int32
 	// True, if the channel has a discussion group, or the supergroup is the designated
 	// discussion group for a channel

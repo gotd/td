@@ -5222,6 +5222,137 @@ func (p *PushMessageContentRecurringPayment) GetAmount() (value string) {
 	return p.Amount
 }
 
+// PushMessageContentSuggestProfilePhoto represents TL type `pushMessageContentSuggestProfilePhoto#7d6bf0ab`.
+type PushMessageContentSuggestProfilePhoto struct {
+}
+
+// PushMessageContentSuggestProfilePhotoTypeID is TL type id of PushMessageContentSuggestProfilePhoto.
+const PushMessageContentSuggestProfilePhotoTypeID = 0x7d6bf0ab
+
+// construct implements constructor of PushMessageContentClass.
+func (p PushMessageContentSuggestProfilePhoto) construct() PushMessageContentClass { return &p }
+
+// Ensuring interfaces in compile-time for PushMessageContentSuggestProfilePhoto.
+var (
+	_ bin.Encoder     = &PushMessageContentSuggestProfilePhoto{}
+	_ bin.Decoder     = &PushMessageContentSuggestProfilePhoto{}
+	_ bin.BareEncoder = &PushMessageContentSuggestProfilePhoto{}
+	_ bin.BareDecoder = &PushMessageContentSuggestProfilePhoto{}
+
+	_ PushMessageContentClass = &PushMessageContentSuggestProfilePhoto{}
+)
+
+func (p *PushMessageContentSuggestProfilePhoto) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PushMessageContentSuggestProfilePhoto) String() string {
+	if p == nil {
+		return "PushMessageContentSuggestProfilePhoto(nil)"
+	}
+	type Alias PushMessageContentSuggestProfilePhoto
+	return fmt.Sprintf("PushMessageContentSuggestProfilePhoto%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PushMessageContentSuggestProfilePhoto) TypeID() uint32 {
+	return PushMessageContentSuggestProfilePhotoTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PushMessageContentSuggestProfilePhoto) TypeName() string {
+	return "pushMessageContentSuggestProfilePhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PushMessageContentSuggestProfilePhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pushMessageContentSuggestProfilePhoto",
+		ID:   PushMessageContentSuggestProfilePhotoTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PushMessageContentSuggestProfilePhoto) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentSuggestProfilePhoto#7d6bf0ab as nil")
+	}
+	b.PutID(PushMessageContentSuggestProfilePhotoTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PushMessageContentSuggestProfilePhoto) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentSuggestProfilePhoto#7d6bf0ab as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PushMessageContentSuggestProfilePhoto) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentSuggestProfilePhoto#7d6bf0ab to nil")
+	}
+	if err := b.ConsumeID(PushMessageContentSuggestProfilePhotoTypeID); err != nil {
+		return fmt.Errorf("unable to decode pushMessageContentSuggestProfilePhoto#7d6bf0ab: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PushMessageContentSuggestProfilePhoto) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentSuggestProfilePhoto#7d6bf0ab to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentSuggestProfilePhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentSuggestProfilePhoto#7d6bf0ab as nil")
+	}
+	b.ObjStart()
+	b.PutID("pushMessageContentSuggestProfilePhoto")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentSuggestProfilePhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentSuggestProfilePhoto#7d6bf0ab to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("pushMessageContentSuggestProfilePhoto"); err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentSuggestProfilePhoto#7d6bf0ab: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // PushMessageContentMessageForwards represents TL type `pushMessageContentMessageForwards#8df8a81c`.
 type PushMessageContentMessageForwards struct {
 	// Number of forwarded messages
@@ -5394,7 +5525,7 @@ type PushMessageContentMediaAlbum struct {
 	TotalCount int32
 	// True, if the album has at least one photo
 	HasPhotos bool
-	// True, if the album has at least one video
+	// True, if the album has at least one video file
 	HasVideos bool
 	// True, if the album has at least one audio file
 	HasAudios bool
@@ -5729,6 +5860,7 @@ const PushMessageContentClassName = "PushMessageContent"
 //	case *tdapi.PushMessageContentChatJoinByLink: // pushMessageContentChatJoinByLink#5c9bdf49
 //	case *tdapi.PushMessageContentChatJoinByRequest: // pushMessageContentChatJoinByRequest#f3bb6175
 //	case *tdapi.PushMessageContentRecurringPayment: // pushMessageContentRecurringPayment#6083361a
+//	case *tdapi.PushMessageContentSuggestProfilePhoto: // pushMessageContentSuggestProfilePhoto#7d6bf0ab
 //	case *tdapi.PushMessageContentMessageForwards: // pushMessageContentMessageForwards#8df8a81c
 //	case *tdapi.PushMessageContentMediaAlbum: // pushMessageContentMediaAlbum#d363e96f
 //	default: panic(v)
@@ -5951,6 +6083,13 @@ func DecodePushMessageContent(buf *bin.Buffer) (PushMessageContentClass, error) 
 			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
 		}
 		return &v, nil
+	case PushMessageContentSuggestProfilePhotoTypeID:
+		// Decoding pushMessageContentSuggestProfilePhoto#7d6bf0ab.
+		v := PushMessageContentSuggestProfilePhoto{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
+		}
+		return &v, nil
 	case PushMessageContentMessageForwardsTypeID:
 		// Decoding pushMessageContentMessageForwards#8df8a81c.
 		v := PushMessageContentMessageForwards{}
@@ -6162,6 +6301,13 @@ func DecodeTDLibJSONPushMessageContent(buf tdjson.Decoder) (PushMessageContentCl
 	case "pushMessageContentRecurringPayment":
 		// Decoding pushMessageContentRecurringPayment#6083361a.
 		v := PushMessageContentRecurringPayment{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "pushMessageContentSuggestProfilePhoto":
+		// Decoding pushMessageContentSuggestProfilePhoto#7d6bf0ab.
+		v := PushMessageContentSuggestProfilePhoto{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
 		}

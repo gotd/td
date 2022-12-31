@@ -40,7 +40,8 @@ type SetTdlibParametersRequest struct {
 	DatabaseDirectory string
 	// The path to the directory for storing files; if empty, database_directory will be used
 	FilesDirectory string
-	// Encryption key for the database
+	// Encryption key for the database. If the encryption key is invalid, then an error with
+	// code 401 will be returned
 	DatabaseEncryptionKey []byte
 	// Pass true to keep information about downloaded and uploaded files between application
 	// restarts

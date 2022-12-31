@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ProfilePhoto represents TL type `profilePhoto#f82f9c4d`.
+// ProfilePhoto represents TL type `profilePhoto#c2dc3c5e`.
 type ProfilePhoto struct {
 	// Photo identifier; 0 for an empty photo. Can be used to find a photo in a list of user
 	// profile photos
@@ -46,10 +46,12 @@ type ProfilePhoto struct {
 	Minithumbnail Minithumbnail
 	// True, if the photo has animated variant
 	HasAnimation bool
+	// True, if the photo is visible only for the current user
+	IsPersonal bool
 }
 
 // ProfilePhotoTypeID is TL type id of ProfilePhoto.
-const ProfilePhotoTypeID = 0xf82f9c4d
+const ProfilePhotoTypeID = 0xc2dc3c5e
 
 // Ensuring interfaces in compile-time for ProfilePhoto.
 var (
@@ -76,6 +78,9 @@ func (p *ProfilePhoto) Zero() bool {
 		return false
 	}
 	if !(p.HasAnimation == false) {
+		return false
+	}
+	if !(p.IsPersonal == false) {
 		return false
 	}
 
@@ -134,6 +139,10 @@ func (p *ProfilePhoto) TypeInfo() tdp.Type {
 			Name:       "HasAnimation",
 			SchemaName: "has_animation",
 		},
+		{
+			Name:       "IsPersonal",
+			SchemaName: "is_personal",
+		},
 	}
 	return typ
 }
@@ -141,7 +150,7 @@ func (p *ProfilePhoto) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *ProfilePhoto) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode profilePhoto#f82f9c4d as nil")
+		return fmt.Errorf("can't encode profilePhoto#c2dc3c5e as nil")
 	}
 	b.PutID(ProfilePhotoTypeID)
 	return p.EncodeBare(b)
@@ -150,29 +159,30 @@ func (p *ProfilePhoto) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *ProfilePhoto) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode profilePhoto#f82f9c4d as nil")
+		return fmt.Errorf("can't encode profilePhoto#c2dc3c5e as nil")
 	}
 	b.PutLong(p.ID)
 	if err := p.Small.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode profilePhoto#f82f9c4d: field small: %w", err)
+		return fmt.Errorf("unable to encode profilePhoto#c2dc3c5e: field small: %w", err)
 	}
 	if err := p.Big.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode profilePhoto#f82f9c4d: field big: %w", err)
+		return fmt.Errorf("unable to encode profilePhoto#c2dc3c5e: field big: %w", err)
 	}
 	if err := p.Minithumbnail.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode profilePhoto#f82f9c4d: field minithumbnail: %w", err)
+		return fmt.Errorf("unable to encode profilePhoto#c2dc3c5e: field minithumbnail: %w", err)
 	}
 	b.PutBool(p.HasAnimation)
+	b.PutBool(p.IsPersonal)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (p *ProfilePhoto) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode profilePhoto#f82f9c4d to nil")
+		return fmt.Errorf("can't decode profilePhoto#c2dc3c5e to nil")
 	}
 	if err := b.ConsumeID(ProfilePhotoTypeID); err != nil {
-		return fmt.Errorf("unable to decode profilePhoto#f82f9c4d: %w", err)
+		return fmt.Errorf("unable to decode profilePhoto#c2dc3c5e: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -180,36 +190,43 @@ func (p *ProfilePhoto) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *ProfilePhoto) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode profilePhoto#f82f9c4d to nil")
+		return fmt.Errorf("can't decode profilePhoto#c2dc3c5e to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode profilePhoto#f82f9c4d: field id: %w", err)
+			return fmt.Errorf("unable to decode profilePhoto#c2dc3c5e: field id: %w", err)
 		}
 		p.ID = value
 	}
 	{
 		if err := p.Small.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode profilePhoto#f82f9c4d: field small: %w", err)
+			return fmt.Errorf("unable to decode profilePhoto#c2dc3c5e: field small: %w", err)
 		}
 	}
 	{
 		if err := p.Big.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode profilePhoto#f82f9c4d: field big: %w", err)
+			return fmt.Errorf("unable to decode profilePhoto#c2dc3c5e: field big: %w", err)
 		}
 	}
 	{
 		if err := p.Minithumbnail.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode profilePhoto#f82f9c4d: field minithumbnail: %w", err)
+			return fmt.Errorf("unable to decode profilePhoto#c2dc3c5e: field minithumbnail: %w", err)
 		}
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode profilePhoto#f82f9c4d: field has_animation: %w", err)
+			return fmt.Errorf("unable to decode profilePhoto#c2dc3c5e: field has_animation: %w", err)
 		}
 		p.HasAnimation = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode profilePhoto#c2dc3c5e: field is_personal: %w", err)
+		}
+		p.IsPersonal = value
 	}
 	return nil
 }
@@ -217,7 +234,7 @@ func (p *ProfilePhoto) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (p *ProfilePhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
-		return fmt.Errorf("can't encode profilePhoto#f82f9c4d as nil")
+		return fmt.Errorf("can't encode profilePhoto#c2dc3c5e as nil")
 	}
 	b.ObjStart()
 	b.PutID("profilePhoto")
@@ -227,21 +244,24 @@ func (p *ProfilePhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("small")
 	if err := p.Small.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode profilePhoto#f82f9c4d: field small: %w", err)
+		return fmt.Errorf("unable to encode profilePhoto#c2dc3c5e: field small: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("big")
 	if err := p.Big.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode profilePhoto#f82f9c4d: field big: %w", err)
+		return fmt.Errorf("unable to encode profilePhoto#c2dc3c5e: field big: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("minithumbnail")
 	if err := p.Minithumbnail.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode profilePhoto#f82f9c4d: field minithumbnail: %w", err)
+		return fmt.Errorf("unable to encode profilePhoto#c2dc3c5e: field minithumbnail: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("has_animation")
 	b.PutBool(p.HasAnimation)
+	b.Comma()
+	b.FieldStart("is_personal")
+	b.PutBool(p.IsPersonal)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -251,39 +271,45 @@ func (p *ProfilePhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (p *ProfilePhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
-		return fmt.Errorf("can't decode profilePhoto#f82f9c4d to nil")
+		return fmt.Errorf("can't decode profilePhoto#c2dc3c5e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("profilePhoto"); err != nil {
-				return fmt.Errorf("unable to decode profilePhoto#f82f9c4d: %w", err)
+				return fmt.Errorf("unable to decode profilePhoto#c2dc3c5e: %w", err)
 			}
 		case "id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode profilePhoto#f82f9c4d: field id: %w", err)
+				return fmt.Errorf("unable to decode profilePhoto#c2dc3c5e: field id: %w", err)
 			}
 			p.ID = value
 		case "small":
 			if err := p.Small.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode profilePhoto#f82f9c4d: field small: %w", err)
+				return fmt.Errorf("unable to decode profilePhoto#c2dc3c5e: field small: %w", err)
 			}
 		case "big":
 			if err := p.Big.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode profilePhoto#f82f9c4d: field big: %w", err)
+				return fmt.Errorf("unable to decode profilePhoto#c2dc3c5e: field big: %w", err)
 			}
 		case "minithumbnail":
 			if err := p.Minithumbnail.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode profilePhoto#f82f9c4d: field minithumbnail: %w", err)
+				return fmt.Errorf("unable to decode profilePhoto#c2dc3c5e: field minithumbnail: %w", err)
 			}
 		case "has_animation":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode profilePhoto#f82f9c4d: field has_animation: %w", err)
+				return fmt.Errorf("unable to decode profilePhoto#c2dc3c5e: field has_animation: %w", err)
 			}
 			p.HasAnimation = value
+		case "is_personal":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode profilePhoto#c2dc3c5e: field is_personal: %w", err)
+			}
+			p.IsPersonal = value
 		default:
 			return b.Skip()
 		}
@@ -329,4 +355,12 @@ func (p *ProfilePhoto) GetHasAnimation() (value bool) {
 		return
 	}
 	return p.HasAnimation
+}
+
+// GetIsPersonal returns value of IsPersonal field.
+func (p *ProfilePhoto) GetIsPersonal() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.IsPersonal
 }

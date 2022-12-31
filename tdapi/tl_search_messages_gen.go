@@ -31,20 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SearchMessagesRequest represents TL type `searchMessages#f2938192`.
+// SearchMessagesRequest represents TL type `searchMessages#2a8f08a7`.
 type SearchMessagesRequest struct {
 	// Chat list in which to search messages; pass null to search in all chats regardless of
 	// their chat list. Only Main and Archive chat lists are supported
 	ChatList ChatListClass
 	// Query to search for
 	Query string
-	// The date of the message starting from which the results need to be fetched. Use 0 or
-	// any date in the future to get results from the last message
-	OffsetDate int32
-	// The chat identifier of the last found message, or 0 for the first request
-	OffsetChatID int64
-	// The message identifier of the last found message, or 0 for the first request
-	OffsetMessageID int64
+	// Offset of the first entry to return as received from the previous request; use empty
+	// string to get the first chunk of results
+	Offset string
 	// The maximum number of messages to be returned; up to 100. For optimal performance, the
 	// number of returned messages is chosen by TDLib and can be smaller than the specified
 	// limit
@@ -61,7 +57,7 @@ type SearchMessagesRequest struct {
 }
 
 // SearchMessagesRequestTypeID is TL type id of SearchMessagesRequest.
-const SearchMessagesRequestTypeID = 0xf2938192
+const SearchMessagesRequestTypeID = 0x2a8f08a7
 
 // Ensuring interfaces in compile-time for SearchMessagesRequest.
 var (
@@ -81,13 +77,7 @@ func (s *SearchMessagesRequest) Zero() bool {
 	if !(s.Query == "") {
 		return false
 	}
-	if !(s.OffsetDate == 0) {
-		return false
-	}
-	if !(s.OffsetChatID == 0) {
-		return false
-	}
-	if !(s.OffsetMessageID == 0) {
+	if !(s.Offset == "") {
 		return false
 	}
 	if !(s.Limit == 0) {
@@ -147,16 +137,8 @@ func (s *SearchMessagesRequest) TypeInfo() tdp.Type {
 			SchemaName: "query",
 		},
 		{
-			Name:       "OffsetDate",
-			SchemaName: "offset_date",
-		},
-		{
-			Name:       "OffsetChatID",
-			SchemaName: "offset_chat_id",
-		},
-		{
-			Name:       "OffsetMessageID",
-			SchemaName: "offset_message_id",
+			Name:       "Offset",
+			SchemaName: "offset",
 		},
 		{
 			Name:       "Limit",
@@ -181,7 +163,7 @@ func (s *SearchMessagesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SearchMessagesRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchMessages#f2938192 as nil")
+		return fmt.Errorf("can't encode searchMessages#2a8f08a7 as nil")
 	}
 	b.PutID(SearchMessagesRequestTypeID)
 	return s.EncodeBare(b)
@@ -190,24 +172,22 @@ func (s *SearchMessagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SearchMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchMessages#f2938192 as nil")
+		return fmt.Errorf("can't encode searchMessages#2a8f08a7 as nil")
 	}
 	if s.ChatList == nil {
-		return fmt.Errorf("unable to encode searchMessages#f2938192: field chat_list is nil")
+		return fmt.Errorf("unable to encode searchMessages#2a8f08a7: field chat_list is nil")
 	}
 	if err := s.ChatList.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode searchMessages#f2938192: field chat_list: %w", err)
+		return fmt.Errorf("unable to encode searchMessages#2a8f08a7: field chat_list: %w", err)
 	}
 	b.PutString(s.Query)
-	b.PutInt32(s.OffsetDate)
-	b.PutInt53(s.OffsetChatID)
-	b.PutInt53(s.OffsetMessageID)
+	b.PutString(s.Offset)
 	b.PutInt32(s.Limit)
 	if s.Filter == nil {
-		return fmt.Errorf("unable to encode searchMessages#f2938192: field filter is nil")
+		return fmt.Errorf("unable to encode searchMessages#2a8f08a7: field filter is nil")
 	}
 	if err := s.Filter.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode searchMessages#f2938192: field filter: %w", err)
+		return fmt.Errorf("unable to encode searchMessages#2a8f08a7: field filter: %w", err)
 	}
 	b.PutInt32(s.MinDate)
 	b.PutInt32(s.MaxDate)
@@ -217,10 +197,10 @@ func (s *SearchMessagesRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SearchMessagesRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchMessages#f2938192 to nil")
+		return fmt.Errorf("can't decode searchMessages#2a8f08a7 to nil")
 	}
 	if err := b.ConsumeID(SearchMessagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode searchMessages#f2938192: %w", err)
+		return fmt.Errorf("unable to decode searchMessages#2a8f08a7: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -228,68 +208,54 @@ func (s *SearchMessagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SearchMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchMessages#f2938192 to nil")
+		return fmt.Errorf("can't decode searchMessages#2a8f08a7 to nil")
 	}
 	{
 		value, err := DecodeChatList(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode searchMessages#f2938192: field chat_list: %w", err)
+			return fmt.Errorf("unable to decode searchMessages#2a8f08a7: field chat_list: %w", err)
 		}
 		s.ChatList = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchMessages#f2938192: field query: %w", err)
+			return fmt.Errorf("unable to decode searchMessages#2a8f08a7: field query: %w", err)
 		}
 		s.Query = value
 	}
 	{
-		value, err := b.Int32()
+		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchMessages#f2938192: field offset_date: %w", err)
+			return fmt.Errorf("unable to decode searchMessages#2a8f08a7: field offset: %w", err)
 		}
-		s.OffsetDate = value
-	}
-	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode searchMessages#f2938192: field offset_chat_id: %w", err)
-		}
-		s.OffsetChatID = value
-	}
-	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode searchMessages#f2938192: field offset_message_id: %w", err)
-		}
-		s.OffsetMessageID = value
+		s.Offset = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchMessages#f2938192: field limit: %w", err)
+			return fmt.Errorf("unable to decode searchMessages#2a8f08a7: field limit: %w", err)
 		}
 		s.Limit = value
 	}
 	{
 		value, err := DecodeSearchMessagesFilter(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode searchMessages#f2938192: field filter: %w", err)
+			return fmt.Errorf("unable to decode searchMessages#2a8f08a7: field filter: %w", err)
 		}
 		s.Filter = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchMessages#f2938192: field min_date: %w", err)
+			return fmt.Errorf("unable to decode searchMessages#2a8f08a7: field min_date: %w", err)
 		}
 		s.MinDate = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchMessages#f2938192: field max_date: %w", err)
+			return fmt.Errorf("unable to decode searchMessages#2a8f08a7: field max_date: %w", err)
 		}
 		s.MaxDate = value
 	}
@@ -299,40 +265,34 @@ func (s *SearchMessagesRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SearchMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchMessages#f2938192 as nil")
+		return fmt.Errorf("can't encode searchMessages#2a8f08a7 as nil")
 	}
 	b.ObjStart()
 	b.PutID("searchMessages")
 	b.Comma()
 	b.FieldStart("chat_list")
 	if s.ChatList == nil {
-		return fmt.Errorf("unable to encode searchMessages#f2938192: field chat_list is nil")
+		return fmt.Errorf("unable to encode searchMessages#2a8f08a7: field chat_list is nil")
 	}
 	if err := s.ChatList.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode searchMessages#f2938192: field chat_list: %w", err)
+		return fmt.Errorf("unable to encode searchMessages#2a8f08a7: field chat_list: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("query")
 	b.PutString(s.Query)
 	b.Comma()
-	b.FieldStart("offset_date")
-	b.PutInt32(s.OffsetDate)
-	b.Comma()
-	b.FieldStart("offset_chat_id")
-	b.PutInt53(s.OffsetChatID)
-	b.Comma()
-	b.FieldStart("offset_message_id")
-	b.PutInt53(s.OffsetMessageID)
+	b.FieldStart("offset")
+	b.PutString(s.Offset)
 	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(s.Limit)
 	b.Comma()
 	b.FieldStart("filter")
 	if s.Filter == nil {
-		return fmt.Errorf("unable to encode searchMessages#f2938192: field filter is nil")
+		return fmt.Errorf("unable to encode searchMessages#2a8f08a7: field filter is nil")
 	}
 	if err := s.Filter.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode searchMessages#f2938192: field filter: %w", err)
+		return fmt.Errorf("unable to encode searchMessages#2a8f08a7: field filter: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("min_date")
@@ -349,67 +309,55 @@ func (s *SearchMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SearchMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchMessages#f2938192 to nil")
+		return fmt.Errorf("can't decode searchMessages#2a8f08a7 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("searchMessages"); err != nil {
-				return fmt.Errorf("unable to decode searchMessages#f2938192: %w", err)
+				return fmt.Errorf("unable to decode searchMessages#2a8f08a7: %w", err)
 			}
 		case "chat_list":
 			value, err := DecodeTDLibJSONChatList(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode searchMessages#f2938192: field chat_list: %w", err)
+				return fmt.Errorf("unable to decode searchMessages#2a8f08a7: field chat_list: %w", err)
 			}
 			s.ChatList = value
 		case "query":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchMessages#f2938192: field query: %w", err)
+				return fmt.Errorf("unable to decode searchMessages#2a8f08a7: field query: %w", err)
 			}
 			s.Query = value
-		case "offset_date":
-			value, err := b.Int32()
+		case "offset":
+			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchMessages#f2938192: field offset_date: %w", err)
+				return fmt.Errorf("unable to decode searchMessages#2a8f08a7: field offset: %w", err)
 			}
-			s.OffsetDate = value
-		case "offset_chat_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode searchMessages#f2938192: field offset_chat_id: %w", err)
-			}
-			s.OffsetChatID = value
-		case "offset_message_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode searchMessages#f2938192: field offset_message_id: %w", err)
-			}
-			s.OffsetMessageID = value
+			s.Offset = value
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchMessages#f2938192: field limit: %w", err)
+				return fmt.Errorf("unable to decode searchMessages#2a8f08a7: field limit: %w", err)
 			}
 			s.Limit = value
 		case "filter":
 			value, err := DecodeTDLibJSONSearchMessagesFilter(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode searchMessages#f2938192: field filter: %w", err)
+				return fmt.Errorf("unable to decode searchMessages#2a8f08a7: field filter: %w", err)
 			}
 			s.Filter = value
 		case "min_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchMessages#f2938192: field min_date: %w", err)
+				return fmt.Errorf("unable to decode searchMessages#2a8f08a7: field min_date: %w", err)
 			}
 			s.MinDate = value
 		case "max_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchMessages#f2938192: field max_date: %w", err)
+				return fmt.Errorf("unable to decode searchMessages#2a8f08a7: field max_date: %w", err)
 			}
 			s.MaxDate = value
 		default:
@@ -435,28 +383,12 @@ func (s *SearchMessagesRequest) GetQuery() (value string) {
 	return s.Query
 }
 
-// GetOffsetDate returns value of OffsetDate field.
-func (s *SearchMessagesRequest) GetOffsetDate() (value int32) {
+// GetOffset returns value of Offset field.
+func (s *SearchMessagesRequest) GetOffset() (value string) {
 	if s == nil {
 		return
 	}
-	return s.OffsetDate
-}
-
-// GetOffsetChatID returns value of OffsetChatID field.
-func (s *SearchMessagesRequest) GetOffsetChatID() (value int64) {
-	if s == nil {
-		return
-	}
-	return s.OffsetChatID
-}
-
-// GetOffsetMessageID returns value of OffsetMessageID field.
-func (s *SearchMessagesRequest) GetOffsetMessageID() (value int64) {
-	if s == nil {
-		return
-	}
-	return s.OffsetMessageID
+	return s.Offset
 }
 
 // GetLimit returns value of Limit field.
@@ -491,9 +423,9 @@ func (s *SearchMessagesRequest) GetMaxDate() (value int32) {
 	return s.MaxDate
 }
 
-// SearchMessages invokes method searchMessages#f2938192 returning error if any.
-func (c *Client) SearchMessages(ctx context.Context, request *SearchMessagesRequest) (*Messages, error) {
-	var result Messages
+// SearchMessages invokes method searchMessages#2a8f08a7 returning error if any.
+func (c *Client) SearchMessages(ctx context.Context, request *SearchMessagesRequest) (*FoundMessages, error) {
+	var result FoundMessages
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err

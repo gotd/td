@@ -34,9 +34,7 @@ var (
 // InputSticker represents TL type `inputSticker#9b1829b0`.
 type InputSticker struct {
 	// File with the sticker; must fit in a 512x512 square. For WEBP stickers and masks the
-	// file must be in PNG format, which will be converted to WEBP server-side. Otherwise,
-	// the file must be local or uploaded within a week. See https://core.telegram
-	// org/animated_stickers#technical-requirements for technical requirements
+	// file must be in PNG format, which will be converted to WEBP server-side.
 	Sticker InputFileClass
 	// Emojis corresponding to the sticker
 	Emojis string

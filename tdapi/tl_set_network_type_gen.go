@@ -33,7 +33,7 @@ var (
 
 // SetNetworkTypeRequest represents TL type `setNetworkType#d62de55e`.
 type SetNetworkTypeRequest struct {
-	// Type field of SetNetworkTypeRequest.
+	// The new network type; pass null to set network type to networkTypeOther
 	Type NetworkTypeClass
 }
 

@@ -3106,38 +3106,38 @@ func (c *ChatEventLocationChanged) GetNewLocation() (value ChatLocation) {
 	return c.NewLocation
 }
 
-// ChatEventMessageTTLChanged represents TL type `chatEventMessageTtlChanged#2e46b9b3`.
-type ChatEventMessageTTLChanged struct {
-	// Previous value of message_ttl
-	OldMessageTTL int32
-	// New value of message_ttl
-	NewMessageTTL int32
+// ChatEventMessageAutoDeleteTimeChanged represents TL type `chatEventMessageAutoDeleteTimeChanged#1083f24`.
+type ChatEventMessageAutoDeleteTimeChanged struct {
+	// Previous value of message_auto_delete_time
+	OldMessageAutoDeleteTime int32
+	// New value of message_auto_delete_time
+	NewMessageAutoDeleteTime int32
 }
 
-// ChatEventMessageTTLChangedTypeID is TL type id of ChatEventMessageTTLChanged.
-const ChatEventMessageTTLChangedTypeID = 0x2e46b9b3
+// ChatEventMessageAutoDeleteTimeChangedTypeID is TL type id of ChatEventMessageAutoDeleteTimeChanged.
+const ChatEventMessageAutoDeleteTimeChangedTypeID = 0x1083f24
 
 // construct implements constructor of ChatEventActionClass.
-func (c ChatEventMessageTTLChanged) construct() ChatEventActionClass { return &c }
+func (c ChatEventMessageAutoDeleteTimeChanged) construct() ChatEventActionClass { return &c }
 
-// Ensuring interfaces in compile-time for ChatEventMessageTTLChanged.
+// Ensuring interfaces in compile-time for ChatEventMessageAutoDeleteTimeChanged.
 var (
-	_ bin.Encoder     = &ChatEventMessageTTLChanged{}
-	_ bin.Decoder     = &ChatEventMessageTTLChanged{}
-	_ bin.BareEncoder = &ChatEventMessageTTLChanged{}
-	_ bin.BareDecoder = &ChatEventMessageTTLChanged{}
+	_ bin.Encoder     = &ChatEventMessageAutoDeleteTimeChanged{}
+	_ bin.Decoder     = &ChatEventMessageAutoDeleteTimeChanged{}
+	_ bin.BareEncoder = &ChatEventMessageAutoDeleteTimeChanged{}
+	_ bin.BareDecoder = &ChatEventMessageAutoDeleteTimeChanged{}
 
-	_ ChatEventActionClass = &ChatEventMessageTTLChanged{}
+	_ ChatEventActionClass = &ChatEventMessageAutoDeleteTimeChanged{}
 )
 
-func (c *ChatEventMessageTTLChanged) Zero() bool {
+func (c *ChatEventMessageAutoDeleteTimeChanged) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.OldMessageTTL == 0) {
+	if !(c.OldMessageAutoDeleteTime == 0) {
 		return false
 	}
-	if !(c.NewMessageTTL == 0) {
+	if !(c.NewMessageAutoDeleteTime == 0) {
 		return false
 	}
 
@@ -3145,31 +3145,31 @@ func (c *ChatEventMessageTTLChanged) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (c *ChatEventMessageTTLChanged) String() string {
+func (c *ChatEventMessageAutoDeleteTimeChanged) String() string {
 	if c == nil {
-		return "ChatEventMessageTTLChanged(nil)"
+		return "ChatEventMessageAutoDeleteTimeChanged(nil)"
 	}
-	type Alias ChatEventMessageTTLChanged
-	return fmt.Sprintf("ChatEventMessageTTLChanged%+v", Alias(*c))
+	type Alias ChatEventMessageAutoDeleteTimeChanged
+	return fmt.Sprintf("ChatEventMessageAutoDeleteTimeChanged%+v", Alias(*c))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatEventMessageTTLChanged) TypeID() uint32 {
-	return ChatEventMessageTTLChangedTypeID
+func (*ChatEventMessageAutoDeleteTimeChanged) TypeID() uint32 {
+	return ChatEventMessageAutoDeleteTimeChangedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*ChatEventMessageTTLChanged) TypeName() string {
-	return "chatEventMessageTtlChanged"
+func (*ChatEventMessageAutoDeleteTimeChanged) TypeName() string {
+	return "chatEventMessageAutoDeleteTimeChanged"
 }
 
 // TypeInfo returns info about TL type.
-func (c *ChatEventMessageTTLChanged) TypeInfo() tdp.Type {
+func (c *ChatEventMessageAutoDeleteTimeChanged) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "chatEventMessageTtlChanged",
-		ID:   ChatEventMessageTTLChangedTypeID,
+		Name: "chatEventMessageAutoDeleteTimeChanged",
+		ID:   ChatEventMessageAutoDeleteTimeChangedTypeID,
 	}
 	if c == nil {
 		typ.Null = true
@@ -3177,82 +3177,82 @@ func (c *ChatEventMessageTTLChanged) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "OldMessageTTL",
-			SchemaName: "old_message_ttl",
+			Name:       "OldMessageAutoDeleteTime",
+			SchemaName: "old_message_auto_delete_time",
 		},
 		{
-			Name:       "NewMessageTTL",
-			SchemaName: "new_message_ttl",
+			Name:       "NewMessageAutoDeleteTime",
+			SchemaName: "new_message_auto_delete_time",
 		},
 	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
-func (c *ChatEventMessageTTLChanged) Encode(b *bin.Buffer) error {
+func (c *ChatEventMessageAutoDeleteTimeChanged) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventMessageTtlChanged#2e46b9b3 as nil")
+		return fmt.Errorf("can't encode chatEventMessageAutoDeleteTimeChanged#1083f24 as nil")
 	}
-	b.PutID(ChatEventMessageTTLChangedTypeID)
+	b.PutID(ChatEventMessageAutoDeleteTimeChangedTypeID)
 	return c.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (c *ChatEventMessageTTLChanged) EncodeBare(b *bin.Buffer) error {
+func (c *ChatEventMessageAutoDeleteTimeChanged) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventMessageTtlChanged#2e46b9b3 as nil")
+		return fmt.Errorf("can't encode chatEventMessageAutoDeleteTimeChanged#1083f24 as nil")
 	}
-	b.PutInt32(c.OldMessageTTL)
-	b.PutInt32(c.NewMessageTTL)
+	b.PutInt32(c.OldMessageAutoDeleteTime)
+	b.PutInt32(c.NewMessageAutoDeleteTime)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (c *ChatEventMessageTTLChanged) Decode(b *bin.Buffer) error {
+func (c *ChatEventMessageAutoDeleteTimeChanged) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventMessageTtlChanged#2e46b9b3 to nil")
+		return fmt.Errorf("can't decode chatEventMessageAutoDeleteTimeChanged#1083f24 to nil")
 	}
-	if err := b.ConsumeID(ChatEventMessageTTLChangedTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: %w", err)
+	if err := b.ConsumeID(ChatEventMessageAutoDeleteTimeChangedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventMessageAutoDeleteTimeChanged#1083f24: %w", err)
 	}
 	return c.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (c *ChatEventMessageTTLChanged) DecodeBare(b *bin.Buffer) error {
+func (c *ChatEventMessageAutoDeleteTimeChanged) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventMessageTtlChanged#2e46b9b3 to nil")
+		return fmt.Errorf("can't decode chatEventMessageAutoDeleteTimeChanged#1083f24 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: field old_message_ttl: %w", err)
+			return fmt.Errorf("unable to decode chatEventMessageAutoDeleteTimeChanged#1083f24: field old_message_auto_delete_time: %w", err)
 		}
-		c.OldMessageTTL = value
+		c.OldMessageAutoDeleteTime = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: field new_message_ttl: %w", err)
+			return fmt.Errorf("unable to decode chatEventMessageAutoDeleteTimeChanged#1083f24: field new_message_auto_delete_time: %w", err)
 		}
-		c.NewMessageTTL = value
+		c.NewMessageAutoDeleteTime = value
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatEventMessageTTLChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (c *ChatEventMessageAutoDeleteTimeChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventMessageTtlChanged#2e46b9b3 as nil")
+		return fmt.Errorf("can't encode chatEventMessageAutoDeleteTimeChanged#1083f24 as nil")
 	}
 	b.ObjStart()
-	b.PutID("chatEventMessageTtlChanged")
+	b.PutID("chatEventMessageAutoDeleteTimeChanged")
 	b.Comma()
-	b.FieldStart("old_message_ttl")
-	b.PutInt32(c.OldMessageTTL)
+	b.FieldStart("old_message_auto_delete_time")
+	b.PutInt32(c.OldMessageAutoDeleteTime)
 	b.Comma()
-	b.FieldStart("new_message_ttl")
-	b.PutInt32(c.NewMessageTTL)
+	b.FieldStart("new_message_auto_delete_time")
+	b.PutInt32(c.NewMessageAutoDeleteTime)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -3260,29 +3260,29 @@ func (c *ChatEventMessageTTLChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatEventMessageTTLChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (c *ChatEventMessageAutoDeleteTimeChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventMessageTtlChanged#2e46b9b3 to nil")
+		return fmt.Errorf("can't decode chatEventMessageAutoDeleteTimeChanged#1083f24 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("chatEventMessageTtlChanged"); err != nil {
-				return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: %w", err)
+			if err := b.ConsumeID("chatEventMessageAutoDeleteTimeChanged"); err != nil {
+				return fmt.Errorf("unable to decode chatEventMessageAutoDeleteTimeChanged#1083f24: %w", err)
 			}
-		case "old_message_ttl":
+		case "old_message_auto_delete_time":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: field old_message_ttl: %w", err)
+				return fmt.Errorf("unable to decode chatEventMessageAutoDeleteTimeChanged#1083f24: field old_message_auto_delete_time: %w", err)
 			}
-			c.OldMessageTTL = value
-		case "new_message_ttl":
+			c.OldMessageAutoDeleteTime = value
+		case "new_message_auto_delete_time":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatEventMessageTtlChanged#2e46b9b3: field new_message_ttl: %w", err)
+				return fmt.Errorf("unable to decode chatEventMessageAutoDeleteTimeChanged#1083f24: field new_message_auto_delete_time: %w", err)
 			}
-			c.NewMessageTTL = value
+			c.NewMessageAutoDeleteTime = value
 		default:
 			return b.Skip()
 		}
@@ -3290,20 +3290,20 @@ func (c *ChatEventMessageTTLChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetOldMessageTTL returns value of OldMessageTTL field.
-func (c *ChatEventMessageTTLChanged) GetOldMessageTTL() (value int32) {
+// GetOldMessageAutoDeleteTime returns value of OldMessageAutoDeleteTime field.
+func (c *ChatEventMessageAutoDeleteTimeChanged) GetOldMessageAutoDeleteTime() (value int32) {
 	if c == nil {
 		return
 	}
-	return c.OldMessageTTL
+	return c.OldMessageAutoDeleteTime
 }
 
-// GetNewMessageTTL returns value of NewMessageTTL field.
-func (c *ChatEventMessageTTLChanged) GetNewMessageTTL() (value int32) {
+// GetNewMessageAutoDeleteTime returns value of NewMessageAutoDeleteTime field.
+func (c *ChatEventMessageAutoDeleteTimeChanged) GetNewMessageAutoDeleteTime() (value int32) {
 	if c == nil {
 		return
 	}
-	return c.NewMessageTTL
+	return c.NewMessageAutoDeleteTime
 }
 
 // ChatEventPermissionsChanged represents TL type `chatEventPermissionsChanged#b1d337a8`.
@@ -5252,33 +5252,33 @@ func (c *ChatEventIsAllHistoryAvailableToggled) GetIsAllHistoryAvailable() (valu
 	return c.IsAllHistoryAvailable
 }
 
-// ChatEventIsAggressiveAntiSpamEnabledToggled represents TL type `chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196`.
-type ChatEventIsAggressiveAntiSpamEnabledToggled struct {
-	// New value of is_aggressive_anti_spam_enabled
-	IsAggressiveAntiSpamEnabled bool
+// ChatEventHasAggressiveAntiSpamEnabledToggled represents TL type `chatEventHasAggressiveAntiSpamEnabledToggled#f8875702`.
+type ChatEventHasAggressiveAntiSpamEnabledToggled struct {
+	// New value of has_aggressive_anti_spam_enabled
+	HasAggressiveAntiSpamEnabled bool
 }
 
-// ChatEventIsAggressiveAntiSpamEnabledToggledTypeID is TL type id of ChatEventIsAggressiveAntiSpamEnabledToggled.
-const ChatEventIsAggressiveAntiSpamEnabledToggledTypeID = 0x54a3f196
+// ChatEventHasAggressiveAntiSpamEnabledToggledTypeID is TL type id of ChatEventHasAggressiveAntiSpamEnabledToggled.
+const ChatEventHasAggressiveAntiSpamEnabledToggledTypeID = 0xf8875702
 
 // construct implements constructor of ChatEventActionClass.
-func (c ChatEventIsAggressiveAntiSpamEnabledToggled) construct() ChatEventActionClass { return &c }
+func (c ChatEventHasAggressiveAntiSpamEnabledToggled) construct() ChatEventActionClass { return &c }
 
-// Ensuring interfaces in compile-time for ChatEventIsAggressiveAntiSpamEnabledToggled.
+// Ensuring interfaces in compile-time for ChatEventHasAggressiveAntiSpamEnabledToggled.
 var (
-	_ bin.Encoder     = &ChatEventIsAggressiveAntiSpamEnabledToggled{}
-	_ bin.Decoder     = &ChatEventIsAggressiveAntiSpamEnabledToggled{}
-	_ bin.BareEncoder = &ChatEventIsAggressiveAntiSpamEnabledToggled{}
-	_ bin.BareDecoder = &ChatEventIsAggressiveAntiSpamEnabledToggled{}
+	_ bin.Encoder     = &ChatEventHasAggressiveAntiSpamEnabledToggled{}
+	_ bin.Decoder     = &ChatEventHasAggressiveAntiSpamEnabledToggled{}
+	_ bin.BareEncoder = &ChatEventHasAggressiveAntiSpamEnabledToggled{}
+	_ bin.BareDecoder = &ChatEventHasAggressiveAntiSpamEnabledToggled{}
 
-	_ ChatEventActionClass = &ChatEventIsAggressiveAntiSpamEnabledToggled{}
+	_ ChatEventActionClass = &ChatEventHasAggressiveAntiSpamEnabledToggled{}
 )
 
-func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) Zero() bool {
+func (c *ChatEventHasAggressiveAntiSpamEnabledToggled) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.IsAggressiveAntiSpamEnabled == false) {
+	if !(c.HasAggressiveAntiSpamEnabled == false) {
 		return false
 	}
 
@@ -5286,31 +5286,31 @@ func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) String() string {
+func (c *ChatEventHasAggressiveAntiSpamEnabledToggled) String() string {
 	if c == nil {
-		return "ChatEventIsAggressiveAntiSpamEnabledToggled(nil)"
+		return "ChatEventHasAggressiveAntiSpamEnabledToggled(nil)"
 	}
-	type Alias ChatEventIsAggressiveAntiSpamEnabledToggled
-	return fmt.Sprintf("ChatEventIsAggressiveAntiSpamEnabledToggled%+v", Alias(*c))
+	type Alias ChatEventHasAggressiveAntiSpamEnabledToggled
+	return fmt.Sprintf("ChatEventHasAggressiveAntiSpamEnabledToggled%+v", Alias(*c))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatEventIsAggressiveAntiSpamEnabledToggled) TypeID() uint32 {
-	return ChatEventIsAggressiveAntiSpamEnabledToggledTypeID
+func (*ChatEventHasAggressiveAntiSpamEnabledToggled) TypeID() uint32 {
+	return ChatEventHasAggressiveAntiSpamEnabledToggledTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*ChatEventIsAggressiveAntiSpamEnabledToggled) TypeName() string {
-	return "chatEventIsAggressiveAntiSpamEnabledToggled"
+func (*ChatEventHasAggressiveAntiSpamEnabledToggled) TypeName() string {
+	return "chatEventHasAggressiveAntiSpamEnabledToggled"
 }
 
 // TypeInfo returns info about TL type.
-func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) TypeInfo() tdp.Type {
+func (c *ChatEventHasAggressiveAntiSpamEnabledToggled) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "chatEventIsAggressiveAntiSpamEnabledToggled",
-		ID:   ChatEventIsAggressiveAntiSpamEnabledToggledTypeID,
+		Name: "chatEventHasAggressiveAntiSpamEnabledToggled",
+		ID:   ChatEventHasAggressiveAntiSpamEnabledToggledTypeID,
 	}
 	if c == nil {
 		typ.Null = true
@@ -5318,67 +5318,67 @@ func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "IsAggressiveAntiSpamEnabled",
-			SchemaName: "is_aggressive_anti_spam_enabled",
+			Name:       "HasAggressiveAntiSpamEnabled",
+			SchemaName: "has_aggressive_anti_spam_enabled",
 		},
 	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
-func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) Encode(b *bin.Buffer) error {
+func (c *ChatEventHasAggressiveAntiSpamEnabledToggled) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196 as nil")
+		return fmt.Errorf("can't encode chatEventHasAggressiveAntiSpamEnabledToggled#f8875702 as nil")
 	}
-	b.PutID(ChatEventIsAggressiveAntiSpamEnabledToggledTypeID)
+	b.PutID(ChatEventHasAggressiveAntiSpamEnabledToggledTypeID)
 	return c.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) EncodeBare(b *bin.Buffer) error {
+func (c *ChatEventHasAggressiveAntiSpamEnabledToggled) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196 as nil")
+		return fmt.Errorf("can't encode chatEventHasAggressiveAntiSpamEnabledToggled#f8875702 as nil")
 	}
-	b.PutBool(c.IsAggressiveAntiSpamEnabled)
+	b.PutBool(c.HasAggressiveAntiSpamEnabled)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) Decode(b *bin.Buffer) error {
+func (c *ChatEventHasAggressiveAntiSpamEnabledToggled) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196 to nil")
+		return fmt.Errorf("can't decode chatEventHasAggressiveAntiSpamEnabledToggled#f8875702 to nil")
 	}
-	if err := b.ConsumeID(ChatEventIsAggressiveAntiSpamEnabledToggledTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196: %w", err)
+	if err := b.ConsumeID(ChatEventHasAggressiveAntiSpamEnabledToggledTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventHasAggressiveAntiSpamEnabledToggled#f8875702: %w", err)
 	}
 	return c.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) DecodeBare(b *bin.Buffer) error {
+func (c *ChatEventHasAggressiveAntiSpamEnabledToggled) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196 to nil")
+		return fmt.Errorf("can't decode chatEventHasAggressiveAntiSpamEnabledToggled#f8875702 to nil")
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196: field is_aggressive_anti_spam_enabled: %w", err)
+			return fmt.Errorf("unable to decode chatEventHasAggressiveAntiSpamEnabledToggled#f8875702: field has_aggressive_anti_spam_enabled: %w", err)
 		}
-		c.IsAggressiveAntiSpamEnabled = value
+		c.HasAggressiveAntiSpamEnabled = value
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (c *ChatEventHasAggressiveAntiSpamEnabledToggled) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196 as nil")
+		return fmt.Errorf("can't encode chatEventHasAggressiveAntiSpamEnabledToggled#f8875702 as nil")
 	}
 	b.ObjStart()
-	b.PutID("chatEventIsAggressiveAntiSpamEnabledToggled")
+	b.PutID("chatEventHasAggressiveAntiSpamEnabledToggled")
 	b.Comma()
-	b.FieldStart("is_aggressive_anti_spam_enabled")
-	b.PutBool(c.IsAggressiveAntiSpamEnabled)
+	b.FieldStart("has_aggressive_anti_spam_enabled")
+	b.PutBool(c.HasAggressiveAntiSpamEnabled)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -5386,23 +5386,23 @@ func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) EncodeTDLibJSON(b tdjson.E
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (c *ChatEventHasAggressiveAntiSpamEnabledToggled) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196 to nil")
+		return fmt.Errorf("can't decode chatEventHasAggressiveAntiSpamEnabledToggled#f8875702 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("chatEventIsAggressiveAntiSpamEnabledToggled"); err != nil {
-				return fmt.Errorf("unable to decode chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196: %w", err)
+			if err := b.ConsumeID("chatEventHasAggressiveAntiSpamEnabledToggled"); err != nil {
+				return fmt.Errorf("unable to decode chatEventHasAggressiveAntiSpamEnabledToggled#f8875702: %w", err)
 			}
-		case "is_aggressive_anti_spam_enabled":
+		case "has_aggressive_anti_spam_enabled":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196: field is_aggressive_anti_spam_enabled: %w", err)
+				return fmt.Errorf("unable to decode chatEventHasAggressiveAntiSpamEnabledToggled#f8875702: field has_aggressive_anti_spam_enabled: %w", err)
 			}
-			c.IsAggressiveAntiSpamEnabled = value
+			c.HasAggressiveAntiSpamEnabled = value
 		default:
 			return b.Skip()
 		}
@@ -5410,12 +5410,12 @@ func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) DecodeTDLibJSON(b tdjson.D
 	})
 }
 
-// GetIsAggressiveAntiSpamEnabled returns value of IsAggressiveAntiSpamEnabled field.
-func (c *ChatEventIsAggressiveAntiSpamEnabledToggled) GetIsAggressiveAntiSpamEnabled() (value bool) {
+// GetHasAggressiveAntiSpamEnabled returns value of HasAggressiveAntiSpamEnabled field.
+func (c *ChatEventHasAggressiveAntiSpamEnabledToggled) GetHasAggressiveAntiSpamEnabled() (value bool) {
 	if c == nil {
 		return
 	}
-	return c.IsAggressiveAntiSpamEnabled
+	return c.HasAggressiveAntiSpamEnabled
 }
 
 // ChatEventSignMessagesToggled represents TL type `chatEventSignMessagesToggled#b1b9281e`.
@@ -8294,7 +8294,7 @@ const ChatEventActionClassName = "ChatEventAction"
 //	case *tdapi.ChatEventDescriptionChanged: // chatEventDescriptionChanged#254cf1e
 //	case *tdapi.ChatEventLinkedChatChanged: // chatEventLinkedChatChanged#6b2271af
 //	case *tdapi.ChatEventLocationChanged: // chatEventLocationChanged#e7cdfd4e
-//	case *tdapi.ChatEventMessageTTLChanged: // chatEventMessageTtlChanged#2e46b9b3
+//	case *tdapi.ChatEventMessageAutoDeleteTimeChanged: // chatEventMessageAutoDeleteTimeChanged#1083f24
 //	case *tdapi.ChatEventPermissionsChanged: // chatEventPermissionsChanged#b1d337a8
 //	case *tdapi.ChatEventPhotoChanged: // chatEventPhotoChanged#cfa062c3
 //	case *tdapi.ChatEventSlowModeDelayChanged: // chatEventSlowModeDelayChanged#9d763c0b
@@ -8305,7 +8305,7 @@ const ChatEventActionClassName = "ChatEventAction"
 //	case *tdapi.ChatEventHasProtectedContentToggled: // chatEventHasProtectedContentToggled#f5044201
 //	case *tdapi.ChatEventInvitesToggled: // chatEventInvitesToggled#fc45966b
 //	case *tdapi.ChatEventIsAllHistoryAvailableToggled: // chatEventIsAllHistoryAvailableToggled#a0b03c15
-//	case *tdapi.ChatEventIsAggressiveAntiSpamEnabledToggled: // chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196
+//	case *tdapi.ChatEventHasAggressiveAntiSpamEnabledToggled: // chatEventHasAggressiveAntiSpamEnabledToggled#f8875702
 //	case *tdapi.ChatEventSignMessagesToggled: // chatEventSignMessagesToggled#b1b9281e
 //	case *tdapi.ChatEventInviteLinkEdited: // chatEventInviteLinkEdited#e4920d62
 //	case *tdapi.ChatEventInviteLinkRevoked: // chatEventInviteLinkRevoked#a1dbffe3
@@ -8465,9 +8465,9 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
-	case ChatEventMessageTTLChangedTypeID:
-		// Decoding chatEventMessageTtlChanged#2e46b9b3.
-		v := ChatEventMessageTTLChanged{}
+	case ChatEventMessageAutoDeleteTimeChangedTypeID:
+		// Decoding chatEventMessageAutoDeleteTimeChanged#1083f24.
+		v := ChatEventMessageAutoDeleteTimeChanged{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -8542,9 +8542,9 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
-	case ChatEventIsAggressiveAntiSpamEnabledToggledTypeID:
-		// Decoding chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196.
-		v := ChatEventIsAggressiveAntiSpamEnabledToggled{}
+	case ChatEventHasAggressiveAntiSpamEnabledToggledTypeID:
+		// Decoding chatEventHasAggressiveAntiSpamEnabledToggled#f8875702.
+		v := ChatEventHasAggressiveAntiSpamEnabledToggled{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -8785,9 +8785,9 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
-	case "chatEventMessageTtlChanged":
-		// Decoding chatEventMessageTtlChanged#2e46b9b3.
-		v := ChatEventMessageTTLChanged{}
+	case "chatEventMessageAutoDeleteTimeChanged":
+		// Decoding chatEventMessageAutoDeleteTimeChanged#1083f24.
+		v := ChatEventMessageAutoDeleteTimeChanged{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -8862,9 +8862,9 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
-	case "chatEventIsAggressiveAntiSpamEnabledToggled":
-		// Decoding chatEventIsAggressiveAntiSpamEnabledToggled#54a3f196.
-		v := ChatEventIsAggressiveAntiSpamEnabledToggled{}
+	case "chatEventHasAggressiveAntiSpamEnabledToggled":
+		// Decoding chatEventHasAggressiveAntiSpamEnabledToggled#f8875702.
+		v := ChatEventHasAggressiveAntiSpamEnabledToggled{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}

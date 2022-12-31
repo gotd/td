@@ -38,6 +38,7 @@ type SetChatDiscussionGroupRequest struct {
 	// supergroup)
 	ChatID int64
 	// Identifier of a new channel's discussion group. Use 0 to remove the discussion group.
+	// Use the method getSuitableDiscussionChats to find all suitable groups.
 	DiscussionChatID int64
 }
 

@@ -31,17 +31,20 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ToggleBotIsAddedToAttachmentMenuRequest represents TL type `toggleBotIsAddedToAttachmentMenu#b56763e2`.
+// ToggleBotIsAddedToAttachmentMenuRequest represents TL type `toggleBotIsAddedToAttachmentMenu#8e59de9a`.
 type ToggleBotIsAddedToAttachmentMenuRequest struct {
 	// Bot's user identifier
 	BotUserID int64
 	// Pass true to add the bot to attachment menu; pass false to remove the bot from
 	// attachment menu
 	IsAdded bool
+	// Pass true if the current user allowed the bot to send them messages. Ignored if
+	// is_added is false
+	AllowWriteAccess bool
 }
 
 // ToggleBotIsAddedToAttachmentMenuRequestTypeID is TL type id of ToggleBotIsAddedToAttachmentMenuRequest.
-const ToggleBotIsAddedToAttachmentMenuRequestTypeID = 0xb56763e2
+const ToggleBotIsAddedToAttachmentMenuRequestTypeID = 0x8e59de9a
 
 // Ensuring interfaces in compile-time for ToggleBotIsAddedToAttachmentMenuRequest.
 var (
@@ -59,6 +62,9 @@ func (t *ToggleBotIsAddedToAttachmentMenuRequest) Zero() bool {
 		return false
 	}
 	if !(t.IsAdded == false) {
+		return false
+	}
+	if !(t.AllowWriteAccess == false) {
 		return false
 	}
 
@@ -105,6 +111,10 @@ func (t *ToggleBotIsAddedToAttachmentMenuRequest) TypeInfo() tdp.Type {
 			Name:       "IsAdded",
 			SchemaName: "is_added",
 		},
+		{
+			Name:       "AllowWriteAccess",
+			SchemaName: "allow_write_access",
+		},
 	}
 	return typ
 }
@@ -112,7 +122,7 @@ func (t *ToggleBotIsAddedToAttachmentMenuRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *ToggleBotIsAddedToAttachmentMenuRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode toggleBotIsAddedToAttachmentMenu#b56763e2 as nil")
+		return fmt.Errorf("can't encode toggleBotIsAddedToAttachmentMenu#8e59de9a as nil")
 	}
 	b.PutID(ToggleBotIsAddedToAttachmentMenuRequestTypeID)
 	return t.EncodeBare(b)
@@ -121,20 +131,21 @@ func (t *ToggleBotIsAddedToAttachmentMenuRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *ToggleBotIsAddedToAttachmentMenuRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode toggleBotIsAddedToAttachmentMenu#b56763e2 as nil")
+		return fmt.Errorf("can't encode toggleBotIsAddedToAttachmentMenu#8e59de9a as nil")
 	}
 	b.PutInt53(t.BotUserID)
 	b.PutBool(t.IsAdded)
+	b.PutBool(t.AllowWriteAccess)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (t *ToggleBotIsAddedToAttachmentMenuRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode toggleBotIsAddedToAttachmentMenu#b56763e2 to nil")
+		return fmt.Errorf("can't decode toggleBotIsAddedToAttachmentMenu#8e59de9a to nil")
 	}
 	if err := b.ConsumeID(ToggleBotIsAddedToAttachmentMenuRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode toggleBotIsAddedToAttachmentMenu#b56763e2: %w", err)
+		return fmt.Errorf("unable to decode toggleBotIsAddedToAttachmentMenu#8e59de9a: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -142,21 +153,28 @@ func (t *ToggleBotIsAddedToAttachmentMenuRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *ToggleBotIsAddedToAttachmentMenuRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode toggleBotIsAddedToAttachmentMenu#b56763e2 to nil")
+		return fmt.Errorf("can't decode toggleBotIsAddedToAttachmentMenu#8e59de9a to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode toggleBotIsAddedToAttachmentMenu#b56763e2: field bot_user_id: %w", err)
+			return fmt.Errorf("unable to decode toggleBotIsAddedToAttachmentMenu#8e59de9a: field bot_user_id: %w", err)
 		}
 		t.BotUserID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode toggleBotIsAddedToAttachmentMenu#b56763e2: field is_added: %w", err)
+			return fmt.Errorf("unable to decode toggleBotIsAddedToAttachmentMenu#8e59de9a: field is_added: %w", err)
 		}
 		t.IsAdded = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode toggleBotIsAddedToAttachmentMenu#8e59de9a: field allow_write_access: %w", err)
+		}
+		t.AllowWriteAccess = value
 	}
 	return nil
 }
@@ -164,7 +182,7 @@ func (t *ToggleBotIsAddedToAttachmentMenuRequest) DecodeBare(b *bin.Buffer) erro
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (t *ToggleBotIsAddedToAttachmentMenuRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
-		return fmt.Errorf("can't encode toggleBotIsAddedToAttachmentMenu#b56763e2 as nil")
+		return fmt.Errorf("can't encode toggleBotIsAddedToAttachmentMenu#8e59de9a as nil")
 	}
 	b.ObjStart()
 	b.PutID("toggleBotIsAddedToAttachmentMenu")
@@ -175,6 +193,9 @@ func (t *ToggleBotIsAddedToAttachmentMenuRequest) EncodeTDLibJSON(b tdjson.Encod
 	b.FieldStart("is_added")
 	b.PutBool(t.IsAdded)
 	b.Comma()
+	b.FieldStart("allow_write_access")
+	b.PutBool(t.AllowWriteAccess)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -183,27 +204,33 @@ func (t *ToggleBotIsAddedToAttachmentMenuRequest) EncodeTDLibJSON(b tdjson.Encod
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (t *ToggleBotIsAddedToAttachmentMenuRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
-		return fmt.Errorf("can't decode toggleBotIsAddedToAttachmentMenu#b56763e2 to nil")
+		return fmt.Errorf("can't decode toggleBotIsAddedToAttachmentMenu#8e59de9a to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("toggleBotIsAddedToAttachmentMenu"); err != nil {
-				return fmt.Errorf("unable to decode toggleBotIsAddedToAttachmentMenu#b56763e2: %w", err)
+				return fmt.Errorf("unable to decode toggleBotIsAddedToAttachmentMenu#8e59de9a: %w", err)
 			}
 		case "bot_user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode toggleBotIsAddedToAttachmentMenu#b56763e2: field bot_user_id: %w", err)
+				return fmt.Errorf("unable to decode toggleBotIsAddedToAttachmentMenu#8e59de9a: field bot_user_id: %w", err)
 			}
 			t.BotUserID = value
 		case "is_added":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode toggleBotIsAddedToAttachmentMenu#b56763e2: field is_added: %w", err)
+				return fmt.Errorf("unable to decode toggleBotIsAddedToAttachmentMenu#8e59de9a: field is_added: %w", err)
 			}
 			t.IsAdded = value
+		case "allow_write_access":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleBotIsAddedToAttachmentMenu#8e59de9a: field allow_write_access: %w", err)
+			}
+			t.AllowWriteAccess = value
 		default:
 			return b.Skip()
 		}
@@ -227,7 +254,15 @@ func (t *ToggleBotIsAddedToAttachmentMenuRequest) GetIsAdded() (value bool) {
 	return t.IsAdded
 }
 
-// ToggleBotIsAddedToAttachmentMenu invokes method toggleBotIsAddedToAttachmentMenu#b56763e2 returning error if any.
+// GetAllowWriteAccess returns value of AllowWriteAccess field.
+func (t *ToggleBotIsAddedToAttachmentMenuRequest) GetAllowWriteAccess() (value bool) {
+	if t == nil {
+		return
+	}
+	return t.AllowWriteAccess
+}
+
+// ToggleBotIsAddedToAttachmentMenu invokes method toggleBotIsAddedToAttachmentMenu#8e59de9a returning error if any.
 func (c *Client) ToggleBotIsAddedToAttachmentMenu(ctx context.Context, request *ToggleBotIsAddedToAttachmentMenuRequest) error {
 	var ok Ok
 

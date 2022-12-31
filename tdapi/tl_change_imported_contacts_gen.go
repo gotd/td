@@ -33,7 +33,7 @@ var (
 
 // ChangeImportedContactsRequest represents TL type `changeImportedContacts#24885905`.
 type ChangeImportedContactsRequest struct {
-	// Contacts field of ChangeImportedContactsRequest.
+	// The new list of contacts, contact's vCard are ignored and are not imported
 	Contacts []Contact
 }
 
