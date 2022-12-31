@@ -33,7 +33,7 @@ var (
 
 // MessageLink represents TL type `messageLink#af4a3aa6`.
 type MessageLink struct {
-	// Message link
+	// The link
 	Link string
 	// True, if the link will work for non-members of the chat
 	IsPublic bool

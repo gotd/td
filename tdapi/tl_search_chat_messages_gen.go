@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SearchChatMessagesRequest represents TL type `searchChatMessages#f655b620`.
+// SearchChatMessagesRequest represents TL type `searchChatMessages#70023dfc`.
 type SearchChatMessagesRequest struct {
 	// Identifier of the chat in which to search messages
 	ChatID int64
@@ -47,9 +47,7 @@ type SearchChatMessagesRequest struct {
 	// the specified message and some newer messages
 	Offset int32
 	// The maximum number of messages to be returned; must be positive and can't be greater
-	// than 100. If the offset is negative, the limit must be greater than -offset. For
-	// optimal performance, the number of returned messages is chosen by TDLib and can be
-	// smaller than the specified limit
+	// than 100. If the offset is negative, the limit must be greater than -offset.
 	Limit int32
 	// Additional filter for messages to search; pass null to search for all messages
 	Filter SearchMessagesFilterClass
@@ -58,7 +56,7 @@ type SearchChatMessagesRequest struct {
 }
 
 // SearchChatMessagesRequestTypeID is TL type id of SearchChatMessagesRequest.
-const SearchChatMessagesRequestTypeID = 0xf655b620
+const SearchChatMessagesRequestTypeID = 0x70023dfc
 
 // Ensuring interfaces in compile-time for SearchChatMessagesRequest.
 var (
@@ -171,7 +169,7 @@ func (s *SearchChatMessagesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SearchChatMessagesRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchChatMessages#f655b620 as nil")
+		return fmt.Errorf("can't encode searchChatMessages#70023dfc as nil")
 	}
 	b.PutID(SearchChatMessagesRequestTypeID)
 	return s.EncodeBare(b)
@@ -180,24 +178,24 @@ func (s *SearchChatMessagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SearchChatMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchChatMessages#f655b620 as nil")
+		return fmt.Errorf("can't encode searchChatMessages#70023dfc as nil")
 	}
 	b.PutInt53(s.ChatID)
 	b.PutString(s.Query)
 	if s.SenderID == nil {
-		return fmt.Errorf("unable to encode searchChatMessages#f655b620: field sender_id is nil")
+		return fmt.Errorf("unable to encode searchChatMessages#70023dfc: field sender_id is nil")
 	}
 	if err := s.SenderID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode searchChatMessages#f655b620: field sender_id: %w", err)
+		return fmt.Errorf("unable to encode searchChatMessages#70023dfc: field sender_id: %w", err)
 	}
 	b.PutInt53(s.FromMessageID)
 	b.PutInt32(s.Offset)
 	b.PutInt32(s.Limit)
 	if s.Filter == nil {
-		return fmt.Errorf("unable to encode searchChatMessages#f655b620: field filter is nil")
+		return fmt.Errorf("unable to encode searchChatMessages#70023dfc: field filter is nil")
 	}
 	if err := s.Filter.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode searchChatMessages#f655b620: field filter: %w", err)
+		return fmt.Errorf("unable to encode searchChatMessages#70023dfc: field filter: %w", err)
 	}
 	b.PutInt53(s.MessageThreadID)
 	return nil
@@ -206,10 +204,10 @@ func (s *SearchChatMessagesRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SearchChatMessagesRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchChatMessages#f655b620 to nil")
+		return fmt.Errorf("can't decode searchChatMessages#70023dfc to nil")
 	}
 	if err := b.ConsumeID(SearchChatMessagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode searchChatMessages#f655b620: %w", err)
+		return fmt.Errorf("unable to decode searchChatMessages#70023dfc: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -217,61 +215,61 @@ func (s *SearchChatMessagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SearchChatMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchChatMessages#f655b620 to nil")
+		return fmt.Errorf("can't decode searchChatMessages#70023dfc to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchChatMessages#f655b620: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode searchChatMessages#70023dfc: field chat_id: %w", err)
 		}
 		s.ChatID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchChatMessages#f655b620: field query: %w", err)
+			return fmt.Errorf("unable to decode searchChatMessages#70023dfc: field query: %w", err)
 		}
 		s.Query = value
 	}
 	{
 		value, err := DecodeMessageSender(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode searchChatMessages#f655b620: field sender_id: %w", err)
+			return fmt.Errorf("unable to decode searchChatMessages#70023dfc: field sender_id: %w", err)
 		}
 		s.SenderID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchChatMessages#f655b620: field from_message_id: %w", err)
+			return fmt.Errorf("unable to decode searchChatMessages#70023dfc: field from_message_id: %w", err)
 		}
 		s.FromMessageID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchChatMessages#f655b620: field offset: %w", err)
+			return fmt.Errorf("unable to decode searchChatMessages#70023dfc: field offset: %w", err)
 		}
 		s.Offset = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchChatMessages#f655b620: field limit: %w", err)
+			return fmt.Errorf("unable to decode searchChatMessages#70023dfc: field limit: %w", err)
 		}
 		s.Limit = value
 	}
 	{
 		value, err := DecodeSearchMessagesFilter(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode searchChatMessages#f655b620: field filter: %w", err)
+			return fmt.Errorf("unable to decode searchChatMessages#70023dfc: field filter: %w", err)
 		}
 		s.Filter = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchChatMessages#f655b620: field message_thread_id: %w", err)
+			return fmt.Errorf("unable to decode searchChatMessages#70023dfc: field message_thread_id: %w", err)
 		}
 		s.MessageThreadID = value
 	}
@@ -281,7 +279,7 @@ func (s *SearchChatMessagesRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SearchChatMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchChatMessages#f655b620 as nil")
+		return fmt.Errorf("can't encode searchChatMessages#70023dfc as nil")
 	}
 	b.ObjStart()
 	b.PutID("searchChatMessages")
@@ -294,10 +292,10 @@ func (s *SearchChatMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("sender_id")
 	if s.SenderID == nil {
-		return fmt.Errorf("unable to encode searchChatMessages#f655b620: field sender_id is nil")
+		return fmt.Errorf("unable to encode searchChatMessages#70023dfc: field sender_id is nil")
 	}
 	if err := s.SenderID.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode searchChatMessages#f655b620: field sender_id: %w", err)
+		return fmt.Errorf("unable to encode searchChatMessages#70023dfc: field sender_id: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("from_message_id")
@@ -311,10 +309,10 @@ func (s *SearchChatMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("filter")
 	if s.Filter == nil {
-		return fmt.Errorf("unable to encode searchChatMessages#f655b620: field filter is nil")
+		return fmt.Errorf("unable to encode searchChatMessages#70023dfc: field filter is nil")
 	}
 	if err := s.Filter.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode searchChatMessages#f655b620: field filter: %w", err)
+		return fmt.Errorf("unable to encode searchChatMessages#70023dfc: field filter: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("message_thread_id")
@@ -328,61 +326,61 @@ func (s *SearchChatMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SearchChatMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchChatMessages#f655b620 to nil")
+		return fmt.Errorf("can't decode searchChatMessages#70023dfc to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("searchChatMessages"); err != nil {
-				return fmt.Errorf("unable to decode searchChatMessages#f655b620: %w", err)
+				return fmt.Errorf("unable to decode searchChatMessages#70023dfc: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchChatMessages#f655b620: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode searchChatMessages#70023dfc: field chat_id: %w", err)
 			}
 			s.ChatID = value
 		case "query":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchChatMessages#f655b620: field query: %w", err)
+				return fmt.Errorf("unable to decode searchChatMessages#70023dfc: field query: %w", err)
 			}
 			s.Query = value
 		case "sender_id":
 			value, err := DecodeTDLibJSONMessageSender(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode searchChatMessages#f655b620: field sender_id: %w", err)
+				return fmt.Errorf("unable to decode searchChatMessages#70023dfc: field sender_id: %w", err)
 			}
 			s.SenderID = value
 		case "from_message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchChatMessages#f655b620: field from_message_id: %w", err)
+				return fmt.Errorf("unable to decode searchChatMessages#70023dfc: field from_message_id: %w", err)
 			}
 			s.FromMessageID = value
 		case "offset":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchChatMessages#f655b620: field offset: %w", err)
+				return fmt.Errorf("unable to decode searchChatMessages#70023dfc: field offset: %w", err)
 			}
 			s.Offset = value
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchChatMessages#f655b620: field limit: %w", err)
+				return fmt.Errorf("unable to decode searchChatMessages#70023dfc: field limit: %w", err)
 			}
 			s.Limit = value
 		case "filter":
 			value, err := DecodeTDLibJSONSearchMessagesFilter(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode searchChatMessages#f655b620: field filter: %w", err)
+				return fmt.Errorf("unable to decode searchChatMessages#70023dfc: field filter: %w", err)
 			}
 			s.Filter = value
 		case "message_thread_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchChatMessages#f655b620: field message_thread_id: %w", err)
+				return fmt.Errorf("unable to decode searchChatMessages#70023dfc: field message_thread_id: %w", err)
 			}
 			s.MessageThreadID = value
 		default:
@@ -456,9 +454,9 @@ func (s *SearchChatMessagesRequest) GetMessageThreadID() (value int64) {
 	return s.MessageThreadID
 }
 
-// SearchChatMessages invokes method searchChatMessages#f655b620 returning error if any.
-func (c *Client) SearchChatMessages(ctx context.Context, request *SearchChatMessagesRequest) (*Messages, error) {
-	var result Messages
+// SearchChatMessages invokes method searchChatMessages#70023dfc returning error if any.
+func (c *Client) SearchChatMessages(ctx context.Context, request *SearchChatMessagesRequest) (*FoundChatMessages, error) {
+	var result FoundChatMessages
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err

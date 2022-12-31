@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatPhotoInfo represents TL type `chatPhotoInfo#9f51bb6`.
+// ChatPhotoInfo represents TL type `chatPhotoInfo#10c2b4a6`.
 type ChatPhotoInfo struct {
 	// A small (160x160) chat photo variant in JPEG format. The file can be downloaded only
 	// before the photo is changed
@@ -43,10 +43,12 @@ type ChatPhotoInfo struct {
 	Minithumbnail Minithumbnail
 	// True, if the photo has animated variant
 	HasAnimation bool
+	// True, if the photo is visible only for the current user
+	IsPersonal bool
 }
 
 // ChatPhotoInfoTypeID is TL type id of ChatPhotoInfo.
-const ChatPhotoInfoTypeID = 0x9f51bb6
+const ChatPhotoInfoTypeID = 0x10c2b4a6
 
 // Ensuring interfaces in compile-time for ChatPhotoInfo.
 var (
@@ -70,6 +72,9 @@ func (c *ChatPhotoInfo) Zero() bool {
 		return false
 	}
 	if !(c.HasAnimation == false) {
+		return false
+	}
+	if !(c.IsPersonal == false) {
 		return false
 	}
 
@@ -124,6 +129,10 @@ func (c *ChatPhotoInfo) TypeInfo() tdp.Type {
 			Name:       "HasAnimation",
 			SchemaName: "has_animation",
 		},
+		{
+			Name:       "IsPersonal",
+			SchemaName: "is_personal",
+		},
 	}
 	return typ
 }
@@ -131,7 +140,7 @@ func (c *ChatPhotoInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatPhotoInfo) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatPhotoInfo#9f51bb6 as nil")
+		return fmt.Errorf("can't encode chatPhotoInfo#10c2b4a6 as nil")
 	}
 	b.PutID(ChatPhotoInfoTypeID)
 	return c.EncodeBare(b)
@@ -140,28 +149,29 @@ func (c *ChatPhotoInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatPhotoInfo) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatPhotoInfo#9f51bb6 as nil")
+		return fmt.Errorf("can't encode chatPhotoInfo#10c2b4a6 as nil")
 	}
 	if err := c.Small.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatPhotoInfo#9f51bb6: field small: %w", err)
+		return fmt.Errorf("unable to encode chatPhotoInfo#10c2b4a6: field small: %w", err)
 	}
 	if err := c.Big.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatPhotoInfo#9f51bb6: field big: %w", err)
+		return fmt.Errorf("unable to encode chatPhotoInfo#10c2b4a6: field big: %w", err)
 	}
 	if err := c.Minithumbnail.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatPhotoInfo#9f51bb6: field minithumbnail: %w", err)
+		return fmt.Errorf("unable to encode chatPhotoInfo#10c2b4a6: field minithumbnail: %w", err)
 	}
 	b.PutBool(c.HasAnimation)
+	b.PutBool(c.IsPersonal)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChatPhotoInfo) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatPhotoInfo#9f51bb6 to nil")
+		return fmt.Errorf("can't decode chatPhotoInfo#10c2b4a6 to nil")
 	}
 	if err := b.ConsumeID(ChatPhotoInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatPhotoInfo#9f51bb6: %w", err)
+		return fmt.Errorf("unable to decode chatPhotoInfo#10c2b4a6: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -169,29 +179,36 @@ func (c *ChatPhotoInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatPhotoInfo) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatPhotoInfo#9f51bb6 to nil")
+		return fmt.Errorf("can't decode chatPhotoInfo#10c2b4a6 to nil")
 	}
 	{
 		if err := c.Small.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatPhotoInfo#9f51bb6: field small: %w", err)
+			return fmt.Errorf("unable to decode chatPhotoInfo#10c2b4a6: field small: %w", err)
 		}
 	}
 	{
 		if err := c.Big.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatPhotoInfo#9f51bb6: field big: %w", err)
+			return fmt.Errorf("unable to decode chatPhotoInfo#10c2b4a6: field big: %w", err)
 		}
 	}
 	{
 		if err := c.Minithumbnail.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatPhotoInfo#9f51bb6: field minithumbnail: %w", err)
+			return fmt.Errorf("unable to decode chatPhotoInfo#10c2b4a6: field minithumbnail: %w", err)
 		}
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPhotoInfo#9f51bb6: field has_animation: %w", err)
+			return fmt.Errorf("unable to decode chatPhotoInfo#10c2b4a6: field has_animation: %w", err)
 		}
 		c.HasAnimation = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatPhotoInfo#10c2b4a6: field is_personal: %w", err)
+		}
+		c.IsPersonal = value
 	}
 	return nil
 }
@@ -199,28 +216,31 @@ func (c *ChatPhotoInfo) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatPhotoInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatPhotoInfo#9f51bb6 as nil")
+		return fmt.Errorf("can't encode chatPhotoInfo#10c2b4a6 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatPhotoInfo")
 	b.Comma()
 	b.FieldStart("small")
 	if err := c.Small.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatPhotoInfo#9f51bb6: field small: %w", err)
+		return fmt.Errorf("unable to encode chatPhotoInfo#10c2b4a6: field small: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("big")
 	if err := c.Big.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatPhotoInfo#9f51bb6: field big: %w", err)
+		return fmt.Errorf("unable to encode chatPhotoInfo#10c2b4a6: field big: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("minithumbnail")
 	if err := c.Minithumbnail.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatPhotoInfo#9f51bb6: field minithumbnail: %w", err)
+		return fmt.Errorf("unable to encode chatPhotoInfo#10c2b4a6: field minithumbnail: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("has_animation")
 	b.PutBool(c.HasAnimation)
+	b.Comma()
+	b.FieldStart("is_personal")
+	b.PutBool(c.IsPersonal)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -230,33 +250,39 @@ func (c *ChatPhotoInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatPhotoInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatPhotoInfo#9f51bb6 to nil")
+		return fmt.Errorf("can't decode chatPhotoInfo#10c2b4a6 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatPhotoInfo"); err != nil {
-				return fmt.Errorf("unable to decode chatPhotoInfo#9f51bb6: %w", err)
+				return fmt.Errorf("unable to decode chatPhotoInfo#10c2b4a6: %w", err)
 			}
 		case "small":
 			if err := c.Small.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatPhotoInfo#9f51bb6: field small: %w", err)
+				return fmt.Errorf("unable to decode chatPhotoInfo#10c2b4a6: field small: %w", err)
 			}
 		case "big":
 			if err := c.Big.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatPhotoInfo#9f51bb6: field big: %w", err)
+				return fmt.Errorf("unable to decode chatPhotoInfo#10c2b4a6: field big: %w", err)
 			}
 		case "minithumbnail":
 			if err := c.Minithumbnail.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatPhotoInfo#9f51bb6: field minithumbnail: %w", err)
+				return fmt.Errorf("unable to decode chatPhotoInfo#10c2b4a6: field minithumbnail: %w", err)
 			}
 		case "has_animation":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatPhotoInfo#9f51bb6: field has_animation: %w", err)
+				return fmt.Errorf("unable to decode chatPhotoInfo#10c2b4a6: field has_animation: %w", err)
 			}
 			c.HasAnimation = value
+		case "is_personal":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatPhotoInfo#10c2b4a6: field is_personal: %w", err)
+			}
+			c.IsPersonal = value
 		default:
 			return b.Skip()
 		}
@@ -294,4 +320,12 @@ func (c *ChatPhotoInfo) GetHasAnimation() (value bool) {
 		return
 	}
 	return c.HasAnimation
+}
+
+// GetIsPersonal returns value of IsPersonal field.
+func (c *ChatPhotoInfo) GetIsPersonal() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.IsPersonal
 }

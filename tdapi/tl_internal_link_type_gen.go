@@ -1704,6 +1704,270 @@ func (i *InternalLinkTypeChatInvite) GetInviteLink() (value string) {
 	return i.InviteLink
 }
 
+// InternalLinkTypeDefaultMessageAutoDeleteTimerSettings represents TL type `internalLinkTypeDefaultMessageAutoDeleteTimerSettings#2baaf931`.
+type InternalLinkTypeDefaultMessageAutoDeleteTimerSettings struct {
+}
+
+// InternalLinkTypeDefaultMessageAutoDeleteTimerSettingsTypeID is TL type id of InternalLinkTypeDefaultMessageAutoDeleteTimerSettings.
+const InternalLinkTypeDefaultMessageAutoDeleteTimerSettingsTypeID = 0x2baaf931
+
+// construct implements constructor of InternalLinkTypeClass.
+func (i InternalLinkTypeDefaultMessageAutoDeleteTimerSettings) construct() InternalLinkTypeClass {
+	return &i
+}
+
+// Ensuring interfaces in compile-time for InternalLinkTypeDefaultMessageAutoDeleteTimerSettings.
+var (
+	_ bin.Encoder     = &InternalLinkTypeDefaultMessageAutoDeleteTimerSettings{}
+	_ bin.Decoder     = &InternalLinkTypeDefaultMessageAutoDeleteTimerSettings{}
+	_ bin.BareEncoder = &InternalLinkTypeDefaultMessageAutoDeleteTimerSettings{}
+	_ bin.BareDecoder = &InternalLinkTypeDefaultMessageAutoDeleteTimerSettings{}
+
+	_ InternalLinkTypeClass = &InternalLinkTypeDefaultMessageAutoDeleteTimerSettings{}
+)
+
+func (i *InternalLinkTypeDefaultMessageAutoDeleteTimerSettings) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InternalLinkTypeDefaultMessageAutoDeleteTimerSettings) String() string {
+	if i == nil {
+		return "InternalLinkTypeDefaultMessageAutoDeleteTimerSettings(nil)"
+	}
+	type Alias InternalLinkTypeDefaultMessageAutoDeleteTimerSettings
+	return fmt.Sprintf("InternalLinkTypeDefaultMessageAutoDeleteTimerSettings%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InternalLinkTypeDefaultMessageAutoDeleteTimerSettings) TypeID() uint32 {
+	return InternalLinkTypeDefaultMessageAutoDeleteTimerSettingsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InternalLinkTypeDefaultMessageAutoDeleteTimerSettings) TypeName() string {
+	return "internalLinkTypeDefaultMessageAutoDeleteTimerSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InternalLinkTypeDefaultMessageAutoDeleteTimerSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "internalLinkTypeDefaultMessageAutoDeleteTimerSettings",
+		ID:   InternalLinkTypeDefaultMessageAutoDeleteTimerSettingsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InternalLinkTypeDefaultMessageAutoDeleteTimerSettings) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeDefaultMessageAutoDeleteTimerSettings#2baaf931 as nil")
+	}
+	b.PutID(InternalLinkTypeDefaultMessageAutoDeleteTimerSettingsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InternalLinkTypeDefaultMessageAutoDeleteTimerSettings) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeDefaultMessageAutoDeleteTimerSettings#2baaf931 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InternalLinkTypeDefaultMessageAutoDeleteTimerSettings) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeDefaultMessageAutoDeleteTimerSettings#2baaf931 to nil")
+	}
+	if err := b.ConsumeID(InternalLinkTypeDefaultMessageAutoDeleteTimerSettingsTypeID); err != nil {
+		return fmt.Errorf("unable to decode internalLinkTypeDefaultMessageAutoDeleteTimerSettings#2baaf931: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InternalLinkTypeDefaultMessageAutoDeleteTimerSettings) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeDefaultMessageAutoDeleteTimerSettings#2baaf931 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InternalLinkTypeDefaultMessageAutoDeleteTimerSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeDefaultMessageAutoDeleteTimerSettings#2baaf931 as nil")
+	}
+	b.ObjStart()
+	b.PutID("internalLinkTypeDefaultMessageAutoDeleteTimerSettings")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InternalLinkTypeDefaultMessageAutoDeleteTimerSettings) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeDefaultMessageAutoDeleteTimerSettings#2baaf931 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("internalLinkTypeDefaultMessageAutoDeleteTimerSettings"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeDefaultMessageAutoDeleteTimerSettings#2baaf931: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// InternalLinkTypeEditProfileSettings represents TL type `internalLinkTypeEditProfileSettings#c30e5066`.
+type InternalLinkTypeEditProfileSettings struct {
+}
+
+// InternalLinkTypeEditProfileSettingsTypeID is TL type id of InternalLinkTypeEditProfileSettings.
+const InternalLinkTypeEditProfileSettingsTypeID = 0xc30e5066
+
+// construct implements constructor of InternalLinkTypeClass.
+func (i InternalLinkTypeEditProfileSettings) construct() InternalLinkTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InternalLinkTypeEditProfileSettings.
+var (
+	_ bin.Encoder     = &InternalLinkTypeEditProfileSettings{}
+	_ bin.Decoder     = &InternalLinkTypeEditProfileSettings{}
+	_ bin.BareEncoder = &InternalLinkTypeEditProfileSettings{}
+	_ bin.BareDecoder = &InternalLinkTypeEditProfileSettings{}
+
+	_ InternalLinkTypeClass = &InternalLinkTypeEditProfileSettings{}
+)
+
+func (i *InternalLinkTypeEditProfileSettings) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InternalLinkTypeEditProfileSettings) String() string {
+	if i == nil {
+		return "InternalLinkTypeEditProfileSettings(nil)"
+	}
+	type Alias InternalLinkTypeEditProfileSettings
+	return fmt.Sprintf("InternalLinkTypeEditProfileSettings%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InternalLinkTypeEditProfileSettings) TypeID() uint32 {
+	return InternalLinkTypeEditProfileSettingsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InternalLinkTypeEditProfileSettings) TypeName() string {
+	return "internalLinkTypeEditProfileSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InternalLinkTypeEditProfileSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "internalLinkTypeEditProfileSettings",
+		ID:   InternalLinkTypeEditProfileSettingsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InternalLinkTypeEditProfileSettings) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeEditProfileSettings#c30e5066 as nil")
+	}
+	b.PutID(InternalLinkTypeEditProfileSettingsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InternalLinkTypeEditProfileSettings) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeEditProfileSettings#c30e5066 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InternalLinkTypeEditProfileSettings) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeEditProfileSettings#c30e5066 to nil")
+	}
+	if err := b.ConsumeID(InternalLinkTypeEditProfileSettingsTypeID); err != nil {
+		return fmt.Errorf("unable to decode internalLinkTypeEditProfileSettings#c30e5066: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InternalLinkTypeEditProfileSettings) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeEditProfileSettings#c30e5066 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InternalLinkTypeEditProfileSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeEditProfileSettings#c30e5066 as nil")
+	}
+	b.ObjStart()
+	b.PutID("internalLinkTypeEditProfileSettings")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InternalLinkTypeEditProfileSettings) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeEditProfileSettings#c30e5066 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("internalLinkTypeEditProfileSettings"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeEditProfileSettings#c30e5066: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // InternalLinkTypeFilterSettings represents TL type `internalLinkTypeFilterSettings#5981179b`.
 type InternalLinkTypeFilterSettings struct {
 }
@@ -4670,14 +4934,16 @@ func (i *InternalLinkTypeSettings) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// InternalLinkTypeStickerSet represents TL type `internalLinkTypeStickerSet#e06e56b9`.
+// InternalLinkTypeStickerSet represents TL type `internalLinkTypeStickerSet#a1464fa2`.
 type InternalLinkTypeStickerSet struct {
 	// Name of the sticker set
 	StickerSetName string
+	// True, if the sticker set is expected to contain custom emoji
+	ExpectCustomEmoji bool
 }
 
 // InternalLinkTypeStickerSetTypeID is TL type id of InternalLinkTypeStickerSet.
-const InternalLinkTypeStickerSetTypeID = 0xe06e56b9
+const InternalLinkTypeStickerSetTypeID = 0xa1464fa2
 
 // construct implements constructor of InternalLinkTypeClass.
 func (i InternalLinkTypeStickerSet) construct() InternalLinkTypeClass { return &i }
@@ -4697,6 +4963,9 @@ func (i *InternalLinkTypeStickerSet) Zero() bool {
 		return true
 	}
 	if !(i.StickerSetName == "") {
+		return false
+	}
+	if !(i.ExpectCustomEmoji == false) {
 		return false
 	}
 
@@ -4739,6 +5008,10 @@ func (i *InternalLinkTypeStickerSet) TypeInfo() tdp.Type {
 			Name:       "StickerSetName",
 			SchemaName: "sticker_set_name",
 		},
+		{
+			Name:       "ExpectCustomEmoji",
+			SchemaName: "expect_custom_emoji",
+		},
 	}
 	return typ
 }
@@ -4746,7 +5019,7 @@ func (i *InternalLinkTypeStickerSet) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InternalLinkTypeStickerSet) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeStickerSet#e06e56b9 as nil")
+		return fmt.Errorf("can't encode internalLinkTypeStickerSet#a1464fa2 as nil")
 	}
 	b.PutID(InternalLinkTypeStickerSetTypeID)
 	return i.EncodeBare(b)
@@ -4755,19 +5028,20 @@ func (i *InternalLinkTypeStickerSet) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InternalLinkTypeStickerSet) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeStickerSet#e06e56b9 as nil")
+		return fmt.Errorf("can't encode internalLinkTypeStickerSet#a1464fa2 as nil")
 	}
 	b.PutString(i.StickerSetName)
+	b.PutBool(i.ExpectCustomEmoji)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *InternalLinkTypeStickerSet) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeStickerSet#e06e56b9 to nil")
+		return fmt.Errorf("can't decode internalLinkTypeStickerSet#a1464fa2 to nil")
 	}
 	if err := b.ConsumeID(InternalLinkTypeStickerSetTypeID); err != nil {
-		return fmt.Errorf("unable to decode internalLinkTypeStickerSet#e06e56b9: %w", err)
+		return fmt.Errorf("unable to decode internalLinkTypeStickerSet#a1464fa2: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -4775,14 +5049,21 @@ func (i *InternalLinkTypeStickerSet) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InternalLinkTypeStickerSet) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeStickerSet#e06e56b9 to nil")
+		return fmt.Errorf("can't decode internalLinkTypeStickerSet#a1464fa2 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode internalLinkTypeStickerSet#e06e56b9: field sticker_set_name: %w", err)
+			return fmt.Errorf("unable to decode internalLinkTypeStickerSet#a1464fa2: field sticker_set_name: %w", err)
 		}
 		i.StickerSetName = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeStickerSet#a1464fa2: field expect_custom_emoji: %w", err)
+		}
+		i.ExpectCustomEmoji = value
 	}
 	return nil
 }
@@ -4790,13 +5071,16 @@ func (i *InternalLinkTypeStickerSet) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InternalLinkTypeStickerSet) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode internalLinkTypeStickerSet#e06e56b9 as nil")
+		return fmt.Errorf("can't encode internalLinkTypeStickerSet#a1464fa2 as nil")
 	}
 	b.ObjStart()
 	b.PutID("internalLinkTypeStickerSet")
 	b.Comma()
 	b.FieldStart("sticker_set_name")
 	b.PutString(i.StickerSetName)
+	b.Comma()
+	b.FieldStart("expect_custom_emoji")
+	b.PutBool(i.ExpectCustomEmoji)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -4806,21 +5090,27 @@ func (i *InternalLinkTypeStickerSet) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InternalLinkTypeStickerSet) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode internalLinkTypeStickerSet#e06e56b9 to nil")
+		return fmt.Errorf("can't decode internalLinkTypeStickerSet#a1464fa2 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("internalLinkTypeStickerSet"); err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeStickerSet#e06e56b9: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypeStickerSet#a1464fa2: %w", err)
 			}
 		case "sticker_set_name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode internalLinkTypeStickerSet#e06e56b9: field sticker_set_name: %w", err)
+				return fmt.Errorf("unable to decode internalLinkTypeStickerSet#a1464fa2: field sticker_set_name: %w", err)
 			}
 			i.StickerSetName = value
+		case "expect_custom_emoji":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeStickerSet#a1464fa2: field expect_custom_emoji: %w", err)
+			}
+			i.ExpectCustomEmoji = value
 		default:
 			return b.Skip()
 		}
@@ -4834,6 +5124,14 @@ func (i *InternalLinkTypeStickerSet) GetStickerSetName() (value string) {
 		return
 	}
 	return i.StickerSetName
+}
+
+// GetExpectCustomEmoji returns value of ExpectCustomEmoji field.
+func (i *InternalLinkTypeStickerSet) GetExpectCustomEmoji() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.ExpectCustomEmoji
 }
 
 // InternalLinkTypeTheme represents TL type `internalLinkTypeTheme#f405f807`.
@@ -6019,6 +6317,8 @@ const InternalLinkTypeClassName = "InternalLinkType"
 //	case *tdapi.InternalLinkTypeBotAddToChannel: // internalLinkTypeBotAddToChannel#538ac2c0
 //	case *tdapi.InternalLinkTypeChangePhoneNumber: // internalLinkTypeChangePhoneNumber#f0275b01
 //	case *tdapi.InternalLinkTypeChatInvite: // internalLinkTypeChatInvite#198c3cd9
+//	case *tdapi.InternalLinkTypeDefaultMessageAutoDeleteTimerSettings: // internalLinkTypeDefaultMessageAutoDeleteTimerSettings#2baaf931
+//	case *tdapi.InternalLinkTypeEditProfileSettings: // internalLinkTypeEditProfileSettings#c30e5066
 //	case *tdapi.InternalLinkTypeFilterSettings: // internalLinkTypeFilterSettings#5981179b
 //	case *tdapi.InternalLinkTypeGame: // internalLinkTypeGame#f074adcd
 //	case *tdapi.InternalLinkTypeInstantView: // internalLinkTypeInstantView#69e4df3f
@@ -6036,7 +6336,7 @@ const InternalLinkTypeClassName = "InternalLinkType"
 //	case *tdapi.InternalLinkTypeQrCodeAuthentication: // internalLinkTypeQrCodeAuthentication#bf121924
 //	case *tdapi.InternalLinkTypeRestorePurchases: // internalLinkTypeRestorePurchases#24203483
 //	case *tdapi.InternalLinkTypeSettings: // internalLinkTypeSettings#177545b4
-//	case *tdapi.InternalLinkTypeStickerSet: // internalLinkTypeStickerSet#e06e56b9
+//	case *tdapi.InternalLinkTypeStickerSet: // internalLinkTypeStickerSet#a1464fa2
 //	case *tdapi.InternalLinkTypeTheme: // internalLinkTypeTheme#f405f807
 //	case *tdapi.InternalLinkTypeThemeSettings: // internalLinkTypeThemeSettings#c14d3916
 //	case *tdapi.InternalLinkTypeUnknownDeepLink: // internalLinkTypeUnknownDeepLink#2549d7db
@@ -6134,6 +6434,20 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 	case InternalLinkTypeChatInviteTypeID:
 		// Decoding internalLinkTypeChatInvite#198c3cd9.
 		v := InternalLinkTypeChatInvite{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case InternalLinkTypeDefaultMessageAutoDeleteTimerSettingsTypeID:
+		// Decoding internalLinkTypeDefaultMessageAutoDeleteTimerSettings#2baaf931.
+		v := InternalLinkTypeDefaultMessageAutoDeleteTimerSettings{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case InternalLinkTypeEditProfileSettingsTypeID:
+		// Decoding internalLinkTypeEditProfileSettings#c30e5066.
+		v := InternalLinkTypeEditProfileSettings{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
@@ -6258,7 +6572,7 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 		}
 		return &v, nil
 	case InternalLinkTypeStickerSetTypeID:
-		// Decoding internalLinkTypeStickerSet#e06e56b9.
+		// Decoding internalLinkTypeStickerSet#a1464fa2.
 		v := InternalLinkTypeStickerSet{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
@@ -6388,6 +6702,20 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
 		return &v, nil
+	case "internalLinkTypeDefaultMessageAutoDeleteTimerSettings":
+		// Decoding internalLinkTypeDefaultMessageAutoDeleteTimerSettings#2baaf931.
+		v := InternalLinkTypeDefaultMessageAutoDeleteTimerSettings{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeEditProfileSettings":
+		// Decoding internalLinkTypeEditProfileSettings#c30e5066.
+		v := InternalLinkTypeEditProfileSettings{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
 	case "internalLinkTypeFilterSettings":
 		// Decoding internalLinkTypeFilterSettings#5981179b.
 		v := InternalLinkTypeFilterSettings{}
@@ -6508,7 +6836,7 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 		}
 		return &v, nil
 	case "internalLinkTypeStickerSet":
-		// Decoding internalLinkTypeStickerSet#e06e56b9.
+		// Decoding internalLinkTypeStickerSet#a1464fa2.
 		v := InternalLinkTypeStickerSet{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)

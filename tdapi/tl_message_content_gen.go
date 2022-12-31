@@ -231,19 +231,21 @@ func (m *MessageText) GetWebPage() (value WebPage) {
 	return m.WebPage
 }
 
-// MessageAnimation represents TL type `messageAnimation#4de65004`.
+// MessageAnimation represents TL type `messageAnimation#3eb366fc`.
 type MessageAnimation struct {
 	// The animation description
 	Animation Animation
 	// Animation caption
 	Caption FormattedText
+	// True, if the animation preview must be covered by a spoiler animation
+	HasSpoiler bool
 	// True, if the animation thumbnail must be blurred and the animation must be shown only
 	// while tapped
 	IsSecret bool
 }
 
 // MessageAnimationTypeID is TL type id of MessageAnimation.
-const MessageAnimationTypeID = 0x4de65004
+const MessageAnimationTypeID = 0x3eb366fc
 
 // construct implements constructor of MessageContentClass.
 func (m MessageAnimation) construct() MessageContentClass { return &m }
@@ -266,6 +268,9 @@ func (m *MessageAnimation) Zero() bool {
 		return false
 	}
 	if !(m.Caption.Zero()) {
+		return false
+	}
+	if !(m.HasSpoiler == false) {
 		return false
 	}
 	if !(m.IsSecret == false) {
@@ -316,6 +321,10 @@ func (m *MessageAnimation) TypeInfo() tdp.Type {
 			SchemaName: "caption",
 		},
 		{
+			Name:       "HasSpoiler",
+			SchemaName: "has_spoiler",
+		},
+		{
 			Name:       "IsSecret",
 			SchemaName: "is_secret",
 		},
@@ -326,7 +335,7 @@ func (m *MessageAnimation) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageAnimation) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageAnimation#4de65004 as nil")
+		return fmt.Errorf("can't encode messageAnimation#3eb366fc as nil")
 	}
 	b.PutID(MessageAnimationTypeID)
 	return m.EncodeBare(b)
@@ -335,14 +344,15 @@ func (m *MessageAnimation) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageAnimation) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageAnimation#4de65004 as nil")
+		return fmt.Errorf("can't encode messageAnimation#3eb366fc as nil")
 	}
 	if err := m.Animation.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageAnimation#4de65004: field animation: %w", err)
+		return fmt.Errorf("unable to encode messageAnimation#3eb366fc: field animation: %w", err)
 	}
 	if err := m.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageAnimation#4de65004: field caption: %w", err)
+		return fmt.Errorf("unable to encode messageAnimation#3eb366fc: field caption: %w", err)
 	}
+	b.PutBool(m.HasSpoiler)
 	b.PutBool(m.IsSecret)
 	return nil
 }
@@ -350,10 +360,10 @@ func (m *MessageAnimation) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageAnimation) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageAnimation#4de65004 to nil")
+		return fmt.Errorf("can't decode messageAnimation#3eb366fc to nil")
 	}
 	if err := b.ConsumeID(MessageAnimationTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageAnimation#4de65004: %w", err)
+		return fmt.Errorf("unable to decode messageAnimation#3eb366fc: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -361,22 +371,29 @@ func (m *MessageAnimation) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageAnimation) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageAnimation#4de65004 to nil")
+		return fmt.Errorf("can't decode messageAnimation#3eb366fc to nil")
 	}
 	{
 		if err := m.Animation.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageAnimation#4de65004: field animation: %w", err)
+			return fmt.Errorf("unable to decode messageAnimation#3eb366fc: field animation: %w", err)
 		}
 	}
 	{
 		if err := m.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageAnimation#4de65004: field caption: %w", err)
+			return fmt.Errorf("unable to decode messageAnimation#3eb366fc: field caption: %w", err)
 		}
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageAnimation#4de65004: field is_secret: %w", err)
+			return fmt.Errorf("unable to decode messageAnimation#3eb366fc: field has_spoiler: %w", err)
+		}
+		m.HasSpoiler = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageAnimation#3eb366fc: field is_secret: %w", err)
 		}
 		m.IsSecret = value
 	}
@@ -386,20 +403,23 @@ func (m *MessageAnimation) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageAnimation) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageAnimation#4de65004 as nil")
+		return fmt.Errorf("can't encode messageAnimation#3eb366fc as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageAnimation")
 	b.Comma()
 	b.FieldStart("animation")
 	if err := m.Animation.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageAnimation#4de65004: field animation: %w", err)
+		return fmt.Errorf("unable to encode messageAnimation#3eb366fc: field animation: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("caption")
 	if err := m.Caption.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageAnimation#4de65004: field caption: %w", err)
+		return fmt.Errorf("unable to encode messageAnimation#3eb366fc: field caption: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("has_spoiler")
+	b.PutBool(m.HasSpoiler)
 	b.Comma()
 	b.FieldStart("is_secret")
 	b.PutBool(m.IsSecret)
@@ -412,27 +432,33 @@ func (m *MessageAnimation) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageAnimation) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageAnimation#4de65004 to nil")
+		return fmt.Errorf("can't decode messageAnimation#3eb366fc to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageAnimation"); err != nil {
-				return fmt.Errorf("unable to decode messageAnimation#4de65004: %w", err)
+				return fmt.Errorf("unable to decode messageAnimation#3eb366fc: %w", err)
 			}
 		case "animation":
 			if err := m.Animation.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messageAnimation#4de65004: field animation: %w", err)
+				return fmt.Errorf("unable to decode messageAnimation#3eb366fc: field animation: %w", err)
 			}
 		case "caption":
 			if err := m.Caption.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messageAnimation#4de65004: field caption: %w", err)
+				return fmt.Errorf("unable to decode messageAnimation#3eb366fc: field caption: %w", err)
 			}
+		case "has_spoiler":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageAnimation#3eb366fc: field has_spoiler: %w", err)
+			}
+			m.HasSpoiler = value
 		case "is_secret":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageAnimation#4de65004: field is_secret: %w", err)
+				return fmt.Errorf("unable to decode messageAnimation#3eb366fc: field is_secret: %w", err)
 			}
 			m.IsSecret = value
 		default:
@@ -456,6 +482,14 @@ func (m *MessageAnimation) GetCaption() (value FormattedText) {
 		return
 	}
 	return m.Caption
+}
+
+// GetHasSpoiler returns value of HasSpoiler field.
+func (m *MessageAnimation) GetHasSpoiler() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.HasSpoiler
 }
 
 // GetIsSecret returns value of IsSecret field.
@@ -866,18 +900,20 @@ func (m *MessageDocument) GetCaption() (value FormattedText) {
 	return m.Caption
 }
 
-// MessagePhoto represents TL type `messagePhoto#91a5f39a`.
+// MessagePhoto represents TL type `messagePhoto#e54b4ad2`.
 type MessagePhoto struct {
-	// The photo description
+	// The photo
 	Photo Photo
 	// Photo caption
 	Caption FormattedText
+	// True, if the photo preview must be covered by a spoiler animation
+	HasSpoiler bool
 	// True, if the photo must be blurred and must be shown only while tapped
 	IsSecret bool
 }
 
 // MessagePhotoTypeID is TL type id of MessagePhoto.
-const MessagePhotoTypeID = 0x91a5f39a
+const MessagePhotoTypeID = 0xe54b4ad2
 
 // construct implements constructor of MessageContentClass.
 func (m MessagePhoto) construct() MessageContentClass { return &m }
@@ -900,6 +936,9 @@ func (m *MessagePhoto) Zero() bool {
 		return false
 	}
 	if !(m.Caption.Zero()) {
+		return false
+	}
+	if !(m.HasSpoiler == false) {
 		return false
 	}
 	if !(m.IsSecret == false) {
@@ -950,6 +989,10 @@ func (m *MessagePhoto) TypeInfo() tdp.Type {
 			SchemaName: "caption",
 		},
 		{
+			Name:       "HasSpoiler",
+			SchemaName: "has_spoiler",
+		},
+		{
 			Name:       "IsSecret",
 			SchemaName: "is_secret",
 		},
@@ -960,7 +1003,7 @@ func (m *MessagePhoto) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessagePhoto) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messagePhoto#91a5f39a as nil")
+		return fmt.Errorf("can't encode messagePhoto#e54b4ad2 as nil")
 	}
 	b.PutID(MessagePhotoTypeID)
 	return m.EncodeBare(b)
@@ -969,14 +1012,15 @@ func (m *MessagePhoto) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessagePhoto) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messagePhoto#91a5f39a as nil")
+		return fmt.Errorf("can't encode messagePhoto#e54b4ad2 as nil")
 	}
 	if err := m.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messagePhoto#91a5f39a: field photo: %w", err)
+		return fmt.Errorf("unable to encode messagePhoto#e54b4ad2: field photo: %w", err)
 	}
 	if err := m.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messagePhoto#91a5f39a: field caption: %w", err)
+		return fmt.Errorf("unable to encode messagePhoto#e54b4ad2: field caption: %w", err)
 	}
+	b.PutBool(m.HasSpoiler)
 	b.PutBool(m.IsSecret)
 	return nil
 }
@@ -984,10 +1028,10 @@ func (m *MessagePhoto) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessagePhoto) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messagePhoto#91a5f39a to nil")
+		return fmt.Errorf("can't decode messagePhoto#e54b4ad2 to nil")
 	}
 	if err := b.ConsumeID(MessagePhotoTypeID); err != nil {
-		return fmt.Errorf("unable to decode messagePhoto#91a5f39a: %w", err)
+		return fmt.Errorf("unable to decode messagePhoto#e54b4ad2: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -995,22 +1039,29 @@ func (m *MessagePhoto) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessagePhoto) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messagePhoto#91a5f39a to nil")
+		return fmt.Errorf("can't decode messagePhoto#e54b4ad2 to nil")
 	}
 	{
 		if err := m.Photo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messagePhoto#91a5f39a: field photo: %w", err)
+			return fmt.Errorf("unable to decode messagePhoto#e54b4ad2: field photo: %w", err)
 		}
 	}
 	{
 		if err := m.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messagePhoto#91a5f39a: field caption: %w", err)
+			return fmt.Errorf("unable to decode messagePhoto#e54b4ad2: field caption: %w", err)
 		}
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePhoto#91a5f39a: field is_secret: %w", err)
+			return fmt.Errorf("unable to decode messagePhoto#e54b4ad2: field has_spoiler: %w", err)
+		}
+		m.HasSpoiler = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messagePhoto#e54b4ad2: field is_secret: %w", err)
 		}
 		m.IsSecret = value
 	}
@@ -1020,20 +1071,23 @@ func (m *MessagePhoto) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessagePhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messagePhoto#91a5f39a as nil")
+		return fmt.Errorf("can't encode messagePhoto#e54b4ad2 as nil")
 	}
 	b.ObjStart()
 	b.PutID("messagePhoto")
 	b.Comma()
 	b.FieldStart("photo")
 	if err := m.Photo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messagePhoto#91a5f39a: field photo: %w", err)
+		return fmt.Errorf("unable to encode messagePhoto#e54b4ad2: field photo: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("caption")
 	if err := m.Caption.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messagePhoto#91a5f39a: field caption: %w", err)
+		return fmt.Errorf("unable to encode messagePhoto#e54b4ad2: field caption: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("has_spoiler")
+	b.PutBool(m.HasSpoiler)
 	b.Comma()
 	b.FieldStart("is_secret")
 	b.PutBool(m.IsSecret)
@@ -1046,27 +1100,33 @@ func (m *MessagePhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessagePhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messagePhoto#91a5f39a to nil")
+		return fmt.Errorf("can't decode messagePhoto#e54b4ad2 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messagePhoto"); err != nil {
-				return fmt.Errorf("unable to decode messagePhoto#91a5f39a: %w", err)
+				return fmt.Errorf("unable to decode messagePhoto#e54b4ad2: %w", err)
 			}
 		case "photo":
 			if err := m.Photo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messagePhoto#91a5f39a: field photo: %w", err)
+				return fmt.Errorf("unable to decode messagePhoto#e54b4ad2: field photo: %w", err)
 			}
 		case "caption":
 			if err := m.Caption.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messagePhoto#91a5f39a: field caption: %w", err)
+				return fmt.Errorf("unable to decode messagePhoto#e54b4ad2: field caption: %w", err)
 			}
+		case "has_spoiler":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messagePhoto#e54b4ad2: field has_spoiler: %w", err)
+			}
+			m.HasSpoiler = value
 		case "is_secret":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messagePhoto#91a5f39a: field is_secret: %w", err)
+				return fmt.Errorf("unable to decode messagePhoto#e54b4ad2: field is_secret: %w", err)
 			}
 			m.IsSecret = value
 		default:
@@ -1090,6 +1150,14 @@ func (m *MessagePhoto) GetCaption() (value FormattedText) {
 		return
 	}
 	return m.Caption
+}
+
+// GetHasSpoiler returns value of HasSpoiler field.
+func (m *MessagePhoto) GetHasSpoiler() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.HasSpoiler
 }
 
 // GetIsSecret returns value of IsSecret field.
@@ -1431,19 +1499,21 @@ func (m *MessageSticker) GetIsPremium() (value bool) {
 	return m.IsPremium
 }
 
-// MessageVideo represents TL type `messageVideo#787a4e40`.
+// MessageVideo represents TL type `messageVideo#b63d003b`.
 type MessageVideo struct {
 	// The video description
 	Video Video
 	// Video caption
 	Caption FormattedText
+	// True, if the video preview must be covered by a spoiler animation
+	HasSpoiler bool
 	// True, if the video thumbnail must be blurred and the video must be shown only while
 	// tapped
 	IsSecret bool
 }
 
 // MessageVideoTypeID is TL type id of MessageVideo.
-const MessageVideoTypeID = 0x787a4e40
+const MessageVideoTypeID = 0xb63d003b
 
 // construct implements constructor of MessageContentClass.
 func (m MessageVideo) construct() MessageContentClass { return &m }
@@ -1466,6 +1536,9 @@ func (m *MessageVideo) Zero() bool {
 		return false
 	}
 	if !(m.Caption.Zero()) {
+		return false
+	}
+	if !(m.HasSpoiler == false) {
 		return false
 	}
 	if !(m.IsSecret == false) {
@@ -1516,6 +1589,10 @@ func (m *MessageVideo) TypeInfo() tdp.Type {
 			SchemaName: "caption",
 		},
 		{
+			Name:       "HasSpoiler",
+			SchemaName: "has_spoiler",
+		},
+		{
 			Name:       "IsSecret",
 			SchemaName: "is_secret",
 		},
@@ -1526,7 +1603,7 @@ func (m *MessageVideo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageVideo) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageVideo#787a4e40 as nil")
+		return fmt.Errorf("can't encode messageVideo#b63d003b as nil")
 	}
 	b.PutID(MessageVideoTypeID)
 	return m.EncodeBare(b)
@@ -1535,14 +1612,15 @@ func (m *MessageVideo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageVideo) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageVideo#787a4e40 as nil")
+		return fmt.Errorf("can't encode messageVideo#b63d003b as nil")
 	}
 	if err := m.Video.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageVideo#787a4e40: field video: %w", err)
+		return fmt.Errorf("unable to encode messageVideo#b63d003b: field video: %w", err)
 	}
 	if err := m.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageVideo#787a4e40: field caption: %w", err)
+		return fmt.Errorf("unable to encode messageVideo#b63d003b: field caption: %w", err)
 	}
+	b.PutBool(m.HasSpoiler)
 	b.PutBool(m.IsSecret)
 	return nil
 }
@@ -1550,10 +1628,10 @@ func (m *MessageVideo) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageVideo) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageVideo#787a4e40 to nil")
+		return fmt.Errorf("can't decode messageVideo#b63d003b to nil")
 	}
 	if err := b.ConsumeID(MessageVideoTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageVideo#787a4e40: %w", err)
+		return fmt.Errorf("unable to decode messageVideo#b63d003b: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -1561,22 +1639,29 @@ func (m *MessageVideo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageVideo) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageVideo#787a4e40 to nil")
+		return fmt.Errorf("can't decode messageVideo#b63d003b to nil")
 	}
 	{
 		if err := m.Video.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageVideo#787a4e40: field video: %w", err)
+			return fmt.Errorf("unable to decode messageVideo#b63d003b: field video: %w", err)
 		}
 	}
 	{
 		if err := m.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageVideo#787a4e40: field caption: %w", err)
+			return fmt.Errorf("unable to decode messageVideo#b63d003b: field caption: %w", err)
 		}
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageVideo#787a4e40: field is_secret: %w", err)
+			return fmt.Errorf("unable to decode messageVideo#b63d003b: field has_spoiler: %w", err)
+		}
+		m.HasSpoiler = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageVideo#b63d003b: field is_secret: %w", err)
 		}
 		m.IsSecret = value
 	}
@@ -1586,20 +1671,23 @@ func (m *MessageVideo) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageVideo#787a4e40 as nil")
+		return fmt.Errorf("can't encode messageVideo#b63d003b as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageVideo")
 	b.Comma()
 	b.FieldStart("video")
 	if err := m.Video.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageVideo#787a4e40: field video: %w", err)
+		return fmt.Errorf("unable to encode messageVideo#b63d003b: field video: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("caption")
 	if err := m.Caption.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageVideo#787a4e40: field caption: %w", err)
+		return fmt.Errorf("unable to encode messageVideo#b63d003b: field caption: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("has_spoiler")
+	b.PutBool(m.HasSpoiler)
 	b.Comma()
 	b.FieldStart("is_secret")
 	b.PutBool(m.IsSecret)
@@ -1612,27 +1700,33 @@ func (m *MessageVideo) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageVideo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageVideo#787a4e40 to nil")
+		return fmt.Errorf("can't decode messageVideo#b63d003b to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageVideo"); err != nil {
-				return fmt.Errorf("unable to decode messageVideo#787a4e40: %w", err)
+				return fmt.Errorf("unable to decode messageVideo#b63d003b: %w", err)
 			}
 		case "video":
 			if err := m.Video.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messageVideo#787a4e40: field video: %w", err)
+				return fmt.Errorf("unable to decode messageVideo#b63d003b: field video: %w", err)
 			}
 		case "caption":
 			if err := m.Caption.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messageVideo#787a4e40: field caption: %w", err)
+				return fmt.Errorf("unable to decode messageVideo#b63d003b: field caption: %w", err)
 			}
+		case "has_spoiler":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageVideo#b63d003b: field has_spoiler: %w", err)
+			}
+			m.HasSpoiler = value
 		case "is_secret":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageVideo#787a4e40: field is_secret: %w", err)
+				return fmt.Errorf("unable to decode messageVideo#b63d003b: field is_secret: %w", err)
 			}
 			m.IsSecret = value
 		default:
@@ -1656,6 +1750,14 @@ func (m *MessageVideo) GetCaption() (value FormattedText) {
 		return
 	}
 	return m.Caption
+}
+
+// GetHasSpoiler returns value of HasSpoiler field.
+func (m *MessageVideo) GetHasSpoiler() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.HasSpoiler
 }
 
 // GetIsSecret returns value of IsSecret field.
@@ -2280,7 +2382,7 @@ type MessageLocation struct {
 	// the direction is unknown
 	Heading int32
 	// For live locations, a maximum distance to another chat member for proximity alerts, in
-	// meters (0-100000). 0 if the notification is disabled. Available only for the message
+	// meters (0-100000). 0 if the notification is disabled. Available only to the message
 	// sender
 	ProximityAlertRadius int32
 }
@@ -7550,35 +7652,35 @@ func (m *MessageChatSetTheme) GetThemeName() (value string) {
 	return m.ThemeName
 }
 
-// MessageChatSetTTL represents TL type `messageChatSetTtl#49e6b31b`.
-type MessageChatSetTTL struct {
-	// New message TTL
-	TTL int32
+// MessageChatSetMessageAutoDeleteTime represents TL type `messageChatSetMessageAutoDeleteTime#619e052e`.
+type MessageChatSetMessageAutoDeleteTime struct {
+	// New value auto-delete or self-destruct time, in seconds; 0 if disabled
+	MessageAutoDeleteTime int32
 	// If not 0, a user identifier, which default setting was automatically applied
 	FromUserID int64
 }
 
-// MessageChatSetTTLTypeID is TL type id of MessageChatSetTTL.
-const MessageChatSetTTLTypeID = 0x49e6b31b
+// MessageChatSetMessageAutoDeleteTimeTypeID is TL type id of MessageChatSetMessageAutoDeleteTime.
+const MessageChatSetMessageAutoDeleteTimeTypeID = 0x619e052e
 
 // construct implements constructor of MessageContentClass.
-func (m MessageChatSetTTL) construct() MessageContentClass { return &m }
+func (m MessageChatSetMessageAutoDeleteTime) construct() MessageContentClass { return &m }
 
-// Ensuring interfaces in compile-time for MessageChatSetTTL.
+// Ensuring interfaces in compile-time for MessageChatSetMessageAutoDeleteTime.
 var (
-	_ bin.Encoder     = &MessageChatSetTTL{}
-	_ bin.Decoder     = &MessageChatSetTTL{}
-	_ bin.BareEncoder = &MessageChatSetTTL{}
-	_ bin.BareDecoder = &MessageChatSetTTL{}
+	_ bin.Encoder     = &MessageChatSetMessageAutoDeleteTime{}
+	_ bin.Decoder     = &MessageChatSetMessageAutoDeleteTime{}
+	_ bin.BareEncoder = &MessageChatSetMessageAutoDeleteTime{}
+	_ bin.BareDecoder = &MessageChatSetMessageAutoDeleteTime{}
 
-	_ MessageContentClass = &MessageChatSetTTL{}
+	_ MessageContentClass = &MessageChatSetMessageAutoDeleteTime{}
 )
 
-func (m *MessageChatSetTTL) Zero() bool {
+func (m *MessageChatSetMessageAutoDeleteTime) Zero() bool {
 	if m == nil {
 		return true
 	}
-	if !(m.TTL == 0) {
+	if !(m.MessageAutoDeleteTime == 0) {
 		return false
 	}
 	if !(m.FromUserID == 0) {
@@ -7589,31 +7691,31 @@ func (m *MessageChatSetTTL) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (m *MessageChatSetTTL) String() string {
+func (m *MessageChatSetMessageAutoDeleteTime) String() string {
 	if m == nil {
-		return "MessageChatSetTTL(nil)"
+		return "MessageChatSetMessageAutoDeleteTime(nil)"
 	}
-	type Alias MessageChatSetTTL
-	return fmt.Sprintf("MessageChatSetTTL%+v", Alias(*m))
+	type Alias MessageChatSetMessageAutoDeleteTime
+	return fmt.Sprintf("MessageChatSetMessageAutoDeleteTime%+v", Alias(*m))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*MessageChatSetTTL) TypeID() uint32 {
-	return MessageChatSetTTLTypeID
+func (*MessageChatSetMessageAutoDeleteTime) TypeID() uint32 {
+	return MessageChatSetMessageAutoDeleteTimeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*MessageChatSetTTL) TypeName() string {
-	return "messageChatSetTtl"
+func (*MessageChatSetMessageAutoDeleteTime) TypeName() string {
+	return "messageChatSetMessageAutoDeleteTime"
 }
 
 // TypeInfo returns info about TL type.
-func (m *MessageChatSetTTL) TypeInfo() tdp.Type {
+func (m *MessageChatSetMessageAutoDeleteTime) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "messageChatSetTtl",
-		ID:   MessageChatSetTTLTypeID,
+		Name: "messageChatSetMessageAutoDeleteTime",
+		ID:   MessageChatSetMessageAutoDeleteTimeTypeID,
 	}
 	if m == nil {
 		typ.Null = true
@@ -7621,8 +7723,8 @@ func (m *MessageChatSetTTL) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "TTL",
-			SchemaName: "ttl",
+			Name:       "MessageAutoDeleteTime",
+			SchemaName: "message_auto_delete_time",
 		},
 		{
 			Name:       "FromUserID",
@@ -7633,51 +7735,51 @@ func (m *MessageChatSetTTL) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (m *MessageChatSetTTL) Encode(b *bin.Buffer) error {
+func (m *MessageChatSetMessageAutoDeleteTime) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatSetTtl#49e6b31b as nil")
+		return fmt.Errorf("can't encode messageChatSetMessageAutoDeleteTime#619e052e as nil")
 	}
-	b.PutID(MessageChatSetTTLTypeID)
+	b.PutID(MessageChatSetMessageAutoDeleteTimeTypeID)
 	return m.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (m *MessageChatSetTTL) EncodeBare(b *bin.Buffer) error {
+func (m *MessageChatSetMessageAutoDeleteTime) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatSetTtl#49e6b31b as nil")
+		return fmt.Errorf("can't encode messageChatSetMessageAutoDeleteTime#619e052e as nil")
 	}
-	b.PutInt32(m.TTL)
+	b.PutInt32(m.MessageAutoDeleteTime)
 	b.PutInt53(m.FromUserID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (m *MessageChatSetTTL) Decode(b *bin.Buffer) error {
+func (m *MessageChatSetMessageAutoDeleteTime) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatSetTtl#49e6b31b to nil")
+		return fmt.Errorf("can't decode messageChatSetMessageAutoDeleteTime#619e052e to nil")
 	}
-	if err := b.ConsumeID(MessageChatSetTTLTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageChatSetTtl#49e6b31b: %w", err)
+	if err := b.ConsumeID(MessageChatSetMessageAutoDeleteTimeTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageChatSetMessageAutoDeleteTime#619e052e: %w", err)
 	}
 	return m.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (m *MessageChatSetTTL) DecodeBare(b *bin.Buffer) error {
+func (m *MessageChatSetMessageAutoDeleteTime) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatSetTtl#49e6b31b to nil")
+		return fmt.Errorf("can't decode messageChatSetMessageAutoDeleteTime#619e052e to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageChatSetTtl#49e6b31b: field ttl: %w", err)
+			return fmt.Errorf("unable to decode messageChatSetMessageAutoDeleteTime#619e052e: field message_auto_delete_time: %w", err)
 		}
-		m.TTL = value
+		m.MessageAutoDeleteTime = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageChatSetTtl#49e6b31b: field from_user_id: %w", err)
+			return fmt.Errorf("unable to decode messageChatSetMessageAutoDeleteTime#619e052e: field from_user_id: %w", err)
 		}
 		m.FromUserID = value
 	}
@@ -7685,15 +7787,15 @@ func (m *MessageChatSetTTL) DecodeBare(b *bin.Buffer) error {
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (m *MessageChatSetTTL) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (m *MessageChatSetMessageAutoDeleteTime) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatSetTtl#49e6b31b as nil")
+		return fmt.Errorf("can't encode messageChatSetMessageAutoDeleteTime#619e052e as nil")
 	}
 	b.ObjStart()
-	b.PutID("messageChatSetTtl")
+	b.PutID("messageChatSetMessageAutoDeleteTime")
 	b.Comma()
-	b.FieldStart("ttl")
-	b.PutInt32(m.TTL)
+	b.FieldStart("message_auto_delete_time")
+	b.PutInt32(m.MessageAutoDeleteTime)
 	b.Comma()
 	b.FieldStart("from_user_id")
 	b.PutInt53(m.FromUserID)
@@ -7704,27 +7806,27 @@ func (m *MessageChatSetTTL) EncodeTDLibJSON(b tdjson.Encoder) error {
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (m *MessageChatSetTTL) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (m *MessageChatSetMessageAutoDeleteTime) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatSetTtl#49e6b31b to nil")
+		return fmt.Errorf("can't decode messageChatSetMessageAutoDeleteTime#619e052e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("messageChatSetTtl"); err != nil {
-				return fmt.Errorf("unable to decode messageChatSetTtl#49e6b31b: %w", err)
+			if err := b.ConsumeID("messageChatSetMessageAutoDeleteTime"); err != nil {
+				return fmt.Errorf("unable to decode messageChatSetMessageAutoDeleteTime#619e052e: %w", err)
 			}
-		case "ttl":
+		case "message_auto_delete_time":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageChatSetTtl#49e6b31b: field ttl: %w", err)
+				return fmt.Errorf("unable to decode messageChatSetMessageAutoDeleteTime#619e052e: field message_auto_delete_time: %w", err)
 			}
-			m.TTL = value
+			m.MessageAutoDeleteTime = value
 		case "from_user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageChatSetTtl#49e6b31b: field from_user_id: %w", err)
+				return fmt.Errorf("unable to decode messageChatSetMessageAutoDeleteTime#619e052e: field from_user_id: %w", err)
 			}
 			m.FromUserID = value
 		default:
@@ -7734,16 +7836,16 @@ func (m *MessageChatSetTTL) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetTTL returns value of TTL field.
-func (m *MessageChatSetTTL) GetTTL() (value int32) {
+// GetMessageAutoDeleteTime returns value of MessageAutoDeleteTime field.
+func (m *MessageChatSetMessageAutoDeleteTime) GetMessageAutoDeleteTime() (value int32) {
 	if m == nil {
 		return
 	}
-	return m.TTL
+	return m.MessageAutoDeleteTime
 }
 
 // GetFromUserID returns value of FromUserID field.
-func (m *MessageChatSetTTL) GetFromUserID() (value int64) {
+func (m *MessageChatSetMessageAutoDeleteTime) GetFromUserID() (value int64) {
 	if m == nil {
 		return
 	}
@@ -8515,6 +8617,173 @@ func (m *MessageForumTopicIsHiddenToggled) GetIsHidden() (value bool) {
 		return
 	}
 	return m.IsHidden
+}
+
+// MessageSuggestProfilePhoto represents TL type `messageSuggestProfilePhoto#b5611ee7`.
+type MessageSuggestProfilePhoto struct {
+	// The suggested chat photo. Use the method setProfilePhoto with inputChatPhotoPrevious
+	// to apply the photo
+	Photo ChatPhoto
+}
+
+// MessageSuggestProfilePhotoTypeID is TL type id of MessageSuggestProfilePhoto.
+const MessageSuggestProfilePhotoTypeID = 0xb5611ee7
+
+// construct implements constructor of MessageContentClass.
+func (m MessageSuggestProfilePhoto) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageSuggestProfilePhoto.
+var (
+	_ bin.Encoder     = &MessageSuggestProfilePhoto{}
+	_ bin.Decoder     = &MessageSuggestProfilePhoto{}
+	_ bin.BareEncoder = &MessageSuggestProfilePhoto{}
+	_ bin.BareDecoder = &MessageSuggestProfilePhoto{}
+
+	_ MessageContentClass = &MessageSuggestProfilePhoto{}
+)
+
+func (m *MessageSuggestProfilePhoto) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Photo.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageSuggestProfilePhoto) String() string {
+	if m == nil {
+		return "MessageSuggestProfilePhoto(nil)"
+	}
+	type Alias MessageSuggestProfilePhoto
+	return fmt.Sprintf("MessageSuggestProfilePhoto%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageSuggestProfilePhoto) TypeID() uint32 {
+	return MessageSuggestProfilePhotoTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageSuggestProfilePhoto) TypeName() string {
+	return "messageSuggestProfilePhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageSuggestProfilePhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageSuggestProfilePhoto",
+		ID:   MessageSuggestProfilePhotoTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageSuggestProfilePhoto) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageSuggestProfilePhoto#b5611ee7 as nil")
+	}
+	b.PutID(MessageSuggestProfilePhotoTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageSuggestProfilePhoto) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageSuggestProfilePhoto#b5611ee7 as nil")
+	}
+	if err := m.Photo.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageSuggestProfilePhoto#b5611ee7: field photo: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageSuggestProfilePhoto) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageSuggestProfilePhoto#b5611ee7 to nil")
+	}
+	if err := b.ConsumeID(MessageSuggestProfilePhotoTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageSuggestProfilePhoto#b5611ee7: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageSuggestProfilePhoto) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageSuggestProfilePhoto#b5611ee7 to nil")
+	}
+	{
+		if err := m.Photo.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageSuggestProfilePhoto#b5611ee7: field photo: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageSuggestProfilePhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageSuggestProfilePhoto#b5611ee7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageSuggestProfilePhoto")
+	b.Comma()
+	b.FieldStart("photo")
+	if err := m.Photo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageSuggestProfilePhoto#b5611ee7: field photo: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageSuggestProfilePhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageSuggestProfilePhoto#b5611ee7 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageSuggestProfilePhoto"); err != nil {
+				return fmt.Errorf("unable to decode messageSuggestProfilePhoto#b5611ee7: %w", err)
+			}
+		case "photo":
+			if err := m.Photo.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode messageSuggestProfilePhoto#b5611ee7: field photo: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetPhoto returns value of Photo field.
+func (m *MessageSuggestProfilePhoto) GetPhoto() (value ChatPhoto) {
+	if m == nil {
+		return
+	}
+	return m.Photo
 }
 
 // MessageCustomServiceAction represents TL type `messageCustomServiceAction#5595c772`.
@@ -10292,6 +10561,137 @@ func (m *MessageWebsiteConnected) GetDomainName() (value string) {
 	return m.DomainName
 }
 
+// MessageBotWriteAccessAllowed represents TL type `messageBotWriteAccessAllowed#607f445d`.
+type MessageBotWriteAccessAllowed struct {
+}
+
+// MessageBotWriteAccessAllowedTypeID is TL type id of MessageBotWriteAccessAllowed.
+const MessageBotWriteAccessAllowedTypeID = 0x607f445d
+
+// construct implements constructor of MessageContentClass.
+func (m MessageBotWriteAccessAllowed) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageBotWriteAccessAllowed.
+var (
+	_ bin.Encoder     = &MessageBotWriteAccessAllowed{}
+	_ bin.Decoder     = &MessageBotWriteAccessAllowed{}
+	_ bin.BareEncoder = &MessageBotWriteAccessAllowed{}
+	_ bin.BareDecoder = &MessageBotWriteAccessAllowed{}
+
+	_ MessageContentClass = &MessageBotWriteAccessAllowed{}
+)
+
+func (m *MessageBotWriteAccessAllowed) Zero() bool {
+	if m == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageBotWriteAccessAllowed) String() string {
+	if m == nil {
+		return "MessageBotWriteAccessAllowed(nil)"
+	}
+	type Alias MessageBotWriteAccessAllowed
+	return fmt.Sprintf("MessageBotWriteAccessAllowed%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageBotWriteAccessAllowed) TypeID() uint32 {
+	return MessageBotWriteAccessAllowedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageBotWriteAccessAllowed) TypeName() string {
+	return "messageBotWriteAccessAllowed"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageBotWriteAccessAllowed) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageBotWriteAccessAllowed",
+		ID:   MessageBotWriteAccessAllowedTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageBotWriteAccessAllowed) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageBotWriteAccessAllowed#607f445d as nil")
+	}
+	b.PutID(MessageBotWriteAccessAllowedTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageBotWriteAccessAllowed) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageBotWriteAccessAllowed#607f445d as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageBotWriteAccessAllowed) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageBotWriteAccessAllowed#607f445d to nil")
+	}
+	if err := b.ConsumeID(MessageBotWriteAccessAllowedTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageBotWriteAccessAllowed#607f445d: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageBotWriteAccessAllowed) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageBotWriteAccessAllowed#607f445d to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageBotWriteAccessAllowed) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageBotWriteAccessAllowed#607f445d as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageBotWriteAccessAllowed")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageBotWriteAccessAllowed) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageBotWriteAccessAllowed#607f445d to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageBotWriteAccessAllowed"); err != nil {
+				return fmt.Errorf("unable to decode messageBotWriteAccessAllowed#607f445d: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // MessageWebAppDataSent represents TL type `messageWebAppDataSent#fb033912`.
 type MessageWebAppDataSent struct {
 	// Text of the keyboardButtonTypeWebApp button, which opened the Web App
@@ -11484,13 +11884,13 @@ const MessageContentClassName = "MessageContent"
 //	}
 //	switch v := g.(type) {
 //	case *tdapi.MessageText: // messageText#768e4f93
-//	case *tdapi.MessageAnimation: // messageAnimation#4de65004
+//	case *tdapi.MessageAnimation: // messageAnimation#3eb366fc
 //	case *tdapi.MessageAudio: // messageAudio#107e741c
 //	case *tdapi.MessageDocument: // messageDocument#2394ab77
-//	case *tdapi.MessagePhoto: // messagePhoto#91a5f39a
+//	case *tdapi.MessagePhoto: // messagePhoto#e54b4ad2
 //	case *tdapi.MessageExpiredPhoto: // messageExpiredPhoto#ac46ddf7
 //	case *tdapi.MessageSticker: // messageSticker#e5f0dcca
-//	case *tdapi.MessageVideo: // messageVideo#787a4e40
+//	case *tdapi.MessageVideo: // messageVideo#b63d003b
 //	case *tdapi.MessageExpiredVideo: // messageExpiredVideo#b7bf24c3
 //	case *tdapi.MessageVideoNote: // messageVideoNote#396b2486
 //	case *tdapi.MessageVoiceNote: // messageVoiceNote#1f753ff5
@@ -11521,11 +11921,12 @@ const MessageContentClassName = "MessageContent"
 //	case *tdapi.MessagePinMessage: // messagePinMessage#38d55039
 //	case *tdapi.MessageScreenshotTaken: // messageScreenshotTaken#a2b86dab
 //	case *tdapi.MessageChatSetTheme: // messageChatSetTheme#99ae9408
-//	case *tdapi.MessageChatSetTTL: // messageChatSetTtl#49e6b31b
+//	case *tdapi.MessageChatSetMessageAutoDeleteTime: // messageChatSetMessageAutoDeleteTime#619e052e
 //	case *tdapi.MessageForumTopicCreated: // messageForumTopicCreated#b8ce47d1
 //	case *tdapi.MessageForumTopicEdited: // messageForumTopicEdited#c0b780
 //	case *tdapi.MessageForumTopicIsClosedToggled: // messageForumTopicIsClosedToggled#4b578fe0
 //	case *tdapi.MessageForumTopicIsHiddenToggled: // messageForumTopicIsHiddenToggled#979393fe
+//	case *tdapi.MessageSuggestProfilePhoto: // messageSuggestProfilePhoto#b5611ee7
 //	case *tdapi.MessageCustomServiceAction: // messageCustomServiceAction#5595c772
 //	case *tdapi.MessageGameScore: // messageGameScore#50299d7f
 //	case *tdapi.MessagePaymentSuccessful: // messagePaymentSuccessful#53d93cdc
@@ -11533,6 +11934,7 @@ const MessageContentClassName = "MessageContent"
 //	case *tdapi.MessageGiftedPremium: // messageGiftedPremium#5e392899
 //	case *tdapi.MessageContactRegistered: // messageContactRegistered#a678fcff
 //	case *tdapi.MessageWebsiteConnected: // messageWebsiteConnected#bff3a408
+//	case *tdapi.MessageBotWriteAccessAllowed: // messageBotWriteAccessAllowed#607f445d
 //	case *tdapi.MessageWebAppDataSent: // messageWebAppDataSent#fb033912
 //	case *tdapi.MessageWebAppDataReceived: // messageWebAppDataReceived#ff7d1a15
 //	case *tdapi.MessagePassportDataSent: // messagePassportDataSent#26c5ed6b
@@ -11578,7 +11980,7 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 		}
 		return &v, nil
 	case MessageAnimationTypeID:
-		// Decoding messageAnimation#4de65004.
+		// Decoding messageAnimation#3eb366fc.
 		v := MessageAnimation{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -11599,7 +12001,7 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 		}
 		return &v, nil
 	case MessagePhotoTypeID:
-		// Decoding messagePhoto#91a5f39a.
+		// Decoding messagePhoto#e54b4ad2.
 		v := MessagePhoto{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -11620,7 +12022,7 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 		}
 		return &v, nil
 	case MessageVideoTypeID:
-		// Decoding messageVideo#787a4e40.
+		// Decoding messageVideo#b63d003b.
 		v := MessageVideo{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -11836,9 +12238,9 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case MessageChatSetTTLTypeID:
-		// Decoding messageChatSetTtl#49e6b31b.
-		v := MessageChatSetTTL{}
+	case MessageChatSetMessageAutoDeleteTimeTypeID:
+		// Decoding messageChatSetMessageAutoDeleteTime#619e052e.
+		v := MessageChatSetMessageAutoDeleteTime{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
@@ -11867,6 +12269,13 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 	case MessageForumTopicIsHiddenToggledTypeID:
 		// Decoding messageForumTopicIsHiddenToggled#979393fe.
 		v := MessageForumTopicIsHiddenToggled{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case MessageSuggestProfilePhotoTypeID:
+		// Decoding messageSuggestProfilePhoto#b5611ee7.
+		v := MessageSuggestProfilePhoto{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
@@ -11916,6 +12325,13 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 	case MessageWebsiteConnectedTypeID:
 		// Decoding messageWebsiteConnected#bff3a408.
 		v := MessageWebsiteConnected{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case MessageBotWriteAccessAllowedTypeID:
+		// Decoding messageBotWriteAccessAllowed#607f445d.
+		v := MessageBotWriteAccessAllowed{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
@@ -11982,7 +12398,7 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 		}
 		return &v, nil
 	case "messageAnimation":
-		// Decoding messageAnimation#4de65004.
+		// Decoding messageAnimation#3eb366fc.
 		v := MessageAnimation{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -12003,7 +12419,7 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 		}
 		return &v, nil
 	case "messagePhoto":
-		// Decoding messagePhoto#91a5f39a.
+		// Decoding messagePhoto#e54b4ad2.
 		v := MessagePhoto{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -12024,7 +12440,7 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 		}
 		return &v, nil
 	case "messageVideo":
-		// Decoding messageVideo#787a4e40.
+		// Decoding messageVideo#b63d003b.
 		v := MessageVideo{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -12240,9 +12656,9 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
-	case "messageChatSetTtl":
-		// Decoding messageChatSetTtl#49e6b31b.
-		v := MessageChatSetTTL{}
+	case "messageChatSetMessageAutoDeleteTime":
+		// Decoding messageChatSetMessageAutoDeleteTime#619e052e.
+		v := MessageChatSetMessageAutoDeleteTime{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
@@ -12271,6 +12687,13 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 	case "messageForumTopicIsHiddenToggled":
 		// Decoding messageForumTopicIsHiddenToggled#979393fe.
 		v := MessageForumTopicIsHiddenToggled{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "messageSuggestProfilePhoto":
+		// Decoding messageSuggestProfilePhoto#b5611ee7.
+		v := MessageSuggestProfilePhoto{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
@@ -12320,6 +12743,13 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 	case "messageWebsiteConnected":
 		// Decoding messageWebsiteConnected#bff3a408.
 		v := MessageWebsiteConnected{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "messageBotWriteAccessAllowed":
+		// Decoding messageBotWriteAccessAllowed#607f445d.
+		v := MessageBotWriteAccessAllowed{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}

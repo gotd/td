@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PhoneNumberInfo represents TL type `phoneNumberInfo#2163aee1`.
+// PhoneNumberInfo represents TL type `phoneNumberInfo#d2c398a1`.
 type PhoneNumberInfo struct {
 	// Information about the country to which the phone number belongs; may be null
 	Country CountryInfo
@@ -40,10 +40,12 @@ type PhoneNumberInfo struct {
 	// The phone number without country calling code formatted accordingly to local rules.
 	// Expected digits are returned as '-', but even more digits might be entered by the user
 	FormattedPhoneNumber string
+	// True, if the phone number was bought on Fragment and isn't tied to a SIM card
+	IsAnonymous bool
 }
 
 // PhoneNumberInfoTypeID is TL type id of PhoneNumberInfo.
-const PhoneNumberInfoTypeID = 0x2163aee1
+const PhoneNumberInfoTypeID = 0xd2c398a1
 
 // Ensuring interfaces in compile-time for PhoneNumberInfo.
 var (
@@ -64,6 +66,9 @@ func (p *PhoneNumberInfo) Zero() bool {
 		return false
 	}
 	if !(p.FormattedPhoneNumber == "") {
+		return false
+	}
+	if !(p.IsAnonymous == false) {
 		return false
 	}
 
@@ -114,6 +119,10 @@ func (p *PhoneNumberInfo) TypeInfo() tdp.Type {
 			Name:       "FormattedPhoneNumber",
 			SchemaName: "formatted_phone_number",
 		},
+		{
+			Name:       "IsAnonymous",
+			SchemaName: "is_anonymous",
+		},
 	}
 	return typ
 }
@@ -121,7 +130,7 @@ func (p *PhoneNumberInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PhoneNumberInfo) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneNumberInfo#2163aee1 as nil")
+		return fmt.Errorf("can't encode phoneNumberInfo#d2c398a1 as nil")
 	}
 	b.PutID(PhoneNumberInfoTypeID)
 	return p.EncodeBare(b)
@@ -130,23 +139,24 @@ func (p *PhoneNumberInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PhoneNumberInfo) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneNumberInfo#2163aee1 as nil")
+		return fmt.Errorf("can't encode phoneNumberInfo#d2c398a1 as nil")
 	}
 	if err := p.Country.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phoneNumberInfo#2163aee1: field country: %w", err)
+		return fmt.Errorf("unable to encode phoneNumberInfo#d2c398a1: field country: %w", err)
 	}
 	b.PutString(p.CountryCallingCode)
 	b.PutString(p.FormattedPhoneNumber)
+	b.PutBool(p.IsAnonymous)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (p *PhoneNumberInfo) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneNumberInfo#2163aee1 to nil")
+		return fmt.Errorf("can't decode phoneNumberInfo#d2c398a1 to nil")
 	}
 	if err := b.ConsumeID(PhoneNumberInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode phoneNumberInfo#2163aee1: %w", err)
+		return fmt.Errorf("unable to decode phoneNumberInfo#d2c398a1: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -154,26 +164,33 @@ func (p *PhoneNumberInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PhoneNumberInfo) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneNumberInfo#2163aee1 to nil")
+		return fmt.Errorf("can't decode phoneNumberInfo#d2c398a1 to nil")
 	}
 	{
 		if err := p.Country.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phoneNumberInfo#2163aee1: field country: %w", err)
+			return fmt.Errorf("unable to decode phoneNumberInfo#d2c398a1: field country: %w", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneNumberInfo#2163aee1: field country_calling_code: %w", err)
+			return fmt.Errorf("unable to decode phoneNumberInfo#d2c398a1: field country_calling_code: %w", err)
 		}
 		p.CountryCallingCode = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phoneNumberInfo#2163aee1: field formatted_phone_number: %w", err)
+			return fmt.Errorf("unable to decode phoneNumberInfo#d2c398a1: field formatted_phone_number: %w", err)
 		}
 		p.FormattedPhoneNumber = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode phoneNumberInfo#d2c398a1: field is_anonymous: %w", err)
+		}
+		p.IsAnonymous = value
 	}
 	return nil
 }
@@ -181,14 +198,14 @@ func (p *PhoneNumberInfo) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (p *PhoneNumberInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
-		return fmt.Errorf("can't encode phoneNumberInfo#2163aee1 as nil")
+		return fmt.Errorf("can't encode phoneNumberInfo#d2c398a1 as nil")
 	}
 	b.ObjStart()
 	b.PutID("phoneNumberInfo")
 	b.Comma()
 	b.FieldStart("country")
 	if err := p.Country.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode phoneNumberInfo#2163aee1: field country: %w", err)
+		return fmt.Errorf("unable to encode phoneNumberInfo#d2c398a1: field country: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("country_calling_code")
@@ -196,6 +213,9 @@ func (p *PhoneNumberInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("formatted_phone_number")
 	b.PutString(p.FormattedPhoneNumber)
+	b.Comma()
+	b.FieldStart("is_anonymous")
+	b.PutBool(p.IsAnonymous)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -205,31 +225,37 @@ func (p *PhoneNumberInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (p *PhoneNumberInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
-		return fmt.Errorf("can't decode phoneNumberInfo#2163aee1 to nil")
+		return fmt.Errorf("can't decode phoneNumberInfo#d2c398a1 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("phoneNumberInfo"); err != nil {
-				return fmt.Errorf("unable to decode phoneNumberInfo#2163aee1: %w", err)
+				return fmt.Errorf("unable to decode phoneNumberInfo#d2c398a1: %w", err)
 			}
 		case "country":
 			if err := p.Country.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode phoneNumberInfo#2163aee1: field country: %w", err)
+				return fmt.Errorf("unable to decode phoneNumberInfo#d2c398a1: field country: %w", err)
 			}
 		case "country_calling_code":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode phoneNumberInfo#2163aee1: field country_calling_code: %w", err)
+				return fmt.Errorf("unable to decode phoneNumberInfo#d2c398a1: field country_calling_code: %w", err)
 			}
 			p.CountryCallingCode = value
 		case "formatted_phone_number":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode phoneNumberInfo#2163aee1: field formatted_phone_number: %w", err)
+				return fmt.Errorf("unable to decode phoneNumberInfo#d2c398a1: field formatted_phone_number: %w", err)
 			}
 			p.FormattedPhoneNumber = value
+		case "is_anonymous":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode phoneNumberInfo#d2c398a1: field is_anonymous: %w", err)
+			}
+			p.IsAnonymous = value
 		default:
 			return b.Skip()
 		}
@@ -259,4 +285,12 @@ func (p *PhoneNumberInfo) GetFormattedPhoneNumber() (value string) {
 		return
 	}
 	return p.FormattedPhoneNumber
+}
+
+// GetIsAnonymous returns value of IsAnonymous field.
+func (p *PhoneNumberInfo) GetIsAnonymous() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.IsAnonymous
 }

@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SendPassportAuthorizationFormRequest represents TL type `sendPassportAuthorizationForm#eee589b5`.
+// SendPassportAuthorizationFormRequest represents TL type `sendPassportAuthorizationForm#d9c77579`.
 type SendPassportAuthorizationFormRequest struct {
 	// Authorization form identifier
-	AutorizationFormID int32
+	AuthorizationFormID int32
 	// Types of Telegram Passport elements chosen by user to complete the authorization form
 	Types []PassportElementTypeClass
 }
 
 // SendPassportAuthorizationFormRequestTypeID is TL type id of SendPassportAuthorizationFormRequest.
-const SendPassportAuthorizationFormRequestTypeID = 0xeee589b5
+const SendPassportAuthorizationFormRequestTypeID = 0xd9c77579
 
 // Ensuring interfaces in compile-time for SendPassportAuthorizationFormRequest.
 var (
@@ -54,7 +54,7 @@ func (s *SendPassportAuthorizationFormRequest) Zero() bool {
 	if s == nil {
 		return true
 	}
-	if !(s.AutorizationFormID == 0) {
+	if !(s.AuthorizationFormID == 0) {
 		return false
 	}
 	if !(s.Types == nil) {
@@ -97,8 +97,8 @@ func (s *SendPassportAuthorizationFormRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "AutorizationFormID",
-			SchemaName: "autorization_form_id",
+			Name:       "AuthorizationFormID",
+			SchemaName: "authorization_form_id",
 		},
 		{
 			Name:       "Types",
@@ -111,7 +111,7 @@ func (s *SendPassportAuthorizationFormRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendPassportAuthorizationFormRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendPassportAuthorizationForm#eee589b5 as nil")
+		return fmt.Errorf("can't encode sendPassportAuthorizationForm#d9c77579 as nil")
 	}
 	b.PutID(SendPassportAuthorizationFormRequestTypeID)
 	return s.EncodeBare(b)
@@ -120,16 +120,16 @@ func (s *SendPassportAuthorizationFormRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendPassportAuthorizationFormRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendPassportAuthorizationForm#eee589b5 as nil")
+		return fmt.Errorf("can't encode sendPassportAuthorizationForm#d9c77579 as nil")
 	}
-	b.PutInt32(s.AutorizationFormID)
+	b.PutInt32(s.AuthorizationFormID)
 	b.PutInt(len(s.Types))
 	for idx, v := range s.Types {
 		if v == nil {
-			return fmt.Errorf("unable to encode sendPassportAuthorizationForm#eee589b5: field types element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode sendPassportAuthorizationForm#d9c77579: field types element with index %d is nil", idx)
 		}
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare sendPassportAuthorizationForm#eee589b5: field types element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare sendPassportAuthorizationForm#d9c77579: field types element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -138,10 +138,10 @@ func (s *SendPassportAuthorizationFormRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SendPassportAuthorizationFormRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendPassportAuthorizationForm#eee589b5 to nil")
+		return fmt.Errorf("can't decode sendPassportAuthorizationForm#d9c77579 to nil")
 	}
 	if err := b.ConsumeID(SendPassportAuthorizationFormRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendPassportAuthorizationForm#eee589b5: %w", err)
+		return fmt.Errorf("unable to decode sendPassportAuthorizationForm#d9c77579: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -149,19 +149,19 @@ func (s *SendPassportAuthorizationFormRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendPassportAuthorizationFormRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendPassportAuthorizationForm#eee589b5 to nil")
+		return fmt.Errorf("can't decode sendPassportAuthorizationForm#d9c77579 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendPassportAuthorizationForm#eee589b5: field autorization_form_id: %w", err)
+			return fmt.Errorf("unable to decode sendPassportAuthorizationForm#d9c77579: field authorization_form_id: %w", err)
 		}
-		s.AutorizationFormID = value
+		s.AuthorizationFormID = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendPassportAuthorizationForm#eee589b5: field types: %w", err)
+			return fmt.Errorf("unable to decode sendPassportAuthorizationForm#d9c77579: field types: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -170,7 +170,7 @@ func (s *SendPassportAuthorizationFormRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePassportElementType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sendPassportAuthorizationForm#eee589b5: field types: %w", err)
+				return fmt.Errorf("unable to decode sendPassportAuthorizationForm#d9c77579: field types: %w", err)
 			}
 			s.Types = append(s.Types, value)
 		}
@@ -181,22 +181,22 @@ func (s *SendPassportAuthorizationFormRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SendPassportAuthorizationFormRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendPassportAuthorizationForm#eee589b5 as nil")
+		return fmt.Errorf("can't encode sendPassportAuthorizationForm#d9c77579 as nil")
 	}
 	b.ObjStart()
 	b.PutID("sendPassportAuthorizationForm")
 	b.Comma()
-	b.FieldStart("autorization_form_id")
-	b.PutInt32(s.AutorizationFormID)
+	b.FieldStart("authorization_form_id")
+	b.PutInt32(s.AuthorizationFormID)
 	b.Comma()
 	b.FieldStart("types")
 	b.ArrStart()
 	for idx, v := range s.Types {
 		if v == nil {
-			return fmt.Errorf("unable to encode sendPassportAuthorizationForm#eee589b5: field types element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode sendPassportAuthorizationForm#d9c77579: field types element with index %d is nil", idx)
 		}
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode sendPassportAuthorizationForm#eee589b5: field types element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode sendPassportAuthorizationForm#d9c77579: field types element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -211,31 +211,31 @@ func (s *SendPassportAuthorizationFormRequest) EncodeTDLibJSON(b tdjson.Encoder)
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SendPassportAuthorizationFormRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendPassportAuthorizationForm#eee589b5 to nil")
+		return fmt.Errorf("can't decode sendPassportAuthorizationForm#d9c77579 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("sendPassportAuthorizationForm"); err != nil {
-				return fmt.Errorf("unable to decode sendPassportAuthorizationForm#eee589b5: %w", err)
+				return fmt.Errorf("unable to decode sendPassportAuthorizationForm#d9c77579: %w", err)
 			}
-		case "autorization_form_id":
+		case "authorization_form_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendPassportAuthorizationForm#eee589b5: field autorization_form_id: %w", err)
+				return fmt.Errorf("unable to decode sendPassportAuthorizationForm#d9c77579: field authorization_form_id: %w", err)
 			}
-			s.AutorizationFormID = value
+			s.AuthorizationFormID = value
 		case "types":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONPassportElementType(b)
 				if err != nil {
-					return fmt.Errorf("unable to decode sendPassportAuthorizationForm#eee589b5: field types: %w", err)
+					return fmt.Errorf("unable to decode sendPassportAuthorizationForm#d9c77579: field types: %w", err)
 				}
 				s.Types = append(s.Types, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode sendPassportAuthorizationForm#eee589b5: field types: %w", err)
+				return fmt.Errorf("unable to decode sendPassportAuthorizationForm#d9c77579: field types: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -244,12 +244,12 @@ func (s *SendPassportAuthorizationFormRequest) DecodeTDLibJSON(b tdjson.Decoder)
 	})
 }
 
-// GetAutorizationFormID returns value of AutorizationFormID field.
-func (s *SendPassportAuthorizationFormRequest) GetAutorizationFormID() (value int32) {
+// GetAuthorizationFormID returns value of AuthorizationFormID field.
+func (s *SendPassportAuthorizationFormRequest) GetAuthorizationFormID() (value int32) {
 	if s == nil {
 		return
 	}
-	return s.AutorizationFormID
+	return s.AuthorizationFormID
 }
 
 // GetTypes returns value of Types field.
@@ -260,7 +260,7 @@ func (s *SendPassportAuthorizationFormRequest) GetTypes() (value []PassportEleme
 	return s.Types
 }
 
-// SendPassportAuthorizationForm invokes method sendPassportAuthorizationForm#eee589b5 returning error if any.
+// SendPassportAuthorizationForm invokes method sendPassportAuthorizationForm#d9c77579 returning error if any.
 func (c *Client) SendPassportAuthorizationForm(ctx context.Context, request *SendPassportAuthorizationFormRequest) error {
 	var ok Ok
 

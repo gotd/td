@@ -5516,38 +5516,38 @@ func (u *UpdateChatMessageSender) GetMessageSenderID() (value MessageSenderClass
 	return u.MessageSenderID
 }
 
-// UpdateChatMessageTTL represents TL type `updateChatMessageTtl#dde0a978`.
-type UpdateChatMessageTTL struct {
+// UpdateChatMessageAutoDeleteTime represents TL type `updateChatMessageAutoDeleteTime#71425de5`.
+type UpdateChatMessageAutoDeleteTime struct {
 	// Chat identifier
 	ChatID int64
-	// New value of message_ttl
-	MessageTTL int32
+	// New value of message_auto_delete_time
+	MessageAutoDeleteTime int32
 }
 
-// UpdateChatMessageTTLTypeID is TL type id of UpdateChatMessageTTL.
-const UpdateChatMessageTTLTypeID = 0xdde0a978
+// UpdateChatMessageAutoDeleteTimeTypeID is TL type id of UpdateChatMessageAutoDeleteTime.
+const UpdateChatMessageAutoDeleteTimeTypeID = 0x71425de5
 
 // construct implements constructor of UpdateClass.
-func (u UpdateChatMessageTTL) construct() UpdateClass { return &u }
+func (u UpdateChatMessageAutoDeleteTime) construct() UpdateClass { return &u }
 
-// Ensuring interfaces in compile-time for UpdateChatMessageTTL.
+// Ensuring interfaces in compile-time for UpdateChatMessageAutoDeleteTime.
 var (
-	_ bin.Encoder     = &UpdateChatMessageTTL{}
-	_ bin.Decoder     = &UpdateChatMessageTTL{}
-	_ bin.BareEncoder = &UpdateChatMessageTTL{}
-	_ bin.BareDecoder = &UpdateChatMessageTTL{}
+	_ bin.Encoder     = &UpdateChatMessageAutoDeleteTime{}
+	_ bin.Decoder     = &UpdateChatMessageAutoDeleteTime{}
+	_ bin.BareEncoder = &UpdateChatMessageAutoDeleteTime{}
+	_ bin.BareDecoder = &UpdateChatMessageAutoDeleteTime{}
 
-	_ UpdateClass = &UpdateChatMessageTTL{}
+	_ UpdateClass = &UpdateChatMessageAutoDeleteTime{}
 )
 
-func (u *UpdateChatMessageTTL) Zero() bool {
+func (u *UpdateChatMessageAutoDeleteTime) Zero() bool {
 	if u == nil {
 		return true
 	}
 	if !(u.ChatID == 0) {
 		return false
 	}
-	if !(u.MessageTTL == 0) {
+	if !(u.MessageAutoDeleteTime == 0) {
 		return false
 	}
 
@@ -5555,31 +5555,31 @@ func (u *UpdateChatMessageTTL) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (u *UpdateChatMessageTTL) String() string {
+func (u *UpdateChatMessageAutoDeleteTime) String() string {
 	if u == nil {
-		return "UpdateChatMessageTTL(nil)"
+		return "UpdateChatMessageAutoDeleteTime(nil)"
 	}
-	type Alias UpdateChatMessageTTL
-	return fmt.Sprintf("UpdateChatMessageTTL%+v", Alias(*u))
+	type Alias UpdateChatMessageAutoDeleteTime
+	return fmt.Sprintf("UpdateChatMessageAutoDeleteTime%+v", Alias(*u))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateChatMessageTTL) TypeID() uint32 {
-	return UpdateChatMessageTTLTypeID
+func (*UpdateChatMessageAutoDeleteTime) TypeID() uint32 {
+	return UpdateChatMessageAutoDeleteTimeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*UpdateChatMessageTTL) TypeName() string {
-	return "updateChatMessageTtl"
+func (*UpdateChatMessageAutoDeleteTime) TypeName() string {
+	return "updateChatMessageAutoDeleteTime"
 }
 
 // TypeInfo returns info about TL type.
-func (u *UpdateChatMessageTTL) TypeInfo() tdp.Type {
+func (u *UpdateChatMessageAutoDeleteTime) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "updateChatMessageTtl",
-		ID:   UpdateChatMessageTTLTypeID,
+		Name: "updateChatMessageAutoDeleteTime",
+		ID:   UpdateChatMessageAutoDeleteTimeTypeID,
 	}
 	if u == nil {
 		typ.Null = true
@@ -5591,78 +5591,78 @@ func (u *UpdateChatMessageTTL) TypeInfo() tdp.Type {
 			SchemaName: "chat_id",
 		},
 		{
-			Name:       "MessageTTL",
-			SchemaName: "message_ttl",
+			Name:       "MessageAutoDeleteTime",
+			SchemaName: "message_auto_delete_time",
 		},
 	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
-func (u *UpdateChatMessageTTL) Encode(b *bin.Buffer) error {
+func (u *UpdateChatMessageAutoDeleteTime) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatMessageTtl#dde0a978 as nil")
+		return fmt.Errorf("can't encode updateChatMessageAutoDeleteTime#71425de5 as nil")
 	}
-	b.PutID(UpdateChatMessageTTLTypeID)
+	b.PutID(UpdateChatMessageAutoDeleteTimeTypeID)
 	return u.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (u *UpdateChatMessageTTL) EncodeBare(b *bin.Buffer) error {
+func (u *UpdateChatMessageAutoDeleteTime) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatMessageTtl#dde0a978 as nil")
+		return fmt.Errorf("can't encode updateChatMessageAutoDeleteTime#71425de5 as nil")
 	}
 	b.PutInt53(u.ChatID)
-	b.PutInt32(u.MessageTTL)
+	b.PutInt32(u.MessageAutoDeleteTime)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (u *UpdateChatMessageTTL) Decode(b *bin.Buffer) error {
+func (u *UpdateChatMessageAutoDeleteTime) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatMessageTtl#dde0a978 to nil")
+		return fmt.Errorf("can't decode updateChatMessageAutoDeleteTime#71425de5 to nil")
 	}
-	if err := b.ConsumeID(UpdateChatMessageTTLTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatMessageTtl#dde0a978: %w", err)
+	if err := b.ConsumeID(UpdateChatMessageAutoDeleteTimeTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatMessageAutoDeleteTime#71425de5: %w", err)
 	}
 	return u.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (u *UpdateChatMessageTTL) DecodeBare(b *bin.Buffer) error {
+func (u *UpdateChatMessageAutoDeleteTime) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatMessageTtl#dde0a978 to nil")
+		return fmt.Errorf("can't decode updateChatMessageAutoDeleteTime#71425de5 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChatMessageTtl#dde0a978: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode updateChatMessageAutoDeleteTime#71425de5: field chat_id: %w", err)
 		}
 		u.ChatID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChatMessageTtl#dde0a978: field message_ttl: %w", err)
+			return fmt.Errorf("unable to decode updateChatMessageAutoDeleteTime#71425de5: field message_auto_delete_time: %w", err)
 		}
-		u.MessageTTL = value
+		u.MessageAutoDeleteTime = value
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (u *UpdateChatMessageTTL) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (u *UpdateChatMessageAutoDeleteTime) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatMessageTtl#dde0a978 as nil")
+		return fmt.Errorf("can't encode updateChatMessageAutoDeleteTime#71425de5 as nil")
 	}
 	b.ObjStart()
-	b.PutID("updateChatMessageTtl")
+	b.PutID("updateChatMessageAutoDeleteTime")
 	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
 	b.Comma()
-	b.FieldStart("message_ttl")
-	b.PutInt32(u.MessageTTL)
+	b.FieldStart("message_auto_delete_time")
+	b.PutInt32(u.MessageAutoDeleteTime)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -5670,29 +5670,29 @@ func (u *UpdateChatMessageTTL) EncodeTDLibJSON(b tdjson.Encoder) error {
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (u *UpdateChatMessageTTL) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (u *UpdateChatMessageAutoDeleteTime) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatMessageTtl#dde0a978 to nil")
+		return fmt.Errorf("can't decode updateChatMessageAutoDeleteTime#71425de5 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("updateChatMessageTtl"); err != nil {
-				return fmt.Errorf("unable to decode updateChatMessageTtl#dde0a978: %w", err)
+			if err := b.ConsumeID("updateChatMessageAutoDeleteTime"); err != nil {
+				return fmt.Errorf("unable to decode updateChatMessageAutoDeleteTime#71425de5: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateChatMessageTtl#dde0a978: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode updateChatMessageAutoDeleteTime#71425de5: field chat_id: %w", err)
 			}
 			u.ChatID = value
-		case "message_ttl":
+		case "message_auto_delete_time":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateChatMessageTtl#dde0a978: field message_ttl: %w", err)
+				return fmt.Errorf("unable to decode updateChatMessageAutoDeleteTime#71425de5: field message_auto_delete_time: %w", err)
 			}
-			u.MessageTTL = value
+			u.MessageAutoDeleteTime = value
 		default:
 			return b.Skip()
 		}
@@ -5701,19 +5701,19 @@ func (u *UpdateChatMessageTTL) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetChatID returns value of ChatID field.
-func (u *UpdateChatMessageTTL) GetChatID() (value int64) {
+func (u *UpdateChatMessageAutoDeleteTime) GetChatID() (value int64) {
 	if u == nil {
 		return
 	}
 	return u.ChatID
 }
 
-// GetMessageTTL returns value of MessageTTL field.
-func (u *UpdateChatMessageTTL) GetMessageTTL() (value int32) {
+// GetMessageAutoDeleteTime returns value of MessageAutoDeleteTime field.
+func (u *UpdateChatMessageAutoDeleteTime) GetMessageAutoDeleteTime() (value int32) {
 	if u == nil {
 		return
 	}
-	return u.MessageTTL
+	return u.MessageAutoDeleteTime
 }
 
 // UpdateChatNotificationSettings represents TL type `updateChatNotificationSettings#d020b456`.
@@ -23182,7 +23182,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateChatAvailableReactions: // updateChatAvailableReactions#8ab413f9
 //	case *tdapi.UpdateChatDraftMessage: // updateChatDraftMessage#2bf257d4
 //	case *tdapi.UpdateChatMessageSender: // updateChatMessageSender#77705241
-//	case *tdapi.UpdateChatMessageTTL: // updateChatMessageTtl#dde0a978
+//	case *tdapi.UpdateChatMessageAutoDeleteTime: // updateChatMessageAutoDeleteTime#71425de5
 //	case *tdapi.UpdateChatNotificationSettings: // updateChatNotificationSettings#d020b456
 //	case *tdapi.UpdateChatPendingJoinRequests: // updateChatPendingJoinRequests#14c6e3e1
 //	case *tdapi.UpdateChatReplyMarkup: // updateChatReplyMarkup#4e0ba5a0
@@ -23468,9 +23468,9 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case UpdateChatMessageTTLTypeID:
-		// Decoding updateChatMessageTtl#dde0a978.
-		v := UpdateChatMessageTTL{}
+	case UpdateChatMessageAutoDeleteTimeTypeID:
+		// Decoding updateChatMessageAutoDeleteTime#71425de5.
+		v := UpdateChatMessageAutoDeleteTime{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -24215,9 +24215,9 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case "updateChatMessageTtl":
-		// Decoding updateChatMessageTtl#dde0a978.
-		v := UpdateChatMessageTTL{}
+	case "updateChatMessageAutoDeleteTime":
+		// Decoding updateChatMessageAutoDeleteTime#71425de5.
+		v := UpdateChatMessageAutoDeleteTime{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

@@ -31,14 +31,17 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SetProfilePhotoRequest represents TL type `setProfilePhoto#84a334de`.
+// SetProfilePhotoRequest represents TL type `setProfilePhoto#85ea05ed`.
 type SetProfilePhotoRequest struct {
 	// Profile photo to set
 	Photo InputChatPhotoClass
+	// Pass true to set a public photo, which will be visible even the main photo is hidden
+	// by privacy settings
+	IsPublic bool
 }
 
 // SetProfilePhotoRequestTypeID is TL type id of SetProfilePhotoRequest.
-const SetProfilePhotoRequestTypeID = 0x84a334de
+const SetProfilePhotoRequestTypeID = 0x85ea05ed
 
 // Ensuring interfaces in compile-time for SetProfilePhotoRequest.
 var (
@@ -53,6 +56,9 @@ func (s *SetProfilePhotoRequest) Zero() bool {
 		return true
 	}
 	if !(s.Photo == nil) {
+		return false
+	}
+	if !(s.IsPublic == false) {
 		return false
 	}
 
@@ -95,6 +101,10 @@ func (s *SetProfilePhotoRequest) TypeInfo() tdp.Type {
 			Name:       "Photo",
 			SchemaName: "photo",
 		},
+		{
+			Name:       "IsPublic",
+			SchemaName: "is_public",
+		},
 	}
 	return typ
 }
@@ -102,7 +112,7 @@ func (s *SetProfilePhotoRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SetProfilePhotoRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setProfilePhoto#84a334de as nil")
+		return fmt.Errorf("can't encode setProfilePhoto#85ea05ed as nil")
 	}
 	b.PutID(SetProfilePhotoRequestTypeID)
 	return s.EncodeBare(b)
@@ -111,24 +121,25 @@ func (s *SetProfilePhotoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SetProfilePhotoRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setProfilePhoto#84a334de as nil")
+		return fmt.Errorf("can't encode setProfilePhoto#85ea05ed as nil")
 	}
 	if s.Photo == nil {
-		return fmt.Errorf("unable to encode setProfilePhoto#84a334de: field photo is nil")
+		return fmt.Errorf("unable to encode setProfilePhoto#85ea05ed: field photo is nil")
 	}
 	if err := s.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode setProfilePhoto#84a334de: field photo: %w", err)
+		return fmt.Errorf("unable to encode setProfilePhoto#85ea05ed: field photo: %w", err)
 	}
+	b.PutBool(s.IsPublic)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *SetProfilePhotoRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setProfilePhoto#84a334de to nil")
+		return fmt.Errorf("can't decode setProfilePhoto#85ea05ed to nil")
 	}
 	if err := b.ConsumeID(SetProfilePhotoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode setProfilePhoto#84a334de: %w", err)
+		return fmt.Errorf("unable to decode setProfilePhoto#85ea05ed: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -136,14 +147,21 @@ func (s *SetProfilePhotoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SetProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setProfilePhoto#84a334de to nil")
+		return fmt.Errorf("can't decode setProfilePhoto#85ea05ed to nil")
 	}
 	{
 		value, err := DecodeInputChatPhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode setProfilePhoto#84a334de: field photo: %w", err)
+			return fmt.Errorf("unable to decode setProfilePhoto#85ea05ed: field photo: %w", err)
 		}
 		s.Photo = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode setProfilePhoto#85ea05ed: field is_public: %w", err)
+		}
+		s.IsPublic = value
 	}
 	return nil
 }
@@ -151,18 +169,21 @@ func (s *SetProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SetProfilePhotoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setProfilePhoto#84a334de as nil")
+		return fmt.Errorf("can't encode setProfilePhoto#85ea05ed as nil")
 	}
 	b.ObjStart()
 	b.PutID("setProfilePhoto")
 	b.Comma()
 	b.FieldStart("photo")
 	if s.Photo == nil {
-		return fmt.Errorf("unable to encode setProfilePhoto#84a334de: field photo is nil")
+		return fmt.Errorf("unable to encode setProfilePhoto#85ea05ed: field photo is nil")
 	}
 	if err := s.Photo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode setProfilePhoto#84a334de: field photo: %w", err)
+		return fmt.Errorf("unable to encode setProfilePhoto#85ea05ed: field photo: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("is_public")
+	b.PutBool(s.IsPublic)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -172,21 +193,27 @@ func (s *SetProfilePhotoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SetProfilePhotoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setProfilePhoto#84a334de to nil")
+		return fmt.Errorf("can't decode setProfilePhoto#85ea05ed to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("setProfilePhoto"); err != nil {
-				return fmt.Errorf("unable to decode setProfilePhoto#84a334de: %w", err)
+				return fmt.Errorf("unable to decode setProfilePhoto#85ea05ed: %w", err)
 			}
 		case "photo":
 			value, err := DecodeTDLibJSONInputChatPhoto(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode setProfilePhoto#84a334de: field photo: %w", err)
+				return fmt.Errorf("unable to decode setProfilePhoto#85ea05ed: field photo: %w", err)
 			}
 			s.Photo = value
+		case "is_public":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode setProfilePhoto#85ea05ed: field is_public: %w", err)
+			}
+			s.IsPublic = value
 		default:
 			return b.Skip()
 		}
@@ -202,13 +229,18 @@ func (s *SetProfilePhotoRequest) GetPhoto() (value InputChatPhotoClass) {
 	return s.Photo
 }
 
-// SetProfilePhoto invokes method setProfilePhoto#84a334de returning error if any.
-func (c *Client) SetProfilePhoto(ctx context.Context, photo InputChatPhotoClass) error {
+// GetIsPublic returns value of IsPublic field.
+func (s *SetProfilePhotoRequest) GetIsPublic() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.IsPublic
+}
+
+// SetProfilePhoto invokes method setProfilePhoto#85ea05ed returning error if any.
+func (c *Client) SetProfilePhoto(ctx context.Context, request *SetProfilePhotoRequest) error {
 	var ok Ok
 
-	request := &SetProfilePhotoRequest{
-		Photo: photo,
-	}
 	if err := c.rpc.Invoke(ctx, request, &ok); err != nil {
 		return err
 	}

@@ -401,10 +401,13 @@ func (r *ReplyMarkupForceReply) GetInputFieldPlaceholder() (value string) {
 	return r.InputFieldPlaceholder
 }
 
-// ReplyMarkupShowKeyboard represents TL type `replyMarkupShowKeyboard#f64168f4`.
+// ReplyMarkupShowKeyboard represents TL type `replyMarkupShowKeyboard#802461d3`.
 type ReplyMarkupShowKeyboard struct {
 	// A list of rows of bot keyboard buttons
 	Rows [][]KeyboardButton
+	// True, if the keyboard is supposed to be always shown when the ordinary keyboard is
+	// hidden
+	IsPersistent bool
 	// True, if the application needs to resize the keyboard vertically
 	ResizeKeyboard bool
 	// True, if the application needs to hide the keyboard after use
@@ -419,7 +422,7 @@ type ReplyMarkupShowKeyboard struct {
 }
 
 // ReplyMarkupShowKeyboardTypeID is TL type id of ReplyMarkupShowKeyboard.
-const ReplyMarkupShowKeyboardTypeID = 0xf64168f4
+const ReplyMarkupShowKeyboardTypeID = 0x802461d3
 
 // construct implements constructor of ReplyMarkupClass.
 func (r ReplyMarkupShowKeyboard) construct() ReplyMarkupClass { return &r }
@@ -439,6 +442,9 @@ func (r *ReplyMarkupShowKeyboard) Zero() bool {
 		return true
 	}
 	if !(r.Rows == nil) {
+		return false
+	}
+	if !(r.IsPersistent == false) {
 		return false
 	}
 	if !(r.ResizeKeyboard == false) {
@@ -494,6 +500,10 @@ func (r *ReplyMarkupShowKeyboard) TypeInfo() tdp.Type {
 			SchemaName: "rows",
 		},
 		{
+			Name:       "IsPersistent",
+			SchemaName: "is_persistent",
+		},
+		{
 			Name:       "ResizeKeyboard",
 			SchemaName: "resize_keyboard",
 		},
@@ -516,7 +526,7 @@ func (r *ReplyMarkupShowKeyboard) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ReplyMarkupShowKeyboard) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode replyMarkupShowKeyboard#f64168f4 as nil")
+		return fmt.Errorf("can't encode replyMarkupShowKeyboard#802461d3 as nil")
 	}
 	b.PutID(ReplyMarkupShowKeyboardTypeID)
 	return r.EncodeBare(b)
@@ -525,17 +535,18 @@ func (r *ReplyMarkupShowKeyboard) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ReplyMarkupShowKeyboard) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode replyMarkupShowKeyboard#f64168f4 as nil")
+		return fmt.Errorf("can't encode replyMarkupShowKeyboard#802461d3 as nil")
 	}
 	b.PutInt(len(r.Rows))
 	for idx, row := range r.Rows {
 		b.PutVectorHeader(len(row))
 		for _, v := range row {
 			if err := v.EncodeBare(b); err != nil {
-				return fmt.Errorf("unable to encode bare replyMarkupShowKeyboard#f64168f4: field rows element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode bare replyMarkupShowKeyboard#802461d3: field rows element with index %d: %w", idx, err)
 			}
 		}
 	}
+	b.PutBool(r.IsPersistent)
 	b.PutBool(r.ResizeKeyboard)
 	b.PutBool(r.OneTime)
 	b.PutBool(r.IsPersonal)
@@ -546,10 +557,10 @@ func (r *ReplyMarkupShowKeyboard) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *ReplyMarkupShowKeyboard) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode replyMarkupShowKeyboard#f64168f4 to nil")
+		return fmt.Errorf("can't decode replyMarkupShowKeyboard#802461d3 to nil")
 	}
 	if err := b.ConsumeID(ReplyMarkupShowKeyboardTypeID); err != nil {
-		return fmt.Errorf("unable to decode replyMarkupShowKeyboard#f64168f4: %w", err)
+		return fmt.Errorf("unable to decode replyMarkupShowKeyboard#802461d3: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -557,12 +568,12 @@ func (r *ReplyMarkupShowKeyboard) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ReplyMarkupShowKeyboard) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode replyMarkupShowKeyboard#f64168f4 to nil")
+		return fmt.Errorf("can't decode replyMarkupShowKeyboard#802461d3 to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode replyMarkupShowKeyboard#f64168f4: field rows: %w", err)
+			return fmt.Errorf("unable to decode replyMarkupShowKeyboard#802461d3: field rows: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -571,7 +582,7 @@ func (r *ReplyMarkupShowKeyboard) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			innerLen, err := b.VectorHeader()
 			if err != nil {
-				return fmt.Errorf("unable to decode replyMarkupShowKeyboard#f64168f4: field rows: %w", err)
+				return fmt.Errorf("unable to decode replyMarkupShowKeyboard#802461d3: field rows: %w", err)
 			}
 
 			var row []KeyboardButton
@@ -581,7 +592,7 @@ func (r *ReplyMarkupShowKeyboard) DecodeBare(b *bin.Buffer) error {
 			for innerIndex := 0; innerIndex < innerLen; innerLen++ {
 				var value KeyboardButton
 				if err := value.DecodeBare(b); err != nil {
-					return fmt.Errorf("unable to decode bare replyMarkupShowKeyboard#f64168f4: field rows: %w", err)
+					return fmt.Errorf("unable to decode bare replyMarkupShowKeyboard#802461d3: field rows: %w", err)
 				}
 				row = append(row, value)
 			}
@@ -591,28 +602,35 @@ func (r *ReplyMarkupShowKeyboard) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode replyMarkupShowKeyboard#f64168f4: field resize_keyboard: %w", err)
+			return fmt.Errorf("unable to decode replyMarkupShowKeyboard#802461d3: field is_persistent: %w", err)
+		}
+		r.IsPersistent = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode replyMarkupShowKeyboard#802461d3: field resize_keyboard: %w", err)
 		}
 		r.ResizeKeyboard = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode replyMarkupShowKeyboard#f64168f4: field one_time: %w", err)
+			return fmt.Errorf("unable to decode replyMarkupShowKeyboard#802461d3: field one_time: %w", err)
 		}
 		r.OneTime = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode replyMarkupShowKeyboard#f64168f4: field is_personal: %w", err)
+			return fmt.Errorf("unable to decode replyMarkupShowKeyboard#802461d3: field is_personal: %w", err)
 		}
 		r.IsPersonal = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode replyMarkupShowKeyboard#f64168f4: field input_field_placeholder: %w", err)
+			return fmt.Errorf("unable to decode replyMarkupShowKeyboard#802461d3: field input_field_placeholder: %w", err)
 		}
 		r.InputFieldPlaceholder = value
 	}
@@ -622,7 +640,7 @@ func (r *ReplyMarkupShowKeyboard) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (r *ReplyMarkupShowKeyboard) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
-		return fmt.Errorf("can't encode replyMarkupShowKeyboard#f64168f4 as nil")
+		return fmt.Errorf("can't encode replyMarkupShowKeyboard#802461d3 as nil")
 	}
 	b.ObjStart()
 	b.PutID("replyMarkupShowKeyboard")
@@ -633,7 +651,7 @@ func (r *ReplyMarkupShowKeyboard) EncodeTDLibJSON(b tdjson.Encoder) error {
 		b.ArrStart()
 		for _, v := range row {
 			if err := v.EncodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to encode replyMarkupShowKeyboard#f64168f4: field rows element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode replyMarkupShowKeyboard#802461d3: field rows element with index %d: %w", idx, err)
 			}
 			b.Comma()
 		}
@@ -643,6 +661,9 @@ func (r *ReplyMarkupShowKeyboard) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.FieldStart("is_persistent")
+	b.PutBool(r.IsPersistent)
 	b.Comma()
 	b.FieldStart("resize_keyboard")
 	b.PutBool(r.ResizeKeyboard)
@@ -664,14 +685,14 @@ func (r *ReplyMarkupShowKeyboard) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (r *ReplyMarkupShowKeyboard) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
-		return fmt.Errorf("can't decode replyMarkupShowKeyboard#f64168f4 to nil")
+		return fmt.Errorf("can't decode replyMarkupShowKeyboard#802461d3 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("replyMarkupShowKeyboard"); err != nil {
-				return fmt.Errorf("unable to decode replyMarkupShowKeyboard#f64168f4: %w", err)
+				return fmt.Errorf("unable to decode replyMarkupShowKeyboard#802461d3: %w", err)
 			}
 		case "rows":
 			if err := b.Arr(func(b tdjson.Decoder) error {
@@ -679,40 +700,46 @@ func (r *ReplyMarkupShowKeyboard) DecodeTDLibJSON(b tdjson.Decoder) error {
 				if err := b.Arr(func(b tdjson.Decoder) error {
 					var value KeyboardButton
 					if err := value.DecodeTDLibJSON(b); err != nil {
-						return fmt.Errorf("unable to decode replyMarkupShowKeyboard#f64168f4: field rows: %w", err)
+						return fmt.Errorf("unable to decode replyMarkupShowKeyboard#802461d3: field rows: %w", err)
 					}
 					row = append(row, value)
 					return nil
 				}); err != nil {
-					return fmt.Errorf("unable to decode replyMarkupShowKeyboard#f64168f4: field rows: %w", err)
+					return fmt.Errorf("unable to decode replyMarkupShowKeyboard#802461d3: field rows: %w", err)
 				}
 				r.Rows = append(r.Rows, row)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode replyMarkupShowKeyboard#f64168f4: field rows: %w", err)
+				return fmt.Errorf("unable to decode replyMarkupShowKeyboard#802461d3: field rows: %w", err)
 			}
+		case "is_persistent":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode replyMarkupShowKeyboard#802461d3: field is_persistent: %w", err)
+			}
+			r.IsPersistent = value
 		case "resize_keyboard":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode replyMarkupShowKeyboard#f64168f4: field resize_keyboard: %w", err)
+				return fmt.Errorf("unable to decode replyMarkupShowKeyboard#802461d3: field resize_keyboard: %w", err)
 			}
 			r.ResizeKeyboard = value
 		case "one_time":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode replyMarkupShowKeyboard#f64168f4: field one_time: %w", err)
+				return fmt.Errorf("unable to decode replyMarkupShowKeyboard#802461d3: field one_time: %w", err)
 			}
 			r.OneTime = value
 		case "is_personal":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode replyMarkupShowKeyboard#f64168f4: field is_personal: %w", err)
+				return fmt.Errorf("unable to decode replyMarkupShowKeyboard#802461d3: field is_personal: %w", err)
 			}
 			r.IsPersonal = value
 		case "input_field_placeholder":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode replyMarkupShowKeyboard#f64168f4: field input_field_placeholder: %w", err)
+				return fmt.Errorf("unable to decode replyMarkupShowKeyboard#802461d3: field input_field_placeholder: %w", err)
 			}
 			r.InputFieldPlaceholder = value
 		default:
@@ -728,6 +755,14 @@ func (r *ReplyMarkupShowKeyboard) GetRows() (value [][]KeyboardButton) {
 		return
 	}
 	return r.Rows
+}
+
+// GetIsPersistent returns value of IsPersistent field.
+func (r *ReplyMarkupShowKeyboard) GetIsPersistent() (value bool) {
+	if r == nil {
+		return
+	}
+	return r.IsPersistent
 }
 
 // GetResizeKeyboard returns value of ResizeKeyboard field.
@@ -998,7 +1033,7 @@ const ReplyMarkupClassName = "ReplyMarkup"
 //	switch v := g.(type) {
 //	case *tdapi.ReplyMarkupRemoveKeyboard: // replyMarkupRemoveKeyboard#d6cc5171
 //	case *tdapi.ReplyMarkupForceReply: // replyMarkupForceReply#41a6f99f
-//	case *tdapi.ReplyMarkupShowKeyboard: // replyMarkupShowKeyboard#f64168f4
+//	case *tdapi.ReplyMarkupShowKeyboard: // replyMarkupShowKeyboard#802461d3
 //	case *tdapi.ReplyMarkupInlineKeyboard: // replyMarkupInlineKeyboard#92ac0efb
 //	default: panic(v)
 //	}
@@ -1046,7 +1081,7 @@ func DecodeReplyMarkup(buf *bin.Buffer) (ReplyMarkupClass, error) {
 		}
 		return &v, nil
 	case ReplyMarkupShowKeyboardTypeID:
-		// Decoding replyMarkupShowKeyboard#f64168f4.
+		// Decoding replyMarkupShowKeyboard#802461d3.
 		v := ReplyMarkupShowKeyboard{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ReplyMarkupClass: %w", err)
@@ -1086,7 +1121,7 @@ func DecodeTDLibJSONReplyMarkup(buf tdjson.Decoder) (ReplyMarkupClass, error) {
 		}
 		return &v, nil
 	case "replyMarkupShowKeyboard":
-		// Decoding replyMarkupShowKeyboard#f64168f4.
+		// Decoding replyMarkupShowKeyboard#802461d3.
 		v := ReplyMarkupShowKeyboard{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ReplyMarkupClass: %w", err)

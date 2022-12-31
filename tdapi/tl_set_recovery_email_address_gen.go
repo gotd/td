@@ -33,9 +33,9 @@ var (
 
 // SetRecoveryEmailAddressRequest represents TL type `setRecoveryEmailAddress#89df939f`.
 type SetRecoveryEmailAddressRequest struct {
-	// Password field of SetRecoveryEmailAddressRequest.
+	// The 2-step verification password of the current user
 	Password string
-	// NewRecoveryEmailAddress field of SetRecoveryEmailAddressRequest.
+	// New recovery email address
 	NewRecoveryEmailAddress string
 }
 

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetForumTopicLinkRequest represents TL type `getForumTopicLink#a8e6c24b`.
+// GetForumTopicLinkRequest represents TL type `getForumTopicLink#c97b88cb`.
 type GetForumTopicLinkRequest struct {
 	// Identifier of the chat
 	ChatID int64
@@ -40,7 +40,7 @@ type GetForumTopicLinkRequest struct {
 }
 
 // GetForumTopicLinkRequestTypeID is TL type id of GetForumTopicLinkRequest.
-const GetForumTopicLinkRequestTypeID = 0xa8e6c24b
+const GetForumTopicLinkRequestTypeID = 0xc97b88cb
 
 // Ensuring interfaces in compile-time for GetForumTopicLinkRequest.
 var (
@@ -111,7 +111,7 @@ func (g *GetForumTopicLinkRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetForumTopicLinkRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getForumTopicLink#a8e6c24b as nil")
+		return fmt.Errorf("can't encode getForumTopicLink#c97b88cb as nil")
 	}
 	b.PutID(GetForumTopicLinkRequestTypeID)
 	return g.EncodeBare(b)
@@ -120,7 +120,7 @@ func (g *GetForumTopicLinkRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetForumTopicLinkRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getForumTopicLink#a8e6c24b as nil")
+		return fmt.Errorf("can't encode getForumTopicLink#c97b88cb as nil")
 	}
 	b.PutInt53(g.ChatID)
 	b.PutInt53(g.MessageThreadID)
@@ -130,10 +130,10 @@ func (g *GetForumTopicLinkRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetForumTopicLinkRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getForumTopicLink#a8e6c24b to nil")
+		return fmt.Errorf("can't decode getForumTopicLink#c97b88cb to nil")
 	}
 	if err := b.ConsumeID(GetForumTopicLinkRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getForumTopicLink#a8e6c24b: %w", err)
+		return fmt.Errorf("unable to decode getForumTopicLink#c97b88cb: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -141,19 +141,19 @@ func (g *GetForumTopicLinkRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetForumTopicLinkRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getForumTopicLink#a8e6c24b to nil")
+		return fmt.Errorf("can't decode getForumTopicLink#c97b88cb to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getForumTopicLink#a8e6c24b: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode getForumTopicLink#c97b88cb: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getForumTopicLink#a8e6c24b: field message_thread_id: %w", err)
+			return fmt.Errorf("unable to decode getForumTopicLink#c97b88cb: field message_thread_id: %w", err)
 		}
 		g.MessageThreadID = value
 	}
@@ -163,7 +163,7 @@ func (g *GetForumTopicLinkRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetForumTopicLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getForumTopicLink#a8e6c24b as nil")
+		return fmt.Errorf("can't encode getForumTopicLink#c97b88cb as nil")
 	}
 	b.ObjStart()
 	b.PutID("getForumTopicLink")
@@ -182,25 +182,25 @@ func (g *GetForumTopicLinkRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetForumTopicLinkRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getForumTopicLink#a8e6c24b to nil")
+		return fmt.Errorf("can't decode getForumTopicLink#c97b88cb to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getForumTopicLink"); err != nil {
-				return fmt.Errorf("unable to decode getForumTopicLink#a8e6c24b: %w", err)
+				return fmt.Errorf("unable to decode getForumTopicLink#c97b88cb: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getForumTopicLink#a8e6c24b: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode getForumTopicLink#c97b88cb: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_thread_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getForumTopicLink#a8e6c24b: field message_thread_id: %w", err)
+				return fmt.Errorf("unable to decode getForumTopicLink#c97b88cb: field message_thread_id: %w", err)
 			}
 			g.MessageThreadID = value
 		default:
@@ -226,9 +226,9 @@ func (g *GetForumTopicLinkRequest) GetMessageThreadID() (value int64) {
 	return g.MessageThreadID
 }
 
-// GetForumTopicLink invokes method getForumTopicLink#a8e6c24b returning error if any.
-func (c *Client) GetForumTopicLink(ctx context.Context, request *GetForumTopicLinkRequest) (*HTTPURL, error) {
-	var result HTTPURL
+// GetForumTopicLink invokes method getForumTopicLink#c97b88cb returning error if any.
+func (c *Client) GetForumTopicLink(ctx context.Context, request *GetForumTopicLinkRequest) (*MessageLink, error) {
+	var result MessageLink
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err

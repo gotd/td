@@ -33,9 +33,9 @@ var (
 
 // MessageLinkInfo represents TL type `messageLinkInfo#2b96fb50`.
 type MessageLinkInfo struct {
-	// True, if the link is a public link for a message in a chat
+	// True, if the link is a public link for a message or a forum topic in a chat
 	IsPublic bool
-	// If found, identifier of the chat to which the message belongs, 0 otherwise
+	// If found, identifier of the chat to which the link points, 0 otherwise
 	ChatID int64
 	// If found, identifier of the message thread in which to open the message, or a forum
 	// topic to open if the message is missing
