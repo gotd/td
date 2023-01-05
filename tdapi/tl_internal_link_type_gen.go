@@ -3339,10 +3339,9 @@ type InternalLinkTypePassportDataRequest struct {
 	PublicKey string
 	// Unique request identifier provided by the service
 	Nonce string
-	// An HTTP URL to open once the request is finished or canceled with the parameter
-	// tg_passport=success or tg_passport=cancel respectively. If empty, then the link
-	// tgbot{bot_user_id}://passport/success or tgbot{bot_user_id}://passport/cancel needs to
-	// be opened instead
+	// An HTTP URL to open once the request is finished, canceled, or failed with the
+	// parameters tg_passport=success, tg_passport=cancel, or tg_passport=error&error=...
+	// respectively.
 	CallbackURL string
 }
 

@@ -33,7 +33,7 @@ var (
 
 // PaymentResult represents TL type `paymentResult#d00fe85d`.
 type PaymentResult struct {
-	// True, if the payment request was successful; otherwise the verification_url will be
+	// True, if the payment request was successful; otherwise, the verification_url will be
 	// non-empty
 	Success bool
 	// URL for additional payment credentials verification

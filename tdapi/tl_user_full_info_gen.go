@@ -34,19 +34,14 @@ var (
 // UserFullInfo represents TL type `userFullInfo#e2847a01`.
 type UserFullInfo struct {
 	// User profile photo set by the current user for the contact; may be null. If null and
-	// user.profile_photo is null, then the photo is empty, otherwise unknown. If non-null,
-	// then it is the same photo as in user.profile_photo and chat.photo. This photo isn't
-	// returned in the list of user photos
+	// user.profile_photo is null, then the photo is empty; otherwise, it is unknown.
 	PersonalPhoto ChatPhoto
 	// User profile photo; may be null. If null and user.profile_photo is null, then the
-	// photo is empty, otherwise unknown. If non-null and personal_photo is null, then it is
-	// the same photo as in user.profile_photo and chat.photo
+	// photo is empty; otherwise, it is unknown.
 	Photo ChatPhoto
 	// User profile photo visible if the main photo is hidden by privacy settings; may be
-	// null. If null and user.profile_photo is null, then the photo is empty, otherwise
-	// unknown. If non-null and both photo and personal_photo are null, then it is the same
-	// photo as in user.profile_photo and chat.photo. This photo isn't returned in the list
-	// of user photos
+	// null. If null and user.profile_photo is null, then the photo is empty; otherwise, it
+	// is unknown.
 	PublicPhoto ChatPhoto
 	// True, if the user is blocked by the current user
 	IsBlocked bool

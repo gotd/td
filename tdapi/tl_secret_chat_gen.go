@@ -39,7 +39,7 @@ type SecretChat struct {
 	UserID int64
 	// State of the secret chat
 	State SecretChatStateClass
-	// True, if the chat was created by the current user; otherwise false
+	// True, if the chat was created by the current user; false otherwise
 	IsOutbound bool
 	// Hash of the currently used key for comparison with the hash of the chat partner's key.
 	// This is a string of 36 little-endian bytes, which must be split into groups of 2 bits,

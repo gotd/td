@@ -405,7 +405,7 @@ func (r *ReplyMarkupForceReply) GetInputFieldPlaceholder() (value string) {
 type ReplyMarkupShowKeyboard struct {
 	// A list of rows of bot keyboard buttons
 	Rows [][]KeyboardButton
-	// True, if the keyboard is supposed to be always shown when the ordinary keyboard is
+	// True, if the keyboard is supposed to always be shown when the ordinary keyboard is
 	// hidden
 	IsPersistent bool
 	// True, if the application needs to resize the keyboard vertically
