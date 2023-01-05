@@ -41,7 +41,7 @@ type Contact struct {
 	LastName string
 	// Additional data about the user in a form of vCard; 0-2048 bytes in length
 	Vcard string
-	// Identifier of the user, if known; otherwise 0
+	// Identifier of the user, if known; 0 otherwise
 	UserID int64
 }
 

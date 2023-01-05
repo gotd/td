@@ -16145,7 +16145,7 @@ func (u *UpdateTrendingStickerSets) GetStickerSets() (value TrendingStickerSets)
 
 // UpdateRecentStickers represents TL type `updateRecentStickers#aefdf8dc`.
 type UpdateRecentStickers struct {
-	// True, if the list of stickers attached to photo or video files was updated, otherwise
+	// True, if the list of stickers attached to photo or video files was updated; otherwise,
 	// the list of sent stickers is updated
 	IsAttached bool
 	// The new list of file identifiers of recently used stickers

@@ -7487,8 +7487,8 @@ func (m *MessageScreenshotTaken) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // MessageChatSetTheme represents TL type `messageChatSetTheme#99ae9408`.
 type MessageChatSetTheme struct {
-	// If non-empty, name of a new theme, set for the chat. Otherwise chat theme was reset to
-	// the default one
+	// If non-empty, name of a new theme, set for the chat. Otherwise, chat theme was reset
+	// to the default one
 	ThemeName string
 }
 
@@ -8289,7 +8289,7 @@ func (m *MessageForumTopicEdited) GetIconCustomEmojiID() (value int64) {
 
 // MessageForumTopicIsClosedToggled represents TL type `messageForumTopicIsClosedToggled#4b578fe0`.
 type MessageForumTopicIsClosedToggled struct {
-	// True, if the topic was closed, otherwise the topic was reopened
+	// True, if the topic was closed; otherwise, the topic was reopened
 	IsClosed bool
 }
 
@@ -8455,7 +8455,7 @@ func (m *MessageForumTopicIsClosedToggled) GetIsClosed() (value bool) {
 
 // MessageForumTopicIsHiddenToggled represents TL type `messageForumTopicIsHiddenToggled#979393fe`.
 type MessageForumTopicIsHiddenToggled struct {
-	// True, if the topic was hidden, otherwise the topic was unhidden
+	// True, if the topic was hidden; otherwise, the topic was unhidden
 	IsHidden bool
 }
 

@@ -4395,8 +4395,8 @@ func (p *PushMessageContentChatChangeTitle) GetTitle() (value string) {
 
 // PushMessageContentChatSetTheme represents TL type `pushMessageContentChatSetTheme#a5d3b68`.
 type PushMessageContentChatSetTheme struct {
-	// If non-empty, name of a new theme, set for the chat. Otherwise chat theme was reset to
-	// the default one
+	// If non-empty, name of a new theme, set for the chat. Otherwise, the chat theme was
+	// reset to the default one
 	ThemeName string
 }
 
