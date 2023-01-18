@@ -33,7 +33,7 @@ var (
 
 // ChatPermissions represents TL type `chatPermissions#ce31de89`.
 type ChatPermissions struct {
-	// True, if the user can send text messages, contacts, locations, and venues
+	// True, if the user can send text messages, contacts, invoices, locations, and venues
 	CanSendMessages bool
 	// True, if the user can send audio files, documents, photos, videos, video notes, and
 	// voice notes. Implies can_send_messages permissions
