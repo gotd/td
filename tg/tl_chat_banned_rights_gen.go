@@ -107,6 +107,20 @@ type ChatBannedRights struct {
 	PinMessages bool
 	// ManageTopics field of ChatBannedRights.
 	ManageTopics bool
+	// SendPhotos field of ChatBannedRights.
+	SendPhotos bool
+	// SendVideos field of ChatBannedRights.
+	SendVideos bool
+	// SendRoundvideos field of ChatBannedRights.
+	SendRoundvideos bool
+	// SendAudios field of ChatBannedRights.
+	SendAudios bool
+	// SendVoices field of ChatBannedRights.
+	SendVoices bool
+	// SendDocs field of ChatBannedRights.
+	SendDocs bool
+	// SendPlain field of ChatBannedRights.
+	SendPlain bool
 	// Validity of said permissions (it is considered forever any value less then 30 seconds
 	// or more then 366 days).
 	UntilDate int
@@ -169,6 +183,27 @@ func (c *ChatBannedRights) Zero() bool {
 	if !(c.ManageTopics == false) {
 		return false
 	}
+	if !(c.SendPhotos == false) {
+		return false
+	}
+	if !(c.SendVideos == false) {
+		return false
+	}
+	if !(c.SendRoundvideos == false) {
+		return false
+	}
+	if !(c.SendAudios == false) {
+		return false
+	}
+	if !(c.SendVoices == false) {
+		return false
+	}
+	if !(c.SendDocs == false) {
+		return false
+	}
+	if !(c.SendPlain == false) {
+		return false
+	}
 	if !(c.UntilDate == 0) {
 		return false
 	}
@@ -200,6 +235,13 @@ func (c *ChatBannedRights) FillFrom(from interface {
 	GetInviteUsers() (value bool)
 	GetPinMessages() (value bool)
 	GetManageTopics() (value bool)
+	GetSendPhotos() (value bool)
+	GetSendVideos() (value bool)
+	GetSendRoundvideos() (value bool)
+	GetSendAudios() (value bool)
+	GetSendVoices() (value bool)
+	GetSendDocs() (value bool)
+	GetSendPlain() (value bool)
 	GetUntilDate() (value int)
 }) {
 	c.ViewMessages = from.GetViewMessages()
@@ -215,6 +257,13 @@ func (c *ChatBannedRights) FillFrom(from interface {
 	c.InviteUsers = from.GetInviteUsers()
 	c.PinMessages = from.GetPinMessages()
 	c.ManageTopics = from.GetManageTopics()
+	c.SendPhotos = from.GetSendPhotos()
+	c.SendVideos = from.GetSendVideos()
+	c.SendRoundvideos = from.GetSendRoundvideos()
+	c.SendAudios = from.GetSendAudios()
+	c.SendVoices = from.GetSendVoices()
+	c.SendDocs = from.GetSendDocs()
+	c.SendPlain = from.GetSendPlain()
 	c.UntilDate = from.GetUntilDate()
 }
 
@@ -307,6 +356,41 @@ func (c *ChatBannedRights) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(18),
 		},
 		{
+			Name:       "SendPhotos",
+			SchemaName: "send_photos",
+			Null:       !c.Flags.Has(19),
+		},
+		{
+			Name:       "SendVideos",
+			SchemaName: "send_videos",
+			Null:       !c.Flags.Has(20),
+		},
+		{
+			Name:       "SendRoundvideos",
+			SchemaName: "send_roundvideos",
+			Null:       !c.Flags.Has(21),
+		},
+		{
+			Name:       "SendAudios",
+			SchemaName: "send_audios",
+			Null:       !c.Flags.Has(22),
+		},
+		{
+			Name:       "SendVoices",
+			SchemaName: "send_voices",
+			Null:       !c.Flags.Has(23),
+		},
+		{
+			Name:       "SendDocs",
+			SchemaName: "send_docs",
+			Null:       !c.Flags.Has(24),
+		},
+		{
+			Name:       "SendPlain",
+			SchemaName: "send_plain",
+			Null:       !c.Flags.Has(25),
+		},
+		{
 			Name:       "UntilDate",
 			SchemaName: "until_date",
 		},
@@ -354,6 +438,27 @@ func (c *ChatBannedRights) SetFlags() {
 	}
 	if !(c.ManageTopics == false) {
 		c.Flags.Set(18)
+	}
+	if !(c.SendPhotos == false) {
+		c.Flags.Set(19)
+	}
+	if !(c.SendVideos == false) {
+		c.Flags.Set(20)
+	}
+	if !(c.SendRoundvideos == false) {
+		c.Flags.Set(21)
+	}
+	if !(c.SendAudios == false) {
+		c.Flags.Set(22)
+	}
+	if !(c.SendVoices == false) {
+		c.Flags.Set(23)
+	}
+	if !(c.SendDocs == false) {
+		c.Flags.Set(24)
+	}
+	if !(c.SendPlain == false) {
+		c.Flags.Set(25)
 	}
 }
 
@@ -413,6 +518,13 @@ func (c *ChatBannedRights) DecodeBare(b *bin.Buffer) error {
 	c.InviteUsers = c.Flags.Has(15)
 	c.PinMessages = c.Flags.Has(17)
 	c.ManageTopics = c.Flags.Has(18)
+	c.SendPhotos = c.Flags.Has(19)
+	c.SendVideos = c.Flags.Has(20)
+	c.SendRoundvideos = c.Flags.Has(21)
+	c.SendAudios = c.Flags.Has(22)
+	c.SendVoices = c.Flags.Has(23)
+	c.SendDocs = c.Flags.Has(24)
+	c.SendPlain = c.Flags.Has(25)
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -668,6 +780,139 @@ func (c *ChatBannedRights) GetManageTopics() (value bool) {
 		return
 	}
 	return c.Flags.Has(18)
+}
+
+// SetSendPhotos sets value of SendPhotos conditional field.
+func (c *ChatBannedRights) SetSendPhotos(value bool) {
+	if value {
+		c.Flags.Set(19)
+		c.SendPhotos = true
+	} else {
+		c.Flags.Unset(19)
+		c.SendPhotos = false
+	}
+}
+
+// GetSendPhotos returns value of SendPhotos conditional field.
+func (c *ChatBannedRights) GetSendPhotos() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(19)
+}
+
+// SetSendVideos sets value of SendVideos conditional field.
+func (c *ChatBannedRights) SetSendVideos(value bool) {
+	if value {
+		c.Flags.Set(20)
+		c.SendVideos = true
+	} else {
+		c.Flags.Unset(20)
+		c.SendVideos = false
+	}
+}
+
+// GetSendVideos returns value of SendVideos conditional field.
+func (c *ChatBannedRights) GetSendVideos() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(20)
+}
+
+// SetSendRoundvideos sets value of SendRoundvideos conditional field.
+func (c *ChatBannedRights) SetSendRoundvideos(value bool) {
+	if value {
+		c.Flags.Set(21)
+		c.SendRoundvideos = true
+	} else {
+		c.Flags.Unset(21)
+		c.SendRoundvideos = false
+	}
+}
+
+// GetSendRoundvideos returns value of SendRoundvideos conditional field.
+func (c *ChatBannedRights) GetSendRoundvideos() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(21)
+}
+
+// SetSendAudios sets value of SendAudios conditional field.
+func (c *ChatBannedRights) SetSendAudios(value bool) {
+	if value {
+		c.Flags.Set(22)
+		c.SendAudios = true
+	} else {
+		c.Flags.Unset(22)
+		c.SendAudios = false
+	}
+}
+
+// GetSendAudios returns value of SendAudios conditional field.
+func (c *ChatBannedRights) GetSendAudios() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(22)
+}
+
+// SetSendVoices sets value of SendVoices conditional field.
+func (c *ChatBannedRights) SetSendVoices(value bool) {
+	if value {
+		c.Flags.Set(23)
+		c.SendVoices = true
+	} else {
+		c.Flags.Unset(23)
+		c.SendVoices = false
+	}
+}
+
+// GetSendVoices returns value of SendVoices conditional field.
+func (c *ChatBannedRights) GetSendVoices() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(23)
+}
+
+// SetSendDocs sets value of SendDocs conditional field.
+func (c *ChatBannedRights) SetSendDocs(value bool) {
+	if value {
+		c.Flags.Set(24)
+		c.SendDocs = true
+	} else {
+		c.Flags.Unset(24)
+		c.SendDocs = false
+	}
+}
+
+// GetSendDocs returns value of SendDocs conditional field.
+func (c *ChatBannedRights) GetSendDocs() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(24)
+}
+
+// SetSendPlain sets value of SendPlain conditional field.
+func (c *ChatBannedRights) SetSendPlain(value bool) {
+	if value {
+		c.Flags.Set(25)
+		c.SendPlain = true
+	} else {
+		c.Flags.Unset(25)
+		c.SendPlain = false
+	}
+}
+
+// GetSendPlain returns value of SendPlain conditional field.
+func (c *ChatBannedRights) GetSendPlain() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(25)
 }
 
 // GetUntilDate returns value of UntilDate field.

@@ -51,6 +51,8 @@ type ChatFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
 	HasScheduled bool
+	// TranslationsDisabled field of ChatFull.
+	TranslationsDisabled bool
 	// ID of the chat
 	ID int64
 	// About string for this chat
@@ -154,6 +156,9 @@ func (c *ChatFull) Zero() bool {
 	if !(c.HasScheduled == false) {
 		return false
 	}
+	if !(c.TranslationsDisabled == false) {
+		return false
+	}
 	if !(c.ID == 0) {
 		return false
 	}
@@ -219,6 +224,7 @@ func (c *ChatFull) String() string {
 func (c *ChatFull) FillFrom(from interface {
 	GetCanSetUsername() (value bool)
 	GetHasScheduled() (value bool)
+	GetTranslationsDisabled() (value bool)
 	GetID() (value int64)
 	GetAbout() (value string)
 	GetParticipants() (value ChatParticipantsClass)
@@ -238,6 +244,7 @@ func (c *ChatFull) FillFrom(from interface {
 }) {
 	c.CanSetUsername = from.GetCanSetUsername()
 	c.HasScheduled = from.GetHasScheduled()
+	c.TranslationsDisabled = from.GetTranslationsDisabled()
 	c.ID = from.GetID()
 	c.About = from.GetAbout()
 	c.Participants = from.GetParticipants()
@@ -326,6 +333,11 @@ func (c *ChatFull) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(8),
 		},
 		{
+			Name:       "TranslationsDisabled",
+			SchemaName: "translations_disabled",
+			Null:       !c.Flags.Has(19),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -412,6 +424,9 @@ func (c *ChatFull) SetFlags() {
 	}
 	if !(c.HasScheduled == false) {
 		c.Flags.Set(8)
+	}
+	if !(c.TranslationsDisabled == false) {
+		c.Flags.Set(19)
 	}
 	if !(c.ChatPhoto == nil) {
 		c.Flags.Set(2)
@@ -572,6 +587,7 @@ func (c *ChatFull) DecodeBare(b *bin.Buffer) error {
 	}
 	c.CanSetUsername = c.Flags.Has(7)
 	c.HasScheduled = c.Flags.Has(8)
+	c.TranslationsDisabled = c.Flags.Has(19)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -739,6 +755,25 @@ func (c *ChatFull) GetHasScheduled() (value bool) {
 		return
 	}
 	return c.Flags.Has(8)
+}
+
+// SetTranslationsDisabled sets value of TranslationsDisabled conditional field.
+func (c *ChatFull) SetTranslationsDisabled(value bool) {
+	if value {
+		c.Flags.Set(19)
+		c.TranslationsDisabled = true
+	} else {
+		c.Flags.Unset(19)
+		c.TranslationsDisabled = false
+	}
+}
+
+// GetTranslationsDisabled returns value of TranslationsDisabled conditional field.
+func (c *ChatFull) GetTranslationsDisabled() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(19)
 }
 
 // GetID returns value of ID field.
@@ -1041,6 +1076,8 @@ type ChannelFull struct {
 	Antispam bool
 	// ParticipantsHidden field of ChannelFull.
 	ParticipantsHidden bool
+	// TranslationsDisabled field of ChannelFull.
+	TranslationsDisabled bool
 	// ID of the channel
 	ID int64
 	// Info about the channel
@@ -1264,6 +1301,9 @@ func (c *ChannelFull) Zero() bool {
 	if !(c.ParticipantsHidden == false) {
 		return false
 	}
+	if !(c.TranslationsDisabled == false) {
+		return false
+	}
 	if !(c.ID == 0) {
 		return false
 	}
@@ -1395,6 +1435,7 @@ func (c *ChannelFull) FillFrom(from interface {
 	GetCanDeleteChannel() (value bool)
 	GetAntispam() (value bool)
 	GetParticipantsHidden() (value bool)
+	GetTranslationsDisabled() (value bool)
 	GetID() (value int64)
 	GetAbout() (value string)
 	GetParticipantsCount() (value int, ok bool)
@@ -1442,6 +1483,7 @@ func (c *ChannelFull) FillFrom(from interface {
 	c.CanDeleteChannel = from.GetCanDeleteChannel()
 	c.Antispam = from.GetAntispam()
 	c.ParticipantsHidden = from.GetParticipantsHidden()
+	c.TranslationsDisabled = from.GetTranslationsDisabled()
 	c.ID = from.GetID()
 	c.About = from.GetAbout()
 	if val, ok := from.GetParticipantsCount(); ok {
@@ -1634,6 +1676,11 @@ func (c *ChannelFull) TypeInfo() tdp.Type {
 			Name:       "ParticipantsHidden",
 			SchemaName: "participants_hidden",
 			Null:       !c.Flags2.Has(2),
+		},
+		{
+			Name:       "TranslationsDisabled",
+			SchemaName: "translations_disabled",
+			Null:       !c.Flags2.Has(3),
 		},
 		{
 			Name:       "ID",
@@ -1839,6 +1886,9 @@ func (c *ChannelFull) SetFlags() {
 	}
 	if !(c.ParticipantsHidden == false) {
 		c.Flags2.Set(2)
+	}
+	if !(c.TranslationsDisabled == false) {
+		c.Flags2.Set(3)
 	}
 	if !(c.ParticipantsCount == 0) {
 		c.Flags.Set(0)
@@ -2115,6 +2165,7 @@ func (c *ChannelFull) DecodeBare(b *bin.Buffer) error {
 	c.CanDeleteChannel = c.Flags2.Has(0)
 	c.Antispam = c.Flags2.Has(1)
 	c.ParticipantsHidden = c.Flags2.Has(2)
+	c.TranslationsDisabled = c.Flags2.Has(3)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -2594,6 +2645,25 @@ func (c *ChannelFull) GetParticipantsHidden() (value bool) {
 		return
 	}
 	return c.Flags2.Has(2)
+}
+
+// SetTranslationsDisabled sets value of TranslationsDisabled conditional field.
+func (c *ChannelFull) SetTranslationsDisabled(value bool) {
+	if value {
+		c.Flags2.Set(3)
+		c.TranslationsDisabled = true
+	} else {
+		c.Flags2.Unset(3)
+		c.TranslationsDisabled = false
+	}
+}
+
+// GetTranslationsDisabled returns value of TranslationsDisabled conditional field.
+func (c *ChannelFull) GetTranslationsDisabled() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags2.Has(3)
 }
 
 // GetID returns value of ID field.
@@ -3180,6 +3250,9 @@ type ChatFullClass interface {
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
 	GetHasScheduled() (value bool)
+
+	// TranslationsDisabled field of ChatFull.
+	GetTranslationsDisabled() (value bool)
 
 	// ID of the chat
 	GetID() (value int64)

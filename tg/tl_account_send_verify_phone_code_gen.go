@@ -202,11 +202,11 @@ func (s *AccountSendVerifyPhoneCodeRequest) GetSettings() (value CodeSettings) {
 //	400 PHONE_NUMBER_INVALID: The phone number is invalid.
 //
 // See https://core.telegram.org/method/account.sendVerifyPhoneCode for reference.
-func (c *Client) AccountSendVerifyPhoneCode(ctx context.Context, request *AccountSendVerifyPhoneCodeRequest) (*AuthSentCode, error) {
-	var result AuthSentCode
+func (c *Client) AccountSendVerifyPhoneCode(ctx context.Context, request *AccountSendVerifyPhoneCodeRequest) (AuthSentCodeClass, error) {
+	var result AuthSentCodeBox
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.SentCode, nil
 }

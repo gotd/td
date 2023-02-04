@@ -43,6 +43,8 @@ type InputStorePaymentPremiumSubscription struct {
 	Flags bin.Fields
 	// Pass true if this is a restore of a Telegram Premium purchase; only for the App Store
 	Restore bool
+	// Upgrade field of InputStorePaymentPremiumSubscription.
+	Upgrade bool
 }
 
 // InputStorePaymentPremiumSubscriptionTypeID is TL type id of InputStorePaymentPremiumSubscription.
@@ -71,6 +73,9 @@ func (i *InputStorePaymentPremiumSubscription) Zero() bool {
 	if !(i.Restore == false) {
 		return false
 	}
+	if !(i.Upgrade == false) {
+		return false
+	}
 
 	return true
 }
@@ -87,8 +92,10 @@ func (i *InputStorePaymentPremiumSubscription) String() string {
 // FillFrom fills InputStorePaymentPremiumSubscription from given interface.
 func (i *InputStorePaymentPremiumSubscription) FillFrom(from interface {
 	GetRestore() (value bool)
+	GetUpgrade() (value bool)
 }) {
 	i.Restore = from.GetRestore()
+	i.Upgrade = from.GetUpgrade()
 }
 
 // TypeID returns type id in TL schema.
@@ -119,6 +126,11 @@ func (i *InputStorePaymentPremiumSubscription) TypeInfo() tdp.Type {
 			SchemaName: "restore",
 			Null:       !i.Flags.Has(0),
 		},
+		{
+			Name:       "Upgrade",
+			SchemaName: "upgrade",
+			Null:       !i.Flags.Has(1),
+		},
 	}
 	return typ
 }
@@ -127,6 +139,9 @@ func (i *InputStorePaymentPremiumSubscription) TypeInfo() tdp.Type {
 func (i *InputStorePaymentPremiumSubscription) SetFlags() {
 	if !(i.Restore == false) {
 		i.Flags.Set(0)
+	}
+	if !(i.Upgrade == false) {
+		i.Flags.Set(1)
 	}
 }
 
@@ -173,6 +188,7 @@ func (i *InputStorePaymentPremiumSubscription) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	i.Restore = i.Flags.Has(0)
+	i.Upgrade = i.Flags.Has(1)
 	return nil
 }
 
@@ -193,6 +209,25 @@ func (i *InputStorePaymentPremiumSubscription) GetRestore() (value bool) {
 		return
 	}
 	return i.Flags.Has(0)
+}
+
+// SetUpgrade sets value of Upgrade conditional field.
+func (i *InputStorePaymentPremiumSubscription) SetUpgrade(value bool) {
+	if value {
+		i.Flags.Set(1)
+		i.Upgrade = true
+	} else {
+		i.Flags.Unset(1)
+		i.Upgrade = false
+	}
+}
+
+// GetUpgrade returns value of Upgrade conditional field.
+func (i *InputStorePaymentPremiumSubscription) GetUpgrade() (value bool) {
+	if i == nil {
+		return
+	}
+	return i.Flags.Has(1)
 }
 
 // InputStorePaymentGiftPremium represents TL type `inputStorePaymentGiftPremium#616f7fe8`.

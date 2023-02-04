@@ -205,11 +205,11 @@ func (s *AccountSendConfirmPhoneCodeRequest) GetSettings() (value CodeSettings) 
 //	400 HASH_INVALID: The provided hash is invalid.
 //
 // See https://core.telegram.org/method/account.sendConfirmPhoneCode for reference.
-func (c *Client) AccountSendConfirmPhoneCode(ctx context.Context, request *AccountSendConfirmPhoneCodeRequest) (*AuthSentCode, error) {
-	var result AuthSentCode
+func (c *Client) AccountSendConfirmPhoneCode(ctx context.Context, request *AccountSendConfirmPhoneCodeRequest) (AuthSentCodeClass, error) {
+	var result AuthSentCodeBox
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.SentCode, nil
 }

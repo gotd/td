@@ -6221,6 +6221,172 @@ func (m *MessageActionAttachMenuBotAllowed) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// MessageActionRequestedPeer represents TL type `messageActionRequestedPeer#fe77345d`.
+//
+// See https://core.telegram.org/constructor/messageActionRequestedPeer for reference.
+type MessageActionRequestedPeer struct {
+	// ButtonID field of MessageActionRequestedPeer.
+	ButtonID int
+	// Peer field of MessageActionRequestedPeer.
+	Peer PeerClass
+}
+
+// MessageActionRequestedPeerTypeID is TL type id of MessageActionRequestedPeer.
+const MessageActionRequestedPeerTypeID = 0xfe77345d
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionRequestedPeer) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionRequestedPeer.
+var (
+	_ bin.Encoder     = &MessageActionRequestedPeer{}
+	_ bin.Decoder     = &MessageActionRequestedPeer{}
+	_ bin.BareEncoder = &MessageActionRequestedPeer{}
+	_ bin.BareDecoder = &MessageActionRequestedPeer{}
+
+	_ MessageActionClass = &MessageActionRequestedPeer{}
+)
+
+func (m *MessageActionRequestedPeer) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.ButtonID == 0) {
+		return false
+	}
+	if !(m.Peer == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionRequestedPeer) String() string {
+	if m == nil {
+		return "MessageActionRequestedPeer(nil)"
+	}
+	type Alias MessageActionRequestedPeer
+	return fmt.Sprintf("MessageActionRequestedPeer%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionRequestedPeer from given interface.
+func (m *MessageActionRequestedPeer) FillFrom(from interface {
+	GetButtonID() (value int)
+	GetPeer() (value PeerClass)
+}) {
+	m.ButtonID = from.GetButtonID()
+	m.Peer = from.GetPeer()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionRequestedPeer) TypeID() uint32 {
+	return MessageActionRequestedPeerTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionRequestedPeer) TypeName() string {
+	return "messageActionRequestedPeer"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionRequestedPeer) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionRequestedPeer",
+		ID:   MessageActionRequestedPeerTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ButtonID",
+			SchemaName: "button_id",
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionRequestedPeer) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionRequestedPeer#fe77345d as nil")
+	}
+	b.PutID(MessageActionRequestedPeerTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionRequestedPeer) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionRequestedPeer#fe77345d as nil")
+	}
+	b.PutInt(m.ButtonID)
+	if m.Peer == nil {
+		return fmt.Errorf("unable to encode messageActionRequestedPeer#fe77345d: field peer is nil")
+	}
+	if err := m.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionRequestedPeer#fe77345d: field peer: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionRequestedPeer) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionRequestedPeer#fe77345d to nil")
+	}
+	if err := b.ConsumeID(MessageActionRequestedPeerTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionRequestedPeer#fe77345d: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionRequestedPeer) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionRequestedPeer#fe77345d to nil")
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionRequestedPeer#fe77345d: field button_id: %w", err)
+		}
+		m.ButtonID = value
+	}
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionRequestedPeer#fe77345d: field peer: %w", err)
+		}
+		m.Peer = value
+	}
+	return nil
+}
+
+// GetButtonID returns value of ButtonID field.
+func (m *MessageActionRequestedPeer) GetButtonID() (value int) {
+	if m == nil {
+		return
+	}
+	return m.ButtonID
+}
+
+// GetPeer returns value of Peer field.
+func (m *MessageActionRequestedPeer) GetPeer() (value PeerClass) {
+	if m == nil {
+		return
+	}
+	return m.Peer
+}
+
 // MessageActionClassName is schema name of MessageActionClass.
 const MessageActionClassName = "MessageAction"
 
@@ -6272,6 +6438,7 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionTopicEdit: // messageActionTopicEdit#c0944820
 //	case *tg.MessageActionSuggestProfilePhoto: // messageActionSuggestProfilePhoto#57de635e
 //	case *tg.MessageActionAttachMenuBotAllowed: // messageActionAttachMenuBotAllowed#e7e75f97
+//	case *tg.MessageActionRequestedPeer: // messageActionRequestedPeer#fe77345d
 //	default: panic(v)
 //	}
 type MessageActionClass interface {
@@ -6555,6 +6722,13 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionAttachMenuBotAllowedTypeID:
 		// Decoding messageActionAttachMenuBotAllowed#e7e75f97.
 		v := MessageActionAttachMenuBotAllowed{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionRequestedPeerTypeID:
+		// Decoding messageActionRequestedPeer#fe77345d.
+		v := MessageActionRequestedPeer{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}

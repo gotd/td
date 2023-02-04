@@ -197,7 +197,7 @@ type Photo struct {
 	//  1) https://core.telegram.org/api/files#animated-profile-pictures
 	//
 	// Use SetVideoSizes and GetVideoSizes helpers.
-	VideoSizes []VideoSize
+	VideoSizes []VideoSizeClass
 	// DC ID to use for download
 	DCID int
 }
@@ -270,7 +270,7 @@ func (p *Photo) FillFrom(from interface {
 	GetFileReference() (value []byte)
 	GetDate() (value int)
 	GetSizes() (value []PhotoSizeClass)
-	GetVideoSizes() (value []VideoSize, ok bool)
+	GetVideoSizes() (value []VideoSizeClass, ok bool)
 	GetDCID() (value int)
 }) {
 	p.HasStickers = from.GetHasStickers()
@@ -391,6 +391,9 @@ func (p *Photo) EncodeBare(b *bin.Buffer) error {
 	if p.Flags.Has(1) {
 		b.PutVectorHeader(len(p.VideoSizes))
 		for idx, v := range p.VideoSizes {
+			if v == nil {
+				return fmt.Errorf("unable to encode photo#fb197a65: field video_sizes element with index %d is nil", idx)
+			}
 			if err := v.Encode(b); err != nil {
 				return fmt.Errorf("unable to encode photo#fb197a65: field video_sizes element with index %d: %w", idx, err)
 			}
@@ -474,11 +477,11 @@ func (p *Photo) DecodeBare(b *bin.Buffer) error {
 		}
 
 		if headerLen > 0 {
-			p.VideoSizes = make([]VideoSize, 0, headerLen%bin.PreallocateLimit)
+			p.VideoSizes = make([]VideoSizeClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value VideoSize
-			if err := value.Decode(b); err != nil {
+			value, err := DecodeVideoSize(b)
+			if err != nil {
 				return fmt.Errorf("unable to decode photo#fb197a65: field video_sizes: %w", err)
 			}
 			p.VideoSizes = append(p.VideoSizes, value)
@@ -554,14 +557,14 @@ func (p *Photo) GetSizes() (value []PhotoSizeClass) {
 }
 
 // SetVideoSizes sets value of VideoSizes conditional field.
-func (p *Photo) SetVideoSizes(value []VideoSize) {
+func (p *Photo) SetVideoSizes(value []VideoSizeClass) {
 	p.Flags.Set(1)
 	p.VideoSizes = value
 }
 
 // GetVideoSizes returns value of VideoSizes conditional field and
 // boolean which is true if field was set.
-func (p *Photo) GetVideoSizes() (value []VideoSize, ok bool) {
+func (p *Photo) GetVideoSizes() (value []VideoSizeClass, ok bool) {
 	if p == nil {
 		return
 	}
@@ -582,6 +585,14 @@ func (p *Photo) GetDCID() (value int) {
 // MapSizes returns field Sizes wrapped in PhotoSizeClassArray helper.
 func (p *Photo) MapSizes() (value PhotoSizeClassArray) {
 	return PhotoSizeClassArray(p.Sizes)
+}
+
+// MapVideoSizes returns field VideoSizes wrapped in VideoSizeClassArray helper.
+func (p *Photo) MapVideoSizes() (value VideoSizeClassArray, ok bool) {
+	if !p.Flags.Has(1) {
+		return value, false
+	}
+	return VideoSizeClassArray(p.VideoSizes), true
 }
 
 // PhotoClassName is schema name of PhotoClass.

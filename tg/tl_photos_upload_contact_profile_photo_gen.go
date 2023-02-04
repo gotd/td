@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PhotosUploadContactProfilePhotoRequest represents TL type `photos.uploadContactProfilePhoto#b91a83bf`.
+// PhotosUploadContactProfilePhotoRequest represents TL type `photos.uploadContactProfilePhoto#e14c4a71`.
 //
 // See https://core.telegram.org/method/photos.uploadContactProfilePhoto for reference.
 type PhotosUploadContactProfilePhotoRequest struct {
@@ -55,10 +55,14 @@ type PhotosUploadContactProfilePhotoRequest struct {
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
 	VideoStartTs float64
+	// VideoEmojiMarkup field of PhotosUploadContactProfilePhotoRequest.
+	//
+	// Use SetVideoEmojiMarkup and GetVideoEmojiMarkup helpers.
+	VideoEmojiMarkup VideoSizeClass
 }
 
 // PhotosUploadContactProfilePhotoRequestTypeID is TL type id of PhotosUploadContactProfilePhotoRequest.
-const PhotosUploadContactProfilePhotoRequestTypeID = 0xb91a83bf
+const PhotosUploadContactProfilePhotoRequestTypeID = 0xe14c4a71
 
 // Ensuring interfaces in compile-time for PhotosUploadContactProfilePhotoRequest.
 var (
@@ -93,6 +97,9 @@ func (u *PhotosUploadContactProfilePhotoRequest) Zero() bool {
 	if !(u.VideoStartTs == 0) {
 		return false
 	}
+	if !(u.VideoEmojiMarkup == nil) {
+		return false
+	}
 
 	return true
 }
@@ -114,6 +121,7 @@ func (u *PhotosUploadContactProfilePhotoRequest) FillFrom(from interface {
 	GetFile() (value InputFileClass, ok bool)
 	GetVideo() (value InputFileClass, ok bool)
 	GetVideoStartTs() (value float64, ok bool)
+	GetVideoEmojiMarkup() (value VideoSizeClass, ok bool)
 }) {
 	u.Suggest = from.GetSuggest()
 	u.Save = from.GetSave()
@@ -128,6 +136,10 @@ func (u *PhotosUploadContactProfilePhotoRequest) FillFrom(from interface {
 
 	if val, ok := from.GetVideoStartTs(); ok {
 		u.VideoStartTs = val
+	}
+
+	if val, ok := from.GetVideoEmojiMarkup(); ok {
+		u.VideoEmojiMarkup = val
 	}
 
 }
@@ -184,6 +196,11 @@ func (u *PhotosUploadContactProfilePhotoRequest) TypeInfo() tdp.Type {
 			SchemaName: "video_start_ts",
 			Null:       !u.Flags.Has(2),
 		},
+		{
+			Name:       "VideoEmojiMarkup",
+			SchemaName: "video_emoji_markup",
+			Null:       !u.Flags.Has(5),
+		},
 	}
 	return typ
 }
@@ -205,12 +222,15 @@ func (u *PhotosUploadContactProfilePhotoRequest) SetFlags() {
 	if !(u.VideoStartTs == 0) {
 		u.Flags.Set(2)
 	}
+	if !(u.VideoEmojiMarkup == nil) {
+		u.Flags.Set(5)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *PhotosUploadContactProfilePhotoRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode photos.uploadContactProfilePhoto#b91a83bf as nil")
+		return fmt.Errorf("can't encode photos.uploadContactProfilePhoto#e14c4a71 as nil")
 	}
 	b.PutID(PhotosUploadContactProfilePhotoRequestTypeID)
 	return u.EncodeBare(b)
@@ -219,36 +239,44 @@ func (u *PhotosUploadContactProfilePhotoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *PhotosUploadContactProfilePhotoRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode photos.uploadContactProfilePhoto#b91a83bf as nil")
+		return fmt.Errorf("can't encode photos.uploadContactProfilePhoto#e14c4a71 as nil")
 	}
 	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode photos.uploadContactProfilePhoto#b91a83bf: field flags: %w", err)
+		return fmt.Errorf("unable to encode photos.uploadContactProfilePhoto#e14c4a71: field flags: %w", err)
 	}
 	if u.UserID == nil {
-		return fmt.Errorf("unable to encode photos.uploadContactProfilePhoto#b91a83bf: field user_id is nil")
+		return fmt.Errorf("unable to encode photos.uploadContactProfilePhoto#e14c4a71: field user_id is nil")
 	}
 	if err := u.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode photos.uploadContactProfilePhoto#b91a83bf: field user_id: %w", err)
+		return fmt.Errorf("unable to encode photos.uploadContactProfilePhoto#e14c4a71: field user_id: %w", err)
 	}
 	if u.Flags.Has(0) {
 		if u.File == nil {
-			return fmt.Errorf("unable to encode photos.uploadContactProfilePhoto#b91a83bf: field file is nil")
+			return fmt.Errorf("unable to encode photos.uploadContactProfilePhoto#e14c4a71: field file is nil")
 		}
 		if err := u.File.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode photos.uploadContactProfilePhoto#b91a83bf: field file: %w", err)
+			return fmt.Errorf("unable to encode photos.uploadContactProfilePhoto#e14c4a71: field file: %w", err)
 		}
 	}
 	if u.Flags.Has(1) {
 		if u.Video == nil {
-			return fmt.Errorf("unable to encode photos.uploadContactProfilePhoto#b91a83bf: field video is nil")
+			return fmt.Errorf("unable to encode photos.uploadContactProfilePhoto#e14c4a71: field video is nil")
 		}
 		if err := u.Video.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode photos.uploadContactProfilePhoto#b91a83bf: field video: %w", err)
+			return fmt.Errorf("unable to encode photos.uploadContactProfilePhoto#e14c4a71: field video: %w", err)
 		}
 	}
 	if u.Flags.Has(2) {
 		b.PutDouble(u.VideoStartTs)
+	}
+	if u.Flags.Has(5) {
+		if u.VideoEmojiMarkup == nil {
+			return fmt.Errorf("unable to encode photos.uploadContactProfilePhoto#e14c4a71: field video_emoji_markup is nil")
+		}
+		if err := u.VideoEmojiMarkup.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode photos.uploadContactProfilePhoto#e14c4a71: field video_emoji_markup: %w", err)
+		}
 	}
 	return nil
 }
@@ -256,10 +284,10 @@ func (u *PhotosUploadContactProfilePhotoRequest) EncodeBare(b *bin.Buffer) error
 // Decode implements bin.Decoder.
 func (u *PhotosUploadContactProfilePhotoRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode photos.uploadContactProfilePhoto#b91a83bf to nil")
+		return fmt.Errorf("can't decode photos.uploadContactProfilePhoto#e14c4a71 to nil")
 	}
 	if err := b.ConsumeID(PhotosUploadContactProfilePhotoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode photos.uploadContactProfilePhoto#b91a83bf: %w", err)
+		return fmt.Errorf("unable to decode photos.uploadContactProfilePhoto#e14c4a71: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -267,11 +295,11 @@ func (u *PhotosUploadContactProfilePhotoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *PhotosUploadContactProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode photos.uploadContactProfilePhoto#b91a83bf to nil")
+		return fmt.Errorf("can't decode photos.uploadContactProfilePhoto#e14c4a71 to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode photos.uploadContactProfilePhoto#b91a83bf: field flags: %w", err)
+			return fmt.Errorf("unable to decode photos.uploadContactProfilePhoto#e14c4a71: field flags: %w", err)
 		}
 	}
 	u.Suggest = u.Flags.Has(3)
@@ -279,30 +307,37 @@ func (u *PhotosUploadContactProfilePhotoRequest) DecodeBare(b *bin.Buffer) error
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.uploadContactProfilePhoto#b91a83bf: field user_id: %w", err)
+			return fmt.Errorf("unable to decode photos.uploadContactProfilePhoto#e14c4a71: field user_id: %w", err)
 		}
 		u.UserID = value
 	}
 	if u.Flags.Has(0) {
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.uploadContactProfilePhoto#b91a83bf: field file: %w", err)
+			return fmt.Errorf("unable to decode photos.uploadContactProfilePhoto#e14c4a71: field file: %w", err)
 		}
 		u.File = value
 	}
 	if u.Flags.Has(1) {
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.uploadContactProfilePhoto#b91a83bf: field video: %w", err)
+			return fmt.Errorf("unable to decode photos.uploadContactProfilePhoto#e14c4a71: field video: %w", err)
 		}
 		u.Video = value
 	}
 	if u.Flags.Has(2) {
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.uploadContactProfilePhoto#b91a83bf: field video_start_ts: %w", err)
+			return fmt.Errorf("unable to decode photos.uploadContactProfilePhoto#e14c4a71: field video_start_ts: %w", err)
 		}
 		u.VideoStartTs = value
+	}
+	if u.Flags.Has(5) {
+		value, err := DecodeVideoSize(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode photos.uploadContactProfilePhoto#e14c4a71: field video_emoji_markup: %w", err)
+		}
+		u.VideoEmojiMarkup = value
 	}
 	return nil
 }
@@ -407,7 +442,25 @@ func (u *PhotosUploadContactProfilePhotoRequest) GetVideoStartTs() (value float6
 	return u.VideoStartTs, true
 }
 
-// PhotosUploadContactProfilePhoto invokes method photos.uploadContactProfilePhoto#b91a83bf returning error if any.
+// SetVideoEmojiMarkup sets value of VideoEmojiMarkup conditional field.
+func (u *PhotosUploadContactProfilePhotoRequest) SetVideoEmojiMarkup(value VideoSizeClass) {
+	u.Flags.Set(5)
+	u.VideoEmojiMarkup = value
+}
+
+// GetVideoEmojiMarkup returns value of VideoEmojiMarkup conditional field and
+// boolean which is true if field was set.
+func (u *PhotosUploadContactProfilePhotoRequest) GetVideoEmojiMarkup() (value VideoSizeClass, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(5) {
+		return value, false
+	}
+	return u.VideoEmojiMarkup, true
+}
+
+// PhotosUploadContactProfilePhoto invokes method photos.uploadContactProfilePhoto#e14c4a71 returning error if any.
 //
 // See https://core.telegram.org/method/photos.uploadContactProfilePhoto for reference.
 func (c *Client) PhotosUploadContactProfilePhoto(ctx context.Context, request *PhotosUploadContactProfilePhotoRequest) (*PhotosPhoto, error) {
