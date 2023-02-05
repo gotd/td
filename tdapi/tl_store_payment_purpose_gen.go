@@ -31,14 +31,17 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StorePaymentPurposePremiumSubscription represents TL type `storePaymentPurposePremiumSubscription#a6b7c450`.
+// StorePaymentPurposePremiumSubscription represents TL type `storePaymentPurposePremiumSubscription#4b558114`.
 type StorePaymentPurposePremiumSubscription struct {
 	// Pass true if this is a restore of a Telegram Premium purchase; only for App Store
 	IsRestore bool
+	// Pass true if this is an upgrade from a monthly subscription to early subscription;
+	// only for App Store
+	IsUpgrade bool
 }
 
 // StorePaymentPurposePremiumSubscriptionTypeID is TL type id of StorePaymentPurposePremiumSubscription.
-const StorePaymentPurposePremiumSubscriptionTypeID = 0xa6b7c450
+const StorePaymentPurposePremiumSubscriptionTypeID = 0x4b558114
 
 // construct implements constructor of StorePaymentPurposeClass.
 func (s StorePaymentPurposePremiumSubscription) construct() StorePaymentPurposeClass { return &s }
@@ -58,6 +61,9 @@ func (s *StorePaymentPurposePremiumSubscription) Zero() bool {
 		return true
 	}
 	if !(s.IsRestore == false) {
+		return false
+	}
+	if !(s.IsUpgrade == false) {
 		return false
 	}
 
@@ -100,6 +106,10 @@ func (s *StorePaymentPurposePremiumSubscription) TypeInfo() tdp.Type {
 			Name:       "IsRestore",
 			SchemaName: "is_restore",
 		},
+		{
+			Name:       "IsUpgrade",
+			SchemaName: "is_upgrade",
+		},
 	}
 	return typ
 }
@@ -107,7 +117,7 @@ func (s *StorePaymentPurposePremiumSubscription) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StorePaymentPurposePremiumSubscription) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storePaymentPurposePremiumSubscription#a6b7c450 as nil")
+		return fmt.Errorf("can't encode storePaymentPurposePremiumSubscription#4b558114 as nil")
 	}
 	b.PutID(StorePaymentPurposePremiumSubscriptionTypeID)
 	return s.EncodeBare(b)
@@ -116,19 +126,20 @@ func (s *StorePaymentPurposePremiumSubscription) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StorePaymentPurposePremiumSubscription) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storePaymentPurposePremiumSubscription#a6b7c450 as nil")
+		return fmt.Errorf("can't encode storePaymentPurposePremiumSubscription#4b558114 as nil")
 	}
 	b.PutBool(s.IsRestore)
+	b.PutBool(s.IsUpgrade)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *StorePaymentPurposePremiumSubscription) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storePaymentPurposePremiumSubscription#a6b7c450 to nil")
+		return fmt.Errorf("can't decode storePaymentPurposePremiumSubscription#4b558114 to nil")
 	}
 	if err := b.ConsumeID(StorePaymentPurposePremiumSubscriptionTypeID); err != nil {
-		return fmt.Errorf("unable to decode storePaymentPurposePremiumSubscription#a6b7c450: %w", err)
+		return fmt.Errorf("unable to decode storePaymentPurposePremiumSubscription#4b558114: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -136,14 +147,21 @@ func (s *StorePaymentPurposePremiumSubscription) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StorePaymentPurposePremiumSubscription) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storePaymentPurposePremiumSubscription#a6b7c450 to nil")
+		return fmt.Errorf("can't decode storePaymentPurposePremiumSubscription#4b558114 to nil")
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode storePaymentPurposePremiumSubscription#a6b7c450: field is_restore: %w", err)
+			return fmt.Errorf("unable to decode storePaymentPurposePremiumSubscription#4b558114: field is_restore: %w", err)
 		}
 		s.IsRestore = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode storePaymentPurposePremiumSubscription#4b558114: field is_upgrade: %w", err)
+		}
+		s.IsUpgrade = value
 	}
 	return nil
 }
@@ -151,13 +169,16 @@ func (s *StorePaymentPurposePremiumSubscription) DecodeBare(b *bin.Buffer) error
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *StorePaymentPurposePremiumSubscription) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storePaymentPurposePremiumSubscription#a6b7c450 as nil")
+		return fmt.Errorf("can't encode storePaymentPurposePremiumSubscription#4b558114 as nil")
 	}
 	b.ObjStart()
 	b.PutID("storePaymentPurposePremiumSubscription")
 	b.Comma()
 	b.FieldStart("is_restore")
 	b.PutBool(s.IsRestore)
+	b.Comma()
+	b.FieldStart("is_upgrade")
+	b.PutBool(s.IsUpgrade)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -167,21 +188,27 @@ func (s *StorePaymentPurposePremiumSubscription) EncodeTDLibJSON(b tdjson.Encode
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *StorePaymentPurposePremiumSubscription) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storePaymentPurposePremiumSubscription#a6b7c450 to nil")
+		return fmt.Errorf("can't decode storePaymentPurposePremiumSubscription#4b558114 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("storePaymentPurposePremiumSubscription"); err != nil {
-				return fmt.Errorf("unable to decode storePaymentPurposePremiumSubscription#a6b7c450: %w", err)
+				return fmt.Errorf("unable to decode storePaymentPurposePremiumSubscription#4b558114: %w", err)
 			}
 		case "is_restore":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode storePaymentPurposePremiumSubscription#a6b7c450: field is_restore: %w", err)
+				return fmt.Errorf("unable to decode storePaymentPurposePremiumSubscription#4b558114: field is_restore: %w", err)
 			}
 			s.IsRestore = value
+		case "is_upgrade":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode storePaymentPurposePremiumSubscription#4b558114: field is_upgrade: %w", err)
+			}
+			s.IsUpgrade = value
 		default:
 			return b.Skip()
 		}
@@ -195,6 +222,14 @@ func (s *StorePaymentPurposePremiumSubscription) GetIsRestore() (value bool) {
 		return
 	}
 	return s.IsRestore
+}
+
+// GetIsUpgrade returns value of IsUpgrade field.
+func (s *StorePaymentPurposePremiumSubscription) GetIsUpgrade() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.IsUpgrade
 }
 
 // StorePaymentPurposeGiftedPremium represents TL type `storePaymentPurposeGiftedPremium#7240c0d1`.
@@ -443,7 +478,7 @@ const StorePaymentPurposeClassName = "StorePaymentPurpose"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tdapi.StorePaymentPurposePremiumSubscription: // storePaymentPurposePremiumSubscription#a6b7c450
+//	case *tdapi.StorePaymentPurposePremiumSubscription: // storePaymentPurposePremiumSubscription#4b558114
 //	case *tdapi.StorePaymentPurposeGiftedPremium: // storePaymentPurposeGiftedPremium#7240c0d1
 //	default: panic(v)
 //	}
@@ -477,7 +512,7 @@ func DecodeStorePaymentPurpose(buf *bin.Buffer) (StorePaymentPurposeClass, error
 	}
 	switch id {
 	case StorePaymentPurposePremiumSubscriptionTypeID:
-		// Decoding storePaymentPurposePremiumSubscription#a6b7c450.
+		// Decoding storePaymentPurposePremiumSubscription#4b558114.
 		v := StorePaymentPurposePremiumSubscription{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StorePaymentPurposeClass: %w", err)
@@ -503,7 +538,7 @@ func DecodeTDLibJSONStorePaymentPurpose(buf tdjson.Decoder) (StorePaymentPurpose
 	}
 	switch id {
 	case "storePaymentPurposePremiumSubscription":
-		// Decoding storePaymentPurposePremiumSubscription#a6b7c450.
+		// Decoding storePaymentPurposePremiumSubscription#4b558114.
 		v := StorePaymentPurposePremiumSubscription{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StorePaymentPurposeClass: %w", err)

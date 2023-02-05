@@ -724,7 +724,7 @@ func (s *SuggestedActionConvertToBroadcastGroup) GetSupergroupID() (value int64)
 // SuggestedActionSetPassword represents TL type `suggestedActionSetPassword#6f147d98`.
 type SuggestedActionSetPassword struct {
 	// The number of days to pass between consecutive authorizations if the user declines to
-	// set password
+	// set password; if 0, then the user is advised to set the password for security reasons
 	AuthorizationDelay int32
 }
 
@@ -888,6 +888,268 @@ func (s *SuggestedActionSetPassword) GetAuthorizationDelay() (value int32) {
 	return s.AuthorizationDelay
 }
 
+// SuggestedActionUpgradePremium represents TL type `suggestedActionUpgradePremium#70aa79fb`.
+type SuggestedActionUpgradePremium struct {
+}
+
+// SuggestedActionUpgradePremiumTypeID is TL type id of SuggestedActionUpgradePremium.
+const SuggestedActionUpgradePremiumTypeID = 0x70aa79fb
+
+// construct implements constructor of SuggestedActionClass.
+func (s SuggestedActionUpgradePremium) construct() SuggestedActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SuggestedActionUpgradePremium.
+var (
+	_ bin.Encoder     = &SuggestedActionUpgradePremium{}
+	_ bin.Decoder     = &SuggestedActionUpgradePremium{}
+	_ bin.BareEncoder = &SuggestedActionUpgradePremium{}
+	_ bin.BareDecoder = &SuggestedActionUpgradePremium{}
+
+	_ SuggestedActionClass = &SuggestedActionUpgradePremium{}
+)
+
+func (s *SuggestedActionUpgradePremium) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *SuggestedActionUpgradePremium) String() string {
+	if s == nil {
+		return "SuggestedActionUpgradePremium(nil)"
+	}
+	type Alias SuggestedActionUpgradePremium
+	return fmt.Sprintf("SuggestedActionUpgradePremium%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*SuggestedActionUpgradePremium) TypeID() uint32 {
+	return SuggestedActionUpgradePremiumTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*SuggestedActionUpgradePremium) TypeName() string {
+	return "suggestedActionUpgradePremium"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SuggestedActionUpgradePremium) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "suggestedActionUpgradePremium",
+		ID:   SuggestedActionUpgradePremiumTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *SuggestedActionUpgradePremium) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionUpgradePremium#70aa79fb as nil")
+	}
+	b.PutID(SuggestedActionUpgradePremiumTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SuggestedActionUpgradePremium) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionUpgradePremium#70aa79fb as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *SuggestedActionUpgradePremium) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionUpgradePremium#70aa79fb to nil")
+	}
+	if err := b.ConsumeID(SuggestedActionUpgradePremiumTypeID); err != nil {
+		return fmt.Errorf("unable to decode suggestedActionUpgradePremium#70aa79fb: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SuggestedActionUpgradePremium) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionUpgradePremium#70aa79fb to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SuggestedActionUpgradePremium) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionUpgradePremium#70aa79fb as nil")
+	}
+	b.ObjStart()
+	b.PutID("suggestedActionUpgradePremium")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SuggestedActionUpgradePremium) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionUpgradePremium#70aa79fb to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("suggestedActionUpgradePremium"); err != nil {
+				return fmt.Errorf("unable to decode suggestedActionUpgradePremium#70aa79fb: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// SuggestedActionSubscribeToAnnualPremium represents TL type `suggestedActionSubscribeToAnnualPremium#164978bb`.
+type SuggestedActionSubscribeToAnnualPremium struct {
+}
+
+// SuggestedActionSubscribeToAnnualPremiumTypeID is TL type id of SuggestedActionSubscribeToAnnualPremium.
+const SuggestedActionSubscribeToAnnualPremiumTypeID = 0x164978bb
+
+// construct implements constructor of SuggestedActionClass.
+func (s SuggestedActionSubscribeToAnnualPremium) construct() SuggestedActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SuggestedActionSubscribeToAnnualPremium.
+var (
+	_ bin.Encoder     = &SuggestedActionSubscribeToAnnualPremium{}
+	_ bin.Decoder     = &SuggestedActionSubscribeToAnnualPremium{}
+	_ bin.BareEncoder = &SuggestedActionSubscribeToAnnualPremium{}
+	_ bin.BareDecoder = &SuggestedActionSubscribeToAnnualPremium{}
+
+	_ SuggestedActionClass = &SuggestedActionSubscribeToAnnualPremium{}
+)
+
+func (s *SuggestedActionSubscribeToAnnualPremium) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *SuggestedActionSubscribeToAnnualPremium) String() string {
+	if s == nil {
+		return "SuggestedActionSubscribeToAnnualPremium(nil)"
+	}
+	type Alias SuggestedActionSubscribeToAnnualPremium
+	return fmt.Sprintf("SuggestedActionSubscribeToAnnualPremium%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*SuggestedActionSubscribeToAnnualPremium) TypeID() uint32 {
+	return SuggestedActionSubscribeToAnnualPremiumTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*SuggestedActionSubscribeToAnnualPremium) TypeName() string {
+	return "suggestedActionSubscribeToAnnualPremium"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SuggestedActionSubscribeToAnnualPremium) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "suggestedActionSubscribeToAnnualPremium",
+		ID:   SuggestedActionSubscribeToAnnualPremiumTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *SuggestedActionSubscribeToAnnualPremium) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionSubscribeToAnnualPremium#164978bb as nil")
+	}
+	b.PutID(SuggestedActionSubscribeToAnnualPremiumTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SuggestedActionSubscribeToAnnualPremium) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionSubscribeToAnnualPremium#164978bb as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *SuggestedActionSubscribeToAnnualPremium) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionSubscribeToAnnualPremium#164978bb to nil")
+	}
+	if err := b.ConsumeID(SuggestedActionSubscribeToAnnualPremiumTypeID); err != nil {
+		return fmt.Errorf("unable to decode suggestedActionSubscribeToAnnualPremium#164978bb: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SuggestedActionSubscribeToAnnualPremium) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionSubscribeToAnnualPremium#164978bb to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SuggestedActionSubscribeToAnnualPremium) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionSubscribeToAnnualPremium#164978bb as nil")
+	}
+	b.ObjStart()
+	b.PutID("suggestedActionSubscribeToAnnualPremium")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SuggestedActionSubscribeToAnnualPremium) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionSubscribeToAnnualPremium#164978bb to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("suggestedActionSubscribeToAnnualPremium"); err != nil {
+				return fmt.Errorf("unable to decode suggestedActionSubscribeToAnnualPremium#164978bb: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // SuggestedActionClassName is schema name of SuggestedActionClass.
 const SuggestedActionClassName = "SuggestedAction"
 
@@ -906,6 +1168,8 @@ const SuggestedActionClassName = "SuggestedAction"
 //	case *tdapi.SuggestedActionViewChecksHint: // suggestedActionViewChecksHint#35203547
 //	case *tdapi.SuggestedActionConvertToBroadcastGroup: // suggestedActionConvertToBroadcastGroup#c67a2e38
 //	case *tdapi.SuggestedActionSetPassword: // suggestedActionSetPassword#6f147d98
+//	case *tdapi.SuggestedActionUpgradePremium: // suggestedActionUpgradePremium#70aa79fb
+//	case *tdapi.SuggestedActionSubscribeToAnnualPremium: // suggestedActionSubscribeToAnnualPremium#164978bb
 //	default: panic(v)
 //	}
 type SuggestedActionClass interface {
@@ -979,6 +1243,20 @@ func DecodeSuggestedAction(buf *bin.Buffer) (SuggestedActionClass, error) {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
 		}
 		return &v, nil
+	case SuggestedActionUpgradePremiumTypeID:
+		// Decoding suggestedActionUpgradePremium#70aa79fb.
+		v := SuggestedActionUpgradePremium{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
+	case SuggestedActionSubscribeToAnnualPremiumTypeID:
+		// Decoding suggestedActionSubscribeToAnnualPremium#164978bb.
+		v := SuggestedActionSubscribeToAnnualPremium{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -1029,6 +1307,20 @@ func DecodeTDLibJSONSuggestedAction(buf tdjson.Decoder) (SuggestedActionClass, e
 	case "suggestedActionSetPassword":
 		// Decoding suggestedActionSetPassword#6f147d98.
 		v := SuggestedActionSetPassword{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
+	case "suggestedActionUpgradePremium":
+		// Decoding suggestedActionUpgradePremium#70aa79fb.
+		v := SuggestedActionUpgradePremium{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
+	case "suggestedActionSubscribeToAnnualPremium":
+		// Decoding suggestedActionSubscribeToAnnualPremium#164978bb.
+		v := SuggestedActionSubscribeToAnnualPremium{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
 		}

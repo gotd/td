@@ -369,7 +369,7 @@ type StickerFullTypeCustomEmoji struct {
 	// Identifier of the custom emoji
 	CustomEmojiID int64
 	// True, if the sticker must be repainted to a text color in messages, the color of the
-	// Telegram Premium badge in emoji status, or another appropriate color in other places
+	// Telegram Premium badge in emoji status, or another appropriate color in other places.
 	NeedsRepainting bool
 }
 

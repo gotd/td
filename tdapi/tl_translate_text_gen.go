@@ -31,20 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// TranslateTextRequest represents TL type `translateText#9f758a6d`.
+// TranslateTextRequest represents TL type `translateText#252264f2`.
 type TranslateTextRequest struct {
 	// Text to translate
-	Text string
-	// A two-letter ISO 639-1 language code of the language from which the message is
-	// translated. If empty, the language will be detected automatically
-	FromLanguageCode string
-	// A two-letter ISO 639-1 language code of the language to which the message is
-	// translated
+	Text FormattedText
+	// ISO language code of the language to which the message is translated. Must be one of
 	ToLanguageCode string
 }
 
 // TranslateTextRequestTypeID is TL type id of TranslateTextRequest.
-const TranslateTextRequestTypeID = 0x9f758a6d
+const TranslateTextRequestTypeID = 0x252264f2
 
 // Ensuring interfaces in compile-time for TranslateTextRequest.
 var (
@@ -58,10 +54,7 @@ func (t *TranslateTextRequest) Zero() bool {
 	if t == nil {
 		return true
 	}
-	if !(t.Text == "") {
-		return false
-	}
-	if !(t.FromLanguageCode == "") {
+	if !(t.Text.Zero()) {
 		return false
 	}
 	if !(t.ToLanguageCode == "") {
@@ -108,10 +101,6 @@ func (t *TranslateTextRequest) TypeInfo() tdp.Type {
 			SchemaName: "text",
 		},
 		{
-			Name:       "FromLanguageCode",
-			SchemaName: "from_language_code",
-		},
-		{
 			Name:       "ToLanguageCode",
 			SchemaName: "to_language_code",
 		},
@@ -122,7 +111,7 @@ func (t *TranslateTextRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *TranslateTextRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode translateText#9f758a6d as nil")
+		return fmt.Errorf("can't encode translateText#252264f2 as nil")
 	}
 	b.PutID(TranslateTextRequestTypeID)
 	return t.EncodeBare(b)
@@ -131,10 +120,11 @@ func (t *TranslateTextRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *TranslateTextRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode translateText#9f758a6d as nil")
+		return fmt.Errorf("can't encode translateText#252264f2 as nil")
 	}
-	b.PutString(t.Text)
-	b.PutString(t.FromLanguageCode)
+	if err := t.Text.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode translateText#252264f2: field text: %w", err)
+	}
 	b.PutString(t.ToLanguageCode)
 	return nil
 }
@@ -142,10 +132,10 @@ func (t *TranslateTextRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TranslateTextRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode translateText#9f758a6d to nil")
+		return fmt.Errorf("can't decode translateText#252264f2 to nil")
 	}
 	if err := b.ConsumeID(TranslateTextRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode translateText#9f758a6d: %w", err)
+		return fmt.Errorf("unable to decode translateText#252264f2: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -153,26 +143,17 @@ func (t *TranslateTextRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *TranslateTextRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode translateText#9f758a6d to nil")
+		return fmt.Errorf("can't decode translateText#252264f2 to nil")
 	}
 	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode translateText#9f758a6d: field text: %w", err)
+		if err := t.Text.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode translateText#252264f2: field text: %w", err)
 		}
-		t.Text = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode translateText#9f758a6d: field from_language_code: %w", err)
-		}
-		t.FromLanguageCode = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode translateText#9f758a6d: field to_language_code: %w", err)
+			return fmt.Errorf("unable to decode translateText#252264f2: field to_language_code: %w", err)
 		}
 		t.ToLanguageCode = value
 	}
@@ -182,16 +163,15 @@ func (t *TranslateTextRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (t *TranslateTextRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
-		return fmt.Errorf("can't encode translateText#9f758a6d as nil")
+		return fmt.Errorf("can't encode translateText#252264f2 as nil")
 	}
 	b.ObjStart()
 	b.PutID("translateText")
 	b.Comma()
 	b.FieldStart("text")
-	b.PutString(t.Text)
-	b.Comma()
-	b.FieldStart("from_language_code")
-	b.PutString(t.FromLanguageCode)
+	if err := t.Text.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode translateText#252264f2: field text: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("to_language_code")
 	b.PutString(t.ToLanguageCode)
@@ -204,31 +184,23 @@ func (t *TranslateTextRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (t *TranslateTextRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
-		return fmt.Errorf("can't decode translateText#9f758a6d to nil")
+		return fmt.Errorf("can't decode translateText#252264f2 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("translateText"); err != nil {
-				return fmt.Errorf("unable to decode translateText#9f758a6d: %w", err)
+				return fmt.Errorf("unable to decode translateText#252264f2: %w", err)
 			}
 		case "text":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode translateText#9f758a6d: field text: %w", err)
+			if err := t.Text.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode translateText#252264f2: field text: %w", err)
 			}
-			t.Text = value
-		case "from_language_code":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode translateText#9f758a6d: field from_language_code: %w", err)
-			}
-			t.FromLanguageCode = value
 		case "to_language_code":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode translateText#9f758a6d: field to_language_code: %w", err)
+				return fmt.Errorf("unable to decode translateText#252264f2: field to_language_code: %w", err)
 			}
 			t.ToLanguageCode = value
 		default:
@@ -239,19 +211,11 @@ func (t *TranslateTextRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetText returns value of Text field.
-func (t *TranslateTextRequest) GetText() (value string) {
+func (t *TranslateTextRequest) GetText() (value FormattedText) {
 	if t == nil {
 		return
 	}
 	return t.Text
-}
-
-// GetFromLanguageCode returns value of FromLanguageCode field.
-func (t *TranslateTextRequest) GetFromLanguageCode() (value string) {
-	if t == nil {
-		return
-	}
-	return t.FromLanguageCode
 }
 
 // GetToLanguageCode returns value of ToLanguageCode field.
@@ -262,9 +226,9 @@ func (t *TranslateTextRequest) GetToLanguageCode() (value string) {
 	return t.ToLanguageCode
 }
 
-// TranslateText invokes method translateText#9f758a6d returning error if any.
-func (c *Client) TranslateText(ctx context.Context, request *TranslateTextRequest) (*Text, error) {
-	var result Text
+// TranslateText invokes method translateText#252264f2 returning error if any.
+func (c *Client) TranslateText(ctx context.Context, request *TranslateTextRequest) (*FormattedText, error) {
+	var result FormattedText
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err

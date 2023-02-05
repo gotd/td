@@ -1095,6 +1095,442 @@ func (a *AuthenticationCodeTypeFragment) GetLength() (value int32) {
 	return a.Length
 }
 
+// AuthenticationCodeTypeFirebaseAndroid represents TL type `authenticationCodeTypeFirebaseAndroid#8a118819`.
+type AuthenticationCodeTypeFirebaseAndroid struct {
+	// Nonce to pass to the SafetyNet Attestation API
+	Nonce []byte
+	// Length of the code
+	Length int32
+}
+
+// AuthenticationCodeTypeFirebaseAndroidTypeID is TL type id of AuthenticationCodeTypeFirebaseAndroid.
+const AuthenticationCodeTypeFirebaseAndroidTypeID = 0x8a118819
+
+// construct implements constructor of AuthenticationCodeTypeClass.
+func (a AuthenticationCodeTypeFirebaseAndroid) construct() AuthenticationCodeTypeClass { return &a }
+
+// Ensuring interfaces in compile-time for AuthenticationCodeTypeFirebaseAndroid.
+var (
+	_ bin.Encoder     = &AuthenticationCodeTypeFirebaseAndroid{}
+	_ bin.Decoder     = &AuthenticationCodeTypeFirebaseAndroid{}
+	_ bin.BareEncoder = &AuthenticationCodeTypeFirebaseAndroid{}
+	_ bin.BareDecoder = &AuthenticationCodeTypeFirebaseAndroid{}
+
+	_ AuthenticationCodeTypeClass = &AuthenticationCodeTypeFirebaseAndroid{}
+)
+
+func (a *AuthenticationCodeTypeFirebaseAndroid) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Nonce == nil) {
+		return false
+	}
+	if !(a.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (a *AuthenticationCodeTypeFirebaseAndroid) String() string {
+	if a == nil {
+		return "AuthenticationCodeTypeFirebaseAndroid(nil)"
+	}
+	type Alias AuthenticationCodeTypeFirebaseAndroid
+	return fmt.Sprintf("AuthenticationCodeTypeFirebaseAndroid%+v", Alias(*a))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*AuthenticationCodeTypeFirebaseAndroid) TypeID() uint32 {
+	return AuthenticationCodeTypeFirebaseAndroidTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*AuthenticationCodeTypeFirebaseAndroid) TypeName() string {
+	return "authenticationCodeTypeFirebaseAndroid"
+}
+
+// TypeInfo returns info about TL type.
+func (a *AuthenticationCodeTypeFirebaseAndroid) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "authenticationCodeTypeFirebaseAndroid",
+		ID:   AuthenticationCodeTypeFirebaseAndroidTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Nonce",
+			SchemaName: "nonce",
+		},
+		{
+			Name:       "Length",
+			SchemaName: "length",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (a *AuthenticationCodeTypeFirebaseAndroid) Encode(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeFirebaseAndroid#8a118819 as nil")
+	}
+	b.PutID(AuthenticationCodeTypeFirebaseAndroidTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *AuthenticationCodeTypeFirebaseAndroid) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeFirebaseAndroid#8a118819 as nil")
+	}
+	b.PutBytes(a.Nonce)
+	b.PutInt32(a.Length)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (a *AuthenticationCodeTypeFirebaseAndroid) Decode(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeFirebaseAndroid#8a118819 to nil")
+	}
+	if err := b.ConsumeID(AuthenticationCodeTypeFirebaseAndroidTypeID); err != nil {
+		return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseAndroid#8a118819: %w", err)
+	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *AuthenticationCodeTypeFirebaseAndroid) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeFirebaseAndroid#8a118819 to nil")
+	}
+	{
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseAndroid#8a118819: field nonce: %w", err)
+		}
+		a.Nonce = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseAndroid#8a118819: field length: %w", err)
+		}
+		a.Length = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AuthenticationCodeTypeFirebaseAndroid) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeFirebaseAndroid#8a118819 as nil")
+	}
+	b.ObjStart()
+	b.PutID("authenticationCodeTypeFirebaseAndroid")
+	b.Comma()
+	b.FieldStart("nonce")
+	b.PutBytes(a.Nonce)
+	b.Comma()
+	b.FieldStart("length")
+	b.PutInt32(a.Length)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AuthenticationCodeTypeFirebaseAndroid) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeFirebaseAndroid#8a118819 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("authenticationCodeTypeFirebaseAndroid"); err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseAndroid#8a118819: %w", err)
+			}
+		case "nonce":
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseAndroid#8a118819: field nonce: %w", err)
+			}
+			a.Nonce = value
+		case "length":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseAndroid#8a118819: field length: %w", err)
+			}
+			a.Length = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetNonce returns value of Nonce field.
+func (a *AuthenticationCodeTypeFirebaseAndroid) GetNonce() (value []byte) {
+	if a == nil {
+		return
+	}
+	return a.Nonce
+}
+
+// GetLength returns value of Length field.
+func (a *AuthenticationCodeTypeFirebaseAndroid) GetLength() (value int32) {
+	if a == nil {
+		return
+	}
+	return a.Length
+}
+
+// AuthenticationCodeTypeFirebaseIos represents TL type `authenticationCodeTypeFirebaseIos#ff55aa93`.
+type AuthenticationCodeTypeFirebaseIos struct {
+	// Receipt of successful applikation token validation to compare with receipt from push
+	// notification
+	Receipt string
+	// Time after the next authentication method is supposed to be used if verification push
+	// notification isn't received, in seconds
+	PushTimeout int32
+	// Length of the code
+	Length int32
+}
+
+// AuthenticationCodeTypeFirebaseIosTypeID is TL type id of AuthenticationCodeTypeFirebaseIos.
+const AuthenticationCodeTypeFirebaseIosTypeID = 0xff55aa93
+
+// construct implements constructor of AuthenticationCodeTypeClass.
+func (a AuthenticationCodeTypeFirebaseIos) construct() AuthenticationCodeTypeClass { return &a }
+
+// Ensuring interfaces in compile-time for AuthenticationCodeTypeFirebaseIos.
+var (
+	_ bin.Encoder     = &AuthenticationCodeTypeFirebaseIos{}
+	_ bin.Decoder     = &AuthenticationCodeTypeFirebaseIos{}
+	_ bin.BareEncoder = &AuthenticationCodeTypeFirebaseIos{}
+	_ bin.BareDecoder = &AuthenticationCodeTypeFirebaseIos{}
+
+	_ AuthenticationCodeTypeClass = &AuthenticationCodeTypeFirebaseIos{}
+)
+
+func (a *AuthenticationCodeTypeFirebaseIos) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Receipt == "") {
+		return false
+	}
+	if !(a.PushTimeout == 0) {
+		return false
+	}
+	if !(a.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (a *AuthenticationCodeTypeFirebaseIos) String() string {
+	if a == nil {
+		return "AuthenticationCodeTypeFirebaseIos(nil)"
+	}
+	type Alias AuthenticationCodeTypeFirebaseIos
+	return fmt.Sprintf("AuthenticationCodeTypeFirebaseIos%+v", Alias(*a))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*AuthenticationCodeTypeFirebaseIos) TypeID() uint32 {
+	return AuthenticationCodeTypeFirebaseIosTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*AuthenticationCodeTypeFirebaseIos) TypeName() string {
+	return "authenticationCodeTypeFirebaseIos"
+}
+
+// TypeInfo returns info about TL type.
+func (a *AuthenticationCodeTypeFirebaseIos) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "authenticationCodeTypeFirebaseIos",
+		ID:   AuthenticationCodeTypeFirebaseIosTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Receipt",
+			SchemaName: "receipt",
+		},
+		{
+			Name:       "PushTimeout",
+			SchemaName: "push_timeout",
+		},
+		{
+			Name:       "Length",
+			SchemaName: "length",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (a *AuthenticationCodeTypeFirebaseIos) Encode(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeFirebaseIos#ff55aa93 as nil")
+	}
+	b.PutID(AuthenticationCodeTypeFirebaseIosTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *AuthenticationCodeTypeFirebaseIos) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeFirebaseIos#ff55aa93 as nil")
+	}
+	b.PutString(a.Receipt)
+	b.PutInt32(a.PushTimeout)
+	b.PutInt32(a.Length)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (a *AuthenticationCodeTypeFirebaseIos) Decode(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeFirebaseIos#ff55aa93 to nil")
+	}
+	if err := b.ConsumeID(AuthenticationCodeTypeFirebaseIosTypeID); err != nil {
+		return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseIos#ff55aa93: %w", err)
+	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *AuthenticationCodeTypeFirebaseIos) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeFirebaseIos#ff55aa93 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseIos#ff55aa93: field receipt: %w", err)
+		}
+		a.Receipt = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseIos#ff55aa93: field push_timeout: %w", err)
+		}
+		a.PushTimeout = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseIos#ff55aa93: field length: %w", err)
+		}
+		a.Length = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (a *AuthenticationCodeTypeFirebaseIos) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authenticationCodeTypeFirebaseIos#ff55aa93 as nil")
+	}
+	b.ObjStart()
+	b.PutID("authenticationCodeTypeFirebaseIos")
+	b.Comma()
+	b.FieldStart("receipt")
+	b.PutString(a.Receipt)
+	b.Comma()
+	b.FieldStart("push_timeout")
+	b.PutInt32(a.PushTimeout)
+	b.Comma()
+	b.FieldStart("length")
+	b.PutInt32(a.Length)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (a *AuthenticationCodeTypeFirebaseIos) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authenticationCodeTypeFirebaseIos#ff55aa93 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("authenticationCodeTypeFirebaseIos"); err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseIos#ff55aa93: %w", err)
+			}
+		case "receipt":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseIos#ff55aa93: field receipt: %w", err)
+			}
+			a.Receipt = value
+		case "push_timeout":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseIos#ff55aa93: field push_timeout: %w", err)
+			}
+			a.PushTimeout = value
+		case "length":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode authenticationCodeTypeFirebaseIos#ff55aa93: field length: %w", err)
+			}
+			a.Length = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetReceipt returns value of Receipt field.
+func (a *AuthenticationCodeTypeFirebaseIos) GetReceipt() (value string) {
+	if a == nil {
+		return
+	}
+	return a.Receipt
+}
+
+// GetPushTimeout returns value of PushTimeout field.
+func (a *AuthenticationCodeTypeFirebaseIos) GetPushTimeout() (value int32) {
+	if a == nil {
+		return
+	}
+	return a.PushTimeout
+}
+
+// GetLength returns value of Length field.
+func (a *AuthenticationCodeTypeFirebaseIos) GetLength() (value int32) {
+	if a == nil {
+		return
+	}
+	return a.Length
+}
+
 // AuthenticationCodeTypeClassName is schema name of AuthenticationCodeTypeClass.
 const AuthenticationCodeTypeClassName = "AuthenticationCodeType"
 
@@ -1113,6 +1549,8 @@ const AuthenticationCodeTypeClassName = "AuthenticationCodeType"
 //	case *tdapi.AuthenticationCodeTypeFlashCall: // authenticationCodeTypeFlashCall#533379a2
 //	case *tdapi.AuthenticationCodeTypeMissedCall: // authenticationCodeTypeMissedCall#29bb0a87
 //	case *tdapi.AuthenticationCodeTypeFragment: // authenticationCodeTypeFragment#810f74cd
+//	case *tdapi.AuthenticationCodeTypeFirebaseAndroid: // authenticationCodeTypeFirebaseAndroid#8a118819
+//	case *tdapi.AuthenticationCodeTypeFirebaseIos: // authenticationCodeTypeFirebaseIos#ff55aa93
 //	default: panic(v)
 //	}
 type AuthenticationCodeTypeClass interface {
@@ -1186,6 +1624,20 @@ func DecodeAuthenticationCodeType(buf *bin.Buffer) (AuthenticationCodeTypeClass,
 			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
 		}
 		return &v, nil
+	case AuthenticationCodeTypeFirebaseAndroidTypeID:
+		// Decoding authenticationCodeTypeFirebaseAndroid#8a118819.
+		v := AuthenticationCodeTypeFirebaseAndroid{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
+		}
+		return &v, nil
+	case AuthenticationCodeTypeFirebaseIosTypeID:
+		// Decoding authenticationCodeTypeFirebaseIos#ff55aa93.
+		v := AuthenticationCodeTypeFirebaseIos{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -1236,6 +1688,20 @@ func DecodeTDLibJSONAuthenticationCodeType(buf tdjson.Decoder) (AuthenticationCo
 	case "authenticationCodeTypeFragment":
 		// Decoding authenticationCodeTypeFragment#810f74cd.
 		v := AuthenticationCodeTypeFragment{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
+		}
+		return &v, nil
+	case "authenticationCodeTypeFirebaseAndroid":
+		// Decoding authenticationCodeTypeFirebaseAndroid#8a118819.
+		v := AuthenticationCodeTypeFirebaseAndroid{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
+		}
+		return &v, nil
+	case "authenticationCodeTypeFirebaseIos":
+		// Decoding authenticationCodeTypeFirebaseIos#ff55aa93.
+		v := AuthenticationCodeTypeFirebaseIos{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthenticationCodeTypeClass: %w", err)
 		}
