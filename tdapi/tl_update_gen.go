@@ -7517,38 +7517,38 @@ func (u *UpdateChatHasProtectedContent) GetHasProtectedContent() (value bool) {
 	return u.HasProtectedContent
 }
 
-// UpdateChatHasScheduledMessages represents TL type `updateChatHasScheduledMessages#7b14c2d7`.
-type UpdateChatHasScheduledMessages struct {
+// UpdateChatIsTranslatable represents TL type `updateChatIsTranslatable#7b031617`.
+type UpdateChatIsTranslatable struct {
 	// Chat identifier
 	ChatID int64
-	// New value of has_scheduled_messages
-	HasScheduledMessages bool
+	// New value of is_translatable
+	IsTranslatable bool
 }
 
-// UpdateChatHasScheduledMessagesTypeID is TL type id of UpdateChatHasScheduledMessages.
-const UpdateChatHasScheduledMessagesTypeID = 0x7b14c2d7
+// UpdateChatIsTranslatableTypeID is TL type id of UpdateChatIsTranslatable.
+const UpdateChatIsTranslatableTypeID = 0x7b031617
 
 // construct implements constructor of UpdateClass.
-func (u UpdateChatHasScheduledMessages) construct() UpdateClass { return &u }
+func (u UpdateChatIsTranslatable) construct() UpdateClass { return &u }
 
-// Ensuring interfaces in compile-time for UpdateChatHasScheduledMessages.
+// Ensuring interfaces in compile-time for UpdateChatIsTranslatable.
 var (
-	_ bin.Encoder     = &UpdateChatHasScheduledMessages{}
-	_ bin.Decoder     = &UpdateChatHasScheduledMessages{}
-	_ bin.BareEncoder = &UpdateChatHasScheduledMessages{}
-	_ bin.BareDecoder = &UpdateChatHasScheduledMessages{}
+	_ bin.Encoder     = &UpdateChatIsTranslatable{}
+	_ bin.Decoder     = &UpdateChatIsTranslatable{}
+	_ bin.BareEncoder = &UpdateChatIsTranslatable{}
+	_ bin.BareDecoder = &UpdateChatIsTranslatable{}
 
-	_ UpdateClass = &UpdateChatHasScheduledMessages{}
+	_ UpdateClass = &UpdateChatIsTranslatable{}
 )
 
-func (u *UpdateChatHasScheduledMessages) Zero() bool {
+func (u *UpdateChatIsTranslatable) Zero() bool {
 	if u == nil {
 		return true
 	}
 	if !(u.ChatID == 0) {
 		return false
 	}
-	if !(u.HasScheduledMessages == false) {
+	if !(u.IsTranslatable == false) {
 		return false
 	}
 
@@ -7556,31 +7556,31 @@ func (u *UpdateChatHasScheduledMessages) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (u *UpdateChatHasScheduledMessages) String() string {
+func (u *UpdateChatIsTranslatable) String() string {
 	if u == nil {
-		return "UpdateChatHasScheduledMessages(nil)"
+		return "UpdateChatIsTranslatable(nil)"
 	}
-	type Alias UpdateChatHasScheduledMessages
-	return fmt.Sprintf("UpdateChatHasScheduledMessages%+v", Alias(*u))
+	type Alias UpdateChatIsTranslatable
+	return fmt.Sprintf("UpdateChatIsTranslatable%+v", Alias(*u))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateChatHasScheduledMessages) TypeID() uint32 {
-	return UpdateChatHasScheduledMessagesTypeID
+func (*UpdateChatIsTranslatable) TypeID() uint32 {
+	return UpdateChatIsTranslatableTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*UpdateChatHasScheduledMessages) TypeName() string {
-	return "updateChatHasScheduledMessages"
+func (*UpdateChatIsTranslatable) TypeName() string {
+	return "updateChatIsTranslatable"
 }
 
 // TypeInfo returns info about TL type.
-func (u *UpdateChatHasScheduledMessages) TypeInfo() tdp.Type {
+func (u *UpdateChatIsTranslatable) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "updateChatHasScheduledMessages",
-		ID:   UpdateChatHasScheduledMessagesTypeID,
+		Name: "updateChatIsTranslatable",
+		ID:   UpdateChatIsTranslatableTypeID,
 	}
 	if u == nil {
 		typ.Null = true
@@ -7592,78 +7592,78 @@ func (u *UpdateChatHasScheduledMessages) TypeInfo() tdp.Type {
 			SchemaName: "chat_id",
 		},
 		{
-			Name:       "HasScheduledMessages",
-			SchemaName: "has_scheduled_messages",
+			Name:       "IsTranslatable",
+			SchemaName: "is_translatable",
 		},
 	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
-func (u *UpdateChatHasScheduledMessages) Encode(b *bin.Buffer) error {
+func (u *UpdateChatIsTranslatable) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatHasScheduledMessages#7b14c2d7 as nil")
+		return fmt.Errorf("can't encode updateChatIsTranslatable#7b031617 as nil")
 	}
-	b.PutID(UpdateChatHasScheduledMessagesTypeID)
+	b.PutID(UpdateChatIsTranslatableTypeID)
 	return u.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (u *UpdateChatHasScheduledMessages) EncodeBare(b *bin.Buffer) error {
+func (u *UpdateChatIsTranslatable) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatHasScheduledMessages#7b14c2d7 as nil")
+		return fmt.Errorf("can't encode updateChatIsTranslatable#7b031617 as nil")
 	}
 	b.PutInt53(u.ChatID)
-	b.PutBool(u.HasScheduledMessages)
+	b.PutBool(u.IsTranslatable)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (u *UpdateChatHasScheduledMessages) Decode(b *bin.Buffer) error {
+func (u *UpdateChatIsTranslatable) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatHasScheduledMessages#7b14c2d7 to nil")
+		return fmt.Errorf("can't decode updateChatIsTranslatable#7b031617 to nil")
 	}
-	if err := b.ConsumeID(UpdateChatHasScheduledMessagesTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: %w", err)
+	if err := b.ConsumeID(UpdateChatIsTranslatableTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatIsTranslatable#7b031617: %w", err)
 	}
 	return u.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (u *UpdateChatHasScheduledMessages) DecodeBare(b *bin.Buffer) error {
+func (u *UpdateChatIsTranslatable) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatHasScheduledMessages#7b14c2d7 to nil")
+		return fmt.Errorf("can't decode updateChatIsTranslatable#7b031617 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode updateChatIsTranslatable#7b031617: field chat_id: %w", err)
 		}
 		u.ChatID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: field has_scheduled_messages: %w", err)
+			return fmt.Errorf("unable to decode updateChatIsTranslatable#7b031617: field is_translatable: %w", err)
 		}
-		u.HasScheduledMessages = value
+		u.IsTranslatable = value
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (u *UpdateChatHasScheduledMessages) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (u *UpdateChatIsTranslatable) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatHasScheduledMessages#7b14c2d7 as nil")
+		return fmt.Errorf("can't encode updateChatIsTranslatable#7b031617 as nil")
 	}
 	b.ObjStart()
-	b.PutID("updateChatHasScheduledMessages")
+	b.PutID("updateChatIsTranslatable")
 	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
 	b.Comma()
-	b.FieldStart("has_scheduled_messages")
-	b.PutBool(u.HasScheduledMessages)
+	b.FieldStart("is_translatable")
+	b.PutBool(u.IsTranslatable)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -7671,29 +7671,29 @@ func (u *UpdateChatHasScheduledMessages) EncodeTDLibJSON(b tdjson.Encoder) error
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (u *UpdateChatHasScheduledMessages) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (u *UpdateChatIsTranslatable) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatHasScheduledMessages#7b14c2d7 to nil")
+		return fmt.Errorf("can't decode updateChatIsTranslatable#7b031617 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("updateChatHasScheduledMessages"); err != nil {
-				return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: %w", err)
+			if err := b.ConsumeID("updateChatIsTranslatable"); err != nil {
+				return fmt.Errorf("unable to decode updateChatIsTranslatable#7b031617: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode updateChatIsTranslatable#7b031617: field chat_id: %w", err)
 			}
 			u.ChatID = value
-		case "has_scheduled_messages":
+		case "is_translatable":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: field has_scheduled_messages: %w", err)
+				return fmt.Errorf("unable to decode updateChatIsTranslatable#7b031617: field is_translatable: %w", err)
 			}
-			u.HasScheduledMessages = value
+			u.IsTranslatable = value
 		default:
 			return b.Skip()
 		}
@@ -7702,19 +7702,219 @@ func (u *UpdateChatHasScheduledMessages) DecodeTDLibJSON(b tdjson.Decoder) error
 }
 
 // GetChatID returns value of ChatID field.
-func (u *UpdateChatHasScheduledMessages) GetChatID() (value int64) {
+func (u *UpdateChatIsTranslatable) GetChatID() (value int64) {
 	if u == nil {
 		return
 	}
 	return u.ChatID
 }
 
-// GetHasScheduledMessages returns value of HasScheduledMessages field.
-func (u *UpdateChatHasScheduledMessages) GetHasScheduledMessages() (value bool) {
+// GetIsTranslatable returns value of IsTranslatable field.
+func (u *UpdateChatIsTranslatable) GetIsTranslatable() (value bool) {
 	if u == nil {
 		return
 	}
-	return u.HasScheduledMessages
+	return u.IsTranslatable
+}
+
+// UpdateChatIsMarkedAsUnread represents TL type `updateChatIsMarkedAsUnread#57853334`.
+type UpdateChatIsMarkedAsUnread struct {
+	// Chat identifier
+	ChatID int64
+	// New value of is_marked_as_unread
+	IsMarkedAsUnread bool
+}
+
+// UpdateChatIsMarkedAsUnreadTypeID is TL type id of UpdateChatIsMarkedAsUnread.
+const UpdateChatIsMarkedAsUnreadTypeID = 0x57853334
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatIsMarkedAsUnread) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatIsMarkedAsUnread.
+var (
+	_ bin.Encoder     = &UpdateChatIsMarkedAsUnread{}
+	_ bin.Decoder     = &UpdateChatIsMarkedAsUnread{}
+	_ bin.BareEncoder = &UpdateChatIsMarkedAsUnread{}
+	_ bin.BareDecoder = &UpdateChatIsMarkedAsUnread{}
+
+	_ UpdateClass = &UpdateChatIsMarkedAsUnread{}
+)
+
+func (u *UpdateChatIsMarkedAsUnread) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.IsMarkedAsUnread == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatIsMarkedAsUnread) String() string {
+	if u == nil {
+		return "UpdateChatIsMarkedAsUnread(nil)"
+	}
+	type Alias UpdateChatIsMarkedAsUnread
+	return fmt.Sprintf("UpdateChatIsMarkedAsUnread%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatIsMarkedAsUnread) TypeID() uint32 {
+	return UpdateChatIsMarkedAsUnreadTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatIsMarkedAsUnread) TypeName() string {
+	return "updateChatIsMarkedAsUnread"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatIsMarkedAsUnread) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatIsMarkedAsUnread",
+		ID:   UpdateChatIsMarkedAsUnreadTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "IsMarkedAsUnread",
+			SchemaName: "is_marked_as_unread",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatIsMarkedAsUnread) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatIsMarkedAsUnread#57853334 as nil")
+	}
+	b.PutID(UpdateChatIsMarkedAsUnreadTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatIsMarkedAsUnread) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatIsMarkedAsUnread#57853334 as nil")
+	}
+	b.PutInt53(u.ChatID)
+	b.PutBool(u.IsMarkedAsUnread)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatIsMarkedAsUnread) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatIsMarkedAsUnread#57853334 to nil")
+	}
+	if err := b.ConsumeID(UpdateChatIsMarkedAsUnreadTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatIsMarkedAsUnread) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatIsMarkedAsUnread#57853334 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: field is_marked_as_unread: %w", err)
+		}
+		u.IsMarkedAsUnread = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatIsMarkedAsUnread) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatIsMarkedAsUnread#57853334 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateChatIsMarkedAsUnread")
+	b.Comma()
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.Comma()
+	b.FieldStart("is_marked_as_unread")
+	b.PutBool(u.IsMarkedAsUnread)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatIsMarkedAsUnread) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatIsMarkedAsUnread#57853334 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateChatIsMarkedAsUnread"); err != nil {
+				return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "is_marked_as_unread":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: field is_marked_as_unread: %w", err)
+			}
+			u.IsMarkedAsUnread = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatIsMarkedAsUnread) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetIsMarkedAsUnread returns value of IsMarkedAsUnread field.
+func (u *UpdateChatIsMarkedAsUnread) GetIsMarkedAsUnread() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.IsMarkedAsUnread
 }
 
 // UpdateChatIsBlocked represents TL type `updateChatIsBlocked#88da7e40`.
@@ -7917,38 +8117,38 @@ func (u *UpdateChatIsBlocked) GetIsBlocked() (value bool) {
 	return u.IsBlocked
 }
 
-// UpdateChatIsMarkedAsUnread represents TL type `updateChatIsMarkedAsUnread#57853334`.
-type UpdateChatIsMarkedAsUnread struct {
+// UpdateChatHasScheduledMessages represents TL type `updateChatHasScheduledMessages#7b14c2d7`.
+type UpdateChatHasScheduledMessages struct {
 	// Chat identifier
 	ChatID int64
-	// New value of is_marked_as_unread
-	IsMarkedAsUnread bool
+	// New value of has_scheduled_messages
+	HasScheduledMessages bool
 }
 
-// UpdateChatIsMarkedAsUnreadTypeID is TL type id of UpdateChatIsMarkedAsUnread.
-const UpdateChatIsMarkedAsUnreadTypeID = 0x57853334
+// UpdateChatHasScheduledMessagesTypeID is TL type id of UpdateChatHasScheduledMessages.
+const UpdateChatHasScheduledMessagesTypeID = 0x7b14c2d7
 
 // construct implements constructor of UpdateClass.
-func (u UpdateChatIsMarkedAsUnread) construct() UpdateClass { return &u }
+func (u UpdateChatHasScheduledMessages) construct() UpdateClass { return &u }
 
-// Ensuring interfaces in compile-time for UpdateChatIsMarkedAsUnread.
+// Ensuring interfaces in compile-time for UpdateChatHasScheduledMessages.
 var (
-	_ bin.Encoder     = &UpdateChatIsMarkedAsUnread{}
-	_ bin.Decoder     = &UpdateChatIsMarkedAsUnread{}
-	_ bin.BareEncoder = &UpdateChatIsMarkedAsUnread{}
-	_ bin.BareDecoder = &UpdateChatIsMarkedAsUnread{}
+	_ bin.Encoder     = &UpdateChatHasScheduledMessages{}
+	_ bin.Decoder     = &UpdateChatHasScheduledMessages{}
+	_ bin.BareEncoder = &UpdateChatHasScheduledMessages{}
+	_ bin.BareDecoder = &UpdateChatHasScheduledMessages{}
 
-	_ UpdateClass = &UpdateChatIsMarkedAsUnread{}
+	_ UpdateClass = &UpdateChatHasScheduledMessages{}
 )
 
-func (u *UpdateChatIsMarkedAsUnread) Zero() bool {
+func (u *UpdateChatHasScheduledMessages) Zero() bool {
 	if u == nil {
 		return true
 	}
 	if !(u.ChatID == 0) {
 		return false
 	}
-	if !(u.IsMarkedAsUnread == false) {
+	if !(u.HasScheduledMessages == false) {
 		return false
 	}
 
@@ -7956,31 +8156,31 @@ func (u *UpdateChatIsMarkedAsUnread) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (u *UpdateChatIsMarkedAsUnread) String() string {
+func (u *UpdateChatHasScheduledMessages) String() string {
 	if u == nil {
-		return "UpdateChatIsMarkedAsUnread(nil)"
+		return "UpdateChatHasScheduledMessages(nil)"
 	}
-	type Alias UpdateChatIsMarkedAsUnread
-	return fmt.Sprintf("UpdateChatIsMarkedAsUnread%+v", Alias(*u))
+	type Alias UpdateChatHasScheduledMessages
+	return fmt.Sprintf("UpdateChatHasScheduledMessages%+v", Alias(*u))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateChatIsMarkedAsUnread) TypeID() uint32 {
-	return UpdateChatIsMarkedAsUnreadTypeID
+func (*UpdateChatHasScheduledMessages) TypeID() uint32 {
+	return UpdateChatHasScheduledMessagesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*UpdateChatIsMarkedAsUnread) TypeName() string {
-	return "updateChatIsMarkedAsUnread"
+func (*UpdateChatHasScheduledMessages) TypeName() string {
+	return "updateChatHasScheduledMessages"
 }
 
 // TypeInfo returns info about TL type.
-func (u *UpdateChatIsMarkedAsUnread) TypeInfo() tdp.Type {
+func (u *UpdateChatHasScheduledMessages) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "updateChatIsMarkedAsUnread",
-		ID:   UpdateChatIsMarkedAsUnreadTypeID,
+		Name: "updateChatHasScheduledMessages",
+		ID:   UpdateChatHasScheduledMessagesTypeID,
 	}
 	if u == nil {
 		typ.Null = true
@@ -7992,78 +8192,78 @@ func (u *UpdateChatIsMarkedAsUnread) TypeInfo() tdp.Type {
 			SchemaName: "chat_id",
 		},
 		{
-			Name:       "IsMarkedAsUnread",
-			SchemaName: "is_marked_as_unread",
+			Name:       "HasScheduledMessages",
+			SchemaName: "has_scheduled_messages",
 		},
 	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
-func (u *UpdateChatIsMarkedAsUnread) Encode(b *bin.Buffer) error {
+func (u *UpdateChatHasScheduledMessages) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatIsMarkedAsUnread#57853334 as nil")
+		return fmt.Errorf("can't encode updateChatHasScheduledMessages#7b14c2d7 as nil")
 	}
-	b.PutID(UpdateChatIsMarkedAsUnreadTypeID)
+	b.PutID(UpdateChatHasScheduledMessagesTypeID)
 	return u.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (u *UpdateChatIsMarkedAsUnread) EncodeBare(b *bin.Buffer) error {
+func (u *UpdateChatHasScheduledMessages) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatIsMarkedAsUnread#57853334 as nil")
+		return fmt.Errorf("can't encode updateChatHasScheduledMessages#7b14c2d7 as nil")
 	}
 	b.PutInt53(u.ChatID)
-	b.PutBool(u.IsMarkedAsUnread)
+	b.PutBool(u.HasScheduledMessages)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (u *UpdateChatIsMarkedAsUnread) Decode(b *bin.Buffer) error {
+func (u *UpdateChatHasScheduledMessages) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatIsMarkedAsUnread#57853334 to nil")
+		return fmt.Errorf("can't decode updateChatHasScheduledMessages#7b14c2d7 to nil")
 	}
-	if err := b.ConsumeID(UpdateChatIsMarkedAsUnreadTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: %w", err)
+	if err := b.ConsumeID(UpdateChatHasScheduledMessagesTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: %w", err)
 	}
 	return u.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (u *UpdateChatIsMarkedAsUnread) DecodeBare(b *bin.Buffer) error {
+func (u *UpdateChatHasScheduledMessages) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatIsMarkedAsUnread#57853334 to nil")
+		return fmt.Errorf("can't decode updateChatHasScheduledMessages#7b14c2d7 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: field chat_id: %w", err)
 		}
 		u.ChatID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: field is_marked_as_unread: %w", err)
+			return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: field has_scheduled_messages: %w", err)
 		}
-		u.IsMarkedAsUnread = value
+		u.HasScheduledMessages = value
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (u *UpdateChatIsMarkedAsUnread) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (u *UpdateChatHasScheduledMessages) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatIsMarkedAsUnread#57853334 as nil")
+		return fmt.Errorf("can't encode updateChatHasScheduledMessages#7b14c2d7 as nil")
 	}
 	b.ObjStart()
-	b.PutID("updateChatIsMarkedAsUnread")
+	b.PutID("updateChatHasScheduledMessages")
 	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
 	b.Comma()
-	b.FieldStart("is_marked_as_unread")
-	b.PutBool(u.IsMarkedAsUnread)
+	b.FieldStart("has_scheduled_messages")
+	b.PutBool(u.HasScheduledMessages)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -8071,29 +8271,29 @@ func (u *UpdateChatIsMarkedAsUnread) EncodeTDLibJSON(b tdjson.Encoder) error {
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (u *UpdateChatIsMarkedAsUnread) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (u *UpdateChatHasScheduledMessages) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatIsMarkedAsUnread#57853334 to nil")
+		return fmt.Errorf("can't decode updateChatHasScheduledMessages#7b14c2d7 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("updateChatIsMarkedAsUnread"); err != nil {
-				return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: %w", err)
+			if err := b.ConsumeID("updateChatHasScheduledMessages"); err != nil {
+				return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: field chat_id: %w", err)
 			}
 			u.ChatID = value
-		case "is_marked_as_unread":
+		case "has_scheduled_messages":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateChatIsMarkedAsUnread#57853334: field is_marked_as_unread: %w", err)
+				return fmt.Errorf("unable to decode updateChatHasScheduledMessages#7b14c2d7: field has_scheduled_messages: %w", err)
 			}
-			u.IsMarkedAsUnread = value
+			u.HasScheduledMessages = value
 		default:
 			return b.Skip()
 		}
@@ -8102,19 +8302,19 @@ func (u *UpdateChatIsMarkedAsUnread) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetChatID returns value of ChatID field.
-func (u *UpdateChatIsMarkedAsUnread) GetChatID() (value int64) {
+func (u *UpdateChatHasScheduledMessages) GetChatID() (value int64) {
 	if u == nil {
 		return
 	}
 	return u.ChatID
 }
 
-// GetIsMarkedAsUnread returns value of IsMarkedAsUnread field.
-func (u *UpdateChatIsMarkedAsUnread) GetIsMarkedAsUnread() (value bool) {
+// GetHasScheduledMessages returns value of HasScheduledMessages field.
+func (u *UpdateChatHasScheduledMessages) GetHasScheduledMessages() (value bool) {
 	if u == nil {
 		return
 	}
-	return u.IsMarkedAsUnread
+	return u.HasScheduledMessages
 }
 
 // UpdateChatFilters represents TL type `updateChatFilters#a00973c1`.
@@ -19807,6 +20007,216 @@ func (u *UpdateSuggestedActions) GetRemovedActions() (value []SuggestedActionCla
 	return u.RemovedActions
 }
 
+// UpdateAutosaveSettings represents TL type `updateAutosaveSettings#da274f0b`.
+type UpdateAutosaveSettings struct {
+	// Type of chats for which autosave settings were updated
+	Scope AutosaveSettingsScopeClass
+	// The new autosave settings; may be null if the settings are reset to default
+	Settings ScopeAutosaveSettings
+}
+
+// UpdateAutosaveSettingsTypeID is TL type id of UpdateAutosaveSettings.
+const UpdateAutosaveSettingsTypeID = 0xda274f0b
+
+// construct implements constructor of UpdateClass.
+func (u UpdateAutosaveSettings) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateAutosaveSettings.
+var (
+	_ bin.Encoder     = &UpdateAutosaveSettings{}
+	_ bin.Decoder     = &UpdateAutosaveSettings{}
+	_ bin.BareEncoder = &UpdateAutosaveSettings{}
+	_ bin.BareDecoder = &UpdateAutosaveSettings{}
+
+	_ UpdateClass = &UpdateAutosaveSettings{}
+)
+
+func (u *UpdateAutosaveSettings) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Scope == nil) {
+		return false
+	}
+	if !(u.Settings.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateAutosaveSettings) String() string {
+	if u == nil {
+		return "UpdateAutosaveSettings(nil)"
+	}
+	type Alias UpdateAutosaveSettings
+	return fmt.Sprintf("UpdateAutosaveSettings%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateAutosaveSettings) TypeID() uint32 {
+	return UpdateAutosaveSettingsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateAutosaveSettings) TypeName() string {
+	return "updateAutosaveSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateAutosaveSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateAutosaveSettings",
+		ID:   UpdateAutosaveSettingsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Scope",
+			SchemaName: "scope",
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateAutosaveSettings) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateAutosaveSettings#da274f0b as nil")
+	}
+	b.PutID(UpdateAutosaveSettingsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateAutosaveSettings) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateAutosaveSettings#da274f0b as nil")
+	}
+	if u.Scope == nil {
+		return fmt.Errorf("unable to encode updateAutosaveSettings#da274f0b: field scope is nil")
+	}
+	if err := u.Scope.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateAutosaveSettings#da274f0b: field scope: %w", err)
+	}
+	if err := u.Settings.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateAutosaveSettings#da274f0b: field settings: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateAutosaveSettings) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateAutosaveSettings#da274f0b to nil")
+	}
+	if err := b.ConsumeID(UpdateAutosaveSettingsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateAutosaveSettings#da274f0b: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateAutosaveSettings) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateAutosaveSettings#da274f0b to nil")
+	}
+	{
+		value, err := DecodeAutosaveSettingsScope(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateAutosaveSettings#da274f0b: field scope: %w", err)
+		}
+		u.Scope = value
+	}
+	{
+		if err := u.Settings.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateAutosaveSettings#da274f0b: field settings: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateAutosaveSettings) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateAutosaveSettings#da274f0b as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateAutosaveSettings")
+	b.Comma()
+	b.FieldStart("scope")
+	if u.Scope == nil {
+		return fmt.Errorf("unable to encode updateAutosaveSettings#da274f0b: field scope is nil")
+	}
+	if err := u.Scope.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateAutosaveSettings#da274f0b: field scope: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("settings")
+	if err := u.Settings.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateAutosaveSettings#da274f0b: field settings: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateAutosaveSettings) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateAutosaveSettings#da274f0b to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateAutosaveSettings"); err != nil {
+				return fmt.Errorf("unable to decode updateAutosaveSettings#da274f0b: %w", err)
+			}
+		case "scope":
+			value, err := DecodeTDLibJSONAutosaveSettingsScope(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode updateAutosaveSettings#da274f0b: field scope: %w", err)
+			}
+			u.Scope = value
+		case "settings":
+			if err := u.Settings.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateAutosaveSettings#da274f0b: field settings: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetScope returns value of Scope field.
+func (u *UpdateAutosaveSettings) GetScope() (value AutosaveSettingsScopeClass) {
+	if u == nil {
+		return
+	}
+	return u.Scope
+}
+
+// GetSettings returns value of Settings field.
+func (u *UpdateAutosaveSettings) GetSettings() (value ScopeAutosaveSettings) {
+	if u == nil {
+		return
+	}
+	return u.Settings
+}
+
 // UpdateNewInlineQuery represents TL type `updateNewInlineQuery#7171bf34`.
 type UpdateNewInlineQuery struct {
 	// Unique query identifier
@@ -22911,18 +23321,20 @@ func (u *UpdateChatMember) GetNewChatMember() (value ChatMember) {
 	return u.NewChatMember
 }
 
-// UpdateNewChatJoinRequest represents TL type `updateNewChatJoinRequest#a72a691`.
+// UpdateNewChatJoinRequest represents TL type `updateNewChatJoinRequest#7e48b843`.
 type UpdateNewChatJoinRequest struct {
 	// Chat identifier
 	ChatID int64
 	// Join request
 	Request ChatJoinRequest
+	// Chat identifier of the private chat with the user
+	UserChatID int64
 	// The invite link, which was used to send join request; may be null
 	InviteLink ChatInviteLink
 }
 
 // UpdateNewChatJoinRequestTypeID is TL type id of UpdateNewChatJoinRequest.
-const UpdateNewChatJoinRequestTypeID = 0xa72a691
+const UpdateNewChatJoinRequestTypeID = 0x7e48b843
 
 // construct implements constructor of UpdateClass.
 func (u UpdateNewChatJoinRequest) construct() UpdateClass { return &u }
@@ -22945,6 +23357,9 @@ func (u *UpdateNewChatJoinRequest) Zero() bool {
 		return false
 	}
 	if !(u.Request.Zero()) {
+		return false
+	}
+	if !(u.UserChatID == 0) {
 		return false
 	}
 	if !(u.InviteLink.Zero()) {
@@ -22995,6 +23410,10 @@ func (u *UpdateNewChatJoinRequest) TypeInfo() tdp.Type {
 			SchemaName: "request",
 		},
 		{
+			Name:       "UserChatID",
+			SchemaName: "user_chat_id",
+		},
+		{
 			Name:       "InviteLink",
 			SchemaName: "invite_link",
 		},
@@ -23005,7 +23424,7 @@ func (u *UpdateNewChatJoinRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UpdateNewChatJoinRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateNewChatJoinRequest#a72a691 as nil")
+		return fmt.Errorf("can't encode updateNewChatJoinRequest#7e48b843 as nil")
 	}
 	b.PutID(UpdateNewChatJoinRequestTypeID)
 	return u.EncodeBare(b)
@@ -23014,14 +23433,15 @@ func (u *UpdateNewChatJoinRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateNewChatJoinRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateNewChatJoinRequest#a72a691 as nil")
+		return fmt.Errorf("can't encode updateNewChatJoinRequest#7e48b843 as nil")
 	}
 	b.PutInt53(u.ChatID)
 	if err := u.Request.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateNewChatJoinRequest#a72a691: field request: %w", err)
+		return fmt.Errorf("unable to encode updateNewChatJoinRequest#7e48b843: field request: %w", err)
 	}
+	b.PutInt53(u.UserChatID)
 	if err := u.InviteLink.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateNewChatJoinRequest#a72a691: field invite_link: %w", err)
+		return fmt.Errorf("unable to encode updateNewChatJoinRequest#7e48b843: field invite_link: %w", err)
 	}
 	return nil
 }
@@ -23029,10 +23449,10 @@ func (u *UpdateNewChatJoinRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UpdateNewChatJoinRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateNewChatJoinRequest#a72a691 to nil")
+		return fmt.Errorf("can't decode updateNewChatJoinRequest#7e48b843 to nil")
 	}
 	if err := b.ConsumeID(UpdateNewChatJoinRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateNewChatJoinRequest#a72a691: %w", err)
+		return fmt.Errorf("unable to decode updateNewChatJoinRequest#7e48b843: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -23040,23 +23460,30 @@ func (u *UpdateNewChatJoinRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateNewChatJoinRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateNewChatJoinRequest#a72a691 to nil")
+		return fmt.Errorf("can't decode updateNewChatJoinRequest#7e48b843 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateNewChatJoinRequest#a72a691: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode updateNewChatJoinRequest#7e48b843: field chat_id: %w", err)
 		}
 		u.ChatID = value
 	}
 	{
 		if err := u.Request.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateNewChatJoinRequest#a72a691: field request: %w", err)
+			return fmt.Errorf("unable to decode updateNewChatJoinRequest#7e48b843: field request: %w", err)
 		}
 	}
 	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateNewChatJoinRequest#7e48b843: field user_chat_id: %w", err)
+		}
+		u.UserChatID = value
+	}
+	{
 		if err := u.InviteLink.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateNewChatJoinRequest#a72a691: field invite_link: %w", err)
+			return fmt.Errorf("unable to decode updateNewChatJoinRequest#7e48b843: field invite_link: %w", err)
 		}
 	}
 	return nil
@@ -23065,7 +23492,7 @@ func (u *UpdateNewChatJoinRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UpdateNewChatJoinRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateNewChatJoinRequest#a72a691 as nil")
+		return fmt.Errorf("can't encode updateNewChatJoinRequest#7e48b843 as nil")
 	}
 	b.ObjStart()
 	b.PutID("updateNewChatJoinRequest")
@@ -23075,12 +23502,15 @@ func (u *UpdateNewChatJoinRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("request")
 	if err := u.Request.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode updateNewChatJoinRequest#a72a691: field request: %w", err)
+		return fmt.Errorf("unable to encode updateNewChatJoinRequest#7e48b843: field request: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("user_chat_id")
+	b.PutInt53(u.UserChatID)
 	b.Comma()
 	b.FieldStart("invite_link")
 	if err := u.InviteLink.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode updateNewChatJoinRequest#a72a691: field invite_link: %w", err)
+		return fmt.Errorf("unable to encode updateNewChatJoinRequest#7e48b843: field invite_link: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -23091,28 +23521,34 @@ func (u *UpdateNewChatJoinRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UpdateNewChatJoinRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateNewChatJoinRequest#a72a691 to nil")
+		return fmt.Errorf("can't decode updateNewChatJoinRequest#7e48b843 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("updateNewChatJoinRequest"); err != nil {
-				return fmt.Errorf("unable to decode updateNewChatJoinRequest#a72a691: %w", err)
+				return fmt.Errorf("unable to decode updateNewChatJoinRequest#7e48b843: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateNewChatJoinRequest#a72a691: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode updateNewChatJoinRequest#7e48b843: field chat_id: %w", err)
 			}
 			u.ChatID = value
 		case "request":
 			if err := u.Request.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode updateNewChatJoinRequest#a72a691: field request: %w", err)
+				return fmt.Errorf("unable to decode updateNewChatJoinRequest#7e48b843: field request: %w", err)
 			}
+		case "user_chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateNewChatJoinRequest#7e48b843: field user_chat_id: %w", err)
+			}
+			u.UserChatID = value
 		case "invite_link":
 			if err := u.InviteLink.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode updateNewChatJoinRequest#a72a691: field invite_link: %w", err)
+				return fmt.Errorf("unable to decode updateNewChatJoinRequest#7e48b843: field invite_link: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -23135,6 +23571,14 @@ func (u *UpdateNewChatJoinRequest) GetRequest() (value ChatJoinRequest) {
 		return
 	}
 	return u.Request
+}
+
+// GetUserChatID returns value of UserChatID field.
+func (u *UpdateNewChatJoinRequest) GetUserChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.UserChatID
 }
 
 // GetInviteLink returns value of InviteLink field.
@@ -23192,9 +23636,10 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateChatVideoChat: // updateChatVideoChat#25fb4ca6
 //	case *tdapi.UpdateChatDefaultDisableNotification: // updateChatDefaultDisableNotification#1ba96a9b
 //	case *tdapi.UpdateChatHasProtectedContent: // updateChatHasProtectedContent#6b50071b
-//	case *tdapi.UpdateChatHasScheduledMessages: // updateChatHasScheduledMessages#7b14c2d7
-//	case *tdapi.UpdateChatIsBlocked: // updateChatIsBlocked#88da7e40
+//	case *tdapi.UpdateChatIsTranslatable: // updateChatIsTranslatable#7b031617
 //	case *tdapi.UpdateChatIsMarkedAsUnread: // updateChatIsMarkedAsUnread#57853334
+//	case *tdapi.UpdateChatIsBlocked: // updateChatIsBlocked#88da7e40
+//	case *tdapi.UpdateChatHasScheduledMessages: // updateChatHasScheduledMessages#7b14c2d7
 //	case *tdapi.UpdateChatFilters: // updateChatFilters#a00973c1
 //	case *tdapi.UpdateChatOnlineMemberCount: // updateChatOnlineMemberCount#1d0caa9d
 //	case *tdapi.UpdateForumTopicInfo: // updateForumTopicInfo#6b6f2cc9
@@ -23250,6 +23695,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateAnimatedEmojiMessageClicked: // updateAnimatedEmojiMessageClicked#a3167405
 //	case *tdapi.UpdateAnimationSearchParameters: // updateAnimationSearchParameters#6016ef01
 //	case *tdapi.UpdateSuggestedActions: // updateSuggestedActions#c2e5cccb
+//	case *tdapi.UpdateAutosaveSettings: // updateAutosaveSettings#da274f0b
 //	case *tdapi.UpdateNewInlineQuery: // updateNewInlineQuery#7171bf34
 //	case *tdapi.UpdateNewChosenInlineResult: // updateNewChosenInlineResult#cb4c4f5d
 //	case *tdapi.UpdateNewCallbackQuery: // updateNewCallbackQuery#8964d05e
@@ -23261,7 +23707,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdatePoll: // updatePoll#966b73ca
 //	case *tdapi.UpdatePollAnswer: // updatePollAnswer#afe0c624
 //	case *tdapi.UpdateChatMember: // updateChatMember#871f5753
-//	case *tdapi.UpdateNewChatJoinRequest: // updateNewChatJoinRequest#a72a691
+//	case *tdapi.UpdateNewChatJoinRequest: // updateNewChatJoinRequest#7e48b843
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -23538,9 +23984,16 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case UpdateChatHasScheduledMessagesTypeID:
-		// Decoding updateChatHasScheduledMessages#7b14c2d7.
-		v := UpdateChatHasScheduledMessages{}
+	case UpdateChatIsTranslatableTypeID:
+		// Decoding updateChatIsTranslatable#7b031617.
+		v := UpdateChatIsTranslatable{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChatIsMarkedAsUnreadTypeID:
+		// Decoding updateChatIsMarkedAsUnread#57853334.
+		v := UpdateChatIsMarkedAsUnread{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -23552,9 +24005,9 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case UpdateChatIsMarkedAsUnreadTypeID:
-		// Decoding updateChatIsMarkedAsUnread#57853334.
-		v := UpdateChatIsMarkedAsUnread{}
+	case UpdateChatHasScheduledMessagesTypeID:
+		// Decoding updateChatHasScheduledMessages#7b14c2d7.
+		v := UpdateChatHasScheduledMessages{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -23944,6 +24397,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case UpdateAutosaveSettingsTypeID:
+		// Decoding updateAutosaveSettings#da274f0b.
+		v := UpdateAutosaveSettings{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case UpdateNewInlineQueryTypeID:
 		// Decoding updateNewInlineQuery#7171bf34.
 		v := UpdateNewInlineQuery{}
@@ -24022,7 +24482,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateNewChatJoinRequestTypeID:
-		// Decoding updateNewChatJoinRequest#a72a691.
+		// Decoding updateNewChatJoinRequest#7e48b843.
 		v := UpdateNewChatJoinRequest{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -24285,9 +24745,16 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case "updateChatHasScheduledMessages":
-		// Decoding updateChatHasScheduledMessages#7b14c2d7.
-		v := UpdateChatHasScheduledMessages{}
+	case "updateChatIsTranslatable":
+		// Decoding updateChatIsTranslatable#7b031617.
+		v := UpdateChatIsTranslatable{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateChatIsMarkedAsUnread":
+		// Decoding updateChatIsMarkedAsUnread#57853334.
+		v := UpdateChatIsMarkedAsUnread{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -24299,9 +24766,9 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case "updateChatIsMarkedAsUnread":
-		// Decoding updateChatIsMarkedAsUnread#57853334.
-		v := UpdateChatIsMarkedAsUnread{}
+	case "updateChatHasScheduledMessages":
+		// Decoding updateChatHasScheduledMessages#7b14c2d7.
+		v := UpdateChatHasScheduledMessages{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -24691,6 +25158,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case "updateAutosaveSettings":
+		// Decoding updateAutosaveSettings#da274f0b.
+		v := UpdateAutosaveSettings{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case "updateNewInlineQuery":
 		// Decoding updateNewInlineQuery#7171bf34.
 		v := UpdateNewInlineQuery{}
@@ -24769,7 +25243,7 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 		}
 		return &v, nil
 	case "updateNewChatJoinRequest":
-		// Decoding updateNewChatJoinRequest#a72a691.
+		// Decoding updateNewChatJoinRequest#7e48b843.
 		v := UpdateNewChatJoinRequest{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)

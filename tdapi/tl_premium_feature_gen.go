@@ -1865,6 +1865,137 @@ func (p *PremiumFeatureAppIcons) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// PremiumFeatureRealTimeChatTranslation represents TL type `premiumFeatureRealTimeChatTranslation#bbd80280`.
+type PremiumFeatureRealTimeChatTranslation struct {
+}
+
+// PremiumFeatureRealTimeChatTranslationTypeID is TL type id of PremiumFeatureRealTimeChatTranslation.
+const PremiumFeatureRealTimeChatTranslationTypeID = 0xbbd80280
+
+// construct implements constructor of PremiumFeatureClass.
+func (p PremiumFeatureRealTimeChatTranslation) construct() PremiumFeatureClass { return &p }
+
+// Ensuring interfaces in compile-time for PremiumFeatureRealTimeChatTranslation.
+var (
+	_ bin.Encoder     = &PremiumFeatureRealTimeChatTranslation{}
+	_ bin.Decoder     = &PremiumFeatureRealTimeChatTranslation{}
+	_ bin.BareEncoder = &PremiumFeatureRealTimeChatTranslation{}
+	_ bin.BareDecoder = &PremiumFeatureRealTimeChatTranslation{}
+
+	_ PremiumFeatureClass = &PremiumFeatureRealTimeChatTranslation{}
+)
+
+func (p *PremiumFeatureRealTimeChatTranslation) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PremiumFeatureRealTimeChatTranslation) String() string {
+	if p == nil {
+		return "PremiumFeatureRealTimeChatTranslation(nil)"
+	}
+	type Alias PremiumFeatureRealTimeChatTranslation
+	return fmt.Sprintf("PremiumFeatureRealTimeChatTranslation%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PremiumFeatureRealTimeChatTranslation) TypeID() uint32 {
+	return PremiumFeatureRealTimeChatTranslationTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PremiumFeatureRealTimeChatTranslation) TypeName() string {
+	return "premiumFeatureRealTimeChatTranslation"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PremiumFeatureRealTimeChatTranslation) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "premiumFeatureRealTimeChatTranslation",
+		ID:   PremiumFeatureRealTimeChatTranslationTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PremiumFeatureRealTimeChatTranslation) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureRealTimeChatTranslation#bbd80280 as nil")
+	}
+	b.PutID(PremiumFeatureRealTimeChatTranslationTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PremiumFeatureRealTimeChatTranslation) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureRealTimeChatTranslation#bbd80280 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PremiumFeatureRealTimeChatTranslation) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureRealTimeChatTranslation#bbd80280 to nil")
+	}
+	if err := b.ConsumeID(PremiumFeatureRealTimeChatTranslationTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumFeatureRealTimeChatTranslation#bbd80280: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PremiumFeatureRealTimeChatTranslation) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureRealTimeChatTranslation#bbd80280 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PremiumFeatureRealTimeChatTranslation) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureRealTimeChatTranslation#bbd80280 as nil")
+	}
+	b.ObjStart()
+	b.PutID("premiumFeatureRealTimeChatTranslation")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PremiumFeatureRealTimeChatTranslation) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureRealTimeChatTranslation#bbd80280 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("premiumFeatureRealTimeChatTranslation"); err != nil {
+				return fmt.Errorf("unable to decode premiumFeatureRealTimeChatTranslation#bbd80280: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // PremiumFeatureClassName is schema name of PremiumFeatureClass.
 const PremiumFeatureClassName = "PremiumFeature"
 
@@ -1891,6 +2022,7 @@ const PremiumFeatureClassName = "PremiumFeature"
 //	case *tdapi.PremiumFeatureAnimatedProfilePhoto: // premiumFeatureAnimatedProfilePhoto#f9fecce6
 //	case *tdapi.PremiumFeatureForumTopicIcon: // premiumFeatureForumTopicIcon#ceef6342
 //	case *tdapi.PremiumFeatureAppIcons: // premiumFeatureAppIcons#5e79f489
+//	case *tdapi.PremiumFeatureRealTimeChatTranslation: // premiumFeatureRealTimeChatTranslation#bbd80280
 //	default: panic(v)
 //	}
 type PremiumFeatureClass interface {
@@ -2020,6 +2152,13 @@ func DecodePremiumFeature(buf *bin.Buffer) (PremiumFeatureClass, error) {
 			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
 		}
 		return &v, nil
+	case PremiumFeatureRealTimeChatTranslationTypeID:
+		// Decoding premiumFeatureRealTimeChatTranslation#bbd80280.
+		v := PremiumFeatureRealTimeChatTranslation{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -2126,6 +2265,13 @@ func DecodeTDLibJSONPremiumFeature(buf tdjson.Decoder) (PremiumFeatureClass, err
 	case "premiumFeatureAppIcons":
 		// Decoding premiumFeatureAppIcons#5e79f489.
 		v := PremiumFeatureAppIcons{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
+		}
+		return &v, nil
+	case "premiumFeatureRealTimeChatTranslation":
+		// Decoding premiumFeatureRealTimeChatTranslation#bbd80280.
+		v := PremiumFeatureRealTimeChatTranslation{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
 		}

@@ -585,6 +585,172 @@ func (i *InputChatPhotoAnimation) GetMainFrameTimestamp() (value float64) {
 	return i.MainFrameTimestamp
 }
 
+// InputChatPhotoSticker represents TL type `inputChatPhotoSticker#4e6e735d`.
+type InputChatPhotoSticker struct {
+	// Information about the sticker
+	Sticker ChatPhotoSticker
+}
+
+// InputChatPhotoStickerTypeID is TL type id of InputChatPhotoSticker.
+const InputChatPhotoStickerTypeID = 0x4e6e735d
+
+// construct implements constructor of InputChatPhotoClass.
+func (i InputChatPhotoSticker) construct() InputChatPhotoClass { return &i }
+
+// Ensuring interfaces in compile-time for InputChatPhotoSticker.
+var (
+	_ bin.Encoder     = &InputChatPhotoSticker{}
+	_ bin.Decoder     = &InputChatPhotoSticker{}
+	_ bin.BareEncoder = &InputChatPhotoSticker{}
+	_ bin.BareDecoder = &InputChatPhotoSticker{}
+
+	_ InputChatPhotoClass = &InputChatPhotoSticker{}
+)
+
+func (i *InputChatPhotoSticker) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Sticker.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputChatPhotoSticker) String() string {
+	if i == nil {
+		return "InputChatPhotoSticker(nil)"
+	}
+	type Alias InputChatPhotoSticker
+	return fmt.Sprintf("InputChatPhotoSticker%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputChatPhotoSticker) TypeID() uint32 {
+	return InputChatPhotoStickerTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputChatPhotoSticker) TypeName() string {
+	return "inputChatPhotoSticker"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputChatPhotoSticker) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputChatPhotoSticker",
+		ID:   InputChatPhotoStickerTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Sticker",
+			SchemaName: "sticker",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputChatPhotoSticker) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputChatPhotoSticker#4e6e735d as nil")
+	}
+	b.PutID(InputChatPhotoStickerTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputChatPhotoSticker) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputChatPhotoSticker#4e6e735d as nil")
+	}
+	if err := i.Sticker.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputChatPhotoSticker#4e6e735d: field sticker: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputChatPhotoSticker) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputChatPhotoSticker#4e6e735d to nil")
+	}
+	if err := b.ConsumeID(InputChatPhotoStickerTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputChatPhotoSticker#4e6e735d: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputChatPhotoSticker) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputChatPhotoSticker#4e6e735d to nil")
+	}
+	{
+		if err := i.Sticker.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputChatPhotoSticker#4e6e735d: field sticker: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputChatPhotoSticker) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputChatPhotoSticker#4e6e735d as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputChatPhotoSticker")
+	b.Comma()
+	b.FieldStart("sticker")
+	if err := i.Sticker.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputChatPhotoSticker#4e6e735d: field sticker: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputChatPhotoSticker) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputChatPhotoSticker#4e6e735d to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("inputChatPhotoSticker"); err != nil {
+				return fmt.Errorf("unable to decode inputChatPhotoSticker#4e6e735d: %w", err)
+			}
+		case "sticker":
+			if err := i.Sticker.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputChatPhotoSticker#4e6e735d: field sticker: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetSticker returns value of Sticker field.
+func (i *InputChatPhotoSticker) GetSticker() (value ChatPhotoSticker) {
+	if i == nil {
+		return
+	}
+	return i.Sticker
+}
+
 // InputChatPhotoClassName is schema name of InputChatPhotoClass.
 const InputChatPhotoClassName = "InputChatPhoto"
 
@@ -600,6 +766,7 @@ const InputChatPhotoClassName = "InputChatPhoto"
 //	case *tdapi.InputChatPhotoPrevious: // inputChatPhotoPrevious#160e9d1
 //	case *tdapi.InputChatPhotoStatic: // inputChatPhotoStatic#75f7e2b3
 //	case *tdapi.InputChatPhotoAnimation: // inputChatPhotoAnimation#56a3422
+//	case *tdapi.InputChatPhotoSticker: // inputChatPhotoSticker#4e6e735d
 //	default: panic(v)
 //	}
 type InputChatPhotoClass interface {
@@ -652,6 +819,13 @@ func DecodeInputChatPhoto(buf *bin.Buffer) (InputChatPhotoClass, error) {
 			return nil, fmt.Errorf("unable to decode InputChatPhotoClass: %w", err)
 		}
 		return &v, nil
+	case InputChatPhotoStickerTypeID:
+		// Decoding inputChatPhotoSticker#4e6e735d.
+		v := InputChatPhotoSticker{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputChatPhotoClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode InputChatPhotoClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -681,6 +855,13 @@ func DecodeTDLibJSONInputChatPhoto(buf tdjson.Decoder) (InputChatPhotoClass, err
 	case "inputChatPhotoAnimation":
 		// Decoding inputChatPhotoAnimation#56a3422.
 		v := InputChatPhotoAnimation{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputChatPhotoClass: %w", err)
+		}
+		return &v, nil
+	case "inputChatPhotoSticker":
+		// Decoding inputChatPhotoSticker#4e6e735d.
+		v := InputChatPhotoSticker{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputChatPhotoClass: %w", err)
 		}

@@ -31,20 +31,27 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatPermissions represents TL type `chatPermissions#ce31de89`.
+// ChatPermissions represents TL type `chatPermissions#a8e56f09`.
 type ChatPermissions struct {
 	// True, if the user can send text messages, contacts, invoices, locations, and venues
 	CanSendMessages bool
-	// True, if the user can send audio files, documents, photos, videos, video notes, and
-	// voice notes. Implies can_send_messages permissions
-	CanSendMediaMessages bool
-	// True, if the user can send polls. Implies can_send_messages permissions
+	// True, if the user can send music files
+	CanSendAudios bool
+	// True, if the user can send documents
+	CanSendDocuments bool
+	// True, if the user can send audio photos
+	CanSendPhotos bool
+	// True, if the user can send audio videos
+	CanSendVideos bool
+	// True, if the user can send video notes
+	CanSendVideoNotes bool
+	// True, if the user can send voice notes
+	CanSendVoiceNotes bool
+	// True, if the user can send polls
 	CanSendPolls bool
-	// True, if the user can send animations, games, stickers, and dice and use inline bots.
-	// Implies can_send_messages permissions
+	// True, if the user can send animations, games, stickers, and dice and use inline bots
 	CanSendOtherMessages bool
-	// True, if the user may add a web page preview to their messages. Implies
-	// can_send_messages permissions
+	// True, if the user may add a web page preview to their messages
 	CanAddWebPagePreviews bool
 	// True, if the user can change the chat title, photo, and other settings
 	CanChangeInfo bool
@@ -57,7 +64,7 @@ type ChatPermissions struct {
 }
 
 // ChatPermissionsTypeID is TL type id of ChatPermissions.
-const ChatPermissionsTypeID = 0xce31de89
+const ChatPermissionsTypeID = 0xa8e56f09
 
 // Ensuring interfaces in compile-time for ChatPermissions.
 var (
@@ -74,7 +81,22 @@ func (c *ChatPermissions) Zero() bool {
 	if !(c.CanSendMessages == false) {
 		return false
 	}
-	if !(c.CanSendMediaMessages == false) {
+	if !(c.CanSendAudios == false) {
+		return false
+	}
+	if !(c.CanSendDocuments == false) {
+		return false
+	}
+	if !(c.CanSendPhotos == false) {
+		return false
+	}
+	if !(c.CanSendVideos == false) {
+		return false
+	}
+	if !(c.CanSendVideoNotes == false) {
+		return false
+	}
+	if !(c.CanSendVoiceNotes == false) {
 		return false
 	}
 	if !(c.CanSendPolls == false) {
@@ -139,8 +161,28 @@ func (c *ChatPermissions) TypeInfo() tdp.Type {
 			SchemaName: "can_send_messages",
 		},
 		{
-			Name:       "CanSendMediaMessages",
-			SchemaName: "can_send_media_messages",
+			Name:       "CanSendAudios",
+			SchemaName: "can_send_audios",
+		},
+		{
+			Name:       "CanSendDocuments",
+			SchemaName: "can_send_documents",
+		},
+		{
+			Name:       "CanSendPhotos",
+			SchemaName: "can_send_photos",
+		},
+		{
+			Name:       "CanSendVideos",
+			SchemaName: "can_send_videos",
+		},
+		{
+			Name:       "CanSendVideoNotes",
+			SchemaName: "can_send_video_notes",
+		},
+		{
+			Name:       "CanSendVoiceNotes",
+			SchemaName: "can_send_voice_notes",
 		},
 		{
 			Name:       "CanSendPolls",
@@ -177,7 +219,7 @@ func (c *ChatPermissions) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatPermissions) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatPermissions#ce31de89 as nil")
+		return fmt.Errorf("can't encode chatPermissions#a8e56f09 as nil")
 	}
 	b.PutID(ChatPermissionsTypeID)
 	return c.EncodeBare(b)
@@ -186,10 +228,15 @@ func (c *ChatPermissions) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatPermissions) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatPermissions#ce31de89 as nil")
+		return fmt.Errorf("can't encode chatPermissions#a8e56f09 as nil")
 	}
 	b.PutBool(c.CanSendMessages)
-	b.PutBool(c.CanSendMediaMessages)
+	b.PutBool(c.CanSendAudios)
+	b.PutBool(c.CanSendDocuments)
+	b.PutBool(c.CanSendPhotos)
+	b.PutBool(c.CanSendVideos)
+	b.PutBool(c.CanSendVideoNotes)
+	b.PutBool(c.CanSendVoiceNotes)
 	b.PutBool(c.CanSendPolls)
 	b.PutBool(c.CanSendOtherMessages)
 	b.PutBool(c.CanAddWebPagePreviews)
@@ -203,10 +250,10 @@ func (c *ChatPermissions) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatPermissions) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatPermissions#ce31de89 to nil")
+		return fmt.Errorf("can't decode chatPermissions#a8e56f09 to nil")
 	}
 	if err := b.ConsumeID(ChatPermissionsTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatPermissions#ce31de89: %w", err)
+		return fmt.Errorf("unable to decode chatPermissions#a8e56f09: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -214,68 +261,103 @@ func (c *ChatPermissions) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatPermissions) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatPermissions#ce31de89 to nil")
+		return fmt.Errorf("can't decode chatPermissions#a8e56f09 to nil")
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_send_messages: %w", err)
+			return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_send_messages: %w", err)
 		}
 		c.CanSendMessages = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_send_media_messages: %w", err)
+			return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_send_audios: %w", err)
 		}
-		c.CanSendMediaMessages = value
+		c.CanSendAudios = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_send_polls: %w", err)
+			return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_send_documents: %w", err)
+		}
+		c.CanSendDocuments = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_send_photos: %w", err)
+		}
+		c.CanSendPhotos = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_send_videos: %w", err)
+		}
+		c.CanSendVideos = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_send_video_notes: %w", err)
+		}
+		c.CanSendVideoNotes = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_send_voice_notes: %w", err)
+		}
+		c.CanSendVoiceNotes = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_send_polls: %w", err)
 		}
 		c.CanSendPolls = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_send_other_messages: %w", err)
+			return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_send_other_messages: %w", err)
 		}
 		c.CanSendOtherMessages = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_add_web_page_previews: %w", err)
+			return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_add_web_page_previews: %w", err)
 		}
 		c.CanAddWebPagePreviews = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_change_info: %w", err)
+			return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_change_info: %w", err)
 		}
 		c.CanChangeInfo = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_invite_users: %w", err)
+			return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_invite_users: %w", err)
 		}
 		c.CanInviteUsers = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_pin_messages: %w", err)
+			return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_pin_messages: %w", err)
 		}
 		c.CanPinMessages = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_manage_topics: %w", err)
+			return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_manage_topics: %w", err)
 		}
 		c.CanManageTopics = value
 	}
@@ -285,7 +367,7 @@ func (c *ChatPermissions) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatPermissions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatPermissions#ce31de89 as nil")
+		return fmt.Errorf("can't encode chatPermissions#a8e56f09 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatPermissions")
@@ -293,8 +375,23 @@ func (c *ChatPermissions) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("can_send_messages")
 	b.PutBool(c.CanSendMessages)
 	b.Comma()
-	b.FieldStart("can_send_media_messages")
-	b.PutBool(c.CanSendMediaMessages)
+	b.FieldStart("can_send_audios")
+	b.PutBool(c.CanSendAudios)
+	b.Comma()
+	b.FieldStart("can_send_documents")
+	b.PutBool(c.CanSendDocuments)
+	b.Comma()
+	b.FieldStart("can_send_photos")
+	b.PutBool(c.CanSendPhotos)
+	b.Comma()
+	b.FieldStart("can_send_videos")
+	b.PutBool(c.CanSendVideos)
+	b.Comma()
+	b.FieldStart("can_send_video_notes")
+	b.PutBool(c.CanSendVideoNotes)
+	b.Comma()
+	b.FieldStart("can_send_voice_notes")
+	b.PutBool(c.CanSendVoiceNotes)
 	b.Comma()
 	b.FieldStart("can_send_polls")
 	b.PutBool(c.CanSendPolls)
@@ -325,67 +422,97 @@ func (c *ChatPermissions) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatPermissions) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatPermissions#ce31de89 to nil")
+		return fmt.Errorf("can't decode chatPermissions#a8e56f09 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatPermissions"); err != nil {
-				return fmt.Errorf("unable to decode chatPermissions#ce31de89: %w", err)
+				return fmt.Errorf("unable to decode chatPermissions#a8e56f09: %w", err)
 			}
 		case "can_send_messages":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_send_messages: %w", err)
+				return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_send_messages: %w", err)
 			}
 			c.CanSendMessages = value
-		case "can_send_media_messages":
+		case "can_send_audios":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_send_media_messages: %w", err)
+				return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_send_audios: %w", err)
 			}
-			c.CanSendMediaMessages = value
+			c.CanSendAudios = value
+		case "can_send_documents":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_send_documents: %w", err)
+			}
+			c.CanSendDocuments = value
+		case "can_send_photos":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_send_photos: %w", err)
+			}
+			c.CanSendPhotos = value
+		case "can_send_videos":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_send_videos: %w", err)
+			}
+			c.CanSendVideos = value
+		case "can_send_video_notes":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_send_video_notes: %w", err)
+			}
+			c.CanSendVideoNotes = value
+		case "can_send_voice_notes":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_send_voice_notes: %w", err)
+			}
+			c.CanSendVoiceNotes = value
 		case "can_send_polls":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_send_polls: %w", err)
+				return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_send_polls: %w", err)
 			}
 			c.CanSendPolls = value
 		case "can_send_other_messages":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_send_other_messages: %w", err)
+				return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_send_other_messages: %w", err)
 			}
 			c.CanSendOtherMessages = value
 		case "can_add_web_page_previews":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_add_web_page_previews: %w", err)
+				return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_add_web_page_previews: %w", err)
 			}
 			c.CanAddWebPagePreviews = value
 		case "can_change_info":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_change_info: %w", err)
+				return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_change_info: %w", err)
 			}
 			c.CanChangeInfo = value
 		case "can_invite_users":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_invite_users: %w", err)
+				return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_invite_users: %w", err)
 			}
 			c.CanInviteUsers = value
 		case "can_pin_messages":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_pin_messages: %w", err)
+				return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_pin_messages: %w", err)
 			}
 			c.CanPinMessages = value
 		case "can_manage_topics":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatPermissions#ce31de89: field can_manage_topics: %w", err)
+				return fmt.Errorf("unable to decode chatPermissions#a8e56f09: field can_manage_topics: %w", err)
 			}
 			c.CanManageTopics = value
 		default:
@@ -403,12 +530,52 @@ func (c *ChatPermissions) GetCanSendMessages() (value bool) {
 	return c.CanSendMessages
 }
 
-// GetCanSendMediaMessages returns value of CanSendMediaMessages field.
-func (c *ChatPermissions) GetCanSendMediaMessages() (value bool) {
+// GetCanSendAudios returns value of CanSendAudios field.
+func (c *ChatPermissions) GetCanSendAudios() (value bool) {
 	if c == nil {
 		return
 	}
-	return c.CanSendMediaMessages
+	return c.CanSendAudios
+}
+
+// GetCanSendDocuments returns value of CanSendDocuments field.
+func (c *ChatPermissions) GetCanSendDocuments() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.CanSendDocuments
+}
+
+// GetCanSendPhotos returns value of CanSendPhotos field.
+func (c *ChatPermissions) GetCanSendPhotos() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.CanSendPhotos
+}
+
+// GetCanSendVideos returns value of CanSendVideos field.
+func (c *ChatPermissions) GetCanSendVideos() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.CanSendVideos
+}
+
+// GetCanSendVideoNotes returns value of CanSendVideoNotes field.
+func (c *ChatPermissions) GetCanSendVideoNotes() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.CanSendVideoNotes
+}
+
+// GetCanSendVoiceNotes returns value of CanSendVoiceNotes field.
+func (c *ChatPermissions) GetCanSendVoiceNotes() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.CanSendVoiceNotes
 }
 
 // GetCanSendPolls returns value of CanSendPolls field.

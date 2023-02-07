@@ -2064,6 +2064,206 @@ func (d *DeviceTokenTizenPush) GetRegID() (value string) {
 	return d.RegID
 }
 
+// DeviceTokenHuaweiPush represents TL type `deviceTokenHuaweiPush#768f4e26`.
+type DeviceTokenHuaweiPush struct {
+	// Device registration token; may be empty to deregister a device
+	Token string
+	// True, if push notifications must be additionally encrypted
+	Encrypt bool
+}
+
+// DeviceTokenHuaweiPushTypeID is TL type id of DeviceTokenHuaweiPush.
+const DeviceTokenHuaweiPushTypeID = 0x768f4e26
+
+// construct implements constructor of DeviceTokenClass.
+func (d DeviceTokenHuaweiPush) construct() DeviceTokenClass { return &d }
+
+// Ensuring interfaces in compile-time for DeviceTokenHuaweiPush.
+var (
+	_ bin.Encoder     = &DeviceTokenHuaweiPush{}
+	_ bin.Decoder     = &DeviceTokenHuaweiPush{}
+	_ bin.BareEncoder = &DeviceTokenHuaweiPush{}
+	_ bin.BareDecoder = &DeviceTokenHuaweiPush{}
+
+	_ DeviceTokenClass = &DeviceTokenHuaweiPush{}
+)
+
+func (d *DeviceTokenHuaweiPush) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Token == "") {
+		return false
+	}
+	if !(d.Encrypt == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (d *DeviceTokenHuaweiPush) String() string {
+	if d == nil {
+		return "DeviceTokenHuaweiPush(nil)"
+	}
+	type Alias DeviceTokenHuaweiPush
+	return fmt.Sprintf("DeviceTokenHuaweiPush%+v", Alias(*d))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*DeviceTokenHuaweiPush) TypeID() uint32 {
+	return DeviceTokenHuaweiPushTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*DeviceTokenHuaweiPush) TypeName() string {
+	return "deviceTokenHuaweiPush"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DeviceTokenHuaweiPush) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "deviceTokenHuaweiPush",
+		ID:   DeviceTokenHuaweiPushTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Token",
+			SchemaName: "token",
+		},
+		{
+			Name:       "Encrypt",
+			SchemaName: "encrypt",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (d *DeviceTokenHuaweiPush) Encode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deviceTokenHuaweiPush#768f4e26 as nil")
+	}
+	b.PutID(DeviceTokenHuaweiPushTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DeviceTokenHuaweiPush) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deviceTokenHuaweiPush#768f4e26 as nil")
+	}
+	b.PutString(d.Token)
+	b.PutBool(d.Encrypt)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (d *DeviceTokenHuaweiPush) Decode(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode deviceTokenHuaweiPush#768f4e26 to nil")
+	}
+	if err := b.ConsumeID(DeviceTokenHuaweiPushTypeID); err != nil {
+		return fmt.Errorf("unable to decode deviceTokenHuaweiPush#768f4e26: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DeviceTokenHuaweiPush) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode deviceTokenHuaweiPush#768f4e26 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode deviceTokenHuaweiPush#768f4e26: field token: %w", err)
+		}
+		d.Token = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode deviceTokenHuaweiPush#768f4e26: field encrypt: %w", err)
+		}
+		d.Encrypt = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (d *DeviceTokenHuaweiPush) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if d == nil {
+		return fmt.Errorf("can't encode deviceTokenHuaweiPush#768f4e26 as nil")
+	}
+	b.ObjStart()
+	b.PutID("deviceTokenHuaweiPush")
+	b.Comma()
+	b.FieldStart("token")
+	b.PutString(d.Token)
+	b.Comma()
+	b.FieldStart("encrypt")
+	b.PutBool(d.Encrypt)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (d *DeviceTokenHuaweiPush) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if d == nil {
+		return fmt.Errorf("can't decode deviceTokenHuaweiPush#768f4e26 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("deviceTokenHuaweiPush"); err != nil {
+				return fmt.Errorf("unable to decode deviceTokenHuaweiPush#768f4e26: %w", err)
+			}
+		case "token":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode deviceTokenHuaweiPush#768f4e26: field token: %w", err)
+			}
+			d.Token = value
+		case "encrypt":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode deviceTokenHuaweiPush#768f4e26: field encrypt: %w", err)
+			}
+			d.Encrypt = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetToken returns value of Token field.
+func (d *DeviceTokenHuaweiPush) GetToken() (value string) {
+	if d == nil {
+		return
+	}
+	return d.Token
+}
+
+// GetEncrypt returns value of Encrypt field.
+func (d *DeviceTokenHuaweiPush) GetEncrypt() (value bool) {
+	if d == nil {
+		return
+	}
+	return d.Encrypt
+}
+
 // DeviceTokenClassName is schema name of DeviceTokenClass.
 const DeviceTokenClassName = "DeviceToken"
 
@@ -2087,6 +2287,7 @@ const DeviceTokenClassName = "DeviceToken"
 //	case *tdapi.DeviceTokenUbuntuPush: // deviceTokenUbuntuPush#6a3c0d26
 //	case *tdapi.DeviceTokenBlackBerryPush: // deviceTokenBlackBerryPush#5cef0102
 //	case *tdapi.DeviceTokenTizenPush: // deviceTokenTizenPush#aef0da33
+//	case *tdapi.DeviceTokenHuaweiPush: // deviceTokenHuaweiPush#768f4e26
 //	default: panic(v)
 //	}
 type DeviceTokenClass interface {
@@ -2195,6 +2396,13 @@ func DecodeDeviceToken(buf *bin.Buffer) (DeviceTokenClass, error) {
 			return nil, fmt.Errorf("unable to decode DeviceTokenClass: %w", err)
 		}
 		return &v, nil
+	case DeviceTokenHuaweiPushTypeID:
+		// Decoding deviceTokenHuaweiPush#768f4e26.
+		v := DeviceTokenHuaweiPush{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode DeviceTokenClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode DeviceTokenClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -2280,6 +2488,13 @@ func DecodeTDLibJSONDeviceToken(buf tdjson.Decoder) (DeviceTokenClass, error) {
 	case "deviceTokenTizenPush":
 		// Decoding deviceTokenTizenPush#aef0da33.
 		v := DeviceTokenTizenPush{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode DeviceTokenClass: %w", err)
+		}
+		return &v, nil
+	case "deviceTokenHuaweiPush":
+		// Decoding deviceTokenHuaweiPush#768f4e26.
+		v := DeviceTokenHuaweiPush{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode DeviceTokenClass: %w", err)
 		}

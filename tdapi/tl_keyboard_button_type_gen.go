@@ -624,6 +624,786 @@ func (k *KeyboardButtonTypeRequestPoll) GetForceQuiz() (value bool) {
 	return k.ForceQuiz
 }
 
+// KeyboardButtonTypeRequestUser represents TL type `keyboardButtonTypeRequestUser#88ffb430`.
+type KeyboardButtonTypeRequestUser struct {
+	// Unique button identifier
+	ID int32
+	// True, if the shared user must or must not be a bot
+	RestrictUserIsBot bool
+	// True, if the shared user must be a bot; otherwise, the shared user must no be a bot.
+	// Ignored if restrict_user_is_bot is false
+	UserIsBot bool
+	// True, if the shared user must or must not be a Telegram Premium user
+	RestrictUserIsPremium bool
+	// True, if the shared user must be a Telegram Premium user; otherwise, the shared user
+	// must no be a Telegram Premium user. Ignored if restrict_user_is_premium is false
+	UserIsPremium bool
+}
+
+// KeyboardButtonTypeRequestUserTypeID is TL type id of KeyboardButtonTypeRequestUser.
+const KeyboardButtonTypeRequestUserTypeID = 0x88ffb430
+
+// construct implements constructor of KeyboardButtonTypeClass.
+func (k KeyboardButtonTypeRequestUser) construct() KeyboardButtonTypeClass { return &k }
+
+// Ensuring interfaces in compile-time for KeyboardButtonTypeRequestUser.
+var (
+	_ bin.Encoder     = &KeyboardButtonTypeRequestUser{}
+	_ bin.Decoder     = &KeyboardButtonTypeRequestUser{}
+	_ bin.BareEncoder = &KeyboardButtonTypeRequestUser{}
+	_ bin.BareDecoder = &KeyboardButtonTypeRequestUser{}
+
+	_ KeyboardButtonTypeClass = &KeyboardButtonTypeRequestUser{}
+)
+
+func (k *KeyboardButtonTypeRequestUser) Zero() bool {
+	if k == nil {
+		return true
+	}
+	if !(k.ID == 0) {
+		return false
+	}
+	if !(k.RestrictUserIsBot == false) {
+		return false
+	}
+	if !(k.UserIsBot == false) {
+		return false
+	}
+	if !(k.RestrictUserIsPremium == false) {
+		return false
+	}
+	if !(k.UserIsPremium == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (k *KeyboardButtonTypeRequestUser) String() string {
+	if k == nil {
+		return "KeyboardButtonTypeRequestUser(nil)"
+	}
+	type Alias KeyboardButtonTypeRequestUser
+	return fmt.Sprintf("KeyboardButtonTypeRequestUser%+v", Alias(*k))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*KeyboardButtonTypeRequestUser) TypeID() uint32 {
+	return KeyboardButtonTypeRequestUserTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*KeyboardButtonTypeRequestUser) TypeName() string {
+	return "keyboardButtonTypeRequestUser"
+}
+
+// TypeInfo returns info about TL type.
+func (k *KeyboardButtonTypeRequestUser) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "keyboardButtonTypeRequestUser",
+		ID:   KeyboardButtonTypeRequestUserTypeID,
+	}
+	if k == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "RestrictUserIsBot",
+			SchemaName: "restrict_user_is_bot",
+		},
+		{
+			Name:       "UserIsBot",
+			SchemaName: "user_is_bot",
+		},
+		{
+			Name:       "RestrictUserIsPremium",
+			SchemaName: "restrict_user_is_premium",
+		},
+		{
+			Name:       "UserIsPremium",
+			SchemaName: "user_is_premium",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (k *KeyboardButtonTypeRequestUser) Encode(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonTypeRequestUser#88ffb430 as nil")
+	}
+	b.PutID(KeyboardButtonTypeRequestUserTypeID)
+	return k.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (k *KeyboardButtonTypeRequestUser) EncodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonTypeRequestUser#88ffb430 as nil")
+	}
+	b.PutInt32(k.ID)
+	b.PutBool(k.RestrictUserIsBot)
+	b.PutBool(k.UserIsBot)
+	b.PutBool(k.RestrictUserIsPremium)
+	b.PutBool(k.UserIsPremium)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (k *KeyboardButtonTypeRequestUser) Decode(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonTypeRequestUser#88ffb430 to nil")
+	}
+	if err := b.ConsumeID(KeyboardButtonTypeRequestUserTypeID); err != nil {
+		return fmt.Errorf("unable to decode keyboardButtonTypeRequestUser#88ffb430: %w", err)
+	}
+	return k.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (k *KeyboardButtonTypeRequestUser) DecodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonTypeRequestUser#88ffb430 to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonTypeRequestUser#88ffb430: field id: %w", err)
+		}
+		k.ID = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonTypeRequestUser#88ffb430: field restrict_user_is_bot: %w", err)
+		}
+		k.RestrictUserIsBot = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonTypeRequestUser#88ffb430: field user_is_bot: %w", err)
+		}
+		k.UserIsBot = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonTypeRequestUser#88ffb430: field restrict_user_is_premium: %w", err)
+		}
+		k.RestrictUserIsPremium = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonTypeRequestUser#88ffb430: field user_is_premium: %w", err)
+		}
+		k.UserIsPremium = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (k *KeyboardButtonTypeRequestUser) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonTypeRequestUser#88ffb430 as nil")
+	}
+	b.ObjStart()
+	b.PutID("keyboardButtonTypeRequestUser")
+	b.Comma()
+	b.FieldStart("id")
+	b.PutInt32(k.ID)
+	b.Comma()
+	b.FieldStart("restrict_user_is_bot")
+	b.PutBool(k.RestrictUserIsBot)
+	b.Comma()
+	b.FieldStart("user_is_bot")
+	b.PutBool(k.UserIsBot)
+	b.Comma()
+	b.FieldStart("restrict_user_is_premium")
+	b.PutBool(k.RestrictUserIsPremium)
+	b.Comma()
+	b.FieldStart("user_is_premium")
+	b.PutBool(k.UserIsPremium)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (k *KeyboardButtonTypeRequestUser) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonTypeRequestUser#88ffb430 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("keyboardButtonTypeRequestUser"); err != nil {
+				return fmt.Errorf("unable to decode keyboardButtonTypeRequestUser#88ffb430: %w", err)
+			}
+		case "id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode keyboardButtonTypeRequestUser#88ffb430: field id: %w", err)
+			}
+			k.ID = value
+		case "restrict_user_is_bot":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode keyboardButtonTypeRequestUser#88ffb430: field restrict_user_is_bot: %w", err)
+			}
+			k.RestrictUserIsBot = value
+		case "user_is_bot":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode keyboardButtonTypeRequestUser#88ffb430: field user_is_bot: %w", err)
+			}
+			k.UserIsBot = value
+		case "restrict_user_is_premium":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode keyboardButtonTypeRequestUser#88ffb430: field restrict_user_is_premium: %w", err)
+			}
+			k.RestrictUserIsPremium = value
+		case "user_is_premium":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode keyboardButtonTypeRequestUser#88ffb430: field user_is_premium: %w", err)
+			}
+			k.UserIsPremium = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetID returns value of ID field.
+func (k *KeyboardButtonTypeRequestUser) GetID() (value int32) {
+	if k == nil {
+		return
+	}
+	return k.ID
+}
+
+// GetRestrictUserIsBot returns value of RestrictUserIsBot field.
+func (k *KeyboardButtonTypeRequestUser) GetRestrictUserIsBot() (value bool) {
+	if k == nil {
+		return
+	}
+	return k.RestrictUserIsBot
+}
+
+// GetUserIsBot returns value of UserIsBot field.
+func (k *KeyboardButtonTypeRequestUser) GetUserIsBot() (value bool) {
+	if k == nil {
+		return
+	}
+	return k.UserIsBot
+}
+
+// GetRestrictUserIsPremium returns value of RestrictUserIsPremium field.
+func (k *KeyboardButtonTypeRequestUser) GetRestrictUserIsPremium() (value bool) {
+	if k == nil {
+		return
+	}
+	return k.RestrictUserIsPremium
+}
+
+// GetUserIsPremium returns value of UserIsPremium field.
+func (k *KeyboardButtonTypeRequestUser) GetUserIsPremium() (value bool) {
+	if k == nil {
+		return
+	}
+	return k.UserIsPremium
+}
+
+// KeyboardButtonTypeRequestChat represents TL type `keyboardButtonTypeRequestChat#103ea7a2`.
+type KeyboardButtonTypeRequestChat struct {
+	// Unique button identifier
+	ID int32
+	// True, if the chat must be a channel; otherwise, a basic group or a supergroup chat is
+	// shared
+	ChatIsChannel bool
+	// True, if the chat must or must not be a forum supergroup
+	RestrictChatIsForum bool
+	// True, if the chat must be a forum supergroup; otherwise, the chat must not be a forum
+	// supergroup. Ignored if restrict_chat_is_forum is false
+	ChatIsForum bool
+	// True, if the chat must or must not have a username
+	RestrictChatHasUsername bool
+	// True, if the chat must have a username; otherwise, the chat must not have a username.
+	// Ignored if restrict_chat_has_username is false
+	ChatHasUsername bool
+	// True, if the chat must be created by the current user
+	ChatIsCreated bool
+	// Expected user administrator rights in the chat; may be null if they aren't restricted
+	UserAdministratorRights ChatAdministratorRights
+	// Expected bot administrator rights in the chat; may be null if they aren't restricted
+	BotAdministratorRights ChatAdministratorRights
+	// True, if the bot must be a member of the chat; for basic group and supergroup chats
+	// only
+	BotIsMember bool
+}
+
+// KeyboardButtonTypeRequestChatTypeID is TL type id of KeyboardButtonTypeRequestChat.
+const KeyboardButtonTypeRequestChatTypeID = 0x103ea7a2
+
+// construct implements constructor of KeyboardButtonTypeClass.
+func (k KeyboardButtonTypeRequestChat) construct() KeyboardButtonTypeClass { return &k }
+
+// Ensuring interfaces in compile-time for KeyboardButtonTypeRequestChat.
+var (
+	_ bin.Encoder     = &KeyboardButtonTypeRequestChat{}
+	_ bin.Decoder     = &KeyboardButtonTypeRequestChat{}
+	_ bin.BareEncoder = &KeyboardButtonTypeRequestChat{}
+	_ bin.BareDecoder = &KeyboardButtonTypeRequestChat{}
+
+	_ KeyboardButtonTypeClass = &KeyboardButtonTypeRequestChat{}
+)
+
+func (k *KeyboardButtonTypeRequestChat) Zero() bool {
+	if k == nil {
+		return true
+	}
+	if !(k.ID == 0) {
+		return false
+	}
+	if !(k.ChatIsChannel == false) {
+		return false
+	}
+	if !(k.RestrictChatIsForum == false) {
+		return false
+	}
+	if !(k.ChatIsForum == false) {
+		return false
+	}
+	if !(k.RestrictChatHasUsername == false) {
+		return false
+	}
+	if !(k.ChatHasUsername == false) {
+		return false
+	}
+	if !(k.ChatIsCreated == false) {
+		return false
+	}
+	if !(k.UserAdministratorRights.Zero()) {
+		return false
+	}
+	if !(k.BotAdministratorRights.Zero()) {
+		return false
+	}
+	if !(k.BotIsMember == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (k *KeyboardButtonTypeRequestChat) String() string {
+	if k == nil {
+		return "KeyboardButtonTypeRequestChat(nil)"
+	}
+	type Alias KeyboardButtonTypeRequestChat
+	return fmt.Sprintf("KeyboardButtonTypeRequestChat%+v", Alias(*k))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*KeyboardButtonTypeRequestChat) TypeID() uint32 {
+	return KeyboardButtonTypeRequestChatTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*KeyboardButtonTypeRequestChat) TypeName() string {
+	return "keyboardButtonTypeRequestChat"
+}
+
+// TypeInfo returns info about TL type.
+func (k *KeyboardButtonTypeRequestChat) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "keyboardButtonTypeRequestChat",
+		ID:   KeyboardButtonTypeRequestChatTypeID,
+	}
+	if k == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "ChatIsChannel",
+			SchemaName: "chat_is_channel",
+		},
+		{
+			Name:       "RestrictChatIsForum",
+			SchemaName: "restrict_chat_is_forum",
+		},
+		{
+			Name:       "ChatIsForum",
+			SchemaName: "chat_is_forum",
+		},
+		{
+			Name:       "RestrictChatHasUsername",
+			SchemaName: "restrict_chat_has_username",
+		},
+		{
+			Name:       "ChatHasUsername",
+			SchemaName: "chat_has_username",
+		},
+		{
+			Name:       "ChatIsCreated",
+			SchemaName: "chat_is_created",
+		},
+		{
+			Name:       "UserAdministratorRights",
+			SchemaName: "user_administrator_rights",
+		},
+		{
+			Name:       "BotAdministratorRights",
+			SchemaName: "bot_administrator_rights",
+		},
+		{
+			Name:       "BotIsMember",
+			SchemaName: "bot_is_member",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (k *KeyboardButtonTypeRequestChat) Encode(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonTypeRequestChat#103ea7a2 as nil")
+	}
+	b.PutID(KeyboardButtonTypeRequestChatTypeID)
+	return k.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (k *KeyboardButtonTypeRequestChat) EncodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonTypeRequestChat#103ea7a2 as nil")
+	}
+	b.PutInt32(k.ID)
+	b.PutBool(k.ChatIsChannel)
+	b.PutBool(k.RestrictChatIsForum)
+	b.PutBool(k.ChatIsForum)
+	b.PutBool(k.RestrictChatHasUsername)
+	b.PutBool(k.ChatHasUsername)
+	b.PutBool(k.ChatIsCreated)
+	if err := k.UserAdministratorRights.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode keyboardButtonTypeRequestChat#103ea7a2: field user_administrator_rights: %w", err)
+	}
+	if err := k.BotAdministratorRights.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode keyboardButtonTypeRequestChat#103ea7a2: field bot_administrator_rights: %w", err)
+	}
+	b.PutBool(k.BotIsMember)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (k *KeyboardButtonTypeRequestChat) Decode(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonTypeRequestChat#103ea7a2 to nil")
+	}
+	if err := b.ConsumeID(KeyboardButtonTypeRequestChatTypeID); err != nil {
+		return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: %w", err)
+	}
+	return k.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (k *KeyboardButtonTypeRequestChat) DecodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonTypeRequestChat#103ea7a2 to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: field id: %w", err)
+		}
+		k.ID = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: field chat_is_channel: %w", err)
+		}
+		k.ChatIsChannel = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: field restrict_chat_is_forum: %w", err)
+		}
+		k.RestrictChatIsForum = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: field chat_is_forum: %w", err)
+		}
+		k.ChatIsForum = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: field restrict_chat_has_username: %w", err)
+		}
+		k.RestrictChatHasUsername = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: field chat_has_username: %w", err)
+		}
+		k.ChatHasUsername = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: field chat_is_created: %w", err)
+		}
+		k.ChatIsCreated = value
+	}
+	{
+		if err := k.UserAdministratorRights.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: field user_administrator_rights: %w", err)
+		}
+	}
+	{
+		if err := k.BotAdministratorRights.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: field bot_administrator_rights: %w", err)
+		}
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: field bot_is_member: %w", err)
+		}
+		k.BotIsMember = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (k *KeyboardButtonTypeRequestChat) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonTypeRequestChat#103ea7a2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("keyboardButtonTypeRequestChat")
+	b.Comma()
+	b.FieldStart("id")
+	b.PutInt32(k.ID)
+	b.Comma()
+	b.FieldStart("chat_is_channel")
+	b.PutBool(k.ChatIsChannel)
+	b.Comma()
+	b.FieldStart("restrict_chat_is_forum")
+	b.PutBool(k.RestrictChatIsForum)
+	b.Comma()
+	b.FieldStart("chat_is_forum")
+	b.PutBool(k.ChatIsForum)
+	b.Comma()
+	b.FieldStart("restrict_chat_has_username")
+	b.PutBool(k.RestrictChatHasUsername)
+	b.Comma()
+	b.FieldStart("chat_has_username")
+	b.PutBool(k.ChatHasUsername)
+	b.Comma()
+	b.FieldStart("chat_is_created")
+	b.PutBool(k.ChatIsCreated)
+	b.Comma()
+	b.FieldStart("user_administrator_rights")
+	if err := k.UserAdministratorRights.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode keyboardButtonTypeRequestChat#103ea7a2: field user_administrator_rights: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("bot_administrator_rights")
+	if err := k.BotAdministratorRights.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode keyboardButtonTypeRequestChat#103ea7a2: field bot_administrator_rights: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("bot_is_member")
+	b.PutBool(k.BotIsMember)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (k *KeyboardButtonTypeRequestChat) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonTypeRequestChat#103ea7a2 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("keyboardButtonTypeRequestChat"); err != nil {
+				return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: %w", err)
+			}
+		case "id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: field id: %w", err)
+			}
+			k.ID = value
+		case "chat_is_channel":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: field chat_is_channel: %w", err)
+			}
+			k.ChatIsChannel = value
+		case "restrict_chat_is_forum":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: field restrict_chat_is_forum: %w", err)
+			}
+			k.RestrictChatIsForum = value
+		case "chat_is_forum":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: field chat_is_forum: %w", err)
+			}
+			k.ChatIsForum = value
+		case "restrict_chat_has_username":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: field restrict_chat_has_username: %w", err)
+			}
+			k.RestrictChatHasUsername = value
+		case "chat_has_username":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: field chat_has_username: %w", err)
+			}
+			k.ChatHasUsername = value
+		case "chat_is_created":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: field chat_is_created: %w", err)
+			}
+			k.ChatIsCreated = value
+		case "user_administrator_rights":
+			if err := k.UserAdministratorRights.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: field user_administrator_rights: %w", err)
+			}
+		case "bot_administrator_rights":
+			if err := k.BotAdministratorRights.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: field bot_administrator_rights: %w", err)
+			}
+		case "bot_is_member":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode keyboardButtonTypeRequestChat#103ea7a2: field bot_is_member: %w", err)
+			}
+			k.BotIsMember = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetID returns value of ID field.
+func (k *KeyboardButtonTypeRequestChat) GetID() (value int32) {
+	if k == nil {
+		return
+	}
+	return k.ID
+}
+
+// GetChatIsChannel returns value of ChatIsChannel field.
+func (k *KeyboardButtonTypeRequestChat) GetChatIsChannel() (value bool) {
+	if k == nil {
+		return
+	}
+	return k.ChatIsChannel
+}
+
+// GetRestrictChatIsForum returns value of RestrictChatIsForum field.
+func (k *KeyboardButtonTypeRequestChat) GetRestrictChatIsForum() (value bool) {
+	if k == nil {
+		return
+	}
+	return k.RestrictChatIsForum
+}
+
+// GetChatIsForum returns value of ChatIsForum field.
+func (k *KeyboardButtonTypeRequestChat) GetChatIsForum() (value bool) {
+	if k == nil {
+		return
+	}
+	return k.ChatIsForum
+}
+
+// GetRestrictChatHasUsername returns value of RestrictChatHasUsername field.
+func (k *KeyboardButtonTypeRequestChat) GetRestrictChatHasUsername() (value bool) {
+	if k == nil {
+		return
+	}
+	return k.RestrictChatHasUsername
+}
+
+// GetChatHasUsername returns value of ChatHasUsername field.
+func (k *KeyboardButtonTypeRequestChat) GetChatHasUsername() (value bool) {
+	if k == nil {
+		return
+	}
+	return k.ChatHasUsername
+}
+
+// GetChatIsCreated returns value of ChatIsCreated field.
+func (k *KeyboardButtonTypeRequestChat) GetChatIsCreated() (value bool) {
+	if k == nil {
+		return
+	}
+	return k.ChatIsCreated
+}
+
+// GetUserAdministratorRights returns value of UserAdministratorRights field.
+func (k *KeyboardButtonTypeRequestChat) GetUserAdministratorRights() (value ChatAdministratorRights) {
+	if k == nil {
+		return
+	}
+	return k.UserAdministratorRights
+}
+
+// GetBotAdministratorRights returns value of BotAdministratorRights field.
+func (k *KeyboardButtonTypeRequestChat) GetBotAdministratorRights() (value ChatAdministratorRights) {
+	if k == nil {
+		return
+	}
+	return k.BotAdministratorRights
+}
+
+// GetBotIsMember returns value of BotIsMember field.
+func (k *KeyboardButtonTypeRequestChat) GetBotIsMember() (value bool) {
+	if k == nil {
+		return
+	}
+	return k.BotIsMember
+}
+
 // KeyboardButtonTypeWebApp represents TL type `keyboardButtonTypeWebApp#70c8ff62`.
 type KeyboardButtonTypeWebApp struct {
 	// An HTTP URL to pass to getWebAppUrl
@@ -806,6 +1586,8 @@ const KeyboardButtonTypeClassName = "KeyboardButtonType"
 //	case *tdapi.KeyboardButtonTypeRequestPhoneNumber: // keyboardButtonTypeRequestPhoneNumber#a4d9b7b9
 //	case *tdapi.KeyboardButtonTypeRequestLocation: // keyboardButtonTypeRequestLocation#f8828cfd
 //	case *tdapi.KeyboardButtonTypeRequestPoll: // keyboardButtonTypeRequestPoll#7164dcb8
+//	case *tdapi.KeyboardButtonTypeRequestUser: // keyboardButtonTypeRequestUser#88ffb430
+//	case *tdapi.KeyboardButtonTypeRequestChat: // keyboardButtonTypeRequestChat#103ea7a2
 //	case *tdapi.KeyboardButtonTypeWebApp: // keyboardButtonTypeWebApp#70c8ff62
 //	default: panic(v)
 //	}
@@ -866,6 +1648,20 @@ func DecodeKeyboardButtonType(buf *bin.Buffer) (KeyboardButtonTypeClass, error) 
 			return nil, fmt.Errorf("unable to decode KeyboardButtonTypeClass: %w", err)
 		}
 		return &v, nil
+	case KeyboardButtonTypeRequestUserTypeID:
+		// Decoding keyboardButtonTypeRequestUser#88ffb430.
+		v := KeyboardButtonTypeRequestUser{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode KeyboardButtonTypeClass: %w", err)
+		}
+		return &v, nil
+	case KeyboardButtonTypeRequestChatTypeID:
+		// Decoding keyboardButtonTypeRequestChat#103ea7a2.
+		v := KeyboardButtonTypeRequestChat{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode KeyboardButtonTypeClass: %w", err)
+		}
+		return &v, nil
 	case KeyboardButtonTypeWebAppTypeID:
 		// Decoding keyboardButtonTypeWebApp#70c8ff62.
 		v := KeyboardButtonTypeWebApp{}
@@ -909,6 +1705,20 @@ func DecodeTDLibJSONKeyboardButtonType(buf tdjson.Decoder) (KeyboardButtonTypeCl
 	case "keyboardButtonTypeRequestPoll":
 		// Decoding keyboardButtonTypeRequestPoll#7164dcb8.
 		v := KeyboardButtonTypeRequestPoll{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode KeyboardButtonTypeClass: %w", err)
+		}
+		return &v, nil
+	case "keyboardButtonTypeRequestUser":
+		// Decoding keyboardButtonTypeRequestUser#88ffb430.
+		v := KeyboardButtonTypeRequestUser{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode KeyboardButtonTypeClass: %w", err)
+		}
+		return &v, nil
+	case "keyboardButtonTypeRequestChat":
+		// Decoding keyboardButtonTypeRequestChat#103ea7a2.
+		v := KeyboardButtonTypeRequestChat{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode KeyboardButtonTypeClass: %w", err)
 		}

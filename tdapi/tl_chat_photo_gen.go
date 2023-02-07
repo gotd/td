@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatPhoto represents TL type `chatPhoto#8906c59f`.
+// ChatPhoto represents TL type `chatPhoto#96e90714`.
 type ChatPhoto struct {
 	// Unique photo identifier
 	ID int64
@@ -41,15 +41,17 @@ type ChatPhoto struct {
 	Minithumbnail Minithumbnail
 	// Available variants of the photo in JPEG format, in different size
 	Sizes []PhotoSize
-	// A big (640x640) animated variant of the photo in MPEG4 format; may be null
+	// A big (up to 1280x1280) animated variant of the photo in MPEG4 format; may be null
 	Animation AnimatedChatPhoto
 	// A small (160x160) animated variant of the photo in MPEG4 format; may be null even the
 	// big animation is available
 	SmallAnimation AnimatedChatPhoto
+	// Sticker-based version of the chat photo; may be null
+	Sticker ChatPhotoSticker
 }
 
 // ChatPhotoTypeID is TL type id of ChatPhoto.
-const ChatPhotoTypeID = 0x8906c59f
+const ChatPhotoTypeID = 0x96e90714
 
 // Ensuring interfaces in compile-time for ChatPhoto.
 var (
@@ -79,6 +81,9 @@ func (c *ChatPhoto) Zero() bool {
 		return false
 	}
 	if !(c.SmallAnimation.Zero()) {
+		return false
+	}
+	if !(c.Sticker.Zero()) {
 		return false
 	}
 
@@ -141,6 +146,10 @@ func (c *ChatPhoto) TypeInfo() tdp.Type {
 			Name:       "SmallAnimation",
 			SchemaName: "small_animation",
 		},
+		{
+			Name:       "Sticker",
+			SchemaName: "sticker",
+		},
 	}
 	return typ
 }
@@ -148,7 +157,7 @@ func (c *ChatPhoto) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatPhoto) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatPhoto#8906c59f as nil")
+		return fmt.Errorf("can't encode chatPhoto#96e90714 as nil")
 	}
 	b.PutID(ChatPhotoTypeID)
 	return c.EncodeBare(b)
@@ -157,24 +166,27 @@ func (c *ChatPhoto) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatPhoto) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatPhoto#8906c59f as nil")
+		return fmt.Errorf("can't encode chatPhoto#96e90714 as nil")
 	}
 	b.PutLong(c.ID)
 	b.PutInt32(c.AddedDate)
 	if err := c.Minithumbnail.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatPhoto#8906c59f: field minithumbnail: %w", err)
+		return fmt.Errorf("unable to encode chatPhoto#96e90714: field minithumbnail: %w", err)
 	}
 	b.PutInt(len(c.Sizes))
 	for idx, v := range c.Sizes {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare chatPhoto#8906c59f: field sizes element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare chatPhoto#96e90714: field sizes element with index %d: %w", idx, err)
 		}
 	}
 	if err := c.Animation.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatPhoto#8906c59f: field animation: %w", err)
+		return fmt.Errorf("unable to encode chatPhoto#96e90714: field animation: %w", err)
 	}
 	if err := c.SmallAnimation.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatPhoto#8906c59f: field small_animation: %w", err)
+		return fmt.Errorf("unable to encode chatPhoto#96e90714: field small_animation: %w", err)
+	}
+	if err := c.Sticker.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatPhoto#96e90714: field sticker: %w", err)
 	}
 	return nil
 }
@@ -182,10 +194,10 @@ func (c *ChatPhoto) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatPhoto) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatPhoto#8906c59f to nil")
+		return fmt.Errorf("can't decode chatPhoto#96e90714 to nil")
 	}
 	if err := b.ConsumeID(ChatPhotoTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatPhoto#8906c59f: %w", err)
+		return fmt.Errorf("unable to decode chatPhoto#96e90714: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -193,31 +205,31 @@ func (c *ChatPhoto) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatPhoto) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatPhoto#8906c59f to nil")
+		return fmt.Errorf("can't decode chatPhoto#96e90714 to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPhoto#8906c59f: field id: %w", err)
+			return fmt.Errorf("unable to decode chatPhoto#96e90714: field id: %w", err)
 		}
 		c.ID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPhoto#8906c59f: field added_date: %w", err)
+			return fmt.Errorf("unable to decode chatPhoto#96e90714: field added_date: %w", err)
 		}
 		c.AddedDate = value
 	}
 	{
 		if err := c.Minithumbnail.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatPhoto#8906c59f: field minithumbnail: %w", err)
+			return fmt.Errorf("unable to decode chatPhoto#96e90714: field minithumbnail: %w", err)
 		}
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPhoto#8906c59f: field sizes: %w", err)
+			return fmt.Errorf("unable to decode chatPhoto#96e90714: field sizes: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -226,19 +238,24 @@ func (c *ChatPhoto) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value PhotoSize
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare chatPhoto#8906c59f: field sizes: %w", err)
+				return fmt.Errorf("unable to decode bare chatPhoto#96e90714: field sizes: %w", err)
 			}
 			c.Sizes = append(c.Sizes, value)
 		}
 	}
 	{
 		if err := c.Animation.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatPhoto#8906c59f: field animation: %w", err)
+			return fmt.Errorf("unable to decode chatPhoto#96e90714: field animation: %w", err)
 		}
 	}
 	{
 		if err := c.SmallAnimation.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatPhoto#8906c59f: field small_animation: %w", err)
+			return fmt.Errorf("unable to decode chatPhoto#96e90714: field small_animation: %w", err)
+		}
+	}
+	{
+		if err := c.Sticker.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatPhoto#96e90714: field sticker: %w", err)
 		}
 	}
 	return nil
@@ -247,7 +264,7 @@ func (c *ChatPhoto) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatPhoto#8906c59f as nil")
+		return fmt.Errorf("can't encode chatPhoto#96e90714 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatPhoto")
@@ -260,14 +277,14 @@ func (c *ChatPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("minithumbnail")
 	if err := c.Minithumbnail.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatPhoto#8906c59f: field minithumbnail: %w", err)
+		return fmt.Errorf("unable to encode chatPhoto#96e90714: field minithumbnail: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("sizes")
 	b.ArrStart()
 	for idx, v := range c.Sizes {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode chatPhoto#8906c59f: field sizes element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode chatPhoto#96e90714: field sizes element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -276,12 +293,17 @@ func (c *ChatPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("animation")
 	if err := c.Animation.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatPhoto#8906c59f: field animation: %w", err)
+		return fmt.Errorf("unable to encode chatPhoto#96e90714: field animation: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("small_animation")
 	if err := c.SmallAnimation.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatPhoto#8906c59f: field small_animation: %w", err)
+		return fmt.Errorf("unable to encode chatPhoto#96e90714: field small_animation: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("sticker")
+	if err := c.Sticker.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatPhoto#96e90714: field sticker: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -292,49 +314,53 @@ func (c *ChatPhoto) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatPhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatPhoto#8906c59f to nil")
+		return fmt.Errorf("can't decode chatPhoto#96e90714 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatPhoto"); err != nil {
-				return fmt.Errorf("unable to decode chatPhoto#8906c59f: %w", err)
+				return fmt.Errorf("unable to decode chatPhoto#96e90714: %w", err)
 			}
 		case "id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatPhoto#8906c59f: field id: %w", err)
+				return fmt.Errorf("unable to decode chatPhoto#96e90714: field id: %w", err)
 			}
 			c.ID = value
 		case "added_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatPhoto#8906c59f: field added_date: %w", err)
+				return fmt.Errorf("unable to decode chatPhoto#96e90714: field added_date: %w", err)
 			}
 			c.AddedDate = value
 		case "minithumbnail":
 			if err := c.Minithumbnail.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatPhoto#8906c59f: field minithumbnail: %w", err)
+				return fmt.Errorf("unable to decode chatPhoto#96e90714: field minithumbnail: %w", err)
 			}
 		case "sizes":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value PhotoSize
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode chatPhoto#8906c59f: field sizes: %w", err)
+					return fmt.Errorf("unable to decode chatPhoto#96e90714: field sizes: %w", err)
 				}
 				c.Sizes = append(c.Sizes, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode chatPhoto#8906c59f: field sizes: %w", err)
+				return fmt.Errorf("unable to decode chatPhoto#96e90714: field sizes: %w", err)
 			}
 		case "animation":
 			if err := c.Animation.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatPhoto#8906c59f: field animation: %w", err)
+				return fmt.Errorf("unable to decode chatPhoto#96e90714: field animation: %w", err)
 			}
 		case "small_animation":
 			if err := c.SmallAnimation.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatPhoto#8906c59f: field small_animation: %w", err)
+				return fmt.Errorf("unable to decode chatPhoto#96e90714: field small_animation: %w", err)
+			}
+		case "sticker":
+			if err := c.Sticker.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatPhoto#96e90714: field sticker: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -389,4 +415,12 @@ func (c *ChatPhoto) GetSmallAnimation() (value AnimatedChatPhoto) {
 		return
 	}
 	return c.SmallAnimation
+}
+
+// GetSticker returns value of Sticker field.
+func (c *ChatPhoto) GetSticker() (value ChatPhotoSticker) {
+	if c == nil {
+		return
+	}
+	return c.Sticker
 }
