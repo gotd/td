@@ -28,7 +28,7 @@ func (m *mockFlow) SignIn(context.Context, string, string, string) (*tg.AuthAuth
 	return m.Password(context.Background(), "")
 }
 
-func (m *mockFlow) SendCode(context.Context, string, auth.SendCodeOptions) (*tg.AuthSentCode, error) {
+func (m *mockFlow) SendCode(context.Context, string, auth.SendCodeOptions) (tg.AuthSentCodeClass, error) {
 	return &tg.AuthSentCode{
 		PhoneCodeHash: "hash",
 		Type:          &tg.AuthSentCodeTypeApp{},

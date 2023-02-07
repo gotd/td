@@ -105,7 +105,7 @@ func TestClient_AuthSignIn(t *testing.T) {
 		client := testClient(invoker)
 		sentCode, err := client.SendCode(ctx, phone, SendCodeOptions{CurrentNumber: true})
 		require.NoError(t, err)
-		h := sentCode.PhoneCodeHash
+		h := sentCode.(*tg.AuthSentCode).PhoneCodeHash
 		require.Equal(t, codeHash, h)
 
 		// 2. Send code from device to server.
