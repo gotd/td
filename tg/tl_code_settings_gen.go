@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// CodeSettings represents TL type `codeSettings#8a6469c2`.
+// CodeSettings represents TL type `codeSettings#ad253d78`.
 // Settings used by telegram servers for sending the confirm code.
 // Example implementations: telegram for android¹, tdlib².
 //
@@ -66,6 +66,8 @@ type CodeSettings struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/auth.codeTypeMissedCall
 	AllowMissedCall bool
+	// AllowFirebase field of CodeSettings.
+	AllowFirebase bool
 	// Previously stored logout tokens, see the documentation for more info »¹
 	//
 	// Links:
@@ -73,10 +75,18 @@ type CodeSettings struct {
 	//
 	// Use SetLogoutTokens and GetLogoutTokens helpers.
 	LogoutTokens [][]byte
+	// Token field of CodeSettings.
+	//
+	// Use SetToken and GetToken helpers.
+	Token string
+	// AppSandbox field of CodeSettings.
+	//
+	// Use SetAppSandbox and GetAppSandbox helpers.
+	AppSandbox bool
 }
 
 // CodeSettingsTypeID is TL type id of CodeSettings.
-const CodeSettingsTypeID = 0x8a6469c2
+const CodeSettingsTypeID = 0xad253d78
 
 // Ensuring interfaces in compile-time for CodeSettings.
 var (
@@ -105,7 +115,16 @@ func (c *CodeSettings) Zero() bool {
 	if !(c.AllowMissedCall == false) {
 		return false
 	}
+	if !(c.AllowFirebase == false) {
+		return false
+	}
 	if !(c.LogoutTokens == nil) {
+		return false
+	}
+	if !(c.Token == "") {
+		return false
+	}
+	if !(c.AppSandbox == false) {
 		return false
 	}
 
@@ -127,14 +146,26 @@ func (c *CodeSettings) FillFrom(from interface {
 	GetCurrentNumber() (value bool)
 	GetAllowAppHash() (value bool)
 	GetAllowMissedCall() (value bool)
+	GetAllowFirebase() (value bool)
 	GetLogoutTokens() (value [][]byte, ok bool)
+	GetToken() (value string, ok bool)
+	GetAppSandbox() (value bool, ok bool)
 }) {
 	c.AllowFlashcall = from.GetAllowFlashcall()
 	c.CurrentNumber = from.GetCurrentNumber()
 	c.AllowAppHash = from.GetAllowAppHash()
 	c.AllowMissedCall = from.GetAllowMissedCall()
+	c.AllowFirebase = from.GetAllowFirebase()
 	if val, ok := from.GetLogoutTokens(); ok {
 		c.LogoutTokens = val
+	}
+
+	if val, ok := from.GetToken(); ok {
+		c.Token = val
+	}
+
+	if val, ok := from.GetAppSandbox(); ok {
+		c.AppSandbox = val
 	}
 
 }
@@ -183,9 +214,24 @@ func (c *CodeSettings) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(5),
 		},
 		{
+			Name:       "AllowFirebase",
+			SchemaName: "allow_firebase",
+			Null:       !c.Flags.Has(7),
+		},
+		{
 			Name:       "LogoutTokens",
 			SchemaName: "logout_tokens",
 			Null:       !c.Flags.Has(6),
+		},
+		{
+			Name:       "Token",
+			SchemaName: "token",
+			Null:       !c.Flags.Has(8),
+		},
+		{
+			Name:       "AppSandbox",
+			SchemaName: "app_sandbox",
+			Null:       !c.Flags.Has(8),
 		},
 	}
 	return typ
@@ -205,15 +251,24 @@ func (c *CodeSettings) SetFlags() {
 	if !(c.AllowMissedCall == false) {
 		c.Flags.Set(5)
 	}
+	if !(c.AllowFirebase == false) {
+		c.Flags.Set(7)
+	}
 	if !(c.LogoutTokens == nil) {
 		c.Flags.Set(6)
+	}
+	if !(c.Token == "") {
+		c.Flags.Set(8)
+	}
+	if !(c.AppSandbox == false) {
+		c.Flags.Set(8)
 	}
 }
 
 // Encode implements bin.Encoder.
 func (c *CodeSettings) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode codeSettings#8a6469c2 as nil")
+		return fmt.Errorf("can't encode codeSettings#ad253d78 as nil")
 	}
 	b.PutID(CodeSettingsTypeID)
 	return c.EncodeBare(b)
@@ -222,11 +277,11 @@ func (c *CodeSettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *CodeSettings) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode codeSettings#8a6469c2 as nil")
+		return fmt.Errorf("can't encode codeSettings#ad253d78 as nil")
 	}
 	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode codeSettings#8a6469c2: field flags: %w", err)
+		return fmt.Errorf("unable to encode codeSettings#ad253d78: field flags: %w", err)
 	}
 	if c.Flags.Has(6) {
 		b.PutVectorHeader(len(c.LogoutTokens))
@@ -234,16 +289,22 @@ func (c *CodeSettings) EncodeBare(b *bin.Buffer) error {
 			b.PutBytes(v)
 		}
 	}
+	if c.Flags.Has(8) {
+		b.PutString(c.Token)
+	}
+	if c.Flags.Has(8) {
+		b.PutBool(c.AppSandbox)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *CodeSettings) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode codeSettings#8a6469c2 to nil")
+		return fmt.Errorf("can't decode codeSettings#ad253d78 to nil")
 	}
 	if err := b.ConsumeID(CodeSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode codeSettings#8a6469c2: %w", err)
+		return fmt.Errorf("unable to decode codeSettings#ad253d78: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -251,21 +312,22 @@ func (c *CodeSettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *CodeSettings) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode codeSettings#8a6469c2 to nil")
+		return fmt.Errorf("can't decode codeSettings#ad253d78 to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode codeSettings#8a6469c2: field flags: %w", err)
+			return fmt.Errorf("unable to decode codeSettings#ad253d78: field flags: %w", err)
 		}
 	}
 	c.AllowFlashcall = c.Flags.Has(0)
 	c.CurrentNumber = c.Flags.Has(1)
 	c.AllowAppHash = c.Flags.Has(4)
 	c.AllowMissedCall = c.Flags.Has(5)
+	c.AllowFirebase = c.Flags.Has(7)
 	if c.Flags.Has(6) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode codeSettings#8a6469c2: field logout_tokens: %w", err)
+			return fmt.Errorf("unable to decode codeSettings#ad253d78: field logout_tokens: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -274,10 +336,24 @@ func (c *CodeSettings) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Bytes()
 			if err != nil {
-				return fmt.Errorf("unable to decode codeSettings#8a6469c2: field logout_tokens: %w", err)
+				return fmt.Errorf("unable to decode codeSettings#ad253d78: field logout_tokens: %w", err)
 			}
 			c.LogoutTokens = append(c.LogoutTokens, value)
 		}
+	}
+	if c.Flags.Has(8) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode codeSettings#ad253d78: field token: %w", err)
+		}
+		c.Token = value
+	}
+	if c.Flags.Has(8) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode codeSettings#ad253d78: field app_sandbox: %w", err)
+		}
+		c.AppSandbox = value
 	}
 	return nil
 }
@@ -358,6 +434,25 @@ func (c *CodeSettings) GetAllowMissedCall() (value bool) {
 	return c.Flags.Has(5)
 }
 
+// SetAllowFirebase sets value of AllowFirebase conditional field.
+func (c *CodeSettings) SetAllowFirebase(value bool) {
+	if value {
+		c.Flags.Set(7)
+		c.AllowFirebase = true
+	} else {
+		c.Flags.Unset(7)
+		c.AllowFirebase = false
+	}
+}
+
+// GetAllowFirebase returns value of AllowFirebase conditional field.
+func (c *CodeSettings) GetAllowFirebase() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(7)
+}
+
 // SetLogoutTokens sets value of LogoutTokens conditional field.
 func (c *CodeSettings) SetLogoutTokens(value [][]byte) {
 	c.Flags.Set(6)
@@ -374,4 +469,40 @@ func (c *CodeSettings) GetLogoutTokens() (value [][]byte, ok bool) {
 		return value, false
 	}
 	return c.LogoutTokens, true
+}
+
+// SetToken sets value of Token conditional field.
+func (c *CodeSettings) SetToken(value string) {
+	c.Flags.Set(8)
+	c.Token = value
+}
+
+// GetToken returns value of Token conditional field and
+// boolean which is true if field was set.
+func (c *CodeSettings) GetToken() (value string, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(8) {
+		return value, false
+	}
+	return c.Token, true
+}
+
+// SetAppSandbox sets value of AppSandbox conditional field.
+func (c *CodeSettings) SetAppSandbox(value bool) {
+	c.Flags.Set(8)
+	c.AppSandbox = value
+}
+
+// GetAppSandbox returns value of AppSandbox conditional field and
+// boolean which is true if field was set.
+func (c *CodeSettings) GetAppSandbox() (value bool, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(8) {
+		return value, false
+	}
+	return c.AppSandbox, true
 }

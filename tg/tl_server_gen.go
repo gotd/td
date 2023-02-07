@@ -57,7 +57,7 @@ func (s *ServerDispatcher) Handle(ctx context.Context, b *bin.Buffer) (bin.Encod
 	return f(ctx, b)
 }
 
-func (s *ServerDispatcher) OnAuthSendCode(f func(ctx context.Context, request *AuthSendCodeRequest) (*AuthSentCode, error)) {
+func (s *ServerDispatcher) OnAuthSendCode(f func(ctx context.Context, request *AuthSendCodeRequest) (AuthSentCodeClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request AuthSendCodeRequest
 		if err := request.Decode(b); err != nil {
@@ -68,7 +68,7 @@ func (s *ServerDispatcher) OnAuthSendCode(f func(ctx context.Context, request *A
 		if err != nil {
 			return nil, err
 		}
-		return response, nil
+		return &AuthSentCodeBox{SentCode: response}, nil
 	}
 
 	s.handlers[AuthSendCodeRequestTypeID] = handler
@@ -269,7 +269,7 @@ func (s *ServerDispatcher) OnAuthRecoverPassword(f func(ctx context.Context, req
 	s.handlers[AuthRecoverPasswordRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnAuthResendCode(f func(ctx context.Context, request *AuthResendCodeRequest) (*AuthSentCode, error)) {
+func (s *ServerDispatcher) OnAuthResendCode(f func(ctx context.Context, request *AuthResendCodeRequest) (AuthSentCodeClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request AuthResendCodeRequest
 		if err := request.Decode(b); err != nil {
@@ -280,7 +280,7 @@ func (s *ServerDispatcher) OnAuthResendCode(f func(ctx context.Context, request 
 		if err != nil {
 			return nil, err
 		}
-		return response, nil
+		return &AuthSentCodeBox{SentCode: response}, nil
 	}
 
 	s.handlers[AuthResendCodeRequestTypeID] = handler
@@ -415,6 +415,27 @@ func (s *ServerDispatcher) OnAuthImportWebTokenAuthorization(f func(ctx context.
 	}
 
 	s.handlers[AuthImportWebTokenAuthorizationRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAuthRequestFirebaseSMS(f func(ctx context.Context, request *AuthRequestFirebaseSMSRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AuthRequestFirebaseSMSRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AuthRequestFirebaseSMSRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnAccountRegisterDevice(f func(ctx context.Context, request *AccountRegisterDeviceRequest) (bool, error)) {
@@ -725,7 +746,7 @@ func (s *ServerDispatcher) OnAccountSetAccountTTL(f func(ctx context.Context, tt
 	s.handlers[AccountSetAccountTTLRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnAccountSendChangePhoneCode(f func(ctx context.Context, request *AccountSendChangePhoneCodeRequest) (*AuthSentCode, error)) {
+func (s *ServerDispatcher) OnAccountSendChangePhoneCode(f func(ctx context.Context, request *AccountSendChangePhoneCodeRequest) (AuthSentCodeClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request AccountSendChangePhoneCodeRequest
 		if err := request.Decode(b); err != nil {
@@ -736,7 +757,7 @@ func (s *ServerDispatcher) OnAccountSendChangePhoneCode(f func(ctx context.Conte
 		if err != nil {
 			return nil, err
 		}
-		return response, nil
+		return &AuthSentCodeBox{SentCode: response}, nil
 	}
 
 	s.handlers[AccountSendChangePhoneCodeRequestTypeID] = handler
@@ -873,7 +894,7 @@ func (s *ServerDispatcher) OnAccountUpdatePasswordSettings(f func(ctx context.Co
 	s.handlers[AccountUpdatePasswordSettingsRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnAccountSendConfirmPhoneCode(f func(ctx context.Context, request *AccountSendConfirmPhoneCodeRequest) (*AuthSentCode, error)) {
+func (s *ServerDispatcher) OnAccountSendConfirmPhoneCode(f func(ctx context.Context, request *AccountSendConfirmPhoneCodeRequest) (AuthSentCodeClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request AccountSendConfirmPhoneCodeRequest
 		if err := request.Decode(b); err != nil {
@@ -884,7 +905,7 @@ func (s *ServerDispatcher) OnAccountSendConfirmPhoneCode(f func(ctx context.Cont
 		if err != nil {
 			return nil, err
 		}
-		return response, nil
+		return &AuthSentCodeBox{SentCode: response}, nil
 	}
 
 	s.handlers[AccountSendConfirmPhoneCodeRequestTypeID] = handler
@@ -1097,7 +1118,7 @@ func (s *ServerDispatcher) OnAccountAcceptAuthorization(f func(ctx context.Conte
 	s.handlers[AccountAcceptAuthorizationRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnAccountSendVerifyPhoneCode(f func(ctx context.Context, request *AccountSendVerifyPhoneCodeRequest) (*AuthSentCode, error)) {
+func (s *ServerDispatcher) OnAccountSendVerifyPhoneCode(f func(ctx context.Context, request *AccountSendVerifyPhoneCodeRequest) (AuthSentCodeClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request AccountSendVerifyPhoneCodeRequest
 		if err := request.Decode(b); err != nil {
@@ -1108,7 +1129,7 @@ func (s *ServerDispatcher) OnAccountSendVerifyPhoneCode(f func(ctx context.Conte
 		if err != nil {
 			return nil, err
 		}
-		return response, nil
+		return &AuthSentCodeBox{SentCode: response}, nil
 	}
 
 	s.handlers[AccountSendVerifyPhoneCodeRequestTypeID] = handler
@@ -1965,6 +1986,99 @@ func (s *ServerDispatcher) OnAccountToggleUsername(f func(ctx context.Context, r
 	}
 
 	s.handlers[AccountToggleUsernameRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountGetDefaultProfilePhotoEmojis(f func(ctx context.Context, hash int64) (EmojiListClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountGetDefaultProfilePhotoEmojisRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hash)
+		if err != nil {
+			return nil, err
+		}
+		return &EmojiListBox{EmojiList: response}, nil
+	}
+
+	s.handlers[AccountGetDefaultProfilePhotoEmojisRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountGetDefaultGroupPhotoEmojis(f func(ctx context.Context, hash int64) (EmojiListClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountGetDefaultGroupPhotoEmojisRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hash)
+		if err != nil {
+			return nil, err
+		}
+		return &EmojiListBox{EmojiList: response}, nil
+	}
+
+	s.handlers[AccountGetDefaultGroupPhotoEmojisRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountGetAutoSaveSettings(f func(ctx context.Context) (*AccountAutoSaveSettings, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountGetAutoSaveSettingsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[AccountGetAutoSaveSettingsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountSaveAutoSaveSettings(f func(ctx context.Context, request *AccountSaveAutoSaveSettingsRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountSaveAutoSaveSettingsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AccountSaveAutoSaveSettingsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountDeleteAutoSaveExceptions(f func(ctx context.Context) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountDeleteAutoSaveExceptionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AccountDeleteAutoSaveExceptionsRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnUsersGetUsers(f func(ctx context.Context, id []InputUserClass) ([]UserClass, error)) {
@@ -5224,7 +5338,7 @@ func (s *ServerDispatcher) OnMessagesSetDefaultReaction(f func(ctx context.Conte
 	s.handlers[MessagesSetDefaultReactionRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesTranslateText(f func(ctx context.Context, request *MessagesTranslateTextRequest) (MessagesTranslatedTextClass, error)) {
+func (s *ServerDispatcher) OnMessagesTranslateText(f func(ctx context.Context, request *MessagesTranslateTextRequest) (*MessagesTranslateResult, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesTranslateTextRequest
 		if err := request.Decode(b); err != nil {
@@ -5235,7 +5349,7 @@ func (s *ServerDispatcher) OnMessagesTranslateText(f func(ctx context.Context, r
 		if err != nil {
 			return nil, err
 		}
-		return &MessagesTranslatedTextBox{TranslatedText: response}, nil
+		return response, nil
 	}
 
 	s.handlers[MessagesTranslateTextRequestTypeID] = handler
@@ -5654,6 +5768,112 @@ func (s *ServerDispatcher) OnMessagesGetDefaultHistoryTTL(f func(ctx context.Con
 	}
 
 	s.handlers[MessagesGetDefaultHistoryTTLRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesSendBotRequestedPeer(f func(ctx context.Context, request *MessagesSendBotRequestedPeerRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesSendBotRequestedPeerRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[MessagesSendBotRequestedPeerRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetEmojiGroups(f func(ctx context.Context, hash int) (MessagesEmojiGroupsClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetEmojiGroupsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hash)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesEmojiGroupsBox{EmojiGroups: response}, nil
+	}
+
+	s.handlers[MessagesGetEmojiGroupsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetEmojiStatusGroups(f func(ctx context.Context, hash int) (MessagesEmojiGroupsClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetEmojiStatusGroupsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hash)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesEmojiGroupsBox{EmojiGroups: response}, nil
+	}
+
+	s.handlers[MessagesGetEmojiStatusGroupsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetEmojiProfilePhotoGroups(f func(ctx context.Context, hash int) (MessagesEmojiGroupsClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetEmojiProfilePhotoGroupsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hash)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesEmojiGroupsBox{EmojiGroups: response}, nil
+	}
+
+	s.handlers[MessagesGetEmojiProfilePhotoGroupsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesSearchCustomEmoji(f func(ctx context.Context, request *MessagesSearchCustomEmojiRequest) (EmojiListClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesSearchCustomEmojiRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &EmojiListBox{EmojiList: response}, nil
+	}
+
+	s.handlers[MessagesSearchCustomEmojiRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesTogglePeerTranslations(f func(ctx context.Context, request *MessagesTogglePeerTranslationsRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesTogglePeerTranslationsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesTogglePeerTranslationsRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {

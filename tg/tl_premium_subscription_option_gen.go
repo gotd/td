@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PremiumSubscriptionOption represents TL type `premiumSubscriptionOption#b6f11ebe`.
+// PremiumSubscriptionOption represents TL type `premiumSubscriptionOption#5f2d1df2`.
 //
 // See https://core.telegram.org/constructor/premiumSubscriptionOption for reference.
 type PremiumSubscriptionOption struct {
@@ -41,6 +41,10 @@ type PremiumSubscriptionOption struct {
 	Current bool
 	// CanPurchaseUpgrade field of PremiumSubscriptionOption.
 	CanPurchaseUpgrade bool
+	// Transaction field of PremiumSubscriptionOption.
+	//
+	// Use SetTransaction and GetTransaction helpers.
+	Transaction string
 	// Months field of PremiumSubscriptionOption.
 	Months int
 	// Currency field of PremiumSubscriptionOption.
@@ -56,7 +60,7 @@ type PremiumSubscriptionOption struct {
 }
 
 // PremiumSubscriptionOptionTypeID is TL type id of PremiumSubscriptionOption.
-const PremiumSubscriptionOptionTypeID = 0xb6f11ebe
+const PremiumSubscriptionOptionTypeID = 0x5f2d1df2
 
 // Ensuring interfaces in compile-time for PremiumSubscriptionOption.
 var (
@@ -77,6 +81,9 @@ func (p *PremiumSubscriptionOption) Zero() bool {
 		return false
 	}
 	if !(p.CanPurchaseUpgrade == false) {
+		return false
+	}
+	if !(p.Transaction == "") {
 		return false
 	}
 	if !(p.Months == 0) {
@@ -111,6 +118,7 @@ func (p *PremiumSubscriptionOption) String() string {
 func (p *PremiumSubscriptionOption) FillFrom(from interface {
 	GetCurrent() (value bool)
 	GetCanPurchaseUpgrade() (value bool)
+	GetTransaction() (value string, ok bool)
 	GetMonths() (value int)
 	GetCurrency() (value string)
 	GetAmount() (value int64)
@@ -119,6 +127,10 @@ func (p *PremiumSubscriptionOption) FillFrom(from interface {
 }) {
 	p.Current = from.GetCurrent()
 	p.CanPurchaseUpgrade = from.GetCanPurchaseUpgrade()
+	if val, ok := from.GetTransaction(); ok {
+		p.Transaction = val
+	}
+
 	p.Months = from.GetMonths()
 	p.Currency = from.GetCurrency()
 	p.Amount = from.GetAmount()
@@ -163,6 +175,11 @@ func (p *PremiumSubscriptionOption) TypeInfo() tdp.Type {
 			Null:       !p.Flags.Has(2),
 		},
 		{
+			Name:       "Transaction",
+			SchemaName: "transaction",
+			Null:       !p.Flags.Has(3),
+		},
+		{
 			Name:       "Months",
 			SchemaName: "months",
 		},
@@ -195,6 +212,9 @@ func (p *PremiumSubscriptionOption) SetFlags() {
 	if !(p.CanPurchaseUpgrade == false) {
 		p.Flags.Set(2)
 	}
+	if !(p.Transaction == "") {
+		p.Flags.Set(3)
+	}
 	if !(p.StoreProduct == "") {
 		p.Flags.Set(0)
 	}
@@ -203,7 +223,7 @@ func (p *PremiumSubscriptionOption) SetFlags() {
 // Encode implements bin.Encoder.
 func (p *PremiumSubscriptionOption) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode premiumSubscriptionOption#b6f11ebe as nil")
+		return fmt.Errorf("can't encode premiumSubscriptionOption#5f2d1df2 as nil")
 	}
 	b.PutID(PremiumSubscriptionOptionTypeID)
 	return p.EncodeBare(b)
@@ -212,11 +232,14 @@ func (p *PremiumSubscriptionOption) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PremiumSubscriptionOption) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode premiumSubscriptionOption#b6f11ebe as nil")
+		return fmt.Errorf("can't encode premiumSubscriptionOption#5f2d1df2 as nil")
 	}
 	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode premiumSubscriptionOption#b6f11ebe: field flags: %w", err)
+		return fmt.Errorf("unable to encode premiumSubscriptionOption#5f2d1df2: field flags: %w", err)
+	}
+	if p.Flags.Has(3) {
+		b.PutString(p.Transaction)
 	}
 	b.PutInt(p.Months)
 	b.PutString(p.Currency)
@@ -231,10 +254,10 @@ func (p *PremiumSubscriptionOption) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PremiumSubscriptionOption) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode premiumSubscriptionOption#b6f11ebe to nil")
+		return fmt.Errorf("can't decode premiumSubscriptionOption#5f2d1df2 to nil")
 	}
 	if err := b.ConsumeID(PremiumSubscriptionOptionTypeID); err != nil {
-		return fmt.Errorf("unable to decode premiumSubscriptionOption#b6f11ebe: %w", err)
+		return fmt.Errorf("unable to decode premiumSubscriptionOption#5f2d1df2: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -242,47 +265,54 @@ func (p *PremiumSubscriptionOption) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PremiumSubscriptionOption) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode premiumSubscriptionOption#b6f11ebe to nil")
+		return fmt.Errorf("can't decode premiumSubscriptionOption#5f2d1df2 to nil")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode premiumSubscriptionOption#b6f11ebe: field flags: %w", err)
+			return fmt.Errorf("unable to decode premiumSubscriptionOption#5f2d1df2: field flags: %w", err)
 		}
 	}
 	p.Current = p.Flags.Has(1)
 	p.CanPurchaseUpgrade = p.Flags.Has(2)
+	if p.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode premiumSubscriptionOption#5f2d1df2: field transaction: %w", err)
+		}
+		p.Transaction = value
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode premiumSubscriptionOption#b6f11ebe: field months: %w", err)
+			return fmt.Errorf("unable to decode premiumSubscriptionOption#5f2d1df2: field months: %w", err)
 		}
 		p.Months = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode premiumSubscriptionOption#b6f11ebe: field currency: %w", err)
+			return fmt.Errorf("unable to decode premiumSubscriptionOption#5f2d1df2: field currency: %w", err)
 		}
 		p.Currency = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode premiumSubscriptionOption#b6f11ebe: field amount: %w", err)
+			return fmt.Errorf("unable to decode premiumSubscriptionOption#5f2d1df2: field amount: %w", err)
 		}
 		p.Amount = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode premiumSubscriptionOption#b6f11ebe: field bot_url: %w", err)
+			return fmt.Errorf("unable to decode premiumSubscriptionOption#5f2d1df2: field bot_url: %w", err)
 		}
 		p.BotURL = value
 	}
 	if p.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode premiumSubscriptionOption#b6f11ebe: field store_product: %w", err)
+			return fmt.Errorf("unable to decode premiumSubscriptionOption#5f2d1df2: field store_product: %w", err)
 		}
 		p.StoreProduct = value
 	}
@@ -325,6 +355,24 @@ func (p *PremiumSubscriptionOption) GetCanPurchaseUpgrade() (value bool) {
 		return
 	}
 	return p.Flags.Has(2)
+}
+
+// SetTransaction sets value of Transaction conditional field.
+func (p *PremiumSubscriptionOption) SetTransaction(value string) {
+	p.Flags.Set(3)
+	p.Transaction = value
+}
+
+// GetTransaction returns value of Transaction conditional field and
+// boolean which is true if field was set.
+func (p *PremiumSubscriptionOption) GetTransaction() (value string, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(3) {
+		return value, false
+	}
+	return p.Transaction, true
 }
 
 // GetMonths returns value of Months field.

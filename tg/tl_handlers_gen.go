@@ -1195,3 +1195,13 @@ func (u UpdateDispatcher) OnUser(handler UserHandler) {
 		return handler(ctx, e, update.(*UpdateUser))
 	}
 }
+
+// AutoSaveSettingsHandler is a AutoSaveSettings event handler.
+type AutoSaveSettingsHandler func(ctx context.Context, e Entities, update *UpdateAutoSaveSettings) error
+
+// OnAutoSaveSettings sets AutoSaveSettings handler.
+func (u UpdateDispatcher) OnAutoSaveSettings(handler AutoSaveSettingsHandler) {
+	u.handlers[UpdateAutoSaveSettingsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateAutoSaveSettings))
+	}
+}

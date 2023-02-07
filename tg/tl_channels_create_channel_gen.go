@@ -60,6 +60,8 @@ type ChannelsCreateChannelRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/method/messages.initHistoryImport
 	ForImport bool
+	// Forum field of ChannelsCreateChannelRequest.
+	Forum bool
 	// Channel title
 	Title string
 	// Channel description
@@ -105,6 +107,9 @@ func (c *ChannelsCreateChannelRequest) Zero() bool {
 	if !(c.ForImport == false) {
 		return false
 	}
+	if !(c.Forum == false) {
+		return false
+	}
 	if !(c.Title == "") {
 		return false
 	}
@@ -138,6 +143,7 @@ func (c *ChannelsCreateChannelRequest) FillFrom(from interface {
 	GetBroadcast() (value bool)
 	GetMegagroup() (value bool)
 	GetForImport() (value bool)
+	GetForum() (value bool)
 	GetTitle() (value string)
 	GetAbout() (value string)
 	GetGeoPoint() (value InputGeoPointClass, ok bool)
@@ -147,6 +153,7 @@ func (c *ChannelsCreateChannelRequest) FillFrom(from interface {
 	c.Broadcast = from.GetBroadcast()
 	c.Megagroup = from.GetMegagroup()
 	c.ForImport = from.GetForImport()
+	c.Forum = from.GetForum()
 	c.Title = from.GetTitle()
 	c.About = from.GetAbout()
 	if val, ok := from.GetGeoPoint(); ok {
@@ -202,6 +209,11 @@ func (c *ChannelsCreateChannelRequest) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(3),
 		},
 		{
+			Name:       "Forum",
+			SchemaName: "forum",
+			Null:       !c.Flags.Has(5),
+		},
+		{
 			Name:       "Title",
 			SchemaName: "title",
 		},
@@ -238,6 +250,9 @@ func (c *ChannelsCreateChannelRequest) SetFlags() {
 	}
 	if !(c.ForImport == false) {
 		c.Flags.Set(3)
+	}
+	if !(c.Forum == false) {
+		c.Flags.Set(5)
 	}
 	if !(c.GeoPoint == nil) {
 		c.Flags.Set(2)
@@ -311,6 +326,7 @@ func (c *ChannelsCreateChannelRequest) DecodeBare(b *bin.Buffer) error {
 	c.Broadcast = c.Flags.Has(0)
 	c.Megagroup = c.Flags.Has(1)
 	c.ForImport = c.Flags.Has(3)
+	c.Forum = c.Flags.Has(5)
 	{
 		value, err := b.String()
 		if err != nil {
@@ -404,6 +420,25 @@ func (c *ChannelsCreateChannelRequest) GetForImport() (value bool) {
 		return
 	}
 	return c.Flags.Has(3)
+}
+
+// SetForum sets value of Forum conditional field.
+func (c *ChannelsCreateChannelRequest) SetForum(value bool) {
+	if value {
+		c.Flags.Set(5)
+		c.Forum = true
+	} else {
+		c.Flags.Unset(5)
+		c.Forum = false
+	}
+}
+
+// GetForum returns value of Forum conditional field.
+func (c *ChannelsCreateChannelRequest) GetForum() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(5)
 }
 
 // GetTitle returns value of Title field.

@@ -21795,6 +21795,107 @@ func (u *UpdateUser) GetUserID() (value int64) {
 	return u.UserID
 }
 
+// UpdateAutoSaveSettings represents TL type `updateAutoSaveSettings#ec05b097`.
+//
+// See https://core.telegram.org/constructor/updateAutoSaveSettings for reference.
+type UpdateAutoSaveSettings struct {
+}
+
+// UpdateAutoSaveSettingsTypeID is TL type id of UpdateAutoSaveSettings.
+const UpdateAutoSaveSettingsTypeID = 0xec05b097
+
+// construct implements constructor of UpdateClass.
+func (u UpdateAutoSaveSettings) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateAutoSaveSettings.
+var (
+	_ bin.Encoder     = &UpdateAutoSaveSettings{}
+	_ bin.Decoder     = &UpdateAutoSaveSettings{}
+	_ bin.BareEncoder = &UpdateAutoSaveSettings{}
+	_ bin.BareDecoder = &UpdateAutoSaveSettings{}
+
+	_ UpdateClass = &UpdateAutoSaveSettings{}
+)
+
+func (u *UpdateAutoSaveSettings) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateAutoSaveSettings) String() string {
+	if u == nil {
+		return "UpdateAutoSaveSettings(nil)"
+	}
+	type Alias UpdateAutoSaveSettings
+	return fmt.Sprintf("UpdateAutoSaveSettings%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateAutoSaveSettings) TypeID() uint32 {
+	return UpdateAutoSaveSettingsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateAutoSaveSettings) TypeName() string {
+	return "updateAutoSaveSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateAutoSaveSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateAutoSaveSettings",
+		ID:   UpdateAutoSaveSettingsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateAutoSaveSettings) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateAutoSaveSettings#ec05b097 as nil")
+	}
+	b.PutID(UpdateAutoSaveSettingsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateAutoSaveSettings) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateAutoSaveSettings#ec05b097 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateAutoSaveSettings) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateAutoSaveSettings#ec05b097 to nil")
+	}
+	if err := b.ConsumeID(UpdateAutoSaveSettingsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateAutoSaveSettings#ec05b097: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateAutoSaveSettings) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateAutoSaveSettings#ec05b097 to nil")
+	}
+	return nil
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -21918,6 +22019,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateChannelPinnedTopic: // updateChannelPinnedTopic#192efbe3
 //	case *tg.UpdateChannelPinnedTopics: // updateChannelPinnedTopics#fe198602
 //	case *tg.UpdateUser: // updateUser#20529438
+//	case *tg.UpdateAutoSaveSettings: // updateAutoSaveSettings#ec05b097
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -22705,6 +22807,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateUserTypeID:
 		// Decoding updateUser#20529438.
 		v := UpdateUser{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateAutoSaveSettingsTypeID:
+		// Decoding updateAutoSaveSettings#ec05b097.
+		v := UpdateAutoSaveSettings{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

@@ -59,6 +59,8 @@ type UserFull struct {
 	VideoCallsAvailable bool
 	// Whether this user doesn't allow sending voice messages in a private chat with them
 	VoiceMessagesForbidden bool
+	// TranslationsDisabled field of UserFull.
+	TranslationsDisabled bool
 	// User ID
 	ID int64
 	// Bio of the user
@@ -177,6 +179,9 @@ func (u *UserFull) Zero() bool {
 	if !(u.VoiceMessagesForbidden == false) {
 		return false
 	}
+	if !(u.TranslationsDisabled == false) {
+		return false
+	}
 	if !(u.ID == 0) {
 		return false
 	}
@@ -250,6 +255,7 @@ func (u *UserFull) FillFrom(from interface {
 	GetHasScheduled() (value bool)
 	GetVideoCallsAvailable() (value bool)
 	GetVoiceMessagesForbidden() (value bool)
+	GetTranslationsDisabled() (value bool)
 	GetID() (value int64)
 	GetAbout() (value string, ok bool)
 	GetSettings() (value PeerSettings)
@@ -275,6 +281,7 @@ func (u *UserFull) FillFrom(from interface {
 	u.HasScheduled = from.GetHasScheduled()
 	u.VideoCallsAvailable = from.GetVideoCallsAvailable()
 	u.VoiceMessagesForbidden = from.GetVoiceMessagesForbidden()
+	u.TranslationsDisabled = from.GetTranslationsDisabled()
 	u.ID = from.GetID()
 	if val, ok := from.GetAbout(); ok {
 		u.About = val
@@ -392,6 +399,11 @@ func (u *UserFull) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(20),
 		},
 		{
+			Name:       "TranslationsDisabled",
+			SchemaName: "translations_disabled",
+			Null:       !u.Flags.Has(23),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -498,6 +510,9 @@ func (u *UserFull) SetFlags() {
 	}
 	if !(u.VoiceMessagesForbidden == false) {
 		u.Flags.Set(20)
+	}
+	if !(u.TranslationsDisabled == false) {
+		u.Flags.Set(23)
 	}
 	if !(u.About == "") {
 		u.Flags.Set(1)
@@ -662,6 +677,7 @@ func (u *UserFull) DecodeBare(b *bin.Buffer) error {
 	u.HasScheduled = u.Flags.Has(12)
 	u.VideoCallsAvailable = u.Flags.Has(13)
 	u.VoiceMessagesForbidden = u.Flags.Has(20)
+	u.TranslationsDisabled = u.Flags.Has(23)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -915,6 +931,25 @@ func (u *UserFull) GetVoiceMessagesForbidden() (value bool) {
 		return
 	}
 	return u.Flags.Has(20)
+}
+
+// SetTranslationsDisabled sets value of TranslationsDisabled conditional field.
+func (u *UserFull) SetTranslationsDisabled(value bool) {
+	if value {
+		u.Flags.Set(23)
+		u.TranslationsDisabled = true
+	} else {
+		u.Flags.Unset(23)
+		u.TranslationsDisabled = false
+	}
+}
+
+// GetTranslationsDisabled returns value of TranslationsDisabled conditional field.
+func (u *UserFull) GetTranslationsDisabled() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(23)
 }
 
 // GetID returns value of ID field.

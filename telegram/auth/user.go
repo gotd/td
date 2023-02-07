@@ -64,7 +64,7 @@ type SendCodeOptions struct {
 // and error if any. Use AuthFlow to reduce boilerplate.
 //
 // This method should be called first in user authentication flow.
-func (c *Client) SendCode(ctx context.Context, phone string, options SendCodeOptions) (*tg.AuthSentCode, error) {
+func (c *Client) SendCode(ctx context.Context, phone string, options SendCodeOptions) (tg.AuthSentCodeClass, error) {
 	var settings tg.CodeSettings
 	if options.AllowAppHash {
 		settings.SetAllowAppHash(true)

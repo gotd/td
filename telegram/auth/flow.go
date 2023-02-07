@@ -28,6 +28,25 @@ type Flow struct {
 	Options SendCodeOptions
 }
 
+func (f Flow) handleSignUp(ctx context.Context, client FlowClient, phone, hash string, s *SignUpRequired) error {
+	if err := f.Auth.AcceptTermsOfService(ctx, s.TermsOfService); err != nil {
+		return errors.Wrap(err, "confirm TOS")
+	}
+	info, err := f.Auth.SignUp(ctx)
+	if err != nil {
+		return errors.Wrap(err, "sign up info not provided")
+	}
+	if _, err := client.SignUp(ctx, SignUp{
+		PhoneNumber:   phone,
+		PhoneCodeHash: hash,
+		FirstName:     info.FirstName,
+		LastName:      info.LastName,
+	}); err != nil {
+		return errors.Wrap(err, "sign up")
+	}
+	return nil
+}
+
 // Run starts authentication flow on client.
 func (f Flow) Run(ctx context.Context, client FlowClient) error {
 	if f.Auth == nil {
@@ -43,57 +62,60 @@ func (f Flow) Run(ctx context.Context, client FlowClient) error {
 	if err != nil {
 		return errors.Wrap(err, "send code")
 	}
-	hash := sentCode.PhoneCodeHash
-
-	code, err := f.Auth.Code(ctx, sentCode)
-	if err != nil {
-		return errors.Wrap(err, "get code")
-	}
-
-	_, signInErr := client.SignIn(ctx, phone, code, hash)
-
-	if errors.Is(signInErr, ErrPasswordAuthNeeded) {
-		password, err := f.Auth.Password(ctx)
+	switch s := sentCode.(type) {
+	case *tg.AuthSentCode:
+		hash := s.PhoneCodeHash
+		code, err := f.Auth.Code(ctx, s)
 		if err != nil {
-			return errors.Wrap(err, "get password")
+			return errors.Wrap(err, "get code")
 		}
-		if _, err := client.Password(ctx, password); err != nil {
-			return errors.Wrap(err, "sign in with password")
+
+		_, signInErr := client.SignIn(ctx, phone, code, hash)
+		if errors.Is(signInErr, ErrPasswordAuthNeeded) {
+			password, err := f.Auth.Password(ctx)
+			if err != nil {
+				return errors.Wrap(err, "get password")
+			}
+			if _, err := client.Password(ctx, password); err != nil {
+				return errors.Wrap(err, "sign in with password")
+			}
+			return nil
 		}
+		var signUpRequired *SignUpRequired
+		if errors.As(signInErr, &signUpRequired) {
+			return f.handleSignUp(ctx, client, phone, hash, signUpRequired)
+		}
+
+		if signInErr != nil {
+			return errors.Wrap(signInErr, "sign in")
+		}
+
 		return nil
-	}
-
-	var signUpRequired *SignUpRequired
-	if errors.As(signInErr, &signUpRequired) {
-		if err := f.Auth.AcceptTermsOfService(ctx, signUpRequired.TermsOfService); err != nil {
-			return errors.Wrap(err, "confirm TOS")
+	case *tg.AuthSentCodeSuccess:
+		switch a := s.Authorization.(type) {
+		case *tg.AuthAuthorization:
+			// Looks that we are already authorized.
+			return nil
+		case *tg.AuthAuthorizationSignUpRequired:
+			if err := f.handleSignUp(ctx, client, phone, "", &SignUpRequired{
+				TermsOfService: a.TermsOfService,
+			}); err != nil {
+				// TODO: not sure that blank hash will work here
+				return errors.Wrap(err, "sign up after auth sent code success")
+			}
+			return nil
+		default:
+			return errors.Errorf("unexpected authorization type: %T", a)
 		}
-		info, err := f.Auth.SignUp(ctx)
-		if err != nil {
-			return errors.Wrap(err, "sign up info not provided")
-		}
-		if _, err := client.SignUp(ctx, SignUp{
-			PhoneNumber:   phone,
-			PhoneCodeHash: hash,
-			FirstName:     info.FirstName,
-			LastName:      info.LastName,
-		}); err != nil {
-			return errors.Wrap(err, "sign up")
-		}
-		return nil
+	default:
+		return errors.Errorf("unexpected sent code type: %T", sentCode)
 	}
-
-	if signInErr != nil {
-		return errors.Wrap(signInErr, "sign in")
-	}
-
-	return nil
 }
 
 // FlowClient abstracts telegram client for Flow.
 type FlowClient interface {
 	SignIn(ctx context.Context, phone, code, codeHash string) (*tg.AuthAuthorization, error)
-	SendCode(ctx context.Context, phone string, options SendCodeOptions) (*tg.AuthSentCode, error)
+	SendCode(ctx context.Context, phone string, options SendCodeOptions) (tg.AuthSentCodeClass, error)
 	Password(ctx context.Context, password string) (*tg.AuthAuthorization, error)
 	SignUp(ctx context.Context, s SignUp) (*tg.AuthAuthorization, error)
 }

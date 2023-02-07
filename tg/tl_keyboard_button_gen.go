@@ -2803,6 +2803,199 @@ func (k *KeyboardButtonSimpleWebView) GetURL() (value string) {
 	return k.URL
 }
 
+// KeyboardButtonRequestPeer represents TL type `keyboardButtonRequestPeer#d0b468c`.
+//
+// See https://core.telegram.org/constructor/keyboardButtonRequestPeer for reference.
+type KeyboardButtonRequestPeer struct {
+	// Text field of KeyboardButtonRequestPeer.
+	Text string
+	// ButtonID field of KeyboardButtonRequestPeer.
+	ButtonID int
+	// PeerType field of KeyboardButtonRequestPeer.
+	PeerType RequestPeerTypeClass
+}
+
+// KeyboardButtonRequestPeerTypeID is TL type id of KeyboardButtonRequestPeer.
+const KeyboardButtonRequestPeerTypeID = 0xd0b468c
+
+// construct implements constructor of KeyboardButtonClass.
+func (k KeyboardButtonRequestPeer) construct() KeyboardButtonClass { return &k }
+
+// Ensuring interfaces in compile-time for KeyboardButtonRequestPeer.
+var (
+	_ bin.Encoder     = &KeyboardButtonRequestPeer{}
+	_ bin.Decoder     = &KeyboardButtonRequestPeer{}
+	_ bin.BareEncoder = &KeyboardButtonRequestPeer{}
+	_ bin.BareDecoder = &KeyboardButtonRequestPeer{}
+
+	_ KeyboardButtonClass = &KeyboardButtonRequestPeer{}
+)
+
+func (k *KeyboardButtonRequestPeer) Zero() bool {
+	if k == nil {
+		return true
+	}
+	if !(k.Text == "") {
+		return false
+	}
+	if !(k.ButtonID == 0) {
+		return false
+	}
+	if !(k.PeerType == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (k *KeyboardButtonRequestPeer) String() string {
+	if k == nil {
+		return "KeyboardButtonRequestPeer(nil)"
+	}
+	type Alias KeyboardButtonRequestPeer
+	return fmt.Sprintf("KeyboardButtonRequestPeer%+v", Alias(*k))
+}
+
+// FillFrom fills KeyboardButtonRequestPeer from given interface.
+func (k *KeyboardButtonRequestPeer) FillFrom(from interface {
+	GetText() (value string)
+	GetButtonID() (value int)
+	GetPeerType() (value RequestPeerTypeClass)
+}) {
+	k.Text = from.GetText()
+	k.ButtonID = from.GetButtonID()
+	k.PeerType = from.GetPeerType()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*KeyboardButtonRequestPeer) TypeID() uint32 {
+	return KeyboardButtonRequestPeerTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*KeyboardButtonRequestPeer) TypeName() string {
+	return "keyboardButtonRequestPeer"
+}
+
+// TypeInfo returns info about TL type.
+func (k *KeyboardButtonRequestPeer) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "keyboardButtonRequestPeer",
+		ID:   KeyboardButtonRequestPeerTypeID,
+	}
+	if k == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "ButtonID",
+			SchemaName: "button_id",
+		},
+		{
+			Name:       "PeerType",
+			SchemaName: "peer_type",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (k *KeyboardButtonRequestPeer) Encode(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonRequestPeer#d0b468c as nil")
+	}
+	b.PutID(KeyboardButtonRequestPeerTypeID)
+	return k.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (k *KeyboardButtonRequestPeer) EncodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonRequestPeer#d0b468c as nil")
+	}
+	b.PutString(k.Text)
+	b.PutInt(k.ButtonID)
+	if k.PeerType == nil {
+		return fmt.Errorf("unable to encode keyboardButtonRequestPeer#d0b468c: field peer_type is nil")
+	}
+	if err := k.PeerType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode keyboardButtonRequestPeer#d0b468c: field peer_type: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (k *KeyboardButtonRequestPeer) Decode(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonRequestPeer#d0b468c to nil")
+	}
+	if err := b.ConsumeID(KeyboardButtonRequestPeerTypeID); err != nil {
+		return fmt.Errorf("unable to decode keyboardButtonRequestPeer#d0b468c: %w", err)
+	}
+	return k.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (k *KeyboardButtonRequestPeer) DecodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonRequestPeer#d0b468c to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonRequestPeer#d0b468c: field text: %w", err)
+		}
+		k.Text = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonRequestPeer#d0b468c: field button_id: %w", err)
+		}
+		k.ButtonID = value
+	}
+	{
+		value, err := DecodeRequestPeerType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonRequestPeer#d0b468c: field peer_type: %w", err)
+		}
+		k.PeerType = value
+	}
+	return nil
+}
+
+// GetText returns value of Text field.
+func (k *KeyboardButtonRequestPeer) GetText() (value string) {
+	if k == nil {
+		return
+	}
+	return k.Text
+}
+
+// GetButtonID returns value of ButtonID field.
+func (k *KeyboardButtonRequestPeer) GetButtonID() (value int) {
+	if k == nil {
+		return
+	}
+	return k.ButtonID
+}
+
+// GetPeerType returns value of PeerType field.
+func (k *KeyboardButtonRequestPeer) GetPeerType() (value RequestPeerTypeClass) {
+	if k == nil {
+		return
+	}
+	return k.PeerType
+}
+
 // KeyboardButtonClassName is schema name of KeyboardButtonClass.
 const KeyboardButtonClassName = "KeyboardButton"
 
@@ -2832,6 +3025,7 @@ const KeyboardButtonClassName = "KeyboardButton"
 //	case *tg.KeyboardButtonUserProfile: // keyboardButtonUserProfile#308660c1
 //	case *tg.KeyboardButtonWebView: // keyboardButtonWebView#13767230
 //	case *tg.KeyboardButtonSimpleWebView: // keyboardButtonSimpleWebView#a0c0505c
+//	case *tg.KeyboardButtonRequestPeer: // keyboardButtonRequestPeer#d0b468c
 //	default: panic(v)
 //	}
 type KeyboardButtonClass interface {
@@ -2964,6 +3158,13 @@ func DecodeKeyboardButton(buf *bin.Buffer) (KeyboardButtonClass, error) {
 	case KeyboardButtonSimpleWebViewTypeID:
 		// Decoding keyboardButtonSimpleWebView#a0c0505c.
 		v := KeyboardButtonSimpleWebView{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
+		}
+		return &v, nil
+	case KeyboardButtonRequestPeerTypeID:
+		// Decoding keyboardButtonRequestPeer#d0b468c.
+		v := KeyboardButtonRequestPeer{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
 		}

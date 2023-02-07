@@ -65,12 +65,17 @@ type AuthSentCode struct {
 // AuthSentCodeTypeID is TL type id of AuthSentCode.
 const AuthSentCodeTypeID = 0x5e002502
 
+// construct implements constructor of AuthSentCodeClass.
+func (s AuthSentCode) construct() AuthSentCodeClass { return &s }
+
 // Ensuring interfaces in compile-time for AuthSentCode.
 var (
 	_ bin.Encoder     = &AuthSentCode{}
 	_ bin.Decoder     = &AuthSentCode{}
 	_ bin.BareEncoder = &AuthSentCode{}
 	_ bin.BareDecoder = &AuthSentCode{}
+
+	_ AuthSentCodeClass = &AuthSentCode{}
 )
 
 func (s *AuthSentCode) Zero() bool {
@@ -320,4 +325,232 @@ func (s *AuthSentCode) GetTimeout() (value int, ok bool) {
 		return value, false
 	}
 	return s.Timeout, true
+}
+
+// AuthSentCodeSuccess represents TL type `auth.sentCodeSuccess#2390fe44`.
+//
+// See https://core.telegram.org/constructor/auth.sentCodeSuccess for reference.
+type AuthSentCodeSuccess struct {
+	// Authorization field of AuthSentCodeSuccess.
+	Authorization AuthAuthorizationClass
+}
+
+// AuthSentCodeSuccessTypeID is TL type id of AuthSentCodeSuccess.
+const AuthSentCodeSuccessTypeID = 0x2390fe44
+
+// construct implements constructor of AuthSentCodeClass.
+func (s AuthSentCodeSuccess) construct() AuthSentCodeClass { return &s }
+
+// Ensuring interfaces in compile-time for AuthSentCodeSuccess.
+var (
+	_ bin.Encoder     = &AuthSentCodeSuccess{}
+	_ bin.Decoder     = &AuthSentCodeSuccess{}
+	_ bin.BareEncoder = &AuthSentCodeSuccess{}
+	_ bin.BareDecoder = &AuthSentCodeSuccess{}
+
+	_ AuthSentCodeClass = &AuthSentCodeSuccess{}
+)
+
+func (s *AuthSentCodeSuccess) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Authorization == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *AuthSentCodeSuccess) String() string {
+	if s == nil {
+		return "AuthSentCodeSuccess(nil)"
+	}
+	type Alias AuthSentCodeSuccess
+	return fmt.Sprintf("AuthSentCodeSuccess%+v", Alias(*s))
+}
+
+// FillFrom fills AuthSentCodeSuccess from given interface.
+func (s *AuthSentCodeSuccess) FillFrom(from interface {
+	GetAuthorization() (value AuthAuthorizationClass)
+}) {
+	s.Authorization = from.GetAuthorization()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*AuthSentCodeSuccess) TypeID() uint32 {
+	return AuthSentCodeSuccessTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*AuthSentCodeSuccess) TypeName() string {
+	return "auth.sentCodeSuccess"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AuthSentCodeSuccess) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.sentCodeSuccess",
+		ID:   AuthSentCodeSuccessTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Authorization",
+			SchemaName: "authorization",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *AuthSentCodeSuccess) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode auth.sentCodeSuccess#2390fe44 as nil")
+	}
+	b.PutID(AuthSentCodeSuccessTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *AuthSentCodeSuccess) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode auth.sentCodeSuccess#2390fe44 as nil")
+	}
+	if s.Authorization == nil {
+		return fmt.Errorf("unable to encode auth.sentCodeSuccess#2390fe44: field authorization is nil")
+	}
+	if err := s.Authorization.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode auth.sentCodeSuccess#2390fe44: field authorization: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *AuthSentCodeSuccess) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode auth.sentCodeSuccess#2390fe44 to nil")
+	}
+	if err := b.ConsumeID(AuthSentCodeSuccessTypeID); err != nil {
+		return fmt.Errorf("unable to decode auth.sentCodeSuccess#2390fe44: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AuthSentCodeSuccess) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode auth.sentCodeSuccess#2390fe44 to nil")
+	}
+	{
+		value, err := DecodeAuthAuthorization(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode auth.sentCodeSuccess#2390fe44: field authorization: %w", err)
+		}
+		s.Authorization = value
+	}
+	return nil
+}
+
+// GetAuthorization returns value of Authorization field.
+func (s *AuthSentCodeSuccess) GetAuthorization() (value AuthAuthorizationClass) {
+	if s == nil {
+		return
+	}
+	return s.Authorization
+}
+
+// AuthSentCodeClassName is schema name of AuthSentCodeClass.
+const AuthSentCodeClassName = "auth.SentCode"
+
+// AuthSentCodeClass represents auth.SentCode generic type.
+//
+// See https://core.telegram.org/type/auth.SentCode for reference.
+//
+// Example:
+//
+//	g, err := tg.DecodeAuthSentCode(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.AuthSentCode: // auth.sentCode#5e002502
+//	case *tg.AuthSentCodeSuccess: // auth.sentCodeSuccess#2390fe44
+//	default: panic(v)
+//	}
+type AuthSentCodeClass interface {
+	bin.Encoder
+	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
+	construct() AuthSentCodeClass
+
+	// TypeID returns type id in TL schema.
+	//
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// TypeName returns name of type in TL schema.
+	TypeName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+}
+
+// DecodeAuthSentCode implements binary de-serialization for AuthSentCodeClass.
+func DecodeAuthSentCode(buf *bin.Buffer) (AuthSentCodeClass, error) {
+	id, err := buf.PeekID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case AuthSentCodeTypeID:
+		// Decoding auth.sentCode#5e002502.
+		v := AuthSentCode{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthSentCodeClass: %w", err)
+		}
+		return &v, nil
+	case AuthSentCodeSuccessTypeID:
+		// Decoding auth.sentCodeSuccess#2390fe44.
+		v := AuthSentCodeSuccess{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AuthSentCodeClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode AuthSentCodeClass: %w", bin.NewUnexpectedID(id))
+	}
+}
+
+// AuthSentCode boxes the AuthSentCodeClass providing a helper.
+type AuthSentCodeBox struct {
+	SentCode AuthSentCodeClass
+}
+
+// Decode implements bin.Decoder for AuthSentCodeBox.
+func (b *AuthSentCodeBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode AuthSentCodeBox to nil")
+	}
+	v, err := DecodeAuthSentCode(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.SentCode = v
+	return nil
+}
+
+// Encode implements bin.Encode for AuthSentCodeBox.
+func (b *AuthSentCodeBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.SentCode == nil {
+		return fmt.Errorf("unable to encode AuthSentCodeClass as nil")
+	}
+	return b.SentCode.Encode(buf)
 }

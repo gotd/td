@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AuthAuthorization represents TL type `auth.authorization#33fb7bb8`.
+// AuthAuthorization represents TL type `auth.authorization#2ea2c0d4`.
 // Contains user authorization info.
 //
 // See https://core.telegram.org/constructor/auth.authorization for reference.
@@ -56,12 +56,16 @@ type AuthAuthorization struct {
 	//
 	// Use SetTmpSessions and GetTmpSessions helpers.
 	TmpSessions int
+	// FutureAuthToken field of AuthAuthorization.
+	//
+	// Use SetFutureAuthToken and GetFutureAuthToken helpers.
+	FutureAuthToken []byte
 	// Info on authorized user
 	User UserClass
 }
 
 // AuthAuthorizationTypeID is TL type id of AuthAuthorization.
-const AuthAuthorizationTypeID = 0x33fb7bb8
+const AuthAuthorizationTypeID = 0x2ea2c0d4
 
 // construct implements constructor of AuthAuthorizationClass.
 func (a AuthAuthorization) construct() AuthAuthorizationClass { return &a }
@@ -92,6 +96,9 @@ func (a *AuthAuthorization) Zero() bool {
 	if !(a.TmpSessions == 0) {
 		return false
 	}
+	if !(a.FutureAuthToken == nil) {
+		return false
+	}
 	if !(a.User == nil) {
 		return false
 	}
@@ -113,6 +120,7 @@ func (a *AuthAuthorization) FillFrom(from interface {
 	GetSetupPasswordRequired() (value bool)
 	GetOtherwiseReloginDays() (value int, ok bool)
 	GetTmpSessions() (value int, ok bool)
+	GetFutureAuthToken() (value []byte, ok bool)
 	GetUser() (value UserClass)
 }) {
 	a.SetupPasswordRequired = from.GetSetupPasswordRequired()
@@ -122,6 +130,10 @@ func (a *AuthAuthorization) FillFrom(from interface {
 
 	if val, ok := from.GetTmpSessions(); ok {
 		a.TmpSessions = val
+	}
+
+	if val, ok := from.GetFutureAuthToken(); ok {
+		a.FutureAuthToken = val
 	}
 
 	a.User = from.GetUser()
@@ -166,6 +178,11 @@ func (a *AuthAuthorization) TypeInfo() tdp.Type {
 			Null:       !a.Flags.Has(0),
 		},
 		{
+			Name:       "FutureAuthToken",
+			SchemaName: "future_auth_token",
+			Null:       !a.Flags.Has(2),
+		},
+		{
 			Name:       "User",
 			SchemaName: "user",
 		},
@@ -184,12 +201,15 @@ func (a *AuthAuthorization) SetFlags() {
 	if !(a.TmpSessions == 0) {
 		a.Flags.Set(0)
 	}
+	if !(a.FutureAuthToken == nil) {
+		a.Flags.Set(2)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (a *AuthAuthorization) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode auth.authorization#33fb7bb8 as nil")
+		return fmt.Errorf("can't encode auth.authorization#2ea2c0d4 as nil")
 	}
 	b.PutID(AuthAuthorizationTypeID)
 	return a.EncodeBare(b)
@@ -198,11 +218,11 @@ func (a *AuthAuthorization) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AuthAuthorization) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode auth.authorization#33fb7bb8 as nil")
+		return fmt.Errorf("can't encode auth.authorization#2ea2c0d4 as nil")
 	}
 	a.SetFlags()
 	if err := a.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode auth.authorization#33fb7bb8: field flags: %w", err)
+		return fmt.Errorf("unable to encode auth.authorization#2ea2c0d4: field flags: %w", err)
 	}
 	if a.Flags.Has(1) {
 		b.PutInt(a.OtherwiseReloginDays)
@@ -210,11 +230,14 @@ func (a *AuthAuthorization) EncodeBare(b *bin.Buffer) error {
 	if a.Flags.Has(0) {
 		b.PutInt(a.TmpSessions)
 	}
+	if a.Flags.Has(2) {
+		b.PutBytes(a.FutureAuthToken)
+	}
 	if a.User == nil {
-		return fmt.Errorf("unable to encode auth.authorization#33fb7bb8: field user is nil")
+		return fmt.Errorf("unable to encode auth.authorization#2ea2c0d4: field user is nil")
 	}
 	if err := a.User.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode auth.authorization#33fb7bb8: field user: %w", err)
+		return fmt.Errorf("unable to encode auth.authorization#2ea2c0d4: field user: %w", err)
 	}
 	return nil
 }
@@ -222,10 +245,10 @@ func (a *AuthAuthorization) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (a *AuthAuthorization) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode auth.authorization#33fb7bb8 to nil")
+		return fmt.Errorf("can't decode auth.authorization#2ea2c0d4 to nil")
 	}
 	if err := b.ConsumeID(AuthAuthorizationTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.authorization#33fb7bb8: %w", err)
+		return fmt.Errorf("unable to decode auth.authorization#2ea2c0d4: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -233,32 +256,39 @@ func (a *AuthAuthorization) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AuthAuthorization) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode auth.authorization#33fb7bb8 to nil")
+		return fmt.Errorf("can't decode auth.authorization#2ea2c0d4 to nil")
 	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode auth.authorization#33fb7bb8: field flags: %w", err)
+			return fmt.Errorf("unable to decode auth.authorization#2ea2c0d4: field flags: %w", err)
 		}
 	}
 	a.SetupPasswordRequired = a.Flags.Has(1)
 	if a.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.authorization#33fb7bb8: field otherwise_relogin_days: %w", err)
+			return fmt.Errorf("unable to decode auth.authorization#2ea2c0d4: field otherwise_relogin_days: %w", err)
 		}
 		a.OtherwiseReloginDays = value
 	}
 	if a.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.authorization#33fb7bb8: field tmp_sessions: %w", err)
+			return fmt.Errorf("unable to decode auth.authorization#2ea2c0d4: field tmp_sessions: %w", err)
 		}
 		a.TmpSessions = value
+	}
+	if a.Flags.Has(2) {
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode auth.authorization#2ea2c0d4: field future_auth_token: %w", err)
+		}
+		a.FutureAuthToken = value
 	}
 	{
 		value, err := DecodeUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.authorization#33fb7bb8: field user: %w", err)
+			return fmt.Errorf("unable to decode auth.authorization#2ea2c0d4: field user: %w", err)
 		}
 		a.User = value
 	}
@@ -318,6 +348,24 @@ func (a *AuthAuthorization) GetTmpSessions() (value int, ok bool) {
 		return value, false
 	}
 	return a.TmpSessions, true
+}
+
+// SetFutureAuthToken sets value of FutureAuthToken conditional field.
+func (a *AuthAuthorization) SetFutureAuthToken(value []byte) {
+	a.Flags.Set(2)
+	a.FutureAuthToken = value
+}
+
+// GetFutureAuthToken returns value of FutureAuthToken conditional field and
+// boolean which is true if field was set.
+func (a *AuthAuthorization) GetFutureAuthToken() (value []byte, ok bool) {
+	if a == nil {
+		return
+	}
+	if !a.Flags.Has(2) {
+		return value, false
+	}
+	return a.FutureAuthToken, true
 }
 
 // GetUser returns value of User field.
@@ -524,7 +572,7 @@ const AuthAuthorizationClassName = "auth.Authorization"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tg.AuthAuthorization: // auth.authorization#33fb7bb8
+//	case *tg.AuthAuthorization: // auth.authorization#2ea2c0d4
 //	case *tg.AuthAuthorizationSignUpRequired: // auth.authorizationSignUpRequired#44747e9a
 //	default: panic(v)
 //	}
@@ -555,7 +603,7 @@ func DecodeAuthAuthorization(buf *bin.Buffer) (AuthAuthorizationClass, error) {
 	}
 	switch id {
 	case AuthAuthorizationTypeID:
-		// Decoding auth.authorization#33fb7bb8.
+		// Decoding auth.authorization#2ea2c0d4.
 		v := AuthAuthorization{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthAuthorizationClass: %w", err)

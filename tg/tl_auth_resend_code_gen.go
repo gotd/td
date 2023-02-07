@@ -210,11 +210,11 @@ func (r *AuthResendCodeRequest) GetPhoneCodeHash() (value string) {
 //	406 SEND_CODE_UNAVAILABLE: Returned when all available options for this type of number were already used (e.g. flash-call, then SMS, then this error might be returned to trigger a second resend).
 //
 // See https://core.telegram.org/method/auth.resendCode for reference.
-func (c *Client) AuthResendCode(ctx context.Context, request *AuthResendCodeRequest) (*AuthSentCode, error) {
-	var result AuthSentCode
+func (c *Client) AuthResendCode(ctx context.Context, request *AuthResendCodeRequest) (AuthSentCodeClass, error) {
+	var result AuthSentCodeBox
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.SentCode, nil
 }

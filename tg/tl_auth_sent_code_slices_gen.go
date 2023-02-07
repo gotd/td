@@ -33,3 +33,275 @@ var (
 	_ = tgerr.Error{}
 	_ = tdjson.Encoder{}
 )
+
+// AuthSentCodeClassArray is adapter for slice of AuthSentCodeClass.
+type AuthSentCodeClassArray []AuthSentCodeClass
+
+// Sort sorts slice of AuthSentCodeClass.
+func (s AuthSentCodeClassArray) Sort(less func(a, b AuthSentCodeClass) bool) AuthSentCodeClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of AuthSentCodeClass.
+func (s AuthSentCodeClassArray) SortStable(less func(a, b AuthSentCodeClass) bool) AuthSentCodeClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of AuthSentCodeClass.
+func (s AuthSentCodeClassArray) Retain(keep func(x AuthSentCodeClass) bool) AuthSentCodeClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s AuthSentCodeClassArray) First() (v AuthSentCodeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s AuthSentCodeClassArray) Last() (v AuthSentCodeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *AuthSentCodeClassArray) PopFirst() (v AuthSentCodeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero AuthSentCodeClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *AuthSentCodeClassArray) Pop() (v AuthSentCodeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsAuthSentCode returns copy with only AuthSentCode constructors.
+func (s AuthSentCodeClassArray) AsAuthSentCode() (to AuthSentCodeArray) {
+	for _, elem := range s {
+		value, ok := elem.(*AuthSentCode)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsAuthSentCodeSuccess returns copy with only AuthSentCodeSuccess constructors.
+func (s AuthSentCodeClassArray) AsAuthSentCodeSuccess() (to AuthSentCodeSuccessArray) {
+	for _, elem := range s {
+		value, ok := elem.(*AuthSentCodeSuccess)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AuthSentCodeArray is adapter for slice of AuthSentCode.
+type AuthSentCodeArray []AuthSentCode
+
+// Sort sorts slice of AuthSentCode.
+func (s AuthSentCodeArray) Sort(less func(a, b AuthSentCode) bool) AuthSentCodeArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of AuthSentCode.
+func (s AuthSentCodeArray) SortStable(less func(a, b AuthSentCode) bool) AuthSentCodeArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of AuthSentCode.
+func (s AuthSentCodeArray) Retain(keep func(x AuthSentCode) bool) AuthSentCodeArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s AuthSentCodeArray) First() (v AuthSentCode, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s AuthSentCodeArray) Last() (v AuthSentCode, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *AuthSentCodeArray) PopFirst() (v AuthSentCode, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero AuthSentCode
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *AuthSentCodeArray) Pop() (v AuthSentCode, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AuthSentCodeSuccessArray is adapter for slice of AuthSentCodeSuccess.
+type AuthSentCodeSuccessArray []AuthSentCodeSuccess
+
+// Sort sorts slice of AuthSentCodeSuccess.
+func (s AuthSentCodeSuccessArray) Sort(less func(a, b AuthSentCodeSuccess) bool) AuthSentCodeSuccessArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of AuthSentCodeSuccess.
+func (s AuthSentCodeSuccessArray) SortStable(less func(a, b AuthSentCodeSuccess) bool) AuthSentCodeSuccessArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of AuthSentCodeSuccess.
+func (s AuthSentCodeSuccessArray) Retain(keep func(x AuthSentCodeSuccess) bool) AuthSentCodeSuccessArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s AuthSentCodeSuccessArray) First() (v AuthSentCodeSuccess, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s AuthSentCodeSuccessArray) Last() (v AuthSentCodeSuccess, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *AuthSentCodeSuccessArray) PopFirst() (v AuthSentCodeSuccess, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero AuthSentCodeSuccess
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *AuthSentCodeSuccessArray) Pop() (v AuthSentCodeSuccess, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}

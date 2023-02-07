@@ -172,7 +172,7 @@ type AccountEmailVerifiedLogin struct {
 	// Email field of AccountEmailVerifiedLogin.
 	Email string
 	// SentCode field of AccountEmailVerifiedLogin.
-	SentCode AuthSentCode
+	SentCode AuthSentCodeClass
 }
 
 // AccountEmailVerifiedLoginTypeID is TL type id of AccountEmailVerifiedLogin.
@@ -198,7 +198,7 @@ func (e *AccountEmailVerifiedLogin) Zero() bool {
 	if !(e.Email == "") {
 		return false
 	}
-	if !(e.SentCode.Zero()) {
+	if !(e.SentCode == nil) {
 		return false
 	}
 
@@ -217,7 +217,7 @@ func (e *AccountEmailVerifiedLogin) String() string {
 // FillFrom fills AccountEmailVerifiedLogin from given interface.
 func (e *AccountEmailVerifiedLogin) FillFrom(from interface {
 	GetEmail() (value string)
-	GetSentCode() (value AuthSentCode)
+	GetSentCode() (value AuthSentCodeClass)
 }) {
 	e.Email = from.GetEmail()
 	e.SentCode = from.GetSentCode()
@@ -273,6 +273,9 @@ func (e *AccountEmailVerifiedLogin) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.emailVerifiedLogin#e1bb0d61 as nil")
 	}
 	b.PutString(e.Email)
+	if e.SentCode == nil {
+		return fmt.Errorf("unable to encode account.emailVerifiedLogin#e1bb0d61: field sent_code is nil")
+	}
 	if err := e.SentCode.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.emailVerifiedLogin#e1bb0d61: field sent_code: %w", err)
 	}
@@ -303,9 +306,11 @@ func (e *AccountEmailVerifiedLogin) DecodeBare(b *bin.Buffer) error {
 		e.Email = value
 	}
 	{
-		if err := e.SentCode.Decode(b); err != nil {
+		value, err := DecodeAuthSentCode(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode account.emailVerifiedLogin#e1bb0d61: field sent_code: %w", err)
 		}
+		e.SentCode = value
 	}
 	return nil
 }
@@ -319,7 +324,7 @@ func (e *AccountEmailVerifiedLogin) GetEmail() (value string) {
 }
 
 // GetSentCode returns value of SentCode field.
-func (e *AccountEmailVerifiedLogin) GetSentCode() (value AuthSentCode) {
+func (e *AccountEmailVerifiedLogin) GetSentCode() (value AuthSentCodeClass) {
 	if e == nil {
 		return
 	}

@@ -182,6 +182,174 @@ func (s *AccountGetDefaultEmojiStatuses) Fetch(ctx context.Context) (bool, error
 	}
 }
 
+type innerAccountGetDefaultGroupPhotoEmojis struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.EmojiList
+}
+
+type AccountGetDefaultGroupPhotoEmojis struct {
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewAccountGetDefaultGroupPhotoEmojis creates new AccountGetDefaultGroupPhotoEmojis.
+func NewAccountGetDefaultGroupPhotoEmojis(raw *tg.Client) *AccountGetDefaultGroupPhotoEmojis {
+	q := &AccountGetDefaultGroupPhotoEmojis{
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *AccountGetDefaultGroupPhotoEmojis) store(v innerAccountGetDefaultGroupPhotoEmojis) {
+	s.last.Store(v)
+}
+
+func (s *AccountGetDefaultGroupPhotoEmojis) load() (innerAccountGetDefaultGroupPhotoEmojis, bool) {
+	v, ok := s.last.Load().(innerAccountGetDefaultGroupPhotoEmojis)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned EmojiList must not be mutated.
+func (s *AccountGetDefaultGroupPhotoEmojis) Value() *tg.EmojiList {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *AccountGetDefaultGroupPhotoEmojis) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *AccountGetDefaultGroupPhotoEmojis) Get(ctx context.Context) (*tg.EmojiList, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *AccountGetDefaultGroupPhotoEmojis) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := lastHash
+	result, err := s.raw.AccountGetDefaultGroupPhotoEmojis(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute AccountGetDefaultGroupPhotoEmojis")
+	}
+
+	switch variant := result.(type) {
+	case *tg.EmojiList:
+		hash := variant.Hash
+
+		s.store(innerAccountGetDefaultGroupPhotoEmojis{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.EmojiListNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
+type innerAccountGetDefaultProfilePhotoEmojis struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.EmojiList
+}
+
+type AccountGetDefaultProfilePhotoEmojis struct {
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewAccountGetDefaultProfilePhotoEmojis creates new AccountGetDefaultProfilePhotoEmojis.
+func NewAccountGetDefaultProfilePhotoEmojis(raw *tg.Client) *AccountGetDefaultProfilePhotoEmojis {
+	q := &AccountGetDefaultProfilePhotoEmojis{
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *AccountGetDefaultProfilePhotoEmojis) store(v innerAccountGetDefaultProfilePhotoEmojis) {
+	s.last.Store(v)
+}
+
+func (s *AccountGetDefaultProfilePhotoEmojis) load() (innerAccountGetDefaultProfilePhotoEmojis, bool) {
+	v, ok := s.last.Load().(innerAccountGetDefaultProfilePhotoEmojis)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned EmojiList must not be mutated.
+func (s *AccountGetDefaultProfilePhotoEmojis) Value() *tg.EmojiList {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *AccountGetDefaultProfilePhotoEmojis) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *AccountGetDefaultProfilePhotoEmojis) Get(ctx context.Context) (*tg.EmojiList, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *AccountGetDefaultProfilePhotoEmojis) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := lastHash
+	result, err := s.raw.AccountGetDefaultProfilePhotoEmojis(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute AccountGetDefaultProfilePhotoEmojis")
+	}
+
+	switch variant := result.(type) {
+	case *tg.EmojiList:
+		hash := variant.Hash
+
+		s.store(innerAccountGetDefaultProfilePhotoEmojis{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.EmojiListNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
 type innerAccountGetRecentEmojiStatuses struct {
 	// Last received hash.
 	hash int64
@@ -1621,6 +1789,94 @@ func (s *MessagesGetTopReactions) Fetch(ctx context.Context) (bool, error) {
 		})
 		return true, nil
 	case *tg.MessagesReactionsNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
+type innerMessagesSearchCustomEmoji struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.EmojiList
+}
+
+type MessagesSearchCustomEmoji struct {
+	// Query to send.
+	req *tg.MessagesSearchCustomEmojiRequest
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewMessagesSearchCustomEmoji creates new MessagesSearchCustomEmoji.
+func NewMessagesSearchCustomEmoji(raw *tg.Client, initial *tg.MessagesSearchCustomEmojiRequest) *MessagesSearchCustomEmoji {
+	q := &MessagesSearchCustomEmoji{
+		req: initial,
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *MessagesSearchCustomEmoji) store(v innerMessagesSearchCustomEmoji) {
+	s.last.Store(v)
+}
+
+func (s *MessagesSearchCustomEmoji) load() (innerMessagesSearchCustomEmoji, bool) {
+	v, ok := s.last.Load().(innerMessagesSearchCustomEmoji)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned EmojiList must not be mutated.
+func (s *MessagesSearchCustomEmoji) Value() *tg.EmojiList {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *MessagesSearchCustomEmoji) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *MessagesSearchCustomEmoji) Get(ctx context.Context) (*tg.EmojiList, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *MessagesSearchCustomEmoji) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := s.req
+	req.Hash = lastHash
+	result, err := s.raw.MessagesSearchCustomEmoji(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute MessagesSearchCustomEmoji")
+	}
+
+	switch variant := result.(type) {
+	case *tg.EmojiList:
+		hash := variant.Hash
+
+		s.store(innerMessagesSearchCustomEmoji{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.EmojiListNotModified:
 		if lastHash == 0 {
 			return false, errors.Errorf("got unexpected %T result", result)
 		}

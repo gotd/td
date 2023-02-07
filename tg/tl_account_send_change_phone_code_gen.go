@@ -199,11 +199,11 @@ func (s *AccountSendChangePhoneCodeRequest) GetSettings() (value CodeSettings) {
 //	400 PHONE_NUMBER_OCCUPIED: The phone number is already in use.
 //
 // See https://core.telegram.org/method/account.sendChangePhoneCode for reference.
-func (c *Client) AccountSendChangePhoneCode(ctx context.Context, request *AccountSendChangePhoneCodeRequest) (*AuthSentCode, error) {
-	var result AuthSentCode
+func (c *Client) AccountSendChangePhoneCode(ctx context.Context, request *AccountSendChangePhoneCodeRequest) (AuthSentCodeClass, error) {
+	var result AuthSentCodeBox
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.SentCode, nil
 }

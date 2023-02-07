@@ -133,7 +133,7 @@ func (i *InputChatPhotoEmpty) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// InputChatUploadedPhoto represents TL type `inputChatUploadedPhoto#c642724e`.
+// InputChatUploadedPhoto represents TL type `inputChatUploadedPhoto#bdcdaec0`.
 // New photo to be set as group profile photo.
 //
 // See https://core.telegram.org/constructor/inputChatUploadedPhoto for reference.
@@ -158,10 +158,14 @@ type InputChatUploadedPhoto struct {
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
 	VideoStartTs float64
+	// VideoEmojiMarkup field of InputChatUploadedPhoto.
+	//
+	// Use SetVideoEmojiMarkup and GetVideoEmojiMarkup helpers.
+	VideoEmojiMarkup VideoSizeClass
 }
 
 // InputChatUploadedPhotoTypeID is TL type id of InputChatUploadedPhoto.
-const InputChatUploadedPhotoTypeID = 0xc642724e
+const InputChatUploadedPhotoTypeID = 0xbdcdaec0
 
 // construct implements constructor of InputChatPhotoClass.
 func (i InputChatUploadedPhoto) construct() InputChatPhotoClass { return &i }
@@ -192,6 +196,9 @@ func (i *InputChatUploadedPhoto) Zero() bool {
 	if !(i.VideoStartTs == 0) {
 		return false
 	}
+	if !(i.VideoEmojiMarkup == nil) {
+		return false
+	}
 
 	return true
 }
@@ -210,6 +217,7 @@ func (i *InputChatUploadedPhoto) FillFrom(from interface {
 	GetFile() (value InputFileClass, ok bool)
 	GetVideo() (value InputFileClass, ok bool)
 	GetVideoStartTs() (value float64, ok bool)
+	GetVideoEmojiMarkup() (value VideoSizeClass, ok bool)
 }) {
 	if val, ok := from.GetFile(); ok {
 		i.File = val
@@ -221,6 +229,10 @@ func (i *InputChatUploadedPhoto) FillFrom(from interface {
 
 	if val, ok := from.GetVideoStartTs(); ok {
 		i.VideoStartTs = val
+	}
+
+	if val, ok := from.GetVideoEmojiMarkup(); ok {
+		i.VideoEmojiMarkup = val
 	}
 
 }
@@ -263,6 +275,11 @@ func (i *InputChatUploadedPhoto) TypeInfo() tdp.Type {
 			SchemaName: "video_start_ts",
 			Null:       !i.Flags.Has(2),
 		},
+		{
+			Name:       "VideoEmojiMarkup",
+			SchemaName: "video_emoji_markup",
+			Null:       !i.Flags.Has(3),
+		},
 	}
 	return typ
 }
@@ -278,12 +295,15 @@ func (i *InputChatUploadedPhoto) SetFlags() {
 	if !(i.VideoStartTs == 0) {
 		i.Flags.Set(2)
 	}
+	if !(i.VideoEmojiMarkup == nil) {
+		i.Flags.Set(3)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (i *InputChatUploadedPhoto) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputChatUploadedPhoto#c642724e as nil")
+		return fmt.Errorf("can't encode inputChatUploadedPhoto#bdcdaec0 as nil")
 	}
 	b.PutID(InputChatUploadedPhotoTypeID)
 	return i.EncodeBare(b)
@@ -292,30 +312,38 @@ func (i *InputChatUploadedPhoto) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputChatUploadedPhoto) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputChatUploadedPhoto#c642724e as nil")
+		return fmt.Errorf("can't encode inputChatUploadedPhoto#bdcdaec0 as nil")
 	}
 	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputChatUploadedPhoto#c642724e: field flags: %w", err)
+		return fmt.Errorf("unable to encode inputChatUploadedPhoto#bdcdaec0: field flags: %w", err)
 	}
 	if i.Flags.Has(0) {
 		if i.File == nil {
-			return fmt.Errorf("unable to encode inputChatUploadedPhoto#c642724e: field file is nil")
+			return fmt.Errorf("unable to encode inputChatUploadedPhoto#bdcdaec0: field file is nil")
 		}
 		if err := i.File.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputChatUploadedPhoto#c642724e: field file: %w", err)
+			return fmt.Errorf("unable to encode inputChatUploadedPhoto#bdcdaec0: field file: %w", err)
 		}
 	}
 	if i.Flags.Has(1) {
 		if i.Video == nil {
-			return fmt.Errorf("unable to encode inputChatUploadedPhoto#c642724e: field video is nil")
+			return fmt.Errorf("unable to encode inputChatUploadedPhoto#bdcdaec0: field video is nil")
 		}
 		if err := i.Video.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputChatUploadedPhoto#c642724e: field video: %w", err)
+			return fmt.Errorf("unable to encode inputChatUploadedPhoto#bdcdaec0: field video: %w", err)
 		}
 	}
 	if i.Flags.Has(2) {
 		b.PutDouble(i.VideoStartTs)
+	}
+	if i.Flags.Has(3) {
+		if i.VideoEmojiMarkup == nil {
+			return fmt.Errorf("unable to encode inputChatUploadedPhoto#bdcdaec0: field video_emoji_markup is nil")
+		}
+		if err := i.VideoEmojiMarkup.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode inputChatUploadedPhoto#bdcdaec0: field video_emoji_markup: %w", err)
+		}
 	}
 	return nil
 }
@@ -323,10 +351,10 @@ func (i *InputChatUploadedPhoto) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputChatUploadedPhoto) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputChatUploadedPhoto#c642724e to nil")
+		return fmt.Errorf("can't decode inputChatUploadedPhoto#bdcdaec0 to nil")
 	}
 	if err := b.ConsumeID(InputChatUploadedPhotoTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputChatUploadedPhoto#c642724e: %w", err)
+		return fmt.Errorf("unable to decode inputChatUploadedPhoto#bdcdaec0: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -334,33 +362,40 @@ func (i *InputChatUploadedPhoto) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputChatUploadedPhoto) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputChatUploadedPhoto#c642724e to nil")
+		return fmt.Errorf("can't decode inputChatUploadedPhoto#bdcdaec0 to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputChatUploadedPhoto#c642724e: field flags: %w", err)
+			return fmt.Errorf("unable to decode inputChatUploadedPhoto#bdcdaec0: field flags: %w", err)
 		}
 	}
 	if i.Flags.Has(0) {
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputChatUploadedPhoto#c642724e: field file: %w", err)
+			return fmt.Errorf("unable to decode inputChatUploadedPhoto#bdcdaec0: field file: %w", err)
 		}
 		i.File = value
 	}
 	if i.Flags.Has(1) {
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputChatUploadedPhoto#c642724e: field video: %w", err)
+			return fmt.Errorf("unable to decode inputChatUploadedPhoto#bdcdaec0: field video: %w", err)
 		}
 		i.Video = value
 	}
 	if i.Flags.Has(2) {
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputChatUploadedPhoto#c642724e: field video_start_ts: %w", err)
+			return fmt.Errorf("unable to decode inputChatUploadedPhoto#bdcdaec0: field video_start_ts: %w", err)
 		}
 		i.VideoStartTs = value
+	}
+	if i.Flags.Has(3) {
+		value, err := DecodeVideoSize(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputChatUploadedPhoto#bdcdaec0: field video_emoji_markup: %w", err)
+		}
+		i.VideoEmojiMarkup = value
 	}
 	return nil
 }
@@ -417,6 +452,24 @@ func (i *InputChatUploadedPhoto) GetVideoStartTs() (value float64, ok bool) {
 		return value, false
 	}
 	return i.VideoStartTs, true
+}
+
+// SetVideoEmojiMarkup sets value of VideoEmojiMarkup conditional field.
+func (i *InputChatUploadedPhoto) SetVideoEmojiMarkup(value VideoSizeClass) {
+	i.Flags.Set(3)
+	i.VideoEmojiMarkup = value
+}
+
+// GetVideoEmojiMarkup returns value of VideoEmojiMarkup conditional field and
+// boolean which is true if field was set.
+func (i *InputChatUploadedPhoto) GetVideoEmojiMarkup() (value VideoSizeClass, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(3) {
+		return value, false
+	}
+	return i.VideoEmojiMarkup, true
 }
 
 // InputChatPhoto represents TL type `inputChatPhoto#8953ad37`.
@@ -574,7 +627,7 @@ const InputChatPhotoClassName = "InputChatPhoto"
 //	}
 //	switch v := g.(type) {
 //	case *tg.InputChatPhotoEmpty: // inputChatPhotoEmpty#1ca48f57
-//	case *tg.InputChatUploadedPhoto: // inputChatUploadedPhoto#c642724e
+//	case *tg.InputChatUploadedPhoto: // inputChatUploadedPhoto#bdcdaec0
 //	case *tg.InputChatPhoto: // inputChatPhoto#8953ad37
 //	default: panic(v)
 //	}
@@ -612,7 +665,7 @@ func DecodeInputChatPhoto(buf *bin.Buffer) (InputChatPhotoClass, error) {
 		}
 		return &v, nil
 	case InputChatUploadedPhotoTypeID:
-		// Decoding inputChatUploadedPhoto#c642724e.
+		// Decoding inputChatUploadedPhoto#bdcdaec0.
 		v := InputChatUploadedPhoto{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputChatPhotoClass: %w", err)

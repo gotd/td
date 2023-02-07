@@ -198,7 +198,7 @@ type Document struct {
 	// Video thumbnails
 	//
 	// Use SetVideoThumbs and GetVideoThumbs helpers.
-	VideoThumbs []VideoSize
+	VideoThumbs []VideoSizeClass
 	// DC ID
 	DCID int
 	// Attributes
@@ -280,7 +280,7 @@ func (d *Document) FillFrom(from interface {
 	GetMimeType() (value string)
 	GetSize() (value int64)
 	GetThumbs() (value []PhotoSizeClass, ok bool)
-	GetVideoThumbs() (value []VideoSize, ok bool)
+	GetVideoThumbs() (value []VideoSizeClass, ok bool)
 	GetDCID() (value int)
 	GetAttributes() (value []DocumentAttributeClass)
 }) {
@@ -419,6 +419,9 @@ func (d *Document) EncodeBare(b *bin.Buffer) error {
 	if d.Flags.Has(1) {
 		b.PutVectorHeader(len(d.VideoThumbs))
 		for idx, v := range d.VideoThumbs {
+			if v == nil {
+				return fmt.Errorf("unable to encode document#8fd4c4d8: field video_thumbs element with index %d is nil", idx)
+			}
 			if err := v.Encode(b); err != nil {
 				return fmt.Errorf("unable to encode document#8fd4c4d8: field video_thumbs element with index %d: %w", idx, err)
 			}
@@ -524,11 +527,11 @@ func (d *Document) DecodeBare(b *bin.Buffer) error {
 		}
 
 		if headerLen > 0 {
-			d.VideoThumbs = make([]VideoSize, 0, headerLen%bin.PreallocateLimit)
+			d.VideoThumbs = make([]VideoSizeClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value VideoSize
-			if err := value.Decode(b); err != nil {
+			value, err := DecodeVideoSize(b)
+			if err != nil {
 				return fmt.Errorf("unable to decode document#8fd4c4d8: field video_thumbs: %w", err)
 			}
 			d.VideoThumbs = append(d.VideoThumbs, value)
@@ -628,14 +631,14 @@ func (d *Document) GetThumbs() (value []PhotoSizeClass, ok bool) {
 }
 
 // SetVideoThumbs sets value of VideoThumbs conditional field.
-func (d *Document) SetVideoThumbs(value []VideoSize) {
+func (d *Document) SetVideoThumbs(value []VideoSizeClass) {
 	d.Flags.Set(1)
 	d.VideoThumbs = value
 }
 
 // GetVideoThumbs returns value of VideoThumbs conditional field and
 // boolean which is true if field was set.
-func (d *Document) GetVideoThumbs() (value []VideoSize, ok bool) {
+func (d *Document) GetVideoThumbs() (value []VideoSizeClass, ok bool) {
 	if d == nil {
 		return
 	}
@@ -667,6 +670,14 @@ func (d *Document) MapThumbs() (value PhotoSizeClassArray, ok bool) {
 		return value, false
 	}
 	return PhotoSizeClassArray(d.Thumbs), true
+}
+
+// MapVideoThumbs returns field VideoThumbs wrapped in VideoSizeClassArray helper.
+func (d *Document) MapVideoThumbs() (value VideoSizeClassArray, ok bool) {
+	if !d.Flags.Has(1) {
+		return value, false
+	}
+	return VideoSizeClassArray(d.VideoThumbs), true
 }
 
 // MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
