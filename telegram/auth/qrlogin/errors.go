@@ -9,7 +9,12 @@ import (
 // MigrationNeededError reports that Telegram requested DC migration to continue login.
 type MigrationNeededError struct {
 	MigrateTo *tg.AuthLoginTokenMigrateTo
-	Tried     bool
+
+	// Tried indicates that the migration was attempted.
+	//
+	// Deprecated: do not use. QR login uses migrate function passed via
+	// options.
+	Tried bool
 }
 
 // Error implements error.
