@@ -65,9 +65,6 @@ func (q QR) Accept(ctx context.Context, t Token) (*tg.Authorization, error) {
 //
 // See https://core.telegram.org/api/qr-login#confirming-importing-the-login-token.
 func (q QR) Import(ctx context.Context) (*tg.AuthAuthorization, error) {
-	migrated := false
-
-retry:
 	result, err := q.api.AuthExportLoginToken(ctx, &tg.AuthExportLoginTokenRequest{
 		APIID:   q.appID,
 		APIHash: q.appHash,
@@ -78,17 +75,30 @@ retry:
 
 	switch t := result.(type) {
 	case *tg.AuthLoginTokenMigrateTo:
-		if migrated || q.migrate == nil {
+		if q.migrate == nil {
 			return nil, &MigrationNeededError{
 				MigrateTo: t,
-				Tried:     migrated,
 			}
 		}
 		if err := q.migrate(ctx, t.DCID); err != nil {
 			return nil, errors.Wrap(err, "migrate")
 		}
-		migrated = true
-		goto retry
+
+		result, err := q.api.AuthImportLoginToken(ctx, t.Token)
+		if err != nil {
+			return nil, errors.Wrap(err, "import")
+		}
+
+		success, ok := result.(*tg.AuthLoginTokenSuccess)
+		if !ok {
+			return nil, errors.Errorf("unexpected type %T", result)
+		}
+
+		auth, ok := success.Authorization.(*tg.AuthAuthorization)
+		if !ok {
+			return nil, errors.Errorf("unexpected type %T", success.Authorization)
+		}
+		return auth, nil
 	case *tg.AuthLoginTokenSuccess:
 		auth, ok := t.Authorization.(*tg.AuthAuthorization)
 		if !ok {
@@ -106,7 +116,8 @@ type LoggedIn <-chan struct{}
 // OnLoginToken sets handler for given dispatcher and returns signal channel.
 func OnLoginToken(d interface {
 	OnLoginToken(tg.LoginTokenHandler)
-}) LoggedIn {
+},
+) LoggedIn {
 	loggedIn := make(chan struct{})
 	d.OnLoginToken(func(ctx context.Context, e tg.Entities, update *tg.UpdateLoginToken) error {
 		select {
