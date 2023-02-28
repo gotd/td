@@ -84,14 +84,14 @@ func (q QR) Import(ctx context.Context) (*tg.AuthAuthorization, error) {
 			return nil, errors.Wrap(err, "migrate")
 		}
 
-		result, err := q.api.AuthImportLoginToken(ctx, t.Token)
+		res, err := q.api.AuthImportLoginToken(ctx, t.Token)
 		if err != nil {
 			return nil, errors.Wrap(err, "import")
 		}
 
-		success, ok := result.(*tg.AuthLoginTokenSuccess)
+		success, ok := res.(*tg.AuthLoginTokenSuccess)
 		if !ok {
-			return nil, errors.Errorf("unexpected type %T", result)
+			return nil, errors.Errorf("unexpected type %T", res)
 		}
 
 		auth, ok := success.Authorization.(*tg.AuthAuthorization)
