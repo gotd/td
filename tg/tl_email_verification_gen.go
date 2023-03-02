@@ -32,10 +32,11 @@ var (
 )
 
 // EmailVerificationCode represents TL type `emailVerificationCode#922e55a9`.
+// Email verification code
 //
 // See https://core.telegram.org/constructor/emailVerificationCode for reference.
 type EmailVerificationCode struct {
-	// Code field of EmailVerificationCode.
+	// Received verification code
 	Code string
 }
 
@@ -166,10 +167,11 @@ func (e *EmailVerificationCode) GetCode() (value string) {
 }
 
 // EmailVerificationGoogle represents TL type `emailVerificationGoogle#db909ec2`.
+// Google ID email verification token
 //
 // See https://core.telegram.org/constructor/emailVerificationGoogle for reference.
 type EmailVerificationGoogle struct {
-	// Token field of EmailVerificationGoogle.
+	// Token
 	Token string
 }
 
@@ -300,10 +302,11 @@ func (e *EmailVerificationGoogle) GetToken() (value string) {
 }
 
 // EmailVerificationApple represents TL type `emailVerificationApple#96d074fd`.
+// Apple ID email verification token
 //
 // See https://core.telegram.org/constructor/emailVerificationApple for reference.
 type EmailVerificationApple struct {
-	// Token field of EmailVerificationApple.
+	// Token
 	Token string
 }
 

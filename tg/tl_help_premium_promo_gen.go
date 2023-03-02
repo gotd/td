@@ -33,6 +33,13 @@ var (
 
 // HelpPremiumPromo represents TL type `help.premiumPromo#5334759c`.
 // Telegram Premium promotion information
+// Note that the video_sections+videos fields are a list of videos, and the corresponding
+// premium feature identifiers.
+// They're equivalent to a section => video dictionary, with keys from video_section and
+// values from videos.
+// The keys in video_sections correspond to a specific feature identifier, and the
+// associated promotional video should be shown when the associated feature row is
+// clicked.
 //
 // See https://core.telegram.org/constructor/help.premiumPromo for reference.
 type HelpPremiumPromo struct {
@@ -50,7 +57,7 @@ type HelpPremiumPromo struct {
 	VideoSections []string
 	// A list of videos
 	Videos []DocumentClass
-	// PeriodOptions field of HelpPremiumPromo.
+	// Telegram Premium subscription options
 	PeriodOptions []PremiumSubscriptionOption
 	// Related user information
 	Users []UserClass

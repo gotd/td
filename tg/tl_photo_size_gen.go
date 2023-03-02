@@ -36,10 +36,10 @@ var (
 //
 // See https://core.telegram.org/constructor/photoSizeEmpty for reference.
 type PhotoSizeEmpty struct {
-	// Thumbnail type (see. photoSize¹)
+	// Thumbnail type »¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/constructor/photoSize
+	//  1) https://core.telegram.org/api/files#image-thumbnail-types
 	Type string
 }
 
@@ -174,7 +174,10 @@ func (p *PhotoSizeEmpty) GetType() (value string) {
 //
 // See https://core.telegram.org/constructor/photoSize for reference.
 type PhotoSize struct {
-	// Thumbnail type
+	// Thumbnail type »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files#image-thumbnail-types
 	Type string
 	// Image width
 	W int
@@ -771,7 +774,10 @@ func (p *PhotoStrippedSize) GetBytes() (value []byte) {
 //
 // See https://core.telegram.org/constructor/photoSizeProgressive for reference.
 type PhotoSizeProgressive struct {
-	// Photosize type
+	// Photosize type »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files#image-thumbnail-types
 	Type string
 	// Photo width
 	W int
@@ -1202,10 +1208,10 @@ type PhotoSizeClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Thumbnail type (see. photoSize¹)
+	// Thumbnail type »¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/constructor/photoSize
+	//  1) https://core.telegram.org/api/files#image-thumbnail-types
 	GetType() (value string)
 
 	// AsNotEmpty tries to map PhotoSizeClass to NotEmptyPhotoSize.
@@ -1231,7 +1237,10 @@ type NotEmptyPhotoSize interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Thumbnail type
+	// Thumbnail type »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files#image-thumbnail-types
 	GetType() (value string)
 }
 

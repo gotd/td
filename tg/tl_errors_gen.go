@@ -109,6 +109,7 @@ const (
 	ErrChatLinkExists                   = "CHAT_LINK_EXISTS"
 	ErrChatNotModified                  = "CHAT_NOT_MODIFIED"
 	ErrChatRestricted                   = "CHAT_RESTRICTED"
+	ErrChatRevokeDateUnsupported        = "CHAT_REVOKE_DATE_UNSUPPORTED"
 	ErrChatSendGameForbidden            = "CHAT_SEND_GAME_FORBIDDEN"
 	ErrChatSendGifsForbidden            = "CHAT_SEND_GIFS_FORBIDDEN"
 	ErrChatSendInlineForbidden          = "CHAT_SEND_INLINE_FORBIDDEN"
@@ -252,6 +253,7 @@ const (
 	ErrMethodInvalid                    = "METHOD_INVALID"
 	ErrMinDateInvalid                   = "MIN_DATE_INVALID"
 	ErrMsgIDInvalid                     = "MSG_ID_INVALID"
+	ErrMsgTooOld                        = "MSG_TOO_OLD"
 	ErrMsgWaitFailed                    = "MSG_WAIT_FAILED"
 	ErrMultiMediaTooLong                = "MULTI_MEDIA_TOO_LONG"
 	ErrNewSaltInvalid                   = "NEW_SALT_INVALID"
@@ -286,6 +288,7 @@ const (
 	ErrPhoneCodeExpired                 = "PHONE_CODE_EXPIRED"
 	ErrPhoneCodeHashEmpty               = "PHONE_CODE_HASH_EMPTY"
 	ErrPhoneCodeInvalid                 = "PHONE_CODE_INVALID"
+	ErrPhoneHashExpired                 = "PHONE_HASH_EXPIRED"
 	ErrPhoneNotOccupied                 = "PHONE_NOT_OCCUPIED"
 	ErrPhoneNumberAppSignupForbidden    = "PHONE_NUMBER_APP_SIGNUP_FORBIDDEN"
 	ErrPhoneNumberBanned                = "PHONE_NUMBER_BANNED"
@@ -398,6 +401,7 @@ const (
 	ErrStickerVideoBig                  = "STICKER_VIDEO_BIG"
 	ErrStickerVideoNodoc                = "STICKER_VIDEO_NODOC"
 	ErrStickerVideoNowebm               = "STICKER_VIDEO_NOWEBM"
+	ErrSwitchPmTextEmpty                = "SWITCH_PM_TEXT_EMPTY"
 	ErrTakeoutInitDelay                 = "TAKEOUT_INIT_DELAY"
 	ErrTakeoutRequired                  = "TAKEOUT_REQUIRED"
 	ErrTempAuthKeyAlreadyBound          = "TEMP_AUTH_KEY_ALREADY_BOUND"
@@ -846,6 +850,11 @@ func IsChatNotModified(err error) bool {
 // IsChatRestricted reports whether err is CHAT_RESTRICTED.
 func IsChatRestricted(err error) bool {
 	return tgerr.Is(err, ErrChatRestricted)
+}
+
+// IsChatRevokeDateUnsupported reports whether err is CHAT_REVOKE_DATE_UNSUPPORTED.
+func IsChatRevokeDateUnsupported(err error) bool {
+	return tgerr.Is(err, ErrChatRevokeDateUnsupported)
 }
 
 // IsChatSendGameForbidden reports whether err is CHAT_SEND_GAME_FORBIDDEN.
@@ -1563,6 +1572,11 @@ func IsMsgIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrMsgIDInvalid)
 }
 
+// IsMsgTooOld reports whether err is MSG_TOO_OLD.
+func IsMsgTooOld(err error) bool {
+	return tgerr.Is(err, ErrMsgTooOld)
+}
+
 // IsMsgWaitFailed reports whether err is MSG_WAIT_FAILED.
 func IsMsgWaitFailed(err error) bool {
 	return tgerr.Is(err, ErrMsgWaitFailed)
@@ -1731,6 +1745,11 @@ func IsPhoneCodeHashEmpty(err error) bool {
 // IsPhoneCodeInvalid reports whether err is PHONE_CODE_INVALID.
 func IsPhoneCodeInvalid(err error) bool {
 	return tgerr.Is(err, ErrPhoneCodeInvalid)
+}
+
+// IsPhoneHashExpired reports whether err is PHONE_HASH_EXPIRED.
+func IsPhoneHashExpired(err error) bool {
+	return tgerr.Is(err, ErrPhoneHashExpired)
 }
 
 // IsPhoneNotOccupied reports whether err is PHONE_NOT_OCCUPIED.
@@ -2291,6 +2310,11 @@ func IsStickerVideoNodoc(err error) bool {
 // IsStickerVideoNowebm reports whether err is STICKER_VIDEO_NOWEBM.
 func IsStickerVideoNowebm(err error) bool {
 	return tgerr.Is(err, ErrStickerVideoNowebm)
+}
+
+// IsSwitchPmTextEmpty reports whether err is SWITCH_PM_TEXT_EMPTY.
+func IsSwitchPmTextEmpty(err error) bool {
+	return tgerr.Is(err, ErrSwitchPmTextEmpty)
 }
 
 // IsTakeoutInitDelay reports whether err is TAKEOUT_INIT_DELAY.

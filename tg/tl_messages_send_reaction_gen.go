@@ -43,7 +43,10 @@ type MessagesSendReactionRequest struct {
 	Flags bin.Fields
 	// Whether a bigger and longer reaction should be shown
 	Big bool
-	// AddToRecent field of MessagesSendReactionRequest.
+	// Add this reaction to the recent reactions list »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/reactions#recent-reactions
 	AddToRecent bool
 	// Peer
 	Peer InputPeerClass

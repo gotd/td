@@ -32,10 +32,17 @@ var (
 )
 
 // AccountGetDefaultEmojiStatusesRequest represents TL type `account.getDefaultEmojiStatuses#d6753386`.
+// Get a list of default suggested emoji statuses¹
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/method/account.getDefaultEmojiStatuses for reference.
 type AccountGetDefaultEmojiStatusesRequest struct {
-	// Hash field of AccountGetDefaultEmojiStatusesRequest.
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
 }
 
@@ -161,6 +168,10 @@ func (g *AccountGetDefaultEmojiStatusesRequest) GetHash() (value int64) {
 }
 
 // AccountGetDefaultEmojiStatuses invokes method account.getDefaultEmojiStatuses#d6753386 returning error if any.
+// Get a list of default suggested emoji statuses¹
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/method/account.getDefaultEmojiStatuses for reference.
 func (c *Client) AccountGetDefaultEmojiStatuses(ctx context.Context, hash int64) (AccountEmojiStatusesClass, error) {

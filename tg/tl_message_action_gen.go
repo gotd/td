@@ -5100,6 +5100,8 @@ func (m *MessageActionWebViewDataSentMe) GetData() (value string) {
 // MessageActionWebViewDataSent represents TL type `messageActionWebViewDataSent#b4c38cb5`.
 // Data from an opened reply keyboard bot web app¹ was relayed to the bot that owns it
 // (user side service message).
+// Clients should display a service message with the text Data from the «$text» button
+// was transferred to the bot.
 //
 // Links:
 //  1. https://core.telegram.org/api/bots/webapps

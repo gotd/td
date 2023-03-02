@@ -134,7 +134,8 @@ func (a *AttachMenuPeerTypeSameBotPM) DecodeBare(b *bin.Buffer) error {
 }
 
 // AttachMenuPeerTypeBotPM represents TL type `attachMenuPeerTypeBotPM#c32bfa1a`.
-// The bot attachment menu entry is available in private chats with other bots
+// The bot attachment menu entry is available in private chats with other bots (excluding
+// the bot that offers the current attachment menu)
 //
 // See https://core.telegram.org/constructor/attachMenuPeerTypeBotPM for reference.
 type AttachMenuPeerTypeBotPM struct {
@@ -236,7 +237,8 @@ func (a *AttachMenuPeerTypeBotPM) DecodeBare(b *bin.Buffer) error {
 }
 
 // AttachMenuPeerTypePM represents TL type `attachMenuPeerTypePM#f146d31f`.
-// The bot attachment menu entry is available in private chats with other users
+// The bot attachment menu entry is available in private chats with other users (not
+// bots)
 //
 // See https://core.telegram.org/constructor/attachMenuPeerTypePM for reference.
 type AttachMenuPeerTypePM struct {

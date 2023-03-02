@@ -32,12 +32,22 @@ var (
 )
 
 // MessagesGetTopReactionsRequest represents TL type `messages.getTopReactions#bb8125ba`.
+// Got popular message reactions¹
+//
+// Links:
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getTopReactions for reference.
 type MessagesGetTopReactionsRequest struct {
-	// Limit field of MessagesGetTopReactionsRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
-	// Hash field of MessagesGetTopReactionsRequest.
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
 }
 
@@ -188,6 +198,10 @@ func (g *MessagesGetTopReactionsRequest) GetHash() (value int64) {
 }
 
 // MessagesGetTopReactions invokes method messages.getTopReactions#bb8125ba returning error if any.
+// Got popular message reactions¹
+//
+// Links:
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getTopReactions for reference.
 func (c *Client) MessagesGetTopReactions(ctx context.Context, request *MessagesGetTopReactionsRequest) (MessagesReactionsClass, error) {

@@ -32,14 +32,18 @@ var (
 )
 
 // SendAsPeer represents TL type `sendAsPeer#b81c7034`.
+// Indicates a peer that can be used to send messages
 //
 // See https://core.telegram.org/constructor/sendAsPeer for reference.
 type SendAsPeer struct {
-	// Flags field of SendAsPeer.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// PremiumRequired field of SendAsPeer.
+	// Whether a Telegram Premium account is required to send messages as this peer
 	PremiumRequired bool
-	// Peer field of SendAsPeer.
+	// Peer
 	Peer PeerClass
 }
 

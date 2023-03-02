@@ -32,16 +32,18 @@ var (
 )
 
 // InputPhoneContact represents TL type `inputPhoneContact#f392b7f4`.
-// Phone contact. The client_id is just an arbitrary contact ID: it should be set, for
-// example, to an incremental number when using contacts.importContacts¹, in order to
-// retry importing only the contacts that weren't imported successfully.
-//
-// Links:
-//  1. https://core.telegram.org/method/contacts.importContacts
+// Phone contact.
 //
 // See https://core.telegram.org/constructor/inputPhoneContact for reference.
 type InputPhoneContact struct {
-	// User identifier on the client
+	// An arbitrary 64-bit integer: it should be set, for example, to an incremental number
+	// when using contacts.importContacts¹, in order to retry importing only the contacts
+	// that weren't imported successfully, according to the client_ids returned in contacts
+	// importedContacts².retry_contacts.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/contacts.importContacts
+	//  2) https://core.telegram.org/constructor/contacts.importedContacts
 	ClientID int64
 	// Phone number
 	Phone string

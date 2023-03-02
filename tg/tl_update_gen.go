@@ -6475,19 +6475,25 @@ func (u *UpdateStickerSetsOrder) GetOrder() (value []int64) {
 }
 
 // UpdateStickerSets represents TL type `updateStickerSets#31c24808`.
-// Installed stickersets have changed, the client should refetch them using messages
-// getAllStickers¹
+// Installed stickersets have changed, the client should refetch them as described in the
+// docs¹.
 //
 // Links:
-//  1. https://core.telegram.org/method/messages.getAllStickers
+//  1. https://core.telegram.org/api/stickers#installing-stickersets
 //
 // See https://core.telegram.org/constructor/updateStickerSets for reference.
 type UpdateStickerSets struct {
-	// Flags field of UpdateStickerSets.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Masks field of UpdateStickerSets.
+	// Whether mask stickersets have changed
 	Masks bool
-	// Emojis field of UpdateStickerSets.
+	// Whether the list of installed custom emoji stickersets¹ has changed
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	Emojis bool
 }
 
@@ -20447,12 +20453,19 @@ func (u *UpdateReadFeaturedEmojiStickers) DecodeBare(b *bin.Buffer) error {
 }
 
 // UpdateUserEmojiStatus represents TL type `updateUserEmojiStatus#28373599`.
+// The emoji status¹ of a certain user has changed
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/constructor/updateUserEmojiStatus for reference.
 type UpdateUserEmojiStatus struct {
-	// UserID field of UpdateUserEmojiStatus.
+	// User ID
 	UserID int64
-	// EmojiStatus field of UpdateUserEmojiStatus.
+	// New emoji status¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/emoji-status
 	EmojiStatus EmojiStatusClass
 }
 
@@ -20613,6 +20626,10 @@ func (u *UpdateUserEmojiStatus) GetEmojiStatus() (value EmojiStatusClass) {
 }
 
 // UpdateRecentEmojiStatuses represents TL type `updateRecentEmojiStatuses#30f443db`.
+// The list of recent emoji statuses¹ has changed
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/constructor/updateRecentEmojiStatuses for reference.
 type UpdateRecentEmojiStatuses struct {
@@ -20714,6 +20731,10 @@ func (u *UpdateRecentEmojiStatuses) DecodeBare(b *bin.Buffer) error {
 }
 
 // UpdateRecentReactions represents TL type `updateRecentReactions#6f7863f4`.
+// The list of recent message reactions¹ has changed
+//
+// Links:
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/constructor/updateRecentReactions for reference.
 type UpdateRecentReactions struct {
@@ -20815,16 +20836,32 @@ func (u *UpdateRecentReactions) DecodeBare(b *bin.Buffer) error {
 }
 
 // UpdateMoveStickerSetToTop represents TL type `updateMoveStickerSetToTop#86fccf85`.
+// A stickerset was just moved to top, see here for more info »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/stickers#recent-stickersets
 //
 // See https://core.telegram.org/constructor/updateMoveStickerSetToTop for reference.
 type UpdateMoveStickerSetToTop struct {
-	// Flags field of UpdateMoveStickerSetToTop.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Masks field of UpdateMoveStickerSetToTop.
+	// This update is referring to a mask stickerset¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stickers#mask-stickers
 	Masks bool
-	// Emojis field of UpdateMoveStickerSetToTop.
+	// This update is referring to a custom emoji stickerset¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	Emojis bool
-	// Stickerset field of UpdateMoveStickerSetToTop.
+	// Stickerset¹ ID
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stickers
 	Stickerset int64
 }
 

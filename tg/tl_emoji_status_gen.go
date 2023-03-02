@@ -32,6 +32,7 @@ var (
 )
 
 // EmojiStatusEmpty represents TL type `emojiStatusEmpty#2de11aae`.
+// No emoji status is set
 //
 // See https://core.telegram.org/constructor/emojiStatusEmpty for reference.
 type EmojiStatusEmpty struct {
@@ -133,10 +134,17 @@ func (e *EmojiStatusEmpty) DecodeBare(b *bin.Buffer) error {
 }
 
 // EmojiStatus represents TL type `emojiStatus#929b619d`.
+// An emoji status¹
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/constructor/emojiStatus for reference.
 type EmojiStatus struct {
-	// DocumentID field of EmojiStatus.
+	// Custom emoji document ID¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	DocumentID int64
 }
 
@@ -267,12 +275,19 @@ func (e *EmojiStatus) GetDocumentID() (value int64) {
 }
 
 // EmojiStatusUntil represents TL type `emojiStatusUntil#fa30a8c7`.
+// An emoji status¹ valid until the specified date
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/constructor/emojiStatusUntil for reference.
 type EmojiStatusUntil struct {
-	// DocumentID field of EmojiStatusUntil.
+	// Custom emoji document ID¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	DocumentID int64
-	// Until field of EmojiStatusUntil.
+	// This status is valid until this date
 	Until int
 }
 
@@ -487,7 +502,10 @@ type NotEmptyEmojiStatus interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// DocumentID field of EmojiStatus.
+	// Custom emoji document ID¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	GetDocumentID() (value int64)
 }
 

@@ -61,9 +61,10 @@ type AttachMenuBot struct {
 	BotID int64
 	// Attachment menu item name
 	ShortName string
-	// List of peer types where this attachment should be shown
+	// List of dialog types where this attachment menu entry should be shown
 	PeerTypes []AttachMenuPeerTypeClass
-	// Attachment menu icon
+	// List of platform-specific static icons and animations to use for the attachment menu
+	// button
 	Icons []AttachMenuBotIcon
 }
 

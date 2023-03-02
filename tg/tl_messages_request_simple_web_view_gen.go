@@ -48,11 +48,14 @@ type MessagesRequestSimpleWebViewRequest struct {
 	Bot InputUserClass
 	// Web app URL
 	URL string
-	// Theme parameters
+	// Theme parameters »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/webapps#theme-parameters
 	//
 	// Use SetThemeParams and GetThemeParams helpers.
 	ThemeParams DataJSON
-	// Platform field of MessagesRequestSimpleWebViewRequest.
+	// Short name of the application; 0-64 English letters, digits, and underscores
 	Platform string
 }
 

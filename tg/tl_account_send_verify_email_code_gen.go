@@ -32,16 +32,13 @@ var (
 )
 
 // AccountSendVerifyEmailCodeRequest represents TL type `account.sendVerifyEmailCode#98e037bb`.
-// Send the verification email code for telegram passport¹.
-//
-// Links:
-//  1. https://core.telegram.org/passport
+// Send an email verification code.
 //
 // See https://core.telegram.org/method/account.sendVerifyEmailCode for reference.
 type AccountSendVerifyEmailCodeRequest struct {
-	// Purpose field of AccountSendVerifyEmailCodeRequest.
+	// Verification purpose.
 	Purpose EmailVerifyPurposeClass
-	// The email where to send the code
+	// The email where to send the code.
 	Email string
 }
 
@@ -197,14 +194,13 @@ func (s *AccountSendVerifyEmailCodeRequest) GetEmail() (value string) {
 }
 
 // AccountSendVerifyEmailCode invokes method account.sendVerifyEmailCode#98e037bb returning error if any.
-// Send the verification email code for telegram passport¹.
-//
-// Links:
-//  1. https://core.telegram.org/passport
+// Send an email verification code.
 //
 // Possible errors:
 //
 //	400 EMAIL_INVALID: The specified email is invalid.
+//	400 PHONE_HASH_EXPIRED: An invalid or expired phone_code_hash was provided.
+//	400 PHONE_NUMBER_INVALID: The phone number is invalid.
 //
 // See https://core.telegram.org/method/account.sendVerifyEmailCode for reference.
 func (c *Client) AccountSendVerifyEmailCode(ctx context.Context, request *AccountSendVerifyEmailCodeRequest) (*AccountSentEmailCode, error) {

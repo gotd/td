@@ -59,7 +59,10 @@ type MessagesSendMultiMediaRequest struct {
 	// Links:
 	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
 	Noforwards bool
-	// UpdateStickersetsOrder field of MessagesSendMultiMediaRequest.
+	// Whether to move used stickersets to top, see here for more info on this flag »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stickers#recent-stickersets
 	UpdateStickersetsOrder bool
 	// The destination chat
 	Peer InputPeerClass
@@ -71,7 +74,11 @@ type MessagesSendMultiMediaRequest struct {
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
-	// The medias to send
+	// The medias to send: note that they must be separately uploaded using messages
+	// uploadMedia¹ first, using raw inputMediaUploaded* constructors is not supported.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.uploadMedia
 	MultiMedia []InputSingleMedia
 	// Scheduled message date for scheduled messages
 	//

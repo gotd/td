@@ -32,6 +32,10 @@ var (
 )
 
 // MessagesReactionsNotModified represents TL type `messages.reactionsNotModified#b06fdbdf`.
+// The server-side list of message reactions¹ hasn't changed
+//
+// Links:
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/constructor/messages.reactionsNotModified for reference.
 type MessagesReactionsNotModified struct {
@@ -133,12 +137,19 @@ func (r *MessagesReactionsNotModified) DecodeBare(b *bin.Buffer) error {
 }
 
 // MessagesReactions represents TL type `messages.reactions#eafdf716`.
+// List of message reactions¹
+//
+// Links:
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/constructor/messages.reactions for reference.
 type MessagesReactions struct {
-	// Hash field of MessagesReactions.
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
-	// Reactions field of MessagesReactions.
+	// Reactions
 	Reactions []ReactionClass
 }
 
