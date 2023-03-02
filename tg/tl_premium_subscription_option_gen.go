@@ -32,10 +32,14 @@ var (
 )
 
 // PremiumSubscriptionOption represents TL type `premiumSubscriptionOption#5f2d1df2`.
+// Describes a Telegram Premium subscription option
 //
 // See https://core.telegram.org/constructor/premiumSubscriptionOption for reference.
 type PremiumSubscriptionOption struct {
-	// Flags field of PremiumSubscriptionOption.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Current field of PremiumSubscriptionOption.
 	Current bool
@@ -45,15 +49,27 @@ type PremiumSubscriptionOption struct {
 	//
 	// Use SetTransaction and GetTransaction helpers.
 	Transaction string
-	// Months field of PremiumSubscriptionOption.
+	// Duration of subscription in months
 	Months int
-	// Currency field of PremiumSubscriptionOption.
+	// Three-letter ISO 4217 currency¹ code
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Amount field of PremiumSubscriptionOption.
+	// Total price in the smallest units of the currency (integer, not float/double). For
+	// example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	Amount int64
-	// BotURL field of PremiumSubscriptionOption.
+	// Deep link¹ used to initiate payment
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links
 	BotURL string
-	// StoreProduct field of PremiumSubscriptionOption.
+	// Store product ID, only for official apps
 	//
 	// Use SetStoreProduct and GetStoreProduct helpers.
 	StoreProduct string

@@ -60,7 +60,8 @@ type DCOption struct {
 	CDN bool
 	// If set, this IP should be used when connecting through a proxy
 	Static bool
-	//
+	// If set, clients must connect using only the specified port, without trying any other
+	// port.
 	ThisPortOnly bool
 	// DC ID
 	ID int

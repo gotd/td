@@ -41,7 +41,8 @@ type ReactionCount struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ChosenOrder field of ReactionCount.
+	// If set, indicates that the current user also sent this reaction. The integer value
+	// indicates when was the reaction added: the bigger the value, the newer the reaction.
 	//
 	// Use SetChosenOrder and GetChosenOrder helpers.
 	ChosenOrder int

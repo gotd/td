@@ -53,7 +53,10 @@ type MessagesSendMediaRequest struct {
 	// Links:
 	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
 	Noforwards bool
-	// UpdateStickersetsOrder field of MessagesSendMediaRequest.
+	// Whether to move used stickersets to top, see here for more info on this flag »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stickers#recent-stickersets
 	UpdateStickersetsOrder bool
 	// Destination
 	Peer InputPeerClass

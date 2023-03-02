@@ -32,10 +32,11 @@ var (
 )
 
 // AccountEmailVerified represents TL type `account.emailVerified#2b96cd1b`.
+// The email was verified correctly.
 //
 // See https://core.telegram.org/constructor/account.emailVerified for reference.
 type AccountEmailVerified struct {
-	// Email field of AccountEmailVerified.
+	// The verified email address.
 	Email string
 }
 
@@ -166,12 +167,16 @@ func (e *AccountEmailVerified) GetEmail() (value string) {
 }
 
 // AccountEmailVerifiedLogin represents TL type `account.emailVerifiedLogin#e1bb0d61`.
+// The email was verified correctly, and a login code was just sent to it.
 //
 // See https://core.telegram.org/constructor/account.emailVerifiedLogin for reference.
 type AccountEmailVerifiedLogin struct {
-	// Email field of AccountEmailVerifiedLogin.
+	// The verified email address.
 	Email string
-	// SentCode field of AccountEmailVerifiedLogin.
+	// Info about the sent login code¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/auth
 	SentCode AuthSentCodeClass
 }
 
@@ -367,7 +372,7 @@ type AccountEmailVerifiedClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Email field of AccountEmailVerified.
+	// The verified email address.
 	GetEmail() (value string)
 }
 

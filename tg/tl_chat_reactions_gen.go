@@ -32,6 +32,7 @@ var (
 )
 
 // ChatReactionsNone represents TL type `chatReactionsNone#eafc32bc`.
+// No reactions are allowed
 //
 // See https://core.telegram.org/constructor/chatReactionsNone for reference.
 type ChatReactionsNone struct {
@@ -133,12 +134,16 @@ func (c *ChatReactionsNone) DecodeBare(b *bin.Buffer) error {
 }
 
 // ChatReactionsAll represents TL type `chatReactionsAll#52928bca`.
+// All reactions or all non-custom reactions are allowed
 //
 // See https://core.telegram.org/constructor/chatReactionsAll for reference.
 type ChatReactionsAll struct {
-	// Flags field of ChatReactionsAll.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// AllowCustom field of ChatReactionsAll.
+	// Whether to allow custom reactions
 	AllowCustom bool
 }
 
@@ -293,10 +298,15 @@ func (c *ChatReactionsAll) GetAllowCustom() (value bool) {
 }
 
 // ChatReactionsSome represents TL type `chatReactionsSome#661d4037`.
+// Some reactions are allowed
 //
 // See https://core.telegram.org/constructor/chatReactionsSome for reference.
 type ChatReactionsSome struct {
-	// Reactions field of ChatReactionsSome.
+	// Allowed set of reactions: the reactions_in_chat_max¹ configuration field indicates
+	// the maximum number of reactions that can be specified in this field.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#reactions-in-chat-max
 	Reactions []ReactionClass
 }
 

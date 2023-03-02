@@ -53,7 +53,7 @@ type AvailableReaction struct {
 	StaticIcon DocumentClass
 	// The animated sticker to show when the user opens the reaction dropdown
 	AppearAnimation DocumentClass
-	// The animated sticker to show when the user selects this reaction
+	// The animated sticker to show when the user hovers over the reaction
 	SelectAnimation DocumentClass
 	// The animated sticker to show when the reaction is chosen and activated
 	ActivateAnimation DocumentClass

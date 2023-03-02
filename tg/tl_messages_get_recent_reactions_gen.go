@@ -32,12 +32,22 @@ var (
 )
 
 // MessagesGetRecentReactionsRequest represents TL type `messages.getRecentReactions#39461db2`.
+// Get recently used message reactions¹
+//
+// Links:
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getRecentReactions for reference.
 type MessagesGetRecentReactionsRequest struct {
-	// Limit field of MessagesGetRecentReactionsRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
-	// Hash field of MessagesGetRecentReactionsRequest.
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
 }
 
@@ -188,6 +198,10 @@ func (g *MessagesGetRecentReactionsRequest) GetHash() (value int64) {
 }
 
 // MessagesGetRecentReactions invokes method messages.getRecentReactions#39461db2 returning error if any.
+// Get recently used message reactions¹
+//
+// Links:
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/method/messages.getRecentReactions for reference.
 func (c *Client) MessagesGetRecentReactions(ctx context.Context, request *MessagesGetRecentReactionsRequest) (MessagesReactionsClass, error) {

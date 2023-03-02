@@ -32,16 +32,13 @@ var (
 )
 
 // AccountVerifyEmailRequest represents TL type `account.verifyEmail#32da4cf`.
-// Verify an email address for telegram passport¹.
-//
-// Links:
-//  1. https://core.telegram.org/passport
+// Verify an email address.
 //
 // See https://core.telegram.org/method/account.verifyEmail for reference.
 type AccountVerifyEmailRequest struct {
-	// Purpose field of AccountVerifyEmailRequest.
+	// Verification purpose
 	Purpose EmailVerifyPurposeClass
-	// Verification field of AccountVerifyEmailRequest.
+	// Email verification code or token
 	Verification EmailVerificationClass
 }
 
@@ -202,10 +199,7 @@ func (v *AccountVerifyEmailRequest) GetVerification() (value EmailVerificationCl
 }
 
 // AccountVerifyEmail invokes method account.verifyEmail#32da4cf returning error if any.
-// Verify an email address for telegram passport¹.
-//
-// Links:
-//  1. https://core.telegram.org/passport
+// Verify an email address.
 //
 // Possible errors:
 //

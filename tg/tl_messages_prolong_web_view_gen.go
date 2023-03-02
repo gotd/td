@@ -33,6 +33,7 @@ var (
 
 // MessagesProlongWebViewRequest represents TL type `messages.prolongWebView#7ff34309`.
 // Indicate to the server (from the user side) that the user is still using a web app.
+// If the method returns a QUERY_ID_INVALID error, the webview must be closed.
 //
 // See https://core.telegram.org/method/messages.prolongWebView for reference.
 type MessagesProlongWebViewRequest struct {
@@ -447,6 +448,7 @@ func (p *MessagesProlongWebViewRequest) GetSendAs() (value InputPeerClass, ok bo
 
 // MessagesProlongWebView invokes method messages.prolongWebView#7ff34309 returning error if any.
 // Indicate to the server (from the user side) that the user is still using a web app.
+// If the method returns a QUERY_ID_INVALID error, the webview must be closed.
 //
 // See https://core.telegram.org/method/messages.prolongWebView for reference.
 func (c *Client) MessagesProlongWebView(ctx context.Context, request *MessagesProlongWebViewRequest) (bool, error) {

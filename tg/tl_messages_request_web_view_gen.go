@@ -85,11 +85,14 @@ type MessagesRequestWebViewRequest struct {
 	//
 	// Use SetStartParam and GetStartParam helpers.
 	StartParam string
-	// Theme parameters for the web app
+	// Theme parameters »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/webapps#theme-parameters
 	//
 	// Use SetThemeParams and GetThemeParams helpers.
 	ThemeParams DataJSON
-	// Platform field of MessagesRequestWebViewRequest.
+	// Short name of the application; 0-64 English letters, digits, and underscores
 	Platform string
 	// Whether the inline message that will be sent by the bot on behalf of the user once the
 	// web app interaction is terminated¹ should be sent in reply to this message ID.

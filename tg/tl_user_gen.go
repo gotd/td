@@ -273,7 +273,10 @@ type User struct {
 	//
 	// Use SetLangCode and GetLangCode helpers.
 	LangCode string
-	// EmojiStatus field of User.
+	// Emoji status¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/emoji-status
 	//
 	// Use SetEmojiStatus and GetEmojiStatus helpers.
 	EmojiStatus EmojiStatusClass

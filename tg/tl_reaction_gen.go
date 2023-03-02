@@ -32,6 +32,7 @@ var (
 )
 
 // ReactionEmpty represents TL type `reactionEmpty#79f5d419`.
+// No reaction
 //
 // See https://core.telegram.org/constructor/reactionEmpty for reference.
 type ReactionEmpty struct {
@@ -133,10 +134,11 @@ func (r *ReactionEmpty) DecodeBare(b *bin.Buffer) error {
 }
 
 // ReactionEmoji represents TL type `reactionEmoji#1b2286b8`.
+// Normal emoji message reaction
 //
 // See https://core.telegram.org/constructor/reactionEmoji for reference.
 type ReactionEmoji struct {
-	// Emoticon field of ReactionEmoji.
+	// Emoji
 	Emoticon string
 }
 
@@ -267,10 +269,17 @@ func (r *ReactionEmoji) GetEmoticon() (value string) {
 }
 
 // ReactionCustomEmoji represents TL type `reactionCustomEmoji#8935fc73`.
+// Custom emoji¹ message reaction
+//
+// Links:
+//  1. https://core.telegram.org/api/custom-emoji
 //
 // See https://core.telegram.org/constructor/reactionCustomEmoji for reference.
 type ReactionCustomEmoji struct {
-	// DocumentID field of ReactionCustomEmoji.
+	// Custom emoji document ID¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	DocumentID int64
 }
 

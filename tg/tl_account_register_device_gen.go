@@ -47,18 +47,15 @@ type AccountRegisterDeviceRequest struct {
 	// Avoid receiving (silent and invisible background) notifications. Useful to save
 	// battery.
 	NoMuted bool
-	// Device token type.Possible values:1 - APNS (device token for apple push)2 - FCM
-	// (firebase token for google firebase)3 - MPNS (channel URI for microsoft push)4 -
-	// Simple push (endpoint for firefox's simple push API)5 - Ubuntu phone (token for ubuntu
-	// push)6 - Blackberry (token for blackberry push)7 - Unused8 - WNS (windows push)9 -
-	// APNS VoIP (token for apple push VoIP)10 - Web push (web push, see below)11 - MPNS VoIP
-	// (token for microsoft push VoIP)12 - Tizen (token for tizen push)For 10 web push, the
-	// token must be a JSON-encoded object containing the keys described in PUSH updates¹
+	// Device token type, see PUSH updates¹ for the possible values.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/push-updates
+	//  1) https://core.telegram.org/api/push-updates#subscribing-to-notifications
 	TokenType int
-	// Device token
+	// Device token, see PUSH updates¹ for the possible values.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/push-updates#subscribing-to-notifications
 	Token string
 	// If (boolTrue)¹ is transmitted, a sandbox-certificate will be used during transmission.
 	//

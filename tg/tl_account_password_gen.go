@@ -102,7 +102,10 @@ type AccountPassword struct {
 	//
 	// Use SetPendingResetDate and GetPendingResetDate helpers.
 	PendingResetDate int
-	// LoginEmailPattern field of AccountPassword.
+	// A verified login email with the specified pattern¹ is configured
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/pattern
 	//
 	// Use SetLoginEmailPattern and GetLoginEmailPattern helpers.
 	LoginEmailPattern string

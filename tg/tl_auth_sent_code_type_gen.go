@@ -742,20 +742,31 @@ func (s *AuthSentCodeTypeMissedCall) GetLength() (value int) {
 }
 
 // AuthSentCodeTypeEmailCode represents TL type `auth.sentCodeTypeEmailCode#5a159841`.
+// The code was sent via the previously configured login email »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/auth#email-verification
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeEmailCode for reference.
 type AuthSentCodeTypeEmailCode struct {
-	// Flags field of AuthSentCodeTypeEmailCode.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// AppleSigninAllowed field of AuthSentCodeTypeEmailCode.
+	// Whether authorization through Apple ID is allowed
 	AppleSigninAllowed bool
-	// GoogleSigninAllowed field of AuthSentCodeTypeEmailCode.
+	// Whether authorization through Google ID is allowed
 	GoogleSigninAllowed bool
-	// EmailPattern field of AuthSentCodeTypeEmailCode.
+	// Pattern¹ of the email
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/pattern
 	EmailPattern string
-	// Length field of AuthSentCodeTypeEmailCode.
+	// Length of the sent verification code
 	Length int
-	// NextPhoneLoginDate field of AuthSentCodeTypeEmailCode.
+	// If set, contains an absolute UNIX timestamp indicating when will the user be able to
+	// authorize with a code sent to the user's phone number
 	//
 	// Use SetNextPhoneLoginDate and GetNextPhoneLoginDate helpers.
 	NextPhoneLoginDate int
@@ -1039,14 +1050,22 @@ func (s *AuthSentCodeTypeEmailCode) GetNextPhoneLoginDate() (value int, ok bool)
 }
 
 // AuthSentCodeTypeSetUpEmailRequired represents TL type `auth.sentCodeTypeSetUpEmailRequired#a5491dea`.
+// The user should add and verify an email address in order to login as described here
+// »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/auth#email-verification
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeSetUpEmailRequired for reference.
 type AuthSentCodeTypeSetUpEmailRequired struct {
-	// Flags field of AuthSentCodeTypeSetUpEmailRequired.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// AppleSigninAllowed field of AuthSentCodeTypeSetUpEmailRequired.
+	// Whether authorization through Apple ID is allowed
 	AppleSigninAllowed bool
-	// GoogleSigninAllowed field of AuthSentCodeTypeSetUpEmailRequired.
+	// Whether authorization through Google ID is allowed
 	GoogleSigninAllowed bool
 }
 

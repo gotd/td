@@ -36,7 +36,10 @@ var (
 //
 // See https://core.telegram.org/method/auth.signIn for reference.
 type AuthSignInRequest struct {
-	// Flags field of AuthSignInRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Phone number in the international format
 	PhoneNumber string
@@ -49,7 +52,7 @@ type AuthSignInRequest struct {
 	//
 	// Use SetPhoneCode and GetPhoneCode helpers.
 	PhoneCode string
-	// EmailVerification field of AuthSignInRequest.
+	// Email verification code or token
 	//
 	// Use SetEmailVerification and GetEmailVerification helpers.
 	EmailVerification EmailVerificationClass

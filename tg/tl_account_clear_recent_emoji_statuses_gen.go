@@ -32,6 +32,10 @@ var (
 )
 
 // AccountClearRecentEmojiStatusesRequest represents TL type `account.clearRecentEmojiStatuses#18201aae`.
+// Clears list of recently used emoji statuses¹
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/method/account.clearRecentEmojiStatuses for reference.
 type AccountClearRecentEmojiStatusesRequest struct {
@@ -128,6 +132,10 @@ func (c *AccountClearRecentEmojiStatusesRequest) DecodeBare(b *bin.Buffer) error
 }
 
 // AccountClearRecentEmojiStatuses invokes method account.clearRecentEmojiStatuses#18201aae returning error if any.
+// Clears list of recently used emoji statuses¹
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/method/account.clearRecentEmojiStatuses for reference.
 func (c *Client) AccountClearRecentEmojiStatuses(ctx context.Context) (bool, error) {

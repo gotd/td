@@ -61,7 +61,8 @@ type Config struct {
 	// Links:
 	//  1) https://core.telegram.org/api/pfs
 	PFSEnabled bool
-	// Whether to forcefully try connecting using IPv6 dcOptions¹
+	// Whether to forcefully connect using IPv6 dcOptions¹, even if the client knows that
+	// IPv4 is available.
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/DcOption
@@ -211,7 +212,10 @@ type Config struct {
 	//
 	// Use SetBaseLangPackVersion and GetBaseLangPackVersion helpers.
 	BaseLangPackVersion int
-	// ReactionsDefault field of Config.
+	// Default message reaction¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/reactions
 	//
 	// Use SetReactionsDefault and GetReactionsDefault helpers.
 	ReactionsDefault ReactionClass

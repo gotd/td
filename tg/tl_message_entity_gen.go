@@ -3534,7 +3534,13 @@ func (m *MessageEntitySpoiler) GetLength() (value int) {
 }
 
 // MessageEntityCustomEmoji represents TL type `messageEntityCustomEmoji#c8cf05f8`.
-// Represents a custom emoji
+// Represents a custom emoji.
+// Note that this entity must wrap exactly one regular emoji (the one contained in
+// documentAttributeCustomEmoji¹.alt) in the related text, otherwise the server will
+// ignore it.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/documentAttributeCustomEmoji
 //
 // See https://core.telegram.org/constructor/messageEntityCustomEmoji for reference.
 type MessageEntityCustomEmoji struct {

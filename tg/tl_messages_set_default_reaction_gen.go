@@ -33,10 +33,10 @@ var (
 
 // MessagesSetDefaultReactionRequest represents TL type `messages.setDefaultReaction#4f47a016`.
 // Change default emoji reaction to use in the quick reaction menu: the value is synced
-// across devices and can be fetched using help.getAppConfig, reactions_default field¹.
+// across devices and can be fetched using help.getConfig, reactions_default field¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/config#reactions-default
+//  1. https://core.telegram.org/method/help.getConfig
 //
 // See https://core.telegram.org/method/messages.setDefaultReaction for reference.
 type MessagesSetDefaultReactionRequest struct {
@@ -172,10 +172,14 @@ func (s *MessagesSetDefaultReactionRequest) GetReaction() (value ReactionClass) 
 
 // MessagesSetDefaultReaction invokes method messages.setDefaultReaction#4f47a016 returning error if any.
 // Change default emoji reaction to use in the quick reaction menu: the value is synced
-// across devices and can be fetched using help.getAppConfig, reactions_default field¹.
+// across devices and can be fetched using help.getConfig, reactions_default field¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/config#reactions-default
+//  1. https://core.telegram.org/method/help.getConfig
+//
+// Possible errors:
+//
+//	400 REACTION_INVALID: The specified reaction is invalid.
 //
 // See https://core.telegram.org/method/messages.setDefaultReaction for reference.
 func (c *Client) MessagesSetDefaultReaction(ctx context.Context, reaction ReactionClass) (bool, error) {

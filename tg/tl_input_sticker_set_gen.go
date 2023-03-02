@@ -882,6 +882,11 @@ func (i *InputStickerSetPremiumGifts) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputStickerSetEmojiGenericAnimations represents TL type `inputStickerSetEmojiGenericAnimations#4c4d4ce`.
+// Generic animation stickerset containing animations to play when reacting to messages
+// using a normal emoji without a custom animation¹
+//
+// Links:
+//  1. https://core.telegram.org/api/reactions
 //
 // See https://core.telegram.org/constructor/inputStickerSetEmojiGenericAnimations for reference.
 type InputStickerSetEmojiGenericAnimations struct {
@@ -983,6 +988,10 @@ func (i *InputStickerSetEmojiGenericAnimations) DecodeBare(b *bin.Buffer) error 
 }
 
 // InputStickerSetEmojiDefaultStatuses represents TL type `inputStickerSetEmojiDefaultStatuses#29d0f5ee`.
+// Default custom emoji status¹ stickerset
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/constructor/inputStickerSetEmojiDefaultStatuses for reference.
 type InputStickerSetEmojiDefaultStatuses struct {

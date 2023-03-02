@@ -463,6 +463,7 @@ func (s *MessagesSetInlineBotResultsRequest) MapResults() (value InputBotInlineR
 //	400 START_PARAM_EMPTY: The start parameter is empty.
 //	400 START_PARAM_INVALID: Start parameter invalid.
 //	400 STICKER_DOCUMENT_INVALID: The specified sticker document is invalid.
+//	400 SWITCH_PM_TEXT_EMPTY: The switch_pm.text field was empty.
 //	400 URL_INVALID: Invalid URL provided.
 //	403 USER_BOT_INVALID: This method can only be called by a bot.
 //	400 VIDEO_TITLE_EMPTY: The specified video title is empty.

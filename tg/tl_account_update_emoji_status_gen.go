@@ -32,10 +32,17 @@ var (
 )
 
 // AccountUpdateEmojiStatusRequest represents TL type `account.updateEmojiStatus#fbd3de6b`.
+// Set an emoji status¹
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/method/account.updateEmojiStatus for reference.
 type AccountUpdateEmojiStatusRequest struct {
-	// EmojiStatus field of AccountUpdateEmojiStatusRequest.
+	// Emoji status¹ to set
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/emoji-status
 	EmojiStatus EmojiStatusClass
 }
 
@@ -171,6 +178,10 @@ func (u *AccountUpdateEmojiStatusRequest) GetEmojiStatusAsNotEmpty() (NotEmptyEm
 }
 
 // AccountUpdateEmojiStatus invokes method account.updateEmojiStatus#fbd3de6b returning error if any.
+// Set an emoji status¹
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/method/account.updateEmojiStatus for reference.
 func (c *Client) AccountUpdateEmojiStatus(ctx context.Context, emojistatus EmojiStatusClass) (bool, error) {

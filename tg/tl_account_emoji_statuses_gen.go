@@ -32,6 +32,10 @@ var (
 )
 
 // AccountEmojiStatusesNotModified represents TL type `account.emojiStatusesNotModified#d08ce645`.
+// The server-side list of emoji statuses¹ hasn't changed
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/constructor/account.emojiStatusesNotModified for reference.
 type AccountEmojiStatusesNotModified struct {
@@ -133,12 +137,22 @@ func (e *AccountEmojiStatusesNotModified) DecodeBare(b *bin.Buffer) error {
 }
 
 // AccountEmojiStatuses represents TL type `account.emojiStatuses#90c467d1`.
+// A list of emoji statuses¹
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/constructor/account.emojiStatuses for reference.
 type AccountEmojiStatuses struct {
-	// Hash field of AccountEmojiStatuses.
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
-	// Statuses field of AccountEmojiStatuses.
+	// Emoji statuses¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/emoji-status
 	Statuses []EmojiStatusClass
 }
 
