@@ -31,19 +31,27 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StickersSetStickerSetThumbRequest represents TL type `stickers.setStickerSetThumb#9a364e30`.
+// StickersSetStickerSetThumbRequest represents TL type `stickers.setStickerSetThumb#a76a5392`.
 // Set stickerset thumbnail
 //
 // See https://core.telegram.org/method/stickers.setStickerSetThumb for reference.
 type StickersSetStickerSetThumbRequest struct {
+	// Flags field of StickersSetStickerSetThumbRequest.
+	Flags bin.Fields
 	// Stickerset
 	Stickerset InputStickerSetClass
 	// Thumbnail
+	//
+	// Use SetThumb and GetThumb helpers.
 	Thumb InputDocumentClass
+	// ThumbDocumentID field of StickersSetStickerSetThumbRequest.
+	//
+	// Use SetThumbDocumentID and GetThumbDocumentID helpers.
+	ThumbDocumentID int64
 }
 
 // StickersSetStickerSetThumbRequestTypeID is TL type id of StickersSetStickerSetThumbRequest.
-const StickersSetStickerSetThumbRequestTypeID = 0x9a364e30
+const StickersSetStickerSetThumbRequestTypeID = 0xa76a5392
 
 // Ensuring interfaces in compile-time for StickersSetStickerSetThumbRequest.
 var (
@@ -57,10 +65,16 @@ func (s *StickersSetStickerSetThumbRequest) Zero() bool {
 	if s == nil {
 		return true
 	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
 	if !(s.Stickerset == nil) {
 		return false
 	}
 	if !(s.Thumb == nil) {
+		return false
+	}
+	if !(s.ThumbDocumentID == 0) {
 		return false
 	}
 
@@ -79,10 +93,18 @@ func (s *StickersSetStickerSetThumbRequest) String() string {
 // FillFrom fills StickersSetStickerSetThumbRequest from given interface.
 func (s *StickersSetStickerSetThumbRequest) FillFrom(from interface {
 	GetStickerset() (value InputStickerSetClass)
-	GetThumb() (value InputDocumentClass)
+	GetThumb() (value InputDocumentClass, ok bool)
+	GetThumbDocumentID() (value int64, ok bool)
 }) {
 	s.Stickerset = from.GetStickerset()
-	s.Thumb = from.GetThumb()
+	if val, ok := from.GetThumb(); ok {
+		s.Thumb = val
+	}
+
+	if val, ok := from.GetThumbDocumentID(); ok {
+		s.ThumbDocumentID = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -115,15 +137,31 @@ func (s *StickersSetStickerSetThumbRequest) TypeInfo() tdp.Type {
 		{
 			Name:       "Thumb",
 			SchemaName: "thumb",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "ThumbDocumentID",
+			SchemaName: "thumb_document_id",
+			Null:       !s.Flags.Has(1),
 		},
 	}
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (s *StickersSetStickerSetThumbRequest) SetFlags() {
+	if !(s.Thumb == nil) {
+		s.Flags.Set(0)
+	}
+	if !(s.ThumbDocumentID == 0) {
+		s.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (s *StickersSetStickerSetThumbRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickers.setStickerSetThumb#9a364e30 as nil")
+		return fmt.Errorf("can't encode stickers.setStickerSetThumb#a76a5392 as nil")
 	}
 	b.PutID(StickersSetStickerSetThumbRequestTypeID)
 	return s.EncodeBare(b)
@@ -132,19 +170,28 @@ func (s *StickersSetStickerSetThumbRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StickersSetStickerSetThumbRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickers.setStickerSetThumb#9a364e30 as nil")
+		return fmt.Errorf("can't encode stickers.setStickerSetThumb#a76a5392 as nil")
+	}
+	s.SetFlags()
+	if err := s.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode stickers.setStickerSetThumb#a76a5392: field flags: %w", err)
 	}
 	if s.Stickerset == nil {
-		return fmt.Errorf("unable to encode stickers.setStickerSetThumb#9a364e30: field stickerset is nil")
+		return fmt.Errorf("unable to encode stickers.setStickerSetThumb#a76a5392: field stickerset is nil")
 	}
 	if err := s.Stickerset.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stickers.setStickerSetThumb#9a364e30: field stickerset: %w", err)
+		return fmt.Errorf("unable to encode stickers.setStickerSetThumb#a76a5392: field stickerset: %w", err)
 	}
-	if s.Thumb == nil {
-		return fmt.Errorf("unable to encode stickers.setStickerSetThumb#9a364e30: field thumb is nil")
+	if s.Flags.Has(0) {
+		if s.Thumb == nil {
+			return fmt.Errorf("unable to encode stickers.setStickerSetThumb#a76a5392: field thumb is nil")
+		}
+		if err := s.Thumb.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode stickers.setStickerSetThumb#a76a5392: field thumb: %w", err)
+		}
 	}
-	if err := s.Thumb.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stickers.setStickerSetThumb#9a364e30: field thumb: %w", err)
+	if s.Flags.Has(1) {
+		b.PutLong(s.ThumbDocumentID)
 	}
 	return nil
 }
@@ -152,10 +199,10 @@ func (s *StickersSetStickerSetThumbRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StickersSetStickerSetThumbRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickers.setStickerSetThumb#9a364e30 to nil")
+		return fmt.Errorf("can't decode stickers.setStickerSetThumb#a76a5392 to nil")
 	}
 	if err := b.ConsumeID(StickersSetStickerSetThumbRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stickers.setStickerSetThumb#9a364e30: %w", err)
+		return fmt.Errorf("unable to decode stickers.setStickerSetThumb#a76a5392: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -163,21 +210,33 @@ func (s *StickersSetStickerSetThumbRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StickersSetStickerSetThumbRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickers.setStickerSetThumb#9a364e30 to nil")
+		return fmt.Errorf("can't decode stickers.setStickerSetThumb#a76a5392 to nil")
+	}
+	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode stickers.setStickerSetThumb#a76a5392: field flags: %w", err)
+		}
 	}
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stickers.setStickerSetThumb#9a364e30: field stickerset: %w", err)
+			return fmt.Errorf("unable to decode stickers.setStickerSetThumb#a76a5392: field stickerset: %w", err)
 		}
 		s.Stickerset = value
 	}
-	{
+	if s.Flags.Has(0) {
 		value, err := DecodeInputDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stickers.setStickerSetThumb#9a364e30: field thumb: %w", err)
+			return fmt.Errorf("unable to decode stickers.setStickerSetThumb#a76a5392: field thumb: %w", err)
 		}
 		s.Thumb = value
+	}
+	if s.Flags.Has(1) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode stickers.setStickerSetThumb#a76a5392: field thumb_document_id: %w", err)
+		}
+		s.ThumbDocumentID = value
 	}
 	return nil
 }
@@ -190,20 +249,52 @@ func (s *StickersSetStickerSetThumbRequest) GetStickerset() (value InputStickerS
 	return s.Stickerset
 }
 
-// GetThumb returns value of Thumb field.
-func (s *StickersSetStickerSetThumbRequest) GetThumb() (value InputDocumentClass) {
+// SetThumb sets value of Thumb conditional field.
+func (s *StickersSetStickerSetThumbRequest) SetThumb(value InputDocumentClass) {
+	s.Flags.Set(0)
+	s.Thumb = value
+}
+
+// GetThumb returns value of Thumb conditional field and
+// boolean which is true if field was set.
+func (s *StickersSetStickerSetThumbRequest) GetThumb() (value InputDocumentClass, ok bool) {
 	if s == nil {
 		return
 	}
-	return s.Thumb
+	if !s.Flags.Has(0) {
+		return value, false
+	}
+	return s.Thumb, true
 }
 
-// GetThumbAsNotEmpty returns mapped value of Thumb field.
+// SetThumbDocumentID sets value of ThumbDocumentID conditional field.
+func (s *StickersSetStickerSetThumbRequest) SetThumbDocumentID(value int64) {
+	s.Flags.Set(1)
+	s.ThumbDocumentID = value
+}
+
+// GetThumbDocumentID returns value of ThumbDocumentID conditional field and
+// boolean which is true if field was set.
+func (s *StickersSetStickerSetThumbRequest) GetThumbDocumentID() (value int64, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(1) {
+		return value, false
+	}
+	return s.ThumbDocumentID, true
+}
+
+// GetThumbAsNotEmpty returns mapped value of Thumb conditional field and
+// boolean which is true if field was set.
 func (s *StickersSetStickerSetThumbRequest) GetThumbAsNotEmpty() (*InputDocument, bool) {
-	return s.Thumb.AsNotEmpty()
+	if value, ok := s.GetThumb(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
 }
 
-// StickersSetStickerSetThumb invokes method stickers.setStickerSetThumb#9a364e30 returning error if any.
+// StickersSetStickerSetThumb invokes method stickers.setStickerSetThumb#a76a5392 returning error if any.
 // Set stickerset thumbnail
 //
 // Possible errors:

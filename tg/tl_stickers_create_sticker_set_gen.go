@@ -47,6 +47,10 @@ type StickersCreateStickerSetRequest struct {
 	Animated bool
 	// Whether this is a video stickerset
 	Videos bool
+	// Emojis field of StickersCreateStickerSetRequest.
+	Emojis bool
+	// TextColor field of StickersCreateStickerSetRequest.
+	TextColor bool
 	// Stickerset owner
 	UserID InputUserClass
 	// Stickerset name, 1-64 chars
@@ -102,6 +106,12 @@ func (c *StickersCreateStickerSetRequest) Zero() bool {
 	if !(c.Videos == false) {
 		return false
 	}
+	if !(c.Emojis == false) {
+		return false
+	}
+	if !(c.TextColor == false) {
+		return false
+	}
 	if !(c.UserID == nil) {
 		return false
 	}
@@ -138,6 +148,8 @@ func (c *StickersCreateStickerSetRequest) FillFrom(from interface {
 	GetMasks() (value bool)
 	GetAnimated() (value bool)
 	GetVideos() (value bool)
+	GetEmojis() (value bool)
+	GetTextColor() (value bool)
 	GetUserID() (value InputUserClass)
 	GetTitle() (value string)
 	GetShortName() (value string)
@@ -148,6 +160,8 @@ func (c *StickersCreateStickerSetRequest) FillFrom(from interface {
 	c.Masks = from.GetMasks()
 	c.Animated = from.GetAnimated()
 	c.Videos = from.GetVideos()
+	c.Emojis = from.GetEmojis()
+	c.TextColor = from.GetTextColor()
 	c.UserID = from.GetUserID()
 	c.Title = from.GetTitle()
 	c.ShortName = from.GetShortName()
@@ -201,6 +215,16 @@ func (c *StickersCreateStickerSetRequest) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(4),
 		},
 		{
+			Name:       "Emojis",
+			SchemaName: "emojis",
+			Null:       !c.Flags.Has(5),
+		},
+		{
+			Name:       "TextColor",
+			SchemaName: "text_color",
+			Null:       !c.Flags.Has(6),
+		},
+		{
 			Name:       "UserID",
 			SchemaName: "user_id",
 		},
@@ -240,6 +264,12 @@ func (c *StickersCreateStickerSetRequest) SetFlags() {
 	}
 	if !(c.Videos == false) {
 		c.Flags.Set(4)
+	}
+	if !(c.Emojis == false) {
+		c.Flags.Set(5)
+	}
+	if !(c.TextColor == false) {
+		c.Flags.Set(6)
 	}
 	if !(c.Thumb == nil) {
 		c.Flags.Set(2)
@@ -319,6 +349,8 @@ func (c *StickersCreateStickerSetRequest) DecodeBare(b *bin.Buffer) error {
 	c.Masks = c.Flags.Has(0)
 	c.Animated = c.Flags.Has(1)
 	c.Videos = c.Flags.Has(4)
+	c.Emojis = c.Flags.Has(5)
+	c.TextColor = c.Flags.Has(6)
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
@@ -429,6 +461,44 @@ func (c *StickersCreateStickerSetRequest) GetVideos() (value bool) {
 		return
 	}
 	return c.Flags.Has(4)
+}
+
+// SetEmojis sets value of Emojis conditional field.
+func (c *StickersCreateStickerSetRequest) SetEmojis(value bool) {
+	if value {
+		c.Flags.Set(5)
+		c.Emojis = true
+	} else {
+		c.Flags.Unset(5)
+		c.Emojis = false
+	}
+}
+
+// GetEmojis returns value of Emojis conditional field.
+func (c *StickersCreateStickerSetRequest) GetEmojis() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(5)
+}
+
+// SetTextColor sets value of TextColor conditional field.
+func (c *StickersCreateStickerSetRequest) SetTextColor(value bool) {
+	if value {
+		c.Flags.Set(6)
+		c.TextColor = true
+	} else {
+		c.Flags.Unset(6)
+		c.TextColor = false
+	}
+}
+
+// GetTextColor returns value of TextColor conditional field.
+func (c *StickersCreateStickerSetRequest) GetTextColor() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(6)
 }
 
 // GetUserID returns value of UserID field.

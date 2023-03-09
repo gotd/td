@@ -44,6 +44,8 @@ type MessagesRequestSimpleWebViewRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// FromSwitchWebview field of MessagesRequestSimpleWebViewRequest.
+	FromSwitchWebview bool
 	// Bot that owns the webapp
 	Bot InputUserClass
 	// Web app URL
@@ -77,6 +79,9 @@ func (r *MessagesRequestSimpleWebViewRequest) Zero() bool {
 	if !(r.Flags.Zero()) {
 		return false
 	}
+	if !(r.FromSwitchWebview == false) {
+		return false
+	}
 	if !(r.Bot == nil) {
 		return false
 	}
@@ -104,11 +109,13 @@ func (r *MessagesRequestSimpleWebViewRequest) String() string {
 
 // FillFrom fills MessagesRequestSimpleWebViewRequest from given interface.
 func (r *MessagesRequestSimpleWebViewRequest) FillFrom(from interface {
+	GetFromSwitchWebview() (value bool)
 	GetBot() (value InputUserClass)
 	GetURL() (value string)
 	GetThemeParams() (value DataJSON, ok bool)
 	GetPlatform() (value string)
 }) {
+	r.FromSwitchWebview = from.GetFromSwitchWebview()
 	r.Bot = from.GetBot()
 	r.URL = from.GetURL()
 	if val, ok := from.GetThemeParams(); ok {
@@ -142,6 +149,11 @@ func (r *MessagesRequestSimpleWebViewRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "FromSwitchWebview",
+			SchemaName: "from_switch_webview",
+			Null:       !r.Flags.Has(1),
+		},
+		{
 			Name:       "Bot",
 			SchemaName: "bot",
 		},
@@ -164,6 +176,9 @@ func (r *MessagesRequestSimpleWebViewRequest) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (r *MessagesRequestSimpleWebViewRequest) SetFlags() {
+	if !(r.FromSwitchWebview == false) {
+		r.Flags.Set(1)
+	}
 	if !(r.ThemeParams.Zero()) {
 		r.Flags.Set(0)
 	}
@@ -224,6 +239,7 @@ func (r *MessagesRequestSimpleWebViewRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.requestSimpleWebView#299bec8e: field flags: %w", err)
 		}
 	}
+	r.FromSwitchWebview = r.Flags.Has(1)
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
@@ -251,6 +267,25 @@ func (r *MessagesRequestSimpleWebViewRequest) DecodeBare(b *bin.Buffer) error {
 		r.Platform = value
 	}
 	return nil
+}
+
+// SetFromSwitchWebview sets value of FromSwitchWebview conditional field.
+func (r *MessagesRequestSimpleWebViewRequest) SetFromSwitchWebview(value bool) {
+	if value {
+		r.Flags.Set(1)
+		r.FromSwitchWebview = true
+	} else {
+		r.Flags.Unset(1)
+		r.FromSwitchWebview = false
+	}
+}
+
+// GetFromSwitchWebview returns value of FromSwitchWebview conditional field.
+func (r *MessagesRequestSimpleWebViewRequest) GetFromSwitchWebview() (value bool) {
+	if r == nil {
+		return
+	}
+	return r.Flags.Has(1)
 }
 
 // GetBot returns value of Bot field.

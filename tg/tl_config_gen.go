@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Config represents TL type `config#232566ac`.
+// Config represents TL type `config#cc1a241e`.
 // Current configuration
 //
 // See https://core.telegram.org/constructor/config for reference.
@@ -41,26 +41,14 @@ type Config struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether phone calls can be used
-	PhonecallsEnabled bool
 	// Whether the client should use P2P by default for phone calls with contacts
 	DefaultP2PContacts bool
 	// Whether the client should preload featured stickers
 	PreloadFeaturedStickers bool
-	// Whether the client should ignore phone entities¹
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/entities
-	IgnorePhoneEntities bool
 	// Whether incoming private messages can be deleted for both participants
 	RevokePmInbox bool
 	// Indicates that telegram is probably censored by governments/ISPs in the current region
 	BlockedMode bool
-	// Whether pfs¹ was used
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/pfs
-	PFSEnabled bool
 	// Whether to forcefully connect using IPv6 dcOptions¹, even if the client knows that
 	// IPv4 is available.
 	//
@@ -122,8 +110,6 @@ type Config struct {
 	PushChatPeriodMs int
 	// Not for client use
 	PushChatLimit int
-	// Maximum count of saved gifs
-	SavedGifsLimit int
 	// Only messages with age smaller than the one specified can be edited
 	EditTimeLimit int
 	// Only channel/supergroup messages with age smaller than the specified can be deleted
@@ -137,8 +123,6 @@ type Config struct {
 	RatingEDecay int
 	// Maximum number of recent stickers
 	StickersRecentLimit int
-	// Maximum number of faved stickers
-	StickersFavedLimit int
 	// Indicates that round videos (video notes) and voice messages sent in channels and
 	// older than the specified period must be marked as read
 	ChannelsReadMediaPeriod int
@@ -149,10 +133,6 @@ type Config struct {
 	//
 	// Use SetTmpSessions and GetTmpSessions helpers.
 	TmpSessions int
-	// Maximum count of pinned dialogs
-	PinnedDialogsCountMax int
-	// Maximum count of dialogs per folder
-	PinnedInfolderCountMax int
 	// Maximum allowed outgoing ring time in VoIP calls: if the user we're calling doesn't
 	// reply within the specified time (in milliseconds), we should hang up the call
 	CallReceiveTimeoutMs int
@@ -219,10 +199,14 @@ type Config struct {
 	//
 	// Use SetReactionsDefault and GetReactionsDefault helpers.
 	ReactionsDefault ReactionClass
+	// AutologinToken field of Config.
+	//
+	// Use SetAutologinToken and GetAutologinToken helpers.
+	AutologinToken string
 }
 
 // ConfigTypeID is TL type id of Config.
-const ConfigTypeID = 0x232566ac
+const ConfigTypeID = 0xcc1a241e
 
 // Ensuring interfaces in compile-time for Config.
 var (
@@ -239,25 +223,16 @@ func (c *Config) Zero() bool {
 	if !(c.Flags.Zero()) {
 		return false
 	}
-	if !(c.PhonecallsEnabled == false) {
-		return false
-	}
 	if !(c.DefaultP2PContacts == false) {
 		return false
 	}
 	if !(c.PreloadFeaturedStickers == false) {
 		return false
 	}
-	if !(c.IgnorePhoneEntities == false) {
-		return false
-	}
 	if !(c.RevokePmInbox == false) {
 		return false
 	}
 	if !(c.BlockedMode == false) {
-		return false
-	}
-	if !(c.PFSEnabled == false) {
 		return false
 	}
 	if !(c.ForceTryIpv6 == false) {
@@ -314,9 +289,6 @@ func (c *Config) Zero() bool {
 	if !(c.PushChatLimit == 0) {
 		return false
 	}
-	if !(c.SavedGifsLimit == 0) {
-		return false
-	}
 	if !(c.EditTimeLimit == 0) {
 		return false
 	}
@@ -332,19 +304,10 @@ func (c *Config) Zero() bool {
 	if !(c.StickersRecentLimit == 0) {
 		return false
 	}
-	if !(c.StickersFavedLimit == 0) {
-		return false
-	}
 	if !(c.ChannelsReadMediaPeriod == 0) {
 		return false
 	}
 	if !(c.TmpSessions == 0) {
-		return false
-	}
-	if !(c.PinnedDialogsCountMax == 0) {
-		return false
-	}
-	if !(c.PinnedInfolderCountMax == 0) {
 		return false
 	}
 	if !(c.CallReceiveTimeoutMs == 0) {
@@ -398,6 +361,9 @@ func (c *Config) Zero() bool {
 	if !(c.ReactionsDefault == nil) {
 		return false
 	}
+	if !(c.AutologinToken == "") {
+		return false
+	}
 
 	return true
 }
@@ -413,13 +379,10 @@ func (c *Config) String() string {
 
 // FillFrom fills Config from given interface.
 func (c *Config) FillFrom(from interface {
-	GetPhonecallsEnabled() (value bool)
 	GetDefaultP2PContacts() (value bool)
 	GetPreloadFeaturedStickers() (value bool)
-	GetIgnorePhoneEntities() (value bool)
 	GetRevokePmInbox() (value bool)
 	GetBlockedMode() (value bool)
-	GetPFSEnabled() (value bool)
 	GetForceTryIpv6() (value bool)
 	GetDate() (value int)
 	GetExpires() (value int)
@@ -438,17 +401,13 @@ func (c *Config) FillFrom(from interface {
 	GetNotifyDefaultDelayMs() (value int)
 	GetPushChatPeriodMs() (value int)
 	GetPushChatLimit() (value int)
-	GetSavedGifsLimit() (value int)
 	GetEditTimeLimit() (value int)
 	GetRevokeTimeLimit() (value int)
 	GetRevokePmTimeLimit() (value int)
 	GetRatingEDecay() (value int)
 	GetStickersRecentLimit() (value int)
-	GetStickersFavedLimit() (value int)
 	GetChannelsReadMediaPeriod() (value int)
 	GetTmpSessions() (value int, ok bool)
-	GetPinnedDialogsCountMax() (value int)
-	GetPinnedInfolderCountMax() (value int)
 	GetCallReceiveTimeoutMs() (value int)
 	GetCallRingTimeoutMs() (value int)
 	GetCallConnectTimeoutMs() (value int)
@@ -466,14 +425,12 @@ func (c *Config) FillFrom(from interface {
 	GetLangPackVersion() (value int, ok bool)
 	GetBaseLangPackVersion() (value int, ok bool)
 	GetReactionsDefault() (value ReactionClass, ok bool)
+	GetAutologinToken() (value string, ok bool)
 }) {
-	c.PhonecallsEnabled = from.GetPhonecallsEnabled()
 	c.DefaultP2PContacts = from.GetDefaultP2PContacts()
 	c.PreloadFeaturedStickers = from.GetPreloadFeaturedStickers()
-	c.IgnorePhoneEntities = from.GetIgnorePhoneEntities()
 	c.RevokePmInbox = from.GetRevokePmInbox()
 	c.BlockedMode = from.GetBlockedMode()
-	c.PFSEnabled = from.GetPFSEnabled()
 	c.ForceTryIpv6 = from.GetForceTryIpv6()
 	c.Date = from.GetDate()
 	c.Expires = from.GetExpires()
@@ -492,20 +449,16 @@ func (c *Config) FillFrom(from interface {
 	c.NotifyDefaultDelayMs = from.GetNotifyDefaultDelayMs()
 	c.PushChatPeriodMs = from.GetPushChatPeriodMs()
 	c.PushChatLimit = from.GetPushChatLimit()
-	c.SavedGifsLimit = from.GetSavedGifsLimit()
 	c.EditTimeLimit = from.GetEditTimeLimit()
 	c.RevokeTimeLimit = from.GetRevokeTimeLimit()
 	c.RevokePmTimeLimit = from.GetRevokePmTimeLimit()
 	c.RatingEDecay = from.GetRatingEDecay()
 	c.StickersRecentLimit = from.GetStickersRecentLimit()
-	c.StickersFavedLimit = from.GetStickersFavedLimit()
 	c.ChannelsReadMediaPeriod = from.GetChannelsReadMediaPeriod()
 	if val, ok := from.GetTmpSessions(); ok {
 		c.TmpSessions = val
 	}
 
-	c.PinnedDialogsCountMax = from.GetPinnedDialogsCountMax()
-	c.PinnedInfolderCountMax = from.GetPinnedInfolderCountMax()
 	c.CallReceiveTimeoutMs = from.GetCallReceiveTimeoutMs()
 	c.CallRingTimeoutMs = from.GetCallRingTimeoutMs()
 	c.CallConnectTimeoutMs = from.GetCallConnectTimeoutMs()
@@ -550,6 +503,10 @@ func (c *Config) FillFrom(from interface {
 		c.ReactionsDefault = val
 	}
 
+	if val, ok := from.GetAutologinToken(); ok {
+		c.AutologinToken = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -576,11 +533,6 @@ func (c *Config) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "PhonecallsEnabled",
-			SchemaName: "phonecalls_enabled",
-			Null:       !c.Flags.Has(1),
-		},
-		{
 			Name:       "DefaultP2PContacts",
 			SchemaName: "default_p2p_contacts",
 			Null:       !c.Flags.Has(3),
@@ -591,11 +543,6 @@ func (c *Config) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(4),
 		},
 		{
-			Name:       "IgnorePhoneEntities",
-			SchemaName: "ignore_phone_entities",
-			Null:       !c.Flags.Has(5),
-		},
-		{
 			Name:       "RevokePmInbox",
 			SchemaName: "revoke_pm_inbox",
 			Null:       !c.Flags.Has(6),
@@ -604,11 +551,6 @@ func (c *Config) TypeInfo() tdp.Type {
 			Name:       "BlockedMode",
 			SchemaName: "blocked_mode",
 			Null:       !c.Flags.Has(8),
-		},
-		{
-			Name:       "PFSEnabled",
-			SchemaName: "pfs_enabled",
-			Null:       !c.Flags.Has(13),
 		},
 		{
 			Name:       "ForceTryIpv6",
@@ -684,10 +626,6 @@ func (c *Config) TypeInfo() tdp.Type {
 			SchemaName: "push_chat_limit",
 		},
 		{
-			Name:       "SavedGifsLimit",
-			SchemaName: "saved_gifs_limit",
-		},
-		{
 			Name:       "EditTimeLimit",
 			SchemaName: "edit_time_limit",
 		},
@@ -708,10 +646,6 @@ func (c *Config) TypeInfo() tdp.Type {
 			SchemaName: "stickers_recent_limit",
 		},
 		{
-			Name:       "StickersFavedLimit",
-			SchemaName: "stickers_faved_limit",
-		},
-		{
 			Name:       "ChannelsReadMediaPeriod",
 			SchemaName: "channels_read_media_period",
 		},
@@ -719,14 +653,6 @@ func (c *Config) TypeInfo() tdp.Type {
 			Name:       "TmpSessions",
 			SchemaName: "tmp_sessions",
 			Null:       !c.Flags.Has(0),
-		},
-		{
-			Name:       "PinnedDialogsCountMax",
-			SchemaName: "pinned_dialogs_count_max",
-		},
-		{
-			Name:       "PinnedInfolderCountMax",
-			SchemaName: "pinned_infolder_count_max",
 		},
 		{
 			Name:       "CallReceiveTimeoutMs",
@@ -805,32 +731,28 @@ func (c *Config) TypeInfo() tdp.Type {
 			SchemaName: "reactions_default",
 			Null:       !c.Flags.Has(15),
 		},
+		{
+			Name:       "AutologinToken",
+			SchemaName: "autologin_token",
+			Null:       !c.Flags.Has(16),
+		},
 	}
 	return typ
 }
 
 // SetFlags sets flags for non-zero fields.
 func (c *Config) SetFlags() {
-	if !(c.PhonecallsEnabled == false) {
-		c.Flags.Set(1)
-	}
 	if !(c.DefaultP2PContacts == false) {
 		c.Flags.Set(3)
 	}
 	if !(c.PreloadFeaturedStickers == false) {
 		c.Flags.Set(4)
 	}
-	if !(c.IgnorePhoneEntities == false) {
-		c.Flags.Set(5)
-	}
 	if !(c.RevokePmInbox == false) {
 		c.Flags.Set(6)
 	}
 	if !(c.BlockedMode == false) {
 		c.Flags.Set(8)
-	}
-	if !(c.PFSEnabled == false) {
-		c.Flags.Set(13)
 	}
 	if !(c.ForceTryIpv6 == false) {
 		c.Flags.Set(14)
@@ -865,12 +787,15 @@ func (c *Config) SetFlags() {
 	if !(c.ReactionsDefault == nil) {
 		c.Flags.Set(15)
 	}
+	if !(c.AutologinToken == "") {
+		c.Flags.Set(16)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (c *Config) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode config#232566ac as nil")
+		return fmt.Errorf("can't encode config#cc1a241e as nil")
 	}
 	b.PutID(ConfigTypeID)
 	return c.EncodeBare(b)
@@ -879,11 +804,11 @@ func (c *Config) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *Config) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode config#232566ac as nil")
+		return fmt.Errorf("can't encode config#cc1a241e as nil")
 	}
 	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode config#232566ac: field flags: %w", err)
+		return fmt.Errorf("unable to encode config#cc1a241e: field flags: %w", err)
 	}
 	b.PutInt(c.Date)
 	b.PutInt(c.Expires)
@@ -892,7 +817,7 @@ func (c *Config) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(c.DCOptions))
 	for idx, v := range c.DCOptions {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode config#232566ac: field dc_options element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode config#cc1a241e: field dc_options element with index %d: %w", idx, err)
 		}
 	}
 	b.PutString(c.DCTxtDomainName)
@@ -907,19 +832,15 @@ func (c *Config) EncodeBare(b *bin.Buffer) error {
 	b.PutInt(c.NotifyDefaultDelayMs)
 	b.PutInt(c.PushChatPeriodMs)
 	b.PutInt(c.PushChatLimit)
-	b.PutInt(c.SavedGifsLimit)
 	b.PutInt(c.EditTimeLimit)
 	b.PutInt(c.RevokeTimeLimit)
 	b.PutInt(c.RevokePmTimeLimit)
 	b.PutInt(c.RatingEDecay)
 	b.PutInt(c.StickersRecentLimit)
-	b.PutInt(c.StickersFavedLimit)
 	b.PutInt(c.ChannelsReadMediaPeriod)
 	if c.Flags.Has(0) {
 		b.PutInt(c.TmpSessions)
 	}
-	b.PutInt(c.PinnedDialogsCountMax)
-	b.PutInt(c.PinnedInfolderCountMax)
 	b.PutInt(c.CallReceiveTimeoutMs)
 	b.PutInt(c.CallRingTimeoutMs)
 	b.PutInt(c.CallConnectTimeoutMs)
@@ -954,11 +875,14 @@ func (c *Config) EncodeBare(b *bin.Buffer) error {
 	}
 	if c.Flags.Has(15) {
 		if c.ReactionsDefault == nil {
-			return fmt.Errorf("unable to encode config#232566ac: field reactions_default is nil")
+			return fmt.Errorf("unable to encode config#cc1a241e: field reactions_default is nil")
 		}
 		if err := c.ReactionsDefault.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode config#232566ac: field reactions_default: %w", err)
+			return fmt.Errorf("unable to encode config#cc1a241e: field reactions_default: %w", err)
 		}
+	}
+	if c.Flags.Has(16) {
+		b.PutString(c.AutologinToken)
 	}
 	return nil
 }
@@ -966,10 +890,10 @@ func (c *Config) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *Config) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode config#232566ac to nil")
+		return fmt.Errorf("can't decode config#cc1a241e to nil")
 	}
 	if err := b.ConsumeID(ConfigTypeID); err != nil {
-		return fmt.Errorf("unable to decode config#232566ac: %w", err)
+		return fmt.Errorf("unable to decode config#cc1a241e: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -977,53 +901,50 @@ func (c *Config) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *Config) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode config#232566ac to nil")
+		return fmt.Errorf("can't decode config#cc1a241e to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field flags: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field flags: %w", err)
 		}
 	}
-	c.PhonecallsEnabled = c.Flags.Has(1)
 	c.DefaultP2PContacts = c.Flags.Has(3)
 	c.PreloadFeaturedStickers = c.Flags.Has(4)
-	c.IgnorePhoneEntities = c.Flags.Has(5)
 	c.RevokePmInbox = c.Flags.Has(6)
 	c.BlockedMode = c.Flags.Has(8)
-	c.PFSEnabled = c.Flags.Has(13)
 	c.ForceTryIpv6 = c.Flags.Has(14)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field date: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field date: %w", err)
 		}
 		c.Date = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field expires: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field expires: %w", err)
 		}
 		c.Expires = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field test_mode: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field test_mode: %w", err)
 		}
 		c.TestMode = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field this_dc: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field this_dc: %w", err)
 		}
 		c.ThisDC = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field dc_options: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field dc_options: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -1032,7 +953,7 @@ func (c *Config) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value DCOption
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode config#232566ac: field dc_options: %w", err)
+				return fmt.Errorf("unable to decode config#cc1a241e: field dc_options: %w", err)
 			}
 			c.DCOptions = append(c.DCOptions, value)
 		}
@@ -1040,303 +961,263 @@ func (c *Config) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field dc_txt_domain_name: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field dc_txt_domain_name: %w", err)
 		}
 		c.DCTxtDomainName = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field chat_size_max: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field chat_size_max: %w", err)
 		}
 		c.ChatSizeMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field megagroup_size_max: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field megagroup_size_max: %w", err)
 		}
 		c.MegagroupSizeMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field forwarded_count_max: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field forwarded_count_max: %w", err)
 		}
 		c.ForwardedCountMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field online_update_period_ms: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field online_update_period_ms: %w", err)
 		}
 		c.OnlineUpdatePeriodMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field offline_blur_timeout_ms: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field offline_blur_timeout_ms: %w", err)
 		}
 		c.OfflineBlurTimeoutMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field offline_idle_timeout_ms: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field offline_idle_timeout_ms: %w", err)
 		}
 		c.OfflineIdleTimeoutMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field online_cloud_timeout_ms: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field online_cloud_timeout_ms: %w", err)
 		}
 		c.OnlineCloudTimeoutMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field notify_cloud_delay_ms: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field notify_cloud_delay_ms: %w", err)
 		}
 		c.NotifyCloudDelayMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field notify_default_delay_ms: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field notify_default_delay_ms: %w", err)
 		}
 		c.NotifyDefaultDelayMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field push_chat_period_ms: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field push_chat_period_ms: %w", err)
 		}
 		c.PushChatPeriodMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field push_chat_limit: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field push_chat_limit: %w", err)
 		}
 		c.PushChatLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field saved_gifs_limit: %w", err)
-		}
-		c.SavedGifsLimit = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field edit_time_limit: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field edit_time_limit: %w", err)
 		}
 		c.EditTimeLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field revoke_time_limit: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field revoke_time_limit: %w", err)
 		}
 		c.RevokeTimeLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field revoke_pm_time_limit: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field revoke_pm_time_limit: %w", err)
 		}
 		c.RevokePmTimeLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field rating_e_decay: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field rating_e_decay: %w", err)
 		}
 		c.RatingEDecay = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field stickers_recent_limit: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field stickers_recent_limit: %w", err)
 		}
 		c.StickersRecentLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field stickers_faved_limit: %w", err)
-		}
-		c.StickersFavedLimit = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field channels_read_media_period: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field channels_read_media_period: %w", err)
 		}
 		c.ChannelsReadMediaPeriod = value
 	}
 	if c.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field tmp_sessions: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field tmp_sessions: %w", err)
 		}
 		c.TmpSessions = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field pinned_dialogs_count_max: %w", err)
-		}
-		c.PinnedDialogsCountMax = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field pinned_infolder_count_max: %w", err)
-		}
-		c.PinnedInfolderCountMax = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field call_receive_timeout_ms: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field call_receive_timeout_ms: %w", err)
 		}
 		c.CallReceiveTimeoutMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field call_ring_timeout_ms: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field call_ring_timeout_ms: %w", err)
 		}
 		c.CallRingTimeoutMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field call_connect_timeout_ms: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field call_connect_timeout_ms: %w", err)
 		}
 		c.CallConnectTimeoutMs = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field call_packet_timeout_ms: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field call_packet_timeout_ms: %w", err)
 		}
 		c.CallPacketTimeoutMs = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field me_url_prefix: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field me_url_prefix: %w", err)
 		}
 		c.MeURLPrefix = value
 	}
 	if c.Flags.Has(7) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field autoupdate_url_prefix: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field autoupdate_url_prefix: %w", err)
 		}
 		c.AutoupdateURLPrefix = value
 	}
 	if c.Flags.Has(9) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field gif_search_username: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field gif_search_username: %w", err)
 		}
 		c.GifSearchUsername = value
 	}
 	if c.Flags.Has(10) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field venue_search_username: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field venue_search_username: %w", err)
 		}
 		c.VenueSearchUsername = value
 	}
 	if c.Flags.Has(11) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field img_search_username: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field img_search_username: %w", err)
 		}
 		c.ImgSearchUsername = value
 	}
 	if c.Flags.Has(12) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field static_maps_provider: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field static_maps_provider: %w", err)
 		}
 		c.StaticMapsProvider = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field caption_length_max: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field caption_length_max: %w", err)
 		}
 		c.CaptionLengthMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field message_length_max: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field message_length_max: %w", err)
 		}
 		c.MessageLengthMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field webfile_dc_id: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field webfile_dc_id: %w", err)
 		}
 		c.WebfileDCID = value
 	}
 	if c.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field suggested_lang_code: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field suggested_lang_code: %w", err)
 		}
 		c.SuggestedLangCode = value
 	}
 	if c.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field lang_pack_version: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field lang_pack_version: %w", err)
 		}
 		c.LangPackVersion = value
 	}
 	if c.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field base_lang_pack_version: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field base_lang_pack_version: %w", err)
 		}
 		c.BaseLangPackVersion = value
 	}
 	if c.Flags.Has(15) {
 		value, err := DecodeReaction(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode config#232566ac: field reactions_default: %w", err)
+			return fmt.Errorf("unable to decode config#cc1a241e: field reactions_default: %w", err)
 		}
 		c.ReactionsDefault = value
 	}
+	if c.Flags.Has(16) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode config#cc1a241e: field autologin_token: %w", err)
+		}
+		c.AutologinToken = value
+	}
 	return nil
-}
-
-// SetPhonecallsEnabled sets value of PhonecallsEnabled conditional field.
-func (c *Config) SetPhonecallsEnabled(value bool) {
-	if value {
-		c.Flags.Set(1)
-		c.PhonecallsEnabled = true
-	} else {
-		c.Flags.Unset(1)
-		c.PhonecallsEnabled = false
-	}
-}
-
-// GetPhonecallsEnabled returns value of PhonecallsEnabled conditional field.
-func (c *Config) GetPhonecallsEnabled() (value bool) {
-	if c == nil {
-		return
-	}
-	return c.Flags.Has(1)
 }
 
 // SetDefaultP2PContacts sets value of DefaultP2PContacts conditional field.
@@ -1377,25 +1258,6 @@ func (c *Config) GetPreloadFeaturedStickers() (value bool) {
 	return c.Flags.Has(4)
 }
 
-// SetIgnorePhoneEntities sets value of IgnorePhoneEntities conditional field.
-func (c *Config) SetIgnorePhoneEntities(value bool) {
-	if value {
-		c.Flags.Set(5)
-		c.IgnorePhoneEntities = true
-	} else {
-		c.Flags.Unset(5)
-		c.IgnorePhoneEntities = false
-	}
-}
-
-// GetIgnorePhoneEntities returns value of IgnorePhoneEntities conditional field.
-func (c *Config) GetIgnorePhoneEntities() (value bool) {
-	if c == nil {
-		return
-	}
-	return c.Flags.Has(5)
-}
-
 // SetRevokePmInbox sets value of RevokePmInbox conditional field.
 func (c *Config) SetRevokePmInbox(value bool) {
 	if value {
@@ -1432,25 +1294,6 @@ func (c *Config) GetBlockedMode() (value bool) {
 		return
 	}
 	return c.Flags.Has(8)
-}
-
-// SetPFSEnabled sets value of PFSEnabled conditional field.
-func (c *Config) SetPFSEnabled(value bool) {
-	if value {
-		c.Flags.Set(13)
-		c.PFSEnabled = true
-	} else {
-		c.Flags.Unset(13)
-		c.PFSEnabled = false
-	}
-}
-
-// GetPFSEnabled returns value of PFSEnabled conditional field.
-func (c *Config) GetPFSEnabled() (value bool) {
-	if c == nil {
-		return
-	}
-	return c.Flags.Has(13)
 }
 
 // SetForceTryIpv6 sets value of ForceTryIpv6 conditional field.
@@ -1608,14 +1451,6 @@ func (c *Config) GetPushChatLimit() (value int) {
 	return c.PushChatLimit
 }
 
-// GetSavedGifsLimit returns value of SavedGifsLimit field.
-func (c *Config) GetSavedGifsLimit() (value int) {
-	if c == nil {
-		return
-	}
-	return c.SavedGifsLimit
-}
-
 // GetEditTimeLimit returns value of EditTimeLimit field.
 func (c *Config) GetEditTimeLimit() (value int) {
 	if c == nil {
@@ -1656,14 +1491,6 @@ func (c *Config) GetStickersRecentLimit() (value int) {
 	return c.StickersRecentLimit
 }
 
-// GetStickersFavedLimit returns value of StickersFavedLimit field.
-func (c *Config) GetStickersFavedLimit() (value int) {
-	if c == nil {
-		return
-	}
-	return c.StickersFavedLimit
-}
-
 // GetChannelsReadMediaPeriod returns value of ChannelsReadMediaPeriod field.
 func (c *Config) GetChannelsReadMediaPeriod() (value int) {
 	if c == nil {
@@ -1688,22 +1515,6 @@ func (c *Config) GetTmpSessions() (value int, ok bool) {
 		return value, false
 	}
 	return c.TmpSessions, true
-}
-
-// GetPinnedDialogsCountMax returns value of PinnedDialogsCountMax field.
-func (c *Config) GetPinnedDialogsCountMax() (value int) {
-	if c == nil {
-		return
-	}
-	return c.PinnedDialogsCountMax
-}
-
-// GetPinnedInfolderCountMax returns value of PinnedInfolderCountMax field.
-func (c *Config) GetPinnedInfolderCountMax() (value int) {
-	if c == nil {
-		return
-	}
-	return c.PinnedInfolderCountMax
 }
 
 // GetCallReceiveTimeoutMs returns value of CallReceiveTimeoutMs field.
@@ -1930,4 +1741,22 @@ func (c *Config) GetReactionsDefault() (value ReactionClass, ok bool) {
 		return value, false
 	}
 	return c.ReactionsDefault, true
+}
+
+// SetAutologinToken sets value of AutologinToken conditional field.
+func (c *Config) SetAutologinToken(value string) {
+	c.Flags.Set(16)
+	c.AutologinToken = value
+}
+
+// GetAutologinToken returns value of AutologinToken conditional field and
+// boolean which is true if field was set.
+func (c *Config) GetAutologinToken() (value string, ok bool) {
+	if c == nil {
+		return
+	}
+	if !c.Flags.Has(16) {
+		return value, false
+	}
+	return c.AutologinToken, true
 }

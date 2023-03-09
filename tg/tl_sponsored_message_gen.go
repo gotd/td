@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SponsoredMessage represents TL type `sponsoredMessage#3a836df8`.
+// SponsoredMessage represents TL type `sponsoredMessage#fc25b828`.
 // A sponsored message¹.
 //
 // Links:
@@ -79,10 +79,18 @@ type SponsoredMessage struct {
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
+	// SponsorInfo field of SponsoredMessage.
+	//
+	// Use SetSponsorInfo and GetSponsorInfo helpers.
+	SponsorInfo string
+	// AdditionalInfo field of SponsoredMessage.
+	//
+	// Use SetAdditionalInfo and GetAdditionalInfo helpers.
+	AdditionalInfo string
 }
 
 // SponsoredMessageTypeID is TL type id of SponsoredMessage.
-const SponsoredMessageTypeID = 0x3a836df8
+const SponsoredMessageTypeID = 0xfc25b828
 
 // Ensuring interfaces in compile-time for SponsoredMessage.
 var (
@@ -129,6 +137,12 @@ func (s *SponsoredMessage) Zero() bool {
 	if !(s.Entities == nil) {
 		return false
 	}
+	if !(s.SponsorInfo == "") {
+		return false
+	}
+	if !(s.AdditionalInfo == "") {
+		return false
+	}
 
 	return true
 }
@@ -154,6 +168,8 @@ func (s *SponsoredMessage) FillFrom(from interface {
 	GetStartParam() (value string, ok bool)
 	GetMessage() (value string)
 	GetEntities() (value []MessageEntityClass, ok bool)
+	GetSponsorInfo() (value string, ok bool)
+	GetAdditionalInfo() (value string, ok bool)
 }) {
 	s.Recommended = from.GetRecommended()
 	s.ShowPeerPhoto = from.GetShowPeerPhoto()
@@ -181,6 +197,14 @@ func (s *SponsoredMessage) FillFrom(from interface {
 	s.Message = from.GetMessage()
 	if val, ok := from.GetEntities(); ok {
 		s.Entities = val
+	}
+
+	if val, ok := from.GetSponsorInfo(); ok {
+		s.SponsorInfo = val
+	}
+
+	if val, ok := from.GetAdditionalInfo(); ok {
+		s.AdditionalInfo = val
 	}
 
 }
@@ -256,6 +280,16 @@ func (s *SponsoredMessage) TypeInfo() tdp.Type {
 			SchemaName: "entities",
 			Null:       !s.Flags.Has(1),
 		},
+		{
+			Name:       "SponsorInfo",
+			SchemaName: "sponsor_info",
+			Null:       !s.Flags.Has(7),
+		},
+		{
+			Name:       "AdditionalInfo",
+			SchemaName: "additional_info",
+			Null:       !s.Flags.Has(8),
+		},
 	}
 	return typ
 }
@@ -286,12 +320,18 @@ func (s *SponsoredMessage) SetFlags() {
 	if !(s.Entities == nil) {
 		s.Flags.Set(1)
 	}
+	if !(s.SponsorInfo == "") {
+		s.Flags.Set(7)
+	}
+	if !(s.AdditionalInfo == "") {
+		s.Flags.Set(8)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (s *SponsoredMessage) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sponsoredMessage#3a836df8 as nil")
+		return fmt.Errorf("can't encode sponsoredMessage#fc25b828 as nil")
 	}
 	b.PutID(SponsoredMessageTypeID)
 	return s.EncodeBare(b)
@@ -300,27 +340,27 @@ func (s *SponsoredMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SponsoredMessage) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sponsoredMessage#3a836df8 as nil")
+		return fmt.Errorf("can't encode sponsoredMessage#fc25b828 as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sponsoredMessage#3a836df8: field flags: %w", err)
+		return fmt.Errorf("unable to encode sponsoredMessage#fc25b828: field flags: %w", err)
 	}
 	b.PutBytes(s.RandomID)
 	if s.Flags.Has(3) {
 		if s.FromID == nil {
-			return fmt.Errorf("unable to encode sponsoredMessage#3a836df8: field from_id is nil")
+			return fmt.Errorf("unable to encode sponsoredMessage#fc25b828: field from_id is nil")
 		}
 		if err := s.FromID.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode sponsoredMessage#3a836df8: field from_id: %w", err)
+			return fmt.Errorf("unable to encode sponsoredMessage#fc25b828: field from_id: %w", err)
 		}
 	}
 	if s.Flags.Has(4) {
 		if s.ChatInvite == nil {
-			return fmt.Errorf("unable to encode sponsoredMessage#3a836df8: field chat_invite is nil")
+			return fmt.Errorf("unable to encode sponsoredMessage#fc25b828: field chat_invite is nil")
 		}
 		if err := s.ChatInvite.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode sponsoredMessage#3a836df8: field chat_invite: %w", err)
+			return fmt.Errorf("unable to encode sponsoredMessage#fc25b828: field chat_invite: %w", err)
 		}
 	}
 	if s.Flags.Has(4) {
@@ -337,12 +377,18 @@ func (s *SponsoredMessage) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(s.Entities))
 		for idx, v := range s.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode sponsoredMessage#3a836df8: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode sponsoredMessage#fc25b828: field entities element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode sponsoredMessage#3a836df8: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode sponsoredMessage#fc25b828: field entities element with index %d: %w", idx, err)
 			}
 		}
+	}
+	if s.Flags.Has(7) {
+		b.PutString(s.SponsorInfo)
+	}
+	if s.Flags.Has(8) {
+		b.PutString(s.AdditionalInfo)
 	}
 	return nil
 }
@@ -350,10 +396,10 @@ func (s *SponsoredMessage) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SponsoredMessage) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sponsoredMessage#3a836df8 to nil")
+		return fmt.Errorf("can't decode sponsoredMessage#fc25b828 to nil")
 	}
 	if err := b.ConsumeID(SponsoredMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode sponsoredMessage#3a836df8: %w", err)
+		return fmt.Errorf("unable to decode sponsoredMessage#fc25b828: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -361,11 +407,11 @@ func (s *SponsoredMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SponsoredMessage) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sponsoredMessage#3a836df8 to nil")
+		return fmt.Errorf("can't decode sponsoredMessage#fc25b828 to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#3a836df8: field flags: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#fc25b828: field flags: %w", err)
 		}
 	}
 	s.Recommended = s.Flags.Has(5)
@@ -373,56 +419,56 @@ func (s *SponsoredMessage) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#3a836df8: field random_id: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#fc25b828: field random_id: %w", err)
 		}
 		s.RandomID = value
 	}
 	if s.Flags.Has(3) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#3a836df8: field from_id: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#fc25b828: field from_id: %w", err)
 		}
 		s.FromID = value
 	}
 	if s.Flags.Has(4) {
 		value, err := DecodeChatInvite(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#3a836df8: field chat_invite: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#fc25b828: field chat_invite: %w", err)
 		}
 		s.ChatInvite = value
 	}
 	if s.Flags.Has(4) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#3a836df8: field chat_invite_hash: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#fc25b828: field chat_invite_hash: %w", err)
 		}
 		s.ChatInviteHash = value
 	}
 	if s.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#3a836df8: field channel_post: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#fc25b828: field channel_post: %w", err)
 		}
 		s.ChannelPost = value
 	}
 	if s.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#3a836df8: field start_param: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#fc25b828: field start_param: %w", err)
 		}
 		s.StartParam = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#3a836df8: field message: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#fc25b828: field message: %w", err)
 		}
 		s.Message = value
 	}
 	if s.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode sponsoredMessage#3a836df8: field entities: %w", err)
+			return fmt.Errorf("unable to decode sponsoredMessage#fc25b828: field entities: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -431,10 +477,24 @@ func (s *SponsoredMessage) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sponsoredMessage#3a836df8: field entities: %w", err)
+				return fmt.Errorf("unable to decode sponsoredMessage#fc25b828: field entities: %w", err)
 			}
 			s.Entities = append(s.Entities, value)
 		}
+	}
+	if s.Flags.Has(7) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode sponsoredMessage#fc25b828: field sponsor_info: %w", err)
+		}
+		s.SponsorInfo = value
+	}
+	if s.Flags.Has(8) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode sponsoredMessage#fc25b828: field additional_info: %w", err)
+		}
+		s.AdditionalInfo = value
 	}
 	return nil
 }
@@ -599,6 +659,42 @@ func (s *SponsoredMessage) GetEntities() (value []MessageEntityClass, ok bool) {
 		return value, false
 	}
 	return s.Entities, true
+}
+
+// SetSponsorInfo sets value of SponsorInfo conditional field.
+func (s *SponsoredMessage) SetSponsorInfo(value string) {
+	s.Flags.Set(7)
+	s.SponsorInfo = value
+}
+
+// GetSponsorInfo returns value of SponsorInfo conditional field and
+// boolean which is true if field was set.
+func (s *SponsoredMessage) GetSponsorInfo() (value string, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(7) {
+		return value, false
+	}
+	return s.SponsorInfo, true
+}
+
+// SetAdditionalInfo sets value of AdditionalInfo conditional field.
+func (s *SponsoredMessage) SetAdditionalInfo(value string) {
+	s.Flags.Set(8)
+	s.AdditionalInfo = value
+}
+
+// GetAdditionalInfo returns value of AdditionalInfo conditional field and
+// boolean which is true if field was set.
+func (s *SponsoredMessage) GetAdditionalInfo() (value string, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(8) {
+		return value, false
+	}
+	return s.AdditionalInfo, true
 }
 
 // MapEntities returns field Entities wrapped in MessageEntityClassArray helper.

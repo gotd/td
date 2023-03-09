@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// HelpGetAppConfigRequest represents TL type `help.getAppConfig#98914110`.
+// HelpGetAppConfigRequest represents TL type `help.getAppConfig#61e3f854`.
 // Get app-specific configuration, see client configuration¹ for more info on the result.
 //
 // Links:
@@ -39,10 +39,12 @@ var (
 //
 // See https://core.telegram.org/method/help.getAppConfig for reference.
 type HelpGetAppConfigRequest struct {
+	// Hash field of HelpGetAppConfigRequest.
+	Hash int
 }
 
 // HelpGetAppConfigRequestTypeID is TL type id of HelpGetAppConfigRequest.
-const HelpGetAppConfigRequestTypeID = 0x98914110
+const HelpGetAppConfigRequestTypeID = 0x61e3f854
 
 // Ensuring interfaces in compile-time for HelpGetAppConfigRequest.
 var (
@@ -56,6 +58,9 @@ func (g *HelpGetAppConfigRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
+	if !(g.Hash == 0) {
+		return false
+	}
 
 	return true
 }
@@ -67,6 +72,13 @@ func (g *HelpGetAppConfigRequest) String() string {
 	}
 	type Alias HelpGetAppConfigRequest
 	return fmt.Sprintf("HelpGetAppConfigRequest%+v", Alias(*g))
+}
+
+// FillFrom fills HelpGetAppConfigRequest from given interface.
+func (g *HelpGetAppConfigRequest) FillFrom(from interface {
+	GetHash() (value int)
+}) {
+	g.Hash = from.GetHash()
 }
 
 // TypeID returns type id in TL schema.
@@ -91,14 +103,19 @@ func (g *HelpGetAppConfigRequest) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
 func (g *HelpGetAppConfigRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getAppConfig#98914110 as nil")
+		return fmt.Errorf("can't encode help.getAppConfig#61e3f854 as nil")
 	}
 	b.PutID(HelpGetAppConfigRequestTypeID)
 	return g.EncodeBare(b)
@@ -107,18 +124,19 @@ func (g *HelpGetAppConfigRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *HelpGetAppConfigRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode help.getAppConfig#98914110 as nil")
+		return fmt.Errorf("can't encode help.getAppConfig#61e3f854 as nil")
 	}
+	b.PutInt(g.Hash)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *HelpGetAppConfigRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getAppConfig#98914110 to nil")
+		return fmt.Errorf("can't decode help.getAppConfig#61e3f854 to nil")
 	}
 	if err := b.ConsumeID(HelpGetAppConfigRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.getAppConfig#98914110: %w", err)
+		return fmt.Errorf("unable to decode help.getAppConfig#61e3f854: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -126,24 +144,41 @@ func (g *HelpGetAppConfigRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *HelpGetAppConfigRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode help.getAppConfig#98914110 to nil")
+		return fmt.Errorf("can't decode help.getAppConfig#61e3f854 to nil")
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode help.getAppConfig#61e3f854: field hash: %w", err)
+		}
+		g.Hash = value
 	}
 	return nil
 }
 
-// HelpGetAppConfig invokes method help.getAppConfig#98914110 returning error if any.
+// GetHash returns value of Hash field.
+func (g *HelpGetAppConfigRequest) GetHash() (value int) {
+	if g == nil {
+		return
+	}
+	return g.Hash
+}
+
+// HelpGetAppConfig invokes method help.getAppConfig#61e3f854 returning error if any.
 // Get app-specific configuration, see client configuration¹ for more info on the result.
 //
 // Links:
 //  1. https://core.telegram.org/api/config#client-configuration
 //
 // See https://core.telegram.org/method/help.getAppConfig for reference.
-func (c *Client) HelpGetAppConfig(ctx context.Context) (JSONValueClass, error) {
-	var result JSONValueBox
+func (c *Client) HelpGetAppConfig(ctx context.Context, hash int) (HelpAppConfigClass, error) {
+	var result HelpAppConfigBox
 
-	request := &HelpGetAppConfigRequest{}
+	request := &HelpGetAppConfigRequest{
+		Hash: hash,
+	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.JSONValue, nil
+	return result.AppConfig, nil
 }

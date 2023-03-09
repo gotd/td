@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesSetInlineBotResultsRequest represents TL type `messages.setInlineBotResults#eb5ea206`.
+// MessagesSetInlineBotResultsRequest represents TL type `messages.setInlineBotResults#bb12a419`.
 // Answer an inline query, for bots only
 //
 // See https://core.telegram.org/method/messages.setInlineBotResults for reference.
@@ -64,10 +64,14 @@ type MessagesSetInlineBotResultsRequest struct {
 	//
 	// Use SetSwitchPm and GetSwitchPm helpers.
 	SwitchPm InlineBotSwitchPM
+	// SwitchWebview field of MessagesSetInlineBotResultsRequest.
+	//
+	// Use SetSwitchWebview and GetSwitchWebview helpers.
+	SwitchWebview InlineBotWebView
 }
 
 // MessagesSetInlineBotResultsRequestTypeID is TL type id of MessagesSetInlineBotResultsRequest.
-const MessagesSetInlineBotResultsRequestTypeID = 0xeb5ea206
+const MessagesSetInlineBotResultsRequestTypeID = 0xbb12a419
 
 // Ensuring interfaces in compile-time for MessagesSetInlineBotResultsRequest.
 var (
@@ -105,6 +109,9 @@ func (s *MessagesSetInlineBotResultsRequest) Zero() bool {
 	if !(s.SwitchPm.Zero()) {
 		return false
 	}
+	if !(s.SwitchWebview.Zero()) {
+		return false
+	}
 
 	return true
 }
@@ -127,6 +134,7 @@ func (s *MessagesSetInlineBotResultsRequest) FillFrom(from interface {
 	GetCacheTime() (value int)
 	GetNextOffset() (value string, ok bool)
 	GetSwitchPm() (value InlineBotSwitchPM, ok bool)
+	GetSwitchWebview() (value InlineBotWebView, ok bool)
 }) {
 	s.Gallery = from.GetGallery()
 	s.Private = from.GetPrivate()
@@ -139,6 +147,10 @@ func (s *MessagesSetInlineBotResultsRequest) FillFrom(from interface {
 
 	if val, ok := from.GetSwitchPm(); ok {
 		s.SwitchPm = val
+	}
+
+	if val, ok := from.GetSwitchWebview(); ok {
+		s.SwitchWebview = val
 	}
 
 }
@@ -198,6 +210,11 @@ func (s *MessagesSetInlineBotResultsRequest) TypeInfo() tdp.Type {
 			SchemaName: "switch_pm",
 			Null:       !s.Flags.Has(3),
 		},
+		{
+			Name:       "SwitchWebview",
+			SchemaName: "switch_webview",
+			Null:       !s.Flags.Has(4),
+		},
 	}
 	return typ
 }
@@ -216,12 +233,15 @@ func (s *MessagesSetInlineBotResultsRequest) SetFlags() {
 	if !(s.SwitchPm.Zero()) {
 		s.Flags.Set(3)
 	}
+	if !(s.SwitchWebview.Zero()) {
+		s.Flags.Set(4)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (s *MessagesSetInlineBotResultsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setInlineBotResults#eb5ea206 as nil")
+		return fmt.Errorf("can't encode messages.setInlineBotResults#bb12a419 as nil")
 	}
 	b.PutID(MessagesSetInlineBotResultsRequestTypeID)
 	return s.EncodeBare(b)
@@ -230,20 +250,20 @@ func (s *MessagesSetInlineBotResultsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSetInlineBotResultsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.setInlineBotResults#eb5ea206 as nil")
+		return fmt.Errorf("can't encode messages.setInlineBotResults#bb12a419 as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.setInlineBotResults#eb5ea206: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.setInlineBotResults#bb12a419: field flags: %w", err)
 	}
 	b.PutLong(s.QueryID)
 	b.PutVectorHeader(len(s.Results))
 	for idx, v := range s.Results {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.setInlineBotResults#eb5ea206: field results element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.setInlineBotResults#bb12a419: field results element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.setInlineBotResults#eb5ea206: field results element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.setInlineBotResults#bb12a419: field results element with index %d: %w", idx, err)
 		}
 	}
 	b.PutInt(s.CacheTime)
@@ -252,7 +272,12 @@ func (s *MessagesSetInlineBotResultsRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	if s.Flags.Has(3) {
 		if err := s.SwitchPm.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.setInlineBotResults#eb5ea206: field switch_pm: %w", err)
+			return fmt.Errorf("unable to encode messages.setInlineBotResults#bb12a419: field switch_pm: %w", err)
+		}
+	}
+	if s.Flags.Has(4) {
+		if err := s.SwitchWebview.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.setInlineBotResults#bb12a419: field switch_webview: %w", err)
 		}
 	}
 	return nil
@@ -261,10 +286,10 @@ func (s *MessagesSetInlineBotResultsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *MessagesSetInlineBotResultsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setInlineBotResults#eb5ea206 to nil")
+		return fmt.Errorf("can't decode messages.setInlineBotResults#bb12a419 to nil")
 	}
 	if err := b.ConsumeID(MessagesSetInlineBotResultsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.setInlineBotResults#eb5ea206: %w", err)
+		return fmt.Errorf("unable to decode messages.setInlineBotResults#bb12a419: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -272,11 +297,11 @@ func (s *MessagesSetInlineBotResultsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSetInlineBotResultsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.setInlineBotResults#eb5ea206 to nil")
+		return fmt.Errorf("can't decode messages.setInlineBotResults#bb12a419 to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.setInlineBotResults#eb5ea206: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.setInlineBotResults#bb12a419: field flags: %w", err)
 		}
 	}
 	s.Gallery = s.Flags.Has(0)
@@ -284,14 +309,14 @@ func (s *MessagesSetInlineBotResultsRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setInlineBotResults#eb5ea206: field query_id: %w", err)
+			return fmt.Errorf("unable to decode messages.setInlineBotResults#bb12a419: field query_id: %w", err)
 		}
 		s.QueryID = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setInlineBotResults#eb5ea206: field results: %w", err)
+			return fmt.Errorf("unable to decode messages.setInlineBotResults#bb12a419: field results: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -300,7 +325,7 @@ func (s *MessagesSetInlineBotResultsRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputBotInlineResult(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.setInlineBotResults#eb5ea206: field results: %w", err)
+				return fmt.Errorf("unable to decode messages.setInlineBotResults#bb12a419: field results: %w", err)
 			}
 			s.Results = append(s.Results, value)
 		}
@@ -308,20 +333,25 @@ func (s *MessagesSetInlineBotResultsRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setInlineBotResults#eb5ea206: field cache_time: %w", err)
+			return fmt.Errorf("unable to decode messages.setInlineBotResults#bb12a419: field cache_time: %w", err)
 		}
 		s.CacheTime = value
 	}
 	if s.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.setInlineBotResults#eb5ea206: field next_offset: %w", err)
+			return fmt.Errorf("unable to decode messages.setInlineBotResults#bb12a419: field next_offset: %w", err)
 		}
 		s.NextOffset = value
 	}
 	if s.Flags.Has(3) {
 		if err := s.SwitchPm.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.setInlineBotResults#eb5ea206: field switch_pm: %w", err)
+			return fmt.Errorf("unable to decode messages.setInlineBotResults#bb12a419: field switch_pm: %w", err)
+		}
+	}
+	if s.Flags.Has(4) {
+		if err := s.SwitchWebview.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.setInlineBotResults#bb12a419: field switch_webview: %w", err)
 		}
 	}
 	return nil
@@ -425,12 +455,30 @@ func (s *MessagesSetInlineBotResultsRequest) GetSwitchPm() (value InlineBotSwitc
 	return s.SwitchPm, true
 }
 
+// SetSwitchWebview sets value of SwitchWebview conditional field.
+func (s *MessagesSetInlineBotResultsRequest) SetSwitchWebview(value InlineBotWebView) {
+	s.Flags.Set(4)
+	s.SwitchWebview = value
+}
+
+// GetSwitchWebview returns value of SwitchWebview conditional field and
+// boolean which is true if field was set.
+func (s *MessagesSetInlineBotResultsRequest) GetSwitchWebview() (value InlineBotWebView, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(4) {
+		return value, false
+	}
+	return s.SwitchWebview, true
+}
+
 // MapResults returns field Results wrapped in InputBotInlineResultClassArray helper.
 func (s *MessagesSetInlineBotResultsRequest) MapResults() (value InputBotInlineResultClassArray) {
 	return InputBotInlineResultClassArray(s.Results)
 }
 
-// MessagesSetInlineBotResults invokes method messages.setInlineBotResults#eb5ea206 returning error if any.
+// MessagesSetInlineBotResults invokes method messages.setInlineBotResults#bb12a419 returning error if any.
 // Answer an inline query, for bots only
 //
 // Possible errors:

@@ -3164,7 +3164,7 @@ func (m *MessageActionCustomAction) GetMessage() (value string) {
 	return m.Message
 }
 
-// MessageActionBotAllowed represents TL type `messageActionBotAllowed#abe9affe`.
+// MessageActionBotAllowed represents TL type `messageActionBotAllowed#c516d679`.
 // The domain name of the website on which the user has logged in. More about Telegram
 // Login »¹
 //
@@ -3173,12 +3173,22 @@ func (m *MessageActionCustomAction) GetMessage() (value string) {
 //
 // See https://core.telegram.org/constructor/messageActionBotAllowed for reference.
 type MessageActionBotAllowed struct {
+	// Flags field of MessageActionBotAllowed.
+	Flags bin.Fields
+	// AttachMenu field of MessageActionBotAllowed.
+	AttachMenu bool
 	// The domain name of the website on which the user has logged in.
+	//
+	// Use SetDomain and GetDomain helpers.
 	Domain string
+	// App field of MessageActionBotAllowed.
+	//
+	// Use SetApp and GetApp helpers.
+	App BotAppClass
 }
 
 // MessageActionBotAllowedTypeID is TL type id of MessageActionBotAllowed.
-const MessageActionBotAllowedTypeID = 0xabe9affe
+const MessageActionBotAllowedTypeID = 0xc516d679
 
 // construct implements constructor of MessageActionClass.
 func (m MessageActionBotAllowed) construct() MessageActionClass { return &m }
@@ -3197,7 +3207,16 @@ func (m *MessageActionBotAllowed) Zero() bool {
 	if m == nil {
 		return true
 	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.AttachMenu == false) {
+		return false
+	}
 	if !(m.Domain == "") {
+		return false
+	}
+	if !(m.App == nil) {
 		return false
 	}
 
@@ -3215,9 +3234,19 @@ func (m *MessageActionBotAllowed) String() string {
 
 // FillFrom fills MessageActionBotAllowed from given interface.
 func (m *MessageActionBotAllowed) FillFrom(from interface {
-	GetDomain() (value string)
+	GetAttachMenu() (value bool)
+	GetDomain() (value string, ok bool)
+	GetApp() (value BotAppClass, ok bool)
 }) {
-	m.Domain = from.GetDomain()
+	m.AttachMenu = from.GetAttachMenu()
+	if val, ok := from.GetDomain(); ok {
+		m.Domain = val
+	}
+
+	if val, ok := from.GetApp(); ok {
+		m.App = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -3244,17 +3273,41 @@ func (m *MessageActionBotAllowed) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "AttachMenu",
+			SchemaName: "attach_menu",
+			Null:       !m.Flags.Has(1),
+		},
+		{
 			Name:       "Domain",
 			SchemaName: "domain",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "App",
+			SchemaName: "app",
+			Null:       !m.Flags.Has(2),
 		},
 	}
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (m *MessageActionBotAllowed) SetFlags() {
+	if !(m.AttachMenu == false) {
+		m.Flags.Set(1)
+	}
+	if !(m.Domain == "") {
+		m.Flags.Set(0)
+	}
+	if !(m.App == nil) {
+		m.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionBotAllowed) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionBotAllowed#abe9affe as nil")
+		return fmt.Errorf("can't encode messageActionBotAllowed#c516d679 as nil")
 	}
 	b.PutID(MessageActionBotAllowedTypeID)
 	return m.EncodeBare(b)
@@ -3263,19 +3316,33 @@ func (m *MessageActionBotAllowed) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageActionBotAllowed) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageActionBotAllowed#abe9affe as nil")
+		return fmt.Errorf("can't encode messageActionBotAllowed#c516d679 as nil")
 	}
-	b.PutString(m.Domain)
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionBotAllowed#c516d679: field flags: %w", err)
+	}
+	if m.Flags.Has(0) {
+		b.PutString(m.Domain)
+	}
+	if m.Flags.Has(2) {
+		if m.App == nil {
+			return fmt.Errorf("unable to encode messageActionBotAllowed#c516d679: field app is nil")
+		}
+		if err := m.App.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messageActionBotAllowed#c516d679: field app: %w", err)
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageActionBotAllowed) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionBotAllowed#abe9affe to nil")
+		return fmt.Errorf("can't decode messageActionBotAllowed#c516d679 to nil")
 	}
 	if err := b.ConsumeID(MessageActionBotAllowedTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageActionBotAllowed#abe9affe: %w", err)
+		return fmt.Errorf("unable to decode messageActionBotAllowed#c516d679: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -3283,24 +3350,84 @@ func (m *MessageActionBotAllowed) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageActionBotAllowed) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageActionBotAllowed#abe9affe to nil")
+		return fmt.Errorf("can't decode messageActionBotAllowed#c516d679 to nil")
 	}
 	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionBotAllowed#c516d679: field flags: %w", err)
+		}
+	}
+	m.AttachMenu = m.Flags.Has(1)
+	if m.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageActionBotAllowed#abe9affe: field domain: %w", err)
+			return fmt.Errorf("unable to decode messageActionBotAllowed#c516d679: field domain: %w", err)
 		}
 		m.Domain = value
+	}
+	if m.Flags.Has(2) {
+		value, err := DecodeBotApp(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionBotAllowed#c516d679: field app: %w", err)
+		}
+		m.App = value
 	}
 	return nil
 }
 
-// GetDomain returns value of Domain field.
-func (m *MessageActionBotAllowed) GetDomain() (value string) {
+// SetAttachMenu sets value of AttachMenu conditional field.
+func (m *MessageActionBotAllowed) SetAttachMenu(value bool) {
+	if value {
+		m.Flags.Set(1)
+		m.AttachMenu = true
+	} else {
+		m.Flags.Unset(1)
+		m.AttachMenu = false
+	}
+}
+
+// GetAttachMenu returns value of AttachMenu conditional field.
+func (m *MessageActionBotAllowed) GetAttachMenu() (value bool) {
 	if m == nil {
 		return
 	}
-	return m.Domain
+	return m.Flags.Has(1)
+}
+
+// SetDomain sets value of Domain conditional field.
+func (m *MessageActionBotAllowed) SetDomain(value string) {
+	m.Flags.Set(0)
+	m.Domain = value
+}
+
+// GetDomain returns value of Domain conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionBotAllowed) GetDomain() (value string, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.Domain, true
+}
+
+// SetApp sets value of App conditional field.
+func (m *MessageActionBotAllowed) SetApp(value BotAppClass) {
+	m.Flags.Set(2)
+	m.App = value
+}
+
+// GetApp returns value of App conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionBotAllowed) GetApp() (value BotAppClass, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(2) {
+		return value, false
+	}
+	return m.App, true
 }
 
 // MessageActionSecureValuesSentMe represents TL type `messageActionSecureValuesSentMe#1b287353`.
@@ -6122,107 +6249,6 @@ func (m *MessageActionSuggestProfilePhoto) GetPhoto() (value PhotoClass) {
 	return m.Photo
 }
 
-// MessageActionAttachMenuBotAllowed represents TL type `messageActionAttachMenuBotAllowed#e7e75f97`.
-//
-// See https://core.telegram.org/constructor/messageActionAttachMenuBotAllowed for reference.
-type MessageActionAttachMenuBotAllowed struct {
-}
-
-// MessageActionAttachMenuBotAllowedTypeID is TL type id of MessageActionAttachMenuBotAllowed.
-const MessageActionAttachMenuBotAllowedTypeID = 0xe7e75f97
-
-// construct implements constructor of MessageActionClass.
-func (m MessageActionAttachMenuBotAllowed) construct() MessageActionClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageActionAttachMenuBotAllowed.
-var (
-	_ bin.Encoder     = &MessageActionAttachMenuBotAllowed{}
-	_ bin.Decoder     = &MessageActionAttachMenuBotAllowed{}
-	_ bin.BareEncoder = &MessageActionAttachMenuBotAllowed{}
-	_ bin.BareDecoder = &MessageActionAttachMenuBotAllowed{}
-
-	_ MessageActionClass = &MessageActionAttachMenuBotAllowed{}
-)
-
-func (m *MessageActionAttachMenuBotAllowed) Zero() bool {
-	if m == nil {
-		return true
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (m *MessageActionAttachMenuBotAllowed) String() string {
-	if m == nil {
-		return "MessageActionAttachMenuBotAllowed(nil)"
-	}
-	type Alias MessageActionAttachMenuBotAllowed
-	return fmt.Sprintf("MessageActionAttachMenuBotAllowed%+v", Alias(*m))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*MessageActionAttachMenuBotAllowed) TypeID() uint32 {
-	return MessageActionAttachMenuBotAllowedTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*MessageActionAttachMenuBotAllowed) TypeName() string {
-	return "messageActionAttachMenuBotAllowed"
-}
-
-// TypeInfo returns info about TL type.
-func (m *MessageActionAttachMenuBotAllowed) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "messageActionAttachMenuBotAllowed",
-		ID:   MessageActionAttachMenuBotAllowedTypeID,
-	}
-	if m == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (m *MessageActionAttachMenuBotAllowed) Encode(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't encode messageActionAttachMenuBotAllowed#e7e75f97 as nil")
-	}
-	b.PutID(MessageActionAttachMenuBotAllowedTypeID)
-	return m.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (m *MessageActionAttachMenuBotAllowed) EncodeBare(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't encode messageActionAttachMenuBotAllowed#e7e75f97 as nil")
-	}
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (m *MessageActionAttachMenuBotAllowed) Decode(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageActionAttachMenuBotAllowed#e7e75f97 to nil")
-	}
-	if err := b.ConsumeID(MessageActionAttachMenuBotAllowedTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageActionAttachMenuBotAllowed#e7e75f97: %w", err)
-	}
-	return m.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (m *MessageActionAttachMenuBotAllowed) DecodeBare(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageActionAttachMenuBotAllowed#e7e75f97 to nil")
-	}
-	return nil
-}
-
 // MessageActionRequestedPeer represents TL type `messageActionRequestedPeer#fe77345d`.
 //
 // See https://core.telegram.org/constructor/messageActionRequestedPeer for reference.
@@ -6422,7 +6448,7 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionPhoneCall: // messageActionPhoneCall#80e11a7f
 //	case *tg.MessageActionScreenshotTaken: // messageActionScreenshotTaken#4792929b
 //	case *tg.MessageActionCustomAction: // messageActionCustomAction#fae69f56
-//	case *tg.MessageActionBotAllowed: // messageActionBotAllowed#abe9affe
+//	case *tg.MessageActionBotAllowed: // messageActionBotAllowed#c516d679
 //	case *tg.MessageActionSecureValuesSentMe: // messageActionSecureValuesSentMe#1b287353
 //	case *tg.MessageActionSecureValuesSent: // messageActionSecureValuesSent#d95c6154
 //	case *tg.MessageActionContactSignUp: // messageActionContactSignUp#f3f25f76
@@ -6439,7 +6465,6 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionTopicCreate: // messageActionTopicCreate#d999256
 //	case *tg.MessageActionTopicEdit: // messageActionTopicEdit#c0944820
 //	case *tg.MessageActionSuggestProfilePhoto: // messageActionSuggestProfilePhoto#57de635e
-//	case *tg.MessageActionAttachMenuBotAllowed: // messageActionAttachMenuBotAllowed#e7e75f97
 //	case *tg.MessageActionRequestedPeer: // messageActionRequestedPeer#fe77345d
 //	default: panic(v)
 //	}
@@ -6603,7 +6628,7 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 		}
 		return &v, nil
 	case MessageActionBotAllowedTypeID:
-		// Decoding messageActionBotAllowed#abe9affe.
+		// Decoding messageActionBotAllowed#c516d679.
 		v := MessageActionBotAllowed{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
@@ -6717,13 +6742,6 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionSuggestProfilePhotoTypeID:
 		// Decoding messageActionSuggestProfilePhoto#57de635e.
 		v := MessageActionSuggestProfilePhoto{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
-		}
-		return &v, nil
-	case MessageActionAttachMenuBotAllowedTypeID:
-		// Decoding messageActionAttachMenuBotAllowed#e7e75f97.
-		v := MessageActionAttachMenuBotAllowed{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}
