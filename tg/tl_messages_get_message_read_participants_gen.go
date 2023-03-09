@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesGetMessageReadParticipantsRequest represents TL type `messages.getMessageReadParticipants#2c6f97b7`.
+// MessagesGetMessageReadParticipantsRequest represents TL type `messages.getMessageReadParticipants#31c1c44f`.
 // Get which users read a specific message: only available for groups and supergroups
 // with less than chat_read_mark_size_threshold members¹, read receipts will be stored
 // for chat_read_mark_expire_period seconds after the message was sent², see client
@@ -51,7 +51,7 @@ type MessagesGetMessageReadParticipantsRequest struct {
 }
 
 // MessagesGetMessageReadParticipantsRequestTypeID is TL type id of MessagesGetMessageReadParticipantsRequest.
-const MessagesGetMessageReadParticipantsRequestTypeID = 0x2c6f97b7
+const MessagesGetMessageReadParticipantsRequestTypeID = 0x31c1c44f
 
 // Ensuring interfaces in compile-time for MessagesGetMessageReadParticipantsRequest.
 var (
@@ -131,7 +131,7 @@ func (g *MessagesGetMessageReadParticipantsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetMessageReadParticipantsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getMessageReadParticipants#2c6f97b7 as nil")
+		return fmt.Errorf("can't encode messages.getMessageReadParticipants#31c1c44f as nil")
 	}
 	b.PutID(MessagesGetMessageReadParticipantsRequestTypeID)
 	return g.EncodeBare(b)
@@ -140,13 +140,13 @@ func (g *MessagesGetMessageReadParticipantsRequest) Encode(b *bin.Buffer) error 
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetMessageReadParticipantsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getMessageReadParticipants#2c6f97b7 as nil")
+		return fmt.Errorf("can't encode messages.getMessageReadParticipants#31c1c44f as nil")
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getMessageReadParticipants#2c6f97b7: field peer is nil")
+		return fmt.Errorf("unable to encode messages.getMessageReadParticipants#31c1c44f: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getMessageReadParticipants#2c6f97b7: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.getMessageReadParticipants#31c1c44f: field peer: %w", err)
 	}
 	b.PutInt(g.MsgID)
 	return nil
@@ -155,10 +155,10 @@ func (g *MessagesGetMessageReadParticipantsRequest) EncodeBare(b *bin.Buffer) er
 // Decode implements bin.Decoder.
 func (g *MessagesGetMessageReadParticipantsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getMessageReadParticipants#2c6f97b7 to nil")
+		return fmt.Errorf("can't decode messages.getMessageReadParticipants#31c1c44f to nil")
 	}
 	if err := b.ConsumeID(MessagesGetMessageReadParticipantsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getMessageReadParticipants#2c6f97b7: %w", err)
+		return fmt.Errorf("unable to decode messages.getMessageReadParticipants#31c1c44f: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -166,19 +166,19 @@ func (g *MessagesGetMessageReadParticipantsRequest) Decode(b *bin.Buffer) error 
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetMessageReadParticipantsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getMessageReadParticipants#2c6f97b7 to nil")
+		return fmt.Errorf("can't decode messages.getMessageReadParticipants#31c1c44f to nil")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getMessageReadParticipants#2c6f97b7: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.getMessageReadParticipants#31c1c44f: field peer: %w", err)
 		}
 		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getMessageReadParticipants#2c6f97b7: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getMessageReadParticipants#31c1c44f: field msg_id: %w", err)
 		}
 		g.MsgID = value
 	}
@@ -201,7 +201,7 @@ func (g *MessagesGetMessageReadParticipantsRequest) GetMsgID() (value int) {
 	return g.MsgID
 }
 
-// MessagesGetMessageReadParticipants invokes method messages.getMessageReadParticipants#2c6f97b7 returning error if any.
+// MessagesGetMessageReadParticipants invokes method messages.getMessageReadParticipants#31c1c44f returning error if any.
 // Get which users read a specific message: only available for groups and supergroups
 // with less than chat_read_mark_size_threshold members¹, read receipts will be stored
 // for chat_read_mark_expire_period seconds after the message was sent², see client
@@ -220,11 +220,11 @@ func (g *MessagesGetMessageReadParticipantsRequest) GetMsgID() (value int) {
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.getMessageReadParticipants for reference.
-func (c *Client) MessagesGetMessageReadParticipants(ctx context.Context, request *MessagesGetMessageReadParticipantsRequest) ([]int64, error) {
-	var result LongVector
+func (c *Client) MessagesGetMessageReadParticipants(ctx context.Context, request *MessagesGetMessageReadParticipantsRequest) ([]ReadParticipantDate, error) {
+	var result ReadParticipantDateVector
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return []int64(result.Elems), nil
+	return []ReadParticipantDate(result.Elems), nil
 }

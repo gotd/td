@@ -5109,7 +5109,7 @@ func (s *ServerDispatcher) OnMessagesSetChatTheme(f func(ctx context.Context, re
 	s.handlers[MessagesSetChatThemeRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesGetMessageReadParticipants(f func(ctx context.Context, request *MessagesGetMessageReadParticipantsRequest) ([]int64, error)) {
+func (s *ServerDispatcher) OnMessagesGetMessageReadParticipants(f func(ctx context.Context, request *MessagesGetMessageReadParticipantsRequest) ([]ReadParticipantDate, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesGetMessageReadParticipantsRequest
 		if err := request.Decode(b); err != nil {
@@ -5120,7 +5120,7 @@ func (s *ServerDispatcher) OnMessagesGetMessageReadParticipants(f func(ctx conte
 		if err != nil {
 			return nil, err
 		}
-		return &LongVector{Elems: response}, nil
+		return &ReadParticipantDateVector{Elems: response}, nil
 	}
 
 	s.handlers[MessagesGetMessageReadParticipantsRequestTypeID] = handler
@@ -5876,6 +5876,40 @@ func (s *ServerDispatcher) OnMessagesTogglePeerTranslations(f func(ctx context.C
 	s.handlers[MessagesTogglePeerTranslationsRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesGetBotApp(f func(ctx context.Context, request *MessagesGetBotAppRequest) (*MessagesBotApp, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetBotAppRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[MessagesGetBotAppRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesRequestAppWebView(f func(ctx context.Context, request *MessagesRequestAppWebViewRequest) (*AppWebViewResultURL, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesRequestAppWebViewRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[MessagesRequestAppWebViewRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
@@ -6368,18 +6402,18 @@ func (s *ServerDispatcher) OnHelpGetDeepLinkInfo(f func(ctx context.Context, pat
 	s.handlers[HelpGetDeepLinkInfoRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnHelpGetAppConfig(f func(ctx context.Context) (JSONValueClass, error)) {
+func (s *ServerDispatcher) OnHelpGetAppConfig(f func(ctx context.Context, hash int) (HelpAppConfigClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request HelpGetAppConfigRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx)
+		response, err := f(ctx, request.Hash)
 		if err != nil {
 			return nil, err
 		}
-		return &JSONValueBox{JSONValue: response}, nil
+		return &HelpAppConfigBox{AppConfig: response}, nil
 	}
 
 	s.handlers[HelpGetAppConfigRequestTypeID] = handler
@@ -7731,6 +7765,44 @@ func (s *ServerDispatcher) OnBotsSetBotGroupDefaultAdminRights(f func(ctx contex
 	s.handlers[BotsSetBotGroupDefaultAdminRightsRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnBotsSetBotInfo(f func(ctx context.Context, request *BotsSetBotInfoRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsSetBotInfoRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[BotsSetBotInfoRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsGetBotInfo(f func(ctx context.Context, langcode string) ([]string, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsGetBotInfoRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.LangCode)
+		if err != nil {
+			return nil, err
+		}
+		return &StringVector{Elems: response}, nil
+	}
+
+	s.handlers[BotsGetBotInfoRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnPaymentsGetPaymentForm(f func(ctx context.Context, request *PaymentsGetPaymentFormRequest) (*PaymentsPaymentForm, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request PaymentsGetPaymentFormRequest
@@ -8047,6 +8119,61 @@ func (s *ServerDispatcher) OnStickersSuggestShortName(f func(ctx context.Context
 	}
 
 	s.handlers[StickersSuggestShortNameRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStickersChangeSticker(f func(ctx context.Context, request *StickersChangeStickerRequest) (MessagesStickerSetClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StickersChangeStickerRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesStickerSetBox{StickerSet: response}, nil
+	}
+
+	s.handlers[StickersChangeStickerRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStickersRenameStickerSet(f func(ctx context.Context, request *StickersRenameStickerSetRequest) (MessagesStickerSetClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StickersRenameStickerSetRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesStickerSetBox{StickerSet: response}, nil
+	}
+
+	s.handlers[StickersRenameStickerSetRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStickersDeleteStickerSet(f func(ctx context.Context, stickerset InputStickerSetClass) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StickersDeleteStickerSetRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Stickerset)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[StickersDeleteStickerSetRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnPhoneGetCallConfig(f func(ctx context.Context) (*DataJSON, error)) {

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// InputStickerSetItem represents TL type `inputStickerSetItem#ffa0a496`.
+// InputStickerSetItem represents TL type `inputStickerSetItem#32da9e9c`.
 // Sticker in a stickerset
 //
 // See https://core.telegram.org/constructor/inputStickerSetItem for reference.
@@ -49,10 +49,14 @@ type InputStickerSetItem struct {
 	//
 	// Use SetMaskCoords and GetMaskCoords helpers.
 	MaskCoords MaskCoords
+	// Keywords field of InputStickerSetItem.
+	//
+	// Use SetKeywords and GetKeywords helpers.
+	Keywords string
 }
 
 // InputStickerSetItemTypeID is TL type id of InputStickerSetItem.
-const InputStickerSetItemTypeID = 0xffa0a496
+const InputStickerSetItemTypeID = 0x32da9e9c
 
 // Ensuring interfaces in compile-time for InputStickerSetItem.
 var (
@@ -78,6 +82,9 @@ func (i *InputStickerSetItem) Zero() bool {
 	if !(i.MaskCoords.Zero()) {
 		return false
 	}
+	if !(i.Keywords == "") {
+		return false
+	}
 
 	return true
 }
@@ -96,11 +103,16 @@ func (i *InputStickerSetItem) FillFrom(from interface {
 	GetDocument() (value InputDocumentClass)
 	GetEmoji() (value string)
 	GetMaskCoords() (value MaskCoords, ok bool)
+	GetKeywords() (value string, ok bool)
 }) {
 	i.Document = from.GetDocument()
 	i.Emoji = from.GetEmoji()
 	if val, ok := from.GetMaskCoords(); ok {
 		i.MaskCoords = val
+	}
+
+	if val, ok := from.GetKeywords(); ok {
+		i.Keywords = val
 	}
 
 }
@@ -141,6 +153,11 @@ func (i *InputStickerSetItem) TypeInfo() tdp.Type {
 			SchemaName: "mask_coords",
 			Null:       !i.Flags.Has(0),
 		},
+		{
+			Name:       "Keywords",
+			SchemaName: "keywords",
+			Null:       !i.Flags.Has(1),
+		},
 	}
 	return typ
 }
@@ -150,12 +167,15 @@ func (i *InputStickerSetItem) SetFlags() {
 	if !(i.MaskCoords.Zero()) {
 		i.Flags.Set(0)
 	}
+	if !(i.Keywords == "") {
+		i.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (i *InputStickerSetItem) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetItem#ffa0a496 as nil")
+		return fmt.Errorf("can't encode inputStickerSetItem#32da9e9c as nil")
 	}
 	b.PutID(InputStickerSetItemTypeID)
 	return i.EncodeBare(b)
@@ -164,23 +184,26 @@ func (i *InputStickerSetItem) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputStickerSetItem) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputStickerSetItem#ffa0a496 as nil")
+		return fmt.Errorf("can't encode inputStickerSetItem#32da9e9c as nil")
 	}
 	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputStickerSetItem#ffa0a496: field flags: %w", err)
+		return fmt.Errorf("unable to encode inputStickerSetItem#32da9e9c: field flags: %w", err)
 	}
 	if i.Document == nil {
-		return fmt.Errorf("unable to encode inputStickerSetItem#ffa0a496: field document is nil")
+		return fmt.Errorf("unable to encode inputStickerSetItem#32da9e9c: field document is nil")
 	}
 	if err := i.Document.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputStickerSetItem#ffa0a496: field document: %w", err)
+		return fmt.Errorf("unable to encode inputStickerSetItem#32da9e9c: field document: %w", err)
 	}
 	b.PutString(i.Emoji)
 	if i.Flags.Has(0) {
 		if err := i.MaskCoords.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputStickerSetItem#ffa0a496: field mask_coords: %w", err)
+			return fmt.Errorf("unable to encode inputStickerSetItem#32da9e9c: field mask_coords: %w", err)
 		}
+	}
+	if i.Flags.Has(1) {
+		b.PutString(i.Keywords)
 	}
 	return nil
 }
@@ -188,10 +211,10 @@ func (i *InputStickerSetItem) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputStickerSetItem) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetItem#ffa0a496 to nil")
+		return fmt.Errorf("can't decode inputStickerSetItem#32da9e9c to nil")
 	}
 	if err := b.ConsumeID(InputStickerSetItemTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputStickerSetItem#ffa0a496: %w", err)
+		return fmt.Errorf("unable to decode inputStickerSetItem#32da9e9c: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -199,31 +222,38 @@ func (i *InputStickerSetItem) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputStickerSetItem) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputStickerSetItem#ffa0a496 to nil")
+		return fmt.Errorf("can't decode inputStickerSetItem#32da9e9c to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetItem#ffa0a496: field flags: %w", err)
+			return fmt.Errorf("unable to decode inputStickerSetItem#32da9e9c: field flags: %w", err)
 		}
 	}
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetItem#ffa0a496: field document: %w", err)
+			return fmt.Errorf("unable to decode inputStickerSetItem#32da9e9c: field document: %w", err)
 		}
 		i.Document = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetItem#ffa0a496: field emoji: %w", err)
+			return fmt.Errorf("unable to decode inputStickerSetItem#32da9e9c: field emoji: %w", err)
 		}
 		i.Emoji = value
 	}
 	if i.Flags.Has(0) {
 		if err := i.MaskCoords.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputStickerSetItem#ffa0a496: field mask_coords: %w", err)
+			return fmt.Errorf("unable to decode inputStickerSetItem#32da9e9c: field mask_coords: %w", err)
 		}
+	}
+	if i.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStickerSetItem#32da9e9c: field keywords: %w", err)
+		}
+		i.Keywords = value
 	}
 	return nil
 }
@@ -260,6 +290,24 @@ func (i *InputStickerSetItem) GetMaskCoords() (value MaskCoords, ok bool) {
 		return value, false
 	}
 	return i.MaskCoords, true
+}
+
+// SetKeywords sets value of Keywords conditional field.
+func (i *InputStickerSetItem) SetKeywords(value string) {
+	i.Flags.Set(1)
+	i.Keywords = value
+}
+
+// GetKeywords returns value of Keywords conditional field and
+// boolean which is true if field was set.
+func (i *InputStickerSetItem) GetKeywords() (value string, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.Keywords, true
 }
 
 // GetDocumentAsNotEmpty returns mapped value of Document field.
