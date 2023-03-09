@@ -14,11 +14,6 @@ import (
 type Config struct {
 	// Indicates that telegram is probably censored by governments/ISPs in the current region
 	BlockedMode bool
-	// Whether pfs¹ was used
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/pfs
-	PFSEnabled bool
 	// Whether to forcefully try connecting using IPv6 dcOptions¹
 	//
 	// Links:
@@ -61,7 +56,6 @@ func ConfigFromTG(c tg.Config) Config {
 	return Config{
 		BlockedMode:     c.BlockedMode,
 		ForceTryIpv6:    c.ForceTryIpv6,
-		PFSEnabled:      c.PFSEnabled,
 		Date:            c.Date,
 		Expires:         c.Expires,
 		TestMode:        c.TestMode,
@@ -80,7 +74,6 @@ func (c Config) TG() tg.Config {
 	return tg.Config{
 		BlockedMode:     c.BlockedMode,
 		ForceTryIpv6:    c.ForceTryIpv6,
-		PFSEnabled:      c.PFSEnabled,
 		Date:            c.Date,
 		Expires:         c.Expires,
 		TestMode:        c.TestMode,
