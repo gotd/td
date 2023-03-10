@@ -31,28 +31,25 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AnswerInlineQueryRequest represents TL type `answerInlineQuery#18ec5846`.
+// AnswerInlineQueryRequest represents TL type `answerInlineQuery#ac7cc5e6`.
 type AnswerInlineQueryRequest struct {
 	// Identifier of the inline query
 	InlineQueryID int64
 	// Pass true if results may be cached and returned only for the user that sent the query.
 	// By default, results may be returned to any user who sends the same query
 	IsPersonal bool
+	// Button to be shown above inline query results; pass null if none
+	Button InlineQueryResultsButton
 	// The results of the query
 	Results []InputInlineQueryResultClass
 	// Allowed time to cache the results of the query, in seconds
 	CacheTime int32
 	// Offset for the next inline query; pass an empty string if there are no more results
 	NextOffset string
-	// If non-empty, this text must be shown on the button that opens a private chat with the
-	// bot and sends a start message to the bot with the parameter switch_pm_parameter
-	SwitchPmText string
-	// The parameter for the bot start message
-	SwitchPmParameter string
 }
 
 // AnswerInlineQueryRequestTypeID is TL type id of AnswerInlineQueryRequest.
-const AnswerInlineQueryRequestTypeID = 0x18ec5846
+const AnswerInlineQueryRequestTypeID = 0xac7cc5e6
 
 // Ensuring interfaces in compile-time for AnswerInlineQueryRequest.
 var (
@@ -72,6 +69,9 @@ func (a *AnswerInlineQueryRequest) Zero() bool {
 	if !(a.IsPersonal == false) {
 		return false
 	}
+	if !(a.Button.Zero()) {
+		return false
+	}
 	if !(a.Results == nil) {
 		return false
 	}
@@ -79,12 +79,6 @@ func (a *AnswerInlineQueryRequest) Zero() bool {
 		return false
 	}
 	if !(a.NextOffset == "") {
-		return false
-	}
-	if !(a.SwitchPmText == "") {
-		return false
-	}
-	if !(a.SwitchPmParameter == "") {
 		return false
 	}
 
@@ -132,6 +126,10 @@ func (a *AnswerInlineQueryRequest) TypeInfo() tdp.Type {
 			SchemaName: "is_personal",
 		},
 		{
+			Name:       "Button",
+			SchemaName: "button",
+		},
+		{
 			Name:       "Results",
 			SchemaName: "results",
 		},
@@ -143,14 +141,6 @@ func (a *AnswerInlineQueryRequest) TypeInfo() tdp.Type {
 			Name:       "NextOffset",
 			SchemaName: "next_offset",
 		},
-		{
-			Name:       "SwitchPmText",
-			SchemaName: "switch_pm_text",
-		},
-		{
-			Name:       "SwitchPmParameter",
-			SchemaName: "switch_pm_parameter",
-		},
 	}
 	return typ
 }
@@ -158,7 +148,7 @@ func (a *AnswerInlineQueryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AnswerInlineQueryRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode answerInlineQuery#18ec5846 as nil")
+		return fmt.Errorf("can't encode answerInlineQuery#ac7cc5e6 as nil")
 	}
 	b.PutID(AnswerInlineQueryRequestTypeID)
 	return a.EncodeBare(b)
@@ -167,33 +157,34 @@ func (a *AnswerInlineQueryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AnswerInlineQueryRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode answerInlineQuery#18ec5846 as nil")
+		return fmt.Errorf("can't encode answerInlineQuery#ac7cc5e6 as nil")
 	}
 	b.PutLong(a.InlineQueryID)
 	b.PutBool(a.IsPersonal)
+	if err := a.Button.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode answerInlineQuery#ac7cc5e6: field button: %w", err)
+	}
 	b.PutInt(len(a.Results))
 	for idx, v := range a.Results {
 		if v == nil {
-			return fmt.Errorf("unable to encode answerInlineQuery#18ec5846: field results element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode answerInlineQuery#ac7cc5e6: field results element with index %d is nil", idx)
 		}
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare answerInlineQuery#18ec5846: field results element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare answerInlineQuery#ac7cc5e6: field results element with index %d: %w", idx, err)
 		}
 	}
 	b.PutInt32(a.CacheTime)
 	b.PutString(a.NextOffset)
-	b.PutString(a.SwitchPmText)
-	b.PutString(a.SwitchPmParameter)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (a *AnswerInlineQueryRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode answerInlineQuery#18ec5846 to nil")
+		return fmt.Errorf("can't decode answerInlineQuery#ac7cc5e6 to nil")
 	}
 	if err := b.ConsumeID(AnswerInlineQueryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: %w", err)
+		return fmt.Errorf("unable to decode answerInlineQuery#ac7cc5e6: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -201,26 +192,31 @@ func (a *AnswerInlineQueryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AnswerInlineQueryRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode answerInlineQuery#18ec5846 to nil")
+		return fmt.Errorf("can't decode answerInlineQuery#ac7cc5e6 to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field inline_query_id: %w", err)
+			return fmt.Errorf("unable to decode answerInlineQuery#ac7cc5e6: field inline_query_id: %w", err)
 		}
 		a.InlineQueryID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field is_personal: %w", err)
+			return fmt.Errorf("unable to decode answerInlineQuery#ac7cc5e6: field is_personal: %w", err)
 		}
 		a.IsPersonal = value
 	}
 	{
+		if err := a.Button.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode answerInlineQuery#ac7cc5e6: field button: %w", err)
+		}
+	}
+	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field results: %w", err)
+			return fmt.Errorf("unable to decode answerInlineQuery#ac7cc5e6: field results: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -229,7 +225,7 @@ func (a *AnswerInlineQueryRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputInlineQueryResult(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field results: %w", err)
+				return fmt.Errorf("unable to decode answerInlineQuery#ac7cc5e6: field results: %w", err)
 			}
 			a.Results = append(a.Results, value)
 		}
@@ -237,30 +233,16 @@ func (a *AnswerInlineQueryRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field cache_time: %w", err)
+			return fmt.Errorf("unable to decode answerInlineQuery#ac7cc5e6: field cache_time: %w", err)
 		}
 		a.CacheTime = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field next_offset: %w", err)
+			return fmt.Errorf("unable to decode answerInlineQuery#ac7cc5e6: field next_offset: %w", err)
 		}
 		a.NextOffset = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field switch_pm_text: %w", err)
-		}
-		a.SwitchPmText = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field switch_pm_parameter: %w", err)
-		}
-		a.SwitchPmParameter = value
 	}
 	return nil
 }
@@ -268,7 +250,7 @@ func (a *AnswerInlineQueryRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (a *AnswerInlineQueryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
-		return fmt.Errorf("can't encode answerInlineQuery#18ec5846 as nil")
+		return fmt.Errorf("can't encode answerInlineQuery#ac7cc5e6 as nil")
 	}
 	b.ObjStart()
 	b.PutID("answerInlineQuery")
@@ -279,14 +261,19 @@ func (a *AnswerInlineQueryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("is_personal")
 	b.PutBool(a.IsPersonal)
 	b.Comma()
+	b.FieldStart("button")
+	if err := a.Button.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode answerInlineQuery#ac7cc5e6: field button: %w", err)
+	}
+	b.Comma()
 	b.FieldStart("results")
 	b.ArrStart()
 	for idx, v := range a.Results {
 		if v == nil {
-			return fmt.Errorf("unable to encode answerInlineQuery#18ec5846: field results element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode answerInlineQuery#ac7cc5e6: field results element with index %d is nil", idx)
 		}
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode answerInlineQuery#18ec5846: field results element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode answerInlineQuery#ac7cc5e6: field results element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -299,12 +286,6 @@ func (a *AnswerInlineQueryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("next_offset")
 	b.PutString(a.NextOffset)
 	b.Comma()
-	b.FieldStart("switch_pm_text")
-	b.PutString(a.SwitchPmText)
-	b.Comma()
-	b.FieldStart("switch_pm_parameter")
-	b.PutString(a.SwitchPmParameter)
-	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -313,62 +294,54 @@ func (a *AnswerInlineQueryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (a *AnswerInlineQueryRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
-		return fmt.Errorf("can't decode answerInlineQuery#18ec5846 to nil")
+		return fmt.Errorf("can't decode answerInlineQuery#ac7cc5e6 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("answerInlineQuery"); err != nil {
-				return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: %w", err)
+				return fmt.Errorf("unable to decode answerInlineQuery#ac7cc5e6: %w", err)
 			}
 		case "inline_query_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field inline_query_id: %w", err)
+				return fmt.Errorf("unable to decode answerInlineQuery#ac7cc5e6: field inline_query_id: %w", err)
 			}
 			a.InlineQueryID = value
 		case "is_personal":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field is_personal: %w", err)
+				return fmt.Errorf("unable to decode answerInlineQuery#ac7cc5e6: field is_personal: %w", err)
 			}
 			a.IsPersonal = value
+		case "button":
+			if err := a.Button.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode answerInlineQuery#ac7cc5e6: field button: %w", err)
+			}
 		case "results":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONInputInlineQueryResult(b)
 				if err != nil {
-					return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field results: %w", err)
+					return fmt.Errorf("unable to decode answerInlineQuery#ac7cc5e6: field results: %w", err)
 				}
 				a.Results = append(a.Results, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field results: %w", err)
+				return fmt.Errorf("unable to decode answerInlineQuery#ac7cc5e6: field results: %w", err)
 			}
 		case "cache_time":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field cache_time: %w", err)
+				return fmt.Errorf("unable to decode answerInlineQuery#ac7cc5e6: field cache_time: %w", err)
 			}
 			a.CacheTime = value
 		case "next_offset":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field next_offset: %w", err)
+				return fmt.Errorf("unable to decode answerInlineQuery#ac7cc5e6: field next_offset: %w", err)
 			}
 			a.NextOffset = value
-		case "switch_pm_text":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field switch_pm_text: %w", err)
-			}
-			a.SwitchPmText = value
-		case "switch_pm_parameter":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode answerInlineQuery#18ec5846: field switch_pm_parameter: %w", err)
-			}
-			a.SwitchPmParameter = value
 		default:
 			return b.Skip()
 		}
@@ -390,6 +363,14 @@ func (a *AnswerInlineQueryRequest) GetIsPersonal() (value bool) {
 		return
 	}
 	return a.IsPersonal
+}
+
+// GetButton returns value of Button field.
+func (a *AnswerInlineQueryRequest) GetButton() (value InlineQueryResultsButton) {
+	if a == nil {
+		return
+	}
+	return a.Button
 }
 
 // GetResults returns value of Results field.
@@ -416,23 +397,7 @@ func (a *AnswerInlineQueryRequest) GetNextOffset() (value string) {
 	return a.NextOffset
 }
 
-// GetSwitchPmText returns value of SwitchPmText field.
-func (a *AnswerInlineQueryRequest) GetSwitchPmText() (value string) {
-	if a == nil {
-		return
-	}
-	return a.SwitchPmText
-}
-
-// GetSwitchPmParameter returns value of SwitchPmParameter field.
-func (a *AnswerInlineQueryRequest) GetSwitchPmParameter() (value string) {
-	if a == nil {
-		return
-	}
-	return a.SwitchPmParameter
-}
-
-// AnswerInlineQuery invokes method answerInlineQuery#18ec5846 returning error if any.
+// AnswerInlineQuery invokes method answerInlineQuery#ac7cc5e6 returning error if any.
 func (c *Client) AnswerInlineQuery(ctx context.Context, request *AnswerInlineQueryRequest) error {
 	var ok Ok
 

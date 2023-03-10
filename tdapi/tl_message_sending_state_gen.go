@@ -31,12 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessageSendingStatePending represents TL type `messageSendingStatePending#ada359c2`.
+// MessageSendingStatePending represents TL type `messageSendingStatePending#f32b63b4`.
 type MessageSendingStatePending struct {
+	// Non-persistent message sending identifier, specified by the application
+	SendingID int32
 }
 
 // MessageSendingStatePendingTypeID is TL type id of MessageSendingStatePending.
-const MessageSendingStatePendingTypeID = 0xada359c2
+const MessageSendingStatePendingTypeID = 0xf32b63b4
 
 // construct implements constructor of MessageSendingStateClass.
 func (m MessageSendingStatePending) construct() MessageSendingStateClass { return &m }
@@ -54,6 +56,9 @@ var (
 func (m *MessageSendingStatePending) Zero() bool {
 	if m == nil {
 		return true
+	}
+	if !(m.SendingID == 0) {
+		return false
 	}
 
 	return true
@@ -90,14 +95,19 @@ func (m *MessageSendingStatePending) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "SendingID",
+			SchemaName: "sending_id",
+		},
+	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
 func (m *MessageSendingStatePending) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageSendingStatePending#ada359c2 as nil")
+		return fmt.Errorf("can't encode messageSendingStatePending#f32b63b4 as nil")
 	}
 	b.PutID(MessageSendingStatePendingTypeID)
 	return m.EncodeBare(b)
@@ -106,18 +116,19 @@ func (m *MessageSendingStatePending) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageSendingStatePending) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageSendingStatePending#ada359c2 as nil")
+		return fmt.Errorf("can't encode messageSendingStatePending#f32b63b4 as nil")
 	}
+	b.PutInt32(m.SendingID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageSendingStatePending) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageSendingStatePending#ada359c2 to nil")
+		return fmt.Errorf("can't decode messageSendingStatePending#f32b63b4 to nil")
 	}
 	if err := b.ConsumeID(MessageSendingStatePendingTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageSendingStatePending#ada359c2: %w", err)
+		return fmt.Errorf("unable to decode messageSendingStatePending#f32b63b4: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -125,7 +136,14 @@ func (m *MessageSendingStatePending) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageSendingStatePending) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageSendingStatePending#ada359c2 to nil")
+		return fmt.Errorf("can't decode messageSendingStatePending#f32b63b4 to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageSendingStatePending#f32b63b4: field sending_id: %w", err)
+		}
+		m.SendingID = value
 	}
 	return nil
 }
@@ -133,10 +151,13 @@ func (m *MessageSendingStatePending) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageSendingStatePending) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageSendingStatePending#ada359c2 as nil")
+		return fmt.Errorf("can't encode messageSendingStatePending#f32b63b4 as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageSendingStatePending")
+	b.Comma()
+	b.FieldStart("sending_id")
+	b.PutInt32(m.SendingID)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -146,20 +167,34 @@ func (m *MessageSendingStatePending) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageSendingStatePending) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageSendingStatePending#ada359c2 to nil")
+		return fmt.Errorf("can't decode messageSendingStatePending#f32b63b4 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageSendingStatePending"); err != nil {
-				return fmt.Errorf("unable to decode messageSendingStatePending#ada359c2: %w", err)
+				return fmt.Errorf("unable to decode messageSendingStatePending#f32b63b4: %w", err)
 			}
+		case "sending_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageSendingStatePending#f32b63b4: field sending_id: %w", err)
+			}
+			m.SendingID = value
 		default:
 			return b.Skip()
 		}
 		return nil
 	})
+}
+
+// GetSendingID returns value of SendingID field.
+func (m *MessageSendingStatePending) GetSendingID() (value int32) {
+	if m == nil {
+		return
+	}
+	return m.SendingID
 }
 
 // MessageSendingStateFailed represents TL type `messageSendingStateFailed#982ce904`.
@@ -477,7 +512,7 @@ const MessageSendingStateClassName = "MessageSendingState"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tdapi.MessageSendingStatePending: // messageSendingStatePending#ada359c2
+//	case *tdapi.MessageSendingStatePending: // messageSendingStatePending#f32b63b4
 //	case *tdapi.MessageSendingStateFailed: // messageSendingStateFailed#982ce904
 //	default: panic(v)
 //	}
@@ -511,7 +546,7 @@ func DecodeMessageSendingState(buf *bin.Buffer) (MessageSendingStateClass, error
 	}
 	switch id {
 	case MessageSendingStatePendingTypeID:
-		// Decoding messageSendingStatePending#ada359c2.
+		// Decoding messageSendingStatePending#f32b63b4.
 		v := MessageSendingStatePending{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageSendingStateClass: %w", err)
@@ -537,7 +572,7 @@ func DecodeTDLibJSONMessageSendingState(buf tdjson.Decoder) (MessageSendingState
 	}
 	switch id {
 	case "messageSendingStatePending":
-		// Decoding messageSendingStatePending#ada359c2.
+		// Decoding messageSendingStatePending#f32b63b4.
 		v := MessageSendingStatePending{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageSendingStateClass: %w", err)

@@ -31,21 +31,22 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// InputSticker represents TL type `inputSticker#9b1829b0`.
+// InputSticker represents TL type `inputSticker#e3d1ef79`.
 type InputSticker struct {
-	// File with the sticker; must fit in a 512x512 square. For WEBP stickers and masks the
-	// file must be in PNG format, which will be converted to WEBP server-side.
+	// File with the sticker; must fit in a 512x512 square. For WEBP stickers the file must
+	// be in WEBP or PNG format, which will be converted to WEBP server-side.
 	Sticker InputFileClass
-	// Emojis corresponding to the sticker
+	// String with 1-20 emoji corresponding to the sticker
 	Emojis string
-	// Sticker format
-	Format StickerFormatClass
 	// Position where the mask is placed; pass null if not specified
 	MaskPosition MaskPosition
+	// List of up to 20 keywords with total length up to 64 characters, which can be used to
+	// find the sticker
+	Keywords []string
 }
 
 // InputStickerTypeID is TL type id of InputSticker.
-const InputStickerTypeID = 0x9b1829b0
+const InputStickerTypeID = 0xe3d1ef79
 
 // Ensuring interfaces in compile-time for InputSticker.
 var (
@@ -65,10 +66,10 @@ func (i *InputSticker) Zero() bool {
 	if !(i.Emojis == "") {
 		return false
 	}
-	if !(i.Format == nil) {
+	if !(i.MaskPosition.Zero()) {
 		return false
 	}
-	if !(i.MaskPosition.Zero()) {
+	if !(i.Keywords == nil) {
 		return false
 	}
 
@@ -116,12 +117,12 @@ func (i *InputSticker) TypeInfo() tdp.Type {
 			SchemaName: "emojis",
 		},
 		{
-			Name:       "Format",
-			SchemaName: "format",
-		},
-		{
 			Name:       "MaskPosition",
 			SchemaName: "mask_position",
+		},
+		{
+			Name:       "Keywords",
+			SchemaName: "keywords",
 		},
 	}
 	return typ
@@ -130,7 +131,7 @@ func (i *InputSticker) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputSticker) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputSticker#9b1829b0 as nil")
+		return fmt.Errorf("can't encode inputSticker#e3d1ef79 as nil")
 	}
 	b.PutID(InputStickerTypeID)
 	return i.EncodeBare(b)
@@ -139,23 +140,21 @@ func (i *InputSticker) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputSticker) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputSticker#9b1829b0 as nil")
+		return fmt.Errorf("can't encode inputSticker#e3d1ef79 as nil")
 	}
 	if i.Sticker == nil {
-		return fmt.Errorf("unable to encode inputSticker#9b1829b0: field sticker is nil")
+		return fmt.Errorf("unable to encode inputSticker#e3d1ef79: field sticker is nil")
 	}
 	if err := i.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputSticker#9b1829b0: field sticker: %w", err)
+		return fmt.Errorf("unable to encode inputSticker#e3d1ef79: field sticker: %w", err)
 	}
 	b.PutString(i.Emojis)
-	if i.Format == nil {
-		return fmt.Errorf("unable to encode inputSticker#9b1829b0: field format is nil")
-	}
-	if err := i.Format.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputSticker#9b1829b0: field format: %w", err)
-	}
 	if err := i.MaskPosition.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputSticker#9b1829b0: field mask_position: %w", err)
+		return fmt.Errorf("unable to encode inputSticker#e3d1ef79: field mask_position: %w", err)
+	}
+	b.PutInt(len(i.Keywords))
+	for _, v := range i.Keywords {
+		b.PutString(v)
 	}
 	return nil
 }
@@ -163,10 +162,10 @@ func (i *InputSticker) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputSticker) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputSticker#9b1829b0 to nil")
+		return fmt.Errorf("can't decode inputSticker#e3d1ef79 to nil")
 	}
 	if err := b.ConsumeID(InputStickerTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputSticker#9b1829b0: %w", err)
+		return fmt.Errorf("unable to decode inputSticker#e3d1ef79: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -174,32 +173,42 @@ func (i *InputSticker) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputSticker) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputSticker#9b1829b0 to nil")
+		return fmt.Errorf("can't decode inputSticker#e3d1ef79 to nil")
 	}
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputSticker#9b1829b0: field sticker: %w", err)
+			return fmt.Errorf("unable to decode inputSticker#e3d1ef79: field sticker: %w", err)
 		}
 		i.Sticker = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputSticker#9b1829b0: field emojis: %w", err)
+			return fmt.Errorf("unable to decode inputSticker#e3d1ef79: field emojis: %w", err)
 		}
 		i.Emojis = value
 	}
 	{
-		value, err := DecodeStickerFormat(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode inputSticker#9b1829b0: field format: %w", err)
+		if err := i.MaskPosition.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputSticker#e3d1ef79: field mask_position: %w", err)
 		}
-		i.Format = value
 	}
 	{
-		if err := i.MaskPosition.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputSticker#9b1829b0: field mask_position: %w", err)
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputSticker#e3d1ef79: field keywords: %w", err)
+		}
+
+		if headerLen > 0 {
+			i.Keywords = make([]string, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputSticker#e3d1ef79: field keywords: %w", err)
+			}
+			i.Keywords = append(i.Keywords, value)
 		}
 	}
 	return nil
@@ -208,34 +217,35 @@ func (i *InputSticker) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InputSticker) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputSticker#9b1829b0 as nil")
+		return fmt.Errorf("can't encode inputSticker#e3d1ef79 as nil")
 	}
 	b.ObjStart()
 	b.PutID("inputSticker")
 	b.Comma()
 	b.FieldStart("sticker")
 	if i.Sticker == nil {
-		return fmt.Errorf("unable to encode inputSticker#9b1829b0: field sticker is nil")
+		return fmt.Errorf("unable to encode inputSticker#e3d1ef79: field sticker is nil")
 	}
 	if err := i.Sticker.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputSticker#9b1829b0: field sticker: %w", err)
+		return fmt.Errorf("unable to encode inputSticker#e3d1ef79: field sticker: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("emojis")
 	b.PutString(i.Emojis)
 	b.Comma()
-	b.FieldStart("format")
-	if i.Format == nil {
-		return fmt.Errorf("unable to encode inputSticker#9b1829b0: field format is nil")
-	}
-	if err := i.Format.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputSticker#9b1829b0: field format: %w", err)
-	}
-	b.Comma()
 	b.FieldStart("mask_position")
 	if err := i.MaskPosition.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputSticker#9b1829b0: field mask_position: %w", err)
+		return fmt.Errorf("unable to encode inputSticker#e3d1ef79: field mask_position: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("keywords")
+	b.ArrStart()
+	for _, v := range i.Keywords {
+		b.PutString(v)
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -245,36 +255,41 @@ func (i *InputSticker) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InputSticker) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputSticker#9b1829b0 to nil")
+		return fmt.Errorf("can't decode inputSticker#e3d1ef79 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("inputSticker"); err != nil {
-				return fmt.Errorf("unable to decode inputSticker#9b1829b0: %w", err)
+				return fmt.Errorf("unable to decode inputSticker#e3d1ef79: %w", err)
 			}
 		case "sticker":
 			value, err := DecodeTDLibJSONInputFile(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputSticker#9b1829b0: field sticker: %w", err)
+				return fmt.Errorf("unable to decode inputSticker#e3d1ef79: field sticker: %w", err)
 			}
 			i.Sticker = value
 		case "emojis":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputSticker#9b1829b0: field emojis: %w", err)
+				return fmt.Errorf("unable to decode inputSticker#e3d1ef79: field emojis: %w", err)
 			}
 			i.Emojis = value
-		case "format":
-			value, err := DecodeTDLibJSONStickerFormat(b)
-			if err != nil {
-				return fmt.Errorf("unable to decode inputSticker#9b1829b0: field format: %w", err)
-			}
-			i.Format = value
 		case "mask_position":
 			if err := i.MaskPosition.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode inputSticker#9b1829b0: field mask_position: %w", err)
+				return fmt.Errorf("unable to decode inputSticker#e3d1ef79: field mask_position: %w", err)
+			}
+		case "keywords":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				value, err := b.String()
+				if err != nil {
+					return fmt.Errorf("unable to decode inputSticker#e3d1ef79: field keywords: %w", err)
+				}
+				i.Keywords = append(i.Keywords, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode inputSticker#e3d1ef79: field keywords: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -299,18 +314,18 @@ func (i *InputSticker) GetEmojis() (value string) {
 	return i.Emojis
 }
 
-// GetFormat returns value of Format field.
-func (i *InputSticker) GetFormat() (value StickerFormatClass) {
-	if i == nil {
-		return
-	}
-	return i.Format
-}
-
 // GetMaskPosition returns value of MaskPosition field.
 func (i *InputSticker) GetMaskPosition() (value MaskPosition) {
 	if i == nil {
 		return
 	}
 	return i.MaskPosition
+}
+
+// GetKeywords returns value of Keywords field.
+func (i *InputSticker) GetKeywords() (value []string) {
+	if i == nil {
+		return
+	}
+	return i.Keywords
 }

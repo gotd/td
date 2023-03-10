@@ -1260,19 +1260,21 @@ func (a *AuthorizationStateWaitRegistration) GetTermsOfService() (value TermsOfS
 	return a.TermsOfService
 }
 
-// AuthorizationStateWaitPassword represents TL type `authorizationStateWaitPassword#b2dc47c`.
+// AuthorizationStateWaitPassword represents TL type `authorizationStateWaitPassword#6b09dce`.
 type AuthorizationStateWaitPassword struct {
 	// Hint for the password; may be empty
 	PasswordHint string
 	// True, if a recovery email address has been set up
 	HasRecoveryEmailAddress bool
+	// True, if some Telegram Passport elements were saved
+	HasPassportData bool
 	// Pattern of the email address to which the recovery email was sent; empty until a
 	// recovery email has been sent
 	RecoveryEmailAddressPattern string
 }
 
 // AuthorizationStateWaitPasswordTypeID is TL type id of AuthorizationStateWaitPassword.
-const AuthorizationStateWaitPasswordTypeID = 0xb2dc47c
+const AuthorizationStateWaitPasswordTypeID = 0x6b09dce
 
 // construct implements constructor of AuthorizationStateClass.
 func (a AuthorizationStateWaitPassword) construct() AuthorizationStateClass { return &a }
@@ -1295,6 +1297,9 @@ func (a *AuthorizationStateWaitPassword) Zero() bool {
 		return false
 	}
 	if !(a.HasRecoveryEmailAddress == false) {
+		return false
+	}
+	if !(a.HasPassportData == false) {
 		return false
 	}
 	if !(a.RecoveryEmailAddressPattern == "") {
@@ -1345,6 +1350,10 @@ func (a *AuthorizationStateWaitPassword) TypeInfo() tdp.Type {
 			SchemaName: "has_recovery_email_address",
 		},
 		{
+			Name:       "HasPassportData",
+			SchemaName: "has_passport_data",
+		},
+		{
 			Name:       "RecoveryEmailAddressPattern",
 			SchemaName: "recovery_email_address_pattern",
 		},
@@ -1355,7 +1364,7 @@ func (a *AuthorizationStateWaitPassword) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AuthorizationStateWaitPassword) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode authorizationStateWaitPassword#b2dc47c as nil")
+		return fmt.Errorf("can't encode authorizationStateWaitPassword#6b09dce as nil")
 	}
 	b.PutID(AuthorizationStateWaitPasswordTypeID)
 	return a.EncodeBare(b)
@@ -1364,10 +1373,11 @@ func (a *AuthorizationStateWaitPassword) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AuthorizationStateWaitPassword) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode authorizationStateWaitPassword#b2dc47c as nil")
+		return fmt.Errorf("can't encode authorizationStateWaitPassword#6b09dce as nil")
 	}
 	b.PutString(a.PasswordHint)
 	b.PutBool(a.HasRecoveryEmailAddress)
+	b.PutBool(a.HasPassportData)
 	b.PutString(a.RecoveryEmailAddressPattern)
 	return nil
 }
@@ -1375,10 +1385,10 @@ func (a *AuthorizationStateWaitPassword) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (a *AuthorizationStateWaitPassword) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode authorizationStateWaitPassword#b2dc47c to nil")
+		return fmt.Errorf("can't decode authorizationStateWaitPassword#6b09dce to nil")
 	}
 	if err := b.ConsumeID(AuthorizationStateWaitPasswordTypeID); err != nil {
-		return fmt.Errorf("unable to decode authorizationStateWaitPassword#b2dc47c: %w", err)
+		return fmt.Errorf("unable to decode authorizationStateWaitPassword#6b09dce: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -1386,26 +1396,33 @@ func (a *AuthorizationStateWaitPassword) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AuthorizationStateWaitPassword) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode authorizationStateWaitPassword#b2dc47c to nil")
+		return fmt.Errorf("can't decode authorizationStateWaitPassword#6b09dce to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode authorizationStateWaitPassword#b2dc47c: field password_hint: %w", err)
+			return fmt.Errorf("unable to decode authorizationStateWaitPassword#6b09dce: field password_hint: %w", err)
 		}
 		a.PasswordHint = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode authorizationStateWaitPassword#b2dc47c: field has_recovery_email_address: %w", err)
+			return fmt.Errorf("unable to decode authorizationStateWaitPassword#6b09dce: field has_recovery_email_address: %w", err)
 		}
 		a.HasRecoveryEmailAddress = value
 	}
 	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode authorizationStateWaitPassword#6b09dce: field has_passport_data: %w", err)
+		}
+		a.HasPassportData = value
+	}
+	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode authorizationStateWaitPassword#b2dc47c: field recovery_email_address_pattern: %w", err)
+			return fmt.Errorf("unable to decode authorizationStateWaitPassword#6b09dce: field recovery_email_address_pattern: %w", err)
 		}
 		a.RecoveryEmailAddressPattern = value
 	}
@@ -1415,7 +1432,7 @@ func (a *AuthorizationStateWaitPassword) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (a *AuthorizationStateWaitPassword) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
-		return fmt.Errorf("can't encode authorizationStateWaitPassword#b2dc47c as nil")
+		return fmt.Errorf("can't encode authorizationStateWaitPassword#6b09dce as nil")
 	}
 	b.ObjStart()
 	b.PutID("authorizationStateWaitPassword")
@@ -1425,6 +1442,9 @@ func (a *AuthorizationStateWaitPassword) EncodeTDLibJSON(b tdjson.Encoder) error
 	b.Comma()
 	b.FieldStart("has_recovery_email_address")
 	b.PutBool(a.HasRecoveryEmailAddress)
+	b.Comma()
+	b.FieldStart("has_passport_data")
+	b.PutBool(a.HasPassportData)
 	b.Comma()
 	b.FieldStart("recovery_email_address_pattern")
 	b.PutString(a.RecoveryEmailAddressPattern)
@@ -1437,31 +1457,37 @@ func (a *AuthorizationStateWaitPassword) EncodeTDLibJSON(b tdjson.Encoder) error
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (a *AuthorizationStateWaitPassword) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
-		return fmt.Errorf("can't decode authorizationStateWaitPassword#b2dc47c to nil")
+		return fmt.Errorf("can't decode authorizationStateWaitPassword#6b09dce to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("authorizationStateWaitPassword"); err != nil {
-				return fmt.Errorf("unable to decode authorizationStateWaitPassword#b2dc47c: %w", err)
+				return fmt.Errorf("unable to decode authorizationStateWaitPassword#6b09dce: %w", err)
 			}
 		case "password_hint":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode authorizationStateWaitPassword#b2dc47c: field password_hint: %w", err)
+				return fmt.Errorf("unable to decode authorizationStateWaitPassword#6b09dce: field password_hint: %w", err)
 			}
 			a.PasswordHint = value
 		case "has_recovery_email_address":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode authorizationStateWaitPassword#b2dc47c: field has_recovery_email_address: %w", err)
+				return fmt.Errorf("unable to decode authorizationStateWaitPassword#6b09dce: field has_recovery_email_address: %w", err)
 			}
 			a.HasRecoveryEmailAddress = value
+		case "has_passport_data":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode authorizationStateWaitPassword#6b09dce: field has_passport_data: %w", err)
+			}
+			a.HasPassportData = value
 		case "recovery_email_address_pattern":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode authorizationStateWaitPassword#b2dc47c: field recovery_email_address_pattern: %w", err)
+				return fmt.Errorf("unable to decode authorizationStateWaitPassword#6b09dce: field recovery_email_address_pattern: %w", err)
 			}
 			a.RecoveryEmailAddressPattern = value
 		default:
@@ -1485,6 +1511,14 @@ func (a *AuthorizationStateWaitPassword) GetHasRecoveryEmailAddress() (value boo
 		return
 	}
 	return a.HasRecoveryEmailAddress
+}
+
+// GetHasPassportData returns value of HasPassportData field.
+func (a *AuthorizationStateWaitPassword) GetHasPassportData() (value bool) {
+	if a == nil {
+		return
+	}
+	return a.HasPassportData
 }
 
 // GetRecoveryEmailAddressPattern returns value of RecoveryEmailAddressPattern field.
@@ -2038,7 +2072,7 @@ const AuthorizationStateClassName = "AuthorizationState"
 //	case *tdapi.AuthorizationStateWaitCode: // authorizationStateWaitCode#3234501
 //	case *tdapi.AuthorizationStateWaitOtherDeviceConfirmation: // authorizationStateWaitOtherDeviceConfirmation#334518ea
 //	case *tdapi.AuthorizationStateWaitRegistration: // authorizationStateWaitRegistration#20cdaeaf
-//	case *tdapi.AuthorizationStateWaitPassword: // authorizationStateWaitPassword#b2dc47c
+//	case *tdapi.AuthorizationStateWaitPassword: // authorizationStateWaitPassword#6b09dce
 //	case *tdapi.AuthorizationStateReady: // authorizationStateReady#92a21447
 //	case *tdapi.AuthorizationStateLoggingOut: // authorizationStateLoggingOut#934b576
 //	case *tdapi.AuthorizationStateClosing: // authorizationStateClosing#1a93364f
@@ -2124,7 +2158,7 @@ func DecodeAuthorizationState(buf *bin.Buffer) (AuthorizationStateClass, error) 
 		}
 		return &v, nil
 	case AuthorizationStateWaitPasswordTypeID:
-		// Decoding authorizationStateWaitPassword#b2dc47c.
+		// Decoding authorizationStateWaitPassword#6b09dce.
 		v := AuthorizationStateWaitPassword{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthorizationStateClass: %w", err)
@@ -2220,7 +2254,7 @@ func DecodeTDLibJSONAuthorizationState(buf tdjson.Decoder) (AuthorizationStateCl
 		}
 		return &v, nil
 	case "authorizationStateWaitPassword":
-		// Decoding authorizationStateWaitPassword#b2dc47c.
+		// Decoding authorizationStateWaitPassword#6b09dce.
 		v := AuthorizationStateWaitPassword{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthorizationStateClass: %w", err)

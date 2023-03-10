@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetMessageViewersRequest represents TL type `getMessageViewers#8ff92a5d`.
+// GetMessageViewersRequest represents TL type `getMessageViewers#a18f1ace`.
 type GetMessageViewersRequest struct {
 	// Chat identifier
 	ChatID int64
@@ -40,7 +40,7 @@ type GetMessageViewersRequest struct {
 }
 
 // GetMessageViewersRequestTypeID is TL type id of GetMessageViewersRequest.
-const GetMessageViewersRequestTypeID = 0x8ff92a5d
+const GetMessageViewersRequestTypeID = 0xa18f1ace
 
 // Ensuring interfaces in compile-time for GetMessageViewersRequest.
 var (
@@ -111,7 +111,7 @@ func (g *GetMessageViewersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetMessageViewersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getMessageViewers#8ff92a5d as nil")
+		return fmt.Errorf("can't encode getMessageViewers#a18f1ace as nil")
 	}
 	b.PutID(GetMessageViewersRequestTypeID)
 	return g.EncodeBare(b)
@@ -120,7 +120,7 @@ func (g *GetMessageViewersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetMessageViewersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getMessageViewers#8ff92a5d as nil")
+		return fmt.Errorf("can't encode getMessageViewers#a18f1ace as nil")
 	}
 	b.PutInt53(g.ChatID)
 	b.PutInt53(g.MessageID)
@@ -130,10 +130,10 @@ func (g *GetMessageViewersRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetMessageViewersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getMessageViewers#8ff92a5d to nil")
+		return fmt.Errorf("can't decode getMessageViewers#a18f1ace to nil")
 	}
 	if err := b.ConsumeID(GetMessageViewersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getMessageViewers#8ff92a5d: %w", err)
+		return fmt.Errorf("unable to decode getMessageViewers#a18f1ace: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -141,19 +141,19 @@ func (g *GetMessageViewersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetMessageViewersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getMessageViewers#8ff92a5d to nil")
+		return fmt.Errorf("can't decode getMessageViewers#a18f1ace to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getMessageViewers#8ff92a5d: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode getMessageViewers#a18f1ace: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getMessageViewers#8ff92a5d: field message_id: %w", err)
+			return fmt.Errorf("unable to decode getMessageViewers#a18f1ace: field message_id: %w", err)
 		}
 		g.MessageID = value
 	}
@@ -163,7 +163,7 @@ func (g *GetMessageViewersRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetMessageViewersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getMessageViewers#8ff92a5d as nil")
+		return fmt.Errorf("can't encode getMessageViewers#a18f1ace as nil")
 	}
 	b.ObjStart()
 	b.PutID("getMessageViewers")
@@ -182,25 +182,25 @@ func (g *GetMessageViewersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetMessageViewersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getMessageViewers#8ff92a5d to nil")
+		return fmt.Errorf("can't decode getMessageViewers#a18f1ace to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getMessageViewers"); err != nil {
-				return fmt.Errorf("unable to decode getMessageViewers#8ff92a5d: %w", err)
+				return fmt.Errorf("unable to decode getMessageViewers#a18f1ace: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getMessageViewers#8ff92a5d: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode getMessageViewers#a18f1ace: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getMessageViewers#8ff92a5d: field message_id: %w", err)
+				return fmt.Errorf("unable to decode getMessageViewers#a18f1ace: field message_id: %w", err)
 			}
 			g.MessageID = value
 		default:
@@ -226,9 +226,9 @@ func (g *GetMessageViewersRequest) GetMessageID() (value int64) {
 	return g.MessageID
 }
 
-// GetMessageViewers invokes method getMessageViewers#8ff92a5d returning error if any.
-func (c *Client) GetMessageViewers(ctx context.Context, request *GetMessageViewersRequest) (*Users, error) {
-	var result Users
+// GetMessageViewers invokes method getMessageViewers#a18f1ace returning error if any.
+func (c *Client) GetMessageViewers(ctx context.Context, request *GetMessageViewersRequest) (*MessageViewers, error) {
+	var result MessageViewers
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err

@@ -33,7 +33,8 @@ var (
 
 // CreateNewBasicGroupChatRequest represents TL type `createNewBasicGroupChat#c479e224`.
 type CreateNewBasicGroupChatRequest struct {
-	// Identifiers of users to be added to the basic group
+	// Identifiers of users to be added to the basic group; may be empty to create a basic
+	// group without other members
 	UserIDs []int64
 	// Title of the new basic group; 1-128 characters
 	Title string
