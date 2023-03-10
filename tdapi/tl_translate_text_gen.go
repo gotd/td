@@ -35,7 +35,7 @@ var (
 type TranslateTextRequest struct {
 	// Text to translate
 	Text FormattedText
-	// ISO language code of the language to which the message is translated. Must be one of
+	// Language code of the language to which the message is translated. Must be one of
 	ToLanguageCode string
 }
 

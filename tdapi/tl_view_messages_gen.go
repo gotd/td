@@ -31,20 +31,21 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ViewMessagesRequest represents TL type `viewMessages#d6e1005d`.
+// ViewMessagesRequest represents TL type `viewMessages#aa2f0438`.
 type ViewMessagesRequest struct {
 	// Chat identifier
 	ChatID int64
-	// If not 0, a message thread identifier in which the messages are being viewed
-	MessageThreadID int64
 	// The identifiers of the messages being viewed
 	MessageIDs []int64
-	// Pass true to mark as read the specified messages even the chat is closed
+	// Source of the message view
+	Source MessageSourceClass
+	// Pass true to mark as read the specified messages even the chat is closed; pass null to
+	// guess the source based on chat open state
 	ForceRead bool
 }
 
 // ViewMessagesRequestTypeID is TL type id of ViewMessagesRequest.
-const ViewMessagesRequestTypeID = 0xd6e1005d
+const ViewMessagesRequestTypeID = 0xaa2f0438
 
 // Ensuring interfaces in compile-time for ViewMessagesRequest.
 var (
@@ -61,10 +62,10 @@ func (v *ViewMessagesRequest) Zero() bool {
 	if !(v.ChatID == 0) {
 		return false
 	}
-	if !(v.MessageThreadID == 0) {
+	if !(v.MessageIDs == nil) {
 		return false
 	}
-	if !(v.MessageIDs == nil) {
+	if !(v.Source == nil) {
 		return false
 	}
 	if !(v.ForceRead == false) {
@@ -111,12 +112,12 @@ func (v *ViewMessagesRequest) TypeInfo() tdp.Type {
 			SchemaName: "chat_id",
 		},
 		{
-			Name:       "MessageThreadID",
-			SchemaName: "message_thread_id",
-		},
-		{
 			Name:       "MessageIDs",
 			SchemaName: "message_ids",
+		},
+		{
+			Name:       "Source",
+			SchemaName: "source",
 		},
 		{
 			Name:       "ForceRead",
@@ -129,7 +130,7 @@ func (v *ViewMessagesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (v *ViewMessagesRequest) Encode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode viewMessages#d6e1005d as nil")
+		return fmt.Errorf("can't encode viewMessages#aa2f0438 as nil")
 	}
 	b.PutID(ViewMessagesRequestTypeID)
 	return v.EncodeBare(b)
@@ -138,13 +139,18 @@ func (v *ViewMessagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (v *ViewMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode viewMessages#d6e1005d as nil")
+		return fmt.Errorf("can't encode viewMessages#aa2f0438 as nil")
 	}
 	b.PutInt53(v.ChatID)
-	b.PutInt53(v.MessageThreadID)
 	b.PutInt(len(v.MessageIDs))
 	for _, v := range v.MessageIDs {
 		b.PutInt53(v)
+	}
+	if v.Source == nil {
+		return fmt.Errorf("unable to encode viewMessages#aa2f0438: field source is nil")
+	}
+	if err := v.Source.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode viewMessages#aa2f0438: field source: %w", err)
 	}
 	b.PutBool(v.ForceRead)
 	return nil
@@ -153,10 +159,10 @@ func (v *ViewMessagesRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (v *ViewMessagesRequest) Decode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode viewMessages#d6e1005d to nil")
+		return fmt.Errorf("can't decode viewMessages#aa2f0438 to nil")
 	}
 	if err := b.ConsumeID(ViewMessagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode viewMessages#d6e1005d: %w", err)
+		return fmt.Errorf("unable to decode viewMessages#aa2f0438: %w", err)
 	}
 	return v.DecodeBare(b)
 }
@@ -164,26 +170,19 @@ func (v *ViewMessagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (v *ViewMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode viewMessages#d6e1005d to nil")
+		return fmt.Errorf("can't decode viewMessages#aa2f0438 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode viewMessages#d6e1005d: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode viewMessages#aa2f0438: field chat_id: %w", err)
 		}
 		v.ChatID = value
 	}
 	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode viewMessages#d6e1005d: field message_thread_id: %w", err)
-		}
-		v.MessageThreadID = value
-	}
-	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode viewMessages#d6e1005d: field message_ids: %w", err)
+			return fmt.Errorf("unable to decode viewMessages#aa2f0438: field message_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -192,15 +191,22 @@ func (v *ViewMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode viewMessages#d6e1005d: field message_ids: %w", err)
+				return fmt.Errorf("unable to decode viewMessages#aa2f0438: field message_ids: %w", err)
 			}
 			v.MessageIDs = append(v.MessageIDs, value)
 		}
 	}
 	{
+		value, err := DecodeMessageSource(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode viewMessages#aa2f0438: field source: %w", err)
+		}
+		v.Source = value
+	}
+	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode viewMessages#d6e1005d: field force_read: %w", err)
+			return fmt.Errorf("unable to decode viewMessages#aa2f0438: field force_read: %w", err)
 		}
 		v.ForceRead = value
 	}
@@ -210,16 +216,13 @@ func (v *ViewMessagesRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (v *ViewMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if v == nil {
-		return fmt.Errorf("can't encode viewMessages#d6e1005d as nil")
+		return fmt.Errorf("can't encode viewMessages#aa2f0438 as nil")
 	}
 	b.ObjStart()
 	b.PutID("viewMessages")
 	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(v.ChatID)
-	b.Comma()
-	b.FieldStart("message_thread_id")
-	b.PutInt53(v.MessageThreadID)
 	b.Comma()
 	b.FieldStart("message_ids")
 	b.ArrStart()
@@ -229,6 +232,14 @@ func (v *ViewMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	}
 	b.StripComma()
 	b.ArrEnd()
+	b.Comma()
+	b.FieldStart("source")
+	if v.Source == nil {
+		return fmt.Errorf("unable to encode viewMessages#aa2f0438: field source is nil")
+	}
+	if err := v.Source.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode viewMessages#aa2f0438: field source: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("force_read")
 	b.PutBool(v.ForceRead)
@@ -241,42 +252,42 @@ func (v *ViewMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (v *ViewMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if v == nil {
-		return fmt.Errorf("can't decode viewMessages#d6e1005d to nil")
+		return fmt.Errorf("can't decode viewMessages#aa2f0438 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("viewMessages"); err != nil {
-				return fmt.Errorf("unable to decode viewMessages#d6e1005d: %w", err)
+				return fmt.Errorf("unable to decode viewMessages#aa2f0438: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode viewMessages#d6e1005d: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode viewMessages#aa2f0438: field chat_id: %w", err)
 			}
 			v.ChatID = value
-		case "message_thread_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode viewMessages#d6e1005d: field message_thread_id: %w", err)
-			}
-			v.MessageThreadID = value
 		case "message_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int53()
 				if err != nil {
-					return fmt.Errorf("unable to decode viewMessages#d6e1005d: field message_ids: %w", err)
+					return fmt.Errorf("unable to decode viewMessages#aa2f0438: field message_ids: %w", err)
 				}
 				v.MessageIDs = append(v.MessageIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode viewMessages#d6e1005d: field message_ids: %w", err)
+				return fmt.Errorf("unable to decode viewMessages#aa2f0438: field message_ids: %w", err)
 			}
+		case "source":
+			value, err := DecodeTDLibJSONMessageSource(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode viewMessages#aa2f0438: field source: %w", err)
+			}
+			v.Source = value
 		case "force_read":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode viewMessages#d6e1005d: field force_read: %w", err)
+				return fmt.Errorf("unable to decode viewMessages#aa2f0438: field force_read: %w", err)
 			}
 			v.ForceRead = value
 		default:
@@ -294,20 +305,20 @@ func (v *ViewMessagesRequest) GetChatID() (value int64) {
 	return v.ChatID
 }
 
-// GetMessageThreadID returns value of MessageThreadID field.
-func (v *ViewMessagesRequest) GetMessageThreadID() (value int64) {
-	if v == nil {
-		return
-	}
-	return v.MessageThreadID
-}
-
 // GetMessageIDs returns value of MessageIDs field.
 func (v *ViewMessagesRequest) GetMessageIDs() (value []int64) {
 	if v == nil {
 		return
 	}
 	return v.MessageIDs
+}
+
+// GetSource returns value of Source field.
+func (v *ViewMessagesRequest) GetSource() (value MessageSourceClass) {
+	if v == nil {
+		return
+	}
+	return v.Source
 }
 
 // GetForceRead returns value of ForceRead field.
@@ -318,7 +329,7 @@ func (v *ViewMessagesRequest) GetForceRead() (value bool) {
 	return v.ForceRead
 }
 
-// ViewMessages invokes method viewMessages#d6e1005d returning error if any.
+// ViewMessages invokes method viewMessages#aa2f0438 returning error if any.
 func (c *Client) ViewMessages(ctx context.Context, request *ViewMessagesRequest) error {
 	var ok Ok
 

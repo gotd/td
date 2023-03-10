@@ -35,14 +35,13 @@ var (
 type Game struct {
 	// Unique game identifier
 	ID int64
-	// Game short name. To share a game use the URL https://t
-	// me/{bot_username}?game={game_short_name}
+	// Game short name
 	ShortName string
 	// Game title
 	Title string
 	// Game text, usually containing scoreboards for a game
 	Text FormattedText
-	// Describes a game
+	// Describes a game. Use getInternalLink with internalLinkTypeGame to share the game
 	Description string
 	// Game photo
 	Photo Photo

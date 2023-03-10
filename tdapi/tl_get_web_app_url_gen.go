@@ -35,7 +35,7 @@ var (
 type GetWebAppURLRequest struct {
 	// Identifier of the target bot
 	BotUserID int64
-	// The URL from the keyboardButtonTypeWebApp button
+	// The URL from the keyboardButtonTypeWebApp or inlineQueryResultsButtonTypeWebApp button
 	URL string
 	// Preferred Web App theme; pass null to use the default theme
 	Theme ThemeParameters

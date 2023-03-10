@@ -31,16 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// LoginURLInfoOpen represents TL type `loginUrlInfoOpen#bfaf12d4`.
+// LoginURLInfoOpen represents TL type `loginUrlInfoOpen#31e7ea02`.
 type LoginURLInfoOpen struct {
 	// The URL to open
 	URL string
-	// True, if there is no need to show an ordinary open URL confirm
-	SkipConfirm bool
+	// True, if there is no need to show an ordinary open URL confirmation
+	SkipConfirmation bool
 }
 
 // LoginURLInfoOpenTypeID is TL type id of LoginURLInfoOpen.
-const LoginURLInfoOpenTypeID = 0xbfaf12d4
+const LoginURLInfoOpenTypeID = 0x31e7ea02
 
 // construct implements constructor of LoginURLInfoClass.
 func (l LoginURLInfoOpen) construct() LoginURLInfoClass { return &l }
@@ -62,7 +62,7 @@ func (l *LoginURLInfoOpen) Zero() bool {
 	if !(l.URL == "") {
 		return false
 	}
-	if !(l.SkipConfirm == false) {
+	if !(l.SkipConfirmation == false) {
 		return false
 	}
 
@@ -106,8 +106,8 @@ func (l *LoginURLInfoOpen) TypeInfo() tdp.Type {
 			SchemaName: "url",
 		},
 		{
-			Name:       "SkipConfirm",
-			SchemaName: "skip_confirm",
+			Name:       "SkipConfirmation",
+			SchemaName: "skip_confirmation",
 		},
 	}
 	return typ
@@ -116,7 +116,7 @@ func (l *LoginURLInfoOpen) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (l *LoginURLInfoOpen) Encode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode loginUrlInfoOpen#bfaf12d4 as nil")
+		return fmt.Errorf("can't encode loginUrlInfoOpen#31e7ea02 as nil")
 	}
 	b.PutID(LoginURLInfoOpenTypeID)
 	return l.EncodeBare(b)
@@ -125,20 +125,20 @@ func (l *LoginURLInfoOpen) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (l *LoginURLInfoOpen) EncodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't encode loginUrlInfoOpen#bfaf12d4 as nil")
+		return fmt.Errorf("can't encode loginUrlInfoOpen#31e7ea02 as nil")
 	}
 	b.PutString(l.URL)
-	b.PutBool(l.SkipConfirm)
+	b.PutBool(l.SkipConfirmation)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (l *LoginURLInfoOpen) Decode(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode loginUrlInfoOpen#bfaf12d4 to nil")
+		return fmt.Errorf("can't decode loginUrlInfoOpen#31e7ea02 to nil")
 	}
 	if err := b.ConsumeID(LoginURLInfoOpenTypeID); err != nil {
-		return fmt.Errorf("unable to decode loginUrlInfoOpen#bfaf12d4: %w", err)
+		return fmt.Errorf("unable to decode loginUrlInfoOpen#31e7ea02: %w", err)
 	}
 	return l.DecodeBare(b)
 }
@@ -146,21 +146,21 @@ func (l *LoginURLInfoOpen) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (l *LoginURLInfoOpen) DecodeBare(b *bin.Buffer) error {
 	if l == nil {
-		return fmt.Errorf("can't decode loginUrlInfoOpen#bfaf12d4 to nil")
+		return fmt.Errorf("can't decode loginUrlInfoOpen#31e7ea02 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode loginUrlInfoOpen#bfaf12d4: field url: %w", err)
+			return fmt.Errorf("unable to decode loginUrlInfoOpen#31e7ea02: field url: %w", err)
 		}
 		l.URL = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode loginUrlInfoOpen#bfaf12d4: field skip_confirm: %w", err)
+			return fmt.Errorf("unable to decode loginUrlInfoOpen#31e7ea02: field skip_confirmation: %w", err)
 		}
-		l.SkipConfirm = value
+		l.SkipConfirmation = value
 	}
 	return nil
 }
@@ -168,7 +168,7 @@ func (l *LoginURLInfoOpen) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (l *LoginURLInfoOpen) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if l == nil {
-		return fmt.Errorf("can't encode loginUrlInfoOpen#bfaf12d4 as nil")
+		return fmt.Errorf("can't encode loginUrlInfoOpen#31e7ea02 as nil")
 	}
 	b.ObjStart()
 	b.PutID("loginUrlInfoOpen")
@@ -176,8 +176,8 @@ func (l *LoginURLInfoOpen) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("url")
 	b.PutString(l.URL)
 	b.Comma()
-	b.FieldStart("skip_confirm")
-	b.PutBool(l.SkipConfirm)
+	b.FieldStart("skip_confirmation")
+	b.PutBool(l.SkipConfirmation)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -187,27 +187,27 @@ func (l *LoginURLInfoOpen) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (l *LoginURLInfoOpen) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if l == nil {
-		return fmt.Errorf("can't decode loginUrlInfoOpen#bfaf12d4 to nil")
+		return fmt.Errorf("can't decode loginUrlInfoOpen#31e7ea02 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("loginUrlInfoOpen"); err != nil {
-				return fmt.Errorf("unable to decode loginUrlInfoOpen#bfaf12d4: %w", err)
+				return fmt.Errorf("unable to decode loginUrlInfoOpen#31e7ea02: %w", err)
 			}
 		case "url":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode loginUrlInfoOpen#bfaf12d4: field url: %w", err)
+				return fmt.Errorf("unable to decode loginUrlInfoOpen#31e7ea02: field url: %w", err)
 			}
 			l.URL = value
-		case "skip_confirm":
+		case "skip_confirmation":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode loginUrlInfoOpen#bfaf12d4: field skip_confirm: %w", err)
+				return fmt.Errorf("unable to decode loginUrlInfoOpen#31e7ea02: field skip_confirmation: %w", err)
 			}
-			l.SkipConfirm = value
+			l.SkipConfirmation = value
 		default:
 			return b.Skip()
 		}
@@ -223,12 +223,12 @@ func (l *LoginURLInfoOpen) GetURL() (value string) {
 	return l.URL
 }
 
-// GetSkipConfirm returns value of SkipConfirm field.
-func (l *LoginURLInfoOpen) GetSkipConfirm() (value bool) {
+// GetSkipConfirmation returns value of SkipConfirmation field.
+func (l *LoginURLInfoOpen) GetSkipConfirmation() (value bool) {
 	if l == nil {
 		return
 	}
-	return l.SkipConfirm
+	return l.SkipConfirmation
 }
 
 // LoginURLInfoRequestConfirmation represents TL type `loginUrlInfoRequestConfirmation#7edb242f`.
@@ -239,8 +239,7 @@ type LoginURLInfoRequestConfirmation struct {
 	Domain string
 	// User identifier of a bot linked with the website
 	BotUserID int64
-	// True, if the user needs to be requested to give the permission to the bot to send them
-	// messages
+	// True, if the user must be asked for the permission to the bot to send them messages
 	RequestWriteAccess bool
 }
 
@@ -512,7 +511,7 @@ const LoginURLInfoClassName = "LoginUrlInfo"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tdapi.LoginURLInfoOpen: // loginUrlInfoOpen#bfaf12d4
+//	case *tdapi.LoginURLInfoOpen: // loginUrlInfoOpen#31e7ea02
 //	case *tdapi.LoginURLInfoRequestConfirmation: // loginUrlInfoRequestConfirmation#7edb242f
 //	default: panic(v)
 //	}
@@ -549,7 +548,7 @@ func DecodeLoginURLInfo(buf *bin.Buffer) (LoginURLInfoClass, error) {
 	}
 	switch id {
 	case LoginURLInfoOpenTypeID:
-		// Decoding loginUrlInfoOpen#bfaf12d4.
+		// Decoding loginUrlInfoOpen#31e7ea02.
 		v := LoginURLInfoOpen{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode LoginURLInfoClass: %w", err)
@@ -575,7 +574,7 @@ func DecodeTDLibJSONLoginURLInfo(buf tdjson.Decoder) (LoginURLInfoClass, error) 
 	}
 	switch id {
 	case "loginUrlInfoOpen":
-		// Decoding loginUrlInfoOpen#bfaf12d4.
+		// Decoding loginUrlInfoOpen#31e7ea02.
 		v := LoginURLInfoOpen{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode LoginURLInfoClass: %w", err)

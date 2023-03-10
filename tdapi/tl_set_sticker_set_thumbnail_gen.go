@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SetStickerSetThumbnailRequest represents TL type `setStickerSetThumbnail#4952fa88`.
+// SetStickerSetThumbnailRequest represents TL type `setStickerSetThumbnail#6f813221`.
 type SetStickerSetThumbnailRequest struct {
 	// Sticker set owner
 	UserID int64
@@ -43,7 +43,7 @@ type SetStickerSetThumbnailRequest struct {
 }
 
 // SetStickerSetThumbnailRequestTypeID is TL type id of SetStickerSetThumbnailRequest.
-const SetStickerSetThumbnailRequestTypeID = 0x4952fa88
+const SetStickerSetThumbnailRequestTypeID = 0x6f813221
 
 // Ensuring interfaces in compile-time for SetStickerSetThumbnailRequest.
 var (
@@ -121,7 +121,7 @@ func (s *SetStickerSetThumbnailRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SetStickerSetThumbnailRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setStickerSetThumbnail#4952fa88 as nil")
+		return fmt.Errorf("can't encode setStickerSetThumbnail#6f813221 as nil")
 	}
 	b.PutID(SetStickerSetThumbnailRequestTypeID)
 	return s.EncodeBare(b)
@@ -130,15 +130,15 @@ func (s *SetStickerSetThumbnailRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SetStickerSetThumbnailRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setStickerSetThumbnail#4952fa88 as nil")
+		return fmt.Errorf("can't encode setStickerSetThumbnail#6f813221 as nil")
 	}
 	b.PutInt53(s.UserID)
 	b.PutString(s.Name)
 	if s.Thumbnail == nil {
-		return fmt.Errorf("unable to encode setStickerSetThumbnail#4952fa88: field thumbnail is nil")
+		return fmt.Errorf("unable to encode setStickerSetThumbnail#6f813221: field thumbnail is nil")
 	}
 	if err := s.Thumbnail.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode setStickerSetThumbnail#4952fa88: field thumbnail: %w", err)
+		return fmt.Errorf("unable to encode setStickerSetThumbnail#6f813221: field thumbnail: %w", err)
 	}
 	return nil
 }
@@ -146,10 +146,10 @@ func (s *SetStickerSetThumbnailRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SetStickerSetThumbnailRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setStickerSetThumbnail#4952fa88 to nil")
+		return fmt.Errorf("can't decode setStickerSetThumbnail#6f813221 to nil")
 	}
 	if err := b.ConsumeID(SetStickerSetThumbnailRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode setStickerSetThumbnail#4952fa88: %w", err)
+		return fmt.Errorf("unable to decode setStickerSetThumbnail#6f813221: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -157,26 +157,26 @@ func (s *SetStickerSetThumbnailRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SetStickerSetThumbnailRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setStickerSetThumbnail#4952fa88 to nil")
+		return fmt.Errorf("can't decode setStickerSetThumbnail#6f813221 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode setStickerSetThumbnail#4952fa88: field user_id: %w", err)
+			return fmt.Errorf("unable to decode setStickerSetThumbnail#6f813221: field user_id: %w", err)
 		}
 		s.UserID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode setStickerSetThumbnail#4952fa88: field name: %w", err)
+			return fmt.Errorf("unable to decode setStickerSetThumbnail#6f813221: field name: %w", err)
 		}
 		s.Name = value
 	}
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode setStickerSetThumbnail#4952fa88: field thumbnail: %w", err)
+			return fmt.Errorf("unable to decode setStickerSetThumbnail#6f813221: field thumbnail: %w", err)
 		}
 		s.Thumbnail = value
 	}
@@ -186,7 +186,7 @@ func (s *SetStickerSetThumbnailRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SetStickerSetThumbnailRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setStickerSetThumbnail#4952fa88 as nil")
+		return fmt.Errorf("can't encode setStickerSetThumbnail#6f813221 as nil")
 	}
 	b.ObjStart()
 	b.PutID("setStickerSetThumbnail")
@@ -199,10 +199,10 @@ func (s *SetStickerSetThumbnailRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 	b.Comma()
 	b.FieldStart("thumbnail")
 	if s.Thumbnail == nil {
-		return fmt.Errorf("unable to encode setStickerSetThumbnail#4952fa88: field thumbnail is nil")
+		return fmt.Errorf("unable to encode setStickerSetThumbnail#6f813221: field thumbnail is nil")
 	}
 	if err := s.Thumbnail.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode setStickerSetThumbnail#4952fa88: field thumbnail: %w", err)
+		return fmt.Errorf("unable to encode setStickerSetThumbnail#6f813221: field thumbnail: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -213,31 +213,31 @@ func (s *SetStickerSetThumbnailRequest) EncodeTDLibJSON(b tdjson.Encoder) error 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SetStickerSetThumbnailRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setStickerSetThumbnail#4952fa88 to nil")
+		return fmt.Errorf("can't decode setStickerSetThumbnail#6f813221 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("setStickerSetThumbnail"); err != nil {
-				return fmt.Errorf("unable to decode setStickerSetThumbnail#4952fa88: %w", err)
+				return fmt.Errorf("unable to decode setStickerSetThumbnail#6f813221: %w", err)
 			}
 		case "user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode setStickerSetThumbnail#4952fa88: field user_id: %w", err)
+				return fmt.Errorf("unable to decode setStickerSetThumbnail#6f813221: field user_id: %w", err)
 			}
 			s.UserID = value
 		case "name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode setStickerSetThumbnail#4952fa88: field name: %w", err)
+				return fmt.Errorf("unable to decode setStickerSetThumbnail#6f813221: field name: %w", err)
 			}
 			s.Name = value
 		case "thumbnail":
 			value, err := DecodeTDLibJSONInputFile(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode setStickerSetThumbnail#4952fa88: field thumbnail: %w", err)
+				return fmt.Errorf("unable to decode setStickerSetThumbnail#6f813221: field thumbnail: %w", err)
 			}
 			s.Thumbnail = value
 		default:
@@ -271,12 +271,12 @@ func (s *SetStickerSetThumbnailRequest) GetThumbnail() (value InputFileClass) {
 	return s.Thumbnail
 }
 
-// SetStickerSetThumbnail invokes method setStickerSetThumbnail#4952fa88 returning error if any.
-func (c *Client) SetStickerSetThumbnail(ctx context.Context, request *SetStickerSetThumbnailRequest) (*StickerSet, error) {
-	var result StickerSet
+// SetStickerSetThumbnail invokes method setStickerSetThumbnail#6f813221 returning error if any.
+func (c *Client) SetStickerSetThumbnail(ctx context.Context, request *SetStickerSetThumbnailRequest) error {
+	var ok Ok
 
-	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
-		return nil, err
+	if err := c.rpc.Invoke(ctx, request, &ok); err != nil {
+		return err
 	}
-	return &result, nil
+	return nil
 }

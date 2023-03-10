@@ -33,8 +33,7 @@ var (
 
 // AddCustomServerLanguagePackRequest represents TL type `addCustomServerLanguagePack#448de3`.
 type AddCustomServerLanguagePackRequest struct {
-	// Identifier of a language pack to be added; may be different from a name that is used
-	// in an "https://t.me/setlanguage/" link
+	// Identifier of a language pack to be added
 	LanguagePackID string
 }
 

@@ -31,18 +31,18 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// EmojiCategory represents TL type `emojiCategory#d8681d22`.
+// EmojiCategory represents TL type `emojiCategory#c6e9e5a4`.
 type EmojiCategory struct {
 	// Name of the category
 	Name string
-	// Unique identifier of the custom emoji, which represents icon of the category
-	IconCustomEmojiID int64
+	// Custom emoji sticker, which represents icon of the category
+	Icon Sticker
 	// List of emojis in the category
 	Emojis []string
 }
 
 // EmojiCategoryTypeID is TL type id of EmojiCategory.
-const EmojiCategoryTypeID = 0xd8681d22
+const EmojiCategoryTypeID = 0xc6e9e5a4
 
 // Ensuring interfaces in compile-time for EmojiCategory.
 var (
@@ -59,7 +59,7 @@ func (e *EmojiCategory) Zero() bool {
 	if !(e.Name == "") {
 		return false
 	}
-	if !(e.IconCustomEmojiID == 0) {
+	if !(e.Icon.Zero()) {
 		return false
 	}
 	if !(e.Emojis == nil) {
@@ -106,8 +106,8 @@ func (e *EmojiCategory) TypeInfo() tdp.Type {
 			SchemaName: "name",
 		},
 		{
-			Name:       "IconCustomEmojiID",
-			SchemaName: "icon_custom_emoji_id",
+			Name:       "Icon",
+			SchemaName: "icon",
 		},
 		{
 			Name:       "Emojis",
@@ -120,7 +120,7 @@ func (e *EmojiCategory) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EmojiCategory) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiCategory#d8681d22 as nil")
+		return fmt.Errorf("can't encode emojiCategory#c6e9e5a4 as nil")
 	}
 	b.PutID(EmojiCategoryTypeID)
 	return e.EncodeBare(b)
@@ -129,10 +129,12 @@ func (e *EmojiCategory) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EmojiCategory) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiCategory#d8681d22 as nil")
+		return fmt.Errorf("can't encode emojiCategory#c6e9e5a4 as nil")
 	}
 	b.PutString(e.Name)
-	b.PutLong(e.IconCustomEmojiID)
+	if err := e.Icon.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode emojiCategory#c6e9e5a4: field icon: %w", err)
+	}
 	b.PutInt(len(e.Emojis))
 	for _, v := range e.Emojis {
 		b.PutString(v)
@@ -143,10 +145,10 @@ func (e *EmojiCategory) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (e *EmojiCategory) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiCategory#d8681d22 to nil")
+		return fmt.Errorf("can't decode emojiCategory#c6e9e5a4 to nil")
 	}
 	if err := b.ConsumeID(EmojiCategoryTypeID); err != nil {
-		return fmt.Errorf("unable to decode emojiCategory#d8681d22: %w", err)
+		return fmt.Errorf("unable to decode emojiCategory#c6e9e5a4: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -154,26 +156,24 @@ func (e *EmojiCategory) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EmojiCategory) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiCategory#d8681d22 to nil")
+		return fmt.Errorf("can't decode emojiCategory#c6e9e5a4 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode emojiCategory#d8681d22: field name: %w", err)
+			return fmt.Errorf("unable to decode emojiCategory#c6e9e5a4: field name: %w", err)
 		}
 		e.Name = value
 	}
 	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode emojiCategory#d8681d22: field icon_custom_emoji_id: %w", err)
+		if err := e.Icon.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode emojiCategory#c6e9e5a4: field icon: %w", err)
 		}
-		e.IconCustomEmojiID = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode emojiCategory#d8681d22: field emojis: %w", err)
+			return fmt.Errorf("unable to decode emojiCategory#c6e9e5a4: field emojis: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -182,7 +182,7 @@ func (e *EmojiCategory) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode emojiCategory#d8681d22: field emojis: %w", err)
+				return fmt.Errorf("unable to decode emojiCategory#c6e9e5a4: field emojis: %w", err)
 			}
 			e.Emojis = append(e.Emojis, value)
 		}
@@ -193,7 +193,7 @@ func (e *EmojiCategory) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (e *EmojiCategory) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiCategory#d8681d22 as nil")
+		return fmt.Errorf("can't encode emojiCategory#c6e9e5a4 as nil")
 	}
 	b.ObjStart()
 	b.PutID("emojiCategory")
@@ -201,8 +201,10 @@ func (e *EmojiCategory) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("name")
 	b.PutString(e.Name)
 	b.Comma()
-	b.FieldStart("icon_custom_emoji_id")
-	b.PutLong(e.IconCustomEmojiID)
+	b.FieldStart("icon")
+	if err := e.Icon.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode emojiCategory#c6e9e5a4: field icon: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("emojis")
 	b.ArrStart()
@@ -221,37 +223,35 @@ func (e *EmojiCategory) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (e *EmojiCategory) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiCategory#d8681d22 to nil")
+		return fmt.Errorf("can't decode emojiCategory#c6e9e5a4 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("emojiCategory"); err != nil {
-				return fmt.Errorf("unable to decode emojiCategory#d8681d22: %w", err)
+				return fmt.Errorf("unable to decode emojiCategory#c6e9e5a4: %w", err)
 			}
 		case "name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode emojiCategory#d8681d22: field name: %w", err)
+				return fmt.Errorf("unable to decode emojiCategory#c6e9e5a4: field name: %w", err)
 			}
 			e.Name = value
-		case "icon_custom_emoji_id":
-			value, err := b.Long()
-			if err != nil {
-				return fmt.Errorf("unable to decode emojiCategory#d8681d22: field icon_custom_emoji_id: %w", err)
+		case "icon":
+			if err := e.Icon.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode emojiCategory#c6e9e5a4: field icon: %w", err)
 			}
-			e.IconCustomEmojiID = value
 		case "emojis":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.String()
 				if err != nil {
-					return fmt.Errorf("unable to decode emojiCategory#d8681d22: field emojis: %w", err)
+					return fmt.Errorf("unable to decode emojiCategory#c6e9e5a4: field emojis: %w", err)
 				}
 				e.Emojis = append(e.Emojis, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode emojiCategory#d8681d22: field emojis: %w", err)
+				return fmt.Errorf("unable to decode emojiCategory#c6e9e5a4: field emojis: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -268,12 +268,12 @@ func (e *EmojiCategory) GetName() (value string) {
 	return e.Name
 }
 
-// GetIconCustomEmojiID returns value of IconCustomEmojiID field.
-func (e *EmojiCategory) GetIconCustomEmojiID() (value int64) {
+// GetIcon returns value of Icon field.
+func (e *EmojiCategory) GetIcon() (value Sticker) {
 	if e == nil {
 		return
 	}
-	return e.IconCustomEmojiID
+	return e.Icon
 }
 
 // GetEmojis returns value of Emojis field.

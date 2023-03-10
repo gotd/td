@@ -37,7 +37,7 @@ type TranslateMessageTextRequest struct {
 	ChatID int64
 	// Identifier of the message
 	MessageID int64
-	// ISO language code of the language to which the message is translated. Must be one of
+	// Language code of the language to which the message is translated. Must be one of
 	ToLanguageCode string
 }
 

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AddStickerToSetRequest represents TL type `addStickerToSet#b015455d`.
+// AddStickerToSetRequest represents TL type `addStickerToSet#56dc1e3b`.
 type AddStickerToSetRequest struct {
 	// Sticker set owner
 	UserID int64
@@ -42,7 +42,7 @@ type AddStickerToSetRequest struct {
 }
 
 // AddStickerToSetRequestTypeID is TL type id of AddStickerToSetRequest.
-const AddStickerToSetRequestTypeID = 0xb015455d
+const AddStickerToSetRequestTypeID = 0x56dc1e3b
 
 // Ensuring interfaces in compile-time for AddStickerToSetRequest.
 var (
@@ -120,7 +120,7 @@ func (a *AddStickerToSetRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AddStickerToSetRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode addStickerToSet#b015455d as nil")
+		return fmt.Errorf("can't encode addStickerToSet#56dc1e3b as nil")
 	}
 	b.PutID(AddStickerToSetRequestTypeID)
 	return a.EncodeBare(b)
@@ -129,12 +129,12 @@ func (a *AddStickerToSetRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AddStickerToSetRequest) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode addStickerToSet#b015455d as nil")
+		return fmt.Errorf("can't encode addStickerToSet#56dc1e3b as nil")
 	}
 	b.PutInt53(a.UserID)
 	b.PutString(a.Name)
 	if err := a.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode addStickerToSet#b015455d: field sticker: %w", err)
+		return fmt.Errorf("unable to encode addStickerToSet#56dc1e3b: field sticker: %w", err)
 	}
 	return nil
 }
@@ -142,10 +142,10 @@ func (a *AddStickerToSetRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (a *AddStickerToSetRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode addStickerToSet#b015455d to nil")
+		return fmt.Errorf("can't decode addStickerToSet#56dc1e3b to nil")
 	}
 	if err := b.ConsumeID(AddStickerToSetRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode addStickerToSet#b015455d: %w", err)
+		return fmt.Errorf("unable to decode addStickerToSet#56dc1e3b: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -153,25 +153,25 @@ func (a *AddStickerToSetRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AddStickerToSetRequest) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode addStickerToSet#b015455d to nil")
+		return fmt.Errorf("can't decode addStickerToSet#56dc1e3b to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode addStickerToSet#b015455d: field user_id: %w", err)
+			return fmt.Errorf("unable to decode addStickerToSet#56dc1e3b: field user_id: %w", err)
 		}
 		a.UserID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode addStickerToSet#b015455d: field name: %w", err)
+			return fmt.Errorf("unable to decode addStickerToSet#56dc1e3b: field name: %w", err)
 		}
 		a.Name = value
 	}
 	{
 		if err := a.Sticker.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode addStickerToSet#b015455d: field sticker: %w", err)
+			return fmt.Errorf("unable to decode addStickerToSet#56dc1e3b: field sticker: %w", err)
 		}
 	}
 	return nil
@@ -180,7 +180,7 @@ func (a *AddStickerToSetRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (a *AddStickerToSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
-		return fmt.Errorf("can't encode addStickerToSet#b015455d as nil")
+		return fmt.Errorf("can't encode addStickerToSet#56dc1e3b as nil")
 	}
 	b.ObjStart()
 	b.PutID("addStickerToSet")
@@ -193,7 +193,7 @@ func (a *AddStickerToSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("sticker")
 	if err := a.Sticker.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode addStickerToSet#b015455d: field sticker: %w", err)
+		return fmt.Errorf("unable to encode addStickerToSet#56dc1e3b: field sticker: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -204,30 +204,30 @@ func (a *AddStickerToSetRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (a *AddStickerToSetRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
-		return fmt.Errorf("can't decode addStickerToSet#b015455d to nil")
+		return fmt.Errorf("can't decode addStickerToSet#56dc1e3b to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("addStickerToSet"); err != nil {
-				return fmt.Errorf("unable to decode addStickerToSet#b015455d: %w", err)
+				return fmt.Errorf("unable to decode addStickerToSet#56dc1e3b: %w", err)
 			}
 		case "user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode addStickerToSet#b015455d: field user_id: %w", err)
+				return fmt.Errorf("unable to decode addStickerToSet#56dc1e3b: field user_id: %w", err)
 			}
 			a.UserID = value
 		case "name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode addStickerToSet#b015455d: field name: %w", err)
+				return fmt.Errorf("unable to decode addStickerToSet#56dc1e3b: field name: %w", err)
 			}
 			a.Name = value
 		case "sticker":
 			if err := a.Sticker.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode addStickerToSet#b015455d: field sticker: %w", err)
+				return fmt.Errorf("unable to decode addStickerToSet#56dc1e3b: field sticker: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -260,12 +260,12 @@ func (a *AddStickerToSetRequest) GetSticker() (value InputSticker) {
 	return a.Sticker
 }
 
-// AddStickerToSet invokes method addStickerToSet#b015455d returning error if any.
-func (c *Client) AddStickerToSet(ctx context.Context, request *AddStickerToSetRequest) (*StickerSet, error) {
-	var result StickerSet
+// AddStickerToSet invokes method addStickerToSet#56dc1e3b returning error if any.
+func (c *Client) AddStickerToSet(ctx context.Context, request *AddStickerToSetRequest) error {
+	var ok Ok
 
-	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
-		return nil, err
+	if err := c.rpc.Invoke(ctx, request, &ok); err != nil {
+		return err
 	}
-	return &result, nil
+	return nil
 }

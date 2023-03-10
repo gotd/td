@@ -50,8 +50,7 @@ type AttachmentMenuBot struct {
 	SupportsChannelChats bool
 	// True, if the bot supports "settings_button_pressed" event
 	SupportsSettings bool
-	// True, if the user needs to be requested to give the permission to the bot to send them
-	// messages
+	// True, if the user must be asked for the permission to the bot to send them messages
 	RequestWriteAccess bool
 	// Name for the bot in attachment menu
 	Name string
