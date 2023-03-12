@@ -56,7 +56,7 @@ func (c *collectorConfig) fromFlags(set *flag.FlagSet) {
 }
 
 func newCollector(pkg *packages.Package, cfg collectorConfig) *collector {
-	intGetter := types.NewSignature(nil, nil,
+	intGetter := types.NewSignatureType(nil, nil, nil, nil,
 		types.NewTuple(types.NewVar(0, nil, "", types.Typ[types.Int])), false) // func() int
 	methods := []*types.Func{
 		types.NewFunc(token.NoPos, nil, "GetLimit", intGetter),
