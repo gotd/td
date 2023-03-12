@@ -15,6 +15,7 @@ jobs:
         flags: [""]
         go:
           - 1.19
+          - 1.20
         arch:
           - amd64
         runner:
