@@ -14,7 +14,6 @@ jobs:
       matrix:
         flags: [""]
         go:
-          - 1.18
           - 1.19
         arch:
           - amd64
