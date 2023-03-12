@@ -1205,3 +1205,13 @@ func (u UpdateDispatcher) OnAutoSaveSettings(handler AutoSaveSettingsHandler) {
 		return handler(ctx, e, update.(*UpdateAutoSaveSettings))
 	}
 }
+
+// GroupInvitePrivacyForbiddenHandler is a GroupInvitePrivacyForbidden event handler.
+type GroupInvitePrivacyForbiddenHandler func(ctx context.Context, e Entities, update *UpdateGroupInvitePrivacyForbidden) error
+
+// OnGroupInvitePrivacyForbidden sets GroupInvitePrivacyForbidden handler.
+func (u UpdateDispatcher) OnGroupInvitePrivacyForbidden(handler GroupInvitePrivacyForbiddenHandler) {
+	u.handlers[UpdateGroupInvitePrivacyForbiddenTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateGroupInvitePrivacyForbidden))
+	}
+}

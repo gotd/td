@@ -2,8 +2,8 @@
 //
 // Source: https://raw.githubusercontent.com/telegramdesktop/tdesktop/dev/Telegram/Resources/tl/api.tl
 // Merge:  _schema/legacy.tl
-// Layer:  154
-// SHA256: 837aa13de32b168d84ecb00368f2a34a768552d6720d3273b382281f3c6b27ee
+// Layer:  155
+// SHA256: 509400232b134c9e6be6610d12fe34faec9ca9afa2ebc8906401b0d64c7fbb39
 
 boolFalse#bc799737 = Bool;
 
@@ -654,6 +654,8 @@ updateChannelPinnedTopics#fe198602 flags:# channel_id:long order:flags.0?Vector<
 updateUser#20529438 user_id:long = Update;
 
 updateAutoSaveSettings#ec05b097 = Update;
+
+updateGroupInvitePrivacyForbidden#ccf08ad6 user_id:long = Update;
 
 updates.state#a56c2a3e pts:int qts:int date:int seq:int unread_count:int = updates.State;
 
@@ -2019,7 +2021,7 @@ messages.availableReactionsNotModified#9f071957 = messages.AvailableReactions;
 
 messages.availableReactions#768e3aad hash:int reactions:Vector<AvailableReaction> = messages.AvailableReactions;
 
-messagePeerReaction#b156fe9c flags:# big:flags.0?true unread:flags.1?true peer_id:Peer reaction:Reaction = MessagePeerReaction;
+messagePeerReaction#8c79b63c flags:# big:flags.0?true unread:flags.1?true peer_id:Peer date:int reaction:Reaction = MessagePeerReaction;
 
 groupCallStreamChannel#80eb48af channel:int scale:int last_timestamp_ms:long = GroupCallStreamChannel;
 
@@ -3234,4 +3236,4 @@ test.useError#ee75af01 = Error;
 
 test.useConfigSimple#f9b7b23d = help.ConfigSimple;
 
-// LAYER 154
+// LAYER 155

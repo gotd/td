@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagePeerReaction represents TL type `messagePeerReaction#b156fe9c`.
+// MessagePeerReaction represents TL type `messagePeerReaction#8c79b63c`.
 // How a certain peer reacted to the message
 //
 // See https://core.telegram.org/constructor/messagePeerReaction for reference.
@@ -50,12 +50,14 @@ type MessagePeerReaction struct {
 	Unread bool
 	// Peer that reacted to the message
 	PeerID PeerClass
+	// Date field of MessagePeerReaction.
+	Date int
 	// Reaction emoji
 	Reaction ReactionClass
 }
 
 // MessagePeerReactionTypeID is TL type id of MessagePeerReaction.
-const MessagePeerReactionTypeID = 0xb156fe9c
+const MessagePeerReactionTypeID = 0x8c79b63c
 
 // Ensuring interfaces in compile-time for MessagePeerReaction.
 var (
@@ -81,6 +83,9 @@ func (m *MessagePeerReaction) Zero() bool {
 	if !(m.PeerID == nil) {
 		return false
 	}
+	if !(m.Date == 0) {
+		return false
+	}
 	if !(m.Reaction == nil) {
 		return false
 	}
@@ -102,11 +107,13 @@ func (m *MessagePeerReaction) FillFrom(from interface {
 	GetBig() (value bool)
 	GetUnread() (value bool)
 	GetPeerID() (value PeerClass)
+	GetDate() (value int)
 	GetReaction() (value ReactionClass)
 }) {
 	m.Big = from.GetBig()
 	m.Unread = from.GetUnread()
 	m.PeerID = from.GetPeerID()
+	m.Date = from.GetDate()
 	m.Reaction = from.GetReaction()
 }
 
@@ -148,6 +155,10 @@ func (m *MessagePeerReaction) TypeInfo() tdp.Type {
 			SchemaName: "peer_id",
 		},
 		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
 			Name:       "Reaction",
 			SchemaName: "reaction",
 		},
@@ -168,7 +179,7 @@ func (m *MessagePeerReaction) SetFlags() {
 // Encode implements bin.Encoder.
 func (m *MessagePeerReaction) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messagePeerReaction#b156fe9c as nil")
+		return fmt.Errorf("can't encode messagePeerReaction#8c79b63c as nil")
 	}
 	b.PutID(MessagePeerReactionTypeID)
 	return m.EncodeBare(b)
@@ -177,23 +188,24 @@ func (m *MessagePeerReaction) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessagePeerReaction) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messagePeerReaction#b156fe9c as nil")
+		return fmt.Errorf("can't encode messagePeerReaction#8c79b63c as nil")
 	}
 	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messagePeerReaction#b156fe9c: field flags: %w", err)
+		return fmt.Errorf("unable to encode messagePeerReaction#8c79b63c: field flags: %w", err)
 	}
 	if m.PeerID == nil {
-		return fmt.Errorf("unable to encode messagePeerReaction#b156fe9c: field peer_id is nil")
+		return fmt.Errorf("unable to encode messagePeerReaction#8c79b63c: field peer_id is nil")
 	}
 	if err := m.PeerID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messagePeerReaction#b156fe9c: field peer_id: %w", err)
+		return fmt.Errorf("unable to encode messagePeerReaction#8c79b63c: field peer_id: %w", err)
 	}
+	b.PutInt(m.Date)
 	if m.Reaction == nil {
-		return fmt.Errorf("unable to encode messagePeerReaction#b156fe9c: field reaction is nil")
+		return fmt.Errorf("unable to encode messagePeerReaction#8c79b63c: field reaction is nil")
 	}
 	if err := m.Reaction.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messagePeerReaction#b156fe9c: field reaction: %w", err)
+		return fmt.Errorf("unable to encode messagePeerReaction#8c79b63c: field reaction: %w", err)
 	}
 	return nil
 }
@@ -201,10 +213,10 @@ func (m *MessagePeerReaction) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessagePeerReaction) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messagePeerReaction#b156fe9c to nil")
+		return fmt.Errorf("can't decode messagePeerReaction#8c79b63c to nil")
 	}
 	if err := b.ConsumeID(MessagePeerReactionTypeID); err != nil {
-		return fmt.Errorf("unable to decode messagePeerReaction#b156fe9c: %w", err)
+		return fmt.Errorf("unable to decode messagePeerReaction#8c79b63c: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -212,11 +224,11 @@ func (m *MessagePeerReaction) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessagePeerReaction) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messagePeerReaction#b156fe9c to nil")
+		return fmt.Errorf("can't decode messagePeerReaction#8c79b63c to nil")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messagePeerReaction#b156fe9c: field flags: %w", err)
+			return fmt.Errorf("unable to decode messagePeerReaction#8c79b63c: field flags: %w", err)
 		}
 	}
 	m.Big = m.Flags.Has(0)
@@ -224,14 +236,21 @@ func (m *MessagePeerReaction) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePeerReaction#b156fe9c: field peer_id: %w", err)
+			return fmt.Errorf("unable to decode messagePeerReaction#8c79b63c: field peer_id: %w", err)
 		}
 		m.PeerID = value
 	}
 	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messagePeerReaction#8c79b63c: field date: %w", err)
+		}
+		m.Date = value
+	}
+	{
 		value, err := DecodeReaction(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messagePeerReaction#b156fe9c: field reaction: %w", err)
+			return fmt.Errorf("unable to decode messagePeerReaction#8c79b63c: field reaction: %w", err)
 		}
 		m.Reaction = value
 	}
@@ -282,6 +301,14 @@ func (m *MessagePeerReaction) GetPeerID() (value PeerClass) {
 		return
 	}
 	return m.PeerID
+}
+
+// GetDate returns value of Date field.
+func (m *MessagePeerReaction) GetDate() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Date
 }
 
 // GetReaction returns value of Reaction field.
