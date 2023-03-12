@@ -32,7 +32,7 @@ var (
 )
 
 // Layer version of schema.
-const Layer = 154
+const Layer = 155
 
 // TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
@@ -362,6 +362,7 @@ func TypesMap() map[uint32]string {
 		UpdateChannelPinnedTopicsTypeID:                          "updateChannelPinnedTopics#fe198602",
 		UpdateUserTypeID:                                         "updateUser#20529438",
 		UpdateAutoSaveSettingsTypeID:                             "updateAutoSaveSettings#ec05b097",
+		UpdateGroupInvitePrivacyForbiddenTypeID:                  "updateGroupInvitePrivacyForbidden#ccf08ad6",
 		UpdatesStateTypeID:                                       "updates.state#a56c2a3e",
 		UpdatesDifferenceEmptyTypeID:                             "updates.differenceEmpty#5d75a138",
 		UpdatesDifferenceTypeID:                                  "updates.difference#f49ca0",
@@ -1044,7 +1045,7 @@ func TypesMap() map[uint32]string {
 		AvailableReactionTypeID:                                                 "availableReaction#c077ec01",
 		MessagesAvailableReactionsNotModifiedTypeID:                             "messages.availableReactionsNotModified#9f071957",
 		MessagesAvailableReactionsTypeID:                                        "messages.availableReactions#768e3aad",
-		MessagePeerReactionTypeID:                                               "messagePeerReaction#b156fe9c",
+		MessagePeerReactionTypeID:                                               "messagePeerReaction#8c79b63c",
 		GroupCallStreamChannelTypeID:                                            "groupCallStreamChannel#80eb48af",
 		PhoneGroupCallStreamChannelsTypeID:                                      "phone.groupCallStreamChannels#d0e482b2",
 		PhoneGroupCallStreamRtmpURLTypeID:                                       "phone.groupCallStreamRtmpUrl#2dbf3432",
@@ -1978,6 +1979,7 @@ func NamesMap() map[string]uint32 {
 		"updateChannelPinnedTopics":                          UpdateChannelPinnedTopicsTypeID,
 		"updateUser":                                         UpdateUserTypeID,
 		"updateAutoSaveSettings":                             UpdateAutoSaveSettingsTypeID,
+		"updateGroupInvitePrivacyForbidden":                  UpdateGroupInvitePrivacyForbiddenTypeID,
 		"updates.state":                                      UpdatesStateTypeID,
 		"updates.differenceEmpty":                            UpdatesDifferenceEmptyTypeID,
 		"updates.difference":                                 UpdatesDifferenceTypeID,
@@ -3594,6 +3596,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		UpdateChannelPinnedTopicsTypeID:                          func() bin.Object { return &UpdateChannelPinnedTopics{} },
 		UpdateUserTypeID:                                         func() bin.Object { return &UpdateUser{} },
 		UpdateAutoSaveSettingsTypeID:                             func() bin.Object { return &UpdateAutoSaveSettings{} },
+		UpdateGroupInvitePrivacyForbiddenTypeID:                  func() bin.Object { return &UpdateGroupInvitePrivacyForbidden{} },
 		UpdatesStateTypeID:                                       func() bin.Object { return &UpdatesState{} },
 		UpdatesDifferenceEmptyTypeID:                             func() bin.Object { return &UpdatesDifferenceEmpty{} },
 		UpdatesDifferenceTypeID:                                  func() bin.Object { return &UpdatesDifference{} },
@@ -6050,6 +6053,7 @@ func ClassConstructorsMap() map[string][]uint32 {
 			UpdateChannelPinnedTopicsTypeID,
 			UpdateUserTypeID,
 			UpdateAutoSaveSettingsTypeID,
+			UpdateGroupInvitePrivacyForbiddenTypeID,
 		},
 		UpdatesChannelDifferenceClassName: {
 			UpdatesChannelDifferenceEmptyTypeID,

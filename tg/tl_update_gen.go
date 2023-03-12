@@ -21933,6 +21933,140 @@ func (u *UpdateAutoSaveSettings) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// UpdateGroupInvitePrivacyForbidden represents TL type `updateGroupInvitePrivacyForbidden#ccf08ad6`.
+//
+// See https://core.telegram.org/constructor/updateGroupInvitePrivacyForbidden for reference.
+type UpdateGroupInvitePrivacyForbidden struct {
+	// UserID field of UpdateGroupInvitePrivacyForbidden.
+	UserID int64
+}
+
+// UpdateGroupInvitePrivacyForbiddenTypeID is TL type id of UpdateGroupInvitePrivacyForbidden.
+const UpdateGroupInvitePrivacyForbiddenTypeID = 0xccf08ad6
+
+// construct implements constructor of UpdateClass.
+func (u UpdateGroupInvitePrivacyForbidden) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateGroupInvitePrivacyForbidden.
+var (
+	_ bin.Encoder     = &UpdateGroupInvitePrivacyForbidden{}
+	_ bin.Decoder     = &UpdateGroupInvitePrivacyForbidden{}
+	_ bin.BareEncoder = &UpdateGroupInvitePrivacyForbidden{}
+	_ bin.BareDecoder = &UpdateGroupInvitePrivacyForbidden{}
+
+	_ UpdateClass = &UpdateGroupInvitePrivacyForbidden{}
+)
+
+func (u *UpdateGroupInvitePrivacyForbidden) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateGroupInvitePrivacyForbidden) String() string {
+	if u == nil {
+		return "UpdateGroupInvitePrivacyForbidden(nil)"
+	}
+	type Alias UpdateGroupInvitePrivacyForbidden
+	return fmt.Sprintf("UpdateGroupInvitePrivacyForbidden%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateGroupInvitePrivacyForbidden from given interface.
+func (u *UpdateGroupInvitePrivacyForbidden) FillFrom(from interface {
+	GetUserID() (value int64)
+}) {
+	u.UserID = from.GetUserID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateGroupInvitePrivacyForbidden) TypeID() uint32 {
+	return UpdateGroupInvitePrivacyForbiddenTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateGroupInvitePrivacyForbidden) TypeName() string {
+	return "updateGroupInvitePrivacyForbidden"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateGroupInvitePrivacyForbidden) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateGroupInvitePrivacyForbidden",
+		ID:   UpdateGroupInvitePrivacyForbiddenTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateGroupInvitePrivacyForbidden) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateGroupInvitePrivacyForbidden#ccf08ad6 as nil")
+	}
+	b.PutID(UpdateGroupInvitePrivacyForbiddenTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateGroupInvitePrivacyForbidden) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateGroupInvitePrivacyForbidden#ccf08ad6 as nil")
+	}
+	b.PutLong(u.UserID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateGroupInvitePrivacyForbidden) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateGroupInvitePrivacyForbidden#ccf08ad6 to nil")
+	}
+	if err := b.ConsumeID(UpdateGroupInvitePrivacyForbiddenTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateGroupInvitePrivacyForbidden#ccf08ad6: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateGroupInvitePrivacyForbidden) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateGroupInvitePrivacyForbidden#ccf08ad6 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateGroupInvitePrivacyForbidden#ccf08ad6: field user_id: %w", err)
+		}
+		u.UserID = value
+	}
+	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateGroupInvitePrivacyForbidden) GetUserID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.UserID
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -22057,6 +22191,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateChannelPinnedTopics: // updateChannelPinnedTopics#fe198602
 //	case *tg.UpdateUser: // updateUser#20529438
 //	case *tg.UpdateAutoSaveSettings: // updateAutoSaveSettings#ec05b097
+//	case *tg.UpdateGroupInvitePrivacyForbidden: // updateGroupInvitePrivacyForbidden#ccf08ad6
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -22851,6 +22986,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateAutoSaveSettingsTypeID:
 		// Decoding updateAutoSaveSettings#ec05b097.
 		v := UpdateAutoSaveSettings{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateGroupInvitePrivacyForbiddenTypeID:
+		// Decoding updateGroupInvitePrivacyForbidden#ccf08ad6.
+		v := UpdateGroupInvitePrivacyForbidden{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
