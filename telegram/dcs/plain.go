@@ -57,7 +57,16 @@ func (p plain) MediaOnly(ctx context.Context, dc int, list List) (transport.Conn
 }
 
 func (p plain) CDN(ctx context.Context, dc int, list List) (transport.Conn, error) {
-	return nil, errors.Errorf("can't resolve %d: CDN is unsupported", dc)
+	candidates := FindDCs(list.Options, dc, p.preferIPv6)
+	// Filter (in place) from SliceTricks.
+	n := 0
+	for _, x := range candidates {
+		if x.CDN {
+			candidates[n] = x
+			n++
+		}
+	}
+	return p.connect(ctx, dc, list.Test, candidates[:n])
 }
 
 func (p plain) dialTransport(ctx context.Context, test bool, dc tg.DCOption) (_ transport.Conn, rerr error) {
