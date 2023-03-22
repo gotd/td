@@ -222,7 +222,7 @@ type User struct {
 	// Links:
 	//  1) https://core.telegram.org/api/bots/attach
 	AttachMenuEnabled bool
-	// Flags2 field of User.
+	//
 	Flags2 bin.Fields
 	// ID of the user
 	ID int64
@@ -280,7 +280,7 @@ type User struct {
 	//
 	// Use SetEmojiStatus and GetEmojiStatus helpers.
 	EmojiStatus EmojiStatusClass
-	// Usernames field of User.
+	//
 	//
 	// Use SetUsernames and GetUsernames helpers.
 	Usernames []Username

@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/method/messages.getExtendedMedia for reference.
 type MessagesGetExtendedMediaRequest struct {
-	// Peer field of MessagesGetExtendedMediaRequest.
+	//
 	Peer InputPeerClass
-	// ID field of MessagesGetExtendedMediaRequest.
+	//
 	ID []int
 }
 

@@ -190,6 +190,7 @@ func (c *MessagesCheckHistoryImportPeerRequest) GetPeer() (value InputPeerClass)
 //
 // Possible errors:
 //
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 USER_NOT_MUTUAL_CONTACT: The provided user is not a mutual contact.
 //

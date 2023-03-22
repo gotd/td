@@ -32,22 +32,29 @@ var (
 )
 
 // AccountSaveAutoSaveSettingsRequest represents TL type `account.saveAutoSaveSettings#d69b8361`.
+// Modify autosave settings
 //
 // See https://core.telegram.org/method/account.saveAutoSaveSettings for reference.
 type AccountSaveAutoSaveSettingsRequest struct {
-	// Flags field of AccountSaveAutoSaveSettingsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Users field of AccountSaveAutoSaveSettingsRequest.
+	// Whether the new settings should affect all private chats
 	Users bool
-	// Chats field of AccountSaveAutoSaveSettingsRequest.
+	// Whether the new settings should affect all groups
 	Chats bool
-	// Broadcasts field of AccountSaveAutoSaveSettingsRequest.
+	// Whether the new settings should affect all channels¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Broadcasts bool
-	// Peer field of AccountSaveAutoSaveSettingsRequest.
+	// Whether the new settings should affect a specific peer
 	//
 	// Use SetPeer and GetPeer helpers.
 	Peer InputPeerClass
-	// Settings field of AccountSaveAutoSaveSettingsRequest.
+	// The new autosave settings
 	Settings AutoSaveSettings
 }
 
@@ -337,8 +344,10 @@ func (s *AccountSaveAutoSaveSettingsRequest) GetSettings() (value AutoSaveSettin
 }
 
 // AccountSaveAutoSaveSettings invokes method account.saveAutoSaveSettings#d69b8361 returning error if any.
+// Modify autosave settings
 //
 // See https://core.telegram.org/method/account.saveAutoSaveSettings for reference.
+// Can be used by bots.
 func (c *Client) AccountSaveAutoSaveSettings(ctx context.Context, request *AccountSaveAutoSaveSettingsRequest) (bool, error) {
 	var result BoolBox
 

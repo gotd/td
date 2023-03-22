@@ -39,9 +39,12 @@ var (
 //
 // See https://core.telegram.org/method/messages.toggleBotInAttachMenu for reference.
 type MessagesToggleBotInAttachMenuRequest struct {
-	// Flags field of MessagesToggleBotInAttachMenuRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// WriteAllowed field of MessagesToggleBotInAttachMenuRequest.
+	//
 	WriteAllowed bool
 	// Bot ID
 	Bot InputUserClass

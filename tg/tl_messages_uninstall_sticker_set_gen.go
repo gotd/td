@@ -171,7 +171,7 @@ func (u *MessagesUninstallStickerSetRequest) GetStickerset() (value InputSticker
 //
 // Possible errors:
 //
-//	400 STICKERSET_INVALID: The provided sticker set is invalid.
+//	406 STICKERSET_INVALID: The provided sticker set is invalid.
 //
 // See https://core.telegram.org/method/messages.uninstallStickerSet for reference.
 func (c *Client) MessagesUninstallStickerSet(ctx context.Context, stickerset InputStickerSetClass) (bool, error) {

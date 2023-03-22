@@ -45,7 +45,7 @@ type MessagesTranslateTextRequest struct {
 	//
 	// Use SetPeer and GetPeer helpers.
 	Peer InputPeerClass
-	// ID field of MessagesTranslateTextRequest.
+	//
 	//
 	// Use SetID and GetID helpers.
 	ID []int

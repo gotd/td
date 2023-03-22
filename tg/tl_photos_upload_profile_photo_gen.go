@@ -41,7 +41,7 @@ type PhotosUploadProfilePhotoRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Fallback field of PhotosUploadProfilePhotoRequest.
+	//
 	Fallback bool
 	// File saved in parts by means of upload.saveFilePart¹ method
 	//
@@ -62,7 +62,7 @@ type PhotosUploadProfilePhotoRequest struct {
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
 	VideoStartTs float64
-	// VideoEmojiMarkup field of PhotosUploadProfilePhotoRequest.
+	//
 	//
 	// Use SetVideoEmojiMarkup and GetVideoEmojiMarkup helpers.
 	VideoEmojiMarkup VideoSizeClass
@@ -417,6 +417,7 @@ func (u *PhotosUploadProfilePhotoRequest) GetVideoEmojiMarkup() (value VideoSize
 //	400 PHOTO_EXT_INVALID: The extension of the photo is invalid.
 //	400 PHOTO_FILE_MISSING: Profile photo file missing.
 //	400 PHOTO_INVALID: Photo invalid.
+//	400 STICKER_MIME_INVALID:
 //	400 VIDEO_FILE_INVALID: The specified video file is invalid.
 //
 // See https://core.telegram.org/method/photos.uploadProfilePhoto for reference.

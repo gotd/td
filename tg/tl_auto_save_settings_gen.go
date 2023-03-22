@@ -35,13 +35,16 @@ var (
 //
 // See https://core.telegram.org/constructor/autoSaveSettings for reference.
 type AutoSaveSettings struct {
-	// Flags field of AutoSaveSettings.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Photos field of AutoSaveSettings.
+	//
 	Photos bool
-	// Videos field of AutoSaveSettings.
+	//
 	Videos bool
-	// VideoMaxSize field of AutoSaveSettings.
+	//
 	//
 	// Use SetVideoMaxSize and GetVideoMaxSize helpers.
 	VideoMaxSize int64

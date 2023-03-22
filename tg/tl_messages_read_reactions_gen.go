@@ -39,11 +39,14 @@ var (
 //
 // See https://core.telegram.org/method/messages.readReactions for reference.
 type MessagesReadReactionsRequest struct {
-	// Flags field of MessagesReadReactionsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Peer
 	Peer InputPeerClass
-	// TopMsgID field of MessagesReadReactionsRequest.
+	//
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

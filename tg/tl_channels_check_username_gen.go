@@ -211,6 +211,8 @@ func (c *ChannelsCheckUsernameRequest) GetChannelAsNotEmpty() (NotEmptyInputChan
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 CHAT_ID_INVALID: The provided chat id is invalid.
 //	400 USERNAME_INVALID: The provided username is not valid.
+//	400 USERNAME_OCCUPIED: The provided username is already occupied.
+//	400 USERNAME_PURCHASE_AVAILABLE: The specified username can be purchased on https://fragment.com.
 //
 // See https://core.telegram.org/method/channels.checkUsername for reference.
 func (c *Client) ChannelsCheckUsername(ctx context.Context, request *ChannelsCheckUsernameRequest) (bool, error) {

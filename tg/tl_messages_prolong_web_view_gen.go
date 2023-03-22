@@ -69,7 +69,7 @@ type MessagesProlongWebViewRequest struct {
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	// TopMsgID field of MessagesProlongWebViewRequest.
+	//
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

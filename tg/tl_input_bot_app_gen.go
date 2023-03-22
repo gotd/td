@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/constructor/inputBotAppID for reference.
 type InputBotAppID struct {
-	// ID field of InputBotAppID.
+	//
 	ID int64
-	// AccessHash field of InputBotAppID.
+	//
 	AccessHash int64
 }
 
@@ -196,9 +196,9 @@ func (i *InputBotAppID) GetAccessHash() (value int64) {
 //
 // See https://core.telegram.org/constructor/inputBotAppShortName for reference.
 type InputBotAppShortName struct {
-	// BotID field of InputBotAppShortName.
+	//
 	BotID InputUserClass
-	// ShortName field of InputBotAppShortName.
+	//
 	ShortName string
 }
 

@@ -32,12 +32,21 @@ var (
 )
 
 // ChannelsReportAntiSpamFalsePositiveRequest represents TL type `channels.reportAntiSpamFalsePositive#a850a693`.
+// Report a native antispam¹ false positive
+//
+// Links:
+//  1. https://core.telegram.org/api/antispam
 //
 // See https://core.telegram.org/method/channels.reportAntiSpamFalsePositive for reference.
 type ChannelsReportAntiSpamFalsePositiveRequest struct {
-	// Channel field of ChannelsReportAntiSpamFalsePositiveRequest.
+	// Supergroup ID
 	Channel InputChannelClass
-	// MsgID field of ChannelsReportAntiSpamFalsePositiveRequest.
+	// Message ID that was mistakenly deleted by the native antispam¹ system, taken from the
+	// admin log²
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/antispam
+	//  2) https://core.telegram.org/api/recent-actions
 	MsgID int
 }
 
@@ -198,8 +207,13 @@ func (r *ChannelsReportAntiSpamFalsePositiveRequest) GetChannelAsNotEmpty() (Not
 }
 
 // ChannelsReportAntiSpamFalsePositive invokes method channels.reportAntiSpamFalsePositive#a850a693 returning error if any.
+// Report a native antispam¹ false positive
+//
+// Links:
+//  1. https://core.telegram.org/api/antispam
 //
 // See https://core.telegram.org/method/channels.reportAntiSpamFalsePositive for reference.
+// Can be used by bots.
 func (c *Client) ChannelsReportAntiSpamFalsePositive(ctx context.Context, request *ChannelsReportAntiSpamFalsePositiveRequest) (bool, error) {
 	var result BoolBox
 

@@ -56,7 +56,7 @@ type AuthAuthorization struct {
 	//
 	// Use SetTmpSessions and GetTmpSessions helpers.
 	TmpSessions int
-	// FutureAuthToken field of AuthAuthorization.
+	//
 	//
 	// Use SetFutureAuthToken and GetFutureAuthToken helpers.
 	FutureAuthToken []byte

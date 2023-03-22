@@ -318,6 +318,7 @@ func (s *AuthSignInRequest) GetEmailVerification() (value EmailVerificationClass
 //
 // Possible errors:
 //
+//	500 AUTH_RESTART: Restart the authorization process.
 //	400 PHONE_CODE_EMPTY: phone_code is missing.
 //	400 PHONE_CODE_EXPIRED: The phone code you provided has expired.
 //	400 PHONE_CODE_INVALID: The provided phone code is invalid.

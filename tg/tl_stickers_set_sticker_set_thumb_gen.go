@@ -36,7 +36,10 @@ var (
 //
 // See https://core.telegram.org/method/stickers.setStickerSetThumb for reference.
 type StickersSetStickerSetThumbRequest struct {
-	// Flags field of StickersSetStickerSetThumbRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Stickerset
 	Stickerset InputStickerSetClass
@@ -44,7 +47,7 @@ type StickersSetStickerSetThumbRequest struct {
 	//
 	// Use SetThumb and GetThumb helpers.
 	Thumb InputDocumentClass
-	// ThumbDocumentID field of StickersSetStickerSetThumbRequest.
+	//
 	//
 	// Use SetThumbDocumentID and GetThumbDocumentID helpers.
 	ThumbDocumentID int64

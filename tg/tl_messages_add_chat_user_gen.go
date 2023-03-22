@@ -225,7 +225,8 @@ func (a *MessagesAddChatUserRequest) GetFwdLimit() (value int) {
 //
 // Possible errors:
 //
-//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	400 BOT_GROUPS_BLOCKED: This bot can't be added to groups.
+//	403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 CHAT_ID_INVALID: The provided chat id is invalid.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.

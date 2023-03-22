@@ -359,7 +359,9 @@ func (r *AccountRegisterDeviceRequest) GetOtherUIDs() (value []int64) {
 //
 // Possible errors:
 //
+//	400 TOKEN_EMPTY: The specified token is empty.
 //	400 TOKEN_INVALID: The provided token is invalid.
+//	400 TOKEN_TYPE_INVALID: The specified token type is invalid.
 //	400 WEBPUSH_AUTH_INVALID: The specified web push authentication secret is invalid.
 //	400 WEBPUSH_KEY_INVALID: The specified web push elliptic curve Diffie-Hellman public key is invalid.
 //	400 WEBPUSH_TOKEN_INVALID: The specified web push token is invalid.

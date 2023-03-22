@@ -32,12 +32,16 @@ var (
 )
 
 // ChannelsToggleForumRequest represents TL type `channels.toggleForum#a4298b29`.
+// Enable or disable forum functionality¹ in a supergroup.
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
 //
 // See https://core.telegram.org/method/channels.toggleForum for reference.
 type ChannelsToggleForumRequest struct {
-	// Channel field of ChannelsToggleForumRequest.
+	// Supergroup ID
 	Channel InputChannelClass
-	// Enabled field of ChannelsToggleForumRequest.
+	// Enable or disable forum functionality
 	Enabled bool
 }
 
@@ -198,8 +202,17 @@ func (t *ChannelsToggleForumRequest) GetChannelAsNotEmpty() (NotEmptyInputChanne
 }
 
 // ChannelsToggleForum invokes method channels.toggleForum#a4298b29 returning error if any.
+// Enable or disable forum functionality¹ in a supergroup.
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
+//
+// Possible errors:
+//
+//	400 CHAT_DISCUSSION_UNALLOWED: You can't enable forum topics in a discussion group linked to a channel.
 //
 // See https://core.telegram.org/method/channels.toggleForum for reference.
+// Can be used by bots.
 func (c *Client) ChannelsToggleForum(ctx context.Context, request *ChannelsToggleForumRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

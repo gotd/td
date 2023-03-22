@@ -32,18 +32,22 @@ var (
 )
 
 // BotsSetBotInfoRequest represents TL type `bots.setBotInfo#a365df7a`.
+// Set our about text and description (bots only)
 //
 // See https://core.telegram.org/method/bots.setBotInfo for reference.
 type BotsSetBotInfoRequest struct {
-	// Flags field of BotsSetBotInfoRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// LangCode field of BotsSetBotInfoRequest.
+	// Language code, if left empty update the fallback about text and description
 	LangCode string
-	// About field of BotsSetBotInfoRequest.
+	// New about text
 	//
 	// Use SetAbout and GetAbout helpers.
 	About string
-	// Description field of BotsSetBotInfoRequest.
+	// New description
 	//
 	// Use SetDescription and GetDescription helpers.
 	Description string
@@ -275,8 +279,10 @@ func (s *BotsSetBotInfoRequest) GetDescription() (value string, ok bool) {
 }
 
 // BotsSetBotInfo invokes method bots.setBotInfo#a365df7a returning error if any.
+// Set our about text and description (bots only)
 //
 // See https://core.telegram.org/method/bots.setBotInfo for reference.
+// Can be used by bots.
 func (c *Client) BotsSetBotInfo(ctx context.Context, request *BotsSetBotInfoRequest) (bool, error) {
 	var result BoolBox
 

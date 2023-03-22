@@ -32,10 +32,11 @@ var (
 )
 
 // AccountReorderUsernamesRequest represents TL type `account.reorderUsernames#ef500eab`.
+// Reorder usernames associated with the currently logged-in user.
 //
 // See https://core.telegram.org/method/account.reorderUsernames for reference.
 type AccountReorderUsernamesRequest struct {
-	// Order field of AccountReorderUsernamesRequest.
+	// The new order for active usernames. All active usernames must be specified.
 	Order []string
 }
 
@@ -174,8 +175,10 @@ func (r *AccountReorderUsernamesRequest) GetOrder() (value []string) {
 }
 
 // AccountReorderUsernames invokes method account.reorderUsernames#ef500eab returning error if any.
+// Reorder usernames associated with the currently logged-in user.
 //
 // See https://core.telegram.org/method/account.reorderUsernames for reference.
+// Can be used by bots.
 func (c *Client) AccountReorderUsernames(ctx context.Context, order []string) (bool, error) {
 	var result BoolBox
 

@@ -2807,11 +2807,11 @@ func (k *KeyboardButtonSimpleWebView) GetURL() (value string) {
 //
 // See https://core.telegram.org/constructor/keyboardButtonRequestPeer for reference.
 type KeyboardButtonRequestPeer struct {
-	// Text field of KeyboardButtonRequestPeer.
+	//
 	Text string
-	// ButtonID field of KeyboardButtonRequestPeer.
+	//
 	ButtonID int
-	// PeerType field of KeyboardButtonRequestPeer.
+	//
 	PeerType RequestPeerTypeClass
 }
 

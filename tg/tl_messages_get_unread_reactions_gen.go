@@ -36,11 +36,14 @@ var (
 //
 // See https://core.telegram.org/method/messages.getUnreadReactions for reference.
 type MessagesGetUnreadReactionsRequest struct {
-	// Flags field of MessagesGetUnreadReactionsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Peer
 	Peer InputPeerClass
-	// TopMsgID field of MessagesGetUnreadReactionsRequest.
+	//
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

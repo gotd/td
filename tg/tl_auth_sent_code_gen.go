@@ -331,7 +331,7 @@ func (s *AuthSentCode) GetTimeout() (value int, ok bool) {
 //
 // See https://core.telegram.org/constructor/auth.sentCodeSuccess for reference.
 type AuthSentCodeSuccess struct {
-	// Authorization field of AuthSentCodeSuccess.
+	//
 	Authorization AuthAuthorizationClass
 }
 

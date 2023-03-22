@@ -130,6 +130,7 @@ func (g *MessagesGetDefaultHistoryTTLRequest) DecodeBare(b *bin.Buffer) error {
 // MessagesGetDefaultHistoryTTL invokes method messages.getDefaultHistoryTTL#658b7188 returning error if any.
 //
 // See https://core.telegram.org/method/messages.getDefaultHistoryTTL for reference.
+// Can be used by bots.
 func (c *Client) MessagesGetDefaultHistoryTTL(ctx context.Context) (*DefaultHistoryTTL, error) {
 	var result DefaultHistoryTTL
 

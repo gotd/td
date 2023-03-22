@@ -39,11 +39,14 @@ var (
 //
 // See https://core.telegram.org/method/messages.unpinAllMessages for reference.
 type MessagesUnpinAllMessagesRequest struct {
-	// Flags field of MessagesUnpinAllMessagesRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Chat where to unpin
 	Peer InputPeerClass
-	// TopMsgID field of MessagesUnpinAllMessagesRequest.
+	//
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

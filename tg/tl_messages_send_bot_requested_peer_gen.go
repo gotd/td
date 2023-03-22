@@ -35,13 +35,13 @@ var (
 //
 // See https://core.telegram.org/method/messages.sendBotRequestedPeer for reference.
 type MessagesSendBotRequestedPeerRequest struct {
-	// Peer field of MessagesSendBotRequestedPeerRequest.
+	//
 	Peer InputPeerClass
-	// MsgID field of MessagesSendBotRequestedPeerRequest.
+	//
 	MsgID int
-	// ButtonID field of MessagesSendBotRequestedPeerRequest.
+	//
 	ButtonID int
-	// RequestedPeer field of MessagesSendBotRequestedPeerRequest.
+	//
 	RequestedPeer InputPeerClass
 }
 
@@ -254,6 +254,7 @@ func (s *MessagesSendBotRequestedPeerRequest) GetRequestedPeer() (value InputPee
 // MessagesSendBotRequestedPeer invokes method messages.sendBotRequestedPeer#fe38d01b returning error if any.
 //
 // See https://core.telegram.org/method/messages.sendBotRequestedPeer for reference.
+// Can be used by bots.
 func (c *Client) MessagesSendBotRequestedPeer(ctx context.Context, request *MessagesSendBotRequestedPeerRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

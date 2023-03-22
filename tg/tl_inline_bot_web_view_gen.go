@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/constructor/inlineBotWebView for reference.
 type InlineBotWebView struct {
-	// Text field of InlineBotWebView.
+	//
 	Text string
-	// URL field of InlineBotWebView.
+	//
 	URL string
 }
 

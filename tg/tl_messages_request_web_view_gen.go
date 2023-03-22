@@ -102,7 +102,7 @@ type MessagesRequestWebViewRequest struct {
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	// TopMsgID field of MessagesRequestWebViewRequest.
+	//
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

@@ -225,6 +225,10 @@ func (s *MessagesSearchSentMediaRequest) GetLimit() (value int) {
 // View and search recently sent media.
 // This method does not support pagination.
 //
+// Possible errors:
+//
+//	400 FILTER_NOT_SUPPORTED: The specified filter cannot be used in this context.
+//
 // See https://core.telegram.org/method/messages.searchSentMedia for reference.
 func (c *Client) MessagesSearchSentMedia(ctx context.Context, request *MessagesSearchSentMediaRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox

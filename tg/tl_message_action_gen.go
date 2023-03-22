@@ -3173,15 +3173,18 @@ func (m *MessageActionCustomAction) GetMessage() (value string) {
 //
 // See https://core.telegram.org/constructor/messageActionBotAllowed for reference.
 type MessageActionBotAllowed struct {
-	// Flags field of MessageActionBotAllowed.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// AttachMenu field of MessageActionBotAllowed.
+	//
 	AttachMenu bool
 	// The domain name of the website on which the user has logged in.
 	//
 	// Use SetDomain and GetDomain helpers.
 	Domain string
-	// App field of MessageActionBotAllowed.
+	//
 	//
 	// Use SetApp and GetApp helpers.
 	App BotAppClass
@@ -4460,11 +4463,14 @@ func (m *MessageActionInviteToGroupCall) GetUsers() (value []int64) {
 //
 // See https://core.telegram.org/constructor/messageActionSetMessagesTTL for reference.
 type MessageActionSetMessagesTTL struct {
-	// Flags field of MessageActionSetMessagesTTL.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// New Time-To-Live
 	Period int
-	// AutoSettingFrom field of MessageActionSetMessagesTTL.
+	//
 	//
 	// Use SetAutoSettingFrom and GetAutoSettingFrom helpers.
 	AutoSettingFrom int64
@@ -5570,13 +5576,20 @@ func (m *MessageActionGiftPremium) GetMonths() (value int) {
 //
 // See https://core.telegram.org/constructor/messageActionTopicCreate for reference.
 type MessageActionTopicCreate struct {
-	// Flags field of MessageActionTopicCreate.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Title field of MessageActionTopicCreate.
+	// Topic name.
 	Title string
-	// IconColor field of MessageActionTopicCreate.
+	// If no custom emoji icon is specified, specifies the color of the fallback topic icon
+	// (RGB), one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 0xFF93B2, or 0xFB6F5F.
 	IconColor int
-	// IconEmojiID field of MessageActionTopicCreate.
+	// ID of the custom emoji¹ used as topic icon.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	//
 	// Use SetIconEmojiID and GetIconEmojiID helpers.
 	IconEmojiID int64
@@ -5797,21 +5810,24 @@ func (m *MessageActionTopicCreate) GetIconEmojiID() (value int64, ok bool) {
 //
 // See https://core.telegram.org/constructor/messageActionTopicEdit for reference.
 type MessageActionTopicEdit struct {
-	// Flags field of MessageActionTopicEdit.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Title field of MessageActionTopicEdit.
+	//
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// IconEmojiID field of MessageActionTopicEdit.
+	//
 	//
 	// Use SetIconEmojiID and GetIconEmojiID helpers.
 	IconEmojiID int64
-	// Closed field of MessageActionTopicEdit.
+	//
 	//
 	// Use SetClosed and GetClosed helpers.
 	Closed bool
-	// Hidden field of MessageActionTopicEdit.
+	//
 	//
 	// Use SetHidden and GetHidden helpers.
 	Hidden bool
@@ -6114,7 +6130,7 @@ func (m *MessageActionTopicEdit) GetHidden() (value bool, ok bool) {
 //
 // See https://core.telegram.org/constructor/messageActionSuggestProfilePhoto for reference.
 type MessageActionSuggestProfilePhoto struct {
-	// Photo field of MessageActionSuggestProfilePhoto.
+	//
 	Photo PhotoClass
 }
 
@@ -6253,9 +6269,9 @@ func (m *MessageActionSuggestProfilePhoto) GetPhoto() (value PhotoClass) {
 //
 // See https://core.telegram.org/constructor/messageActionRequestedPeer for reference.
 type MessageActionRequestedPeer struct {
-	// ButtonID field of MessageActionRequestedPeer.
+	//
 	ButtonID int
-	// Peer field of MessageActionRequestedPeer.
+	//
 	Peer PeerClass
 }
 

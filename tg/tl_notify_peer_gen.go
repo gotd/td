@@ -481,9 +481,9 @@ func (n *NotifyBroadcasts) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/notifyForumTopic for reference.
 type NotifyForumTopic struct {
-	// Peer field of NotifyForumTopic.
+	//
 	Peer PeerClass
-	// TopMsgID field of NotifyForumTopic.
+	//
 	TopMsgID int
 }
 

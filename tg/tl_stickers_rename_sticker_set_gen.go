@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/method/stickers.renameStickerSet for reference.
 type StickersRenameStickerSetRequest struct {
-	// Stickerset field of StickersRenameStickerSetRequest.
+	//
 	Stickerset InputStickerSetClass
-	// Title field of StickersRenameStickerSetRequest.
+	//
 	Title string
 }
 
@@ -195,6 +195,7 @@ func (r *StickersRenameStickerSetRequest) GetTitle() (value string) {
 // StickersRenameStickerSet invokes method stickers.renameStickerSet#124b1c00 returning error if any.
 //
 // See https://core.telegram.org/method/stickers.renameStickerSet for reference.
+// Can be used by bots.
 func (c *Client) StickersRenameStickerSet(ctx context.Context, request *StickersRenameStickerSetRequest) (MessagesStickerSetClass, error) {
 	var result MessagesStickerSetBox
 

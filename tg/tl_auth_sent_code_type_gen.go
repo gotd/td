@@ -1256,9 +1256,9 @@ func (s *AuthSentCodeTypeSetUpEmailRequired) GetGoogleSigninAllowed() (value boo
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeFragmentSms for reference.
 type AuthSentCodeTypeFragmentSMS struct {
-	// URL field of AuthSentCodeTypeFragmentSMS.
+	//
 	URL string
-	// Length field of AuthSentCodeTypeFragmentSMS.
+	//
 	Length int
 }
 
@@ -1417,21 +1417,24 @@ func (s *AuthSentCodeTypeFragmentSMS) GetLength() (value int) {
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeFirebaseSms for reference.
 type AuthSentCodeTypeFirebaseSMS struct {
-	// Flags field of AuthSentCodeTypeFirebaseSMS.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Nonce field of AuthSentCodeTypeFirebaseSMS.
+	//
 	//
 	// Use SetNonce and GetNonce helpers.
 	Nonce []byte
-	// Receipt field of AuthSentCodeTypeFirebaseSMS.
+	//
 	//
 	// Use SetReceipt and GetReceipt helpers.
 	Receipt string
-	// PushTimeout field of AuthSentCodeTypeFirebaseSMS.
+	//
 	//
 	// Use SetPushTimeout and GetPushTimeout helpers.
 	PushTimeout int
-	// Length field of AuthSentCodeTypeFirebaseSMS.
+	//
 	Length int
 }
 

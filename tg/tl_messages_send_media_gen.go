@@ -64,7 +64,7 @@ type MessagesSendMediaRequest struct {
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	// TopMsgID field of MessagesSendMediaRequest.
+	//
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
@@ -796,15 +796,20 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 BUTTON_TYPE_INVALID: The type of one or more of the buttons you provided is invalid.
 //	400 BUTTON_URL_INVALID: Button URL invalid.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 CHAT_FORWARDS_RESTRICTED: You can't forward messages from a protected chat.
 //	403 CHAT_GUEST_SEND_FORBIDDEN: You join the discussion group before commenting, see here » for more info.
 //	400 CHAT_RESTRICTED: You can't send messages in this chat, you were restricted.
+//	403 CHAT_SEND_AUDIOS_FORBIDDEN: You can't send audio messages in this chat.
+//	403 CHAT_SEND_DOCS_FORBIDDEN: You can't send documents in this chat.
 //	403 CHAT_SEND_GIFS_FORBIDDEN: You can't send gifs in this chat.
 //	403 CHAT_SEND_MEDIA_FORBIDDEN: You can't send media in this chat.
+//	403 CHAT_SEND_PHOTOS_FORBIDDEN: You can't send photos in this chat.
 //	403 CHAT_SEND_POLL_FORBIDDEN: You can't send polls in this chat.
 //	403 CHAT_SEND_STICKERS_FORBIDDEN: You can't send stickers in this chat.
+//	403 CHAT_SEND_VIDEOS_FORBIDDEN: You can't send videos in this chat.
+//	403 CHAT_SEND_VOICES_FORBIDDEN: You can't send voice recordings in this chat.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 CURRENCY_TOTAL_AMOUNT_INVALID: The total amount of all prices is invalid.
 //	400 DOCUMENT_INVALID: The specified document is invalid.
@@ -847,11 +852,14 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
 //	400 SEND_AS_PEER_INVALID: You can't send messages as the specified peer.
 //	420 SLOWMODE_WAIT_%d: Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
+//	406 TOPIC_CLOSED: This topic was closed, you can't send messages to it anymore.
+//	406 TOPIC_DELETED: The specified topic was deleted.
 //	400 TTL_MEDIA_INVALID: Invalid media Time To Live was provided.
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
 //	403 USER_IS_BLOCKED: You were blocked by this user.
 //	400 USER_IS_BOT: Bots can't send messages to other bots.
 //	400 VIDEO_CONTENT_TYPE_INVALID: The video's content type is invalid.
+//	400 VOICE_MESSAGES_FORBIDDEN: This user's privacy settings forbid you from sending voice messages.
 //	400 WEBDOCUMENT_MIME_INVALID: Invalid webdocument mime type provided.
 //	400 WEBPAGE_CURL_FAILED: Failure while fetching the webpage with cURL.
 //	400 WEBPAGE_MEDIA_EMPTY: Webpage media empty.

@@ -32,12 +32,13 @@ var (
 )
 
 // ChannelsToggleParticipantsHiddenRequest represents TL type `channels.toggleParticipantsHidden#6a6e7854`.
+// Hide or display the participants list in a supergroup
 //
 // See https://core.telegram.org/method/channels.toggleParticipantsHidden for reference.
 type ChannelsToggleParticipantsHiddenRequest struct {
-	// Channel field of ChannelsToggleParticipantsHiddenRequest.
+	// Supergroup ID
 	Channel InputChannelClass
-	// Enabled field of ChannelsToggleParticipantsHiddenRequest.
+	// If true, will hide the participants list; otherwise will unhide it.
 	Enabled bool
 }
 
@@ -198,8 +199,10 @@ func (t *ChannelsToggleParticipantsHiddenRequest) GetChannelAsNotEmpty() (NotEmp
 }
 
 // ChannelsToggleParticipantsHidden invokes method channels.toggleParticipantsHidden#6a6e7854 returning error if any.
+// Hide or display the participants list in a supergroup
 //
 // See https://core.telegram.org/method/channels.toggleParticipantsHidden for reference.
+// Can be used by bots.
 func (c *Client) ChannelsToggleParticipantsHidden(ctx context.Context, request *ChannelsToggleParticipantsHiddenRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

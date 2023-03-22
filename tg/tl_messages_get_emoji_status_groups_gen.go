@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/method/messages.getEmojiStatusGroups for reference.
 type MessagesGetEmojiStatusGroupsRequest struct {
-	// Hash field of MessagesGetEmojiStatusGroupsRequest.
+	//
 	Hash int
 }
 
@@ -163,6 +163,7 @@ func (g *MessagesGetEmojiStatusGroupsRequest) GetHash() (value int) {
 // MessagesGetEmojiStatusGroups invokes method messages.getEmojiStatusGroups#2ecd56cd returning error if any.
 //
 // See https://core.telegram.org/method/messages.getEmojiStatusGroups for reference.
+// Can be used by bots.
 func (c *Client) MessagesGetEmojiStatusGroups(ctx context.Context, hash int) (MessagesEmojiGroupsClass, error) {
 	var result MessagesEmojiGroupsBox
 

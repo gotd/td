@@ -50,7 +50,7 @@ type MessagesSaveDraftRequest struct {
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	// TopMsgID field of MessagesSaveDraftRequest.
+	//
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

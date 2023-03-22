@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/method/stickers.deleteStickerSet for reference.
 type StickersDeleteStickerSetRequest struct {
-	// Stickerset field of StickersDeleteStickerSetRequest.
+	//
 	Stickerset InputStickerSetClass
 }
 
@@ -168,6 +168,7 @@ func (d *StickersDeleteStickerSetRequest) GetStickerset() (value InputStickerSet
 // StickersDeleteStickerSet invokes method stickers.deleteStickerSet#87704394 returning error if any.
 //
 // See https://core.telegram.org/method/stickers.deleteStickerSet for reference.
+// Can be used by bots.
 func (c *Client) StickersDeleteStickerSet(ctx context.Context, stickerset InputStickerSetClass) (bool, error) {
 	var result BoolBox
 

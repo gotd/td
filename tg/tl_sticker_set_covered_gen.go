@@ -398,7 +398,7 @@ type StickerSetFullCovered struct {
 	Set StickerSet
 	// Emoji information about every sticker in the stickerset
 	Packs []StickerPack
-	// Keywords field of StickerSetFullCovered.
+	//
 	Keywords []StickerKeyword
 	// Stickers
 	Documents []DocumentClass
@@ -662,7 +662,7 @@ func (s *StickerSetFullCovered) MapDocuments() (value DocumentClassArray) {
 //
 // See https://core.telegram.org/constructor/stickerSetNoCovered for reference.
 type StickerSetNoCovered struct {
-	// Set field of StickerSetNoCovered.
+	//
 	Set StickerSet
 }
 

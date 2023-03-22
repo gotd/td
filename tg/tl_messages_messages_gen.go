@@ -760,7 +760,7 @@ type MessagesChannelMessages struct {
 	OffsetIDOffset int
 	// Found messages
 	Messages []MessageClass
-	// Topics field of MessagesChannelMessages.
+	//
 	Topics []ForumTopicClass
 	// Chats
 	Chats []ChatClass

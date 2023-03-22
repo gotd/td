@@ -216,9 +216,10 @@ func (e *ChannelsEditPhotoRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel,
 //
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 CHAT_NOT_MODIFIED: The pinned message wasn't modified.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
+//	400 FILE_PARTS_INVALID: The number of file parts is invalid.
 //	400 FILE_REFERENCE_INVALID: The specified file reference is invalid.
 //	400 PHOTO_CROP_SIZE_SMALL: Photo is too small.
 //	400 PHOTO_EXT_INVALID: The extension of the photo is invalid.

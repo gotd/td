@@ -32,24 +32,43 @@ var (
 )
 
 // ChannelsGetForumTopicsRequest represents TL type `channels.getForumTopics#de560d1`.
+// Get topics of a forum¹
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
 //
 // See https://core.telegram.org/method/channels.getForumTopics for reference.
 type ChannelsGetForumTopicsRequest struct {
-	// Flags field of ChannelsGetForumTopicsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Channel field of ChannelsGetForumTopicsRequest.
+	// Supergroup
 	Channel InputChannelClass
-	// Q field of ChannelsGetForumTopicsRequest.
+	// Search query
 	//
 	// Use SetQ and GetQ helpers.
 	Q string
-	// OffsetDate field of ChannelsGetForumTopicsRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetDate int
-	// OffsetID field of ChannelsGetForumTopicsRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetID int
-	// OffsetTopic field of ChannelsGetForumTopicsRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetTopic int
-	// Limit field of ChannelsGetForumTopicsRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -345,8 +364,18 @@ func (g *ChannelsGetForumTopicsRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 }
 
 // ChannelsGetForumTopics invokes method channels.getForumTopics#de560d1 returning error if any.
+// Get topics of a forum¹
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
+//
+// Possible errors:
+//
+//	400 CHANNEL_FORUM_MISSING: This supergroup is not a forum.
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.getForumTopics for reference.
+// Can be used by bots.
 func (c *Client) ChannelsGetForumTopics(ctx context.Context, request *ChannelsGetForumTopicsRequest) (*MessagesForumTopics, error) {
 	var result MessagesForumTopics
 

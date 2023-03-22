@@ -36,13 +36,21 @@ var (
 //
 // See https://core.telegram.org/method/messages.createChat for reference.
 type MessagesCreateChatRequest struct {
-	// Flags field of MessagesCreateChatRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// List of user IDs to be invited
 	Users []InputUserClass
 	// Chat name
 	Title string
-	// TTLPeriod field of MessagesCreateChatRequest.
+	// Time-to-live of all messages that will be sent in the chat: once message.date+message
+	// ttl_period === time(), the message will be deleted on the server, and must be deleted
+	// locally as well. You can use messages.setDefaultHistoryTTL¹ to edit this value later.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.setDefaultHistoryTTL
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
 	TTLPeriod int
@@ -287,7 +295,7 @@ func (c *MessagesCreateChatRequest) MapUsers() (value InputUserClassArray) {
 //	400 CHAT_TITLE_EMPTY: No chat title provided.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //	400 USERS_TOO_FEW: Not enough users (to create a chat, for example).
-//	403 USER_RESTRICTED: You're spamreported, you can't create channels or chats.
+//	406 USER_RESTRICTED: You're spamreported, you can't create channels or chats.
 //
 // See https://core.telegram.org/method/messages.createChat for reference.
 func (c *Client) MessagesCreateChat(ctx context.Context, request *MessagesCreateChatRequest) (UpdatesClass, error) {

@@ -305,8 +305,8 @@ func (g *ChannelsGetParticipantsRequest) GetChannelAsNotEmpty() (NotEmptyInputCh
 // Possible errors:
 //
 //	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //
 // See https://core.telegram.org/method/channels.getParticipants for reference.
 // Can be used by bots.

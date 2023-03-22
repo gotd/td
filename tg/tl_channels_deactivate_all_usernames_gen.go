@@ -32,10 +32,11 @@ var (
 )
 
 // ChannelsDeactivateAllUsernamesRequest represents TL type `channels.deactivateAllUsernames#a245dd3`.
+// Disable all purchased usernames of a supergroup or channel
 //
 // See https://core.telegram.org/method/channels.deactivateAllUsernames for reference.
 type ChannelsDeactivateAllUsernamesRequest struct {
-	// Channel field of ChannelsDeactivateAllUsernamesRequest.
+	// Supergroup or channel
 	Channel InputChannelClass
 }
 
@@ -171,8 +172,10 @@ func (d *ChannelsDeactivateAllUsernamesRequest) GetChannelAsNotEmpty() (NotEmpty
 }
 
 // ChannelsDeactivateAllUsernames invokes method channels.deactivateAllUsernames#a245dd3 returning error if any.
+// Disable all purchased usernames of a supergroup or channel
 //
 // See https://core.telegram.org/method/channels.deactivateAllUsernames for reference.
+// Can be used by bots.
 func (c *Client) ChannelsDeactivateAllUsernames(ctx context.Context, channel InputChannelClass) (bool, error) {
 	var result BoolBox
 

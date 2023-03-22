@@ -202,6 +202,11 @@ func (t *MessagesToggleNoForwardsRequest) GetEnabled() (value bool) {
 // Links:
 //  1. https://telegram.org/blog/protected-content-delete-by-date-and-more
 //
+// Possible errors:
+//
+//	400 CHAT_NOT_MODIFIED: The pinned message wasn't modified.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/messages.toggleNoForwards for reference.
 func (c *Client) MessagesToggleNoForwards(ctx context.Context, request *MessagesToggleNoForwardsRequest) (UpdatesClass, error) {
 	var result UpdatesBox

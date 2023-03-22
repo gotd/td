@@ -32,10 +32,14 @@ var (
 )
 
 // BotsGetBotInfoRequest represents TL type `bots.getBotInfo#75ec12e6`.
+// Get our about text and description (bots only)
+// Returns a vector of strings: the first string will be the about text, the second
+// string will be the description.
 //
 // See https://core.telegram.org/method/bots.getBotInfo for reference.
 type BotsGetBotInfoRequest struct {
-	// LangCode field of BotsGetBotInfoRequest.
+	// Language code, if left empty this method will return the fallback about text and
+	// description.
 	LangCode string
 }
 
@@ -161,8 +165,17 @@ func (g *BotsGetBotInfoRequest) GetLangCode() (value string) {
 }
 
 // BotsGetBotInfo invokes method bots.getBotInfo#75ec12e6 returning error if any.
+// Get our about text and description (bots only)
+// Returns a vector of strings: the first string will be the about text, the second
+// string will be the description.
+//
+// Possible errors:
+//
+//	400 LANG_CODE_INVALID: The specified language code is invalid.
+//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/bots.getBotInfo for reference.
+// Can be used by bots.
 func (c *Client) BotsGetBotInfo(ctx context.Context, langcode string) ([]string, error) {
 	var result StringVector
 

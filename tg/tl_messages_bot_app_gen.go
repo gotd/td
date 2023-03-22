@@ -35,13 +35,16 @@ var (
 //
 // See https://core.telegram.org/constructor/messages.botApp for reference.
 type MessagesBotApp struct {
-	// Flags field of MessagesBotApp.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Inactive field of MessagesBotApp.
+	//
 	Inactive bool
-	// RequestWriteAccess field of MessagesBotApp.
+	//
 	RequestWriteAccess bool
-	// App field of MessagesBotApp.
+	//
 	App BotAppClass
 }
 

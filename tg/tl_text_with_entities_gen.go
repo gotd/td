@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/constructor/textWithEntities for reference.
 type TextWithEntities struct {
-	// Text field of TextWithEntities.
+	//
 	Text string
-	// Entities field of TextWithEntities.
+	//
 	Entities []MessageEntityClass
 }
 

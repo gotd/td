@@ -136,9 +136,9 @@ func (e *EmojiListNotModified) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/emojiList for reference.
 type EmojiList struct {
-	// Hash field of EmojiList.
+	//
 	Hash int64
-	// DocumentID field of EmojiList.
+	//
 	DocumentID []int64
 }
 

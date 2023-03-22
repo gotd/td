@@ -398,7 +398,9 @@ func (g *MessagesGetDialogsRequest) GetHash() (value int64) {
 //
 // Possible errors:
 //
+//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 FOLDER_ID_INVALID: Invalid folder ID.
+//	500 NEED_DOC_INVALID:
 //	400 OFFSET_PEER_ID_INVALID: The provided offset peer is invalid.
 //
 // See https://core.telegram.org/method/messages.getDialogs for reference.
