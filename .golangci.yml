@@ -1,4 +1,9 @@
 linters-settings:
+  revive:
+    rules:
+      - name: unused-parameter
+        severity: warning
+        disabled: true
   govet:
     check-shadowing: true
   gocyclo:
