@@ -196,6 +196,10 @@ func (g *AccountGetMultiWallPapersRequest) MapWallpapers() (value InputWallPaper
 // Links:
 //  1. https://core.telegram.org/api/wallpapers
 //
+// Possible errors:
+//
+//	400 WALLPAPER_INVALID: The specified wallpaper is invalid.
+//
 // See https://core.telegram.org/method/account.getMultiWallPapers for reference.
 func (c *Client) AccountGetMultiWallPapers(ctx context.Context, wallpapers []InputWallPaperClass) ([]WallPaperClass, error) {
 	var result WallPaperClassVector

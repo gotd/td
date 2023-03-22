@@ -35,11 +35,11 @@ var (
 //
 // See https://core.telegram.org/method/auth.importWebTokenAuthorization for reference.
 type AuthImportWebTokenAuthorizationRequest struct {
-	// APIID field of AuthImportWebTokenAuthorizationRequest.
+	//
 	APIID int
-	// APIHash field of AuthImportWebTokenAuthorizationRequest.
+	//
 	APIHash string
-	// WebAuthToken field of AuthImportWebTokenAuthorizationRequest.
+	//
 	WebAuthToken string
 }
 
@@ -217,6 +217,7 @@ func (i *AuthImportWebTokenAuthorizationRequest) GetWebAuthToken() (value string
 // AuthImportWebTokenAuthorization invokes method auth.importWebTokenAuthorization#2db873a9 returning error if any.
 //
 // See https://core.telegram.org/method/auth.importWebTokenAuthorization for reference.
+// Can be used by bots.
 func (c *Client) AuthImportWebTokenAuthorization(ctx context.Context, request *AuthImportWebTokenAuthorizationRequest) (AuthAuthorizationClass, error) {
 	var result AuthAuthorizationBox
 

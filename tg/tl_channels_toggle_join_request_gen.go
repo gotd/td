@@ -207,6 +207,12 @@ func (t *ChannelsToggleJoinRequestRequest) GetChannelAsNotEmpty() (NotEmptyInput
 // Links:
 //  1. https://core.telegram.org/api/invites#join-requests
 //
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 CHAT_ID_INVALID: The provided chat id is invalid.
+//	400 CHAT_PUBLIC_REQUIRED:
+//
 // See https://core.telegram.org/method/channels.toggleJoinRequest for reference.
 func (c *Client) ChannelsToggleJoinRequest(ctx context.Context, request *ChannelsToggleJoinRequestRequest) (UpdatesClass, error) {
 	var result UpdatesBox

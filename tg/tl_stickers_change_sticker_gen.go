@@ -35,19 +35,22 @@ var (
 //
 // See https://core.telegram.org/method/stickers.changeSticker for reference.
 type StickersChangeStickerRequest struct {
-	// Flags field of StickersChangeStickerRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Sticker field of StickersChangeStickerRequest.
+	//
 	Sticker InputDocumentClass
-	// Emoji field of StickersChangeStickerRequest.
+	//
 	//
 	// Use SetEmoji and GetEmoji helpers.
 	Emoji string
-	// MaskCoords field of StickersChangeStickerRequest.
+	//
 	//
 	// Use SetMaskCoords and GetMaskCoords helpers.
 	MaskCoords MaskCoords
-	// Keywords field of StickersChangeStickerRequest.
+	//
 	//
 	// Use SetKeywords and GetKeywords helpers.
 	Keywords string
@@ -335,6 +338,7 @@ func (c *StickersChangeStickerRequest) GetStickerAsNotEmpty() (*InputDocument, b
 // StickersChangeSticker invokes method stickers.changeSticker#f5537ebc returning error if any.
 //
 // See https://core.telegram.org/method/stickers.changeSticker for reference.
+// Can be used by bots.
 func (c *Client) StickersChangeSticker(ctx context.Context, request *StickersChangeStickerRequest) (MessagesStickerSetClass, error) {
 	var result MessagesStickerSetBox
 

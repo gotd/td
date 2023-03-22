@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/constructor/stickerKeyword for reference.
 type StickerKeyword struct {
-	// DocumentID field of StickerKeyword.
+	//
 	DocumentID int64
-	// Keyword field of StickerKeyword.
+	//
 	Keyword []string
 }
 

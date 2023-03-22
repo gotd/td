@@ -158,7 +158,7 @@ type InputChatUploadedPhoto struct {
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
 	VideoStartTs float64
-	// VideoEmojiMarkup field of InputChatUploadedPhoto.
+	//
 	//
 	// Use SetVideoEmojiMarkup and GetVideoEmojiMarkup helpers.
 	VideoEmojiMarkup VideoSizeClass

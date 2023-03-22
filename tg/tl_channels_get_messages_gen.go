@@ -233,9 +233,10 @@ func (g *ChannelsGetMessagesRequest) MapID() (value InputMessageClassArray) {
 // Possible errors:
 //
 //	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 MESSAGE_IDS_EMPTY: No message ids were provided.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
+//	500 NEED_DOC_INVALID:
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
 //
 // See https://core.telegram.org/method/channels.getMessages for reference.

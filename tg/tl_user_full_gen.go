@@ -59,7 +59,7 @@ type UserFull struct {
 	VideoCallsAvailable bool
 	// Whether this user doesn't allow sending voice messages in a private chat with them
 	VoiceMessagesForbidden bool
-	// TranslationsDisabled field of UserFull.
+	//
 	TranslationsDisabled bool
 	// User ID
 	ID int64
@@ -69,7 +69,7 @@ type UserFull struct {
 	About string
 	// Peer settings
 	Settings PeerSettings
-	// PersonalPhoto field of UserFull.
+	//
 	//
 	// Use SetPersonalPhoto and GetPersonalPhoto helpers.
 	PersonalPhoto PhotoClass
@@ -77,7 +77,7 @@ type UserFull struct {
 	//
 	// Use SetProfilePhoto and GetProfilePhoto helpers.
 	ProfilePhoto PhotoClass
-	// FallbackPhoto field of UserFull.
+	//
 	//
 	// Use SetFallbackPhoto and GetFallbackPhoto helpers.
 	FallbackPhoto PhotoClass

@@ -32,6 +32,10 @@ var (
 )
 
 // ContactsExportContactTokenRequest represents TL type `contacts.exportContactToken#f8654027`.
+// Generates a temporary profile link¹ for the currently logged-in user.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#temporary-profile-links
 //
 // See https://core.telegram.org/method/contacts.exportContactToken for reference.
 type ContactsExportContactTokenRequest struct {
@@ -128,8 +132,13 @@ func (e *ContactsExportContactTokenRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // ContactsExportContactToken invokes method contacts.exportContactToken#f8654027 returning error if any.
+// Generates a temporary profile link¹ for the currently logged-in user.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#temporary-profile-links
 //
 // See https://core.telegram.org/method/contacts.exportContactToken for reference.
+// Can be used by bots.
 func (c *Client) ContactsExportContactToken(ctx context.Context) (*ExportedContactToken, error) {
 	var result ExportedContactToken
 

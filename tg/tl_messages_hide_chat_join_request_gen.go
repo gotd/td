@@ -271,7 +271,12 @@ func (h *MessagesHideChatJoinRequestRequest) GetUserID() (value InputUserClass) 
 //
 // Possible errors:
 //
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	400 HIDE_REQUESTER_MISSING: The join request was missing or was already handled.
+//	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 USER_ALREADY_PARTICIPANT: The user is already in the group.
+//	403 USER_CHANNELS_TOO_MUCH: One of the users you tried to add is already in too many channels/supergroups.
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/messages.hideChatJoinRequest for reference.

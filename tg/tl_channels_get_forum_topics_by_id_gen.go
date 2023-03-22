@@ -32,12 +32,13 @@ var (
 )
 
 // ChannelsGetForumTopicsByIDRequest represents TL type `channels.getForumTopicsByID#b0831eb9`.
+// Get forum topics by their ID
 //
 // See https://core.telegram.org/method/channels.getForumTopicsByID for reference.
 type ChannelsGetForumTopicsByIDRequest struct {
-	// Channel field of ChannelsGetForumTopicsByIDRequest.
+	// Forum
 	Channel InputChannelClass
-	// Topics field of ChannelsGetForumTopicsByIDRequest.
+	// Topic IDs
 	Topics []int
 }
 
@@ -211,8 +212,10 @@ func (g *ChannelsGetForumTopicsByIDRequest) GetChannelAsNotEmpty() (NotEmptyInpu
 }
 
 // ChannelsGetForumTopicsByID invokes method channels.getForumTopicsByID#b0831eb9 returning error if any.
+// Get forum topics by their ID
 //
 // See https://core.telegram.org/method/channels.getForumTopicsByID for reference.
+// Can be used by bots.
 func (c *Client) ChannelsGetForumTopicsByID(ctx context.Context, request *ChannelsGetForumTopicsByIDRequest) (*MessagesForumTopics, error) {
 	var result MessagesForumTopics
 

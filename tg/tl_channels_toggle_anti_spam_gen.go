@@ -32,12 +32,16 @@ var (
 )
 
 // ChannelsToggleAntiSpamRequest represents TL type `channels.toggleAntiSpam#68f3e4eb`.
+// Enable or disable the native antispam system¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/antispam
 //
 // See https://core.telegram.org/method/channels.toggleAntiSpam for reference.
 type ChannelsToggleAntiSpamRequest struct {
-	// Channel field of ChannelsToggleAntiSpamRequest.
+	// Supergroup ID
 	Channel InputChannelClass
-	// Enabled field of ChannelsToggleAntiSpamRequest.
+	// Enable or disable the native antispam system.
 	Enabled bool
 }
 
@@ -198,8 +202,13 @@ func (t *ChannelsToggleAntiSpamRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 }
 
 // ChannelsToggleAntiSpam invokes method channels.toggleAntiSpam#68f3e4eb returning error if any.
+// Enable or disable the native antispam system¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/antispam
 //
 // See https://core.telegram.org/method/channels.toggleAntiSpam for reference.
+// Can be used by bots.
 func (c *Client) ChannelsToggleAntiSpam(ctx context.Context, request *ChannelsToggleAntiSpamRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

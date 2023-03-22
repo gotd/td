@@ -32,12 +32,17 @@ var (
 )
 
 // AccountToggleUsernameRequest represents TL type `account.toggleUsername#58d6b376`.
+// Associate or dissociate a purchased fragment.com¹ username to the currently logged-in
+// user.
+//
+// Links:
+//  1. https://fragment.com
 //
 // See https://core.telegram.org/method/account.toggleUsername for reference.
 type AccountToggleUsernameRequest struct {
-	// Username field of AccountToggleUsernameRequest.
+	// Username
 	Username string
-	// Active field of AccountToggleUsernameRequest.
+	// Whether to associate or dissociate it
 	Active bool
 }
 
@@ -188,8 +193,14 @@ func (t *AccountToggleUsernameRequest) GetActive() (value bool) {
 }
 
 // AccountToggleUsername invokes method account.toggleUsername#58d6b376 returning error if any.
+// Associate or dissociate a purchased fragment.com¹ username to the currently logged-in
+// user.
+//
+// Links:
+//  1. https://fragment.com
 //
 // See https://core.telegram.org/method/account.toggleUsername for reference.
+// Can be used by bots.
 func (c *Client) AccountToggleUsername(ctx context.Context, request *AccountToggleUsernameRequest) (bool, error) {
 	var result BoolBox
 

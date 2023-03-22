@@ -186,7 +186,7 @@ func (l *ChannelsLeaveChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChann
 // Possible errors:
 //
 //	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	403 CHANNEL_PUBLIC_GROUP_NA: channel/supergroup not available.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.

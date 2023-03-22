@@ -41,11 +41,11 @@ type PremiumSubscriptionOption struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Current field of PremiumSubscriptionOption.
+	//
 	Current bool
-	// CanPurchaseUpgrade field of PremiumSubscriptionOption.
+	//
 	CanPurchaseUpgrade bool
-	// Transaction field of PremiumSubscriptionOption.
+	//
 	//
 	// Use SetTransaction and GetTransaction helpers.
 	Transaction string

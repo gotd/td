@@ -32,14 +32,21 @@ var (
 )
 
 // ChannelsUpdatePinnedForumTopicRequest represents TL type `channels.updatePinnedForumTopic#6c2d9026`.
+// Pin or unpin forum topics¹
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
 //
 // See https://core.telegram.org/method/channels.updatePinnedForumTopic for reference.
 type ChannelsUpdatePinnedForumTopicRequest struct {
-	// Channel field of ChannelsUpdatePinnedForumTopicRequest.
+	// Supergroup ID
 	Channel InputChannelClass
-	// TopicID field of ChannelsUpdatePinnedForumTopicRequest.
+	// Forum topic ID¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum
 	TopicID int
-	// Pinned field of ChannelsUpdatePinnedForumTopicRequest.
+	// Whether to pin or unpin the topic
 	Pinned bool
 }
 
@@ -225,8 +232,13 @@ func (u *ChannelsUpdatePinnedForumTopicRequest) GetChannelAsNotEmpty() (NotEmpty
 }
 
 // ChannelsUpdatePinnedForumTopic invokes method channels.updatePinnedForumTopic#6c2d9026 returning error if any.
+// Pin or unpin forum topics¹
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
 //
 // See https://core.telegram.org/method/channels.updatePinnedForumTopic for reference.
+// Can be used by bots.
 func (c *Client) ChannelsUpdatePinnedForumTopic(ctx context.Context, request *ChannelsUpdatePinnedForumTopicRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

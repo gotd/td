@@ -170,6 +170,7 @@ func (c *MessagesCheckChatInviteRequest) GetHash() (value string) {
 // Possible errors:
 //
 //	406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	500 CHAT_MEMBERS_CHANNEL:
 //	400 INVITE_HASH_EMPTY: The invite hash is empty.
 //	406 INVITE_HASH_EXPIRED: The invite link has expired.
 //	400 INVITE_HASH_INVALID: The invite hash is invalid.

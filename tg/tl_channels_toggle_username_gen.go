@@ -32,14 +32,23 @@ var (
 )
 
 // ChannelsToggleUsernameRequest represents TL type `channels.toggleUsername#50f24105`.
+// Associate or dissociate a purchased fragment.com¹ username to a supergroup or
+// channel².
+//
+// Links:
+//  1. https://fragment.com
+//  2. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.toggleUsername for reference.
 type ChannelsToggleUsernameRequest struct {
-	// Channel field of ChannelsToggleUsernameRequest.
+	// Supergroup or channel¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Channel InputChannelClass
-	// Username field of ChannelsToggleUsernameRequest.
+	// Username
 	Username string
-	// Active field of ChannelsToggleUsernameRequest.
+	// Whether to associate or dissociate the username
 	Active bool
 }
 
@@ -225,8 +234,15 @@ func (t *ChannelsToggleUsernameRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 }
 
 // ChannelsToggleUsername invokes method channels.toggleUsername#50f24105 returning error if any.
+// Associate or dissociate a purchased fragment.com¹ username to a supergroup or
+// channel².
+//
+// Links:
+//  1. https://fragment.com
+//  2. https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.toggleUsername for reference.
+// Can be used by bots.
 func (c *Client) ChannelsToggleUsername(ctx context.Context, request *ChannelsToggleUsernameRequest) (bool, error) {
 	var result BoolBox
 

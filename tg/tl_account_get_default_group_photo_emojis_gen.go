@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/method/account.getDefaultGroupPhotoEmojis for reference.
 type AccountGetDefaultGroupPhotoEmojisRequest struct {
-	// Hash field of AccountGetDefaultGroupPhotoEmojisRequest.
+	//
 	Hash int64
 }
 
@@ -163,6 +163,7 @@ func (g *AccountGetDefaultGroupPhotoEmojisRequest) GetHash() (value int64) {
 // AccountGetDefaultGroupPhotoEmojis invokes method account.getDefaultGroupPhotoEmojis#915860ae returning error if any.
 //
 // See https://core.telegram.org/method/account.getDefaultGroupPhotoEmojis for reference.
+// Can be used by bots.
 func (c *Client) AccountGetDefaultGroupPhotoEmojis(ctx context.Context, hash int64) (EmojiListClass, error) {
 	var result EmojiListBox
 

@@ -177,6 +177,7 @@ func (s *BotsSetBotGroupDefaultAdminRightsRequest) GetAdminRights() (value ChatA
 // Possible errors:
 //
 //	400 RIGHTS_NOT_MODIFIED: The new admin rights are equal to the old rights, no change was made.
+//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/bots.setBotGroupDefaultAdminRights for reference.
 // Can be used by bots.

@@ -35,13 +35,16 @@ var (
 //
 // See https://core.telegram.org/constructor/username for reference.
 type Username struct {
-	// Flags field of Username.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Editable field of Username.
+	//
 	Editable bool
-	// Active field of Username.
+	//
 	Active bool
-	// Username field of Username.
+	//
 	Username string
 }
 

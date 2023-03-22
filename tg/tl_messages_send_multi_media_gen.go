@@ -70,7 +70,7 @@ type MessagesSendMultiMediaRequest struct {
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	// TopMsgID field of MessagesSendMultiMediaRequest.
+	//
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
@@ -629,6 +629,7 @@ func (s *MessagesSendMultiMediaRequest) GetSendAs() (value InputPeerClass, ok bo
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 CHAT_FORWARDS_RESTRICTED: You can't forward messages from a protected chat.
+//	403 CHAT_SEND_MEDIA_FORBIDDEN: You can't send media in this chat.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
 //	400 MEDIA_CAPTION_TOO_LONG: The caption is too long.
@@ -642,6 +643,8 @@ func (s *MessagesSendMultiMediaRequest) GetSendAs() (value InputPeerClass, ok bo
 //	400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
 //	400 SEND_AS_PEER_INVALID: You can't send messages as the specified peer.
 //	420 SLOWMODE_WAIT_%d: Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
+//	400 TOPIC_DELETED: The specified topic was deleted.
+//	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
 //
 // See https://core.telegram.org/method/messages.sendMultiMedia for reference.
 // Can be used by bots.

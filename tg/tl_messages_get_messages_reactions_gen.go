@@ -215,6 +215,10 @@ func (g *MessagesGetMessagesReactionsRequest) GetID() (value []int) {
 // Links:
 //  1. https://core.telegram.org/api/reactions
 //
+// Possible errors:
+//
+//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//
 // See https://core.telegram.org/method/messages.getMessagesReactions for reference.
 func (c *Client) MessagesGetMessagesReactions(ctx context.Context, request *MessagesGetMessagesReactionsRequest) (UpdatesClass, error) {
 	var result UpdatesBox

@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/constructor/autoSaveException for reference.
 type AutoSaveException struct {
-	// Peer field of AutoSaveException.
+	//
 	Peer PeerClass
-	// Settings field of AutoSaveException.
+	//
 	Settings AutoSaveSettings
 }
 

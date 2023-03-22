@@ -60,7 +60,10 @@ type ChannelsCreateChannelRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/method/messages.initHistoryImport
 	ForImport bool
-	// Forum field of ChannelsCreateChannelRequest.
+	// Whether to create a forum¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum
 	Forum bool
 	// Channel title
 	Title string
@@ -74,7 +77,13 @@ type ChannelsCreateChannelRequest struct {
 	//
 	// Use SetAddress and GetAddress helpers.
 	Address string
-	// TTLPeriod field of ChannelsCreateChannelRequest.
+	// Time-to-live of all messages that will be sent in the supergroup: once message
+	// date+message.ttl_period === time(), the message will be deleted on the server, and
+	// must be deleted locally as well. You can use messages.setDefaultHistoryTTL¹ to edit
+	// this value later.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.setDefaultHistoryTTL
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
 	TTLPeriod int

@@ -32,16 +32,23 @@ var (
 )
 
 // ChannelsReorderPinnedForumTopicsRequest represents TL type `channels.reorderPinnedForumTopics#2950a18f`.
+// Reorder pinned forum topics
 //
 // See https://core.telegram.org/method/channels.reorderPinnedForumTopics for reference.
 type ChannelsReorderPinnedForumTopicsRequest struct {
-	// Flags field of ChannelsReorderPinnedForumTopicsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Force field of ChannelsReorderPinnedForumTopicsRequest.
+	// If set, topics pinned server-side but not present in the order field will be unpinned.
 	Force bool
-	// Channel field of ChannelsReorderPinnedForumTopicsRequest.
+	// Supergroup ID
 	Channel InputChannelClass
-	// Order field of ChannelsReorderPinnedForumTopicsRequest.
+	// Topic IDs »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum
 	Order []int
 }
 
@@ -264,8 +271,10 @@ func (r *ChannelsReorderPinnedForumTopicsRequest) GetChannelAsNotEmpty() (NotEmp
 }
 
 // ChannelsReorderPinnedForumTopics invokes method channels.reorderPinnedForumTopics#2950a18f returning error if any.
+// Reorder pinned forum topics
 //
 // See https://core.telegram.org/method/channels.reorderPinnedForumTopics for reference.
+// Can be used by bots.
 func (c *Client) ChannelsReorderPinnedForumTopics(ctx context.Context, request *ChannelsReorderPinnedForumTopicsRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

@@ -35,17 +35,20 @@ var (
 //
 // See https://core.telegram.org/method/auth.requestFirebaseSms for reference.
 type AuthRequestFirebaseSMSRequest struct {
-	// Flags field of AuthRequestFirebaseSMSRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// PhoneNumber field of AuthRequestFirebaseSMSRequest.
+	//
 	PhoneNumber string
-	// PhoneCodeHash field of AuthRequestFirebaseSMSRequest.
+	//
 	PhoneCodeHash string
-	// SafetyNetToken field of AuthRequestFirebaseSMSRequest.
+	//
 	//
 	// Use SetSafetyNetToken and GetSafetyNetToken helpers.
 	SafetyNetToken string
-	// IosPushSecret field of AuthRequestFirebaseSMSRequest.
+	//
 	//
 	// Use SetIosPushSecret and GetIosPushSecret helpers.
 	IosPushSecret string
@@ -304,6 +307,7 @@ func (r *AuthRequestFirebaseSMSRequest) GetIosPushSecret() (value string, ok boo
 // AuthRequestFirebaseSMS invokes method auth.requestFirebaseSms#89464b50 returning error if any.
 //
 // See https://core.telegram.org/method/auth.requestFirebaseSms for reference.
+// Can be used by bots.
 func (c *Client) AuthRequestFirebaseSMS(ctx context.Context, request *AuthRequestFirebaseSMSRequest) (bool, error) {
 	var result BoolBox
 

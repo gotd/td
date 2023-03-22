@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/method/messages.getBotApp for reference.
 type MessagesGetBotAppRequest struct {
-	// App field of MessagesGetBotAppRequest.
+	//
 	App InputBotAppClass
-	// Hash field of MessagesGetBotAppRequest.
+	//
 	Hash int64
 }
 
@@ -195,6 +195,7 @@ func (g *MessagesGetBotAppRequest) GetHash() (value int64) {
 // MessagesGetBotApp invokes method messages.getBotApp#34fdc5c3 returning error if any.
 //
 // See https://core.telegram.org/method/messages.getBotApp for reference.
+// Can be used by bots.
 func (c *Client) MessagesGetBotApp(ctx context.Context, request *MessagesGetBotAppRequest) (*MessagesBotApp, error) {
 	var result MessagesBotApp
 

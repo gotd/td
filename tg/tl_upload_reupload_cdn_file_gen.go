@@ -200,6 +200,7 @@ func (r *UploadReuploadCDNFileRequest) GetRequestToken() (value []byte) {
 // Possible errors:
 //
 //	500 CDN_UPLOAD_TIMEOUT: A server-side timeout occurred while reuploading the file to the CDN DC.
+//	400 FILE_TOKEN_INVALID: The specified file token is invalid.
 //	400 RSA_DECRYPT_FAILED: Internal RSA decryption failed.
 //
 // See https://core.telegram.org/method/upload.reuploadCdnFile for reference.

@@ -199,7 +199,7 @@ type Config struct {
 	//
 	// Use SetReactionsDefault and GetReactionsDefault helpers.
 	ReactionsDefault ReactionClass
-	// AutologinToken field of Config.
+	//
 	//
 	// Use SetAutologinToken and GetAutologinToken helpers.
 	AutologinToken string

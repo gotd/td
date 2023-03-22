@@ -194,6 +194,7 @@ func (g *ChannelsGetFullChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	403 CHANNEL_PUBLIC_GROUP_NA: channel/supergroup not available.
+//	500 CHAT_FROM_USERNAME_CHANGED:
 //	400 CHAT_NOT_MODIFIED: The pinned message wasn't modified.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //

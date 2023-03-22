@@ -35,23 +35,26 @@ var (
 //
 // See https://core.telegram.org/method/messages.requestAppWebView for reference.
 type MessagesRequestAppWebViewRequest struct {
-	// Flags field of MessagesRequestAppWebViewRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// WriteAllowed field of MessagesRequestAppWebViewRequest.
+	//
 	WriteAllowed bool
-	// Peer field of MessagesRequestAppWebViewRequest.
+	//
 	Peer InputPeerClass
-	// App field of MessagesRequestAppWebViewRequest.
+	//
 	App InputBotAppClass
-	// StartParam field of MessagesRequestAppWebViewRequest.
+	//
 	//
 	// Use SetStartParam and GetStartParam helpers.
 	StartParam string
-	// ThemeParams field of MessagesRequestAppWebViewRequest.
+	//
 	//
 	// Use SetThemeParams and GetThemeParams helpers.
 	ThemeParams DataJSON
-	// Platform field of MessagesRequestAppWebViewRequest.
+	//
 	Platform string
 }
 
@@ -376,6 +379,7 @@ func (r *MessagesRequestAppWebViewRequest) GetPlatform() (value string) {
 // MessagesRequestAppWebView invokes method messages.requestAppWebView#8c5a3b3c returning error if any.
 //
 // See https://core.telegram.org/method/messages.requestAppWebView for reference.
+// Can be used by bots.
 func (c *Client) MessagesRequestAppWebView(ctx context.Context, request *MessagesRequestAppWebViewRequest) (*AppWebViewResultURL, error) {
 	var result AppWebViewResultURL
 

@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/method/messages.searchCustomEmoji for reference.
 type MessagesSearchCustomEmojiRequest struct {
-	// Emoticon field of MessagesSearchCustomEmojiRequest.
+	//
 	Emoticon string
-	// Hash field of MessagesSearchCustomEmojiRequest.
+	//
 	Hash int64
 }
 
@@ -190,6 +190,7 @@ func (s *MessagesSearchCustomEmojiRequest) GetHash() (value int64) {
 // MessagesSearchCustomEmoji invokes method messages.searchCustomEmoji#2c11c0d7 returning error if any.
 //
 // See https://core.telegram.org/method/messages.searchCustomEmoji for reference.
+// Can be used by bots.
 func (c *Client) MessagesSearchCustomEmoji(ctx context.Context, request *MessagesSearchCustomEmojiRequest) (EmojiListClass, error) {
 	var result EmojiListBox
 

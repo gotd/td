@@ -35,11 +35,14 @@ var (
 //
 // See https://core.telegram.org/method/messages.togglePeerTranslations for reference.
 type MessagesTogglePeerTranslationsRequest struct {
-	// Flags field of MessagesTogglePeerTranslationsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Disabled field of MessagesTogglePeerTranslationsRequest.
+	//
 	Disabled bool
-	// Peer field of MessagesTogglePeerTranslationsRequest.
+	//
 	Peer InputPeerClass
 }
 
@@ -221,6 +224,7 @@ func (t *MessagesTogglePeerTranslationsRequest) GetPeer() (value InputPeerClass)
 // MessagesTogglePeerTranslations invokes method messages.togglePeerTranslations#e47cb579 returning error if any.
 //
 // See https://core.telegram.org/method/messages.togglePeerTranslations for reference.
+// Can be used by bots.
 func (c *Client) MessagesTogglePeerTranslations(ctx context.Context, request *MessagesTogglePeerTranslationsRequest) (bool, error) {
 	var result BoolBox
 

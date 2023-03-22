@@ -32,12 +32,13 @@ var (
 )
 
 // ChannelsReorderUsernamesRequest represents TL type `channels.reorderUsernames#b45ced1d`.
+// Reorder active usernames
 //
 // See https://core.telegram.org/method/channels.reorderUsernames for reference.
 type ChannelsReorderUsernamesRequest struct {
-	// Channel field of ChannelsReorderUsernamesRequest.
+	// The supergroup or channel
 	Channel InputChannelClass
-	// Order field of ChannelsReorderUsernamesRequest.
+	// The new order for active usernames. All active usernames must be specified.
 	Order []string
 }
 
@@ -211,8 +212,10 @@ func (r *ChannelsReorderUsernamesRequest) GetChannelAsNotEmpty() (NotEmptyInputC
 }
 
 // ChannelsReorderUsernames invokes method channels.reorderUsernames#b45ced1d returning error if any.
+// Reorder active usernames
 //
 // See https://core.telegram.org/method/channels.reorderUsernames for reference.
+// Can be used by bots.
 func (c *Client) ChannelsReorderUsernames(ctx context.Context, request *ChannelsReorderUsernamesRequest) (bool, error) {
 	var result BoolBox
 

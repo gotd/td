@@ -40,11 +40,14 @@ var (
 //
 // See https://core.telegram.org/method/messages.getSearchCounters for reference.
 type MessagesGetSearchCountersRequest struct {
-	// Flags field of MessagesGetSearchCountersRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Peer where to search
 	Peer InputPeerClass
-	// TopMsgID field of MessagesGetSearchCountersRequest.
+	//
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

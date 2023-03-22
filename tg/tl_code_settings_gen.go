@@ -66,7 +66,7 @@ type CodeSettings struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/auth.codeTypeMissedCall
 	AllowMissedCall bool
-	// AllowFirebase field of CodeSettings.
+	//
 	AllowFirebase bool
 	// Previously stored logout tokens, see the documentation for more info »¹
 	//
@@ -75,11 +75,11 @@ type CodeSettings struct {
 	//
 	// Use SetLogoutTokens and GetLogoutTokens helpers.
 	LogoutTokens [][]byte
-	// Token field of CodeSettings.
+	//
 	//
 	// Use SetToken and GetToken helpers.
 	Token string
-	// AppSandbox field of CodeSettings.
+	//
 	//
 	// Use SetAppSandbox and GetAppSandbox helpers.
 	AppSandbox bool

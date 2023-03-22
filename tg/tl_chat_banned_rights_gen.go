@@ -105,21 +105,21 @@ type ChatBannedRights struct {
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	PinMessages bool
-	// ManageTopics field of ChatBannedRights.
+	//
 	ManageTopics bool
-	// SendPhotos field of ChatBannedRights.
+	//
 	SendPhotos bool
-	// SendVideos field of ChatBannedRights.
+	//
 	SendVideos bool
-	// SendRoundvideos field of ChatBannedRights.
+	//
 	SendRoundvideos bool
-	// SendAudios field of ChatBannedRights.
+	//
 	SendAudios bool
-	// SendVoices field of ChatBannedRights.
+	//
 	SendVoices bool
-	// SendDocs field of ChatBannedRights.
+	//
 	SendDocs bool
-	// SendPlain field of ChatBannedRights.
+	//
 	SendPlain bool
 	// Validity of said permissions (it is considered forever any value less then 30 seconds
 	// or more then 366 days).

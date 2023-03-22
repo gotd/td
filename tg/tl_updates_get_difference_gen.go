@@ -316,10 +316,12 @@ func (g *UpdatesGetDifferenceRequest) GetQts() (value int) {
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 DATE_EMPTY: Date empty.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
+//	500 NEED_DOC_INVALID:
 //	400 PERSISTENT_TIMESTAMP_EMPTY: Persistent timestamp empty.
 //	400 PERSISTENT_TIMESTAMP_INVALID: Persistent timestamp invalid.
 //	500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
 //	400 USERNAME_INVALID: The provided username is not valid.
+//	400 USER_NOT_PARTICIPANT: You're not a member of this supergroup/channel.
 //
 // See https://core.telegram.org/method/updates.getDifference for reference.
 // Can be used by bots.

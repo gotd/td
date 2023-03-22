@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/constructor/appWebViewResultUrl for reference.
 type AppWebViewResultURL struct {
-	// URL field of AppWebViewResultURL.
+	//
 	URL string
 }
 

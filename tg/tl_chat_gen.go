@@ -1071,9 +1071,9 @@ type Channel struct {
 	//  1) https://core.telegram.org/api/invites#join-requests
 	//  2) https://core.telegram.org/method/channels.toggleJoinRequest
 	JoinRequest bool
-	// Forum field of Channel.
+	//
 	Forum bool
-	// Flags2 field of Channel.
+	//
 	Flags2 bin.Fields
 	// ID of the channel
 	ID int64
@@ -1121,7 +1121,7 @@ type Channel struct {
 	//
 	// Use SetParticipantsCount and GetParticipantsCount helpers.
 	ParticipantsCount int
-	// Usernames field of Channel.
+	//
 	//
 	// Use SetUsernames and GetUsernames helpers.
 	Usernames []Username

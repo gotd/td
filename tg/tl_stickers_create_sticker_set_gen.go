@@ -47,9 +47,9 @@ type StickersCreateStickerSetRequest struct {
 	Animated bool
 	// Whether this is a video stickerset
 	Videos bool
-	// Emojis field of StickersCreateStickerSetRequest.
+	//
 	Emojis bool
-	// TextColor field of StickersCreateStickerSetRequest.
+	//
 	TextColor bool
 	// Stickerset owner
 	UserID InputUserClass

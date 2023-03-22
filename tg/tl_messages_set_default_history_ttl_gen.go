@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/method/messages.setDefaultHistoryTTL for reference.
 type MessagesSetDefaultHistoryTTLRequest struct {
-	// Period field of MessagesSetDefaultHistoryTTLRequest.
+	//
 	Period int
 }
 
@@ -163,6 +163,7 @@ func (s *MessagesSetDefaultHistoryTTLRequest) GetPeriod() (value int) {
 // MessagesSetDefaultHistoryTTL invokes method messages.setDefaultHistoryTTL#9eb51445 returning error if any.
 //
 // See https://core.telegram.org/method/messages.setDefaultHistoryTTL for reference.
+// Can be used by bots.
 func (c *Client) MessagesSetDefaultHistoryTTL(ctx context.Context, period int) (bool, error) {
 	var result BoolBox
 

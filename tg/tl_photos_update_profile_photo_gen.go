@@ -36,9 +36,12 @@ var (
 //
 // See https://core.telegram.org/method/photos.updateProfilePhoto for reference.
 type PhotosUpdateProfilePhotoRequest struct {
-	// Flags field of PhotosUpdateProfilePhotoRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Fallback field of PhotosUpdateProfilePhotoRequest.
+	//
 	Fallback bool
 	// Input photo
 	ID InputPhotoClass

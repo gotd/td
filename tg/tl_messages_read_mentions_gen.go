@@ -36,11 +36,14 @@ var (
 //
 // See https://core.telegram.org/method/messages.readMentions for reference.
 type MessagesReadMentionsRequest struct {
-	// Flags field of MessagesReadMentionsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Dialog
 	Peer InputPeerClass
-	// TopMsgID field of MessagesReadMentionsRequest.
+	//
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

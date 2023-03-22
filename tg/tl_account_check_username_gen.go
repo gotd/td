@@ -168,6 +168,8 @@ func (c *AccountCheckUsernameRequest) GetUsername() (value string) {
 // Possible errors:
 //
 //	400 USERNAME_INVALID: The provided username is not valid.
+//	400 USERNAME_OCCUPIED: The provided username is already occupied.
+//	400 USERNAME_PURCHASE_AVAILABLE: The specified username can be purchased on https://fragment.com.
 //
 // See https://core.telegram.org/method/account.checkUsername for reference.
 func (c *Client) AccountCheckUsername(ctx context.Context, username string) (bool, error) {

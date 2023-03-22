@@ -32,12 +32,19 @@ var (
 )
 
 // ExportedContactToken represents TL type `exportedContactToken#41bf109b`.
+// Describes a temporary profile link¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#temporary-profile-links
 //
 // See https://core.telegram.org/constructor/exportedContactToken for reference.
 type ExportedContactToken struct {
-	// URL field of ExportedContactToken.
+	// The temporary profile link¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#temporary-profile-links
 	URL string
-	// Expires field of ExportedContactToken.
+	// Its expiry date
 	Expires int
 }
 

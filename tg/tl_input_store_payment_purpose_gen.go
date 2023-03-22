@@ -43,7 +43,7 @@ type InputStorePaymentPremiumSubscription struct {
 	Flags bin.Fields
 	// Pass true if this is a restore of a Telegram Premium purchase; only for the App Store
 	Restore bool
-	// Upgrade field of InputStorePaymentPremiumSubscription.
+	//
 	Upgrade bool
 }
 

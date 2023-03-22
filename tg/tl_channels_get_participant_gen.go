@@ -215,8 +215,8 @@ func (g *ChannelsGetParticipantRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 // Possible errors:
 //
 //	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
-//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 PARTICIPANT_ID_INVALID: The specified participant ID is invalid.
 //	400 USER_ID_INVALID: The provided user ID is invalid.

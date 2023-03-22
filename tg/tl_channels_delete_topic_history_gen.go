@@ -32,12 +32,16 @@ var (
 )
 
 // ChannelsDeleteTopicHistoryRequest represents TL type `channels.deleteTopicHistory#34435f2d`.
+// Delete message history of a forum topic¹
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
 //
 // See https://core.telegram.org/method/channels.deleteTopicHistory for reference.
 type ChannelsDeleteTopicHistoryRequest struct {
-	// Channel field of ChannelsDeleteTopicHistoryRequest.
+	// Forum
 	Channel InputChannelClass
-	// TopMsgID field of ChannelsDeleteTopicHistoryRequest.
+	// Topic ID
 	TopMsgID int
 }
 
@@ -198,8 +202,13 @@ func (d *ChannelsDeleteTopicHistoryRequest) GetChannelAsNotEmpty() (NotEmptyInpu
 }
 
 // ChannelsDeleteTopicHistory invokes method channels.deleteTopicHistory#34435f2d returning error if any.
+// Delete message history of a forum topic¹
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
 //
 // See https://core.telegram.org/method/channels.deleteTopicHistory for reference.
+// Can be used by bots.
 func (c *Client) ChannelsDeleteTopicHistory(ctx context.Context, request *ChannelsDeleteTopicHistoryRequest) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory
 

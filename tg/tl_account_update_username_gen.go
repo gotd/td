@@ -170,6 +170,7 @@ func (u *AccountUpdateUsernameRequest) GetUsername() (value string) {
 //	400 USERNAME_INVALID: The provided username is not valid.
 //	400 USERNAME_NOT_MODIFIED: The username was not modified.
 //	400 USERNAME_OCCUPIED: The provided username is already occupied.
+//	400 USERNAME_PURCHASE_AVAILABLE: The specified username can be purchased on https://fragment.com.
 //
 // See https://core.telegram.org/method/account.updateUsername for reference.
 func (c *Client) AccountUpdateUsername(ctx context.Context, username string) (UserClass, error) {

@@ -39,7 +39,10 @@ var (
 //
 // See https://core.telegram.org/method/help.getAppConfig for reference.
 type HelpGetAppConfigRequest struct {
-	// Hash field of HelpGetAppConfigRequest.
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 }
 

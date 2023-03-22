@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/method/messages.getEmojiProfilePhotoGroups for reference.
 type MessagesGetEmojiProfilePhotoGroupsRequest struct {
-	// Hash field of MessagesGetEmojiProfilePhotoGroupsRequest.
+	//
 	Hash int
 }
 
@@ -163,6 +163,7 @@ func (g *MessagesGetEmojiProfilePhotoGroupsRequest) GetHash() (value int) {
 // MessagesGetEmojiProfilePhotoGroups invokes method messages.getEmojiProfilePhotoGroups#21a548f3 returning error if any.
 //
 // See https://core.telegram.org/method/messages.getEmojiProfilePhotoGroups for reference.
+// Can be used by bots.
 func (c *Client) MessagesGetEmojiProfilePhotoGroups(ctx context.Context, hash int) (MessagesEmojiGroupsClass, error) {
 	var result MessagesEmojiGroupsBox
 

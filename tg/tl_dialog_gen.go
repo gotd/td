@@ -82,7 +82,7 @@ type Dialog struct {
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
-	// TTLPeriod field of Dialog.
+	//
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
 	TTLPeriod int

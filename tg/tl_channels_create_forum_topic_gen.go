@@ -32,26 +32,44 @@ var (
 )
 
 // ChannelsCreateForumTopicRequest represents TL type `channels.createForumTopic#f40c0224`.
+// Create a forum topic¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
 //
 // See https://core.telegram.org/method/channels.createForumTopic for reference.
 type ChannelsCreateForumTopicRequest struct {
-	// Flags field of ChannelsCreateForumTopicRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Channel field of ChannelsCreateForumTopicRequest.
+	// The forum¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum
 	Channel InputChannelClass
-	// Title field of ChannelsCreateForumTopicRequest.
+	// Topic title
 	Title string
-	// IconColor field of ChannelsCreateForumTopicRequest.
+	// If no custom emoji icon is specified, specifies the color of the fallback topic icon
+	// (RGB), one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 0xFF93B2, or 0xFB6F5F.
 	//
 	// Use SetIconColor and GetIconColor helpers.
 	IconColor int
-	// IconEmojiID field of ChannelsCreateForumTopicRequest.
+	// ID of the custom emoji¹ used as topic icon. Telegram Premium² users can use any
+	// custom emoji, other users can only use the custom emojis contained in the
+	// inputStickerSetEmojiDefaultTopicIcons³ emoji pack.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
+	//  2) https://core.telegram.org/api/premium
+	//  3) https://core.telegram.org/constructor/inputStickerSetEmojiDefaultTopicIcons
 	//
 	// Use SetIconEmojiID and GetIconEmojiID helpers.
 	IconEmojiID int64
-	// RandomID field of ChannelsCreateForumTopicRequest.
+	// Unique client message ID to prevent duplicate sending of the same event
 	RandomID int64
-	// SendAs field of ChannelsCreateForumTopicRequest.
+	// Create the topic as the specified peer
 	//
 	// Use SetSendAs and GetSendAs helpers.
 	SendAs InputPeerClass
@@ -392,8 +410,13 @@ func (c *ChannelsCreateForumTopicRequest) GetChannelAsNotEmpty() (NotEmptyInputC
 }
 
 // ChannelsCreateForumTopic invokes method channels.createForumTopic#f40c0224 returning error if any.
+// Create a forum topic¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
 //
 // See https://core.telegram.org/method/channels.createForumTopic for reference.
+// Can be used by bots.
 func (c *Client) ChannelsCreateForumTopic(ctx context.Context, request *ChannelsCreateForumTopicRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 
