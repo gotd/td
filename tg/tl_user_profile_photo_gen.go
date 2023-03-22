@@ -148,7 +148,7 @@ type UserProfilePhoto struct {
 	// Links:
 	//  1) https://core.telegram.org/api/files#animated-profile-pictures
 	HasVideo bool
-	//
+	// Personal field of UserProfilePhoto.
 	Personal bool
 	// Identifier of the respective photo
 	PhotoID int64

@@ -40,15 +40,15 @@ type AuthRequestFirebaseSMSRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// PhoneNumber field of AuthRequestFirebaseSMSRequest.
 	PhoneNumber string
-	//
+	// PhoneCodeHash field of AuthRequestFirebaseSMSRequest.
 	PhoneCodeHash string
-	//
+	// SafetyNetToken field of AuthRequestFirebaseSMSRequest.
 	//
 	// Use SetSafetyNetToken and GetSafetyNetToken helpers.
 	SafetyNetToken string
-	//
+	// IosPushSecret field of AuthRequestFirebaseSMSRequest.
 	//
 	// Use SetIosPushSecret and GetIosPushSecret helpers.
 	IosPushSecret string

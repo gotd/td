@@ -141,23 +141,23 @@ type BotApp struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// ID field of BotApp.
 	ID int64
-	//
+	// AccessHash field of BotApp.
 	AccessHash int64
-	//
+	// ShortName field of BotApp.
 	ShortName string
-	//
+	// Title field of BotApp.
 	Title string
-	//
+	// Description field of BotApp.
 	Description string
-	//
+	// Photo field of BotApp.
 	Photo PhotoClass
-	//
+	// Document field of BotApp.
 	//
 	// Use SetDocument and GetDocument helpers.
 	Document DocumentClass
-	//
+	// Hash field of BotApp.
 	Hash int64
 }
 

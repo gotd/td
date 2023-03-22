@@ -5476,9 +5476,9 @@ func (c *ChannelAdminLogEventActionChangeAvailableReactions) GetNewValue() (valu
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeUsernames for reference.
 type ChannelAdminLogEventActionChangeUsernames struct {
-	//
+	// PrevValue field of ChannelAdminLogEventActionChangeUsernames.
 	PrevValue []string
-	//
+	// NewValue field of ChannelAdminLogEventActionChangeUsernames.
 	NewValue []string
 }
 
@@ -5665,7 +5665,7 @@ func (c *ChannelAdminLogEventActionChangeUsernames) GetNewValue() (value []strin
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleForum for reference.
 type ChannelAdminLogEventActionToggleForum struct {
-	//
+	// NewValue field of ChannelAdminLogEventActionToggleForum.
 	NewValue bool
 }
 
@@ -5799,7 +5799,7 @@ func (c *ChannelAdminLogEventActionToggleForum) GetNewValue() (value bool) {
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionCreateTopic for reference.
 type ChannelAdminLogEventActionCreateTopic struct {
-	//
+	// Topic field of ChannelAdminLogEventActionCreateTopic.
 	Topic ForumTopicClass
 }
 
@@ -5938,9 +5938,9 @@ func (c *ChannelAdminLogEventActionCreateTopic) GetTopic() (value ForumTopicClas
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionEditTopic for reference.
 type ChannelAdminLogEventActionEditTopic struct {
-	//
+	// PrevTopic field of ChannelAdminLogEventActionEditTopic.
 	PrevTopic ForumTopicClass
-	//
+	// NewTopic field of ChannelAdminLogEventActionEditTopic.
 	NewTopic ForumTopicClass
 }
 
@@ -6109,7 +6109,7 @@ func (c *ChannelAdminLogEventActionEditTopic) GetNewTopic() (value ForumTopicCla
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionDeleteTopic for reference.
 type ChannelAdminLogEventActionDeleteTopic struct {
-	//
+	// Topic field of ChannelAdminLogEventActionDeleteTopic.
 	Topic ForumTopicClass
 }
 
@@ -6253,11 +6253,11 @@ type ChannelAdminLogEventActionPinTopic struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// PrevTopic field of ChannelAdminLogEventActionPinTopic.
 	//
 	// Use SetPrevTopic and GetPrevTopic helpers.
 	PrevTopic ForumTopicClass
-	//
+	// NewTopic field of ChannelAdminLogEventActionPinTopic.
 	//
 	// Use SetNewTopic and GetNewTopic helpers.
 	NewTopic ForumTopicClass
@@ -6482,7 +6482,7 @@ func (c *ChannelAdminLogEventActionPinTopic) GetNewTopic() (value ForumTopicClas
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleAntiSpam for reference.
 type ChannelAdminLogEventActionToggleAntiSpam struct {
-	//
+	// NewValue field of ChannelAdminLogEventActionToggleAntiSpam.
 	NewValue bool
 }
 

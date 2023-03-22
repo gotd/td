@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/method/account.getDefaultGroupPhotoEmojis for reference.
 type AccountGetDefaultGroupPhotoEmojisRequest struct {
-	//
+	// Hash field of AccountGetDefaultGroupPhotoEmojisRequest.
 	Hash int64
 }
 

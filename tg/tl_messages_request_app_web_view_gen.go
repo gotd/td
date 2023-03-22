@@ -40,21 +40,21 @@ type MessagesRequestAppWebViewRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// WriteAllowed field of MessagesRequestAppWebViewRequest.
 	WriteAllowed bool
-	//
+	// Peer field of MessagesRequestAppWebViewRequest.
 	Peer InputPeerClass
-	//
+	// App field of MessagesRequestAppWebViewRequest.
 	App InputBotAppClass
-	//
+	// StartParam field of MessagesRequestAppWebViewRequest.
 	//
 	// Use SetStartParam and GetStartParam helpers.
 	StartParam string
-	//
+	// ThemeParams field of MessagesRequestAppWebViewRequest.
 	//
 	// Use SetThemeParams and GetThemeParams helpers.
 	ThemeParams DataJSON
-	//
+	// Platform field of MessagesRequestAppWebViewRequest.
 	Platform string
 }
 

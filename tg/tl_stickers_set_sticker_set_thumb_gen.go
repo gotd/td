@@ -47,7 +47,7 @@ type StickersSetStickerSetThumbRequest struct {
 	//
 	// Use SetThumb and GetThumb helpers.
 	Thumb InputDocumentClass
-	//
+	// ThumbDocumentID field of StickersSetStickerSetThumbRequest.
 	//
 	// Use SetThumbDocumentID and GetThumbDocumentID helpers.
 	ThumbDocumentID int64

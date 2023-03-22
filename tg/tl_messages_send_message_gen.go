@@ -66,7 +66,7 @@ type MessagesSendMessageRequest struct {
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	//
+	// TopMsgID field of MessagesSendMessageRequest.
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

@@ -484,9 +484,9 @@ func (i *InputNotifyBroadcasts) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/inputNotifyForumTopic for reference.
 type InputNotifyForumTopic struct {
-	//
+	// Peer field of InputNotifyForumTopic.
 	Peer InputPeerClass
-	//
+	// TopMsgID field of InputNotifyForumTopic.
 	TopMsgID int
 }
 

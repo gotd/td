@@ -40,11 +40,11 @@ type MessagesBotApp struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Inactive field of MessagesBotApp.
 	Inactive bool
-	//
+	// RequestWriteAccess field of MessagesBotApp.
 	RequestWriteAccess bool
-	//
+	// App field of MessagesBotApp.
 	App BotAppClass
 }
 

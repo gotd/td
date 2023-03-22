@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/constructor/forumTopicDeleted for reference.
 type ForumTopicDeleted struct {
-	//
+	// ID field of ForumTopicDeleted.
 	ID int
 }
 
@@ -174,21 +174,21 @@ type ForumTopic struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// My field of ForumTopic.
 	My bool
-	//
+	// Closed field of ForumTopic.
 	Closed bool
-	//
+	// Pinned field of ForumTopic.
 	Pinned bool
-	//
+	// Short field of ForumTopic.
 	Short bool
-	//
+	// Hidden field of ForumTopic.
 	Hidden bool
-	//
+	// ID field of ForumTopic.
 	ID int
-	//
+	// Date field of ForumTopic.
 	Date int
-	//
+	// Title field of ForumTopic.
 	Title string
 	// If no custom emoji icon is specified, specifies the color of the fallback topic icon
 	// (RGB), one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 0xFF93B2, or 0xFB6F5F.
@@ -200,23 +200,23 @@ type ForumTopic struct {
 	//
 	// Use SetIconEmojiID and GetIconEmojiID helpers.
 	IconEmojiID int64
-	//
+	// TopMessage field of ForumTopic.
 	TopMessage int
-	//
+	// ReadInboxMaxID field of ForumTopic.
 	ReadInboxMaxID int
-	//
+	// ReadOutboxMaxID field of ForumTopic.
 	ReadOutboxMaxID int
-	//
+	// UnreadCount field of ForumTopic.
 	UnreadCount int
-	//
+	// UnreadMentionsCount field of ForumTopic.
 	UnreadMentionsCount int
-	//
+	// UnreadReactionsCount field of ForumTopic.
 	UnreadReactionsCount int
-	//
+	// FromID field of ForumTopic.
 	FromID PeerClass
-	//
+	// NotifySettings field of ForumTopic.
 	NotifySettings PeerNotifySettings
-	//
+	// Draft field of ForumTopic.
 	//
 	// Use SetDraft and GetDraft helpers.
 	Draft DraftMessageClass
@@ -938,7 +938,7 @@ type ForumTopicClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	//
+	// ID field of ForumTopicDeleted.
 	GetID() (value int)
 }
 

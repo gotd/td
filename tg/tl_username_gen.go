@@ -40,11 +40,11 @@ type Username struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Editable field of Username.
 	Editable bool
-	//
+	// Active field of Username.
 	Active bool
-	//
+	// Username field of Username.
 	Username string
 }
 

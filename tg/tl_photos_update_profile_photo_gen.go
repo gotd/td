@@ -41,7 +41,7 @@ type PhotosUpdateProfilePhotoRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Fallback field of PhotosUpdateProfilePhotoRequest.
 	Fallback bool
 	// Input photo
 	ID InputPhotoClass

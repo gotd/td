@@ -149,7 +149,7 @@ func (g *Generator) makeStructures() error {
 			// bin.Buffer argument collides with receiver.
 			s.BufArg = "buf"
 		}
-		if s.Comment == "" {
+		if strings.TrimSpace(s.Comment) == "" {
 			// TODO(ernado): multi-line comments.
 			s.Comment = fmt.Sprintf("%s represents TL type `%s`.", s.Name, s.RawType)
 		}
@@ -176,10 +176,10 @@ func (g *Generator) makeStructures() error {
 
 			if len(f.Comment) < 1 || f.Comment[0] == "" {
 				comment := docMethod.Parameters[param.Name].Description
-				if comment == "" {
+				if strings.TrimSpace(comment) == "" {
 					comment = docStruct.Fields[param.Name].Description
 				}
-				if comment == "" {
+				if strings.TrimSpace(comment) == "" {
 					comment = fmt.Sprintf("%s field of %s.", f.Name, s.Name)
 				}
 

@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/method/messages.getEmojiGroups for reference.
 type MessagesGetEmojiGroupsRequest struct {
-	//
+	// Hash field of MessagesGetEmojiGroupsRequest.
 	Hash int
 }
 

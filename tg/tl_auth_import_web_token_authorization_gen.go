@@ -35,11 +35,11 @@ var (
 //
 // See https://core.telegram.org/method/auth.importWebTokenAuthorization for reference.
 type AuthImportWebTokenAuthorizationRequest struct {
-	//
+	// APIID field of AuthImportWebTokenAuthorizationRequest.
 	APIID int
-	//
+	// APIHash field of AuthImportWebTokenAuthorizationRequest.
 	APIHash string
-	//
+	// WebAuthToken field of AuthImportWebTokenAuthorizationRequest.
 	WebAuthToken string
 }
 

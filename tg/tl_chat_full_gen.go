@@ -51,7 +51,7 @@ type ChatFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
 	HasScheduled bool
-	//
+	// TranslationsDisabled field of ChatFull.
 	TranslationsDisabled bool
 	// ID of the chat
 	ID int64
@@ -1072,11 +1072,11 @@ type ChannelFull struct {
 	Flags2 bin.Fields
 	// Can we delete this channel?
 	CanDeleteChannel bool
-	//
+	// Antispam field of ChannelFull.
 	Antispam bool
-	//
+	// ParticipantsHidden field of ChannelFull.
 	ParticipantsHidden bool
-	//
+	// TranslationsDisabled field of ChannelFull.
 	TranslationsDisabled bool
 	// ID of the channel
 	ID int64
@@ -3251,7 +3251,7 @@ type ChatFullClass interface {
 	//  1) https://core.telegram.org/api/scheduled-messages
 	GetHasScheduled() (value bool)
 
-	//
+	// TranslationsDisabled field of ChatFull.
 	GetTranslationsDisabled() (value bool)
 
 	// ID of the chat

@@ -46,7 +46,7 @@ type MessagesUnpinAllMessagesRequest struct {
 	Flags bin.Fields
 	// Chat where to unpin
 	Peer InputPeerClass
-	//
+	// TopMsgID field of MessagesUnpinAllMessagesRequest.
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

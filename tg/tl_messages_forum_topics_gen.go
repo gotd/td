@@ -40,19 +40,19 @@ type MessagesForumTopics struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// OrderByCreateDate field of MessagesForumTopics.
 	OrderByCreateDate bool
-	//
+	// Count field of MessagesForumTopics.
 	Count int
-	//
+	// Topics field of MessagesForumTopics.
 	Topics []ForumTopicClass
-	//
+	// Messages field of MessagesForumTopics.
 	Messages []MessageClass
-	//
+	// Chats field of MessagesForumTopics.
 	Chats []ChatClass
-	//
+	// Users field of MessagesForumTopics.
 	Users []UserClass
-	//
+	// Pts field of MessagesForumTopics.
 	Pts int
 }
 

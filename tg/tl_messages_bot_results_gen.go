@@ -53,7 +53,7 @@ type MessagesBotResults struct {
 	//
 	// Use SetSwitchPm and GetSwitchPm helpers.
 	SwitchPm InlineBotSwitchPM
-	//
+	// SwitchWebview field of MessagesBotResults.
 	//
 	// Use SetSwitchWebview and GetSwitchWebview helpers.
 	SwitchWebview InlineBotWebView

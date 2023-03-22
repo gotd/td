@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/method/messages.searchCustomEmoji for reference.
 type MessagesSearchCustomEmojiRequest struct {
-	//
+	// Emoticon field of MessagesSearchCustomEmojiRequest.
 	Emoticon string
-	//
+	// Hash field of MessagesSearchCustomEmojiRequest.
 	Hash int64
 }
 

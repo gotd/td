@@ -136,9 +136,9 @@ func (e *MessagesEmojiGroupsNotModified) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/messages.emojiGroups for reference.
 type MessagesEmojiGroups struct {
-	//
+	// Hash field of MessagesEmojiGroups.
 	Hash int
-	//
+	// Groups field of MessagesEmojiGroups.
 	Groups []EmojiGroup
 }
 

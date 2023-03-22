@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/constructor/defaultHistoryTTL for reference.
 type DefaultHistoryTTL struct {
-	//
+	// Period field of DefaultHistoryTTL.
 	Period int
 }
 

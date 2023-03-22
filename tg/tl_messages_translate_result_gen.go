@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/constructor/messages.translateResult for reference.
 type MessagesTranslateResult struct {
-	//
+	// Result field of MessagesTranslateResult.
 	Result []TextWithEntities
 }
 

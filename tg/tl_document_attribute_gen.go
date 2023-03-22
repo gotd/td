@@ -1434,7 +1434,7 @@ type DocumentAttributeCustomEmoji struct {
 	Flags bin.Fields
 	// Whether this custom emoji can be sent by non-Premium users
 	Free bool
-	//
+	// TextColor field of DocumentAttributeCustomEmoji.
 	TextColor bool
 	// The actual emoji
 	Alt string

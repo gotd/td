@@ -47,7 +47,7 @@ type MessagesGetSearchCountersRequest struct {
 	Flags bin.Fields
 	// Peer where to search
 	Peer InputPeerClass
-	//
+	// TopMsgID field of MessagesGetSearchCountersRequest.
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

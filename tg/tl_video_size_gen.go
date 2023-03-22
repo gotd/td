@@ -323,9 +323,9 @@ func (v *VideoSize) GetVideoStartTs() (value float64, ok bool) {
 //
 // See https://core.telegram.org/constructor/videoSizeEmojiMarkup for reference.
 type VideoSizeEmojiMarkup struct {
-	//
+	// EmojiID field of VideoSizeEmojiMarkup.
 	EmojiID int64
-	//
+	// BackgroundColors field of VideoSizeEmojiMarkup.
 	BackgroundColors []int
 }
 
@@ -497,11 +497,11 @@ func (v *VideoSizeEmojiMarkup) GetBackgroundColors() (value []int) {
 //
 // See https://core.telegram.org/constructor/videoSizeStickerMarkup for reference.
 type VideoSizeStickerMarkup struct {
-	//
+	// Stickerset field of VideoSizeStickerMarkup.
 	Stickerset InputStickerSetClass
-	//
+	// StickerID field of VideoSizeStickerMarkup.
 	StickerID int64
-	//
+	// BackgroundColors field of VideoSizeStickerMarkup.
 	BackgroundColors []int
 }
 
