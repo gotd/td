@@ -44,7 +44,7 @@ type MessagesToggleBotInAttachMenuRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// WriteAllowed field of MessagesToggleBotInAttachMenuRequest.
 	WriteAllowed bool
 	// Bot ID
 	Bot InputUserClass

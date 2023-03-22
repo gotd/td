@@ -66,7 +66,7 @@ type MessagesForwardMessagesRequest struct {
 	RandomID []int64
 	// Destination peer
 	ToPeer InputPeerClass
-	//
+	// TopMsgID field of MessagesForwardMessagesRequest.
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

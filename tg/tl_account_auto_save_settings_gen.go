@@ -35,17 +35,17 @@ var (
 //
 // See https://core.telegram.org/constructor/account.autoSaveSettings for reference.
 type AccountAutoSaveSettings struct {
-	//
+	// UsersSettings field of AccountAutoSaveSettings.
 	UsersSettings AutoSaveSettings
-	//
+	// ChatsSettings field of AccountAutoSaveSettings.
 	ChatsSettings AutoSaveSettings
-	//
+	// BroadcastsSettings field of AccountAutoSaveSettings.
 	BroadcastsSettings AutoSaveSettings
-	//
+	// Exceptions field of AccountAutoSaveSettings.
 	Exceptions []AutoSaveException
-	//
+	// Chats field of AccountAutoSaveSettings.
 	Chats []ChatClass
-	//
+	// Users field of AccountAutoSaveSettings.
 	Users []UserClass
 }
 

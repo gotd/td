@@ -43,7 +43,7 @@ type MessagesReadMentionsRequest struct {
 	Flags bin.Fields
 	// Dialog
 	Peer InputPeerClass
-	//
+	// TopMsgID field of MessagesReadMentionsRequest.
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

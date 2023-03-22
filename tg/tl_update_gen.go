@@ -1294,7 +1294,7 @@ type UpdateUserName struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/userFull
 	LastName string
-	//
+	// Usernames field of UpdateUserName.
 	Usernames []Username
 }
 
@@ -8742,7 +8742,7 @@ type UpdateDraftMessage struct {
 	Flags bin.Fields
 	// The peer to which the draft is associated
 	Peer PeerClass
-	//
+	// TopMsgID field of UpdateDraftMessage.
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
@@ -11569,7 +11569,7 @@ type UpdateChannelReadMessagesContents struct {
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	ChannelID int64
-	//
+	// TopMsgID field of UpdateChannelReadMessagesContents.
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
@@ -19302,7 +19302,7 @@ type UpdateMessageReactions struct {
 	Peer PeerClass
 	// Message ID
 	MsgID int
-	//
+	// TopMsgID field of UpdateMessageReactions.
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
@@ -21086,11 +21086,11 @@ func (u *UpdateMoveStickerSetToTop) GetStickerset() (value int64) {
 //
 // See https://core.telegram.org/constructor/updateMessageExtendedMedia for reference.
 type UpdateMessageExtendedMedia struct {
-	//
+	// Peer field of UpdateMessageExtendedMedia.
 	Peer PeerClass
-	//
+	// MsgID field of UpdateMessageExtendedMedia.
 	MsgID int
-	//
+	// ExtendedMedia field of UpdateMessageExtendedMedia.
 	ExtendedMedia MessageExtendedMediaClass
 }
 
@@ -21289,11 +21289,11 @@ type UpdateChannelPinnedTopic struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Pinned field of UpdateChannelPinnedTopic.
 	Pinned bool
-	//
+	// ChannelID field of UpdateChannelPinnedTopic.
 	ChannelID int64
-	//
+	// TopicID field of UpdateChannelPinnedTopic.
 	TopicID int
 }
 
@@ -21506,9 +21506,9 @@ type UpdateChannelPinnedTopics struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// ChannelID field of UpdateChannelPinnedTopics.
 	ChannelID int64
-	//
+	// Order field of UpdateChannelPinnedTopics.
 	//
 	// Use SetOrder and GetOrder helpers.
 	Order []int
@@ -21717,7 +21717,7 @@ func (u *UpdateChannelPinnedTopics) GetOrder() (value []int, ok bool) {
 //
 // See https://core.telegram.org/constructor/updateUser for reference.
 type UpdateUser struct {
-	//
+	// UserID field of UpdateUser.
 	UserID int64
 }
 
@@ -21952,7 +21952,7 @@ func (u *UpdateAutoSaveSettings) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/updateGroupInvitePrivacyForbidden for reference.
 type UpdateGroupInvitePrivacyForbidden struct {
-	//
+	// UserID field of UpdateGroupInvitePrivacyForbidden.
 	UserID int64
 }
 

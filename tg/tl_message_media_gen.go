@@ -143,7 +143,7 @@ type MessageMediaPhoto struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Spoiler field of MessageMediaPhoto.
 	Spoiler bool
 	// Photo
 	//
@@ -896,7 +896,7 @@ type MessageMediaDocument struct {
 	// Whether this is a normal sticker, if not set this is a premium sticker and a premium
 	// sticker animation must be played.
 	Nopremium bool
-	//
+	// Spoiler field of MessageMediaDocument.
 	Spoiler bool
 	// Attached document
 	//
@@ -1782,7 +1782,7 @@ type MessageMediaInvoice struct {
 	TotalAmount int64
 	// Unique bot deep-linking parameter that can be used to generate this invoice
 	StartParam string
-	//
+	// ExtendedMedia field of MessageMediaInvoice.
 	//
 	// Use SetExtendedMedia and GetExtendedMedia helpers.
 	ExtendedMedia MessageExtendedMediaClass

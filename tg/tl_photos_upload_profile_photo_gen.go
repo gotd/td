@@ -41,7 +41,7 @@ type PhotosUploadProfilePhotoRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Fallback field of PhotosUploadProfilePhotoRequest.
 	Fallback bool
 	// File saved in parts by means of upload.saveFilePart¹ method
 	//
@@ -62,7 +62,7 @@ type PhotosUploadProfilePhotoRequest struct {
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
 	VideoStartTs float64
-	//
+	// VideoEmojiMarkup field of PhotosUploadProfilePhotoRequest.
 	//
 	// Use SetVideoEmojiMarkup and GetVideoEmojiMarkup helpers.
 	VideoEmojiMarkup VideoSizeClass

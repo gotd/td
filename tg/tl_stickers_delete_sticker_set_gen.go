@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/method/stickers.deleteStickerSet for reference.
 type StickersDeleteStickerSetRequest struct {
-	//
+	// Stickerset field of StickersDeleteStickerSetRequest.
 	Stickerset InputStickerSetClass
 }
 

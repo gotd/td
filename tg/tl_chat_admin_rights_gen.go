@@ -99,7 +99,7 @@ type ChatAdminRights struct {
 	//  2) https://core.telegram.org/api/stats
 	//  3) https://core.telegram.org/api/stats
 	Other bool
-	//
+	// ManageTopics field of ChatAdminRights.
 	ManageTopics bool
 }
 

@@ -43,7 +43,7 @@ type MessagesGetUnreadReactionsRequest struct {
 	Flags bin.Fields
 	// Peer
 	Peer InputPeerClass
-	//
+	// TopMsgID field of MessagesGetUnreadReactionsRequest.
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

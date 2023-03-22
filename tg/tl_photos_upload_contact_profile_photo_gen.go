@@ -40,25 +40,25 @@ type PhotosUploadContactProfilePhotoRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Suggest field of PhotosUploadContactProfilePhotoRequest.
 	Suggest bool
-	//
+	// Save field of PhotosUploadContactProfilePhotoRequest.
 	Save bool
-	//
+	// UserID field of PhotosUploadContactProfilePhotoRequest.
 	UserID InputUserClass
-	//
+	// File field of PhotosUploadContactProfilePhotoRequest.
 	//
 	// Use SetFile and GetFile helpers.
 	File InputFileClass
-	//
+	// Video field of PhotosUploadContactProfilePhotoRequest.
 	//
 	// Use SetVideo and GetVideo helpers.
 	Video InputFileClass
-	//
+	// VideoStartTs field of PhotosUploadContactProfilePhotoRequest.
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
 	VideoStartTs float64
-	//
+	// VideoEmojiMarkup field of PhotosUploadContactProfilePhotoRequest.
 	//
 	// Use SetVideoEmojiMarkup and GetVideoEmojiMarkup helpers.
 	VideoEmojiMarkup VideoSizeClass

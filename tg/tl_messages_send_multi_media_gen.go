@@ -70,7 +70,7 @@ type MessagesSendMultiMediaRequest struct {
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	//
+	// TopMsgID field of MessagesSendMultiMediaRequest.
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

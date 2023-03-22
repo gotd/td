@@ -40,17 +40,17 @@ type StickersChangeStickerRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Sticker field of StickersChangeStickerRequest.
 	Sticker InputDocumentClass
-	//
+	// Emoji field of StickersChangeStickerRequest.
 	//
 	// Use SetEmoji and GetEmoji helpers.
 	Emoji string
-	//
+	// MaskCoords field of StickersChangeStickerRequest.
 	//
 	// Use SetMaskCoords and GetMaskCoords helpers.
 	MaskCoords MaskCoords
-	//
+	// Keywords field of StickersChangeStickerRequest.
 	//
 	// Use SetKeywords and GetKeywords helpers.
 	Keywords string

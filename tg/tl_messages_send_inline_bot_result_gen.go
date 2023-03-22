@@ -66,7 +66,7 @@ type MessagesSendInlineBotResultRequest struct {
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	//
+	// TopMsgID field of MessagesSendInlineBotResultRequest.
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

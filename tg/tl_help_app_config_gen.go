@@ -136,9 +136,9 @@ func (a *HelpAppConfigNotModified) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/help.appConfig for reference.
 type HelpAppConfig struct {
-	//
+	// Hash field of HelpAppConfig.
 	Hash int
-	//
+	// Config field of HelpAppConfig.
 	Config JSONValueClass
 }
 

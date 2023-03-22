@@ -35,11 +35,11 @@ var (
 //
 // See https://core.telegram.org/constructor/emojiGroup for reference.
 type EmojiGroup struct {
-	//
+	// Title field of EmojiGroup.
 	Title string
-	//
+	// IconEmojiID field of EmojiGroup.
 	IconEmojiID int64
-	//
+	// Emoticons field of EmojiGroup.
 	Emoticons []string
 }
 

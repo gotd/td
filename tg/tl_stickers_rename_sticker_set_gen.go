@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/method/stickers.renameStickerSet for reference.
 type StickersRenameStickerSetRequest struct {
-	//
+	// Stickerset field of StickersRenameStickerSetRequest.
 	Stickerset InputStickerSetClass
-	//
+	// Title field of StickersRenameStickerSetRequest.
 	Title string
 }
 

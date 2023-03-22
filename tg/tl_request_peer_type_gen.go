@@ -40,11 +40,11 @@ type RequestPeerTypeUser struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Bot field of RequestPeerTypeUser.
 	//
 	// Use SetBot and GetBot helpers.
 	Bot bool
-	//
+	// Premium field of RequestPeerTypeUser.
 	//
 	// Use SetPremium and GetPremium helpers.
 	Premium bool
@@ -264,23 +264,23 @@ type RequestPeerTypeChat struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Creator field of RequestPeerTypeChat.
 	Creator bool
-	//
+	// BotParticipant field of RequestPeerTypeChat.
 	BotParticipant bool
-	//
+	// HasUsername field of RequestPeerTypeChat.
 	//
 	// Use SetHasUsername and GetHasUsername helpers.
 	HasUsername bool
-	//
+	// Forum field of RequestPeerTypeChat.
 	//
 	// Use SetForum and GetForum helpers.
 	Forum bool
-	//
+	// UserAdminRights field of RequestPeerTypeChat.
 	//
 	// Use SetUserAdminRights and GetUserAdminRights helpers.
 	UserAdminRights ChatAdminRights
-	//
+	// BotAdminRights field of RequestPeerTypeChat.
 	//
 	// Use SetBotAdminRights and GetBotAdminRights helpers.
 	BotAdminRights ChatAdminRights
@@ -654,17 +654,17 @@ type RequestPeerTypeBroadcast struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Creator field of RequestPeerTypeBroadcast.
 	Creator bool
-	//
+	// HasUsername field of RequestPeerTypeBroadcast.
 	//
 	// Use SetHasUsername and GetHasUsername helpers.
 	HasUsername bool
-	//
+	// UserAdminRights field of RequestPeerTypeBroadcast.
 	//
 	// Use SetUserAdminRights and GetUserAdminRights helpers.
 	UserAdminRights ChatAdminRights
-	//
+	// BotAdminRights field of RequestPeerTypeBroadcast.
 	//
 	// Use SetBotAdminRights and GetBotAdminRights helpers.
 	BotAdminRights ChatAdminRights

@@ -40,19 +40,19 @@ type MessageExtendedMediaPreview struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// W field of MessageExtendedMediaPreview.
 	//
 	// Use SetW and GetW helpers.
 	W int
-	//
+	// H field of MessageExtendedMediaPreview.
 	//
 	// Use SetH and GetH helpers.
 	H int
-	//
+	// Thumb field of MessageExtendedMediaPreview.
 	//
 	// Use SetThumb and GetThumb helpers.
 	Thumb PhotoSizeClass
-	//
+	// VideoDuration field of MessageExtendedMediaPreview.
 	//
 	// Use SetVideoDuration and GetVideoDuration helpers.
 	VideoDuration int
@@ -360,7 +360,7 @@ func (m *MessageExtendedMediaPreview) GetVideoDuration() (value int, ok bool) {
 //
 // See https://core.telegram.org/constructor/messageExtendedMedia for reference.
 type MessageExtendedMedia struct {
-	//
+	// Media field of MessageExtendedMedia.
 	Media MessageMediaClass
 }
 

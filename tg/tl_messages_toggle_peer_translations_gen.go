@@ -40,9 +40,9 @@ type MessagesTogglePeerTranslationsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Disabled field of MessagesTogglePeerTranslationsRequest.
 	Disabled bool
-	//
+	// Peer field of MessagesTogglePeerTranslationsRequest.
 	Peer InputPeerClass
 }
 

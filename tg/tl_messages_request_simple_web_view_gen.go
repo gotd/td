@@ -44,7 +44,7 @@ type MessagesRequestSimpleWebViewRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// FromSwitchWebview field of MessagesRequestSimpleWebViewRequest.
 	FromSwitchWebview bool
 	// Bot that owns the webapp
 	Bot InputUserClass

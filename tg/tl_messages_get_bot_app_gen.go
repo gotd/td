@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/method/messages.getBotApp for reference.
 type MessagesGetBotAppRequest struct {
-	//
+	// App field of MessagesGetBotAppRequest.
 	App InputBotAppClass
-	//
+	// Hash field of MessagesGetBotAppRequest.
 	Hash int64
 }
 

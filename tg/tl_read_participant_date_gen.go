@@ -35,9 +35,9 @@ var (
 //
 // See https://core.telegram.org/constructor/readParticipantDate for reference.
 type ReadParticipantDate struct {
-	//
+	// UserID field of ReadParticipantDate.
 	UserID int64
-	//
+	// Date field of ReadParticipantDate.
 	Date int
 }
 

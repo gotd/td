@@ -3178,13 +3178,13 @@ type MessageActionBotAllowed struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// AttachMenu field of MessageActionBotAllowed.
 	AttachMenu bool
 	// The domain name of the website on which the user has logged in.
 	//
 	// Use SetDomain and GetDomain helpers.
 	Domain string
-	//
+	// App field of MessageActionBotAllowed.
 	//
 	// Use SetApp and GetApp helpers.
 	App BotAppClass
@@ -4470,7 +4470,7 @@ type MessageActionSetMessagesTTL struct {
 	Flags bin.Fields
 	// New Time-To-Live
 	Period int
-	//
+	// AutoSettingFrom field of MessageActionSetMessagesTTL.
 	//
 	// Use SetAutoSettingFrom and GetAutoSettingFrom helpers.
 	AutoSettingFrom int64
@@ -5815,19 +5815,19 @@ type MessageActionTopicEdit struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// Title field of MessageActionTopicEdit.
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	//
+	// IconEmojiID field of MessageActionTopicEdit.
 	//
 	// Use SetIconEmojiID and GetIconEmojiID helpers.
 	IconEmojiID int64
-	//
+	// Closed field of MessageActionTopicEdit.
 	//
 	// Use SetClosed and GetClosed helpers.
 	Closed bool
-	//
+	// Hidden field of MessageActionTopicEdit.
 	//
 	// Use SetHidden and GetHidden helpers.
 	Hidden bool
@@ -6130,7 +6130,7 @@ func (m *MessageActionTopicEdit) GetHidden() (value bool, ok bool) {
 //
 // See https://core.telegram.org/constructor/messageActionSuggestProfilePhoto for reference.
 type MessageActionSuggestProfilePhoto struct {
-	//
+	// Photo field of MessageActionSuggestProfilePhoto.
 	Photo PhotoClass
 }
 
@@ -6269,9 +6269,9 @@ func (m *MessageActionSuggestProfilePhoto) GetPhoto() (value PhotoClass) {
 //
 // See https://core.telegram.org/constructor/messageActionRequestedPeer for reference.
 type MessageActionRequestedPeer struct {
-	//
+	// ButtonID field of MessageActionRequestedPeer.
 	ButtonID int
-	//
+	// Peer field of MessageActionRequestedPeer.
 	Peer PeerClass
 }
 

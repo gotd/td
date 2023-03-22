@@ -35,7 +35,7 @@ var (
 //
 // See https://core.telegram.org/method/messages.setDefaultHistoryTTL for reference.
 type MessagesSetDefaultHistoryTTLRequest struct {
-	//
+	// Period field of MessagesSetDefaultHistoryTTLRequest.
 	Period int
 }
 

@@ -43,7 +43,7 @@ type MessagesGetUnreadMentionsRequest struct {
 	Flags bin.Fields
 	// Peer where to look for mentions
 	Peer InputPeerClass
-	//
+	// TopMsgID field of MessagesGetUnreadMentionsRequest.
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

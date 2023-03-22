@@ -41,7 +41,7 @@ type MessagesSponsoredMessages struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	//
+	// PostsBetween field of MessagesSponsoredMessages.
 	//
 	// Use SetPostsBetween and GetPostsBetween helpers.
 	PostsBetween int

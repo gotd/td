@@ -46,7 +46,7 @@ type SponsoredMessage struct {
 	Flags bin.Fields
 	// Whether the message needs to be labeled as "recommended" instead of "sponsored"
 	Recommended bool
-	//
+	// ShowPeerPhoto field of SponsoredMessage.
 	ShowPeerPhoto bool
 	// Message ID
 	RandomID []byte
@@ -79,11 +79,11 @@ type SponsoredMessage struct {
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	//
+	// SponsorInfo field of SponsoredMessage.
 	//
 	// Use SetSponsorInfo and GetSponsorInfo helpers.
 	SponsorInfo string
-	//
+	// AdditionalInfo field of SponsoredMessage.
 	//
 	// Use SetAdditionalInfo and GetAdditionalInfo helpers.
 	AdditionalInfo string
