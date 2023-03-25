@@ -37,10 +37,9 @@ type ViewMessagesRequest struct {
 	ChatID int64
 	// The identifiers of the messages being viewed
 	MessageIDs []int64
-	// Source of the message view
+	// Source of the message view; pass null to guess the source based on chat open state
 	Source MessageSourceClass
-	// Pass true to mark as read the specified messages even the chat is closed; pass null to
-	// guess the source based on chat open state
+	// Pass true to mark as read the specified messages even the chat is closed
 	ForceRead bool
 }
 

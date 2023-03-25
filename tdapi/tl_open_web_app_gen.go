@@ -33,7 +33,8 @@ var (
 
 // OpenWebAppRequest represents TL type `openWebApp#d27a3533`.
 type OpenWebAppRequest struct {
-	// Identifier of the chat in which the Web App is opened
+	// Identifier of the chat in which the Web App is opened. The Web App can't be opened in
+	// secret chats
 	ChatID int64
 	// Identifier of the bot, providing the Web App
 	BotUserID int64
