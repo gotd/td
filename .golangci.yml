@@ -39,6 +39,7 @@ linters-settings:
       - octalLiteral
       - preferWriteByte
       - httpNoBody
+      - preferFprint
     settings:
       ruleguard:
         failOn: dsl,import
