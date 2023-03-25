@@ -493,7 +493,7 @@ func (a *AuthorizationStateWaitEmailAddress) GetAllowGoogleID() (value bool) {
 	return a.AllowGoogleID
 }
 
-// AuthorizationStateWaitEmailCode represents TL type `authorizationStateWaitEmailCode#a6308e9`.
+// AuthorizationStateWaitEmailCode represents TL type `authorizationStateWaitEmailCode#909f025b`.
 type AuthorizationStateWaitEmailCode struct {
 	// True, if authorization through Apple ID is allowed
 	AllowAppleID bool
@@ -501,13 +501,12 @@ type AuthorizationStateWaitEmailCode struct {
 	AllowGoogleID bool
 	// Information about the sent authentication code
 	CodeInfo EmailAddressAuthenticationCodeInfo
-	// Point in time (Unix timestamp) when the user will be able to authorize with a code
-	// sent to the user's phone number; 0 if unknown
-	NextPhoneNumberAuthorizationDate int32
+	// Reset state of the email address; may be null if the email address can't be reset
+	EmailAddressResetState EmailAddressResetStateClass
 }
 
 // AuthorizationStateWaitEmailCodeTypeID is TL type id of AuthorizationStateWaitEmailCode.
-const AuthorizationStateWaitEmailCodeTypeID = 0xa6308e9
+const AuthorizationStateWaitEmailCodeTypeID = 0x909f025b
 
 // construct implements constructor of AuthorizationStateClass.
 func (a AuthorizationStateWaitEmailCode) construct() AuthorizationStateClass { return &a }
@@ -535,7 +534,7 @@ func (a *AuthorizationStateWaitEmailCode) Zero() bool {
 	if !(a.CodeInfo.Zero()) {
 		return false
 	}
-	if !(a.NextPhoneNumberAuthorizationDate == 0) {
+	if !(a.EmailAddressResetState == nil) {
 		return false
 	}
 
@@ -587,8 +586,8 @@ func (a *AuthorizationStateWaitEmailCode) TypeInfo() tdp.Type {
 			SchemaName: "code_info",
 		},
 		{
-			Name:       "NextPhoneNumberAuthorizationDate",
-			SchemaName: "next_phone_number_authorization_date",
+			Name:       "EmailAddressResetState",
+			SchemaName: "email_address_reset_state",
 		},
 	}
 	return typ
@@ -597,7 +596,7 @@ func (a *AuthorizationStateWaitEmailCode) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AuthorizationStateWaitEmailCode) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode authorizationStateWaitEmailCode#a6308e9 as nil")
+		return fmt.Errorf("can't encode authorizationStateWaitEmailCode#909f025b as nil")
 	}
 	b.PutID(AuthorizationStateWaitEmailCodeTypeID)
 	return a.EncodeBare(b)
@@ -606,24 +605,29 @@ func (a *AuthorizationStateWaitEmailCode) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AuthorizationStateWaitEmailCode) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode authorizationStateWaitEmailCode#a6308e9 as nil")
+		return fmt.Errorf("can't encode authorizationStateWaitEmailCode#909f025b as nil")
 	}
 	b.PutBool(a.AllowAppleID)
 	b.PutBool(a.AllowGoogleID)
 	if err := a.CodeInfo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode authorizationStateWaitEmailCode#a6308e9: field code_info: %w", err)
+		return fmt.Errorf("unable to encode authorizationStateWaitEmailCode#909f025b: field code_info: %w", err)
 	}
-	b.PutInt32(a.NextPhoneNumberAuthorizationDate)
+	if a.EmailAddressResetState == nil {
+		return fmt.Errorf("unable to encode authorizationStateWaitEmailCode#909f025b: field email_address_reset_state is nil")
+	}
+	if err := a.EmailAddressResetState.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode authorizationStateWaitEmailCode#909f025b: field email_address_reset_state: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (a *AuthorizationStateWaitEmailCode) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode authorizationStateWaitEmailCode#a6308e9 to nil")
+		return fmt.Errorf("can't decode authorizationStateWaitEmailCode#909f025b to nil")
 	}
 	if err := b.ConsumeID(AuthorizationStateWaitEmailCodeTypeID); err != nil {
-		return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#a6308e9: %w", err)
+		return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#909f025b: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -631,33 +635,33 @@ func (a *AuthorizationStateWaitEmailCode) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AuthorizationStateWaitEmailCode) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode authorizationStateWaitEmailCode#a6308e9 to nil")
+		return fmt.Errorf("can't decode authorizationStateWaitEmailCode#909f025b to nil")
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#a6308e9: field allow_apple_id: %w", err)
+			return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#909f025b: field allow_apple_id: %w", err)
 		}
 		a.AllowAppleID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#a6308e9: field allow_google_id: %w", err)
+			return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#909f025b: field allow_google_id: %w", err)
 		}
 		a.AllowGoogleID = value
 	}
 	{
 		if err := a.CodeInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#a6308e9: field code_info: %w", err)
+			return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#909f025b: field code_info: %w", err)
 		}
 	}
 	{
-		value, err := b.Int32()
+		value, err := DecodeEmailAddressResetState(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#a6308e9: field next_phone_number_authorization_date: %w", err)
+			return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#909f025b: field email_address_reset_state: %w", err)
 		}
-		a.NextPhoneNumberAuthorizationDate = value
+		a.EmailAddressResetState = value
 	}
 	return nil
 }
@@ -665,7 +669,7 @@ func (a *AuthorizationStateWaitEmailCode) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (a *AuthorizationStateWaitEmailCode) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
-		return fmt.Errorf("can't encode authorizationStateWaitEmailCode#a6308e9 as nil")
+		return fmt.Errorf("can't encode authorizationStateWaitEmailCode#909f025b as nil")
 	}
 	b.ObjStart()
 	b.PutID("authorizationStateWaitEmailCode")
@@ -678,11 +682,16 @@ func (a *AuthorizationStateWaitEmailCode) EncodeTDLibJSON(b tdjson.Encoder) erro
 	b.Comma()
 	b.FieldStart("code_info")
 	if err := a.CodeInfo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode authorizationStateWaitEmailCode#a6308e9: field code_info: %w", err)
+		return fmt.Errorf("unable to encode authorizationStateWaitEmailCode#909f025b: field code_info: %w", err)
 	}
 	b.Comma()
-	b.FieldStart("next_phone_number_authorization_date")
-	b.PutInt32(a.NextPhoneNumberAuthorizationDate)
+	b.FieldStart("email_address_reset_state")
+	if a.EmailAddressResetState == nil {
+		return fmt.Errorf("unable to encode authorizationStateWaitEmailCode#909f025b: field email_address_reset_state is nil")
+	}
+	if err := a.EmailAddressResetState.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode authorizationStateWaitEmailCode#909f025b: field email_address_reset_state: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -692,37 +701,37 @@ func (a *AuthorizationStateWaitEmailCode) EncodeTDLibJSON(b tdjson.Encoder) erro
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (a *AuthorizationStateWaitEmailCode) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
-		return fmt.Errorf("can't decode authorizationStateWaitEmailCode#a6308e9 to nil")
+		return fmt.Errorf("can't decode authorizationStateWaitEmailCode#909f025b to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("authorizationStateWaitEmailCode"); err != nil {
-				return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#a6308e9: %w", err)
+				return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#909f025b: %w", err)
 			}
 		case "allow_apple_id":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#a6308e9: field allow_apple_id: %w", err)
+				return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#909f025b: field allow_apple_id: %w", err)
 			}
 			a.AllowAppleID = value
 		case "allow_google_id":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#a6308e9: field allow_google_id: %w", err)
+				return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#909f025b: field allow_google_id: %w", err)
 			}
 			a.AllowGoogleID = value
 		case "code_info":
 			if err := a.CodeInfo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#a6308e9: field code_info: %w", err)
+				return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#909f025b: field code_info: %w", err)
 			}
-		case "next_phone_number_authorization_date":
-			value, err := b.Int32()
+		case "email_address_reset_state":
+			value, err := DecodeTDLibJSONEmailAddressResetState(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#a6308e9: field next_phone_number_authorization_date: %w", err)
+				return fmt.Errorf("unable to decode authorizationStateWaitEmailCode#909f025b: field email_address_reset_state: %w", err)
 			}
-			a.NextPhoneNumberAuthorizationDate = value
+			a.EmailAddressResetState = value
 		default:
 			return b.Skip()
 		}
@@ -754,12 +763,12 @@ func (a *AuthorizationStateWaitEmailCode) GetCodeInfo() (value EmailAddressAuthe
 	return a.CodeInfo
 }
 
-// GetNextPhoneNumberAuthorizationDate returns value of NextPhoneNumberAuthorizationDate field.
-func (a *AuthorizationStateWaitEmailCode) GetNextPhoneNumberAuthorizationDate() (value int32) {
+// GetEmailAddressResetState returns value of EmailAddressResetState field.
+func (a *AuthorizationStateWaitEmailCode) GetEmailAddressResetState() (value EmailAddressResetStateClass) {
 	if a == nil {
 		return
 	}
-	return a.NextPhoneNumberAuthorizationDate
+	return a.EmailAddressResetState
 }
 
 // AuthorizationStateWaitCode represents TL type `authorizationStateWaitCode#3234501`.
@@ -2068,7 +2077,7 @@ const AuthorizationStateClassName = "AuthorizationState"
 //	case *tdapi.AuthorizationStateWaitTdlibParameters: // authorizationStateWaitTdlibParameters#35ecf25c
 //	case *tdapi.AuthorizationStateWaitPhoneNumber: // authorizationStateWaitPhoneNumber#124354e3
 //	case *tdapi.AuthorizationStateWaitEmailAddress: // authorizationStateWaitEmailAddress#3e0471c7
-//	case *tdapi.AuthorizationStateWaitEmailCode: // authorizationStateWaitEmailCode#a6308e9
+//	case *tdapi.AuthorizationStateWaitEmailCode: // authorizationStateWaitEmailCode#909f025b
 //	case *tdapi.AuthorizationStateWaitCode: // authorizationStateWaitCode#3234501
 //	case *tdapi.AuthorizationStateWaitOtherDeviceConfirmation: // authorizationStateWaitOtherDeviceConfirmation#334518ea
 //	case *tdapi.AuthorizationStateWaitRegistration: // authorizationStateWaitRegistration#20cdaeaf
@@ -2130,7 +2139,7 @@ func DecodeAuthorizationState(buf *bin.Buffer) (AuthorizationStateClass, error) 
 		}
 		return &v, nil
 	case AuthorizationStateWaitEmailCodeTypeID:
-		// Decoding authorizationStateWaitEmailCode#a6308e9.
+		// Decoding authorizationStateWaitEmailCode#909f025b.
 		v := AuthorizationStateWaitEmailCode{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthorizationStateClass: %w", err)
@@ -2226,7 +2235,7 @@ func DecodeTDLibJSONAuthorizationState(buf tdjson.Decoder) (AuthorizationStateCl
 		}
 		return &v, nil
 	case "authorizationStateWaitEmailCode":
-		// Decoding authorizationStateWaitEmailCode#a6308e9.
+		// Decoding authorizationStateWaitEmailCode#909f025b.
 		v := AuthorizationStateWaitEmailCode{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthorizationStateClass: %w", err)

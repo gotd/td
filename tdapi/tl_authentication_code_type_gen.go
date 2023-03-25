@@ -1297,7 +1297,7 @@ func (a *AuthenticationCodeTypeFirebaseAndroid) GetLength() (value int32) {
 
 // AuthenticationCodeTypeFirebaseIos represents TL type `authenticationCodeTypeFirebaseIos#ff55aa93`.
 type AuthenticationCodeTypeFirebaseIos struct {
-	// Receipt of successful applikation token validation to compare with receipt from push
+	// Receipt of successful application token validation to compare with receipt from push
 	// notification
 	Receipt string
 	// Time after the next authentication method is supposed to be used if verification push

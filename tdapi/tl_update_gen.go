@@ -17538,7 +17538,7 @@ type UpdateLanguagePackStrings struct {
 	LocalizationTarget string
 	// Identifier of the updated language pack
 	LanguagePackID string
-	// List of changed language pack strings
+	// List of changed language pack strings; empty if all strings have changed
 	Strings []LanguagePackString
 }
 
