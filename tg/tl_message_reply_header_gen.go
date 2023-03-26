@@ -44,9 +44,12 @@ type MessageReplyHeader struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ReplyToScheduled field of MessageReplyHeader.
+	// This is a reply to a scheduled message.
 	ReplyToScheduled bool
-	// ForumTopic field of MessageReplyHeader.
+	// Whether this message was sent in a forum topic¹ (except for the General topic).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#forum-topics
 	ForumTopic bool
 	// ID of message to which this message is replying
 	ReplyToMsgID int

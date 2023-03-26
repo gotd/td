@@ -199,7 +199,10 @@ type Config struct {
 	//
 	// Use SetReactionsDefault and GetReactionsDefault helpers.
 	ReactionsDefault ReactionClass
-	// AutologinToken field of Config.
+	// Autologin token, click here for more info on URL authorization »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/url-authorization#link-url-authorization
 	//
 	// Use SetAutologinToken and GetAutologinToken helpers.
 	AutologinToken string

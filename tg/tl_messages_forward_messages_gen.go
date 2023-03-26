@@ -66,7 +66,10 @@ type MessagesForwardMessagesRequest struct {
 	RandomID []int64
 	// Destination peer
 	ToPeer InputPeerClass
-	// TopMsgID field of MessagesForwardMessagesRequest.
+	// Destination forum topic¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#forum-topics
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

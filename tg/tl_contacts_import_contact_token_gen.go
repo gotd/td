@@ -173,6 +173,10 @@ func (i *ContactsImportContactTokenRequest) GetToken() (value string) {
 // Links:
 //  1. https://core.telegram.org/api/links#temporary-profile-links
 //
+// Possible errors:
+//
+//	400 IMPORT_TOKEN_INVALID: The specified token is invalid.
+//
 // See https://core.telegram.org/method/contacts.importContactToken for reference.
 // Can be used by bots.
 func (c *Client) ContactsImportContactToken(ctx context.Context, token string) (UserClass, error) {

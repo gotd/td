@@ -47,7 +47,10 @@ type StickersCreateStickerSetRequest struct {
 	Animated bool
 	// Whether this is a video stickerset
 	Videos bool
-	// Emojis field of StickersCreateStickerSetRequest.
+	// Whether this is a custom emoji¹ stickerset.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	Emojis bool
 	// TextColor field of StickersCreateStickerSetRequest.
 	TextColor bool

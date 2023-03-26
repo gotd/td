@@ -32,10 +32,11 @@ var (
 )
 
 // ChannelsEditForumTopicRequest represents TL type `channels.editForumTopic#f4dfa185`.
-// Edit forum topic¹
+// Edit forum topic¹; requires manage_topics rights².
 //
 // Links:
 //  1. https://core.telegram.org/api/forum
+//  2. https://core.telegram.org/api/rights
 //
 // See https://core.telegram.org/method/channels.editForumTopic for reference.
 type ChannelsEditForumTopicRequest struct {
@@ -48,7 +49,7 @@ type ChannelsEditForumTopicRequest struct {
 	Channel InputChannelClass
 	// Topic ID
 	TopicID int
-	// If present, will update the topic title.
+	// If present, will update the topic title (maximum UTF-8 length: 128).
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
@@ -423,10 +424,11 @@ func (e *ChannelsEditForumTopicRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 }
 
 // ChannelsEditForumTopic invokes method channels.editForumTopic#f4dfa185 returning error if any.
-// Edit forum topic¹
+// Edit forum topic¹; requires manage_topics rights².
 //
 // Links:
 //  1. https://core.telegram.org/api/forum
+//  2. https://core.telegram.org/api/rights
 //
 // See https://core.telegram.org/method/channels.editForumTopic for reference.
 // Can be used by bots.

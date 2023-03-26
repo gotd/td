@@ -177,8 +177,11 @@ func (r *AccountReorderUsernamesRequest) GetOrder() (value []string) {
 // AccountReorderUsernames invokes method account.reorderUsernames#ef500eab returning error if any.
 // Reorder usernames associated with the currently logged-in user.
 //
+// Possible errors:
+//
+//	400 ORDER_INVALID:
+//
 // See https://core.telegram.org/method/account.reorderUsernames for reference.
-// Can be used by bots.
 func (c *Client) AccountReorderUsernames(ctx context.Context, order []string) (bool, error) {
 	var result BoolBox
 

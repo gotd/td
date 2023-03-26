@@ -43,7 +43,10 @@ type MessagesReadMentionsRequest struct {
 	Flags bin.Fields
 	// Dialog
 	Peer InputPeerClass
-	// TopMsgID field of MessagesReadMentionsRequest.
+	// Mark as read only mentions within the specified forum topic¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#forum-topics
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

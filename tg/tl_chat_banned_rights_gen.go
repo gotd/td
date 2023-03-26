@@ -75,7 +75,7 @@ type ChatBannedRights struct {
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	SendGames bool
-	// If set, does not allow a user to use inline bots in a supergroup/chat¹
+	// If set, does not allow a user to use inline bots in a supergroup/chat¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
@@ -105,21 +105,45 @@ type ChatBannedRights struct {
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	PinMessages bool
-	// ManageTopics field of ChatBannedRights.
+	// If set, does not allow any user to create, delete or modify forum topics »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#forum-topics
 	ManageTopics bool
-	// SendPhotos field of ChatBannedRights.
+	// If set, does not allow a user to send photos in a supergroup/chat¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendPhotos bool
-	// SendVideos field of ChatBannedRights.
+	// If set, does not allow a user to send videos in a supergroup/chat¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendVideos bool
-	// SendRoundvideos field of ChatBannedRights.
+	// If set, does not allow a user to send round videos in a supergroup/chat¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendRoundvideos bool
-	// SendAudios field of ChatBannedRights.
+	// If set, does not allow a user to send audio files in a supergroup/chat¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendAudios bool
-	// SendVoices field of ChatBannedRights.
+	// If set, does not allow a user to send voice messages in a supergroup/chat¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendVoices bool
-	// SendDocs field of ChatBannedRights.
+	// If set, does not allow a user to send documents in a supergroup/chat¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendDocs bool
-	// SendPlain field of ChatBannedRights.
+	// If set, does not allow a user to send text messages in a supergroup/chat¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendPlain bool
 	// Validity of said permissions (it is considered forever any value less then 30 seconds
 	// or more then 366 days).

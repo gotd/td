@@ -194,6 +194,10 @@ func (g *MessagesGetBotAppRequest) GetHash() (value int64) {
 
 // MessagesGetBotApp invokes method messages.getBotApp#34fdc5c3 returning error if any.
 //
+// Possible errors:
+//
+//	400 BOT_APP_INVALID: The specified bot app is invalid.
+//
 // See https://core.telegram.org/method/messages.getBotApp for reference.
 // Can be used by bots.
 func (c *Client) MessagesGetBotApp(ctx context.Context, request *MessagesGetBotAppRequest) (*MessagesBotApp, error) {

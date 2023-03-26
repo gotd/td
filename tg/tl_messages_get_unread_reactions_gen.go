@@ -43,7 +43,10 @@ type MessagesGetUnreadReactionsRequest struct {
 	Flags bin.Fields
 	// Peer
 	Peer InputPeerClass
-	// TopMsgID field of MessagesGetUnreadReactionsRequest.
+	// If set, considers only reactions to messages within the specified forum topic¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#forum-topics
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

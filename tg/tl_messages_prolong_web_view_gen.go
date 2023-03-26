@@ -69,7 +69,12 @@ type MessagesProlongWebViewRequest struct {
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	// TopMsgID field of MessagesProlongWebViewRequest.
+	// If set, the inline message that will be sent by the bot on behalf of the user once the
+	// web app interaction is terminated¹ will be sent to the specified forum topic².
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.sendWebViewResultMessage
+	//  2) https://core.telegram.org/api/forum#forum-topics
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

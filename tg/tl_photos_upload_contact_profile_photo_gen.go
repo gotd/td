@@ -46,15 +46,19 @@ type PhotosUploadContactProfilePhotoRequest struct {
 	Save bool
 	// UserID field of PhotosUploadContactProfilePhotoRequest.
 	UserID InputUserClass
-	// File field of PhotosUploadContactProfilePhotoRequest.
+	// Profile photo
 	//
 	// Use SetFile and GetFile helpers.
 	File InputFileClass
-	// Video field of PhotosUploadContactProfilePhotoRequest.
+	// Animated profile picture¹ video
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files#animated-profile-pictures
 	//
 	// Use SetVideo and GetVideo helpers.
 	Video InputFileClass
-	// VideoStartTs field of PhotosUploadContactProfilePhotoRequest.
+	// Floating point UNIX timestamp in seconds, indicating the frame of the video that
+	// should be used as static preview.
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
 	VideoStartTs float64
@@ -464,6 +468,10 @@ func (u *PhotosUploadContactProfilePhotoRequest) GetVideoEmojiMarkup() (value Vi
 }
 
 // PhotosUploadContactProfilePhoto invokes method photos.uploadContactProfilePhoto#e14c4a71 returning error if any.
+//
+// Possible errors:
+//
+//	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/photos.uploadContactProfilePhoto for reference.
 // Can be used by bots.

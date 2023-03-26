@@ -32,12 +32,19 @@ var (
 )
 
 // MessagesSearchCustomEmojiRequest represents TL type `messages.searchCustomEmoji#2c11c0d7`.
+// Look for custom emojis¹ associated to a UTF8 emoji
+//
+// Links:
+//  1. https://core.telegram.org/api/custom-emoji
 //
 // See https://core.telegram.org/method/messages.searchCustomEmoji for reference.
 type MessagesSearchCustomEmojiRequest struct {
-	// Emoticon field of MessagesSearchCustomEmojiRequest.
+	// The emoji
 	Emoticon string
-	// Hash field of MessagesSearchCustomEmojiRequest.
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
 }
 
@@ -188,6 +195,14 @@ func (s *MessagesSearchCustomEmojiRequest) GetHash() (value int64) {
 }
 
 // MessagesSearchCustomEmoji invokes method messages.searchCustomEmoji#2c11c0d7 returning error if any.
+// Look for custom emojis¹ associated to a UTF8 emoji
+//
+// Links:
+//  1. https://core.telegram.org/api/custom-emoji
+//
+// Possible errors:
+//
+//	400 EMOTICON_EMPTY: The emoji is empty.
 //
 // See https://core.telegram.org/method/messages.searchCustomEmoji for reference.
 // Can be used by bots.

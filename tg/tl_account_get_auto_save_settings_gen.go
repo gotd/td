@@ -132,7 +132,6 @@ func (g *AccountGetAutoSaveSettingsRequest) DecodeBare(b *bin.Buffer) error {
 // Get autosave settings
 //
 // See https://core.telegram.org/method/account.getAutoSaveSettings for reference.
-// Can be used by bots.
 func (c *Client) AccountGetAutoSaveSettings(ctx context.Context) (*AccountAutoSaveSettings, error) {
 	var result AccountAutoSaveSettings
 
