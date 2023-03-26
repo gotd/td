@@ -58,6 +58,7 @@ const (
 	ErrBankCardNumberInvalid            = "BANK_CARD_NUMBER_INVALID"
 	ErrBannedRightsInvalid              = "BANNED_RIGHTS_INVALID"
 	ErrBotsTooMuch                      = "BOTS_TOO_MUCH"
+	ErrBotAppInvalid                    = "BOT_APP_INVALID"
 	ErrBotChannelsNa                    = "BOT_CHANNELS_NA"
 	ErrBotCommandDescriptionInvalid     = "BOT_COMMAND_DESCRIPTION_INVALID"
 	ErrBotCommandInvalid                = "BOT_COMMAND_INVALID"
@@ -221,6 +222,7 @@ const (
 	ErrImportFileInvalid                = "IMPORT_FILE_INVALID"
 	ErrImportFormatUnrecognized         = "IMPORT_FORMAT_UNRECOGNIZED"
 	ErrImportIDInvalid                  = "IMPORT_ID_INVALID"
+	ErrImportTokenInvalid               = "IMPORT_TOKEN_INVALID"
 	ErrInlineBotRequired                = "INLINE_BOT_REQUIRED"
 	ErrInlineResultExpired              = "INLINE_RESULT_EXPIRED"
 	ErrInputFilterInvalid               = "INPUT_FILTER_INVALID"
@@ -280,6 +282,7 @@ const (
 	ErrOffsetPeerIDInvalid              = "OFFSET_PEER_ID_INVALID"
 	ErrOptionsTooMuch                   = "OPTIONS_TOO_MUCH"
 	ErrOptionInvalid                    = "OPTION_INVALID"
+	ErrOrderInvalid                     = "ORDER_INVALID"
 	ErrPackShortNameInvalid             = "PACK_SHORT_NAME_INVALID"
 	ErrPackShortNameOccupied            = "PACK_SHORT_NAME_OCCUPIED"
 	ErrPackTitleInvalid                 = "PACK_TITLE_INVALID"
@@ -621,6 +624,11 @@ func IsBannedRightsInvalid(err error) bool {
 // IsBotsTooMuch reports whether err is BOTS_TOO_MUCH.
 func IsBotsTooMuch(err error) bool {
 	return tgerr.Is(err, ErrBotsTooMuch)
+}
+
+// IsBotAppInvalid reports whether err is BOT_APP_INVALID.
+func IsBotAppInvalid(err error) bool {
+	return tgerr.Is(err, ErrBotAppInvalid)
 }
 
 // IsBotChannelsNa reports whether err is BOT_CHANNELS_NA.
@@ -1438,6 +1446,11 @@ func IsImportIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrImportIDInvalid)
 }
 
+// IsImportTokenInvalid reports whether err is IMPORT_TOKEN_INVALID.
+func IsImportTokenInvalid(err error) bool {
+	return tgerr.Is(err, ErrImportTokenInvalid)
+}
+
 // IsInlineBotRequired reports whether err is INLINE_BOT_REQUIRED.
 func IsInlineBotRequired(err error) bool {
 	return tgerr.Is(err, ErrInlineBotRequired)
@@ -1731,6 +1744,11 @@ func IsOptionsTooMuch(err error) bool {
 // IsOptionInvalid reports whether err is OPTION_INVALID.
 func IsOptionInvalid(err error) bool {
 	return tgerr.Is(err, ErrOptionInvalid)
+}
+
+// IsOrderInvalid reports whether err is ORDER_INVALID.
+func IsOrderInvalid(err error) bool {
+	return tgerr.Is(err, ErrOrderInvalid)
 }
 
 // IsPackShortNameInvalid reports whether err is PACK_SHORT_NAME_INVALID.

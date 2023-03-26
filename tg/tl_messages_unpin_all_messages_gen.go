@@ -46,7 +46,10 @@ type MessagesUnpinAllMessagesRequest struct {
 	Flags bin.Fields
 	// Chat where to unpin
 	Peer InputPeerClass
-	// TopMsgID field of MessagesUnpinAllMessagesRequest.
+	// Forum topic¹ where to unpin
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#forum-topics
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

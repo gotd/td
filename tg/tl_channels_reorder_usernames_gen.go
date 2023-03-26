@@ -214,6 +214,10 @@ func (r *ChannelsReorderUsernamesRequest) GetChannelAsNotEmpty() (NotEmptyInputC
 // ChannelsReorderUsernames invokes method channels.reorderUsernames#b45ced1d returning error if any.
 // Reorder active usernames
 //
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//
 // See https://core.telegram.org/method/channels.reorderUsernames for reference.
 // Can be used by bots.
 func (c *Client) ChannelsReorderUsernames(ctx context.Context, request *ChannelsReorderUsernamesRequest) (bool, error) {

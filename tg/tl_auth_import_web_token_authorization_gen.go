@@ -216,8 +216,11 @@ func (i *AuthImportWebTokenAuthorizationRequest) GetWebAuthToken() (value string
 
 // AuthImportWebTokenAuthorization invokes method auth.importWebTokenAuthorization#2db873a9 returning error if any.
 //
+// Possible errors:
+//
+//	400 API_ID_INVALID: API ID invalid.
+//
 // See https://core.telegram.org/method/auth.importWebTokenAuthorization for reference.
-// Can be used by bots.
 func (c *Client) AuthImportWebTokenAuthorization(ctx context.Context, request *AuthImportWebTokenAuthorizationRequest) (AuthAuthorizationClass, error) {
 	var result AuthAuthorizationBox
 

@@ -64,7 +64,10 @@ type MessagesSendMediaRequest struct {
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	// TopMsgID field of MessagesSendMediaRequest.
+	// If set, sends the media to the specified forum topic¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#forum-topics
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

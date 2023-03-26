@@ -346,6 +346,10 @@ func (s *AccountSaveAutoSaveSettingsRequest) GetSettings() (value AutoSaveSettin
 // AccountSaveAutoSaveSettings invokes method account.saveAutoSaveSettings#d69b8361 returning error if any.
 // Modify autosave settings
 //
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/account.saveAutoSaveSettings for reference.
 // Can be used by bots.
 func (c *Client) AccountSaveAutoSaveSettings(ctx context.Context, request *AccountSaveAutoSaveSettingsRequest) (bool, error) {

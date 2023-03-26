@@ -199,8 +199,11 @@ func (t *AccountToggleUsernameRequest) GetActive() (value bool) {
 // Links:
 //  1. https://fragment.com
 //
+// Possible errors:
+//
+//	400 USERNAME_INVALID: The provided username is not valid.
+//
 // See https://core.telegram.org/method/account.toggleUsername for reference.
-// Can be used by bots.
 func (c *Client) AccountToggleUsername(ctx context.Context, request *AccountToggleUsernameRequest) (bool, error) {
 	var result BoolBox
 

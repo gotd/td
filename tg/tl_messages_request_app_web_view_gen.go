@@ -32,6 +32,15 @@ var (
 )
 
 // MessagesRequestAppWebViewRequest represents TL type `messages.requestAppWebView#8c5a3b3c`.
+// Open a bot web app¹ from a bot web app deep link², sending over user information
+// after user confirmation.
+// After calling this method, until the user closes the webview, messages
+// prolongWebView¹ must be called every 60 seconds.
+//
+// Links:
+//  1. https://core.telegram.org/bots/webapps
+//  2. https://core.telegram.org/api/links#bot-web-app-links
+//  3. https://core.telegram.org/method/messages.prolongWebView
 //
 // See https://core.telegram.org/method/messages.requestAppWebView for reference.
 type MessagesRequestAppWebViewRequest struct {
@@ -40,21 +49,38 @@ type MessagesRequestAppWebViewRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// WriteAllowed field of MessagesRequestAppWebViewRequest.
+	// Set this flag if the bot is asking permission to send messages to the user as
+	// specified in the bot web app deep link¹ docs, and the user agreed.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#bot-web-app-links
 	WriteAllowed bool
-	// Peer field of MessagesRequestAppWebViewRequest.
+	// If the client has clicked on the link in a Telegram chat, pass the chat's peer
+	// information; otherwise pass the bot's peer information, instead.
 	Peer InputPeerClass
-	// App field of MessagesRequestAppWebViewRequest.
+	// The app obtained by invoking messages.getBotApp¹ as specified in the bot web app deep
+	// link² docs.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.getBotApp
+	//  2) https://core.telegram.org/api/links#bot-web-app-links
 	App InputBotAppClass
-	// StartParam field of MessagesRequestAppWebViewRequest.
+	// If the startapp query string parameter is present in the bot web app deep link¹, pass
+	// it to start_param.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#bot-web-app-links
 	//
 	// Use SetStartParam and GetStartParam helpers.
 	StartParam string
-	// ThemeParams field of MessagesRequestAppWebViewRequest.
+	// Theme parameters »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/webapps#theme-parameters
 	//
 	// Use SetThemeParams and GetThemeParams helpers.
 	ThemeParams DataJSON
-	// Platform field of MessagesRequestAppWebViewRequest.
+	// Short name of the application; 0-64 English letters, digits, and underscores
 	Platform string
 }
 
@@ -377,6 +403,15 @@ func (r *MessagesRequestAppWebViewRequest) GetPlatform() (value string) {
 }
 
 // MessagesRequestAppWebView invokes method messages.requestAppWebView#8c5a3b3c returning error if any.
+// Open a bot web app¹ from a bot web app deep link², sending over user information
+// after user confirmation.
+// After calling this method, until the user closes the webview, messages
+// prolongWebView¹ must be called every 60 seconds.
+//
+// Links:
+//  1. https://core.telegram.org/bots/webapps
+//  2. https://core.telegram.org/api/links#bot-web-app-links
+//  3. https://core.telegram.org/method/messages.prolongWebView
 //
 // See https://core.telegram.org/method/messages.requestAppWebView for reference.
 // Can be used by bots.

@@ -99,7 +99,10 @@ type ChatAdminRights struct {
 	//  2) https://core.telegram.org/api/stats
 	//  3) https://core.telegram.org/api/stats
 	Other bool
-	// ManageTopics field of ChatAdminRights.
+	// If set, allows the admin to create, delete or modify forum topics »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#forum-topics
 	ManageTopics bool
 }
 

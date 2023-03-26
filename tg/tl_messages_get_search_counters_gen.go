@@ -47,7 +47,10 @@ type MessagesGetSearchCountersRequest struct {
 	Flags bin.Fields
 	// Peer where to search
 	Peer InputPeerClass
-	// TopMsgID field of MessagesGetSearchCountersRequest.
+	// If set, consider only messages within the specified forum topic¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#forum-topics
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

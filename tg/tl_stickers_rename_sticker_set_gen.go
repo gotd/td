@@ -32,12 +32,13 @@ var (
 )
 
 // StickersRenameStickerSetRequest represents TL type `stickers.renameStickerSet#124b1c00`.
+// Renames a stickerset, bots only.
 //
 // See https://core.telegram.org/method/stickers.renameStickerSet for reference.
 type StickersRenameStickerSetRequest struct {
-	// Stickerset field of StickersRenameStickerSetRequest.
+	// Stickerset to rename
 	Stickerset InputStickerSetClass
-	// Title field of StickersRenameStickerSetRequest.
+	// New stickerset title
 	Title string
 }
 
@@ -193,6 +194,11 @@ func (r *StickersRenameStickerSetRequest) GetTitle() (value string) {
 }
 
 // StickersRenameStickerSet invokes method stickers.renameStickerSet#124b1c00 returning error if any.
+// Renames a stickerset, bots only.
+//
+// Possible errors:
+//
+//	400 STICKERSET_INVALID: The provided sticker set is invalid.
 //
 // See https://core.telegram.org/method/stickers.renameStickerSet for reference.
 // Can be used by bots.

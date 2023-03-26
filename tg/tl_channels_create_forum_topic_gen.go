@@ -32,10 +32,11 @@ var (
 )
 
 // ChannelsCreateForumTopicRequest represents TL type `channels.createForumTopic#f40c0224`.
-// Create a forum topic¹.
+// Create a forum topic¹; requires manage_topics rights².
 //
 // Links:
 //  1. https://core.telegram.org/api/forum
+//  2. https://core.telegram.org/api/rights
 //
 // See https://core.telegram.org/method/channels.createForumTopic for reference.
 type ChannelsCreateForumTopicRequest struct {
@@ -49,7 +50,7 @@ type ChannelsCreateForumTopicRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/forum
 	Channel InputChannelClass
-	// Topic title
+	// Topic title (maximum UTF-8 length: 128)
 	Title string
 	// If no custom emoji icon is specified, specifies the color of the fallback topic icon
 	// (RGB), one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 0xFF93B2, or 0xFB6F5F.
@@ -410,10 +411,15 @@ func (c *ChannelsCreateForumTopicRequest) GetChannelAsNotEmpty() (NotEmptyInputC
 }
 
 // ChannelsCreateForumTopic invokes method channels.createForumTopic#f40c0224 returning error if any.
-// Create a forum topic¹.
+// Create a forum topic¹; requires manage_topics rights².
 //
 // Links:
 //  1. https://core.telegram.org/api/forum
+//  2. https://core.telegram.org/api/rights
+//
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.createForumTopic for reference.
 // Can be used by bots.

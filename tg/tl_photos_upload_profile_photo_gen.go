@@ -43,10 +43,7 @@ type PhotosUploadProfilePhotoRequest struct {
 	Flags bin.Fields
 	// Fallback field of PhotosUploadProfilePhotoRequest.
 	Fallback bool
-	// File saved in parts by means of upload.saveFilePart¹ method
-	//
-	// Links:
-	//  1) https://core.telegram.org/method/upload.saveFilePart
+	// Profile photo
 	//
 	// Use SetFile and GetFile helpers.
 	File InputFileClass
@@ -417,7 +414,7 @@ func (u *PhotosUploadProfilePhotoRequest) GetVideoEmojiMarkup() (value VideoSize
 //	400 PHOTO_EXT_INVALID: The extension of the photo is invalid.
 //	400 PHOTO_FILE_MISSING: Profile photo file missing.
 //	400 PHOTO_INVALID: Photo invalid.
-//	400 STICKER_MIME_INVALID:
+//	400 STICKER_MIME_INVALID: The specified sticker MIME type is invalid.
 //	400 VIDEO_FILE_INVALID: The specified video file is invalid.
 //
 // See https://core.telegram.org/method/photos.uploadProfilePhoto for reference.

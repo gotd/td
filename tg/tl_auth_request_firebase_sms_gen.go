@@ -306,6 +306,10 @@ func (r *AuthRequestFirebaseSMSRequest) GetIosPushSecret() (value string, ok boo
 
 // AuthRequestFirebaseSMS invokes method auth.requestFirebaseSms#89464b50 returning error if any.
 //
+// Possible errors:
+//
+//	400 PHONE_NUMBER_INVALID: The phone number is invalid.
+//
 // See https://core.telegram.org/method/auth.requestFirebaseSms for reference.
 // Can be used by bots.
 func (c *Client) AuthRequestFirebaseSMS(ctx context.Context, request *AuthRequestFirebaseSMSRequest) (bool, error) {
