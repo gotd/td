@@ -33,7 +33,7 @@ var (
 
 // GetTextEntitiesRequest represents TL type `getTextEntities#eba543fb`.
 type GetTextEntitiesRequest struct {
-	// The text in which to look for entites
+	// The text in which to look for entities
 	Text string
 }
 
