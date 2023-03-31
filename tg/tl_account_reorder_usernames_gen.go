@@ -179,7 +179,7 @@ func (r *AccountReorderUsernamesRequest) GetOrder() (value []string) {
 //
 // Possible errors:
 //
-//	400 ORDER_INVALID:
+//	400 ORDER_INVALID: The specified username order is invalid.
 //
 // See https://core.telegram.org/method/account.reorderUsernames for reference.
 func (c *Client) AccountReorderUsernames(ctx context.Context, order []string) (bool, error) {

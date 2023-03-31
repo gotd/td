@@ -32,6 +32,7 @@ var (
 )
 
 // AccountAutoSaveSettings represents TL type `account.autoSaveSettings#4c3e069d`.
+// Contains media autosave settings
 //
 // See https://core.telegram.org/constructor/account.autoSaveSettings for reference.
 type AccountAutoSaveSettings struct {

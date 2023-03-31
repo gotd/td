@@ -71,7 +71,10 @@ type Dialog struct {
 	//
 	// Use SetPts and GetPts helpers.
 	Pts int
-	// Message draft
+	// Message draft¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/drafts
 	//
 	// Use SetDraft and GetDraft helpers.
 	Draft DraftMessageClass
@@ -82,7 +85,7 @@ type Dialog struct {
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
-	// TTLPeriod field of Dialog.
+	// Time-to-live of all messages sent in this dialog
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
 	TTLPeriod int

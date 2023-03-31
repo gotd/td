@@ -194,7 +194,6 @@ const (
 	ErrFilterNotSupported               = "FILTER_NOT_SUPPORTED"
 	ErrFilterTitleEmpty                 = "FILTER_TITLE_EMPTY"
 	ErrFirstnameInvalid                 = "FIRSTNAME_INVALID"
-	ErrFolderIDEmpty                    = "FOLDER_ID_EMPTY"
 	ErrFolderIDInvalid                  = "FOLDER_ID_INVALID"
 	ErrFreshChangeAdminsForbidden       = "FRESH_CHANGE_ADMINS_FORBIDDEN"
 	ErrFreshChangePhoneForbidden        = "FRESH_CHANGE_PHONE_FORBIDDEN"
@@ -441,6 +440,7 @@ const (
 	ErrTopicClosed                      = "TOPIC_CLOSED"
 	ErrTopicDeleted                     = "TOPIC_DELETED"
 	ErrTopicIDInvalid                   = "TOPIC_ID_INVALID"
+	ErrTopicNotModified                 = "TOPIC_NOT_MODIFIED"
 	ErrToLangInvalid                    = "TO_LANG_INVALID"
 	ErrTranscriptionFailed              = "TRANSCRIPTION_FAILED"
 	ErrTTLDaysInvalid                   = "TTL_DAYS_INVALID"
@@ -1304,11 +1304,6 @@ func IsFilterTitleEmpty(err error) bool {
 // IsFirstnameInvalid reports whether err is FIRSTNAME_INVALID.
 func IsFirstnameInvalid(err error) bool {
 	return tgerr.Is(err, ErrFirstnameInvalid)
-}
-
-// IsFolderIDEmpty reports whether err is FOLDER_ID_EMPTY.
-func IsFolderIDEmpty(err error) bool {
-	return tgerr.Is(err, ErrFolderIDEmpty)
 }
 
 // IsFolderIDInvalid reports whether err is FOLDER_ID_INVALID.
@@ -2539,6 +2534,11 @@ func IsTopicDeleted(err error) bool {
 // IsTopicIDInvalid reports whether err is TOPIC_ID_INVALID.
 func IsTopicIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrTopicIDInvalid)
+}
+
+// IsTopicNotModified reports whether err is TOPIC_NOT_MODIFIED.
+func IsTopicNotModified(err error) bool {
+	return tgerr.Is(err, ErrTopicNotModified)
 }
 
 // IsToLangInvalid reports whether err is TO_LANG_INVALID.

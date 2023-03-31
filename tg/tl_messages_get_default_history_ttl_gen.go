@@ -32,6 +32,7 @@ var (
 )
 
 // MessagesGetDefaultHistoryTTLRequest represents TL type `messages.getDefaultHistoryTTL#658b7188`.
+// Gets the default value of the Time-To-Live setting, applied to all new chats.
 //
 // See https://core.telegram.org/method/messages.getDefaultHistoryTTL for reference.
 type MessagesGetDefaultHistoryTTLRequest struct {
@@ -128,6 +129,7 @@ func (g *MessagesGetDefaultHistoryTTLRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // MessagesGetDefaultHistoryTTL invokes method messages.getDefaultHistoryTTL#658b7188 returning error if any.
+// Gets the default value of the Time-To-Live setting, applied to all new chats.
 //
 // See https://core.telegram.org/method/messages.getDefaultHistoryTTL for reference.
 // Can be used by bots.

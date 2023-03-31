@@ -166,6 +166,10 @@ func (f *ForumTopicDeleted) GetID() (value int) {
 }
 
 // ForumTopic represents TL type `forumTopic#71701da9`.
+// Represents a forum topic¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/forum#forum-topics
 //
 // See https://core.telegram.org/constructor/forumTopic for reference.
 type ForumTopic struct {
@@ -174,21 +178,24 @@ type ForumTopic struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// My field of ForumTopic.
+	// Whether the topic was created by the current user
 	My bool
-	// Closed field of ForumTopic.
+	// Whether the topic is closed (no messages can be sent to it)
 	Closed bool
-	// Pinned field of ForumTopic.
+	// Whether the topic is pinned
 	Pinned bool
 	// Short field of ForumTopic.
 	Short bool
-	// Hidden field of ForumTopic.
+	// Whether the topic is hidden (only valid for the "General" topic, id=1)
 	Hidden bool
-	// ID field of ForumTopic.
+	// Topic ID¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#forum-topics
 	ID int
-	// Date field of ForumTopic.
+	// Topic creation date
 	Date int
-	// Title field of ForumTopic.
+	// Topic title
 	Title string
 	// If no custom emoji icon is specified, specifies the color of the fallback topic icon
 	// (RGB), one of 0x6FB9F0, 0xFFD67E, 0xCB86DB, 0x8EEE98, 0xFF93B2, or 0xFB6F5F.
@@ -200,23 +207,29 @@ type ForumTopic struct {
 	//
 	// Use SetIconEmojiID and GetIconEmojiID helpers.
 	IconEmojiID int64
-	// TopMessage field of ForumTopic.
+	// ID of the last message that was sent to this topic
 	TopMessage int
-	// ReadInboxMaxID field of ForumTopic.
+	// Position up to which all incoming messages are read.
 	ReadInboxMaxID int
-	// ReadOutboxMaxID field of ForumTopic.
+	// Position up to which all outgoing messages are read.
 	ReadOutboxMaxID int
-	// UnreadCount field of ForumTopic.
+	// Number of unread messages
 	UnreadCount int
-	// UnreadMentionsCount field of ForumTopic.
+	// Number of unread mentions¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/mentions
 	UnreadMentionsCount int
-	// UnreadReactionsCount field of ForumTopic.
+	// Number of unread reactions to messages you sent
 	UnreadReactionsCount int
-	// FromID field of ForumTopic.
+	// ID of the peer that created the topic
 	FromID PeerClass
-	// NotifySettings field of ForumTopic.
+	// Notification settings
 	NotifySettings PeerNotifySettings
-	// Draft field of ForumTopic.
+	// Message draft¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/drafts
 	//
 	// Use SetDraft and GetDraft helpers.
 	Draft DraftMessageClass

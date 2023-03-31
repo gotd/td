@@ -55,7 +55,7 @@ type AttachMenuBot struct {
 	// Links:
 	//  1) https://core.telegram.org/api/bots/webapps#settings-button-pressed
 	HasSettings bool
-	// RequestWriteAccess field of AttachMenuBot.
+	// Whether the bot would like to send messages to the user.
 	RequestWriteAccess bool
 	// Bot ID
 	BotID int64

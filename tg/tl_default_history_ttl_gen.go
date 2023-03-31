@@ -32,10 +32,12 @@ var (
 )
 
 // DefaultHistoryTTL represents TL type `defaultHistoryTTL#43b46b20`.
+// Contains info about the default value of the Time-To-Live setting, applied to all new
+// chats.
 //
 // See https://core.telegram.org/constructor/defaultHistoryTTL for reference.
 type DefaultHistoryTTL struct {
-	// Period field of DefaultHistoryTTL.
+	// Time-To-Live setting applied to all new chats.
 	Period int
 }
 

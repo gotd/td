@@ -68,10 +68,10 @@ type CodeSettings struct {
 	AllowMissedCall bool
 	// AllowFirebase field of CodeSettings.
 	AllowFirebase bool
-	// Previously stored logout tokens, see the documentation for more info »¹
+	// Previously stored future auth tokens, see the documentation for more info »¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/auth#logout-tokens
+	//  1) https://core.telegram.org/api/auth#future-auth-tokens
 	//
 	// Use SetLogoutTokens and GetLogoutTokens helpers.
 	LogoutTokens [][]byte

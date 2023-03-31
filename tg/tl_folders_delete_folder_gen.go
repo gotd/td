@@ -32,17 +32,10 @@ var (
 )
 
 // FoldersDeleteFolderRequest represents TL type `folders.deleteFolder#1c295881`.
-// Delete a peer folder¹
-//
-// Links:
-//  1. https://core.telegram.org/api/folders#peer-folders
 //
 // See https://core.telegram.org/method/folders.deleteFolder for reference.
 type FoldersDeleteFolderRequest struct {
-	// Peer folder ID, for more info click here¹
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/folders#peer-folders
+	// FolderID field of FoldersDeleteFolderRequest.
 	FolderID int
 }
 
@@ -168,15 +161,6 @@ func (d *FoldersDeleteFolderRequest) GetFolderID() (value int) {
 }
 
 // FoldersDeleteFolder invokes method folders.deleteFolder#1c295881 returning error if any.
-// Delete a peer folder¹
-//
-// Links:
-//  1. https://core.telegram.org/api/folders#peer-folders
-//
-// Possible errors:
-//
-//	400 FOLDER_ID_EMPTY: An empty folder ID was specified.
-//	400 FOLDER_ID_INVALID: Invalid folder ID.
 //
 // See https://core.telegram.org/method/folders.deleteFolder for reference.
 func (c *Client) FoldersDeleteFolder(ctx context.Context, folderid int) (UpdatesClass, error) {
