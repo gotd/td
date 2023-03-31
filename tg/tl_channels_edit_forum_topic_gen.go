@@ -430,6 +430,11 @@ func (e *ChannelsEditForumTopicRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 //  1. https://core.telegram.org/api/forum
 //  2. https://core.telegram.org/api/rights
 //
+// Possible errors:
+//
+//	400 TOPIC_ID_INVALID: The specified topic ID is invalid.
+//	400 TOPIC_NOT_MODIFIED: The updated topic info is equal to the current topic info, nothing was changed.
+//
 // See https://core.telegram.org/method/channels.editForumTopic for reference.
 // Can be used by bots.
 func (c *Client) ChannelsEditForumTopic(ctx context.Context, request *ChannelsEditForumTopicRequest) (UpdatesClass, error) {

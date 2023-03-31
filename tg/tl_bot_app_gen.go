@@ -32,6 +32,7 @@ var (
 )
 
 // BotAppNotModified represents TL type `botAppNotModified#5da674b7`.
+// Bot app info hasn't changed.
 //
 // See https://core.telegram.org/constructor/botAppNotModified for reference.
 type BotAppNotModified struct {
@@ -133,6 +134,10 @@ func (b *BotAppNotModified) DecodeBare(buf *bin.Buffer) error {
 }
 
 // BotApp represents TL type `botApp#95fcd1d6`.
+// Contains information about a bot web app¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps#bot-web-apps
 //
 // See https://core.telegram.org/constructor/botApp for reference.
 type BotApp struct {
@@ -141,23 +146,30 @@ type BotApp struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ID field of BotApp.
+	// Bot web app ID
 	ID int64
-	// AccessHash field of BotApp.
+	// Bot web app access hash
 	AccessHash int64
-	// ShortName field of BotApp.
+	// Bot web app short name, used to generate bot web app deep links¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#bot-web-app-links
 	ShortName string
-	// Title field of BotApp.
+	// Bot web app title.
 	Title string
-	// Description field of BotApp.
+	// Bot web app description.
 	Description string
-	// Photo field of BotApp.
+	// Bot web app photo.
 	Photo PhotoClass
-	// Document field of BotApp.
+	// Bot web app animation.
 	//
 	// Use SetDocument and GetDocument helpers.
 	Document DocumentClass
-	// Hash field of BotApp.
+	// Hash to pass to messages.getBotApp¹, to avoid refetching bot app info if it hasn't
+	// changed.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.getBotApp
 	Hash int64
 }
 

@@ -32,10 +32,11 @@ var (
 )
 
 // MessagesSetDefaultHistoryTTLRequest represents TL type `messages.setDefaultHistoryTTL#9eb51445`.
+// Changes the default value of the Time-To-Live setting, applied to all new chats.
 //
 // See https://core.telegram.org/method/messages.setDefaultHistoryTTL for reference.
 type MessagesSetDefaultHistoryTTLRequest struct {
-	// Period field of MessagesSetDefaultHistoryTTLRequest.
+	// The new default Time-To-Live of all messages sent in new chats.
 	Period int
 }
 
@@ -161,6 +162,7 @@ func (s *MessagesSetDefaultHistoryTTLRequest) GetPeriod() (value int) {
 }
 
 // MessagesSetDefaultHistoryTTL invokes method messages.setDefaultHistoryTTL#9eb51445 returning error if any.
+// Changes the default value of the Time-To-Live setting, applied to all new chats.
 //
 // See https://core.telegram.org/method/messages.setDefaultHistoryTTL for reference.
 // Can be used by bots.

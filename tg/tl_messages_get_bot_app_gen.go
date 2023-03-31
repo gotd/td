@@ -32,12 +32,22 @@ var (
 )
 
 // MessagesGetBotAppRequest represents TL type `messages.getBotApp#34fdc5c3`.
+// Obtain information about a bot web app¹
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps#bot-web-apps
 //
 // See https://core.telegram.org/method/messages.getBotApp for reference.
 type MessagesGetBotAppRequest struct {
-	// App field of MessagesGetBotAppRequest.
+	// Bot app information obtained from a bot web app deep link »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#bot-web-app-links
 	App InputBotAppClass
-	// Hash field of MessagesGetBotAppRequest.
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
 }
 
@@ -193,6 +203,10 @@ func (g *MessagesGetBotAppRequest) GetHash() (value int64) {
 }
 
 // MessagesGetBotApp invokes method messages.getBotApp#34fdc5c3 returning error if any.
+// Obtain information about a bot web app¹
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps#bot-web-apps
 //
 // Possible errors:
 //

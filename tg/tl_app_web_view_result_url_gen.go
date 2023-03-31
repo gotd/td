@@ -32,10 +32,14 @@ var (
 )
 
 // AppWebViewResultURL represents TL type `appWebViewResultUrl#3c1b4f0d`.
+// Contains the link that must be used to open a bot web app¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps#bot-web-apps
 //
 // See https://core.telegram.org/constructor/appWebViewResultUrl for reference.
 type AppWebViewResultURL struct {
-	// URL field of AppWebViewResultURL.
+	// The URL to open
 	URL string
 }
 

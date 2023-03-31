@@ -32,10 +32,10 @@ var (
 )
 
 // AuthLoggedOut represents TL type `auth.loggedOut#c3a2835f`.
-// Logout token »¹ to be used on subsequent authorizations
+// Future auth token »¹ to be used on subsequent authorizations
 //
 // Links:
-//  1. https://core.telegram.org/api/auth#logout-tokens
+//  1. https://core.telegram.org/api/auth#future-auth-tokens
 //
 // See https://core.telegram.org/constructor/auth.loggedOut for reference.
 type AuthLoggedOut struct {
@@ -44,10 +44,10 @@ type AuthLoggedOut struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Logout token »¹ to be used on subsequent authorizations
+	// Future auth token »¹ to be used on subsequent authorizations
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/auth#logout-tokens
+	//  1) https://core.telegram.org/api/auth#future-auth-tokens
 	//
 	// Use SetFutureAuthToken and GetFutureAuthToken helpers.
 	FutureAuthToken []byte

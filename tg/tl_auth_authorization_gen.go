@@ -56,7 +56,10 @@ type AuthAuthorization struct {
 	//
 	// Use SetTmpSessions and GetTmpSessions helpers.
 	TmpSessions int
-	// FutureAuthToken field of AuthAuthorization.
+	// A future auth token¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/auth#future-auth-tokens
 	//
 	// Use SetFutureAuthToken and GetFutureAuthToken helpers.
 	FutureAuthToken []byte
