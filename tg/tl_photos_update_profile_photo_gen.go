@@ -41,7 +41,8 @@ type PhotosUpdateProfilePhotoRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Fallback field of PhotosUpdateProfilePhotoRequest.
+	// If set, the chosen profile photo will be shown to users that can't display your main
+	// profile photo due to your privacy settings.
 	Fallback bool
 	// Input photo
 	ID InputPhotoClass

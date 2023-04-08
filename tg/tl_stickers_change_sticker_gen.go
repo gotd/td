@@ -32,7 +32,7 @@ var (
 )
 
 // StickersChangeStickerRequest represents TL type `stickers.changeSticker#f5537ebc`.
-// Update the keywords, emojis or mask coordinates¹ of a sticker
+// Update the keywords, emojis or mask coordinates¹ of a sticker, bots only.
 //
 // Links:
 //  1. https://core.telegram.org/api/stickers#mask-stickers
@@ -57,7 +57,8 @@ type StickersChangeStickerRequest struct {
 	//
 	// Use SetMaskCoords and GetMaskCoords helpers.
 	MaskCoords MaskCoords
-	// If set, updates the sticker keywords (separated by commas).
+	// If set, updates the sticker keywords (separated by commas). Can't be provided for mask
+	// stickers.
 	//
 	// Use SetKeywords and GetKeywords helpers.
 	Keywords string
@@ -343,7 +344,7 @@ func (c *StickersChangeStickerRequest) GetStickerAsNotEmpty() (*InputDocument, b
 }
 
 // StickersChangeSticker invokes method stickers.changeSticker#f5537ebc returning error if any.
-// Update the keywords, emojis or mask coordinates¹ of a sticker
+// Update the keywords, emojis or mask coordinates¹ of a sticker, bots only.
 //
 // Links:
 //  1. https://core.telegram.org/api/stickers#mask-stickers

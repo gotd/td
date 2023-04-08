@@ -32,7 +32,7 @@ var (
 )
 
 // VideoSize represents TL type `videoSize#de33b094`.
-// Animated profile picture¹ in MPEG4 format
+// An animated profile picture¹ in MPEG4 format
 //
 // Links:
 //  1. https://core.telegram.org/api/files#animated-profile-pictures
@@ -320,12 +320,26 @@ func (v *VideoSize) GetVideoStartTs() (value float64, ok bool) {
 }
 
 // VideoSizeEmojiMarkup represents TL type `videoSizeEmojiMarkup#f85c413c`.
+// An animated profile picture¹ based on a custom emoji sticker².
+//
+// Links:
+//  1. https://core.telegram.org/api/files#animated-profile-pictures
+//  2. https://core.telegram.org/api/custom-emoji
 //
 // See https://core.telegram.org/constructor/videoSizeEmojiMarkup for reference.
 type VideoSizeEmojiMarkup struct {
-	// EmojiID field of VideoSizeEmojiMarkup.
+	// Custom emoji ID¹: the custom emoji sticker is shown at the center of the profile
+	// picture and occupies at most 67% of it.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	EmojiID int64
-	// BackgroundColors field of VideoSizeEmojiMarkup.
+	// 1, 2, 3 or 4 RBG-24 colors used to generate a solid (1), gradient (2) or freeform
+	// gradient (3, 4) background, similar to how fill wallpapers¹ are generated. The
+	// rotation angle for gradient backgrounds is 0.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers#fill-types
 	BackgroundColors []int
 }
 
@@ -494,14 +508,24 @@ func (v *VideoSizeEmojiMarkup) GetBackgroundColors() (value []int) {
 }
 
 // VideoSizeStickerMarkup represents TL type `videoSizeStickerMarkup#da082fe`.
+// An animated profile picture¹ based on a sticker².
+//
+// Links:
+//  1. https://core.telegram.org/api/files#animated-profile-pictures
+//  2. https://core.telegram.org/api/stickers
 //
 // See https://core.telegram.org/constructor/videoSizeStickerMarkup for reference.
 type VideoSizeStickerMarkup struct {
-	// Stickerset field of VideoSizeStickerMarkup.
+	// Stickerset
 	Stickerset InputStickerSetClass
-	// StickerID field of VideoSizeStickerMarkup.
+	// Sticker ID
 	StickerID int64
-	// BackgroundColors field of VideoSizeStickerMarkup.
+	// 1, 2, 3 or 4 RBG-24 colors used to generate a solid (1), gradient (2) or freeform
+	// gradient (3, 4) background, similar to how fill wallpapers¹ are generated. The
+	// rotation angle for gradient backgrounds is 0.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers#fill-types
 	BackgroundColors []int
 }
 

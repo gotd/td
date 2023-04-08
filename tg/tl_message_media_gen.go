@@ -143,7 +143,7 @@ type MessageMediaPhoto struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Spoiler field of MessageMediaPhoto.
+	// Whether this media should be hidden behind a spoiler warning
 	Spoiler bool
 	// Photo
 	//
@@ -896,7 +896,7 @@ type MessageMediaDocument struct {
 	// Whether this is a normal sticker, if not set this is a premium sticker and a premium
 	// sticker animation must be played.
 	Nopremium bool
-	// Spoiler field of MessageMediaDocument.
+	// Whether this media should be hidden behind a spoiler warning
 	Spoiler bool
 	// Attached document
 	//

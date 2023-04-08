@@ -33,6 +33,7 @@ var (
 
 // PhotosUploadProfilePhotoRequest represents TL type `photos.uploadProfilePhoto#93c9a51`.
 // Updates current user profile photo.
+// The file, video and video_emoji_markup flags are mutually exclusive.
 //
 // See https://core.telegram.org/method/photos.uploadProfilePhoto for reference.
 type PhotosUploadProfilePhotoRequest struct {
@@ -41,7 +42,8 @@ type PhotosUploadProfilePhotoRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Fallback field of PhotosUploadProfilePhotoRequest.
+	// If set, the chosen profile photo will be shown to users that can't display your main
+	// profile photo due to your privacy settings.
 	Fallback bool
 	// Profile photo
 	//
@@ -54,12 +56,18 @@ type PhotosUploadProfilePhotoRequest struct {
 	//
 	// Use SetVideo and GetVideo helpers.
 	Video InputFileClass
-	// Floating point UNIX timestamp in seconds, indicating the frame of the video that
-	// should be used as static preview.
+	// Floating point UNIX timestamp in seconds, indicating the frame of the video/sticker
+	// that should be used as static preview; can only be used if video or video_emoji_markup
+	// is set.
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
 	VideoStartTs float64
-	// VideoEmojiMarkup field of PhotosUploadProfilePhotoRequest.
+	// Animated sticker profile picture, must contain either a videoSizeEmojiMarkup¹ or a
+	// videoSizeStickerMarkup² constructor.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/videoSizeEmojiMarkup
+	//  2) https://core.telegram.org/constructor/videoSizeStickerMarkup
 	//
 	// Use SetVideoEmojiMarkup and GetVideoEmojiMarkup helpers.
 	VideoEmojiMarkup VideoSizeClass
@@ -403,6 +411,7 @@ func (u *PhotosUploadProfilePhotoRequest) GetVideoEmojiMarkup() (value VideoSize
 
 // PhotosUploadProfilePhoto invokes method photos.uploadProfilePhoto#93c9a51 returning error if any.
 // Updates current user profile photo.
+// The file, video and video_emoji_markup flags are mutually exclusive.
 //
 // Possible errors:
 //

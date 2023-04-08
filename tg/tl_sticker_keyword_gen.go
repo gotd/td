@@ -32,12 +32,13 @@ var (
 )
 
 // StickerKeyword represents TL type `stickerKeyword#fcfeb29c`.
+// Keywords for a certain sticker
 //
 // See https://core.telegram.org/constructor/stickerKeyword for reference.
 type StickerKeyword struct {
-	// DocumentID field of StickerKeyword.
+	// Sticker ID
 	DocumentID int64
-	// Keyword field of StickerKeyword.
+	// Keywords
 	Keyword []string
 }
 

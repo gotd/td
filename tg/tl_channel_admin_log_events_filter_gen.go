@@ -128,7 +128,10 @@ type ChannelAdminLogEventsFilter struct {
 	Invites bool
 	// A message was posted in a channel
 	Send bool
-	// Forums field of ChannelAdminLogEventsFilter.
+	// Forum¹-related events
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#forum
 	Forums bool
 }
 

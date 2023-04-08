@@ -32,10 +32,19 @@ var (
 )
 
 // MessagesGetEmojiStatusGroupsRequest represents TL type `messages.getEmojiStatusGroups#2ecd56cd`.
+// Represents a list of emoji categories¹, to be used when selecting custom emojis to
+// set as custom emoji status².
+//
+// Links:
+//  1. https://core.telegram.org/api/custom-emoji#emoji-categories
+//  2. https://core.telegram.org/api
 //
 // See https://core.telegram.org/method/messages.getEmojiStatusGroups for reference.
 type MessagesGetEmojiStatusGroupsRequest struct {
-	// Hash field of MessagesGetEmojiStatusGroupsRequest.
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 }
 
@@ -161,6 +170,12 @@ func (g *MessagesGetEmojiStatusGroupsRequest) GetHash() (value int) {
 }
 
 // MessagesGetEmojiStatusGroups invokes method messages.getEmojiStatusGroups#2ecd56cd returning error if any.
+// Represents a list of emoji categories¹, to be used when selecting custom emojis to
+// set as custom emoji status².
+//
+// Links:
+//  1. https://core.telegram.org/api/custom-emoji#emoji-categories
+//  2. https://core.telegram.org/api
 //
 // See https://core.telegram.org/method/messages.getEmojiStatusGroups for reference.
 // Can be used by bots.

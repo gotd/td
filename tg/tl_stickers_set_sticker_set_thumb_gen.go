@@ -43,11 +43,15 @@ type StickersSetStickerSetThumbRequest struct {
 	Flags bin.Fields
 	// Stickerset
 	Stickerset InputStickerSetClass
-	// Thumbnail
+	// Thumbnail (only for normal stickersets, not custom emoji stickersets).
 	//
 	// Use SetThumb and GetThumb helpers.
 	Thumb InputDocumentClass
-	// ThumbDocumentID field of StickersSetStickerSetThumbRequest.
+	// Only for custom emoji stickersets¹, ID of a custom emoji present in the set to use as
+	// thumbnail; pass 0 to fallback to the first custom emoji of the set.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	//
 	// Use SetThumbDocumentID and GetThumbDocumentID helpers.
 	ThumbDocumentID int64

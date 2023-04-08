@@ -32,10 +32,11 @@ var (
 )
 
 // ForumTopicDeleted represents TL type `forumTopicDeleted#23f109b`.
+// Represents a deleted forum topic.
 //
 // See https://core.telegram.org/constructor/forumTopicDeleted for reference.
 type ForumTopicDeleted struct {
-	// ID field of ForumTopicDeleted.
+	// The ID of the deleted forum topic.
 	ID int
 }
 
@@ -951,7 +952,7 @@ type ForumTopicClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// ID field of ForumTopicDeleted.
+	// The ID of the deleted forum topic.
 	GetID() (value int)
 }
 

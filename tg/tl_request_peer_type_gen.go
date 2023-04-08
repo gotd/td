@@ -32,6 +32,7 @@ var (
 )
 
 // RequestPeerTypeUser represents TL type `requestPeerTypeUser#5f3b8a00`.
+// Choose a user.
 //
 // See https://core.telegram.org/constructor/requestPeerTypeUser for reference.
 type RequestPeerTypeUser struct {
@@ -40,11 +41,14 @@ type RequestPeerTypeUser struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Bot field of RequestPeerTypeUser.
+	// Whether to allow choosing only bots.
 	//
 	// Use SetBot and GetBot helpers.
 	Bot bool
-	// Premium field of RequestPeerTypeUser.
+	// Whether to allow choosing only Premium¹ users.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
 	//
 	// Use SetPremium and GetPremium helpers.
 	Premium bool
@@ -256,6 +260,7 @@ func (r *RequestPeerTypeUser) GetPremium() (value bool, ok bool) {
 }
 
 // RequestPeerTypeChat represents TL type `requestPeerTypeChat#c9f06e1b`.
+// Choose a chat or supergroup
 //
 // See https://core.telegram.org/constructor/requestPeerTypeChat for reference.
 type RequestPeerTypeChat struct {
@@ -264,23 +269,35 @@ type RequestPeerTypeChat struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Creator field of RequestPeerTypeChat.
+	// Whether to allow only choosing chats or supergroups that were created by the current
+	// user.
 	Creator bool
-	// BotParticipant field of RequestPeerTypeChat.
+	// Whether to allow only choosing chats or supergroups where the bot is a participant.
 	BotParticipant bool
-	// HasUsername field of RequestPeerTypeChat.
+	// If specified, allows only choosing channels with or without a username, according to
+	// the value of Bool¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/Bool
 	//
 	// Use SetHasUsername and GetHasUsername helpers.
 	HasUsername bool
-	// Forum field of RequestPeerTypeChat.
+	// If specified, allows only choosing chats or supergroups that are or aren't forums¹,
+	// according to the value of Bool².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum
+	//  2) https://core.telegram.org/type/Bool
 	//
 	// Use SetForum and GetForum helpers.
 	Forum bool
-	// UserAdminRights field of RequestPeerTypeChat.
+	// If specified, allows only choosing chats or supergroups where the current user is an
+	// admin with at least the specified admin rights.
 	//
 	// Use SetUserAdminRights and GetUserAdminRights helpers.
 	UserAdminRights ChatAdminRights
-	// BotAdminRights field of RequestPeerTypeChat.
+	// If specified, allows only choosing chats or supergroups where the bot is an admin with
+	// at least the specified admin rights.
 	//
 	// Use SetBotAdminRights and GetBotAdminRights helpers.
 	BotAdminRights ChatAdminRights
@@ -646,6 +663,7 @@ func (r *RequestPeerTypeChat) GetBotAdminRights() (value ChatAdminRights, ok boo
 }
 
 // RequestPeerTypeBroadcast represents TL type `requestPeerTypeBroadcast#339bef6c`.
+// Choose a channel
 //
 // See https://core.telegram.org/constructor/requestPeerTypeBroadcast for reference.
 type RequestPeerTypeBroadcast struct {
@@ -654,17 +672,23 @@ type RequestPeerTypeBroadcast struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Creator field of RequestPeerTypeBroadcast.
+	// Whether to allow only choosing channels that were created by the current user.
 	Creator bool
-	// HasUsername field of RequestPeerTypeBroadcast.
+	// If specified, allows only choosing channels with or without a username, according to
+	// the value of Bool¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/Bool
 	//
 	// Use SetHasUsername and GetHasUsername helpers.
 	HasUsername bool
-	// UserAdminRights field of RequestPeerTypeBroadcast.
+	// If specified, allows only choosing channels where the current user is an admin with at
+	// least the specified admin rights.
 	//
 	// Use SetUserAdminRights and GetUserAdminRights helpers.
 	UserAdminRights ChatAdminRights
-	// BotAdminRights field of RequestPeerTypeBroadcast.
+	// If specified, allows only choosing channels where the bot is an admin with at least
+	// the specified admin rights.
 	//
 	// Use SetBotAdminRights and GetBotAdminRights helpers.
 	BotAdminRights ChatAdminRights

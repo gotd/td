@@ -32,6 +32,7 @@ var (
 )
 
 // HelpAppConfigNotModified represents TL type `help.appConfigNotModified#7cde641d`.
+// The client configuration parameters haven't changed
 //
 // See https://core.telegram.org/constructor/help.appConfigNotModified for reference.
 type HelpAppConfigNotModified struct {
@@ -133,12 +134,22 @@ func (a *HelpAppConfigNotModified) DecodeBare(b *bin.Buffer) error {
 }
 
 // HelpAppConfig represents TL type `help.appConfig#dd18782e`.
+// Contains various client configuration parameters¹
+//
+// Links:
+//  1. https://core.telegram.org/api/config#client-configuration
 //
 // See https://core.telegram.org/constructor/help.appConfig for reference.
 type HelpAppConfig struct {
-	// Hash field of HelpAppConfig.
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
-	// Config field of HelpAppConfig.
+	// Client configuration parameters¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#client-configuration
 	Config JSONValueClass
 }
 

@@ -50,7 +50,7 @@ type MessagePeerReaction struct {
 	Unread bool
 	// Peer that reacted to the message
 	PeerID PeerClass
-	// Date field of MessagePeerReaction.
+	// When was this reaction added
 	Date int
 	// Reaction emoji
 	Reaction ReactionClass

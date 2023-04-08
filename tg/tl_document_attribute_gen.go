@@ -1434,7 +1434,9 @@ type DocumentAttributeCustomEmoji struct {
 	Flags bin.Fields
 	// Whether this custom emoji can be sent by non-Premium users
 	Free bool
-	// TextColor field of DocumentAttributeCustomEmoji.
+	// Whether the color of this TGS custom emoji should be changed to the text color when
+	// used in messages, the accent color if used as emoji status, white on chat photos, or
+	// another appropriate color based on context.
 	TextColor bool
 	// The actual emoji
 	Alt string

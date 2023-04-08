@@ -32,12 +32,13 @@ var (
 )
 
 // ReadParticipantDate represents TL type `readParticipantDate#4a4ff172`.
+// Contains info about when a certain participant has read a message
 //
 // See https://core.telegram.org/constructor/readParticipantDate for reference.
 type ReadParticipantDate struct {
-	// UserID field of ReadParticipantDate.
+	// User ID
 	UserID int64
-	// Date field of ReadParticipantDate.
+	// When the user read the message
 	Date int
 }
 

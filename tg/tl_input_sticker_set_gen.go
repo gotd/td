@@ -1093,6 +1093,11 @@ func (i *InputStickerSetEmojiDefaultStatuses) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputStickerSetEmojiDefaultTopicIcons represents TL type `inputStickerSetEmojiDefaultTopicIcons#44c1f8e9`.
+// Default custom emoji¹ stickerset for forum topic icons²
+//
+// Links:
+//  1. https://core.telegram.org/api/custom-emoji
+//  2. https://core.telegram.org/api/forum#forum-topics
 //
 // See https://core.telegram.org/constructor/inputStickerSetEmojiDefaultTopicIcons for reference.
 type InputStickerSetEmojiDefaultTopicIcons struct {

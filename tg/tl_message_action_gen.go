@@ -3165,11 +3165,7 @@ func (m *MessageActionCustomAction) GetMessage() (value string) {
 }
 
 // MessageActionBotAllowed represents TL type `messageActionBotAllowed#c516d679`.
-// The domain name of the website on which the user has logged in. More about Telegram
-// Login »¹
-//
-// Links:
-//  1. https://core.telegram.org/widgets/login
+// The user has given the bot permission to do something.
 //
 // See https://core.telegram.org/constructor/messageActionBotAllowed for reference.
 type MessageActionBotAllowed struct {
@@ -3180,7 +3176,11 @@ type MessageActionBotAllowed struct {
 	Flags bin.Fields
 	// AttachMenu field of MessageActionBotAllowed.
 	AttachMenu bool
-	// The domain name of the website on which the user has logged in.
+	// The domain name of the website on which the user has logged in. More about Telegram
+	// Login »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/widgets/login
 	//
 	// Use SetDomain and GetDomain helpers.
 	Domain string
@@ -5573,6 +5573,10 @@ func (m *MessageActionGiftPremium) GetMonths() (value int) {
 }
 
 // MessageActionTopicCreate represents TL type `messageActionTopicCreate#d999256`.
+// A forum topic¹ was created.
+//
+// Links:
+//  1. https://core.telegram.org/api/forum#forum-topics
 //
 // See https://core.telegram.org/constructor/messageActionTopicCreate for reference.
 type MessageActionTopicCreate struct {
@@ -5807,6 +5811,10 @@ func (m *MessageActionTopicCreate) GetIconEmojiID() (value int64, ok bool) {
 }
 
 // MessageActionTopicEdit represents TL type `messageActionTopicEdit#c0944820`.
+// Forum topic¹ information was edited.
+//
+// Links:
+//  1. https://core.telegram.org/api/forum#forum-topics
 //
 // See https://core.telegram.org/constructor/messageActionTopicEdit for reference.
 type MessageActionTopicEdit struct {
@@ -5815,19 +5823,22 @@ type MessageActionTopicEdit struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Title field of MessageActionTopicEdit.
+	// Topic title.
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// IconEmojiID field of MessageActionTopicEdit.
+	// ID of the custom emoji¹ used as topic icon.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	//
 	// Use SetIconEmojiID and GetIconEmojiID helpers.
 	IconEmojiID int64
-	// Closed field of MessageActionTopicEdit.
+	// Whether the topic was closed.
 	//
 	// Use SetClosed and GetClosed helpers.
 	Closed bool
-	// Hidden field of MessageActionTopicEdit.
+	// Whether the topic was hidden.
 	//
 	// Use SetHidden and GetHidden helpers.
 	Hidden bool
@@ -6127,10 +6138,14 @@ func (m *MessageActionTopicEdit) GetHidden() (value bool, ok bool) {
 }
 
 // MessageActionSuggestProfilePhoto represents TL type `messageActionSuggestProfilePhoto#57de635e`.
+// A new profile picture was suggested using photos.uploadContactProfilePhoto¹.
+//
+// Links:
+//  1. https://core.telegram.org/method/photos.uploadContactProfilePhoto
 //
 // See https://core.telegram.org/constructor/messageActionSuggestProfilePhoto for reference.
 type MessageActionSuggestProfilePhoto struct {
-	// Photo field of MessageActionSuggestProfilePhoto.
+	// The photo that the user suggested we set as profile picture.
 	Photo PhotoClass
 }
 
@@ -6266,12 +6281,20 @@ func (m *MessageActionSuggestProfilePhoto) GetPhoto() (value PhotoClass) {
 }
 
 // MessageActionRequestedPeer represents TL type `messageActionRequestedPeer#fe77345d`.
+// Contains info about a peer that the user shared with the bot after clicking on a
+// keyboardButtonRequestPeer¹ button.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/keyboardButtonRequestPeer
 //
 // See https://core.telegram.org/constructor/messageActionRequestedPeer for reference.
 type MessageActionRequestedPeer struct {
-	// ButtonID field of MessageActionRequestedPeer.
+	// button_id contained in the keyboardButtonRequestPeer¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/keyboardButtonRequestPeer
 	ButtonID int
-	// Peer field of MessageActionRequestedPeer.
+	// The shared peer
 	Peer PeerClass
 }
 

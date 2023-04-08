@@ -32,6 +32,10 @@ var (
 )
 
 // EmojiListNotModified represents TL type `emojiListNotModified#481eadfa`.
+// The list of custom emojis¹ hasn't changed.
+//
+// Links:
+//  1. https://core.telegram.org/api/custom-emoji
 //
 // See https://core.telegram.org/constructor/emojiListNotModified for reference.
 type EmojiListNotModified struct {
@@ -133,12 +137,19 @@ func (e *EmojiListNotModified) DecodeBare(b *bin.Buffer) error {
 }
 
 // EmojiList represents TL type `emojiList#7a1e11d1`.
+// Represents a list of custom emojis¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/custom-emoji
 //
 // See https://core.telegram.org/constructor/emojiList for reference.
 type EmojiList struct {
-	// Hash field of EmojiList.
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
-	// DocumentID field of EmojiList.
+	// Custom emoji IDs
 	DocumentID []int64
 }
 

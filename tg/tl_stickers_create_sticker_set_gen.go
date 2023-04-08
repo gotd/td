@@ -52,7 +52,10 @@ type StickersCreateStickerSetRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/custom-emoji
 	Emojis bool
-	// TextColor field of StickersCreateStickerSetRequest.
+	// Whether the color of TGS custom emojis contained in this set should be changed to the
+	// text color when used in messages, the accent color if used as emoji status, white on
+	// chat photos, or another appropriate color based on context. For custom emoji
+	// stickersets only.
 	TextColor bool
 	// Stickerset owner
 	UserID InputUserClass

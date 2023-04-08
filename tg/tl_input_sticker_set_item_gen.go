@@ -49,7 +49,7 @@ type InputStickerSetItem struct {
 	//
 	// Use SetMaskCoords and GetMaskCoords helpers.
 	MaskCoords MaskCoords
-	// Keywords field of InputStickerSetItem.
+	// Set of keywords, separated by commas (can't be provided for mask stickers)
 	//
 	// Use SetKeywords and GetKeywords helpers.
 	Keywords string

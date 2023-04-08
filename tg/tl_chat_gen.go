@@ -1071,9 +1071,15 @@ type Channel struct {
 	//  1) https://core.telegram.org/api/invites#join-requests
 	//  2) https://core.telegram.org/method/channels.toggleJoinRequest
 	JoinRequest bool
-	// Forum field of Channel.
+	// Whether this supergroup is a forum¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum
 	Forum bool
-	// Flags2 field of Channel.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags2 bin.Fields
 	// ID of the channel
 	ID int64
@@ -1121,7 +1127,7 @@ type Channel struct {
 	//
 	// Use SetParticipantsCount and GetParticipantsCount helpers.
 	ParticipantsCount int
-	// Usernames field of Channel.
+	// Additional usernames
 	//
 	// Use SetUsernames and GetUsernames helpers.
 	Usernames []Username
