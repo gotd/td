@@ -36,17 +36,23 @@ var (
 //
 // See https://core.telegram.org/constructor/account.autoSaveSettings for reference.
 type AccountAutoSaveSettings struct {
-	// UsersSettings field of AccountAutoSaveSettings.
+	// Default media autosave settings for private chats
 	UsersSettings AutoSaveSettings
-	// ChatsSettings field of AccountAutoSaveSettings.
+	// Default media autosave settings for groups and supergroups¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	ChatsSettings AutoSaveSettings
-	// BroadcastsSettings field of AccountAutoSaveSettings.
+	// Default media autosave settings for channels¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	BroadcastsSettings AutoSaveSettings
-	// Exceptions field of AccountAutoSaveSettings.
+	// Peer-specific granular autosave settings
 	Exceptions []AutoSaveException
-	// Chats field of AccountAutoSaveSettings.
+	// Chats mentioned in the peer-specific granular autosave settings
 	Chats []ChatClass
-	// Users field of AccountAutoSaveSettings.
+	// Users mentioned in the peer-specific granular autosave settings
 	Users []UserClass
 }
 

@@ -69,7 +69,7 @@ type UserFull struct {
 	About string
 	// Peer settings
 	Settings PeerSettings
-	// PersonalPhoto field of UserFull.
+	// Personal profile photo, to be shown instead of profile_photo.
 	//
 	// Use SetPersonalPhoto and GetPersonalPhoto helpers.
 	PersonalPhoto PhotoClass
@@ -77,7 +77,8 @@ type UserFull struct {
 	//
 	// Use SetProfilePhoto and GetProfilePhoto helpers.
 	ProfilePhoto PhotoClass
-	// FallbackPhoto field of UserFull.
+	// Fallback profile photo, displayed if no photo is present in profile_photo or
+	// personal_photo, due to privacy settings.
 	//
 	// Use SetFallbackPhoto and GetFallbackPhoto helpers.
 	FallbackPhoto PhotoClass

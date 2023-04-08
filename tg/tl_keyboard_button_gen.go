@@ -2804,14 +2804,22 @@ func (k *KeyboardButtonSimpleWebView) GetURL() (value string) {
 }
 
 // KeyboardButtonRequestPeer represents TL type `keyboardButtonRequestPeer#d0b468c`.
+// Prompts the user to select and share a peer with the bot using messages
+// sendBotRequestedPeer¹
+//
+// Links:
+//  1. https://core.telegram.org/method/messages.sendBotRequestedPeer
 //
 // See https://core.telegram.org/constructor/keyboardButtonRequestPeer for reference.
 type KeyboardButtonRequestPeer struct {
-	// Text field of KeyboardButtonRequestPeer.
+	// Button text
 	Text string
-	// ButtonID field of KeyboardButtonRequestPeer.
+	// Button ID, to be passed to messages.sendBotRequestedPeer¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.sendBotRequestedPeer
 	ButtonID int
-	// PeerType field of KeyboardButtonRequestPeer.
+	// Filtering criteria to use for the peer selection list shown to the user.
 	PeerType RequestPeerTypeClass
 }
 

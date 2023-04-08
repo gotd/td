@@ -32,16 +32,30 @@ var (
 )
 
 // MessagesSendBotRequestedPeerRequest represents TL type `messages.sendBotRequestedPeer#fe38d01b`.
+// Send a chosen peer, as requested by a keyboardButtonRequestPeer¹ button.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/keyboardButtonRequestPeer
 //
 // See https://core.telegram.org/method/messages.sendBotRequestedPeer for reference.
 type MessagesSendBotRequestedPeerRequest struct {
-	// Peer field of MessagesSendBotRequestedPeerRequest.
+	// The bot that sent the keyboardButtonRequestPeer¹ button.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/keyboardButtonRequestPeer
 	Peer InputPeerClass
-	// MsgID field of MessagesSendBotRequestedPeerRequest.
+	// ID of the message that contained the reply keyboard with the
+	// keyboardButtonRequestPeer¹ button.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/keyboardButtonRequestPeer
 	MsgID int
-	// ButtonID field of MessagesSendBotRequestedPeerRequest.
+	// The button_id field from the keyboardButtonRequestPeer¹ constructor.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/keyboardButtonRequestPeer
 	ButtonID int
-	// RequestedPeer field of MessagesSendBotRequestedPeerRequest.
+	// The chosen peer.
 	RequestedPeer InputPeerClass
 }
 
@@ -252,6 +266,10 @@ func (s *MessagesSendBotRequestedPeerRequest) GetRequestedPeer() (value InputPee
 }
 
 // MessagesSendBotRequestedPeer invokes method messages.sendBotRequestedPeer#fe38d01b returning error if any.
+// Send a chosen peer, as requested by a keyboardButtonRequestPeer¹ button.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/keyboardButtonRequestPeer
 //
 // See https://core.telegram.org/method/messages.sendBotRequestedPeer for reference.
 // Can be used by bots.

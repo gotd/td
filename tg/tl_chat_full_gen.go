@@ -51,7 +51,10 @@ type ChatFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
 	HasScheduled bool
-	// TranslationsDisabled field of ChatFull.
+	// Whether real-time chat translation¹ is disabled.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/translation
 	TranslationsDisabled bool
 	// ID of the chat
 	ID int64
@@ -1072,11 +1075,17 @@ type ChannelFull struct {
 	Flags2 bin.Fields
 	// Can we delete this channel?
 	CanDeleteChannel bool
-	// Antispam field of ChannelFull.
+	// Whether native antispam¹ functionality is enabled in this supergroup.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/antispam
 	Antispam bool
-	// ParticipantsHidden field of ChannelFull.
+	// Whether the participant list is hidden.
 	ParticipantsHidden bool
-	// TranslationsDisabled field of ChannelFull.
+	// Whether real-time chat translation¹ is disabled.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/translation
 	TranslationsDisabled bool
 	// ID of the channel
 	ID int64
@@ -3251,7 +3260,10 @@ type ChatFullClass interface {
 	//  1) https://core.telegram.org/api/scheduled-messages
 	GetHasScheduled() (value bool)
 
-	// TranslationsDisabled field of ChatFull.
+	// Whether real-time chat translation¹ is disabled.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/translation
 	GetTranslationsDisabled() (value bool)
 
 	// ID of the chat

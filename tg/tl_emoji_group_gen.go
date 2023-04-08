@@ -32,14 +32,18 @@ var (
 )
 
 // EmojiGroup represents TL type `emojiGroup#7a9abda9`.
+// Represents an emoji category¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/custom-emoji#emoji-categories
 //
 // See https://core.telegram.org/constructor/emojiGroup for reference.
 type EmojiGroup struct {
-	// Title field of EmojiGroup.
+	// Category name, i.e. "Animals", "Flags", "Faces" and so on...
 	Title string
-	// IconEmojiID field of EmojiGroup.
+	// A single custom emoji used as preview for the category.
 	IconEmojiID int64
-	// Emoticons field of EmojiGroup.
+	// A list of UTF-8 emojis, matching the category.
 	Emoticons []string
 }
 

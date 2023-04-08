@@ -351,6 +351,7 @@ func (s *MessagesSponsoredMessages) MapUsers() (value UserClassArray) {
 }
 
 // MessagesSponsoredMessagesEmpty represents TL type `messages.sponsoredMessagesEmpty#1839490f`.
+// No sponsored messages are available.
 //
 // See https://core.telegram.org/constructor/messages.sponsoredMessagesEmpty for reference.
 type MessagesSponsoredMessagesEmpty struct {

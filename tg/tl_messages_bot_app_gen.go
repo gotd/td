@@ -32,6 +32,10 @@ var (
 )
 
 // MessagesBotApp represents TL type `messages.botApp#eb50adf5`.
+// Contains information about a bot web app¹
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps#bot-web-app
 //
 // See https://core.telegram.org/constructor/messages.botApp for reference.
 type MessagesBotApp struct {
@@ -40,11 +44,16 @@ type MessagesBotApp struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Inactive field of MessagesBotApp.
+	// Whether the web app was never used by the user, and confirmation must be asked from
+	// the user before opening it.
 	Inactive bool
-	// RequestWriteAccess field of MessagesBotApp.
+	// The bot is asking permission to send messages to the user: if the user agrees, set the
+	// write_allowed flag when invoking messages.requestAppWebView¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.requestAppWebView
 	RequestWriteAccess bool
-	// App field of MessagesBotApp.
+	// Bot app information
 	App BotAppClass
 }
 

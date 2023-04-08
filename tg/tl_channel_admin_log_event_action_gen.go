@@ -5473,12 +5473,13 @@ func (c *ChannelAdminLogEventActionChangeAvailableReactions) GetNewValue() (valu
 }
 
 // ChannelAdminLogEventActionChangeUsernames represents TL type `channelAdminLogEventActionChangeUsernames#f04fb3a9`.
+// The list of usernames associated with the channel was changed
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeUsernames for reference.
 type ChannelAdminLogEventActionChangeUsernames struct {
-	// PrevValue field of ChannelAdminLogEventActionChangeUsernames.
+	// Previous set of usernames
 	PrevValue []string
-	// NewValue field of ChannelAdminLogEventActionChangeUsernames.
+	// New set of usernames
 	NewValue []string
 }
 
@@ -5662,10 +5663,17 @@ func (c *ChannelAdminLogEventActionChangeUsernames) GetNewValue() (value []strin
 }
 
 // ChannelAdminLogEventActionToggleForum represents TL type `channelAdminLogEventActionToggleForum#2cc6383`.
+// Forum¹ functionality was enabled or disabled.
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleForum for reference.
 type ChannelAdminLogEventActionToggleForum struct {
-	// NewValue field of ChannelAdminLogEventActionToggleForum.
+	// Whether forum¹ functionality was enabled or disabled.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum
 	NewValue bool
 }
 
@@ -5796,10 +5804,17 @@ func (c *ChannelAdminLogEventActionToggleForum) GetNewValue() (value bool) {
 }
 
 // ChannelAdminLogEventActionCreateTopic represents TL type `channelAdminLogEventActionCreateTopic#58707d28`.
+// A forum topic¹ was created
+//
+// Links:
+//  1. https://core.telegram.org/api/forum#forum-topics
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionCreateTopic for reference.
 type ChannelAdminLogEventActionCreateTopic struct {
-	// Topic field of ChannelAdminLogEventActionCreateTopic.
+	// The forum topic¹ that was created
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#forum-topics
 	Topic ForumTopicClass
 }
 
@@ -5935,12 +5950,16 @@ func (c *ChannelAdminLogEventActionCreateTopic) GetTopic() (value ForumTopicClas
 }
 
 // ChannelAdminLogEventActionEditTopic represents TL type `channelAdminLogEventActionEditTopic#f06fe208`.
+// A forum topic¹ was edited
+//
+// Links:
+//  1. https://core.telegram.org/api/forum#forum-topics
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionEditTopic for reference.
 type ChannelAdminLogEventActionEditTopic struct {
-	// PrevTopic field of ChannelAdminLogEventActionEditTopic.
+	// Previous topic information
 	PrevTopic ForumTopicClass
-	// NewTopic field of ChannelAdminLogEventActionEditTopic.
+	// New topic information
 	NewTopic ForumTopicClass
 }
 
@@ -6106,10 +6125,17 @@ func (c *ChannelAdminLogEventActionEditTopic) GetNewTopic() (value ForumTopicCla
 }
 
 // ChannelAdminLogEventActionDeleteTopic represents TL type `channelAdminLogEventActionDeleteTopic#ae168909`.
+// A forum topic¹ was deleted
+//
+// Links:
+//  1. https://core.telegram.org/api/forum#forum-topics
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionDeleteTopic for reference.
 type ChannelAdminLogEventActionDeleteTopic struct {
-	// Topic field of ChannelAdminLogEventActionDeleteTopic.
+	// The forum topic¹ that was deleted
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#forum-topics
 	Topic ForumTopicClass
 }
 
@@ -6245,6 +6271,10 @@ func (c *ChannelAdminLogEventActionDeleteTopic) GetTopic() (value ForumTopicClas
 }
 
 // ChannelAdminLogEventActionPinTopic represents TL type `channelAdminLogEventActionPinTopic#5d8d353b`.
+// A forum topic¹ was pinned or unpinned
+//
+// Links:
+//  1. https://core.telegram.org/api/forum#forum-topics
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionPinTopic for reference.
 type ChannelAdminLogEventActionPinTopic struct {
@@ -6253,11 +6283,11 @@ type ChannelAdminLogEventActionPinTopic struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// PrevTopic field of ChannelAdminLogEventActionPinTopic.
+	// Previous topic information
 	//
 	// Use SetPrevTopic and GetPrevTopic helpers.
 	PrevTopic ForumTopicClass
-	// NewTopic field of ChannelAdminLogEventActionPinTopic.
+	// New topic information
 	//
 	// Use SetNewTopic and GetNewTopic helpers.
 	NewTopic ForumTopicClass
@@ -6479,10 +6509,14 @@ func (c *ChannelAdminLogEventActionPinTopic) GetNewTopic() (value ForumTopicClas
 }
 
 // ChannelAdminLogEventActionToggleAntiSpam represents TL type `channelAdminLogEventActionToggleAntiSpam#64f36dfc`.
+// Native antispam¹ functionality was enabled or disabled.
+//
+// Links:
+//  1. https://core.telegram.org/api/antispam
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleAntiSpam for reference.
 type ChannelAdminLogEventActionToggleAntiSpam struct {
-	// NewValue field of ChannelAdminLogEventActionToggleAntiSpam.
+	// Whether antispam functionality was enabled or disabled.
 	NewValue bool
 }
 

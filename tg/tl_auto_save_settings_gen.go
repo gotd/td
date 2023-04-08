@@ -32,6 +32,7 @@ var (
 )
 
 // AutoSaveSettings represents TL type `autoSaveSettings#c84834ce`.
+// Media autosave settings
 //
 // See https://core.telegram.org/constructor/autoSaveSettings for reference.
 type AutoSaveSettings struct {
@@ -40,11 +41,11 @@ type AutoSaveSettings struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Photos field of AutoSaveSettings.
+	// Whether photos should be autosaved to the gallery.
 	Photos bool
-	// Videos field of AutoSaveSettings.
+	// Whether videos should be autosaved to the gallery.
 	Videos bool
-	// VideoMaxSize field of AutoSaveSettings.
+	// If set, specifies a size limit for autosavable videos
 	//
 	// Use SetVideoMaxSize and GetVideoMaxSize helpers.
 	VideoMaxSize int64

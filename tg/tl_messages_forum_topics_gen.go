@@ -32,6 +32,10 @@ var (
 )
 
 // MessagesForumTopics represents TL type `messages.forumTopics#367617d3`.
+// Contains information about multiple forum topics¹
+//
+// Links:
+//  1. https://core.telegram.org/api/forum#forum-topics
 //
 // See https://core.telegram.org/constructor/messages.forumTopics for reference.
 type MessagesForumTopics struct {
@@ -44,7 +48,7 @@ type MessagesForumTopics struct {
 	OrderByCreateDate bool
 	// Count field of MessagesForumTopics.
 	Count int
-	// Topics field of MessagesForumTopics.
+	// Forum topics
 	Topics []ForumTopicClass
 	// Messages field of MessagesForumTopics.
 	Messages []MessageClass
@@ -52,7 +56,10 @@ type MessagesForumTopics struct {
 	Chats []ChatClass
 	// Users field of MessagesForumTopics.
 	Users []UserClass
-	// Pts field of MessagesForumTopics.
+	// Event count after generation¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
 }
 

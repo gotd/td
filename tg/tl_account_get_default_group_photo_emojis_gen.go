@@ -32,10 +32,18 @@ var (
 )
 
 // AccountGetDefaultGroupPhotoEmojisRequest represents TL type `account.getDefaultGroupPhotoEmojis#915860ae`.
+// Get a set of suggested custom emoji stickers¹ that can be used as group picture²
+//
+// Links:
+//  1. https://core.telegram.org/api/custom-emoji
+//  2. https://core.telegram.org/api/files#sticker-profile-pictures
 //
 // See https://core.telegram.org/method/account.getDefaultGroupPhotoEmojis for reference.
 type AccountGetDefaultGroupPhotoEmojisRequest struct {
-	// Hash field of AccountGetDefaultGroupPhotoEmojisRequest.
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
 }
 
@@ -161,6 +169,11 @@ func (g *AccountGetDefaultGroupPhotoEmojisRequest) GetHash() (value int64) {
 }
 
 // AccountGetDefaultGroupPhotoEmojis invokes method account.getDefaultGroupPhotoEmojis#915860ae returning error if any.
+// Get a set of suggested custom emoji stickers¹ that can be used as group picture²
+//
+// Links:
+//  1. https://core.telegram.org/api/custom-emoji
+//  2. https://core.telegram.org/api/files#sticker-profile-pictures
 //
 // See https://core.telegram.org/method/account.getDefaultGroupPhotoEmojis for reference.
 func (c *Client) AccountGetDefaultGroupPhotoEmojis(ctx context.Context, hash int64) (EmojiListClass, error) {

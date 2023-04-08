@@ -32,12 +32,13 @@ var (
 )
 
 // AutoSaveException represents TL type `autoSaveException#81602d47`.
+// Peer-specific media autosave settings
 //
 // See https://core.telegram.org/constructor/autoSaveException for reference.
 type AutoSaveException struct {
-	// Peer field of AutoSaveException.
+	// The peer
 	Peer PeerClass
-	// Settings field of AutoSaveException.
+	// Media autosave settings
 	Settings AutoSaveSettings
 }
 

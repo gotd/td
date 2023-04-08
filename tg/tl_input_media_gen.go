@@ -143,7 +143,7 @@ type InputMediaUploadedPhoto struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Spoiler field of InputMediaUploadedPhoto.
+	// Whether this media should be hidden behind a spoiler warning
 	Spoiler bool
 	// The uploaded file¹
 	//
@@ -464,7 +464,7 @@ type InputMediaPhoto struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Spoiler field of InputMediaPhoto.
+	// Whether this media should be hidden behind a spoiler warning
 	Spoiler bool
 	// Photo to be forwarded
 	ID InputPhotoClass
@@ -1069,7 +1069,7 @@ type InputMediaUploadedDocument struct {
 	NosoundVideo bool
 	// Force the media file to be uploaded as document
 	ForceFile bool
-	// Spoiler field of InputMediaUploadedDocument.
+	// Whether this media should be hidden behind a spoiler warning
 	Spoiler bool
 	// The uploaded file¹
 	//
@@ -1586,7 +1586,7 @@ type InputMediaDocument struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Spoiler field of InputMediaDocument.
+	// Whether this media should be hidden behind a spoiler warning
 	Spoiler bool
 	// The document to be forwarded.
 	ID InputDocumentClass
@@ -2154,7 +2154,7 @@ type InputMediaPhotoExternal struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Spoiler field of InputMediaPhotoExternal.
+	// Whether this media should be hidden behind a spoiler warning
 	Spoiler bool
 	// URL of the photo
 	URL string
@@ -2393,7 +2393,7 @@ type InputMediaDocumentExternal struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Spoiler field of InputMediaDocumentExternal.
+	// Whether this media should be hidden behind a spoiler warning
 	Spoiler bool
 	// URL of the document
 	URL string

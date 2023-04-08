@@ -760,7 +760,10 @@ type MessagesChannelMessages struct {
 	OffsetIDOffset int
 	// Found messages
 	Messages []MessageClass
-	// Topics field of MessagesChannelMessages.
+	// Forum topic¹ information
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum#forum-topics
 	Topics []ForumTopicClass
 	// Chats
 	Chats []ChatClass

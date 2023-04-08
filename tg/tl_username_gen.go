@@ -32,6 +32,7 @@ var (
 )
 
 // Username represents TL type `username#b4073647`.
+// Contains information about a username.
 //
 // See https://core.telegram.org/constructor/username for reference.
 type Username struct {
@@ -40,11 +41,14 @@ type Username struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Editable field of Username.
+	// Whether the username is editable, meaning it wasn't bought on fragment¹.
+	//
+	// Links:
+	//  1) https://fragment.com
 	Editable bool
-	// Active field of Username.
+	// Whether the username is active.
 	Active bool
-	// Username field of Username.
+	// The username.
 	Username string
 }
 

@@ -135,6 +135,7 @@ func (i *InputChatPhotoEmpty) DecodeBare(b *bin.Buffer) error {
 
 // InputChatUploadedPhoto represents TL type `inputChatUploadedPhoto#bdcdaec0`.
 // New photo to be set as group profile photo.
+// The file, video and video_emoji_markup flags are mutually exclusive.
 //
 // See https://core.telegram.org/constructor/inputChatUploadedPhoto for reference.
 type InputChatUploadedPhoto struct {
@@ -154,11 +155,18 @@ type InputChatUploadedPhoto struct {
 	//
 	// Use SetVideo and GetVideo helpers.
 	Video InputFileClass
-	// Timestamp that should be shown as static preview to the user (seconds)
+	// Floating point UNIX timestamp in seconds, indicating the frame of the video/sticker
+	// that should be used as static preview; can only be used if video or video_emoji_markup
+	// is set.
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
 	VideoStartTs float64
-	// VideoEmojiMarkup field of InputChatUploadedPhoto.
+	// Animated sticker profile picture, must contain either a videoSizeEmojiMarkup¹ or a
+	// videoSizeStickerMarkup² constructor.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/videoSizeEmojiMarkup
+	//  2) https://core.telegram.org/constructor/videoSizeStickerMarkup
 	//
 	// Use SetVideoEmojiMarkup and GetVideoEmojiMarkup helpers.
 	VideoEmojiMarkup VideoSizeClass

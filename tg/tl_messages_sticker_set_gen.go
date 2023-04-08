@@ -40,7 +40,7 @@ type MessagesStickerSet struct {
 	Set StickerSet
 	// Emoji info for stickers
 	Packs []StickerPack
-	// Keywords field of MessagesStickerSet.
+	// Keywords for some or every sticker in the stickerset.
 	Keywords []StickerKeyword
 	// Stickers in stickerset
 	Documents []DocumentClass
