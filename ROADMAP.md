@@ -8,4 +8,4 @@ Maintenance:
 - Bug fixes if capacity allows without any SLA
 
 The gotd is fully non-commercial open source project, so
-contributions are welcome.
+contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for details.

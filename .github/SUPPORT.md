@@ -29,6 +29,29 @@ They cannot be regenerated and are bound to your Telegram account.
 > &mdash; <cite>[Official documentation][1]</cite>
 
 [1]: https://core.telegram.org/api/obtaining_api_id
+[2]: https://docs.madelineproto.xyz/docs/LOGIN.html
+
+## Readme from MadelineProto
+
+There is a useful quote from [MadelineProto][2] docs:
+
+### Getting permission to use the telegram API
+Before you start using MadelineProto with the Telegram API, you have to understand that Telegram strictly controls userbots created on their platform.
+
+If you use MadelineProto or any other Telegram client, **including official clients**, for flooding, spamming, botting channels, you **will be banned forever**.
+
+Due to excessive abuse of the Telegram API, **all phone numbers** that sign up or log in using **even official or approved by telegram API clients like MadelineProto** are automatically put **under observation**, and **may** get banned **even if you did nothing wrong**, simply because some internal flags are triggered in the **telegram servers**.
+
+To avoid this, you must let telegram know that you will use your account with a userbot:
+When or before you first sign up or login you have to **send an email with the phone number to recover@telegram.org**; explaining **what will your userbot do**.
+**DO NOT LIE**, just tell them what will you do with the userbot you intend to create, asking them to not ban your account.
+
+If your account does get banned, write to recover@telegram.org asking to unban it.
+
+**DO NOT ABUSE OF THIS OR ANY OTHER API FOR FLOODING; SPAMMING; BOTTING**; the consequences will fall not only on you, but on all other users of this and other libraries, and even normal users.
+
+There were cases when several **normal user accounts that did nothing wrong** were banned when telegram deployed a new spambot detection system: this is bad for the community, and it is bad for Telegram, so please do not abuse.
+
 
 So, here's a summary:
 
