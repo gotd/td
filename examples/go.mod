@@ -10,7 +10,7 @@ require (
 	go.uber.org/zap v1.24.0
 	golang.org/x/crypto v0.8.0
 	golang.org/x/sync v0.1.0
-	golang.org/x/time v0.0.0-20211116232009-f0f3c7e86c11
+	golang.org/x/time v0.3.0
 	golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543
 )
 
