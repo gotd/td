@@ -8,6 +8,7 @@ require (
 	github.com/go-faster/jx v1.0.0
 	github.com/go-faster/xor v1.0.0
 	github.com/go-openapi/inflect v0.19.0
+	github.com/gotd/contrib v0.15.0
 	github.com/gotd/getdoc v0.24.0
 	github.com/gotd/ige v0.2.2
 	github.com/gotd/neo v0.1.5
@@ -25,7 +26,9 @@ require (
 	golang.org/x/crypto v0.8.0
 	golang.org/x/net v0.9.0
 	golang.org/x/sync v0.1.0
+	golang.org/x/time v0.0.0-20211116232009-f0f3c7e86c11
 	golang.org/x/tools v0.8.0
+	golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543
 	nhooyr.io/websocket v1.8.7
 	rsc.io/qr v0.2.0
 )
@@ -38,7 +41,6 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.16 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
 	github.com/sergi/go-diff v1.1.0 // indirect

@@ -9,11 +9,7 @@ updates:
     schedule:
       interval: daily
   - package-ecosystem: gomod
-    directory: "examples/bg-run"
-    schedule:
-      interval: daily
-  - package-ecosystem: gomod
-    directory: "examples/gif-download"
+    directory: "examples/"
     schedule:
       interval: daily
   - package-ecosystem: github-actions
