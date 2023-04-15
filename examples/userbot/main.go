@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"context"
+	"flag"
 	"fmt"
 	"os"
 	"os/signal"
@@ -12,25 +13,26 @@ import (
 	"syscall"
 	"time"
 
+	pebbledb "github.com/cockroachdb/pebble"
+	"github.com/go-faster/errors"
+	"github.com/gotd/contrib/middleware/floodwait"
 	"github.com/gotd/contrib/middleware/ratelimit"
+	"github.com/gotd/contrib/pebble"
+	"github.com/gotd/contrib/storage"
+	"github.com/joho/godotenv"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	"golang.org/x/crypto/ssh/terminal"
+	"golang.org/x/sync/errgroup"
+	"golang.org/x/term"
 	"golang.org/x/time/rate"
-	"golang.org/x/xerrors"
+	lj "gopkg.in/natefinch/lumberjack.v2"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/auth"
+	"github.com/gotd/td/telegram/message/peer"
+	"github.com/gotd/td/telegram/query"
 	"github.com/gotd/td/tg"
 )
-
-func ensureDir(name string) error {
-	if err := os.MkdirAll(name, 0700); err != nil {
-		return err
-	}
-
-	return nil
-}
 
 // terminalAuth implements auth.UserAuthenticator prompting the terminal for
 // input.
@@ -39,7 +41,7 @@ type terminalAuth struct {
 }
 
 func (terminalAuth) SignUp(ctx context.Context) (auth.UserInfo, error) {
-	return auth.UserInfo{}, xerrors.New("not implemented")
+	return auth.UserInfo{}, errors.New("not implemented")
 }
 
 func (terminalAuth) AcceptTermsOfService(ctx context.Context, tos tg.HelpTermsOfService) error {
@@ -61,113 +63,219 @@ func (a terminalAuth) Phone(_ context.Context) (string, error) {
 
 func (terminalAuth) Password(_ context.Context) (string, error) {
 	fmt.Print("Enter 2FA password: ")
-	bytePwd, err := terminal.ReadPassword(syscall.Stdin)
+	bytePwd, err := term.ReadPassword(syscall.Stdin)
 	if err != nil {
 		return "", err
 	}
 	return strings.TrimSpace(string(bytePwd)), nil
 }
 
-func run(ctx context.Context) error {
-	log, _ := zap.NewDevelopment(zap.IncreaseLevel(zapcore.DebugLevel))
-	defer func() { _ = log.Sync() }()
-
-	// Setting up session storage.
-	// This is needed to reuse session and not login every time.
-	sessionDir := filepath.Join("session")
-	if err := ensureDir(sessionDir); err != nil {
-		return err
+func sessionFolder(phone string) string {
+	var out []rune
+	for _, r := range phone {
+		if r >= '0' && r <= '9' {
+			out = append(out, r)
+		}
 	}
+	return "phone-" + string(out)
+}
+
+func run(ctx context.Context) error {
+	var arg struct {
+		FillPeerStorage bool
+	}
+	flag.BoolVar(&arg.FillPeerStorage, "fill-peer-storage", false, "fill peer storage")
+	flag.Parse()
+
+	// Using ".env" file to load environment variables.
+	err := godotenv.Load()
+	if err != nil {
+		return errors.Wrap(err, "load env")
+	}
+
+	// TG_PHONE is phone number in international format.
+	// Like +4123456789.
 	phone := os.Getenv("TG_PHONE")
 	if phone == "" {
-		return xerrors.New("no phone")
+		return errors.New("no phone")
 	}
-	// So, we are storing session information in current directory, under subdirectory "session".
-	// Session file name is based on phone number.
-	storage := &telegram.FileSessionStorage{
-		Path: filepath.Join(sessionDir, fmt.Sprintf("session.phone.%x.json", []byte(phone))),
-	}
-
-	log.Info("Session storage", zap.String("path", storage.Path))
-
 	// APP_HASH, APP_ID is from https://my.telegram.org/.
 	appID, err := strconv.Atoi(os.Getenv("APP_ID"))
 	if err != nil {
-		return xerrors.Errorf("failed to parse app id: %w", err)
+		return errors.Wrap(err, " parse app id")
+	}
+	appHash := os.Getenv("APP_HASH")
+	if appHash == "" {
+		return errors.New("no app hash")
 	}
 
-	var (
-		// Dispatcher is used to register handlers for events.
-		dispatcher = tg.NewUpdateDispatcher()
-		client     = telegram.NewClient(appID, os.Getenv("APP_HASH"), telegram.Options{
-			Logger:         log,
-			SessionStorage: storage,    // Setting up session storage,
-			UpdateHandler:  dispatcher, // Setting up update handler to event dispatcher.
-			Middlewares: []telegram.Middleware{
-				// Setting up ratelimit so we don't get flood wait errors.
-				ratelimit.New(rate.Every(time.Millisecond*100), 5),
-			},
-		})
+	// Setting up session storage.
+	// This is needed to reuse session and not login every time.
+	sessionDir := filepath.Join("session", sessionFolder(phone))
+	if err := os.MkdirAll(sessionDir, 0700); err != nil {
+		return err
+	}
+	logFilePath := filepath.Join(sessionDir, "log.jsonl")
+
+	fmt.Printf("Storing session in %s, logs in %s\n", sessionDir, logFilePath)
+
+	// Setting up logging to file with rotation.
+	//
+	// Log to file, so we don't interfere with prompts and messages to user.
+	logWriter := zapcore.AddSync(&lj.Logger{
+		Filename:   logFilePath,
+		MaxBackups: 3,
+		MaxSize:    1, // megabytes
+		MaxAge:     7, // days
+	})
+	logCore := zapcore.NewCore(
+		zapcore.NewJSONEncoder(zap.NewProductionEncoderConfig()),
+		logWriter,
+		zap.DebugLevel,
 	)
+	lg := zap.New(logCore)
+	defer func() { _ = lg.Sync() }()
+
+	// So, we are storing session information in current directory, under subdirectory "session/phone_hash"
+	sessionStorage := &telegram.FileSessionStorage{
+		Path: filepath.Join(sessionDir, "session.json"),
+	}
+	// Peer storage, for resolve caching and short updates handling.
+	db, err := pebbledb.Open(filepath.Join(sessionDir, "peers.pebble.db"), &pebbledb.Options{})
+	if err != nil {
+		return errors.Wrap(err, "create pebble storage")
+	}
+	peerDB := pebble.NewPeerStorage(db)
+	lg.Info("Storage", zap.String("path", sessionDir))
+
+	// Setting up client.
+	//
+	// Dispatcher is used to register handlers for events.
+	dispatcher := tg.NewUpdateDispatcher()
+	// Setting up update handler that will fill peer storage before
+	// calling dispatcher handlers.
+	updateHandler := storage.UpdateHook(dispatcher, peerDB)
+
+	// Handler of FLOOD_WAIT that will automatically retry request.
+	waiter := floodwait.NewWaiter().WithCallback(func(ctx context.Context, wait floodwait.FloodWait) {
+		// Notifying about flood wait.
+		lg.Warn("Flood wait", zap.Duration("wait", wait.Duration))
+		fmt.Println("Got FLOOD_WAIT. Will retry after", wait.Duration)
+	})
+
+	// Filling client options.
+	options := telegram.Options{
+		Logger:         lg,             // Passing logger for observability.
+		SessionStorage: sessionStorage, // Setting up session sessionStorage to store auth data.
+		UpdateHandler:  updateHandler,  // Setting up handler for updates from server.
+		Middlewares: []telegram.Middleware{
+			// Setting up FLOOD_WAIT handler to automatically wait and retry request.
+			waiter,
+			// Setting up general rate limits to less likely get flood wait errors.
+			ratelimit.New(rate.Every(time.Millisecond*100), 5),
+		},
+	}
+	client := telegram.NewClient(appID, appHash, options)
+	api := client.API()
+
+	// Setting up resolver cache that will use peer storage.
+	resolver := storage.NewResolverCache(peer.Plain(api), peerDB)
 
 	// Registering handler for new private messages.
 	dispatcher.OnNewMessage(func(ctx context.Context, e tg.Entities, u *tg.UpdateNewMessage) error {
-		switch m := u.Message.(type) {
-		case *tg.Message:
-			if m.Out {
-				// Outgoing message.
-				return nil
-			}
-			switch peer := m.PeerID.(type) {
-			case *tg.PeerUser:
-				l := log.With(zap.String("text", m.Message))
-				if user, ok := e.Users[peer.UserID]; ok {
-					l = l.With(
-						zap.Int64("user_id", user.ID),
-						zap.String("user_first_name", user.FirstName),
-						zap.String("username", user.Username),
-					)
+		msg, ok := u.Message.(*tg.Message)
+		if !ok {
+			return nil
+		}
+		if msg.Out {
+			// Outgoing message.
+			return nil
+		}
+
+		// Use PeerID to find peer because *Short updates does not contain any entities, so it necessary to
+		// store some entities.
+		//
+		// Storage can be filled using PeerCollector (i.e. fetching all dialogs first).
+		p, err := storage.FindPeer(ctx, peerDB, msg.GetPeerID())
+		if err != nil {
+			return err
+		}
+
+		fmt.Printf("%s: %s\n", p, msg.Message)
+		return nil
+	})
+
+	// Authentication flow handles authentication process, like prompting for code and 2FA password.
+	authFlow := auth.NewFlow(terminalAuth{phone: phone}, auth.SendCodeOptions{})
+
+	wg, ctx := errgroup.WithContext(ctx)
+	wg.Go(func() error {
+		// This is important for waiter to work!
+		// Spawning separate goroutine to handle FLOOD_WAIT.
+		return waiter.Run(ctx)
+	})
+	wg.Go(func() error {
+		// Spawning main goroutine.
+		if err := client.Run(ctx, func(ctx context.Context) error {
+			if self, err := client.Self(ctx); err != nil || self.Bot {
+				// Starting authentication flow.
+				fmt.Println("Not logged in: starting auth")
+				lg.Info("Starting authentication flow")
+				if err := authFlow.Run(ctx, client.Auth()); err != nil {
+					return errors.Wrap(err, "auth")
 				}
-				l.Info("Got message")
-			default:
-				log.Warn("Unsupported peer", zap.Any("peer", peer))
-				return nil
+			} else {
+				fmt.Println("Already logged in")
+				lg.Info("Already authenticated")
 			}
+
+			// Getting info about current user.
+			self, err := client.Self(ctx)
+			if err != nil {
+				return errors.Wrap(err, "call self")
+			}
+
+			name := self.FirstName
+			if self.Username != "" {
+				// Username is optional.
+				name = fmt.Sprintf("%s (@%s)", name, self.Username)
+			}
+			fmt.Println("Current user:", name)
+
+			lg.Info("Login",
+				zap.String("first_name", self.FirstName),
+				zap.String("last_name", self.LastName),
+				zap.String("username", self.Username),
+				zap.Int64("id", self.ID),
+			)
+
+			if arg.FillPeerStorage {
+				fmt.Println("Filling peer storage from dialogs to cache entities")
+				collector := storage.CollectPeers(peerDB)
+				if err := collector.Dialogs(ctx, query.GetDialogs(api).Iter()); err != nil {
+					return errors.Wrap(err, "collect peers")
+				}
+				fmt.Println("Filled")
+			}
+
+			lg.Info("Resolving https://t.me/tdlibchat")
+			// This should be cached in peer storage after first time.
+			if _, err := resolver.ResolveDomain(ctx, "tdlibchat"); err != nil {
+				return errors.Wrap(err, "resolve")
+			}
+			lg.Info("Resolved")
+
+			// Waiting until context is done.
+			fmt.Println("Listening for updates. Interrupt (Ctrl+C) to stop.")
+			<-ctx.Done()
+			return ctx.Err()
+		}); err != nil {
+			return errors.Wrap(err, "run")
 		}
 		return nil
 	})
 
-	if err := client.Run(ctx, func(ctx context.Context) error {
-		if self, err := client.Self(ctx); err != nil || self.Bot {
-			// Need to authenticate.
-			if err := auth.NewFlow(terminalAuth{phone: phone}, auth.SendCodeOptions{}).Run(ctx, client.Auth()); err != nil {
-				return xerrors.Errorf("failed to auth: %w", err)
-			}
-		} else {
-			log.Info("Already authenticated")
-		}
-
-		// Getting info about current user.
-		self, err := client.Self(ctx)
-		if err != nil {
-			return xerrors.Errorf("failed to call self: %w", err)
-		}
-
-		log.Info("Logged in",
-			zap.String("first_name", self.FirstName),
-			zap.String("last_name", self.LastName),
-			zap.String("username", self.Username),
-			zap.Int64("id", self.ID),
-		)
-
-		// Waiting until context is done.
-		<-ctx.Done()
-		return ctx.Err()
-	}); err != nil {
-		return xerrors.Errorf("run: %w", err)
-	}
-
-	return nil
+	return wg.Wait()
 }
 
 func main() {
@@ -175,6 +283,14 @@ func main() {
 	defer cancel()
 
 	if err := run(ctx); err != nil {
-		panic(err)
+		if errors.Is(err, context.Canceled) && ctx.Err() == context.Canceled {
+			fmt.Println("\rClosed")
+			os.Exit(0)
+		}
+		_, _ = fmt.Fprintf(os.Stderr, "Error: %+v\n", err)
+		os.Exit(1)
+	} else {
+		fmt.Println("Done")
+		os.Exit(0)
 	}
 }
