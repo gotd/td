@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/go-faster/errors"
+	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/telegram"
@@ -12,18 +13,18 @@ import (
 )
 
 type channelUpdate struct {
-	update tg.UpdateClass
-	ctx    context.Context
-	ents   entities
+	update   tg.UpdateClass
+	entities entities
+	span     trace.SpanContext
 }
 
 type channelState struct {
-	// Updates from *state.
-	uchan chan channelUpdate
-	// Channel to pass diff.OtherUpdates into *state.
-	outchan chan<- tg.UpdatesClass
+	// Updates from *internalState.
+	updates chan channelUpdate
+	// Channel to pass diff.OtherUpdates into *internalState.
+	out chan<- tracedUpdate
 
-	// Channel state.
+	// Channel internalState.
 	pts         *sequenceBox
 	idleTimeout *time.Timer
 	diffTimeout time.Time
@@ -33,36 +34,33 @@ type channelState struct {
 	accessHash int64
 	selfID     int64
 	diffLim    int
-	client     RawClient
+	client     API
 	storage    StateStorage
 	log        *zap.Logger
+	tracer     trace.Tracer
 	handler    telegram.UpdateHandler
 	onTooLong  func(channelID int64)
-
-	ctx    context.Context
-	cancel context.CancelFunc
-	done   chan struct{}
 }
 
 type channelStateConfig struct {
-	Outchan          chan tg.UpdatesClass
+	Out              chan tracedUpdate
 	InitialPts       int
 	ChannelID        int64
 	AccessHash       int64
 	SelfID           int64
 	DiffLimit        int
-	RawClient        RawClient
+	RawClient        API
 	Storage          StateStorage
 	Handler          telegram.UpdateHandler
 	OnChannelTooLong func(channelID int64)
 	Logger           *zap.Logger
+	Tracer           trace.Tracer
 }
 
-func newChannelState(ctx context.Context, cfg channelStateConfig) *channelState {
-	ctx, cancel := context.WithCancel(ctx)
+func newChannelState(cfg channelStateConfig) *channelState {
 	state := &channelState{
-		uchan:   make(chan channelUpdate, 10),
-		outchan: cfg.Outchan,
+		updates: make(chan channelUpdate, 10),
+		out:     cfg.Out,
 
 		idleTimeout: time.NewTimer(idleTimeout),
 
@@ -75,60 +73,66 @@ func newChannelState(ctx context.Context, cfg channelStateConfig) *channelState 
 		log:        cfg.Logger,
 		handler:    cfg.Handler,
 		onTooLong:  cfg.OnChannelTooLong,
-
-		ctx:    ctx,
-		cancel: cancel,
-		done:   make(chan struct{}),
+		tracer:     cfg.Tracer,
 	}
 
 	state.pts = newSequenceBox(sequenceConfig{
 		InitialState: cfg.InitialPts,
 		Apply:        state.applyPts,
 		Logger:       cfg.Logger.Named("pts"),
+		Tracer:       cfg.Tracer,
 	})
 
 	return state
 }
 
-func (s *channelState) PushUpdate(u channelUpdate) { s.uchan <- u }
+func (s *channelState) Push(ctx context.Context, u channelUpdate) error {
+	select {
+	case <-ctx.Done():
+		return ctx.Err()
+	case s.updates <- u:
+		return nil
+	}
+}
 
-func (s *channelState) Run() {
-	defer close(s.done)
-
+func (s *channelState) Run(ctx context.Context) error {
 	// Subscribe to channel updates.
-	if err := s.getDifference(); err != nil {
+	if err := s.getDifference(ctx); err != nil {
 		s.log.Error("Failed to subscribe to channel updates", zap.Error(err))
 	}
 
 	for {
 		select {
-		case u, ok := <-s.uchan:
-			if !ok {
-				if len(s.pts.pending) > 0 {
-					s.getDifferenceLogerr()
-				}
-				return
-			}
-
-			if err := s.handleUpdate(u.ctx, u.update, u.ents); err != nil {
+		case u := <-s.updates:
+			ctx := trace.ContextWithSpanContext(ctx, u.span)
+			if err := s.handleUpdate(ctx, u.update, u.entities); err != nil {
 				s.log.Error("Handle update error", zap.Error(err))
 			}
 		case <-s.pts.gapTimeout.C:
 			s.log.Debug("Gap timeout")
-			s.getDifferenceLogerr()
+			s.getDifferenceLogger(ctx)
+		case <-ctx.Done():
+			if len(s.pts.pending) > 0 {
+				// This will probably fail.
+				s.getDifferenceLogger(ctx)
+			}
+			return ctx.Err()
 		case <-s.idleTimeout.C:
 			s.log.Debug("Idle timeout")
 			s.resetIdleTimer()
-			s.getDifferenceLogerr()
+			s.getDifferenceLogger(ctx)
 		}
 	}
 }
 
 func (s *channelState) handleUpdate(ctx context.Context, u tg.UpdateClass, ents entities) error {
+	ctx, span := s.tracer.Start(ctx, "channelState.handleUpdate")
+	defer span.End()
+
 	s.resetIdleTimer()
 
 	if long, ok := u.(*tg.UpdateChannelTooLong); ok {
-		return s.handleTooLong(long)
+		return s.handleTooLong(ctx, long)
 	}
 
 	channelID, pts, ptsCount, ok, err := isChannelPtsUpdate(u)
@@ -144,20 +148,22 @@ func (s *channelState) handleUpdate(ctx context.Context, u tg.UpdateClass, ents 
 		return errors.Errorf("update for wrong channel (channelID: %d)", channelID)
 	}
 
-	return s.pts.Handle(update{
-		Value: u,
-		State: pts,
-		Count: ptsCount,
-		Ents:  ents,
-		Ctx:   ctx,
+	return s.pts.Handle(ctx, update{
+		Value:    u,
+		State:    pts,
+		Count:    ptsCount,
+		Entities: ents,
 	})
 }
 
-func (s *channelState) handleTooLong(long *tg.UpdateChannelTooLong) error {
+func (s *channelState) handleTooLong(ctx context.Context, long *tg.UpdateChannelTooLong) error {
+	ctx, span := s.tracer.Start(ctx, "channelState.handleTooLong")
+	defer span.End()
+
 	remotePts, ok := long.GetPts()
 	if !ok {
 		s.log.Warn("Got UpdateChannelTooLong without pts field")
-		return s.getDifference()
+		return s.getDifference(ctx)
 	}
 
 	// Note: we still can fetch latest diffLim updates.
@@ -167,10 +173,13 @@ func (s *channelState) handleTooLong(long *tg.UpdateChannelTooLong) error {
 		return nil
 	}
 
-	return s.getDifference()
+	return s.getDifference(ctx)
 }
 
 func (s *channelState) applyPts(ctx context.Context, state int, updates []update) error {
+	ctx, span := s.tracer.Start(ctx, "channelState.applyPts")
+	defer span.End()
+
 	var (
 		converted []tg.UpdateClass
 		ents      entities
@@ -178,7 +187,7 @@ func (s *channelState) applyPts(ctx context.Context, state int, updates []update
 
 	for _, update := range updates {
 		converted = append(converted, update.Value.(tg.UpdateClass))
-		ents.Merge(update.Ents)
+		ents.Merge(update.Entities)
 	}
 
 	if err := s.handler.Handle(ctx, &tg.Updates{
@@ -190,15 +199,16 @@ func (s *channelState) applyPts(ctx context.Context, state int, updates []update
 		return nil
 	}
 
-	if err := s.storage.SetChannelPts(s.selfID, s.channelID, state); err != nil {
+	if err := s.storage.SetChannelPts(ctx, s.selfID, s.channelID, state); err != nil {
 		s.log.Error("SetChannelPts error", zap.Error(err))
 	}
 
 	return nil
 }
 
-func (s *channelState) getDifference() error {
-	s.resetIdleTimer()
+func (s *channelState) getDifference(ctx context.Context) error {
+	ctx, span := s.tracer.Start(ctx, "channelState.getDifference")
+	defer span.End()
 	s.pts.gaps.Clear()
 
 	s.log.Debug("Getting difference")
@@ -212,17 +222,17 @@ func (s *channelState) getDifference() error {
 				select {
 				case <-afterC:
 					return nil
-				case u, ok := <-s.uchan:
+				case u, ok := <-s.updates:
 					if !ok {
 						continue
 					}
 
-					// Ignoring updates to prevent *state worker from blocking.
+					// Ignoring updates to prevent *internalState worker from blocking.
 					// All ignored updates should be restored by future getChannelDifference call.
 					// At least I hope so...
 					s.log.Debug("Ignoring update due to getChannelDifference timeout", zap.Any("update", u.update))
-				case <-s.ctx.Done():
-					return s.ctx.Err()
+				case <-ctx.Done():
+					return ctx.Err()
 				}
 			}
 		}(); err != nil {
@@ -230,7 +240,7 @@ func (s *channelState) getDifference() error {
 		}
 	}
 
-	diff, err := s.client.UpdatesGetChannelDifference(s.ctx, &tg.UpdatesGetChannelDifferenceRequest{
+	diff, err := s.client.UpdatesGetChannelDifference(ctx, &tg.UpdatesGetChannelDifferenceRequest{
 		Channel: &tg.InputChannel{
 			ChannelID:  s.channelID,
 			AccessHash: s.accessHash,
@@ -247,18 +257,21 @@ func (s *channelState) getDifference() error {
 	case *tg.UpdatesChannelDifference:
 		if len(diff.OtherUpdates) > 0 {
 			select {
-			case s.outchan <- &tg.Updates{
-				Updates: diff.OtherUpdates,
-				Users:   diff.Users,
-				Chats:   diff.Chats,
+			case s.out <- tracedUpdate{
+				span: trace.SpanContextFromContext(ctx),
+				update: &tg.Updates{
+					Updates: diff.OtherUpdates,
+					Users:   diff.Users,
+					Chats:   diff.Chats,
+				},
 			}:
-			case <-s.ctx.Done():
-				return s.ctx.Err()
+			case <-ctx.Done():
+				return ctx.Err()
 			}
 		}
 
 		if len(diff.NewMessages) > 0 {
-			if err := s.handler.Handle(s.ctx, &tg.Updates{
+			if err := s.handler.Handle(ctx, &tg.Updates{
 				Updates: msgsToUpdates(diff.NewMessages, true),
 				Users:   diff.Users,
 				Chats:   diff.Chats,
@@ -267,7 +280,7 @@ func (s *channelState) getDifference() error {
 			}
 		}
 
-		if err := s.storage.SetChannelPts(s.selfID, s.channelID, diff.Pts); err != nil {
+		if err := s.storage.SetChannelPts(ctx, s.selfID, s.channelID, diff.Pts); err != nil {
 			s.log.Warn("SetChannelPts error", zap.Error(err))
 		}
 
@@ -277,13 +290,13 @@ func (s *channelState) getDifference() error {
 		}
 
 		if !diff.Final {
-			return s.getDifference()
+			return s.getDifference(ctx)
 		}
 
 		return nil
 
 	case *tg.UpdatesChannelDifferenceEmpty:
-		if err := s.storage.SetChannelPts(s.selfID, s.channelID, diff.Pts); err != nil {
+		if err := s.storage.SetChannelPts(ctx, s.selfID, s.channelID, diff.Pts); err != nil {
 			s.log.Warn("SetChannelPts error", zap.Error(err))
 		}
 
@@ -303,7 +316,7 @@ func (s *channelState) getDifference() error {
 		if err != nil {
 			s.log.Warn("UpdatesChannelDifferenceTooLong invalid Dialog", zap.Error(err))
 		} else {
-			if err := s.storage.SetChannelPts(s.selfID, s.channelID, remotePts); err != nil {
+			if err := s.storage.SetChannelPts(ctx, s.selfID, s.channelID, remotePts); err != nil {
 				s.log.Warn("SetChannelPts error", zap.Error(err))
 			}
 
@@ -318,8 +331,8 @@ func (s *channelState) getDifference() error {
 	}
 }
 
-func (s *channelState) getDifferenceLogerr() {
-	if err := s.getDifference(); err != nil {
+func (s *channelState) getDifferenceLogger(ctx context.Context) {
+	if err := s.getDifference(ctx); err != nil {
 		s.log.Error("get channel difference error", zap.Error(err))
 	}
 }
@@ -330,10 +343,4 @@ func (s *channelState) resetIdleTimer() {
 	}
 
 	_ = s.idleTimeout.Reset(idleTimeout)
-}
-
-func (s *channelState) Close() {
-	close(s.uchan)
-	s.cancel()
-	<-s.done
 }

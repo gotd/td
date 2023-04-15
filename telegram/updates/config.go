@@ -3,15 +3,16 @@ package updates
 import (
 	"context"
 
+	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
 )
 
-// RawClient is the interface which contains
-// Telegram RPC methods used by manager for state synchronization.
-type RawClient interface {
+// API is the interface which contains
+// Telegram RPC methods used by manager for internalState synchronization.
+type API interface {
 	UpdatesGetState(ctx context.Context) (*tg.UpdatesState, error)
 	UpdatesGetDifference(ctx context.Context, request *tg.UpdatesGetDifferenceRequest) (tg.UpdatesDifferenceClass, error)
 	UpdatesGetChannelDifference(ctx context.Context, request *tg.UpdatesGetChannelDifferenceRequest) (tg.UpdatesChannelDifferenceClass, error)
@@ -32,20 +33,25 @@ type Config struct {
 	AccessHasher ChannelAccessHasher
 	// Logger (optional).
 	Logger *zap.Logger
+	// TracerProvider (optional).
+	TracerProvider trace.TracerProvider
 }
 
 func (cfg *Config) setDefaults() {
 	if cfg.Handler == nil {
 		panic("Handler is nil")
 	}
-	if cfg.Storage == nil {
-		cfg.Storage = newMemStorage()
-	}
 	if cfg.AccessHasher == nil {
 		cfg.AccessHasher = newMemAccessHasher()
 	}
 	if cfg.Logger == nil {
 		cfg.Logger = zap.NewNop()
+	}
+	if cfg.TracerProvider == nil {
+		cfg.TracerProvider = trace.NewNoopTracerProvider()
+	}
+	if cfg.Storage == nil {
+		cfg.Storage = newMemStorage()
 	}
 	if cfg.OnChannelTooLong == nil {
 		cfg.OnChannelTooLong = func(channelID int64) {

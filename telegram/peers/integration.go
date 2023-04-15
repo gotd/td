@@ -11,7 +11,7 @@ import (
 )
 
 // SetChannelAccessHash implements updates.ChannelAccessHasher.
-func (m *Manager) SetChannelAccessHash(userID, channelID, accessHash int64) error {
+func (m *Manager) SetChannelAccessHash(ctx context.Context, userID, channelID, accessHash int64) error {
 	myID, ok := m.myID()
 	if !ok || myID != userID {
 		return nil
@@ -25,7 +25,7 @@ func (m *Manager) SetChannelAccessHash(userID, channelID, accessHash int64) erro
 }
 
 // GetChannelAccessHash implements updates.ChannelAccessHasher.
-func (m *Manager) GetChannelAccessHash(userID, channelID int64) (accessHash int64, found bool, err error) {
+func (m *Manager) GetChannelAccessHash(ctx context.Context, userID, channelID int64) (accessHash int64, found bool, err error) {
 	myID, ok := m.myID()
 	if !ok || myID != userID {
 		return 0, false, nil

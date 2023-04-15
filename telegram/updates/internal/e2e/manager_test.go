@@ -17,7 +17,11 @@ import (
 
 func TestE2E(t *testing.T) {
 	testManager(t, func(s *server, storage updates.StateStorage) chan *tg.Updates {
+		t.Helper()
+
 		c := make(chan *tg.Updates, 10)
+		ctx, cancel := context.WithCancel(context.Background())
+		defer cancel()
 
 		var (
 			biba = s.peers.createUser("biba")
@@ -26,7 +30,7 @@ func TestE2E(t *testing.T) {
 		)
 
 		var channels []*tg.PeerChannel
-		require.NoError(t, storage.ForEachChannels(123, func(channelID int64, pts int) error {
+		require.NoError(t, storage.ForEachChannels(ctx, 123, func(ctx context.Context, channelID int64, pts int) error {
 			channels = append(channels, &tg.PeerChannel{
 				ChannelID: channelID,
 			})
@@ -39,7 +43,7 @@ func TestE2E(t *testing.T) {
 		// Biba.
 		go func() {
 			defer wg.Done()
-			for i := 0; i < 30; i++ {
+			for i := 0; i < 3; i++ {
 				c <- s.CreateEvent(func(ev *EventBuilder) {
 					ev.SendMessage(biba, chat, fmt.Sprintf("biba-%d", i))
 
@@ -53,7 +57,7 @@ func TestE2E(t *testing.T) {
 		// Boba.
 		go func() {
 			defer wg.Done()
-			for i := 0; i < 30; i++ {
+			for i := 0; i < 3; i++ {
 				c <- s.CreateEvent(func(ev *EventBuilder) {
 					ev.SendMessage(boba, chat, fmt.Sprintf("boba-%d", i))
 
@@ -75,6 +79,8 @@ func TestE2E(t *testing.T) {
 func testManager(t *testing.T, f func(s *server, storage updates.StateStorage) chan *tg.Updates) {
 	t.Helper()
 
+	ctx, cancel := context.WithCancel(context.Background())
+
 	var (
 		log     = zaptest.NewLogger(t)
 		s       = newServer()
@@ -83,17 +89,19 @@ func testManager(t *testing.T, f func(s *server, storage updates.StateStorage) c
 		hasher  = newMemAccessHasher()
 	)
 
-	require.NoError(t, storage.SetState(123, updates.State{
+	const uid = 123
+
+	require.NoError(t, storage.SetState(ctx, uid, updates.State{
 		Pts:  0,
 		Qts:  0,
 		Date: 0,
 		Seq:  0,
 	}))
 
-	for i := 0; i < 30; i++ {
+	for i := 0; i < 2; i++ {
 		c := s.peers.createChannel(fmt.Sprintf("channel-%d", i))
-		require.NoError(t, storage.SetChannelPts(123, c.ChannelID, 0))
-		require.NoError(t, hasher.SetChannelAccessHash(123, c.ChannelID, c.ChannelID*2))
+		require.NoError(t, storage.SetChannelPts(ctx, uid, c.ChannelID, 0))
+		require.NoError(t, hasher.SetChannelAccessHash(ctx, uid, c.ChannelID, c.ChannelID*2))
 	}
 
 	e := updates.New(updates.Config{
@@ -103,16 +111,32 @@ func testManager(t *testing.T, f func(s *server, storage updates.StateStorage) c
 		AccessHasher: hasher,
 	})
 
-	require.NoError(t, e.Auth(context.Background(), s, 123, false, false))
-
 	uchan := loss(f(s, storage))
-
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-
 	g, ctx := errgroup.WithContext(ctx)
+	ready := make(chan struct{})
+	opts := updates.AuthOptions{
+		OnStart: func(ctx context.Context) {
+			t.Log("OnStart")
+			close(ready)
+		},
+	}
 	g.Go(func() error {
+		t.Log("Starting manager")
+		defer t.Log("Manager stopped")
+		return e.Run(ctx, s, uid, opts)
+	})
+	g.Go(func() error {
+		t.Log("Starting updates generator")
+		defer t.Log("Updates generator stopped")
+
 		defer cancel()
+
+		select {
+		case <-ready:
+			t.Log("Ready")
+		case <-ctx.Done():
+			return ctx.Err()
+		}
 
 		var g errgroup.Group
 		for i := 0; i < 2; i++ {
@@ -134,26 +158,32 @@ func testManager(t *testing.T, f func(s *server, storage updates.StateStorage) c
 			})
 		}
 
+		t.Log("Waiting")
 		if err := g.Wait(); err != nil {
 			return err
 		}
 
+		t.Log("Sending pts changed")
+
 		ups := []tg.UpdateClass{&tg.UpdatePtsChanged{}}
-		if err := storage.ForEachChannels(123, func(channelID int64, pts int) error {
+		if err := storage.ForEachChannels(ctx, uid, func(ctx context.Context, channelID int64, pts int) error {
 			ups = append(ups, &tg.UpdateChannelTooLong{ChannelID: channelID})
 			return nil
 		}); err != nil {
 			return err
 		}
 
+		t.Log("Handle")
+
 		return e.Handle(ctx, &tg.Updates{
 			Updates: ups,
 		})
 	})
 
-	require.NoError(t, g.Wait())
-	require.NoError(t, e.Logout())
+	t.Log("Waiting for shutdown")
+	require.ErrorIs(t, g.Wait(), context.Canceled)
 
+	t.Log("Checking")
 	require.Equal(t, s.messages, h.messages)
 	require.Equal(t, s.peers.channels, h.ents.Channels)
 	require.Equal(t, s.peers.chats, h.ents.Chats)

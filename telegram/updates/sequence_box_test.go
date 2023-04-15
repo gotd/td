@@ -14,6 +14,7 @@ func TestSequenceBox(t *testing.T) {
 		updates []update
 	)
 
+	ctx := context.Background()
 	box := newSequenceBox(sequenceConfig{
 		InitialState: 3,
 		Apply: func(ctx context.Context, s int, u []update) error {
@@ -24,7 +25,7 @@ func TestSequenceBox(t *testing.T) {
 		Logger: zaptest.NewLogger(t),
 	})
 
-	require.Nil(t, box.Handle(update{
+	require.Nil(t, box.Handle(ctx, update{
 		Value: 1,
 		State: 2,
 		Count: 1,
@@ -33,7 +34,7 @@ func TestSequenceBox(t *testing.T) {
 	require.Empty(t, updates)
 	require.Empty(t, box.pending)
 
-	require.Nil(t, box.Handle(update{
+	require.Nil(t, box.Handle(ctx, update{
 		Value: 1,
 		State: 3,
 		Count: 1,
@@ -42,46 +43,46 @@ func TestSequenceBox(t *testing.T) {
 	require.Empty(t, updates)
 	require.Empty(t, box.pending)
 
-	require.Nil(t, box.Handle(update{
+	require.Nil(t, box.Handle(ctx, update{
 		Value: 1,
 		State: 4,
 		Count: 1,
 	}))
 	require.Equal(t, 4, state)
-	require.Equal(t, []update{{1, 4, 1, entities{}, nil}}, updates)
+	require.Equal(t, []update{{Value: 1, State: 4, Count: 1}}, updates)
 	require.Empty(t, box.pending)
 	updates = nil
 
-	require.Nil(t, box.Handle(update{
+	require.Nil(t, box.Handle(ctx, update{
 		Value: 1,
 		State: 6,
 		Count: 1,
 	}))
 	require.Equal(t, 4, state)
 	require.Empty(t, updates)
-	require.Equal(t, []update{{1, 6, 1, entities{}, nil}}, box.pending)
+	require.Equal(t, []update{{Value: 1, State: 6, Count: 1}}, box.pending)
 
-	require.Nil(t, box.Handle(update{
+	require.Nil(t, box.Handle(ctx, update{
 		Value: 2,
 		State: 5,
 		Count: 1,
 	}))
 	require.Equal(t, 6, state)
-	require.Equal(t, []update{{2, 5, 1, entities{}, nil}, {1, 6, 1, entities{}, nil}}, updates)
+	require.Equal(t, []update{{Value: 2, State: 5, Count: 1}, {Value: 1, State: 6, Count: 1}}, updates)
 	require.Empty(t, box.pending)
 	updates = nil
 
-	require.Nil(t, box.Handle(update{
+	require.Nil(t, box.Handle(ctx, update{
 		Value: 3,
 		State: 8,
 		Count: 1,
 	}))
 	require.Equal(t, 6, state)
 	require.Empty(t, updates)
-	require.Equal(t, []update{{3, 8, 1, entities{}, nil}}, box.pending)
+	require.Equal(t, []update{{Value: 3, State: 8, Count: 1}}, box.pending)
 	<-box.gapTimeout.C
 
-	require.Equal(t, []gap{{6, 7}}, box.gaps.gaps)
+	require.Equal(t, []gap{{from: 6, to: 7}}, box.gaps.gaps)
 	box.gaps.Clear()
 	require.False(t, box.gaps.Has())
 }
@@ -96,9 +97,9 @@ func TestSequenceBoxApplyPending(t *testing.T) {
 		{
 			InitialState: 5,
 			Pending: []update{
-				{1, 3, 1, entities{}, nil},
-				{1, 4, 1, entities{}, nil},
-				{1, 1, 1, entities{}, nil},
+				{Value: 1, State: 3, Count: 1},
+				{Value: 1, State: 4, Count: 1},
+				{Value: 1, State: 1, Count: 1},
 			},
 			PendingAfter: []update{},
 			Applied:      []update{},
@@ -106,44 +107,44 @@ func TestSequenceBoxApplyPending(t *testing.T) {
 		{
 			InitialState: 5,
 			Pending: []update{
-				{1, 3, 1, entities{}, nil},
-				{1, 8, 1, entities{}, nil},
-				{1, 7, 1, entities{}, nil},
-				{1, 4, 1, entities{}, nil},
-				{1, 1, 1, entities{}, nil},
+				{Value: 1, State: 3, Count: 1},
+				{Value: 1, State: 8, Count: 1},
+				{Value: 1, State: 7, Count: 1},
+				{Value: 1, State: 4, Count: 1},
+				{Value: 1, State: 1, Count: 1},
 			},
 			PendingAfter: []update{
-				{1, 7, 1, entities{}, nil},
-				{1, 8, 1, entities{}, nil},
+				{1, 7, 1, entities{}},
+				{1, 8, 1, entities{}},
 			},
 			Applied: []update{},
 		},
 		{
 			InitialState: 5,
 			Pending: []update{
-				{1, 8, 1, entities{}, nil},
-				{1, 7, 1, entities{}, nil},
+				{Value: 1, State: 8, Count: 1},
+				{Value: 1, State: 7, Count: 1},
 			},
 			PendingAfter: []update{
-				{1, 7, 1, entities{}, nil},
-				{1, 8, 1, entities{}, nil},
+				{1, 7, 1, entities{}},
+				{Value: 1, State: 8, Count: 1},
 			},
 			Applied: []update{},
 		},
 		{
 			InitialState: 5,
 			Pending: []update{
-				{1, 3, 1, entities{}, nil},
-				{1, 6, 1, entities{}, nil},
-				{1, 8, 1, entities{}, nil},
-				{1, 4, 1, entities{}, nil},
-				{1, 1, 1, entities{}, nil},
+				{Value: 1, State: 3, Count: 1},
+				{Value: 1, State: 6, Count: 1},
+				{Value: 1, State: 8, Count: 1},
+				{Value: 1, State: 4, Count: 1},
+				{Value: 1, State: 1, Count: 1},
 			},
 			PendingAfter: []update{
-				{1, 8, 1, entities{}, nil},
+				{Value: 1, State: 8, Count: 1},
 			},
 			Applied: []update{
-				{1, 6, 1, entities{}, nil},
+				{Value: 1, State: 6, Count: 1},
 			},
 		},
 	}
