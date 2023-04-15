@@ -3,6 +3,7 @@ package updates
 import (
 	"context"
 
+	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/tg"
@@ -33,6 +34,9 @@ func (s *internalState) applySeq(ctx context.Context, state int, updates []updat
 }
 
 func (s *internalState) applyCombined(ctx context.Context, comb *tg.UpdatesCombined) (ptsChanged bool, err error) {
+	ctx, span := s.tracer.Start(ctx, "internalState.applyCombined")
+	defer span.End()
+
 	var (
 		ents = entities{
 			Users: comb.Users,
@@ -56,6 +60,7 @@ func (s *internalState) applyCombined(ctx context.Context, comb *tg.UpdatesCombi
 			if err := st.Push(ctx, channelUpdate{
 				update:   u,
 				entities: ents,
+				span:     trace.SpanContextFromContext(ctx),
 			}); err != nil {
 				s.log.Error("Push channel update error", zap.Error(err))
 			}
@@ -78,6 +83,7 @@ func (s *internalState) applyCombined(ctx context.Context, comb *tg.UpdatesCombi
 			if err := s.handleChannel(ctx, channelID, comb.Date, pts, ptsCount, channelUpdate{
 				update:   u,
 				entities: ents,
+				span:     trace.SpanContextFromContext(ctx),
 			}); err != nil {
 				s.log.Error("Handle channel update error", zap.Error(err))
 			}
@@ -131,6 +137,9 @@ func (s *internalState) applyCombined(ctx context.Context, comb *tg.UpdatesCombi
 }
 
 func (s *internalState) applyPts(ctx context.Context, state int, updates []update) error {
+	ctx, span := s.tracer.Start(ctx, "internalState.applyPts")
+	defer span.End()
+
 	var (
 		converted []tg.UpdateClass
 		ents      entities
@@ -157,6 +166,9 @@ func (s *internalState) applyPts(ctx context.Context, state int, updates []updat
 }
 
 func (s *internalState) applyQts(ctx context.Context, state int, updates []update) error {
+	ctx, span := s.tracer.Start(ctx, "internalState.applyQts")
+	defer span.End()
+
 	var (
 		converted []tg.UpdateClass
 		ents      entities

@@ -181,7 +181,7 @@ func testManager(t *testing.T, f func(s *server, storage updates.StateStorage) c
 	})
 
 	t.Log("Waiting for shutdown")
-	require.NoError(t, g.Wait())
+	require.ErrorIs(t, g.Wait(), context.Canceled)
 
 	t.Log("Checking")
 	require.Equal(t, s.messages, h.messages)

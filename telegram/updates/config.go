@@ -50,6 +50,9 @@ func (cfg *Config) setDefaults() {
 	if cfg.TracerProvider == nil {
 		cfg.TracerProvider = trace.NewNoopTracerProvider()
 	}
+	if cfg.Storage == nil {
+		cfg.Storage = newMemStorage()
+	}
 	if cfg.OnChannelTooLong == nil {
 		cfg.OnChannelTooLong = func(channelID int64) {
 			cfg.Logger.Error("Difference too long", zap.Int64("channel_id", channelID))

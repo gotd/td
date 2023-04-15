@@ -157,12 +157,6 @@ func (m *Manager) Run(ctx context.Context, api API, userID int64, opt AuthOption
 	wg.Go(func() error {
 		return m.state.Run(ctx)
 	})
-	wg.Go(func() error {
-		<-ctx.Done()
-		lg.Debug("Stopping")
-		m.state.Stop()
-		return nil
-	})
 	lg.Debug("Wait")
 	return wg.Wait()
 }

@@ -95,11 +95,7 @@ func (s *channelState) Push(ctx context.Context, u channelUpdate) error {
 	}
 }
 
-func (s *channelState) Stop() {
-	close(s.updates)
-}
-
-func (s *channelState) Run(ctx context.Context) {
+func (s *channelState) Run(ctx context.Context) error {
 	// Subscribe to channel updates.
 	if err := s.getDifference(ctx); err != nil {
 		s.log.Error("Failed to subscribe to channel updates", zap.Error(err))
@@ -107,19 +103,20 @@ func (s *channelState) Run(ctx context.Context) {
 
 	for {
 		select {
-		case u, ok := <-s.updates:
-			if !ok {
-				if len(s.pts.pending) > 0 {
-					s.getDifferenceLogger(ctx)
-				}
-				return
-			}
+		case u := <-s.updates:
+			ctx := trace.ContextWithSpanContext(ctx, u.span)
 			if err := s.handleUpdate(ctx, u.update, u.entities); err != nil {
 				s.log.Error("Handle update error", zap.Error(err))
 			}
 		case <-s.pts.gapTimeout.C:
 			s.log.Debug("Gap timeout")
 			s.getDifferenceLogger(ctx)
+		case <-ctx.Done():
+			if len(s.pts.pending) > 0 {
+				// This will probably fail.
+				s.getDifferenceLogger(ctx)
+			}
+			return ctx.Err()
 		case <-s.idleTimeout.C:
 			s.log.Debug("Idle timeout")
 			s.resetIdleTimer()

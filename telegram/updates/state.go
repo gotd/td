@@ -117,8 +117,7 @@ func newState(ctx context.Context, cfg stateConfig) *internalState {
 		state := s.newChannelState(id, info.AccessHash, info.Pts)
 		s.channels[id] = state
 		s.wg.Go(func() error {
-			state.Run(ctx)
-			return nil
+			return state.Run(ctx)
 		})
 	}
 
@@ -138,13 +137,6 @@ func (s *internalState) Push(ctx context.Context, u tg.UpdatesClass) error {
 	}
 }
 
-func (s *internalState) Stop() {
-	close(s.externalQueue)
-	for _, c := range s.channels {
-		c.Stop()
-	}
-}
-
 func (s *internalState) Run(ctx context.Context) error {
 	s.log.Debug("Starting updates handler")
 	defer s.log.Debug("Updates handler stopped")
@@ -152,13 +144,12 @@ func (s *internalState) Run(ctx context.Context) error {
 
 	for {
 		select {
-		case u, ok := <-s.externalQueue:
-			if !ok {
-				if len(s.pts.pending) > 0 || len(s.qts.pending) > 0 || len(s.seq.pending) > 0 {
-					s.getDifferenceLogger(ctx)
-				}
-				return nil
+		case <-ctx.Done():
+			if len(s.pts.pending) > 0 || len(s.qts.pending) > 0 || len(s.seq.pending) > 0 {
+				s.getDifferenceLogger(ctx)
 			}
+			return ctx.Err()
+		case u := <-s.externalQueue:
 			ctx := trace.ContextWithSpanContext(ctx, u.span)
 			if err := s.handleUpdates(ctx, u.update); err != nil {
 				s.log.Error("Handle updates error", zap.Error(err))
@@ -328,8 +319,7 @@ func (s *internalState) handleChannel(ctx context.Context, channelID int64, date
 		state = s.newChannelState(channelID, accessHash, localPts)
 		s.channels[channelID] = state
 		s.wg.Go(func() error {
-			state.Run(ctx)
-			return nil
+			return state.Run(ctx)
 		})
 	}
 

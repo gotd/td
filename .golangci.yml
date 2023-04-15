@@ -50,7 +50,7 @@ linters:
   enable:
     - depguard
     - dogsled
-    - dupl
+#    - dupl
     - errcheck
     - gochecknoinits
     - goconst

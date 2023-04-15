@@ -52,6 +52,9 @@ func newSequenceBox(cfg sequenceConfig) *sequenceBox {
 }
 
 func (s *sequenceBox) Handle(ctx context.Context, u update) error {
+	ctx, span := s.tracer.Start(ctx, "sequenceBox.Handle")
+	defer span.End()
+
 	log := s.log.With(zap.Int("upd_from", u.start()), zap.Int("upd_to", u.end()))
 	if checkGap(s.state, u.State, u.Count) == gapIgnore {
 		log.Debug("Outdated update, skipping", zap.Int("internalState", s.state))
@@ -110,6 +113,9 @@ func (s *sequenceBox) Handle(ctx context.Context, u update) error {
 }
 
 func (s *sequenceBox) applyPending(ctx context.Context) error {
+	ctx, span := s.tracer.Start(ctx, "sequenceBox.applyPending")
+	defer span.End()
+
 	sort.SliceStable(s.pending, func(i, j int) bool {
 		return s.pending[i].start() < s.pending[j].start()
 	})
