@@ -104,7 +104,7 @@ func testManager(t *testing.T, f func(s *server, storage updates.StateStorage) c
 		require.NoError(t, hasher.SetChannelAccessHash(ctx, uid, c.ChannelID, c.ChannelID*2))
 	}
 
-	e := updates.New(s, updates.Config{
+	e := updates.New(updates.Config{
 		Handler:      h,
 		Logger:       log.Named("gaps"),
 		Storage:      storage,
@@ -123,7 +123,7 @@ func testManager(t *testing.T, f func(s *server, storage updates.StateStorage) c
 	g.Go(func() error {
 		t.Log("Starting manager")
 		defer t.Log("Manager stopped")
-		return e.Run(ctx, uid, opts)
+		return e.Run(ctx, s, uid, opts)
 	})
 	g.Go(func() error {
 		t.Log("Starting updates generator")

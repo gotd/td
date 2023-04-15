@@ -31,7 +31,7 @@ func ExampleManager() {
 	peerManager := peers.Options{
 		Logger: logger,
 	}.Build(client.API())
-	gaps := updates.New(client.API(), updates.Config{
+	gaps := updates.New(updates.Config{
 		Handler:      dispatcher,
 		AccessHasher: peerManager,
 		Logger:       logger.Named("gaps"),
@@ -51,7 +51,7 @@ func ExampleManager() {
 		}
 
 		_, isBot := u.ToBot()
-		if err := gaps.Run(ctx, u.ID(), updates.AuthOptions{IsBot: isBot}); err != nil {
+		if err := gaps.Run(ctx, client.API(), u.ID(), updates.AuthOptions{IsBot: isBot}); err != nil {
 			return errors.Wrap(err, "gaps")
 		}
 		return nil
