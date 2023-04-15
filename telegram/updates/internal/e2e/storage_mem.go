@@ -1,6 +1,7 @@
 package e2e
 
 import (
+	"context"
 	"sync"
 
 	"github.com/go-faster/errors"
@@ -23,7 +24,7 @@ func newMemStorage() *memStorage {
 	}
 }
 
-func (s *memStorage) GetState(userID int64) (state updates.State, found bool, err error) {
+func (s *memStorage) GetState(ctx context.Context, userID int64) (state updates.State, found bool, err error) {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -31,7 +32,7 @@ func (s *memStorage) GetState(userID int64) (state updates.State, found bool, er
 	return
 }
 
-func (s *memStorage) SetState(userID int64, state updates.State) error {
+func (s *memStorage) SetState(ctx context.Context, userID int64, state updates.State) error {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -40,7 +41,7 @@ func (s *memStorage) SetState(userID int64, state updates.State) error {
 	return nil
 }
 
-func (s *memStorage) SetPts(userID int64, pts int) error {
+func (s *memStorage) SetPts(ctx context.Context, userID int64, pts int) error {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -54,7 +55,7 @@ func (s *memStorage) SetPts(userID int64, pts int) error {
 	return nil
 }
 
-func (s *memStorage) SetQts(userID int64, qts int) error {
+func (s *memStorage) SetQts(ctx context.Context, userID int64, qts int) error {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -68,7 +69,7 @@ func (s *memStorage) SetQts(userID int64, qts int) error {
 	return nil
 }
 
-func (s *memStorage) SetDate(userID int64, date int) error {
+func (s *memStorage) SetDate(ctx context.Context, userID int64, date int) error {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -82,7 +83,7 @@ func (s *memStorage) SetDate(userID int64, date int) error {
 	return nil
 }
 
-func (s *memStorage) SetSeq(userID int64, seq int) error {
+func (s *memStorage) SetSeq(ctx context.Context, userID int64, seq int) error {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -96,7 +97,7 @@ func (s *memStorage) SetSeq(userID int64, seq int) error {
 	return nil
 }
 
-func (s *memStorage) SetDateSeq(userID int64, date, seq int) error {
+func (s *memStorage) SetDateSeq(ctx context.Context, userID int64, date, seq int) error {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -111,7 +112,7 @@ func (s *memStorage) SetDateSeq(userID int64, date, seq int) error {
 	return nil
 }
 
-func (s *memStorage) SetChannelPts(userID, channelID int64, pts int) error {
+func (s *memStorage) SetChannelPts(ctx context.Context, userID, channelID int64, pts int) error {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -124,7 +125,7 @@ func (s *memStorage) SetChannelPts(userID, channelID int64, pts int) error {
 	return nil
 }
 
-func (s *memStorage) GetChannelPts(userID, channelID int64) (pts int, found bool, err error) {
+func (s *memStorage) GetChannelPts(ctx context.Context, userID, channelID int64) (pts int, found bool, err error) {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -137,7 +138,7 @@ func (s *memStorage) GetChannelPts(userID, channelID int64) (pts int, found bool
 	return
 }
 
-func (s *memStorage) ForEachChannels(userID int64, f func(channelID int64, pts int) error) error {
+func (s *memStorage) ForEachChannels(ctx context.Context, userID int64, f func(ctx context.Context, channelID int64, pts int) error) error {
 	s.mux.Lock()
 	defer s.mux.Unlock()
 
@@ -147,7 +148,7 @@ func (s *memStorage) ForEachChannels(userID int64, f func(channelID int64, pts i
 	}
 
 	for id, pts := range cmap {
-		if err := f(id, pts); err != nil {
+		if err := f(ctx, id, pts); err != nil {
 			return err
 		}
 	}
@@ -168,7 +169,7 @@ func newMemAccessHasher() *memAccessHasher {
 	}
 }
 
-func (m *memAccessHasher) GetChannelAccessHash(userID, channelID int64) (hash int64, found bool, err error) {
+func (m *memAccessHasher) GetChannelAccessHash(ctx context.Context, userID, channelID int64) (accessHash int64, found bool, err error) {
 	m.mux.Lock()
 	defer m.mux.Unlock()
 
@@ -177,11 +178,11 @@ func (m *memAccessHasher) GetChannelAccessHash(userID, channelID int64) (hash in
 		return 0, false, nil
 	}
 
-	hash, found = userHashes[channelID]
+	accessHash, found = userHashes[channelID]
 	return
 }
 
-func (m *memAccessHasher) SetChannelAccessHash(userID, channelID, hash int64) error {
+func (m *memAccessHasher) SetChannelAccessHash(ctx context.Context, userID, channelID, accessHash int64) error {
 	m.mux.Lock()
 	defer m.mux.Unlock()
 
@@ -191,6 +192,6 @@ func (m *memAccessHasher) SetChannelAccessHash(userID, channelID, hash int64) er
 		m.hashes[userID] = userHashes
 	}
 
-	userHashes[channelID] = hash
+	userHashes[channelID] = accessHash
 	return nil
 }

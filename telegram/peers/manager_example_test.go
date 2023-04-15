@@ -2,8 +2,8 @@ package peers_test
 
 import (
 	"context"
-	"fmt"
 
+	"github.com/go-faster/errors"
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/telegram"
@@ -31,14 +31,17 @@ func ExampleManager() {
 	peerManager := peers.Options{
 		Logger: logger,
 	}.Build(client.API())
-	gaps := updates.New(updates.Config{
+	gaps := updates.New(client.API(), updates.Config{
 		Handler:      dispatcher,
 		AccessHasher: peerManager,
 		Logger:       logger.Named("gaps"),
 	})
 	h = peerManager.UpdateHook(gaps)
 
-	if err := client.Run(context.TODO(), func(ctx context.Context) error {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	if err := client.Run(ctx, func(ctx context.Context) error {
 		if err := peerManager.Init(ctx); err != nil {
 			return err
 		}
@@ -48,18 +51,9 @@ func ExampleManager() {
 		}
 
 		_, isBot := u.ToBot()
-		if err := gaps.Auth(ctx, client.API(), u.ID(), isBot, false); err != nil {
-			return err
+		if err := gaps.Run(ctx, u.ID(), updates.AuthOptions{IsBot: isBot}); err != nil {
+			return errors.Wrap(err, "gaps")
 		}
-		defer gaps.Logout()
-
-		p, err := peerManager.Resolve(ctx, "durov")
-		if err != nil {
-			return err
-		}
-
-		username, _ := p.Username()
-		fmt.Println(username)
 		return nil
 	}); err != nil {
 		panic(err)

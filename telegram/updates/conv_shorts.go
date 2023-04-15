@@ -45,7 +45,7 @@ func convertOptional(msg *tg.Message, i tg.UpdatesClass) {
 	}
 }
 
-func (s *state) convertShortMessage(u *tg.UpdateShortMessage) *tg.UpdateShort {
+func (s *internalState) convertShortMessage(u *tg.UpdateShortMessage) *tg.UpdateShort {
 	msg := &tg.Message{
 		ID:      u.ID,
 		PeerID:  &tg.PeerUser{UserID: u.UserID},
@@ -75,7 +75,7 @@ func (s *state) convertShortMessage(u *tg.UpdateShortMessage) *tg.UpdateShort {
 	}
 }
 
-func (s *state) convertShortChatMessage(u *tg.UpdateShortChatMessage) *tg.UpdateShort {
+func (s *internalState) convertShortChatMessage(u *tg.UpdateShortChatMessage) *tg.UpdateShort {
 	msg := &tg.Message{
 		ID:      u.ID,
 		PeerID:  &tg.PeerChat{ChatID: u.ChatID},
@@ -101,7 +101,7 @@ func (s *state) convertShortChatMessage(u *tg.UpdateShortChatMessage) *tg.Update
 	}
 }
 
-func (s *state) convertShortSentMessage(u *tg.UpdateShortSentMessage) *tg.UpdateShort {
+func (s *internalState) convertShortSentMessage(u *tg.UpdateShortSentMessage) *tg.UpdateShort {
 	// This update should be converted by the one who called the method
 	// that returned this update, because we do not have any context about
 	// it (message text, sender/recipient, etc.)

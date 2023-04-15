@@ -67,14 +67,10 @@ func run(ctx context.Context) error {
 		if err != nil {
 			return err
 		}
-
-		// Notify update manager about authentication.
-		if err := gaps.Auth(ctx, client.API(), user.ID, user.Bot, true); err != nil {
-			return err
-		}
-		defer func() { _ = gaps.Logout() }()
-
-		<-ctx.Done()
-		return ctx.Err()
+		return gaps.Run(ctx, client.API(), user.ID, updates.AuthOptions{
+			OnStart: func(ctx context.Context) {
+				log.Info("Gaps started")
+			},
+		})
 	})
 }

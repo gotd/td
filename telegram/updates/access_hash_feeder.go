@@ -2,11 +2,15 @@ package updates
 
 import (
 	"go.uber.org/zap"
+	"golang.org/x/net/context"
 
 	"github.com/gotd/td/tg"
 )
 
-func (s *state) saveChannelHashes(chats []tg.ChatClass) {
+func (s *internalState) saveChannelHashes(ctx context.Context, chats []tg.ChatClass) {
+	ctx, span := s.tracer.Start(ctx, "updates.saveChannelHashes")
+	defer span.End()
+
 	for _, c := range chats {
 		switch c := c.(type) {
 		case *tg.Channel:
@@ -22,7 +26,7 @@ func (s *state) saveChannelHashes(chats []tg.ChatClass) {
 					zap.Int64("channel_id", c.ID),
 					zap.String("title", c.Title),
 				)
-				if err := s.hasher.SetChannelAccessHash(s.selfID, c.ID, hash); err != nil {
+				if err := s.hasher.SetChannelAccessHash(ctx, s.selfID, c.ID, hash); err != nil {
 					s.log.Error("SetChannelState error", zap.Error(err))
 				}
 			}
@@ -34,15 +38,18 @@ func (s *state) saveChannelHashes(chats []tg.ChatClass) {
 				zap.Int64("channel_id", c.ID),
 				zap.String("title", c.Title),
 			)
-			if err := s.hasher.SetChannelAccessHash(s.selfID, c.ID, c.AccessHash); err != nil {
+			if err := s.hasher.SetChannelAccessHash(ctx, s.selfID, c.ID, c.AccessHash); err != nil {
 				s.log.Error("SetChannelState error", zap.Error(err))
 			}
 		}
 	}
 }
 
-func (s *state) restoreAccessHash(channelID int64, date int) (accessHash int64, ok bool) {
-	diff, err := s.client.UpdatesGetDifference(s.ctx, &tg.UpdatesGetDifferenceRequest{
+func (s *internalState) restoreAccessHash(ctx context.Context, channelID int64, date int) (accessHash int64, ok bool) {
+	ctx, span := s.tracer.Start(ctx, "updates.restoreAccessHash")
+	defer span.End()
+
+	diff, err := s.client.UpdatesGetDifference(ctx, &tg.UpdatesGetDifferenceRequest{
 		Pts:  s.pts.State(),
 		Qts:  s.qts.State(),
 		Date: date,
@@ -60,7 +67,7 @@ func (s *state) restoreAccessHash(channelID int64, date int) (accessHash int64, 
 		chats = diff.Chats
 	}
 
-	s.saveChannelHashes(chats)
+	s.saveChannelHashes(ctx, chats)
 	for _, c := range chats {
 		switch c := c.(type) {
 		case *tg.Channel:
