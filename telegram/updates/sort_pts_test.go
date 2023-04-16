@@ -65,12 +65,12 @@ func Test_sortUpdatesByPts(t *testing.T) {
 			[]tg.UpdateClass{
 				newMessage(25),
 				newMessage(26),
-				channelNewMessage(25, 1),
-				channelReadInbox(26, 1),
-				channelNewMessage(25, 2),
 				encryptedNewMessage(25),
 				encryptedNewMessage(26),
 				encryptedNewMessage(27),
+				channelNewMessage(25, 1),
+				channelReadInbox(26, 1),
+				channelNewMessage(25, 2),
 			},
 		},
 		{
