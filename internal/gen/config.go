@@ -12,6 +12,8 @@ type GenerateFlags struct {
 	Server bool
 	// Handlers enables update handler generation.
 	Handlers bool
+	// UpdatesClassifier enables updates classifier generation.
+	UpdatesClassifier bool
 	// GetSet enables getters and setters generation.
 	GetSet bool
 	// Mapping enables mapping helpers generation.
@@ -28,6 +30,7 @@ func (s *GenerateFlags) RegisterFlags(set *flag.FlagSet) {
 	set.BoolVar(&s.Registry, "registry", true, "Enables type ID registry generation")
 	set.BoolVar(&s.Server, "server", false, "Enables experimental server generation")
 	set.BoolVar(&s.Handlers, "handlers", false, "Enables update handler generation")
+	set.BoolVar(&s.UpdatesClassifier, "updates-classifier", true, "Enables updates classifier generation")
 	set.BoolVar(&s.GetSet, "getset", true, "Enables getters and setters generation")
 	set.BoolVar(&s.Mapping, "mapping", false, "Enables mapping helpers generation")
 	set.BoolVar(&s.Slices, "slices", false, "Enables slice helpers generation")

@@ -135,7 +135,7 @@ func (s *channelState) handleUpdate(ctx context.Context, u tg.UpdateClass, ents 
 		return s.handleTooLong(ctx, long)
 	}
 
-	channelID, pts, ptsCount, ok, err := isChannelPtsUpdate(u)
+	channelID, pts, ptsCount, ok, err := tg.IsChannelPtsUpdate(u)
 	if err != nil {
 		return errors.Wrap(err, "invalid update")
 	}

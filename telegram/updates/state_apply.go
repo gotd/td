@@ -67,7 +67,7 @@ func (s *internalState) applyCombined(ctx context.Context, comb *tg.UpdatesCombi
 			continue
 		}
 
-		if pts, ptsCount, ok := isCommonPtsUpdate(u); ok {
+		if pts, ptsCount, ok := tg.IsPtsUpdate(u); ok {
 			if err := s.handlePts(ctx, pts, ptsCount, u, ents); err != nil {
 				return false, err
 			}
@@ -75,7 +75,7 @@ func (s *internalState) applyCombined(ctx context.Context, comb *tg.UpdatesCombi
 			continue
 		}
 
-		if channelID, pts, ptsCount, ok, err := isChannelPtsUpdate(u); ok {
+		if channelID, pts, ptsCount, ok, err := tg.IsChannelPtsUpdate(u); ok {
 			if err != nil {
 				s.log.Debug("Invalid channel update", zap.Error(err), zap.Any("update", u))
 				continue
@@ -91,7 +91,7 @@ func (s *internalState) applyCombined(ctx context.Context, comb *tg.UpdatesCombi
 			continue
 		}
 
-		if qts, ok := isCommonQtsUpdate(u); ok {
+		if qts, ok := tg.IsQtsUpdate(u); ok {
 			if err := s.handleQts(ctx, qts, u, ents); err != nil {
 				return false, err
 			}

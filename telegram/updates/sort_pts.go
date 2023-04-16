@@ -38,13 +38,13 @@ func (p ptsSorter) Less(i, j int) bool {
 		channelPts
 	)
 	getType := func(u tg.UpdateClass) compare {
-		if pts, ptsCount, ok := isCommonPtsUpdate(u); ok {
+		if pts, ptsCount, ok := tg.IsPtsUpdate(u); ok {
 			return compare{typ: commonPts, ptsDiff: pts - ptsCount}
 		}
-		if channelID, pts, ptsCount, ok, _ := isChannelPtsUpdate(u); ok {
+		if channelID, pts, ptsCount, ok, _ := tg.IsChannelPtsUpdate(u); ok {
 			return compare{typ: channelPts, channelID: channelID, ptsDiff: pts - ptsCount}
 		}
-		if qts, ok := isCommonQtsUpdate(u); ok {
+		if qts, ok := tg.IsQtsUpdate(u); ok {
 			return compare{typ: commonQts, ptsDiff: qts}
 		}
 		return compare{typ: other}
