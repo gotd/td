@@ -96,7 +96,7 @@ See [examples](examples) directory.
 
 Also take a look at
 
-* [gotd/bot](https://github.com/gotd/bot) with updates recovery enabled, used as canary for stability testing
+* [go-faster/bot](https://github.com/go-faster/bot) as example of sophisticated telegram bot integration with GitHub
 * [gotd/cli](https://github.com/gotd/cli), command line interface for subset of telegram methods.
 
 ### Auth
