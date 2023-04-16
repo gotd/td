@@ -187,6 +187,11 @@ func (s *internalState) applyQts(ctx context.Context, state int, updates []updat
 		s.log.Error("Handle updates error", zap.Error(err))
 	}
 
+	// Don't set qts if it's 0, because it means that we are apllying gaps updates
+	if state == 0 {
+		return nil
+	}
+
 	if err := s.storage.SetQts(ctx, s.selfID, state); err != nil {
 		s.log.Error("SetQts error", zap.Error(err))
 	}
