@@ -180,6 +180,11 @@ func run(ctx context.Context) error {
 
 	// Setting up resolver cache that will use peer storage.
 	resolver := storage.NewResolverCache(peer.Plain(api), peerDB)
+	// Usage:
+	//   if _, err := resolver.ResolveDomain(ctx, "tdlibchat"); err != nil {
+	//	   return errors.Wrap(err, "resolve")
+	//   }
+	_ = resolver
 
 	// Registering handler for new private messages.
 	dispatcher.OnNewMessage(func(ctx context.Context, e tg.Entities, u *tg.UpdateNewMessage) error {
@@ -257,13 +262,6 @@ func run(ctx context.Context) error {
 				}
 				fmt.Println("Filled")
 			}
-
-			lg.Info("Resolving https://t.me/tdlibchat")
-			// This should be cached in peer storage after first time.
-			if _, err := resolver.ResolveDomain(ctx, "tdlibchat"); err != nil {
-				return errors.Wrap(err, "resolve")
-			}
-			lg.Info("Resolved")
 
 			// Waiting until context is done.
 			fmt.Println("Listening for updates. Interrupt (Ctrl+C) to stop.")
