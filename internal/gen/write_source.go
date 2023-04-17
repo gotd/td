@@ -178,6 +178,13 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 			return err
 		}
 	}
+	if g.generateFlags.UpdatesClassifier && g.hasUpdateClass() {
+		if err := w.Generate("updates_classifier", "tl_updates_classifier_gen.go", config{
+			Structs: g.structs,
+		}); err != nil {
+			return err
+		}
+	}
 
 	sort.SliceStable(g.interfaces, func(i, j int) bool {
 		return g.interfaces[i].Name < g.interfaces[j].Name

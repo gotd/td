@@ -1,0 +1,72 @@
+{{ define "updates_classifier" }}
+{{ $pkg := $.Package }}
+{{ template "header" $ }}
+
+func IsPtsUpdate(u UpdateClass) (pts, ptsCount int, ok bool) {
+	switch u := u.(type) {
+{{- range $s := $.Structs }}{{ if and (eq $s.Interface "UpdateClass") 
+		  							  (hasField $s.Fields "Pts" "int") 
+									  (not (contains $s.Name "Channel")) }}
+{{- $ptsCount := or (and (hasField $s.Fields "PtsCount" "int") "u.PtsCount") "0" }}
+	case *{{ $s.Name }}:
+		return u.Pts, {{ $ptsCount }}, true
+{{- end }}{{ end }}
+	}
+
+	return
+}
+
+func IsQtsUpdate(u UpdateClass) (qts int, ok bool) {
+	switch u := u.(type) {
+{{- range $s := $.Structs }}{{ if and (eq $s.Interface "UpdateClass") (hasField $s.Fields "Qts" "int") }}
+	case *{{ $s.Name }}:
+		return u.Qts, true
+{{- end }}{{ end }}
+	}
+
+	return
+}
+
+func IsChannelPtsUpdate(u UpdateClass) (channelID int64, pts, ptsCount int, ok bool, err error) {
+	switch u := u.(type) {
+{{- range $s := $.Structs }}{{ if and (eq $s.Interface "UpdateClass") 
+		  							  (hasField $s.Fields "Pts" "int") 
+									  (contains $s.Name "Channel") }}
+{{- $ptsCount := or (and (hasField $s.Fields "PtsCount" "int") "u.PtsCount") "0" }}
+	case *{{ $s.Name }}:
+{{- if (hasField $s.Fields "ChannelID" "int64") }}
+		return u.ChannelID, u.Pts, {{ $ptsCount }}, true, nil
+{{- else }}
+		channelID, err = extractChannelID(u.Message)
+		return channelID, u.Pts, {{ $ptsCount }}, true, err
+{{- end }}{{ end }}{{ end }}
+	}
+
+	return
+}
+
+func extractChannelID(msg MessageClass) (int64, error) {
+	switch msg := msg.(type) {
+{{- range $s := $.Structs }}{{ if eq $s.Interface "MessageClass" }}
+	case *{{ $s.Name }}:
+{{- range $field := $s.Fields }}{{ if eq $field.Name "PeerID" }}
+{{- if (optionalField $s $field) }}
+		peer, ok := msg.GetPeerID()
+		if !ok {
+			return 0, errors.New("{{ $s.Name }} have no peerID field")
+		}
+{{- else }}
+		peer := msg.PeerID
+{{ end }}{{ end }}{{ end }}
+		if c, ok := peer.(*PeerChannel); ok {
+			return c.ChannelID, nil
+		}
+
+		return 0, errors.New("unexpected peer type")
+{{- end }}{{ end }}
+	default:
+		return 0, errors.New("unexpected MessageClass type")
+	}
+}
+
+{{ end }}

@@ -67,7 +67,7 @@ func (s *internalState) applyCombined(ctx context.Context, comb *tg.UpdatesCombi
 			continue
 		}
 
-		if pts, ptsCount, ok := isCommonPtsUpdate(u); ok {
+		if pts, ptsCount, ok := tg.IsPtsUpdate(u); ok {
 			if err := s.handlePts(ctx, pts, ptsCount, u, ents); err != nil {
 				return false, err
 			}
@@ -75,7 +75,7 @@ func (s *internalState) applyCombined(ctx context.Context, comb *tg.UpdatesCombi
 			continue
 		}
 
-		if channelID, pts, ptsCount, ok, err := isChannelPtsUpdate(u); ok {
+		if channelID, pts, ptsCount, ok, err := tg.IsChannelPtsUpdate(u); ok {
 			if err != nil {
 				s.log.Debug("Invalid channel update", zap.Error(err), zap.Any("update", u))
 				continue
@@ -91,7 +91,7 @@ func (s *internalState) applyCombined(ctx context.Context, comb *tg.UpdatesCombi
 			continue
 		}
 
-		if qts, ok := isCommonQtsUpdate(u); ok {
+		if qts, ok := tg.IsQtsUpdate(u); ok {
 			if err := s.handleQts(ctx, qts, u, ents); err != nil {
 				return false, err
 			}
@@ -185,6 +185,11 @@ func (s *internalState) applyQts(ctx context.Context, state int, updates []updat
 		Chats:   ents.Chats,
 	}); err != nil {
 		s.log.Error("Handle updates error", zap.Error(err))
+	}
+
+	// Don't set qts if it's 0, because it means that we are apllying gaps updates
+	if state == 0 {
+		return nil
 	}
 
 	if err := s.storage.SetQts(ctx, s.selfID, state); err != nil {

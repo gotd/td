@@ -29,22 +29,22 @@ func (p ptsSorter) Less(i, j int) bool {
 	//
 	// 0) Common updates without PTS.
 	// 1) Common PTS updates
-	// 2) Channel PTS updates (by channelID and by pts)
-	// 3) QTS updates
+	// 2) Common QTS updates
+	// 3) Channel PTS updates (by channelID and by pts)
 	const (
 		other ptsType = iota
 		commonPts
-		channelPts
 		commonQts
+		channelPts
 	)
 	getType := func(u tg.UpdateClass) compare {
-		if pts, ptsCount, ok := isCommonPtsUpdate(u); ok {
+		if pts, ptsCount, ok := tg.IsPtsUpdate(u); ok {
 			return compare{typ: commonPts, ptsDiff: pts - ptsCount}
 		}
-		if channelID, pts, ptsCount, ok, _ := isChannelPtsUpdate(u); ok {
+		if channelID, pts, ptsCount, ok, _ := tg.IsChannelPtsUpdate(u); ok {
 			return compare{typ: channelPts, channelID: channelID, ptsDiff: pts - ptsCount}
 		}
-		if qts, ok := isCommonQtsUpdate(u); ok {
+		if qts, ok := tg.IsQtsUpdate(u); ok {
 			return compare{typ: commonQts, ptsDiff: qts}
 		}
 		return compare{typ: other}
