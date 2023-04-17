@@ -41,6 +41,15 @@ func outFileName(baseName string, namespace []string) string {
 	return s.String()
 }
 
+func (g *Generator) shouldGenerateClassifier() bool {
+	for _, s := range g.structs {
+		if s.Interface == "MessageClass" {
+			return g.hasUpdateClass()
+		}
+	}
+	return false
+}
+
 func (g *Generator) hasUpdateClass() bool {
 	for _, s := range g.structs {
 		if s.Interface == "UpdateClass" {
@@ -178,7 +187,7 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 			return err
 		}
 	}
-	if g.generateFlags.UpdatesClassifier && g.hasUpdateClass() {
+	if g.generateFlags.UpdatesClassifier && g.shouldGenerateClassifier() {
 		if err := w.Generate("updates_classifier", "tl_updates_classifier_gen.go", config{
 			Structs: g.structs,
 		}); err != nil {
