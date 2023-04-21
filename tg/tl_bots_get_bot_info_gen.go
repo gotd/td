@@ -31,20 +31,26 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// BotsGetBotInfoRequest represents TL type `bots.getBotInfo#75ec12e6`.
+// BotsGetBotInfoRequest represents TL type `bots.getBotInfo#dcd914fd`.
 // Get our about text and description (bots only)
 // Returns a vector of strings: the first string will be the about text, the second
 // string will be the description.
 //
 // See https://core.telegram.org/method/bots.getBotInfo for reference.
 type BotsGetBotInfoRequest struct {
+	// Flags field of BotsGetBotInfoRequest.
+	Flags bin.Fields
+	// Bot field of BotsGetBotInfoRequest.
+	//
+	// Use SetBot and GetBot helpers.
+	Bot InputUserClass
 	// Language code, if left empty this method will return the fallback about text and
 	// description.
 	LangCode string
 }
 
 // BotsGetBotInfoRequestTypeID is TL type id of BotsGetBotInfoRequest.
-const BotsGetBotInfoRequestTypeID = 0x75ec12e6
+const BotsGetBotInfoRequestTypeID = 0xdcd914fd
 
 // Ensuring interfaces in compile-time for BotsGetBotInfoRequest.
 var (
@@ -57,6 +63,12 @@ var (
 func (g *BotsGetBotInfoRequest) Zero() bool {
 	if g == nil {
 		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Bot == nil) {
+		return false
 	}
 	if !(g.LangCode == "") {
 		return false
@@ -76,8 +88,13 @@ func (g *BotsGetBotInfoRequest) String() string {
 
 // FillFrom fills BotsGetBotInfoRequest from given interface.
 func (g *BotsGetBotInfoRequest) FillFrom(from interface {
+	GetBot() (value InputUserClass, ok bool)
 	GetLangCode() (value string)
 }) {
+	if val, ok := from.GetBot(); ok {
+		g.Bot = val
+	}
+
 	g.LangCode = from.GetLangCode()
 }
 
@@ -105,6 +122,11 @@ func (g *BotsGetBotInfoRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Bot",
+			SchemaName: "bot",
+			Null:       !g.Flags.Has(0),
+		},
+		{
 			Name:       "LangCode",
 			SchemaName: "lang_code",
 		},
@@ -112,10 +134,17 @@ func (g *BotsGetBotInfoRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *BotsGetBotInfoRequest) SetFlags() {
+	if !(g.Bot == nil) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *BotsGetBotInfoRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode bots.getBotInfo#75ec12e6 as nil")
+		return fmt.Errorf("can't encode bots.getBotInfo#dcd914fd as nil")
 	}
 	b.PutID(BotsGetBotInfoRequestTypeID)
 	return g.EncodeBare(b)
@@ -124,7 +153,19 @@ func (g *BotsGetBotInfoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *BotsGetBotInfoRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode bots.getBotInfo#75ec12e6 as nil")
+		return fmt.Errorf("can't encode bots.getBotInfo#dcd914fd as nil")
+	}
+	g.SetFlags()
+	if err := g.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode bots.getBotInfo#dcd914fd: field flags: %w", err)
+	}
+	if g.Flags.Has(0) {
+		if g.Bot == nil {
+			return fmt.Errorf("unable to encode bots.getBotInfo#dcd914fd: field bot is nil")
+		}
+		if err := g.Bot.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode bots.getBotInfo#dcd914fd: field bot: %w", err)
+		}
 	}
 	b.PutString(g.LangCode)
 	return nil
@@ -133,10 +174,10 @@ func (g *BotsGetBotInfoRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *BotsGetBotInfoRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode bots.getBotInfo#75ec12e6 to nil")
+		return fmt.Errorf("can't decode bots.getBotInfo#dcd914fd to nil")
 	}
 	if err := b.ConsumeID(BotsGetBotInfoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode bots.getBotInfo#75ec12e6: %w", err)
+		return fmt.Errorf("unable to decode bots.getBotInfo#dcd914fd: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -144,16 +185,46 @@ func (g *BotsGetBotInfoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *BotsGetBotInfoRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode bots.getBotInfo#75ec12e6 to nil")
+		return fmt.Errorf("can't decode bots.getBotInfo#dcd914fd to nil")
+	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode bots.getBotInfo#dcd914fd: field flags: %w", err)
+		}
+	}
+	if g.Flags.Has(0) {
+		value, err := DecodeInputUser(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode bots.getBotInfo#dcd914fd: field bot: %w", err)
+		}
+		g.Bot = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode bots.getBotInfo#75ec12e6: field lang_code: %w", err)
+			return fmt.Errorf("unable to decode bots.getBotInfo#dcd914fd: field lang_code: %w", err)
 		}
 		g.LangCode = value
 	}
 	return nil
+}
+
+// SetBot sets value of Bot conditional field.
+func (g *BotsGetBotInfoRequest) SetBot(value InputUserClass) {
+	g.Flags.Set(0)
+	g.Bot = value
+}
+
+// GetBot returns value of Bot conditional field and
+// boolean which is true if field was set.
+func (g *BotsGetBotInfoRequest) GetBot() (value InputUserClass, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(0) {
+		return value, false
+	}
+	return g.Bot, true
 }
 
 // GetLangCode returns value of LangCode field.
@@ -164,7 +235,7 @@ func (g *BotsGetBotInfoRequest) GetLangCode() (value string) {
 	return g.LangCode
 }
 
-// BotsGetBotInfo invokes method bots.getBotInfo#75ec12e6 returning error if any.
+// BotsGetBotInfo invokes method bots.getBotInfo#dcd914fd returning error if any.
 // Get our about text and description (bots only)
 // Returns a vector of strings: the first string will be the about text, the second
 // string will be the description.
@@ -176,14 +247,11 @@ func (g *BotsGetBotInfoRequest) GetLangCode() (value string) {
 //
 // See https://core.telegram.org/method/bots.getBotInfo for reference.
 // Can be used by bots.
-func (c *Client) BotsGetBotInfo(ctx context.Context, langcode string) ([]string, error) {
-	var result StringVector
+func (c *Client) BotsGetBotInfo(ctx context.Context, request *BotsGetBotInfoRequest) (*BotsBotInfo, error) {
+	var result BotsBotInfo
 
-	request := &BotsGetBotInfoRequest{
-		LangCode: langcode,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return []string(result.Elems), nil
+	return &result, nil
 }

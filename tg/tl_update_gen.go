@@ -17746,6 +17746,8 @@ type UpdateChannelParticipant struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// ViaChatlist field of UpdateChannelParticipant.
+	ViaChatlist bool
 	// Channel ID
 	ChannelID int64
 	// Date of the event
@@ -17800,6 +17802,9 @@ func (u *UpdateChannelParticipant) Zero() bool {
 	if !(u.Flags.Zero()) {
 		return false
 	}
+	if !(u.ViaChatlist == false) {
+		return false
+	}
 	if !(u.ChannelID == 0) {
 		return false
 	}
@@ -17839,6 +17844,7 @@ func (u *UpdateChannelParticipant) String() string {
 
 // FillFrom fills UpdateChannelParticipant from given interface.
 func (u *UpdateChannelParticipant) FillFrom(from interface {
+	GetViaChatlist() (value bool)
 	GetChannelID() (value int64)
 	GetDate() (value int)
 	GetActorID() (value int64)
@@ -17848,6 +17854,7 @@ func (u *UpdateChannelParticipant) FillFrom(from interface {
 	GetInvite() (value ExportedChatInviteClass, ok bool)
 	GetQts() (value int)
 }) {
+	u.ViaChatlist = from.GetViaChatlist()
 	u.ChannelID = from.GetChannelID()
 	u.Date = from.GetDate()
 	u.ActorID = from.GetActorID()
@@ -17891,6 +17898,11 @@ func (u *UpdateChannelParticipant) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "ViaChatlist",
+			SchemaName: "via_chatlist",
+			Null:       !u.Flags.Has(3),
+		},
+		{
 			Name:       "ChannelID",
 			SchemaName: "channel_id",
 		},
@@ -17931,6 +17943,9 @@ func (u *UpdateChannelParticipant) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (u *UpdateChannelParticipant) SetFlags() {
+	if !(u.ViaChatlist == false) {
+		u.Flags.Set(3)
+	}
 	if !(u.PrevParticipant == nil) {
 		u.Flags.Set(0)
 	}
@@ -18013,6 +18028,7 @@ func (u *UpdateChannelParticipant) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updateChannelParticipant#985d3abb: field flags: %w", err)
 		}
 	}
+	u.ViaChatlist = u.Flags.Has(3)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -18070,6 +18086,25 @@ func (u *UpdateChannelParticipant) DecodeBare(b *bin.Buffer) error {
 		u.Qts = value
 	}
 	return nil
+}
+
+// SetViaChatlist sets value of ViaChatlist conditional field.
+func (u *UpdateChannelParticipant) SetViaChatlist(value bool) {
+	if value {
+		u.Flags.Set(3)
+		u.ViaChatlist = true
+	} else {
+		u.Flags.Unset(3)
+		u.ViaChatlist = false
+	}
+}
+
+// GetViaChatlist returns value of ViaChatlist conditional field.
+func (u *UpdateChannelParticipant) GetViaChatlist() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(3)
 }
 
 // GetChannelID returns value of ChannelID field.

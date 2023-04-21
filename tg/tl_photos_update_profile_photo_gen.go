@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PhotosUpdateProfilePhotoRequest represents TL type `photos.updateProfilePhoto#1c3d5956`.
+// PhotosUpdateProfilePhotoRequest represents TL type `photos.updateProfilePhoto#9e82039`.
 // Installs a previously uploaded photo as a profile photo.
 //
 // See https://core.telegram.org/method/photos.updateProfilePhoto for reference.
@@ -44,12 +44,16 @@ type PhotosUpdateProfilePhotoRequest struct {
 	// If set, the chosen profile photo will be shown to users that can't display your main
 	// profile photo due to your privacy settings.
 	Fallback bool
+	// Bot field of PhotosUpdateProfilePhotoRequest.
+	//
+	// Use SetBot and GetBot helpers.
+	Bot InputUserClass
 	// Input photo
 	ID InputPhotoClass
 }
 
 // PhotosUpdateProfilePhotoRequestTypeID is TL type id of PhotosUpdateProfilePhotoRequest.
-const PhotosUpdateProfilePhotoRequestTypeID = 0x1c3d5956
+const PhotosUpdateProfilePhotoRequestTypeID = 0x9e82039
 
 // Ensuring interfaces in compile-time for PhotosUpdateProfilePhotoRequest.
 var (
@@ -67,6 +71,9 @@ func (u *PhotosUpdateProfilePhotoRequest) Zero() bool {
 		return false
 	}
 	if !(u.Fallback == false) {
+		return false
+	}
+	if !(u.Bot == nil) {
 		return false
 	}
 	if !(u.ID == nil) {
@@ -88,9 +95,14 @@ func (u *PhotosUpdateProfilePhotoRequest) String() string {
 // FillFrom fills PhotosUpdateProfilePhotoRequest from given interface.
 func (u *PhotosUpdateProfilePhotoRequest) FillFrom(from interface {
 	GetFallback() (value bool)
+	GetBot() (value InputUserClass, ok bool)
 	GetID() (value InputPhotoClass)
 }) {
 	u.Fallback = from.GetFallback()
+	if val, ok := from.GetBot(); ok {
+		u.Bot = val
+	}
+
 	u.ID = from.GetID()
 }
 
@@ -123,6 +135,11 @@ func (u *PhotosUpdateProfilePhotoRequest) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(0),
 		},
 		{
+			Name:       "Bot",
+			SchemaName: "bot",
+			Null:       !u.Flags.Has(1),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -135,12 +152,15 @@ func (u *PhotosUpdateProfilePhotoRequest) SetFlags() {
 	if !(u.Fallback == false) {
 		u.Flags.Set(0)
 	}
+	if !(u.Bot == nil) {
+		u.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *PhotosUpdateProfilePhotoRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode photos.updateProfilePhoto#1c3d5956 as nil")
+		return fmt.Errorf("can't encode photos.updateProfilePhoto#9e82039 as nil")
 	}
 	b.PutID(PhotosUpdateProfilePhotoRequestTypeID)
 	return u.EncodeBare(b)
@@ -149,17 +169,25 @@ func (u *PhotosUpdateProfilePhotoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *PhotosUpdateProfilePhotoRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode photos.updateProfilePhoto#1c3d5956 as nil")
+		return fmt.Errorf("can't encode photos.updateProfilePhoto#9e82039 as nil")
 	}
 	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode photos.updateProfilePhoto#1c3d5956: field flags: %w", err)
+		return fmt.Errorf("unable to encode photos.updateProfilePhoto#9e82039: field flags: %w", err)
+	}
+	if u.Flags.Has(1) {
+		if u.Bot == nil {
+			return fmt.Errorf("unable to encode photos.updateProfilePhoto#9e82039: field bot is nil")
+		}
+		if err := u.Bot.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode photos.updateProfilePhoto#9e82039: field bot: %w", err)
+		}
 	}
 	if u.ID == nil {
-		return fmt.Errorf("unable to encode photos.updateProfilePhoto#1c3d5956: field id is nil")
+		return fmt.Errorf("unable to encode photos.updateProfilePhoto#9e82039: field id is nil")
 	}
 	if err := u.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode photos.updateProfilePhoto#1c3d5956: field id: %w", err)
+		return fmt.Errorf("unable to encode photos.updateProfilePhoto#9e82039: field id: %w", err)
 	}
 	return nil
 }
@@ -167,10 +195,10 @@ func (u *PhotosUpdateProfilePhotoRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *PhotosUpdateProfilePhotoRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode photos.updateProfilePhoto#1c3d5956 to nil")
+		return fmt.Errorf("can't decode photos.updateProfilePhoto#9e82039 to nil")
 	}
 	if err := b.ConsumeID(PhotosUpdateProfilePhotoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode photos.updateProfilePhoto#1c3d5956: %w", err)
+		return fmt.Errorf("unable to decode photos.updateProfilePhoto#9e82039: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -178,18 +206,25 @@ func (u *PhotosUpdateProfilePhotoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *PhotosUpdateProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode photos.updateProfilePhoto#1c3d5956 to nil")
+		return fmt.Errorf("can't decode photos.updateProfilePhoto#9e82039 to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode photos.updateProfilePhoto#1c3d5956: field flags: %w", err)
+			return fmt.Errorf("unable to decode photos.updateProfilePhoto#9e82039: field flags: %w", err)
 		}
 	}
 	u.Fallback = u.Flags.Has(0)
+	if u.Flags.Has(1) {
+		value, err := DecodeInputUser(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode photos.updateProfilePhoto#9e82039: field bot: %w", err)
+		}
+		u.Bot = value
+	}
 	{
 		value, err := DecodeInputPhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.updateProfilePhoto#1c3d5956: field id: %w", err)
+			return fmt.Errorf("unable to decode photos.updateProfilePhoto#9e82039: field id: %w", err)
 		}
 		u.ID = value
 	}
@@ -215,6 +250,24 @@ func (u *PhotosUpdateProfilePhotoRequest) GetFallback() (value bool) {
 	return u.Flags.Has(0)
 }
 
+// SetBot sets value of Bot conditional field.
+func (u *PhotosUpdateProfilePhotoRequest) SetBot(value InputUserClass) {
+	u.Flags.Set(1)
+	u.Bot = value
+}
+
+// GetBot returns value of Bot conditional field and
+// boolean which is true if field was set.
+func (u *PhotosUpdateProfilePhotoRequest) GetBot() (value InputUserClass, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.Bot, true
+}
+
 // GetID returns value of ID field.
 func (u *PhotosUpdateProfilePhotoRequest) GetID() (value InputPhotoClass) {
 	if u == nil {
@@ -228,7 +281,7 @@ func (u *PhotosUpdateProfilePhotoRequest) GetIDAsNotEmpty() (*InputPhoto, bool) 
 	return u.ID.AsNotEmpty()
 }
 
-// PhotosUpdateProfilePhoto invokes method photos.updateProfilePhoto#1c3d5956 returning error if any.
+// PhotosUpdateProfilePhoto invokes method photos.updateProfilePhoto#9e82039 returning error if any.
 // Installs a previously uploaded photo as a profile photo.
 //
 // Possible errors:

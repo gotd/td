@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// BotsSetBotInfoRequest represents TL type `bots.setBotInfo#a365df7a`.
+// BotsSetBotInfoRequest represents TL type `bots.setBotInfo#10cf3123`.
 // Set our about text and description (bots only)
 //
 // See https://core.telegram.org/method/bots.setBotInfo for reference.
@@ -41,8 +41,16 @@ type BotsSetBotInfoRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// Bot field of BotsSetBotInfoRequest.
+	//
+	// Use SetBot and GetBot helpers.
+	Bot InputUserClass
 	// Language code, if left empty update the fallback about text and description
 	LangCode string
+	// Name field of BotsSetBotInfoRequest.
+	//
+	// Use SetName and GetName helpers.
+	Name string
 	// New about text
 	//
 	// Use SetAbout and GetAbout helpers.
@@ -54,7 +62,7 @@ type BotsSetBotInfoRequest struct {
 }
 
 // BotsSetBotInfoRequestTypeID is TL type id of BotsSetBotInfoRequest.
-const BotsSetBotInfoRequestTypeID = 0xa365df7a
+const BotsSetBotInfoRequestTypeID = 0x10cf3123
 
 // Ensuring interfaces in compile-time for BotsSetBotInfoRequest.
 var (
@@ -71,7 +79,13 @@ func (s *BotsSetBotInfoRequest) Zero() bool {
 	if !(s.Flags.Zero()) {
 		return false
 	}
+	if !(s.Bot == nil) {
+		return false
+	}
 	if !(s.LangCode == "") {
+		return false
+	}
+	if !(s.Name == "") {
 		return false
 	}
 	if !(s.About == "") {
@@ -95,11 +109,21 @@ func (s *BotsSetBotInfoRequest) String() string {
 
 // FillFrom fills BotsSetBotInfoRequest from given interface.
 func (s *BotsSetBotInfoRequest) FillFrom(from interface {
+	GetBot() (value InputUserClass, ok bool)
 	GetLangCode() (value string)
+	GetName() (value string, ok bool)
 	GetAbout() (value string, ok bool)
 	GetDescription() (value string, ok bool)
 }) {
+	if val, ok := from.GetBot(); ok {
+		s.Bot = val
+	}
+
 	s.LangCode = from.GetLangCode()
+	if val, ok := from.GetName(); ok {
+		s.Name = val
+	}
+
 	if val, ok := from.GetAbout(); ok {
 		s.About = val
 	}
@@ -134,8 +158,18 @@ func (s *BotsSetBotInfoRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Bot",
+			SchemaName: "bot",
+			Null:       !s.Flags.Has(2),
+		},
+		{
 			Name:       "LangCode",
 			SchemaName: "lang_code",
+		},
+		{
+			Name:       "Name",
+			SchemaName: "name",
+			Null:       !s.Flags.Has(3),
 		},
 		{
 			Name:       "About",
@@ -153,6 +187,12 @@ func (s *BotsSetBotInfoRequest) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (s *BotsSetBotInfoRequest) SetFlags() {
+	if !(s.Bot == nil) {
+		s.Flags.Set(2)
+	}
+	if !(s.Name == "") {
+		s.Flags.Set(3)
+	}
 	if !(s.About == "") {
 		s.Flags.Set(0)
 	}
@@ -164,7 +204,7 @@ func (s *BotsSetBotInfoRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (s *BotsSetBotInfoRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode bots.setBotInfo#a365df7a as nil")
+		return fmt.Errorf("can't encode bots.setBotInfo#10cf3123 as nil")
 	}
 	b.PutID(BotsSetBotInfoRequestTypeID)
 	return s.EncodeBare(b)
@@ -173,13 +213,24 @@ func (s *BotsSetBotInfoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *BotsSetBotInfoRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode bots.setBotInfo#a365df7a as nil")
+		return fmt.Errorf("can't encode bots.setBotInfo#10cf3123 as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode bots.setBotInfo#a365df7a: field flags: %w", err)
+		return fmt.Errorf("unable to encode bots.setBotInfo#10cf3123: field flags: %w", err)
+	}
+	if s.Flags.Has(2) {
+		if s.Bot == nil {
+			return fmt.Errorf("unable to encode bots.setBotInfo#10cf3123: field bot is nil")
+		}
+		if err := s.Bot.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode bots.setBotInfo#10cf3123: field bot: %w", err)
+		}
 	}
 	b.PutString(s.LangCode)
+	if s.Flags.Has(3) {
+		b.PutString(s.Name)
+	}
 	if s.Flags.Has(0) {
 		b.PutString(s.About)
 	}
@@ -192,10 +243,10 @@ func (s *BotsSetBotInfoRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *BotsSetBotInfoRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode bots.setBotInfo#a365df7a to nil")
+		return fmt.Errorf("can't decode bots.setBotInfo#10cf3123 to nil")
 	}
 	if err := b.ConsumeID(BotsSetBotInfoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode bots.setBotInfo#a365df7a: %w", err)
+		return fmt.Errorf("unable to decode bots.setBotInfo#10cf3123: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -203,35 +254,67 @@ func (s *BotsSetBotInfoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *BotsSetBotInfoRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode bots.setBotInfo#a365df7a to nil")
+		return fmt.Errorf("can't decode bots.setBotInfo#10cf3123 to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode bots.setBotInfo#a365df7a: field flags: %w", err)
+			return fmt.Errorf("unable to decode bots.setBotInfo#10cf3123: field flags: %w", err)
 		}
+	}
+	if s.Flags.Has(2) {
+		value, err := DecodeInputUser(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode bots.setBotInfo#10cf3123: field bot: %w", err)
+		}
+		s.Bot = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode bots.setBotInfo#a365df7a: field lang_code: %w", err)
+			return fmt.Errorf("unable to decode bots.setBotInfo#10cf3123: field lang_code: %w", err)
 		}
 		s.LangCode = value
+	}
+	if s.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode bots.setBotInfo#10cf3123: field name: %w", err)
+		}
+		s.Name = value
 	}
 	if s.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode bots.setBotInfo#a365df7a: field about: %w", err)
+			return fmt.Errorf("unable to decode bots.setBotInfo#10cf3123: field about: %w", err)
 		}
 		s.About = value
 	}
 	if s.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode bots.setBotInfo#a365df7a: field description: %w", err)
+			return fmt.Errorf("unable to decode bots.setBotInfo#10cf3123: field description: %w", err)
 		}
 		s.Description = value
 	}
 	return nil
+}
+
+// SetBot sets value of Bot conditional field.
+func (s *BotsSetBotInfoRequest) SetBot(value InputUserClass) {
+	s.Flags.Set(2)
+	s.Bot = value
+}
+
+// GetBot returns value of Bot conditional field and
+// boolean which is true if field was set.
+func (s *BotsSetBotInfoRequest) GetBot() (value InputUserClass, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(2) {
+		return value, false
+	}
+	return s.Bot, true
 }
 
 // GetLangCode returns value of LangCode field.
@@ -240,6 +323,24 @@ func (s *BotsSetBotInfoRequest) GetLangCode() (value string) {
 		return
 	}
 	return s.LangCode
+}
+
+// SetName sets value of Name conditional field.
+func (s *BotsSetBotInfoRequest) SetName(value string) {
+	s.Flags.Set(3)
+	s.Name = value
+}
+
+// GetName returns value of Name conditional field and
+// boolean which is true if field was set.
+func (s *BotsSetBotInfoRequest) GetName() (value string, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(3) {
+		return value, false
+	}
+	return s.Name, true
 }
 
 // SetAbout sets value of About conditional field.
@@ -278,7 +379,7 @@ func (s *BotsSetBotInfoRequest) GetDescription() (value string, ok bool) {
 	return s.Description, true
 }
 
-// BotsSetBotInfo invokes method bots.setBotInfo#a365df7a returning error if any.
+// BotsSetBotInfo invokes method bots.setBotInfo#10cf3123 returning error if any.
 // Set our about text and description (bots only)
 //
 // Possible errors:
