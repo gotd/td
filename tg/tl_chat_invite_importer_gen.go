@@ -46,6 +46,8 @@ type ChatInviteImporter struct {
 	// Links:
 	//  1) https://core.telegram.org/api/invites#join-requests
 	Requested bool
+	// ViaChatlist field of ChatInviteImporter.
+	ViaChatlist bool
 	// The user
 	UserID int64
 	// When did the user join
@@ -84,6 +86,9 @@ func (c *ChatInviteImporter) Zero() bool {
 	if !(c.Requested == false) {
 		return false
 	}
+	if !(c.ViaChatlist == false) {
+		return false
+	}
 	if !(c.UserID == 0) {
 		return false
 	}
@@ -112,12 +117,14 @@ func (c *ChatInviteImporter) String() string {
 // FillFrom fills ChatInviteImporter from given interface.
 func (c *ChatInviteImporter) FillFrom(from interface {
 	GetRequested() (value bool)
+	GetViaChatlist() (value bool)
 	GetUserID() (value int64)
 	GetDate() (value int)
 	GetAbout() (value string, ok bool)
 	GetApprovedBy() (value int64, ok bool)
 }) {
 	c.Requested = from.GetRequested()
+	c.ViaChatlist = from.GetViaChatlist()
 	c.UserID = from.GetUserID()
 	c.Date = from.GetDate()
 	if val, ok := from.GetAbout(); ok {
@@ -159,6 +166,11 @@ func (c *ChatInviteImporter) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(0),
 		},
 		{
+			Name:       "ViaChatlist",
+			SchemaName: "via_chatlist",
+			Null:       !c.Flags.Has(3),
+		},
+		{
 			Name:       "UserID",
 			SchemaName: "user_id",
 		},
@@ -184,6 +196,9 @@ func (c *ChatInviteImporter) TypeInfo() tdp.Type {
 func (c *ChatInviteImporter) SetFlags() {
 	if !(c.Requested == false) {
 		c.Flags.Set(0)
+	}
+	if !(c.ViaChatlist == false) {
+		c.Flags.Set(3)
 	}
 	if !(c.About == "") {
 		c.Flags.Set(2)
@@ -244,6 +259,7 @@ func (c *ChatInviteImporter) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	c.Requested = c.Flags.Has(0)
+	c.ViaChatlist = c.Flags.Has(3)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -292,6 +308,25 @@ func (c *ChatInviteImporter) GetRequested() (value bool) {
 		return
 	}
 	return c.Flags.Has(0)
+}
+
+// SetViaChatlist sets value of ViaChatlist conditional field.
+func (c *ChatInviteImporter) SetViaChatlist(value bool) {
+	if value {
+		c.Flags.Set(3)
+		c.ViaChatlist = true
+	} else {
+		c.Flags.Unset(3)
+		c.ViaChatlist = false
+	}
+}
+
+// GetViaChatlist returns value of ViaChatlist conditional field.
+func (c *ChatInviteImporter) GetViaChatlist() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(3)
 }
 
 // GetUserID returns value of UserID field.

@@ -550,6 +550,107 @@ func (i *InlineQueryPeerTypeBroadcast) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// InlineQueryPeerTypeBotPM represents TL type `inlineQueryPeerTypeBotPM#e3b2d0c`.
+//
+// See https://core.telegram.org/constructor/inlineQueryPeerTypeBotPM for reference.
+type InlineQueryPeerTypeBotPM struct {
+}
+
+// InlineQueryPeerTypeBotPMTypeID is TL type id of InlineQueryPeerTypeBotPM.
+const InlineQueryPeerTypeBotPMTypeID = 0xe3b2d0c
+
+// construct implements constructor of InlineQueryPeerTypeClass.
+func (i InlineQueryPeerTypeBotPM) construct() InlineQueryPeerTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InlineQueryPeerTypeBotPM.
+var (
+	_ bin.Encoder     = &InlineQueryPeerTypeBotPM{}
+	_ bin.Decoder     = &InlineQueryPeerTypeBotPM{}
+	_ bin.BareEncoder = &InlineQueryPeerTypeBotPM{}
+	_ bin.BareDecoder = &InlineQueryPeerTypeBotPM{}
+
+	_ InlineQueryPeerTypeClass = &InlineQueryPeerTypeBotPM{}
+)
+
+func (i *InlineQueryPeerTypeBotPM) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InlineQueryPeerTypeBotPM) String() string {
+	if i == nil {
+		return "InlineQueryPeerTypeBotPM(nil)"
+	}
+	type Alias InlineQueryPeerTypeBotPM
+	return fmt.Sprintf("InlineQueryPeerTypeBotPM%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InlineQueryPeerTypeBotPM) TypeID() uint32 {
+	return InlineQueryPeerTypeBotPMTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InlineQueryPeerTypeBotPM) TypeName() string {
+	return "inlineQueryPeerTypeBotPM"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InlineQueryPeerTypeBotPM) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inlineQueryPeerTypeBotPM",
+		ID:   InlineQueryPeerTypeBotPMTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InlineQueryPeerTypeBotPM) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineQueryPeerTypeBotPM#e3b2d0c as nil")
+	}
+	b.PutID(InlineQueryPeerTypeBotPMTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InlineQueryPeerTypeBotPM) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineQueryPeerTypeBotPM#e3b2d0c as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InlineQueryPeerTypeBotPM) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inlineQueryPeerTypeBotPM#e3b2d0c to nil")
+	}
+	if err := b.ConsumeID(InlineQueryPeerTypeBotPMTypeID); err != nil {
+		return fmt.Errorf("unable to decode inlineQueryPeerTypeBotPM#e3b2d0c: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InlineQueryPeerTypeBotPM) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inlineQueryPeerTypeBotPM#e3b2d0c to nil")
+	}
+	return nil
+}
+
 // InlineQueryPeerTypeClassName is schema name of InlineQueryPeerTypeClass.
 const InlineQueryPeerTypeClassName = "InlineQueryPeerType"
 
@@ -569,6 +670,7 @@ const InlineQueryPeerTypeClassName = "InlineQueryPeerType"
 //	case *tg.InlineQueryPeerTypeChat: // inlineQueryPeerTypeChat#d766c50a
 //	case *tg.InlineQueryPeerTypeMegagroup: // inlineQueryPeerTypeMegagroup#5ec4be43
 //	case *tg.InlineQueryPeerTypeBroadcast: // inlineQueryPeerTypeBroadcast#6334ee9a
+//	case *tg.InlineQueryPeerTypeBotPM: // inlineQueryPeerTypeBotPM#e3b2d0c
 //	default: panic(v)
 //	}
 type InlineQueryPeerTypeClass interface {
@@ -628,6 +730,13 @@ func DecodeInlineQueryPeerType(buf *bin.Buffer) (InlineQueryPeerTypeClass, error
 	case InlineQueryPeerTypeBroadcastTypeID:
 		// Decoding inlineQueryPeerTypeBroadcast#6334ee9a.
 		v := InlineQueryPeerTypeBroadcast{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InlineQueryPeerTypeClass: %w", err)
+		}
+		return &v, nil
+	case InlineQueryPeerTypeBotPMTypeID:
+		// Decoding inlineQueryPeerTypeBotPM#e3b2d0c.
+		v := InlineQueryPeerTypeBotPM{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InlineQueryPeerTypeClass: %w", err)
 		}

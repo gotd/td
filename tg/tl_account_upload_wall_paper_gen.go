@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AccountUploadWallPaperRequest represents TL type `account.uploadWallPaper#dd853661`.
+// AccountUploadWallPaperRequest represents TL type `account.uploadWallPaper#e39a8f03`.
 // Create and upload a new wallpaper¹
 //
 // Links:
@@ -39,6 +39,10 @@ var (
 //
 // See https://core.telegram.org/method/account.uploadWallPaper for reference.
 type AccountUploadWallPaperRequest struct {
+	// Flags field of AccountUploadWallPaperRequest.
+	Flags bin.Fields
+	// ForChat field of AccountUploadWallPaperRequest.
+	ForChat bool
 	// The JPG/PNG wallpaper
 	File InputFileClass
 	// MIME type of uploaded wallpaper
@@ -48,7 +52,7 @@ type AccountUploadWallPaperRequest struct {
 }
 
 // AccountUploadWallPaperRequestTypeID is TL type id of AccountUploadWallPaperRequest.
-const AccountUploadWallPaperRequestTypeID = 0xdd853661
+const AccountUploadWallPaperRequestTypeID = 0xe39a8f03
 
 // Ensuring interfaces in compile-time for AccountUploadWallPaperRequest.
 var (
@@ -61,6 +65,12 @@ var (
 func (u *AccountUploadWallPaperRequest) Zero() bool {
 	if u == nil {
 		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.ForChat == false) {
+		return false
 	}
 	if !(u.File == nil) {
 		return false
@@ -86,10 +96,12 @@ func (u *AccountUploadWallPaperRequest) String() string {
 
 // FillFrom fills AccountUploadWallPaperRequest from given interface.
 func (u *AccountUploadWallPaperRequest) FillFrom(from interface {
+	GetForChat() (value bool)
 	GetFile() (value InputFileClass)
 	GetMimeType() (value string)
 	GetSettings() (value WallPaperSettings)
 }) {
+	u.ForChat = from.GetForChat()
 	u.File = from.GetFile()
 	u.MimeType = from.GetMimeType()
 	u.Settings = from.GetSettings()
@@ -119,6 +131,11 @@ func (u *AccountUploadWallPaperRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "ForChat",
+			SchemaName: "for_chat",
+			Null:       !u.Flags.Has(0),
+		},
+		{
 			Name:       "File",
 			SchemaName: "file",
 		},
@@ -134,10 +151,17 @@ func (u *AccountUploadWallPaperRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *AccountUploadWallPaperRequest) SetFlags() {
+	if !(u.ForChat == false) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *AccountUploadWallPaperRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.uploadWallPaper#dd853661 as nil")
+		return fmt.Errorf("can't encode account.uploadWallPaper#e39a8f03 as nil")
 	}
 	b.PutID(AccountUploadWallPaperRequestTypeID)
 	return u.EncodeBare(b)
@@ -146,17 +170,21 @@ func (u *AccountUploadWallPaperRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *AccountUploadWallPaperRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.uploadWallPaper#dd853661 as nil")
+		return fmt.Errorf("can't encode account.uploadWallPaper#e39a8f03 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode account.uploadWallPaper#e39a8f03: field flags: %w", err)
 	}
 	if u.File == nil {
-		return fmt.Errorf("unable to encode account.uploadWallPaper#dd853661: field file is nil")
+		return fmt.Errorf("unable to encode account.uploadWallPaper#e39a8f03: field file is nil")
 	}
 	if err := u.File.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.uploadWallPaper#dd853661: field file: %w", err)
+		return fmt.Errorf("unable to encode account.uploadWallPaper#e39a8f03: field file: %w", err)
 	}
 	b.PutString(u.MimeType)
 	if err := u.Settings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.uploadWallPaper#dd853661: field settings: %w", err)
+		return fmt.Errorf("unable to encode account.uploadWallPaper#e39a8f03: field settings: %w", err)
 	}
 	return nil
 }
@@ -164,10 +192,10 @@ func (u *AccountUploadWallPaperRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *AccountUploadWallPaperRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.uploadWallPaper#dd853661 to nil")
+		return fmt.Errorf("can't decode account.uploadWallPaper#e39a8f03 to nil")
 	}
 	if err := b.ConsumeID(AccountUploadWallPaperRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.uploadWallPaper#dd853661: %w", err)
+		return fmt.Errorf("unable to decode account.uploadWallPaper#e39a8f03: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -175,28 +203,53 @@ func (u *AccountUploadWallPaperRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *AccountUploadWallPaperRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.uploadWallPaper#dd853661 to nil")
+		return fmt.Errorf("can't decode account.uploadWallPaper#e39a8f03 to nil")
 	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode account.uploadWallPaper#e39a8f03: field flags: %w", err)
+		}
+	}
+	u.ForChat = u.Flags.Has(0)
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.uploadWallPaper#dd853661: field file: %w", err)
+			return fmt.Errorf("unable to decode account.uploadWallPaper#e39a8f03: field file: %w", err)
 		}
 		u.File = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.uploadWallPaper#dd853661: field mime_type: %w", err)
+			return fmt.Errorf("unable to decode account.uploadWallPaper#e39a8f03: field mime_type: %w", err)
 		}
 		u.MimeType = value
 	}
 	{
 		if err := u.Settings.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.uploadWallPaper#dd853661: field settings: %w", err)
+			return fmt.Errorf("unable to decode account.uploadWallPaper#e39a8f03: field settings: %w", err)
 		}
 	}
 	return nil
+}
+
+// SetForChat sets value of ForChat conditional field.
+func (u *AccountUploadWallPaperRequest) SetForChat(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.ForChat = true
+	} else {
+		u.Flags.Unset(0)
+		u.ForChat = false
+	}
+}
+
+// GetForChat returns value of ForChat conditional field.
+func (u *AccountUploadWallPaperRequest) GetForChat() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(0)
 }
 
 // GetFile returns value of File field.
@@ -223,7 +276,7 @@ func (u *AccountUploadWallPaperRequest) GetSettings() (value WallPaperSettings) 
 	return u.Settings
 }
 
-// AccountUploadWallPaper invokes method account.uploadWallPaper#dd853661 returning error if any.
+// AccountUploadWallPaper invokes method account.uploadWallPaper#e39a8f03 returning error if any.
 // Create and upload a new wallpaper¹
 //
 // Links:

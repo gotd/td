@@ -227,6 +227,8 @@ type User struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags2 bin.Fields
+	// BotCanEdit field of User.
+	BotCanEdit bool
 	// ID of the user
 	ID int64
 	// Access hash of the user
@@ -369,6 +371,9 @@ func (u *User) Zero() bool {
 	if !(u.Flags2.Zero()) {
 		return false
 	}
+	if !(u.BotCanEdit == false) {
+		return false
+	}
 	if !(u.ID == 0) {
 		return false
 	}
@@ -444,6 +449,7 @@ func (u *User) FillFrom(from interface {
 	GetBotAttachMenu() (value bool)
 	GetPremium() (value bool)
 	GetAttachMenuEnabled() (value bool)
+	GetBotCanEdit() (value bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64, ok bool)
 	GetFirstName() (value string, ok bool)
@@ -477,6 +483,7 @@ func (u *User) FillFrom(from interface {
 	u.BotAttachMenu = from.GetBotAttachMenu()
 	u.Premium = from.GetPremium()
 	u.AttachMenuEnabled = from.GetAttachMenuEnabled()
+	u.BotCanEdit = from.GetBotCanEdit()
 	u.ID = from.GetID()
 	if val, ok := from.GetAccessHash(); ok {
 		u.AccessHash = val
@@ -646,6 +653,11 @@ func (u *User) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(29),
 		},
 		{
+			Name:       "BotCanEdit",
+			SchemaName: "bot_can_edit",
+			Null:       !u.Flags2.Has(1),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -773,6 +785,9 @@ func (u *User) SetFlags() {
 	}
 	if !(u.AttachMenuEnabled == false) {
 		u.Flags.Set(29)
+	}
+	if !(u.BotCanEdit == false) {
+		u.Flags2.Set(1)
 	}
 	if !(u.AccessHash == 0) {
 		u.Flags.Set(0)
@@ -948,6 +963,7 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode user#8f97c628: field flags2: %w", err)
 		}
 	}
+	u.BotCanEdit = u.Flags2.Has(1)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -1409,6 +1425,25 @@ func (u *User) GetAttachMenuEnabled() (value bool) {
 		return
 	}
 	return u.Flags.Has(29)
+}
+
+// SetBotCanEdit sets value of BotCanEdit conditional field.
+func (u *User) SetBotCanEdit(value bool) {
+	if value {
+		u.Flags2.Set(1)
+		u.BotCanEdit = true
+	} else {
+		u.Flags2.Unset(1)
+		u.BotCanEdit = false
+	}
+}
+
+// GetBotCanEdit returns value of BotCanEdit conditional field.
+func (u *User) GetBotCanEdit() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags2.Has(1)
 }
 
 // GetID returns value of ID field.

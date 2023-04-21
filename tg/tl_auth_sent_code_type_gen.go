@@ -741,7 +741,7 @@ func (s *AuthSentCodeTypeMissedCall) GetLength() (value int) {
 	return s.Length
 }
 
-// AuthSentCodeTypeEmailCode represents TL type `auth.sentCodeTypeEmailCode#5a159841`.
+// AuthSentCodeTypeEmailCode represents TL type `auth.sentCodeTypeEmailCode#f450f59b`.
 // The code was sent via the previously configured login email »¹
 //
 // Links:
@@ -765,15 +765,18 @@ type AuthSentCodeTypeEmailCode struct {
 	EmailPattern string
 	// Length of the sent verification code
 	Length int
-	// If set, contains an absolute UNIX timestamp indicating when will the user be able to
-	// authorize with a code sent to the user's phone number
+	// ResetAvailablePeriod field of AuthSentCodeTypeEmailCode.
 	//
-	// Use SetNextPhoneLoginDate and GetNextPhoneLoginDate helpers.
-	NextPhoneLoginDate int
+	// Use SetResetAvailablePeriod and GetResetAvailablePeriod helpers.
+	ResetAvailablePeriod int
+	// ResetPendingDate field of AuthSentCodeTypeEmailCode.
+	//
+	// Use SetResetPendingDate and GetResetPendingDate helpers.
+	ResetPendingDate int
 }
 
 // AuthSentCodeTypeEmailCodeTypeID is TL type id of AuthSentCodeTypeEmailCode.
-const AuthSentCodeTypeEmailCodeTypeID = 0x5a159841
+const AuthSentCodeTypeEmailCodeTypeID = 0xf450f59b
 
 // construct implements constructor of AuthSentCodeTypeClass.
 func (s AuthSentCodeTypeEmailCode) construct() AuthSentCodeTypeClass { return &s }
@@ -807,7 +810,10 @@ func (s *AuthSentCodeTypeEmailCode) Zero() bool {
 	if !(s.Length == 0) {
 		return false
 	}
-	if !(s.NextPhoneLoginDate == 0) {
+	if !(s.ResetAvailablePeriod == 0) {
+		return false
+	}
+	if !(s.ResetPendingDate == 0) {
 		return false
 	}
 
@@ -829,14 +835,19 @@ func (s *AuthSentCodeTypeEmailCode) FillFrom(from interface {
 	GetGoogleSigninAllowed() (value bool)
 	GetEmailPattern() (value string)
 	GetLength() (value int)
-	GetNextPhoneLoginDate() (value int, ok bool)
+	GetResetAvailablePeriod() (value int, ok bool)
+	GetResetPendingDate() (value int, ok bool)
 }) {
 	s.AppleSigninAllowed = from.GetAppleSigninAllowed()
 	s.GoogleSigninAllowed = from.GetGoogleSigninAllowed()
 	s.EmailPattern = from.GetEmailPattern()
 	s.Length = from.GetLength()
-	if val, ok := from.GetNextPhoneLoginDate(); ok {
-		s.NextPhoneLoginDate = val
+	if val, ok := from.GetResetAvailablePeriod(); ok {
+		s.ResetAvailablePeriod = val
+	}
+
+	if val, ok := from.GetResetPendingDate(); ok {
+		s.ResetPendingDate = val
 	}
 
 }
@@ -883,9 +894,14 @@ func (s *AuthSentCodeTypeEmailCode) TypeInfo() tdp.Type {
 			SchemaName: "length",
 		},
 		{
-			Name:       "NextPhoneLoginDate",
-			SchemaName: "next_phone_login_date",
-			Null:       !s.Flags.Has(2),
+			Name:       "ResetAvailablePeriod",
+			SchemaName: "reset_available_period",
+			Null:       !s.Flags.Has(3),
+		},
+		{
+			Name:       "ResetPendingDate",
+			SchemaName: "reset_pending_date",
+			Null:       !s.Flags.Has(4),
 		},
 	}
 	return typ
@@ -899,15 +915,18 @@ func (s *AuthSentCodeTypeEmailCode) SetFlags() {
 	if !(s.GoogleSigninAllowed == false) {
 		s.Flags.Set(1)
 	}
-	if !(s.NextPhoneLoginDate == 0) {
-		s.Flags.Set(2)
+	if !(s.ResetAvailablePeriod == 0) {
+		s.Flags.Set(3)
+	}
+	if !(s.ResetPendingDate == 0) {
+		s.Flags.Set(4)
 	}
 }
 
 // Encode implements bin.Encoder.
 func (s *AuthSentCodeTypeEmailCode) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode auth.sentCodeTypeEmailCode#5a159841 as nil")
+		return fmt.Errorf("can't encode auth.sentCodeTypeEmailCode#f450f59b as nil")
 	}
 	b.PutID(AuthSentCodeTypeEmailCodeTypeID)
 	return s.EncodeBare(b)
@@ -916,16 +935,19 @@ func (s *AuthSentCodeTypeEmailCode) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *AuthSentCodeTypeEmailCode) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode auth.sentCodeTypeEmailCode#5a159841 as nil")
+		return fmt.Errorf("can't encode auth.sentCodeTypeEmailCode#f450f59b as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode auth.sentCodeTypeEmailCode#5a159841: field flags: %w", err)
+		return fmt.Errorf("unable to encode auth.sentCodeTypeEmailCode#f450f59b: field flags: %w", err)
 	}
 	b.PutString(s.EmailPattern)
 	b.PutInt(s.Length)
-	if s.Flags.Has(2) {
-		b.PutInt(s.NextPhoneLoginDate)
+	if s.Flags.Has(3) {
+		b.PutInt(s.ResetAvailablePeriod)
+	}
+	if s.Flags.Has(4) {
+		b.PutInt(s.ResetPendingDate)
 	}
 	return nil
 }
@@ -933,10 +955,10 @@ func (s *AuthSentCodeTypeEmailCode) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *AuthSentCodeTypeEmailCode) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode auth.sentCodeTypeEmailCode#5a159841 to nil")
+		return fmt.Errorf("can't decode auth.sentCodeTypeEmailCode#f450f59b to nil")
 	}
 	if err := b.ConsumeID(AuthSentCodeTypeEmailCodeTypeID); err != nil {
-		return fmt.Errorf("unable to decode auth.sentCodeTypeEmailCode#5a159841: %w", err)
+		return fmt.Errorf("unable to decode auth.sentCodeTypeEmailCode#f450f59b: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -944,11 +966,11 @@ func (s *AuthSentCodeTypeEmailCode) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *AuthSentCodeTypeEmailCode) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode auth.sentCodeTypeEmailCode#5a159841 to nil")
+		return fmt.Errorf("can't decode auth.sentCodeTypeEmailCode#f450f59b to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode auth.sentCodeTypeEmailCode#5a159841: field flags: %w", err)
+			return fmt.Errorf("unable to decode auth.sentCodeTypeEmailCode#f450f59b: field flags: %w", err)
 		}
 	}
 	s.AppleSigninAllowed = s.Flags.Has(0)
@@ -956,23 +978,30 @@ func (s *AuthSentCodeTypeEmailCode) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.sentCodeTypeEmailCode#5a159841: field email_pattern: %w", err)
+			return fmt.Errorf("unable to decode auth.sentCodeTypeEmailCode#f450f59b: field email_pattern: %w", err)
 		}
 		s.EmailPattern = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.sentCodeTypeEmailCode#5a159841: field length: %w", err)
+			return fmt.Errorf("unable to decode auth.sentCodeTypeEmailCode#f450f59b: field length: %w", err)
 		}
 		s.Length = value
 	}
-	if s.Flags.Has(2) {
+	if s.Flags.Has(3) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode auth.sentCodeTypeEmailCode#5a159841: field next_phone_login_date: %w", err)
+			return fmt.Errorf("unable to decode auth.sentCodeTypeEmailCode#f450f59b: field reset_available_period: %w", err)
 		}
-		s.NextPhoneLoginDate = value
+		s.ResetAvailablePeriod = value
+	}
+	if s.Flags.Has(4) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode auth.sentCodeTypeEmailCode#f450f59b: field reset_pending_date: %w", err)
+		}
+		s.ResetPendingDate = value
 	}
 	return nil
 }
@@ -1031,22 +1060,40 @@ func (s *AuthSentCodeTypeEmailCode) GetLength() (value int) {
 	return s.Length
 }
 
-// SetNextPhoneLoginDate sets value of NextPhoneLoginDate conditional field.
-func (s *AuthSentCodeTypeEmailCode) SetNextPhoneLoginDate(value int) {
-	s.Flags.Set(2)
-	s.NextPhoneLoginDate = value
+// SetResetAvailablePeriod sets value of ResetAvailablePeriod conditional field.
+func (s *AuthSentCodeTypeEmailCode) SetResetAvailablePeriod(value int) {
+	s.Flags.Set(3)
+	s.ResetAvailablePeriod = value
 }
 
-// GetNextPhoneLoginDate returns value of NextPhoneLoginDate conditional field and
+// GetResetAvailablePeriod returns value of ResetAvailablePeriod conditional field and
 // boolean which is true if field was set.
-func (s *AuthSentCodeTypeEmailCode) GetNextPhoneLoginDate() (value int, ok bool) {
+func (s *AuthSentCodeTypeEmailCode) GetResetAvailablePeriod() (value int, ok bool) {
 	if s == nil {
 		return
 	}
-	if !s.Flags.Has(2) {
+	if !s.Flags.Has(3) {
 		return value, false
 	}
-	return s.NextPhoneLoginDate, true
+	return s.ResetAvailablePeriod, true
+}
+
+// SetResetPendingDate sets value of ResetPendingDate conditional field.
+func (s *AuthSentCodeTypeEmailCode) SetResetPendingDate(value int) {
+	s.Flags.Set(4)
+	s.ResetPendingDate = value
+}
+
+// GetResetPendingDate returns value of ResetPendingDate conditional field and
+// boolean which is true if field was set.
+func (s *AuthSentCodeTypeEmailCode) GetResetPendingDate() (value int, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(4) {
+		return value, false
+	}
+	return s.ResetPendingDate, true
 }
 
 // AuthSentCodeTypeSetUpEmailRequired represents TL type `auth.sentCodeTypeSetUpEmailRequired#a5491dea`.
@@ -1731,7 +1778,7 @@ const AuthSentCodeTypeClassName = "auth.SentCodeType"
 //	case *tg.AuthSentCodeTypeCall: // auth.sentCodeTypeCall#5353e5a7
 //	case *tg.AuthSentCodeTypeFlashCall: // auth.sentCodeTypeFlashCall#ab03c6d9
 //	case *tg.AuthSentCodeTypeMissedCall: // auth.sentCodeTypeMissedCall#82006484
-//	case *tg.AuthSentCodeTypeEmailCode: // auth.sentCodeTypeEmailCode#5a159841
+//	case *tg.AuthSentCodeTypeEmailCode: // auth.sentCodeTypeEmailCode#f450f59b
 //	case *tg.AuthSentCodeTypeSetUpEmailRequired: // auth.sentCodeTypeSetUpEmailRequired#a5491dea
 //	case *tg.AuthSentCodeTypeFragmentSMS: // auth.sentCodeTypeFragmentSms#d9565c39
 //	case *tg.AuthSentCodeTypeFirebaseSMS: // auth.sentCodeTypeFirebaseSms#e57b1432
@@ -1799,7 +1846,7 @@ func DecodeAuthSentCodeType(buf *bin.Buffer) (AuthSentCodeTypeClass, error) {
 		}
 		return &v, nil
 	case AuthSentCodeTypeEmailCodeTypeID:
-		// Decoding auth.sentCodeTypeEmailCode#5a159841.
+		// Decoding auth.sentCodeTypeEmailCode#f450f59b.
 		v := AuthSentCodeTypeEmailCode{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthSentCodeTypeClass: %w", err)

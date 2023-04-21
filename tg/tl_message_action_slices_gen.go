@@ -506,6 +506,32 @@ func (s MessageActionClassArray) AsMessageActionRequestedPeer() (to MessageActio
 	return to
 }
 
+// AsMessageActionSetChatWallPaper returns copy with only MessageActionSetChatWallPaper constructors.
+func (s MessageActionClassArray) AsMessageActionSetChatWallPaper() (to MessageActionSetChatWallPaperArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionSetChatWallPaper)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMessageActionSetSameChatWallPaper returns copy with only MessageActionSetSameChatWallPaper constructors.
+func (s MessageActionClassArray) AsMessageActionSetSameChatWallPaper() (to MessageActionSetSameChatWallPaperArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionSetSameChatWallPaper)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MessageActionChatCreateArray is adapter for slice of MessageActionChatCreate.
 type MessageActionChatCreateArray []MessageActionChatCreate
 
@@ -2954,6 +2980,170 @@ func (s *MessageActionRequestedPeerArray) PopFirst() (v MessageActionRequestedPe
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MessageActionRequestedPeerArray) Pop() (v MessageActionRequestedPeer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionSetChatWallPaperArray is adapter for slice of MessageActionSetChatWallPaper.
+type MessageActionSetChatWallPaperArray []MessageActionSetChatWallPaper
+
+// Sort sorts slice of MessageActionSetChatWallPaper.
+func (s MessageActionSetChatWallPaperArray) Sort(less func(a, b MessageActionSetChatWallPaper) bool) MessageActionSetChatWallPaperArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionSetChatWallPaper.
+func (s MessageActionSetChatWallPaperArray) SortStable(less func(a, b MessageActionSetChatWallPaper) bool) MessageActionSetChatWallPaperArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionSetChatWallPaper.
+func (s MessageActionSetChatWallPaperArray) Retain(keep func(x MessageActionSetChatWallPaper) bool) MessageActionSetChatWallPaperArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionSetChatWallPaperArray) First() (v MessageActionSetChatWallPaper, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionSetChatWallPaperArray) Last() (v MessageActionSetChatWallPaper, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionSetChatWallPaperArray) PopFirst() (v MessageActionSetChatWallPaper, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionSetChatWallPaper
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionSetChatWallPaperArray) Pop() (v MessageActionSetChatWallPaper, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionSetSameChatWallPaperArray is adapter for slice of MessageActionSetSameChatWallPaper.
+type MessageActionSetSameChatWallPaperArray []MessageActionSetSameChatWallPaper
+
+// Sort sorts slice of MessageActionSetSameChatWallPaper.
+func (s MessageActionSetSameChatWallPaperArray) Sort(less func(a, b MessageActionSetSameChatWallPaper) bool) MessageActionSetSameChatWallPaperArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionSetSameChatWallPaper.
+func (s MessageActionSetSameChatWallPaperArray) SortStable(less func(a, b MessageActionSetSameChatWallPaper) bool) MessageActionSetSameChatWallPaperArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionSetSameChatWallPaper.
+func (s MessageActionSetSameChatWallPaperArray) Retain(keep func(x MessageActionSetSameChatWallPaper) bool) MessageActionSetSameChatWallPaperArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionSetSameChatWallPaperArray) First() (v MessageActionSetSameChatWallPaper, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionSetSameChatWallPaperArray) Last() (v MessageActionSetSameChatWallPaper, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionSetSameChatWallPaperArray) PopFirst() (v MessageActionSetSameChatWallPaper, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionSetSameChatWallPaper
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionSetSameChatWallPaperArray) Pop() (v MessageActionSetSameChatWallPaper, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

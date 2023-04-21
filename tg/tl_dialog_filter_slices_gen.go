@@ -129,6 +129,19 @@ func (s DialogFilterClassArray) AsDialogFilter() (to DialogFilterArray) {
 	return to
 }
 
+// AsDialogFilterChatlist returns copy with only DialogFilterChatlist constructors.
+func (s DialogFilterClassArray) AsDialogFilterChatlist() (to DialogFilterChatlistArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DialogFilterChatlist)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // DialogFilterArray is adapter for slice of DialogFilter.
 type DialogFilterArray []DialogFilter
 
@@ -235,6 +248,116 @@ func (s DialogFilterArray) FillMap(to map[int]DialogFilter) {
 // ToMap collects constructors to map.
 func (s DialogFilterArray) ToMap() map[int]DialogFilter {
 	r := make(map[int]DialogFilter, len(s))
+	s.FillMap(r)
+	return r
+}
+
+// DialogFilterChatlistArray is adapter for slice of DialogFilterChatlist.
+type DialogFilterChatlistArray []DialogFilterChatlist
+
+// Sort sorts slice of DialogFilterChatlist.
+func (s DialogFilterChatlistArray) Sort(less func(a, b DialogFilterChatlist) bool) DialogFilterChatlistArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DialogFilterChatlist.
+func (s DialogFilterChatlistArray) SortStable(less func(a, b DialogFilterChatlist) bool) DialogFilterChatlistArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DialogFilterChatlist.
+func (s DialogFilterChatlistArray) Retain(keep func(x DialogFilterChatlist) bool) DialogFilterChatlistArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DialogFilterChatlistArray) First() (v DialogFilterChatlist, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DialogFilterChatlistArray) Last() (v DialogFilterChatlist, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DialogFilterChatlistArray) PopFirst() (v DialogFilterChatlist, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DialogFilterChatlist
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DialogFilterChatlistArray) Pop() (v DialogFilterChatlist, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of DialogFilterChatlist by ID.
+func (s DialogFilterChatlistArray) SortByID() DialogFilterChatlistArray {
+	return s.Sort(func(a, b DialogFilterChatlist) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of DialogFilterChatlist by ID.
+func (s DialogFilterChatlistArray) SortStableByID() DialogFilterChatlistArray {
+	return s.SortStable(func(a, b DialogFilterChatlist) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s DialogFilterChatlistArray) FillMap(to map[int]DialogFilterChatlist) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s DialogFilterChatlistArray) ToMap() map[int]DialogFilterChatlist {
+	r := make(map[int]DialogFilterChatlist, len(s))
 	s.FillMap(r)
 	return r
 }

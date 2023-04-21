@@ -826,7 +826,7 @@ func (k *KeyboardButtonRequestGeoLocation) GetText() (value string) {
 	return k.Text
 }
 
-// KeyboardButtonSwitchInline represents TL type `keyboardButtonSwitchInline#568a748`.
+// KeyboardButtonSwitchInline represents TL type `keyboardButtonSwitchInline#93b9fbb5`.
 // Button to force a user to switch to inline mode Pressing the button will prompt the
 // user to select one of their chats, open that chat and insert the bot's username and
 // the specified inline query in the input field.
@@ -845,10 +845,14 @@ type KeyboardButtonSwitchInline struct {
 	Text string
 	// The inline query to use
 	Query string
+	// PeerTypes field of KeyboardButtonSwitchInline.
+	//
+	// Use SetPeerTypes and GetPeerTypes helpers.
+	PeerTypes []InlineQueryPeerTypeClass
 }
 
 // KeyboardButtonSwitchInlineTypeID is TL type id of KeyboardButtonSwitchInline.
-const KeyboardButtonSwitchInlineTypeID = 0x568a748
+const KeyboardButtonSwitchInlineTypeID = 0x93b9fbb5
 
 // construct implements constructor of KeyboardButtonClass.
 func (k KeyboardButtonSwitchInline) construct() KeyboardButtonClass { return &k }
@@ -879,6 +883,9 @@ func (k *KeyboardButtonSwitchInline) Zero() bool {
 	if !(k.Query == "") {
 		return false
 	}
+	if !(k.PeerTypes == nil) {
+		return false
+	}
 
 	return true
 }
@@ -897,10 +904,15 @@ func (k *KeyboardButtonSwitchInline) FillFrom(from interface {
 	GetSamePeer() (value bool)
 	GetText() (value string)
 	GetQuery() (value string)
+	GetPeerTypes() (value []InlineQueryPeerTypeClass, ok bool)
 }) {
 	k.SamePeer = from.GetSamePeer()
 	k.Text = from.GetText()
 	k.Query = from.GetQuery()
+	if val, ok := from.GetPeerTypes(); ok {
+		k.PeerTypes = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -939,6 +951,11 @@ func (k *KeyboardButtonSwitchInline) TypeInfo() tdp.Type {
 			Name:       "Query",
 			SchemaName: "query",
 		},
+		{
+			Name:       "PeerTypes",
+			SchemaName: "peer_types",
+			Null:       !k.Flags.Has(1),
+		},
 	}
 	return typ
 }
@@ -948,12 +965,15 @@ func (k *KeyboardButtonSwitchInline) SetFlags() {
 	if !(k.SamePeer == false) {
 		k.Flags.Set(0)
 	}
+	if !(k.PeerTypes == nil) {
+		k.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonSwitchInline) Encode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonSwitchInline#568a748 as nil")
+		return fmt.Errorf("can't encode keyboardButtonSwitchInline#93b9fbb5 as nil")
 	}
 	b.PutID(KeyboardButtonSwitchInlineTypeID)
 	return k.EncodeBare(b)
@@ -962,24 +982,35 @@ func (k *KeyboardButtonSwitchInline) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (k *KeyboardButtonSwitchInline) EncodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonSwitchInline#568a748 as nil")
+		return fmt.Errorf("can't encode keyboardButtonSwitchInline#93b9fbb5 as nil")
 	}
 	k.SetFlags()
 	if err := k.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode keyboardButtonSwitchInline#568a748: field flags: %w", err)
+		return fmt.Errorf("unable to encode keyboardButtonSwitchInline#93b9fbb5: field flags: %w", err)
 	}
 	b.PutString(k.Text)
 	b.PutString(k.Query)
+	if k.Flags.Has(1) {
+		b.PutVectorHeader(len(k.PeerTypes))
+		for idx, v := range k.PeerTypes {
+			if v == nil {
+				return fmt.Errorf("unable to encode keyboardButtonSwitchInline#93b9fbb5: field peer_types element with index %d is nil", idx)
+			}
+			if err := v.Encode(b); err != nil {
+				return fmt.Errorf("unable to encode keyboardButtonSwitchInline#93b9fbb5: field peer_types element with index %d: %w", idx, err)
+			}
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonSwitchInline) Decode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonSwitchInline#568a748 to nil")
+		return fmt.Errorf("can't decode keyboardButtonSwitchInline#93b9fbb5 to nil")
 	}
 	if err := b.ConsumeID(KeyboardButtonSwitchInlineTypeID); err != nil {
-		return fmt.Errorf("unable to decode keyboardButtonSwitchInline#568a748: %w", err)
+		return fmt.Errorf("unable to decode keyboardButtonSwitchInline#93b9fbb5: %w", err)
 	}
 	return k.DecodeBare(b)
 }
@@ -987,27 +1018,44 @@ func (k *KeyboardButtonSwitchInline) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (k *KeyboardButtonSwitchInline) DecodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonSwitchInline#568a748 to nil")
+		return fmt.Errorf("can't decode keyboardButtonSwitchInline#93b9fbb5 to nil")
 	}
 	{
 		if err := k.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonSwitchInline#568a748: field flags: %w", err)
+			return fmt.Errorf("unable to decode keyboardButtonSwitchInline#93b9fbb5: field flags: %w", err)
 		}
 	}
 	k.SamePeer = k.Flags.Has(0)
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonSwitchInline#568a748: field text: %w", err)
+			return fmt.Errorf("unable to decode keyboardButtonSwitchInline#93b9fbb5: field text: %w", err)
 		}
 		k.Text = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonSwitchInline#568a748: field query: %w", err)
+			return fmt.Errorf("unable to decode keyboardButtonSwitchInline#93b9fbb5: field query: %w", err)
 		}
 		k.Query = value
+	}
+	if k.Flags.Has(1) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonSwitchInline#93b9fbb5: field peer_types: %w", err)
+		}
+
+		if headerLen > 0 {
+			k.PeerTypes = make([]InlineQueryPeerTypeClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeInlineQueryPeerType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode keyboardButtonSwitchInline#93b9fbb5: field peer_types: %w", err)
+			}
+			k.PeerTypes = append(k.PeerTypes, value)
+		}
 	}
 	return nil
 }
@@ -1045,6 +1093,32 @@ func (k *KeyboardButtonSwitchInline) GetQuery() (value string) {
 		return
 	}
 	return k.Query
+}
+
+// SetPeerTypes sets value of PeerTypes conditional field.
+func (k *KeyboardButtonSwitchInline) SetPeerTypes(value []InlineQueryPeerTypeClass) {
+	k.Flags.Set(1)
+	k.PeerTypes = value
+}
+
+// GetPeerTypes returns value of PeerTypes conditional field and
+// boolean which is true if field was set.
+func (k *KeyboardButtonSwitchInline) GetPeerTypes() (value []InlineQueryPeerTypeClass, ok bool) {
+	if k == nil {
+		return
+	}
+	if !k.Flags.Has(1) {
+		return value, false
+	}
+	return k.PeerTypes, true
+}
+
+// MapPeerTypes returns field PeerTypes wrapped in InlineQueryPeerTypeClassArray helper.
+func (k *KeyboardButtonSwitchInline) MapPeerTypes() (value InlineQueryPeerTypeClassArray, ok bool) {
+	if !k.Flags.Has(1) {
+		return value, false
+	}
+	return InlineQueryPeerTypeClassArray(k.PeerTypes), true
 }
 
 // KeyboardButtonGame represents TL type `keyboardButtonGame#50f41ccf`.
@@ -3023,7 +3097,7 @@ const KeyboardButtonClassName = "KeyboardButton"
 //	case *tg.KeyboardButtonCallback: // keyboardButtonCallback#35bbdb6b
 //	case *tg.KeyboardButtonRequestPhone: // keyboardButtonRequestPhone#b16a6c29
 //	case *tg.KeyboardButtonRequestGeoLocation: // keyboardButtonRequestGeoLocation#fc796b3f
-//	case *tg.KeyboardButtonSwitchInline: // keyboardButtonSwitchInline#568a748
+//	case *tg.KeyboardButtonSwitchInline: // keyboardButtonSwitchInline#93b9fbb5
 //	case *tg.KeyboardButtonGame: // keyboardButtonGame#50f41ccf
 //	case *tg.KeyboardButtonBuy: // keyboardButtonBuy#afd93fbb
 //	case *tg.KeyboardButtonURLAuth: // keyboardButtonUrlAuth#10b78d29
@@ -3101,7 +3175,7 @@ func DecodeKeyboardButton(buf *bin.Buffer) (KeyboardButtonClass, error) {
 		}
 		return &v, nil
 	case KeyboardButtonSwitchInlineTypeID:
-		// Decoding keyboardButtonSwitchInline#568a748.
+		// Decoding keyboardButtonSwitchInline#93b9fbb5.
 		v := KeyboardButtonSwitchInline{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)

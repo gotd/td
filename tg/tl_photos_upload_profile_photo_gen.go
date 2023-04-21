@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PhotosUploadProfilePhotoRequest represents TL type `photos.uploadProfilePhoto#93c9a51`.
+// PhotosUploadProfilePhotoRequest represents TL type `photos.uploadProfilePhoto#388a3b5`.
 // Updates current user profile photo.
 // The file, video and video_emoji_markup flags are mutually exclusive.
 //
@@ -45,6 +45,10 @@ type PhotosUploadProfilePhotoRequest struct {
 	// If set, the chosen profile photo will be shown to users that can't display your main
 	// profile photo due to your privacy settings.
 	Fallback bool
+	// Bot field of PhotosUploadProfilePhotoRequest.
+	//
+	// Use SetBot and GetBot helpers.
+	Bot InputUserClass
 	// Profile photo
 	//
 	// Use SetFile and GetFile helpers.
@@ -74,7 +78,7 @@ type PhotosUploadProfilePhotoRequest struct {
 }
 
 // PhotosUploadProfilePhotoRequestTypeID is TL type id of PhotosUploadProfilePhotoRequest.
-const PhotosUploadProfilePhotoRequestTypeID = 0x93c9a51
+const PhotosUploadProfilePhotoRequestTypeID = 0x388a3b5
 
 // Ensuring interfaces in compile-time for PhotosUploadProfilePhotoRequest.
 var (
@@ -92,6 +96,9 @@ func (u *PhotosUploadProfilePhotoRequest) Zero() bool {
 		return false
 	}
 	if !(u.Fallback == false) {
+		return false
+	}
+	if !(u.Bot == nil) {
 		return false
 	}
 	if !(u.File == nil) {
@@ -122,12 +129,17 @@ func (u *PhotosUploadProfilePhotoRequest) String() string {
 // FillFrom fills PhotosUploadProfilePhotoRequest from given interface.
 func (u *PhotosUploadProfilePhotoRequest) FillFrom(from interface {
 	GetFallback() (value bool)
+	GetBot() (value InputUserClass, ok bool)
 	GetFile() (value InputFileClass, ok bool)
 	GetVideo() (value InputFileClass, ok bool)
 	GetVideoStartTs() (value float64, ok bool)
 	GetVideoEmojiMarkup() (value VideoSizeClass, ok bool)
 }) {
 	u.Fallback = from.GetFallback()
+	if val, ok := from.GetBot(); ok {
+		u.Bot = val
+	}
+
 	if val, ok := from.GetFile(); ok {
 		u.File = val
 	}
@@ -175,6 +187,11 @@ func (u *PhotosUploadProfilePhotoRequest) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(3),
 		},
 		{
+			Name:       "Bot",
+			SchemaName: "bot",
+			Null:       !u.Flags.Has(5),
+		},
+		{
 			Name:       "File",
 			SchemaName: "file",
 			Null:       !u.Flags.Has(0),
@@ -203,6 +220,9 @@ func (u *PhotosUploadProfilePhotoRequest) SetFlags() {
 	if !(u.Fallback == false) {
 		u.Flags.Set(3)
 	}
+	if !(u.Bot == nil) {
+		u.Flags.Set(5)
+	}
 	if !(u.File == nil) {
 		u.Flags.Set(0)
 	}
@@ -220,7 +240,7 @@ func (u *PhotosUploadProfilePhotoRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (u *PhotosUploadProfilePhotoRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode photos.uploadProfilePhoto#93c9a51 as nil")
+		return fmt.Errorf("can't encode photos.uploadProfilePhoto#388a3b5 as nil")
 	}
 	b.PutID(PhotosUploadProfilePhotoRequestTypeID)
 	return u.EncodeBare(b)
@@ -229,26 +249,34 @@ func (u *PhotosUploadProfilePhotoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *PhotosUploadProfilePhotoRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode photos.uploadProfilePhoto#93c9a51 as nil")
+		return fmt.Errorf("can't encode photos.uploadProfilePhoto#388a3b5 as nil")
 	}
 	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode photos.uploadProfilePhoto#93c9a51: field flags: %w", err)
+		return fmt.Errorf("unable to encode photos.uploadProfilePhoto#388a3b5: field flags: %w", err)
+	}
+	if u.Flags.Has(5) {
+		if u.Bot == nil {
+			return fmt.Errorf("unable to encode photos.uploadProfilePhoto#388a3b5: field bot is nil")
+		}
+		if err := u.Bot.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode photos.uploadProfilePhoto#388a3b5: field bot: %w", err)
+		}
 	}
 	if u.Flags.Has(0) {
 		if u.File == nil {
-			return fmt.Errorf("unable to encode photos.uploadProfilePhoto#93c9a51: field file is nil")
+			return fmt.Errorf("unable to encode photos.uploadProfilePhoto#388a3b5: field file is nil")
 		}
 		if err := u.File.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode photos.uploadProfilePhoto#93c9a51: field file: %w", err)
+			return fmt.Errorf("unable to encode photos.uploadProfilePhoto#388a3b5: field file: %w", err)
 		}
 	}
 	if u.Flags.Has(1) {
 		if u.Video == nil {
-			return fmt.Errorf("unable to encode photos.uploadProfilePhoto#93c9a51: field video is nil")
+			return fmt.Errorf("unable to encode photos.uploadProfilePhoto#388a3b5: field video is nil")
 		}
 		if err := u.Video.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode photos.uploadProfilePhoto#93c9a51: field video: %w", err)
+			return fmt.Errorf("unable to encode photos.uploadProfilePhoto#388a3b5: field video: %w", err)
 		}
 	}
 	if u.Flags.Has(2) {
@@ -256,10 +284,10 @@ func (u *PhotosUploadProfilePhotoRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	if u.Flags.Has(4) {
 		if u.VideoEmojiMarkup == nil {
-			return fmt.Errorf("unable to encode photos.uploadProfilePhoto#93c9a51: field video_emoji_markup is nil")
+			return fmt.Errorf("unable to encode photos.uploadProfilePhoto#388a3b5: field video_emoji_markup is nil")
 		}
 		if err := u.VideoEmojiMarkup.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode photos.uploadProfilePhoto#93c9a51: field video_emoji_markup: %w", err)
+			return fmt.Errorf("unable to encode photos.uploadProfilePhoto#388a3b5: field video_emoji_markup: %w", err)
 		}
 	}
 	return nil
@@ -268,10 +296,10 @@ func (u *PhotosUploadProfilePhotoRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *PhotosUploadProfilePhotoRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode photos.uploadProfilePhoto#93c9a51 to nil")
+		return fmt.Errorf("can't decode photos.uploadProfilePhoto#388a3b5 to nil")
 	}
 	if err := b.ConsumeID(PhotosUploadProfilePhotoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode photos.uploadProfilePhoto#93c9a51: %w", err)
+		return fmt.Errorf("unable to decode photos.uploadProfilePhoto#388a3b5: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -279,39 +307,46 @@ func (u *PhotosUploadProfilePhotoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *PhotosUploadProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode photos.uploadProfilePhoto#93c9a51 to nil")
+		return fmt.Errorf("can't decode photos.uploadProfilePhoto#388a3b5 to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode photos.uploadProfilePhoto#93c9a51: field flags: %w", err)
+			return fmt.Errorf("unable to decode photos.uploadProfilePhoto#388a3b5: field flags: %w", err)
 		}
 	}
 	u.Fallback = u.Flags.Has(3)
+	if u.Flags.Has(5) {
+		value, err := DecodeInputUser(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode photos.uploadProfilePhoto#388a3b5: field bot: %w", err)
+		}
+		u.Bot = value
+	}
 	if u.Flags.Has(0) {
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.uploadProfilePhoto#93c9a51: field file: %w", err)
+			return fmt.Errorf("unable to decode photos.uploadProfilePhoto#388a3b5: field file: %w", err)
 		}
 		u.File = value
 	}
 	if u.Flags.Has(1) {
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.uploadProfilePhoto#93c9a51: field video: %w", err)
+			return fmt.Errorf("unable to decode photos.uploadProfilePhoto#388a3b5: field video: %w", err)
 		}
 		u.Video = value
 	}
 	if u.Flags.Has(2) {
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.uploadProfilePhoto#93c9a51: field video_start_ts: %w", err)
+			return fmt.Errorf("unable to decode photos.uploadProfilePhoto#388a3b5: field video_start_ts: %w", err)
 		}
 		u.VideoStartTs = value
 	}
 	if u.Flags.Has(4) {
 		value, err := DecodeVideoSize(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode photos.uploadProfilePhoto#93c9a51: field video_emoji_markup: %w", err)
+			return fmt.Errorf("unable to decode photos.uploadProfilePhoto#388a3b5: field video_emoji_markup: %w", err)
 		}
 		u.VideoEmojiMarkup = value
 	}
@@ -335,6 +370,24 @@ func (u *PhotosUploadProfilePhotoRequest) GetFallback() (value bool) {
 		return
 	}
 	return u.Flags.Has(3)
+}
+
+// SetBot sets value of Bot conditional field.
+func (u *PhotosUploadProfilePhotoRequest) SetBot(value InputUserClass) {
+	u.Flags.Set(5)
+	u.Bot = value
+}
+
+// GetBot returns value of Bot conditional field and
+// boolean which is true if field was set.
+func (u *PhotosUploadProfilePhotoRequest) GetBot() (value InputUserClass, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(5) {
+		return value, false
+	}
+	return u.Bot, true
 }
 
 // SetFile sets value of File conditional field.
@@ -409,7 +462,7 @@ func (u *PhotosUploadProfilePhotoRequest) GetVideoEmojiMarkup() (value VideoSize
 	return u.VideoEmojiMarkup, true
 }
 
-// PhotosUploadProfilePhoto invokes method photos.uploadProfilePhoto#93c9a51 returning error if any.
+// PhotosUploadProfilePhoto invokes method photos.uploadProfilePhoto#388a3b5 returning error if any.
 // Updates current user profile photo.
 // The file, video and video_emoji_markup flags are mutually exclusive.
 //

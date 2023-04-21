@@ -3941,7 +3941,7 @@ func (c *ChannelAdminLogEventActionToggleGroupCallSetting) GetJoinMuted() (value
 	return c.JoinMuted
 }
 
-// ChannelAdminLogEventActionParticipantJoinByInvite represents TL type `channelAdminLogEventActionParticipantJoinByInvite#5cdada77`.
+// ChannelAdminLogEventActionParticipantJoinByInvite represents TL type `channelAdminLogEventActionParticipantJoinByInvite#fe9fc158`.
 // A user joined the supergroup/channel¹ using a specific invite link
 //
 // Links:
@@ -3949,6 +3949,10 @@ func (c *ChannelAdminLogEventActionToggleGroupCallSetting) GetJoinMuted() (value
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByInvite for reference.
 type ChannelAdminLogEventActionParticipantJoinByInvite struct {
+	// Flags field of ChannelAdminLogEventActionParticipantJoinByInvite.
+	Flags bin.Fields
+	// ViaChatlist field of ChannelAdminLogEventActionParticipantJoinByInvite.
+	ViaChatlist bool
 	// The invite link used to join the supergroup/channel¹
 	//
 	// Links:
@@ -3957,7 +3961,7 @@ type ChannelAdminLogEventActionParticipantJoinByInvite struct {
 }
 
 // ChannelAdminLogEventActionParticipantJoinByInviteTypeID is TL type id of ChannelAdminLogEventActionParticipantJoinByInvite.
-const ChannelAdminLogEventActionParticipantJoinByInviteTypeID = 0x5cdada77
+const ChannelAdminLogEventActionParticipantJoinByInviteTypeID = 0xfe9fc158
 
 // construct implements constructor of ChannelAdminLogEventActionClass.
 func (c ChannelAdminLogEventActionParticipantJoinByInvite) construct() ChannelAdminLogEventActionClass {
@@ -3978,6 +3982,12 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) Zero() bool {
 	if c == nil {
 		return true
 	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.ViaChatlist == false) {
+		return false
+	}
 	if !(c.Invite == nil) {
 		return false
 	}
@@ -3996,8 +4006,10 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) String() string {
 
 // FillFrom fills ChannelAdminLogEventActionParticipantJoinByInvite from given interface.
 func (c *ChannelAdminLogEventActionParticipantJoinByInvite) FillFrom(from interface {
+	GetViaChatlist() (value bool)
 	GetInvite() (value ExportedChatInviteClass)
 }) {
+	c.ViaChatlist = from.GetViaChatlist()
 	c.Invite = from.GetInvite()
 }
 
@@ -4025,6 +4037,11 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) TypeInfo() tdp.Type 
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "ViaChatlist",
+			SchemaName: "via_chatlist",
+			Null:       !c.Flags.Has(0),
+		},
+		{
 			Name:       "Invite",
 			SchemaName: "invite",
 		},
@@ -4032,10 +4049,17 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) TypeInfo() tdp.Type 
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (c *ChannelAdminLogEventActionParticipantJoinByInvite) SetFlags() {
+	if !(c.ViaChatlist == false) {
+		c.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionParticipantJoinByInvite) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantJoinByInvite#5cdada77 as nil")
+		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantJoinByInvite#fe9fc158 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionParticipantJoinByInviteTypeID)
 	return c.EncodeBare(b)
@@ -4044,13 +4068,17 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) Encode(b *bin.Buffer
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelAdminLogEventActionParticipantJoinByInvite) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantJoinByInvite#5cdada77 as nil")
+		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantJoinByInvite#fe9fc158 as nil")
+	}
+	c.SetFlags()
+	if err := c.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantJoinByInvite#fe9fc158: field flags: %w", err)
 	}
 	if c.Invite == nil {
-		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantJoinByInvite#5cdada77: field invite is nil")
+		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantJoinByInvite#fe9fc158: field invite is nil")
 	}
 	if err := c.Invite.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantJoinByInvite#5cdada77: field invite: %w", err)
+		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantJoinByInvite#fe9fc158: field invite: %w", err)
 	}
 	return nil
 }
@@ -4058,10 +4086,10 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) EncodeBare(b *bin.Bu
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventActionParticipantJoinByInvite) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantJoinByInvite#5cdada77 to nil")
+		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantJoinByInvite#fe9fc158 to nil")
 	}
 	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantJoinByInviteTypeID); err != nil {
-		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantJoinByInvite#5cdada77: %w", err)
+		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantJoinByInvite#fe9fc158: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -4069,16 +4097,41 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) Decode(b *bin.Buffer
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelAdminLogEventActionParticipantJoinByInvite) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantJoinByInvite#5cdada77 to nil")
+		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantJoinByInvite#fe9fc158 to nil")
 	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantJoinByInvite#fe9fc158: field flags: %w", err)
+		}
+	}
+	c.ViaChatlist = c.Flags.Has(0)
 	{
 		value, err := DecodeExportedChatInvite(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantJoinByInvite#5cdada77: field invite: %w", err)
+			return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantJoinByInvite#fe9fc158: field invite: %w", err)
 		}
 		c.Invite = value
 	}
 	return nil
+}
+
+// SetViaChatlist sets value of ViaChatlist conditional field.
+func (c *ChannelAdminLogEventActionParticipantJoinByInvite) SetViaChatlist(value bool) {
+	if value {
+		c.Flags.Set(0)
+		c.ViaChatlist = true
+	} else {
+		c.Flags.Unset(0)
+		c.ViaChatlist = false
+	}
+}
+
+// GetViaChatlist returns value of ViaChatlist conditional field.
+func (c *ChannelAdminLogEventActionParticipantJoinByInvite) GetViaChatlist() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(0)
 }
 
 // GetInvite returns value of Invite field.
@@ -6688,7 +6741,7 @@ const ChannelAdminLogEventActionClassName = "ChannelAdminLogEventAction"
 //	case *tg.ChannelAdminLogEventActionParticipantMute: // channelAdminLogEventActionParticipantMute#f92424d2
 //	case *tg.ChannelAdminLogEventActionParticipantUnmute: // channelAdminLogEventActionParticipantUnmute#e64429c0
 //	case *tg.ChannelAdminLogEventActionToggleGroupCallSetting: // channelAdminLogEventActionToggleGroupCallSetting#56d6a247
-//	case *tg.ChannelAdminLogEventActionParticipantJoinByInvite: // channelAdminLogEventActionParticipantJoinByInvite#5cdada77
+//	case *tg.ChannelAdminLogEventActionParticipantJoinByInvite: // channelAdminLogEventActionParticipantJoinByInvite#fe9fc158
 //	case *tg.ChannelAdminLogEventActionExportedInviteDelete: // channelAdminLogEventActionExportedInviteDelete#5a50fca4
 //	case *tg.ChannelAdminLogEventActionExportedInviteRevoke: // channelAdminLogEventActionExportedInviteRevoke#410a134e
 //	case *tg.ChannelAdminLogEventActionExportedInviteEdit: // channelAdminLogEventActionExportedInviteEdit#e90ebb59
@@ -6916,7 +6969,7 @@ func DecodeChannelAdminLogEventAction(buf *bin.Buffer) (ChannelAdminLogEventActi
 		}
 		return &v, nil
 	case ChannelAdminLogEventActionParticipantJoinByInviteTypeID:
-		// Decoding channelAdminLogEventActionParticipantJoinByInvite#5cdada77.
+		// Decoding channelAdminLogEventActionParticipantJoinByInvite#fe9fc158.
 		v := ChannelAdminLogEventActionParticipantJoinByInvite{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)

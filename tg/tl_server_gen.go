@@ -438,6 +438,23 @@ func (s *ServerDispatcher) OnAuthRequestFirebaseSMS(f func(ctx context.Context, 
 	s.handlers[AuthRequestFirebaseSMSRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnAuthResetLoginEmail(f func(ctx context.Context, request *AuthResetLoginEmailRequest) (AuthSentCodeClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AuthResetLoginEmailRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &AuthSentCodeBox{SentCode: response}, nil
+	}
+
+	s.handlers[AuthResetLoginEmailRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnAccountRegisterDevice(f func(ctx context.Context, request *AccountRegisterDeviceRequest) (bool, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request AccountRegisterDeviceRequest
@@ -5910,6 +5927,23 @@ func (s *ServerDispatcher) OnMessagesRequestAppWebView(f func(ctx context.Contex
 	s.handlers[MessagesRequestAppWebViewRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesSetChatWallPaper(f func(ctx context.Context, request *MessagesSetChatWallPaperRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesSetChatWallPaperRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[MessagesSetChatWallPaperRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest
@@ -7786,21 +7820,63 @@ func (s *ServerDispatcher) OnBotsSetBotInfo(f func(ctx context.Context, request 
 	s.handlers[BotsSetBotInfoRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnBotsGetBotInfo(f func(ctx context.Context, langcode string) ([]string, error)) {
+func (s *ServerDispatcher) OnBotsGetBotInfo(f func(ctx context.Context, request *BotsGetBotInfoRequest) (*BotsBotInfo, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request BotsGetBotInfoRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.LangCode)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
-		return &StringVector{Elems: response}, nil
+		return response, nil
 	}
 
 	s.handlers[BotsGetBotInfoRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsReorderUsernames(f func(ctx context.Context, request *BotsReorderUsernamesRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsReorderUsernamesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[BotsReorderUsernamesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsToggleUsername(f func(ctx context.Context, request *BotsToggleUsernameRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsToggleUsernameRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[BotsToggleUsernameRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnPaymentsGetPaymentForm(f func(ctx context.Context, request *PaymentsGetPaymentFormRequest) (*PaymentsPaymentForm, error)) {
@@ -8825,23 +8901,6 @@ func (s *ServerDispatcher) OnFoldersEditPeerFolders(f func(ctx context.Context, 
 	s.handlers[FoldersEditPeerFoldersRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnFoldersDeleteFolder(f func(ctx context.Context, folderid int) (UpdatesClass, error)) {
-	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request FoldersDeleteFolderRequest
-		if err := request.Decode(b); err != nil {
-			return nil, err
-		}
-
-		response, err := f(ctx, request.FolderID)
-		if err != nil {
-			return nil, err
-		}
-		return &UpdatesBox{Updates: response}, nil
-	}
-
-	s.handlers[FoldersDeleteFolderRequestTypeID] = handler
-}
-
 func (s *ServerDispatcher) OnStatsGetBroadcastStats(f func(ctx context.Context, request *StatsGetBroadcastStatsRequest) (*StatsBroadcastStats, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request StatsGetBroadcastStatsRequest
@@ -8925,6 +8984,201 @@ func (s *ServerDispatcher) OnStatsGetMessageStats(f func(ctx context.Context, re
 	}
 
 	s.handlers[StatsGetMessageStatsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChatlistsExportChatlistInvite(f func(ctx context.Context, request *ChatlistsExportChatlistInviteRequest) (*ChatlistsExportedChatlistInvite, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChatlistsExportChatlistInviteRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[ChatlistsExportChatlistInviteRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChatlistsDeleteExportedInvite(f func(ctx context.Context, request *ChatlistsDeleteExportedInviteRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChatlistsDeleteExportedInviteRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[ChatlistsDeleteExportedInviteRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChatlistsEditExportedInvite(f func(ctx context.Context, request *ChatlistsEditExportedInviteRequest) (*ExportedChatlistInvite, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChatlistsEditExportedInviteRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[ChatlistsEditExportedInviteRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChatlistsGetExportedInvites(f func(ctx context.Context, chatlist InputChatlistDialogFilter) (*ChatlistsExportedInvites, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChatlistsGetExportedInvitesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Chatlist)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[ChatlistsGetExportedInvitesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChatlistsCheckChatlistInvite(f func(ctx context.Context, slug string) (ChatlistsChatlistInviteClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChatlistsCheckChatlistInviteRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Slug)
+		if err != nil {
+			return nil, err
+		}
+		return &ChatlistsChatlistInviteBox{ChatlistInvite: response}, nil
+	}
+
+	s.handlers[ChatlistsCheckChatlistInviteRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChatlistsJoinChatlistInvite(f func(ctx context.Context, request *ChatlistsJoinChatlistInviteRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChatlistsJoinChatlistInviteRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[ChatlistsJoinChatlistInviteRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChatlistsGetChatlistUpdates(f func(ctx context.Context, chatlist InputChatlistDialogFilter) (*ChatlistsChatlistUpdates, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChatlistsGetChatlistUpdatesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Chatlist)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[ChatlistsGetChatlistUpdatesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChatlistsJoinChatlistUpdates(f func(ctx context.Context, request *ChatlistsJoinChatlistUpdatesRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChatlistsJoinChatlistUpdatesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[ChatlistsJoinChatlistUpdatesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChatlistsHideChatlistUpdates(f func(ctx context.Context, chatlist InputChatlistDialogFilter) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChatlistsHideChatlistUpdatesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Chatlist)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[ChatlistsHideChatlistUpdatesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChatlistsGetLeaveChatlistSuggestions(f func(ctx context.Context, chatlist InputChatlistDialogFilter) ([]PeerClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChatlistsGetLeaveChatlistSuggestionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Chatlist)
+		if err != nil {
+			return nil, err
+		}
+		return &PeerClassVector{Elems: response}, nil
+	}
+
+	s.handlers[ChatlistsGetLeaveChatlistSuggestionsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChatlistsLeaveChatlist(f func(ctx context.Context, request *ChatlistsLeaveChatlistRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChatlistsLeaveChatlistRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[ChatlistsLeaveChatlistRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnTestUseError(f func(ctx context.Context) (*Error, error)) {
