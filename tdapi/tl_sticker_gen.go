@@ -35,7 +35,7 @@ var (
 type Sticker struct {
 	// Unique sticker identifier within the set; 0 if none
 	ID int64
-	// The identifier of the sticker set to which the sticker belongs; 0 if none
+	// Identifier of the sticker set to which the sticker belongs; 0 if none
 	SetID int64
 	// Sticker width; as defined by the sender
 	Width int32

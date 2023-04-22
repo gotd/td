@@ -365,7 +365,7 @@ func (s *SpeechRecognitionResultText) GetText() (value string) {
 
 // SpeechRecognitionResultError represents TL type `speechRecognitionResultError#9d243fc`.
 type SpeechRecognitionResultError struct {
-	// Received error
+	// Recognition error
 	Error Error
 }
 

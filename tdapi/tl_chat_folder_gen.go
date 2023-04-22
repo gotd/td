@@ -31,28 +31,28 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatFilter represents TL type `chatFilter#9a7344af`.
-type ChatFilter struct {
-	// The title of the filter; 1-12 characters without line feeds
+// ChatFolder represents TL type `chatFolder#aa7d5740`.
+type ChatFolder struct {
+	// The title of the folder; 1-12 characters without line feeds
 	Title string
-	// The chosen icon name for short filter representation. If non-empty, must be one of
-	// "All", "Unread", "Unmuted", "Bots", "Channels", "Groups", "Private", "Custom", "Setup"
-	// "Cat", "Crown",
-	IconName string
-	// The chat identifiers of pinned chats in the filtered chat list. There can be up to
-	// getOption("chat_filter_chosen_chat_count_max") pinned and always included non-secret
+	// The chosen icon for the chat folder; may be null. If null, use
+	// getChatFolderDefaultIconName to get default icon name for the folder
+	Icon ChatFolderIcon
+	// True, if at least one link has been created for the folder
+	IsShareable bool
+	// The chat identifiers of pinned chats in the folder. There can be up to
+	// getOption("chat_folder_chosen_chat_count_max") pinned and always included non-secret
 	// chats and the same number of secret chats, but the limit can be increased with
 	// Telegram Premium
 	PinnedChatIDs []int64
-	// The chat identifiers of always included chats in the filtered chat list. There can be
-	// up to getOption("chat_filter_chosen_chat_count_max") pinned and always included
-	// non-secret chats and the same number of secret chats, but the limit can be increased
-	// with Telegram Premium
+	// The chat identifiers of always included chats in the folder. There can be up to
+	// getOption("chat_folder_chosen_chat_count_max") pinned and always included non-secret
+	// chats and the same number of secret chats, but the limit can be increased with
+	// Telegram Premium
 	IncludedChatIDs []int64
-	// The chat identifiers of always excluded chats in the filtered chat list. There can be
-	// up to getOption("chat_filter_chosen_chat_count_max") always excluded non-secret chats
-	// and the same number of secret chats, but the limit can be increased with Telegram
-	// Premium
+	// The chat identifiers of always excluded chats in the folder. There can be up to
+	// getOption("chat_folder_chosen_chat_count_max") always excluded non-secret chats and
+	// the same number of secret chats, but the limit can be increased with Telegram Premium
 	ExcludedChatIDs []int64
 	// True, if muted chats need to be excluded
 	ExcludeMuted bool
@@ -72,25 +72,28 @@ type ChatFilter struct {
 	IncludeChannels bool
 }
 
-// ChatFilterTypeID is TL type id of ChatFilter.
-const ChatFilterTypeID = 0x9a7344af
+// ChatFolderTypeID is TL type id of ChatFolder.
+const ChatFolderTypeID = 0xaa7d5740
 
-// Ensuring interfaces in compile-time for ChatFilter.
+// Ensuring interfaces in compile-time for ChatFolder.
 var (
-	_ bin.Encoder     = &ChatFilter{}
-	_ bin.Decoder     = &ChatFilter{}
-	_ bin.BareEncoder = &ChatFilter{}
-	_ bin.BareDecoder = &ChatFilter{}
+	_ bin.Encoder     = &ChatFolder{}
+	_ bin.Decoder     = &ChatFolder{}
+	_ bin.BareEncoder = &ChatFolder{}
+	_ bin.BareDecoder = &ChatFolder{}
 )
 
-func (c *ChatFilter) Zero() bool {
+func (c *ChatFolder) Zero() bool {
 	if c == nil {
 		return true
 	}
 	if !(c.Title == "") {
 		return false
 	}
-	if !(c.IconName == "") {
+	if !(c.Icon.Zero()) {
+		return false
+	}
+	if !(c.IsShareable == false) {
 		return false
 	}
 	if !(c.PinnedChatIDs == nil) {
@@ -131,31 +134,31 @@ func (c *ChatFilter) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (c *ChatFilter) String() string {
+func (c *ChatFolder) String() string {
 	if c == nil {
-		return "ChatFilter(nil)"
+		return "ChatFolder(nil)"
 	}
-	type Alias ChatFilter
-	return fmt.Sprintf("ChatFilter%+v", Alias(*c))
+	type Alias ChatFolder
+	return fmt.Sprintf("ChatFolder%+v", Alias(*c))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatFilter) TypeID() uint32 {
-	return ChatFilterTypeID
+func (*ChatFolder) TypeID() uint32 {
+	return ChatFolderTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*ChatFilter) TypeName() string {
-	return "chatFilter"
+func (*ChatFolder) TypeName() string {
+	return "chatFolder"
 }
 
 // TypeInfo returns info about TL type.
-func (c *ChatFilter) TypeInfo() tdp.Type {
+func (c *ChatFolder) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "chatFilter",
-		ID:   ChatFilterTypeID,
+		Name: "chatFolder",
+		ID:   ChatFolderTypeID,
 	}
 	if c == nil {
 		typ.Null = true
@@ -167,8 +170,12 @@ func (c *ChatFilter) TypeInfo() tdp.Type {
 			SchemaName: "title",
 		},
 		{
-			Name:       "IconName",
-			SchemaName: "icon_name",
+			Name:       "Icon",
+			SchemaName: "icon",
+		},
+		{
+			Name:       "IsShareable",
+			SchemaName: "is_shareable",
 		},
 		{
 			Name:       "PinnedChatIDs",
@@ -219,21 +226,24 @@ func (c *ChatFilter) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (c *ChatFilter) Encode(b *bin.Buffer) error {
+func (c *ChatFolder) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatFilter#9a7344af as nil")
+		return fmt.Errorf("can't encode chatFolder#aa7d5740 as nil")
 	}
-	b.PutID(ChatFilterTypeID)
+	b.PutID(ChatFolderTypeID)
 	return c.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (c *ChatFilter) EncodeBare(b *bin.Buffer) error {
+func (c *ChatFolder) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatFilter#9a7344af as nil")
+		return fmt.Errorf("can't encode chatFolder#aa7d5740 as nil")
 	}
 	b.PutString(c.Title)
-	b.PutString(c.IconName)
+	if err := c.Icon.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatFolder#aa7d5740: field icon: %w", err)
+	}
+	b.PutBool(c.IsShareable)
 	b.PutInt(len(c.PinnedChatIDs))
 	for _, v := range c.PinnedChatIDs {
 		b.PutInt53(v)
@@ -258,39 +268,44 @@ func (c *ChatFilter) EncodeBare(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (c *ChatFilter) Decode(b *bin.Buffer) error {
+func (c *ChatFolder) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatFilter#9a7344af to nil")
+		return fmt.Errorf("can't decode chatFolder#aa7d5740 to nil")
 	}
-	if err := b.ConsumeID(ChatFilterTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatFilter#9a7344af: %w", err)
+	if err := b.ConsumeID(ChatFolderTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatFolder#aa7d5740: %w", err)
 	}
 	return c.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (c *ChatFilter) DecodeBare(b *bin.Buffer) error {
+func (c *ChatFolder) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatFilter#9a7344af to nil")
+		return fmt.Errorf("can't decode chatFolder#aa7d5740 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFilter#9a7344af: field title: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field title: %w", err)
 		}
 		c.Title = value
 	}
 	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode chatFilter#9a7344af: field icon_name: %w", err)
+		if err := c.Icon.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field icon: %w", err)
 		}
-		c.IconName = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field is_shareable: %w", err)
+		}
+		c.IsShareable = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFilter#9a7344af: field pinned_chat_ids: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field pinned_chat_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -299,7 +314,7 @@ func (c *ChatFilter) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFilter#9a7344af: field pinned_chat_ids: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field pinned_chat_ids: %w", err)
 			}
 			c.PinnedChatIDs = append(c.PinnedChatIDs, value)
 		}
@@ -307,7 +322,7 @@ func (c *ChatFilter) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFilter#9a7344af: field included_chat_ids: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field included_chat_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -316,7 +331,7 @@ func (c *ChatFilter) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFilter#9a7344af: field included_chat_ids: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field included_chat_ids: %w", err)
 			}
 			c.IncludedChatIDs = append(c.IncludedChatIDs, value)
 		}
@@ -324,7 +339,7 @@ func (c *ChatFilter) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFilter#9a7344af: field excluded_chat_ids: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field excluded_chat_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -333,7 +348,7 @@ func (c *ChatFilter) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFilter#9a7344af: field excluded_chat_ids: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field excluded_chat_ids: %w", err)
 			}
 			c.ExcludedChatIDs = append(c.ExcludedChatIDs, value)
 		}
@@ -341,56 +356,56 @@ func (c *ChatFilter) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFilter#9a7344af: field exclude_muted: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field exclude_muted: %w", err)
 		}
 		c.ExcludeMuted = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFilter#9a7344af: field exclude_read: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field exclude_read: %w", err)
 		}
 		c.ExcludeRead = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFilter#9a7344af: field exclude_archived: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field exclude_archived: %w", err)
 		}
 		c.ExcludeArchived = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFilter#9a7344af: field include_contacts: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field include_contacts: %w", err)
 		}
 		c.IncludeContacts = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFilter#9a7344af: field include_non_contacts: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field include_non_contacts: %w", err)
 		}
 		c.IncludeNonContacts = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFilter#9a7344af: field include_bots: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field include_bots: %w", err)
 		}
 		c.IncludeBots = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFilter#9a7344af: field include_groups: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field include_groups: %w", err)
 		}
 		c.IncludeGroups = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatFilter#9a7344af: field include_channels: %w", err)
+			return fmt.Errorf("unable to decode chatFolder#aa7d5740: field include_channels: %w", err)
 		}
 		c.IncludeChannels = value
 	}
@@ -398,18 +413,23 @@ func (c *ChatFilter) DecodeBare(b *bin.Buffer) error {
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatFilter) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (c *ChatFolder) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatFilter#9a7344af as nil")
+		return fmt.Errorf("can't encode chatFolder#aa7d5740 as nil")
 	}
 	b.ObjStart()
-	b.PutID("chatFilter")
+	b.PutID("chatFolder")
 	b.Comma()
 	b.FieldStart("title")
 	b.PutString(c.Title)
 	b.Comma()
-	b.FieldStart("icon_name")
-	b.PutString(c.IconName)
+	b.FieldStart("icon")
+	if err := c.Icon.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatFolder#aa7d5740: field icon: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("is_shareable")
+	b.PutBool(c.IsShareable)
 	b.Comma()
 	b.FieldStart("pinned_chat_ids")
 	b.ArrStart()
@@ -468,108 +488,112 @@ func (c *ChatFilter) EncodeTDLibJSON(b tdjson.Encoder) error {
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatFilter) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (c *ChatFolder) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatFilter#9a7344af to nil")
+		return fmt.Errorf("can't decode chatFolder#aa7d5740 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("chatFilter"); err != nil {
-				return fmt.Errorf("unable to decode chatFilter#9a7344af: %w", err)
+			if err := b.ConsumeID("chatFolder"); err != nil {
+				return fmt.Errorf("unable to decode chatFolder#aa7d5740: %w", err)
 			}
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFilter#9a7344af: field title: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field title: %w", err)
 			}
 			c.Title = value
-		case "icon_name":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode chatFilter#9a7344af: field icon_name: %w", err)
+		case "icon":
+			if err := c.Icon.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field icon: %w", err)
 			}
-			c.IconName = value
+		case "is_shareable":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field is_shareable: %w", err)
+			}
+			c.IsShareable = value
 		case "pinned_chat_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int53()
 				if err != nil {
-					return fmt.Errorf("unable to decode chatFilter#9a7344af: field pinned_chat_ids: %w", err)
+					return fmt.Errorf("unable to decode chatFolder#aa7d5740: field pinned_chat_ids: %w", err)
 				}
 				c.PinnedChatIDs = append(c.PinnedChatIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode chatFilter#9a7344af: field pinned_chat_ids: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field pinned_chat_ids: %w", err)
 			}
 		case "included_chat_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int53()
 				if err != nil {
-					return fmt.Errorf("unable to decode chatFilter#9a7344af: field included_chat_ids: %w", err)
+					return fmt.Errorf("unable to decode chatFolder#aa7d5740: field included_chat_ids: %w", err)
 				}
 				c.IncludedChatIDs = append(c.IncludedChatIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode chatFilter#9a7344af: field included_chat_ids: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field included_chat_ids: %w", err)
 			}
 		case "excluded_chat_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int53()
 				if err != nil {
-					return fmt.Errorf("unable to decode chatFilter#9a7344af: field excluded_chat_ids: %w", err)
+					return fmt.Errorf("unable to decode chatFolder#aa7d5740: field excluded_chat_ids: %w", err)
 				}
 				c.ExcludedChatIDs = append(c.ExcludedChatIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode chatFilter#9a7344af: field excluded_chat_ids: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field excluded_chat_ids: %w", err)
 			}
 		case "exclude_muted":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFilter#9a7344af: field exclude_muted: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field exclude_muted: %w", err)
 			}
 			c.ExcludeMuted = value
 		case "exclude_read":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFilter#9a7344af: field exclude_read: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field exclude_read: %w", err)
 			}
 			c.ExcludeRead = value
 		case "exclude_archived":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFilter#9a7344af: field exclude_archived: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field exclude_archived: %w", err)
 			}
 			c.ExcludeArchived = value
 		case "include_contacts":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFilter#9a7344af: field include_contacts: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field include_contacts: %w", err)
 			}
 			c.IncludeContacts = value
 		case "include_non_contacts":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFilter#9a7344af: field include_non_contacts: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field include_non_contacts: %w", err)
 			}
 			c.IncludeNonContacts = value
 		case "include_bots":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFilter#9a7344af: field include_bots: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field include_bots: %w", err)
 			}
 			c.IncludeBots = value
 		case "include_groups":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFilter#9a7344af: field include_groups: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field include_groups: %w", err)
 			}
 			c.IncludeGroups = value
 		case "include_channels":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatFilter#9a7344af: field include_channels: %w", err)
+				return fmt.Errorf("unable to decode chatFolder#aa7d5740: field include_channels: %w", err)
 			}
 			c.IncludeChannels = value
 		default:
@@ -580,23 +604,31 @@ func (c *ChatFilter) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetTitle returns value of Title field.
-func (c *ChatFilter) GetTitle() (value string) {
+func (c *ChatFolder) GetTitle() (value string) {
 	if c == nil {
 		return
 	}
 	return c.Title
 }
 
-// GetIconName returns value of IconName field.
-func (c *ChatFilter) GetIconName() (value string) {
+// GetIcon returns value of Icon field.
+func (c *ChatFolder) GetIcon() (value ChatFolderIcon) {
 	if c == nil {
 		return
 	}
-	return c.IconName
+	return c.Icon
+}
+
+// GetIsShareable returns value of IsShareable field.
+func (c *ChatFolder) GetIsShareable() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.IsShareable
 }
 
 // GetPinnedChatIDs returns value of PinnedChatIDs field.
-func (c *ChatFilter) GetPinnedChatIDs() (value []int64) {
+func (c *ChatFolder) GetPinnedChatIDs() (value []int64) {
 	if c == nil {
 		return
 	}
@@ -604,7 +636,7 @@ func (c *ChatFilter) GetPinnedChatIDs() (value []int64) {
 }
 
 // GetIncludedChatIDs returns value of IncludedChatIDs field.
-func (c *ChatFilter) GetIncludedChatIDs() (value []int64) {
+func (c *ChatFolder) GetIncludedChatIDs() (value []int64) {
 	if c == nil {
 		return
 	}
@@ -612,7 +644,7 @@ func (c *ChatFilter) GetIncludedChatIDs() (value []int64) {
 }
 
 // GetExcludedChatIDs returns value of ExcludedChatIDs field.
-func (c *ChatFilter) GetExcludedChatIDs() (value []int64) {
+func (c *ChatFolder) GetExcludedChatIDs() (value []int64) {
 	if c == nil {
 		return
 	}
@@ -620,7 +652,7 @@ func (c *ChatFilter) GetExcludedChatIDs() (value []int64) {
 }
 
 // GetExcludeMuted returns value of ExcludeMuted field.
-func (c *ChatFilter) GetExcludeMuted() (value bool) {
+func (c *ChatFolder) GetExcludeMuted() (value bool) {
 	if c == nil {
 		return
 	}
@@ -628,7 +660,7 @@ func (c *ChatFilter) GetExcludeMuted() (value bool) {
 }
 
 // GetExcludeRead returns value of ExcludeRead field.
-func (c *ChatFilter) GetExcludeRead() (value bool) {
+func (c *ChatFolder) GetExcludeRead() (value bool) {
 	if c == nil {
 		return
 	}
@@ -636,7 +668,7 @@ func (c *ChatFilter) GetExcludeRead() (value bool) {
 }
 
 // GetExcludeArchived returns value of ExcludeArchived field.
-func (c *ChatFilter) GetExcludeArchived() (value bool) {
+func (c *ChatFolder) GetExcludeArchived() (value bool) {
 	if c == nil {
 		return
 	}
@@ -644,7 +676,7 @@ func (c *ChatFilter) GetExcludeArchived() (value bool) {
 }
 
 // GetIncludeContacts returns value of IncludeContacts field.
-func (c *ChatFilter) GetIncludeContacts() (value bool) {
+func (c *ChatFolder) GetIncludeContacts() (value bool) {
 	if c == nil {
 		return
 	}
@@ -652,7 +684,7 @@ func (c *ChatFilter) GetIncludeContacts() (value bool) {
 }
 
 // GetIncludeNonContacts returns value of IncludeNonContacts field.
-func (c *ChatFilter) GetIncludeNonContacts() (value bool) {
+func (c *ChatFolder) GetIncludeNonContacts() (value bool) {
 	if c == nil {
 		return
 	}
@@ -660,7 +692,7 @@ func (c *ChatFilter) GetIncludeNonContacts() (value bool) {
 }
 
 // GetIncludeBots returns value of IncludeBots field.
-func (c *ChatFilter) GetIncludeBots() (value bool) {
+func (c *ChatFolder) GetIncludeBots() (value bool) {
 	if c == nil {
 		return
 	}
@@ -668,7 +700,7 @@ func (c *ChatFilter) GetIncludeBots() (value bool) {
 }
 
 // GetIncludeGroups returns value of IncludeGroups field.
-func (c *ChatFilter) GetIncludeGroups() (value bool) {
+func (c *ChatFolder) GetIncludeGroups() (value bool) {
 	if c == nil {
 		return
 	}
@@ -676,7 +708,7 @@ func (c *ChatFilter) GetIncludeGroups() (value bool) {
 }
 
 // GetIncludeChannels returns value of IncludeChannels field.
-func (c *ChatFilter) GetIncludeChannels() (value bool) {
+func (c *ChatFolder) GetIncludeChannels() (value bool) {
 	if c == nil {
 		return
 	}

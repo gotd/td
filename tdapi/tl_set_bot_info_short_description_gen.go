@@ -31,8 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SetBotInfoShortDescriptionRequest represents TL type `setBotInfoShortDescription#7dbe7337`.
+// SetBotInfoShortDescriptionRequest represents TL type `setBotInfoShortDescription#3a96bae3`.
 type SetBotInfoShortDescriptionRequest struct {
+	// Identifier of the target bot
+	BotUserID int64
 	// A two-letter ISO 639-1 language code. If empty, the short description will be shown to
 	// all users, for which language there are no dedicated description
 	LanguageCode string
@@ -41,7 +43,7 @@ type SetBotInfoShortDescriptionRequest struct {
 }
 
 // SetBotInfoShortDescriptionRequestTypeID is TL type id of SetBotInfoShortDescriptionRequest.
-const SetBotInfoShortDescriptionRequestTypeID = 0x7dbe7337
+const SetBotInfoShortDescriptionRequestTypeID = 0x3a96bae3
 
 // Ensuring interfaces in compile-time for SetBotInfoShortDescriptionRequest.
 var (
@@ -54,6 +56,9 @@ var (
 func (s *SetBotInfoShortDescriptionRequest) Zero() bool {
 	if s == nil {
 		return true
+	}
+	if !(s.BotUserID == 0) {
+		return false
 	}
 	if !(s.LanguageCode == "") {
 		return false
@@ -98,6 +103,10 @@ func (s *SetBotInfoShortDescriptionRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "BotUserID",
+			SchemaName: "bot_user_id",
+		},
+		{
 			Name:       "LanguageCode",
 			SchemaName: "language_code",
 		},
@@ -112,7 +121,7 @@ func (s *SetBotInfoShortDescriptionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SetBotInfoShortDescriptionRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setBotInfoShortDescription#7dbe7337 as nil")
+		return fmt.Errorf("can't encode setBotInfoShortDescription#3a96bae3 as nil")
 	}
 	b.PutID(SetBotInfoShortDescriptionRequestTypeID)
 	return s.EncodeBare(b)
@@ -121,8 +130,9 @@ func (s *SetBotInfoShortDescriptionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SetBotInfoShortDescriptionRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setBotInfoShortDescription#7dbe7337 as nil")
+		return fmt.Errorf("can't encode setBotInfoShortDescription#3a96bae3 as nil")
 	}
+	b.PutInt53(s.BotUserID)
 	b.PutString(s.LanguageCode)
 	b.PutString(s.ShortDescription)
 	return nil
@@ -131,10 +141,10 @@ func (s *SetBotInfoShortDescriptionRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SetBotInfoShortDescriptionRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setBotInfoShortDescription#7dbe7337 to nil")
+		return fmt.Errorf("can't decode setBotInfoShortDescription#3a96bae3 to nil")
 	}
 	if err := b.ConsumeID(SetBotInfoShortDescriptionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode setBotInfoShortDescription#7dbe7337: %w", err)
+		return fmt.Errorf("unable to decode setBotInfoShortDescription#3a96bae3: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -142,19 +152,26 @@ func (s *SetBotInfoShortDescriptionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SetBotInfoShortDescriptionRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setBotInfoShortDescription#7dbe7337 to nil")
+		return fmt.Errorf("can't decode setBotInfoShortDescription#3a96bae3 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode setBotInfoShortDescription#3a96bae3: field bot_user_id: %w", err)
+		}
+		s.BotUserID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode setBotInfoShortDescription#7dbe7337: field language_code: %w", err)
+			return fmt.Errorf("unable to decode setBotInfoShortDescription#3a96bae3: field language_code: %w", err)
 		}
 		s.LanguageCode = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode setBotInfoShortDescription#7dbe7337: field short_description: %w", err)
+			return fmt.Errorf("unable to decode setBotInfoShortDescription#3a96bae3: field short_description: %w", err)
 		}
 		s.ShortDescription = value
 	}
@@ -164,10 +181,13 @@ func (s *SetBotInfoShortDescriptionRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SetBotInfoShortDescriptionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setBotInfoShortDescription#7dbe7337 as nil")
+		return fmt.Errorf("can't encode setBotInfoShortDescription#3a96bae3 as nil")
 	}
 	b.ObjStart()
 	b.PutID("setBotInfoShortDescription")
+	b.Comma()
+	b.FieldStart("bot_user_id")
+	b.PutInt53(s.BotUserID)
 	b.Comma()
 	b.FieldStart("language_code")
 	b.PutString(s.LanguageCode)
@@ -183,25 +203,31 @@ func (s *SetBotInfoShortDescriptionRequest) EncodeTDLibJSON(b tdjson.Encoder) er
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SetBotInfoShortDescriptionRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setBotInfoShortDescription#7dbe7337 to nil")
+		return fmt.Errorf("can't decode setBotInfoShortDescription#3a96bae3 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("setBotInfoShortDescription"); err != nil {
-				return fmt.Errorf("unable to decode setBotInfoShortDescription#7dbe7337: %w", err)
+				return fmt.Errorf("unable to decode setBotInfoShortDescription#3a96bae3: %w", err)
 			}
+		case "bot_user_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode setBotInfoShortDescription#3a96bae3: field bot_user_id: %w", err)
+			}
+			s.BotUserID = value
 		case "language_code":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode setBotInfoShortDescription#7dbe7337: field language_code: %w", err)
+				return fmt.Errorf("unable to decode setBotInfoShortDescription#3a96bae3: field language_code: %w", err)
 			}
 			s.LanguageCode = value
 		case "short_description":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode setBotInfoShortDescription#7dbe7337: field short_description: %w", err)
+				return fmt.Errorf("unable to decode setBotInfoShortDescription#3a96bae3: field short_description: %w", err)
 			}
 			s.ShortDescription = value
 		default:
@@ -209,6 +235,14 @@ func (s *SetBotInfoShortDescriptionRequest) DecodeTDLibJSON(b tdjson.Decoder) er
 		}
 		return nil
 	})
+}
+
+// GetBotUserID returns value of BotUserID field.
+func (s *SetBotInfoShortDescriptionRequest) GetBotUserID() (value int64) {
+	if s == nil {
+		return
+	}
+	return s.BotUserID
 }
 
 // GetLanguageCode returns value of LanguageCode field.
@@ -227,7 +261,7 @@ func (s *SetBotInfoShortDescriptionRequest) GetShortDescription() (value string)
 	return s.ShortDescription
 }
 
-// SetBotInfoShortDescription invokes method setBotInfoShortDescription#7dbe7337 returning error if any.
+// SetBotInfoShortDescription invokes method setBotInfoShortDescription#3a96bae3 returning error if any.
 func (c *Client) SetBotInfoShortDescription(ctx context.Context, request *SetBotInfoShortDescriptionRequest) error {
 	var ok Ok
 

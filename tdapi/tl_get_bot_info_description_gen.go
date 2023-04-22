@@ -31,14 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetBotInfoDescriptionRequest represents TL type `getBotInfoDescription#39fe38b4`.
+// GetBotInfoDescriptionRequest represents TL type `getBotInfoDescription#d287f835`.
 type GetBotInfoDescriptionRequest struct {
+	// Identifier of the target bot
+	BotUserID int64
 	// A two-letter ISO 639-1 language code or an empty string
 	LanguageCode string
 }
 
 // GetBotInfoDescriptionRequestTypeID is TL type id of GetBotInfoDescriptionRequest.
-const GetBotInfoDescriptionRequestTypeID = 0x39fe38b4
+const GetBotInfoDescriptionRequestTypeID = 0xd287f835
 
 // Ensuring interfaces in compile-time for GetBotInfoDescriptionRequest.
 var (
@@ -51,6 +53,9 @@ var (
 func (g *GetBotInfoDescriptionRequest) Zero() bool {
 	if g == nil {
 		return true
+	}
+	if !(g.BotUserID == 0) {
+		return false
 	}
 	if !(g.LanguageCode == "") {
 		return false
@@ -92,6 +97,10 @@ func (g *GetBotInfoDescriptionRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "BotUserID",
+			SchemaName: "bot_user_id",
+		},
+		{
 			Name:       "LanguageCode",
 			SchemaName: "language_code",
 		},
@@ -102,7 +111,7 @@ func (g *GetBotInfoDescriptionRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetBotInfoDescriptionRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getBotInfoDescription#39fe38b4 as nil")
+		return fmt.Errorf("can't encode getBotInfoDescription#d287f835 as nil")
 	}
 	b.PutID(GetBotInfoDescriptionRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,8 +120,9 @@ func (g *GetBotInfoDescriptionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetBotInfoDescriptionRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getBotInfoDescription#39fe38b4 as nil")
+		return fmt.Errorf("can't encode getBotInfoDescription#d287f835 as nil")
 	}
+	b.PutInt53(g.BotUserID)
 	b.PutString(g.LanguageCode)
 	return nil
 }
@@ -120,10 +130,10 @@ func (g *GetBotInfoDescriptionRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetBotInfoDescriptionRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getBotInfoDescription#39fe38b4 to nil")
+		return fmt.Errorf("can't decode getBotInfoDescription#d287f835 to nil")
 	}
 	if err := b.ConsumeID(GetBotInfoDescriptionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getBotInfoDescription#39fe38b4: %w", err)
+		return fmt.Errorf("unable to decode getBotInfoDescription#d287f835: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -131,12 +141,19 @@ func (g *GetBotInfoDescriptionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetBotInfoDescriptionRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getBotInfoDescription#39fe38b4 to nil")
+		return fmt.Errorf("can't decode getBotInfoDescription#d287f835 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode getBotInfoDescription#d287f835: field bot_user_id: %w", err)
+		}
+		g.BotUserID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode getBotInfoDescription#39fe38b4: field language_code: %w", err)
+			return fmt.Errorf("unable to decode getBotInfoDescription#d287f835: field language_code: %w", err)
 		}
 		g.LanguageCode = value
 	}
@@ -146,10 +163,13 @@ func (g *GetBotInfoDescriptionRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetBotInfoDescriptionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getBotInfoDescription#39fe38b4 as nil")
+		return fmt.Errorf("can't encode getBotInfoDescription#d287f835 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getBotInfoDescription")
+	b.Comma()
+	b.FieldStart("bot_user_id")
+	b.PutInt53(g.BotUserID)
 	b.Comma()
 	b.FieldStart("language_code")
 	b.PutString(g.LanguageCode)
@@ -162,19 +182,25 @@ func (g *GetBotInfoDescriptionRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetBotInfoDescriptionRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getBotInfoDescription#39fe38b4 to nil")
+		return fmt.Errorf("can't decode getBotInfoDescription#d287f835 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getBotInfoDescription"); err != nil {
-				return fmt.Errorf("unable to decode getBotInfoDescription#39fe38b4: %w", err)
+				return fmt.Errorf("unable to decode getBotInfoDescription#d287f835: %w", err)
 			}
+		case "bot_user_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode getBotInfoDescription#d287f835: field bot_user_id: %w", err)
+			}
+			g.BotUserID = value
 		case "language_code":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode getBotInfoDescription#39fe38b4: field language_code: %w", err)
+				return fmt.Errorf("unable to decode getBotInfoDescription#d287f835: field language_code: %w", err)
 			}
 			g.LanguageCode = value
 		default:
@@ -182,6 +208,14 @@ func (g *GetBotInfoDescriptionRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 		}
 		return nil
 	})
+}
+
+// GetBotUserID returns value of BotUserID field.
+func (g *GetBotInfoDescriptionRequest) GetBotUserID() (value int64) {
+	if g == nil {
+		return
+	}
+	return g.BotUserID
 }
 
 // GetLanguageCode returns value of LanguageCode field.
@@ -192,13 +226,10 @@ func (g *GetBotInfoDescriptionRequest) GetLanguageCode() (value string) {
 	return g.LanguageCode
 }
 
-// GetBotInfoDescription invokes method getBotInfoDescription#39fe38b4 returning error if any.
-func (c *Client) GetBotInfoDescription(ctx context.Context, languagecode string) (*Text, error) {
+// GetBotInfoDescription invokes method getBotInfoDescription#d287f835 returning error if any.
+func (c *Client) GetBotInfoDescription(ctx context.Context, request *GetBotInfoDescriptionRequest) (*Text, error) {
 	var result Text
 
-	request := &GetBotInfoDescriptionRequest{
-		LanguageCode: languagecode,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

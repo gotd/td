@@ -374,6 +374,172 @@ func (i *InputBackgroundRemote) GetBackgroundID() (value int64) {
 	return i.BackgroundID
 }
 
+// InputBackgroundPrevious represents TL type `inputBackgroundPrevious#eb06575e`.
+type InputBackgroundPrevious struct {
+	// Identifier of the message with the background
+	MessageID int64
+}
+
+// InputBackgroundPreviousTypeID is TL type id of InputBackgroundPrevious.
+const InputBackgroundPreviousTypeID = 0xeb06575e
+
+// construct implements constructor of InputBackgroundClass.
+func (i InputBackgroundPrevious) construct() InputBackgroundClass { return &i }
+
+// Ensuring interfaces in compile-time for InputBackgroundPrevious.
+var (
+	_ bin.Encoder     = &InputBackgroundPrevious{}
+	_ bin.Decoder     = &InputBackgroundPrevious{}
+	_ bin.BareEncoder = &InputBackgroundPrevious{}
+	_ bin.BareDecoder = &InputBackgroundPrevious{}
+
+	_ InputBackgroundClass = &InputBackgroundPrevious{}
+)
+
+func (i *InputBackgroundPrevious) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.MessageID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputBackgroundPrevious) String() string {
+	if i == nil {
+		return "InputBackgroundPrevious(nil)"
+	}
+	type Alias InputBackgroundPrevious
+	return fmt.Sprintf("InputBackgroundPrevious%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputBackgroundPrevious) TypeID() uint32 {
+	return InputBackgroundPreviousTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputBackgroundPrevious) TypeName() string {
+	return "inputBackgroundPrevious"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputBackgroundPrevious) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputBackgroundPrevious",
+		ID:   InputBackgroundPreviousTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MessageID",
+			SchemaName: "message_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputBackgroundPrevious) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputBackgroundPrevious#eb06575e as nil")
+	}
+	b.PutID(InputBackgroundPreviousTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputBackgroundPrevious) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputBackgroundPrevious#eb06575e as nil")
+	}
+	b.PutInt53(i.MessageID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputBackgroundPrevious) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputBackgroundPrevious#eb06575e to nil")
+	}
+	if err := b.ConsumeID(InputBackgroundPreviousTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputBackgroundPrevious#eb06575e: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputBackgroundPrevious) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputBackgroundPrevious#eb06575e to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputBackgroundPrevious#eb06575e: field message_id: %w", err)
+		}
+		i.MessageID = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputBackgroundPrevious) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputBackgroundPrevious#eb06575e as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputBackgroundPrevious")
+	b.Comma()
+	b.FieldStart("message_id")
+	b.PutInt53(i.MessageID)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputBackgroundPrevious) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputBackgroundPrevious#eb06575e to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("inputBackgroundPrevious"); err != nil {
+				return fmt.Errorf("unable to decode inputBackgroundPrevious#eb06575e: %w", err)
+			}
+		case "message_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputBackgroundPrevious#eb06575e: field message_id: %w", err)
+			}
+			i.MessageID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetMessageID returns value of MessageID field.
+func (i *InputBackgroundPrevious) GetMessageID() (value int64) {
+	if i == nil {
+		return
+	}
+	return i.MessageID
+}
+
 // InputBackgroundClassName is schema name of InputBackgroundClass.
 const InputBackgroundClassName = "InputBackground"
 
@@ -388,6 +554,7 @@ const InputBackgroundClassName = "InputBackground"
 //	switch v := g.(type) {
 //	case *tdapi.InputBackgroundLocal: // inputBackgroundLocal#97dd74a4
 //	case *tdapi.InputBackgroundRemote: // inputBackgroundRemote#ef9c3219
+//	case *tdapi.InputBackgroundPrevious: // inputBackgroundPrevious#eb06575e
 //	default: panic(v)
 //	}
 type InputBackgroundClass interface {
@@ -433,6 +600,13 @@ func DecodeInputBackground(buf *bin.Buffer) (InputBackgroundClass, error) {
 			return nil, fmt.Errorf("unable to decode InputBackgroundClass: %w", err)
 		}
 		return &v, nil
+	case InputBackgroundPreviousTypeID:
+		// Decoding inputBackgroundPrevious#eb06575e.
+		v := InputBackgroundPrevious{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputBackgroundClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode InputBackgroundClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -455,6 +629,13 @@ func DecodeTDLibJSONInputBackground(buf tdjson.Decoder) (InputBackgroundClass, e
 	case "inputBackgroundRemote":
 		// Decoding inputBackgroundRemote#ef9c3219.
 		v := InputBackgroundRemote{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputBackgroundClass: %w", err)
+		}
+		return &v, nil
+	case "inputBackgroundPrevious":
+		// Decoding inputBackgroundPrevious#eb06575e.
+		v := InputBackgroundPrevious{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputBackgroundClass: %w", err)
 		}

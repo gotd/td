@@ -6317,6 +6317,206 @@ func (u *UpdateChatReplyMarkup) GetReplyMarkupMessageID() (value int64) {
 	return u.ReplyMarkupMessageID
 }
 
+// UpdateChatBackground represents TL type `updateChatBackground#ff9d38b3`.
+type UpdateChatBackground struct {
+	// Chat identifier
+	ChatID int64
+	// The new chat background; may be null if background was reset to default
+	Background ChatBackground
+}
+
+// UpdateChatBackgroundTypeID is TL type id of UpdateChatBackground.
+const UpdateChatBackgroundTypeID = 0xff9d38b3
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatBackground) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatBackground.
+var (
+	_ bin.Encoder     = &UpdateChatBackground{}
+	_ bin.Decoder     = &UpdateChatBackground{}
+	_ bin.BareEncoder = &UpdateChatBackground{}
+	_ bin.BareDecoder = &UpdateChatBackground{}
+
+	_ UpdateClass = &UpdateChatBackground{}
+)
+
+func (u *UpdateChatBackground) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.Background.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatBackground) String() string {
+	if u == nil {
+		return "UpdateChatBackground(nil)"
+	}
+	type Alias UpdateChatBackground
+	return fmt.Sprintf("UpdateChatBackground%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatBackground) TypeID() uint32 {
+	return UpdateChatBackgroundTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatBackground) TypeName() string {
+	return "updateChatBackground"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatBackground) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatBackground",
+		ID:   UpdateChatBackgroundTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "Background",
+			SchemaName: "background",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatBackground) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatBackground#ff9d38b3 as nil")
+	}
+	b.PutID(UpdateChatBackgroundTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatBackground) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatBackground#ff9d38b3 as nil")
+	}
+	b.PutInt53(u.ChatID)
+	if err := u.Background.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatBackground#ff9d38b3: field background: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatBackground) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatBackground#ff9d38b3 to nil")
+	}
+	if err := b.ConsumeID(UpdateChatBackgroundTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatBackground#ff9d38b3: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatBackground) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatBackground#ff9d38b3 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatBackground#ff9d38b3: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		if err := u.Background.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateChatBackground#ff9d38b3: field background: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatBackground) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatBackground#ff9d38b3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateChatBackground")
+	b.Comma()
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.Comma()
+	b.FieldStart("background")
+	if err := u.Background.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatBackground#ff9d38b3: field background: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatBackground) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatBackground#ff9d38b3 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateChatBackground"); err != nil {
+				return fmt.Errorf("unable to decode updateChatBackground#ff9d38b3: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatBackground#ff9d38b3: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "background":
+			if err := u.Background.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateChatBackground#ff9d38b3: field background: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatBackground) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetBackground returns value of Background field.
+func (u *UpdateChatBackground) GetBackground() (value ChatBackground) {
+	if u == nil {
+		return
+	}
+	return u.Background
+}
+
 // UpdateChatTheme represents TL type `updateChatTheme#31f3d465`.
 type UpdateChatTheme struct {
 	// Chat identifier
@@ -8317,35 +8517,35 @@ func (u *UpdateChatHasScheduledMessages) GetHasScheduledMessages() (value bool) 
 	return u.HasScheduledMessages
 }
 
-// UpdateChatFilters represents TL type `updateChatFilters#a00973c1`.
-type UpdateChatFilters struct {
-	// The new list of chat filters
-	ChatFilters []ChatFilterInfo
-	// Position of the main chat list among chat filters, 0-based
+// UpdateChatFolders represents TL type `updateChatFolders#71a4b3a`.
+type UpdateChatFolders struct {
+	// The new list of chat folders
+	ChatFolders []ChatFolderInfo
+	// Position of the main chat list among chat folders, 0-based
 	MainChatListPosition int32
 }
 
-// UpdateChatFiltersTypeID is TL type id of UpdateChatFilters.
-const UpdateChatFiltersTypeID = 0xa00973c1
+// UpdateChatFoldersTypeID is TL type id of UpdateChatFolders.
+const UpdateChatFoldersTypeID = 0x71a4b3a
 
 // construct implements constructor of UpdateClass.
-func (u UpdateChatFilters) construct() UpdateClass { return &u }
+func (u UpdateChatFolders) construct() UpdateClass { return &u }
 
-// Ensuring interfaces in compile-time for UpdateChatFilters.
+// Ensuring interfaces in compile-time for UpdateChatFolders.
 var (
-	_ bin.Encoder     = &UpdateChatFilters{}
-	_ bin.Decoder     = &UpdateChatFilters{}
-	_ bin.BareEncoder = &UpdateChatFilters{}
-	_ bin.BareDecoder = &UpdateChatFilters{}
+	_ bin.Encoder     = &UpdateChatFolders{}
+	_ bin.Decoder     = &UpdateChatFolders{}
+	_ bin.BareEncoder = &UpdateChatFolders{}
+	_ bin.BareDecoder = &UpdateChatFolders{}
 
-	_ UpdateClass = &UpdateChatFilters{}
+	_ UpdateClass = &UpdateChatFolders{}
 )
 
-func (u *UpdateChatFilters) Zero() bool {
+func (u *UpdateChatFolders) Zero() bool {
 	if u == nil {
 		return true
 	}
-	if !(u.ChatFilters == nil) {
+	if !(u.ChatFolders == nil) {
 		return false
 	}
 	if !(u.MainChatListPosition == 0) {
@@ -8356,31 +8556,31 @@ func (u *UpdateChatFilters) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (u *UpdateChatFilters) String() string {
+func (u *UpdateChatFolders) String() string {
 	if u == nil {
-		return "UpdateChatFilters(nil)"
+		return "UpdateChatFolders(nil)"
 	}
-	type Alias UpdateChatFilters
-	return fmt.Sprintf("UpdateChatFilters%+v", Alias(*u))
+	type Alias UpdateChatFolders
+	return fmt.Sprintf("UpdateChatFolders%+v", Alias(*u))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateChatFilters) TypeID() uint32 {
-	return UpdateChatFiltersTypeID
+func (*UpdateChatFolders) TypeID() uint32 {
+	return UpdateChatFoldersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*UpdateChatFilters) TypeName() string {
-	return "updateChatFilters"
+func (*UpdateChatFolders) TypeName() string {
+	return "updateChatFolders"
 }
 
 // TypeInfo returns info about TL type.
-func (u *UpdateChatFilters) TypeInfo() tdp.Type {
+func (u *UpdateChatFolders) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "updateChatFilters",
-		ID:   UpdateChatFiltersTypeID,
+		Name: "updateChatFolders",
+		ID:   UpdateChatFoldersTypeID,
 	}
 	if u == nil {
 		typ.Null = true
@@ -8388,8 +8588,8 @@ func (u *UpdateChatFilters) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "ChatFilters",
-			SchemaName: "chat_filters",
+			Name:       "ChatFolders",
+			SchemaName: "chat_folders",
 		},
 		{
 			Name:       "MainChatListPosition",
@@ -8400,23 +8600,23 @@ func (u *UpdateChatFilters) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (u *UpdateChatFilters) Encode(b *bin.Buffer) error {
+func (u *UpdateChatFolders) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatFilters#a00973c1 as nil")
+		return fmt.Errorf("can't encode updateChatFolders#71a4b3a as nil")
 	}
-	b.PutID(UpdateChatFiltersTypeID)
+	b.PutID(UpdateChatFoldersTypeID)
 	return u.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (u *UpdateChatFilters) EncodeBare(b *bin.Buffer) error {
+func (u *UpdateChatFolders) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatFilters#a00973c1 as nil")
+		return fmt.Errorf("can't encode updateChatFolders#71a4b3a as nil")
 	}
-	b.PutInt(len(u.ChatFilters))
-	for idx, v := range u.ChatFilters {
+	b.PutInt(len(u.ChatFolders))
+	for idx, v := range u.ChatFolders {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare updateChatFilters#a00973c1: field chat_filters element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare updateChatFolders#71a4b3a: field chat_folders element with index %d: %w", idx, err)
 		}
 	}
 	b.PutInt32(u.MainChatListPosition)
@@ -8424,42 +8624,42 @@ func (u *UpdateChatFilters) EncodeBare(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (u *UpdateChatFilters) Decode(b *bin.Buffer) error {
+func (u *UpdateChatFolders) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatFilters#a00973c1 to nil")
+		return fmt.Errorf("can't decode updateChatFolders#71a4b3a to nil")
 	}
-	if err := b.ConsumeID(UpdateChatFiltersTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatFilters#a00973c1: %w", err)
+	if err := b.ConsumeID(UpdateChatFoldersTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatFolders#71a4b3a: %w", err)
 	}
 	return u.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (u *UpdateChatFilters) DecodeBare(b *bin.Buffer) error {
+func (u *UpdateChatFolders) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatFilters#a00973c1 to nil")
+		return fmt.Errorf("can't decode updateChatFolders#71a4b3a to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChatFilters#a00973c1: field chat_filters: %w", err)
+			return fmt.Errorf("unable to decode updateChatFolders#71a4b3a: field chat_folders: %w", err)
 		}
 
 		if headerLen > 0 {
-			u.ChatFilters = make([]ChatFilterInfo, 0, headerLen%bin.PreallocateLimit)
+			u.ChatFolders = make([]ChatFolderInfo, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value ChatFilterInfo
+			var value ChatFolderInfo
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare updateChatFilters#a00973c1: field chat_filters: %w", err)
+				return fmt.Errorf("unable to decode bare updateChatFolders#71a4b3a: field chat_folders: %w", err)
 			}
-			u.ChatFilters = append(u.ChatFilters, value)
+			u.ChatFolders = append(u.ChatFolders, value)
 		}
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChatFilters#a00973c1: field main_chat_list_position: %w", err)
+			return fmt.Errorf("unable to decode updateChatFolders#71a4b3a: field main_chat_list_position: %w", err)
 		}
 		u.MainChatListPosition = value
 	}
@@ -8467,18 +8667,18 @@ func (u *UpdateChatFilters) DecodeBare(b *bin.Buffer) error {
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (u *UpdateChatFilters) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (u *UpdateChatFolders) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatFilters#a00973c1 as nil")
+		return fmt.Errorf("can't encode updateChatFolders#71a4b3a as nil")
 	}
 	b.ObjStart()
-	b.PutID("updateChatFilters")
+	b.PutID("updateChatFolders")
 	b.Comma()
-	b.FieldStart("chat_filters")
+	b.FieldStart("chat_folders")
 	b.ArrStart()
-	for idx, v := range u.ChatFilters {
+	for idx, v := range u.ChatFolders {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode updateChatFilters#a00973c1: field chat_filters element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode updateChatFolders#71a4b3a: field chat_folders element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -8494,32 +8694,32 @@ func (u *UpdateChatFilters) EncodeTDLibJSON(b tdjson.Encoder) error {
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (u *UpdateChatFilters) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (u *UpdateChatFolders) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatFilters#a00973c1 to nil")
+		return fmt.Errorf("can't decode updateChatFolders#71a4b3a to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("updateChatFilters"); err != nil {
-				return fmt.Errorf("unable to decode updateChatFilters#a00973c1: %w", err)
+			if err := b.ConsumeID("updateChatFolders"); err != nil {
+				return fmt.Errorf("unable to decode updateChatFolders#71a4b3a: %w", err)
 			}
-		case "chat_filters":
+		case "chat_folders":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				var value ChatFilterInfo
+				var value ChatFolderInfo
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode updateChatFilters#a00973c1: field chat_filters: %w", err)
+					return fmt.Errorf("unable to decode updateChatFolders#71a4b3a: field chat_folders: %w", err)
 				}
-				u.ChatFilters = append(u.ChatFilters, value)
+				u.ChatFolders = append(u.ChatFolders, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode updateChatFilters#a00973c1: field chat_filters: %w", err)
+				return fmt.Errorf("unable to decode updateChatFolders#71a4b3a: field chat_folders: %w", err)
 			}
 		case "main_chat_list_position":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateChatFilters#a00973c1: field main_chat_list_position: %w", err)
+				return fmt.Errorf("unable to decode updateChatFolders#71a4b3a: field main_chat_list_position: %w", err)
 			}
 			u.MainChatListPosition = value
 		default:
@@ -8529,16 +8729,16 @@ func (u *UpdateChatFilters) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetChatFilters returns value of ChatFilters field.
-func (u *UpdateChatFilters) GetChatFilters() (value []ChatFilterInfo) {
+// GetChatFolders returns value of ChatFolders field.
+func (u *UpdateChatFolders) GetChatFolders() (value []ChatFolderInfo) {
 	if u == nil {
 		return
 	}
-	return u.ChatFilters
+	return u.ChatFolders
 }
 
 // GetMainChatListPosition returns value of MainChatListPosition field.
-func (u *UpdateChatFilters) GetMainChatListPosition() (value int32) {
+func (u *UpdateChatFolders) GetMainChatListPosition() (value int32) {
 	if u == nil {
 		return
 	}
@@ -23209,7 +23409,7 @@ func (u *UpdatePollAnswer) GetOptionIDs() (value []int32) {
 	return u.OptionIDs
 }
 
-// UpdateChatMember represents TL type `updateChatMember#871f5753`.
+// UpdateChatMember represents TL type `updateChatMember#6000e29c`.
 type UpdateChatMember struct {
 	// Chat identifier
 	ChatID int64
@@ -23219,6 +23419,8 @@ type UpdateChatMember struct {
 	Date int32
 	// If user has joined the chat using an invite link, the invite link; may be null
 	InviteLink ChatInviteLink
+	// True, if the user has joined the chat using an invite link for a chat folder
+	ViaChatFolderInviteLink bool
 	// Previous chat member
 	OldChatMember ChatMember
 	// New chat member
@@ -23226,7 +23428,7 @@ type UpdateChatMember struct {
 }
 
 // UpdateChatMemberTypeID is TL type id of UpdateChatMember.
-const UpdateChatMemberTypeID = 0x871f5753
+const UpdateChatMemberTypeID = 0x6000e29c
 
 // construct implements constructor of UpdateClass.
 func (u UpdateChatMember) construct() UpdateClass { return &u }
@@ -23255,6 +23457,9 @@ func (u *UpdateChatMember) Zero() bool {
 		return false
 	}
 	if !(u.InviteLink.Zero()) {
+		return false
+	}
+	if !(u.ViaChatFolderInviteLink == false) {
 		return false
 	}
 	if !(u.OldChatMember.Zero()) {
@@ -23316,6 +23521,10 @@ func (u *UpdateChatMember) TypeInfo() tdp.Type {
 			SchemaName: "invite_link",
 		},
 		{
+			Name:       "ViaChatFolderInviteLink",
+			SchemaName: "via_chat_folder_invite_link",
+		},
+		{
 			Name:       "OldChatMember",
 			SchemaName: "old_chat_member",
 		},
@@ -23330,7 +23539,7 @@ func (u *UpdateChatMember) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UpdateChatMember) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatMember#871f5753 as nil")
+		return fmt.Errorf("can't encode updateChatMember#6000e29c as nil")
 	}
 	b.PutID(UpdateChatMemberTypeID)
 	return u.EncodeBare(b)
@@ -23339,19 +23548,20 @@ func (u *UpdateChatMember) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateChatMember) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatMember#871f5753 as nil")
+		return fmt.Errorf("can't encode updateChatMember#6000e29c as nil")
 	}
 	b.PutInt53(u.ChatID)
 	b.PutInt53(u.ActorUserID)
 	b.PutInt32(u.Date)
 	if err := u.InviteLink.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateChatMember#871f5753: field invite_link: %w", err)
+		return fmt.Errorf("unable to encode updateChatMember#6000e29c: field invite_link: %w", err)
 	}
+	b.PutBool(u.ViaChatFolderInviteLink)
 	if err := u.OldChatMember.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateChatMember#871f5753: field old_chat_member: %w", err)
+		return fmt.Errorf("unable to encode updateChatMember#6000e29c: field old_chat_member: %w", err)
 	}
 	if err := u.NewChatMember.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateChatMember#871f5753: field new_chat_member: %w", err)
+		return fmt.Errorf("unable to encode updateChatMember#6000e29c: field new_chat_member: %w", err)
 	}
 	return nil
 }
@@ -23359,10 +23569,10 @@ func (u *UpdateChatMember) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UpdateChatMember) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatMember#871f5753 to nil")
+		return fmt.Errorf("can't decode updateChatMember#6000e29c to nil")
 	}
 	if err := b.ConsumeID(UpdateChatMemberTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatMember#871f5753: %w", err)
+		return fmt.Errorf("unable to decode updateChatMember#6000e29c: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -23370,42 +23580,49 @@ func (u *UpdateChatMember) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateChatMember) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatMember#871f5753 to nil")
+		return fmt.Errorf("can't decode updateChatMember#6000e29c to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChatMember#871f5753: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode updateChatMember#6000e29c: field chat_id: %w", err)
 		}
 		u.ChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChatMember#871f5753: field actor_user_id: %w", err)
+			return fmt.Errorf("unable to decode updateChatMember#6000e29c: field actor_user_id: %w", err)
 		}
 		u.ActorUserID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChatMember#871f5753: field date: %w", err)
+			return fmt.Errorf("unable to decode updateChatMember#6000e29c: field date: %w", err)
 		}
 		u.Date = value
 	}
 	{
 		if err := u.InviteLink.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateChatMember#871f5753: field invite_link: %w", err)
+			return fmt.Errorf("unable to decode updateChatMember#6000e29c: field invite_link: %w", err)
 		}
 	}
 	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatMember#6000e29c: field via_chat_folder_invite_link: %w", err)
+		}
+		u.ViaChatFolderInviteLink = value
+	}
+	{
 		if err := u.OldChatMember.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateChatMember#871f5753: field old_chat_member: %w", err)
+			return fmt.Errorf("unable to decode updateChatMember#6000e29c: field old_chat_member: %w", err)
 		}
 	}
 	{
 		if err := u.NewChatMember.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateChatMember#871f5753: field new_chat_member: %w", err)
+			return fmt.Errorf("unable to decode updateChatMember#6000e29c: field new_chat_member: %w", err)
 		}
 	}
 	return nil
@@ -23414,7 +23631,7 @@ func (u *UpdateChatMember) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UpdateChatMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatMember#871f5753 as nil")
+		return fmt.Errorf("can't encode updateChatMember#6000e29c as nil")
 	}
 	b.ObjStart()
 	b.PutID("updateChatMember")
@@ -23430,17 +23647,20 @@ func (u *UpdateChatMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("invite_link")
 	if err := u.InviteLink.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode updateChatMember#871f5753: field invite_link: %w", err)
+		return fmt.Errorf("unable to encode updateChatMember#6000e29c: field invite_link: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("via_chat_folder_invite_link")
+	b.PutBool(u.ViaChatFolderInviteLink)
 	b.Comma()
 	b.FieldStart("old_chat_member")
 	if err := u.OldChatMember.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode updateChatMember#871f5753: field old_chat_member: %w", err)
+		return fmt.Errorf("unable to encode updateChatMember#6000e29c: field old_chat_member: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("new_chat_member")
 	if err := u.NewChatMember.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode updateChatMember#871f5753: field new_chat_member: %w", err)
+		return fmt.Errorf("unable to encode updateChatMember#6000e29c: field new_chat_member: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -23451,44 +23671,50 @@ func (u *UpdateChatMember) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UpdateChatMember) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatMember#871f5753 to nil")
+		return fmt.Errorf("can't decode updateChatMember#6000e29c to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("updateChatMember"); err != nil {
-				return fmt.Errorf("unable to decode updateChatMember#871f5753: %w", err)
+				return fmt.Errorf("unable to decode updateChatMember#6000e29c: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateChatMember#871f5753: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode updateChatMember#6000e29c: field chat_id: %w", err)
 			}
 			u.ChatID = value
 		case "actor_user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateChatMember#871f5753: field actor_user_id: %w", err)
+				return fmt.Errorf("unable to decode updateChatMember#6000e29c: field actor_user_id: %w", err)
 			}
 			u.ActorUserID = value
 		case "date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateChatMember#871f5753: field date: %w", err)
+				return fmt.Errorf("unable to decode updateChatMember#6000e29c: field date: %w", err)
 			}
 			u.Date = value
 		case "invite_link":
 			if err := u.InviteLink.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode updateChatMember#871f5753: field invite_link: %w", err)
+				return fmt.Errorf("unable to decode updateChatMember#6000e29c: field invite_link: %w", err)
 			}
+		case "via_chat_folder_invite_link":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatMember#6000e29c: field via_chat_folder_invite_link: %w", err)
+			}
+			u.ViaChatFolderInviteLink = value
 		case "old_chat_member":
 			if err := u.OldChatMember.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode updateChatMember#871f5753: field old_chat_member: %w", err)
+				return fmt.Errorf("unable to decode updateChatMember#6000e29c: field old_chat_member: %w", err)
 			}
 		case "new_chat_member":
 			if err := u.NewChatMember.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode updateChatMember#871f5753: field new_chat_member: %w", err)
+				return fmt.Errorf("unable to decode updateChatMember#6000e29c: field new_chat_member: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -23527,6 +23753,14 @@ func (u *UpdateChatMember) GetInviteLink() (value ChatInviteLink) {
 		return
 	}
 	return u.InviteLink
+}
+
+// GetViaChatFolderInviteLink returns value of ViaChatFolderInviteLink field.
+func (u *UpdateChatMember) GetViaChatFolderInviteLink() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.ViaChatFolderInviteLink
 }
 
 // GetOldChatMember returns value of OldChatMember field.
@@ -23854,6 +24088,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateChatNotificationSettings: // updateChatNotificationSettings#d020b456
 //	case *tdapi.UpdateChatPendingJoinRequests: // updateChatPendingJoinRequests#14c6e3e1
 //	case *tdapi.UpdateChatReplyMarkup: // updateChatReplyMarkup#4e0ba5a0
+//	case *tdapi.UpdateChatBackground: // updateChatBackground#ff9d38b3
 //	case *tdapi.UpdateChatTheme: // updateChatTheme#31f3d465
 //	case *tdapi.UpdateChatUnreadMentionCount: // updateChatUnreadMentionCount#80f47b1c
 //	case *tdapi.UpdateChatUnreadReactionCount: // updateChatUnreadReactionCount#81603cdd
@@ -23864,7 +24099,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateChatIsMarkedAsUnread: // updateChatIsMarkedAsUnread#57853334
 //	case *tdapi.UpdateChatIsBlocked: // updateChatIsBlocked#88da7e40
 //	case *tdapi.UpdateChatHasScheduledMessages: // updateChatHasScheduledMessages#7b14c2d7
-//	case *tdapi.UpdateChatFilters: // updateChatFilters#a00973c1
+//	case *tdapi.UpdateChatFolders: // updateChatFolders#71a4b3a
 //	case *tdapi.UpdateChatOnlineMemberCount: // updateChatOnlineMemberCount#1d0caa9d
 //	case *tdapi.UpdateForumTopicInfo: // updateForumTopicInfo#6b6f2cc9
 //	case *tdapi.UpdateScopeNotificationSettings: // updateScopeNotificationSettings#b83ccb73
@@ -23931,7 +24166,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateNewCustomQuery: // updateNewCustomQuery#d702f9a6
 //	case *tdapi.UpdatePoll: // updatePoll#966b73ca
 //	case *tdapi.UpdatePollAnswer: // updatePollAnswer#afe0c624
-//	case *tdapi.UpdateChatMember: // updateChatMember#871f5753
+//	case *tdapi.UpdateChatMember: // updateChatMember#6000e29c
 //	case *tdapi.UpdateNewChatJoinRequest: // updateNewChatJoinRequest#7e48b843
 //	default: panic(v)
 //	}
@@ -24167,6 +24402,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case UpdateChatBackgroundTypeID:
+		// Decoding updateChatBackground#ff9d38b3.
+		v := UpdateChatBackground{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case UpdateChatThemeTypeID:
 		// Decoding updateChatTheme#31f3d465.
 		v := UpdateChatTheme{}
@@ -24237,9 +24479,9 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case UpdateChatFiltersTypeID:
-		// Decoding updateChatFilters#a00973c1.
-		v := UpdateChatFilters{}
+	case UpdateChatFoldersTypeID:
+		// Decoding updateChatFolders#71a4b3a.
+		v := UpdateChatFolders{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -24707,7 +24949,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateChatMemberTypeID:
-		// Decoding updateChatMember#871f5753.
+		// Decoding updateChatMember#6000e29c.
 		v := UpdateChatMember{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -24935,6 +25177,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case "updateChatBackground":
+		// Decoding updateChatBackground#ff9d38b3.
+		v := UpdateChatBackground{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case "updateChatTheme":
 		// Decoding updateChatTheme#31f3d465.
 		v := UpdateChatTheme{}
@@ -25005,9 +25254,9 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case "updateChatFilters":
-		// Decoding updateChatFilters#a00973c1.
-		v := UpdateChatFilters{}
+	case "updateChatFolders":
+		// Decoding updateChatFolders#71a4b3a.
+		v := UpdateChatFolders{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -25475,7 +25724,7 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 		}
 		return &v, nil
 	case "updateChatMember":
-		// Decoding updateChatMember#871f5753.
+		// Decoding updateChatMember#6000e29c.
 		v := UpdateChatMember{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)

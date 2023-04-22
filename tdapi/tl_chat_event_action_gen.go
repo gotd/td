@@ -1061,14 +1061,16 @@ func (c *ChatEventMemberJoined) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// ChatEventMemberJoinedByInviteLink represents TL type `chatEventMemberJoinedByInviteLink#f0e6d5bd`.
+// ChatEventMemberJoinedByInviteLink represents TL type `chatEventMemberJoinedByInviteLink#a9d6dd7a`.
 type ChatEventMemberJoinedByInviteLink struct {
 	// Invite link used to join the chat
 	InviteLink ChatInviteLink
+	// True, if the user has joined the chat using an invite link for a chat folder
+	ViaChatFolderInviteLink bool
 }
 
 // ChatEventMemberJoinedByInviteLinkTypeID is TL type id of ChatEventMemberJoinedByInviteLink.
-const ChatEventMemberJoinedByInviteLinkTypeID = 0xf0e6d5bd
+const ChatEventMemberJoinedByInviteLinkTypeID = 0xa9d6dd7a
 
 // construct implements constructor of ChatEventActionClass.
 func (c ChatEventMemberJoinedByInviteLink) construct() ChatEventActionClass { return &c }
@@ -1088,6 +1090,9 @@ func (c *ChatEventMemberJoinedByInviteLink) Zero() bool {
 		return true
 	}
 	if !(c.InviteLink.Zero()) {
+		return false
+	}
+	if !(c.ViaChatFolderInviteLink == false) {
 		return false
 	}
 
@@ -1130,6 +1135,10 @@ func (c *ChatEventMemberJoinedByInviteLink) TypeInfo() tdp.Type {
 			Name:       "InviteLink",
 			SchemaName: "invite_link",
 		},
+		{
+			Name:       "ViaChatFolderInviteLink",
+			SchemaName: "via_chat_folder_invite_link",
+		},
 	}
 	return typ
 }
@@ -1137,7 +1146,7 @@ func (c *ChatEventMemberJoinedByInviteLink) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatEventMemberJoinedByInviteLink) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventMemberJoinedByInviteLink#f0e6d5bd as nil")
+		return fmt.Errorf("can't encode chatEventMemberJoinedByInviteLink#a9d6dd7a as nil")
 	}
 	b.PutID(ChatEventMemberJoinedByInviteLinkTypeID)
 	return c.EncodeBare(b)
@@ -1146,21 +1155,22 @@ func (c *ChatEventMemberJoinedByInviteLink) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatEventMemberJoinedByInviteLink) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventMemberJoinedByInviteLink#f0e6d5bd as nil")
+		return fmt.Errorf("can't encode chatEventMemberJoinedByInviteLink#a9d6dd7a as nil")
 	}
 	if err := c.InviteLink.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatEventMemberJoinedByInviteLink#f0e6d5bd: field invite_link: %w", err)
+		return fmt.Errorf("unable to encode chatEventMemberJoinedByInviteLink#a9d6dd7a: field invite_link: %w", err)
 	}
+	b.PutBool(c.ViaChatFolderInviteLink)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChatEventMemberJoinedByInviteLink) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventMemberJoinedByInviteLink#f0e6d5bd to nil")
+		return fmt.Errorf("can't decode chatEventMemberJoinedByInviteLink#a9d6dd7a to nil")
 	}
 	if err := b.ConsumeID(ChatEventMemberJoinedByInviteLinkTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventMemberJoinedByInviteLink#f0e6d5bd: %w", err)
+		return fmt.Errorf("unable to decode chatEventMemberJoinedByInviteLink#a9d6dd7a: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -1168,12 +1178,19 @@ func (c *ChatEventMemberJoinedByInviteLink) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatEventMemberJoinedByInviteLink) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventMemberJoinedByInviteLink#f0e6d5bd to nil")
+		return fmt.Errorf("can't decode chatEventMemberJoinedByInviteLink#a9d6dd7a to nil")
 	}
 	{
 		if err := c.InviteLink.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatEventMemberJoinedByInviteLink#f0e6d5bd: field invite_link: %w", err)
+			return fmt.Errorf("unable to decode chatEventMemberJoinedByInviteLink#a9d6dd7a: field invite_link: %w", err)
 		}
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventMemberJoinedByInviteLink#a9d6dd7a: field via_chat_folder_invite_link: %w", err)
+		}
+		c.ViaChatFolderInviteLink = value
 	}
 	return nil
 }
@@ -1181,15 +1198,18 @@ func (c *ChatEventMemberJoinedByInviteLink) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatEventMemberJoinedByInviteLink) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventMemberJoinedByInviteLink#f0e6d5bd as nil")
+		return fmt.Errorf("can't encode chatEventMemberJoinedByInviteLink#a9d6dd7a as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatEventMemberJoinedByInviteLink")
 	b.Comma()
 	b.FieldStart("invite_link")
 	if err := c.InviteLink.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatEventMemberJoinedByInviteLink#f0e6d5bd: field invite_link: %w", err)
+		return fmt.Errorf("unable to encode chatEventMemberJoinedByInviteLink#a9d6dd7a: field invite_link: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("via_chat_folder_invite_link")
+	b.PutBool(c.ViaChatFolderInviteLink)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -1199,19 +1219,25 @@ func (c *ChatEventMemberJoinedByInviteLink) EncodeTDLibJSON(b tdjson.Encoder) er
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatEventMemberJoinedByInviteLink) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventMemberJoinedByInviteLink#f0e6d5bd to nil")
+		return fmt.Errorf("can't decode chatEventMemberJoinedByInviteLink#a9d6dd7a to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatEventMemberJoinedByInviteLink"); err != nil {
-				return fmt.Errorf("unable to decode chatEventMemberJoinedByInviteLink#f0e6d5bd: %w", err)
+				return fmt.Errorf("unable to decode chatEventMemberJoinedByInviteLink#a9d6dd7a: %w", err)
 			}
 		case "invite_link":
 			if err := c.InviteLink.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatEventMemberJoinedByInviteLink#f0e6d5bd: field invite_link: %w", err)
+				return fmt.Errorf("unable to decode chatEventMemberJoinedByInviteLink#a9d6dd7a: field invite_link: %w", err)
 			}
+		case "via_chat_folder_invite_link":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventMemberJoinedByInviteLink#a9d6dd7a: field via_chat_folder_invite_link: %w", err)
+			}
+			c.ViaChatFolderInviteLink = value
 		default:
 			return b.Skip()
 		}
@@ -1225,6 +1251,14 @@ func (c *ChatEventMemberJoinedByInviteLink) GetInviteLink() (value ChatInviteLin
 		return
 	}
 	return c.InviteLink
+}
+
+// GetViaChatFolderInviteLink returns value of ViaChatFolderInviteLink field.
+func (c *ChatEventMemberJoinedByInviteLink) GetViaChatFolderInviteLink() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.ViaChatFolderInviteLink
 }
 
 // ChatEventMemberJoinedByRequest represents TL type `chatEventMemberJoinedByRequest#9dc87e3f`.
@@ -8284,7 +8318,7 @@ const ChatEventActionClassName = "ChatEventAction"
 //	case *tdapi.ChatEventMessageUnpinned: // chatEventMessageUnpinned#e9943b17
 //	case *tdapi.ChatEventPollStopped: // chatEventPollStopped#77cc8be5
 //	case *tdapi.ChatEventMemberJoined: // chatEventMemberJoined#f1f70924
-//	case *tdapi.ChatEventMemberJoinedByInviteLink: // chatEventMemberJoinedByInviteLink#f0e6d5bd
+//	case *tdapi.ChatEventMemberJoinedByInviteLink: // chatEventMemberJoinedByInviteLink#a9d6dd7a
 //	case *tdapi.ChatEventMemberJoinedByRequest: // chatEventMemberJoinedByRequest#9dc87e3f
 //	case *tdapi.ChatEventMemberInvited: // chatEventMemberInvited#38d7bfc9
 //	case *tdapi.ChatEventMemberLeft: // chatEventMemberLeft#c778400f
@@ -8396,7 +8430,7 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 		}
 		return &v, nil
 	case ChatEventMemberJoinedByInviteLinkTypeID:
-		// Decoding chatEventMemberJoinedByInviteLink#f0e6d5bd.
+		// Decoding chatEventMemberJoinedByInviteLink#a9d6dd7a.
 		v := ChatEventMemberJoinedByInviteLink{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
@@ -8716,7 +8750,7 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 		}
 		return &v, nil
 	case "chatEventMemberJoinedByInviteLink":
-		// Decoding chatEventMemberJoinedByInviteLink#f0e6d5bd.
+		// Decoding chatEventMemberJoinedByInviteLink#a9d6dd7a.
 		v := ChatEventMemberJoinedByInviteLink{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)

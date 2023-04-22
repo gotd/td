@@ -686,27 +686,27 @@ func (p *PremiumLimitTypeFavoriteStickerCount) DecodeTDLibJSON(b tdjson.Decoder)
 	})
 }
 
-// PremiumLimitTypeChatFilterCount represents TL type `premiumLimitTypeChatFilterCount#d99572a2`.
-type PremiumLimitTypeChatFilterCount struct {
+// PremiumLimitTypeChatFolderCount represents TL type `premiumLimitTypeChatFolderCount#1680096e`.
+type PremiumLimitTypeChatFolderCount struct {
 }
 
-// PremiumLimitTypeChatFilterCountTypeID is TL type id of PremiumLimitTypeChatFilterCount.
-const PremiumLimitTypeChatFilterCountTypeID = 0xd99572a2
+// PremiumLimitTypeChatFolderCountTypeID is TL type id of PremiumLimitTypeChatFolderCount.
+const PremiumLimitTypeChatFolderCountTypeID = 0x1680096e
 
 // construct implements constructor of PremiumLimitTypeClass.
-func (p PremiumLimitTypeChatFilterCount) construct() PremiumLimitTypeClass { return &p }
+func (p PremiumLimitTypeChatFolderCount) construct() PremiumLimitTypeClass { return &p }
 
-// Ensuring interfaces in compile-time for PremiumLimitTypeChatFilterCount.
+// Ensuring interfaces in compile-time for PremiumLimitTypeChatFolderCount.
 var (
-	_ bin.Encoder     = &PremiumLimitTypeChatFilterCount{}
-	_ bin.Decoder     = &PremiumLimitTypeChatFilterCount{}
-	_ bin.BareEncoder = &PremiumLimitTypeChatFilterCount{}
-	_ bin.BareDecoder = &PremiumLimitTypeChatFilterCount{}
+	_ bin.Encoder     = &PremiumLimitTypeChatFolderCount{}
+	_ bin.Decoder     = &PremiumLimitTypeChatFolderCount{}
+	_ bin.BareEncoder = &PremiumLimitTypeChatFolderCount{}
+	_ bin.BareDecoder = &PremiumLimitTypeChatFolderCount{}
 
-	_ PremiumLimitTypeClass = &PremiumLimitTypeChatFilterCount{}
+	_ PremiumLimitTypeClass = &PremiumLimitTypeChatFolderCount{}
 )
 
-func (p *PremiumLimitTypeChatFilterCount) Zero() bool {
+func (p *PremiumLimitTypeChatFolderCount) Zero() bool {
 	if p == nil {
 		return true
 	}
@@ -715,31 +715,31 @@ func (p *PremiumLimitTypeChatFilterCount) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (p *PremiumLimitTypeChatFilterCount) String() string {
+func (p *PremiumLimitTypeChatFolderCount) String() string {
 	if p == nil {
-		return "PremiumLimitTypeChatFilterCount(nil)"
+		return "PremiumLimitTypeChatFolderCount(nil)"
 	}
-	type Alias PremiumLimitTypeChatFilterCount
-	return fmt.Sprintf("PremiumLimitTypeChatFilterCount%+v", Alias(*p))
+	type Alias PremiumLimitTypeChatFolderCount
+	return fmt.Sprintf("PremiumLimitTypeChatFolderCount%+v", Alias(*p))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*PremiumLimitTypeChatFilterCount) TypeID() uint32 {
-	return PremiumLimitTypeChatFilterCountTypeID
+func (*PremiumLimitTypeChatFolderCount) TypeID() uint32 {
+	return PremiumLimitTypeChatFolderCountTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*PremiumLimitTypeChatFilterCount) TypeName() string {
-	return "premiumLimitTypeChatFilterCount"
+func (*PremiumLimitTypeChatFolderCount) TypeName() string {
+	return "premiumLimitTypeChatFolderCount"
 }
 
 // TypeInfo returns info about TL type.
-func (p *PremiumLimitTypeChatFilterCount) TypeInfo() tdp.Type {
+func (p *PremiumLimitTypeChatFolderCount) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "premiumLimitTypeChatFilterCount",
-		ID:   PremiumLimitTypeChatFilterCountTypeID,
+		Name: "premiumLimitTypeChatFolderCount",
+		ID:   PremiumLimitTypeChatFolderCountTypeID,
 	}
 	if p == nil {
 		typ.Null = true
@@ -750,48 +750,48 @@ func (p *PremiumLimitTypeChatFilterCount) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (p *PremiumLimitTypeChatFilterCount) Encode(b *bin.Buffer) error {
+func (p *PremiumLimitTypeChatFolderCount) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode premiumLimitTypeChatFilterCount#d99572a2 as nil")
+		return fmt.Errorf("can't encode premiumLimitTypeChatFolderCount#1680096e as nil")
 	}
-	b.PutID(PremiumLimitTypeChatFilterCountTypeID)
+	b.PutID(PremiumLimitTypeChatFolderCountTypeID)
 	return p.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (p *PremiumLimitTypeChatFilterCount) EncodeBare(b *bin.Buffer) error {
+func (p *PremiumLimitTypeChatFolderCount) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode premiumLimitTypeChatFilterCount#d99572a2 as nil")
+		return fmt.Errorf("can't encode premiumLimitTypeChatFolderCount#1680096e as nil")
 	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (p *PremiumLimitTypeChatFilterCount) Decode(b *bin.Buffer) error {
+func (p *PremiumLimitTypeChatFolderCount) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode premiumLimitTypeChatFilterCount#d99572a2 to nil")
+		return fmt.Errorf("can't decode premiumLimitTypeChatFolderCount#1680096e to nil")
 	}
-	if err := b.ConsumeID(PremiumLimitTypeChatFilterCountTypeID); err != nil {
-		return fmt.Errorf("unable to decode premiumLimitTypeChatFilterCount#d99572a2: %w", err)
+	if err := b.ConsumeID(PremiumLimitTypeChatFolderCountTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumLimitTypeChatFolderCount#1680096e: %w", err)
 	}
 	return p.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (p *PremiumLimitTypeChatFilterCount) DecodeBare(b *bin.Buffer) error {
+func (p *PremiumLimitTypeChatFolderCount) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode premiumLimitTypeChatFilterCount#d99572a2 to nil")
+		return fmt.Errorf("can't decode premiumLimitTypeChatFolderCount#1680096e to nil")
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (p *PremiumLimitTypeChatFilterCount) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (p *PremiumLimitTypeChatFolderCount) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
-		return fmt.Errorf("can't encode premiumLimitTypeChatFilterCount#d99572a2 as nil")
+		return fmt.Errorf("can't encode premiumLimitTypeChatFolderCount#1680096e as nil")
 	}
 	b.ObjStart()
-	b.PutID("premiumLimitTypeChatFilterCount")
+	b.PutID("premiumLimitTypeChatFolderCount")
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -799,16 +799,16 @@ func (p *PremiumLimitTypeChatFilterCount) EncodeTDLibJSON(b tdjson.Encoder) erro
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (p *PremiumLimitTypeChatFilterCount) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (p *PremiumLimitTypeChatFolderCount) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
-		return fmt.Errorf("can't decode premiumLimitTypeChatFilterCount#d99572a2 to nil")
+		return fmt.Errorf("can't decode premiumLimitTypeChatFolderCount#1680096e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("premiumLimitTypeChatFilterCount"); err != nil {
-				return fmt.Errorf("unable to decode premiumLimitTypeChatFilterCount#d99572a2: %w", err)
+			if err := b.ConsumeID("premiumLimitTypeChatFolderCount"); err != nil {
+				return fmt.Errorf("unable to decode premiumLimitTypeChatFolderCount#1680096e: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -817,27 +817,27 @@ func (p *PremiumLimitTypeChatFilterCount) DecodeTDLibJSON(b tdjson.Decoder) erro
 	})
 }
 
-// PremiumLimitTypeChatFilterChosenChatCount represents TL type `premiumLimitTypeChatFilterChosenChatCount#7aaa205f`.
-type PremiumLimitTypeChatFilterChosenChatCount struct {
+// PremiumLimitTypeChatFolderChosenChatCount represents TL type `premiumLimitTypeChatFolderChosenChatCount#64d14355`.
+type PremiumLimitTypeChatFolderChosenChatCount struct {
 }
 
-// PremiumLimitTypeChatFilterChosenChatCountTypeID is TL type id of PremiumLimitTypeChatFilterChosenChatCount.
-const PremiumLimitTypeChatFilterChosenChatCountTypeID = 0x7aaa205f
+// PremiumLimitTypeChatFolderChosenChatCountTypeID is TL type id of PremiumLimitTypeChatFolderChosenChatCount.
+const PremiumLimitTypeChatFolderChosenChatCountTypeID = 0x64d14355
 
 // construct implements constructor of PremiumLimitTypeClass.
-func (p PremiumLimitTypeChatFilterChosenChatCount) construct() PremiumLimitTypeClass { return &p }
+func (p PremiumLimitTypeChatFolderChosenChatCount) construct() PremiumLimitTypeClass { return &p }
 
-// Ensuring interfaces in compile-time for PremiumLimitTypeChatFilterChosenChatCount.
+// Ensuring interfaces in compile-time for PremiumLimitTypeChatFolderChosenChatCount.
 var (
-	_ bin.Encoder     = &PremiumLimitTypeChatFilterChosenChatCount{}
-	_ bin.Decoder     = &PremiumLimitTypeChatFilterChosenChatCount{}
-	_ bin.BareEncoder = &PremiumLimitTypeChatFilterChosenChatCount{}
-	_ bin.BareDecoder = &PremiumLimitTypeChatFilterChosenChatCount{}
+	_ bin.Encoder     = &PremiumLimitTypeChatFolderChosenChatCount{}
+	_ bin.Decoder     = &PremiumLimitTypeChatFolderChosenChatCount{}
+	_ bin.BareEncoder = &PremiumLimitTypeChatFolderChosenChatCount{}
+	_ bin.BareDecoder = &PremiumLimitTypeChatFolderChosenChatCount{}
 
-	_ PremiumLimitTypeClass = &PremiumLimitTypeChatFilterChosenChatCount{}
+	_ PremiumLimitTypeClass = &PremiumLimitTypeChatFolderChosenChatCount{}
 )
 
-func (p *PremiumLimitTypeChatFilterChosenChatCount) Zero() bool {
+func (p *PremiumLimitTypeChatFolderChosenChatCount) Zero() bool {
 	if p == nil {
 		return true
 	}
@@ -846,31 +846,31 @@ func (p *PremiumLimitTypeChatFilterChosenChatCount) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (p *PremiumLimitTypeChatFilterChosenChatCount) String() string {
+func (p *PremiumLimitTypeChatFolderChosenChatCount) String() string {
 	if p == nil {
-		return "PremiumLimitTypeChatFilterChosenChatCount(nil)"
+		return "PremiumLimitTypeChatFolderChosenChatCount(nil)"
 	}
-	type Alias PremiumLimitTypeChatFilterChosenChatCount
-	return fmt.Sprintf("PremiumLimitTypeChatFilterChosenChatCount%+v", Alias(*p))
+	type Alias PremiumLimitTypeChatFolderChosenChatCount
+	return fmt.Sprintf("PremiumLimitTypeChatFolderChosenChatCount%+v", Alias(*p))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*PremiumLimitTypeChatFilterChosenChatCount) TypeID() uint32 {
-	return PremiumLimitTypeChatFilterChosenChatCountTypeID
+func (*PremiumLimitTypeChatFolderChosenChatCount) TypeID() uint32 {
+	return PremiumLimitTypeChatFolderChosenChatCountTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*PremiumLimitTypeChatFilterChosenChatCount) TypeName() string {
-	return "premiumLimitTypeChatFilterChosenChatCount"
+func (*PremiumLimitTypeChatFolderChosenChatCount) TypeName() string {
+	return "premiumLimitTypeChatFolderChosenChatCount"
 }
 
 // TypeInfo returns info about TL type.
-func (p *PremiumLimitTypeChatFilterChosenChatCount) TypeInfo() tdp.Type {
+func (p *PremiumLimitTypeChatFolderChosenChatCount) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "premiumLimitTypeChatFilterChosenChatCount",
-		ID:   PremiumLimitTypeChatFilterChosenChatCountTypeID,
+		Name: "premiumLimitTypeChatFolderChosenChatCount",
+		ID:   PremiumLimitTypeChatFolderChosenChatCountTypeID,
 	}
 	if p == nil {
 		typ.Null = true
@@ -881,48 +881,48 @@ func (p *PremiumLimitTypeChatFilterChosenChatCount) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (p *PremiumLimitTypeChatFilterChosenChatCount) Encode(b *bin.Buffer) error {
+func (p *PremiumLimitTypeChatFolderChosenChatCount) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode premiumLimitTypeChatFilterChosenChatCount#7aaa205f as nil")
+		return fmt.Errorf("can't encode premiumLimitTypeChatFolderChosenChatCount#64d14355 as nil")
 	}
-	b.PutID(PremiumLimitTypeChatFilterChosenChatCountTypeID)
+	b.PutID(PremiumLimitTypeChatFolderChosenChatCountTypeID)
 	return p.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (p *PremiumLimitTypeChatFilterChosenChatCount) EncodeBare(b *bin.Buffer) error {
+func (p *PremiumLimitTypeChatFolderChosenChatCount) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode premiumLimitTypeChatFilterChosenChatCount#7aaa205f as nil")
+		return fmt.Errorf("can't encode premiumLimitTypeChatFolderChosenChatCount#64d14355 as nil")
 	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (p *PremiumLimitTypeChatFilterChosenChatCount) Decode(b *bin.Buffer) error {
+func (p *PremiumLimitTypeChatFolderChosenChatCount) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode premiumLimitTypeChatFilterChosenChatCount#7aaa205f to nil")
+		return fmt.Errorf("can't decode premiumLimitTypeChatFolderChosenChatCount#64d14355 to nil")
 	}
-	if err := b.ConsumeID(PremiumLimitTypeChatFilterChosenChatCountTypeID); err != nil {
-		return fmt.Errorf("unable to decode premiumLimitTypeChatFilterChosenChatCount#7aaa205f: %w", err)
+	if err := b.ConsumeID(PremiumLimitTypeChatFolderChosenChatCountTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumLimitTypeChatFolderChosenChatCount#64d14355: %w", err)
 	}
 	return p.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (p *PremiumLimitTypeChatFilterChosenChatCount) DecodeBare(b *bin.Buffer) error {
+func (p *PremiumLimitTypeChatFolderChosenChatCount) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode premiumLimitTypeChatFilterChosenChatCount#7aaa205f to nil")
+		return fmt.Errorf("can't decode premiumLimitTypeChatFolderChosenChatCount#64d14355 to nil")
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (p *PremiumLimitTypeChatFilterChosenChatCount) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (p *PremiumLimitTypeChatFolderChosenChatCount) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
-		return fmt.Errorf("can't encode premiumLimitTypeChatFilterChosenChatCount#7aaa205f as nil")
+		return fmt.Errorf("can't encode premiumLimitTypeChatFolderChosenChatCount#64d14355 as nil")
 	}
 	b.ObjStart()
-	b.PutID("premiumLimitTypeChatFilterChosenChatCount")
+	b.PutID("premiumLimitTypeChatFolderChosenChatCount")
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -930,16 +930,16 @@ func (p *PremiumLimitTypeChatFilterChosenChatCount) EncodeTDLibJSON(b tdjson.Enc
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (p *PremiumLimitTypeChatFilterChosenChatCount) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (p *PremiumLimitTypeChatFolderChosenChatCount) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
-		return fmt.Errorf("can't decode premiumLimitTypeChatFilterChosenChatCount#7aaa205f to nil")
+		return fmt.Errorf("can't decode premiumLimitTypeChatFolderChosenChatCount#64d14355 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("premiumLimitTypeChatFilterChosenChatCount"); err != nil {
-				return fmt.Errorf("unable to decode premiumLimitTypeChatFilterChosenChatCount#7aaa205f: %w", err)
+			if err := b.ConsumeID("premiumLimitTypeChatFolderChosenChatCount"); err != nil {
+				return fmt.Errorf("unable to decode premiumLimitTypeChatFolderChosenChatCount#64d14355: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -1341,6 +1341,268 @@ func (p *PremiumLimitTypeBioLength) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// PremiumLimitTypeChatFolderInviteLinkCount represents TL type `premiumLimitTypeChatFolderInviteLinkCount#f854261a`.
+type PremiumLimitTypeChatFolderInviteLinkCount struct {
+}
+
+// PremiumLimitTypeChatFolderInviteLinkCountTypeID is TL type id of PremiumLimitTypeChatFolderInviteLinkCount.
+const PremiumLimitTypeChatFolderInviteLinkCountTypeID = 0xf854261a
+
+// construct implements constructor of PremiumLimitTypeClass.
+func (p PremiumLimitTypeChatFolderInviteLinkCount) construct() PremiumLimitTypeClass { return &p }
+
+// Ensuring interfaces in compile-time for PremiumLimitTypeChatFolderInviteLinkCount.
+var (
+	_ bin.Encoder     = &PremiumLimitTypeChatFolderInviteLinkCount{}
+	_ bin.Decoder     = &PremiumLimitTypeChatFolderInviteLinkCount{}
+	_ bin.BareEncoder = &PremiumLimitTypeChatFolderInviteLinkCount{}
+	_ bin.BareDecoder = &PremiumLimitTypeChatFolderInviteLinkCount{}
+
+	_ PremiumLimitTypeClass = &PremiumLimitTypeChatFolderInviteLinkCount{}
+)
+
+func (p *PremiumLimitTypeChatFolderInviteLinkCount) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PremiumLimitTypeChatFolderInviteLinkCount) String() string {
+	if p == nil {
+		return "PremiumLimitTypeChatFolderInviteLinkCount(nil)"
+	}
+	type Alias PremiumLimitTypeChatFolderInviteLinkCount
+	return fmt.Sprintf("PremiumLimitTypeChatFolderInviteLinkCount%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PremiumLimitTypeChatFolderInviteLinkCount) TypeID() uint32 {
+	return PremiumLimitTypeChatFolderInviteLinkCountTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PremiumLimitTypeChatFolderInviteLinkCount) TypeName() string {
+	return "premiumLimitTypeChatFolderInviteLinkCount"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PremiumLimitTypeChatFolderInviteLinkCount) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "premiumLimitTypeChatFolderInviteLinkCount",
+		ID:   PremiumLimitTypeChatFolderInviteLinkCountTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PremiumLimitTypeChatFolderInviteLinkCount) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeChatFolderInviteLinkCount#f854261a as nil")
+	}
+	b.PutID(PremiumLimitTypeChatFolderInviteLinkCountTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PremiumLimitTypeChatFolderInviteLinkCount) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeChatFolderInviteLinkCount#f854261a as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PremiumLimitTypeChatFolderInviteLinkCount) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeChatFolderInviteLinkCount#f854261a to nil")
+	}
+	if err := b.ConsumeID(PremiumLimitTypeChatFolderInviteLinkCountTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumLimitTypeChatFolderInviteLinkCount#f854261a: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PremiumLimitTypeChatFolderInviteLinkCount) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeChatFolderInviteLinkCount#f854261a to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PremiumLimitTypeChatFolderInviteLinkCount) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeChatFolderInviteLinkCount#f854261a as nil")
+	}
+	b.ObjStart()
+	b.PutID("premiumLimitTypeChatFolderInviteLinkCount")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PremiumLimitTypeChatFolderInviteLinkCount) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeChatFolderInviteLinkCount#f854261a to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("premiumLimitTypeChatFolderInviteLinkCount"); err != nil {
+				return fmt.Errorf("unable to decode premiumLimitTypeChatFolderInviteLinkCount#f854261a: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// PremiumLimitTypeShareableChatFolderCount represents TL type `premiumLimitTypeShareableChatFolderCount#601eb4c7`.
+type PremiumLimitTypeShareableChatFolderCount struct {
+}
+
+// PremiumLimitTypeShareableChatFolderCountTypeID is TL type id of PremiumLimitTypeShareableChatFolderCount.
+const PremiumLimitTypeShareableChatFolderCountTypeID = 0x601eb4c7
+
+// construct implements constructor of PremiumLimitTypeClass.
+func (p PremiumLimitTypeShareableChatFolderCount) construct() PremiumLimitTypeClass { return &p }
+
+// Ensuring interfaces in compile-time for PremiumLimitTypeShareableChatFolderCount.
+var (
+	_ bin.Encoder     = &PremiumLimitTypeShareableChatFolderCount{}
+	_ bin.Decoder     = &PremiumLimitTypeShareableChatFolderCount{}
+	_ bin.BareEncoder = &PremiumLimitTypeShareableChatFolderCount{}
+	_ bin.BareDecoder = &PremiumLimitTypeShareableChatFolderCount{}
+
+	_ PremiumLimitTypeClass = &PremiumLimitTypeShareableChatFolderCount{}
+)
+
+func (p *PremiumLimitTypeShareableChatFolderCount) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PremiumLimitTypeShareableChatFolderCount) String() string {
+	if p == nil {
+		return "PremiumLimitTypeShareableChatFolderCount(nil)"
+	}
+	type Alias PremiumLimitTypeShareableChatFolderCount
+	return fmt.Sprintf("PremiumLimitTypeShareableChatFolderCount%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PremiumLimitTypeShareableChatFolderCount) TypeID() uint32 {
+	return PremiumLimitTypeShareableChatFolderCountTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PremiumLimitTypeShareableChatFolderCount) TypeName() string {
+	return "premiumLimitTypeShareableChatFolderCount"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PremiumLimitTypeShareableChatFolderCount) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "premiumLimitTypeShareableChatFolderCount",
+		ID:   PremiumLimitTypeShareableChatFolderCountTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PremiumLimitTypeShareableChatFolderCount) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeShareableChatFolderCount#601eb4c7 as nil")
+	}
+	b.PutID(PremiumLimitTypeShareableChatFolderCountTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PremiumLimitTypeShareableChatFolderCount) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeShareableChatFolderCount#601eb4c7 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PremiumLimitTypeShareableChatFolderCount) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeShareableChatFolderCount#601eb4c7 to nil")
+	}
+	if err := b.ConsumeID(PremiumLimitTypeShareableChatFolderCountTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumLimitTypeShareableChatFolderCount#601eb4c7: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PremiumLimitTypeShareableChatFolderCount) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeShareableChatFolderCount#601eb4c7 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PremiumLimitTypeShareableChatFolderCount) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeShareableChatFolderCount#601eb4c7 as nil")
+	}
+	b.ObjStart()
+	b.PutID("premiumLimitTypeShareableChatFolderCount")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PremiumLimitTypeShareableChatFolderCount) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeShareableChatFolderCount#601eb4c7 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("premiumLimitTypeShareableChatFolderCount"); err != nil {
+				return fmt.Errorf("unable to decode premiumLimitTypeShareableChatFolderCount#601eb4c7: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // PremiumLimitTypeClassName is schema name of PremiumLimitTypeClass.
 const PremiumLimitTypeClassName = "PremiumLimitType"
 
@@ -1358,11 +1620,13 @@ const PremiumLimitTypeClassName = "PremiumLimitType"
 //	case *tdapi.PremiumLimitTypeCreatedPublicChatCount: // premiumLimitTypeCreatedPublicChatCount#1a96beb9
 //	case *tdapi.PremiumLimitTypeSavedAnimationCount: // premiumLimitTypeSavedAnimationCount#fed27d89
 //	case *tdapi.PremiumLimitTypeFavoriteStickerCount: // premiumLimitTypeFavoriteStickerCount#2621e223
-//	case *tdapi.PremiumLimitTypeChatFilterCount: // premiumLimitTypeChatFilterCount#d99572a2
-//	case *tdapi.PremiumLimitTypeChatFilterChosenChatCount: // premiumLimitTypeChatFilterChosenChatCount#7aaa205f
+//	case *tdapi.PremiumLimitTypeChatFolderCount: // premiumLimitTypeChatFolderCount#1680096e
+//	case *tdapi.PremiumLimitTypeChatFolderChosenChatCount: // premiumLimitTypeChatFolderChosenChatCount#64d14355
 //	case *tdapi.PremiumLimitTypePinnedArchivedChatCount: // premiumLimitTypePinnedArchivedChatCount#588b2a0c
 //	case *tdapi.PremiumLimitTypeCaptionLength: // premiumLimitTypeCaptionLength#1185d83a
 //	case *tdapi.PremiumLimitTypeBioLength: // premiumLimitTypeBioLength#bba28603
+//	case *tdapi.PremiumLimitTypeChatFolderInviteLinkCount: // premiumLimitTypeChatFolderInviteLinkCount#f854261a
+//	case *tdapi.PremiumLimitTypeShareableChatFolderCount: // premiumLimitTypeShareableChatFolderCount#601eb4c7
 //	default: panic(v)
 //	}
 type PremiumLimitTypeClass interface {
@@ -1429,16 +1693,16 @@ func DecodePremiumLimitType(buf *bin.Buffer) (PremiumLimitTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
 		}
 		return &v, nil
-	case PremiumLimitTypeChatFilterCountTypeID:
-		// Decoding premiumLimitTypeChatFilterCount#d99572a2.
-		v := PremiumLimitTypeChatFilterCount{}
+	case PremiumLimitTypeChatFolderCountTypeID:
+		// Decoding premiumLimitTypeChatFolderCount#1680096e.
+		v := PremiumLimitTypeChatFolderCount{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
 		}
 		return &v, nil
-	case PremiumLimitTypeChatFilterChosenChatCountTypeID:
-		// Decoding premiumLimitTypeChatFilterChosenChatCount#7aaa205f.
-		v := PremiumLimitTypeChatFilterChosenChatCount{}
+	case PremiumLimitTypeChatFolderChosenChatCountTypeID:
+		// Decoding premiumLimitTypeChatFolderChosenChatCount#64d14355.
+		v := PremiumLimitTypeChatFolderChosenChatCount{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
 		}
@@ -1460,6 +1724,20 @@ func DecodePremiumLimitType(buf *bin.Buffer) (PremiumLimitTypeClass, error) {
 	case PremiumLimitTypeBioLengthTypeID:
 		// Decoding premiumLimitTypeBioLength#bba28603.
 		v := PremiumLimitTypeBioLength{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
+		}
+		return &v, nil
+	case PremiumLimitTypeChatFolderInviteLinkCountTypeID:
+		// Decoding premiumLimitTypeChatFolderInviteLinkCount#f854261a.
+		v := PremiumLimitTypeChatFolderInviteLinkCount{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
+		}
+		return &v, nil
+	case PremiumLimitTypeShareableChatFolderCountTypeID:
+		// Decoding premiumLimitTypeShareableChatFolderCount#601eb4c7.
+		v := PremiumLimitTypeShareableChatFolderCount{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
 		}
@@ -1511,16 +1789,16 @@ func DecodeTDLibJSONPremiumLimitType(buf tdjson.Decoder) (PremiumLimitTypeClass,
 			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
 		}
 		return &v, nil
-	case "premiumLimitTypeChatFilterCount":
-		// Decoding premiumLimitTypeChatFilterCount#d99572a2.
-		v := PremiumLimitTypeChatFilterCount{}
+	case "premiumLimitTypeChatFolderCount":
+		// Decoding premiumLimitTypeChatFolderCount#1680096e.
+		v := PremiumLimitTypeChatFolderCount{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
 		}
 		return &v, nil
-	case "premiumLimitTypeChatFilterChosenChatCount":
-		// Decoding premiumLimitTypeChatFilterChosenChatCount#7aaa205f.
-		v := PremiumLimitTypeChatFilterChosenChatCount{}
+	case "premiumLimitTypeChatFolderChosenChatCount":
+		// Decoding premiumLimitTypeChatFolderChosenChatCount#64d14355.
+		v := PremiumLimitTypeChatFolderChosenChatCount{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
 		}
@@ -1542,6 +1820,20 @@ func DecodeTDLibJSONPremiumLimitType(buf tdjson.Decoder) (PremiumLimitTypeClass,
 	case "premiumLimitTypeBioLength":
 		// Decoding premiumLimitTypeBioLength#bba28603.
 		v := PremiumLimitTypeBioLength{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
+		}
+		return &v, nil
+	case "premiumLimitTypeChatFolderInviteLinkCount":
+		// Decoding premiumLimitTypeChatFolderInviteLinkCount#f854261a.
+		v := PremiumLimitTypeChatFolderInviteLinkCount{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
+		}
+		return &v, nil
+	case "premiumLimitTypeShareableChatFolderCount":
+		// Decoding premiumLimitTypeShareableChatFolderCount#601eb4c7.
+		v := PremiumLimitTypeShareableChatFolderCount{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
 		}

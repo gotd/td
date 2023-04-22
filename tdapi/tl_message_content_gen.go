@@ -7485,6 +7485,207 @@ func (m *MessageScreenshotTaken) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// MessageChatSetBackground represents TL type `messageChatSetBackground#81819731`.
+type MessageChatSetBackground struct {
+	// Identifier of the message with a previously set same background; 0 if none. Can be an
+	// identifier of a deleted message
+	OldBackgroundMessageID int64
+	// The new background
+	Background ChatBackground
+}
+
+// MessageChatSetBackgroundTypeID is TL type id of MessageChatSetBackground.
+const MessageChatSetBackgroundTypeID = 0x81819731
+
+// construct implements constructor of MessageContentClass.
+func (m MessageChatSetBackground) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageChatSetBackground.
+var (
+	_ bin.Encoder     = &MessageChatSetBackground{}
+	_ bin.Decoder     = &MessageChatSetBackground{}
+	_ bin.BareEncoder = &MessageChatSetBackground{}
+	_ bin.BareDecoder = &MessageChatSetBackground{}
+
+	_ MessageContentClass = &MessageChatSetBackground{}
+)
+
+func (m *MessageChatSetBackground) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.OldBackgroundMessageID == 0) {
+		return false
+	}
+	if !(m.Background.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageChatSetBackground) String() string {
+	if m == nil {
+		return "MessageChatSetBackground(nil)"
+	}
+	type Alias MessageChatSetBackground
+	return fmt.Sprintf("MessageChatSetBackground%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageChatSetBackground) TypeID() uint32 {
+	return MessageChatSetBackgroundTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageChatSetBackground) TypeName() string {
+	return "messageChatSetBackground"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageChatSetBackground) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageChatSetBackground",
+		ID:   MessageChatSetBackgroundTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "OldBackgroundMessageID",
+			SchemaName: "old_background_message_id",
+		},
+		{
+			Name:       "Background",
+			SchemaName: "background",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageChatSetBackground) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageChatSetBackground#81819731 as nil")
+	}
+	b.PutID(MessageChatSetBackgroundTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageChatSetBackground) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageChatSetBackground#81819731 as nil")
+	}
+	b.PutInt53(m.OldBackgroundMessageID)
+	if err := m.Background.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageChatSetBackground#81819731: field background: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageChatSetBackground) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageChatSetBackground#81819731 to nil")
+	}
+	if err := b.ConsumeID(MessageChatSetBackgroundTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageChatSetBackground#81819731: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageChatSetBackground) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageChatSetBackground#81819731 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageChatSetBackground#81819731: field old_background_message_id: %w", err)
+		}
+		m.OldBackgroundMessageID = value
+	}
+	{
+		if err := m.Background.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageChatSetBackground#81819731: field background: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageChatSetBackground) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageChatSetBackground#81819731 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageChatSetBackground")
+	b.Comma()
+	b.FieldStart("old_background_message_id")
+	b.PutInt53(m.OldBackgroundMessageID)
+	b.Comma()
+	b.FieldStart("background")
+	if err := m.Background.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageChatSetBackground#81819731: field background: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageChatSetBackground) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageChatSetBackground#81819731 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageChatSetBackground"); err != nil {
+				return fmt.Errorf("unable to decode messageChatSetBackground#81819731: %w", err)
+			}
+		case "old_background_message_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageChatSetBackground#81819731: field old_background_message_id: %w", err)
+			}
+			m.OldBackgroundMessageID = value
+		case "background":
+			if err := m.Background.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode messageChatSetBackground#81819731: field background: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetOldBackgroundMessageID returns value of OldBackgroundMessageID field.
+func (m *MessageChatSetBackground) GetOldBackgroundMessageID() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.OldBackgroundMessageID
+}
+
+// GetBackground returns value of Background field.
+func (m *MessageChatSetBackground) GetBackground() (value ChatBackground) {
+	if m == nil {
+		return
+	}
+	return m.Background
+}
+
 // MessageChatSetTheme represents TL type `messageChatSetTheme#99ae9408`.
 type MessageChatSetTheme struct {
 	// If non-empty, name of a new theme, set for the chat. Otherwise, chat theme was reset
@@ -9996,12 +10197,18 @@ func (m *MessagePaymentSuccessfulBot) GetProviderPaymentChargeID() (value string
 	return m.ProviderPaymentChargeID
 }
 
-// MessageGiftedPremium represents TL type `messageGiftedPremium#5e392899`.
+// MessageGiftedPremium represents TL type `messageGiftedPremium#78d1d0a`.
 type MessageGiftedPremium struct {
+	// The identifier of a user that gifted Telegram Premium; 0 if the gift was anonymous
+	GifterUserID int64
 	// Currency for the paid amount
 	Currency string
 	// The paid amount, in the smallest units of the currency
 	Amount int64
+	// Cryptocurrency used to pay for the gift; may be empty if none
+	Cryptocurrency string
+	// The paid amount, in the smallest units of the cryptocurrency
+	CryptocurrencyAmount int64
 	// Number of month the Telegram Premium subscription will be active
 	MonthCount int32
 	// A sticker to be shown in the message; may be null if unknown
@@ -10009,7 +10216,7 @@ type MessageGiftedPremium struct {
 }
 
 // MessageGiftedPremiumTypeID is TL type id of MessageGiftedPremium.
-const MessageGiftedPremiumTypeID = 0x5e392899
+const MessageGiftedPremiumTypeID = 0x78d1d0a
 
 // construct implements constructor of MessageContentClass.
 func (m MessageGiftedPremium) construct() MessageContentClass { return &m }
@@ -10028,10 +10235,19 @@ func (m *MessageGiftedPremium) Zero() bool {
 	if m == nil {
 		return true
 	}
+	if !(m.GifterUserID == 0) {
+		return false
+	}
 	if !(m.Currency == "") {
 		return false
 	}
 	if !(m.Amount == 0) {
+		return false
+	}
+	if !(m.Cryptocurrency == "") {
+		return false
+	}
+	if !(m.CryptocurrencyAmount == 0) {
 		return false
 	}
 	if !(m.MonthCount == 0) {
@@ -10077,12 +10293,24 @@ func (m *MessageGiftedPremium) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "GifterUserID",
+			SchemaName: "gifter_user_id",
+		},
+		{
 			Name:       "Currency",
 			SchemaName: "currency",
 		},
 		{
 			Name:       "Amount",
 			SchemaName: "amount",
+		},
+		{
+			Name:       "Cryptocurrency",
+			SchemaName: "cryptocurrency",
+		},
+		{
+			Name:       "CryptocurrencyAmount",
+			SchemaName: "cryptocurrency_amount",
 		},
 		{
 			Name:       "MonthCount",
@@ -10099,7 +10327,7 @@ func (m *MessageGiftedPremium) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageGiftedPremium) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageGiftedPremium#5e392899 as nil")
+		return fmt.Errorf("can't encode messageGiftedPremium#78d1d0a as nil")
 	}
 	b.PutID(MessageGiftedPremiumTypeID)
 	return m.EncodeBare(b)
@@ -10108,13 +10336,16 @@ func (m *MessageGiftedPremium) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageGiftedPremium) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageGiftedPremium#5e392899 as nil")
+		return fmt.Errorf("can't encode messageGiftedPremium#78d1d0a as nil")
 	}
+	b.PutInt53(m.GifterUserID)
 	b.PutString(m.Currency)
 	b.PutInt53(m.Amount)
+	b.PutString(m.Cryptocurrency)
+	b.PutLong(m.CryptocurrencyAmount)
 	b.PutInt32(m.MonthCount)
 	if err := m.Sticker.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageGiftedPremium#5e392899: field sticker: %w", err)
+		return fmt.Errorf("unable to encode messageGiftedPremium#78d1d0a: field sticker: %w", err)
 	}
 	return nil
 }
@@ -10122,10 +10353,10 @@ func (m *MessageGiftedPremium) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageGiftedPremium) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageGiftedPremium#5e392899 to nil")
+		return fmt.Errorf("can't decode messageGiftedPremium#78d1d0a to nil")
 	}
 	if err := b.ConsumeID(MessageGiftedPremiumTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageGiftedPremium#5e392899: %w", err)
+		return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -10133,32 +10364,53 @@ func (m *MessageGiftedPremium) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageGiftedPremium) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageGiftedPremium#5e392899 to nil")
+		return fmt.Errorf("can't decode messageGiftedPremium#78d1d0a to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field gifter_user_id: %w", err)
+		}
+		m.GifterUserID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageGiftedPremium#5e392899: field currency: %w", err)
+			return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field currency: %w", err)
 		}
 		m.Currency = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageGiftedPremium#5e392899: field amount: %w", err)
+			return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field amount: %w", err)
 		}
 		m.Amount = value
 	}
 	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field cryptocurrency: %w", err)
+		}
+		m.Cryptocurrency = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field cryptocurrency_amount: %w", err)
+		}
+		m.CryptocurrencyAmount = value
+	}
+	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageGiftedPremium#5e392899: field month_count: %w", err)
+			return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field month_count: %w", err)
 		}
 		m.MonthCount = value
 	}
 	{
 		if err := m.Sticker.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageGiftedPremium#5e392899: field sticker: %w", err)
+			return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field sticker: %w", err)
 		}
 	}
 	return nil
@@ -10167,10 +10419,13 @@ func (m *MessageGiftedPremium) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageGiftedPremium) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageGiftedPremium#5e392899 as nil")
+		return fmt.Errorf("can't encode messageGiftedPremium#78d1d0a as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageGiftedPremium")
+	b.Comma()
+	b.FieldStart("gifter_user_id")
+	b.PutInt53(m.GifterUserID)
 	b.Comma()
 	b.FieldStart("currency")
 	b.PutString(m.Currency)
@@ -10178,12 +10433,18 @@ func (m *MessageGiftedPremium) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("amount")
 	b.PutInt53(m.Amount)
 	b.Comma()
+	b.FieldStart("cryptocurrency")
+	b.PutString(m.Cryptocurrency)
+	b.Comma()
+	b.FieldStart("cryptocurrency_amount")
+	b.PutLong(m.CryptocurrencyAmount)
+	b.Comma()
 	b.FieldStart("month_count")
 	b.PutInt32(m.MonthCount)
 	b.Comma()
 	b.FieldStart("sticker")
 	if err := m.Sticker.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageGiftedPremium#5e392899: field sticker: %w", err)
+		return fmt.Errorf("unable to encode messageGiftedPremium#78d1d0a: field sticker: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -10194,42 +10455,68 @@ func (m *MessageGiftedPremium) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageGiftedPremium) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageGiftedPremium#5e392899 to nil")
+		return fmt.Errorf("can't decode messageGiftedPremium#78d1d0a to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageGiftedPremium"); err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#5e392899: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: %w", err)
 			}
+		case "gifter_user_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field gifter_user_id: %w", err)
+			}
+			m.GifterUserID = value
 		case "currency":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#5e392899: field currency: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field currency: %w", err)
 			}
 			m.Currency = value
 		case "amount":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#5e392899: field amount: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field amount: %w", err)
 			}
 			m.Amount = value
+		case "cryptocurrency":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field cryptocurrency: %w", err)
+			}
+			m.Cryptocurrency = value
+		case "cryptocurrency_amount":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field cryptocurrency_amount: %w", err)
+			}
+			m.CryptocurrencyAmount = value
 		case "month_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#5e392899: field month_count: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field month_count: %w", err)
 			}
 			m.MonthCount = value
 		case "sticker":
 			if err := m.Sticker.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messageGiftedPremium#5e392899: field sticker: %w", err)
+				return fmt.Errorf("unable to decode messageGiftedPremium#78d1d0a: field sticker: %w", err)
 			}
 		default:
 			return b.Skip()
 		}
 		return nil
 	})
+}
+
+// GetGifterUserID returns value of GifterUserID field.
+func (m *MessageGiftedPremium) GetGifterUserID() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.GifterUserID
 }
 
 // GetCurrency returns value of Currency field.
@@ -10246,6 +10533,22 @@ func (m *MessageGiftedPremium) GetAmount() (value int64) {
 		return
 	}
 	return m.Amount
+}
+
+// GetCryptocurrency returns value of Cryptocurrency field.
+func (m *MessageGiftedPremium) GetCryptocurrency() (value string) {
+	if m == nil {
+		return
+	}
+	return m.Cryptocurrency
+}
+
+// GetCryptocurrencyAmount returns value of CryptocurrencyAmount field.
+func (m *MessageGiftedPremium) GetCryptocurrencyAmount() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.CryptocurrencyAmount
 }
 
 // GetMonthCount returns value of MonthCount field.
@@ -11298,7 +11601,7 @@ func (m *MessageWebAppDataSent) GetButtonText() (value string) {
 type MessageWebAppDataReceived struct {
 	// Text of the keyboardButtonTypeWebApp button, which opened the Web App
 	ButtonText string
-	// Received data
+	// The data
 	Data string
 }
 
@@ -12356,6 +12659,7 @@ const MessageContentClassName = "MessageContent"
 //	case *tdapi.MessageChatUpgradeFrom: // messageChatUpgradeFrom#136daadc
 //	case *tdapi.MessagePinMessage: // messagePinMessage#38d55039
 //	case *tdapi.MessageScreenshotTaken: // messageScreenshotTaken#a2b86dab
+//	case *tdapi.MessageChatSetBackground: // messageChatSetBackground#81819731
 //	case *tdapi.MessageChatSetTheme: // messageChatSetTheme#99ae9408
 //	case *tdapi.MessageChatSetMessageAutoDeleteTime: // messageChatSetMessageAutoDeleteTime#619e052e
 //	case *tdapi.MessageForumTopicCreated: // messageForumTopicCreated#b8ce47d1
@@ -12367,7 +12671,7 @@ const MessageContentClassName = "MessageContent"
 //	case *tdapi.MessageGameScore: // messageGameScore#50299d7f
 //	case *tdapi.MessagePaymentSuccessful: // messagePaymentSuccessful#53d93cdc
 //	case *tdapi.MessagePaymentSuccessfulBot: // messagePaymentSuccessfulBot#68e13eb9
-//	case *tdapi.MessageGiftedPremium: // messageGiftedPremium#5e392899
+//	case *tdapi.MessageGiftedPremium: // messageGiftedPremium#78d1d0a
 //	case *tdapi.MessageContactRegistered: // messageContactRegistered#a678fcff
 //	case *tdapi.MessageUserShared: // messageUserShared#d4dcb77c
 //	case *tdapi.MessageChatShared: // messageChatShared#22db7091
@@ -12669,6 +12973,13 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
+	case MessageChatSetBackgroundTypeID:
+		// Decoding messageChatSetBackground#81819731.
+		v := MessageChatSetBackground{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
 	case MessageChatSetThemeTypeID:
 		// Decoding messageChatSetTheme#99ae9408.
 		v := MessageChatSetTheme{}
@@ -12747,7 +13058,7 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 		}
 		return &v, nil
 	case MessageGiftedPremiumTypeID:
-		// Decoding messageGiftedPremium#5e392899.
+		// Decoding messageGiftedPremium#78d1d0a.
 		v := MessageGiftedPremium{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -13101,6 +13412,13 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
 		return &v, nil
+	case "messageChatSetBackground":
+		// Decoding messageChatSetBackground#81819731.
+		v := MessageChatSetBackground{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
 	case "messageChatSetTheme":
 		// Decoding messageChatSetTheme#99ae9408.
 		v := MessageChatSetTheme{}
@@ -13179,7 +13497,7 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 		}
 		return &v, nil
 	case "messageGiftedPremium":
-		// Decoding messageGiftedPremium#5e392899.
+		// Decoding messageGiftedPremium#78d1d0a.
 		v := MessageGiftedPremium{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)

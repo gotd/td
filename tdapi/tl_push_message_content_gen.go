@@ -4393,6 +4393,172 @@ func (p *PushMessageContentChatChangeTitle) GetTitle() (value string) {
 	return p.Title
 }
 
+// PushMessageContentChatSetBackground represents TL type `pushMessageContentChatSetBackground#a72b56e3`.
+type PushMessageContentChatSetBackground struct {
+	// True, if the set background is the same as the background of the current user
+	IsSame bool
+}
+
+// PushMessageContentChatSetBackgroundTypeID is TL type id of PushMessageContentChatSetBackground.
+const PushMessageContentChatSetBackgroundTypeID = 0xa72b56e3
+
+// construct implements constructor of PushMessageContentClass.
+func (p PushMessageContentChatSetBackground) construct() PushMessageContentClass { return &p }
+
+// Ensuring interfaces in compile-time for PushMessageContentChatSetBackground.
+var (
+	_ bin.Encoder     = &PushMessageContentChatSetBackground{}
+	_ bin.Decoder     = &PushMessageContentChatSetBackground{}
+	_ bin.BareEncoder = &PushMessageContentChatSetBackground{}
+	_ bin.BareDecoder = &PushMessageContentChatSetBackground{}
+
+	_ PushMessageContentClass = &PushMessageContentChatSetBackground{}
+)
+
+func (p *PushMessageContentChatSetBackground) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.IsSame == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PushMessageContentChatSetBackground) String() string {
+	if p == nil {
+		return "PushMessageContentChatSetBackground(nil)"
+	}
+	type Alias PushMessageContentChatSetBackground
+	return fmt.Sprintf("PushMessageContentChatSetBackground%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PushMessageContentChatSetBackground) TypeID() uint32 {
+	return PushMessageContentChatSetBackgroundTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PushMessageContentChatSetBackground) TypeName() string {
+	return "pushMessageContentChatSetBackground"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PushMessageContentChatSetBackground) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pushMessageContentChatSetBackground",
+		ID:   PushMessageContentChatSetBackgroundTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "IsSame",
+			SchemaName: "is_same",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PushMessageContentChatSetBackground) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentChatSetBackground#a72b56e3 as nil")
+	}
+	b.PutID(PushMessageContentChatSetBackgroundTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PushMessageContentChatSetBackground) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentChatSetBackground#a72b56e3 as nil")
+	}
+	b.PutBool(p.IsSame)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PushMessageContentChatSetBackground) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentChatSetBackground#a72b56e3 to nil")
+	}
+	if err := b.ConsumeID(PushMessageContentChatSetBackgroundTypeID); err != nil {
+		return fmt.Errorf("unable to decode pushMessageContentChatSetBackground#a72b56e3: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PushMessageContentChatSetBackground) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentChatSetBackground#a72b56e3 to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode pushMessageContentChatSetBackground#a72b56e3: field is_same: %w", err)
+		}
+		p.IsSame = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentChatSetBackground) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentChatSetBackground#a72b56e3 as nil")
+	}
+	b.ObjStart()
+	b.PutID("pushMessageContentChatSetBackground")
+	b.Comma()
+	b.FieldStart("is_same")
+	b.PutBool(p.IsSame)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentChatSetBackground) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentChatSetBackground#a72b56e3 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("pushMessageContentChatSetBackground"); err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentChatSetBackground#a72b56e3: %w", err)
+			}
+		case "is_same":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentChatSetBackground#a72b56e3: field is_same: %w", err)
+			}
+			p.IsSame = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetIsSame returns value of IsSame field.
+func (p *PushMessageContentChatSetBackground) GetIsSame() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.IsSame
+}
+
 // PushMessageContentChatSetTheme represents TL type `pushMessageContentChatSetTheme#a5d3b68`.
 type PushMessageContentChatSetTheme struct {
 	// If non-empty, name of a new theme, set for the chat. Otherwise, the chat theme was
@@ -5855,6 +6021,7 @@ const PushMessageContentClassName = "PushMessageContent"
 //	case *tdapi.PushMessageContentChatAddMembers: // pushMessageContentChatAddMembers#bf337b3a
 //	case *tdapi.PushMessageContentChatChangePhoto: // pushMessageContentChatChangePhoto#bd96521d
 //	case *tdapi.PushMessageContentChatChangeTitle: // pushMessageContentChatChangeTitle#8ae1f6a3
+//	case *tdapi.PushMessageContentChatSetBackground: // pushMessageContentChatSetBackground#a72b56e3
 //	case *tdapi.PushMessageContentChatSetTheme: // pushMessageContentChatSetTheme#a5d3b68
 //	case *tdapi.PushMessageContentChatDeleteMember: // pushMessageContentChatDeleteMember#23afa99f
 //	case *tdapi.PushMessageContentChatJoinByLink: // pushMessageContentChatJoinByLink#5c9bdf49
@@ -6044,6 +6211,13 @@ func DecodePushMessageContent(buf *bin.Buffer) (PushMessageContentClass, error) 
 	case PushMessageContentChatChangeTitleTypeID:
 		// Decoding pushMessageContentChatChangeTitle#8ae1f6a3.
 		v := PushMessageContentChatChangeTitle{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case PushMessageContentChatSetBackgroundTypeID:
+		// Decoding pushMessageContentChatSetBackground#a72b56e3.
+		v := PushMessageContentChatSetBackground{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
 		}
@@ -6266,6 +6440,13 @@ func DecodeTDLibJSONPushMessageContent(buf tdjson.Decoder) (PushMessageContentCl
 	case "pushMessageContentChatChangeTitle":
 		// Decoding pushMessageContentChatChangeTitle#8ae1f6a3.
 		v := PushMessageContentChatChangeTitle{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "pushMessageContentChatSetBackground":
+		// Decoding pushMessageContentChatSetBackground#a72b56e3.
+		v := PushMessageContentChatSetBackground{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
 		}
