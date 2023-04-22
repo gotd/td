@@ -243,6 +243,7 @@ func (g *BotsGetBotInfoRequest) GetLangCode() (value string) {
 // Possible errors:
 //
 //	400 LANG_CODE_INVALID: The specified language code is invalid.
+//	400 USER_BOT_INVALID: This method can only be called by a bot.
 //	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //
 // See https://core.telegram.org/method/bots.getBotInfo for reference.

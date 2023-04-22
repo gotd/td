@@ -32,7 +32,13 @@ var (
 )
 
 // ChannelsToggleParticipantsHiddenRequest represents TL type `channels.toggleParticipantsHidden#6a6e7854`.
-// Hide or display the participants list in a supergroup
+// Hide or display the participants list in a supergroup¹.
+// The supergroup must have at least hidden_members_group_size_min participants in order
+// to use this method, as specified by the client configuration parameters »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/channel
+//  2. https://core.telegram.org/api/config#client-configuration
 //
 // See https://core.telegram.org/method/channels.toggleParticipantsHidden for reference.
 type ChannelsToggleParticipantsHiddenRequest struct {
@@ -199,7 +205,17 @@ func (t *ChannelsToggleParticipantsHiddenRequest) GetChannelAsNotEmpty() (NotEmp
 }
 
 // ChannelsToggleParticipantsHidden invokes method channels.toggleParticipantsHidden#6a6e7854 returning error if any.
-// Hide or display the participants list in a supergroup
+// Hide or display the participants list in a supergroup¹.
+// The supergroup must have at least hidden_members_group_size_min participants in order
+// to use this method, as specified by the client configuration parameters »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/channel
+//  2. https://core.telegram.org/api/config#client-configuration
+//
+// Possible errors:
+//
+//	400 PARTICIPANTS_TOO_FEW: Not enough participants.
 //
 // See https://core.telegram.org/method/channels.toggleParticipantsHidden for reference.
 // Can be used by bots.

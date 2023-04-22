@@ -46,7 +46,9 @@ type SponsoredMessage struct {
 	Flags bin.Fields
 	// Whether the message needs to be labeled as "recommended" instead of "sponsored"
 	Recommended bool
-	// ShowPeerPhoto field of SponsoredMessage.
+	// Whether a profile photo bubble should be displayed for this message, like for messages
+	// sent in groups. The photo shown in the bubble is obtained either from the peer
+	// contained in from_id, or from chat_invite.
 	ShowPeerPhoto bool
 	// Message ID
 	RandomID []byte
@@ -79,11 +81,13 @@ type SponsoredMessage struct {
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// SponsorInfo field of SponsoredMessage.
+	// If set, contains additional information about the sponsor to be shown along with the
+	// message.
 	//
 	// Use SetSponsorInfo and GetSponsorInfo helpers.
 	SponsorInfo string
-	// AdditionalInfo field of SponsoredMessage.
+	// If set, contains additional information about the sponsored message to be shown along
+	// with the message.
 	//
 	// Use SetAdditionalInfo and GetAdditionalInfo helpers.
 	AdditionalInfo string

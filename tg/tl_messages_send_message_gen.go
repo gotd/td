@@ -66,7 +66,11 @@ type MessagesSendMessageRequest struct {
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	// If set, sends the message to the specified forum topic¹
+	// This field must contain the topic ID only when replying to messages in forum topics¹
+	// different from the "General" topic (i.e. reply_to_msg_id is set and reply_to_msg_id !=
+	// topicID and topicID != 1). If the replied-to message is deleted before the method
+	// finishes execution, the value in this field will be used to send the message to the
+	// correct topic, instead of the "General" topic.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/forum#forum-topics
@@ -819,7 +823,7 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //	400 MESSAGE_EMPTY: The provided message is empty.
 //	400 MESSAGE_TOO_LONG: The provided message is too long.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
-//	406 PAYMENT_UNSUPPORTED:
+//	406 PAYMENT_UNSUPPORTED: A detailed description of the error will be received separately as described here ».
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 PINNED_DIALOGS_TOO_MUCH: Too many pinned dialogs.
 //	400 POLL_OPTION_INVALID: Invalid poll option provided.

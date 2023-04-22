@@ -1300,12 +1300,20 @@ func (s *AuthSentCodeTypeSetUpEmailRequired) GetGoogleSigninAllowed() (value boo
 }
 
 // AuthSentCodeTypeFragmentSMS represents TL type `auth.sentCodeTypeFragmentSms#d9565c39`.
+// The code was delivered via fragment.com¹.
+//
+// Links:
+//  1. https://fragment.com
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeFragmentSms for reference.
 type AuthSentCodeTypeFragmentSMS struct {
-	// URL field of AuthSentCodeTypeFragmentSMS.
+	// Open the specified URL to log into fragment.com¹ with the wallet that owns the
+	// specified phone number and view the code.
+	//
+	// Links:
+	//  1) https://fragment.com
 	URL string
-	// Length field of AuthSentCodeTypeFragmentSMS.
+	// Length of the delivered code.
 	Length int
 }
 
@@ -1461,6 +1469,11 @@ func (s *AuthSentCodeTypeFragmentSMS) GetLength() (value int) {
 }
 
 // AuthSentCodeTypeFirebaseSMS represents TL type `auth.sentCodeTypeFirebaseSms#e57b1432`.
+// An authentication code should be delivered via SMS after Firebase attestation, as
+// described in the auth documentation »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/auth
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeFirebaseSms for reference.
 type AuthSentCodeTypeFirebaseSMS struct {
@@ -1469,7 +1482,10 @@ type AuthSentCodeTypeFirebaseSMS struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Nonce field of AuthSentCodeTypeFirebaseSMS.
+	// On Android, the nonce to be used as described in the auth documentation »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/auth
 	//
 	// Use SetNonce and GetNonce helpers.
 	Nonce []byte
@@ -1481,7 +1497,7 @@ type AuthSentCodeTypeFirebaseSMS struct {
 	//
 	// Use SetPushTimeout and GetPushTimeout helpers.
 	PushTimeout int
-	// Length field of AuthSentCodeTypeFirebaseSMS.
+	// Length of the code that will be delivered.
 	Length int
 }
 

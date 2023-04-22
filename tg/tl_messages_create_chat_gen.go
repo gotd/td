@@ -33,6 +33,13 @@ var (
 
 // MessagesCreateChatRequest represents TL type `messages.createChat#34a818`.
 // Creates a new chat.
+// May also return 0-N updates of type updateGroupInvitePrivacyForbidden¹: it indicates
+// we couldn't add a user to a chat because of their privacy settings; if required, an
+// invite link² can be shared with the user, instead.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/updateGroupInvitePrivacyForbidden
+//  2. https://core.telegram.org/api/invites
 //
 // See https://core.telegram.org/method/messages.createChat for reference.
 type MessagesCreateChatRequest struct {
@@ -287,6 +294,13 @@ func (c *MessagesCreateChatRequest) MapUsers() (value InputUserClassArray) {
 
 // MessagesCreateChat invokes method messages.createChat#34a818 returning error if any.
 // Creates a new chat.
+// May also return 0-N updates of type updateGroupInvitePrivacyForbidden¹: it indicates
+// we couldn't add a user to a chat because of their privacy settings; if required, an
+// invite link² can be shared with the user, instead.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/updateGroupInvitePrivacyForbidden
+//  2. https://core.telegram.org/api/invites
 //
 // Possible errors:
 //

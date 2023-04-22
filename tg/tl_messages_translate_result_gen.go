@@ -32,10 +32,17 @@ var (
 )
 
 // MessagesTranslateResult represents TL type `messages.translateResult#33db32f8`.
+// Translated text with entities¹
+//
+// Links:
+//  1. https://core.telegram.org/api/entities
 //
 // See https://core.telegram.org/constructor/messages.translateResult for reference.
 type MessagesTranslateResult struct {
-	// Result field of MessagesTranslateResult.
+	// Text+entities¹, for each input message.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	Result []TextWithEntities
 }
 

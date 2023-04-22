@@ -41,7 +41,8 @@ type MessagesSponsoredMessages struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// PostsBetween field of MessagesSponsoredMessages.
+	// If set, specifies the minimum number of messages between shown sponsored messages;
+	// otherwise, only one sponsored message must be shown after all ordinary messages.
 	//
 	// Use SetPostsBetween and GetPostsBetween helpers.
 	PostsBetween int

@@ -32,17 +32,17 @@ var (
 )
 
 // InputBotAppID represents TL type `inputBotAppID#a920bd7a`.
-// Used to fetch information about a bot web app¹ by its ID
+// Used to fetch information about a named bot web app¹ by its ID
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#bot-web-apps
+//  1. https://core.telegram.org/api/bots/webapps#named-bot-web-apps
 //
 // See https://core.telegram.org/constructor/inputBotAppID for reference.
 type InputBotAppID struct {
-	// Bot web app¹ ID.
+	// named bot web app¹ ID.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/bots/webapps#bot-web-apps
+	//  1) https://core.telegram.org/api/bots/webapps#named-bot-web-apps
 	ID int64
 	// Access hash, obtained from the botApp¹ constructor.
 	//
@@ -203,19 +203,19 @@ func (i *InputBotAppID) GetAccessHash() (value int64) {
 }
 
 // InputBotAppShortName represents TL type `inputBotAppShortName#908c0407`.
-// Used to fetch information about a bot web app¹ by its short name
+// Used to fetch information about a named bot web app¹ by its short name
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#bot-web-apps
+//  1. https://core.telegram.org/api/bots/webapps#named-bot-web-apps
 //
 // See https://core.telegram.org/constructor/inputBotAppShortName for reference.
 type InputBotAppShortName struct {
 	// ID of the bot that owns the bot web app
 	BotID InputUserClass
-	// Short name, obtained from a bot web app deep link¹
+	// Short name, obtained from a named bot web app deep link¹
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/links#bot-web-app-links
+	//  1) https://core.telegram.org/api/links#named-bot-web-app-links
 	ShortName string
 }
 

@@ -134,10 +134,10 @@ func (b *BotAppNotModified) DecodeBare(buf *bin.Buffer) error {
 }
 
 // BotApp represents TL type `botApp#95fcd1d6`.
-// Contains information about a bot web app¹.
+// Contains information about a named bot web app¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#bot-web-apps
+//  1. https://core.telegram.org/api/bots/webapps#named-bot-web-apps
 //
 // See https://core.telegram.org/constructor/botApp for reference.
 type BotApp struct {
@@ -150,10 +150,10 @@ type BotApp struct {
 	ID int64
 	// Bot web app access hash
 	AccessHash int64
-	// Bot web app short name, used to generate bot web app deep links¹.
+	// Bot web app short name, used to generate named bot web app deep links¹.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/links#bot-web-app-links
+	//  1) https://core.telegram.org/api/links#named-bot-web-app-links
 	ShortName string
 	// Bot web app title.
 	Title string

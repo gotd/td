@@ -32,7 +32,7 @@ var (
 )
 
 // MessagesTogglePeerTranslationsRequest represents TL type `messages.togglePeerTranslations#e47cb579`.
-// Toggle real-time chat translation¹ for a certain chat
+// Show or hide the real-time chat translation popup¹ for a certain chat
 //
 // Links:
 //  1. https://core.telegram.org/api/translation
@@ -44,9 +44,9 @@ type MessagesTogglePeerTranslationsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether to disable or enable real-time chat translation
+	// Whether to disable or enable the real-time chat translation popup
 	Disabled bool
-	// Peer where to enable or disable real-time chat translation
+	// The peer
 	Peer InputPeerClass
 }
 
@@ -226,7 +226,7 @@ func (t *MessagesTogglePeerTranslationsRequest) GetPeer() (value InputPeerClass)
 }
 
 // MessagesTogglePeerTranslations invokes method messages.togglePeerTranslations#e47cb579 returning error if any.
-// Toggle real-time chat translation¹ for a certain chat
+// Show or hide the real-time chat translation popup¹ for a certain chat
 //
 // Links:
 //  1. https://core.telegram.org/api/translation

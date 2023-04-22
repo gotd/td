@@ -131,7 +131,7 @@ type ChannelAdminLogEventsFilter struct {
 	// Forum¹-related events
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/forum#forum
+	//  1) https://core.telegram.org/api/forum
 	Forums bool
 }
 

@@ -47,7 +47,7 @@ type MessagesSetTypingRequest struct {
 	Flags bin.Fields
 	// Target user or group
 	Peer InputPeerClass
-	// Thread ID¹
+	// Topic ID¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads

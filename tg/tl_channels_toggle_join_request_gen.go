@@ -211,7 +211,8 @@ func (t *ChannelsToggleJoinRequestRequest) GetChannelAsNotEmpty() (NotEmptyInput
 //
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 CHAT_ID_INVALID: The provided chat id is invalid.
-//	400 CHAT_PUBLIC_REQUIRED:
+//	400 CHAT_NOT_MODIFIED: The pinned message wasn't modified.
+//	400 CHAT_PUBLIC_REQUIRED: You can only enable join requests in public groups.
 //
 // See https://core.telegram.org/method/channels.toggleJoinRequest for reference.
 func (c *Client) ChannelsToggleJoinRequest(ctx context.Context, request *ChannelsToggleJoinRequestRequest) (UpdatesClass, error) {

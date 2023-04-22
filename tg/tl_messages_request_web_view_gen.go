@@ -102,12 +102,14 @@ type MessagesRequestWebViewRequest struct {
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	// If set, the inline message that will be sent by the bot on behalf of the user once the
-	// web app interaction is terminated¹ will be sent to the specified forum topic²
+	// This field must contain the topic ID only when replying to messages in forum topics¹
+	// different from the "General" topic (i.e. reply_to_msg_id is set and reply_to_msg_id !=
+	// topicID and topicID != 1). If the replied-to message is deleted before the method
+	// finishes execution, the value in this field will be used to send the message to the
+	// correct topic, instead of the "General" topic.
 	//
 	// Links:
-	//  1) https://core.telegram.org/method/messages.sendWebViewResultMessage
-	//  2) https://core.telegram.org/api/forum#forum-topics
+	//  1) https://core.telegram.org/api/forum#forum-topics
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

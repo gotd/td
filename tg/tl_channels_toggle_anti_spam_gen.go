@@ -39,7 +39,12 @@ var (
 //
 // See https://core.telegram.org/method/channels.toggleAntiSpam for reference.
 type ChannelsToggleAntiSpamRequest struct {
-	// Supergroup ID
+	// Supergroup ID. The specified supergroup must have at least
+	// telegram_antispam_group_size_min members to enable antispam functionality, as
+	// specified by the client configuration parameters¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#client-configuration
 	Channel InputChannelClass
 	// Enable or disable the native antispam system.
 	Enabled bool

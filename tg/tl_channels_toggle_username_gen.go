@@ -241,6 +241,11 @@ func (t *ChannelsToggleUsernameRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 //  1. https://fragment.com
 //  2. https://core.telegram.org/api/channel
 //
+// Possible errors:
+//
+//	400 USERNAMES_ACTIVE_TOO_MUCH: The maximum number of active usernames was reached.
+//	400 USERNAME_INVALID: The provided username is not valid.
+//
 // See https://core.telegram.org/method/channels.toggleUsername for reference.
 // Can be used by bots.
 func (c *Client) ChannelsToggleUsername(ctx context.Context, request *ChannelsToggleUsernameRequest) (bool, error) {

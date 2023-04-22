@@ -33,6 +33,13 @@ var (
 
 // ChannelsInviteToChannelRequest represents TL type `channels.inviteToChannel#199f3a6c`.
 // Invite users to a channel/supergroup
+// May also return 0-N updates of type updateGroupInvitePrivacyForbidden¹: it indicates
+// we couldn't add a user to a chat because of their privacy settings; if required, an
+// invite link² can be shared with the user, instead.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/updateGroupInvitePrivacyForbidden
+//  2. https://core.telegram.org/api/invites
 //
 // See https://core.telegram.org/method/channels.inviteToChannel for reference.
 type ChannelsInviteToChannelRequest struct {
@@ -223,6 +230,13 @@ func (i *ChannelsInviteToChannelRequest) MapUsers() (value InputUserClassArray) 
 
 // ChannelsInviteToChannel invokes method channels.inviteToChannel#199f3a6c returning error if any.
 // Invite users to a channel/supergroup
+// May also return 0-N updates of type updateGroupInvitePrivacyForbidden¹: it indicates
+// we couldn't add a user to a chat because of their privacy settings; if required, an
+// invite link² can be shared with the user, instead.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/updateGroupInvitePrivacyForbidden
+//  2. https://core.telegram.org/api/invites
 //
 // Possible errors:
 //
