@@ -1062,16 +1062,16 @@ func (i *InlineKeyboardButtonTypeCallbackGame) DecodeTDLibJSON(b tdjson.Decoder)
 	})
 }
 
-// InlineKeyboardButtonTypeSwitchInline represents TL type `inlineKeyboardButtonTypeSwitchInline#86abc4d5`.
+// InlineKeyboardButtonTypeSwitchInline represents TL type `inlineKeyboardButtonTypeSwitchInline#207a9cf5`.
 type InlineKeyboardButtonTypeSwitchInline struct {
 	// Inline query to be sent to the bot
 	Query string
-	// True, if the inline query must be sent from the current chat
-	InCurrentChat bool
+	// Target chat from which to send the inline query
+	TargetChat TargetChatClass
 }
 
 // InlineKeyboardButtonTypeSwitchInlineTypeID is TL type id of InlineKeyboardButtonTypeSwitchInline.
-const InlineKeyboardButtonTypeSwitchInlineTypeID = 0x86abc4d5
+const InlineKeyboardButtonTypeSwitchInlineTypeID = 0x207a9cf5
 
 // construct implements constructor of InlineKeyboardButtonTypeClass.
 func (i InlineKeyboardButtonTypeSwitchInline) construct() InlineKeyboardButtonTypeClass { return &i }
@@ -1093,7 +1093,7 @@ func (i *InlineKeyboardButtonTypeSwitchInline) Zero() bool {
 	if !(i.Query == "") {
 		return false
 	}
-	if !(i.InCurrentChat == false) {
+	if !(i.TargetChat == nil) {
 		return false
 	}
 
@@ -1137,8 +1137,8 @@ func (i *InlineKeyboardButtonTypeSwitchInline) TypeInfo() tdp.Type {
 			SchemaName: "query",
 		},
 		{
-			Name:       "InCurrentChat",
-			SchemaName: "in_current_chat",
+			Name:       "TargetChat",
+			SchemaName: "target_chat",
 		},
 	}
 	return typ
@@ -1147,7 +1147,7 @@ func (i *InlineKeyboardButtonTypeSwitchInline) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InlineKeyboardButtonTypeSwitchInline) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inlineKeyboardButtonTypeSwitchInline#86abc4d5 as nil")
+		return fmt.Errorf("can't encode inlineKeyboardButtonTypeSwitchInline#207a9cf5 as nil")
 	}
 	b.PutID(InlineKeyboardButtonTypeSwitchInlineTypeID)
 	return i.EncodeBare(b)
@@ -1156,20 +1156,25 @@ func (i *InlineKeyboardButtonTypeSwitchInline) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InlineKeyboardButtonTypeSwitchInline) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inlineKeyboardButtonTypeSwitchInline#86abc4d5 as nil")
+		return fmt.Errorf("can't encode inlineKeyboardButtonTypeSwitchInline#207a9cf5 as nil")
 	}
 	b.PutString(i.Query)
-	b.PutBool(i.InCurrentChat)
+	if i.TargetChat == nil {
+		return fmt.Errorf("unable to encode inlineKeyboardButtonTypeSwitchInline#207a9cf5: field target_chat is nil")
+	}
+	if err := i.TargetChat.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inlineKeyboardButtonTypeSwitchInline#207a9cf5: field target_chat: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (i *InlineKeyboardButtonTypeSwitchInline) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inlineKeyboardButtonTypeSwitchInline#86abc4d5 to nil")
+		return fmt.Errorf("can't decode inlineKeyboardButtonTypeSwitchInline#207a9cf5 to nil")
 	}
 	if err := b.ConsumeID(InlineKeyboardButtonTypeSwitchInlineTypeID); err != nil {
-		return fmt.Errorf("unable to decode inlineKeyboardButtonTypeSwitchInline#86abc4d5: %w", err)
+		return fmt.Errorf("unable to decode inlineKeyboardButtonTypeSwitchInline#207a9cf5: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -1177,21 +1182,21 @@ func (i *InlineKeyboardButtonTypeSwitchInline) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InlineKeyboardButtonTypeSwitchInline) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inlineKeyboardButtonTypeSwitchInline#86abc4d5 to nil")
+		return fmt.Errorf("can't decode inlineKeyboardButtonTypeSwitchInline#207a9cf5 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inlineKeyboardButtonTypeSwitchInline#86abc4d5: field query: %w", err)
+			return fmt.Errorf("unable to decode inlineKeyboardButtonTypeSwitchInline#207a9cf5: field query: %w", err)
 		}
 		i.Query = value
 	}
 	{
-		value, err := b.Bool()
+		value, err := DecodeTargetChat(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inlineKeyboardButtonTypeSwitchInline#86abc4d5: field in_current_chat: %w", err)
+			return fmt.Errorf("unable to decode inlineKeyboardButtonTypeSwitchInline#207a9cf5: field target_chat: %w", err)
 		}
-		i.InCurrentChat = value
+		i.TargetChat = value
 	}
 	return nil
 }
@@ -1199,7 +1204,7 @@ func (i *InlineKeyboardButtonTypeSwitchInline) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InlineKeyboardButtonTypeSwitchInline) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inlineKeyboardButtonTypeSwitchInline#86abc4d5 as nil")
+		return fmt.Errorf("can't encode inlineKeyboardButtonTypeSwitchInline#207a9cf5 as nil")
 	}
 	b.ObjStart()
 	b.PutID("inlineKeyboardButtonTypeSwitchInline")
@@ -1207,8 +1212,13 @@ func (i *InlineKeyboardButtonTypeSwitchInline) EncodeTDLibJSON(b tdjson.Encoder)
 	b.FieldStart("query")
 	b.PutString(i.Query)
 	b.Comma()
-	b.FieldStart("in_current_chat")
-	b.PutBool(i.InCurrentChat)
+	b.FieldStart("target_chat")
+	if i.TargetChat == nil {
+		return fmt.Errorf("unable to encode inlineKeyboardButtonTypeSwitchInline#207a9cf5: field target_chat is nil")
+	}
+	if err := i.TargetChat.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inlineKeyboardButtonTypeSwitchInline#207a9cf5: field target_chat: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -1218,27 +1228,27 @@ func (i *InlineKeyboardButtonTypeSwitchInline) EncodeTDLibJSON(b tdjson.Encoder)
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InlineKeyboardButtonTypeSwitchInline) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inlineKeyboardButtonTypeSwitchInline#86abc4d5 to nil")
+		return fmt.Errorf("can't decode inlineKeyboardButtonTypeSwitchInline#207a9cf5 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("inlineKeyboardButtonTypeSwitchInline"); err != nil {
-				return fmt.Errorf("unable to decode inlineKeyboardButtonTypeSwitchInline#86abc4d5: %w", err)
+				return fmt.Errorf("unable to decode inlineKeyboardButtonTypeSwitchInline#207a9cf5: %w", err)
 			}
 		case "query":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode inlineKeyboardButtonTypeSwitchInline#86abc4d5: field query: %w", err)
+				return fmt.Errorf("unable to decode inlineKeyboardButtonTypeSwitchInline#207a9cf5: field query: %w", err)
 			}
 			i.Query = value
-		case "in_current_chat":
-			value, err := b.Bool()
+		case "target_chat":
+			value, err := DecodeTDLibJSONTargetChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inlineKeyboardButtonTypeSwitchInline#86abc4d5: field in_current_chat: %w", err)
+				return fmt.Errorf("unable to decode inlineKeyboardButtonTypeSwitchInline#207a9cf5: field target_chat: %w", err)
 			}
-			i.InCurrentChat = value
+			i.TargetChat = value
 		default:
 			return b.Skip()
 		}
@@ -1254,12 +1264,12 @@ func (i *InlineKeyboardButtonTypeSwitchInline) GetQuery() (value string) {
 	return i.Query
 }
 
-// GetInCurrentChat returns value of InCurrentChat field.
-func (i *InlineKeyboardButtonTypeSwitchInline) GetInCurrentChat() (value bool) {
+// GetTargetChat returns value of TargetChat field.
+func (i *InlineKeyboardButtonTypeSwitchInline) GetTargetChat() (value TargetChatClass) {
 	if i == nil {
 		return
 	}
-	return i.InCurrentChat
+	return i.TargetChat
 }
 
 // InlineKeyboardButtonTypeBuy represents TL type `inlineKeyboardButtonTypeBuy#511b3c70`.
@@ -1577,7 +1587,7 @@ const InlineKeyboardButtonTypeClassName = "InlineKeyboardButtonType"
 //	case *tdapi.InlineKeyboardButtonTypeCallback: // inlineKeyboardButtonTypeCallback#bccb7bfd
 //	case *tdapi.InlineKeyboardButtonTypeCallbackWithPassword: // inlineKeyboardButtonTypeCallbackWithPassword#361f4248
 //	case *tdapi.InlineKeyboardButtonTypeCallbackGame: // inlineKeyboardButtonTypeCallbackGame#e9255468
-//	case *tdapi.InlineKeyboardButtonTypeSwitchInline: // inlineKeyboardButtonTypeSwitchInline#86abc4d5
+//	case *tdapi.InlineKeyboardButtonTypeSwitchInline: // inlineKeyboardButtonTypeSwitchInline#207a9cf5
 //	case *tdapi.InlineKeyboardButtonTypeBuy: // inlineKeyboardButtonTypeBuy#511b3c70
 //	case *tdapi.InlineKeyboardButtonTypeUser: // inlineKeyboardButtonTypeUser#6d77e5a2
 //	default: panic(v)
@@ -1654,7 +1664,7 @@ func DecodeInlineKeyboardButtonType(buf *bin.Buffer) (InlineKeyboardButtonTypeCl
 		}
 		return &v, nil
 	case InlineKeyboardButtonTypeSwitchInlineTypeID:
-		// Decoding inlineKeyboardButtonTypeSwitchInline#86abc4d5.
+		// Decoding inlineKeyboardButtonTypeSwitchInline#207a9cf5.
 		v := InlineKeyboardButtonTypeSwitchInline{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InlineKeyboardButtonTypeClass: %w", err)
@@ -1729,7 +1739,7 @@ func DecodeTDLibJSONInlineKeyboardButtonType(buf tdjson.Decoder) (InlineKeyboard
 		}
 		return &v, nil
 	case "inlineKeyboardButtonTypeSwitchInline":
-		// Decoding inlineKeyboardButtonTypeSwitchInline#86abc4d5.
+		// Decoding inlineKeyboardButtonTypeSwitchInline#207a9cf5.
 		v := InlineKeyboardButtonTypeSwitchInline{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InlineKeyboardButtonTypeClass: %w", err)

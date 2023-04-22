@@ -33,7 +33,7 @@ var (
 
 // GetInlineQueryResultsRequest represents TL type `getInlineQueryResults#79dcf86c`.
 type GetInlineQueryResultsRequest struct {
-	// The identifier of the target bot
+	// Identifier of the target bot
 	BotUserID int64
 	// Identifier of the chat where the query was sent
 	ChatID int64

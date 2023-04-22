@@ -33,7 +33,7 @@ var (
 
 // SetBackgroundRequest represents TL type `setBackground#c2487387`.
 type SetBackgroundRequest struct {
-	// The input background to use; pass null to create a new filled backgrounds or to remove
+	// The input background to use; pass null to create a new filled background or to remove
 	// the current background
 	Background InputBackgroundClass
 	// Background type; pass null to use the default type of the remote background or to

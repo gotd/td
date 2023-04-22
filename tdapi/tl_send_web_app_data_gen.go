@@ -37,7 +37,7 @@ type SendWebAppDataRequest struct {
 	BotUserID int64
 	// Text of the keyboardButtonTypeWebApp button, which opened the Web App
 	ButtonText string
-	// Received data
+	// The data
 	Data string
 }
 

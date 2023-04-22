@@ -293,33 +293,33 @@ func (c *ChatListArchive) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// ChatListFilter represents TL type `chatListFilter#876fee39`.
-type ChatListFilter struct {
-	// Chat filter identifier
-	ChatFilterID int32
+// ChatListFolder represents TL type `chatListFolder#16fe3e58`.
+type ChatListFolder struct {
+	// Chat folder identifier
+	ChatFolderID int32
 }
 
-// ChatListFilterTypeID is TL type id of ChatListFilter.
-const ChatListFilterTypeID = 0x876fee39
+// ChatListFolderTypeID is TL type id of ChatListFolder.
+const ChatListFolderTypeID = 0x16fe3e58
 
 // construct implements constructor of ChatListClass.
-func (c ChatListFilter) construct() ChatListClass { return &c }
+func (c ChatListFolder) construct() ChatListClass { return &c }
 
-// Ensuring interfaces in compile-time for ChatListFilter.
+// Ensuring interfaces in compile-time for ChatListFolder.
 var (
-	_ bin.Encoder     = &ChatListFilter{}
-	_ bin.Decoder     = &ChatListFilter{}
-	_ bin.BareEncoder = &ChatListFilter{}
-	_ bin.BareDecoder = &ChatListFilter{}
+	_ bin.Encoder     = &ChatListFolder{}
+	_ bin.Decoder     = &ChatListFolder{}
+	_ bin.BareEncoder = &ChatListFolder{}
+	_ bin.BareDecoder = &ChatListFolder{}
 
-	_ ChatListClass = &ChatListFilter{}
+	_ ChatListClass = &ChatListFolder{}
 )
 
-func (c *ChatListFilter) Zero() bool {
+func (c *ChatListFolder) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.ChatFilterID == 0) {
+	if !(c.ChatFolderID == 0) {
 		return false
 	}
 
@@ -327,31 +327,31 @@ func (c *ChatListFilter) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (c *ChatListFilter) String() string {
+func (c *ChatListFolder) String() string {
 	if c == nil {
-		return "ChatListFilter(nil)"
+		return "ChatListFolder(nil)"
 	}
-	type Alias ChatListFilter
-	return fmt.Sprintf("ChatListFilter%+v", Alias(*c))
+	type Alias ChatListFolder
+	return fmt.Sprintf("ChatListFolder%+v", Alias(*c))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatListFilter) TypeID() uint32 {
-	return ChatListFilterTypeID
+func (*ChatListFolder) TypeID() uint32 {
+	return ChatListFolderTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*ChatListFilter) TypeName() string {
-	return "chatListFilter"
+func (*ChatListFolder) TypeName() string {
+	return "chatListFolder"
 }
 
 // TypeInfo returns info about TL type.
-func (c *ChatListFilter) TypeInfo() tdp.Type {
+func (c *ChatListFolder) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "chatListFilter",
-		ID:   ChatListFilterTypeID,
+		Name: "chatListFolder",
+		ID:   ChatListFolderTypeID,
 	}
 	if c == nil {
 		typ.Null = true
@@ -359,67 +359,67 @@ func (c *ChatListFilter) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "ChatFilterID",
-			SchemaName: "chat_filter_id",
+			Name:       "ChatFolderID",
+			SchemaName: "chat_folder_id",
 		},
 	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
-func (c *ChatListFilter) Encode(b *bin.Buffer) error {
+func (c *ChatListFolder) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatListFilter#876fee39 as nil")
+		return fmt.Errorf("can't encode chatListFolder#16fe3e58 as nil")
 	}
-	b.PutID(ChatListFilterTypeID)
+	b.PutID(ChatListFolderTypeID)
 	return c.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (c *ChatListFilter) EncodeBare(b *bin.Buffer) error {
+func (c *ChatListFolder) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatListFilter#876fee39 as nil")
+		return fmt.Errorf("can't encode chatListFolder#16fe3e58 as nil")
 	}
-	b.PutInt32(c.ChatFilterID)
+	b.PutInt32(c.ChatFolderID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (c *ChatListFilter) Decode(b *bin.Buffer) error {
+func (c *ChatListFolder) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatListFilter#876fee39 to nil")
+		return fmt.Errorf("can't decode chatListFolder#16fe3e58 to nil")
 	}
-	if err := b.ConsumeID(ChatListFilterTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatListFilter#876fee39: %w", err)
+	if err := b.ConsumeID(ChatListFolderTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatListFolder#16fe3e58: %w", err)
 	}
 	return c.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (c *ChatListFilter) DecodeBare(b *bin.Buffer) error {
+func (c *ChatListFolder) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatListFilter#876fee39 to nil")
+		return fmt.Errorf("can't decode chatListFolder#16fe3e58 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatListFilter#876fee39: field chat_filter_id: %w", err)
+			return fmt.Errorf("unable to decode chatListFolder#16fe3e58: field chat_folder_id: %w", err)
 		}
-		c.ChatFilterID = value
+		c.ChatFolderID = value
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatListFilter) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (c *ChatListFolder) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatListFilter#876fee39 as nil")
+		return fmt.Errorf("can't encode chatListFolder#16fe3e58 as nil")
 	}
 	b.ObjStart()
-	b.PutID("chatListFilter")
+	b.PutID("chatListFolder")
 	b.Comma()
-	b.FieldStart("chat_filter_id")
-	b.PutInt32(c.ChatFilterID)
+	b.FieldStart("chat_folder_id")
+	b.PutInt32(c.ChatFolderID)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -427,23 +427,23 @@ func (c *ChatListFilter) EncodeTDLibJSON(b tdjson.Encoder) error {
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatListFilter) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (c *ChatListFolder) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatListFilter#876fee39 to nil")
+		return fmt.Errorf("can't decode chatListFolder#16fe3e58 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("chatListFilter"); err != nil {
-				return fmt.Errorf("unable to decode chatListFilter#876fee39: %w", err)
+			if err := b.ConsumeID("chatListFolder"); err != nil {
+				return fmt.Errorf("unable to decode chatListFolder#16fe3e58: %w", err)
 			}
-		case "chat_filter_id":
+		case "chat_folder_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatListFilter#876fee39: field chat_filter_id: %w", err)
+				return fmt.Errorf("unable to decode chatListFolder#16fe3e58: field chat_folder_id: %w", err)
 			}
-			c.ChatFilterID = value
+			c.ChatFolderID = value
 		default:
 			return b.Skip()
 		}
@@ -451,12 +451,12 @@ func (c *ChatListFilter) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetChatFilterID returns value of ChatFilterID field.
-func (c *ChatListFilter) GetChatFilterID() (value int32) {
+// GetChatFolderID returns value of ChatFolderID field.
+func (c *ChatListFolder) GetChatFolderID() (value int32) {
 	if c == nil {
 		return
 	}
-	return c.ChatFilterID
+	return c.ChatFolderID
 }
 
 // ChatListClassName is schema name of ChatListClass.
@@ -473,7 +473,7 @@ const ChatListClassName = "ChatList"
 //	switch v := g.(type) {
 //	case *tdapi.ChatListMain: // chatListMain#e8195bac
 //	case *tdapi.ChatListArchive: // chatListArchive#159f6ec3
-//	case *tdapi.ChatListFilter: // chatListFilter#876fee39
+//	case *tdapi.ChatListFolder: // chatListFolder#16fe3e58
 //	default: panic(v)
 //	}
 type ChatListClass interface {
@@ -519,9 +519,9 @@ func DecodeChatList(buf *bin.Buffer) (ChatListClass, error) {
 			return nil, fmt.Errorf("unable to decode ChatListClass: %w", err)
 		}
 		return &v, nil
-	case ChatListFilterTypeID:
-		// Decoding chatListFilter#876fee39.
-		v := ChatListFilter{}
+	case ChatListFolderTypeID:
+		// Decoding chatListFolder#16fe3e58.
+		v := ChatListFolder{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatListClass: %w", err)
 		}
@@ -552,9 +552,9 @@ func DecodeTDLibJSONChatList(buf tdjson.Decoder) (ChatListClass, error) {
 			return nil, fmt.Errorf("unable to decode ChatListClass: %w", err)
 		}
 		return &v, nil
-	case "chatListFilter":
-		// Decoding chatListFilter#876fee39.
-		v := ChatListFilter{}
+	case "chatListFolder":
+		// Decoding chatListFolder#16fe3e58.
+		v := ChatListFolder{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatListClass: %w", err)
 		}
