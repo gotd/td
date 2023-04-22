@@ -27,6 +27,7 @@ import (
 	"golang.org/x/time/rate"
 	lj "gopkg.in/natefinch/lumberjack.v2"
 
+	"github.com/gotd/td/examples"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/auth"
 	"github.com/gotd/td/telegram/message/peer"
@@ -211,7 +212,7 @@ func run(ctx context.Context) error {
 	})
 
 	// Authentication flow handles authentication process, like prompting for code and 2FA password.
-	authFlow := auth.NewFlow(terminalAuth{phone: phone}, auth.SendCodeOptions{})
+	flow := auth.NewFlow(examples.Terminal{PhoneNumber: phone}, auth.SendCodeOptions{})
 
 	wg, ctx := errgroup.WithContext(ctx)
 	wg.Go(func() error {
@@ -222,16 +223,9 @@ func run(ctx context.Context) error {
 	wg.Go(func() error {
 		// Spawning main goroutine.
 		if err := client.Run(ctx, func(ctx context.Context) error {
-			if self, err := client.Self(ctx); err != nil || self.Bot {
-				// Starting authentication flow.
-				fmt.Println("Not logged in: starting auth")
-				lg.Info("Starting authentication flow")
-				if err := authFlow.Run(ctx, client.Auth()); err != nil {
-					return errors.Wrap(err, "auth")
-				}
-			} else {
-				fmt.Println("Already logged in")
-				lg.Info("Already authenticated")
+			// Perform auth if no session is available.
+			if err := client.Auth().IfNecessary(ctx, flow); err != nil {
+				return errors.Wrap(err, "auth")
 			}
 
 			// Getting info about current user.
