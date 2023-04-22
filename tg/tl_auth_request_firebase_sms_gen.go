@@ -32,6 +32,7 @@ var (
 )
 
 // AuthRequestFirebaseSMSRequest represents TL type `auth.requestFirebaseSms#89464b50`.
+// Request an SMS code via Firebase.
 //
 // See https://core.telegram.org/method/auth.requestFirebaseSms for reference.
 type AuthRequestFirebaseSMSRequest struct {
@@ -40,11 +41,17 @@ type AuthRequestFirebaseSMSRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// PhoneNumber field of AuthRequestFirebaseSMSRequest.
+	// Phone number
 	PhoneNumber string
-	// PhoneCodeHash field of AuthRequestFirebaseSMSRequest.
+	// Phone code hash returned by auth.sendCode¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/auth.sendCode
 	PhoneCodeHash string
-	// SafetyNetToken field of AuthRequestFirebaseSMSRequest.
+	// On Android, a JWS object obtained as described in the auth documentation »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/auth
 	//
 	// Use SetSafetyNetToken and GetSafetyNetToken helpers.
 	SafetyNetToken string
@@ -305,6 +312,7 @@ func (r *AuthRequestFirebaseSMSRequest) GetIosPushSecret() (value string, ok boo
 }
 
 // AuthRequestFirebaseSMS invokes method auth.requestFirebaseSms#89464b50 returning error if any.
+// Request an SMS code via Firebase.
 //
 // Possible errors:
 //

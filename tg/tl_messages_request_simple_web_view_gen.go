@@ -44,7 +44,11 @@ type MessagesRequestSimpleWebViewRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// FromSwitchWebview field of MessagesRequestSimpleWebViewRequest.
+	// Whether the webapp was opened by clicking on the switch_webview button shown on top of
+	// the inline results list returned by messages.getInlineBotResults¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.getInlineBotResults
 	FromSwitchWebview bool
 	// Bot that owns the webapp
 	Bot InputUserClass

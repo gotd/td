@@ -8,10 +8,6 @@ updates:
     directory: "_tools"
     schedule:
       interval: daily
-  - package-ecosystem: gomod
-    directory: "examples/"
-    schedule:
-      interval: daily
   - package-ecosystem: github-actions
     directory: "/"
     schedule:

@@ -32,13 +32,16 @@ var (
 )
 
 // MessagesGetEmojiKeywordsDifferenceRequest represents TL type `messages.getEmojiKeywordsDifference#1508b6af`.
-// Get changed emoji keywords
+// Get changed emoji keywords »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/custom-emoji#emoji-keywords
 //
 // See https://core.telegram.org/method/messages.getEmojiKeywordsDifference for reference.
 type MessagesGetEmojiKeywordsDifferenceRequest struct {
 	// Language code
 	LangCode string
-	// Previous emoji keyword localization version
+	// Previous stored emoji keyword list version
 	FromVersion int
 }
 
@@ -189,7 +192,10 @@ func (g *MessagesGetEmojiKeywordsDifferenceRequest) GetFromVersion() (value int)
 }
 
 // MessagesGetEmojiKeywordsDifference invokes method messages.getEmojiKeywordsDifference#1508b6af returning error if any.
-// Get changed emoji keywords
+// Get changed emoji keywords »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/custom-emoji#emoji-keywords
 //
 // See https://core.telegram.org/method/messages.getEmojiKeywordsDifference for reference.
 func (c *Client) MessagesGetEmojiKeywordsDifference(ctx context.Context, request *MessagesGetEmojiKeywordsDifferenceRequest) (*EmojiKeywordsDifference, error) {

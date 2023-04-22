@@ -32,7 +32,12 @@ var (
 )
 
 // MessagesTranslateTextRequest represents TL type `messages.translateText#63183030`.
-// Translate a given text
+// Translate a given text.
+// Styled text entities¹ will only be preserved for Telegram Premium² users.
+//
+// Links:
+//  1. https://core.telegram.org/api/entities
+//  2. https://core.telegram.org/api/premium
 //
 // See https://core.telegram.org/method/messages.translateText for reference.
 type MessagesTranslateTextRequest struct {
@@ -49,7 +54,7 @@ type MessagesTranslateTextRequest struct {
 	//
 	// Use SetID and GetID helpers.
 	ID []int
-	// The text to translate
+	// A list of styled messages to translate
 	//
 	// Use SetText and GetText helpers.
 	Text []TextWithEntities
@@ -360,7 +365,12 @@ func (t *MessagesTranslateTextRequest) GetToLang() (value string) {
 }
 
 // MessagesTranslateText invokes method messages.translateText#63183030 returning error if any.
-// Translate a given text
+// Translate a given text.
+// Styled text entities¹ will only be preserved for Telegram Premium² users.
+//
+// Links:
+//  1. https://core.telegram.org/api/entities
+//  2. https://core.telegram.org/api/premium
 //
 // Possible errors:
 //

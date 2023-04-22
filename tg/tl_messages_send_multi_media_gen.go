@@ -70,7 +70,11 @@ type MessagesSendMultiMediaRequest struct {
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	// If set, sends the media to the specified forum topic¹
+	// This field must contain the topic ID only when replying to messages in forum topics¹
+	// different from the "General" topic (i.e. reply_to_msg_id is set and reply_to_msg_id !=
+	// topicID and topicID != 1). If the replied-to message is deleted before the method
+	// finishes execution, the value in this field will be used to send the message to the
+	// correct topic, instead of the "General" topic.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/forum#forum-topics

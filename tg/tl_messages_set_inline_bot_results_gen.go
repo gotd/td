@@ -59,12 +59,17 @@ type MessagesSetInlineBotResultsRequest struct {
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string
-	// If passed, clients will display a button with specified text that switches the user to
-	// a private chat with the bot and sends the bot a start message with a certain parameter.
+	// If passed, clients will display a button on top of the remaining inline result list
+	// with the specified text, that switches the user to a private chat with the bot and
+	// sends the bot a start message with a certain parameter.
 	//
 	// Use SetSwitchPm and GetSwitchPm helpers.
 	SwitchPm InlineBotSwitchPM
-	// SwitchWebview field of MessagesSetInlineBotResultsRequest.
+	// If passed, clients will display a button on top of the remaining inline result list
+	// with the specified text, that switches the user to the specified bot web app¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/webapps#simple-web-apps
 	//
 	// Use SetSwitchWebview and GetSwitchWebview helpers.
 	SwitchWebview InlineBotWebView

@@ -33,6 +33,13 @@ var (
 
 // MessagesAddChatUserRequest represents TL type `messages.addChatUser#f24753e3`.
 // Adds a user to a chat and sends a service message on it.
+// May also return 0-N updates of type updateGroupInvitePrivacyForbidden¹: it indicates
+// we couldn't add a user to a chat because of their privacy settings; if required, an
+// invite link² can be shared with the user, instead.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/updateGroupInvitePrivacyForbidden
+//  2. https://core.telegram.org/api/invites
 //
 // See https://core.telegram.org/method/messages.addChatUser for reference.
 type MessagesAddChatUserRequest struct {
@@ -222,6 +229,13 @@ func (a *MessagesAddChatUserRequest) GetFwdLimit() (value int) {
 
 // MessagesAddChatUser invokes method messages.addChatUser#f24753e3 returning error if any.
 // Adds a user to a chat and sends a service message on it.
+// May also return 0-N updates of type updateGroupInvitePrivacyForbidden¹: it indicates
+// we couldn't add a user to a chat because of their privacy settings; if required, an
+// invite link² can be shared with the user, instead.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/updateGroupInvitePrivacyForbidden
+//  2. https://core.telegram.org/api/invites
 //
 // Possible errors:
 //

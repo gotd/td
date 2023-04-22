@@ -51,7 +51,7 @@ type ChatFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
 	HasScheduled bool
-	// Whether real-time chat translation¹ is disabled.
+	// Whether the real-time chat translation popup¹ should be hidden.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/translation
@@ -1082,7 +1082,7 @@ type ChannelFull struct {
 	Antispam bool
 	// Whether the participant list is hidden.
 	ParticipantsHidden bool
-	// Whether real-time chat translation¹ is disabled.
+	// Whether the real-time chat translation popup¹ should be hidden.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/translation
@@ -3260,7 +3260,7 @@ type ChatFullClass interface {
 	//  1) https://core.telegram.org/api/scheduled-messages
 	GetHasScheduled() (value bool)
 
-	// Whether real-time chat translation¹ is disabled.
+	// Whether the real-time chat translation popup¹ should be hidden.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/translation

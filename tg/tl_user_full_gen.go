@@ -59,7 +59,10 @@ type UserFull struct {
 	VideoCallsAvailable bool
 	// Whether this user doesn't allow sending voice messages in a private chat with them
 	VoiceMessagesForbidden bool
-	// TranslationsDisabled field of UserFull.
+	// Whether the real-time chat translation popup¹ should be hidden.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/translation
 	TranslationsDisabled bool
 	// User ID
 	ID int64

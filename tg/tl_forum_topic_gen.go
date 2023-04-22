@@ -185,7 +185,16 @@ type ForumTopic struct {
 	Closed bool
 	// Whether the topic is pinned
 	Pinned bool
-	// Short field of ForumTopic.
+	// Whether this constructor is a reduced version of the full topic information. If set,
+	// only the my, closed, id, date, title, icon_color, icon_emoji_id and from_id parameters
+	// will contain valid information. Reduced info is usually only returned in topic-related
+	// admin log events »¹ and in the messages.channelMessages² constructor: if needed,
+	// full information can be fetched using channels.getForumTopicsByID³.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/recent-actions
+	//  2) https://core.telegram.org/constructor/messages.channelMessages
+	//  3) https://core.telegram.org/method/channels.getForumTopicsByID
 	Short bool
 	// Whether the topic is hidden (only valid for the "General" topic, id=1)
 	Hidden bool

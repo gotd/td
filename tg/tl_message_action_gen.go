@@ -3165,7 +3165,8 @@ func (m *MessageActionCustomAction) GetMessage() (value string) {
 }
 
 // MessageActionBotAllowed represents TL type `messageActionBotAllowed#c516d679`.
-// The user has given the bot permission to do something.
+// We have given the bot permission to send us direct messages.
+// The optional fields specify how did we authorize the bot to send us messages.
 //
 // See https://core.telegram.org/constructor/messageActionBotAllowed for reference.
 type MessageActionBotAllowed struct {
@@ -3174,17 +3175,25 @@ type MessageActionBotAllowed struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// AttachMenu field of MessageActionBotAllowed.
+	// We have authorized the bot to send us messages by installing the bot's attachment
+	// menu¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/attach
 	AttachMenu bool
-	// The domain name of the website on which the user has logged in. More about Telegram
-	// Login »¹
+	// We have authorized the bot to send us messages by logging into a website via Telegram
+	// Login »¹; this field contains the domain name of the website on which the user has
+	// logged in.
 	//
 	// Links:
 	//  1) https://core.telegram.org/widgets/login
 	//
 	// Use SetDomain and GetDomain helpers.
 	Domain string
-	// App field of MessageActionBotAllowed.
+	// We have authorized the bot to send us messages by opening the specified bot web app¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/webapps
 	//
 	// Use SetApp and GetApp helpers.
 	App BotAppClass
@@ -4468,9 +4477,16 @@ type MessageActionSetMessagesTTL struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// New Time-To-Live
+	// New Time-To-Live of all messages sent in this chat; if 0, autodeletion was disabled.
 	Period int
-	// AutoSettingFrom field of MessageActionSetMessagesTTL.
+	// If set, the chat TTL setting was set not due to a manual change by one of participants
+	// but automatically because one of the participants has the default TTL settings
+	// enabled »¹. For example, when a user writes to us for the first time and we have set
+	// a default messages TTL of 1 week, this service message (with
+	// auto_setting_from=our_userid) will be emitted before our first message.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.setDefaultHistoryTTL
 	//
 	// Use SetAutoSettingFrom and GetAutoSettingFrom helpers.
 	AutoSettingFrom int64
@@ -5952,7 +5968,7 @@ type MessageActionTopicEdit struct {
 	//
 	// Use SetClosed and GetClosed helpers.
 	Closed bool
-	// Whether the topic was hidden.
+	// Whether the topic was hidden (only valid for the "General" topic, id=1).
 	//
 	// Use SetHidden and GetHidden helpers.
 	Hidden bool

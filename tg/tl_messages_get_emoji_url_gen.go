@@ -33,12 +33,15 @@ var (
 
 // MessagesGetEmojiURLRequest represents TL type `messages.getEmojiURL#d5b10c26`.
 // Returns an HTTP URL which can be used to automatically log in into translation
-// platform and suggest new emoji replacements. The URL will be valid for 30 seconds
-// after generation
+// platform and suggest new emoji keywords »¹. The URL will be valid for 30 seconds
+// after generation.
+//
+// Links:
+//  1. https://core.telegram.org/api/custom-emoji#emoji-keywords
 //
 // See https://core.telegram.org/method/messages.getEmojiURL for reference.
 type MessagesGetEmojiURLRequest struct {
-	// Language code for which the emoji replacements will be suggested
+	// Language code for which the emoji keywords will be suggested
 	LangCode string
 }
 
@@ -165,8 +168,11 @@ func (g *MessagesGetEmojiURLRequest) GetLangCode() (value string) {
 
 // MessagesGetEmojiURL invokes method messages.getEmojiURL#d5b10c26 returning error if any.
 // Returns an HTTP URL which can be used to automatically log in into translation
-// platform and suggest new emoji replacements. The URL will be valid for 30 seconds
-// after generation
+// platform and suggest new emoji keywords »¹. The URL will be valid for 30 seconds
+// after generation.
+//
+// Links:
+//  1. https://core.telegram.org/api/custom-emoji#emoji-keywords
 //
 // See https://core.telegram.org/method/messages.getEmojiURL for reference.
 func (c *Client) MessagesGetEmojiURL(ctx context.Context, langcode string) (*EmojiURL, error) {

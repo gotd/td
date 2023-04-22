@@ -49,11 +49,16 @@ type MessagesBotResults struct {
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string
-	// Whether the bot requested the user to message them in private
+	// Shown as a button on top of the remaining inline result list; if clicked, redirects
+	// the user to a private chat with the bot with the specified start parameter.
 	//
 	// Use SetSwitchPm and GetSwitchPm helpers.
 	SwitchPm InlineBotSwitchPM
-	// SwitchWebview field of MessagesBotResults.
+	// Shown as a button on top of the remaining inline result list; if clicked, opens the
+	// specified bot web app¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/webapps#simple-web-apps
 	//
 	// Use SetSwitchWebview and GetSwitchWebview helpers.
 	SwitchWebview InlineBotWebView

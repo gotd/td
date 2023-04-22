@@ -22010,10 +22010,20 @@ func (u *UpdateAutoSaveSettings) DecodeBare(b *bin.Buffer) error {
 }
 
 // UpdateGroupInvitePrivacyForbidden represents TL type `updateGroupInvitePrivacyForbidden#ccf08ad6`.
+// 0-N updates of this type may be returned only when invoking messages.addChatUser¹,
+// channels.inviteToChannel² or messages.createChat³: it indicates we couldn't add a
+// user to a chat because of their privacy settings; if required, an invite link⁴ can
+// be shared with the user, instead.
+//
+// Links:
+//  1. https://core.telegram.org/method/messages.addChatUser
+//  2. https://core.telegram.org/method/channels.inviteToChannel
+//  3. https://core.telegram.org/method/messages.createChat
+//  4. https://core.telegram.org/api/invites
 //
 // See https://core.telegram.org/constructor/updateGroupInvitePrivacyForbidden for reference.
 type UpdateGroupInvitePrivacyForbidden struct {
-	// UserID field of UpdateGroupInvitePrivacyForbidden.
+	// ID of the user we couldn't add.
 	UserID int64
 }
 

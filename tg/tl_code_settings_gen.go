@@ -66,7 +66,7 @@ type CodeSettings struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/auth.codeTypeMissedCall
 	AllowMissedCall bool
-	// AllowFirebase field of CodeSettings.
+	// Whether Firebase auth is supported
 	AllowFirebase bool
 	// Previously stored future auth tokens, see the documentation for more info »¹
 	//

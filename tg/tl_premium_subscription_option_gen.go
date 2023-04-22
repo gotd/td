@@ -41,11 +41,15 @@ type PremiumSubscriptionOption struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Current field of PremiumSubscriptionOption.
+	// Whether this subscription option is currently in use.
 	Current bool
-	// CanPurchaseUpgrade field of PremiumSubscriptionOption.
+	// Whether this subscription option can be used to upgrade the existing Telegram Premium
+	// subscription. When upgrading Telegram Premium subscriptions bought through stores,
+	// make sure that the store transaction ID is equal to transaction, to avoid upgrading
+	// someone else's account, if the client is currently logged into multiple accounts.
 	CanPurchaseUpgrade bool
-	// Transaction field of PremiumSubscriptionOption.
+	// Identifier of the last in-store transaction for the currently used subscription on the
+	// current account.
 	//
 	// Use SetTransaction and GetTransaction helpers.
 	Transaction string

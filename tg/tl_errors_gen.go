@@ -104,7 +104,6 @@ const (
 	ErrChatAdminRequired                = "CHAT_ADMIN_REQUIRED"
 	ErrChatDiscussionUnallowed          = "CHAT_DISCUSSION_UNALLOWED"
 	ErrChatForwardsRestricted           = "CHAT_FORWARDS_RESTRICTED"
-	ErrChatFromUsernameChanged          = "CHAT_FROM_USERNAME_CHANGED"
 	ErrChatGuestSendForbidden           = "CHAT_GUEST_SEND_FORBIDDEN"
 	ErrChatIDEmpty                      = "CHAT_ID_EMPTY"
 	ErrChatIDGenerateFailed             = "CHAT_ID_GENERATE_FAILED"
@@ -112,7 +111,6 @@ const (
 	ErrChatInvalid                      = "CHAT_INVALID"
 	ErrChatInvitePermanent              = "CHAT_INVITE_PERMANENT"
 	ErrChatLinkExists                   = "CHAT_LINK_EXISTS"
-	ErrChatMembersChannel               = "CHAT_MEMBERS_CHANNEL"
 	ErrChatNotModified                  = "CHAT_NOT_MODIFIED"
 	ErrChatPublicRequired               = "CHAT_PUBLIC_REQUIRED"
 	ErrChatRestricted                   = "CHAT_RESTRICTED"
@@ -157,6 +155,7 @@ const (
 	ErrEmailUnconfirmed                 = "EMAIL_UNCONFIRMED"
 	ErrEmailVerifyExpired               = "EMAIL_VERIFY_EXPIRED"
 	ErrEmojiInvalid                     = "EMOJI_INVALID"
+	ErrEmojiMarkupInvalid               = "EMOJI_MARKUP_INVALID"
 	ErrEmojiNotModified                 = "EMOJI_NOT_MODIFIED"
 	ErrEmoticonEmpty                    = "EMOTICON_EMPTY"
 	ErrEmoticonInvalid                  = "EMOTICON_INVALID"
@@ -231,7 +230,6 @@ const (
 	ErrInviteHashEmpty                  = "INVITE_HASH_EMPTY"
 	ErrInviteHashExpired                = "INVITE_HASH_EXPIRED"
 	ErrInviteHashInvalid                = "INVITE_HASH_INVALID"
-	ErrInviteHashUnsync                 = "INVITE_HASH_UNSYNC"
 	ErrInviteRequestSent                = "INVITE_REQUEST_SENT"
 	ErrInviteRevokedMissing             = "INVITE_REVOKED_MISSING"
 	ErrInvoicePayloadInvalid            = "INVOICE_PAYLOAD_INVALID"
@@ -256,7 +254,6 @@ const (
 	ErrMegagroupIDInvalid               = "MEGAGROUP_ID_INVALID"
 	ErrMegagroupPrehistoryHidden        = "MEGAGROUP_PREHISTORY_HIDDEN"
 	ErrMegagroupRequired                = "MEGAGROUP_REQUIRED"
-	ErrMemberChatAddFailed              = "MEMBER_CHAT_ADD_FAILED"
 	ErrMessageAuthorRequired            = "MESSAGE_AUTHOR_REQUIRED"
 	ErrMessageDeleteForbidden           = "MESSAGE_DELETE_FORBIDDEN"
 	ErrMessageEditTimeExpired           = "MESSAGE_EDIT_TIME_EXPIRED"
@@ -272,7 +269,6 @@ const (
 	ErrMsgTooOld                        = "MSG_TOO_OLD"
 	ErrMsgWaitFailed                    = "MSG_WAIT_FAILED"
 	ErrMultiMediaTooLong                = "MULTI_MEDIA_TOO_LONG"
-	ErrNeedDocInvalid                   = "NEED_DOC_INVALID"
 	ErrNewSaltInvalid                   = "NEW_SALT_INVALID"
 	ErrNewSettingsEmpty                 = "NEW_SETTINGS_EMPTY"
 	ErrNewSettingsInvalid               = "NEW_SETTINGS_INVALID"
@@ -451,6 +447,7 @@ const (
 	ErrUntilDateInvalid                 = "UNTIL_DATE_INVALID"
 	ErrURLInvalid                       = "URL_INVALID"
 	ErrUsageLimitInvalid                = "USAGE_LIMIT_INVALID"
+	ErrUsernamesActiveTooMuch           = "USERNAMES_ACTIVE_TOO_MUCH"
 	ErrUsernameInvalid                  = "USERNAME_INVALID"
 	ErrUsernameNotModified              = "USERNAME_NOT_MODIFIED"
 	ErrUsernameNotOccupied              = "USERNAME_NOT_OCCUPIED"
@@ -856,11 +853,6 @@ func IsChatForwardsRestricted(err error) bool {
 	return tgerr.Is(err, ErrChatForwardsRestricted)
 }
 
-// IsChatFromUsernameChanged reports whether err is CHAT_FROM_USERNAME_CHANGED.
-func IsChatFromUsernameChanged(err error) bool {
-	return tgerr.Is(err, ErrChatFromUsernameChanged)
-}
-
 // IsChatGuestSendForbidden reports whether err is CHAT_GUEST_SEND_FORBIDDEN.
 func IsChatGuestSendForbidden(err error) bool {
 	return tgerr.Is(err, ErrChatGuestSendForbidden)
@@ -894,11 +886,6 @@ func IsChatInvitePermanent(err error) bool {
 // IsChatLinkExists reports whether err is CHAT_LINK_EXISTS.
 func IsChatLinkExists(err error) bool {
 	return tgerr.Is(err, ErrChatLinkExists)
-}
-
-// IsChatMembersChannel reports whether err is CHAT_MEMBERS_CHANNEL.
-func IsChatMembersChannel(err error) bool {
-	return tgerr.Is(err, ErrChatMembersChannel)
 }
 
 // IsChatNotModified reports whether err is CHAT_NOT_MODIFIED.
@@ -1119,6 +1106,11 @@ func IsEmailVerifyExpired(err error) bool {
 // IsEmojiInvalid reports whether err is EMOJI_INVALID.
 func IsEmojiInvalid(err error) bool {
 	return tgerr.Is(err, ErrEmojiInvalid)
+}
+
+// IsEmojiMarkupInvalid reports whether err is EMOJI_MARKUP_INVALID.
+func IsEmojiMarkupInvalid(err error) bool {
+	return tgerr.Is(err, ErrEmojiMarkupInvalid)
 }
 
 // IsEmojiNotModified reports whether err is EMOJI_NOT_MODIFIED.
@@ -1491,11 +1483,6 @@ func IsInviteHashInvalid(err error) bool {
 	return tgerr.Is(err, ErrInviteHashInvalid)
 }
 
-// IsInviteHashUnsync reports whether err is INVITE_HASH_UNSYNC.
-func IsInviteHashUnsync(err error) bool {
-	return tgerr.Is(err, ErrInviteHashUnsync)
-}
-
 // IsInviteRequestSent reports whether err is INVITE_REQUEST_SENT.
 func IsInviteRequestSent(err error) bool {
 	return tgerr.Is(err, ErrInviteRequestSent)
@@ -1616,11 +1603,6 @@ func IsMegagroupRequired(err error) bool {
 	return tgerr.Is(err, ErrMegagroupRequired)
 }
 
-// IsMemberChatAddFailed reports whether err is MEMBER_CHAT_ADD_FAILED.
-func IsMemberChatAddFailed(err error) bool {
-	return tgerr.Is(err, ErrMemberChatAddFailed)
-}
-
 // IsMessageAuthorRequired reports whether err is MESSAGE_AUTHOR_REQUIRED.
 func IsMessageAuthorRequired(err error) bool {
 	return tgerr.Is(err, ErrMessageAuthorRequired)
@@ -1694,11 +1676,6 @@ func IsMsgWaitFailed(err error) bool {
 // IsMultiMediaTooLong reports whether err is MULTI_MEDIA_TOO_LONG.
 func IsMultiMediaTooLong(err error) bool {
 	return tgerr.Is(err, ErrMultiMediaTooLong)
-}
-
-// IsNeedDocInvalid reports whether err is NEED_DOC_INVALID.
-func IsNeedDocInvalid(err error) bool {
-	return tgerr.Is(err, ErrNeedDocInvalid)
 }
 
 // IsNewSaltInvalid reports whether err is NEW_SALT_INVALID.
@@ -2589,6 +2566,11 @@ func IsURLInvalid(err error) bool {
 // IsUsageLimitInvalid reports whether err is USAGE_LIMIT_INVALID.
 func IsUsageLimitInvalid(err error) bool {
 	return tgerr.Is(err, ErrUsageLimitInvalid)
+}
+
+// IsUsernamesActiveTooMuch reports whether err is USERNAMES_ACTIVE_TOO_MUCH.
+func IsUsernamesActiveTooMuch(err error) bool {
+	return tgerr.Is(err, ErrUsernamesActiveTooMuch)
 }
 
 // IsUsernameInvalid reports whether err is USERNAME_INVALID.

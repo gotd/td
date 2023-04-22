@@ -69,7 +69,7 @@ type ChannelsEditForumTopicRequest struct {
 	//
 	// Use SetClosed and GetClosed helpers.
 	Closed bool
-	// If present, will hide/unhide the topic.
+	// If present, will hide/unhide the topic (only valid for the "General" topic, id=1).
 	//
 	// Use SetHidden and GetHidden helpers.
 	Hidden bool
