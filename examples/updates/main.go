@@ -5,10 +5,13 @@ import (
 	"os"
 	"os/signal"
 
+	"github.com/go-faster/errors"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
+	"github.com/gotd/td/examples"
 	"github.com/gotd/td/telegram"
+	"github.com/gotd/td/telegram/auth"
 	"github.com/gotd/td/telegram/updates"
 	updhook "github.com/gotd/td/telegram/updates/hook"
 	"github.com/gotd/td/tg"
@@ -31,6 +34,9 @@ func run(ctx context.Context) error {
 		Handler: d,
 		Logger:  log.Named("gaps"),
 	})
+
+	// Authentication flow handles authentication process, like prompting for code and 2FA password.
+	flow := auth.NewFlow(examples.Terminal{}, auth.SendCodeOptions{})
 
 	// Initializing client from environment.
 	// Available environment variables:
@@ -60,13 +66,17 @@ func run(ctx context.Context) error {
 	})
 
 	return client.Run(ctx, func(ctx context.Context) error {
-		// Note: you need to be authenticated here.
+		// Perform auth if no session is available.
+		if err := client.Auth().IfNecessary(ctx, flow); err != nil {
+			return errors.Wrap(err, "auth")
+		}
 
 		// Fetch user info.
 		user, err := client.Self(ctx)
 		if err != nil {
-			return err
+			return errors.Wrap(err, "call self")
 		}
+
 		return gaps.Run(ctx, client.API(), user.ID, updates.AuthOptions{
 			OnStart: func(ctx context.Context) {
 				log.Info("Gaps started")

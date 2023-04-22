@@ -2,71 +2,29 @@
 package main
 
 import (
-	"bufio"
 	"context"
 	"flag"
 	"fmt"
 	"os"
 	"os/signal"
 	"path/filepath"
-	"strings"
 	"time"
 
 	"github.com/go-faster/errors"
+	"github.com/gotd/contrib/middleware/ratelimit"
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	"golang.org/x/crypto/ssh/terminal"
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/time/rate"
 
-	"github.com/gotd/contrib/middleware/ratelimit"
-
+	"github.com/gotd/td/examples"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/auth"
 	"github.com/gotd/td/telegram/downloader"
 	"github.com/gotd/td/telegram/query/hasher"
 	"github.com/gotd/td/tg"
 )
-
-// terminalAuth implements auth.UserAuthenticator prompting the terminal for
-// input.
-type terminalAuth struct{}
-
-func (terminalAuth) SignUp(ctx context.Context) (auth.UserInfo, error) {
-	return auth.UserInfo{}, errors.New("not implemented")
-}
-
-func (terminalAuth) AcceptTermsOfService(ctx context.Context, tos tg.HelpTermsOfService) error {
-	return &auth.SignUpRequired{TermsOfService: tos}
-}
-
-func (terminalAuth) Code(ctx context.Context, sentCode *tg.AuthSentCode) (string, error) {
-	fmt.Print("Enter code: ")
-	code, err := bufio.NewReader(os.Stdin).ReadString('\n')
-	if err != nil {
-		return "", err
-	}
-	return strings.TrimSpace(code), nil
-}
-
-func (terminalAuth) Phone(_ context.Context) (string, error) {
-	fmt.Print("Enter phone: ")
-	code, err := bufio.NewReader(os.Stdin).ReadString('\n')
-	if err != nil {
-		return "", err
-	}
-	return strings.TrimSpace(code), nil
-}
-
-func (terminalAuth) Password(_ context.Context) (string, error) {
-	fmt.Print("Enter 2FA password: ")
-	bytePwd, err := terminal.ReadPassword(0)
-	if err != nil {
-		return "", err
-	}
-	return strings.TrimSpace(string(bytePwd)), nil
-}
 
 func run(ctx context.Context) error {
 	var (
@@ -100,7 +58,7 @@ func run(ctx context.Context) error {
 
 	// Setting up authentication flow.
 	// Current flow will read phone, code and 2FA password from terminal.
-	flow := auth.NewFlow(terminalAuth{}, auth.SendCodeOptions{})
+	flow := auth.NewFlow(examples.Terminal{}, auth.SendCodeOptions{})
 
 	// Creating new RPC client.
 	//
