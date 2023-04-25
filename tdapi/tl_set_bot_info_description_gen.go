@@ -36,7 +36,7 @@ type SetBotInfoDescriptionRequest struct {
 	// Identifier of the target bot
 	BotUserID int64
 	// A two-letter ISO 639-1 language code. If empty, the description will be shown to all
-	// users, for which language there are no dedicated description
+	// users for whose languages there is no dedicated description
 	LanguageCode string
 	// Sets the text shown in the chat with a bot if the chat is empty. Can be called only if
 	// userTypeBot.can_be_edited == true

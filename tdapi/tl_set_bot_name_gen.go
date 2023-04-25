@@ -35,8 +35,8 @@ var (
 type SetBotNameRequest struct {
 	// Identifier of the target bot
 	BotUserID int64
-	// A two-letter ISO 639-1 language code. If empty, the description will be shown to all
-	// users, for which language there are no dedicated description
+	// A two-letter ISO 639-1 language code. If empty, the name will be shown to all users
+	// for whose languages there is no dedicated name
 	LanguageCode string
 	// New bot's name on the specified language; 0-64 characters; must be non-empty if
 	// language code is empty
