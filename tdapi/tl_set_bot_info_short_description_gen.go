@@ -36,7 +36,7 @@ type SetBotInfoShortDescriptionRequest struct {
 	// Identifier of the target bot
 	BotUserID int64
 	// A two-letter ISO 639-1 language code. If empty, the short description will be shown to
-	// all users, for which language there are no dedicated description
+	// all users for whose languages there is no dedicated description
 	LanguageCode string
 	// New bot's short description on the specified language
 	ShortDescription string
