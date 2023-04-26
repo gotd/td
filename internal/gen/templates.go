@@ -64,7 +64,6 @@ func Funcs() template.FuncMap {
 		"hasSuffix":            strings.HasSuffix,
 		"contains":             strings.Contains,
 		"hasField":             hasField,
-		"optionalField":        optionalField,
 		"mapCollectableFields": mapCollectableFields,
 		"sortableFields":       sortableFields,
 		"generateSliceHelper":  generateSliceHelper,

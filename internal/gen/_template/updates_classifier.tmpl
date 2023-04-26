@@ -50,7 +50,7 @@ func extractChannelID(msg MessageClass) (int64, error) {
 {{- range $s := $.Structs }}{{ if eq $s.Interface "MessageClass" }}
 	case *{{ $s.Name }}:
 {{- range $field := $s.Fields }}{{ if eq $field.Name "PeerID" }}
-{{- if (optionalField $s $field) }}
+{{- if $field.Conditional }}
 		peer, ok := msg.GetPeerID()
 		if !ok {
 			return 0, errors.New("{{ $s.Name }} have no peerID field")
