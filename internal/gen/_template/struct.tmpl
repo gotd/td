@@ -19,7 +19,7 @@ type {{ $s.Name }} struct {
 {{- end }}
 {{- if and ($f.Conditional) (not $f.ConditionalBool) }}
 //
-// Use Set{{ $f.Name }} and Get{{ $f.Name }} helpers.
+// [Conditional] Use Set{{ $f.Name }} and Get{{ $f.Name }} helpers.
 {{- end }}
     {{ $f.Name }} {{ template "print_type" $f }}
 {{- end }}
