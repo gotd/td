@@ -239,7 +239,7 @@ func (s *UsersSetSecureValueErrorsRequest) MapErrors() (value SecureValueErrorCl
 //
 // Possible errors:
 //
-//	403 USER_BOT_INVALID: This method can only be called by a bot.
+//	403 USER_BOT_INVALID: User accounts must provide the bot method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
 //	400 USER_BOT_REQUIRED: This method can only be called by a bot.
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //

@@ -212,7 +212,12 @@ func (j *ChatlistsJoinChatlistInviteRequest) MapPeers() (value InputPeerClassArr
 
 // ChatlistsJoinChatlistInvite invokes method chatlists.joinChatlistInvite#a6b1e39a returning error if any.
 //
+// Possible errors:
+//
+//	400 INVITE_SLUG_EMPTY: The specified invite slug is empty.
+//
 // See https://core.telegram.org/method/chatlists.joinChatlistInvite for reference.
+// Can be used by bots.
 func (c *Client) ChatlistsJoinChatlistInvite(ctx context.Context, request *ChatlistsJoinChatlistInviteRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

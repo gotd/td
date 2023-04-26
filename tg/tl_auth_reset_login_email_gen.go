@@ -189,6 +189,10 @@ func (r *AuthResetLoginEmailRequest) GetPhoneCodeHash() (value string) {
 
 // AuthResetLoginEmail invokes method auth.resetLoginEmail#7e960193 returning error if any.
 //
+// Possible errors:
+//
+//	400 PHONE_NUMBER_INVALID: The phone number is invalid.
+//
 // See https://core.telegram.org/method/auth.resetLoginEmail for reference.
 func (c *Client) AuthResetLoginEmail(ctx context.Context, request *AuthResetLoginEmailRequest) (AuthSentCodeClass, error) {
 	var result AuthSentCodeBox

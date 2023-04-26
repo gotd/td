@@ -32,7 +32,7 @@ var (
 )
 
 // InlineQueryPeerTypeSameBotPM represents TL type `inlineQueryPeerTypeSameBotPM#3081ed9d`.
-// The inline query was sent in a private chat with the bot itself
+// Peer type: private chat with the bot itself
 //
 // See https://core.telegram.org/constructor/inlineQueryPeerTypeSameBotPM for reference.
 type InlineQueryPeerTypeSameBotPM struct {
@@ -134,7 +134,7 @@ func (i *InlineQueryPeerTypeSameBotPM) DecodeBare(b *bin.Buffer) error {
 }
 
 // InlineQueryPeerTypePM represents TL type `inlineQueryPeerTypePM#833c0fac`.
-// The inline query was sent in a private chat
+// Peer type: private chat
 //
 // See https://core.telegram.org/constructor/inlineQueryPeerTypePM for reference.
 type InlineQueryPeerTypePM struct {
@@ -236,7 +236,7 @@ func (i *InlineQueryPeerTypePM) DecodeBare(b *bin.Buffer) error {
 }
 
 // InlineQueryPeerTypeChat represents TL type `inlineQueryPeerTypeChat#d766c50a`.
-// The inline query was sent in a chat¹
+// Peer type: chat¹
 //
 // Links:
 //  1. https://core.telegram.org/api/channel
@@ -341,7 +341,7 @@ func (i *InlineQueryPeerTypeChat) DecodeBare(b *bin.Buffer) error {
 }
 
 // InlineQueryPeerTypeMegagroup represents TL type `inlineQueryPeerTypeMegagroup#5ec4be43`.
-// The inline query was sent in a supergroup¹
+// Peer type: supergroup¹
 //
 // Links:
 //  1. https://core.telegram.org/api/channel
@@ -446,7 +446,7 @@ func (i *InlineQueryPeerTypeMegagroup) DecodeBare(b *bin.Buffer) error {
 }
 
 // InlineQueryPeerTypeBroadcast represents TL type `inlineQueryPeerTypeBroadcast#6334ee9a`.
-// The inline query was sent in a channel¹
+// Peer type: channel¹
 //
 // Links:
 //  1. https://core.telegram.org/api/channel
@@ -551,6 +551,7 @@ func (i *InlineQueryPeerTypeBroadcast) DecodeBare(b *bin.Buffer) error {
 }
 
 // InlineQueryPeerTypeBotPM represents TL type `inlineQueryPeerTypeBotPM#e3b2d0c`.
+// Peer type: private chat with a bot.
 //
 // See https://core.telegram.org/constructor/inlineQueryPeerTypeBotPM for reference.
 type InlineQueryPeerTypeBotPM struct {

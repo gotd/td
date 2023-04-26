@@ -32,8 +32,8 @@ var (
 )
 
 // ChannelsToggleUsernameRequest represents TL type `channels.toggleUsername#50f24105`.
-// Associate or dissociate a purchased fragment.com¹ username to a supergroup or
-// channel².
+// Activate or deactivate a purchased fragment.com¹ username associated to a supergroup
+// or channel² we own.
 //
 // Links:
 //  1. https://fragment.com
@@ -48,7 +48,7 @@ type ChannelsToggleUsernameRequest struct {
 	Channel InputChannelClass
 	// Username
 	Username string
-	// Whether to associate or dissociate the username
+	// Whether to activate or deactivate the username
 	Active bool
 }
 
@@ -234,8 +234,8 @@ func (t *ChannelsToggleUsernameRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 }
 
 // ChannelsToggleUsername invokes method channels.toggleUsername#50f24105 returning error if any.
-// Associate or dissociate a purchased fragment.com¹ username to a supergroup or
-// channel².
+// Activate or deactivate a purchased fragment.com¹ username associated to a supergroup
+// or channel² we own.
 //
 // Links:
 //  1. https://fragment.com

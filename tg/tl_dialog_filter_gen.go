@@ -843,7 +843,10 @@ func (d *DialogFilterDefault) DecodeBare(b *bin.Buffer) error {
 //
 // See https://core.telegram.org/constructor/dialogFilterChatlist for reference.
 type DialogFilterChatlist struct {
-	// Flags field of DialogFilterChatlist.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// HasMyInvites field of DialogFilterChatlist.
 	HasMyInvites bool

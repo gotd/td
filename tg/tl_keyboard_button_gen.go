@@ -827,7 +827,7 @@ func (k *KeyboardButtonRequestGeoLocation) GetText() (value string) {
 }
 
 // KeyboardButtonSwitchInline represents TL type `keyboardButtonSwitchInline#93b9fbb5`.
-// Button to force a user to switch to inline mode Pressing the button will prompt the
+// Button to force a user to switch to inline mode: pressing the button will prompt the
 // user to select one of their chats, open that chat and insert the bot's username and
 // the specified inline query in the input field.
 //
@@ -845,7 +845,7 @@ type KeyboardButtonSwitchInline struct {
 	Text string
 	// The inline query to use
 	Query string
-	// PeerTypes field of KeyboardButtonSwitchInline.
+	// Filter to use when selecting chats.
 	//
 	// Use SetPeerTypes and GetPeerTypes helpers.
 	PeerTypes []InlineQueryPeerTypeClass

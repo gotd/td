@@ -248,6 +248,7 @@ func (s *MessagesSendVoteRequest) GetOptions() (value [][]byte) {
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 MESSAGE_ID_INVALID: The provided message id is invalid.
 //	400 MESSAGE_POLL_CLOSED: Poll closed.
+//	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 OPTIONS_TOO_MUCH: Too many options provided.
 //	400 OPTION_INVALID: Invalid option selected.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.

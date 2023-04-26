@@ -116,7 +116,7 @@ type UserFull struct {
 	//
 	// Use SetThemeEmoticon and GetThemeEmoticon helpers.
 	ThemeEmoticon string
-	// Anonymized text to be shown instead of the the user's name on forwarded messages
+	// Anonymized text to be shown instead of the user's name on forwarded messages
 	//
 	// Use SetPrivateForwardName and GetPrivateForwardName helpers.
 	PrivateForwardName string
@@ -142,7 +142,10 @@ type UserFull struct {
 	//
 	// Use SetPremiumGifts and GetPremiumGifts helpers.
 	PremiumGifts []PremiumGiftOption
-	// Wallpaper field of UserFull.
+	// Wallpaper¹ to use in the private chat with the user.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers
 	//
 	// Use SetWallpaper and GetWallpaper helpers.
 	Wallpaper WallPaperClass

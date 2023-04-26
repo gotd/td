@@ -32,11 +32,10 @@ var (
 )
 
 // MessagesGetAllChatsRequest represents TL type `messages.getAllChats#875f74be`.
-// Get all chats, channels and supergroups
 //
 // See https://core.telegram.org/method/messages.getAllChats for reference.
 type MessagesGetAllChatsRequest struct {
-	// Except these chats/channels/supergroups
+	// ExceptIDs field of MessagesGetAllChatsRequest.
 	ExceptIDs []int64
 }
 
@@ -175,7 +174,6 @@ func (g *MessagesGetAllChatsRequest) GetExceptIDs() (value []int64) {
 }
 
 // MessagesGetAllChats invokes method messages.getAllChats#875f74be returning error if any.
-// Get all chats, channels and supergroups
 //
 // See https://core.telegram.org/method/messages.getAllChats for reference.
 func (c *Client) MessagesGetAllChats(ctx context.Context, exceptids []int64) (MessagesChatsClass, error) {

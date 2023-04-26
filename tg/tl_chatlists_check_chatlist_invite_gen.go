@@ -162,7 +162,12 @@ func (c *ChatlistsCheckChatlistInviteRequest) GetSlug() (value string) {
 
 // ChatlistsCheckChatlistInvite invokes method chatlists.checkChatlistInvite#41c10fff returning error if any.
 //
+// Possible errors:
+//
+//	400 INVITE_SLUG_EMPTY: The specified invite slug is empty.
+//
 // See https://core.telegram.org/method/chatlists.checkChatlistInvite for reference.
+// Can be used by bots.
 func (c *Client) ChatlistsCheckChatlistInvite(ctx context.Context, slug string) (ChatlistsChatlistInviteClass, error) {
 	var result ChatlistsChatlistInviteBox
 

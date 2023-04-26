@@ -3949,7 +3949,10 @@ func (c *ChannelAdminLogEventActionToggleGroupCallSetting) GetJoinMuted() (value
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByInvite for reference.
 type ChannelAdminLogEventActionParticipantJoinByInvite struct {
-	// Flags field of ChannelAdminLogEventActionParticipantJoinByInvite.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// ViaChatlist field of ChannelAdminLogEventActionParticipantJoinByInvite.
 	ViaChatlist bool

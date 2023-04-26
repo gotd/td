@@ -32,7 +32,8 @@ var (
 )
 
 // BotsSetBotInfoRequest represents TL type `bots.setBotInfo#10cf3123`.
-// Set our about text and description (bots only)
+// Set localized name, about text and description of a bot (or of the current account, if
+// called by a bot).
 //
 // See https://core.telegram.org/method/bots.setBotInfo for reference.
 type BotsSetBotInfoRequest struct {
@@ -41,13 +42,13 @@ type BotsSetBotInfoRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Bot field of BotsSetBotInfoRequest.
+	// If called by a user, must contain the peer of a bot we own.
 	//
 	// Use SetBot and GetBot helpers.
 	Bot InputUserClass
 	// Language code, if left empty update the fallback about text and description
 	LangCode string
-	// Name field of BotsSetBotInfoRequest.
+	// New bot name
 	//
 	// Use SetName and GetName helpers.
 	Name string
@@ -380,11 +381,12 @@ func (s *BotsSetBotInfoRequest) GetDescription() (value string, ok bool) {
 }
 
 // BotsSetBotInfo invokes method bots.setBotInfo#10cf3123 returning error if any.
-// Set our about text and description (bots only)
+// Set localized name, about text and description of a bot (or of the current account, if
+// called by a bot).
 //
 // Possible errors:
 //
-//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
+//	400 USER_BOT_INVALID: User accounts must provide the bot method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
 //
 // See https://core.telegram.org/method/bots.setBotInfo for reference.
 // Can be used by bots.

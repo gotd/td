@@ -55,7 +55,7 @@ type AuthRequestFirebaseSMSRequest struct {
 	//
 	// Use SetSafetyNetToken and GetSafetyNetToken helpers.
 	SafetyNetToken string
-	// IosPushSecret field of AuthRequestFirebaseSMSRequest.
+	// Secret token received via an apple push notification
 	//
 	// Use SetIosPushSecret and GetIosPushSecret helpers.
 	IosPushSecret string

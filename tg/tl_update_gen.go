@@ -15063,7 +15063,7 @@ type UpdateReadChannelDiscussionInbox struct {
 	//
 	// Use SetBroadcastID and GetBroadcastID helpers.
 	BroadcastID int64
-	// If set, contains the ID of the channel post that started the the comment thread¹
+	// If set, contains the ID of the channel post that started the comment thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads

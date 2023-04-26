@@ -45,7 +45,8 @@ type PhotosUploadProfilePhotoRequest struct {
 	// If set, the chosen profile photo will be shown to users that can't display your main
 	// profile photo due to your privacy settings.
 	Fallback bool
-	// Bot field of PhotosUploadProfilePhotoRequest.
+	// Can contain info of a bot we own, to change the profile photo of that bot, instead of
+	// the current user.
 	//
 	// Use SetBot and GetBot helpers.
 	Bot InputUserClass
