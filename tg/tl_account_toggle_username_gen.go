@@ -32,8 +32,8 @@ var (
 )
 
 // AccountToggleUsernameRequest represents TL type `account.toggleUsername#58d6b376`.
-// Associate or dissociate a purchased fragment.com¹ username to the currently logged-in
-// user.
+// Activate or deactivate a purchased fragment.com¹ username associated to the currently
+// logged-in user.
 //
 // Links:
 //  1. https://fragment.com
@@ -42,7 +42,7 @@ var (
 type AccountToggleUsernameRequest struct {
 	// Username
 	Username string
-	// Whether to associate or dissociate it
+	// Whether to activate or deactivate it
 	Active bool
 }
 
@@ -193,8 +193,8 @@ func (t *AccountToggleUsernameRequest) GetActive() (value bool) {
 }
 
 // AccountToggleUsername invokes method account.toggleUsername#58d6b376 returning error if any.
-// Associate or dissociate a purchased fragment.com¹ username to the currently logged-in
-// user.
+// Activate or deactivate a purchased fragment.com¹ username associated to the currently
+// logged-in user.
 //
 // Links:
 //  1. https://fragment.com

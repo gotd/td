@@ -32,15 +32,17 @@ var (
 )
 
 // BotsGetBotInfoRequest represents TL type `bots.getBotInfo#dcd914fd`.
-// Get our about text and description (bots only)
-// Returns a vector of strings: the first string will be the about text, the second
-// string will be the description.
+// Get localized name, about text and description of a bot (or of the current account, if
+// called by a bot).
 //
 // See https://core.telegram.org/method/bots.getBotInfo for reference.
 type BotsGetBotInfoRequest struct {
-	// Flags field of BotsGetBotInfoRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Bot field of BotsGetBotInfoRequest.
+	// If called by a user, must contain the peer of a bot we own.
 	//
 	// Use SetBot and GetBot helpers.
 	Bot InputUserClass
@@ -236,15 +238,13 @@ func (g *BotsGetBotInfoRequest) GetLangCode() (value string) {
 }
 
 // BotsGetBotInfo invokes method bots.getBotInfo#dcd914fd returning error if any.
-// Get our about text and description (bots only)
-// Returns a vector of strings: the first string will be the about text, the second
-// string will be the description.
+// Get localized name, about text and description of a bot (or of the current account, if
+// called by a bot).
 //
 // Possible errors:
 //
 //	400 LANG_CODE_INVALID: The specified language code is invalid.
-//	400 USER_BOT_INVALID: This method can only be called by a bot.
-//	400 USER_BOT_REQUIRED: This method can only be called by a bot.
+//	400 USER_BOT_INVALID: User accounts must provide the bot method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
 //
 // See https://core.telegram.org/method/bots.getBotInfo for reference.
 // Can be used by bots.

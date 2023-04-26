@@ -163,6 +163,7 @@ func (g *ChatlistsGetChatlistUpdatesRequest) GetChatlist() (value InputChatlistD
 // ChatlistsGetChatlistUpdates invokes method chatlists.getChatlistUpdates#89419521 returning error if any.
 //
 // See https://core.telegram.org/method/chatlists.getChatlistUpdates for reference.
+// Can be used by bots.
 func (c *Client) ChatlistsGetChatlistUpdates(ctx context.Context, chatlist InputChatlistDialogFilter) (*ChatlistsChatlistUpdates, error) {
 	var result ChatlistsChatlistUpdates
 

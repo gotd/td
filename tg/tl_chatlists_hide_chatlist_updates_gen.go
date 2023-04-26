@@ -163,6 +163,7 @@ func (h *ChatlistsHideChatlistUpdatesRequest) GetChatlist() (value InputChatlist
 // ChatlistsHideChatlistUpdates invokes method chatlists.hideChatlistUpdates#66e486fb returning error if any.
 //
 // See https://core.telegram.org/method/chatlists.hideChatlistUpdates for reference.
+// Can be used by bots.
 func (c *Client) ChatlistsHideChatlistUpdates(ctx context.Context, chatlist InputChatlistDialogFilter) (bool, error) {
 	var result BoolBox
 

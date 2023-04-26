@@ -75,11 +75,12 @@ type CodeSettings struct {
 	//
 	// Use SetLogoutTokens and GetLogoutTokens helpers.
 	LogoutTokens [][]byte
-	// Token field of CodeSettings.
+	// Used only by official iOS apps for Firebase auth: device token for apple push.
 	//
 	// Use SetToken and GetToken helpers.
 	Token string
-	// AppSandbox field of CodeSettings.
+	// Used only by official iOS apps for firebase auth: whether a sandbox-certificate will
+	// be used during transmission of the push notification.
 	//
 	// Use SetAppSandbox and GetAppSandbox helpers.
 	AppSandbox bool

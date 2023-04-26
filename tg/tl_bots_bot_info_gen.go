@@ -32,14 +32,15 @@ var (
 )
 
 // BotsBotInfo represents TL type `bots.botInfo#e8a775b0`.
+// Localized information about a bot.
 //
 // See https://core.telegram.org/constructor/bots.botInfo for reference.
 type BotsBotInfo struct {
-	// Name field of BotsBotInfo.
+	// Bot name
 	Name string
-	// About field of BotsBotInfo.
+	// Bot about text
 	About string
-	// Description field of BotsBotInfo.
+	// Bot description
 	Description string
 }
 

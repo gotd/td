@@ -518,7 +518,7 @@ func (s *MessagesSetInlineBotResultsRequest) MapResults() (value InputBotInlineR
 //	400 STICKER_DOCUMENT_INVALID: The specified sticker document is invalid.
 //	400 SWITCH_PM_TEXT_EMPTY: The switch_pm.text field was empty.
 //	400 URL_INVALID: Invalid URL provided.
-//	403 USER_BOT_INVALID: This method can only be called by a bot.
+//	403 USER_BOT_INVALID: User accounts must provide the bot method parameter when calling this method. If there is no such method parameter, this method can only be invoked by bot accounts.
 //	400 VIDEO_TITLE_EMPTY: The specified video title is empty.
 //	400 WEBDOCUMENT_INVALID: Invalid webdocument URL provided.
 //	400 WEBDOCUMENT_MIME_INVALID: Invalid webdocument mime type provided.

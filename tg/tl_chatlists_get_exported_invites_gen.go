@@ -163,6 +163,7 @@ func (g *ChatlistsGetExportedInvitesRequest) GetChatlist() (value InputChatlistD
 // ChatlistsGetExportedInvites invokes method chatlists.getExportedInvites#ce03da83 returning error if any.
 //
 // See https://core.telegram.org/method/chatlists.getExportedInvites for reference.
+// Can be used by bots.
 func (c *Client) ChatlistsGetExportedInvites(ctx context.Context, chatlist InputChatlistDialogFilter) (*ChatlistsExportedInvites, error) {
 	var result ChatlistsExportedInvites
 

@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/messages.setChatWallPaper for reference.
 type MessagesSetChatWallPaperRequest struct {
-	// Flags field of MessagesSetChatWallPaperRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Peer field of MessagesSetChatWallPaperRequest.
 	Peer InputPeerClass
@@ -334,7 +337,12 @@ func (s *MessagesSetChatWallPaperRequest) GetID() (value int, ok bool) {
 
 // MessagesSetChatWallPaper invokes method messages.setChatWallPaper#8ffacae1 returning error if any.
 //
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/messages.setChatWallPaper for reference.
+// Can be used by bots.
 func (c *Client) MessagesSetChatWallPaper(ctx context.Context, request *MessagesSetChatWallPaperRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

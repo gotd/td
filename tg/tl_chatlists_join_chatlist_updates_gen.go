@@ -213,6 +213,7 @@ func (j *ChatlistsJoinChatlistUpdatesRequest) MapPeers() (value InputPeerClassAr
 // ChatlistsJoinChatlistUpdates invokes method chatlists.joinChatlistUpdates#e089f8f5 returning error if any.
 //
 // See https://core.telegram.org/method/chatlists.joinChatlistUpdates for reference.
+// Can be used by bots.
 func (c *Client) ChatlistsJoinChatlistUpdates(ctx context.Context, request *ChatlistsJoinChatlistUpdatesRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

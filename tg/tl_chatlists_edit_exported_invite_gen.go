@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/chatlists.editExportedInvite for reference.
 type ChatlistsEditExportedInviteRequest struct {
-	// Flags field of ChatlistsEditExportedInviteRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Chatlist field of ChatlistsEditExportedInviteRequest.
 	Chatlist InputChatlistDialogFilter
@@ -329,7 +332,12 @@ func (e *ChatlistsEditExportedInviteRequest) MapPeers() (value InputPeerClassArr
 
 // ChatlistsEditExportedInvite invokes method chatlists.editExportedInvite#653db63d returning error if any.
 //
+// Possible errors:
+//
+//	400 FILTER_ID_INVALID: The specified filter ID is invalid.
+//
 // See https://core.telegram.org/method/chatlists.editExportedInvite for reference.
+// Can be used by bots.
 func (c *Client) ChatlistsEditExportedInvite(ctx context.Context, request *ChatlistsEditExportedInviteRequest) (*ExportedChatlistInvite, error) {
 	var result ExportedChatlistInvite
 

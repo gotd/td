@@ -189,7 +189,12 @@ func (d *ChatlistsDeleteExportedInviteRequest) GetSlug() (value string) {
 
 // ChatlistsDeleteExportedInvite invokes method chatlists.deleteExportedInvite#719c5c5e returning error if any.
 //
+// Possible errors:
+//
+//	400 FILTER_ID_INVALID: The specified filter ID is invalid.
+//
 // See https://core.telegram.org/method/chatlists.deleteExportedInvite for reference.
+// Can be used by bots.
 func (c *Client) ChatlistsDeleteExportedInvite(ctx context.Context, request *ChatlistsDeleteExportedInviteRequest) (bool, error) {
 	var result BoolBox
 

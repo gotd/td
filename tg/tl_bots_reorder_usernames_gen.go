@@ -32,12 +32,13 @@ var (
 )
 
 // BotsReorderUsernamesRequest represents TL type `bots.reorderUsernames#9709b1c2`.
+// Reorder usernames associated to a bot we own.
 //
 // See https://core.telegram.org/method/bots.reorderUsernames for reference.
 type BotsReorderUsernamesRequest struct {
-	// Bot field of BotsReorderUsernamesRequest.
+	// The bot
 	Bot InputUserClass
-	// Order field of BotsReorderUsernamesRequest.
+	// The new order for active usernames. All active usernames must be specified.
 	Order []string
 }
 
@@ -206,8 +207,14 @@ func (r *BotsReorderUsernamesRequest) GetOrder() (value []string) {
 }
 
 // BotsReorderUsernames invokes method bots.reorderUsernames#9709b1c2 returning error if any.
+// Reorder usernames associated to a bot we own.
+//
+// Possible errors:
+//
+//	400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/bots.reorderUsernames for reference.
+// Can be used by bots.
 func (c *Client) BotsReorderUsernames(ctx context.Context, request *BotsReorderUsernamesRequest) (bool, error) {
 	var result BoolBox
 

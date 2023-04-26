@@ -227,7 +227,8 @@ type User struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags2 bin.Fields
-	// BotCanEdit field of User.
+	// Whether we can edit the profile picture, name, about text and description of this bot
+	// because we own it.
 	BotCanEdit bool
 	// ID of the user
 	ID int64

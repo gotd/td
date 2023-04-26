@@ -213,6 +213,7 @@ func (l *ChatlistsLeaveChatlistRequest) MapPeers() (value InputPeerClassArray) {
 // ChatlistsLeaveChatlist invokes method chatlists.leaveChatlist#74fae13a returning error if any.
 //
 // See https://core.telegram.org/method/chatlists.leaveChatlist for reference.
+// Can be used by bots.
 func (c *Client) ChatlistsLeaveChatlist(ctx context.Context, request *ChatlistsLeaveChatlistRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

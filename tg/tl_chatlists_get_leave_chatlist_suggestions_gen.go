@@ -163,6 +163,7 @@ func (g *ChatlistsGetLeaveChatlistSuggestionsRequest) GetChatlist() (value Input
 // ChatlistsGetLeaveChatlistSuggestions invokes method chatlists.getLeaveChatlistSuggestions#fdbcd714 returning error if any.
 //
 // See https://core.telegram.org/method/chatlists.getLeaveChatlistSuggestions for reference.
+// Can be used by bots.
 func (c *Client) ChatlistsGetLeaveChatlistSuggestions(ctx context.Context, chatlist InputChatlistDialogFilter) ([]PeerClass, error) {
 	var result PeerClassVector
 

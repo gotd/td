@@ -5395,7 +5395,10 @@ func (m *MessageActionWebViewDataSent) GetText() (value string) {
 //
 // See https://core.telegram.org/constructor/messageActionGiftPremium for reference.
 type MessageActionGiftPremium struct {
-	// Flags field of MessageActionGiftPremium.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Three-letter ISO 4217 currency¹ code
 	//
@@ -5412,11 +5415,12 @@ type MessageActionGiftPremium struct {
 	Amount int64
 	// Duration of the gifted Telegram Premium subscription
 	Months int
-	// CryptoCurrency field of MessageActionGiftPremium.
+	// If the gift was bought using a cryptocurrency, the cryptocurrency name.
 	//
 	// Use SetCryptoCurrency and GetCryptoCurrency helpers.
 	CryptoCurrency string
-	// CryptoAmount field of MessageActionGiftPremium.
+	// If the gift was bought using a cryptocurrency, price of the gift in the smallest units
+	// of a cryptocurrency.
 	//
 	// Use SetCryptoAmount and GetCryptoAmount helpers.
 	CryptoAmount int64
@@ -6585,10 +6589,17 @@ func (m *MessageActionRequestedPeer) GetPeer() (value PeerClass) {
 }
 
 // MessageActionSetChatWallPaper represents TL type `messageActionSetChatWallPaper#bc44a927`.
+// The wallpaper »¹ of the current chat was changed.
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/constructor/messageActionSetChatWallPaper for reference.
 type MessageActionSetChatWallPaper struct {
-	// Wallpaper field of MessageActionSetChatWallPaper.
+	// New wallpaper¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers
 	Wallpaper WallPaperClass
 }
 
@@ -6727,7 +6738,10 @@ func (m *MessageActionSetChatWallPaper) GetWallpaper() (value WallPaperClass) {
 //
 // See https://core.telegram.org/constructor/messageActionSetSameChatWallPaper for reference.
 type MessageActionSetSameChatWallPaper struct {
-	// Wallpaper field of MessageActionSetSameChatWallPaper.
+	// New wallpaper¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers
 	Wallpaper WallPaperClass
 }
 

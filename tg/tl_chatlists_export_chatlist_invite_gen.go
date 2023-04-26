@@ -239,6 +239,10 @@ func (e *ChatlistsExportChatlistInviteRequest) MapPeers() (value InputPeerClassA
 
 // ChatlistsExportChatlistInvite invokes method chatlists.exportChatlistInvite#8472478e returning error if any.
 //
+// Possible errors:
+//
+//	400 FILTER_ID_INVALID: The specified filter ID is invalid.
+//
 // See https://core.telegram.org/method/chatlists.exportChatlistInvite for reference.
 func (c *Client) ChatlistsExportChatlistInvite(ctx context.Context, request *ChatlistsExportChatlistInviteRequest) (*ChatlistsExportedChatlistInvite, error) {
 	var result ChatlistsExportedChatlistInvite

@@ -232,6 +232,7 @@ const (
 	ErrInviteHashInvalid                = "INVITE_HASH_INVALID"
 	ErrInviteRequestSent                = "INVITE_REQUEST_SENT"
 	ErrInviteRevokedMissing             = "INVITE_REVOKED_MISSING"
+	ErrInviteSlugEmpty                  = "INVITE_SLUG_EMPTY"
 	ErrInvoicePayloadInvalid            = "INVOICE_PAYLOAD_INVALID"
 	ErrJoinAsPeerInvalid                = "JOIN_AS_PEER_INVALID"
 	ErrLangCodeInvalid                  = "LANG_CODE_INVALID"
@@ -1491,6 +1492,11 @@ func IsInviteRequestSent(err error) bool {
 // IsInviteRevokedMissing reports whether err is INVITE_REVOKED_MISSING.
 func IsInviteRevokedMissing(err error) bool {
 	return tgerr.Is(err, ErrInviteRevokedMissing)
+}
+
+// IsInviteSlugEmpty reports whether err is INVITE_SLUG_EMPTY.
+func IsInviteSlugEmpty(err error) bool {
+	return tgerr.Is(err, ErrInviteSlugEmpty)
 }
 
 // IsInvoicePayloadInvalid reports whether err is INVOICE_PAYLOAD_INVALID.
