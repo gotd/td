@@ -136,6 +136,19 @@ func (s *memStorage) GetChannelPts(ctx context.Context, userID, channelID int64)
 	return
 }
 
+func (s *memStorage) DeleteChannelPts(ctx context.Context, userID, channelID int64) error {
+	s.mux.Lock()
+	defer s.mux.Unlock()
+
+	channels, ok := s.channels[userID]
+	if !ok {
+		return errors.New("user internalState does not exist")
+	}
+
+	delete(channels, channelID)
+	return nil
+}
+
 func (s *memStorage) ForEachChannels(ctx context.Context, userID int64, f func(ctx context.Context, channelID int64, pts int) error) error {
 	s.mux.Lock()
 	defer s.mux.Unlock()

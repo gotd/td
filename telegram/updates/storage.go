@@ -35,6 +35,7 @@ type StateStorage interface {
 	SetDateSeq(ctx context.Context, userID int64, date, seq int) error
 	GetChannelPts(ctx context.Context, userID, channelID int64) (pts int, found bool, err error)
 	SetChannelPts(ctx context.Context, userID, channelID int64, pts int) error
+	DeleteChannelPts(ctx context.Context, userID, channelID int64) error
 	ForEachChannels(ctx context.Context, userID int64, f func(ctx context.Context, channelID int64, pts int) error) error
 }
 
