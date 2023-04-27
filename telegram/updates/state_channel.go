@@ -98,10 +98,6 @@ func (s *channelState) Push(ctx context.Context, u channelUpdate) error {
 func (s *channelState) Run(ctx context.Context) error {
 	// Subscribe to channel updates.
 	if err := s.getDifference(ctx); err != nil {
-		if tg.IsChannelPrivate(err) {
-			s.storage.DeleteChannelPts(ctx, s.selfID, s.channelID)
-			s.log.Debug("Channel is private. Deleting state")
-		}
 		s.log.Error("Failed to subscribe to channel updates", zap.Error(err))
 	}
 
@@ -254,6 +250,10 @@ func (s *channelState) getDifference(ctx context.Context) error {
 		Limit:  s.diffLim,
 	})
 	if err != nil {
+		if tg.IsChannelPrivate(err) {
+			s.storage.DeleteChannelPts(ctx, s.selfID, s.channelID)
+			s.log.Debug("Channel is private. Deleting state")
+		}
 		return errors.Wrap(err, "get channel difference")
 	}
 
