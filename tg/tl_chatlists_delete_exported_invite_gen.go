@@ -32,12 +32,19 @@ var (
 )
 
 // ChatlistsDeleteExportedInviteRequest represents TL type `chatlists.deleteExportedInvite#719c5c5e`.
+// Delete a previously created chat folder deep link »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/method/chatlists.deleteExportedInvite for reference.
 type ChatlistsDeleteExportedInviteRequest struct {
-	// Chatlist field of ChatlistsDeleteExportedInviteRequest.
+	// The related folder
 	Chatlist InputChatlistDialogFilter
-	// Slug field of ChatlistsDeleteExportedInviteRequest.
+	// slug obtained from the chat folder deep link »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#chat-folder-links
 	Slug string
 }
 
@@ -188,6 +195,10 @@ func (d *ChatlistsDeleteExportedInviteRequest) GetSlug() (value string) {
 }
 
 // ChatlistsDeleteExportedInvite invokes method chatlists.deleteExportedInvite#719c5c5e returning error if any.
+// Delete a previously created chat folder deep link »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // Possible errors:
 //

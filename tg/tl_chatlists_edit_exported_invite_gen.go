@@ -32,6 +32,10 @@ var (
 )
 
 // ChatlistsEditExportedInviteRequest represents TL type `chatlists.editExportedInvite#653db63d`.
+// Edit a chat folder deep link »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/method/chatlists.editExportedInvite for reference.
 type ChatlistsEditExportedInviteRequest struct {
@@ -40,15 +44,18 @@ type ChatlistsEditExportedInviteRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Chatlist field of ChatlistsEditExportedInviteRequest.
+	// Folder ID
 	Chatlist InputChatlistDialogFilter
-	// Slug field of ChatlistsEditExportedInviteRequest.
+	// slug obtained from the chat folder deep link »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#chat-folder-links
 	Slug string
-	// Title field of ChatlistsEditExportedInviteRequest.
+	// If set, sets a new name for the link
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// Peers field of ChatlistsEditExportedInviteRequest.
+	// If set, changes the list of peers shared with the link
 	//
 	// Use SetPeers and GetPeers helpers.
 	Peers []InputPeerClass
@@ -331,6 +338,10 @@ func (e *ChatlistsEditExportedInviteRequest) MapPeers() (value InputPeerClassArr
 }
 
 // ChatlistsEditExportedInvite invokes method chatlists.editExportedInvite#653db63d returning error if any.
+// Edit a chat folder deep link »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // Possible errors:
 //

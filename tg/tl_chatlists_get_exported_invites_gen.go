@@ -32,10 +32,14 @@ var (
 )
 
 // ChatlistsGetExportedInvitesRequest represents TL type `chatlists.getExportedInvites#ce03da83`.
+// List all chat folder deep links »¹ associated to a folder
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/method/chatlists.getExportedInvites for reference.
 type ChatlistsGetExportedInvitesRequest struct {
-	// Chatlist field of ChatlistsGetExportedInvitesRequest.
+	// The folder
 	Chatlist InputChatlistDialogFilter
 }
 
@@ -161,6 +165,10 @@ func (g *ChatlistsGetExportedInvitesRequest) GetChatlist() (value InputChatlistD
 }
 
 // ChatlistsGetExportedInvites invokes method chatlists.getExportedInvites#ce03da83 returning error if any.
+// List all chat folder deep links »¹ associated to a folder
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/method/chatlists.getExportedInvites for reference.
 // Can be used by bots.

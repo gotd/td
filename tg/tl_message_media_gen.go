@@ -1782,7 +1782,7 @@ type MessageMediaInvoice struct {
 	TotalAmount int64
 	// Unique bot deep-linking parameter that can be used to generate this invoice
 	StartParam string
-	// ExtendedMedia field of MessageMediaInvoice.
+	// Extended media
 	//
 	// Use SetExtendedMedia and GetExtendedMedia helpers.
 	ExtendedMedia MessageExtendedMediaClass

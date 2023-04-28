@@ -17746,7 +17746,10 @@ type UpdateChannelParticipant struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ViaChatlist field of UpdateChannelParticipant.
+	// Whether the participant joined using a chat folder deep link »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#chat-folder-links
 	ViaChatlist bool
 	// Channel ID
 	ChannelID int64
@@ -21127,14 +21130,15 @@ func (u *UpdateMoveStickerSetToTop) GetStickerset() (value int64) {
 }
 
 // UpdateMessageExtendedMedia represents TL type `updateMessageExtendedMedia#5a73a98c`.
+// Extended media update
 //
 // See https://core.telegram.org/constructor/updateMessageExtendedMedia for reference.
 type UpdateMessageExtendedMedia struct {
-	// Peer field of UpdateMessageExtendedMedia.
+	// Peer
 	Peer PeerClass
-	// MsgID field of UpdateMessageExtendedMedia.
+	// Message ID
 	MsgID int
-	// ExtendedMedia field of UpdateMessageExtendedMedia.
+	// Extended media
 	ExtendedMedia MessageExtendedMediaClass
 }
 

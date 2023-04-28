@@ -32,18 +32,22 @@ var (
 )
 
 // ChatlistsChatlistInviteAlready represents TL type `chatlists.chatlistInviteAlready#fa87f659`.
+// Updated info about a chat folder deep link »¹ we already imported.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/constructor/chatlists.chatlistInviteAlready for reference.
 type ChatlistsChatlistInviteAlready struct {
-	// FilterID field of ChatlistsChatlistInviteAlready.
+	// ID of the imported folder
 	FilterID int
-	// MissingPeers field of ChatlistsChatlistInviteAlready.
+	// New peers to be imported
 	MissingPeers []PeerClass
-	// AlreadyPeers field of ChatlistsChatlistInviteAlready.
+	// Peers that were already imported
 	AlreadyPeers []PeerClass
-	// Chats field of ChatlistsChatlistInviteAlready.
+	// Related chat information
 	Chats []ChatClass
-	// Users field of ChatlistsChatlistInviteAlready.
+	// Related user information
 	Users []UserClass
 }
 
@@ -366,6 +370,10 @@ func (c *ChatlistsChatlistInviteAlready) MapUsers() (value UserClassArray) {
 }
 
 // ChatlistsChatlistInvite represents TL type `chatlists.chatlistInvite#1dcd839d`.
+// Info about a chat folder deep link »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/constructor/chatlists.chatlistInvite for reference.
 type ChatlistsChatlistInvite struct {
@@ -374,17 +382,17 @@ type ChatlistsChatlistInvite struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Title field of ChatlistsChatlistInvite.
+	// Name of the link
 	Title string
 	// Emoticon field of ChatlistsChatlistInvite.
 	//
 	// Use SetEmoticon and GetEmoticon helpers.
 	Emoticon string
-	// Peers field of ChatlistsChatlistInvite.
+	// Supergroups and channels to join
 	Peers []PeerClass
-	// Chats field of ChatlistsChatlistInvite.
+	// Related chat information
 	Chats []ChatClass
-	// Users field of ChatlistsChatlistInvite.
+	// Related user information
 	Users []UserClass
 }
 
@@ -754,13 +762,13 @@ type ChatlistsChatlistInviteClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Chats field of ChatlistsChatlistInviteAlready.
+	// Related chat information
 	GetChats() (value []ChatClass)
-	// Chats field of ChatlistsChatlistInviteAlready.
+	// Related chat information
 	MapChats() (value ChatClassArray)
-	// Users field of ChatlistsChatlistInviteAlready.
+	// Related user information
 	GetUsers() (value []UserClass)
-	// Users field of ChatlistsChatlistInviteAlready.
+	// Related user information
 	MapUsers() (value UserClassArray)
 }
 

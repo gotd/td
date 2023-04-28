@@ -44,7 +44,10 @@ type AccountUploadWallPaperRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ForChat field of AccountUploadWallPaperRequest.
+	// Set this flag when uploading wallpapers to be passed to messages.setChatWallPaper¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.setChatWallPaper
 	ForChat bool
 	// The JPG/PNG wallpaper
 	File InputFileClass

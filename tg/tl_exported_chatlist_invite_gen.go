@@ -32,6 +32,10 @@ var (
 )
 
 // ExportedChatlistInvite represents TL type `exportedChatlistInvite#c5181ac`.
+// Exported chat folder deep link »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/constructor/exportedChatlistInvite for reference.
 type ExportedChatlistInvite struct {
@@ -40,11 +44,14 @@ type ExportedChatlistInvite struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Title field of ExportedChatlistInvite.
+	// Name of the link
 	Title string
-	// URL field of ExportedChatlistInvite.
+	// The chat folder deep link »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#chat-folder-links
 	URL string
-	// Peers field of ExportedChatlistInvite.
+	// Peers to import
 	Peers []PeerClass
 }
 

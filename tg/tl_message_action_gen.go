@@ -6735,10 +6735,16 @@ func (m *MessageActionSetChatWallPaper) GetWallpaper() (value WallPaperClass) {
 }
 
 // MessageActionSetSameChatWallPaper represents TL type `messageActionSetSameChatWallPaper#c0787d6d`.
+// The user applied a wallpaper »¹ previously sent by the other user in a
+// messageActionSetChatWallPaper² message.
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
+//  2. https://core.telegram.org/constructor/messageActionSetChatWallPaper
 //
 // See https://core.telegram.org/constructor/messageActionSetSameChatWallPaper for reference.
 type MessageActionSetSameChatWallPaper struct {
-	// New wallpaper¹
+	// The wallpaper¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/wallpapers

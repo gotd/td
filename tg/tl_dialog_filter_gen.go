@@ -840,6 +840,10 @@ func (d *DialogFilterDefault) DecodeBare(b *bin.Buffer) error {
 }
 
 // DialogFilterChatlist represents TL type `dialogFilterChatlist#d64a04a8`.
+// A folder imported using a chat folder deep link »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/constructor/dialogFilterChatlist for reference.
 type DialogFilterChatlist struct {
@@ -850,9 +854,9 @@ type DialogFilterChatlist struct {
 	Flags bin.Fields
 	// HasMyInvites field of DialogFilterChatlist.
 	HasMyInvites bool
-	// ID field of DialogFilterChatlist.
+	// ID of the folder
 	ID int
-	// Title field of DialogFilterChatlist.
+	// Name of the folder
 	Title string
 	// Emoticon field of DialogFilterChatlist.
 	//

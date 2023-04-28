@@ -2809,7 +2809,7 @@ type InputMediaInvoice struct {
 	//
 	// Use SetStartParam and GetStartParam helpers.
 	StartParam string
-	// ExtendedMedia field of InputMediaInvoice.
+	// Extended media
 	//
 	// Use SetExtendedMedia and GetExtendedMedia helpers.
 	ExtendedMedia InputMediaClass

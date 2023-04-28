@@ -482,6 +482,7 @@ func (u *PhotosUploadProfilePhotoRequest) GetVideoEmojiMarkup() (value VideoSize
 //	400 VIDEO_FILE_INVALID: The specified video file is invalid.
 //
 // See https://core.telegram.org/method/photos.uploadProfilePhoto for reference.
+// Can be used by bots.
 func (c *Client) PhotosUploadProfilePhoto(ctx context.Context, request *PhotosUploadProfilePhotoRequest) (*PhotosPhoto, error) {
 	var result PhotosPhoto
 

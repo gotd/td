@@ -32,14 +32,23 @@ var (
 )
 
 // ChatlistsExportChatlistInviteRequest represents TL type `chatlists.exportChatlistInvite#8472478e`.
+// Export a folder »¹, creating a chat folder deep link »².
+//
+// Links:
+//  1. https://core.telegram.org/api/folders
+//  2. https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/method/chatlists.exportChatlistInvite for reference.
 type ChatlistsExportChatlistInviteRequest struct {
-	// Chatlist field of ChatlistsExportChatlistInviteRequest.
+	// The folder to export
 	Chatlist InputChatlistDialogFilter
-	// Title field of ChatlistsExportChatlistInviteRequest.
+	// An optional name for the link
 	Title string
-	// Peers field of ChatlistsExportChatlistInviteRequest.
+	// The list of channels, group and supergroups to share with the link. Basic groups will
+	// automatically be converted to supergroups¹ when invoking the method.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel#migration
 	Peers []InputPeerClass
 }
 
@@ -238,10 +247,17 @@ func (e *ChatlistsExportChatlistInviteRequest) MapPeers() (value InputPeerClassA
 }
 
 // ChatlistsExportChatlistInvite invokes method chatlists.exportChatlistInvite#8472478e returning error if any.
+// Export a folder »¹, creating a chat folder deep link »².
+//
+// Links:
+//  1. https://core.telegram.org/api/folders
+//  2. https://core.telegram.org/api/links#chat-folder-links
 //
 // Possible errors:
 //
 //	400 FILTER_ID_INVALID: The specified filter ID is invalid.
+//	400 FILTER_NOT_SUPPORTED: The specified filter cannot be used in this context.
+//	400 PEERS_LIST_EMPTY: The specified list of peers is empty.
 //
 // See https://core.telegram.org/method/chatlists.exportChatlistInvite for reference.
 func (c *Client) ChatlistsExportChatlistInvite(ctx context.Context, request *ChatlistsExportChatlistInviteRequest) (*ChatlistsExportedChatlistInvite, error) {

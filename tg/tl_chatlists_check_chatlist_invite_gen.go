@@ -32,10 +32,17 @@ var (
 )
 
 // ChatlistsCheckChatlistInviteRequest represents TL type `chatlists.checkChatlistInvite#41c10fff`.
+// Obtain information about a chat folder deep link »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/method/chatlists.checkChatlistInvite for reference.
 type ChatlistsCheckChatlistInviteRequest struct {
-	// Slug field of ChatlistsCheckChatlistInviteRequest.
+	// slug obtained from the chat folder deep link »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#chat-folder-links
 	Slug string
 }
 
@@ -161,6 +168,10 @@ func (c *ChatlistsCheckChatlistInviteRequest) GetSlug() (value string) {
 }
 
 // ChatlistsCheckChatlistInvite invokes method chatlists.checkChatlistInvite#41c10fff returning error if any.
+// Obtain information about a chat folder deep link »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // Possible errors:
 //

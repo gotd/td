@@ -152,6 +152,7 @@ const (
 	ErrEditBotInviteForbidden           = "EDIT_BOT_INVITE_FORBIDDEN"
 	ErrEmailHashExpired                 = "EMAIL_HASH_EXPIRED"
 	ErrEmailInvalid                     = "EMAIL_INVALID"
+	ErrEmailNotSetup                    = "EMAIL_NOT_SETUP"
 	ErrEmailUnconfirmed                 = "EMAIL_UNCONFIRMED"
 	ErrEmailVerifyExpired               = "EMAIL_VERIFY_EXPIRED"
 	ErrEmojiInvalid                     = "EMOJI_INVALID"
@@ -295,6 +296,7 @@ const (
 	ErrPasswordTooFresh                 = "PASSWORD_TOO_FRESH"
 	ErrPaymentProviderInvalid           = "PAYMENT_PROVIDER_INVALID"
 	ErrPaymentUnsupported               = "PAYMENT_UNSUPPORTED"
+	ErrPeersListEmpty                   = "PEERS_LIST_EMPTY"
 	ErrPeerHistoryEmpty                 = "PEER_HISTORY_EMPTY"
 	ErrPeerIDInvalid                    = "PEER_ID_INVALID"
 	ErrPeerIDNotSupported               = "PEER_ID_NOT_SUPPORTED"
@@ -422,6 +424,7 @@ const (
 	ErrSwitchPmTextEmpty                = "SWITCH_PM_TEXT_EMPTY"
 	ErrTakeoutInitDelay                 = "TAKEOUT_INIT_DELAY"
 	ErrTakeoutRequired                  = "TAKEOUT_REQUIRED"
+	ErrTaskAlreadyExists                = "TASK_ALREADY_EXISTS"
 	ErrTempAuthKeyAlreadyBound          = "TEMP_AUTH_KEY_ALREADY_BOUND"
 	ErrTempAuthKeyEmpty                 = "TEMP_AUTH_KEY_EMPTY"
 	ErrThemeFileInvalid                 = "THEME_FILE_INVALID"
@@ -1092,6 +1095,11 @@ func IsEmailHashExpired(err error) bool {
 // IsEmailInvalid reports whether err is EMAIL_INVALID.
 func IsEmailInvalid(err error) bool {
 	return tgerr.Is(err, ErrEmailInvalid)
+}
+
+// IsEmailNotSetup reports whether err is EMAIL_NOT_SETUP.
+func IsEmailNotSetup(err error) bool {
+	return tgerr.Is(err, ErrEmailNotSetup)
 }
 
 // IsEmailUnconfirmed reports whether err is EMAIL_UNCONFIRMED.
@@ -1809,6 +1817,11 @@ func IsPaymentUnsupported(err error) bool {
 	return tgerr.Is(err, ErrPaymentUnsupported)
 }
 
+// IsPeersListEmpty reports whether err is PEERS_LIST_EMPTY.
+func IsPeersListEmpty(err error) bool {
+	return tgerr.Is(err, ErrPeersListEmpty)
+}
+
 // IsPeerHistoryEmpty reports whether err is PEER_HISTORY_EMPTY.
 func IsPeerHistoryEmpty(err error) bool {
 	return tgerr.Is(err, ErrPeerHistoryEmpty)
@@ -2442,6 +2455,11 @@ func IsTakeoutInitDelay(err error) bool {
 // IsTakeoutRequired reports whether err is TAKEOUT_REQUIRED.
 func IsTakeoutRequired(err error) bool {
 	return tgerr.Is(err, ErrTakeoutRequired)
+}
+
+// IsTaskAlreadyExists reports whether err is TASK_ALREADY_EXISTS.
+func IsTaskAlreadyExists(err error) bool {
+	return tgerr.Is(err, ErrTaskAlreadyExists)
 }
 
 // IsTempAuthKeyAlreadyBound reports whether err is TEMP_AUTH_KEY_ALREADY_BOUND.
