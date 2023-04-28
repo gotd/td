@@ -94,10 +94,7 @@ type DialogFilter struct {
 	// Links:
 	//  1) https://core.telegram.org/api/folders
 	Title string
-	// Folder¹ emoticon
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/folders
+	// Emoji to use as icon for the folder.
 	//
 	// Use SetEmoticon and GetEmoticon helpers.
 	Emoticon string
@@ -852,19 +849,26 @@ type DialogFilterChatlist struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// HasMyInvites field of DialogFilterChatlist.
+	// Whether the current user has created some chat folder deep links »¹ to share the
+	// folder as well.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#chat-folder-links
 	HasMyInvites bool
 	// ID of the folder
 	ID int
 	// Name of the folder
 	Title string
-	// Emoticon field of DialogFilterChatlist.
+	// Emoji to use as icon for the folder.
 	//
 	// Use SetEmoticon and GetEmoticon helpers.
 	Emoticon string
-	// PinnedPeers field of DialogFilterChatlist.
+	// Pinned chats, folders¹ can have unlimited pinned chats
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	PinnedPeers []InputPeerClass
-	// IncludePeers field of DialogFilterChatlist.
+	// Chats to include in the folder
 	IncludePeers []InputPeerClass
 }
 

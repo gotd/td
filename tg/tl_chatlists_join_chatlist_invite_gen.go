@@ -49,7 +49,7 @@ type ChatlistsJoinChatlistInviteRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/chatlists.checkChatlistInvite
-	//  2) https://core.telegram.org/api/folders#sharing-folders
+	//  2) https://core.telegram.org/api/folders#shared-folders
 	Peers []InputPeerClass
 }
 

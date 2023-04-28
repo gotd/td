@@ -227,6 +227,7 @@ const (
 	ErrInputFilterInvalid               = "INPUT_FILTER_INVALID"
 	ErrInputTextEmpty                   = "INPUT_TEXT_EMPTY"
 	ErrInputUserDeactivated             = "INPUT_USER_DEACTIVATED"
+	ErrInvitesTooMuch                   = "INVITES_TOO_MUCH"
 	ErrInviteForbiddenWithJoinas        = "INVITE_FORBIDDEN_WITH_JOINAS"
 	ErrInviteHashEmpty                  = "INVITE_HASH_EMPTY"
 	ErrInviteHashExpired                = "INVITE_HASH_EXPIRED"
@@ -1470,6 +1471,11 @@ func IsInputTextEmpty(err error) bool {
 // IsInputUserDeactivated reports whether err is INPUT_USER_DEACTIVATED.
 func IsInputUserDeactivated(err error) bool {
 	return tgerr.Is(err, ErrInputUserDeactivated)
+}
+
+// IsInvitesTooMuch reports whether err is INVITES_TOO_MUCH.
+func IsInvitesTooMuch(err error) bool {
+	return tgerr.Is(err, ErrInvitesTooMuch)
 }
 
 // IsInviteForbiddenWithJoinas reports whether err is INVITE_FORBIDDEN_WITH_JOINAS.
