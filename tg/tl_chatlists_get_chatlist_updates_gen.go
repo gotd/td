@@ -32,10 +32,17 @@ var (
 )
 
 // ChatlistsGetChatlistUpdatesRequest represents TL type `chatlists.getChatlistUpdates#89419521`.
+// Fetch new chats associated with an imported chat folder deep link »¹. Must be
+// invoked at most every chatlist_update_period seconds (as per the related client
+// configuration parameter »²).
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
+//  2. https://core.telegram.org/api/config#chatlist-update-period
 //
 // See https://core.telegram.org/method/chatlists.getChatlistUpdates for reference.
 type ChatlistsGetChatlistUpdatesRequest struct {
-	// Chatlist field of ChatlistsGetChatlistUpdatesRequest.
+	// The folder
 	Chatlist InputChatlistDialogFilter
 }
 
@@ -161,6 +168,13 @@ func (g *ChatlistsGetChatlistUpdatesRequest) GetChatlist() (value InputChatlistD
 }
 
 // ChatlistsGetChatlistUpdates invokes method chatlists.getChatlistUpdates#89419521 returning error if any.
+// Fetch new chats associated with an imported chat folder deep link »¹. Must be
+// invoked at most every chatlist_update_period seconds (as per the related client
+// configuration parameter »²).
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
+//  2. https://core.telegram.org/api/config#chatlist-update-period
 //
 // See https://core.telegram.org/method/chatlists.getChatlistUpdates for reference.
 // Can be used by bots.

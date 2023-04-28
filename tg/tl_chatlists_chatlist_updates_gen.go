@@ -32,14 +32,18 @@ var (
 )
 
 // ChatlistsChatlistUpdates represents TL type `chatlists.chatlistUpdates#93bd878d`.
+// Updated information about a chat folder deep link »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/constructor/chatlists.chatlistUpdates for reference.
 type ChatlistsChatlistUpdates struct {
-	// MissingPeers field of ChatlistsChatlistUpdates.
+	// New peers to join
 	MissingPeers []PeerClass
-	// Chats field of ChatlistsChatlistUpdates.
+	// Related chat information
 	Chats []ChatClass
-	// Users field of ChatlistsChatlistUpdates.
+	// Related user information
 	Users []UserClass
 }
 

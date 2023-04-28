@@ -3954,7 +3954,10 @@ type ChannelAdminLogEventActionParticipantJoinByInvite struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ViaChatlist field of ChannelAdminLogEventActionParticipantJoinByInvite.
+	// The participant joined by importing a chat folder deep link »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#chat-folder-links
 	ViaChatlist bool
 	// The invite link used to join the supergroup/channel¹
 	//

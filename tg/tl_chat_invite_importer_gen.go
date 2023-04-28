@@ -46,7 +46,10 @@ type ChatInviteImporter struct {
 	// Links:
 	//  1) https://core.telegram.org/api/invites#join-requests
 	Requested bool
-	// ViaChatlist field of ChatInviteImporter.
+	// The participant joined by importing a chat folder deep link »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#chat-folder-links
 	ViaChatlist bool
 	// The user
 	UserID int64

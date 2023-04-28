@@ -32,12 +32,13 @@ var (
 )
 
 // MessagesGetExtendedMediaRequest represents TL type `messages.getExtendedMedia#84f80814`.
+// Get information about extended media
 //
 // See https://core.telegram.org/method/messages.getExtendedMedia for reference.
 type MessagesGetExtendedMediaRequest struct {
-	// Peer field of MessagesGetExtendedMediaRequest.
+	// Peer
 	Peer InputPeerClass
-	// ID field of MessagesGetExtendedMediaRequest.
+	// Message IDs
 	ID []int
 }
 
@@ -206,6 +207,7 @@ func (g *MessagesGetExtendedMediaRequest) GetID() (value []int) {
 }
 
 // MessagesGetExtendedMedia invokes method messages.getExtendedMedia#84f80814 returning error if any.
+// Get information about extended media
 //
 // See https://core.telegram.org/method/messages.getExtendedMedia for reference.
 func (c *Client) MessagesGetExtendedMedia(ctx context.Context, request *MessagesGetExtendedMediaRequest) (UpdatesClass, error) {

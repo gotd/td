@@ -32,6 +32,10 @@ var (
 )
 
 // MessagesSetChatWallPaperRequest represents TL type `messages.setChatWallPaper#8ffacae1`.
+// Set a custom wallpaper »¹ in a specific private chat with another user.
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/method/messages.setChatWallPaper for reference.
 type MessagesSetChatWallPaperRequest struct {
@@ -40,17 +44,32 @@ type MessagesSetChatWallPaperRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of MessagesSetChatWallPaperRequest.
+	// The private chat where the wallpaper will be set
 	Peer InputPeerClass
-	// Wallpaper field of MessagesSetChatWallPaperRequest.
+	// The wallpaper »¹, obtained as described in the wallpaper documentation »² or from
+	// a messageActionSetChatWallPaper³ service message.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers
+	//  2) https://core.telegram.org/api/wallpapers#uploading-wallpapers
+	//  3) https://core.telegram.org/constructor/messageActionSetChatWallPaper
 	//
 	// Use SetWallpaper and GetWallpaper helpers.
 	Wallpaper InputWallPaperClass
-	// Settings field of MessagesSetChatWallPaperRequest.
+	// Wallpaper settings, obtained as described in the wallpaper documentation »¹ or from
+	// messageActionSetChatWallPaper².wallpaper.settings.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers#uploading-wallpapers
+	//  2) https://core.telegram.org/constructor/messageActionSetChatWallPaper
 	//
 	// Use SetSettings and GetSettings helpers.
 	Settings WallPaperSettings
-	// ID field of MessagesSetChatWallPaperRequest.
+	// If the wallpaper was obtained from a messageActionSetChatWallPaper¹ service message,
+	// must contain the ID of that message.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messageActionSetChatWallPaper
 	//
 	// Use SetID and GetID helpers.
 	ID int
@@ -336,10 +355,15 @@ func (s *MessagesSetChatWallPaperRequest) GetID() (value int, ok bool) {
 }
 
 // MessagesSetChatWallPaper invokes method messages.setChatWallPaper#8ffacae1 returning error if any.
+// Set a custom wallpaper »¹ in a specific private chat with another user.
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
 //
 // Possible errors:
 //
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 WALLPAPER_INVALID: The specified wallpaper is invalid.
 //
 // See https://core.telegram.org/method/messages.setChatWallPaper for reference.
 // Can be used by bots.

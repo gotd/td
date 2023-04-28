@@ -32,6 +32,7 @@ var (
 )
 
 // MessageExtendedMediaPreview represents TL type `messageExtendedMediaPreview#ad628cc8`.
+// Extended media preview
 //
 // See https://core.telegram.org/constructor/messageExtendedMediaPreview for reference.
 type MessageExtendedMediaPreview struct {
@@ -40,19 +41,19 @@ type MessageExtendedMediaPreview struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// W field of MessageExtendedMediaPreview.
+	// Width
 	//
 	// Use SetW and GetW helpers.
 	W int
-	// H field of MessageExtendedMediaPreview.
+	// Height
 	//
 	// Use SetH and GetH helpers.
 	H int
-	// Thumb field of MessageExtendedMediaPreview.
+	// Thumbnail
 	//
 	// Use SetThumb and GetThumb helpers.
 	Thumb PhotoSizeClass
-	// VideoDuration field of MessageExtendedMediaPreview.
+	// Video duration
 	//
 	// Use SetVideoDuration and GetVideoDuration helpers.
 	VideoDuration int
@@ -357,10 +358,11 @@ func (m *MessageExtendedMediaPreview) GetVideoDuration() (value int, ok bool) {
 }
 
 // MessageExtendedMedia represents TL type `messageExtendedMedia#ee479c64`.
+// Extended media
 //
 // See https://core.telegram.org/constructor/messageExtendedMedia for reference.
 type MessageExtendedMedia struct {
-	// Media field of MessageExtendedMedia.
+	// Media
 	Media MessageMediaClass
 }
 

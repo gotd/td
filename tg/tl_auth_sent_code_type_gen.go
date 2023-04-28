@@ -1489,11 +1489,17 @@ type AuthSentCodeTypeFirebaseSMS struct {
 	//
 	// Use SetNonce and GetNonce helpers.
 	Nonce []byte
-	// Receipt field of AuthSentCodeTypeFirebaseSMS.
+	// On iOS, must be compared with the receipt extracted from the received push
+	// notification.
 	//
 	// Use SetReceipt and GetReceipt helpers.
 	Receipt string
-	// PushTimeout field of AuthSentCodeTypeFirebaseSMS.
+	// On iOS: if a push notification with the ios_push_secret isn't received within
+	// push_timeout seconds, the next_type authentication method must be used, with auth
+	// resendCode¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/auth.resendCode
 	//
 	// Use SetPushTimeout and GetPushTimeout helpers.
 	PushTimeout int

@@ -32,10 +32,14 @@ var (
 )
 
 // ChatlistsHideChatlistUpdatesRequest represents TL type `chatlists.hideChatlistUpdates#66e486fb`.
+// Dismiss new pending peers recently added to a chat folder deep link »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/method/chatlists.hideChatlistUpdates for reference.
 type ChatlistsHideChatlistUpdatesRequest struct {
-	// Chatlist field of ChatlistsHideChatlistUpdatesRequest.
+	// The folder
 	Chatlist InputChatlistDialogFilter
 }
 
@@ -161,6 +165,10 @@ func (h *ChatlistsHideChatlistUpdatesRequest) GetChatlist() (value InputChatlist
 }
 
 // ChatlistsHideChatlistUpdates invokes method chatlists.hideChatlistUpdates#66e486fb returning error if any.
+// Dismiss new pending peers recently added to a chat folder deep link »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/method/chatlists.hideChatlistUpdates for reference.
 // Can be used by bots.

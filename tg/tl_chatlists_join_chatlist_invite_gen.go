@@ -32,12 +32,24 @@ var (
 )
 
 // ChatlistsJoinChatlistInviteRequest represents TL type `chatlists.joinChatlistInvite#a6b1e39a`.
+// Import a chat folder deep link »¹, joining some or all the chats in the folder.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/method/chatlists.joinChatlistInvite for reference.
 type ChatlistsJoinChatlistInviteRequest struct {
-	// Slug field of ChatlistsJoinChatlistInviteRequest.
+	// slug obtained from a chat folder deep link »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#chat-folder-links
 	Slug string
-	// Peers field of ChatlistsJoinChatlistInviteRequest.
+	// List of new chats to join, fetched using chatlists.checkChatlistInvite¹ and filtered
+	// as specified in the documentation »².
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/chatlists.checkChatlistInvite
+	//  2) https://core.telegram.org/api/folders#sharing-folders
 	Peers []InputPeerClass
 }
 
@@ -211,6 +223,10 @@ func (j *ChatlistsJoinChatlistInviteRequest) MapPeers() (value InputPeerClassArr
 }
 
 // ChatlistsJoinChatlistInvite invokes method chatlists.joinChatlistInvite#a6b1e39a returning error if any.
+// Import a chat folder deep link »¹, joining some or all the chats in the folder.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // Possible errors:
 //

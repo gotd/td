@@ -32,10 +32,14 @@ var (
 )
 
 // InputChatlistDialogFilter represents TL type `inputChatlistDialogFilter#f3e0da33`.
+// Folder ID
 //
 // See https://core.telegram.org/constructor/inputChatlistDialogFilter for reference.
 type InputChatlistDialogFilter struct {
-	// FilterID field of InputChatlistDialogFilter.
+	// Folder¹ ID
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	FilterID int
 }
 

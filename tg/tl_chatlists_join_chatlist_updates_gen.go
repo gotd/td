@@ -32,12 +32,21 @@ var (
 )
 
 // ChatlistsJoinChatlistUpdatesRequest represents TL type `chatlists.joinChatlistUpdates#e089f8f5`.
+// Join channels and supergroups recently added to a chat folder deep link »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/method/chatlists.joinChatlistUpdates for reference.
 type ChatlistsJoinChatlistUpdatesRequest struct {
-	// Chatlist field of ChatlistsJoinChatlistUpdatesRequest.
+	// The folder
 	Chatlist InputChatlistDialogFilter
-	// Peers field of ChatlistsJoinChatlistUpdatesRequest.
+	// List of new chats to join, fetched using chatlists.getChatlistUpdates¹ and filtered
+	// as specified in the documentation »².
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/chatlists.getChatlistUpdates
+	//  2) https://core.telegram.org/api/folders#sharing-folders
 	Peers []InputPeerClass
 }
 
@@ -211,6 +220,10 @@ func (j *ChatlistsJoinChatlistUpdatesRequest) MapPeers() (value InputPeerClassAr
 }
 
 // ChatlistsJoinChatlistUpdates invokes method chatlists.joinChatlistUpdates#e089f8f5 returning error if any.
+// Join channels and supergroups recently added to a chat folder deep link »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/method/chatlists.joinChatlistUpdates for reference.
 // Can be used by bots.

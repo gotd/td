@@ -32,14 +32,21 @@ var (
 )
 
 // ChatlistsExportedInvites represents TL type `chatlists.exportedInvites#10ab6dc7`.
+// Info about multiple chat folder deep links »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/constructor/chatlists.exportedInvites for reference.
 type ChatlistsExportedInvites struct {
-	// Invites field of ChatlistsExportedInvites.
+	// The chat folder deep links »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#chat-folder-links
 	Invites []ExportedChatlistInvite
-	// Chats field of ChatlistsExportedInvites.
+	// Related chat information
 	Chats []ChatClass
-	// Users field of ChatlistsExportedInvites.
+	// Related user information
 	Users []UserClass
 }
 

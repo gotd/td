@@ -328,10 +328,14 @@ func (s *AuthSentCode) GetTimeout() (value int, ok bool) {
 }
 
 // AuthSentCodeSuccess represents TL type `auth.sentCodeSuccess#2390fe44`.
+// The user successfully authorized using future auth tokens¹
+//
+// Links:
+//  1. https://core.telegram.org/api/auth#future-auth-tokens
 //
 // See https://core.telegram.org/constructor/auth.sentCodeSuccess for reference.
 type AuthSentCodeSuccess struct {
-	// Authorization field of AuthSentCodeSuccess.
+	// Authorization info
 	Authorization AuthAuthorizationClass
 }
 

@@ -296,6 +296,7 @@ func (u *PhotosUpdateProfilePhotoRequest) GetIDAsNotEmpty() (*InputPhoto, bool) 
 //	400 PHOTO_ID_INVALID: Photo ID invalid.
 //
 // See https://core.telegram.org/method/photos.updateProfilePhoto for reference.
+// Can be used by bots.
 func (c *Client) PhotosUpdateProfilePhoto(ctx context.Context, request *PhotosUpdateProfilePhotoRequest) (*PhotosPhoto, error) {
 	var result PhotosPhoto
 
