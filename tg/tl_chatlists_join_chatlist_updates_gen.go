@@ -46,7 +46,7 @@ type ChatlistsJoinChatlistUpdatesRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/chatlists.getChatlistUpdates
-	//  2) https://core.telegram.org/api/folders#sharing-folders
+	//  2) https://core.telegram.org/api/folders#shared-folders
 	Peers []InputPeerClass
 }
 

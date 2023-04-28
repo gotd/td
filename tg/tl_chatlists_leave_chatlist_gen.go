@@ -32,12 +32,16 @@ var (
 )
 
 // ChatlistsLeaveChatlistRequest represents TL type `chatlists.leaveChatlist#74fae13a`.
+// Delete a folder imported using a chat folder deep link »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/method/chatlists.leaveChatlist for reference.
 type ChatlistsLeaveChatlistRequest struct {
-	// Chatlist field of ChatlistsLeaveChatlistRequest.
+	// Folder ID
 	Chatlist InputChatlistDialogFilter
-	// Peers field of ChatlistsLeaveChatlistRequest.
+	// Also leave the specified channels and groups
 	Peers []InputPeerClass
 }
 
@@ -211,6 +215,10 @@ func (l *ChatlistsLeaveChatlistRequest) MapPeers() (value InputPeerClassArray) {
 }
 
 // ChatlistsLeaveChatlist invokes method chatlists.leaveChatlist#74fae13a returning error if any.
+// Delete a folder imported using a chat folder deep link »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/links#chat-folder-links
 //
 // See https://core.telegram.org/method/chatlists.leaveChatlist for reference.
 // Can be used by bots.

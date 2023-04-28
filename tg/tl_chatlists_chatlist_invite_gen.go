@@ -384,7 +384,7 @@ type ChatlistsChatlistInvite struct {
 	Flags bin.Fields
 	// Name of the link
 	Title string
-	// Emoticon field of ChatlistsChatlistInvite.
+	// Emoji to use as icon for the folder.
 	//
 	// Use SetEmoticon and GetEmoticon helpers.
 	Emoticon string
