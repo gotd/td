@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"context"
 	"flag"
 	"fmt"
@@ -9,8 +8,6 @@ import (
 	"os/signal"
 	"path/filepath"
 	"strconv"
-	"strings"
-	"syscall"
 	"time"
 
 	pebbledb "github.com/cockroachdb/pebble"
@@ -23,7 +20,6 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"golang.org/x/sync/errgroup"
-	"golang.org/x/term"
 	"golang.org/x/time/rate"
 	lj "gopkg.in/natefinch/lumberjack.v2"
 
@@ -34,42 +30,6 @@ import (
 	"github.com/gotd/td/telegram/query"
 	"github.com/gotd/td/tg"
 )
-
-// terminalAuth implements auth.UserAuthenticator prompting the terminal for
-// input.
-type terminalAuth struct {
-	phone string
-}
-
-func (terminalAuth) SignUp(ctx context.Context) (auth.UserInfo, error) {
-	return auth.UserInfo{}, errors.New("not implemented")
-}
-
-func (terminalAuth) AcceptTermsOfService(ctx context.Context, tos tg.HelpTermsOfService) error {
-	return &auth.SignUpRequired{TermsOfService: tos}
-}
-
-func (terminalAuth) Code(ctx context.Context, sentCode *tg.AuthSentCode) (string, error) {
-	fmt.Print("Enter code: ")
-	code, err := bufio.NewReader(os.Stdin).ReadString('\n')
-	if err != nil {
-		return "", err
-	}
-	return strings.TrimSpace(code), nil
-}
-
-func (a terminalAuth) Phone(_ context.Context) (string, error) {
-	return a.phone, nil
-}
-
-func (terminalAuth) Password(_ context.Context) (string, error) {
-	fmt.Print("Enter 2FA password: ")
-	bytePwd, err := term.ReadPassword(syscall.Stdin)
-	if err != nil {
-		return "", err
-	}
-	return strings.TrimSpace(string(bytePwd)), nil
-}
 
 func sessionFolder(phone string) string {
 	var out []rune
