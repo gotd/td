@@ -19,7 +19,6 @@ import (
 	"github.com/joho/godotenv"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	"golang.org/x/sync/errgroup"
 	"golang.org/x/time/rate"
 	lj "gopkg.in/natefinch/lumberjack.v2"
 
@@ -174,13 +173,7 @@ func run(ctx context.Context) error {
 	// Authentication flow handles authentication process, like prompting for code and 2FA password.
 	flow := auth.NewFlow(examples.Terminal{PhoneNumber: phone}, auth.SendCodeOptions{})
 
-	wg, ctx := errgroup.WithContext(ctx)
-	wg.Go(func() error {
-		// This is important for waiter to work!
-		// Spawning separate goroutine to handle FLOOD_WAIT.
-		return waiter.Run(ctx)
-	})
-	wg.Go(func() error {
+	return waiter.Run(ctx, func(ctx context.Context) error {
 		// Spawning main goroutine.
 		if err := client.Run(ctx, func(ctx context.Context) error {
 			// Perform auth if no session is available.
@@ -226,8 +219,6 @@ func run(ctx context.Context) error {
 		}
 		return nil
 	})
-
-	return wg.Wait()
 }
 
 func main() {
