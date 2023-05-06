@@ -5,12 +5,12 @@ go 1.19
 require (
 	github.com/cockroachdb/pebble v0.0.0-20220107203702-aa376a819bf6
 	github.com/go-faster/errors v0.6.1
-	github.com/gotd/contrib v0.16.0
-	github.com/gotd/td v0.80.0
+	github.com/gotd/contrib v0.17.0
+	github.com/gotd/td v0.81.0
 	github.com/joho/godotenv v1.5.1
 	go.uber.org/atomic v1.11.0
 	go.uber.org/zap v1.24.0
-	golang.org/x/sync v0.1.0
+	golang.org/x/sync v0.2.0
 	golang.org/x/term v0.7.0
 	golang.org/x/time v0.3.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
