@@ -1754,11 +1754,15 @@ func (m *MessageEntityPre) GetLanguage() (value string) {
 // MessageEntityTextURL represents TL type `messageEntityTextUrl#76a6d327`.
 // Message entity representing a text url¹: for in-text urls like https://google.com²
 // use messageEntityUrl³.
+// Note that an additional confirmation popup with the full URL must be displayed to the
+// user before opening this link, unless the domain is one of the whitelisted domains
+// specified in the whitelisted_domains client configuration parameter »¹.
 //
 // Links:
 //  1. https://google.com
 //  2. https://google.com
 //  3. https://core.telegram.org/constructor/messageEntityUrl
+//  4. https://core.telegram.org/api/config#whitelisted-domains
 //
 // See https://core.telegram.org/constructor/messageEntityTextUrl for reference.
 type MessageEntityTextURL struct {
