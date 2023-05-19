@@ -32,13 +32,13 @@ var (
 )
 
 // ChannelsUpdateUsernameRequest represents TL type `channels.updateUsername#3514b3de`.
-// Change the username of a supergroup/channel
+// Change or remove the username of a supergroup/channel
 //
 // See https://core.telegram.org/method/channels.updateUsername for reference.
 type ChannelsUpdateUsernameRequest struct {
 	// Channel
 	Channel InputChannelClass
-	// New username
+	// New username, pass an empty string to remove the username
 	Username string
 }
 
@@ -199,7 +199,7 @@ func (u *ChannelsUpdateUsernameRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 }
 
 // ChannelsUpdateUsername invokes method channels.updateUsername#3514b3de returning error if any.
-// Change the username of a supergroup/channel
+// Change or remove the username of a supergroup/channel
 //
 // Possible errors:
 //

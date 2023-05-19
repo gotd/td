@@ -32,7 +32,12 @@ var (
 )
 
 // MessagesSendReactionRequest represents TL type `messages.sendReaction#d30d78d4`.
-// React to message
+// React to message.
+// Starting from layer 159, the reaction will be sent from the peer specified using
+// messages.saveDefaultSendAs¹.
+//
+// Links:
+//  1. https://core.telegram.org/method/messages.saveDefaultSendAs
 //
 // See https://core.telegram.org/method/messages.sendReaction for reference.
 type MessagesSendReactionRequest struct {
@@ -52,7 +57,7 @@ type MessagesSendReactionRequest struct {
 	Peer InputPeerClass
 	// Message ID to react to
 	MsgID int
-	// Reaction (a UTF8 emoji)
+	// A list of reactions
 	//
 	// Use SetReaction and GetReaction helpers.
 	Reaction []ReactionClass
@@ -362,7 +367,12 @@ func (s *MessagesSendReactionRequest) MapReaction() (value ReactionClassArray, o
 }
 
 // MessagesSendReaction invokes method messages.sendReaction#d30d78d4 returning error if any.
-// React to message
+// React to message.
+// Starting from layer 159, the reaction will be sent from the peer specified using
+// messages.saveDefaultSendAs¹.
+//
+// Links:
+//  1. https://core.telegram.org/method/messages.saveDefaultSendAs
 //
 // Possible errors:
 //

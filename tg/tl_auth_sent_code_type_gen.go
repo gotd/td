@@ -765,11 +765,12 @@ type AuthSentCodeTypeEmailCode struct {
 	EmailPattern string
 	// Length of the sent verification code
 	Length int
-	// The login email can be reset by invoking auth.resetLoginEmail¹ and waiting for the
-	// specified amount of seconds.
+	// Clients should wait for the specified amount of seconds before allowing the user to
+	// invoke auth.resetLoginEmail¹ (will be 0 for Premium² users).
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/auth.resetLoginEmail
+	//  2) https://core.telegram.org/api/premium
 	//
 	// Use SetResetAvailablePeriod and GetResetAvailablePeriod helpers.
 	ResetAvailablePeriod int

@@ -46,8 +46,9 @@ type MessagesSetChatWallPaperRequest struct {
 	Flags bin.Fields
 	// The private chat where the wallpaper will be set
 	Peer InputPeerClass
-	// The wallpaper »¹, obtained as described in the wallpaper documentation »² or from
-	// a messageActionSetChatWallPaper³ service message.
+	// The wallpaper »¹, obtained as described in the wallpaper documentation »²; must
+	// not be provided when installing a wallpaper obtained from a
+	// messageActionSetChatWallPaper³ service message (id must be provided, instead).
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/wallpapers

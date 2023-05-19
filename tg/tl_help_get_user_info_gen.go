@@ -32,7 +32,7 @@ var (
 )
 
 // HelpGetUserInfoRequest represents TL type `help.getUserInfo#38a08d3`.
-// Internal use
+// Can only be used by TSF members to obtain internal information.
 //
 // See https://core.telegram.org/method/help.getUserInfo for reference.
 type HelpGetUserInfoRequest struct {
@@ -167,7 +167,7 @@ func (g *HelpGetUserInfoRequest) GetUserID() (value InputUserClass) {
 }
 
 // HelpGetUserInfo invokes method help.getUserInfo#38a08d3 returning error if any.
-// Internal use
+// Can only be used by TSF members to obtain internal information.
 //
 // Possible errors:
 //
