@@ -1755,8 +1755,8 @@ func (m *MessageEntityPre) GetLanguage() (value string) {
 // Message entity representing a text url¹: for in-text urls like https://google.com²
 // use messageEntityUrl³.
 // Note that an additional confirmation popup with the full URL must be displayed to the
-// user before opening this link, unless the domain is one of the whitelisted domains
-// specified in the whitelisted_domains client configuration parameter »¹.
+// user before opening this link, unless the domain satisfies the conditions specified in
+// the domain whitelist documentation »¹.
 //
 // Links:
 //  1. https://google.com

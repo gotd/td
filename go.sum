@@ -50,6 +50,8 @@ github.com/gorilla/websocket v1.4.1 h1:q7AeDBpnBk8AogcD4DSag/Ukw/KV+YhzLj2bP5HvK
 github.com/gorilla/websocket v1.4.1/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
 github.com/gotd/getdoc v0.29.0 h1:hf8l4LunGVAGVsBxPAsTG54IgqwPyNwByuDgdsEDFAw=
 github.com/gotd/getdoc v0.29.0/go.mod h1:RXkV6eH+7fBIDFQV6f4JQcFl3n+AdxyvJ4ruf5+O9Ik=
+github.com/gotd/getdoc v0.30.0 h1:jL0+mTiyXxyBq1SKLb2qIGBnJ8aTIBH3qgNNZqw1d/g=
+github.com/gotd/getdoc v0.30.0/go.mod h1:RXkV6eH+7fBIDFQV6f4JQcFl3n+AdxyvJ4ruf5+O9Ik=
 github.com/gotd/ige v0.2.2 h1:XQ9dJZwBfDnOGSTxKXBGP4gMud3Qku2ekScRjDWWfEk=
 github.com/gotd/ige v0.2.2/go.mod h1:tuCRb+Y5Y3eNTo3ypIfNpQ4MFjrnONiL2jN2AKZXmb0=
 github.com/gotd/neo v0.1.5 h1:oj0iQfMbGClP8xI59x7fE/uHoTJD7NZH9oV1WNuPukQ=

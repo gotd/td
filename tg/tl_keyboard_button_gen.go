@@ -2893,7 +2893,10 @@ type KeyboardButtonRequestPeer struct {
 	// Links:
 	//  1) https://core.telegram.org/method/messages.sendBotRequestedPeer
 	ButtonID int
-	// Filtering criteria to use for the peer selection list shown to the user.
+	// Filtering criteria to use for the peer selection list shown to the user. The list
+	// should display all existing peers of the specified type, and should also offer an
+	// option for the user to create and immediately use a peer of the specified type, if
+	// needed.
 	PeerType RequestPeerTypeClass
 }
 
