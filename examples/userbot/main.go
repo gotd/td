@@ -12,11 +12,13 @@ import (
 
 	pebbledb "github.com/cockroachdb/pebble"
 	"github.com/go-faster/errors"
+	boltstor "github.com/gotd/contrib/bbolt"
 	"github.com/gotd/contrib/middleware/floodwait"
 	"github.com/gotd/contrib/middleware/ratelimit"
 	"github.com/gotd/contrib/pebble"
 	"github.com/gotd/contrib/storage"
 	"github.com/joho/godotenv"
+	"go.etcd.io/bbolt"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"golang.org/x/time/rate"
@@ -27,6 +29,7 @@ import (
 	"github.com/gotd/td/telegram/auth"
 	"github.com/gotd/td/telegram/message/peer"
 	"github.com/gotd/td/telegram/query"
+	"github.com/gotd/td/telegram/updates"
 	"github.com/gotd/td/tg"
 )
 
@@ -116,6 +119,18 @@ func run(ctx context.Context) error {
 	// calling dispatcher handlers.
 	updateHandler := storage.UpdateHook(dispatcher, peerDB)
 
+	// Setting up persistent storage for qts/pts to be able to
+	// recover after restart.
+	boltdb, err := bbolt.Open(filepath.Join(sessionDir, "updates.bolt.db"), 0666, nil)
+	if err != nil {
+		return errors.Wrap(err, "create bolt storage")
+	}
+	updatesRecovery := updates.New(updates.Config{
+		Handler: updateHandler, // using previous handler with peerDB
+		Logger:  lg.Named("updates.recovery"),
+		Storage: boltstor.NewStateStorage(boltdb),
+	})
+
 	// Handler of FLOOD_WAIT that will automatically retry request.
 	waiter := floodwait.NewWaiter().WithCallback(func(ctx context.Context, wait floodwait.FloodWait) {
 		// Notifying about flood wait.
@@ -125,9 +140,9 @@ func run(ctx context.Context) error {
 
 	// Filling client options.
 	options := telegram.Options{
-		Logger:         lg,             // Passing logger for observability.
-		SessionStorage: sessionStorage, // Setting up session sessionStorage to store auth data.
-		UpdateHandler:  updateHandler,  // Setting up handler for updates from server.
+		Logger:         lg,              // Passing logger for observability.
+		SessionStorage: sessionStorage,  // Setting up session sessionStorage to store auth data.
+		UpdateHandler:  updatesRecovery, // Setting up handler for updates from server.
 		Middlewares: []telegram.Middleware{
 			// Setting up FLOOD_WAIT handler to automatically wait and retry request.
 			waiter,
@@ -212,8 +227,12 @@ func run(ctx context.Context) error {
 
 			// Waiting until context is done.
 			fmt.Println("Listening for updates. Interrupt (Ctrl+C) to stop.")
-			<-ctx.Done()
-			return ctx.Err()
+			return updatesRecovery.Run(ctx, api, self.ID, updates.AuthOptions{
+				IsBot: self.Bot,
+				OnStart: func(ctx context.Context) {
+					fmt.Println("Update recovery initialized and started, listening for events")
+				},
+			})
 		}); err != nil {
 			return errors.Wrap(err, "run")
 		}
