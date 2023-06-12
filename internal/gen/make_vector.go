@@ -28,7 +28,7 @@ func (g *Generator) makeVector(className string) (class classBinding, err error)
 		},
 	}, nil)
 	if err != nil {
-		return
+		return class, err
 	}
 	f.Comment = []string{"Elements of " + className}
 

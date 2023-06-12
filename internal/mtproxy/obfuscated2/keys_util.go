@@ -31,7 +31,7 @@ func generateInit(randSource io.Reader) (init [64]byte, err error) {
 	for {
 		_, err = io.ReadFull(randSource, init[:])
 		if err != nil {
-			return
+			return [64]byte{}, err
 		}
 
 		// Filter some start sequences
