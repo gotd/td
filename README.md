@@ -14,6 +14,13 @@ Before using this library, read [How To Not Get Banned](.github/SUPPORT.md#how-t
 
 Due to limitations of `pkg.go.dev`, documentation for `tg` package is not shown, but there is [hosted version](https://ref.gotd.dev/pkg/github.com/gotd/td/tg.html).
 
+## Higher level libraries
+
+The `gotd` itself is a pretty low-level library, and you may want to use higher level libraries instead:
+- [GoTGProto] is a helper package for gotd library, It aims to make td's raw functions easy-to-use with the help of features like using session strings, custom helper functions, storing peers and extracting chat or user ids through it etc.
+
+[gotgproto]: https://github.com/celestix/gotgproto
+
 ## Usage
 
 ```console
