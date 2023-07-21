@@ -1364,6 +1364,45 @@ func (s UpdateClassArray) AsUpdateGroupInvitePrivacyForbidden() (to UpdateGroupI
 	return to
 }
 
+// AsUpdateStory returns copy with only UpdateStory constructors.
+func (s UpdateClassArray) AsUpdateStory() (to UpdateStoryArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateStory)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateReadStories returns copy with only UpdateReadStories constructors.
+func (s UpdateClassArray) AsUpdateReadStories() (to UpdateReadStoriesArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateReadStories)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateStoryID returns copy with only UpdateStoryID constructors.
+func (s UpdateClassArray) AsUpdateStoryID() (to UpdateStoryIDArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateStoryID)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // UpdateNewMessageArray is adapter for slice of UpdateNewMessage.
 type UpdateNewMessageArray []UpdateNewMessage
 
@@ -9444,4 +9483,278 @@ func (s *UpdateGroupInvitePrivacyForbiddenArray) Pop() (v UpdateGroupInvitePriva
 	*s = a
 
 	return v, true
+}
+
+// UpdateStoryArray is adapter for slice of UpdateStory.
+type UpdateStoryArray []UpdateStory
+
+// Sort sorts slice of UpdateStory.
+func (s UpdateStoryArray) Sort(less func(a, b UpdateStory) bool) UpdateStoryArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateStory.
+func (s UpdateStoryArray) SortStable(less func(a, b UpdateStory) bool) UpdateStoryArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateStory.
+func (s UpdateStoryArray) Retain(keep func(x UpdateStory) bool) UpdateStoryArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateStoryArray) First() (v UpdateStory, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateStoryArray) Last() (v UpdateStory, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateStoryArray) PopFirst() (v UpdateStory, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateStory
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateStoryArray) Pop() (v UpdateStory, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateReadStoriesArray is adapter for slice of UpdateReadStories.
+type UpdateReadStoriesArray []UpdateReadStories
+
+// Sort sorts slice of UpdateReadStories.
+func (s UpdateReadStoriesArray) Sort(less func(a, b UpdateReadStories) bool) UpdateReadStoriesArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateReadStories.
+func (s UpdateReadStoriesArray) SortStable(less func(a, b UpdateReadStories) bool) UpdateReadStoriesArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateReadStories.
+func (s UpdateReadStoriesArray) Retain(keep func(x UpdateReadStories) bool) UpdateReadStoriesArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateReadStoriesArray) First() (v UpdateReadStories, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateReadStoriesArray) Last() (v UpdateReadStories, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateReadStoriesArray) PopFirst() (v UpdateReadStories, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateReadStories
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateReadStoriesArray) Pop() (v UpdateReadStories, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateStoryIDArray is adapter for slice of UpdateStoryID.
+type UpdateStoryIDArray []UpdateStoryID
+
+// Sort sorts slice of UpdateStoryID.
+func (s UpdateStoryIDArray) Sort(less func(a, b UpdateStoryID) bool) UpdateStoryIDArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateStoryID.
+func (s UpdateStoryIDArray) SortStable(less func(a, b UpdateStoryID) bool) UpdateStoryIDArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateStoryID.
+func (s UpdateStoryIDArray) Retain(keep func(x UpdateStoryID) bool) UpdateStoryIDArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateStoryIDArray) First() (v UpdateStoryID, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateStoryIDArray) Last() (v UpdateStoryID, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateStoryIDArray) PopFirst() (v UpdateStoryID, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateStoryID
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateStoryIDArray) Pop() (v UpdateStoryID, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of UpdateStoryID by ID.
+func (s UpdateStoryIDArray) SortByID() UpdateStoryIDArray {
+	return s.Sort(func(a, b UpdateStoryID) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of UpdateStoryID by ID.
+func (s UpdateStoryIDArray) SortStableByID() UpdateStoryIDArray {
+	return s.SortStable(func(a, b UpdateStoryID) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s UpdateStoryIDArray) FillMap(to map[int]UpdateStoryID) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s UpdateStoryIDArray) ToMap() map[int]UpdateStoryID {
+	r := make(map[int]UpdateStoryID, len(s))
+	s.FillMap(r)
+	return r
 }

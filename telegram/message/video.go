@@ -51,12 +51,15 @@ func (u *VideoDocumentBuilder) Resolution(w, h int) *VideoDocumentBuilder {
 
 // Duration sets duration of video file.
 func (u *VideoDocumentBuilder) Duration(duration time.Duration) *VideoDocumentBuilder {
-	return u.DurationSeconds(int(duration.Seconds()))
+	u.attr.Duration = duration.Seconds()
+	return u
 }
 
 // DurationSeconds sets duration in seconds.
+//
+// Deprecated: Use Duration instead. Telegram now supports fractional seconds.
 func (u *VideoDocumentBuilder) DurationSeconds(duration int) *VideoDocumentBuilder {
-	u.attr.Duration = duration
+	u.attr.Duration = float64(duration)
 	return u
 }
 

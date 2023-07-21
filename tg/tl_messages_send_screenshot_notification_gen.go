@@ -31,21 +31,21 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesSendScreenshotNotificationRequest represents TL type `messages.sendScreenshotNotification#c97df020`.
+// MessagesSendScreenshotNotificationRequest represents TL type `messages.sendScreenshotNotification#a1405817`.
 // Notify the other user in a private chat that a screenshot of the chat was taken
 //
 // See https://core.telegram.org/method/messages.sendScreenshotNotification for reference.
 type MessagesSendScreenshotNotificationRequest struct {
 	// Other user
 	Peer InputPeerClass
-	// ID of message that was screenshotted, can be 0
-	ReplyToMsgID int
+	// ReplyTo field of MessagesSendScreenshotNotificationRequest.
+	ReplyTo InputReplyToClass
 	// Random ID to avoid message resending
 	RandomID int64
 }
 
 // MessagesSendScreenshotNotificationRequestTypeID is TL type id of MessagesSendScreenshotNotificationRequest.
-const MessagesSendScreenshotNotificationRequestTypeID = 0xc97df020
+const MessagesSendScreenshotNotificationRequestTypeID = 0xa1405817
 
 // Ensuring interfaces in compile-time for MessagesSendScreenshotNotificationRequest.
 var (
@@ -62,7 +62,7 @@ func (s *MessagesSendScreenshotNotificationRequest) Zero() bool {
 	if !(s.Peer == nil) {
 		return false
 	}
-	if !(s.ReplyToMsgID == 0) {
+	if !(s.ReplyTo == nil) {
 		return false
 	}
 	if !(s.RandomID == 0) {
@@ -84,11 +84,11 @@ func (s *MessagesSendScreenshotNotificationRequest) String() string {
 // FillFrom fills MessagesSendScreenshotNotificationRequest from given interface.
 func (s *MessagesSendScreenshotNotificationRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
-	GetReplyToMsgID() (value int)
+	GetReplyTo() (value InputReplyToClass)
 	GetRandomID() (value int64)
 }) {
 	s.Peer = from.GetPeer()
-	s.ReplyToMsgID = from.GetReplyToMsgID()
+	s.ReplyTo = from.GetReplyTo()
 	s.RandomID = from.GetRandomID()
 }
 
@@ -120,8 +120,8 @@ func (s *MessagesSendScreenshotNotificationRequest) TypeInfo() tdp.Type {
 			SchemaName: "peer",
 		},
 		{
-			Name:       "ReplyToMsgID",
-			SchemaName: "reply_to_msg_id",
+			Name:       "ReplyTo",
+			SchemaName: "reply_to",
 		},
 		{
 			Name:       "RandomID",
@@ -134,7 +134,7 @@ func (s *MessagesSendScreenshotNotificationRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSendScreenshotNotificationRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendScreenshotNotification#c97df020 as nil")
+		return fmt.Errorf("can't encode messages.sendScreenshotNotification#a1405817 as nil")
 	}
 	b.PutID(MessagesSendScreenshotNotificationRequestTypeID)
 	return s.EncodeBare(b)
@@ -143,15 +143,20 @@ func (s *MessagesSendScreenshotNotificationRequest) Encode(b *bin.Buffer) error 
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSendScreenshotNotificationRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendScreenshotNotification#c97df020 as nil")
+		return fmt.Errorf("can't encode messages.sendScreenshotNotification#a1405817 as nil")
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.sendScreenshotNotification#c97df020: field peer is nil")
+		return fmt.Errorf("unable to encode messages.sendScreenshotNotification#a1405817: field peer is nil")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendScreenshotNotification#c97df020: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.sendScreenshotNotification#a1405817: field peer: %w", err)
 	}
-	b.PutInt(s.ReplyToMsgID)
+	if s.ReplyTo == nil {
+		return fmt.Errorf("unable to encode messages.sendScreenshotNotification#a1405817: field reply_to is nil")
+	}
+	if err := s.ReplyTo.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.sendScreenshotNotification#a1405817: field reply_to: %w", err)
+	}
 	b.PutLong(s.RandomID)
 	return nil
 }
@@ -159,10 +164,10 @@ func (s *MessagesSendScreenshotNotificationRequest) EncodeBare(b *bin.Buffer) er
 // Decode implements bin.Decoder.
 func (s *MessagesSendScreenshotNotificationRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendScreenshotNotification#c97df020 to nil")
+		return fmt.Errorf("can't decode messages.sendScreenshotNotification#a1405817 to nil")
 	}
 	if err := b.ConsumeID(MessagesSendScreenshotNotificationRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendScreenshotNotification#c97df020: %w", err)
+		return fmt.Errorf("unable to decode messages.sendScreenshotNotification#a1405817: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -170,26 +175,26 @@ func (s *MessagesSendScreenshotNotificationRequest) Decode(b *bin.Buffer) error 
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSendScreenshotNotificationRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendScreenshotNotification#c97df020 to nil")
+		return fmt.Errorf("can't decode messages.sendScreenshotNotification#a1405817 to nil")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendScreenshotNotification#c97df020: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.sendScreenshotNotification#a1405817: field peer: %w", err)
 		}
 		s.Peer = value
 	}
 	{
-		value, err := b.Int()
+		value, err := DecodeInputReplyTo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendScreenshotNotification#c97df020: field reply_to_msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.sendScreenshotNotification#a1405817: field reply_to: %w", err)
 		}
-		s.ReplyToMsgID = value
+		s.ReplyTo = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendScreenshotNotification#c97df020: field random_id: %w", err)
+			return fmt.Errorf("unable to decode messages.sendScreenshotNotification#a1405817: field random_id: %w", err)
 		}
 		s.RandomID = value
 	}
@@ -204,12 +209,12 @@ func (s *MessagesSendScreenshotNotificationRequest) GetPeer() (value InputPeerCl
 	return s.Peer
 }
 
-// GetReplyToMsgID returns value of ReplyToMsgID field.
-func (s *MessagesSendScreenshotNotificationRequest) GetReplyToMsgID() (value int) {
+// GetReplyTo returns value of ReplyTo field.
+func (s *MessagesSendScreenshotNotificationRequest) GetReplyTo() (value InputReplyToClass) {
 	if s == nil {
 		return
 	}
-	return s.ReplyToMsgID
+	return s.ReplyTo
 }
 
 // GetRandomID returns value of RandomID field.
@@ -220,7 +225,7 @@ func (s *MessagesSendScreenshotNotificationRequest) GetRandomID() (value int64) 
 	return s.RandomID
 }
 
-// MessagesSendScreenshotNotification invokes method messages.sendScreenshotNotification#c97df020 returning error if any.
+// MessagesSendScreenshotNotification invokes method messages.sendScreenshotNotification#a1405817 returning error if any.
 // Notify the other user in a private chat that a screenshot of the chat was taken
 //
 // Possible errors:

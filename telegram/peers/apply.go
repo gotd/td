@@ -149,27 +149,6 @@ func (m *Manager) applyFullChannel(ctx context.Context, ch *tg.ChannelFull) erro
 	return m.cache.SaveChannelFulls(ctx, ch)
 }
 
-func (m *Manager) applyMessagesChats(
-	ctx context.Context,
-	all tg.MessagesChatsClass,
-) (chats []Chat, channels []Channel, _ error) {
-	raw := all.GetChats()
-	if err := m.applyChats(ctx, raw...); err != nil {
-		return nil, nil, errors.Wrap(err, "apply chats")
-	}
-
-	for _, ch := range raw {
-		switch ch := ch.(type) {
-		case *tg.Chat:
-			chats = append(chats, m.Chat(ch))
-		case *tg.Channel:
-			channels = append(channels, m.Channel(ch))
-		}
-	}
-
-	return chats, channels, nil
-}
-
 func (m *Manager) updateContacts(ctx context.Context) ([]tg.UserClass, error) {
 	ch := m.sg.DoChan("_contacts", func() (interface{}, error) {
 		hash, err := m.storage.GetContactsHash(ctx)

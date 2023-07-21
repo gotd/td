@@ -408,7 +408,7 @@ type WebPage struct {
 	// Webpage attributes
 	//
 	// Use SetAttributes and GetAttributes helpers.
-	Attributes []WebPageAttributeTheme
+	Attributes []WebPageAttributeClass
 }
 
 // WebPageTypeID is TL type id of WebPage.
@@ -520,7 +520,7 @@ func (w *WebPage) FillFrom(from interface {
 	GetAuthor() (value string, ok bool)
 	GetDocument() (value DocumentClass, ok bool)
 	GetCachedPage() (value Page, ok bool)
-	GetAttributes() (value []WebPageAttributeTheme, ok bool)
+	GetAttributes() (value []WebPageAttributeClass, ok bool)
 }) {
 	w.ID = from.GetID()
 	w.URL = from.GetURL()
@@ -819,6 +819,9 @@ func (w *WebPage) EncodeBare(b *bin.Buffer) error {
 	if w.Flags.Has(12) {
 		b.PutVectorHeader(len(w.Attributes))
 		for idx, v := range w.Attributes {
+			if v == nil {
+				return fmt.Errorf("unable to encode webPage#e89c45b2: field attributes element with index %d is nil", idx)
+			}
 			if err := v.Encode(b); err != nil {
 				return fmt.Errorf("unable to encode webPage#e89c45b2: field attributes element with index %d: %w", idx, err)
 			}
@@ -972,11 +975,11 @@ func (w *WebPage) DecodeBare(b *bin.Buffer) error {
 		}
 
 		if headerLen > 0 {
-			w.Attributes = make([]WebPageAttributeTheme, 0, headerLen%bin.PreallocateLimit)
+			w.Attributes = make([]WebPageAttributeClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value WebPageAttributeTheme
-			if err := value.Decode(b); err != nil {
+			value, err := DecodeWebPageAttribute(b)
+			if err != nil {
 				return fmt.Errorf("unable to decode webPage#e89c45b2: field attributes: %w", err)
 			}
 			w.Attributes = append(w.Attributes, value)
@@ -1252,14 +1255,14 @@ func (w *WebPage) GetCachedPage() (value Page, ok bool) {
 }
 
 // SetAttributes sets value of Attributes conditional field.
-func (w *WebPage) SetAttributes(value []WebPageAttributeTheme) {
+func (w *WebPage) SetAttributes(value []WebPageAttributeClass) {
 	w.Flags.Set(12)
 	w.Attributes = value
 }
 
 // GetAttributes returns value of Attributes conditional field and
 // boolean which is true if field was set.
-func (w *WebPage) GetAttributes() (value []WebPageAttributeTheme, ok bool) {
+func (w *WebPage) GetAttributes() (value []WebPageAttributeClass, ok bool) {
 	if w == nil {
 		return
 	}
@@ -1267,6 +1270,14 @@ func (w *WebPage) GetAttributes() (value []WebPageAttributeTheme, ok bool) {
 		return value, false
 	}
 	return w.Attributes, true
+}
+
+// MapAttributes returns field Attributes wrapped in WebPageAttributeClassArray helper.
+func (w *WebPage) MapAttributes() (value WebPageAttributeClassArray, ok bool) {
+	if !w.Flags.Has(12) {
+		return value, false
+	}
+	return WebPageAttributeClassArray(w.Attributes), true
 }
 
 // WebPageNotModified represents TL type `webPageNotModified#7311ca11`.

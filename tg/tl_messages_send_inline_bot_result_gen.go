@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesSendInlineBotResultRequest represents TL type `messages.sendInlineBotResult#d3fbdccb`.
+// MessagesSendInlineBotResultRequest represents TL type `messages.sendInlineBotResult#f7bc68ba`.
 // Send a result obtained using messages.getInlineBotResults¹.
 //
 // Links:
@@ -62,21 +62,10 @@ type MessagesSendInlineBotResultRequest struct {
 	HideVia bool
 	// Destination
 	Peer InputPeerClass
-	// ID of the message this message should reply to
+	// ReplyTo field of MessagesSendInlineBotResultRequest.
 	//
-	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
-	ReplyToMsgID int
-	// This field must contain the topic ID only when replying to messages in forum topics¹
-	// different from the "General" topic (i.e. reply_to_msg_id is set and reply_to_msg_id !=
-	// topicID and topicID != 1). If the replied-to message is deleted before the method
-	// finishes execution, the value in this field will be used to send the message to the
-	// correct topic, instead of the "General" topic.
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/forum#forum-topics
-	//
-	// Use SetTopMsgID and GetTopMsgID helpers.
-	TopMsgID int
+	// Use SetReplyTo and GetReplyTo helpers.
+	ReplyTo InputReplyToClass
 	// Random ID to avoid resending the same query
 	RandomID int64
 	// Query ID from messages.getInlineBotResults¹
@@ -100,7 +89,7 @@ type MessagesSendInlineBotResultRequest struct {
 }
 
 // MessagesSendInlineBotResultRequestTypeID is TL type id of MessagesSendInlineBotResultRequest.
-const MessagesSendInlineBotResultRequestTypeID = 0xd3fbdccb
+const MessagesSendInlineBotResultRequestTypeID = 0xf7bc68ba
 
 // Ensuring interfaces in compile-time for MessagesSendInlineBotResultRequest.
 var (
@@ -132,10 +121,7 @@ func (s *MessagesSendInlineBotResultRequest) Zero() bool {
 	if !(s.Peer == nil) {
 		return false
 	}
-	if !(s.ReplyToMsgID == 0) {
-		return false
-	}
-	if !(s.TopMsgID == 0) {
+	if !(s.ReplyTo == nil) {
 		return false
 	}
 	if !(s.RandomID == 0) {
@@ -173,8 +159,7 @@ func (s *MessagesSendInlineBotResultRequest) FillFrom(from interface {
 	GetClearDraft() (value bool)
 	GetHideVia() (value bool)
 	GetPeer() (value InputPeerClass)
-	GetReplyToMsgID() (value int, ok bool)
-	GetTopMsgID() (value int, ok bool)
+	GetReplyTo() (value InputReplyToClass, ok bool)
 	GetRandomID() (value int64)
 	GetQueryID() (value int64)
 	GetID() (value string)
@@ -186,12 +171,8 @@ func (s *MessagesSendInlineBotResultRequest) FillFrom(from interface {
 	s.ClearDraft = from.GetClearDraft()
 	s.HideVia = from.GetHideVia()
 	s.Peer = from.GetPeer()
-	if val, ok := from.GetReplyToMsgID(); ok {
-		s.ReplyToMsgID = val
-	}
-
-	if val, ok := from.GetTopMsgID(); ok {
-		s.TopMsgID = val
+	if val, ok := from.GetReplyTo(); ok {
+		s.ReplyTo = val
 	}
 
 	s.RandomID = from.GetRandomID()
@@ -255,14 +236,9 @@ func (s *MessagesSendInlineBotResultRequest) TypeInfo() tdp.Type {
 			SchemaName: "peer",
 		},
 		{
-			Name:       "ReplyToMsgID",
-			SchemaName: "reply_to_msg_id",
+			Name:       "ReplyTo",
+			SchemaName: "reply_to",
 			Null:       !s.Flags.Has(0),
-		},
-		{
-			Name:       "TopMsgID",
-			SchemaName: "top_msg_id",
-			Null:       !s.Flags.Has(9),
 		},
 		{
 			Name:       "RandomID",
@@ -304,11 +280,8 @@ func (s *MessagesSendInlineBotResultRequest) SetFlags() {
 	if !(s.HideVia == false) {
 		s.Flags.Set(11)
 	}
-	if !(s.ReplyToMsgID == 0) {
+	if !(s.ReplyTo == nil) {
 		s.Flags.Set(0)
-	}
-	if !(s.TopMsgID == 0) {
-		s.Flags.Set(9)
 	}
 	if !(s.ScheduleDate == 0) {
 		s.Flags.Set(10)
@@ -321,7 +294,7 @@ func (s *MessagesSendInlineBotResultRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (s *MessagesSendInlineBotResultRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendInlineBotResult#d3fbdccb as nil")
+		return fmt.Errorf("can't encode messages.sendInlineBotResult#f7bc68ba as nil")
 	}
 	b.PutID(MessagesSendInlineBotResultRequestTypeID)
 	return s.EncodeBare(b)
@@ -330,23 +303,25 @@ func (s *MessagesSendInlineBotResultRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSendInlineBotResultRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendInlineBotResult#d3fbdccb as nil")
+		return fmt.Errorf("can't encode messages.sendInlineBotResult#f7bc68ba as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendInlineBotResult#d3fbdccb: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.sendInlineBotResult#f7bc68ba: field flags: %w", err)
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.sendInlineBotResult#d3fbdccb: field peer is nil")
+		return fmt.Errorf("unable to encode messages.sendInlineBotResult#f7bc68ba: field peer is nil")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendInlineBotResult#d3fbdccb: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.sendInlineBotResult#f7bc68ba: field peer: %w", err)
 	}
 	if s.Flags.Has(0) {
-		b.PutInt(s.ReplyToMsgID)
-	}
-	if s.Flags.Has(9) {
-		b.PutInt(s.TopMsgID)
+		if s.ReplyTo == nil {
+			return fmt.Errorf("unable to encode messages.sendInlineBotResult#f7bc68ba: field reply_to is nil")
+		}
+		if err := s.ReplyTo.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.sendInlineBotResult#f7bc68ba: field reply_to: %w", err)
+		}
 	}
 	b.PutLong(s.RandomID)
 	b.PutLong(s.QueryID)
@@ -356,10 +331,10 @@ func (s *MessagesSendInlineBotResultRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	if s.Flags.Has(13) {
 		if s.SendAs == nil {
-			return fmt.Errorf("unable to encode messages.sendInlineBotResult#d3fbdccb: field send_as is nil")
+			return fmt.Errorf("unable to encode messages.sendInlineBotResult#f7bc68ba: field send_as is nil")
 		}
 		if err := s.SendAs.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.sendInlineBotResult#d3fbdccb: field send_as: %w", err)
+			return fmt.Errorf("unable to encode messages.sendInlineBotResult#f7bc68ba: field send_as: %w", err)
 		}
 	}
 	return nil
@@ -368,10 +343,10 @@ func (s *MessagesSendInlineBotResultRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *MessagesSendInlineBotResultRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendInlineBotResult#d3fbdccb to nil")
+		return fmt.Errorf("can't decode messages.sendInlineBotResult#f7bc68ba to nil")
 	}
 	if err := b.ConsumeID(MessagesSendInlineBotResultRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendInlineBotResult#d3fbdccb: %w", err)
+		return fmt.Errorf("unable to decode messages.sendInlineBotResult#f7bc68ba: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -379,11 +354,11 @@ func (s *MessagesSendInlineBotResultRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSendInlineBotResultRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendInlineBotResult#d3fbdccb to nil")
+		return fmt.Errorf("can't decode messages.sendInlineBotResult#f7bc68ba to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#d3fbdccb: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.sendInlineBotResult#f7bc68ba: field flags: %w", err)
 		}
 	}
 	s.Silent = s.Flags.Has(5)
@@ -393,56 +368,49 @@ func (s *MessagesSendInlineBotResultRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#d3fbdccb: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.sendInlineBotResult#f7bc68ba: field peer: %w", err)
 		}
 		s.Peer = value
 	}
 	if s.Flags.Has(0) {
-		value, err := b.Int()
+		value, err := DecodeInputReplyTo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#d3fbdccb: field reply_to_msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.sendInlineBotResult#f7bc68ba: field reply_to: %w", err)
 		}
-		s.ReplyToMsgID = value
-	}
-	if s.Flags.Has(9) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#d3fbdccb: field top_msg_id: %w", err)
-		}
-		s.TopMsgID = value
+		s.ReplyTo = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#d3fbdccb: field random_id: %w", err)
+			return fmt.Errorf("unable to decode messages.sendInlineBotResult#f7bc68ba: field random_id: %w", err)
 		}
 		s.RandomID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#d3fbdccb: field query_id: %w", err)
+			return fmt.Errorf("unable to decode messages.sendInlineBotResult#f7bc68ba: field query_id: %w", err)
 		}
 		s.QueryID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#d3fbdccb: field id: %w", err)
+			return fmt.Errorf("unable to decode messages.sendInlineBotResult#f7bc68ba: field id: %w", err)
 		}
 		s.ID = value
 	}
 	if s.Flags.Has(10) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#d3fbdccb: field schedule_date: %w", err)
+			return fmt.Errorf("unable to decode messages.sendInlineBotResult#f7bc68ba: field schedule_date: %w", err)
 		}
 		s.ScheduleDate = value
 	}
 	if s.Flags.Has(13) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendInlineBotResult#d3fbdccb: field send_as: %w", err)
+			return fmt.Errorf("unable to decode messages.sendInlineBotResult#f7bc68ba: field send_as: %w", err)
 		}
 		s.SendAs = value
 	}
@@ -533,40 +501,22 @@ func (s *MessagesSendInlineBotResultRequest) GetPeer() (value InputPeerClass) {
 	return s.Peer
 }
 
-// SetReplyToMsgID sets value of ReplyToMsgID conditional field.
-func (s *MessagesSendInlineBotResultRequest) SetReplyToMsgID(value int) {
+// SetReplyTo sets value of ReplyTo conditional field.
+func (s *MessagesSendInlineBotResultRequest) SetReplyTo(value InputReplyToClass) {
 	s.Flags.Set(0)
-	s.ReplyToMsgID = value
+	s.ReplyTo = value
 }
 
-// GetReplyToMsgID returns value of ReplyToMsgID conditional field and
+// GetReplyTo returns value of ReplyTo conditional field and
 // boolean which is true if field was set.
-func (s *MessagesSendInlineBotResultRequest) GetReplyToMsgID() (value int, ok bool) {
+func (s *MessagesSendInlineBotResultRequest) GetReplyTo() (value InputReplyToClass, ok bool) {
 	if s == nil {
 		return
 	}
 	if !s.Flags.Has(0) {
 		return value, false
 	}
-	return s.ReplyToMsgID, true
-}
-
-// SetTopMsgID sets value of TopMsgID conditional field.
-func (s *MessagesSendInlineBotResultRequest) SetTopMsgID(value int) {
-	s.Flags.Set(9)
-	s.TopMsgID = value
-}
-
-// GetTopMsgID returns value of TopMsgID conditional field and
-// boolean which is true if field was set.
-func (s *MessagesSendInlineBotResultRequest) GetTopMsgID() (value int, ok bool) {
-	if s == nil {
-		return
-	}
-	if !s.Flags.Has(9) {
-		return value, false
-	}
-	return s.TopMsgID, true
+	return s.ReplyTo, true
 }
 
 // GetRandomID returns value of RandomID field.
@@ -629,7 +579,7 @@ func (s *MessagesSendInlineBotResultRequest) GetSendAs() (value InputPeerClass, 
 	return s.SendAs, true
 }
 
-// MessagesSendInlineBotResult invokes method messages.sendInlineBotResult#d3fbdccb returning error if any.
+// MessagesSendInlineBotResult invokes method messages.sendInlineBotResult#f7bc68ba returning error if any.
 // Send a result obtained using messages.getInlineBotResults¹.
 //
 // Links:

@@ -73,12 +73,17 @@ type MessageReplyHeader struct {
 // MessageReplyHeaderTypeID is TL type id of MessageReplyHeader.
 const MessageReplyHeaderTypeID = 0xa6d57763
 
+// construct implements constructor of MessageReplyHeaderClass.
+func (m MessageReplyHeader) construct() MessageReplyHeaderClass { return &m }
+
 // Ensuring interfaces in compile-time for MessageReplyHeader.
 var (
 	_ bin.Encoder     = &MessageReplyHeader{}
 	_ bin.Decoder     = &MessageReplyHeader{}
 	_ bin.BareEncoder = &MessageReplyHeader{}
 	_ bin.BareDecoder = &MessageReplyHeader{}
+
+	_ MessageReplyHeaderClass = &MessageReplyHeader{}
 )
 
 func (m *MessageReplyHeader) Zero() bool {
@@ -364,4 +369,254 @@ func (m *MessageReplyHeader) GetReplyToTopID() (value int, ok bool) {
 		return value, false
 	}
 	return m.ReplyToTopID, true
+}
+
+// MessageReplyStoryHeader represents TL type `messageReplyStoryHeader#9c98bfc1`.
+//
+// See https://core.telegram.org/constructor/messageReplyStoryHeader for reference.
+type MessageReplyStoryHeader struct {
+	// UserID field of MessageReplyStoryHeader.
+	UserID int64
+	// StoryID field of MessageReplyStoryHeader.
+	StoryID int
+}
+
+// MessageReplyStoryHeaderTypeID is TL type id of MessageReplyStoryHeader.
+const MessageReplyStoryHeaderTypeID = 0x9c98bfc1
+
+// construct implements constructor of MessageReplyHeaderClass.
+func (m MessageReplyStoryHeader) construct() MessageReplyHeaderClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageReplyStoryHeader.
+var (
+	_ bin.Encoder     = &MessageReplyStoryHeader{}
+	_ bin.Decoder     = &MessageReplyStoryHeader{}
+	_ bin.BareEncoder = &MessageReplyStoryHeader{}
+	_ bin.BareDecoder = &MessageReplyStoryHeader{}
+
+	_ MessageReplyHeaderClass = &MessageReplyStoryHeader{}
+)
+
+func (m *MessageReplyStoryHeader) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.UserID == 0) {
+		return false
+	}
+	if !(m.StoryID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageReplyStoryHeader) String() string {
+	if m == nil {
+		return "MessageReplyStoryHeader(nil)"
+	}
+	type Alias MessageReplyStoryHeader
+	return fmt.Sprintf("MessageReplyStoryHeader%+v", Alias(*m))
+}
+
+// FillFrom fills MessageReplyStoryHeader from given interface.
+func (m *MessageReplyStoryHeader) FillFrom(from interface {
+	GetUserID() (value int64)
+	GetStoryID() (value int)
+}) {
+	m.UserID = from.GetUserID()
+	m.StoryID = from.GetStoryID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageReplyStoryHeader) TypeID() uint32 {
+	return MessageReplyStoryHeaderTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageReplyStoryHeader) TypeName() string {
+	return "messageReplyStoryHeader"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageReplyStoryHeader) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageReplyStoryHeader",
+		ID:   MessageReplyStoryHeaderTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "StoryID",
+			SchemaName: "story_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageReplyStoryHeader) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageReplyStoryHeader#9c98bfc1 as nil")
+	}
+	b.PutID(MessageReplyStoryHeaderTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageReplyStoryHeader) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageReplyStoryHeader#9c98bfc1 as nil")
+	}
+	b.PutLong(m.UserID)
+	b.PutInt(m.StoryID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageReplyStoryHeader) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageReplyStoryHeader#9c98bfc1 to nil")
+	}
+	if err := b.ConsumeID(MessageReplyStoryHeaderTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageReplyStoryHeader#9c98bfc1: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageReplyStoryHeader) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageReplyStoryHeader#9c98bfc1 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageReplyStoryHeader#9c98bfc1: field user_id: %w", err)
+		}
+		m.UserID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageReplyStoryHeader#9c98bfc1: field story_id: %w", err)
+		}
+		m.StoryID = value
+	}
+	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (m *MessageReplyStoryHeader) GetUserID() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.UserID
+}
+
+// GetStoryID returns value of StoryID field.
+func (m *MessageReplyStoryHeader) GetStoryID() (value int) {
+	if m == nil {
+		return
+	}
+	return m.StoryID
+}
+
+// MessageReplyHeaderClassName is schema name of MessageReplyHeaderClass.
+const MessageReplyHeaderClassName = "MessageReplyHeader"
+
+// MessageReplyHeaderClass represents MessageReplyHeader generic type.
+//
+// See https://core.telegram.org/type/MessageReplyHeader for reference.
+//
+// Example:
+//
+//	g, err := tg.DecodeMessageReplyHeader(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.MessageReplyHeader: // messageReplyHeader#a6d57763
+//	case *tg.MessageReplyStoryHeader: // messageReplyStoryHeader#9c98bfc1
+//	default: panic(v)
+//	}
+type MessageReplyHeaderClass interface {
+	bin.Encoder
+	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
+	construct() MessageReplyHeaderClass
+
+	// TypeID returns type id in TL schema.
+	//
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// TypeName returns name of type in TL schema.
+	TypeName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+}
+
+// DecodeMessageReplyHeader implements binary de-serialization for MessageReplyHeaderClass.
+func DecodeMessageReplyHeader(buf *bin.Buffer) (MessageReplyHeaderClass, error) {
+	id, err := buf.PeekID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case MessageReplyHeaderTypeID:
+		// Decoding messageReplyHeader#a6d57763.
+		v := MessageReplyHeader{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageReplyHeaderClass: %w", err)
+		}
+		return &v, nil
+	case MessageReplyStoryHeaderTypeID:
+		// Decoding messageReplyStoryHeader#9c98bfc1.
+		v := MessageReplyStoryHeader{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageReplyHeaderClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode MessageReplyHeaderClass: %w", bin.NewUnexpectedID(id))
+	}
+}
+
+// MessageReplyHeader boxes the MessageReplyHeaderClass providing a helper.
+type MessageReplyHeaderBox struct {
+	MessageReplyHeader MessageReplyHeaderClass
+}
+
+// Decode implements bin.Decoder for MessageReplyHeaderBox.
+func (b *MessageReplyHeaderBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode MessageReplyHeaderBox to nil")
+	}
+	v, err := DecodeMessageReplyHeader(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.MessageReplyHeader = v
+	return nil
+}
+
+// Encode implements bin.Encode for MessageReplyHeaderBox.
+func (b *MessageReplyHeaderBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.MessageReplyHeader == nil {
+		return fmt.Errorf("unable to encode MessageReplyHeaderClass as nil")
+	}
+	return b.MessageReplyHeader.Encode(buf)
 }

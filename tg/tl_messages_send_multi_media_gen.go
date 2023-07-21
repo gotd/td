@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesSendMultiMediaRequest represents TL type `messages.sendMultiMedia#b6f11a1c`.
+// MessagesSendMultiMediaRequest represents TL type `messages.sendMultiMedia#456e8987`.
 // Send an album or grouped media¹
 //
 // Links:
@@ -66,21 +66,10 @@ type MessagesSendMultiMediaRequest struct {
 	UpdateStickersetsOrder bool
 	// The destination chat
 	Peer InputPeerClass
-	// The message to reply to
+	// ReplyTo field of MessagesSendMultiMediaRequest.
 	//
-	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
-	ReplyToMsgID int
-	// This field must contain the topic ID only when replying to messages in forum topics¹
-	// different from the "General" topic (i.e. reply_to_msg_id is set and reply_to_msg_id !=
-	// topicID and topicID != 1). If the replied-to message is deleted before the method
-	// finishes execution, the value in this field will be used to send the message to the
-	// correct topic, instead of the "General" topic.
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/forum#forum-topics
-	//
-	// Use SetTopMsgID and GetTopMsgID helpers.
-	TopMsgID int
+	// Use SetReplyTo and GetReplyTo helpers.
+	ReplyTo InputReplyToClass
 	// The medias to send: note that they must be separately uploaded using messages
 	// uploadMedia¹ first, using raw inputMediaUploaded* constructors is not supported.
 	//
@@ -98,7 +87,7 @@ type MessagesSendMultiMediaRequest struct {
 }
 
 // MessagesSendMultiMediaRequestTypeID is TL type id of MessagesSendMultiMediaRequest.
-const MessagesSendMultiMediaRequestTypeID = 0xb6f11a1c
+const MessagesSendMultiMediaRequestTypeID = 0x456e8987
 
 // Ensuring interfaces in compile-time for MessagesSendMultiMediaRequest.
 var (
@@ -133,10 +122,7 @@ func (s *MessagesSendMultiMediaRequest) Zero() bool {
 	if !(s.Peer == nil) {
 		return false
 	}
-	if !(s.ReplyToMsgID == 0) {
-		return false
-	}
-	if !(s.TopMsgID == 0) {
+	if !(s.ReplyTo == nil) {
 		return false
 	}
 	if !(s.MultiMedia == nil) {
@@ -169,8 +155,7 @@ func (s *MessagesSendMultiMediaRequest) FillFrom(from interface {
 	GetNoforwards() (value bool)
 	GetUpdateStickersetsOrder() (value bool)
 	GetPeer() (value InputPeerClass)
-	GetReplyToMsgID() (value int, ok bool)
-	GetTopMsgID() (value int, ok bool)
+	GetReplyTo() (value InputReplyToClass, ok bool)
 	GetMultiMedia() (value []InputSingleMedia)
 	GetScheduleDate() (value int, ok bool)
 	GetSendAs() (value InputPeerClass, ok bool)
@@ -181,12 +166,8 @@ func (s *MessagesSendMultiMediaRequest) FillFrom(from interface {
 	s.Noforwards = from.GetNoforwards()
 	s.UpdateStickersetsOrder = from.GetUpdateStickersetsOrder()
 	s.Peer = from.GetPeer()
-	if val, ok := from.GetReplyToMsgID(); ok {
-		s.ReplyToMsgID = val
-	}
-
-	if val, ok := from.GetTopMsgID(); ok {
-		s.TopMsgID = val
+	if val, ok := from.GetReplyTo(); ok {
+		s.ReplyTo = val
 	}
 
 	s.MultiMedia = from.GetMultiMedia()
@@ -253,14 +234,9 @@ func (s *MessagesSendMultiMediaRequest) TypeInfo() tdp.Type {
 			SchemaName: "peer",
 		},
 		{
-			Name:       "ReplyToMsgID",
-			SchemaName: "reply_to_msg_id",
+			Name:       "ReplyTo",
+			SchemaName: "reply_to",
 			Null:       !s.Flags.Has(0),
-		},
-		{
-			Name:       "TopMsgID",
-			SchemaName: "top_msg_id",
-			Null:       !s.Flags.Has(9),
 		},
 		{
 			Name:       "MultiMedia",
@@ -297,11 +273,8 @@ func (s *MessagesSendMultiMediaRequest) SetFlags() {
 	if !(s.UpdateStickersetsOrder == false) {
 		s.Flags.Set(15)
 	}
-	if !(s.ReplyToMsgID == 0) {
+	if !(s.ReplyTo == nil) {
 		s.Flags.Set(0)
-	}
-	if !(s.TopMsgID == 0) {
-		s.Flags.Set(9)
 	}
 	if !(s.ScheduleDate == 0) {
 		s.Flags.Set(10)
@@ -314,7 +287,7 @@ func (s *MessagesSendMultiMediaRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (s *MessagesSendMultiMediaRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendMultiMedia#b6f11a1c as nil")
+		return fmt.Errorf("can't encode messages.sendMultiMedia#456e8987 as nil")
 	}
 	b.PutID(MessagesSendMultiMediaRequestTypeID)
 	return s.EncodeBare(b)
@@ -323,28 +296,30 @@ func (s *MessagesSendMultiMediaRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSendMultiMediaRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendMultiMedia#b6f11a1c as nil")
+		return fmt.Errorf("can't encode messages.sendMultiMedia#456e8987 as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendMultiMedia#b6f11a1c: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.sendMultiMedia#456e8987: field flags: %w", err)
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.sendMultiMedia#b6f11a1c: field peer is nil")
+		return fmt.Errorf("unable to encode messages.sendMultiMedia#456e8987: field peer is nil")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendMultiMedia#b6f11a1c: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.sendMultiMedia#456e8987: field peer: %w", err)
 	}
 	if s.Flags.Has(0) {
-		b.PutInt(s.ReplyToMsgID)
-	}
-	if s.Flags.Has(9) {
-		b.PutInt(s.TopMsgID)
+		if s.ReplyTo == nil {
+			return fmt.Errorf("unable to encode messages.sendMultiMedia#456e8987: field reply_to is nil")
+		}
+		if err := s.ReplyTo.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.sendMultiMedia#456e8987: field reply_to: %w", err)
+		}
 	}
 	b.PutVectorHeader(len(s.MultiMedia))
 	for idx, v := range s.MultiMedia {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.sendMultiMedia#b6f11a1c: field multi_media element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.sendMultiMedia#456e8987: field multi_media element with index %d: %w", idx, err)
 		}
 	}
 	if s.Flags.Has(10) {
@@ -352,10 +327,10 @@ func (s *MessagesSendMultiMediaRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	if s.Flags.Has(13) {
 		if s.SendAs == nil {
-			return fmt.Errorf("unable to encode messages.sendMultiMedia#b6f11a1c: field send_as is nil")
+			return fmt.Errorf("unable to encode messages.sendMultiMedia#456e8987: field send_as is nil")
 		}
 		if err := s.SendAs.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.sendMultiMedia#b6f11a1c: field send_as: %w", err)
+			return fmt.Errorf("unable to encode messages.sendMultiMedia#456e8987: field send_as: %w", err)
 		}
 	}
 	return nil
@@ -364,10 +339,10 @@ func (s *MessagesSendMultiMediaRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *MessagesSendMultiMediaRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendMultiMedia#b6f11a1c to nil")
+		return fmt.Errorf("can't decode messages.sendMultiMedia#456e8987 to nil")
 	}
 	if err := b.ConsumeID(MessagesSendMultiMediaRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendMultiMedia#b6f11a1c: %w", err)
+		return fmt.Errorf("unable to decode messages.sendMultiMedia#456e8987: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -375,11 +350,11 @@ func (s *MessagesSendMultiMediaRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSendMultiMediaRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendMultiMedia#b6f11a1c to nil")
+		return fmt.Errorf("can't decode messages.sendMultiMedia#456e8987 to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.sendMultiMedia#b6f11a1c: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMultiMedia#456e8987: field flags: %w", err)
 		}
 	}
 	s.Silent = s.Flags.Has(5)
@@ -390,28 +365,21 @@ func (s *MessagesSendMultiMediaRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMultiMedia#b6f11a1c: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMultiMedia#456e8987: field peer: %w", err)
 		}
 		s.Peer = value
 	}
 	if s.Flags.Has(0) {
-		value, err := b.Int()
+		value, err := DecodeInputReplyTo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMultiMedia#b6f11a1c: field reply_to_msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMultiMedia#456e8987: field reply_to: %w", err)
 		}
-		s.ReplyToMsgID = value
-	}
-	if s.Flags.Has(9) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMultiMedia#b6f11a1c: field top_msg_id: %w", err)
-		}
-		s.TopMsgID = value
+		s.ReplyTo = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMultiMedia#b6f11a1c: field multi_media: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMultiMedia#456e8987: field multi_media: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -420,7 +388,7 @@ func (s *MessagesSendMultiMediaRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value InputSingleMedia
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode messages.sendMultiMedia#b6f11a1c: field multi_media: %w", err)
+				return fmt.Errorf("unable to decode messages.sendMultiMedia#456e8987: field multi_media: %w", err)
 			}
 			s.MultiMedia = append(s.MultiMedia, value)
 		}
@@ -428,14 +396,14 @@ func (s *MessagesSendMultiMediaRequest) DecodeBare(b *bin.Buffer) error {
 	if s.Flags.Has(10) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMultiMedia#b6f11a1c: field schedule_date: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMultiMedia#456e8987: field schedule_date: %w", err)
 		}
 		s.ScheduleDate = value
 	}
 	if s.Flags.Has(13) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendMultiMedia#b6f11a1c: field send_as: %w", err)
+			return fmt.Errorf("unable to decode messages.sendMultiMedia#456e8987: field send_as: %w", err)
 		}
 		s.SendAs = value
 	}
@@ -545,40 +513,22 @@ func (s *MessagesSendMultiMediaRequest) GetPeer() (value InputPeerClass) {
 	return s.Peer
 }
 
-// SetReplyToMsgID sets value of ReplyToMsgID conditional field.
-func (s *MessagesSendMultiMediaRequest) SetReplyToMsgID(value int) {
+// SetReplyTo sets value of ReplyTo conditional field.
+func (s *MessagesSendMultiMediaRequest) SetReplyTo(value InputReplyToClass) {
 	s.Flags.Set(0)
-	s.ReplyToMsgID = value
+	s.ReplyTo = value
 }
 
-// GetReplyToMsgID returns value of ReplyToMsgID conditional field and
+// GetReplyTo returns value of ReplyTo conditional field and
 // boolean which is true if field was set.
-func (s *MessagesSendMultiMediaRequest) GetReplyToMsgID() (value int, ok bool) {
+func (s *MessagesSendMultiMediaRequest) GetReplyTo() (value InputReplyToClass, ok bool) {
 	if s == nil {
 		return
 	}
 	if !s.Flags.Has(0) {
 		return value, false
 	}
-	return s.ReplyToMsgID, true
-}
-
-// SetTopMsgID sets value of TopMsgID conditional field.
-func (s *MessagesSendMultiMediaRequest) SetTopMsgID(value int) {
-	s.Flags.Set(9)
-	s.TopMsgID = value
-}
-
-// GetTopMsgID returns value of TopMsgID conditional field and
-// boolean which is true if field was set.
-func (s *MessagesSendMultiMediaRequest) GetTopMsgID() (value int, ok bool) {
-	if s == nil {
-		return
-	}
-	if !s.Flags.Has(9) {
-		return value, false
-	}
-	return s.TopMsgID, true
+	return s.ReplyTo, true
 }
 
 // GetMultiMedia returns value of MultiMedia field.
@@ -625,7 +575,7 @@ func (s *MessagesSendMultiMediaRequest) GetSendAs() (value InputPeerClass, ok bo
 	return s.SendAs, true
 }
 
-// MessagesSendMultiMedia invokes method messages.sendMultiMedia#b6f11a1c returning error if any.
+// MessagesSendMultiMedia invokes method messages.sendMultiMedia#456e8987 returning error if any.
 // Send an album or grouped media¹
 //
 // Links:

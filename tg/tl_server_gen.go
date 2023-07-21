@@ -2098,6 +2098,27 @@ func (s *ServerDispatcher) OnAccountDeleteAutoSaveExceptions(f func(ctx context.
 	s.handlers[AccountDeleteAutoSaveExceptionsRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnAccountInvalidateSignInCodes(f func(ctx context.Context, codes []string) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountInvalidateSignInCodesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Codes)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[AccountInvalidateSignInCodesRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUsersGetUsers(f func(ctx context.Context, id []InputUserClass) ([]UserClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UsersGetUsersRequest
@@ -2151,6 +2172,23 @@ func (s *ServerDispatcher) OnUsersSetSecureValueErrors(f func(ctx context.Contex
 	}
 
 	s.handlers[UsersSetSecureValueErrorsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnUsersGetStoriesMaxIDs(f func(ctx context.Context, id []InputUserClass) ([]int, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request UsersGetStoriesMaxIDsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.ID)
+		if err != nil {
+			return nil, err
+		}
+		return &IntVector{Elems: response}, nil
+	}
+
+	s.handlers[UsersGetStoriesMaxIDsRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnContactsGetContactIDs(f func(ctx context.Context, hash int64) ([]int, error)) {
@@ -2566,6 +2604,48 @@ func (s *ServerDispatcher) OnContactsImportContactToken(f func(ctx context.Conte
 	}
 
 	s.handlers[ContactsImportContactTokenRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnContactsEditCloseFriends(f func(ctx context.Context, id []int64) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ContactsEditCloseFriendsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.ID)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[ContactsEditCloseFriendsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnContactsToggleStoriesHidden(f func(ctx context.Context, request *ContactsToggleStoriesHiddenRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ContactsToggleStoriesHiddenRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[ContactsToggleStoriesHiddenRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnMessagesGetMessages(f func(ctx context.Context, id []InputMessageClass) (MessagesMessagesClass, error)) {
@@ -3934,23 +4014,6 @@ func (s *ServerDispatcher) OnMessagesGetCommonChats(f func(ctx context.Context, 
 	}
 
 	s.handlers[MessagesGetCommonChatsRequestTypeID] = handler
-}
-
-func (s *ServerDispatcher) OnMessagesGetAllChats(f func(ctx context.Context, exceptids []int64) (MessagesChatsClass, error)) {
-	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request MessagesGetAllChatsRequest
-		if err := request.Decode(b); err != nil {
-			return nil, err
-		}
-
-		response, err := f(ctx, request.ExceptIDs)
-		if err != nil {
-			return nil, err
-		}
-		return &MessagesChatsBox{Chats: response}, nil
-	}
-
-	s.handlers[MessagesGetAllChatsRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnMessagesGetWebPage(f func(ctx context.Context, request *MessagesGetWebPageRequest) (WebPageClass, error)) {
@@ -7622,6 +7685,27 @@ func (s *ServerDispatcher) OnChannelsToggleParticipantsHidden(f func(ctx context
 	s.handlers[ChannelsToggleParticipantsHiddenRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnChannelsClickSponsoredMessage(f func(ctx context.Context, request *ChannelsClickSponsoredMessageRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsClickSponsoredMessageRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[ChannelsClickSponsoredMessageRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnBotsSendCustomRequest(f func(ctx context.Context, request *BotsSendCustomRequestRequest) (*DataJSON, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request BotsSendCustomRequestRequest
@@ -9179,6 +9263,307 @@ func (s *ServerDispatcher) OnChatlistsLeaveChatlist(f func(ctx context.Context, 
 	}
 
 	s.handlers[ChatlistsLeaveChatlistRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesSendStory(f func(ctx context.Context, request *StoriesSendStoryRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesSendStoryRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[StoriesSendStoryRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesEditStory(f func(ctx context.Context, request *StoriesEditStoryRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesEditStoryRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[StoriesEditStoryRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesDeleteStories(f func(ctx context.Context, id []int) ([]int, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesDeleteStoriesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.ID)
+		if err != nil {
+			return nil, err
+		}
+		return &IntVector{Elems: response}, nil
+	}
+
+	s.handlers[StoriesDeleteStoriesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesTogglePinned(f func(ctx context.Context, request *StoriesTogglePinnedRequest) ([]int, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesTogglePinnedRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &IntVector{Elems: response}, nil
+	}
+
+	s.handlers[StoriesTogglePinnedRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesGetAllStories(f func(ctx context.Context, request *StoriesGetAllStoriesRequest) (StoriesAllStoriesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesGetAllStoriesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &StoriesAllStoriesBox{AllStories: response}, nil
+	}
+
+	s.handlers[StoriesGetAllStoriesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesGetUserStories(f func(ctx context.Context, userid InputUserClass) (*StoriesUserStories, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesGetUserStoriesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.UserID)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[StoriesGetUserStoriesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesGetPinnedStories(f func(ctx context.Context, request *StoriesGetPinnedStoriesRequest) (*StoriesStories, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesGetPinnedStoriesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[StoriesGetPinnedStoriesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesGetStoriesArchive(f func(ctx context.Context, request *StoriesGetStoriesArchiveRequest) (*StoriesStories, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesGetStoriesArchiveRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[StoriesGetStoriesArchiveRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesGetStoriesByID(f func(ctx context.Context, request *StoriesGetStoriesByIDRequest) (*StoriesStories, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesGetStoriesByIDRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[StoriesGetStoriesByIDRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesToggleAllStoriesHidden(f func(ctx context.Context, hidden bool) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesToggleAllStoriesHiddenRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hidden)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[StoriesToggleAllStoriesHiddenRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesGetAllReadUserStories(f func(ctx context.Context) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesGetAllReadUserStoriesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[StoriesGetAllReadUserStoriesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesReadStories(f func(ctx context.Context, request *StoriesReadStoriesRequest) ([]int, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesReadStoriesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &IntVector{Elems: response}, nil
+	}
+
+	s.handlers[StoriesReadStoriesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesIncrementStoryViews(f func(ctx context.Context, request *StoriesIncrementStoryViewsRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesIncrementStoryViewsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[StoriesIncrementStoryViewsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesGetStoryViewsList(f func(ctx context.Context, request *StoriesGetStoryViewsListRequest) (*StoriesStoryViewsList, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesGetStoryViewsListRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[StoriesGetStoryViewsListRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesGetStoriesViews(f func(ctx context.Context, id []int) (*StoriesStoryViews, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesGetStoriesViewsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.ID)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[StoriesGetStoriesViewsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesExportStoryLink(f func(ctx context.Context, request *StoriesExportStoryLinkRequest) (*ExportedStoryLink, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesExportStoryLinkRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[StoriesExportStoryLinkRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesReport(f func(ctx context.Context, request *StoriesReportRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesReportRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[StoriesReportRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnTestUseError(f func(ctx context.Context) (*Error, error)) {

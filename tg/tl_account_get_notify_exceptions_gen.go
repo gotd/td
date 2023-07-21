@@ -43,6 +43,8 @@ type AccountGetNotifyExceptionsRequest struct {
 	Flags bin.Fields
 	// If true, chats with non-default sound will also be returned
 	CompareSound bool
+	// CompareStories field of AccountGetNotifyExceptionsRequest.
+	CompareStories bool
 	// If specified, only chats of the specified category will be returned
 	//
 	// Use SetPeer and GetPeer helpers.
@@ -70,6 +72,9 @@ func (g *AccountGetNotifyExceptionsRequest) Zero() bool {
 	if !(g.CompareSound == false) {
 		return false
 	}
+	if !(g.CompareStories == false) {
+		return false
+	}
 	if !(g.Peer == nil) {
 		return false
 	}
@@ -89,9 +94,11 @@ func (g *AccountGetNotifyExceptionsRequest) String() string {
 // FillFrom fills AccountGetNotifyExceptionsRequest from given interface.
 func (g *AccountGetNotifyExceptionsRequest) FillFrom(from interface {
 	GetCompareSound() (value bool)
+	GetCompareStories() (value bool)
 	GetPeer() (value InputNotifyPeerClass, ok bool)
 }) {
 	g.CompareSound = from.GetCompareSound()
+	g.CompareStories = from.GetCompareStories()
 	if val, ok := from.GetPeer(); ok {
 		g.Peer = val
 	}
@@ -127,6 +134,11 @@ func (g *AccountGetNotifyExceptionsRequest) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(1),
 		},
 		{
+			Name:       "CompareStories",
+			SchemaName: "compare_stories",
+			Null:       !g.Flags.Has(2),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 			Null:       !g.Flags.Has(0),
@@ -139,6 +151,9 @@ func (g *AccountGetNotifyExceptionsRequest) TypeInfo() tdp.Type {
 func (g *AccountGetNotifyExceptionsRequest) SetFlags() {
 	if !(g.CompareSound == false) {
 		g.Flags.Set(1)
+	}
+	if !(g.CompareStories == false) {
+		g.Flags.Set(2)
 	}
 	if !(g.Peer == nil) {
 		g.Flags.Set(0)
@@ -196,6 +211,7 @@ func (g *AccountGetNotifyExceptionsRequest) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	g.CompareSound = g.Flags.Has(1)
+	g.CompareStories = g.Flags.Has(2)
 	if g.Flags.Has(0) {
 		value, err := DecodeInputNotifyPeer(b)
 		if err != nil {
@@ -223,6 +239,25 @@ func (g *AccountGetNotifyExceptionsRequest) GetCompareSound() (value bool) {
 		return
 	}
 	return g.Flags.Has(1)
+}
+
+// SetCompareStories sets value of CompareStories conditional field.
+func (g *AccountGetNotifyExceptionsRequest) SetCompareStories(value bool) {
+	if value {
+		g.Flags.Set(2)
+		g.CompareStories = true
+	} else {
+		g.Flags.Unset(2)
+		g.CompareStories = false
+	}
+}
+
+// GetCompareStories returns value of CompareStories conditional field.
+func (g *AccountGetNotifyExceptionsRequest) GetCompareStories() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(2)
 }
 
 // SetPeer sets value of Peer conditional field.

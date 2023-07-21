@@ -19,7 +19,7 @@ func convertOptional(msg *tg.Message, i tg.UpdatesClass) {
 		GetReplyTo() (tg.MessageReplyHeader, bool)
 	}); ok {
 		if v, ok := u.GetReplyTo(); ok {
-			msg.SetReplyTo(v)
+			msg.SetReplyTo(&v)
 		}
 	}
 	if u, ok := i.(interface {

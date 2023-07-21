@@ -22,7 +22,7 @@ func (b *Builder) InlineResult(ctx context.Context, id string, queryID int64, hi
 		ClearDraft:   b.clearDraft,
 		HideVia:      hideVia,
 		Peer:         p,
-		ReplyToMsgID: b.replyToMsgID,
+		ReplyTo:      &tg.InputReplyToMessage{ReplyToMsgID: b.replyToMsgID},
 		QueryID:      queryID,
 		ID:           id,
 		ScheduleDate: b.scheduleDate,

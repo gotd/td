@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// InputPeerNotifySettings represents TL type `inputPeerNotifySettings#df1f002b`.
+// InputPeerNotifySettings represents TL type `inputPeerNotifySettings#cacb6ae2`.
 // Notification settings.
 //
 // See https://core.telegram.org/constructor/inputPeerNotifySettings for reference.
@@ -57,10 +57,22 @@ type InputPeerNotifySettings struct {
 	//
 	// Use SetSound and GetSound helpers.
 	Sound NotificationSoundClass
+	// StoriesMuted field of InputPeerNotifySettings.
+	//
+	// Use SetStoriesMuted and GetStoriesMuted helpers.
+	StoriesMuted bool
+	// StoriesHideSender field of InputPeerNotifySettings.
+	//
+	// Use SetStoriesHideSender and GetStoriesHideSender helpers.
+	StoriesHideSender bool
+	// StoriesSound field of InputPeerNotifySettings.
+	//
+	// Use SetStoriesSound and GetStoriesSound helpers.
+	StoriesSound NotificationSoundClass
 }
 
 // InputPeerNotifySettingsTypeID is TL type id of InputPeerNotifySettings.
-const InputPeerNotifySettingsTypeID = 0xdf1f002b
+const InputPeerNotifySettingsTypeID = 0xcacb6ae2
 
 // Ensuring interfaces in compile-time for InputPeerNotifySettings.
 var (
@@ -89,6 +101,15 @@ func (i *InputPeerNotifySettings) Zero() bool {
 	if !(i.Sound == nil) {
 		return false
 	}
+	if !(i.StoriesMuted == false) {
+		return false
+	}
+	if !(i.StoriesHideSender == false) {
+		return false
+	}
+	if !(i.StoriesSound == nil) {
+		return false
+	}
 
 	return true
 }
@@ -108,6 +129,9 @@ func (i *InputPeerNotifySettings) FillFrom(from interface {
 	GetSilent() (value bool, ok bool)
 	GetMuteUntil() (value int, ok bool)
 	GetSound() (value NotificationSoundClass, ok bool)
+	GetStoriesMuted() (value bool, ok bool)
+	GetStoriesHideSender() (value bool, ok bool)
+	GetStoriesSound() (value NotificationSoundClass, ok bool)
 }) {
 	if val, ok := from.GetShowPreviews(); ok {
 		i.ShowPreviews = val
@@ -123,6 +147,18 @@ func (i *InputPeerNotifySettings) FillFrom(from interface {
 
 	if val, ok := from.GetSound(); ok {
 		i.Sound = val
+	}
+
+	if val, ok := from.GetStoriesMuted(); ok {
+		i.StoriesMuted = val
+	}
+
+	if val, ok := from.GetStoriesHideSender(); ok {
+		i.StoriesHideSender = val
+	}
+
+	if val, ok := from.GetStoriesSound(); ok {
+		i.StoriesSound = val
 	}
 
 }
@@ -170,6 +206,21 @@ func (i *InputPeerNotifySettings) TypeInfo() tdp.Type {
 			SchemaName: "sound",
 			Null:       !i.Flags.Has(3),
 		},
+		{
+			Name:       "StoriesMuted",
+			SchemaName: "stories_muted",
+			Null:       !i.Flags.Has(6),
+		},
+		{
+			Name:       "StoriesHideSender",
+			SchemaName: "stories_hide_sender",
+			Null:       !i.Flags.Has(7),
+		},
+		{
+			Name:       "StoriesSound",
+			SchemaName: "stories_sound",
+			Null:       !i.Flags.Has(8),
+		},
 	}
 	return typ
 }
@@ -188,12 +239,21 @@ func (i *InputPeerNotifySettings) SetFlags() {
 	if !(i.Sound == nil) {
 		i.Flags.Set(3)
 	}
+	if !(i.StoriesMuted == false) {
+		i.Flags.Set(6)
+	}
+	if !(i.StoriesHideSender == false) {
+		i.Flags.Set(7)
+	}
+	if !(i.StoriesSound == nil) {
+		i.Flags.Set(8)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (i *InputPeerNotifySettings) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerNotifySettings#df1f002b as nil")
+		return fmt.Errorf("can't encode inputPeerNotifySettings#cacb6ae2 as nil")
 	}
 	b.PutID(InputPeerNotifySettingsTypeID)
 	return i.EncodeBare(b)
@@ -202,11 +262,11 @@ func (i *InputPeerNotifySettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputPeerNotifySettings) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPeerNotifySettings#df1f002b as nil")
+		return fmt.Errorf("can't encode inputPeerNotifySettings#cacb6ae2 as nil")
 	}
 	i.SetFlags()
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputPeerNotifySettings#df1f002b: field flags: %w", err)
+		return fmt.Errorf("unable to encode inputPeerNotifySettings#cacb6ae2: field flags: %w", err)
 	}
 	if i.Flags.Has(0) {
 		b.PutBool(i.ShowPreviews)
@@ -219,10 +279,24 @@ func (i *InputPeerNotifySettings) EncodeBare(b *bin.Buffer) error {
 	}
 	if i.Flags.Has(3) {
 		if i.Sound == nil {
-			return fmt.Errorf("unable to encode inputPeerNotifySettings#df1f002b: field sound is nil")
+			return fmt.Errorf("unable to encode inputPeerNotifySettings#cacb6ae2: field sound is nil")
 		}
 		if err := i.Sound.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode inputPeerNotifySettings#df1f002b: field sound: %w", err)
+			return fmt.Errorf("unable to encode inputPeerNotifySettings#cacb6ae2: field sound: %w", err)
+		}
+	}
+	if i.Flags.Has(6) {
+		b.PutBool(i.StoriesMuted)
+	}
+	if i.Flags.Has(7) {
+		b.PutBool(i.StoriesHideSender)
+	}
+	if i.Flags.Has(8) {
+		if i.StoriesSound == nil {
+			return fmt.Errorf("unable to encode inputPeerNotifySettings#cacb6ae2: field stories_sound is nil")
+		}
+		if err := i.StoriesSound.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode inputPeerNotifySettings#cacb6ae2: field stories_sound: %w", err)
 		}
 	}
 	return nil
@@ -231,10 +305,10 @@ func (i *InputPeerNotifySettings) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputPeerNotifySettings) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerNotifySettings#df1f002b to nil")
+		return fmt.Errorf("can't decode inputPeerNotifySettings#cacb6ae2 to nil")
 	}
 	if err := b.ConsumeID(InputPeerNotifySettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPeerNotifySettings#df1f002b: %w", err)
+		return fmt.Errorf("unable to decode inputPeerNotifySettings#cacb6ae2: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -242,40 +316,61 @@ func (i *InputPeerNotifySettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputPeerNotifySettings) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPeerNotifySettings#df1f002b to nil")
+		return fmt.Errorf("can't decode inputPeerNotifySettings#cacb6ae2 to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputPeerNotifySettings#df1f002b: field flags: %w", err)
+			return fmt.Errorf("unable to decode inputPeerNotifySettings#cacb6ae2: field flags: %w", err)
 		}
 	}
 	if i.Flags.Has(0) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerNotifySettings#df1f002b: field show_previews: %w", err)
+			return fmt.Errorf("unable to decode inputPeerNotifySettings#cacb6ae2: field show_previews: %w", err)
 		}
 		i.ShowPreviews = value
 	}
 	if i.Flags.Has(1) {
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerNotifySettings#df1f002b: field silent: %w", err)
+			return fmt.Errorf("unable to decode inputPeerNotifySettings#cacb6ae2: field silent: %w", err)
 		}
 		i.Silent = value
 	}
 	if i.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerNotifySettings#df1f002b: field mute_until: %w", err)
+			return fmt.Errorf("unable to decode inputPeerNotifySettings#cacb6ae2: field mute_until: %w", err)
 		}
 		i.MuteUntil = value
 	}
 	if i.Flags.Has(3) {
 		value, err := DecodeNotificationSound(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputPeerNotifySettings#df1f002b: field sound: %w", err)
+			return fmt.Errorf("unable to decode inputPeerNotifySettings#cacb6ae2: field sound: %w", err)
 		}
 		i.Sound = value
+	}
+	if i.Flags.Has(6) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputPeerNotifySettings#cacb6ae2: field stories_muted: %w", err)
+		}
+		i.StoriesMuted = value
+	}
+	if i.Flags.Has(7) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputPeerNotifySettings#cacb6ae2: field stories_hide_sender: %w", err)
+		}
+		i.StoriesHideSender = value
+	}
+	if i.Flags.Has(8) {
+		value, err := DecodeNotificationSound(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputPeerNotifySettings#cacb6ae2: field stories_sound: %w", err)
+		}
+		i.StoriesSound = value
 	}
 	return nil
 }
@@ -350,4 +445,58 @@ func (i *InputPeerNotifySettings) GetSound() (value NotificationSoundClass, ok b
 		return value, false
 	}
 	return i.Sound, true
+}
+
+// SetStoriesMuted sets value of StoriesMuted conditional field.
+func (i *InputPeerNotifySettings) SetStoriesMuted(value bool) {
+	i.Flags.Set(6)
+	i.StoriesMuted = value
+}
+
+// GetStoriesMuted returns value of StoriesMuted conditional field and
+// boolean which is true if field was set.
+func (i *InputPeerNotifySettings) GetStoriesMuted() (value bool, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(6) {
+		return value, false
+	}
+	return i.StoriesMuted, true
+}
+
+// SetStoriesHideSender sets value of StoriesHideSender conditional field.
+func (i *InputPeerNotifySettings) SetStoriesHideSender(value bool) {
+	i.Flags.Set(7)
+	i.StoriesHideSender = value
+}
+
+// GetStoriesHideSender returns value of StoriesHideSender conditional field and
+// boolean which is true if field was set.
+func (i *InputPeerNotifySettings) GetStoriesHideSender() (value bool, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(7) {
+		return value, false
+	}
+	return i.StoriesHideSender, true
+}
+
+// SetStoriesSound sets value of StoriesSound conditional field.
+func (i *InputPeerNotifySettings) SetStoriesSound(value NotificationSoundClass) {
+	i.Flags.Set(8)
+	i.StoriesSound = value
+}
+
+// GetStoriesSound returns value of StoriesSound conditional field and
+// boolean which is true if field was set.
+func (i *InputPeerNotifySettings) GetStoriesSound() (value NotificationSoundClass, ok bool) {
+	if i == nil {
+		return
+	}
+	if !i.Flags.Has(8) {
+		return value, false
+	}
+	return i.StoriesSound, true
 }

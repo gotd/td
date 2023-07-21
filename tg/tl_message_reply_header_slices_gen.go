@@ -33,3 +33,275 @@ var (
 	_ = tgerr.Error{}
 	_ = tdjson.Encoder{}
 )
+
+// MessageReplyHeaderClassArray is adapter for slice of MessageReplyHeaderClass.
+type MessageReplyHeaderClassArray []MessageReplyHeaderClass
+
+// Sort sorts slice of MessageReplyHeaderClass.
+func (s MessageReplyHeaderClassArray) Sort(less func(a, b MessageReplyHeaderClass) bool) MessageReplyHeaderClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageReplyHeaderClass.
+func (s MessageReplyHeaderClassArray) SortStable(less func(a, b MessageReplyHeaderClass) bool) MessageReplyHeaderClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageReplyHeaderClass.
+func (s MessageReplyHeaderClassArray) Retain(keep func(x MessageReplyHeaderClass) bool) MessageReplyHeaderClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageReplyHeaderClassArray) First() (v MessageReplyHeaderClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageReplyHeaderClassArray) Last() (v MessageReplyHeaderClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageReplyHeaderClassArray) PopFirst() (v MessageReplyHeaderClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageReplyHeaderClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageReplyHeaderClassArray) Pop() (v MessageReplyHeaderClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsMessageReplyHeader returns copy with only MessageReplyHeader constructors.
+func (s MessageReplyHeaderClassArray) AsMessageReplyHeader() (to MessageReplyHeaderArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageReplyHeader)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMessageReplyStoryHeader returns copy with only MessageReplyStoryHeader constructors.
+func (s MessageReplyHeaderClassArray) AsMessageReplyStoryHeader() (to MessageReplyStoryHeaderArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageReplyStoryHeader)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// MessageReplyHeaderArray is adapter for slice of MessageReplyHeader.
+type MessageReplyHeaderArray []MessageReplyHeader
+
+// Sort sorts slice of MessageReplyHeader.
+func (s MessageReplyHeaderArray) Sort(less func(a, b MessageReplyHeader) bool) MessageReplyHeaderArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageReplyHeader.
+func (s MessageReplyHeaderArray) SortStable(less func(a, b MessageReplyHeader) bool) MessageReplyHeaderArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageReplyHeader.
+func (s MessageReplyHeaderArray) Retain(keep func(x MessageReplyHeader) bool) MessageReplyHeaderArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageReplyHeaderArray) First() (v MessageReplyHeader, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageReplyHeaderArray) Last() (v MessageReplyHeader, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageReplyHeaderArray) PopFirst() (v MessageReplyHeader, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageReplyHeader
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageReplyHeaderArray) Pop() (v MessageReplyHeader, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageReplyStoryHeaderArray is adapter for slice of MessageReplyStoryHeader.
+type MessageReplyStoryHeaderArray []MessageReplyStoryHeader
+
+// Sort sorts slice of MessageReplyStoryHeader.
+func (s MessageReplyStoryHeaderArray) Sort(less func(a, b MessageReplyStoryHeader) bool) MessageReplyStoryHeaderArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageReplyStoryHeader.
+func (s MessageReplyStoryHeaderArray) SortStable(less func(a, b MessageReplyStoryHeader) bool) MessageReplyStoryHeaderArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageReplyStoryHeader.
+func (s MessageReplyStoryHeaderArray) Retain(keep func(x MessageReplyStoryHeader) bool) MessageReplyStoryHeaderArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageReplyStoryHeaderArray) First() (v MessageReplyStoryHeader, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageReplyStoryHeaderArray) Last() (v MessageReplyStoryHeader, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageReplyStoryHeaderArray) PopFirst() (v MessageReplyStoryHeader, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageReplyStoryHeader
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageReplyStoryHeaderArray) Pop() (v MessageReplyStoryHeader, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}

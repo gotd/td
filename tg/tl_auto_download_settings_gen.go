@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AutoDownloadSettings represents TL type `autoDownloadSettings#8efab953`.
+// AutoDownloadSettings represents TL type `autoDownloadSettings#baa57628`.
 // Autodownload settings
 //
 // See https://core.telegram.org/constructor/autoDownloadSettings for reference.
@@ -49,6 +49,8 @@ type AutoDownloadSettings struct {
 	AudioPreloadNext bool
 	// Whether to enable data saving mode in phone calls
 	PhonecallsLessData bool
+	// StoriesPreload field of AutoDownloadSettings.
+	StoriesPreload bool
 	// Maximum size of photos to preload
 	PhotoSizeMax int
 	// Maximum size of videos to preload
@@ -57,10 +59,14 @@ type AutoDownloadSettings struct {
 	FileSizeMax int64
 	// Maximum suggested bitrate for uploading videos
 	VideoUploadMaxbitrate int
+	// SmallQueueActiveOperationsMax field of AutoDownloadSettings.
+	SmallQueueActiveOperationsMax int
+	// LargeQueueActiveOperationsMax field of AutoDownloadSettings.
+	LargeQueueActiveOperationsMax int
 }
 
 // AutoDownloadSettingsTypeID is TL type id of AutoDownloadSettings.
-const AutoDownloadSettingsTypeID = 0x8efab953
+const AutoDownloadSettingsTypeID = 0xbaa57628
 
 // Ensuring interfaces in compile-time for AutoDownloadSettings.
 var (
@@ -89,6 +95,9 @@ func (a *AutoDownloadSettings) Zero() bool {
 	if !(a.PhonecallsLessData == false) {
 		return false
 	}
+	if !(a.StoriesPreload == false) {
+		return false
+	}
 	if !(a.PhotoSizeMax == 0) {
 		return false
 	}
@@ -99,6 +108,12 @@ func (a *AutoDownloadSettings) Zero() bool {
 		return false
 	}
 	if !(a.VideoUploadMaxbitrate == 0) {
+		return false
+	}
+	if !(a.SmallQueueActiveOperationsMax == 0) {
+		return false
+	}
+	if !(a.LargeQueueActiveOperationsMax == 0) {
 		return false
 	}
 
@@ -120,19 +135,25 @@ func (a *AutoDownloadSettings) FillFrom(from interface {
 	GetVideoPreloadLarge() (value bool)
 	GetAudioPreloadNext() (value bool)
 	GetPhonecallsLessData() (value bool)
+	GetStoriesPreload() (value bool)
 	GetPhotoSizeMax() (value int)
 	GetVideoSizeMax() (value int64)
 	GetFileSizeMax() (value int64)
 	GetVideoUploadMaxbitrate() (value int)
+	GetSmallQueueActiveOperationsMax() (value int)
+	GetLargeQueueActiveOperationsMax() (value int)
 }) {
 	a.Disabled = from.GetDisabled()
 	a.VideoPreloadLarge = from.GetVideoPreloadLarge()
 	a.AudioPreloadNext = from.GetAudioPreloadNext()
 	a.PhonecallsLessData = from.GetPhonecallsLessData()
+	a.StoriesPreload = from.GetStoriesPreload()
 	a.PhotoSizeMax = from.GetPhotoSizeMax()
 	a.VideoSizeMax = from.GetVideoSizeMax()
 	a.FileSizeMax = from.GetFileSizeMax()
 	a.VideoUploadMaxbitrate = from.GetVideoUploadMaxbitrate()
+	a.SmallQueueActiveOperationsMax = from.GetSmallQueueActiveOperationsMax()
+	a.LargeQueueActiveOperationsMax = from.GetLargeQueueActiveOperationsMax()
 }
 
 // TypeID returns type id in TL schema.
@@ -179,6 +200,11 @@ func (a *AutoDownloadSettings) TypeInfo() tdp.Type {
 			Null:       !a.Flags.Has(3),
 		},
 		{
+			Name:       "StoriesPreload",
+			SchemaName: "stories_preload",
+			Null:       !a.Flags.Has(4),
+		},
+		{
 			Name:       "PhotoSizeMax",
 			SchemaName: "photo_size_max",
 		},
@@ -193,6 +219,14 @@ func (a *AutoDownloadSettings) TypeInfo() tdp.Type {
 		{
 			Name:       "VideoUploadMaxbitrate",
 			SchemaName: "video_upload_maxbitrate",
+		},
+		{
+			Name:       "SmallQueueActiveOperationsMax",
+			SchemaName: "small_queue_active_operations_max",
+		},
+		{
+			Name:       "LargeQueueActiveOperationsMax",
+			SchemaName: "large_queue_active_operations_max",
 		},
 	}
 	return typ
@@ -212,12 +246,15 @@ func (a *AutoDownloadSettings) SetFlags() {
 	if !(a.PhonecallsLessData == false) {
 		a.Flags.Set(3)
 	}
+	if !(a.StoriesPreload == false) {
+		a.Flags.Set(4)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (a *AutoDownloadSettings) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode autoDownloadSettings#8efab953 as nil")
+		return fmt.Errorf("can't encode autoDownloadSettings#baa57628 as nil")
 	}
 	b.PutID(AutoDownloadSettingsTypeID)
 	return a.EncodeBare(b)
@@ -226,26 +263,28 @@ func (a *AutoDownloadSettings) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AutoDownloadSettings) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode autoDownloadSettings#8efab953 as nil")
+		return fmt.Errorf("can't encode autoDownloadSettings#baa57628 as nil")
 	}
 	a.SetFlags()
 	if err := a.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode autoDownloadSettings#8efab953: field flags: %w", err)
+		return fmt.Errorf("unable to encode autoDownloadSettings#baa57628: field flags: %w", err)
 	}
 	b.PutInt(a.PhotoSizeMax)
 	b.PutLong(a.VideoSizeMax)
 	b.PutLong(a.FileSizeMax)
 	b.PutInt(a.VideoUploadMaxbitrate)
+	b.PutInt(a.SmallQueueActiveOperationsMax)
+	b.PutInt(a.LargeQueueActiveOperationsMax)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (a *AutoDownloadSettings) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode autoDownloadSettings#8efab953 to nil")
+		return fmt.Errorf("can't decode autoDownloadSettings#baa57628 to nil")
 	}
 	if err := b.ConsumeID(AutoDownloadSettingsTypeID); err != nil {
-		return fmt.Errorf("unable to decode autoDownloadSettings#8efab953: %w", err)
+		return fmt.Errorf("unable to decode autoDownloadSettings#baa57628: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -253,44 +292,59 @@ func (a *AutoDownloadSettings) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AutoDownloadSettings) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode autoDownloadSettings#8efab953 to nil")
+		return fmt.Errorf("can't decode autoDownloadSettings#baa57628 to nil")
 	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#8efab953: field flags: %w", err)
+			return fmt.Errorf("unable to decode autoDownloadSettings#baa57628: field flags: %w", err)
 		}
 	}
 	a.Disabled = a.Flags.Has(0)
 	a.VideoPreloadLarge = a.Flags.Has(1)
 	a.AudioPreloadNext = a.Flags.Has(2)
 	a.PhonecallsLessData = a.Flags.Has(3)
+	a.StoriesPreload = a.Flags.Has(4)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#8efab953: field photo_size_max: %w", err)
+			return fmt.Errorf("unable to decode autoDownloadSettings#baa57628: field photo_size_max: %w", err)
 		}
 		a.PhotoSizeMax = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#8efab953: field video_size_max: %w", err)
+			return fmt.Errorf("unable to decode autoDownloadSettings#baa57628: field video_size_max: %w", err)
 		}
 		a.VideoSizeMax = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#8efab953: field file_size_max: %w", err)
+			return fmt.Errorf("unable to decode autoDownloadSettings#baa57628: field file_size_max: %w", err)
 		}
 		a.FileSizeMax = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode autoDownloadSettings#8efab953: field video_upload_maxbitrate: %w", err)
+			return fmt.Errorf("unable to decode autoDownloadSettings#baa57628: field video_upload_maxbitrate: %w", err)
 		}
 		a.VideoUploadMaxbitrate = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode autoDownloadSettings#baa57628: field small_queue_active_operations_max: %w", err)
+		}
+		a.SmallQueueActiveOperationsMax = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode autoDownloadSettings#baa57628: field large_queue_active_operations_max: %w", err)
+		}
+		a.LargeQueueActiveOperationsMax = value
 	}
 	return nil
 }
@@ -371,6 +425,25 @@ func (a *AutoDownloadSettings) GetPhonecallsLessData() (value bool) {
 	return a.Flags.Has(3)
 }
 
+// SetStoriesPreload sets value of StoriesPreload conditional field.
+func (a *AutoDownloadSettings) SetStoriesPreload(value bool) {
+	if value {
+		a.Flags.Set(4)
+		a.StoriesPreload = true
+	} else {
+		a.Flags.Unset(4)
+		a.StoriesPreload = false
+	}
+}
+
+// GetStoriesPreload returns value of StoriesPreload conditional field.
+func (a *AutoDownloadSettings) GetStoriesPreload() (value bool) {
+	if a == nil {
+		return
+	}
+	return a.Flags.Has(4)
+}
+
 // GetPhotoSizeMax returns value of PhotoSizeMax field.
 func (a *AutoDownloadSettings) GetPhotoSizeMax() (value int) {
 	if a == nil {
@@ -401,4 +474,20 @@ func (a *AutoDownloadSettings) GetVideoUploadMaxbitrate() (value int) {
 		return
 	}
 	return a.VideoUploadMaxbitrate
+}
+
+// GetSmallQueueActiveOperationsMax returns value of SmallQueueActiveOperationsMax field.
+func (a *AutoDownloadSettings) GetSmallQueueActiveOperationsMax() (value int) {
+	if a == nil {
+		return
+	}
+	return a.SmallQueueActiveOperationsMax
+}
+
+// GetLargeQueueActiveOperationsMax returns value of LargeQueueActiveOperationsMax field.
+func (a *AutoDownloadSettings) GetLargeQueueActiveOperationsMax() (value int) {
+	if a == nil {
+		return
+	}
+	return a.LargeQueueActiveOperationsMax
 }

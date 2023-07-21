@@ -48,6 +48,15 @@ type MessagePeerReaction struct {
 	Big bool
 	// Whether the reaction wasn't yet marked as read by the current user
 	Unread bool
+	// Starting from layer 159, messages.sendReaction¹ will send reactions from the peer
+	// (user or channel) specified using messages.saveDefaultSendAs². If set, this flag
+	// indicates that this reaction was sent by us, even if the peer doesn't point to the
+	// current account.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.sendReaction
+	//  2) https://core.telegram.org/method/messages.saveDefaultSendAs
+	My bool
 	// Peer that reacted to the message
 	PeerID PeerClass
 	// When was this reaction added
@@ -80,6 +89,9 @@ func (m *MessagePeerReaction) Zero() bool {
 	if !(m.Unread == false) {
 		return false
 	}
+	if !(m.My == false) {
+		return false
+	}
 	if !(m.PeerID == nil) {
 		return false
 	}
@@ -106,12 +118,14 @@ func (m *MessagePeerReaction) String() string {
 func (m *MessagePeerReaction) FillFrom(from interface {
 	GetBig() (value bool)
 	GetUnread() (value bool)
+	GetMy() (value bool)
 	GetPeerID() (value PeerClass)
 	GetDate() (value int)
 	GetReaction() (value ReactionClass)
 }) {
 	m.Big = from.GetBig()
 	m.Unread = from.GetUnread()
+	m.My = from.GetMy()
 	m.PeerID = from.GetPeerID()
 	m.Date = from.GetDate()
 	m.Reaction = from.GetReaction()
@@ -151,6 +165,11 @@ func (m *MessagePeerReaction) TypeInfo() tdp.Type {
 			Null:       !m.Flags.Has(1),
 		},
 		{
+			Name:       "My",
+			SchemaName: "my",
+			Null:       !m.Flags.Has(2),
+		},
+		{
 			Name:       "PeerID",
 			SchemaName: "peer_id",
 		},
@@ -173,6 +192,9 @@ func (m *MessagePeerReaction) SetFlags() {
 	}
 	if !(m.Unread == false) {
 		m.Flags.Set(1)
+	}
+	if !(m.My == false) {
+		m.Flags.Set(2)
 	}
 }
 
@@ -233,6 +255,7 @@ func (m *MessagePeerReaction) DecodeBare(b *bin.Buffer) error {
 	}
 	m.Big = m.Flags.Has(0)
 	m.Unread = m.Flags.Has(1)
+	m.My = m.Flags.Has(2)
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
@@ -293,6 +316,25 @@ func (m *MessagePeerReaction) GetUnread() (value bool) {
 		return
 	}
 	return m.Flags.Has(1)
+}
+
+// SetMy sets value of My conditional field.
+func (m *MessagePeerReaction) SetMy(value bool) {
+	if value {
+		m.Flags.Set(2)
+		m.My = true
+	} else {
+		m.Flags.Unset(2)
+		m.My = false
+	}
+}
+
+// GetMy returns value of My conditional field.
+func (m *MessagePeerReaction) GetMy() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(2)
 }
 
 // GetPeerID returns value of PeerID field.

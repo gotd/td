@@ -1031,6 +1031,107 @@ func (p *PrivacyValueDisallowChatParticipants) GetChats() (value []int64) {
 	return p.Chats
 }
 
+// PrivacyValueAllowCloseFriends represents TL type `privacyValueAllowCloseFriends#f7e8d89b`.
+//
+// See https://core.telegram.org/constructor/privacyValueAllowCloseFriends for reference.
+type PrivacyValueAllowCloseFriends struct {
+}
+
+// PrivacyValueAllowCloseFriendsTypeID is TL type id of PrivacyValueAllowCloseFriends.
+const PrivacyValueAllowCloseFriendsTypeID = 0xf7e8d89b
+
+// construct implements constructor of PrivacyRuleClass.
+func (p PrivacyValueAllowCloseFriends) construct() PrivacyRuleClass { return &p }
+
+// Ensuring interfaces in compile-time for PrivacyValueAllowCloseFriends.
+var (
+	_ bin.Encoder     = &PrivacyValueAllowCloseFriends{}
+	_ bin.Decoder     = &PrivacyValueAllowCloseFriends{}
+	_ bin.BareEncoder = &PrivacyValueAllowCloseFriends{}
+	_ bin.BareDecoder = &PrivacyValueAllowCloseFriends{}
+
+	_ PrivacyRuleClass = &PrivacyValueAllowCloseFriends{}
+)
+
+func (p *PrivacyValueAllowCloseFriends) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PrivacyValueAllowCloseFriends) String() string {
+	if p == nil {
+		return "PrivacyValueAllowCloseFriends(nil)"
+	}
+	type Alias PrivacyValueAllowCloseFriends
+	return fmt.Sprintf("PrivacyValueAllowCloseFriends%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PrivacyValueAllowCloseFriends) TypeID() uint32 {
+	return PrivacyValueAllowCloseFriendsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PrivacyValueAllowCloseFriends) TypeName() string {
+	return "privacyValueAllowCloseFriends"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PrivacyValueAllowCloseFriends) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "privacyValueAllowCloseFriends",
+		ID:   PrivacyValueAllowCloseFriendsTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PrivacyValueAllowCloseFriends) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyValueAllowCloseFriends#f7e8d89b as nil")
+	}
+	b.PutID(PrivacyValueAllowCloseFriendsTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyValueAllowCloseFriends) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyValueAllowCloseFriends#f7e8d89b as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PrivacyValueAllowCloseFriends) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyValueAllowCloseFriends#f7e8d89b to nil")
+	}
+	if err := b.ConsumeID(PrivacyValueAllowCloseFriendsTypeID); err != nil {
+		return fmt.Errorf("unable to decode privacyValueAllowCloseFriends#f7e8d89b: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyValueAllowCloseFriends) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyValueAllowCloseFriends#f7e8d89b to nil")
+	}
+	return nil
+}
+
 // PrivacyRuleClassName is schema name of PrivacyRuleClass.
 const PrivacyRuleClassName = "PrivacyRule"
 
@@ -1053,6 +1154,7 @@ const PrivacyRuleClassName = "PrivacyRule"
 //	case *tg.PrivacyValueDisallowUsers: // privacyValueDisallowUsers#e4621141
 //	case *tg.PrivacyValueAllowChatParticipants: // privacyValueAllowChatParticipants#6b134e8e
 //	case *tg.PrivacyValueDisallowChatParticipants: // privacyValueDisallowChatParticipants#41c87565
+//	case *tg.PrivacyValueAllowCloseFriends: // privacyValueAllowCloseFriends#f7e8d89b
 //	default: panic(v)
 //	}
 type PrivacyRuleClass interface {
@@ -1149,6 +1251,13 @@ func DecodePrivacyRule(buf *bin.Buffer) (PrivacyRuleClass, error) {
 	case PrivacyValueDisallowChatParticipantsTypeID:
 		// Decoding privacyValueDisallowChatParticipants#41c87565.
 		v := PrivacyValueDisallowChatParticipants{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PrivacyRuleClass: %w", err)
+		}
+		return &v, nil
+	case PrivacyValueAllowCloseFriendsTypeID:
+		// Decoding privacyValueAllowCloseFriends#f7e8d89b.
+		v := PrivacyValueAllowCloseFriends{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PrivacyRuleClass: %w", err)
 		}
