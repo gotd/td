@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// EmojiStatuses represents TL type `emojiStatuses#45127a70`.
+// EmojiStatuses represents TL type `emojiStatuses#eaeb9bdc`.
 type EmojiStatuses struct {
-	// The list of emoji statuses
-	EmojiStatuses []EmojiStatus
+	// The list of custom emoji identifiers
+	CustomEmojiIDs []int64
 }
 
 // EmojiStatusesTypeID is TL type id of EmojiStatuses.
-const EmojiStatusesTypeID = 0x45127a70
+const EmojiStatusesTypeID = 0xeaeb9bdc
 
 // Ensuring interfaces in compile-time for EmojiStatuses.
 var (
@@ -52,7 +52,7 @@ func (e *EmojiStatuses) Zero() bool {
 	if e == nil {
 		return true
 	}
-	if !(e.EmojiStatuses == nil) {
+	if !(e.CustomEmojiIDs == nil) {
 		return false
 	}
 
@@ -92,8 +92,8 @@ func (e *EmojiStatuses) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "EmojiStatuses",
-			SchemaName: "emoji_statuses",
+			Name:       "CustomEmojiIDs",
+			SchemaName: "custom_emoji_ids",
 		},
 	}
 	return typ
@@ -102,7 +102,7 @@ func (e *EmojiStatuses) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EmojiStatuses) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiStatuses#45127a70 as nil")
+		return fmt.Errorf("can't encode emojiStatuses#eaeb9bdc as nil")
 	}
 	b.PutID(EmojiStatusesTypeID)
 	return e.EncodeBare(b)
@@ -111,13 +111,11 @@ func (e *EmojiStatuses) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EmojiStatuses) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiStatuses#45127a70 as nil")
+		return fmt.Errorf("can't encode emojiStatuses#eaeb9bdc as nil")
 	}
-	b.PutInt(len(e.EmojiStatuses))
-	for idx, v := range e.EmojiStatuses {
-		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare emojiStatuses#45127a70: field emoji_statuses element with index %d: %w", idx, err)
-		}
+	b.PutInt(len(e.CustomEmojiIDs))
+	for _, v := range e.CustomEmojiIDs {
+		b.PutLong(v)
 	}
 	return nil
 }
@@ -125,10 +123,10 @@ func (e *EmojiStatuses) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (e *EmojiStatuses) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiStatuses#45127a70 to nil")
+		return fmt.Errorf("can't decode emojiStatuses#eaeb9bdc to nil")
 	}
 	if err := b.ConsumeID(EmojiStatusesTypeID); err != nil {
-		return fmt.Errorf("unable to decode emojiStatuses#45127a70: %w", err)
+		return fmt.Errorf("unable to decode emojiStatuses#eaeb9bdc: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -136,23 +134,23 @@ func (e *EmojiStatuses) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EmojiStatuses) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiStatuses#45127a70 to nil")
+		return fmt.Errorf("can't decode emojiStatuses#eaeb9bdc to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode emojiStatuses#45127a70: field emoji_statuses: %w", err)
+			return fmt.Errorf("unable to decode emojiStatuses#eaeb9bdc: field custom_emoji_ids: %w", err)
 		}
 
 		if headerLen > 0 {
-			e.EmojiStatuses = make([]EmojiStatus, 0, headerLen%bin.PreallocateLimit)
+			e.CustomEmojiIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value EmojiStatus
-			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare emojiStatuses#45127a70: field emoji_statuses: %w", err)
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode emojiStatuses#eaeb9bdc: field custom_emoji_ids: %w", err)
 			}
-			e.EmojiStatuses = append(e.EmojiStatuses, value)
+			e.CustomEmojiIDs = append(e.CustomEmojiIDs, value)
 		}
 	}
 	return nil
@@ -161,17 +159,15 @@ func (e *EmojiStatuses) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (e *EmojiStatuses) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiStatuses#45127a70 as nil")
+		return fmt.Errorf("can't encode emojiStatuses#eaeb9bdc as nil")
 	}
 	b.ObjStart()
 	b.PutID("emojiStatuses")
 	b.Comma()
-	b.FieldStart("emoji_statuses")
+	b.FieldStart("custom_emoji_ids")
 	b.ArrStart()
-	for idx, v := range e.EmojiStatuses {
-		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode emojiStatuses#45127a70: field emoji_statuses element with index %d: %w", idx, err)
-		}
+	for _, v := range e.CustomEmojiIDs {
+		b.PutLong(v)
 		b.Comma()
 	}
 	b.StripComma()
@@ -185,25 +181,25 @@ func (e *EmojiStatuses) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (e *EmojiStatuses) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiStatuses#45127a70 to nil")
+		return fmt.Errorf("can't decode emojiStatuses#eaeb9bdc to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("emojiStatuses"); err != nil {
-				return fmt.Errorf("unable to decode emojiStatuses#45127a70: %w", err)
+				return fmt.Errorf("unable to decode emojiStatuses#eaeb9bdc: %w", err)
 			}
-		case "emoji_statuses":
+		case "custom_emoji_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				var value EmojiStatus
-				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode emojiStatuses#45127a70: field emoji_statuses: %w", err)
+				value, err := b.Long()
+				if err != nil {
+					return fmt.Errorf("unable to decode emojiStatuses#eaeb9bdc: field custom_emoji_ids: %w", err)
 				}
-				e.EmojiStatuses = append(e.EmojiStatuses, value)
+				e.CustomEmojiIDs = append(e.CustomEmojiIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode emojiStatuses#45127a70: field emoji_statuses: %w", err)
+				return fmt.Errorf("unable to decode emojiStatuses#eaeb9bdc: field custom_emoji_ids: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -212,10 +208,10 @@ func (e *EmojiStatuses) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetEmojiStatuses returns value of EmojiStatuses field.
-func (e *EmojiStatuses) GetEmojiStatuses() (value []EmojiStatus) {
+// GetCustomEmojiIDs returns value of CustomEmojiIDs field.
+func (e *EmojiStatuses) GetCustomEmojiIDs() (value []int64) {
 	if e == nil {
 		return
 	}
-	return e.EmojiStatuses
+	return e.CustomEmojiIDs
 }

@@ -2863,6 +2863,172 @@ func (p *PushMessageContentSticker) GetIsPinned() (value bool) {
 	return p.IsPinned
 }
 
+// PushMessageContentStory represents TL type `pushMessageContentStory#996471c9`.
+type PushMessageContentStory struct {
+	// True, if the message is a pinned message with the specified content
+	IsPinned bool
+}
+
+// PushMessageContentStoryTypeID is TL type id of PushMessageContentStory.
+const PushMessageContentStoryTypeID = 0x996471c9
+
+// construct implements constructor of PushMessageContentClass.
+func (p PushMessageContentStory) construct() PushMessageContentClass { return &p }
+
+// Ensuring interfaces in compile-time for PushMessageContentStory.
+var (
+	_ bin.Encoder     = &PushMessageContentStory{}
+	_ bin.Decoder     = &PushMessageContentStory{}
+	_ bin.BareEncoder = &PushMessageContentStory{}
+	_ bin.BareDecoder = &PushMessageContentStory{}
+
+	_ PushMessageContentClass = &PushMessageContentStory{}
+)
+
+func (p *PushMessageContentStory) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.IsPinned == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PushMessageContentStory) String() string {
+	if p == nil {
+		return "PushMessageContentStory(nil)"
+	}
+	type Alias PushMessageContentStory
+	return fmt.Sprintf("PushMessageContentStory%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PushMessageContentStory) TypeID() uint32 {
+	return PushMessageContentStoryTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PushMessageContentStory) TypeName() string {
+	return "pushMessageContentStory"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PushMessageContentStory) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pushMessageContentStory",
+		ID:   PushMessageContentStoryTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "IsPinned",
+			SchemaName: "is_pinned",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PushMessageContentStory) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentStory#996471c9 as nil")
+	}
+	b.PutID(PushMessageContentStoryTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PushMessageContentStory) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentStory#996471c9 as nil")
+	}
+	b.PutBool(p.IsPinned)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PushMessageContentStory) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentStory#996471c9 to nil")
+	}
+	if err := b.ConsumeID(PushMessageContentStoryTypeID); err != nil {
+		return fmt.Errorf("unable to decode pushMessageContentStory#996471c9: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PushMessageContentStory) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentStory#996471c9 to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode pushMessageContentStory#996471c9: field is_pinned: %w", err)
+		}
+		p.IsPinned = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentStory) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentStory#996471c9 as nil")
+	}
+	b.ObjStart()
+	b.PutID("pushMessageContentStory")
+	b.Comma()
+	b.FieldStart("is_pinned")
+	b.PutBool(p.IsPinned)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentStory) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentStory#996471c9 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("pushMessageContentStory"); err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentStory#996471c9: %w", err)
+			}
+		case "is_pinned":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentStory#996471c9: field is_pinned: %w", err)
+			}
+			p.IsPinned = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetIsPinned returns value of IsPinned field.
+func (p *PushMessageContentStory) GetIsPinned() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.IsPinned
+}
+
 // PushMessageContentText represents TL type `pushMessageContentText#105ddea9`.
 type PushMessageContentText struct {
 	// Message text
@@ -6013,6 +6179,7 @@ const PushMessageContentClassName = "PushMessageContent"
 //	case *tdapi.PushMessageContentPoll: // pushMessageContentPoll#fd5a743a
 //	case *tdapi.PushMessageContentScreenshotTaken: // pushMessageContentScreenshotTaken#cc51ff9
 //	case *tdapi.PushMessageContentSticker: // pushMessageContentSticker#5c98bdd3
+//	case *tdapi.PushMessageContentStory: // pushMessageContentStory#996471c9
 //	case *tdapi.PushMessageContentText: // pushMessageContentText#105ddea9
 //	case *tdapi.PushMessageContentVideo: // pushMessageContentVideo#127ad12f
 //	case *tdapi.PushMessageContentVideoNote: // pushMessageContentVideoNote#bd13f97f
@@ -6155,6 +6322,13 @@ func DecodePushMessageContent(buf *bin.Buffer) (PushMessageContentClass, error) 
 	case PushMessageContentStickerTypeID:
 		// Decoding pushMessageContentSticker#5c98bdd3.
 		v := PushMessageContentSticker{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case PushMessageContentStoryTypeID:
+		// Decoding pushMessageContentStory#996471c9.
+		v := PushMessageContentStory{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
 		}
@@ -6384,6 +6558,13 @@ func DecodeTDLibJSONPushMessageContent(buf tdjson.Decoder) (PushMessageContentCl
 	case "pushMessageContentSticker":
 		// Decoding pushMessageContentSticker#5c98bdd3.
 		v := PushMessageContentSticker{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "pushMessageContentStory":
+		// Decoding pushMessageContentStory#996471c9.
+		v := PushMessageContentStory{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
 		}

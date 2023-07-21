@@ -31,14 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// EmojiStatus represents TL type `emojiStatus#4118a266`.
+// EmojiStatus represents TL type `emojiStatus#dbd91636`.
 type EmojiStatus struct {
 	// Identifier of the custom emoji in stickerFormatTgs format
 	CustomEmojiID int64
+	// Point in time (Unix timestamp) when the status will expire; 0 if never
+	ExpirationDate int32
 }
 
 // EmojiStatusTypeID is TL type id of EmojiStatus.
-const EmojiStatusTypeID = 0x4118a266
+const EmojiStatusTypeID = 0xdbd91636
 
 // Ensuring interfaces in compile-time for EmojiStatus.
 var (
@@ -53,6 +55,9 @@ func (e *EmojiStatus) Zero() bool {
 		return true
 	}
 	if !(e.CustomEmojiID == 0) {
+		return false
+	}
+	if !(e.ExpirationDate == 0) {
 		return false
 	}
 
@@ -95,6 +100,10 @@ func (e *EmojiStatus) TypeInfo() tdp.Type {
 			Name:       "CustomEmojiID",
 			SchemaName: "custom_emoji_id",
 		},
+		{
+			Name:       "ExpirationDate",
+			SchemaName: "expiration_date",
+		},
 	}
 	return typ
 }
@@ -102,7 +111,7 @@ func (e *EmojiStatus) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EmojiStatus) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiStatus#4118a266 as nil")
+		return fmt.Errorf("can't encode emojiStatus#dbd91636 as nil")
 	}
 	b.PutID(EmojiStatusTypeID)
 	return e.EncodeBare(b)
@@ -111,19 +120,20 @@ func (e *EmojiStatus) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EmojiStatus) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiStatus#4118a266 as nil")
+		return fmt.Errorf("can't encode emojiStatus#dbd91636 as nil")
 	}
 	b.PutLong(e.CustomEmojiID)
+	b.PutInt32(e.ExpirationDate)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (e *EmojiStatus) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiStatus#4118a266 to nil")
+		return fmt.Errorf("can't decode emojiStatus#dbd91636 to nil")
 	}
 	if err := b.ConsumeID(EmojiStatusTypeID); err != nil {
-		return fmt.Errorf("unable to decode emojiStatus#4118a266: %w", err)
+		return fmt.Errorf("unable to decode emojiStatus#dbd91636: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -131,14 +141,21 @@ func (e *EmojiStatus) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EmojiStatus) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiStatus#4118a266 to nil")
+		return fmt.Errorf("can't decode emojiStatus#dbd91636 to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode emojiStatus#4118a266: field custom_emoji_id: %w", err)
+			return fmt.Errorf("unable to decode emojiStatus#dbd91636: field custom_emoji_id: %w", err)
 		}
 		e.CustomEmojiID = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode emojiStatus#dbd91636: field expiration_date: %w", err)
+		}
+		e.ExpirationDate = value
 	}
 	return nil
 }
@@ -146,13 +163,16 @@ func (e *EmojiStatus) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (e *EmojiStatus) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if e == nil {
-		return fmt.Errorf("can't encode emojiStatus#4118a266 as nil")
+		return fmt.Errorf("can't encode emojiStatus#dbd91636 as nil")
 	}
 	b.ObjStart()
 	b.PutID("emojiStatus")
 	b.Comma()
 	b.FieldStart("custom_emoji_id")
 	b.PutLong(e.CustomEmojiID)
+	b.Comma()
+	b.FieldStart("expiration_date")
+	b.PutInt32(e.ExpirationDate)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -162,21 +182,27 @@ func (e *EmojiStatus) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (e *EmojiStatus) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if e == nil {
-		return fmt.Errorf("can't decode emojiStatus#4118a266 to nil")
+		return fmt.Errorf("can't decode emojiStatus#dbd91636 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("emojiStatus"); err != nil {
-				return fmt.Errorf("unable to decode emojiStatus#4118a266: %w", err)
+				return fmt.Errorf("unable to decode emojiStatus#dbd91636: %w", err)
 			}
 		case "custom_emoji_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode emojiStatus#4118a266: field custom_emoji_id: %w", err)
+				return fmt.Errorf("unable to decode emojiStatus#dbd91636: field custom_emoji_id: %w", err)
 			}
 			e.CustomEmojiID = value
+		case "expiration_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode emojiStatus#dbd91636: field expiration_date: %w", err)
+			}
+			e.ExpirationDate = value
 		default:
 			return b.Skip()
 		}
@@ -190,4 +216,12 @@ func (e *EmojiStatus) GetCustomEmojiID() (value int64) {
 		return
 	}
 	return e.CustomEmojiID
+}
+
+// GetExpirationDate returns value of ExpirationDate field.
+func (e *EmojiStatus) GetExpirationDate() (value int32) {
+	if e == nil {
+		return
+	}
+	return e.ExpirationDate
 }

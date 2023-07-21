@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SendMessageRequest represents TL type `sendMessage#393f599d`.
+// SendMessageRequest represents TL type `sendMessage#171a006f`.
 type SendMessageRequest struct {
 	// Target chat
 	ChatID int64
 	// If not 0, a message thread identifier in which the message will be sent
 	MessageThreadID int64
-	// Identifier of the replied message; 0 if none
-	ReplyToMessageID int64
+	// Identifier of the replied message or story; pass null if none
+	ReplyTo MessageReplyToClass
 	// Options to be used to send the message; pass null to use default options
 	Options MessageSendOptions
 	// Markup for replying to the message; pass null if none; for bots only
@@ -48,7 +48,7 @@ type SendMessageRequest struct {
 }
 
 // SendMessageRequestTypeID is TL type id of SendMessageRequest.
-const SendMessageRequestTypeID = 0x393f599d
+const SendMessageRequestTypeID = 0x171a006f
 
 // Ensuring interfaces in compile-time for SendMessageRequest.
 var (
@@ -68,7 +68,7 @@ func (s *SendMessageRequest) Zero() bool {
 	if !(s.MessageThreadID == 0) {
 		return false
 	}
-	if !(s.ReplyToMessageID == 0) {
+	if !(s.ReplyTo == nil) {
 		return false
 	}
 	if !(s.Options.Zero()) {
@@ -125,8 +125,8 @@ func (s *SendMessageRequest) TypeInfo() tdp.Type {
 			SchemaName: "message_thread_id",
 		},
 		{
-			Name:       "ReplyToMessageID",
-			SchemaName: "reply_to_message_id",
+			Name:       "ReplyTo",
+			SchemaName: "reply_to",
 		},
 		{
 			Name:       "Options",
@@ -147,7 +147,7 @@ func (s *SendMessageRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendMessageRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessage#393f599d as nil")
+		return fmt.Errorf("can't encode sendMessage#171a006f as nil")
 	}
 	b.PutID(SendMessageRequestTypeID)
 	return s.EncodeBare(b)
@@ -156,25 +156,30 @@ func (s *SendMessageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessage#393f599d as nil")
+		return fmt.Errorf("can't encode sendMessage#171a006f as nil")
 	}
 	b.PutInt53(s.ChatID)
 	b.PutInt53(s.MessageThreadID)
-	b.PutInt53(s.ReplyToMessageID)
+	if s.ReplyTo == nil {
+		return fmt.Errorf("unable to encode sendMessage#171a006f: field reply_to is nil")
+	}
+	if err := s.ReplyTo.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode sendMessage#171a006f: field reply_to: %w", err)
+	}
 	if err := s.Options.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sendMessage#393f599d: field options: %w", err)
+		return fmt.Errorf("unable to encode sendMessage#171a006f: field options: %w", err)
 	}
 	if s.ReplyMarkup == nil {
-		return fmt.Errorf("unable to encode sendMessage#393f599d: field reply_markup is nil")
+		return fmt.Errorf("unable to encode sendMessage#171a006f: field reply_markup is nil")
 	}
 	if err := s.ReplyMarkup.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sendMessage#393f599d: field reply_markup: %w", err)
+		return fmt.Errorf("unable to encode sendMessage#171a006f: field reply_markup: %w", err)
 	}
 	if s.InputMessageContent == nil {
-		return fmt.Errorf("unable to encode sendMessage#393f599d: field input_message_content is nil")
+		return fmt.Errorf("unable to encode sendMessage#171a006f: field input_message_content is nil")
 	}
 	if err := s.InputMessageContent.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sendMessage#393f599d: field input_message_content: %w", err)
+		return fmt.Errorf("unable to encode sendMessage#171a006f: field input_message_content: %w", err)
 	}
 	return nil
 }
@@ -182,10 +187,10 @@ func (s *SendMessageRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SendMessageRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessage#393f599d to nil")
+		return fmt.Errorf("can't decode sendMessage#171a006f to nil")
 	}
 	if err := b.ConsumeID(SendMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendMessage#393f599d: %w", err)
+		return fmt.Errorf("unable to decode sendMessage#171a006f: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -193,45 +198,45 @@ func (s *SendMessageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessage#393f599d to nil")
+		return fmt.Errorf("can't decode sendMessage#171a006f to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendMessage#393f599d: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode sendMessage#171a006f: field chat_id: %w", err)
 		}
 		s.ChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendMessage#393f599d: field message_thread_id: %w", err)
+			return fmt.Errorf("unable to decode sendMessage#171a006f: field message_thread_id: %w", err)
 		}
 		s.MessageThreadID = value
 	}
 	{
-		value, err := b.Int53()
+		value, err := DecodeMessageReplyTo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sendMessage#393f599d: field reply_to_message_id: %w", err)
+			return fmt.Errorf("unable to decode sendMessage#171a006f: field reply_to: %w", err)
 		}
-		s.ReplyToMessageID = value
+		s.ReplyTo = value
 	}
 	{
 		if err := s.Options.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode sendMessage#393f599d: field options: %w", err)
+			return fmt.Errorf("unable to decode sendMessage#171a006f: field options: %w", err)
 		}
 	}
 	{
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sendMessage#393f599d: field reply_markup: %w", err)
+			return fmt.Errorf("unable to decode sendMessage#171a006f: field reply_markup: %w", err)
 		}
 		s.ReplyMarkup = value
 	}
 	{
 		value, err := DecodeInputMessageContent(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sendMessage#393f599d: field input_message_content: %w", err)
+			return fmt.Errorf("unable to decode sendMessage#171a006f: field input_message_content: %w", err)
 		}
 		s.InputMessageContent = value
 	}
@@ -241,7 +246,7 @@ func (s *SendMessageRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SendMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessage#393f599d as nil")
+		return fmt.Errorf("can't encode sendMessage#171a006f as nil")
 	}
 	b.ObjStart()
 	b.PutID("sendMessage")
@@ -252,28 +257,33 @@ func (s *SendMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("message_thread_id")
 	b.PutInt53(s.MessageThreadID)
 	b.Comma()
-	b.FieldStart("reply_to_message_id")
-	b.PutInt53(s.ReplyToMessageID)
+	b.FieldStart("reply_to")
+	if s.ReplyTo == nil {
+		return fmt.Errorf("unable to encode sendMessage#171a006f: field reply_to is nil")
+	}
+	if err := s.ReplyTo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode sendMessage#171a006f: field reply_to: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("options")
 	if err := s.Options.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sendMessage#393f599d: field options: %w", err)
+		return fmt.Errorf("unable to encode sendMessage#171a006f: field options: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("reply_markup")
 	if s.ReplyMarkup == nil {
-		return fmt.Errorf("unable to encode sendMessage#393f599d: field reply_markup is nil")
+		return fmt.Errorf("unable to encode sendMessage#171a006f: field reply_markup is nil")
 	}
 	if err := s.ReplyMarkup.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sendMessage#393f599d: field reply_markup: %w", err)
+		return fmt.Errorf("unable to encode sendMessage#171a006f: field reply_markup: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("input_message_content")
 	if s.InputMessageContent == nil {
-		return fmt.Errorf("unable to encode sendMessage#393f599d: field input_message_content is nil")
+		return fmt.Errorf("unable to encode sendMessage#171a006f: field input_message_content is nil")
 	}
 	if err := s.InputMessageContent.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sendMessage#393f599d: field input_message_content: %w", err)
+		return fmt.Errorf("unable to encode sendMessage#171a006f: field input_message_content: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -284,47 +294,47 @@ func (s *SendMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SendMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessage#393f599d to nil")
+		return fmt.Errorf("can't decode sendMessage#171a006f to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("sendMessage"); err != nil {
-				return fmt.Errorf("unable to decode sendMessage#393f599d: %w", err)
+				return fmt.Errorf("unable to decode sendMessage#171a006f: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendMessage#393f599d: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode sendMessage#171a006f: field chat_id: %w", err)
 			}
 			s.ChatID = value
 		case "message_thread_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendMessage#393f599d: field message_thread_id: %w", err)
+				return fmt.Errorf("unable to decode sendMessage#171a006f: field message_thread_id: %w", err)
 			}
 			s.MessageThreadID = value
-		case "reply_to_message_id":
-			value, err := b.Int53()
+		case "reply_to":
+			value, err := DecodeTDLibJSONMessageReplyTo(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sendMessage#393f599d: field reply_to_message_id: %w", err)
+				return fmt.Errorf("unable to decode sendMessage#171a006f: field reply_to: %w", err)
 			}
-			s.ReplyToMessageID = value
+			s.ReplyTo = value
 		case "options":
 			if err := s.Options.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode sendMessage#393f599d: field options: %w", err)
+				return fmt.Errorf("unable to decode sendMessage#171a006f: field options: %w", err)
 			}
 		case "reply_markup":
 			value, err := DecodeTDLibJSONReplyMarkup(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sendMessage#393f599d: field reply_markup: %w", err)
+				return fmt.Errorf("unable to decode sendMessage#171a006f: field reply_markup: %w", err)
 			}
 			s.ReplyMarkup = value
 		case "input_message_content":
 			value, err := DecodeTDLibJSONInputMessageContent(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sendMessage#393f599d: field input_message_content: %w", err)
+				return fmt.Errorf("unable to decode sendMessage#171a006f: field input_message_content: %w", err)
 			}
 			s.InputMessageContent = value
 		default:
@@ -350,12 +360,12 @@ func (s *SendMessageRequest) GetMessageThreadID() (value int64) {
 	return s.MessageThreadID
 }
 
-// GetReplyToMessageID returns value of ReplyToMessageID field.
-func (s *SendMessageRequest) GetReplyToMessageID() (value int64) {
+// GetReplyTo returns value of ReplyTo field.
+func (s *SendMessageRequest) GetReplyTo() (value MessageReplyToClass) {
 	if s == nil {
 		return
 	}
-	return s.ReplyToMessageID
+	return s.ReplyTo
 }
 
 // GetOptions returns value of Options field.
@@ -382,7 +392,7 @@ func (s *SendMessageRequest) GetInputMessageContent() (value InputMessageContent
 	return s.InputMessageContent
 }
 
-// SendMessage invokes method sendMessage#393f599d returning error if any.
+// SendMessage invokes method sendMessage#171a006f returning error if any.
 func (c *Client) SendMessage(ctx context.Context, request *SendMessageRequest) (*Message, error) {
 	var result Message
 

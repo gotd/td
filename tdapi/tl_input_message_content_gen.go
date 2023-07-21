@@ -5117,6 +5117,206 @@ func (i *InputMessagePoll) GetIsClosed() (value bool) {
 	return i.IsClosed
 }
 
+// InputMessageStory represents TL type `inputMessageStory#21099d63`.
+type InputMessageStory struct {
+	// Identifier of the chat that posted the story
+	StorySenderChatID int64
+	// Story identifier
+	StoryID int32
+}
+
+// InputMessageStoryTypeID is TL type id of InputMessageStory.
+const InputMessageStoryTypeID = 0x21099d63
+
+// construct implements constructor of InputMessageContentClass.
+func (i InputMessageStory) construct() InputMessageContentClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMessageStory.
+var (
+	_ bin.Encoder     = &InputMessageStory{}
+	_ bin.Decoder     = &InputMessageStory{}
+	_ bin.BareEncoder = &InputMessageStory{}
+	_ bin.BareDecoder = &InputMessageStory{}
+
+	_ InputMessageContentClass = &InputMessageStory{}
+)
+
+func (i *InputMessageStory) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.StorySenderChatID == 0) {
+		return false
+	}
+	if !(i.StoryID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputMessageStory) String() string {
+	if i == nil {
+		return "InputMessageStory(nil)"
+	}
+	type Alias InputMessageStory
+	return fmt.Sprintf("InputMessageStory%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputMessageStory) TypeID() uint32 {
+	return InputMessageStoryTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputMessageStory) TypeName() string {
+	return "inputMessageStory"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMessageStory) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMessageStory",
+		ID:   InputMessageStoryTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "StorySenderChatID",
+			SchemaName: "story_sender_chat_id",
+		},
+		{
+			Name:       "StoryID",
+			SchemaName: "story_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputMessageStory) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessageStory#21099d63 as nil")
+	}
+	b.PutID(InputMessageStoryTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessageStory) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessageStory#21099d63 as nil")
+	}
+	b.PutInt53(i.StorySenderChatID)
+	b.PutInt32(i.StoryID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputMessageStory) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageStory#21099d63 to nil")
+	}
+	if err := b.ConsumeID(InputMessageStoryTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputMessageStory#21099d63: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessageStory) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageStory#21099d63 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMessageStory#21099d63: field story_sender_chat_id: %w", err)
+		}
+		i.StorySenderChatID = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMessageStory#21099d63: field story_id: %w", err)
+		}
+		i.StoryID = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputMessageStory) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessageStory#21099d63 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputMessageStory")
+	b.Comma()
+	b.FieldStart("story_sender_chat_id")
+	b.PutInt53(i.StorySenderChatID)
+	b.Comma()
+	b.FieldStart("story_id")
+	b.PutInt32(i.StoryID)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputMessageStory) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageStory#21099d63 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("inputMessageStory"); err != nil {
+				return fmt.Errorf("unable to decode inputMessageStory#21099d63: %w", err)
+			}
+		case "story_sender_chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageStory#21099d63: field story_sender_chat_id: %w", err)
+			}
+			i.StorySenderChatID = value
+		case "story_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputMessageStory#21099d63: field story_id: %w", err)
+			}
+			i.StoryID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetStorySenderChatID returns value of StorySenderChatID field.
+func (i *InputMessageStory) GetStorySenderChatID() (value int64) {
+	if i == nil {
+		return
+	}
+	return i.StorySenderChatID
+}
+
+// GetStoryID returns value of StoryID field.
+func (i *InputMessageStory) GetStoryID() (value int32) {
+	if i == nil {
+		return
+	}
+	return i.StoryID
+}
+
 // InputMessageForwarded represents TL type `inputMessageForwarded#651a73f8`.
 type InputMessageForwarded struct {
 	// Identifier for the chat this forwarded message came from
@@ -5415,6 +5615,7 @@ const InputMessageContentClassName = "InputMessageContent"
 //	case *tdapi.InputMessageGame: // inputMessageGame#4aae6ae2
 //	case *tdapi.InputMessageInvoice: // inputMessageInvoice#34cd1d60
 //	case *tdapi.InputMessagePoll: // inputMessagePoll#fe79770
+//	case *tdapi.InputMessageStory: // inputMessageStory#21099d63
 //	case *tdapi.InputMessageForwarded: // inputMessageForwarded#651a73f8
 //	default: panic(v)
 //	}
@@ -5559,6 +5760,13 @@ func DecodeInputMessageContent(buf *bin.Buffer) (InputMessageContentClass, error
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
 		}
 		return &v, nil
+	case InputMessageStoryTypeID:
+		// Decoding inputMessageStory#21099d63.
+		v := InputMessageStory{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
+		}
+		return &v, nil
 	case InputMessageForwardedTypeID:
 		// Decoding inputMessageForwarded#651a73f8.
 		v := InputMessageForwarded{}
@@ -5686,6 +5894,13 @@ func DecodeTDLibJSONInputMessageContent(buf tdjson.Decoder) (InputMessageContent
 	case "inputMessagePoll":
 		// Decoding inputMessagePoll#fe79770.
 		v := InputMessagePoll{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "inputMessageStory":
+		// Decoding inputMessageStory#21099d63.
+		v := InputMessageStory{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
 		}

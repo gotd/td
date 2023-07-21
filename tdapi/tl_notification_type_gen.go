@@ -531,7 +531,7 @@ func (n *NotificationTypeNewCall) GetCallID() (value int32) {
 // NotificationTypeNewPushMessage represents TL type `notificationTypeNewPushMessage#d5949e32`.
 type NotificationTypeNewPushMessage struct {
 	// The message identifier. The message will not be available in the chat history, but the
-	// ID can be used in viewMessages, or as reply_to_message_id
+	// ID can be used in viewMessages, or as a message to reply
 	MessageID int64
 	// Identifier of the sender of the message. Corresponding user or chat may be
 	// inaccessible

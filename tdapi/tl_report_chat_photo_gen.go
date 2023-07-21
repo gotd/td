@@ -31,20 +31,20 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ReportChatPhotoRequest represents TL type `reportChatPhoto#2bc9e924`.
+// ReportChatPhotoRequest represents TL type `reportChatPhoto#d9701288`.
 type ReportChatPhotoRequest struct {
 	// Chat identifier
 	ChatID int64
 	// Identifier of the photo to report. Only full photos from chatPhoto can be reported
 	FileID int32
 	// The reason for reporting the chat photo
-	Reason ChatReportReasonClass
+	Reason ReportReasonClass
 	// Additional report details; 0-1024 characters
 	Text string
 }
 
 // ReportChatPhotoRequestTypeID is TL type id of ReportChatPhotoRequest.
-const ReportChatPhotoRequestTypeID = 0x2bc9e924
+const ReportChatPhotoRequestTypeID = 0xd9701288
 
 // Ensuring interfaces in compile-time for ReportChatPhotoRequest.
 var (
@@ -129,7 +129,7 @@ func (r *ReportChatPhotoRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ReportChatPhotoRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reportChatPhoto#2bc9e924 as nil")
+		return fmt.Errorf("can't encode reportChatPhoto#d9701288 as nil")
 	}
 	b.PutID(ReportChatPhotoRequestTypeID)
 	return r.EncodeBare(b)
@@ -138,15 +138,15 @@ func (r *ReportChatPhotoRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ReportChatPhotoRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reportChatPhoto#2bc9e924 as nil")
+		return fmt.Errorf("can't encode reportChatPhoto#d9701288 as nil")
 	}
 	b.PutInt53(r.ChatID)
 	b.PutInt32(r.FileID)
 	if r.Reason == nil {
-		return fmt.Errorf("unable to encode reportChatPhoto#2bc9e924: field reason is nil")
+		return fmt.Errorf("unable to encode reportChatPhoto#d9701288: field reason is nil")
 	}
 	if err := r.Reason.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode reportChatPhoto#2bc9e924: field reason: %w", err)
+		return fmt.Errorf("unable to encode reportChatPhoto#d9701288: field reason: %w", err)
 	}
 	b.PutString(r.Text)
 	return nil
@@ -155,10 +155,10 @@ func (r *ReportChatPhotoRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *ReportChatPhotoRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reportChatPhoto#2bc9e924 to nil")
+		return fmt.Errorf("can't decode reportChatPhoto#d9701288 to nil")
 	}
 	if err := b.ConsumeID(ReportChatPhotoRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode reportChatPhoto#2bc9e924: %w", err)
+		return fmt.Errorf("unable to decode reportChatPhoto#d9701288: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -166,33 +166,33 @@ func (r *ReportChatPhotoRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ReportChatPhotoRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reportChatPhoto#2bc9e924 to nil")
+		return fmt.Errorf("can't decode reportChatPhoto#d9701288 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode reportChatPhoto#2bc9e924: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode reportChatPhoto#d9701288: field chat_id: %w", err)
 		}
 		r.ChatID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode reportChatPhoto#2bc9e924: field file_id: %w", err)
+			return fmt.Errorf("unable to decode reportChatPhoto#d9701288: field file_id: %w", err)
 		}
 		r.FileID = value
 	}
 	{
-		value, err := DecodeChatReportReason(b)
+		value, err := DecodeReportReason(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode reportChatPhoto#2bc9e924: field reason: %w", err)
+			return fmt.Errorf("unable to decode reportChatPhoto#d9701288: field reason: %w", err)
 		}
 		r.Reason = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode reportChatPhoto#2bc9e924: field text: %w", err)
+			return fmt.Errorf("unable to decode reportChatPhoto#d9701288: field text: %w", err)
 		}
 		r.Text = value
 	}
@@ -202,7 +202,7 @@ func (r *ReportChatPhotoRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (r *ReportChatPhotoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
-		return fmt.Errorf("can't encode reportChatPhoto#2bc9e924 as nil")
+		return fmt.Errorf("can't encode reportChatPhoto#d9701288 as nil")
 	}
 	b.ObjStart()
 	b.PutID("reportChatPhoto")
@@ -215,10 +215,10 @@ func (r *ReportChatPhotoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("reason")
 	if r.Reason == nil {
-		return fmt.Errorf("unable to encode reportChatPhoto#2bc9e924: field reason is nil")
+		return fmt.Errorf("unable to encode reportChatPhoto#d9701288: field reason is nil")
 	}
 	if err := r.Reason.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode reportChatPhoto#2bc9e924: field reason: %w", err)
+		return fmt.Errorf("unable to encode reportChatPhoto#d9701288: field reason: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("text")
@@ -232,37 +232,37 @@ func (r *ReportChatPhotoRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (r *ReportChatPhotoRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
-		return fmt.Errorf("can't decode reportChatPhoto#2bc9e924 to nil")
+		return fmt.Errorf("can't decode reportChatPhoto#d9701288 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("reportChatPhoto"); err != nil {
-				return fmt.Errorf("unable to decode reportChatPhoto#2bc9e924: %w", err)
+				return fmt.Errorf("unable to decode reportChatPhoto#d9701288: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode reportChatPhoto#2bc9e924: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode reportChatPhoto#d9701288: field chat_id: %w", err)
 			}
 			r.ChatID = value
 		case "file_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode reportChatPhoto#2bc9e924: field file_id: %w", err)
+				return fmt.Errorf("unable to decode reportChatPhoto#d9701288: field file_id: %w", err)
 			}
 			r.FileID = value
 		case "reason":
-			value, err := DecodeTDLibJSONChatReportReason(b)
+			value, err := DecodeTDLibJSONReportReason(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode reportChatPhoto#2bc9e924: field reason: %w", err)
+				return fmt.Errorf("unable to decode reportChatPhoto#d9701288: field reason: %w", err)
 			}
 			r.Reason = value
 		case "text":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode reportChatPhoto#2bc9e924: field text: %w", err)
+				return fmt.Errorf("unable to decode reportChatPhoto#d9701288: field text: %w", err)
 			}
 			r.Text = value
 		default:
@@ -289,7 +289,7 @@ func (r *ReportChatPhotoRequest) GetFileID() (value int32) {
 }
 
 // GetReason returns value of Reason field.
-func (r *ReportChatPhotoRequest) GetReason() (value ChatReportReasonClass) {
+func (r *ReportChatPhotoRequest) GetReason() (value ReportReasonClass) {
 	if r == nil {
 		return
 	}
@@ -304,7 +304,7 @@ func (r *ReportChatPhotoRequest) GetText() (value string) {
 	return r.Text
 }
 
-// ReportChatPhoto invokes method reportChatPhoto#2bc9e924 returning error if any.
+// ReportChatPhoto invokes method reportChatPhoto#d9701288 returning error if any.
 func (c *Client) ReportChatPhoto(ctx context.Context, request *ReportChatPhotoRequest) error {
 	var ok Ok
 

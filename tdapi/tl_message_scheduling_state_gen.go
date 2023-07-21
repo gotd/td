@@ -33,7 +33,8 @@ var (
 
 // MessageSchedulingStateSendAtDate represents TL type `messageSchedulingStateSendAtDate#a773ffe7`.
 type MessageSchedulingStateSendAtDate struct {
-	// Date the message will be sent. The date must be within 367 days in the future
+	// Point in time (Unix timestamp) when the message will be sent. The date must be within
+	// 367 days in the future
 	SendDate int32
 }
 

@@ -39,7 +39,7 @@ type ForumTopicInfo struct {
 	Name string
 	// Icon of the topic
 	Icon ForumTopicIcon
-	// Date the topic was created
+	// Point in time (Unix timestamp) when the topic was created
 	CreationDate int32
 	// Identifier of the creator of the topic
 	CreatorID MessageSenderClass

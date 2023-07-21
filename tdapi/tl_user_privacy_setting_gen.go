@@ -555,6 +555,137 @@ func (u *UserPrivacySettingShowPhoneNumber) DecodeTDLibJSON(b tdjson.Decoder) er
 	})
 }
 
+// UserPrivacySettingShowBio represents TL type `userPrivacySettingShowBio#39382761`.
+type UserPrivacySettingShowBio struct {
+}
+
+// UserPrivacySettingShowBioTypeID is TL type id of UserPrivacySettingShowBio.
+const UserPrivacySettingShowBioTypeID = 0x39382761
+
+// construct implements constructor of UserPrivacySettingClass.
+func (u UserPrivacySettingShowBio) construct() UserPrivacySettingClass { return &u }
+
+// Ensuring interfaces in compile-time for UserPrivacySettingShowBio.
+var (
+	_ bin.Encoder     = &UserPrivacySettingShowBio{}
+	_ bin.Decoder     = &UserPrivacySettingShowBio{}
+	_ bin.BareEncoder = &UserPrivacySettingShowBio{}
+	_ bin.BareDecoder = &UserPrivacySettingShowBio{}
+
+	_ UserPrivacySettingClass = &UserPrivacySettingShowBio{}
+)
+
+func (u *UserPrivacySettingShowBio) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UserPrivacySettingShowBio) String() string {
+	if u == nil {
+		return "UserPrivacySettingShowBio(nil)"
+	}
+	type Alias UserPrivacySettingShowBio
+	return fmt.Sprintf("UserPrivacySettingShowBio%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UserPrivacySettingShowBio) TypeID() uint32 {
+	return UserPrivacySettingShowBioTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UserPrivacySettingShowBio) TypeName() string {
+	return "userPrivacySettingShowBio"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserPrivacySettingShowBio) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userPrivacySettingShowBio",
+		ID:   UserPrivacySettingShowBioTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UserPrivacySettingShowBio) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingShowBio#39382761 as nil")
+	}
+	b.PutID(UserPrivacySettingShowBioTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UserPrivacySettingShowBio) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingShowBio#39382761 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UserPrivacySettingShowBio) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingShowBio#39382761 to nil")
+	}
+	if err := b.ConsumeID(UserPrivacySettingShowBioTypeID); err != nil {
+		return fmt.Errorf("unable to decode userPrivacySettingShowBio#39382761: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UserPrivacySettingShowBio) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingShowBio#39382761 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UserPrivacySettingShowBio) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userPrivacySettingShowBio#39382761 as nil")
+	}
+	b.ObjStart()
+	b.PutID("userPrivacySettingShowBio")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UserPrivacySettingShowBio) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userPrivacySettingShowBio#39382761 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("userPrivacySettingShowBio"); err != nil {
+				return fmt.Errorf("unable to decode userPrivacySettingShowBio#39382761: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // UserPrivacySettingAllowChatInvites represents TL type `userPrivacySettingAllowChatInvites#4bcc1d27`.
 type UserPrivacySettingAllowChatInvites struct {
 }
@@ -1228,6 +1359,7 @@ const UserPrivacySettingClassName = "UserPrivacySetting"
 //	case *tdapi.UserPrivacySettingShowProfilePhoto: // userPrivacySettingShowProfilePhoto#53f3c9f5
 //	case *tdapi.UserPrivacySettingShowLinkInForwardedMessages: // userPrivacySettingShowLinkInForwardedMessages#2353b6e6
 //	case *tdapi.UserPrivacySettingShowPhoneNumber: // userPrivacySettingShowPhoneNumber#d0d1a229
+//	case *tdapi.UserPrivacySettingShowBio: // userPrivacySettingShowBio#39382761
 //	case *tdapi.UserPrivacySettingAllowChatInvites: // userPrivacySettingAllowChatInvites#4bcc1d27
 //	case *tdapi.UserPrivacySettingAllowCalls: // userPrivacySettingAllowCalls#c9f0c705
 //	case *tdapi.UserPrivacySettingAllowPeerToPeerCalls: // userPrivacySettingAllowPeerToPeerCalls#1502b940
@@ -1288,6 +1420,13 @@ func DecodeUserPrivacySetting(buf *bin.Buffer) (UserPrivacySettingClass, error) 
 	case UserPrivacySettingShowPhoneNumberTypeID:
 		// Decoding userPrivacySettingShowPhoneNumber#d0d1a229.
 		v := UserPrivacySettingShowPhoneNumber{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserPrivacySettingClass: %w", err)
+		}
+		return &v, nil
+	case UserPrivacySettingShowBioTypeID:
+		// Decoding userPrivacySettingShowBio#39382761.
+		v := UserPrivacySettingShowBio{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserPrivacySettingClass: %w", err)
 		}
@@ -1363,6 +1502,13 @@ func DecodeTDLibJSONUserPrivacySetting(buf tdjson.Decoder) (UserPrivacySettingCl
 	case "userPrivacySettingShowPhoneNumber":
 		// Decoding userPrivacySettingShowPhoneNumber#d0d1a229.
 		v := UserPrivacySettingShowPhoneNumber{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UserPrivacySettingClass: %w", err)
+		}
+		return &v, nil
+	case "userPrivacySettingShowBio":
+		// Decoding userPrivacySettingShowBio#39382761.
+		v := UserPrivacySettingShowBio{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserPrivacySettingClass: %w", err)
 		}

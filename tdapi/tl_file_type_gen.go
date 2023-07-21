@@ -817,6 +817,137 @@ func (f *FileTypePhoto) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// FileTypePhotoStory represents TL type `fileTypePhotoStory#78576ef4`.
+type FileTypePhotoStory struct {
+}
+
+// FileTypePhotoStoryTypeID is TL type id of FileTypePhotoStory.
+const FileTypePhotoStoryTypeID = 0x78576ef4
+
+// construct implements constructor of FileTypeClass.
+func (f FileTypePhotoStory) construct() FileTypeClass { return &f }
+
+// Ensuring interfaces in compile-time for FileTypePhotoStory.
+var (
+	_ bin.Encoder     = &FileTypePhotoStory{}
+	_ bin.Decoder     = &FileTypePhotoStory{}
+	_ bin.BareEncoder = &FileTypePhotoStory{}
+	_ bin.BareDecoder = &FileTypePhotoStory{}
+
+	_ FileTypeClass = &FileTypePhotoStory{}
+)
+
+func (f *FileTypePhotoStory) Zero() bool {
+	if f == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (f *FileTypePhotoStory) String() string {
+	if f == nil {
+		return "FileTypePhotoStory(nil)"
+	}
+	type Alias FileTypePhotoStory
+	return fmt.Sprintf("FileTypePhotoStory%+v", Alias(*f))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*FileTypePhotoStory) TypeID() uint32 {
+	return FileTypePhotoStoryTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*FileTypePhotoStory) TypeName() string {
+	return "fileTypePhotoStory"
+}
+
+// TypeInfo returns info about TL type.
+func (f *FileTypePhotoStory) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "fileTypePhotoStory",
+		ID:   FileTypePhotoStoryTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (f *FileTypePhotoStory) Encode(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypePhotoStory#78576ef4 as nil")
+	}
+	b.PutID(FileTypePhotoStoryTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *FileTypePhotoStory) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypePhotoStory#78576ef4 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (f *FileTypePhotoStory) Decode(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypePhotoStory#78576ef4 to nil")
+	}
+	if err := b.ConsumeID(FileTypePhotoStoryTypeID); err != nil {
+		return fmt.Errorf("unable to decode fileTypePhotoStory#78576ef4: %w", err)
+	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *FileTypePhotoStory) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypePhotoStory#78576ef4 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (f *FileTypePhotoStory) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypePhotoStory#78576ef4 as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypePhotoStory")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (f *FileTypePhotoStory) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypePhotoStory#78576ef4 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("fileTypePhotoStory"); err != nil {
+				return fmt.Errorf("unable to decode fileTypePhotoStory#78576ef4: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // FileTypeProfilePhoto represents TL type `fileTypeProfilePhoto#6afee3a3`.
 type FileTypeProfilePhoto struct {
 }
@@ -1996,6 +2127,137 @@ func (f *FileTypeVideoNote) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// FileTypeVideoStory represents TL type `fileTypeVideoStory#800b21a1`.
+type FileTypeVideoStory struct {
+}
+
+// FileTypeVideoStoryTypeID is TL type id of FileTypeVideoStory.
+const FileTypeVideoStoryTypeID = 0x800b21a1
+
+// construct implements constructor of FileTypeClass.
+func (f FileTypeVideoStory) construct() FileTypeClass { return &f }
+
+// Ensuring interfaces in compile-time for FileTypeVideoStory.
+var (
+	_ bin.Encoder     = &FileTypeVideoStory{}
+	_ bin.Decoder     = &FileTypeVideoStory{}
+	_ bin.BareEncoder = &FileTypeVideoStory{}
+	_ bin.BareDecoder = &FileTypeVideoStory{}
+
+	_ FileTypeClass = &FileTypeVideoStory{}
+)
+
+func (f *FileTypeVideoStory) Zero() bool {
+	if f == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (f *FileTypeVideoStory) String() string {
+	if f == nil {
+		return "FileTypeVideoStory(nil)"
+	}
+	type Alias FileTypeVideoStory
+	return fmt.Sprintf("FileTypeVideoStory%+v", Alias(*f))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*FileTypeVideoStory) TypeID() uint32 {
+	return FileTypeVideoStoryTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*FileTypeVideoStory) TypeName() string {
+	return "fileTypeVideoStory"
+}
+
+// TypeInfo returns info about TL type.
+func (f *FileTypeVideoStory) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "fileTypeVideoStory",
+		ID:   FileTypeVideoStoryTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (f *FileTypeVideoStory) Encode(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeVideoStory#800b21a1 as nil")
+	}
+	b.PutID(FileTypeVideoStoryTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *FileTypeVideoStory) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeVideoStory#800b21a1 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (f *FileTypeVideoStory) Decode(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypeVideoStory#800b21a1 to nil")
+	}
+	if err := b.ConsumeID(FileTypeVideoStoryTypeID); err != nil {
+		return fmt.Errorf("unable to decode fileTypeVideoStory#800b21a1: %w", err)
+	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *FileTypeVideoStory) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypeVideoStory#800b21a1 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (f *FileTypeVideoStory) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileTypeVideoStory#800b21a1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("fileTypeVideoStory")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (f *FileTypeVideoStory) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileTypeVideoStory#800b21a1 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("fileTypeVideoStory"); err != nil {
+				return fmt.Errorf("unable to decode fileTypeVideoStory#800b21a1: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // FileTypeVoiceNote represents TL type `fileTypeVoiceNote#dce96e43`.
 type FileTypeVoiceNote struct {
 }
@@ -2276,6 +2538,7 @@ const FileTypeClassName = "FileType"
 //	case *tdapi.FileTypeDocument: // fileTypeDocument#de57030f
 //	case *tdapi.FileTypeNotificationSound: // fileTypeNotificationSound#c32f9f09
 //	case *tdapi.FileTypePhoto: // fileTypePhoto#998b71a5
+//	case *tdapi.FileTypePhotoStory: // fileTypePhotoStory#78576ef4
 //	case *tdapi.FileTypeProfilePhoto: // fileTypeProfilePhoto#6afee3a3
 //	case *tdapi.FileTypeSecret: // fileTypeSecret#906d14f7
 //	case *tdapi.FileTypeSecretThumbnail: // fileTypeSecretThumbnail#ac797636
@@ -2285,6 +2548,7 @@ const FileTypeClassName = "FileType"
 //	case *tdapi.FileTypeUnknown: // fileTypeUnknown#8819ed50
 //	case *tdapi.FileTypeVideo: // fileTypeVideo#5548871b
 //	case *tdapi.FileTypeVideoNote: // fileTypeVideoNote#e119a79f
+//	case *tdapi.FileTypeVideoStory: // fileTypeVideoStory#800b21a1
 //	case *tdapi.FileTypeVoiceNote: // fileTypeVoiceNote#dce96e43
 //	case *tdapi.FileTypeWallpaper: // fileTypeWallpaper#6e8ffc9c
 //	default: panic(v)
@@ -2360,6 +2624,13 @@ func DecodeFileType(buf *bin.Buffer) (FileTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
 		}
 		return &v, nil
+	case FileTypePhotoStoryTypeID:
+		// Decoding fileTypePhotoStory#78576ef4.
+		v := FileTypePhotoStory{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
+		}
+		return &v, nil
 	case FileTypeProfilePhotoTypeID:
 		// Decoding fileTypeProfilePhoto#6afee3a3.
 		v := FileTypeProfilePhoto{}
@@ -2419,6 +2690,13 @@ func DecodeFileType(buf *bin.Buffer) (FileTypeClass, error) {
 	case FileTypeVideoNoteTypeID:
 		// Decoding fileTypeVideoNote#e119a79f.
 		v := FileTypeVideoNote{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
+		}
+		return &v, nil
+	case FileTypeVideoStoryTypeID:
+		// Decoding fileTypeVideoStory#800b21a1.
+		v := FileTypeVideoStory{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
 		}
@@ -2491,6 +2769,13 @@ func DecodeTDLibJSONFileType(buf tdjson.Decoder) (FileTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
 		}
 		return &v, nil
+	case "fileTypePhotoStory":
+		// Decoding fileTypePhotoStory#78576ef4.
+		v := FileTypePhotoStory{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
+		}
+		return &v, nil
 	case "fileTypeProfilePhoto":
 		// Decoding fileTypeProfilePhoto#6afee3a3.
 		v := FileTypeProfilePhoto{}
@@ -2550,6 +2835,13 @@ func DecodeTDLibJSONFileType(buf tdjson.Decoder) (FileTypeClass, error) {
 	case "fileTypeVideoNote":
 		// Decoding fileTypeVideoNote#e119a79f.
 		v := FileTypeVideoNote{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
+		}
+		return &v, nil
+	case "fileTypeVideoStory":
+		// Decoding fileTypeVideoStory#800b21a1.
+		v := FileTypeVideoStory{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode FileTypeClass: %w", err)
 		}
