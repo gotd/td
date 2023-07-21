@@ -58,7 +58,7 @@ func (b *Builder) Album(ctx context.Context, media MultiMediaOption, album ...Mu
 		Background:   b.background,
 		ClearDraft:   b.clearDraft,
 		Peer:         p,
-		ReplyToMsgID: b.replyToMsgID,
+		ReplyTo:      &tg.InputReplyToMessage{ReplyToMsgID: b.replyToMsgID},
 		MultiMedia:   mb,
 		ScheduleDate: b.scheduleDate,
 	})
@@ -112,7 +112,7 @@ func (b *Builder) Media(ctx context.Context, media MediaOption) (tg.UpdatesClass
 		Background:   b.background,
 		ClearDraft:   b.clearDraft,
 		Peer:         p,
-		ReplyToMsgID: b.replyToMsgID,
+		ReplyTo:      &tg.InputReplyToMessage{ReplyToMsgID: b.replyToMsgID},
 		Media:        attachment.Media,
 		Message:      attachment.Message,
 		ReplyMarkup:  b.replyMarkup,

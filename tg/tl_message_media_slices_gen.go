@@ -259,6 +259,19 @@ func (s MessageMediaClassArray) AsMessageMediaDice() (to MessageMediaDiceArray) 
 	return to
 }
 
+// AsMessageMediaStory returns copy with only MessageMediaStory constructors.
+func (s MessageMediaClassArray) AsMessageMediaStory() (to MessageMediaStoryArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageMediaStory)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MessageMediaPhotoArray is adapter for slice of MessageMediaPhoto.
 type MessageMediaPhotoArray []MessageMediaPhoto
 
@@ -1159,4 +1172,114 @@ func (s *MessageMediaDiceArray) Pop() (v MessageMediaDice, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// MessageMediaStoryArray is adapter for slice of MessageMediaStory.
+type MessageMediaStoryArray []MessageMediaStory
+
+// Sort sorts slice of MessageMediaStory.
+func (s MessageMediaStoryArray) Sort(less func(a, b MessageMediaStory) bool) MessageMediaStoryArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageMediaStory.
+func (s MessageMediaStoryArray) SortStable(less func(a, b MessageMediaStory) bool) MessageMediaStoryArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageMediaStory.
+func (s MessageMediaStoryArray) Retain(keep func(x MessageMediaStory) bool) MessageMediaStoryArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageMediaStoryArray) First() (v MessageMediaStory, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageMediaStoryArray) Last() (v MessageMediaStory, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageMediaStoryArray) PopFirst() (v MessageMediaStory, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageMediaStory
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageMediaStoryArray) Pop() (v MessageMediaStory, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of MessageMediaStory by ID.
+func (s MessageMediaStoryArray) SortByID() MessageMediaStoryArray {
+	return s.Sort(func(a, b MessageMediaStory) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of MessageMediaStory by ID.
+func (s MessageMediaStoryArray) SortStableByID() MessageMediaStoryArray {
+	return s.SortStable(func(a, b MessageMediaStory) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s MessageMediaStoryArray) FillMap(to map[int]MessageMediaStory) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s MessageMediaStoryArray) ToMap() map[int]MessageMediaStory {
+	r := make(map[int]MessageMediaStory, len(s))
+	s.FillMap(r)
+	return r
 }

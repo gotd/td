@@ -302,7 +302,7 @@ type Message struct {
 	// Reply information
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
-	ReplyTo MessageReplyHeader
+	ReplyTo MessageReplyHeaderClass
 	// Date of the message
 	Date int
 	// The message
@@ -437,7 +437,7 @@ func (m *Message) Zero() bool {
 	if !(m.ViaBotID == 0) {
 		return false
 	}
-	if !(m.ReplyTo.Zero()) {
+	if !(m.ReplyTo == nil) {
 		return false
 	}
 	if !(m.Date == 0) {
@@ -512,7 +512,7 @@ func (m *Message) FillFrom(from interface {
 	GetPeerID() (value PeerClass)
 	GetFwdFrom() (value MessageFwdHeader, ok bool)
 	GetViaBotID() (value int64, ok bool)
-	GetReplyTo() (value MessageReplyHeader, ok bool)
+	GetReplyTo() (value MessageReplyHeaderClass, ok bool)
 	GetDate() (value int)
 	GetMessage() (value string)
 	GetMedia() (value MessageMediaClass, ok bool)
@@ -822,7 +822,7 @@ func (m *Message) SetFlags() {
 	if !(m.ViaBotID == 0) {
 		m.Flags.Set(11)
 	}
-	if !(m.ReplyTo.Zero()) {
+	if !(m.ReplyTo == nil) {
 		m.Flags.Set(3)
 	}
 	if !(m.Media == nil) {
@@ -905,6 +905,9 @@ func (m *Message) EncodeBare(b *bin.Buffer) error {
 		b.PutLong(m.ViaBotID)
 	}
 	if m.Flags.Has(3) {
+		if m.ReplyTo == nil {
+			return fmt.Errorf("unable to encode message#38116ee0: field reply_to is nil")
+		}
 		if err := m.ReplyTo.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode message#38116ee0: field reply_to: %w", err)
 		}
@@ -1042,9 +1045,11 @@ func (m *Message) DecodeBare(b *bin.Buffer) error {
 		m.ViaBotID = value
 	}
 	if m.Flags.Has(3) {
-		if err := m.ReplyTo.Decode(b); err != nil {
+		value, err := DecodeMessageReplyHeader(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode message#38116ee0: field reply_to: %w", err)
 		}
+		m.ReplyTo = value
 	}
 	{
 		value, err := b.Int()
@@ -1424,14 +1429,14 @@ func (m *Message) GetViaBotID() (value int64, ok bool) {
 }
 
 // SetReplyTo sets value of ReplyTo conditional field.
-func (m *Message) SetReplyTo(value MessageReplyHeader) {
+func (m *Message) SetReplyTo(value MessageReplyHeaderClass) {
 	m.Flags.Set(3)
 	m.ReplyTo = value
 }
 
 // GetReplyTo returns value of ReplyTo conditional field and
 // boolean which is true if field was set.
-func (m *Message) GetReplyTo() (value MessageReplyHeader, ok bool) {
+func (m *Message) GetReplyTo() (value MessageReplyHeaderClass, ok bool) {
 	if m == nil {
 		return
 	}
@@ -1714,7 +1719,7 @@ type MessageService struct {
 	// Reply (thread) information
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
-	ReplyTo MessageReplyHeader
+	ReplyTo MessageReplyHeaderClass
 	// Message date
 	Date int
 	// Event connected with the service message
@@ -1776,7 +1781,7 @@ func (m *MessageService) Zero() bool {
 	if !(m.PeerID == nil) {
 		return false
 	}
-	if !(m.ReplyTo.Zero()) {
+	if !(m.ReplyTo == nil) {
 		return false
 	}
 	if !(m.Date == 0) {
@@ -1812,7 +1817,7 @@ func (m *MessageService) FillFrom(from interface {
 	GetID() (value int)
 	GetFromID() (value PeerClass, ok bool)
 	GetPeerID() (value PeerClass)
-	GetReplyTo() (value MessageReplyHeader, ok bool)
+	GetReplyTo() (value MessageReplyHeaderClass, ok bool)
 	GetDate() (value int)
 	GetAction() (value MessageActionClass)
 	GetTTLPeriod() (value int, ok bool)
@@ -1952,7 +1957,7 @@ func (m *MessageService) SetFlags() {
 	if !(m.FromID == nil) {
 		m.Flags.Set(8)
 	}
-	if !(m.ReplyTo.Zero()) {
+	if !(m.ReplyTo == nil) {
 		m.Flags.Set(3)
 	}
 	if !(m.TTLPeriod == 0) {
@@ -1994,6 +1999,9 @@ func (m *MessageService) EncodeBare(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode messageService#2b085862: field peer_id: %w", err)
 	}
 	if m.Flags.Has(3) {
+		if m.ReplyTo == nil {
+			return fmt.Errorf("unable to encode messageService#2b085862: field reply_to is nil")
+		}
 		if err := m.ReplyTo.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode messageService#2b085862: field reply_to: %w", err)
 		}
@@ -2060,9 +2068,11 @@ func (m *MessageService) DecodeBare(b *bin.Buffer) error {
 		m.PeerID = value
 	}
 	if m.Flags.Has(3) {
-		if err := m.ReplyTo.Decode(b); err != nil {
+		value, err := DecodeMessageReplyHeader(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode messageService#2b085862: field reply_to: %w", err)
 		}
+		m.ReplyTo = value
 	}
 	{
 		value, err := b.Int()
@@ -2237,14 +2247,14 @@ func (m *MessageService) GetPeerID() (value PeerClass) {
 }
 
 // SetReplyTo sets value of ReplyTo conditional field.
-func (m *MessageService) SetReplyTo(value MessageReplyHeader) {
+func (m *MessageService) SetReplyTo(value MessageReplyHeaderClass) {
 	m.Flags.Set(3)
 	m.ReplyTo = value
 }
 
 // GetReplyTo returns value of ReplyTo conditional field and
 // boolean which is true if field was set.
-func (m *MessageService) GetReplyTo() (value MessageReplyHeader, ok bool) {
+func (m *MessageService) GetReplyTo() (value MessageReplyHeaderClass, ok bool) {
 	if m == nil {
 		return
 	}
@@ -2398,7 +2408,7 @@ type NotEmptyMessage interface {
 	GetPeerID() (value PeerClass)
 
 	// Reply information
-	GetReplyTo() (value MessageReplyHeader, ok bool)
+	GetReplyTo() (value MessageReplyHeaderClass, ok bool)
 
 	// Date of the message
 	GetDate() (value int)

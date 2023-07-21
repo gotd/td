@@ -1051,6 +1051,107 @@ func (i *InputPrivacyValueDisallowChatParticipants) GetChats() (value []int64) {
 	return i.Chats
 }
 
+// InputPrivacyValueAllowCloseFriends represents TL type `inputPrivacyValueAllowCloseFriends#2f453e49`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyValueAllowCloseFriends for reference.
+type InputPrivacyValueAllowCloseFriends struct {
+}
+
+// InputPrivacyValueAllowCloseFriendsTypeID is TL type id of InputPrivacyValueAllowCloseFriends.
+const InputPrivacyValueAllowCloseFriendsTypeID = 0x2f453e49
+
+// construct implements constructor of InputPrivacyRuleClass.
+func (i InputPrivacyValueAllowCloseFriends) construct() InputPrivacyRuleClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyValueAllowCloseFriends.
+var (
+	_ bin.Encoder     = &InputPrivacyValueAllowCloseFriends{}
+	_ bin.Decoder     = &InputPrivacyValueAllowCloseFriends{}
+	_ bin.BareEncoder = &InputPrivacyValueAllowCloseFriends{}
+	_ bin.BareDecoder = &InputPrivacyValueAllowCloseFriends{}
+
+	_ InputPrivacyRuleClass = &InputPrivacyValueAllowCloseFriends{}
+)
+
+func (i *InputPrivacyValueAllowCloseFriends) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputPrivacyValueAllowCloseFriends) String() string {
+	if i == nil {
+		return "InputPrivacyValueAllowCloseFriends(nil)"
+	}
+	type Alias InputPrivacyValueAllowCloseFriends
+	return fmt.Sprintf("InputPrivacyValueAllowCloseFriends%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputPrivacyValueAllowCloseFriends) TypeID() uint32 {
+	return InputPrivacyValueAllowCloseFriendsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputPrivacyValueAllowCloseFriends) TypeName() string {
+	return "inputPrivacyValueAllowCloseFriends"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyValueAllowCloseFriends) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyValueAllowCloseFriends",
+		ID:   InputPrivacyValueAllowCloseFriendsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputPrivacyValueAllowCloseFriends) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyValueAllowCloseFriends#2f453e49 as nil")
+	}
+	b.PutID(InputPrivacyValueAllowCloseFriendsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPrivacyValueAllowCloseFriends) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyValueAllowCloseFriends#2f453e49 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputPrivacyValueAllowCloseFriends) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyValueAllowCloseFriends#2f453e49 to nil")
+	}
+	if err := b.ConsumeID(InputPrivacyValueAllowCloseFriendsTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputPrivacyValueAllowCloseFriends#2f453e49: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPrivacyValueAllowCloseFriends) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyValueAllowCloseFriends#2f453e49 to nil")
+	}
+	return nil
+}
+
 // InputPrivacyRuleClassName is schema name of InputPrivacyRuleClass.
 const InputPrivacyRuleClassName = "InputPrivacyRule"
 
@@ -1073,6 +1174,7 @@ const InputPrivacyRuleClassName = "InputPrivacyRule"
 //	case *tg.InputPrivacyValueDisallowUsers: // inputPrivacyValueDisallowUsers#90110467
 //	case *tg.InputPrivacyValueAllowChatParticipants: // inputPrivacyValueAllowChatParticipants#840649cf
 //	case *tg.InputPrivacyValueDisallowChatParticipants: // inputPrivacyValueDisallowChatParticipants#e94f0f86
+//	case *tg.InputPrivacyValueAllowCloseFriends: // inputPrivacyValueAllowCloseFriends#2f453e49
 //	default: panic(v)
 //	}
 type InputPrivacyRuleClass interface {
@@ -1153,6 +1255,13 @@ func DecodeInputPrivacyRule(buf *bin.Buffer) (InputPrivacyRuleClass, error) {
 	case InputPrivacyValueDisallowChatParticipantsTypeID:
 		// Decoding inputPrivacyValueDisallowChatParticipants#e94f0f86.
 		v := InputPrivacyValueDisallowChatParticipants{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputPrivacyRuleClass: %w", err)
+		}
+		return &v, nil
+	case InputPrivacyValueAllowCloseFriendsTypeID:
+		// Decoding inputPrivacyValueAllowCloseFriends#2f453e49.
+		v := InputPrivacyValueAllowCloseFriends{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputPrivacyRuleClass: %w", err)
 		}

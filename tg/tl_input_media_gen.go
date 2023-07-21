@@ -4049,6 +4049,172 @@ func (i *InputMediaDice) GetEmoticon() (value string) {
 	return i.Emoticon
 }
 
+// InputMediaStory represents TL type `inputMediaStory#9a86b58f`.
+//
+// See https://core.telegram.org/constructor/inputMediaStory for reference.
+type InputMediaStory struct {
+	// UserID field of InputMediaStory.
+	UserID InputUserClass
+	// ID field of InputMediaStory.
+	ID int
+}
+
+// InputMediaStoryTypeID is TL type id of InputMediaStory.
+const InputMediaStoryTypeID = 0x9a86b58f
+
+// construct implements constructor of InputMediaClass.
+func (i InputMediaStory) construct() InputMediaClass { return &i }
+
+// Ensuring interfaces in compile-time for InputMediaStory.
+var (
+	_ bin.Encoder     = &InputMediaStory{}
+	_ bin.Decoder     = &InputMediaStory{}
+	_ bin.BareEncoder = &InputMediaStory{}
+	_ bin.BareDecoder = &InputMediaStory{}
+
+	_ InputMediaClass = &InputMediaStory{}
+)
+
+func (i *InputMediaStory) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.UserID == nil) {
+		return false
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputMediaStory) String() string {
+	if i == nil {
+		return "InputMediaStory(nil)"
+	}
+	type Alias InputMediaStory
+	return fmt.Sprintf("InputMediaStory%+v", Alias(*i))
+}
+
+// FillFrom fills InputMediaStory from given interface.
+func (i *InputMediaStory) FillFrom(from interface {
+	GetUserID() (value InputUserClass)
+	GetID() (value int)
+}) {
+	i.UserID = from.GetUserID()
+	i.ID = from.GetID()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputMediaStory) TypeID() uint32 {
+	return InputMediaStoryTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputMediaStory) TypeName() string {
+	return "inputMediaStory"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaStory) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaStory",
+		ID:   InputMediaStoryTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputMediaStory) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaStory#9a86b58f as nil")
+	}
+	b.PutID(InputMediaStoryTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaStory) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaStory#9a86b58f as nil")
+	}
+	if i.UserID == nil {
+		return fmt.Errorf("unable to encode inputMediaStory#9a86b58f: field user_id is nil")
+	}
+	if err := i.UserID.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputMediaStory#9a86b58f: field user_id: %w", err)
+	}
+	b.PutInt(i.ID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputMediaStory) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaStory#9a86b58f to nil")
+	}
+	if err := b.ConsumeID(InputMediaStoryTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputMediaStory#9a86b58f: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaStory) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaStory#9a86b58f to nil")
+	}
+	{
+		value, err := DecodeInputUser(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaStory#9a86b58f: field user_id: %w", err)
+		}
+		i.UserID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaStory#9a86b58f: field id: %w", err)
+		}
+		i.ID = value
+	}
+	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (i *InputMediaStory) GetUserID() (value InputUserClass) {
+	if i == nil {
+		return
+	}
+	return i.UserID
+}
+
+// GetID returns value of ID field.
+func (i *InputMediaStory) GetID() (value int) {
+	if i == nil {
+		return
+	}
+	return i.ID
+}
+
 // InputMediaClassName is schema name of InputMediaClass.
 const InputMediaClassName = "InputMedia"
 
@@ -4078,6 +4244,7 @@ const InputMediaClassName = "InputMedia"
 //	case *tg.InputMediaGeoLive: // inputMediaGeoLive#971fa843
 //	case *tg.InputMediaPoll: // inputMediaPoll#f94e5f1
 //	case *tg.InputMediaDice: // inputMediaDice#e66fbf7b
+//	case *tg.InputMediaStory: // inputMediaStory#9a86b58f
 //	default: panic(v)
 //	}
 type InputMediaClass interface {
@@ -4207,6 +4374,13 @@ func DecodeInputMedia(buf *bin.Buffer) (InputMediaClass, error) {
 	case InputMediaDiceTypeID:
 		// Decoding inputMediaDice#e66fbf7b.
 		v := InputMediaDice{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
+		}
+		return &v, nil
+	case InputMediaStoryTypeID:
+		// Decoding inputMediaStory#9a86b58f.
+		v := InputMediaStory{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)
 		}

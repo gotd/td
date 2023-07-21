@@ -22,7 +22,7 @@ func (b *Builder) sendRequest(
 		ClearDraft:   b.clearDraft,
 		Noforwards:   b.noForwards,
 		Peer:         p,
-		ReplyToMsgID: b.replyToMsgID,
+		ReplyTo:      &tg.InputReplyToMessage{ReplyToMsgID: b.replyToMsgID},
 		Message:      msg,
 		RandomID:     0,
 		ReplyMarkup:  b.replyMarkup,

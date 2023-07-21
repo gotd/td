@@ -189,7 +189,7 @@ type UpdateShortMessage struct {
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
-	ReplyTo MessageReplyHeader
+	ReplyTo MessageReplyHeaderClass
 	// Entities¹ for styled text
 	//
 	// Links:
@@ -263,7 +263,7 @@ func (u *UpdateShortMessage) Zero() bool {
 	if !(u.ViaBotID == 0) {
 		return false
 	}
-	if !(u.ReplyTo.Zero()) {
+	if !(u.ReplyTo == nil) {
 		return false
 	}
 	if !(u.Entities == nil) {
@@ -299,7 +299,7 @@ func (u *UpdateShortMessage) FillFrom(from interface {
 	GetDate() (value int)
 	GetFwdFrom() (value MessageFwdHeader, ok bool)
 	GetViaBotID() (value int64, ok bool)
-	GetReplyTo() (value MessageReplyHeader, ok bool)
+	GetReplyTo() (value MessageReplyHeaderClass, ok bool)
 	GetEntities() (value []MessageEntityClass, ok bool)
 	GetTTLPeriod() (value int, ok bool)
 }) {
@@ -451,7 +451,7 @@ func (u *UpdateShortMessage) SetFlags() {
 	if !(u.ViaBotID == 0) {
 		u.Flags.Set(11)
 	}
-	if !(u.ReplyTo.Zero()) {
+	if !(u.ReplyTo == nil) {
 		u.Flags.Set(3)
 	}
 	if !(u.Entities == nil) {
@@ -495,6 +495,9 @@ func (u *UpdateShortMessage) EncodeBare(b *bin.Buffer) error {
 		b.PutLong(u.ViaBotID)
 	}
 	if u.Flags.Has(3) {
+		if u.ReplyTo == nil {
+			return fmt.Errorf("unable to encode updateShortMessage#313bc7f8: field reply_to is nil")
+		}
 		if err := u.ReplyTo.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode updateShortMessage#313bc7f8: field reply_to: %w", err)
 		}
@@ -596,9 +599,11 @@ func (u *UpdateShortMessage) DecodeBare(b *bin.Buffer) error {
 		u.ViaBotID = value
 	}
 	if u.Flags.Has(3) {
-		if err := u.ReplyTo.Decode(b); err != nil {
+		value, err := DecodeMessageReplyHeader(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode updateShortMessage#313bc7f8: field reply_to: %w", err)
 		}
+		u.ReplyTo = value
 	}
 	if u.Flags.Has(7) {
 		headerLen, err := b.VectorHeader()
@@ -788,14 +793,14 @@ func (u *UpdateShortMessage) GetViaBotID() (value int64, ok bool) {
 }
 
 // SetReplyTo sets value of ReplyTo conditional field.
-func (u *UpdateShortMessage) SetReplyTo(value MessageReplyHeader) {
+func (u *UpdateShortMessage) SetReplyTo(value MessageReplyHeaderClass) {
 	u.Flags.Set(3)
 	u.ReplyTo = value
 }
 
 // GetReplyTo returns value of ReplyTo conditional field and
 // boolean which is true if field was set.
-func (u *UpdateShortMessage) GetReplyTo() (value MessageReplyHeader, ok bool) {
+func (u *UpdateShortMessage) GetReplyTo() (value MessageReplyHeaderClass, ok bool) {
 	if u == nil {
 		return
 	}
@@ -901,7 +906,7 @@ type UpdateShortChatMessage struct {
 	// Reply (thread) information
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
-	ReplyTo MessageReplyHeader
+	ReplyTo MessageReplyHeaderClass
 	// Entities¹ for styled text
 	//
 	// Links:
@@ -979,7 +984,7 @@ func (u *UpdateShortChatMessage) Zero() bool {
 	if !(u.ViaBotID == 0) {
 		return false
 	}
-	if !(u.ReplyTo.Zero()) {
+	if !(u.ReplyTo == nil) {
 		return false
 	}
 	if !(u.Entities == nil) {
@@ -1016,7 +1021,7 @@ func (u *UpdateShortChatMessage) FillFrom(from interface {
 	GetDate() (value int)
 	GetFwdFrom() (value MessageFwdHeader, ok bool)
 	GetViaBotID() (value int64, ok bool)
-	GetReplyTo() (value MessageReplyHeader, ok bool)
+	GetReplyTo() (value MessageReplyHeaderClass, ok bool)
 	GetEntities() (value []MessageEntityClass, ok bool)
 	GetTTLPeriod() (value int, ok bool)
 }) {
@@ -1173,7 +1178,7 @@ func (u *UpdateShortChatMessage) SetFlags() {
 	if !(u.ViaBotID == 0) {
 		u.Flags.Set(11)
 	}
-	if !(u.ReplyTo.Zero()) {
+	if !(u.ReplyTo == nil) {
 		u.Flags.Set(3)
 	}
 	if !(u.Entities == nil) {
@@ -1218,6 +1223,9 @@ func (u *UpdateShortChatMessage) EncodeBare(b *bin.Buffer) error {
 		b.PutLong(u.ViaBotID)
 	}
 	if u.Flags.Has(3) {
+		if u.ReplyTo == nil {
+			return fmt.Errorf("unable to encode updateShortChatMessage#4d6deea5: field reply_to is nil")
+		}
 		if err := u.ReplyTo.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode updateShortChatMessage#4d6deea5: field reply_to: %w", err)
 		}
@@ -1326,9 +1334,11 @@ func (u *UpdateShortChatMessage) DecodeBare(b *bin.Buffer) error {
 		u.ViaBotID = value
 	}
 	if u.Flags.Has(3) {
-		if err := u.ReplyTo.Decode(b); err != nil {
+		value, err := DecodeMessageReplyHeader(b)
+		if err != nil {
 			return fmt.Errorf("unable to decode updateShortChatMessage#4d6deea5: field reply_to: %w", err)
 		}
+		u.ReplyTo = value
 	}
 	if u.Flags.Has(7) {
 		headerLen, err := b.VectorHeader()
@@ -1526,14 +1536,14 @@ func (u *UpdateShortChatMessage) GetViaBotID() (value int64, ok bool) {
 }
 
 // SetReplyTo sets value of ReplyTo conditional field.
-func (u *UpdateShortChatMessage) SetReplyTo(value MessageReplyHeader) {
+func (u *UpdateShortChatMessage) SetReplyTo(value MessageReplyHeaderClass) {
 	u.Flags.Set(3)
 	u.ReplyTo = value
 }
 
 // GetReplyTo returns value of ReplyTo conditional field and
 // boolean which is true if field was set.
-func (u *UpdateShortChatMessage) GetReplyTo() (value MessageReplyHeader, ok bool) {
+func (u *UpdateShortChatMessage) GetReplyTo() (value MessageReplyHeaderClass, ok bool) {
 	if u == nil {
 		return
 	}

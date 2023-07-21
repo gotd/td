@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesVotesList represents TL type `messages.votesList#823f649`.
+// MessagesVotesList represents TL type `messages.votesList#4899484e`.
 // How users voted in a poll
 //
 // See https://core.telegram.org/constructor/messages.votesList for reference.
@@ -48,7 +48,9 @@ type MessagesVotesList struct {
 	//  1) https://core.telegram.org/method/messages.getPollVotes
 	Count int
 	// Vote info for each user
-	Votes []MessageUserVoteClass
+	Votes []MessagePeerVoteClass
+	// Chats field of MessagesVotesList.
+	Chats []ChatClass
 	// Info about users that voted in the poll
 	Users []UserClass
 	// Offset to use with the next messages.getPollVotes¹ request, empty string if no more
@@ -62,7 +64,7 @@ type MessagesVotesList struct {
 }
 
 // MessagesVotesListTypeID is TL type id of MessagesVotesList.
-const MessagesVotesListTypeID = 0x823f649
+const MessagesVotesListTypeID = 0x4899484e
 
 // Ensuring interfaces in compile-time for MessagesVotesList.
 var (
@@ -83,6 +85,9 @@ func (v *MessagesVotesList) Zero() bool {
 		return false
 	}
 	if !(v.Votes == nil) {
+		return false
+	}
+	if !(v.Chats == nil) {
 		return false
 	}
 	if !(v.Users == nil) {
@@ -107,12 +112,14 @@ func (v *MessagesVotesList) String() string {
 // FillFrom fills MessagesVotesList from given interface.
 func (v *MessagesVotesList) FillFrom(from interface {
 	GetCount() (value int)
-	GetVotes() (value []MessageUserVoteClass)
+	GetVotes() (value []MessagePeerVoteClass)
+	GetChats() (value []ChatClass)
 	GetUsers() (value []UserClass)
 	GetNextOffset() (value string, ok bool)
 }) {
 	v.Count = from.GetCount()
 	v.Votes = from.GetVotes()
+	v.Chats = from.GetChats()
 	v.Users = from.GetUsers()
 	if val, ok := from.GetNextOffset(); ok {
 		v.NextOffset = val
@@ -152,6 +159,10 @@ func (v *MessagesVotesList) TypeInfo() tdp.Type {
 			SchemaName: "votes",
 		},
 		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
 			Name:       "Users",
 			SchemaName: "users",
 		},
@@ -174,7 +185,7 @@ func (v *MessagesVotesList) SetFlags() {
 // Encode implements bin.Encoder.
 func (v *MessagesVotesList) Encode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode messages.votesList#823f649 as nil")
+		return fmt.Errorf("can't encode messages.votesList#4899484e as nil")
 	}
 	b.PutID(MessagesVotesListTypeID)
 	return v.EncodeBare(b)
@@ -183,29 +194,38 @@ func (v *MessagesVotesList) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (v *MessagesVotesList) EncodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't encode messages.votesList#823f649 as nil")
+		return fmt.Errorf("can't encode messages.votesList#4899484e as nil")
 	}
 	v.SetFlags()
 	if err := v.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.votesList#823f649: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.votesList#4899484e: field flags: %w", err)
 	}
 	b.PutInt(v.Count)
 	b.PutVectorHeader(len(v.Votes))
 	for idx, v := range v.Votes {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.votesList#823f649: field votes element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.votesList#4899484e: field votes element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.votesList#823f649: field votes element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.votesList#4899484e: field votes element with index %d: %w", idx, err)
+		}
+	}
+	b.PutVectorHeader(len(v.Chats))
+	for idx, v := range v.Chats {
+		if v == nil {
+			return fmt.Errorf("unable to encode messages.votesList#4899484e: field chats element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.votesList#4899484e: field chats element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(v.Users))
 	for idx, v := range v.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode messages.votesList#823f649: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode messages.votesList#4899484e: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.votesList#823f649: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode messages.votesList#4899484e: field users element with index %d: %w", idx, err)
 		}
 	}
 	if v.Flags.Has(0) {
@@ -217,10 +237,10 @@ func (v *MessagesVotesList) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (v *MessagesVotesList) Decode(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode messages.votesList#823f649 to nil")
+		return fmt.Errorf("can't decode messages.votesList#4899484e to nil")
 	}
 	if err := b.ConsumeID(MessagesVotesListTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.votesList#823f649: %w", err)
+		return fmt.Errorf("unable to decode messages.votesList#4899484e: %w", err)
 	}
 	return v.DecodeBare(b)
 }
@@ -228,33 +248,33 @@ func (v *MessagesVotesList) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (v *MessagesVotesList) DecodeBare(b *bin.Buffer) error {
 	if v == nil {
-		return fmt.Errorf("can't decode messages.votesList#823f649 to nil")
+		return fmt.Errorf("can't decode messages.votesList#4899484e to nil")
 	}
 	{
 		if err := v.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.votesList#823f649: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.votesList#4899484e: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.votesList#823f649: field count: %w", err)
+			return fmt.Errorf("unable to decode messages.votesList#4899484e: field count: %w", err)
 		}
 		v.Count = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.votesList#823f649: field votes: %w", err)
+			return fmt.Errorf("unable to decode messages.votesList#4899484e: field votes: %w", err)
 		}
 
 		if headerLen > 0 {
-			v.Votes = make([]MessageUserVoteClass, 0, headerLen%bin.PreallocateLimit)
+			v.Votes = make([]MessagePeerVoteClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeMessageUserVote(b)
+			value, err := DecodeMessagePeerVote(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.votesList#823f649: field votes: %w", err)
+				return fmt.Errorf("unable to decode messages.votesList#4899484e: field votes: %w", err)
 			}
 			v.Votes = append(v.Votes, value)
 		}
@@ -262,7 +282,24 @@ func (v *MessagesVotesList) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.votesList#823f649: field users: %w", err)
+			return fmt.Errorf("unable to decode messages.votesList#4899484e: field chats: %w", err)
+		}
+
+		if headerLen > 0 {
+			v.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeChat(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode messages.votesList#4899484e: field chats: %w", err)
+			}
+			v.Chats = append(v.Chats, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.votesList#4899484e: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -271,7 +308,7 @@ func (v *MessagesVotesList) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.votesList#823f649: field users: %w", err)
+				return fmt.Errorf("unable to decode messages.votesList#4899484e: field users: %w", err)
 			}
 			v.Users = append(v.Users, value)
 		}
@@ -279,7 +316,7 @@ func (v *MessagesVotesList) DecodeBare(b *bin.Buffer) error {
 	if v.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.votesList#823f649: field next_offset: %w", err)
+			return fmt.Errorf("unable to decode messages.votesList#4899484e: field next_offset: %w", err)
 		}
 		v.NextOffset = value
 	}
@@ -295,11 +332,19 @@ func (v *MessagesVotesList) GetCount() (value int) {
 }
 
 // GetVotes returns value of Votes field.
-func (v *MessagesVotesList) GetVotes() (value []MessageUserVoteClass) {
+func (v *MessagesVotesList) GetVotes() (value []MessagePeerVoteClass) {
 	if v == nil {
 		return
 	}
 	return v.Votes
+}
+
+// GetChats returns value of Chats field.
+func (v *MessagesVotesList) GetChats() (value []ChatClass) {
+	if v == nil {
+		return
+	}
+	return v.Chats
 }
 
 // GetUsers returns value of Users field.
@@ -328,9 +373,14 @@ func (v *MessagesVotesList) GetNextOffset() (value string, ok bool) {
 	return v.NextOffset, true
 }
 
-// MapVotes returns field Votes wrapped in MessageUserVoteClassArray helper.
-func (v *MessagesVotesList) MapVotes() (value MessageUserVoteClassArray) {
-	return MessageUserVoteClassArray(v.Votes)
+// MapVotes returns field Votes wrapped in MessagePeerVoteClassArray helper.
+func (v *MessagesVotesList) MapVotes() (value MessagePeerVoteClassArray) {
+	return MessagePeerVoteClassArray(v.Votes)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (v *MessagesVotesList) MapChats() (value ChatClassArray) {
+	return ChatClassArray(v.Chats)
 }
 
 // MapUsers returns field Users wrapped in UserClassArray helper.

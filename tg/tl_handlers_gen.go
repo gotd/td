@@ -1215,3 +1215,33 @@ func (u UpdateDispatcher) OnGroupInvitePrivacyForbidden(handler GroupInvitePriva
 		return handler(ctx, e, update.(*UpdateGroupInvitePrivacyForbidden))
 	}
 }
+
+// StoryHandler is a Story event handler.
+type StoryHandler func(ctx context.Context, e Entities, update *UpdateStory) error
+
+// OnStory sets Story handler.
+func (u UpdateDispatcher) OnStory(handler StoryHandler) {
+	u.handlers[UpdateStoryTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateStory))
+	}
+}
+
+// ReadStoriesHandler is a ReadStories event handler.
+type ReadStoriesHandler func(ctx context.Context, e Entities, update *UpdateReadStories) error
+
+// OnReadStories sets ReadStories handler.
+func (u UpdateDispatcher) OnReadStories(handler ReadStoriesHandler) {
+	u.handlers[UpdateReadStoriesTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateReadStories))
+	}
+}
+
+// StoryIDHandler is a StoryID event handler.
+type StoryIDHandler func(ctx context.Context, e Entities, update *UpdateStoryID) error
+
+// OnStoryID sets StoryID handler.
+func (u UpdateDispatcher) OnStoryID(handler StoryIDHandler) {
+	u.handlers[UpdateStoryIDTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateStoryID))
+	}
+}

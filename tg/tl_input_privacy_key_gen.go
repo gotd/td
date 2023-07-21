@@ -952,6 +952,107 @@ func (i *InputPrivacyKeyVoiceMessages) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
+// InputPrivacyKeyAbout represents TL type `inputPrivacyKeyAbout#3823cc40`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyKeyAbout for reference.
+type InputPrivacyKeyAbout struct {
+}
+
+// InputPrivacyKeyAboutTypeID is TL type id of InputPrivacyKeyAbout.
+const InputPrivacyKeyAboutTypeID = 0x3823cc40
+
+// construct implements constructor of InputPrivacyKeyClass.
+func (i InputPrivacyKeyAbout) construct() InputPrivacyKeyClass { return &i }
+
+// Ensuring interfaces in compile-time for InputPrivacyKeyAbout.
+var (
+	_ bin.Encoder     = &InputPrivacyKeyAbout{}
+	_ bin.Decoder     = &InputPrivacyKeyAbout{}
+	_ bin.BareEncoder = &InputPrivacyKeyAbout{}
+	_ bin.BareDecoder = &InputPrivacyKeyAbout{}
+
+	_ InputPrivacyKeyClass = &InputPrivacyKeyAbout{}
+)
+
+func (i *InputPrivacyKeyAbout) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputPrivacyKeyAbout) String() string {
+	if i == nil {
+		return "InputPrivacyKeyAbout(nil)"
+	}
+	type Alias InputPrivacyKeyAbout
+	return fmt.Sprintf("InputPrivacyKeyAbout%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputPrivacyKeyAbout) TypeID() uint32 {
+	return InputPrivacyKeyAboutTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputPrivacyKeyAbout) TypeName() string {
+	return "inputPrivacyKeyAbout"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyKeyAbout) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyKeyAbout",
+		ID:   InputPrivacyKeyAboutTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputPrivacyKeyAbout) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyKeyAbout#3823cc40 as nil")
+	}
+	b.PutID(InputPrivacyKeyAboutTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPrivacyKeyAbout) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyKeyAbout#3823cc40 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputPrivacyKeyAbout) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyKeyAbout#3823cc40 to nil")
+	}
+	if err := b.ConsumeID(InputPrivacyKeyAboutTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputPrivacyKeyAbout#3823cc40: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPrivacyKeyAbout) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyKeyAbout#3823cc40 to nil")
+	}
+	return nil
+}
+
 // InputPrivacyKeyClassName is schema name of InputPrivacyKeyClass.
 const InputPrivacyKeyClassName = "InputPrivacyKey"
 
@@ -975,6 +1076,7 @@ const InputPrivacyKeyClassName = "InputPrivacyKey"
 //	case *tg.InputPrivacyKeyPhoneNumber: // inputPrivacyKeyPhoneNumber#352dafa
 //	case *tg.InputPrivacyKeyAddedByPhone: // inputPrivacyKeyAddedByPhone#d1219bdd
 //	case *tg.InputPrivacyKeyVoiceMessages: // inputPrivacyKeyVoiceMessages#aee69d68
+//	case *tg.InputPrivacyKeyAbout: // inputPrivacyKeyAbout#3823cc40
 //	default: panic(v)
 //	}
 type InputPrivacyKeyClass interface {
@@ -1062,6 +1164,13 @@ func DecodeInputPrivacyKey(buf *bin.Buffer) (InputPrivacyKeyClass, error) {
 	case InputPrivacyKeyVoiceMessagesTypeID:
 		// Decoding inputPrivacyKeyVoiceMessages#aee69d68.
 		v := InputPrivacyKeyVoiceMessages{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputPrivacyKeyClass: %w", err)
+		}
+		return &v, nil
+	case InputPrivacyKeyAboutTypeID:
+		// Decoding inputPrivacyKeyAbout#3823cc40.
+		v := InputPrivacyKeyAbout{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputPrivacyKeyClass: %w", err)
 		}

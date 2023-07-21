@@ -883,7 +883,7 @@ func (m *MessageMediaUnsupported) DecodeBare(b *bin.Buffer) error {
 	return nil
 }
 
-// MessageMediaDocument represents TL type `messageMediaDocument#9cb070d7`.
+// MessageMediaDocument represents TL type `messageMediaDocument#4cf4d72d`.
 // Document (video, audio, voice, sticker, any media type except photo)
 //
 // See https://core.telegram.org/constructor/messageMediaDocument for reference.
@@ -902,6 +902,10 @@ type MessageMediaDocument struct {
 	//
 	// Use SetDocument and GetDocument helpers.
 	Document DocumentClass
+	// AltDocument field of MessageMediaDocument.
+	//
+	// Use SetAltDocument and GetAltDocument helpers.
+	AltDocument DocumentClass
 	// Time to live of self-destructing document
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
@@ -909,7 +913,7 @@ type MessageMediaDocument struct {
 }
 
 // MessageMediaDocumentTypeID is TL type id of MessageMediaDocument.
-const MessageMediaDocumentTypeID = 0x9cb070d7
+const MessageMediaDocumentTypeID = 0x4cf4d72d
 
 // construct implements constructor of MessageMediaClass.
 func (m MessageMediaDocument) construct() MessageMediaClass { return &m }
@@ -940,6 +944,9 @@ func (m *MessageMediaDocument) Zero() bool {
 	if !(m.Document == nil) {
 		return false
 	}
+	if !(m.AltDocument == nil) {
+		return false
+	}
 	if !(m.TTLSeconds == 0) {
 		return false
 	}
@@ -961,12 +968,17 @@ func (m *MessageMediaDocument) FillFrom(from interface {
 	GetNopremium() (value bool)
 	GetSpoiler() (value bool)
 	GetDocument() (value DocumentClass, ok bool)
+	GetAltDocument() (value DocumentClass, ok bool)
 	GetTTLSeconds() (value int, ok bool)
 }) {
 	m.Nopremium = from.GetNopremium()
 	m.Spoiler = from.GetSpoiler()
 	if val, ok := from.GetDocument(); ok {
 		m.Document = val
+	}
+
+	if val, ok := from.GetAltDocument(); ok {
+		m.AltDocument = val
 	}
 
 	if val, ok := from.GetTTLSeconds(); ok {
@@ -1014,6 +1026,11 @@ func (m *MessageMediaDocument) TypeInfo() tdp.Type {
 			Null:       !m.Flags.Has(0),
 		},
 		{
+			Name:       "AltDocument",
+			SchemaName: "alt_document",
+			Null:       !m.Flags.Has(5),
+		},
+		{
 			Name:       "TTLSeconds",
 			SchemaName: "ttl_seconds",
 			Null:       !m.Flags.Has(2),
@@ -1033,6 +1050,9 @@ func (m *MessageMediaDocument) SetFlags() {
 	if !(m.Document == nil) {
 		m.Flags.Set(0)
 	}
+	if !(m.AltDocument == nil) {
+		m.Flags.Set(5)
+	}
 	if !(m.TTLSeconds == 0) {
 		m.Flags.Set(2)
 	}
@@ -1041,7 +1061,7 @@ func (m *MessageMediaDocument) SetFlags() {
 // Encode implements bin.Encoder.
 func (m *MessageMediaDocument) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageMediaDocument#9cb070d7 as nil")
+		return fmt.Errorf("can't encode messageMediaDocument#4cf4d72d as nil")
 	}
 	b.PutID(MessageMediaDocumentTypeID)
 	return m.EncodeBare(b)
@@ -1050,18 +1070,26 @@ func (m *MessageMediaDocument) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageMediaDocument) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageMediaDocument#9cb070d7 as nil")
+		return fmt.Errorf("can't encode messageMediaDocument#4cf4d72d as nil")
 	}
 	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageMediaDocument#9cb070d7: field flags: %w", err)
+		return fmt.Errorf("unable to encode messageMediaDocument#4cf4d72d: field flags: %w", err)
 	}
 	if m.Flags.Has(0) {
 		if m.Document == nil {
-			return fmt.Errorf("unable to encode messageMediaDocument#9cb070d7: field document is nil")
+			return fmt.Errorf("unable to encode messageMediaDocument#4cf4d72d: field document is nil")
 		}
 		if err := m.Document.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageMediaDocument#9cb070d7: field document: %w", err)
+			return fmt.Errorf("unable to encode messageMediaDocument#4cf4d72d: field document: %w", err)
+		}
+	}
+	if m.Flags.Has(5) {
+		if m.AltDocument == nil {
+			return fmt.Errorf("unable to encode messageMediaDocument#4cf4d72d: field alt_document is nil")
+		}
+		if err := m.AltDocument.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messageMediaDocument#4cf4d72d: field alt_document: %w", err)
 		}
 	}
 	if m.Flags.Has(2) {
@@ -1073,10 +1101,10 @@ func (m *MessageMediaDocument) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageMediaDocument) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageMediaDocument#9cb070d7 to nil")
+		return fmt.Errorf("can't decode messageMediaDocument#4cf4d72d to nil")
 	}
 	if err := b.ConsumeID(MessageMediaDocumentTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageMediaDocument#9cb070d7: %w", err)
+		return fmt.Errorf("unable to decode messageMediaDocument#4cf4d72d: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -1084,11 +1112,11 @@ func (m *MessageMediaDocument) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageMediaDocument) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageMediaDocument#9cb070d7 to nil")
+		return fmt.Errorf("can't decode messageMediaDocument#4cf4d72d to nil")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageMediaDocument#9cb070d7: field flags: %w", err)
+			return fmt.Errorf("unable to decode messageMediaDocument#4cf4d72d: field flags: %w", err)
 		}
 	}
 	m.Nopremium = m.Flags.Has(3)
@@ -1096,14 +1124,21 @@ func (m *MessageMediaDocument) DecodeBare(b *bin.Buffer) error {
 	if m.Flags.Has(0) {
 		value, err := DecodeDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaDocument#9cb070d7: field document: %w", err)
+			return fmt.Errorf("unable to decode messageMediaDocument#4cf4d72d: field document: %w", err)
 		}
 		m.Document = value
+	}
+	if m.Flags.Has(5) {
+		value, err := DecodeDocument(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaDocument#4cf4d72d: field alt_document: %w", err)
+		}
+		m.AltDocument = value
 	}
 	if m.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaDocument#9cb070d7: field ttl_seconds: %w", err)
+			return fmt.Errorf("unable to decode messageMediaDocument#4cf4d72d: field ttl_seconds: %w", err)
 		}
 		m.TTLSeconds = value
 	}
@@ -1164,6 +1199,24 @@ func (m *MessageMediaDocument) GetDocument() (value DocumentClass, ok bool) {
 		return value, false
 	}
 	return m.Document, true
+}
+
+// SetAltDocument sets value of AltDocument conditional field.
+func (m *MessageMediaDocument) SetAltDocument(value DocumentClass) {
+	m.Flags.Set(5)
+	m.AltDocument = value
+}
+
+// GetAltDocument returns value of AltDocument conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaDocument) GetAltDocument() (value DocumentClass, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(5) {
+		return value, false
+	}
+	return m.AltDocument, true
 }
 
 // SetTTLSeconds sets value of TTLSeconds conditional field.
@@ -2862,6 +2915,273 @@ func (m *MessageMediaDice) GetEmoticon() (value string) {
 	return m.Emoticon
 }
 
+// MessageMediaStory represents TL type `messageMediaStory#cbb20d88`.
+//
+// See https://core.telegram.org/constructor/messageMediaStory for reference.
+type MessageMediaStory struct {
+	// Flags field of MessageMediaStory.
+	Flags bin.Fields
+	// ViaMention field of MessageMediaStory.
+	ViaMention bool
+	// UserID field of MessageMediaStory.
+	UserID int64
+	// ID field of MessageMediaStory.
+	ID int
+	// Story field of MessageMediaStory.
+	//
+	// Use SetStory and GetStory helpers.
+	Story StoryItemClass
+}
+
+// MessageMediaStoryTypeID is TL type id of MessageMediaStory.
+const MessageMediaStoryTypeID = 0xcbb20d88
+
+// construct implements constructor of MessageMediaClass.
+func (m MessageMediaStory) construct() MessageMediaClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageMediaStory.
+var (
+	_ bin.Encoder     = &MessageMediaStory{}
+	_ bin.Decoder     = &MessageMediaStory{}
+	_ bin.BareEncoder = &MessageMediaStory{}
+	_ bin.BareDecoder = &MessageMediaStory{}
+
+	_ MessageMediaClass = &MessageMediaStory{}
+)
+
+func (m *MessageMediaStory) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.ViaMention == false) {
+		return false
+	}
+	if !(m.UserID == 0) {
+		return false
+	}
+	if !(m.ID == 0) {
+		return false
+	}
+	if !(m.Story == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageMediaStory) String() string {
+	if m == nil {
+		return "MessageMediaStory(nil)"
+	}
+	type Alias MessageMediaStory
+	return fmt.Sprintf("MessageMediaStory%+v", Alias(*m))
+}
+
+// FillFrom fills MessageMediaStory from given interface.
+func (m *MessageMediaStory) FillFrom(from interface {
+	GetViaMention() (value bool)
+	GetUserID() (value int64)
+	GetID() (value int)
+	GetStory() (value StoryItemClass, ok bool)
+}) {
+	m.ViaMention = from.GetViaMention()
+	m.UserID = from.GetUserID()
+	m.ID = from.GetID()
+	if val, ok := from.GetStory(); ok {
+		m.Story = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageMediaStory) TypeID() uint32 {
+	return MessageMediaStoryTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageMediaStory) TypeName() string {
+	return "messageMediaStory"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageMediaStory) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageMediaStory",
+		ID:   MessageMediaStoryTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ViaMention",
+			SchemaName: "via_mention",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Story",
+			SchemaName: "story",
+			Null:       !m.Flags.Has(0),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MessageMediaStory) SetFlags() {
+	if !(m.ViaMention == false) {
+		m.Flags.Set(1)
+	}
+	if !(m.Story == nil) {
+		m.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageMediaStory) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaStory#cbb20d88 as nil")
+	}
+	b.PutID(MessageMediaStoryTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageMediaStory) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaStory#cbb20d88 as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageMediaStory#cbb20d88: field flags: %w", err)
+	}
+	b.PutLong(m.UserID)
+	b.PutInt(m.ID)
+	if m.Flags.Has(0) {
+		if m.Story == nil {
+			return fmt.Errorf("unable to encode messageMediaStory#cbb20d88: field story is nil")
+		}
+		if err := m.Story.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messageMediaStory#cbb20d88: field story: %w", err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageMediaStory) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaStory#cbb20d88 to nil")
+	}
+	if err := b.ConsumeID(MessageMediaStoryTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageMediaStory#cbb20d88: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageMediaStory) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaStory#cbb20d88 to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageMediaStory#cbb20d88: field flags: %w", err)
+		}
+	}
+	m.ViaMention = m.Flags.Has(1)
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaStory#cbb20d88: field user_id: %w", err)
+		}
+		m.UserID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaStory#cbb20d88: field id: %w", err)
+		}
+		m.ID = value
+	}
+	if m.Flags.Has(0) {
+		value, err := DecodeStoryItem(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaStory#cbb20d88: field story: %w", err)
+		}
+		m.Story = value
+	}
+	return nil
+}
+
+// SetViaMention sets value of ViaMention conditional field.
+func (m *MessageMediaStory) SetViaMention(value bool) {
+	if value {
+		m.Flags.Set(1)
+		m.ViaMention = true
+	} else {
+		m.Flags.Unset(1)
+		m.ViaMention = false
+	}
+}
+
+// GetViaMention returns value of ViaMention conditional field.
+func (m *MessageMediaStory) GetViaMention() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(1)
+}
+
+// GetUserID returns value of UserID field.
+func (m *MessageMediaStory) GetUserID() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.UserID
+}
+
+// GetID returns value of ID field.
+func (m *MessageMediaStory) GetID() (value int) {
+	if m == nil {
+		return
+	}
+	return m.ID
+}
+
+// SetStory sets value of Story conditional field.
+func (m *MessageMediaStory) SetStory(value StoryItemClass) {
+	m.Flags.Set(0)
+	m.Story = value
+}
+
+// GetStory returns value of Story conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaStory) GetStory() (value StoryItemClass, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.Story, true
+}
+
 // MessageMediaClassName is schema name of MessageMediaClass.
 const MessageMediaClassName = "MessageMedia"
 
@@ -2881,7 +3201,7 @@ const MessageMediaClassName = "MessageMedia"
 //	case *tg.MessageMediaGeo: // messageMediaGeo#56e0d474
 //	case *tg.MessageMediaContact: // messageMediaContact#70322949
 //	case *tg.MessageMediaUnsupported: // messageMediaUnsupported#9f84f49e
-//	case *tg.MessageMediaDocument: // messageMediaDocument#9cb070d7
+//	case *tg.MessageMediaDocument: // messageMediaDocument#4cf4d72d
 //	case *tg.MessageMediaWebPage: // messageMediaWebPage#a32dd600
 //	case *tg.MessageMediaVenue: // messageMediaVenue#2ec0533f
 //	case *tg.MessageMediaGame: // messageMediaGame#fdb19008
@@ -2889,6 +3209,7 @@ const MessageMediaClassName = "MessageMedia"
 //	case *tg.MessageMediaGeoLive: // messageMediaGeoLive#b940c666
 //	case *tg.MessageMediaPoll: // messageMediaPoll#4bd6e798
 //	case *tg.MessageMediaDice: // messageMediaDice#3f7ee58b
+//	case *tg.MessageMediaStory: // messageMediaStory#cbb20d88
 //	default: panic(v)
 //	}
 type MessageMediaClass interface {
@@ -2953,7 +3274,7 @@ func DecodeMessageMedia(buf *bin.Buffer) (MessageMediaClass, error) {
 		}
 		return &v, nil
 	case MessageMediaDocumentTypeID:
-		// Decoding messageMediaDocument#9cb070d7.
+		// Decoding messageMediaDocument#4cf4d72d.
 		v := MessageMediaDocument{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageMediaClass: %w", err)
@@ -3004,6 +3325,13 @@ func DecodeMessageMedia(buf *bin.Buffer) (MessageMediaClass, error) {
 	case MessageMediaDiceTypeID:
 		// Decoding messageMediaDice#3f7ee58b.
 		v := MessageMediaDice{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageMediaClass: %w", err)
+		}
+		return &v, nil
+	case MessageMediaStoryTypeID:
+		// Decoding messageMediaStory#cbb20d88.
+		v := MessageMediaStory{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageMediaClass: %w", err)
 		}

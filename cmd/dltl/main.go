@@ -39,6 +39,9 @@ Classes:
 
 		target.Classes = append(target.Classes, c)
 	}
+	if target.Layer == 0 {
+		target.Layer = s.Layer
+	}
 }
 
 func main() {

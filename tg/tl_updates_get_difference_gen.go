@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// UpdatesGetDifferenceRequest represents TL type `updates.getDifference#25939651`.
+// UpdatesGetDifferenceRequest represents TL type `updates.getDifference#19c2f763`.
 // Get new updates¹.
 //
 // Links:
@@ -49,6 +49,10 @@ type UpdatesGetDifferenceRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/updates
 	Pts int
+	// PtsLimit field of UpdatesGetDifferenceRequest.
+	//
+	// Use SetPtsLimit and GetPtsLimit helpers.
+	PtsLimit int
 	// For fast updating: if provided and pts + pts_total_limit < remote pts, updates
 	// differenceTooLong¹ will be returned.Simply tells the server to not return the
 	// difference if it is bigger than pts_total_limitIf the remote pts is too big (>
@@ -69,10 +73,14 @@ type UpdatesGetDifferenceRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/updates
 	Qts int
+	// QtsLimit field of UpdatesGetDifferenceRequest.
+	//
+	// Use SetQtsLimit and GetQtsLimit helpers.
+	QtsLimit int
 }
 
 // UpdatesGetDifferenceRequestTypeID is TL type id of UpdatesGetDifferenceRequest.
-const UpdatesGetDifferenceRequestTypeID = 0x25939651
+const UpdatesGetDifferenceRequestTypeID = 0x19c2f763
 
 // Ensuring interfaces in compile-time for UpdatesGetDifferenceRequest.
 var (
@@ -92,6 +100,9 @@ func (g *UpdatesGetDifferenceRequest) Zero() bool {
 	if !(g.Pts == 0) {
 		return false
 	}
+	if !(g.PtsLimit == 0) {
+		return false
+	}
 	if !(g.PtsTotalLimit == 0) {
 		return false
 	}
@@ -99,6 +110,9 @@ func (g *UpdatesGetDifferenceRequest) Zero() bool {
 		return false
 	}
 	if !(g.Qts == 0) {
+		return false
+	}
+	if !(g.QtsLimit == 0) {
 		return false
 	}
 
@@ -117,17 +131,27 @@ func (g *UpdatesGetDifferenceRequest) String() string {
 // FillFrom fills UpdatesGetDifferenceRequest from given interface.
 func (g *UpdatesGetDifferenceRequest) FillFrom(from interface {
 	GetPts() (value int)
+	GetPtsLimit() (value int, ok bool)
 	GetPtsTotalLimit() (value int, ok bool)
 	GetDate() (value int)
 	GetQts() (value int)
+	GetQtsLimit() (value int, ok bool)
 }) {
 	g.Pts = from.GetPts()
+	if val, ok := from.GetPtsLimit(); ok {
+		g.PtsLimit = val
+	}
+
 	if val, ok := from.GetPtsTotalLimit(); ok {
 		g.PtsTotalLimit = val
 	}
 
 	g.Date = from.GetDate()
 	g.Qts = from.GetQts()
+	if val, ok := from.GetQtsLimit(); ok {
+		g.QtsLimit = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -158,6 +182,11 @@ func (g *UpdatesGetDifferenceRequest) TypeInfo() tdp.Type {
 			SchemaName: "pts",
 		},
 		{
+			Name:       "PtsLimit",
+			SchemaName: "pts_limit",
+			Null:       !g.Flags.Has(1),
+		},
+		{
 			Name:       "PtsTotalLimit",
 			SchemaName: "pts_total_limit",
 			Null:       !g.Flags.Has(0),
@@ -170,21 +199,32 @@ func (g *UpdatesGetDifferenceRequest) TypeInfo() tdp.Type {
 			Name:       "Qts",
 			SchemaName: "qts",
 		},
+		{
+			Name:       "QtsLimit",
+			SchemaName: "qts_limit",
+			Null:       !g.Flags.Has(2),
+		},
 	}
 	return typ
 }
 
 // SetFlags sets flags for non-zero fields.
 func (g *UpdatesGetDifferenceRequest) SetFlags() {
+	if !(g.PtsLimit == 0) {
+		g.Flags.Set(1)
+	}
 	if !(g.PtsTotalLimit == 0) {
 		g.Flags.Set(0)
+	}
+	if !(g.QtsLimit == 0) {
+		g.Flags.Set(2)
 	}
 }
 
 // Encode implements bin.Encoder.
 func (g *UpdatesGetDifferenceRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode updates.getDifference#25939651 as nil")
+		return fmt.Errorf("can't encode updates.getDifference#19c2f763 as nil")
 	}
 	b.PutID(UpdatesGetDifferenceRequestTypeID)
 	return g.EncodeBare(b)
@@ -193,28 +233,34 @@ func (g *UpdatesGetDifferenceRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *UpdatesGetDifferenceRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode updates.getDifference#25939651 as nil")
+		return fmt.Errorf("can't encode updates.getDifference#19c2f763 as nil")
 	}
 	g.SetFlags()
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updates.getDifference#25939651: field flags: %w", err)
+		return fmt.Errorf("unable to encode updates.getDifference#19c2f763: field flags: %w", err)
 	}
 	b.PutInt(g.Pts)
+	if g.Flags.Has(1) {
+		b.PutInt(g.PtsLimit)
+	}
 	if g.Flags.Has(0) {
 		b.PutInt(g.PtsTotalLimit)
 	}
 	b.PutInt(g.Date)
 	b.PutInt(g.Qts)
+	if g.Flags.Has(2) {
+		b.PutInt(g.QtsLimit)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (g *UpdatesGetDifferenceRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode updates.getDifference#25939651 to nil")
+		return fmt.Errorf("can't decode updates.getDifference#19c2f763 to nil")
 	}
 	if err := b.ConsumeID(UpdatesGetDifferenceRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode updates.getDifference#25939651: %w", err)
+		return fmt.Errorf("unable to decode updates.getDifference#19c2f763: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -222,40 +268,54 @@ func (g *UpdatesGetDifferenceRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *UpdatesGetDifferenceRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode updates.getDifference#25939651 to nil")
+		return fmt.Errorf("can't decode updates.getDifference#19c2f763 to nil")
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updates.getDifference#25939651: field flags: %w", err)
+			return fmt.Errorf("unable to decode updates.getDifference#19c2f763: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.getDifference#25939651: field pts: %w", err)
+			return fmt.Errorf("unable to decode updates.getDifference#19c2f763: field pts: %w", err)
 		}
 		g.Pts = value
+	}
+	if g.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updates.getDifference#19c2f763: field pts_limit: %w", err)
+		}
+		g.PtsLimit = value
 	}
 	if g.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.getDifference#25939651: field pts_total_limit: %w", err)
+			return fmt.Errorf("unable to decode updates.getDifference#19c2f763: field pts_total_limit: %w", err)
 		}
 		g.PtsTotalLimit = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.getDifference#25939651: field date: %w", err)
+			return fmt.Errorf("unable to decode updates.getDifference#19c2f763: field date: %w", err)
 		}
 		g.Date = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updates.getDifference#25939651: field qts: %w", err)
+			return fmt.Errorf("unable to decode updates.getDifference#19c2f763: field qts: %w", err)
 		}
 		g.Qts = value
+	}
+	if g.Flags.Has(2) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updates.getDifference#19c2f763: field qts_limit: %w", err)
+		}
+		g.QtsLimit = value
 	}
 	return nil
 }
@@ -266,6 +326,24 @@ func (g *UpdatesGetDifferenceRequest) GetPts() (value int) {
 		return
 	}
 	return g.Pts
+}
+
+// SetPtsLimit sets value of PtsLimit conditional field.
+func (g *UpdatesGetDifferenceRequest) SetPtsLimit(value int) {
+	g.Flags.Set(1)
+	g.PtsLimit = value
+}
+
+// GetPtsLimit returns value of PtsLimit conditional field and
+// boolean which is true if field was set.
+func (g *UpdatesGetDifferenceRequest) GetPtsLimit() (value int, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(1) {
+		return value, false
+	}
+	return g.PtsLimit, true
 }
 
 // SetPtsTotalLimit sets value of PtsTotalLimit conditional field.
@@ -302,7 +380,25 @@ func (g *UpdatesGetDifferenceRequest) GetQts() (value int) {
 	return g.Qts
 }
 
-// UpdatesGetDifference invokes method updates.getDifference#25939651 returning error if any.
+// SetQtsLimit sets value of QtsLimit conditional field.
+func (g *UpdatesGetDifferenceRequest) SetQtsLimit(value int) {
+	g.Flags.Set(2)
+	g.QtsLimit = value
+}
+
+// GetQtsLimit returns value of QtsLimit conditional field and
+// boolean which is true if field was set.
+func (g *UpdatesGetDifferenceRequest) GetQtsLimit() (value int, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(2) {
+		return value, false
+	}
+	return g.QtsLimit, true
+}
+
+// UpdatesGetDifference invokes method updates.getDifference#19c2f763 returning error if any.
 // Get new updates¹.
 //
 // Links:
