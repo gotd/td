@@ -57,7 +57,7 @@ func (u *VideoDocumentBuilder) Duration(duration time.Duration) *VideoDocumentBu
 
 // DurationSeconds sets duration in seconds.
 //
-// DEPRECATED: Use Duration instead. Telegram now supports fractional seconds.
+// Deprecated: Use Duration instead. Telegram now supports fractional seconds.
 func (u *VideoDocumentBuilder) DurationSeconds(duration int) *VideoDocumentBuilder {
 	u.attr.Duration = float64(duration)
 	return u
