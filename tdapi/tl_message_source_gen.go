@@ -1079,6 +1079,137 @@ func (m *MessageSourceNotification) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// MessageSourceScreenshot represents TL type `messageSourceScreenshot#1c035d0a`.
+type MessageSourceScreenshot struct {
+}
+
+// MessageSourceScreenshotTypeID is TL type id of MessageSourceScreenshot.
+const MessageSourceScreenshotTypeID = 0x1c035d0a
+
+// construct implements constructor of MessageSourceClass.
+func (m MessageSourceScreenshot) construct() MessageSourceClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageSourceScreenshot.
+var (
+	_ bin.Encoder     = &MessageSourceScreenshot{}
+	_ bin.Decoder     = &MessageSourceScreenshot{}
+	_ bin.BareEncoder = &MessageSourceScreenshot{}
+	_ bin.BareDecoder = &MessageSourceScreenshot{}
+
+	_ MessageSourceClass = &MessageSourceScreenshot{}
+)
+
+func (m *MessageSourceScreenshot) Zero() bool {
+	if m == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageSourceScreenshot) String() string {
+	if m == nil {
+		return "MessageSourceScreenshot(nil)"
+	}
+	type Alias MessageSourceScreenshot
+	return fmt.Sprintf("MessageSourceScreenshot%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageSourceScreenshot) TypeID() uint32 {
+	return MessageSourceScreenshotTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageSourceScreenshot) TypeName() string {
+	return "messageSourceScreenshot"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageSourceScreenshot) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageSourceScreenshot",
+		ID:   MessageSourceScreenshotTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageSourceScreenshot) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageSourceScreenshot#1c035d0a as nil")
+	}
+	b.PutID(MessageSourceScreenshotTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageSourceScreenshot) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageSourceScreenshot#1c035d0a as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageSourceScreenshot) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageSourceScreenshot#1c035d0a to nil")
+	}
+	if err := b.ConsumeID(MessageSourceScreenshotTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageSourceScreenshot#1c035d0a: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageSourceScreenshot) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageSourceScreenshot#1c035d0a to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageSourceScreenshot) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageSourceScreenshot#1c035d0a as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageSourceScreenshot")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageSourceScreenshot) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageSourceScreenshot#1c035d0a to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageSourceScreenshot"); err != nil {
+				return fmt.Errorf("unable to decode messageSourceScreenshot#1c035d0a: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // MessageSourceOther represents TL type `messageSourceOther#35c0a702`.
 type MessageSourceOther struct {
 }
@@ -1230,6 +1361,7 @@ const MessageSourceClassName = "MessageSource"
 //	case *tdapi.MessageSourceSearch: // messageSourceSearch#72853771
 //	case *tdapi.MessageSourceChatEventLog: // messageSourceChatEventLog#c2ae19bc
 //	case *tdapi.MessageSourceNotification: // messageSourceNotification#c1a11bed
+//	case *tdapi.MessageSourceScreenshot: // messageSourceScreenshot#1c035d0a
 //	case *tdapi.MessageSourceOther: // messageSourceOther#35c0a702
 //	default: panic(v)
 //	}
@@ -1318,6 +1450,13 @@ func DecodeMessageSource(buf *bin.Buffer) (MessageSourceClass, error) {
 			return nil, fmt.Errorf("unable to decode MessageSourceClass: %w", err)
 		}
 		return &v, nil
+	case MessageSourceScreenshotTypeID:
+		// Decoding messageSourceScreenshot#1c035d0a.
+		v := MessageSourceScreenshot{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageSourceClass: %w", err)
+		}
+		return &v, nil
 	case MessageSourceOtherTypeID:
 		// Decoding messageSourceOther#35c0a702.
 		v := MessageSourceOther{}
@@ -1389,6 +1528,13 @@ func DecodeTDLibJSONMessageSource(buf tdjson.Decoder) (MessageSourceClass, error
 	case "messageSourceNotification":
 		// Decoding messageSourceNotification#c1a11bed.
 		v := MessageSourceNotification{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageSourceClass: %w", err)
+		}
+		return &v, nil
+	case "messageSourceScreenshot":
+		// Decoding messageSourceScreenshot#1c035d0a.
+		v := MessageSourceScreenshot{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageSourceClass: %w", err)
 		}

@@ -1019,6 +1019,137 @@ func (s *SuggestedActionUpgradePremium) DecodeTDLibJSON(b tdjson.Decoder) error 
 	})
 }
 
+// SuggestedActionRestorePremium represents TL type `suggestedActionRestorePremium#e909dd64`.
+type SuggestedActionRestorePremium struct {
+}
+
+// SuggestedActionRestorePremiumTypeID is TL type id of SuggestedActionRestorePremium.
+const SuggestedActionRestorePremiumTypeID = 0xe909dd64
+
+// construct implements constructor of SuggestedActionClass.
+func (s SuggestedActionRestorePremium) construct() SuggestedActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SuggestedActionRestorePremium.
+var (
+	_ bin.Encoder     = &SuggestedActionRestorePremium{}
+	_ bin.Decoder     = &SuggestedActionRestorePremium{}
+	_ bin.BareEncoder = &SuggestedActionRestorePremium{}
+	_ bin.BareDecoder = &SuggestedActionRestorePremium{}
+
+	_ SuggestedActionClass = &SuggestedActionRestorePremium{}
+)
+
+func (s *SuggestedActionRestorePremium) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *SuggestedActionRestorePremium) String() string {
+	if s == nil {
+		return "SuggestedActionRestorePremium(nil)"
+	}
+	type Alias SuggestedActionRestorePremium
+	return fmt.Sprintf("SuggestedActionRestorePremium%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*SuggestedActionRestorePremium) TypeID() uint32 {
+	return SuggestedActionRestorePremiumTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*SuggestedActionRestorePremium) TypeName() string {
+	return "suggestedActionRestorePremium"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SuggestedActionRestorePremium) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "suggestedActionRestorePremium",
+		ID:   SuggestedActionRestorePremiumTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *SuggestedActionRestorePremium) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionRestorePremium#e909dd64 as nil")
+	}
+	b.PutID(SuggestedActionRestorePremiumTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SuggestedActionRestorePremium) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionRestorePremium#e909dd64 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *SuggestedActionRestorePremium) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionRestorePremium#e909dd64 to nil")
+	}
+	if err := b.ConsumeID(SuggestedActionRestorePremiumTypeID); err != nil {
+		return fmt.Errorf("unable to decode suggestedActionRestorePremium#e909dd64: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SuggestedActionRestorePremium) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionRestorePremium#e909dd64 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SuggestedActionRestorePremium) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionRestorePremium#e909dd64 as nil")
+	}
+	b.ObjStart()
+	b.PutID("suggestedActionRestorePremium")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SuggestedActionRestorePremium) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionRestorePremium#e909dd64 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("suggestedActionRestorePremium"); err != nil {
+				return fmt.Errorf("unable to decode suggestedActionRestorePremium#e909dd64: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // SuggestedActionSubscribeToAnnualPremium represents TL type `suggestedActionSubscribeToAnnualPremium#164978bb`.
 type SuggestedActionSubscribeToAnnualPremium struct {
 }
@@ -1169,6 +1300,7 @@ const SuggestedActionClassName = "SuggestedAction"
 //	case *tdapi.SuggestedActionConvertToBroadcastGroup: // suggestedActionConvertToBroadcastGroup#c67a2e38
 //	case *tdapi.SuggestedActionSetPassword: // suggestedActionSetPassword#6f147d98
 //	case *tdapi.SuggestedActionUpgradePremium: // suggestedActionUpgradePremium#70aa79fb
+//	case *tdapi.SuggestedActionRestorePremium: // suggestedActionRestorePremium#e909dd64
 //	case *tdapi.SuggestedActionSubscribeToAnnualPremium: // suggestedActionSubscribeToAnnualPremium#164978bb
 //	default: panic(v)
 //	}
@@ -1250,6 +1382,13 @@ func DecodeSuggestedAction(buf *bin.Buffer) (SuggestedActionClass, error) {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
 		}
 		return &v, nil
+	case SuggestedActionRestorePremiumTypeID:
+		// Decoding suggestedActionRestorePremium#e909dd64.
+		v := SuggestedActionRestorePremium{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
 	case SuggestedActionSubscribeToAnnualPremiumTypeID:
 		// Decoding suggestedActionSubscribeToAnnualPremium#164978bb.
 		v := SuggestedActionSubscribeToAnnualPremium{}
@@ -1314,6 +1453,13 @@ func DecodeTDLibJSONSuggestedAction(buf tdjson.Decoder) (SuggestedActionClass, e
 	case "suggestedActionUpgradePremium":
 		// Decoding suggestedActionUpgradePremium#70aa79fb.
 		v := SuggestedActionUpgradePremium{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
+	case "suggestedActionRestorePremium":
+		// Decoding suggestedActionRestorePremium#e909dd64.
+		v := SuggestedActionRestorePremium{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
 		}

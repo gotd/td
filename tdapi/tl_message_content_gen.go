@@ -3864,6 +3864,240 @@ func (m *MessagePoll) GetPoll() (value Poll) {
 	return m.Poll
 }
 
+// MessageStory represents TL type `messageStory#3329f2d4`.
+type MessageStory struct {
+	// Identifier of the chat that posted the story
+	StorySenderChatID int64
+	// Story identifier
+	StoryID int32
+	// True, if the story was automatically forwarded because of a mention of the user
+	ViaMention bool
+}
+
+// MessageStoryTypeID is TL type id of MessageStory.
+const MessageStoryTypeID = 0x3329f2d4
+
+// construct implements constructor of MessageContentClass.
+func (m MessageStory) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageStory.
+var (
+	_ bin.Encoder     = &MessageStory{}
+	_ bin.Decoder     = &MessageStory{}
+	_ bin.BareEncoder = &MessageStory{}
+	_ bin.BareDecoder = &MessageStory{}
+
+	_ MessageContentClass = &MessageStory{}
+)
+
+func (m *MessageStory) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.StorySenderChatID == 0) {
+		return false
+	}
+	if !(m.StoryID == 0) {
+		return false
+	}
+	if !(m.ViaMention == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageStory) String() string {
+	if m == nil {
+		return "MessageStory(nil)"
+	}
+	type Alias MessageStory
+	return fmt.Sprintf("MessageStory%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageStory) TypeID() uint32 {
+	return MessageStoryTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageStory) TypeName() string {
+	return "messageStory"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageStory) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageStory",
+		ID:   MessageStoryTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "StorySenderChatID",
+			SchemaName: "story_sender_chat_id",
+		},
+		{
+			Name:       "StoryID",
+			SchemaName: "story_id",
+		},
+		{
+			Name:       "ViaMention",
+			SchemaName: "via_mention",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageStory) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageStory#3329f2d4 as nil")
+	}
+	b.PutID(MessageStoryTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageStory) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageStory#3329f2d4 as nil")
+	}
+	b.PutInt53(m.StorySenderChatID)
+	b.PutInt32(m.StoryID)
+	b.PutBool(m.ViaMention)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageStory) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageStory#3329f2d4 to nil")
+	}
+	if err := b.ConsumeID(MessageStoryTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageStory#3329f2d4: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageStory) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageStory#3329f2d4 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageStory#3329f2d4: field story_sender_chat_id: %w", err)
+		}
+		m.StorySenderChatID = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageStory#3329f2d4: field story_id: %w", err)
+		}
+		m.StoryID = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageStory#3329f2d4: field via_mention: %w", err)
+		}
+		m.ViaMention = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageStory) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageStory#3329f2d4 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageStory")
+	b.Comma()
+	b.FieldStart("story_sender_chat_id")
+	b.PutInt53(m.StorySenderChatID)
+	b.Comma()
+	b.FieldStart("story_id")
+	b.PutInt32(m.StoryID)
+	b.Comma()
+	b.FieldStart("via_mention")
+	b.PutBool(m.ViaMention)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageStory) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageStory#3329f2d4 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageStory"); err != nil {
+				return fmt.Errorf("unable to decode messageStory#3329f2d4: %w", err)
+			}
+		case "story_sender_chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageStory#3329f2d4: field story_sender_chat_id: %w", err)
+			}
+			m.StorySenderChatID = value
+		case "story_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageStory#3329f2d4: field story_id: %w", err)
+			}
+			m.StoryID = value
+		case "via_mention":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageStory#3329f2d4: field via_mention: %w", err)
+			}
+			m.ViaMention = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetStorySenderChatID returns value of StorySenderChatID field.
+func (m *MessageStory) GetStorySenderChatID() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.StorySenderChatID
+}
+
+// GetStoryID returns value of StoryID field.
+func (m *MessageStory) GetStoryID() (value int32) {
+	if m == nil {
+		return
+	}
+	return m.StoryID
+}
+
+// GetViaMention returns value of ViaMention field.
+func (m *MessageStory) GetViaMention() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.ViaMention
+}
+
 // MessageInvoice represents TL type `messageInvoice#30c2ddd6`.
 type MessageInvoice struct {
 	// Product title
@@ -12640,6 +12874,7 @@ const MessageContentClassName = "MessageContent"
 //	case *tdapi.MessageDice: // messageDice#42817239
 //	case *tdapi.MessageGame: // messageGame#fbdc6976
 //	case *tdapi.MessagePoll: // messagePoll#d888b24d
+//	case *tdapi.MessageStory: // messageStory#3329f2d4
 //	case *tdapi.MessageInvoice: // messageInvoice#30c2ddd6
 //	case *tdapi.MessageCall: // messageCall#201ede00
 //	case *tdapi.MessageVideoChatScheduled: // messageVideoChatScheduled#916c1db7
@@ -12836,6 +13071,13 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 	case MessagePollTypeID:
 		// Decoding messagePoll#d888b24d.
 		v := MessagePoll{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case MessageStoryTypeID:
+		// Decoding messageStory#3329f2d4.
+		v := MessageStory{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
@@ -13275,6 +13517,13 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 	case "messagePoll":
 		// Decoding messagePoll#d888b24d.
 		v := MessagePoll{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "messageStory":
+		// Decoding messageStory#3329f2d4.
+		v := MessageStory{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}

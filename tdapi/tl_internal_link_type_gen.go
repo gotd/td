@@ -5299,6 +5299,206 @@ func (i *InternalLinkTypeStickerSet) GetExpectCustomEmoji() (value bool) {
 	return i.ExpectCustomEmoji
 }
 
+// InternalLinkTypeStory represents TL type `internalLinkTypeStory#57bce647`.
+type InternalLinkTypeStory struct {
+	// Username of the sender of the story
+	StorySenderUsername string
+	// Story identifier
+	StoryID int32
+}
+
+// InternalLinkTypeStoryTypeID is TL type id of InternalLinkTypeStory.
+const InternalLinkTypeStoryTypeID = 0x57bce647
+
+// construct implements constructor of InternalLinkTypeClass.
+func (i InternalLinkTypeStory) construct() InternalLinkTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InternalLinkTypeStory.
+var (
+	_ bin.Encoder     = &InternalLinkTypeStory{}
+	_ bin.Decoder     = &InternalLinkTypeStory{}
+	_ bin.BareEncoder = &InternalLinkTypeStory{}
+	_ bin.BareDecoder = &InternalLinkTypeStory{}
+
+	_ InternalLinkTypeClass = &InternalLinkTypeStory{}
+)
+
+func (i *InternalLinkTypeStory) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.StorySenderUsername == "") {
+		return false
+	}
+	if !(i.StoryID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InternalLinkTypeStory) String() string {
+	if i == nil {
+		return "InternalLinkTypeStory(nil)"
+	}
+	type Alias InternalLinkTypeStory
+	return fmt.Sprintf("InternalLinkTypeStory%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InternalLinkTypeStory) TypeID() uint32 {
+	return InternalLinkTypeStoryTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InternalLinkTypeStory) TypeName() string {
+	return "internalLinkTypeStory"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InternalLinkTypeStory) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "internalLinkTypeStory",
+		ID:   InternalLinkTypeStoryTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "StorySenderUsername",
+			SchemaName: "story_sender_username",
+		},
+		{
+			Name:       "StoryID",
+			SchemaName: "story_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InternalLinkTypeStory) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeStory#57bce647 as nil")
+	}
+	b.PutID(InternalLinkTypeStoryTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InternalLinkTypeStory) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeStory#57bce647 as nil")
+	}
+	b.PutString(i.StorySenderUsername)
+	b.PutInt32(i.StoryID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InternalLinkTypeStory) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeStory#57bce647 to nil")
+	}
+	if err := b.ConsumeID(InternalLinkTypeStoryTypeID); err != nil {
+		return fmt.Errorf("unable to decode internalLinkTypeStory#57bce647: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InternalLinkTypeStory) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeStory#57bce647 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeStory#57bce647: field story_sender_username: %w", err)
+		}
+		i.StorySenderUsername = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeStory#57bce647: field story_id: %w", err)
+		}
+		i.StoryID = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InternalLinkTypeStory) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeStory#57bce647 as nil")
+	}
+	b.ObjStart()
+	b.PutID("internalLinkTypeStory")
+	b.Comma()
+	b.FieldStart("story_sender_username")
+	b.PutString(i.StorySenderUsername)
+	b.Comma()
+	b.FieldStart("story_id")
+	b.PutInt32(i.StoryID)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InternalLinkTypeStory) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeStory#57bce647 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("internalLinkTypeStory"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeStory#57bce647: %w", err)
+			}
+		case "story_sender_username":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeStory#57bce647: field story_sender_username: %w", err)
+			}
+			i.StorySenderUsername = value
+		case "story_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeStory#57bce647: field story_id: %w", err)
+			}
+			i.StoryID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetStorySenderUsername returns value of StorySenderUsername field.
+func (i *InternalLinkTypeStory) GetStorySenderUsername() (value string) {
+	if i == nil {
+		return
+	}
+	return i.StorySenderUsername
+}
+
+// GetStoryID returns value of StoryID field.
+func (i *InternalLinkTypeStory) GetStoryID() (value int32) {
+	if i == nil {
+		return
+	}
+	return i.StoryID
+}
+
 // InternalLinkTypeTheme represents TL type `internalLinkTypeTheme#f405f807`.
 type InternalLinkTypeTheme struct {
 	// Name of the theme
@@ -6737,6 +6937,7 @@ const InternalLinkTypeClassName = "InternalLinkType"
 //	case *tdapi.InternalLinkTypeRestorePurchases: // internalLinkTypeRestorePurchases#24203483
 //	case *tdapi.InternalLinkTypeSettings: // internalLinkTypeSettings#177545b4
 //	case *tdapi.InternalLinkTypeStickerSet: // internalLinkTypeStickerSet#a1464fa2
+//	case *tdapi.InternalLinkTypeStory: // internalLinkTypeStory#57bce647
 //	case *tdapi.InternalLinkTypeTheme: // internalLinkTypeTheme#f405f807
 //	case *tdapi.InternalLinkTypeThemeSettings: // internalLinkTypeThemeSettings#c14d3916
 //	case *tdapi.InternalLinkTypeUnknownDeepLink: // internalLinkTypeUnknownDeepLink#2549d7db
@@ -6982,6 +7183,13 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 	case InternalLinkTypeStickerSetTypeID:
 		// Decoding internalLinkTypeStickerSet#a1464fa2.
 		v := InternalLinkTypeStickerSet{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case InternalLinkTypeStoryTypeID:
+		// Decoding internalLinkTypeStory#57bce647.
+		v := InternalLinkTypeStory{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
@@ -7260,6 +7468,13 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 	case "internalLinkTypeStickerSet":
 		// Decoding internalLinkTypeStickerSet#a1464fa2.
 		v := InternalLinkTypeStickerSet{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeStory":
+		// Decoding internalLinkTypeStory#57bce647.
+		v := InternalLinkTypeStory{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}

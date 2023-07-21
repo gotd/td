@@ -31,12 +31,12 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// InputIdentityDocument represents TL type `inputIdentityDocument#7cf00afe`.
+// InputIdentityDocument represents TL type `inputIdentityDocument#185f2052`.
 type InputIdentityDocument struct {
 	// Document number; 1-24 characters
 	Number string
-	// Document expiry date; pass null if not applicable
-	ExpiryDate Date
+	// Document expiration date; pass null if not applicable
+	ExpirationDate Date
 	// Front side of the document
 	FrontSide InputFileClass
 	// Reverse side of the document; only for driver license and identity card; pass null
@@ -49,7 +49,7 @@ type InputIdentityDocument struct {
 }
 
 // InputIdentityDocumentTypeID is TL type id of InputIdentityDocument.
-const InputIdentityDocumentTypeID = 0x7cf00afe
+const InputIdentityDocumentTypeID = 0x185f2052
 
 // Ensuring interfaces in compile-time for InputIdentityDocument.
 var (
@@ -66,7 +66,7 @@ func (i *InputIdentityDocument) Zero() bool {
 	if !(i.Number == "") {
 		return false
 	}
-	if !(i.ExpiryDate.Zero()) {
+	if !(i.ExpirationDate.Zero()) {
 		return false
 	}
 	if !(i.FrontSide == nil) {
@@ -122,8 +122,8 @@ func (i *InputIdentityDocument) TypeInfo() tdp.Type {
 			SchemaName: "number",
 		},
 		{
-			Name:       "ExpiryDate",
-			SchemaName: "expiry_date",
+			Name:       "ExpirationDate",
+			SchemaName: "expiration_date",
 		},
 		{
 			Name:       "FrontSide",
@@ -148,7 +148,7 @@ func (i *InputIdentityDocument) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputIdentityDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputIdentityDocument#7cf00afe as nil")
+		return fmt.Errorf("can't encode inputIdentityDocument#185f2052 as nil")
 	}
 	b.PutID(InputIdentityDocumentTypeID)
 	return i.EncodeBare(b)
@@ -157,37 +157,37 @@ func (i *InputIdentityDocument) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputIdentityDocument) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputIdentityDocument#7cf00afe as nil")
+		return fmt.Errorf("can't encode inputIdentityDocument#185f2052 as nil")
 	}
 	b.PutString(i.Number)
-	if err := i.ExpiryDate.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field expiry_date: %w", err)
+	if err := i.ExpirationDate.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputIdentityDocument#185f2052: field expiration_date: %w", err)
 	}
 	if i.FrontSide == nil {
-		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field front_side is nil")
+		return fmt.Errorf("unable to encode inputIdentityDocument#185f2052: field front_side is nil")
 	}
 	if err := i.FrontSide.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field front_side: %w", err)
+		return fmt.Errorf("unable to encode inputIdentityDocument#185f2052: field front_side: %w", err)
 	}
 	if i.ReverseSide == nil {
-		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field reverse_side is nil")
+		return fmt.Errorf("unable to encode inputIdentityDocument#185f2052: field reverse_side is nil")
 	}
 	if err := i.ReverseSide.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field reverse_side: %w", err)
+		return fmt.Errorf("unable to encode inputIdentityDocument#185f2052: field reverse_side: %w", err)
 	}
 	if i.Selfie == nil {
-		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field selfie is nil")
+		return fmt.Errorf("unable to encode inputIdentityDocument#185f2052: field selfie is nil")
 	}
 	if err := i.Selfie.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field selfie: %w", err)
+		return fmt.Errorf("unable to encode inputIdentityDocument#185f2052: field selfie: %w", err)
 	}
 	b.PutInt(len(i.Translation))
 	for idx, v := range i.Translation {
 		if v == nil {
-			return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field translation element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode inputIdentityDocument#185f2052: field translation element with index %d is nil", idx)
 		}
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare inputIdentityDocument#7cf00afe: field translation element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare inputIdentityDocument#185f2052: field translation element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -196,10 +196,10 @@ func (i *InputIdentityDocument) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputIdentityDocument) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputIdentityDocument#7cf00afe to nil")
+		return fmt.Errorf("can't decode inputIdentityDocument#185f2052 to nil")
 	}
 	if err := b.ConsumeID(InputIdentityDocumentTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: %w", err)
+		return fmt.Errorf("unable to decode inputIdentityDocument#185f2052: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -207,45 +207,45 @@ func (i *InputIdentityDocument) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputIdentityDocument) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputIdentityDocument#7cf00afe to nil")
+		return fmt.Errorf("can't decode inputIdentityDocument#185f2052 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field number: %w", err)
+			return fmt.Errorf("unable to decode inputIdentityDocument#185f2052: field number: %w", err)
 		}
 		i.Number = value
 	}
 	{
-		if err := i.ExpiryDate.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field expiry_date: %w", err)
+		if err := i.ExpirationDate.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputIdentityDocument#185f2052: field expiration_date: %w", err)
 		}
 	}
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field front_side: %w", err)
+			return fmt.Errorf("unable to decode inputIdentityDocument#185f2052: field front_side: %w", err)
 		}
 		i.FrontSide = value
 	}
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field reverse_side: %w", err)
+			return fmt.Errorf("unable to decode inputIdentityDocument#185f2052: field reverse_side: %w", err)
 		}
 		i.ReverseSide = value
 	}
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field selfie: %w", err)
+			return fmt.Errorf("unable to decode inputIdentityDocument#185f2052: field selfie: %w", err)
 		}
 		i.Selfie = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field translation: %w", err)
+			return fmt.Errorf("unable to decode inputIdentityDocument#185f2052: field translation: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -254,7 +254,7 @@ func (i *InputIdentityDocument) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputFile(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field translation: %w", err)
+				return fmt.Errorf("unable to decode inputIdentityDocument#185f2052: field translation: %w", err)
 			}
 			i.Translation = append(i.Translation, value)
 		}
@@ -265,7 +265,7 @@ func (i *InputIdentityDocument) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InputIdentityDocument) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputIdentityDocument#7cf00afe as nil")
+		return fmt.Errorf("can't encode inputIdentityDocument#185f2052 as nil")
 	}
 	b.ObjStart()
 	b.PutID("inputIdentityDocument")
@@ -273,43 +273,43 @@ func (i *InputIdentityDocument) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("number")
 	b.PutString(i.Number)
 	b.Comma()
-	b.FieldStart("expiry_date")
-	if err := i.ExpiryDate.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field expiry_date: %w", err)
+	b.FieldStart("expiration_date")
+	if err := i.ExpirationDate.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputIdentityDocument#185f2052: field expiration_date: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("front_side")
 	if i.FrontSide == nil {
-		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field front_side is nil")
+		return fmt.Errorf("unable to encode inputIdentityDocument#185f2052: field front_side is nil")
 	}
 	if err := i.FrontSide.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field front_side: %w", err)
+		return fmt.Errorf("unable to encode inputIdentityDocument#185f2052: field front_side: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("reverse_side")
 	if i.ReverseSide == nil {
-		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field reverse_side is nil")
+		return fmt.Errorf("unable to encode inputIdentityDocument#185f2052: field reverse_side is nil")
 	}
 	if err := i.ReverseSide.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field reverse_side: %w", err)
+		return fmt.Errorf("unable to encode inputIdentityDocument#185f2052: field reverse_side: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("selfie")
 	if i.Selfie == nil {
-		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field selfie is nil")
+		return fmt.Errorf("unable to encode inputIdentityDocument#185f2052: field selfie is nil")
 	}
 	if err := i.Selfie.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field selfie: %w", err)
+		return fmt.Errorf("unable to encode inputIdentityDocument#185f2052: field selfie: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("translation")
 	b.ArrStart()
 	for idx, v := range i.Translation {
 		if v == nil {
-			return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field translation element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode inputIdentityDocument#185f2052: field translation element with index %d is nil", idx)
 		}
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode inputIdentityDocument#7cf00afe: field translation element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode inputIdentityDocument#185f2052: field translation element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -324,53 +324,53 @@ func (i *InputIdentityDocument) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InputIdentityDocument) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputIdentityDocument#7cf00afe to nil")
+		return fmt.Errorf("can't decode inputIdentityDocument#185f2052 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("inputIdentityDocument"); err != nil {
-				return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: %w", err)
+				return fmt.Errorf("unable to decode inputIdentityDocument#185f2052: %w", err)
 			}
 		case "number":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field number: %w", err)
+				return fmt.Errorf("unable to decode inputIdentityDocument#185f2052: field number: %w", err)
 			}
 			i.Number = value
-		case "expiry_date":
-			if err := i.ExpiryDate.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field expiry_date: %w", err)
+		case "expiration_date":
+			if err := i.ExpirationDate.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputIdentityDocument#185f2052: field expiration_date: %w", err)
 			}
 		case "front_side":
 			value, err := DecodeTDLibJSONInputFile(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field front_side: %w", err)
+				return fmt.Errorf("unable to decode inputIdentityDocument#185f2052: field front_side: %w", err)
 			}
 			i.FrontSide = value
 		case "reverse_side":
 			value, err := DecodeTDLibJSONInputFile(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field reverse_side: %w", err)
+				return fmt.Errorf("unable to decode inputIdentityDocument#185f2052: field reverse_side: %w", err)
 			}
 			i.ReverseSide = value
 		case "selfie":
 			value, err := DecodeTDLibJSONInputFile(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field selfie: %w", err)
+				return fmt.Errorf("unable to decode inputIdentityDocument#185f2052: field selfie: %w", err)
 			}
 			i.Selfie = value
 		case "translation":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONInputFile(b)
 				if err != nil {
-					return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field translation: %w", err)
+					return fmt.Errorf("unable to decode inputIdentityDocument#185f2052: field translation: %w", err)
 				}
 				i.Translation = append(i.Translation, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode inputIdentityDocument#7cf00afe: field translation: %w", err)
+				return fmt.Errorf("unable to decode inputIdentityDocument#185f2052: field translation: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -387,12 +387,12 @@ func (i *InputIdentityDocument) GetNumber() (value string) {
 	return i.Number
 }
 
-// GetExpiryDate returns value of ExpiryDate field.
-func (i *InputIdentityDocument) GetExpiryDate() (value Date) {
+// GetExpirationDate returns value of ExpirationDate field.
+func (i *InputIdentityDocument) GetExpirationDate() (value Date) {
 	if i == nil {
 		return
 	}
-	return i.ExpiryDate
+	return i.ExpirationDate
 }
 
 // GetFrontSide returns value of FrontSide field.

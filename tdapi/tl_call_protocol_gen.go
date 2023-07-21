@@ -39,7 +39,7 @@ type CallProtocol struct {
 	UDPReflector bool
 	// The minimum supported API layer; use 65
 	MinLayer int32
-	// The maximum supported API layer; use 65
+	// The maximum supported API layer; use 92
 	MaxLayer int32
 	// List of supported tgcalls versions
 	LibraryVersions []string

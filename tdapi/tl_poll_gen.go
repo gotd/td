@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Poll represents TL type `poll#834d7ae2`.
+// Poll represents TL type `poll#8c34a82a`.
 type Poll struct {
 	// Unique poll identifier
 	ID int64
@@ -41,8 +41,8 @@ type Poll struct {
 	Options []PollOption
 	// Total number of voters, participating in the poll
 	TotalVoterCount int32
-	// User identifiers of recent voters, if the poll is non-anonymous
-	RecentVoterUserIDs []int64
+	// Identifiers of recent voters, if the poll is non-anonymous
+	RecentVoterIDs []MessageSenderClass
 	// True, if the poll is anonymous
 	IsAnonymous bool
 	// Type of the poll
@@ -56,7 +56,7 @@ type Poll struct {
 }
 
 // PollTypeID is TL type id of Poll.
-const PollTypeID = 0x834d7ae2
+const PollTypeID = 0x8c34a82a
 
 // Ensuring interfaces in compile-time for Poll.
 var (
@@ -82,7 +82,7 @@ func (p *Poll) Zero() bool {
 	if !(p.TotalVoterCount == 0) {
 		return false
 	}
-	if !(p.RecentVoterUserIDs == nil) {
+	if !(p.RecentVoterIDs == nil) {
 		return false
 	}
 	if !(p.IsAnonymous == false) {
@@ -153,8 +153,8 @@ func (p *Poll) TypeInfo() tdp.Type {
 			SchemaName: "total_voter_count",
 		},
 		{
-			Name:       "RecentVoterUserIDs",
-			SchemaName: "recent_voter_user_ids",
+			Name:       "RecentVoterIDs",
+			SchemaName: "recent_voter_ids",
 		},
 		{
 			Name:       "IsAnonymous",
@@ -183,7 +183,7 @@ func (p *Poll) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *Poll) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode poll#834d7ae2 as nil")
+		return fmt.Errorf("can't encode poll#8c34a82a as nil")
 	}
 	b.PutID(PollTypeID)
 	return p.EncodeBare(b)
@@ -192,27 +192,32 @@ func (p *Poll) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *Poll) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode poll#834d7ae2 as nil")
+		return fmt.Errorf("can't encode poll#8c34a82a as nil")
 	}
 	b.PutLong(p.ID)
 	b.PutString(p.Question)
 	b.PutInt(len(p.Options))
 	for idx, v := range p.Options {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare poll#834d7ae2: field options element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare poll#8c34a82a: field options element with index %d: %w", idx, err)
 		}
 	}
 	b.PutInt32(p.TotalVoterCount)
-	b.PutInt(len(p.RecentVoterUserIDs))
-	for _, v := range p.RecentVoterUserIDs {
-		b.PutInt53(v)
+	b.PutInt(len(p.RecentVoterIDs))
+	for idx, v := range p.RecentVoterIDs {
+		if v == nil {
+			return fmt.Errorf("unable to encode poll#8c34a82a: field recent_voter_ids element with index %d is nil", idx)
+		}
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare poll#8c34a82a: field recent_voter_ids element with index %d: %w", idx, err)
+		}
 	}
 	b.PutBool(p.IsAnonymous)
 	if p.Type == nil {
-		return fmt.Errorf("unable to encode poll#834d7ae2: field type is nil")
+		return fmt.Errorf("unable to encode poll#8c34a82a: field type is nil")
 	}
 	if err := p.Type.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode poll#834d7ae2: field type: %w", err)
+		return fmt.Errorf("unable to encode poll#8c34a82a: field type: %w", err)
 	}
 	b.PutInt32(p.OpenPeriod)
 	b.PutInt32(p.CloseDate)
@@ -223,10 +228,10 @@ func (p *Poll) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *Poll) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode poll#834d7ae2 to nil")
+		return fmt.Errorf("can't decode poll#8c34a82a to nil")
 	}
 	if err := b.ConsumeID(PollTypeID); err != nil {
-		return fmt.Errorf("unable to decode poll#834d7ae2: %w", err)
+		return fmt.Errorf("unable to decode poll#8c34a82a: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -234,26 +239,26 @@ func (p *Poll) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *Poll) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode poll#834d7ae2 to nil")
+		return fmt.Errorf("can't decode poll#8c34a82a to nil")
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#834d7ae2: field id: %w", err)
+			return fmt.Errorf("unable to decode poll#8c34a82a: field id: %w", err)
 		}
 		p.ID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#834d7ae2: field question: %w", err)
+			return fmt.Errorf("unable to decode poll#8c34a82a: field question: %w", err)
 		}
 		p.Question = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#834d7ae2: field options: %w", err)
+			return fmt.Errorf("unable to decode poll#8c34a82a: field options: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -262,7 +267,7 @@ func (p *Poll) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value PollOption
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare poll#834d7ae2: field options: %w", err)
+				return fmt.Errorf("unable to decode bare poll#8c34a82a: field options: %w", err)
 			}
 			p.Options = append(p.Options, value)
 		}
@@ -270,59 +275,59 @@ func (p *Poll) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#834d7ae2: field total_voter_count: %w", err)
+			return fmt.Errorf("unable to decode poll#8c34a82a: field total_voter_count: %w", err)
 		}
 		p.TotalVoterCount = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#834d7ae2: field recent_voter_user_ids: %w", err)
+			return fmt.Errorf("unable to decode poll#8c34a82a: field recent_voter_ids: %w", err)
 		}
 
 		if headerLen > 0 {
-			p.RecentVoterUserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
+			p.RecentVoterIDs = make([]MessageSenderClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Int53()
+			value, err := DecodeMessageSender(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode poll#834d7ae2: field recent_voter_user_ids: %w", err)
+				return fmt.Errorf("unable to decode poll#8c34a82a: field recent_voter_ids: %w", err)
 			}
-			p.RecentVoterUserIDs = append(p.RecentVoterUserIDs, value)
+			p.RecentVoterIDs = append(p.RecentVoterIDs, value)
 		}
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#834d7ae2: field is_anonymous: %w", err)
+			return fmt.Errorf("unable to decode poll#8c34a82a: field is_anonymous: %w", err)
 		}
 		p.IsAnonymous = value
 	}
 	{
 		value, err := DecodePollType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#834d7ae2: field type: %w", err)
+			return fmt.Errorf("unable to decode poll#8c34a82a: field type: %w", err)
 		}
 		p.Type = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#834d7ae2: field open_period: %w", err)
+			return fmt.Errorf("unable to decode poll#8c34a82a: field open_period: %w", err)
 		}
 		p.OpenPeriod = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#834d7ae2: field close_date: %w", err)
+			return fmt.Errorf("unable to decode poll#8c34a82a: field close_date: %w", err)
 		}
 		p.CloseDate = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode poll#834d7ae2: field is_closed: %w", err)
+			return fmt.Errorf("unable to decode poll#8c34a82a: field is_closed: %w", err)
 		}
 		p.IsClosed = value
 	}
@@ -332,7 +337,7 @@ func (p *Poll) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (p *Poll) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
-		return fmt.Errorf("can't encode poll#834d7ae2 as nil")
+		return fmt.Errorf("can't encode poll#8c34a82a as nil")
 	}
 	b.ObjStart()
 	b.PutID("poll")
@@ -347,7 +352,7 @@ func (p *Poll) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.ArrStart()
 	for idx, v := range p.Options {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode poll#834d7ae2: field options element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode poll#8c34a82a: field options element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -357,10 +362,15 @@ func (p *Poll) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("total_voter_count")
 	b.PutInt32(p.TotalVoterCount)
 	b.Comma()
-	b.FieldStart("recent_voter_user_ids")
+	b.FieldStart("recent_voter_ids")
 	b.ArrStart()
-	for _, v := range p.RecentVoterUserIDs {
-		b.PutInt53(v)
+	for idx, v := range p.RecentVoterIDs {
+		if v == nil {
+			return fmt.Errorf("unable to encode poll#8c34a82a: field recent_voter_ids element with index %d is nil", idx)
+		}
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode poll#8c34a82a: field recent_voter_ids element with index %d: %w", idx, err)
+		}
 		b.Comma()
 	}
 	b.StripComma()
@@ -371,10 +381,10 @@ func (p *Poll) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("type")
 	if p.Type == nil {
-		return fmt.Errorf("unable to encode poll#834d7ae2: field type is nil")
+		return fmt.Errorf("unable to encode poll#8c34a82a: field type is nil")
 	}
 	if err := p.Type.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode poll#834d7ae2: field type: %w", err)
+		return fmt.Errorf("unable to encode poll#8c34a82a: field type: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("open_period")
@@ -394,83 +404,83 @@ func (p *Poll) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (p *Poll) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
-		return fmt.Errorf("can't decode poll#834d7ae2 to nil")
+		return fmt.Errorf("can't decode poll#8c34a82a to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("poll"); err != nil {
-				return fmt.Errorf("unable to decode poll#834d7ae2: %w", err)
+				return fmt.Errorf("unable to decode poll#8c34a82a: %w", err)
 			}
 		case "id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode poll#834d7ae2: field id: %w", err)
+				return fmt.Errorf("unable to decode poll#8c34a82a: field id: %w", err)
 			}
 			p.ID = value
 		case "question":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode poll#834d7ae2: field question: %w", err)
+				return fmt.Errorf("unable to decode poll#8c34a82a: field question: %w", err)
 			}
 			p.Question = value
 		case "options":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value PollOption
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode poll#834d7ae2: field options: %w", err)
+					return fmt.Errorf("unable to decode poll#8c34a82a: field options: %w", err)
 				}
 				p.Options = append(p.Options, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode poll#834d7ae2: field options: %w", err)
+				return fmt.Errorf("unable to decode poll#8c34a82a: field options: %w", err)
 			}
 		case "total_voter_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode poll#834d7ae2: field total_voter_count: %w", err)
+				return fmt.Errorf("unable to decode poll#8c34a82a: field total_voter_count: %w", err)
 			}
 			p.TotalVoterCount = value
-		case "recent_voter_user_ids":
+		case "recent_voter_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				value, err := b.Int53()
+				value, err := DecodeTDLibJSONMessageSender(b)
 				if err != nil {
-					return fmt.Errorf("unable to decode poll#834d7ae2: field recent_voter_user_ids: %w", err)
+					return fmt.Errorf("unable to decode poll#8c34a82a: field recent_voter_ids: %w", err)
 				}
-				p.RecentVoterUserIDs = append(p.RecentVoterUserIDs, value)
+				p.RecentVoterIDs = append(p.RecentVoterIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode poll#834d7ae2: field recent_voter_user_ids: %w", err)
+				return fmt.Errorf("unable to decode poll#8c34a82a: field recent_voter_ids: %w", err)
 			}
 		case "is_anonymous":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode poll#834d7ae2: field is_anonymous: %w", err)
+				return fmt.Errorf("unable to decode poll#8c34a82a: field is_anonymous: %w", err)
 			}
 			p.IsAnonymous = value
 		case "type":
 			value, err := DecodeTDLibJSONPollType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode poll#834d7ae2: field type: %w", err)
+				return fmt.Errorf("unable to decode poll#8c34a82a: field type: %w", err)
 			}
 			p.Type = value
 		case "open_period":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode poll#834d7ae2: field open_period: %w", err)
+				return fmt.Errorf("unable to decode poll#8c34a82a: field open_period: %w", err)
 			}
 			p.OpenPeriod = value
 		case "close_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode poll#834d7ae2: field close_date: %w", err)
+				return fmt.Errorf("unable to decode poll#8c34a82a: field close_date: %w", err)
 			}
 			p.CloseDate = value
 		case "is_closed":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode poll#834d7ae2: field is_closed: %w", err)
+				return fmt.Errorf("unable to decode poll#8c34a82a: field is_closed: %w", err)
 			}
 			p.IsClosed = value
 		default:
@@ -512,12 +522,12 @@ func (p *Poll) GetTotalVoterCount() (value int32) {
 	return p.TotalVoterCount
 }
 
-// GetRecentVoterUserIDs returns value of RecentVoterUserIDs field.
-func (p *Poll) GetRecentVoterUserIDs() (value []int64) {
+// GetRecentVoterIDs returns value of RecentVoterIDs field.
+func (p *Poll) GetRecentVoterIDs() (value []MessageSenderClass) {
 	if p == nil {
 		return
 	}
-	return p.RecentVoterUserIDs
+	return p.RecentVoterIDs
 }
 
 // GetIsAnonymous returns value of IsAnonymous field.

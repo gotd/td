@@ -31,14 +31,14 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SendInlineQueryResultMessageRequest represents TL type `sendInlineQueryResultMessage#c774e89c`.
+// SendInlineQueryResultMessageRequest represents TL type `sendInlineQueryResultMessage#9d4807e9`.
 type SendInlineQueryResultMessageRequest struct {
 	// Target chat
 	ChatID int64
 	// If not 0, a message thread identifier in which the message will be sent
 	MessageThreadID int64
-	// Identifier of a replied message; 0 if none
-	ReplyToMessageID int64
+	// Identifier of the replied message or story; pass null if none
+	ReplyTo MessageReplyToClass
 	// Options to be used to send the message; pass null to use default options
 	Options MessageSendOptions
 	// Identifier of the inline query
@@ -52,7 +52,7 @@ type SendInlineQueryResultMessageRequest struct {
 }
 
 // SendInlineQueryResultMessageRequestTypeID is TL type id of SendInlineQueryResultMessageRequest.
-const SendInlineQueryResultMessageRequestTypeID = 0xc774e89c
+const SendInlineQueryResultMessageRequestTypeID = 0x9d4807e9
 
 // Ensuring interfaces in compile-time for SendInlineQueryResultMessageRequest.
 var (
@@ -72,7 +72,7 @@ func (s *SendInlineQueryResultMessageRequest) Zero() bool {
 	if !(s.MessageThreadID == 0) {
 		return false
 	}
-	if !(s.ReplyToMessageID == 0) {
+	if !(s.ReplyTo == nil) {
 		return false
 	}
 	if !(s.Options.Zero()) {
@@ -132,8 +132,8 @@ func (s *SendInlineQueryResultMessageRequest) TypeInfo() tdp.Type {
 			SchemaName: "message_thread_id",
 		},
 		{
-			Name:       "ReplyToMessageID",
-			SchemaName: "reply_to_message_id",
+			Name:       "ReplyTo",
+			SchemaName: "reply_to",
 		},
 		{
 			Name:       "Options",
@@ -158,7 +158,7 @@ func (s *SendInlineQueryResultMessageRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendInlineQueryResultMessageRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendInlineQueryResultMessage#c774e89c as nil")
+		return fmt.Errorf("can't encode sendInlineQueryResultMessage#9d4807e9 as nil")
 	}
 	b.PutID(SendInlineQueryResultMessageRequestTypeID)
 	return s.EncodeBare(b)
@@ -167,13 +167,18 @@ func (s *SendInlineQueryResultMessageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendInlineQueryResultMessageRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendInlineQueryResultMessage#c774e89c as nil")
+		return fmt.Errorf("can't encode sendInlineQueryResultMessage#9d4807e9 as nil")
 	}
 	b.PutInt53(s.ChatID)
 	b.PutInt53(s.MessageThreadID)
-	b.PutInt53(s.ReplyToMessageID)
+	if s.ReplyTo == nil {
+		return fmt.Errorf("unable to encode sendInlineQueryResultMessage#9d4807e9: field reply_to is nil")
+	}
+	if err := s.ReplyTo.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode sendInlineQueryResultMessage#9d4807e9: field reply_to: %w", err)
+	}
 	if err := s.Options.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sendInlineQueryResultMessage#c774e89c: field options: %w", err)
+		return fmt.Errorf("unable to encode sendInlineQueryResultMessage#9d4807e9: field options: %w", err)
 	}
 	b.PutLong(s.QueryID)
 	b.PutString(s.ResultID)
@@ -184,10 +189,10 @@ func (s *SendInlineQueryResultMessageRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SendInlineQueryResultMessageRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendInlineQueryResultMessage#c774e89c to nil")
+		return fmt.Errorf("can't decode sendInlineQueryResultMessage#9d4807e9 to nil")
 	}
 	if err := b.ConsumeID(SendInlineQueryResultMessageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendInlineQueryResultMessage#c774e89c: %w", err)
+		return fmt.Errorf("unable to decode sendInlineQueryResultMessage#9d4807e9: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -195,52 +200,52 @@ func (s *SendInlineQueryResultMessageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendInlineQueryResultMessageRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendInlineQueryResultMessage#c774e89c to nil")
+		return fmt.Errorf("can't decode sendInlineQueryResultMessage#9d4807e9 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendInlineQueryResultMessage#c774e89c: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode sendInlineQueryResultMessage#9d4807e9: field chat_id: %w", err)
 		}
 		s.ChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendInlineQueryResultMessage#c774e89c: field message_thread_id: %w", err)
+			return fmt.Errorf("unable to decode sendInlineQueryResultMessage#9d4807e9: field message_thread_id: %w", err)
 		}
 		s.MessageThreadID = value
 	}
 	{
-		value, err := b.Int53()
+		value, err := DecodeMessageReplyTo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sendInlineQueryResultMessage#c774e89c: field reply_to_message_id: %w", err)
+			return fmt.Errorf("unable to decode sendInlineQueryResultMessage#9d4807e9: field reply_to: %w", err)
 		}
-		s.ReplyToMessageID = value
+		s.ReplyTo = value
 	}
 	{
 		if err := s.Options.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode sendInlineQueryResultMessage#c774e89c: field options: %w", err)
+			return fmt.Errorf("unable to decode sendInlineQueryResultMessage#9d4807e9: field options: %w", err)
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendInlineQueryResultMessage#c774e89c: field query_id: %w", err)
+			return fmt.Errorf("unable to decode sendInlineQueryResultMessage#9d4807e9: field query_id: %w", err)
 		}
 		s.QueryID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendInlineQueryResultMessage#c774e89c: field result_id: %w", err)
+			return fmt.Errorf("unable to decode sendInlineQueryResultMessage#9d4807e9: field result_id: %w", err)
 		}
 		s.ResultID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendInlineQueryResultMessage#c774e89c: field hide_via_bot: %w", err)
+			return fmt.Errorf("unable to decode sendInlineQueryResultMessage#9d4807e9: field hide_via_bot: %w", err)
 		}
 		s.HideViaBot = value
 	}
@@ -250,7 +255,7 @@ func (s *SendInlineQueryResultMessageRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SendInlineQueryResultMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendInlineQueryResultMessage#c774e89c as nil")
+		return fmt.Errorf("can't encode sendInlineQueryResultMessage#9d4807e9 as nil")
 	}
 	b.ObjStart()
 	b.PutID("sendInlineQueryResultMessage")
@@ -261,12 +266,17 @@ func (s *SendInlineQueryResultMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 	b.FieldStart("message_thread_id")
 	b.PutInt53(s.MessageThreadID)
 	b.Comma()
-	b.FieldStart("reply_to_message_id")
-	b.PutInt53(s.ReplyToMessageID)
+	b.FieldStart("reply_to")
+	if s.ReplyTo == nil {
+		return fmt.Errorf("unable to encode sendInlineQueryResultMessage#9d4807e9: field reply_to is nil")
+	}
+	if err := s.ReplyTo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode sendInlineQueryResultMessage#9d4807e9: field reply_to: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("options")
 	if err := s.Options.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sendInlineQueryResultMessage#c774e89c: field options: %w", err)
+		return fmt.Errorf("unable to encode sendInlineQueryResultMessage#9d4807e9: field options: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("query_id")
@@ -286,53 +296,53 @@ func (s *SendInlineQueryResultMessageRequest) EncodeTDLibJSON(b tdjson.Encoder) 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SendInlineQueryResultMessageRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendInlineQueryResultMessage#c774e89c to nil")
+		return fmt.Errorf("can't decode sendInlineQueryResultMessage#9d4807e9 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("sendInlineQueryResultMessage"); err != nil {
-				return fmt.Errorf("unable to decode sendInlineQueryResultMessage#c774e89c: %w", err)
+				return fmt.Errorf("unable to decode sendInlineQueryResultMessage#9d4807e9: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendInlineQueryResultMessage#c774e89c: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode sendInlineQueryResultMessage#9d4807e9: field chat_id: %w", err)
 			}
 			s.ChatID = value
 		case "message_thread_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendInlineQueryResultMessage#c774e89c: field message_thread_id: %w", err)
+				return fmt.Errorf("unable to decode sendInlineQueryResultMessage#9d4807e9: field message_thread_id: %w", err)
 			}
 			s.MessageThreadID = value
-		case "reply_to_message_id":
-			value, err := b.Int53()
+		case "reply_to":
+			value, err := DecodeTDLibJSONMessageReplyTo(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sendInlineQueryResultMessage#c774e89c: field reply_to_message_id: %w", err)
+				return fmt.Errorf("unable to decode sendInlineQueryResultMessage#9d4807e9: field reply_to: %w", err)
 			}
-			s.ReplyToMessageID = value
+			s.ReplyTo = value
 		case "options":
 			if err := s.Options.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode sendInlineQueryResultMessage#c774e89c: field options: %w", err)
+				return fmt.Errorf("unable to decode sendInlineQueryResultMessage#9d4807e9: field options: %w", err)
 			}
 		case "query_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendInlineQueryResultMessage#c774e89c: field query_id: %w", err)
+				return fmt.Errorf("unable to decode sendInlineQueryResultMessage#9d4807e9: field query_id: %w", err)
 			}
 			s.QueryID = value
 		case "result_id":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendInlineQueryResultMessage#c774e89c: field result_id: %w", err)
+				return fmt.Errorf("unable to decode sendInlineQueryResultMessage#9d4807e9: field result_id: %w", err)
 			}
 			s.ResultID = value
 		case "hide_via_bot":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendInlineQueryResultMessage#c774e89c: field hide_via_bot: %w", err)
+				return fmt.Errorf("unable to decode sendInlineQueryResultMessage#9d4807e9: field hide_via_bot: %w", err)
 			}
 			s.HideViaBot = value
 		default:
@@ -358,12 +368,12 @@ func (s *SendInlineQueryResultMessageRequest) GetMessageThreadID() (value int64)
 	return s.MessageThreadID
 }
 
-// GetReplyToMessageID returns value of ReplyToMessageID field.
-func (s *SendInlineQueryResultMessageRequest) GetReplyToMessageID() (value int64) {
+// GetReplyTo returns value of ReplyTo field.
+func (s *SendInlineQueryResultMessageRequest) GetReplyTo() (value MessageReplyToClass) {
 	if s == nil {
 		return
 	}
-	return s.ReplyToMessageID
+	return s.ReplyTo
 }
 
 // GetOptions returns value of Options field.
@@ -398,7 +408,7 @@ func (s *SendInlineQueryResultMessageRequest) GetHideViaBot() (value bool) {
 	return s.HideViaBot
 }
 
-// SendInlineQueryResultMessage invokes method sendInlineQueryResultMessage#c774e89c returning error if any.
+// SendInlineQueryResultMessage invokes method sendInlineQueryResultMessage#9d4807e9 returning error if any.
 func (c *Client) SendInlineQueryResultMessage(ctx context.Context, request *SendInlineQueryResultMessageRequest) (*Message, error) {
 	var result Message
 
