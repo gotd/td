@@ -34,7 +34,7 @@ var (
 // InputStoryContentPhoto represents TL type `inputStoryContentPhoto#3286fbe0`.
 type InputStoryContentPhoto struct {
 	// Photo to send. The photo must be at most 10 MB in size. The photo size must be
-	// 720x1280
+	// 1080x1920
 	Photo InputFileClass
 	// File identifiers of the stickers added to the photo, if applicable
 	AddedStickerFileIDs []int32
