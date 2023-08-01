@@ -74,7 +74,20 @@ func Buy(text string) *tg.KeyboardButtonBuy {
 	}
 }
 
+// InputURLAuth creates button to request a user to authorize via URL using Seamless Telegram Login.
+// Can only be sent or received as part of an inline keyboard, use URLAuth for reply keyboards.
+func InputURLAuth(requestWriteAccess bool, text, fwdText, url string, bot tg.InputUserClass) *tg.InputKeyboardButtonURLAuth {
+	return &tg.InputKeyboardButtonURLAuth{
+		RequestWriteAccess: requestWriteAccess,
+		Text:               text,
+		FwdText:            fwdText,
+		URL:                url,
+		Bot:                bot,
+	}
+}
+
 // URLAuth creates button to request a user to authorize via URL using Seamless Telegram Login.
+// Can only be sent or received as part of a reply keyboard, use InputURLAuth for inline keyboards.
 func URLAuth(text, url string, buttonID int, fwdText string) *tg.KeyboardButtonURLAuth {
 	return &tg.KeyboardButtonURLAuth{
 		Text:     text,
@@ -90,5 +103,53 @@ func RequestPoll(text string, quiz bool) *tg.KeyboardButtonRequestPoll {
 	return &tg.KeyboardButtonRequestPoll{
 		Text: text,
 		Quiz: quiz,
+	}
+}
+
+// InputUserProfile creates button that links directly to a user profile.
+// Can only be sent or received as part of an inline keyboard, use UserProfile for reply keyboards.
+func InputUserProfile(text string, user tg.InputUserClass) *tg.InputKeyboardButtonUserProfile {
+	return &tg.InputKeyboardButtonUserProfile{
+		Text:   text,
+		UserID: user,
+	}
+}
+
+// UserProfile creates button that links directly to a user profile.
+// Can only be sent or received as part of a reply keyboard, use InputUserProfile for inline keyboards.
+func UserProfile(text string, userID int64) *tg.KeyboardButtonUserProfile {
+	return &tg.KeyboardButtonUserProfile{
+		Text:   text,
+		UserID: userID,
+	}
+}
+
+// WebView creates button to open a bot web app using messages.requestWebView, sending over user information after
+// user confirmation.
+// Can only be sent or received as part of an inline keyboard, use SimpleWebView for reply keyboards.
+func WebView(text, url string) *tg.KeyboardButtonWebView {
+	return &tg.KeyboardButtonWebView{
+		Text: text,
+		URL:  url,
+	}
+}
+
+// SimpleWebView creates button to open a bot web app using messages.requestSimpleWebView, without sending user
+// information to the web app.
+// Can only be sent or received as part of a reply keyboard, use WebView for inline keyboards.
+func SimpleWebView(text, url string) *tg.KeyboardButtonSimpleWebView {
+	return &tg.KeyboardButtonSimpleWebView{
+		Text: text,
+		URL:  url,
+	}
+}
+
+// RequestPeer creates button that prompts the user to select and share a peer with the bot using
+// messages.sendBotRequestedPeer.
+func RequestPeer(text string, buttonID int, peerType tg.RequestPeerTypeClass) *tg.KeyboardButtonRequestPeer {
+	return &tg.KeyboardButtonRequestPeer{
+		Text:     text,
+		ButtonID: buttonID,
+		PeerType: peerType,
 	}
 }

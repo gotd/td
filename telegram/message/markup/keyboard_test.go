@@ -21,6 +21,9 @@ func TestSingleRow(t *testing.T) {
 		Buy("buy"),
 		URLAuth("text", "url", 1, "fwd"),
 		RequestPoll("poll", true),
+		UserProfile("BotFather", 93372553),
+		SimpleWebView("demo", "https://webappcontent.telegram.org/demo"),
+		RequestPeer("peer", 0, &tg.RequestPeerTypeUser{}),
 	}
 
 	v, ok := SingleRow(buttons...).(*tg.ReplyKeyboardMarkup)

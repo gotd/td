@@ -31,6 +31,9 @@ type ResultBuilder struct {
 	// If passed, clients will display a button with specified text that switches the user to
 	// a private chat with the bot and sends the bot a start message with a certain parameter.
 	switchPm tg.InlineBotSwitchPM
+	// If passed, clients will display a button on top of the remaining inline result list
+	// with the specified text, that switches the user to the specified bot web app.
+	switchWebview tg.InlineBotWebView
 }
 
 // New creates new ResultBuilder.
@@ -84,6 +87,18 @@ func (r *ResultBuilder) SwitchPM(text, startParam string) *ResultBuilder {
 	return r
 }
 
+// SwitchWebview sets SwitchWebview field.
+//
+// If passed, clients will display a button on top of the remaining inline result list
+// with the specified text, that switches the user to the specified bot web app.
+func (r *ResultBuilder) SwitchWebview(text, url string) *ResultBuilder {
+	r.switchWebview = tg.InlineBotWebView{
+		Text: text,
+		URL:  url,
+	}
+	return r
+}
+
 // Set sets inline results for given query.
 func (r *ResultBuilder) Set(ctx context.Context, opts ...ResultOption) (bool, error) {
 	res := resultPageBuilder{
@@ -98,13 +113,14 @@ func (r *ResultBuilder) Set(ctx context.Context, opts ...ResultOption) (bool, er
 	}
 
 	ok, err := r.raw.MessagesSetInlineBotResults(ctx, &tg.MessagesSetInlineBotResultsRequest{
-		Private:    r.private,
-		QueryID:    r.queryID,
-		Results:    res.results,
-		CacheTime:  r.cacheTime,
-		NextOffset: r.nextOffset,
-		SwitchPm:   r.switchPm,
-		Gallery:    r.gallery,
+		Private:       r.private,
+		QueryID:       r.queryID,
+		Results:       res.results,
+		CacheTime:     r.cacheTime,
+		NextOffset:    r.nextOffset,
+		SwitchPm:      r.switchPm,
+		Gallery:       r.gallery,
+		SwitchWebview: r.switchWebview,
 	})
 	if err != nil {
 		return false, errors.Wrap(err, "set inline results")
