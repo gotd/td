@@ -19,8 +19,10 @@ func TestInlineRow(t *testing.T) {
 		SwitchInline("inline", "query", true),
 		Game("game"),
 		Buy("buy"),
-		URLAuth("text", "url", 1, "fwd"),
+		InputURLAuth(false, "text", "fwdText", "url", &tg.InputUserSelf{}),
 		RequestPoll("poll", true),
+		InputUserProfile("me", &tg.InputUserSelf{}),
+		WebView("demo", "https://webappcontent.telegram.org/demo"),
 	}
 
 	v, ok := InlineRow(buttons...).(*tg.ReplyInlineMarkup)
