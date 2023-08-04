@@ -81,7 +81,7 @@ type SupergroupFullInfo struct {
 	HasAggressiveAntiSpamEnabled bool
 	// Identifier of the supergroup sticker set; 0 if none
 	StickerSetID int64
-	// Location to which the supergroup is connected; may be null
+	// Location to which the supergroup is connected; may be null if none
 	Location ChatLocation
 	// Primary invite link for the chat; may be null. For chat administrators with
 	// can_invite_users right only

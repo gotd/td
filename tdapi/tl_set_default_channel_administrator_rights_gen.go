@@ -33,7 +33,8 @@ var (
 
 // SetDefaultChannelAdministratorRightsRequest represents TL type `setDefaultChannelAdministratorRights#f20d5e19`.
 type SetDefaultChannelAdministratorRightsRequest struct {
-	// Default administrator rights for adding the bot to channels; may be null
+	// Default administrator rights for adding the bot to channels; pass null to remove
+	// default rights
 	DefaultChannelAdministratorRights ChatAdministratorRights
 }
 

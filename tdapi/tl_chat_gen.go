@@ -43,7 +43,7 @@ type Chat struct {
 	Photo ChatPhotoInfo
 	// Actions that non-administrator chat members are allowed to take in the chat
 	Permissions ChatPermissions
-	// Last message in the chat; may be null
+	// Last message in the chat; may be null if none or unknown
 	LastMessage Message
 	// Positions of the chat in chat lists
 	Positions []ChatPosition
@@ -95,16 +95,16 @@ type Chat struct {
 	// If non-empty, name of a theme, set for the chat
 	ThemeName string
 	// Information about actions which must be possible to do through the chat action bar;
-	// may be null
+	// may be null if none
 	ActionBar ChatActionBarClass
 	// Information about video chat of the chat
 	VideoChat VideoChat
-	// Information about pending join requests; may be null
+	// Information about pending join requests; may be null if none
 	PendingJoinRequests ChatJoinRequestsInfo
 	// Identifier of the message from which reply markup needs to be used; 0 if there is no
 	// default custom reply markup in the chat
 	ReplyMarkupMessageID int64
-	// A draft of a message in the chat; may be null
+	// A draft of a message in the chat; may be null if none
 	DraftMessage DraftMessage
 	// Application-specific data associated with the chat. (For example, the chat scroll
 	// position or local chat notification settings can be stored here.) Persistent if the

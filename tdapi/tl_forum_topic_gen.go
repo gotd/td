@@ -51,7 +51,7 @@ type ForumTopic struct {
 	UnreadReactionCount int32
 	// Notification settings for the topic
 	NotificationSettings ChatNotificationSettings
-	// A draft of a message in the topic; may be null
+	// A draft of a message in the topic; may be null if none
 	DraftMessage DraftMessage
 }
 
