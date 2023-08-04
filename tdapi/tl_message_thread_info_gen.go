@@ -44,7 +44,7 @@ type MessageThreadInfo struct {
 	// The messages from which the thread starts. The messages are returned in a reverse
 	// chronological order (i.e., in order of decreasing message_id)
 	Messages []Message
-	// A draft of a message in the message thread; may be null
+	// A draft of a message in the message thread; may be null if none
 	DraftMessage DraftMessage
 }
 

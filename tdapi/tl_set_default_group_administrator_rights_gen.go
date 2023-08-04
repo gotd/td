@@ -34,7 +34,7 @@ var (
 // SetDefaultGroupAdministratorRightsRequest represents TL type `setDefaultGroupAdministratorRights#65577768`.
 type SetDefaultGroupAdministratorRightsRequest struct {
 	// Default administrator rights for adding the bot to basic group and supergroup chats;
-	// may be null
+	// pass null to remove default rights
 	DefaultGroupAdministratorRights ChatAdministratorRights
 }
 

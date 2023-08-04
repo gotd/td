@@ -39,9 +39,10 @@ type Message struct {
 	SenderID MessageSenderClass
 	// Chat identifier
 	ChatID int64
-	// The sending state of the message; may be null
+	// The sending state of the message; may be null if the message isn't being sent and
+	// didn't fail to be sent
 	SendingState MessageSendingStateClass
-	// The scheduling state of the message; may be null
+	// The scheduling state of the message; may be null if the message isn't scheduled
 	SchedulingState MessageSchedulingStateClass
 	// True, if the message is outgoing
 	IsOutgoing bool
@@ -89,9 +90,9 @@ type Message struct {
 	Date int32
 	// Point in time (Unix timestamp) when the message was last edited
 	EditDate int32
-	// Information about the initial message sender; may be null
+	// Information about the initial message sender; may be null if none or unknown
 	ForwardInfo MessageForwardInfo
-	// Information about interactions with the message; may be null
+	// Information about interactions with the message; may be null if none
 	InteractionInfo MessageInteractionInfo
 	// Information about unread reactions added to the message
 	UnreadReactions []UnreadReaction
@@ -124,7 +125,7 @@ type Message struct {
 	RestrictionReason string
 	// Content of the message
 	Content MessageContentClass
-	// Reply markup for the message; may be null
+	// Reply markup for the message; may be null if none
 	ReplyMarkup ReplyMarkupClass
 }
 

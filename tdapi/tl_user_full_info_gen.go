@@ -67,7 +67,7 @@ type UserFullInfo struct {
 	// Number of group chats where both the other user and the current user are a member; 0
 	// for the current user
 	GroupInCommonCount int32
-	// For bots, information about the bot; may be null
+	// For bots, information about the bot; may be null if the user isn't a bot
 	BotInfo BotInfo
 }
 
