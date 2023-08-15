@@ -31,16 +31,20 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoriesAllStoriesNotModified represents TL type `stories.allStoriesNotModified#47e0a07e`.
+// StoriesAllStoriesNotModified represents TL type `stories.allStoriesNotModified#1158fe3e`.
 //
 // See https://core.telegram.org/constructor/stories.allStoriesNotModified for reference.
 type StoriesAllStoriesNotModified struct {
+	// Flags field of StoriesAllStoriesNotModified.
+	Flags bin.Fields
 	// State field of StoriesAllStoriesNotModified.
 	State string
+	// StealthMode field of StoriesAllStoriesNotModified.
+	StealthMode StoriesStealthMode
 }
 
 // StoriesAllStoriesNotModifiedTypeID is TL type id of StoriesAllStoriesNotModified.
-const StoriesAllStoriesNotModifiedTypeID = 0x47e0a07e
+const StoriesAllStoriesNotModifiedTypeID = 0x1158fe3e
 
 // construct implements constructor of StoriesAllStoriesClass.
 func (a StoriesAllStoriesNotModified) construct() StoriesAllStoriesClass { return &a }
@@ -59,7 +63,13 @@ func (a *StoriesAllStoriesNotModified) Zero() bool {
 	if a == nil {
 		return true
 	}
+	if !(a.Flags.Zero()) {
+		return false
+	}
 	if !(a.State == "") {
+		return false
+	}
+	if !(a.StealthMode.Zero()) {
 		return false
 	}
 
@@ -78,8 +88,10 @@ func (a *StoriesAllStoriesNotModified) String() string {
 // FillFrom fills StoriesAllStoriesNotModified from given interface.
 func (a *StoriesAllStoriesNotModified) FillFrom(from interface {
 	GetState() (value string)
+	GetStealthMode() (value StoriesStealthMode)
 }) {
 	a.State = from.GetState()
+	a.StealthMode = from.GetStealthMode()
 }
 
 // TypeID returns type id in TL schema.
@@ -109,14 +121,22 @@ func (a *StoriesAllStoriesNotModified) TypeInfo() tdp.Type {
 			Name:       "State",
 			SchemaName: "state",
 		},
+		{
+			Name:       "StealthMode",
+			SchemaName: "stealth_mode",
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (a *StoriesAllStoriesNotModified) SetFlags() {
 }
 
 // Encode implements bin.Encoder.
 func (a *StoriesAllStoriesNotModified) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode stories.allStoriesNotModified#47e0a07e as nil")
+		return fmt.Errorf("can't encode stories.allStoriesNotModified#1158fe3e as nil")
 	}
 	b.PutID(StoriesAllStoriesNotModifiedTypeID)
 	return a.EncodeBare(b)
@@ -125,19 +145,26 @@ func (a *StoriesAllStoriesNotModified) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *StoriesAllStoriesNotModified) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode stories.allStoriesNotModified#47e0a07e as nil")
+		return fmt.Errorf("can't encode stories.allStoriesNotModified#1158fe3e as nil")
+	}
+	a.SetFlags()
+	if err := a.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode stories.allStoriesNotModified#1158fe3e: field flags: %w", err)
 	}
 	b.PutString(a.State)
+	if err := a.StealthMode.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode stories.allStoriesNotModified#1158fe3e: field stealth_mode: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (a *StoriesAllStoriesNotModified) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode stories.allStoriesNotModified#47e0a07e to nil")
+		return fmt.Errorf("can't decode stories.allStoriesNotModified#1158fe3e to nil")
 	}
 	if err := b.ConsumeID(StoriesAllStoriesNotModifiedTypeID); err != nil {
-		return fmt.Errorf("unable to decode stories.allStoriesNotModified#47e0a07e: %w", err)
+		return fmt.Errorf("unable to decode stories.allStoriesNotModified#1158fe3e: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -145,14 +172,24 @@ func (a *StoriesAllStoriesNotModified) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *StoriesAllStoriesNotModified) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode stories.allStoriesNotModified#47e0a07e to nil")
+		return fmt.Errorf("can't decode stories.allStoriesNotModified#1158fe3e to nil")
+	}
+	{
+		if err := a.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode stories.allStoriesNotModified#1158fe3e: field flags: %w", err)
+		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.allStoriesNotModified#47e0a07e: field state: %w", err)
+			return fmt.Errorf("unable to decode stories.allStoriesNotModified#1158fe3e: field state: %w", err)
 		}
 		a.State = value
+	}
+	{
+		if err := a.StealthMode.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode stories.allStoriesNotModified#1158fe3e: field stealth_mode: %w", err)
+		}
 	}
 	return nil
 }
@@ -165,7 +202,15 @@ func (a *StoriesAllStoriesNotModified) GetState() (value string) {
 	return a.State
 }
 
-// StoriesAllStories represents TL type `stories.allStories#839e0428`.
+// GetStealthMode returns value of StealthMode field.
+func (a *StoriesAllStoriesNotModified) GetStealthMode() (value StoriesStealthMode) {
+	if a == nil {
+		return
+	}
+	return a.StealthMode
+}
+
+// StoriesAllStories represents TL type `stories.allStories#519d899e`.
 //
 // See https://core.telegram.org/constructor/stories.allStories for reference.
 type StoriesAllStories struct {
@@ -181,10 +226,12 @@ type StoriesAllStories struct {
 	UserStories []UserStories
 	// Users field of StoriesAllStories.
 	Users []UserClass
+	// StealthMode field of StoriesAllStories.
+	StealthMode StoriesStealthMode
 }
 
 // StoriesAllStoriesTypeID is TL type id of StoriesAllStories.
-const StoriesAllStoriesTypeID = 0x839e0428
+const StoriesAllStoriesTypeID = 0x519d899e
 
 // construct implements constructor of StoriesAllStoriesClass.
 func (a StoriesAllStories) construct() StoriesAllStoriesClass { return &a }
@@ -221,6 +268,9 @@ func (a *StoriesAllStories) Zero() bool {
 	if !(a.Users == nil) {
 		return false
 	}
+	if !(a.StealthMode.Zero()) {
+		return false
+	}
 
 	return true
 }
@@ -241,12 +291,14 @@ func (a *StoriesAllStories) FillFrom(from interface {
 	GetState() (value string)
 	GetUserStories() (value []UserStories)
 	GetUsers() (value []UserClass)
+	GetStealthMode() (value StoriesStealthMode)
 }) {
 	a.HasMore = from.GetHasMore()
 	a.Count = from.GetCount()
 	a.State = from.GetState()
 	a.UserStories = from.GetUserStories()
 	a.Users = from.GetUsers()
+	a.StealthMode = from.GetStealthMode()
 }
 
 // TypeID returns type id in TL schema.
@@ -293,6 +345,10 @@ func (a *StoriesAllStories) TypeInfo() tdp.Type {
 			Name:       "Users",
 			SchemaName: "users",
 		},
+		{
+			Name:       "StealthMode",
+			SchemaName: "stealth_mode",
+		},
 	}
 	return typ
 }
@@ -307,7 +363,7 @@ func (a *StoriesAllStories) SetFlags() {
 // Encode implements bin.Encoder.
 func (a *StoriesAllStories) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode stories.allStories#839e0428 as nil")
+		return fmt.Errorf("can't encode stories.allStories#519d899e as nil")
 	}
 	b.PutID(StoriesAllStoriesTypeID)
 	return a.EncodeBare(b)
@@ -316,28 +372,31 @@ func (a *StoriesAllStories) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *StoriesAllStories) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode stories.allStories#839e0428 as nil")
+		return fmt.Errorf("can't encode stories.allStories#519d899e as nil")
 	}
 	a.SetFlags()
 	if err := a.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stories.allStories#839e0428: field flags: %w", err)
+		return fmt.Errorf("unable to encode stories.allStories#519d899e: field flags: %w", err)
 	}
 	b.PutInt(a.Count)
 	b.PutString(a.State)
 	b.PutVectorHeader(len(a.UserStories))
 	for idx, v := range a.UserStories {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stories.allStories#839e0428: field user_stories element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode stories.allStories#519d899e: field user_stories element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(a.Users))
 	for idx, v := range a.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode stories.allStories#839e0428: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode stories.allStories#519d899e: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stories.allStories#839e0428: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode stories.allStories#519d899e: field users element with index %d: %w", idx, err)
 		}
+	}
+	if err := a.StealthMode.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode stories.allStories#519d899e: field stealth_mode: %w", err)
 	}
 	return nil
 }
@@ -345,10 +404,10 @@ func (a *StoriesAllStories) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (a *StoriesAllStories) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode stories.allStories#839e0428 to nil")
+		return fmt.Errorf("can't decode stories.allStories#519d899e to nil")
 	}
 	if err := b.ConsumeID(StoriesAllStoriesTypeID); err != nil {
-		return fmt.Errorf("unable to decode stories.allStories#839e0428: %w", err)
+		return fmt.Errorf("unable to decode stories.allStories#519d899e: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -356,32 +415,32 @@ func (a *StoriesAllStories) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *StoriesAllStories) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode stories.allStories#839e0428 to nil")
+		return fmt.Errorf("can't decode stories.allStories#519d899e to nil")
 	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stories.allStories#839e0428: field flags: %w", err)
+			return fmt.Errorf("unable to decode stories.allStories#519d899e: field flags: %w", err)
 		}
 	}
 	a.HasMore = a.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.allStories#839e0428: field count: %w", err)
+			return fmt.Errorf("unable to decode stories.allStories#519d899e: field count: %w", err)
 		}
 		a.Count = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.allStories#839e0428: field state: %w", err)
+			return fmt.Errorf("unable to decode stories.allStories#519d899e: field state: %w", err)
 		}
 		a.State = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.allStories#839e0428: field user_stories: %w", err)
+			return fmt.Errorf("unable to decode stories.allStories#519d899e: field user_stories: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -390,7 +449,7 @@ func (a *StoriesAllStories) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value UserStories
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode stories.allStories#839e0428: field user_stories: %w", err)
+				return fmt.Errorf("unable to decode stories.allStories#519d899e: field user_stories: %w", err)
 			}
 			a.UserStories = append(a.UserStories, value)
 		}
@@ -398,7 +457,7 @@ func (a *StoriesAllStories) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.allStories#839e0428: field users: %w", err)
+			return fmt.Errorf("unable to decode stories.allStories#519d899e: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -407,9 +466,14 @@ func (a *StoriesAllStories) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode stories.allStories#839e0428: field users: %w", err)
+				return fmt.Errorf("unable to decode stories.allStories#519d899e: field users: %w", err)
 			}
 			a.Users = append(a.Users, value)
+		}
+	}
+	{
+		if err := a.StealthMode.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode stories.allStories#519d899e: field stealth_mode: %w", err)
 		}
 	}
 	return nil
@@ -466,6 +530,14 @@ func (a *StoriesAllStories) GetUsers() (value []UserClass) {
 	return a.Users
 }
 
+// GetStealthMode returns value of StealthMode field.
+func (a *StoriesAllStories) GetStealthMode() (value StoriesStealthMode) {
+	if a == nil {
+		return
+	}
+	return a.StealthMode
+}
+
 // MapUsers returns field Users wrapped in UserClassArray helper.
 func (a *StoriesAllStories) MapUsers() (value UserClassArray) {
 	return UserClassArray(a.Users)
@@ -485,8 +557,8 @@ const StoriesAllStoriesClassName = "stories.AllStories"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tg.StoriesAllStoriesNotModified: // stories.allStoriesNotModified#47e0a07e
-//	case *tg.StoriesAllStories: // stories.allStories#839e0428
+//	case *tg.StoriesAllStoriesNotModified: // stories.allStoriesNotModified#1158fe3e
+//	case *tg.StoriesAllStories: // stories.allStories#519d899e
 //	default: panic(v)
 //	}
 type StoriesAllStoriesClass interface {
@@ -510,6 +582,9 @@ type StoriesAllStoriesClass interface {
 	// State field of StoriesAllStoriesNotModified.
 	GetState() (value string)
 
+	// StealthMode field of StoriesAllStoriesNotModified.
+	GetStealthMode() (value StoriesStealthMode)
+
 	// AsModified tries to map StoriesAllStoriesClass to StoriesAllStories.
 	AsModified() (*StoriesAllStories, bool)
 }
@@ -532,14 +607,14 @@ func DecodeStoriesAllStories(buf *bin.Buffer) (StoriesAllStoriesClass, error) {
 	}
 	switch id {
 	case StoriesAllStoriesNotModifiedTypeID:
-		// Decoding stories.allStoriesNotModified#47e0a07e.
+		// Decoding stories.allStoriesNotModified#1158fe3e.
 		v := StoriesAllStoriesNotModified{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StoriesAllStoriesClass: %w", err)
 		}
 		return &v, nil
 	case StoriesAllStoriesTypeID:
-		// Decoding stories.allStories#839e0428.
+		// Decoding stories.allStories#519d899e.
 		v := StoriesAllStories{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StoriesAllStoriesClass: %w", err)

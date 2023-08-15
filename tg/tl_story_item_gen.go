@@ -406,7 +406,7 @@ func (s *StoryItemSkipped) GetExpireDate() (value int) {
 	return s.ExpireDate
 }
 
-// StoryItem represents TL type `storyItem#562aa637`.
+// StoryItem represents TL type `storyItem#44c457ce`.
 //
 // See https://core.telegram.org/constructor/storyItem for reference.
 type StoryItem struct {
@@ -444,6 +444,10 @@ type StoryItem struct {
 	Entities []MessageEntityClass
 	// Media field of StoryItem.
 	Media MessageMediaClass
+	// MediaAreas field of StoryItem.
+	//
+	// Use SetMediaAreas and GetMediaAreas helpers.
+	MediaAreas []MediaAreaClass
 	// Privacy field of StoryItem.
 	//
 	// Use SetPrivacy and GetPrivacy helpers.
@@ -452,10 +456,14 @@ type StoryItem struct {
 	//
 	// Use SetViews and GetViews helpers.
 	Views StoryViews
+	// SentReaction field of StoryItem.
+	//
+	// Use SetSentReaction and GetSentReaction helpers.
+	SentReaction ReactionClass
 }
 
 // StoryItemTypeID is TL type id of StoryItem.
-const StoryItemTypeID = 0x562aa637
+const StoryItemTypeID = 0x44c457ce
 
 // construct implements constructor of StoryItemClass.
 func (s StoryItem) construct() StoryItemClass { return &s }
@@ -519,10 +527,16 @@ func (s *StoryItem) Zero() bool {
 	if !(s.Media == nil) {
 		return false
 	}
+	if !(s.MediaAreas == nil) {
+		return false
+	}
 	if !(s.Privacy == nil) {
 		return false
 	}
 	if !(s.Views.Zero()) {
+		return false
+	}
+	if !(s.SentReaction == nil) {
 		return false
 	}
 
@@ -554,8 +568,10 @@ func (s *StoryItem) FillFrom(from interface {
 	GetCaption() (value string, ok bool)
 	GetEntities() (value []MessageEntityClass, ok bool)
 	GetMedia() (value MessageMediaClass)
+	GetMediaAreas() (value []MediaAreaClass, ok bool)
 	GetPrivacy() (value []PrivacyRuleClass, ok bool)
 	GetViews() (value StoryViews, ok bool)
+	GetSentReaction() (value ReactionClass, ok bool)
 }) {
 	s.Pinned = from.GetPinned()
 	s.Public = from.GetPublic()
@@ -577,12 +593,20 @@ func (s *StoryItem) FillFrom(from interface {
 	}
 
 	s.Media = from.GetMedia()
+	if val, ok := from.GetMediaAreas(); ok {
+		s.MediaAreas = val
+	}
+
 	if val, ok := from.GetPrivacy(); ok {
 		s.Privacy = val
 	}
 
 	if val, ok := from.GetViews(); ok {
 		s.Views = val
+	}
+
+	if val, ok := from.GetSentReaction(); ok {
+		s.SentReaction = val
 	}
 
 }
@@ -677,6 +701,11 @@ func (s *StoryItem) TypeInfo() tdp.Type {
 			SchemaName: "media",
 		},
 		{
+			Name:       "MediaAreas",
+			SchemaName: "media_areas",
+			Null:       !s.Flags.Has(14),
+		},
+		{
 			Name:       "Privacy",
 			SchemaName: "privacy",
 			Null:       !s.Flags.Has(2),
@@ -685,6 +714,11 @@ func (s *StoryItem) TypeInfo() tdp.Type {
 			Name:       "Views",
 			SchemaName: "views",
 			Null:       !s.Flags.Has(3),
+		},
+		{
+			Name:       "SentReaction",
+			SchemaName: "sent_reaction",
+			Null:       !s.Flags.Has(15),
 		},
 	}
 	return typ
@@ -722,18 +756,24 @@ func (s *StoryItem) SetFlags() {
 	if !(s.Entities == nil) {
 		s.Flags.Set(1)
 	}
+	if !(s.MediaAreas == nil) {
+		s.Flags.Set(14)
+	}
 	if !(s.Privacy == nil) {
 		s.Flags.Set(2)
 	}
 	if !(s.Views.Zero()) {
 		s.Flags.Set(3)
 	}
+	if !(s.SentReaction == nil) {
+		s.Flags.Set(15)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (s *StoryItem) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyItem#562aa637 as nil")
+		return fmt.Errorf("can't encode storyItem#44c457ce as nil")
 	}
 	b.PutID(StoryItemTypeID)
 	return s.EncodeBare(b)
@@ -742,11 +782,11 @@ func (s *StoryItem) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StoryItem) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyItem#562aa637 as nil")
+		return fmt.Errorf("can't encode storyItem#44c457ce as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode storyItem#562aa637: field flags: %w", err)
+		return fmt.Errorf("unable to encode storyItem#44c457ce: field flags: %w", err)
 	}
 	b.PutInt(s.ID)
 	b.PutInt(s.Date)
@@ -758,33 +798,52 @@ func (s *StoryItem) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(s.Entities))
 		for idx, v := range s.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode storyItem#562aa637: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode storyItem#44c457ce: field entities element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode storyItem#562aa637: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode storyItem#44c457ce: field entities element with index %d: %w", idx, err)
 			}
 		}
 	}
 	if s.Media == nil {
-		return fmt.Errorf("unable to encode storyItem#562aa637: field media is nil")
+		return fmt.Errorf("unable to encode storyItem#44c457ce: field media is nil")
 	}
 	if err := s.Media.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode storyItem#562aa637: field media: %w", err)
+		return fmt.Errorf("unable to encode storyItem#44c457ce: field media: %w", err)
+	}
+	if s.Flags.Has(14) {
+		b.PutVectorHeader(len(s.MediaAreas))
+		for idx, v := range s.MediaAreas {
+			if v == nil {
+				return fmt.Errorf("unable to encode storyItem#44c457ce: field media_areas element with index %d is nil", idx)
+			}
+			if err := v.Encode(b); err != nil {
+				return fmt.Errorf("unable to encode storyItem#44c457ce: field media_areas element with index %d: %w", idx, err)
+			}
+		}
 	}
 	if s.Flags.Has(2) {
 		b.PutVectorHeader(len(s.Privacy))
 		for idx, v := range s.Privacy {
 			if v == nil {
-				return fmt.Errorf("unable to encode storyItem#562aa637: field privacy element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode storyItem#44c457ce: field privacy element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode storyItem#562aa637: field privacy element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode storyItem#44c457ce: field privacy element with index %d: %w", idx, err)
 			}
 		}
 	}
 	if s.Flags.Has(3) {
 		if err := s.Views.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode storyItem#562aa637: field views: %w", err)
+			return fmt.Errorf("unable to encode storyItem#44c457ce: field views: %w", err)
+		}
+	}
+	if s.Flags.Has(15) {
+		if s.SentReaction == nil {
+			return fmt.Errorf("unable to encode storyItem#44c457ce: field sent_reaction is nil")
+		}
+		if err := s.SentReaction.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode storyItem#44c457ce: field sent_reaction: %w", err)
 		}
 	}
 	return nil
@@ -793,10 +852,10 @@ func (s *StoryItem) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StoryItem) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyItem#562aa637 to nil")
+		return fmt.Errorf("can't decode storyItem#44c457ce to nil")
 	}
 	if err := b.ConsumeID(StoryItemTypeID); err != nil {
-		return fmt.Errorf("unable to decode storyItem#562aa637: %w", err)
+		return fmt.Errorf("unable to decode storyItem#44c457ce: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -804,11 +863,11 @@ func (s *StoryItem) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StoryItem) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyItem#562aa637 to nil")
+		return fmt.Errorf("can't decode storyItem#44c457ce to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode storyItem#562aa637: field flags: %w", err)
+			return fmt.Errorf("unable to decode storyItem#44c457ce: field flags: %w", err)
 		}
 	}
 	s.Pinned = s.Flags.Has(5)
@@ -822,35 +881,35 @@ func (s *StoryItem) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyItem#562aa637: field id: %w", err)
+			return fmt.Errorf("unable to decode storyItem#44c457ce: field id: %w", err)
 		}
 		s.ID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyItem#562aa637: field date: %w", err)
+			return fmt.Errorf("unable to decode storyItem#44c457ce: field date: %w", err)
 		}
 		s.Date = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyItem#562aa637: field expire_date: %w", err)
+			return fmt.Errorf("unable to decode storyItem#44c457ce: field expire_date: %w", err)
 		}
 		s.ExpireDate = value
 	}
 	if s.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyItem#562aa637: field caption: %w", err)
+			return fmt.Errorf("unable to decode storyItem#44c457ce: field caption: %w", err)
 		}
 		s.Caption = value
 	}
 	if s.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyItem#562aa637: field entities: %w", err)
+			return fmt.Errorf("unable to decode storyItem#44c457ce: field entities: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -859,7 +918,7 @@ func (s *StoryItem) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode storyItem#562aa637: field entities: %w", err)
+				return fmt.Errorf("unable to decode storyItem#44c457ce: field entities: %w", err)
 			}
 			s.Entities = append(s.Entities, value)
 		}
@@ -867,14 +926,31 @@ func (s *StoryItem) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeMessageMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode storyItem#562aa637: field media: %w", err)
+			return fmt.Errorf("unable to decode storyItem#44c457ce: field media: %w", err)
 		}
 		s.Media = value
+	}
+	if s.Flags.Has(14) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode storyItem#44c457ce: field media_areas: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.MediaAreas = make([]MediaAreaClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeMediaArea(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode storyItem#44c457ce: field media_areas: %w", err)
+			}
+			s.MediaAreas = append(s.MediaAreas, value)
+		}
 	}
 	if s.Flags.Has(2) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyItem#562aa637: field privacy: %w", err)
+			return fmt.Errorf("unable to decode storyItem#44c457ce: field privacy: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -883,15 +959,22 @@ func (s *StoryItem) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodePrivacyRule(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode storyItem#562aa637: field privacy: %w", err)
+				return fmt.Errorf("unable to decode storyItem#44c457ce: field privacy: %w", err)
 			}
 			s.Privacy = append(s.Privacy, value)
 		}
 	}
 	if s.Flags.Has(3) {
 		if err := s.Views.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode storyItem#562aa637: field views: %w", err)
+			return fmt.Errorf("unable to decode storyItem#44c457ce: field views: %w", err)
 		}
+	}
+	if s.Flags.Has(15) {
+		value, err := DecodeReaction(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode storyItem#44c457ce: field sent_reaction: %w", err)
+		}
+		s.SentReaction = value
 	}
 	return nil
 }
@@ -1116,6 +1199,24 @@ func (s *StoryItem) GetMedia() (value MessageMediaClass) {
 	return s.Media
 }
 
+// SetMediaAreas sets value of MediaAreas conditional field.
+func (s *StoryItem) SetMediaAreas(value []MediaAreaClass) {
+	s.Flags.Set(14)
+	s.MediaAreas = value
+}
+
+// GetMediaAreas returns value of MediaAreas conditional field and
+// boolean which is true if field was set.
+func (s *StoryItem) GetMediaAreas() (value []MediaAreaClass, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(14) {
+		return value, false
+	}
+	return s.MediaAreas, true
+}
+
 // SetPrivacy sets value of Privacy conditional field.
 func (s *StoryItem) SetPrivacy(value []PrivacyRuleClass) {
 	s.Flags.Set(2)
@@ -1152,12 +1253,38 @@ func (s *StoryItem) GetViews() (value StoryViews, ok bool) {
 	return s.Views, true
 }
 
+// SetSentReaction sets value of SentReaction conditional field.
+func (s *StoryItem) SetSentReaction(value ReactionClass) {
+	s.Flags.Set(15)
+	s.SentReaction = value
+}
+
+// GetSentReaction returns value of SentReaction conditional field and
+// boolean which is true if field was set.
+func (s *StoryItem) GetSentReaction() (value ReactionClass, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(15) {
+		return value, false
+	}
+	return s.SentReaction, true
+}
+
 // MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
 func (s *StoryItem) MapEntities() (value MessageEntityClassArray, ok bool) {
 	if !s.Flags.Has(1) {
 		return value, false
 	}
 	return MessageEntityClassArray(s.Entities), true
+}
+
+// MapMediaAreas returns field MediaAreas wrapped in MediaAreaClassArray helper.
+func (s *StoryItem) MapMediaAreas() (value MediaAreaClassArray, ok bool) {
+	if !s.Flags.Has(14) {
+		return value, false
+	}
+	return MediaAreaClassArray(s.MediaAreas), true
 }
 
 // MapPrivacy returns field Privacy wrapped in PrivacyRuleClassArray helper.
@@ -1184,7 +1311,7 @@ const StoryItemClassName = "StoryItem"
 //	switch v := g.(type) {
 //	case *tg.StoryItemDeleted: // storyItemDeleted#51e6ee4f
 //	case *tg.StoryItemSkipped: // storyItemSkipped#ffadc913
-//	case *tg.StoryItem: // storyItem#562aa637
+//	case *tg.StoryItem: // storyItem#44c457ce
 //	default: panic(v)
 //	}
 type StoryItemClass interface {
@@ -1231,7 +1358,7 @@ func DecodeStoryItem(buf *bin.Buffer) (StoryItemClass, error) {
 		}
 		return &v, nil
 	case StoryItemTypeID:
-		// Decoding storyItem#562aa637.
+		// Decoding storyItem#44c457ce.
 		v := StoryItem{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StoryItemClass: %w", err)

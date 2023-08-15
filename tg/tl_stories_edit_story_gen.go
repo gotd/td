@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoriesEditStoryRequest represents TL type `stories.editStory#2aae7a41`.
+// StoriesEditStoryRequest represents TL type `stories.editStory#a9b91ae4`.
 //
 // See https://core.telegram.org/method/stories.editStory for reference.
 type StoriesEditStoryRequest struct {
@@ -43,6 +43,10 @@ type StoriesEditStoryRequest struct {
 	//
 	// Use SetMedia and GetMedia helpers.
 	Media InputMediaClass
+	// MediaAreas field of StoriesEditStoryRequest.
+	//
+	// Use SetMediaAreas and GetMediaAreas helpers.
+	MediaAreas []MediaAreaClass
 	// Caption field of StoriesEditStoryRequest.
 	//
 	// Use SetCaption and GetCaption helpers.
@@ -58,7 +62,7 @@ type StoriesEditStoryRequest struct {
 }
 
 // StoriesEditStoryRequestTypeID is TL type id of StoriesEditStoryRequest.
-const StoriesEditStoryRequestTypeID = 0x2aae7a41
+const StoriesEditStoryRequestTypeID = 0xa9b91ae4
 
 // Ensuring interfaces in compile-time for StoriesEditStoryRequest.
 var (
@@ -79,6 +83,9 @@ func (e *StoriesEditStoryRequest) Zero() bool {
 		return false
 	}
 	if !(e.Media == nil) {
+		return false
+	}
+	if !(e.MediaAreas == nil) {
 		return false
 	}
 	if !(e.Caption == "") {
@@ -107,6 +114,7 @@ func (e *StoriesEditStoryRequest) String() string {
 func (e *StoriesEditStoryRequest) FillFrom(from interface {
 	GetID() (value int)
 	GetMedia() (value InputMediaClass, ok bool)
+	GetMediaAreas() (value []MediaAreaClass, ok bool)
 	GetCaption() (value string, ok bool)
 	GetEntities() (value []MessageEntityClass, ok bool)
 	GetPrivacyRules() (value []InputPrivacyRuleClass, ok bool)
@@ -114,6 +122,10 @@ func (e *StoriesEditStoryRequest) FillFrom(from interface {
 	e.ID = from.GetID()
 	if val, ok := from.GetMedia(); ok {
 		e.Media = val
+	}
+
+	if val, ok := from.GetMediaAreas(); ok {
+		e.MediaAreas = val
 	}
 
 	if val, ok := from.GetCaption(); ok {
@@ -163,6 +175,11 @@ func (e *StoriesEditStoryRequest) TypeInfo() tdp.Type {
 			Null:       !e.Flags.Has(0),
 		},
 		{
+			Name:       "MediaAreas",
+			SchemaName: "media_areas",
+			Null:       !e.Flags.Has(3),
+		},
+		{
 			Name:       "Caption",
 			SchemaName: "caption",
 			Null:       !e.Flags.Has(1),
@@ -186,6 +203,9 @@ func (e *StoriesEditStoryRequest) SetFlags() {
 	if !(e.Media == nil) {
 		e.Flags.Set(0)
 	}
+	if !(e.MediaAreas == nil) {
+		e.Flags.Set(3)
+	}
 	if !(e.Caption == "") {
 		e.Flags.Set(1)
 	}
@@ -200,7 +220,7 @@ func (e *StoriesEditStoryRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (e *StoriesEditStoryRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode stories.editStory#2aae7a41 as nil")
+		return fmt.Errorf("can't encode stories.editStory#a9b91ae4 as nil")
 	}
 	b.PutID(StoriesEditStoryRequestTypeID)
 	return e.EncodeBare(b)
@@ -209,19 +229,30 @@ func (e *StoriesEditStoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *StoriesEditStoryRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode stories.editStory#2aae7a41 as nil")
+		return fmt.Errorf("can't encode stories.editStory#a9b91ae4 as nil")
 	}
 	e.SetFlags()
 	if err := e.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stories.editStory#2aae7a41: field flags: %w", err)
+		return fmt.Errorf("unable to encode stories.editStory#a9b91ae4: field flags: %w", err)
 	}
 	b.PutInt(e.ID)
 	if e.Flags.Has(0) {
 		if e.Media == nil {
-			return fmt.Errorf("unable to encode stories.editStory#2aae7a41: field media is nil")
+			return fmt.Errorf("unable to encode stories.editStory#a9b91ae4: field media is nil")
 		}
 		if err := e.Media.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stories.editStory#2aae7a41: field media: %w", err)
+			return fmt.Errorf("unable to encode stories.editStory#a9b91ae4: field media: %w", err)
+		}
+	}
+	if e.Flags.Has(3) {
+		b.PutVectorHeader(len(e.MediaAreas))
+		for idx, v := range e.MediaAreas {
+			if v == nil {
+				return fmt.Errorf("unable to encode stories.editStory#a9b91ae4: field media_areas element with index %d is nil", idx)
+			}
+			if err := v.Encode(b); err != nil {
+				return fmt.Errorf("unable to encode stories.editStory#a9b91ae4: field media_areas element with index %d: %w", idx, err)
+			}
 		}
 	}
 	if e.Flags.Has(1) {
@@ -231,10 +262,10 @@ func (e *StoriesEditStoryRequest) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(e.Entities))
 		for idx, v := range e.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode stories.editStory#2aae7a41: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode stories.editStory#a9b91ae4: field entities element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode stories.editStory#2aae7a41: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode stories.editStory#a9b91ae4: field entities element with index %d: %w", idx, err)
 			}
 		}
 	}
@@ -242,10 +273,10 @@ func (e *StoriesEditStoryRequest) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(e.PrivacyRules))
 		for idx, v := range e.PrivacyRules {
 			if v == nil {
-				return fmt.Errorf("unable to encode stories.editStory#2aae7a41: field privacy_rules element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode stories.editStory#a9b91ae4: field privacy_rules element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode stories.editStory#2aae7a41: field privacy_rules element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode stories.editStory#a9b91ae4: field privacy_rules element with index %d: %w", idx, err)
 			}
 		}
 	}
@@ -255,10 +286,10 @@ func (e *StoriesEditStoryRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (e *StoriesEditStoryRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode stories.editStory#2aae7a41 to nil")
+		return fmt.Errorf("can't decode stories.editStory#a9b91ae4 to nil")
 	}
 	if err := b.ConsumeID(StoriesEditStoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stories.editStory#2aae7a41: %w", err)
+		return fmt.Errorf("unable to decode stories.editStory#a9b91ae4: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -266,38 +297,55 @@ func (e *StoriesEditStoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *StoriesEditStoryRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode stories.editStory#2aae7a41 to nil")
+		return fmt.Errorf("can't decode stories.editStory#a9b91ae4 to nil")
 	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stories.editStory#2aae7a41: field flags: %w", err)
+			return fmt.Errorf("unable to decode stories.editStory#a9b91ae4: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.editStory#2aae7a41: field id: %w", err)
+			return fmt.Errorf("unable to decode stories.editStory#a9b91ae4: field id: %w", err)
 		}
 		e.ID = value
 	}
 	if e.Flags.Has(0) {
 		value, err := DecodeInputMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.editStory#2aae7a41: field media: %w", err)
+			return fmt.Errorf("unable to decode stories.editStory#a9b91ae4: field media: %w", err)
 		}
 		e.Media = value
+	}
+	if e.Flags.Has(3) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode stories.editStory#a9b91ae4: field media_areas: %w", err)
+		}
+
+		if headerLen > 0 {
+			e.MediaAreas = make([]MediaAreaClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeMediaArea(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode stories.editStory#a9b91ae4: field media_areas: %w", err)
+			}
+			e.MediaAreas = append(e.MediaAreas, value)
+		}
 	}
 	if e.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.editStory#2aae7a41: field caption: %w", err)
+			return fmt.Errorf("unable to decode stories.editStory#a9b91ae4: field caption: %w", err)
 		}
 		e.Caption = value
 	}
 	if e.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.editStory#2aae7a41: field entities: %w", err)
+			return fmt.Errorf("unable to decode stories.editStory#a9b91ae4: field entities: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -306,7 +354,7 @@ func (e *StoriesEditStoryRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode stories.editStory#2aae7a41: field entities: %w", err)
+				return fmt.Errorf("unable to decode stories.editStory#a9b91ae4: field entities: %w", err)
 			}
 			e.Entities = append(e.Entities, value)
 		}
@@ -314,7 +362,7 @@ func (e *StoriesEditStoryRequest) DecodeBare(b *bin.Buffer) error {
 	if e.Flags.Has(2) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.editStory#2aae7a41: field privacy_rules: %w", err)
+			return fmt.Errorf("unable to decode stories.editStory#a9b91ae4: field privacy_rules: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -323,7 +371,7 @@ func (e *StoriesEditStoryRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputPrivacyRule(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode stories.editStory#2aae7a41: field privacy_rules: %w", err)
+				return fmt.Errorf("unable to decode stories.editStory#a9b91ae4: field privacy_rules: %w", err)
 			}
 			e.PrivacyRules = append(e.PrivacyRules, value)
 		}
@@ -355,6 +403,24 @@ func (e *StoriesEditStoryRequest) GetMedia() (value InputMediaClass, ok bool) {
 		return value, false
 	}
 	return e.Media, true
+}
+
+// SetMediaAreas sets value of MediaAreas conditional field.
+func (e *StoriesEditStoryRequest) SetMediaAreas(value []MediaAreaClass) {
+	e.Flags.Set(3)
+	e.MediaAreas = value
+}
+
+// GetMediaAreas returns value of MediaAreas conditional field and
+// boolean which is true if field was set.
+func (e *StoriesEditStoryRequest) GetMediaAreas() (value []MediaAreaClass, ok bool) {
+	if e == nil {
+		return
+	}
+	if !e.Flags.Has(3) {
+		return value, false
+	}
+	return e.MediaAreas, true
 }
 
 // SetCaption sets value of Caption conditional field.
@@ -411,6 +477,14 @@ func (e *StoriesEditStoryRequest) GetPrivacyRules() (value []InputPrivacyRuleCla
 	return e.PrivacyRules, true
 }
 
+// MapMediaAreas returns field MediaAreas wrapped in MediaAreaClassArray helper.
+func (e *StoriesEditStoryRequest) MapMediaAreas() (value MediaAreaClassArray, ok bool) {
+	if !e.Flags.Has(3) {
+		return value, false
+	}
+	return MediaAreaClassArray(e.MediaAreas), true
+}
+
 // MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
 func (e *StoriesEditStoryRequest) MapEntities() (value MessageEntityClassArray, ok bool) {
 	if !e.Flags.Has(1) {
@@ -427,7 +501,7 @@ func (e *StoriesEditStoryRequest) MapPrivacyRules() (value InputPrivacyRuleClass
 	return InputPrivacyRuleClassArray(e.PrivacyRules), true
 }
 
-// StoriesEditStory invokes method stories.editStory#2aae7a41 returning error if any.
+// StoriesEditStory invokes method stories.editStory#a9b91ae4 returning error if any.
 //
 // See https://core.telegram.org/method/stories.editStory for reference.
 func (c *Client) StoriesEditStory(ctx context.Context, request *StoriesEditStoryRequest) (UpdatesClass, error) {

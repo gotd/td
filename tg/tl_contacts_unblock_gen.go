@@ -31,17 +31,21 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ContactsUnblockRequest represents TL type `contacts.unblock#bea65d50`.
+// ContactsUnblockRequest represents TL type `contacts.unblock#b550d328`.
 // Deletes the user from the blacklist.
 //
 // See https://core.telegram.org/method/contacts.unblock for reference.
 type ContactsUnblockRequest struct {
+	// Flags field of ContactsUnblockRequest.
+	Flags bin.Fields
+	// MyStoriesFrom field of ContactsUnblockRequest.
+	MyStoriesFrom bool
 	// User ID
 	ID InputPeerClass
 }
 
 // ContactsUnblockRequestTypeID is TL type id of ContactsUnblockRequest.
-const ContactsUnblockRequestTypeID = 0xbea65d50
+const ContactsUnblockRequestTypeID = 0xb550d328
 
 // Ensuring interfaces in compile-time for ContactsUnblockRequest.
 var (
@@ -54,6 +58,12 @@ var (
 func (u *ContactsUnblockRequest) Zero() bool {
 	if u == nil {
 		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.MyStoriesFrom == false) {
+		return false
 	}
 	if !(u.ID == nil) {
 		return false
@@ -73,8 +83,10 @@ func (u *ContactsUnblockRequest) String() string {
 
 // FillFrom fills ContactsUnblockRequest from given interface.
 func (u *ContactsUnblockRequest) FillFrom(from interface {
+	GetMyStoriesFrom() (value bool)
 	GetID() (value InputPeerClass)
 }) {
+	u.MyStoriesFrom = from.GetMyStoriesFrom()
 	u.ID = from.GetID()
 }
 
@@ -102,6 +114,11 @@ func (u *ContactsUnblockRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "MyStoriesFrom",
+			SchemaName: "my_stories_from",
+			Null:       !u.Flags.Has(0),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -109,10 +126,17 @@ func (u *ContactsUnblockRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (u *ContactsUnblockRequest) SetFlags() {
+	if !(u.MyStoriesFrom == false) {
+		u.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (u *ContactsUnblockRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode contacts.unblock#bea65d50 as nil")
+		return fmt.Errorf("can't encode contacts.unblock#b550d328 as nil")
 	}
 	b.PutID(ContactsUnblockRequestTypeID)
 	return u.EncodeBare(b)
@@ -121,13 +145,17 @@ func (u *ContactsUnblockRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *ContactsUnblockRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode contacts.unblock#bea65d50 as nil")
+		return fmt.Errorf("can't encode contacts.unblock#b550d328 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode contacts.unblock#b550d328: field flags: %w", err)
 	}
 	if u.ID == nil {
-		return fmt.Errorf("unable to encode contacts.unblock#bea65d50: field id is nil")
+		return fmt.Errorf("unable to encode contacts.unblock#b550d328: field id is nil")
 	}
 	if err := u.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode contacts.unblock#bea65d50: field id: %w", err)
+		return fmt.Errorf("unable to encode contacts.unblock#b550d328: field id: %w", err)
 	}
 	return nil
 }
@@ -135,10 +163,10 @@ func (u *ContactsUnblockRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *ContactsUnblockRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode contacts.unblock#bea65d50 to nil")
+		return fmt.Errorf("can't decode contacts.unblock#b550d328 to nil")
 	}
 	if err := b.ConsumeID(ContactsUnblockRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.unblock#bea65d50: %w", err)
+		return fmt.Errorf("unable to decode contacts.unblock#b550d328: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -146,16 +174,41 @@ func (u *ContactsUnblockRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *ContactsUnblockRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode contacts.unblock#bea65d50 to nil")
+		return fmt.Errorf("can't decode contacts.unblock#b550d328 to nil")
 	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode contacts.unblock#b550d328: field flags: %w", err)
+		}
+	}
+	u.MyStoriesFrom = u.Flags.Has(0)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.unblock#bea65d50: field id: %w", err)
+			return fmt.Errorf("unable to decode contacts.unblock#b550d328: field id: %w", err)
 		}
 		u.ID = value
 	}
 	return nil
+}
+
+// SetMyStoriesFrom sets value of MyStoriesFrom conditional field.
+func (u *ContactsUnblockRequest) SetMyStoriesFrom(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.MyStoriesFrom = true
+	} else {
+		u.Flags.Unset(0)
+		u.MyStoriesFrom = false
+	}
+}
+
+// GetMyStoriesFrom returns value of MyStoriesFrom conditional field.
+func (u *ContactsUnblockRequest) GetMyStoriesFrom() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(0)
 }
 
 // GetID returns value of ID field.
@@ -166,7 +219,7 @@ func (u *ContactsUnblockRequest) GetID() (value InputPeerClass) {
 	return u.ID
 }
 
-// ContactsUnblock invokes method contacts.unblock#bea65d50 returning error if any.
+// ContactsUnblock invokes method contacts.unblock#b550d328 returning error if any.
 // Deletes the user from the blacklist.
 //
 // Possible errors:
@@ -177,12 +230,9 @@ func (u *ContactsUnblockRequest) GetID() (value InputPeerClass) {
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/contacts.unblock for reference.
-func (c *Client) ContactsUnblock(ctx context.Context, id InputPeerClass) (bool, error) {
+func (c *Client) ContactsUnblock(ctx context.Context, request *ContactsUnblockRequest) (bool, error) {
 	var result BoolBox
 
-	request := &ContactsUnblockRequest{
-		ID: id,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return false, err
 	}

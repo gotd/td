@@ -66,6 +66,8 @@ type UserFull struct {
 	TranslationsDisabled bool
 	// StoriesPinnedAvailable field of UserFull.
 	StoriesPinnedAvailable bool
+	// BlockedMyStoriesFrom field of UserFull.
+	BlockedMyStoriesFrom bool
 	// User ID
 	ID int64
 	// Bio of the user
@@ -202,6 +204,9 @@ func (u *UserFull) Zero() bool {
 	if !(u.StoriesPinnedAvailable == false) {
 		return false
 	}
+	if !(u.BlockedMyStoriesFrom == false) {
+		return false
+	}
 	if !(u.ID == 0) {
 		return false
 	}
@@ -283,6 +288,7 @@ func (u *UserFull) FillFrom(from interface {
 	GetVoiceMessagesForbidden() (value bool)
 	GetTranslationsDisabled() (value bool)
 	GetStoriesPinnedAvailable() (value bool)
+	GetBlockedMyStoriesFrom() (value bool)
 	GetID() (value int64)
 	GetAbout() (value string, ok bool)
 	GetSettings() (value PeerSettings)
@@ -312,6 +318,7 @@ func (u *UserFull) FillFrom(from interface {
 	u.VoiceMessagesForbidden = from.GetVoiceMessagesForbidden()
 	u.TranslationsDisabled = from.GetTranslationsDisabled()
 	u.StoriesPinnedAvailable = from.GetStoriesPinnedAvailable()
+	u.BlockedMyStoriesFrom = from.GetBlockedMyStoriesFrom()
 	u.ID = from.GetID()
 	if val, ok := from.GetAbout(); ok {
 		u.About = val
@@ -447,6 +454,11 @@ func (u *UserFull) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(26),
 		},
 		{
+			Name:       "BlockedMyStoriesFrom",
+			SchemaName: "blocked_my_stories_from",
+			Null:       !u.Flags.Has(27),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -569,6 +581,9 @@ func (u *UserFull) SetFlags() {
 	}
 	if !(u.StoriesPinnedAvailable == false) {
 		u.Flags.Set(26)
+	}
+	if !(u.BlockedMyStoriesFrom == false) {
+		u.Flags.Set(27)
 	}
 	if !(u.About == "") {
 		u.Flags.Set(1)
@@ -754,6 +769,7 @@ func (u *UserFull) DecodeBare(b *bin.Buffer) error {
 	u.VoiceMessagesForbidden = u.Flags.Has(20)
 	u.TranslationsDisabled = u.Flags.Has(23)
 	u.StoriesPinnedAvailable = u.Flags.Has(26)
+	u.BlockedMyStoriesFrom = u.Flags.Has(27)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -1057,6 +1073,25 @@ func (u *UserFull) GetStoriesPinnedAvailable() (value bool) {
 		return
 	}
 	return u.Flags.Has(26)
+}
+
+// SetBlockedMyStoriesFrom sets value of BlockedMyStoriesFrom conditional field.
+func (u *UserFull) SetBlockedMyStoriesFrom(value bool) {
+	if value {
+		u.Flags.Set(27)
+		u.BlockedMyStoriesFrom = true
+	} else {
+		u.Flags.Unset(27)
+		u.BlockedMyStoriesFrom = false
+	}
+}
+
+// GetBlockedMyStoriesFrom returns value of BlockedMyStoriesFrom conditional field.
+func (u *UserFull) GetBlockedMyStoriesFrom() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(27)
 }
 
 // GetID returns value of ID field.

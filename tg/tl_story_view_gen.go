@@ -31,18 +31,28 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoryView represents TL type `storyView#a71aacc2`.
+// StoryView represents TL type `storyView#b0bdeac5`.
 //
 // See https://core.telegram.org/constructor/storyView for reference.
 type StoryView struct {
+	// Flags field of StoryView.
+	Flags bin.Fields
+	// Blocked field of StoryView.
+	Blocked bool
+	// BlockedMyStoriesFrom field of StoryView.
+	BlockedMyStoriesFrom bool
 	// UserID field of StoryView.
 	UserID int64
 	// Date field of StoryView.
 	Date int
+	// Reaction field of StoryView.
+	//
+	// Use SetReaction and GetReaction helpers.
+	Reaction ReactionClass
 }
 
 // StoryViewTypeID is TL type id of StoryView.
-const StoryViewTypeID = 0xa71aacc2
+const StoryViewTypeID = 0xb0bdeac5
 
 // Ensuring interfaces in compile-time for StoryView.
 var (
@@ -56,10 +66,22 @@ func (s *StoryView) Zero() bool {
 	if s == nil {
 		return true
 	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.Blocked == false) {
+		return false
+	}
+	if !(s.BlockedMyStoriesFrom == false) {
+		return false
+	}
 	if !(s.UserID == 0) {
 		return false
 	}
 	if !(s.Date == 0) {
+		return false
+	}
+	if !(s.Reaction == nil) {
 		return false
 	}
 
@@ -77,11 +99,20 @@ func (s *StoryView) String() string {
 
 // FillFrom fills StoryView from given interface.
 func (s *StoryView) FillFrom(from interface {
+	GetBlocked() (value bool)
+	GetBlockedMyStoriesFrom() (value bool)
 	GetUserID() (value int64)
 	GetDate() (value int)
+	GetReaction() (value ReactionClass, ok bool)
 }) {
+	s.Blocked = from.GetBlocked()
+	s.BlockedMyStoriesFrom = from.GetBlockedMyStoriesFrom()
 	s.UserID = from.GetUserID()
 	s.Date = from.GetDate()
+	if val, ok := from.GetReaction(); ok {
+		s.Reaction = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -108,6 +139,16 @@ func (s *StoryView) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Blocked",
+			SchemaName: "blocked",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "BlockedMyStoriesFrom",
+			SchemaName: "blocked_my_stories_from",
+			Null:       !s.Flags.Has(1),
+		},
+		{
 			Name:       "UserID",
 			SchemaName: "user_id",
 		},
@@ -115,14 +156,32 @@ func (s *StoryView) TypeInfo() tdp.Type {
 			Name:       "Date",
 			SchemaName: "date",
 		},
+		{
+			Name:       "Reaction",
+			SchemaName: "reaction",
+			Null:       !s.Flags.Has(2),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (s *StoryView) SetFlags() {
+	if !(s.Blocked == false) {
+		s.Flags.Set(0)
+	}
+	if !(s.BlockedMyStoriesFrom == false) {
+		s.Flags.Set(1)
+	}
+	if !(s.Reaction == nil) {
+		s.Flags.Set(2)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (s *StoryView) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyView#a71aacc2 as nil")
+		return fmt.Errorf("can't encode storyView#b0bdeac5 as nil")
 	}
 	b.PutID(StoryViewTypeID)
 	return s.EncodeBare(b)
@@ -131,20 +190,32 @@ func (s *StoryView) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StoryView) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyView#a71aacc2 as nil")
+		return fmt.Errorf("can't encode storyView#b0bdeac5 as nil")
+	}
+	s.SetFlags()
+	if err := s.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode storyView#b0bdeac5: field flags: %w", err)
 	}
 	b.PutLong(s.UserID)
 	b.PutInt(s.Date)
+	if s.Flags.Has(2) {
+		if s.Reaction == nil {
+			return fmt.Errorf("unable to encode storyView#b0bdeac5: field reaction is nil")
+		}
+		if err := s.Reaction.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode storyView#b0bdeac5: field reaction: %w", err)
+		}
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *StoryView) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyView#a71aacc2 to nil")
+		return fmt.Errorf("can't decode storyView#b0bdeac5 to nil")
 	}
 	if err := b.ConsumeID(StoryViewTypeID); err != nil {
-		return fmt.Errorf("unable to decode storyView#a71aacc2: %w", err)
+		return fmt.Errorf("unable to decode storyView#b0bdeac5: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -152,23 +223,75 @@ func (s *StoryView) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StoryView) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyView#a71aacc2 to nil")
+		return fmt.Errorf("can't decode storyView#b0bdeac5 to nil")
 	}
+	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode storyView#b0bdeac5: field flags: %w", err)
+		}
+	}
+	s.Blocked = s.Flags.Has(0)
+	s.BlockedMyStoriesFrom = s.Flags.Has(1)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyView#a71aacc2: field user_id: %w", err)
+			return fmt.Errorf("unable to decode storyView#b0bdeac5: field user_id: %w", err)
 		}
 		s.UserID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyView#a71aacc2: field date: %w", err)
+			return fmt.Errorf("unable to decode storyView#b0bdeac5: field date: %w", err)
 		}
 		s.Date = value
 	}
+	if s.Flags.Has(2) {
+		value, err := DecodeReaction(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode storyView#b0bdeac5: field reaction: %w", err)
+		}
+		s.Reaction = value
+	}
 	return nil
+}
+
+// SetBlocked sets value of Blocked conditional field.
+func (s *StoryView) SetBlocked(value bool) {
+	if value {
+		s.Flags.Set(0)
+		s.Blocked = true
+	} else {
+		s.Flags.Unset(0)
+		s.Blocked = false
+	}
+}
+
+// GetBlocked returns value of Blocked conditional field.
+func (s *StoryView) GetBlocked() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(0)
+}
+
+// SetBlockedMyStoriesFrom sets value of BlockedMyStoriesFrom conditional field.
+func (s *StoryView) SetBlockedMyStoriesFrom(value bool) {
+	if value {
+		s.Flags.Set(1)
+		s.BlockedMyStoriesFrom = true
+	} else {
+		s.Flags.Unset(1)
+		s.BlockedMyStoriesFrom = false
+	}
+}
+
+// GetBlockedMyStoriesFrom returns value of BlockedMyStoriesFrom conditional field.
+func (s *StoryView) GetBlockedMyStoriesFrom() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(1)
 }
 
 // GetUserID returns value of UserID field.
@@ -185,4 +308,22 @@ func (s *StoryView) GetDate() (value int) {
 		return
 	}
 	return s.Date
+}
+
+// SetReaction sets value of Reaction conditional field.
+func (s *StoryView) SetReaction(value ReactionClass) {
+	s.Flags.Set(2)
+	s.Reaction = value
+}
+
+// GetReaction returns value of Reaction conditional field and
+// boolean which is true if field was set.
+func (s *StoryView) GetReaction() (value ReactionClass, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(2) {
+		return value, false
+	}
+	return s.Reaction, true
 }

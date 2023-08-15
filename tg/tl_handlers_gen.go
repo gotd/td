@@ -1245,3 +1245,23 @@ func (u UpdateDispatcher) OnStoryID(handler StoryIDHandler) {
 		return handler(ctx, e, update.(*UpdateStoryID))
 	}
 }
+
+// StoriesStealthModeHandler is a StoriesStealthMode event handler.
+type StoriesStealthModeHandler func(ctx context.Context, e Entities, update *UpdateStoriesStealthMode) error
+
+// OnStoriesStealthMode sets StoriesStealthMode handler.
+func (u UpdateDispatcher) OnStoriesStealthMode(handler StoriesStealthModeHandler) {
+	u.handlers[UpdateStoriesStealthModeTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateStoriesStealthMode))
+	}
+}
+
+// SentStoryReactionHandler is a SentStoryReaction event handler.
+type SentStoryReactionHandler func(ctx context.Context, e Entities, update *UpdateSentStoryReaction) error
+
+// OnSentStoryReaction sets SentStoryReaction handler.
+func (u UpdateDispatcher) OnSentStoryReaction(handler SentStoryReactionHandler) {
+	u.handlers[UpdateSentStoryReactionTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateSentStoryReaction))
+	}
+}

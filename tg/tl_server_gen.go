@@ -2297,14 +2297,14 @@ func (s *ServerDispatcher) OnContactsDeleteByPhones(f func(ctx context.Context, 
 	s.handlers[ContactsDeleteByPhonesRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnContactsBlock(f func(ctx context.Context, id InputPeerClass) (bool, error)) {
+func (s *ServerDispatcher) OnContactsBlock(f func(ctx context.Context, request *ContactsBlockRequest) (bool, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request ContactsBlockRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.ID)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
@@ -2318,14 +2318,14 @@ func (s *ServerDispatcher) OnContactsBlock(f func(ctx context.Context, id InputP
 	s.handlers[ContactsBlockRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnContactsUnblock(f func(ctx context.Context, id InputPeerClass) (bool, error)) {
+func (s *ServerDispatcher) OnContactsUnblock(f func(ctx context.Context, request *ContactsUnblockRequest) (bool, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request ContactsUnblockRequest
 		if err := request.Decode(b); err != nil {
 			return nil, err
 		}
 
-		response, err := f(ctx, request.ID)
+		response, err := f(ctx, &request)
 		if err != nil {
 			return nil, err
 		}
@@ -2646,6 +2646,27 @@ func (s *ServerDispatcher) OnContactsToggleStoriesHidden(f func(ctx context.Cont
 	}
 
 	s.handlers[ContactsToggleStoriesHiddenRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnContactsSetBlocked(f func(ctx context.Context, request *ContactsSetBlockedRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ContactsSetBlockedRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[ContactsSetBlockedRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnMessagesGetMessages(f func(ctx context.Context, id []InputMessageClass) (MessagesMessagesClass, error)) {
@@ -9564,6 +9585,40 @@ func (s *ServerDispatcher) OnStoriesReport(f func(ctx context.Context, request *
 	}
 
 	s.handlers[StoriesReportRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesActivateStealthMode(f func(ctx context.Context, request *StoriesActivateStealthModeRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesActivateStealthModeRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[StoriesActivateStealthModeRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesSendReaction(f func(ctx context.Context, request *StoriesSendReactionRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesSendReactionRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[StoriesSendReactionRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnTestUseError(f func(ctx context.Context) (*Error, error)) {

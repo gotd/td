@@ -1403,6 +1403,32 @@ func (s UpdateClassArray) AsUpdateStoryID() (to UpdateStoryIDArray) {
 	return to
 }
 
+// AsUpdateStoriesStealthMode returns copy with only UpdateStoriesStealthMode constructors.
+func (s UpdateClassArray) AsUpdateStoriesStealthMode() (to UpdateStoriesStealthModeArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateStoriesStealthMode)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateSentStoryReaction returns copy with only UpdateSentStoryReaction constructors.
+func (s UpdateClassArray) AsUpdateSentStoryReaction() (to UpdateSentStoryReactionArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateSentStoryReaction)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // UpdateNewMessageArray is adapter for slice of UpdateNewMessage.
 type UpdateNewMessageArray []UpdateNewMessage
 
@@ -9757,4 +9783,168 @@ func (s UpdateStoryIDArray) ToMap() map[int]UpdateStoryID {
 	r := make(map[int]UpdateStoryID, len(s))
 	s.FillMap(r)
 	return r
+}
+
+// UpdateStoriesStealthModeArray is adapter for slice of UpdateStoriesStealthMode.
+type UpdateStoriesStealthModeArray []UpdateStoriesStealthMode
+
+// Sort sorts slice of UpdateStoriesStealthMode.
+func (s UpdateStoriesStealthModeArray) Sort(less func(a, b UpdateStoriesStealthMode) bool) UpdateStoriesStealthModeArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateStoriesStealthMode.
+func (s UpdateStoriesStealthModeArray) SortStable(less func(a, b UpdateStoriesStealthMode) bool) UpdateStoriesStealthModeArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateStoriesStealthMode.
+func (s UpdateStoriesStealthModeArray) Retain(keep func(x UpdateStoriesStealthMode) bool) UpdateStoriesStealthModeArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateStoriesStealthModeArray) First() (v UpdateStoriesStealthMode, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateStoriesStealthModeArray) Last() (v UpdateStoriesStealthMode, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateStoriesStealthModeArray) PopFirst() (v UpdateStoriesStealthMode, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateStoriesStealthMode
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateStoriesStealthModeArray) Pop() (v UpdateStoriesStealthMode, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateSentStoryReactionArray is adapter for slice of UpdateSentStoryReaction.
+type UpdateSentStoryReactionArray []UpdateSentStoryReaction
+
+// Sort sorts slice of UpdateSentStoryReaction.
+func (s UpdateSentStoryReactionArray) Sort(less func(a, b UpdateSentStoryReaction) bool) UpdateSentStoryReactionArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateSentStoryReaction.
+func (s UpdateSentStoryReactionArray) SortStable(less func(a, b UpdateSentStoryReaction) bool) UpdateSentStoryReactionArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateSentStoryReaction.
+func (s UpdateSentStoryReactionArray) Retain(keep func(x UpdateSentStoryReaction) bool) UpdateSentStoryReactionArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateSentStoryReactionArray) First() (v UpdateSentStoryReaction, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateSentStoryReactionArray) Last() (v UpdateSentStoryReaction, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateSentStoryReactionArray) PopFirst() (v UpdateSentStoryReaction, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateSentStoryReaction
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateSentStoryReactionArray) Pop() (v UpdateSentStoryReaction, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

@@ -31,22 +31,30 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoriesGetStoryViewsListRequest represents TL type `stories.getStoryViewsList#4b3b5e97`.
+// StoriesGetStoryViewsListRequest represents TL type `stories.getStoryViewsList#f95f61a4`.
 //
 // See https://core.telegram.org/method/stories.getStoryViewsList for reference.
 type StoriesGetStoryViewsListRequest struct {
+	// Flags field of StoriesGetStoryViewsListRequest.
+	Flags bin.Fields
+	// JustContacts field of StoriesGetStoryViewsListRequest.
+	JustContacts bool
+	// ReactionsFirst field of StoriesGetStoryViewsListRequest.
+	ReactionsFirst bool
+	// Q field of StoriesGetStoryViewsListRequest.
+	//
+	// Use SetQ and GetQ helpers.
+	Q string
 	// ID field of StoriesGetStoryViewsListRequest.
 	ID int
-	// OffsetDate field of StoriesGetStoryViewsListRequest.
-	OffsetDate int
-	// OffsetID field of StoriesGetStoryViewsListRequest.
-	OffsetID int64
+	// Offset field of StoriesGetStoryViewsListRequest.
+	Offset string
 	// Limit field of StoriesGetStoryViewsListRequest.
 	Limit int
 }
 
 // StoriesGetStoryViewsListRequestTypeID is TL type id of StoriesGetStoryViewsListRequest.
-const StoriesGetStoryViewsListRequestTypeID = 0x4b3b5e97
+const StoriesGetStoryViewsListRequestTypeID = 0xf95f61a4
 
 // Ensuring interfaces in compile-time for StoriesGetStoryViewsListRequest.
 var (
@@ -60,13 +68,22 @@ func (g *StoriesGetStoryViewsListRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.JustContacts == false) {
+		return false
+	}
+	if !(g.ReactionsFirst == false) {
+		return false
+	}
+	if !(g.Q == "") {
+		return false
+	}
 	if !(g.ID == 0) {
 		return false
 	}
-	if !(g.OffsetDate == 0) {
-		return false
-	}
-	if !(g.OffsetID == 0) {
+	if !(g.Offset == "") {
 		return false
 	}
 	if !(g.Limit == 0) {
@@ -87,14 +104,21 @@ func (g *StoriesGetStoryViewsListRequest) String() string {
 
 // FillFrom fills StoriesGetStoryViewsListRequest from given interface.
 func (g *StoriesGetStoryViewsListRequest) FillFrom(from interface {
+	GetJustContacts() (value bool)
+	GetReactionsFirst() (value bool)
+	GetQ() (value string, ok bool)
 	GetID() (value int)
-	GetOffsetDate() (value int)
-	GetOffsetID() (value int64)
+	GetOffset() (value string)
 	GetLimit() (value int)
 }) {
+	g.JustContacts = from.GetJustContacts()
+	g.ReactionsFirst = from.GetReactionsFirst()
+	if val, ok := from.GetQ(); ok {
+		g.Q = val
+	}
+
 	g.ID = from.GetID()
-	g.OffsetDate = from.GetOffsetDate()
-	g.OffsetID = from.GetOffsetID()
+	g.Offset = from.GetOffset()
 	g.Limit = from.GetLimit()
 }
 
@@ -122,16 +146,27 @@ func (g *StoriesGetStoryViewsListRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "JustContacts",
+			SchemaName: "just_contacts",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "ReactionsFirst",
+			SchemaName: "reactions_first",
+			Null:       !g.Flags.Has(2),
+		},
+		{
+			Name:       "Q",
+			SchemaName: "q",
+			Null:       !g.Flags.Has(1),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
 		{
-			Name:       "OffsetDate",
-			SchemaName: "offset_date",
-		},
-		{
-			Name:       "OffsetID",
-			SchemaName: "offset_id",
+			Name:       "Offset",
+			SchemaName: "offset",
 		},
 		{
 			Name:       "Limit",
@@ -141,10 +176,23 @@ func (g *StoriesGetStoryViewsListRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *StoriesGetStoryViewsListRequest) SetFlags() {
+	if !(g.JustContacts == false) {
+		g.Flags.Set(0)
+	}
+	if !(g.ReactionsFirst == false) {
+		g.Flags.Set(2)
+	}
+	if !(g.Q == "") {
+		g.Flags.Set(1)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *StoriesGetStoryViewsListRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stories.getStoryViewsList#4b3b5e97 as nil")
+		return fmt.Errorf("can't encode stories.getStoryViewsList#f95f61a4 as nil")
 	}
 	b.PutID(StoriesGetStoryViewsListRequestTypeID)
 	return g.EncodeBare(b)
@@ -153,11 +201,17 @@ func (g *StoriesGetStoryViewsListRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *StoriesGetStoryViewsListRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stories.getStoryViewsList#4b3b5e97 as nil")
+		return fmt.Errorf("can't encode stories.getStoryViewsList#f95f61a4 as nil")
+	}
+	g.SetFlags()
+	if err := g.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode stories.getStoryViewsList#f95f61a4: field flags: %w", err)
+	}
+	if g.Flags.Has(1) {
+		b.PutString(g.Q)
 	}
 	b.PutInt(g.ID)
-	b.PutInt(g.OffsetDate)
-	b.PutLong(g.OffsetID)
+	b.PutString(g.Offset)
 	b.PutInt(g.Limit)
 	return nil
 }
@@ -165,10 +219,10 @@ func (g *StoriesGetStoryViewsListRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *StoriesGetStoryViewsListRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stories.getStoryViewsList#4b3b5e97 to nil")
+		return fmt.Errorf("can't decode stories.getStoryViewsList#f95f61a4 to nil")
 	}
 	if err := b.ConsumeID(StoriesGetStoryViewsListRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stories.getStoryViewsList#4b3b5e97: %w", err)
+		return fmt.Errorf("unable to decode stories.getStoryViewsList#f95f61a4: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -176,37 +230,100 @@ func (g *StoriesGetStoryViewsListRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *StoriesGetStoryViewsListRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stories.getStoryViewsList#4b3b5e97 to nil")
+		return fmt.Errorf("can't decode stories.getStoryViewsList#f95f61a4 to nil")
+	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode stories.getStoryViewsList#f95f61a4: field flags: %w", err)
+		}
+	}
+	g.JustContacts = g.Flags.Has(0)
+	g.ReactionsFirst = g.Flags.Has(2)
+	if g.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode stories.getStoryViewsList#f95f61a4: field q: %w", err)
+		}
+		g.Q = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.getStoryViewsList#4b3b5e97: field id: %w", err)
+			return fmt.Errorf("unable to decode stories.getStoryViewsList#f95f61a4: field id: %w", err)
 		}
 		g.ID = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.getStoryViewsList#4b3b5e97: field offset_date: %w", err)
+			return fmt.Errorf("unable to decode stories.getStoryViewsList#f95f61a4: field offset: %w", err)
 		}
-		g.OffsetDate = value
-	}
-	{
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode stories.getStoryViewsList#4b3b5e97: field offset_id: %w", err)
-		}
-		g.OffsetID = value
+		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.getStoryViewsList#4b3b5e97: field limit: %w", err)
+			return fmt.Errorf("unable to decode stories.getStoryViewsList#f95f61a4: field limit: %w", err)
 		}
 		g.Limit = value
 	}
 	return nil
+}
+
+// SetJustContacts sets value of JustContacts conditional field.
+func (g *StoriesGetStoryViewsListRequest) SetJustContacts(value bool) {
+	if value {
+		g.Flags.Set(0)
+		g.JustContacts = true
+	} else {
+		g.Flags.Unset(0)
+		g.JustContacts = false
+	}
+}
+
+// GetJustContacts returns value of JustContacts conditional field.
+func (g *StoriesGetStoryViewsListRequest) GetJustContacts() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(0)
+}
+
+// SetReactionsFirst sets value of ReactionsFirst conditional field.
+func (g *StoriesGetStoryViewsListRequest) SetReactionsFirst(value bool) {
+	if value {
+		g.Flags.Set(2)
+		g.ReactionsFirst = true
+	} else {
+		g.Flags.Unset(2)
+		g.ReactionsFirst = false
+	}
+}
+
+// GetReactionsFirst returns value of ReactionsFirst conditional field.
+func (g *StoriesGetStoryViewsListRequest) GetReactionsFirst() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(2)
+}
+
+// SetQ sets value of Q conditional field.
+func (g *StoriesGetStoryViewsListRequest) SetQ(value string) {
+	g.Flags.Set(1)
+	g.Q = value
+}
+
+// GetQ returns value of Q conditional field and
+// boolean which is true if field was set.
+func (g *StoriesGetStoryViewsListRequest) GetQ() (value string, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(1) {
+		return value, false
+	}
+	return g.Q, true
 }
 
 // GetID returns value of ID field.
@@ -217,20 +334,12 @@ func (g *StoriesGetStoryViewsListRequest) GetID() (value int) {
 	return g.ID
 }
 
-// GetOffsetDate returns value of OffsetDate field.
-func (g *StoriesGetStoryViewsListRequest) GetOffsetDate() (value int) {
+// GetOffset returns value of Offset field.
+func (g *StoriesGetStoryViewsListRequest) GetOffset() (value string) {
 	if g == nil {
 		return
 	}
-	return g.OffsetDate
-}
-
-// GetOffsetID returns value of OffsetID field.
-func (g *StoriesGetStoryViewsListRequest) GetOffsetID() (value int64) {
-	if g == nil {
-		return
-	}
-	return g.OffsetID
+	return g.Offset
 }
 
 // GetLimit returns value of Limit field.
@@ -241,7 +350,7 @@ func (g *StoriesGetStoryViewsListRequest) GetLimit() (value int) {
 	return g.Limit
 }
 
-// StoriesGetStoryViewsList invokes method stories.getStoryViewsList#4b3b5e97 returning error if any.
+// StoriesGetStoryViewsList invokes method stories.getStoryViewsList#f95f61a4 returning error if any.
 //
 // See https://core.telegram.org/method/stories.getStoryViewsList for reference.
 func (c *Client) StoriesGetStoryViewsList(ctx context.Context, request *StoriesGetStoryViewsListRequest) (*StoriesStoryViewsList, error) {
