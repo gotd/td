@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoryViews represents TL type `storyViews#d36760cf`.
+// StoryViews represents TL type `storyViews#c64c0b97`.
 //
 // See https://core.telegram.org/constructor/storyViews for reference.
 type StoryViews struct {
@@ -39,6 +39,8 @@ type StoryViews struct {
 	Flags bin.Fields
 	// ViewsCount field of StoryViews.
 	ViewsCount int
+	// ReactionsCount field of StoryViews.
+	ReactionsCount int
 	// RecentViewers field of StoryViews.
 	//
 	// Use SetRecentViewers and GetRecentViewers helpers.
@@ -46,7 +48,7 @@ type StoryViews struct {
 }
 
 // StoryViewsTypeID is TL type id of StoryViews.
-const StoryViewsTypeID = 0xd36760cf
+const StoryViewsTypeID = 0xc64c0b97
 
 // Ensuring interfaces in compile-time for StoryViews.
 var (
@@ -64,6 +66,9 @@ func (s *StoryViews) Zero() bool {
 		return false
 	}
 	if !(s.ViewsCount == 0) {
+		return false
+	}
+	if !(s.ReactionsCount == 0) {
 		return false
 	}
 	if !(s.RecentViewers == nil) {
@@ -85,9 +90,11 @@ func (s *StoryViews) String() string {
 // FillFrom fills StoryViews from given interface.
 func (s *StoryViews) FillFrom(from interface {
 	GetViewsCount() (value int)
+	GetReactionsCount() (value int)
 	GetRecentViewers() (value []int64, ok bool)
 }) {
 	s.ViewsCount = from.GetViewsCount()
+	s.ReactionsCount = from.GetReactionsCount()
 	if val, ok := from.GetRecentViewers(); ok {
 		s.RecentViewers = val
 	}
@@ -122,6 +129,10 @@ func (s *StoryViews) TypeInfo() tdp.Type {
 			SchemaName: "views_count",
 		},
 		{
+			Name:       "ReactionsCount",
+			SchemaName: "reactions_count",
+		},
+		{
 			Name:       "RecentViewers",
 			SchemaName: "recent_viewers",
 			Null:       !s.Flags.Has(0),
@@ -140,7 +151,7 @@ func (s *StoryViews) SetFlags() {
 // Encode implements bin.Encoder.
 func (s *StoryViews) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyViews#d36760cf as nil")
+		return fmt.Errorf("can't encode storyViews#c64c0b97 as nil")
 	}
 	b.PutID(StoryViewsTypeID)
 	return s.EncodeBare(b)
@@ -149,13 +160,14 @@ func (s *StoryViews) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StoryViews) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyViews#d36760cf as nil")
+		return fmt.Errorf("can't encode storyViews#c64c0b97 as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode storyViews#d36760cf: field flags: %w", err)
+		return fmt.Errorf("unable to encode storyViews#c64c0b97: field flags: %w", err)
 	}
 	b.PutInt(s.ViewsCount)
+	b.PutInt(s.ReactionsCount)
 	if s.Flags.Has(0) {
 		b.PutVectorHeader(len(s.RecentViewers))
 		for _, v := range s.RecentViewers {
@@ -168,10 +180,10 @@ func (s *StoryViews) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StoryViews) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyViews#d36760cf to nil")
+		return fmt.Errorf("can't decode storyViews#c64c0b97 to nil")
 	}
 	if err := b.ConsumeID(StoryViewsTypeID); err != nil {
-		return fmt.Errorf("unable to decode storyViews#d36760cf: %w", err)
+		return fmt.Errorf("unable to decode storyViews#c64c0b97: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -179,24 +191,31 @@ func (s *StoryViews) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StoryViews) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyViews#d36760cf to nil")
+		return fmt.Errorf("can't decode storyViews#c64c0b97 to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode storyViews#d36760cf: field flags: %w", err)
+			return fmt.Errorf("unable to decode storyViews#c64c0b97: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyViews#d36760cf: field views_count: %w", err)
+			return fmt.Errorf("unable to decode storyViews#c64c0b97: field views_count: %w", err)
 		}
 		s.ViewsCount = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode storyViews#c64c0b97: field reactions_count: %w", err)
+		}
+		s.ReactionsCount = value
 	}
 	if s.Flags.Has(0) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyViews#d36760cf: field recent_viewers: %w", err)
+			return fmt.Errorf("unable to decode storyViews#c64c0b97: field recent_viewers: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -205,7 +224,7 @@ func (s *StoryViews) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode storyViews#d36760cf: field recent_viewers: %w", err)
+				return fmt.Errorf("unable to decode storyViews#c64c0b97: field recent_viewers: %w", err)
 			}
 			s.RecentViewers = append(s.RecentViewers, value)
 		}
@@ -219,6 +238,14 @@ func (s *StoryViews) GetViewsCount() (value int) {
 		return
 	}
 	return s.ViewsCount
+}
+
+// GetReactionsCount returns value of ReactionsCount field.
+func (s *StoryViews) GetReactionsCount() (value int) {
+	if s == nil {
+		return
+	}
+	return s.ReactionsCount
 }
 
 // SetRecentViewers sets value of RecentViewers conditional field.

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoriesSendStoryRequest represents TL type `stories.sendStory#424cd47a`.
+// StoriesSendStoryRequest represents TL type `stories.sendStory#d455fcec`.
 //
 // See https://core.telegram.org/method/stories.sendStory for reference.
 type StoriesSendStoryRequest struct {
@@ -43,6 +43,10 @@ type StoriesSendStoryRequest struct {
 	Noforwards bool
 	// Media field of StoriesSendStoryRequest.
 	Media InputMediaClass
+	// MediaAreas field of StoriesSendStoryRequest.
+	//
+	// Use SetMediaAreas and GetMediaAreas helpers.
+	MediaAreas []MediaAreaClass
 	// Caption field of StoriesSendStoryRequest.
 	//
 	// Use SetCaption and GetCaption helpers.
@@ -62,7 +66,7 @@ type StoriesSendStoryRequest struct {
 }
 
 // StoriesSendStoryRequestTypeID is TL type id of StoriesSendStoryRequest.
-const StoriesSendStoryRequestTypeID = 0x424cd47a
+const StoriesSendStoryRequestTypeID = 0xd455fcec
 
 // Ensuring interfaces in compile-time for StoriesSendStoryRequest.
 var (
@@ -86,6 +90,9 @@ func (s *StoriesSendStoryRequest) Zero() bool {
 		return false
 	}
 	if !(s.Media == nil) {
+		return false
+	}
+	if !(s.MediaAreas == nil) {
 		return false
 	}
 	if !(s.Caption == "") {
@@ -121,6 +128,7 @@ func (s *StoriesSendStoryRequest) FillFrom(from interface {
 	GetPinned() (value bool)
 	GetNoforwards() (value bool)
 	GetMedia() (value InputMediaClass)
+	GetMediaAreas() (value []MediaAreaClass, ok bool)
 	GetCaption() (value string, ok bool)
 	GetEntities() (value []MessageEntityClass, ok bool)
 	GetPrivacyRules() (value []InputPrivacyRuleClass)
@@ -130,6 +138,10 @@ func (s *StoriesSendStoryRequest) FillFrom(from interface {
 	s.Pinned = from.GetPinned()
 	s.Noforwards = from.GetNoforwards()
 	s.Media = from.GetMedia()
+	if val, ok := from.GetMediaAreas(); ok {
+		s.MediaAreas = val
+	}
+
 	if val, ok := from.GetCaption(); ok {
 		s.Caption = val
 	}
@@ -184,6 +196,11 @@ func (s *StoriesSendStoryRequest) TypeInfo() tdp.Type {
 			SchemaName: "media",
 		},
 		{
+			Name:       "MediaAreas",
+			SchemaName: "media_areas",
+			Null:       !s.Flags.Has(5),
+		},
+		{
 			Name:       "Caption",
 			SchemaName: "caption",
 			Null:       !s.Flags.Has(0),
@@ -218,6 +235,9 @@ func (s *StoriesSendStoryRequest) SetFlags() {
 	if !(s.Noforwards == false) {
 		s.Flags.Set(4)
 	}
+	if !(s.MediaAreas == nil) {
+		s.Flags.Set(5)
+	}
 	if !(s.Caption == "") {
 		s.Flags.Set(0)
 	}
@@ -232,7 +252,7 @@ func (s *StoriesSendStoryRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (s *StoriesSendStoryRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stories.sendStory#424cd47a as nil")
+		return fmt.Errorf("can't encode stories.sendStory#d455fcec as nil")
 	}
 	b.PutID(StoriesSendStoryRequestTypeID)
 	return s.EncodeBare(b)
@@ -241,17 +261,28 @@ func (s *StoriesSendStoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StoriesSendStoryRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stories.sendStory#424cd47a as nil")
+		return fmt.Errorf("can't encode stories.sendStory#d455fcec as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stories.sendStory#424cd47a: field flags: %w", err)
+		return fmt.Errorf("unable to encode stories.sendStory#d455fcec: field flags: %w", err)
 	}
 	if s.Media == nil {
-		return fmt.Errorf("unable to encode stories.sendStory#424cd47a: field media is nil")
+		return fmt.Errorf("unable to encode stories.sendStory#d455fcec: field media is nil")
 	}
 	if err := s.Media.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stories.sendStory#424cd47a: field media: %w", err)
+		return fmt.Errorf("unable to encode stories.sendStory#d455fcec: field media: %w", err)
+	}
+	if s.Flags.Has(5) {
+		b.PutVectorHeader(len(s.MediaAreas))
+		for idx, v := range s.MediaAreas {
+			if v == nil {
+				return fmt.Errorf("unable to encode stories.sendStory#d455fcec: field media_areas element with index %d is nil", idx)
+			}
+			if err := v.Encode(b); err != nil {
+				return fmt.Errorf("unable to encode stories.sendStory#d455fcec: field media_areas element with index %d: %w", idx, err)
+			}
+		}
 	}
 	if s.Flags.Has(0) {
 		b.PutString(s.Caption)
@@ -260,20 +291,20 @@ func (s *StoriesSendStoryRequest) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(s.Entities))
 		for idx, v := range s.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode stories.sendStory#424cd47a: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode stories.sendStory#d455fcec: field entities element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode stories.sendStory#424cd47a: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode stories.sendStory#d455fcec: field entities element with index %d: %w", idx, err)
 			}
 		}
 	}
 	b.PutVectorHeader(len(s.PrivacyRules))
 	for idx, v := range s.PrivacyRules {
 		if v == nil {
-			return fmt.Errorf("unable to encode stories.sendStory#424cd47a: field privacy_rules element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode stories.sendStory#d455fcec: field privacy_rules element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stories.sendStory#424cd47a: field privacy_rules element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode stories.sendStory#d455fcec: field privacy_rules element with index %d: %w", idx, err)
 		}
 	}
 	b.PutLong(s.RandomID)
@@ -286,10 +317,10 @@ func (s *StoriesSendStoryRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StoriesSendStoryRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stories.sendStory#424cd47a to nil")
+		return fmt.Errorf("can't decode stories.sendStory#d455fcec to nil")
 	}
 	if err := b.ConsumeID(StoriesSendStoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stories.sendStory#424cd47a: %w", err)
+		return fmt.Errorf("unable to decode stories.sendStory#d455fcec: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -297,11 +328,11 @@ func (s *StoriesSendStoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StoriesSendStoryRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stories.sendStory#424cd47a to nil")
+		return fmt.Errorf("can't decode stories.sendStory#d455fcec to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stories.sendStory#424cd47a: field flags: %w", err)
+			return fmt.Errorf("unable to decode stories.sendStory#d455fcec: field flags: %w", err)
 		}
 	}
 	s.Pinned = s.Flags.Has(2)
@@ -309,21 +340,38 @@ func (s *StoriesSendStoryRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := DecodeInputMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.sendStory#424cd47a: field media: %w", err)
+			return fmt.Errorf("unable to decode stories.sendStory#d455fcec: field media: %w", err)
 		}
 		s.Media = value
+	}
+	if s.Flags.Has(5) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode stories.sendStory#d455fcec: field media_areas: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.MediaAreas = make([]MediaAreaClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeMediaArea(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode stories.sendStory#d455fcec: field media_areas: %w", err)
+			}
+			s.MediaAreas = append(s.MediaAreas, value)
+		}
 	}
 	if s.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.sendStory#424cd47a: field caption: %w", err)
+			return fmt.Errorf("unable to decode stories.sendStory#d455fcec: field caption: %w", err)
 		}
 		s.Caption = value
 	}
 	if s.Flags.Has(1) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.sendStory#424cd47a: field entities: %w", err)
+			return fmt.Errorf("unable to decode stories.sendStory#d455fcec: field entities: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -332,7 +380,7 @@ func (s *StoriesSendStoryRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode stories.sendStory#424cd47a: field entities: %w", err)
+				return fmt.Errorf("unable to decode stories.sendStory#d455fcec: field entities: %w", err)
 			}
 			s.Entities = append(s.Entities, value)
 		}
@@ -340,7 +388,7 @@ func (s *StoriesSendStoryRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.sendStory#424cd47a: field privacy_rules: %w", err)
+			return fmt.Errorf("unable to decode stories.sendStory#d455fcec: field privacy_rules: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -349,7 +397,7 @@ func (s *StoriesSendStoryRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputPrivacyRule(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode stories.sendStory#424cd47a: field privacy_rules: %w", err)
+				return fmt.Errorf("unable to decode stories.sendStory#d455fcec: field privacy_rules: %w", err)
 			}
 			s.PrivacyRules = append(s.PrivacyRules, value)
 		}
@@ -357,14 +405,14 @@ func (s *StoriesSendStoryRequest) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.sendStory#424cd47a: field random_id: %w", err)
+			return fmt.Errorf("unable to decode stories.sendStory#d455fcec: field random_id: %w", err)
 		}
 		s.RandomID = value
 	}
 	if s.Flags.Has(3) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.sendStory#424cd47a: field period: %w", err)
+			return fmt.Errorf("unable to decode stories.sendStory#d455fcec: field period: %w", err)
 		}
 		s.Period = value
 	}
@@ -415,6 +463,24 @@ func (s *StoriesSendStoryRequest) GetMedia() (value InputMediaClass) {
 		return
 	}
 	return s.Media
+}
+
+// SetMediaAreas sets value of MediaAreas conditional field.
+func (s *StoriesSendStoryRequest) SetMediaAreas(value []MediaAreaClass) {
+	s.Flags.Set(5)
+	s.MediaAreas = value
+}
+
+// GetMediaAreas returns value of MediaAreas conditional field and
+// boolean which is true if field was set.
+func (s *StoriesSendStoryRequest) GetMediaAreas() (value []MediaAreaClass, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(5) {
+		return value, false
+	}
+	return s.MediaAreas, true
 }
 
 // SetCaption sets value of Caption conditional field.
@@ -487,6 +553,14 @@ func (s *StoriesSendStoryRequest) GetPeriod() (value int, ok bool) {
 	return s.Period, true
 }
 
+// MapMediaAreas returns field MediaAreas wrapped in MediaAreaClassArray helper.
+func (s *StoriesSendStoryRequest) MapMediaAreas() (value MediaAreaClassArray, ok bool) {
+	if !s.Flags.Has(5) {
+		return value, false
+	}
+	return MediaAreaClassArray(s.MediaAreas), true
+}
+
 // MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
 func (s *StoriesSendStoryRequest) MapEntities() (value MessageEntityClassArray, ok bool) {
 	if !s.Flags.Has(1) {
@@ -500,7 +574,7 @@ func (s *StoriesSendStoryRequest) MapPrivacyRules() (value InputPrivacyRuleClass
 	return InputPrivacyRuleClassArray(s.PrivacyRules)
 }
 
-// StoriesSendStory invokes method stories.sendStory#424cd47a returning error if any.
+// StoriesSendStory invokes method stories.sendStory#d455fcec returning error if any.
 //
 // See https://core.telegram.org/method/stories.sendStory for reference.
 func (c *Client) StoriesSendStory(ctx context.Context, request *StoriesSendStoryRequest) (UpdatesClass, error) {

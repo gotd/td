@@ -70,12 +70,19 @@ func (b *GetBlockedQueryBuilder) BatchSize(batchSize int) *GetBlockedQueryBuilde
 	return b
 }
 
+// MyStoriesFrom sets MyStoriesFrom field of GetBlocked query.
+func (b *GetBlockedQueryBuilder) MyStoriesFrom(paramMyStoriesFrom bool) *GetBlockedQueryBuilder {
+	b.req.MyStoriesFrom = paramMyStoriesFrom
+	return b
+}
+
 // Query implements Query interface.
 func (b *GetBlockedQueryBuilder) Query(ctx context.Context, req Request) (tg.ContactsBlockedClass, error) {
 	r := &tg.ContactsGetBlockedRequest{
 		Limit: req.Limit,
 	}
 
+	r.MyStoriesFrom = b.req.MyStoriesFrom
 	r.Offset = req.Offset
 	return b.raw.ContactsGetBlocked(ctx, r)
 }

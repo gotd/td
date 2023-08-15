@@ -31,11 +31,15 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ContactsGetBlockedRequest represents TL type `contacts.getBlocked#f57c350f`.
+// ContactsGetBlockedRequest represents TL type `contacts.getBlocked#9a868f80`.
 // Returns the list of blocked users.
 //
 // See https://core.telegram.org/method/contacts.getBlocked for reference.
 type ContactsGetBlockedRequest struct {
+	// Flags field of ContactsGetBlockedRequest.
+	Flags bin.Fields
+	// MyStoriesFrom field of ContactsGetBlockedRequest.
+	MyStoriesFrom bool
 	// The number of list elements to be skipped
 	Offset int
 	// The number of list elements to be returned
@@ -43,7 +47,7 @@ type ContactsGetBlockedRequest struct {
 }
 
 // ContactsGetBlockedRequestTypeID is TL type id of ContactsGetBlockedRequest.
-const ContactsGetBlockedRequestTypeID = 0xf57c350f
+const ContactsGetBlockedRequestTypeID = 0x9a868f80
 
 // Ensuring interfaces in compile-time for ContactsGetBlockedRequest.
 var (
@@ -56,6 +60,12 @@ var (
 func (g *ContactsGetBlockedRequest) Zero() bool {
 	if g == nil {
 		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.MyStoriesFrom == false) {
+		return false
 	}
 	if !(g.Offset == 0) {
 		return false
@@ -78,9 +88,11 @@ func (g *ContactsGetBlockedRequest) String() string {
 
 // FillFrom fills ContactsGetBlockedRequest from given interface.
 func (g *ContactsGetBlockedRequest) FillFrom(from interface {
+	GetMyStoriesFrom() (value bool)
 	GetOffset() (value int)
 	GetLimit() (value int)
 }) {
+	g.MyStoriesFrom = from.GetMyStoriesFrom()
 	g.Offset = from.GetOffset()
 	g.Limit = from.GetLimit()
 }
@@ -109,6 +121,11 @@ func (g *ContactsGetBlockedRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "MyStoriesFrom",
+			SchemaName: "my_stories_from",
+			Null:       !g.Flags.Has(0),
+		},
+		{
 			Name:       "Offset",
 			SchemaName: "offset",
 		},
@@ -120,10 +137,17 @@ func (g *ContactsGetBlockedRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *ContactsGetBlockedRequest) SetFlags() {
+	if !(g.MyStoriesFrom == false) {
+		g.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *ContactsGetBlockedRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode contacts.getBlocked#f57c350f as nil")
+		return fmt.Errorf("can't encode contacts.getBlocked#9a868f80 as nil")
 	}
 	b.PutID(ContactsGetBlockedRequestTypeID)
 	return g.EncodeBare(b)
@@ -132,7 +156,11 @@ func (g *ContactsGetBlockedRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *ContactsGetBlockedRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode contacts.getBlocked#f57c350f as nil")
+		return fmt.Errorf("can't encode contacts.getBlocked#9a868f80 as nil")
+	}
+	g.SetFlags()
+	if err := g.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode contacts.getBlocked#9a868f80: field flags: %w", err)
 	}
 	b.PutInt(g.Offset)
 	b.PutInt(g.Limit)
@@ -142,10 +170,10 @@ func (g *ContactsGetBlockedRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *ContactsGetBlockedRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode contacts.getBlocked#f57c350f to nil")
+		return fmt.Errorf("can't decode contacts.getBlocked#9a868f80 to nil")
 	}
 	if err := b.ConsumeID(ContactsGetBlockedRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode contacts.getBlocked#f57c350f: %w", err)
+		return fmt.Errorf("unable to decode contacts.getBlocked#9a868f80: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -153,23 +181,48 @@ func (g *ContactsGetBlockedRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *ContactsGetBlockedRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode contacts.getBlocked#f57c350f to nil")
+		return fmt.Errorf("can't decode contacts.getBlocked#9a868f80 to nil")
 	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode contacts.getBlocked#9a868f80: field flags: %w", err)
+		}
+	}
+	g.MyStoriesFrom = g.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.getBlocked#f57c350f: field offset: %w", err)
+			return fmt.Errorf("unable to decode contacts.getBlocked#9a868f80: field offset: %w", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode contacts.getBlocked#f57c350f: field limit: %w", err)
+			return fmt.Errorf("unable to decode contacts.getBlocked#9a868f80: field limit: %w", err)
 		}
 		g.Limit = value
 	}
 	return nil
+}
+
+// SetMyStoriesFrom sets value of MyStoriesFrom conditional field.
+func (g *ContactsGetBlockedRequest) SetMyStoriesFrom(value bool) {
+	if value {
+		g.Flags.Set(0)
+		g.MyStoriesFrom = true
+	} else {
+		g.Flags.Unset(0)
+		g.MyStoriesFrom = false
+	}
+}
+
+// GetMyStoriesFrom returns value of MyStoriesFrom conditional field.
+func (g *ContactsGetBlockedRequest) GetMyStoriesFrom() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(0)
 }
 
 // GetOffset returns value of Offset field.
@@ -188,7 +241,7 @@ func (g *ContactsGetBlockedRequest) GetLimit() (value int) {
 	return g.Limit
 }
 
-// ContactsGetBlocked invokes method contacts.getBlocked#f57c350f returning error if any.
+// ContactsGetBlocked invokes method contacts.getBlocked#9a868f80 returning error if any.
 // Returns the list of blocked users.
 //
 // See https://core.telegram.org/method/contacts.getBlocked for reference.

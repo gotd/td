@@ -236,7 +236,9 @@ func (u User) ReportSpam(ctx context.Context) error {
 
 // Block blocks this user.
 func (u User) Block(ctx context.Context) error {
-	if _, err := u.m.api.ContactsBlock(ctx, u.InputPeer()); err != nil {
+	if _, err := u.m.api.ContactsBlock(ctx, &tg.ContactsBlockRequest{
+		ID: u.InputPeer(),
+	}); err != nil {
 		return errors.Wrap(err, "block")
 	}
 	return nil
@@ -244,7 +246,9 @@ func (u User) Block(ctx context.Context) error {
 
 // Unblock unblocks this user.
 func (u User) Unblock(ctx context.Context) error {
-	if _, err := u.m.api.ContactsUnblock(ctx, u.InputPeer()); err != nil {
+	if _, err := u.m.api.ContactsUnblock(ctx, &tg.ContactsUnblockRequest{
+		ID: u.InputPeer(),
+	}); err != nil {
 		return errors.Wrap(err, "unblock")
 	}
 	return nil
