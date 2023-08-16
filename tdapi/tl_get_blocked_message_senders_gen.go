@@ -31,8 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetBlockedMessageSendersRequest represents TL type `getBlockedMessageSenders#740e1460`.
+// GetBlockedMessageSendersRequest represents TL type `getBlockedMessageSenders#8ce52f16`.
 type GetBlockedMessageSendersRequest struct {
+	// Block list from which to return users
+	BlockList BlockListClass
 	// Number of users and chats to skip in the result; must be non-negative
 	Offset int32
 	// The maximum number of users and chats to return; up to 100
@@ -40,7 +42,7 @@ type GetBlockedMessageSendersRequest struct {
 }
 
 // GetBlockedMessageSendersRequestTypeID is TL type id of GetBlockedMessageSendersRequest.
-const GetBlockedMessageSendersRequestTypeID = 0x740e1460
+const GetBlockedMessageSendersRequestTypeID = 0x8ce52f16
 
 // Ensuring interfaces in compile-time for GetBlockedMessageSendersRequest.
 var (
@@ -53,6 +55,9 @@ var (
 func (g *GetBlockedMessageSendersRequest) Zero() bool {
 	if g == nil {
 		return true
+	}
+	if !(g.BlockList == nil) {
+		return false
 	}
 	if !(g.Offset == 0) {
 		return false
@@ -97,6 +102,10 @@ func (g *GetBlockedMessageSendersRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "BlockList",
+			SchemaName: "block_list",
+		},
+		{
 			Name:       "Offset",
 			SchemaName: "offset",
 		},
@@ -111,7 +120,7 @@ func (g *GetBlockedMessageSendersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetBlockedMessageSendersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getBlockedMessageSenders#740e1460 as nil")
+		return fmt.Errorf("can't encode getBlockedMessageSenders#8ce52f16 as nil")
 	}
 	b.PutID(GetBlockedMessageSendersRequestTypeID)
 	return g.EncodeBare(b)
@@ -120,7 +129,13 @@ func (g *GetBlockedMessageSendersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetBlockedMessageSendersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getBlockedMessageSenders#740e1460 as nil")
+		return fmt.Errorf("can't encode getBlockedMessageSenders#8ce52f16 as nil")
+	}
+	if g.BlockList == nil {
+		return fmt.Errorf("unable to encode getBlockedMessageSenders#8ce52f16: field block_list is nil")
+	}
+	if err := g.BlockList.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode getBlockedMessageSenders#8ce52f16: field block_list: %w", err)
 	}
 	b.PutInt32(g.Offset)
 	b.PutInt32(g.Limit)
@@ -130,10 +145,10 @@ func (g *GetBlockedMessageSendersRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetBlockedMessageSendersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getBlockedMessageSenders#740e1460 to nil")
+		return fmt.Errorf("can't decode getBlockedMessageSenders#8ce52f16 to nil")
 	}
 	if err := b.ConsumeID(GetBlockedMessageSendersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getBlockedMessageSenders#740e1460: %w", err)
+		return fmt.Errorf("unable to decode getBlockedMessageSenders#8ce52f16: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -141,19 +156,26 @@ func (g *GetBlockedMessageSendersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetBlockedMessageSendersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getBlockedMessageSenders#740e1460 to nil")
+		return fmt.Errorf("can't decode getBlockedMessageSenders#8ce52f16 to nil")
+	}
+	{
+		value, err := DecodeBlockList(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode getBlockedMessageSenders#8ce52f16: field block_list: %w", err)
+		}
+		g.BlockList = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getBlockedMessageSenders#740e1460: field offset: %w", err)
+			return fmt.Errorf("unable to decode getBlockedMessageSenders#8ce52f16: field offset: %w", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getBlockedMessageSenders#740e1460: field limit: %w", err)
+			return fmt.Errorf("unable to decode getBlockedMessageSenders#8ce52f16: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -163,10 +185,18 @@ func (g *GetBlockedMessageSendersRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetBlockedMessageSendersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getBlockedMessageSenders#740e1460 as nil")
+		return fmt.Errorf("can't encode getBlockedMessageSenders#8ce52f16 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getBlockedMessageSenders")
+	b.Comma()
+	b.FieldStart("block_list")
+	if g.BlockList == nil {
+		return fmt.Errorf("unable to encode getBlockedMessageSenders#8ce52f16: field block_list is nil")
+	}
+	if err := g.BlockList.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getBlockedMessageSenders#8ce52f16: field block_list: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("offset")
 	b.PutInt32(g.Offset)
@@ -182,25 +212,31 @@ func (g *GetBlockedMessageSendersRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetBlockedMessageSendersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getBlockedMessageSenders#740e1460 to nil")
+		return fmt.Errorf("can't decode getBlockedMessageSenders#8ce52f16 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getBlockedMessageSenders"); err != nil {
-				return fmt.Errorf("unable to decode getBlockedMessageSenders#740e1460: %w", err)
+				return fmt.Errorf("unable to decode getBlockedMessageSenders#8ce52f16: %w", err)
 			}
+		case "block_list":
+			value, err := DecodeTDLibJSONBlockList(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode getBlockedMessageSenders#8ce52f16: field block_list: %w", err)
+			}
+			g.BlockList = value
 		case "offset":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getBlockedMessageSenders#740e1460: field offset: %w", err)
+				return fmt.Errorf("unable to decode getBlockedMessageSenders#8ce52f16: field offset: %w", err)
 			}
 			g.Offset = value
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getBlockedMessageSenders#740e1460: field limit: %w", err)
+				return fmt.Errorf("unable to decode getBlockedMessageSenders#8ce52f16: field limit: %w", err)
 			}
 			g.Limit = value
 		default:
@@ -208,6 +244,14 @@ func (g *GetBlockedMessageSendersRequest) DecodeTDLibJSON(b tdjson.Decoder) erro
 		}
 		return nil
 	})
+}
+
+// GetBlockList returns value of BlockList field.
+func (g *GetBlockedMessageSendersRequest) GetBlockList() (value BlockListClass) {
+	if g == nil {
+		return
+	}
+	return g.BlockList
 }
 
 // GetOffset returns value of Offset field.
@@ -226,7 +270,7 @@ func (g *GetBlockedMessageSendersRequest) GetLimit() (value int32) {
 	return g.Limit
 }
 
-// GetBlockedMessageSenders invokes method getBlockedMessageSenders#740e1460 returning error if any.
+// GetBlockedMessageSenders invokes method getBlockedMessageSenders#8ce52f16 returning error if any.
 func (c *Client) GetBlockedMessageSenders(ctx context.Context, request *GetBlockedMessageSendersRequest) (*MessageSenders, error) {
 	var result MessageSenders
 

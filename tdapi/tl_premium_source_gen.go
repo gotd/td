@@ -383,6 +383,182 @@ func (p *PremiumSourceFeature) GetFeature() (value PremiumFeatureClass) {
 	return p.Feature
 }
 
+// PremiumSourceStoryFeature represents TL type `premiumSourceStoryFeature#c290316c`.
+type PremiumSourceStoryFeature struct {
+	// The used feature
+	Feature PremiumStoryFeatureClass
+}
+
+// PremiumSourceStoryFeatureTypeID is TL type id of PremiumSourceStoryFeature.
+const PremiumSourceStoryFeatureTypeID = 0xc290316c
+
+// construct implements constructor of PremiumSourceClass.
+func (p PremiumSourceStoryFeature) construct() PremiumSourceClass { return &p }
+
+// Ensuring interfaces in compile-time for PremiumSourceStoryFeature.
+var (
+	_ bin.Encoder     = &PremiumSourceStoryFeature{}
+	_ bin.Decoder     = &PremiumSourceStoryFeature{}
+	_ bin.BareEncoder = &PremiumSourceStoryFeature{}
+	_ bin.BareDecoder = &PremiumSourceStoryFeature{}
+
+	_ PremiumSourceClass = &PremiumSourceStoryFeature{}
+)
+
+func (p *PremiumSourceStoryFeature) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Feature == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PremiumSourceStoryFeature) String() string {
+	if p == nil {
+		return "PremiumSourceStoryFeature(nil)"
+	}
+	type Alias PremiumSourceStoryFeature
+	return fmt.Sprintf("PremiumSourceStoryFeature%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PremiumSourceStoryFeature) TypeID() uint32 {
+	return PremiumSourceStoryFeatureTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PremiumSourceStoryFeature) TypeName() string {
+	return "premiumSourceStoryFeature"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PremiumSourceStoryFeature) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "premiumSourceStoryFeature",
+		ID:   PremiumSourceStoryFeatureTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Feature",
+			SchemaName: "feature",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PremiumSourceStoryFeature) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumSourceStoryFeature#c290316c as nil")
+	}
+	b.PutID(PremiumSourceStoryFeatureTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PremiumSourceStoryFeature) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumSourceStoryFeature#c290316c as nil")
+	}
+	if p.Feature == nil {
+		return fmt.Errorf("unable to encode premiumSourceStoryFeature#c290316c: field feature is nil")
+	}
+	if err := p.Feature.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode premiumSourceStoryFeature#c290316c: field feature: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PremiumSourceStoryFeature) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumSourceStoryFeature#c290316c to nil")
+	}
+	if err := b.ConsumeID(PremiumSourceStoryFeatureTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumSourceStoryFeature#c290316c: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PremiumSourceStoryFeature) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumSourceStoryFeature#c290316c to nil")
+	}
+	{
+		value, err := DecodePremiumStoryFeature(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode premiumSourceStoryFeature#c290316c: field feature: %w", err)
+		}
+		p.Feature = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PremiumSourceStoryFeature) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumSourceStoryFeature#c290316c as nil")
+	}
+	b.ObjStart()
+	b.PutID("premiumSourceStoryFeature")
+	b.Comma()
+	b.FieldStart("feature")
+	if p.Feature == nil {
+		return fmt.Errorf("unable to encode premiumSourceStoryFeature#c290316c: field feature is nil")
+	}
+	if err := p.Feature.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode premiumSourceStoryFeature#c290316c: field feature: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PremiumSourceStoryFeature) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumSourceStoryFeature#c290316c to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("premiumSourceStoryFeature"); err != nil {
+				return fmt.Errorf("unable to decode premiumSourceStoryFeature#c290316c: %w", err)
+			}
+		case "feature":
+			value, err := DecodeTDLibJSONPremiumStoryFeature(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode premiumSourceStoryFeature#c290316c: field feature: %w", err)
+			}
+			p.Feature = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetFeature returns value of Feature field.
+func (p *PremiumSourceStoryFeature) GetFeature() (value PremiumStoryFeatureClass) {
+	if p == nil {
+		return
+	}
+	return p.Feature
+}
+
 // PremiumSourceLink represents TL type `premiumSourceLink#7f42999c`.
 type PremiumSourceLink struct {
 	// The referrer from the link
@@ -694,6 +870,7 @@ const PremiumSourceClassName = "PremiumSource"
 //	switch v := g.(type) {
 //	case *tdapi.PremiumSourceLimitExceeded: // premiumSourceLimitExceeded#85ae8702
 //	case *tdapi.PremiumSourceFeature: // premiumSourceFeature#1a929325
+//	case *tdapi.PremiumSourceStoryFeature: // premiumSourceStoryFeature#c290316c
 //	case *tdapi.PremiumSourceLink: // premiumSourceLink#7f42999c
 //	case *tdapi.PremiumSourceSettings: // premiumSourceSettings#eef88535
 //	default: panic(v)
@@ -741,6 +918,13 @@ func DecodePremiumSource(buf *bin.Buffer) (PremiumSourceClass, error) {
 			return nil, fmt.Errorf("unable to decode PremiumSourceClass: %w", err)
 		}
 		return &v, nil
+	case PremiumSourceStoryFeatureTypeID:
+		// Decoding premiumSourceStoryFeature#c290316c.
+		v := PremiumSourceStoryFeature{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumSourceClass: %w", err)
+		}
+		return &v, nil
 	case PremiumSourceLinkTypeID:
 		// Decoding premiumSourceLink#7f42999c.
 		v := PremiumSourceLink{}
@@ -777,6 +961,13 @@ func DecodeTDLibJSONPremiumSource(buf tdjson.Decoder) (PremiumSourceClass, error
 	case "premiumSourceFeature":
 		// Decoding premiumSourceFeature#1a929325.
 		v := PremiumSourceFeature{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumSourceClass: %w", err)
+		}
+		return &v, nil
+	case "premiumSourceStoryFeature":
+		// Decoding premiumSourceStoryFeature#c290316c.
+		v := PremiumSourceStoryFeature{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumSourceClass: %w", err)
 		}
