@@ -1734,6 +1734,399 @@ func (p *PremiumLimitTypeActiveStoryCount) DecodeTDLibJSON(b tdjson.Decoder) err
 	})
 }
 
+// PremiumLimitTypeWeeklySentStoryCount represents TL type `premiumLimitTypeWeeklySentStoryCount#269c34b`.
+type PremiumLimitTypeWeeklySentStoryCount struct {
+}
+
+// PremiumLimitTypeWeeklySentStoryCountTypeID is TL type id of PremiumLimitTypeWeeklySentStoryCount.
+const PremiumLimitTypeWeeklySentStoryCountTypeID = 0x269c34b
+
+// construct implements constructor of PremiumLimitTypeClass.
+func (p PremiumLimitTypeWeeklySentStoryCount) construct() PremiumLimitTypeClass { return &p }
+
+// Ensuring interfaces in compile-time for PremiumLimitTypeWeeklySentStoryCount.
+var (
+	_ bin.Encoder     = &PremiumLimitTypeWeeklySentStoryCount{}
+	_ bin.Decoder     = &PremiumLimitTypeWeeklySentStoryCount{}
+	_ bin.BareEncoder = &PremiumLimitTypeWeeklySentStoryCount{}
+	_ bin.BareDecoder = &PremiumLimitTypeWeeklySentStoryCount{}
+
+	_ PremiumLimitTypeClass = &PremiumLimitTypeWeeklySentStoryCount{}
+)
+
+func (p *PremiumLimitTypeWeeklySentStoryCount) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PremiumLimitTypeWeeklySentStoryCount) String() string {
+	if p == nil {
+		return "PremiumLimitTypeWeeklySentStoryCount(nil)"
+	}
+	type Alias PremiumLimitTypeWeeklySentStoryCount
+	return fmt.Sprintf("PremiumLimitTypeWeeklySentStoryCount%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PremiumLimitTypeWeeklySentStoryCount) TypeID() uint32 {
+	return PremiumLimitTypeWeeklySentStoryCountTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PremiumLimitTypeWeeklySentStoryCount) TypeName() string {
+	return "premiumLimitTypeWeeklySentStoryCount"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PremiumLimitTypeWeeklySentStoryCount) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "premiumLimitTypeWeeklySentStoryCount",
+		ID:   PremiumLimitTypeWeeklySentStoryCountTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PremiumLimitTypeWeeklySentStoryCount) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeWeeklySentStoryCount#269c34b as nil")
+	}
+	b.PutID(PremiumLimitTypeWeeklySentStoryCountTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PremiumLimitTypeWeeklySentStoryCount) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeWeeklySentStoryCount#269c34b as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PremiumLimitTypeWeeklySentStoryCount) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeWeeklySentStoryCount#269c34b to nil")
+	}
+	if err := b.ConsumeID(PremiumLimitTypeWeeklySentStoryCountTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumLimitTypeWeeklySentStoryCount#269c34b: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PremiumLimitTypeWeeklySentStoryCount) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeWeeklySentStoryCount#269c34b to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PremiumLimitTypeWeeklySentStoryCount) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeWeeklySentStoryCount#269c34b as nil")
+	}
+	b.ObjStart()
+	b.PutID("premiumLimitTypeWeeklySentStoryCount")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PremiumLimitTypeWeeklySentStoryCount) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeWeeklySentStoryCount#269c34b to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("premiumLimitTypeWeeklySentStoryCount"); err != nil {
+				return fmt.Errorf("unable to decode premiumLimitTypeWeeklySentStoryCount#269c34b: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// PremiumLimitTypeMonthlySentStoryCount represents TL type `premiumLimitTypeMonthlySentStoryCount#30d84b83`.
+type PremiumLimitTypeMonthlySentStoryCount struct {
+}
+
+// PremiumLimitTypeMonthlySentStoryCountTypeID is TL type id of PremiumLimitTypeMonthlySentStoryCount.
+const PremiumLimitTypeMonthlySentStoryCountTypeID = 0x30d84b83
+
+// construct implements constructor of PremiumLimitTypeClass.
+func (p PremiumLimitTypeMonthlySentStoryCount) construct() PremiumLimitTypeClass { return &p }
+
+// Ensuring interfaces in compile-time for PremiumLimitTypeMonthlySentStoryCount.
+var (
+	_ bin.Encoder     = &PremiumLimitTypeMonthlySentStoryCount{}
+	_ bin.Decoder     = &PremiumLimitTypeMonthlySentStoryCount{}
+	_ bin.BareEncoder = &PremiumLimitTypeMonthlySentStoryCount{}
+	_ bin.BareDecoder = &PremiumLimitTypeMonthlySentStoryCount{}
+
+	_ PremiumLimitTypeClass = &PremiumLimitTypeMonthlySentStoryCount{}
+)
+
+func (p *PremiumLimitTypeMonthlySentStoryCount) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PremiumLimitTypeMonthlySentStoryCount) String() string {
+	if p == nil {
+		return "PremiumLimitTypeMonthlySentStoryCount(nil)"
+	}
+	type Alias PremiumLimitTypeMonthlySentStoryCount
+	return fmt.Sprintf("PremiumLimitTypeMonthlySentStoryCount%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PremiumLimitTypeMonthlySentStoryCount) TypeID() uint32 {
+	return PremiumLimitTypeMonthlySentStoryCountTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PremiumLimitTypeMonthlySentStoryCount) TypeName() string {
+	return "premiumLimitTypeMonthlySentStoryCount"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PremiumLimitTypeMonthlySentStoryCount) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "premiumLimitTypeMonthlySentStoryCount",
+		ID:   PremiumLimitTypeMonthlySentStoryCountTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PremiumLimitTypeMonthlySentStoryCount) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeMonthlySentStoryCount#30d84b83 as nil")
+	}
+	b.PutID(PremiumLimitTypeMonthlySentStoryCountTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PremiumLimitTypeMonthlySentStoryCount) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeMonthlySentStoryCount#30d84b83 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PremiumLimitTypeMonthlySentStoryCount) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeMonthlySentStoryCount#30d84b83 to nil")
+	}
+	if err := b.ConsumeID(PremiumLimitTypeMonthlySentStoryCountTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumLimitTypeMonthlySentStoryCount#30d84b83: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PremiumLimitTypeMonthlySentStoryCount) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeMonthlySentStoryCount#30d84b83 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PremiumLimitTypeMonthlySentStoryCount) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeMonthlySentStoryCount#30d84b83 as nil")
+	}
+	b.ObjStart()
+	b.PutID("premiumLimitTypeMonthlySentStoryCount")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PremiumLimitTypeMonthlySentStoryCount) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeMonthlySentStoryCount#30d84b83 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("premiumLimitTypeMonthlySentStoryCount"); err != nil {
+				return fmt.Errorf("unable to decode premiumLimitTypeMonthlySentStoryCount#30d84b83: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// PremiumLimitTypeStoryCaptionLength represents TL type `premiumLimitTypeStoryCaptionLength#bed53302`.
+type PremiumLimitTypeStoryCaptionLength struct {
+}
+
+// PremiumLimitTypeStoryCaptionLengthTypeID is TL type id of PremiumLimitTypeStoryCaptionLength.
+const PremiumLimitTypeStoryCaptionLengthTypeID = 0xbed53302
+
+// construct implements constructor of PremiumLimitTypeClass.
+func (p PremiumLimitTypeStoryCaptionLength) construct() PremiumLimitTypeClass { return &p }
+
+// Ensuring interfaces in compile-time for PremiumLimitTypeStoryCaptionLength.
+var (
+	_ bin.Encoder     = &PremiumLimitTypeStoryCaptionLength{}
+	_ bin.Decoder     = &PremiumLimitTypeStoryCaptionLength{}
+	_ bin.BareEncoder = &PremiumLimitTypeStoryCaptionLength{}
+	_ bin.BareDecoder = &PremiumLimitTypeStoryCaptionLength{}
+
+	_ PremiumLimitTypeClass = &PremiumLimitTypeStoryCaptionLength{}
+)
+
+func (p *PremiumLimitTypeStoryCaptionLength) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PremiumLimitTypeStoryCaptionLength) String() string {
+	if p == nil {
+		return "PremiumLimitTypeStoryCaptionLength(nil)"
+	}
+	type Alias PremiumLimitTypeStoryCaptionLength
+	return fmt.Sprintf("PremiumLimitTypeStoryCaptionLength%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PremiumLimitTypeStoryCaptionLength) TypeID() uint32 {
+	return PremiumLimitTypeStoryCaptionLengthTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PremiumLimitTypeStoryCaptionLength) TypeName() string {
+	return "premiumLimitTypeStoryCaptionLength"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PremiumLimitTypeStoryCaptionLength) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "premiumLimitTypeStoryCaptionLength",
+		ID:   PremiumLimitTypeStoryCaptionLengthTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PremiumLimitTypeStoryCaptionLength) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeStoryCaptionLength#bed53302 as nil")
+	}
+	b.PutID(PremiumLimitTypeStoryCaptionLengthTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PremiumLimitTypeStoryCaptionLength) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeStoryCaptionLength#bed53302 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PremiumLimitTypeStoryCaptionLength) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeStoryCaptionLength#bed53302 to nil")
+	}
+	if err := b.ConsumeID(PremiumLimitTypeStoryCaptionLengthTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumLimitTypeStoryCaptionLength#bed53302: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PremiumLimitTypeStoryCaptionLength) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeStoryCaptionLength#bed53302 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PremiumLimitTypeStoryCaptionLength) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeStoryCaptionLength#bed53302 as nil")
+	}
+	b.ObjStart()
+	b.PutID("premiumLimitTypeStoryCaptionLength")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PremiumLimitTypeStoryCaptionLength) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeStoryCaptionLength#bed53302 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("premiumLimitTypeStoryCaptionLength"); err != nil {
+				return fmt.Errorf("unable to decode premiumLimitTypeStoryCaptionLength#bed53302: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // PremiumLimitTypeClassName is schema name of PremiumLimitTypeClass.
 const PremiumLimitTypeClassName = "PremiumLimitType"
 
@@ -1759,6 +2152,9 @@ const PremiumLimitTypeClassName = "PremiumLimitType"
 //	case *tdapi.PremiumLimitTypeChatFolderInviteLinkCount: // premiumLimitTypeChatFolderInviteLinkCount#f854261a
 //	case *tdapi.PremiumLimitTypeShareableChatFolderCount: // premiumLimitTypeShareableChatFolderCount#601eb4c7
 //	case *tdapi.PremiumLimitTypeActiveStoryCount: // premiumLimitTypeActiveStoryCount#8d2c269c
+//	case *tdapi.PremiumLimitTypeWeeklySentStoryCount: // premiumLimitTypeWeeklySentStoryCount#269c34b
+//	case *tdapi.PremiumLimitTypeMonthlySentStoryCount: // premiumLimitTypeMonthlySentStoryCount#30d84b83
+//	case *tdapi.PremiumLimitTypeStoryCaptionLength: // premiumLimitTypeStoryCaptionLength#bed53302
 //	default: panic(v)
 //	}
 type PremiumLimitTypeClass interface {
@@ -1881,6 +2277,27 @@ func DecodePremiumLimitType(buf *bin.Buffer) (PremiumLimitTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
 		}
 		return &v, nil
+	case PremiumLimitTypeWeeklySentStoryCountTypeID:
+		// Decoding premiumLimitTypeWeeklySentStoryCount#269c34b.
+		v := PremiumLimitTypeWeeklySentStoryCount{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
+		}
+		return &v, nil
+	case PremiumLimitTypeMonthlySentStoryCountTypeID:
+		// Decoding premiumLimitTypeMonthlySentStoryCount#30d84b83.
+		v := PremiumLimitTypeMonthlySentStoryCount{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
+		}
+		return &v, nil
+	case PremiumLimitTypeStoryCaptionLengthTypeID:
+		// Decoding premiumLimitTypeStoryCaptionLength#bed53302.
+		v := PremiumLimitTypeStoryCaptionLength{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -1980,6 +2397,27 @@ func DecodeTDLibJSONPremiumLimitType(buf tdjson.Decoder) (PremiumLimitTypeClass,
 	case "premiumLimitTypeActiveStoryCount":
 		// Decoding premiumLimitTypeActiveStoryCount#8d2c269c.
 		v := PremiumLimitTypeActiveStoryCount{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
+		}
+		return &v, nil
+	case "premiumLimitTypeWeeklySentStoryCount":
+		// Decoding premiumLimitTypeWeeklySentStoryCount#269c34b.
+		v := PremiumLimitTypeWeeklySentStoryCount{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
+		}
+		return &v, nil
+	case "premiumLimitTypeMonthlySentStoryCount":
+		// Decoding premiumLimitTypeMonthlySentStoryCount#30d84b83.
+		v := PremiumLimitTypeMonthlySentStoryCount{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
+		}
+		return &v, nil
+	case "premiumLimitTypeStoryCaptionLength":
+		// Decoding premiumLimitTypeStoryCaptionLength#bed53302.
+		v := PremiumLimitTypeStoryCaptionLength{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
 		}

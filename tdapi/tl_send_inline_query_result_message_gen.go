@@ -43,7 +43,7 @@ type SendInlineQueryResultMessageRequest struct {
 	Options MessageSendOptions
 	// Identifier of the inline query
 	QueryID int64
-	// Identifier of the inline result
+	// Identifier of the inline query result
 	ResultID string
 	// Pass true to hide the bot, via which the message is sent. Can be used only for bots
 	// getOption("animation_search_bot_username"), getOption("photo_search_bot_username"),

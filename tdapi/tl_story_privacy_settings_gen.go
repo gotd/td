@@ -31,12 +31,15 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoryPrivacySettingsEveryone represents TL type `storyPrivacySettingsEveryone#a8204874`.
+// StoryPrivacySettingsEveryone represents TL type `storyPrivacySettingsEveryone#22d1053a`.
 type StoryPrivacySettingsEveryone struct {
+	// Identifiers of the users that can't see the story; always unknown and empty for
+	// non-owned stories
+	ExceptUserIDs []int64
 }
 
 // StoryPrivacySettingsEveryoneTypeID is TL type id of StoryPrivacySettingsEveryone.
-const StoryPrivacySettingsEveryoneTypeID = 0xa8204874
+const StoryPrivacySettingsEveryoneTypeID = 0x22d1053a
 
 // construct implements constructor of StoryPrivacySettingsClass.
 func (s StoryPrivacySettingsEveryone) construct() StoryPrivacySettingsClass { return &s }
@@ -54,6 +57,9 @@ var (
 func (s *StoryPrivacySettingsEveryone) Zero() bool {
 	if s == nil {
 		return true
+	}
+	if !(s.ExceptUserIDs == nil) {
+		return false
 	}
 
 	return true
@@ -90,14 +96,19 @@ func (s *StoryPrivacySettingsEveryone) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ExceptUserIDs",
+			SchemaName: "except_user_ids",
+		},
+	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
 func (s *StoryPrivacySettingsEveryone) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyPrivacySettingsEveryone#a8204874 as nil")
+		return fmt.Errorf("can't encode storyPrivacySettingsEveryone#22d1053a as nil")
 	}
 	b.PutID(StoryPrivacySettingsEveryoneTypeID)
 	return s.EncodeBare(b)
@@ -106,7 +117,11 @@ func (s *StoryPrivacySettingsEveryone) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StoryPrivacySettingsEveryone) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyPrivacySettingsEveryone#a8204874 as nil")
+		return fmt.Errorf("can't encode storyPrivacySettingsEveryone#22d1053a as nil")
+	}
+	b.PutInt(len(s.ExceptUserIDs))
+	for _, v := range s.ExceptUserIDs {
+		b.PutInt53(v)
 	}
 	return nil
 }
@@ -114,10 +129,10 @@ func (s *StoryPrivacySettingsEveryone) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StoryPrivacySettingsEveryone) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyPrivacySettingsEveryone#a8204874 to nil")
+		return fmt.Errorf("can't decode storyPrivacySettingsEveryone#22d1053a to nil")
 	}
 	if err := b.ConsumeID(StoryPrivacySettingsEveryoneTypeID); err != nil {
-		return fmt.Errorf("unable to decode storyPrivacySettingsEveryone#a8204874: %w", err)
+		return fmt.Errorf("unable to decode storyPrivacySettingsEveryone#22d1053a: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -125,7 +140,24 @@ func (s *StoryPrivacySettingsEveryone) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StoryPrivacySettingsEveryone) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyPrivacySettingsEveryone#a8204874 to nil")
+		return fmt.Errorf("can't decode storyPrivacySettingsEveryone#22d1053a to nil")
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode storyPrivacySettingsEveryone#22d1053a: field except_user_ids: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.ExceptUserIDs = make([]int64, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode storyPrivacySettingsEveryone#22d1053a: field except_user_ids: %w", err)
+			}
+			s.ExceptUserIDs = append(s.ExceptUserIDs, value)
+		}
 	}
 	return nil
 }
@@ -133,10 +165,19 @@ func (s *StoryPrivacySettingsEveryone) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *StoryPrivacySettingsEveryone) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyPrivacySettingsEveryone#a8204874 as nil")
+		return fmt.Errorf("can't encode storyPrivacySettingsEveryone#22d1053a as nil")
 	}
 	b.ObjStart()
 	b.PutID("storyPrivacySettingsEveryone")
+	b.Comma()
+	b.FieldStart("except_user_ids")
+	b.ArrStart()
+	for _, v := range s.ExceptUserIDs {
+		b.PutInt53(v)
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -146,14 +187,25 @@ func (s *StoryPrivacySettingsEveryone) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *StoryPrivacySettingsEveryone) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyPrivacySettingsEveryone#a8204874 to nil")
+		return fmt.Errorf("can't decode storyPrivacySettingsEveryone#22d1053a to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("storyPrivacySettingsEveryone"); err != nil {
-				return fmt.Errorf("unable to decode storyPrivacySettingsEveryone#a8204874: %w", err)
+				return fmt.Errorf("unable to decode storyPrivacySettingsEveryone#22d1053a: %w", err)
+			}
+		case "except_user_ids":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				value, err := b.Int53()
+				if err != nil {
+					return fmt.Errorf("unable to decode storyPrivacySettingsEveryone#22d1053a: field except_user_ids: %w", err)
+				}
+				s.ExceptUserIDs = append(s.ExceptUserIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode storyPrivacySettingsEveryone#22d1053a: field except_user_ids: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -162,10 +214,18 @@ func (s *StoryPrivacySettingsEveryone) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// GetExceptUserIDs returns value of ExceptUserIDs field.
+func (s *StoryPrivacySettingsEveryone) GetExceptUserIDs() (value []int64) {
+	if s == nil {
+		return
+	}
+	return s.ExceptUserIDs
+}
+
 // StoryPrivacySettingsContacts represents TL type `storyPrivacySettingsContacts#35515d71`.
 type StoryPrivacySettingsContacts struct {
-	// User identifiers of the contacts that can't see the story; always empty for non-owned
-	// stories
+	// User identifiers of the contacts that can't see the story; always unknown and empty
+	// for non-owned stories
 	ExceptUserIDs []int64
 }
 
@@ -486,7 +546,7 @@ func (s *StoryPrivacySettingsCloseFriends) DecodeTDLibJSON(b tdjson.Decoder) err
 
 // StoryPrivacySettingsSelectedContacts represents TL type `storyPrivacySettingsSelectedContacts#25401fc7`.
 type StoryPrivacySettingsSelectedContacts struct {
-	// Identifiers of the users; always empty for non-owned stories
+	// Identifiers of the users; always unknown and empty for non-owned stories
 	UserIDs []int64
 }
 
@@ -686,7 +746,7 @@ const StoryPrivacySettingsClassName = "StoryPrivacySettings"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tdapi.StoryPrivacySettingsEveryone: // storyPrivacySettingsEveryone#a8204874
+//	case *tdapi.StoryPrivacySettingsEveryone: // storyPrivacySettingsEveryone#22d1053a
 //	case *tdapi.StoryPrivacySettingsContacts: // storyPrivacySettingsContacts#35515d71
 //	case *tdapi.StoryPrivacySettingsCloseFriends: // storyPrivacySettingsCloseFriends#7cff8b60
 //	case *tdapi.StoryPrivacySettingsSelectedContacts: // storyPrivacySettingsSelectedContacts#25401fc7
@@ -722,7 +782,7 @@ func DecodeStoryPrivacySettings(buf *bin.Buffer) (StoryPrivacySettingsClass, err
 	}
 	switch id {
 	case StoryPrivacySettingsEveryoneTypeID:
-		// Decoding storyPrivacySettingsEveryone#a8204874.
+		// Decoding storyPrivacySettingsEveryone#22d1053a.
 		v := StoryPrivacySettingsEveryone{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StoryPrivacySettingsClass: %w", err)
@@ -762,7 +822,7 @@ func DecodeTDLibJSONStoryPrivacySettings(buf tdjson.Decoder) (StoryPrivacySettin
 	}
 	switch id {
 	case "storyPrivacySettingsEveryone":
-		// Decoding storyPrivacySettingsEveryone#a8204874.
+		// Decoding storyPrivacySettingsEveryone#22d1053a.
 		v := StoryPrivacySettingsEveryone{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StoryPrivacySettingsClass: %w", err)

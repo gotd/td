@@ -31,19 +31,27 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetStoryViewersRequest represents TL type `getStoryViewers#ab175e7b`.
+// GetStoryViewersRequest represents TL type `getStoryViewers#40df8dba`.
 type GetStoryViewersRequest struct {
 	// Story identifier
 	StoryID int32
-	// A viewer from which to return next viewers; pass null to get results from the
-	// beginning
-	OffsetViewer MessageViewer
+	// Query to search for in names and usernames of the viewers; may be empty to get all
+	// relevant viewers
+	Query string
+	// Pass true to get only contacts; pass false to get all relevant viewers
+	OnlyContacts bool
+	// Pass true to get viewers with reaction first; pass false to get viewers sorted just by
+	// view_date
+	PreferWithReaction bool
+	// Offset of the first entry to return as received from the previous request; use empty
+	// string to get the first chunk of results
+	Offset string
 	// The maximum number of story viewers to return
 	Limit int32
 }
 
 // GetStoryViewersRequestTypeID is TL type id of GetStoryViewersRequest.
-const GetStoryViewersRequestTypeID = 0xab175e7b
+const GetStoryViewersRequestTypeID = 0x40df8dba
 
 // Ensuring interfaces in compile-time for GetStoryViewersRequest.
 var (
@@ -60,7 +68,16 @@ func (g *GetStoryViewersRequest) Zero() bool {
 	if !(g.StoryID == 0) {
 		return false
 	}
-	if !(g.OffsetViewer.Zero()) {
+	if !(g.Query == "") {
+		return false
+	}
+	if !(g.OnlyContacts == false) {
+		return false
+	}
+	if !(g.PreferWithReaction == false) {
+		return false
+	}
+	if !(g.Offset == "") {
 		return false
 	}
 	if !(g.Limit == 0) {
@@ -107,8 +124,20 @@ func (g *GetStoryViewersRequest) TypeInfo() tdp.Type {
 			SchemaName: "story_id",
 		},
 		{
-			Name:       "OffsetViewer",
-			SchemaName: "offset_viewer",
+			Name:       "Query",
+			SchemaName: "query",
+		},
+		{
+			Name:       "OnlyContacts",
+			SchemaName: "only_contacts",
+		},
+		{
+			Name:       "PreferWithReaction",
+			SchemaName: "prefer_with_reaction",
+		},
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
 		},
 		{
 			Name:       "Limit",
@@ -121,7 +150,7 @@ func (g *GetStoryViewersRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetStoryViewersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getStoryViewers#ab175e7b as nil")
+		return fmt.Errorf("can't encode getStoryViewers#40df8dba as nil")
 	}
 	b.PutID(GetStoryViewersRequestTypeID)
 	return g.EncodeBare(b)
@@ -130,12 +159,13 @@ func (g *GetStoryViewersRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetStoryViewersRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getStoryViewers#ab175e7b as nil")
+		return fmt.Errorf("can't encode getStoryViewers#40df8dba as nil")
 	}
 	b.PutInt32(g.StoryID)
-	if err := g.OffsetViewer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getStoryViewers#ab175e7b: field offset_viewer: %w", err)
-	}
+	b.PutString(g.Query)
+	b.PutBool(g.OnlyContacts)
+	b.PutBool(g.PreferWithReaction)
+	b.PutString(g.Offset)
 	b.PutInt32(g.Limit)
 	return nil
 }
@@ -143,10 +173,10 @@ func (g *GetStoryViewersRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetStoryViewersRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getStoryViewers#ab175e7b to nil")
+		return fmt.Errorf("can't decode getStoryViewers#40df8dba to nil")
 	}
 	if err := b.ConsumeID(GetStoryViewersRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getStoryViewers#ab175e7b: %w", err)
+		return fmt.Errorf("unable to decode getStoryViewers#40df8dba: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -154,24 +184,47 @@ func (g *GetStoryViewersRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetStoryViewersRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getStoryViewers#ab175e7b to nil")
+		return fmt.Errorf("can't decode getStoryViewers#40df8dba to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getStoryViewers#ab175e7b: field story_id: %w", err)
+			return fmt.Errorf("unable to decode getStoryViewers#40df8dba: field story_id: %w", err)
 		}
 		g.StoryID = value
 	}
 	{
-		if err := g.OffsetViewer.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode getStoryViewers#ab175e7b: field offset_viewer: %w", err)
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode getStoryViewers#40df8dba: field query: %w", err)
 		}
+		g.Query = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode getStoryViewers#40df8dba: field only_contacts: %w", err)
+		}
+		g.OnlyContacts = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode getStoryViewers#40df8dba: field prefer_with_reaction: %w", err)
+		}
+		g.PreferWithReaction = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode getStoryViewers#40df8dba: field offset: %w", err)
+		}
+		g.Offset = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getStoryViewers#ab175e7b: field limit: %w", err)
+			return fmt.Errorf("unable to decode getStoryViewers#40df8dba: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -181,7 +234,7 @@ func (g *GetStoryViewersRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetStoryViewersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getStoryViewers#ab175e7b as nil")
+		return fmt.Errorf("can't encode getStoryViewers#40df8dba as nil")
 	}
 	b.ObjStart()
 	b.PutID("getStoryViewers")
@@ -189,10 +242,17 @@ func (g *GetStoryViewersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("story_id")
 	b.PutInt32(g.StoryID)
 	b.Comma()
-	b.FieldStart("offset_viewer")
-	if err := g.OffsetViewer.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getStoryViewers#ab175e7b: field offset_viewer: %w", err)
-	}
+	b.FieldStart("query")
+	b.PutString(g.Query)
+	b.Comma()
+	b.FieldStart("only_contacts")
+	b.PutBool(g.OnlyContacts)
+	b.Comma()
+	b.FieldStart("prefer_with_reaction")
+	b.PutBool(g.PreferWithReaction)
+	b.Comma()
+	b.FieldStart("offset")
+	b.PutString(g.Offset)
 	b.Comma()
 	b.FieldStart("limit")
 	b.PutInt32(g.Limit)
@@ -205,29 +265,49 @@ func (g *GetStoryViewersRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetStoryViewersRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getStoryViewers#ab175e7b to nil")
+		return fmt.Errorf("can't decode getStoryViewers#40df8dba to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getStoryViewers"); err != nil {
-				return fmt.Errorf("unable to decode getStoryViewers#ab175e7b: %w", err)
+				return fmt.Errorf("unable to decode getStoryViewers#40df8dba: %w", err)
 			}
 		case "story_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getStoryViewers#ab175e7b: field story_id: %w", err)
+				return fmt.Errorf("unable to decode getStoryViewers#40df8dba: field story_id: %w", err)
 			}
 			g.StoryID = value
-		case "offset_viewer":
-			if err := g.OffsetViewer.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode getStoryViewers#ab175e7b: field offset_viewer: %w", err)
+		case "query":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getStoryViewers#40df8dba: field query: %w", err)
 			}
+			g.Query = value
+		case "only_contacts":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode getStoryViewers#40df8dba: field only_contacts: %w", err)
+			}
+			g.OnlyContacts = value
+		case "prefer_with_reaction":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode getStoryViewers#40df8dba: field prefer_with_reaction: %w", err)
+			}
+			g.PreferWithReaction = value
+		case "offset":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode getStoryViewers#40df8dba: field offset: %w", err)
+			}
+			g.Offset = value
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getStoryViewers#ab175e7b: field limit: %w", err)
+				return fmt.Errorf("unable to decode getStoryViewers#40df8dba: field limit: %w", err)
 			}
 			g.Limit = value
 		default:
@@ -245,12 +325,36 @@ func (g *GetStoryViewersRequest) GetStoryID() (value int32) {
 	return g.StoryID
 }
 
-// GetOffsetViewer returns value of OffsetViewer field.
-func (g *GetStoryViewersRequest) GetOffsetViewer() (value MessageViewer) {
+// GetQuery returns value of Query field.
+func (g *GetStoryViewersRequest) GetQuery() (value string) {
 	if g == nil {
 		return
 	}
-	return g.OffsetViewer
+	return g.Query
+}
+
+// GetOnlyContacts returns value of OnlyContacts field.
+func (g *GetStoryViewersRequest) GetOnlyContacts() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.OnlyContacts
+}
+
+// GetPreferWithReaction returns value of PreferWithReaction field.
+func (g *GetStoryViewersRequest) GetPreferWithReaction() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.PreferWithReaction
+}
+
+// GetOffset returns value of Offset field.
+func (g *GetStoryViewersRequest) GetOffset() (value string) {
+	if g == nil {
+		return
+	}
+	return g.Offset
 }
 
 // GetLimit returns value of Limit field.
@@ -261,9 +365,9 @@ func (g *GetStoryViewersRequest) GetLimit() (value int32) {
 	return g.Limit
 }
 
-// GetStoryViewers invokes method getStoryViewers#ab175e7b returning error if any.
-func (c *Client) GetStoryViewers(ctx context.Context, request *GetStoryViewersRequest) (*MessageViewers, error) {
-	var result MessageViewers
+// GetStoryViewers invokes method getStoryViewers#40df8dba returning error if any.
+func (c *Client) GetStoryViewers(ctx context.Context, request *GetStoryViewersRequest) (*StoryViewers, error) {
+	var result StoryViewers
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err

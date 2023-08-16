@@ -8117,38 +8117,38 @@ func (u *UpdateChatIsMarkedAsUnread) GetIsMarkedAsUnread() (value bool) {
 	return u.IsMarkedAsUnread
 }
 
-// UpdateChatIsBlocked represents TL type `updateChatIsBlocked#88da7e40`.
-type UpdateChatIsBlocked struct {
+// UpdateChatBlockList represents TL type `updateChatBlockList#872af48e`.
+type UpdateChatBlockList struct {
 	// Chat identifier
 	ChatID int64
-	// New value of is_blocked
-	IsBlocked bool
+	// Block list to which the chat is added; may be null if none
+	BlockList BlockListClass
 }
 
-// UpdateChatIsBlockedTypeID is TL type id of UpdateChatIsBlocked.
-const UpdateChatIsBlockedTypeID = 0x88da7e40
+// UpdateChatBlockListTypeID is TL type id of UpdateChatBlockList.
+const UpdateChatBlockListTypeID = 0x872af48e
 
 // construct implements constructor of UpdateClass.
-func (u UpdateChatIsBlocked) construct() UpdateClass { return &u }
+func (u UpdateChatBlockList) construct() UpdateClass { return &u }
 
-// Ensuring interfaces in compile-time for UpdateChatIsBlocked.
+// Ensuring interfaces in compile-time for UpdateChatBlockList.
 var (
-	_ bin.Encoder     = &UpdateChatIsBlocked{}
-	_ bin.Decoder     = &UpdateChatIsBlocked{}
-	_ bin.BareEncoder = &UpdateChatIsBlocked{}
-	_ bin.BareDecoder = &UpdateChatIsBlocked{}
+	_ bin.Encoder     = &UpdateChatBlockList{}
+	_ bin.Decoder     = &UpdateChatBlockList{}
+	_ bin.BareEncoder = &UpdateChatBlockList{}
+	_ bin.BareDecoder = &UpdateChatBlockList{}
 
-	_ UpdateClass = &UpdateChatIsBlocked{}
+	_ UpdateClass = &UpdateChatBlockList{}
 )
 
-func (u *UpdateChatIsBlocked) Zero() bool {
+func (u *UpdateChatBlockList) Zero() bool {
 	if u == nil {
 		return true
 	}
 	if !(u.ChatID == 0) {
 		return false
 	}
-	if !(u.IsBlocked == false) {
+	if !(u.BlockList == nil) {
 		return false
 	}
 
@@ -8156,31 +8156,31 @@ func (u *UpdateChatIsBlocked) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (u *UpdateChatIsBlocked) String() string {
+func (u *UpdateChatBlockList) String() string {
 	if u == nil {
-		return "UpdateChatIsBlocked(nil)"
+		return "UpdateChatBlockList(nil)"
 	}
-	type Alias UpdateChatIsBlocked
-	return fmt.Sprintf("UpdateChatIsBlocked%+v", Alias(*u))
+	type Alias UpdateChatBlockList
+	return fmt.Sprintf("UpdateChatBlockList%+v", Alias(*u))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateChatIsBlocked) TypeID() uint32 {
-	return UpdateChatIsBlockedTypeID
+func (*UpdateChatBlockList) TypeID() uint32 {
+	return UpdateChatBlockListTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*UpdateChatIsBlocked) TypeName() string {
-	return "updateChatIsBlocked"
+func (*UpdateChatBlockList) TypeName() string {
+	return "updateChatBlockList"
 }
 
 // TypeInfo returns info about TL type.
-func (u *UpdateChatIsBlocked) TypeInfo() tdp.Type {
+func (u *UpdateChatBlockList) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "updateChatIsBlocked",
-		ID:   UpdateChatIsBlockedTypeID,
+		Name: "updateChatBlockList",
+		ID:   UpdateChatBlockListTypeID,
 	}
 	if u == nil {
 		typ.Null = true
@@ -8192,78 +8192,88 @@ func (u *UpdateChatIsBlocked) TypeInfo() tdp.Type {
 			SchemaName: "chat_id",
 		},
 		{
-			Name:       "IsBlocked",
-			SchemaName: "is_blocked",
+			Name:       "BlockList",
+			SchemaName: "block_list",
 		},
 	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
-func (u *UpdateChatIsBlocked) Encode(b *bin.Buffer) error {
+func (u *UpdateChatBlockList) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatIsBlocked#88da7e40 as nil")
+		return fmt.Errorf("can't encode updateChatBlockList#872af48e as nil")
 	}
-	b.PutID(UpdateChatIsBlockedTypeID)
+	b.PutID(UpdateChatBlockListTypeID)
 	return u.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (u *UpdateChatIsBlocked) EncodeBare(b *bin.Buffer) error {
+func (u *UpdateChatBlockList) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatIsBlocked#88da7e40 as nil")
+		return fmt.Errorf("can't encode updateChatBlockList#872af48e as nil")
 	}
 	b.PutInt53(u.ChatID)
-	b.PutBool(u.IsBlocked)
+	if u.BlockList == nil {
+		return fmt.Errorf("unable to encode updateChatBlockList#872af48e: field block_list is nil")
+	}
+	if err := u.BlockList.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatBlockList#872af48e: field block_list: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (u *UpdateChatIsBlocked) Decode(b *bin.Buffer) error {
+func (u *UpdateChatBlockList) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatIsBlocked#88da7e40 to nil")
+		return fmt.Errorf("can't decode updateChatBlockList#872af48e to nil")
 	}
-	if err := b.ConsumeID(UpdateChatIsBlockedTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChatIsBlocked#88da7e40: %w", err)
+	if err := b.ConsumeID(UpdateChatBlockListTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatBlockList#872af48e: %w", err)
 	}
 	return u.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (u *UpdateChatIsBlocked) DecodeBare(b *bin.Buffer) error {
+func (u *UpdateChatBlockList) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatIsBlocked#88da7e40 to nil")
+		return fmt.Errorf("can't decode updateChatBlockList#872af48e to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChatIsBlocked#88da7e40: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode updateChatBlockList#872af48e: field chat_id: %w", err)
 		}
 		u.ChatID = value
 	}
 	{
-		value, err := b.Bool()
+		value, err := DecodeBlockList(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updateChatIsBlocked#88da7e40: field is_blocked: %w", err)
+			return fmt.Errorf("unable to decode updateChatBlockList#872af48e: field block_list: %w", err)
 		}
-		u.IsBlocked = value
+		u.BlockList = value
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (u *UpdateChatIsBlocked) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (u *UpdateChatBlockList) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateChatIsBlocked#88da7e40 as nil")
+		return fmt.Errorf("can't encode updateChatBlockList#872af48e as nil")
 	}
 	b.ObjStart()
-	b.PutID("updateChatIsBlocked")
+	b.PutID("updateChatBlockList")
 	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(u.ChatID)
 	b.Comma()
-	b.FieldStart("is_blocked")
-	b.PutBool(u.IsBlocked)
+	b.FieldStart("block_list")
+	if u.BlockList == nil {
+		return fmt.Errorf("unable to encode updateChatBlockList#872af48e: field block_list is nil")
+	}
+	if err := u.BlockList.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatBlockList#872af48e: field block_list: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -8271,29 +8281,29 @@ func (u *UpdateChatIsBlocked) EncodeTDLibJSON(b tdjson.Encoder) error {
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (u *UpdateChatIsBlocked) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (u *UpdateChatBlockList) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateChatIsBlocked#88da7e40 to nil")
+		return fmt.Errorf("can't decode updateChatBlockList#872af48e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("updateChatIsBlocked"); err != nil {
-				return fmt.Errorf("unable to decode updateChatIsBlocked#88da7e40: %w", err)
+			if err := b.ConsumeID("updateChatBlockList"); err != nil {
+				return fmt.Errorf("unable to decode updateChatBlockList#872af48e: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateChatIsBlocked#88da7e40: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode updateChatBlockList#872af48e: field chat_id: %w", err)
 			}
 			u.ChatID = value
-		case "is_blocked":
-			value, err := b.Bool()
+		case "block_list":
+			value, err := DecodeTDLibJSONBlockList(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updateChatIsBlocked#88da7e40: field is_blocked: %w", err)
+				return fmt.Errorf("unable to decode updateChatBlockList#872af48e: field block_list: %w", err)
 			}
-			u.IsBlocked = value
+			u.BlockList = value
 		default:
 			return b.Skip()
 		}
@@ -8302,19 +8312,19 @@ func (u *UpdateChatIsBlocked) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetChatID returns value of ChatID field.
-func (u *UpdateChatIsBlocked) GetChatID() (value int64) {
+func (u *UpdateChatBlockList) GetChatID() (value int64) {
 	if u == nil {
 		return
 	}
 	return u.ChatID
 }
 
-// GetIsBlocked returns value of IsBlocked field.
-func (u *UpdateChatIsBlocked) GetIsBlocked() (value bool) {
+// GetBlockList returns value of BlockList field.
+func (u *UpdateChatBlockList) GetBlockList() (value BlockListClass) {
 	if u == nil {
 		return
 	}
-	return u.IsBlocked
+	return u.BlockList
 }
 
 // UpdateChatHasScheduledMessages represents TL type `updateChatHasScheduledMessages#7b14c2d7`.
@@ -16089,6 +16099,484 @@ func (u *UpdateStoryDeleted) GetStoryID() (value int32) {
 	return u.StoryID
 }
 
+// UpdateStorySendSucceeded represents TL type `updateStorySendSucceeded#b9269e57`.
+type UpdateStorySendSucceeded struct {
+	// The sent story
+	Story Story
+	// The previous temporary story identifier
+	OldStoryID int32
+}
+
+// UpdateStorySendSucceededTypeID is TL type id of UpdateStorySendSucceeded.
+const UpdateStorySendSucceededTypeID = 0xb9269e57
+
+// construct implements constructor of UpdateClass.
+func (u UpdateStorySendSucceeded) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateStorySendSucceeded.
+var (
+	_ bin.Encoder     = &UpdateStorySendSucceeded{}
+	_ bin.Decoder     = &UpdateStorySendSucceeded{}
+	_ bin.BareEncoder = &UpdateStorySendSucceeded{}
+	_ bin.BareDecoder = &UpdateStorySendSucceeded{}
+
+	_ UpdateClass = &UpdateStorySendSucceeded{}
+)
+
+func (u *UpdateStorySendSucceeded) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Story.Zero()) {
+		return false
+	}
+	if !(u.OldStoryID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateStorySendSucceeded) String() string {
+	if u == nil {
+		return "UpdateStorySendSucceeded(nil)"
+	}
+	type Alias UpdateStorySendSucceeded
+	return fmt.Sprintf("UpdateStorySendSucceeded%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateStorySendSucceeded) TypeID() uint32 {
+	return UpdateStorySendSucceededTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateStorySendSucceeded) TypeName() string {
+	return "updateStorySendSucceeded"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateStorySendSucceeded) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateStorySendSucceeded",
+		ID:   UpdateStorySendSucceededTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Story",
+			SchemaName: "story",
+		},
+		{
+			Name:       "OldStoryID",
+			SchemaName: "old_story_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateStorySendSucceeded) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateStorySendSucceeded#b9269e57 as nil")
+	}
+	b.PutID(UpdateStorySendSucceededTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateStorySendSucceeded) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateStorySendSucceeded#b9269e57 as nil")
+	}
+	if err := u.Story.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateStorySendSucceeded#b9269e57: field story: %w", err)
+	}
+	b.PutInt32(u.OldStoryID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateStorySendSucceeded) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateStorySendSucceeded#b9269e57 to nil")
+	}
+	if err := b.ConsumeID(UpdateStorySendSucceededTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateStorySendSucceeded#b9269e57: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateStorySendSucceeded) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateStorySendSucceeded#b9269e57 to nil")
+	}
+	{
+		if err := u.Story.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateStorySendSucceeded#b9269e57: field story: %w", err)
+		}
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateStorySendSucceeded#b9269e57: field old_story_id: %w", err)
+		}
+		u.OldStoryID = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateStorySendSucceeded) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateStorySendSucceeded#b9269e57 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateStorySendSucceeded")
+	b.Comma()
+	b.FieldStart("story")
+	if err := u.Story.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateStorySendSucceeded#b9269e57: field story: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("old_story_id")
+	b.PutInt32(u.OldStoryID)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateStorySendSucceeded) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateStorySendSucceeded#b9269e57 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateStorySendSucceeded"); err != nil {
+				return fmt.Errorf("unable to decode updateStorySendSucceeded#b9269e57: %w", err)
+			}
+		case "story":
+			if err := u.Story.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateStorySendSucceeded#b9269e57: field story: %w", err)
+			}
+		case "old_story_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateStorySendSucceeded#b9269e57: field old_story_id: %w", err)
+			}
+			u.OldStoryID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetStory returns value of Story field.
+func (u *UpdateStorySendSucceeded) GetStory() (value Story) {
+	if u == nil {
+		return
+	}
+	return u.Story
+}
+
+// GetOldStoryID returns value of OldStoryID field.
+func (u *UpdateStorySendSucceeded) GetOldStoryID() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.OldStoryID
+}
+
+// UpdateStorySendFailed represents TL type `updateStorySendFailed#4418bca2`.
+type UpdateStorySendFailed struct {
+	// The failed to send story
+	Story Story
+	// The cause of the failure; may be null if unknown
+	Error CanSendStoryResultClass
+	// An error code
+	ErrorCode int32
+	// Error message
+	ErrorMessage string
+}
+
+// UpdateStorySendFailedTypeID is TL type id of UpdateStorySendFailed.
+const UpdateStorySendFailedTypeID = 0x4418bca2
+
+// construct implements constructor of UpdateClass.
+func (u UpdateStorySendFailed) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateStorySendFailed.
+var (
+	_ bin.Encoder     = &UpdateStorySendFailed{}
+	_ bin.Decoder     = &UpdateStorySendFailed{}
+	_ bin.BareEncoder = &UpdateStorySendFailed{}
+	_ bin.BareDecoder = &UpdateStorySendFailed{}
+
+	_ UpdateClass = &UpdateStorySendFailed{}
+)
+
+func (u *UpdateStorySendFailed) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Story.Zero()) {
+		return false
+	}
+	if !(u.Error == nil) {
+		return false
+	}
+	if !(u.ErrorCode == 0) {
+		return false
+	}
+	if !(u.ErrorMessage == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateStorySendFailed) String() string {
+	if u == nil {
+		return "UpdateStorySendFailed(nil)"
+	}
+	type Alias UpdateStorySendFailed
+	return fmt.Sprintf("UpdateStorySendFailed%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateStorySendFailed) TypeID() uint32 {
+	return UpdateStorySendFailedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateStorySendFailed) TypeName() string {
+	return "updateStorySendFailed"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateStorySendFailed) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateStorySendFailed",
+		ID:   UpdateStorySendFailedTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Story",
+			SchemaName: "story",
+		},
+		{
+			Name:       "Error",
+			SchemaName: "error",
+		},
+		{
+			Name:       "ErrorCode",
+			SchemaName: "error_code",
+		},
+		{
+			Name:       "ErrorMessage",
+			SchemaName: "error_message",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateStorySendFailed) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateStorySendFailed#4418bca2 as nil")
+	}
+	b.PutID(UpdateStorySendFailedTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateStorySendFailed) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateStorySendFailed#4418bca2 as nil")
+	}
+	if err := u.Story.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateStorySendFailed#4418bca2: field story: %w", err)
+	}
+	if u.Error == nil {
+		return fmt.Errorf("unable to encode updateStorySendFailed#4418bca2: field error is nil")
+	}
+	if err := u.Error.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateStorySendFailed#4418bca2: field error: %w", err)
+	}
+	b.PutInt32(u.ErrorCode)
+	b.PutString(u.ErrorMessage)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateStorySendFailed) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateStorySendFailed#4418bca2 to nil")
+	}
+	if err := b.ConsumeID(UpdateStorySendFailedTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateStorySendFailed#4418bca2: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateStorySendFailed) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateStorySendFailed#4418bca2 to nil")
+	}
+	{
+		if err := u.Story.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateStorySendFailed#4418bca2: field story: %w", err)
+		}
+	}
+	{
+		value, err := DecodeCanSendStoryResult(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateStorySendFailed#4418bca2: field error: %w", err)
+		}
+		u.Error = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateStorySendFailed#4418bca2: field error_code: %w", err)
+		}
+		u.ErrorCode = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateStorySendFailed#4418bca2: field error_message: %w", err)
+		}
+		u.ErrorMessage = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateStorySendFailed) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateStorySendFailed#4418bca2 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateStorySendFailed")
+	b.Comma()
+	b.FieldStart("story")
+	if err := u.Story.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateStorySendFailed#4418bca2: field story: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("error")
+	if u.Error == nil {
+		return fmt.Errorf("unable to encode updateStorySendFailed#4418bca2: field error is nil")
+	}
+	if err := u.Error.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateStorySendFailed#4418bca2: field error: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("error_code")
+	b.PutInt32(u.ErrorCode)
+	b.Comma()
+	b.FieldStart("error_message")
+	b.PutString(u.ErrorMessage)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateStorySendFailed) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateStorySendFailed#4418bca2 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateStorySendFailed"); err != nil {
+				return fmt.Errorf("unable to decode updateStorySendFailed#4418bca2: %w", err)
+			}
+		case "story":
+			if err := u.Story.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateStorySendFailed#4418bca2: field story: %w", err)
+			}
+		case "error":
+			value, err := DecodeTDLibJSONCanSendStoryResult(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode updateStorySendFailed#4418bca2: field error: %w", err)
+			}
+			u.Error = value
+		case "error_code":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateStorySendFailed#4418bca2: field error_code: %w", err)
+			}
+			u.ErrorCode = value
+		case "error_message":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateStorySendFailed#4418bca2: field error_message: %w", err)
+			}
+			u.ErrorMessage = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetStory returns value of Story field.
+func (u *UpdateStorySendFailed) GetStory() (value Story) {
+	if u == nil {
+		return
+	}
+	return u.Story
+}
+
+// GetError returns value of Error field.
+func (u *UpdateStorySendFailed) GetError() (value CanSendStoryResultClass) {
+	if u == nil {
+		return
+	}
+	return u.Error
+}
+
+// GetErrorCode returns value of ErrorCode field.
+func (u *UpdateStorySendFailed) GetErrorCode() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.ErrorCode
+}
+
+// GetErrorMessage returns value of ErrorMessage field.
+func (u *UpdateStorySendFailed) GetErrorMessage() (value string) {
+	if u == nil {
+		return
+	}
+	return u.ErrorMessage
+}
+
 // UpdateChatActiveStories represents TL type `updateChatActiveStories#79786c2c`.
 type UpdateChatActiveStories struct {
 	// The new list of active stories
@@ -16463,6 +16951,207 @@ func (u *UpdateStoryListChatCount) GetChatCount() (value int32) {
 		return
 	}
 	return u.ChatCount
+}
+
+// UpdateStoryStealthMode represents TL type `updateStoryStealthMode#6ff7bd1a`.
+type UpdateStoryStealthMode struct {
+	// Point in time (Unix timestamp) until stealth mode is active; 0 if it is disabled
+	ActiveUntilDate int32
+	// Point in time (Unix timestamp) when stealth mode can be enabled again; 0 if there is
+	// no active cooldown
+	CooldownUntilDate int32
+}
+
+// UpdateStoryStealthModeTypeID is TL type id of UpdateStoryStealthMode.
+const UpdateStoryStealthModeTypeID = 0x6ff7bd1a
+
+// construct implements constructor of UpdateClass.
+func (u UpdateStoryStealthMode) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateStoryStealthMode.
+var (
+	_ bin.Encoder     = &UpdateStoryStealthMode{}
+	_ bin.Decoder     = &UpdateStoryStealthMode{}
+	_ bin.BareEncoder = &UpdateStoryStealthMode{}
+	_ bin.BareDecoder = &UpdateStoryStealthMode{}
+
+	_ UpdateClass = &UpdateStoryStealthMode{}
+)
+
+func (u *UpdateStoryStealthMode) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ActiveUntilDate == 0) {
+		return false
+	}
+	if !(u.CooldownUntilDate == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateStoryStealthMode) String() string {
+	if u == nil {
+		return "UpdateStoryStealthMode(nil)"
+	}
+	type Alias UpdateStoryStealthMode
+	return fmt.Sprintf("UpdateStoryStealthMode%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateStoryStealthMode) TypeID() uint32 {
+	return UpdateStoryStealthModeTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateStoryStealthMode) TypeName() string {
+	return "updateStoryStealthMode"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateStoryStealthMode) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateStoryStealthMode",
+		ID:   UpdateStoryStealthModeTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ActiveUntilDate",
+			SchemaName: "active_until_date",
+		},
+		{
+			Name:       "CooldownUntilDate",
+			SchemaName: "cooldown_until_date",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateStoryStealthMode) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateStoryStealthMode#6ff7bd1a as nil")
+	}
+	b.PutID(UpdateStoryStealthModeTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateStoryStealthMode) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateStoryStealthMode#6ff7bd1a as nil")
+	}
+	b.PutInt32(u.ActiveUntilDate)
+	b.PutInt32(u.CooldownUntilDate)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateStoryStealthMode) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateStoryStealthMode#6ff7bd1a to nil")
+	}
+	if err := b.ConsumeID(UpdateStoryStealthModeTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateStoryStealthMode#6ff7bd1a: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateStoryStealthMode) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateStoryStealthMode#6ff7bd1a to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateStoryStealthMode#6ff7bd1a: field active_until_date: %w", err)
+		}
+		u.ActiveUntilDate = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateStoryStealthMode#6ff7bd1a: field cooldown_until_date: %w", err)
+		}
+		u.CooldownUntilDate = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateStoryStealthMode) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateStoryStealthMode#6ff7bd1a as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateStoryStealthMode")
+	b.Comma()
+	b.FieldStart("active_until_date")
+	b.PutInt32(u.ActiveUntilDate)
+	b.Comma()
+	b.FieldStart("cooldown_until_date")
+	b.PutInt32(u.CooldownUntilDate)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateStoryStealthMode) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateStoryStealthMode#6ff7bd1a to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateStoryStealthMode"); err != nil {
+				return fmt.Errorf("unable to decode updateStoryStealthMode#6ff7bd1a: %w", err)
+			}
+		case "active_until_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateStoryStealthMode#6ff7bd1a: field active_until_date: %w", err)
+			}
+			u.ActiveUntilDate = value
+		case "cooldown_until_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateStoryStealthMode#6ff7bd1a: field cooldown_until_date: %w", err)
+			}
+			u.CooldownUntilDate = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetActiveUntilDate returns value of ActiveUntilDate field.
+func (u *UpdateStoryStealthMode) GetActiveUntilDate() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.ActiveUntilDate
+}
+
+// GetCooldownUntilDate returns value of CooldownUntilDate field.
+func (u *UpdateStoryStealthMode) GetCooldownUntilDate() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.CooldownUntilDate
 }
 
 // UpdateOption represents TL type `updateOption#35b17404`.
@@ -24849,7 +25538,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateChatHasProtectedContent: // updateChatHasProtectedContent#6b50071b
 //	case *tdapi.UpdateChatIsTranslatable: // updateChatIsTranslatable#7b031617
 //	case *tdapi.UpdateChatIsMarkedAsUnread: // updateChatIsMarkedAsUnread#57853334
-//	case *tdapi.UpdateChatIsBlocked: // updateChatIsBlocked#88da7e40
+//	case *tdapi.UpdateChatBlockList: // updateChatBlockList#872af48e
 //	case *tdapi.UpdateChatHasScheduledMessages: // updateChatHasScheduledMessages#7b14c2d7
 //	case *tdapi.UpdateChatFolders: // updateChatFolders#71a4b3a
 //	case *tdapi.UpdateChatOnlineMemberCount: // updateChatOnlineMemberCount#1d0caa9d
@@ -24886,8 +25575,11 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateUnreadChatCount: // updateUnreadChatCount#76e19242
 //	case *tdapi.UpdateStory: // updateStory#1906572f
 //	case *tdapi.UpdateStoryDeleted: // updateStoryDeleted#7007eb9d
+//	case *tdapi.UpdateStorySendSucceeded: // updateStorySendSucceeded#b9269e57
+//	case *tdapi.UpdateStorySendFailed: // updateStorySendFailed#4418bca2
 //	case *tdapi.UpdateChatActiveStories: // updateChatActiveStories#79786c2c
 //	case *tdapi.UpdateStoryListChatCount: // updateStoryListChatCount#8833cd3f
+//	case *tdapi.UpdateStoryStealthMode: // updateStoryStealthMode#6ff7bd1a
 //	case *tdapi.UpdateOption: // updateOption#35b17404
 //	case *tdapi.UpdateStickerSet: // updateStickerSet#70035dcc
 //	case *tdapi.UpdateInstalledStickerSets: // updateInstalledStickerSets#82cd5388
@@ -25221,9 +25913,9 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case UpdateChatIsBlockedTypeID:
-		// Decoding updateChatIsBlocked#88da7e40.
-		v := UpdateChatIsBlocked{}
+	case UpdateChatBlockListTypeID:
+		// Decoding updateChatBlockList#872af48e.
+		v := UpdateChatBlockList{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -25480,6 +26172,20 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case UpdateStorySendSucceededTypeID:
+		// Decoding updateStorySendSucceeded#b9269e57.
+		v := UpdateStorySendSucceeded{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateStorySendFailedTypeID:
+		// Decoding updateStorySendFailed#4418bca2.
+		v := UpdateStorySendFailed{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case UpdateChatActiveStoriesTypeID:
 		// Decoding updateChatActiveStories#79786c2c.
 		v := UpdateChatActiveStories{}
@@ -25490,6 +26196,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateStoryListChatCountTypeID:
 		// Decoding updateStoryListChatCount#8833cd3f.
 		v := UpdateStoryListChatCount{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateStoryStealthModeTypeID:
+		// Decoding updateStoryStealthMode#6ff7bd1a.
+		v := UpdateStoryStealthMode{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -26024,9 +26737,9 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case "updateChatIsBlocked":
-		// Decoding updateChatIsBlocked#88da7e40.
-		v := UpdateChatIsBlocked{}
+	case "updateChatBlockList":
+		// Decoding updateChatBlockList#872af48e.
+		v := UpdateChatBlockList{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -26283,6 +26996,20 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case "updateStorySendSucceeded":
+		// Decoding updateStorySendSucceeded#b9269e57.
+		v := UpdateStorySendSucceeded{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateStorySendFailed":
+		// Decoding updateStorySendFailed#4418bca2.
+		v := UpdateStorySendFailed{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case "updateChatActiveStories":
 		// Decoding updateChatActiveStories#79786c2c.
 		v := UpdateChatActiveStories{}
@@ -26293,6 +27020,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	case "updateStoryListChatCount":
 		// Decoding updateStoryListChatCount#8833cd3f.
 		v := UpdateStoryListChatCount{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateStoryStealthMode":
+		// Decoding updateStoryStealthMode#6ff7bd1a.
+		v := UpdateStoryStealthMode{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

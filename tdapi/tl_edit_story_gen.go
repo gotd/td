@@ -31,18 +31,21 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// EditStoryRequest represents TL type `editStory#ca87df56`.
+// EditStoryRequest represents TL type `editStory#aa2c3e86`.
 type EditStoryRequest struct {
 	// Identifier of the story to edit
 	StoryID int32
 	// New content of the story; pass null to keep the current content
 	Content InputStoryContentClass
+	// New clickable rectangle areas to be shown on the story media; pass null to keep the
+	// current areas. Areas can't be edited if story content isn't changed
+	Areas InputStoryAreas
 	// New story caption; pass null to keep the current caption
 	Caption FormattedText
 }
 
 // EditStoryRequestTypeID is TL type id of EditStoryRequest.
-const EditStoryRequestTypeID = 0xca87df56
+const EditStoryRequestTypeID = 0xaa2c3e86
 
 // Ensuring interfaces in compile-time for EditStoryRequest.
 var (
@@ -60,6 +63,9 @@ func (e *EditStoryRequest) Zero() bool {
 		return false
 	}
 	if !(e.Content == nil) {
+		return false
+	}
+	if !(e.Areas.Zero()) {
 		return false
 	}
 	if !(e.Caption.Zero()) {
@@ -110,6 +116,10 @@ func (e *EditStoryRequest) TypeInfo() tdp.Type {
 			SchemaName: "content",
 		},
 		{
+			Name:       "Areas",
+			SchemaName: "areas",
+		},
+		{
 			Name:       "Caption",
 			SchemaName: "caption",
 		},
@@ -120,7 +130,7 @@ func (e *EditStoryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EditStoryRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editStory#ca87df56 as nil")
+		return fmt.Errorf("can't encode editStory#aa2c3e86 as nil")
 	}
 	b.PutID(EditStoryRequestTypeID)
 	return e.EncodeBare(b)
@@ -129,17 +139,20 @@ func (e *EditStoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EditStoryRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editStory#ca87df56 as nil")
+		return fmt.Errorf("can't encode editStory#aa2c3e86 as nil")
 	}
 	b.PutInt32(e.StoryID)
 	if e.Content == nil {
-		return fmt.Errorf("unable to encode editStory#ca87df56: field content is nil")
+		return fmt.Errorf("unable to encode editStory#aa2c3e86: field content is nil")
 	}
 	if err := e.Content.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode editStory#ca87df56: field content: %w", err)
+		return fmt.Errorf("unable to encode editStory#aa2c3e86: field content: %w", err)
+	}
+	if err := e.Areas.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode editStory#aa2c3e86: field areas: %w", err)
 	}
 	if err := e.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode editStory#ca87df56: field caption: %w", err)
+		return fmt.Errorf("unable to encode editStory#aa2c3e86: field caption: %w", err)
 	}
 	return nil
 }
@@ -147,10 +160,10 @@ func (e *EditStoryRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (e *EditStoryRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editStory#ca87df56 to nil")
+		return fmt.Errorf("can't decode editStory#aa2c3e86 to nil")
 	}
 	if err := b.ConsumeID(EditStoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode editStory#ca87df56: %w", err)
+		return fmt.Errorf("unable to decode editStory#aa2c3e86: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -158,25 +171,30 @@ func (e *EditStoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EditStoryRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editStory#ca87df56 to nil")
+		return fmt.Errorf("can't decode editStory#aa2c3e86 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode editStory#ca87df56: field story_id: %w", err)
+			return fmt.Errorf("unable to decode editStory#aa2c3e86: field story_id: %w", err)
 		}
 		e.StoryID = value
 	}
 	{
 		value, err := DecodeInputStoryContent(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode editStory#ca87df56: field content: %w", err)
+			return fmt.Errorf("unable to decode editStory#aa2c3e86: field content: %w", err)
 		}
 		e.Content = value
 	}
 	{
+		if err := e.Areas.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode editStory#aa2c3e86: field areas: %w", err)
+		}
+	}
+	{
 		if err := e.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode editStory#ca87df56: field caption: %w", err)
+			return fmt.Errorf("unable to decode editStory#aa2c3e86: field caption: %w", err)
 		}
 	}
 	return nil
@@ -185,7 +203,7 @@ func (e *EditStoryRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (e *EditStoryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editStory#ca87df56 as nil")
+		return fmt.Errorf("can't encode editStory#aa2c3e86 as nil")
 	}
 	b.ObjStart()
 	b.PutID("editStory")
@@ -195,15 +213,20 @@ func (e *EditStoryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("content")
 	if e.Content == nil {
-		return fmt.Errorf("unable to encode editStory#ca87df56: field content is nil")
+		return fmt.Errorf("unable to encode editStory#aa2c3e86: field content is nil")
 	}
 	if err := e.Content.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode editStory#ca87df56: field content: %w", err)
+		return fmt.Errorf("unable to encode editStory#aa2c3e86: field content: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("areas")
+	if err := e.Areas.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode editStory#aa2c3e86: field areas: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("caption")
 	if err := e.Caption.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode editStory#ca87df56: field caption: %w", err)
+		return fmt.Errorf("unable to encode editStory#aa2c3e86: field caption: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -214,30 +237,34 @@ func (e *EditStoryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (e *EditStoryRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editStory#ca87df56 to nil")
+		return fmt.Errorf("can't decode editStory#aa2c3e86 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("editStory"); err != nil {
-				return fmt.Errorf("unable to decode editStory#ca87df56: %w", err)
+				return fmt.Errorf("unable to decode editStory#aa2c3e86: %w", err)
 			}
 		case "story_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode editStory#ca87df56: field story_id: %w", err)
+				return fmt.Errorf("unable to decode editStory#aa2c3e86: field story_id: %w", err)
 			}
 			e.StoryID = value
 		case "content":
 			value, err := DecodeTDLibJSONInputStoryContent(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode editStory#ca87df56: field content: %w", err)
+				return fmt.Errorf("unable to decode editStory#aa2c3e86: field content: %w", err)
 			}
 			e.Content = value
+		case "areas":
+			if err := e.Areas.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode editStory#aa2c3e86: field areas: %w", err)
+			}
 		case "caption":
 			if err := e.Caption.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode editStory#ca87df56: field caption: %w", err)
+				return fmt.Errorf("unable to decode editStory#aa2c3e86: field caption: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -262,6 +289,14 @@ func (e *EditStoryRequest) GetContent() (value InputStoryContentClass) {
 	return e.Content
 }
 
+// GetAreas returns value of Areas field.
+func (e *EditStoryRequest) GetAreas() (value InputStoryAreas) {
+	if e == nil {
+		return
+	}
+	return e.Areas
+}
+
 // GetCaption returns value of Caption field.
 func (e *EditStoryRequest) GetCaption() (value FormattedText) {
 	if e == nil {
@@ -270,7 +305,7 @@ func (e *EditStoryRequest) GetCaption() (value FormattedText) {
 	return e.Caption
 }
 
-// EditStory invokes method editStory#ca87df56 returning error if any.
+// EditStory invokes method editStory#aa2c3e86 returning error if any.
 func (c *Client) EditStory(ctx context.Context, request *EditStoryRequest) error {
 	var ok Ok
 

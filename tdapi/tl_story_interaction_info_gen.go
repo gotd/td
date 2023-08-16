@@ -31,16 +31,18 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoryInteractionInfo represents TL type `storyInteractionInfo#853472cf`.
+// StoryInteractionInfo represents TL type `storyInteractionInfo#e5109256`.
 type StoryInteractionInfo struct {
 	// Number of times the story was viewed
 	ViewCount int32
+	// Number of reactions added to the story
+	ReactionCount int32
 	// Identifiers of at most 3 recent viewers of the story
 	RecentViewerUserIDs []int64
 }
 
 // StoryInteractionInfoTypeID is TL type id of StoryInteractionInfo.
-const StoryInteractionInfoTypeID = 0x853472cf
+const StoryInteractionInfoTypeID = 0xe5109256
 
 // Ensuring interfaces in compile-time for StoryInteractionInfo.
 var (
@@ -55,6 +57,9 @@ func (s *StoryInteractionInfo) Zero() bool {
 		return true
 	}
 	if !(s.ViewCount == 0) {
+		return false
+	}
+	if !(s.ReactionCount == 0) {
 		return false
 	}
 	if !(s.RecentViewerUserIDs == nil) {
@@ -101,6 +106,10 @@ func (s *StoryInteractionInfo) TypeInfo() tdp.Type {
 			SchemaName: "view_count",
 		},
 		{
+			Name:       "ReactionCount",
+			SchemaName: "reaction_count",
+		},
+		{
 			Name:       "RecentViewerUserIDs",
 			SchemaName: "recent_viewer_user_ids",
 		},
@@ -111,7 +120,7 @@ func (s *StoryInteractionInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StoryInteractionInfo) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyInteractionInfo#853472cf as nil")
+		return fmt.Errorf("can't encode storyInteractionInfo#e5109256 as nil")
 	}
 	b.PutID(StoryInteractionInfoTypeID)
 	return s.EncodeBare(b)
@@ -120,9 +129,10 @@ func (s *StoryInteractionInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StoryInteractionInfo) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyInteractionInfo#853472cf as nil")
+		return fmt.Errorf("can't encode storyInteractionInfo#e5109256 as nil")
 	}
 	b.PutInt32(s.ViewCount)
+	b.PutInt32(s.ReactionCount)
 	b.PutInt(len(s.RecentViewerUserIDs))
 	for _, v := range s.RecentViewerUserIDs {
 		b.PutInt53(v)
@@ -133,10 +143,10 @@ func (s *StoryInteractionInfo) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StoryInteractionInfo) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyInteractionInfo#853472cf to nil")
+		return fmt.Errorf("can't decode storyInteractionInfo#e5109256 to nil")
 	}
 	if err := b.ConsumeID(StoryInteractionInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode storyInteractionInfo#853472cf: %w", err)
+		return fmt.Errorf("unable to decode storyInteractionInfo#e5109256: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -144,19 +154,26 @@ func (s *StoryInteractionInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StoryInteractionInfo) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyInteractionInfo#853472cf to nil")
+		return fmt.Errorf("can't decode storyInteractionInfo#e5109256 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyInteractionInfo#853472cf: field view_count: %w", err)
+			return fmt.Errorf("unable to decode storyInteractionInfo#e5109256: field view_count: %w", err)
 		}
 		s.ViewCount = value
 	}
 	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode storyInteractionInfo#e5109256: field reaction_count: %w", err)
+		}
+		s.ReactionCount = value
+	}
+	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyInteractionInfo#853472cf: field recent_viewer_user_ids: %w", err)
+			return fmt.Errorf("unable to decode storyInteractionInfo#e5109256: field recent_viewer_user_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -165,7 +182,7 @@ func (s *StoryInteractionInfo) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode storyInteractionInfo#853472cf: field recent_viewer_user_ids: %w", err)
+				return fmt.Errorf("unable to decode storyInteractionInfo#e5109256: field recent_viewer_user_ids: %w", err)
 			}
 			s.RecentViewerUserIDs = append(s.RecentViewerUserIDs, value)
 		}
@@ -176,13 +193,16 @@ func (s *StoryInteractionInfo) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *StoryInteractionInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyInteractionInfo#853472cf as nil")
+		return fmt.Errorf("can't encode storyInteractionInfo#e5109256 as nil")
 	}
 	b.ObjStart()
 	b.PutID("storyInteractionInfo")
 	b.Comma()
 	b.FieldStart("view_count")
 	b.PutInt32(s.ViewCount)
+	b.Comma()
+	b.FieldStart("reaction_count")
+	b.PutInt32(s.ReactionCount)
 	b.Comma()
 	b.FieldStart("recent_viewer_user_ids")
 	b.ArrStart()
@@ -201,31 +221,37 @@ func (s *StoryInteractionInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *StoryInteractionInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyInteractionInfo#853472cf to nil")
+		return fmt.Errorf("can't decode storyInteractionInfo#e5109256 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("storyInteractionInfo"); err != nil {
-				return fmt.Errorf("unable to decode storyInteractionInfo#853472cf: %w", err)
+				return fmt.Errorf("unable to decode storyInteractionInfo#e5109256: %w", err)
 			}
 		case "view_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode storyInteractionInfo#853472cf: field view_count: %w", err)
+				return fmt.Errorf("unable to decode storyInteractionInfo#e5109256: field view_count: %w", err)
 			}
 			s.ViewCount = value
+		case "reaction_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode storyInteractionInfo#e5109256: field reaction_count: %w", err)
+			}
+			s.ReactionCount = value
 		case "recent_viewer_user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int53()
 				if err != nil {
-					return fmt.Errorf("unable to decode storyInteractionInfo#853472cf: field recent_viewer_user_ids: %w", err)
+					return fmt.Errorf("unable to decode storyInteractionInfo#e5109256: field recent_viewer_user_ids: %w", err)
 				}
 				s.RecentViewerUserIDs = append(s.RecentViewerUserIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode storyInteractionInfo#853472cf: field recent_viewer_user_ids: %w", err)
+				return fmt.Errorf("unable to decode storyInteractionInfo#e5109256: field recent_viewer_user_ids: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -240,6 +266,14 @@ func (s *StoryInteractionInfo) GetViewCount() (value int32) {
 		return
 	}
 	return s.ViewCount
+}
+
+// GetReactionCount returns value of ReactionCount field.
+func (s *StoryInteractionInfo) GetReactionCount() (value int32) {
+	if s == nil {
+		return
+	}
+	return s.ReactionCount
 }
 
 // GetRecentViewerUserIDs returns value of RecentViewerUserIDs field.

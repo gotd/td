@@ -1996,6 +1996,137 @@ func (p *PremiumFeatureRealTimeChatTranslation) DecodeTDLibJSON(b tdjson.Decoder
 	})
 }
 
+// PremiumFeatureUpgradedStories represents TL type `premiumFeatureUpgradedStories#9008051b`.
+type PremiumFeatureUpgradedStories struct {
+}
+
+// PremiumFeatureUpgradedStoriesTypeID is TL type id of PremiumFeatureUpgradedStories.
+const PremiumFeatureUpgradedStoriesTypeID = 0x9008051b
+
+// construct implements constructor of PremiumFeatureClass.
+func (p PremiumFeatureUpgradedStories) construct() PremiumFeatureClass { return &p }
+
+// Ensuring interfaces in compile-time for PremiumFeatureUpgradedStories.
+var (
+	_ bin.Encoder     = &PremiumFeatureUpgradedStories{}
+	_ bin.Decoder     = &PremiumFeatureUpgradedStories{}
+	_ bin.BareEncoder = &PremiumFeatureUpgradedStories{}
+	_ bin.BareDecoder = &PremiumFeatureUpgradedStories{}
+
+	_ PremiumFeatureClass = &PremiumFeatureUpgradedStories{}
+)
+
+func (p *PremiumFeatureUpgradedStories) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PremiumFeatureUpgradedStories) String() string {
+	if p == nil {
+		return "PremiumFeatureUpgradedStories(nil)"
+	}
+	type Alias PremiumFeatureUpgradedStories
+	return fmt.Sprintf("PremiumFeatureUpgradedStories%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PremiumFeatureUpgradedStories) TypeID() uint32 {
+	return PremiumFeatureUpgradedStoriesTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PremiumFeatureUpgradedStories) TypeName() string {
+	return "premiumFeatureUpgradedStories"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PremiumFeatureUpgradedStories) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "premiumFeatureUpgradedStories",
+		ID:   PremiumFeatureUpgradedStoriesTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PremiumFeatureUpgradedStories) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureUpgradedStories#9008051b as nil")
+	}
+	b.PutID(PremiumFeatureUpgradedStoriesTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PremiumFeatureUpgradedStories) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureUpgradedStories#9008051b as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PremiumFeatureUpgradedStories) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureUpgradedStories#9008051b to nil")
+	}
+	if err := b.ConsumeID(PremiumFeatureUpgradedStoriesTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumFeatureUpgradedStories#9008051b: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PremiumFeatureUpgradedStories) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureUpgradedStories#9008051b to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PremiumFeatureUpgradedStories) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureUpgradedStories#9008051b as nil")
+	}
+	b.ObjStart()
+	b.PutID("premiumFeatureUpgradedStories")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PremiumFeatureUpgradedStories) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureUpgradedStories#9008051b to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("premiumFeatureUpgradedStories"); err != nil {
+				return fmt.Errorf("unable to decode premiumFeatureUpgradedStories#9008051b: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // PremiumFeatureClassName is schema name of PremiumFeatureClass.
 const PremiumFeatureClassName = "PremiumFeature"
 
@@ -2023,6 +2154,7 @@ const PremiumFeatureClassName = "PremiumFeature"
 //	case *tdapi.PremiumFeatureForumTopicIcon: // premiumFeatureForumTopicIcon#ceef6342
 //	case *tdapi.PremiumFeatureAppIcons: // premiumFeatureAppIcons#5e79f489
 //	case *tdapi.PremiumFeatureRealTimeChatTranslation: // premiumFeatureRealTimeChatTranslation#bbd80280
+//	case *tdapi.PremiumFeatureUpgradedStories: // premiumFeatureUpgradedStories#9008051b
 //	default: panic(v)
 //	}
 type PremiumFeatureClass interface {
@@ -2159,6 +2291,13 @@ func DecodePremiumFeature(buf *bin.Buffer) (PremiumFeatureClass, error) {
 			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
 		}
 		return &v, nil
+	case PremiumFeatureUpgradedStoriesTypeID:
+		// Decoding premiumFeatureUpgradedStories#9008051b.
+		v := PremiumFeatureUpgradedStories{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -2272,6 +2411,13 @@ func DecodeTDLibJSONPremiumFeature(buf tdjson.Decoder) (PremiumFeatureClass, err
 	case "premiumFeatureRealTimeChatTranslation":
 		// Decoding premiumFeatureRealTimeChatTranslation#bbd80280.
 		v := PremiumFeatureRealTimeChatTranslation{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
+		}
+		return &v, nil
+	case "premiumFeatureUpgradedStories":
+		// Decoding premiumFeatureUpgradedStories#9008051b.
+		v := PremiumFeatureUpgradedStories{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
 		}
