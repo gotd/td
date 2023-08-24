@@ -39,10 +39,10 @@ type ScopeNotificationSettings struct {
 	SoundID int64
 	// True, if message content must be displayed in notifications
 	ShowPreview bool
-	// If true, mute_stories is ignored and stories are unmuted only for the first 5 chats
-	// from topChatCategoryUsers
+	// If true, mute_stories is ignored and story notifications are received only for the
+	// first 5 chats from topChatCategoryUsers
 	UseDefaultMuteStories bool
-	// True, if story notifications are received without sound
+	// True, if story notifications are disabled for the chat
 	MuteStories bool
 	// Identifier of the notification sound to be played for stories; 0 if sound is disabled
 	StorySoundID int64
