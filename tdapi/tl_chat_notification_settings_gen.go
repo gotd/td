@@ -51,7 +51,7 @@ type ChatNotificationSettings struct {
 	// If true, mute_stories is ignored and the value for the relevant type of chat is used
 	// instead
 	UseDefaultMuteStories bool
-	// True, if story notifications are received without sound
+	// True, if story notifications are disabled for the chat
 	MuteStories bool
 	// If true, the value for the relevant type of chat is used instead of story_sound_id
 	UseDefaultStorySound bool
