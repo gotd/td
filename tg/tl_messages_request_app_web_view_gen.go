@@ -414,7 +414,6 @@ func (r *MessagesRequestAppWebViewRequest) GetPlatform() (value string) {
 //  3. https://core.telegram.org/method/messages.prolongWebView
 //
 // See https://core.telegram.org/method/messages.requestAppWebView for reference.
-// Can be used by bots.
 func (c *Client) MessagesRequestAppWebView(ctx context.Context, request *MessagesRequestAppWebViewRequest) (*AppWebViewResultURL, error) {
 	var result AppWebViewResultURL
 

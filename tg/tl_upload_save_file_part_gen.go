@@ -40,7 +40,7 @@ type UploadSaveFilePartRequest struct {
 	FileID int64
 	// Numerical order of a part
 	FilePart int
-	// Binary data, contend of a part
+	// Binary data, content of a part
 	Bytes []byte
 }
 

@@ -35,7 +35,7 @@ var (
 // Get an invite link¹ for a group call or livestream
 //
 // Links:
-//  1. https://core.telegram.org/api/links#video-chatlivestream-links
+//  1. https://core.telegram.org/api/links#video-chat-livestream-links
 //
 // See https://core.telegram.org/method/phone.exportGroupCallInvite for reference.
 type PhoneExportGroupCallInviteRequest struct {
@@ -226,7 +226,7 @@ func (e *PhoneExportGroupCallInviteRequest) GetCall() (value InputGroupCall) {
 // Get an invite link¹ for a group call or livestream
 //
 // Links:
-//  1. https://core.telegram.org/api/links#video-chatlivestream-links
+//  1. https://core.telegram.org/api/links#video-chat-livestream-links
 //
 // Possible errors:
 //

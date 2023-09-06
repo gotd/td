@@ -764,6 +764,7 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //	400 CHAT_RESTRICTED: You can't send messages in this chat, you were restricted.
 //	403 CHAT_SEND_PLAIN_FORBIDDEN: You can't send non-media (text) messages in this chat.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
+//	400 DOCUMENT_INVALID: The specified document is invalid.
 //	400 ENCRYPTION_DECLINED: The secret chat was declined.
 //	400 ENTITIES_TOO_LONG: You provided too many styled message entities.
 //	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
@@ -773,6 +774,7 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //	400 MESSAGE_EMPTY: The provided message is empty.
 //	400 MESSAGE_TOO_LONG: The provided message is too long.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
+//	500 MSG_WAIT_FAILED: A waiting call returned an error.
 //	406 PAYMENT_UNSUPPORTED: A detailed description of the error will be received separately as described here ».
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 PINNED_DIALOGS_TOO_MUCH: Too many pinned dialogs.

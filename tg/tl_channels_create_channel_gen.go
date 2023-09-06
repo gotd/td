@@ -539,8 +539,10 @@ func (c *ChannelsCreateChannelRequest) GetGeoPointAsNotEmpty() (*InputGeoPoint, 
 //
 //	400 CHANNELS_ADMIN_LOCATED_TOO_MUCH: The user has reached the limit of public geogroups.
 //	400 CHANNELS_TOO_MUCH: You have joined too many channels/supergroups.
+//	500 CHANNEL_ID_GENERATE_FAILED:
 //	400 CHAT_ABOUT_TOO_LONG: Chat about too long.
 //	400 CHAT_TITLE_EMPTY: No chat title provided.
+//	400 TTL_PERIOD_INVALID: The specified TTL period is invalid.
 //	406 USER_RESTRICTED: You're spamreported, you can't create channels or chats.
 //
 // See https://core.telegram.org/method/channels.createChannel for reference.

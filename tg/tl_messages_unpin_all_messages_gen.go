@@ -250,7 +250,7 @@ func (u *MessagesUnpinAllMessagesRequest) GetTopMsgID() (value int, ok bool) {
 // Possible errors:
 //
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//	400 CHAT_NOT_MODIFIED: The pinned message wasn't modified.
+//	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
 //
 // See https://core.telegram.org/method/messages.unpinAllMessages for reference.
 // Can be used by bots.

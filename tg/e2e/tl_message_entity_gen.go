@@ -191,10 +191,12 @@ func (m *MessageEntityUnknown) GetLength() (value int) {
 }
 
 // MessageEntityMention represents TL type `messageEntityMention#fa04579d`.
-// Message entity mentioning¹ the current user
+// Message entity mentioning¹ a user by @username; messageEntityMentionName² can also
+// be used to mention users by their ID.
 //
 // Links:
 //  1. https://core.telegram.org/api/mentions
+//  2. https://core.telegram.org/constructor/messageEntityMentionName
 //
 // See https://core.telegram.org/constructor/messageEntityMention for reference.
 type MessageEntityMention struct {

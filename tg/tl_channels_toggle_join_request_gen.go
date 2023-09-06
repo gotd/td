@@ -211,7 +211,7 @@ func (t *ChannelsToggleJoinRequestRequest) GetChannelAsNotEmpty() (NotEmptyInput
 //
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 CHAT_ID_INVALID: The provided chat id is invalid.
-//	400 CHAT_NOT_MODIFIED: The pinned message wasn't modified.
+//	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
 //	400 CHAT_PUBLIC_REQUIRED: You can only enable join requests in public groups.
 //
 // See https://core.telegram.org/method/channels.toggleJoinRequest for reference.

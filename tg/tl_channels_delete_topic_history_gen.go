@@ -207,6 +207,11 @@ func (d *ChannelsDeleteTopicHistoryRequest) GetChannelAsNotEmpty() (NotEmptyInpu
 // Links:
 //  1. https://core.telegram.org/api/forum
 //
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 TOPIC_ID_INVALID: The specified topic ID is invalid.
+//
 // See https://core.telegram.org/method/channels.deleteTopicHistory for reference.
 // Can be used by bots.
 func (c *Client) ChannelsDeleteTopicHistory(ctx context.Context, request *ChannelsDeleteTopicHistoryRequest) (*MessagesAffectedHistory, error) {

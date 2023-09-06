@@ -91,6 +91,7 @@ const (
 	ErrChannelsAdminPublicTooMuch       = "CHANNELS_ADMIN_PUBLIC_TOO_MUCH"
 	ErrChannelsTooMuch                  = "CHANNELS_TOO_MUCH"
 	ErrChannelForumMissing              = "CHANNEL_FORUM_MISSING"
+	ErrChannelIDGenerateFailed          = "CHANNEL_ID_GENERATE_FAILED"
 	ErrChannelIDInvalid                 = "CHANNEL_ID_INVALID"
 	ErrChannelInvalid                   = "CHANNEL_INVALID"
 	ErrChannelParicipantMissing         = "CHANNEL_PARICIPANT_MISSING"
@@ -98,6 +99,7 @@ const (
 	ErrChannelPublicGroupNa             = "CHANNEL_PUBLIC_GROUP_NA"
 	ErrChannelTooBig                    = "CHANNEL_TOO_BIG"
 	ErrChannelTooLarge                  = "CHANNEL_TOO_LARGE"
+	ErrChatlistExcludeInvalid           = "CHATLIST_EXCLUDE_INVALID"
 	ErrChatAboutNotModified             = "CHAT_ABOUT_NOT_MODIFIED"
 	ErrChatAboutTooLong                 = "CHAT_ABOUT_TOO_LONG"
 	ErrChatAdminInviteRequired          = "CHAT_ADMIN_INVITE_REQUIRED"
@@ -111,6 +113,7 @@ const (
 	ErrChatInvalid                      = "CHAT_INVALID"
 	ErrChatInvitePermanent              = "CHAT_INVITE_PERMANENT"
 	ErrChatLinkExists                   = "CHAT_LINK_EXISTS"
+	ErrChatMembersChannel               = "CHAT_MEMBERS_CHANNEL"
 	ErrChatNotModified                  = "CHAT_NOT_MODIFIED"
 	ErrChatPublicRequired               = "CHAT_PUBLIC_REQUIRED"
 	ErrChatRestricted                   = "CHAT_RESTRICTED"
@@ -189,6 +192,7 @@ const (
 	ErrFileReferenceInvalid             = "FILE_REFERENCE_INVALID"
 	ErrFileTitleEmpty                   = "FILE_TITLE_EMPTY"
 	ErrFileTokenInvalid                 = "FILE_TOKEN_INVALID"
+	ErrFileWriteEmpty                   = "FILE_WRITE_EMPTY"
 	ErrFilterIDInvalid                  = "FILTER_ID_INVALID"
 	ErrFilterIncludeEmpty               = "FILTER_INCLUDE_EMPTY"
 	ErrFilterNotSupported               = "FILTER_NOT_SUPPORTED"
@@ -224,6 +228,7 @@ const (
 	ErrImportTokenInvalid               = "IMPORT_TOKEN_INVALID"
 	ErrInlineBotRequired                = "INLINE_BOT_REQUIRED"
 	ErrInlineResultExpired              = "INLINE_RESULT_EXPIRED"
+	ErrInputChatlistInvalid             = "INPUT_CHATLIST_INVALID"
 	ErrInputFilterInvalid               = "INPUT_FILTER_INVALID"
 	ErrInputTextEmpty                   = "INPUT_TEXT_EMPTY"
 	ErrInputUserDeactivated             = "INPUT_USER_DEACTIVATED"
@@ -254,9 +259,11 @@ const (
 	ErrMediaInvalid                     = "MEDIA_INVALID"
 	ErrMediaNewInvalid                  = "MEDIA_NEW_INVALID"
 	ErrMediaPrevInvalid                 = "MEDIA_PREV_INVALID"
+	ErrMediaTTLInvalid                  = "MEDIA_TTL_INVALID"
 	ErrMegagroupIDInvalid               = "MEGAGROUP_ID_INVALID"
 	ErrMegagroupPrehistoryHidden        = "MEGAGROUP_PREHISTORY_HIDDEN"
 	ErrMegagroupRequired                = "MEGAGROUP_REQUIRED"
+	ErrMemberChatAddFailed              = "MEMBER_CHAT_ADD_FAILED"
 	ErrMessageAuthorRequired            = "MESSAGE_AUTHOR_REQUIRED"
 	ErrMessageDeleteForbidden           = "MESSAGE_DELETE_FORBIDDEN"
 	ErrMessageEditTimeExpired           = "MESSAGE_EDIT_TIME_EXPIRED"
@@ -438,6 +445,7 @@ const (
 	ErrTokenEmpty                       = "TOKEN_EMPTY"
 	ErrTokenInvalid                     = "TOKEN_INVALID"
 	ErrTokenTypeInvalid                 = "TOKEN_TYPE_INVALID"
+	ErrTopicsEmpty                      = "TOPICS_EMPTY"
 	ErrTopicClosed                      = "TOPIC_CLOSED"
 	ErrTopicDeleted                     = "TOPIC_DELETED"
 	ErrTopicIDInvalid                   = "TOPIC_ID_INVALID"
@@ -458,6 +466,7 @@ const (
 	ErrUsernameNotOccupied              = "USERNAME_NOT_OCCUPIED"
 	ErrUsernameOccupied                 = "USERNAME_OCCUPIED"
 	ErrUsernamePurchaseAvailable        = "USERNAME_PURCHASE_AVAILABLE"
+	ErrUsernameUnsynchronized           = "USERNAME_UNSYNCHRONIZED"
 	ErrUserpicPrivacyRequired           = "USERPIC_PRIVACY_REQUIRED"
 	ErrUserpicUploadRequired            = "USERPIC_UPLOAD_REQUIRED"
 	ErrUsersTooFew                      = "USERS_TOO_FEW"
@@ -793,6 +802,11 @@ func IsChannelForumMissing(err error) bool {
 	return tgerr.Is(err, ErrChannelForumMissing)
 }
 
+// IsChannelIDGenerateFailed reports whether err is CHANNEL_ID_GENERATE_FAILED.
+func IsChannelIDGenerateFailed(err error) bool {
+	return tgerr.Is(err, ErrChannelIDGenerateFailed)
+}
+
 // IsChannelIDInvalid reports whether err is CHANNEL_ID_INVALID.
 func IsChannelIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrChannelIDInvalid)
@@ -826,6 +840,11 @@ func IsChannelTooBig(err error) bool {
 // IsChannelTooLarge reports whether err is CHANNEL_TOO_LARGE.
 func IsChannelTooLarge(err error) bool {
 	return tgerr.Is(err, ErrChannelTooLarge)
+}
+
+// IsChatlistExcludeInvalid reports whether err is CHATLIST_EXCLUDE_INVALID.
+func IsChatlistExcludeInvalid(err error) bool {
+	return tgerr.Is(err, ErrChatlistExcludeInvalid)
 }
 
 // IsChatAboutNotModified reports whether err is CHAT_ABOUT_NOT_MODIFIED.
@@ -891,6 +910,11 @@ func IsChatInvitePermanent(err error) bool {
 // IsChatLinkExists reports whether err is CHAT_LINK_EXISTS.
 func IsChatLinkExists(err error) bool {
 	return tgerr.Is(err, ErrChatLinkExists)
+}
+
+// IsChatMembersChannel reports whether err is CHAT_MEMBERS_CHANNEL.
+func IsChatMembersChannel(err error) bool {
+	return tgerr.Is(err, ErrChatMembersChannel)
 }
 
 // IsChatNotModified reports whether err is CHAT_NOT_MODIFIED.
@@ -1283,6 +1307,11 @@ func IsFileTokenInvalid(err error) bool {
 	return tgerr.Is(err, ErrFileTokenInvalid)
 }
 
+// IsFileWriteEmpty reports whether err is FILE_WRITE_EMPTY.
+func IsFileWriteEmpty(err error) bool {
+	return tgerr.Is(err, ErrFileWriteEmpty)
+}
+
 // IsFilterIDInvalid reports whether err is FILTER_ID_INVALID.
 func IsFilterIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrFilterIDInvalid)
@@ -1458,6 +1487,11 @@ func IsInlineResultExpired(err error) bool {
 	return tgerr.Is(err, ErrInlineResultExpired)
 }
 
+// IsInputChatlistInvalid reports whether err is INPUT_CHATLIST_INVALID.
+func IsInputChatlistInvalid(err error) bool {
+	return tgerr.Is(err, ErrInputChatlistInvalid)
+}
+
 // IsInputFilterInvalid reports whether err is INPUT_FILTER_INVALID.
 func IsInputFilterInvalid(err error) bool {
 	return tgerr.Is(err, ErrInputFilterInvalid)
@@ -1608,6 +1642,11 @@ func IsMediaPrevInvalid(err error) bool {
 	return tgerr.Is(err, ErrMediaPrevInvalid)
 }
 
+// IsMediaTTLInvalid reports whether err is MEDIA_TTL_INVALID.
+func IsMediaTTLInvalid(err error) bool {
+	return tgerr.Is(err, ErrMediaTTLInvalid)
+}
+
 // IsMegagroupIDInvalid reports whether err is MEGAGROUP_ID_INVALID.
 func IsMegagroupIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrMegagroupIDInvalid)
@@ -1621,6 +1660,11 @@ func IsMegagroupPrehistoryHidden(err error) bool {
 // IsMegagroupRequired reports whether err is MEGAGROUP_REQUIRED.
 func IsMegagroupRequired(err error) bool {
 	return tgerr.Is(err, ErrMegagroupRequired)
+}
+
+// IsMemberChatAddFailed reports whether err is MEMBER_CHAT_ADD_FAILED.
+func IsMemberChatAddFailed(err error) bool {
+	return tgerr.Is(err, ErrMemberChatAddFailed)
 }
 
 // IsMessageAuthorRequired reports whether err is MESSAGE_AUTHOR_REQUIRED.
@@ -2528,6 +2572,11 @@ func IsTokenTypeInvalid(err error) bool {
 	return tgerr.Is(err, ErrTokenTypeInvalid)
 }
 
+// IsTopicsEmpty reports whether err is TOPICS_EMPTY.
+func IsTopicsEmpty(err error) bool {
+	return tgerr.Is(err, ErrTopicsEmpty)
+}
+
 // IsTopicClosed reports whether err is TOPIC_CLOSED.
 func IsTopicClosed(err error) bool {
 	return tgerr.Is(err, ErrTopicClosed)
@@ -2626,6 +2675,11 @@ func IsUsernameOccupied(err error) bool {
 // IsUsernamePurchaseAvailable reports whether err is USERNAME_PURCHASE_AVAILABLE.
 func IsUsernamePurchaseAvailable(err error) bool {
 	return tgerr.Is(err, ErrUsernamePurchaseAvailable)
+}
+
+// IsUsernameUnsynchronized reports whether err is USERNAME_UNSYNCHRONIZED.
+func IsUsernameUnsynchronized(err error) bool {
+	return tgerr.Is(err, ErrUsernameUnsynchronized)
 }
 
 // IsUserpicPrivacyRequired reports whether err is USERPIC_PRIVACY_REQUIRED.

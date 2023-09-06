@@ -211,7 +211,7 @@ func (t *ChannelsToggleSlowModeRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 //
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//	400 CHAT_NOT_MODIFIED: The pinned message wasn't modified.
+//	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
 //	400 SECONDS_INVALID: Invalid duration provided.
 //
 // See https://core.telegram.org/method/channels.toggleSlowMode for reference.

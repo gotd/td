@@ -550,6 +550,7 @@ func (e *MessagesEditMessageRequest) MapEntities() (value MessageEntityClassArra
 //	400 DOCUMENT_INVALID: The specified document is invalid.
 //	400 ENTITIES_TOO_LONG: You provided too many styled message entities.
 //	400 ENTITY_BOUNDS_INVALID: A specified entity offset or length is invalid, see here » for info on how to properly compute the entity offset/length.
+//	400 IMAGE_PROCESS_FAILED: Failure while processing image.
 //	403 INLINE_BOT_REQUIRED: Only the inline bot can edit message.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //	400 MEDIA_CAPTION_TOO_LONG: The caption is too long.
@@ -557,6 +558,7 @@ func (e *MessagesEditMessageRequest) MapEntities() (value MessageEntityClassArra
 //	400 MEDIA_GROUPED_INVALID: You tried to send media of different types in an album.
 //	400 MEDIA_NEW_INVALID: The new media is invalid.
 //	400 MEDIA_PREV_INVALID: Previous media invalid.
+//	400 MEDIA_TTL_INVALID: The specified media TTL is invalid.
 //	403 MESSAGE_AUTHOR_REQUIRED: Message author required.
 //	400 MESSAGE_EDIT_TIME_EXPIRED: You can't edit this message anymore, too much time has passed since its creation.
 //	400 MESSAGE_EMPTY: The provided message is empty.

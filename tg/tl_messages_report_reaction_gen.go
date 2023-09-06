@@ -234,6 +234,11 @@ func (r *MessagesReportReactionRequest) GetReactionPeer() (value InputPeerClass)
 // Links:
 //  1. https://core.telegram.org/api/reactions
 //
+// Possible errors:
+//
+//	400 MSG_ID_INVALID: Invalid message ID provided.
+//	400 USER_ID_INVALID: The provided user ID is invalid.
+//
 // See https://core.telegram.org/method/messages.reportReaction for reference.
 func (c *Client) MessagesReportReaction(ctx context.Context, request *MessagesReportReactionRequest) (bool, error) {
 	var result BoolBox
