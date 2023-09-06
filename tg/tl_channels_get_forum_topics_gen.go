@@ -375,7 +375,6 @@ func (g *ChannelsGetForumTopicsRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.getForumTopics for reference.
-// Can be used by bots.
 func (c *Client) ChannelsGetForumTopics(ctx context.Context, request *ChannelsGetForumTopicsRequest) (*MessagesForumTopics, error) {
 	var result MessagesForumTopics
 

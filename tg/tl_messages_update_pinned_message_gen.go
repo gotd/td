@@ -327,7 +327,7 @@ func (u *MessagesUpdatePinnedMessageRequest) GetID() (value int) {
 //	400 BOT_ONESIDE_NOT_AVAIL: Bots can't pin messages in PM just for themselves.
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
-//	400 CHAT_NOT_MODIFIED: The pinned message wasn't modified.
+//	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 MESSAGE_ID_INVALID: The provided message id is invalid.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.

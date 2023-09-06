@@ -420,6 +420,7 @@ func (c *ChannelsCreateForumTopicRequest) GetChannelAsNotEmpty() (NotEmptyInputC
 // Possible errors:
 //
 //	400 CHANNEL_INVALID: The provided channel is invalid.
+//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //
 // See https://core.telegram.org/method/channels.createForumTopic for reference.
 // Can be used by bots.

@@ -135,7 +135,13 @@ func (g *Generator) makeStructures() error {
 			s.Docs = docMethod.Description
 			s.Links = docMethod.Links
 			s.BotCanUse = docMethod.BotCanUse
-			s.Errors = docMethod.Errors
+			for _, e := range docMethod.Errors {
+				if strings.Contains(e.Type, ",") {
+					// HACK(ernado): fix in getdoc
+					continue
+				}
+				s.Errors = append(s.Errors, e)
+			}
 		}
 		if g.docBase != nil {
 			// Assuming constructor by default.

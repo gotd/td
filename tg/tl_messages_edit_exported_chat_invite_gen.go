@@ -447,6 +447,7 @@ func (e *MessagesEditExportedChatInviteRequest) GetTitle() (value string, ok boo
 //
 // Possible errors:
 //
+//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 CHAT_INVITE_PERMANENT: You can't set an expiration date on permanent invite links.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.

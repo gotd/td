@@ -214,6 +214,12 @@ func (g *ChannelsGetForumTopicsByIDRequest) GetChannelAsNotEmpty() (NotEmptyInpu
 // ChannelsGetForumTopicsByID invokes method channels.getForumTopicsByID#b0831eb9 returning error if any.
 // Get forum topics by their ID
 //
+// Possible errors:
+//
+//	400 CHANNEL_FORUM_MISSING: This supergroup is not a forum.
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 TOPICS_EMPTY:
+//
 // See https://core.telegram.org/method/channels.getForumTopicsByID for reference.
 // Can be used by bots.
 func (c *Client) ChannelsGetForumTopicsByID(ctx context.Context, request *ChannelsGetForumTopicsByIDRequest) (*MessagesForumTopics, error) {

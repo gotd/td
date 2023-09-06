@@ -55,7 +55,8 @@ type MessagesGetDialogsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
 	OffsetDate int
-	// Offsets for pagination, for more info click here¹
+	// Offsets for pagination, for more info click here¹ (top_message ID used for
+	// pagination)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets

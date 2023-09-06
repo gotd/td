@@ -187,6 +187,7 @@ func (e *FoldersEditPeerFoldersRequest) GetFolderPeers() (value []InputFolderPee
 //
 // Possible errors:
 //
+//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 CHAT_ID_INVALID: The provided chat id is invalid.
 //	400 FOLDER_ID_INVALID: Invalid folder ID.
 //

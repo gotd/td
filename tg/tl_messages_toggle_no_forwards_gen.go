@@ -204,7 +204,7 @@ func (t *MessagesToggleNoForwardsRequest) GetEnabled() (value bool) {
 //
 // Possible errors:
 //
-//	400 CHAT_NOT_MODIFIED: The pinned message wasn't modified.
+//	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.toggleNoForwards for reference.

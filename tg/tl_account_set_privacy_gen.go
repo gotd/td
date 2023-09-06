@@ -36,9 +36,9 @@ var (
 //
 // See https://core.telegram.org/method/account.setPrivacy for reference.
 type AccountSetPrivacyRequest struct {
-	// Peers to which the privacy rules apply
+	// New privacy rule
 	Key InputPrivacyKeyClass
-	// New privacy rules
+	// Peers to which the privacy rule will apply.
 	Rules []InputPrivacyRuleClass
 }
 

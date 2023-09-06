@@ -176,6 +176,10 @@ func (g *ChatlistsGetChatlistUpdatesRequest) GetChatlist() (value InputChatlistD
 //  1. https://core.telegram.org/api/links#chat-folder-links
 //  2. https://core.telegram.org/api/config#chatlist-update-period
 //
+// Possible errors:
+//
+//	400 INPUT_CHATLIST_INVALID:
+//
 // See https://core.telegram.org/method/chatlists.getChatlistUpdates for reference.
 // Can be used by bots.
 func (c *Client) ChatlistsGetChatlistUpdates(ctx context.Context, chatlist InputChatlistDialogFilter) (*ChatlistsChatlistUpdates, error) {

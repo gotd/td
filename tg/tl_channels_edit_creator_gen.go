@@ -251,6 +251,7 @@ func (e *ChannelsEditCreatorRequest) GetPasswordAsNotEmpty() (*InputCheckPasswor
 //	400 CHANNELS_ADMIN_PUBLIC_TOO_MUCH: You're admin of too many public channels, make some channels private to change the username of this channel.
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 PASSWORD_HASH_INVALID: The provided password hash is invalid.
 //	400 PASSWORD_MISSING: You must enable 2FA in order to transfer ownership of a channel.

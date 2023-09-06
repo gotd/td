@@ -676,6 +676,7 @@ func (f *MessagesForwardMessagesRequest) GetSendAs() (value InputPeerClass, ok b
 //	406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	406 CHAT_FORWARDS_RESTRICTED: You can't forward messages from a protected chat.
+//	403 CHAT_GUEST_SEND_FORBIDDEN: You join the discussion group before commenting, see here » for more info.
 //	400 CHAT_ID_INVALID: The provided chat id is invalid.
 //	400 CHAT_RESTRICTED: You can't send messages in this chat, you were restricted.
 //	403 CHAT_SEND_AUDIOS_FORBIDDEN: You can't send audio messages in this chat.

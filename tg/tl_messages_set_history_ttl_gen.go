@@ -198,7 +198,7 @@ func (s *MessagesSetHistoryTTLRequest) GetPeriod() (value int) {
 //
 // Possible errors:
 //
-//	400 CHAT_NOT_MODIFIED: The pinned message wasn't modified.
+//	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
 //	400 TTL_PERIOD_INVALID: The specified TTL period is invalid.
 //
 // See https://core.telegram.org/method/messages.setHistoryTTL for reference.
