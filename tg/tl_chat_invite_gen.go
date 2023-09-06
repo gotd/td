@@ -207,6 +207,12 @@ type ChatInvite struct {
 	// Links:
 	//  1) https://core.telegram.org/api/invites#join-requests
 	RequestNeeded bool
+	// Verified field of ChatInvite.
+	Verified bool
+	// Scam field of ChatInvite.
+	Scam bool
+	// Fake field of ChatInvite.
+	Fake bool
 	// Chat/supergroup/channel title
 	Title string
 	// Description of the group of channel
@@ -261,6 +267,15 @@ func (c *ChatInvite) Zero() bool {
 	if !(c.RequestNeeded == false) {
 		return false
 	}
+	if !(c.Verified == false) {
+		return false
+	}
+	if !(c.Scam == false) {
+		return false
+	}
+	if !(c.Fake == false) {
+		return false
+	}
 	if !(c.Title == "") {
 		return false
 	}
@@ -296,6 +311,9 @@ func (c *ChatInvite) FillFrom(from interface {
 	GetPublic() (value bool)
 	GetMegagroup() (value bool)
 	GetRequestNeeded() (value bool)
+	GetVerified() (value bool)
+	GetScam() (value bool)
+	GetFake() (value bool)
 	GetTitle() (value string)
 	GetAbout() (value string, ok bool)
 	GetPhoto() (value PhotoClass)
@@ -307,6 +325,9 @@ func (c *ChatInvite) FillFrom(from interface {
 	c.Public = from.GetPublic()
 	c.Megagroup = from.GetMegagroup()
 	c.RequestNeeded = from.GetRequestNeeded()
+	c.Verified = from.GetVerified()
+	c.Scam = from.GetScam()
+	c.Fake = from.GetFake()
 	c.Title = from.GetTitle()
 	if val, ok := from.GetAbout(); ok {
 		c.About = val
@@ -369,6 +390,21 @@ func (c *ChatInvite) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(6),
 		},
 		{
+			Name:       "Verified",
+			SchemaName: "verified",
+			Null:       !c.Flags.Has(7),
+		},
+		{
+			Name:       "Scam",
+			SchemaName: "scam",
+			Null:       !c.Flags.Has(8),
+		},
+		{
+			Name:       "Fake",
+			SchemaName: "fake",
+			Null:       !c.Flags.Has(9),
+		},
+		{
 			Name:       "Title",
 			SchemaName: "title",
 		},
@@ -410,6 +446,15 @@ func (c *ChatInvite) SetFlags() {
 	}
 	if !(c.RequestNeeded == false) {
 		c.Flags.Set(6)
+	}
+	if !(c.Verified == false) {
+		c.Flags.Set(7)
+	}
+	if !(c.Scam == false) {
+		c.Flags.Set(8)
+	}
+	if !(c.Fake == false) {
+		c.Flags.Set(9)
 	}
 	if !(c.About == "") {
 		c.Flags.Set(5)
@@ -488,6 +533,9 @@ func (c *ChatInvite) DecodeBare(b *bin.Buffer) error {
 	c.Public = c.Flags.Has(2)
 	c.Megagroup = c.Flags.Has(3)
 	c.RequestNeeded = c.Flags.Has(6)
+	c.Verified = c.Flags.Has(7)
+	c.Scam = c.Flags.Has(8)
+	c.Fake = c.Flags.Has(9)
 	{
 		value, err := b.String()
 		if err != nil {
@@ -629,6 +677,63 @@ func (c *ChatInvite) GetRequestNeeded() (value bool) {
 		return
 	}
 	return c.Flags.Has(6)
+}
+
+// SetVerified sets value of Verified conditional field.
+func (c *ChatInvite) SetVerified(value bool) {
+	if value {
+		c.Flags.Set(7)
+		c.Verified = true
+	} else {
+		c.Flags.Unset(7)
+		c.Verified = false
+	}
+}
+
+// GetVerified returns value of Verified conditional field.
+func (c *ChatInvite) GetVerified() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(7)
+}
+
+// SetScam sets value of Scam conditional field.
+func (c *ChatInvite) SetScam(value bool) {
+	if value {
+		c.Flags.Set(8)
+		c.Scam = true
+	} else {
+		c.Flags.Unset(8)
+		c.Scam = false
+	}
+}
+
+// GetScam returns value of Scam conditional field.
+func (c *ChatInvite) GetScam() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(8)
+}
+
+// SetFake sets value of Fake conditional field.
+func (c *ChatInvite) SetFake(value bool) {
+	if value {
+		c.Flags.Set(9)
+		c.Fake = true
+	} else {
+		c.Flags.Unset(9)
+		c.Fake = false
+	}
+}
+
+// GetFake returns value of Fake conditional field.
+func (c *ChatInvite) GetFake() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(9)
 }
 
 // GetTitle returns value of Title field.

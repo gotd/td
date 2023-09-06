@@ -3181,6 +3181,8 @@ type MessageActionBotAllowed struct {
 	// Links:
 	//  1) https://core.telegram.org/api/bots/attach
 	AttachMenu bool
+	// FromRequest field of MessageActionBotAllowed.
+	FromRequest bool
 	// We have authorized the bot to send us messages by logging into a website via Telegram
 	// Login »¹; this field contains the domain name of the website on which the user has
 	// logged in.
@@ -3225,6 +3227,9 @@ func (m *MessageActionBotAllowed) Zero() bool {
 	if !(m.AttachMenu == false) {
 		return false
 	}
+	if !(m.FromRequest == false) {
+		return false
+	}
 	if !(m.Domain == "") {
 		return false
 	}
@@ -3247,10 +3252,12 @@ func (m *MessageActionBotAllowed) String() string {
 // FillFrom fills MessageActionBotAllowed from given interface.
 func (m *MessageActionBotAllowed) FillFrom(from interface {
 	GetAttachMenu() (value bool)
+	GetFromRequest() (value bool)
 	GetDomain() (value string, ok bool)
 	GetApp() (value BotAppClass, ok bool)
 }) {
 	m.AttachMenu = from.GetAttachMenu()
+	m.FromRequest = from.GetFromRequest()
 	if val, ok := from.GetDomain(); ok {
 		m.Domain = val
 	}
@@ -3290,6 +3297,11 @@ func (m *MessageActionBotAllowed) TypeInfo() tdp.Type {
 			Null:       !m.Flags.Has(1),
 		},
 		{
+			Name:       "FromRequest",
+			SchemaName: "from_request",
+			Null:       !m.Flags.Has(3),
+		},
+		{
 			Name:       "Domain",
 			SchemaName: "domain",
 			Null:       !m.Flags.Has(0),
@@ -3307,6 +3319,9 @@ func (m *MessageActionBotAllowed) TypeInfo() tdp.Type {
 func (m *MessageActionBotAllowed) SetFlags() {
 	if !(m.AttachMenu == false) {
 		m.Flags.Set(1)
+	}
+	if !(m.FromRequest == false) {
+		m.Flags.Set(3)
 	}
 	if !(m.Domain == "") {
 		m.Flags.Set(0)
@@ -3370,6 +3385,7 @@ func (m *MessageActionBotAllowed) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	m.AttachMenu = m.Flags.Has(1)
+	m.FromRequest = m.Flags.Has(3)
 	if m.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
@@ -3404,6 +3420,25 @@ func (m *MessageActionBotAllowed) GetAttachMenu() (value bool) {
 		return
 	}
 	return m.Flags.Has(1)
+}
+
+// SetFromRequest sets value of FromRequest conditional field.
+func (m *MessageActionBotAllowed) SetFromRequest(value bool) {
+	if value {
+		m.Flags.Set(3)
+		m.FromRequest = true
+	} else {
+		m.Flags.Unset(3)
+		m.FromRequest = false
+	}
+}
+
+// GetFromRequest returns value of FromRequest conditional field.
+func (m *MessageActionBotAllowed) GetFromRequest() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(3)
 }
 
 // SetDomain sets value of Domain conditional field.

@@ -37,6 +37,8 @@ var (
 type StoryViews struct {
 	// Flags field of StoryViews.
 	Flags bin.Fields
+	// HasViewers field of StoryViews.
+	HasViewers bool
 	// ViewsCount field of StoryViews.
 	ViewsCount int
 	// ReactionsCount field of StoryViews.
@@ -65,6 +67,9 @@ func (s *StoryViews) Zero() bool {
 	if !(s.Flags.Zero()) {
 		return false
 	}
+	if !(s.HasViewers == false) {
+		return false
+	}
 	if !(s.ViewsCount == 0) {
 		return false
 	}
@@ -89,10 +94,12 @@ func (s *StoryViews) String() string {
 
 // FillFrom fills StoryViews from given interface.
 func (s *StoryViews) FillFrom(from interface {
+	GetHasViewers() (value bool)
 	GetViewsCount() (value int)
 	GetReactionsCount() (value int)
 	GetRecentViewers() (value []int64, ok bool)
 }) {
+	s.HasViewers = from.GetHasViewers()
 	s.ViewsCount = from.GetViewsCount()
 	s.ReactionsCount = from.GetReactionsCount()
 	if val, ok := from.GetRecentViewers(); ok {
@@ -125,6 +132,11 @@ func (s *StoryViews) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "HasViewers",
+			SchemaName: "has_viewers",
+			Null:       !s.Flags.Has(1),
+		},
+		{
 			Name:       "ViewsCount",
 			SchemaName: "views_count",
 		},
@@ -143,6 +155,9 @@ func (s *StoryViews) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (s *StoryViews) SetFlags() {
+	if !(s.HasViewers == false) {
+		s.Flags.Set(1)
+	}
 	if !(s.RecentViewers == nil) {
 		s.Flags.Set(0)
 	}
@@ -198,6 +213,7 @@ func (s *StoryViews) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode storyViews#c64c0b97: field flags: %w", err)
 		}
 	}
+	s.HasViewers = s.Flags.Has(1)
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -230,6 +246,25 @@ func (s *StoryViews) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// SetHasViewers sets value of HasViewers conditional field.
+func (s *StoryViews) SetHasViewers(value bool) {
+	if value {
+		s.Flags.Set(1)
+		s.HasViewers = true
+	} else {
+		s.Flags.Unset(1)
+		s.HasViewers = false
+	}
+}
+
+// GetHasViewers returns value of HasViewers conditional field.
+func (s *StoryViews) GetHasViewers() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(1)
 }
 
 // GetViewsCount returns value of ViewsCount field.
