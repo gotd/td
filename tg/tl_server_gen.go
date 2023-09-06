@@ -7984,6 +7984,61 @@ func (s *ServerDispatcher) OnBotsToggleUsername(f func(ctx context.Context, requ
 	s.handlers[BotsToggleUsernameRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnBotsCanSendMessage(f func(ctx context.Context, bot InputUserClass) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsCanSendMessageRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Bot)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[BotsCanSendMessageRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsAllowSendMessage(f func(ctx context.Context, bot InputUserClass) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsAllowSendMessageRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Bot)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[BotsAllowSendMessageRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnBotsInvokeWebViewCustomMethod(f func(ctx context.Context, request *BotsInvokeWebViewCustomMethodRequest) (*DataJSON, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request BotsInvokeWebViewCustomMethodRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[BotsInvokeWebViewCustomMethodRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnPaymentsGetPaymentForm(f func(ctx context.Context, request *PaymentsGetPaymentFormRequest) (*PaymentsPaymentForm, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request PaymentsGetPaymentFormRequest
@@ -9284,6 +9339,27 @@ func (s *ServerDispatcher) OnChatlistsLeaveChatlist(f func(ctx context.Context, 
 	}
 
 	s.handlers[ChatlistsLeaveChatlistRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesCanSendStory(f func(ctx context.Context) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesCanSendStoryRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[StoriesCanSendStoryRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnStoriesSendStory(f func(ctx context.Context, request *StoriesSendStoryRequest) (UpdatesClass, error)) {

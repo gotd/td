@@ -32,7 +32,7 @@ var (
 )
 
 // Layer version of schema.
-const Layer = 161
+const Layer = 162
 
 // TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
@@ -1626,6 +1626,9 @@ func TypesMap() map[uint32]string {
 		BotsGetBotInfoRequestTypeID:                                             "bots.getBotInfo#dcd914fd",
 		BotsReorderUsernamesRequestTypeID:                                       "bots.reorderUsernames#9709b1c2",
 		BotsToggleUsernameRequestTypeID:                                         "bots.toggleUsername#53ca973",
+		BotsCanSendMessageRequestTypeID:                                         "bots.canSendMessage#1359f4e6",
+		BotsAllowSendMessageRequestTypeID:                                       "bots.allowSendMessage#f132e3ef",
+		BotsInvokeWebViewCustomMethodRequestTypeID:                              "bots.invokeWebViewCustomMethod#87fc5e7",
 		PaymentsGetPaymentFormRequestTypeID:                                     "payments.getPaymentForm#37148dbb",
 		PaymentsGetPaymentReceiptRequestTypeID:                                  "payments.getPaymentReceipt#2478d1cc",
 		PaymentsValidateRequestedInfoRequestTypeID:                              "payments.validateRequestedInfo#b6c8f12b",
@@ -1700,6 +1703,7 @@ func TypesMap() map[uint32]string {
 		ChatlistsHideChatlistUpdatesRequestTypeID:                               "chatlists.hideChatlistUpdates#66e486fb",
 		ChatlistsGetLeaveChatlistSuggestionsRequestTypeID:                       "chatlists.getLeaveChatlistSuggestions#fdbcd714",
 		ChatlistsLeaveChatlistRequestTypeID:                                     "chatlists.leaveChatlist#74fae13a",
+		StoriesCanSendStoryRequestTypeID:                                        "stories.canSendStory#b100d45d",
 		StoriesSendStoryRequestTypeID:                                           "stories.sendStory#d455fcec",
 		StoriesEditStoryRequestTypeID:                                           "stories.editStory#a9b91ae4",
 		StoriesDeleteStoriesRequestTypeID:                                       "stories.deleteStories#b5d501d7",
@@ -3327,6 +3331,9 @@ func NamesMap() map[string]uint32 {
 		"bots.getBotInfo":                                                   BotsGetBotInfoRequestTypeID,
 		"bots.reorderUsernames":                                             BotsReorderUsernamesRequestTypeID,
 		"bots.toggleUsername":                                               BotsToggleUsernameRequestTypeID,
+		"bots.canSendMessage":                                               BotsCanSendMessageRequestTypeID,
+		"bots.allowSendMessage":                                             BotsAllowSendMessageRequestTypeID,
+		"bots.invokeWebViewCustomMethod":                                    BotsInvokeWebViewCustomMethodRequestTypeID,
 		"payments.getPaymentForm":                                           PaymentsGetPaymentFormRequestTypeID,
 		"payments.getPaymentReceipt":                                        PaymentsGetPaymentReceiptRequestTypeID,
 		"payments.validateRequestedInfo":                                    PaymentsValidateRequestedInfoRequestTypeID,
@@ -3401,6 +3408,7 @@ func NamesMap() map[string]uint32 {
 		"chatlists.hideChatlistUpdates":                                     ChatlistsHideChatlistUpdatesRequestTypeID,
 		"chatlists.getLeaveChatlistSuggestions":                             ChatlistsGetLeaveChatlistSuggestionsRequestTypeID,
 		"chatlists.leaveChatlist":                                           ChatlistsLeaveChatlistRequestTypeID,
+		"stories.canSendStory":                                              StoriesCanSendStoryRequestTypeID,
 		"stories.sendStory":                                                 StoriesSendStoryRequestTypeID,
 		"stories.editStory":                                                 StoriesEditStoryRequestTypeID,
 		"stories.deleteStories":                                             StoriesDeleteStoriesRequestTypeID,
@@ -5028,6 +5036,9 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		BotsGetBotInfoRequestTypeID:                                             func() bin.Object { return &BotsGetBotInfoRequest{} },
 		BotsReorderUsernamesRequestTypeID:                                       func() bin.Object { return &BotsReorderUsernamesRequest{} },
 		BotsToggleUsernameRequestTypeID:                                         func() bin.Object { return &BotsToggleUsernameRequest{} },
+		BotsCanSendMessageRequestTypeID:                                         func() bin.Object { return &BotsCanSendMessageRequest{} },
+		BotsAllowSendMessageRequestTypeID:                                       func() bin.Object { return &BotsAllowSendMessageRequest{} },
+		BotsInvokeWebViewCustomMethodRequestTypeID:                              func() bin.Object { return &BotsInvokeWebViewCustomMethodRequest{} },
 		PaymentsGetPaymentFormRequestTypeID:                                     func() bin.Object { return &PaymentsGetPaymentFormRequest{} },
 		PaymentsGetPaymentReceiptRequestTypeID:                                  func() bin.Object { return &PaymentsGetPaymentReceiptRequest{} },
 		PaymentsValidateRequestedInfoRequestTypeID:                              func() bin.Object { return &PaymentsValidateRequestedInfoRequest{} },
@@ -5102,6 +5113,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		ChatlistsHideChatlistUpdatesRequestTypeID:                               func() bin.Object { return &ChatlistsHideChatlistUpdatesRequest{} },
 		ChatlistsGetLeaveChatlistSuggestionsRequestTypeID:                       func() bin.Object { return &ChatlistsGetLeaveChatlistSuggestionsRequest{} },
 		ChatlistsLeaveChatlistRequestTypeID:                                     func() bin.Object { return &ChatlistsLeaveChatlistRequest{} },
+		StoriesCanSendStoryRequestTypeID:                                        func() bin.Object { return &StoriesCanSendStoryRequest{} },
 		StoriesSendStoryRequestTypeID:                                           func() bin.Object { return &StoriesSendStoryRequest{} },
 		StoriesEditStoryRequestTypeID:                                           func() bin.Object { return &StoriesEditStoryRequest{} },
 		StoriesDeleteStoriesRequestTypeID:                                       func() bin.Object { return &StoriesDeleteStoriesRequest{} },
