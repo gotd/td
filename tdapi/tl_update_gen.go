@@ -9581,9 +9581,9 @@ type UpdateNotificationGroup struct {
 	// Total number of unread notifications in the group, can be bigger than number of active
 	// notifications
 	TotalCount int32
-	// List of added group notifications, sorted by notification ID
+	// List of added group notifications, sorted by notification identifier
 	AddedNotifications []Notification
-	// Identifiers of removed group notifications, sorted by notification ID
+	// Identifiers of removed group notifications, sorted by notification identifier
 	RemovedNotificationIDs []int32
 }
 

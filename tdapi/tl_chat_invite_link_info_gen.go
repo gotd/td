@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatInviteLinkInfo represents TL type `chatInviteLinkInfo#eca8a094`.
+// ChatInviteLinkInfo represents TL type `chatInviteLinkInfo#9afe0cd0`.
 type ChatInviteLinkInfo struct {
 	// Chat identifier of the invite link; 0 if the user has no access to the chat before
 	// joining
@@ -56,10 +56,16 @@ type ChatInviteLinkInfo struct {
 	// True, if the chat is a public supergroup or channel, i.e. it has a username or it is a
 	// location-based supergroup
 	IsPublic bool
+	// True, if the chat is verified
+	IsVerified bool
+	// True, if many users reported this chat as a scam
+	IsScam bool
+	// True, if many users reported this chat as a fake account
+	IsFake bool
 }
 
 // ChatInviteLinkInfoTypeID is TL type id of ChatInviteLinkInfo.
-const ChatInviteLinkInfoTypeID = 0xeca8a094
+const ChatInviteLinkInfoTypeID = 0x9afe0cd0
 
 // Ensuring interfaces in compile-time for ChatInviteLinkInfo.
 var (
@@ -101,6 +107,15 @@ func (c *ChatInviteLinkInfo) Zero() bool {
 		return false
 	}
 	if !(c.IsPublic == false) {
+		return false
+	}
+	if !(c.IsVerified == false) {
+		return false
+	}
+	if !(c.IsScam == false) {
+		return false
+	}
+	if !(c.IsFake == false) {
 		return false
 	}
 
@@ -179,6 +194,18 @@ func (c *ChatInviteLinkInfo) TypeInfo() tdp.Type {
 			Name:       "IsPublic",
 			SchemaName: "is_public",
 		},
+		{
+			Name:       "IsVerified",
+			SchemaName: "is_verified",
+		},
+		{
+			Name:       "IsScam",
+			SchemaName: "is_scam",
+		},
+		{
+			Name:       "IsFake",
+			SchemaName: "is_fake",
+		},
 	}
 	return typ
 }
@@ -186,7 +213,7 @@ func (c *ChatInviteLinkInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatInviteLinkInfo) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatInviteLinkInfo#eca8a094 as nil")
+		return fmt.Errorf("can't encode chatInviteLinkInfo#9afe0cd0 as nil")
 	}
 	b.PutID(ChatInviteLinkInfoTypeID)
 	return c.EncodeBare(b)
@@ -195,19 +222,19 @@ func (c *ChatInviteLinkInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatInviteLinkInfo) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatInviteLinkInfo#eca8a094 as nil")
+		return fmt.Errorf("can't encode chatInviteLinkInfo#9afe0cd0 as nil")
 	}
 	b.PutInt53(c.ChatID)
 	b.PutInt32(c.AccessibleFor)
 	if c.Type == nil {
-		return fmt.Errorf("unable to encode chatInviteLinkInfo#eca8a094: field type is nil")
+		return fmt.Errorf("unable to encode chatInviteLinkInfo#9afe0cd0: field type is nil")
 	}
 	if err := c.Type.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatInviteLinkInfo#eca8a094: field type: %w", err)
+		return fmt.Errorf("unable to encode chatInviteLinkInfo#9afe0cd0: field type: %w", err)
 	}
 	b.PutString(c.Title)
 	if err := c.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatInviteLinkInfo#eca8a094: field photo: %w", err)
+		return fmt.Errorf("unable to encode chatInviteLinkInfo#9afe0cd0: field photo: %w", err)
 	}
 	b.PutString(c.Description)
 	b.PutInt32(c.MemberCount)
@@ -217,16 +244,19 @@ func (c *ChatInviteLinkInfo) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutBool(c.CreatesJoinRequest)
 	b.PutBool(c.IsPublic)
+	b.PutBool(c.IsVerified)
+	b.PutBool(c.IsScam)
+	b.PutBool(c.IsFake)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChatInviteLinkInfo) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatInviteLinkInfo#eca8a094 to nil")
+		return fmt.Errorf("can't decode chatInviteLinkInfo#9afe0cd0 to nil")
 	}
 	if err := b.ConsumeID(ChatInviteLinkInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: %w", err)
+		return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -234,59 +264,59 @@ func (c *ChatInviteLinkInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatInviteLinkInfo) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatInviteLinkInfo#eca8a094 to nil")
+		return fmt.Errorf("can't decode chatInviteLinkInfo#9afe0cd0 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field chat_id: %w", err)
 		}
 		c.ChatID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field accessible_for: %w", err)
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field accessible_for: %w", err)
 		}
 		c.AccessibleFor = value
 	}
 	{
 		value, err := DecodeChatType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field type: %w", err)
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field type: %w", err)
 		}
 		c.Type = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field title: %w", err)
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field title: %w", err)
 		}
 		c.Title = value
 	}
 	{
 		if err := c.Photo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field photo: %w", err)
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field photo: %w", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field description: %w", err)
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field description: %w", err)
 		}
 		c.Description = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field member_count: %w", err)
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field member_count: %w", err)
 		}
 		c.MemberCount = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field member_user_ids: %w", err)
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field member_user_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -295,7 +325,7 @@ func (c *ChatInviteLinkInfo) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field member_user_ids: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field member_user_ids: %w", err)
 			}
 			c.MemberUserIDs = append(c.MemberUserIDs, value)
 		}
@@ -303,16 +333,37 @@ func (c *ChatInviteLinkInfo) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field creates_join_request: %w", err)
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field creates_join_request: %w", err)
 		}
 		c.CreatesJoinRequest = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field is_public: %w", err)
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field is_public: %w", err)
 		}
 		c.IsPublic = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field is_verified: %w", err)
+		}
+		c.IsVerified = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field is_scam: %w", err)
+		}
+		c.IsScam = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field is_fake: %w", err)
+		}
+		c.IsFake = value
 	}
 	return nil
 }
@@ -320,7 +371,7 @@ func (c *ChatInviteLinkInfo) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatInviteLinkInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatInviteLinkInfo#eca8a094 as nil")
+		return fmt.Errorf("can't encode chatInviteLinkInfo#9afe0cd0 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatInviteLinkInfo")
@@ -333,10 +384,10 @@ func (c *ChatInviteLinkInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("type")
 	if c.Type == nil {
-		return fmt.Errorf("unable to encode chatInviteLinkInfo#eca8a094: field type is nil")
+		return fmt.Errorf("unable to encode chatInviteLinkInfo#9afe0cd0: field type is nil")
 	}
 	if err := c.Type.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatInviteLinkInfo#eca8a094: field type: %w", err)
+		return fmt.Errorf("unable to encode chatInviteLinkInfo#9afe0cd0: field type: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("title")
@@ -344,7 +395,7 @@ func (c *ChatInviteLinkInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("photo")
 	if err := c.Photo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatInviteLinkInfo#eca8a094: field photo: %w", err)
+		return fmt.Errorf("unable to encode chatInviteLinkInfo#9afe0cd0: field photo: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("description")
@@ -368,6 +419,15 @@ func (c *ChatInviteLinkInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("is_public")
 	b.PutBool(c.IsPublic)
 	b.Comma()
+	b.FieldStart("is_verified")
+	b.PutBool(c.IsVerified)
+	b.Comma()
+	b.FieldStart("is_scam")
+	b.PutBool(c.IsScam)
+	b.Comma()
+	b.FieldStart("is_fake")
+	b.PutBool(c.IsFake)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -376,78 +436,96 @@ func (c *ChatInviteLinkInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatInviteLinkInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatInviteLinkInfo#eca8a094 to nil")
+		return fmt.Errorf("can't decode chatInviteLinkInfo#9afe0cd0 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatInviteLinkInfo"); err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field chat_id: %w", err)
 			}
 			c.ChatID = value
 		case "accessible_for":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field accessible_for: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field accessible_for: %w", err)
 			}
 			c.AccessibleFor = value
 		case "type":
 			value, err := DecodeTDLibJSONChatType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field type: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field type: %w", err)
 			}
 			c.Type = value
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field title: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field title: %w", err)
 			}
 			c.Title = value
 		case "photo":
 			if err := c.Photo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field photo: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field photo: %w", err)
 			}
 		case "description":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field description: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field description: %w", err)
 			}
 			c.Description = value
 		case "member_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field member_count: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field member_count: %w", err)
 			}
 			c.MemberCount = value
 		case "member_user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int53()
 				if err != nil {
-					return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field member_user_ids: %w", err)
+					return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field member_user_ids: %w", err)
 				}
 				c.MemberUserIDs = append(c.MemberUserIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field member_user_ids: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field member_user_ids: %w", err)
 			}
 		case "creates_join_request":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field creates_join_request: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field creates_join_request: %w", err)
 			}
 			c.CreatesJoinRequest = value
 		case "is_public":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatInviteLinkInfo#eca8a094: field is_public: %w", err)
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field is_public: %w", err)
 			}
 			c.IsPublic = value
+		case "is_verified":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field is_verified: %w", err)
+			}
+			c.IsVerified = value
+		case "is_scam":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field is_scam: %w", err)
+			}
+			c.IsScam = value
+		case "is_fake":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatInviteLinkInfo#9afe0cd0: field is_fake: %w", err)
+			}
+			c.IsFake = value
 		default:
 			return b.Skip()
 		}
@@ -533,4 +611,28 @@ func (c *ChatInviteLinkInfo) GetIsPublic() (value bool) {
 		return
 	}
 	return c.IsPublic
+}
+
+// GetIsVerified returns value of IsVerified field.
+func (c *ChatInviteLinkInfo) GetIsVerified() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.IsVerified
+}
+
+// GetIsScam returns value of IsScam field.
+func (c *ChatInviteLinkInfo) GetIsScam() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.IsScam
+}
+
+// GetIsFake returns value of IsFake field.
+func (c *ChatInviteLinkInfo) GetIsFake() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.IsFake
 }
