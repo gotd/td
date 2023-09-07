@@ -11498,15 +11498,18 @@ func (m *MessageWebsiteConnected) GetDomainName() (value string) {
 	return m.DomainName
 }
 
-// MessageBotWriteAccessAllowed represents TL type `messageBotWriteAccessAllowed#c1150108`.
+// MessageBotWriteAccessAllowed represents TL type `messageBotWriteAccessAllowed#322dfdaa`.
 type MessageBotWriteAccessAllowed struct {
 	// Information about the Web App, which requested the access; may be null if none or the
 	// Web App was opened from the attachment menu
 	WebApp WebApp
+	// True, if user allowed the bot to send messages by an explicit call to
+	// allowBotToSendMessages
+	ByRequest bool
 }
 
 // MessageBotWriteAccessAllowedTypeID is TL type id of MessageBotWriteAccessAllowed.
-const MessageBotWriteAccessAllowedTypeID = 0xc1150108
+const MessageBotWriteAccessAllowedTypeID = 0x322dfdaa
 
 // construct implements constructor of MessageContentClass.
 func (m MessageBotWriteAccessAllowed) construct() MessageContentClass { return &m }
@@ -11526,6 +11529,9 @@ func (m *MessageBotWriteAccessAllowed) Zero() bool {
 		return true
 	}
 	if !(m.WebApp.Zero()) {
+		return false
+	}
+	if !(m.ByRequest == false) {
 		return false
 	}
 
@@ -11568,6 +11574,10 @@ func (m *MessageBotWriteAccessAllowed) TypeInfo() tdp.Type {
 			Name:       "WebApp",
 			SchemaName: "web_app",
 		},
+		{
+			Name:       "ByRequest",
+			SchemaName: "by_request",
+		},
 	}
 	return typ
 }
@@ -11575,7 +11585,7 @@ func (m *MessageBotWriteAccessAllowed) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageBotWriteAccessAllowed) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageBotWriteAccessAllowed#c1150108 as nil")
+		return fmt.Errorf("can't encode messageBotWriteAccessAllowed#322dfdaa as nil")
 	}
 	b.PutID(MessageBotWriteAccessAllowedTypeID)
 	return m.EncodeBare(b)
@@ -11584,21 +11594,22 @@ func (m *MessageBotWriteAccessAllowed) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageBotWriteAccessAllowed) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageBotWriteAccessAllowed#c1150108 as nil")
+		return fmt.Errorf("can't encode messageBotWriteAccessAllowed#322dfdaa as nil")
 	}
 	if err := m.WebApp.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageBotWriteAccessAllowed#c1150108: field web_app: %w", err)
+		return fmt.Errorf("unable to encode messageBotWriteAccessAllowed#322dfdaa: field web_app: %w", err)
 	}
+	b.PutBool(m.ByRequest)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageBotWriteAccessAllowed) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageBotWriteAccessAllowed#c1150108 to nil")
+		return fmt.Errorf("can't decode messageBotWriteAccessAllowed#322dfdaa to nil")
 	}
 	if err := b.ConsumeID(MessageBotWriteAccessAllowedTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageBotWriteAccessAllowed#c1150108: %w", err)
+		return fmt.Errorf("unable to decode messageBotWriteAccessAllowed#322dfdaa: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -11606,12 +11617,19 @@ func (m *MessageBotWriteAccessAllowed) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageBotWriteAccessAllowed) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageBotWriteAccessAllowed#c1150108 to nil")
+		return fmt.Errorf("can't decode messageBotWriteAccessAllowed#322dfdaa to nil")
 	}
 	{
 		if err := m.WebApp.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageBotWriteAccessAllowed#c1150108: field web_app: %w", err)
+			return fmt.Errorf("unable to decode messageBotWriteAccessAllowed#322dfdaa: field web_app: %w", err)
 		}
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageBotWriteAccessAllowed#322dfdaa: field by_request: %w", err)
+		}
+		m.ByRequest = value
 	}
 	return nil
 }
@@ -11619,15 +11637,18 @@ func (m *MessageBotWriteAccessAllowed) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageBotWriteAccessAllowed) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageBotWriteAccessAllowed#c1150108 as nil")
+		return fmt.Errorf("can't encode messageBotWriteAccessAllowed#322dfdaa as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageBotWriteAccessAllowed")
 	b.Comma()
 	b.FieldStart("web_app")
 	if err := m.WebApp.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageBotWriteAccessAllowed#c1150108: field web_app: %w", err)
+		return fmt.Errorf("unable to encode messageBotWriteAccessAllowed#322dfdaa: field web_app: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("by_request")
+	b.PutBool(m.ByRequest)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -11637,19 +11658,25 @@ func (m *MessageBotWriteAccessAllowed) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageBotWriteAccessAllowed) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageBotWriteAccessAllowed#c1150108 to nil")
+		return fmt.Errorf("can't decode messageBotWriteAccessAllowed#322dfdaa to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageBotWriteAccessAllowed"); err != nil {
-				return fmt.Errorf("unable to decode messageBotWriteAccessAllowed#c1150108: %w", err)
+				return fmt.Errorf("unable to decode messageBotWriteAccessAllowed#322dfdaa: %w", err)
 			}
 		case "web_app":
 			if err := m.WebApp.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messageBotWriteAccessAllowed#c1150108: field web_app: %w", err)
+				return fmt.Errorf("unable to decode messageBotWriteAccessAllowed#322dfdaa: field web_app: %w", err)
 			}
+		case "by_request":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageBotWriteAccessAllowed#322dfdaa: field by_request: %w", err)
+			}
+			m.ByRequest = value
 		default:
 			return b.Skip()
 		}
@@ -11663,6 +11690,14 @@ func (m *MessageBotWriteAccessAllowed) GetWebApp() (value WebApp) {
 		return
 	}
 	return m.WebApp
+}
+
+// GetByRequest returns value of ByRequest field.
+func (m *MessageBotWriteAccessAllowed) GetByRequest() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.ByRequest
 }
 
 // MessageWebAppDataSent represents TL type `messageWebAppDataSent#fb033912`.
@@ -12911,7 +12946,7 @@ const MessageContentClassName = "MessageContent"
 //	case *tdapi.MessageUserShared: // messageUserShared#d4dcb77c
 //	case *tdapi.MessageChatShared: // messageChatShared#22db7091
 //	case *tdapi.MessageWebsiteConnected: // messageWebsiteConnected#bff3a408
-//	case *tdapi.MessageBotWriteAccessAllowed: // messageBotWriteAccessAllowed#c1150108
+//	case *tdapi.MessageBotWriteAccessAllowed: // messageBotWriteAccessAllowed#322dfdaa
 //	case *tdapi.MessageWebAppDataSent: // messageWebAppDataSent#fb033912
 //	case *tdapi.MessageWebAppDataReceived: // messageWebAppDataReceived#ff7d1a15
 //	case *tdapi.MessagePassportDataSent: // messagePassportDataSent#26c5ed6b
@@ -13335,7 +13370,7 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 		}
 		return &v, nil
 	case MessageBotWriteAccessAllowedTypeID:
-		// Decoding messageBotWriteAccessAllowed#c1150108.
+		// Decoding messageBotWriteAccessAllowed#322dfdaa.
 		v := MessageBotWriteAccessAllowed{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -13781,7 +13816,7 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 		}
 		return &v, nil
 	case "messageBotWriteAccessAllowed":
-		// Decoding messageBotWriteAccessAllowed#c1150108.
+		// Decoding messageBotWriteAccessAllowed#322dfdaa.
 		v := MessageBotWriteAccessAllowed{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)

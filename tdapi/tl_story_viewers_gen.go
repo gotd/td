@@ -31,10 +31,12 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoryViewers represents TL type `storyViewers#b9fed56b`.
+// StoryViewers represents TL type `storyViewers#9ae27d98`.
 type StoryViewers struct {
 	// Approximate total number of story viewers found
 	TotalCount int32
+	// Approximate total number of reactions set by found story viewers
+	TotalReactionCount int32
 	// List of story viewers
 	Viewers []StoryViewer
 	// The offset for the next request. If empty, there are no more results
@@ -42,7 +44,7 @@ type StoryViewers struct {
 }
 
 // StoryViewersTypeID is TL type id of StoryViewers.
-const StoryViewersTypeID = 0xb9fed56b
+const StoryViewersTypeID = 0x9ae27d98
 
 // Ensuring interfaces in compile-time for StoryViewers.
 var (
@@ -57,6 +59,9 @@ func (s *StoryViewers) Zero() bool {
 		return true
 	}
 	if !(s.TotalCount == 0) {
+		return false
+	}
+	if !(s.TotalReactionCount == 0) {
 		return false
 	}
 	if !(s.Viewers == nil) {
@@ -106,6 +111,10 @@ func (s *StoryViewers) TypeInfo() tdp.Type {
 			SchemaName: "total_count",
 		},
 		{
+			Name:       "TotalReactionCount",
+			SchemaName: "total_reaction_count",
+		},
+		{
 			Name:       "Viewers",
 			SchemaName: "viewers",
 		},
@@ -120,7 +129,7 @@ func (s *StoryViewers) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *StoryViewers) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyViewers#b9fed56b as nil")
+		return fmt.Errorf("can't encode storyViewers#9ae27d98 as nil")
 	}
 	b.PutID(StoryViewersTypeID)
 	return s.EncodeBare(b)
@@ -129,13 +138,14 @@ func (s *StoryViewers) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StoryViewers) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyViewers#b9fed56b as nil")
+		return fmt.Errorf("can't encode storyViewers#9ae27d98 as nil")
 	}
 	b.PutInt32(s.TotalCount)
+	b.PutInt32(s.TotalReactionCount)
 	b.PutInt(len(s.Viewers))
 	for idx, v := range s.Viewers {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare storyViewers#b9fed56b: field viewers element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare storyViewers#9ae27d98: field viewers element with index %d: %w", idx, err)
 		}
 	}
 	b.PutString(s.NextOffset)
@@ -145,10 +155,10 @@ func (s *StoryViewers) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StoryViewers) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyViewers#b9fed56b to nil")
+		return fmt.Errorf("can't decode storyViewers#9ae27d98 to nil")
 	}
 	if err := b.ConsumeID(StoryViewersTypeID); err != nil {
-		return fmt.Errorf("unable to decode storyViewers#b9fed56b: %w", err)
+		return fmt.Errorf("unable to decode storyViewers#9ae27d98: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -156,19 +166,26 @@ func (s *StoryViewers) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StoryViewers) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyViewers#b9fed56b to nil")
+		return fmt.Errorf("can't decode storyViewers#9ae27d98 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyViewers#b9fed56b: field total_count: %w", err)
+			return fmt.Errorf("unable to decode storyViewers#9ae27d98: field total_count: %w", err)
 		}
 		s.TotalCount = value
 	}
 	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode storyViewers#9ae27d98: field total_reaction_count: %w", err)
+		}
+		s.TotalReactionCount = value
+	}
+	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyViewers#b9fed56b: field viewers: %w", err)
+			return fmt.Errorf("unable to decode storyViewers#9ae27d98: field viewers: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -177,7 +194,7 @@ func (s *StoryViewers) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value StoryViewer
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare storyViewers#b9fed56b: field viewers: %w", err)
+				return fmt.Errorf("unable to decode bare storyViewers#9ae27d98: field viewers: %w", err)
 			}
 			s.Viewers = append(s.Viewers, value)
 		}
@@ -185,7 +202,7 @@ func (s *StoryViewers) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyViewers#b9fed56b: field next_offset: %w", err)
+			return fmt.Errorf("unable to decode storyViewers#9ae27d98: field next_offset: %w", err)
 		}
 		s.NextOffset = value
 	}
@@ -195,7 +212,7 @@ func (s *StoryViewers) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *StoryViewers) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyViewers#b9fed56b as nil")
+		return fmt.Errorf("can't encode storyViewers#9ae27d98 as nil")
 	}
 	b.ObjStart()
 	b.PutID("storyViewers")
@@ -203,11 +220,14 @@ func (s *StoryViewers) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("total_count")
 	b.PutInt32(s.TotalCount)
 	b.Comma()
+	b.FieldStart("total_reaction_count")
+	b.PutInt32(s.TotalReactionCount)
+	b.Comma()
 	b.FieldStart("viewers")
 	b.ArrStart()
 	for idx, v := range s.Viewers {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode storyViewers#b9fed56b: field viewers element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode storyViewers#9ae27d98: field viewers element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -225,36 +245,42 @@ func (s *StoryViewers) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *StoryViewers) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyViewers#b9fed56b to nil")
+		return fmt.Errorf("can't decode storyViewers#9ae27d98 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("storyViewers"); err != nil {
-				return fmt.Errorf("unable to decode storyViewers#b9fed56b: %w", err)
+				return fmt.Errorf("unable to decode storyViewers#9ae27d98: %w", err)
 			}
 		case "total_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode storyViewers#b9fed56b: field total_count: %w", err)
+				return fmt.Errorf("unable to decode storyViewers#9ae27d98: field total_count: %w", err)
 			}
 			s.TotalCount = value
+		case "total_reaction_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode storyViewers#9ae27d98: field total_reaction_count: %w", err)
+			}
+			s.TotalReactionCount = value
 		case "viewers":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value StoryViewer
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode storyViewers#b9fed56b: field viewers: %w", err)
+					return fmt.Errorf("unable to decode storyViewers#9ae27d98: field viewers: %w", err)
 				}
 				s.Viewers = append(s.Viewers, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode storyViewers#b9fed56b: field viewers: %w", err)
+				return fmt.Errorf("unable to decode storyViewers#9ae27d98: field viewers: %w", err)
 			}
 		case "next_offset":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode storyViewers#b9fed56b: field next_offset: %w", err)
+				return fmt.Errorf("unable to decode storyViewers#9ae27d98: field next_offset: %w", err)
 			}
 			s.NextOffset = value
 		default:
@@ -270,6 +296,14 @@ func (s *StoryViewers) GetTotalCount() (value int32) {
 		return
 	}
 	return s.TotalCount
+}
+
+// GetTotalReactionCount returns value of TotalReactionCount field.
+func (s *StoryViewers) GetTotalReactionCount() (value int32) {
+	if s == nil {
+		return
+	}
+	return s.TotalReactionCount
 }
 
 // GetViewers returns value of Viewers field.
