@@ -40,10 +40,6 @@ linters-settings:
       - preferWriteByte
       - httpNoBody
       - preferFprint
-    settings:
-      ruleguard:
-        failOn: dsl,import
-        rules: '${configDir}/gorules/rules.go'
 
 linters:
   disable-all: true

@@ -65,7 +65,7 @@ type MessagesGetChatInviteImportersRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
 	OffsetDate int
-	// User ID for pagination¹
+	// User ID for pagination¹: if set, offset_date must also be set.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
