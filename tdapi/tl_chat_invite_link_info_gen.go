@@ -39,7 +39,8 @@ type ChatInviteLinkInfo struct {
 	// If non-zero, the amount of time for which read access to the chat will remain
 	// available, in seconds
 	AccessibleFor int32
-	// Type of the chat
+	// Type of the chat; basic_group_id or supergroup_id can be 0 if the user has no access
+	// to the chat before joining
 	Type ChatTypeClass
 	// Title of the chat
 	Title string

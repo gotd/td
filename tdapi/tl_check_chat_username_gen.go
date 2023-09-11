@@ -34,7 +34,7 @@ var (
 // CheckChatUsernameRequest represents TL type `checkChatUsername#f8e66210`.
 type CheckChatUsernameRequest struct {
 	// Chat identifier; must be identifier of a supergroup chat, or a channel chat, or a
-	// private chat with self, or zero if the chat is being created
+	// private chat with self, or 0 if the chat is being created
 	ChatID int64
 	// Username to be checked
 	Username string
