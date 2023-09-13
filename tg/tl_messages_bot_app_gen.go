@@ -53,6 +53,8 @@ type MessagesBotApp struct {
 	// Links:
 	//  1) https://core.telegram.org/method/messages.requestAppWebView
 	RequestWriteAccess bool
+	// HasSettings field of MessagesBotApp.
+	HasSettings bool
 	// Bot app information
 	App BotAppClass
 }
@@ -81,6 +83,9 @@ func (b *MessagesBotApp) Zero() bool {
 	if !(b.RequestWriteAccess == false) {
 		return false
 	}
+	if !(b.HasSettings == false) {
+		return false
+	}
 	if !(b.App == nil) {
 		return false
 	}
@@ -101,10 +106,12 @@ func (b *MessagesBotApp) String() string {
 func (b *MessagesBotApp) FillFrom(from interface {
 	GetInactive() (value bool)
 	GetRequestWriteAccess() (value bool)
+	GetHasSettings() (value bool)
 	GetApp() (value BotAppClass)
 }) {
 	b.Inactive = from.GetInactive()
 	b.RequestWriteAccess = from.GetRequestWriteAccess()
+	b.HasSettings = from.GetHasSettings()
 	b.App = from.GetApp()
 }
 
@@ -142,6 +149,11 @@ func (b *MessagesBotApp) TypeInfo() tdp.Type {
 			Null:       !b.Flags.Has(1),
 		},
 		{
+			Name:       "HasSettings",
+			SchemaName: "has_settings",
+			Null:       !b.Flags.Has(2),
+		},
+		{
 			Name:       "App",
 			SchemaName: "app",
 		},
@@ -156,6 +168,9 @@ func (b *MessagesBotApp) SetFlags() {
 	}
 	if !(b.RequestWriteAccess == false) {
 		b.Flags.Set(1)
+	}
+	if !(b.HasSettings == false) {
+		b.Flags.Set(2)
 	}
 }
 
@@ -209,6 +224,7 @@ func (b *MessagesBotApp) DecodeBare(buf *bin.Buffer) error {
 	}
 	b.Inactive = b.Flags.Has(0)
 	b.RequestWriteAccess = b.Flags.Has(1)
+	b.HasSettings = b.Flags.Has(2)
 	{
 		value, err := DecodeBotApp(buf)
 		if err != nil {
@@ -255,6 +271,25 @@ func (b *MessagesBotApp) GetRequestWriteAccess() (value bool) {
 		return
 	}
 	return b.Flags.Has(1)
+}
+
+// SetHasSettings sets value of HasSettings conditional field.
+func (b *MessagesBotApp) SetHasSettings(value bool) {
+	if value {
+		b.Flags.Set(2)
+		b.HasSettings = true
+	} else {
+		b.Flags.Unset(2)
+		b.HasSettings = false
+	}
+}
+
+// GetHasSettings returns value of HasSettings conditional field.
+func (b *MessagesBotApp) GetHasSettings() (value bool) {
+	if b == nil {
+		return
+	}
+	return b.Flags.Has(2)
 }
 
 // GetApp returns value of App field.

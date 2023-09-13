@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesRequestSimpleWebViewRequest represents TL type `messages.requestSimpleWebView#299bec8e`.
+// MessagesRequestSimpleWebViewRequest represents TL type `messages.requestSimpleWebView#1a46500a`.
 // Open a bot web app¹.
 //
 // Links:
@@ -50,10 +50,18 @@ type MessagesRequestSimpleWebViewRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getInlineBotResults
 	FromSwitchWebview bool
+	// FromSideMenu field of MessagesRequestSimpleWebViewRequest.
+	FromSideMenu bool
 	// Bot that owns the webapp
 	Bot InputUserClass
 	// Web app URL
+	//
+	// Use SetURL and GetURL helpers.
 	URL string
+	// StartParam field of MessagesRequestSimpleWebViewRequest.
+	//
+	// Use SetStartParam and GetStartParam helpers.
+	StartParam string
 	// Theme parameters »¹
 	//
 	// Links:
@@ -66,7 +74,7 @@ type MessagesRequestSimpleWebViewRequest struct {
 }
 
 // MessagesRequestSimpleWebViewRequestTypeID is TL type id of MessagesRequestSimpleWebViewRequest.
-const MessagesRequestSimpleWebViewRequestTypeID = 0x299bec8e
+const MessagesRequestSimpleWebViewRequestTypeID = 0x1a46500a
 
 // Ensuring interfaces in compile-time for MessagesRequestSimpleWebViewRequest.
 var (
@@ -86,10 +94,16 @@ func (r *MessagesRequestSimpleWebViewRequest) Zero() bool {
 	if !(r.FromSwitchWebview == false) {
 		return false
 	}
+	if !(r.FromSideMenu == false) {
+		return false
+	}
 	if !(r.Bot == nil) {
 		return false
 	}
 	if !(r.URL == "") {
+		return false
+	}
+	if !(r.StartParam == "") {
 		return false
 	}
 	if !(r.ThemeParams.Zero()) {
@@ -114,14 +128,24 @@ func (r *MessagesRequestSimpleWebViewRequest) String() string {
 // FillFrom fills MessagesRequestSimpleWebViewRequest from given interface.
 func (r *MessagesRequestSimpleWebViewRequest) FillFrom(from interface {
 	GetFromSwitchWebview() (value bool)
+	GetFromSideMenu() (value bool)
 	GetBot() (value InputUserClass)
-	GetURL() (value string)
+	GetURL() (value string, ok bool)
+	GetStartParam() (value string, ok bool)
 	GetThemeParams() (value DataJSON, ok bool)
 	GetPlatform() (value string)
 }) {
 	r.FromSwitchWebview = from.GetFromSwitchWebview()
+	r.FromSideMenu = from.GetFromSideMenu()
 	r.Bot = from.GetBot()
-	r.URL = from.GetURL()
+	if val, ok := from.GetURL(); ok {
+		r.URL = val
+	}
+
+	if val, ok := from.GetStartParam(); ok {
+		r.StartParam = val
+	}
+
 	if val, ok := from.GetThemeParams(); ok {
 		r.ThemeParams = val
 	}
@@ -158,12 +182,23 @@ func (r *MessagesRequestSimpleWebViewRequest) TypeInfo() tdp.Type {
 			Null:       !r.Flags.Has(1),
 		},
 		{
+			Name:       "FromSideMenu",
+			SchemaName: "from_side_menu",
+			Null:       !r.Flags.Has(2),
+		},
+		{
 			Name:       "Bot",
 			SchemaName: "bot",
 		},
 		{
 			Name:       "URL",
 			SchemaName: "url",
+			Null:       !r.Flags.Has(3),
+		},
+		{
+			Name:       "StartParam",
+			SchemaName: "start_param",
+			Null:       !r.Flags.Has(4),
 		},
 		{
 			Name:       "ThemeParams",
@@ -183,6 +218,15 @@ func (r *MessagesRequestSimpleWebViewRequest) SetFlags() {
 	if !(r.FromSwitchWebview == false) {
 		r.Flags.Set(1)
 	}
+	if !(r.FromSideMenu == false) {
+		r.Flags.Set(2)
+	}
+	if !(r.URL == "") {
+		r.Flags.Set(3)
+	}
+	if !(r.StartParam == "") {
+		r.Flags.Set(4)
+	}
 	if !(r.ThemeParams.Zero()) {
 		r.Flags.Set(0)
 	}
@@ -191,7 +235,7 @@ func (r *MessagesRequestSimpleWebViewRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (r *MessagesRequestSimpleWebViewRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.requestSimpleWebView#299bec8e as nil")
+		return fmt.Errorf("can't encode messages.requestSimpleWebView#1a46500a as nil")
 	}
 	b.PutID(MessagesRequestSimpleWebViewRequestTypeID)
 	return r.EncodeBare(b)
@@ -200,22 +244,27 @@ func (r *MessagesRequestSimpleWebViewRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *MessagesRequestSimpleWebViewRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.requestSimpleWebView#299bec8e as nil")
+		return fmt.Errorf("can't encode messages.requestSimpleWebView#1a46500a as nil")
 	}
 	r.SetFlags()
 	if err := r.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.requestSimpleWebView#299bec8e: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.requestSimpleWebView#1a46500a: field flags: %w", err)
 	}
 	if r.Bot == nil {
-		return fmt.Errorf("unable to encode messages.requestSimpleWebView#299bec8e: field bot is nil")
+		return fmt.Errorf("unable to encode messages.requestSimpleWebView#1a46500a: field bot is nil")
 	}
 	if err := r.Bot.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.requestSimpleWebView#299bec8e: field bot: %w", err)
+		return fmt.Errorf("unable to encode messages.requestSimpleWebView#1a46500a: field bot: %w", err)
 	}
-	b.PutString(r.URL)
+	if r.Flags.Has(3) {
+		b.PutString(r.URL)
+	}
+	if r.Flags.Has(4) {
+		b.PutString(r.StartParam)
+	}
 	if r.Flags.Has(0) {
 		if err := r.ThemeParams.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messages.requestSimpleWebView#299bec8e: field theme_params: %w", err)
+			return fmt.Errorf("unable to encode messages.requestSimpleWebView#1a46500a: field theme_params: %w", err)
 		}
 	}
 	b.PutString(r.Platform)
@@ -225,10 +274,10 @@ func (r *MessagesRequestSimpleWebViewRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *MessagesRequestSimpleWebViewRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.requestSimpleWebView#299bec8e to nil")
+		return fmt.Errorf("can't decode messages.requestSimpleWebView#1a46500a to nil")
 	}
 	if err := b.ConsumeID(MessagesRequestSimpleWebViewRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.requestSimpleWebView#299bec8e: %w", err)
+		return fmt.Errorf("unable to decode messages.requestSimpleWebView#1a46500a: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -236,37 +285,45 @@ func (r *MessagesRequestSimpleWebViewRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *MessagesRequestSimpleWebViewRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.requestSimpleWebView#299bec8e to nil")
+		return fmt.Errorf("can't decode messages.requestSimpleWebView#1a46500a to nil")
 	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.requestSimpleWebView#299bec8e: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.requestSimpleWebView#1a46500a: field flags: %w", err)
 		}
 	}
 	r.FromSwitchWebview = r.Flags.Has(1)
+	r.FromSideMenu = r.Flags.Has(2)
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestSimpleWebView#299bec8e: field bot: %w", err)
+			return fmt.Errorf("unable to decode messages.requestSimpleWebView#1a46500a: field bot: %w", err)
 		}
 		r.Bot = value
 	}
-	{
+	if r.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestSimpleWebView#299bec8e: field url: %w", err)
+			return fmt.Errorf("unable to decode messages.requestSimpleWebView#1a46500a: field url: %w", err)
 		}
 		r.URL = value
 	}
+	if r.Flags.Has(4) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.requestSimpleWebView#1a46500a: field start_param: %w", err)
+		}
+		r.StartParam = value
+	}
 	if r.Flags.Has(0) {
 		if err := r.ThemeParams.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.requestSimpleWebView#299bec8e: field theme_params: %w", err)
+			return fmt.Errorf("unable to decode messages.requestSimpleWebView#1a46500a: field theme_params: %w", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestSimpleWebView#299bec8e: field platform: %w", err)
+			return fmt.Errorf("unable to decode messages.requestSimpleWebView#1a46500a: field platform: %w", err)
 		}
 		r.Platform = value
 	}
@@ -292,6 +349,25 @@ func (r *MessagesRequestSimpleWebViewRequest) GetFromSwitchWebview() (value bool
 	return r.Flags.Has(1)
 }
 
+// SetFromSideMenu sets value of FromSideMenu conditional field.
+func (r *MessagesRequestSimpleWebViewRequest) SetFromSideMenu(value bool) {
+	if value {
+		r.Flags.Set(2)
+		r.FromSideMenu = true
+	} else {
+		r.Flags.Unset(2)
+		r.FromSideMenu = false
+	}
+}
+
+// GetFromSideMenu returns value of FromSideMenu conditional field.
+func (r *MessagesRequestSimpleWebViewRequest) GetFromSideMenu() (value bool) {
+	if r == nil {
+		return
+	}
+	return r.Flags.Has(2)
+}
+
 // GetBot returns value of Bot field.
 func (r *MessagesRequestSimpleWebViewRequest) GetBot() (value InputUserClass) {
 	if r == nil {
@@ -300,12 +376,40 @@ func (r *MessagesRequestSimpleWebViewRequest) GetBot() (value InputUserClass) {
 	return r.Bot
 }
 
-// GetURL returns value of URL field.
-func (r *MessagesRequestSimpleWebViewRequest) GetURL() (value string) {
+// SetURL sets value of URL conditional field.
+func (r *MessagesRequestSimpleWebViewRequest) SetURL(value string) {
+	r.Flags.Set(3)
+	r.URL = value
+}
+
+// GetURL returns value of URL conditional field and
+// boolean which is true if field was set.
+func (r *MessagesRequestSimpleWebViewRequest) GetURL() (value string, ok bool) {
 	if r == nil {
 		return
 	}
-	return r.URL
+	if !r.Flags.Has(3) {
+		return value, false
+	}
+	return r.URL, true
+}
+
+// SetStartParam sets value of StartParam conditional field.
+func (r *MessagesRequestSimpleWebViewRequest) SetStartParam(value string) {
+	r.Flags.Set(4)
+	r.StartParam = value
+}
+
+// GetStartParam returns value of StartParam conditional field and
+// boolean which is true if field was set.
+func (r *MessagesRequestSimpleWebViewRequest) GetStartParam() (value string, ok bool) {
+	if r == nil {
+		return
+	}
+	if !r.Flags.Has(4) {
+		return value, false
+	}
+	return r.StartParam, true
 }
 
 // SetThemeParams sets value of ThemeParams conditional field.
@@ -334,7 +438,7 @@ func (r *MessagesRequestSimpleWebViewRequest) GetPlatform() (value string) {
 	return r.Platform
 }
 
-// MessagesRequestSimpleWebView invokes method messages.requestSimpleWebView#299bec8e returning error if any.
+// MessagesRequestSimpleWebView invokes method messages.requestSimpleWebView#1a46500a returning error if any.
 // Open a bot web app¹.
 //
 // Links:

@@ -41,6 +41,8 @@ type AccountChangeAuthorizationSettingsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// Confirmed field of AccountChangeAuthorizationSettingsRequest.
+	Confirmed bool
 	// Session ID from the authorization¹ constructor, fetchable using account
 	// getAuthorizations²
 	//
@@ -78,6 +80,9 @@ func (c *AccountChangeAuthorizationSettingsRequest) Zero() bool {
 	if !(c.Flags.Zero()) {
 		return false
 	}
+	if !(c.Confirmed == false) {
+		return false
+	}
 	if !(c.Hash == 0) {
 		return false
 	}
@@ -102,10 +107,12 @@ func (c *AccountChangeAuthorizationSettingsRequest) String() string {
 
 // FillFrom fills AccountChangeAuthorizationSettingsRequest from given interface.
 func (c *AccountChangeAuthorizationSettingsRequest) FillFrom(from interface {
+	GetConfirmed() (value bool)
 	GetHash() (value int64)
 	GetEncryptedRequestsDisabled() (value bool, ok bool)
 	GetCallRequestsDisabled() (value bool, ok bool)
 }) {
+	c.Confirmed = from.GetConfirmed()
 	c.Hash = from.GetHash()
 	if val, ok := from.GetEncryptedRequestsDisabled(); ok {
 		c.EncryptedRequestsDisabled = val
@@ -141,6 +148,11 @@ func (c *AccountChangeAuthorizationSettingsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Confirmed",
+			SchemaName: "confirmed",
+			Null:       !c.Flags.Has(3),
+		},
+		{
 			Name:       "Hash",
 			SchemaName: "hash",
 		},
@@ -160,6 +172,9 @@ func (c *AccountChangeAuthorizationSettingsRequest) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (c *AccountChangeAuthorizationSettingsRequest) SetFlags() {
+	if !(c.Confirmed == false) {
+		c.Flags.Set(3)
+	}
 	if !(c.EncryptedRequestsDisabled == false) {
 		c.Flags.Set(0)
 	}
@@ -217,6 +232,7 @@ func (c *AccountChangeAuthorizationSettingsRequest) DecodeBare(b *bin.Buffer) er
 			return fmt.Errorf("unable to decode account.changeAuthorizationSettings#40f48462: field flags: %w", err)
 		}
 	}
+	c.Confirmed = c.Flags.Has(3)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -239,6 +255,25 @@ func (c *AccountChangeAuthorizationSettingsRequest) DecodeBare(b *bin.Buffer) er
 		c.CallRequestsDisabled = value
 	}
 	return nil
+}
+
+// SetConfirmed sets value of Confirmed conditional field.
+func (c *AccountChangeAuthorizationSettingsRequest) SetConfirmed(value bool) {
+	if value {
+		c.Flags.Set(3)
+		c.Confirmed = true
+	} else {
+		c.Flags.Unset(3)
+		c.Confirmed = false
+	}
+}
+
+// GetConfirmed returns value of Confirmed conditional field.
+func (c *AccountChangeAuthorizationSettingsRequest) GetConfirmed() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(3)
 }
 
 // GetHash returns value of Hash field.

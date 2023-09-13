@@ -220,6 +220,19 @@ func (s UpdateClassArray) AsUpdateUserName() (to UpdateUserNameArray) {
 	return to
 }
 
+// AsUpdateNewAuthorization returns copy with only UpdateNewAuthorization constructors.
+func (s UpdateClassArray) AsUpdateNewAuthorization() (to UpdateNewAuthorizationArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateNewAuthorization)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // AsUpdateNewEncryptedMessage returns copy with only UpdateNewEncryptedMessage constructors.
 func (s UpdateClassArray) AsUpdateNewEncryptedMessage() (to UpdateNewEncryptedMessageArray) {
 	for _, elem := range s {
@@ -2101,6 +2114,88 @@ func (s *UpdateUserNameArray) PopFirst() (v UpdateUserName, ok bool) {
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *UpdateUserNameArray) Pop() (v UpdateUserName, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateNewAuthorizationArray is adapter for slice of UpdateNewAuthorization.
+type UpdateNewAuthorizationArray []UpdateNewAuthorization
+
+// Sort sorts slice of UpdateNewAuthorization.
+func (s UpdateNewAuthorizationArray) Sort(less func(a, b UpdateNewAuthorization) bool) UpdateNewAuthorizationArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateNewAuthorization.
+func (s UpdateNewAuthorizationArray) SortStable(less func(a, b UpdateNewAuthorization) bool) UpdateNewAuthorizationArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateNewAuthorization.
+func (s UpdateNewAuthorizationArray) Retain(keep func(x UpdateNewAuthorization) bool) UpdateNewAuthorizationArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateNewAuthorizationArray) First() (v UpdateNewAuthorization, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateNewAuthorizationArray) Last() (v UpdateNewAuthorization, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateNewAuthorizationArray) PopFirst() (v UpdateNewAuthorization, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateNewAuthorization
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateNewAuthorizationArray) Pop() (v UpdateNewAuthorization, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

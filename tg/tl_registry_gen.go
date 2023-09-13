@@ -32,7 +32,7 @@ var (
 )
 
 // Layer version of schema.
-const Layer = 162
+const Layer = 163
 
 // TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
@@ -264,6 +264,7 @@ func TypesMap() map[uint32]string {
 		UpdateChatParticipantsTypeID:                             "updateChatParticipants#7761198",
 		UpdateUserStatusTypeID:                                   "updateUserStatus#e5bdf8de",
 		UpdateUserNameTypeID:                                     "updateUserName#a7848924",
+		UpdateNewAuthorizationTypeID:                             "updateNewAuthorization#8951abef",
 		UpdateNewEncryptedMessageTypeID:                          "updateNewEncryptedMessage#12bcbd9a",
 		UpdateEncryptedChatTypingTypeID:                          "updateEncryptedChatTyping#1710f156",
 		UpdateEncryptionTypeID:                                   "updateEncryption#b4a2e88d",
@@ -278,7 +279,7 @@ func TypesMap() map[uint32]string {
 		UpdateReadHistoryInboxTypeID:                             "updateReadHistoryInbox#9c974fdf",
 		UpdateReadHistoryOutboxTypeID:                            "updateReadHistoryOutbox#2f2f21bf",
 		UpdateWebPageTypeID:                                      "updateWebPage#7f891213",
-		UpdateReadMessagesContentsTypeID:                         "updateReadMessagesContents#68c13933",
+		UpdateReadMessagesContentsTypeID:                         "updateReadMessagesContents#f8227181",
 		UpdateChannelTooLongTypeID:                               "updateChannelTooLong#108d941f",
 		UpdateChannelTypeID:                                      "updateChannel#635b4c09",
 		UpdateNewChannelMessageTypeID:                            "updateNewChannelMessage#62ba04d9",
@@ -1065,7 +1066,7 @@ func TypesMap() map[uint32]string {
 		PhoneGroupCallStreamRtmpURLTypeID:                                       "phone.groupCallStreamRtmpUrl#2dbf3432",
 		AttachMenuBotIconColorTypeID:                                            "attachMenuBotIconColor#4576f3f0",
 		AttachMenuBotIconTypeID:                                                 "attachMenuBotIcon#b2a7386b",
-		AttachMenuBotTypeID:                                                     "attachMenuBot#c8aa2cd2",
+		AttachMenuBotTypeID:                                                     "attachMenuBot#d90d8dfe",
 		AttachMenuBotsNotModifiedTypeID:                                         "attachMenuBotsNotModified#f1d88a5c",
 		AttachMenuBotsTypeID:                                                    "attachMenuBots#3c4301c0",
 		AttachMenuBotsBotTypeID:                                                 "attachMenuBotsBot#93bf667f",
@@ -1494,7 +1495,7 @@ func TypesMap() map[uint32]string {
 		MessagesToggleBotInAttachMenuRequestTypeID:                              "messages.toggleBotInAttachMenu#69f59d69",
 		MessagesRequestWebViewRequestTypeID:                                     "messages.requestWebView#269dc2c1",
 		MessagesProlongWebViewRequestTypeID:                                     "messages.prolongWebView#b0d81a83",
-		MessagesRequestSimpleWebViewRequestTypeID:                               "messages.requestSimpleWebView#299bec8e",
+		MessagesRequestSimpleWebViewRequestTypeID:                               "messages.requestSimpleWebView#1a46500a",
 		MessagesSendWebViewResultMessageRequestTypeID:                           "messages.sendWebViewResultMessage#a4314f5",
 		MessagesSendWebViewDataRequestTypeID:                                    "messages.sendWebViewData#dc0242c8",
 		MessagesTranscribeAudioRequestTypeID:                                    "messages.transcribeAudio#269e9a49",
@@ -1969,6 +1970,7 @@ func NamesMap() map[string]uint32 {
 		"updateChatParticipants":                             UpdateChatParticipantsTypeID,
 		"updateUserStatus":                                   UpdateUserStatusTypeID,
 		"updateUserName":                                     UpdateUserNameTypeID,
+		"updateNewAuthorization":                             UpdateNewAuthorizationTypeID,
 		"updateNewEncryptedMessage":                          UpdateNewEncryptedMessageTypeID,
 		"updateEncryptedChatTyping":                          UpdateEncryptedChatTypingTypeID,
 		"updateEncryption":                                   UpdateEncryptionTypeID,
@@ -3674,6 +3676,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		UpdateChatParticipantsTypeID:                             func() bin.Object { return &UpdateChatParticipants{} },
 		UpdateUserStatusTypeID:                                   func() bin.Object { return &UpdateUserStatus{} },
 		UpdateUserNameTypeID:                                     func() bin.Object { return &UpdateUserName{} },
+		UpdateNewAuthorizationTypeID:                             func() bin.Object { return &UpdateNewAuthorization{} },
 		UpdateNewEncryptedMessageTypeID:                          func() bin.Object { return &UpdateNewEncryptedMessage{} },
 		UpdateEncryptedChatTypingTypeID:                          func() bin.Object { return &UpdateEncryptedChatTyping{} },
 		UpdateEncryptionTypeID:                                   func() bin.Object { return &UpdateEncryption{} },
@@ -6251,6 +6254,7 @@ func ClassConstructorsMap() map[string][]uint32 {
 			UpdateChatParticipantsTypeID,
 			UpdateUserStatusTypeID,
 			UpdateUserNameTypeID,
+			UpdateNewAuthorizationTypeID,
 			UpdateNewEncryptedMessageTypeID,
 			UpdateEncryptedChatTypingTypeID,
 			UpdateEncryptionTypeID,

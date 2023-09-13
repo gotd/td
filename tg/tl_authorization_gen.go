@@ -51,6 +51,8 @@ type Authorization struct {
 	EncryptedRequestsDisabled bool
 	// Whether this session will accept phone calls
 	CallRequestsDisabled bool
+	// Unconfirmed field of Authorization.
+	Unconfirmed bool
 	// Identifier
 	Hash int64
 	// Device model
@@ -113,6 +115,9 @@ func (a *Authorization) Zero() bool {
 	if !(a.CallRequestsDisabled == false) {
 		return false
 	}
+	if !(a.Unconfirmed == false) {
+		return false
+	}
 	if !(a.Hash == 0) {
 		return false
 	}
@@ -169,6 +174,7 @@ func (a *Authorization) FillFrom(from interface {
 	GetPasswordPending() (value bool)
 	GetEncryptedRequestsDisabled() (value bool)
 	GetCallRequestsDisabled() (value bool)
+	GetUnconfirmed() (value bool)
 	GetHash() (value int64)
 	GetDeviceModel() (value string)
 	GetPlatform() (value string)
@@ -187,6 +193,7 @@ func (a *Authorization) FillFrom(from interface {
 	a.PasswordPending = from.GetPasswordPending()
 	a.EncryptedRequestsDisabled = from.GetEncryptedRequestsDisabled()
 	a.CallRequestsDisabled = from.GetCallRequestsDisabled()
+	a.Unconfirmed = from.GetUnconfirmed()
 	a.Hash = from.GetHash()
 	a.DeviceModel = from.GetDeviceModel()
 	a.Platform = from.GetPlatform()
@@ -248,6 +255,11 @@ func (a *Authorization) TypeInfo() tdp.Type {
 			Name:       "CallRequestsDisabled",
 			SchemaName: "call_requests_disabled",
 			Null:       !a.Flags.Has(4),
+		},
+		{
+			Name:       "Unconfirmed",
+			SchemaName: "unconfirmed",
+			Null:       !a.Flags.Has(5),
 		},
 		{
 			Name:       "Hash",
@@ -318,6 +330,9 @@ func (a *Authorization) SetFlags() {
 	if !(a.CallRequestsDisabled == false) {
 		a.Flags.Set(4)
 	}
+	if !(a.Unconfirmed == false) {
+		a.Flags.Set(5)
+	}
 }
 
 // Encode implements bin.Encoder.
@@ -379,6 +394,7 @@ func (a *Authorization) DecodeBare(b *bin.Buffer) error {
 	a.PasswordPending = a.Flags.Has(2)
 	a.EncryptedRequestsDisabled = a.Flags.Has(3)
 	a.CallRequestsDisabled = a.Flags.Has(4)
+	a.Unconfirmed = a.Flags.Has(5)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -559,6 +575,25 @@ func (a *Authorization) GetCallRequestsDisabled() (value bool) {
 		return
 	}
 	return a.Flags.Has(4)
+}
+
+// SetUnconfirmed sets value of Unconfirmed conditional field.
+func (a *Authorization) SetUnconfirmed(value bool) {
+	if value {
+		a.Flags.Set(5)
+		a.Unconfirmed = true
+	} else {
+		a.Flags.Unset(5)
+		a.Unconfirmed = false
+	}
+}
+
+// GetUnconfirmed returns value of Unconfirmed conditional field.
+func (a *Authorization) GetUnconfirmed() (value bool) {
+	if a == nil {
+		return
+	}
+	return a.Flags.Has(5)
 }
 
 // GetHash returns value of Hash field.
