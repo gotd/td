@@ -186,6 +186,16 @@ func (u UpdateDispatcher) OnUserName(handler UserNameHandler) {
 	}
 }
 
+// NewAuthorizationHandler is a NewAuthorization event handler.
+type NewAuthorizationHandler func(ctx context.Context, e Entities, update *UpdateNewAuthorization) error
+
+// OnNewAuthorization sets NewAuthorization handler.
+func (u UpdateDispatcher) OnNewAuthorization(handler NewAuthorizationHandler) {
+	u.handlers[UpdateNewAuthorizationTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateNewAuthorization))
+	}
+}
+
 // NewEncryptedMessageHandler is a NewEncryptedMessage event handler.
 type NewEncryptedMessageHandler func(ctx context.Context, e Entities, update *UpdateNewEncryptedMessage) error
 

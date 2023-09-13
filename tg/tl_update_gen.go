@@ -1514,6 +1514,337 @@ func (u *UpdateUserName) GetUsernames() (value []Username) {
 	return u.Usernames
 }
 
+// UpdateNewAuthorization represents TL type `updateNewAuthorization#8951abef`.
+//
+// See https://core.telegram.org/constructor/updateNewAuthorization for reference.
+type UpdateNewAuthorization struct {
+	// Flags field of UpdateNewAuthorization.
+	Flags bin.Fields
+	// Unconfirmed field of UpdateNewAuthorization.
+	Unconfirmed bool
+	// Hash field of UpdateNewAuthorization.
+	Hash int64
+	// Date field of UpdateNewAuthorization.
+	//
+	// Use SetDate and GetDate helpers.
+	Date int
+	// Device field of UpdateNewAuthorization.
+	//
+	// Use SetDevice and GetDevice helpers.
+	Device string
+	// Location field of UpdateNewAuthorization.
+	//
+	// Use SetLocation and GetLocation helpers.
+	Location string
+}
+
+// UpdateNewAuthorizationTypeID is TL type id of UpdateNewAuthorization.
+const UpdateNewAuthorizationTypeID = 0x8951abef
+
+// construct implements constructor of UpdateClass.
+func (u UpdateNewAuthorization) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateNewAuthorization.
+var (
+	_ bin.Encoder     = &UpdateNewAuthorization{}
+	_ bin.Decoder     = &UpdateNewAuthorization{}
+	_ bin.BareEncoder = &UpdateNewAuthorization{}
+	_ bin.BareDecoder = &UpdateNewAuthorization{}
+
+	_ UpdateClass = &UpdateNewAuthorization{}
+)
+
+func (u *UpdateNewAuthorization) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Unconfirmed == false) {
+		return false
+	}
+	if !(u.Hash == 0) {
+		return false
+	}
+	if !(u.Date == 0) {
+		return false
+	}
+	if !(u.Device == "") {
+		return false
+	}
+	if !(u.Location == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateNewAuthorization) String() string {
+	if u == nil {
+		return "UpdateNewAuthorization(nil)"
+	}
+	type Alias UpdateNewAuthorization
+	return fmt.Sprintf("UpdateNewAuthorization%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateNewAuthorization from given interface.
+func (u *UpdateNewAuthorization) FillFrom(from interface {
+	GetUnconfirmed() (value bool)
+	GetHash() (value int64)
+	GetDate() (value int, ok bool)
+	GetDevice() (value string, ok bool)
+	GetLocation() (value string, ok bool)
+}) {
+	u.Unconfirmed = from.GetUnconfirmed()
+	u.Hash = from.GetHash()
+	if val, ok := from.GetDate(); ok {
+		u.Date = val
+	}
+
+	if val, ok := from.GetDevice(); ok {
+		u.Device = val
+	}
+
+	if val, ok := from.GetLocation(); ok {
+		u.Location = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateNewAuthorization) TypeID() uint32 {
+	return UpdateNewAuthorizationTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateNewAuthorization) TypeName() string {
+	return "updateNewAuthorization"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateNewAuthorization) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateNewAuthorization",
+		ID:   UpdateNewAuthorizationTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Unconfirmed",
+			SchemaName: "unconfirmed",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Device",
+			SchemaName: "device",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Location",
+			SchemaName: "location",
+			Null:       !u.Flags.Has(0),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateNewAuthorization) SetFlags() {
+	if !(u.Unconfirmed == false) {
+		u.Flags.Set(0)
+	}
+	if !(u.Date == 0) {
+		u.Flags.Set(0)
+	}
+	if !(u.Device == "") {
+		u.Flags.Set(0)
+	}
+	if !(u.Location == "") {
+		u.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateNewAuthorization) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateNewAuthorization#8951abef as nil")
+	}
+	b.PutID(UpdateNewAuthorizationTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateNewAuthorization) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateNewAuthorization#8951abef as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateNewAuthorization#8951abef: field flags: %w", err)
+	}
+	b.PutLong(u.Hash)
+	if u.Flags.Has(0) {
+		b.PutInt(u.Date)
+	}
+	if u.Flags.Has(0) {
+		b.PutString(u.Device)
+	}
+	if u.Flags.Has(0) {
+		b.PutString(u.Location)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateNewAuthorization) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateNewAuthorization#8951abef to nil")
+	}
+	if err := b.ConsumeID(UpdateNewAuthorizationTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateNewAuthorization#8951abef: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateNewAuthorization) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateNewAuthorization#8951abef to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateNewAuthorization#8951abef: field flags: %w", err)
+		}
+	}
+	u.Unconfirmed = u.Flags.Has(0)
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateNewAuthorization#8951abef: field hash: %w", err)
+		}
+		u.Hash = value
+	}
+	if u.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateNewAuthorization#8951abef: field date: %w", err)
+		}
+		u.Date = value
+	}
+	if u.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateNewAuthorization#8951abef: field device: %w", err)
+		}
+		u.Device = value
+	}
+	if u.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateNewAuthorization#8951abef: field location: %w", err)
+		}
+		u.Location = value
+	}
+	return nil
+}
+
+// SetUnconfirmed sets value of Unconfirmed conditional field.
+func (u *UpdateNewAuthorization) SetUnconfirmed(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.Unconfirmed = true
+	} else {
+		u.Flags.Unset(0)
+		u.Unconfirmed = false
+	}
+}
+
+// GetUnconfirmed returns value of Unconfirmed conditional field.
+func (u *UpdateNewAuthorization) GetUnconfirmed() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(0)
+}
+
+// GetHash returns value of Hash field.
+func (u *UpdateNewAuthorization) GetHash() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.Hash
+}
+
+// SetDate sets value of Date conditional field.
+func (u *UpdateNewAuthorization) SetDate(value int) {
+	u.Flags.Set(0)
+	u.Date = value
+}
+
+// GetDate returns value of Date conditional field and
+// boolean which is true if field was set.
+func (u *UpdateNewAuthorization) GetDate() (value int, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.Date, true
+}
+
+// SetDevice sets value of Device conditional field.
+func (u *UpdateNewAuthorization) SetDevice(value string) {
+	u.Flags.Set(0)
+	u.Device = value
+}
+
+// GetDevice returns value of Device conditional field and
+// boolean which is true if field was set.
+func (u *UpdateNewAuthorization) GetDevice() (value string, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.Device, true
+}
+
+// SetLocation sets value of Location conditional field.
+func (u *UpdateNewAuthorization) SetLocation(value string) {
+	u.Flags.Set(0)
+	u.Location = value
+}
+
+// GetLocation returns value of Location conditional field and
+// boolean which is true if field was set.
+func (u *UpdateNewAuthorization) GetLocation() (value string, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.Location, true
+}
+
 // UpdateNewEncryptedMessage represents TL type `updateNewEncryptedMessage#12bcbd9a`.
 // New encrypted message.
 //
@@ -4397,7 +4728,7 @@ func (u *UpdateWebPage) GetPtsCount() (value int) {
 	return u.PtsCount
 }
 
-// UpdateReadMessagesContents represents TL type `updateReadMessagesContents#68c13933`.
+// UpdateReadMessagesContents represents TL type `updateReadMessagesContents#f8227181`.
 // Contents of messages in the common message box¹ were read
 //
 // Links:
@@ -4405,6 +4736,8 @@ func (u *UpdateWebPage) GetPtsCount() (value int) {
 //
 // See https://core.telegram.org/constructor/updateReadMessagesContents for reference.
 type UpdateReadMessagesContents struct {
+	// Flags field of UpdateReadMessagesContents.
+	Flags bin.Fields
 	// IDs of read messages
 	Messages []int
 	// Event count after generation¹
@@ -4417,10 +4750,14 @@ type UpdateReadMessagesContents struct {
 	// Links:
 	//  1) https://core.telegram.org/api/updates
 	PtsCount int
+	// Date field of UpdateReadMessagesContents.
+	//
+	// Use SetDate and GetDate helpers.
+	Date int
 }
 
 // UpdateReadMessagesContentsTypeID is TL type id of UpdateReadMessagesContents.
-const UpdateReadMessagesContentsTypeID = 0x68c13933
+const UpdateReadMessagesContentsTypeID = 0xf8227181
 
 // construct implements constructor of UpdateClass.
 func (u UpdateReadMessagesContents) construct() UpdateClass { return &u }
@@ -4439,6 +4776,9 @@ func (u *UpdateReadMessagesContents) Zero() bool {
 	if u == nil {
 		return true
 	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
 	if !(u.Messages == nil) {
 		return false
 	}
@@ -4446,6 +4786,9 @@ func (u *UpdateReadMessagesContents) Zero() bool {
 		return false
 	}
 	if !(u.PtsCount == 0) {
+		return false
+	}
+	if !(u.Date == 0) {
 		return false
 	}
 
@@ -4466,10 +4809,15 @@ func (u *UpdateReadMessagesContents) FillFrom(from interface {
 	GetMessages() (value []int)
 	GetPts() (value int)
 	GetPtsCount() (value int)
+	GetDate() (value int, ok bool)
 }) {
 	u.Messages = from.GetMessages()
 	u.Pts = from.GetPts()
 	u.PtsCount = from.GetPtsCount()
+	if val, ok := from.GetDate(); ok {
+		u.Date = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -4507,14 +4855,26 @@ func (u *UpdateReadMessagesContents) TypeInfo() tdp.Type {
 			Name:       "PtsCount",
 			SchemaName: "pts_count",
 		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+			Null:       !u.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateReadMessagesContents) SetFlags() {
+	if !(u.Date == 0) {
+		u.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *UpdateReadMessagesContents) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateReadMessagesContents#68c13933 as nil")
+		return fmt.Errorf("can't encode updateReadMessagesContents#f8227181 as nil")
 	}
 	b.PutID(UpdateReadMessagesContentsTypeID)
 	return u.EncodeBare(b)
@@ -4523,7 +4883,11 @@ func (u *UpdateReadMessagesContents) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateReadMessagesContents) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateReadMessagesContents#68c13933 as nil")
+		return fmt.Errorf("can't encode updateReadMessagesContents#f8227181 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateReadMessagesContents#f8227181: field flags: %w", err)
 	}
 	b.PutVectorHeader(len(u.Messages))
 	for _, v := range u.Messages {
@@ -4531,16 +4895,19 @@ func (u *UpdateReadMessagesContents) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutInt(u.Pts)
 	b.PutInt(u.PtsCount)
+	if u.Flags.Has(0) {
+		b.PutInt(u.Date)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *UpdateReadMessagesContents) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateReadMessagesContents#68c13933 to nil")
+		return fmt.Errorf("can't decode updateReadMessagesContents#f8227181 to nil")
 	}
 	if err := b.ConsumeID(UpdateReadMessagesContentsTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateReadMessagesContents#68c13933: %w", err)
+		return fmt.Errorf("unable to decode updateReadMessagesContents#f8227181: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -4548,12 +4915,17 @@ func (u *UpdateReadMessagesContents) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateReadMessagesContents) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateReadMessagesContents#68c13933 to nil")
+		return fmt.Errorf("can't decode updateReadMessagesContents#f8227181 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateReadMessagesContents#f8227181: field flags: %w", err)
+		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateReadMessagesContents#68c13933: field messages: %w", err)
+			return fmt.Errorf("unable to decode updateReadMessagesContents#f8227181: field messages: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -4562,7 +4934,7 @@ func (u *UpdateReadMessagesContents) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateReadMessagesContents#68c13933: field messages: %w", err)
+				return fmt.Errorf("unable to decode updateReadMessagesContents#f8227181: field messages: %w", err)
 			}
 			u.Messages = append(u.Messages, value)
 		}
@@ -4570,16 +4942,23 @@ func (u *UpdateReadMessagesContents) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateReadMessagesContents#68c13933: field pts: %w", err)
+			return fmt.Errorf("unable to decode updateReadMessagesContents#f8227181: field pts: %w", err)
 		}
 		u.Pts = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateReadMessagesContents#68c13933: field pts_count: %w", err)
+			return fmt.Errorf("unable to decode updateReadMessagesContents#f8227181: field pts_count: %w", err)
 		}
 		u.PtsCount = value
+	}
+	if u.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateReadMessagesContents#f8227181: field date: %w", err)
+		}
+		u.Date = value
 	}
 	return nil
 }
@@ -4606,6 +4985,24 @@ func (u *UpdateReadMessagesContents) GetPtsCount() (value int) {
 		return
 	}
 	return u.PtsCount
+}
+
+// SetDate sets value of Date conditional field.
+func (u *UpdateReadMessagesContents) SetDate(value int) {
+	u.Flags.Set(0)
+	u.Date = value
+}
+
+// GetDate returns value of Date conditional field and
+// boolean which is true if field was set.
+func (u *UpdateReadMessagesContents) GetDate() (value int, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.Date, true
 }
 
 // UpdateChannelTooLong represents TL type `updateChannelTooLong#108d941f`.
@@ -23060,6 +23457,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateChatParticipants: // updateChatParticipants#7761198
 //	case *tg.UpdateUserStatus: // updateUserStatus#e5bdf8de
 //	case *tg.UpdateUserName: // updateUserName#a7848924
+//	case *tg.UpdateNewAuthorization: // updateNewAuthorization#8951abef
 //	case *tg.UpdateNewEncryptedMessage: // updateNewEncryptedMessage#12bcbd9a
 //	case *tg.UpdateEncryptedChatTyping: // updateEncryptedChatTyping#1710f156
 //	case *tg.UpdateEncryption: // updateEncryption#b4a2e88d
@@ -23074,7 +23472,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateReadHistoryInbox: // updateReadHistoryInbox#9c974fdf
 //	case *tg.UpdateReadHistoryOutbox: // updateReadHistoryOutbox#2f2f21bf
 //	case *tg.UpdateWebPage: // updateWebPage#7f891213
-//	case *tg.UpdateReadMessagesContents: // updateReadMessagesContents#68c13933
+//	case *tg.UpdateReadMessagesContents: // updateReadMessagesContents#f8227181
 //	case *tg.UpdateChannelTooLong: // updateChannelTooLong#108d941f
 //	case *tg.UpdateChannel: // updateChannel#635b4c09
 //	case *tg.UpdateNewChannelMessage: // updateNewChannelMessage#62ba04d9
@@ -23252,6 +23650,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case UpdateNewAuthorizationTypeID:
+		// Decoding updateNewAuthorization#8951abef.
+		v := UpdateNewAuthorization{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case UpdateNewEncryptedMessageTypeID:
 		// Decoding updateNewEncryptedMessage#12bcbd9a.
 		v := UpdateNewEncryptedMessage{}
@@ -23351,7 +23756,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateReadMessagesContentsTypeID:
-		// Decoding updateReadMessagesContents#68c13933.
+		// Decoding updateReadMessagesContents#f8227181.
 		v := UpdateReadMessagesContents{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
