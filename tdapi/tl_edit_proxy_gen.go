@@ -35,7 +35,7 @@ var (
 type EditProxyRequest struct {
 	// Proxy identifier
 	ProxyID int32
-	// Proxy server IP address
+	// Proxy server domain or IP address
 	Server string
 	// Proxy server port
 	Port int32

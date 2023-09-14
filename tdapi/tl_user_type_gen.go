@@ -312,7 +312,7 @@ type UserTypeBot struct {
 	// True, if the location of the user is expected to be sent with every inline query to
 	// this bot
 	NeedLocation bool
-	// True, if the bot can be added to attachment menu
+	// True, if the bot can be added to attachment or side menu
 	CanBeAddedToAttachmentMenu bool
 }
 

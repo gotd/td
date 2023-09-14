@@ -31,9 +31,9 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AttachmentMenuBot represents TL type `attachmentMenuBot#5920a05d`.
+// AttachmentMenuBot represents TL type `attachmentMenuBot#2176d831`.
 type AttachmentMenuBot struct {
-	// User identifier of the bot added to attachment menu
+	// User identifier of the bot
 	BotUserID int64
 	// True, if the bot supports opening from attachment menu in the chat with the bot
 	SupportsSelfChat bool
@@ -50,24 +50,38 @@ type AttachmentMenuBot struct {
 	SupportsChannelChats bool
 	// True, if the bot supports "settings_button_pressed" event
 	SupportsSettings bool
-	// True, if the user must be asked for the permission to the bot to send them messages
+	// True, if the user must be asked for the permission to send messages to the bot
 	RequestWriteAccess bool
+	// True, if the bot was explicitly added by the user. If the bot isn't added, then on the
+	// first bot launch toggleBotIsAddedToAttachmentMenu must be called and the bot must be
+	// added or removed
+	IsAdded bool
+	// True, if the bot must be shown in the attachment menu
+	ShowInAttachmentMenu bool
+	// True, if the bot must be shown in the side menu
+	ShowInSideMenu bool
+	// True, if a disclaimer, why the bot is shown in the side menu, is needed
+	ShowDisclaimerInSideMenu bool
 	// Name for the bot in attachment menu
 	Name string
 	// Color to highlight selected name of the bot if appropriate; may be null
 	NameColor AttachmentMenuBotColor
-	// Default attachment menu icon for the bot in SVG format; may be null
+	// Default icon for the bot in SVG format; may be null
 	DefaultIcon File
-	// Attachment menu icon for the bot in SVG format for the official iOS app; may be null
+	// Icon for the bot in SVG format for the official iOS app; may be null
 	IosStaticIcon File
-	// Attachment menu icon for the bot in TGS format for the official iOS app; may be null
+	// Icon for the bot in TGS format for the official iOS app; may be null
 	IosAnimatedIcon File
-	// Attachment menu icon for the bot in TGS format for the official Android app; may be
-	// null
+	// Icon for the bot in PNG format for the official iOS app side menu; may be null
+	IosSideMenuIcon File
+	// Icon for the bot in TGS format for the official Android app; may be null
 	AndroidIcon File
-	// Attachment menu icon for the bot in TGS format for the official native macOS app; may
-	// be null
+	// Icon for the bot in SVG format for the official Android app side menu; may be null
+	AndroidSideMenuIcon File
+	// Icon for the bot in TGS format for the official native macOS app; may be null
 	MacosIcon File
+	// Icon for the bot in PNG format for the official macOS app side menu; may be null
+	MacosSideMenuIcon File
 	// Color to highlight selected icon of the bot if appropriate; may be null
 	IconColor AttachmentMenuBotColor
 	// Default placeholder for opened Web Apps in SVG format; may be null
@@ -75,7 +89,7 @@ type AttachmentMenuBot struct {
 }
 
 // AttachmentMenuBotTypeID is TL type id of AttachmentMenuBot.
-const AttachmentMenuBotTypeID = 0x5920a05d
+const AttachmentMenuBotTypeID = 0x2176d831
 
 // Ensuring interfaces in compile-time for AttachmentMenuBot.
 var (
@@ -113,6 +127,18 @@ func (a *AttachmentMenuBot) Zero() bool {
 	if !(a.RequestWriteAccess == false) {
 		return false
 	}
+	if !(a.IsAdded == false) {
+		return false
+	}
+	if !(a.ShowInAttachmentMenu == false) {
+		return false
+	}
+	if !(a.ShowInSideMenu == false) {
+		return false
+	}
+	if !(a.ShowDisclaimerInSideMenu == false) {
+		return false
+	}
 	if !(a.Name == "") {
 		return false
 	}
@@ -128,10 +154,19 @@ func (a *AttachmentMenuBot) Zero() bool {
 	if !(a.IosAnimatedIcon.Zero()) {
 		return false
 	}
+	if !(a.IosSideMenuIcon.Zero()) {
+		return false
+	}
 	if !(a.AndroidIcon.Zero()) {
 		return false
 	}
+	if !(a.AndroidSideMenuIcon.Zero()) {
+		return false
+	}
 	if !(a.MacosIcon.Zero()) {
+		return false
+	}
+	if !(a.MacosSideMenuIcon.Zero()) {
 		return false
 	}
 	if !(a.IconColor.Zero()) {
@@ -209,6 +244,22 @@ func (a *AttachmentMenuBot) TypeInfo() tdp.Type {
 			SchemaName: "request_write_access",
 		},
 		{
+			Name:       "IsAdded",
+			SchemaName: "is_added",
+		},
+		{
+			Name:       "ShowInAttachmentMenu",
+			SchemaName: "show_in_attachment_menu",
+		},
+		{
+			Name:       "ShowInSideMenu",
+			SchemaName: "show_in_side_menu",
+		},
+		{
+			Name:       "ShowDisclaimerInSideMenu",
+			SchemaName: "show_disclaimer_in_side_menu",
+		},
+		{
 			Name:       "Name",
 			SchemaName: "name",
 		},
@@ -229,12 +280,24 @@ func (a *AttachmentMenuBot) TypeInfo() tdp.Type {
 			SchemaName: "ios_animated_icon",
 		},
 		{
+			Name:       "IosSideMenuIcon",
+			SchemaName: "ios_side_menu_icon",
+		},
+		{
 			Name:       "AndroidIcon",
 			SchemaName: "android_icon",
 		},
 		{
+			Name:       "AndroidSideMenuIcon",
+			SchemaName: "android_side_menu_icon",
+		},
+		{
 			Name:       "MacosIcon",
 			SchemaName: "macos_icon",
+		},
+		{
+			Name:       "MacosSideMenuIcon",
+			SchemaName: "macos_side_menu_icon",
 		},
 		{
 			Name:       "IconColor",
@@ -251,7 +314,7 @@ func (a *AttachmentMenuBot) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (a *AttachmentMenuBot) Encode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode attachmentMenuBot#5920a05d as nil")
+		return fmt.Errorf("can't encode attachmentMenuBot#2176d831 as nil")
 	}
 	b.PutID(AttachmentMenuBotTypeID)
 	return a.EncodeBare(b)
@@ -260,7 +323,7 @@ func (a *AttachmentMenuBot) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (a *AttachmentMenuBot) EncodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't encode attachmentMenuBot#5920a05d as nil")
+		return fmt.Errorf("can't encode attachmentMenuBot#2176d831 as nil")
 	}
 	b.PutInt53(a.BotUserID)
 	b.PutBool(a.SupportsSelfChat)
@@ -270,30 +333,43 @@ func (a *AttachmentMenuBot) EncodeBare(b *bin.Buffer) error {
 	b.PutBool(a.SupportsChannelChats)
 	b.PutBool(a.SupportsSettings)
 	b.PutBool(a.RequestWriteAccess)
+	b.PutBool(a.IsAdded)
+	b.PutBool(a.ShowInAttachmentMenu)
+	b.PutBool(a.ShowInSideMenu)
+	b.PutBool(a.ShowDisclaimerInSideMenu)
 	b.PutString(a.Name)
 	if err := a.NameColor.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode attachmentMenuBot#5920a05d: field name_color: %w", err)
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field name_color: %w", err)
 	}
 	if err := a.DefaultIcon.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode attachmentMenuBot#5920a05d: field default_icon: %w", err)
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field default_icon: %w", err)
 	}
 	if err := a.IosStaticIcon.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode attachmentMenuBot#5920a05d: field ios_static_icon: %w", err)
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field ios_static_icon: %w", err)
 	}
 	if err := a.IosAnimatedIcon.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode attachmentMenuBot#5920a05d: field ios_animated_icon: %w", err)
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field ios_animated_icon: %w", err)
+	}
+	if err := a.IosSideMenuIcon.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field ios_side_menu_icon: %w", err)
 	}
 	if err := a.AndroidIcon.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode attachmentMenuBot#5920a05d: field android_icon: %w", err)
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field android_icon: %w", err)
+	}
+	if err := a.AndroidSideMenuIcon.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field android_side_menu_icon: %w", err)
 	}
 	if err := a.MacosIcon.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode attachmentMenuBot#5920a05d: field macos_icon: %w", err)
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field macos_icon: %w", err)
+	}
+	if err := a.MacosSideMenuIcon.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field macos_side_menu_icon: %w", err)
 	}
 	if err := a.IconColor.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode attachmentMenuBot#5920a05d: field icon_color: %w", err)
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field icon_color: %w", err)
 	}
 	if err := a.WebAppPlaceholder.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode attachmentMenuBot#5920a05d: field web_app_placeholder: %w", err)
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field web_app_placeholder: %w", err)
 	}
 	return nil
 }
@@ -301,10 +377,10 @@ func (a *AttachmentMenuBot) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (a *AttachmentMenuBot) Decode(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode attachmentMenuBot#5920a05d to nil")
+		return fmt.Errorf("can't decode attachmentMenuBot#2176d831 to nil")
 	}
 	if err := b.ConsumeID(AttachmentMenuBotTypeID); err != nil {
-		return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: %w", err)
+		return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: %w", err)
 	}
 	return a.DecodeBare(b)
 }
@@ -312,109 +388,152 @@ func (a *AttachmentMenuBot) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (a *AttachmentMenuBot) DecodeBare(b *bin.Buffer) error {
 	if a == nil {
-		return fmt.Errorf("can't decode attachmentMenuBot#5920a05d to nil")
+		return fmt.Errorf("can't decode attachmentMenuBot#2176d831 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field bot_user_id: %w", err)
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field bot_user_id: %w", err)
 		}
 		a.BotUserID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field supports_self_chat: %w", err)
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field supports_self_chat: %w", err)
 		}
 		a.SupportsSelfChat = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field supports_user_chats: %w", err)
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field supports_user_chats: %w", err)
 		}
 		a.SupportsUserChats = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field supports_bot_chats: %w", err)
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field supports_bot_chats: %w", err)
 		}
 		a.SupportsBotChats = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field supports_group_chats: %w", err)
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field supports_group_chats: %w", err)
 		}
 		a.SupportsGroupChats = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field supports_channel_chats: %w", err)
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field supports_channel_chats: %w", err)
 		}
 		a.SupportsChannelChats = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field supports_settings: %w", err)
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field supports_settings: %w", err)
 		}
 		a.SupportsSettings = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field request_write_access: %w", err)
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field request_write_access: %w", err)
 		}
 		a.RequestWriteAccess = value
 	}
 	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field is_added: %w", err)
+		}
+		a.IsAdded = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field show_in_attachment_menu: %w", err)
+		}
+		a.ShowInAttachmentMenu = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field show_in_side_menu: %w", err)
+		}
+		a.ShowInSideMenu = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field show_disclaimer_in_side_menu: %w", err)
+		}
+		a.ShowDisclaimerInSideMenu = value
+	}
+	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field name: %w", err)
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field name: %w", err)
 		}
 		a.Name = value
 	}
 	{
 		if err := a.NameColor.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field name_color: %w", err)
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field name_color: %w", err)
 		}
 	}
 	{
 		if err := a.DefaultIcon.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field default_icon: %w", err)
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field default_icon: %w", err)
 		}
 	}
 	{
 		if err := a.IosStaticIcon.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field ios_static_icon: %w", err)
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field ios_static_icon: %w", err)
 		}
 	}
 	{
 		if err := a.IosAnimatedIcon.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field ios_animated_icon: %w", err)
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field ios_animated_icon: %w", err)
+		}
+	}
+	{
+		if err := a.IosSideMenuIcon.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field ios_side_menu_icon: %w", err)
 		}
 	}
 	{
 		if err := a.AndroidIcon.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field android_icon: %w", err)
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field android_icon: %w", err)
+		}
+	}
+	{
+		if err := a.AndroidSideMenuIcon.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field android_side_menu_icon: %w", err)
 		}
 	}
 	{
 		if err := a.MacosIcon.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field macos_icon: %w", err)
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field macos_icon: %w", err)
+		}
+	}
+	{
+		if err := a.MacosSideMenuIcon.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field macos_side_menu_icon: %w", err)
 		}
 	}
 	{
 		if err := a.IconColor.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field icon_color: %w", err)
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field icon_color: %w", err)
 		}
 	}
 	{
 		if err := a.WebAppPlaceholder.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field web_app_placeholder: %w", err)
+			return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field web_app_placeholder: %w", err)
 		}
 	}
 	return nil
@@ -423,7 +542,7 @@ func (a *AttachmentMenuBot) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (a *AttachmentMenuBot) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if a == nil {
-		return fmt.Errorf("can't encode attachmentMenuBot#5920a05d as nil")
+		return fmt.Errorf("can't encode attachmentMenuBot#2176d831 as nil")
 	}
 	b.ObjStart()
 	b.PutID("attachmentMenuBot")
@@ -452,47 +571,74 @@ func (a *AttachmentMenuBot) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("request_write_access")
 	b.PutBool(a.RequestWriteAccess)
 	b.Comma()
+	b.FieldStart("is_added")
+	b.PutBool(a.IsAdded)
+	b.Comma()
+	b.FieldStart("show_in_attachment_menu")
+	b.PutBool(a.ShowInAttachmentMenu)
+	b.Comma()
+	b.FieldStart("show_in_side_menu")
+	b.PutBool(a.ShowInSideMenu)
+	b.Comma()
+	b.FieldStart("show_disclaimer_in_side_menu")
+	b.PutBool(a.ShowDisclaimerInSideMenu)
+	b.Comma()
 	b.FieldStart("name")
 	b.PutString(a.Name)
 	b.Comma()
 	b.FieldStart("name_color")
 	if err := a.NameColor.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode attachmentMenuBot#5920a05d: field name_color: %w", err)
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field name_color: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("default_icon")
 	if err := a.DefaultIcon.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode attachmentMenuBot#5920a05d: field default_icon: %w", err)
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field default_icon: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("ios_static_icon")
 	if err := a.IosStaticIcon.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode attachmentMenuBot#5920a05d: field ios_static_icon: %w", err)
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field ios_static_icon: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("ios_animated_icon")
 	if err := a.IosAnimatedIcon.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode attachmentMenuBot#5920a05d: field ios_animated_icon: %w", err)
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field ios_animated_icon: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("ios_side_menu_icon")
+	if err := a.IosSideMenuIcon.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field ios_side_menu_icon: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("android_icon")
 	if err := a.AndroidIcon.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode attachmentMenuBot#5920a05d: field android_icon: %w", err)
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field android_icon: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("android_side_menu_icon")
+	if err := a.AndroidSideMenuIcon.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field android_side_menu_icon: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("macos_icon")
 	if err := a.MacosIcon.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode attachmentMenuBot#5920a05d: field macos_icon: %w", err)
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field macos_icon: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("macos_side_menu_icon")
+	if err := a.MacosSideMenuIcon.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field macos_side_menu_icon: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("icon_color")
 	if err := a.IconColor.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode attachmentMenuBot#5920a05d: field icon_color: %w", err)
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field icon_color: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("web_app_placeholder")
 	if err := a.WebAppPlaceholder.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode attachmentMenuBot#5920a05d: field web_app_placeholder: %w", err)
+		return fmt.Errorf("unable to encode attachmentMenuBot#2176d831: field web_app_placeholder: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -503,100 +649,136 @@ func (a *AttachmentMenuBot) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (a *AttachmentMenuBot) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if a == nil {
-		return fmt.Errorf("can't decode attachmentMenuBot#5920a05d to nil")
+		return fmt.Errorf("can't decode attachmentMenuBot#2176d831 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("attachmentMenuBot"); err != nil {
-				return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: %w", err)
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: %w", err)
 			}
 		case "bot_user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field bot_user_id: %w", err)
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field bot_user_id: %w", err)
 			}
 			a.BotUserID = value
 		case "supports_self_chat":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field supports_self_chat: %w", err)
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field supports_self_chat: %w", err)
 			}
 			a.SupportsSelfChat = value
 		case "supports_user_chats":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field supports_user_chats: %w", err)
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field supports_user_chats: %w", err)
 			}
 			a.SupportsUserChats = value
 		case "supports_bot_chats":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field supports_bot_chats: %w", err)
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field supports_bot_chats: %w", err)
 			}
 			a.SupportsBotChats = value
 		case "supports_group_chats":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field supports_group_chats: %w", err)
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field supports_group_chats: %w", err)
 			}
 			a.SupportsGroupChats = value
 		case "supports_channel_chats":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field supports_channel_chats: %w", err)
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field supports_channel_chats: %w", err)
 			}
 			a.SupportsChannelChats = value
 		case "supports_settings":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field supports_settings: %w", err)
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field supports_settings: %w", err)
 			}
 			a.SupportsSettings = value
 		case "request_write_access":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field request_write_access: %w", err)
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field request_write_access: %w", err)
 			}
 			a.RequestWriteAccess = value
+		case "is_added":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field is_added: %w", err)
+			}
+			a.IsAdded = value
+		case "show_in_attachment_menu":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field show_in_attachment_menu: %w", err)
+			}
+			a.ShowInAttachmentMenu = value
+		case "show_in_side_menu":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field show_in_side_menu: %w", err)
+			}
+			a.ShowInSideMenu = value
+		case "show_disclaimer_in_side_menu":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field show_disclaimer_in_side_menu: %w", err)
+			}
+			a.ShowDisclaimerInSideMenu = value
 		case "name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field name: %w", err)
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field name: %w", err)
 			}
 			a.Name = value
 		case "name_color":
 			if err := a.NameColor.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field name_color: %w", err)
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field name_color: %w", err)
 			}
 		case "default_icon":
 			if err := a.DefaultIcon.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field default_icon: %w", err)
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field default_icon: %w", err)
 			}
 		case "ios_static_icon":
 			if err := a.IosStaticIcon.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field ios_static_icon: %w", err)
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field ios_static_icon: %w", err)
 			}
 		case "ios_animated_icon":
 			if err := a.IosAnimatedIcon.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field ios_animated_icon: %w", err)
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field ios_animated_icon: %w", err)
+			}
+		case "ios_side_menu_icon":
+			if err := a.IosSideMenuIcon.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field ios_side_menu_icon: %w", err)
 			}
 		case "android_icon":
 			if err := a.AndroidIcon.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field android_icon: %w", err)
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field android_icon: %w", err)
+			}
+		case "android_side_menu_icon":
+			if err := a.AndroidSideMenuIcon.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field android_side_menu_icon: %w", err)
 			}
 		case "macos_icon":
 			if err := a.MacosIcon.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field macos_icon: %w", err)
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field macos_icon: %w", err)
+			}
+		case "macos_side_menu_icon":
+			if err := a.MacosSideMenuIcon.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field macos_side_menu_icon: %w", err)
 			}
 		case "icon_color":
 			if err := a.IconColor.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field icon_color: %w", err)
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field icon_color: %w", err)
 			}
 		case "web_app_placeholder":
 			if err := a.WebAppPlaceholder.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode attachmentMenuBot#5920a05d: field web_app_placeholder: %w", err)
+				return fmt.Errorf("unable to decode attachmentMenuBot#2176d831: field web_app_placeholder: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -669,6 +851,38 @@ func (a *AttachmentMenuBot) GetRequestWriteAccess() (value bool) {
 	return a.RequestWriteAccess
 }
 
+// GetIsAdded returns value of IsAdded field.
+func (a *AttachmentMenuBot) GetIsAdded() (value bool) {
+	if a == nil {
+		return
+	}
+	return a.IsAdded
+}
+
+// GetShowInAttachmentMenu returns value of ShowInAttachmentMenu field.
+func (a *AttachmentMenuBot) GetShowInAttachmentMenu() (value bool) {
+	if a == nil {
+		return
+	}
+	return a.ShowInAttachmentMenu
+}
+
+// GetShowInSideMenu returns value of ShowInSideMenu field.
+func (a *AttachmentMenuBot) GetShowInSideMenu() (value bool) {
+	if a == nil {
+		return
+	}
+	return a.ShowInSideMenu
+}
+
+// GetShowDisclaimerInSideMenu returns value of ShowDisclaimerInSideMenu field.
+func (a *AttachmentMenuBot) GetShowDisclaimerInSideMenu() (value bool) {
+	if a == nil {
+		return
+	}
+	return a.ShowDisclaimerInSideMenu
+}
+
 // GetName returns value of Name field.
 func (a *AttachmentMenuBot) GetName() (value string) {
 	if a == nil {
@@ -709,6 +923,14 @@ func (a *AttachmentMenuBot) GetIosAnimatedIcon() (value File) {
 	return a.IosAnimatedIcon
 }
 
+// GetIosSideMenuIcon returns value of IosSideMenuIcon field.
+func (a *AttachmentMenuBot) GetIosSideMenuIcon() (value File) {
+	if a == nil {
+		return
+	}
+	return a.IosSideMenuIcon
+}
+
 // GetAndroidIcon returns value of AndroidIcon field.
 func (a *AttachmentMenuBot) GetAndroidIcon() (value File) {
 	if a == nil {
@@ -717,12 +939,28 @@ func (a *AttachmentMenuBot) GetAndroidIcon() (value File) {
 	return a.AndroidIcon
 }
 
+// GetAndroidSideMenuIcon returns value of AndroidSideMenuIcon field.
+func (a *AttachmentMenuBot) GetAndroidSideMenuIcon() (value File) {
+	if a == nil {
+		return
+	}
+	return a.AndroidSideMenuIcon
+}
+
 // GetMacosIcon returns value of MacosIcon field.
 func (a *AttachmentMenuBot) GetMacosIcon() (value File) {
 	if a == nil {
 		return
 	}
 	return a.MacosIcon
+}
+
+// GetMacosSideMenuIcon returns value of MacosSideMenuIcon field.
+func (a *AttachmentMenuBot) GetMacosSideMenuIcon() (value File) {
+	if a == nil {
+		return
+	}
+	return a.MacosSideMenuIcon
 }
 
 // GetIconColor returns value of IconColor field.
