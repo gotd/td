@@ -4298,7 +4298,7 @@ func (i *InternalLinkTypePrivacyAndSecuritySettings) DecodeTDLibJSON(b tdjson.De
 
 // InternalLinkTypeProxy represents TL type `internalLinkTypeProxy#b1b12cea`.
 type InternalLinkTypeProxy struct {
-	// Proxy server IP address
+	// Proxy server domain or IP address
 	Server string
 	// Proxy server port
 	Port int32
@@ -5097,6 +5097,206 @@ func (i *InternalLinkTypeSettings) DecodeTDLibJSON(b tdjson.Decoder) error {
 		}
 		return nil
 	})
+}
+
+// InternalLinkTypeSideMenuBot represents TL type `internalLinkTypeSideMenuBot#a260e77d`.
+type InternalLinkTypeSideMenuBot struct {
+	// Username of the bot
+	BotUsername string
+	// URL to be passed to getWebAppUrl
+	URL string
+}
+
+// InternalLinkTypeSideMenuBotTypeID is TL type id of InternalLinkTypeSideMenuBot.
+const InternalLinkTypeSideMenuBotTypeID = 0xa260e77d
+
+// construct implements constructor of InternalLinkTypeClass.
+func (i InternalLinkTypeSideMenuBot) construct() InternalLinkTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InternalLinkTypeSideMenuBot.
+var (
+	_ bin.Encoder     = &InternalLinkTypeSideMenuBot{}
+	_ bin.Decoder     = &InternalLinkTypeSideMenuBot{}
+	_ bin.BareEncoder = &InternalLinkTypeSideMenuBot{}
+	_ bin.BareDecoder = &InternalLinkTypeSideMenuBot{}
+
+	_ InternalLinkTypeClass = &InternalLinkTypeSideMenuBot{}
+)
+
+func (i *InternalLinkTypeSideMenuBot) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.BotUsername == "") {
+		return false
+	}
+	if !(i.URL == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InternalLinkTypeSideMenuBot) String() string {
+	if i == nil {
+		return "InternalLinkTypeSideMenuBot(nil)"
+	}
+	type Alias InternalLinkTypeSideMenuBot
+	return fmt.Sprintf("InternalLinkTypeSideMenuBot%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InternalLinkTypeSideMenuBot) TypeID() uint32 {
+	return InternalLinkTypeSideMenuBotTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InternalLinkTypeSideMenuBot) TypeName() string {
+	return "internalLinkTypeSideMenuBot"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InternalLinkTypeSideMenuBot) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "internalLinkTypeSideMenuBot",
+		ID:   InternalLinkTypeSideMenuBotTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "BotUsername",
+			SchemaName: "bot_username",
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InternalLinkTypeSideMenuBot) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeSideMenuBot#a260e77d as nil")
+	}
+	b.PutID(InternalLinkTypeSideMenuBotTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InternalLinkTypeSideMenuBot) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeSideMenuBot#a260e77d as nil")
+	}
+	b.PutString(i.BotUsername)
+	b.PutString(i.URL)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InternalLinkTypeSideMenuBot) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeSideMenuBot#a260e77d to nil")
+	}
+	if err := b.ConsumeID(InternalLinkTypeSideMenuBotTypeID); err != nil {
+		return fmt.Errorf("unable to decode internalLinkTypeSideMenuBot#a260e77d: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InternalLinkTypeSideMenuBot) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeSideMenuBot#a260e77d to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeSideMenuBot#a260e77d: field bot_username: %w", err)
+		}
+		i.BotUsername = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeSideMenuBot#a260e77d: field url: %w", err)
+		}
+		i.URL = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InternalLinkTypeSideMenuBot) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeSideMenuBot#a260e77d as nil")
+	}
+	b.ObjStart()
+	b.PutID("internalLinkTypeSideMenuBot")
+	b.Comma()
+	b.FieldStart("bot_username")
+	b.PutString(i.BotUsername)
+	b.Comma()
+	b.FieldStart("url")
+	b.PutString(i.URL)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InternalLinkTypeSideMenuBot) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeSideMenuBot#a260e77d to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("internalLinkTypeSideMenuBot"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeSideMenuBot#a260e77d: %w", err)
+			}
+		case "bot_username":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeSideMenuBot#a260e77d: field bot_username: %w", err)
+			}
+			i.BotUsername = value
+		case "url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeSideMenuBot#a260e77d: field url: %w", err)
+			}
+			i.URL = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetBotUsername returns value of BotUsername field.
+func (i *InternalLinkTypeSideMenuBot) GetBotUsername() (value string) {
+	if i == nil {
+		return
+	}
+	return i.BotUsername
+}
+
+// GetURL returns value of URL field.
+func (i *InternalLinkTypeSideMenuBot) GetURL() (value string) {
+	if i == nil {
+		return
+	}
+	return i.URL
 }
 
 // InternalLinkTypeStickerSet represents TL type `internalLinkTypeStickerSet#a1464fa2`.
@@ -6936,6 +7136,7 @@ const InternalLinkTypeClassName = "InternalLinkType"
 //	case *tdapi.InternalLinkTypeQrCodeAuthentication: // internalLinkTypeQrCodeAuthentication#bf121924
 //	case *tdapi.InternalLinkTypeRestorePurchases: // internalLinkTypeRestorePurchases#24203483
 //	case *tdapi.InternalLinkTypeSettings: // internalLinkTypeSettings#177545b4
+//	case *tdapi.InternalLinkTypeSideMenuBot: // internalLinkTypeSideMenuBot#a260e77d
 //	case *tdapi.InternalLinkTypeStickerSet: // internalLinkTypeStickerSet#a1464fa2
 //	case *tdapi.InternalLinkTypeStory: // internalLinkTypeStory#57bce647
 //	case *tdapi.InternalLinkTypeTheme: // internalLinkTypeTheme#f405f807
@@ -7176,6 +7377,13 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 	case InternalLinkTypeSettingsTypeID:
 		// Decoding internalLinkTypeSettings#177545b4.
 		v := InternalLinkTypeSettings{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case InternalLinkTypeSideMenuBotTypeID:
+		// Decoding internalLinkTypeSideMenuBot#a260e77d.
+		v := InternalLinkTypeSideMenuBot{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
@@ -7461,6 +7669,13 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 	case "internalLinkTypeSettings":
 		// Decoding internalLinkTypeSettings#177545b4.
 		v := InternalLinkTypeSettings{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeSideMenuBot":
+		// Decoding internalLinkTypeSideMenuBot#a260e77d.
+		v := InternalLinkTypeSideMenuBot{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}

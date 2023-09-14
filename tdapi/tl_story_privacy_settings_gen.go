@@ -544,29 +544,29 @@ func (s *StoryPrivacySettingsCloseFriends) DecodeTDLibJSON(b tdjson.Decoder) err
 	})
 }
 
-// StoryPrivacySettingsSelectedContacts represents TL type `storyPrivacySettingsSelectedContacts#25401fc7`.
-type StoryPrivacySettingsSelectedContacts struct {
+// StoryPrivacySettingsSelectedUsers represents TL type `storyPrivacySettingsSelectedUsers#84d7d27b`.
+type StoryPrivacySettingsSelectedUsers struct {
 	// Identifiers of the users; always unknown and empty for non-owned stories
 	UserIDs []int64
 }
 
-// StoryPrivacySettingsSelectedContactsTypeID is TL type id of StoryPrivacySettingsSelectedContacts.
-const StoryPrivacySettingsSelectedContactsTypeID = 0x25401fc7
+// StoryPrivacySettingsSelectedUsersTypeID is TL type id of StoryPrivacySettingsSelectedUsers.
+const StoryPrivacySettingsSelectedUsersTypeID = 0x84d7d27b
 
 // construct implements constructor of StoryPrivacySettingsClass.
-func (s StoryPrivacySettingsSelectedContacts) construct() StoryPrivacySettingsClass { return &s }
+func (s StoryPrivacySettingsSelectedUsers) construct() StoryPrivacySettingsClass { return &s }
 
-// Ensuring interfaces in compile-time for StoryPrivacySettingsSelectedContacts.
+// Ensuring interfaces in compile-time for StoryPrivacySettingsSelectedUsers.
 var (
-	_ bin.Encoder     = &StoryPrivacySettingsSelectedContacts{}
-	_ bin.Decoder     = &StoryPrivacySettingsSelectedContacts{}
-	_ bin.BareEncoder = &StoryPrivacySettingsSelectedContacts{}
-	_ bin.BareDecoder = &StoryPrivacySettingsSelectedContacts{}
+	_ bin.Encoder     = &StoryPrivacySettingsSelectedUsers{}
+	_ bin.Decoder     = &StoryPrivacySettingsSelectedUsers{}
+	_ bin.BareEncoder = &StoryPrivacySettingsSelectedUsers{}
+	_ bin.BareDecoder = &StoryPrivacySettingsSelectedUsers{}
 
-	_ StoryPrivacySettingsClass = &StoryPrivacySettingsSelectedContacts{}
+	_ StoryPrivacySettingsClass = &StoryPrivacySettingsSelectedUsers{}
 )
 
-func (s *StoryPrivacySettingsSelectedContacts) Zero() bool {
+func (s *StoryPrivacySettingsSelectedUsers) Zero() bool {
 	if s == nil {
 		return true
 	}
@@ -578,31 +578,31 @@ func (s *StoryPrivacySettingsSelectedContacts) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (s *StoryPrivacySettingsSelectedContacts) String() string {
+func (s *StoryPrivacySettingsSelectedUsers) String() string {
 	if s == nil {
-		return "StoryPrivacySettingsSelectedContacts(nil)"
+		return "StoryPrivacySettingsSelectedUsers(nil)"
 	}
-	type Alias StoryPrivacySettingsSelectedContacts
-	return fmt.Sprintf("StoryPrivacySettingsSelectedContacts%+v", Alias(*s))
+	type Alias StoryPrivacySettingsSelectedUsers
+	return fmt.Sprintf("StoryPrivacySettingsSelectedUsers%+v", Alias(*s))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*StoryPrivacySettingsSelectedContacts) TypeID() uint32 {
-	return StoryPrivacySettingsSelectedContactsTypeID
+func (*StoryPrivacySettingsSelectedUsers) TypeID() uint32 {
+	return StoryPrivacySettingsSelectedUsersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*StoryPrivacySettingsSelectedContacts) TypeName() string {
-	return "storyPrivacySettingsSelectedContacts"
+func (*StoryPrivacySettingsSelectedUsers) TypeName() string {
+	return "storyPrivacySettingsSelectedUsers"
 }
 
 // TypeInfo returns info about TL type.
-func (s *StoryPrivacySettingsSelectedContacts) TypeInfo() tdp.Type {
+func (s *StoryPrivacySettingsSelectedUsers) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "storyPrivacySettingsSelectedContacts",
-		ID:   StoryPrivacySettingsSelectedContactsTypeID,
+		Name: "storyPrivacySettingsSelectedUsers",
+		ID:   StoryPrivacySettingsSelectedUsersTypeID,
 	}
 	if s == nil {
 		typ.Null = true
@@ -618,18 +618,18 @@ func (s *StoryPrivacySettingsSelectedContacts) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (s *StoryPrivacySettingsSelectedContacts) Encode(b *bin.Buffer) error {
+func (s *StoryPrivacySettingsSelectedUsers) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyPrivacySettingsSelectedContacts#25401fc7 as nil")
+		return fmt.Errorf("can't encode storyPrivacySettingsSelectedUsers#84d7d27b as nil")
 	}
-	b.PutID(StoryPrivacySettingsSelectedContactsTypeID)
+	b.PutID(StoryPrivacySettingsSelectedUsersTypeID)
 	return s.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (s *StoryPrivacySettingsSelectedContacts) EncodeBare(b *bin.Buffer) error {
+func (s *StoryPrivacySettingsSelectedUsers) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyPrivacySettingsSelectedContacts#25401fc7 as nil")
+		return fmt.Errorf("can't encode storyPrivacySettingsSelectedUsers#84d7d27b as nil")
 	}
 	b.PutInt(len(s.UserIDs))
 	for _, v := range s.UserIDs {
@@ -639,25 +639,25 @@ func (s *StoryPrivacySettingsSelectedContacts) EncodeBare(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (s *StoryPrivacySettingsSelectedContacts) Decode(b *bin.Buffer) error {
+func (s *StoryPrivacySettingsSelectedUsers) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyPrivacySettingsSelectedContacts#25401fc7 to nil")
+		return fmt.Errorf("can't decode storyPrivacySettingsSelectedUsers#84d7d27b to nil")
 	}
-	if err := b.ConsumeID(StoryPrivacySettingsSelectedContactsTypeID); err != nil {
-		return fmt.Errorf("unable to decode storyPrivacySettingsSelectedContacts#25401fc7: %w", err)
+	if err := b.ConsumeID(StoryPrivacySettingsSelectedUsersTypeID); err != nil {
+		return fmt.Errorf("unable to decode storyPrivacySettingsSelectedUsers#84d7d27b: %w", err)
 	}
 	return s.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (s *StoryPrivacySettingsSelectedContacts) DecodeBare(b *bin.Buffer) error {
+func (s *StoryPrivacySettingsSelectedUsers) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyPrivacySettingsSelectedContacts#25401fc7 to nil")
+		return fmt.Errorf("can't decode storyPrivacySettingsSelectedUsers#84d7d27b to nil")
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyPrivacySettingsSelectedContacts#25401fc7: field user_ids: %w", err)
+			return fmt.Errorf("unable to decode storyPrivacySettingsSelectedUsers#84d7d27b: field user_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -666,7 +666,7 @@ func (s *StoryPrivacySettingsSelectedContacts) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode storyPrivacySettingsSelectedContacts#25401fc7: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode storyPrivacySettingsSelectedUsers#84d7d27b: field user_ids: %w", err)
 			}
 			s.UserIDs = append(s.UserIDs, value)
 		}
@@ -675,12 +675,12 @@ func (s *StoryPrivacySettingsSelectedContacts) DecodeBare(b *bin.Buffer) error {
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (s *StoryPrivacySettingsSelectedContacts) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (s *StoryPrivacySettingsSelectedUsers) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyPrivacySettingsSelectedContacts#25401fc7 as nil")
+		return fmt.Errorf("can't encode storyPrivacySettingsSelectedUsers#84d7d27b as nil")
 	}
 	b.ObjStart()
-	b.PutID("storyPrivacySettingsSelectedContacts")
+	b.PutID("storyPrivacySettingsSelectedUsers")
 	b.Comma()
 	b.FieldStart("user_ids")
 	b.ArrStart()
@@ -697,27 +697,27 @@ func (s *StoryPrivacySettingsSelectedContacts) EncodeTDLibJSON(b tdjson.Encoder)
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (s *StoryPrivacySettingsSelectedContacts) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (s *StoryPrivacySettingsSelectedUsers) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyPrivacySettingsSelectedContacts#25401fc7 to nil")
+		return fmt.Errorf("can't decode storyPrivacySettingsSelectedUsers#84d7d27b to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("storyPrivacySettingsSelectedContacts"); err != nil {
-				return fmt.Errorf("unable to decode storyPrivacySettingsSelectedContacts#25401fc7: %w", err)
+			if err := b.ConsumeID("storyPrivacySettingsSelectedUsers"); err != nil {
+				return fmt.Errorf("unable to decode storyPrivacySettingsSelectedUsers#84d7d27b: %w", err)
 			}
 		case "user_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int53()
 				if err != nil {
-					return fmt.Errorf("unable to decode storyPrivacySettingsSelectedContacts#25401fc7: field user_ids: %w", err)
+					return fmt.Errorf("unable to decode storyPrivacySettingsSelectedUsers#84d7d27b: field user_ids: %w", err)
 				}
 				s.UserIDs = append(s.UserIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode storyPrivacySettingsSelectedContacts#25401fc7: field user_ids: %w", err)
+				return fmt.Errorf("unable to decode storyPrivacySettingsSelectedUsers#84d7d27b: field user_ids: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -727,7 +727,7 @@ func (s *StoryPrivacySettingsSelectedContacts) DecodeTDLibJSON(b tdjson.Decoder)
 }
 
 // GetUserIDs returns value of UserIDs field.
-func (s *StoryPrivacySettingsSelectedContacts) GetUserIDs() (value []int64) {
+func (s *StoryPrivacySettingsSelectedUsers) GetUserIDs() (value []int64) {
 	if s == nil {
 		return
 	}
@@ -749,7 +749,7 @@ const StoryPrivacySettingsClassName = "StoryPrivacySettings"
 //	case *tdapi.StoryPrivacySettingsEveryone: // storyPrivacySettingsEveryone#22d1053a
 //	case *tdapi.StoryPrivacySettingsContacts: // storyPrivacySettingsContacts#35515d71
 //	case *tdapi.StoryPrivacySettingsCloseFriends: // storyPrivacySettingsCloseFriends#7cff8b60
-//	case *tdapi.StoryPrivacySettingsSelectedContacts: // storyPrivacySettingsSelectedContacts#25401fc7
+//	case *tdapi.StoryPrivacySettingsSelectedUsers: // storyPrivacySettingsSelectedUsers#84d7d27b
 //	default: panic(v)
 //	}
 type StoryPrivacySettingsClass interface {
@@ -802,9 +802,9 @@ func DecodeStoryPrivacySettings(buf *bin.Buffer) (StoryPrivacySettingsClass, err
 			return nil, fmt.Errorf("unable to decode StoryPrivacySettingsClass: %w", err)
 		}
 		return &v, nil
-	case StoryPrivacySettingsSelectedContactsTypeID:
-		// Decoding storyPrivacySettingsSelectedContacts#25401fc7.
-		v := StoryPrivacySettingsSelectedContacts{}
+	case StoryPrivacySettingsSelectedUsersTypeID:
+		// Decoding storyPrivacySettingsSelectedUsers#84d7d27b.
+		v := StoryPrivacySettingsSelectedUsers{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StoryPrivacySettingsClass: %w", err)
 		}
@@ -842,9 +842,9 @@ func DecodeTDLibJSONStoryPrivacySettings(buf tdjson.Decoder) (StoryPrivacySettin
 			return nil, fmt.Errorf("unable to decode StoryPrivacySettingsClass: %w", err)
 		}
 		return &v, nil
-	case "storyPrivacySettingsSelectedContacts":
-		// Decoding storyPrivacySettingsSelectedContacts#25401fc7.
-		v := StoryPrivacySettingsSelectedContacts{}
+	case "storyPrivacySettingsSelectedUsers":
+		// Decoding storyPrivacySettingsSelectedUsers#84d7d27b.
+		v := StoryPrivacySettingsSelectedUsers{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StoryPrivacySettingsClass: %w", err)
 		}

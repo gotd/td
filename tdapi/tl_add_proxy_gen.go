@@ -33,7 +33,7 @@ var (
 
 // AddProxyRequest represents TL type `addProxy#13c2bcd8`.
 type AddProxyRequest struct {
-	// Proxy server IP address
+	// Proxy server domain or IP address
 	Server string
 	// Proxy server port
 	Port int32

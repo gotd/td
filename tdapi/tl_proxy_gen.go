@@ -35,7 +35,7 @@ var (
 type Proxy struct {
 	// Unique identifier of the proxy
 	ID int32
-	// Proxy server IP address
+	// Proxy server domain or IP address
 	Server string
 	// Proxy server port
 	Port int32

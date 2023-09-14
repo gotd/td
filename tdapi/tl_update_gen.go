@@ -19995,10 +19995,175 @@ func (u *UpdateUsersNearby) GetUsersNearby() (value []ChatNearby) {
 	return u.UsersNearby
 }
 
+// UpdateUnconfirmedSession represents TL type `updateUnconfirmedSession#fea6088c`.
+type UpdateUnconfirmedSession struct {
+	// The unconfirmed session; may be null if none
+	Session UnconfirmedSession
+}
+
+// UpdateUnconfirmedSessionTypeID is TL type id of UpdateUnconfirmedSession.
+const UpdateUnconfirmedSessionTypeID = 0xfea6088c
+
+// construct implements constructor of UpdateClass.
+func (u UpdateUnconfirmedSession) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateUnconfirmedSession.
+var (
+	_ bin.Encoder     = &UpdateUnconfirmedSession{}
+	_ bin.Decoder     = &UpdateUnconfirmedSession{}
+	_ bin.BareEncoder = &UpdateUnconfirmedSession{}
+	_ bin.BareDecoder = &UpdateUnconfirmedSession{}
+
+	_ UpdateClass = &UpdateUnconfirmedSession{}
+)
+
+func (u *UpdateUnconfirmedSession) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Session.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateUnconfirmedSession) String() string {
+	if u == nil {
+		return "UpdateUnconfirmedSession(nil)"
+	}
+	type Alias UpdateUnconfirmedSession
+	return fmt.Sprintf("UpdateUnconfirmedSession%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateUnconfirmedSession) TypeID() uint32 {
+	return UpdateUnconfirmedSessionTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateUnconfirmedSession) TypeName() string {
+	return "updateUnconfirmedSession"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateUnconfirmedSession) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateUnconfirmedSession",
+		ID:   UpdateUnconfirmedSessionTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Session",
+			SchemaName: "session",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateUnconfirmedSession) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateUnconfirmedSession#fea6088c as nil")
+	}
+	b.PutID(UpdateUnconfirmedSessionTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateUnconfirmedSession) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateUnconfirmedSession#fea6088c as nil")
+	}
+	if err := u.Session.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateUnconfirmedSession#fea6088c: field session: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateUnconfirmedSession) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateUnconfirmedSession#fea6088c to nil")
+	}
+	if err := b.ConsumeID(UpdateUnconfirmedSessionTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateUnconfirmedSession#fea6088c: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateUnconfirmedSession) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateUnconfirmedSession#fea6088c to nil")
+	}
+	{
+		if err := u.Session.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateUnconfirmedSession#fea6088c: field session: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateUnconfirmedSession) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateUnconfirmedSession#fea6088c as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateUnconfirmedSession")
+	b.Comma()
+	b.FieldStart("session")
+	if err := u.Session.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateUnconfirmedSession#fea6088c: field session: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateUnconfirmedSession) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateUnconfirmedSession#fea6088c to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateUnconfirmedSession"); err != nil {
+				return fmt.Errorf("unable to decode updateUnconfirmedSession#fea6088c: %w", err)
+			}
+		case "session":
+			if err := u.Session.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateUnconfirmedSession#fea6088c: field session: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetSession returns value of Session field.
+func (u *UpdateUnconfirmedSession) GetSession() (value UnconfirmedSession) {
+	if u == nil {
+		return
+	}
+	return u.Session
+}
+
 // UpdateAttachmentMenuBots represents TL type `updateAttachmentMenuBots#b6b910c`.
 type UpdateAttachmentMenuBots struct {
-	// The new list of bots added to attachment menu. The bots must not be shown on scheduled
-	// messages screen
+	// The new list of bots. The bots must not be shown on scheduled messages screen
 	Bots []AttachmentMenuBot
 }
 
@@ -25594,6 +25759,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateConnectionState: // updateConnectionState#57939e2e
 //	case *tdapi.UpdateTermsOfService: // updateTermsOfService#b23cc55e
 //	case *tdapi.UpdateUsersNearby: // updateUsersNearby#97c8ab5
+//	case *tdapi.UpdateUnconfirmedSession: // updateUnconfirmedSession#fea6088c
 //	case *tdapi.UpdateAttachmentMenuBots: // updateAttachmentMenuBots#b6b910c
 //	case *tdapi.UpdateWebAppMessageSent: // updateWebAppMessageSent#58431229
 //	case *tdapi.UpdateActiveEmojiReactions: // updateActiveEmojiReactions#691ffcb7
@@ -26301,6 +26467,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateUsersNearbyTypeID:
 		// Decoding updateUsersNearby#97c8ab5.
 		v := UpdateUsersNearby{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateUnconfirmedSessionTypeID:
+		// Decoding updateUnconfirmedSession#fea6088c.
+		v := UpdateUnconfirmedSession{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -27125,6 +27298,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	case "updateUsersNearby":
 		// Decoding updateUsersNearby#97c8ab5.
 		v := UpdateUsersNearby{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateUnconfirmedSession":
+		// Decoding updateUnconfirmedSession#fea6088c.
+		v := UpdateUnconfirmedSession{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

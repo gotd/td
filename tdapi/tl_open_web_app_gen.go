@@ -38,7 +38,7 @@ type OpenWebAppRequest struct {
 	ChatID int64
 	// Identifier of the bot, providing the Web App
 	BotUserID int64
-	// The URL from an inlineKeyboardButtonTypeWebApp button, a botMenuButton button, or an
+	// The URL from an inlineKeyboardButtonTypeWebApp button, a botMenuButton button, an
 	// internalLinkTypeAttachmentMenuBot link, or an empty string otherwise
 	URL string
 	// Preferred Web App theme; pass null to use the default theme
