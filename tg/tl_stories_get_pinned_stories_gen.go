@@ -31,12 +31,12 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoriesGetPinnedStoriesRequest represents TL type `stories.getPinnedStories#b471137`.
+// StoriesGetPinnedStoriesRequest represents TL type `stories.getPinnedStories#5821a5dc`.
 //
 // See https://core.telegram.org/method/stories.getPinnedStories for reference.
 type StoriesGetPinnedStoriesRequest struct {
-	// UserID field of StoriesGetPinnedStoriesRequest.
-	UserID InputUserClass
+	// Peer field of StoriesGetPinnedStoriesRequest.
+	Peer InputPeerClass
 	// OffsetID field of StoriesGetPinnedStoriesRequest.
 	OffsetID int
 	// Limit field of StoriesGetPinnedStoriesRequest.
@@ -44,7 +44,7 @@ type StoriesGetPinnedStoriesRequest struct {
 }
 
 // StoriesGetPinnedStoriesRequestTypeID is TL type id of StoriesGetPinnedStoriesRequest.
-const StoriesGetPinnedStoriesRequestTypeID = 0xb471137
+const StoriesGetPinnedStoriesRequestTypeID = 0x5821a5dc
 
 // Ensuring interfaces in compile-time for StoriesGetPinnedStoriesRequest.
 var (
@@ -58,7 +58,7 @@ func (g *StoriesGetPinnedStoriesRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
-	if !(g.UserID == nil) {
+	if !(g.Peer == nil) {
 		return false
 	}
 	if !(g.OffsetID == 0) {
@@ -82,11 +82,11 @@ func (g *StoriesGetPinnedStoriesRequest) String() string {
 
 // FillFrom fills StoriesGetPinnedStoriesRequest from given interface.
 func (g *StoriesGetPinnedStoriesRequest) FillFrom(from interface {
-	GetUserID() (value InputUserClass)
+	GetPeer() (value InputPeerClass)
 	GetOffsetID() (value int)
 	GetLimit() (value int)
 }) {
-	g.UserID = from.GetUserID()
+	g.Peer = from.GetPeer()
 	g.OffsetID = from.GetOffsetID()
 	g.Limit = from.GetLimit()
 }
@@ -115,8 +115,8 @@ func (g *StoriesGetPinnedStoriesRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "UserID",
-			SchemaName: "user_id",
+			Name:       "Peer",
+			SchemaName: "peer",
 		},
 		{
 			Name:       "OffsetID",
@@ -133,7 +133,7 @@ func (g *StoriesGetPinnedStoriesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *StoriesGetPinnedStoriesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stories.getPinnedStories#b471137 as nil")
+		return fmt.Errorf("can't encode stories.getPinnedStories#5821a5dc as nil")
 	}
 	b.PutID(StoriesGetPinnedStoriesRequestTypeID)
 	return g.EncodeBare(b)
@@ -142,13 +142,13 @@ func (g *StoriesGetPinnedStoriesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *StoriesGetPinnedStoriesRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stories.getPinnedStories#b471137 as nil")
+		return fmt.Errorf("can't encode stories.getPinnedStories#5821a5dc as nil")
 	}
-	if g.UserID == nil {
-		return fmt.Errorf("unable to encode stories.getPinnedStories#b471137: field user_id is nil")
+	if g.Peer == nil {
+		return fmt.Errorf("unable to encode stories.getPinnedStories#5821a5dc: field peer is nil")
 	}
-	if err := g.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stories.getPinnedStories#b471137: field user_id: %w", err)
+	if err := g.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode stories.getPinnedStories#5821a5dc: field peer: %w", err)
 	}
 	b.PutInt(g.OffsetID)
 	b.PutInt(g.Limit)
@@ -158,10 +158,10 @@ func (g *StoriesGetPinnedStoriesRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *StoriesGetPinnedStoriesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stories.getPinnedStories#b471137 to nil")
+		return fmt.Errorf("can't decode stories.getPinnedStories#5821a5dc to nil")
 	}
 	if err := b.ConsumeID(StoriesGetPinnedStoriesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stories.getPinnedStories#b471137: %w", err)
+		return fmt.Errorf("unable to decode stories.getPinnedStories#5821a5dc: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -169,38 +169,38 @@ func (g *StoriesGetPinnedStoriesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *StoriesGetPinnedStoriesRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stories.getPinnedStories#b471137 to nil")
+		return fmt.Errorf("can't decode stories.getPinnedStories#5821a5dc to nil")
 	}
 	{
-		value, err := DecodeInputUser(b)
+		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.getPinnedStories#b471137: field user_id: %w", err)
+			return fmt.Errorf("unable to decode stories.getPinnedStories#5821a5dc: field peer: %w", err)
 		}
-		g.UserID = value
+		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.getPinnedStories#b471137: field offset_id: %w", err)
+			return fmt.Errorf("unable to decode stories.getPinnedStories#5821a5dc: field offset_id: %w", err)
 		}
 		g.OffsetID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.getPinnedStories#b471137: field limit: %w", err)
+			return fmt.Errorf("unable to decode stories.getPinnedStories#5821a5dc: field limit: %w", err)
 		}
 		g.Limit = value
 	}
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (g *StoriesGetPinnedStoriesRequest) GetUserID() (value InputUserClass) {
+// GetPeer returns value of Peer field.
+func (g *StoriesGetPinnedStoriesRequest) GetPeer() (value InputPeerClass) {
 	if g == nil {
 		return
 	}
-	return g.UserID
+	return g.Peer
 }
 
 // GetOffsetID returns value of OffsetID field.
@@ -219,7 +219,7 @@ func (g *StoriesGetPinnedStoriesRequest) GetLimit() (value int) {
 	return g.Limit
 }
 
-// StoriesGetPinnedStories invokes method stories.getPinnedStories#b471137 returning error if any.
+// StoriesGetPinnedStories invokes method stories.getPinnedStories#5821a5dc returning error if any.
 //
 // See https://core.telegram.org/method/stories.getPinnedStories for reference.
 func (c *Client) StoriesGetPinnedStories(ctx context.Context, request *StoriesGetPinnedStoriesRequest) (*StoriesStories, error) {

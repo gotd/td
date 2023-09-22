@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoriesSendReactionRequest represents TL type `stories.sendReaction#49aaa9b3`.
+// StoriesSendReactionRequest represents TL type `stories.sendReaction#7fd736b2`.
 //
 // See https://core.telegram.org/method/stories.sendReaction for reference.
 type StoriesSendReactionRequest struct {
@@ -39,8 +39,8 @@ type StoriesSendReactionRequest struct {
 	Flags bin.Fields
 	// AddToRecent field of StoriesSendReactionRequest.
 	AddToRecent bool
-	// UserID field of StoriesSendReactionRequest.
-	UserID InputUserClass
+	// Peer field of StoriesSendReactionRequest.
+	Peer InputPeerClass
 	// StoryID field of StoriesSendReactionRequest.
 	StoryID int
 	// Reaction field of StoriesSendReactionRequest.
@@ -48,7 +48,7 @@ type StoriesSendReactionRequest struct {
 }
 
 // StoriesSendReactionRequestTypeID is TL type id of StoriesSendReactionRequest.
-const StoriesSendReactionRequestTypeID = 0x49aaa9b3
+const StoriesSendReactionRequestTypeID = 0x7fd736b2
 
 // Ensuring interfaces in compile-time for StoriesSendReactionRequest.
 var (
@@ -68,7 +68,7 @@ func (s *StoriesSendReactionRequest) Zero() bool {
 	if !(s.AddToRecent == false) {
 		return false
 	}
-	if !(s.UserID == nil) {
+	if !(s.Peer == nil) {
 		return false
 	}
 	if !(s.StoryID == 0) {
@@ -93,12 +93,12 @@ func (s *StoriesSendReactionRequest) String() string {
 // FillFrom fills StoriesSendReactionRequest from given interface.
 func (s *StoriesSendReactionRequest) FillFrom(from interface {
 	GetAddToRecent() (value bool)
-	GetUserID() (value InputUserClass)
+	GetPeer() (value InputPeerClass)
 	GetStoryID() (value int)
 	GetReaction() (value ReactionClass)
 }) {
 	s.AddToRecent = from.GetAddToRecent()
-	s.UserID = from.GetUserID()
+	s.Peer = from.GetPeer()
 	s.StoryID = from.GetStoryID()
 	s.Reaction = from.GetReaction()
 }
@@ -132,8 +132,8 @@ func (s *StoriesSendReactionRequest) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(0),
 		},
 		{
-			Name:       "UserID",
-			SchemaName: "user_id",
+			Name:       "Peer",
+			SchemaName: "peer",
 		},
 		{
 			Name:       "StoryID",
@@ -157,7 +157,7 @@ func (s *StoriesSendReactionRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (s *StoriesSendReactionRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stories.sendReaction#49aaa9b3 as nil")
+		return fmt.Errorf("can't encode stories.sendReaction#7fd736b2 as nil")
 	}
 	b.PutID(StoriesSendReactionRequestTypeID)
 	return s.EncodeBare(b)
@@ -166,24 +166,24 @@ func (s *StoriesSendReactionRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StoriesSendReactionRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stories.sendReaction#49aaa9b3 as nil")
+		return fmt.Errorf("can't encode stories.sendReaction#7fd736b2 as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stories.sendReaction#49aaa9b3: field flags: %w", err)
+		return fmt.Errorf("unable to encode stories.sendReaction#7fd736b2: field flags: %w", err)
 	}
-	if s.UserID == nil {
-		return fmt.Errorf("unable to encode stories.sendReaction#49aaa9b3: field user_id is nil")
+	if s.Peer == nil {
+		return fmt.Errorf("unable to encode stories.sendReaction#7fd736b2: field peer is nil")
 	}
-	if err := s.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stories.sendReaction#49aaa9b3: field user_id: %w", err)
+	if err := s.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode stories.sendReaction#7fd736b2: field peer: %w", err)
 	}
 	b.PutInt(s.StoryID)
 	if s.Reaction == nil {
-		return fmt.Errorf("unable to encode stories.sendReaction#49aaa9b3: field reaction is nil")
+		return fmt.Errorf("unable to encode stories.sendReaction#7fd736b2: field reaction is nil")
 	}
 	if err := s.Reaction.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stories.sendReaction#49aaa9b3: field reaction: %w", err)
+		return fmt.Errorf("unable to encode stories.sendReaction#7fd736b2: field reaction: %w", err)
 	}
 	return nil
 }
@@ -191,10 +191,10 @@ func (s *StoriesSendReactionRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StoriesSendReactionRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stories.sendReaction#49aaa9b3 to nil")
+		return fmt.Errorf("can't decode stories.sendReaction#7fd736b2 to nil")
 	}
 	if err := b.ConsumeID(StoriesSendReactionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stories.sendReaction#49aaa9b3: %w", err)
+		return fmt.Errorf("unable to decode stories.sendReaction#7fd736b2: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -202,32 +202,32 @@ func (s *StoriesSendReactionRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StoriesSendReactionRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stories.sendReaction#49aaa9b3 to nil")
+		return fmt.Errorf("can't decode stories.sendReaction#7fd736b2 to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stories.sendReaction#49aaa9b3: field flags: %w", err)
+			return fmt.Errorf("unable to decode stories.sendReaction#7fd736b2: field flags: %w", err)
 		}
 	}
 	s.AddToRecent = s.Flags.Has(0)
 	{
-		value, err := DecodeInputUser(b)
+		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.sendReaction#49aaa9b3: field user_id: %w", err)
+			return fmt.Errorf("unable to decode stories.sendReaction#7fd736b2: field peer: %w", err)
 		}
-		s.UserID = value
+		s.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.sendReaction#49aaa9b3: field story_id: %w", err)
+			return fmt.Errorf("unable to decode stories.sendReaction#7fd736b2: field story_id: %w", err)
 		}
 		s.StoryID = value
 	}
 	{
 		value, err := DecodeReaction(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.sendReaction#49aaa9b3: field reaction: %w", err)
+			return fmt.Errorf("unable to decode stories.sendReaction#7fd736b2: field reaction: %w", err)
 		}
 		s.Reaction = value
 	}
@@ -253,12 +253,12 @@ func (s *StoriesSendReactionRequest) GetAddToRecent() (value bool) {
 	return s.Flags.Has(0)
 }
 
-// GetUserID returns value of UserID field.
-func (s *StoriesSendReactionRequest) GetUserID() (value InputUserClass) {
+// GetPeer returns value of Peer field.
+func (s *StoriesSendReactionRequest) GetPeer() (value InputPeerClass) {
 	if s == nil {
 		return
 	}
-	return s.UserID
+	return s.Peer
 }
 
 // GetStoryID returns value of StoryID field.
@@ -277,7 +277,7 @@ func (s *StoriesSendReactionRequest) GetReaction() (value ReactionClass) {
 	return s.Reaction
 }
 
-// StoriesSendReaction invokes method stories.sendReaction#49aaa9b3 returning error if any.
+// StoriesSendReaction invokes method stories.sendReaction#7fd736b2 returning error if any.
 //
 // See https://core.telegram.org/method/stories.sendReaction for reference.
 func (c *Client) StoriesSendReaction(ctx context.Context, request *StoriesSendReactionRequest) (UpdatesClass, error) {

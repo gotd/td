@@ -31,14 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoriesCanSendStoryRequest represents TL type `stories.canSendStory#b100d45d`.
+// StoriesCanSendStoryRequest represents TL type `stories.canSendStory#c7dfdfdd`.
 //
 // See https://core.telegram.org/method/stories.canSendStory for reference.
 type StoriesCanSendStoryRequest struct {
+	// Peer field of StoriesCanSendStoryRequest.
+	Peer InputPeerClass
 }
 
 // StoriesCanSendStoryRequestTypeID is TL type id of StoriesCanSendStoryRequest.
-const StoriesCanSendStoryRequestTypeID = 0xb100d45d
+const StoriesCanSendStoryRequestTypeID = 0xc7dfdfdd
 
 // Ensuring interfaces in compile-time for StoriesCanSendStoryRequest.
 var (
@@ -52,6 +54,9 @@ func (c *StoriesCanSendStoryRequest) Zero() bool {
 	if c == nil {
 		return true
 	}
+	if !(c.Peer == nil) {
+		return false
+	}
 
 	return true
 }
@@ -63,6 +68,13 @@ func (c *StoriesCanSendStoryRequest) String() string {
 	}
 	type Alias StoriesCanSendStoryRequest
 	return fmt.Sprintf("StoriesCanSendStoryRequest%+v", Alias(*c))
+}
+
+// FillFrom fills StoriesCanSendStoryRequest from given interface.
+func (c *StoriesCanSendStoryRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+}) {
+	c.Peer = from.GetPeer()
 }
 
 // TypeID returns type id in TL schema.
@@ -87,14 +99,19 @@ func (c *StoriesCanSendStoryRequest) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
 func (c *StoriesCanSendStoryRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode stories.canSendStory#b100d45d as nil")
+		return fmt.Errorf("can't encode stories.canSendStory#c7dfdfdd as nil")
 	}
 	b.PutID(StoriesCanSendStoryRequestTypeID)
 	return c.EncodeBare(b)
@@ -103,7 +120,13 @@ func (c *StoriesCanSendStoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *StoriesCanSendStoryRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode stories.canSendStory#b100d45d as nil")
+		return fmt.Errorf("can't encode stories.canSendStory#c7dfdfdd as nil")
+	}
+	if c.Peer == nil {
+		return fmt.Errorf("unable to encode stories.canSendStory#c7dfdfdd: field peer is nil")
+	}
+	if err := c.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode stories.canSendStory#c7dfdfdd: field peer: %w", err)
 	}
 	return nil
 }
@@ -111,10 +134,10 @@ func (c *StoriesCanSendStoryRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *StoriesCanSendStoryRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode stories.canSendStory#b100d45d to nil")
+		return fmt.Errorf("can't decode stories.canSendStory#c7dfdfdd to nil")
 	}
 	if err := b.ConsumeID(StoriesCanSendStoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stories.canSendStory#b100d45d: %w", err)
+		return fmt.Errorf("unable to decode stories.canSendStory#c7dfdfdd: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -122,18 +145,35 @@ func (c *StoriesCanSendStoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *StoriesCanSendStoryRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode stories.canSendStory#b100d45d to nil")
+		return fmt.Errorf("can't decode stories.canSendStory#c7dfdfdd to nil")
+	}
+	{
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode stories.canSendStory#c7dfdfdd: field peer: %w", err)
+		}
+		c.Peer = value
 	}
 	return nil
 }
 
-// StoriesCanSendStory invokes method stories.canSendStory#b100d45d returning error if any.
+// GetPeer returns value of Peer field.
+func (c *StoriesCanSendStoryRequest) GetPeer() (value InputPeerClass) {
+	if c == nil {
+		return
+	}
+	return c.Peer
+}
+
+// StoriesCanSendStory invokes method stories.canSendStory#c7dfdfdd returning error if any.
 //
 // See https://core.telegram.org/method/stories.canSendStory for reference.
-func (c *Client) StoriesCanSendStory(ctx context.Context) (bool, error) {
+func (c *Client) StoriesCanSendStory(ctx context.Context, peer InputPeerClass) (bool, error) {
 	var result BoolBox
 
-	request := &StoriesCanSendStoryRequest{}
+	request := &StoriesCanSendStoryRequest{
+		Peer: peer,
+	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return false, err
 	}

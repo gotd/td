@@ -31,18 +31,18 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoriesExportStoryLinkRequest represents TL type `stories.exportStoryLink#16e443ce`.
+// StoriesExportStoryLinkRequest represents TL type `stories.exportStoryLink#7b8def20`.
 //
 // See https://core.telegram.org/method/stories.exportStoryLink for reference.
 type StoriesExportStoryLinkRequest struct {
-	// UserID field of StoriesExportStoryLinkRequest.
-	UserID InputUserClass
+	// Peer field of StoriesExportStoryLinkRequest.
+	Peer InputPeerClass
 	// ID field of StoriesExportStoryLinkRequest.
 	ID int
 }
 
 // StoriesExportStoryLinkRequestTypeID is TL type id of StoriesExportStoryLinkRequest.
-const StoriesExportStoryLinkRequestTypeID = 0x16e443ce
+const StoriesExportStoryLinkRequestTypeID = 0x7b8def20
 
 // Ensuring interfaces in compile-time for StoriesExportStoryLinkRequest.
 var (
@@ -56,7 +56,7 @@ func (e *StoriesExportStoryLinkRequest) Zero() bool {
 	if e == nil {
 		return true
 	}
-	if !(e.UserID == nil) {
+	if !(e.Peer == nil) {
 		return false
 	}
 	if !(e.ID == 0) {
@@ -77,10 +77,10 @@ func (e *StoriesExportStoryLinkRequest) String() string {
 
 // FillFrom fills StoriesExportStoryLinkRequest from given interface.
 func (e *StoriesExportStoryLinkRequest) FillFrom(from interface {
-	GetUserID() (value InputUserClass)
+	GetPeer() (value InputPeerClass)
 	GetID() (value int)
 }) {
-	e.UserID = from.GetUserID()
+	e.Peer = from.GetPeer()
 	e.ID = from.GetID()
 }
 
@@ -108,8 +108,8 @@ func (e *StoriesExportStoryLinkRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "UserID",
-			SchemaName: "user_id",
+			Name:       "Peer",
+			SchemaName: "peer",
 		},
 		{
 			Name:       "ID",
@@ -122,7 +122,7 @@ func (e *StoriesExportStoryLinkRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *StoriesExportStoryLinkRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode stories.exportStoryLink#16e443ce as nil")
+		return fmt.Errorf("can't encode stories.exportStoryLink#7b8def20 as nil")
 	}
 	b.PutID(StoriesExportStoryLinkRequestTypeID)
 	return e.EncodeBare(b)
@@ -131,13 +131,13 @@ func (e *StoriesExportStoryLinkRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *StoriesExportStoryLinkRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode stories.exportStoryLink#16e443ce as nil")
+		return fmt.Errorf("can't encode stories.exportStoryLink#7b8def20 as nil")
 	}
-	if e.UserID == nil {
-		return fmt.Errorf("unable to encode stories.exportStoryLink#16e443ce: field user_id is nil")
+	if e.Peer == nil {
+		return fmt.Errorf("unable to encode stories.exportStoryLink#7b8def20: field peer is nil")
 	}
-	if err := e.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stories.exportStoryLink#16e443ce: field user_id: %w", err)
+	if err := e.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode stories.exportStoryLink#7b8def20: field peer: %w", err)
 	}
 	b.PutInt(e.ID)
 	return nil
@@ -146,10 +146,10 @@ func (e *StoriesExportStoryLinkRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (e *StoriesExportStoryLinkRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode stories.exportStoryLink#16e443ce to nil")
+		return fmt.Errorf("can't decode stories.exportStoryLink#7b8def20 to nil")
 	}
 	if err := b.ConsumeID(StoriesExportStoryLinkRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stories.exportStoryLink#16e443ce: %w", err)
+		return fmt.Errorf("unable to decode stories.exportStoryLink#7b8def20: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -157,31 +157,31 @@ func (e *StoriesExportStoryLinkRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *StoriesExportStoryLinkRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode stories.exportStoryLink#16e443ce to nil")
+		return fmt.Errorf("can't decode stories.exportStoryLink#7b8def20 to nil")
 	}
 	{
-		value, err := DecodeInputUser(b)
+		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.exportStoryLink#16e443ce: field user_id: %w", err)
+			return fmt.Errorf("unable to decode stories.exportStoryLink#7b8def20: field peer: %w", err)
 		}
-		e.UserID = value
+		e.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.exportStoryLink#16e443ce: field id: %w", err)
+			return fmt.Errorf("unable to decode stories.exportStoryLink#7b8def20: field id: %w", err)
 		}
 		e.ID = value
 	}
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (e *StoriesExportStoryLinkRequest) GetUserID() (value InputUserClass) {
+// GetPeer returns value of Peer field.
+func (e *StoriesExportStoryLinkRequest) GetPeer() (value InputPeerClass) {
 	if e == nil {
 		return
 	}
-	return e.UserID
+	return e.Peer
 }
 
 // GetID returns value of ID field.
@@ -192,7 +192,7 @@ func (e *StoriesExportStoryLinkRequest) GetID() (value int) {
 	return e.ID
 }
 
-// StoriesExportStoryLink invokes method stories.exportStoryLink#16e443ce returning error if any.
+// StoriesExportStoryLink invokes method stories.exportStoryLink#7b8def20 returning error if any.
 //
 // See https://core.telegram.org/method/stories.exportStoryLink for reference.
 func (c *Client) StoriesExportStoryLink(ctx context.Context, request *StoriesExportStoryLinkRequest) (*ExportedStoryLink, error) {

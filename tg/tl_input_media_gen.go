@@ -4049,18 +4049,18 @@ func (i *InputMediaDice) GetEmoticon() (value string) {
 	return i.Emoticon
 }
 
-// InputMediaStory represents TL type `inputMediaStory#9a86b58f`.
+// InputMediaStory represents TL type `inputMediaStory#89fdd778`.
 //
 // See https://core.telegram.org/constructor/inputMediaStory for reference.
 type InputMediaStory struct {
-	// UserID field of InputMediaStory.
-	UserID InputUserClass
+	// Peer field of InputMediaStory.
+	Peer InputPeerClass
 	// ID field of InputMediaStory.
 	ID int
 }
 
 // InputMediaStoryTypeID is TL type id of InputMediaStory.
-const InputMediaStoryTypeID = 0x9a86b58f
+const InputMediaStoryTypeID = 0x89fdd778
 
 // construct implements constructor of InputMediaClass.
 func (i InputMediaStory) construct() InputMediaClass { return &i }
@@ -4079,7 +4079,7 @@ func (i *InputMediaStory) Zero() bool {
 	if i == nil {
 		return true
 	}
-	if !(i.UserID == nil) {
+	if !(i.Peer == nil) {
 		return false
 	}
 	if !(i.ID == 0) {
@@ -4100,10 +4100,10 @@ func (i *InputMediaStory) String() string {
 
 // FillFrom fills InputMediaStory from given interface.
 func (i *InputMediaStory) FillFrom(from interface {
-	GetUserID() (value InputUserClass)
+	GetPeer() (value InputPeerClass)
 	GetID() (value int)
 }) {
-	i.UserID = from.GetUserID()
+	i.Peer = from.GetPeer()
 	i.ID = from.GetID()
 }
 
@@ -4131,8 +4131,8 @@ func (i *InputMediaStory) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "UserID",
-			SchemaName: "user_id",
+			Name:       "Peer",
+			SchemaName: "peer",
 		},
 		{
 			Name:       "ID",
@@ -4145,7 +4145,7 @@ func (i *InputMediaStory) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMediaStory) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaStory#9a86b58f as nil")
+		return fmt.Errorf("can't encode inputMediaStory#89fdd778 as nil")
 	}
 	b.PutID(InputMediaStoryTypeID)
 	return i.EncodeBare(b)
@@ -4154,13 +4154,13 @@ func (i *InputMediaStory) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMediaStory) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaStory#9a86b58f as nil")
+		return fmt.Errorf("can't encode inputMediaStory#89fdd778 as nil")
 	}
-	if i.UserID == nil {
-		return fmt.Errorf("unable to encode inputMediaStory#9a86b58f: field user_id is nil")
+	if i.Peer == nil {
+		return fmt.Errorf("unable to encode inputMediaStory#89fdd778: field peer is nil")
 	}
-	if err := i.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaStory#9a86b58f: field user_id: %w", err)
+	if err := i.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputMediaStory#89fdd778: field peer: %w", err)
 	}
 	b.PutInt(i.ID)
 	return nil
@@ -4169,10 +4169,10 @@ func (i *InputMediaStory) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMediaStory) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaStory#9a86b58f to nil")
+		return fmt.Errorf("can't decode inputMediaStory#89fdd778 to nil")
 	}
 	if err := b.ConsumeID(InputMediaStoryTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaStory#9a86b58f: %w", err)
+		return fmt.Errorf("unable to decode inputMediaStory#89fdd778: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -4180,31 +4180,31 @@ func (i *InputMediaStory) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMediaStory) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaStory#9a86b58f to nil")
+		return fmt.Errorf("can't decode inputMediaStory#89fdd778 to nil")
 	}
 	{
-		value, err := DecodeInputUser(b)
+		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaStory#9a86b58f: field user_id: %w", err)
+			return fmt.Errorf("unable to decode inputMediaStory#89fdd778: field peer: %w", err)
 		}
-		i.UserID = value
+		i.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaStory#9a86b58f: field id: %w", err)
+			return fmt.Errorf("unable to decode inputMediaStory#89fdd778: field id: %w", err)
 		}
 		i.ID = value
 	}
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (i *InputMediaStory) GetUserID() (value InputUserClass) {
+// GetPeer returns value of Peer field.
+func (i *InputMediaStory) GetPeer() (value InputPeerClass) {
 	if i == nil {
 		return
 	}
-	return i.UserID
+	return i.Peer
 }
 
 // GetID returns value of ID field.
@@ -4244,7 +4244,7 @@ const InputMediaClassName = "InputMedia"
 //	case *tg.InputMediaGeoLive: // inputMediaGeoLive#971fa843
 //	case *tg.InputMediaPoll: // inputMediaPoll#f94e5f1
 //	case *tg.InputMediaDice: // inputMediaDice#e66fbf7b
-//	case *tg.InputMediaStory: // inputMediaStory#9a86b58f
+//	case *tg.InputMediaStory: // inputMediaStory#89fdd778
 //	default: panic(v)
 //	}
 type InputMediaClass interface {
@@ -4379,7 +4379,7 @@ func DecodeInputMedia(buf *bin.Buffer) (InputMediaClass, error) {
 		}
 		return &v, nil
 	case InputMediaStoryTypeID:
-		// Decoding inputMediaStory#9a86b58f.
+		// Decoding inputMediaStory#89fdd778.
 		v := InputMediaStory{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)

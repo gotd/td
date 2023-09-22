@@ -104,6 +104,12 @@ type ChatAdminRights struct {
 	// Links:
 	//  1) https://core.telegram.org/api/forum#forum-topics
 	ManageTopics bool
+	// PostStories field of ChatAdminRights.
+	PostStories bool
+	// EditStories field of ChatAdminRights.
+	EditStories bool
+	// DeleteStories field of ChatAdminRights.
+	DeleteStories bool
 }
 
 // ChatAdminRightsTypeID is TL type id of ChatAdminRights.
@@ -160,6 +166,15 @@ func (c *ChatAdminRights) Zero() bool {
 	if !(c.ManageTopics == false) {
 		return false
 	}
+	if !(c.PostStories == false) {
+		return false
+	}
+	if !(c.EditStories == false) {
+		return false
+	}
+	if !(c.DeleteStories == false) {
+		return false
+	}
 
 	return true
 }
@@ -187,6 +202,9 @@ func (c *ChatAdminRights) FillFrom(from interface {
 	GetManageCall() (value bool)
 	GetOther() (value bool)
 	GetManageTopics() (value bool)
+	GetPostStories() (value bool)
+	GetEditStories() (value bool)
+	GetDeleteStories() (value bool)
 }) {
 	c.ChangeInfo = from.GetChangeInfo()
 	c.PostMessages = from.GetPostMessages()
@@ -200,6 +218,9 @@ func (c *ChatAdminRights) FillFrom(from interface {
 	c.ManageCall = from.GetManageCall()
 	c.Other = from.GetOther()
 	c.ManageTopics = from.GetManageTopics()
+	c.PostStories = from.GetPostStories()
+	c.EditStories = from.GetEditStories()
+	c.DeleteStories = from.GetDeleteStories()
 }
 
 // TypeID returns type id in TL schema.
@@ -285,6 +306,21 @@ func (c *ChatAdminRights) TypeInfo() tdp.Type {
 			SchemaName: "manage_topics",
 			Null:       !c.Flags.Has(13),
 		},
+		{
+			Name:       "PostStories",
+			SchemaName: "post_stories",
+			Null:       !c.Flags.Has(14),
+		},
+		{
+			Name:       "EditStories",
+			SchemaName: "edit_stories",
+			Null:       !c.Flags.Has(15),
+		},
+		{
+			Name:       "DeleteStories",
+			SchemaName: "delete_stories",
+			Null:       !c.Flags.Has(16),
+		},
 	}
 	return typ
 }
@@ -326,6 +362,15 @@ func (c *ChatAdminRights) SetFlags() {
 	}
 	if !(c.ManageTopics == false) {
 		c.Flags.Set(13)
+	}
+	if !(c.PostStories == false) {
+		c.Flags.Set(14)
+	}
+	if !(c.EditStories == false) {
+		c.Flags.Set(15)
+	}
+	if !(c.DeleteStories == false) {
+		c.Flags.Set(16)
 	}
 }
 
@@ -383,6 +428,9 @@ func (c *ChatAdminRights) DecodeBare(b *bin.Buffer) error {
 	c.ManageCall = c.Flags.Has(11)
 	c.Other = c.Flags.Has(12)
 	c.ManageTopics = c.Flags.Has(13)
+	c.PostStories = c.Flags.Has(14)
+	c.EditStories = c.Flags.Has(15)
+	c.DeleteStories = c.Flags.Has(16)
 	return nil
 }
 
@@ -612,4 +660,61 @@ func (c *ChatAdminRights) GetManageTopics() (value bool) {
 		return
 	}
 	return c.Flags.Has(13)
+}
+
+// SetPostStories sets value of PostStories conditional field.
+func (c *ChatAdminRights) SetPostStories(value bool) {
+	if value {
+		c.Flags.Set(14)
+		c.PostStories = true
+	} else {
+		c.Flags.Unset(14)
+		c.PostStories = false
+	}
+}
+
+// GetPostStories returns value of PostStories conditional field.
+func (c *ChatAdminRights) GetPostStories() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(14)
+}
+
+// SetEditStories sets value of EditStories conditional field.
+func (c *ChatAdminRights) SetEditStories(value bool) {
+	if value {
+		c.Flags.Set(15)
+		c.EditStories = true
+	} else {
+		c.Flags.Unset(15)
+		c.EditStories = false
+	}
+}
+
+// GetEditStories returns value of EditStories conditional field.
+func (c *ChatAdminRights) GetEditStories() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(15)
+}
+
+// SetDeleteStories sets value of DeleteStories conditional field.
+func (c *ChatAdminRights) SetDeleteStories(value bool) {
+	if value {
+		c.Flags.Set(16)
+		c.DeleteStories = true
+	} else {
+		c.Flags.Unset(16)
+		c.DeleteStories = false
+	}
+}
+
+// GetDeleteStories returns value of DeleteStories conditional field.
+func (c *ChatAdminRights) GetDeleteStories() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags.Has(16)
 }
