@@ -31,16 +31,18 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoriesGetStoriesViewsRequest represents TL type `stories.getStoriesViews#9a75d6a6`.
+// StoriesGetStoriesViewsRequest represents TL type `stories.getStoriesViews#28e16cc8`.
 //
 // See https://core.telegram.org/method/stories.getStoriesViews for reference.
 type StoriesGetStoriesViewsRequest struct {
+	// Peer field of StoriesGetStoriesViewsRequest.
+	Peer InputPeerClass
 	// ID field of StoriesGetStoriesViewsRequest.
 	ID []int
 }
 
 // StoriesGetStoriesViewsRequestTypeID is TL type id of StoriesGetStoriesViewsRequest.
-const StoriesGetStoriesViewsRequestTypeID = 0x9a75d6a6
+const StoriesGetStoriesViewsRequestTypeID = 0x28e16cc8
 
 // Ensuring interfaces in compile-time for StoriesGetStoriesViewsRequest.
 var (
@@ -53,6 +55,9 @@ var (
 func (g *StoriesGetStoriesViewsRequest) Zero() bool {
 	if g == nil {
 		return true
+	}
+	if !(g.Peer == nil) {
+		return false
 	}
 	if !(g.ID == nil) {
 		return false
@@ -72,8 +77,10 @@ func (g *StoriesGetStoriesViewsRequest) String() string {
 
 // FillFrom fills StoriesGetStoriesViewsRequest from given interface.
 func (g *StoriesGetStoriesViewsRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
 	GetID() (value []int)
 }) {
+	g.Peer = from.GetPeer()
 	g.ID = from.GetID()
 }
 
@@ -101,6 +108,10 @@ func (g *StoriesGetStoriesViewsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -111,7 +122,7 @@ func (g *StoriesGetStoriesViewsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *StoriesGetStoriesViewsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stories.getStoriesViews#9a75d6a6 as nil")
+		return fmt.Errorf("can't encode stories.getStoriesViews#28e16cc8 as nil")
 	}
 	b.PutID(StoriesGetStoriesViewsRequestTypeID)
 	return g.EncodeBare(b)
@@ -120,7 +131,13 @@ func (g *StoriesGetStoriesViewsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *StoriesGetStoriesViewsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stories.getStoriesViews#9a75d6a6 as nil")
+		return fmt.Errorf("can't encode stories.getStoriesViews#28e16cc8 as nil")
+	}
+	if g.Peer == nil {
+		return fmt.Errorf("unable to encode stories.getStoriesViews#28e16cc8: field peer is nil")
+	}
+	if err := g.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode stories.getStoriesViews#28e16cc8: field peer: %w", err)
 	}
 	b.PutVectorHeader(len(g.ID))
 	for _, v := range g.ID {
@@ -132,10 +149,10 @@ func (g *StoriesGetStoriesViewsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *StoriesGetStoriesViewsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stories.getStoriesViews#9a75d6a6 to nil")
+		return fmt.Errorf("can't decode stories.getStoriesViews#28e16cc8 to nil")
 	}
 	if err := b.ConsumeID(StoriesGetStoriesViewsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stories.getStoriesViews#9a75d6a6: %w", err)
+		return fmt.Errorf("unable to decode stories.getStoriesViews#28e16cc8: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -143,12 +160,19 @@ func (g *StoriesGetStoriesViewsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *StoriesGetStoriesViewsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stories.getStoriesViews#9a75d6a6 to nil")
+		return fmt.Errorf("can't decode stories.getStoriesViews#28e16cc8 to nil")
+	}
+	{
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode stories.getStoriesViews#28e16cc8: field peer: %w", err)
+		}
+		g.Peer = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.getStoriesViews#9a75d6a6: field id: %w", err)
+			return fmt.Errorf("unable to decode stories.getStoriesViews#28e16cc8: field id: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -157,12 +181,20 @@ func (g *StoriesGetStoriesViewsRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode stories.getStoriesViews#9a75d6a6: field id: %w", err)
+				return fmt.Errorf("unable to decode stories.getStoriesViews#28e16cc8: field id: %w", err)
 			}
 			g.ID = append(g.ID, value)
 		}
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (g *StoriesGetStoriesViewsRequest) GetPeer() (value InputPeerClass) {
+	if g == nil {
+		return
+	}
+	return g.Peer
 }
 
 // GetID returns value of ID field.
@@ -173,15 +205,12 @@ func (g *StoriesGetStoriesViewsRequest) GetID() (value []int) {
 	return g.ID
 }
 
-// StoriesGetStoriesViews invokes method stories.getStoriesViews#9a75d6a6 returning error if any.
+// StoriesGetStoriesViews invokes method stories.getStoriesViews#28e16cc8 returning error if any.
 //
 // See https://core.telegram.org/method/stories.getStoriesViews for reference.
-func (c *Client) StoriesGetStoriesViews(ctx context.Context, id []int) (*StoriesStoryViews, error) {
+func (c *Client) StoriesGetStoriesViews(ctx context.Context, request *StoriesGetStoriesViewsRequest) (*StoriesStoryViews, error) {
 	var result StoriesStoryViews
 
-	request := &StoriesGetStoriesViewsRequest{
-		ID: id,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

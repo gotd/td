@@ -155,6 +155,19 @@ func (s MediaAreaClassArray) AsMediaAreaGeoPoint() (to MediaAreaGeoPointArray) {
 	return to
 }
 
+// AsMediaAreaSuggestedReaction returns copy with only MediaAreaSuggestedReaction constructors.
+func (s MediaAreaClassArray) AsMediaAreaSuggestedReaction() (to MediaAreaSuggestedReactionArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MediaAreaSuggestedReaction)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MediaAreaVenueArray is adapter for slice of MediaAreaVenue.
 type MediaAreaVenueArray []MediaAreaVenue
 
@@ -389,6 +402,88 @@ func (s *MediaAreaGeoPointArray) PopFirst() (v MediaAreaGeoPoint, ok bool) {
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MediaAreaGeoPointArray) Pop() (v MediaAreaGeoPoint, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MediaAreaSuggestedReactionArray is adapter for slice of MediaAreaSuggestedReaction.
+type MediaAreaSuggestedReactionArray []MediaAreaSuggestedReaction
+
+// Sort sorts slice of MediaAreaSuggestedReaction.
+func (s MediaAreaSuggestedReactionArray) Sort(less func(a, b MediaAreaSuggestedReaction) bool) MediaAreaSuggestedReactionArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MediaAreaSuggestedReaction.
+func (s MediaAreaSuggestedReactionArray) SortStable(less func(a, b MediaAreaSuggestedReaction) bool) MediaAreaSuggestedReactionArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MediaAreaSuggestedReaction.
+func (s MediaAreaSuggestedReactionArray) Retain(keep func(x MediaAreaSuggestedReaction) bool) MediaAreaSuggestedReactionArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MediaAreaSuggestedReactionArray) First() (v MediaAreaSuggestedReaction, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MediaAreaSuggestedReactionArray) Last() (v MediaAreaSuggestedReaction, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MediaAreaSuggestedReactionArray) PopFirst() (v MediaAreaSuggestedReaction, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MediaAreaSuggestedReaction
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MediaAreaSuggestedReactionArray) Pop() (v MediaAreaSuggestedReaction, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

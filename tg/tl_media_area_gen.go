@@ -686,6 +686,260 @@ func (m *MediaAreaGeoPoint) GetGeo() (value GeoPointClass) {
 	return m.Geo
 }
 
+// MediaAreaSuggestedReaction represents TL type `mediaAreaSuggestedReaction#14455871`.
+//
+// See https://core.telegram.org/constructor/mediaAreaSuggestedReaction for reference.
+type MediaAreaSuggestedReaction struct {
+	// Flags field of MediaAreaSuggestedReaction.
+	Flags bin.Fields
+	// Dark field of MediaAreaSuggestedReaction.
+	Dark bool
+	// Flipped field of MediaAreaSuggestedReaction.
+	Flipped bool
+	// Coordinates field of MediaAreaSuggestedReaction.
+	Coordinates MediaAreaCoordinates
+	// Reaction field of MediaAreaSuggestedReaction.
+	Reaction ReactionClass
+}
+
+// MediaAreaSuggestedReactionTypeID is TL type id of MediaAreaSuggestedReaction.
+const MediaAreaSuggestedReactionTypeID = 0x14455871
+
+// construct implements constructor of MediaAreaClass.
+func (m MediaAreaSuggestedReaction) construct() MediaAreaClass { return &m }
+
+// Ensuring interfaces in compile-time for MediaAreaSuggestedReaction.
+var (
+	_ bin.Encoder     = &MediaAreaSuggestedReaction{}
+	_ bin.Decoder     = &MediaAreaSuggestedReaction{}
+	_ bin.BareEncoder = &MediaAreaSuggestedReaction{}
+	_ bin.BareDecoder = &MediaAreaSuggestedReaction{}
+
+	_ MediaAreaClass = &MediaAreaSuggestedReaction{}
+)
+
+func (m *MediaAreaSuggestedReaction) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Dark == false) {
+		return false
+	}
+	if !(m.Flipped == false) {
+		return false
+	}
+	if !(m.Coordinates.Zero()) {
+		return false
+	}
+	if !(m.Reaction == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MediaAreaSuggestedReaction) String() string {
+	if m == nil {
+		return "MediaAreaSuggestedReaction(nil)"
+	}
+	type Alias MediaAreaSuggestedReaction
+	return fmt.Sprintf("MediaAreaSuggestedReaction%+v", Alias(*m))
+}
+
+// FillFrom fills MediaAreaSuggestedReaction from given interface.
+func (m *MediaAreaSuggestedReaction) FillFrom(from interface {
+	GetDark() (value bool)
+	GetFlipped() (value bool)
+	GetCoordinates() (value MediaAreaCoordinates)
+	GetReaction() (value ReactionClass)
+}) {
+	m.Dark = from.GetDark()
+	m.Flipped = from.GetFlipped()
+	m.Coordinates = from.GetCoordinates()
+	m.Reaction = from.GetReaction()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MediaAreaSuggestedReaction) TypeID() uint32 {
+	return MediaAreaSuggestedReactionTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MediaAreaSuggestedReaction) TypeName() string {
+	return "mediaAreaSuggestedReaction"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MediaAreaSuggestedReaction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "mediaAreaSuggestedReaction",
+		ID:   MediaAreaSuggestedReactionTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Dark",
+			SchemaName: "dark",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "Flipped",
+			SchemaName: "flipped",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "Coordinates",
+			SchemaName: "coordinates",
+		},
+		{
+			Name:       "Reaction",
+			SchemaName: "reaction",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MediaAreaSuggestedReaction) SetFlags() {
+	if !(m.Dark == false) {
+		m.Flags.Set(0)
+	}
+	if !(m.Flipped == false) {
+		m.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MediaAreaSuggestedReaction) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode mediaAreaSuggestedReaction#14455871 as nil")
+	}
+	b.PutID(MediaAreaSuggestedReactionTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MediaAreaSuggestedReaction) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode mediaAreaSuggestedReaction#14455871 as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode mediaAreaSuggestedReaction#14455871: field flags: %w", err)
+	}
+	if err := m.Coordinates.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode mediaAreaSuggestedReaction#14455871: field coordinates: %w", err)
+	}
+	if m.Reaction == nil {
+		return fmt.Errorf("unable to encode mediaAreaSuggestedReaction#14455871: field reaction is nil")
+	}
+	if err := m.Reaction.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode mediaAreaSuggestedReaction#14455871: field reaction: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MediaAreaSuggestedReaction) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode mediaAreaSuggestedReaction#14455871 to nil")
+	}
+	if err := b.ConsumeID(MediaAreaSuggestedReactionTypeID); err != nil {
+		return fmt.Errorf("unable to decode mediaAreaSuggestedReaction#14455871: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MediaAreaSuggestedReaction) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode mediaAreaSuggestedReaction#14455871 to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode mediaAreaSuggestedReaction#14455871: field flags: %w", err)
+		}
+	}
+	m.Dark = m.Flags.Has(0)
+	m.Flipped = m.Flags.Has(1)
+	{
+		if err := m.Coordinates.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode mediaAreaSuggestedReaction#14455871: field coordinates: %w", err)
+		}
+	}
+	{
+		value, err := DecodeReaction(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode mediaAreaSuggestedReaction#14455871: field reaction: %w", err)
+		}
+		m.Reaction = value
+	}
+	return nil
+}
+
+// SetDark sets value of Dark conditional field.
+func (m *MediaAreaSuggestedReaction) SetDark(value bool) {
+	if value {
+		m.Flags.Set(0)
+		m.Dark = true
+	} else {
+		m.Flags.Unset(0)
+		m.Dark = false
+	}
+}
+
+// GetDark returns value of Dark conditional field.
+func (m *MediaAreaSuggestedReaction) GetDark() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(0)
+}
+
+// SetFlipped sets value of Flipped conditional field.
+func (m *MediaAreaSuggestedReaction) SetFlipped(value bool) {
+	if value {
+		m.Flags.Set(1)
+		m.Flipped = true
+	} else {
+		m.Flags.Unset(1)
+		m.Flipped = false
+	}
+}
+
+// GetFlipped returns value of Flipped conditional field.
+func (m *MediaAreaSuggestedReaction) GetFlipped() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(1)
+}
+
+// GetCoordinates returns value of Coordinates field.
+func (m *MediaAreaSuggestedReaction) GetCoordinates() (value MediaAreaCoordinates) {
+	if m == nil {
+		return
+	}
+	return m.Coordinates
+}
+
+// GetReaction returns value of Reaction field.
+func (m *MediaAreaSuggestedReaction) GetReaction() (value ReactionClass) {
+	if m == nil {
+		return
+	}
+	return m.Reaction
+}
+
 // MediaAreaClassName is schema name of MediaAreaClass.
 const MediaAreaClassName = "MediaArea"
 
@@ -703,6 +957,7 @@ const MediaAreaClassName = "MediaArea"
 //	case *tg.MediaAreaVenue: // mediaAreaVenue#be82db9c
 //	case *tg.InputMediaAreaVenue: // inputMediaAreaVenue#b282217f
 //	case *tg.MediaAreaGeoPoint: // mediaAreaGeoPoint#df8b3b22
+//	case *tg.MediaAreaSuggestedReaction: // mediaAreaSuggestedReaction#14455871
 //	default: panic(v)
 //	}
 type MediaAreaClass interface {
@@ -751,6 +1006,13 @@ func DecodeMediaArea(buf *bin.Buffer) (MediaAreaClass, error) {
 	case MediaAreaGeoPointTypeID:
 		// Decoding mediaAreaGeoPoint#df8b3b22.
 		v := MediaAreaGeoPoint{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MediaAreaClass: %w", err)
+		}
+		return &v, nil
+	case MediaAreaSuggestedReactionTypeID:
+		// Decoding mediaAreaSuggestedReaction#14455871.
+		v := MediaAreaSuggestedReaction{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MediaAreaClass: %w", err)
 		}

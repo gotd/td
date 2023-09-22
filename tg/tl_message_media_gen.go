@@ -2915,7 +2915,7 @@ func (m *MessageMediaDice) GetEmoticon() (value string) {
 	return m.Emoticon
 }
 
-// MessageMediaStory represents TL type `messageMediaStory#cbb20d88`.
+// MessageMediaStory represents TL type `messageMediaStory#68cb6283`.
 //
 // See https://core.telegram.org/constructor/messageMediaStory for reference.
 type MessageMediaStory struct {
@@ -2923,8 +2923,8 @@ type MessageMediaStory struct {
 	Flags bin.Fields
 	// ViaMention field of MessageMediaStory.
 	ViaMention bool
-	// UserID field of MessageMediaStory.
-	UserID int64
+	// Peer field of MessageMediaStory.
+	Peer PeerClass
 	// ID field of MessageMediaStory.
 	ID int
 	// Story field of MessageMediaStory.
@@ -2934,7 +2934,7 @@ type MessageMediaStory struct {
 }
 
 // MessageMediaStoryTypeID is TL type id of MessageMediaStory.
-const MessageMediaStoryTypeID = 0xcbb20d88
+const MessageMediaStoryTypeID = 0x68cb6283
 
 // construct implements constructor of MessageMediaClass.
 func (m MessageMediaStory) construct() MessageMediaClass { return &m }
@@ -2959,7 +2959,7 @@ func (m *MessageMediaStory) Zero() bool {
 	if !(m.ViaMention == false) {
 		return false
 	}
-	if !(m.UserID == 0) {
+	if !(m.Peer == nil) {
 		return false
 	}
 	if !(m.ID == 0) {
@@ -2984,12 +2984,12 @@ func (m *MessageMediaStory) String() string {
 // FillFrom fills MessageMediaStory from given interface.
 func (m *MessageMediaStory) FillFrom(from interface {
 	GetViaMention() (value bool)
-	GetUserID() (value int64)
+	GetPeer() (value PeerClass)
 	GetID() (value int)
 	GetStory() (value StoryItemClass, ok bool)
 }) {
 	m.ViaMention = from.GetViaMention()
-	m.UserID = from.GetUserID()
+	m.Peer = from.GetPeer()
 	m.ID = from.GetID()
 	if val, ok := from.GetStory(); ok {
 		m.Story = val
@@ -3026,8 +3026,8 @@ func (m *MessageMediaStory) TypeInfo() tdp.Type {
 			Null:       !m.Flags.Has(1),
 		},
 		{
-			Name:       "UserID",
-			SchemaName: "user_id",
+			Name:       "Peer",
+			SchemaName: "peer",
 		},
 		{
 			Name:       "ID",
@@ -3055,7 +3055,7 @@ func (m *MessageMediaStory) SetFlags() {
 // Encode implements bin.Encoder.
 func (m *MessageMediaStory) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageMediaStory#cbb20d88 as nil")
+		return fmt.Errorf("can't encode messageMediaStory#68cb6283 as nil")
 	}
 	b.PutID(MessageMediaStoryTypeID)
 	return m.EncodeBare(b)
@@ -3064,20 +3064,25 @@ func (m *MessageMediaStory) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageMediaStory) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageMediaStory#cbb20d88 as nil")
+		return fmt.Errorf("can't encode messageMediaStory#68cb6283 as nil")
 	}
 	m.SetFlags()
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageMediaStory#cbb20d88: field flags: %w", err)
+		return fmt.Errorf("unable to encode messageMediaStory#68cb6283: field flags: %w", err)
 	}
-	b.PutLong(m.UserID)
+	if m.Peer == nil {
+		return fmt.Errorf("unable to encode messageMediaStory#68cb6283: field peer is nil")
+	}
+	if err := m.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageMediaStory#68cb6283: field peer: %w", err)
+	}
 	b.PutInt(m.ID)
 	if m.Flags.Has(0) {
 		if m.Story == nil {
-			return fmt.Errorf("unable to encode messageMediaStory#cbb20d88: field story is nil")
+			return fmt.Errorf("unable to encode messageMediaStory#68cb6283: field story is nil")
 		}
 		if err := m.Story.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageMediaStory#cbb20d88: field story: %w", err)
+			return fmt.Errorf("unable to encode messageMediaStory#68cb6283: field story: %w", err)
 		}
 	}
 	return nil
@@ -3086,10 +3091,10 @@ func (m *MessageMediaStory) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageMediaStory) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageMediaStory#cbb20d88 to nil")
+		return fmt.Errorf("can't decode messageMediaStory#68cb6283 to nil")
 	}
 	if err := b.ConsumeID(MessageMediaStoryTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageMediaStory#cbb20d88: %w", err)
+		return fmt.Errorf("unable to decode messageMediaStory#68cb6283: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -3097,32 +3102,32 @@ func (m *MessageMediaStory) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageMediaStory) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageMediaStory#cbb20d88 to nil")
+		return fmt.Errorf("can't decode messageMediaStory#68cb6283 to nil")
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageMediaStory#cbb20d88: field flags: %w", err)
+			return fmt.Errorf("unable to decode messageMediaStory#68cb6283: field flags: %w", err)
 		}
 	}
 	m.ViaMention = m.Flags.Has(1)
 	{
-		value, err := b.Long()
+		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaStory#cbb20d88: field user_id: %w", err)
+			return fmt.Errorf("unable to decode messageMediaStory#68cb6283: field peer: %w", err)
 		}
-		m.UserID = value
+		m.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaStory#cbb20d88: field id: %w", err)
+			return fmt.Errorf("unable to decode messageMediaStory#68cb6283: field id: %w", err)
 		}
 		m.ID = value
 	}
 	if m.Flags.Has(0) {
 		value, err := DecodeStoryItem(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaStory#cbb20d88: field story: %w", err)
+			return fmt.Errorf("unable to decode messageMediaStory#68cb6283: field story: %w", err)
 		}
 		m.Story = value
 	}
@@ -3148,12 +3153,12 @@ func (m *MessageMediaStory) GetViaMention() (value bool) {
 	return m.Flags.Has(1)
 }
 
-// GetUserID returns value of UserID field.
-func (m *MessageMediaStory) GetUserID() (value int64) {
+// GetPeer returns value of Peer field.
+func (m *MessageMediaStory) GetPeer() (value PeerClass) {
 	if m == nil {
 		return
 	}
-	return m.UserID
+	return m.Peer
 }
 
 // GetID returns value of ID field.
@@ -3209,7 +3214,7 @@ const MessageMediaClassName = "MessageMedia"
 //	case *tg.MessageMediaGeoLive: // messageMediaGeoLive#b940c666
 //	case *tg.MessageMediaPoll: // messageMediaPoll#4bd6e798
 //	case *tg.MessageMediaDice: // messageMediaDice#3f7ee58b
-//	case *tg.MessageMediaStory: // messageMediaStory#cbb20d88
+//	case *tg.MessageMediaStory: // messageMediaStory#68cb6283
 //	default: panic(v)
 //	}
 type MessageMediaClass interface {
@@ -3330,7 +3335,7 @@ func DecodeMessageMedia(buf *bin.Buffer) (MessageMediaClass, error) {
 		}
 		return &v, nil
 	case MessageMediaStoryTypeID:
-		// Decoding messageMediaStory#cbb20d88.
+		// Decoding messageMediaStory#68cb6283.
 		v := MessageMediaStory{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageMediaClass: %w", err)

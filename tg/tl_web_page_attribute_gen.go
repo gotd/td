@@ -282,14 +282,14 @@ func (w *WebPageAttributeTheme) MapDocuments() (value DocumentClassArray, ok boo
 	return DocumentClassArray(w.Documents), true
 }
 
-// WebPageAttributeStory represents TL type `webPageAttributeStory#939a4671`.
+// WebPageAttributeStory represents TL type `webPageAttributeStory#2e94c3e7`.
 //
 // See https://core.telegram.org/constructor/webPageAttributeStory for reference.
 type WebPageAttributeStory struct {
 	// Flags field of WebPageAttributeStory.
 	Flags bin.Fields
-	// UserID field of WebPageAttributeStory.
-	UserID int64
+	// Peer field of WebPageAttributeStory.
+	Peer PeerClass
 	// ID field of WebPageAttributeStory.
 	ID int
 	// Story field of WebPageAttributeStory.
@@ -299,7 +299,7 @@ type WebPageAttributeStory struct {
 }
 
 // WebPageAttributeStoryTypeID is TL type id of WebPageAttributeStory.
-const WebPageAttributeStoryTypeID = 0x939a4671
+const WebPageAttributeStoryTypeID = 0x2e94c3e7
 
 // construct implements constructor of WebPageAttributeClass.
 func (w WebPageAttributeStory) construct() WebPageAttributeClass { return &w }
@@ -321,7 +321,7 @@ func (w *WebPageAttributeStory) Zero() bool {
 	if !(w.Flags.Zero()) {
 		return false
 	}
-	if !(w.UserID == 0) {
+	if !(w.Peer == nil) {
 		return false
 	}
 	if !(w.ID == 0) {
@@ -345,11 +345,11 @@ func (w *WebPageAttributeStory) String() string {
 
 // FillFrom fills WebPageAttributeStory from given interface.
 func (w *WebPageAttributeStory) FillFrom(from interface {
-	GetUserID() (value int64)
+	GetPeer() (value PeerClass)
 	GetID() (value int)
 	GetStory() (value StoryItemClass, ok bool)
 }) {
-	w.UserID = from.GetUserID()
+	w.Peer = from.GetPeer()
 	w.ID = from.GetID()
 	if val, ok := from.GetStory(); ok {
 		w.Story = val
@@ -381,8 +381,8 @@ func (w *WebPageAttributeStory) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "UserID",
-			SchemaName: "user_id",
+			Name:       "Peer",
+			SchemaName: "peer",
 		},
 		{
 			Name:       "ID",
@@ -407,7 +407,7 @@ func (w *WebPageAttributeStory) SetFlags() {
 // Encode implements bin.Encoder.
 func (w *WebPageAttributeStory) Encode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPageAttributeStory#939a4671 as nil")
+		return fmt.Errorf("can't encode webPageAttributeStory#2e94c3e7 as nil")
 	}
 	b.PutID(WebPageAttributeStoryTypeID)
 	return w.EncodeBare(b)
@@ -416,20 +416,25 @@ func (w *WebPageAttributeStory) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (w *WebPageAttributeStory) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPageAttributeStory#939a4671 as nil")
+		return fmt.Errorf("can't encode webPageAttributeStory#2e94c3e7 as nil")
 	}
 	w.SetFlags()
 	if err := w.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode webPageAttributeStory#939a4671: field flags: %w", err)
+		return fmt.Errorf("unable to encode webPageAttributeStory#2e94c3e7: field flags: %w", err)
 	}
-	b.PutLong(w.UserID)
+	if w.Peer == nil {
+		return fmt.Errorf("unable to encode webPageAttributeStory#2e94c3e7: field peer is nil")
+	}
+	if err := w.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode webPageAttributeStory#2e94c3e7: field peer: %w", err)
+	}
 	b.PutInt(w.ID)
 	if w.Flags.Has(0) {
 		if w.Story == nil {
-			return fmt.Errorf("unable to encode webPageAttributeStory#939a4671: field story is nil")
+			return fmt.Errorf("unable to encode webPageAttributeStory#2e94c3e7: field story is nil")
 		}
 		if err := w.Story.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode webPageAttributeStory#939a4671: field story: %w", err)
+			return fmt.Errorf("unable to encode webPageAttributeStory#2e94c3e7: field story: %w", err)
 		}
 	}
 	return nil
@@ -438,10 +443,10 @@ func (w *WebPageAttributeStory) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (w *WebPageAttributeStory) Decode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPageAttributeStory#939a4671 to nil")
+		return fmt.Errorf("can't decode webPageAttributeStory#2e94c3e7 to nil")
 	}
 	if err := b.ConsumeID(WebPageAttributeStoryTypeID); err != nil {
-		return fmt.Errorf("unable to decode webPageAttributeStory#939a4671: %w", err)
+		return fmt.Errorf("unable to decode webPageAttributeStory#2e94c3e7: %w", err)
 	}
 	return w.DecodeBare(b)
 }
@@ -449,43 +454,43 @@ func (w *WebPageAttributeStory) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (w *WebPageAttributeStory) DecodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPageAttributeStory#939a4671 to nil")
+		return fmt.Errorf("can't decode webPageAttributeStory#2e94c3e7 to nil")
 	}
 	{
 		if err := w.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode webPageAttributeStory#939a4671: field flags: %w", err)
+			return fmt.Errorf("unable to decode webPageAttributeStory#2e94c3e7: field flags: %w", err)
 		}
 	}
 	{
-		value, err := b.Long()
+		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode webPageAttributeStory#939a4671: field user_id: %w", err)
+			return fmt.Errorf("unable to decode webPageAttributeStory#2e94c3e7: field peer: %w", err)
 		}
-		w.UserID = value
+		w.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPageAttributeStory#939a4671: field id: %w", err)
+			return fmt.Errorf("unable to decode webPageAttributeStory#2e94c3e7: field id: %w", err)
 		}
 		w.ID = value
 	}
 	if w.Flags.Has(0) {
 		value, err := DecodeStoryItem(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode webPageAttributeStory#939a4671: field story: %w", err)
+			return fmt.Errorf("unable to decode webPageAttributeStory#2e94c3e7: field story: %w", err)
 		}
 		w.Story = value
 	}
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (w *WebPageAttributeStory) GetUserID() (value int64) {
+// GetPeer returns value of Peer field.
+func (w *WebPageAttributeStory) GetPeer() (value PeerClass) {
 	if w == nil {
 		return
 	}
-	return w.UserID
+	return w.Peer
 }
 
 // GetID returns value of ID field.
@@ -529,7 +534,7 @@ const WebPageAttributeClassName = "WebPageAttribute"
 //	}
 //	switch v := g.(type) {
 //	case *tg.WebPageAttributeTheme: // webPageAttributeTheme#54b56617
-//	case *tg.WebPageAttributeStory: // webPageAttributeStory#939a4671
+//	case *tg.WebPageAttributeStory: // webPageAttributeStory#2e94c3e7
 //	default: panic(v)
 //	}
 type WebPageAttributeClass interface {
@@ -566,7 +571,7 @@ func DecodeWebPageAttribute(buf *bin.Buffer) (WebPageAttributeClass, error) {
 		}
 		return &v, nil
 	case WebPageAttributeStoryTypeID:
-		// Decoding webPageAttributeStory#939a4671.
+		// Decoding webPageAttributeStory#2e94c3e7.
 		v := WebPageAttributeStory{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode WebPageAttributeClass: %w", err)

@@ -428,6 +428,8 @@ type StoryItem struct {
 	Contacts bool
 	// SelectedContacts field of StoryItem.
 	SelectedContacts bool
+	// Out field of StoryItem.
+	Out bool
 	// ID field of StoryItem.
 	ID int
 	// Date field of StoryItem.
@@ -509,6 +511,9 @@ func (s *StoryItem) Zero() bool {
 	if !(s.SelectedContacts == false) {
 		return false
 	}
+	if !(s.Out == false) {
+		return false
+	}
 	if !(s.ID == 0) {
 		return false
 	}
@@ -562,6 +567,7 @@ func (s *StoryItem) FillFrom(from interface {
 	GetEdited() (value bool)
 	GetContacts() (value bool)
 	GetSelectedContacts() (value bool)
+	GetOut() (value bool)
 	GetID() (value int)
 	GetDate() (value int)
 	GetExpireDate() (value int)
@@ -581,6 +587,7 @@ func (s *StoryItem) FillFrom(from interface {
 	s.Edited = from.GetEdited()
 	s.Contacts = from.GetContacts()
 	s.SelectedContacts = from.GetSelectedContacts()
+	s.Out = from.GetOut()
 	s.ID = from.GetID()
 	s.Date = from.GetDate()
 	s.ExpireDate = from.GetExpireDate()
@@ -675,6 +682,11 @@ func (s *StoryItem) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(13),
 		},
 		{
+			Name:       "Out",
+			SchemaName: "out",
+			Null:       !s.Flags.Has(16),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -749,6 +761,9 @@ func (s *StoryItem) SetFlags() {
 	}
 	if !(s.SelectedContacts == false) {
 		s.Flags.Set(13)
+	}
+	if !(s.Out == false) {
+		s.Flags.Set(16)
 	}
 	if !(s.Caption == "") {
 		s.Flags.Set(0)
@@ -878,6 +893,7 @@ func (s *StoryItem) DecodeBare(b *bin.Buffer) error {
 	s.Edited = s.Flags.Has(11)
 	s.Contacts = s.Flags.Has(12)
 	s.SelectedContacts = s.Flags.Has(13)
+	s.Out = s.Flags.Has(16)
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -1129,6 +1145,25 @@ func (s *StoryItem) GetSelectedContacts() (value bool) {
 		return
 	}
 	return s.Flags.Has(13)
+}
+
+// SetOut sets value of Out conditional field.
+func (s *StoryItem) SetOut(value bool) {
+	if value {
+		s.Flags.Set(16)
+		s.Out = true
+	} else {
+		s.Flags.Unset(16)
+		s.Out = false
+	}
+}
+
+// GetOut returns value of Out conditional field.
+func (s *StoryItem) GetOut() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(16)
 }
 
 // GetID returns value of ID field.

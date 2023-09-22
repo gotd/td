@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoryViews represents TL type `storyViews#c64c0b97`.
+// StoryViews represents TL type `storyViews#8d595cd6`.
 //
 // See https://core.telegram.org/constructor/storyViews for reference.
 type StoryViews struct {
@@ -41,7 +41,17 @@ type StoryViews struct {
 	HasViewers bool
 	// ViewsCount field of StoryViews.
 	ViewsCount int
+	// ForwardsCount field of StoryViews.
+	//
+	// Use SetForwardsCount and GetForwardsCount helpers.
+	ForwardsCount int
+	// Reactions field of StoryViews.
+	//
+	// Use SetReactions and GetReactions helpers.
+	Reactions []ReactionCount
 	// ReactionsCount field of StoryViews.
+	//
+	// Use SetReactionsCount and GetReactionsCount helpers.
 	ReactionsCount int
 	// RecentViewers field of StoryViews.
 	//
@@ -50,7 +60,7 @@ type StoryViews struct {
 }
 
 // StoryViewsTypeID is TL type id of StoryViews.
-const StoryViewsTypeID = 0xc64c0b97
+const StoryViewsTypeID = 0x8d595cd6
 
 // Ensuring interfaces in compile-time for StoryViews.
 var (
@@ -71,6 +81,12 @@ func (s *StoryViews) Zero() bool {
 		return false
 	}
 	if !(s.ViewsCount == 0) {
+		return false
+	}
+	if !(s.ForwardsCount == 0) {
+		return false
+	}
+	if !(s.Reactions == nil) {
 		return false
 	}
 	if !(s.ReactionsCount == 0) {
@@ -96,12 +112,25 @@ func (s *StoryViews) String() string {
 func (s *StoryViews) FillFrom(from interface {
 	GetHasViewers() (value bool)
 	GetViewsCount() (value int)
-	GetReactionsCount() (value int)
+	GetForwardsCount() (value int, ok bool)
+	GetReactions() (value []ReactionCount, ok bool)
+	GetReactionsCount() (value int, ok bool)
 	GetRecentViewers() (value []int64, ok bool)
 }) {
 	s.HasViewers = from.GetHasViewers()
 	s.ViewsCount = from.GetViewsCount()
-	s.ReactionsCount = from.GetReactionsCount()
+	if val, ok := from.GetForwardsCount(); ok {
+		s.ForwardsCount = val
+	}
+
+	if val, ok := from.GetReactions(); ok {
+		s.Reactions = val
+	}
+
+	if val, ok := from.GetReactionsCount(); ok {
+		s.ReactionsCount = val
+	}
+
 	if val, ok := from.GetRecentViewers(); ok {
 		s.RecentViewers = val
 	}
@@ -141,8 +170,19 @@ func (s *StoryViews) TypeInfo() tdp.Type {
 			SchemaName: "views_count",
 		},
 		{
+			Name:       "ForwardsCount",
+			SchemaName: "forwards_count",
+			Null:       !s.Flags.Has(2),
+		},
+		{
+			Name:       "Reactions",
+			SchemaName: "reactions",
+			Null:       !s.Flags.Has(3),
+		},
+		{
 			Name:       "ReactionsCount",
 			SchemaName: "reactions_count",
+			Null:       !s.Flags.Has(4),
 		},
 		{
 			Name:       "RecentViewers",
@@ -158,6 +198,15 @@ func (s *StoryViews) SetFlags() {
 	if !(s.HasViewers == false) {
 		s.Flags.Set(1)
 	}
+	if !(s.ForwardsCount == 0) {
+		s.Flags.Set(2)
+	}
+	if !(s.Reactions == nil) {
+		s.Flags.Set(3)
+	}
+	if !(s.ReactionsCount == 0) {
+		s.Flags.Set(4)
+	}
 	if !(s.RecentViewers == nil) {
 		s.Flags.Set(0)
 	}
@@ -166,7 +215,7 @@ func (s *StoryViews) SetFlags() {
 // Encode implements bin.Encoder.
 func (s *StoryViews) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyViews#c64c0b97 as nil")
+		return fmt.Errorf("can't encode storyViews#8d595cd6 as nil")
 	}
 	b.PutID(StoryViewsTypeID)
 	return s.EncodeBare(b)
@@ -175,14 +224,27 @@ func (s *StoryViews) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StoryViews) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode storyViews#c64c0b97 as nil")
+		return fmt.Errorf("can't encode storyViews#8d595cd6 as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode storyViews#c64c0b97: field flags: %w", err)
+		return fmt.Errorf("unable to encode storyViews#8d595cd6: field flags: %w", err)
 	}
 	b.PutInt(s.ViewsCount)
-	b.PutInt(s.ReactionsCount)
+	if s.Flags.Has(2) {
+		b.PutInt(s.ForwardsCount)
+	}
+	if s.Flags.Has(3) {
+		b.PutVectorHeader(len(s.Reactions))
+		for idx, v := range s.Reactions {
+			if err := v.Encode(b); err != nil {
+				return fmt.Errorf("unable to encode storyViews#8d595cd6: field reactions element with index %d: %w", idx, err)
+			}
+		}
+	}
+	if s.Flags.Has(4) {
+		b.PutInt(s.ReactionsCount)
+	}
 	if s.Flags.Has(0) {
 		b.PutVectorHeader(len(s.RecentViewers))
 		for _, v := range s.RecentViewers {
@@ -195,10 +257,10 @@ func (s *StoryViews) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StoryViews) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyViews#c64c0b97 to nil")
+		return fmt.Errorf("can't decode storyViews#8d595cd6 to nil")
 	}
 	if err := b.ConsumeID(StoryViewsTypeID); err != nil {
-		return fmt.Errorf("unable to decode storyViews#c64c0b97: %w", err)
+		return fmt.Errorf("unable to decode storyViews#8d595cd6: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -206,32 +268,56 @@ func (s *StoryViews) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StoryViews) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode storyViews#c64c0b97 to nil")
+		return fmt.Errorf("can't decode storyViews#8d595cd6 to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode storyViews#c64c0b97: field flags: %w", err)
+			return fmt.Errorf("unable to decode storyViews#8d595cd6: field flags: %w", err)
 		}
 	}
 	s.HasViewers = s.Flags.Has(1)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyViews#c64c0b97: field views_count: %w", err)
+			return fmt.Errorf("unable to decode storyViews#8d595cd6: field views_count: %w", err)
 		}
 		s.ViewsCount = value
 	}
-	{
+	if s.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyViews#c64c0b97: field reactions_count: %w", err)
+			return fmt.Errorf("unable to decode storyViews#8d595cd6: field forwards_count: %w", err)
+		}
+		s.ForwardsCount = value
+	}
+	if s.Flags.Has(3) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode storyViews#8d595cd6: field reactions: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.Reactions = make([]ReactionCount, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value ReactionCount
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode storyViews#8d595cd6: field reactions: %w", err)
+			}
+			s.Reactions = append(s.Reactions, value)
+		}
+	}
+	if s.Flags.Has(4) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode storyViews#8d595cd6: field reactions_count: %w", err)
 		}
 		s.ReactionsCount = value
 	}
 	if s.Flags.Has(0) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode storyViews#c64c0b97: field recent_viewers: %w", err)
+			return fmt.Errorf("unable to decode storyViews#8d595cd6: field recent_viewers: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -240,7 +326,7 @@ func (s *StoryViews) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode storyViews#c64c0b97: field recent_viewers: %w", err)
+				return fmt.Errorf("unable to decode storyViews#8d595cd6: field recent_viewers: %w", err)
 			}
 			s.RecentViewers = append(s.RecentViewers, value)
 		}
@@ -275,12 +361,58 @@ func (s *StoryViews) GetViewsCount() (value int) {
 	return s.ViewsCount
 }
 
-// GetReactionsCount returns value of ReactionsCount field.
-func (s *StoryViews) GetReactionsCount() (value int) {
+// SetForwardsCount sets value of ForwardsCount conditional field.
+func (s *StoryViews) SetForwardsCount(value int) {
+	s.Flags.Set(2)
+	s.ForwardsCount = value
+}
+
+// GetForwardsCount returns value of ForwardsCount conditional field and
+// boolean which is true if field was set.
+func (s *StoryViews) GetForwardsCount() (value int, ok bool) {
 	if s == nil {
 		return
 	}
-	return s.ReactionsCount
+	if !s.Flags.Has(2) {
+		return value, false
+	}
+	return s.ForwardsCount, true
+}
+
+// SetReactions sets value of Reactions conditional field.
+func (s *StoryViews) SetReactions(value []ReactionCount) {
+	s.Flags.Set(3)
+	s.Reactions = value
+}
+
+// GetReactions returns value of Reactions conditional field and
+// boolean which is true if field was set.
+func (s *StoryViews) GetReactions() (value []ReactionCount, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(3) {
+		return value, false
+	}
+	return s.Reactions, true
+}
+
+// SetReactionsCount sets value of ReactionsCount conditional field.
+func (s *StoryViews) SetReactionsCount(value int) {
+	s.Flags.Set(4)
+	s.ReactionsCount = value
+}
+
+// GetReactionsCount returns value of ReactionsCount conditional field and
+// boolean which is true if field was set.
+func (s *StoryViews) GetReactionsCount() (value int, ok bool) {
+	if s == nil {
+		return
+	}
+	if !s.Flags.Has(4) {
+		return value, false
+	}
+	return s.ReactionsCount, true
 }
 
 // SetRecentViewers sets value of RecentViewers conditional field.

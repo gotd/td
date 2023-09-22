@@ -31,18 +31,18 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoriesReadStoriesRequest represents TL type `stories.readStories#edc5105b`.
+// StoriesReadStoriesRequest represents TL type `stories.readStories#a556dac8`.
 //
 // See https://core.telegram.org/method/stories.readStories for reference.
 type StoriesReadStoriesRequest struct {
-	// UserID field of StoriesReadStoriesRequest.
-	UserID InputUserClass
+	// Peer field of StoriesReadStoriesRequest.
+	Peer InputPeerClass
 	// MaxID field of StoriesReadStoriesRequest.
 	MaxID int
 }
 
 // StoriesReadStoriesRequestTypeID is TL type id of StoriesReadStoriesRequest.
-const StoriesReadStoriesRequestTypeID = 0xedc5105b
+const StoriesReadStoriesRequestTypeID = 0xa556dac8
 
 // Ensuring interfaces in compile-time for StoriesReadStoriesRequest.
 var (
@@ -56,7 +56,7 @@ func (r *StoriesReadStoriesRequest) Zero() bool {
 	if r == nil {
 		return true
 	}
-	if !(r.UserID == nil) {
+	if !(r.Peer == nil) {
 		return false
 	}
 	if !(r.MaxID == 0) {
@@ -77,10 +77,10 @@ func (r *StoriesReadStoriesRequest) String() string {
 
 // FillFrom fills StoriesReadStoriesRequest from given interface.
 func (r *StoriesReadStoriesRequest) FillFrom(from interface {
-	GetUserID() (value InputUserClass)
+	GetPeer() (value InputPeerClass)
 	GetMaxID() (value int)
 }) {
-	r.UserID = from.GetUserID()
+	r.Peer = from.GetPeer()
 	r.MaxID = from.GetMaxID()
 }
 
@@ -108,8 +108,8 @@ func (r *StoriesReadStoriesRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "UserID",
-			SchemaName: "user_id",
+			Name:       "Peer",
+			SchemaName: "peer",
 		},
 		{
 			Name:       "MaxID",
@@ -122,7 +122,7 @@ func (r *StoriesReadStoriesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *StoriesReadStoriesRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode stories.readStories#edc5105b as nil")
+		return fmt.Errorf("can't encode stories.readStories#a556dac8 as nil")
 	}
 	b.PutID(StoriesReadStoriesRequestTypeID)
 	return r.EncodeBare(b)
@@ -131,13 +131,13 @@ func (r *StoriesReadStoriesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *StoriesReadStoriesRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode stories.readStories#edc5105b as nil")
+		return fmt.Errorf("can't encode stories.readStories#a556dac8 as nil")
 	}
-	if r.UserID == nil {
-		return fmt.Errorf("unable to encode stories.readStories#edc5105b: field user_id is nil")
+	if r.Peer == nil {
+		return fmt.Errorf("unable to encode stories.readStories#a556dac8: field peer is nil")
 	}
-	if err := r.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stories.readStories#edc5105b: field user_id: %w", err)
+	if err := r.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode stories.readStories#a556dac8: field peer: %w", err)
 	}
 	b.PutInt(r.MaxID)
 	return nil
@@ -146,10 +146,10 @@ func (r *StoriesReadStoriesRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *StoriesReadStoriesRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode stories.readStories#edc5105b to nil")
+		return fmt.Errorf("can't decode stories.readStories#a556dac8 to nil")
 	}
 	if err := b.ConsumeID(StoriesReadStoriesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stories.readStories#edc5105b: %w", err)
+		return fmt.Errorf("unable to decode stories.readStories#a556dac8: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -157,31 +157,31 @@ func (r *StoriesReadStoriesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *StoriesReadStoriesRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode stories.readStories#edc5105b to nil")
+		return fmt.Errorf("can't decode stories.readStories#a556dac8 to nil")
 	}
 	{
-		value, err := DecodeInputUser(b)
+		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.readStories#edc5105b: field user_id: %w", err)
+			return fmt.Errorf("unable to decode stories.readStories#a556dac8: field peer: %w", err)
 		}
-		r.UserID = value
+		r.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.readStories#edc5105b: field max_id: %w", err)
+			return fmt.Errorf("unable to decode stories.readStories#a556dac8: field max_id: %w", err)
 		}
 		r.MaxID = value
 	}
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (r *StoriesReadStoriesRequest) GetUserID() (value InputUserClass) {
+// GetPeer returns value of Peer field.
+func (r *StoriesReadStoriesRequest) GetPeer() (value InputPeerClass) {
 	if r == nil {
 		return
 	}
-	return r.UserID
+	return r.Peer
 }
 
 // GetMaxID returns value of MaxID field.
@@ -192,7 +192,7 @@ func (r *StoriesReadStoriesRequest) GetMaxID() (value int) {
 	return r.MaxID
 }
 
-// StoriesReadStories invokes method stories.readStories#edc5105b returning error if any.
+// StoriesReadStories invokes method stories.readStories#a556dac8 returning error if any.
 //
 // See https://core.telegram.org/method/stories.readStories for reference.
 func (c *Client) StoriesReadStories(ctx context.Context, request *StoriesReadStoriesRequest) ([]int, error) {
