@@ -2127,6 +2127,137 @@ func (p *PremiumLimitTypeStoryCaptionLength) DecodeTDLibJSON(b tdjson.Decoder) e
 	})
 }
 
+// PremiumLimitTypeStorySuggestedReactionAreaCount represents TL type `premiumLimitTypeStorySuggestedReactionAreaCount#ba42b807`.
+type PremiumLimitTypeStorySuggestedReactionAreaCount struct {
+}
+
+// PremiumLimitTypeStorySuggestedReactionAreaCountTypeID is TL type id of PremiumLimitTypeStorySuggestedReactionAreaCount.
+const PremiumLimitTypeStorySuggestedReactionAreaCountTypeID = 0xba42b807
+
+// construct implements constructor of PremiumLimitTypeClass.
+func (p PremiumLimitTypeStorySuggestedReactionAreaCount) construct() PremiumLimitTypeClass { return &p }
+
+// Ensuring interfaces in compile-time for PremiumLimitTypeStorySuggestedReactionAreaCount.
+var (
+	_ bin.Encoder     = &PremiumLimitTypeStorySuggestedReactionAreaCount{}
+	_ bin.Decoder     = &PremiumLimitTypeStorySuggestedReactionAreaCount{}
+	_ bin.BareEncoder = &PremiumLimitTypeStorySuggestedReactionAreaCount{}
+	_ bin.BareDecoder = &PremiumLimitTypeStorySuggestedReactionAreaCount{}
+
+	_ PremiumLimitTypeClass = &PremiumLimitTypeStorySuggestedReactionAreaCount{}
+)
+
+func (p *PremiumLimitTypeStorySuggestedReactionAreaCount) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PremiumLimitTypeStorySuggestedReactionAreaCount) String() string {
+	if p == nil {
+		return "PremiumLimitTypeStorySuggestedReactionAreaCount(nil)"
+	}
+	type Alias PremiumLimitTypeStorySuggestedReactionAreaCount
+	return fmt.Sprintf("PremiumLimitTypeStorySuggestedReactionAreaCount%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PremiumLimitTypeStorySuggestedReactionAreaCount) TypeID() uint32 {
+	return PremiumLimitTypeStorySuggestedReactionAreaCountTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PremiumLimitTypeStorySuggestedReactionAreaCount) TypeName() string {
+	return "premiumLimitTypeStorySuggestedReactionAreaCount"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PremiumLimitTypeStorySuggestedReactionAreaCount) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "premiumLimitTypeStorySuggestedReactionAreaCount",
+		ID:   PremiumLimitTypeStorySuggestedReactionAreaCountTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PremiumLimitTypeStorySuggestedReactionAreaCount) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeStorySuggestedReactionAreaCount#ba42b807 as nil")
+	}
+	b.PutID(PremiumLimitTypeStorySuggestedReactionAreaCountTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PremiumLimitTypeStorySuggestedReactionAreaCount) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeStorySuggestedReactionAreaCount#ba42b807 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PremiumLimitTypeStorySuggestedReactionAreaCount) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeStorySuggestedReactionAreaCount#ba42b807 to nil")
+	}
+	if err := b.ConsumeID(PremiumLimitTypeStorySuggestedReactionAreaCountTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumLimitTypeStorySuggestedReactionAreaCount#ba42b807: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PremiumLimitTypeStorySuggestedReactionAreaCount) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeStorySuggestedReactionAreaCount#ba42b807 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PremiumLimitTypeStorySuggestedReactionAreaCount) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeStorySuggestedReactionAreaCount#ba42b807 as nil")
+	}
+	b.ObjStart()
+	b.PutID("premiumLimitTypeStorySuggestedReactionAreaCount")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PremiumLimitTypeStorySuggestedReactionAreaCount) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeStorySuggestedReactionAreaCount#ba42b807 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("premiumLimitTypeStorySuggestedReactionAreaCount"); err != nil {
+				return fmt.Errorf("unable to decode premiumLimitTypeStorySuggestedReactionAreaCount#ba42b807: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // PremiumLimitTypeClassName is schema name of PremiumLimitTypeClass.
 const PremiumLimitTypeClassName = "PremiumLimitType"
 
@@ -2155,6 +2286,7 @@ const PremiumLimitTypeClassName = "PremiumLimitType"
 //	case *tdapi.PremiumLimitTypeWeeklySentStoryCount: // premiumLimitTypeWeeklySentStoryCount#269c34b
 //	case *tdapi.PremiumLimitTypeMonthlySentStoryCount: // premiumLimitTypeMonthlySentStoryCount#30d84b83
 //	case *tdapi.PremiumLimitTypeStoryCaptionLength: // premiumLimitTypeStoryCaptionLength#bed53302
+//	case *tdapi.PremiumLimitTypeStorySuggestedReactionAreaCount: // premiumLimitTypeStorySuggestedReactionAreaCount#ba42b807
 //	default: panic(v)
 //	}
 type PremiumLimitTypeClass interface {
@@ -2298,6 +2430,13 @@ func DecodePremiumLimitType(buf *bin.Buffer) (PremiumLimitTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
 		}
 		return &v, nil
+	case PremiumLimitTypeStorySuggestedReactionAreaCountTypeID:
+		// Decoding premiumLimitTypeStorySuggestedReactionAreaCount#ba42b807.
+		v := PremiumLimitTypeStorySuggestedReactionAreaCount{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -2418,6 +2557,13 @@ func DecodeTDLibJSONPremiumLimitType(buf tdjson.Decoder) (PremiumLimitTypeClass,
 	case "premiumLimitTypeStoryCaptionLength":
 		// Decoding premiumLimitTypeStoryCaptionLength#bed53302.
 		v := PremiumLimitTypeStoryCaptionLength{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
+		}
+		return &v, nil
+	case "premiumLimitTypeStorySuggestedReactionAreaCount":
+		// Decoding premiumLimitTypeStorySuggestedReactionAreaCount#ba42b807.
+		v := PremiumLimitTypeStorySuggestedReactionAreaCount{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
 		}

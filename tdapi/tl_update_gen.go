@@ -774,20 +774,18 @@ func (u *UpdateMessageSendSucceeded) GetOldMessageID() (value int64) {
 	return u.OldMessageID
 }
 
-// UpdateMessageSendFailed represents TL type `updateMessageSendFailed#c277ce5d`.
+// UpdateMessageSendFailed represents TL type `updateMessageSendFailed#da1bf8e7`.
 type UpdateMessageSendFailed struct {
 	// The failed to send message
 	Message Message
 	// The previous temporary message identifier
 	OldMessageID int64
-	// An error code
-	ErrorCode int32
-	// Error message
-	ErrorMessage string
+	// The cause of the message sending failure
+	Error Error
 }
 
 // UpdateMessageSendFailedTypeID is TL type id of UpdateMessageSendFailed.
-const UpdateMessageSendFailedTypeID = 0xc277ce5d
+const UpdateMessageSendFailedTypeID = 0xda1bf8e7
 
 // construct implements constructor of UpdateClass.
 func (u UpdateMessageSendFailed) construct() UpdateClass { return &u }
@@ -812,10 +810,7 @@ func (u *UpdateMessageSendFailed) Zero() bool {
 	if !(u.OldMessageID == 0) {
 		return false
 	}
-	if !(u.ErrorCode == 0) {
-		return false
-	}
-	if !(u.ErrorMessage == "") {
+	if !(u.Error.Zero()) {
 		return false
 	}
 
@@ -863,12 +858,8 @@ func (u *UpdateMessageSendFailed) TypeInfo() tdp.Type {
 			SchemaName: "old_message_id",
 		},
 		{
-			Name:       "ErrorCode",
-			SchemaName: "error_code",
-		},
-		{
-			Name:       "ErrorMessage",
-			SchemaName: "error_message",
+			Name:       "Error",
+			SchemaName: "error",
 		},
 	}
 	return typ
@@ -877,7 +868,7 @@ func (u *UpdateMessageSendFailed) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UpdateMessageSendFailed) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateMessageSendFailed#c277ce5d as nil")
+		return fmt.Errorf("can't encode updateMessageSendFailed#da1bf8e7 as nil")
 	}
 	b.PutID(UpdateMessageSendFailedTypeID)
 	return u.EncodeBare(b)
@@ -886,24 +877,25 @@ func (u *UpdateMessageSendFailed) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateMessageSendFailed) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateMessageSendFailed#c277ce5d as nil")
+		return fmt.Errorf("can't encode updateMessageSendFailed#da1bf8e7 as nil")
 	}
 	if err := u.Message.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateMessageSendFailed#c277ce5d: field message: %w", err)
+		return fmt.Errorf("unable to encode updateMessageSendFailed#da1bf8e7: field message: %w", err)
 	}
 	b.PutInt53(u.OldMessageID)
-	b.PutInt32(u.ErrorCode)
-	b.PutString(u.ErrorMessage)
+	if err := u.Error.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateMessageSendFailed#da1bf8e7: field error: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *UpdateMessageSendFailed) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateMessageSendFailed#c277ce5d to nil")
+		return fmt.Errorf("can't decode updateMessageSendFailed#da1bf8e7 to nil")
 	}
 	if err := b.ConsumeID(UpdateMessageSendFailedTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateMessageSendFailed#c277ce5d: %w", err)
+		return fmt.Errorf("unable to decode updateMessageSendFailed#da1bf8e7: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -911,33 +903,24 @@ func (u *UpdateMessageSendFailed) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateMessageSendFailed) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateMessageSendFailed#c277ce5d to nil")
+		return fmt.Errorf("can't decode updateMessageSendFailed#da1bf8e7 to nil")
 	}
 	{
 		if err := u.Message.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateMessageSendFailed#c277ce5d: field message: %w", err)
+			return fmt.Errorf("unable to decode updateMessageSendFailed#da1bf8e7: field message: %w", err)
 		}
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateMessageSendFailed#c277ce5d: field old_message_id: %w", err)
+			return fmt.Errorf("unable to decode updateMessageSendFailed#da1bf8e7: field old_message_id: %w", err)
 		}
 		u.OldMessageID = value
 	}
 	{
-		value, err := b.Int32()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateMessageSendFailed#c277ce5d: field error_code: %w", err)
+		if err := u.Error.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateMessageSendFailed#da1bf8e7: field error: %w", err)
 		}
-		u.ErrorCode = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateMessageSendFailed#c277ce5d: field error_message: %w", err)
-		}
-		u.ErrorMessage = value
 	}
 	return nil
 }
@@ -945,24 +928,23 @@ func (u *UpdateMessageSendFailed) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UpdateMessageSendFailed) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateMessageSendFailed#c277ce5d as nil")
+		return fmt.Errorf("can't encode updateMessageSendFailed#da1bf8e7 as nil")
 	}
 	b.ObjStart()
 	b.PutID("updateMessageSendFailed")
 	b.Comma()
 	b.FieldStart("message")
 	if err := u.Message.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode updateMessageSendFailed#c277ce5d: field message: %w", err)
+		return fmt.Errorf("unable to encode updateMessageSendFailed#da1bf8e7: field message: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("old_message_id")
 	b.PutInt53(u.OldMessageID)
 	b.Comma()
-	b.FieldStart("error_code")
-	b.PutInt32(u.ErrorCode)
-	b.Comma()
-	b.FieldStart("error_message")
-	b.PutString(u.ErrorMessage)
+	b.FieldStart("error")
+	if err := u.Error.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateMessageSendFailed#da1bf8e7: field error: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -972,37 +954,29 @@ func (u *UpdateMessageSendFailed) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UpdateMessageSendFailed) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateMessageSendFailed#c277ce5d to nil")
+		return fmt.Errorf("can't decode updateMessageSendFailed#da1bf8e7 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("updateMessageSendFailed"); err != nil {
-				return fmt.Errorf("unable to decode updateMessageSendFailed#c277ce5d: %w", err)
+				return fmt.Errorf("unable to decode updateMessageSendFailed#da1bf8e7: %w", err)
 			}
 		case "message":
 			if err := u.Message.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode updateMessageSendFailed#c277ce5d: field message: %w", err)
+				return fmt.Errorf("unable to decode updateMessageSendFailed#da1bf8e7: field message: %w", err)
 			}
 		case "old_message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode updateMessageSendFailed#c277ce5d: field old_message_id: %w", err)
+				return fmt.Errorf("unable to decode updateMessageSendFailed#da1bf8e7: field old_message_id: %w", err)
 			}
 			u.OldMessageID = value
-		case "error_code":
-			value, err := b.Int32()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateMessageSendFailed#c277ce5d: field error_code: %w", err)
+		case "error":
+			if err := u.Error.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateMessageSendFailed#da1bf8e7: field error: %w", err)
 			}
-			u.ErrorCode = value
-		case "error_message":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateMessageSendFailed#c277ce5d: field error_message: %w", err)
-			}
-			u.ErrorMessage = value
 		default:
 			return b.Skip()
 		}
@@ -1026,20 +1000,12 @@ func (u *UpdateMessageSendFailed) GetOldMessageID() (value int64) {
 	return u.OldMessageID
 }
 
-// GetErrorCode returns value of ErrorCode field.
-func (u *UpdateMessageSendFailed) GetErrorCode() (value int32) {
+// GetError returns value of Error field.
+func (u *UpdateMessageSendFailed) GetError() (value Error) {
 	if u == nil {
 		return
 	}
-	return u.ErrorCode
-}
-
-// GetErrorMessage returns value of ErrorMessage field.
-func (u *UpdateMessageSendFailed) GetErrorMessage() (value string) {
-	if u == nil {
-		return
-	}
-	return u.ErrorMessage
+	return u.Error
 }
 
 // UpdateMessageContent represents TL type `updateMessageContent#1e36bb24`.
@@ -16299,20 +16265,18 @@ func (u *UpdateStorySendSucceeded) GetOldStoryID() (value int32) {
 	return u.OldStoryID
 }
 
-// UpdateStorySendFailed represents TL type `updateStorySendFailed#4418bca2`.
+// UpdateStorySendFailed represents TL type `updateStorySendFailed#e046f199`.
 type UpdateStorySendFailed struct {
 	// The failed to send story
 	Story Story
-	// The cause of the failure; may be null if unknown
-	Error CanSendStoryResultClass
-	// An error code
-	ErrorCode int32
-	// Error message
-	ErrorMessage string
+	// The cause of the story sending failure
+	Error Error
+	// Type of the error; may be null if unknown
+	ErrorType CanSendStoryResultClass
 }
 
 // UpdateStorySendFailedTypeID is TL type id of UpdateStorySendFailed.
-const UpdateStorySendFailedTypeID = 0x4418bca2
+const UpdateStorySendFailedTypeID = 0xe046f199
 
 // construct implements constructor of UpdateClass.
 func (u UpdateStorySendFailed) construct() UpdateClass { return &u }
@@ -16334,13 +16298,10 @@ func (u *UpdateStorySendFailed) Zero() bool {
 	if !(u.Story.Zero()) {
 		return false
 	}
-	if !(u.Error == nil) {
+	if !(u.Error.Zero()) {
 		return false
 	}
-	if !(u.ErrorCode == 0) {
-		return false
-	}
-	if !(u.ErrorMessage == "") {
+	if !(u.ErrorType == nil) {
 		return false
 	}
 
@@ -16388,12 +16349,8 @@ func (u *UpdateStorySendFailed) TypeInfo() tdp.Type {
 			SchemaName: "error",
 		},
 		{
-			Name:       "ErrorCode",
-			SchemaName: "error_code",
-		},
-		{
-			Name:       "ErrorMessage",
-			SchemaName: "error_message",
+			Name:       "ErrorType",
+			SchemaName: "error_type",
 		},
 	}
 	return typ
@@ -16402,7 +16359,7 @@ func (u *UpdateStorySendFailed) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (u *UpdateStorySendFailed) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateStorySendFailed#4418bca2 as nil")
+		return fmt.Errorf("can't encode updateStorySendFailed#e046f199 as nil")
 	}
 	b.PutID(UpdateStorySendFailedTypeID)
 	return u.EncodeBare(b)
@@ -16411,29 +16368,30 @@ func (u *UpdateStorySendFailed) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UpdateStorySendFailed) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateStorySendFailed#4418bca2 as nil")
+		return fmt.Errorf("can't encode updateStorySendFailed#e046f199 as nil")
 	}
 	if err := u.Story.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateStorySendFailed#4418bca2: field story: %w", err)
-	}
-	if u.Error == nil {
-		return fmt.Errorf("unable to encode updateStorySendFailed#4418bca2: field error is nil")
+		return fmt.Errorf("unable to encode updateStorySendFailed#e046f199: field story: %w", err)
 	}
 	if err := u.Error.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateStorySendFailed#4418bca2: field error: %w", err)
+		return fmt.Errorf("unable to encode updateStorySendFailed#e046f199: field error: %w", err)
 	}
-	b.PutInt32(u.ErrorCode)
-	b.PutString(u.ErrorMessage)
+	if u.ErrorType == nil {
+		return fmt.Errorf("unable to encode updateStorySendFailed#e046f199: field error_type is nil")
+	}
+	if err := u.ErrorType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateStorySendFailed#e046f199: field error_type: %w", err)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *UpdateStorySendFailed) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateStorySendFailed#4418bca2 to nil")
+		return fmt.Errorf("can't decode updateStorySendFailed#e046f199 to nil")
 	}
 	if err := b.ConsumeID(UpdateStorySendFailedTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateStorySendFailed#4418bca2: %w", err)
+		return fmt.Errorf("unable to decode updateStorySendFailed#e046f199: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -16441,33 +16399,24 @@ func (u *UpdateStorySendFailed) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UpdateStorySendFailed) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateStorySendFailed#4418bca2 to nil")
+		return fmt.Errorf("can't decode updateStorySendFailed#e046f199 to nil")
 	}
 	{
 		if err := u.Story.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateStorySendFailed#4418bca2: field story: %w", err)
+			return fmt.Errorf("unable to decode updateStorySendFailed#e046f199: field story: %w", err)
+		}
+	}
+	{
+		if err := u.Error.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateStorySendFailed#e046f199: field error: %w", err)
 		}
 	}
 	{
 		value, err := DecodeCanSendStoryResult(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updateStorySendFailed#4418bca2: field error: %w", err)
+			return fmt.Errorf("unable to decode updateStorySendFailed#e046f199: field error_type: %w", err)
 		}
-		u.Error = value
-	}
-	{
-		value, err := b.Int32()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateStorySendFailed#4418bca2: field error_code: %w", err)
-		}
-		u.ErrorCode = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateStorySendFailed#4418bca2: field error_message: %w", err)
-		}
-		u.ErrorMessage = value
+		u.ErrorType = value
 	}
 	return nil
 }
@@ -16475,29 +16424,28 @@ func (u *UpdateStorySendFailed) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UpdateStorySendFailed) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateStorySendFailed#4418bca2 as nil")
+		return fmt.Errorf("can't encode updateStorySendFailed#e046f199 as nil")
 	}
 	b.ObjStart()
 	b.PutID("updateStorySendFailed")
 	b.Comma()
 	b.FieldStart("story")
 	if err := u.Story.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode updateStorySendFailed#4418bca2: field story: %w", err)
+		return fmt.Errorf("unable to encode updateStorySendFailed#e046f199: field story: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("error")
-	if u.Error == nil {
-		return fmt.Errorf("unable to encode updateStorySendFailed#4418bca2: field error is nil")
-	}
 	if err := u.Error.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode updateStorySendFailed#4418bca2: field error: %w", err)
+		return fmt.Errorf("unable to encode updateStorySendFailed#e046f199: field error: %w", err)
 	}
 	b.Comma()
-	b.FieldStart("error_code")
-	b.PutInt32(u.ErrorCode)
-	b.Comma()
-	b.FieldStart("error_message")
-	b.PutString(u.ErrorMessage)
+	b.FieldStart("error_type")
+	if u.ErrorType == nil {
+		return fmt.Errorf("unable to encode updateStorySendFailed#e046f199: field error_type is nil")
+	}
+	if err := u.ErrorType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateStorySendFailed#e046f199: field error_type: %w", err)
+	}
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -16507,37 +16455,29 @@ func (u *UpdateStorySendFailed) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UpdateStorySendFailed) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateStorySendFailed#4418bca2 to nil")
+		return fmt.Errorf("can't decode updateStorySendFailed#e046f199 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("updateStorySendFailed"); err != nil {
-				return fmt.Errorf("unable to decode updateStorySendFailed#4418bca2: %w", err)
+				return fmt.Errorf("unable to decode updateStorySendFailed#e046f199: %w", err)
 			}
 		case "story":
 			if err := u.Story.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode updateStorySendFailed#4418bca2: field story: %w", err)
+				return fmt.Errorf("unable to decode updateStorySendFailed#e046f199: field story: %w", err)
 			}
 		case "error":
+			if err := u.Error.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateStorySendFailed#e046f199: field error: %w", err)
+			}
+		case "error_type":
 			value, err := DecodeTDLibJSONCanSendStoryResult(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updateStorySendFailed#4418bca2: field error: %w", err)
+				return fmt.Errorf("unable to decode updateStorySendFailed#e046f199: field error_type: %w", err)
 			}
-			u.Error = value
-		case "error_code":
-			value, err := b.Int32()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateStorySendFailed#4418bca2: field error_code: %w", err)
-			}
-			u.ErrorCode = value
-		case "error_message":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode updateStorySendFailed#4418bca2: field error_message: %w", err)
-			}
-			u.ErrorMessage = value
+			u.ErrorType = value
 		default:
 			return b.Skip()
 		}
@@ -16554,27 +16494,19 @@ func (u *UpdateStorySendFailed) GetStory() (value Story) {
 }
 
 // GetError returns value of Error field.
-func (u *UpdateStorySendFailed) GetError() (value CanSendStoryResultClass) {
+func (u *UpdateStorySendFailed) GetError() (value Error) {
 	if u == nil {
 		return
 	}
 	return u.Error
 }
 
-// GetErrorCode returns value of ErrorCode field.
-func (u *UpdateStorySendFailed) GetErrorCode() (value int32) {
+// GetErrorType returns value of ErrorType field.
+func (u *UpdateStorySendFailed) GetErrorType() (value CanSendStoryResultClass) {
 	if u == nil {
 		return
 	}
-	return u.ErrorCode
-}
-
-// GetErrorMessage returns value of ErrorMessage field.
-func (u *UpdateStorySendFailed) GetErrorMessage() (value string) {
-	if u == nil {
-		return
-	}
-	return u.ErrorMessage
+	return u.ErrorType
 }
 
 // UpdateChatActiveStories represents TL type `updateChatActiveStories#79786c2c`.
@@ -25669,7 +25601,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateNewMessage: // updateNewMessage#de6fb20e
 //	case *tdapi.UpdateMessageSendAcknowledged: // updateMessageSendAcknowledged#4da7d239
 //	case *tdapi.UpdateMessageSendSucceeded: // updateMessageSendSucceeded#6c399d7d
-//	case *tdapi.UpdateMessageSendFailed: // updateMessageSendFailed#c277ce5d
+//	case *tdapi.UpdateMessageSendFailed: // updateMessageSendFailed#da1bf8e7
 //	case *tdapi.UpdateMessageContent: // updateMessageContent#1e36bb24
 //	case *tdapi.UpdateMessageEdited: // updateMessageEdited#dea602e6
 //	case *tdapi.UpdateMessageIsPinned: // updateMessageIsPinned#41bc233d
@@ -25741,7 +25673,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateStory: // updateStory#1906572f
 //	case *tdapi.UpdateStoryDeleted: // updateStoryDeleted#7007eb9d
 //	case *tdapi.UpdateStorySendSucceeded: // updateStorySendSucceeded#b9269e57
-//	case *tdapi.UpdateStorySendFailed: // updateStorySendFailed#4418bca2
+//	case *tdapi.UpdateStorySendFailed: // updateStorySendFailed#e046f199
 //	case *tdapi.UpdateChatActiveStories: // updateChatActiveStories#79786c2c
 //	case *tdapi.UpdateStoryListChatCount: // updateStoryListChatCount#8833cd3f
 //	case *tdapi.UpdateStoryStealthMode: // updateStoryStealthMode#6ff7bd1a
@@ -25842,7 +25774,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateMessageSendFailedTypeID:
-		// Decoding updateMessageSendFailed#c277ce5d.
+		// Decoding updateMessageSendFailed#da1bf8e7.
 		v := UpdateMessageSendFailed{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -26346,7 +26278,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateStorySendFailedTypeID:
-		// Decoding updateStorySendFailed#4418bca2.
+		// Decoding updateStorySendFailed#e046f199.
 		v := UpdateStorySendFailed{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -26673,7 +26605,7 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 		}
 		return &v, nil
 	case "updateMessageSendFailed":
-		// Decoding updateMessageSendFailed#c277ce5d.
+		// Decoding updateMessageSendFailed#da1bf8e7.
 		v := UpdateMessageSendFailed{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -27177,7 +27109,7 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 		}
 		return &v, nil
 	case "updateStorySendFailed":
-		// Decoding updateStorySendFailed#4418bca2.
+		// Decoding updateStorySendFailed#e046f199.
 		v := UpdateStorySendFailed{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)

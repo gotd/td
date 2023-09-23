@@ -31,8 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ToggleStoryIsPinnedRequest represents TL type `toggleStoryIsPinned#df8031f9`.
+// ToggleStoryIsPinnedRequest represents TL type `toggleStoryIsPinned#b493b30e`.
 type ToggleStoryIsPinnedRequest struct {
+	// Identifier of the chat that posted the story
+	StorySenderChatID int64
 	// Identifier of the story
 	StoryID int32
 	// Pass true to make the story accessible after expiration; pass false to make it private
@@ -40,7 +42,7 @@ type ToggleStoryIsPinnedRequest struct {
 }
 
 // ToggleStoryIsPinnedRequestTypeID is TL type id of ToggleStoryIsPinnedRequest.
-const ToggleStoryIsPinnedRequestTypeID = 0xdf8031f9
+const ToggleStoryIsPinnedRequestTypeID = 0xb493b30e
 
 // Ensuring interfaces in compile-time for ToggleStoryIsPinnedRequest.
 var (
@@ -53,6 +55,9 @@ var (
 func (t *ToggleStoryIsPinnedRequest) Zero() bool {
 	if t == nil {
 		return true
+	}
+	if !(t.StorySenderChatID == 0) {
+		return false
 	}
 	if !(t.StoryID == 0) {
 		return false
@@ -97,6 +102,10 @@ func (t *ToggleStoryIsPinnedRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "StorySenderChatID",
+			SchemaName: "story_sender_chat_id",
+		},
+		{
 			Name:       "StoryID",
 			SchemaName: "story_id",
 		},
@@ -111,7 +120,7 @@ func (t *ToggleStoryIsPinnedRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (t *ToggleStoryIsPinnedRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode toggleStoryIsPinned#df8031f9 as nil")
+		return fmt.Errorf("can't encode toggleStoryIsPinned#b493b30e as nil")
 	}
 	b.PutID(ToggleStoryIsPinnedRequestTypeID)
 	return t.EncodeBare(b)
@@ -120,8 +129,9 @@ func (t *ToggleStoryIsPinnedRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *ToggleStoryIsPinnedRequest) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode toggleStoryIsPinned#df8031f9 as nil")
+		return fmt.Errorf("can't encode toggleStoryIsPinned#b493b30e as nil")
 	}
+	b.PutInt53(t.StorySenderChatID)
 	b.PutInt32(t.StoryID)
 	b.PutBool(t.IsPinned)
 	return nil
@@ -130,10 +140,10 @@ func (t *ToggleStoryIsPinnedRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *ToggleStoryIsPinnedRequest) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode toggleStoryIsPinned#df8031f9 to nil")
+		return fmt.Errorf("can't decode toggleStoryIsPinned#b493b30e to nil")
 	}
 	if err := b.ConsumeID(ToggleStoryIsPinnedRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode toggleStoryIsPinned#df8031f9: %w", err)
+		return fmt.Errorf("unable to decode toggleStoryIsPinned#b493b30e: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -141,19 +151,26 @@ func (t *ToggleStoryIsPinnedRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *ToggleStoryIsPinnedRequest) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode toggleStoryIsPinned#df8031f9 to nil")
+		return fmt.Errorf("can't decode toggleStoryIsPinned#b493b30e to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode toggleStoryIsPinned#b493b30e: field story_sender_chat_id: %w", err)
+		}
+		t.StorySenderChatID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode toggleStoryIsPinned#df8031f9: field story_id: %w", err)
+			return fmt.Errorf("unable to decode toggleStoryIsPinned#b493b30e: field story_id: %w", err)
 		}
 		t.StoryID = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode toggleStoryIsPinned#df8031f9: field is_pinned: %w", err)
+			return fmt.Errorf("unable to decode toggleStoryIsPinned#b493b30e: field is_pinned: %w", err)
 		}
 		t.IsPinned = value
 	}
@@ -163,10 +180,13 @@ func (t *ToggleStoryIsPinnedRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (t *ToggleStoryIsPinnedRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if t == nil {
-		return fmt.Errorf("can't encode toggleStoryIsPinned#df8031f9 as nil")
+		return fmt.Errorf("can't encode toggleStoryIsPinned#b493b30e as nil")
 	}
 	b.ObjStart()
 	b.PutID("toggleStoryIsPinned")
+	b.Comma()
+	b.FieldStart("story_sender_chat_id")
+	b.PutInt53(t.StorySenderChatID)
 	b.Comma()
 	b.FieldStart("story_id")
 	b.PutInt32(t.StoryID)
@@ -182,25 +202,31 @@ func (t *ToggleStoryIsPinnedRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (t *ToggleStoryIsPinnedRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if t == nil {
-		return fmt.Errorf("can't decode toggleStoryIsPinned#df8031f9 to nil")
+		return fmt.Errorf("can't decode toggleStoryIsPinned#b493b30e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("toggleStoryIsPinned"); err != nil {
-				return fmt.Errorf("unable to decode toggleStoryIsPinned#df8031f9: %w", err)
+				return fmt.Errorf("unable to decode toggleStoryIsPinned#b493b30e: %w", err)
 			}
+		case "story_sender_chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode toggleStoryIsPinned#b493b30e: field story_sender_chat_id: %w", err)
+			}
+			t.StorySenderChatID = value
 		case "story_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode toggleStoryIsPinned#df8031f9: field story_id: %w", err)
+				return fmt.Errorf("unable to decode toggleStoryIsPinned#b493b30e: field story_id: %w", err)
 			}
 			t.StoryID = value
 		case "is_pinned":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode toggleStoryIsPinned#df8031f9: field is_pinned: %w", err)
+				return fmt.Errorf("unable to decode toggleStoryIsPinned#b493b30e: field is_pinned: %w", err)
 			}
 			t.IsPinned = value
 		default:
@@ -208,6 +234,14 @@ func (t *ToggleStoryIsPinnedRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 		}
 		return nil
 	})
+}
+
+// GetStorySenderChatID returns value of StorySenderChatID field.
+func (t *ToggleStoryIsPinnedRequest) GetStorySenderChatID() (value int64) {
+	if t == nil {
+		return
+	}
+	return t.StorySenderChatID
 }
 
 // GetStoryID returns value of StoryID field.
@@ -226,7 +260,7 @@ func (t *ToggleStoryIsPinnedRequest) GetIsPinned() (value bool) {
 	return t.IsPinned
 }
 
-// ToggleStoryIsPinned invokes method toggleStoryIsPinned#df8031f9 returning error if any.
+// ToggleStoryIsPinned invokes method toggleStoryIsPinned#b493b30e returning error if any.
 func (c *Client) ToggleStoryIsPinned(ctx context.Context, request *ToggleStoryIsPinnedRequest) error {
 	var ok Ok
 

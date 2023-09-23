@@ -31,8 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SendStoryRequest represents TL type `sendStory#40b9f838`.
+// SendStoryRequest represents TL type `sendStory#53242a4`.
 type SendStoryRequest struct {
+	// Identifier of the chat that will post the story
+	ChatID int64
 	// Content of the story
 	Content InputStoryContentClass
 	// Clickable rectangle areas to be shown on the story media; pass null if none
@@ -53,7 +55,7 @@ type SendStoryRequest struct {
 }
 
 // SendStoryRequestTypeID is TL type id of SendStoryRequest.
-const SendStoryRequestTypeID = 0x40b9f838
+const SendStoryRequestTypeID = 0x53242a4
 
 // Ensuring interfaces in compile-time for SendStoryRequest.
 var (
@@ -66,6 +68,9 @@ var (
 func (s *SendStoryRequest) Zero() bool {
 	if s == nil {
 		return true
+	}
+	if !(s.ChatID == 0) {
+		return false
 	}
 	if !(s.Content == nil) {
 		return false
@@ -125,6 +130,10 @@ func (s *SendStoryRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
 			Name:       "Content",
 			SchemaName: "content",
 		},
@@ -159,7 +168,7 @@ func (s *SendStoryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendStoryRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendStory#40b9f838 as nil")
+		return fmt.Errorf("can't encode sendStory#53242a4 as nil")
 	}
 	b.PutID(SendStoryRequestTypeID)
 	return s.EncodeBare(b)
@@ -168,25 +177,26 @@ func (s *SendStoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendStoryRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendStory#40b9f838 as nil")
+		return fmt.Errorf("can't encode sendStory#53242a4 as nil")
 	}
+	b.PutInt53(s.ChatID)
 	if s.Content == nil {
-		return fmt.Errorf("unable to encode sendStory#40b9f838: field content is nil")
+		return fmt.Errorf("unable to encode sendStory#53242a4: field content is nil")
 	}
 	if err := s.Content.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sendStory#40b9f838: field content: %w", err)
+		return fmt.Errorf("unable to encode sendStory#53242a4: field content: %w", err)
 	}
 	if err := s.Areas.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sendStory#40b9f838: field areas: %w", err)
+		return fmt.Errorf("unable to encode sendStory#53242a4: field areas: %w", err)
 	}
 	if err := s.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sendStory#40b9f838: field caption: %w", err)
+		return fmt.Errorf("unable to encode sendStory#53242a4: field caption: %w", err)
 	}
 	if s.PrivacySettings == nil {
-		return fmt.Errorf("unable to encode sendStory#40b9f838: field privacy_settings is nil")
+		return fmt.Errorf("unable to encode sendStory#53242a4: field privacy_settings is nil")
 	}
 	if err := s.PrivacySettings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sendStory#40b9f838: field privacy_settings: %w", err)
+		return fmt.Errorf("unable to encode sendStory#53242a4: field privacy_settings: %w", err)
 	}
 	b.PutInt32(s.ActivePeriod)
 	b.PutBool(s.IsPinned)
@@ -197,10 +207,10 @@ func (s *SendStoryRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SendStoryRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendStory#40b9f838 to nil")
+		return fmt.Errorf("can't decode sendStory#53242a4 to nil")
 	}
 	if err := b.ConsumeID(SendStoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendStory#40b9f838: %w", err)
+		return fmt.Errorf("unable to decode sendStory#53242a4: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -208,50 +218,57 @@ func (s *SendStoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendStoryRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendStory#40b9f838 to nil")
+		return fmt.Errorf("can't decode sendStory#53242a4 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode sendStory#53242a4: field chat_id: %w", err)
+		}
+		s.ChatID = value
 	}
 	{
 		value, err := DecodeInputStoryContent(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sendStory#40b9f838: field content: %w", err)
+			return fmt.Errorf("unable to decode sendStory#53242a4: field content: %w", err)
 		}
 		s.Content = value
 	}
 	{
 		if err := s.Areas.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode sendStory#40b9f838: field areas: %w", err)
+			return fmt.Errorf("unable to decode sendStory#53242a4: field areas: %w", err)
 		}
 	}
 	{
 		if err := s.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode sendStory#40b9f838: field caption: %w", err)
+			return fmt.Errorf("unable to decode sendStory#53242a4: field caption: %w", err)
 		}
 	}
 	{
 		value, err := DecodeStoryPrivacySettings(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sendStory#40b9f838: field privacy_settings: %w", err)
+			return fmt.Errorf("unable to decode sendStory#53242a4: field privacy_settings: %w", err)
 		}
 		s.PrivacySettings = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendStory#40b9f838: field active_period: %w", err)
+			return fmt.Errorf("unable to decode sendStory#53242a4: field active_period: %w", err)
 		}
 		s.ActivePeriod = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendStory#40b9f838: field is_pinned: %w", err)
+			return fmt.Errorf("unable to decode sendStory#53242a4: field is_pinned: %w", err)
 		}
 		s.IsPinned = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendStory#40b9f838: field protect_content: %w", err)
+			return fmt.Errorf("unable to decode sendStory#53242a4: field protect_content: %w", err)
 		}
 		s.ProtectContent = value
 	}
@@ -261,35 +278,38 @@ func (s *SendStoryRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SendStoryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendStory#40b9f838 as nil")
+		return fmt.Errorf("can't encode sendStory#53242a4 as nil")
 	}
 	b.ObjStart()
 	b.PutID("sendStory")
 	b.Comma()
+	b.FieldStart("chat_id")
+	b.PutInt53(s.ChatID)
+	b.Comma()
 	b.FieldStart("content")
 	if s.Content == nil {
-		return fmt.Errorf("unable to encode sendStory#40b9f838: field content is nil")
+		return fmt.Errorf("unable to encode sendStory#53242a4: field content is nil")
 	}
 	if err := s.Content.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sendStory#40b9f838: field content: %w", err)
+		return fmt.Errorf("unable to encode sendStory#53242a4: field content: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("areas")
 	if err := s.Areas.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sendStory#40b9f838: field areas: %w", err)
+		return fmt.Errorf("unable to encode sendStory#53242a4: field areas: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("caption")
 	if err := s.Caption.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sendStory#40b9f838: field caption: %w", err)
+		return fmt.Errorf("unable to encode sendStory#53242a4: field caption: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("privacy_settings")
 	if s.PrivacySettings == nil {
-		return fmt.Errorf("unable to encode sendStory#40b9f838: field privacy_settings is nil")
+		return fmt.Errorf("unable to encode sendStory#53242a4: field privacy_settings is nil")
 	}
 	if err := s.PrivacySettings.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sendStory#40b9f838: field privacy_settings: %w", err)
+		return fmt.Errorf("unable to encode sendStory#53242a4: field privacy_settings: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("active_period")
@@ -309,51 +329,57 @@ func (s *SendStoryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SendStoryRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendStory#40b9f838 to nil")
+		return fmt.Errorf("can't decode sendStory#53242a4 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("sendStory"); err != nil {
-				return fmt.Errorf("unable to decode sendStory#40b9f838: %w", err)
+				return fmt.Errorf("unable to decode sendStory#53242a4: %w", err)
 			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode sendStory#53242a4: field chat_id: %w", err)
+			}
+			s.ChatID = value
 		case "content":
 			value, err := DecodeTDLibJSONInputStoryContent(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sendStory#40b9f838: field content: %w", err)
+				return fmt.Errorf("unable to decode sendStory#53242a4: field content: %w", err)
 			}
 			s.Content = value
 		case "areas":
 			if err := s.Areas.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode sendStory#40b9f838: field areas: %w", err)
+				return fmt.Errorf("unable to decode sendStory#53242a4: field areas: %w", err)
 			}
 		case "caption":
 			if err := s.Caption.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode sendStory#40b9f838: field caption: %w", err)
+				return fmt.Errorf("unable to decode sendStory#53242a4: field caption: %w", err)
 			}
 		case "privacy_settings":
 			value, err := DecodeTDLibJSONStoryPrivacySettings(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sendStory#40b9f838: field privacy_settings: %w", err)
+				return fmt.Errorf("unable to decode sendStory#53242a4: field privacy_settings: %w", err)
 			}
 			s.PrivacySettings = value
 		case "active_period":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendStory#40b9f838: field active_period: %w", err)
+				return fmt.Errorf("unable to decode sendStory#53242a4: field active_period: %w", err)
 			}
 			s.ActivePeriod = value
 		case "is_pinned":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendStory#40b9f838: field is_pinned: %w", err)
+				return fmt.Errorf("unable to decode sendStory#53242a4: field is_pinned: %w", err)
 			}
 			s.IsPinned = value
 		case "protect_content":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendStory#40b9f838: field protect_content: %w", err)
+				return fmt.Errorf("unable to decode sendStory#53242a4: field protect_content: %w", err)
 			}
 			s.ProtectContent = value
 		default:
@@ -361,6 +387,14 @@ func (s *SendStoryRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 		}
 		return nil
 	})
+}
+
+// GetChatID returns value of ChatID field.
+func (s *SendStoryRequest) GetChatID() (value int64) {
+	if s == nil {
+		return
+	}
+	return s.ChatID
 }
 
 // GetContent returns value of Content field.
@@ -419,7 +453,7 @@ func (s *SendStoryRequest) GetProtectContent() (value bool) {
 	return s.ProtectContent
 }
 
-// SendStory invokes method sendStory#40b9f838 returning error if any.
+// SendStory invokes method sendStory#53242a4 returning error if any.
 func (c *Client) SendStory(ctx context.Context, request *SendStoryRequest) (*Story, error) {
 	var result Story
 

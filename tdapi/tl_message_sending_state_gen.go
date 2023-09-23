@@ -197,12 +197,10 @@ func (m *MessageSendingStatePending) GetSendingID() (value int32) {
 	return m.SendingID
 }
 
-// MessageSendingStateFailed represents TL type `messageSendingStateFailed#982ce904`.
+// MessageSendingStateFailed represents TL type `messageSendingStateFailed#fb75b2af`.
 type MessageSendingStateFailed struct {
-	// An error code; 0 if unknown
-	ErrorCode int32
-	// Error message
-	ErrorMessage string
+	// The cause of the message sending failure
+	Error Error
 	// True, if the message can be re-sent
 	CanRetry bool
 	// True, if the message can be re-sent only on behalf of a different sender
@@ -213,7 +211,7 @@ type MessageSendingStateFailed struct {
 }
 
 // MessageSendingStateFailedTypeID is TL type id of MessageSendingStateFailed.
-const MessageSendingStateFailedTypeID = 0x982ce904
+const MessageSendingStateFailedTypeID = 0xfb75b2af
 
 // construct implements constructor of MessageSendingStateClass.
 func (m MessageSendingStateFailed) construct() MessageSendingStateClass { return &m }
@@ -232,10 +230,7 @@ func (m *MessageSendingStateFailed) Zero() bool {
 	if m == nil {
 		return true
 	}
-	if !(m.ErrorCode == 0) {
-		return false
-	}
-	if !(m.ErrorMessage == "") {
+	if !(m.Error.Zero()) {
 		return false
 	}
 	if !(m.CanRetry == false) {
@@ -284,12 +279,8 @@ func (m *MessageSendingStateFailed) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "ErrorCode",
-			SchemaName: "error_code",
-		},
-		{
-			Name:       "ErrorMessage",
-			SchemaName: "error_message",
+			Name:       "Error",
+			SchemaName: "error",
 		},
 		{
 			Name:       "CanRetry",
@@ -310,7 +301,7 @@ func (m *MessageSendingStateFailed) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageSendingStateFailed) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageSendingStateFailed#982ce904 as nil")
+		return fmt.Errorf("can't encode messageSendingStateFailed#fb75b2af as nil")
 	}
 	b.PutID(MessageSendingStateFailedTypeID)
 	return m.EncodeBare(b)
@@ -319,10 +310,11 @@ func (m *MessageSendingStateFailed) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageSendingStateFailed) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageSendingStateFailed#982ce904 as nil")
+		return fmt.Errorf("can't encode messageSendingStateFailed#fb75b2af as nil")
 	}
-	b.PutInt32(m.ErrorCode)
-	b.PutString(m.ErrorMessage)
+	if err := m.Error.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageSendingStateFailed#fb75b2af: field error: %w", err)
+	}
 	b.PutBool(m.CanRetry)
 	b.PutBool(m.NeedAnotherSender)
 	b.PutDouble(m.RetryAfter)
@@ -332,10 +324,10 @@ func (m *MessageSendingStateFailed) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageSendingStateFailed) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageSendingStateFailed#982ce904 to nil")
+		return fmt.Errorf("can't decode messageSendingStateFailed#fb75b2af to nil")
 	}
 	if err := b.ConsumeID(MessageSendingStateFailedTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageSendingStateFailed#982ce904: %w", err)
+		return fmt.Errorf("unable to decode messageSendingStateFailed#fb75b2af: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -343,40 +335,31 @@ func (m *MessageSendingStateFailed) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageSendingStateFailed) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageSendingStateFailed#982ce904 to nil")
+		return fmt.Errorf("can't decode messageSendingStateFailed#fb75b2af to nil")
 	}
 	{
-		value, err := b.Int32()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageSendingStateFailed#982ce904: field error_code: %w", err)
+		if err := m.Error.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageSendingStateFailed#fb75b2af: field error: %w", err)
 		}
-		m.ErrorCode = value
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageSendingStateFailed#982ce904: field error_message: %w", err)
-		}
-		m.ErrorMessage = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageSendingStateFailed#982ce904: field can_retry: %w", err)
+			return fmt.Errorf("unable to decode messageSendingStateFailed#fb75b2af: field can_retry: %w", err)
 		}
 		m.CanRetry = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageSendingStateFailed#982ce904: field need_another_sender: %w", err)
+			return fmt.Errorf("unable to decode messageSendingStateFailed#fb75b2af: field need_another_sender: %w", err)
 		}
 		m.NeedAnotherSender = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageSendingStateFailed#982ce904: field retry_after: %w", err)
+			return fmt.Errorf("unable to decode messageSendingStateFailed#fb75b2af: field retry_after: %w", err)
 		}
 		m.RetryAfter = value
 	}
@@ -386,16 +369,15 @@ func (m *MessageSendingStateFailed) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageSendingStateFailed) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageSendingStateFailed#982ce904 as nil")
+		return fmt.Errorf("can't encode messageSendingStateFailed#fb75b2af as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageSendingStateFailed")
 	b.Comma()
-	b.FieldStart("error_code")
-	b.PutInt32(m.ErrorCode)
-	b.Comma()
-	b.FieldStart("error_message")
-	b.PutString(m.ErrorMessage)
+	b.FieldStart("error")
+	if err := m.Error.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageSendingStateFailed#fb75b2af: field error: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("can_retry")
 	b.PutBool(m.CanRetry)
@@ -414,43 +396,35 @@ func (m *MessageSendingStateFailed) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageSendingStateFailed) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageSendingStateFailed#982ce904 to nil")
+		return fmt.Errorf("can't decode messageSendingStateFailed#fb75b2af to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageSendingStateFailed"); err != nil {
-				return fmt.Errorf("unable to decode messageSendingStateFailed#982ce904: %w", err)
+				return fmt.Errorf("unable to decode messageSendingStateFailed#fb75b2af: %w", err)
 			}
-		case "error_code":
-			value, err := b.Int32()
-			if err != nil {
-				return fmt.Errorf("unable to decode messageSendingStateFailed#982ce904: field error_code: %w", err)
+		case "error":
+			if err := m.Error.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode messageSendingStateFailed#fb75b2af: field error: %w", err)
 			}
-			m.ErrorCode = value
-		case "error_message":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode messageSendingStateFailed#982ce904: field error_message: %w", err)
-			}
-			m.ErrorMessage = value
 		case "can_retry":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageSendingStateFailed#982ce904: field can_retry: %w", err)
+				return fmt.Errorf("unable to decode messageSendingStateFailed#fb75b2af: field can_retry: %w", err)
 			}
 			m.CanRetry = value
 		case "need_another_sender":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageSendingStateFailed#982ce904: field need_another_sender: %w", err)
+				return fmt.Errorf("unable to decode messageSendingStateFailed#fb75b2af: field need_another_sender: %w", err)
 			}
 			m.NeedAnotherSender = value
 		case "retry_after":
 			value, err := b.Double()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageSendingStateFailed#982ce904: field retry_after: %w", err)
+				return fmt.Errorf("unable to decode messageSendingStateFailed#fb75b2af: field retry_after: %w", err)
 			}
 			m.RetryAfter = value
 		default:
@@ -460,20 +434,12 @@ func (m *MessageSendingStateFailed) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetErrorCode returns value of ErrorCode field.
-func (m *MessageSendingStateFailed) GetErrorCode() (value int32) {
+// GetError returns value of Error field.
+func (m *MessageSendingStateFailed) GetError() (value Error) {
 	if m == nil {
 		return
 	}
-	return m.ErrorCode
-}
-
-// GetErrorMessage returns value of ErrorMessage field.
-func (m *MessageSendingStateFailed) GetErrorMessage() (value string) {
-	if m == nil {
-		return
-	}
-	return m.ErrorMessage
+	return m.Error
 }
 
 // GetCanRetry returns value of CanRetry field.
@@ -513,7 +479,7 @@ const MessageSendingStateClassName = "MessageSendingState"
 //	}
 //	switch v := g.(type) {
 //	case *tdapi.MessageSendingStatePending: // messageSendingStatePending#f32b63b4
-//	case *tdapi.MessageSendingStateFailed: // messageSendingStateFailed#982ce904
+//	case *tdapi.MessageSendingStateFailed: // messageSendingStateFailed#fb75b2af
 //	default: panic(v)
 //	}
 type MessageSendingStateClass interface {
@@ -553,7 +519,7 @@ func DecodeMessageSendingState(buf *bin.Buffer) (MessageSendingStateClass, error
 		}
 		return &v, nil
 	case MessageSendingStateFailedTypeID:
-		// Decoding messageSendingStateFailed#982ce904.
+		// Decoding messageSendingStateFailed#fb75b2af.
 		v := MessageSendingStateFailed{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageSendingStateClass: %w", err)
@@ -579,7 +545,7 @@ func DecodeTDLibJSONMessageSendingState(buf tdjson.Decoder) (MessageSendingState
 		}
 		return &v, nil
 	case "messageSendingStateFailed":
-		// Decoding messageSendingStateFailed#982ce904.
+		// Decoding messageSendingStateFailed#fb75b2af.
 		v := MessageSendingStateFailed{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageSendingStateClass: %w", err)
