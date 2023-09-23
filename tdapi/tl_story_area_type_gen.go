@@ -363,6 +363,284 @@ func (s *StoryAreaTypeVenue) GetVenue() (value Venue) {
 	return s.Venue
 }
 
+// StoryAreaTypeSuggestedReaction represents TL type `storyAreaTypeSuggestedReaction#f95f927c`.
+type StoryAreaTypeSuggestedReaction struct {
+	// Type of the reaction
+	ReactionType ReactionTypeClass
+	// Number of times the reaction was added
+	TotalCount int32
+	// True, if reaction has a dark background
+	IsDark bool
+	// True, if reaction corner is flipped
+	IsFlipped bool
+}
+
+// StoryAreaTypeSuggestedReactionTypeID is TL type id of StoryAreaTypeSuggestedReaction.
+const StoryAreaTypeSuggestedReactionTypeID = 0xf95f927c
+
+// construct implements constructor of StoryAreaTypeClass.
+func (s StoryAreaTypeSuggestedReaction) construct() StoryAreaTypeClass { return &s }
+
+// Ensuring interfaces in compile-time for StoryAreaTypeSuggestedReaction.
+var (
+	_ bin.Encoder     = &StoryAreaTypeSuggestedReaction{}
+	_ bin.Decoder     = &StoryAreaTypeSuggestedReaction{}
+	_ bin.BareEncoder = &StoryAreaTypeSuggestedReaction{}
+	_ bin.BareDecoder = &StoryAreaTypeSuggestedReaction{}
+
+	_ StoryAreaTypeClass = &StoryAreaTypeSuggestedReaction{}
+)
+
+func (s *StoryAreaTypeSuggestedReaction) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.ReactionType == nil) {
+		return false
+	}
+	if !(s.TotalCount == 0) {
+		return false
+	}
+	if !(s.IsDark == false) {
+		return false
+	}
+	if !(s.IsFlipped == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *StoryAreaTypeSuggestedReaction) String() string {
+	if s == nil {
+		return "StoryAreaTypeSuggestedReaction(nil)"
+	}
+	type Alias StoryAreaTypeSuggestedReaction
+	return fmt.Sprintf("StoryAreaTypeSuggestedReaction%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*StoryAreaTypeSuggestedReaction) TypeID() uint32 {
+	return StoryAreaTypeSuggestedReactionTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*StoryAreaTypeSuggestedReaction) TypeName() string {
+	return "storyAreaTypeSuggestedReaction"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StoryAreaTypeSuggestedReaction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "storyAreaTypeSuggestedReaction",
+		ID:   StoryAreaTypeSuggestedReactionTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ReactionType",
+			SchemaName: "reaction_type",
+		},
+		{
+			Name:       "TotalCount",
+			SchemaName: "total_count",
+		},
+		{
+			Name:       "IsDark",
+			SchemaName: "is_dark",
+		},
+		{
+			Name:       "IsFlipped",
+			SchemaName: "is_flipped",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *StoryAreaTypeSuggestedReaction) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode storyAreaTypeSuggestedReaction#f95f927c as nil")
+	}
+	b.PutID(StoryAreaTypeSuggestedReactionTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StoryAreaTypeSuggestedReaction) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode storyAreaTypeSuggestedReaction#f95f927c as nil")
+	}
+	if s.ReactionType == nil {
+		return fmt.Errorf("unable to encode storyAreaTypeSuggestedReaction#f95f927c: field reaction_type is nil")
+	}
+	if err := s.ReactionType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode storyAreaTypeSuggestedReaction#f95f927c: field reaction_type: %w", err)
+	}
+	b.PutInt32(s.TotalCount)
+	b.PutBool(s.IsDark)
+	b.PutBool(s.IsFlipped)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *StoryAreaTypeSuggestedReaction) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode storyAreaTypeSuggestedReaction#f95f927c to nil")
+	}
+	if err := b.ConsumeID(StoryAreaTypeSuggestedReactionTypeID); err != nil {
+		return fmt.Errorf("unable to decode storyAreaTypeSuggestedReaction#f95f927c: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StoryAreaTypeSuggestedReaction) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode storyAreaTypeSuggestedReaction#f95f927c to nil")
+	}
+	{
+		value, err := DecodeReactionType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode storyAreaTypeSuggestedReaction#f95f927c: field reaction_type: %w", err)
+		}
+		s.ReactionType = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode storyAreaTypeSuggestedReaction#f95f927c: field total_count: %w", err)
+		}
+		s.TotalCount = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode storyAreaTypeSuggestedReaction#f95f927c: field is_dark: %w", err)
+		}
+		s.IsDark = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode storyAreaTypeSuggestedReaction#f95f927c: field is_flipped: %w", err)
+		}
+		s.IsFlipped = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *StoryAreaTypeSuggestedReaction) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode storyAreaTypeSuggestedReaction#f95f927c as nil")
+	}
+	b.ObjStart()
+	b.PutID("storyAreaTypeSuggestedReaction")
+	b.Comma()
+	b.FieldStart("reaction_type")
+	if s.ReactionType == nil {
+		return fmt.Errorf("unable to encode storyAreaTypeSuggestedReaction#f95f927c: field reaction_type is nil")
+	}
+	if err := s.ReactionType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode storyAreaTypeSuggestedReaction#f95f927c: field reaction_type: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("total_count")
+	b.PutInt32(s.TotalCount)
+	b.Comma()
+	b.FieldStart("is_dark")
+	b.PutBool(s.IsDark)
+	b.Comma()
+	b.FieldStart("is_flipped")
+	b.PutBool(s.IsFlipped)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *StoryAreaTypeSuggestedReaction) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode storyAreaTypeSuggestedReaction#f95f927c to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("storyAreaTypeSuggestedReaction"); err != nil {
+				return fmt.Errorf("unable to decode storyAreaTypeSuggestedReaction#f95f927c: %w", err)
+			}
+		case "reaction_type":
+			value, err := DecodeTDLibJSONReactionType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode storyAreaTypeSuggestedReaction#f95f927c: field reaction_type: %w", err)
+			}
+			s.ReactionType = value
+		case "total_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode storyAreaTypeSuggestedReaction#f95f927c: field total_count: %w", err)
+			}
+			s.TotalCount = value
+		case "is_dark":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode storyAreaTypeSuggestedReaction#f95f927c: field is_dark: %w", err)
+			}
+			s.IsDark = value
+		case "is_flipped":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode storyAreaTypeSuggestedReaction#f95f927c: field is_flipped: %w", err)
+			}
+			s.IsFlipped = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetReactionType returns value of ReactionType field.
+func (s *StoryAreaTypeSuggestedReaction) GetReactionType() (value ReactionTypeClass) {
+	if s == nil {
+		return
+	}
+	return s.ReactionType
+}
+
+// GetTotalCount returns value of TotalCount field.
+func (s *StoryAreaTypeSuggestedReaction) GetTotalCount() (value int32) {
+	if s == nil {
+		return
+	}
+	return s.TotalCount
+}
+
+// GetIsDark returns value of IsDark field.
+func (s *StoryAreaTypeSuggestedReaction) GetIsDark() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.IsDark
+}
+
+// GetIsFlipped returns value of IsFlipped field.
+func (s *StoryAreaTypeSuggestedReaction) GetIsFlipped() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.IsFlipped
+}
+
 // StoryAreaTypeClassName is schema name of StoryAreaTypeClass.
 const StoryAreaTypeClassName = "StoryAreaType"
 
@@ -377,6 +655,7 @@ const StoryAreaTypeClassName = "StoryAreaType"
 //	switch v := g.(type) {
 //	case *tdapi.StoryAreaTypeLocation: // storyAreaTypeLocation#9ebe1186
 //	case *tdapi.StoryAreaTypeVenue: // storyAreaTypeVenue#18ae4d06
+//	case *tdapi.StoryAreaTypeSuggestedReaction: // storyAreaTypeSuggestedReaction#f95f927c
 //	default: panic(v)
 //	}
 type StoryAreaTypeClass interface {
@@ -422,6 +701,13 @@ func DecodeStoryAreaType(buf *bin.Buffer) (StoryAreaTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode StoryAreaTypeClass: %w", err)
 		}
 		return &v, nil
+	case StoryAreaTypeSuggestedReactionTypeID:
+		// Decoding storyAreaTypeSuggestedReaction#f95f927c.
+		v := StoryAreaTypeSuggestedReaction{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StoryAreaTypeClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode StoryAreaTypeClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -444,6 +730,13 @@ func DecodeTDLibJSONStoryAreaType(buf tdjson.Decoder) (StoryAreaTypeClass, error
 	case "storyAreaTypeVenue":
 		// Decoding storyAreaTypeVenue#18ae4d06.
 		v := StoryAreaTypeVenue{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StoryAreaTypeClass: %w", err)
+		}
+		return &v, nil
+	case "storyAreaTypeSuggestedReaction":
+		// Decoding storyAreaTypeSuggestedReaction#f95f927c.
+		v := StoryAreaTypeSuggestedReaction{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode StoryAreaTypeClass: %w", err)
 		}

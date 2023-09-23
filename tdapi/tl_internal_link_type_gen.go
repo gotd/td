@@ -1538,6 +1538,172 @@ func (i *InternalLinkTypeChangePhoneNumber) DecodeTDLibJSON(b tdjson.Decoder) er
 	})
 }
 
+// InternalLinkTypeChatBoost represents TL type `internalLinkTypeChatBoost#d549fd40`.
+type InternalLinkTypeChatBoost struct {
+	// URL to be passed to getChatBoostLinkInfo
+	URL string
+}
+
+// InternalLinkTypeChatBoostTypeID is TL type id of InternalLinkTypeChatBoost.
+const InternalLinkTypeChatBoostTypeID = 0xd549fd40
+
+// construct implements constructor of InternalLinkTypeClass.
+func (i InternalLinkTypeChatBoost) construct() InternalLinkTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InternalLinkTypeChatBoost.
+var (
+	_ bin.Encoder     = &InternalLinkTypeChatBoost{}
+	_ bin.Decoder     = &InternalLinkTypeChatBoost{}
+	_ bin.BareEncoder = &InternalLinkTypeChatBoost{}
+	_ bin.BareDecoder = &InternalLinkTypeChatBoost{}
+
+	_ InternalLinkTypeClass = &InternalLinkTypeChatBoost{}
+)
+
+func (i *InternalLinkTypeChatBoost) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.URL == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InternalLinkTypeChatBoost) String() string {
+	if i == nil {
+		return "InternalLinkTypeChatBoost(nil)"
+	}
+	type Alias InternalLinkTypeChatBoost
+	return fmt.Sprintf("InternalLinkTypeChatBoost%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InternalLinkTypeChatBoost) TypeID() uint32 {
+	return InternalLinkTypeChatBoostTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InternalLinkTypeChatBoost) TypeName() string {
+	return "internalLinkTypeChatBoost"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InternalLinkTypeChatBoost) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "internalLinkTypeChatBoost",
+		ID:   InternalLinkTypeChatBoostTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InternalLinkTypeChatBoost) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeChatBoost#d549fd40 as nil")
+	}
+	b.PutID(InternalLinkTypeChatBoostTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InternalLinkTypeChatBoost) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeChatBoost#d549fd40 as nil")
+	}
+	b.PutString(i.URL)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InternalLinkTypeChatBoost) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeChatBoost#d549fd40 to nil")
+	}
+	if err := b.ConsumeID(InternalLinkTypeChatBoostTypeID); err != nil {
+		return fmt.Errorf("unable to decode internalLinkTypeChatBoost#d549fd40: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InternalLinkTypeChatBoost) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeChatBoost#d549fd40 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypeChatBoost#d549fd40: field url: %w", err)
+		}
+		i.URL = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InternalLinkTypeChatBoost) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypeChatBoost#d549fd40 as nil")
+	}
+	b.ObjStart()
+	b.PutID("internalLinkTypeChatBoost")
+	b.Comma()
+	b.FieldStart("url")
+	b.PutString(i.URL)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InternalLinkTypeChatBoost) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypeChatBoost#d549fd40 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("internalLinkTypeChatBoost"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeChatBoost#d549fd40: %w", err)
+			}
+		case "url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypeChatBoost#d549fd40: field url: %w", err)
+			}
+			i.URL = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetURL returns value of URL field.
+func (i *InternalLinkTypeChatBoost) GetURL() (value string) {
+	if i == nil {
+		return
+	}
+	return i.URL
+}
+
 // InternalLinkTypeChatFolderInvite represents TL type `internalLinkTypeChatFolderInvite#89b2493e`.
 type InternalLinkTypeChatFolderInvite struct {
 	// Internal representation of the invite link
@@ -7115,6 +7281,7 @@ const InternalLinkTypeClassName = "InternalLinkType"
 //	case *tdapi.InternalLinkTypeBotStart: // internalLinkTypeBotStart#3f985fed
 //	case *tdapi.InternalLinkTypeBotStartInGroup: // internalLinkTypeBotStartInGroup#ca0d8cce
 //	case *tdapi.InternalLinkTypeChangePhoneNumber: // internalLinkTypeChangePhoneNumber#f0275b01
+//	case *tdapi.InternalLinkTypeChatBoost: // internalLinkTypeChatBoost#d549fd40
 //	case *tdapi.InternalLinkTypeChatFolderInvite: // internalLinkTypeChatFolderInvite#89b2493e
 //	case *tdapi.InternalLinkTypeChatFolderSettings: // internalLinkTypeChatFolderSettings#bfff055c
 //	case *tdapi.InternalLinkTypeChatInvite: // internalLinkTypeChatInvite#198c3cd9
@@ -7230,6 +7397,13 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 	case InternalLinkTypeChangePhoneNumberTypeID:
 		// Decoding internalLinkTypeChangePhoneNumber#f0275b01.
 		v := InternalLinkTypeChangePhoneNumber{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case InternalLinkTypeChatBoostTypeID:
+		// Decoding internalLinkTypeChatBoost#d549fd40.
+		v := InternalLinkTypeChatBoost{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
@@ -7522,6 +7696,13 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 	case "internalLinkTypeChangePhoneNumber":
 		// Decoding internalLinkTypeChangePhoneNumber#f0275b01.
 		v := InternalLinkTypeChangePhoneNumber{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypeChatBoost":
+		// Decoding internalLinkTypeChatBoost#d549fd40.
+		v := InternalLinkTypeChatBoost{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}

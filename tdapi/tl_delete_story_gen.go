@@ -31,14 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// DeleteStoryRequest represents TL type `deleteStory#62332a06`.
+// DeleteStoryRequest represents TL type `deleteStory#9f35af16`.
 type DeleteStoryRequest struct {
+	// Identifier of the chat that posted the story
+	StorySenderChatID int64
 	// Identifier of the story to delete
 	StoryID int32
 }
 
 // DeleteStoryRequestTypeID is TL type id of DeleteStoryRequest.
-const DeleteStoryRequestTypeID = 0x62332a06
+const DeleteStoryRequestTypeID = 0x9f35af16
 
 // Ensuring interfaces in compile-time for DeleteStoryRequest.
 var (
@@ -51,6 +53,9 @@ var (
 func (d *DeleteStoryRequest) Zero() bool {
 	if d == nil {
 		return true
+	}
+	if !(d.StorySenderChatID == 0) {
+		return false
 	}
 	if !(d.StoryID == 0) {
 		return false
@@ -92,6 +97,10 @@ func (d *DeleteStoryRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "StorySenderChatID",
+			SchemaName: "story_sender_chat_id",
+		},
+		{
 			Name:       "StoryID",
 			SchemaName: "story_id",
 		},
@@ -102,7 +111,7 @@ func (d *DeleteStoryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DeleteStoryRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode deleteStory#62332a06 as nil")
+		return fmt.Errorf("can't encode deleteStory#9f35af16 as nil")
 	}
 	b.PutID(DeleteStoryRequestTypeID)
 	return d.EncodeBare(b)
@@ -111,8 +120,9 @@ func (d *DeleteStoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DeleteStoryRequest) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode deleteStory#62332a06 as nil")
+		return fmt.Errorf("can't encode deleteStory#9f35af16 as nil")
 	}
+	b.PutInt53(d.StorySenderChatID)
 	b.PutInt32(d.StoryID)
 	return nil
 }
@@ -120,10 +130,10 @@ func (d *DeleteStoryRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (d *DeleteStoryRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode deleteStory#62332a06 to nil")
+		return fmt.Errorf("can't decode deleteStory#9f35af16 to nil")
 	}
 	if err := b.ConsumeID(DeleteStoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode deleteStory#62332a06: %w", err)
+		return fmt.Errorf("unable to decode deleteStory#9f35af16: %w", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -131,12 +141,19 @@ func (d *DeleteStoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DeleteStoryRequest) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode deleteStory#62332a06 to nil")
+		return fmt.Errorf("can't decode deleteStory#9f35af16 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode deleteStory#9f35af16: field story_sender_chat_id: %w", err)
+		}
+		d.StorySenderChatID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode deleteStory#62332a06: field story_id: %w", err)
+			return fmt.Errorf("unable to decode deleteStory#9f35af16: field story_id: %w", err)
 		}
 		d.StoryID = value
 	}
@@ -146,10 +163,13 @@ func (d *DeleteStoryRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (d *DeleteStoryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
-		return fmt.Errorf("can't encode deleteStory#62332a06 as nil")
+		return fmt.Errorf("can't encode deleteStory#9f35af16 as nil")
 	}
 	b.ObjStart()
 	b.PutID("deleteStory")
+	b.Comma()
+	b.FieldStart("story_sender_chat_id")
+	b.PutInt53(d.StorySenderChatID)
 	b.Comma()
 	b.FieldStart("story_id")
 	b.PutInt32(d.StoryID)
@@ -162,19 +182,25 @@ func (d *DeleteStoryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (d *DeleteStoryRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
-		return fmt.Errorf("can't decode deleteStory#62332a06 to nil")
+		return fmt.Errorf("can't decode deleteStory#9f35af16 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("deleteStory"); err != nil {
-				return fmt.Errorf("unable to decode deleteStory#62332a06: %w", err)
+				return fmt.Errorf("unable to decode deleteStory#9f35af16: %w", err)
 			}
+		case "story_sender_chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode deleteStory#9f35af16: field story_sender_chat_id: %w", err)
+			}
+			d.StorySenderChatID = value
 		case "story_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode deleteStory#62332a06: field story_id: %w", err)
+				return fmt.Errorf("unable to decode deleteStory#9f35af16: field story_id: %w", err)
 			}
 			d.StoryID = value
 		default:
@@ -182,6 +208,14 @@ func (d *DeleteStoryRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 		}
 		return nil
 	})
+}
+
+// GetStorySenderChatID returns value of StorySenderChatID field.
+func (d *DeleteStoryRequest) GetStorySenderChatID() (value int64) {
+	if d == nil {
+		return
+	}
+	return d.StorySenderChatID
 }
 
 // GetStoryID returns value of StoryID field.
@@ -192,13 +226,10 @@ func (d *DeleteStoryRequest) GetStoryID() (value int32) {
 	return d.StoryID
 }
 
-// DeleteStory invokes method deleteStory#62332a06 returning error if any.
-func (c *Client) DeleteStory(ctx context.Context, storyid int32) error {
+// DeleteStory invokes method deleteStory#9f35af16 returning error if any.
+func (c *Client) DeleteStory(ctx context.Context, request *DeleteStoryRequest) error {
 	var ok Ok
 
-	request := &DeleteStoryRequest{
-		StoryID: storyid,
-	}
 	if err := c.rpc.Invoke(ctx, request, &ok); err != nil {
 		return err
 	}

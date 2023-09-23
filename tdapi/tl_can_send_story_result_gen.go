@@ -293,6 +293,137 @@ func (c *CanSendStoryResultPremiumNeeded) DecodeTDLibJSON(b tdjson.Decoder) erro
 	})
 }
 
+// CanSendStoryResultBoostNeeded represents TL type `canSendStoryResultBoostNeeded#9e60e92f`.
+type CanSendStoryResultBoostNeeded struct {
+}
+
+// CanSendStoryResultBoostNeededTypeID is TL type id of CanSendStoryResultBoostNeeded.
+const CanSendStoryResultBoostNeededTypeID = 0x9e60e92f
+
+// construct implements constructor of CanSendStoryResultClass.
+func (c CanSendStoryResultBoostNeeded) construct() CanSendStoryResultClass { return &c }
+
+// Ensuring interfaces in compile-time for CanSendStoryResultBoostNeeded.
+var (
+	_ bin.Encoder     = &CanSendStoryResultBoostNeeded{}
+	_ bin.Decoder     = &CanSendStoryResultBoostNeeded{}
+	_ bin.BareEncoder = &CanSendStoryResultBoostNeeded{}
+	_ bin.BareDecoder = &CanSendStoryResultBoostNeeded{}
+
+	_ CanSendStoryResultClass = &CanSendStoryResultBoostNeeded{}
+)
+
+func (c *CanSendStoryResultBoostNeeded) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *CanSendStoryResultBoostNeeded) String() string {
+	if c == nil {
+		return "CanSendStoryResultBoostNeeded(nil)"
+	}
+	type Alias CanSendStoryResultBoostNeeded
+	return fmt.Sprintf("CanSendStoryResultBoostNeeded%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*CanSendStoryResultBoostNeeded) TypeID() uint32 {
+	return CanSendStoryResultBoostNeededTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*CanSendStoryResultBoostNeeded) TypeName() string {
+	return "canSendStoryResultBoostNeeded"
+}
+
+// TypeInfo returns info about TL type.
+func (c *CanSendStoryResultBoostNeeded) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "canSendStoryResultBoostNeeded",
+		ID:   CanSendStoryResultBoostNeededTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *CanSendStoryResultBoostNeeded) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode canSendStoryResultBoostNeeded#9e60e92f as nil")
+	}
+	b.PutID(CanSendStoryResultBoostNeededTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *CanSendStoryResultBoostNeeded) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode canSendStoryResultBoostNeeded#9e60e92f as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *CanSendStoryResultBoostNeeded) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode canSendStoryResultBoostNeeded#9e60e92f to nil")
+	}
+	if err := b.ConsumeID(CanSendStoryResultBoostNeededTypeID); err != nil {
+		return fmt.Errorf("unable to decode canSendStoryResultBoostNeeded#9e60e92f: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *CanSendStoryResultBoostNeeded) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode canSendStoryResultBoostNeeded#9e60e92f to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *CanSendStoryResultBoostNeeded) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode canSendStoryResultBoostNeeded#9e60e92f as nil")
+	}
+	b.ObjStart()
+	b.PutID("canSendStoryResultBoostNeeded")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *CanSendStoryResultBoostNeeded) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode canSendStoryResultBoostNeeded#9e60e92f to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("canSendStoryResultBoostNeeded"); err != nil {
+				return fmt.Errorf("unable to decode canSendStoryResultBoostNeeded#9e60e92f: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // CanSendStoryResultActiveStoryLimitExceeded represents TL type `canSendStoryResultActiveStoryLimitExceeded#afd9aad6`.
 type CanSendStoryResultActiveStoryLimitExceeded struct {
 }
@@ -770,6 +901,7 @@ const CanSendStoryResultClassName = "CanSendStoryResult"
 //	switch v := g.(type) {
 //	case *tdapi.CanSendStoryResultOk: // canSendStoryResultOk#503cf0fd
 //	case *tdapi.CanSendStoryResultPremiumNeeded: // canSendStoryResultPremiumNeeded#567fde69
+//	case *tdapi.CanSendStoryResultBoostNeeded: // canSendStoryResultBoostNeeded#9e60e92f
 //	case *tdapi.CanSendStoryResultActiveStoryLimitExceeded: // canSendStoryResultActiveStoryLimitExceeded#afd9aad6
 //	case *tdapi.CanSendStoryResultWeeklyLimitExceeded: // canSendStoryResultWeeklyLimitExceeded#1341a0b8
 //	case *tdapi.CanSendStoryResultMonthlyLimitExceeded: // canSendStoryResultMonthlyLimitExceeded#dd8242d5
@@ -818,6 +950,13 @@ func DecodeCanSendStoryResult(buf *bin.Buffer) (CanSendStoryResultClass, error) 
 			return nil, fmt.Errorf("unable to decode CanSendStoryResultClass: %w", err)
 		}
 		return &v, nil
+	case CanSendStoryResultBoostNeededTypeID:
+		// Decoding canSendStoryResultBoostNeeded#9e60e92f.
+		v := CanSendStoryResultBoostNeeded{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CanSendStoryResultClass: %w", err)
+		}
+		return &v, nil
 	case CanSendStoryResultActiveStoryLimitExceededTypeID:
 		// Decoding canSendStoryResultActiveStoryLimitExceeded#afd9aad6.
 		v := CanSendStoryResultActiveStoryLimitExceeded{}
@@ -861,6 +1000,13 @@ func DecodeTDLibJSONCanSendStoryResult(buf tdjson.Decoder) (CanSendStoryResultCl
 	case "canSendStoryResultPremiumNeeded":
 		// Decoding canSendStoryResultPremiumNeeded#567fde69.
 		v := CanSendStoryResultPremiumNeeded{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode CanSendStoryResultClass: %w", err)
+		}
+		return &v, nil
+	case "canSendStoryResultBoostNeeded":
+		// Decoding canSendStoryResultBoostNeeded#9e60e92f.
+		v := CanSendStoryResultBoostNeeded{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode CanSendStoryResultClass: %w", err)
 		}

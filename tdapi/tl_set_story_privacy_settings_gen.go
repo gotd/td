@@ -31,8 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SetStoryPrivacySettingsRequest represents TL type `setStoryPrivacySettings#d8e94332`.
+// SetStoryPrivacySettingsRequest represents TL type `setStoryPrivacySettings#1b6c5434`.
 type SetStoryPrivacySettingsRequest struct {
+	// Identifier of the chat that posted the story
+	StorySenderChatID int64
 	// Identifier of the story
 	StoryID int32
 	// The new privacy settigs for the story
@@ -40,7 +42,7 @@ type SetStoryPrivacySettingsRequest struct {
 }
 
 // SetStoryPrivacySettingsRequestTypeID is TL type id of SetStoryPrivacySettingsRequest.
-const SetStoryPrivacySettingsRequestTypeID = 0xd8e94332
+const SetStoryPrivacySettingsRequestTypeID = 0x1b6c5434
 
 // Ensuring interfaces in compile-time for SetStoryPrivacySettingsRequest.
 var (
@@ -53,6 +55,9 @@ var (
 func (s *SetStoryPrivacySettingsRequest) Zero() bool {
 	if s == nil {
 		return true
+	}
+	if !(s.StorySenderChatID == 0) {
+		return false
 	}
 	if !(s.StoryID == 0) {
 		return false
@@ -97,6 +102,10 @@ func (s *SetStoryPrivacySettingsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "StorySenderChatID",
+			SchemaName: "story_sender_chat_id",
+		},
+		{
 			Name:       "StoryID",
 			SchemaName: "story_id",
 		},
@@ -111,7 +120,7 @@ func (s *SetStoryPrivacySettingsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SetStoryPrivacySettingsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setStoryPrivacySettings#d8e94332 as nil")
+		return fmt.Errorf("can't encode setStoryPrivacySettings#1b6c5434 as nil")
 	}
 	b.PutID(SetStoryPrivacySettingsRequestTypeID)
 	return s.EncodeBare(b)
@@ -120,14 +129,15 @@ func (s *SetStoryPrivacySettingsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SetStoryPrivacySettingsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setStoryPrivacySettings#d8e94332 as nil")
+		return fmt.Errorf("can't encode setStoryPrivacySettings#1b6c5434 as nil")
 	}
+	b.PutInt53(s.StorySenderChatID)
 	b.PutInt32(s.StoryID)
 	if s.PrivacySettings == nil {
-		return fmt.Errorf("unable to encode setStoryPrivacySettings#d8e94332: field privacy_settings is nil")
+		return fmt.Errorf("unable to encode setStoryPrivacySettings#1b6c5434: field privacy_settings is nil")
 	}
 	if err := s.PrivacySettings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode setStoryPrivacySettings#d8e94332: field privacy_settings: %w", err)
+		return fmt.Errorf("unable to encode setStoryPrivacySettings#1b6c5434: field privacy_settings: %w", err)
 	}
 	return nil
 }
@@ -135,10 +145,10 @@ func (s *SetStoryPrivacySettingsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SetStoryPrivacySettingsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setStoryPrivacySettings#d8e94332 to nil")
+		return fmt.Errorf("can't decode setStoryPrivacySettings#1b6c5434 to nil")
 	}
 	if err := b.ConsumeID(SetStoryPrivacySettingsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode setStoryPrivacySettings#d8e94332: %w", err)
+		return fmt.Errorf("unable to decode setStoryPrivacySettings#1b6c5434: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -146,19 +156,26 @@ func (s *SetStoryPrivacySettingsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SetStoryPrivacySettingsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setStoryPrivacySettings#d8e94332 to nil")
+		return fmt.Errorf("can't decode setStoryPrivacySettings#1b6c5434 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode setStoryPrivacySettings#1b6c5434: field story_sender_chat_id: %w", err)
+		}
+		s.StorySenderChatID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode setStoryPrivacySettings#d8e94332: field story_id: %w", err)
+			return fmt.Errorf("unable to decode setStoryPrivacySettings#1b6c5434: field story_id: %w", err)
 		}
 		s.StoryID = value
 	}
 	{
 		value, err := DecodeStoryPrivacySettings(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode setStoryPrivacySettings#d8e94332: field privacy_settings: %w", err)
+			return fmt.Errorf("unable to decode setStoryPrivacySettings#1b6c5434: field privacy_settings: %w", err)
 		}
 		s.PrivacySettings = value
 	}
@@ -168,20 +185,23 @@ func (s *SetStoryPrivacySettingsRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SetStoryPrivacySettingsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode setStoryPrivacySettings#d8e94332 as nil")
+		return fmt.Errorf("can't encode setStoryPrivacySettings#1b6c5434 as nil")
 	}
 	b.ObjStart()
 	b.PutID("setStoryPrivacySettings")
+	b.Comma()
+	b.FieldStart("story_sender_chat_id")
+	b.PutInt53(s.StorySenderChatID)
 	b.Comma()
 	b.FieldStart("story_id")
 	b.PutInt32(s.StoryID)
 	b.Comma()
 	b.FieldStart("privacy_settings")
 	if s.PrivacySettings == nil {
-		return fmt.Errorf("unable to encode setStoryPrivacySettings#d8e94332: field privacy_settings is nil")
+		return fmt.Errorf("unable to encode setStoryPrivacySettings#1b6c5434: field privacy_settings is nil")
 	}
 	if err := s.PrivacySettings.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode setStoryPrivacySettings#d8e94332: field privacy_settings: %w", err)
+		return fmt.Errorf("unable to encode setStoryPrivacySettings#1b6c5434: field privacy_settings: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -192,25 +212,31 @@ func (s *SetStoryPrivacySettingsRequest) EncodeTDLibJSON(b tdjson.Encoder) error
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SetStoryPrivacySettingsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode setStoryPrivacySettings#d8e94332 to nil")
+		return fmt.Errorf("can't decode setStoryPrivacySettings#1b6c5434 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("setStoryPrivacySettings"); err != nil {
-				return fmt.Errorf("unable to decode setStoryPrivacySettings#d8e94332: %w", err)
+				return fmt.Errorf("unable to decode setStoryPrivacySettings#1b6c5434: %w", err)
 			}
+		case "story_sender_chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode setStoryPrivacySettings#1b6c5434: field story_sender_chat_id: %w", err)
+			}
+			s.StorySenderChatID = value
 		case "story_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode setStoryPrivacySettings#d8e94332: field story_id: %w", err)
+				return fmt.Errorf("unable to decode setStoryPrivacySettings#1b6c5434: field story_id: %w", err)
 			}
 			s.StoryID = value
 		case "privacy_settings":
 			value, err := DecodeTDLibJSONStoryPrivacySettings(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode setStoryPrivacySettings#d8e94332: field privacy_settings: %w", err)
+				return fmt.Errorf("unable to decode setStoryPrivacySettings#1b6c5434: field privacy_settings: %w", err)
 			}
 			s.PrivacySettings = value
 		default:
@@ -218,6 +244,14 @@ func (s *SetStoryPrivacySettingsRequest) DecodeTDLibJSON(b tdjson.Decoder) error
 		}
 		return nil
 	})
+}
+
+// GetStorySenderChatID returns value of StorySenderChatID field.
+func (s *SetStoryPrivacySettingsRequest) GetStorySenderChatID() (value int64) {
+	if s == nil {
+		return
+	}
+	return s.StorySenderChatID
 }
 
 // GetStoryID returns value of StoryID field.
@@ -236,7 +270,7 @@ func (s *SetStoryPrivacySettingsRequest) GetPrivacySettings() (value StoryPrivac
 	return s.PrivacySettings
 }
 
-// SetStoryPrivacySettings invokes method setStoryPrivacySettings#d8e94332 returning error if any.
+// SetStoryPrivacySettings invokes method setStoryPrivacySettings#1b6c5434 returning error if any.
 func (c *Client) SetStoryPrivacySettings(ctx context.Context, request *SetStoryPrivacySettingsRequest) error {
 	var ok Ok
 

@@ -31,8 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// EditStoryRequest represents TL type `editStory#aa2c3e86`.
+// EditStoryRequest represents TL type `editStory#5e6a21b1`.
 type EditStoryRequest struct {
+	// Identifier of the chat that posted the story
+	StorySenderChatID int64
 	// Identifier of the story to edit
 	StoryID int32
 	// New content of the story; pass null to keep the current content
@@ -45,7 +47,7 @@ type EditStoryRequest struct {
 }
 
 // EditStoryRequestTypeID is TL type id of EditStoryRequest.
-const EditStoryRequestTypeID = 0xaa2c3e86
+const EditStoryRequestTypeID = 0x5e6a21b1
 
 // Ensuring interfaces in compile-time for EditStoryRequest.
 var (
@@ -58,6 +60,9 @@ var (
 func (e *EditStoryRequest) Zero() bool {
 	if e == nil {
 		return true
+	}
+	if !(e.StorySenderChatID == 0) {
+		return false
 	}
 	if !(e.StoryID == 0) {
 		return false
@@ -108,6 +113,10 @@ func (e *EditStoryRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "StorySenderChatID",
+			SchemaName: "story_sender_chat_id",
+		},
+		{
 			Name:       "StoryID",
 			SchemaName: "story_id",
 		},
@@ -130,7 +139,7 @@ func (e *EditStoryRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *EditStoryRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editStory#aa2c3e86 as nil")
+		return fmt.Errorf("can't encode editStory#5e6a21b1 as nil")
 	}
 	b.PutID(EditStoryRequestTypeID)
 	return e.EncodeBare(b)
@@ -139,20 +148,21 @@ func (e *EditStoryRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *EditStoryRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editStory#aa2c3e86 as nil")
+		return fmt.Errorf("can't encode editStory#5e6a21b1 as nil")
 	}
+	b.PutInt53(e.StorySenderChatID)
 	b.PutInt32(e.StoryID)
 	if e.Content == nil {
-		return fmt.Errorf("unable to encode editStory#aa2c3e86: field content is nil")
+		return fmt.Errorf("unable to encode editStory#5e6a21b1: field content is nil")
 	}
 	if err := e.Content.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode editStory#aa2c3e86: field content: %w", err)
+		return fmt.Errorf("unable to encode editStory#5e6a21b1: field content: %w", err)
 	}
 	if err := e.Areas.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode editStory#aa2c3e86: field areas: %w", err)
+		return fmt.Errorf("unable to encode editStory#5e6a21b1: field areas: %w", err)
 	}
 	if err := e.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode editStory#aa2c3e86: field caption: %w", err)
+		return fmt.Errorf("unable to encode editStory#5e6a21b1: field caption: %w", err)
 	}
 	return nil
 }
@@ -160,10 +170,10 @@ func (e *EditStoryRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (e *EditStoryRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editStory#aa2c3e86 to nil")
+		return fmt.Errorf("can't decode editStory#5e6a21b1 to nil")
 	}
 	if err := b.ConsumeID(EditStoryRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode editStory#aa2c3e86: %w", err)
+		return fmt.Errorf("unable to decode editStory#5e6a21b1: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -171,30 +181,37 @@ func (e *EditStoryRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *EditStoryRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editStory#aa2c3e86 to nil")
+		return fmt.Errorf("can't decode editStory#5e6a21b1 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode editStory#5e6a21b1: field story_sender_chat_id: %w", err)
+		}
+		e.StorySenderChatID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode editStory#aa2c3e86: field story_id: %w", err)
+			return fmt.Errorf("unable to decode editStory#5e6a21b1: field story_id: %w", err)
 		}
 		e.StoryID = value
 	}
 	{
 		value, err := DecodeInputStoryContent(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode editStory#aa2c3e86: field content: %w", err)
+			return fmt.Errorf("unable to decode editStory#5e6a21b1: field content: %w", err)
 		}
 		e.Content = value
 	}
 	{
 		if err := e.Areas.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode editStory#aa2c3e86: field areas: %w", err)
+			return fmt.Errorf("unable to decode editStory#5e6a21b1: field areas: %w", err)
 		}
 	}
 	{
 		if err := e.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode editStory#aa2c3e86: field caption: %w", err)
+			return fmt.Errorf("unable to decode editStory#5e6a21b1: field caption: %w", err)
 		}
 	}
 	return nil
@@ -203,30 +220,33 @@ func (e *EditStoryRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (e *EditStoryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if e == nil {
-		return fmt.Errorf("can't encode editStory#aa2c3e86 as nil")
+		return fmt.Errorf("can't encode editStory#5e6a21b1 as nil")
 	}
 	b.ObjStart()
 	b.PutID("editStory")
+	b.Comma()
+	b.FieldStart("story_sender_chat_id")
+	b.PutInt53(e.StorySenderChatID)
 	b.Comma()
 	b.FieldStart("story_id")
 	b.PutInt32(e.StoryID)
 	b.Comma()
 	b.FieldStart("content")
 	if e.Content == nil {
-		return fmt.Errorf("unable to encode editStory#aa2c3e86: field content is nil")
+		return fmt.Errorf("unable to encode editStory#5e6a21b1: field content is nil")
 	}
 	if err := e.Content.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode editStory#aa2c3e86: field content: %w", err)
+		return fmt.Errorf("unable to encode editStory#5e6a21b1: field content: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("areas")
 	if err := e.Areas.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode editStory#aa2c3e86: field areas: %w", err)
+		return fmt.Errorf("unable to encode editStory#5e6a21b1: field areas: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("caption")
 	if err := e.Caption.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode editStory#aa2c3e86: field caption: %w", err)
+		return fmt.Errorf("unable to encode editStory#5e6a21b1: field caption: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -237,40 +257,54 @@ func (e *EditStoryRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (e *EditStoryRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if e == nil {
-		return fmt.Errorf("can't decode editStory#aa2c3e86 to nil")
+		return fmt.Errorf("can't decode editStory#5e6a21b1 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("editStory"); err != nil {
-				return fmt.Errorf("unable to decode editStory#aa2c3e86: %w", err)
+				return fmt.Errorf("unable to decode editStory#5e6a21b1: %w", err)
 			}
+		case "story_sender_chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode editStory#5e6a21b1: field story_sender_chat_id: %w", err)
+			}
+			e.StorySenderChatID = value
 		case "story_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode editStory#aa2c3e86: field story_id: %w", err)
+				return fmt.Errorf("unable to decode editStory#5e6a21b1: field story_id: %w", err)
 			}
 			e.StoryID = value
 		case "content":
 			value, err := DecodeTDLibJSONInputStoryContent(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode editStory#aa2c3e86: field content: %w", err)
+				return fmt.Errorf("unable to decode editStory#5e6a21b1: field content: %w", err)
 			}
 			e.Content = value
 		case "areas":
 			if err := e.Areas.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode editStory#aa2c3e86: field areas: %w", err)
+				return fmt.Errorf("unable to decode editStory#5e6a21b1: field areas: %w", err)
 			}
 		case "caption":
 			if err := e.Caption.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode editStory#aa2c3e86: field caption: %w", err)
+				return fmt.Errorf("unable to decode editStory#5e6a21b1: field caption: %w", err)
 			}
 		default:
 			return b.Skip()
 		}
 		return nil
 	})
+}
+
+// GetStorySenderChatID returns value of StorySenderChatID field.
+func (e *EditStoryRequest) GetStorySenderChatID() (value int64) {
+	if e == nil {
+		return
+	}
+	return e.StorySenderChatID
 }
 
 // GetStoryID returns value of StoryID field.
@@ -305,7 +339,7 @@ func (e *EditStoryRequest) GetCaption() (value FormattedText) {
 	return e.Caption
 }
 
-// EditStory invokes method editStory#aa2c3e86 returning error if any.
+// EditStory invokes method editStory#5e6a21b1 returning error if any.
 func (c *Client) EditStory(ctx context.Context, request *EditStoryRequest) error {
 	var ok Ok
 
