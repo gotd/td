@@ -33,12 +33,15 @@ var (
 
 // ChatAdministratorRights represents TL type `chatAdministratorRights#5f4f9044`.
 type ChatAdministratorRights struct {
-	// True, if the administrator can get chat event log, get chat statistics, get chat
-	// boosts in channels, get message statistics in channels, get channel members,
+	// True, if the administrator can get chat event log, get chat boosts in channels, get
+	// channel members, report supergroup spam messages, see anonymous administrators in
+	// supergroups and ignore slow mode. Implied by any other privilege; applicable to
+	// supergroups and channels only
 	CanManageChat bool
 	// True, if the administrator can change the chat title, photo, and other settings
 	CanChangeInfo bool
-	// True, if the administrator can create channel posts; applicable to channels only
+	// True, if the administrator can create channel posts or view channel statistics;
+	// applicable to channels only
 	CanPostMessages bool
 	// True, if the administrator can edit messages of other users and pin messages;
 	// applicable to channels only
@@ -47,8 +50,8 @@ type ChatAdministratorRights struct {
 	CanDeleteMessages bool
 	// True, if the administrator can invite new users to the chat
 	CanInviteUsers bool
-	// True, if the administrator can restrict, ban, or unban chat members; always true for
-	// channels
+	// True, if the administrator can restrict, ban, or unban chat members or view supergroup
+	// statistics; always true for channels
 	CanRestrictMembers bool
 	// True, if the administrator can pin messages; applicable to basic groups and
 	// supergroups only
