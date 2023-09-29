@@ -3999,7 +3999,7 @@ func (s *ServerDispatcher) OnMessagesGetCommonChats(f func(ctx context.Context, 
 	s.handlers[MessagesGetCommonChatsRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnMessagesGetWebPage(f func(ctx context.Context, request *MessagesGetWebPageRequest) (WebPageClass, error)) {
+func (s *ServerDispatcher) OnMessagesGetWebPage(f func(ctx context.Context, request *MessagesGetWebPageRequest) (*MessagesWebPage, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request MessagesGetWebPageRequest
 		if err := request.Decode(b); err != nil {
@@ -4010,7 +4010,7 @@ func (s *ServerDispatcher) OnMessagesGetWebPage(f func(ctx context.Context, requ
 		if err != nil {
 			return nil, err
 		}
-		return &WebPageBox{WebPage: response}, nil
+		return response, nil
 	}
 
 	s.handlers[MessagesGetWebPageRequestTypeID] = handler
