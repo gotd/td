@@ -39,9 +39,9 @@ type ChatPermissions struct {
 	CanSendAudios bool
 	// True, if the user can send documents
 	CanSendDocuments bool
-	// True, if the user can send audio photos
+	// True, if the user can send photos
 	CanSendPhotos bool
-	// True, if the user can send audio videos
+	// True, if the user can send videos
 	CanSendVideos bool
 	// True, if the user can send video notes
 	CanSendVideoNotes bool
