@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesGetWebPageRequest represents TL type `messages.getWebPage#32ca8f91`.
+// MessagesGetWebPageRequest represents TL type `messages.getWebPage#8d9692a3`.
 // Get instant view¹ page
 //
 // Links:
@@ -49,7 +49,7 @@ type MessagesGetWebPageRequest struct {
 }
 
 // MessagesGetWebPageRequestTypeID is TL type id of MessagesGetWebPageRequest.
-const MessagesGetWebPageRequestTypeID = 0x32ca8f91
+const MessagesGetWebPageRequestTypeID = 0x8d9692a3
 
 // Ensuring interfaces in compile-time for MessagesGetWebPageRequest.
 var (
@@ -129,7 +129,7 @@ func (g *MessagesGetWebPageRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *MessagesGetWebPageRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getWebPage#32ca8f91 as nil")
+		return fmt.Errorf("can't encode messages.getWebPage#8d9692a3 as nil")
 	}
 	b.PutID(MessagesGetWebPageRequestTypeID)
 	return g.EncodeBare(b)
@@ -138,7 +138,7 @@ func (g *MessagesGetWebPageRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetWebPageRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getWebPage#32ca8f91 as nil")
+		return fmt.Errorf("can't encode messages.getWebPage#8d9692a3 as nil")
 	}
 	b.PutString(g.URL)
 	b.PutInt(g.Hash)
@@ -148,10 +148,10 @@ func (g *MessagesGetWebPageRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *MessagesGetWebPageRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getWebPage#32ca8f91 to nil")
+		return fmt.Errorf("can't decode messages.getWebPage#8d9692a3 to nil")
 	}
 	if err := b.ConsumeID(MessagesGetWebPageRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getWebPage#32ca8f91: %w", err)
+		return fmt.Errorf("unable to decode messages.getWebPage#8d9692a3: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -159,19 +159,19 @@ func (g *MessagesGetWebPageRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetWebPageRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getWebPage#32ca8f91 to nil")
+		return fmt.Errorf("can't decode messages.getWebPage#8d9692a3 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getWebPage#32ca8f91: field url: %w", err)
+			return fmt.Errorf("unable to decode messages.getWebPage#8d9692a3: field url: %w", err)
 		}
 		g.URL = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getWebPage#32ca8f91: field hash: %w", err)
+			return fmt.Errorf("unable to decode messages.getWebPage#8d9692a3: field hash: %w", err)
 		}
 		g.Hash = value
 	}
@@ -194,7 +194,7 @@ func (g *MessagesGetWebPageRequest) GetHash() (value int) {
 	return g.Hash
 }
 
-// MessagesGetWebPage invokes method messages.getWebPage#32ca8f91 returning error if any.
+// MessagesGetWebPage invokes method messages.getWebPage#8d9692a3 returning error if any.
 // Get instant view¹ page
 //
 // Links:
@@ -205,11 +205,11 @@ func (g *MessagesGetWebPageRequest) GetHash() (value int) {
 //	400 WC_CONVERT_URL_INVALID: WC convert URL invalid.
 //
 // See https://core.telegram.org/method/messages.getWebPage for reference.
-func (c *Client) MessagesGetWebPage(ctx context.Context, request *MessagesGetWebPageRequest) (WebPageClass, error) {
-	var result WebPageBox
+func (c *Client) MessagesGetWebPage(ctx context.Context, request *MessagesGetWebPageRequest) (*MessagesWebPage, error) {
+	var result MessagesWebPage
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.WebPage, nil
+	return &result, nil
 }

@@ -32,7 +32,7 @@ var (
 )
 
 // Layer version of schema.
-const Layer = 164
+const Layer = 165
 
 // TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
@@ -1186,11 +1186,12 @@ func TypesMap() map[uint32]string {
 		MediaAreaSuggestedReactionTypeID:                                        "mediaAreaSuggestedReaction#14455871",
 		PeerStoriesTypeID:                                                       "peerStories#9a35e999",
 		StoriesPeerStoriesTypeID:                                                "stories.peerStories#cae68768",
-		StoriesBoostsStatusTypeID:                                               "stories.boostsStatus#66ea1fef",
+		StoriesBoostsStatusTypeID:                                               "stories.boostsStatus#e5c1aa5c",
 		StoriesCanApplyBoostOkTypeID:                                            "stories.canApplyBoostOk#c3173587",
 		StoriesCanApplyBoostReplaceTypeID:                                       "stories.canApplyBoostReplace#712c4655",
 		BoosterTypeID:                                                           "booster#e9e6380",
 		StoriesBoostersListTypeID:                                               "stories.boostersList#f3dd3d1d",
+		MessagesWebPageTypeID:                                                   "messages.webPage#fd5e12bd",
 		InvokeAfterMsgRequestTypeID:                                             "invokeAfterMsg#cb9f372d",
 		InvokeAfterMsgsRequestTypeID:                                            "invokeAfterMsgs#3dc4b4f0",
 		InitConnectionRequestTypeID:                                             "initConnection#c1cd5ea9",
@@ -1412,7 +1413,7 @@ func TypesMap() map[uint32]string {
 		MessagesGetGameHighScoresRequestTypeID:                                  "messages.getGameHighScores#e822649d",
 		MessagesGetInlineGameHighScoresRequestTypeID:                            "messages.getInlineGameHighScores#f635e1b",
 		MessagesGetCommonChatsRequestTypeID:                                     "messages.getCommonChats#e40ca104",
-		MessagesGetWebPageRequestTypeID:                                         "messages.getWebPage#32ca8f91",
+		MessagesGetWebPageRequestTypeID:                                         "messages.getWebPage#8d9692a3",
 		MessagesToggleDialogPinRequestTypeID:                                    "messages.toggleDialogPin#a731e257",
 		MessagesReorderPinnedDialogsRequestTypeID:                               "messages.reorderPinnedDialogs#3b1adf37",
 		MessagesGetPinnedDialogsRequestTypeID:                                   "messages.getPinnedDialogs#d6b94df2",
@@ -2908,6 +2909,7 @@ func NamesMap() map[string]uint32 {
 		"stories.canApplyBoostReplace":                                      StoriesCanApplyBoostReplaceTypeID,
 		"booster":                                                           BoosterTypeID,
 		"stories.boostersList":                                              StoriesBoostersListTypeID,
+		"messages.webPage":                                                  MessagesWebPageTypeID,
 		"invokeAfterMsg":                                                    InvokeAfterMsgRequestTypeID,
 		"invokeAfterMsgs":                                                   InvokeAfterMsgsRequestTypeID,
 		"initConnection":                                                    InitConnectionRequestTypeID,
@@ -4625,6 +4627,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		StoriesCanApplyBoostReplaceTypeID:                                       func() bin.Object { return &StoriesCanApplyBoostReplace{} },
 		BoosterTypeID:                                                           func() bin.Object { return &Booster{} },
 		StoriesBoostersListTypeID:                                               func() bin.Object { return &StoriesBoostersList{} },
+		MessagesWebPageTypeID:                                                   func() bin.Object { return &MessagesWebPage{} },
 		InvokeAfterMsgRequestTypeID:                                             func() bin.Object { return &InvokeAfterMsgRequest{} },
 		InvokeAfterMsgsRequestTypeID:                                            func() bin.Object { return &InvokeAfterMsgsRequest{} },
 		InitConnectionRequestTypeID:                                             func() bin.Object { return &InitConnectionRequest{} },

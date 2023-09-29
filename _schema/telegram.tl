@@ -2,8 +2,8 @@
 //
 // Source: https://raw.githubusercontent.com/telegramdesktop/tdesktop/dev/Telegram/SourceFiles/mtproto/scheme/api.tl
 // Merge:  _schema/legacy.tl,_schema/layer.tl
-// Layer:  164
-// SHA256: 6e8d27f2272e93ffe7a7890e57b6a5aef7b36687850bc4e3a1388582fc22e633
+// Layer:  165
+// SHA256: 7bbf14403a05d0a385f4338ebfb196a278521b7f7e90881be20091de11ccd8ab
 
 boolFalse#bc799737 = Bool;
 
@@ -2303,7 +2303,7 @@ peerStories#9a35e999 flags:# peer:Peer max_read_id:flags.0?int stories:Vector<St
 
 stories.peerStories#cae68768 stories:PeerStories chats:Vector<Chat> users:Vector<User> = stories.PeerStories;
 
-stories.boostsStatus#66ea1fef flags:# my_boost:flags.2?true level:int current_level_boosts:int boosts:int next_level_boosts:flags.0?int premium_audience:flags.1?StatsPercentValue = stories.BoostsStatus;
+stories.boostsStatus#e5c1aa5c flags:# my_boost:flags.2?true level:int current_level_boosts:int boosts:int next_level_boosts:flags.0?int premium_audience:flags.1?StatsPercentValue boost_url:string = stories.BoostsStatus;
 
 stories.canApplyBoostOk#c3173587 = stories.CanApplyBoostResult;
 
@@ -2312,6 +2312,8 @@ stories.canApplyBoostReplace#712c4655 current_boost:Peer chats:Vector<Chat> = st
 booster#e9e6380 user_id:long expires:int = Booster;
 
 stories.boostersList#f3dd3d1d flags:# count:int boosters:Vector<Booster> next_offset:flags.0?string users:Vector<User> = stories.BoostersList;
+
+messages.webPage#fd5e12bd webpage:WebPage chats:Vector<Chat> users:Vector<User> = messages.WebPage;
 
 
 ---functions---
@@ -2758,7 +2760,7 @@ messages.getInlineGameHighScores#f635e1b id:InputBotInlineMessageID user_id:Inpu
 
 messages.getCommonChats#e40ca104 user_id:InputUser max_id:long limit:int = messages.Chats;
 
-messages.getWebPage#32ca8f91 url:string hash:int = WebPage;
+messages.getWebPage#8d9692a3 url:string hash:int = messages.WebPage;
 
 messages.toggleDialogPin#a731e257 flags:# pinned:flags.0?true peer:InputDialogPeer = Bool;
 
@@ -3436,4 +3438,4 @@ test.useError#ee75af01 = Error;
 
 test.useConfigSimple#f9b7b23d = help.ConfigSimple;
 
-// LAYER 164
+// LAYER 165

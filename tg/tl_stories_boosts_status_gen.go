@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoriesBoostsStatus represents TL type `stories.boostsStatus#66ea1fef`.
+// StoriesBoostsStatus represents TL type `stories.boostsStatus#e5c1aa5c`.
 //
 // See https://core.telegram.org/constructor/stories.boostsStatus for reference.
 type StoriesBoostsStatus struct {
@@ -53,10 +53,12 @@ type StoriesBoostsStatus struct {
 	//
 	// Use SetPremiumAudience and GetPremiumAudience helpers.
 	PremiumAudience StatsPercentValue
+	// BoostURL field of StoriesBoostsStatus.
+	BoostURL string
 }
 
 // StoriesBoostsStatusTypeID is TL type id of StoriesBoostsStatus.
-const StoriesBoostsStatusTypeID = 0x66ea1fef
+const StoriesBoostsStatusTypeID = 0xe5c1aa5c
 
 // Ensuring interfaces in compile-time for StoriesBoostsStatus.
 var (
@@ -91,6 +93,9 @@ func (b *StoriesBoostsStatus) Zero() bool {
 	if !(b.PremiumAudience.Zero()) {
 		return false
 	}
+	if !(b.BoostURL == "") {
+		return false
+	}
 
 	return true
 }
@@ -112,6 +117,7 @@ func (b *StoriesBoostsStatus) FillFrom(from interface {
 	GetBoosts() (value int)
 	GetNextLevelBoosts() (value int, ok bool)
 	GetPremiumAudience() (value StatsPercentValue, ok bool)
+	GetBoostURL() (value string)
 }) {
 	b.MyBoost = from.GetMyBoost()
 	b.Level = from.GetLevel()
@@ -125,6 +131,7 @@ func (b *StoriesBoostsStatus) FillFrom(from interface {
 		b.PremiumAudience = val
 	}
 
+	b.BoostURL = from.GetBoostURL()
 }
 
 // TypeID returns type id in TL schema.
@@ -177,6 +184,10 @@ func (b *StoriesBoostsStatus) TypeInfo() tdp.Type {
 			SchemaName: "premium_audience",
 			Null:       !b.Flags.Has(1),
 		},
+		{
+			Name:       "BoostURL",
+			SchemaName: "boost_url",
+		},
 	}
 	return typ
 }
@@ -197,7 +208,7 @@ func (b *StoriesBoostsStatus) SetFlags() {
 // Encode implements bin.Encoder.
 func (b *StoriesBoostsStatus) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode stories.boostsStatus#66ea1fef as nil")
+		return fmt.Errorf("can't encode stories.boostsStatus#e5c1aa5c as nil")
 	}
 	buf.PutID(StoriesBoostsStatusTypeID)
 	return b.EncodeBare(buf)
@@ -206,11 +217,11 @@ func (b *StoriesBoostsStatus) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *StoriesBoostsStatus) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode stories.boostsStatus#66ea1fef as nil")
+		return fmt.Errorf("can't encode stories.boostsStatus#e5c1aa5c as nil")
 	}
 	b.SetFlags()
 	if err := b.Flags.Encode(buf); err != nil {
-		return fmt.Errorf("unable to encode stories.boostsStatus#66ea1fef: field flags: %w", err)
+		return fmt.Errorf("unable to encode stories.boostsStatus#e5c1aa5c: field flags: %w", err)
 	}
 	buf.PutInt(b.Level)
 	buf.PutInt(b.CurrentLevelBoosts)
@@ -220,19 +231,20 @@ func (b *StoriesBoostsStatus) EncodeBare(buf *bin.Buffer) error {
 	}
 	if b.Flags.Has(1) {
 		if err := b.PremiumAudience.Encode(buf); err != nil {
-			return fmt.Errorf("unable to encode stories.boostsStatus#66ea1fef: field premium_audience: %w", err)
+			return fmt.Errorf("unable to encode stories.boostsStatus#e5c1aa5c: field premium_audience: %w", err)
 		}
 	}
+	buf.PutString(b.BoostURL)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (b *StoriesBoostsStatus) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode stories.boostsStatus#66ea1fef to nil")
+		return fmt.Errorf("can't decode stories.boostsStatus#e5c1aa5c to nil")
 	}
 	if err := buf.ConsumeID(StoriesBoostsStatusTypeID); err != nil {
-		return fmt.Errorf("unable to decode stories.boostsStatus#66ea1fef: %w", err)
+		return fmt.Errorf("unable to decode stories.boostsStatus#e5c1aa5c: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -240,46 +252,53 @@ func (b *StoriesBoostsStatus) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *StoriesBoostsStatus) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode stories.boostsStatus#66ea1fef to nil")
+		return fmt.Errorf("can't decode stories.boostsStatus#e5c1aa5c to nil")
 	}
 	{
 		if err := b.Flags.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode stories.boostsStatus#66ea1fef: field flags: %w", err)
+			return fmt.Errorf("unable to decode stories.boostsStatus#e5c1aa5c: field flags: %w", err)
 		}
 	}
 	b.MyBoost = b.Flags.Has(2)
 	{
 		value, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.boostsStatus#66ea1fef: field level: %w", err)
+			return fmt.Errorf("unable to decode stories.boostsStatus#e5c1aa5c: field level: %w", err)
 		}
 		b.Level = value
 	}
 	{
 		value, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.boostsStatus#66ea1fef: field current_level_boosts: %w", err)
+			return fmt.Errorf("unable to decode stories.boostsStatus#e5c1aa5c: field current_level_boosts: %w", err)
 		}
 		b.CurrentLevelBoosts = value
 	}
 	{
 		value, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.boostsStatus#66ea1fef: field boosts: %w", err)
+			return fmt.Errorf("unable to decode stories.boostsStatus#e5c1aa5c: field boosts: %w", err)
 		}
 		b.Boosts = value
 	}
 	if b.Flags.Has(0) {
 		value, err := buf.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.boostsStatus#66ea1fef: field next_level_boosts: %w", err)
+			return fmt.Errorf("unable to decode stories.boostsStatus#e5c1aa5c: field next_level_boosts: %w", err)
 		}
 		b.NextLevelBoosts = value
 	}
 	if b.Flags.Has(1) {
 		if err := b.PremiumAudience.Decode(buf); err != nil {
-			return fmt.Errorf("unable to decode stories.boostsStatus#66ea1fef: field premium_audience: %w", err)
+			return fmt.Errorf("unable to decode stories.boostsStatus#e5c1aa5c: field premium_audience: %w", err)
 		}
+	}
+	{
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode stories.boostsStatus#e5c1aa5c: field boost_url: %w", err)
+		}
+		b.BoostURL = value
 	}
 	return nil
 }
@@ -361,4 +380,12 @@ func (b *StoriesBoostsStatus) GetPremiumAudience() (value StatsPercentValue, ok 
 		return value, false
 	}
 	return b.PremiumAudience, true
+}
+
+// GetBoostURL returns value of BoostURL field.
+func (b *StoriesBoostsStatus) GetBoostURL() (value string) {
+	if b == nil {
+		return
+	}
+	return b.BoostURL
 }
