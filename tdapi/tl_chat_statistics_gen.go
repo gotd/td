@@ -881,7 +881,7 @@ type ChatStatisticsChannel struct {
 	MeanViewCount StatisticalValue
 	// Mean number of times the recently sent messages was shared
 	MeanShareCount StatisticalValue
-	// A percentage of users with enabled notifications for the chat
+	// A percentage of users with enabled notifications for the chat; 0-100
 	EnabledNotificationsPercentage float64
 	// A graph containing number of members in the chat
 	MemberCountGraph StatisticalGraphClass
