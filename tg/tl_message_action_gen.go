@@ -5992,22 +5992,22 @@ type MessageActionTopicEdit struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Topic title.
+	// New topic title.
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// ID of the custom emoji¹ used as topic icon.
+	// ID of the new custom emoji¹ used as topic icon, or if it was removed.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/custom-emoji
 	//
 	// Use SetIconEmojiID and GetIconEmojiID helpers.
 	IconEmojiID int64
-	// Whether the topic was closed.
+	// Whether the topic was opened or closed.
 	//
 	// Use SetClosed and GetClosed helpers.
 	Closed bool
-	// Whether the topic was hidden (only valid for the "General" topic, id=1).
+	// Whether the topic was hidden or unhidden (only valid for the "General" topic, id=1).
 	//
 	// Use SetHidden and GetHidden helpers.
 	Hidden bool
