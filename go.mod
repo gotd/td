@@ -21,8 +21,8 @@ require (
 	go.uber.org/atomic v1.11.0
 	go.uber.org/multierr v1.11.0
 	go.uber.org/zap v1.26.0
-	golang.org/x/crypto v0.13.0
-	golang.org/x/net v0.15.0
+	golang.org/x/crypto v0.14.0
+	golang.org/x/net v0.16.0
 	golang.org/x/sync v0.3.0
 	golang.org/x/tools v0.13.0
 	nhooyr.io/websocket v1.8.7
@@ -44,7 +44,7 @@ require (
 	github.com/sergi/go-diff v1.1.0 // indirect
 	go.uber.org/ratelimit v0.3.0 // indirect
 	golang.org/x/mod v0.12.0 // indirect
-	golang.org/x/sys v0.12.0 // indirect
+	golang.org/x/sys v0.13.0 // indirect
 	golang.org/x/text v0.13.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
