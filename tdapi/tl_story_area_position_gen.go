@@ -39,7 +39,7 @@ type StoryAreaPosition struct {
 	YPercentage float64
 	// The width of the rectangle, as a percentage of the media width
 	WidthPercentage float64
-	// The ordinate of the rectangle's center, as a percentage of the media height
+	// The height of the rectangle, as a percentage of the media height
 	HeightPercentage float64
 	// Clockwise rotation angle of the rectangle, in degrees; 0-360
 	RotationAngle float64
