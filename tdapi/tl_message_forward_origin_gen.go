@@ -798,172 +798,6 @@ func (m *MessageForwardOriginChannel) GetAuthorSignature() (value string) {
 	return m.AuthorSignature
 }
 
-// MessageForwardOriginMessageImport represents TL type `messageForwardOriginMessageImport#d3eb2e21`.
-type MessageForwardOriginMessageImport struct {
-	// Name of the sender
-	SenderName string
-}
-
-// MessageForwardOriginMessageImportTypeID is TL type id of MessageForwardOriginMessageImport.
-const MessageForwardOriginMessageImportTypeID = 0xd3eb2e21
-
-// construct implements constructor of MessageForwardOriginClass.
-func (m MessageForwardOriginMessageImport) construct() MessageForwardOriginClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageForwardOriginMessageImport.
-var (
-	_ bin.Encoder     = &MessageForwardOriginMessageImport{}
-	_ bin.Decoder     = &MessageForwardOriginMessageImport{}
-	_ bin.BareEncoder = &MessageForwardOriginMessageImport{}
-	_ bin.BareDecoder = &MessageForwardOriginMessageImport{}
-
-	_ MessageForwardOriginClass = &MessageForwardOriginMessageImport{}
-)
-
-func (m *MessageForwardOriginMessageImport) Zero() bool {
-	if m == nil {
-		return true
-	}
-	if !(m.SenderName == "") {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (m *MessageForwardOriginMessageImport) String() string {
-	if m == nil {
-		return "MessageForwardOriginMessageImport(nil)"
-	}
-	type Alias MessageForwardOriginMessageImport
-	return fmt.Sprintf("MessageForwardOriginMessageImport%+v", Alias(*m))
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*MessageForwardOriginMessageImport) TypeID() uint32 {
-	return MessageForwardOriginMessageImportTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*MessageForwardOriginMessageImport) TypeName() string {
-	return "messageForwardOriginMessageImport"
-}
-
-// TypeInfo returns info about TL type.
-func (m *MessageForwardOriginMessageImport) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "messageForwardOriginMessageImport",
-		ID:   MessageForwardOriginMessageImportTypeID,
-	}
-	if m == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "SenderName",
-			SchemaName: "sender_name",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (m *MessageForwardOriginMessageImport) Encode(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't encode messageForwardOriginMessageImport#d3eb2e21 as nil")
-	}
-	b.PutID(MessageForwardOriginMessageImportTypeID)
-	return m.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (m *MessageForwardOriginMessageImport) EncodeBare(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't encode messageForwardOriginMessageImport#d3eb2e21 as nil")
-	}
-	b.PutString(m.SenderName)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (m *MessageForwardOriginMessageImport) Decode(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageForwardOriginMessageImport#d3eb2e21 to nil")
-	}
-	if err := b.ConsumeID(MessageForwardOriginMessageImportTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageForwardOriginMessageImport#d3eb2e21: %w", err)
-	}
-	return m.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (m *MessageForwardOriginMessageImport) DecodeBare(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageForwardOriginMessageImport#d3eb2e21 to nil")
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageForwardOriginMessageImport#d3eb2e21: field sender_name: %w", err)
-		}
-		m.SenderName = value
-	}
-	return nil
-}
-
-// EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (m *MessageForwardOriginMessageImport) EncodeTDLibJSON(b tdjson.Encoder) error {
-	if m == nil {
-		return fmt.Errorf("can't encode messageForwardOriginMessageImport#d3eb2e21 as nil")
-	}
-	b.ObjStart()
-	b.PutID("messageForwardOriginMessageImport")
-	b.Comma()
-	b.FieldStart("sender_name")
-	b.PutString(m.SenderName)
-	b.Comma()
-	b.StripComma()
-	b.ObjEnd()
-	return nil
-}
-
-// DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (m *MessageForwardOriginMessageImport) DecodeTDLibJSON(b tdjson.Decoder) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageForwardOriginMessageImport#d3eb2e21 to nil")
-	}
-
-	return b.Obj(func(b tdjson.Decoder, key []byte) error {
-		switch string(key) {
-		case tdjson.TypeField:
-			if err := b.ConsumeID("messageForwardOriginMessageImport"); err != nil {
-				return fmt.Errorf("unable to decode messageForwardOriginMessageImport#d3eb2e21: %w", err)
-			}
-		case "sender_name":
-			value, err := b.String()
-			if err != nil {
-				return fmt.Errorf("unable to decode messageForwardOriginMessageImport#d3eb2e21: field sender_name: %w", err)
-			}
-			m.SenderName = value
-		default:
-			return b.Skip()
-		}
-		return nil
-	})
-}
-
-// GetSenderName returns value of SenderName field.
-func (m *MessageForwardOriginMessageImport) GetSenderName() (value string) {
-	if m == nil {
-		return
-	}
-	return m.SenderName
-}
-
 // MessageForwardOriginClassName is schema name of MessageForwardOriginClass.
 const MessageForwardOriginClassName = "MessageForwardOrigin"
 
@@ -980,7 +814,6 @@ const MessageForwardOriginClassName = "MessageForwardOrigin"
 //	case *tdapi.MessageForwardOriginChat: // messageForwardOriginChat#5af51364
 //	case *tdapi.MessageForwardOriginHiddenUser: // messageForwardOriginHiddenUser#efd4eee3
 //	case *tdapi.MessageForwardOriginChannel: // messageForwardOriginChannel#58dabee3
-//	case *tdapi.MessageForwardOriginMessageImport: // messageForwardOriginMessageImport#d3eb2e21
 //	default: panic(v)
 //	}
 type MessageForwardOriginClass interface {
@@ -1040,13 +873,6 @@ func DecodeMessageForwardOrigin(buf *bin.Buffer) (MessageForwardOriginClass, err
 			return nil, fmt.Errorf("unable to decode MessageForwardOriginClass: %w", err)
 		}
 		return &v, nil
-	case MessageForwardOriginMessageImportTypeID:
-		// Decoding messageForwardOriginMessageImport#d3eb2e21.
-		v := MessageForwardOriginMessageImport{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageForwardOriginClass: %w", err)
-		}
-		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode MessageForwardOriginClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -1083,13 +909,6 @@ func DecodeTDLibJSONMessageForwardOrigin(buf tdjson.Decoder) (MessageForwardOrig
 	case "messageForwardOriginChannel":
 		// Decoding messageForwardOriginChannel#58dabee3.
 		v := MessageForwardOriginChannel{}
-		if err := v.DecodeTDLibJSON(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageForwardOriginClass: %w", err)
-		}
-		return &v, nil
-	case "messageForwardOriginMessageImport":
-		// Decoding messageForwardOriginMessageImport#d3eb2e21.
-		v := MessageForwardOriginMessageImport{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageForwardOriginClass: %w", err)
 		}

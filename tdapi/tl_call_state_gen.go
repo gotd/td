@@ -883,7 +883,7 @@ func (c *CallStateHangingUp) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // CallStateDiscarded represents TL type `callStateDiscarded#531b7c45`.
 type CallStateDiscarded struct {
-	// The reason, why the call has ended
+	// The reason why the call has ended
 	Reason CallDiscardReasonClass
 	// True, if the call rating must be sent to the server
 	NeedRating bool

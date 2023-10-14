@@ -31,8 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatBoostStatus represents TL type `chatBoostStatus#cd6a3f87`.
+// ChatBoostStatus represents TL type `chatBoostStatus#dc02a4b2`.
 type ChatBoostStatus struct {
+	// An HTTP URL, which can be used to boost the chat
+	BoostURL string
 	// True, if the current user has already boosted the chat
 	IsBoosted bool
 	// Current boost level of the chat
@@ -53,7 +55,7 @@ type ChatBoostStatus struct {
 }
 
 // ChatBoostStatusTypeID is TL type id of ChatBoostStatus.
-const ChatBoostStatusTypeID = 0xcd6a3f87
+const ChatBoostStatusTypeID = 0xdc02a4b2
 
 // Ensuring interfaces in compile-time for ChatBoostStatus.
 var (
@@ -66,6 +68,9 @@ var (
 func (c *ChatBoostStatus) Zero() bool {
 	if c == nil {
 		return true
+	}
+	if !(c.BoostURL == "") {
+		return false
 	}
 	if !(c.IsBoosted == false) {
 		return false
@@ -125,6 +130,10 @@ func (c *ChatBoostStatus) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "BoostURL",
+			SchemaName: "boost_url",
+		},
+		{
 			Name:       "IsBoosted",
 			SchemaName: "is_boosted",
 		},
@@ -159,7 +168,7 @@ func (c *ChatBoostStatus) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatBoostStatus) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatBoostStatus#cd6a3f87 as nil")
+		return fmt.Errorf("can't encode chatBoostStatus#dc02a4b2 as nil")
 	}
 	b.PutID(ChatBoostStatusTypeID)
 	return c.EncodeBare(b)
@@ -168,8 +177,9 @@ func (c *ChatBoostStatus) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatBoostStatus) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatBoostStatus#cd6a3f87 as nil")
+		return fmt.Errorf("can't encode chatBoostStatus#dc02a4b2 as nil")
 	}
+	b.PutString(c.BoostURL)
 	b.PutBool(c.IsBoosted)
 	b.PutInt32(c.Level)
 	b.PutInt32(c.BoostCount)
@@ -183,10 +193,10 @@ func (c *ChatBoostStatus) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatBoostStatus) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatBoostStatus#cd6a3f87 to nil")
+		return fmt.Errorf("can't decode chatBoostStatus#dc02a4b2 to nil")
 	}
 	if err := b.ConsumeID(ChatBoostStatusTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatBoostStatus#cd6a3f87: %w", err)
+		return fmt.Errorf("unable to decode chatBoostStatus#dc02a4b2: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -194,54 +204,61 @@ func (c *ChatBoostStatus) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatBoostStatus) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatBoostStatus#cd6a3f87 to nil")
+		return fmt.Errorf("can't decode chatBoostStatus#dc02a4b2 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatBoostStatus#dc02a4b2: field boost_url: %w", err)
+		}
+		c.BoostURL = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostStatus#cd6a3f87: field is_boosted: %w", err)
+			return fmt.Errorf("unable to decode chatBoostStatus#dc02a4b2: field is_boosted: %w", err)
 		}
 		c.IsBoosted = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostStatus#cd6a3f87: field level: %w", err)
+			return fmt.Errorf("unable to decode chatBoostStatus#dc02a4b2: field level: %w", err)
 		}
 		c.Level = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostStatus#cd6a3f87: field boost_count: %w", err)
+			return fmt.Errorf("unable to decode chatBoostStatus#dc02a4b2: field boost_count: %w", err)
 		}
 		c.BoostCount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostStatus#cd6a3f87: field current_level_boost_count: %w", err)
+			return fmt.Errorf("unable to decode chatBoostStatus#dc02a4b2: field current_level_boost_count: %w", err)
 		}
 		c.CurrentLevelBoostCount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostStatus#cd6a3f87: field next_level_boost_count: %w", err)
+			return fmt.Errorf("unable to decode chatBoostStatus#dc02a4b2: field next_level_boost_count: %w", err)
 		}
 		c.NextLevelBoostCount = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostStatus#cd6a3f87: field premium_member_count: %w", err)
+			return fmt.Errorf("unable to decode chatBoostStatus#dc02a4b2: field premium_member_count: %w", err)
 		}
 		c.PremiumMemberCount = value
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoostStatus#cd6a3f87: field premium_member_percentage: %w", err)
+			return fmt.Errorf("unable to decode chatBoostStatus#dc02a4b2: field premium_member_percentage: %w", err)
 		}
 		c.PremiumMemberPercentage = value
 	}
@@ -251,10 +268,13 @@ func (c *ChatBoostStatus) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatBoostStatus) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatBoostStatus#cd6a3f87 as nil")
+		return fmt.Errorf("can't encode chatBoostStatus#dc02a4b2 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatBoostStatus")
+	b.Comma()
+	b.FieldStart("boost_url")
+	b.PutString(c.BoostURL)
 	b.Comma()
 	b.FieldStart("is_boosted")
 	b.PutBool(c.IsBoosted)
@@ -285,55 +305,61 @@ func (c *ChatBoostStatus) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatBoostStatus) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatBoostStatus#cd6a3f87 to nil")
+		return fmt.Errorf("can't decode chatBoostStatus#dc02a4b2 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatBoostStatus"); err != nil {
-				return fmt.Errorf("unable to decode chatBoostStatus#cd6a3f87: %w", err)
+				return fmt.Errorf("unable to decode chatBoostStatus#dc02a4b2: %w", err)
 			}
+		case "boost_url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatBoostStatus#dc02a4b2: field boost_url: %w", err)
+			}
+			c.BoostURL = value
 		case "is_boosted":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostStatus#cd6a3f87: field is_boosted: %w", err)
+				return fmt.Errorf("unable to decode chatBoostStatus#dc02a4b2: field is_boosted: %w", err)
 			}
 			c.IsBoosted = value
 		case "level":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostStatus#cd6a3f87: field level: %w", err)
+				return fmt.Errorf("unable to decode chatBoostStatus#dc02a4b2: field level: %w", err)
 			}
 			c.Level = value
 		case "boost_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostStatus#cd6a3f87: field boost_count: %w", err)
+				return fmt.Errorf("unable to decode chatBoostStatus#dc02a4b2: field boost_count: %w", err)
 			}
 			c.BoostCount = value
 		case "current_level_boost_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostStatus#cd6a3f87: field current_level_boost_count: %w", err)
+				return fmt.Errorf("unable to decode chatBoostStatus#dc02a4b2: field current_level_boost_count: %w", err)
 			}
 			c.CurrentLevelBoostCount = value
 		case "next_level_boost_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostStatus#cd6a3f87: field next_level_boost_count: %w", err)
+				return fmt.Errorf("unable to decode chatBoostStatus#dc02a4b2: field next_level_boost_count: %w", err)
 			}
 			c.NextLevelBoostCount = value
 		case "premium_member_count":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostStatus#cd6a3f87: field premium_member_count: %w", err)
+				return fmt.Errorf("unable to decode chatBoostStatus#dc02a4b2: field premium_member_count: %w", err)
 			}
 			c.PremiumMemberCount = value
 		case "premium_member_percentage":
 			value, err := b.Double()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoostStatus#cd6a3f87: field premium_member_percentage: %w", err)
+				return fmt.Errorf("unable to decode chatBoostStatus#dc02a4b2: field premium_member_percentage: %w", err)
 			}
 			c.PremiumMemberPercentage = value
 		default:
@@ -341,6 +367,14 @@ func (c *ChatBoostStatus) DecodeTDLibJSON(b tdjson.Decoder) error {
 		}
 		return nil
 	})
+}
+
+// GetBoostURL returns value of BoostURL field.
+func (c *ChatBoostStatus) GetBoostURL() (value string) {
+	if c == nil {
+		return
+	}
+	return c.BoostURL
 }
 
 // GetIsBoosted returns value of IsBoosted field.
