@@ -108,7 +108,7 @@ type Message struct {
 	// The message's self-destruct type; may be null if none
 	SelfDestructType MessageSelfDestructTypeClass
 	// Time left before the message self-destruct timer expires, in seconds; 0 if
-	// self-desctruction isn't scheduled yet
+	// self-destruction isn't scheduled yet
 	SelfDestructIn float64
 	// Time left before the message will be automatically deleted by message_auto_delete_time
 	// setting of the chat, in seconds; 0 if never
