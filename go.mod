@@ -25,7 +25,7 @@ require (
 	golang.org/x/net v0.17.0
 	golang.org/x/sync v0.4.0
 	golang.org/x/tools v0.14.0
-	nhooyr.io/websocket v1.8.9
+	nhooyr.io/websocket v1.8.10
 	rsc.io/qr v0.2.0
 )
 
