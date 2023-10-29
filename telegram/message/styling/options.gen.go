@@ -172,16 +172,6 @@ func Strike(s string) StyledTextOption {
 	})
 }
 
-// Blockquote formats text as Blockquote entity.
-//
-// See https://core.telegram.org/constructor/messageEntityBlockquote.
-func Blockquote(s string) StyledTextOption {
-	return styledTextOption(s, func(b *textBuilder) error {
-		b.Blockquote(s)
-		return nil
-	})
-}
-
 // BankCard formats text as BankCard entity.
 //
 // See https://core.telegram.org/constructor/messageEntityBankCard.
@@ -208,6 +198,16 @@ func Spoiler(s string) StyledTextOption {
 func CustomEmoji(s string, documentID int64) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
 		b.CustomEmoji(s, documentID)
+		return nil
+	})
+}
+
+// Blockquote formats text as Blockquote entity.
+//
+// See https://core.telegram.org/constructor/messageEntityBlockquote.
+func Blockquote(s string) StyledTextOption {
+	return styledTextOption(s, func(b *textBuilder) error {
+		b.Blockquote(s)
 		return nil
 	})
 }

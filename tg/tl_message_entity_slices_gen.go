@@ -337,19 +337,6 @@ func (s MessageEntityClassArray) AsMessageEntityStrike() (to MessageEntityStrike
 	return to
 }
 
-// AsMessageEntityBlockquote returns copy with only MessageEntityBlockquote constructors.
-func (s MessageEntityClassArray) AsMessageEntityBlockquote() (to MessageEntityBlockquoteArray) {
-	for _, elem := range s {
-		value, ok := elem.(*MessageEntityBlockquote)
-		if !ok {
-			continue
-		}
-		to = append(to, *value)
-	}
-
-	return to
-}
-
 // AsMessageEntityBankCard returns copy with only MessageEntityBankCard constructors.
 func (s MessageEntityClassArray) AsMessageEntityBankCard() (to MessageEntityBankCardArray) {
 	for _, elem := range s {
@@ -380,6 +367,19 @@ func (s MessageEntityClassArray) AsMessageEntitySpoiler() (to MessageEntitySpoil
 func (s MessageEntityClassArray) AsMessageEntityCustomEmoji() (to MessageEntityCustomEmojiArray) {
 	for _, elem := range s {
 		value, ok := elem.(*MessageEntityCustomEmoji)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMessageEntityBlockquote returns copy with only MessageEntityBlockquote constructors.
+func (s MessageEntityClassArray) AsMessageEntityBlockquote() (to MessageEntityBlockquoteArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageEntityBlockquote)
 		if !ok {
 			continue
 		}
@@ -1783,88 +1783,6 @@ func (s *MessageEntityStrikeArray) Pop() (v MessageEntityStrike, ok bool) {
 	return v, true
 }
 
-// MessageEntityBlockquoteArray is adapter for slice of MessageEntityBlockquote.
-type MessageEntityBlockquoteArray []MessageEntityBlockquote
-
-// Sort sorts slice of MessageEntityBlockquote.
-func (s MessageEntityBlockquoteArray) Sort(less func(a, b MessageEntityBlockquote) bool) MessageEntityBlockquoteArray {
-	sort.Slice(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// SortStable sorts slice of MessageEntityBlockquote.
-func (s MessageEntityBlockquoteArray) SortStable(less func(a, b MessageEntityBlockquote) bool) MessageEntityBlockquoteArray {
-	sort.SliceStable(s, func(i, j int) bool {
-		return less(s[i], s[j])
-	})
-	return s
-}
-
-// Retain filters in-place slice of MessageEntityBlockquote.
-func (s MessageEntityBlockquoteArray) Retain(keep func(x MessageEntityBlockquote) bool) MessageEntityBlockquoteArray {
-	n := 0
-	for _, x := range s {
-		if keep(x) {
-			s[n] = x
-			n++
-		}
-	}
-	s = s[:n]
-
-	return s
-}
-
-// First returns first element of slice (if exists).
-func (s MessageEntityBlockquoteArray) First() (v MessageEntityBlockquote, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[0], true
-}
-
-// Last returns last element of slice (if exists).
-func (s MessageEntityBlockquoteArray) Last() (v MessageEntityBlockquote, ok bool) {
-	if len(s) < 1 {
-		return
-	}
-	return s[len(s)-1], true
-}
-
-// PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityBlockquoteArray) PopFirst() (v MessageEntityBlockquote, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[0]
-
-	// Delete by index from SliceTricks.
-	copy(a[0:], a[1:])
-	var zero MessageEntityBlockquote
-	a[len(a)-1] = zero
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
-// Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityBlockquoteArray) Pop() (v MessageEntityBlockquote, ok bool) {
-	if s == nil || len(*s) < 1 {
-		return
-	}
-
-	a := *s
-	v = a[len(a)-1]
-	a = a[:len(a)-1]
-	*s = a
-
-	return v, true
-}
-
 // MessageEntityBankCardArray is adapter for slice of MessageEntityBankCard.
 type MessageEntityBankCardArray []MessageEntityBankCard
 
@@ -2099,6 +2017,88 @@ func (s *MessageEntityCustomEmojiArray) PopFirst() (v MessageEntityCustomEmoji, 
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MessageEntityCustomEmojiArray) Pop() (v MessageEntityCustomEmoji, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageEntityBlockquoteArray is adapter for slice of MessageEntityBlockquote.
+type MessageEntityBlockquoteArray []MessageEntityBlockquote
+
+// Sort sorts slice of MessageEntityBlockquote.
+func (s MessageEntityBlockquoteArray) Sort(less func(a, b MessageEntityBlockquote) bool) MessageEntityBlockquoteArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageEntityBlockquote.
+func (s MessageEntityBlockquoteArray) SortStable(less func(a, b MessageEntityBlockquote) bool) MessageEntityBlockquoteArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageEntityBlockquote.
+func (s MessageEntityBlockquoteArray) Retain(keep func(x MessageEntityBlockquote) bool) MessageEntityBlockquoteArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageEntityBlockquoteArray) First() (v MessageEntityBlockquote, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageEntityBlockquoteArray) Last() (v MessageEntityBlockquote, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageEntityBlockquoteArray) PopFirst() (v MessageEntityBlockquote, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageEntityBlockquote
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageEntityBlockquoteArray) Pop() (v MessageEntityBlockquote, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

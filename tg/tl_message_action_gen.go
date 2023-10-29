@@ -6917,6 +6917,409 @@ func (m *MessageActionSetSameChatWallPaper) GetWallpaper() (value WallPaperClass
 	return m.Wallpaper
 }
 
+// MessageActionGiftCode represents TL type `messageActionGiftCode#d2cfdb0e`.
+//
+// See https://core.telegram.org/constructor/messageActionGiftCode for reference.
+type MessageActionGiftCode struct {
+	// Flags field of MessageActionGiftCode.
+	Flags bin.Fields
+	// ViaGiveaway field of MessageActionGiftCode.
+	ViaGiveaway bool
+	// Unclaimed field of MessageActionGiftCode.
+	Unclaimed bool
+	// BoostPeer field of MessageActionGiftCode.
+	//
+	// Use SetBoostPeer and GetBoostPeer helpers.
+	BoostPeer PeerClass
+	// Months field of MessageActionGiftCode.
+	Months int
+	// Slug field of MessageActionGiftCode.
+	Slug string
+}
+
+// MessageActionGiftCodeTypeID is TL type id of MessageActionGiftCode.
+const MessageActionGiftCodeTypeID = 0xd2cfdb0e
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionGiftCode) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionGiftCode.
+var (
+	_ bin.Encoder     = &MessageActionGiftCode{}
+	_ bin.Decoder     = &MessageActionGiftCode{}
+	_ bin.BareEncoder = &MessageActionGiftCode{}
+	_ bin.BareDecoder = &MessageActionGiftCode{}
+
+	_ MessageActionClass = &MessageActionGiftCode{}
+)
+
+func (m *MessageActionGiftCode) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.ViaGiveaway == false) {
+		return false
+	}
+	if !(m.Unclaimed == false) {
+		return false
+	}
+	if !(m.BoostPeer == nil) {
+		return false
+	}
+	if !(m.Months == 0) {
+		return false
+	}
+	if !(m.Slug == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionGiftCode) String() string {
+	if m == nil {
+		return "MessageActionGiftCode(nil)"
+	}
+	type Alias MessageActionGiftCode
+	return fmt.Sprintf("MessageActionGiftCode%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionGiftCode from given interface.
+func (m *MessageActionGiftCode) FillFrom(from interface {
+	GetViaGiveaway() (value bool)
+	GetUnclaimed() (value bool)
+	GetBoostPeer() (value PeerClass, ok bool)
+	GetMonths() (value int)
+	GetSlug() (value string)
+}) {
+	m.ViaGiveaway = from.GetViaGiveaway()
+	m.Unclaimed = from.GetUnclaimed()
+	if val, ok := from.GetBoostPeer(); ok {
+		m.BoostPeer = val
+	}
+
+	m.Months = from.GetMonths()
+	m.Slug = from.GetSlug()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionGiftCode) TypeID() uint32 {
+	return MessageActionGiftCodeTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionGiftCode) TypeName() string {
+	return "messageActionGiftCode"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionGiftCode) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionGiftCode",
+		ID:   MessageActionGiftCodeTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ViaGiveaway",
+			SchemaName: "via_giveaway",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "Unclaimed",
+			SchemaName: "unclaimed",
+			Null:       !m.Flags.Has(2),
+		},
+		{
+			Name:       "BoostPeer",
+			SchemaName: "boost_peer",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "Months",
+			SchemaName: "months",
+		},
+		{
+			Name:       "Slug",
+			SchemaName: "slug",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MessageActionGiftCode) SetFlags() {
+	if !(m.ViaGiveaway == false) {
+		m.Flags.Set(0)
+	}
+	if !(m.Unclaimed == false) {
+		m.Flags.Set(2)
+	}
+	if !(m.BoostPeer == nil) {
+		m.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionGiftCode) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionGiftCode#d2cfdb0e as nil")
+	}
+	b.PutID(MessageActionGiftCodeTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionGiftCode) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionGiftCode#d2cfdb0e as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionGiftCode#d2cfdb0e: field flags: %w", err)
+	}
+	if m.Flags.Has(1) {
+		if m.BoostPeer == nil {
+			return fmt.Errorf("unable to encode messageActionGiftCode#d2cfdb0e: field boost_peer is nil")
+		}
+		if err := m.BoostPeer.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messageActionGiftCode#d2cfdb0e: field boost_peer: %w", err)
+		}
+	}
+	b.PutInt(m.Months)
+	b.PutString(m.Slug)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionGiftCode) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionGiftCode#d2cfdb0e to nil")
+	}
+	if err := b.ConsumeID(MessageActionGiftCodeTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionGiftCode#d2cfdb0e: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionGiftCode) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionGiftCode#d2cfdb0e to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftCode#d2cfdb0e: field flags: %w", err)
+		}
+	}
+	m.ViaGiveaway = m.Flags.Has(0)
+	m.Unclaimed = m.Flags.Has(2)
+	if m.Flags.Has(1) {
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftCode#d2cfdb0e: field boost_peer: %w", err)
+		}
+		m.BoostPeer = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftCode#d2cfdb0e: field months: %w", err)
+		}
+		m.Months = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionGiftCode#d2cfdb0e: field slug: %w", err)
+		}
+		m.Slug = value
+	}
+	return nil
+}
+
+// SetViaGiveaway sets value of ViaGiveaway conditional field.
+func (m *MessageActionGiftCode) SetViaGiveaway(value bool) {
+	if value {
+		m.Flags.Set(0)
+		m.ViaGiveaway = true
+	} else {
+		m.Flags.Unset(0)
+		m.ViaGiveaway = false
+	}
+}
+
+// GetViaGiveaway returns value of ViaGiveaway conditional field.
+func (m *MessageActionGiftCode) GetViaGiveaway() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(0)
+}
+
+// SetUnclaimed sets value of Unclaimed conditional field.
+func (m *MessageActionGiftCode) SetUnclaimed(value bool) {
+	if value {
+		m.Flags.Set(2)
+		m.Unclaimed = true
+	} else {
+		m.Flags.Unset(2)
+		m.Unclaimed = false
+	}
+}
+
+// GetUnclaimed returns value of Unclaimed conditional field.
+func (m *MessageActionGiftCode) GetUnclaimed() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(2)
+}
+
+// SetBoostPeer sets value of BoostPeer conditional field.
+func (m *MessageActionGiftCode) SetBoostPeer(value PeerClass) {
+	m.Flags.Set(1)
+	m.BoostPeer = value
+}
+
+// GetBoostPeer returns value of BoostPeer conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionGiftCode) GetBoostPeer() (value PeerClass, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(1) {
+		return value, false
+	}
+	return m.BoostPeer, true
+}
+
+// GetMonths returns value of Months field.
+func (m *MessageActionGiftCode) GetMonths() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Months
+}
+
+// GetSlug returns value of Slug field.
+func (m *MessageActionGiftCode) GetSlug() (value string) {
+	if m == nil {
+		return
+	}
+	return m.Slug
+}
+
+// MessageActionGiveawayLaunch represents TL type `messageActionGiveawayLaunch#332ba9ed`.
+//
+// See https://core.telegram.org/constructor/messageActionGiveawayLaunch for reference.
+type MessageActionGiveawayLaunch struct {
+}
+
+// MessageActionGiveawayLaunchTypeID is TL type id of MessageActionGiveawayLaunch.
+const MessageActionGiveawayLaunchTypeID = 0x332ba9ed
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionGiveawayLaunch) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionGiveawayLaunch.
+var (
+	_ bin.Encoder     = &MessageActionGiveawayLaunch{}
+	_ bin.Decoder     = &MessageActionGiveawayLaunch{}
+	_ bin.BareEncoder = &MessageActionGiveawayLaunch{}
+	_ bin.BareDecoder = &MessageActionGiveawayLaunch{}
+
+	_ MessageActionClass = &MessageActionGiveawayLaunch{}
+)
+
+func (m *MessageActionGiveawayLaunch) Zero() bool {
+	if m == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionGiveawayLaunch) String() string {
+	if m == nil {
+		return "MessageActionGiveawayLaunch(nil)"
+	}
+	type Alias MessageActionGiveawayLaunch
+	return fmt.Sprintf("MessageActionGiveawayLaunch%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionGiveawayLaunch) TypeID() uint32 {
+	return MessageActionGiveawayLaunchTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionGiveawayLaunch) TypeName() string {
+	return "messageActionGiveawayLaunch"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionGiveawayLaunch) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionGiveawayLaunch",
+		ID:   MessageActionGiveawayLaunchTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionGiveawayLaunch) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionGiveawayLaunch#332ba9ed as nil")
+	}
+	b.PutID(MessageActionGiveawayLaunchTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionGiveawayLaunch) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionGiveawayLaunch#332ba9ed as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionGiveawayLaunch) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionGiveawayLaunch#332ba9ed to nil")
+	}
+	if err := b.ConsumeID(MessageActionGiveawayLaunchTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionGiveawayLaunch#332ba9ed: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionGiveawayLaunch) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionGiveawayLaunch#332ba9ed to nil")
+	}
+	return nil
+}
+
 // MessageActionClassName is schema name of MessageActionClass.
 const MessageActionClassName = "MessageAction"
 
@@ -6970,6 +7373,8 @@ const MessageActionClassName = "MessageAction"
 //	case *tg.MessageActionRequestedPeer: // messageActionRequestedPeer#fe77345d
 //	case *tg.MessageActionSetChatWallPaper: // messageActionSetChatWallPaper#bc44a927
 //	case *tg.MessageActionSetSameChatWallPaper: // messageActionSetSameChatWallPaper#c0787d6d
+//	case *tg.MessageActionGiftCode: // messageActionGiftCode#d2cfdb0e
+//	case *tg.MessageActionGiveawayLaunch: // messageActionGiveawayLaunch#332ba9ed
 //	default: panic(v)
 //	}
 type MessageActionClass interface {
@@ -7267,6 +7672,20 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionSetSameChatWallPaperTypeID:
 		// Decoding messageActionSetSameChatWallPaper#c0787d6d.
 		v := MessageActionSetSameChatWallPaper{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionGiftCodeTypeID:
+		// Decoding messageActionGiftCode#d2cfdb0e.
+		v := MessageActionGiftCode{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionGiveawayLaunchTypeID:
+		// Decoding messageActionGiveawayLaunch#332ba9ed.
+		v := MessageActionGiveawayLaunch{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}

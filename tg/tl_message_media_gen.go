@@ -1237,17 +1237,27 @@ func (m *MessageMediaDocument) GetTTLSeconds() (value int, ok bool) {
 	return m.TTLSeconds, true
 }
 
-// MessageMediaWebPage represents TL type `messageMediaWebPage#a32dd600`.
+// MessageMediaWebPage represents TL type `messageMediaWebPage#ddf10c3b`.
 // Preview of webpage
 //
 // See https://core.telegram.org/constructor/messageMediaWebPage for reference.
 type MessageMediaWebPage struct {
+	// Flags field of MessageMediaWebPage.
+	Flags bin.Fields
+	// ForceLargeMedia field of MessageMediaWebPage.
+	ForceLargeMedia bool
+	// ForceSmallMedia field of MessageMediaWebPage.
+	ForceSmallMedia bool
+	// Manual field of MessageMediaWebPage.
+	Manual bool
+	// Safe field of MessageMediaWebPage.
+	Safe bool
 	// Webpage preview
 	Webpage WebPageClass
 }
 
 // MessageMediaWebPageTypeID is TL type id of MessageMediaWebPage.
-const MessageMediaWebPageTypeID = 0xa32dd600
+const MessageMediaWebPageTypeID = 0xddf10c3b
 
 // construct implements constructor of MessageMediaClass.
 func (m MessageMediaWebPage) construct() MessageMediaClass { return &m }
@@ -1265,6 +1275,21 @@ var (
 func (m *MessageMediaWebPage) Zero() bool {
 	if m == nil {
 		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.ForceLargeMedia == false) {
+		return false
+	}
+	if !(m.ForceSmallMedia == false) {
+		return false
+	}
+	if !(m.Manual == false) {
+		return false
+	}
+	if !(m.Safe == false) {
+		return false
 	}
 	if !(m.Webpage == nil) {
 		return false
@@ -1284,8 +1309,16 @@ func (m *MessageMediaWebPage) String() string {
 
 // FillFrom fills MessageMediaWebPage from given interface.
 func (m *MessageMediaWebPage) FillFrom(from interface {
+	GetForceLargeMedia() (value bool)
+	GetForceSmallMedia() (value bool)
+	GetManual() (value bool)
+	GetSafe() (value bool)
 	GetWebpage() (value WebPageClass)
 }) {
+	m.ForceLargeMedia = from.GetForceLargeMedia()
+	m.ForceSmallMedia = from.GetForceSmallMedia()
+	m.Manual = from.GetManual()
+	m.Safe = from.GetSafe()
 	m.Webpage = from.GetWebpage()
 }
 
@@ -1313,6 +1346,26 @@ func (m *MessageMediaWebPage) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "ForceLargeMedia",
+			SchemaName: "force_large_media",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "ForceSmallMedia",
+			SchemaName: "force_small_media",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "Manual",
+			SchemaName: "manual",
+			Null:       !m.Flags.Has(3),
+		},
+		{
+			Name:       "Safe",
+			SchemaName: "safe",
+			Null:       !m.Flags.Has(4),
+		},
+		{
 			Name:       "Webpage",
 			SchemaName: "webpage",
 		},
@@ -1320,10 +1373,26 @@ func (m *MessageMediaWebPage) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (m *MessageMediaWebPage) SetFlags() {
+	if !(m.ForceLargeMedia == false) {
+		m.Flags.Set(0)
+	}
+	if !(m.ForceSmallMedia == false) {
+		m.Flags.Set(1)
+	}
+	if !(m.Manual == false) {
+		m.Flags.Set(3)
+	}
+	if !(m.Safe == false) {
+		m.Flags.Set(4)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageMediaWebPage) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageMediaWebPage#a32dd600 as nil")
+		return fmt.Errorf("can't encode messageMediaWebPage#ddf10c3b as nil")
 	}
 	b.PutID(MessageMediaWebPageTypeID)
 	return m.EncodeBare(b)
@@ -1332,13 +1401,17 @@ func (m *MessageMediaWebPage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageMediaWebPage) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageMediaWebPage#a32dd600 as nil")
+		return fmt.Errorf("can't encode messageMediaWebPage#ddf10c3b as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageMediaWebPage#ddf10c3b: field flags: %w", err)
 	}
 	if m.Webpage == nil {
-		return fmt.Errorf("unable to encode messageMediaWebPage#a32dd600: field webpage is nil")
+		return fmt.Errorf("unable to encode messageMediaWebPage#ddf10c3b: field webpage is nil")
 	}
 	if err := m.Webpage.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageMediaWebPage#a32dd600: field webpage: %w", err)
+		return fmt.Errorf("unable to encode messageMediaWebPage#ddf10c3b: field webpage: %w", err)
 	}
 	return nil
 }
@@ -1346,10 +1419,10 @@ func (m *MessageMediaWebPage) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageMediaWebPage) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageMediaWebPage#a32dd600 to nil")
+		return fmt.Errorf("can't decode messageMediaWebPage#ddf10c3b to nil")
 	}
 	if err := b.ConsumeID(MessageMediaWebPageTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageMediaWebPage#a32dd600: %w", err)
+		return fmt.Errorf("unable to decode messageMediaWebPage#ddf10c3b: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -1357,16 +1430,101 @@ func (m *MessageMediaWebPage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageMediaWebPage) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageMediaWebPage#a32dd600 to nil")
+		return fmt.Errorf("can't decode messageMediaWebPage#ddf10c3b to nil")
 	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageMediaWebPage#ddf10c3b: field flags: %w", err)
+		}
+	}
+	m.ForceLargeMedia = m.Flags.Has(0)
+	m.ForceSmallMedia = m.Flags.Has(1)
+	m.Manual = m.Flags.Has(3)
+	m.Safe = m.Flags.Has(4)
 	{
 		value, err := DecodeWebPage(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageMediaWebPage#a32dd600: field webpage: %w", err)
+			return fmt.Errorf("unable to decode messageMediaWebPage#ddf10c3b: field webpage: %w", err)
 		}
 		m.Webpage = value
 	}
 	return nil
+}
+
+// SetForceLargeMedia sets value of ForceLargeMedia conditional field.
+func (m *MessageMediaWebPage) SetForceLargeMedia(value bool) {
+	if value {
+		m.Flags.Set(0)
+		m.ForceLargeMedia = true
+	} else {
+		m.Flags.Unset(0)
+		m.ForceLargeMedia = false
+	}
+}
+
+// GetForceLargeMedia returns value of ForceLargeMedia conditional field.
+func (m *MessageMediaWebPage) GetForceLargeMedia() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(0)
+}
+
+// SetForceSmallMedia sets value of ForceSmallMedia conditional field.
+func (m *MessageMediaWebPage) SetForceSmallMedia(value bool) {
+	if value {
+		m.Flags.Set(1)
+		m.ForceSmallMedia = true
+	} else {
+		m.Flags.Unset(1)
+		m.ForceSmallMedia = false
+	}
+}
+
+// GetForceSmallMedia returns value of ForceSmallMedia conditional field.
+func (m *MessageMediaWebPage) GetForceSmallMedia() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(1)
+}
+
+// SetManual sets value of Manual conditional field.
+func (m *MessageMediaWebPage) SetManual(value bool) {
+	if value {
+		m.Flags.Set(3)
+		m.Manual = true
+	} else {
+		m.Flags.Unset(3)
+		m.Manual = false
+	}
+}
+
+// GetManual returns value of Manual conditional field.
+func (m *MessageMediaWebPage) GetManual() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(3)
+}
+
+// SetSafe sets value of Safe conditional field.
+func (m *MessageMediaWebPage) SetSafe(value bool) {
+	if value {
+		m.Flags.Set(4)
+		m.Safe = true
+	} else {
+		m.Flags.Unset(4)
+		m.Safe = false
+	}
+}
+
+// GetSafe returns value of Safe conditional field.
+func (m *MessageMediaWebPage) GetSafe() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(4)
 }
 
 // GetWebpage returns value of Webpage field.
@@ -3187,6 +3345,348 @@ func (m *MessageMediaStory) GetStory() (value StoryItemClass, ok bool) {
 	return m.Story, true
 }
 
+// MessageMediaGiveaway represents TL type `messageMediaGiveaway#58260664`.
+//
+// See https://core.telegram.org/constructor/messageMediaGiveaway for reference.
+type MessageMediaGiveaway struct {
+	// Flags field of MessageMediaGiveaway.
+	Flags bin.Fields
+	// OnlyNewSubscribers field of MessageMediaGiveaway.
+	OnlyNewSubscribers bool
+	// Channels field of MessageMediaGiveaway.
+	Channels []int64
+	// CountriesISO2 field of MessageMediaGiveaway.
+	//
+	// Use SetCountriesISO2 and GetCountriesISO2 helpers.
+	CountriesISO2 []string
+	// Quantity field of MessageMediaGiveaway.
+	Quantity int
+	// Months field of MessageMediaGiveaway.
+	Months int
+	// UntilDate field of MessageMediaGiveaway.
+	UntilDate int
+}
+
+// MessageMediaGiveawayTypeID is TL type id of MessageMediaGiveaway.
+const MessageMediaGiveawayTypeID = 0x58260664
+
+// construct implements constructor of MessageMediaClass.
+func (m MessageMediaGiveaway) construct() MessageMediaClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageMediaGiveaway.
+var (
+	_ bin.Encoder     = &MessageMediaGiveaway{}
+	_ bin.Decoder     = &MessageMediaGiveaway{}
+	_ bin.BareEncoder = &MessageMediaGiveaway{}
+	_ bin.BareDecoder = &MessageMediaGiveaway{}
+
+	_ MessageMediaClass = &MessageMediaGiveaway{}
+)
+
+func (m *MessageMediaGiveaway) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.OnlyNewSubscribers == false) {
+		return false
+	}
+	if !(m.Channels == nil) {
+		return false
+	}
+	if !(m.CountriesISO2 == nil) {
+		return false
+	}
+	if !(m.Quantity == 0) {
+		return false
+	}
+	if !(m.Months == 0) {
+		return false
+	}
+	if !(m.UntilDate == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageMediaGiveaway) String() string {
+	if m == nil {
+		return "MessageMediaGiveaway(nil)"
+	}
+	type Alias MessageMediaGiveaway
+	return fmt.Sprintf("MessageMediaGiveaway%+v", Alias(*m))
+}
+
+// FillFrom fills MessageMediaGiveaway from given interface.
+func (m *MessageMediaGiveaway) FillFrom(from interface {
+	GetOnlyNewSubscribers() (value bool)
+	GetChannels() (value []int64)
+	GetCountriesISO2() (value []string, ok bool)
+	GetQuantity() (value int)
+	GetMonths() (value int)
+	GetUntilDate() (value int)
+}) {
+	m.OnlyNewSubscribers = from.GetOnlyNewSubscribers()
+	m.Channels = from.GetChannels()
+	if val, ok := from.GetCountriesISO2(); ok {
+		m.CountriesISO2 = val
+	}
+
+	m.Quantity = from.GetQuantity()
+	m.Months = from.GetMonths()
+	m.UntilDate = from.GetUntilDate()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageMediaGiveaway) TypeID() uint32 {
+	return MessageMediaGiveawayTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageMediaGiveaway) TypeName() string {
+	return "messageMediaGiveaway"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageMediaGiveaway) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageMediaGiveaway",
+		ID:   MessageMediaGiveawayTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "OnlyNewSubscribers",
+			SchemaName: "only_new_subscribers",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "Channels",
+			SchemaName: "channels",
+		},
+		{
+			Name:       "CountriesISO2",
+			SchemaName: "countries_iso2",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "Quantity",
+			SchemaName: "quantity",
+		},
+		{
+			Name:       "Months",
+			SchemaName: "months",
+		},
+		{
+			Name:       "UntilDate",
+			SchemaName: "until_date",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (m *MessageMediaGiveaway) SetFlags() {
+	if !(m.OnlyNewSubscribers == false) {
+		m.Flags.Set(0)
+	}
+	if !(m.CountriesISO2 == nil) {
+		m.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageMediaGiveaway) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaGiveaway#58260664 as nil")
+	}
+	b.PutID(MessageMediaGiveawayTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageMediaGiveaway) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaGiveaway#58260664 as nil")
+	}
+	m.SetFlags()
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageMediaGiveaway#58260664: field flags: %w", err)
+	}
+	b.PutVectorHeader(len(m.Channels))
+	for _, v := range m.Channels {
+		b.PutLong(v)
+	}
+	if m.Flags.Has(1) {
+		b.PutVectorHeader(len(m.CountriesISO2))
+		for _, v := range m.CountriesISO2 {
+			b.PutString(v)
+		}
+	}
+	b.PutInt(m.Quantity)
+	b.PutInt(m.Months)
+	b.PutInt(m.UntilDate)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageMediaGiveaway) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaGiveaway#58260664 to nil")
+	}
+	if err := b.ConsumeID(MessageMediaGiveawayTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageMediaGiveaway#58260664: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageMediaGiveaway) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaGiveaway#58260664 to nil")
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageMediaGiveaway#58260664: field flags: %w", err)
+		}
+	}
+	m.OnlyNewSubscribers = m.Flags.Has(0)
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaGiveaway#58260664: field channels: %w", err)
+		}
+
+		if headerLen > 0 {
+			m.Channels = make([]int64, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageMediaGiveaway#58260664: field channels: %w", err)
+			}
+			m.Channels = append(m.Channels, value)
+		}
+	}
+	if m.Flags.Has(1) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaGiveaway#58260664: field countries_iso2: %w", err)
+		}
+
+		if headerLen > 0 {
+			m.CountriesISO2 = make([]string, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageMediaGiveaway#58260664: field countries_iso2: %w", err)
+			}
+			m.CountriesISO2 = append(m.CountriesISO2, value)
+		}
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaGiveaway#58260664: field quantity: %w", err)
+		}
+		m.Quantity = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaGiveaway#58260664: field months: %w", err)
+		}
+		m.Months = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageMediaGiveaway#58260664: field until_date: %w", err)
+		}
+		m.UntilDate = value
+	}
+	return nil
+}
+
+// SetOnlyNewSubscribers sets value of OnlyNewSubscribers conditional field.
+func (m *MessageMediaGiveaway) SetOnlyNewSubscribers(value bool) {
+	if value {
+		m.Flags.Set(0)
+		m.OnlyNewSubscribers = true
+	} else {
+		m.Flags.Unset(0)
+		m.OnlyNewSubscribers = false
+	}
+}
+
+// GetOnlyNewSubscribers returns value of OnlyNewSubscribers conditional field.
+func (m *MessageMediaGiveaway) GetOnlyNewSubscribers() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(0)
+}
+
+// GetChannels returns value of Channels field.
+func (m *MessageMediaGiveaway) GetChannels() (value []int64) {
+	if m == nil {
+		return
+	}
+	return m.Channels
+}
+
+// SetCountriesISO2 sets value of CountriesISO2 conditional field.
+func (m *MessageMediaGiveaway) SetCountriesISO2(value []string) {
+	m.Flags.Set(1)
+	m.CountriesISO2 = value
+}
+
+// GetCountriesISO2 returns value of CountriesISO2 conditional field and
+// boolean which is true if field was set.
+func (m *MessageMediaGiveaway) GetCountriesISO2() (value []string, ok bool) {
+	if m == nil {
+		return
+	}
+	if !m.Flags.Has(1) {
+		return value, false
+	}
+	return m.CountriesISO2, true
+}
+
+// GetQuantity returns value of Quantity field.
+func (m *MessageMediaGiveaway) GetQuantity() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Quantity
+}
+
+// GetMonths returns value of Months field.
+func (m *MessageMediaGiveaway) GetMonths() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Months
+}
+
+// GetUntilDate returns value of UntilDate field.
+func (m *MessageMediaGiveaway) GetUntilDate() (value int) {
+	if m == nil {
+		return
+	}
+	return m.UntilDate
+}
+
 // MessageMediaClassName is schema name of MessageMediaClass.
 const MessageMediaClassName = "MessageMedia"
 
@@ -3207,7 +3707,7 @@ const MessageMediaClassName = "MessageMedia"
 //	case *tg.MessageMediaContact: // messageMediaContact#70322949
 //	case *tg.MessageMediaUnsupported: // messageMediaUnsupported#9f84f49e
 //	case *tg.MessageMediaDocument: // messageMediaDocument#4cf4d72d
-//	case *tg.MessageMediaWebPage: // messageMediaWebPage#a32dd600
+//	case *tg.MessageMediaWebPage: // messageMediaWebPage#ddf10c3b
 //	case *tg.MessageMediaVenue: // messageMediaVenue#2ec0533f
 //	case *tg.MessageMediaGame: // messageMediaGame#fdb19008
 //	case *tg.MessageMediaInvoice: // messageMediaInvoice#f6a548d3
@@ -3215,6 +3715,7 @@ const MessageMediaClassName = "MessageMedia"
 //	case *tg.MessageMediaPoll: // messageMediaPoll#4bd6e798
 //	case *tg.MessageMediaDice: // messageMediaDice#3f7ee58b
 //	case *tg.MessageMediaStory: // messageMediaStory#68cb6283
+//	case *tg.MessageMediaGiveaway: // messageMediaGiveaway#58260664
 //	default: panic(v)
 //	}
 type MessageMediaClass interface {
@@ -3286,7 +3787,7 @@ func DecodeMessageMedia(buf *bin.Buffer) (MessageMediaClass, error) {
 		}
 		return &v, nil
 	case MessageMediaWebPageTypeID:
-		// Decoding messageMediaWebPage#a32dd600.
+		// Decoding messageMediaWebPage#ddf10c3b.
 		v := MessageMediaWebPage{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageMediaClass: %w", err)
@@ -3337,6 +3838,13 @@ func DecodeMessageMedia(buf *bin.Buffer) (MessageMediaClass, error) {
 	case MessageMediaStoryTypeID:
 		// Decoding messageMediaStory#68cb6283.
 		v := MessageMediaStory{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageMediaClass: %w", err)
+		}
+		return &v, nil
+	case MessageMediaGiveawayTypeID:
+		// Decoding messageMediaGiveaway#58260664.
+		v := MessageMediaGiveaway{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageMediaClass: %w", err)
 		}

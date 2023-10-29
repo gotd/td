@@ -58,6 +58,8 @@ type MessagesSendMediaRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/stickers#recent-stickersets
 	UpdateStickersetsOrder bool
+	// InvertMedia field of MessagesSendMediaRequest.
+	InvertMedia bool
 	// Destination
 	Peer InputPeerClass
 	// ReplyTo field of MessagesSendMediaRequest.
@@ -127,6 +129,9 @@ func (s *MessagesSendMediaRequest) Zero() bool {
 	if !(s.UpdateStickersetsOrder == false) {
 		return false
 	}
+	if !(s.InvertMedia == false) {
+		return false
+	}
 	if !(s.Peer == nil) {
 		return false
 	}
@@ -174,6 +179,7 @@ func (s *MessagesSendMediaRequest) FillFrom(from interface {
 	GetClearDraft() (value bool)
 	GetNoforwards() (value bool)
 	GetUpdateStickersetsOrder() (value bool)
+	GetInvertMedia() (value bool)
 	GetPeer() (value InputPeerClass)
 	GetReplyTo() (value InputReplyToClass, ok bool)
 	GetMedia() (value InputMediaClass)
@@ -189,6 +195,7 @@ func (s *MessagesSendMediaRequest) FillFrom(from interface {
 	s.ClearDraft = from.GetClearDraft()
 	s.Noforwards = from.GetNoforwards()
 	s.UpdateStickersetsOrder = from.GetUpdateStickersetsOrder()
+	s.InvertMedia = from.GetInvertMedia()
 	s.Peer = from.GetPeer()
 	if val, ok := from.GetReplyTo(); ok {
 		s.ReplyTo = val
@@ -264,6 +271,11 @@ func (s *MessagesSendMediaRequest) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(15),
 		},
 		{
+			Name:       "InvertMedia",
+			SchemaName: "invert_media",
+			Null:       !s.Flags.Has(16),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -324,6 +336,9 @@ func (s *MessagesSendMediaRequest) SetFlags() {
 	}
 	if !(s.UpdateStickersetsOrder == false) {
 		s.Flags.Set(15)
+	}
+	if !(s.InvertMedia == false) {
+		s.Flags.Set(16)
 	}
 	if !(s.ReplyTo == nil) {
 		s.Flags.Set(0)
@@ -441,6 +456,7 @@ func (s *MessagesSendMediaRequest) DecodeBare(b *bin.Buffer) error {
 	s.ClearDraft = s.Flags.Has(7)
 	s.Noforwards = s.Flags.Has(14)
 	s.UpdateStickersetsOrder = s.Flags.Has(15)
+	s.InvertMedia = s.Flags.Has(16)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -610,6 +626,25 @@ func (s *MessagesSendMediaRequest) GetUpdateStickersetsOrder() (value bool) {
 		return
 	}
 	return s.Flags.Has(15)
+}
+
+// SetInvertMedia sets value of InvertMedia conditional field.
+func (s *MessagesSendMediaRequest) SetInvertMedia(value bool) {
+	if value {
+		s.Flags.Set(16)
+		s.InvertMedia = true
+	} else {
+		s.Flags.Unset(16)
+		s.InvertMedia = false
+	}
+}
+
+// GetInvertMedia returns value of InvertMedia conditional field.
+func (s *MessagesSendMediaRequest) GetInvertMedia() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(16)
 }
 
 // GetPeer returns value of Peer field.

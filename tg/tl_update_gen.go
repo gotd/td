@@ -3275,6 +3275,8 @@ type UpdateServiceNotification struct {
 	Flags bin.Fields
 	// If set, the message must be displayed in a popup.
 	Popup bool
+	// InvertMedia field of UpdateServiceNotification.
+	InvertMedia bool
 	// When was the notification receivedThe message must also be stored locally as part of
 	// the message history with the user id 777000 (Telegram Notifications).
 	//
@@ -3324,6 +3326,9 @@ func (u *UpdateServiceNotification) Zero() bool {
 	if !(u.Popup == false) {
 		return false
 	}
+	if !(u.InvertMedia == false) {
+		return false
+	}
 	if !(u.InboxDate == 0) {
 		return false
 	}
@@ -3355,6 +3360,7 @@ func (u *UpdateServiceNotification) String() string {
 // FillFrom fills UpdateServiceNotification from given interface.
 func (u *UpdateServiceNotification) FillFrom(from interface {
 	GetPopup() (value bool)
+	GetInvertMedia() (value bool)
 	GetInboxDate() (value int, ok bool)
 	GetType() (value string)
 	GetMessage() (value string)
@@ -3362,6 +3368,7 @@ func (u *UpdateServiceNotification) FillFrom(from interface {
 	GetEntities() (value []MessageEntityClass)
 }) {
 	u.Popup = from.GetPopup()
+	u.InvertMedia = from.GetInvertMedia()
 	if val, ok := from.GetInboxDate(); ok {
 		u.InboxDate = val
 	}
@@ -3401,6 +3408,11 @@ func (u *UpdateServiceNotification) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(0),
 		},
 		{
+			Name:       "InvertMedia",
+			SchemaName: "invert_media",
+			Null:       !u.Flags.Has(2),
+		},
+		{
 			Name:       "InboxDate",
 			SchemaName: "inbox_date",
 			Null:       !u.Flags.Has(1),
@@ -3429,6 +3441,9 @@ func (u *UpdateServiceNotification) TypeInfo() tdp.Type {
 func (u *UpdateServiceNotification) SetFlags() {
 	if !(u.Popup == false) {
 		u.Flags.Set(0)
+	}
+	if !(u.InvertMedia == false) {
+		u.Flags.Set(2)
 	}
 	if !(u.InboxDate == 0) {
 		u.Flags.Set(1)
@@ -3498,6 +3513,7 @@ func (u *UpdateServiceNotification) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	u.Popup = u.Flags.Has(0)
+	u.InvertMedia = u.Flags.Has(2)
 	if u.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
@@ -3563,6 +3579,25 @@ func (u *UpdateServiceNotification) GetPopup() (value bool) {
 		return
 	}
 	return u.Flags.Has(0)
+}
+
+// SetInvertMedia sets value of InvertMedia conditional field.
+func (u *UpdateServiceNotification) SetInvertMedia(value bool) {
+	if value {
+		u.Flags.Set(2)
+		u.InvertMedia = true
+	} else {
+		u.Flags.Unset(2)
+		u.InvertMedia = false
+	}
+}
+
+// GetInvertMedia returns value of InvertMedia conditional field.
+func (u *UpdateServiceNotification) GetInvertMedia() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(2)
 }
 
 // SetInboxDate sets value of InboxDate conditional field.
