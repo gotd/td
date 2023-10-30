@@ -31,7 +31,7 @@ require (
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/gotd/ige v0.2.2 // indirect
 	github.com/gotd/neo v0.1.5 // indirect
-	github.com/klauspost/compress v1.17.0 // indirect
+	github.com/klauspost/compress v1.17.2 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
@@ -44,7 +44,7 @@ require (
 	golang.org/x/exp v0.0.0-20230116083435-1de6713980de // indirect
 	golang.org/x/net v0.17.0 // indirect
 	golang.org/x/sys v0.13.0 // indirect
-	nhooyr.io/websocket v1.8.7 // indirect
+	nhooyr.io/websocket v1.8.10 // indirect
 	rsc.io/qr v0.2.0 // indirect
 )
 

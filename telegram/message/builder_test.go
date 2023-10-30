@@ -26,7 +26,7 @@ func TestBuilder(t *testing.T) {
 	a.True(b.noWebpage)
 
 	b = b.ReplyMsg(&tg.Message{ID: 10})
-	a.Equal(10, b.replyToMsgID)
+	a.Equal(10, b.replyTo.(*tg.InputReplyToMessage).ReplyToMsgID)
 
 	date := time.Now()
 	b = b.Schedule(date)
