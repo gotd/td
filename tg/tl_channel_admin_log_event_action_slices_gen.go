@@ -649,6 +649,32 @@ func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionToggle
 	return to
 }
 
+// AsChannelAdminLogEventActionChangeColor returns copy with only ChannelAdminLogEventActionChangeColor constructors.
+func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionChangeColor() (to ChannelAdminLogEventActionChangeColorArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelAdminLogEventActionChangeColor)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsChannelAdminLogEventActionChangeBackgroundEmoji returns copy with only ChannelAdminLogEventActionChangeBackgroundEmoji constructors.
+func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionChangeBackgroundEmoji() (to ChannelAdminLogEventActionChangeBackgroundEmojiArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelAdminLogEventActionChangeBackgroundEmoji)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // ChannelAdminLogEventActionChangeTitleArray is adapter for slice of ChannelAdminLogEventActionChangeTitle.
 type ChannelAdminLogEventActionChangeTitleArray []ChannelAdminLogEventActionChangeTitle
 
@@ -3999,6 +4025,170 @@ func (s *ChannelAdminLogEventActionToggleAntiSpamArray) PopFirst() (v ChannelAdm
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *ChannelAdminLogEventActionToggleAntiSpamArray) Pop() (v ChannelAdminLogEventActionToggleAntiSpam, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// ChannelAdminLogEventActionChangeColorArray is adapter for slice of ChannelAdminLogEventActionChangeColor.
+type ChannelAdminLogEventActionChangeColorArray []ChannelAdminLogEventActionChangeColor
+
+// Sort sorts slice of ChannelAdminLogEventActionChangeColor.
+func (s ChannelAdminLogEventActionChangeColorArray) Sort(less func(a, b ChannelAdminLogEventActionChangeColor) bool) ChannelAdminLogEventActionChangeColorArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelAdminLogEventActionChangeColor.
+func (s ChannelAdminLogEventActionChangeColorArray) SortStable(less func(a, b ChannelAdminLogEventActionChangeColor) bool) ChannelAdminLogEventActionChangeColorArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelAdminLogEventActionChangeColor.
+func (s ChannelAdminLogEventActionChangeColorArray) Retain(keep func(x ChannelAdminLogEventActionChangeColor) bool) ChannelAdminLogEventActionChangeColorArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelAdminLogEventActionChangeColorArray) First() (v ChannelAdminLogEventActionChangeColor, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelAdminLogEventActionChangeColorArray) Last() (v ChannelAdminLogEventActionChangeColor, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionChangeColorArray) PopFirst() (v ChannelAdminLogEventActionChangeColor, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChannelAdminLogEventActionChangeColor
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionChangeColorArray) Pop() (v ChannelAdminLogEventActionChangeColor, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// ChannelAdminLogEventActionChangeBackgroundEmojiArray is adapter for slice of ChannelAdminLogEventActionChangeBackgroundEmoji.
+type ChannelAdminLogEventActionChangeBackgroundEmojiArray []ChannelAdminLogEventActionChangeBackgroundEmoji
+
+// Sort sorts slice of ChannelAdminLogEventActionChangeBackgroundEmoji.
+func (s ChannelAdminLogEventActionChangeBackgroundEmojiArray) Sort(less func(a, b ChannelAdminLogEventActionChangeBackgroundEmoji) bool) ChannelAdminLogEventActionChangeBackgroundEmojiArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelAdminLogEventActionChangeBackgroundEmoji.
+func (s ChannelAdminLogEventActionChangeBackgroundEmojiArray) SortStable(less func(a, b ChannelAdminLogEventActionChangeBackgroundEmoji) bool) ChannelAdminLogEventActionChangeBackgroundEmojiArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelAdminLogEventActionChangeBackgroundEmoji.
+func (s ChannelAdminLogEventActionChangeBackgroundEmojiArray) Retain(keep func(x ChannelAdminLogEventActionChangeBackgroundEmoji) bool) ChannelAdminLogEventActionChangeBackgroundEmojiArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelAdminLogEventActionChangeBackgroundEmojiArray) First() (v ChannelAdminLogEventActionChangeBackgroundEmoji, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelAdminLogEventActionChangeBackgroundEmojiArray) Last() (v ChannelAdminLogEventActionChangeBackgroundEmoji, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionChangeBackgroundEmojiArray) PopFirst() (v ChannelAdminLogEventActionChangeBackgroundEmoji, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChannelAdminLogEventActionChangeBackgroundEmoji
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionChangeBackgroundEmojiArray) Pop() (v ChannelAdminLogEventActionChangeBackgroundEmoji, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

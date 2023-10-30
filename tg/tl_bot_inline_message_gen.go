@@ -44,6 +44,8 @@ type BotInlineMessageMediaAuto struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// InvertMedia field of BotInlineMessageMediaAuto.
+	InvertMedia bool
 	// Caption
 	Message string
 	// Message entities for styled text¹
@@ -82,6 +84,9 @@ func (b *BotInlineMessageMediaAuto) Zero() bool {
 	if !(b.Flags.Zero()) {
 		return false
 	}
+	if !(b.InvertMedia == false) {
+		return false
+	}
 	if !(b.Message == "") {
 		return false
 	}
@@ -106,10 +111,12 @@ func (b *BotInlineMessageMediaAuto) String() string {
 
 // FillFrom fills BotInlineMessageMediaAuto from given interface.
 func (b *BotInlineMessageMediaAuto) FillFrom(from interface {
+	GetInvertMedia() (value bool)
 	GetMessage() (value string)
 	GetEntities() (value []MessageEntityClass, ok bool)
 	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
 }) {
+	b.InvertMedia = from.GetInvertMedia()
 	b.Message = from.GetMessage()
 	if val, ok := from.GetEntities(); ok {
 		b.Entities = val
@@ -145,6 +152,11 @@ func (b *BotInlineMessageMediaAuto) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "InvertMedia",
+			SchemaName: "invert_media",
+			Null:       !b.Flags.Has(3),
+		},
+		{
 			Name:       "Message",
 			SchemaName: "message",
 		},
@@ -164,6 +176,9 @@ func (b *BotInlineMessageMediaAuto) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (b *BotInlineMessageMediaAuto) SetFlags() {
+	if !(b.InvertMedia == false) {
+		b.Flags.Set(3)
+	}
 	if !(b.Entities == nil) {
 		b.Flags.Set(1)
 	}
@@ -234,6 +249,7 @@ func (b *BotInlineMessageMediaAuto) DecodeBare(buf *bin.Buffer) error {
 			return fmt.Errorf("unable to decode botInlineMessageMediaAuto#764cf810: field flags: %w", err)
 		}
 	}
+	b.InvertMedia = b.Flags.Has(3)
 	{
 		value, err := buf.String()
 		if err != nil {
@@ -266,6 +282,25 @@ func (b *BotInlineMessageMediaAuto) DecodeBare(buf *bin.Buffer) error {
 		b.ReplyMarkup = value
 	}
 	return nil
+}
+
+// SetInvertMedia sets value of InvertMedia conditional field.
+func (b *BotInlineMessageMediaAuto) SetInvertMedia(value bool) {
+	if value {
+		b.Flags.Set(3)
+		b.InvertMedia = true
+	} else {
+		b.Flags.Unset(3)
+		b.InvertMedia = false
+	}
+}
+
+// GetInvertMedia returns value of InvertMedia conditional field.
+func (b *BotInlineMessageMediaAuto) GetInvertMedia() (value bool) {
+	if b == nil {
+		return
+	}
+	return b.Flags.Has(3)
 }
 
 // GetMessage returns value of Message field.
@@ -332,6 +367,8 @@ type BotInlineMessageText struct {
 	Flags bin.Fields
 	// Disable webpage preview
 	NoWebpage bool
+	// InvertMedia field of BotInlineMessageText.
+	InvertMedia bool
 	// The message
 	Message string
 	// Message entities for styled text¹
@@ -373,6 +410,9 @@ func (b *BotInlineMessageText) Zero() bool {
 	if !(b.NoWebpage == false) {
 		return false
 	}
+	if !(b.InvertMedia == false) {
+		return false
+	}
 	if !(b.Message == "") {
 		return false
 	}
@@ -398,11 +438,13 @@ func (b *BotInlineMessageText) String() string {
 // FillFrom fills BotInlineMessageText from given interface.
 func (b *BotInlineMessageText) FillFrom(from interface {
 	GetNoWebpage() (value bool)
+	GetInvertMedia() (value bool)
 	GetMessage() (value string)
 	GetEntities() (value []MessageEntityClass, ok bool)
 	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
 }) {
 	b.NoWebpage = from.GetNoWebpage()
+	b.InvertMedia = from.GetInvertMedia()
 	b.Message = from.GetMessage()
 	if val, ok := from.GetEntities(); ok {
 		b.Entities = val
@@ -443,6 +485,11 @@ func (b *BotInlineMessageText) TypeInfo() tdp.Type {
 			Null:       !b.Flags.Has(0),
 		},
 		{
+			Name:       "InvertMedia",
+			SchemaName: "invert_media",
+			Null:       !b.Flags.Has(3),
+		},
+		{
 			Name:       "Message",
 			SchemaName: "message",
 		},
@@ -464,6 +511,9 @@ func (b *BotInlineMessageText) TypeInfo() tdp.Type {
 func (b *BotInlineMessageText) SetFlags() {
 	if !(b.NoWebpage == false) {
 		b.Flags.Set(0)
+	}
+	if !(b.InvertMedia == false) {
+		b.Flags.Set(3)
 	}
 	if !(b.Entities == nil) {
 		b.Flags.Set(1)
@@ -536,6 +586,7 @@ func (b *BotInlineMessageText) DecodeBare(buf *bin.Buffer) error {
 		}
 	}
 	b.NoWebpage = b.Flags.Has(0)
+	b.InvertMedia = b.Flags.Has(3)
 	{
 		value, err := buf.String()
 		if err != nil {
@@ -587,6 +638,25 @@ func (b *BotInlineMessageText) GetNoWebpage() (value bool) {
 		return
 	}
 	return b.Flags.Has(0)
+}
+
+// SetInvertMedia sets value of InvertMedia conditional field.
+func (b *BotInlineMessageText) SetInvertMedia(value bool) {
+	if value {
+		b.Flags.Set(3)
+		b.InvertMedia = true
+	} else {
+		b.Flags.Unset(3)
+		b.InvertMedia = false
+	}
+}
+
+// GetInvertMedia returns value of InvertMedia conditional field.
+func (b *BotInlineMessageText) GetInvertMedia() (value bool) {
+	if b == nil {
+		return
+	}
+	return b.Flags.Has(3)
 }
 
 // GetMessage returns value of Message field.
@@ -2067,6 +2137,487 @@ func (b *BotInlineMessageMediaInvoice) GetReplyMarkup() (value ReplyMarkupClass,
 	return b.ReplyMarkup, true
 }
 
+// BotInlineMessageMediaWebPage represents TL type `botInlineMessageMediaWebPage#809ad9a6`.
+//
+// See https://core.telegram.org/constructor/botInlineMessageMediaWebPage for reference.
+type BotInlineMessageMediaWebPage struct {
+	// Flags field of BotInlineMessageMediaWebPage.
+	Flags bin.Fields
+	// InvertMedia field of BotInlineMessageMediaWebPage.
+	InvertMedia bool
+	// ForceLargeMedia field of BotInlineMessageMediaWebPage.
+	ForceLargeMedia bool
+	// ForceSmallMedia field of BotInlineMessageMediaWebPage.
+	ForceSmallMedia bool
+	// Manual field of BotInlineMessageMediaWebPage.
+	Manual bool
+	// Safe field of BotInlineMessageMediaWebPage.
+	Safe bool
+	// Message field of BotInlineMessageMediaWebPage.
+	Message string
+	// Entities field of BotInlineMessageMediaWebPage.
+	//
+	// Use SetEntities and GetEntities helpers.
+	Entities []MessageEntityClass
+	// URL field of BotInlineMessageMediaWebPage.
+	URL string
+	// ReplyMarkup field of BotInlineMessageMediaWebPage.
+	//
+	// Use SetReplyMarkup and GetReplyMarkup helpers.
+	ReplyMarkup ReplyMarkupClass
+}
+
+// BotInlineMessageMediaWebPageTypeID is TL type id of BotInlineMessageMediaWebPage.
+const BotInlineMessageMediaWebPageTypeID = 0x809ad9a6
+
+// construct implements constructor of BotInlineMessageClass.
+func (b BotInlineMessageMediaWebPage) construct() BotInlineMessageClass { return &b }
+
+// Ensuring interfaces in compile-time for BotInlineMessageMediaWebPage.
+var (
+	_ bin.Encoder     = &BotInlineMessageMediaWebPage{}
+	_ bin.Decoder     = &BotInlineMessageMediaWebPage{}
+	_ bin.BareEncoder = &BotInlineMessageMediaWebPage{}
+	_ bin.BareDecoder = &BotInlineMessageMediaWebPage{}
+
+	_ BotInlineMessageClass = &BotInlineMessageMediaWebPage{}
+)
+
+func (b *BotInlineMessageMediaWebPage) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.Flags.Zero()) {
+		return false
+	}
+	if !(b.InvertMedia == false) {
+		return false
+	}
+	if !(b.ForceLargeMedia == false) {
+		return false
+	}
+	if !(b.ForceSmallMedia == false) {
+		return false
+	}
+	if !(b.Manual == false) {
+		return false
+	}
+	if !(b.Safe == false) {
+		return false
+	}
+	if !(b.Message == "") {
+		return false
+	}
+	if !(b.Entities == nil) {
+		return false
+	}
+	if !(b.URL == "") {
+		return false
+	}
+	if !(b.ReplyMarkup == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (b *BotInlineMessageMediaWebPage) String() string {
+	if b == nil {
+		return "BotInlineMessageMediaWebPage(nil)"
+	}
+	type Alias BotInlineMessageMediaWebPage
+	return fmt.Sprintf("BotInlineMessageMediaWebPage%+v", Alias(*b))
+}
+
+// FillFrom fills BotInlineMessageMediaWebPage from given interface.
+func (b *BotInlineMessageMediaWebPage) FillFrom(from interface {
+	GetInvertMedia() (value bool)
+	GetForceLargeMedia() (value bool)
+	GetForceSmallMedia() (value bool)
+	GetManual() (value bool)
+	GetSafe() (value bool)
+	GetMessage() (value string)
+	GetEntities() (value []MessageEntityClass, ok bool)
+	GetURL() (value string)
+	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
+}) {
+	b.InvertMedia = from.GetInvertMedia()
+	b.ForceLargeMedia = from.GetForceLargeMedia()
+	b.ForceSmallMedia = from.GetForceSmallMedia()
+	b.Manual = from.GetManual()
+	b.Safe = from.GetSafe()
+	b.Message = from.GetMessage()
+	if val, ok := from.GetEntities(); ok {
+		b.Entities = val
+	}
+
+	b.URL = from.GetURL()
+	if val, ok := from.GetReplyMarkup(); ok {
+		b.ReplyMarkup = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*BotInlineMessageMediaWebPage) TypeID() uint32 {
+	return BotInlineMessageMediaWebPageTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*BotInlineMessageMediaWebPage) TypeName() string {
+	return "botInlineMessageMediaWebPage"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BotInlineMessageMediaWebPage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "botInlineMessageMediaWebPage",
+		ID:   BotInlineMessageMediaWebPageTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "InvertMedia",
+			SchemaName: "invert_media",
+			Null:       !b.Flags.Has(3),
+		},
+		{
+			Name:       "ForceLargeMedia",
+			SchemaName: "force_large_media",
+			Null:       !b.Flags.Has(4),
+		},
+		{
+			Name:       "ForceSmallMedia",
+			SchemaName: "force_small_media",
+			Null:       !b.Flags.Has(5),
+		},
+		{
+			Name:       "Manual",
+			SchemaName: "manual",
+			Null:       !b.Flags.Has(7),
+		},
+		{
+			Name:       "Safe",
+			SchemaName: "safe",
+			Null:       !b.Flags.Has(8),
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+			Null:       !b.Flags.Has(1),
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !b.Flags.Has(2),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (b *BotInlineMessageMediaWebPage) SetFlags() {
+	if !(b.InvertMedia == false) {
+		b.Flags.Set(3)
+	}
+	if !(b.ForceLargeMedia == false) {
+		b.Flags.Set(4)
+	}
+	if !(b.ForceSmallMedia == false) {
+		b.Flags.Set(5)
+	}
+	if !(b.Manual == false) {
+		b.Flags.Set(7)
+	}
+	if !(b.Safe == false) {
+		b.Flags.Set(8)
+	}
+	if !(b.Entities == nil) {
+		b.Flags.Set(1)
+	}
+	if !(b.ReplyMarkup == nil) {
+		b.Flags.Set(2)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (b *BotInlineMessageMediaWebPage) Encode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botInlineMessageMediaWebPage#809ad9a6 as nil")
+	}
+	buf.PutID(BotInlineMessageMediaWebPageTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BotInlineMessageMediaWebPage) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botInlineMessageMediaWebPage#809ad9a6 as nil")
+	}
+	b.SetFlags()
+	if err := b.Flags.Encode(buf); err != nil {
+		return fmt.Errorf("unable to encode botInlineMessageMediaWebPage#809ad9a6: field flags: %w", err)
+	}
+	buf.PutString(b.Message)
+	if b.Flags.Has(1) {
+		buf.PutVectorHeader(len(b.Entities))
+		for idx, v := range b.Entities {
+			if v == nil {
+				return fmt.Errorf("unable to encode botInlineMessageMediaWebPage#809ad9a6: field entities element with index %d is nil", idx)
+			}
+			if err := v.Encode(buf); err != nil {
+				return fmt.Errorf("unable to encode botInlineMessageMediaWebPage#809ad9a6: field entities element with index %d: %w", idx, err)
+			}
+		}
+	}
+	buf.PutString(b.URL)
+	if b.Flags.Has(2) {
+		if b.ReplyMarkup == nil {
+			return fmt.Errorf("unable to encode botInlineMessageMediaWebPage#809ad9a6: field reply_markup is nil")
+		}
+		if err := b.ReplyMarkup.Encode(buf); err != nil {
+			return fmt.Errorf("unable to encode botInlineMessageMediaWebPage#809ad9a6: field reply_markup: %w", err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (b *BotInlineMessageMediaWebPage) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botInlineMessageMediaWebPage#809ad9a6 to nil")
+	}
+	if err := buf.ConsumeID(BotInlineMessageMediaWebPageTypeID); err != nil {
+		return fmt.Errorf("unable to decode botInlineMessageMediaWebPage#809ad9a6: %w", err)
+	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BotInlineMessageMediaWebPage) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botInlineMessageMediaWebPage#809ad9a6 to nil")
+	}
+	{
+		if err := b.Flags.Decode(buf); err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageMediaWebPage#809ad9a6: field flags: %w", err)
+		}
+	}
+	b.InvertMedia = b.Flags.Has(3)
+	b.ForceLargeMedia = b.Flags.Has(4)
+	b.ForceSmallMedia = b.Flags.Has(5)
+	b.Manual = b.Flags.Has(7)
+	b.Safe = b.Flags.Has(8)
+	{
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageMediaWebPage#809ad9a6: field message: %w", err)
+		}
+		b.Message = value
+	}
+	if b.Flags.Has(1) {
+		headerLen, err := buf.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageMediaWebPage#809ad9a6: field entities: %w", err)
+		}
+
+		if headerLen > 0 {
+			b.Entities = make([]MessageEntityClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeMessageEntity(buf)
+			if err != nil {
+				return fmt.Errorf("unable to decode botInlineMessageMediaWebPage#809ad9a6: field entities: %w", err)
+			}
+			b.Entities = append(b.Entities, value)
+		}
+	}
+	{
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageMediaWebPage#809ad9a6: field url: %w", err)
+		}
+		b.URL = value
+	}
+	if b.Flags.Has(2) {
+		value, err := DecodeReplyMarkup(buf)
+		if err != nil {
+			return fmt.Errorf("unable to decode botInlineMessageMediaWebPage#809ad9a6: field reply_markup: %w", err)
+		}
+		b.ReplyMarkup = value
+	}
+	return nil
+}
+
+// SetInvertMedia sets value of InvertMedia conditional field.
+func (b *BotInlineMessageMediaWebPage) SetInvertMedia(value bool) {
+	if value {
+		b.Flags.Set(3)
+		b.InvertMedia = true
+	} else {
+		b.Flags.Unset(3)
+		b.InvertMedia = false
+	}
+}
+
+// GetInvertMedia returns value of InvertMedia conditional field.
+func (b *BotInlineMessageMediaWebPage) GetInvertMedia() (value bool) {
+	if b == nil {
+		return
+	}
+	return b.Flags.Has(3)
+}
+
+// SetForceLargeMedia sets value of ForceLargeMedia conditional field.
+func (b *BotInlineMessageMediaWebPage) SetForceLargeMedia(value bool) {
+	if value {
+		b.Flags.Set(4)
+		b.ForceLargeMedia = true
+	} else {
+		b.Flags.Unset(4)
+		b.ForceLargeMedia = false
+	}
+}
+
+// GetForceLargeMedia returns value of ForceLargeMedia conditional field.
+func (b *BotInlineMessageMediaWebPage) GetForceLargeMedia() (value bool) {
+	if b == nil {
+		return
+	}
+	return b.Flags.Has(4)
+}
+
+// SetForceSmallMedia sets value of ForceSmallMedia conditional field.
+func (b *BotInlineMessageMediaWebPage) SetForceSmallMedia(value bool) {
+	if value {
+		b.Flags.Set(5)
+		b.ForceSmallMedia = true
+	} else {
+		b.Flags.Unset(5)
+		b.ForceSmallMedia = false
+	}
+}
+
+// GetForceSmallMedia returns value of ForceSmallMedia conditional field.
+func (b *BotInlineMessageMediaWebPage) GetForceSmallMedia() (value bool) {
+	if b == nil {
+		return
+	}
+	return b.Flags.Has(5)
+}
+
+// SetManual sets value of Manual conditional field.
+func (b *BotInlineMessageMediaWebPage) SetManual(value bool) {
+	if value {
+		b.Flags.Set(7)
+		b.Manual = true
+	} else {
+		b.Flags.Unset(7)
+		b.Manual = false
+	}
+}
+
+// GetManual returns value of Manual conditional field.
+func (b *BotInlineMessageMediaWebPage) GetManual() (value bool) {
+	if b == nil {
+		return
+	}
+	return b.Flags.Has(7)
+}
+
+// SetSafe sets value of Safe conditional field.
+func (b *BotInlineMessageMediaWebPage) SetSafe(value bool) {
+	if value {
+		b.Flags.Set(8)
+		b.Safe = true
+	} else {
+		b.Flags.Unset(8)
+		b.Safe = false
+	}
+}
+
+// GetSafe returns value of Safe conditional field.
+func (b *BotInlineMessageMediaWebPage) GetSafe() (value bool) {
+	if b == nil {
+		return
+	}
+	return b.Flags.Has(8)
+}
+
+// GetMessage returns value of Message field.
+func (b *BotInlineMessageMediaWebPage) GetMessage() (value string) {
+	if b == nil {
+		return
+	}
+	return b.Message
+}
+
+// SetEntities sets value of Entities conditional field.
+func (b *BotInlineMessageMediaWebPage) SetEntities(value []MessageEntityClass) {
+	b.Flags.Set(1)
+	b.Entities = value
+}
+
+// GetEntities returns value of Entities conditional field and
+// boolean which is true if field was set.
+func (b *BotInlineMessageMediaWebPage) GetEntities() (value []MessageEntityClass, ok bool) {
+	if b == nil {
+		return
+	}
+	if !b.Flags.Has(1) {
+		return value, false
+	}
+	return b.Entities, true
+}
+
+// GetURL returns value of URL field.
+func (b *BotInlineMessageMediaWebPage) GetURL() (value string) {
+	if b == nil {
+		return
+	}
+	return b.URL
+}
+
+// SetReplyMarkup sets value of ReplyMarkup conditional field.
+func (b *BotInlineMessageMediaWebPage) SetReplyMarkup(value ReplyMarkupClass) {
+	b.Flags.Set(2)
+	b.ReplyMarkup = value
+}
+
+// GetReplyMarkup returns value of ReplyMarkup conditional field and
+// boolean which is true if field was set.
+func (b *BotInlineMessageMediaWebPage) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if b == nil {
+		return
+	}
+	if !b.Flags.Has(2) {
+		return value, false
+	}
+	return b.ReplyMarkup, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (b *BotInlineMessageMediaWebPage) MapEntities() (value MessageEntityClassArray, ok bool) {
+	if !b.Flags.Has(1) {
+		return value, false
+	}
+	return MessageEntityClassArray(b.Entities), true
+}
+
 // BotInlineMessageClassName is schema name of BotInlineMessageClass.
 const BotInlineMessageClassName = "BotInlineMessage"
 
@@ -2087,6 +2638,7 @@ const BotInlineMessageClassName = "BotInlineMessage"
 //	case *tg.BotInlineMessageMediaVenue: // botInlineMessageMediaVenue#8a86659c
 //	case *tg.BotInlineMessageMediaContact: // botInlineMessageMediaContact#18d1cdc2
 //	case *tg.BotInlineMessageMediaInvoice: // botInlineMessageMediaInvoice#354a9b09
+//	case *tg.BotInlineMessageMediaWebPage: // botInlineMessageMediaWebPage#809ad9a6
 //	default: panic(v)
 //	}
 type BotInlineMessageClass interface {
@@ -2156,6 +2708,13 @@ func DecodeBotInlineMessage(buf *bin.Buffer) (BotInlineMessageClass, error) {
 	case BotInlineMessageMediaInvoiceTypeID:
 		// Decoding botInlineMessageMediaInvoice#354a9b09.
 		v := BotInlineMessageMediaInvoice{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode BotInlineMessageClass: %w", err)
+		}
+		return &v, nil
+	case BotInlineMessageMediaWebPageTypeID:
+		// Decoding botInlineMessageMediaWebPage#809ad9a6.
+		v := BotInlineMessageMediaWebPage{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode BotInlineMessageClass: %w", err)
 		}

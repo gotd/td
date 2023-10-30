@@ -16,11 +16,11 @@ func (b *Builder) saveDraftRequest(
 	entities []tg.MessageEntityClass,
 ) *tg.MessagesSaveDraftRequest {
 	return &tg.MessagesSaveDraftRequest{
-		NoWebpage:    b.noWebpage,
-		Peer:         peer,
-		ReplyToMsgID: b.replyToMsgID,
-		Message:      msg,
-		Entities:     entities,
+		NoWebpage: b.noWebpage,
+		Peer:      peer,
+		ReplyTo:   b.replyTo,
+		Message:   msg,
+		Entities:  entities,
 	}
 }
 

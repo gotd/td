@@ -33,8 +33,8 @@ type Builder struct {
 	// noForwards whether that sent message cannot be forwarded.
 	noForwards bool
 
-	// The message ID to which this message will reply to.
-	replyToMsgID int
+	// The reply target.
+	replyTo tg.InputReplyToClass
 	// Reply markup for sending bot buttons.
 	replyMarkup tg.ReplyMarkupClass
 	// Scheduled message date for scheduled messages.
@@ -73,7 +73,9 @@ func (b *Builder) Clear() *Builder {
 
 // Reply sets message ID to reply.
 func (b *Builder) Reply(id int) *Builder {
-	b.replyToMsgID = id
+	b.replyTo = &tg.InputReplyToMessage{
+		ReplyToMsgID: id,
+	}
 	return b
 }
 

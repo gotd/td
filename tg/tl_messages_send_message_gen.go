@@ -60,6 +60,8 @@ type MessagesSendMessageRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/stickers#recent-stickersets
 	UpdateStickersetsOrder bool
+	// InvertMedia field of MessagesSendMessageRequest.
+	InvertMedia bool
 	// The destination where the message will be sent
 	Peer InputPeerClass
 	// ReplyTo field of MessagesSendMessageRequest.
@@ -130,6 +132,9 @@ func (s *MessagesSendMessageRequest) Zero() bool {
 	if !(s.UpdateStickersetsOrder == false) {
 		return false
 	}
+	if !(s.InvertMedia == false) {
+		return false
+	}
 	if !(s.Peer == nil) {
 		return false
 	}
@@ -175,6 +180,7 @@ func (s *MessagesSendMessageRequest) FillFrom(from interface {
 	GetClearDraft() (value bool)
 	GetNoforwards() (value bool)
 	GetUpdateStickersetsOrder() (value bool)
+	GetInvertMedia() (value bool)
 	GetPeer() (value InputPeerClass)
 	GetReplyTo() (value InputReplyToClass, ok bool)
 	GetMessage() (value string)
@@ -190,6 +196,7 @@ func (s *MessagesSendMessageRequest) FillFrom(from interface {
 	s.ClearDraft = from.GetClearDraft()
 	s.Noforwards = from.GetNoforwards()
 	s.UpdateStickersetsOrder = from.GetUpdateStickersetsOrder()
+	s.InvertMedia = from.GetInvertMedia()
 	s.Peer = from.GetPeer()
 	if val, ok := from.GetReplyTo(); ok {
 		s.ReplyTo = val
@@ -269,6 +276,11 @@ func (s *MessagesSendMessageRequest) TypeInfo() tdp.Type {
 			Null:       !s.Flags.Has(15),
 		},
 		{
+			Name:       "InvertMedia",
+			SchemaName: "invert_media",
+			Null:       !s.Flags.Has(16),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -328,6 +340,9 @@ func (s *MessagesSendMessageRequest) SetFlags() {
 	}
 	if !(s.UpdateStickersetsOrder == false) {
 		s.Flags.Set(15)
+	}
+	if !(s.InvertMedia == false) {
+		s.Flags.Set(16)
 	}
 	if !(s.ReplyTo == nil) {
 		s.Flags.Set(0)
@@ -440,6 +455,7 @@ func (s *MessagesSendMessageRequest) DecodeBare(b *bin.Buffer) error {
 	s.ClearDraft = s.Flags.Has(7)
 	s.Noforwards = s.Flags.Has(14)
 	s.UpdateStickersetsOrder = s.Flags.Has(15)
+	s.InvertMedia = s.Flags.Has(16)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -621,6 +637,25 @@ func (s *MessagesSendMessageRequest) GetUpdateStickersetsOrder() (value bool) {
 		return
 	}
 	return s.Flags.Has(15)
+}
+
+// SetInvertMedia sets value of InvertMedia conditional field.
+func (s *MessagesSendMessageRequest) SetInvertMedia(value bool) {
+	if value {
+		s.Flags.Set(16)
+		s.InvertMedia = true
+	} else {
+		s.Flags.Unset(16)
+		s.InvertMedia = false
+	}
+}
+
+// GetInvertMedia returns value of InvertMedia conditional field.
+func (s *MessagesSendMessageRequest) GetInvertMedia() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(16)
 }
 
 // GetPeer returns value of Peer field.

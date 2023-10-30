@@ -31,17 +31,23 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// WebPageEmpty represents TL type `webPageEmpty#eb1477e8`.
+// WebPageEmpty represents TL type `webPageEmpty#211a1788`.
 // No preview is available for the webpage
 //
 // See https://core.telegram.org/constructor/webPageEmpty for reference.
 type WebPageEmpty struct {
+	// Flags field of WebPageEmpty.
+	Flags bin.Fields
 	// Preview ID
 	ID int64
+	// URL field of WebPageEmpty.
+	//
+	// Use SetURL and GetURL helpers.
+	URL string
 }
 
 // WebPageEmptyTypeID is TL type id of WebPageEmpty.
-const WebPageEmptyTypeID = 0xeb1477e8
+const WebPageEmptyTypeID = 0x211a1788
 
 // construct implements constructor of WebPageClass.
 func (w WebPageEmpty) construct() WebPageClass { return &w }
@@ -60,7 +66,13 @@ func (w *WebPageEmpty) Zero() bool {
 	if w == nil {
 		return true
 	}
+	if !(w.Flags.Zero()) {
+		return false
+	}
 	if !(w.ID == 0) {
+		return false
+	}
+	if !(w.URL == "") {
 		return false
 	}
 
@@ -79,8 +91,13 @@ func (w *WebPageEmpty) String() string {
 // FillFrom fills WebPageEmpty from given interface.
 func (w *WebPageEmpty) FillFrom(from interface {
 	GetID() (value int64)
+	GetURL() (value string, ok bool)
 }) {
 	w.ID = from.GetID()
+	if val, ok := from.GetURL(); ok {
+		w.URL = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -110,14 +127,26 @@ func (w *WebPageEmpty) TypeInfo() tdp.Type {
 			Name:       "ID",
 			SchemaName: "id",
 		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+			Null:       !w.Flags.Has(0),
+		},
 	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (w *WebPageEmpty) SetFlags() {
+	if !(w.URL == "") {
+		w.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (w *WebPageEmpty) Encode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPageEmpty#eb1477e8 as nil")
+		return fmt.Errorf("can't encode webPageEmpty#211a1788 as nil")
 	}
 	b.PutID(WebPageEmptyTypeID)
 	return w.EncodeBare(b)
@@ -126,19 +155,26 @@ func (w *WebPageEmpty) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (w *WebPageEmpty) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPageEmpty#eb1477e8 as nil")
+		return fmt.Errorf("can't encode webPageEmpty#211a1788 as nil")
+	}
+	w.SetFlags()
+	if err := w.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode webPageEmpty#211a1788: field flags: %w", err)
 	}
 	b.PutLong(w.ID)
+	if w.Flags.Has(0) {
+		b.PutString(w.URL)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (w *WebPageEmpty) Decode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPageEmpty#eb1477e8 to nil")
+		return fmt.Errorf("can't decode webPageEmpty#211a1788 to nil")
 	}
 	if err := b.ConsumeID(WebPageEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode webPageEmpty#eb1477e8: %w", err)
+		return fmt.Errorf("unable to decode webPageEmpty#211a1788: %w", err)
 	}
 	return w.DecodeBare(b)
 }
@@ -146,14 +182,26 @@ func (w *WebPageEmpty) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (w *WebPageEmpty) DecodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPageEmpty#eb1477e8 to nil")
+		return fmt.Errorf("can't decode webPageEmpty#211a1788 to nil")
+	}
+	{
+		if err := w.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode webPageEmpty#211a1788: field flags: %w", err)
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPageEmpty#eb1477e8: field id: %w", err)
+			return fmt.Errorf("unable to decode webPageEmpty#211a1788: field id: %w", err)
 		}
 		w.ID = value
+	}
+	if w.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode webPageEmpty#211a1788: field url: %w", err)
+		}
+		w.URL = value
 	}
 	return nil
 }
@@ -166,19 +214,43 @@ func (w *WebPageEmpty) GetID() (value int64) {
 	return w.ID
 }
 
-// WebPagePending represents TL type `webPagePending#c586da1c`.
+// SetURL sets value of URL conditional field.
+func (w *WebPageEmpty) SetURL(value string) {
+	w.Flags.Set(0)
+	w.URL = value
+}
+
+// GetURL returns value of URL conditional field and
+// boolean which is true if field was set.
+func (w *WebPageEmpty) GetURL() (value string, ok bool) {
+	if w == nil {
+		return
+	}
+	if !w.Flags.Has(0) {
+		return value, false
+	}
+	return w.URL, true
+}
+
+// WebPagePending represents TL type `webPagePending#b0d13e47`.
 // A preview of the webpage is currently being generated
 //
 // See https://core.telegram.org/constructor/webPagePending for reference.
 type WebPagePending struct {
+	// Flags field of WebPagePending.
+	Flags bin.Fields
 	// ID of preview
 	ID int64
+	// URL field of WebPagePending.
+	//
+	// Use SetURL and GetURL helpers.
+	URL string
 	// When was the processing started
 	Date int
 }
 
 // WebPagePendingTypeID is TL type id of WebPagePending.
-const WebPagePendingTypeID = 0xc586da1c
+const WebPagePendingTypeID = 0xb0d13e47
 
 // construct implements constructor of WebPageClass.
 func (w WebPagePending) construct() WebPageClass { return &w }
@@ -197,7 +269,13 @@ func (w *WebPagePending) Zero() bool {
 	if w == nil {
 		return true
 	}
+	if !(w.Flags.Zero()) {
+		return false
+	}
 	if !(w.ID == 0) {
+		return false
+	}
+	if !(w.URL == "") {
 		return false
 	}
 	if !(w.Date == 0) {
@@ -219,9 +297,14 @@ func (w *WebPagePending) String() string {
 // FillFrom fills WebPagePending from given interface.
 func (w *WebPagePending) FillFrom(from interface {
 	GetID() (value int64)
+	GetURL() (value string, ok bool)
 	GetDate() (value int)
 }) {
 	w.ID = from.GetID()
+	if val, ok := from.GetURL(); ok {
+		w.URL = val
+	}
+
 	w.Date = from.GetDate()
 }
 
@@ -253,6 +336,11 @@ func (w *WebPagePending) TypeInfo() tdp.Type {
 			SchemaName: "id",
 		},
 		{
+			Name:       "URL",
+			SchemaName: "url",
+			Null:       !w.Flags.Has(0),
+		},
+		{
 			Name:       "Date",
 			SchemaName: "date",
 		},
@@ -260,10 +348,17 @@ func (w *WebPagePending) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (w *WebPagePending) SetFlags() {
+	if !(w.URL == "") {
+		w.Flags.Set(0)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (w *WebPagePending) Encode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPagePending#c586da1c as nil")
+		return fmt.Errorf("can't encode webPagePending#b0d13e47 as nil")
 	}
 	b.PutID(WebPagePendingTypeID)
 	return w.EncodeBare(b)
@@ -272,9 +367,16 @@ func (w *WebPagePending) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (w *WebPagePending) EncodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't encode webPagePending#c586da1c as nil")
+		return fmt.Errorf("can't encode webPagePending#b0d13e47 as nil")
+	}
+	w.SetFlags()
+	if err := w.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode webPagePending#b0d13e47: field flags: %w", err)
 	}
 	b.PutLong(w.ID)
+	if w.Flags.Has(0) {
+		b.PutString(w.URL)
+	}
 	b.PutInt(w.Date)
 	return nil
 }
@@ -282,10 +384,10 @@ func (w *WebPagePending) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (w *WebPagePending) Decode(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPagePending#c586da1c to nil")
+		return fmt.Errorf("can't decode webPagePending#b0d13e47 to nil")
 	}
 	if err := b.ConsumeID(WebPagePendingTypeID); err != nil {
-		return fmt.Errorf("unable to decode webPagePending#c586da1c: %w", err)
+		return fmt.Errorf("unable to decode webPagePending#b0d13e47: %w", err)
 	}
 	return w.DecodeBare(b)
 }
@@ -293,19 +395,31 @@ func (w *WebPagePending) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (w *WebPagePending) DecodeBare(b *bin.Buffer) error {
 	if w == nil {
-		return fmt.Errorf("can't decode webPagePending#c586da1c to nil")
+		return fmt.Errorf("can't decode webPagePending#b0d13e47 to nil")
+	}
+	{
+		if err := w.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode webPagePending#b0d13e47: field flags: %w", err)
+		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPagePending#c586da1c: field id: %w", err)
+			return fmt.Errorf("unable to decode webPagePending#b0d13e47: field id: %w", err)
 		}
 		w.ID = value
+	}
+	if w.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode webPagePending#b0d13e47: field url: %w", err)
+		}
+		w.URL = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode webPagePending#c586da1c: field date: %w", err)
+			return fmt.Errorf("unable to decode webPagePending#b0d13e47: field date: %w", err)
 		}
 		w.Date = value
 	}
@@ -318,6 +432,24 @@ func (w *WebPagePending) GetID() (value int64) {
 		return
 	}
 	return w.ID
+}
+
+// SetURL sets value of URL conditional field.
+func (w *WebPagePending) SetURL(value string) {
+	w.Flags.Set(0)
+	w.URL = value
+}
+
+// GetURL returns value of URL conditional field and
+// boolean which is true if field was set.
+func (w *WebPagePending) GetURL() (value string, ok bool) {
+	if w == nil {
+		return
+	}
+	if !w.Flags.Has(0) {
+		return value, false
+	}
+	return w.URL, true
 }
 
 // GetDate returns value of Date field.
@@ -338,6 +470,8 @@ type WebPage struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// HasLargeMedia field of WebPage.
+	HasLargeMedia bool
 	// Preview ID
 	ID int64
 	// URL of previewed webpage
@@ -434,6 +568,9 @@ func (w *WebPage) Zero() bool {
 	if !(w.Flags.Zero()) {
 		return false
 	}
+	if !(w.HasLargeMedia == false) {
+		return false
+	}
 	if !(w.ID == 0) {
 		return false
 	}
@@ -503,6 +640,7 @@ func (w *WebPage) String() string {
 
 // FillFrom fills WebPage from given interface.
 func (w *WebPage) FillFrom(from interface {
+	GetHasLargeMedia() (value bool)
 	GetID() (value int64)
 	GetURL() (value string)
 	GetDisplayURL() (value string)
@@ -522,6 +660,7 @@ func (w *WebPage) FillFrom(from interface {
 	GetCachedPage() (value Page, ok bool)
 	GetAttributes() (value []WebPageAttributeClass, ok bool)
 }) {
+	w.HasLargeMedia = from.GetHasLargeMedia()
 	w.ID = from.GetID()
 	w.URL = from.GetURL()
 	w.DisplayURL = from.GetDisplayURL()
@@ -607,6 +746,11 @@ func (w *WebPage) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
+		{
+			Name:       "HasLargeMedia",
+			SchemaName: "has_large_media",
+			Null:       !w.Flags.Has(13),
+		},
 		{
 			Name:       "ID",
 			SchemaName: "id",
@@ -699,6 +843,9 @@ func (w *WebPage) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (w *WebPage) SetFlags() {
+	if !(w.HasLargeMedia == false) {
+		w.Flags.Set(13)
+	}
 	if !(w.Type == "") {
 		w.Flags.Set(0)
 	}
@@ -851,6 +998,7 @@ func (w *WebPage) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode webPage#e89c45b2: field flags: %w", err)
 		}
 	}
+	w.HasLargeMedia = w.Flags.Has(13)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -986,6 +1134,25 @@ func (w *WebPage) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// SetHasLargeMedia sets value of HasLargeMedia conditional field.
+func (w *WebPage) SetHasLargeMedia(value bool) {
+	if value {
+		w.Flags.Set(13)
+		w.HasLargeMedia = true
+	} else {
+		w.Flags.Unset(13)
+		w.HasLargeMedia = false
+	}
+}
+
+// GetHasLargeMedia returns value of HasLargeMedia conditional field.
+func (w *WebPage) GetHasLargeMedia() (value bool) {
+	if w == nil {
+		return
+	}
+	return w.Flags.Has(13)
 }
 
 // GetID returns value of ID field.
@@ -1471,8 +1638,8 @@ const WebPageClassName = "WebPage"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tg.WebPageEmpty: // webPageEmpty#eb1477e8
-//	case *tg.WebPagePending: // webPagePending#c586da1c
+//	case *tg.WebPageEmpty: // webPageEmpty#211a1788
+//	case *tg.WebPagePending: // webPagePending#b0d13e47
 //	case *tg.WebPage: // webPage#e89c45b2
 //	case *tg.WebPageNotModified: // webPageNotModified#7311ca11
 //	default: panic(v)
@@ -1554,14 +1721,14 @@ func DecodeWebPage(buf *bin.Buffer) (WebPageClass, error) {
 	}
 	switch id {
 	case WebPageEmptyTypeID:
-		// Decoding webPageEmpty#eb1477e8.
+		// Decoding webPageEmpty#211a1788.
 		v := WebPageEmpty{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode WebPageClass: %w", err)
 		}
 		return &v, nil
 	case WebPagePendingTypeID:
-		// Decoding webPagePending#c586da1c.
+		// Decoding webPagePending#b0d13e47.
 		v := WebPagePending{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode WebPageClass: %w", err)

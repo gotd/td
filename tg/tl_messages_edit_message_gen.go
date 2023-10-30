@@ -43,6 +43,8 @@ type MessagesEditMessageRequest struct {
 	Flags bin.Fields
 	// Disable webpage preview
 	NoWebpage bool
+	// InvertMedia field of MessagesEditMessageRequest.
+	InvertMedia bool
 	// Where was the message sent
 	Peer InputPeerClass
 	// ID of the message to edit
@@ -96,6 +98,9 @@ func (e *MessagesEditMessageRequest) Zero() bool {
 	if !(e.NoWebpage == false) {
 		return false
 	}
+	if !(e.InvertMedia == false) {
+		return false
+	}
 	if !(e.Peer == nil) {
 		return false
 	}
@@ -133,6 +138,7 @@ func (e *MessagesEditMessageRequest) String() string {
 // FillFrom fills MessagesEditMessageRequest from given interface.
 func (e *MessagesEditMessageRequest) FillFrom(from interface {
 	GetNoWebpage() (value bool)
+	GetInvertMedia() (value bool)
 	GetPeer() (value InputPeerClass)
 	GetID() (value int)
 	GetMessage() (value string, ok bool)
@@ -142,6 +148,7 @@ func (e *MessagesEditMessageRequest) FillFrom(from interface {
 	GetScheduleDate() (value int, ok bool)
 }) {
 	e.NoWebpage = from.GetNoWebpage()
+	e.InvertMedia = from.GetInvertMedia()
 	e.Peer = from.GetPeer()
 	e.ID = from.GetID()
 	if val, ok := from.GetMessage(); ok {
@@ -195,6 +202,11 @@ func (e *MessagesEditMessageRequest) TypeInfo() tdp.Type {
 			Null:       !e.Flags.Has(1),
 		},
 		{
+			Name:       "InvertMedia",
+			SchemaName: "invert_media",
+			Null:       !e.Flags.Has(16),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -235,6 +247,9 @@ func (e *MessagesEditMessageRequest) TypeInfo() tdp.Type {
 func (e *MessagesEditMessageRequest) SetFlags() {
 	if !(e.NoWebpage == false) {
 		e.Flags.Set(1)
+	}
+	if !(e.InvertMedia == false) {
+		e.Flags.Set(16)
 	}
 	if !(e.Message == "") {
 		e.Flags.Set(11)
@@ -336,6 +351,7 @@ func (e *MessagesEditMessageRequest) DecodeBare(b *bin.Buffer) error {
 		}
 	}
 	e.NoWebpage = e.Flags.Has(1)
+	e.InvertMedia = e.Flags.Has(16)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -415,6 +431,25 @@ func (e *MessagesEditMessageRequest) GetNoWebpage() (value bool) {
 		return
 	}
 	return e.Flags.Has(1)
+}
+
+// SetInvertMedia sets value of InvertMedia conditional field.
+func (e *MessagesEditMessageRequest) SetInvertMedia(value bool) {
+	if value {
+		e.Flags.Set(16)
+		e.InvertMedia = true
+	} else {
+		e.Flags.Unset(16)
+		e.InvertMedia = false
+	}
+}
+
+// GetInvertMedia returns value of InvertMedia conditional field.
+func (e *MessagesEditMessageRequest) GetInvertMedia() (value bool) {
+	if e == nil {
+		return
+	}
+	return e.Flags.Has(16)
 }
 
 // GetPeer returns value of Peer field.

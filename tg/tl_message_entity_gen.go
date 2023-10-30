@@ -3035,174 +3035,6 @@ func (m *MessageEntityStrike) GetLength() (value int) {
 	return m.Length
 }
 
-// MessageEntityBlockquote represents TL type `messageEntityBlockquote#20df5d0`.
-// Message entity representing a block quote.
-//
-// See https://core.telegram.org/constructor/messageEntityBlockquote for reference.
-type MessageEntityBlockquote struct {
-	// Offset of message entity within message (in UTF-16 code units¹)
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/entities#entity-length
-	Offset int
-	// Length of message entity within message (in UTF-16 code units¹)
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/entities#entity-length
-	Length int
-}
-
-// MessageEntityBlockquoteTypeID is TL type id of MessageEntityBlockquote.
-const MessageEntityBlockquoteTypeID = 0x20df5d0
-
-// construct implements constructor of MessageEntityClass.
-func (m MessageEntityBlockquote) construct() MessageEntityClass { return &m }
-
-// Ensuring interfaces in compile-time for MessageEntityBlockquote.
-var (
-	_ bin.Encoder     = &MessageEntityBlockquote{}
-	_ bin.Decoder     = &MessageEntityBlockquote{}
-	_ bin.BareEncoder = &MessageEntityBlockquote{}
-	_ bin.BareDecoder = &MessageEntityBlockquote{}
-
-	_ MessageEntityClass = &MessageEntityBlockquote{}
-)
-
-func (m *MessageEntityBlockquote) Zero() bool {
-	if m == nil {
-		return true
-	}
-	if !(m.Offset == 0) {
-		return false
-	}
-	if !(m.Length == 0) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (m *MessageEntityBlockquote) String() string {
-	if m == nil {
-		return "MessageEntityBlockquote(nil)"
-	}
-	type Alias MessageEntityBlockquote
-	return fmt.Sprintf("MessageEntityBlockquote%+v", Alias(*m))
-}
-
-// FillFrom fills MessageEntityBlockquote from given interface.
-func (m *MessageEntityBlockquote) FillFrom(from interface {
-	GetOffset() (value int)
-	GetLength() (value int)
-}) {
-	m.Offset = from.GetOffset()
-	m.Length = from.GetLength()
-}
-
-// TypeID returns type id in TL schema.
-//
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*MessageEntityBlockquote) TypeID() uint32 {
-	return MessageEntityBlockquoteTypeID
-}
-
-// TypeName returns name of type in TL schema.
-func (*MessageEntityBlockquote) TypeName() string {
-	return "messageEntityBlockquote"
-}
-
-// TypeInfo returns info about TL type.
-func (m *MessageEntityBlockquote) TypeInfo() tdp.Type {
-	typ := tdp.Type{
-		Name: "messageEntityBlockquote",
-		ID:   MessageEntityBlockquoteTypeID,
-	}
-	if m == nil {
-		typ.Null = true
-		return typ
-	}
-	typ.Fields = []tdp.Field{
-		{
-			Name:       "Offset",
-			SchemaName: "offset",
-		},
-		{
-			Name:       "Length",
-			SchemaName: "length",
-		},
-	}
-	return typ
-}
-
-// Encode implements bin.Encoder.
-func (m *MessageEntityBlockquote) Encode(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't encode messageEntityBlockquote#20df5d0 as nil")
-	}
-	b.PutID(MessageEntityBlockquoteTypeID)
-	return m.EncodeBare(b)
-}
-
-// EncodeBare implements bin.BareEncoder.
-func (m *MessageEntityBlockquote) EncodeBare(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't encode messageEntityBlockquote#20df5d0 as nil")
-	}
-	b.PutInt(m.Offset)
-	b.PutInt(m.Length)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (m *MessageEntityBlockquote) Decode(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageEntityBlockquote#20df5d0 to nil")
-	}
-	if err := b.ConsumeID(MessageEntityBlockquoteTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEntityBlockquote#20df5d0: %w", err)
-	}
-	return m.DecodeBare(b)
-}
-
-// DecodeBare implements bin.BareDecoder.
-func (m *MessageEntityBlockquote) DecodeBare(b *bin.Buffer) error {
-	if m == nil {
-		return fmt.Errorf("can't decode messageEntityBlockquote#20df5d0 to nil")
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityBlockquote#20df5d0: field offset: %w", err)
-		}
-		m.Offset = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageEntityBlockquote#20df5d0: field length: %w", err)
-		}
-		m.Length = value
-	}
-	return nil
-}
-
-// GetOffset returns value of Offset field.
-func (m *MessageEntityBlockquote) GetOffset() (value int) {
-	if m == nil {
-		return
-	}
-	return m.Offset
-}
-
-// GetLength returns value of Length field.
-func (m *MessageEntityBlockquote) GetLength() (value int) {
-	if m == nil {
-		return
-	}
-	return m.Length
-}
-
 // MessageEntityBankCard represents TL type `messageEntityBankCard#761e6af4`.
 // Indicates a credit card number
 //
@@ -3745,6 +3577,174 @@ func (m *MessageEntityCustomEmoji) GetDocumentID() (value int64) {
 	return m.DocumentID
 }
 
+// MessageEntityBlockquote represents TL type `messageEntityBlockquote#20df5d0`.
+// Message entity representing a block quote.
+//
+// See https://core.telegram.org/constructor/messageEntityBlockquote for reference.
+type MessageEntityBlockquote struct {
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
+	Offset int
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
+	Length int
+}
+
+// MessageEntityBlockquoteTypeID is TL type id of MessageEntityBlockquote.
+const MessageEntityBlockquoteTypeID = 0x20df5d0
+
+// construct implements constructor of MessageEntityClass.
+func (m MessageEntityBlockquote) construct() MessageEntityClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageEntityBlockquote.
+var (
+	_ bin.Encoder     = &MessageEntityBlockquote{}
+	_ bin.Decoder     = &MessageEntityBlockquote{}
+	_ bin.BareEncoder = &MessageEntityBlockquote{}
+	_ bin.BareDecoder = &MessageEntityBlockquote{}
+
+	_ MessageEntityClass = &MessageEntityBlockquote{}
+)
+
+func (m *MessageEntityBlockquote) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageEntityBlockquote) String() string {
+	if m == nil {
+		return "MessageEntityBlockquote(nil)"
+	}
+	type Alias MessageEntityBlockquote
+	return fmt.Sprintf("MessageEntityBlockquote%+v", Alias(*m))
+}
+
+// FillFrom fills MessageEntityBlockquote from given interface.
+func (m *MessageEntityBlockquote) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageEntityBlockquote) TypeID() uint32 {
+	return MessageEntityBlockquoteTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageEntityBlockquote) TypeName() string {
+	return "messageEntityBlockquote"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageEntityBlockquote) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageEntityBlockquote",
+		ID:   MessageEntityBlockquoteTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+		{
+			Name:       "Length",
+			SchemaName: "length",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageEntityBlockquote) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageEntityBlockquote#20df5d0 as nil")
+	}
+	b.PutID(MessageEntityBlockquoteTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageEntityBlockquote) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageEntityBlockquote#20df5d0 as nil")
+	}
+	b.PutInt(m.Offset)
+	b.PutInt(m.Length)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageEntityBlockquote) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageEntityBlockquote#20df5d0 to nil")
+	}
+	if err := b.ConsumeID(MessageEntityBlockquoteTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageEntityBlockquote#20df5d0: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageEntityBlockquote) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageEntityBlockquote#20df5d0 to nil")
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntityBlockquote#20df5d0: field offset: %w", err)
+		}
+		m.Offset = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEntityBlockquote#20df5d0: field length: %w", err)
+		}
+		m.Length = value
+	}
+	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityBlockquote) GetOffset() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityBlockquote) GetLength() (value int) {
+	if m == nil {
+		return
+	}
+	return m.Length
+}
+
 // MessageEntityClassName is schema name of MessageEntityClass.
 const MessageEntityClassName = "MessageEntity"
 
@@ -3776,10 +3776,10 @@ const MessageEntityClassName = "MessageEntity"
 //	case *tg.MessageEntityCashtag: // messageEntityCashtag#4c4e743f
 //	case *tg.MessageEntityUnderline: // messageEntityUnderline#9c4e7e8b
 //	case *tg.MessageEntityStrike: // messageEntityStrike#bf0693d4
-//	case *tg.MessageEntityBlockquote: // messageEntityBlockquote#20df5d0
 //	case *tg.MessageEntityBankCard: // messageEntityBankCard#761e6af4
 //	case *tg.MessageEntitySpoiler: // messageEntitySpoiler#32ca960f
 //	case *tg.MessageEntityCustomEmoji: // messageEntityCustomEmoji#c8cf05f8
+//	case *tg.MessageEntityBlockquote: // messageEntityBlockquote#20df5d0
 //	default: panic(v)
 //	}
 type MessageEntityClass interface {
@@ -3939,13 +3939,6 @@ func DecodeMessageEntity(buf *bin.Buffer) (MessageEntityClass, error) {
 			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
 		}
 		return &v, nil
-	case MessageEntityBlockquoteTypeID:
-		// Decoding messageEntityBlockquote#20df5d0.
-		v := MessageEntityBlockquote{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
-		}
-		return &v, nil
 	case MessageEntityBankCardTypeID:
 		// Decoding messageEntityBankCard#761e6af4.
 		v := MessageEntityBankCard{}
@@ -3963,6 +3956,13 @@ func DecodeMessageEntity(buf *bin.Buffer) (MessageEntityClass, error) {
 	case MessageEntityCustomEmojiTypeID:
 		// Decoding messageEntityCustomEmoji#c8cf05f8.
 		v := MessageEntityCustomEmoji{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
+		}
+		return &v, nil
+	case MessageEntityBlockquoteTypeID:
+		// Decoding messageEntityBlockquote#20df5d0.
+		v := MessageEntityBlockquote{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
 		}

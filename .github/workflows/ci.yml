@@ -22,10 +22,6 @@ jobs:
           - ubuntu-latest
           - macos-latest
         include:
-          - arch: 386
-            go: "1.21"
-            runner: ubuntu-latest
-
           - arch: amd64
             runner: windows-latest
             go: "1.21"

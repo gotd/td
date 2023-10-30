@@ -319,25 +319,6 @@ func (b *Builder) Strike(s string) *Builder {
 	return b.Format(s, Strike())
 }
 
-// Blockquote creates Formatter of Blockquote message entity.
-//
-// See https://core.telegram.org/constructor/messageEntityBlockquote.
-func Blockquote() Formatter {
-	return func(offset, length int) tg.MessageEntityClass {
-		return &tg.MessageEntityBlockquote{
-			Offset: offset,
-			Length: length,
-		}
-	}
-}
-
-// Blockquote adds and formats message as Blockquote message entity.
-//
-// See https://core.telegram.org/constructor/messageEntityBlockquote.
-func (b *Builder) Blockquote(s string) *Builder {
-	return b.Format(s, Blockquote())
-}
-
 // BankCard creates Formatter of BankCard message entity.
 //
 // See https://core.telegram.org/constructor/messageEntityBankCard.
@@ -394,4 +375,23 @@ func CustomEmoji(documentID int64) Formatter {
 // See https://core.telegram.org/constructor/messageEntityCustomEmoji.
 func (b *Builder) CustomEmoji(s string, documentID int64) *Builder {
 	return b.Format(s, CustomEmoji(documentID))
+}
+
+// Blockquote creates Formatter of Blockquote message entity.
+//
+// See https://core.telegram.org/constructor/messageEntityBlockquote.
+func Blockquote() Formatter {
+	return func(offset, length int) tg.MessageEntityClass {
+		return &tg.MessageEntityBlockquote{
+			Offset: offset,
+			Length: length,
+		}
+	}
+}
+
+// Blockquote adds and formats message as Blockquote message entity.
+//
+// See https://core.telegram.org/constructor/messageEntityBlockquote.
+func (b *Builder) Blockquote(s string) *Builder {
+	return b.Format(s, Blockquote())
 }

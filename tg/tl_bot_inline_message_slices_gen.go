@@ -194,6 +194,19 @@ func (s BotInlineMessageClassArray) AsBotInlineMessageMediaInvoice() (to BotInli
 	return to
 }
 
+// AsBotInlineMessageMediaWebPage returns copy with only BotInlineMessageMediaWebPage constructors.
+func (s BotInlineMessageClassArray) AsBotInlineMessageMediaWebPage() (to BotInlineMessageMediaWebPageArray) {
+	for _, elem := range s {
+		value, ok := elem.(*BotInlineMessageMediaWebPage)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // BotInlineMessageMediaAutoArray is adapter for slice of BotInlineMessageMediaAuto.
 type BotInlineMessageMediaAutoArray []BotInlineMessageMediaAuto
 
@@ -674,6 +687,88 @@ func (s *BotInlineMessageMediaInvoiceArray) PopFirst() (v BotInlineMessageMediaI
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *BotInlineMessageMediaInvoiceArray) Pop() (v BotInlineMessageMediaInvoice, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// BotInlineMessageMediaWebPageArray is adapter for slice of BotInlineMessageMediaWebPage.
+type BotInlineMessageMediaWebPageArray []BotInlineMessageMediaWebPage
+
+// Sort sorts slice of BotInlineMessageMediaWebPage.
+func (s BotInlineMessageMediaWebPageArray) Sort(less func(a, b BotInlineMessageMediaWebPage) bool) BotInlineMessageMediaWebPageArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of BotInlineMessageMediaWebPage.
+func (s BotInlineMessageMediaWebPageArray) SortStable(less func(a, b BotInlineMessageMediaWebPage) bool) BotInlineMessageMediaWebPageArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of BotInlineMessageMediaWebPage.
+func (s BotInlineMessageMediaWebPageArray) Retain(keep func(x BotInlineMessageMediaWebPage) bool) BotInlineMessageMediaWebPageArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s BotInlineMessageMediaWebPageArray) First() (v BotInlineMessageMediaWebPage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s BotInlineMessageMediaWebPageArray) Last() (v BotInlineMessageMediaWebPage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *BotInlineMessageMediaWebPageArray) PopFirst() (v BotInlineMessageMediaWebPage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero BotInlineMessageMediaWebPage
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *BotInlineMessageMediaWebPageArray) Pop() (v BotInlineMessageMediaWebPage, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
