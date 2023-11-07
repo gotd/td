@@ -2258,6 +2258,137 @@ func (p *PremiumFeatureChatBoost) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// PremiumFeatureAccentColor represents TL type `premiumFeatureAccentColor#361ac59e`.
+type PremiumFeatureAccentColor struct {
+}
+
+// PremiumFeatureAccentColorTypeID is TL type id of PremiumFeatureAccentColor.
+const PremiumFeatureAccentColorTypeID = 0x361ac59e
+
+// construct implements constructor of PremiumFeatureClass.
+func (p PremiumFeatureAccentColor) construct() PremiumFeatureClass { return &p }
+
+// Ensuring interfaces in compile-time for PremiumFeatureAccentColor.
+var (
+	_ bin.Encoder     = &PremiumFeatureAccentColor{}
+	_ bin.Decoder     = &PremiumFeatureAccentColor{}
+	_ bin.BareEncoder = &PremiumFeatureAccentColor{}
+	_ bin.BareDecoder = &PremiumFeatureAccentColor{}
+
+	_ PremiumFeatureClass = &PremiumFeatureAccentColor{}
+)
+
+func (p *PremiumFeatureAccentColor) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PremiumFeatureAccentColor) String() string {
+	if p == nil {
+		return "PremiumFeatureAccentColor(nil)"
+	}
+	type Alias PremiumFeatureAccentColor
+	return fmt.Sprintf("PremiumFeatureAccentColor%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PremiumFeatureAccentColor) TypeID() uint32 {
+	return PremiumFeatureAccentColorTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PremiumFeatureAccentColor) TypeName() string {
+	return "premiumFeatureAccentColor"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PremiumFeatureAccentColor) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "premiumFeatureAccentColor",
+		ID:   PremiumFeatureAccentColorTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PremiumFeatureAccentColor) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureAccentColor#361ac59e as nil")
+	}
+	b.PutID(PremiumFeatureAccentColorTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PremiumFeatureAccentColor) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureAccentColor#361ac59e as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PremiumFeatureAccentColor) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureAccentColor#361ac59e to nil")
+	}
+	if err := b.ConsumeID(PremiumFeatureAccentColorTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumFeatureAccentColor#361ac59e: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PremiumFeatureAccentColor) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureAccentColor#361ac59e to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PremiumFeatureAccentColor) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureAccentColor#361ac59e as nil")
+	}
+	b.ObjStart()
+	b.PutID("premiumFeatureAccentColor")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PremiumFeatureAccentColor) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureAccentColor#361ac59e to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("premiumFeatureAccentColor"); err != nil {
+				return fmt.Errorf("unable to decode premiumFeatureAccentColor#361ac59e: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // PremiumFeatureClassName is schema name of PremiumFeatureClass.
 const PremiumFeatureClassName = "PremiumFeature"
 
@@ -2287,6 +2418,7 @@ const PremiumFeatureClassName = "PremiumFeature"
 //	case *tdapi.PremiumFeatureRealTimeChatTranslation: // premiumFeatureRealTimeChatTranslation#bbd80280
 //	case *tdapi.PremiumFeatureUpgradedStories: // premiumFeatureUpgradedStories#9008051b
 //	case *tdapi.PremiumFeatureChatBoost: // premiumFeatureChatBoost#5df89f1b
+//	case *tdapi.PremiumFeatureAccentColor: // premiumFeatureAccentColor#361ac59e
 //	default: panic(v)
 //	}
 type PremiumFeatureClass interface {
@@ -2437,6 +2569,13 @@ func DecodePremiumFeature(buf *bin.Buffer) (PremiumFeatureClass, error) {
 			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
 		}
 		return &v, nil
+	case PremiumFeatureAccentColorTypeID:
+		// Decoding premiumFeatureAccentColor#361ac59e.
+		v := PremiumFeatureAccentColor{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -2564,6 +2703,13 @@ func DecodeTDLibJSONPremiumFeature(buf tdjson.Decoder) (PremiumFeatureClass, err
 	case "premiumFeatureChatBoost":
 		// Decoding premiumFeatureChatBoost#5df89f1b.
 		v := PremiumFeatureChatBoost{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
+		}
+		return &v, nil
+	case "premiumFeatureAccentColor":
+		// Decoding premiumFeatureAccentColor#361ac59e.
+		v := PremiumFeatureAccentColor{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
 		}

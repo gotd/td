@@ -31,12 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// FoundWebApp represents TL type `foundWebApp#2b8136d4`.
+// FoundWebApp represents TL type `foundWebApp#eea8d01e`.
 type FoundWebApp struct {
 	// The Web App
 	WebApp WebApp
-	// True, if the app supports "settings_button_pressed" event
-	SupportsSettings bool
 	// True, if the user must be asked for the permission to the bot to send them messages
 	RequestWriteAccess bool
 	// True, if there is no need to show an ordinary open URL confirmation before opening the
@@ -46,7 +44,7 @@ type FoundWebApp struct {
 }
 
 // FoundWebAppTypeID is TL type id of FoundWebApp.
-const FoundWebAppTypeID = 0x2b8136d4
+const FoundWebAppTypeID = 0xeea8d01e
 
 // Ensuring interfaces in compile-time for FoundWebApp.
 var (
@@ -61,9 +59,6 @@ func (f *FoundWebApp) Zero() bool {
 		return true
 	}
 	if !(f.WebApp.Zero()) {
-		return false
-	}
-	if !(f.SupportsSettings == false) {
 		return false
 	}
 	if !(f.RequestWriteAccess == false) {
@@ -113,10 +108,6 @@ func (f *FoundWebApp) TypeInfo() tdp.Type {
 			SchemaName: "web_app",
 		},
 		{
-			Name:       "SupportsSettings",
-			SchemaName: "supports_settings",
-		},
-		{
 			Name:       "RequestWriteAccess",
 			SchemaName: "request_write_access",
 		},
@@ -131,7 +122,7 @@ func (f *FoundWebApp) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (f *FoundWebApp) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode foundWebApp#2b8136d4 as nil")
+		return fmt.Errorf("can't encode foundWebApp#eea8d01e as nil")
 	}
 	b.PutID(FoundWebAppTypeID)
 	return f.EncodeBare(b)
@@ -140,12 +131,11 @@ func (f *FoundWebApp) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (f *FoundWebApp) EncodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't encode foundWebApp#2b8136d4 as nil")
+		return fmt.Errorf("can't encode foundWebApp#eea8d01e as nil")
 	}
 	if err := f.WebApp.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode foundWebApp#2b8136d4: field web_app: %w", err)
+		return fmt.Errorf("unable to encode foundWebApp#eea8d01e: field web_app: %w", err)
 	}
-	b.PutBool(f.SupportsSettings)
 	b.PutBool(f.RequestWriteAccess)
 	b.PutBool(f.SkipConfirmation)
 	return nil
@@ -154,10 +144,10 @@ func (f *FoundWebApp) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (f *FoundWebApp) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode foundWebApp#2b8136d4 to nil")
+		return fmt.Errorf("can't decode foundWebApp#eea8d01e to nil")
 	}
 	if err := b.ConsumeID(FoundWebAppTypeID); err != nil {
-		return fmt.Errorf("unable to decode foundWebApp#2b8136d4: %w", err)
+		return fmt.Errorf("unable to decode foundWebApp#eea8d01e: %w", err)
 	}
 	return f.DecodeBare(b)
 }
@@ -165,31 +155,24 @@ func (f *FoundWebApp) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (f *FoundWebApp) DecodeBare(b *bin.Buffer) error {
 	if f == nil {
-		return fmt.Errorf("can't decode foundWebApp#2b8136d4 to nil")
+		return fmt.Errorf("can't decode foundWebApp#eea8d01e to nil")
 	}
 	{
 		if err := f.WebApp.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode foundWebApp#2b8136d4: field web_app: %w", err)
+			return fmt.Errorf("unable to decode foundWebApp#eea8d01e: field web_app: %w", err)
 		}
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode foundWebApp#2b8136d4: field supports_settings: %w", err)
-		}
-		f.SupportsSettings = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode foundWebApp#2b8136d4: field request_write_access: %w", err)
+			return fmt.Errorf("unable to decode foundWebApp#eea8d01e: field request_write_access: %w", err)
 		}
 		f.RequestWriteAccess = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode foundWebApp#2b8136d4: field skip_confirmation: %w", err)
+			return fmt.Errorf("unable to decode foundWebApp#eea8d01e: field skip_confirmation: %w", err)
 		}
 		f.SkipConfirmation = value
 	}
@@ -199,18 +182,15 @@ func (f *FoundWebApp) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (f *FoundWebApp) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if f == nil {
-		return fmt.Errorf("can't encode foundWebApp#2b8136d4 as nil")
+		return fmt.Errorf("can't encode foundWebApp#eea8d01e as nil")
 	}
 	b.ObjStart()
 	b.PutID("foundWebApp")
 	b.Comma()
 	b.FieldStart("web_app")
 	if err := f.WebApp.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode foundWebApp#2b8136d4: field web_app: %w", err)
+		return fmt.Errorf("unable to encode foundWebApp#eea8d01e: field web_app: %w", err)
 	}
-	b.Comma()
-	b.FieldStart("supports_settings")
-	b.PutBool(f.SupportsSettings)
 	b.Comma()
 	b.FieldStart("request_write_access")
 	b.PutBool(f.RequestWriteAccess)
@@ -226,35 +206,29 @@ func (f *FoundWebApp) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (f *FoundWebApp) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if f == nil {
-		return fmt.Errorf("can't decode foundWebApp#2b8136d4 to nil")
+		return fmt.Errorf("can't decode foundWebApp#eea8d01e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("foundWebApp"); err != nil {
-				return fmt.Errorf("unable to decode foundWebApp#2b8136d4: %w", err)
+				return fmt.Errorf("unable to decode foundWebApp#eea8d01e: %w", err)
 			}
 		case "web_app":
 			if err := f.WebApp.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode foundWebApp#2b8136d4: field web_app: %w", err)
+				return fmt.Errorf("unable to decode foundWebApp#eea8d01e: field web_app: %w", err)
 			}
-		case "supports_settings":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode foundWebApp#2b8136d4: field supports_settings: %w", err)
-			}
-			f.SupportsSettings = value
 		case "request_write_access":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode foundWebApp#2b8136d4: field request_write_access: %w", err)
+				return fmt.Errorf("unable to decode foundWebApp#eea8d01e: field request_write_access: %w", err)
 			}
 			f.RequestWriteAccess = value
 		case "skip_confirmation":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode foundWebApp#2b8136d4: field skip_confirmation: %w", err)
+				return fmt.Errorf("unable to decode foundWebApp#eea8d01e: field skip_confirmation: %w", err)
 			}
 			f.SkipConfirmation = value
 		default:
@@ -270,14 +244,6 @@ func (f *FoundWebApp) GetWebApp() (value WebApp) {
 		return
 	}
 	return f.WebApp
-}
-
-// GetSupportsSettings returns value of SupportsSettings field.
-func (f *FoundWebApp) GetSupportsSettings() (value bool) {
-	if f == nil {
-		return
-	}
-	return f.SupportsSettings
 }
 
 // GetRequestWriteAccess returns value of RequestWriteAccess field.

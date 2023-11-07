@@ -31,20 +31,21 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// InputMessageText represents TL type `inputMessageText#eb9b098`.
+// InputMessageText represents TL type `inputMessageText#f350d894`.
 type InputMessageText struct {
-	// Formatted text to be sent; 1-getOption("message_text_length_max") characters. Only
-	// Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, Code, Pre, PreCode,
-	// TextUrl and MentionName entities are allowed to be specified manually
+	// Formatted text to be sent; 0-getOption("message_text_length_max") characters. Only
+	// Bold, Italic, Underline, Strikethrough, Spoiler, CustomEmoji, BlockQuote, Code, Pre,
+	// PreCode, TextUrl and MentionName entities are allowed to be specified manually
 	Text FormattedText
-	// True, if rich web page previews for URLs in the message text must be disabled
-	DisableWebPagePreview bool
+	// Options to be used for generation of a link preview; pass null to use default link
+	// preview options
+	LinkPreviewOptions LinkPreviewOptions
 	// True, if a chat message draft must be deleted
 	ClearDraft bool
 }
 
 // InputMessageTextTypeID is TL type id of InputMessageText.
-const InputMessageTextTypeID = 0xeb9b098
+const InputMessageTextTypeID = 0xf350d894
 
 // construct implements constructor of InputMessageContentClass.
 func (i InputMessageText) construct() InputMessageContentClass { return &i }
@@ -66,7 +67,7 @@ func (i *InputMessageText) Zero() bool {
 	if !(i.Text.Zero()) {
 		return false
 	}
-	if !(i.DisableWebPagePreview == false) {
+	if !(i.LinkPreviewOptions.Zero()) {
 		return false
 	}
 	if !(i.ClearDraft == false) {
@@ -113,8 +114,8 @@ func (i *InputMessageText) TypeInfo() tdp.Type {
 			SchemaName: "text",
 		},
 		{
-			Name:       "DisableWebPagePreview",
-			SchemaName: "disable_web_page_preview",
+			Name:       "LinkPreviewOptions",
+			SchemaName: "link_preview_options",
 		},
 		{
 			Name:       "ClearDraft",
@@ -127,7 +128,7 @@ func (i *InputMessageText) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessageText) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageText#eb9b098 as nil")
+		return fmt.Errorf("can't encode inputMessageText#f350d894 as nil")
 	}
 	b.PutID(InputMessageTextTypeID)
 	return i.EncodeBare(b)
@@ -136,12 +137,14 @@ func (i *InputMessageText) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessageText) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageText#eb9b098 as nil")
+		return fmt.Errorf("can't encode inputMessageText#f350d894 as nil")
 	}
 	if err := i.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageText#eb9b098: field text: %w", err)
+		return fmt.Errorf("unable to encode inputMessageText#f350d894: field text: %w", err)
 	}
-	b.PutBool(i.DisableWebPagePreview)
+	if err := i.LinkPreviewOptions.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputMessageText#f350d894: field link_preview_options: %w", err)
+	}
 	b.PutBool(i.ClearDraft)
 	return nil
 }
@@ -149,10 +152,10 @@ func (i *InputMessageText) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessageText) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageText#eb9b098 to nil")
+		return fmt.Errorf("can't decode inputMessageText#f350d894 to nil")
 	}
 	if err := b.ConsumeID(InputMessageTextTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessageText#eb9b098: %w", err)
+		return fmt.Errorf("unable to decode inputMessageText#f350d894: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -160,24 +163,22 @@ func (i *InputMessageText) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessageText) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageText#eb9b098 to nil")
+		return fmt.Errorf("can't decode inputMessageText#f350d894 to nil")
 	}
 	{
 		if err := i.Text.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMessageText#eb9b098: field text: %w", err)
+			return fmt.Errorf("unable to decode inputMessageText#f350d894: field text: %w", err)
+		}
+	}
+	{
+		if err := i.LinkPreviewOptions.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputMessageText#f350d894: field link_preview_options: %w", err)
 		}
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageText#eb9b098: field disable_web_page_preview: %w", err)
-		}
-		i.DisableWebPagePreview = value
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageText#eb9b098: field clear_draft: %w", err)
+			return fmt.Errorf("unable to decode inputMessageText#f350d894: field clear_draft: %w", err)
 		}
 		i.ClearDraft = value
 	}
@@ -187,18 +188,20 @@ func (i *InputMessageText) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InputMessageText) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageText#eb9b098 as nil")
+		return fmt.Errorf("can't encode inputMessageText#f350d894 as nil")
 	}
 	b.ObjStart()
 	b.PutID("inputMessageText")
 	b.Comma()
 	b.FieldStart("text")
 	if err := i.Text.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageText#eb9b098: field text: %w", err)
+		return fmt.Errorf("unable to encode inputMessageText#f350d894: field text: %w", err)
 	}
 	b.Comma()
-	b.FieldStart("disable_web_page_preview")
-	b.PutBool(i.DisableWebPagePreview)
+	b.FieldStart("link_preview_options")
+	if err := i.LinkPreviewOptions.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputMessageText#f350d894: field link_preview_options: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("clear_draft")
 	b.PutBool(i.ClearDraft)
@@ -211,29 +214,27 @@ func (i *InputMessageText) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InputMessageText) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageText#eb9b098 to nil")
+		return fmt.Errorf("can't decode inputMessageText#f350d894 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("inputMessageText"); err != nil {
-				return fmt.Errorf("unable to decode inputMessageText#eb9b098: %w", err)
+				return fmt.Errorf("unable to decode inputMessageText#f350d894: %w", err)
 			}
 		case "text":
 			if err := i.Text.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode inputMessageText#eb9b098: field text: %w", err)
+				return fmt.Errorf("unable to decode inputMessageText#f350d894: field text: %w", err)
 			}
-		case "disable_web_page_preview":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageText#eb9b098: field disable_web_page_preview: %w", err)
+		case "link_preview_options":
+			if err := i.LinkPreviewOptions.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode inputMessageText#f350d894: field link_preview_options: %w", err)
 			}
-			i.DisableWebPagePreview = value
 		case "clear_draft":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageText#eb9b098: field clear_draft: %w", err)
+				return fmt.Errorf("unable to decode inputMessageText#f350d894: field clear_draft: %w", err)
 			}
 			i.ClearDraft = value
 		default:
@@ -251,12 +252,12 @@ func (i *InputMessageText) GetText() (value FormattedText) {
 	return i.Text
 }
 
-// GetDisableWebPagePreview returns value of DisableWebPagePreview field.
-func (i *InputMessageText) GetDisableWebPagePreview() (value bool) {
+// GetLinkPreviewOptions returns value of LinkPreviewOptions field.
+func (i *InputMessageText) GetLinkPreviewOptions() (value LinkPreviewOptions) {
 	if i == nil {
 		return
 	}
-	return i.DisableWebPagePreview
+	return i.LinkPreviewOptions
 }
 
 // GetClearDraft returns value of ClearDraft field.
@@ -5339,7 +5340,8 @@ func (i *InputMessageStory) GetStoryID() (value int32) {
 type InputMessageForwarded struct {
 	// Identifier for the chat this forwarded message came from
 	FromChatID int64
-	// Identifier of the message to forward
+	// Identifier of the message to forward. A message can be forwarded only if message
+	// can_be_forwarded
 	MessageID int64
 	// True, if a game message is being shared from a launched game; applies only to game
 	// messages
@@ -5617,7 +5619,7 @@ const InputMessageContentClassName = "InputMessageContent"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tdapi.InputMessageText: // inputMessageText#eb9b098
+//	case *tdapi.InputMessageText: // inputMessageText#f350d894
 //	case *tdapi.InputMessageAnimation: // inputMessageAnimation#cd68f5fe
 //	case *tdapi.InputMessageAudio: // inputMessageAudio#daa400b2
 //	case *tdapi.InputMessageDocument: // inputMessageDocument#615b72b9
@@ -5667,7 +5669,7 @@ func DecodeInputMessageContent(buf *bin.Buffer) (InputMessageContentClass, error
 	}
 	switch id {
 	case InputMessageTextTypeID:
-		// Decoding inputMessageText#eb9b098.
+		// Decoding inputMessageText#f350d894.
 		v := InputMessageText{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)
@@ -5805,7 +5807,7 @@ func DecodeTDLibJSONInputMessageContent(buf tdjson.Decoder) (InputMessageContent
 	}
 	switch id {
 	case "inputMessageText":
-		// Decoding inputMessageText#eb9b098.
+		// Decoding inputMessageText#f350d894.
 		v := InputMessageText{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageContentClass: %w", err)

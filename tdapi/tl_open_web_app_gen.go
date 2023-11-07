@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// OpenWebAppRequest represents TL type `openWebApp#3a621a`.
+// OpenWebAppRequest represents TL type `openWebApp#b02666b0`.
 type OpenWebAppRequest struct {
 	// Identifier of the chat in which the Web App is opened. The Web App can't be opened in
 	// secret chats
@@ -47,13 +47,13 @@ type OpenWebAppRequest struct {
 	ApplicationName string
 	// If not 0, a message thread identifier in which the message will be sent
 	MessageThreadID int64
-	// Identifier of the replied message or story for the message sent by the Web App; pass
-	// null if none
-	ReplyTo MessageReplyToClass
+	// Information about the message or story to be replied in the message sent by the Web
+	// App; pass null if none
+	ReplyTo InputMessageReplyToClass
 }
 
 // OpenWebAppRequestTypeID is TL type id of OpenWebAppRequest.
-const OpenWebAppRequestTypeID = 0x3a621a
+const OpenWebAppRequestTypeID = 0xb02666b0
 
 // Ensuring interfaces in compile-time for OpenWebAppRequest.
 var (
@@ -159,7 +159,7 @@ func (o *OpenWebAppRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (o *OpenWebAppRequest) Encode(b *bin.Buffer) error {
 	if o == nil {
-		return fmt.Errorf("can't encode openWebApp#3a621a as nil")
+		return fmt.Errorf("can't encode openWebApp#b02666b0 as nil")
 	}
 	b.PutID(OpenWebAppRequestTypeID)
 	return o.EncodeBare(b)
@@ -168,21 +168,21 @@ func (o *OpenWebAppRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (o *OpenWebAppRequest) EncodeBare(b *bin.Buffer) error {
 	if o == nil {
-		return fmt.Errorf("can't encode openWebApp#3a621a as nil")
+		return fmt.Errorf("can't encode openWebApp#b02666b0 as nil")
 	}
 	b.PutInt53(o.ChatID)
 	b.PutInt53(o.BotUserID)
 	b.PutString(o.URL)
 	if err := o.Theme.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode openWebApp#3a621a: field theme: %w", err)
+		return fmt.Errorf("unable to encode openWebApp#b02666b0: field theme: %w", err)
 	}
 	b.PutString(o.ApplicationName)
 	b.PutInt53(o.MessageThreadID)
 	if o.ReplyTo == nil {
-		return fmt.Errorf("unable to encode openWebApp#3a621a: field reply_to is nil")
+		return fmt.Errorf("unable to encode openWebApp#b02666b0: field reply_to is nil")
 	}
 	if err := o.ReplyTo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode openWebApp#3a621a: field reply_to: %w", err)
+		return fmt.Errorf("unable to encode openWebApp#b02666b0: field reply_to: %w", err)
 	}
 	return nil
 }
@@ -190,10 +190,10 @@ func (o *OpenWebAppRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (o *OpenWebAppRequest) Decode(b *bin.Buffer) error {
 	if o == nil {
-		return fmt.Errorf("can't decode openWebApp#3a621a to nil")
+		return fmt.Errorf("can't decode openWebApp#b02666b0 to nil")
 	}
 	if err := b.ConsumeID(OpenWebAppRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode openWebApp#3a621a: %w", err)
+		return fmt.Errorf("unable to decode openWebApp#b02666b0: %w", err)
 	}
 	return o.DecodeBare(b)
 }
@@ -201,52 +201,52 @@ func (o *OpenWebAppRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (o *OpenWebAppRequest) DecodeBare(b *bin.Buffer) error {
 	if o == nil {
-		return fmt.Errorf("can't decode openWebApp#3a621a to nil")
+		return fmt.Errorf("can't decode openWebApp#b02666b0 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode openWebApp#3a621a: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode openWebApp#b02666b0: field chat_id: %w", err)
 		}
 		o.ChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode openWebApp#3a621a: field bot_user_id: %w", err)
+			return fmt.Errorf("unable to decode openWebApp#b02666b0: field bot_user_id: %w", err)
 		}
 		o.BotUserID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode openWebApp#3a621a: field url: %w", err)
+			return fmt.Errorf("unable to decode openWebApp#b02666b0: field url: %w", err)
 		}
 		o.URL = value
 	}
 	{
 		if err := o.Theme.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode openWebApp#3a621a: field theme: %w", err)
+			return fmt.Errorf("unable to decode openWebApp#b02666b0: field theme: %w", err)
 		}
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode openWebApp#3a621a: field application_name: %w", err)
+			return fmt.Errorf("unable to decode openWebApp#b02666b0: field application_name: %w", err)
 		}
 		o.ApplicationName = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode openWebApp#3a621a: field message_thread_id: %w", err)
+			return fmt.Errorf("unable to decode openWebApp#b02666b0: field message_thread_id: %w", err)
 		}
 		o.MessageThreadID = value
 	}
 	{
-		value, err := DecodeMessageReplyTo(b)
+		value, err := DecodeInputMessageReplyTo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode openWebApp#3a621a: field reply_to: %w", err)
+			return fmt.Errorf("unable to decode openWebApp#b02666b0: field reply_to: %w", err)
 		}
 		o.ReplyTo = value
 	}
@@ -256,7 +256,7 @@ func (o *OpenWebAppRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (o *OpenWebAppRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if o == nil {
-		return fmt.Errorf("can't encode openWebApp#3a621a as nil")
+		return fmt.Errorf("can't encode openWebApp#b02666b0 as nil")
 	}
 	b.ObjStart()
 	b.PutID("openWebApp")
@@ -272,7 +272,7 @@ func (o *OpenWebAppRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("theme")
 	if err := o.Theme.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode openWebApp#3a621a: field theme: %w", err)
+		return fmt.Errorf("unable to encode openWebApp#b02666b0: field theme: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("application_name")
@@ -283,10 +283,10 @@ func (o *OpenWebAppRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("reply_to")
 	if o.ReplyTo == nil {
-		return fmt.Errorf("unable to encode openWebApp#3a621a: field reply_to is nil")
+		return fmt.Errorf("unable to encode openWebApp#b02666b0: field reply_to is nil")
 	}
 	if err := o.ReplyTo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode openWebApp#3a621a: field reply_to: %w", err)
+		return fmt.Errorf("unable to encode openWebApp#b02666b0: field reply_to: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -297,53 +297,53 @@ func (o *OpenWebAppRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (o *OpenWebAppRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if o == nil {
-		return fmt.Errorf("can't decode openWebApp#3a621a to nil")
+		return fmt.Errorf("can't decode openWebApp#b02666b0 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("openWebApp"); err != nil {
-				return fmt.Errorf("unable to decode openWebApp#3a621a: %w", err)
+				return fmt.Errorf("unable to decode openWebApp#b02666b0: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode openWebApp#3a621a: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode openWebApp#b02666b0: field chat_id: %w", err)
 			}
 			o.ChatID = value
 		case "bot_user_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode openWebApp#3a621a: field bot_user_id: %w", err)
+				return fmt.Errorf("unable to decode openWebApp#b02666b0: field bot_user_id: %w", err)
 			}
 			o.BotUserID = value
 		case "url":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode openWebApp#3a621a: field url: %w", err)
+				return fmt.Errorf("unable to decode openWebApp#b02666b0: field url: %w", err)
 			}
 			o.URL = value
 		case "theme":
 			if err := o.Theme.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode openWebApp#3a621a: field theme: %w", err)
+				return fmt.Errorf("unable to decode openWebApp#b02666b0: field theme: %w", err)
 			}
 		case "application_name":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode openWebApp#3a621a: field application_name: %w", err)
+				return fmt.Errorf("unable to decode openWebApp#b02666b0: field application_name: %w", err)
 			}
 			o.ApplicationName = value
 		case "message_thread_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode openWebApp#3a621a: field message_thread_id: %w", err)
+				return fmt.Errorf("unable to decode openWebApp#b02666b0: field message_thread_id: %w", err)
 			}
 			o.MessageThreadID = value
 		case "reply_to":
-			value, err := DecodeTDLibJSONMessageReplyTo(b)
+			value, err := DecodeTDLibJSONInputMessageReplyTo(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode openWebApp#3a621a: field reply_to: %w", err)
+				return fmt.Errorf("unable to decode openWebApp#b02666b0: field reply_to: %w", err)
 			}
 			o.ReplyTo = value
 		default:
@@ -402,14 +402,14 @@ func (o *OpenWebAppRequest) GetMessageThreadID() (value int64) {
 }
 
 // GetReplyTo returns value of ReplyTo field.
-func (o *OpenWebAppRequest) GetReplyTo() (value MessageReplyToClass) {
+func (o *OpenWebAppRequest) GetReplyTo() (value InputMessageReplyToClass) {
 	if o == nil {
 		return
 	}
 	return o.ReplyTo
 }
 
-// OpenWebApp invokes method openWebApp#3a621a returning error if any.
+// OpenWebApp invokes method openWebApp#b02666b0 returning error if any.
 func (c *Client) OpenWebApp(ctx context.Context, request *OpenWebAppRequest) (*WebAppInfo, error) {
 	var result WebAppInfo
 

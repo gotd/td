@@ -2498,6 +2498,408 @@ func (p *PushMessageContentPoll) GetIsPinned() (value bool) {
 	return p.IsPinned
 }
 
+// PushMessageContentPremiumGiftCode represents TL type `pushMessageContentPremiumGiftCode#18a15025`.
+type PushMessageContentPremiumGiftCode struct {
+	// Number of month the Telegram Premium subscription will be active after code activation
+	MonthCount int32
+}
+
+// PushMessageContentPremiumGiftCodeTypeID is TL type id of PushMessageContentPremiumGiftCode.
+const PushMessageContentPremiumGiftCodeTypeID = 0x18a15025
+
+// construct implements constructor of PushMessageContentClass.
+func (p PushMessageContentPremiumGiftCode) construct() PushMessageContentClass { return &p }
+
+// Ensuring interfaces in compile-time for PushMessageContentPremiumGiftCode.
+var (
+	_ bin.Encoder     = &PushMessageContentPremiumGiftCode{}
+	_ bin.Decoder     = &PushMessageContentPremiumGiftCode{}
+	_ bin.BareEncoder = &PushMessageContentPremiumGiftCode{}
+	_ bin.BareDecoder = &PushMessageContentPremiumGiftCode{}
+
+	_ PushMessageContentClass = &PushMessageContentPremiumGiftCode{}
+)
+
+func (p *PushMessageContentPremiumGiftCode) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.MonthCount == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PushMessageContentPremiumGiftCode) String() string {
+	if p == nil {
+		return "PushMessageContentPremiumGiftCode(nil)"
+	}
+	type Alias PushMessageContentPremiumGiftCode
+	return fmt.Sprintf("PushMessageContentPremiumGiftCode%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PushMessageContentPremiumGiftCode) TypeID() uint32 {
+	return PushMessageContentPremiumGiftCodeTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PushMessageContentPremiumGiftCode) TypeName() string {
+	return "pushMessageContentPremiumGiftCode"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PushMessageContentPremiumGiftCode) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pushMessageContentPremiumGiftCode",
+		ID:   PushMessageContentPremiumGiftCodeTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MonthCount",
+			SchemaName: "month_count",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PushMessageContentPremiumGiftCode) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentPremiumGiftCode#18a15025 as nil")
+	}
+	b.PutID(PushMessageContentPremiumGiftCodeTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PushMessageContentPremiumGiftCode) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentPremiumGiftCode#18a15025 as nil")
+	}
+	b.PutInt32(p.MonthCount)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PushMessageContentPremiumGiftCode) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentPremiumGiftCode#18a15025 to nil")
+	}
+	if err := b.ConsumeID(PushMessageContentPremiumGiftCodeTypeID); err != nil {
+		return fmt.Errorf("unable to decode pushMessageContentPremiumGiftCode#18a15025: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PushMessageContentPremiumGiftCode) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentPremiumGiftCode#18a15025 to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode pushMessageContentPremiumGiftCode#18a15025: field month_count: %w", err)
+		}
+		p.MonthCount = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentPremiumGiftCode) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentPremiumGiftCode#18a15025 as nil")
+	}
+	b.ObjStart()
+	b.PutID("pushMessageContentPremiumGiftCode")
+	b.Comma()
+	b.FieldStart("month_count")
+	b.PutInt32(p.MonthCount)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentPremiumGiftCode) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentPremiumGiftCode#18a15025 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("pushMessageContentPremiumGiftCode"); err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentPremiumGiftCode#18a15025: %w", err)
+			}
+		case "month_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentPremiumGiftCode#18a15025: field month_count: %w", err)
+			}
+			p.MonthCount = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetMonthCount returns value of MonthCount field.
+func (p *PushMessageContentPremiumGiftCode) GetMonthCount() (value int32) {
+	if p == nil {
+		return
+	}
+	return p.MonthCount
+}
+
+// PushMessageContentPremiumGiveaway represents TL type `pushMessageContentPremiumGiveaway#57d26df1`.
+type PushMessageContentPremiumGiveaway struct {
+	// Number of users which will receive Telegram Premium subscription gift codes; 0 for
+	// pinned message
+	WinnerCount int32
+	// Number of month the Telegram Premium subscription will be active after code
+	// activation; 0 for pinned message
+	MonthCount int32
+	// True, if the message is a pinned message with the specified content
+	IsPinned bool
+}
+
+// PushMessageContentPremiumGiveawayTypeID is TL type id of PushMessageContentPremiumGiveaway.
+const PushMessageContentPremiumGiveawayTypeID = 0x57d26df1
+
+// construct implements constructor of PushMessageContentClass.
+func (p PushMessageContentPremiumGiveaway) construct() PushMessageContentClass { return &p }
+
+// Ensuring interfaces in compile-time for PushMessageContentPremiumGiveaway.
+var (
+	_ bin.Encoder     = &PushMessageContentPremiumGiveaway{}
+	_ bin.Decoder     = &PushMessageContentPremiumGiveaway{}
+	_ bin.BareEncoder = &PushMessageContentPremiumGiveaway{}
+	_ bin.BareDecoder = &PushMessageContentPremiumGiveaway{}
+
+	_ PushMessageContentClass = &PushMessageContentPremiumGiveaway{}
+)
+
+func (p *PushMessageContentPremiumGiveaway) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.WinnerCount == 0) {
+		return false
+	}
+	if !(p.MonthCount == 0) {
+		return false
+	}
+	if !(p.IsPinned == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PushMessageContentPremiumGiveaway) String() string {
+	if p == nil {
+		return "PushMessageContentPremiumGiveaway(nil)"
+	}
+	type Alias PushMessageContentPremiumGiveaway
+	return fmt.Sprintf("PushMessageContentPremiumGiveaway%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PushMessageContentPremiumGiveaway) TypeID() uint32 {
+	return PushMessageContentPremiumGiveawayTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PushMessageContentPremiumGiveaway) TypeName() string {
+	return "pushMessageContentPremiumGiveaway"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PushMessageContentPremiumGiveaway) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pushMessageContentPremiumGiveaway",
+		ID:   PushMessageContentPremiumGiveawayTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "WinnerCount",
+			SchemaName: "winner_count",
+		},
+		{
+			Name:       "MonthCount",
+			SchemaName: "month_count",
+		},
+		{
+			Name:       "IsPinned",
+			SchemaName: "is_pinned",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PushMessageContentPremiumGiveaway) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentPremiumGiveaway#57d26df1 as nil")
+	}
+	b.PutID(PushMessageContentPremiumGiveawayTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PushMessageContentPremiumGiveaway) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentPremiumGiveaway#57d26df1 as nil")
+	}
+	b.PutInt32(p.WinnerCount)
+	b.PutInt32(p.MonthCount)
+	b.PutBool(p.IsPinned)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PushMessageContentPremiumGiveaway) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentPremiumGiveaway#57d26df1 to nil")
+	}
+	if err := b.ConsumeID(PushMessageContentPremiumGiveawayTypeID); err != nil {
+		return fmt.Errorf("unable to decode pushMessageContentPremiumGiveaway#57d26df1: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PushMessageContentPremiumGiveaway) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentPremiumGiveaway#57d26df1 to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode pushMessageContentPremiumGiveaway#57d26df1: field winner_count: %w", err)
+		}
+		p.WinnerCount = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode pushMessageContentPremiumGiveaway#57d26df1: field month_count: %w", err)
+		}
+		p.MonthCount = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode pushMessageContentPremiumGiveaway#57d26df1: field is_pinned: %w", err)
+		}
+		p.IsPinned = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PushMessageContentPremiumGiveaway) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pushMessageContentPremiumGiveaway#57d26df1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("pushMessageContentPremiumGiveaway")
+	b.Comma()
+	b.FieldStart("winner_count")
+	b.PutInt32(p.WinnerCount)
+	b.Comma()
+	b.FieldStart("month_count")
+	b.PutInt32(p.MonthCount)
+	b.Comma()
+	b.FieldStart("is_pinned")
+	b.PutBool(p.IsPinned)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PushMessageContentPremiumGiveaway) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pushMessageContentPremiumGiveaway#57d26df1 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("pushMessageContentPremiumGiveaway"); err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentPremiumGiveaway#57d26df1: %w", err)
+			}
+		case "winner_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentPremiumGiveaway#57d26df1: field winner_count: %w", err)
+			}
+			p.WinnerCount = value
+		case "month_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentPremiumGiveaway#57d26df1: field month_count: %w", err)
+			}
+			p.MonthCount = value
+		case "is_pinned":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode pushMessageContentPremiumGiveaway#57d26df1: field is_pinned: %w", err)
+			}
+			p.IsPinned = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetWinnerCount returns value of WinnerCount field.
+func (p *PushMessageContentPremiumGiveaway) GetWinnerCount() (value int32) {
+	if p == nil {
+		return
+	}
+	return p.WinnerCount
+}
+
+// GetMonthCount returns value of MonthCount field.
+func (p *PushMessageContentPremiumGiveaway) GetMonthCount() (value int32) {
+	if p == nil {
+		return
+	}
+	return p.MonthCount
+}
+
+// GetIsPinned returns value of IsPinned field.
+func (p *PushMessageContentPremiumGiveaway) GetIsPinned() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.IsPinned
+}
+
 // PushMessageContentScreenshotTaken represents TL type `pushMessageContentScreenshotTaken#cc51ff9`.
 type PushMessageContentScreenshotTaken struct {
 }
@@ -6177,6 +6579,8 @@ const PushMessageContentClassName = "PushMessageContent"
 //	case *tdapi.PushMessageContentLocation: // pushMessageContentLocation#b33a97b3
 //	case *tdapi.PushMessageContentPhoto: // pushMessageContentPhoto#861dc52
 //	case *tdapi.PushMessageContentPoll: // pushMessageContentPoll#fd5a743a
+//	case *tdapi.PushMessageContentPremiumGiftCode: // pushMessageContentPremiumGiftCode#18a15025
+//	case *tdapi.PushMessageContentPremiumGiveaway: // pushMessageContentPremiumGiveaway#57d26df1
 //	case *tdapi.PushMessageContentScreenshotTaken: // pushMessageContentScreenshotTaken#cc51ff9
 //	case *tdapi.PushMessageContentSticker: // pushMessageContentSticker#5c98bdd3
 //	case *tdapi.PushMessageContentStory: // pushMessageContentStory#996471c9
@@ -6308,6 +6712,20 @@ func DecodePushMessageContent(buf *bin.Buffer) (PushMessageContentClass, error) 
 	case PushMessageContentPollTypeID:
 		// Decoding pushMessageContentPoll#fd5a743a.
 		v := PushMessageContentPoll{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case PushMessageContentPremiumGiftCodeTypeID:
+		// Decoding pushMessageContentPremiumGiftCode#18a15025.
+		v := PushMessageContentPremiumGiftCode{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case PushMessageContentPremiumGiveawayTypeID:
+		// Decoding pushMessageContentPremiumGiveaway#57d26df1.
+		v := PushMessageContentPremiumGiveaway{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
 		}
@@ -6544,6 +6962,20 @@ func DecodeTDLibJSONPushMessageContent(buf tdjson.Decoder) (PushMessageContentCl
 	case "pushMessageContentPoll":
 		// Decoding pushMessageContentPoll#fd5a743a.
 		v := PushMessageContentPoll{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "pushMessageContentPremiumGiftCode":
+		// Decoding pushMessageContentPremiumGiftCode#18a15025.
+		v := PushMessageContentPremiumGiftCode{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "pushMessageContentPremiumGiveaway":
+		// Decoding pushMessageContentPremiumGiveaway#57d26df1.
+		v := PushMessageContentPremiumGiveaway{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PushMessageContentClass: %w", err)
 		}

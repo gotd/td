@@ -31,10 +31,11 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// DraftMessage represents TL type `draftMessage#51d71500`.
+// DraftMessage represents TL type `draftMessage#f67c6a5c`.
 type DraftMessage struct {
-	// Identifier of the replied message; 0 if none
-	ReplyToMessageID int64
+	// Information about the message to be replied; must be of the type
+	// inputMessageReplyToMessage; may be null if none
+	ReplyTo InputMessageReplyToClass
 	// Point in time (Unix timestamp) when the draft was created
 	Date int32
 	// Content of the message draft; must be of the type inputMessageText
@@ -42,7 +43,7 @@ type DraftMessage struct {
 }
 
 // DraftMessageTypeID is TL type id of DraftMessage.
-const DraftMessageTypeID = 0x51d71500
+const DraftMessageTypeID = 0xf67c6a5c
 
 // Ensuring interfaces in compile-time for DraftMessage.
 var (
@@ -56,7 +57,7 @@ func (d *DraftMessage) Zero() bool {
 	if d == nil {
 		return true
 	}
-	if !(d.ReplyToMessageID == 0) {
+	if !(d.ReplyTo == nil) {
 		return false
 	}
 	if !(d.Date == 0) {
@@ -102,8 +103,8 @@ func (d *DraftMessage) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "ReplyToMessageID",
-			SchemaName: "reply_to_message_id",
+			Name:       "ReplyTo",
+			SchemaName: "reply_to",
 		},
 		{
 			Name:       "Date",
@@ -120,7 +121,7 @@ func (d *DraftMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (d *DraftMessage) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode draftMessage#51d71500 as nil")
+		return fmt.Errorf("can't encode draftMessage#f67c6a5c as nil")
 	}
 	b.PutID(DraftMessageTypeID)
 	return d.EncodeBare(b)
@@ -129,15 +130,20 @@ func (d *DraftMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (d *DraftMessage) EncodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode draftMessage#51d71500 as nil")
+		return fmt.Errorf("can't encode draftMessage#f67c6a5c as nil")
 	}
-	b.PutInt53(d.ReplyToMessageID)
+	if d.ReplyTo == nil {
+		return fmt.Errorf("unable to encode draftMessage#f67c6a5c: field reply_to is nil")
+	}
+	if err := d.ReplyTo.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode draftMessage#f67c6a5c: field reply_to: %w", err)
+	}
 	b.PutInt32(d.Date)
 	if d.InputMessageText == nil {
-		return fmt.Errorf("unable to encode draftMessage#51d71500: field input_message_text is nil")
+		return fmt.Errorf("unable to encode draftMessage#f67c6a5c: field input_message_text is nil")
 	}
 	if err := d.InputMessageText.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode draftMessage#51d71500: field input_message_text: %w", err)
+		return fmt.Errorf("unable to encode draftMessage#f67c6a5c: field input_message_text: %w", err)
 	}
 	return nil
 }
@@ -145,10 +151,10 @@ func (d *DraftMessage) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (d *DraftMessage) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode draftMessage#51d71500 to nil")
+		return fmt.Errorf("can't decode draftMessage#f67c6a5c to nil")
 	}
 	if err := b.ConsumeID(DraftMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode draftMessage#51d71500: %w", err)
+		return fmt.Errorf("unable to decode draftMessage#f67c6a5c: %w", err)
 	}
 	return d.DecodeBare(b)
 }
@@ -156,26 +162,26 @@ func (d *DraftMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (d *DraftMessage) DecodeBare(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode draftMessage#51d71500 to nil")
+		return fmt.Errorf("can't decode draftMessage#f67c6a5c to nil")
 	}
 	{
-		value, err := b.Int53()
+		value, err := DecodeInputMessageReplyTo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#51d71500: field reply_to_message_id: %w", err)
+			return fmt.Errorf("unable to decode draftMessage#f67c6a5c: field reply_to: %w", err)
 		}
-		d.ReplyToMessageID = value
+		d.ReplyTo = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#51d71500: field date: %w", err)
+			return fmt.Errorf("unable to decode draftMessage#f67c6a5c: field date: %w", err)
 		}
 		d.Date = value
 	}
 	{
 		value, err := DecodeInputMessageContent(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode draftMessage#51d71500: field input_message_text: %w", err)
+			return fmt.Errorf("unable to decode draftMessage#f67c6a5c: field input_message_text: %w", err)
 		}
 		d.InputMessageText = value
 	}
@@ -185,23 +191,28 @@ func (d *DraftMessage) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (d *DraftMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if d == nil {
-		return fmt.Errorf("can't encode draftMessage#51d71500 as nil")
+		return fmt.Errorf("can't encode draftMessage#f67c6a5c as nil")
 	}
 	b.ObjStart()
 	b.PutID("draftMessage")
 	b.Comma()
-	b.FieldStart("reply_to_message_id")
-	b.PutInt53(d.ReplyToMessageID)
+	b.FieldStart("reply_to")
+	if d.ReplyTo == nil {
+		return fmt.Errorf("unable to encode draftMessage#f67c6a5c: field reply_to is nil")
+	}
+	if err := d.ReplyTo.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode draftMessage#f67c6a5c: field reply_to: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("date")
 	b.PutInt32(d.Date)
 	b.Comma()
 	b.FieldStart("input_message_text")
 	if d.InputMessageText == nil {
-		return fmt.Errorf("unable to encode draftMessage#51d71500: field input_message_text is nil")
+		return fmt.Errorf("unable to encode draftMessage#f67c6a5c: field input_message_text is nil")
 	}
 	if err := d.InputMessageText.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode draftMessage#51d71500: field input_message_text: %w", err)
+		return fmt.Errorf("unable to encode draftMessage#f67c6a5c: field input_message_text: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -212,31 +223,31 @@ func (d *DraftMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (d *DraftMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if d == nil {
-		return fmt.Errorf("can't decode draftMessage#51d71500 to nil")
+		return fmt.Errorf("can't decode draftMessage#f67c6a5c to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("draftMessage"); err != nil {
-				return fmt.Errorf("unable to decode draftMessage#51d71500: %w", err)
+				return fmt.Errorf("unable to decode draftMessage#f67c6a5c: %w", err)
 			}
-		case "reply_to_message_id":
-			value, err := b.Int53()
+		case "reply_to":
+			value, err := DecodeTDLibJSONInputMessageReplyTo(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode draftMessage#51d71500: field reply_to_message_id: %w", err)
+				return fmt.Errorf("unable to decode draftMessage#f67c6a5c: field reply_to: %w", err)
 			}
-			d.ReplyToMessageID = value
+			d.ReplyTo = value
 		case "date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode draftMessage#51d71500: field date: %w", err)
+				return fmt.Errorf("unable to decode draftMessage#f67c6a5c: field date: %w", err)
 			}
 			d.Date = value
 		case "input_message_text":
 			value, err := DecodeTDLibJSONInputMessageContent(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode draftMessage#51d71500: field input_message_text: %w", err)
+				return fmt.Errorf("unable to decode draftMessage#f67c6a5c: field input_message_text: %w", err)
 			}
 			d.InputMessageText = value
 		default:
@@ -246,12 +257,12 @@ func (d *DraftMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetReplyToMessageID returns value of ReplyToMessageID field.
-func (d *DraftMessage) GetReplyToMessageID() (value int64) {
+// GetReplyTo returns value of ReplyTo field.
+func (d *DraftMessage) GetReplyTo() (value InputMessageReplyToClass) {
 	if d == nil {
 		return
 	}
-	return d.ReplyToMessageID
+	return d.ReplyTo
 }
 
 // GetDate returns value of Date field.

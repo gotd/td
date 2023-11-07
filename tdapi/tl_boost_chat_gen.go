@@ -31,14 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// BoostChatRequest represents TL type `boostChat#4e314c2d`.
+// BoostChatRequest represents TL type `boostChat#890ccd68`.
 type BoostChatRequest struct {
 	// Identifier of the chat
 	ChatID int64
+	// Identifiers of boost slots of the current user from which to apply boosts to the chat
+	SlotIDs []int32
 }
 
 // BoostChatRequestTypeID is TL type id of BoostChatRequest.
-const BoostChatRequestTypeID = 0x4e314c2d
+const BoostChatRequestTypeID = 0x890ccd68
 
 // Ensuring interfaces in compile-time for BoostChatRequest.
 var (
@@ -53,6 +55,9 @@ func (b *BoostChatRequest) Zero() bool {
 		return true
 	}
 	if !(b.ChatID == 0) {
+		return false
+	}
+	if !(b.SlotIDs == nil) {
 		return false
 	}
 
@@ -95,6 +100,10 @@ func (b *BoostChatRequest) TypeInfo() tdp.Type {
 			Name:       "ChatID",
 			SchemaName: "chat_id",
 		},
+		{
+			Name:       "SlotIDs",
+			SchemaName: "slot_ids",
+		},
 	}
 	return typ
 }
@@ -102,7 +111,7 @@ func (b *BoostChatRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (b *BoostChatRequest) Encode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode boostChat#4e314c2d as nil")
+		return fmt.Errorf("can't encode boostChat#890ccd68 as nil")
 	}
 	buf.PutID(BoostChatRequestTypeID)
 	return b.EncodeBare(buf)
@@ -111,19 +120,23 @@ func (b *BoostChatRequest) Encode(buf *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (b *BoostChatRequest) EncodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't encode boostChat#4e314c2d as nil")
+		return fmt.Errorf("can't encode boostChat#890ccd68 as nil")
 	}
 	buf.PutInt53(b.ChatID)
+	buf.PutInt(len(b.SlotIDs))
+	for _, v := range b.SlotIDs {
+		buf.PutInt32(v)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (b *BoostChatRequest) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode boostChat#4e314c2d to nil")
+		return fmt.Errorf("can't decode boostChat#890ccd68 to nil")
 	}
 	if err := buf.ConsumeID(BoostChatRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode boostChat#4e314c2d: %w", err)
+		return fmt.Errorf("unable to decode boostChat#890ccd68: %w", err)
 	}
 	return b.DecodeBare(buf)
 }
@@ -131,14 +144,31 @@ func (b *BoostChatRequest) Decode(buf *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (b *BoostChatRequest) DecodeBare(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("can't decode boostChat#4e314c2d to nil")
+		return fmt.Errorf("can't decode boostChat#890ccd68 to nil")
 	}
 	{
 		value, err := buf.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode boostChat#4e314c2d: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode boostChat#890ccd68: field chat_id: %w", err)
 		}
 		b.ChatID = value
+	}
+	{
+		headerLen, err := buf.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode boostChat#890ccd68: field slot_ids: %w", err)
+		}
+
+		if headerLen > 0 {
+			b.SlotIDs = make([]int32, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := buf.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode boostChat#890ccd68: field slot_ids: %w", err)
+			}
+			b.SlotIDs = append(b.SlotIDs, value)
+		}
 	}
 	return nil
 }
@@ -146,13 +176,22 @@ func (b *BoostChatRequest) DecodeBare(buf *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (b *BoostChatRequest) EncodeTDLibJSON(buf tdjson.Encoder) error {
 	if b == nil {
-		return fmt.Errorf("can't encode boostChat#4e314c2d as nil")
+		return fmt.Errorf("can't encode boostChat#890ccd68 as nil")
 	}
 	buf.ObjStart()
 	buf.PutID("boostChat")
 	buf.Comma()
 	buf.FieldStart("chat_id")
 	buf.PutInt53(b.ChatID)
+	buf.Comma()
+	buf.FieldStart("slot_ids")
+	buf.ArrStart()
+	for _, v := range b.SlotIDs {
+		buf.PutInt32(v)
+		buf.Comma()
+	}
+	buf.StripComma()
+	buf.ArrEnd()
 	buf.Comma()
 	buf.StripComma()
 	buf.ObjEnd()
@@ -162,21 +201,32 @@ func (b *BoostChatRequest) EncodeTDLibJSON(buf tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (b *BoostChatRequest) DecodeTDLibJSON(buf tdjson.Decoder) error {
 	if b == nil {
-		return fmt.Errorf("can't decode boostChat#4e314c2d to nil")
+		return fmt.Errorf("can't decode boostChat#890ccd68 to nil")
 	}
 
 	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := buf.ConsumeID("boostChat"); err != nil {
-				return fmt.Errorf("unable to decode boostChat#4e314c2d: %w", err)
+				return fmt.Errorf("unable to decode boostChat#890ccd68: %w", err)
 			}
 		case "chat_id":
 			value, err := buf.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode boostChat#4e314c2d: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode boostChat#890ccd68: field chat_id: %w", err)
 			}
 			b.ChatID = value
+		case "slot_ids":
+			if err := buf.Arr(func(buf tdjson.Decoder) error {
+				value, err := buf.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode boostChat#890ccd68: field slot_ids: %w", err)
+				}
+				b.SlotIDs = append(b.SlotIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode boostChat#890ccd68: field slot_ids: %w", err)
+			}
 		default:
 			return buf.Skip()
 		}
@@ -192,15 +242,20 @@ func (b *BoostChatRequest) GetChatID() (value int64) {
 	return b.ChatID
 }
 
-// BoostChat invokes method boostChat#4e314c2d returning error if any.
-func (c *Client) BoostChat(ctx context.Context, chatid int64) error {
-	var ok Ok
+// GetSlotIDs returns value of SlotIDs field.
+func (b *BoostChatRequest) GetSlotIDs() (value []int32) {
+	if b == nil {
+		return
+	}
+	return b.SlotIDs
+}
 
-	request := &BoostChatRequest{
-		ChatID: chatid,
+// BoostChat invokes method boostChat#890ccd68 returning error if any.
+func (c *Client) BoostChat(ctx context.Context, request *BoostChatRequest) (*ChatBoostSlots, error) {
+	var result ChatBoostSlots
+
+	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
+		return nil, err
 	}
-	if err := c.rpc.Invoke(ctx, request, &ok); err != nil {
-		return err
-	}
-	return nil
+	return &result, nil
 }

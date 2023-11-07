@@ -31,24 +31,22 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SendMessageAlbumRequest represents TL type `sendMessageAlbum#c765936`.
+// SendMessageAlbumRequest represents TL type `sendMessageAlbum#74bcdacf`.
 type SendMessageAlbumRequest struct {
 	// Target chat
 	ChatID int64
 	// If not 0, a message thread identifier in which the messages will be sent
 	MessageThreadID int64
-	// Identifier of the replied message or story; pass null if none
-	ReplyTo MessageReplyToClass
+	// Information about the message or story to be replied; pass null if none
+	ReplyTo InputMessageReplyToClass
 	// Options to be used to send the messages; pass null to use default options
 	Options MessageSendOptions
 	// Contents of messages to be sent. At most 10 messages can be added to an album
 	InputMessageContents []InputMessageContentClass
-	// Pass true to get fake messages instead of actually sending them
-	OnlyPreview bool
 }
 
 // SendMessageAlbumRequestTypeID is TL type id of SendMessageAlbumRequest.
-const SendMessageAlbumRequestTypeID = 0xc765936
+const SendMessageAlbumRequestTypeID = 0x74bcdacf
 
 // Ensuring interfaces in compile-time for SendMessageAlbumRequest.
 var (
@@ -75,9 +73,6 @@ func (s *SendMessageAlbumRequest) Zero() bool {
 		return false
 	}
 	if !(s.InputMessageContents == nil) {
-		return false
-	}
-	if !(s.OnlyPreview == false) {
 		return false
 	}
 
@@ -136,10 +131,6 @@ func (s *SendMessageAlbumRequest) TypeInfo() tdp.Type {
 			Name:       "InputMessageContents",
 			SchemaName: "input_message_contents",
 		},
-		{
-			Name:       "OnlyPreview",
-			SchemaName: "only_preview",
-		},
 	}
 	return typ
 }
@@ -147,7 +138,7 @@ func (s *SendMessageAlbumRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SendMessageAlbumRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageAlbum#c765936 as nil")
+		return fmt.Errorf("can't encode sendMessageAlbum#74bcdacf as nil")
 	}
 	b.PutID(SendMessageAlbumRequestTypeID)
 	return s.EncodeBare(b)
@@ -156,39 +147,38 @@ func (s *SendMessageAlbumRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SendMessageAlbumRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageAlbum#c765936 as nil")
+		return fmt.Errorf("can't encode sendMessageAlbum#74bcdacf as nil")
 	}
 	b.PutInt53(s.ChatID)
 	b.PutInt53(s.MessageThreadID)
 	if s.ReplyTo == nil {
-		return fmt.Errorf("unable to encode sendMessageAlbum#c765936: field reply_to is nil")
+		return fmt.Errorf("unable to encode sendMessageAlbum#74bcdacf: field reply_to is nil")
 	}
 	if err := s.ReplyTo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sendMessageAlbum#c765936: field reply_to: %w", err)
+		return fmt.Errorf("unable to encode sendMessageAlbum#74bcdacf: field reply_to: %w", err)
 	}
 	if err := s.Options.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode sendMessageAlbum#c765936: field options: %w", err)
+		return fmt.Errorf("unable to encode sendMessageAlbum#74bcdacf: field options: %w", err)
 	}
 	b.PutInt(len(s.InputMessageContents))
 	for idx, v := range s.InputMessageContents {
 		if v == nil {
-			return fmt.Errorf("unable to encode sendMessageAlbum#c765936: field input_message_contents element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode sendMessageAlbum#74bcdacf: field input_message_contents element with index %d is nil", idx)
 		}
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare sendMessageAlbum#c765936: field input_message_contents element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare sendMessageAlbum#74bcdacf: field input_message_contents element with index %d: %w", idx, err)
 		}
 	}
-	b.PutBool(s.OnlyPreview)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (s *SendMessageAlbumRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageAlbum#c765936 to nil")
+		return fmt.Errorf("can't decode sendMessageAlbum#74bcdacf to nil")
 	}
 	if err := b.ConsumeID(SendMessageAlbumRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode sendMessageAlbum#c765936: %w", err)
+		return fmt.Errorf("unable to decode sendMessageAlbum#74bcdacf: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -196,38 +186,38 @@ func (s *SendMessageAlbumRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SendMessageAlbumRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageAlbum#c765936 to nil")
+		return fmt.Errorf("can't decode sendMessageAlbum#74bcdacf to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendMessageAlbum#c765936: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode sendMessageAlbum#74bcdacf: field chat_id: %w", err)
 		}
 		s.ChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendMessageAlbum#c765936: field message_thread_id: %w", err)
+			return fmt.Errorf("unable to decode sendMessageAlbum#74bcdacf: field message_thread_id: %w", err)
 		}
 		s.MessageThreadID = value
 	}
 	{
-		value, err := DecodeMessageReplyTo(b)
+		value, err := DecodeInputMessageReplyTo(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode sendMessageAlbum#c765936: field reply_to: %w", err)
+			return fmt.Errorf("unable to decode sendMessageAlbum#74bcdacf: field reply_to: %w", err)
 		}
 		s.ReplyTo = value
 	}
 	{
 		if err := s.Options.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode sendMessageAlbum#c765936: field options: %w", err)
+			return fmt.Errorf("unable to decode sendMessageAlbum#74bcdacf: field options: %w", err)
 		}
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode sendMessageAlbum#c765936: field input_message_contents: %w", err)
+			return fmt.Errorf("unable to decode sendMessageAlbum#74bcdacf: field input_message_contents: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -236,17 +226,10 @@ func (s *SendMessageAlbumRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeInputMessageContent(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sendMessageAlbum#c765936: field input_message_contents: %w", err)
+				return fmt.Errorf("unable to decode sendMessageAlbum#74bcdacf: field input_message_contents: %w", err)
 			}
 			s.InputMessageContents = append(s.InputMessageContents, value)
 		}
-	}
-	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode sendMessageAlbum#c765936: field only_preview: %w", err)
-		}
-		s.OnlyPreview = value
 	}
 	return nil
 }
@@ -254,7 +237,7 @@ func (s *SendMessageAlbumRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SendMessageAlbumRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode sendMessageAlbum#c765936 as nil")
+		return fmt.Errorf("can't encode sendMessageAlbum#74bcdacf as nil")
 	}
 	b.ObjStart()
 	b.PutID("sendMessageAlbum")
@@ -267,33 +250,30 @@ func (s *SendMessageAlbumRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("reply_to")
 	if s.ReplyTo == nil {
-		return fmt.Errorf("unable to encode sendMessageAlbum#c765936: field reply_to is nil")
+		return fmt.Errorf("unable to encode sendMessageAlbum#74bcdacf: field reply_to is nil")
 	}
 	if err := s.ReplyTo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sendMessageAlbum#c765936: field reply_to: %w", err)
+		return fmt.Errorf("unable to encode sendMessageAlbum#74bcdacf: field reply_to: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("options")
 	if err := s.Options.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode sendMessageAlbum#c765936: field options: %w", err)
+		return fmt.Errorf("unable to encode sendMessageAlbum#74bcdacf: field options: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("input_message_contents")
 	b.ArrStart()
 	for idx, v := range s.InputMessageContents {
 		if v == nil {
-			return fmt.Errorf("unable to encode sendMessageAlbum#c765936: field input_message_contents element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode sendMessageAlbum#74bcdacf: field input_message_contents element with index %d is nil", idx)
 		}
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode sendMessageAlbum#c765936: field input_message_contents element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode sendMessageAlbum#74bcdacf: field input_message_contents element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
 	b.StripComma()
 	b.ArrEnd()
-	b.Comma()
-	b.FieldStart("only_preview")
-	b.PutBool(s.OnlyPreview)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -303,54 +283,48 @@ func (s *SendMessageAlbumRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SendMessageAlbumRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode sendMessageAlbum#c765936 to nil")
+		return fmt.Errorf("can't decode sendMessageAlbum#74bcdacf to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("sendMessageAlbum"); err != nil {
-				return fmt.Errorf("unable to decode sendMessageAlbum#c765936: %w", err)
+				return fmt.Errorf("unable to decode sendMessageAlbum#74bcdacf: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendMessageAlbum#c765936: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode sendMessageAlbum#74bcdacf: field chat_id: %w", err)
 			}
 			s.ChatID = value
 		case "message_thread_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode sendMessageAlbum#c765936: field message_thread_id: %w", err)
+				return fmt.Errorf("unable to decode sendMessageAlbum#74bcdacf: field message_thread_id: %w", err)
 			}
 			s.MessageThreadID = value
 		case "reply_to":
-			value, err := DecodeTDLibJSONMessageReplyTo(b)
+			value, err := DecodeTDLibJSONInputMessageReplyTo(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode sendMessageAlbum#c765936: field reply_to: %w", err)
+				return fmt.Errorf("unable to decode sendMessageAlbum#74bcdacf: field reply_to: %w", err)
 			}
 			s.ReplyTo = value
 		case "options":
 			if err := s.Options.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode sendMessageAlbum#c765936: field options: %w", err)
+				return fmt.Errorf("unable to decode sendMessageAlbum#74bcdacf: field options: %w", err)
 			}
 		case "input_message_contents":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := DecodeTDLibJSONInputMessageContent(b)
 				if err != nil {
-					return fmt.Errorf("unable to decode sendMessageAlbum#c765936: field input_message_contents: %w", err)
+					return fmt.Errorf("unable to decode sendMessageAlbum#74bcdacf: field input_message_contents: %w", err)
 				}
 				s.InputMessageContents = append(s.InputMessageContents, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode sendMessageAlbum#c765936: field input_message_contents: %w", err)
+				return fmt.Errorf("unable to decode sendMessageAlbum#74bcdacf: field input_message_contents: %w", err)
 			}
-		case "only_preview":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode sendMessageAlbum#c765936: field only_preview: %w", err)
-			}
-			s.OnlyPreview = value
 		default:
 			return b.Skip()
 		}
@@ -375,7 +349,7 @@ func (s *SendMessageAlbumRequest) GetMessageThreadID() (value int64) {
 }
 
 // GetReplyTo returns value of ReplyTo field.
-func (s *SendMessageAlbumRequest) GetReplyTo() (value MessageReplyToClass) {
+func (s *SendMessageAlbumRequest) GetReplyTo() (value InputMessageReplyToClass) {
 	if s == nil {
 		return
 	}
@@ -398,15 +372,7 @@ func (s *SendMessageAlbumRequest) GetInputMessageContents() (value []InputMessag
 	return s.InputMessageContents
 }
 
-// GetOnlyPreview returns value of OnlyPreview field.
-func (s *SendMessageAlbumRequest) GetOnlyPreview() (value bool) {
-	if s == nil {
-		return
-	}
-	return s.OnlyPreview
-}
-
-// SendMessageAlbum invokes method sendMessageAlbum#c765936 returning error if any.
+// SendMessageAlbum invokes method sendMessageAlbum#74bcdacf returning error if any.
 func (c *Client) SendMessageAlbum(ctx context.Context, request *SendMessageAlbumRequest) (*Messages, error) {
 	var result Messages
 
