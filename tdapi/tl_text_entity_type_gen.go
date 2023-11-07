@@ -2162,6 +2162,137 @@ func (t *TextEntityTypePreCode) GetLanguage() (value string) {
 	return t.Language
 }
 
+// TextEntityTypeBlockQuote represents TL type `textEntityTypeBlockQuote#c42830c8`.
+type TextEntityTypeBlockQuote struct {
+}
+
+// TextEntityTypeBlockQuoteTypeID is TL type id of TextEntityTypeBlockQuote.
+const TextEntityTypeBlockQuoteTypeID = 0xc42830c8
+
+// construct implements constructor of TextEntityTypeClass.
+func (t TextEntityTypeBlockQuote) construct() TextEntityTypeClass { return &t }
+
+// Ensuring interfaces in compile-time for TextEntityTypeBlockQuote.
+var (
+	_ bin.Encoder     = &TextEntityTypeBlockQuote{}
+	_ bin.Decoder     = &TextEntityTypeBlockQuote{}
+	_ bin.BareEncoder = &TextEntityTypeBlockQuote{}
+	_ bin.BareDecoder = &TextEntityTypeBlockQuote{}
+
+	_ TextEntityTypeClass = &TextEntityTypeBlockQuote{}
+)
+
+func (t *TextEntityTypeBlockQuote) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (t *TextEntityTypeBlockQuote) String() string {
+	if t == nil {
+		return "TextEntityTypeBlockQuote(nil)"
+	}
+	type Alias TextEntityTypeBlockQuote
+	return fmt.Sprintf("TextEntityTypeBlockQuote%+v", Alias(*t))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*TextEntityTypeBlockQuote) TypeID() uint32 {
+	return TextEntityTypeBlockQuoteTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*TextEntityTypeBlockQuote) TypeName() string {
+	return "textEntityTypeBlockQuote"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextEntityTypeBlockQuote) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textEntityTypeBlockQuote",
+		ID:   TextEntityTypeBlockQuoteTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (t *TextEntityTypeBlockQuote) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeBlockQuote#c42830c8 as nil")
+	}
+	b.PutID(TextEntityTypeBlockQuoteTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypeBlockQuote) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeBlockQuote#c42830c8 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TextEntityTypeBlockQuote) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeBlockQuote#c42830c8 to nil")
+	}
+	if err := b.ConsumeID(TextEntityTypeBlockQuoteTypeID); err != nil {
+		return fmt.Errorf("unable to decode textEntityTypeBlockQuote#c42830c8: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypeBlockQuote) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeBlockQuote#c42830c8 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (t *TextEntityTypeBlockQuote) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeBlockQuote#c42830c8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("textEntityTypeBlockQuote")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (t *TextEntityTypeBlockQuote) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeBlockQuote#c42830c8 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("textEntityTypeBlockQuote"); err != nil {
+				return fmt.Errorf("unable to decode textEntityTypeBlockQuote#c42830c8: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // TextEntityTypeTextURL represents TL type `textEntityTypeTextUrl#1a912463`.
 type TextEntityTypeTextURL struct {
 	// HTTP or tg:// URL to be opened when the link is clicked
@@ -2856,6 +2987,7 @@ const TextEntityTypeClassName = "TextEntityType"
 //	case *tdapi.TextEntityTypeCode: // textEntityTypeCode#c5e9c94a
 //	case *tdapi.TextEntityTypePre: // textEntityTypePre#62491c8e
 //	case *tdapi.TextEntityTypePreCode: // textEntityTypePreCode#c7a77aab
+//	case *tdapi.TextEntityTypeBlockQuote: // textEntityTypeBlockQuote#c42830c8
 //	case *tdapi.TextEntityTypeTextURL: // textEntityTypeTextUrl#1a912463
 //	case *tdapi.TextEntityTypeMentionName: // textEntityTypeMentionName#a25cd5af
 //	case *tdapi.TextEntityTypeCustomEmoji: // textEntityTypeCustomEmoji#66ceacc5
@@ -2999,6 +3131,13 @@ func DecodeTextEntityType(buf *bin.Buffer) (TextEntityTypeClass, error) {
 	case TextEntityTypePreCodeTypeID:
 		// Decoding textEntityTypePreCode#c7a77aab.
 		v := TextEntityTypePreCode{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+		}
+		return &v, nil
+	case TextEntityTypeBlockQuoteTypeID:
+		// Decoding textEntityTypeBlockQuote#c42830c8.
+		v := TextEntityTypeBlockQuote{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
 		}
@@ -3151,6 +3290,13 @@ func DecodeTDLibJSONTextEntityType(buf tdjson.Decoder) (TextEntityTypeClass, err
 	case "textEntityTypePreCode":
 		// Decoding textEntityTypePreCode#c7a77aab.
 		v := TextEntityTypePreCode{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
+		}
+		return &v, nil
+	case "textEntityTypeBlockQuote":
+		// Decoding textEntityTypeBlockQuote#c42830c8.
+		v := TextEntityTypeBlockQuote{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
 		}

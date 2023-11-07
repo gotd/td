@@ -397,6 +397,182 @@ func (i *InputInvoiceName) GetName() (value string) {
 	return i.Name
 }
 
+// InputInvoiceTelegram represents TL type `inputInvoiceTelegram#96ecfeed`.
+type InputInvoiceTelegram struct {
+	// Transaction purpose
+	Purpose TelegramPaymentPurposeClass
+}
+
+// InputInvoiceTelegramTypeID is TL type id of InputInvoiceTelegram.
+const InputInvoiceTelegramTypeID = 0x96ecfeed
+
+// construct implements constructor of InputInvoiceClass.
+func (i InputInvoiceTelegram) construct() InputInvoiceClass { return &i }
+
+// Ensuring interfaces in compile-time for InputInvoiceTelegram.
+var (
+	_ bin.Encoder     = &InputInvoiceTelegram{}
+	_ bin.Decoder     = &InputInvoiceTelegram{}
+	_ bin.BareEncoder = &InputInvoiceTelegram{}
+	_ bin.BareDecoder = &InputInvoiceTelegram{}
+
+	_ InputInvoiceClass = &InputInvoiceTelegram{}
+)
+
+func (i *InputInvoiceTelegram) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Purpose == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputInvoiceTelegram) String() string {
+	if i == nil {
+		return "InputInvoiceTelegram(nil)"
+	}
+	type Alias InputInvoiceTelegram
+	return fmt.Sprintf("InputInvoiceTelegram%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputInvoiceTelegram) TypeID() uint32 {
+	return InputInvoiceTelegramTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputInvoiceTelegram) TypeName() string {
+	return "inputInvoiceTelegram"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputInvoiceTelegram) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputInvoiceTelegram",
+		ID:   InputInvoiceTelegramTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Purpose",
+			SchemaName: "purpose",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputInvoiceTelegram) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputInvoiceTelegram#96ecfeed as nil")
+	}
+	b.PutID(InputInvoiceTelegramTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputInvoiceTelegram) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputInvoiceTelegram#96ecfeed as nil")
+	}
+	if i.Purpose == nil {
+		return fmt.Errorf("unable to encode inputInvoiceTelegram#96ecfeed: field purpose is nil")
+	}
+	if err := i.Purpose.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputInvoiceTelegram#96ecfeed: field purpose: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputInvoiceTelegram) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputInvoiceTelegram#96ecfeed to nil")
+	}
+	if err := b.ConsumeID(InputInvoiceTelegramTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputInvoiceTelegram#96ecfeed: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputInvoiceTelegram) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputInvoiceTelegram#96ecfeed to nil")
+	}
+	{
+		value, err := DecodeTelegramPaymentPurpose(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputInvoiceTelegram#96ecfeed: field purpose: %w", err)
+		}
+		i.Purpose = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputInvoiceTelegram) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputInvoiceTelegram#96ecfeed as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputInvoiceTelegram")
+	b.Comma()
+	b.FieldStart("purpose")
+	if i.Purpose == nil {
+		return fmt.Errorf("unable to encode inputInvoiceTelegram#96ecfeed: field purpose is nil")
+	}
+	if err := i.Purpose.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode inputInvoiceTelegram#96ecfeed: field purpose: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputInvoiceTelegram) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputInvoiceTelegram#96ecfeed to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("inputInvoiceTelegram"); err != nil {
+				return fmt.Errorf("unable to decode inputInvoiceTelegram#96ecfeed: %w", err)
+			}
+		case "purpose":
+			value, err := DecodeTDLibJSONTelegramPaymentPurpose(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode inputInvoiceTelegram#96ecfeed: field purpose: %w", err)
+			}
+			i.Purpose = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetPurpose returns value of Purpose field.
+func (i *InputInvoiceTelegram) GetPurpose() (value TelegramPaymentPurposeClass) {
+	if i == nil {
+		return
+	}
+	return i.Purpose
+}
+
 // InputInvoiceClassName is schema name of InputInvoiceClass.
 const InputInvoiceClassName = "InputInvoice"
 
@@ -411,6 +587,7 @@ const InputInvoiceClassName = "InputInvoice"
 //	switch v := g.(type) {
 //	case *tdapi.InputInvoiceMessage: // inputInvoiceMessage#58dcea10
 //	case *tdapi.InputInvoiceName: // inputInvoiceName#b1ca16f3
+//	case *tdapi.InputInvoiceTelegram: // inputInvoiceTelegram#96ecfeed
 //	default: panic(v)
 //	}
 type InputInvoiceClass interface {
@@ -456,6 +633,13 @@ func DecodeInputInvoice(buf *bin.Buffer) (InputInvoiceClass, error) {
 			return nil, fmt.Errorf("unable to decode InputInvoiceClass: %w", err)
 		}
 		return &v, nil
+	case InputInvoiceTelegramTypeID:
+		// Decoding inputInvoiceTelegram#96ecfeed.
+		v := InputInvoiceTelegram{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputInvoiceClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode InputInvoiceClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -478,6 +662,13 @@ func DecodeTDLibJSONInputInvoice(buf tdjson.Decoder) (InputInvoiceClass, error) 
 	case "inputInvoiceName":
 		// Decoding inputInvoiceName#b1ca16f3.
 		v := InputInvoiceName{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputInvoiceClass: %w", err)
+		}
+		return &v, nil
+	case "inputInvoiceTelegram":
+		// Decoding inputInvoiceTelegram#96ecfeed.
+		v := InputInvoiceTelegram{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputInvoiceClass: %w", err)
 		}

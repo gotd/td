@@ -3494,6 +3494,406 @@ func (u *UpdateChatPhoto) GetPhoto() (value ChatPhotoInfo) {
 	return u.Photo
 }
 
+// UpdateChatAccentColor represents TL type `updateChatAccentColor#fc111634`.
+type UpdateChatAccentColor struct {
+	// Chat identifier
+	ChatID int64
+	// The new chat accent color identifier
+	AccentColorID int32
+}
+
+// UpdateChatAccentColorTypeID is TL type id of UpdateChatAccentColor.
+const UpdateChatAccentColorTypeID = 0xfc111634
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatAccentColor) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatAccentColor.
+var (
+	_ bin.Encoder     = &UpdateChatAccentColor{}
+	_ bin.Decoder     = &UpdateChatAccentColor{}
+	_ bin.BareEncoder = &UpdateChatAccentColor{}
+	_ bin.BareDecoder = &UpdateChatAccentColor{}
+
+	_ UpdateClass = &UpdateChatAccentColor{}
+)
+
+func (u *UpdateChatAccentColor) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.AccentColorID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatAccentColor) String() string {
+	if u == nil {
+		return "UpdateChatAccentColor(nil)"
+	}
+	type Alias UpdateChatAccentColor
+	return fmt.Sprintf("UpdateChatAccentColor%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatAccentColor) TypeID() uint32 {
+	return UpdateChatAccentColorTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatAccentColor) TypeName() string {
+	return "updateChatAccentColor"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatAccentColor) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatAccentColor",
+		ID:   UpdateChatAccentColorTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "AccentColorID",
+			SchemaName: "accent_color_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatAccentColor) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatAccentColor#fc111634 as nil")
+	}
+	b.PutID(UpdateChatAccentColorTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatAccentColor) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatAccentColor#fc111634 as nil")
+	}
+	b.PutInt53(u.ChatID)
+	b.PutInt32(u.AccentColorID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatAccentColor) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatAccentColor#fc111634 to nil")
+	}
+	if err := b.ConsumeID(UpdateChatAccentColorTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatAccentColor#fc111634: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatAccentColor) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatAccentColor#fc111634 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatAccentColor#fc111634: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatAccentColor#fc111634: field accent_color_id: %w", err)
+		}
+		u.AccentColorID = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatAccentColor) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatAccentColor#fc111634 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateChatAccentColor")
+	b.Comma()
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.Comma()
+	b.FieldStart("accent_color_id")
+	b.PutInt32(u.AccentColorID)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatAccentColor) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatAccentColor#fc111634 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateChatAccentColor"); err != nil {
+				return fmt.Errorf("unable to decode updateChatAccentColor#fc111634: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatAccentColor#fc111634: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "accent_color_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatAccentColor#fc111634: field accent_color_id: %w", err)
+			}
+			u.AccentColorID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatAccentColor) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetAccentColorID returns value of AccentColorID field.
+func (u *UpdateChatAccentColor) GetAccentColorID() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.AccentColorID
+}
+
+// UpdateChatBackgroundCustomEmoji represents TL type `updateChatBackgroundCustomEmoji#dcbad97a`.
+type UpdateChatBackgroundCustomEmoji struct {
+	// Chat identifier
+	ChatID int64
+	// The new tdentifier of a custom emoji to be shown on the reply header background
+	BackgroundCustomEmojiID int64
+}
+
+// UpdateChatBackgroundCustomEmojiTypeID is TL type id of UpdateChatBackgroundCustomEmoji.
+const UpdateChatBackgroundCustomEmojiTypeID = 0xdcbad97a
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatBackgroundCustomEmoji) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatBackgroundCustomEmoji.
+var (
+	_ bin.Encoder     = &UpdateChatBackgroundCustomEmoji{}
+	_ bin.Decoder     = &UpdateChatBackgroundCustomEmoji{}
+	_ bin.BareEncoder = &UpdateChatBackgroundCustomEmoji{}
+	_ bin.BareDecoder = &UpdateChatBackgroundCustomEmoji{}
+
+	_ UpdateClass = &UpdateChatBackgroundCustomEmoji{}
+)
+
+func (u *UpdateChatBackgroundCustomEmoji) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.BackgroundCustomEmojiID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatBackgroundCustomEmoji) String() string {
+	if u == nil {
+		return "UpdateChatBackgroundCustomEmoji(nil)"
+	}
+	type Alias UpdateChatBackgroundCustomEmoji
+	return fmt.Sprintf("UpdateChatBackgroundCustomEmoji%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatBackgroundCustomEmoji) TypeID() uint32 {
+	return UpdateChatBackgroundCustomEmojiTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatBackgroundCustomEmoji) TypeName() string {
+	return "updateChatBackgroundCustomEmoji"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatBackgroundCustomEmoji) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatBackgroundCustomEmoji",
+		ID:   UpdateChatBackgroundCustomEmojiTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "BackgroundCustomEmojiID",
+			SchemaName: "background_custom_emoji_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatBackgroundCustomEmoji) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatBackgroundCustomEmoji#dcbad97a as nil")
+	}
+	b.PutID(UpdateChatBackgroundCustomEmojiTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatBackgroundCustomEmoji) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatBackgroundCustomEmoji#dcbad97a as nil")
+	}
+	b.PutInt53(u.ChatID)
+	b.PutLong(u.BackgroundCustomEmojiID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatBackgroundCustomEmoji) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatBackgroundCustomEmoji#dcbad97a to nil")
+	}
+	if err := b.ConsumeID(UpdateChatBackgroundCustomEmojiTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatBackgroundCustomEmoji#dcbad97a: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatBackgroundCustomEmoji) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatBackgroundCustomEmoji#dcbad97a to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatBackgroundCustomEmoji#dcbad97a: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatBackgroundCustomEmoji#dcbad97a: field background_custom_emoji_id: %w", err)
+		}
+		u.BackgroundCustomEmojiID = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatBackgroundCustomEmoji) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatBackgroundCustomEmoji#dcbad97a as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateChatBackgroundCustomEmoji")
+	b.Comma()
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.Comma()
+	b.FieldStart("background_custom_emoji_id")
+	b.PutLong(u.BackgroundCustomEmojiID)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatBackgroundCustomEmoji) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatBackgroundCustomEmoji#dcbad97a to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateChatBackgroundCustomEmoji"); err != nil {
+				return fmt.Errorf("unable to decode updateChatBackgroundCustomEmoji#dcbad97a: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatBackgroundCustomEmoji#dcbad97a: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "background_custom_emoji_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatBackgroundCustomEmoji#dcbad97a: field background_custom_emoji_id: %w", err)
+			}
+			u.BackgroundCustomEmojiID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatBackgroundCustomEmoji) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetBackgroundCustomEmojiID returns value of BackgroundCustomEmojiID field.
+func (u *UpdateChatBackgroundCustomEmoji) GetBackgroundCustomEmojiID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.BackgroundCustomEmojiID
+}
+
 // UpdateChatPermissions represents TL type `updateChatPermissions#9f52176d`.
 type UpdateChatPermissions struct {
 	// Chat identifier
@@ -3698,7 +4098,9 @@ func (u *UpdateChatPermissions) GetPermissions() (value ChatPermissions) {
 type UpdateChatLastMessage struct {
 	// Chat identifier
 	ChatID int64
-	// The new last message in the chat; may be null
+	// The new last message in the chat; may be null if the last message became unknown.
+	// While the last message is unknown, new messages can be added to the chat without
+	// corresponding updateNewMessage update
 	LastMessage Message
 	// The new chat positions in the chat lists
 	Positions []ChatPosition
@@ -19095,6 +19497,260 @@ func (u *UpdateChatThemes) GetChatThemes() (value []ChatTheme) {
 	return u.ChatThemes
 }
 
+// UpdateAccentColors represents TL type `updateAccentColors#1316555e`.
+type UpdateAccentColors struct {
+	// Information about supported colors; colors with identifiers 0 (red), 1 (orange), 2
+	// (purple/violet), 3 (green), 4 (cyan), 5 (blue), 6 (pink) must always be supported
+	Colors []AccentColor
+	// The list of accent color identifiers, which can be set through setAccentColor and
+	// setChatAccentColor. The colors must be shown in the specififed order
+	AvailableAccentColorIDs []int32
+}
+
+// UpdateAccentColorsTypeID is TL type id of UpdateAccentColors.
+const UpdateAccentColorsTypeID = 0x1316555e
+
+// construct implements constructor of UpdateClass.
+func (u UpdateAccentColors) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateAccentColors.
+var (
+	_ bin.Encoder     = &UpdateAccentColors{}
+	_ bin.Decoder     = &UpdateAccentColors{}
+	_ bin.BareEncoder = &UpdateAccentColors{}
+	_ bin.BareDecoder = &UpdateAccentColors{}
+
+	_ UpdateClass = &UpdateAccentColors{}
+)
+
+func (u *UpdateAccentColors) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Colors == nil) {
+		return false
+	}
+	if !(u.AvailableAccentColorIDs == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateAccentColors) String() string {
+	if u == nil {
+		return "UpdateAccentColors(nil)"
+	}
+	type Alias UpdateAccentColors
+	return fmt.Sprintf("UpdateAccentColors%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateAccentColors) TypeID() uint32 {
+	return UpdateAccentColorsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateAccentColors) TypeName() string {
+	return "updateAccentColors"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateAccentColors) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateAccentColors",
+		ID:   UpdateAccentColorsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Colors",
+			SchemaName: "colors",
+		},
+		{
+			Name:       "AvailableAccentColorIDs",
+			SchemaName: "available_accent_color_ids",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateAccentColors) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateAccentColors#1316555e as nil")
+	}
+	b.PutID(UpdateAccentColorsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateAccentColors) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateAccentColors#1316555e as nil")
+	}
+	b.PutInt(len(u.Colors))
+	for idx, v := range u.Colors {
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare updateAccentColors#1316555e: field colors element with index %d: %w", idx, err)
+		}
+	}
+	b.PutInt(len(u.AvailableAccentColorIDs))
+	for _, v := range u.AvailableAccentColorIDs {
+		b.PutInt32(v)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateAccentColors) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateAccentColors#1316555e to nil")
+	}
+	if err := b.ConsumeID(UpdateAccentColorsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateAccentColors#1316555e: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateAccentColors) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateAccentColors#1316555e to nil")
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateAccentColors#1316555e: field colors: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.Colors = make([]AccentColor, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value AccentColor
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare updateAccentColors#1316555e: field colors: %w", err)
+			}
+			u.Colors = append(u.Colors, value)
+		}
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateAccentColors#1316555e: field available_accent_color_ids: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.AvailableAccentColorIDs = make([]int32, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateAccentColors#1316555e: field available_accent_color_ids: %w", err)
+			}
+			u.AvailableAccentColorIDs = append(u.AvailableAccentColorIDs, value)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateAccentColors) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateAccentColors#1316555e as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateAccentColors")
+	b.Comma()
+	b.FieldStart("colors")
+	b.ArrStart()
+	for idx, v := range u.Colors {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode updateAccentColors#1316555e: field colors element with index %d: %w", idx, err)
+		}
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.FieldStart("available_accent_color_ids")
+	b.ArrStart()
+	for _, v := range u.AvailableAccentColorIDs {
+		b.PutInt32(v)
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateAccentColors) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateAccentColors#1316555e to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateAccentColors"); err != nil {
+				return fmt.Errorf("unable to decode updateAccentColors#1316555e: %w", err)
+			}
+		case "colors":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				var value AccentColor
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode updateAccentColors#1316555e: field colors: %w", err)
+				}
+				u.Colors = append(u.Colors, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode updateAccentColors#1316555e: field colors: %w", err)
+			}
+		case "available_accent_color_ids":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode updateAccentColors#1316555e: field available_accent_color_ids: %w", err)
+				}
+				u.AvailableAccentColorIDs = append(u.AvailableAccentColorIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode updateAccentColors#1316555e: field available_accent_color_ids: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetColors returns value of Colors field.
+func (u *UpdateAccentColors) GetColors() (value []AccentColor) {
+	if u == nil {
+		return
+	}
+	return u.Colors
+}
+
+// GetAvailableAccentColorIDs returns value of AvailableAccentColorIDs field.
+func (u *UpdateAccentColors) GetAvailableAccentColorIDs() (value []int32) {
+	if u == nil {
+		return
+	}
+	return u.AvailableAccentColorIDs
+}
+
 // UpdateLanguagePackStrings represents TL type `updateLanguagePackStrings#af87919f`.
 type UpdateLanguagePackStrings struct {
 	// Localization target to which the language pack belongs
@@ -25585,6 +26241,206 @@ func (u *UpdateNewChatJoinRequest) GetInviteLink() (value ChatInviteLink) {
 	return u.InviteLink
 }
 
+// UpdateChatBoost represents TL type `updateChatBoost#50727e24`.
+type UpdateChatBoost struct {
+	// Chat identifier
+	ChatID int64
+	// New information about the boost
+	Boost ChatBoost
+}
+
+// UpdateChatBoostTypeID is TL type id of UpdateChatBoost.
+const UpdateChatBoostTypeID = 0x50727e24
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatBoost) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatBoost.
+var (
+	_ bin.Encoder     = &UpdateChatBoost{}
+	_ bin.Decoder     = &UpdateChatBoost{}
+	_ bin.BareEncoder = &UpdateChatBoost{}
+	_ bin.BareDecoder = &UpdateChatBoost{}
+
+	_ UpdateClass = &UpdateChatBoost{}
+)
+
+func (u *UpdateChatBoost) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.Boost.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatBoost) String() string {
+	if u == nil {
+		return "UpdateChatBoost(nil)"
+	}
+	type Alias UpdateChatBoost
+	return fmt.Sprintf("UpdateChatBoost%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatBoost) TypeID() uint32 {
+	return UpdateChatBoostTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatBoost) TypeName() string {
+	return "updateChatBoost"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatBoost) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatBoost",
+		ID:   UpdateChatBoostTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "Boost",
+			SchemaName: "boost",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatBoost) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatBoost#50727e24 as nil")
+	}
+	b.PutID(UpdateChatBoostTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatBoost) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatBoost#50727e24 as nil")
+	}
+	b.PutInt53(u.ChatID)
+	if err := u.Boost.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatBoost#50727e24: field boost: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatBoost) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatBoost#50727e24 to nil")
+	}
+	if err := b.ConsumeID(UpdateChatBoostTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatBoost#50727e24: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatBoost) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatBoost#50727e24 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatBoost#50727e24: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		if err := u.Boost.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateChatBoost#50727e24: field boost: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatBoost) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatBoost#50727e24 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateChatBoost")
+	b.Comma()
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.Comma()
+	b.FieldStart("boost")
+	if err := u.Boost.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatBoost#50727e24: field boost: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatBoost) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatBoost#50727e24 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateChatBoost"); err != nil {
+				return fmt.Errorf("unable to decode updateChatBoost#50727e24: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatBoost#50727e24: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "boost":
+			if err := u.Boost.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode updateChatBoost#50727e24: field boost: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatBoost) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetBoost returns value of Boost field.
+func (u *UpdateChatBoost) GetBoost() (value ChatBoost) {
+	if u == nil {
+		return
+	}
+	return u.Boost
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -25613,6 +26469,8 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateNewChat: // updateNewChat#7bb98ccd
 //	case *tdapi.UpdateChatTitle: // updateChatTitle#f58b85a4
 //	case *tdapi.UpdateChatPhoto: // updateChatPhoto#eca5423f
+//	case *tdapi.UpdateChatAccentColor: // updateChatAccentColor#fc111634
+//	case *tdapi.UpdateChatBackgroundCustomEmoji: // updateChatBackgroundCustomEmoji#dcbad97a
 //	case *tdapi.UpdateChatPermissions: // updateChatPermissions#9f52176d
 //	case *tdapi.UpdateChatLastMessage: // updateChatLastMessage#f10cab1d
 //	case *tdapi.UpdateChatPosition: // updateChatPosition#ff76fa77
@@ -25687,6 +26545,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateSavedNotificationSounds: // updateSavedNotificationSounds#5a6653b4
 //	case *tdapi.UpdateSelectedBackground: // updateSelectedBackground#99bd205d
 //	case *tdapi.UpdateChatThemes: // updateChatThemes#98dc58d5
+//	case *tdapi.UpdateAccentColors: // updateAccentColors#1316555e
 //	case *tdapi.UpdateLanguagePackStrings: // updateLanguagePackStrings#af87919f
 //	case *tdapi.UpdateConnectionState: // updateConnectionState#57939e2e
 //	case *tdapi.UpdateTermsOfService: // updateTermsOfService#b23cc55e
@@ -25714,6 +26573,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdatePollAnswer: // updatePollAnswer#b67ac547
 //	case *tdapi.UpdateChatMember: // updateChatMember#6000e29c
 //	case *tdapi.UpdateNewChatJoinRequest: // updateNewChatJoinRequest#7e48b843
+//	case *tdapi.UpdateChatBoost: // updateChatBoost#50727e24
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -25853,6 +26713,20 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateChatPhotoTypeID:
 		// Decoding updateChatPhoto#eca5423f.
 		v := UpdateChatPhoto{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChatAccentColorTypeID:
+		// Decoding updateChatAccentColor#fc111634.
+		v := UpdateChatAccentColor{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChatBackgroundCustomEmojiTypeID:
+		// Decoding updateChatBackgroundCustomEmoji#dcbad97a.
+		v := UpdateChatBackgroundCustomEmoji{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -26375,6 +27249,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case UpdateAccentColorsTypeID:
+		// Decoding updateAccentColors#1316555e.
+		v := UpdateAccentColors{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case UpdateLanguagePackStringsTypeID:
 		// Decoding updateLanguagePackStrings#af87919f.
 		v := UpdateLanguagePackStrings{}
@@ -26564,6 +27445,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case UpdateChatBoostTypeID:
+		// Decoding updateChatBoost#50727e24.
+		v := UpdateChatBoost{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode UpdateClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -26684,6 +27572,20 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	case "updateChatPhoto":
 		// Decoding updateChatPhoto#eca5423f.
 		v := UpdateChatPhoto{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateChatAccentColor":
+		// Decoding updateChatAccentColor#fc111634.
+		v := UpdateChatAccentColor{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateChatBackgroundCustomEmoji":
+		// Decoding updateChatBackgroundCustomEmoji#dcbad97a.
+		v := UpdateChatBackgroundCustomEmoji{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -27206,6 +28108,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case "updateAccentColors":
+		// Decoding updateAccentColors#1316555e.
+		v := UpdateAccentColors{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case "updateLanguagePackStrings":
 		// Decoding updateLanguagePackStrings#af87919f.
 		v := UpdateLanguagePackStrings{}
@@ -27391,6 +28300,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	case "updateNewChatJoinRequest":
 		// Decoding updateNewChatJoinRequest#7e48b843.
 		v := UpdateNewChatJoinRequest{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateChatBoost":
+		// Decoding updateChatBoost#50727e24.
+		v := UpdateChatBoost{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

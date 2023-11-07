@@ -31,10 +31,10 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessageForwardInfo represents TL type `messageForwardInfo#ec7dcac8`.
+// MessageForwardInfo represents TL type `messageForwardInfo#f22bdd30`.
 type MessageForwardInfo struct {
-	// Origin of a forwarded message
-	Origin MessageForwardOriginClass
+	// Origin of the forwarded message
+	Origin MessageOriginClass
 	// Point in time (Unix timestamp) when the message was originally sent
 	Date int32
 	// The type of a public service announcement for the forwarded message
@@ -50,7 +50,7 @@ type MessageForwardInfo struct {
 }
 
 // MessageForwardInfoTypeID is TL type id of MessageForwardInfo.
-const MessageForwardInfoTypeID = 0xec7dcac8
+const MessageForwardInfoTypeID = 0xf22bdd30
 
 // Ensuring interfaces in compile-time for MessageForwardInfo.
 var (
@@ -142,7 +142,7 @@ func (m *MessageForwardInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageForwardInfo) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageForwardInfo#ec7dcac8 as nil")
+		return fmt.Errorf("can't encode messageForwardInfo#f22bdd30 as nil")
 	}
 	b.PutID(MessageForwardInfoTypeID)
 	return m.EncodeBare(b)
@@ -151,13 +151,13 @@ func (m *MessageForwardInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageForwardInfo) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageForwardInfo#ec7dcac8 as nil")
+		return fmt.Errorf("can't encode messageForwardInfo#f22bdd30 as nil")
 	}
 	if m.Origin == nil {
-		return fmt.Errorf("unable to encode messageForwardInfo#ec7dcac8: field origin is nil")
+		return fmt.Errorf("unable to encode messageForwardInfo#f22bdd30: field origin is nil")
 	}
 	if err := m.Origin.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageForwardInfo#ec7dcac8: field origin: %w", err)
+		return fmt.Errorf("unable to encode messageForwardInfo#f22bdd30: field origin: %w", err)
 	}
 	b.PutInt32(m.Date)
 	b.PutString(m.PublicServiceAnnouncementType)
@@ -169,10 +169,10 @@ func (m *MessageForwardInfo) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageForwardInfo) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageForwardInfo#ec7dcac8 to nil")
+		return fmt.Errorf("can't decode messageForwardInfo#f22bdd30 to nil")
 	}
 	if err := b.ConsumeID(MessageForwardInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: %w", err)
+		return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -180,40 +180,40 @@ func (m *MessageForwardInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageForwardInfo) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageForwardInfo#ec7dcac8 to nil")
+		return fmt.Errorf("can't decode messageForwardInfo#f22bdd30 to nil")
 	}
 	{
-		value, err := DecodeMessageForwardOrigin(b)
+		value, err := DecodeMessageOrigin(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: field origin: %w", err)
+			return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: field origin: %w", err)
 		}
 		m.Origin = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: field date: %w", err)
+			return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: field date: %w", err)
 		}
 		m.Date = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: field public_service_announcement_type: %w", err)
+			return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: field public_service_announcement_type: %w", err)
 		}
 		m.PublicServiceAnnouncementType = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: field from_chat_id: %w", err)
+			return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: field from_chat_id: %w", err)
 		}
 		m.FromChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: field from_message_id: %w", err)
+			return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: field from_message_id: %w", err)
 		}
 		m.FromMessageID = value
 	}
@@ -223,17 +223,17 @@ func (m *MessageForwardInfo) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageForwardInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageForwardInfo#ec7dcac8 as nil")
+		return fmt.Errorf("can't encode messageForwardInfo#f22bdd30 as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageForwardInfo")
 	b.Comma()
 	b.FieldStart("origin")
 	if m.Origin == nil {
-		return fmt.Errorf("unable to encode messageForwardInfo#ec7dcac8: field origin is nil")
+		return fmt.Errorf("unable to encode messageForwardInfo#f22bdd30: field origin is nil")
 	}
 	if err := m.Origin.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageForwardInfo#ec7dcac8: field origin: %w", err)
+		return fmt.Errorf("unable to encode messageForwardInfo#f22bdd30: field origin: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("date")
@@ -256,43 +256,43 @@ func (m *MessageForwardInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageForwardInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageForwardInfo#ec7dcac8 to nil")
+		return fmt.Errorf("can't decode messageForwardInfo#f22bdd30 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageForwardInfo"); err != nil {
-				return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: %w", err)
+				return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: %w", err)
 			}
 		case "origin":
-			value, err := DecodeTDLibJSONMessageForwardOrigin(b)
+			value, err := DecodeTDLibJSONMessageOrigin(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: field origin: %w", err)
+				return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: field origin: %w", err)
 			}
 			m.Origin = value
 		case "date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: field date: %w", err)
+				return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: field date: %w", err)
 			}
 			m.Date = value
 		case "public_service_announcement_type":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: field public_service_announcement_type: %w", err)
+				return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: field public_service_announcement_type: %w", err)
 			}
 			m.PublicServiceAnnouncementType = value
 		case "from_chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: field from_chat_id: %w", err)
+				return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: field from_chat_id: %w", err)
 			}
 			m.FromChatID = value
 		case "from_message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageForwardInfo#ec7dcac8: field from_message_id: %w", err)
+				return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: field from_message_id: %w", err)
 			}
 			m.FromMessageID = value
 		default:
@@ -303,7 +303,7 @@ func (m *MessageForwardInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 }
 
 // GetOrigin returns value of Origin field.
-func (m *MessageForwardInfo) GetOrigin() (value MessageForwardOriginClass) {
+func (m *MessageForwardInfo) GetOrigin() (value MessageOriginClass) {
 	if m == nil {
 		return
 	}

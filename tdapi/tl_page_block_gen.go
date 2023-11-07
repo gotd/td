@@ -5168,18 +5168,20 @@ func (p *PageBlockSlideshow) GetCaption() (value PageBlockCaption) {
 	return p.Caption
 }
 
-// PageBlockChatLink represents TL type `pageBlockChatLink#f3f4550b`.
+// PageBlockChatLink represents TL type `pageBlockChatLink#621ed8bb`.
 type PageBlockChatLink struct {
 	// Chat title
 	Title string
 	// Chat photo; may be null
 	Photo ChatPhotoInfo
+	// Identifier of the accent color for chat title and background of chat photo
+	AccentColorID int32
 	// Chat username by which all other information about the chat can be resolved
 	Username string
 }
 
 // PageBlockChatLinkTypeID is TL type id of PageBlockChatLink.
-const PageBlockChatLinkTypeID = 0xf3f4550b
+const PageBlockChatLinkTypeID = 0x621ed8bb
 
 // construct implements constructor of PageBlockClass.
 func (p PageBlockChatLink) construct() PageBlockClass { return &p }
@@ -5202,6 +5204,9 @@ func (p *PageBlockChatLink) Zero() bool {
 		return false
 	}
 	if !(p.Photo.Zero()) {
+		return false
+	}
+	if !(p.AccentColorID == 0) {
 		return false
 	}
 	if !(p.Username == "") {
@@ -5252,6 +5257,10 @@ func (p *PageBlockChatLink) TypeInfo() tdp.Type {
 			SchemaName: "photo",
 		},
 		{
+			Name:       "AccentColorID",
+			SchemaName: "accent_color_id",
+		},
+		{
 			Name:       "Username",
 			SchemaName: "username",
 		},
@@ -5262,7 +5271,7 @@ func (p *PageBlockChatLink) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PageBlockChatLink) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockChatLink#f3f4550b as nil")
+		return fmt.Errorf("can't encode pageBlockChatLink#621ed8bb as nil")
 	}
 	b.PutID(PageBlockChatLinkTypeID)
 	return p.EncodeBare(b)
@@ -5271,12 +5280,13 @@ func (p *PageBlockChatLink) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PageBlockChatLink) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockChatLink#f3f4550b as nil")
+		return fmt.Errorf("can't encode pageBlockChatLink#621ed8bb as nil")
 	}
 	b.PutString(p.Title)
 	if err := p.Photo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockChatLink#f3f4550b: field photo: %w", err)
+		return fmt.Errorf("unable to encode pageBlockChatLink#621ed8bb: field photo: %w", err)
 	}
+	b.PutInt32(p.AccentColorID)
 	b.PutString(p.Username)
 	return nil
 }
@@ -5284,10 +5294,10 @@ func (p *PageBlockChatLink) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *PageBlockChatLink) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockChatLink#f3f4550b to nil")
+		return fmt.Errorf("can't decode pageBlockChatLink#621ed8bb to nil")
 	}
 	if err := b.ConsumeID(PageBlockChatLinkTypeID); err != nil {
-		return fmt.Errorf("unable to decode pageBlockChatLink#f3f4550b: %w", err)
+		return fmt.Errorf("unable to decode pageBlockChatLink#621ed8bb: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -5295,24 +5305,31 @@ func (p *PageBlockChatLink) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PageBlockChatLink) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockChatLink#f3f4550b to nil")
+		return fmt.Errorf("can't decode pageBlockChatLink#621ed8bb to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockChatLink#f3f4550b: field title: %w", err)
+			return fmt.Errorf("unable to decode pageBlockChatLink#621ed8bb: field title: %w", err)
 		}
 		p.Title = value
 	}
 	{
 		if err := p.Photo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode pageBlockChatLink#f3f4550b: field photo: %w", err)
+			return fmt.Errorf("unable to decode pageBlockChatLink#621ed8bb: field photo: %w", err)
 		}
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode pageBlockChatLink#621ed8bb: field accent_color_id: %w", err)
+		}
+		p.AccentColorID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode pageBlockChatLink#f3f4550b: field username: %w", err)
+			return fmt.Errorf("unable to decode pageBlockChatLink#621ed8bb: field username: %w", err)
 		}
 		p.Username = value
 	}
@@ -5322,7 +5339,7 @@ func (p *PageBlockChatLink) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (p *PageBlockChatLink) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
-		return fmt.Errorf("can't encode pageBlockChatLink#f3f4550b as nil")
+		return fmt.Errorf("can't encode pageBlockChatLink#621ed8bb as nil")
 	}
 	b.ObjStart()
 	b.PutID("pageBlockChatLink")
@@ -5332,8 +5349,11 @@ func (p *PageBlockChatLink) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("photo")
 	if err := p.Photo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode pageBlockChatLink#f3f4550b: field photo: %w", err)
+		return fmt.Errorf("unable to encode pageBlockChatLink#621ed8bb: field photo: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("accent_color_id")
+	b.PutInt32(p.AccentColorID)
 	b.Comma()
 	b.FieldStart("username")
 	b.PutString(p.Username)
@@ -5346,29 +5366,35 @@ func (p *PageBlockChatLink) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (p *PageBlockChatLink) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
-		return fmt.Errorf("can't decode pageBlockChatLink#f3f4550b to nil")
+		return fmt.Errorf("can't decode pageBlockChatLink#621ed8bb to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("pageBlockChatLink"); err != nil {
-				return fmt.Errorf("unable to decode pageBlockChatLink#f3f4550b: %w", err)
+				return fmt.Errorf("unable to decode pageBlockChatLink#621ed8bb: %w", err)
 			}
 		case "title":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode pageBlockChatLink#f3f4550b: field title: %w", err)
+				return fmt.Errorf("unable to decode pageBlockChatLink#621ed8bb: field title: %w", err)
 			}
 			p.Title = value
 		case "photo":
 			if err := p.Photo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode pageBlockChatLink#f3f4550b: field photo: %w", err)
+				return fmt.Errorf("unable to decode pageBlockChatLink#621ed8bb: field photo: %w", err)
 			}
+		case "accent_color_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode pageBlockChatLink#621ed8bb: field accent_color_id: %w", err)
+			}
+			p.AccentColorID = value
 		case "username":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode pageBlockChatLink#f3f4550b: field username: %w", err)
+				return fmt.Errorf("unable to decode pageBlockChatLink#621ed8bb: field username: %w", err)
 			}
 			p.Username = value
 		default:
@@ -5392,6 +5418,14 @@ func (p *PageBlockChatLink) GetPhoto() (value ChatPhotoInfo) {
 		return
 	}
 	return p.Photo
+}
+
+// GetAccentColorID returns value of AccentColorID field.
+func (p *PageBlockChatLink) GetAccentColorID() (value int32) {
+	if p == nil {
+		return
+	}
+	return p.AccentColorID
 }
 
 // GetUsername returns value of Username field.
@@ -6590,7 +6624,7 @@ const PageBlockClassName = "PageBlock"
 //	case *tdapi.PageBlockEmbeddedPost: // pageBlockEmbeddedPost#bc57cdf5
 //	case *tdapi.PageBlockCollage: // pageBlockCollage#40bcaaf0
 //	case *tdapi.PageBlockSlideshow: // pageBlockSlideshow#1107d496
-//	case *tdapi.PageBlockChatLink: // pageBlockChatLink#f3f4550b
+//	case *tdapi.PageBlockChatLink: // pageBlockChatLink#621ed8bb
 //	case *tdapi.PageBlockTable: // pageBlockTable#cc6352c3
 //	case *tdapi.PageBlockDetails: // pageBlockDetails#990a0c0b
 //	case *tdapi.PageBlockRelatedArticles: // pageBlockRelatedArticles#936d81e6
@@ -6795,7 +6829,7 @@ func DecodePageBlock(buf *bin.Buffer) (PageBlockClass, error) {
 		}
 		return &v, nil
 	case PageBlockChatLinkTypeID:
-		// Decoding pageBlockChatLink#f3f4550b.
+		// Decoding pageBlockChatLink#621ed8bb.
 		v := PageBlockChatLink{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)
@@ -7010,7 +7044,7 @@ func DecodeTDLibJSONPageBlock(buf tdjson.Decoder) (PageBlockClass, error) {
 		}
 		return &v, nil
 	case "pageBlockChatLink":
-		// Decoding pageBlockChatLink#f3f4550b.
+		// Decoding pageBlockChatLink#621ed8bb.
 		v := PageBlockChatLink{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PageBlockClass: %w", err)

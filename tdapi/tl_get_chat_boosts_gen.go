@@ -31,10 +31,13 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetChatBoostsRequest represents TL type `getChatBoosts#d82a288e`.
+// GetChatBoostsRequest represents TL type `getChatBoosts#ab5eaa38`.
 type GetChatBoostsRequest struct {
 	// Identifier of the chat
 	ChatID int64
+	// Pass true to receive only boosts received from gift codes and giveaways created by the
+	// chat
+	OnlyGiftCodes bool
 	// Offset of the first entry to return as received from the previous request; use empty
 	// string to get the first chunk of results
 	Offset string
@@ -44,7 +47,7 @@ type GetChatBoostsRequest struct {
 }
 
 // GetChatBoostsRequestTypeID is TL type id of GetChatBoostsRequest.
-const GetChatBoostsRequestTypeID = 0xd82a288e
+const GetChatBoostsRequestTypeID = 0xab5eaa38
 
 // Ensuring interfaces in compile-time for GetChatBoostsRequest.
 var (
@@ -59,6 +62,9 @@ func (g *GetChatBoostsRequest) Zero() bool {
 		return true
 	}
 	if !(g.ChatID == 0) {
+		return false
+	}
+	if !(g.OnlyGiftCodes == false) {
 		return false
 	}
 	if !(g.Offset == "") {
@@ -108,6 +114,10 @@ func (g *GetChatBoostsRequest) TypeInfo() tdp.Type {
 			SchemaName: "chat_id",
 		},
 		{
+			Name:       "OnlyGiftCodes",
+			SchemaName: "only_gift_codes",
+		},
+		{
 			Name:       "Offset",
 			SchemaName: "offset",
 		},
@@ -122,7 +132,7 @@ func (g *GetChatBoostsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetChatBoostsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatBoosts#d82a288e as nil")
+		return fmt.Errorf("can't encode getChatBoosts#ab5eaa38 as nil")
 	}
 	b.PutID(GetChatBoostsRequestTypeID)
 	return g.EncodeBare(b)
@@ -131,9 +141,10 @@ func (g *GetChatBoostsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetChatBoostsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatBoosts#d82a288e as nil")
+		return fmt.Errorf("can't encode getChatBoosts#ab5eaa38 as nil")
 	}
 	b.PutInt53(g.ChatID)
+	b.PutBool(g.OnlyGiftCodes)
 	b.PutString(g.Offset)
 	b.PutInt32(g.Limit)
 	return nil
@@ -142,10 +153,10 @@ func (g *GetChatBoostsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetChatBoostsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatBoosts#d82a288e to nil")
+		return fmt.Errorf("can't decode getChatBoosts#ab5eaa38 to nil")
 	}
 	if err := b.ConsumeID(GetChatBoostsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getChatBoosts#d82a288e: %w", err)
+		return fmt.Errorf("unable to decode getChatBoosts#ab5eaa38: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -153,26 +164,33 @@ func (g *GetChatBoostsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetChatBoostsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatBoosts#d82a288e to nil")
+		return fmt.Errorf("can't decode getChatBoosts#ab5eaa38 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatBoosts#d82a288e: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode getChatBoosts#ab5eaa38: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode getChatBoosts#ab5eaa38: field only_gift_codes: %w", err)
+		}
+		g.OnlyGiftCodes = value
+	}
+	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatBoosts#d82a288e: field offset: %w", err)
+			return fmt.Errorf("unable to decode getChatBoosts#ab5eaa38: field offset: %w", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getChatBoosts#d82a288e: field limit: %w", err)
+			return fmt.Errorf("unable to decode getChatBoosts#ab5eaa38: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -182,13 +200,16 @@ func (g *GetChatBoostsRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetChatBoostsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getChatBoosts#d82a288e as nil")
+		return fmt.Errorf("can't encode getChatBoosts#ab5eaa38 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getChatBoosts")
 	b.Comma()
 	b.FieldStart("chat_id")
 	b.PutInt53(g.ChatID)
+	b.Comma()
+	b.FieldStart("only_gift_codes")
+	b.PutBool(g.OnlyGiftCodes)
 	b.Comma()
 	b.FieldStart("offset")
 	b.PutString(g.Offset)
@@ -204,31 +225,37 @@ func (g *GetChatBoostsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetChatBoostsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getChatBoosts#d82a288e to nil")
+		return fmt.Errorf("can't decode getChatBoosts#ab5eaa38 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getChatBoosts"); err != nil {
-				return fmt.Errorf("unable to decode getChatBoosts#d82a288e: %w", err)
+				return fmt.Errorf("unable to decode getChatBoosts#ab5eaa38: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatBoosts#d82a288e: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode getChatBoosts#ab5eaa38: field chat_id: %w", err)
 			}
 			g.ChatID = value
+		case "only_gift_codes":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode getChatBoosts#ab5eaa38: field only_gift_codes: %w", err)
+			}
+			g.OnlyGiftCodes = value
 		case "offset":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatBoosts#d82a288e: field offset: %w", err)
+				return fmt.Errorf("unable to decode getChatBoosts#ab5eaa38: field offset: %w", err)
 			}
 			g.Offset = value
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getChatBoosts#d82a288e: field limit: %w", err)
+				return fmt.Errorf("unable to decode getChatBoosts#ab5eaa38: field limit: %w", err)
 			}
 			g.Limit = value
 		default:
@@ -244,6 +271,14 @@ func (g *GetChatBoostsRequest) GetChatID() (value int64) {
 		return
 	}
 	return g.ChatID
+}
+
+// GetOnlyGiftCodes returns value of OnlyGiftCodes field.
+func (g *GetChatBoostsRequest) GetOnlyGiftCodes() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.OnlyGiftCodes
 }
 
 // GetOffset returns value of Offset field.
@@ -262,7 +297,7 @@ func (g *GetChatBoostsRequest) GetLimit() (value int32) {
 	return g.Limit
 }
 
-// GetChatBoosts invokes method getChatBoosts#d82a288e returning error if any.
+// GetChatBoosts invokes method getChatBoosts#ab5eaa38 returning error if any.
 func (c *Client) GetChatBoosts(ctx context.Context, request *GetChatBoostsRequest) (*FoundChatBoosts, error) {
 	var result FoundChatBoosts
 

@@ -31,14 +31,17 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetWebPagePreviewRequest represents TL type `getWebPagePreview#222e062c`.
+// GetWebPagePreviewRequest represents TL type `getWebPagePreview#a850b8d8`.
 type GetWebPagePreviewRequest struct {
 	// Message text with formatting
 	Text FormattedText
+	// Options to be used for generation of the link preview; pass null to use default link
+	// preview options
+	LinkPreviewOptions LinkPreviewOptions
 }
 
 // GetWebPagePreviewRequestTypeID is TL type id of GetWebPagePreviewRequest.
-const GetWebPagePreviewRequestTypeID = 0x222e062c
+const GetWebPagePreviewRequestTypeID = 0xa850b8d8
 
 // Ensuring interfaces in compile-time for GetWebPagePreviewRequest.
 var (
@@ -53,6 +56,9 @@ func (g *GetWebPagePreviewRequest) Zero() bool {
 		return true
 	}
 	if !(g.Text.Zero()) {
+		return false
+	}
+	if !(g.LinkPreviewOptions.Zero()) {
 		return false
 	}
 
@@ -95,6 +101,10 @@ func (g *GetWebPagePreviewRequest) TypeInfo() tdp.Type {
 			Name:       "Text",
 			SchemaName: "text",
 		},
+		{
+			Name:       "LinkPreviewOptions",
+			SchemaName: "link_preview_options",
+		},
 	}
 	return typ
 }
@@ -102,7 +112,7 @@ func (g *GetWebPagePreviewRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetWebPagePreviewRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getWebPagePreview#222e062c as nil")
+		return fmt.Errorf("can't encode getWebPagePreview#a850b8d8 as nil")
 	}
 	b.PutID(GetWebPagePreviewRequestTypeID)
 	return g.EncodeBare(b)
@@ -111,10 +121,13 @@ func (g *GetWebPagePreviewRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetWebPagePreviewRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getWebPagePreview#222e062c as nil")
+		return fmt.Errorf("can't encode getWebPagePreview#a850b8d8 as nil")
 	}
 	if err := g.Text.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode getWebPagePreview#222e062c: field text: %w", err)
+		return fmt.Errorf("unable to encode getWebPagePreview#a850b8d8: field text: %w", err)
+	}
+	if err := g.LinkPreviewOptions.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode getWebPagePreview#a850b8d8: field link_preview_options: %w", err)
 	}
 	return nil
 }
@@ -122,10 +135,10 @@ func (g *GetWebPagePreviewRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetWebPagePreviewRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getWebPagePreview#222e062c to nil")
+		return fmt.Errorf("can't decode getWebPagePreview#a850b8d8 to nil")
 	}
 	if err := b.ConsumeID(GetWebPagePreviewRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getWebPagePreview#222e062c: %w", err)
+		return fmt.Errorf("unable to decode getWebPagePreview#a850b8d8: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -133,11 +146,16 @@ func (g *GetWebPagePreviewRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetWebPagePreviewRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getWebPagePreview#222e062c to nil")
+		return fmt.Errorf("can't decode getWebPagePreview#a850b8d8 to nil")
 	}
 	{
 		if err := g.Text.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode getWebPagePreview#222e062c: field text: %w", err)
+			return fmt.Errorf("unable to decode getWebPagePreview#a850b8d8: field text: %w", err)
+		}
+	}
+	{
+		if err := g.LinkPreviewOptions.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode getWebPagePreview#a850b8d8: field link_preview_options: %w", err)
 		}
 	}
 	return nil
@@ -146,14 +164,19 @@ func (g *GetWebPagePreviewRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetWebPagePreviewRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getWebPagePreview#222e062c as nil")
+		return fmt.Errorf("can't encode getWebPagePreview#a850b8d8 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getWebPagePreview")
 	b.Comma()
 	b.FieldStart("text")
 	if err := g.Text.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode getWebPagePreview#222e062c: field text: %w", err)
+		return fmt.Errorf("unable to encode getWebPagePreview#a850b8d8: field text: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("link_preview_options")
+	if err := g.LinkPreviewOptions.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode getWebPagePreview#a850b8d8: field link_preview_options: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -164,18 +187,22 @@ func (g *GetWebPagePreviewRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetWebPagePreviewRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getWebPagePreview#222e062c to nil")
+		return fmt.Errorf("can't decode getWebPagePreview#a850b8d8 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getWebPagePreview"); err != nil {
-				return fmt.Errorf("unable to decode getWebPagePreview#222e062c: %w", err)
+				return fmt.Errorf("unable to decode getWebPagePreview#a850b8d8: %w", err)
 			}
 		case "text":
 			if err := g.Text.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode getWebPagePreview#222e062c: field text: %w", err)
+				return fmt.Errorf("unable to decode getWebPagePreview#a850b8d8: field text: %w", err)
+			}
+		case "link_preview_options":
+			if err := g.LinkPreviewOptions.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode getWebPagePreview#a850b8d8: field link_preview_options: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -192,13 +219,18 @@ func (g *GetWebPagePreviewRequest) GetText() (value FormattedText) {
 	return g.Text
 }
 
-// GetWebPagePreview invokes method getWebPagePreview#222e062c returning error if any.
-func (c *Client) GetWebPagePreview(ctx context.Context, text FormattedText) (*WebPage, error) {
+// GetLinkPreviewOptions returns value of LinkPreviewOptions field.
+func (g *GetWebPagePreviewRequest) GetLinkPreviewOptions() (value LinkPreviewOptions) {
+	if g == nil {
+		return
+	}
+	return g.LinkPreviewOptions
+}
+
+// GetWebPagePreview invokes method getWebPagePreview#a850b8d8 returning error if any.
+func (c *Client) GetWebPagePreview(ctx context.Context, request *GetWebPagePreviewRequest) (*WebPage, error) {
 	var result WebPage
 
-	request := &GetWebPagePreviewRequest{
-		Text: text,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

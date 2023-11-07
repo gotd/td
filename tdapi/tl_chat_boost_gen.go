@@ -31,17 +31,22 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ChatBoost represents TL type `chatBoost#8d029d82`.
+// ChatBoost represents TL type `chatBoost#96bfccb2`.
 type ChatBoost struct {
-	// Identifier of a user that boosted the chat
-	UserID int64
-	// Point in time (Unix timestamp) when the boost will automatically expire if the user
-	// will not prolongate their Telegram Premium subscription
+	// Unique identifier of the boost
+	ID string
+	// The number of identical boosts applied
+	Count int32
+	// Source of the boost
+	Source ChatBoostSourceClass
+	// Point in time (Unix timestamp) when the chat was boosted
+	StartDate int32
+	// Point in time (Unix timestamp) when the boost will expire
 	ExpirationDate int32
 }
 
 // ChatBoostTypeID is TL type id of ChatBoost.
-const ChatBoostTypeID = 0x8d029d82
+const ChatBoostTypeID = 0x96bfccb2
 
 // Ensuring interfaces in compile-time for ChatBoost.
 var (
@@ -55,7 +60,16 @@ func (c *ChatBoost) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.UserID == 0) {
+	if !(c.ID == "") {
+		return false
+	}
+	if !(c.Count == 0) {
+		return false
+	}
+	if !(c.Source == nil) {
+		return false
+	}
+	if !(c.StartDate == 0) {
 		return false
 	}
 	if !(c.ExpirationDate == 0) {
@@ -98,8 +112,20 @@ func (c *ChatBoost) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "UserID",
-			SchemaName: "user_id",
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+		{
+			Name:       "Source",
+			SchemaName: "source",
+		},
+		{
+			Name:       "StartDate",
+			SchemaName: "start_date",
 		},
 		{
 			Name:       "ExpirationDate",
@@ -112,7 +138,7 @@ func (c *ChatBoost) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatBoost) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatBoost#8d029d82 as nil")
+		return fmt.Errorf("can't encode chatBoost#96bfccb2 as nil")
 	}
 	b.PutID(ChatBoostTypeID)
 	return c.EncodeBare(b)
@@ -121,9 +147,17 @@ func (c *ChatBoost) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatBoost) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatBoost#8d029d82 as nil")
+		return fmt.Errorf("can't encode chatBoost#96bfccb2 as nil")
 	}
-	b.PutInt53(c.UserID)
+	b.PutString(c.ID)
+	b.PutInt32(c.Count)
+	if c.Source == nil {
+		return fmt.Errorf("unable to encode chatBoost#96bfccb2: field source is nil")
+	}
+	if err := c.Source.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatBoost#96bfccb2: field source: %w", err)
+	}
+	b.PutInt32(c.StartDate)
 	b.PutInt32(c.ExpirationDate)
 	return nil
 }
@@ -131,10 +165,10 @@ func (c *ChatBoost) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatBoost) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatBoost#8d029d82 to nil")
+		return fmt.Errorf("can't decode chatBoost#96bfccb2 to nil")
 	}
 	if err := b.ConsumeID(ChatBoostTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatBoost#8d029d82: %w", err)
+		return fmt.Errorf("unable to decode chatBoost#96bfccb2: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -142,19 +176,40 @@ func (c *ChatBoost) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatBoost) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatBoost#8d029d82 to nil")
+		return fmt.Errorf("can't decode chatBoost#96bfccb2 to nil")
 	}
 	{
-		value, err := b.Int53()
+		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoost#8d029d82: field user_id: %w", err)
+			return fmt.Errorf("unable to decode chatBoost#96bfccb2: field id: %w", err)
 		}
-		c.UserID = value
+		c.ID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatBoost#8d029d82: field expiration_date: %w", err)
+			return fmt.Errorf("unable to decode chatBoost#96bfccb2: field count: %w", err)
+		}
+		c.Count = value
+	}
+	{
+		value, err := DecodeChatBoostSource(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode chatBoost#96bfccb2: field source: %w", err)
+		}
+		c.Source = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatBoost#96bfccb2: field start_date: %w", err)
+		}
+		c.StartDate = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatBoost#96bfccb2: field expiration_date: %w", err)
 		}
 		c.ExpirationDate = value
 	}
@@ -164,13 +219,27 @@ func (c *ChatBoost) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatBoost) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatBoost#8d029d82 as nil")
+		return fmt.Errorf("can't encode chatBoost#96bfccb2 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatBoost")
 	b.Comma()
-	b.FieldStart("user_id")
-	b.PutInt53(c.UserID)
+	b.FieldStart("id")
+	b.PutString(c.ID)
+	b.Comma()
+	b.FieldStart("count")
+	b.PutInt32(c.Count)
+	b.Comma()
+	b.FieldStart("source")
+	if c.Source == nil {
+		return fmt.Errorf("unable to encode chatBoost#96bfccb2: field source is nil")
+	}
+	if err := c.Source.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatBoost#96bfccb2: field source: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("start_date")
+	b.PutInt32(c.StartDate)
 	b.Comma()
 	b.FieldStart("expiration_date")
 	b.PutInt32(c.ExpirationDate)
@@ -183,25 +252,43 @@ func (c *ChatBoost) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatBoost) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatBoost#8d029d82 to nil")
+		return fmt.Errorf("can't decode chatBoost#96bfccb2 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatBoost"); err != nil {
-				return fmt.Errorf("unable to decode chatBoost#8d029d82: %w", err)
+				return fmt.Errorf("unable to decode chatBoost#96bfccb2: %w", err)
 			}
-		case "user_id":
-			value, err := b.Int53()
+		case "id":
+			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoost#8d029d82: field user_id: %w", err)
+				return fmt.Errorf("unable to decode chatBoost#96bfccb2: field id: %w", err)
 			}
-			c.UserID = value
+			c.ID = value
+		case "count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatBoost#96bfccb2: field count: %w", err)
+			}
+			c.Count = value
+		case "source":
+			value, err := DecodeTDLibJSONChatBoostSource(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode chatBoost#96bfccb2: field source: %w", err)
+			}
+			c.Source = value
+		case "start_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatBoost#96bfccb2: field start_date: %w", err)
+			}
+			c.StartDate = value
 		case "expiration_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatBoost#8d029d82: field expiration_date: %w", err)
+				return fmt.Errorf("unable to decode chatBoost#96bfccb2: field expiration_date: %w", err)
 			}
 			c.ExpirationDate = value
 		default:
@@ -211,12 +298,36 @@ func (c *ChatBoost) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// GetUserID returns value of UserID field.
-func (c *ChatBoost) GetUserID() (value int64) {
+// GetID returns value of ID field.
+func (c *ChatBoost) GetID() (value string) {
 	if c == nil {
 		return
 	}
-	return c.UserID
+	return c.ID
+}
+
+// GetCount returns value of Count field.
+func (c *ChatBoost) GetCount() (value int32) {
+	if c == nil {
+		return
+	}
+	return c.Count
+}
+
+// GetSource returns value of Source field.
+func (c *ChatBoost) GetSource() (value ChatBoostSourceClass) {
+	if c == nil {
+		return
+	}
+	return c.Source
+}
+
+// GetStartDate returns value of StartDate field.
+func (c *ChatBoost) GetStartDate() (value int32) {
+	if c == nil {
+		return
+	}
+	return c.StartDate
 }
 
 // GetExpirationDate returns value of ExpirationDate field.
