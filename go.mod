@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/cenkalti/backoff/v4 v4.2.1
-	github.com/go-faster/errors v0.6.1
+	github.com/go-faster/errors v0.7.0
 	github.com/go-faster/jx v1.1.0
 	github.com/go-faster/xor v1.0.0
 	github.com/go-openapi/inflect v0.19.0
