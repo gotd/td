@@ -60,7 +60,7 @@ type WebPage struct {
 	Duration int32
 	// Author of the content
 	Author string
-	// True, if the preview has large media and its appearance can be changed
+	// True, if size of media in the preview can be changed
 	HasLargeMedia bool
 	// True, if large media preview must be shown
 	ShowLargeMedia bool
