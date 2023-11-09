@@ -54,7 +54,7 @@ type Message struct {
 	CanBeEdited bool
 	// True, if the message can be forwarded
 	CanBeForwarded bool
-	// True, if the message can be replied in another chat
+	// True, if the message can be replied in another chat or topic
 	CanBeRepliedInAnotherChat bool
 	// True, if content of the message can be saved locally or copied
 	CanBeSaved bool
