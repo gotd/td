@@ -44,14 +44,14 @@ type MessageReplyToMessage struct {
 	Quote FormattedText
 	// True, if the quote was manually chosen by the message sender
 	IsQuoteManual bool
-	// Information about origin of the message if the message was replied from another chat;
+	// Information about origin of the message if the message was from another chat or topic;
 	// may be null for messages from the same chat
 	Origin MessageOriginClass
-	// Point in time (Unix timestamp) when the message was sent if the message was replied
-	// from another chat; 0 for messages from the same chat
+	// Point in time (Unix timestamp) when the message was sent if the message was from
+	// another chat or topic; 0 for messages from the same chat
 	OriginSendDate int32
-	// Media content of the message if the message was replied from another chat; may be null
-	// for messages from the same chat and messages without media.
+	// Media content of the message if the message was from another chat or topic; may be
+	// null for messages from the same chat and messages without media.
 	Content MessageContentClass
 }
 

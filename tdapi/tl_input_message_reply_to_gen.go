@@ -35,7 +35,7 @@ var (
 type InputMessageReplyToMessage struct {
 	// The identifier of the chat to which the message to be replied belongs; pass 0 if the
 	// message to be replied is in the same chat. Must always be 0 for replies in secret
-	// chats. A message can be replied in another chat only if message
+	// chats. A message can be replied in another chat or topic only if message
 	// can_be_replied_in_another_chat
 	ChatID int64
 	// The identifier of the message to be replied in the same or the specified chat
