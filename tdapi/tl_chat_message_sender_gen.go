@@ -33,7 +33,7 @@ var (
 
 // ChatMessageSender represents TL type `chatMessageSender#2d55aeba`.
 type ChatMessageSender struct {
-	// Available message senders
+	// The message sender
 	Sender MessageSenderClass
 	// True, if Telegram Premium is needed to use the message sender
 	NeedsPremium bool

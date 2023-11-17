@@ -3698,7 +3698,8 @@ func (u *UpdateChatAccentColor) GetAccentColorID() (value int32) {
 type UpdateChatBackgroundCustomEmoji struct {
 	// Chat identifier
 	ChatID int64
-	// The new tdentifier of a custom emoji to be shown on the reply header background
+	// The new identifier of a custom emoji to be shown on the reply header background; 0 if
+	// none
 	BackgroundCustomEmojiID int64
 }
 

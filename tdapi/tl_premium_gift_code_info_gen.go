@@ -39,8 +39,8 @@ type PremiumGiftCodeInfo struct {
 	CreationDate int32
 	// True, if the gift code was created for a giveaway
 	IsFromGiveaway bool
-	// Identifier of the corresponding giveaway message; can be 0 or an identifier of a
-	// deleted message
+	// Identifier of the corresponding giveaway message in the creator_id chat; can be 0 or
+	// an identifier of a deleted message
 	GiveawayMessageID int64
 	// Number of month the Telegram Premium subscription will be active after code activation
 	MonthCount int32

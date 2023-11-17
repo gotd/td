@@ -364,7 +364,7 @@ func (c *CallStateExchangingKeys) DecodeTDLibJSON(b tdjson.Decoder) error {
 
 // CallStateReady represents TL type `callStateReady#ce59c044`.
 type CallStateReady struct {
-	// Call protocols supported by the peer
+	// Call protocols supported by the other call participant
 	Protocol CallProtocol
 	// List of available call servers
 	Servers []CallServer

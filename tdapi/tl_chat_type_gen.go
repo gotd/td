@@ -567,7 +567,7 @@ func (c *ChatTypeSupergroup) GetIsChannel() (value bool) {
 type ChatTypeSecret struct {
 	// Secret chat identifier
 	SecretChatID int32
-	// User identifier of the secret chat peer
+	// User identifier of the other user in the secret chat
 	UserID int64
 }
 
