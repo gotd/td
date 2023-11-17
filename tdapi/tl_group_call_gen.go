@@ -41,7 +41,7 @@ type GroupCall struct {
 	// administrator; 0 if it is already active or was ended
 	ScheduledStartDate int32
 	// True, if the group call is scheduled and the current user will receive a notification
-	// when the group call will start
+	// when the group call starts
 	EnabledStartNotification bool
 	// True, if the call is active
 	IsActive bool

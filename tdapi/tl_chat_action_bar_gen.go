@@ -467,8 +467,8 @@ type ChatActionBarReportAddBlock struct {
 	// list using addChatToList simultaneously with setting chat notification settings to
 	// default using setChatNotificationSettings
 	CanUnarchive bool
-	// If non-negative, the current user was found by the peer through searchChatsNearby and
-	// this is the distance between the users
+	// If non-negative, the current user was found by the other user through
+	// searchChatsNearby and this is the distance between the users
 	Distance int32
 }
 

@@ -35,7 +35,7 @@ var (
 type Call struct {
 	// Call identifier, not persistent
 	ID int32
-	// Peer user identifier
+	// User identifier of the other call participant
 	UserID int64
 	// True, if the call is outgoing
 	IsOutgoing bool

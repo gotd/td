@@ -39,8 +39,8 @@ type MessageReaction struct {
 	TotalCount int32
 	// True, if the reaction is chosen by the current user
 	IsChosen bool
-	// Identifier of the message sender used by the current user to add the reaction; null if
-	// unknown or the reaction isn't chosen
+	// Identifier of the message sender used by the current user to add the reaction; may be
+	// null if unknown or the reaction isn't chosen
 	UsedSenderID MessageSenderClass
 	// Identifiers of at most 3 recent message senders, added the reaction; available in
 	// private, basic group and supergroup chats
