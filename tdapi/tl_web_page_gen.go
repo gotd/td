@@ -62,7 +62,8 @@ type WebPage struct {
 	Author string
 	// True, if size of media in the preview can be changed
 	HasLargeMedia bool
-	// True, if large media preview must be shown
+	// True, if large media preview must be shown; otherwise, the media preview must be shown
+	// small and only the first frame must be shown for videos
 	ShowLargeMedia bool
 	// True, if there is no need to show an ordinary open URL confirmation, when opening the
 	// URL from the preview, because the URL is shown in the message text in clear

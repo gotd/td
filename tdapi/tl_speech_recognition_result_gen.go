@@ -365,7 +365,8 @@ func (s *SpeechRecognitionResultText) GetText() (value string) {
 
 // SpeechRecognitionResultError represents TL type `speechRecognitionResultError#9d243fc`.
 type SpeechRecognitionResultError struct {
-	// Recognition error
+	// Recognition error. An error with a message "MSG_VOICE_TOO_LONG" is returned when media
+	// duration is too big to be recognized
 	Error Error
 }
 
