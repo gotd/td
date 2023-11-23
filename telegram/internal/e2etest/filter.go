@@ -1,6 +1,10 @@
 package e2etest
 
-import "github.com/gotd/td/tg"
+import (
+	"strings"
+
+	"github.com/gotd/td/tg"
+)
 
 func filterMessage(update *tg.UpdateNewMessage) bool {
 	if v, ok := update.Message.(interface{ GetOut() bool }); ok && v.GetOut() {
@@ -8,6 +12,12 @@ func filterMessage(update *tg.UpdateNewMessage) bool {
 	}
 
 	if v, ok := update.Message.(interface{ GetPeerID() tg.PeerClass }); ok && v.GetPeerID() == nil {
+		return true
+	}
+	if _, ok := update.Message.(*tg.MessageService); ok {
+		return true
+	}
+	if v, ok := update.Message.(interface{ GetMessage() string }); ok && strings.HasPrefix(v.GetMessage(), "Login code:") {
 		return true
 	}
 
