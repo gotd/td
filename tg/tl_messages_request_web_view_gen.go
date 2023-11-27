@@ -32,7 +32,7 @@ var (
 )
 
 // MessagesRequestWebViewRequest represents TL type `messages.requestWebView#269dc2c1`.
-// Open a bot web app¹, sending over user information after user confirmation.
+// Open a bot mini app¹, sending over user information after user confirmation.
 // After calling this method, until the user closes the webview, messages
 // prolongWebView¹ must be called every 60 seconds.
 //
@@ -94,7 +94,12 @@ type MessagesRequestWebViewRequest struct {
 	ThemeParams DataJSON
 	// Short name of the application; 0-64 English letters, digits, and underscores
 	Platform string
-	// ReplyTo field of MessagesRequestWebViewRequest.
+	// If set, indicates that the inline message that will be sent by the bot on behalf of
+	// the user once the web app interaction is terminated¹ should be sent in reply to the
+	// specified message or story.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.sendWebViewResultMessage
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
 	ReplyTo InputReplyToClass
@@ -599,7 +604,7 @@ func (r *MessagesRequestWebViewRequest) GetSendAs() (value InputPeerClass, ok bo
 }
 
 // MessagesRequestWebView invokes method messages.requestWebView#269dc2c1 returning error if any.
-// Open a bot web app¹, sending over user information after user confirmation.
+// Open a bot mini app¹, sending over user information after user confirmation.
 // After calling this method, until the user closes the webview, messages
 // prolongWebView¹ must be called every 60 seconds.
 //

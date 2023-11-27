@@ -32,14 +32,22 @@ var (
 )
 
 // InputReplyToMessage represents TL type `inputReplyToMessage#73ec805`.
+// Reply to a message.
 //
 // See https://core.telegram.org/constructor/inputReplyToMessage for reference.
 type InputReplyToMessage struct {
-	// Flags field of InputReplyToMessage.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ReplyToMsgID field of InputReplyToMessage.
+	// The message ID to reply to.
 	ReplyToMsgID int
-	// TopMsgID field of InputReplyToMessage.
+	// This field must contain the topic ID only when replying to messages in forum topics
+	// different from the "General" topic (i.e. reply_to_msg_id is set and reply_to_msg_id !=
+	// topicID and topicID != 1).  If the replied-to message is deleted before the method
+	// finishes execution, the value in this field will be used to send the message to the
+	// correct topic, instead of the "General" topic.
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
@@ -407,12 +415,13 @@ func (i *InputReplyToMessage) MapQuoteEntities() (value MessageEntityClassArray,
 }
 
 // InputReplyToStory represents TL type `inputReplyToStory#15b0f283`.
+// Reply to a story.
 //
 // See https://core.telegram.org/constructor/inputReplyToStory for reference.
 type InputReplyToStory struct {
-	// UserID field of InputReplyToStory.
+	// ID of the user that posted the story.
 	UserID InputUserClass
-	// StoryID field of InputReplyToStory.
+	// ID of the story to reply to.
 	StoryID int
 }
 

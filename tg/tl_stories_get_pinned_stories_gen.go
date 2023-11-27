@@ -32,14 +32,24 @@ var (
 )
 
 // StoriesGetPinnedStoriesRequest represents TL type `stories.getPinnedStories#5821a5dc`.
+// Fetch the stories¹ pinned on a peer's profile.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#pinned-or-archived-stories
 //
 // See https://core.telegram.org/method/stories.getPinnedStories for reference.
 type StoriesGetPinnedStoriesRequest struct {
-	// Peer field of StoriesGetPinnedStoriesRequest.
+	// Peer whose pinned stories should be fetched
 	Peer InputPeerClass
-	// OffsetID field of StoriesGetPinnedStoriesRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetID int
-	// Limit field of StoriesGetPinnedStoriesRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -220,6 +230,15 @@ func (g *StoriesGetPinnedStoriesRequest) GetLimit() (value int) {
 }
 
 // StoriesGetPinnedStories invokes method stories.getPinnedStories#5821a5dc returning error if any.
+// Fetch the stories¹ pinned on a peer's profile.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#pinned-or-archived-stories
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/stories.getPinnedStories for reference.
 func (c *Client) StoriesGetPinnedStories(ctx context.Context, request *StoriesGetPinnedStoriesRequest) (*StoriesStories, error) {

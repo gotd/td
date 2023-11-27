@@ -253,6 +253,7 @@ func (r *ChannelsReportSpamRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
+//	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 USER_ID_INVALID: The provided user ID is invalid.
 //
 // See https://core.telegram.org/method/channels.reportSpam for reference.

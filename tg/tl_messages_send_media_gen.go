@@ -62,7 +62,8 @@ type MessagesSendMediaRequest struct {
 	InvertMedia bool
 	// Destination
 	Peer InputPeerClass
-	// ReplyTo field of MessagesSendMediaRequest.
+	// If set, indicates that the message should be sent in reply to the specified message or
+	// story.
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
 	ReplyTo InputReplyToClass

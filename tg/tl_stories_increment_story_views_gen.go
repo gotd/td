@@ -32,12 +32,13 @@ var (
 )
 
 // StoriesIncrementStoryViewsRequest represents TL type `stories.incrementStoryViews#b2028afb`.
+// Increment the view counter of one or more stories.
 //
 // See https://core.telegram.org/method/stories.incrementStoryViews for reference.
 type StoriesIncrementStoryViewsRequest struct {
-	// Peer field of StoriesIncrementStoryViewsRequest.
+	// Peer where the stories were posted.
 	Peer InputPeerClass
-	// ID field of StoriesIncrementStoryViewsRequest.
+	// IDs of the stories (maximum 200 at a time).
 	ID []int
 }
 
@@ -206,6 +207,12 @@ func (i *StoriesIncrementStoryViewsRequest) GetID() (value []int) {
 }
 
 // StoriesIncrementStoryViews invokes method stories.incrementStoryViews#b2028afb returning error if any.
+// Increment the view counter of one or more stories.
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 STORY_ID_EMPTY: You specified no story IDs.
 //
 // See https://core.telegram.org/method/stories.incrementStoryViews for reference.
 func (c *Client) StoriesIncrementStoryViews(ctx context.Context, request *StoriesIncrementStoryViewsRequest) (bool, error) {

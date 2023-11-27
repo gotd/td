@@ -286,7 +286,10 @@ func (w *WebPageAttributeTheme) MapDocuments() (value DocumentClassArray, ok boo
 //
 // See https://core.telegram.org/constructor/webPageAttributeStory for reference.
 type WebPageAttributeStory struct {
-	// Flags field of WebPageAttributeStory.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Peer field of WebPageAttributeStory.
 	Peer PeerClass

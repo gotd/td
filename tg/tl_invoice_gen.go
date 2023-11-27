@@ -84,7 +84,7 @@ type Invoice struct {
 	//
 	// Use SetSuggestedTipAmounts and GetSuggestedTipAmounts helpers.
 	SuggestedTipAmounts []int64
-	// TermsURL field of Invoice.
+	// Terms of service URL
 	//
 	// Use SetTermsURL and GetTermsURL helpers.
 	TermsURL string

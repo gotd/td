@@ -32,16 +32,30 @@ var (
 )
 
 // ContactsSetBlockedRequest represents TL type `contacts.setBlocked#94c65c76`.
+// Replace the contents of an entire blocklist, see here for more info »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/block
 //
 // See https://core.telegram.org/method/contacts.setBlocked for reference.
 type ContactsSetBlockedRequest struct {
-	// Flags field of ContactsSetBlockedRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// MyStoriesFrom field of ContactsSetBlockedRequest.
+	// Whether to edit the story blocklist; if not set, will edit the main blocklist. See
+	// here »¹ for differences between the two.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/block
 	MyStoriesFrom bool
-	// ID field of ContactsSetBlockedRequest.
+	// Full content of the blocklist.
 	ID []InputPeerClass
-	// Limit field of ContactsSetBlockedRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -264,6 +278,10 @@ func (s *ContactsSetBlockedRequest) MapID() (value InputPeerClassArray) {
 }
 
 // ContactsSetBlocked invokes method contacts.setBlocked#94c65c76 returning error if any.
+// Replace the contents of an entire blocklist, see here for more info »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/block
 //
 // See https://core.telegram.org/method/contacts.setBlocked for reference.
 func (c *Client) ContactsSetBlocked(ctx context.Context, request *ContactsSetBlockedRequest) (bool, error) {

@@ -223,6 +223,7 @@ func (d *MessagesDiscardEncryptionRequest) GetChatID() (value int) {
 // Possible errors:
 //
 //	400 CHAT_ID_EMPTY: The provided chat ID is empty.
+//	400 ENCRYPTION_ALREADY_ACCEPTED: Secret chat already accepted.
 //	400 ENCRYPTION_ALREADY_DECLINED: The secret chat was already declined.
 //	400 ENCRYPTION_ID_INVALID: The provided secret chat ID is invalid.
 //

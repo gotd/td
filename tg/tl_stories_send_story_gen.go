@@ -32,36 +32,61 @@ var (
 )
 
 // StoriesSendStoryRequest represents TL type `stories.sendStory#bcb73644`.
+// Uploads a Telegram Story¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/method/stories.sendStory for reference.
 type StoriesSendStoryRequest struct {
-	// Flags field of StoriesSendStoryRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Pinned field of StoriesSendStoryRequest.
+	// Whether to add the story to the profile automatically upon expiration. If not set, the
+	// story will only be added to the archive, see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories
 	Pinned bool
-	// Noforwards field of StoriesSendStoryRequest.
+	// If set, disables forwards, screenshots, and downloads.
 	Noforwards bool
-	// Peer field of StoriesSendStoryRequest.
+	// The peer to send the story as.
 	Peer InputPeerClass
-	// Media field of StoriesSendStoryRequest.
+	// The story media.
 	Media InputMediaClass
-	// MediaAreas field of StoriesSendStoryRequest.
+	// Media areas¹ associated to the story, see here »² for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#media-areas
+	//  2) https://core.telegram.org/api/stories#media-areas
 	//
 	// Use SetMediaAreas and GetMediaAreas helpers.
 	MediaAreas []MediaAreaClass
-	// Caption field of StoriesSendStoryRequest.
+	// Story caption.
 	//
 	// Use SetCaption and GetCaption helpers.
 	Caption string
-	// Entities field of StoriesSendStoryRequest.
+	// Message entities for styled text¹, if allowed by the stories_entities client
+	// configuration parameter »².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
+	//  2) https://core.telegram.org/api/config#stories-entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// PrivacyRules field of StoriesSendStoryRequest.
+	// Privacy rules¹ for the story, indicating who can or can't view the story.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/privacy
 	PrivacyRules []InputPrivacyRuleClass
-	// RandomID field of StoriesSendStoryRequest.
+	// Unique client message ID required to prevent message resending.
 	RandomID int64
-	// Period field of StoriesSendStoryRequest.
+	// Period after which the story is moved to archive (and to the profile if pinned is set)
+	// in seconds; must be one of 6 * 3600, 12 * 3600, 86400, or 2 * 86400 for Telegram
+	// Premium users, and 86400 otherwise.
 	//
 	// Use SetPeriod and GetPeriod helpers.
 	Period int
@@ -607,6 +632,23 @@ func (s *StoriesSendStoryRequest) MapPrivacyRules() (value InputPrivacyRuleClass
 }
 
 // StoriesSendStory invokes method stories.sendStory#bcb73644 returning error if any.
+// Uploads a Telegram Story¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
+//
+// Possible errors:
+//
+//	400 IMAGE_PROCESS_FAILED: Failure while processing image.
+//	400 MEDIA_EMPTY: The provided media object is invalid.
+//	400 MEDIA_FILE_INVALID: The specified media file is invalid.
+//	400 MEDIA_TYPE_INVALID: The specified media type cannot be used in stories.
+//	400 MEDIA_VIDEO_STORY_MISSING:
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
+//	400 STORIES_TOO_MUCH: You have hit the maximum active stories limit as specified by the story_expiring_limit_* client configuration parameters: you should buy a Premium subscription, delete an active story, or wait for the oldest story to expire.
+//	400 STORY_PERIOD_INVALID: The specified story period is invalid for this account.
+//	400 VENUE_ID_INVALID:
 //
 // See https://core.telegram.org/method/stories.sendStory for reference.
 func (c *Client) StoriesSendStory(ctx context.Context, request *StoriesSendStoryRequest) (UpdatesClass, error) {

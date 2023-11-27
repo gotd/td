@@ -32,12 +32,16 @@ var (
 )
 
 // StoriesStoryViews represents TL type `stories.storyViews#de9eed1d`.
+// Reaction and view counters for a list of stories¹
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/stories.storyViews for reference.
 type StoriesStoryViews struct {
-	// Views field of StoriesStoryViews.
+	// View date and reaction information of multiple stories
 	Views []StoryViews
-	// Users field of StoriesStoryViews.
+	// Mentioned users
 	Users []UserClass
 }
 

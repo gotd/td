@@ -210,6 +210,7 @@ func (t *ChannelsToggleForumRequest) GetChannelAsNotEmpty() (NotEmptyInputChanne
 // Possible errors:
 //
 //	400 CHAT_DISCUSSION_UNALLOWED: You can't enable forum topics in a discussion group linked to a channel.
+//	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
 //
 // See https://core.telegram.org/method/channels.toggleForum for reference.
 // Can be used by bots.

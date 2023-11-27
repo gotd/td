@@ -278,7 +278,9 @@ type Message struct {
 	// Links:
 	//  1) https://core.telegram.org/api/pin
 	Pinned bool
-	// Whether this message is protected¹ and thus cannot be forwarded
+	// Whether this message is protected¹ and thus cannot be forwarded; clients should also
+	// prevent users from saving attached media (i.e. videos should only be streamed, photos
+	// should be kept in RAM, et cetera).
 	//
 	// Links:
 	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more

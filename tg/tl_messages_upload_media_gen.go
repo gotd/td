@@ -217,7 +217,7 @@ func (u *MessagesUploadMediaRequest) GetMedia() (value InputMediaClass) {
 //	400 CHAT_RESTRICTED: You can't send messages in this chat, you were restricted.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 FILE_PARTS_INVALID: The number of file parts is invalid.
-//	500 FILE_WRITE_EMPTY:
+//	400 FILE_PART_LENGTH_INVALID: The length of a file part is invalid.
 //	400 IMAGE_PROCESS_FAILED: Failure while processing image.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //	400 MEDIA_INVALID: Media invalid.

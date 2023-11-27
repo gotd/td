@@ -32,7 +32,7 @@ var (
 )
 
 // AttachMenuBotIcon represents TL type `attachMenuBotIcon#b2a7386b`.
-// Represents an attachment menu icon for bot web apps »¹
+// Represents an attachment menu icon for bot mini apps »¹
 //
 // Links:
 //  1. https://core.telegram.org/api/bots/attach
@@ -45,7 +45,7 @@ type AttachMenuBotIcon struct {
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// One of the following values: note that animated icons must be played when the user
-	// clicks on the button, activating the bot web app. default_static - Default attachment
+	// clicks on the button, activating the bot mini app. default_static - Default attachment
 	// menu icon in SVG format placeholder_static - Default placeholder for opened Web Apps
 	// in SVG format ios_static - Attachment menu icon in SVG format for the official iOS app
 	// ios_animated - Animated attachment menu icon in TGS format for the official iOS app

@@ -176,6 +176,7 @@ func (c *ChatlistsCheckChatlistInviteRequest) GetSlug() (value string) {
 // Possible errors:
 //
 //	400 INVITE_SLUG_EMPTY: The specified invite slug is empty.
+//	400 INVITE_SLUG_EXPIRED: The specified chat folder link has expired.
 //
 // See https://core.telegram.org/method/chatlists.checkChatlistInvite for reference.
 // Can be used by bots.

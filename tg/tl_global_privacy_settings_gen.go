@@ -43,9 +43,15 @@ type GlobalPrivacySettings struct {
 	Flags bin.Fields
 	// Whether to archive and mute new chats from non-contacts
 	ArchiveAndMuteNewNoncontactPeers bool
-	// KeepArchivedUnmuted field of GlobalPrivacySettings.
+	// Whether unmuted chats will be kept in the Archive chat list when they get a new
+	// message.
 	KeepArchivedUnmuted bool
-	// KeepArchivedFolders field of GlobalPrivacySettings.
+	// Whether unmuted chats that are always included or pinned in a folder¹, will be kept
+	// in the Archive chat list when they get a new message. Ignored if keep_archived_unmuted
+	// is set.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	KeepArchivedFolders bool
 }
 

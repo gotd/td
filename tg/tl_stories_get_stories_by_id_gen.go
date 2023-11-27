@@ -32,12 +32,16 @@ var (
 )
 
 // StoriesGetStoriesByIDRequest represents TL type `stories.getStoriesByID#5774ca74`.
+// Obtain full info about a set of stories¹ by their IDs.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/method/stories.getStoriesByID for reference.
 type StoriesGetStoriesByIDRequest struct {
-	// Peer field of StoriesGetStoriesByIDRequest.
+	// Peer where the stories were posted
 	Peer InputPeerClass
-	// ID field of StoriesGetStoriesByIDRequest.
+	// Story IDs
 	ID []int
 }
 
@@ -206,6 +210,17 @@ func (g *StoriesGetStoriesByIDRequest) GetID() (value []int) {
 }
 
 // StoriesGetStoriesByID invokes method stories.getStoriesByID#5774ca74 returning error if any.
+// Obtain full info about a set of stories¹ by their IDs.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
+//
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 STORIES_NEVER_CREATED:
+//	400 STORY_ID_EMPTY: You specified no story IDs.
 //
 // See https://core.telegram.org/method/stories.getStoriesByID for reference.
 func (c *Client) StoriesGetStoriesByID(ctx context.Context, request *StoriesGetStoriesByIDRequest) (*StoriesStories, error) {

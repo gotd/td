@@ -64,7 +64,8 @@ type MessagesSendMessageRequest struct {
 	InvertMedia bool
 	// The destination where the message will be sent
 	Peer InputPeerClass
-	// ReplyTo field of MessagesSendMessageRequest.
+	// If set, indicates that the message should be sent in reply to the specified message or
+	// story.
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
 	ReplyTo InputReplyToClass
@@ -817,12 +818,15 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //	500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
 //	400 REPLY_MARKUP_INVALID: The provided reply markup is invalid.
 //	400 REPLY_MARKUP_TOO_LONG: The specified reply_markup is too long.
+//	400 REPLY_TO_INVALID: The specified reply_to field is invalid.
+//	400 REPLY_TO_USER_INVALID:
 //	400 SCHEDULE_BOT_NOT_ALLOWED: Bots cannot schedule messages.
 //	400 SCHEDULE_DATE_TOO_LATE: You can't schedule a message this far in the future.
 //	400 SCHEDULE_STATUS_PRIVATE: Can't schedule until user is online, if the user's last seen timestamp is hidden by their privacy settings.
 //	400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
 //	400 SEND_AS_PEER_INVALID: You can't send messages as the specified peer.
 //	420 SLOWMODE_WAIT_%d: Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
+//	400 STORY_ID_INVALID:
 //	406 TOPIC_CLOSED: This topic was closed, you can't send messages to it anymore.
 //	406 TOPIC_DELETED: The specified topic was deleted.
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.

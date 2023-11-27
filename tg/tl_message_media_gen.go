@@ -902,7 +902,9 @@ type MessageMediaDocument struct {
 	//
 	// Use SetDocument and GetDocument helpers.
 	Document DocumentClass
-	// AltDocument field of MessageMediaDocument.
+	// Currently only used for story videos, may contain an alternative version of the story
+	// video, explicitly encoded using H.264 (in MPEG4 transport) at a lower resolution than
+	// document.
 	//
 	// Use SetAltDocument and GetAltDocument helpers.
 	AltDocument DocumentClass
@@ -1546,7 +1548,8 @@ type MessageMediaVenue struct {
 	Title string
 	// Address
 	Address string
-	// Venue provider: currently only "foursquare" needs to be supported
+	// Venue provider: currently only "foursquare" and "gplaces" (Google Places) need to be
+	// supported
 	Provider string
 	// Venue ID in the provider's database
 	VenueID string
@@ -3077,7 +3080,10 @@ func (m *MessageMediaDice) GetEmoticon() (value string) {
 //
 // See https://core.telegram.org/constructor/messageMediaStory for reference.
 type MessageMediaStory struct {
-	// Flags field of MessageMediaStory.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// ViaMention field of MessageMediaStory.
 	ViaMention bool

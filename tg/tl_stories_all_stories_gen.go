@@ -32,14 +32,24 @@ var (
 )
 
 // StoriesAllStoriesNotModified represents TL type `stories.allStoriesNotModified#1158fe3e`.
+// The list of active (or active and hidden) stories¹ has not changed.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#watching-stories
 //
 // See https://core.telegram.org/constructor/stories.allStoriesNotModified for reference.
 type StoriesAllStoriesNotModified struct {
-	// Flags field of StoriesAllStoriesNotModified.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// State field of StoriesAllStoriesNotModified.
+	// State to use to ask for updates
 	State string
-	// StealthMode field of StoriesAllStoriesNotModified.
+	// Current stealth mode¹ information
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#stealth-mode
 	StealthMode StoriesStealthMode
 }
 
@@ -211,24 +221,37 @@ func (a *StoriesAllStoriesNotModified) GetStealthMode() (value StoriesStealthMod
 }
 
 // StoriesAllStories represents TL type `stories.allStories#6efc5e81`.
+// Full list of active (or active and hidden) stories¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#watching-stories
 //
 // See https://core.telegram.org/constructor/stories.allStories for reference.
 type StoriesAllStories struct {
-	// Flags field of StoriesAllStories.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// HasMore field of StoriesAllStories.
+	// Whether more results can be fetched as described here »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#watching-stories
 	HasMore bool
-	// Count field of StoriesAllStories.
+	// Total number of active (or active and hidden) stories
 	Count int
-	// State field of StoriesAllStories.
+	// State to use for pagination
 	State string
-	// PeerStories field of StoriesAllStories.
+	// Stories
 	PeerStories []PeerStories
-	// Chats field of StoriesAllStories.
+	// Mentioned chats
 	Chats []ChatClass
-	// Users field of StoriesAllStories.
+	// Mentioned users
 	Users []UserClass
-	// StealthMode field of StoriesAllStories.
+	// Current stealth mode¹ information
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#stealth-mode
 	StealthMode StoriesStealthMode
 }
 
@@ -629,10 +652,13 @@ type StoriesAllStoriesClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// State field of StoriesAllStoriesNotModified.
+	// State to use to ask for updates
 	GetState() (value string)
 
-	// StealthMode field of StoriesAllStoriesNotModified.
+	// Current stealth mode¹ information
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#stealth-mode
 	GetStealthMode() (value StoriesStealthMode)
 
 	// AsModified tries to map StoriesAllStoriesClass to StoriesAllStories.

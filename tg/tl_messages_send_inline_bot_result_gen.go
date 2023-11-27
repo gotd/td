@@ -62,7 +62,8 @@ type MessagesSendInlineBotResultRequest struct {
 	HideVia bool
 	// Destination
 	Peer InputPeerClass
-	// ReplyTo field of MessagesSendInlineBotResultRequest.
+	// If set, indicates that the message should be sent in reply to the specified message or
+	// story.
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
 	ReplyTo InputReplyToClass
@@ -610,8 +611,10 @@ func (s *MessagesSendInlineBotResultRequest) GetSendAs() (value InputPeerClass, 
 //	400 QUERY_ID_EMPTY: The query ID is empty.
 //	500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
 //	400 RESULT_ID_EMPTY: Result ID empty.
+//	400 RESULT_ID_INVALID: One of the specified result IDs is invalid.
 //	400 SCHEDULE_DATE_TOO_LATE: You can't schedule a message this far in the future.
 //	400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
+//	500 SEND_MEDIA_INVALID:
 //	420 SLOWMODE_WAIT_%d: Slowmode is enabled in this chat: wait %d seconds before sending another message to this chat.
 //	400 TOPIC_DELETED: The specified topic was deleted.
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.

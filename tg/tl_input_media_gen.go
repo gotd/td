@@ -1880,7 +1880,8 @@ type InputMediaVenue struct {
 	Title string
 	// Physical address of the venue
 	Address string
-	// Venue provider: currently only "foursquare" needs to be supported
+	// Venue provider: currently only "foursquare" and "gplaces" (Google Places) need to be
+	// supported
 	Provider string
 	// Venue ID in the provider's database
 	VenueID string
@@ -4050,12 +4051,13 @@ func (i *InputMediaDice) GetEmoticon() (value string) {
 }
 
 // InputMediaStory represents TL type `inputMediaStory#89fdd778`.
+// Forwarded story
 //
 // See https://core.telegram.org/constructor/inputMediaStory for reference.
 type InputMediaStory struct {
-	// Peer field of InputMediaStory.
+	// Peer where the story was posted
 	Peer InputPeerClass
-	// ID field of InputMediaStory.
+	// Story ID
 	ID int
 }
 

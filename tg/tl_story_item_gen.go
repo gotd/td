@@ -32,10 +32,11 @@ var (
 )
 
 // StoryItemDeleted represents TL type `storyItemDeleted#51e6ee4f`.
+// Represents a previously active story, that was deleted
 //
 // See https://core.telegram.org/constructor/storyItemDeleted for reference.
 type StoryItemDeleted struct {
-	// ID field of StoryItemDeleted.
+	// Story ID
 	ID int
 }
 
@@ -166,18 +167,27 @@ func (s *StoryItemDeleted) GetID() (value int) {
 }
 
 // StoryItemSkipped represents TL type `storyItemSkipped#ffadc913`.
+// Represents an active story, whose full information was omitted for space and
+// performance reasons; use stories.getStoriesByID¹ to fetch full info about the skipped
+// story when and if needed.
+//
+// Links:
+//  1. https://core.telegram.org/method/stories.getStoriesByID
 //
 // See https://core.telegram.org/constructor/storyItemSkipped for reference.
 type StoryItemSkipped struct {
-	// Flags field of StoryItemSkipped.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// CloseFriends field of StoryItemSkipped.
 	CloseFriends bool
-	// ID field of StoryItemSkipped.
+	// Story ID
 	ID int
-	// Date field of StoryItemSkipped.
+	// When was the story posted.
 	Date int
-	// ExpireDate field of StoryItemSkipped.
+	// When does the story expire.
 	ExpireDate int
 }
 
@@ -407,58 +417,79 @@ func (s *StoryItemSkipped) GetExpireDate() (value int) {
 }
 
 // StoryItem represents TL type `storyItem#44c457ce`.
+// Represents a story¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/storyItem for reference.
 type StoryItem struct {
-	// Flags field of StoryItem.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Pinned field of StoryItem.
+	// Whether this story is pinned on the user's profile
 	Pinned bool
-	// Public field of StoryItem.
+	// Whether this story is public
 	Public bool
 	// CloseFriends field of StoryItem.
 	CloseFriends bool
 	// Min field of StoryItem.
 	Min bool
-	// Noforwards field of StoryItem.
+	// Whether this story is protected¹ and thus cannot be forwarded; clients should also
+	// prevent users from saving attached media (i.e. videos should only be streamed, photos
+	// should be kept in RAM, et cetera).
+	//
+	// Links:
+	//  1) https://telegram.org/blog/protected-content-delete-by-date-and-more
 	Noforwards bool
-	// Edited field of StoryItem.
+	// Indicates whether the story was edited.
 	Edited bool
 	// Contacts field of StoryItem.
 	Contacts bool
 	// SelectedContacts field of StoryItem.
 	SelectedContacts bool
-	// Out field of StoryItem.
+	// indicates whether we sent this story.
 	Out bool
-	// ID field of StoryItem.
+	// ID of the story.
 	ID int
-	// Date field of StoryItem.
+	// When was the story posted.
 	Date int
-	// ExpireDate field of StoryItem.
+	// When does the story expire.
 	ExpireDate int
-	// Caption field of StoryItem.
+	// Story caption.
 	//
 	// Use SetCaption and GetCaption helpers.
 	Caption string
-	// Entities field of StoryItem.
+	// Message entities for styled text¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// Media field of StoryItem.
+	// Story media.
 	Media MessageMediaClass
-	// MediaAreas field of StoryItem.
+	// List of media areas, see here »¹ for more info on media areas.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#media-areas
 	//
 	// Use SetMediaAreas and GetMediaAreas helpers.
 	MediaAreas []MediaAreaClass
-	// Privacy field of StoryItem.
+	// Privacy rules¹ indicating who can and can't view this story
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/privacy
 	//
 	// Use SetPrivacy and GetPrivacy helpers.
 	Privacy []PrivacyRuleClass
-	// Views field of StoryItem.
+	// View date and reaction information
 	//
 	// Use SetViews and GetViews helpers.
 	Views StoryViews
-	// SentReaction field of StoryItem.
+	// The reaction we sent.
 	//
 	// Use SetSentReaction and GetSentReaction helpers.
 	SentReaction ReactionClass
@@ -1367,7 +1398,7 @@ type StoryItemClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// ID field of StoryItemDeleted.
+	// Story ID
 	GetID() (value int)
 }
 

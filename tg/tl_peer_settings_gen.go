@@ -33,7 +33,11 @@ var (
 
 // PeerSettings represents TL type `peerSettings#a518110d`.
 // List of actions that are possible when interacting with this user, to be shown as
-// suggested actions in the chat bar
+// suggested actions in the chat action bar »¹, see here »² for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/action-bar
+//  2. https://core.telegram.org/api/action-bar
 //
 // See https://core.telegram.org/constructor/peerSettings for reference.
 type PeerSettings struct {

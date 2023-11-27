@@ -32,10 +32,17 @@ var (
 )
 
 // ExportedStoryLink represents TL type `exportedStoryLink#3fc9053b`.
+// Represents a story deep link¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#story-links
 //
 // See https://core.telegram.org/constructor/exportedStoryLink for reference.
 type ExportedStoryLink struct {
-	// Link field of ExportedStoryLink.
+	// The story deep link¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#story-links
 	Link string
 }
 

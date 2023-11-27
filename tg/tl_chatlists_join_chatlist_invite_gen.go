@@ -230,7 +230,9 @@ func (j *ChatlistsJoinChatlistInviteRequest) MapPeers() (value InputPeerClassArr
 //
 // Possible errors:
 //
+//	400 FILTER_INCLUDE_EMPTY: The include_peers vector of the filter is empty.
 //	400 INVITE_SLUG_EMPTY: The specified invite slug is empty.
+//	400 INVITE_SLUG_EXPIRED: The specified chat folder link has expired.
 //
 // See https://core.telegram.org/method/chatlists.joinChatlistInvite for reference.
 // Can be used by bots.

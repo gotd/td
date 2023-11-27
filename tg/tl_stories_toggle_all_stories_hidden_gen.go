@@ -32,10 +32,12 @@ var (
 )
 
 // StoriesToggleAllStoriesHiddenRequest represents TL type `stories.toggleAllStoriesHidden#7c2557c4`.
+// Hide the active stories of a specific peer, preventing them from being displayed on
+// the action bar on the homescreen.
 //
 // See https://core.telegram.org/method/stories.toggleAllStoriesHidden for reference.
 type StoriesToggleAllStoriesHiddenRequest struct {
-	// Hidden field of StoriesToggleAllStoriesHiddenRequest.
+	// Whether to hide or unhide all active stories of the peer
 	Hidden bool
 }
 
@@ -161,6 +163,8 @@ func (t *StoriesToggleAllStoriesHiddenRequest) GetHidden() (value bool) {
 }
 
 // StoriesToggleAllStoriesHidden invokes method stories.toggleAllStoriesHidden#7c2557c4 returning error if any.
+// Hide the active stories of a specific peer, preventing them from being displayed on
+// the action bar on the homescreen.
 //
 // See https://core.telegram.org/method/stories.toggleAllStoriesHidden for reference.
 func (c *Client) StoriesToggleAllStoriesHidden(ctx context.Context, hidden bool) (bool, error) {

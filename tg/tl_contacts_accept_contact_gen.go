@@ -32,11 +32,10 @@ var (
 )
 
 // ContactsAcceptContactRequest represents TL type `contacts.acceptContact#f831a20f`.
-// If the peer settings¹ of a new user allow us to add them as contact, add that user as
-// contact
+// If the add contact action bar is active¹, add that user as contact
 //
 // Links:
-//  1. https://core.telegram.org/constructor/peerSettings
+//  1. https://core.telegram.org/api/action-bar#add-contact
 //
 // See https://core.telegram.org/method/contacts.acceptContact for reference.
 type ContactsAcceptContactRequest struct {
@@ -171,11 +170,10 @@ func (a *ContactsAcceptContactRequest) GetID() (value InputUserClass) {
 }
 
 // ContactsAcceptContact invokes method contacts.acceptContact#f831a20f returning error if any.
-// If the peer settings¹ of a new user allow us to add them as contact, add that user as
-// contact
+// If the add contact action bar is active¹, add that user as contact
 //
 // Links:
-//  1. https://core.telegram.org/constructor/peerSettings
+//  1. https://core.telegram.org/api/action-bar#add-contact
 //
 // Possible errors:
 //

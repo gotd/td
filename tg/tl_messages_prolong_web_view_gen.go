@@ -61,7 +61,12 @@ type MessagesProlongWebViewRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/method/messages.requestWebView
 	QueryID int64
-	// ReplyTo field of MessagesProlongWebViewRequest.
+	// If set, indicates that the inline message that will be sent by the bot on behalf of
+	// the user once the web app interaction is terminated¹ should be sent in reply to the
+	// specified message or story.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.sendWebViewResultMessage
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
 	ReplyTo InputReplyToClass

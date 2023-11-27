@@ -953,6 +953,7 @@ func (i *InputPrivacyKeyVoiceMessages) DecodeBare(b *bin.Buffer) error {
 }
 
 // InputPrivacyKeyAbout represents TL type `inputPrivacyKeyAbout#3823cc40`.
+// Whether people can see your bio
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyAbout for reference.
 type InputPrivacyKeyAbout struct {

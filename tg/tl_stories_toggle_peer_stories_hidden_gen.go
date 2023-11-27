@@ -32,12 +32,17 @@ var (
 )
 
 // StoriesTogglePeerStoriesHiddenRequest represents TL type `stories.togglePeerStoriesHidden#bd0415c4`.
+// Hide the active stories of a user, preventing them from being displayed on the action
+// bar on the homescreen, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#hiding-stories-of-other-users
 //
 // See https://core.telegram.org/method/stories.togglePeerStoriesHidden for reference.
 type StoriesTogglePeerStoriesHiddenRequest struct {
-	// Peer field of StoriesTogglePeerStoriesHiddenRequest.
+	// Peer whose stories should be (un)hidden.
 	Peer InputPeerClass
-	// Hidden field of StoriesTogglePeerStoriesHiddenRequest.
+	// Whether to hide or unhide stories.
 	Hidden bool
 }
 
@@ -193,6 +198,15 @@ func (t *StoriesTogglePeerStoriesHiddenRequest) GetHidden() (value bool) {
 }
 
 // StoriesTogglePeerStoriesHidden invokes method stories.togglePeerStoriesHidden#bd0415c4 returning error if any.
+// Hide the active stories of a user, preventing them from being displayed on the action
+// bar on the homescreen, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#hiding-stories-of-other-users
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stories.togglePeerStoriesHidden for reference.
 func (c *Client) StoriesTogglePeerStoriesHidden(ctx context.Context, request *StoriesTogglePeerStoriesHiddenRequest) (bool, error) {

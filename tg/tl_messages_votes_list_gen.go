@@ -49,7 +49,7 @@ type MessagesVotesList struct {
 	Count int
 	// Vote info for each user
 	Votes []MessagePeerVoteClass
-	// Chats field of MessagesVotesList.
+	// Mentioned chats
 	Chats []ChatClass
 	// Info about users that voted in the poll
 	Users []UserClass

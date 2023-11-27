@@ -134,10 +134,10 @@ func (b *BotAppNotModified) DecodeBare(buf *bin.Buffer) error {
 }
 
 // BotApp represents TL type `botApp#95fcd1d6`.
-// Contains information about a named bot web app¹.
+// Contains information about a named bot mini app¹.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#named-bot-web-apps
+//  1. https://core.telegram.org/api/bots/webapps#named-bot-mini-apps
 //
 // See https://core.telegram.org/constructor/botApp for reference.
 type BotApp struct {
@@ -146,22 +146,22 @@ type BotApp struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Bot web app ID
+	// bot mini app ID
 	ID int64
-	// Bot web app access hash
+	// bot mini app access hash
 	AccessHash int64
-	// Bot web app short name, used to generate named bot web app deep links¹.
+	// bot mini app short name, used to generate named bot mini app deep links¹.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/links#named-bot-web-app-links
+	//  1) https://core.telegram.org/api/links#named-bot-mini-app-links
 	ShortName string
-	// Bot web app title.
+	// bot mini app title.
 	Title string
-	// Bot web app description.
+	// bot mini app description.
 	Description string
-	// Bot web app photo.
+	// bot mini app photo.
 	Photo PhotoClass
-	// Bot web app animation.
+	// bot mini app animation.
 	//
 	// Use SetDocument and GetDocument helpers.
 	Document DocumentClass

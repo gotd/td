@@ -32,7 +32,7 @@ var (
 )
 
 // MessagesGetAttachMenuBotRequest represents TL type `messages.getAttachMenuBot#77216192`.
-// Returns attachment menu entry for a bot web app that can be launched from the
+// Returns attachment menu entry for a bot mini app that can be launched from the
 // attachment menu »¹
 //
 // Links:
@@ -171,7 +171,7 @@ func (g *MessagesGetAttachMenuBotRequest) GetBot() (value InputUserClass) {
 }
 
 // MessagesGetAttachMenuBot invokes method messages.getAttachMenuBot#77216192 returning error if any.
-// Returns attachment menu entry for a bot web app that can be launched from the
+// Returns attachment menu entry for a bot mini app that can be launched from the
 // attachment menu »¹
 //
 // Links:

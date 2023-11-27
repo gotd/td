@@ -32,14 +32,21 @@ var (
 )
 
 // BotsInvokeWebViewCustomMethodRequest represents TL type `bots.invokeWebViewCustomMethod#87fc5e7`.
+// Send a custom request from a mini bot app¹
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps
 //
 // See https://core.telegram.org/method/bots.invokeWebViewCustomMethod for reference.
 type BotsInvokeWebViewCustomMethodRequest struct {
-	// Bot field of BotsInvokeWebViewCustomMethodRequest.
+	// Identifier of the bot associated to the mini bot app¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/webapps
 	Bot InputUserClass
-	// CustomMethod field of BotsInvokeWebViewCustomMethodRequest.
+	// Identifier of the custom method to invoke
 	CustomMethod string
-	// Params field of BotsInvokeWebViewCustomMethodRequest.
+	// Method parameters
 	Params DataJSON
 }
 
@@ -220,6 +227,14 @@ func (i *BotsInvokeWebViewCustomMethodRequest) GetParams() (value DataJSON) {
 }
 
 // BotsInvokeWebViewCustomMethod invokes method bots.invokeWebViewCustomMethod#87fc5e7 returning error if any.
+// Send a custom request from a mini bot app¹
+//
+// Links:
+//  1. https://core.telegram.org/api/bots/webapps
+//
+// Possible errors:
+//
+//	400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/bots.invokeWebViewCustomMethod for reference.
 func (c *Client) BotsInvokeWebViewCustomMethod(ctx context.Context, request *BotsInvokeWebViewCustomMethodRequest) (*DataJSON, error) {

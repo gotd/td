@@ -32,6 +32,10 @@ var (
 )
 
 // StoriesGetChatsToSendRequest represents TL type `stories.getChatsToSend#a56a8b60`.
+// Obtain a list of channels where the user can post stories¹
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/method/stories.getChatsToSend for reference.
 type StoriesGetChatsToSendRequest struct {
@@ -128,6 +132,10 @@ func (g *StoriesGetChatsToSendRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // StoriesGetChatsToSend invokes method stories.getChatsToSend#a56a8b60 returning error if any.
+// Obtain a list of channels where the user can post stories¹
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/method/stories.getChatsToSend for reference.
 func (c *Client) StoriesGetChatsToSend(ctx context.Context) (MessagesChatsClass, error) {

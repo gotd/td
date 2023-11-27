@@ -32,6 +32,12 @@ var (
 )
 
 // StoriesGetAllReadPeerStoriesRequest represents TL type `stories.getAllReadPeerStories#9b5ae7f9`.
+// Obtain the latest read story ID for all peers when first logging in, returned as a
+// list of updateReadStories¹ updates, see here »² for more info.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/updateReadStories
+//  2. https://core.telegram.org/api/stories#watching-stories
 //
 // See https://core.telegram.org/method/stories.getAllReadPeerStories for reference.
 type StoriesGetAllReadPeerStoriesRequest struct {
@@ -128,6 +134,12 @@ func (g *StoriesGetAllReadPeerStoriesRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // StoriesGetAllReadPeerStories invokes method stories.getAllReadPeerStories#9b5ae7f9 returning error if any.
+// Obtain the latest read story ID for all peers when first logging in, returned as a
+// list of updateReadStories¹ updates, see here »² for more info.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/updateReadStories
+//  2. https://core.telegram.org/api/stories#watching-stories
 //
 // See https://core.telegram.org/method/stories.getAllReadPeerStories for reference.
 func (c *Client) StoriesGetAllReadPeerStories(ctx context.Context) (UpdatesClass, error) {

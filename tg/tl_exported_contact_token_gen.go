@@ -44,7 +44,7 @@ type ExportedContactToken struct {
 	// Links:
 	//  1) https://core.telegram.org/api/links#temporary-profile-links
 	URL string
-	// Its expiry date
+	// Its expiration date
 	Expires int
 }
 

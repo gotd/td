@@ -207,11 +207,12 @@ type ChatInvite struct {
 	// Links:
 	//  1) https://core.telegram.org/api/invites#join-requests
 	RequestNeeded bool
-	// Verified field of ChatInvite.
+	// Is this chat or channel verified by Telegram?
 	Verified bool
-	// Scam field of ChatInvite.
+	// This chat is probably a scam
 	Scam bool
-	// Fake field of ChatInvite.
+	// If set, this chat was reported by many users as a fake or scam: be careful when
+	// interacting with it.
 	Fake bool
 	// Chat/supergroup/channel title
 	Title string

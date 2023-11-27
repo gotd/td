@@ -183,6 +183,10 @@ func (u *AccountUpdateEmojiStatusRequest) GetEmojiStatusAsNotEmpty() (NotEmptyEm
 // Links:
 //  1. https://core.telegram.org/api/emoji-status
 //
+// Possible errors:
+//
+//	400 DOCUMENT_INVALID: The specified document is invalid.
+//
 // See https://core.telegram.org/method/account.updateEmojiStatus for reference.
 func (c *Client) AccountUpdateEmojiStatus(ctx context.Context, emojistatus EmojiStatusClass) (bool, error) {
 	var result BoolBox

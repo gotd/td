@@ -32,20 +32,27 @@ var (
 )
 
 // StoriesStoryViewsList represents TL type `stories.storyViewsList#46e9b9ec`.
+// Reaction and view counters for a story¹
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/stories.storyViewsList for reference.
 type StoriesStoryViewsList struct {
-	// Flags field of StoriesStoryViewsList.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Count field of StoriesStoryViewsList.
+	// Total number of results that can be fetched
 	Count int
 	// ReactionsCount field of StoriesStoryViewsList.
 	ReactionsCount int
-	// Views field of StoriesStoryViewsList.
+	// Story view date and reaction information
 	Views []StoryView
-	// Users field of StoriesStoryViewsList.
+	// Mentioned users
 	Users []UserClass
-	// NextOffset field of StoriesStoryViewsList.
+	// Offset for pagination
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string

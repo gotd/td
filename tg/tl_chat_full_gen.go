@@ -1251,7 +1251,10 @@ type ChannelFull struct {
 	//
 	// Use SetAvailableReactions and GetAvailableReactions helpers.
 	AvailableReactions ChatReactionsClass
-	// Stories field of ChannelFull.
+	// Channel stories¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories
 	//
 	// Use SetStories and GetStories helpers.
 	Stories PeerStories

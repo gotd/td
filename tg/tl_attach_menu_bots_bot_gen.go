@@ -32,14 +32,14 @@ var (
 )
 
 // AttachMenuBotsBot represents TL type `attachMenuBotsBot#93bf667f`.
-// Represents a bot web app that can be launched from the attachment menu »¹
+// Represents a bot mini app that can be launched from the attachment menu »¹
 //
 // Links:
 //  1. https://core.telegram.org/api/bots/attach
 //
 // See https://core.telegram.org/constructor/attachMenuBotsBot for reference.
 type AttachMenuBotsBot struct {
-	// Represents a bot web app that can be launched from the attachment menu »¹
+	// Represents a bot mini app that can be launched from the attachment menu »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/bots/attach

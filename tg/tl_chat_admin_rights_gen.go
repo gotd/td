@@ -104,11 +104,24 @@ type ChatAdminRights struct {
 	// Links:
 	//  1) https://core.telegram.org/api/forum#forum-topics
 	ManageTopics bool
-	// PostStories field of ChatAdminRights.
+	// If set, allows the admin to post stories¹ as the channel².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories
+	//  2) https://core.telegram.org/api/channel
 	PostStories bool
-	// EditStories field of ChatAdminRights.
+	// If set, allows the admin to edit stories¹ posted by the other admins of the channel².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories
+	//  2) https://core.telegram.org/api/channel
 	EditStories bool
-	// DeleteStories field of ChatAdminRights.
+	// If set, allows the admin to delete stories¹ posted by the other admins of the
+	// channel².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories
+	//  2) https://core.telegram.org/api/channel
 	DeleteStories bool
 }
 

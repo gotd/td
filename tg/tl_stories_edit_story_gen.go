@@ -32,32 +32,52 @@ var (
 )
 
 // StoriesEditStoryRequest represents TL type `stories.editStory#b583ba46`.
+// Edit an uploaded story¹
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/method/stories.editStory for reference.
 type StoriesEditStoryRequest struct {
-	// Flags field of StoriesEditStoryRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of StoriesEditStoryRequest.
+	// Peer where the story was posted.
 	Peer InputPeerClass
-	// ID field of StoriesEditStoryRequest.
+	// ID of story to edit.
 	ID int
-	// Media field of StoriesEditStoryRequest.
+	// If specified, replaces the story media.
 	//
 	// Use SetMedia and GetMedia helpers.
 	Media InputMediaClass
-	// MediaAreas field of StoriesEditStoryRequest.
+	// Media areas¹ associated to the story, see here »² for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#media-areas
+	//  2) https://core.telegram.org/api/stories#media-areas
 	//
 	// Use SetMediaAreas and GetMediaAreas helpers.
 	MediaAreas []MediaAreaClass
-	// Caption field of StoriesEditStoryRequest.
+	// If specified, replaces the story caption.
 	//
 	// Use SetCaption and GetCaption helpers.
 	Caption string
-	// Entities field of StoriesEditStoryRequest.
+	// Message entities for styled text in the caption¹, if allowed by the stories_entities
+	// client configuration parameter »².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
+	//  2) https://core.telegram.org/api/config#stories-entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// PrivacyRules field of StoriesEditStoryRequest.
+	// If specified, alters the privacy settings »¹ of the story, changing who can or can't
+	// view the story.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/privacy
 	//
 	// Use SetPrivacyRules and GetPrivacyRules helpers.
 	PrivacyRules []InputPrivacyRuleClass
@@ -534,6 +554,15 @@ func (e *StoriesEditStoryRequest) MapPrivacyRules() (value InputPrivacyRuleClass
 }
 
 // StoriesEditStory invokes method stories.editStory#b583ba46 returning error if any.
+// Edit an uploaded story¹
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 STORY_NOT_MODIFIED: The new story information you passed is equal to the previous story information, thus it wasn't modified.
 //
 // See https://core.telegram.org/method/stories.editStory for reference.
 func (c *Client) StoriesEditStory(ctx context.Context, request *StoriesEditStoryRequest) (UpdatesClass, error) {

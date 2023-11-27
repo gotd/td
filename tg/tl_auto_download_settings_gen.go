@@ -49,7 +49,12 @@ type AutoDownloadSettings struct {
 	AudioPreloadNext bool
 	// Whether to enable data saving mode in phone calls
 	PhonecallsLessData bool
-	// StoriesPreload field of AutoDownloadSettings.
+	// Whether to preload stories¹; in particular, the first documentAttributeVideo²
+	// preload_prefix_size bytes of story videos should be preloaded.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories
+	//  2) https://core.telegram.org/constructor/documentAttributeVideo
 	StoriesPreload bool
 	// Maximum size of photos to preload
 	PhotoSizeMax int

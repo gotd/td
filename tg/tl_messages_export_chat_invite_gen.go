@@ -415,6 +415,7 @@ func (e *MessagesExportChatInviteRequest) GetTitle() (value string, ok bool) {
 //	400 CHAT_ID_INVALID: The provided chat id is invalid.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 EXPIRE_DATE_INVALID: The specified expiration date is invalid.
+//	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 USAGE_LIMIT_INVALID: The specified usage limit is invalid.
 //

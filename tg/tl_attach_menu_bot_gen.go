@@ -32,7 +32,7 @@ var (
 )
 
 // AttachMenuBot represents TL type `attachMenuBot#d90d8dfe`.
-// Represents a bot web app that can be launched from the attachment menu »¹
+// Represents a bot mini app that can be launched from the attachment menu »¹
 //
 // Links:
 //  1. https://core.telegram.org/api/bots/attach

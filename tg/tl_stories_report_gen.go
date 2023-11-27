@@ -32,16 +32,17 @@ var (
 )
 
 // StoriesReportRequest represents TL type `stories.report#1923fa8c`.
+// Report a story.
 //
 // See https://core.telegram.org/method/stories.report for reference.
 type StoriesReportRequest struct {
-	// Peer field of StoriesReportRequest.
+	// The peer that uploaded the story.
 	Peer InputPeerClass
-	// ID field of StoriesReportRequest.
+	// IDs of the stories to report.
 	ID []int
-	// Reason field of StoriesReportRequest.
+	// Why are these storeis being reported.
 	Reason ReportReasonClass
-	// Message field of StoriesReportRequest.
+	// Comment for report moderation
 	Message string
 }
 
@@ -265,6 +266,11 @@ func (r *StoriesReportRequest) GetMessage() (value string) {
 }
 
 // StoriesReport invokes method stories.report#1923fa8c returning error if any.
+// Report a story.
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stories.report for reference.
 func (c *Client) StoriesReport(ctx context.Context, request *StoriesReportRequest) (bool, error) {

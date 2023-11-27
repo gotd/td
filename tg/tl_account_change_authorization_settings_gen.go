@@ -32,7 +32,7 @@ var (
 )
 
 // AccountChangeAuthorizationSettingsRequest represents TL type `account.changeAuthorizationSettings#40f48462`.
-// Change authorization settings
+// Change settings related to a session.
 //
 // See https://core.telegram.org/method/account.changeAuthorizationSettings for reference.
 type AccountChangeAuthorizationSettingsRequest struct {
@@ -41,7 +41,10 @@ type AccountChangeAuthorizationSettingsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Confirmed field of AccountChangeAuthorizationSettingsRequest.
+	// If set, confirms a newly logged in session »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/auth#confirming-login
 	Confirmed bool
 	// Session ID from the authorization¹ constructor, fetchable using account
 	// getAuthorizations²
@@ -321,7 +324,7 @@ func (c *AccountChangeAuthorizationSettingsRequest) GetCallRequestsDisabled() (v
 }
 
 // AccountChangeAuthorizationSettings invokes method account.changeAuthorizationSettings#40f48462 returning error if any.
-// Change authorization settings
+// Change settings related to a session.
 //
 // Possible errors:
 //

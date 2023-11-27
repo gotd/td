@@ -41,9 +41,9 @@ type AccountGetNotifyExceptionsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// If true, chats with non-default sound will also be returned
+	// If set, chats with non-default sound will be returned
 	CompareSound bool
-	// CompareStories field of AccountGetNotifyExceptionsRequest.
+	// If set, chats with non-default notification settings for stories will be returned
 	CompareStories bool
 	// If specified, only chats of the specified category will be returned
 	//

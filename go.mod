@@ -1,6 +1,6 @@
 module github.com/gotd/td
 
-go 1.19
+go 1.21
 
 require (
 	github.com/cenkalti/backoff/v4 v4.2.1
@@ -8,7 +8,7 @@ require (
 	github.com/go-faster/jx v1.1.0
 	github.com/go-faster/xor v1.0.0
 	github.com/go-openapi/inflect v0.19.0
-	github.com/gotd/getdoc v0.35.0
+	github.com/gotd/getdoc v0.36.0
 	github.com/gotd/ige v0.2.2
 	github.com/gotd/neo v0.1.5
 	github.com/gotd/tl v0.4.0

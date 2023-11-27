@@ -32,10 +32,11 @@ var (
 )
 
 // BotsCanSendMessageRequest represents TL type `bots.canSendMessage#1359f4e6`.
+// Check whether the specified bot can send us messages
 //
 // See https://core.telegram.org/method/bots.canSendMessage for reference.
 type BotsCanSendMessageRequest struct {
-	// Bot field of BotsCanSendMessageRequest.
+	// The bot
 	Bot InputUserClass
 }
 
@@ -166,6 +167,11 @@ func (c *BotsCanSendMessageRequest) GetBot() (value InputUserClass) {
 }
 
 // BotsCanSendMessage invokes method bots.canSendMessage#1359f4e6 returning error if any.
+// Check whether the specified bot can send us messages
+//
+// Possible errors:
+//
+//	400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/bots.canSendMessage for reference.
 func (c *Client) BotsCanSendMessage(ctx context.Context, bot InputUserClass) (bool, error) {

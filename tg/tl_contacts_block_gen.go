@@ -32,15 +32,25 @@ var (
 )
 
 // ContactsBlockRequest represents TL type `contacts.block#2e2e8734`.
-// Adds the user to the blacklist.
+// Adds a peer to a blocklist, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/block
 //
 // See https://core.telegram.org/method/contacts.block for reference.
 type ContactsBlockRequest struct {
-	// Flags field of ContactsBlockRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// MyStoriesFrom field of ContactsBlockRequest.
+	// Whether the peer should be added to the story blocklist; if not set, the peer will be
+	// added to the main blocklist, see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/block
 	MyStoriesFrom bool
-	// User ID
+	// Peer
 	ID InputPeerClass
 }
 
@@ -220,10 +230,14 @@ func (b *ContactsBlockRequest) GetID() (value InputPeerClass) {
 }
 
 // ContactsBlock invokes method contacts.block#2e2e8734 returning error if any.
-// Adds the user to the blacklist.
+// Adds a peer to a blocklist, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/block
 //
 // Possible errors:
 //
+//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 CONTACT_ID_INVALID: The provided contact ID is invalid.
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //	400 MSG_ID_INVALID: Invalid message ID provided.

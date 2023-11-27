@@ -32,12 +32,13 @@ var (
 )
 
 // ChannelsClickSponsoredMessageRequest represents TL type `channels.clickSponsoredMessage#18afbc93`.
+// Informs the server that the user has either:
 //
 // See https://core.telegram.org/method/channels.clickSponsoredMessage for reference.
 type ChannelsClickSponsoredMessageRequest struct {
-	// Channel field of ChannelsClickSponsoredMessageRequest.
+	// Channel where the sponsored message was posted
 	Channel InputChannelClass
-	// RandomID field of ChannelsClickSponsoredMessageRequest.
+	// Message ID
 	RandomID []byte
 }
 
@@ -198,6 +199,11 @@ func (c *ChannelsClickSponsoredMessageRequest) GetChannelAsNotEmpty() (NotEmptyI
 }
 
 // ChannelsClickSponsoredMessage invokes method channels.clickSponsoredMessage#18afbc93 returning error if any.
+// Informs the server that the user has either:
+//
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.clickSponsoredMessage for reference.
 func (c *Client) ChannelsClickSponsoredMessage(ctx context.Context, request *ChannelsClickSponsoredMessageRequest) (bool, error) {

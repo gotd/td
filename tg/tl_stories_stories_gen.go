@@ -32,16 +32,20 @@ var (
 )
 
 // StoriesStories represents TL type `stories.stories#5dd8c3c8`.
+// List of stories¹
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#pinned-or-archived-stories
 //
 // See https://core.telegram.org/constructor/stories.stories for reference.
 type StoriesStories struct {
-	// Count field of StoriesStories.
+	// Total number of stories that can be fetched
 	Count int
-	// Stories field of StoriesStories.
+	// Stories
 	Stories []StoryItemClass
-	// Chats field of StoriesStories.
+	// Mentioned chats
 	Chats []ChatClass
-	// Users field of StoriesStories.
+	// Mentioned users
 	Users []UserClass
 }
 

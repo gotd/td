@@ -32,18 +32,19 @@ var (
 )
 
 // MediaAreaCoordinates represents TL type `mediaAreaCoordinates#3d1ea4e`.
+// Coordinates and size of a clicable rectangular area on top of a story.
 //
 // See https://core.telegram.org/constructor/mediaAreaCoordinates for reference.
 type MediaAreaCoordinates struct {
-	// X field of MediaAreaCoordinates.
+	// The abscissa of the rectangle's center, as a percentage of the media width (0-100).
 	X float64
-	// Y field of MediaAreaCoordinates.
+	// The ordinate of the rectangle's center, as a percentage of the media height (0-100).
 	Y float64
-	// W field of MediaAreaCoordinates.
+	// The width of the rectangle, as a percentage of the media width (0-100).
 	W float64
-	// H field of MediaAreaCoordinates.
+	// The height of the rectangle, as a percentage of the media height (0-100).
 	H float64
-	// Rotation field of MediaAreaCoordinates.
+	// Clockwise rotation angle of the rectangle, in degrees (0-360).
 	Rotation float64
 }
 

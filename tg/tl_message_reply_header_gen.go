@@ -651,12 +651,16 @@ func (m *MessageReplyHeader) MapQuoteEntities() (value MessageEntityClassArray, 
 }
 
 // MessageReplyStoryHeader represents TL type `messageReplyStoryHeader#9c98bfc1`.
+// Represents a reply to a story¹
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/messageReplyStoryHeader for reference.
 type MessageReplyStoryHeader struct {
-	// UserID field of MessageReplyStoryHeader.
+	// ID of the user that posted a story
 	UserID int64
-	// StoryID field of MessageReplyStoryHeader.
+	// Story ID
 	StoryID int
 }
 

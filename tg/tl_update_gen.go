@@ -1515,24 +1515,34 @@ func (u *UpdateUserName) GetUsernames() (value []Username) {
 }
 
 // UpdateNewAuthorization represents TL type `updateNewAuthorization#8951abef`.
+// A new session logged into the current user's account through an unknown device.
 //
 // See https://core.telegram.org/constructor/updateNewAuthorization for reference.
 type UpdateNewAuthorization struct {
-	// Flags field of UpdateNewAuthorization.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Unconfirmed field of UpdateNewAuthorization.
+	// Whether the session is unconfirmed, see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/auth#confirming-login
 	Unconfirmed bool
-	// Hash field of UpdateNewAuthorization.
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
-	// Date field of UpdateNewAuthorization.
+	// Authorization date
 	//
 	// Use SetDate and GetDate helpers.
 	Date int
-	// Device field of UpdateNewAuthorization.
+	// Name of device, for example Android
 	//
 	// Use SetDevice and GetDevice helpers.
 	Device string
-	// Location field of UpdateNewAuthorization.
+	// Location, for example USA, NY (IP=1.2.3.4)
 	//
 	// Use SetLocation and GetLocation helpers.
 	Location string
@@ -4771,7 +4781,10 @@ func (u *UpdateWebPage) GetPtsCount() (value int) {
 //
 // See https://core.telegram.org/constructor/updateReadMessagesContents for reference.
 type UpdateReadMessagesContents struct {
-	// Flags field of UpdateReadMessagesContents.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// IDs of read messages
 	Messages []int
@@ -5250,7 +5263,8 @@ func (u *UpdateChannelTooLong) GetPts() (value int, ok bool) {
 }
 
 // UpdateChannel represents TL type `updateChannel#635b4c09`.
-// A new channel is available
+// A new channel or supergroup is available, or info about an existing channel has
+// changed and must be refeteched.
 //
 // See https://core.telegram.org/constructor/updateChannel for reference.
 type UpdateChannel struct {
@@ -14399,13 +14413,13 @@ func (u *UpdateLoginToken) DecodeBare(b *bin.Buffer) error {
 }
 
 // UpdateMessagePollVote represents TL type `updateMessagePollVote#24f40e77`.
-// A specific user has voted in a poll
+// A specific peer has voted in a poll
 //
 // See https://core.telegram.org/constructor/updateMessagePollVote for reference.
 type UpdateMessagePollVote struct {
 	// Poll ID
 	PollID int64
-	// Peer field of UpdateMessagePollVote.
+	// The peer that voted in the poll
 	Peer PeerClass
 	// Chosen option(s)
 	Options [][]byte
@@ -15991,17 +16005,27 @@ func (u *UpdateReadChannelDiscussionOutbox) GetReadMaxID() (value int) {
 }
 
 // UpdatePeerBlocked represents TL type `updatePeerBlocked#ebe07752`.
-// A peer was blocked
+// We blocked a peer, see here »¹ for more info on blocklists.
+//
+// Links:
+//  1. https://core.telegram.org/api/block
 //
 // See https://core.telegram.org/constructor/updatePeerBlocked for reference.
 type UpdatePeerBlocked struct {
-	// Flags field of UpdatePeerBlocked.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the peer was blocked or unblocked
 	Blocked bool
-	// BlockedMyStoriesFrom field of UpdatePeerBlocked.
+	// Whether the peer was added/removed to/from the story blocklist; if not set, this
+	// update affects the main blocklist, see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/block
 	BlockedMyStoriesFrom bool
-	// The blocked peer
+	// The (un)blocked peer
 	PeerID PeerClass
 }
 
@@ -22656,12 +22680,13 @@ func (u *UpdateGroupInvitePrivacyForbidden) GetUserID() (value int64) {
 }
 
 // UpdateStory represents TL type `updateStory#75b3b798`.
+// A new story was posted.
 //
 // See https://core.telegram.org/constructor/updateStory for reference.
 type UpdateStory struct {
-	// Peer field of UpdateStory.
+	// ID of the poster.
 	Peer PeerClass
-	// Story field of UpdateStory.
+	// The story that was posted.
 	Story StoryItemClass
 }
 
@@ -22827,12 +22852,13 @@ func (u *UpdateStory) GetStory() (value StoryItemClass) {
 }
 
 // UpdateReadStories represents TL type `updateReadStories#f74e932b`.
+// Stories of a specific peer were marked as read.
 //
 // See https://core.telegram.org/constructor/updateReadStories for reference.
 type UpdateReadStories struct {
-	// Peer field of UpdateReadStories.
+	// The peer
 	Peer PeerClass
-	// MaxID field of UpdateReadStories.
+	// ID of the last story that was marked as read
 	MaxID int
 }
 
@@ -22993,12 +23019,26 @@ func (u *UpdateReadStories) GetMaxID() (value int) {
 }
 
 // UpdateStoryID represents TL type `updateStoryID#1bf335b9`.
+// A story was successfully uploaded.
+// Once a story is successfully uploaded, an updateStoryID¹ will be returned, indicating
+// the story ID (id) that was attributed to the story (like for messages, random_id
+// indicates the random_id that was passed to stories.sendStory²: this way, you can tell
+// which story was assigned a specific id by checking which stories.sendStory³ call has
+// the returned random_id).
+//
+// Links:
+//  1. https://core.telegram.org/constructor/updateStoryID
+//  2. https://core.telegram.org/method/stories.sendStory
+//  3. https://core.telegram.org/method/stories.sendStory
 //
 // See https://core.telegram.org/constructor/updateStoryID for reference.
 type UpdateStoryID struct {
-	// ID field of UpdateStoryID.
+	// The id that was attributed to the story.
 	ID int
-	// RandomID field of UpdateStoryID.
+	// The random_id that was passed to stories.sendStory¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/stories.sendStory
 	RandomID int64
 }
 
@@ -23154,10 +23194,17 @@ func (u *UpdateStoryID) GetRandomID() (value int64) {
 }
 
 // UpdateStoriesStealthMode represents TL type `updateStoriesStealthMode#2c084dc1`.
+// Indicates that stories stealth mode¹ was activated.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#stealth-mode
 //
 // See https://core.telegram.org/constructor/updateStoriesStealthMode for reference.
 type UpdateStoriesStealthMode struct {
-	// StealthMode field of UpdateStoriesStealthMode.
+	// Information about the current stealth mode¹ session.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#stealth-mode
 	StealthMode StoriesStealthMode
 }
 
@@ -23288,14 +23335,18 @@ func (u *UpdateStoriesStealthMode) GetStealthMode() (value StoriesStealthMode) {
 }
 
 // UpdateSentStoryReaction represents TL type `updateSentStoryReaction#7d627683`.
+// Indicates we reacted to a story »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#reactions
 //
 // See https://core.telegram.org/constructor/updateSentStoryReaction for reference.
 type UpdateSentStoryReaction struct {
-	// Peer field of UpdateSentStoryReaction.
+	// The peer that sent the story
 	Peer PeerClass
-	// StoryID field of UpdateSentStoryReaction.
+	// ID of the story we reacted to
 	StoryID int
-	// Reaction field of UpdateSentStoryReaction.
+	// The reaction that was sent
 	Reaction ReactionClass
 }
 

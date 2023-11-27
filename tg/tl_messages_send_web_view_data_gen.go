@@ -32,7 +32,7 @@ var (
 )
 
 // MessagesSendWebViewDataRequest represents TL type `messages.sendWebViewData#dc0242c8`.
-// Used by the user to relay data from an opened reply keyboard bot web app¹ to the bot
+// Used by the user to relay data from an opened reply keyboard bot mini app¹ to the bot
 // that owns it.
 //
 // Links:
@@ -258,7 +258,7 @@ func (s *MessagesSendWebViewDataRequest) GetData() (value string) {
 }
 
 // MessagesSendWebViewData invokes method messages.sendWebViewData#dc0242c8 returning error if any.
-// Used by the user to relay data from an opened reply keyboard bot web app¹ to the bot
+// Used by the user to relay data from an opened reply keyboard bot mini app¹ to the bot
 // that owns it.
 //
 // Links:

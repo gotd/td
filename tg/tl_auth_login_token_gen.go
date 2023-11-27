@@ -39,7 +39,7 @@ var (
 //
 // See https://core.telegram.org/constructor/auth.loginToken for reference.
 type AuthLoginToken struct {
-	// Expiry date of QR code
+	// Expiration date of QR code
 	Expires int
 	// Token to render in QR code
 	Token []byte

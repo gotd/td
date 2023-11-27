@@ -32,16 +32,20 @@ var (
 )
 
 // SponsoredWebPage represents TL type `sponsoredWebPage#3db8ec63`.
+// Represents a sponsored website.
 //
 // See https://core.telegram.org/constructor/sponsoredWebPage for reference.
 type SponsoredWebPage struct {
-	// Flags field of SponsoredWebPage.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// URL field of SponsoredWebPage.
+	// Web page URL.
 	URL string
-	// SiteName field of SponsoredWebPage.
+	// Website name.
 	SiteName string
-	// Photo field of SponsoredWebPage.
+	// Optional image preview.
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo PhotoClass

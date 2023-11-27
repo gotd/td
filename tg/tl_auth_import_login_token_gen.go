@@ -182,6 +182,7 @@ func (i *AuthImportLoginTokenRequest) GetToken() (value []byte) {
 //	400 AUTH_TOKEN_EXPIRED: The authorization token has expired.
 //	400 AUTH_TOKEN_INVALID: The specified auth token is invalid.
 //	400 AUTH_TOKEN_INVALIDX: The specified auth token is invalid.
+//	500 MEMBER_NOT_FOUND:
 //
 // See https://core.telegram.org/method/auth.importLoginToken for reference.
 func (c *Client) AuthImportLoginToken(ctx context.Context, token []byte) (AuthLoginTokenClass, error) {

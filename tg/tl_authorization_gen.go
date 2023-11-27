@@ -51,7 +51,10 @@ type Authorization struct {
 	EncryptedRequestsDisabled bool
 	// Whether this session will accept phone calls
 	CallRequestsDisabled bool
-	// Unconfirmed field of Authorization.
+	// Whether the session is unconfirmed, see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/auth#confirming-login
 	Unconfirmed bool
 	// Identifier
 	Hash int64

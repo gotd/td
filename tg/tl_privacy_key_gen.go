@@ -953,6 +953,7 @@ func (p *PrivacyKeyVoiceMessages) DecodeBare(b *bin.Buffer) error {
 }
 
 // PrivacyKeyAbout represents TL type `privacyKeyAbout#a486b761`.
+// Whether people can see your bio
 //
 // See https://core.telegram.org/constructor/privacyKeyAbout for reference.
 type PrivacyKeyAbout struct {

@@ -53,19 +53,19 @@ type InputPeerNotifySettings struct {
 	//
 	// Use SetMuteUntil and GetMuteUntil helpers.
 	MuteUntil int
-	// Name of an audio file for notification
+	// Identifier of an audio file to play for notifications.
 	//
 	// Use SetSound and GetSound helpers.
 	Sound NotificationSoundClass
-	// StoriesMuted field of InputPeerNotifySettings.
+	// Whether story notifications should be disabled.
 	//
 	// Use SetStoriesMuted and GetStoriesMuted helpers.
 	StoriesMuted bool
-	// StoriesHideSender field of InputPeerNotifySettings.
+	// Whether the sender name should be displayed in story notifications.
 	//
 	// Use SetStoriesHideSender and GetStoriesHideSender helpers.
 	StoriesHideSender bool
-	// StoriesSound field of InputPeerNotifySettings.
+	// Identifier of an audio file to play for story notifications.
 	//
 	// Use SetStoriesSound and GetStoriesSound helpers.
 	StoriesSound NotificationSoundClass

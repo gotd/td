@@ -349,7 +349,7 @@ func (g *MessagesGetPollVotesRequest) GetLimit() (value int) {
 //
 // Possible errors:
 //
-//	403 BROADCAST_FORBIDDEN: Participants of polls in channels should stay anonymous.
+//	403 BROADCAST_FORBIDDEN: Channel poll voters and reactions cannot be fetched to prevent deanonymization.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	403 POLL_VOTE_REQUIRED: Cast a vote in the poll before calling this method.
 //

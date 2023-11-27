@@ -32,14 +32,14 @@ var (
 )
 
 // MessagesRequestAppWebViewRequest represents TL type `messages.requestAppWebView#8c5a3b3c`.
-// Open a bot web app¹ from a named bot web app deep link², sending over user
+// Open a bot mini app¹ from a named bot mini app deep link², sending over user
 // information after user confirmation.
 // After calling this method, until the user closes the webview, messages
 // prolongWebView¹ must be called every 60 seconds.
 //
 // Links:
 //  1. https://core.telegram.org/bots/webapps
-//  2. https://core.telegram.org/api/links#named-bot-web-app-links
+//  2. https://core.telegram.org/api/links#named-bot-mini-app-links
 //  3. https://core.telegram.org/method/messages.prolongWebView
 //
 // See https://core.telegram.org/method/messages.requestAppWebView for reference.
@@ -50,26 +50,26 @@ type MessagesRequestAppWebViewRequest struct {
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Set this flag if the bot is asking permission to send messages to the user as
-	// specified in the named bot web app deep link¹ docs, and the user agreed.
+	// specified in the named bot mini app deep link¹ docs, and the user agreed.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/links#named-bot-web-app-links
+	//  1) https://core.telegram.org/api/links#named-bot-mini-app-links
 	WriteAllowed bool
 	// If the client has clicked on the link in a Telegram chat, pass the chat's peer
 	// information; otherwise pass the bot's peer information, instead.
 	Peer InputPeerClass
-	// The app obtained by invoking messages.getBotApp¹ as specified in the named bot web
+	// The app obtained by invoking messages.getBotApp¹ as specified in the named bot mini
 	// app deep link² docs.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getBotApp
-	//  2) https://core.telegram.org/api/links#named-bot-web-app-links
+	//  2) https://core.telegram.org/api/links#named-bot-mini-app-links
 	App InputBotAppClass
-	// If the startapp query string parameter is present in the named bot web app deep link¹
-	// pass it to start_param.
+	// If the startapp query string parameter is present in the named bot mini app deep
+	// link¹, pass it to start_param.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/links#named-bot-web-app-links
+	//  1) https://core.telegram.org/api/links#named-bot-mini-app-links
 	//
 	// Use SetStartParam and GetStartParam helpers.
 	StartParam string
@@ -403,14 +403,14 @@ func (r *MessagesRequestAppWebViewRequest) GetPlatform() (value string) {
 }
 
 // MessagesRequestAppWebView invokes method messages.requestAppWebView#8c5a3b3c returning error if any.
-// Open a bot web app¹ from a named bot web app deep link², sending over user
+// Open a bot mini app¹ from a named bot mini app deep link², sending over user
 // information after user confirmation.
 // After calling this method, until the user closes the webview, messages
 // prolongWebView¹ must be called every 60 seconds.
 //
 // Links:
 //  1. https://core.telegram.org/bots/webapps
-//  2. https://core.telegram.org/api/links#named-bot-web-app-links
+//  2. https://core.telegram.org/api/links#named-bot-mini-app-links
 //  3. https://core.telegram.org/method/messages.prolongWebView
 //
 // See https://core.telegram.org/method/messages.requestAppWebView for reference.

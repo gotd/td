@@ -54,7 +54,8 @@ type ContactsAddContactRequest struct {
 	FirstName string
 	// Last name
 	LastName string
-	// User's phone number
+	// User's phone number, may be omitted to simply add the user to the contact list,
+	// without a phone number.
 	Phone string
 }
 

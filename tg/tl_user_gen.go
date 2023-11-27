@@ -232,7 +232,10 @@ type User struct {
 	BotCanEdit bool
 	// CloseFriend field of User.
 	CloseFriend bool
-	// StoriesHidden field of User.
+	// Whether we have hidden »¹ all active stories of this user.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#hiding-stories-of-other-users
 	StoriesHidden bool
 	// StoriesUnavailable field of User.
 	StoriesUnavailable bool

@@ -36,9 +36,16 @@ var (
 //
 // See https://core.telegram.org/method/contacts.getBlocked for reference.
 type ContactsGetBlockedRequest struct {
-	// Flags field of ContactsGetBlockedRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// MyStoriesFrom field of ContactsGetBlockedRequest.
+	// Whether to fetch the story blocklist; if not set, will fetch the main blocklist. See
+	// here »¹ for differences between the two.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/block
 	MyStoriesFrom bool
 	// The number of list elements to be skipped
 	Offset int

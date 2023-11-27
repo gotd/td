@@ -32,7 +32,10 @@ var (
 )
 
 // ContactsGetLocatedRequest represents TL type `contacts.getLocated#d348bc44`.
-// Get contacts near you
+// Get users and geochats near you, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/nearby
 //
 // See https://core.telegram.org/method/contacts.getLocated for reference.
 type ContactsGetLocatedRequest struct {
@@ -281,7 +284,10 @@ func (g *ContactsGetLocatedRequest) GetGeoPointAsNotEmpty() (*InputGeoPoint, boo
 }
 
 // ContactsGetLocated invokes method contacts.getLocated#d348bc44 returning error if any.
-// Get contacts near you
+// Get users and geochats near you, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/nearby
 //
 // Possible errors:
 //

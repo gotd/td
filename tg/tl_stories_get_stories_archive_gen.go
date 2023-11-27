@@ -32,14 +32,24 @@ var (
 )
 
 // StoriesGetStoriesArchiveRequest represents TL type `stories.getStoriesArchive#b4352016`.
+// Fetch the story archive »¹ of a peer we control.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#pinned-or-archived-stories
 //
 // See https://core.telegram.org/method/stories.getStoriesArchive for reference.
 type StoriesGetStoriesArchiveRequest struct {
-	// Peer field of StoriesGetStoriesArchiveRequest.
+	// Peer whose archived stories should be fetched
 	Peer InputPeerClass
-	// OffsetID field of StoriesGetStoriesArchiveRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetID int
-	// Limit field of StoriesGetStoriesArchiveRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -220,6 +230,15 @@ func (g *StoriesGetStoriesArchiveRequest) GetLimit() (value int) {
 }
 
 // StoriesGetStoriesArchive invokes method stories.getStoriesArchive#b4352016 returning error if any.
+// Fetch the story archive »¹ of a peer we control.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#pinned-or-archived-stories
+//
+// Possible errors:
+//
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stories.getStoriesArchive for reference.
 func (c *Client) StoriesGetStoriesArchive(ctx context.Context, request *StoriesGetStoriesArchiveRequest) (*StoriesStories, error) {

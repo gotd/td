@@ -218,7 +218,7 @@ func (g *ChannelsGetForumTopicsByIDRequest) GetChannelAsNotEmpty() (NotEmptyInpu
 //
 //	400 CHANNEL_FORUM_MISSING: This supergroup is not a forum.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
-//	400 TOPICS_EMPTY:
+//	400 TOPICS_EMPTY: You specified no topic IDs.
 //
 // See https://core.telegram.org/method/channels.getForumTopicsByID for reference.
 // Can be used by bots.

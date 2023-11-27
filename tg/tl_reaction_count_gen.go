@@ -46,9 +46,9 @@ type ReactionCount struct {
 	//
 	// Use SetChosenOrder and GetChosenOrder helpers.
 	ChosenOrder int
-	// Reaction (a UTF8 emoji)
+	// The reaction.
 	Reaction ReactionClass
-	// NUmber of users that reacted with this emoji
+	// Number of users that reacted with this emoji.
 	Count int
 }
 

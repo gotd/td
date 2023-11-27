@@ -32,10 +32,10 @@ var (
 )
 
 // InlineBotWebView represents TL type `inlineBotWebView#b57295d5`.
-// Specifies a bot web app¹ button, shown on top of the inline query results list.
+// Specifies a bot mini app¹ button, shown on top of the inline query results list.
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#simple-web-apps
+//  1. https://core.telegram.org/api/bots/webapps#simple-mini-apps
 //
 // See https://core.telegram.org/constructor/inlineBotWebView for reference.
 type InlineBotWebView struct {

@@ -373,6 +373,7 @@ func (g *ChannelsGetForumTopicsRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 //
 //	400 CHANNEL_FORUM_MISSING: This supergroup is not a forum.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
+//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //
 // See https://core.telegram.org/method/channels.getForumTopics for reference.
 func (c *Client) ChannelsGetForumTopics(ctx context.Context, request *ChannelsGetForumTopicsRequest) (*MessagesForumTopics, error) {

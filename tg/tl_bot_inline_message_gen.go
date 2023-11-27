@@ -1092,7 +1092,8 @@ type BotInlineMessageMediaVenue struct {
 	Title string
 	// Address
 	Address string
-	// Venue provider: currently only "foursquare" needs to be supported
+	// Venue provider: currently only "foursquare" and "gplaces" (Google Places) need to be
+	// supported
 	Provider string
 	// Venue ID in the provider's database
 	VenueID string

@@ -32,12 +32,17 @@ var (
 )
 
 // StoriesReadStoriesRequest represents TL type `stories.readStories#a556dac8`.
+// Mark all stories up to a certain ID as read, for a given peer; will emit an
+// updateReadStories¹ update to all logged-in sessions.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/updateReadStories
 //
 // See https://core.telegram.org/method/stories.readStories for reference.
 type StoriesReadStoriesRequest struct {
-	// Peer field of StoriesReadStoriesRequest.
+	// The peer whose stories should be marked as read.
 	Peer InputPeerClass
-	// MaxID field of StoriesReadStoriesRequest.
+	// Mark all stories up to and including this ID as read
 	MaxID int
 }
 
@@ -193,6 +198,16 @@ func (r *StoriesReadStoriesRequest) GetMaxID() (value int) {
 }
 
 // StoriesReadStories invokes method stories.readStories#a556dac8 returning error if any.
+// Mark all stories up to a certain ID as read, for a given peer; will emit an
+// updateReadStories¹ update to all logged-in sessions.
+//
+// Links:
+//  1. https://core.telegram.org/constructor/updateReadStories
+//
+// Possible errors:
+//
+//	400 MAX_ID_INVALID: The provided max ID is invalid.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stories.readStories for reference.
 func (c *Client) StoriesReadStories(ctx context.Context, request *StoriesReadStoriesRequest) ([]int, error) {

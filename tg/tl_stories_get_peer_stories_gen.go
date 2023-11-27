@@ -32,10 +32,14 @@ var (
 )
 
 // StoriesGetPeerStoriesRequest represents TL type `stories.getPeerStories#2c4ada50`.
+// Fetch the full active story list¹ of a specific peer.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#watching-stories
 //
 // See https://core.telegram.org/method/stories.getPeerStories for reference.
 type StoriesGetPeerStoriesRequest struct {
-	// Peer field of StoriesGetPeerStoriesRequest.
+	// Peer whose stories should be fetched
 	Peer InputPeerClass
 }
 
@@ -166,6 +170,15 @@ func (g *StoriesGetPeerStoriesRequest) GetPeer() (value InputPeerClass) {
 }
 
 // StoriesGetPeerStories invokes method stories.getPeerStories#2c4ada50 returning error if any.
+// Fetch the full active story list¹ of a specific peer.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#watching-stories
+//
+// Possible errors:
+//
+//	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stories.getPeerStories for reference.
 func (c *Client) StoriesGetPeerStories(ctx context.Context, peer InputPeerClass) (*StoriesPeerStories, error) {

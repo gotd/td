@@ -38,7 +38,8 @@ var (
 type MessagesSendScreenshotNotificationRequest struct {
 	// Other user
 	Peer InputPeerClass
-	// ReplyTo field of MessagesSendScreenshotNotificationRequest.
+	// Indicates the message that was screenshotted (the specified message ID can also be 0
+	// to avoid indicating any specific message).
 	ReplyTo InputReplyToClass
 	// Random ID to avoid message resending
 	RandomID int64
@@ -232,6 +233,7 @@ func (s *MessagesSendScreenshotNotificationRequest) GetRandomID() (value int64) 
 //
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 STORY_ID_INVALID:
 //	400 YOU_BLOCKED_USER: You blocked this user.
 //
 // See https://core.telegram.org/method/messages.sendScreenshotNotification for reference.

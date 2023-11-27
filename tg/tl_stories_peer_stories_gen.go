@@ -32,14 +32,18 @@ var (
 )
 
 // StoriesPeerStories represents TL type `stories.peerStories#cae68768`.
+// Active story list¹ of a specific peer.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#watching-stories
 //
 // See https://core.telegram.org/constructor/stories.peerStories for reference.
 type StoriesPeerStories struct {
-	// Stories field of StoriesPeerStories.
+	// Stories
 	Stories PeerStories
-	// Chats field of StoriesPeerStories.
+	// Mentioned chats
 	Chats []ChatClass
-	// Users field of StoriesPeerStories.
+	// Mentioned users
 	Users []UserClass
 }
 

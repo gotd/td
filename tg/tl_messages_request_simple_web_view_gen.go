@@ -32,7 +32,7 @@ var (
 )
 
 // MessagesRequestSimpleWebViewRequest represents TL type `messages.requestSimpleWebView#1a46500a`.
-// Open a bot web app¹.
+// Open a bot mini app¹.
 //
 // Links:
 //  1. https://core.telegram.org/api/bots/webapps
@@ -52,7 +52,7 @@ type MessagesRequestSimpleWebViewRequest struct {
 	FromSwitchWebview bool
 	// FromSideMenu field of MessagesRequestSimpleWebViewRequest.
 	FromSideMenu bool
-	// Bot that owns the webapp
+	// Bot that owns the mini app
 	Bot InputUserClass
 	// Web app URL
 	//
@@ -439,7 +439,7 @@ func (r *MessagesRequestSimpleWebViewRequest) GetPlatform() (value string) {
 }
 
 // MessagesRequestSimpleWebView invokes method messages.requestSimpleWebView#1a46500a returning error if any.
-// Open a bot web app¹.
+// Open a bot mini app¹.
 //
 // Links:
 //  1. https://core.telegram.org/api/bots/webapps

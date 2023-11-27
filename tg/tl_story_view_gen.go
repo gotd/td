@@ -32,20 +32,27 @@ var (
 )
 
 // StoryView represents TL type `storyView#b0bdeac5`.
+// Story¹ view date and reaction information
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/storyView for reference.
 type StoryView struct {
-	// Flags field of StoryView.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Blocked field of StoryView.
 	Blocked bool
 	// BlockedMyStoriesFrom field of StoryView.
 	BlockedMyStoriesFrom bool
-	// UserID field of StoryView.
+	// The user that viewed the story
 	UserID int64
-	// Date field of StoryView.
+	// When did the user view the story
 	Date int
-	// Reaction field of StoryView.
+	// If present, contains the reaction that the user left on the story
 	//
 	// Use SetReaction and GetReaction helpers.
 	Reaction ReactionClass

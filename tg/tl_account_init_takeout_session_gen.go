@@ -427,7 +427,7 @@ func (i *AccountInitTakeoutSessionRequest) GetFileMaxSize() (value int64, ok boo
 //
 // Possible errors:
 //
-//	420 TAKEOUT_INIT_DELAY_%d: Wait %d seconds before initializing takeout.
+//	420 TAKEOUT_INIT_DELAY_%d: Sorry, for security reasons, you will be able to begin downloading your data in %d seconds. We have notified all your devices about the export request to make sure it's authorized and to give you time to react if it's not.
 //
 // See https://core.telegram.org/method/account.initTakeoutSession for reference.
 func (c *Client) AccountInitTakeoutSession(ctx context.Context, request *AccountInitTakeoutSessionRequest) (*AccountTakeout, error) {

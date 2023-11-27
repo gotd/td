@@ -209,9 +209,9 @@ func (u *AccountUpdatePasswordSettingsRequest) GetPasswordAsNotEmpty() (*InputCh
 //
 // Possible errors:
 //
-//	400 EMAIL_UNCONFIRMED_%d: The provided email isn't confirmed, %d is the length of the verification code that was just sent to the email: use account.verifyEmail to enter the received verification code and enable the recovery email.
 //	400 EMAIL_INVALID: The specified email is invalid.
 //	400 EMAIL_UNCONFIRMED: Email unconfirmed.
+//	400 EMAIL_UNCONFIRMED_%d: The provided email isn't confirmed, %d is the length of the verification code that was just sent to the email: use account.verifyEmail to enter the received verification code and enable the recovery email.
 //	400 NEW_SALT_INVALID: The new salt is invalid.
 //	400 NEW_SETTINGS_EMPTY: No password is set on the current account, and no new password was specified in new_settings.
 //	400 NEW_SETTINGS_INVALID: The new password settings are invalid.

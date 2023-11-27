@@ -67,23 +67,23 @@ type PeerNotifySettings struct {
 	//
 	// Use SetOtherSound and GetOtherSound helpers.
 	OtherSound NotificationSoundClass
-	// StoriesMuted field of PeerNotifySettings.
+	// Whether story notifications should be disabled.
 	//
 	// Use SetStoriesMuted and GetStoriesMuted helpers.
 	StoriesMuted bool
-	// StoriesHideSender field of PeerNotifySettings.
+	// Whether the sender name should be displayed in story notifications.
 	//
 	// Use SetStoriesHideSender and GetStoriesHideSender helpers.
 	StoriesHideSender bool
-	// StoriesIosSound field of PeerNotifySettings.
+	// Sound for story notifications on the official iOS application
 	//
 	// Use SetStoriesIosSound and GetStoriesIosSound helpers.
 	StoriesIosSound NotificationSoundClass
-	// StoriesAndroidSound field of PeerNotifySettings.
+	// Sound for story notifications on the official Android application
 	//
 	// Use SetStoriesAndroidSound and GetStoriesAndroidSound helpers.
 	StoriesAndroidSound NotificationSoundClass
-	// StoriesOtherSound field of PeerNotifySettings.
+	// Sound for story notifications on other applications
 	//
 	// Use SetStoriesOtherSound and GetStoriesOtherSound helpers.
 	StoriesOtherSound NotificationSoundClass

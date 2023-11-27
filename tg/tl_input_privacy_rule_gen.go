@@ -1052,6 +1052,10 @@ func (i *InputPrivacyValueDisallowChatParticipants) GetChats() (value []int64) {
 }
 
 // InputPrivacyValueAllowCloseFriends represents TL type `inputPrivacyValueAllowCloseFriends#2f453e49`.
+// Allow only close friends »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/privacy
 //
 // See https://core.telegram.org/constructor/inputPrivacyValueAllowCloseFriends for reference.
 type InputPrivacyValueAllowCloseFriends struct {

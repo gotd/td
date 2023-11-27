@@ -32,18 +32,25 @@ var (
 )
 
 // PeerStories represents TL type `peerStories#9a35e999`.
+// Stories¹ associated to a peer
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/peerStories for reference.
 type PeerStories struct {
-	// Flags field of PeerStories.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of PeerStories.
+	// The peer
 	Peer PeerClass
-	// MaxReadID field of PeerStories.
+	// If set, contains the ID of the maximum read story
 	//
 	// Use SetMaxReadID and GetMaxReadID helpers.
 	MaxReadID int
-	// Stories field of PeerStories.
+	// Stories
 	Stories []StoryItemClass
 }
 

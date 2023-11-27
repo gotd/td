@@ -32,16 +32,40 @@ var (
 )
 
 // StoriesGetAllStoriesRequest represents TL type `stories.getAllStories#eeb0d625`.
+// Fetch the List of active (or active and hidden) stories, see here »¹ for more info
+// on watching stories.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#watching-stories
 //
 // See https://core.telegram.org/method/stories.getAllStories for reference.
 type StoriesGetAllStoriesRequest struct {
-	// Flags field of StoriesGetAllStoriesRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Next field of StoriesGetAllStoriesRequest.
+	// If next and state are both set, uses the passed state to paginate to the next results;
+	// if neither state nor next are set, fetches the initial page; if state is set and next
+	// is not set, check for changes in the active/hidden peerset, see here »¹ for more
+	// info on the full flow.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#watching-stories
 	Next bool
-	// Hidden field of StoriesGetAllStoriesRequest.
+	// If set, fetches the hidden active story list, otherwise fetches the active story list,
+	// see here »¹ for more info on the full flow.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#watching-stories
 	Hidden bool
-	// State field of StoriesGetAllStoriesRequest.
+	// If next and state are both set, uses the passed state to paginate to the next results;
+	// if neither state nor next are set, fetches the initial page; if state is set and next
+	// is not set, check for changes in the active/hidden peerset, see here »¹ for more
+	// info on the full flow.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#watching-stories
 	//
 	// Use SetState and GetState helpers.
 	State string
@@ -270,6 +294,11 @@ func (g *StoriesGetAllStoriesRequest) GetState() (value string, ok bool) {
 }
 
 // StoriesGetAllStories invokes method stories.getAllStories#eeb0d625 returning error if any.
+// Fetch the List of active (or active and hidden) stories, see here »¹ for more info
+// on watching stories.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#watching-stories
 //
 // See https://core.telegram.org/method/stories.getAllStories for reference.
 func (c *Client) StoriesGetAllStories(ctx context.Context, request *StoriesGetAllStoriesRequest) (StoriesAllStoriesClass, error) {

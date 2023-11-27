@@ -178,7 +178,8 @@ func (g *ChatlistsGetChatlistUpdatesRequest) GetChatlist() (value InputChatlistD
 //
 // Possible errors:
 //
-//	400 INPUT_CHATLIST_INVALID:
+//	400 FILTER_ID_INVALID: The specified filter ID is invalid.
+//	400 INPUT_CHATLIST_INVALID: The specified folder is invalid.
 //
 // See https://core.telegram.org/method/chatlists.getChatlistUpdates for reference.
 // Can be used by bots.

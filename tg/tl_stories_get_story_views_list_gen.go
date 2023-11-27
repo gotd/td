@@ -32,26 +32,42 @@ var (
 )
 
 // StoriesGetStoryViewsListRequest represents TL type `stories.getStoryViewsList#7ed23c57`.
+// Obtain the list of users that have viewed a specific story we posted¹
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/method/stories.getStoryViewsList for reference.
 type StoriesGetStoryViewsListRequest struct {
-	// Flags field of StoriesGetStoryViewsListRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// JustContacts field of StoriesGetStoryViewsListRequest.
+	// Whether to only fetch view reaction/views made by our contacts¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/contacts
 	JustContacts bool
 	// ReactionsFirst field of StoriesGetStoryViewsListRequest.
 	ReactionsFirst bool
-	// Peer field of StoriesGetStoryViewsListRequest.
+	// Peer where the story was posted
 	Peer InputPeerClass
-	// Q field of StoriesGetStoryViewsListRequest.
+	// Search for specific peers
 	//
 	// Use SetQ and GetQ helpers.
 	Q string
-	// ID field of StoriesGetStoryViewsListRequest.
+	// Story ID
 	ID int
-	// Offset field of StoriesGetStoryViewsListRequest.
+	// Offset for pagination, obtained from stories.storyViewsList¹.next_offset
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/stories.storyViewsList
 	Offset string
-	// Limit field of StoriesGetStoryViewsListRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -383,6 +399,14 @@ func (g *StoriesGetStoryViewsListRequest) GetLimit() (value int) {
 }
 
 // StoriesGetStoryViewsList invokes method stories.getStoryViewsList#7ed23c57 returning error if any.
+// Obtain the list of users that have viewed a specific story we posted¹
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stories.getStoryViewsList for reference.
 func (c *Client) StoriesGetStoryViewsList(ctx context.Context, request *StoriesGetStoryViewsListRequest) (*StoriesStoryViewsList, error) {

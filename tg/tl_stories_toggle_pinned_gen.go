@@ -32,14 +32,15 @@ var (
 )
 
 // StoriesTogglePinnedRequest represents TL type `stories.togglePinned#9a75a1ef`.
+// Pin or unpin one or more stories
 //
 // See https://core.telegram.org/method/stories.togglePinned for reference.
 type StoriesTogglePinnedRequest struct {
-	// Peer field of StoriesTogglePinnedRequest.
+	// Peer where to pin or unpin stories
 	Peer InputPeerClass
-	// ID field of StoriesTogglePinnedRequest.
+	// IDs of stories to pin or unpin
 	ID []int
-	// Pinned field of StoriesTogglePinnedRequest.
+	// Whether to pin or unpin the stories
 	Pinned bool
 }
 
@@ -233,6 +234,11 @@ func (t *StoriesTogglePinnedRequest) GetPinned() (value bool) {
 }
 
 // StoriesTogglePinned invokes method stories.togglePinned#9a75a1ef returning error if any.
+// Pin or unpin one or more stories
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stories.togglePinned for reference.
 func (c *Client) StoriesTogglePinned(ctx context.Context, request *StoriesTogglePinnedRequest) ([]int, error) {

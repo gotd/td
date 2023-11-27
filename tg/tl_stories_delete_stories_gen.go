@@ -32,12 +32,16 @@ var (
 )
 
 // StoriesDeleteStoriesRequest represents TL type `stories.deleteStories#ae59db5f`.
+// Deletes some posted stories¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/method/stories.deleteStories for reference.
 type StoriesDeleteStoriesRequest struct {
-	// Peer field of StoriesDeleteStoriesRequest.
+	// Channel/user from where to delete stories.
 	Peer InputPeerClass
-	// ID field of StoriesDeleteStoriesRequest.
+	// IDs of stories to delete.
 	ID []int
 }
 
@@ -206,6 +210,14 @@ func (d *StoriesDeleteStoriesRequest) GetID() (value []int) {
 }
 
 // StoriesDeleteStories invokes method stories.deleteStories#ae59db5f returning error if any.
+// Deletes some posted stories¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stories.deleteStories for reference.
 func (c *Client) StoriesDeleteStories(ctx context.Context, request *StoriesDeleteStoriesRequest) ([]int, error) {

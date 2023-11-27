@@ -32,10 +32,11 @@ var (
 )
 
 // BotsAllowSendMessageRequest represents TL type `bots.allowSendMessage#f132e3ef`.
+// Allow the specified bot to send us messages
 //
 // See https://core.telegram.org/method/bots.allowSendMessage for reference.
 type BotsAllowSendMessageRequest struct {
-	// Bot field of BotsAllowSendMessageRequest.
+	// The bot
 	Bot InputUserClass
 }
 
@@ -166,6 +167,11 @@ func (a *BotsAllowSendMessageRequest) GetBot() (value InputUserClass) {
 }
 
 // BotsAllowSendMessage invokes method bots.allowSendMessage#f132e3ef returning error if any.
+// Allow the specified bot to send us messages
+//
+// Possible errors:
+//
+//	400 BOT_INVALID: This is not a valid bot.
 //
 // See https://core.telegram.org/method/bots.allowSendMessage for reference.
 func (c *Client) BotsAllowSendMessage(ctx context.Context, bot InputUserClass) (UpdatesClass, error) {

@@ -32,7 +32,7 @@ var (
 )
 
 // AttachMenuBotIconColor represents TL type `attachMenuBotIconColor#4576f3f0`.
-// Represents an attachment menu icon color for bot web apps »¹
+// Represents an attachment menu icon color for bot mini apps »¹
 //
 // Links:
 //  1. https://core.telegram.org/api/bots/attach

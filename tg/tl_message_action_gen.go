@@ -3192,7 +3192,7 @@ type MessageActionBotAllowed struct {
 	//
 	// Use SetDomain and GetDomain helpers.
 	Domain string
-	// We have authorized the bot to send us messages by opening the specified bot web app¹.
+	// We have authorized the bot to send us messages by opening the specified bot mini app¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/bots/webapps
@@ -5113,7 +5113,7 @@ func (m *MessageActionChatJoinedByRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // MessageActionWebViewDataSentMe represents TL type `messageActionWebViewDataSentMe#47dd8079`.
-// Data from an opened reply keyboard bot web app¹ was relayed to the bot that owns it
+// Data from an opened reply keyboard bot mini app¹ was relayed to the bot that owns it
 // (bot side service message).
 //
 // Links:
@@ -5282,7 +5282,7 @@ func (m *MessageActionWebViewDataSentMe) GetData() (value string) {
 }
 
 // MessageActionWebViewDataSent represents TL type `messageActionWebViewDataSent#b4c38cb5`.
-// Data from an opened reply keyboard bot web app¹ was relayed to the bot that owns it
+// Data from an opened reply keyboard bot mini app¹ was relayed to the bot that owns it
 // (user side service message).
 // Clients should display a service message with the text Data from the «$text» button
 // was transferred to the bot.

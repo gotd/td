@@ -32,22 +32,27 @@ var (
 )
 
 // MediaAreaVenue represents TL type `mediaAreaVenue#be82db9c`.
+// Represents a location tag attached to a story¹, with additional venue information.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/mediaAreaVenue for reference.
 type MediaAreaVenue struct {
-	// Coordinates field of MediaAreaVenue.
+	// The size and location of the media area corresponding to the location sticker on top
+	// of the story media.
 	Coordinates MediaAreaCoordinates
-	// Geo field of MediaAreaVenue.
+	// Coordinates of the venue
 	Geo GeoPointClass
-	// Title field of MediaAreaVenue.
+	// Venue name
 	Title string
-	// Address field of MediaAreaVenue.
+	// Address
 	Address string
-	// Provider field of MediaAreaVenue.
+	// Venue provider: currently only "foursquare" needs to be supported.
 	Provider string
-	// VenueID field of MediaAreaVenue.
+	// Venue ID in the provider's database
 	VenueID string
-	// VenueType field of MediaAreaVenue.
+	// Venue type in the provider's database
 	VenueType string
 }
 
@@ -333,14 +338,27 @@ func (m *MediaAreaVenue) GetVenueType() (value string) {
 }
 
 // InputMediaAreaVenue represents TL type `inputMediaAreaVenue#b282217f`.
+// Represents a location tag¹ attached to a story², with additional venue information.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories#media-areas
+//  2. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/inputMediaAreaVenue for reference.
 type InputMediaAreaVenue struct {
-	// Coordinates field of InputMediaAreaVenue.
+	// The size and location of the media area corresponding to the location sticker on top
+	// of the story media.
 	Coordinates MediaAreaCoordinates
-	// QueryID field of InputMediaAreaVenue.
+	// The query_id from messages.botResults¹, see here »² for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messages.botResults
+	//  2) https://core.telegram.org/api/stories#media-areas
 	QueryID int64
-	// ResultID field of InputMediaAreaVenue.
+	// The id of the chosen result, see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#media-areas
 	ResultID string
 }
 
@@ -521,12 +539,17 @@ func (i *InputMediaAreaVenue) GetResultID() (value string) {
 }
 
 // MediaAreaGeoPoint represents TL type `mediaAreaGeoPoint#df8b3b22`.
+// Represents a geolocation tag attached to a story¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/mediaAreaGeoPoint for reference.
 type MediaAreaGeoPoint struct {
-	// Coordinates field of MediaAreaGeoPoint.
+	// The size and position of the media area corresponding to the location sticker on top
+	// of the story media.
 	Coordinates MediaAreaCoordinates
-	// Geo field of MediaAreaGeoPoint.
+	// Coordinates of the geolocation tag.
 	Geo GeoPointClass
 }
 
@@ -687,18 +710,25 @@ func (m *MediaAreaGeoPoint) GetGeo() (value GeoPointClass) {
 }
 
 // MediaAreaSuggestedReaction represents TL type `mediaAreaSuggestedReaction#14455871`.
+// Represents a reaction bubble.
 //
 // See https://core.telegram.org/constructor/mediaAreaSuggestedReaction for reference.
 type MediaAreaSuggestedReaction struct {
-	// Flags field of MediaAreaSuggestedReaction.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Dark field of MediaAreaSuggestedReaction.
+	// Whether the reaction bubble has a dark background.
 	Dark bool
-	// Flipped field of MediaAreaSuggestedReaction.
+	// Whether the reaction bubble is mirrored (see here »¹ for more info).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#reactions
 	Flipped bool
-	// Coordinates field of MediaAreaSuggestedReaction.
+	// The coordinates of the media area corresponding to the reaction button.
 	Coordinates MediaAreaCoordinates
-	// Reaction field of MediaAreaSuggestedReaction.
+	// The reaction that should be sent when this area is clicked.
 	Reaction ReactionClass
 }
 
@@ -978,7 +1008,8 @@ type MediaAreaClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Coordinates field of MediaAreaVenue.
+	// The size and location of the media area corresponding to the location sticker on top
+	// of the story media.
 	GetCoordinates() (value MediaAreaCoordinates)
 }
 

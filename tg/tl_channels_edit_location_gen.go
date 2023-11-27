@@ -32,7 +32,10 @@ var (
 )
 
 // ChannelsEditLocationRequest represents TL type `channels.editLocation#58e63f6d`.
-// Edit location of geogroup
+// Edit location of geogroup, see here »¹ for more info on geogroups.
+//
+// Links:
+//  1. https://core.telegram.org/api/nearby
 //
 // See https://core.telegram.org/method/channels.editLocation for reference.
 type ChannelsEditLocationRequest struct {
@@ -239,12 +242,16 @@ func (e *ChannelsEditLocationRequest) GetGeoPointAsNotEmpty() (*InputGeoPoint, b
 }
 
 // ChannelsEditLocation invokes method channels.editLocation#58e63f6d returning error if any.
-// Edit location of geogroup
+// Edit location of geogroup, see here »¹ for more info on geogroups.
+//
+// Links:
+//  1. https://core.telegram.org/api/nearby
 //
 // Possible errors:
 //
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
+//	400 MEGAGROUP_GEO_REQUIRED:
 //	400 MEGAGROUP_REQUIRED: You can only use this method on a supergroup.
 //
 // See https://core.telegram.org/method/channels.editLocation for reference.

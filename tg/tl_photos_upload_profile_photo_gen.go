@@ -470,6 +470,7 @@ func (u *PhotosUploadProfilePhotoRequest) GetVideoEmojiMarkup() (value VideoSize
 // Possible errors:
 //
 //	400 ALBUM_PHOTOS_TOO_MANY: You have uploaded too many profile photos, delete some before retrying.
+//	400 BOT_INVALID: This is not a valid bot.
 //	400 EMOJI_MARKUP_INVALID: The specified video_emoji_markup was invalid.
 //	400 FILE_PARTS_INVALID: The number of file parts is invalid.
 //	400 IMAGE_PROCESS_FAILED: Failure while processing image.

@@ -580,7 +580,8 @@ type DocumentAttributeVideo struct {
 	RoundMessage bool
 	// Whether the video supports streaming
 	SupportsStreaming bool
-	// Nosound field of DocumentAttributeVideo.
+	// Whether the specified document is a video file with no audio tracks (a GIF animation
+	// (even as MPEG4), for example)
 	Nosound bool
 	// Duration in seconds
 	Duration float64
@@ -588,7 +589,10 @@ type DocumentAttributeVideo struct {
 	W int
 	// Video height
 	H int
-	// PreloadPrefixSize field of DocumentAttributeVideo.
+	// Number of bytes to preload when preloading videos (particularly video stories¹).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories
 	//
 	// Use SetPreloadPrefixSize and GetPreloadPrefixSize helpers.
 	PreloadPrefixSize int

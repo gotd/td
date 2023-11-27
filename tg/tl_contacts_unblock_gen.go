@@ -32,15 +32,25 @@ var (
 )
 
 // ContactsUnblockRequest represents TL type `contacts.unblock#b550d328`.
-// Deletes the user from the blacklist.
+// Deletes a peer from a blocklist, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/block
 //
 // See https://core.telegram.org/method/contacts.unblock for reference.
 type ContactsUnblockRequest struct {
-	// Flags field of ContactsUnblockRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// MyStoriesFrom field of ContactsUnblockRequest.
+	// Whether the peer should be removed from the story blocklist; if not set, the peer will
+	// be removed from the main blocklist, see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/block
 	MyStoriesFrom bool
-	// User ID
+	// Peer
 	ID InputPeerClass
 }
 
@@ -220,7 +230,10 @@ func (u *ContactsUnblockRequest) GetID() (value InputPeerClass) {
 }
 
 // ContactsUnblock invokes method contacts.unblock#b550d328 returning error if any.
-// Deletes the user from the blacklist.
+// Deletes a peer from a blocklist, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/block
 //
 // Possible errors:
 //

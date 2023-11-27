@@ -72,7 +72,7 @@ type SponsoredMessage struct {
 	//
 	// Use SetStartParam and GetStartParam helpers.
 	StartParam string
-	// Webpage field of SponsoredMessage.
+	// Sponsored website
 	//
 	// Use SetWebpage and GetWebpage helpers.
 	Webpage SponsoredWebPage
