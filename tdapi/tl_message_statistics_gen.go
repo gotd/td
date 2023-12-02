@@ -31,14 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessageStatistics represents TL type `messageStatistics#c3b781b0`.
+// MessageStatistics represents TL type `messageStatistics#a2ce4f07`.
 type MessageStatistics struct {
 	// A graph containing number of message views and shares
 	MessageInteractionGraph StatisticalGraphClass
+	// A graph containing number of message reactions
+	MessageReactionGraph StatisticalGraphClass
 }
 
 // MessageStatisticsTypeID is TL type id of MessageStatistics.
-const MessageStatisticsTypeID = 0xc3b781b0
+const MessageStatisticsTypeID = 0xa2ce4f07
 
 // Ensuring interfaces in compile-time for MessageStatistics.
 var (
@@ -53,6 +55,9 @@ func (m *MessageStatistics) Zero() bool {
 		return true
 	}
 	if !(m.MessageInteractionGraph == nil) {
+		return false
+	}
+	if !(m.MessageReactionGraph == nil) {
 		return false
 	}
 
@@ -95,6 +100,10 @@ func (m *MessageStatistics) TypeInfo() tdp.Type {
 			Name:       "MessageInteractionGraph",
 			SchemaName: "message_interaction_graph",
 		},
+		{
+			Name:       "MessageReactionGraph",
+			SchemaName: "message_reaction_graph",
+		},
 	}
 	return typ
 }
@@ -102,7 +111,7 @@ func (m *MessageStatistics) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageStatistics) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageStatistics#c3b781b0 as nil")
+		return fmt.Errorf("can't encode messageStatistics#a2ce4f07 as nil")
 	}
 	b.PutID(MessageStatisticsTypeID)
 	return m.EncodeBare(b)
@@ -111,13 +120,19 @@ func (m *MessageStatistics) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageStatistics) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageStatistics#c3b781b0 as nil")
+		return fmt.Errorf("can't encode messageStatistics#a2ce4f07 as nil")
 	}
 	if m.MessageInteractionGraph == nil {
-		return fmt.Errorf("unable to encode messageStatistics#c3b781b0: field message_interaction_graph is nil")
+		return fmt.Errorf("unable to encode messageStatistics#a2ce4f07: field message_interaction_graph is nil")
 	}
 	if err := m.MessageInteractionGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageStatistics#c3b781b0: field message_interaction_graph: %w", err)
+		return fmt.Errorf("unable to encode messageStatistics#a2ce4f07: field message_interaction_graph: %w", err)
+	}
+	if m.MessageReactionGraph == nil {
+		return fmt.Errorf("unable to encode messageStatistics#a2ce4f07: field message_reaction_graph is nil")
+	}
+	if err := m.MessageReactionGraph.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageStatistics#a2ce4f07: field message_reaction_graph: %w", err)
 	}
 	return nil
 }
@@ -125,10 +140,10 @@ func (m *MessageStatistics) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *MessageStatistics) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageStatistics#c3b781b0 to nil")
+		return fmt.Errorf("can't decode messageStatistics#a2ce4f07 to nil")
 	}
 	if err := b.ConsumeID(MessageStatisticsTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageStatistics#c3b781b0: %w", err)
+		return fmt.Errorf("unable to decode messageStatistics#a2ce4f07: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -136,14 +151,21 @@ func (m *MessageStatistics) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageStatistics) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageStatistics#c3b781b0 to nil")
+		return fmt.Errorf("can't decode messageStatistics#a2ce4f07 to nil")
 	}
 	{
 		value, err := DecodeStatisticalGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageStatistics#c3b781b0: field message_interaction_graph: %w", err)
+			return fmt.Errorf("unable to decode messageStatistics#a2ce4f07: field message_interaction_graph: %w", err)
 		}
 		m.MessageInteractionGraph = value
+	}
+	{
+		value, err := DecodeStatisticalGraph(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageStatistics#a2ce4f07: field message_reaction_graph: %w", err)
+		}
+		m.MessageReactionGraph = value
 	}
 	return nil
 }
@@ -151,17 +173,25 @@ func (m *MessageStatistics) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageStatistics) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageStatistics#c3b781b0 as nil")
+		return fmt.Errorf("can't encode messageStatistics#a2ce4f07 as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageStatistics")
 	b.Comma()
 	b.FieldStart("message_interaction_graph")
 	if m.MessageInteractionGraph == nil {
-		return fmt.Errorf("unable to encode messageStatistics#c3b781b0: field message_interaction_graph is nil")
+		return fmt.Errorf("unable to encode messageStatistics#a2ce4f07: field message_interaction_graph is nil")
 	}
 	if err := m.MessageInteractionGraph.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageStatistics#c3b781b0: field message_interaction_graph: %w", err)
+		return fmt.Errorf("unable to encode messageStatistics#a2ce4f07: field message_interaction_graph: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("message_reaction_graph")
+	if m.MessageReactionGraph == nil {
+		return fmt.Errorf("unable to encode messageStatistics#a2ce4f07: field message_reaction_graph is nil")
+	}
+	if err := m.MessageReactionGraph.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageStatistics#a2ce4f07: field message_reaction_graph: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -172,21 +202,27 @@ func (m *MessageStatistics) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageStatistics) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageStatistics#c3b781b0 to nil")
+		return fmt.Errorf("can't decode messageStatistics#a2ce4f07 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageStatistics"); err != nil {
-				return fmt.Errorf("unable to decode messageStatistics#c3b781b0: %w", err)
+				return fmt.Errorf("unable to decode messageStatistics#a2ce4f07: %w", err)
 			}
 		case "message_interaction_graph":
 			value, err := DecodeTDLibJSONStatisticalGraph(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messageStatistics#c3b781b0: field message_interaction_graph: %w", err)
+				return fmt.Errorf("unable to decode messageStatistics#a2ce4f07: field message_interaction_graph: %w", err)
 			}
 			m.MessageInteractionGraph = value
+		case "message_reaction_graph":
+			value, err := DecodeTDLibJSONStatisticalGraph(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode messageStatistics#a2ce4f07: field message_reaction_graph: %w", err)
+			}
+			m.MessageReactionGraph = value
 		default:
 			return b.Skip()
 		}
@@ -200,4 +236,12 @@ func (m *MessageStatistics) GetMessageInteractionGraph() (value StatisticalGraph
 		return
 	}
 	return m.MessageInteractionGraph
+}
+
+// GetMessageReactionGraph returns value of MessageReactionGraph field.
+func (m *MessageStatistics) GetMessageReactionGraph() (value StatisticalGraphClass) {
+	if m == nil {
+		return
+	}
+	return m.MessageReactionGraph
 }

@@ -39,7 +39,7 @@ type InlineQueryResults struct {
 	Button InlineQueryResultsButton
 	// Results of the query
 	Results []InlineQueryResultClass
-	// The offset for the next request. If empty, there are no more results
+	// The offset for the next request. If empty, then there are no more results
 	NextOffset string
 }
 

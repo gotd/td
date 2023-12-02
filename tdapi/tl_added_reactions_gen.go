@@ -37,7 +37,7 @@ type AddedReactions struct {
 	TotalCount int32
 	// The list of added reactions
 	Reactions []AddedReaction
-	// The offset for the next request. If empty, there are no more results
+	// The offset for the next request. If empty, then there are no more results
 	NextOffset string
 }
 

@@ -2258,6 +2258,137 @@ func (p *PremiumLimitTypeStorySuggestedReactionAreaCount) DecodeTDLibJSON(b tdjs
 	})
 }
 
+// PremiumLimitTypeSimilarChatCount represents TL type `premiumLimitTypeSimilarChatCount#a2ce1f11`.
+type PremiumLimitTypeSimilarChatCount struct {
+}
+
+// PremiumLimitTypeSimilarChatCountTypeID is TL type id of PremiumLimitTypeSimilarChatCount.
+const PremiumLimitTypeSimilarChatCountTypeID = 0xa2ce1f11
+
+// construct implements constructor of PremiumLimitTypeClass.
+func (p PremiumLimitTypeSimilarChatCount) construct() PremiumLimitTypeClass { return &p }
+
+// Ensuring interfaces in compile-time for PremiumLimitTypeSimilarChatCount.
+var (
+	_ bin.Encoder     = &PremiumLimitTypeSimilarChatCount{}
+	_ bin.Decoder     = &PremiumLimitTypeSimilarChatCount{}
+	_ bin.BareEncoder = &PremiumLimitTypeSimilarChatCount{}
+	_ bin.BareDecoder = &PremiumLimitTypeSimilarChatCount{}
+
+	_ PremiumLimitTypeClass = &PremiumLimitTypeSimilarChatCount{}
+)
+
+func (p *PremiumLimitTypeSimilarChatCount) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PremiumLimitTypeSimilarChatCount) String() string {
+	if p == nil {
+		return "PremiumLimitTypeSimilarChatCount(nil)"
+	}
+	type Alias PremiumLimitTypeSimilarChatCount
+	return fmt.Sprintf("PremiumLimitTypeSimilarChatCount%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PremiumLimitTypeSimilarChatCount) TypeID() uint32 {
+	return PremiumLimitTypeSimilarChatCountTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PremiumLimitTypeSimilarChatCount) TypeName() string {
+	return "premiumLimitTypeSimilarChatCount"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PremiumLimitTypeSimilarChatCount) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "premiumLimitTypeSimilarChatCount",
+		ID:   PremiumLimitTypeSimilarChatCountTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PremiumLimitTypeSimilarChatCount) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeSimilarChatCount#a2ce1f11 as nil")
+	}
+	b.PutID(PremiumLimitTypeSimilarChatCountTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PremiumLimitTypeSimilarChatCount) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeSimilarChatCount#a2ce1f11 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PremiumLimitTypeSimilarChatCount) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeSimilarChatCount#a2ce1f11 to nil")
+	}
+	if err := b.ConsumeID(PremiumLimitTypeSimilarChatCountTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumLimitTypeSimilarChatCount#a2ce1f11: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PremiumLimitTypeSimilarChatCount) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeSimilarChatCount#a2ce1f11 to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PremiumLimitTypeSimilarChatCount) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumLimitTypeSimilarChatCount#a2ce1f11 as nil")
+	}
+	b.ObjStart()
+	b.PutID("premiumLimitTypeSimilarChatCount")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PremiumLimitTypeSimilarChatCount) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumLimitTypeSimilarChatCount#a2ce1f11 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("premiumLimitTypeSimilarChatCount"); err != nil {
+				return fmt.Errorf("unable to decode premiumLimitTypeSimilarChatCount#a2ce1f11: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // PremiumLimitTypeClassName is schema name of PremiumLimitTypeClass.
 const PremiumLimitTypeClassName = "PremiumLimitType"
 
@@ -2287,6 +2418,7 @@ const PremiumLimitTypeClassName = "PremiumLimitType"
 //	case *tdapi.PremiumLimitTypeMonthlySentStoryCount: // premiumLimitTypeMonthlySentStoryCount#30d84b83
 //	case *tdapi.PremiumLimitTypeStoryCaptionLength: // premiumLimitTypeStoryCaptionLength#bed53302
 //	case *tdapi.PremiumLimitTypeStorySuggestedReactionAreaCount: // premiumLimitTypeStorySuggestedReactionAreaCount#ba42b807
+//	case *tdapi.PremiumLimitTypeSimilarChatCount: // premiumLimitTypeSimilarChatCount#a2ce1f11
 //	default: panic(v)
 //	}
 type PremiumLimitTypeClass interface {
@@ -2437,6 +2569,13 @@ func DecodePremiumLimitType(buf *bin.Buffer) (PremiumLimitTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
 		}
 		return &v, nil
+	case PremiumLimitTypeSimilarChatCountTypeID:
+		// Decoding premiumLimitTypeSimilarChatCount#a2ce1f11.
+		v := PremiumLimitTypeSimilarChatCount{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -2564,6 +2703,13 @@ func DecodeTDLibJSONPremiumLimitType(buf tdjson.Decoder) (PremiumLimitTypeClass,
 	case "premiumLimitTypeStorySuggestedReactionAreaCount":
 		// Decoding premiumLimitTypeStorySuggestedReactionAreaCount#ba42b807.
 		v := PremiumLimitTypeStorySuggestedReactionAreaCount{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
+		}
+		return &v, nil
+	case "premiumLimitTypeSimilarChatCount":
+		// Decoding premiumLimitTypeSimilarChatCount#a2ce1f11.
+		v := PremiumLimitTypeSimilarChatCount{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumLimitTypeClass: %w", err)
 		}

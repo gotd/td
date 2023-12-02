@@ -44,7 +44,7 @@ type Supergroup struct {
 	// empty
 	Status ChatMemberStatusClass
 	// Number of members in the supergroup or channel; 0 if unknown. Currently, it is
-	// guaranteed to be known only if the supergroup or channel was received
+	// guaranteed to be known only if the supergroup or channel was received through
 	MemberCount int32
 	// True, if the channel has a discussion group, or the supergroup is the designated
 	// discussion group for a channel
@@ -69,7 +69,7 @@ type Supergroup struct {
 	// True, if the supergroup is a broadcast group, i.e. only administrators can send
 	// messages and there is no limit on the number of members
 	IsBroadcastGroup bool
-	// True, if the supergroup must be shown as a forum by default
+	// True, if the supergroup is a forum with topics
 	IsForum bool
 	// True, if the supergroup or channel is verified
 	IsVerified bool

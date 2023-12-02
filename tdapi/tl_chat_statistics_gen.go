@@ -871,16 +871,24 @@ func (c *ChatStatisticsSupergroup) GetTopInviters() (value []ChatStatisticsInvit
 	return c.TopInviters
 }
 
-// ChatStatisticsChannel represents TL type `chatStatisticsChannel#9be23786`.
+// ChatStatisticsChannel represents TL type `chatStatisticsChannel#b8e95b4`.
 type ChatStatisticsChannel struct {
 	// A period to which the statistics applies
 	Period DateRange
 	// Number of members in the chat
 	MemberCount StatisticalValue
-	// Mean number of times the recently sent messages was viewed
-	MeanViewCount StatisticalValue
-	// Mean number of times the recently sent messages was shared
-	MeanShareCount StatisticalValue
+	// Mean number of times the recently sent messages were viewed
+	MeanMessageViewCount StatisticalValue
+	// Mean number of times the recently sent messages were shared
+	MeanMessageShareCount StatisticalValue
+	// Mean number of times reactions were added to the recently sent messages
+	MeanMessageReactionCount StatisticalValue
+	// Mean number of times the recently sent stories were viewed
+	MeanStoryViewCount StatisticalValue
+	// Mean number of times the recently sent stories were shared
+	MeanStoryShareCount StatisticalValue
+	// Mean number of times reactions were added to the recently sent stories
+	MeanStoryReactionCount StatisticalValue
 	// A percentage of users with enabled notifications for the chat; 0-100
 	EnabledNotificationsPercentage float64
 	// A graph containing number of members in the chat
@@ -899,14 +907,21 @@ type ChatStatisticsChannel struct {
 	LanguageGraph StatisticalGraphClass
 	// A graph containing number of chat message views and shares
 	MessageInteractionGraph StatisticalGraphClass
+	// A graph containing number of reactions on messages
+	MessageReactionGraph StatisticalGraphClass
+	// A graph containing number of story views and shares
+	StoryInteractionGraph StatisticalGraphClass
+	// A graph containing number of reactions on stories
+	StoryReactionGraph StatisticalGraphClass
 	// A graph containing number of views of associated with the chat instant views
 	InstantViewInteractionGraph StatisticalGraphClass
-	// Detailed statistics about number of views and shares of recently sent messages
-	RecentMessageInteractions []ChatStatisticsMessageInteractionInfo
+	// Detailed statistics about number of views and shares of recently sent messages and
+	// stories
+	RecentInteractions []ChatStatisticsInteractionInfo
 }
 
 // ChatStatisticsChannelTypeID is TL type id of ChatStatisticsChannel.
-const ChatStatisticsChannelTypeID = 0x9be23786
+const ChatStatisticsChannelTypeID = 0xb8e95b4
 
 // construct implements constructor of ChatStatisticsClass.
 func (c ChatStatisticsChannel) construct() ChatStatisticsClass { return &c }
@@ -931,10 +946,22 @@ func (c *ChatStatisticsChannel) Zero() bool {
 	if !(c.MemberCount.Zero()) {
 		return false
 	}
-	if !(c.MeanViewCount.Zero()) {
+	if !(c.MeanMessageViewCount.Zero()) {
 		return false
 	}
-	if !(c.MeanShareCount.Zero()) {
+	if !(c.MeanMessageShareCount.Zero()) {
+		return false
+	}
+	if !(c.MeanMessageReactionCount.Zero()) {
+		return false
+	}
+	if !(c.MeanStoryViewCount.Zero()) {
+		return false
+	}
+	if !(c.MeanStoryShareCount.Zero()) {
+		return false
+	}
+	if !(c.MeanStoryReactionCount.Zero()) {
 		return false
 	}
 	if !(c.EnabledNotificationsPercentage == 0) {
@@ -964,10 +991,19 @@ func (c *ChatStatisticsChannel) Zero() bool {
 	if !(c.MessageInteractionGraph == nil) {
 		return false
 	}
+	if !(c.MessageReactionGraph == nil) {
+		return false
+	}
+	if !(c.StoryInteractionGraph == nil) {
+		return false
+	}
+	if !(c.StoryReactionGraph == nil) {
+		return false
+	}
 	if !(c.InstantViewInteractionGraph == nil) {
 		return false
 	}
-	if !(c.RecentMessageInteractions == nil) {
+	if !(c.RecentInteractions == nil) {
 		return false
 	}
 
@@ -1015,12 +1051,28 @@ func (c *ChatStatisticsChannel) TypeInfo() tdp.Type {
 			SchemaName: "member_count",
 		},
 		{
-			Name:       "MeanViewCount",
-			SchemaName: "mean_view_count",
+			Name:       "MeanMessageViewCount",
+			SchemaName: "mean_message_view_count",
 		},
 		{
-			Name:       "MeanShareCount",
-			SchemaName: "mean_share_count",
+			Name:       "MeanMessageShareCount",
+			SchemaName: "mean_message_share_count",
+		},
+		{
+			Name:       "MeanMessageReactionCount",
+			SchemaName: "mean_message_reaction_count",
+		},
+		{
+			Name:       "MeanStoryViewCount",
+			SchemaName: "mean_story_view_count",
+		},
+		{
+			Name:       "MeanStoryShareCount",
+			SchemaName: "mean_story_share_count",
+		},
+		{
+			Name:       "MeanStoryReactionCount",
+			SchemaName: "mean_story_reaction_count",
 		},
 		{
 			Name:       "EnabledNotificationsPercentage",
@@ -1059,12 +1111,24 @@ func (c *ChatStatisticsChannel) TypeInfo() tdp.Type {
 			SchemaName: "message_interaction_graph",
 		},
 		{
+			Name:       "MessageReactionGraph",
+			SchemaName: "message_reaction_graph",
+		},
+		{
+			Name:       "StoryInteractionGraph",
+			SchemaName: "story_interaction_graph",
+		},
+		{
+			Name:       "StoryReactionGraph",
+			SchemaName: "story_reaction_graph",
+		},
+		{
 			Name:       "InstantViewInteractionGraph",
 			SchemaName: "instant_view_interaction_graph",
 		},
 		{
-			Name:       "RecentMessageInteractions",
-			SchemaName: "recent_message_interactions",
+			Name:       "RecentInteractions",
+			SchemaName: "recent_interactions",
 		},
 	}
 	return typ
@@ -1073,7 +1137,7 @@ func (c *ChatStatisticsChannel) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatStatisticsChannel) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatStatisticsChannel#9be23786 as nil")
+		return fmt.Errorf("can't encode chatStatisticsChannel#b8e95b4 as nil")
 	}
 	b.PutID(ChatStatisticsChannelTypeID)
 	return c.EncodeBare(b)
@@ -1082,79 +1146,109 @@ func (c *ChatStatisticsChannel) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatStatisticsChannel) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatStatisticsChannel#9be23786 as nil")
+		return fmt.Errorf("can't encode chatStatisticsChannel#b8e95b4 as nil")
 	}
 	if err := c.Period.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field period: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field period: %w", err)
 	}
 	if err := c.MemberCount.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field member_count: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field member_count: %w", err)
 	}
-	if err := c.MeanViewCount.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field mean_view_count: %w", err)
+	if err := c.MeanMessageViewCount.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field mean_message_view_count: %w", err)
 	}
-	if err := c.MeanShareCount.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field mean_share_count: %w", err)
+	if err := c.MeanMessageShareCount.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field mean_message_share_count: %w", err)
+	}
+	if err := c.MeanMessageReactionCount.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field mean_message_reaction_count: %w", err)
+	}
+	if err := c.MeanStoryViewCount.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field mean_story_view_count: %w", err)
+	}
+	if err := c.MeanStoryShareCount.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field mean_story_share_count: %w", err)
+	}
+	if err := c.MeanStoryReactionCount.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field mean_story_reaction_count: %w", err)
 	}
 	b.PutDouble(c.EnabledNotificationsPercentage)
 	if c.MemberCountGraph == nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field member_count_graph is nil")
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field member_count_graph is nil")
 	}
 	if err := c.MemberCountGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field member_count_graph: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field member_count_graph: %w", err)
 	}
 	if c.JoinGraph == nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field join_graph is nil")
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field join_graph is nil")
 	}
 	if err := c.JoinGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field join_graph: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field join_graph: %w", err)
 	}
 	if c.MuteGraph == nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field mute_graph is nil")
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field mute_graph is nil")
 	}
 	if err := c.MuteGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field mute_graph: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field mute_graph: %w", err)
 	}
 	if c.ViewCountByHourGraph == nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field view_count_by_hour_graph is nil")
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field view_count_by_hour_graph is nil")
 	}
 	if err := c.ViewCountByHourGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field view_count_by_hour_graph: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field view_count_by_hour_graph: %w", err)
 	}
 	if c.ViewCountBySourceGraph == nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field view_count_by_source_graph is nil")
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field view_count_by_source_graph is nil")
 	}
 	if err := c.ViewCountBySourceGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field view_count_by_source_graph: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field view_count_by_source_graph: %w", err)
 	}
 	if c.JoinBySourceGraph == nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field join_by_source_graph is nil")
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field join_by_source_graph is nil")
 	}
 	if err := c.JoinBySourceGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field join_by_source_graph: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field join_by_source_graph: %w", err)
 	}
 	if c.LanguageGraph == nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field language_graph is nil")
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field language_graph is nil")
 	}
 	if err := c.LanguageGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field language_graph: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field language_graph: %w", err)
 	}
 	if c.MessageInteractionGraph == nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field message_interaction_graph is nil")
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field message_interaction_graph is nil")
 	}
 	if err := c.MessageInteractionGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field message_interaction_graph: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field message_interaction_graph: %w", err)
+	}
+	if c.MessageReactionGraph == nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field message_reaction_graph is nil")
+	}
+	if err := c.MessageReactionGraph.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field message_reaction_graph: %w", err)
+	}
+	if c.StoryInteractionGraph == nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field story_interaction_graph is nil")
+	}
+	if err := c.StoryInteractionGraph.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field story_interaction_graph: %w", err)
+	}
+	if c.StoryReactionGraph == nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field story_reaction_graph is nil")
+	}
+	if err := c.StoryReactionGraph.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field story_reaction_graph: %w", err)
 	}
 	if c.InstantViewInteractionGraph == nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field instant_view_interaction_graph is nil")
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field instant_view_interaction_graph is nil")
 	}
 	if err := c.InstantViewInteractionGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field instant_view_interaction_graph: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field instant_view_interaction_graph: %w", err)
 	}
-	b.PutInt(len(c.RecentMessageInteractions))
-	for idx, v := range c.RecentMessageInteractions {
+	b.PutInt(len(c.RecentInteractions))
+	for idx, v := range c.RecentInteractions {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare chatStatisticsChannel#9be23786: field recent_message_interactions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare chatStatisticsChannel#b8e95b4: field recent_interactions element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -1163,10 +1257,10 @@ func (c *ChatStatisticsChannel) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *ChatStatisticsChannel) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatStatisticsChannel#9be23786 to nil")
+		return fmt.Errorf("can't decode chatStatisticsChannel#b8e95b4 to nil")
 	}
 	if err := b.ConsumeID(ChatStatisticsChannelTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: %w", err)
+		return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -1174,113 +1268,154 @@ func (c *ChatStatisticsChannel) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatStatisticsChannel) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatStatisticsChannel#9be23786 to nil")
+		return fmt.Errorf("can't decode chatStatisticsChannel#b8e95b4 to nil")
 	}
 	{
 		if err := c.Period.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field period: %w", err)
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field period: %w", err)
 		}
 	}
 	{
 		if err := c.MemberCount.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field member_count: %w", err)
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field member_count: %w", err)
 		}
 	}
 	{
-		if err := c.MeanViewCount.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field mean_view_count: %w", err)
+		if err := c.MeanMessageViewCount.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field mean_message_view_count: %w", err)
 		}
 	}
 	{
-		if err := c.MeanShareCount.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field mean_share_count: %w", err)
+		if err := c.MeanMessageShareCount.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field mean_message_share_count: %w", err)
+		}
+	}
+	{
+		if err := c.MeanMessageReactionCount.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field mean_message_reaction_count: %w", err)
+		}
+	}
+	{
+		if err := c.MeanStoryViewCount.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field mean_story_view_count: %w", err)
+		}
+	}
+	{
+		if err := c.MeanStoryShareCount.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field mean_story_share_count: %w", err)
+		}
+	}
+	{
+		if err := c.MeanStoryReactionCount.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field mean_story_reaction_count: %w", err)
 		}
 	}
 	{
 		value, err := b.Double()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field enabled_notifications_percentage: %w", err)
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field enabled_notifications_percentage: %w", err)
 		}
 		c.EnabledNotificationsPercentage = value
 	}
 	{
 		value, err := DecodeStatisticalGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field member_count_graph: %w", err)
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field member_count_graph: %w", err)
 		}
 		c.MemberCountGraph = value
 	}
 	{
 		value, err := DecodeStatisticalGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field join_graph: %w", err)
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field join_graph: %w", err)
 		}
 		c.JoinGraph = value
 	}
 	{
 		value, err := DecodeStatisticalGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field mute_graph: %w", err)
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field mute_graph: %w", err)
 		}
 		c.MuteGraph = value
 	}
 	{
 		value, err := DecodeStatisticalGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field view_count_by_hour_graph: %w", err)
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field view_count_by_hour_graph: %w", err)
 		}
 		c.ViewCountByHourGraph = value
 	}
 	{
 		value, err := DecodeStatisticalGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field view_count_by_source_graph: %w", err)
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field view_count_by_source_graph: %w", err)
 		}
 		c.ViewCountBySourceGraph = value
 	}
 	{
 		value, err := DecodeStatisticalGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field join_by_source_graph: %w", err)
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field join_by_source_graph: %w", err)
 		}
 		c.JoinBySourceGraph = value
 	}
 	{
 		value, err := DecodeStatisticalGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field language_graph: %w", err)
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field language_graph: %w", err)
 		}
 		c.LanguageGraph = value
 	}
 	{
 		value, err := DecodeStatisticalGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field message_interaction_graph: %w", err)
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field message_interaction_graph: %w", err)
 		}
 		c.MessageInteractionGraph = value
 	}
 	{
 		value, err := DecodeStatisticalGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field instant_view_interaction_graph: %w", err)
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field message_reaction_graph: %w", err)
+		}
+		c.MessageReactionGraph = value
+	}
+	{
+		value, err := DecodeStatisticalGraph(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field story_interaction_graph: %w", err)
+		}
+		c.StoryInteractionGraph = value
+	}
+	{
+		value, err := DecodeStatisticalGraph(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field story_reaction_graph: %w", err)
+		}
+		c.StoryReactionGraph = value
+	}
+	{
+		value, err := DecodeStatisticalGraph(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field instant_view_interaction_graph: %w", err)
 		}
 		c.InstantViewInteractionGraph = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field recent_message_interactions: %w", err)
+			return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field recent_interactions: %w", err)
 		}
 
 		if headerLen > 0 {
-			c.RecentMessageInteractions = make([]ChatStatisticsMessageInteractionInfo, 0, headerLen%bin.PreallocateLimit)
+			c.RecentInteractions = make([]ChatStatisticsInteractionInfo, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value ChatStatisticsMessageInteractionInfo
+			var value ChatStatisticsInteractionInfo
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare chatStatisticsChannel#9be23786: field recent_message_interactions: %w", err)
+				return fmt.Errorf("unable to decode bare chatStatisticsChannel#b8e95b4: field recent_interactions: %w", err)
 			}
-			c.RecentMessageInteractions = append(c.RecentMessageInteractions, value)
+			c.RecentInteractions = append(c.RecentInteractions, value)
 		}
 	}
 	return nil
@@ -1289,29 +1424,49 @@ func (c *ChatStatisticsChannel) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatStatisticsChannel) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatStatisticsChannel#9be23786 as nil")
+		return fmt.Errorf("can't encode chatStatisticsChannel#b8e95b4 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatStatisticsChannel")
 	b.Comma()
 	b.FieldStart("period")
 	if err := c.Period.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field period: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field period: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("member_count")
 	if err := c.MemberCount.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field member_count: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field member_count: %w", err)
 	}
 	b.Comma()
-	b.FieldStart("mean_view_count")
-	if err := c.MeanViewCount.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field mean_view_count: %w", err)
+	b.FieldStart("mean_message_view_count")
+	if err := c.MeanMessageViewCount.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field mean_message_view_count: %w", err)
 	}
 	b.Comma()
-	b.FieldStart("mean_share_count")
-	if err := c.MeanShareCount.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field mean_share_count: %w", err)
+	b.FieldStart("mean_message_share_count")
+	if err := c.MeanMessageShareCount.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field mean_message_share_count: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("mean_message_reaction_count")
+	if err := c.MeanMessageReactionCount.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field mean_message_reaction_count: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("mean_story_view_count")
+	if err := c.MeanStoryViewCount.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field mean_story_view_count: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("mean_story_share_count")
+	if err := c.MeanStoryShareCount.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field mean_story_share_count: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("mean_story_reaction_count")
+	if err := c.MeanStoryReactionCount.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field mean_story_reaction_count: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("enabled_notifications_percentage")
@@ -1319,81 +1474,105 @@ func (c *ChatStatisticsChannel) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("member_count_graph")
 	if c.MemberCountGraph == nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field member_count_graph is nil")
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field member_count_graph is nil")
 	}
 	if err := c.MemberCountGraph.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field member_count_graph: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field member_count_graph: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("join_graph")
 	if c.JoinGraph == nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field join_graph is nil")
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field join_graph is nil")
 	}
 	if err := c.JoinGraph.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field join_graph: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field join_graph: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("mute_graph")
 	if c.MuteGraph == nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field mute_graph is nil")
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field mute_graph is nil")
 	}
 	if err := c.MuteGraph.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field mute_graph: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field mute_graph: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("view_count_by_hour_graph")
 	if c.ViewCountByHourGraph == nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field view_count_by_hour_graph is nil")
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field view_count_by_hour_graph is nil")
 	}
 	if err := c.ViewCountByHourGraph.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field view_count_by_hour_graph: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field view_count_by_hour_graph: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("view_count_by_source_graph")
 	if c.ViewCountBySourceGraph == nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field view_count_by_source_graph is nil")
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field view_count_by_source_graph is nil")
 	}
 	if err := c.ViewCountBySourceGraph.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field view_count_by_source_graph: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field view_count_by_source_graph: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("join_by_source_graph")
 	if c.JoinBySourceGraph == nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field join_by_source_graph is nil")
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field join_by_source_graph is nil")
 	}
 	if err := c.JoinBySourceGraph.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field join_by_source_graph: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field join_by_source_graph: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("language_graph")
 	if c.LanguageGraph == nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field language_graph is nil")
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field language_graph is nil")
 	}
 	if err := c.LanguageGraph.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field language_graph: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field language_graph: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("message_interaction_graph")
 	if c.MessageInteractionGraph == nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field message_interaction_graph is nil")
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field message_interaction_graph is nil")
 	}
 	if err := c.MessageInteractionGraph.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field message_interaction_graph: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field message_interaction_graph: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("message_reaction_graph")
+	if c.MessageReactionGraph == nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field message_reaction_graph is nil")
+	}
+	if err := c.MessageReactionGraph.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field message_reaction_graph: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("story_interaction_graph")
+	if c.StoryInteractionGraph == nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field story_interaction_graph is nil")
+	}
+	if err := c.StoryInteractionGraph.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field story_interaction_graph: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("story_reaction_graph")
+	if c.StoryReactionGraph == nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field story_reaction_graph is nil")
+	}
+	if err := c.StoryReactionGraph.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field story_reaction_graph: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("instant_view_interaction_graph")
 	if c.InstantViewInteractionGraph == nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field instant_view_interaction_graph is nil")
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field instant_view_interaction_graph is nil")
 	}
 	if err := c.InstantViewInteractionGraph.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field instant_view_interaction_graph: %w", err)
+		return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field instant_view_interaction_graph: %w", err)
 	}
 	b.Comma()
-	b.FieldStart("recent_message_interactions")
+	b.FieldStart("recent_interactions")
 	b.ArrStart()
-	for idx, v := range c.RecentMessageInteractions {
+	for idx, v := range c.RecentInteractions {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode chatStatisticsChannel#9be23786: field recent_message_interactions element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode chatStatisticsChannel#b8e95b4: field recent_interactions element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -1408,101 +1587,135 @@ func (c *ChatStatisticsChannel) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatStatisticsChannel) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatStatisticsChannel#9be23786 to nil")
+		return fmt.Errorf("can't decode chatStatisticsChannel#b8e95b4 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatStatisticsChannel"); err != nil {
-				return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: %w", err)
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: %w", err)
 			}
 		case "period":
 			if err := c.Period.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field period: %w", err)
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field period: %w", err)
 			}
 		case "member_count":
 			if err := c.MemberCount.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field member_count: %w", err)
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field member_count: %w", err)
 			}
-		case "mean_view_count":
-			if err := c.MeanViewCount.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field mean_view_count: %w", err)
+		case "mean_message_view_count":
+			if err := c.MeanMessageViewCount.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field mean_message_view_count: %w", err)
 			}
-		case "mean_share_count":
-			if err := c.MeanShareCount.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field mean_share_count: %w", err)
+		case "mean_message_share_count":
+			if err := c.MeanMessageShareCount.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field mean_message_share_count: %w", err)
+			}
+		case "mean_message_reaction_count":
+			if err := c.MeanMessageReactionCount.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field mean_message_reaction_count: %w", err)
+			}
+		case "mean_story_view_count":
+			if err := c.MeanStoryViewCount.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field mean_story_view_count: %w", err)
+			}
+		case "mean_story_share_count":
+			if err := c.MeanStoryShareCount.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field mean_story_share_count: %w", err)
+			}
+		case "mean_story_reaction_count":
+			if err := c.MeanStoryReactionCount.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field mean_story_reaction_count: %w", err)
 			}
 		case "enabled_notifications_percentage":
 			value, err := b.Double()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field enabled_notifications_percentage: %w", err)
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field enabled_notifications_percentage: %w", err)
 			}
 			c.EnabledNotificationsPercentage = value
 		case "member_count_graph":
 			value, err := DecodeTDLibJSONStatisticalGraph(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field member_count_graph: %w", err)
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field member_count_graph: %w", err)
 			}
 			c.MemberCountGraph = value
 		case "join_graph":
 			value, err := DecodeTDLibJSONStatisticalGraph(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field join_graph: %w", err)
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field join_graph: %w", err)
 			}
 			c.JoinGraph = value
 		case "mute_graph":
 			value, err := DecodeTDLibJSONStatisticalGraph(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field mute_graph: %w", err)
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field mute_graph: %w", err)
 			}
 			c.MuteGraph = value
 		case "view_count_by_hour_graph":
 			value, err := DecodeTDLibJSONStatisticalGraph(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field view_count_by_hour_graph: %w", err)
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field view_count_by_hour_graph: %w", err)
 			}
 			c.ViewCountByHourGraph = value
 		case "view_count_by_source_graph":
 			value, err := DecodeTDLibJSONStatisticalGraph(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field view_count_by_source_graph: %w", err)
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field view_count_by_source_graph: %w", err)
 			}
 			c.ViewCountBySourceGraph = value
 		case "join_by_source_graph":
 			value, err := DecodeTDLibJSONStatisticalGraph(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field join_by_source_graph: %w", err)
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field join_by_source_graph: %w", err)
 			}
 			c.JoinBySourceGraph = value
 		case "language_graph":
 			value, err := DecodeTDLibJSONStatisticalGraph(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field language_graph: %w", err)
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field language_graph: %w", err)
 			}
 			c.LanguageGraph = value
 		case "message_interaction_graph":
 			value, err := DecodeTDLibJSONStatisticalGraph(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field message_interaction_graph: %w", err)
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field message_interaction_graph: %w", err)
 			}
 			c.MessageInteractionGraph = value
+		case "message_reaction_graph":
+			value, err := DecodeTDLibJSONStatisticalGraph(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field message_reaction_graph: %w", err)
+			}
+			c.MessageReactionGraph = value
+		case "story_interaction_graph":
+			value, err := DecodeTDLibJSONStatisticalGraph(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field story_interaction_graph: %w", err)
+			}
+			c.StoryInteractionGraph = value
+		case "story_reaction_graph":
+			value, err := DecodeTDLibJSONStatisticalGraph(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field story_reaction_graph: %w", err)
+			}
+			c.StoryReactionGraph = value
 		case "instant_view_interaction_graph":
 			value, err := DecodeTDLibJSONStatisticalGraph(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field instant_view_interaction_graph: %w", err)
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field instant_view_interaction_graph: %w", err)
 			}
 			c.InstantViewInteractionGraph = value
-		case "recent_message_interactions":
+		case "recent_interactions":
 			if err := b.Arr(func(b tdjson.Decoder) error {
-				var value ChatStatisticsMessageInteractionInfo
+				var value ChatStatisticsInteractionInfo
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field recent_message_interactions: %w", err)
+					return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field recent_interactions: %w", err)
 				}
-				c.RecentMessageInteractions = append(c.RecentMessageInteractions, value)
+				c.RecentInteractions = append(c.RecentInteractions, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode chatStatisticsChannel#9be23786: field recent_message_interactions: %w", err)
+				return fmt.Errorf("unable to decode chatStatisticsChannel#b8e95b4: field recent_interactions: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -1527,20 +1740,52 @@ func (c *ChatStatisticsChannel) GetMemberCount() (value StatisticalValue) {
 	return c.MemberCount
 }
 
-// GetMeanViewCount returns value of MeanViewCount field.
-func (c *ChatStatisticsChannel) GetMeanViewCount() (value StatisticalValue) {
+// GetMeanMessageViewCount returns value of MeanMessageViewCount field.
+func (c *ChatStatisticsChannel) GetMeanMessageViewCount() (value StatisticalValue) {
 	if c == nil {
 		return
 	}
-	return c.MeanViewCount
+	return c.MeanMessageViewCount
 }
 
-// GetMeanShareCount returns value of MeanShareCount field.
-func (c *ChatStatisticsChannel) GetMeanShareCount() (value StatisticalValue) {
+// GetMeanMessageShareCount returns value of MeanMessageShareCount field.
+func (c *ChatStatisticsChannel) GetMeanMessageShareCount() (value StatisticalValue) {
 	if c == nil {
 		return
 	}
-	return c.MeanShareCount
+	return c.MeanMessageShareCount
+}
+
+// GetMeanMessageReactionCount returns value of MeanMessageReactionCount field.
+func (c *ChatStatisticsChannel) GetMeanMessageReactionCount() (value StatisticalValue) {
+	if c == nil {
+		return
+	}
+	return c.MeanMessageReactionCount
+}
+
+// GetMeanStoryViewCount returns value of MeanStoryViewCount field.
+func (c *ChatStatisticsChannel) GetMeanStoryViewCount() (value StatisticalValue) {
+	if c == nil {
+		return
+	}
+	return c.MeanStoryViewCount
+}
+
+// GetMeanStoryShareCount returns value of MeanStoryShareCount field.
+func (c *ChatStatisticsChannel) GetMeanStoryShareCount() (value StatisticalValue) {
+	if c == nil {
+		return
+	}
+	return c.MeanStoryShareCount
+}
+
+// GetMeanStoryReactionCount returns value of MeanStoryReactionCount field.
+func (c *ChatStatisticsChannel) GetMeanStoryReactionCount() (value StatisticalValue) {
+	if c == nil {
+		return
+	}
+	return c.MeanStoryReactionCount
 }
 
 // GetEnabledNotificationsPercentage returns value of EnabledNotificationsPercentage field.
@@ -1615,6 +1860,30 @@ func (c *ChatStatisticsChannel) GetMessageInteractionGraph() (value StatisticalG
 	return c.MessageInteractionGraph
 }
 
+// GetMessageReactionGraph returns value of MessageReactionGraph field.
+func (c *ChatStatisticsChannel) GetMessageReactionGraph() (value StatisticalGraphClass) {
+	if c == nil {
+		return
+	}
+	return c.MessageReactionGraph
+}
+
+// GetStoryInteractionGraph returns value of StoryInteractionGraph field.
+func (c *ChatStatisticsChannel) GetStoryInteractionGraph() (value StatisticalGraphClass) {
+	if c == nil {
+		return
+	}
+	return c.StoryInteractionGraph
+}
+
+// GetStoryReactionGraph returns value of StoryReactionGraph field.
+func (c *ChatStatisticsChannel) GetStoryReactionGraph() (value StatisticalGraphClass) {
+	if c == nil {
+		return
+	}
+	return c.StoryReactionGraph
+}
+
 // GetInstantViewInteractionGraph returns value of InstantViewInteractionGraph field.
 func (c *ChatStatisticsChannel) GetInstantViewInteractionGraph() (value StatisticalGraphClass) {
 	if c == nil {
@@ -1623,12 +1892,12 @@ func (c *ChatStatisticsChannel) GetInstantViewInteractionGraph() (value Statisti
 	return c.InstantViewInteractionGraph
 }
 
-// GetRecentMessageInteractions returns value of RecentMessageInteractions field.
-func (c *ChatStatisticsChannel) GetRecentMessageInteractions() (value []ChatStatisticsMessageInteractionInfo) {
+// GetRecentInteractions returns value of RecentInteractions field.
+func (c *ChatStatisticsChannel) GetRecentInteractions() (value []ChatStatisticsInteractionInfo) {
 	if c == nil {
 		return
 	}
-	return c.RecentMessageInteractions
+	return c.RecentInteractions
 }
 
 // ChatStatisticsClassName is schema name of ChatStatisticsClass.
@@ -1644,7 +1913,7 @@ const ChatStatisticsClassName = "ChatStatistics"
 //	}
 //	switch v := g.(type) {
 //	case *tdapi.ChatStatisticsSupergroup: // chatStatisticsSupergroup#c67549ef
-//	case *tdapi.ChatStatisticsChannel: // chatStatisticsChannel#9be23786
+//	case *tdapi.ChatStatisticsChannel: // chatStatisticsChannel#b8e95b4
 //	default: panic(v)
 //	}
 type ChatStatisticsClass interface {
@@ -1697,7 +1966,7 @@ func DecodeChatStatistics(buf *bin.Buffer) (ChatStatisticsClass, error) {
 		}
 		return &v, nil
 	case ChatStatisticsChannelTypeID:
-		// Decoding chatStatisticsChannel#9be23786.
+		// Decoding chatStatisticsChannel#b8e95b4.
 		v := ChatStatisticsChannel{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatStatisticsClass: %w", err)
@@ -1723,7 +1992,7 @@ func DecodeTDLibJSONChatStatistics(buf tdjson.Decoder) (ChatStatisticsClass, err
 		}
 		return &v, nil
 	case "chatStatisticsChannel":
-		// Decoding chatStatisticsChannel#9be23786.
+		// Decoding chatStatisticsChannel#b8e95b4.
 		v := ChatStatisticsChannel{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatStatisticsClass: %w", err)

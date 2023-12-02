@@ -37,7 +37,7 @@ type FoundMessages struct {
 	TotalCount int32
 	// List of messages
 	Messages []Message
-	// The offset for the next request. If empty, there are no more results
+	// The offset for the next request. If empty, then there are no more results
 	NextOffset string
 }
 

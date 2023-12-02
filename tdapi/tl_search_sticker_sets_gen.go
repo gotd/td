@@ -31,14 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SearchStickerSetsRequest represents TL type `searchStickerSets#bf7d307b`.
+// SearchStickerSetsRequest represents TL type `searchStickerSets#faa066c`.
 type SearchStickerSetsRequest struct {
+	// Type of the sticker sets to return
+	StickerType StickerTypeClass
 	// Query to search for
 	Query string
 }
 
 // SearchStickerSetsRequestTypeID is TL type id of SearchStickerSetsRequest.
-const SearchStickerSetsRequestTypeID = 0xbf7d307b
+const SearchStickerSetsRequestTypeID = 0xfaa066c
 
 // Ensuring interfaces in compile-time for SearchStickerSetsRequest.
 var (
@@ -51,6 +53,9 @@ var (
 func (s *SearchStickerSetsRequest) Zero() bool {
 	if s == nil {
 		return true
+	}
+	if !(s.StickerType == nil) {
+		return false
 	}
 	if !(s.Query == "") {
 		return false
@@ -92,6 +97,10 @@ func (s *SearchStickerSetsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "StickerType",
+			SchemaName: "sticker_type",
+		},
+		{
 			Name:       "Query",
 			SchemaName: "query",
 		},
@@ -102,7 +111,7 @@ func (s *SearchStickerSetsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SearchStickerSetsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchStickerSets#bf7d307b as nil")
+		return fmt.Errorf("can't encode searchStickerSets#faa066c as nil")
 	}
 	b.PutID(SearchStickerSetsRequestTypeID)
 	return s.EncodeBare(b)
@@ -111,7 +120,13 @@ func (s *SearchStickerSetsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SearchStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchStickerSets#bf7d307b as nil")
+		return fmt.Errorf("can't encode searchStickerSets#faa066c as nil")
+	}
+	if s.StickerType == nil {
+		return fmt.Errorf("unable to encode searchStickerSets#faa066c: field sticker_type is nil")
+	}
+	if err := s.StickerType.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode searchStickerSets#faa066c: field sticker_type: %w", err)
 	}
 	b.PutString(s.Query)
 	return nil
@@ -120,10 +135,10 @@ func (s *SearchStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SearchStickerSetsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchStickerSets#bf7d307b to nil")
+		return fmt.Errorf("can't decode searchStickerSets#faa066c to nil")
 	}
 	if err := b.ConsumeID(SearchStickerSetsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode searchStickerSets#bf7d307b: %w", err)
+		return fmt.Errorf("unable to decode searchStickerSets#faa066c: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -131,12 +146,19 @@ func (s *SearchStickerSetsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SearchStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchStickerSets#bf7d307b to nil")
+		return fmt.Errorf("can't decode searchStickerSets#faa066c to nil")
+	}
+	{
+		value, err := DecodeStickerType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode searchStickerSets#faa066c: field sticker_type: %w", err)
+		}
+		s.StickerType = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchStickerSets#bf7d307b: field query: %w", err)
+			return fmt.Errorf("unable to decode searchStickerSets#faa066c: field query: %w", err)
 		}
 		s.Query = value
 	}
@@ -146,10 +168,18 @@ func (s *SearchStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SearchStickerSetsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchStickerSets#bf7d307b as nil")
+		return fmt.Errorf("can't encode searchStickerSets#faa066c as nil")
 	}
 	b.ObjStart()
 	b.PutID("searchStickerSets")
+	b.Comma()
+	b.FieldStart("sticker_type")
+	if s.StickerType == nil {
+		return fmt.Errorf("unable to encode searchStickerSets#faa066c: field sticker_type is nil")
+	}
+	if err := s.StickerType.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode searchStickerSets#faa066c: field sticker_type: %w", err)
+	}
 	b.Comma()
 	b.FieldStart("query")
 	b.PutString(s.Query)
@@ -162,19 +192,25 @@ func (s *SearchStickerSetsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SearchStickerSetsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchStickerSets#bf7d307b to nil")
+		return fmt.Errorf("can't decode searchStickerSets#faa066c to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("searchStickerSets"); err != nil {
-				return fmt.Errorf("unable to decode searchStickerSets#bf7d307b: %w", err)
+				return fmt.Errorf("unable to decode searchStickerSets#faa066c: %w", err)
 			}
+		case "sticker_type":
+			value, err := DecodeTDLibJSONStickerType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode searchStickerSets#faa066c: field sticker_type: %w", err)
+			}
+			s.StickerType = value
 		case "query":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchStickerSets#bf7d307b: field query: %w", err)
+				return fmt.Errorf("unable to decode searchStickerSets#faa066c: field query: %w", err)
 			}
 			s.Query = value
 		default:
@@ -182,6 +218,14 @@ func (s *SearchStickerSetsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 		}
 		return nil
 	})
+}
+
+// GetStickerType returns value of StickerType field.
+func (s *SearchStickerSetsRequest) GetStickerType() (value StickerTypeClass) {
+	if s == nil {
+		return
+	}
+	return s.StickerType
 }
 
 // GetQuery returns value of Query field.
@@ -192,13 +236,10 @@ func (s *SearchStickerSetsRequest) GetQuery() (value string) {
 	return s.Query
 }
 
-// SearchStickerSets invokes method searchStickerSets#bf7d307b returning error if any.
-func (c *Client) SearchStickerSets(ctx context.Context, query string) (*StickerSets, error) {
+// SearchStickerSets invokes method searchStickerSets#faa066c returning error if any.
+func (c *Client) SearchStickerSets(ctx context.Context, request *SearchStickerSetsRequest) (*StickerSets, error) {
 	var result StickerSets
 
-	request := &SearchStickerSetsRequest{
-		Query: query,
-	}
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}

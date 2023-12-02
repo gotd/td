@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// InputMessageReplyToMessage represents TL type `inputMessageReplyToMessage#20b16f06`.
+// InputMessageReplyToMessage represents TL type `inputMessageReplyToMessage#11e3fd76`.
 type InputMessageReplyToMessage struct {
 	// The identifier of the chat to which the message to be replied belongs; pass 0 if the
 	// message to be replied is in the same chat. Must always be 0 for replies in secret
@@ -40,14 +40,13 @@ type InputMessageReplyToMessage struct {
 	ChatID int64
 	// The identifier of the message to be replied in the same or the specified chat
 	MessageID int64
-	// Manually chosen quote from the message to be replied; pass null if none;
-	// 0-getOption("message_reply_quote_length_max") characters. Must always be null for
-	// replies in secret chats.
-	Quote FormattedText
+	// Quote from the message to be replied; pass null if none. Must always be null for
+	// replies in secret chats
+	Quote InputTextQuote
 }
 
 // InputMessageReplyToMessageTypeID is TL type id of InputMessageReplyToMessage.
-const InputMessageReplyToMessageTypeID = 0x20b16f06
+const InputMessageReplyToMessageTypeID = 0x11e3fd76
 
 // construct implements constructor of InputMessageReplyToClass.
 func (i InputMessageReplyToMessage) construct() InputMessageReplyToClass { return &i }
@@ -130,7 +129,7 @@ func (i *InputMessageReplyToMessage) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *InputMessageReplyToMessage) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageReplyToMessage#20b16f06 as nil")
+		return fmt.Errorf("can't encode inputMessageReplyToMessage#11e3fd76 as nil")
 	}
 	b.PutID(InputMessageReplyToMessageTypeID)
 	return i.EncodeBare(b)
@@ -139,12 +138,12 @@ func (i *InputMessageReplyToMessage) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *InputMessageReplyToMessage) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageReplyToMessage#20b16f06 as nil")
+		return fmt.Errorf("can't encode inputMessageReplyToMessage#11e3fd76 as nil")
 	}
 	b.PutInt53(i.ChatID)
 	b.PutInt53(i.MessageID)
 	if err := i.Quote.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageReplyToMessage#20b16f06: field quote: %w", err)
+		return fmt.Errorf("unable to encode inputMessageReplyToMessage#11e3fd76: field quote: %w", err)
 	}
 	return nil
 }
@@ -152,10 +151,10 @@ func (i *InputMessageReplyToMessage) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *InputMessageReplyToMessage) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageReplyToMessage#20b16f06 to nil")
+		return fmt.Errorf("can't decode inputMessageReplyToMessage#11e3fd76 to nil")
 	}
 	if err := b.ConsumeID(InputMessageReplyToMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMessageReplyToMessage#20b16f06: %w", err)
+		return fmt.Errorf("unable to decode inputMessageReplyToMessage#11e3fd76: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -163,25 +162,25 @@ func (i *InputMessageReplyToMessage) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *InputMessageReplyToMessage) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageReplyToMessage#20b16f06 to nil")
+		return fmt.Errorf("can't decode inputMessageReplyToMessage#11e3fd76 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageReplyToMessage#20b16f06: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode inputMessageReplyToMessage#11e3fd76: field chat_id: %w", err)
 		}
 		i.ChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMessageReplyToMessage#20b16f06: field message_id: %w", err)
+			return fmt.Errorf("unable to decode inputMessageReplyToMessage#11e3fd76: field message_id: %w", err)
 		}
 		i.MessageID = value
 	}
 	{
 		if err := i.Quote.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMessageReplyToMessage#20b16f06: field quote: %w", err)
+			return fmt.Errorf("unable to decode inputMessageReplyToMessage#11e3fd76: field quote: %w", err)
 		}
 	}
 	return nil
@@ -190,7 +189,7 @@ func (i *InputMessageReplyToMessage) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (i *InputMessageReplyToMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMessageReplyToMessage#20b16f06 as nil")
+		return fmt.Errorf("can't encode inputMessageReplyToMessage#11e3fd76 as nil")
 	}
 	b.ObjStart()
 	b.PutID("inputMessageReplyToMessage")
@@ -203,7 +202,7 @@ func (i *InputMessageReplyToMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("quote")
 	if err := i.Quote.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode inputMessageReplyToMessage#20b16f06: field quote: %w", err)
+		return fmt.Errorf("unable to encode inputMessageReplyToMessage#11e3fd76: field quote: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -214,30 +213,30 @@ func (i *InputMessageReplyToMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (i *InputMessageReplyToMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMessageReplyToMessage#20b16f06 to nil")
+		return fmt.Errorf("can't decode inputMessageReplyToMessage#11e3fd76 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("inputMessageReplyToMessage"); err != nil {
-				return fmt.Errorf("unable to decode inputMessageReplyToMessage#20b16f06: %w", err)
+				return fmt.Errorf("unable to decode inputMessageReplyToMessage#11e3fd76: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageReplyToMessage#20b16f06: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode inputMessageReplyToMessage#11e3fd76: field chat_id: %w", err)
 			}
 			i.ChatID = value
 		case "message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode inputMessageReplyToMessage#20b16f06: field message_id: %w", err)
+				return fmt.Errorf("unable to decode inputMessageReplyToMessage#11e3fd76: field message_id: %w", err)
 			}
 			i.MessageID = value
 		case "quote":
 			if err := i.Quote.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode inputMessageReplyToMessage#20b16f06: field quote: %w", err)
+				return fmt.Errorf("unable to decode inputMessageReplyToMessage#11e3fd76: field quote: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -263,7 +262,7 @@ func (i *InputMessageReplyToMessage) GetMessageID() (value int64) {
 }
 
 // GetQuote returns value of Quote field.
-func (i *InputMessageReplyToMessage) GetQuote() (value FormattedText) {
+func (i *InputMessageReplyToMessage) GetQuote() (value InputTextQuote) {
 	if i == nil {
 		return
 	}
@@ -483,7 +482,7 @@ const InputMessageReplyToClassName = "InputMessageReplyTo"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tdapi.InputMessageReplyToMessage: // inputMessageReplyToMessage#20b16f06
+//	case *tdapi.InputMessageReplyToMessage: // inputMessageReplyToMessage#11e3fd76
 //	case *tdapi.InputMessageReplyToStory: // inputMessageReplyToStory#51aece78
 //	default: panic(v)
 //	}
@@ -517,7 +516,7 @@ func DecodeInputMessageReplyTo(buf *bin.Buffer) (InputMessageReplyToClass, error
 	}
 	switch id {
 	case InputMessageReplyToMessageTypeID:
-		// Decoding inputMessageReplyToMessage#20b16f06.
+		// Decoding inputMessageReplyToMessage#11e3fd76.
 		v := InputMessageReplyToMessage{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageReplyToClass: %w", err)
@@ -543,7 +542,7 @@ func DecodeTDLibJSONInputMessageReplyTo(buf tdjson.Decoder) (InputMessageReplyTo
 	}
 	switch id {
 	case "inputMessageReplyToMessage":
-		// Decoding inputMessageReplyToMessage#20b16f06.
+		// Decoding inputMessageReplyToMessage#11e3fd76.
 		v := InputMessageReplyToMessage{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMessageReplyToClass: %w", err)

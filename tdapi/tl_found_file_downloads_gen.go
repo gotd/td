@@ -37,7 +37,7 @@ type FoundFileDownloads struct {
 	TotalCounts DownloadedFileCounts
 	// The list of files
 	Files []FileDownload
-	// The offset for the next request. If empty, there are no more results
+	// The offset for the next request. If empty, then there are no more results
 	NextOffset string
 }
 

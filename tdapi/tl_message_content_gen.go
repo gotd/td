@@ -37,7 +37,7 @@ type MessageText struct {
 	Text FormattedText
 	// A link preview attached to the message; may be null
 	WebPage WebPage
-	// Options which was used for generation of the link preview; may be null if default
+	// Options which were used for generation of the link preview; may be null if default
 	// options were used
 	LinkPreviewOptions LinkPreviewOptions
 }
@@ -7754,17 +7754,19 @@ func (m *MessageScreenshotTaken) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// MessageChatSetBackground represents TL type `messageChatSetBackground#81819731`.
+// MessageChatSetBackground represents TL type `messageChatSetBackground#3d5d7c40`.
 type MessageChatSetBackground struct {
 	// Identifier of the message with a previously set same background; 0 if none. Can be an
 	// identifier of a deleted message
 	OldBackgroundMessageID int64
 	// The new background
 	Background ChatBackground
+	// True, if the background was set only for self
+	OnlyForSelf bool
 }
 
 // MessageChatSetBackgroundTypeID is TL type id of MessageChatSetBackground.
-const MessageChatSetBackgroundTypeID = 0x81819731
+const MessageChatSetBackgroundTypeID = 0x3d5d7c40
 
 // construct implements constructor of MessageContentClass.
 func (m MessageChatSetBackground) construct() MessageContentClass { return &m }
@@ -7787,6 +7789,9 @@ func (m *MessageChatSetBackground) Zero() bool {
 		return false
 	}
 	if !(m.Background.Zero()) {
+		return false
+	}
+	if !(m.OnlyForSelf == false) {
 		return false
 	}
 
@@ -7833,6 +7838,10 @@ func (m *MessageChatSetBackground) TypeInfo() tdp.Type {
 			Name:       "Background",
 			SchemaName: "background",
 		},
+		{
+			Name:       "OnlyForSelf",
+			SchemaName: "only_for_self",
+		},
 	}
 	return typ
 }
@@ -7840,7 +7849,7 @@ func (m *MessageChatSetBackground) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageChatSetBackground) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatSetBackground#81819731 as nil")
+		return fmt.Errorf("can't encode messageChatSetBackground#3d5d7c40 as nil")
 	}
 	b.PutID(MessageChatSetBackgroundTypeID)
 	return m.EncodeBare(b)
@@ -7849,22 +7858,23 @@ func (m *MessageChatSetBackground) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageChatSetBackground) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatSetBackground#81819731 as nil")
+		return fmt.Errorf("can't encode messageChatSetBackground#3d5d7c40 as nil")
 	}
 	b.PutInt53(m.OldBackgroundMessageID)
 	if err := m.Background.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageChatSetBackground#81819731: field background: %w", err)
+		return fmt.Errorf("unable to encode messageChatSetBackground#3d5d7c40: field background: %w", err)
 	}
+	b.PutBool(m.OnlyForSelf)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageChatSetBackground) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatSetBackground#81819731 to nil")
+		return fmt.Errorf("can't decode messageChatSetBackground#3d5d7c40 to nil")
 	}
 	if err := b.ConsumeID(MessageChatSetBackgroundTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageChatSetBackground#81819731: %w", err)
+		return fmt.Errorf("unable to decode messageChatSetBackground#3d5d7c40: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -7872,19 +7882,26 @@ func (m *MessageChatSetBackground) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageChatSetBackground) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatSetBackground#81819731 to nil")
+		return fmt.Errorf("can't decode messageChatSetBackground#3d5d7c40 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageChatSetBackground#81819731: field old_background_message_id: %w", err)
+			return fmt.Errorf("unable to decode messageChatSetBackground#3d5d7c40: field old_background_message_id: %w", err)
 		}
 		m.OldBackgroundMessageID = value
 	}
 	{
 		if err := m.Background.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageChatSetBackground#81819731: field background: %w", err)
+			return fmt.Errorf("unable to decode messageChatSetBackground#3d5d7c40: field background: %w", err)
 		}
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageChatSetBackground#3d5d7c40: field only_for_self: %w", err)
+		}
+		m.OnlyForSelf = value
 	}
 	return nil
 }
@@ -7892,7 +7909,7 @@ func (m *MessageChatSetBackground) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageChatSetBackground) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageChatSetBackground#81819731 as nil")
+		return fmt.Errorf("can't encode messageChatSetBackground#3d5d7c40 as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageChatSetBackground")
@@ -7902,8 +7919,11 @@ func (m *MessageChatSetBackground) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("background")
 	if err := m.Background.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageChatSetBackground#81819731: field background: %w", err)
+		return fmt.Errorf("unable to encode messageChatSetBackground#3d5d7c40: field background: %w", err)
 	}
+	b.Comma()
+	b.FieldStart("only_for_self")
+	b.PutBool(m.OnlyForSelf)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -7913,25 +7933,31 @@ func (m *MessageChatSetBackground) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageChatSetBackground) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageChatSetBackground#81819731 to nil")
+		return fmt.Errorf("can't decode messageChatSetBackground#3d5d7c40 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageChatSetBackground"); err != nil {
-				return fmt.Errorf("unable to decode messageChatSetBackground#81819731: %w", err)
+				return fmt.Errorf("unable to decode messageChatSetBackground#3d5d7c40: %w", err)
 			}
 		case "old_background_message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageChatSetBackground#81819731: field old_background_message_id: %w", err)
+				return fmt.Errorf("unable to decode messageChatSetBackground#3d5d7c40: field old_background_message_id: %w", err)
 			}
 			m.OldBackgroundMessageID = value
 		case "background":
 			if err := m.Background.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode messageChatSetBackground#81819731: field background: %w", err)
+				return fmt.Errorf("unable to decode messageChatSetBackground#3d5d7c40: field background: %w", err)
 			}
+		case "only_for_self":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageChatSetBackground#3d5d7c40: field only_for_self: %w", err)
+			}
+			m.OnlyForSelf = value
 		default:
 			return b.Skip()
 		}
@@ -7953,6 +7979,14 @@ func (m *MessageChatSetBackground) GetBackground() (value ChatBackground) {
 		return
 	}
 	return m.Background
+}
+
+// GetOnlyForSelf returns value of OnlyForSelf field.
+func (m *MessageChatSetBackground) GetOnlyForSelf() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.OnlyForSelf
 }
 
 // MessageChatSetTheme represents TL type `messageChatSetTheme#99ae9408`.
@@ -11581,6 +11615,240 @@ func (m *MessagePremiumGiveaway) GetSticker() (value Sticker) {
 	return m.Sticker
 }
 
+// MessagePremiumGiveawayCompleted represents TL type `messagePremiumGiveawayCompleted#80533949`.
+type MessagePremiumGiveawayCompleted struct {
+	// Identifier of the message with the giveaway, can be an identifier of a deleted message
+	GiveawayMessageID int64
+	// Number of winners in the giveaway
+	WinnerCount int32
+	// Number of undistributed prizes
+	UnclaimedPrizeCount int32
+}
+
+// MessagePremiumGiveawayCompletedTypeID is TL type id of MessagePremiumGiveawayCompleted.
+const MessagePremiumGiveawayCompletedTypeID = 0x80533949
+
+// construct implements constructor of MessageContentClass.
+func (m MessagePremiumGiveawayCompleted) construct() MessageContentClass { return &m }
+
+// Ensuring interfaces in compile-time for MessagePremiumGiveawayCompleted.
+var (
+	_ bin.Encoder     = &MessagePremiumGiveawayCompleted{}
+	_ bin.Decoder     = &MessagePremiumGiveawayCompleted{}
+	_ bin.BareEncoder = &MessagePremiumGiveawayCompleted{}
+	_ bin.BareDecoder = &MessagePremiumGiveawayCompleted{}
+
+	_ MessageContentClass = &MessagePremiumGiveawayCompleted{}
+)
+
+func (m *MessagePremiumGiveawayCompleted) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.GiveawayMessageID == 0) {
+		return false
+	}
+	if !(m.WinnerCount == 0) {
+		return false
+	}
+	if !(m.UnclaimedPrizeCount == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessagePremiumGiveawayCompleted) String() string {
+	if m == nil {
+		return "MessagePremiumGiveawayCompleted(nil)"
+	}
+	type Alias MessagePremiumGiveawayCompleted
+	return fmt.Sprintf("MessagePremiumGiveawayCompleted%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessagePremiumGiveawayCompleted) TypeID() uint32 {
+	return MessagePremiumGiveawayCompletedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessagePremiumGiveawayCompleted) TypeName() string {
+	return "messagePremiumGiveawayCompleted"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessagePremiumGiveawayCompleted) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messagePremiumGiveawayCompleted",
+		ID:   MessagePremiumGiveawayCompletedTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "GiveawayMessageID",
+			SchemaName: "giveaway_message_id",
+		},
+		{
+			Name:       "WinnerCount",
+			SchemaName: "winner_count",
+		},
+		{
+			Name:       "UnclaimedPrizeCount",
+			SchemaName: "unclaimed_prize_count",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessagePremiumGiveawayCompleted) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messagePremiumGiveawayCompleted#80533949 as nil")
+	}
+	b.PutID(MessagePremiumGiveawayCompletedTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessagePremiumGiveawayCompleted) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messagePremiumGiveawayCompleted#80533949 as nil")
+	}
+	b.PutInt53(m.GiveawayMessageID)
+	b.PutInt32(m.WinnerCount)
+	b.PutInt32(m.UnclaimedPrizeCount)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessagePremiumGiveawayCompleted) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messagePremiumGiveawayCompleted#80533949 to nil")
+	}
+	if err := b.ConsumeID(MessagePremiumGiveawayCompletedTypeID); err != nil {
+		return fmt.Errorf("unable to decode messagePremiumGiveawayCompleted#80533949: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessagePremiumGiveawayCompleted) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messagePremiumGiveawayCompleted#80533949 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode messagePremiumGiveawayCompleted#80533949: field giveaway_message_id: %w", err)
+		}
+		m.GiveawayMessageID = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode messagePremiumGiveawayCompleted#80533949: field winner_count: %w", err)
+		}
+		m.WinnerCount = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode messagePremiumGiveawayCompleted#80533949: field unclaimed_prize_count: %w", err)
+		}
+		m.UnclaimedPrizeCount = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessagePremiumGiveawayCompleted) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messagePremiumGiveawayCompleted#80533949 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messagePremiumGiveawayCompleted")
+	b.Comma()
+	b.FieldStart("giveaway_message_id")
+	b.PutInt53(m.GiveawayMessageID)
+	b.Comma()
+	b.FieldStart("winner_count")
+	b.PutInt32(m.WinnerCount)
+	b.Comma()
+	b.FieldStart("unclaimed_prize_count")
+	b.PutInt32(m.UnclaimedPrizeCount)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessagePremiumGiveawayCompleted) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messagePremiumGiveawayCompleted#80533949 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messagePremiumGiveawayCompleted"); err != nil {
+				return fmt.Errorf("unable to decode messagePremiumGiveawayCompleted#80533949: %w", err)
+			}
+		case "giveaway_message_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode messagePremiumGiveawayCompleted#80533949: field giveaway_message_id: %w", err)
+			}
+			m.GiveawayMessageID = value
+		case "winner_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode messagePremiumGiveawayCompleted#80533949: field winner_count: %w", err)
+			}
+			m.WinnerCount = value
+		case "unclaimed_prize_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode messagePremiumGiveawayCompleted#80533949: field unclaimed_prize_count: %w", err)
+			}
+			m.UnclaimedPrizeCount = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetGiveawayMessageID returns value of GiveawayMessageID field.
+func (m *MessagePremiumGiveawayCompleted) GetGiveawayMessageID() (value int64) {
+	if m == nil {
+		return
+	}
+	return m.GiveawayMessageID
+}
+
+// GetWinnerCount returns value of WinnerCount field.
+func (m *MessagePremiumGiveawayCompleted) GetWinnerCount() (value int32) {
+	if m == nil {
+		return
+	}
+	return m.WinnerCount
+}
+
+// GetUnclaimedPrizeCount returns value of UnclaimedPrizeCount field.
+func (m *MessagePremiumGiveawayCompleted) GetUnclaimedPrizeCount() (value int32) {
+	if m == nil {
+		return
+	}
+	return m.UnclaimedPrizeCount
+}
+
 // MessageContactRegistered represents TL type `messageContactRegistered#a678fcff`.
 type MessageContactRegistered struct {
 }
@@ -13517,7 +13785,7 @@ const MessageContentClassName = "MessageContent"
 //	case *tdapi.MessageChatUpgradeFrom: // messageChatUpgradeFrom#136daadc
 //	case *tdapi.MessagePinMessage: // messagePinMessage#38d55039
 //	case *tdapi.MessageScreenshotTaken: // messageScreenshotTaken#a2b86dab
-//	case *tdapi.MessageChatSetBackground: // messageChatSetBackground#81819731
+//	case *tdapi.MessageChatSetBackground: // messageChatSetBackground#3d5d7c40
 //	case *tdapi.MessageChatSetTheme: // messageChatSetTheme#99ae9408
 //	case *tdapi.MessageChatSetMessageAutoDeleteTime: // messageChatSetMessageAutoDeleteTime#619e052e
 //	case *tdapi.MessageForumTopicCreated: // messageForumTopicCreated#b8ce47d1
@@ -13533,6 +13801,7 @@ const MessageContentClassName = "MessageContent"
 //	case *tdapi.MessagePremiumGiftCode: // messagePremiumGiftCode#7a9c468f
 //	case *tdapi.MessagePremiumGiveawayCreated: // messagePremiumGiveawayCreated#270f2c44
 //	case *tdapi.MessagePremiumGiveaway: // messagePremiumGiveaway#4aa0d0b0
+//	case *tdapi.MessagePremiumGiveawayCompleted: // messagePremiumGiveawayCompleted#80533949
 //	case *tdapi.MessageContactRegistered: // messageContactRegistered#a678fcff
 //	case *tdapi.MessageUserShared: // messageUserShared#d4dcb77c
 //	case *tdapi.MessageChatShared: // messageChatShared#22db7091
@@ -13841,7 +14110,7 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 		}
 		return &v, nil
 	case MessageChatSetBackgroundTypeID:
-		// Decoding messageChatSetBackground#81819731.
+		// Decoding messageChatSetBackground#3d5d7c40.
 		v := MessageChatSetBackground{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -13948,6 +14217,13 @@ func DecodeMessageContent(buf *bin.Buffer) (MessageContentClass, error) {
 	case MessagePremiumGiveawayTypeID:
 		// Decoding messagePremiumGiveaway#4aa0d0b0.
 		v := MessagePremiumGiveaway{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case MessagePremiumGiveawayCompletedTypeID:
+		// Decoding messagePremiumGiveawayCompleted#80533949.
+		v := MessagePremiumGiveawayCompleted{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
@@ -14301,7 +14577,7 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 		}
 		return &v, nil
 	case "messageChatSetBackground":
-		// Decoding messageChatSetBackground#81819731.
+		// Decoding messageChatSetBackground#3d5d7c40.
 		v := MessageChatSetBackground{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
@@ -14408,6 +14684,13 @@ func DecodeTDLibJSONMessageContent(buf tdjson.Decoder) (MessageContentClass, err
 	case "messagePremiumGiveaway":
 		// Decoding messagePremiumGiveaway#4aa0d0b0.
 		v := MessagePremiumGiveaway{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
+		}
+		return &v, nil
+	case "messagePremiumGiveawayCompleted":
+		// Decoding messagePremiumGiveawayCompleted#80533949.
+		v := MessagePremiumGiveawayCompleted{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageContentClass: %w", err)
 		}
