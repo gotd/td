@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// ResendMessagesRequest represents TL type `resendMessages#4a0c68af`.
+// ResendMessagesRequest represents TL type `resendMessages#90e36776`.
 type ResendMessagesRequest struct {
 	// Identifier of the chat to send messages
 	ChatID int64
@@ -41,11 +41,11 @@ type ResendMessagesRequest struct {
 	// New manually chosen quote from the message to be replied; pass null if none. Ignored
 	// if more than one message is re-sent, or if messageSendingStateFailed
 	// need_another_reply_quote == false
-	Quote FormattedText
+	Quote InputTextQuote
 }
 
 // ResendMessagesRequestTypeID is TL type id of ResendMessagesRequest.
-const ResendMessagesRequestTypeID = 0x4a0c68af
+const ResendMessagesRequestTypeID = 0x90e36776
 
 // Ensuring interfaces in compile-time for ResendMessagesRequest.
 var (
@@ -123,7 +123,7 @@ func (r *ResendMessagesRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *ResendMessagesRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode resendMessages#4a0c68af as nil")
+		return fmt.Errorf("can't encode resendMessages#90e36776 as nil")
 	}
 	b.PutID(ResendMessagesRequestTypeID)
 	return r.EncodeBare(b)
@@ -132,7 +132,7 @@ func (r *ResendMessagesRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (r *ResendMessagesRequest) EncodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode resendMessages#4a0c68af as nil")
+		return fmt.Errorf("can't encode resendMessages#90e36776 as nil")
 	}
 	b.PutInt53(r.ChatID)
 	b.PutInt(len(r.MessageIDs))
@@ -140,7 +140,7 @@ func (r *ResendMessagesRequest) EncodeBare(b *bin.Buffer) error {
 		b.PutInt53(v)
 	}
 	if err := r.Quote.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode resendMessages#4a0c68af: field quote: %w", err)
+		return fmt.Errorf("unable to encode resendMessages#90e36776: field quote: %w", err)
 	}
 	return nil
 }
@@ -148,10 +148,10 @@ func (r *ResendMessagesRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *ResendMessagesRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode resendMessages#4a0c68af to nil")
+		return fmt.Errorf("can't decode resendMessages#90e36776 to nil")
 	}
 	if err := b.ConsumeID(ResendMessagesRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode resendMessages#4a0c68af: %w", err)
+		return fmt.Errorf("unable to decode resendMessages#90e36776: %w", err)
 	}
 	return r.DecodeBare(b)
 }
@@ -159,19 +159,19 @@ func (r *ResendMessagesRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (r *ResendMessagesRequest) DecodeBare(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode resendMessages#4a0c68af to nil")
+		return fmt.Errorf("can't decode resendMessages#90e36776 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode resendMessages#4a0c68af: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode resendMessages#90e36776: field chat_id: %w", err)
 		}
 		r.ChatID = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode resendMessages#4a0c68af: field message_ids: %w", err)
+			return fmt.Errorf("unable to decode resendMessages#90e36776: field message_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -180,14 +180,14 @@ func (r *ResendMessagesRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode resendMessages#4a0c68af: field message_ids: %w", err)
+				return fmt.Errorf("unable to decode resendMessages#90e36776: field message_ids: %w", err)
 			}
 			r.MessageIDs = append(r.MessageIDs, value)
 		}
 	}
 	{
 		if err := r.Quote.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode resendMessages#4a0c68af: field quote: %w", err)
+			return fmt.Errorf("unable to decode resendMessages#90e36776: field quote: %w", err)
 		}
 	}
 	return nil
@@ -196,7 +196,7 @@ func (r *ResendMessagesRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (r *ResendMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if r == nil {
-		return fmt.Errorf("can't encode resendMessages#4a0c68af as nil")
+		return fmt.Errorf("can't encode resendMessages#90e36776 as nil")
 	}
 	b.ObjStart()
 	b.PutID("resendMessages")
@@ -215,7 +215,7 @@ func (r *ResendMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("quote")
 	if err := r.Quote.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode resendMessages#4a0c68af: field quote: %w", err)
+		return fmt.Errorf("unable to encode resendMessages#90e36776: field quote: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -226,35 +226,35 @@ func (r *ResendMessagesRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (r *ResendMessagesRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if r == nil {
-		return fmt.Errorf("can't decode resendMessages#4a0c68af to nil")
+		return fmt.Errorf("can't decode resendMessages#90e36776 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("resendMessages"); err != nil {
-				return fmt.Errorf("unable to decode resendMessages#4a0c68af: %w", err)
+				return fmt.Errorf("unable to decode resendMessages#90e36776: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode resendMessages#4a0c68af: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode resendMessages#90e36776: field chat_id: %w", err)
 			}
 			r.ChatID = value
 		case "message_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int53()
 				if err != nil {
-					return fmt.Errorf("unable to decode resendMessages#4a0c68af: field message_ids: %w", err)
+					return fmt.Errorf("unable to decode resendMessages#90e36776: field message_ids: %w", err)
 				}
 				r.MessageIDs = append(r.MessageIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode resendMessages#4a0c68af: field message_ids: %w", err)
+				return fmt.Errorf("unable to decode resendMessages#90e36776: field message_ids: %w", err)
 			}
 		case "quote":
 			if err := r.Quote.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode resendMessages#4a0c68af: field quote: %w", err)
+				return fmt.Errorf("unable to decode resendMessages#90e36776: field quote: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -280,14 +280,14 @@ func (r *ResendMessagesRequest) GetMessageIDs() (value []int64) {
 }
 
 // GetQuote returns value of Quote field.
-func (r *ResendMessagesRequest) GetQuote() (value FormattedText) {
+func (r *ResendMessagesRequest) GetQuote() (value InputTextQuote) {
 	if r == nil {
 		return
 	}
 	return r.Quote
 }
 
-// ResendMessages invokes method resendMessages#4a0c68af returning error if any.
+// ResendMessages invokes method resendMessages#90e36776 returning error if any.
 func (c *Client) ResendMessages(ctx context.Context, request *ResendMessagesRequest) (*Messages, error) {
 	var result Messages
 

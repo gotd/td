@@ -2389,6 +2389,137 @@ func (p *PremiumFeatureAccentColor) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
+// PremiumFeatureBackgroundForBoth represents TL type `premiumFeatureBackgroundForBoth#2246eefa`.
+type PremiumFeatureBackgroundForBoth struct {
+}
+
+// PremiumFeatureBackgroundForBothTypeID is TL type id of PremiumFeatureBackgroundForBoth.
+const PremiumFeatureBackgroundForBothTypeID = 0x2246eefa
+
+// construct implements constructor of PremiumFeatureClass.
+func (p PremiumFeatureBackgroundForBoth) construct() PremiumFeatureClass { return &p }
+
+// Ensuring interfaces in compile-time for PremiumFeatureBackgroundForBoth.
+var (
+	_ bin.Encoder     = &PremiumFeatureBackgroundForBoth{}
+	_ bin.Decoder     = &PremiumFeatureBackgroundForBoth{}
+	_ bin.BareEncoder = &PremiumFeatureBackgroundForBoth{}
+	_ bin.BareDecoder = &PremiumFeatureBackgroundForBoth{}
+
+	_ PremiumFeatureClass = &PremiumFeatureBackgroundForBoth{}
+)
+
+func (p *PremiumFeatureBackgroundForBoth) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (p *PremiumFeatureBackgroundForBoth) String() string {
+	if p == nil {
+		return "PremiumFeatureBackgroundForBoth(nil)"
+	}
+	type Alias PremiumFeatureBackgroundForBoth
+	return fmt.Sprintf("PremiumFeatureBackgroundForBoth%+v", Alias(*p))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*PremiumFeatureBackgroundForBoth) TypeID() uint32 {
+	return PremiumFeatureBackgroundForBothTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*PremiumFeatureBackgroundForBoth) TypeName() string {
+	return "premiumFeatureBackgroundForBoth"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PremiumFeatureBackgroundForBoth) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "premiumFeatureBackgroundForBoth",
+		ID:   PremiumFeatureBackgroundForBothTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (p *PremiumFeatureBackgroundForBoth) Encode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureBackgroundForBoth#2246eefa as nil")
+	}
+	b.PutID(PremiumFeatureBackgroundForBothTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PremiumFeatureBackgroundForBoth) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureBackgroundForBoth#2246eefa as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (p *PremiumFeatureBackgroundForBoth) Decode(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureBackgroundForBoth#2246eefa to nil")
+	}
+	if err := b.ConsumeID(PremiumFeatureBackgroundForBothTypeID); err != nil {
+		return fmt.Errorf("unable to decode premiumFeatureBackgroundForBoth#2246eefa: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PremiumFeatureBackgroundForBoth) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureBackgroundForBoth#2246eefa to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (p *PremiumFeatureBackgroundForBoth) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if p == nil {
+		return fmt.Errorf("can't encode premiumFeatureBackgroundForBoth#2246eefa as nil")
+	}
+	b.ObjStart()
+	b.PutID("premiumFeatureBackgroundForBoth")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (p *PremiumFeatureBackgroundForBoth) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if p == nil {
+		return fmt.Errorf("can't decode premiumFeatureBackgroundForBoth#2246eefa to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("premiumFeatureBackgroundForBoth"); err != nil {
+				return fmt.Errorf("unable to decode premiumFeatureBackgroundForBoth#2246eefa: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // PremiumFeatureClassName is schema name of PremiumFeatureClass.
 const PremiumFeatureClassName = "PremiumFeature"
 
@@ -2419,6 +2550,7 @@ const PremiumFeatureClassName = "PremiumFeature"
 //	case *tdapi.PremiumFeatureUpgradedStories: // premiumFeatureUpgradedStories#9008051b
 //	case *tdapi.PremiumFeatureChatBoost: // premiumFeatureChatBoost#5df89f1b
 //	case *tdapi.PremiumFeatureAccentColor: // premiumFeatureAccentColor#361ac59e
+//	case *tdapi.PremiumFeatureBackgroundForBoth: // premiumFeatureBackgroundForBoth#2246eefa
 //	default: panic(v)
 //	}
 type PremiumFeatureClass interface {
@@ -2576,6 +2708,13 @@ func DecodePremiumFeature(buf *bin.Buffer) (PremiumFeatureClass, error) {
 			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
 		}
 		return &v, nil
+	case PremiumFeatureBackgroundForBothTypeID:
+		// Decoding premiumFeatureBackgroundForBoth#2246eefa.
+		v := PremiumFeatureBackgroundForBoth{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -2710,6 +2849,13 @@ func DecodeTDLibJSONPremiumFeature(buf tdjson.Decoder) (PremiumFeatureClass, err
 	case "premiumFeatureAccentColor":
 		// Decoding premiumFeatureAccentColor#361ac59e.
 		v := PremiumFeatureAccentColor{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
+		}
+		return &v, nil
+	case "premiumFeatureBackgroundForBoth":
+		// Decoding premiumFeatureBackgroundForBoth#2246eefa.
+		v := PremiumFeatureBackgroundForBoth{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PremiumFeatureClass: %w", err)
 		}

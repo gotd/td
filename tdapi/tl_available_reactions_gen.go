@@ -39,7 +39,7 @@ type AvailableReactions struct {
 	RecentReactions []AvailableReaction
 	// List of popular reactions
 	PopularReactions []AvailableReaction
-	// True, if custom emoji reactions could be added by Telegram Premium subscribers
+	// True, if any custom emoji reaction can be added by Telegram Premium subscribers
 	AllowCustomEmoji bool
 }
 

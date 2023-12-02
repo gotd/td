@@ -33,8 +33,8 @@ var (
 
 // ChatNotificationSettings represents TL type `chatNotificationSettings#dddc12cf`.
 type ChatNotificationSettings struct {
-	// If true, mute_for is ignored and the value for the relevant type of chat or the forum
-	// chat is used instead
+	// If true, the value for the relevant type of chat or the forum chat is used instead of
+	// mute_for
 	UseDefaultMuteFor bool
 	// Time left before notifications will be unmuted, in seconds
 	MuteFor int32
@@ -43,13 +43,12 @@ type ChatNotificationSettings struct {
 	UseDefaultSound bool
 	// Identifier of the notification sound to be played for messages; 0 if sound is disabled
 	SoundID int64
-	// If true, show_preview is ignored and the value for the relevant type of chat or the
-	// forum chat is used instead
+	// If true, the value for the relevant type of chat or the forum chat is used instead of
+	// show_preview
 	UseDefaultShowPreview bool
 	// True, if message content must be displayed in notifications
 	ShowPreview bool
-	// If true, mute_stories is ignored and the value for the relevant type of chat is used
-	// instead
+	// If true, the value for the relevant type of chat is used instead of mute_stories
 	UseDefaultMuteStories bool
 	// True, if story notifications are disabled for the chat
 	MuteStories bool
@@ -57,19 +56,18 @@ type ChatNotificationSettings struct {
 	UseDefaultStorySound bool
 	// Identifier of the notification sound to be played for stories; 0 if sound is disabled
 	StorySoundID int64
-	// If true, show_story_sender is ignored and the value for the relevant type of chat is
-	// used instead
+	// If true, the value for the relevant type of chat is used instead of show_story_sender
 	UseDefaultShowStorySender bool
 	// True, if the sender of stories must be displayed in notifications
 	ShowStorySender bool
-	// If true, disable_pinned_message_notifications is ignored and the value for the
-	// relevant type of chat or the forum chat is used instead
+	// If true, the value for the relevant type of chat or the forum chat is used instead of
+	// disable_pinned_message_notifications
 	UseDefaultDisablePinnedMessageNotifications bool
 	// If true, notifications for incoming pinned messages will be created as for an ordinary
 	// unread message
 	DisablePinnedMessageNotifications bool
-	// If true, disable_mention_notifications is ignored and the value for the relevant type
-	// of chat or the forum chat is used instead
+	// If true, the value for the relevant type of chat or the forum chat is used instead of
+	// disable_mention_notifications
 	UseDefaultDisableMentionNotifications bool
 	// If true, notifications for messages with mentions will be created as for an ordinary
 	// unread message

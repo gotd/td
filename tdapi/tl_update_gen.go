@@ -8486,6 +8486,206 @@ func (u *UpdateChatIsMarkedAsUnread) GetIsMarkedAsUnread() (value bool) {
 	return u.IsMarkedAsUnread
 }
 
+// UpdateChatViewAsTopics represents TL type `updateChatViewAsTopics#5bff163d`.
+type UpdateChatViewAsTopics struct {
+	// Chat identifier
+	ChatID int64
+	// New value of view_as_topics
+	ViewAsTopics bool
+}
+
+// UpdateChatViewAsTopicsTypeID is TL type id of UpdateChatViewAsTopics.
+const UpdateChatViewAsTopicsTypeID = 0x5bff163d
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatViewAsTopics) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatViewAsTopics.
+var (
+	_ bin.Encoder     = &UpdateChatViewAsTopics{}
+	_ bin.Decoder     = &UpdateChatViewAsTopics{}
+	_ bin.BareEncoder = &UpdateChatViewAsTopics{}
+	_ bin.BareDecoder = &UpdateChatViewAsTopics{}
+
+	_ UpdateClass = &UpdateChatViewAsTopics{}
+)
+
+func (u *UpdateChatViewAsTopics) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.ViewAsTopics == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatViewAsTopics) String() string {
+	if u == nil {
+		return "UpdateChatViewAsTopics(nil)"
+	}
+	type Alias UpdateChatViewAsTopics
+	return fmt.Sprintf("UpdateChatViewAsTopics%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChatViewAsTopics) TypeID() uint32 {
+	return UpdateChatViewAsTopicsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChatViewAsTopics) TypeName() string {
+	return "updateChatViewAsTopics"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatViewAsTopics) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatViewAsTopics",
+		ID:   UpdateChatViewAsTopicsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "ViewAsTopics",
+			SchemaName: "view_as_topics",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatViewAsTopics) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatViewAsTopics#5bff163d as nil")
+	}
+	b.PutID(UpdateChatViewAsTopicsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChatViewAsTopics) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatViewAsTopics#5bff163d as nil")
+	}
+	b.PutInt53(u.ChatID)
+	b.PutBool(u.ViewAsTopics)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatViewAsTopics) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatViewAsTopics#5bff163d to nil")
+	}
+	if err := b.ConsumeID(UpdateChatViewAsTopicsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatViewAsTopics#5bff163d: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChatViewAsTopics) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatViewAsTopics#5bff163d to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatViewAsTopics#5bff163d: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatViewAsTopics#5bff163d: field view_as_topics: %w", err)
+		}
+		u.ViewAsTopics = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateChatViewAsTopics) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatViewAsTopics#5bff163d as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateChatViewAsTopics")
+	b.Comma()
+	b.FieldStart("chat_id")
+	b.PutInt53(u.ChatID)
+	b.Comma()
+	b.FieldStart("view_as_topics")
+	b.PutBool(u.ViewAsTopics)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateChatViewAsTopics) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatViewAsTopics#5bff163d to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateChatViewAsTopics"); err != nil {
+				return fmt.Errorf("unable to decode updateChatViewAsTopics#5bff163d: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatViewAsTopics#5bff163d: field chat_id: %w", err)
+			}
+			u.ChatID = value
+		case "view_as_topics":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateChatViewAsTopics#5bff163d: field view_as_topics: %w", err)
+			}
+			u.ViewAsTopics = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatViewAsTopics) GetChatID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChatID
+}
+
+// GetViewAsTopics returns value of ViewAsTopics field.
+func (u *UpdateChatViewAsTopics) GetViewAsTopics() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.ViewAsTopics
+}
+
 // UpdateChatBlockList represents TL type `updateChatBlockList#872af48e`.
 type UpdateChatBlockList struct {
 	// Chat identifier
@@ -19752,6 +19952,259 @@ func (u *UpdateAccentColors) GetAvailableAccentColorIDs() (value []int32) {
 	return u.AvailableAccentColorIDs
 }
 
+// UpdateProfileAccentColors represents TL type `updateProfileAccentColors#bf8e7430`.
+type UpdateProfileAccentColors struct {
+	// Information about supported colors
+	Colors []ProfileAccentColor
+	// The list of accent color identifiers, which can be set through setProfileAccentColor.
+	// The colors must be shown in the specififed order
+	AvailableAccentColorIDs []int32
+}
+
+// UpdateProfileAccentColorsTypeID is TL type id of UpdateProfileAccentColors.
+const UpdateProfileAccentColorsTypeID = 0xbf8e7430
+
+// construct implements constructor of UpdateClass.
+func (u UpdateProfileAccentColors) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateProfileAccentColors.
+var (
+	_ bin.Encoder     = &UpdateProfileAccentColors{}
+	_ bin.Decoder     = &UpdateProfileAccentColors{}
+	_ bin.BareEncoder = &UpdateProfileAccentColors{}
+	_ bin.BareDecoder = &UpdateProfileAccentColors{}
+
+	_ UpdateClass = &UpdateProfileAccentColors{}
+)
+
+func (u *UpdateProfileAccentColors) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Colors == nil) {
+		return false
+	}
+	if !(u.AvailableAccentColorIDs == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateProfileAccentColors) String() string {
+	if u == nil {
+		return "UpdateProfileAccentColors(nil)"
+	}
+	type Alias UpdateProfileAccentColors
+	return fmt.Sprintf("UpdateProfileAccentColors%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateProfileAccentColors) TypeID() uint32 {
+	return UpdateProfileAccentColorsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateProfileAccentColors) TypeName() string {
+	return "updateProfileAccentColors"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateProfileAccentColors) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateProfileAccentColors",
+		ID:   UpdateProfileAccentColorsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Colors",
+			SchemaName: "colors",
+		},
+		{
+			Name:       "AvailableAccentColorIDs",
+			SchemaName: "available_accent_color_ids",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateProfileAccentColors) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateProfileAccentColors#bf8e7430 as nil")
+	}
+	b.PutID(UpdateProfileAccentColorsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateProfileAccentColors) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateProfileAccentColors#bf8e7430 as nil")
+	}
+	b.PutInt(len(u.Colors))
+	for idx, v := range u.Colors {
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare updateProfileAccentColors#bf8e7430: field colors element with index %d: %w", idx, err)
+		}
+	}
+	b.PutInt(len(u.AvailableAccentColorIDs))
+	for _, v := range u.AvailableAccentColorIDs {
+		b.PutInt32(v)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateProfileAccentColors) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateProfileAccentColors#bf8e7430 to nil")
+	}
+	if err := b.ConsumeID(UpdateProfileAccentColorsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateProfileAccentColors#bf8e7430: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateProfileAccentColors) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateProfileAccentColors#bf8e7430 to nil")
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateProfileAccentColors#bf8e7430: field colors: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.Colors = make([]ProfileAccentColor, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value ProfileAccentColor
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare updateProfileAccentColors#bf8e7430: field colors: %w", err)
+			}
+			u.Colors = append(u.Colors, value)
+		}
+	}
+	{
+		headerLen, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateProfileAccentColors#bf8e7430: field available_accent_color_ids: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.AvailableAccentColorIDs = make([]int32, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateProfileAccentColors#bf8e7430: field available_accent_color_ids: %w", err)
+			}
+			u.AvailableAccentColorIDs = append(u.AvailableAccentColorIDs, value)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateProfileAccentColors) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateProfileAccentColors#bf8e7430 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateProfileAccentColors")
+	b.Comma()
+	b.FieldStart("colors")
+	b.ArrStart()
+	for idx, v := range u.Colors {
+		if err := v.EncodeTDLibJSON(b); err != nil {
+			return fmt.Errorf("unable to encode updateProfileAccentColors#bf8e7430: field colors element with index %d: %w", idx, err)
+		}
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.FieldStart("available_accent_color_ids")
+	b.ArrStart()
+	for _, v := range u.AvailableAccentColorIDs {
+		b.PutInt32(v)
+		b.Comma()
+	}
+	b.StripComma()
+	b.ArrEnd()
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateProfileAccentColors) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateProfileAccentColors#bf8e7430 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateProfileAccentColors"); err != nil {
+				return fmt.Errorf("unable to decode updateProfileAccentColors#bf8e7430: %w", err)
+			}
+		case "colors":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				var value ProfileAccentColor
+				if err := value.DecodeTDLibJSON(b); err != nil {
+					return fmt.Errorf("unable to decode updateProfileAccentColors#bf8e7430: field colors: %w", err)
+				}
+				u.Colors = append(u.Colors, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode updateProfileAccentColors#bf8e7430: field colors: %w", err)
+			}
+		case "available_accent_color_ids":
+			if err := b.Arr(func(b tdjson.Decoder) error {
+				value, err := b.Int32()
+				if err != nil {
+					return fmt.Errorf("unable to decode updateProfileAccentColors#bf8e7430: field available_accent_color_ids: %w", err)
+				}
+				u.AvailableAccentColorIDs = append(u.AvailableAccentColorIDs, value)
+				return nil
+			}); err != nil {
+				return fmt.Errorf("unable to decode updateProfileAccentColors#bf8e7430: field available_accent_color_ids: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetColors returns value of Colors field.
+func (u *UpdateProfileAccentColors) GetColors() (value []ProfileAccentColor) {
+	if u == nil {
+		return
+	}
+	return u.Colors
+}
+
+// GetAvailableAccentColorIDs returns value of AvailableAccentColorIDs field.
+func (u *UpdateProfileAccentColors) GetAvailableAccentColorIDs() (value []int32) {
+	if u == nil {
+		return
+	}
+	return u.AvailableAccentColorIDs
+}
+
 // UpdateLanguagePackStrings represents TL type `updateLanguagePackStrings#af87919f`.
 type UpdateLanguagePackStrings struct {
 	// Localization target to which the language pack belongs
@@ -21474,6 +21927,276 @@ func (u *UpdateDefaultReactionType) GetReactionType() (value ReactionTypeClass) 
 		return
 	}
 	return u.ReactionType
+}
+
+// UpdateSpeechRecognitionTrial represents TL type `updateSpeechRecognitionTrial#ff4efcc1`.
+type UpdateSpeechRecognitionTrial struct {
+	// The maximum allowed duration of media for speech recognition without Telegram Premium
+	// subscription
+	MaxMediaDuration int32
+	// The total number of allowed speech recognitions per week; 0 if none
+	WeeklyCount int32
+	// Number of left speech recognition attempts this week
+	LeftCount int32
+	// Point in time (Unix timestamp) when the weekly number of tries will reset; 0 if
+	// unknown
+	NextResetDate int32
+}
+
+// UpdateSpeechRecognitionTrialTypeID is TL type id of UpdateSpeechRecognitionTrial.
+const UpdateSpeechRecognitionTrialTypeID = 0xff4efcc1
+
+// construct implements constructor of UpdateClass.
+func (u UpdateSpeechRecognitionTrial) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateSpeechRecognitionTrial.
+var (
+	_ bin.Encoder     = &UpdateSpeechRecognitionTrial{}
+	_ bin.Decoder     = &UpdateSpeechRecognitionTrial{}
+	_ bin.BareEncoder = &UpdateSpeechRecognitionTrial{}
+	_ bin.BareDecoder = &UpdateSpeechRecognitionTrial{}
+
+	_ UpdateClass = &UpdateSpeechRecognitionTrial{}
+)
+
+func (u *UpdateSpeechRecognitionTrial) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.MaxMediaDuration == 0) {
+		return false
+	}
+	if !(u.WeeklyCount == 0) {
+		return false
+	}
+	if !(u.LeftCount == 0) {
+		return false
+	}
+	if !(u.NextResetDate == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateSpeechRecognitionTrial) String() string {
+	if u == nil {
+		return "UpdateSpeechRecognitionTrial(nil)"
+	}
+	type Alias UpdateSpeechRecognitionTrial
+	return fmt.Sprintf("UpdateSpeechRecognitionTrial%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateSpeechRecognitionTrial) TypeID() uint32 {
+	return UpdateSpeechRecognitionTrialTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateSpeechRecognitionTrial) TypeName() string {
+	return "updateSpeechRecognitionTrial"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateSpeechRecognitionTrial) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateSpeechRecognitionTrial",
+		ID:   UpdateSpeechRecognitionTrialTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MaxMediaDuration",
+			SchemaName: "max_media_duration",
+		},
+		{
+			Name:       "WeeklyCount",
+			SchemaName: "weekly_count",
+		},
+		{
+			Name:       "LeftCount",
+			SchemaName: "left_count",
+		},
+		{
+			Name:       "NextResetDate",
+			SchemaName: "next_reset_date",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateSpeechRecognitionTrial) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSpeechRecognitionTrial#ff4efcc1 as nil")
+	}
+	b.PutID(UpdateSpeechRecognitionTrialTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateSpeechRecognitionTrial) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSpeechRecognitionTrial#ff4efcc1 as nil")
+	}
+	b.PutInt32(u.MaxMediaDuration)
+	b.PutInt32(u.WeeklyCount)
+	b.PutInt32(u.LeftCount)
+	b.PutInt32(u.NextResetDate)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateSpeechRecognitionTrial) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSpeechRecognitionTrial#ff4efcc1 to nil")
+	}
+	if err := b.ConsumeID(UpdateSpeechRecognitionTrialTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateSpeechRecognitionTrial#ff4efcc1: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateSpeechRecognitionTrial) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSpeechRecognitionTrial#ff4efcc1 to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateSpeechRecognitionTrial#ff4efcc1: field max_media_duration: %w", err)
+		}
+		u.MaxMediaDuration = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateSpeechRecognitionTrial#ff4efcc1: field weekly_count: %w", err)
+		}
+		u.WeeklyCount = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateSpeechRecognitionTrial#ff4efcc1: field left_count: %w", err)
+		}
+		u.LeftCount = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateSpeechRecognitionTrial#ff4efcc1: field next_reset_date: %w", err)
+		}
+		u.NextResetDate = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (u *UpdateSpeechRecognitionTrial) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSpeechRecognitionTrial#ff4efcc1 as nil")
+	}
+	b.ObjStart()
+	b.PutID("updateSpeechRecognitionTrial")
+	b.Comma()
+	b.FieldStart("max_media_duration")
+	b.PutInt32(u.MaxMediaDuration)
+	b.Comma()
+	b.FieldStart("weekly_count")
+	b.PutInt32(u.WeeklyCount)
+	b.Comma()
+	b.FieldStart("left_count")
+	b.PutInt32(u.LeftCount)
+	b.Comma()
+	b.FieldStart("next_reset_date")
+	b.PutInt32(u.NextResetDate)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (u *UpdateSpeechRecognitionTrial) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSpeechRecognitionTrial#ff4efcc1 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("updateSpeechRecognitionTrial"); err != nil {
+				return fmt.Errorf("unable to decode updateSpeechRecognitionTrial#ff4efcc1: %w", err)
+			}
+		case "max_media_duration":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateSpeechRecognitionTrial#ff4efcc1: field max_media_duration: %w", err)
+			}
+			u.MaxMediaDuration = value
+		case "weekly_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateSpeechRecognitionTrial#ff4efcc1: field weekly_count: %w", err)
+			}
+			u.WeeklyCount = value
+		case "left_count":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateSpeechRecognitionTrial#ff4efcc1: field left_count: %w", err)
+			}
+			u.LeftCount = value
+		case "next_reset_date":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode updateSpeechRecognitionTrial#ff4efcc1: field next_reset_date: %w", err)
+			}
+			u.NextResetDate = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetMaxMediaDuration returns value of MaxMediaDuration field.
+func (u *UpdateSpeechRecognitionTrial) GetMaxMediaDuration() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.MaxMediaDuration
+}
+
+// GetWeeklyCount returns value of WeeklyCount field.
+func (u *UpdateSpeechRecognitionTrial) GetWeeklyCount() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.WeeklyCount
+}
+
+// GetLeftCount returns value of LeftCount field.
+func (u *UpdateSpeechRecognitionTrial) GetLeftCount() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.LeftCount
+}
+
+// GetNextResetDate returns value of NextResetDate field.
+func (u *UpdateSpeechRecognitionTrial) GetNextResetDate() (value int32) {
+	if u == nil {
+		return
+	}
+	return u.NextResetDate
 }
 
 // UpdateDiceEmojis represents TL type `updateDiceEmojis#9d0f91df`.
@@ -25610,7 +26333,7 @@ type UpdateChatMember struct {
 	ChatID int64
 	// Identifier of the user, changing the rights
 	ActorUserID int64
-	// Point in time (Unix timestamp) when the user rights was changed
+	// Point in time (Unix timestamp) when the user rights were changed
 	Date int32
 	// If user has joined the chat using an invite link, the invite link; may be null
 	InviteLink ChatInviteLink
@@ -26494,6 +27217,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateChatHasProtectedContent: // updateChatHasProtectedContent#6b50071b
 //	case *tdapi.UpdateChatIsTranslatable: // updateChatIsTranslatable#7b031617
 //	case *tdapi.UpdateChatIsMarkedAsUnread: // updateChatIsMarkedAsUnread#57853334
+//	case *tdapi.UpdateChatViewAsTopics: // updateChatViewAsTopics#5bff163d
 //	case *tdapi.UpdateChatBlockList: // updateChatBlockList#872af48e
 //	case *tdapi.UpdateChatHasScheduledMessages: // updateChatHasScheduledMessages#7b14c2d7
 //	case *tdapi.UpdateChatFolders: // updateChatFolders#71a4b3a
@@ -26547,6 +27271,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateSelectedBackground: // updateSelectedBackground#99bd205d
 //	case *tdapi.UpdateChatThemes: // updateChatThemes#98dc58d5
 //	case *tdapi.UpdateAccentColors: // updateAccentColors#1316555e
+//	case *tdapi.UpdateProfileAccentColors: // updateProfileAccentColors#bf8e7430
 //	case *tdapi.UpdateLanguagePackStrings: // updateLanguagePackStrings#af87919f
 //	case *tdapi.UpdateConnectionState: // updateConnectionState#57939e2e
 //	case *tdapi.UpdateTermsOfService: // updateTermsOfService#b23cc55e
@@ -26556,6 +27281,7 @@ const UpdateClassName = "Update"
 //	case *tdapi.UpdateWebAppMessageSent: // updateWebAppMessageSent#58431229
 //	case *tdapi.UpdateActiveEmojiReactions: // updateActiveEmojiReactions#691ffcb7
 //	case *tdapi.UpdateDefaultReactionType: // updateDefaultReactionType#4b615105
+//	case *tdapi.UpdateSpeechRecognitionTrial: // updateSpeechRecognitionTrial#ff4efcc1
 //	case *tdapi.UpdateDiceEmojis: // updateDiceEmojis#9d0f91df
 //	case *tdapi.UpdateAnimatedEmojiMessageClicked: // updateAnimatedEmojiMessageClicked#a3167405
 //	case *tdapi.UpdateAnimationSearchParameters: // updateAnimationSearchParameters#6016ef01
@@ -26882,6 +27608,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateChatIsMarkedAsUnreadTypeID:
 		// Decoding updateChatIsMarkedAsUnread#57853334.
 		v := UpdateChatIsMarkedAsUnread{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChatViewAsTopicsTypeID:
+		// Decoding updateChatViewAsTopics#5bff163d.
+		v := UpdateChatViewAsTopics{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -27257,6 +27990,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case UpdateProfileAccentColorsTypeID:
+		// Decoding updateProfileAccentColors#bf8e7430.
+		v := UpdateProfileAccentColors{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case UpdateLanguagePackStringsTypeID:
 		// Decoding updateLanguagePackStrings#af87919f.
 		v := UpdateLanguagePackStrings{}
@@ -27316,6 +28056,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateDefaultReactionTypeTypeID:
 		// Decoding updateDefaultReactionType#4b615105.
 		v := UpdateDefaultReactionType{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateSpeechRecognitionTrialTypeID:
+		// Decoding updateSpeechRecognitionTrial#ff4efcc1.
+		v := UpdateSpeechRecognitionTrial{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -27745,6 +28492,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case "updateChatViewAsTopics":
+		// Decoding updateChatViewAsTopics#5bff163d.
+		v := UpdateChatViewAsTopics{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case "updateChatBlockList":
 		// Decoding updateChatBlockList#872af48e.
 		v := UpdateChatBlockList{}
@@ -28116,6 +28870,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
+	case "updateProfileAccentColors":
+		// Decoding updateProfileAccentColors#bf8e7430.
+		v := UpdateProfileAccentColors{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
 	case "updateLanguagePackStrings":
 		// Decoding updateLanguagePackStrings#af87919f.
 		v := UpdateLanguagePackStrings{}
@@ -28175,6 +28936,13 @@ func DecodeTDLibJSONUpdate(buf tdjson.Decoder) (UpdateClass, error) {
 	case "updateDefaultReactionType":
 		// Decoding updateDefaultReactionType#4b615105.
 		v := UpdateDefaultReactionType{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case "updateSpeechRecognitionTrial":
+		// Decoding updateSpeechRecognitionTrial#ff4efcc1.
+		v := UpdateSpeechRecognitionTrial{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

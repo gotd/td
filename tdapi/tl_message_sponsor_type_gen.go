@@ -241,6 +241,216 @@ func (m *MessageSponsorTypeBot) GetLink() (value InternalLinkTypeClass) {
 	return m.Link
 }
 
+// MessageSponsorTypeWebApp represents TL type `messageSponsorTypeWebApp#25b74fb8`.
+type MessageSponsorTypeWebApp struct {
+	// Web App title
+	WebAppTitle string
+	// An internal link to be opened when the sponsored message is clicked
+	Link InternalLinkTypeClass
+}
+
+// MessageSponsorTypeWebAppTypeID is TL type id of MessageSponsorTypeWebApp.
+const MessageSponsorTypeWebAppTypeID = 0x25b74fb8
+
+// construct implements constructor of MessageSponsorTypeClass.
+func (m MessageSponsorTypeWebApp) construct() MessageSponsorTypeClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageSponsorTypeWebApp.
+var (
+	_ bin.Encoder     = &MessageSponsorTypeWebApp{}
+	_ bin.Decoder     = &MessageSponsorTypeWebApp{}
+	_ bin.BareEncoder = &MessageSponsorTypeWebApp{}
+	_ bin.BareDecoder = &MessageSponsorTypeWebApp{}
+
+	_ MessageSponsorTypeClass = &MessageSponsorTypeWebApp{}
+)
+
+func (m *MessageSponsorTypeWebApp) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.WebAppTitle == "") {
+		return false
+	}
+	if !(m.Link == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageSponsorTypeWebApp) String() string {
+	if m == nil {
+		return "MessageSponsorTypeWebApp(nil)"
+	}
+	type Alias MessageSponsorTypeWebApp
+	return fmt.Sprintf("MessageSponsorTypeWebApp%+v", Alias(*m))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageSponsorTypeWebApp) TypeID() uint32 {
+	return MessageSponsorTypeWebAppTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageSponsorTypeWebApp) TypeName() string {
+	return "messageSponsorTypeWebApp"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageSponsorTypeWebApp) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageSponsorTypeWebApp",
+		ID:   MessageSponsorTypeWebAppTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "WebAppTitle",
+			SchemaName: "web_app_title",
+		},
+		{
+			Name:       "Link",
+			SchemaName: "link",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageSponsorTypeWebApp) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageSponsorTypeWebApp#25b74fb8 as nil")
+	}
+	b.PutID(MessageSponsorTypeWebAppTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageSponsorTypeWebApp) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageSponsorTypeWebApp#25b74fb8 as nil")
+	}
+	b.PutString(m.WebAppTitle)
+	if m.Link == nil {
+		return fmt.Errorf("unable to encode messageSponsorTypeWebApp#25b74fb8: field link is nil")
+	}
+	if err := m.Link.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageSponsorTypeWebApp#25b74fb8: field link: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageSponsorTypeWebApp) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageSponsorTypeWebApp#25b74fb8 to nil")
+	}
+	if err := b.ConsumeID(MessageSponsorTypeWebAppTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageSponsorTypeWebApp#25b74fb8: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageSponsorTypeWebApp) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageSponsorTypeWebApp#25b74fb8 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageSponsorTypeWebApp#25b74fb8: field web_app_title: %w", err)
+		}
+		m.WebAppTitle = value
+	}
+	{
+		value, err := DecodeInternalLinkType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageSponsorTypeWebApp#25b74fb8: field link: %w", err)
+		}
+		m.Link = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (m *MessageSponsorTypeWebApp) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageSponsorTypeWebApp#25b74fb8 as nil")
+	}
+	b.ObjStart()
+	b.PutID("messageSponsorTypeWebApp")
+	b.Comma()
+	b.FieldStart("web_app_title")
+	b.PutString(m.WebAppTitle)
+	b.Comma()
+	b.FieldStart("link")
+	if m.Link == nil {
+		return fmt.Errorf("unable to encode messageSponsorTypeWebApp#25b74fb8: field link is nil")
+	}
+	if err := m.Link.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageSponsorTypeWebApp#25b74fb8: field link: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (m *MessageSponsorTypeWebApp) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageSponsorTypeWebApp#25b74fb8 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("messageSponsorTypeWebApp"); err != nil {
+				return fmt.Errorf("unable to decode messageSponsorTypeWebApp#25b74fb8: %w", err)
+			}
+		case "web_app_title":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageSponsorTypeWebApp#25b74fb8: field web_app_title: %w", err)
+			}
+			m.WebAppTitle = value
+		case "link":
+			value, err := DecodeTDLibJSONInternalLinkType(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode messageSponsorTypeWebApp#25b74fb8: field link: %w", err)
+			}
+			m.Link = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetWebAppTitle returns value of WebAppTitle field.
+func (m *MessageSponsorTypeWebApp) GetWebAppTitle() (value string) {
+	if m == nil {
+		return
+	}
+	return m.WebAppTitle
+}
+
+// GetLink returns value of Link field.
+func (m *MessageSponsorTypeWebApp) GetLink() (value InternalLinkTypeClass) {
+	if m == nil {
+		return
+	}
+	return m.Link
+}
+
 // MessageSponsorTypePublicChannel represents TL type `messageSponsorTypePublicChannel#ed645a47`.
 type MessageSponsorTypePublicChannel struct {
 	// Sponsor chat identifier
@@ -865,6 +1075,7 @@ const MessageSponsorTypeClassName = "MessageSponsorType"
 //	}
 //	switch v := g.(type) {
 //	case *tdapi.MessageSponsorTypeBot: // messageSponsorTypeBot#700d2304
+//	case *tdapi.MessageSponsorTypeWebApp: // messageSponsorTypeWebApp#25b74fb8
 //	case *tdapi.MessageSponsorTypePublicChannel: // messageSponsorTypePublicChannel#ed645a47
 //	case *tdapi.MessageSponsorTypePrivateChannel: // messageSponsorTypePrivateChannel#74d245a8
 //	case *tdapi.MessageSponsorTypeWebsite: // messageSponsorTypeWebsite#a4e45f9b
@@ -906,6 +1117,13 @@ func DecodeMessageSponsorType(buf *bin.Buffer) (MessageSponsorTypeClass, error) 
 			return nil, fmt.Errorf("unable to decode MessageSponsorTypeClass: %w", err)
 		}
 		return &v, nil
+	case MessageSponsorTypeWebAppTypeID:
+		// Decoding messageSponsorTypeWebApp#25b74fb8.
+		v := MessageSponsorTypeWebApp{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageSponsorTypeClass: %w", err)
+		}
+		return &v, nil
 	case MessageSponsorTypePublicChannelTypeID:
 		// Decoding messageSponsorTypePublicChannel#ed645a47.
 		v := MessageSponsorTypePublicChannel{}
@@ -942,6 +1160,13 @@ func DecodeTDLibJSONMessageSponsorType(buf tdjson.Decoder) (MessageSponsorTypeCl
 	case "messageSponsorTypeBot":
 		// Decoding messageSponsorTypeBot#700d2304.
 		v := MessageSponsorTypeBot{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageSponsorTypeClass: %w", err)
+		}
+		return &v, nil
+	case "messageSponsorTypeWebApp":
+		// Decoding messageSponsorTypeWebApp#25b74fb8.
+		v := MessageSponsorTypeWebApp{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageSponsorTypeClass: %w", err)
 		}
