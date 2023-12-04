@@ -62,7 +62,7 @@ func (u User) Run(ctx context.Context) error {
 	dispatcher := tg.NewUpdateDispatcher()
 	dispatcher.OnNewMessage(u.messageHandler)
 	client := u.suite.Client(u.logger, dispatcher)
-	sender := message.NewSender(tg.NewClient(waitInvoker{prev: client}))
+	sender := message.NewSender(tg.NewClient(retryInvoker{prev: client}))
 
 	return client.Run(ctx, func(ctx context.Context) error {
 		if err := u.suite.RetryAuthenticate(ctx, client.Auth()); err != nil {

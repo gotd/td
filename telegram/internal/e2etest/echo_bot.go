@@ -5,7 +5,6 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/cenkalti/backoff/v4"
 	"github.com/go-faster/errors"
 	"go.uber.org/zap"
 
@@ -71,7 +70,7 @@ func (b EchoBot) login(ctx context.Context, client *telegram.Client) (*tg.User, 
 	}
 
 	var me *tg.User
-	if err := retryFloodWait(ctx, func() (err error) {
+	if err := retry(ctx, func() (err error) {
 		me, err = client.Self(ctx)
 		return err
 	}); err != nil {
@@ -79,31 +78,18 @@ func (b EchoBot) login(ctx context.Context, client *telegram.Client) (*tg.User, 
 	}
 
 	expectedUsername := "echobot" + strconv.FormatInt(me.ID, 10)
-	raw := tg.NewClient(waitInvoker{prev: client})
+	raw := tg.NewClient(retryInvoker{prev: client})
 	_, err := raw.AccountUpdateUsername(ctx, expectedUsername)
 	if err != nil {
 		if !tgerr.Is(err, tg.ErrUsernameNotModified) {
 			return nil, errors.Wrap(err, "update username")
 		}
 	}
-
-	if err := backoff.Retry(func() error {
-		me, err = client.Self(ctx)
-		if err != nil {
-			if ok, err := tgerr.FloodWait(ctx, err); ok {
-				return err
-			}
-
-			return backoff.Permanent(errors.Wrap(err, "get self"))
-		}
-
-		if me.Username != expectedUsername {
-			return errors.Errorf("expected username %q, got %q", expectedUsername, me.Username)
-		}
-
-		return nil
-	}, backoff.WithContext(backoff.NewExponentialBackOff(), ctx)); err != nil {
-		return nil, err
+	me, err = retryResult(ctx, func() (*tg.User, error) {
+		return client.Self(ctx)
+	})
+	if me.Username != expectedUsername {
+		return nil, errors.Errorf("expected username %q, got %q", expectedUsername, me.Username)
 	}
 
 	return me, nil
@@ -125,14 +111,19 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 		}
 
 		if dialogsUsers.empty() {
-			dialogs, err := raw.MessagesGetDialogs(ctx, &tg.MessagesGetDialogsRequest{
-				Limit:      100,
-				OffsetPeer: &tg.InputPeerEmpty{},
+			dialogs, err := retryResult(ctx, func() (tg.MessagesDialogsClass, error) {
+				dialogs, err := raw.MessagesGetDialogs(ctx, &tg.MessagesGetDialogsRequest{
+					Limit:      100,
+					OffsetPeer: &tg.InputPeerEmpty{},
+				})
+				if err != nil {
+					return nil, errors.Wrap(err, "get dialogs")
+				}
+				return dialogs, nil
 			})
 			if err != nil {
 				return errors.Wrap(err, "get dialogs")
 			}
-
 			if dlg, ok := dialogs.AsModified(); ok {
 				dialogsUsers.add(dlg.GetUsers()...)
 			}
@@ -154,7 +145,10 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 					zap.String("username", user.Username),
 				)
 
-				if _, err := sender.To(user.AsInputPeer()).Text(ctx, m.Message); err != nil {
+				if err := retry(ctx, func() error {
+					_, err := sender.To(user.AsInputPeer()).Text(ctx, m.Message)
+					return err
+				}); err != nil {
 					return errors.Wrap(err, "send message")
 				}
 				return nil
