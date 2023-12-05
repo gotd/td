@@ -35,11 +35,9 @@ var (
 type ProfileAccentColor struct {
 	// Profile accent color identifier
 	ID int32
-	// The list of 1-3 colors in RGB format, describing the accent color, as expected to be
-	// shown in light themes
+	// Description of accent colors expected to be used in light themes
 	LightThemeColors ProfileAccentColors
-	// The list of 1-3 colors in RGB format, describing the accent color, as expected to be
-	// shown in dark themes
+	// Description of accent colors expected to be used in dark themes
 	DarkThemeColors ProfileAccentColors
 }
 

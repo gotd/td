@@ -1061,8 +1061,8 @@ type InputMessageDocument struct {
 	Document InputFileClass
 	// Document thumbnail; pass null to skip thumbnail uploading
 	Thumbnail InputThumbnail
-	// True, if automatic file type detection is disabled and the document must be sent as a
-	// file. Always true for files sent to secret chats
+	// Pass true to disable automatic file type detection and send the document as a file.
+	// Always true for files sent to secret chats
 	DisableContentTypeDetection bool
 	// Document caption; pass null to use an empty caption;
 	// 0-getOption("message_caption_length_max") characters
