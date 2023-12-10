@@ -32,16 +32,27 @@ var (
 )
 
 // ChannelsUpdateColorRequest represents TL type `channels.updateColor#621a201f`.
+// Update the accent color and background custom emoji »¹ of a channel.
+//
+// Links:
+//  1. https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/method/channels.updateColor for reference.
 type ChannelsUpdateColorRequest struct {
-	// Flags field of ChannelsUpdateColorRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Channel field of ChannelsUpdateColorRequest.
+	// Channel whose accent color should be changed.
 	Channel InputChannelClass
-	// Color field of ChannelsUpdateColorRequest.
+	// ID of the accent color palette »¹ to use (not RGB24, see here »² for more info).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/colors
+	//  2) https://core.telegram.org/api/colors
 	Color int
-	// BackgroundEmojiID field of ChannelsUpdateColorRequest.
+	// Custom emoji ID used in the accent color pattern.
 	//
 	// Use SetBackgroundEmojiID and GetBackgroundEmojiID helpers.
 	BackgroundEmojiID int64
@@ -264,6 +275,15 @@ func (u *ChannelsUpdateColorRequest) GetChannelAsNotEmpty() (NotEmptyInputChanne
 }
 
 // ChannelsUpdateColor invokes method channels.updateColor#621a201f returning error if any.
+// Update the accent color and background custom emoji »¹ of a channel.
+//
+// Links:
+//  1. https://core.telegram.org/api/colors
+//
+// Possible errors:
+//
+//	400 BOOSTS_REQUIRED: The specified channel must first be boosted by its users in order to perform this action.
+//	400 CHANNEL_INVALID: The provided channel is invalid.
 //
 // See https://core.telegram.org/method/channels.updateColor for reference.
 func (c *Client) ChannelsUpdateColor(ctx context.Context, request *ChannelsUpdateColorRequest) (UpdatesClass, error) {

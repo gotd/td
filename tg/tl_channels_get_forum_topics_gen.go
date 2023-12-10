@@ -50,22 +50,27 @@ type ChannelsGetForumTopicsRequest struct {
 	//
 	// Use SetQ and GetQ helpers.
 	Q string
-	// Offsets for pagination, for more info click here¹
+	// Offsets for pagination, for more info click here¹, date of the last message of the
+	// last found topic. Use 0 or any date in the future to get results from the last topic.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
 	OffsetDate int
-	// Offsets for pagination, for more info click here¹
+	// Offsets for pagination, for more info click here¹, ID of the last message of the last
+	// found topic (or initially 0).
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
 	OffsetID int
-	// Offsets for pagination, for more info click here¹
+	// Offsets for pagination, for more info click here¹, ID of the last found topic (or
+	// initially 0).
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
 	OffsetTopic int
-	// Maximum number of results to return, see pagination¹
+	// Maximum number of results to return, see pagination¹. For optimal performance, the
+	// number of returned topics is chosen by the server and can be smaller than the
+	// specified limit.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets

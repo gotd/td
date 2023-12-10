@@ -4221,7 +4221,10 @@ func (i *InputMediaStory) GetID() (value int) {
 //
 // See https://core.telegram.org/constructor/inputMediaWebPage for reference.
 type InputMediaWebPage struct {
-	// Flags field of InputMediaWebPage.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// ForceLargeMedia field of InputMediaWebPage.
 	ForceLargeMedia bool

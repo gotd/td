@@ -162,6 +162,10 @@ func (a *PaymentsApplyGiftCodeRequest) GetSlug() (value string) {
 
 // PaymentsApplyGiftCode invokes method payments.applyGiftCode#f6e26854 returning error if any.
 //
+// Possible errors:
+//
+//	406 GIFTCODE_NOT_ALLOWED:
+//
 // See https://core.telegram.org/method/payments.applyGiftCode for reference.
 func (c *Client) PaymentsApplyGiftCode(ctx context.Context, slug string) (UpdatesClass, error) {
 	var result UpdatesBox

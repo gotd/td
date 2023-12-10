@@ -51,6 +51,9 @@ type AttachMenuBotIcon struct {
 	// ios_animated - Animated attachment menu icon in TGS format for the official iOS app
 	// android_animated - Animated attachment menu icon in TGS format for the official
 	// Android app macos_animated - Animated attachment menu icon in TGS format for the
+	// official native Mac OS app ios_side_menu_static - Side menu icon in PNG format for the
+	// official iOS app android_side_menu_static - Side menu icon in SVG format for the
+	// official android app macos_side_menu_static - Side menu icon in PNG format for the
 	// official native Mac OS app
 	Name string
 	// The actual icon file.

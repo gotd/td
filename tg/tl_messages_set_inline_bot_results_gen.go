@@ -66,10 +66,11 @@ type MessagesSetInlineBotResultsRequest struct {
 	// Use SetSwitchPm and GetSwitchPm helpers.
 	SwitchPm InlineBotSwitchPM
 	// If passed, clients will display a button on top of the remaining inline result list
-	// with the specified text, that switches the user to the specified bot mini app¹.
+	// with the specified text, that switches the user to the specified inline mode mini
+	// app¹.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/bots/webapps#simple-mini-apps
+	//  1) https://core.telegram.org/api/bots/webapps#inline-mode-mini-apps
 	//
 	// Use SetSwitchWebview and GetSwitchWebview helpers.
 	SwitchWebview InlineBotWebView

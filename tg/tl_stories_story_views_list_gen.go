@@ -46,7 +46,7 @@ type StoriesStoryViewsList struct {
 	Flags bin.Fields
 	// Total number of results that can be fetched
 	Count int
-	// ReactionsCount field of StoriesStoryViewsList.
+	// Number of reactions that were added to the story
 	ReactionsCount int
 	// Story view date and reaction information
 	Views []StoryView

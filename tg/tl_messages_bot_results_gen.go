@@ -55,10 +55,10 @@ type MessagesBotResults struct {
 	// Use SetSwitchPm and GetSwitchPm helpers.
 	SwitchPm InlineBotSwitchPM
 	// Shown as a button on top of the remaining inline result list; if clicked, opens the
-	// specified bot mini app¹.
+	// specified inline mode mini app¹.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/bots/webapps#simple-mini-apps
+	//  1) https://core.telegram.org/api/bots/webapps#inline-mode-mini-apps
 	//
 	// Use SetSwitchWebview and GetSwitchWebview helpers.
 	SwitchWebview InlineBotWebView

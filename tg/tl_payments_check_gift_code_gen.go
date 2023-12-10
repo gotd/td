@@ -162,6 +162,10 @@ func (c *PaymentsCheckGiftCodeRequest) GetSlug() (value string) {
 
 // PaymentsCheckGiftCode invokes method payments.checkGiftCode#8e51b4c1 returning error if any.
 //
+// Possible errors:
+//
+//	400 GIFT_SLUG_INVALID:
+//
 // See https://core.telegram.org/method/payments.checkGiftCode for reference.
 func (c *Client) PaymentsCheckGiftCode(ctx context.Context, slug string) (*PaymentsCheckedGiftCode, error) {
 	var result PaymentsCheckedGiftCode

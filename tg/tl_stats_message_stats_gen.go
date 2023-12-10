@@ -31,17 +31,19 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StatsMessageStats represents TL type `stats.messageStats#8999f295`.
+// StatsMessageStats represents TL type `stats.messageStats#7fe91c14`.
 // Message statistics
 //
 // See https://core.telegram.org/constructor/stats.messageStats for reference.
 type StatsMessageStats struct {
 	// Message view graph
 	ViewsGraph StatsGraphClass
+	// ReactionsByEmotionGraph field of StatsMessageStats.
+	ReactionsByEmotionGraph StatsGraphClass
 }
 
 // StatsMessageStatsTypeID is TL type id of StatsMessageStats.
-const StatsMessageStatsTypeID = 0x8999f295
+const StatsMessageStatsTypeID = 0x7fe91c14
 
 // Ensuring interfaces in compile-time for StatsMessageStats.
 var (
@@ -56,6 +58,9 @@ func (m *StatsMessageStats) Zero() bool {
 		return true
 	}
 	if !(m.ViewsGraph == nil) {
+		return false
+	}
+	if !(m.ReactionsByEmotionGraph == nil) {
 		return false
 	}
 
@@ -74,8 +79,10 @@ func (m *StatsMessageStats) String() string {
 // FillFrom fills StatsMessageStats from given interface.
 func (m *StatsMessageStats) FillFrom(from interface {
 	GetViewsGraph() (value StatsGraphClass)
+	GetReactionsByEmotionGraph() (value StatsGraphClass)
 }) {
 	m.ViewsGraph = from.GetViewsGraph()
+	m.ReactionsByEmotionGraph = from.GetReactionsByEmotionGraph()
 }
 
 // TypeID returns type id in TL schema.
@@ -105,6 +112,10 @@ func (m *StatsMessageStats) TypeInfo() tdp.Type {
 			Name:       "ViewsGraph",
 			SchemaName: "views_graph",
 		},
+		{
+			Name:       "ReactionsByEmotionGraph",
+			SchemaName: "reactions_by_emotion_graph",
+		},
 	}
 	return typ
 }
@@ -112,7 +123,7 @@ func (m *StatsMessageStats) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *StatsMessageStats) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode stats.messageStats#8999f295 as nil")
+		return fmt.Errorf("can't encode stats.messageStats#7fe91c14 as nil")
 	}
 	b.PutID(StatsMessageStatsTypeID)
 	return m.EncodeBare(b)
@@ -121,13 +132,19 @@ func (m *StatsMessageStats) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *StatsMessageStats) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode stats.messageStats#8999f295 as nil")
+		return fmt.Errorf("can't encode stats.messageStats#7fe91c14 as nil")
 	}
 	if m.ViewsGraph == nil {
-		return fmt.Errorf("unable to encode stats.messageStats#8999f295: field views_graph is nil")
+		return fmt.Errorf("unable to encode stats.messageStats#7fe91c14: field views_graph is nil")
 	}
 	if err := m.ViewsGraph.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.messageStats#8999f295: field views_graph: %w", err)
+		return fmt.Errorf("unable to encode stats.messageStats#7fe91c14: field views_graph: %w", err)
+	}
+	if m.ReactionsByEmotionGraph == nil {
+		return fmt.Errorf("unable to encode stats.messageStats#7fe91c14: field reactions_by_emotion_graph is nil")
+	}
+	if err := m.ReactionsByEmotionGraph.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode stats.messageStats#7fe91c14: field reactions_by_emotion_graph: %w", err)
 	}
 	return nil
 }
@@ -135,10 +152,10 @@ func (m *StatsMessageStats) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *StatsMessageStats) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode stats.messageStats#8999f295 to nil")
+		return fmt.Errorf("can't decode stats.messageStats#7fe91c14 to nil")
 	}
 	if err := b.ConsumeID(StatsMessageStatsTypeID); err != nil {
-		return fmt.Errorf("unable to decode stats.messageStats#8999f295: %w", err)
+		return fmt.Errorf("unable to decode stats.messageStats#7fe91c14: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -146,14 +163,21 @@ func (m *StatsMessageStats) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *StatsMessageStats) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode stats.messageStats#8999f295 to nil")
+		return fmt.Errorf("can't decode stats.messageStats#7fe91c14 to nil")
 	}
 	{
 		value, err := DecodeStatsGraph(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.messageStats#8999f295: field views_graph: %w", err)
+			return fmt.Errorf("unable to decode stats.messageStats#7fe91c14: field views_graph: %w", err)
 		}
 		m.ViewsGraph = value
+	}
+	{
+		value, err := DecodeStatsGraph(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode stats.messageStats#7fe91c14: field reactions_by_emotion_graph: %w", err)
+		}
+		m.ReactionsByEmotionGraph = value
 	}
 	return nil
 }
@@ -164,4 +188,12 @@ func (m *StatsMessageStats) GetViewsGraph() (value StatsGraphClass) {
 		return
 	}
 	return m.ViewsGraph
+}
+
+// GetReactionsByEmotionGraph returns value of ReactionsByEmotionGraph field.
+func (m *StatsMessageStats) GetReactionsByEmotionGraph() (value StatsGraphClass) {
+	if m == nil {
+		return
+	}
+	return m.ReactionsByEmotionGraph
 }

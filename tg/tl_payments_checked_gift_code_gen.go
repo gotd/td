@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/constructor/payments.checkedGiftCode for reference.
 type PaymentsCheckedGiftCode struct {
-	// Flags field of PaymentsCheckedGiftCode.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// ViaGiveaway field of PaymentsCheckedGiftCode.
 	ViaGiveaway bool

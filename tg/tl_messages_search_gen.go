@@ -32,7 +32,7 @@ var (
 )
 
 // MessagesSearchRequest represents TL type `messages.search#a0fda762`.
-// Returns found messages
+// Search for messages.
 //
 // See https://core.telegram.org/method/messages.search for reference.
 type MessagesSearchRequest struct {
@@ -41,11 +41,14 @@ type MessagesSearchRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// User or chat, histories with which are searched, or (inputPeerEmpty)¹ constructor for
-	// global search
+	// User or chat, histories with which are searched, or (inputPeerEmpty)¹ constructor to
+	// search in all private chats and normal groups (not channels) »². Use messages
+	// searchGlobal³ to search globally in all chats, groups, supergroups and channels.
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/inputPeerEmpty
+	//  2) https://core.telegram.org/api/channel
+	//  3) https://core.telegram.org/method/messages.searchGlobal
 	Peer InputPeerClass
 	// Text search request
 	Q string
@@ -588,7 +591,7 @@ func (s *MessagesSearchRequest) GetHash() (value int64) {
 }
 
 // MessagesSearch invokes method messages.search#a0fda762 returning error if any.
-// Returns found messages
+// Search for messages.
 //
 // Possible errors:
 //

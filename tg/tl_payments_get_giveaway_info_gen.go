@@ -194,6 +194,10 @@ func (g *PaymentsGetGiveawayInfoRequest) GetMsgID() (value int) {
 
 // PaymentsGetGiveawayInfo invokes method payments.getGiveawayInfo#f4239425 returning error if any.
 //
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/payments.getGiveawayInfo for reference.
 func (c *Client) PaymentsGetGiveawayInfo(ctx context.Context, request *PaymentsGetGiveawayInfoRequest) (PaymentsGiveawayInfoClass, error) {
 	var result PaymentsGiveawayInfoBox

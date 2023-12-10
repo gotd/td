@@ -60,7 +60,8 @@ type MessagesSendMessageRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/stickers#recent-stickersets
 	UpdateStickersetsOrder bool
-	// InvertMedia field of MessagesSendMessageRequest.
+	// If set, any eventual webpage preview will be shown on top of the message instead of at
+	// the bottom.
 	InvertMedia bool
 	// The destination where the message will be sent
 	Peer InputPeerClass
@@ -786,6 +787,7 @@ func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArra
 //
 // Possible errors:
 //
+//	400 ADMIN_RIGHTS_EMPTY:
 //	400 BOT_DOMAIN_INVALID: Bot domain invalid.
 //	400 BOT_INVALID: This is not a valid bot.
 //	400 BUTTON_DATA_INVALID: The data of one or more of the buttons you provided is invalid.

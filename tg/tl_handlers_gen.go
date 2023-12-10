@@ -1275,3 +1275,33 @@ func (u UpdateDispatcher) OnSentStoryReaction(handler SentStoryReactionHandler) 
 		return handler(ctx, e, update.(*UpdateSentStoryReaction))
 	}
 }
+
+// BotChatBoostHandler is a BotChatBoost event handler.
+type BotChatBoostHandler func(ctx context.Context, e Entities, update *UpdateBotChatBoost) error
+
+// OnBotChatBoost sets BotChatBoost handler.
+func (u UpdateDispatcher) OnBotChatBoost(handler BotChatBoostHandler) {
+	u.handlers[UpdateBotChatBoostTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotChatBoost))
+	}
+}
+
+// ChannelViewForumAsMessagesHandler is a ChannelViewForumAsMessages event handler.
+type ChannelViewForumAsMessagesHandler func(ctx context.Context, e Entities, update *UpdateChannelViewForumAsMessages) error
+
+// OnChannelViewForumAsMessages sets ChannelViewForumAsMessages handler.
+func (u UpdateDispatcher) OnChannelViewForumAsMessages(handler ChannelViewForumAsMessagesHandler) {
+	u.handlers[UpdateChannelViewForumAsMessagesTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChannelViewForumAsMessages))
+	}
+}
+
+// PeerWallpaperHandler is a PeerWallpaper event handler.
+type PeerWallpaperHandler func(ctx context.Context, e Entities, update *UpdatePeerWallpaper) error
+
+// OnPeerWallpaper sets PeerWallpaper handler.
+func (u UpdateDispatcher) OnPeerWallpaper(handler PeerWallpaperHandler) {
+	u.handlers[UpdatePeerWallpaperTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdatePeerWallpaper))
+	}
+}

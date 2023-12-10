@@ -1442,6 +1442,45 @@ func (s UpdateClassArray) AsUpdateSentStoryReaction() (to UpdateSentStoryReactio
 	return to
 }
 
+// AsUpdateBotChatBoost returns copy with only UpdateBotChatBoost constructors.
+func (s UpdateClassArray) AsUpdateBotChatBoost() (to UpdateBotChatBoostArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateBotChatBoost)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateChannelViewForumAsMessages returns copy with only UpdateChannelViewForumAsMessages constructors.
+func (s UpdateClassArray) AsUpdateChannelViewForumAsMessages() (to UpdateChannelViewForumAsMessagesArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateChannelViewForumAsMessages)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdatePeerWallpaper returns copy with only UpdatePeerWallpaper constructors.
+func (s UpdateClassArray) AsUpdatePeerWallpaper() (to UpdatePeerWallpaperArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdatePeerWallpaper)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // UpdateNewMessageArray is adapter for slice of UpdateNewMessage.
 type UpdateNewMessageArray []UpdateNewMessage
 
@@ -10032,6 +10071,252 @@ func (s *UpdateSentStoryReactionArray) PopFirst() (v UpdateSentStoryReaction, ok
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *UpdateSentStoryReactionArray) Pop() (v UpdateSentStoryReaction, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateBotChatBoostArray is adapter for slice of UpdateBotChatBoost.
+type UpdateBotChatBoostArray []UpdateBotChatBoost
+
+// Sort sorts slice of UpdateBotChatBoost.
+func (s UpdateBotChatBoostArray) Sort(less func(a, b UpdateBotChatBoost) bool) UpdateBotChatBoostArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateBotChatBoost.
+func (s UpdateBotChatBoostArray) SortStable(less func(a, b UpdateBotChatBoost) bool) UpdateBotChatBoostArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateBotChatBoost.
+func (s UpdateBotChatBoostArray) Retain(keep func(x UpdateBotChatBoost) bool) UpdateBotChatBoostArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateBotChatBoostArray) First() (v UpdateBotChatBoost, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateBotChatBoostArray) Last() (v UpdateBotChatBoost, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateBotChatBoostArray) PopFirst() (v UpdateBotChatBoost, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateBotChatBoost
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateBotChatBoostArray) Pop() (v UpdateBotChatBoost, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdateChannelViewForumAsMessagesArray is adapter for slice of UpdateChannelViewForumAsMessages.
+type UpdateChannelViewForumAsMessagesArray []UpdateChannelViewForumAsMessages
+
+// Sort sorts slice of UpdateChannelViewForumAsMessages.
+func (s UpdateChannelViewForumAsMessagesArray) Sort(less func(a, b UpdateChannelViewForumAsMessages) bool) UpdateChannelViewForumAsMessagesArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateChannelViewForumAsMessages.
+func (s UpdateChannelViewForumAsMessagesArray) SortStable(less func(a, b UpdateChannelViewForumAsMessages) bool) UpdateChannelViewForumAsMessagesArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateChannelViewForumAsMessages.
+func (s UpdateChannelViewForumAsMessagesArray) Retain(keep func(x UpdateChannelViewForumAsMessages) bool) UpdateChannelViewForumAsMessagesArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateChannelViewForumAsMessagesArray) First() (v UpdateChannelViewForumAsMessages, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateChannelViewForumAsMessagesArray) Last() (v UpdateChannelViewForumAsMessages, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateChannelViewForumAsMessagesArray) PopFirst() (v UpdateChannelViewForumAsMessages, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateChannelViewForumAsMessages
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateChannelViewForumAsMessagesArray) Pop() (v UpdateChannelViewForumAsMessages, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdatePeerWallpaperArray is adapter for slice of UpdatePeerWallpaper.
+type UpdatePeerWallpaperArray []UpdatePeerWallpaper
+
+// Sort sorts slice of UpdatePeerWallpaper.
+func (s UpdatePeerWallpaperArray) Sort(less func(a, b UpdatePeerWallpaper) bool) UpdatePeerWallpaperArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdatePeerWallpaper.
+func (s UpdatePeerWallpaperArray) SortStable(less func(a, b UpdatePeerWallpaper) bool) UpdatePeerWallpaperArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdatePeerWallpaper.
+func (s UpdatePeerWallpaperArray) Retain(keep func(x UpdatePeerWallpaper) bool) UpdatePeerWallpaperArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdatePeerWallpaperArray) First() (v UpdatePeerWallpaper, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdatePeerWallpaperArray) Last() (v UpdatePeerWallpaper, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdatePeerWallpaperArray) PopFirst() (v UpdatePeerWallpaper, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdatePeerWallpaper
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdatePeerWallpaperArray) Pop() (v UpdatePeerWallpaper, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

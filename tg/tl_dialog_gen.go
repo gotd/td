@@ -45,6 +45,8 @@ type Dialog struct {
 	Pinned bool
 	// Whether the chat was manually marked as unread
 	UnreadMark bool
+	// ViewForumAsMessages field of Dialog.
+	ViewForumAsMessages bool
 	// The chat
 	Peer PeerClass
 	// The latest message ID
@@ -120,6 +122,9 @@ func (d *Dialog) Zero() bool {
 	if !(d.UnreadMark == false) {
 		return false
 	}
+	if !(d.ViewForumAsMessages == false) {
+		return false
+	}
 	if !(d.Peer == nil) {
 		return false
 	}
@@ -173,6 +178,7 @@ func (d *Dialog) String() string {
 func (d *Dialog) FillFrom(from interface {
 	GetPinned() (value bool)
 	GetUnreadMark() (value bool)
+	GetViewForumAsMessages() (value bool)
 	GetPeer() (value PeerClass)
 	GetTopMessage() (value int)
 	GetReadInboxMaxID() (value int)
@@ -188,6 +194,7 @@ func (d *Dialog) FillFrom(from interface {
 }) {
 	d.Pinned = from.GetPinned()
 	d.UnreadMark = from.GetUnreadMark()
+	d.ViewForumAsMessages = from.GetViewForumAsMessages()
 	d.Peer = from.GetPeer()
 	d.TopMessage = from.GetTopMessage()
 	d.ReadInboxMaxID = from.GetReadInboxMaxID()
@@ -246,6 +253,11 @@ func (d *Dialog) TypeInfo() tdp.Type {
 			Name:       "UnreadMark",
 			SchemaName: "unread_mark",
 			Null:       !d.Flags.Has(3),
+		},
+		{
+			Name:       "ViewForumAsMessages",
+			SchemaName: "view_forum_as_messages",
+			Null:       !d.Flags.Has(6),
 		},
 		{
 			Name:       "Peer",
@@ -310,6 +322,9 @@ func (d *Dialog) SetFlags() {
 	}
 	if !(d.UnreadMark == false) {
 		d.Flags.Set(3)
+	}
+	if !(d.ViewForumAsMessages == false) {
+		d.Flags.Set(6)
 	}
 	if !(d.Pts == 0) {
 		d.Flags.Set(0)
@@ -401,6 +416,7 @@ func (d *Dialog) DecodeBare(b *bin.Buffer) error {
 	}
 	d.Pinned = d.Flags.Has(2)
 	d.UnreadMark = d.Flags.Has(3)
+	d.ViewForumAsMessages = d.Flags.Has(6)
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
@@ -522,6 +538,25 @@ func (d *Dialog) GetUnreadMark() (value bool) {
 		return
 	}
 	return d.Flags.Has(3)
+}
+
+// SetViewForumAsMessages sets value of ViewForumAsMessages conditional field.
+func (d *Dialog) SetViewForumAsMessages(value bool) {
+	if value {
+		d.Flags.Set(6)
+		d.ViewForumAsMessages = true
+	} else {
+		d.Flags.Unset(6)
+		d.ViewForumAsMessages = false
+	}
+}
+
+// GetViewForumAsMessages returns value of ViewForumAsMessages conditional field.
+func (d *Dialog) GetViewForumAsMessages() (value bool) {
+	if d == nil {
+		return
+	}
+	return d.Flags.Has(6)
 }
 
 // GetPeer returns value of Peer field.

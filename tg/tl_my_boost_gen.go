@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/constructor/myBoost for reference.
 type MyBoost struct {
-	// Flags field of MyBoost.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Slot field of MyBoost.
 	Slot int

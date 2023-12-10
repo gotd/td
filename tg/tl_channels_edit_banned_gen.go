@@ -244,6 +244,7 @@ func (e *ChannelsEditBannedRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel
 //
 // Possible errors:
 //
+//	406 BANNED_RIGHTS_INVALID: You provided some invalid flags in the banned rights.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	406 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.

@@ -56,7 +56,7 @@ type StoryViews struct {
 	//
 	// Use SetReactions and GetReactions helpers.
 	Reactions []ReactionCount
-	// ReactionsCount field of StoryViews.
+	// Number of reactions added to the story
 	//
 	// Use SetReactionsCount and GetReactionsCount helpers.
 	ReactionsCount int

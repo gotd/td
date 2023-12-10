@@ -41,10 +41,12 @@ type ChannelAdminLogEventsFilter struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Join events¹
+	// Join events¹, including joins using invite links² and join requests³.
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoin
+	//  2) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByInvite
+	//  3) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByRequest
 	Join bool
 	// Leave events¹
 	//
@@ -87,7 +89,8 @@ type ChannelAdminLogEventsFilter struct {
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin
 	Demote bool
 	// Info change events (when about¹, linked chat², location³, photo⁴, stickerset⁵,
-	// title⁶ or username⁷ data of a channel gets modified)
+	// title⁶ or username⁷, slowmode⁸, history TTL⁹ settings of a channel gets
+	// modified)
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionChangeAbout
@@ -97,15 +100,18 @@ type ChannelAdminLogEventsFilter struct {
 	//  5) https://core.telegram.org/constructor/channelAdminLogEventActionChangeStickerSet
 	//  6) https://core.telegram.org/constructor/channelAdminLogEventActionChangeTitle
 	//  7) https://core.telegram.org/constructor/channelAdminLogEventActionChangeUsername
+	//  8) https://core.telegram.org/constructor/channelAdminLogEventActionToggleSlowMode
+	//  9) https://core.telegram.org/constructor/channelAdminLogEventActionChangeHistoryTTL
 	Info bool
 	// Settings change events (invites¹, hidden prehistory², signatures³, default banned
-	// rights⁴)
+	// rights⁴, forum toggle events⁵)
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionToggleInvites
 	//  2) https://core.telegram.org/constructor/channelAdminLogEventActionTogglePreHistoryHidden
 	//  3) https://core.telegram.org/constructor/channelAdminLogEventActionToggleSignatures
 	//  4) https://core.telegram.org/constructor/channelAdminLogEventActionDefaultBannedRights
+	//  5) https://core.telegram.org/constructor/channelAdminLogEventActionToggleForum
 	Settings bool
 	// Message pin events¹
 	//

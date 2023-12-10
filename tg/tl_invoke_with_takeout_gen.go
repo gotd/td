@@ -32,11 +32,17 @@ var (
 )
 
 // InvokeWithTakeoutRequest represents TL type `invokeWithTakeout#aca9fd2e`.
-// Invoke a method within a takeout session
+// Invoke a method within a takeout session, see here » for more info¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/takeout
 //
 // See https://core.telegram.org/constructor/invokeWithTakeout for reference.
 type InvokeWithTakeoutRequest struct {
-	// Takeout session ID
+	// Takeout session ID »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/takeout
 	TakeoutID int64
 	// Query
 	Query bin.Object

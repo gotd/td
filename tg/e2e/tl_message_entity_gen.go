@@ -2840,12 +2840,19 @@ func (m *MessageEntityStrike) GetLength() (value int) {
 }
 
 // MessageEntityBlockquote represents TL type `messageEntityBlockquote#20df5d0`.
+// Message entity representing a block quote.
 //
 // See https://core.telegram.org/constructor/messageEntityBlockquote for reference.
 type MessageEntityBlockquote struct {
-	// Offset field of MessageEntityBlockquote.
+	// Offset of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Offset int
-	// Length field of MessageEntityBlockquote.
+	// Length of message entity within message (in UTF-16 code units¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	Length int
 }
 

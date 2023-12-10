@@ -223,7 +223,8 @@ type DraftMessage struct {
 	Flags bin.Fields
 	// Whether no webpage preview will be generated
 	NoWebpage bool
-	// InvertMedia field of DraftMessage.
+	// If set, any eventual webpage preview will be shown on top of the message instead of at
+	// the bottom.
 	InvertMedia bool
 	// ReplyTo field of DraftMessage.
 	//

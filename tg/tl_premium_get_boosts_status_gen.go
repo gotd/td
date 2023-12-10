@@ -167,6 +167,10 @@ func (g *PremiumGetBoostsStatusRequest) GetPeer() (value InputPeerClass) {
 
 // PremiumGetBoostsStatus invokes method premium.getBoostsStatus#42f1f61 returning error if any.
 //
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/premium.getBoostsStatus for reference.
 func (c *Client) PremiumGetBoostsStatus(ctx context.Context, peer InputPeerClass) (*PremiumBoostsStatus, error) {
 	var result PremiumBoostsStatus

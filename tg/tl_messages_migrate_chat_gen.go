@@ -176,7 +176,6 @@ func (m *MessagesMigrateChatRequest) GetChatID() (value int64) {
 // Possible errors:
 //
 //	400 CHANNELS_TOO_MUCH: You have joined too many channels/supergroups.
-//	500 CHANNEL_ID_GENERATE_FAILED:
 //	403 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 CHAT_ID_INVALID: The provided chat id is invalid.
 //	500 CHAT_INVALID: Invalid chat.

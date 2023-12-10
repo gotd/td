@@ -14,8 +14,7 @@ generate:
 download_schema:
 	go run ./cmd/dltl -base https://raw.githubusercontent.com/tdlib/td -branch master -dir td/generate/scheme -f telegram_api.tl -o _schema/tdlib.tl
 	go run ./cmd/dltl -base https://raw.githubusercontent.com/telegramdesktop/tdesktop -branch dev -dir Telegram/SourceFiles/mtproto/scheme -f api.tl -o _schema/tdesktop.tl
-	go run ./cmd/dltl -base https://raw.githubusercontent.com/telegramdesktop/tdesktop -branch dev -dir Telegram/SourceFiles/mtproto/scheme -f layer.tl -o _schema/layer.tl
-	go run ./cmd/dltl -base https://raw.githubusercontent.com/telegramdesktop/tdesktop -branch dev -dir Telegram/SourceFiles/mtproto/scheme -f api.tl -merge _schema/legacy.tl,_schema/layer.tl -o _schema/telegram.tl
+	go run ./cmd/dltl -base https://raw.githubusercontent.com/telegramdesktop/tdesktop -branch dev -dir Telegram/SourceFiles/mtproto/scheme -f api.tl -merge _schema/legacy.tl -o _schema/telegram.tl
 .PHONY: download_schema
 
 download_public_keys:

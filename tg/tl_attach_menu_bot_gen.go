@@ -32,7 +32,9 @@ var (
 )
 
 // AttachMenuBot represents TL type `attachMenuBot#d90d8dfe`.
-// Represents a bot mini app that can be launched from the attachment menu »¹
+// Represents a bot mini app that can be launched from the attachment/side menu »¹
+// At least one of the show_in_attach_menu or the show_in_side_menu flags will always be
+// set.
 //
 // Links:
 //  1. https://core.telegram.org/api/bots/attach
@@ -44,8 +46,9 @@ type AttachMenuBot struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether this bot attachment menu entry should be shown in the attachment menu (toggle
-	// using messages.toggleBotInAttachMenu¹)
+	// If set, before launching the mini app the client should ask the user to add the mini
+	// app to the attachment/side menu, and only if the user accepts, after invoking messages
+	// toggleBotInAttachMenu¹ the app should be opened.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.toggleBotInAttachMenu
@@ -57,11 +60,19 @@ type AttachMenuBot struct {
 	HasSettings bool
 	// Whether the bot would like to send messages to the user.
 	RequestWriteAccess bool
-	// ShowInAttachMenu field of AttachMenuBot.
+	// Whether, when installed, an attachment menu entry should be shown for the Mini App.
 	ShowInAttachMenu bool
-	// ShowInSideMenu field of AttachMenuBot.
+	// Whether, when installed, an entry in the main view side menu should be shown for the
+	// Mini App.
 	ShowInSideMenu bool
-	// SideMenuDisclaimerNeeded field of AttachMenuBot.
+	// If inactive if set and the user hasn't previously accepted the third-party mini apps
+	// Terms of Service¹ for this bot, when showing the mini app installation prompt, an
+	// additional mandatory checkbox to accept the mini apps TOS² and a disclaimer
+	// indicating that this Mini App is not affiliated to Telegram should be shown.
+	//
+	// Links:
+	//  1) https://telegram.org/tos/mini-apps
+	//  2) https://telegram.org/tos/mini-apps
 	SideMenuDisclaimerNeeded bool
 	// Bot ID
 	BotID int64

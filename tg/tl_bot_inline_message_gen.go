@@ -44,7 +44,8 @@ type BotInlineMessageMediaAuto struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// InvertMedia field of BotInlineMessageMediaAuto.
+	// If set, any eventual webpage preview will be shown on top of the message instead of at
+	// the bottom.
 	InvertMedia bool
 	// Caption
 	Message string
@@ -367,7 +368,8 @@ type BotInlineMessageText struct {
 	Flags bin.Fields
 	// Disable webpage preview
 	NoWebpage bool
-	// InvertMedia field of BotInlineMessageText.
+	// If set, any eventual webpage preview will be shown on top of the message instead of at
+	// the bottom.
 	InvertMedia bool
 	// The message
 	Message string
@@ -2142,9 +2144,13 @@ func (b *BotInlineMessageMediaInvoice) GetReplyMarkup() (value ReplyMarkupClass,
 //
 // See https://core.telegram.org/constructor/botInlineMessageMediaWebPage for reference.
 type BotInlineMessageMediaWebPage struct {
-	// Flags field of BotInlineMessageMediaWebPage.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// InvertMedia field of BotInlineMessageMediaWebPage.
+	// If set, any eventual webpage preview will be shown on top of the message instead of at
+	// the bottom.
 	InvertMedia bool
 	// ForceLargeMedia field of BotInlineMessageMediaWebPage.
 	ForceLargeMedia bool
@@ -2156,7 +2162,10 @@ type BotInlineMessageMediaWebPage struct {
 	Safe bool
 	// Message field of BotInlineMessageMediaWebPage.
 	Message string
-	// Entities field of BotInlineMessageMediaWebPage.
+	// Message entities for styled text¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass

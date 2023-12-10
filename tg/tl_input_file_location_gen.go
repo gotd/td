@@ -812,7 +812,13 @@ func (i *InputSecureFileLocation) GetAccessHash() (value int64) {
 }
 
 // InputTakeoutFileLocation represents TL type `inputTakeoutFileLocation#29be5899`.
-// Empty constructor for takeout
+// Used to download a JSON file that will contain all personal data related to features
+// that do not have a specialized takeout method¹ yet, see here »² for more info on
+// the takeout API.
+//
+// Links:
+//  1. https://core.telegram.org/api/takeout
+//  2. https://core.telegram.org/api/takeout
 //
 // See https://core.telegram.org/constructor/inputTakeoutFileLocation for reference.
 type InputTakeoutFileLocation struct {

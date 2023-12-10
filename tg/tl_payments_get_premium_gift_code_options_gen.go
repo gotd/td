@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/payments.getPremiumGiftCodeOptions for reference.
 type PaymentsGetPremiumGiftCodeOptionsRequest struct {
-	// Flags field of PaymentsGetPremiumGiftCodeOptionsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// BoostPeer field of PaymentsGetPremiumGiftCodeOptionsRequest.
 	//

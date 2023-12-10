@@ -226,6 +226,10 @@ func (l *PaymentsLaunchPrepaidGiveawayRequest) GetPurpose() (value InputStorePay
 
 // PaymentsLaunchPrepaidGiveaway invokes method payments.launchPrepaidGiveaway#5ff58f20 returning error if any.
 //
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/payments.launchPrepaidGiveaway for reference.
 func (c *Client) PaymentsLaunchPrepaidGiveaway(ctx context.Context, request *PaymentsLaunchPrepaidGiveawayRequest) (UpdatesClass, error) {
 	var result UpdatesBox

@@ -41,7 +41,13 @@ type PhotosGetUserPhotosRequest struct {
 	// Number of list elements to be skipped
 	Offset int
 	// If a positive value was transferred, the method will return only photos with IDs less
-	// than the set one
+	// than the set one. This parameter is often useful when refetching file references »¹,
+	// as in conjuction with limit=1 and offset=-1 the photo² object with the id specified
+	// in max_id can be fetched.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/file_reference
+	//  2) https://core.telegram.org/constructor/photo
 	MaxID int64
 	// Number of list elements to be returned
 	Limit int

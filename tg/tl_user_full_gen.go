@@ -64,10 +64,23 @@ type UserFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/translation
 	TranslationsDisabled bool
-	// StoriesPinnedAvailable field of UserFull.
+	// Whether this user has some pinned stories¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#pinned-or-archived-stories
 	StoriesPinnedAvailable bool
-	// BlockedMyStoriesFrom field of UserFull.
+	// Whether we've blocked this user, preventing them from seeing our stories »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/block
 	BlockedMyStoriesFrom bool
+	// Whether the other user has chosen a custom wallpaper for us using messages
+	// setChatWallPaper¹ and the for_both flag, see here »² for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.setChatWallPaper
+	//  2) https://core.telegram.org/api/wallpapers#installing-wallpapers-in-a-specific-chat
+	WallpaperOverridden bool
 	// User ID
 	ID int64
 	// Bio of the user
@@ -153,7 +166,10 @@ type UserFull struct {
 	//
 	// Use SetWallpaper and GetWallpaper helpers.
 	Wallpaper WallPaperClass
-	// Stories field of UserFull.
+	// Active stories »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories
 	//
 	// Use SetStories and GetStories helpers.
 	Stories PeerStories
@@ -205,6 +221,9 @@ func (u *UserFull) Zero() bool {
 		return false
 	}
 	if !(u.BlockedMyStoriesFrom == false) {
+		return false
+	}
+	if !(u.WallpaperOverridden == false) {
 		return false
 	}
 	if !(u.ID == 0) {
@@ -289,6 +308,7 @@ func (u *UserFull) FillFrom(from interface {
 	GetTranslationsDisabled() (value bool)
 	GetStoriesPinnedAvailable() (value bool)
 	GetBlockedMyStoriesFrom() (value bool)
+	GetWallpaperOverridden() (value bool)
 	GetID() (value int64)
 	GetAbout() (value string, ok bool)
 	GetSettings() (value PeerSettings)
@@ -319,6 +339,7 @@ func (u *UserFull) FillFrom(from interface {
 	u.TranslationsDisabled = from.GetTranslationsDisabled()
 	u.StoriesPinnedAvailable = from.GetStoriesPinnedAvailable()
 	u.BlockedMyStoriesFrom = from.GetBlockedMyStoriesFrom()
+	u.WallpaperOverridden = from.GetWallpaperOverridden()
 	u.ID = from.GetID()
 	if val, ok := from.GetAbout(); ok {
 		u.About = val
@@ -459,6 +480,11 @@ func (u *UserFull) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(27),
 		},
 		{
+			Name:       "WallpaperOverridden",
+			SchemaName: "wallpaper_overridden",
+			Null:       !u.Flags.Has(28),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -584,6 +610,9 @@ func (u *UserFull) SetFlags() {
 	}
 	if !(u.BlockedMyStoriesFrom == false) {
 		u.Flags.Set(27)
+	}
+	if !(u.WallpaperOverridden == false) {
+		u.Flags.Set(28)
 	}
 	if !(u.About == "") {
 		u.Flags.Set(1)
@@ -770,6 +799,7 @@ func (u *UserFull) DecodeBare(b *bin.Buffer) error {
 	u.TranslationsDisabled = u.Flags.Has(23)
 	u.StoriesPinnedAvailable = u.Flags.Has(26)
 	u.BlockedMyStoriesFrom = u.Flags.Has(27)
+	u.WallpaperOverridden = u.Flags.Has(28)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -1092,6 +1122,25 @@ func (u *UserFull) GetBlockedMyStoriesFrom() (value bool) {
 		return
 	}
 	return u.Flags.Has(27)
+}
+
+// SetWallpaperOverridden sets value of WallpaperOverridden conditional field.
+func (u *UserFull) SetWallpaperOverridden(value bool) {
+	if value {
+		u.Flags.Set(28)
+		u.WallpaperOverridden = true
+	} else {
+		u.Flags.Unset(28)
+		u.WallpaperOverridden = false
+	}
+}
+
+// GetWallpaperOverridden returns value of WallpaperOverridden conditional field.
+func (u *UserFull) GetWallpaperOverridden() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(28)
 }
 
 // GetID returns value of ID field.

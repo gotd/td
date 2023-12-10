@@ -438,7 +438,10 @@ func (i *InputStorePaymentGiftPremium) GetAmount() (value int64) {
 //
 // See https://core.telegram.org/constructor/inputStorePaymentPremiumGiftCode for reference.
 type InputStorePaymentPremiumGiftCode struct {
-	// Flags field of InputStorePaymentPremiumGiftCode.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Users field of InputStorePaymentPremiumGiftCode.
 	Users []InputUserClass
@@ -720,7 +723,10 @@ func (i *InputStorePaymentPremiumGiftCode) MapUsers() (value InputUserClassArray
 //
 // See https://core.telegram.org/constructor/inputStorePaymentPremiumGiveaway for reference.
 type InputStorePaymentPremiumGiveaway struct {
-	// Flags field of InputStorePaymentPremiumGiveaway.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// OnlyNewSubscribers field of InputStorePaymentPremiumGiveaway.
 	OnlyNewSubscribers bool

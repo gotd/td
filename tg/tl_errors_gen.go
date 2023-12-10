@@ -42,7 +42,7 @@ const (
 	ErrAdminIDInvalid                   = "ADMIN_ID_INVALID"
 	ErrAdminRankEmojiNotAllowed         = "ADMIN_RANK_EMOJI_NOT_ALLOWED"
 	ErrAdminRankInvalid                 = "ADMIN_RANK_INVALID"
-	ErrAesDecryptFailed                 = "AES_DECRYPT_FAILED"
+	ErrAdminRightsEmpty                 = "ADMIN_RIGHTS_EMPTY"
 	ErrAlbumPhotosTooMany               = "ALBUM_PHOTOS_TOO_MANY"
 	ErrAnonymousReactionsDisabled       = "ANONYMOUS_REACTIONS_DISABLED"
 	ErrAPIIDInvalid                     = "API_ID_INVALID"
@@ -96,7 +96,6 @@ const (
 	ErrChannelsAdminPublicTooMuch       = "CHANNELS_ADMIN_PUBLIC_TOO_MUCH"
 	ErrChannelsTooMuch                  = "CHANNELS_TOO_MUCH"
 	ErrChannelForumMissing              = "CHANNEL_FORUM_MISSING"
-	ErrChannelIDGenerateFailed          = "CHANNEL_ID_GENERATE_FAILED"
 	ErrChannelIDInvalid                 = "CHANNEL_ID_INVALID"
 	ErrChannelInvalid                   = "CHANNEL_INVALID"
 	ErrChannelParicipantMissing         = "CHANNEL_PARICIPANT_MISSING"
@@ -118,7 +117,6 @@ const (
 	ErrChatInvalid                      = "CHAT_INVALID"
 	ErrChatInvitePermanent              = "CHAT_INVITE_PERMANENT"
 	ErrChatLinkExists                   = "CHAT_LINK_EXISTS"
-	ErrChatMembersChannel               = "CHAT_MEMBERS_CHANNEL"
 	ErrChatNotModified                  = "CHAT_NOT_MODIFIED"
 	ErrChatPublicRequired               = "CHAT_PUBLIC_REQUIRED"
 	ErrChatRestricted                   = "CHAT_RESTRICTED"
@@ -141,6 +139,7 @@ const (
 	ErrCodeEmpty                        = "CODE_EMPTY"
 	ErrCodeHashInvalid                  = "CODE_HASH_INVALID"
 	ErrCodeInvalid                      = "CODE_INVALID"
+	ErrColorInvalid                     = "COLOR_INVALID"
 	ErrConnectionAPIIDInvalid           = "CONNECTION_API_ID_INVALID"
 	ErrConnectionAppVersionEmpty        = "CONNECTION_APP_VERSION_EMPTY"
 	ErrConnectionLayerInvalid           = "CONNECTION_LAYER_INVALID"
@@ -150,6 +149,7 @@ const (
 	ErrContactReqMissing                = "CONTACT_REQ_MISSING"
 	ErrCreateCallFailed                 = "CREATE_CALL_FAILED"
 	ErrCurrencyTotalAmountInvalid       = "CURRENCY_TOTAL_AMOUNT_INVALID"
+	ErrCustomReactionsTooMany           = "CUSTOM_REACTIONS_TOO_MANY"
 	ErrDataInvalid                      = "DATA_INVALID"
 	ErrDataJSONInvalid                  = "DATA_JSON_INVALID"
 	ErrDataTooLong                      = "DATA_TOO_LONG"
@@ -212,6 +212,8 @@ const (
 	ErrGameBotInvalid                   = "GAME_BOT_INVALID"
 	ErrGeneralModifyIconForbidden       = "GENERAL_MODIFY_ICON_FORBIDDEN"
 	ErrGeoPointInvalid                  = "GEO_POINT_INVALID"
+	ErrGiftcodeNotAllowed               = "GIFTCODE_NOT_ALLOWED"
+	ErrGiftSlugInvalid                  = "GIFT_SLUG_INVALID"
 	ErrGifContentTypeInvalid            = "GIF_CONTENT_TYPE_INVALID"
 	ErrGifIDInvalid                     = "GIF_ID_INVALID"
 	ErrGraphExpiredReload               = "GRAPH_EXPIRED_RELOAD"
@@ -527,6 +529,7 @@ const (
 	ErrWallpaperFileInvalid             = "WALLPAPER_FILE_INVALID"
 	ErrWallpaperInvalid                 = "WALLPAPER_INVALID"
 	ErrWallpaperMimeInvalid             = "WALLPAPER_MIME_INVALID"
+	ErrWallpaperNotFound                = "WALLPAPER_NOT_FOUND"
 	ErrWcConvertURLInvalid              = "WC_CONVERT_URL_INVALID"
 	ErrWebdocumentInvalid               = "WEBDOCUMENT_INVALID"
 	ErrWebdocumentMimeInvalid           = "WEBDOCUMENT_MIME_INVALID"
@@ -585,9 +588,9 @@ func IsAdminRankInvalid(err error) bool {
 	return tgerr.Is(err, ErrAdminRankInvalid)
 }
 
-// IsAesDecryptFailed reports whether err is AES_DECRYPT_FAILED.
-func IsAesDecryptFailed(err error) bool {
-	return tgerr.Is(err, ErrAesDecryptFailed)
+// IsAdminRightsEmpty reports whether err is ADMIN_RIGHTS_EMPTY.
+func IsAdminRightsEmpty(err error) bool {
+	return tgerr.Is(err, ErrAdminRightsEmpty)
 }
 
 // IsAlbumPhotosTooMany reports whether err is ALBUM_PHOTOS_TOO_MANY.
@@ -855,11 +858,6 @@ func IsChannelForumMissing(err error) bool {
 	return tgerr.Is(err, ErrChannelForumMissing)
 }
 
-// IsChannelIDGenerateFailed reports whether err is CHANNEL_ID_GENERATE_FAILED.
-func IsChannelIDGenerateFailed(err error) bool {
-	return tgerr.Is(err, ErrChannelIDGenerateFailed)
-}
-
 // IsChannelIDInvalid reports whether err is CHANNEL_ID_INVALID.
 func IsChannelIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrChannelIDInvalid)
@@ -963,11 +961,6 @@ func IsChatInvitePermanent(err error) bool {
 // IsChatLinkExists reports whether err is CHAT_LINK_EXISTS.
 func IsChatLinkExists(err error) bool {
 	return tgerr.Is(err, ErrChatLinkExists)
-}
-
-// IsChatMembersChannel reports whether err is CHAT_MEMBERS_CHANNEL.
-func IsChatMembersChannel(err error) bool {
-	return tgerr.Is(err, ErrChatMembersChannel)
 }
 
 // IsChatNotModified reports whether err is CHAT_NOT_MODIFIED.
@@ -1080,6 +1073,11 @@ func IsCodeInvalid(err error) bool {
 	return tgerr.Is(err, ErrCodeInvalid)
 }
 
+// IsColorInvalid reports whether err is COLOR_INVALID.
+func IsColorInvalid(err error) bool {
+	return tgerr.Is(err, ErrColorInvalid)
+}
+
 // IsConnectionAPIIDInvalid reports whether err is CONNECTION_API_ID_INVALID.
 func IsConnectionAPIIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrConnectionAPIIDInvalid)
@@ -1123,6 +1121,11 @@ func IsCreateCallFailed(err error) bool {
 // IsCurrencyTotalAmountInvalid reports whether err is CURRENCY_TOTAL_AMOUNT_INVALID.
 func IsCurrencyTotalAmountInvalid(err error) bool {
 	return tgerr.Is(err, ErrCurrencyTotalAmountInvalid)
+}
+
+// IsCustomReactionsTooMany reports whether err is CUSTOM_REACTIONS_TOO_MANY.
+func IsCustomReactionsTooMany(err error) bool {
+	return tgerr.Is(err, ErrCustomReactionsTooMany)
 }
 
 // IsDataInvalid reports whether err is DATA_INVALID.
@@ -1433,6 +1436,16 @@ func IsGeneralModifyIconForbidden(err error) bool {
 // IsGeoPointInvalid reports whether err is GEO_POINT_INVALID.
 func IsGeoPointInvalid(err error) bool {
 	return tgerr.Is(err, ErrGeoPointInvalid)
+}
+
+// IsGiftcodeNotAllowed reports whether err is GIFTCODE_NOT_ALLOWED.
+func IsGiftcodeNotAllowed(err error) bool {
+	return tgerr.Is(err, ErrGiftcodeNotAllowed)
+}
+
+// IsGiftSlugInvalid reports whether err is GIFT_SLUG_INVALID.
+func IsGiftSlugInvalid(err error) bool {
+	return tgerr.Is(err, ErrGiftSlugInvalid)
 }
 
 // IsGifContentTypeInvalid reports whether err is GIF_CONTENT_TYPE_INVALID.
@@ -3008,6 +3021,11 @@ func IsWallpaperInvalid(err error) bool {
 // IsWallpaperMimeInvalid reports whether err is WALLPAPER_MIME_INVALID.
 func IsWallpaperMimeInvalid(err error) bool {
 	return tgerr.Is(err, ErrWallpaperMimeInvalid)
+}
+
+// IsWallpaperNotFound reports whether err is WALLPAPER_NOT_FOUND.
+func IsWallpaperNotFound(err error) bool {
+	return tgerr.Is(err, ErrWallpaperNotFound)
 }
 
 // IsWcConvertURLInvalid reports whether err is WC_CONVERT_URL_INVALID.

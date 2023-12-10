@@ -31,22 +31,38 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// AccountUpdateColorRequest represents TL type `account.updateColor#a001cc43`.
+// AccountUpdateColorRequest represents TL type `account.updateColor#7cefa15d`.
+// Update the accent color and background custom emoji »¹ of the current account.
+//
+// Links:
+//  1. https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/method/account.updateColor for reference.
 type AccountUpdateColorRequest struct {
-	// Flags field of AccountUpdateColorRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Color field of AccountUpdateColorRequest.
+	// Whether to change the accent color emoji pattern of the profile page; otherwise, the
+	// accent color and emoji pattern of messages will be changed.
+	ForProfile bool
+	// ID of the accent color palette »¹ to use (not RGB24, see here »² for more info).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/colors
+	//  2) https://core.telegram.org/api/colors
+	//
+	// Use SetColor and GetColor helpers.
 	Color int
-	// BackgroundEmojiID field of AccountUpdateColorRequest.
+	// Custom emoji ID used in the accent color pattern.
 	//
 	// Use SetBackgroundEmojiID and GetBackgroundEmojiID helpers.
 	BackgroundEmojiID int64
 }
 
 // AccountUpdateColorRequestTypeID is TL type id of AccountUpdateColorRequest.
-const AccountUpdateColorRequestTypeID = 0xa001cc43
+const AccountUpdateColorRequestTypeID = 0x7cefa15d
 
 // Ensuring interfaces in compile-time for AccountUpdateColorRequest.
 var (
@@ -61,6 +77,9 @@ func (u *AccountUpdateColorRequest) Zero() bool {
 		return true
 	}
 	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.ForProfile == false) {
 		return false
 	}
 	if !(u.Color == 0) {
@@ -84,10 +103,15 @@ func (u *AccountUpdateColorRequest) String() string {
 
 // FillFrom fills AccountUpdateColorRequest from given interface.
 func (u *AccountUpdateColorRequest) FillFrom(from interface {
-	GetColor() (value int)
+	GetForProfile() (value bool)
+	GetColor() (value int, ok bool)
 	GetBackgroundEmojiID() (value int64, ok bool)
 }) {
-	u.Color = from.GetColor()
+	u.ForProfile = from.GetForProfile()
+	if val, ok := from.GetColor(); ok {
+		u.Color = val
+	}
+
 	if val, ok := from.GetBackgroundEmojiID(); ok {
 		u.BackgroundEmojiID = val
 	}
@@ -118,8 +142,14 @@ func (u *AccountUpdateColorRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "ForProfile",
+			SchemaName: "for_profile",
+			Null:       !u.Flags.Has(1),
+		},
+		{
 			Name:       "Color",
 			SchemaName: "color",
+			Null:       !u.Flags.Has(2),
 		},
 		{
 			Name:       "BackgroundEmojiID",
@@ -132,6 +162,12 @@ func (u *AccountUpdateColorRequest) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (u *AccountUpdateColorRequest) SetFlags() {
+	if !(u.ForProfile == false) {
+		u.Flags.Set(1)
+	}
+	if !(u.Color == 0) {
+		u.Flags.Set(2)
+	}
 	if !(u.BackgroundEmojiID == 0) {
 		u.Flags.Set(0)
 	}
@@ -140,7 +176,7 @@ func (u *AccountUpdateColorRequest) SetFlags() {
 // Encode implements bin.Encoder.
 func (u *AccountUpdateColorRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.updateColor#a001cc43 as nil")
+		return fmt.Errorf("can't encode account.updateColor#7cefa15d as nil")
 	}
 	b.PutID(AccountUpdateColorRequestTypeID)
 	return u.EncodeBare(b)
@@ -149,13 +185,15 @@ func (u *AccountUpdateColorRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *AccountUpdateColorRequest) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode account.updateColor#a001cc43 as nil")
+		return fmt.Errorf("can't encode account.updateColor#7cefa15d as nil")
 	}
 	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.updateColor#a001cc43: field flags: %w", err)
+		return fmt.Errorf("unable to encode account.updateColor#7cefa15d: field flags: %w", err)
 	}
-	b.PutInt(u.Color)
+	if u.Flags.Has(2) {
+		b.PutInt(u.Color)
+	}
 	if u.Flags.Has(0) {
 		b.PutLong(u.BackgroundEmojiID)
 	}
@@ -165,10 +203,10 @@ func (u *AccountUpdateColorRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *AccountUpdateColorRequest) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.updateColor#a001cc43 to nil")
+		return fmt.Errorf("can't decode account.updateColor#7cefa15d to nil")
 	}
 	if err := b.ConsumeID(AccountUpdateColorRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.updateColor#a001cc43: %w", err)
+		return fmt.Errorf("unable to decode account.updateColor#7cefa15d: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -176,36 +214,66 @@ func (u *AccountUpdateColorRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *AccountUpdateColorRequest) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode account.updateColor#a001cc43 to nil")
+		return fmt.Errorf("can't decode account.updateColor#7cefa15d to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode account.updateColor#a001cc43: field flags: %w", err)
+			return fmt.Errorf("unable to decode account.updateColor#7cefa15d: field flags: %w", err)
 		}
 	}
-	{
+	u.ForProfile = u.Flags.Has(1)
+	if u.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updateColor#a001cc43: field color: %w", err)
+			return fmt.Errorf("unable to decode account.updateColor#7cefa15d: field color: %w", err)
 		}
 		u.Color = value
 	}
 	if u.Flags.Has(0) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode account.updateColor#a001cc43: field background_emoji_id: %w", err)
+			return fmt.Errorf("unable to decode account.updateColor#7cefa15d: field background_emoji_id: %w", err)
 		}
 		u.BackgroundEmojiID = value
 	}
 	return nil
 }
 
-// GetColor returns value of Color field.
-func (u *AccountUpdateColorRequest) GetColor() (value int) {
+// SetForProfile sets value of ForProfile conditional field.
+func (u *AccountUpdateColorRequest) SetForProfile(value bool) {
+	if value {
+		u.Flags.Set(1)
+		u.ForProfile = true
+	} else {
+		u.Flags.Unset(1)
+		u.ForProfile = false
+	}
+}
+
+// GetForProfile returns value of ForProfile conditional field.
+func (u *AccountUpdateColorRequest) GetForProfile() (value bool) {
 	if u == nil {
 		return
 	}
-	return u.Color
+	return u.Flags.Has(1)
+}
+
+// SetColor sets value of Color conditional field.
+func (u *AccountUpdateColorRequest) SetColor(value int) {
+	u.Flags.Set(2)
+	u.Color = value
+}
+
+// GetColor returns value of Color conditional field and
+// boolean which is true if field was set.
+func (u *AccountUpdateColorRequest) GetColor() (value int, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(2) {
+		return value, false
+	}
+	return u.Color, true
 }
 
 // SetBackgroundEmojiID sets value of BackgroundEmojiID conditional field.
@@ -226,7 +294,15 @@ func (u *AccountUpdateColorRequest) GetBackgroundEmojiID() (value int64, ok bool
 	return u.BackgroundEmojiID, true
 }
 
-// AccountUpdateColor invokes method account.updateColor#a001cc43 returning error if any.
+// AccountUpdateColor invokes method account.updateColor#7cefa15d returning error if any.
+// Update the accent color and background custom emoji »¹ of the current account.
+//
+// Links:
+//  1. https://core.telegram.org/api/colors
+//
+// Possible errors:
+//
+//	400 COLOR_INVALID:
 //
 // See https://core.telegram.org/method/account.updateColor for reference.
 func (c *Client) AccountUpdateColor(ctx context.Context, request *AccountUpdateColorRequest) (bool, error) {
