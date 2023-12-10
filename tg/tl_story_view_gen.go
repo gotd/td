@@ -44,9 +44,16 @@ type StoryView struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Blocked field of StoryView.
+	// Whether we have completely blocked¹ this user, including from viewing more of our
+	// stories.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/block
 	Blocked bool
-	// BlockedMyStoriesFrom field of StoryView.
+	// Whether we have blocked¹ this user from viewing more of our stories.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/block
 	BlockedMyStoriesFrom bool
 	// The user that viewed the story
 	UserID int64

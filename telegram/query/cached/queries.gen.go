@@ -1970,6 +1970,94 @@ func (s *MessagesSearchCustomEmoji) Fetch(ctx context.Context) (bool, error) {
 	}
 }
 
+type innerMessagesSearchEmojiStickerSets struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.MessagesFoundStickerSets
+}
+
+type MessagesSearchEmojiStickerSets struct {
+	// Query to send.
+	req *tg.MessagesSearchEmojiStickerSetsRequest
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewMessagesSearchEmojiStickerSets creates new MessagesSearchEmojiStickerSets.
+func NewMessagesSearchEmojiStickerSets(raw *tg.Client, initial *tg.MessagesSearchEmojiStickerSetsRequest) *MessagesSearchEmojiStickerSets {
+	q := &MessagesSearchEmojiStickerSets{
+		req: initial,
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *MessagesSearchEmojiStickerSets) store(v innerMessagesSearchEmojiStickerSets) {
+	s.last.Store(v)
+}
+
+func (s *MessagesSearchEmojiStickerSets) load() (innerMessagesSearchEmojiStickerSets, bool) {
+	v, ok := s.last.Load().(innerMessagesSearchEmojiStickerSets)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned MessagesFoundStickerSets must not be mutated.
+func (s *MessagesSearchEmojiStickerSets) Value() *tg.MessagesFoundStickerSets {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *MessagesSearchEmojiStickerSets) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *MessagesSearchEmojiStickerSets) Get(ctx context.Context) (*tg.MessagesFoundStickerSets, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *MessagesSearchEmojiStickerSets) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := s.req
+	req.Hash = lastHash
+	result, err := s.raw.MessagesSearchEmojiStickerSets(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute MessagesSearchEmojiStickerSets")
+	}
+
+	switch variant := result.(type) {
+	case *tg.MessagesFoundStickerSets:
+		hash := variant.Hash
+
+		s.store(innerMessagesSearchEmojiStickerSets{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.MessagesFoundStickerSetsNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
 type innerMessagesSearchStickerSets struct {
 	// Last received hash.
 	hash int64

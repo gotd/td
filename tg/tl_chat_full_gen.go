@@ -1087,8 +1087,13 @@ type ChannelFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/translation
 	TranslationsDisabled bool
-	// StoriesPinnedAvailable field of ChannelFull.
+	// Whether this user has some pinned stories¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#pinned-or-archived-stories
 	StoriesPinnedAvailable bool
+	// ViewForumAsMessages field of ChannelFull.
+	ViewForumAsMessages bool
 	// ID of the channel
 	ID int64
 	// Info about the channel
@@ -1325,6 +1330,9 @@ func (c *ChannelFull) Zero() bool {
 	if !(c.StoriesPinnedAvailable == false) {
 		return false
 	}
+	if !(c.ViewForumAsMessages == false) {
+		return false
+	}
 	if !(c.ID == 0) {
 		return false
 	}
@@ -1461,6 +1469,7 @@ func (c *ChannelFull) FillFrom(from interface {
 	GetParticipantsHidden() (value bool)
 	GetTranslationsDisabled() (value bool)
 	GetStoriesPinnedAvailable() (value bool)
+	GetViewForumAsMessages() (value bool)
 	GetID() (value int64)
 	GetAbout() (value string)
 	GetParticipantsCount() (value int, ok bool)
@@ -1511,6 +1520,7 @@ func (c *ChannelFull) FillFrom(from interface {
 	c.ParticipantsHidden = from.GetParticipantsHidden()
 	c.TranslationsDisabled = from.GetTranslationsDisabled()
 	c.StoriesPinnedAvailable = from.GetStoriesPinnedAvailable()
+	c.ViewForumAsMessages = from.GetViewForumAsMessages()
 	c.ID = from.GetID()
 	c.About = from.GetAbout()
 	if val, ok := from.GetParticipantsCount(); ok {
@@ -1717,6 +1727,11 @@ func (c *ChannelFull) TypeInfo() tdp.Type {
 			Name:       "StoriesPinnedAvailable",
 			SchemaName: "stories_pinned_available",
 			Null:       !c.Flags2.Has(5),
+		},
+		{
+			Name:       "ViewForumAsMessages",
+			SchemaName: "view_forum_as_messages",
+			Null:       !c.Flags2.Has(6),
 		},
 		{
 			Name:       "ID",
@@ -1933,6 +1948,9 @@ func (c *ChannelFull) SetFlags() {
 	}
 	if !(c.StoriesPinnedAvailable == false) {
 		c.Flags2.Set(5)
+	}
+	if !(c.ViewForumAsMessages == false) {
+		c.Flags2.Set(6)
 	}
 	if !(c.ParticipantsCount == 0) {
 		c.Flags.Set(0)
@@ -2219,6 +2237,7 @@ func (c *ChannelFull) DecodeBare(b *bin.Buffer) error {
 	c.ParticipantsHidden = c.Flags2.Has(2)
 	c.TranslationsDisabled = c.Flags2.Has(3)
 	c.StoriesPinnedAvailable = c.Flags2.Has(5)
+	c.ViewForumAsMessages = c.Flags2.Has(6)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -2741,6 +2760,25 @@ func (c *ChannelFull) GetStoriesPinnedAvailable() (value bool) {
 		return
 	}
 	return c.Flags2.Has(5)
+}
+
+// SetViewForumAsMessages sets value of ViewForumAsMessages conditional field.
+func (c *ChannelFull) SetViewForumAsMessages(value bool) {
+	if value {
+		c.Flags2.Set(6)
+		c.ViewForumAsMessages = true
+	} else {
+		c.Flags2.Unset(6)
+		c.ViewForumAsMessages = false
+	}
+}
+
+// GetViewForumAsMessages returns value of ViewForumAsMessages conditional field.
+func (c *ChannelFull) GetViewForumAsMessages() (value bool) {
+	if c == nil {
+		return
+	}
+	return c.Flags2.Has(6)
 }
 
 // GetID returns value of ID field.

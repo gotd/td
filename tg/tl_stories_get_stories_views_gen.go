@@ -222,6 +222,7 @@ func (g *StoriesGetStoriesViewsRequest) GetID() (value []int) {
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 STORY_ID_EMPTY: You specified no story IDs.
 //
 // See https://core.telegram.org/method/stories.getStoriesViews for reference.
 func (c *Client) StoriesGetStoriesViews(ctx context.Context, request *StoriesGetStoriesViewsRequest) (*StoriesStoryViews, error) {

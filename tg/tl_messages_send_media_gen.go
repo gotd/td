@@ -58,7 +58,8 @@ type MessagesSendMediaRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/stickers#recent-stickersets
 	UpdateStickersetsOrder bool
-	// InvertMedia field of MessagesSendMediaRequest.
+	// If set, any eventual webpage preview will be shown on top of the message instead of at
+	// the bottom.
 	InvertMedia bool
 	// Destination
 	Peer InputPeerClass

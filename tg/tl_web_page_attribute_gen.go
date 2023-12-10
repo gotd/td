@@ -283,6 +283,7 @@ func (w *WebPageAttributeTheme) MapDocuments() (value DocumentClassArray, ok boo
 }
 
 // WebPageAttributeStory represents TL type `webPageAttributeStory#2e94c3e7`.
+// Webpage preview of a Telegram story
 //
 // See https://core.telegram.org/constructor/webPageAttributeStory for reference.
 type WebPageAttributeStory struct {
@@ -291,11 +292,18 @@ type WebPageAttributeStory struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of WebPageAttributeStory.
+	// Peer that posted the story
 	Peer PeerClass
-	// ID field of WebPageAttributeStory.
+	// Story ID¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#watching-stories
 	ID int
-	// Story field of WebPageAttributeStory.
+	// May contain the story, if not the story should be fetched when and if needed using
+	// stories.getStoriesByID¹ with the above id and peer.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/stories.getStoriesByID
 	//
 	// Use SetStory and GetStory helpers.
 	Story StoryItemClass

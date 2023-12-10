@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/premium.getBoostsList for reference.
 type PremiumGetBoostsListRequest struct {
-	// Flags field of PremiumGetBoostsListRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Gifts field of PremiumGetBoostsListRequest.
 	Gifts bool
@@ -43,7 +46,10 @@ type PremiumGetBoostsListRequest struct {
 	Peer InputPeerClass
 	// Offset field of PremiumGetBoostsListRequest.
 	Offset string
-	// Limit field of PremiumGetBoostsListRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -273,6 +279,10 @@ func (g *PremiumGetBoostsListRequest) GetLimit() (value int) {
 }
 
 // PremiumGetBoostsList invokes method premium.getBoostsList#60f67660 returning error if any.
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/premium.getBoostsList for reference.
 func (c *Client) PremiumGetBoostsList(ctx context.Context, request *PremiumGetBoostsListRequest) (*PremiumBoostsList, error) {

@@ -43,7 +43,8 @@ type MessagesEditMessageRequest struct {
 	Flags bin.Fields
 	// Disable webpage preview
 	NoWebpage bool
-	// InvertMedia field of MessagesEditMessageRequest.
+	// If set, any eventual webpage preview will be shown on top of the message instead of at
+	// the bottom.
 	InvertMedia bool
 	// Where was the message sent
 	Peer InputPeerClass

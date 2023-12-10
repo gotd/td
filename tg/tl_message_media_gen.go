@@ -1244,7 +1244,10 @@ func (m *MessageMediaDocument) GetTTLSeconds() (value int, ok bool) {
 //
 // See https://core.telegram.org/constructor/messageMediaWebPage for reference.
 type MessageMediaWebPage struct {
-	// Flags field of MessageMediaWebPage.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// ForceLargeMedia field of MessageMediaWebPage.
 	ForceLargeMedia bool
@@ -3077,6 +3080,10 @@ func (m *MessageMediaDice) GetEmoticon() (value string) {
 }
 
 // MessageMediaStory represents TL type `messageMediaStory#68cb6283`.
+// Represents a forwarded story¹ or a story mention.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/messageMediaStory for reference.
 type MessageMediaStory struct {
@@ -3085,13 +3092,19 @@ type MessageMediaStory struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ViaMention field of MessageMediaStory.
+	// If set, indicates that this someone has mentioned us in this story (i.e. by tagging us
+	// in the description) or vice versa, we have mentioned the other peer (if the message is
+	// outgoing).
 	ViaMention bool
-	// Peer field of MessageMediaStory.
+	// Peer that posted the story.
 	Peer PeerClass
-	// ID field of MessageMediaStory.
+	// Story ID
 	ID int
-	// Story field of MessageMediaStory.
+	// The story itself, if absent fetch it using stories.getStoriesByID¹ and the peer/id
+	// parameters specified above.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/stories.getStoriesByID
 	//
 	// Use SetStory and GetStory helpers.
 	Story StoryItemClass
@@ -3355,7 +3368,10 @@ func (m *MessageMediaStory) GetStory() (value StoryItemClass, ok bool) {
 //
 // See https://core.telegram.org/constructor/messageMediaGiveaway for reference.
 type MessageMediaGiveaway struct {
-	// Flags field of MessageMediaGiveaway.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// OnlyNewSubscribers field of MessageMediaGiveaway.
 	OnlyNewSubscribers bool

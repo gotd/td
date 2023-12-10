@@ -32,10 +32,10 @@ var (
 )
 
 // ContactsBlockFromRepliesRequest represents TL type `contacts.blockFromReplies#29a8962c`.
-// Stop getting notifications about thread replies¹ of a certain user in @replies
+// Stop getting notifications about discussion replies¹ of a certain user in @replies
 //
 // Links:
-//  1. https://core.telegram.org/api/threads
+//  1. https://core.telegram.org/api/discussion
 //
 // See https://core.telegram.org/method/contacts.blockFromReplies for reference.
 type ContactsBlockFromRepliesRequest struct {
@@ -53,7 +53,7 @@ type ContactsBlockFromRepliesRequest struct {
 	// ID of the message in the @replies¹ chat
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/threads#replies
+	//  1) https://core.telegram.org/api/discussion#replies
 	MsgID int
 }
 
@@ -294,10 +294,10 @@ func (b *ContactsBlockFromRepliesRequest) GetMsgID() (value int) {
 }
 
 // ContactsBlockFromReplies invokes method contacts.blockFromReplies#29a8962c returning error if any.
-// Stop getting notifications about thread replies¹ of a certain user in @replies
+// Stop getting notifications about discussion replies¹ of a certain user in @replies
 //
 // Links:
-//  1. https://core.telegram.org/api/threads
+//  1. https://core.telegram.org/api/discussion
 //
 // See https://core.telegram.org/method/contacts.blockFromReplies for reference.
 func (c *Client) ContactsBlockFromReplies(ctx context.Context, request *ContactsBlockFromRepliesRequest) (UpdatesClass, error) {

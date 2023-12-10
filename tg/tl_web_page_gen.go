@@ -36,7 +36,10 @@ var (
 //
 // See https://core.telegram.org/constructor/webPageEmpty for reference.
 type WebPageEmpty struct {
-	// Flags field of WebPageEmpty.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Preview ID
 	ID int64
@@ -237,7 +240,10 @@ func (w *WebPageEmpty) GetURL() (value string, ok bool) {
 //
 // See https://core.telegram.org/constructor/webPagePending for reference.
 type WebPagePending struct {
-	// Flags field of WebPagePending.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// ID of preview
 	ID int64

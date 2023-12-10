@@ -422,6 +422,7 @@ func (c *ChannelsCreateForumTopicRequest) GetChannelAsNotEmpty() (NotEmptyInputC
 //	400 CHANNEL_FORUM_MISSING: This supergroup is not a forum.
 //	400 CHANNEL_INVALID: The provided channel is invalid.
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
+//	403 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //	400 TOPIC_TITLE_EMPTY: The specified topic title is empty.
 //
 // See https://core.telegram.org/method/channels.createForumTopic for reference.

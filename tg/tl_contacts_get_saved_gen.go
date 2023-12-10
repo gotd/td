@@ -32,7 +32,10 @@ var (
 )
 
 // ContactsGetSavedRequest represents TL type `contacts.getSaved#82f1e39f`.
-// Get all contacts
+// Get all contacts, requires a takeout session, see here » for more info¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/takeout
 //
 // See https://core.telegram.org/method/contacts.getSaved for reference.
 type ContactsGetSavedRequest struct {
@@ -129,11 +132,14 @@ func (g *ContactsGetSavedRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // ContactsGetSaved invokes method contacts.getSaved#82f1e39f returning error if any.
-// Get all contacts
+// Get all contacts, requires a takeout session, see here » for more info¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/takeout
 //
 // Possible errors:
 //
-//	403 TAKEOUT_REQUIRED: A takeout session has to be initialized, first.
+//	403 TAKEOUT_REQUIRED: A takeout¹ session needs to be initialized first, see here » for more info².
 //
 // See https://core.telegram.org/method/contacts.getSaved for reference.
 func (c *Client) ContactsGetSaved(ctx context.Context) ([]SavedPhoneContact, error) {

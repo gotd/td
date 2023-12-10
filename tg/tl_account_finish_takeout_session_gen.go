@@ -32,7 +32,10 @@ var (
 )
 
 // AccountFinishTakeoutSessionRequest represents TL type `account.finishTakeoutSession#1d2652ee`.
-// Finish account takeout session
+// Terminate a takeout session, see here » for more info¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/takeout
 //
 // See https://core.telegram.org/method/account.finishTakeoutSession for reference.
 type AccountFinishTakeoutSessionRequest struct {
@@ -191,11 +194,14 @@ func (f *AccountFinishTakeoutSessionRequest) GetSuccess() (value bool) {
 }
 
 // AccountFinishTakeoutSession invokes method account.finishTakeoutSession#1d2652ee returning error if any.
-// Finish account takeout session
+// Terminate a takeout session, see here » for more info¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/takeout
 //
 // Possible errors:
 //
-//	403 TAKEOUT_REQUIRED: A takeout session has to be initialized, first.
+//	403 TAKEOUT_REQUIRED: A takeout session needs to be initialized first, see here » for more info.
 //
 // See https://core.telegram.org/method/account.finishTakeoutSession for reference.
 func (c *Client) AccountFinishTakeoutSession(ctx context.Context, request *AccountFinishTakeoutSessionRequest) (bool, error) {

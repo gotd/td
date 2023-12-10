@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/constructor/boost for reference.
 type Boost struct {
-	// Flags field of Boost.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Gift field of Boost.
 	Gift bool

@@ -166,7 +166,7 @@ func (u *UserEmpty) GetID() (value int64) {
 	return u.ID
 }
 
-// User represents TL type `user#eb602f25`.
+// User represents TL type `user#215c4438`.
 // Indicates info about a certain user
 //
 // See https://core.telegram.org/constructor/user for reference.
@@ -230,7 +230,10 @@ type User struct {
 	// Whether we can edit the profile picture, name, about text and description of this bot
 	// because we own it.
 	BotCanEdit bool
-	// CloseFriend field of User.
+	// Whether we marked this user as a close friend, see here » for more info¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/privacy
 	CloseFriend bool
 	// Whether we have hidden »¹ all active stories of this user.
 	//
@@ -299,22 +302,25 @@ type User struct {
 	//
 	// Use SetUsernames and GetUsernames helpers.
 	Usernames []Username
-	// StoriesMaxID field of User.
+	// ID of the maximum read story¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories
 	//
 	// Use SetStoriesMaxID and GetStoriesMaxID helpers.
 	StoriesMaxID int
 	// Color field of User.
 	//
 	// Use SetColor and GetColor helpers.
-	Color int
-	// BackgroundEmojiID field of User.
+	Color PeerColor
+	// ProfileColor field of User.
 	//
-	// Use SetBackgroundEmojiID and GetBackgroundEmojiID helpers.
-	BackgroundEmojiID int64
+	// Use SetProfileColor and GetProfileColor helpers.
+	ProfileColor PeerColor
 }
 
 // UserTypeID is TL type id of User.
-const UserTypeID = 0xeb602f25
+const UserTypeID = 0x215c4438
 
 // construct implements constructor of UserClass.
 func (u User) construct() UserClass { return &u }
@@ -450,10 +456,10 @@ func (u *User) Zero() bool {
 	if !(u.StoriesMaxID == 0) {
 		return false
 	}
-	if !(u.Color == 0) {
+	if !(u.Color.Zero()) {
 		return false
 	}
-	if !(u.BackgroundEmojiID == 0) {
+	if !(u.ProfileColor.Zero()) {
 		return false
 	}
 
@@ -508,8 +514,8 @@ func (u *User) FillFrom(from interface {
 	GetEmojiStatus() (value EmojiStatusClass, ok bool)
 	GetUsernames() (value []Username, ok bool)
 	GetStoriesMaxID() (value int, ok bool)
-	GetColor() (value int, ok bool)
-	GetBackgroundEmojiID() (value int64, ok bool)
+	GetColor() (value PeerColor, ok bool)
+	GetProfileColor() (value PeerColor, ok bool)
 }) {
 	u.Self = from.GetSelf()
 	u.Contact = from.GetContact()
@@ -594,8 +600,8 @@ func (u *User) FillFrom(from interface {
 		u.Color = val
 	}
 
-	if val, ok := from.GetBackgroundEmojiID(); ok {
-		u.BackgroundEmojiID = val
+	if val, ok := from.GetProfileColor(); ok {
+		u.ProfileColor = val
 	}
 
 }
@@ -810,12 +816,12 @@ func (u *User) TypeInfo() tdp.Type {
 		{
 			Name:       "Color",
 			SchemaName: "color",
-			Null:       !u.Flags2.Has(7),
+			Null:       !u.Flags2.Has(8),
 		},
 		{
-			Name:       "BackgroundEmojiID",
-			SchemaName: "background_emoji_id",
-			Null:       !u.Flags2.Has(6),
+			Name:       "ProfileColor",
+			SchemaName: "profile_color",
+			Null:       !u.Flags2.Has(9),
 		},
 	}
 	return typ
@@ -931,18 +937,18 @@ func (u *User) SetFlags() {
 	if !(u.StoriesMaxID == 0) {
 		u.Flags2.Set(5)
 	}
-	if !(u.Color == 0) {
-		u.Flags2.Set(7)
+	if !(u.Color.Zero()) {
+		u.Flags2.Set(8)
 	}
-	if !(u.BackgroundEmojiID == 0) {
-		u.Flags2.Set(6)
+	if !(u.ProfileColor.Zero()) {
+		u.Flags2.Set(9)
 	}
 }
 
 // Encode implements bin.Encoder.
 func (u *User) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode user#eb602f25 as nil")
+		return fmt.Errorf("can't encode user#215c4438 as nil")
 	}
 	b.PutID(UserTypeID)
 	return u.EncodeBare(b)
@@ -951,14 +957,14 @@ func (u *User) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *User) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode user#eb602f25 as nil")
+		return fmt.Errorf("can't encode user#215c4438 as nil")
 	}
 	u.SetFlags()
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode user#eb602f25: field flags: %w", err)
+		return fmt.Errorf("unable to encode user#215c4438: field flags: %w", err)
 	}
 	if err := u.Flags2.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode user#eb602f25: field flags2: %w", err)
+		return fmt.Errorf("unable to encode user#215c4438: field flags2: %w", err)
 	}
 	b.PutLong(u.ID)
 	if u.Flags.Has(0) {
@@ -978,18 +984,18 @@ func (u *User) EncodeBare(b *bin.Buffer) error {
 	}
 	if u.Flags.Has(5) {
 		if u.Photo == nil {
-			return fmt.Errorf("unable to encode user#eb602f25: field photo is nil")
+			return fmt.Errorf("unable to encode user#215c4438: field photo is nil")
 		}
 		if err := u.Photo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode user#eb602f25: field photo: %w", err)
+			return fmt.Errorf("unable to encode user#215c4438: field photo: %w", err)
 		}
 	}
 	if u.Flags.Has(6) {
 		if u.Status == nil {
-			return fmt.Errorf("unable to encode user#eb602f25: field status is nil")
+			return fmt.Errorf("unable to encode user#215c4438: field status is nil")
 		}
 		if err := u.Status.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode user#eb602f25: field status: %w", err)
+			return fmt.Errorf("unable to encode user#215c4438: field status: %w", err)
 		}
 	}
 	if u.Flags.Has(14) {
@@ -999,7 +1005,7 @@ func (u *User) EncodeBare(b *bin.Buffer) error {
 		b.PutVectorHeader(len(u.RestrictionReason))
 		for idx, v := range u.RestrictionReason {
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode user#eb602f25: field restriction_reason element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode user#215c4438: field restriction_reason element with index %d: %w", idx, err)
 			}
 		}
 	}
@@ -1011,28 +1017,32 @@ func (u *User) EncodeBare(b *bin.Buffer) error {
 	}
 	if u.Flags.Has(30) {
 		if u.EmojiStatus == nil {
-			return fmt.Errorf("unable to encode user#eb602f25: field emoji_status is nil")
+			return fmt.Errorf("unable to encode user#215c4438: field emoji_status is nil")
 		}
 		if err := u.EmojiStatus.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode user#eb602f25: field emoji_status: %w", err)
+			return fmt.Errorf("unable to encode user#215c4438: field emoji_status: %w", err)
 		}
 	}
 	if u.Flags2.Has(0) {
 		b.PutVectorHeader(len(u.Usernames))
 		for idx, v := range u.Usernames {
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode user#eb602f25: field usernames element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode user#215c4438: field usernames element with index %d: %w", idx, err)
 			}
 		}
 	}
 	if u.Flags2.Has(5) {
 		b.PutInt(u.StoriesMaxID)
 	}
-	if u.Flags2.Has(7) {
-		b.PutInt(u.Color)
+	if u.Flags2.Has(8) {
+		if err := u.Color.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode user#215c4438: field color: %w", err)
+		}
 	}
-	if u.Flags2.Has(6) {
-		b.PutLong(u.BackgroundEmojiID)
+	if u.Flags2.Has(9) {
+		if err := u.ProfileColor.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode user#215c4438: field profile_color: %w", err)
+		}
 	}
 	return nil
 }
@@ -1040,10 +1050,10 @@ func (u *User) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *User) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode user#eb602f25 to nil")
+		return fmt.Errorf("can't decode user#215c4438 to nil")
 	}
 	if err := b.ConsumeID(UserTypeID); err != nil {
-		return fmt.Errorf("unable to decode user#eb602f25: %w", err)
+		return fmt.Errorf("unable to decode user#215c4438: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -1051,11 +1061,11 @@ func (u *User) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *User) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode user#eb602f25 to nil")
+		return fmt.Errorf("can't decode user#215c4438 to nil")
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode user#eb602f25: field flags: %w", err)
+			return fmt.Errorf("unable to decode user#215c4438: field flags: %w", err)
 		}
 	}
 	u.Self = u.Flags.Has(10)
@@ -1078,7 +1088,7 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 	u.AttachMenuEnabled = u.Flags.Has(29)
 	{
 		if err := u.Flags2.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode user#eb602f25: field flags2: %w", err)
+			return fmt.Errorf("unable to decode user#215c4438: field flags2: %w", err)
 		}
 	}
 	u.BotCanEdit = u.Flags2.Has(1)
@@ -1088,70 +1098,70 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#eb602f25: field id: %w", err)
+			return fmt.Errorf("unable to decode user#215c4438: field id: %w", err)
 		}
 		u.ID = value
 	}
 	if u.Flags.Has(0) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#eb602f25: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode user#215c4438: field access_hash: %w", err)
 		}
 		u.AccessHash = value
 	}
 	if u.Flags.Has(1) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#eb602f25: field first_name: %w", err)
+			return fmt.Errorf("unable to decode user#215c4438: field first_name: %w", err)
 		}
 		u.FirstName = value
 	}
 	if u.Flags.Has(2) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#eb602f25: field last_name: %w", err)
+			return fmt.Errorf("unable to decode user#215c4438: field last_name: %w", err)
 		}
 		u.LastName = value
 	}
 	if u.Flags.Has(3) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#eb602f25: field username: %w", err)
+			return fmt.Errorf("unable to decode user#215c4438: field username: %w", err)
 		}
 		u.Username = value
 	}
 	if u.Flags.Has(4) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#eb602f25: field phone: %w", err)
+			return fmt.Errorf("unable to decode user#215c4438: field phone: %w", err)
 		}
 		u.Phone = value
 	}
 	if u.Flags.Has(5) {
 		value, err := DecodeUserProfilePhoto(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode user#eb602f25: field photo: %w", err)
+			return fmt.Errorf("unable to decode user#215c4438: field photo: %w", err)
 		}
 		u.Photo = value
 	}
 	if u.Flags.Has(6) {
 		value, err := DecodeUserStatus(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode user#eb602f25: field status: %w", err)
+			return fmt.Errorf("unable to decode user#215c4438: field status: %w", err)
 		}
 		u.Status = value
 	}
 	if u.Flags.Has(14) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#eb602f25: field bot_info_version: %w", err)
+			return fmt.Errorf("unable to decode user#215c4438: field bot_info_version: %w", err)
 		}
 		u.BotInfoVersion = value
 	}
 	if u.Flags.Has(18) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#eb602f25: field restriction_reason: %w", err)
+			return fmt.Errorf("unable to decode user#215c4438: field restriction_reason: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -1160,7 +1170,7 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value RestrictionReason
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode user#eb602f25: field restriction_reason: %w", err)
+				return fmt.Errorf("unable to decode user#215c4438: field restriction_reason: %w", err)
 			}
 			u.RestrictionReason = append(u.RestrictionReason, value)
 		}
@@ -1168,28 +1178,28 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 	if u.Flags.Has(19) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#eb602f25: field bot_inline_placeholder: %w", err)
+			return fmt.Errorf("unable to decode user#215c4438: field bot_inline_placeholder: %w", err)
 		}
 		u.BotInlinePlaceholder = value
 	}
 	if u.Flags.Has(22) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#eb602f25: field lang_code: %w", err)
+			return fmt.Errorf("unable to decode user#215c4438: field lang_code: %w", err)
 		}
 		u.LangCode = value
 	}
 	if u.Flags.Has(30) {
 		value, err := DecodeEmojiStatus(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode user#eb602f25: field emoji_status: %w", err)
+			return fmt.Errorf("unable to decode user#215c4438: field emoji_status: %w", err)
 		}
 		u.EmojiStatus = value
 	}
 	if u.Flags2.Has(0) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#eb602f25: field usernames: %w", err)
+			return fmt.Errorf("unable to decode user#215c4438: field usernames: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -1198,7 +1208,7 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value Username
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode user#eb602f25: field usernames: %w", err)
+				return fmt.Errorf("unable to decode user#215c4438: field usernames: %w", err)
 			}
 			u.Usernames = append(u.Usernames, value)
 		}
@@ -1206,23 +1216,19 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 	if u.Flags2.Has(5) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode user#eb602f25: field stories_max_id: %w", err)
+			return fmt.Errorf("unable to decode user#215c4438: field stories_max_id: %w", err)
 		}
 		u.StoriesMaxID = value
 	}
-	if u.Flags2.Has(7) {
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#eb602f25: field color: %w", err)
+	if u.Flags2.Has(8) {
+		if err := u.Color.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode user#215c4438: field color: %w", err)
 		}
-		u.Color = value
 	}
-	if u.Flags2.Has(6) {
-		value, err := b.Long()
-		if err != nil {
-			return fmt.Errorf("unable to decode user#eb602f25: field background_emoji_id: %w", err)
+	if u.Flags2.Has(9) {
+		if err := u.ProfileColor.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode user#215c4438: field profile_color: %w", err)
 		}
-		u.BackgroundEmojiID = value
 	}
 	return nil
 }
@@ -1906,39 +1912,39 @@ func (u *User) GetStoriesMaxID() (value int, ok bool) {
 }
 
 // SetColor sets value of Color conditional field.
-func (u *User) SetColor(value int) {
-	u.Flags2.Set(7)
+func (u *User) SetColor(value PeerColor) {
+	u.Flags2.Set(8)
 	u.Color = value
 }
 
 // GetColor returns value of Color conditional field and
 // boolean which is true if field was set.
-func (u *User) GetColor() (value int, ok bool) {
+func (u *User) GetColor() (value PeerColor, ok bool) {
 	if u == nil {
 		return
 	}
-	if !u.Flags2.Has(7) {
+	if !u.Flags2.Has(8) {
 		return value, false
 	}
 	return u.Color, true
 }
 
-// SetBackgroundEmojiID sets value of BackgroundEmojiID conditional field.
-func (u *User) SetBackgroundEmojiID(value int64) {
-	u.Flags2.Set(6)
-	u.BackgroundEmojiID = value
+// SetProfileColor sets value of ProfileColor conditional field.
+func (u *User) SetProfileColor(value PeerColor) {
+	u.Flags2.Set(9)
+	u.ProfileColor = value
 }
 
-// GetBackgroundEmojiID returns value of BackgroundEmojiID conditional field and
+// GetProfileColor returns value of ProfileColor conditional field and
 // boolean which is true if field was set.
-func (u *User) GetBackgroundEmojiID() (value int64, ok bool) {
+func (u *User) GetProfileColor() (value PeerColor, ok bool) {
 	if u == nil {
 		return
 	}
-	if !u.Flags2.Has(6) {
+	if !u.Flags2.Has(9) {
 		return value, false
 	}
-	return u.BackgroundEmojiID, true
+	return u.ProfileColor, true
 }
 
 // UserClassName is schema name of UserClass.
@@ -1956,7 +1962,7 @@ const UserClassName = "User"
 //	}
 //	switch v := g.(type) {
 //	case *tg.UserEmpty: // userEmpty#d3bc4b7a
-//	case *tg.User: // user#eb602f25
+//	case *tg.User: // user#215c4438
 //	default: panic(v)
 //	}
 type UserClass interface {
@@ -2031,7 +2037,7 @@ func DecodeUser(buf *bin.Buffer) (UserClass, error) {
 		}
 		return &v, nil
 	case UserTypeID:
-		// Decoding user#eb602f25.
+		// Decoding user#215c4438.
 		v := User{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserClass: %w", err)

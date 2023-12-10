@@ -81,7 +81,7 @@ type MessagesRequestWebViewRequest struct {
 	// start_param should contain the data from the startattach parameter.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/links#bot-attachment-menu-links
+	//  1) https://core.telegram.org/api/links#bot-attachment-or-side-menu-links
 	//
 	// Use SetStartParam and GetStartParam helpers.
 	StartParam string

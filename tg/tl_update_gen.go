@@ -3285,7 +3285,8 @@ type UpdateServiceNotification struct {
 	Flags bin.Fields
 	// If set, the message must be displayed in a popup.
 	Popup bool
-	// InvertMedia field of UpdateServiceNotification.
+	// If set, any eventual webpage preview will be shown on top of the message instead of at
+	// the bottom.
 	InvertMedia bool
 	// When was the notification receivedThe message must also be stored locally as part of
 	// the message history with the user id 777000 (Telegram Notifications).
@@ -23536,6 +23537,608 @@ func (u *UpdateSentStoryReaction) GetReaction() (value ReactionClass) {
 	return u.Reaction
 }
 
+// UpdateBotChatBoost represents TL type `updateBotChatBoost#904dd49c`.
+//
+// See https://core.telegram.org/constructor/updateBotChatBoost for reference.
+type UpdateBotChatBoost struct {
+	// Peer field of UpdateBotChatBoost.
+	Peer PeerClass
+	// Boost field of UpdateBotChatBoost.
+	Boost Boost
+	// Qts field of UpdateBotChatBoost.
+	Qts int
+}
+
+// UpdateBotChatBoostTypeID is TL type id of UpdateBotChatBoost.
+const UpdateBotChatBoostTypeID = 0x904dd49c
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBotChatBoost) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBotChatBoost.
+var (
+	_ bin.Encoder     = &UpdateBotChatBoost{}
+	_ bin.Decoder     = &UpdateBotChatBoost{}
+	_ bin.BareEncoder = &UpdateBotChatBoost{}
+	_ bin.BareDecoder = &UpdateBotChatBoost{}
+
+	_ UpdateClass = &UpdateBotChatBoost{}
+)
+
+func (u *UpdateBotChatBoost) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.Boost.Zero()) {
+		return false
+	}
+	if !(u.Qts == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateBotChatBoost) String() string {
+	if u == nil {
+		return "UpdateBotChatBoost(nil)"
+	}
+	type Alias UpdateBotChatBoost
+	return fmt.Sprintf("UpdateBotChatBoost%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateBotChatBoost from given interface.
+func (u *UpdateBotChatBoost) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+	GetBoost() (value Boost)
+	GetQts() (value int)
+}) {
+	u.Peer = from.GetPeer()
+	u.Boost = from.GetBoost()
+	u.Qts = from.GetQts()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateBotChatBoost) TypeID() uint32 {
+	return UpdateBotChatBoostTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateBotChatBoost) TypeName() string {
+	return "updateBotChatBoost"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBotChatBoost) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBotChatBoost",
+		ID:   UpdateBotChatBoostTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Boost",
+			SchemaName: "boost",
+		},
+		{
+			Name:       "Qts",
+			SchemaName: "qts",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateBotChatBoost) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBotChatBoost#904dd49c as nil")
+	}
+	b.PutID(UpdateBotChatBoostTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateBotChatBoost) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBotChatBoost#904dd49c as nil")
+	}
+	if u.Peer == nil {
+		return fmt.Errorf("unable to encode updateBotChatBoost#904dd49c: field peer is nil")
+	}
+	if err := u.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateBotChatBoost#904dd49c: field peer: %w", err)
+	}
+	if err := u.Boost.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateBotChatBoost#904dd49c: field boost: %w", err)
+	}
+	b.PutInt(u.Qts)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateBotChatBoost) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBotChatBoost#904dd49c to nil")
+	}
+	if err := b.ConsumeID(UpdateBotChatBoostTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateBotChatBoost#904dd49c: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateBotChatBoost) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBotChatBoost#904dd49c to nil")
+	}
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotChatBoost#904dd49c: field peer: %w", err)
+		}
+		u.Peer = value
+	}
+	{
+		if err := u.Boost.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateBotChatBoost#904dd49c: field boost: %w", err)
+		}
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotChatBoost#904dd49c: field qts: %w", err)
+		}
+		u.Qts = value
+	}
+	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateBotChatBoost) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
+	return u.Peer
+}
+
+// GetBoost returns value of Boost field.
+func (u *UpdateBotChatBoost) GetBoost() (value Boost) {
+	if u == nil {
+		return
+	}
+	return u.Boost
+}
+
+// GetQts returns value of Qts field.
+func (u *UpdateBotChatBoost) GetQts() (value int) {
+	if u == nil {
+		return
+	}
+	return u.Qts
+}
+
+// UpdateChannelViewForumAsMessages represents TL type `updateChannelViewForumAsMessages#7b68920`.
+//
+// See https://core.telegram.org/constructor/updateChannelViewForumAsMessages for reference.
+type UpdateChannelViewForumAsMessages struct {
+	// ChannelID field of UpdateChannelViewForumAsMessages.
+	ChannelID int64
+	// Enabled field of UpdateChannelViewForumAsMessages.
+	Enabled bool
+}
+
+// UpdateChannelViewForumAsMessagesTypeID is TL type id of UpdateChannelViewForumAsMessages.
+const UpdateChannelViewForumAsMessagesTypeID = 0x7b68920
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChannelViewForumAsMessages) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChannelViewForumAsMessages.
+var (
+	_ bin.Encoder     = &UpdateChannelViewForumAsMessages{}
+	_ bin.Decoder     = &UpdateChannelViewForumAsMessages{}
+	_ bin.BareEncoder = &UpdateChannelViewForumAsMessages{}
+	_ bin.BareDecoder = &UpdateChannelViewForumAsMessages{}
+
+	_ UpdateClass = &UpdateChannelViewForumAsMessages{}
+)
+
+func (u *UpdateChannelViewForumAsMessages) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChannelID == 0) {
+		return false
+	}
+	if !(u.Enabled == false) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChannelViewForumAsMessages) String() string {
+	if u == nil {
+		return "UpdateChannelViewForumAsMessages(nil)"
+	}
+	type Alias UpdateChannelViewForumAsMessages
+	return fmt.Sprintf("UpdateChannelViewForumAsMessages%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateChannelViewForumAsMessages from given interface.
+func (u *UpdateChannelViewForumAsMessages) FillFrom(from interface {
+	GetChannelID() (value int64)
+	GetEnabled() (value bool)
+}) {
+	u.ChannelID = from.GetChannelID()
+	u.Enabled = from.GetEnabled()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateChannelViewForumAsMessages) TypeID() uint32 {
+	return UpdateChannelViewForumAsMessagesTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateChannelViewForumAsMessages) TypeName() string {
+	return "updateChannelViewForumAsMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChannelViewForumAsMessages) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChannelViewForumAsMessages",
+		ID:   UpdateChannelViewForumAsMessagesTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+		{
+			Name:       "Enabled",
+			SchemaName: "enabled",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChannelViewForumAsMessages) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChannelViewForumAsMessages#7b68920 as nil")
+	}
+	b.PutID(UpdateChannelViewForumAsMessagesTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateChannelViewForumAsMessages) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChannelViewForumAsMessages#7b68920 as nil")
+	}
+	b.PutLong(u.ChannelID)
+	b.PutBool(u.Enabled)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChannelViewForumAsMessages) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChannelViewForumAsMessages#7b68920 to nil")
+	}
+	if err := b.ConsumeID(UpdateChannelViewForumAsMessagesTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChannelViewForumAsMessages#7b68920: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateChannelViewForumAsMessages) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChannelViewForumAsMessages#7b68920 to nil")
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChannelViewForumAsMessages#7b68920: field channel_id: %w", err)
+		}
+		u.ChannelID = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChannelViewForumAsMessages#7b68920: field enabled: %w", err)
+		}
+		u.Enabled = value
+	}
+	return nil
+}
+
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateChannelViewForumAsMessages) GetChannelID() (value int64) {
+	if u == nil {
+		return
+	}
+	return u.ChannelID
+}
+
+// GetEnabled returns value of Enabled field.
+func (u *UpdateChannelViewForumAsMessages) GetEnabled() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Enabled
+}
+
+// UpdatePeerWallpaper represents TL type `updatePeerWallpaper#ae3f101d`.
+//
+// See https://core.telegram.org/constructor/updatePeerWallpaper for reference.
+type UpdatePeerWallpaper struct {
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
+	Flags bin.Fields
+	// WallpaperOverridden field of UpdatePeerWallpaper.
+	WallpaperOverridden bool
+	// Peer field of UpdatePeerWallpaper.
+	Peer PeerClass
+	// Wallpaper field of UpdatePeerWallpaper.
+	//
+	// Use SetWallpaper and GetWallpaper helpers.
+	Wallpaper WallPaperClass
+}
+
+// UpdatePeerWallpaperTypeID is TL type id of UpdatePeerWallpaper.
+const UpdatePeerWallpaperTypeID = 0xae3f101d
+
+// construct implements constructor of UpdateClass.
+func (u UpdatePeerWallpaper) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdatePeerWallpaper.
+var (
+	_ bin.Encoder     = &UpdatePeerWallpaper{}
+	_ bin.Decoder     = &UpdatePeerWallpaper{}
+	_ bin.BareEncoder = &UpdatePeerWallpaper{}
+	_ bin.BareDecoder = &UpdatePeerWallpaper{}
+
+	_ UpdateClass = &UpdatePeerWallpaper{}
+)
+
+func (u *UpdatePeerWallpaper) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.WallpaperOverridden == false) {
+		return false
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.Wallpaper == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdatePeerWallpaper) String() string {
+	if u == nil {
+		return "UpdatePeerWallpaper(nil)"
+	}
+	type Alias UpdatePeerWallpaper
+	return fmt.Sprintf("UpdatePeerWallpaper%+v", Alias(*u))
+}
+
+// FillFrom fills UpdatePeerWallpaper from given interface.
+func (u *UpdatePeerWallpaper) FillFrom(from interface {
+	GetWallpaperOverridden() (value bool)
+	GetPeer() (value PeerClass)
+	GetWallpaper() (value WallPaperClass, ok bool)
+}) {
+	u.WallpaperOverridden = from.GetWallpaperOverridden()
+	u.Peer = from.GetPeer()
+	if val, ok := from.GetWallpaper(); ok {
+		u.Wallpaper = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdatePeerWallpaper) TypeID() uint32 {
+	return UpdatePeerWallpaperTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdatePeerWallpaper) TypeName() string {
+	return "updatePeerWallpaper"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdatePeerWallpaper) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updatePeerWallpaper",
+		ID:   UpdatePeerWallpaperTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "WallpaperOverridden",
+			SchemaName: "wallpaper_overridden",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Wallpaper",
+			SchemaName: "wallpaper",
+			Null:       !u.Flags.Has(0),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdatePeerWallpaper) SetFlags() {
+	if !(u.WallpaperOverridden == false) {
+		u.Flags.Set(1)
+	}
+	if !(u.Wallpaper == nil) {
+		u.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdatePeerWallpaper) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updatePeerWallpaper#ae3f101d as nil")
+	}
+	b.PutID(UpdatePeerWallpaperTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdatePeerWallpaper) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updatePeerWallpaper#ae3f101d as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updatePeerWallpaper#ae3f101d: field flags: %w", err)
+	}
+	if u.Peer == nil {
+		return fmt.Errorf("unable to encode updatePeerWallpaper#ae3f101d: field peer is nil")
+	}
+	if err := u.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updatePeerWallpaper#ae3f101d: field peer: %w", err)
+	}
+	if u.Flags.Has(0) {
+		if u.Wallpaper == nil {
+			return fmt.Errorf("unable to encode updatePeerWallpaper#ae3f101d: field wallpaper is nil")
+		}
+		if err := u.Wallpaper.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode updatePeerWallpaper#ae3f101d: field wallpaper: %w", err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdatePeerWallpaper) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updatePeerWallpaper#ae3f101d to nil")
+	}
+	if err := b.ConsumeID(UpdatePeerWallpaperTypeID); err != nil {
+		return fmt.Errorf("unable to decode updatePeerWallpaper#ae3f101d: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdatePeerWallpaper) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updatePeerWallpaper#ae3f101d to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updatePeerWallpaper#ae3f101d: field flags: %w", err)
+		}
+	}
+	u.WallpaperOverridden = u.Flags.Has(1)
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updatePeerWallpaper#ae3f101d: field peer: %w", err)
+		}
+		u.Peer = value
+	}
+	if u.Flags.Has(0) {
+		value, err := DecodeWallPaper(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updatePeerWallpaper#ae3f101d: field wallpaper: %w", err)
+		}
+		u.Wallpaper = value
+	}
+	return nil
+}
+
+// SetWallpaperOverridden sets value of WallpaperOverridden conditional field.
+func (u *UpdatePeerWallpaper) SetWallpaperOverridden(value bool) {
+	if value {
+		u.Flags.Set(1)
+		u.WallpaperOverridden = true
+	} else {
+		u.Flags.Unset(1)
+		u.WallpaperOverridden = false
+	}
+}
+
+// GetWallpaperOverridden returns value of WallpaperOverridden conditional field.
+func (u *UpdatePeerWallpaper) GetWallpaperOverridden() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(1)
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdatePeerWallpaper) GetPeer() (value PeerClass) {
+	if u == nil {
+		return
+	}
+	return u.Peer
+}
+
+// SetWallpaper sets value of Wallpaper conditional field.
+func (u *UpdatePeerWallpaper) SetWallpaper(value WallPaperClass) {
+	u.Flags.Set(0)
+	u.Wallpaper = value
+}
+
+// GetWallpaper returns value of Wallpaper conditional field and
+// boolean which is true if field was set.
+func (u *UpdatePeerWallpaper) GetWallpaper() (value WallPaperClass, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.Wallpaper, true
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -23667,6 +24270,9 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateStoryID: // updateStoryID#1bf335b9
 //	case *tg.UpdateStoriesStealthMode: // updateStoriesStealthMode#2c084dc1
 //	case *tg.UpdateSentStoryReaction: // updateSentStoryReaction#7d627683
+//	case *tg.UpdateBotChatBoost: // updateBotChatBoost#904dd49c
+//	case *tg.UpdateChannelViewForumAsMessages: // updateChannelViewForumAsMessages#7b68920
+//	case *tg.UpdatePeerWallpaper: // updatePeerWallpaper#ae3f101d
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -24510,6 +25116,27 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateSentStoryReactionTypeID:
 		// Decoding updateSentStoryReaction#7d627683.
 		v := UpdateSentStoryReaction{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateBotChatBoostTypeID:
+		// Decoding updateBotChatBoost#904dd49c.
+		v := UpdateBotChatBoost{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChannelViewForumAsMessagesTypeID:
+		// Decoding updateChannelViewForumAsMessages#7b68920.
+		v := UpdateChannelViewForumAsMessages{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdatePeerWallpaperTypeID:
+		// Decoding updatePeerWallpaper#ae3f101d.
+		v := UpdatePeerWallpaper{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

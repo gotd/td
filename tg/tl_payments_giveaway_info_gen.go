@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/constructor/payments.giveawayInfo for reference.
 type PaymentsGiveawayInfo struct {
-	// Flags field of PaymentsGiveawayInfo.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Participating field of PaymentsGiveawayInfo.
 	Participating bool
@@ -401,7 +404,10 @@ func (g *PaymentsGiveawayInfo) GetDisallowedCountry() (value string, ok bool) {
 //
 // See https://core.telegram.org/constructor/payments.giveawayInfoResults for reference.
 type PaymentsGiveawayInfoResults struct {
-	// Flags field of PaymentsGiveawayInfoResults.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Winner field of PaymentsGiveawayInfoResults.
 	Winner bool

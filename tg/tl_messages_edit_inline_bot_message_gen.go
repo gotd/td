@@ -43,7 +43,8 @@ type MessagesEditInlineBotMessageRequest struct {
 	Flags bin.Fields
 	// Disable webpage preview
 	NoWebpage bool
-	// InvertMedia field of MessagesEditInlineBotMessageRequest.
+	// If set, any eventual webpage preview will be shown on top of the message instead of at
+	// the bottom.
 	InvertMedia bool
 	// Sent inline message ID
 	ID InputBotInlineMessageIDClass

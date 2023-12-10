@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesTranscribedAudio represents TL type `messages.transcribedAudio#93752c52`.
+// MessagesTranscribedAudio represents TL type `messages.transcribedAudio#cfb9d957`.
 // Transcribed text from a voice message »¹
 //
 // Links:
@@ -55,10 +55,18 @@ type MessagesTranscribedAudio struct {
 	TranscriptionID int64
 	// Transcripted text
 	Text string
+	// TrialRemainsNum field of MessagesTranscribedAudio.
+	//
+	// Use SetTrialRemainsNum and GetTrialRemainsNum helpers.
+	TrialRemainsNum int
+	// TrialRemainsUntilDate field of MessagesTranscribedAudio.
+	//
+	// Use SetTrialRemainsUntilDate and GetTrialRemainsUntilDate helpers.
+	TrialRemainsUntilDate int
 }
 
 // MessagesTranscribedAudioTypeID is TL type id of MessagesTranscribedAudio.
-const MessagesTranscribedAudioTypeID = 0x93752c52
+const MessagesTranscribedAudioTypeID = 0xcfb9d957
 
 // Ensuring interfaces in compile-time for MessagesTranscribedAudio.
 var (
@@ -84,6 +92,12 @@ func (t *MessagesTranscribedAudio) Zero() bool {
 	if !(t.Text == "") {
 		return false
 	}
+	if !(t.TrialRemainsNum == 0) {
+		return false
+	}
+	if !(t.TrialRemainsUntilDate == 0) {
+		return false
+	}
 
 	return true
 }
@@ -102,10 +116,20 @@ func (t *MessagesTranscribedAudio) FillFrom(from interface {
 	GetPending() (value bool)
 	GetTranscriptionID() (value int64)
 	GetText() (value string)
+	GetTrialRemainsNum() (value int, ok bool)
+	GetTrialRemainsUntilDate() (value int, ok bool)
 }) {
 	t.Pending = from.GetPending()
 	t.TranscriptionID = from.GetTranscriptionID()
 	t.Text = from.GetText()
+	if val, ok := from.GetTrialRemainsNum(); ok {
+		t.TrialRemainsNum = val
+	}
+
+	if val, ok := from.GetTrialRemainsUntilDate(); ok {
+		t.TrialRemainsUntilDate = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -144,6 +168,16 @@ func (t *MessagesTranscribedAudio) TypeInfo() tdp.Type {
 			Name:       "Text",
 			SchemaName: "text",
 		},
+		{
+			Name:       "TrialRemainsNum",
+			SchemaName: "trial_remains_num",
+			Null:       !t.Flags.Has(1),
+		},
+		{
+			Name:       "TrialRemainsUntilDate",
+			SchemaName: "trial_remains_until_date",
+			Null:       !t.Flags.Has(1),
+		},
 	}
 	return typ
 }
@@ -153,12 +187,18 @@ func (t *MessagesTranscribedAudio) SetFlags() {
 	if !(t.Pending == false) {
 		t.Flags.Set(0)
 	}
+	if !(t.TrialRemainsNum == 0) {
+		t.Flags.Set(1)
+	}
+	if !(t.TrialRemainsUntilDate == 0) {
+		t.Flags.Set(1)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (t *MessagesTranscribedAudio) Encode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode messages.transcribedAudio#93752c52 as nil")
+		return fmt.Errorf("can't encode messages.transcribedAudio#cfb9d957 as nil")
 	}
 	b.PutID(MessagesTranscribedAudioTypeID)
 	return t.EncodeBare(b)
@@ -167,24 +207,30 @@ func (t *MessagesTranscribedAudio) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (t *MessagesTranscribedAudio) EncodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't encode messages.transcribedAudio#93752c52 as nil")
+		return fmt.Errorf("can't encode messages.transcribedAudio#cfb9d957 as nil")
 	}
 	t.SetFlags()
 	if err := t.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.transcribedAudio#93752c52: field flags: %w", err)
+		return fmt.Errorf("unable to encode messages.transcribedAudio#cfb9d957: field flags: %w", err)
 	}
 	b.PutLong(t.TranscriptionID)
 	b.PutString(t.Text)
+	if t.Flags.Has(1) {
+		b.PutInt(t.TrialRemainsNum)
+	}
+	if t.Flags.Has(1) {
+		b.PutInt(t.TrialRemainsUntilDate)
+	}
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (t *MessagesTranscribedAudio) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode messages.transcribedAudio#93752c52 to nil")
+		return fmt.Errorf("can't decode messages.transcribedAudio#cfb9d957 to nil")
 	}
 	if err := b.ConsumeID(MessagesTranscribedAudioTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.transcribedAudio#93752c52: %w", err)
+		return fmt.Errorf("unable to decode messages.transcribedAudio#cfb9d957: %w", err)
 	}
 	return t.DecodeBare(b)
 }
@@ -192,27 +238,41 @@ func (t *MessagesTranscribedAudio) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (t *MessagesTranscribedAudio) DecodeBare(b *bin.Buffer) error {
 	if t == nil {
-		return fmt.Errorf("can't decode messages.transcribedAudio#93752c52 to nil")
+		return fmt.Errorf("can't decode messages.transcribedAudio#cfb9d957 to nil")
 	}
 	{
 		if err := t.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messages.transcribedAudio#93752c52: field flags: %w", err)
+			return fmt.Errorf("unable to decode messages.transcribedAudio#cfb9d957: field flags: %w", err)
 		}
 	}
 	t.Pending = t.Flags.Has(0)
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.transcribedAudio#93752c52: field transcription_id: %w", err)
+			return fmt.Errorf("unable to decode messages.transcribedAudio#cfb9d957: field transcription_id: %w", err)
 		}
 		t.TranscriptionID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.transcribedAudio#93752c52: field text: %w", err)
+			return fmt.Errorf("unable to decode messages.transcribedAudio#cfb9d957: field text: %w", err)
 		}
 		t.Text = value
+	}
+	if t.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.transcribedAudio#cfb9d957: field trial_remains_num: %w", err)
+		}
+		t.TrialRemainsNum = value
+	}
+	if t.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.transcribedAudio#cfb9d957: field trial_remains_until_date: %w", err)
+		}
+		t.TrialRemainsUntilDate = value
 	}
 	return nil
 }
@@ -250,4 +310,40 @@ func (t *MessagesTranscribedAudio) GetText() (value string) {
 		return
 	}
 	return t.Text
+}
+
+// SetTrialRemainsNum sets value of TrialRemainsNum conditional field.
+func (t *MessagesTranscribedAudio) SetTrialRemainsNum(value int) {
+	t.Flags.Set(1)
+	t.TrialRemainsNum = value
+}
+
+// GetTrialRemainsNum returns value of TrialRemainsNum conditional field and
+// boolean which is true if field was set.
+func (t *MessagesTranscribedAudio) GetTrialRemainsNum() (value int, ok bool) {
+	if t == nil {
+		return
+	}
+	if !t.Flags.Has(1) {
+		return value, false
+	}
+	return t.TrialRemainsNum, true
+}
+
+// SetTrialRemainsUntilDate sets value of TrialRemainsUntilDate conditional field.
+func (t *MessagesTranscribedAudio) SetTrialRemainsUntilDate(value int) {
+	t.Flags.Set(1)
+	t.TrialRemainsUntilDate = value
+}
+
+// GetTrialRemainsUntilDate returns value of TrialRemainsUntilDate conditional field and
+// boolean which is true if field was set.
+func (t *MessagesTranscribedAudio) GetTrialRemainsUntilDate() (value int, ok bool) {
+	if t == nil {
+		return
+	}
+	if !t.Flags.Has(1) {
+		return value, false
+	}
+	return t.TrialRemainsUntilDate, true
 }

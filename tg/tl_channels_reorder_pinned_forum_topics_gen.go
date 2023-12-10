@@ -41,7 +41,12 @@ type ChannelsReorderPinnedForumTopicsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// If set, topics pinned server-side but not present in the order field will be unpinned.
+	// If not set, the order of only the topics present both server-side and in order will be
+	// changed (i.e. mentioning topics not pinned server-side in order will not pin them, and
+	// not mentioning topics pinned server-side will not unpin them).  If set, the entire
+	// server-side pinned topic list will be replaced with order (i.e. mentioning topics not
+	// pinned server-side in order will pin them, and not mentioning topics pinned
+	// server-side will unpin them)
 	Force bool
 	// Supergroup ID
 	Channel InputChannelClass

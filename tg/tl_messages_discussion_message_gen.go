@@ -44,7 +44,8 @@ type MessagesDiscussionMessage struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Discussion messages
+	// The messages from which the thread starts. The messages are returned in reverse
+	// chronological order (i.e., in order of decreasing message ID).
 	Messages []MessageClass
 	// Message ID of latest reply in this thread¹
 	//

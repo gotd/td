@@ -50,15 +50,23 @@ type MessagesRequestSimpleWebViewRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getInlineBotResults
 	FromSwitchWebview bool
-	// FromSideMenu field of MessagesRequestSimpleWebViewRequest.
+	// Set this flag if opening the Mini App from the installed side menu entry »¹ or from
+	// a Mini App link »².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/attach
+	//  2) https://core.telegram.org/api/links#mini-app-links
 	FromSideMenu bool
 	// Bot that owns the mini app
 	Bot InputUserClass
-	// Web app URL
+	// Web app URL, if opening from a keyboard button or inline result
 	//
 	// Use SetURL and GetURL helpers.
 	URL string
-	// StartParam field of MessagesRequestSimpleWebViewRequest.
+	// Start parameter, if opening from a Mini App link »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#mini-app-links
 	//
 	// Use SetStartParam and GetStartParam helpers.
 	StartParam string

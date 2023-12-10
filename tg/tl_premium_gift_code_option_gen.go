@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/constructor/premiumGiftCodeOption for reference.
 type PremiumGiftCodeOption struct {
-	// Flags field of PremiumGiftCodeOption.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Users field of PremiumGiftCodeOption.
 	Users int

@@ -171,7 +171,7 @@ func (c *StoriesCanSendStoryRequest) GetPeer() (value InputPeerClass) {
 //
 // Possible errors:
 //
-//	400 BOOSTS_REQUIRED: The specified channel must first be boosted by its users in order to be able to post stories.
+//	400 BOOSTS_REQUIRED: The specified channel must first be boosted by its users in order to perform this action.
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.

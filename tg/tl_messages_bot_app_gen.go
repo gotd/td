@@ -32,10 +32,10 @@ var (
 )
 
 // MessagesBotApp represents TL type `messages.botApp#eb50adf5`.
-// Contains information about a named bot mini app¹
+// Contains information about a named Mini App¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#named-bot-mini-apps
+//  1. https://core.telegram.org/api/bots/webapps#named-mini-apps
 //
 // See https://core.telegram.org/constructor/messages.botApp for reference.
 type MessagesBotApp struct {

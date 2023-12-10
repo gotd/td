@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/constructor/premium.boostsList for reference.
 type PremiumBoostsList struct {
-	// Flags field of PremiumBoostsList.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Count field of PremiumBoostsList.
 	Count int

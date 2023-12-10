@@ -44,6 +44,16 @@ type MessagesSetChatWallPaperRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// Only for Premium¹ users, sets the specified wallpaper for both users of the chat,
+	// without requiring confirmation from the other user.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
+	ForBoth bool
+	// If we don't like the new wallpaper the other user of the chat has chosen for us using
+	// the for_both flag, we can re-set our previous wallpaper just on our side using this
+	// flag.
+	Revert bool
 	// The private chat where the wallpaper will be set
 	Peer InputPeerClass
 	// The wallpaper »¹, obtained as described in the wallpaper documentation »²; must
@@ -94,6 +104,12 @@ func (s *MessagesSetChatWallPaperRequest) Zero() bool {
 	if !(s.Flags.Zero()) {
 		return false
 	}
+	if !(s.ForBoth == false) {
+		return false
+	}
+	if !(s.Revert == false) {
+		return false
+	}
 	if !(s.Peer == nil) {
 		return false
 	}
@@ -121,11 +137,15 @@ func (s *MessagesSetChatWallPaperRequest) String() string {
 
 // FillFrom fills MessagesSetChatWallPaperRequest from given interface.
 func (s *MessagesSetChatWallPaperRequest) FillFrom(from interface {
+	GetForBoth() (value bool)
+	GetRevert() (value bool)
 	GetPeer() (value InputPeerClass)
 	GetWallpaper() (value InputWallPaperClass, ok bool)
 	GetSettings() (value WallPaperSettings, ok bool)
 	GetID() (value int, ok bool)
 }) {
+	s.ForBoth = from.GetForBoth()
+	s.Revert = from.GetRevert()
 	s.Peer = from.GetPeer()
 	if val, ok := from.GetWallpaper(); ok {
 		s.Wallpaper = val
@@ -165,6 +185,16 @@ func (s *MessagesSetChatWallPaperRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "ForBoth",
+			SchemaName: "for_both",
+			Null:       !s.Flags.Has(3),
+		},
+		{
+			Name:       "Revert",
+			SchemaName: "revert",
+			Null:       !s.Flags.Has(4),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -189,6 +219,12 @@ func (s *MessagesSetChatWallPaperRequest) TypeInfo() tdp.Type {
 
 // SetFlags sets flags for non-zero fields.
 func (s *MessagesSetChatWallPaperRequest) SetFlags() {
+	if !(s.ForBoth == false) {
+		s.Flags.Set(3)
+	}
+	if !(s.Revert == false) {
+		s.Flags.Set(4)
+	}
 	if !(s.Wallpaper == nil) {
 		s.Flags.Set(0)
 	}
@@ -264,6 +300,8 @@ func (s *MessagesSetChatWallPaperRequest) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messages.setChatWallPaper#8ffacae1: field flags: %w", err)
 		}
 	}
+	s.ForBoth = s.Flags.Has(3)
+	s.Revert = s.Flags.Has(4)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -291,6 +329,44 @@ func (s *MessagesSetChatWallPaperRequest) DecodeBare(b *bin.Buffer) error {
 		s.ID = value
 	}
 	return nil
+}
+
+// SetForBoth sets value of ForBoth conditional field.
+func (s *MessagesSetChatWallPaperRequest) SetForBoth(value bool) {
+	if value {
+		s.Flags.Set(3)
+		s.ForBoth = true
+	} else {
+		s.Flags.Unset(3)
+		s.ForBoth = false
+	}
+}
+
+// GetForBoth returns value of ForBoth conditional field.
+func (s *MessagesSetChatWallPaperRequest) GetForBoth() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(3)
+}
+
+// SetRevert sets value of Revert conditional field.
+func (s *MessagesSetChatWallPaperRequest) SetRevert(value bool) {
+	if value {
+		s.Flags.Set(4)
+		s.Revert = true
+	} else {
+		s.Flags.Unset(4)
+		s.Revert = false
+	}
+}
+
+// GetRevert returns value of Revert conditional field.
+func (s *MessagesSetChatWallPaperRequest) GetRevert() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(4)
 }
 
 // GetPeer returns value of Peer field.
@@ -365,6 +441,7 @@ func (s *MessagesSetChatWallPaperRequest) GetID() (value int, ok bool) {
 //
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 WALLPAPER_INVALID: The specified wallpaper is invalid.
+//	400 WALLPAPER_NOT_FOUND:
 //
 // See https://core.telegram.org/method/messages.setChatWallPaper for reference.
 // Can be used by bots.

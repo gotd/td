@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/premium.applyBoost for reference.
 type PremiumApplyBoostRequest struct {
-	// Flags field of PremiumApplyBoostRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Slots field of PremiumApplyBoostRequest.
 	//
@@ -245,6 +248,10 @@ func (a *PremiumApplyBoostRequest) GetPeer() (value InputPeerClass) {
 }
 
 // PremiumApplyBoost invokes method premium.applyBoost#6b7da746 returning error if any.
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/premium.applyBoost for reference.
 func (c *Client) PremiumApplyBoost(ctx context.Context, request *PremiumApplyBoostRequest) (*PremiumMyBoosts, error) {

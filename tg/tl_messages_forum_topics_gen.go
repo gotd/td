@@ -45,7 +45,7 @@ type MessagesForumTopics struct {
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the returned topics are ordered by creation date; if set, pagination by
-	// next_offset should use forumTopic¹.date; otherwise topics are ordered by the last
+	// offset_date should use forumTopic¹.date; otherwise topics are ordered by the last
 	// message date, so paginate by the date of the message² referenced by forumTopic³
 	// top_message.
 	//
@@ -54,7 +54,7 @@ type MessagesForumTopics struct {
 	//  2) https://core.telegram.org/type/Message
 	//  3) https://core.telegram.org/constructor/forumTopic
 	OrderByCreateDate bool
-	// Total number of topics matching query; may be less than the topics contained in topics
+	// Total number of topics matching query; may be more than the topics contained in topics
 	// in which case pagination¹ is required.
 	//
 	// Links:

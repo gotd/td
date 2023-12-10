@@ -32,17 +32,17 @@ var (
 )
 
 // MessagesGetBotAppRequest represents TL type `messages.getBotApp#34fdc5c3`.
-// Obtain information about a named bot mini app¹
+// Obtain information about a named Mini App¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#named-bot-mini-apps
+//  1. https://core.telegram.org/api/bots/webapps#named-mini-apps
 //
 // See https://core.telegram.org/method/messages.getBotApp for reference.
 type MessagesGetBotAppRequest struct {
-	// Bot app information obtained from a named bot mini app deep link »¹.
+	// Bot app information obtained from a named Mini App deep link »¹.
 	//
 	// Links:
-	//  1) https://core.telegram.org/api/links#named-bot-mini-app-links
+	//  1) https://core.telegram.org/api/links#named-mini-app-links
 	App InputBotAppClass
 	// Hash for pagination, for more info click here¹
 	//
@@ -203,10 +203,10 @@ func (g *MessagesGetBotAppRequest) GetHash() (value int64) {
 }
 
 // MessagesGetBotApp invokes method messages.getBotApp#34fdc5c3 returning error if any.
-// Obtain information about a named bot mini app¹
+// Obtain information about a named Mini App¹
 //
 // Links:
-//  1. https://core.telegram.org/api/bots/webapps#named-bot-mini-apps
+//  1. https://core.telegram.org/api/bots/webapps#named-mini-apps
 //
 // Possible errors:
 //

@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/constructor/premium.boostsStatus for reference.
 type PremiumBoostsStatus struct {
-	// Flags field of PremiumBoostsStatus.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// MyBoost field of PremiumBoostsStatus.
 	MyBoost bool
