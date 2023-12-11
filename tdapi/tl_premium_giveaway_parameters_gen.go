@@ -43,7 +43,7 @@ type PremiumGiveawayParameters struct {
 	// Point in time (Unix timestamp) when the giveaway is expected to be performed; must be
 	// 60-getOption("giveaway_duration_max") seconds in the future in scheduled giveaways
 	WinnersSelectionDate int32
-	// True, if only new subscribers of the chats will be eligible for the giveaway
+	// True, if only new members of the chats will be eligible for the giveaway
 	OnlyNewMembers bool
 	// The list of two-letter ISO 3166-1 alpha-2 codes of countries, users from which will be
 	// eligible for the giveaway. If empty, then all users can participate in the giveaway.
