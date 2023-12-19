@@ -6,7 +6,7 @@ toolchain go1.21.0
 
 require (
 	github.com/cockroachdb/pebble v0.0.0-20220107203702-aa376a819bf6
-	github.com/go-faster/errors v0.7.0
+	github.com/go-faster/errors v0.7.1
 	github.com/gotd/contrib v0.19.0
 	github.com/gotd/td v0.83.0
 	github.com/joho/godotenv v1.5.1
@@ -42,7 +42,7 @@ require (
 	go.opentelemetry.io/otel v1.21.0 // indirect
 	go.opentelemetry.io/otel/trace v1.21.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	golang.org/x/crypto v0.16.0 // indirect
+	golang.org/x/crypto v0.17.0 // indirect
 	golang.org/x/exp v0.0.0-20230116083435-1de6713980de // indirect
 	golang.org/x/net v0.19.0 // indirect
 	golang.org/x/sys v0.15.0 // indirect
