@@ -10872,7 +10872,7 @@ func (m *MessageGiftedPremium) GetSticker() (value Sticker) {
 
 // MessagePremiumGiftCode represents TL type `messagePremiumGiftCode#7a9c468f`.
 type MessagePremiumGiftCode struct {
-	// Identifier of a chat or a user that created the gift code
+	// Identifier of a chat or a user that created the gift code; may be null if unknown
 	CreatorID MessageSenderClass
 	// True, if the gift code was created for a giveaway
 	IsFromGiveaway bool
@@ -11617,7 +11617,7 @@ func (m *MessagePremiumGiveaway) GetSticker() (value Sticker) {
 
 // MessagePremiumGiveawayCompleted represents TL type `messagePremiumGiveawayCompleted#80533949`.
 type MessagePremiumGiveawayCompleted struct {
-	// Identifier of the message with the giveaway, can be an identifier of a deleted message
+	// Identifier of the message with the giveaway; can be 0 if the message was deleted
 	GiveawayMessageID int64
 	// Number of winners in the giveaway
 	WinnerCount int32
