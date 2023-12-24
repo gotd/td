@@ -32,6 +32,10 @@ var (
 )
 
 // MessagesSearchEmojiStickerSetsRequest represents TL type `messages.searchEmojiStickerSets#92b4494c`.
+// Search for custom emoji stickersets »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/custom-emoji
 //
 // See https://core.telegram.org/method/messages.searchEmojiStickerSets for reference.
 type MessagesSearchEmojiStickerSetsRequest struct {
@@ -40,9 +44,9 @@ type MessagesSearchEmojiStickerSetsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ExcludeFeatured field of MessagesSearchEmojiStickerSetsRequest.
+	// Exclude featured stickersets from results
 	ExcludeFeatured bool
-	// Q field of MessagesSearchEmojiStickerSetsRequest.
+	// Query string
 	Q string
 	// Hash for pagination, for more info click here¹
 	//
@@ -247,6 +251,10 @@ func (s *MessagesSearchEmojiStickerSetsRequest) GetHash() (value int64) {
 }
 
 // MessagesSearchEmojiStickerSets invokes method messages.searchEmojiStickerSets#92b4494c returning error if any.
+// Search for custom emoji stickersets »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/custom-emoji
 //
 // See https://core.telegram.org/method/messages.searchEmojiStickerSets for reference.
 func (c *Client) MessagesSearchEmojiStickerSets(ctx context.Context, request *MessagesSearchEmojiStickerSetsRequest) (MessagesFoundStickerSetsClass, error) {

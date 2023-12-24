@@ -52,7 +52,8 @@ type StoriesSendStoryRequest struct {
 	Pinned bool
 	// If set, disables forwards, screenshots, and downloads.
 	Noforwards bool
-	// FwdModified field of StoriesSendStoryRequest.
+	// Set this flag when reposting stories with fwd_from_id+fwd_from_id, if the media was
+	// modified before reposting.
 	FwdModified bool
 	// The peer to send the story as.
 	Peer InputPeerClass
@@ -92,11 +93,13 @@ type StoriesSendStoryRequest struct {
 	//
 	// Use SetPeriod and GetPeriod helpers.
 	Period int
-	// FwdFromID field of StoriesSendStoryRequest.
+	// If set, indicates that this story is a repost of story with ID fwd_from_story posted
+	// by the peer in fwd_from_id.
 	//
 	// Use SetFwdFromID and GetFwdFromID helpers.
 	FwdFromID InputPeerClass
-	// FwdFromStory field of StoriesSendStoryRequest.
+	// If set, indicates that this story is a repost of story with ID fwd_from_story posted
+	// by the peer in fwd_from_id.
 	//
 	// Use SetFwdFromStory and GetFwdFromStory helpers.
 	FwdFromStory int
@@ -784,7 +787,7 @@ func (s *StoriesSendStoryRequest) MapPrivacyRules() (value InputPrivacyRuleClass
 //	400 PREMIUM_ACCOUNT_REQUIRED: A premium account is required to execute this action.
 //	400 STORIES_TOO_MUCH: You have hit the maximum active stories limit as specified by the story_expiring_limit_* client configuration parameters: you should buy a Premium subscription, delete an active story, or wait for the oldest story to expire.
 //	400 STORY_PERIOD_INVALID: The specified story period is invalid for this account.
-//	400 VENUE_ID_INVALID:
+//	400 VENUE_ID_INVALID: The specified venue ID is invalid.
 //
 // See https://core.telegram.org/method/stories.sendStory for reference.
 func (c *Client) StoriesSendStory(ctx context.Context, request *StoriesSendStoryRequest) (UpdatesClass, error) {

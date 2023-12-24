@@ -32,12 +32,19 @@ var (
 )
 
 // PaymentsGetGiveawayInfoRequest represents TL type `payments.getGiveawayInfo#f4239425`.
+// Obtain information about a Telegram Premium giveaway »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/method/payments.getGiveawayInfo for reference.
 type PaymentsGetGiveawayInfoRequest struct {
-	// Peer field of PaymentsGetGiveawayInfoRequest.
+	// The peer where the giveaway was posted.
 	Peer InputPeerClass
-	// MsgID field of PaymentsGetGiveawayInfoRequest.
+	// Message ID of the messageActionGiveawayLaunch¹ service message
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messageActionGiveawayLaunch
 	MsgID int
 }
 
@@ -193,6 +200,10 @@ func (g *PaymentsGetGiveawayInfoRequest) GetMsgID() (value int) {
 }
 
 // PaymentsGetGiveawayInfo invokes method payments.getGiveawayInfo#f4239425 returning error if any.
+// Obtain information about a Telegram Premium giveaway »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/giveaways
 //
 // Possible errors:
 //

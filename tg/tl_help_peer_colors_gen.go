@@ -32,6 +32,7 @@ var (
 )
 
 // HelpPeerColorsNotModified represents TL type `help.peerColorsNotModified#2ba1f5ce`.
+// The list of color palettes has not changed.
 //
 // See https://core.telegram.org/constructor/help.peerColorsNotModified for reference.
 type HelpPeerColorsNotModified struct {
@@ -133,6 +134,10 @@ func (p *HelpPeerColorsNotModified) DecodeBare(b *bin.Buffer) error {
 }
 
 // HelpPeerColors represents TL type `help.peerColors#f8ed08`.
+// Contains info about multiple color palettes »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/constructor/help.peerColors for reference.
 type HelpPeerColors struct {
@@ -141,7 +146,10 @@ type HelpPeerColors struct {
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
-	// Colors field of HelpPeerColors.
+	// Usable color palettes¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/colors
 	Colors []HelpPeerColorOption
 }
 

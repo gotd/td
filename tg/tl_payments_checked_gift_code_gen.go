@@ -32,6 +32,10 @@ var (
 )
 
 // PaymentsCheckedGiftCode represents TL type `payments.checkedGiftCode#284a1096`.
+// Contains info about a Telegram Premium giftcode link¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#premium-giftcode-links
 //
 // See https://core.telegram.org/constructor/payments.checkedGiftCode for reference.
 type PaymentsCheckedGiftCode struct {
@@ -40,31 +44,37 @@ type PaymentsCheckedGiftCode struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ViaGiveaway field of PaymentsCheckedGiftCode.
+	// Whether this giftcode was created by a giveaway¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/giveaways
 	ViaGiveaway bool
-	// FromID field of PaymentsCheckedGiftCode.
+	// The peer that created the gift code.
 	//
 	// Use SetFromID and GetFromID helpers.
 	FromID PeerClass
-	// GiveawayMsgID field of PaymentsCheckedGiftCode.
+	// Message ID of the giveaway in the channel specified in from_id.
 	//
 	// Use SetGiveawayMsgID and GetGiveawayMsgID helpers.
 	GiveawayMsgID int
-	// ToID field of PaymentsCheckedGiftCode.
+	// The destination user of the gift.
 	//
 	// Use SetToID and GetToID helpers.
 	ToID int64
-	// Date field of PaymentsCheckedGiftCode.
+	// Creation date of the gift code.
 	Date int
-	// Months field of PaymentsCheckedGiftCode.
+	// Duration in months of the gifted Telegram Premium¹ subscription.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
 	Months int
-	// UsedDate field of PaymentsCheckedGiftCode.
+	// When was the giftcode imported, if it was imported.
 	//
 	// Use SetUsedDate and GetUsedDate helpers.
 	UsedDate int
-	// Chats field of PaymentsCheckedGiftCode.
+	// Mentioned chats
 	Chats []ChatClass
-	// Users field of PaymentsCheckedGiftCode.
+	// Mentioned users
 	Users []UserClass
 }
 

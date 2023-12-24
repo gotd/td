@@ -226,7 +226,8 @@ type DraftMessage struct {
 	// If set, any eventual webpage preview will be shown on top of the message instead of at
 	// the bottom.
 	InvertMedia bool
-	// ReplyTo field of DraftMessage.
+	// If set, indicates that the message should be sent in reply to the specified message or
+	// story.
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
 	ReplyTo InputReplyToClass
@@ -239,7 +240,7 @@ type DraftMessage struct {
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// Media field of DraftMessage.
+	// Media.
 	//
 	// Use SetMedia and GetMedia helpers.
 	Media InputMediaClass

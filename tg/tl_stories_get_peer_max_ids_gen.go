@@ -32,10 +32,11 @@ var (
 )
 
 // StoriesGetPeerMaxIDsRequest represents TL type `stories.getPeerMaxIDs#535983c3`.
+// Get the IDs of the maximum read stories for a set of peers.
 //
 // See https://core.telegram.org/method/stories.getPeerMaxIDs for reference.
 type StoriesGetPeerMaxIDsRequest struct {
-	// ID field of StoriesGetPeerMaxIDsRequest.
+	// Peers
 	ID []InputPeerClass
 }
 
@@ -184,6 +185,7 @@ func (g *StoriesGetPeerMaxIDsRequest) MapID() (value InputPeerClassArray) {
 }
 
 // StoriesGetPeerMaxIDs invokes method stories.getPeerMaxIDs#535983c3 returning error if any.
+// Get the IDs of the maximum read stories for a set of peers.
 //
 // See https://core.telegram.org/method/stories.getPeerMaxIDs for reference.
 func (c *Client) StoriesGetPeerMaxIDs(ctx context.Context, id []InputPeerClass) ([]int, error) {

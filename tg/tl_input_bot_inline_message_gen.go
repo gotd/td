@@ -2296,6 +2296,8 @@ func (i *InputBotInlineMessageMediaInvoice) GetReplyMarkup() (value ReplyMarkupC
 }
 
 // InputBotInlineMessageMediaWebPage represents TL type `inputBotInlineMessageMediaWebPage#bddcc510`.
+// Specifies options that will be used to generate the link preview for the message, or
+// even a standalone link preview without an attached message.
 //
 // See https://core.telegram.org/constructor/inputBotInlineMessageMediaWebPage for reference.
 type InputBotInlineMessageMediaWebPage struct {
@@ -2307,13 +2309,16 @@ type InputBotInlineMessageMediaWebPage struct {
 	// If set, any eventual webpage preview will be shown on top of the message instead of at
 	// the bottom.
 	InvertMedia bool
-	// ForceLargeMedia field of InputBotInlineMessageMediaWebPage.
+	// If set, specifies that a large media preview should be used.
 	ForceLargeMedia bool
-	// ForceSmallMedia field of InputBotInlineMessageMediaWebPage.
+	// If set, specifies that a small media preview should be used.
 	ForceSmallMedia bool
-	// Optional field of InputBotInlineMessageMediaWebPage.
+	// If not set, a WEBPAGE_NOT_FOUND RPC error will be emitted if a webpage preview cannot
+	// be generated for the specified url; otherwise, no error will be emitted (unless the
+	// provided message is also empty, in which case a MESSAGE_EMPTY will be emitted,
+	// instead).
 	Optional bool
-	// Message field of InputBotInlineMessageMediaWebPage.
+	// The message, can be empty.
 	Message string
 	// Message entities for styled text¹
 	//
@@ -2322,9 +2327,9 @@ type InputBotInlineMessageMediaWebPage struct {
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// URL field of InputBotInlineMessageMediaWebPage.
+	// The URL to use for the link preview.
 	URL string
-	// ReplyMarkup field of InputBotInlineMessageMediaWebPage.
+	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass

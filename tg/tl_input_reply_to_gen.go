@@ -51,22 +51,26 @@ type InputReplyToMessage struct {
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
-	// ReplyToPeerID field of InputReplyToMessage.
+	// Used to reply to messages sent to another chat (specified here), can only be used for
+	// non-protected chats and messages.
 	//
 	// Use SetReplyToPeerID and GetReplyToPeerID helpers.
 	ReplyToPeerID InputPeerClass
-	// QuoteText field of InputReplyToMessage.
+	// Used to quote-reply to only a certain section (specified here) of the original message.
 	//
 	// Use SetQuoteText and GetQuoteText helpers.
 	QuoteText string
-	// Message entities for styled text¹
+	// Message entities for styled text¹ from the quote_text field.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetQuoteEntities and GetQuoteEntities helpers.
 	QuoteEntities []MessageEntityClass
-	// QuoteOffset field of InputReplyToMessage.
+	// Offset of the message quote_text within the original message (in UTF-16 code units¹).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	//
 	// Use SetQuoteOffset and GetQuoteOffset helpers.
 	QuoteOffset int

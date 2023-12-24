@@ -32,6 +32,11 @@ var (
 )
 
 // StatsGetStoryStatsRequest represents TL type `stats.getStoryStats#374fef40`.
+// Get statistics¹ for a certain story².
+//
+// Links:
+//  1. https://core.telegram.org/api/stats
+//  2. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/method/stats.getStoryStats for reference.
 type StatsGetStoryStatsRequest struct {
@@ -40,11 +45,11 @@ type StatsGetStoryStatsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Dark field of StatsGetStoryStatsRequest.
+	// Whether to enable the dark theme for graph colors
 	Dark bool
-	// Peer field of StatsGetStoryStatsRequest.
+	// The peer that posted the story
 	Peer InputPeerClass
-	// ID field of StatsGetStoryStatsRequest.
+	// Story ID
 	ID int
 }
 
@@ -249,6 +254,11 @@ func (g *StatsGetStoryStatsRequest) GetID() (value int) {
 }
 
 // StatsGetStoryStats invokes method stats.getStoryStats#374fef40 returning error if any.
+// Get statistics¹ for a certain story².
+//
+// Links:
+//  1. https://core.telegram.org/api/stats
+//  2. https://core.telegram.org/api/stories
 //
 // Possible errors:
 //

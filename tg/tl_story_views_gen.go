@@ -44,7 +44,11 @@ type StoryViews struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// HasViewers field of StoryViews.
+	// If set, indicates that the viewers list is currently viewable, and was not yet deleted
+	// because the story has expired while the user didn't have a Premium¹ account.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
 	HasViewers bool
 	// View counter of the story
 	ViewsCount int

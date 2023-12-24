@@ -32,6 +32,7 @@ var (
 )
 
 // PremiumGetBoostsListRequest represents TL type `premium.getBoostsList#60f67660`.
+// Obtains info about the boosts that were applied to a certain channel (admins only)
 //
 // See https://core.telegram.org/method/premium.getBoostsList for reference.
 type PremiumGetBoostsListRequest struct {
@@ -40,11 +41,18 @@ type PremiumGetBoostsListRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Gifts field of PremiumGetBoostsListRequest.
+	// Whether to return only info about boosts received from gift codes and giveaways
+	// created by the channel »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/giveaways
 	Gifts bool
-	// Peer field of PremiumGetBoostsListRequest.
+	// The channel
 	Peer InputPeerClass
-	// Offset field of PremiumGetBoostsListRequest.
+	// Offset for pagination, obtained from premium.boostsList¹.next_offset
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/premium.boostsList
 	Offset string
 	// Maximum number of results to return, see pagination¹
 	//
@@ -279,9 +287,11 @@ func (g *PremiumGetBoostsListRequest) GetLimit() (value int) {
 }
 
 // PremiumGetBoostsList invokes method premium.getBoostsList#60f67660 returning error if any.
+// Obtains info about the boosts that were applied to a certain channel (admins only)
 //
 // Possible errors:
 //
+//	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/premium.getBoostsList for reference.

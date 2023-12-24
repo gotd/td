@@ -435,6 +435,12 @@ func (i *InputStorePaymentGiftPremium) GetAmount() (value int64) {
 }
 
 // InputStorePaymentPremiumGiftCode represents TL type `inputStorePaymentPremiumGiftCode#a3805f3f`.
+// Used to gift Telegram Premium¹ subscriptions only to some specific subscribers of a
+// channel or to some of our contacts, see here »² for more info on giveaways and gifts.
+//
+// Links:
+//  1. https://core.telegram.org/api/premium
+//  2. https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/constructor/inputStorePaymentPremiumGiftCode for reference.
 type InputStorePaymentPremiumGiftCode struct {
@@ -443,15 +449,35 @@ type InputStorePaymentPremiumGiftCode struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Users field of InputStorePaymentPremiumGiftCode.
+	// The users that will receive the Telegram Premium¹ subscriptions.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
 	Users []InputUserClass
-	// BoostPeer field of InputStorePaymentPremiumGiftCode.
+	// If set, the gifts will be sent on behalf of a channel we are an admin of, which will
+	// also assign some boosts¹ to it. Otherwise, the gift will be sent directly from the
+	// currently logged in users, and we will gain some extra boost slots². See here »³
+	// for more info on giveaways and gifts.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/boost
+	//  2) https://core.telegram.org/api/boost
+	//  3) https://core.telegram.org/api/giveaways
 	//
 	// Use SetBoostPeer and GetBoostPeer helpers.
 	BoostPeer InputPeerClass
-	// Currency field of InputStorePaymentPremiumGiftCode.
+	// Three-letter ISO 4217 currency¹ code
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Amount field of InputStorePaymentPremiumGiftCode.
+	// Total price in the smallest units of the currency (integer, not float/double). For
+	// example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	Amount int64
 }
 
@@ -720,6 +746,10 @@ func (i *InputStorePaymentPremiumGiftCode) MapUsers() (value InputUserClassArray
 }
 
 // InputStorePaymentPremiumGiveaway represents TL type `inputStorePaymentPremiumGiveaway#160544ca`.
+// Used to pay for a giveaway, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/constructor/inputStorePaymentPremiumGiveaway for reference.
 type InputStorePaymentPremiumGiveaway struct {
@@ -728,17 +758,29 @@ type InputStorePaymentPremiumGiveaway struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// OnlyNewSubscribers field of InputStorePaymentPremiumGiveaway.
+	// If set, only new subscribers starting from the giveaway creation date will be able to
+	// participate to the giveaway.
 	OnlyNewSubscribers bool
 	// WinnersAreVisible field of InputStorePaymentPremiumGiveaway.
 	WinnersAreVisible bool
-	// BoostPeer field of InputStorePaymentPremiumGiveaway.
+	// The channel starting the giveaway, that the user must join to participate, that will
+	// receive the giveaway boosts¹; see here »² for more info on giveaways.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/boost
+	//  2) https://core.telegram.org/api/giveaways
 	BoostPeer InputPeerClass
-	// AdditionalPeers field of InputStorePaymentPremiumGiveaway.
+	// Additional channels that the user must join to participate to the giveaway can be
+	// specified here.
 	//
 	// Use SetAdditionalPeers and GetAdditionalPeers helpers.
 	AdditionalPeers []InputPeerClass
-	// CountriesISO2 field of InputStorePaymentPremiumGiveaway.
+	// The set of users that can participate to the giveaway can be restricted by passing
+	// here an explicit whitelist of up to giveaway_countries_max¹ countries, specified as
+	// two-letter ISO 3166-1 alpha-2 country codes.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#giveaway-countries-max
 	//
 	// Use SetCountriesISO2 and GetCountriesISO2 helpers.
 	CountriesISO2 []string
@@ -746,13 +788,27 @@ type InputStorePaymentPremiumGiveaway struct {
 	//
 	// Use SetPrizeDescription and GetPrizeDescription helpers.
 	PrizeDescription string
-	// RandomID field of InputStorePaymentPremiumGiveaway.
+	// Random ID to avoid resending the giveaway
 	RandomID int64
-	// UntilDate field of InputStorePaymentPremiumGiveaway.
+	// The end date of the giveaway, must be at most giveaway_period_max¹ seconds in the
+	// future; see here »² for more info on giveaways.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#giveaway-period-max
+	//  2) https://core.telegram.org/api/giveaways
 	UntilDate int
-	// Currency field of InputStorePaymentPremiumGiveaway.
+	// Three-letter ISO 4217 currency¹ code
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Amount field of InputStorePaymentPremiumGiveaway.
+	// Total price in the smallest units of the currency (integer, not float/double). For
+	// example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	Amount int64
 }
 

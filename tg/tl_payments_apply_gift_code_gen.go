@@ -32,10 +32,14 @@ var (
 )
 
 // PaymentsApplyGiftCodeRequest represents TL type `payments.applyGiftCode#f6e26854`.
+// Apply a Telegram Premium giftcode »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/method/payments.applyGiftCode for reference.
 type PaymentsApplyGiftCodeRequest struct {
-	// Slug field of PaymentsApplyGiftCodeRequest.
+	// The code to apply
 	Slug string
 }
 
@@ -161,6 +165,10 @@ func (a *PaymentsApplyGiftCodeRequest) GetSlug() (value string) {
 }
 
 // PaymentsApplyGiftCode invokes method payments.applyGiftCode#f6e26854 returning error if any.
+// Apply a Telegram Premium giftcode »¹
+//
+// Links:
+//  1. https://core.telegram.org/api/giveaways
 //
 // Possible errors:
 //

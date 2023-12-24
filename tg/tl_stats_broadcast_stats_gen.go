@@ -43,23 +43,35 @@ type StatsBroadcastStats struct {
 	Period StatsDateRangeDays
 	// Follower count change for period in consideration
 	Followers StatsAbsValueAndPrev
-	// total_viewcount/postcount, for posts posted during the period in consideration
-	// (views_per_post). Note that in this case, current refers to the period in
-	// consideration (min_date till max_date), and prev refers to the previous period
-	// ((min_date - (max_date - min_date)) till min_date).
+	// total_viewcount/postcount, for posts posted during the period in consideration. Note
+	// that in this case, current refers to the period in consideration (min_date till
+	// max_date), and prev refers to the previous period ((min_date - (max_date - min_date))
+	// till min_date).
 	ViewsPerPost StatsAbsValueAndPrev
-	// total_viewcount/postcount, for posts posted during the period in consideration
-	// (views_per_post). Note that in this case, current refers to the period in
-	// consideration (min_date till max_date), and prev refers to the previous period
-	// ((min_date - (max_date - min_date)) till min_date)
+	// total_sharecount/postcount, for posts posted during the period in consideration. Note
+	// that in this case, current refers to the period in consideration (min_date till
+	// max_date), and prev refers to the previous period ((min_date - (max_date - min_date))
+	// till min_date)
 	SharesPerPost StatsAbsValueAndPrev
-	// ReactionsPerPost field of StatsBroadcastStats.
+	// total_reactions/postcount, for posts posted during the period in consideration. Note
+	// that in this case, current refers to the period in consideration (min_date till
+	// max_date), and prev refers to the previous period ((min_date - (max_date - min_date))
+	// till min_date)
 	ReactionsPerPost StatsAbsValueAndPrev
-	// ViewsPerStory field of StatsBroadcastStats.
+	// total_views/storycount, for posts posted during the period in consideration. Note that
+	// in this case, current refers to the period in consideration (min_date till max_date),
+	// and prev refers to the previous period ((min_date - (max_date - min_date)) till
+	// min_date)
 	ViewsPerStory StatsAbsValueAndPrev
-	// SharesPerStory field of StatsBroadcastStats.
+	// total_shares/storycount, for posts posted during the period in consideration. Note
+	// that in this case, current refers to the period in consideration (min_date till
+	// max_date), and prev refers to the previous period ((min_date - (max_date - min_date))
+	// till min_date)
 	SharesPerStory StatsAbsValueAndPrev
-	// ReactionsPerStory field of StatsBroadcastStats.
+	// total_reactions/storycount, for posts posted during the period in consideration. Note
+	// that in this case, current refers to the period in consideration (min_date till
+	// max_date), and prev refers to the previous period ((min_date - (max_date - min_date))
+	// till min_date)
 	ReactionsPerStory StatsAbsValueAndPrev
 	// Percentage of subscribers with enabled notifications
 	EnabledNotifications StatsPercentValue
@@ -81,13 +93,14 @@ type StatsBroadcastStats struct {
 	NewFollowersBySourceGraph StatsGraphClass
 	// Subscriber language graph (pie chart)
 	LanguagesGraph StatsGraphClass
-	// ReactionsByEmotionGraph field of StatsBroadcastStats.
+	// A graph containing the number of reactions on posts categorized by emotion
 	ReactionsByEmotionGraph StatsGraphClass
-	// StoryInteractionsGraph field of StatsBroadcastStats.
+	// A graph containing the number of story views and shares
 	StoryInteractionsGraph StatsGraphClass
-	// StoryReactionsByEmotionGraph field of StatsBroadcastStats.
+	// A graph containing the number of reactions on stories categorized by emotion
 	StoryReactionsByEmotionGraph StatsGraphClass
-	// RecentPostsInteractions field of StatsBroadcastStats.
+	// Detailed statistics about number of views and shares of recently sent messages and
+	// stories
 	RecentPostsInteractions []PostInteractionCountersClass
 }
 

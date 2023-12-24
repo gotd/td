@@ -1249,13 +1249,19 @@ type MessageMediaWebPage struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ForceLargeMedia field of MessageMediaWebPage.
+	// If set, specifies that a large media preview should be used.
 	ForceLargeMedia bool
-	// ForceSmallMedia field of MessageMediaWebPage.
+	// If set, specifies that a small media preview should be used.
 	ForceSmallMedia bool
-	// Manual field of MessageMediaWebPage.
+	// If set, indicates that the URL used for the webpage preview was specified manually
+	// using inputMediaWebPage¹, and may not be related to any of the URLs specified in the
+	// message.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputMediaWebPage
 	Manual bool
-	// Safe field of MessageMediaWebPage.
+	// If set, the webpage can be opened directly without user confirmation; otherwise, user
+	// confirmation is required, showing the exact URL that will be opened.
 	Safe bool
 	// Webpage preview
 	Webpage WebPageClass
@@ -3365,6 +3371,10 @@ func (m *MessageMediaStory) GetStory() (value StoryItemClass, ok bool) {
 }
 
 // MessageMediaGiveaway represents TL type `messageMediaGiveaway#daad85b0`.
+// Contains info about a giveaway, see here »¹ for more info.
+//
+// Links:
+//  1. https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/constructor/messageMediaGiveaway for reference.
 type MessageMediaGiveaway struct {
@@ -3373,13 +3383,16 @@ type MessageMediaGiveaway struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// OnlyNewSubscribers field of MessageMediaGiveaway.
+	// If set, only new subscribers starting from the giveaway creation date will be able to
+	// participate to the giveaway.
 	OnlyNewSubscribers bool
 	// WinnersAreVisible field of MessageMediaGiveaway.
 	WinnersAreVisible bool
-	// Channels field of MessageMediaGiveaway.
+	// The channels that the user must join to participate in the giveaway.
 	Channels []int64
-	// CountriesISO2 field of MessageMediaGiveaway.
+	// If set, only users residing in these countries can participate in the giveaway,
+	// (specified as a list of two-letter ISO 3166-1 alpha-2 country codes); otherwise there
+	// are no country-based limitations.
 	//
 	// Use SetCountriesISO2 and GetCountriesISO2 helpers.
 	CountriesISO2 []string
@@ -3387,11 +3400,17 @@ type MessageMediaGiveaway struct {
 	//
 	// Use SetPrizeDescription and GetPrizeDescription helpers.
 	PrizeDescription string
-	// Quantity field of MessageMediaGiveaway.
+	// Number of Telegram Premium¹ subscriptions given away.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
 	Quantity int
-	// Months field of MessageMediaGiveaway.
+	// Duration in months of each Telegram Premium¹ subscription in the giveaway.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
 	Months int
-	// UntilDate field of MessageMediaGiveaway.
+	// The end date of the giveaway.
 	UntilDate int
 }
 

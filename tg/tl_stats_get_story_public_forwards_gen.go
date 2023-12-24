@@ -32,14 +32,25 @@ var (
 )
 
 // StatsGetStoryPublicForwardsRequest represents TL type `stats.getStoryPublicForwards#a6437ef6`.
+// Obtain forwards of a story¹ as a message to public chats and reposts by public
+// channels.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/method/stats.getStoryPublicForwards for reference.
 type StatsGetStoryPublicForwardsRequest struct {
-	// Peer field of StatsGetStoryPublicForwardsRequest.
+	// Peer where the story was originally posted
 	Peer InputPeerClass
-	// ID field of StatsGetStoryPublicForwardsRequest.
+	// Story¹ ID
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories
 	ID int
-	// Offset field of StatsGetStoryPublicForwardsRequest.
+	// Offset for pagination, from stats.PublicForwards¹.next_offset.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/stats.publicForwards
 	Offset string
 	// Maximum number of results to return, see pagination¹
 	//
@@ -250,6 +261,11 @@ func (g *StatsGetStoryPublicForwardsRequest) GetLimit() (value int) {
 }
 
 // StatsGetStoryPublicForwards invokes method stats.getStoryPublicForwards#a6437ef6 returning error if any.
+// Obtain forwards of a story¹ as a message to public chats and reposts by public
+// channels.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // Possible errors:
 //

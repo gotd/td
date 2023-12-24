@@ -240,7 +240,7 @@ type User struct {
 	// Links:
 	//  1) https://core.telegram.org/api/stories#hiding-stories-of-other-users
 	StoriesHidden bool
-	// StoriesUnavailable field of User.
+	// No stories from this user are visible.
 	StoriesUnavailable bool
 	// ID of the user
 	ID int64
@@ -309,11 +309,17 @@ type User struct {
 	//
 	// Use SetStoriesMaxID and GetStoriesMaxID helpers.
 	StoriesMaxID int
-	// Color field of User.
+	// The user's accent color¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/colors
 	//
 	// Use SetColor and GetColor helpers.
 	Color PeerColor
-	// ProfileColor field of User.
+	// The user's profile color¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/colors
 	//
 	// Use SetProfileColor and GetProfileColor helpers.
 	ProfileColor PeerColor

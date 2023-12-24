@@ -305,7 +305,6 @@ func (u *AccountUpdateProfileRequest) GetAbout() (value string, ok bool) {
 // Possible errors:
 //
 //	400 ABOUT_TOO_LONG: About string too long.
-//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 FIRSTNAME_INVALID: The first name is invalid.
 //
 // See https://core.telegram.org/method/account.updateProfile for reference.

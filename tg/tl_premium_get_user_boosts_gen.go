@@ -32,12 +32,14 @@ var (
 )
 
 // PremiumGetUserBoostsRequest represents TL type `premium.getUserBoosts#39854d1f`.
+// Returns the lists of boost that were applied to a channel by a specific user (admins
+// only)
 //
 // See https://core.telegram.org/method/premium.getUserBoosts for reference.
 type PremiumGetUserBoostsRequest struct {
-	// Peer field of PremiumGetUserBoostsRequest.
+	// The channel
 	Peer InputPeerClass
-	// UserID field of PremiumGetUserBoostsRequest.
+	// The user
 	UserID InputUserClass
 }
 
@@ -198,6 +200,8 @@ func (g *PremiumGetUserBoostsRequest) GetUserID() (value InputUserClass) {
 }
 
 // PremiumGetUserBoosts invokes method premium.getUserBoosts#39854d1f returning error if any.
+// Returns the lists of boost that were applied to a channel by a specific user (admins
+// only)
 //
 // Possible errors:
 //

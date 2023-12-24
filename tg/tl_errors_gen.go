@@ -60,7 +60,9 @@ const (
 	ErrAutoarchiveNotAvailable          = "AUTOARCHIVE_NOT_AVAILABLE"
 	ErrBankCardNumberInvalid            = "BANK_CARD_NUMBER_INVALID"
 	ErrBannedRightsInvalid              = "BANNED_RIGHTS_INVALID"
+	ErrBoostsEmpty                      = "BOOSTS_EMPTY"
 	ErrBoostsRequired                   = "BOOSTS_REQUIRED"
+	ErrBoostPeerInvalid                 = "BOOST_PEER_INVALID"
 	ErrBotsTooMuch                      = "BOTS_TOO_MUCH"
 	ErrBotAppInvalid                    = "BOT_APP_INVALID"
 	ErrBotChannelsNa                    = "BOT_CHANNELS_NA"
@@ -277,7 +279,6 @@ const (
 	ErrMegagroupIDInvalid               = "MEGAGROUP_ID_INVALID"
 	ErrMegagroupPrehistoryHidden        = "MEGAGROUP_PREHISTORY_HIDDEN"
 	ErrMegagroupRequired                = "MEGAGROUP_REQUIRED"
-	ErrMemberChatAddFailed              = "MEMBER_CHAT_ADD_FAILED"
 	ErrMemberNotFound                   = "MEMBER_NOT_FOUND"
 	ErrMessageAuthorRequired            = "MESSAGE_AUTHOR_REQUIRED"
 	ErrMessageDeleteForbidden           = "MESSAGE_DELETE_FORBIDDEN"
@@ -418,8 +419,10 @@ const (
 	ErrShortNameInvalid                 = "SHORT_NAME_INVALID"
 	ErrShortNameOccupied                = "SHORT_NAME_OCCUPIED"
 	ErrSignInFailed                     = "SIGN_IN_FAILED"
+	ErrSlotsEmpty                       = "SLOTS_EMPTY"
 	ErrSlowmodeMultiMsgsDisabled        = "SLOWMODE_MULTI_MSGS_DISABLED"
 	ErrSlowmodeWait                     = "SLOWMODE_WAIT"
+	ErrSlugInvalid                      = "SLUG_INVALID"
 	ErrSMSCodeCreateFailed              = "SMS_CODE_CREATE_FAILED"
 	ErrSRPIDInvalid                     = "SRP_ID_INVALID"
 	ErrSRPPasswordChanged               = "SRP_PASSWORD_CHANGED"
@@ -537,6 +540,8 @@ const (
 	ErrWebdocumentURLInvalid            = "WEBDOCUMENT_URL_INVALID"
 	ErrWebpageCurlFailed                = "WEBPAGE_CURL_FAILED"
 	ErrWebpageMediaEmpty                = "WEBPAGE_MEDIA_EMPTY"
+	ErrWebpageNotFound                  = "WEBPAGE_NOT_FOUND"
+	ErrWebpageURLInvalid                = "WEBPAGE_URL_INVALID"
 	ErrWebpushAuthInvalid               = "WEBPUSH_AUTH_INVALID"
 	ErrWebpushKeyInvalid                = "WEBPUSH_KEY_INVALID"
 	ErrWebpushTokenInvalid              = "WEBPUSH_TOKEN_INVALID"
@@ -678,9 +683,19 @@ func IsBannedRightsInvalid(err error) bool {
 	return tgerr.Is(err, ErrBannedRightsInvalid)
 }
 
+// IsBoostsEmpty reports whether err is BOOSTS_EMPTY.
+func IsBoostsEmpty(err error) bool {
+	return tgerr.Is(err, ErrBoostsEmpty)
+}
+
 // IsBoostsRequired reports whether err is BOOSTS_REQUIRED.
 func IsBoostsRequired(err error) bool {
 	return tgerr.Is(err, ErrBoostsRequired)
+}
+
+// IsBoostPeerInvalid reports whether err is BOOST_PEER_INVALID.
+func IsBoostPeerInvalid(err error) bool {
+	return tgerr.Is(err, ErrBoostPeerInvalid)
 }
 
 // IsBotsTooMuch reports whether err is BOTS_TOO_MUCH.
@@ -1763,11 +1778,6 @@ func IsMegagroupRequired(err error) bool {
 	return tgerr.Is(err, ErrMegagroupRequired)
 }
 
-// IsMemberChatAddFailed reports whether err is MEMBER_CHAT_ADD_FAILED.
-func IsMemberChatAddFailed(err error) bool {
-	return tgerr.Is(err, ErrMemberChatAddFailed)
-}
-
 // IsMemberNotFound reports whether err is MEMBER_NOT_FOUND.
 func IsMemberNotFound(err error) bool {
 	return tgerr.Is(err, ErrMemberNotFound)
@@ -2468,6 +2478,11 @@ func IsSignInFailed(err error) bool {
 	return tgerr.Is(err, ErrSignInFailed)
 }
 
+// IsSlotsEmpty reports whether err is SLOTS_EMPTY.
+func IsSlotsEmpty(err error) bool {
+	return tgerr.Is(err, ErrSlotsEmpty)
+}
+
 // IsSlowmodeMultiMsgsDisabled reports whether err is SLOWMODE_MULTI_MSGS_DISABLED.
 func IsSlowmodeMultiMsgsDisabled(err error) bool {
 	return tgerr.Is(err, ErrSlowmodeMultiMsgsDisabled)
@@ -2476,6 +2491,11 @@ func IsSlowmodeMultiMsgsDisabled(err error) bool {
 // IsSlowmodeWait reports whether err is SLOWMODE_WAIT.
 func IsSlowmodeWait(err error) bool {
 	return tgerr.Is(err, ErrSlowmodeWait)
+}
+
+// IsSlugInvalid reports whether err is SLUG_INVALID.
+func IsSlugInvalid(err error) bool {
+	return tgerr.Is(err, ErrSlugInvalid)
 }
 
 // IsSMSCodeCreateFailed reports whether err is SMS_CODE_CREATE_FAILED.
@@ -3061,6 +3081,16 @@ func IsWebpageCurlFailed(err error) bool {
 // IsWebpageMediaEmpty reports whether err is WEBPAGE_MEDIA_EMPTY.
 func IsWebpageMediaEmpty(err error) bool {
 	return tgerr.Is(err, ErrWebpageMediaEmpty)
+}
+
+// IsWebpageNotFound reports whether err is WEBPAGE_NOT_FOUND.
+func IsWebpageNotFound(err error) bool {
+	return tgerr.Is(err, ErrWebpageNotFound)
+}
+
+// IsWebpageURLInvalid reports whether err is WEBPAGE_URL_INVALID.
+func IsWebpageURLInvalid(err error) bool {
+	return tgerr.Is(err, ErrWebpageURLInvalid)
 }
 
 // IsWebpushAuthInvalid reports whether err is WEBPUSH_AUTH_INVALID.

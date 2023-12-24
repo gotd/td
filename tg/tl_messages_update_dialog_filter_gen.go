@@ -252,7 +252,7 @@ func (u *MessagesUpdateDialogFilterRequest) GetFilter() (value DialogFilterClass
 //
 // Possible errors:
 //
-//	400 CHATLIST_EXCLUDE_INVALID:
+//	400 CHATLIST_EXCLUDE_INVALID: The specified exclude_peers are invalid.
 //	400 CHAT_ID_INVALID: The provided chat id is invalid.
 //	400 FILTER_ID_INVALID: The specified filter ID is invalid.
 //	400 FILTER_INCLUDE_EMPTY: The include_peers vector of the filter is empty.

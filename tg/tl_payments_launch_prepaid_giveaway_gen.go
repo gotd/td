@@ -32,14 +32,18 @@ var (
 )
 
 // PaymentsLaunchPrepaidGiveawayRequest represents TL type `payments.launchPrepaidGiveaway#5ff58f20`.
+// Launch a prepaid giveaway »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/method/payments.launchPrepaidGiveaway for reference.
 type PaymentsLaunchPrepaidGiveawayRequest struct {
-	// Peer field of PaymentsLaunchPrepaidGiveawayRequest.
+	// The peer where to launch the giveaway.
 	Peer InputPeerClass
-	// GiveawayID field of PaymentsLaunchPrepaidGiveawayRequest.
+	// The prepaid giveaway ID.
 	GiveawayID int64
-	// Purpose field of PaymentsLaunchPrepaidGiveawayRequest.
+	// Giveway parameters
 	Purpose InputStorePaymentPurposeClass
 }
 
@@ -225,6 +229,10 @@ func (l *PaymentsLaunchPrepaidGiveawayRequest) GetPurpose() (value InputStorePay
 }
 
 // PaymentsLaunchPrepaidGiveaway invokes method payments.launchPrepaidGiveaway#5ff58f20 returning error if any.
+// Launch a prepaid giveaway »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/giveaways
 //
 // Possible errors:
 //

@@ -4799,7 +4799,7 @@ type UpdateReadMessagesContents struct {
 	// Links:
 	//  1) https://core.telegram.org/api/updates
 	PtsCount int
-	// Date field of UpdateReadMessagesContents.
+	// When was the last message in messages marked as read.
 	//
 	// Use SetDate and GetDate helpers.
 	Date int
@@ -23538,14 +23538,21 @@ func (u *UpdateSentStoryReaction) GetReaction() (value ReactionClass) {
 }
 
 // UpdateBotChatBoost represents TL type `updateBotChatBoost#904dd49c`.
+// A channel boost¹ has changed (bots only)
+//
+// Links:
+//  1. https://core.telegram.org/api/boost
 //
 // See https://core.telegram.org/constructor/updateBotChatBoost for reference.
 type UpdateBotChatBoost struct {
-	// Peer field of UpdateBotChatBoost.
+	// Channel
 	Peer PeerClass
-	// Boost field of UpdateBotChatBoost.
+	// New boost information
 	Boost Boost
-	// Qts field of UpdateBotChatBoost.
+	// QTS¹ event sequence identifier
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Qts int
 }
 
@@ -23731,12 +23738,24 @@ func (u *UpdateBotChatBoost) GetQts() (value int) {
 }
 
 // UpdateChannelViewForumAsMessages represents TL type `updateChannelViewForumAsMessages#7b68920`.
+// Users may also choose to display messages from all topics as if they were sent to a
+// normal group, using a "View as messages" setting in the local client.
+// This setting only affects the current account, and is synced to other logged in
+// sessions using the channels.toggleViewForumAsMessages¹ method; invoking this method
+// will update the value of the view_forum_as_messages flag of channelFull² or dialog³
+// and emit an updateChannelViewForumAsMessages⁴.
+//
+// Links:
+//  1. https://core.telegram.org/method/channels.toggleViewForumAsMessages
+//  2. https://core.telegram.org/constructor/channelFull
+//  3. https://core.telegram.org/constructor/dialog
+//  4. https://core.telegram.org/constructor/updateChannelViewForumAsMessages
 //
 // See https://core.telegram.org/constructor/updateChannelViewForumAsMessages for reference.
 type UpdateChannelViewForumAsMessages struct {
-	// ChannelID field of UpdateChannelViewForumAsMessages.
+	// The forum ID
 	ChannelID int64
-	// Enabled field of UpdateChannelViewForumAsMessages.
+	// The new value of the toggle.
 	Enabled bool
 }
 
@@ -23892,6 +23911,10 @@ func (u *UpdateChannelViewForumAsMessages) GetEnabled() (value bool) {
 }
 
 // UpdatePeerWallpaper represents TL type `updatePeerWallpaper#ae3f101d`.
+// The wallpaper »¹ of a given peer has changed.
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/constructor/updatePeerWallpaper for reference.
 type UpdatePeerWallpaper struct {
@@ -23900,11 +23923,17 @@ type UpdatePeerWallpaper struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// WallpaperOverridden field of UpdatePeerWallpaper.
+	// Whether the other user has chosen a custom wallpaper for us using messages
+	// setChatWallPaper¹ and the for_both flag, see here »² for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.setChatWallPaper
+	//  2) https://core.telegram.org/api/wallpapers#installing-wallpapers-in-a-specific-chat
 	WallpaperOverridden bool
-	// Peer field of UpdatePeerWallpaper.
+	// The peer where the wallpaper has changed.
 	Peer PeerClass
-	// Wallpaper field of UpdatePeerWallpaper.
+	// The new wallpaper, if none the wallpaper was removed and the default wallpaper should
+	// be used.
 	//
 	// Use SetWallpaper and GetWallpaper helpers.
 	Wallpaper WallPaperClass

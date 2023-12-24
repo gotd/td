@@ -168,10 +168,6 @@ func (u *AccountUpdateStatusRequest) GetOffline() (value bool) {
 // AccountUpdateStatus invokes method account.updateStatus#6628562c returning error if any.
 // Updates online user status.
 //
-// Possible errors:
-//
-//	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
-//
 // See https://core.telegram.org/method/account.updateStatus for reference.
 func (c *Client) AccountUpdateStatus(ctx context.Context, offline bool) (bool, error) {
 	var result BoolBox

@@ -32,6 +32,10 @@ var (
 )
 
 // PremiumGiftCodeOption represents TL type `premiumGiftCodeOption#257e962b`.
+// Contains info about a giveaway/gift¹ option.
+//
+// Links:
+//  1. https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/constructor/premiumGiftCodeOption for reference.
 type PremiumGiftCodeOption struct {
@@ -40,21 +44,33 @@ type PremiumGiftCodeOption struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Users field of PremiumGiftCodeOption.
+	// Number of users which will be able to activate the gift codes.
 	Users int
-	// Months field of PremiumGiftCodeOption.
+	// Duration in months of each gifted Telegram Premium¹ subscription.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
 	Months int
-	// StoreProduct field of PremiumGiftCodeOption.
+	// Identifier of the store product associated with the option, official apps only.
 	//
 	// Use SetStoreProduct and GetStoreProduct helpers.
 	StoreProduct string
-	// StoreQuantity field of PremiumGiftCodeOption.
+	// Number of times the store product must be paid
 	//
 	// Use SetStoreQuantity and GetStoreQuantity helpers.
 	StoreQuantity int
-	// Currency field of PremiumGiftCodeOption.
+	// Three-letter ISO 4217 currency¹ code
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Amount field of PremiumGiftCodeOption.
+	// Total price in the smallest units of the currency (integer, not float/double). For
+	// example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	Amount int64
 }
 

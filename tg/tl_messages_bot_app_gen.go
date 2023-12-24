@@ -53,7 +53,7 @@ type MessagesBotApp struct {
 	// Links:
 	//  1) https://core.telegram.org/method/messages.requestAppWebView
 	RequestWriteAccess bool
-	// HasSettings field of MessagesBotApp.
+	// Deprecated flag, can be ignored.
 	HasSettings bool
 	// Bot app information
 	App BotAppClass

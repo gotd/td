@@ -32,12 +32,24 @@ var (
 )
 
 // ChannelsToggleViewForumAsMessagesRequest represents TL type `channels.toggleViewForumAsMessages#9738bb15`.
+// Users may also choose to display messages from all topics of a forum¹ as if they were
+// sent to a normal group, using a "View as messages" setting in the local client: this
+// setting only affects the current account, and is synced to other logged in sessions
+// using this method.
+// Invoking this method will update the value of the view_forum_as_messages flag of
+// channelFull¹ or dialog² and emit an updateChannelViewForumAsMessages³.
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
+//  2. https://core.telegram.org/constructor/channelFull
+//  3. https://core.telegram.org/constructor/dialog
+//  4. https://core.telegram.org/constructor/updateChannelViewForumAsMessages
 //
 // See https://core.telegram.org/method/channels.toggleViewForumAsMessages for reference.
 type ChannelsToggleViewForumAsMessagesRequest struct {
-	// Channel field of ChannelsToggleViewForumAsMessagesRequest.
+	// The forum
 	Channel InputChannelClass
-	// Enabled field of ChannelsToggleViewForumAsMessagesRequest.
+	// The new value of the view_forum_as_messages flag.
 	Enabled bool
 }
 
@@ -198,6 +210,18 @@ func (t *ChannelsToggleViewForumAsMessagesRequest) GetChannelAsNotEmpty() (NotEm
 }
 
 // ChannelsToggleViewForumAsMessages invokes method channels.toggleViewForumAsMessages#9738bb15 returning error if any.
+// Users may also choose to display messages from all topics of a forum¹ as if they were
+// sent to a normal group, using a "View as messages" setting in the local client: this
+// setting only affects the current account, and is synced to other logged in sessions
+// using this method.
+// Invoking this method will update the value of the view_forum_as_messages flag of
+// channelFull¹ or dialog² and emit an updateChannelViewForumAsMessages³.
+//
+// Links:
+//  1. https://core.telegram.org/api/forum
+//  2. https://core.telegram.org/constructor/channelFull
+//  3. https://core.telegram.org/constructor/dialog
+//  4. https://core.telegram.org/constructor/updateChannelViewForumAsMessages
 //
 // Possible errors:
 //

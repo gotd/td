@@ -32,7 +32,7 @@ var (
 )
 
 // HelpGetPeerColorsRequest represents TL type `help.getPeerColors#da80f42f`.
-// Get the set of accent color palettes »¹ that can be used for messages
+// Get the set of accent color palettes »¹ that can be used for message accents.
 //
 // Links:
 //  1. https://core.telegram.org/api/colors
@@ -168,7 +168,7 @@ func (g *HelpGetPeerColorsRequest) GetHash() (value int) {
 }
 
 // HelpGetPeerColors invokes method help.getPeerColors#da80f42f returning error if any.
-// Get the set of accent color palettes »¹ that can be used for messages
+// Get the set of accent color palettes »¹ that can be used for message accents.
 //
 // Links:
 //  1. https://core.telegram.org/api/colors

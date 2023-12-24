@@ -32,16 +32,17 @@ var (
 )
 
 // PostInteractionCountersMessage represents TL type `postInteractionCountersMessage#e7058e7f`.
+// Interaction counters for a message.
 //
 // See https://core.telegram.org/constructor/postInteractionCountersMessage for reference.
 type PostInteractionCountersMessage struct {
-	// MsgID field of PostInteractionCountersMessage.
+	// Message ID
 	MsgID int
-	// Views field of PostInteractionCountersMessage.
+	// Number of views
 	Views int
-	// Forwards field of PostInteractionCountersMessage.
+	// Number of forwards to public channels
 	Forwards int
-	// Reactions field of PostInteractionCountersMessage.
+	// Number of reactions
 	Reactions int
 }
 
@@ -247,16 +248,17 @@ func (p *PostInteractionCountersMessage) GetReactions() (value int) {
 }
 
 // PostInteractionCountersStory represents TL type `postInteractionCountersStory#8a480e27`.
+// Interaction counters for a story.
 //
 // See https://core.telegram.org/constructor/postInteractionCountersStory for reference.
 type PostInteractionCountersStory struct {
-	// StoryID field of PostInteractionCountersStory.
+	// Story ID
 	StoryID int
-	// Views field of PostInteractionCountersStory.
+	// Number of views
 	Views int
-	// Forwards field of PostInteractionCountersStory.
+	// Number of forwards and reposts to public chats and channels
 	Forwards int
-	// Reactions field of PostInteractionCountersStory.
+	// Number of reactions
 	Reactions int
 }
 
@@ -497,13 +499,13 @@ type PostInteractionCountersClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Views field of PostInteractionCountersMessage.
+	// Number of views
 	GetViews() (value int)
 
-	// Forwards field of PostInteractionCountersMessage.
+	// Number of forwards to public channels
 	GetForwards() (value int)
 
-	// Reactions field of PostInteractionCountersMessage.
+	// Number of reactions
 	GetReactions() (value int)
 }
 

@@ -32,10 +32,14 @@ var (
 )
 
 // HelpPeerColorSet represents TL type `help.peerColorSet#26219a58`.
+// Represents a color palette that can be used in message accents »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/constructor/help.peerColorSet for reference.
 type HelpPeerColorSet struct {
-	// Colors field of HelpPeerColorSet.
+	// A list of 1-3 colors in RGB format, describing the accent color.
 	Colors []int
 }
 
@@ -179,14 +183,21 @@ func (p *HelpPeerColorSet) GetColors() (value []int) {
 }
 
 // HelpPeerColorProfileSet represents TL type `help.peerColorProfileSet#767d61eb`.
+// Represents a color palette that can be used in profile pages »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/constructor/help.peerColorProfileSet for reference.
 type HelpPeerColorProfileSet struct {
-	// PaletteColors field of HelpPeerColorProfileSet.
+	// A list of 1-2 colors in RGB format, shown in the color palette settings to describe
+	// the current palette.
 	PaletteColors []int
-	// BgColors field of HelpPeerColorProfileSet.
+	// A list of 1-2 colors in RGB format describing the colors used to generate the actual
+	// background used in the profile page.
 	BgColors []int
-	// StoryColors field of HelpPeerColorProfileSet.
+	// A list of 2 colors in RGB format describing the colors of the gradient used for the
+	// unread active story indicator around the profile photo.
 	StoryColors []int
 }
 

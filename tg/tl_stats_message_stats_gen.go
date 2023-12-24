@@ -38,7 +38,7 @@ var (
 type StatsMessageStats struct {
 	// Message view graph
 	ViewsGraph StatsGraphClass
-	// ReactionsByEmotionGraph field of StatsMessageStats.
+	// A graph containing the number of reactions on stories categorized by emotion
 	ReactionsByEmotionGraph StatsGraphClass
 }
 

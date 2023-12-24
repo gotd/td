@@ -251,7 +251,7 @@ func (e *ChannelsEditLocationRequest) GetGeoPointAsNotEmpty() (*InputGeoPoint, b
 //
 //	400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this.
 //	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
-//	400 MEGAGROUP_GEO_REQUIRED:
+//	400 MEGAGROUP_GEO_REQUIRED: This method can only be invoked on a geogroup.
 //	400 MEGAGROUP_REQUIRED: You can only use this method on a supergroup.
 //
 // See https://core.telegram.org/method/channels.editLocation for reference.

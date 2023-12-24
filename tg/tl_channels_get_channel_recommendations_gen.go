@@ -32,10 +32,12 @@ var (
 )
 
 // ChannelsGetChannelRecommendationsRequest represents TL type `channels.getChannelRecommendations#83b70d97`.
+// Obtain a list of similarly themed public channels, selected based on similarities in
+// their subscriber bases.
 //
 // See https://core.telegram.org/method/channels.getChannelRecommendations for reference.
 type ChannelsGetChannelRecommendationsRequest struct {
-	// Channel field of ChannelsGetChannelRecommendationsRequest.
+	// The method will return channels related to the passed channel.
 	Channel InputChannelClass
 }
 
@@ -171,6 +173,8 @@ func (g *ChannelsGetChannelRecommendationsRequest) GetChannelAsNotEmpty() (NotEm
 }
 
 // ChannelsGetChannelRecommendations invokes method channels.getChannelRecommendations#83b70d97 returning error if any.
+// Obtain a list of similarly themed public channels, selected based on similarities in
+// their subscriber bases.
 //
 // Possible errors:
 //

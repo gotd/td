@@ -32,14 +32,19 @@ var (
 )
 
 // PremiumMyBoosts represents TL type `premium.myBoosts#9ae228e2`.
+// A list of peers we are currently boosting¹, and how many boost slots² we have left.
+//
+// Links:
+//  1. https://core.telegram.org/api/boost
+//  2. https://core.telegram.org/api/boost
 //
 // See https://core.telegram.org/constructor/premium.myBoosts for reference.
 type PremiumMyBoosts struct {
-	// MyBoosts field of PremiumMyBoosts.
+	// Info about boosted peers and remaining boost slots.
 	MyBoosts []MyBoost
-	// Chats field of PremiumMyBoosts.
+	// Referenced chats
 	Chats []ChatClass
-	// Users field of PremiumMyBoosts.
+	// Referenced users
 	Users []UserClass
 }
 

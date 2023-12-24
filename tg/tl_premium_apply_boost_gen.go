@@ -32,6 +32,10 @@ var (
 )
 
 // PremiumApplyBoostRequest represents TL type `premium.applyBoost#6b7da746`.
+// Apply one or more boosts »¹ to a peer.
+//
+// Links:
+//  1. https://core.telegram.org/api/boost
 //
 // See https://core.telegram.org/method/premium.applyBoost for reference.
 type PremiumApplyBoostRequest struct {
@@ -40,11 +44,14 @@ type PremiumApplyBoostRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Slots field of PremiumApplyBoostRequest.
+	// Which boost slots¹ to assign to this peer.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/boost
 	//
 	// Use SetSlots and GetSlots helpers.
 	Slots []int
-	// Peer field of PremiumApplyBoostRequest.
+	// The peer to boost.
 	Peer InputPeerClass
 }
 
@@ -248,10 +255,16 @@ func (a *PremiumApplyBoostRequest) GetPeer() (value InputPeerClass) {
 }
 
 // PremiumApplyBoost invokes method premium.applyBoost#6b7da746 returning error if any.
+// Apply one or more boosts »¹ to a peer.
+//
+// Links:
+//  1. https://core.telegram.org/api/boost
 //
 // Possible errors:
 //
+//	400 BOOSTS_EMPTY: No boost slots were specified.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 SLOTS_EMPTY: The specified slot list is empty.
 //
 // See https://core.telegram.org/method/premium.applyBoost for reference.
 func (c *Client) PremiumApplyBoost(ctx context.Context, request *PremiumApplyBoostRequest) (*PremiumMyBoosts, error) {

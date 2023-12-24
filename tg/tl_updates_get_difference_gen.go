@@ -49,7 +49,7 @@ type UpdatesGetDifferenceRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// PtsLimit field of UpdatesGetDifferenceRequest.
+	// PTS limit
 	//
 	// Use SetPtsLimit and GetPtsLimit helpers.
 	PtsLimit int
@@ -73,7 +73,7 @@ type UpdatesGetDifferenceRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/updates
 	Qts int
-	// QtsLimit field of UpdatesGetDifferenceRequest.
+	// QTS limit
 	//
 	// Use SetQtsLimit and GetQtsLimit helpers.
 	QtsLimit int
