@@ -649,10 +649,10 @@ func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionToggle
 	return to
 }
 
-// AsChannelAdminLogEventActionChangeColor returns copy with only ChannelAdminLogEventActionChangeColor constructors.
-func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionChangeColor() (to ChannelAdminLogEventActionChangeColorArray) {
+// AsChannelAdminLogEventActionChangePeerColor returns copy with only ChannelAdminLogEventActionChangePeerColor constructors.
+func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionChangePeerColor() (to ChannelAdminLogEventActionChangePeerColorArray) {
 	for _, elem := range s {
-		value, ok := elem.(*ChannelAdminLogEventActionChangeColor)
+		value, ok := elem.(*ChannelAdminLogEventActionChangePeerColor)
 		if !ok {
 			continue
 		}
@@ -662,10 +662,36 @@ func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionChange
 	return to
 }
 
-// AsChannelAdminLogEventActionChangeBackgroundEmoji returns copy with only ChannelAdminLogEventActionChangeBackgroundEmoji constructors.
-func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionChangeBackgroundEmoji() (to ChannelAdminLogEventActionChangeBackgroundEmojiArray) {
+// AsChannelAdminLogEventActionChangeProfilePeerColor returns copy with only ChannelAdminLogEventActionChangeProfilePeerColor constructors.
+func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionChangeProfilePeerColor() (to ChannelAdminLogEventActionChangeProfilePeerColorArray) {
 	for _, elem := range s {
-		value, ok := elem.(*ChannelAdminLogEventActionChangeBackgroundEmoji)
+		value, ok := elem.(*ChannelAdminLogEventActionChangeProfilePeerColor)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsChannelAdminLogEventActionChangeWallpaper returns copy with only ChannelAdminLogEventActionChangeWallpaper constructors.
+func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionChangeWallpaper() (to ChannelAdminLogEventActionChangeWallpaperArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelAdminLogEventActionChangeWallpaper)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsChannelAdminLogEventActionChangeEmojiStatus returns copy with only ChannelAdminLogEventActionChangeEmojiStatus constructors.
+func (s ChannelAdminLogEventActionClassArray) AsChannelAdminLogEventActionChangeEmojiStatus() (to ChannelAdminLogEventActionChangeEmojiStatusArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelAdminLogEventActionChangeEmojiStatus)
 		if !ok {
 			continue
 		}
@@ -4037,27 +4063,27 @@ func (s *ChannelAdminLogEventActionToggleAntiSpamArray) Pop() (v ChannelAdminLog
 	return v, true
 }
 
-// ChannelAdminLogEventActionChangeColorArray is adapter for slice of ChannelAdminLogEventActionChangeColor.
-type ChannelAdminLogEventActionChangeColorArray []ChannelAdminLogEventActionChangeColor
+// ChannelAdminLogEventActionChangePeerColorArray is adapter for slice of ChannelAdminLogEventActionChangePeerColor.
+type ChannelAdminLogEventActionChangePeerColorArray []ChannelAdminLogEventActionChangePeerColor
 
-// Sort sorts slice of ChannelAdminLogEventActionChangeColor.
-func (s ChannelAdminLogEventActionChangeColorArray) Sort(less func(a, b ChannelAdminLogEventActionChangeColor) bool) ChannelAdminLogEventActionChangeColorArray {
+// Sort sorts slice of ChannelAdminLogEventActionChangePeerColor.
+func (s ChannelAdminLogEventActionChangePeerColorArray) Sort(less func(a, b ChannelAdminLogEventActionChangePeerColor) bool) ChannelAdminLogEventActionChangePeerColorArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of ChannelAdminLogEventActionChangeColor.
-func (s ChannelAdminLogEventActionChangeColorArray) SortStable(less func(a, b ChannelAdminLogEventActionChangeColor) bool) ChannelAdminLogEventActionChangeColorArray {
+// SortStable sorts slice of ChannelAdminLogEventActionChangePeerColor.
+func (s ChannelAdminLogEventActionChangePeerColorArray) SortStable(less func(a, b ChannelAdminLogEventActionChangePeerColor) bool) ChannelAdminLogEventActionChangePeerColorArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of ChannelAdminLogEventActionChangeColor.
-func (s ChannelAdminLogEventActionChangeColorArray) Retain(keep func(x ChannelAdminLogEventActionChangeColor) bool) ChannelAdminLogEventActionChangeColorArray {
+// Retain filters in-place slice of ChannelAdminLogEventActionChangePeerColor.
+func (s ChannelAdminLogEventActionChangePeerColorArray) Retain(keep func(x ChannelAdminLogEventActionChangePeerColor) bool) ChannelAdminLogEventActionChangePeerColorArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -4071,7 +4097,7 @@ func (s ChannelAdminLogEventActionChangeColorArray) Retain(keep func(x ChannelAd
 }
 
 // First returns first element of slice (if exists).
-func (s ChannelAdminLogEventActionChangeColorArray) First() (v ChannelAdminLogEventActionChangeColor, ok bool) {
+func (s ChannelAdminLogEventActionChangePeerColorArray) First() (v ChannelAdminLogEventActionChangePeerColor, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -4079,7 +4105,7 @@ func (s ChannelAdminLogEventActionChangeColorArray) First() (v ChannelAdminLogEv
 }
 
 // Last returns last element of slice (if exists).
-func (s ChannelAdminLogEventActionChangeColorArray) Last() (v ChannelAdminLogEventActionChangeColor, ok bool) {
+func (s ChannelAdminLogEventActionChangePeerColorArray) Last() (v ChannelAdminLogEventActionChangePeerColor, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -4087,7 +4113,7 @@ func (s ChannelAdminLogEventActionChangeColorArray) Last() (v ChannelAdminLogEve
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChannelAdminLogEventActionChangeColorArray) PopFirst() (v ChannelAdminLogEventActionChangeColor, ok bool) {
+func (s *ChannelAdminLogEventActionChangePeerColorArray) PopFirst() (v ChannelAdminLogEventActionChangePeerColor, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -4097,7 +4123,7 @@ func (s *ChannelAdminLogEventActionChangeColorArray) PopFirst() (v ChannelAdminL
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero ChannelAdminLogEventActionChangeColor
+	var zero ChannelAdminLogEventActionChangePeerColor
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -4106,7 +4132,7 @@ func (s *ChannelAdminLogEventActionChangeColorArray) PopFirst() (v ChannelAdminL
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *ChannelAdminLogEventActionChangeColorArray) Pop() (v ChannelAdminLogEventActionChangeColor, ok bool) {
+func (s *ChannelAdminLogEventActionChangePeerColorArray) Pop() (v ChannelAdminLogEventActionChangePeerColor, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -4119,27 +4145,27 @@ func (s *ChannelAdminLogEventActionChangeColorArray) Pop() (v ChannelAdminLogEve
 	return v, true
 }
 
-// ChannelAdminLogEventActionChangeBackgroundEmojiArray is adapter for slice of ChannelAdminLogEventActionChangeBackgroundEmoji.
-type ChannelAdminLogEventActionChangeBackgroundEmojiArray []ChannelAdminLogEventActionChangeBackgroundEmoji
+// ChannelAdminLogEventActionChangeProfilePeerColorArray is adapter for slice of ChannelAdminLogEventActionChangeProfilePeerColor.
+type ChannelAdminLogEventActionChangeProfilePeerColorArray []ChannelAdminLogEventActionChangeProfilePeerColor
 
-// Sort sorts slice of ChannelAdminLogEventActionChangeBackgroundEmoji.
-func (s ChannelAdminLogEventActionChangeBackgroundEmojiArray) Sort(less func(a, b ChannelAdminLogEventActionChangeBackgroundEmoji) bool) ChannelAdminLogEventActionChangeBackgroundEmojiArray {
+// Sort sorts slice of ChannelAdminLogEventActionChangeProfilePeerColor.
+func (s ChannelAdminLogEventActionChangeProfilePeerColorArray) Sort(less func(a, b ChannelAdminLogEventActionChangeProfilePeerColor) bool) ChannelAdminLogEventActionChangeProfilePeerColorArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of ChannelAdminLogEventActionChangeBackgroundEmoji.
-func (s ChannelAdminLogEventActionChangeBackgroundEmojiArray) SortStable(less func(a, b ChannelAdminLogEventActionChangeBackgroundEmoji) bool) ChannelAdminLogEventActionChangeBackgroundEmojiArray {
+// SortStable sorts slice of ChannelAdminLogEventActionChangeProfilePeerColor.
+func (s ChannelAdminLogEventActionChangeProfilePeerColorArray) SortStable(less func(a, b ChannelAdminLogEventActionChangeProfilePeerColor) bool) ChannelAdminLogEventActionChangeProfilePeerColorArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of ChannelAdminLogEventActionChangeBackgroundEmoji.
-func (s ChannelAdminLogEventActionChangeBackgroundEmojiArray) Retain(keep func(x ChannelAdminLogEventActionChangeBackgroundEmoji) bool) ChannelAdminLogEventActionChangeBackgroundEmojiArray {
+// Retain filters in-place slice of ChannelAdminLogEventActionChangeProfilePeerColor.
+func (s ChannelAdminLogEventActionChangeProfilePeerColorArray) Retain(keep func(x ChannelAdminLogEventActionChangeProfilePeerColor) bool) ChannelAdminLogEventActionChangeProfilePeerColorArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -4153,7 +4179,7 @@ func (s ChannelAdminLogEventActionChangeBackgroundEmojiArray) Retain(keep func(x
 }
 
 // First returns first element of slice (if exists).
-func (s ChannelAdminLogEventActionChangeBackgroundEmojiArray) First() (v ChannelAdminLogEventActionChangeBackgroundEmoji, ok bool) {
+func (s ChannelAdminLogEventActionChangeProfilePeerColorArray) First() (v ChannelAdminLogEventActionChangeProfilePeerColor, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -4161,7 +4187,7 @@ func (s ChannelAdminLogEventActionChangeBackgroundEmojiArray) First() (v Channel
 }
 
 // Last returns last element of slice (if exists).
-func (s ChannelAdminLogEventActionChangeBackgroundEmojiArray) Last() (v ChannelAdminLogEventActionChangeBackgroundEmoji, ok bool) {
+func (s ChannelAdminLogEventActionChangeProfilePeerColorArray) Last() (v ChannelAdminLogEventActionChangeProfilePeerColor, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -4169,7 +4195,7 @@ func (s ChannelAdminLogEventActionChangeBackgroundEmojiArray) Last() (v ChannelA
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChannelAdminLogEventActionChangeBackgroundEmojiArray) PopFirst() (v ChannelAdminLogEventActionChangeBackgroundEmoji, ok bool) {
+func (s *ChannelAdminLogEventActionChangeProfilePeerColorArray) PopFirst() (v ChannelAdminLogEventActionChangeProfilePeerColor, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -4179,7 +4205,7 @@ func (s *ChannelAdminLogEventActionChangeBackgroundEmojiArray) PopFirst() (v Cha
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero ChannelAdminLogEventActionChangeBackgroundEmoji
+	var zero ChannelAdminLogEventActionChangeProfilePeerColor
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -4188,7 +4214,171 @@ func (s *ChannelAdminLogEventActionChangeBackgroundEmojiArray) PopFirst() (v Cha
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *ChannelAdminLogEventActionChangeBackgroundEmojiArray) Pop() (v ChannelAdminLogEventActionChangeBackgroundEmoji, ok bool) {
+func (s *ChannelAdminLogEventActionChangeProfilePeerColorArray) Pop() (v ChannelAdminLogEventActionChangeProfilePeerColor, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// ChannelAdminLogEventActionChangeWallpaperArray is adapter for slice of ChannelAdminLogEventActionChangeWallpaper.
+type ChannelAdminLogEventActionChangeWallpaperArray []ChannelAdminLogEventActionChangeWallpaper
+
+// Sort sorts slice of ChannelAdminLogEventActionChangeWallpaper.
+func (s ChannelAdminLogEventActionChangeWallpaperArray) Sort(less func(a, b ChannelAdminLogEventActionChangeWallpaper) bool) ChannelAdminLogEventActionChangeWallpaperArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelAdminLogEventActionChangeWallpaper.
+func (s ChannelAdminLogEventActionChangeWallpaperArray) SortStable(less func(a, b ChannelAdminLogEventActionChangeWallpaper) bool) ChannelAdminLogEventActionChangeWallpaperArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelAdminLogEventActionChangeWallpaper.
+func (s ChannelAdminLogEventActionChangeWallpaperArray) Retain(keep func(x ChannelAdminLogEventActionChangeWallpaper) bool) ChannelAdminLogEventActionChangeWallpaperArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelAdminLogEventActionChangeWallpaperArray) First() (v ChannelAdminLogEventActionChangeWallpaper, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelAdminLogEventActionChangeWallpaperArray) Last() (v ChannelAdminLogEventActionChangeWallpaper, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionChangeWallpaperArray) PopFirst() (v ChannelAdminLogEventActionChangeWallpaper, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChannelAdminLogEventActionChangeWallpaper
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionChangeWallpaperArray) Pop() (v ChannelAdminLogEventActionChangeWallpaper, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// ChannelAdminLogEventActionChangeEmojiStatusArray is adapter for slice of ChannelAdminLogEventActionChangeEmojiStatus.
+type ChannelAdminLogEventActionChangeEmojiStatusArray []ChannelAdminLogEventActionChangeEmojiStatus
+
+// Sort sorts slice of ChannelAdminLogEventActionChangeEmojiStatus.
+func (s ChannelAdminLogEventActionChangeEmojiStatusArray) Sort(less func(a, b ChannelAdminLogEventActionChangeEmojiStatus) bool) ChannelAdminLogEventActionChangeEmojiStatusArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelAdminLogEventActionChangeEmojiStatus.
+func (s ChannelAdminLogEventActionChangeEmojiStatusArray) SortStable(less func(a, b ChannelAdminLogEventActionChangeEmojiStatus) bool) ChannelAdminLogEventActionChangeEmojiStatusArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelAdminLogEventActionChangeEmojiStatus.
+func (s ChannelAdminLogEventActionChangeEmojiStatusArray) Retain(keep func(x ChannelAdminLogEventActionChangeEmojiStatus) bool) ChannelAdminLogEventActionChangeEmojiStatusArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelAdminLogEventActionChangeEmojiStatusArray) First() (v ChannelAdminLogEventActionChangeEmojiStatus, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelAdminLogEventActionChangeEmojiStatusArray) Last() (v ChannelAdminLogEventActionChangeEmojiStatus, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionChangeEmojiStatusArray) PopFirst() (v ChannelAdminLogEventActionChangeEmojiStatus, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChannelAdminLogEventActionChangeEmojiStatus
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionChangeEmojiStatusArray) Pop() (v ChannelAdminLogEventActionChangeEmojiStatus, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

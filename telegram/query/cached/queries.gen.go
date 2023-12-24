@@ -14,6 +14,174 @@ import (
 // No-op definition for keeping imports.
 var _ = context.Background()
 
+type innerAccountGetChannelDefaultEmojiStatuses struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.AccountEmojiStatuses
+}
+
+type AccountGetChannelDefaultEmojiStatuses struct {
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewAccountGetChannelDefaultEmojiStatuses creates new AccountGetChannelDefaultEmojiStatuses.
+func NewAccountGetChannelDefaultEmojiStatuses(raw *tg.Client) *AccountGetChannelDefaultEmojiStatuses {
+	q := &AccountGetChannelDefaultEmojiStatuses{
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *AccountGetChannelDefaultEmojiStatuses) store(v innerAccountGetChannelDefaultEmojiStatuses) {
+	s.last.Store(v)
+}
+
+func (s *AccountGetChannelDefaultEmojiStatuses) load() (innerAccountGetChannelDefaultEmojiStatuses, bool) {
+	v, ok := s.last.Load().(innerAccountGetChannelDefaultEmojiStatuses)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned AccountEmojiStatuses must not be mutated.
+func (s *AccountGetChannelDefaultEmojiStatuses) Value() *tg.AccountEmojiStatuses {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *AccountGetChannelDefaultEmojiStatuses) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *AccountGetChannelDefaultEmojiStatuses) Get(ctx context.Context) (*tg.AccountEmojiStatuses, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *AccountGetChannelDefaultEmojiStatuses) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := lastHash
+	result, err := s.raw.AccountGetChannelDefaultEmojiStatuses(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute AccountGetChannelDefaultEmojiStatuses")
+	}
+
+	switch variant := result.(type) {
+	case *tg.AccountEmojiStatuses:
+		hash := variant.Hash
+
+		s.store(innerAccountGetChannelDefaultEmojiStatuses{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.AccountEmojiStatusesNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
+type innerAccountGetChannelRestrictedStatusEmojis struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.EmojiList
+}
+
+type AccountGetChannelRestrictedStatusEmojis struct {
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewAccountGetChannelRestrictedStatusEmojis creates new AccountGetChannelRestrictedStatusEmojis.
+func NewAccountGetChannelRestrictedStatusEmojis(raw *tg.Client) *AccountGetChannelRestrictedStatusEmojis {
+	q := &AccountGetChannelRestrictedStatusEmojis{
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *AccountGetChannelRestrictedStatusEmojis) store(v innerAccountGetChannelRestrictedStatusEmojis) {
+	s.last.Store(v)
+}
+
+func (s *AccountGetChannelRestrictedStatusEmojis) load() (innerAccountGetChannelRestrictedStatusEmojis, bool) {
+	v, ok := s.last.Load().(innerAccountGetChannelRestrictedStatusEmojis)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned EmojiList must not be mutated.
+func (s *AccountGetChannelRestrictedStatusEmojis) Value() *tg.EmojiList {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *AccountGetChannelRestrictedStatusEmojis) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *AccountGetChannelRestrictedStatusEmojis) Get(ctx context.Context) (*tg.EmojiList, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *AccountGetChannelRestrictedStatusEmojis) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := lastHash
+	result, err := s.raw.AccountGetChannelRestrictedStatusEmojis(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute AccountGetChannelRestrictedStatusEmojis")
+	}
+
+	switch variant := result.(type) {
+	case *tg.EmojiList:
+		hash := variant.Hash
+
+		s.store(innerAccountGetChannelRestrictedStatusEmojis{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.EmojiListNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
 type innerAccountGetChatThemes struct {
 	// Last received hash.
 	hash int64

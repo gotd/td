@@ -33,3 +33,384 @@ var (
 	_ = tgerr.Error{}
 	_ = tdjson.Encoder{}
 )
+
+// StoryViewClassArray is adapter for slice of StoryViewClass.
+type StoryViewClassArray []StoryViewClass
+
+// Sort sorts slice of StoryViewClass.
+func (s StoryViewClassArray) Sort(less func(a, b StoryViewClass) bool) StoryViewClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of StoryViewClass.
+func (s StoryViewClassArray) SortStable(less func(a, b StoryViewClass) bool) StoryViewClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of StoryViewClass.
+func (s StoryViewClassArray) Retain(keep func(x StoryViewClass) bool) StoryViewClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s StoryViewClassArray) First() (v StoryViewClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s StoryViewClassArray) Last() (v StoryViewClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *StoryViewClassArray) PopFirst() (v StoryViewClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero StoryViewClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *StoryViewClassArray) Pop() (v StoryViewClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsStoryView returns copy with only StoryView constructors.
+func (s StoryViewClassArray) AsStoryView() (to StoryViewArray) {
+	for _, elem := range s {
+		value, ok := elem.(*StoryView)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsStoryViewPublicForward returns copy with only StoryViewPublicForward constructors.
+func (s StoryViewClassArray) AsStoryViewPublicForward() (to StoryViewPublicForwardArray) {
+	for _, elem := range s {
+		value, ok := elem.(*StoryViewPublicForward)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsStoryViewPublicRepost returns copy with only StoryViewPublicRepost constructors.
+func (s StoryViewClassArray) AsStoryViewPublicRepost() (to StoryViewPublicRepostArray) {
+	for _, elem := range s {
+		value, ok := elem.(*StoryViewPublicRepost)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// StoryViewArray is adapter for slice of StoryView.
+type StoryViewArray []StoryView
+
+// Sort sorts slice of StoryView.
+func (s StoryViewArray) Sort(less func(a, b StoryView) bool) StoryViewArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of StoryView.
+func (s StoryViewArray) SortStable(less func(a, b StoryView) bool) StoryViewArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of StoryView.
+func (s StoryViewArray) Retain(keep func(x StoryView) bool) StoryViewArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s StoryViewArray) First() (v StoryView, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s StoryViewArray) Last() (v StoryView, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *StoryViewArray) PopFirst() (v StoryView, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero StoryView
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *StoryViewArray) Pop() (v StoryView, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of StoryView by Date.
+func (s StoryViewArray) SortByDate() StoryViewArray {
+	return s.Sort(func(a, b StoryView) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of StoryView by Date.
+func (s StoryViewArray) SortStableByDate() StoryViewArray {
+	return s.SortStable(func(a, b StoryView) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// StoryViewPublicForwardArray is adapter for slice of StoryViewPublicForward.
+type StoryViewPublicForwardArray []StoryViewPublicForward
+
+// Sort sorts slice of StoryViewPublicForward.
+func (s StoryViewPublicForwardArray) Sort(less func(a, b StoryViewPublicForward) bool) StoryViewPublicForwardArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of StoryViewPublicForward.
+func (s StoryViewPublicForwardArray) SortStable(less func(a, b StoryViewPublicForward) bool) StoryViewPublicForwardArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of StoryViewPublicForward.
+func (s StoryViewPublicForwardArray) Retain(keep func(x StoryViewPublicForward) bool) StoryViewPublicForwardArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s StoryViewPublicForwardArray) First() (v StoryViewPublicForward, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s StoryViewPublicForwardArray) Last() (v StoryViewPublicForward, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *StoryViewPublicForwardArray) PopFirst() (v StoryViewPublicForward, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero StoryViewPublicForward
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *StoryViewPublicForwardArray) Pop() (v StoryViewPublicForward, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// StoryViewPublicRepostArray is adapter for slice of StoryViewPublicRepost.
+type StoryViewPublicRepostArray []StoryViewPublicRepost
+
+// Sort sorts slice of StoryViewPublicRepost.
+func (s StoryViewPublicRepostArray) Sort(less func(a, b StoryViewPublicRepost) bool) StoryViewPublicRepostArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of StoryViewPublicRepost.
+func (s StoryViewPublicRepostArray) SortStable(less func(a, b StoryViewPublicRepost) bool) StoryViewPublicRepostArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of StoryViewPublicRepost.
+func (s StoryViewPublicRepostArray) Retain(keep func(x StoryViewPublicRepost) bool) StoryViewPublicRepostArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s StoryViewPublicRepostArray) First() (v StoryViewPublicRepost, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s StoryViewPublicRepostArray) Last() (v StoryViewPublicRepost, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *StoryViewPublicRepostArray) PopFirst() (v StoryViewPublicRepost, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero StoryViewPublicRepost
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *StoryViewPublicRepostArray) Pop() (v StoryViewPublicRepost, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}

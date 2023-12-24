@@ -68,12 +68,17 @@ type StoryView struct {
 // StoryViewTypeID is TL type id of StoryView.
 const StoryViewTypeID = 0xb0bdeac5
 
+// construct implements constructor of StoryViewClass.
+func (s StoryView) construct() StoryViewClass { return &s }
+
 // Ensuring interfaces in compile-time for StoryView.
 var (
 	_ bin.Encoder     = &StoryView{}
 	_ bin.Decoder     = &StoryView{}
 	_ bin.BareEncoder = &StoryView{}
 	_ bin.BareDecoder = &StoryView{}
+
+	_ StoryViewClass = &StoryView{}
 )
 
 func (s *StoryView) Zero() bool {
@@ -340,4 +345,600 @@ func (s *StoryView) GetReaction() (value ReactionClass, ok bool) {
 		return value, false
 	}
 	return s.Reaction, true
+}
+
+// StoryViewPublicForward represents TL type `storyViewPublicForward#9083670b`.
+//
+// See https://core.telegram.org/constructor/storyViewPublicForward for reference.
+type StoryViewPublicForward struct {
+	// Flags field of StoryViewPublicForward.
+	Flags bin.Fields
+	// Blocked field of StoryViewPublicForward.
+	Blocked bool
+	// BlockedMyStoriesFrom field of StoryViewPublicForward.
+	BlockedMyStoriesFrom bool
+	// Message field of StoryViewPublicForward.
+	Message MessageClass
+}
+
+// StoryViewPublicForwardTypeID is TL type id of StoryViewPublicForward.
+const StoryViewPublicForwardTypeID = 0x9083670b
+
+// construct implements constructor of StoryViewClass.
+func (s StoryViewPublicForward) construct() StoryViewClass { return &s }
+
+// Ensuring interfaces in compile-time for StoryViewPublicForward.
+var (
+	_ bin.Encoder     = &StoryViewPublicForward{}
+	_ bin.Decoder     = &StoryViewPublicForward{}
+	_ bin.BareEncoder = &StoryViewPublicForward{}
+	_ bin.BareDecoder = &StoryViewPublicForward{}
+
+	_ StoryViewClass = &StoryViewPublicForward{}
+)
+
+func (s *StoryViewPublicForward) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.Blocked == false) {
+		return false
+	}
+	if !(s.BlockedMyStoriesFrom == false) {
+		return false
+	}
+	if !(s.Message == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *StoryViewPublicForward) String() string {
+	if s == nil {
+		return "StoryViewPublicForward(nil)"
+	}
+	type Alias StoryViewPublicForward
+	return fmt.Sprintf("StoryViewPublicForward%+v", Alias(*s))
+}
+
+// FillFrom fills StoryViewPublicForward from given interface.
+func (s *StoryViewPublicForward) FillFrom(from interface {
+	GetBlocked() (value bool)
+	GetBlockedMyStoriesFrom() (value bool)
+	GetMessage() (value MessageClass)
+}) {
+	s.Blocked = from.GetBlocked()
+	s.BlockedMyStoriesFrom = from.GetBlockedMyStoriesFrom()
+	s.Message = from.GetMessage()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*StoryViewPublicForward) TypeID() uint32 {
+	return StoryViewPublicForwardTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*StoryViewPublicForward) TypeName() string {
+	return "storyViewPublicForward"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StoryViewPublicForward) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "storyViewPublicForward",
+		ID:   StoryViewPublicForwardTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Blocked",
+			SchemaName: "blocked",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "BlockedMyStoriesFrom",
+			SchemaName: "blocked_my_stories_from",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (s *StoryViewPublicForward) SetFlags() {
+	if !(s.Blocked == false) {
+		s.Flags.Set(0)
+	}
+	if !(s.BlockedMyStoriesFrom == false) {
+		s.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (s *StoryViewPublicForward) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode storyViewPublicForward#9083670b as nil")
+	}
+	b.PutID(StoryViewPublicForwardTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StoryViewPublicForward) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode storyViewPublicForward#9083670b as nil")
+	}
+	s.SetFlags()
+	if err := s.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode storyViewPublicForward#9083670b: field flags: %w", err)
+	}
+	if s.Message == nil {
+		return fmt.Errorf("unable to encode storyViewPublicForward#9083670b: field message is nil")
+	}
+	if err := s.Message.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode storyViewPublicForward#9083670b: field message: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *StoryViewPublicForward) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode storyViewPublicForward#9083670b to nil")
+	}
+	if err := b.ConsumeID(StoryViewPublicForwardTypeID); err != nil {
+		return fmt.Errorf("unable to decode storyViewPublicForward#9083670b: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StoryViewPublicForward) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode storyViewPublicForward#9083670b to nil")
+	}
+	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode storyViewPublicForward#9083670b: field flags: %w", err)
+		}
+	}
+	s.Blocked = s.Flags.Has(0)
+	s.BlockedMyStoriesFrom = s.Flags.Has(1)
+	{
+		value, err := DecodeMessage(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode storyViewPublicForward#9083670b: field message: %w", err)
+		}
+		s.Message = value
+	}
+	return nil
+}
+
+// SetBlocked sets value of Blocked conditional field.
+func (s *StoryViewPublicForward) SetBlocked(value bool) {
+	if value {
+		s.Flags.Set(0)
+		s.Blocked = true
+	} else {
+		s.Flags.Unset(0)
+		s.Blocked = false
+	}
+}
+
+// GetBlocked returns value of Blocked conditional field.
+func (s *StoryViewPublicForward) GetBlocked() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(0)
+}
+
+// SetBlockedMyStoriesFrom sets value of BlockedMyStoriesFrom conditional field.
+func (s *StoryViewPublicForward) SetBlockedMyStoriesFrom(value bool) {
+	if value {
+		s.Flags.Set(1)
+		s.BlockedMyStoriesFrom = true
+	} else {
+		s.Flags.Unset(1)
+		s.BlockedMyStoriesFrom = false
+	}
+}
+
+// GetBlockedMyStoriesFrom returns value of BlockedMyStoriesFrom conditional field.
+func (s *StoryViewPublicForward) GetBlockedMyStoriesFrom() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(1)
+}
+
+// GetMessage returns value of Message field.
+func (s *StoryViewPublicForward) GetMessage() (value MessageClass) {
+	if s == nil {
+		return
+	}
+	return s.Message
+}
+
+// StoryViewPublicRepost represents TL type `storyViewPublicRepost#bd74cf49`.
+//
+// See https://core.telegram.org/constructor/storyViewPublicRepost for reference.
+type StoryViewPublicRepost struct {
+	// Flags field of StoryViewPublicRepost.
+	Flags bin.Fields
+	// Blocked field of StoryViewPublicRepost.
+	Blocked bool
+	// BlockedMyStoriesFrom field of StoryViewPublicRepost.
+	BlockedMyStoriesFrom bool
+	// PeerID field of StoryViewPublicRepost.
+	PeerID PeerClass
+	// Story field of StoryViewPublicRepost.
+	Story StoryItemClass
+}
+
+// StoryViewPublicRepostTypeID is TL type id of StoryViewPublicRepost.
+const StoryViewPublicRepostTypeID = 0xbd74cf49
+
+// construct implements constructor of StoryViewClass.
+func (s StoryViewPublicRepost) construct() StoryViewClass { return &s }
+
+// Ensuring interfaces in compile-time for StoryViewPublicRepost.
+var (
+	_ bin.Encoder     = &StoryViewPublicRepost{}
+	_ bin.Decoder     = &StoryViewPublicRepost{}
+	_ bin.BareEncoder = &StoryViewPublicRepost{}
+	_ bin.BareDecoder = &StoryViewPublicRepost{}
+
+	_ StoryViewClass = &StoryViewPublicRepost{}
+)
+
+func (s *StoryViewPublicRepost) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.Blocked == false) {
+		return false
+	}
+	if !(s.BlockedMyStoriesFrom == false) {
+		return false
+	}
+	if !(s.PeerID == nil) {
+		return false
+	}
+	if !(s.Story == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *StoryViewPublicRepost) String() string {
+	if s == nil {
+		return "StoryViewPublicRepost(nil)"
+	}
+	type Alias StoryViewPublicRepost
+	return fmt.Sprintf("StoryViewPublicRepost%+v", Alias(*s))
+}
+
+// FillFrom fills StoryViewPublicRepost from given interface.
+func (s *StoryViewPublicRepost) FillFrom(from interface {
+	GetBlocked() (value bool)
+	GetBlockedMyStoriesFrom() (value bool)
+	GetPeerID() (value PeerClass)
+	GetStory() (value StoryItemClass)
+}) {
+	s.Blocked = from.GetBlocked()
+	s.BlockedMyStoriesFrom = from.GetBlockedMyStoriesFrom()
+	s.PeerID = from.GetPeerID()
+	s.Story = from.GetStory()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*StoryViewPublicRepost) TypeID() uint32 {
+	return StoryViewPublicRepostTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*StoryViewPublicRepost) TypeName() string {
+	return "storyViewPublicRepost"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StoryViewPublicRepost) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "storyViewPublicRepost",
+		ID:   StoryViewPublicRepostTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Blocked",
+			SchemaName: "blocked",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "BlockedMyStoriesFrom",
+			SchemaName: "blocked_my_stories_from",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "PeerID",
+			SchemaName: "peer_id",
+		},
+		{
+			Name:       "Story",
+			SchemaName: "story",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (s *StoryViewPublicRepost) SetFlags() {
+	if !(s.Blocked == false) {
+		s.Flags.Set(0)
+	}
+	if !(s.BlockedMyStoriesFrom == false) {
+		s.Flags.Set(1)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (s *StoryViewPublicRepost) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode storyViewPublicRepost#bd74cf49 as nil")
+	}
+	b.PutID(StoryViewPublicRepostTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StoryViewPublicRepost) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode storyViewPublicRepost#bd74cf49 as nil")
+	}
+	s.SetFlags()
+	if err := s.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode storyViewPublicRepost#bd74cf49: field flags: %w", err)
+	}
+	if s.PeerID == nil {
+		return fmt.Errorf("unable to encode storyViewPublicRepost#bd74cf49: field peer_id is nil")
+	}
+	if err := s.PeerID.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode storyViewPublicRepost#bd74cf49: field peer_id: %w", err)
+	}
+	if s.Story == nil {
+		return fmt.Errorf("unable to encode storyViewPublicRepost#bd74cf49: field story is nil")
+	}
+	if err := s.Story.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode storyViewPublicRepost#bd74cf49: field story: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *StoryViewPublicRepost) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode storyViewPublicRepost#bd74cf49 to nil")
+	}
+	if err := b.ConsumeID(StoryViewPublicRepostTypeID); err != nil {
+		return fmt.Errorf("unable to decode storyViewPublicRepost#bd74cf49: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StoryViewPublicRepost) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode storyViewPublicRepost#bd74cf49 to nil")
+	}
+	{
+		if err := s.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode storyViewPublicRepost#bd74cf49: field flags: %w", err)
+		}
+	}
+	s.Blocked = s.Flags.Has(0)
+	s.BlockedMyStoriesFrom = s.Flags.Has(1)
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode storyViewPublicRepost#bd74cf49: field peer_id: %w", err)
+		}
+		s.PeerID = value
+	}
+	{
+		value, err := DecodeStoryItem(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode storyViewPublicRepost#bd74cf49: field story: %w", err)
+		}
+		s.Story = value
+	}
+	return nil
+}
+
+// SetBlocked sets value of Blocked conditional field.
+func (s *StoryViewPublicRepost) SetBlocked(value bool) {
+	if value {
+		s.Flags.Set(0)
+		s.Blocked = true
+	} else {
+		s.Flags.Unset(0)
+		s.Blocked = false
+	}
+}
+
+// GetBlocked returns value of Blocked conditional field.
+func (s *StoryViewPublicRepost) GetBlocked() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(0)
+}
+
+// SetBlockedMyStoriesFrom sets value of BlockedMyStoriesFrom conditional field.
+func (s *StoryViewPublicRepost) SetBlockedMyStoriesFrom(value bool) {
+	if value {
+		s.Flags.Set(1)
+		s.BlockedMyStoriesFrom = true
+	} else {
+		s.Flags.Unset(1)
+		s.BlockedMyStoriesFrom = false
+	}
+}
+
+// GetBlockedMyStoriesFrom returns value of BlockedMyStoriesFrom conditional field.
+func (s *StoryViewPublicRepost) GetBlockedMyStoriesFrom() (value bool) {
+	if s == nil {
+		return
+	}
+	return s.Flags.Has(1)
+}
+
+// GetPeerID returns value of PeerID field.
+func (s *StoryViewPublicRepost) GetPeerID() (value PeerClass) {
+	if s == nil {
+		return
+	}
+	return s.PeerID
+}
+
+// GetStory returns value of Story field.
+func (s *StoryViewPublicRepost) GetStory() (value StoryItemClass) {
+	if s == nil {
+		return
+	}
+	return s.Story
+}
+
+// StoryViewClassName is schema name of StoryViewClass.
+const StoryViewClassName = "StoryView"
+
+// StoryViewClass represents StoryView generic type.
+//
+// See https://core.telegram.org/type/StoryView for reference.
+//
+// Example:
+//
+//	g, err := tg.DecodeStoryView(buf)
+//	if err != nil {
+//	    panic(err)
+//	}
+//	switch v := g.(type) {
+//	case *tg.StoryView: // storyView#b0bdeac5
+//	case *tg.StoryViewPublicForward: // storyViewPublicForward#9083670b
+//	case *tg.StoryViewPublicRepost: // storyViewPublicRepost#bd74cf49
+//	default: panic(v)
+//	}
+type StoryViewClass interface {
+	bin.Encoder
+	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
+	construct() StoryViewClass
+
+	// TypeID returns type id in TL schema.
+	//
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// TypeName returns name of type in TL schema.
+	TypeName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
+	// Whether we have completely blocked¹ this user, including from viewing more of our
+	// stories.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/block
+	GetBlocked() (value bool)
+
+	// Whether we have blocked¹ this user from viewing more of our stories.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/block
+	GetBlockedMyStoriesFrom() (value bool)
+}
+
+// DecodeStoryView implements binary de-serialization for StoryViewClass.
+func DecodeStoryView(buf *bin.Buffer) (StoryViewClass, error) {
+	id, err := buf.PeekID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case StoryViewTypeID:
+		// Decoding storyView#b0bdeac5.
+		v := StoryView{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StoryViewClass: %w", err)
+		}
+		return &v, nil
+	case StoryViewPublicForwardTypeID:
+		// Decoding storyViewPublicForward#9083670b.
+		v := StoryViewPublicForward{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StoryViewClass: %w", err)
+		}
+		return &v, nil
+	case StoryViewPublicRepostTypeID:
+		// Decoding storyViewPublicRepost#bd74cf49.
+		v := StoryViewPublicRepost{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode StoryViewClass: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, fmt.Errorf("unable to decode StoryViewClass: %w", bin.NewUnexpectedID(id))
+	}
+}
+
+// StoryView boxes the StoryViewClass providing a helper.
+type StoryViewBox struct {
+	StoryView StoryViewClass
+}
+
+// Decode implements bin.Decoder for StoryViewBox.
+func (b *StoryViewBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode StoryViewBox to nil")
+	}
+	v, err := DecodeStoryView(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.StoryView = v
+	return nil
+}
+
+// Encode implements bin.Encode for StoryViewBox.
+func (b *StoryViewBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.StoryView == nil {
+		return fmt.Errorf("unable to encode StoryViewClass as nil")
+	}
+	return b.StoryView.Encode(buf)
 }

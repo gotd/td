@@ -57,6 +57,8 @@ type StoriesGetStoryViewsListRequest struct {
 	//  1) https://core.telegram.org/constructor/storyView
 	//  2) https://core.telegram.org/constructor/storyView
 	ReactionsFirst bool
+	// ForwardsFirst field of StoriesGetStoryViewsListRequest.
+	ForwardsFirst bool
 	// Peer where the story was posted
 	Peer InputPeerClass
 	// Search for specific peers
@@ -101,6 +103,9 @@ func (g *StoriesGetStoryViewsListRequest) Zero() bool {
 	if !(g.ReactionsFirst == false) {
 		return false
 	}
+	if !(g.ForwardsFirst == false) {
+		return false
+	}
 	if !(g.Peer == nil) {
 		return false
 	}
@@ -133,6 +138,7 @@ func (g *StoriesGetStoryViewsListRequest) String() string {
 func (g *StoriesGetStoryViewsListRequest) FillFrom(from interface {
 	GetJustContacts() (value bool)
 	GetReactionsFirst() (value bool)
+	GetForwardsFirst() (value bool)
 	GetPeer() (value InputPeerClass)
 	GetQ() (value string, ok bool)
 	GetID() (value int)
@@ -141,6 +147,7 @@ func (g *StoriesGetStoryViewsListRequest) FillFrom(from interface {
 }) {
 	g.JustContacts = from.GetJustContacts()
 	g.ReactionsFirst = from.GetReactionsFirst()
+	g.ForwardsFirst = from.GetForwardsFirst()
 	g.Peer = from.GetPeer()
 	if val, ok := from.GetQ(); ok {
 		g.Q = val
@@ -185,6 +192,11 @@ func (g *StoriesGetStoryViewsListRequest) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(2),
 		},
 		{
+			Name:       "ForwardsFirst",
+			SchemaName: "forwards_first",
+			Null:       !g.Flags.Has(3),
+		},
+		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -216,6 +228,9 @@ func (g *StoriesGetStoryViewsListRequest) SetFlags() {
 	}
 	if !(g.ReactionsFirst == false) {
 		g.Flags.Set(2)
+	}
+	if !(g.ForwardsFirst == false) {
+		g.Flags.Set(3)
 	}
 	if !(g.Q == "") {
 		g.Flags.Set(1)
@@ -278,6 +293,7 @@ func (g *StoriesGetStoryViewsListRequest) DecodeBare(b *bin.Buffer) error {
 	}
 	g.JustContacts = g.Flags.Has(0)
 	g.ReactionsFirst = g.Flags.Has(2)
+	g.ForwardsFirst = g.Flags.Has(3)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -352,6 +368,25 @@ func (g *StoriesGetStoryViewsListRequest) GetReactionsFirst() (value bool) {
 		return
 	}
 	return g.Flags.Has(2)
+}
+
+// SetForwardsFirst sets value of ForwardsFirst conditional field.
+func (g *StoriesGetStoryViewsListRequest) SetForwardsFirst(value bool) {
+	if value {
+		g.Flags.Set(3)
+		g.ForwardsFirst = true
+	} else {
+		g.Flags.Unset(3)
+		g.ForwardsFirst = false
+	}
+}
+
+// GetForwardsFirst returns value of ForwardsFirst conditional field.
+func (g *StoriesGetStoryViewsListRequest) GetForwardsFirst() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(3)
 }
 
 // GetPeer returns value of Peer field.

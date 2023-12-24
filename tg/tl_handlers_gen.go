@@ -1305,3 +1305,23 @@ func (u UpdateDispatcher) OnPeerWallpaper(handler PeerWallpaperHandler) {
 		return handler(ctx, e, update.(*UpdatePeerWallpaper))
 	}
 }
+
+// BotMessageReactionHandler is a BotMessageReaction event handler.
+type BotMessageReactionHandler func(ctx context.Context, e Entities, update *UpdateBotMessageReaction) error
+
+// OnBotMessageReaction sets BotMessageReaction handler.
+func (u UpdateDispatcher) OnBotMessageReaction(handler BotMessageReactionHandler) {
+	u.handlers[UpdateBotMessageReactionTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotMessageReaction))
+	}
+}
+
+// BotMessageReactionsHandler is a BotMessageReactions event handler.
+type BotMessageReactionsHandler func(ctx context.Context, e Entities, update *UpdateBotMessageReactions) error
+
+// OnBotMessageReactions sets BotMessageReactions handler.
+func (u UpdateDispatcher) OnBotMessageReactions(handler BotMessageReactionsHandler) {
+	u.handlers[UpdateBotMessageReactionsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotMessageReactions))
+	}
+}

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StatsGetMessagePublicForwardsRequest represents TL type `stats.getMessagePublicForwards#5630281b`.
+// StatsGetMessagePublicForwardsRequest represents TL type `stats.getMessagePublicForwards#5f150144`.
 // Obtains a list of messages, indicating to which other public channels was a channel
 // message forwarded.
 // Will return a list of messages¹ with peer_id equal to the public channel to which
@@ -46,21 +46,8 @@ type StatsGetMessagePublicForwardsRequest struct {
 	Channel InputChannelClass
 	// Source message ID
 	MsgID int
-	// Initially 0, then set to the next_rate parameter of messages.messagesSlice¹
-	//
-	// Links:
-	//  1) https://core.telegram.org/constructor/messages.messagesSlice
-	OffsetRate int
-	// Offsets for pagination, for more info click here¹
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/offsets
-	OffsetPeer InputPeerClass
-	// Offsets for pagination, for more info click here¹
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/offsets
-	OffsetID int
+	// Offset field of StatsGetMessagePublicForwardsRequest.
+	Offset string
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
@@ -69,7 +56,7 @@ type StatsGetMessagePublicForwardsRequest struct {
 }
 
 // StatsGetMessagePublicForwardsRequestTypeID is TL type id of StatsGetMessagePublicForwardsRequest.
-const StatsGetMessagePublicForwardsRequestTypeID = 0x5630281b
+const StatsGetMessagePublicForwardsRequestTypeID = 0x5f150144
 
 // Ensuring interfaces in compile-time for StatsGetMessagePublicForwardsRequest.
 var (
@@ -89,13 +76,7 @@ func (g *StatsGetMessagePublicForwardsRequest) Zero() bool {
 	if !(g.MsgID == 0) {
 		return false
 	}
-	if !(g.OffsetRate == 0) {
-		return false
-	}
-	if !(g.OffsetPeer == nil) {
-		return false
-	}
-	if !(g.OffsetID == 0) {
+	if !(g.Offset == "") {
 		return false
 	}
 	if !(g.Limit == 0) {
@@ -118,16 +99,12 @@ func (g *StatsGetMessagePublicForwardsRequest) String() string {
 func (g *StatsGetMessagePublicForwardsRequest) FillFrom(from interface {
 	GetChannel() (value InputChannelClass)
 	GetMsgID() (value int)
-	GetOffsetRate() (value int)
-	GetOffsetPeer() (value InputPeerClass)
-	GetOffsetID() (value int)
+	GetOffset() (value string)
 	GetLimit() (value int)
 }) {
 	g.Channel = from.GetChannel()
 	g.MsgID = from.GetMsgID()
-	g.OffsetRate = from.GetOffsetRate()
-	g.OffsetPeer = from.GetOffsetPeer()
-	g.OffsetID = from.GetOffsetID()
+	g.Offset = from.GetOffset()
 	g.Limit = from.GetLimit()
 }
 
@@ -163,16 +140,8 @@ func (g *StatsGetMessagePublicForwardsRequest) TypeInfo() tdp.Type {
 			SchemaName: "msg_id",
 		},
 		{
-			Name:       "OffsetRate",
-			SchemaName: "offset_rate",
-		},
-		{
-			Name:       "OffsetPeer",
-			SchemaName: "offset_peer",
-		},
-		{
-			Name:       "OffsetID",
-			SchemaName: "offset_id",
+			Name:       "Offset",
+			SchemaName: "offset",
 		},
 		{
 			Name:       "Limit",
@@ -185,7 +154,7 @@ func (g *StatsGetMessagePublicForwardsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *StatsGetMessagePublicForwardsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stats.getMessagePublicForwards#5630281b as nil")
+		return fmt.Errorf("can't encode stats.getMessagePublicForwards#5f150144 as nil")
 	}
 	b.PutID(StatsGetMessagePublicForwardsRequestTypeID)
 	return g.EncodeBare(b)
@@ -194,23 +163,16 @@ func (g *StatsGetMessagePublicForwardsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *StatsGetMessagePublicForwardsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode stats.getMessagePublicForwards#5630281b as nil")
+		return fmt.Errorf("can't encode stats.getMessagePublicForwards#5f150144 as nil")
 	}
 	if g.Channel == nil {
-		return fmt.Errorf("unable to encode stats.getMessagePublicForwards#5630281b: field channel is nil")
+		return fmt.Errorf("unable to encode stats.getMessagePublicForwards#5f150144: field channel is nil")
 	}
 	if err := g.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.getMessagePublicForwards#5630281b: field channel: %w", err)
+		return fmt.Errorf("unable to encode stats.getMessagePublicForwards#5f150144: field channel: %w", err)
 	}
 	b.PutInt(g.MsgID)
-	b.PutInt(g.OffsetRate)
-	if g.OffsetPeer == nil {
-		return fmt.Errorf("unable to encode stats.getMessagePublicForwards#5630281b: field offset_peer is nil")
-	}
-	if err := g.OffsetPeer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stats.getMessagePublicForwards#5630281b: field offset_peer: %w", err)
-	}
-	b.PutInt(g.OffsetID)
+	b.PutString(g.Offset)
 	b.PutInt(g.Limit)
 	return nil
 }
@@ -218,10 +180,10 @@ func (g *StatsGetMessagePublicForwardsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *StatsGetMessagePublicForwardsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stats.getMessagePublicForwards#5630281b to nil")
+		return fmt.Errorf("can't decode stats.getMessagePublicForwards#5f150144 to nil")
 	}
 	if err := b.ConsumeID(StatsGetMessagePublicForwardsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5630281b: %w", err)
+		return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5f150144: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -229,47 +191,33 @@ func (g *StatsGetMessagePublicForwardsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *StatsGetMessagePublicForwardsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode stats.getMessagePublicForwards#5630281b to nil")
+		return fmt.Errorf("can't decode stats.getMessagePublicForwards#5f150144 to nil")
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5630281b: field channel: %w", err)
+			return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5f150144: field channel: %w", err)
 		}
 		g.Channel = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5630281b: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5f150144: field msg_id: %w", err)
 		}
 		g.MsgID = value
 	}
 	{
-		value, err := b.Int()
+		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5630281b: field offset_rate: %w", err)
+			return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5f150144: field offset: %w", err)
 		}
-		g.OffsetRate = value
-	}
-	{
-		value, err := DecodeInputPeer(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5630281b: field offset_peer: %w", err)
-		}
-		g.OffsetPeer = value
+		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5630281b: field offset_id: %w", err)
-		}
-		g.OffsetID = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5630281b: field limit: %w", err)
+			return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5f150144: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -292,28 +240,12 @@ func (g *StatsGetMessagePublicForwardsRequest) GetMsgID() (value int) {
 	return g.MsgID
 }
 
-// GetOffsetRate returns value of OffsetRate field.
-func (g *StatsGetMessagePublicForwardsRequest) GetOffsetRate() (value int) {
+// GetOffset returns value of Offset field.
+func (g *StatsGetMessagePublicForwardsRequest) GetOffset() (value string) {
 	if g == nil {
 		return
 	}
-	return g.OffsetRate
-}
-
-// GetOffsetPeer returns value of OffsetPeer field.
-func (g *StatsGetMessagePublicForwardsRequest) GetOffsetPeer() (value InputPeerClass) {
-	if g == nil {
-		return
-	}
-	return g.OffsetPeer
-}
-
-// GetOffsetID returns value of OffsetID field.
-func (g *StatsGetMessagePublicForwardsRequest) GetOffsetID() (value int) {
-	if g == nil {
-		return
-	}
-	return g.OffsetID
+	return g.Offset
 }
 
 // GetLimit returns value of Limit field.
@@ -329,7 +261,7 @@ func (g *StatsGetMessagePublicForwardsRequest) GetChannelAsNotEmpty() (NotEmptyI
 	return g.Channel.AsNotEmpty()
 }
 
-// StatsGetMessagePublicForwards invokes method stats.getMessagePublicForwards#5630281b returning error if any.
+// StatsGetMessagePublicForwards invokes method stats.getMessagePublicForwards#5f150144 returning error if any.
 // Obtains a list of messages, indicating to which other public channels was a channel
 // message forwarded.
 // Will return a list of messages¹ with peer_id equal to the public channel to which
@@ -346,11 +278,11 @@ func (g *StatsGetMessagePublicForwardsRequest) GetChannelAsNotEmpty() (NotEmptyI
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/stats.getMessagePublicForwards for reference.
-func (c *Client) StatsGetMessagePublicForwards(ctx context.Context, request *StatsGetMessagePublicForwardsRequest) (MessagesMessagesClass, error) {
-	var result MessagesMessagesBox
+func (c *Client) StatsGetMessagePublicForwards(ctx context.Context, request *StatsGetMessagePublicForwardsRequest) (*StatsPublicForwards, error) {
+	var result StatsPublicForwards
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.Messages, nil
+	return &result, nil
 }

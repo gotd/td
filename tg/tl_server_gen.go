@@ -2157,6 +2157,40 @@ func (s *ServerDispatcher) OnAccountGetDefaultBackgroundEmojis(f func(ctx contex
 	s.handlers[AccountGetDefaultBackgroundEmojisRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnAccountGetChannelDefaultEmojiStatuses(f func(ctx context.Context, hash int64) (AccountEmojiStatusesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountGetChannelDefaultEmojiStatusesRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hash)
+		if err != nil {
+			return nil, err
+		}
+		return &AccountEmojiStatusesBox{EmojiStatuses: response}, nil
+	}
+
+	s.handlers[AccountGetChannelDefaultEmojiStatusesRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnAccountGetChannelRestrictedStatusEmojis(f func(ctx context.Context, hash int64) (EmojiListClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request AccountGetChannelRestrictedStatusEmojisRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hash)
+		if err != nil {
+			return nil, err
+		}
+		return &EmojiListBox{EmojiList: response}, nil
+	}
+
+	s.handlers[AccountGetChannelRestrictedStatusEmojisRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUsersGetUsers(f func(ctx context.Context, id []InputUserClass) ([]UserClass, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UsersGetUsersRequest
@@ -6410,23 +6444,6 @@ func (s *ServerDispatcher) OnHelpGetSupport(f func(ctx context.Context) (*HelpSu
 	s.handlers[HelpGetSupportRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnHelpGetAppChangelog(f func(ctx context.Context, prevappversion string) (UpdatesClass, error)) {
-	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
-		var request HelpGetAppChangelogRequest
-		if err := request.Decode(b); err != nil {
-			return nil, err
-		}
-
-		response, err := f(ctx, request.PrevAppVersion)
-		if err != nil {
-			return nil, err
-		}
-		return &UpdatesBox{Updates: response}, nil
-	}
-
-	s.handlers[HelpGetAppChangelogRequestTypeID] = handler
-}
-
 func (s *ServerDispatcher) OnHelpSetBotUpdatesStatus(f func(ctx context.Context, request *HelpSetBotUpdatesStatusRequest) (bool, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request HelpSetBotUpdatesStatusRequest
@@ -7827,6 +7844,23 @@ func (s *ServerDispatcher) OnChannelsGetChannelRecommendations(f func(ctx contex
 	}
 
 	s.handlers[ChannelsGetChannelRecommendationsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnChannelsUpdateEmojiStatus(f func(ctx context.Context, request *ChannelsUpdateEmojiStatusRequest) (UpdatesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request ChannelsUpdateEmojiStatusRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &UpdatesBox{Updates: response}, nil
+	}
+
+	s.handlers[ChannelsUpdateEmojiStatusRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnBotsSendCustomRequest(f func(ctx context.Context, request *BotsSendCustomRequestRequest) (*DataJSON, error)) {
@@ -9299,7 +9333,7 @@ func (s *ServerDispatcher) OnStatsGetMegagroupStats(f func(ctx context.Context, 
 	s.handlers[StatsGetMegagroupStatsRequestTypeID] = handler
 }
 
-func (s *ServerDispatcher) OnStatsGetMessagePublicForwards(f func(ctx context.Context, request *StatsGetMessagePublicForwardsRequest) (MessagesMessagesClass, error)) {
+func (s *ServerDispatcher) OnStatsGetMessagePublicForwards(f func(ctx context.Context, request *StatsGetMessagePublicForwardsRequest) (*StatsPublicForwards, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request StatsGetMessagePublicForwardsRequest
 		if err := request.Decode(b); err != nil {
@@ -9310,7 +9344,7 @@ func (s *ServerDispatcher) OnStatsGetMessagePublicForwards(f func(ctx context.Co
 		if err != nil {
 			return nil, err
 		}
-		return &MessagesMessagesBox{Messages: response}, nil
+		return response, nil
 	}
 
 	s.handlers[StatsGetMessagePublicForwardsRequestTypeID] = handler
@@ -9971,6 +10005,23 @@ func (s *ServerDispatcher) OnStoriesTogglePeerStoriesHidden(f func(ctx context.C
 	}
 
 	s.handlers[StoriesTogglePeerStoriesHiddenRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnStoriesGetStoryReactionsList(f func(ctx context.Context, request *StoriesGetStoryReactionsListRequest) (*StoriesStoryReactionsList, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request StoriesGetStoryReactionsListRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[StoriesGetStoryReactionsListRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnPremiumGetBoostsList(f func(ctx context.Context, request *PremiumGetBoostsListRequest) (*PremiumBoostsList, error)) {

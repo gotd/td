@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// StoriesStoryViewsList represents TL type `stories.storyViewsList#46e9b9ec`.
+// StoriesStoryViewsList represents TL type `stories.storyViewsList#59d78fc5`.
 // Reaction and view counters for a story¹
 //
 // Links:
@@ -46,10 +46,16 @@ type StoriesStoryViewsList struct {
 	Flags bin.Fields
 	// Total number of results that can be fetched
 	Count int
+	// ViewsCount field of StoriesStoryViewsList.
+	ViewsCount int
+	// ForwardsCount field of StoriesStoryViewsList.
+	ForwardsCount int
 	// Number of reactions that were added to the story
 	ReactionsCount int
 	// Story view date and reaction information
-	Views []StoryView
+	Views []StoryViewClass
+	// Chats field of StoriesStoryViewsList.
+	Chats []ChatClass
 	// Mentioned users
 	Users []UserClass
 	// Offset for pagination
@@ -59,7 +65,7 @@ type StoriesStoryViewsList struct {
 }
 
 // StoriesStoryViewsListTypeID is TL type id of StoriesStoryViewsList.
-const StoriesStoryViewsListTypeID = 0x46e9b9ec
+const StoriesStoryViewsListTypeID = 0x59d78fc5
 
 // Ensuring interfaces in compile-time for StoriesStoryViewsList.
 var (
@@ -79,10 +85,19 @@ func (s *StoriesStoryViewsList) Zero() bool {
 	if !(s.Count == 0) {
 		return false
 	}
+	if !(s.ViewsCount == 0) {
+		return false
+	}
+	if !(s.ForwardsCount == 0) {
+		return false
+	}
 	if !(s.ReactionsCount == 0) {
 		return false
 	}
 	if !(s.Views == nil) {
+		return false
+	}
+	if !(s.Chats == nil) {
 		return false
 	}
 	if !(s.Users == nil) {
@@ -107,14 +122,20 @@ func (s *StoriesStoryViewsList) String() string {
 // FillFrom fills StoriesStoryViewsList from given interface.
 func (s *StoriesStoryViewsList) FillFrom(from interface {
 	GetCount() (value int)
+	GetViewsCount() (value int)
+	GetForwardsCount() (value int)
 	GetReactionsCount() (value int)
-	GetViews() (value []StoryView)
+	GetViews() (value []StoryViewClass)
+	GetChats() (value []ChatClass)
 	GetUsers() (value []UserClass)
 	GetNextOffset() (value string, ok bool)
 }) {
 	s.Count = from.GetCount()
+	s.ViewsCount = from.GetViewsCount()
+	s.ForwardsCount = from.GetForwardsCount()
 	s.ReactionsCount = from.GetReactionsCount()
 	s.Views = from.GetViews()
+	s.Chats = from.GetChats()
 	s.Users = from.GetUsers()
 	if val, ok := from.GetNextOffset(); ok {
 		s.NextOffset = val
@@ -150,12 +171,24 @@ func (s *StoriesStoryViewsList) TypeInfo() tdp.Type {
 			SchemaName: "count",
 		},
 		{
+			Name:       "ViewsCount",
+			SchemaName: "views_count",
+		},
+		{
+			Name:       "ForwardsCount",
+			SchemaName: "forwards_count",
+		},
+		{
 			Name:       "ReactionsCount",
 			SchemaName: "reactions_count",
 		},
 		{
 			Name:       "Views",
 			SchemaName: "views",
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
 		},
 		{
 			Name:       "Users",
@@ -180,7 +213,7 @@ func (s *StoriesStoryViewsList) SetFlags() {
 // Encode implements bin.Encoder.
 func (s *StoriesStoryViewsList) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stories.storyViewsList#46e9b9ec as nil")
+		return fmt.Errorf("can't encode stories.storyViewsList#59d78fc5 as nil")
 	}
 	b.PutID(StoriesStoryViewsListTypeID)
 	return s.EncodeBare(b)
@@ -189,27 +222,41 @@ func (s *StoriesStoryViewsList) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *StoriesStoryViewsList) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stories.storyViewsList#46e9b9ec as nil")
+		return fmt.Errorf("can't encode stories.storyViewsList#59d78fc5 as nil")
 	}
 	s.SetFlags()
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stories.storyViewsList#46e9b9ec: field flags: %w", err)
+		return fmt.Errorf("unable to encode stories.storyViewsList#59d78fc5: field flags: %w", err)
 	}
 	b.PutInt(s.Count)
+	b.PutInt(s.ViewsCount)
+	b.PutInt(s.ForwardsCount)
 	b.PutInt(s.ReactionsCount)
 	b.PutVectorHeader(len(s.Views))
 	for idx, v := range s.Views {
+		if v == nil {
+			return fmt.Errorf("unable to encode stories.storyViewsList#59d78fc5: field views element with index %d is nil", idx)
+		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stories.storyViewsList#46e9b9ec: field views element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode stories.storyViewsList#59d78fc5: field views element with index %d: %w", idx, err)
+		}
+	}
+	b.PutVectorHeader(len(s.Chats))
+	for idx, v := range s.Chats {
+		if v == nil {
+			return fmt.Errorf("unable to encode stories.storyViewsList#59d78fc5: field chats element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode stories.storyViewsList#59d78fc5: field chats element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(s.Users))
 	for idx, v := range s.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode stories.storyViewsList#46e9b9ec: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode stories.storyViewsList#59d78fc5: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stories.storyViewsList#46e9b9ec: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode stories.storyViewsList#59d78fc5: field users element with index %d: %w", idx, err)
 		}
 	}
 	if s.Flags.Has(0) {
@@ -221,10 +268,10 @@ func (s *StoriesStoryViewsList) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *StoriesStoryViewsList) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stories.storyViewsList#46e9b9ec to nil")
+		return fmt.Errorf("can't decode stories.storyViewsList#59d78fc5 to nil")
 	}
 	if err := b.ConsumeID(StoriesStoryViewsListTypeID); err != nil {
-		return fmt.Errorf("unable to decode stories.storyViewsList#46e9b9ec: %w", err)
+		return fmt.Errorf("unable to decode stories.storyViewsList#59d78fc5: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -232,40 +279,54 @@ func (s *StoriesStoryViewsList) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *StoriesStoryViewsList) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stories.storyViewsList#46e9b9ec to nil")
+		return fmt.Errorf("can't decode stories.storyViewsList#59d78fc5 to nil")
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stories.storyViewsList#46e9b9ec: field flags: %w", err)
+			return fmt.Errorf("unable to decode stories.storyViewsList#59d78fc5: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.storyViewsList#46e9b9ec: field count: %w", err)
+			return fmt.Errorf("unable to decode stories.storyViewsList#59d78fc5: field count: %w", err)
 		}
 		s.Count = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.storyViewsList#46e9b9ec: field reactions_count: %w", err)
+			return fmt.Errorf("unable to decode stories.storyViewsList#59d78fc5: field views_count: %w", err)
+		}
+		s.ViewsCount = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode stories.storyViewsList#59d78fc5: field forwards_count: %w", err)
+		}
+		s.ForwardsCount = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode stories.storyViewsList#59d78fc5: field reactions_count: %w", err)
 		}
 		s.ReactionsCount = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.storyViewsList#46e9b9ec: field views: %w", err)
+			return fmt.Errorf("unable to decode stories.storyViewsList#59d78fc5: field views: %w", err)
 		}
 
 		if headerLen > 0 {
-			s.Views = make([]StoryView, 0, headerLen%bin.PreallocateLimit)
+			s.Views = make([]StoryViewClass, 0, headerLen%bin.PreallocateLimit)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value StoryView
-			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode stories.storyViewsList#46e9b9ec: field views: %w", err)
+			value, err := DecodeStoryView(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode stories.storyViewsList#59d78fc5: field views: %w", err)
 			}
 			s.Views = append(s.Views, value)
 		}
@@ -273,7 +334,24 @@ func (s *StoriesStoryViewsList) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.storyViewsList#46e9b9ec: field users: %w", err)
+			return fmt.Errorf("unable to decode stories.storyViewsList#59d78fc5: field chats: %w", err)
+		}
+
+		if headerLen > 0 {
+			s.Chats = make([]ChatClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeChat(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode stories.storyViewsList#59d78fc5: field chats: %w", err)
+			}
+			s.Chats = append(s.Chats, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode stories.storyViewsList#59d78fc5: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -282,7 +360,7 @@ func (s *StoriesStoryViewsList) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode stories.storyViewsList#46e9b9ec: field users: %w", err)
+				return fmt.Errorf("unable to decode stories.storyViewsList#59d78fc5: field users: %w", err)
 			}
 			s.Users = append(s.Users, value)
 		}
@@ -290,7 +368,7 @@ func (s *StoriesStoryViewsList) DecodeBare(b *bin.Buffer) error {
 	if s.Flags.Has(0) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stories.storyViewsList#46e9b9ec: field next_offset: %w", err)
+			return fmt.Errorf("unable to decode stories.storyViewsList#59d78fc5: field next_offset: %w", err)
 		}
 		s.NextOffset = value
 	}
@@ -305,6 +383,22 @@ func (s *StoriesStoryViewsList) GetCount() (value int) {
 	return s.Count
 }
 
+// GetViewsCount returns value of ViewsCount field.
+func (s *StoriesStoryViewsList) GetViewsCount() (value int) {
+	if s == nil {
+		return
+	}
+	return s.ViewsCount
+}
+
+// GetForwardsCount returns value of ForwardsCount field.
+func (s *StoriesStoryViewsList) GetForwardsCount() (value int) {
+	if s == nil {
+		return
+	}
+	return s.ForwardsCount
+}
+
 // GetReactionsCount returns value of ReactionsCount field.
 func (s *StoriesStoryViewsList) GetReactionsCount() (value int) {
 	if s == nil {
@@ -314,11 +408,19 @@ func (s *StoriesStoryViewsList) GetReactionsCount() (value int) {
 }
 
 // GetViews returns value of Views field.
-func (s *StoriesStoryViewsList) GetViews() (value []StoryView) {
+func (s *StoriesStoryViewsList) GetViews() (value []StoryViewClass) {
 	if s == nil {
 		return
 	}
 	return s.Views
+}
+
+// GetChats returns value of Chats field.
+func (s *StoriesStoryViewsList) GetChats() (value []ChatClass) {
+	if s == nil {
+		return
+	}
+	return s.Chats
 }
 
 // GetUsers returns value of Users field.
@@ -345,6 +447,16 @@ func (s *StoriesStoryViewsList) GetNextOffset() (value string, ok bool) {
 		return value, false
 	}
 	return s.NextOffset, true
+}
+
+// MapViews returns field Views wrapped in StoryViewClassArray helper.
+func (s *StoriesStoryViewsList) MapViews() (value StoryViewClassArray) {
+	return StoryViewClassArray(s.Views)
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (s *StoriesStoryViewsList) MapChats() (value ChatClassArray) {
+	return ChatClassArray(s.Chats)
 }
 
 // MapUsers returns field Users wrapped in UserClassArray helper.

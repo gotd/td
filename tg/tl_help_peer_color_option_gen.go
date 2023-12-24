@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// HelpPeerColorOption represents TL type `help.peerColorOption#135bd42f`.
+// HelpPeerColorOption represents TL type `help.peerColorOption#ef8430ab`.
 //
 // See https://core.telegram.org/constructor/help.peerColorOption for reference.
 type HelpPeerColorOption struct {
@@ -52,10 +52,14 @@ type HelpPeerColorOption struct {
 	//
 	// Use SetDarkColors and GetDarkColors helpers.
 	DarkColors HelpPeerColorSetClass
+	// ChannelMinLevel field of HelpPeerColorOption.
+	//
+	// Use SetChannelMinLevel and GetChannelMinLevel helpers.
+	ChannelMinLevel int
 }
 
 // HelpPeerColorOptionTypeID is TL type id of HelpPeerColorOption.
-const HelpPeerColorOptionTypeID = 0x135bd42f
+const HelpPeerColorOptionTypeID = 0xef8430ab
 
 // Ensuring interfaces in compile-time for HelpPeerColorOption.
 var (
@@ -84,6 +88,9 @@ func (p *HelpPeerColorOption) Zero() bool {
 	if !(p.DarkColors == nil) {
 		return false
 	}
+	if !(p.ChannelMinLevel == 0) {
+		return false
+	}
 
 	return true
 }
@@ -103,6 +110,7 @@ func (p *HelpPeerColorOption) FillFrom(from interface {
 	GetColorID() (value int)
 	GetColors() (value HelpPeerColorSetClass, ok bool)
 	GetDarkColors() (value HelpPeerColorSetClass, ok bool)
+	GetChannelMinLevel() (value int, ok bool)
 }) {
 	p.Hidden = from.GetHidden()
 	p.ColorID = from.GetColorID()
@@ -112,6 +120,10 @@ func (p *HelpPeerColorOption) FillFrom(from interface {
 
 	if val, ok := from.GetDarkColors(); ok {
 		p.DarkColors = val
+	}
+
+	if val, ok := from.GetChannelMinLevel(); ok {
+		p.ChannelMinLevel = val
 	}
 
 }
@@ -158,6 +170,11 @@ func (p *HelpPeerColorOption) TypeInfo() tdp.Type {
 			SchemaName: "dark_colors",
 			Null:       !p.Flags.Has(2),
 		},
+		{
+			Name:       "ChannelMinLevel",
+			SchemaName: "channel_min_level",
+			Null:       !p.Flags.Has(3),
+		},
 	}
 	return typ
 }
@@ -173,12 +190,15 @@ func (p *HelpPeerColorOption) SetFlags() {
 	if !(p.DarkColors == nil) {
 		p.Flags.Set(2)
 	}
+	if !(p.ChannelMinLevel == 0) {
+		p.Flags.Set(3)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (p *HelpPeerColorOption) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode help.peerColorOption#135bd42f as nil")
+		return fmt.Errorf("can't encode help.peerColorOption#ef8430ab as nil")
 	}
 	b.PutID(HelpPeerColorOptionTypeID)
 	return p.EncodeBare(b)
@@ -187,28 +207,31 @@ func (p *HelpPeerColorOption) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *HelpPeerColorOption) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode help.peerColorOption#135bd42f as nil")
+		return fmt.Errorf("can't encode help.peerColorOption#ef8430ab as nil")
 	}
 	p.SetFlags()
 	if err := p.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode help.peerColorOption#135bd42f: field flags: %w", err)
+		return fmt.Errorf("unable to encode help.peerColorOption#ef8430ab: field flags: %w", err)
 	}
 	b.PutInt(p.ColorID)
 	if p.Flags.Has(1) {
 		if p.Colors == nil {
-			return fmt.Errorf("unable to encode help.peerColorOption#135bd42f: field colors is nil")
+			return fmt.Errorf("unable to encode help.peerColorOption#ef8430ab: field colors is nil")
 		}
 		if err := p.Colors.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.peerColorOption#135bd42f: field colors: %w", err)
+			return fmt.Errorf("unable to encode help.peerColorOption#ef8430ab: field colors: %w", err)
 		}
 	}
 	if p.Flags.Has(2) {
 		if p.DarkColors == nil {
-			return fmt.Errorf("unable to encode help.peerColorOption#135bd42f: field dark_colors is nil")
+			return fmt.Errorf("unable to encode help.peerColorOption#ef8430ab: field dark_colors is nil")
 		}
 		if err := p.DarkColors.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode help.peerColorOption#135bd42f: field dark_colors: %w", err)
+			return fmt.Errorf("unable to encode help.peerColorOption#ef8430ab: field dark_colors: %w", err)
 		}
+	}
+	if p.Flags.Has(3) {
+		b.PutInt(p.ChannelMinLevel)
 	}
 	return nil
 }
@@ -216,10 +239,10 @@ func (p *HelpPeerColorOption) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (p *HelpPeerColorOption) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode help.peerColorOption#135bd42f to nil")
+		return fmt.Errorf("can't decode help.peerColorOption#ef8430ab to nil")
 	}
 	if err := b.ConsumeID(HelpPeerColorOptionTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.peerColorOption#135bd42f: %w", err)
+		return fmt.Errorf("unable to decode help.peerColorOption#ef8430ab: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -227,34 +250,41 @@ func (p *HelpPeerColorOption) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *HelpPeerColorOption) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode help.peerColorOption#135bd42f to nil")
+		return fmt.Errorf("can't decode help.peerColorOption#ef8430ab to nil")
 	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode help.peerColorOption#135bd42f: field flags: %w", err)
+			return fmt.Errorf("unable to decode help.peerColorOption#ef8430ab: field flags: %w", err)
 		}
 	}
 	p.Hidden = p.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.peerColorOption#135bd42f: field color_id: %w", err)
+			return fmt.Errorf("unable to decode help.peerColorOption#ef8430ab: field color_id: %w", err)
 		}
 		p.ColorID = value
 	}
 	if p.Flags.Has(1) {
 		value, err := DecodeHelpPeerColorSet(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode help.peerColorOption#135bd42f: field colors: %w", err)
+			return fmt.Errorf("unable to decode help.peerColorOption#ef8430ab: field colors: %w", err)
 		}
 		p.Colors = value
 	}
 	if p.Flags.Has(2) {
 		value, err := DecodeHelpPeerColorSet(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode help.peerColorOption#135bd42f: field dark_colors: %w", err)
+			return fmt.Errorf("unable to decode help.peerColorOption#ef8430ab: field dark_colors: %w", err)
 		}
 		p.DarkColors = value
+	}
+	if p.Flags.Has(3) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode help.peerColorOption#ef8430ab: field channel_min_level: %w", err)
+		}
+		p.ChannelMinLevel = value
 	}
 	return nil
 }
@@ -320,4 +350,22 @@ func (p *HelpPeerColorOption) GetDarkColors() (value HelpPeerColorSetClass, ok b
 		return value, false
 	}
 	return p.DarkColors, true
+}
+
+// SetChannelMinLevel sets value of ChannelMinLevel conditional field.
+func (p *HelpPeerColorOption) SetChannelMinLevel(value int) {
+	p.Flags.Set(3)
+	p.ChannelMinLevel = value
+}
+
+// GetChannelMinLevel returns value of ChannelMinLevel conditional field and
+// boolean which is true if field was set.
+func (p *HelpPeerColorOption) GetChannelMinLevel() (value int, ok bool) {
+	if p == nil {
+		return
+	}
+	if !p.Flags.Has(3) {
+		return value, false
+	}
+	return p.ChannelMinLevel, true
 }
