@@ -168,6 +168,32 @@ func (s MediaAreaClassArray) AsMediaAreaSuggestedReaction() (to MediaAreaSuggest
 	return to
 }
 
+// AsMediaAreaChannelPost returns copy with only MediaAreaChannelPost constructors.
+func (s MediaAreaClassArray) AsMediaAreaChannelPost() (to MediaAreaChannelPostArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MediaAreaChannelPost)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputMediaAreaChannelPost returns copy with only InputMediaAreaChannelPost constructors.
+func (s MediaAreaClassArray) AsInputMediaAreaChannelPost() (to InputMediaAreaChannelPostArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputMediaAreaChannelPost)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // MediaAreaVenueArray is adapter for slice of MediaAreaVenue.
 type MediaAreaVenueArray []MediaAreaVenue
 
@@ -484,6 +510,170 @@ func (s *MediaAreaSuggestedReactionArray) PopFirst() (v MediaAreaSuggestedReacti
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MediaAreaSuggestedReactionArray) Pop() (v MediaAreaSuggestedReaction, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MediaAreaChannelPostArray is adapter for slice of MediaAreaChannelPost.
+type MediaAreaChannelPostArray []MediaAreaChannelPost
+
+// Sort sorts slice of MediaAreaChannelPost.
+func (s MediaAreaChannelPostArray) Sort(less func(a, b MediaAreaChannelPost) bool) MediaAreaChannelPostArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MediaAreaChannelPost.
+func (s MediaAreaChannelPostArray) SortStable(less func(a, b MediaAreaChannelPost) bool) MediaAreaChannelPostArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MediaAreaChannelPost.
+func (s MediaAreaChannelPostArray) Retain(keep func(x MediaAreaChannelPost) bool) MediaAreaChannelPostArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MediaAreaChannelPostArray) First() (v MediaAreaChannelPost, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MediaAreaChannelPostArray) Last() (v MediaAreaChannelPost, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MediaAreaChannelPostArray) PopFirst() (v MediaAreaChannelPost, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MediaAreaChannelPost
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MediaAreaChannelPostArray) Pop() (v MediaAreaChannelPost, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputMediaAreaChannelPostArray is adapter for slice of InputMediaAreaChannelPost.
+type InputMediaAreaChannelPostArray []InputMediaAreaChannelPost
+
+// Sort sorts slice of InputMediaAreaChannelPost.
+func (s InputMediaAreaChannelPostArray) Sort(less func(a, b InputMediaAreaChannelPost) bool) InputMediaAreaChannelPostArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputMediaAreaChannelPost.
+func (s InputMediaAreaChannelPostArray) SortStable(less func(a, b InputMediaAreaChannelPost) bool) InputMediaAreaChannelPostArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputMediaAreaChannelPost.
+func (s InputMediaAreaChannelPostArray) Retain(keep func(x InputMediaAreaChannelPost) bool) InputMediaAreaChannelPostArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputMediaAreaChannelPostArray) First() (v InputMediaAreaChannelPost, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputMediaAreaChannelPostArray) Last() (v InputMediaAreaChannelPost, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputMediaAreaChannelPostArray) PopFirst() (v InputMediaAreaChannelPost, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputMediaAreaChannelPost
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputMediaAreaChannelPostArray) Pop() (v InputMediaAreaChannelPost, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesSendBotRequestedPeerRequest represents TL type `messages.sendBotRequestedPeer#fe38d01b`.
+// MessagesSendBotRequestedPeerRequest represents TL type `messages.sendBotRequestedPeer#91b2d060`.
 // Send a chosen peer, as requested by a keyboardButtonRequestPeer¹ button.
 //
 // Links:
@@ -55,12 +55,12 @@ type MessagesSendBotRequestedPeerRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/keyboardButtonRequestPeer
 	ButtonID int
-	// The chosen peer.
-	RequestedPeer InputPeerClass
+	// RequestedPeers field of MessagesSendBotRequestedPeerRequest.
+	RequestedPeers []InputPeerClass
 }
 
 // MessagesSendBotRequestedPeerRequestTypeID is TL type id of MessagesSendBotRequestedPeerRequest.
-const MessagesSendBotRequestedPeerRequestTypeID = 0xfe38d01b
+const MessagesSendBotRequestedPeerRequestTypeID = 0x91b2d060
 
 // Ensuring interfaces in compile-time for MessagesSendBotRequestedPeerRequest.
 var (
@@ -83,7 +83,7 @@ func (s *MessagesSendBotRequestedPeerRequest) Zero() bool {
 	if !(s.ButtonID == 0) {
 		return false
 	}
-	if !(s.RequestedPeer == nil) {
+	if !(s.RequestedPeers == nil) {
 		return false
 	}
 
@@ -104,12 +104,12 @@ func (s *MessagesSendBotRequestedPeerRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
 	GetMsgID() (value int)
 	GetButtonID() (value int)
-	GetRequestedPeer() (value InputPeerClass)
+	GetRequestedPeers() (value []InputPeerClass)
 }) {
 	s.Peer = from.GetPeer()
 	s.MsgID = from.GetMsgID()
 	s.ButtonID = from.GetButtonID()
-	s.RequestedPeer = from.GetRequestedPeer()
+	s.RequestedPeers = from.GetRequestedPeers()
 }
 
 // TypeID returns type id in TL schema.
@@ -148,8 +148,8 @@ func (s *MessagesSendBotRequestedPeerRequest) TypeInfo() tdp.Type {
 			SchemaName: "button_id",
 		},
 		{
-			Name:       "RequestedPeer",
-			SchemaName: "requested_peer",
+			Name:       "RequestedPeers",
+			SchemaName: "requested_peers",
 		},
 	}
 	return typ
@@ -158,7 +158,7 @@ func (s *MessagesSendBotRequestedPeerRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *MessagesSendBotRequestedPeerRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendBotRequestedPeer#fe38d01b as nil")
+		return fmt.Errorf("can't encode messages.sendBotRequestedPeer#91b2d060 as nil")
 	}
 	b.PutID(MessagesSendBotRequestedPeerRequestTypeID)
 	return s.EncodeBare(b)
@@ -167,21 +167,24 @@ func (s *MessagesSendBotRequestedPeerRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *MessagesSendBotRequestedPeerRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode messages.sendBotRequestedPeer#fe38d01b as nil")
+		return fmt.Errorf("can't encode messages.sendBotRequestedPeer#91b2d060 as nil")
 	}
 	if s.Peer == nil {
-		return fmt.Errorf("unable to encode messages.sendBotRequestedPeer#fe38d01b: field peer is nil")
+		return fmt.Errorf("unable to encode messages.sendBotRequestedPeer#91b2d060: field peer is nil")
 	}
 	if err := s.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendBotRequestedPeer#fe38d01b: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.sendBotRequestedPeer#91b2d060: field peer: %w", err)
 	}
 	b.PutInt(s.MsgID)
 	b.PutInt(s.ButtonID)
-	if s.RequestedPeer == nil {
-		return fmt.Errorf("unable to encode messages.sendBotRequestedPeer#fe38d01b: field requested_peer is nil")
-	}
-	if err := s.RequestedPeer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.sendBotRequestedPeer#fe38d01b: field requested_peer: %w", err)
+	b.PutVectorHeader(len(s.RequestedPeers))
+	for idx, v := range s.RequestedPeers {
+		if v == nil {
+			return fmt.Errorf("unable to encode messages.sendBotRequestedPeer#91b2d060: field requested_peers element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.sendBotRequestedPeer#91b2d060: field requested_peers element with index %d: %w", idx, err)
+		}
 	}
 	return nil
 }
@@ -189,10 +192,10 @@ func (s *MessagesSendBotRequestedPeerRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *MessagesSendBotRequestedPeerRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendBotRequestedPeer#fe38d01b to nil")
+		return fmt.Errorf("can't decode messages.sendBotRequestedPeer#91b2d060 to nil")
 	}
 	if err := b.ConsumeID(MessagesSendBotRequestedPeerRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.sendBotRequestedPeer#fe38d01b: %w", err)
+		return fmt.Errorf("unable to decode messages.sendBotRequestedPeer#91b2d060: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -200,35 +203,45 @@ func (s *MessagesSendBotRequestedPeerRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *MessagesSendBotRequestedPeerRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode messages.sendBotRequestedPeer#fe38d01b to nil")
+		return fmt.Errorf("can't decode messages.sendBotRequestedPeer#91b2d060 to nil")
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendBotRequestedPeer#fe38d01b: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.sendBotRequestedPeer#91b2d060: field peer: %w", err)
 		}
 		s.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendBotRequestedPeer#fe38d01b: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.sendBotRequestedPeer#91b2d060: field msg_id: %w", err)
 		}
 		s.MsgID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendBotRequestedPeer#fe38d01b: field button_id: %w", err)
+			return fmt.Errorf("unable to decode messages.sendBotRequestedPeer#91b2d060: field button_id: %w", err)
 		}
 		s.ButtonID = value
 	}
 	{
-		value, err := DecodeInputPeer(b)
+		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.sendBotRequestedPeer#fe38d01b: field requested_peer: %w", err)
+			return fmt.Errorf("unable to decode messages.sendBotRequestedPeer#91b2d060: field requested_peers: %w", err)
 		}
-		s.RequestedPeer = value
+
+		if headerLen > 0 {
+			s.RequestedPeers = make([]InputPeerClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeInputPeer(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode messages.sendBotRequestedPeer#91b2d060: field requested_peers: %w", err)
+			}
+			s.RequestedPeers = append(s.RequestedPeers, value)
+		}
 	}
 	return nil
 }
@@ -257,15 +270,20 @@ func (s *MessagesSendBotRequestedPeerRequest) GetButtonID() (value int) {
 	return s.ButtonID
 }
 
-// GetRequestedPeer returns value of RequestedPeer field.
-func (s *MessagesSendBotRequestedPeerRequest) GetRequestedPeer() (value InputPeerClass) {
+// GetRequestedPeers returns value of RequestedPeers field.
+func (s *MessagesSendBotRequestedPeerRequest) GetRequestedPeers() (value []InputPeerClass) {
 	if s == nil {
 		return
 	}
-	return s.RequestedPeer
+	return s.RequestedPeers
 }
 
-// MessagesSendBotRequestedPeer invokes method messages.sendBotRequestedPeer#fe38d01b returning error if any.
+// MapRequestedPeers returns field RequestedPeers wrapped in InputPeerClassArray helper.
+func (s *MessagesSendBotRequestedPeerRequest) MapRequestedPeers() (value InputPeerClassArray) {
+	return InputPeerClassArray(s.RequestedPeers)
+}
+
+// MessagesSendBotRequestedPeer invokes method messages.sendBotRequestedPeer#91b2d060 returning error if any.
 // Send a chosen peer, as requested by a keyboardButtonRequestPeer¹ button.
 //
 // Links:

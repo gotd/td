@@ -2877,7 +2877,7 @@ func (k *KeyboardButtonSimpleWebView) GetURL() (value string) {
 	return k.URL
 }
 
-// KeyboardButtonRequestPeer represents TL type `keyboardButtonRequestPeer#d0b468c`.
+// KeyboardButtonRequestPeer represents TL type `keyboardButtonRequestPeer#53d7bfd8`.
 // Prompts the user to select and share a peer with the bot using messages
 // sendBotRequestedPeer¹
 //
@@ -2898,10 +2898,12 @@ type KeyboardButtonRequestPeer struct {
 	// option for the user to create and immediately use a peer of the specified type, if
 	// needed.
 	PeerType RequestPeerTypeClass
+	// MaxQuantity field of KeyboardButtonRequestPeer.
+	MaxQuantity int
 }
 
 // KeyboardButtonRequestPeerTypeID is TL type id of KeyboardButtonRequestPeer.
-const KeyboardButtonRequestPeerTypeID = 0xd0b468c
+const KeyboardButtonRequestPeerTypeID = 0x53d7bfd8
 
 // construct implements constructor of KeyboardButtonClass.
 func (k KeyboardButtonRequestPeer) construct() KeyboardButtonClass { return &k }
@@ -2929,6 +2931,9 @@ func (k *KeyboardButtonRequestPeer) Zero() bool {
 	if !(k.PeerType == nil) {
 		return false
 	}
+	if !(k.MaxQuantity == 0) {
+		return false
+	}
 
 	return true
 }
@@ -2947,10 +2952,12 @@ func (k *KeyboardButtonRequestPeer) FillFrom(from interface {
 	GetText() (value string)
 	GetButtonID() (value int)
 	GetPeerType() (value RequestPeerTypeClass)
+	GetMaxQuantity() (value int)
 }) {
 	k.Text = from.GetText()
 	k.ButtonID = from.GetButtonID()
 	k.PeerType = from.GetPeerType()
+	k.MaxQuantity = from.GetMaxQuantity()
 }
 
 // TypeID returns type id in TL schema.
@@ -2988,6 +2995,10 @@ func (k *KeyboardButtonRequestPeer) TypeInfo() tdp.Type {
 			Name:       "PeerType",
 			SchemaName: "peer_type",
 		},
+		{
+			Name:       "MaxQuantity",
+			SchemaName: "max_quantity",
+		},
 	}
 	return typ
 }
@@ -2995,7 +3006,7 @@ func (k *KeyboardButtonRequestPeer) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonRequestPeer) Encode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonRequestPeer#d0b468c as nil")
+		return fmt.Errorf("can't encode keyboardButtonRequestPeer#53d7bfd8 as nil")
 	}
 	b.PutID(KeyboardButtonRequestPeerTypeID)
 	return k.EncodeBare(b)
@@ -3004,26 +3015,27 @@ func (k *KeyboardButtonRequestPeer) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (k *KeyboardButtonRequestPeer) EncodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't encode keyboardButtonRequestPeer#d0b468c as nil")
+		return fmt.Errorf("can't encode keyboardButtonRequestPeer#53d7bfd8 as nil")
 	}
 	b.PutString(k.Text)
 	b.PutInt(k.ButtonID)
 	if k.PeerType == nil {
-		return fmt.Errorf("unable to encode keyboardButtonRequestPeer#d0b468c: field peer_type is nil")
+		return fmt.Errorf("unable to encode keyboardButtonRequestPeer#53d7bfd8: field peer_type is nil")
 	}
 	if err := k.PeerType.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode keyboardButtonRequestPeer#d0b468c: field peer_type: %w", err)
+		return fmt.Errorf("unable to encode keyboardButtonRequestPeer#53d7bfd8: field peer_type: %w", err)
 	}
+	b.PutInt(k.MaxQuantity)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (k *KeyboardButtonRequestPeer) Decode(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonRequestPeer#d0b468c to nil")
+		return fmt.Errorf("can't decode keyboardButtonRequestPeer#53d7bfd8 to nil")
 	}
 	if err := b.ConsumeID(KeyboardButtonRequestPeerTypeID); err != nil {
-		return fmt.Errorf("unable to decode keyboardButtonRequestPeer#d0b468c: %w", err)
+		return fmt.Errorf("unable to decode keyboardButtonRequestPeer#53d7bfd8: %w", err)
 	}
 	return k.DecodeBare(b)
 }
@@ -3031,28 +3043,35 @@ func (k *KeyboardButtonRequestPeer) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (k *KeyboardButtonRequestPeer) DecodeBare(b *bin.Buffer) error {
 	if k == nil {
-		return fmt.Errorf("can't decode keyboardButtonRequestPeer#d0b468c to nil")
+		return fmt.Errorf("can't decode keyboardButtonRequestPeer#53d7bfd8 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonRequestPeer#d0b468c: field text: %w", err)
+			return fmt.Errorf("unable to decode keyboardButtonRequestPeer#53d7bfd8: field text: %w", err)
 		}
 		k.Text = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonRequestPeer#d0b468c: field button_id: %w", err)
+			return fmt.Errorf("unable to decode keyboardButtonRequestPeer#53d7bfd8: field button_id: %w", err)
 		}
 		k.ButtonID = value
 	}
 	{
 		value, err := DecodeRequestPeerType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode keyboardButtonRequestPeer#d0b468c: field peer_type: %w", err)
+			return fmt.Errorf("unable to decode keyboardButtonRequestPeer#53d7bfd8: field peer_type: %w", err)
 		}
 		k.PeerType = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonRequestPeer#53d7bfd8: field max_quantity: %w", err)
+		}
+		k.MaxQuantity = value
 	}
 	return nil
 }
@@ -3079,6 +3098,14 @@ func (k *KeyboardButtonRequestPeer) GetPeerType() (value RequestPeerTypeClass) {
 		return
 	}
 	return k.PeerType
+}
+
+// GetMaxQuantity returns value of MaxQuantity field.
+func (k *KeyboardButtonRequestPeer) GetMaxQuantity() (value int) {
+	if k == nil {
+		return
+	}
+	return k.MaxQuantity
 }
 
 // KeyboardButtonClassName is schema name of KeyboardButtonClass.
@@ -3110,7 +3137,7 @@ const KeyboardButtonClassName = "KeyboardButton"
 //	case *tg.KeyboardButtonUserProfile: // keyboardButtonUserProfile#308660c1
 //	case *tg.KeyboardButtonWebView: // keyboardButtonWebView#13767230
 //	case *tg.KeyboardButtonSimpleWebView: // keyboardButtonSimpleWebView#a0c0505c
-//	case *tg.KeyboardButtonRequestPeer: // keyboardButtonRequestPeer#d0b468c
+//	case *tg.KeyboardButtonRequestPeer: // keyboardButtonRequestPeer#53d7bfd8
 //	default: panic(v)
 //	}
 type KeyboardButtonClass interface {
@@ -3248,7 +3275,7 @@ func DecodeKeyboardButton(buf *bin.Buffer) (KeyboardButtonClass, error) {
 		}
 		return &v, nil
 	case KeyboardButtonRequestPeerTypeID:
-		// Decoding keyboardButtonRequestPeer#d0b468c.
+		// Decoding keyboardButtonRequestPeer#53d7bfd8.
 		v := KeyboardButtonRequestPeer{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)

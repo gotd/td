@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentsCheckedGiftCode represents TL type `payments.checkedGiftCode#b722f158`.
+// PaymentsCheckedGiftCode represents TL type `payments.checkedGiftCode#284a1096`.
 //
 // See https://core.telegram.org/constructor/payments.checkedGiftCode for reference.
 type PaymentsCheckedGiftCode struct {
@@ -43,6 +43,8 @@ type PaymentsCheckedGiftCode struct {
 	// ViaGiveaway field of PaymentsCheckedGiftCode.
 	ViaGiveaway bool
 	// FromID field of PaymentsCheckedGiftCode.
+	//
+	// Use SetFromID and GetFromID helpers.
 	FromID PeerClass
 	// GiveawayMsgID field of PaymentsCheckedGiftCode.
 	//
@@ -67,7 +69,7 @@ type PaymentsCheckedGiftCode struct {
 }
 
 // PaymentsCheckedGiftCodeTypeID is TL type id of PaymentsCheckedGiftCode.
-const PaymentsCheckedGiftCodeTypeID = 0xb722f158
+const PaymentsCheckedGiftCodeTypeID = 0x284a1096
 
 // Ensuring interfaces in compile-time for PaymentsCheckedGiftCode.
 var (
@@ -127,7 +129,7 @@ func (c *PaymentsCheckedGiftCode) String() string {
 // FillFrom fills PaymentsCheckedGiftCode from given interface.
 func (c *PaymentsCheckedGiftCode) FillFrom(from interface {
 	GetViaGiveaway() (value bool)
-	GetFromID() (value PeerClass)
+	GetFromID() (value PeerClass, ok bool)
 	GetGiveawayMsgID() (value int, ok bool)
 	GetToID() (value int64, ok bool)
 	GetDate() (value int)
@@ -137,7 +139,10 @@ func (c *PaymentsCheckedGiftCode) FillFrom(from interface {
 	GetUsers() (value []UserClass)
 }) {
 	c.ViaGiveaway = from.GetViaGiveaway()
-	c.FromID = from.GetFromID()
+	if val, ok := from.GetFromID(); ok {
+		c.FromID = val
+	}
+
 	if val, ok := from.GetGiveawayMsgID(); ok {
 		c.GiveawayMsgID = val
 	}
@@ -187,6 +192,7 @@ func (c *PaymentsCheckedGiftCode) TypeInfo() tdp.Type {
 		{
 			Name:       "FromID",
 			SchemaName: "from_id",
+			Null:       !c.Flags.Has(4),
 		},
 		{
 			Name:       "GiveawayMsgID",
@@ -228,6 +234,9 @@ func (c *PaymentsCheckedGiftCode) SetFlags() {
 	if !(c.ViaGiveaway == false) {
 		c.Flags.Set(2)
 	}
+	if !(c.FromID == nil) {
+		c.Flags.Set(4)
+	}
 	if !(c.GiveawayMsgID == 0) {
 		c.Flags.Set(3)
 	}
@@ -242,7 +251,7 @@ func (c *PaymentsCheckedGiftCode) SetFlags() {
 // Encode implements bin.Encoder.
 func (c *PaymentsCheckedGiftCode) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode payments.checkedGiftCode#b722f158 as nil")
+		return fmt.Errorf("can't encode payments.checkedGiftCode#284a1096 as nil")
 	}
 	b.PutID(PaymentsCheckedGiftCodeTypeID)
 	return c.EncodeBare(b)
@@ -251,17 +260,19 @@ func (c *PaymentsCheckedGiftCode) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *PaymentsCheckedGiftCode) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode payments.checkedGiftCode#b722f158 as nil")
+		return fmt.Errorf("can't encode payments.checkedGiftCode#284a1096 as nil")
 	}
 	c.SetFlags()
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.checkedGiftCode#b722f158: field flags: %w", err)
+		return fmt.Errorf("unable to encode payments.checkedGiftCode#284a1096: field flags: %w", err)
 	}
-	if c.FromID == nil {
-		return fmt.Errorf("unable to encode payments.checkedGiftCode#b722f158: field from_id is nil")
-	}
-	if err := c.FromID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode payments.checkedGiftCode#b722f158: field from_id: %w", err)
+	if c.Flags.Has(4) {
+		if c.FromID == nil {
+			return fmt.Errorf("unable to encode payments.checkedGiftCode#284a1096: field from_id is nil")
+		}
+		if err := c.FromID.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode payments.checkedGiftCode#284a1096: field from_id: %w", err)
+		}
 	}
 	if c.Flags.Has(3) {
 		b.PutInt(c.GiveawayMsgID)
@@ -277,19 +288,19 @@ func (c *PaymentsCheckedGiftCode) EncodeBare(b *bin.Buffer) error {
 	b.PutVectorHeader(len(c.Chats))
 	for idx, v := range c.Chats {
 		if v == nil {
-			return fmt.Errorf("unable to encode payments.checkedGiftCode#b722f158: field chats element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode payments.checkedGiftCode#284a1096: field chats element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode payments.checkedGiftCode#b722f158: field chats element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode payments.checkedGiftCode#284a1096: field chats element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(c.Users))
 	for idx, v := range c.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode payments.checkedGiftCode#b722f158: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode payments.checkedGiftCode#284a1096: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode payments.checkedGiftCode#b722f158: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode payments.checkedGiftCode#284a1096: field users element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -298,10 +309,10 @@ func (c *PaymentsCheckedGiftCode) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (c *PaymentsCheckedGiftCode) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode payments.checkedGiftCode#b722f158 to nil")
+		return fmt.Errorf("can't decode payments.checkedGiftCode#284a1096 to nil")
 	}
 	if err := b.ConsumeID(PaymentsCheckedGiftCodeTypeID); err != nil {
-		return fmt.Errorf("unable to decode payments.checkedGiftCode#b722f158: %w", err)
+		return fmt.Errorf("unable to decode payments.checkedGiftCode#284a1096: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -309,60 +320,60 @@ func (c *PaymentsCheckedGiftCode) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *PaymentsCheckedGiftCode) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode payments.checkedGiftCode#b722f158 to nil")
+		return fmt.Errorf("can't decode payments.checkedGiftCode#284a1096 to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode payments.checkedGiftCode#b722f158: field flags: %w", err)
+			return fmt.Errorf("unable to decode payments.checkedGiftCode#284a1096: field flags: %w", err)
 		}
 	}
 	c.ViaGiveaway = c.Flags.Has(2)
-	{
+	if c.Flags.Has(4) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.checkedGiftCode#b722f158: field from_id: %w", err)
+			return fmt.Errorf("unable to decode payments.checkedGiftCode#284a1096: field from_id: %w", err)
 		}
 		c.FromID = value
 	}
 	if c.Flags.Has(3) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.checkedGiftCode#b722f158: field giveaway_msg_id: %w", err)
+			return fmt.Errorf("unable to decode payments.checkedGiftCode#284a1096: field giveaway_msg_id: %w", err)
 		}
 		c.GiveawayMsgID = value
 	}
 	if c.Flags.Has(0) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.checkedGiftCode#b722f158: field to_id: %w", err)
+			return fmt.Errorf("unable to decode payments.checkedGiftCode#284a1096: field to_id: %w", err)
 		}
 		c.ToID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.checkedGiftCode#b722f158: field date: %w", err)
+			return fmt.Errorf("unable to decode payments.checkedGiftCode#284a1096: field date: %w", err)
 		}
 		c.Date = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.checkedGiftCode#b722f158: field months: %w", err)
+			return fmt.Errorf("unable to decode payments.checkedGiftCode#284a1096: field months: %w", err)
 		}
 		c.Months = value
 	}
 	if c.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.checkedGiftCode#b722f158: field used_date: %w", err)
+			return fmt.Errorf("unable to decode payments.checkedGiftCode#284a1096: field used_date: %w", err)
 		}
 		c.UsedDate = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.checkedGiftCode#b722f158: field chats: %w", err)
+			return fmt.Errorf("unable to decode payments.checkedGiftCode#284a1096: field chats: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -371,7 +382,7 @@ func (c *PaymentsCheckedGiftCode) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChat(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode payments.checkedGiftCode#b722f158: field chats: %w", err)
+				return fmt.Errorf("unable to decode payments.checkedGiftCode#284a1096: field chats: %w", err)
 			}
 			c.Chats = append(c.Chats, value)
 		}
@@ -379,7 +390,7 @@ func (c *PaymentsCheckedGiftCode) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode payments.checkedGiftCode#b722f158: field users: %w", err)
+			return fmt.Errorf("unable to decode payments.checkedGiftCode#284a1096: field users: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -388,7 +399,7 @@ func (c *PaymentsCheckedGiftCode) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode payments.checkedGiftCode#b722f158: field users: %w", err)
+				return fmt.Errorf("unable to decode payments.checkedGiftCode#284a1096: field users: %w", err)
 			}
 			c.Users = append(c.Users, value)
 		}
@@ -415,12 +426,22 @@ func (c *PaymentsCheckedGiftCode) GetViaGiveaway() (value bool) {
 	return c.Flags.Has(2)
 }
 
-// GetFromID returns value of FromID field.
-func (c *PaymentsCheckedGiftCode) GetFromID() (value PeerClass) {
+// SetFromID sets value of FromID conditional field.
+func (c *PaymentsCheckedGiftCode) SetFromID(value PeerClass) {
+	c.Flags.Set(4)
+	c.FromID = value
+}
+
+// GetFromID returns value of FromID conditional field and
+// boolean which is true if field was set.
+func (c *PaymentsCheckedGiftCode) GetFromID() (value PeerClass, ok bool) {
 	if c == nil {
 		return
 	}
-	return c.FromID
+	if !c.Flags.Has(4) {
+		return value, false
+	}
+	return c.FromID, true
 }
 
 // SetGiveawayMsgID sets value of GiveawayMsgID conditional field.

@@ -1481,6 +1481,32 @@ func (s UpdateClassArray) AsUpdatePeerWallpaper() (to UpdatePeerWallpaperArray) 
 	return to
 }
 
+// AsUpdateBotMessageReaction returns copy with only UpdateBotMessageReaction constructors.
+func (s UpdateClassArray) AsUpdateBotMessageReaction() (to UpdateBotMessageReactionArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateBotMessageReaction)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateBotMessageReactions returns copy with only UpdateBotMessageReactions constructors.
+func (s UpdateClassArray) AsUpdateBotMessageReactions() (to UpdateBotMessageReactionsArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateBotMessageReactions)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // UpdateNewMessageArray is adapter for slice of UpdateNewMessage.
 type UpdateNewMessageArray []UpdateNewMessage
 
@@ -10327,4 +10353,196 @@ func (s *UpdatePeerWallpaperArray) Pop() (v UpdatePeerWallpaper, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// UpdateBotMessageReactionArray is adapter for slice of UpdateBotMessageReaction.
+type UpdateBotMessageReactionArray []UpdateBotMessageReaction
+
+// Sort sorts slice of UpdateBotMessageReaction.
+func (s UpdateBotMessageReactionArray) Sort(less func(a, b UpdateBotMessageReaction) bool) UpdateBotMessageReactionArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateBotMessageReaction.
+func (s UpdateBotMessageReactionArray) SortStable(less func(a, b UpdateBotMessageReaction) bool) UpdateBotMessageReactionArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateBotMessageReaction.
+func (s UpdateBotMessageReactionArray) Retain(keep func(x UpdateBotMessageReaction) bool) UpdateBotMessageReactionArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateBotMessageReactionArray) First() (v UpdateBotMessageReaction, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateBotMessageReactionArray) Last() (v UpdateBotMessageReaction, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateBotMessageReactionArray) PopFirst() (v UpdateBotMessageReaction, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateBotMessageReaction
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateBotMessageReactionArray) Pop() (v UpdateBotMessageReaction, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of UpdateBotMessageReaction by Date.
+func (s UpdateBotMessageReactionArray) SortByDate() UpdateBotMessageReactionArray {
+	return s.Sort(func(a, b UpdateBotMessageReaction) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of UpdateBotMessageReaction by Date.
+func (s UpdateBotMessageReactionArray) SortStableByDate() UpdateBotMessageReactionArray {
+	return s.SortStable(func(a, b UpdateBotMessageReaction) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// UpdateBotMessageReactionsArray is adapter for slice of UpdateBotMessageReactions.
+type UpdateBotMessageReactionsArray []UpdateBotMessageReactions
+
+// Sort sorts slice of UpdateBotMessageReactions.
+func (s UpdateBotMessageReactionsArray) Sort(less func(a, b UpdateBotMessageReactions) bool) UpdateBotMessageReactionsArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateBotMessageReactions.
+func (s UpdateBotMessageReactionsArray) SortStable(less func(a, b UpdateBotMessageReactions) bool) UpdateBotMessageReactionsArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateBotMessageReactions.
+func (s UpdateBotMessageReactionsArray) Retain(keep func(x UpdateBotMessageReactions) bool) UpdateBotMessageReactionsArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateBotMessageReactionsArray) First() (v UpdateBotMessageReactions, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateBotMessageReactionsArray) Last() (v UpdateBotMessageReactions, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateBotMessageReactionsArray) PopFirst() (v UpdateBotMessageReactions, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateBotMessageReactions
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateBotMessageReactionsArray) Pop() (v UpdateBotMessageReactions, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of UpdateBotMessageReactions by Date.
+func (s UpdateBotMessageReactionsArray) SortByDate() UpdateBotMessageReactionsArray {
+	return s.Sort(func(a, b UpdateBotMessageReactions) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of UpdateBotMessageReactions by Date.
+func (s UpdateBotMessageReactionsArray) SortStableByDate() UpdateBotMessageReactionsArray {
+	return s.SortStable(func(a, b UpdateBotMessageReactions) bool {
+		return a.GetDate() < b.GetDate()
+	})
 }
