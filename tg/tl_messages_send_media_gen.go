@@ -800,6 +800,7 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	403 CHAT_SEND_GIFS_FORBIDDEN: You can't send gifs in this chat.
 //	403 CHAT_SEND_MEDIA_FORBIDDEN: You can't send media in this chat.
 //	403 CHAT_SEND_PHOTOS_FORBIDDEN: You can't send photos in this chat.
+//	403 CHAT_SEND_PLAIN_FORBIDDEN: You can't send non-media (text) messages in this chat.
 //	403 CHAT_SEND_POLL_FORBIDDEN: You can't send polls in this chat.
 //	403 CHAT_SEND_STICKERS_FORBIDDEN: You can't send stickers in this chat.
 //	403 CHAT_SEND_VIDEOS_FORBIDDEN: You can't send videos in this chat.
@@ -821,6 +822,7 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 MEDIA_CAPTION_TOO_LONG: The caption is too long.
 //	400 MEDIA_EMPTY: The provided media object is invalid.
 //	400 MEDIA_INVALID: Media invalid.
+//	400 MESSAGE_EMPTY: The provided message is empty.
 //	400 MSG_ID_INVALID: Invalid message ID provided.
 //	400 PAYMENT_PROVIDER_INVALID: The specified payment provider is invalid.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
@@ -857,6 +859,8 @@ func (s *MessagesSendMediaRequest) MapEntities() (value MessageEntityClassArray,
 //	400 WEBDOCUMENT_MIME_INVALID: Invalid webdocument mime type provided.
 //	400 WEBPAGE_CURL_FAILED: Failure while fetching the webpage with cURL.
 //	400 WEBPAGE_MEDIA_EMPTY: Webpage media empty.
+//	400 WEBPAGE_NOT_FOUND: A preview for the specified webpage url could not be generated.
+//	400 WEBPAGE_URL_INVALID: The specified webpage url is invalid.
 //	400 YOU_BLOCKED_USER: You blocked this user.
 //
 // See https://core.telegram.org/method/messages.sendMedia for reference.

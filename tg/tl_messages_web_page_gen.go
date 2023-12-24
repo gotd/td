@@ -32,14 +32,15 @@ var (
 )
 
 // MessagesWebPage represents TL type `messages.webPage#fd5e12bd`.
+// Represents an Instant View webpage.
 //
 // See https://core.telegram.org/constructor/messages.webPage for reference.
 type MessagesWebPage struct {
-	// Webpage field of MessagesWebPage.
+	// The instant view webpage.
 	Webpage WebPageClass
-	// Chats field of MessagesWebPage.
+	// Chats mentioned in the webpage.
 	Chats []ChatClass
-	// Users field of MessagesWebPage.
+	// Users mentioned in the webpage.
 	Users []UserClass
 }
 

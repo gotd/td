@@ -32,6 +32,10 @@ var (
 )
 
 // PaymentsGetPremiumGiftCodeOptionsRequest represents TL type `payments.getPremiumGiftCodeOptions#2757ba54`.
+// Obtain a list of Telegram Premium giveaway/gift code »¹ options.
+//
+// Links:
+//  1. https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/method/payments.getPremiumGiftCodeOptions for reference.
 type PaymentsGetPremiumGiftCodeOptionsRequest struct {
@@ -40,7 +44,7 @@ type PaymentsGetPremiumGiftCodeOptionsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// BoostPeer field of PaymentsGetPremiumGiftCodeOptionsRequest.
+	// The channel that will start the giveaway
 	//
 	// Use SetBoostPeer and GetBoostPeer helpers.
 	BoostPeer InputPeerClass
@@ -208,6 +212,10 @@ func (g *PaymentsGetPremiumGiftCodeOptionsRequest) GetBoostPeer() (value InputPe
 }
 
 // PaymentsGetPremiumGiftCodeOptions invokes method payments.getPremiumGiftCodeOptions#2757ba54 returning error if any.
+// Obtain a list of Telegram Premium giveaway/gift code »¹ options.
+//
+// Links:
+//  1. https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/method/payments.getPremiumGiftCodeOptions for reference.
 func (c *Client) PaymentsGetPremiumGiftCodeOptions(ctx context.Context, request *PaymentsGetPremiumGiftCodeOptionsRequest) ([]PremiumGiftCodeOption, error) {

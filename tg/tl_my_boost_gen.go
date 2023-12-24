@@ -32,6 +32,10 @@ var (
 )
 
 // MyBoost represents TL type `myBoost#c448415c`.
+// Contains information about a single boost slot »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/boost
 //
 // See https://core.telegram.org/constructor/myBoost for reference.
 type MyBoost struct {
@@ -40,17 +44,25 @@ type MyBoost struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Slot field of MyBoost.
+	// Boost slot ID »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/boost
 	Slot int
-	// Peer field of MyBoost.
+	// If set, indicates this slot is currently occupied, i.e. we are boosting¹ this peer.
+	// Note that we can assign multiple boost slots to the same peer.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/boost
 	//
 	// Use SetPeer and GetPeer helpers.
 	Peer PeerClass
-	// Date field of MyBoost.
+	// When (unixtime) we started boosting the peer, 0 otherwise.
 	Date int
-	// Expires field of MyBoost.
+	// Indicates the (unixtime) expiration date of the boost in peer (0 if peer is not set).
 	Expires int
-	// CooldownUntilDate field of MyBoost.
+	// If peer is set, indicates the (unixtime) date after which this boost can be reassigned
+	// to another channel.
 	//
 	// Use SetCooldownUntilDate and GetCooldownUntilDate helpers.
 	CooldownUntilDate int

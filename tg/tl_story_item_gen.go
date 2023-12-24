@@ -468,7 +468,10 @@ type StoryItem struct {
 	ID int
 	// When was the story posted.
 	Date int
-	// FwdFrom field of StoryItem.
+	// For reposted stories »¹, contains info about the original story.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stories#reposting-stories
 	//
 	// Use SetFwdFrom and GetFwdFrom helpers.
 	FwdFrom StoryFwdHeader

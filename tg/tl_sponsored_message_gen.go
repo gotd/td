@@ -76,7 +76,10 @@ type SponsoredMessage struct {
 	//
 	// Use SetWebpage and GetWebpage helpers.
 	Webpage SponsoredWebPage
-	// App field of SponsoredMessage.
+	// Mini App »¹ to open when the sponsored message is clicked.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/bots/webapps
 	//
 	// Use SetApp and GetApp helpers.
 	App BotAppClass
@@ -89,7 +92,7 @@ type SponsoredMessage struct {
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// ButtonText field of SponsoredMessage.
+	// Text of the sponsored message button.
 	//
 	// Use SetButtonText and GetButtonText helpers.
 	ButtonText string

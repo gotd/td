@@ -441,7 +441,7 @@ func (s *MessagesSetChatWallPaperRequest) GetID() (value int, ok bool) {
 //
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 WALLPAPER_INVALID: The specified wallpaper is invalid.
-//	400 WALLPAPER_NOT_FOUND:
+//	400 WALLPAPER_NOT_FOUND: The specified wallpaper could not be found.
 //
 // See https://core.telegram.org/method/messages.setChatWallPaper for reference.
 // Can be used by bots.

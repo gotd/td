@@ -51,7 +51,7 @@ type MessageReplyHeader struct {
 	// Links:
 	//  1) https://core.telegram.org/api/forum#forum-topics
 	ForumTopic bool
-	// Quote field of MessageReplyHeader.
+	// Whether this message is quoting a part of another message.
 	Quote bool
 	// ID of message to which this message is replying
 	//
@@ -65,11 +65,13 @@ type MessageReplyHeader struct {
 	//
 	// Use SetReplyToPeerID and GetReplyToPeerID helpers.
 	ReplyToPeerID PeerClass
-	// ReplyFrom field of MessageReplyHeader.
+	// When replying to a message sent by a certain peer to another chat, contains info about
+	// the peer that originally sent the message to that other chat.
 	//
 	// Use SetReplyFrom and GetReplyFrom helpers.
 	ReplyFrom MessageFwdHeader
-	// ReplyMedia field of MessageReplyHeader.
+	// When replying to a media sent by a certain peer to another chat, contains the media of
+	// the replied-to message.
 	//
 	// Use SetReplyMedia and GetReplyMedia helpers.
 	ReplyMedia MessageMediaClass
@@ -80,18 +82,21 @@ type MessageReplyHeader struct {
 	//
 	// Use SetReplyToTopID and GetReplyToTopID helpers.
 	ReplyToTopID int
-	// QuoteText field of MessageReplyHeader.
+	// Used to quote-reply to only a certain section (specified here) of the original message.
 	//
 	// Use SetQuoteText and GetQuoteText helpers.
 	QuoteText string
-	// Message entities for styled text¹
+	// Message entities for styled text¹ from the quote_text field.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetQuoteEntities and GetQuoteEntities helpers.
 	QuoteEntities []MessageEntityClass
-	// QuoteOffset field of MessageReplyHeader.
+	// Offset of the message quote_text within the original message (in UTF-16 code units¹).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities#entity-length
 	//
 	// Use SetQuoteOffset and GetQuoteOffset helpers.
 	QuoteOffset int

@@ -54,7 +54,9 @@ type StickerSet struct {
 	Videos bool
 	// This is a custom emoji stickerset
 	Emojis bool
-	// TextColor field of StickerSet.
+	// Whether the color of this TGS custom emoji stickerset should be changed to the text
+	// color when used in messages, the accent color if used as emoji status, white on chat
+	// photos, or another appropriate color based on context.
 	TextColor bool
 	// ChannelEmojiStatus field of StickerSet.
 	ChannelEmojiStatus bool

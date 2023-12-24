@@ -32,6 +32,11 @@ var (
 )
 
 // StatsPublicForwards represents TL type `stats.publicForwards#93037e20`.
+// Contains info about the forwards of a story¹ as a message to public chats and reposts
+// by public channels.
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/stats.publicForwards for reference.
 type StatsPublicForwards struct {
@@ -40,17 +45,20 @@ type StatsPublicForwards struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Count field of StatsPublicForwards.
+	// Total number of results
 	Count int
-	// Forwards field of StatsPublicForwards.
+	// Info about the forwards of a story.
 	Forwards []PublicForwardClass
-	// NextOffset field of StatsPublicForwards.
+	// Offset used for pagination¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string
-	// Chats field of StatsPublicForwards.
+	// Mentioned chats
 	Chats []ChatClass
-	// Users field of StatsPublicForwards.
+	// Mentioned users
 	Users []UserClass
 }
 

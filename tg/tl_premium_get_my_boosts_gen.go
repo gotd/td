@@ -32,6 +32,12 @@ var (
 )
 
 // PremiumGetMyBoostsRequest represents TL type `premium.getMyBoosts#be77b4a`.
+// Obtain which peers are we currently boosting¹, and how many boost slots² we have
+// left.
+//
+// Links:
+//  1. https://core.telegram.org/api/boost
+//  2. https://core.telegram.org/api/boost
 //
 // See https://core.telegram.org/method/premium.getMyBoosts for reference.
 type PremiumGetMyBoostsRequest struct {
@@ -128,6 +134,12 @@ func (g *PremiumGetMyBoostsRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // PremiumGetMyBoosts invokes method premium.getMyBoosts#be77b4a returning error if any.
+// Obtain which peers are we currently boosting¹, and how many boost slots² we have
+// left.
+//
+// Links:
+//  1. https://core.telegram.org/api/boost
+//  2. https://core.telegram.org/api/boost
 //
 // See https://core.telegram.org/method/premium.getMyBoosts for reference.
 func (c *Client) PremiumGetMyBoosts(ctx context.Context) (*PremiumMyBoosts, error) {

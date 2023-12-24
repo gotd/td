@@ -612,6 +612,11 @@ func (r *MessagesRequestWebViewRequest) GetSendAs() (value InputPeerClass, ok bo
 //  1. https://core.telegram.org/bots/webapps
 //  2. https://core.telegram.org/method/messages.prolongWebView
 //
+// Possible errors:
+//
+//	400 BOT_INVALID: This is not a valid bot.
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/messages.requestWebView for reference.
 func (c *Client) MessagesRequestWebView(ctx context.Context, request *MessagesRequestWebViewRequest) (*WebViewResultURL, error) {
 	var result WebViewResultURL

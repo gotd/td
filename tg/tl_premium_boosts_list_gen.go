@@ -32,6 +32,10 @@ var (
 )
 
 // PremiumBoostsList represents TL type `premium.boostsList#86f8613c`.
+// List of boosts¹ that were applied to a peer by multiple users.
+//
+// Links:
+//  1. https://core.telegram.org/api/boost
 //
 // See https://core.telegram.org/constructor/premium.boostsList for reference.
 type PremiumBoostsList struct {
@@ -40,15 +44,21 @@ type PremiumBoostsList struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Count field of PremiumBoostsList.
+	// Total number of results
 	Count int
-	// Boosts field of PremiumBoostsList.
+	// Boosts¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/boost
 	Boosts []Boost
-	// NextOffset field of PremiumBoostsList.
+	// Offset that can be used for pagination¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string
-	// Users field of PremiumBoostsList.
+	// Mentioned users
 	Users []UserClass
 }
 

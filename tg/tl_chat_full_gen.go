@@ -1092,7 +1092,15 @@ type ChannelFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/stories#pinned-or-archived-stories
 	StoriesPinnedAvailable bool
-	// ViewForumAsMessages field of ChannelFull.
+	// Users may also choose to display messages from all topics of a forum¹ as if they were
+	// sent to a normal group, using a "View as messages" setting in the local client.  This
+	// setting only affects the current account, and is synced to other logged in sessions
+	// using the channels.toggleViewForumAsMessages² method; invoking this method will
+	// update the value of this flag.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/forum
+	//  2) https://core.telegram.org/method/channels.toggleViewForumAsMessages
 	ViewForumAsMessages bool
 	// ID of the channel
 	ID int64

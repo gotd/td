@@ -228,7 +228,10 @@ type ChatInvite struct {
 	//
 	// Use SetParticipants and GetParticipants helpers.
 	Participants []UserClass
-	// Color field of ChatInvite.
+	// Profile color palette ID¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/colors
 	Color int
 }
 

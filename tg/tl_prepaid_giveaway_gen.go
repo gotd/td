@@ -32,16 +32,26 @@ var (
 )
 
 // PrepaidGiveaway represents TL type `prepaidGiveaway#b2539d54`.
+// Contains info about a prepaid giveaway »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/constructor/prepaidGiveaway for reference.
 type PrepaidGiveaway struct {
-	// ID field of PrepaidGiveaway.
+	// Prepaid giveaway ID.
 	ID int64
-	// Months field of PrepaidGiveaway.
+	// Duration in months of each gifted Telegram Premium¹ subscription.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
 	Months int
-	// Quantity field of PrepaidGiveaway.
+	// Number of given away Telegram Premium¹ subscriptions.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
 	Quantity int
-	// Date field of PrepaidGiveaway.
+	// Payment date.
 	Date int
 }
 

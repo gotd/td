@@ -43,7 +43,7 @@ type WebPageEmpty struct {
 	Flags bin.Fields
 	// Preview ID
 	ID int64
-	// URL field of WebPageEmpty.
+	// URL of the webpage.
 	//
 	// Use SetURL and GetURL helpers.
 	URL string
@@ -247,7 +247,7 @@ type WebPagePending struct {
 	Flags bin.Fields
 	// ID of preview
 	ID int64
-	// URL field of WebPagePending.
+	// URL of the webpage
 	//
 	// Use SetURL and GetURL helpers.
 	URL string
@@ -476,7 +476,7 @@ type WebPage struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// HasLargeMedia field of WebPage.
+	// Whether the size of the media in the preview can be changed.
 	HasLargeMedia bool
 	// Preview ID
 	ID int64

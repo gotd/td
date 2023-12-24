@@ -244,7 +244,10 @@ func (g *PaymentsGetPaymentFormRequest) GetThemeParams() (value DataJSON, ok boo
 //
 // Possible errors:
 //
+//	400 BOOST_PEER_INVALID: The specified boost_peer is invalid.
 //	400 MESSAGE_ID_INVALID: The provided message id is invalid.
+//	400 SLUG_INVALID: The specified invoice slug is invalid.
+//	400 UNTIL_DATE_INVALID: Invalid until date provided.
 //
 // See https://core.telegram.org/method/payments.getPaymentForm for reference.
 func (c *Client) PaymentsGetPaymentForm(ctx context.Context, request *PaymentsGetPaymentFormRequest) (*PaymentsPaymentForm, error) {

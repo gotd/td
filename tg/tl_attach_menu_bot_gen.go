@@ -53,10 +53,7 @@ type AttachMenuBot struct {
 	// Links:
 	//  1) https://core.telegram.org/method/messages.toggleBotInAttachMenu
 	Inactive bool
-	// True, if the bot supports the "settings_button_pressed" event »¹
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/bots/webapps#settings-button-pressed
+	// Deprecated flag, can be ignored.
 	HasSettings bool
 	// Whether the bot would like to send messages to the user.
 	RequestWriteAccess bool

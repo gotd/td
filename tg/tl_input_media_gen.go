@@ -4218,6 +4218,8 @@ func (i *InputMediaStory) GetID() (value int) {
 }
 
 // InputMediaWebPage represents TL type `inputMediaWebPage#c21b8849`.
+// Specifies options that will be used to generate the link preview for the caption, or
+// even a standalone link preview without an attached message.
 //
 // See https://core.telegram.org/constructor/inputMediaWebPage for reference.
 type InputMediaWebPage struct {
@@ -4226,13 +4228,16 @@ type InputMediaWebPage struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ForceLargeMedia field of InputMediaWebPage.
+	// If set, specifies that a large media preview should be used.
 	ForceLargeMedia bool
-	// ForceSmallMedia field of InputMediaWebPage.
+	// If set, specifies that a small media preview should be used.
 	ForceSmallMedia bool
-	// Optional field of InputMediaWebPage.
+	// If not set, a WEBPAGE_NOT_FOUND RPC error will be emitted if a webpage preview cannot
+	// be generated for the specified url; otherwise, no error will be emitted (unless the
+	// provided message is also empty, in which case a MESSAGE_EMPTY will be emitted,
+	// instead).
 	Optional bool
-	// URL field of InputMediaWebPage.
+	// The URL to use for the link preview.
 	URL string
 }
 

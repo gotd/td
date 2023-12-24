@@ -448,6 +448,7 @@ func (g *StoriesGetStoryViewsListRequest) GetLimit() (value int) {
 // Possible errors:
 //
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 STORY_ID_INVALID: The specified story ID is invalid.
 //
 // See https://core.telegram.org/method/stories.getStoryViewsList for reference.
 func (c *Client) StoriesGetStoryViewsList(ctx context.Context, request *StoriesGetStoryViewsListRequest) (*StoriesStoryViewsList, error) {

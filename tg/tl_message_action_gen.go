@@ -6657,9 +6657,21 @@ type MessageActionSetChatWallPaper struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Same field of MessageActionSetChatWallPaper.
+	// If set, indicates the user applied a wallpaper »¹ previously sent by the other user
+	// in a messageActionSetChatWallPaper² message.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers
+	//  2) https://core.telegram.org/constructor/messageActionSetChatWallPaper
 	Same bool
-	// ForBoth field of MessageActionSetChatWallPaper.
+	// If set, indicates the wallpaper was forcefully applied for both sides, without
+	// explicit confirmation from the other side. If the message is incoming, and we did not
+	// like the new wallpaper the other user has chosen for us, we can re-set our previous
+	// wallpaper just on our side, by invoking messages.setChatWallPaper¹, providing only
+	// the revert flag (and obviously the peer parameter).
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.setChatWallPaper
 	ForBoth bool
 	// New wallpaper¹
 	//
@@ -6882,6 +6894,10 @@ func (m *MessageActionSetChatWallPaper) GetWallpaper() (value WallPaperClass) {
 }
 
 // MessageActionGiftCode represents TL type `messageActionGiftCode#678c2e09`.
+// Contains a Telegram Premium giftcode link¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/links#premium-giftcode-links
 //
 // See https://core.telegram.org/constructor/messageActionGiftCode for reference.
 type MessageActionGiftCode struct {
@@ -6890,17 +6906,36 @@ type MessageActionGiftCode struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ViaGiveaway field of MessageActionGiftCode.
+	// If set, this gift code was received from a giveaway »¹ started by a channel we're
+	// subscribed to.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/giveaways
 	ViaGiveaway bool
-	// Unclaimed field of MessageActionGiftCode.
+	// If set, the link was not redeemed¹ yet.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#premium-giftcode-links
 	Unclaimed bool
-	// BoostPeer field of MessageActionGiftCode.
+	// Identifier of the channel that created the gift code either directly or through a
+	// giveaway¹: if we import this giftcode link, we will also automatically boost² this
+	// channel.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/giveaways
+	//  2) https://core.telegram.org/api/boost
 	//
 	// Use SetBoostPeer and GetBoostPeer helpers.
 	BoostPeer PeerClass
-	// Months field of MessageActionGiftCode.
+	// Duration in months of the gifted Telegram Premium subscription¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
 	Months int
-	// Slug field of MessageActionGiftCode.
+	// Slug of the Telegram Premium giftcode link¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#premium-giftcode-links
 	Slug string
 	// Currency field of MessageActionGiftCode.
 	//
@@ -7379,6 +7414,10 @@ func (m *MessageActionGiftCode) GetCryptoAmount() (value int64, ok bool) {
 }
 
 // MessageActionGiveawayLaunch represents TL type `messageActionGiveawayLaunch#332ba9ed`.
+// A giveaway¹ was started.
+//
+// Links:
+//  1. https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/constructor/messageActionGiveawayLaunch for reference.
 type MessageActionGiveawayLaunch struct {
@@ -7480,12 +7519,16 @@ func (m *MessageActionGiveawayLaunch) DecodeBare(b *bin.Buffer) error {
 }
 
 // MessageActionGiveawayResults represents TL type `messageActionGiveawayResults#2a9fadc5`.
+// A giveaway¹ has ended.
+//
+// Links:
+//  1. https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/constructor/messageActionGiveawayResults for reference.
 type MessageActionGiveawayResults struct {
-	// WinnersCount field of MessageActionGiveawayResults.
+	// Number of winners in the giveaway
 	WinnersCount int
-	// UnclaimedCount field of MessageActionGiveawayResults.
+	// Number of undistributed prizes
 	UnclaimedCount int
 }
 

@@ -32,7 +32,7 @@ var (
 )
 
 // HelpGetPeerProfileColorsRequest represents TL type `help.getPeerProfileColors#abcfa9fd`.
-// Get the set of accent color palettes »¹ that can be used for profiles
+// Get the set of accent color palettes »¹ that can be used in profile page backgrounds.
 //
 // Links:
 //  1. https://core.telegram.org/api/colors
@@ -168,7 +168,7 @@ func (g *HelpGetPeerProfileColorsRequest) GetHash() (value int) {
 }
 
 // HelpGetPeerProfileColors invokes method help.getPeerProfileColors#abcfa9fd returning error if any.
-// Get the set of accent color palettes »¹ that can be used for profiles
+// Get the set of accent color palettes »¹ that can be used in profile page backgrounds.
 //
 // Links:
 //  1. https://core.telegram.org/api/colors

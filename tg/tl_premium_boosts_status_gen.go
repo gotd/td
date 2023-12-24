@@ -32,6 +32,10 @@ var (
 )
 
 // PremiumBoostsStatus represents TL type `premium.boostsStatus#4959427a`.
+// Contains info about the current boost status¹ of a peer.
+//
+// Links:
+//  1. https://core.telegram.org/api/boost
 //
 // See https://core.telegram.org/constructor/premium.boostsStatus for reference.
 type PremiumBoostsStatus struct {
@@ -40,33 +44,50 @@ type PremiumBoostsStatus struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// MyBoost field of PremiumBoostsStatus.
+	// Whether we're currently boosting this channel, my_boost_slots will also be set.
 	MyBoost bool
-	// Level field of PremiumBoostsStatus.
+	// The current boost level of the channel.
 	Level int
-	// CurrentLevelBoosts field of PremiumBoostsStatus.
+	// The number of boosts acquired so far in the current level.
 	CurrentLevelBoosts int
-	// Boosts field of PremiumBoostsStatus.
+	// Total number of boosts acquired so far.
 	Boosts int
-	// GiftBoosts field of PremiumBoostsStatus.
+	// The number of boosts acquired from created Telegram Premium gift codes¹ and
+	// giveaways²; only returned to channel admins.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/giveaways
+	//  2) https://core.telegram.org/api/giveaways
 	//
 	// Use SetGiftBoosts and GetGiftBoosts helpers.
 	GiftBoosts int
-	// NextLevelBoosts field of PremiumBoostsStatus.
+	// Total number of boosts needed to reach the next level; if absent, the next level isn't
+	// available.
 	//
 	// Use SetNextLevelBoosts and GetNextLevelBoosts helpers.
 	NextLevelBoosts int
-	// PremiumAudience field of PremiumBoostsStatus.
+	// Only returned to channel admins: contains the approximated number of Premium users
+	// subscribed to the channel, related to the total number of subscribers.
 	//
 	// Use SetPremiumAudience and GetPremiumAudience helpers.
 	PremiumAudience StatsPercentValue
-	// BoostURL field of PremiumBoostsStatus.
+	// Boost deep link »¹ that can be used to boost the chat.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/links#boost-links
 	BoostURL string
-	// PrepaidGiveaways field of PremiumBoostsStatus.
+	// A list of prepaid giveaways¹ available for the chat; only returned to channel admins.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/giveaways
 	//
 	// Use SetPrepaidGiveaways and GetPrepaidGiveaways helpers.
 	PrepaidGiveaways []PrepaidGiveaway
-	// MyBoostSlots field of PremiumBoostsStatus.
+	// Indicates which of our boost slots¹ we've assigned to this peer (populated if
+	// my_boost is set).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/boost
 	//
 	// Use SetMyBoostSlots and GetMyBoostSlots helpers.
 	MyBoostSlots []int

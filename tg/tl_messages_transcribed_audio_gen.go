@@ -55,11 +55,21 @@ type MessagesTranscribedAudio struct {
 	TranscriptionID int64
 	// Transcripted text
 	Text string
-	// TrialRemainsNum field of MessagesTranscribedAudio.
+	// For non-Premium¹ users, this flag will be set, indicating the remaining
+	// transcriptions in the free trial period.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
 	//
 	// Use SetTrialRemainsNum and GetTrialRemainsNum helpers.
 	TrialRemainsNum int
-	// TrialRemainsUntilDate field of MessagesTranscribedAudio.
+	// For non-Premium¹ users, this flag will be set, indicating the date when the
+	// trial_remains_num counter will be reset to the maximum value of
+	// transcribe_audio_trial_weekly_number².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
+	//  2) https://core.telegram.org/api/config#transcribe-audio-trial-weekly-number
 	//
 	// Use SetTrialRemainsUntilDate and GetTrialRemainsUntilDate helpers.
 	TrialRemainsUntilDate int

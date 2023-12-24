@@ -32,12 +32,18 @@ var (
 )
 
 // StatsStoryStats represents TL type `stats.storyStats#50cd067c`.
+// Contains statistics¹ about a story².
+//
+// Links:
+//  1. https://core.telegram.org/api/stats
+//  2. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/stats.storyStats for reference.
 type StatsStoryStats struct {
-	// ViewsGraph field of StatsStoryStats.
+	// A graph containing the number of story views and shares
 	ViewsGraph StatsGraphClass
-	// ReactionsByEmotionGraph field of StatsStoryStats.
+	// A bar graph containing the number of story reactions categorized by "emotion" (i.e.
+	// Positive, Negative, Other, etc...)
 	ReactionsByEmotionGraph StatsGraphClass
 }
 

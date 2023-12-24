@@ -2141,6 +2141,8 @@ func (b *BotInlineMessageMediaInvoice) GetReplyMarkup() (value ReplyMarkupClass,
 }
 
 // BotInlineMessageMediaWebPage represents TL type `botInlineMessageMediaWebPage#809ad9a6`.
+// Specifies options that must be used to generate the link preview for the message, or
+// even a standalone link preview without an attached message.
 //
 // See https://core.telegram.org/constructor/botInlineMessageMediaWebPage for reference.
 type BotInlineMessageMediaWebPage struct {
@@ -2152,15 +2154,20 @@ type BotInlineMessageMediaWebPage struct {
 	// If set, any eventual webpage preview will be shown on top of the message instead of at
 	// the bottom.
 	InvertMedia bool
-	// ForceLargeMedia field of BotInlineMessageMediaWebPage.
+	// If set, specifies that a large media preview should be used.
 	ForceLargeMedia bool
-	// ForceSmallMedia field of BotInlineMessageMediaWebPage.
+	// If set, specifies that a small media preview should be used.
 	ForceSmallMedia bool
-	// Manual field of BotInlineMessageMediaWebPage.
+	// If set, indicates that the URL used for the webpage preview was specified manually
+	// using inputMediaWebPage¹, and may not be related to any of the URLs specified in the
+	// message.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputMediaWebPage
 	Manual bool
-	// Safe field of BotInlineMessageMediaWebPage.
+	// If set, the link can be opened directly without user confirmation.
 	Safe bool
-	// Message field of BotInlineMessageMediaWebPage.
+	// The message, can be empty.
 	Message string
 	// Message entities for styled text¹
 	//
@@ -2169,9 +2176,9 @@ type BotInlineMessageMediaWebPage struct {
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// URL field of BotInlineMessageMediaWebPage.
+	// The URL to use for the link preview.
 	URL string
-	// ReplyMarkup field of BotInlineMessageMediaWebPage.
+	// Reply markup for sending bot buttons
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass

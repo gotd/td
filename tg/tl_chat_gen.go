@@ -1093,7 +1093,7 @@ type Channel struct {
 	// Links:
 	//  1) https://core.telegram.org/method/channels.getChannels
 	StoriesHiddenMin bool
-	// StoriesUnavailable field of Channel.
+	// No stories from the channel are visible.
 	StoriesUnavailable bool
 	// ID of the channel
 	ID int64
@@ -1152,7 +1152,10 @@ type Channel struct {
 	//
 	// Use SetStoriesMaxID and GetStoriesMaxID helpers.
 	StoriesMaxID int
-	// Color field of Channel.
+	// The channel's accent color¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/colors
 	//
 	// Use SetColor and GetColor helpers.
 	Color PeerColor

@@ -32,6 +32,10 @@ var (
 )
 
 // Boost represents TL type `boost#2a1c8c71`.
+// Info about one or more boosts¹ applied by a specific user.
+//
+// Links:
+//  1. https://core.telegram.org/api/boost
 //
 // See https://core.telegram.org/constructor/boost for reference.
 type Boost struct {
@@ -40,31 +44,49 @@ type Boost struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Gift field of Boost.
+	// Whether this boost was applied because the channel directly gifted a subscription to
+	// the user¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/giveaways
 	Gift bool
-	// Giveaway field of Boost.
+	// Whether this boost was applied because the user was chosen in a giveaway started by
+	// the channel¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/giveaways
 	Giveaway bool
-	// Unclaimed field of Boost.
+	// If set, the user hasn't yet invoked payments.applyGiftCode¹ to claim a subscription
+	// gifted directly or in a giveaway by the channel².
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/payments.applyGiftCode
+	//  2) https://core.telegram.org/api/giveaways
 	Unclaimed bool
-	// ID field of Boost.
+	// Unique ID for this set of boosts.
 	ID string
-	// UserID field of Boost.
+	// ID of the user that applied the boost.
 	//
 	// Use SetUserID and GetUserID helpers.
 	UserID int64
-	// GiveawayMsgID field of Boost.
+	// The message ID of the giveaway¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/giveaways
 	//
 	// Use SetGiveawayMsgID and GetGiveawayMsgID helpers.
 	GiveawayMsgID int
-	// Date field of Boost.
+	// When was the boost applied
 	Date int
-	// Expires field of Boost.
+	// When does the boost expire
 	Expires int
-	// UsedGiftSlug field of Boost.
+	// The created Telegram Premium gift code, only set if either gift or giveaway are set
+	// AND it is either a gift code for the currently logged in user or if it was already
+	// claimed.
 	//
 	// Use SetUsedGiftSlug and GetUsedGiftSlug helpers.
 	UsedGiftSlug string
-	// Multiplier field of Boost.
+	// If set, this boost counts as multiplier boosts, otherwise it counts as a single boost.
 	//
 	// Use SetMultiplier and GetMultiplier helpers.
 	Multiplier int

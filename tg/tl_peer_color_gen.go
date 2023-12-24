@@ -32,6 +32,10 @@ var (
 )
 
 // PeerColor represents TL type `peerColor#b54b5acf`.
+// Represents a color palette »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/constructor/peerColor for reference.
 type PeerColor struct {
@@ -40,11 +44,17 @@ type PeerColor struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Color field of PeerColor.
+	// Color palette ID, see here »¹ for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/colors
 	//
 	// Use SetColor and GetColor helpers.
 	Color int
-	// BackgroundEmojiID field of PeerColor.
+	// Custom emoji ID¹ used to generate the pattern.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/custom-emoji
 	//
 	// Use SetBackgroundEmojiID and GetBackgroundEmojiID helpers.
 	BackgroundEmojiID int64

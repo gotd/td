@@ -342,12 +342,31 @@ func (i *InputInvoiceSlug) GetSlug() (value string) {
 }
 
 // InputInvoicePremiumGiftCode represents TL type `inputInvoicePremiumGiftCode#98986c0d`.
+// Used if the user wishes to start a channel giveaway¹ or send some giftcodes² to
+// members of a channel, in exchange for boosts³.
+//
+// Links:
+//  1. https://core.telegram.org/api/giveaways
+//  2. https://core.telegram.org/api/giveaways
+//  3. https://core.telegram.org/api/boost
 //
 // See https://core.telegram.org/constructor/inputInvoicePremiumGiftCode for reference.
 type InputInvoicePremiumGiftCode struct {
-	// Purpose field of InputInvoicePremiumGiftCode.
+	// Should be populated with inputStorePaymentPremiumGiveaway¹ for giveaways² and
+	// inputStorePaymentPremiumGiftCode³ for gifts⁴.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputStorePaymentPremiumGiveaway
+	//  2) https://core.telegram.org/api/giveaways
+	//  3) https://core.telegram.org/constructor/inputStorePaymentPremiumGiftCode
+	//  4) https://core.telegram.org/api/giveaways
 	Purpose InputStorePaymentPurposeClass
-	// Option field of InputInvoicePremiumGiftCode.
+	// Should be populated with one of the giveaway options returned by payments
+	// getPremiumGiftCodeOptions¹, see the giveaways »² documentation for more info.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/payments.getPremiumGiftCodeOptions
+	//  2) https://core.telegram.org/api/giveaways
 	Option PremiumGiftCodeOption
 }
 
