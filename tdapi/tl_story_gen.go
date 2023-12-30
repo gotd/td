@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// Story represents TL type `story#29dd2b0d`.
+// Story represents TL type `story#8e358ca2`.
 type Story struct {
 	// Unique story identifier among stories of the given sender
 	ID int32
@@ -63,8 +63,8 @@ type Story struct {
 	CanToggleIsPinned bool
 	// True, if the story statistics are available through getStoryStatistics
 	CanGetStatistics bool
-	// True, if users viewed the story can be received through getStoryViewers
-	CanGetViewers bool
+	// True, if interactions with the story can be received through getStoryInteractions
+	CanGetInteractions bool
 	// True, if users viewed the story can't be received, because the story has expired more
 	// than getOption("story_viewers_expiration_delay") seconds ago
 	HasExpiredViewers bool
@@ -86,7 +86,7 @@ type Story struct {
 }
 
 // StoryTypeID is TL type id of Story.
-const StoryTypeID = 0x29dd2b0d
+const StoryTypeID = 0x8e358ca2
 
 // Ensuring interfaces in compile-time for Story.
 var (
@@ -142,7 +142,7 @@ func (s *Story) Zero() bool {
 	if !(s.CanGetStatistics == false) {
 		return false
 	}
-	if !(s.CanGetViewers == false) {
+	if !(s.CanGetInteractions == false) {
 		return false
 	}
 	if !(s.HasExpiredViewers == false) {
@@ -262,8 +262,8 @@ func (s *Story) TypeInfo() tdp.Type {
 			SchemaName: "can_get_statistics",
 		},
 		{
-			Name:       "CanGetViewers",
-			SchemaName: "can_get_viewers",
+			Name:       "CanGetInteractions",
+			SchemaName: "can_get_interactions",
 		},
 		{
 			Name:       "HasExpiredViewers",
@@ -304,7 +304,7 @@ func (s *Story) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *Story) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode story#29dd2b0d as nil")
+		return fmt.Errorf("can't encode story#8e358ca2 as nil")
 	}
 	b.PutID(StoryTypeID)
 	return s.EncodeBare(b)
@@ -313,7 +313,7 @@ func (s *Story) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *Story) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode story#29dd2b0d as nil")
+		return fmt.Errorf("can't encode story#8e358ca2 as nil")
 	}
 	b.PutInt32(s.ID)
 	b.PutInt53(s.SenderChatID)
@@ -329,40 +329,40 @@ func (s *Story) EncodeBare(b *bin.Buffer) error {
 	b.PutBool(s.CanBeReplied)
 	b.PutBool(s.CanToggleIsPinned)
 	b.PutBool(s.CanGetStatistics)
-	b.PutBool(s.CanGetViewers)
+	b.PutBool(s.CanGetInteractions)
 	b.PutBool(s.HasExpiredViewers)
 	if err := s.RepostInfo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode story#29dd2b0d: field repost_info: %w", err)
+		return fmt.Errorf("unable to encode story#8e358ca2: field repost_info: %w", err)
 	}
 	if err := s.InteractionInfo.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode story#29dd2b0d: field interaction_info: %w", err)
+		return fmt.Errorf("unable to encode story#8e358ca2: field interaction_info: %w", err)
 	}
 	if s.ChosenReactionType == nil {
-		return fmt.Errorf("unable to encode story#29dd2b0d: field chosen_reaction_type is nil")
+		return fmt.Errorf("unable to encode story#8e358ca2: field chosen_reaction_type is nil")
 	}
 	if err := s.ChosenReactionType.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode story#29dd2b0d: field chosen_reaction_type: %w", err)
+		return fmt.Errorf("unable to encode story#8e358ca2: field chosen_reaction_type: %w", err)
 	}
 	if s.PrivacySettings == nil {
-		return fmt.Errorf("unable to encode story#29dd2b0d: field privacy_settings is nil")
+		return fmt.Errorf("unable to encode story#8e358ca2: field privacy_settings is nil")
 	}
 	if err := s.PrivacySettings.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode story#29dd2b0d: field privacy_settings: %w", err)
+		return fmt.Errorf("unable to encode story#8e358ca2: field privacy_settings: %w", err)
 	}
 	if s.Content == nil {
-		return fmt.Errorf("unable to encode story#29dd2b0d: field content is nil")
+		return fmt.Errorf("unable to encode story#8e358ca2: field content is nil")
 	}
 	if err := s.Content.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode story#29dd2b0d: field content: %w", err)
+		return fmt.Errorf("unable to encode story#8e358ca2: field content: %w", err)
 	}
 	b.PutInt(len(s.Areas))
 	for idx, v := range s.Areas {
 		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare story#29dd2b0d: field areas element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode bare story#8e358ca2: field areas element with index %d: %w", idx, err)
 		}
 	}
 	if err := s.Caption.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode story#29dd2b0d: field caption: %w", err)
+		return fmt.Errorf("unable to encode story#8e358ca2: field caption: %w", err)
 	}
 	return nil
 }
@@ -370,10 +370,10 @@ func (s *Story) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *Story) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode story#29dd2b0d to nil")
+		return fmt.Errorf("can't decode story#8e358ca2 to nil")
 	}
 	if err := b.ConsumeID(StoryTypeID); err != nil {
-		return fmt.Errorf("unable to decode story#29dd2b0d: %w", err)
+		return fmt.Errorf("unable to decode story#8e358ca2: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -381,155 +381,155 @@ func (s *Story) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *Story) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode story#29dd2b0d to nil")
+		return fmt.Errorf("can't decode story#8e358ca2 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field id: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field id: %w", err)
 		}
 		s.ID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field sender_chat_id: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field sender_chat_id: %w", err)
 		}
 		s.SenderChatID = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field date: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field date: %w", err)
 		}
 		s.Date = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field is_being_sent: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field is_being_sent: %w", err)
 		}
 		s.IsBeingSent = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field is_being_edited: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field is_being_edited: %w", err)
 		}
 		s.IsBeingEdited = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field is_edited: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field is_edited: %w", err)
 		}
 		s.IsEdited = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field is_pinned: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field is_pinned: %w", err)
 		}
 		s.IsPinned = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field is_visible_only_for_self: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field is_visible_only_for_self: %w", err)
 		}
 		s.IsVisibleOnlyForSelf = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field can_be_deleted: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field can_be_deleted: %w", err)
 		}
 		s.CanBeDeleted = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field can_be_edited: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field can_be_edited: %w", err)
 		}
 		s.CanBeEdited = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field can_be_forwarded: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field can_be_forwarded: %w", err)
 		}
 		s.CanBeForwarded = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field can_be_replied: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field can_be_replied: %w", err)
 		}
 		s.CanBeReplied = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field can_toggle_is_pinned: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field can_toggle_is_pinned: %w", err)
 		}
 		s.CanToggleIsPinned = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field can_get_statistics: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field can_get_statistics: %w", err)
 		}
 		s.CanGetStatistics = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field can_get_viewers: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field can_get_interactions: %w", err)
 		}
-		s.CanGetViewers = value
+		s.CanGetInteractions = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field has_expired_viewers: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field has_expired_viewers: %w", err)
 		}
 		s.HasExpiredViewers = value
 	}
 	{
 		if err := s.RepostInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field repost_info: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field repost_info: %w", err)
 		}
 	}
 	{
 		if err := s.InteractionInfo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field interaction_info: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field interaction_info: %w", err)
 		}
 	}
 	{
 		value, err := DecodeReactionType(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field chosen_reaction_type: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field chosen_reaction_type: %w", err)
 		}
 		s.ChosenReactionType = value
 	}
 	{
 		value, err := DecodeStoryPrivacySettings(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field privacy_settings: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field privacy_settings: %w", err)
 		}
 		s.PrivacySettings = value
 	}
 	{
 		value, err := DecodeStoryContent(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field content: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field content: %w", err)
 		}
 		s.Content = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field areas: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field areas: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -538,14 +538,14 @@ func (s *Story) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			var value StoryArea
 			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare story#29dd2b0d: field areas: %w", err)
+				return fmt.Errorf("unable to decode bare story#8e358ca2: field areas: %w", err)
 			}
 			s.Areas = append(s.Areas, value)
 		}
 	}
 	{
 		if err := s.Caption.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode story#29dd2b0d: field caption: %w", err)
+			return fmt.Errorf("unable to decode story#8e358ca2: field caption: %w", err)
 		}
 	}
 	return nil
@@ -554,7 +554,7 @@ func (s *Story) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *Story) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode story#29dd2b0d as nil")
+		return fmt.Errorf("can't encode story#8e358ca2 as nil")
 	}
 	b.ObjStart()
 	b.PutID("story")
@@ -601,51 +601,51 @@ func (s *Story) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("can_get_statistics")
 	b.PutBool(s.CanGetStatistics)
 	b.Comma()
-	b.FieldStart("can_get_viewers")
-	b.PutBool(s.CanGetViewers)
+	b.FieldStart("can_get_interactions")
+	b.PutBool(s.CanGetInteractions)
 	b.Comma()
 	b.FieldStart("has_expired_viewers")
 	b.PutBool(s.HasExpiredViewers)
 	b.Comma()
 	b.FieldStart("repost_info")
 	if err := s.RepostInfo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode story#29dd2b0d: field repost_info: %w", err)
+		return fmt.Errorf("unable to encode story#8e358ca2: field repost_info: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("interaction_info")
 	if err := s.InteractionInfo.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode story#29dd2b0d: field interaction_info: %w", err)
+		return fmt.Errorf("unable to encode story#8e358ca2: field interaction_info: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("chosen_reaction_type")
 	if s.ChosenReactionType == nil {
-		return fmt.Errorf("unable to encode story#29dd2b0d: field chosen_reaction_type is nil")
+		return fmt.Errorf("unable to encode story#8e358ca2: field chosen_reaction_type is nil")
 	}
 	if err := s.ChosenReactionType.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode story#29dd2b0d: field chosen_reaction_type: %w", err)
+		return fmt.Errorf("unable to encode story#8e358ca2: field chosen_reaction_type: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("privacy_settings")
 	if s.PrivacySettings == nil {
-		return fmt.Errorf("unable to encode story#29dd2b0d: field privacy_settings is nil")
+		return fmt.Errorf("unable to encode story#8e358ca2: field privacy_settings is nil")
 	}
 	if err := s.PrivacySettings.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode story#29dd2b0d: field privacy_settings: %w", err)
+		return fmt.Errorf("unable to encode story#8e358ca2: field privacy_settings: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("content")
 	if s.Content == nil {
-		return fmt.Errorf("unable to encode story#29dd2b0d: field content is nil")
+		return fmt.Errorf("unable to encode story#8e358ca2: field content is nil")
 	}
 	if err := s.Content.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode story#29dd2b0d: field content: %w", err)
+		return fmt.Errorf("unable to encode story#8e358ca2: field content: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("areas")
 	b.ArrStart()
 	for idx, v := range s.Areas {
 		if err := v.EncodeTDLibJSON(b); err != nil {
-			return fmt.Errorf("unable to encode story#29dd2b0d: field areas element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode story#8e358ca2: field areas element with index %d: %w", idx, err)
 		}
 		b.Comma()
 	}
@@ -654,7 +654,7 @@ func (s *Story) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.Comma()
 	b.FieldStart("caption")
 	if err := s.Caption.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode story#29dd2b0d: field caption: %w", err)
+		return fmt.Errorf("unable to encode story#8e358ca2: field caption: %w", err)
 	}
 	b.Comma()
 	b.StripComma()
@@ -665,151 +665,151 @@ func (s *Story) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *Story) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode story#29dd2b0d to nil")
+		return fmt.Errorf("can't decode story#8e358ca2 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("story"); err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: %w", err)
 			}
 		case "id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field id: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field id: %w", err)
 			}
 			s.ID = value
 		case "sender_chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field sender_chat_id: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field sender_chat_id: %w", err)
 			}
 			s.SenderChatID = value
 		case "date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field date: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field date: %w", err)
 			}
 			s.Date = value
 		case "is_being_sent":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field is_being_sent: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field is_being_sent: %w", err)
 			}
 			s.IsBeingSent = value
 		case "is_being_edited":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field is_being_edited: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field is_being_edited: %w", err)
 			}
 			s.IsBeingEdited = value
 		case "is_edited":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field is_edited: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field is_edited: %w", err)
 			}
 			s.IsEdited = value
 		case "is_pinned":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field is_pinned: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field is_pinned: %w", err)
 			}
 			s.IsPinned = value
 		case "is_visible_only_for_self":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field is_visible_only_for_self: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field is_visible_only_for_self: %w", err)
 			}
 			s.IsVisibleOnlyForSelf = value
 		case "can_be_deleted":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field can_be_deleted: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field can_be_deleted: %w", err)
 			}
 			s.CanBeDeleted = value
 		case "can_be_edited":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field can_be_edited: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field can_be_edited: %w", err)
 			}
 			s.CanBeEdited = value
 		case "can_be_forwarded":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field can_be_forwarded: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field can_be_forwarded: %w", err)
 			}
 			s.CanBeForwarded = value
 		case "can_be_replied":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field can_be_replied: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field can_be_replied: %w", err)
 			}
 			s.CanBeReplied = value
 		case "can_toggle_is_pinned":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field can_toggle_is_pinned: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field can_toggle_is_pinned: %w", err)
 			}
 			s.CanToggleIsPinned = value
 		case "can_get_statistics":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field can_get_statistics: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field can_get_statistics: %w", err)
 			}
 			s.CanGetStatistics = value
-		case "can_get_viewers":
+		case "can_get_interactions":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field can_get_viewers: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field can_get_interactions: %w", err)
 			}
-			s.CanGetViewers = value
+			s.CanGetInteractions = value
 		case "has_expired_viewers":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field has_expired_viewers: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field has_expired_viewers: %w", err)
 			}
 			s.HasExpiredViewers = value
 		case "repost_info":
 			if err := s.RepostInfo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field repost_info: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field repost_info: %w", err)
 			}
 		case "interaction_info":
 			if err := s.InteractionInfo.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field interaction_info: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field interaction_info: %w", err)
 			}
 		case "chosen_reaction_type":
 			value, err := DecodeTDLibJSONReactionType(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field chosen_reaction_type: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field chosen_reaction_type: %w", err)
 			}
 			s.ChosenReactionType = value
 		case "privacy_settings":
 			value, err := DecodeTDLibJSONStoryPrivacySettings(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field privacy_settings: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field privacy_settings: %w", err)
 			}
 			s.PrivacySettings = value
 		case "content":
 			value, err := DecodeTDLibJSONStoryContent(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field content: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field content: %w", err)
 			}
 			s.Content = value
 		case "areas":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				var value StoryArea
 				if err := value.DecodeTDLibJSON(b); err != nil {
-					return fmt.Errorf("unable to decode story#29dd2b0d: field areas: %w", err)
+					return fmt.Errorf("unable to decode story#8e358ca2: field areas: %w", err)
 				}
 				s.Areas = append(s.Areas, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field areas: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field areas: %w", err)
 			}
 		case "caption":
 			if err := s.Caption.DecodeTDLibJSON(b); err != nil {
-				return fmt.Errorf("unable to decode story#29dd2b0d: field caption: %w", err)
+				return fmt.Errorf("unable to decode story#8e358ca2: field caption: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -930,12 +930,12 @@ func (s *Story) GetCanGetStatistics() (value bool) {
 	return s.CanGetStatistics
 }
 
-// GetCanGetViewers returns value of CanGetViewers field.
-func (s *Story) GetCanGetViewers() (value bool) {
+// GetCanGetInteractions returns value of CanGetInteractions field.
+func (s *Story) GetCanGetInteractions() (value bool) {
 	if s == nil {
 		return
 	}
-	return s.CanGetViewers
+	return s.CanGetInteractions
 }
 
 // GetHasExpiredViewers returns value of HasExpiredViewers field.

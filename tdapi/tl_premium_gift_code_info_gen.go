@@ -33,7 +33,9 @@ var (
 
 // PremiumGiftCodeInfo represents TL type `premiumGiftCodeInfo#b88fa8de`.
 type PremiumGiftCodeInfo struct {
-	// Identifier of a chat or a user that created the gift code
+	// Identifier of a chat or a user that created the gift code; may be null if unknown. If
+	// null and the code is from messagePremiumGiftCode message, then creator_id from the
+	// message can be used
 	CreatorID MessageSenderClass
 	// Point in time (Unix timestamp) when the code was created
 	CreationDate int32
@@ -42,7 +44,8 @@ type PremiumGiftCodeInfo struct {
 	// Identifier of the corresponding giveaway message in the creator_id chat; can be 0 or
 	// an identifier of a deleted message
 	GiveawayMessageID int64
-	// Number of month the Telegram Premium subscription will be active after code activation
+	// Number of months the Telegram Premium subscription will be active after code
+	// activation
 	MonthCount int32
 	// Identifier of a user for which the code was created; 0 if none
 	UserID int64

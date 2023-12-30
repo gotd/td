@@ -39,7 +39,7 @@ type PremiumPaymentOption struct {
 	Amount int64
 	// The discount associated with this option, as a percentage
 	DiscountPercentage int32
-	// Number of month the Telegram Premium subscription will be active
+	// Number of months the Telegram Premium subscription will be active
 	MonthCount int32
 	// Identifier of the store product associated with the option
 	StoreProductID string

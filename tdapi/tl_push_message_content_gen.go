@@ -2500,7 +2500,8 @@ func (p *PushMessageContentPoll) GetIsPinned() (value bool) {
 
 // PushMessageContentPremiumGiftCode represents TL type `pushMessageContentPremiumGiftCode#18a15025`.
 type PushMessageContentPremiumGiftCode struct {
-	// Number of month the Telegram Premium subscription will be active after code activation
+	// Number of months the Telegram Premium subscription will be active after code
+	// activation
 	MonthCount int32
 }
 
@@ -2669,7 +2670,7 @@ type PushMessageContentPremiumGiveaway struct {
 	// Number of users which will receive Telegram Premium subscription gift codes; 0 for
 	// pinned message
 	WinnerCount int32
-	// Number of month the Telegram Premium subscription will be active after code
+	// Number of months the Telegram Premium subscription will be active after code
 	// activation; 0 for pinned message
 	MonthCount int32
 	// True, if the message is a pinned message with the specified content

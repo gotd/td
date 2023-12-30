@@ -42,7 +42,7 @@ type TelegramPaymentPurposePremiumGiftCodes struct {
 	Amount int64
 	// Identifiers of the users which can activate the gift codes
 	UserIDs []int64
-	// Number of month the Telegram Premium subscription will be active for the users
+	// Number of months the Telegram Premium subscription will be active for the users
 	MonthCount int32
 }
 
@@ -368,7 +368,7 @@ type TelegramPaymentPurposePremiumGiveaway struct {
 	Amount int64
 	// Number of users which will be able to activate the gift codes
 	WinnerCount int32
-	// Number of month the Telegram Premium subscription will be active for the users
+	// Number of months the Telegram Premium subscription will be active for the users
 	MonthCount int32
 }
 
@@ -701,7 +701,7 @@ type TelegramPaymentPurposeClass interface {
 	GetCurrency() (value string)
 	// Paid amount, in the smallest units of the currency
 	GetAmount() (value int64)
-	// Number of month the Telegram Premium subscription will be active for the users
+	// Number of months the Telegram Premium subscription will be active for the users
 	GetMonthCount() (value int32)
 }
 

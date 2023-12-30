@@ -37,7 +37,8 @@ type PrepaidPremiumGiveaway struct {
 	ID int64
 	// Number of users which will receive Telegram Premium subscription gift codes
 	WinnerCount int32
-	// Number of month the Telegram Premium subscription will be active after code activation
+	// Number of months the Telegram Premium subscription will be active after code
+	// activation
 	MonthCount int32
 	// Point in time (Unix timestamp) when the giveaway was paid
 	PaymentDate int32

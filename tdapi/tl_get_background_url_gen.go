@@ -35,7 +35,7 @@ var (
 type GetBackgroundURLRequest struct {
 	// Background name
 	Name string
-	// Background type
+	// Background type; backgroundTypeChatTheme isn't supported
 	Type BackgroundTypeClass
 }
 

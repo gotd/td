@@ -1281,6 +1281,137 @@ func (s *SuggestedActionSubscribeToAnnualPremium) DecodeTDLibJSON(b tdjson.Decod
 	})
 }
 
+// SuggestedActionGiftPremiumForChristmas represents TL type `suggestedActionGiftPremiumForChristmas#93b3ee6f`.
+type SuggestedActionGiftPremiumForChristmas struct {
+}
+
+// SuggestedActionGiftPremiumForChristmasTypeID is TL type id of SuggestedActionGiftPremiumForChristmas.
+const SuggestedActionGiftPremiumForChristmasTypeID = 0x93b3ee6f
+
+// construct implements constructor of SuggestedActionClass.
+func (s SuggestedActionGiftPremiumForChristmas) construct() SuggestedActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SuggestedActionGiftPremiumForChristmas.
+var (
+	_ bin.Encoder     = &SuggestedActionGiftPremiumForChristmas{}
+	_ bin.Decoder     = &SuggestedActionGiftPremiumForChristmas{}
+	_ bin.BareEncoder = &SuggestedActionGiftPremiumForChristmas{}
+	_ bin.BareDecoder = &SuggestedActionGiftPremiumForChristmas{}
+
+	_ SuggestedActionClass = &SuggestedActionGiftPremiumForChristmas{}
+)
+
+func (s *SuggestedActionGiftPremiumForChristmas) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *SuggestedActionGiftPremiumForChristmas) String() string {
+	if s == nil {
+		return "SuggestedActionGiftPremiumForChristmas(nil)"
+	}
+	type Alias SuggestedActionGiftPremiumForChristmas
+	return fmt.Sprintf("SuggestedActionGiftPremiumForChristmas%+v", Alias(*s))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*SuggestedActionGiftPremiumForChristmas) TypeID() uint32 {
+	return SuggestedActionGiftPremiumForChristmasTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*SuggestedActionGiftPremiumForChristmas) TypeName() string {
+	return "suggestedActionGiftPremiumForChristmas"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SuggestedActionGiftPremiumForChristmas) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "suggestedActionGiftPremiumForChristmas",
+		ID:   SuggestedActionGiftPremiumForChristmasTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (s *SuggestedActionGiftPremiumForChristmas) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionGiftPremiumForChristmas#93b3ee6f as nil")
+	}
+	b.PutID(SuggestedActionGiftPremiumForChristmasTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SuggestedActionGiftPremiumForChristmas) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionGiftPremiumForChristmas#93b3ee6f as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *SuggestedActionGiftPremiumForChristmas) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionGiftPremiumForChristmas#93b3ee6f to nil")
+	}
+	if err := b.ConsumeID(SuggestedActionGiftPremiumForChristmasTypeID); err != nil {
+		return fmt.Errorf("unable to decode suggestedActionGiftPremiumForChristmas#93b3ee6f: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SuggestedActionGiftPremiumForChristmas) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionGiftPremiumForChristmas#93b3ee6f to nil")
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (s *SuggestedActionGiftPremiumForChristmas) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if s == nil {
+		return fmt.Errorf("can't encode suggestedActionGiftPremiumForChristmas#93b3ee6f as nil")
+	}
+	b.ObjStart()
+	b.PutID("suggestedActionGiftPremiumForChristmas")
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (s *SuggestedActionGiftPremiumForChristmas) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if s == nil {
+		return fmt.Errorf("can't decode suggestedActionGiftPremiumForChristmas#93b3ee6f to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("suggestedActionGiftPremiumForChristmas"); err != nil {
+				return fmt.Errorf("unable to decode suggestedActionGiftPremiumForChristmas#93b3ee6f: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
 // SuggestedActionClassName is schema name of SuggestedActionClass.
 const SuggestedActionClassName = "SuggestedAction"
 
@@ -1302,6 +1433,7 @@ const SuggestedActionClassName = "SuggestedAction"
 //	case *tdapi.SuggestedActionUpgradePremium: // suggestedActionUpgradePremium#70aa79fb
 //	case *tdapi.SuggestedActionRestorePremium: // suggestedActionRestorePremium#e909dd64
 //	case *tdapi.SuggestedActionSubscribeToAnnualPremium: // suggestedActionSubscribeToAnnualPremium#164978bb
+//	case *tdapi.SuggestedActionGiftPremiumForChristmas: // suggestedActionGiftPremiumForChristmas#93b3ee6f
 //	default: panic(v)
 //	}
 type SuggestedActionClass interface {
@@ -1396,6 +1528,13 @@ func DecodeSuggestedAction(buf *bin.Buffer) (SuggestedActionClass, error) {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
 		}
 		return &v, nil
+	case SuggestedActionGiftPremiumForChristmasTypeID:
+		// Decoding suggestedActionGiftPremiumForChristmas#93b3ee6f.
+		v := SuggestedActionGiftPremiumForChristmas{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -1467,6 +1606,13 @@ func DecodeTDLibJSONSuggestedAction(buf tdjson.Decoder) (SuggestedActionClass, e
 	case "suggestedActionSubscribeToAnnualPremium":
 		// Decoding suggestedActionSubscribeToAnnualPremium#164978bb.
 		v := SuggestedActionSubscribeToAnnualPremium{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
+		}
+		return &v, nil
+	case "suggestedActionGiftPremiumForChristmas":
+		// Decoding suggestedActionGiftPremiumForChristmas#93b3ee6f.
+		v := SuggestedActionGiftPremiumForChristmas{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode SuggestedActionClass: %w", err)
 		}

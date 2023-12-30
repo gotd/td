@@ -35,7 +35,7 @@ var (
 type GetPremiumGiveawayInfoRequest struct {
 	// Identifier of the channel chat which started the giveaway
 	ChatID int64
-	// Identifier of the giveaway message in the chat
+	// Identifier of the giveaway or a giveaway winners message in the chat
 	MessageID int64
 }
 

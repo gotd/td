@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PremiumGiveawayParameters represents TL type `premiumGiveawayParameters#de917baf`.
+// PremiumGiveawayParameters represents TL type `premiumGiveawayParameters#f9f5bf5e`.
 type PremiumGiveawayParameters struct {
 	// Identifier of the channel chat, which will be automatically boosted by the winners of
 	// the giveaway for duration of the Premium subscription
@@ -45,13 +45,17 @@ type PremiumGiveawayParameters struct {
 	WinnersSelectionDate int32
 	// True, if only new members of the chats will be eligible for the giveaway
 	OnlyNewMembers bool
+	// True, if the list of winners of the giveaway will be available to everyone
+	HasPublicWinners bool
 	// The list of two-letter ISO 3166-1 alpha-2 codes of countries, users from which will be
 	// eligible for the giveaway. If empty, then all users can participate in the giveaway.
 	CountryCodes []string
+	// Additional description of the giveaway prize; 0-128 characters
+	PrizeDescription string
 }
 
 // PremiumGiveawayParametersTypeID is TL type id of PremiumGiveawayParameters.
-const PremiumGiveawayParametersTypeID = 0xde917baf
+const PremiumGiveawayParametersTypeID = 0xf9f5bf5e
 
 // Ensuring interfaces in compile-time for PremiumGiveawayParameters.
 var (
@@ -77,7 +81,13 @@ func (p *PremiumGiveawayParameters) Zero() bool {
 	if !(p.OnlyNewMembers == false) {
 		return false
 	}
+	if !(p.HasPublicWinners == false) {
+		return false
+	}
 	if !(p.CountryCodes == nil) {
+		return false
+	}
+	if !(p.PrizeDescription == "") {
 		return false
 	}
 
@@ -133,8 +143,16 @@ func (p *PremiumGiveawayParameters) TypeInfo() tdp.Type {
 			SchemaName: "only_new_members",
 		},
 		{
+			Name:       "HasPublicWinners",
+			SchemaName: "has_public_winners",
+		},
+		{
 			Name:       "CountryCodes",
 			SchemaName: "country_codes",
+		},
+		{
+			Name:       "PrizeDescription",
+			SchemaName: "prize_description",
 		},
 	}
 	return typ
@@ -143,7 +161,7 @@ func (p *PremiumGiveawayParameters) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PremiumGiveawayParameters) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode premiumGiveawayParameters#de917baf as nil")
+		return fmt.Errorf("can't encode premiumGiveawayParameters#f9f5bf5e as nil")
 	}
 	b.PutID(PremiumGiveawayParametersTypeID)
 	return p.EncodeBare(b)
@@ -152,7 +170,7 @@ func (p *PremiumGiveawayParameters) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PremiumGiveawayParameters) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode premiumGiveawayParameters#de917baf as nil")
+		return fmt.Errorf("can't encode premiumGiveawayParameters#f9f5bf5e as nil")
 	}
 	b.PutInt53(p.BoostedChatID)
 	b.PutInt(len(p.AdditionalChatIDs))
@@ -161,20 +179,22 @@ func (p *PremiumGiveawayParameters) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutInt32(p.WinnersSelectionDate)
 	b.PutBool(p.OnlyNewMembers)
+	b.PutBool(p.HasPublicWinners)
 	b.PutInt(len(p.CountryCodes))
 	for _, v := range p.CountryCodes {
 		b.PutString(v)
 	}
+	b.PutString(p.PrizeDescription)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (p *PremiumGiveawayParameters) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode premiumGiveawayParameters#de917baf to nil")
+		return fmt.Errorf("can't decode premiumGiveawayParameters#f9f5bf5e to nil")
 	}
 	if err := b.ConsumeID(PremiumGiveawayParametersTypeID); err != nil {
-		return fmt.Errorf("unable to decode premiumGiveawayParameters#de917baf: %w", err)
+		return fmt.Errorf("unable to decode premiumGiveawayParameters#f9f5bf5e: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -182,19 +202,19 @@ func (p *PremiumGiveawayParameters) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PremiumGiveawayParameters) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode premiumGiveawayParameters#de917baf to nil")
+		return fmt.Errorf("can't decode premiumGiveawayParameters#f9f5bf5e to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode premiumGiveawayParameters#de917baf: field boosted_chat_id: %w", err)
+			return fmt.Errorf("unable to decode premiumGiveawayParameters#f9f5bf5e: field boosted_chat_id: %w", err)
 		}
 		p.BoostedChatID = value
 	}
 	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode premiumGiveawayParameters#de917baf: field additional_chat_ids: %w", err)
+			return fmt.Errorf("unable to decode premiumGiveawayParameters#f9f5bf5e: field additional_chat_ids: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -203,7 +223,7 @@ func (p *PremiumGiveawayParameters) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode premiumGiveawayParameters#de917baf: field additional_chat_ids: %w", err)
+				return fmt.Errorf("unable to decode premiumGiveawayParameters#f9f5bf5e: field additional_chat_ids: %w", err)
 			}
 			p.AdditionalChatIDs = append(p.AdditionalChatIDs, value)
 		}
@@ -211,21 +231,28 @@ func (p *PremiumGiveawayParameters) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode premiumGiveawayParameters#de917baf: field winners_selection_date: %w", err)
+			return fmt.Errorf("unable to decode premiumGiveawayParameters#f9f5bf5e: field winners_selection_date: %w", err)
 		}
 		p.WinnersSelectionDate = value
 	}
 	{
 		value, err := b.Bool()
 		if err != nil {
-			return fmt.Errorf("unable to decode premiumGiveawayParameters#de917baf: field only_new_members: %w", err)
+			return fmt.Errorf("unable to decode premiumGiveawayParameters#f9f5bf5e: field only_new_members: %w", err)
 		}
 		p.OnlyNewMembers = value
 	}
 	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode premiumGiveawayParameters#f9f5bf5e: field has_public_winners: %w", err)
+		}
+		p.HasPublicWinners = value
+	}
+	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode premiumGiveawayParameters#de917baf: field country_codes: %w", err)
+			return fmt.Errorf("unable to decode premiumGiveawayParameters#f9f5bf5e: field country_codes: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -234,10 +261,17 @@ func (p *PremiumGiveawayParameters) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode premiumGiveawayParameters#de917baf: field country_codes: %w", err)
+				return fmt.Errorf("unable to decode premiumGiveawayParameters#f9f5bf5e: field country_codes: %w", err)
 			}
 			p.CountryCodes = append(p.CountryCodes, value)
 		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode premiumGiveawayParameters#f9f5bf5e: field prize_description: %w", err)
+		}
+		p.PrizeDescription = value
 	}
 	return nil
 }
@@ -245,7 +279,7 @@ func (p *PremiumGiveawayParameters) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (p *PremiumGiveawayParameters) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
-		return fmt.Errorf("can't encode premiumGiveawayParameters#de917baf as nil")
+		return fmt.Errorf("can't encode premiumGiveawayParameters#f9f5bf5e as nil")
 	}
 	b.ObjStart()
 	b.PutID("premiumGiveawayParameters")
@@ -268,6 +302,9 @@ func (p *PremiumGiveawayParameters) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("only_new_members")
 	b.PutBool(p.OnlyNewMembers)
 	b.Comma()
+	b.FieldStart("has_public_winners")
+	b.PutBool(p.HasPublicWinners)
+	b.Comma()
 	b.FieldStart("country_codes")
 	b.ArrStart()
 	for _, v := range p.CountryCodes {
@@ -277,6 +314,9 @@ func (p *PremiumGiveawayParameters) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.StripComma()
 	b.ArrEnd()
 	b.Comma()
+	b.FieldStart("prize_description")
+	b.PutString(p.PrizeDescription)
+	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
 	return nil
@@ -285,55 +325,67 @@ func (p *PremiumGiveawayParameters) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (p *PremiumGiveawayParameters) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
-		return fmt.Errorf("can't decode premiumGiveawayParameters#de917baf to nil")
+		return fmt.Errorf("can't decode premiumGiveawayParameters#f9f5bf5e to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("premiumGiveawayParameters"); err != nil {
-				return fmt.Errorf("unable to decode premiumGiveawayParameters#de917baf: %w", err)
+				return fmt.Errorf("unable to decode premiumGiveawayParameters#f9f5bf5e: %w", err)
 			}
 		case "boosted_chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode premiumGiveawayParameters#de917baf: field boosted_chat_id: %w", err)
+				return fmt.Errorf("unable to decode premiumGiveawayParameters#f9f5bf5e: field boosted_chat_id: %w", err)
 			}
 			p.BoostedChatID = value
 		case "additional_chat_ids":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.Int53()
 				if err != nil {
-					return fmt.Errorf("unable to decode premiumGiveawayParameters#de917baf: field additional_chat_ids: %w", err)
+					return fmt.Errorf("unable to decode premiumGiveawayParameters#f9f5bf5e: field additional_chat_ids: %w", err)
 				}
 				p.AdditionalChatIDs = append(p.AdditionalChatIDs, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode premiumGiveawayParameters#de917baf: field additional_chat_ids: %w", err)
+				return fmt.Errorf("unable to decode premiumGiveawayParameters#f9f5bf5e: field additional_chat_ids: %w", err)
 			}
 		case "winners_selection_date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode premiumGiveawayParameters#de917baf: field winners_selection_date: %w", err)
+				return fmt.Errorf("unable to decode premiumGiveawayParameters#f9f5bf5e: field winners_selection_date: %w", err)
 			}
 			p.WinnersSelectionDate = value
 		case "only_new_members":
 			value, err := b.Bool()
 			if err != nil {
-				return fmt.Errorf("unable to decode premiumGiveawayParameters#de917baf: field only_new_members: %w", err)
+				return fmt.Errorf("unable to decode premiumGiveawayParameters#f9f5bf5e: field only_new_members: %w", err)
 			}
 			p.OnlyNewMembers = value
+		case "has_public_winners":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode premiumGiveawayParameters#f9f5bf5e: field has_public_winners: %w", err)
+			}
+			p.HasPublicWinners = value
 		case "country_codes":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.String()
 				if err != nil {
-					return fmt.Errorf("unable to decode premiumGiveawayParameters#de917baf: field country_codes: %w", err)
+					return fmt.Errorf("unable to decode premiumGiveawayParameters#f9f5bf5e: field country_codes: %w", err)
 				}
 				p.CountryCodes = append(p.CountryCodes, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode premiumGiveawayParameters#de917baf: field country_codes: %w", err)
+				return fmt.Errorf("unable to decode premiumGiveawayParameters#f9f5bf5e: field country_codes: %w", err)
 			}
+		case "prize_description":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode premiumGiveawayParameters#f9f5bf5e: field prize_description: %w", err)
+			}
+			p.PrizeDescription = value
 		default:
 			return b.Skip()
 		}
@@ -373,10 +425,26 @@ func (p *PremiumGiveawayParameters) GetOnlyNewMembers() (value bool) {
 	return p.OnlyNewMembers
 }
 
+// GetHasPublicWinners returns value of HasPublicWinners field.
+func (p *PremiumGiveawayParameters) GetHasPublicWinners() (value bool) {
+	if p == nil {
+		return
+	}
+	return p.HasPublicWinners
+}
+
 // GetCountryCodes returns value of CountryCodes field.
 func (p *PremiumGiveawayParameters) GetCountryCodes() (value []string) {
 	if p == nil {
 		return
 	}
 	return p.CountryCodes
+}
+
+// GetPrizeDescription returns value of PrizeDescription field.
+func (p *PremiumGiveawayParameters) GetPrizeDescription() (value string) {
+	if p == nil {
+		return
+	}
+	return p.PrizeDescription
 }

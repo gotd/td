@@ -41,7 +41,8 @@ type Background struct {
 	IsDark bool
 	// Unique background name
 	Name string
-	// Document with the background; may be null. Null only for filled backgrounds
+	// Document with the background; may be null. Null only for filled and chat theme
+	// backgrounds
 	Document Document
 	// Type of the background
 	Type BackgroundTypeClass

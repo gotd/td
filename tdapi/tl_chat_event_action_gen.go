@@ -2540,6 +2540,206 @@ func (c *ChatEventAvailableReactionsChanged) GetNewAvailableReactions() (value C
 	return c.NewAvailableReactions
 }
 
+// ChatEventBackgroundChanged represents TL type `chatEventBackgroundChanged#b6ed6d38`.
+type ChatEventBackgroundChanged struct {
+	// Previous background; may be null if none
+	OldBackground ChatBackground
+	// New background; may be null if none
+	NewBackground ChatBackground
+}
+
+// ChatEventBackgroundChangedTypeID is TL type id of ChatEventBackgroundChanged.
+const ChatEventBackgroundChangedTypeID = 0xb6ed6d38
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventBackgroundChanged) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventBackgroundChanged.
+var (
+	_ bin.Encoder     = &ChatEventBackgroundChanged{}
+	_ bin.Decoder     = &ChatEventBackgroundChanged{}
+	_ bin.BareEncoder = &ChatEventBackgroundChanged{}
+	_ bin.BareDecoder = &ChatEventBackgroundChanged{}
+
+	_ ChatEventActionClass = &ChatEventBackgroundChanged{}
+)
+
+func (c *ChatEventBackgroundChanged) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.OldBackground.Zero()) {
+		return false
+	}
+	if !(c.NewBackground.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventBackgroundChanged) String() string {
+	if c == nil {
+		return "ChatEventBackgroundChanged(nil)"
+	}
+	type Alias ChatEventBackgroundChanged
+	return fmt.Sprintf("ChatEventBackgroundChanged%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventBackgroundChanged) TypeID() uint32 {
+	return ChatEventBackgroundChangedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventBackgroundChanged) TypeName() string {
+	return "chatEventBackgroundChanged"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventBackgroundChanged) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventBackgroundChanged",
+		ID:   ChatEventBackgroundChangedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "OldBackground",
+			SchemaName: "old_background",
+		},
+		{
+			Name:       "NewBackground",
+			SchemaName: "new_background",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventBackgroundChanged) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventBackgroundChanged#b6ed6d38 as nil")
+	}
+	b.PutID(ChatEventBackgroundChangedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventBackgroundChanged) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventBackgroundChanged#b6ed6d38 as nil")
+	}
+	if err := c.OldBackground.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventBackgroundChanged#b6ed6d38: field old_background: %w", err)
+	}
+	if err := c.NewBackground.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventBackgroundChanged#b6ed6d38: field new_background: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventBackgroundChanged) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventBackgroundChanged#b6ed6d38 to nil")
+	}
+	if err := b.ConsumeID(ChatEventBackgroundChangedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventBackgroundChanged#b6ed6d38: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventBackgroundChanged) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventBackgroundChanged#b6ed6d38 to nil")
+	}
+	{
+		if err := c.OldBackground.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatEventBackgroundChanged#b6ed6d38: field old_background: %w", err)
+		}
+	}
+	{
+		if err := c.NewBackground.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatEventBackgroundChanged#b6ed6d38: field new_background: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventBackgroundChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventBackgroundChanged#b6ed6d38 as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventBackgroundChanged")
+	b.Comma()
+	b.FieldStart("old_background")
+	if err := c.OldBackground.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventBackgroundChanged#b6ed6d38: field old_background: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("new_background")
+	if err := c.NewBackground.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventBackgroundChanged#b6ed6d38: field new_background: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventBackgroundChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventBackgroundChanged#b6ed6d38 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventBackgroundChanged"); err != nil {
+				return fmt.Errorf("unable to decode chatEventBackgroundChanged#b6ed6d38: %w", err)
+			}
+		case "old_background":
+			if err := c.OldBackground.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatEventBackgroundChanged#b6ed6d38: field old_background: %w", err)
+			}
+		case "new_background":
+			if err := c.NewBackground.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatEventBackgroundChanged#b6ed6d38: field new_background: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetOldBackground returns value of OldBackground field.
+func (c *ChatEventBackgroundChanged) GetOldBackground() (value ChatBackground) {
+	if c == nil {
+		return
+	}
+	return c.OldBackground
+}
+
+// GetNewBackground returns value of NewBackground field.
+func (c *ChatEventBackgroundChanged) GetNewBackground() (value ChatBackground) {
+	if c == nil {
+		return
+	}
+	return c.NewBackground
+}
+
 // ChatEventDescriptionChanged represents TL type `chatEventDescriptionChanged#254cf1e`.
 type ChatEventDescriptionChanged struct {
 	// Previous chat description
@@ -2738,6 +2938,206 @@ func (c *ChatEventDescriptionChanged) GetNewDescription() (value string) {
 		return
 	}
 	return c.NewDescription
+}
+
+// ChatEventEmojiStatusChanged represents TL type `chatEventEmojiStatusChanged#83e97b1e`.
+type ChatEventEmojiStatusChanged struct {
+	// Previous emoji status; may be null if none
+	OldEmojiStatus EmojiStatus
+	// New emoji status; may be null if none
+	NewEmojiStatus EmojiStatus
+}
+
+// ChatEventEmojiStatusChangedTypeID is TL type id of ChatEventEmojiStatusChanged.
+const ChatEventEmojiStatusChangedTypeID = 0x83e97b1e
+
+// construct implements constructor of ChatEventActionClass.
+func (c ChatEventEmojiStatusChanged) construct() ChatEventActionClass { return &c }
+
+// Ensuring interfaces in compile-time for ChatEventEmojiStatusChanged.
+var (
+	_ bin.Encoder     = &ChatEventEmojiStatusChanged{}
+	_ bin.Decoder     = &ChatEventEmojiStatusChanged{}
+	_ bin.BareEncoder = &ChatEventEmojiStatusChanged{}
+	_ bin.BareDecoder = &ChatEventEmojiStatusChanged{}
+
+	_ ChatEventActionClass = &ChatEventEmojiStatusChanged{}
+)
+
+func (c *ChatEventEmojiStatusChanged) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.OldEmojiStatus.Zero()) {
+		return false
+	}
+	if !(c.NewEmojiStatus.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChatEventEmojiStatusChanged) String() string {
+	if c == nil {
+		return "ChatEventEmojiStatusChanged(nil)"
+	}
+	type Alias ChatEventEmojiStatusChanged
+	return fmt.Sprintf("ChatEventEmojiStatusChanged%+v", Alias(*c))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*ChatEventEmojiStatusChanged) TypeID() uint32 {
+	return ChatEventEmojiStatusChangedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*ChatEventEmojiStatusChanged) TypeName() string {
+	return "chatEventEmojiStatusChanged"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEventEmojiStatusChanged) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEventEmojiStatusChanged",
+		ID:   ChatEventEmojiStatusChangedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "OldEmojiStatus",
+			SchemaName: "old_emoji_status",
+		},
+		{
+			Name:       "NewEmojiStatus",
+			SchemaName: "new_emoji_status",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (c *ChatEventEmojiStatusChanged) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventEmojiStatusChanged#83e97b1e as nil")
+	}
+	b.PutID(ChatEventEmojiStatusChangedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEventEmojiStatusChanged) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventEmojiStatusChanged#83e97b1e as nil")
+	}
+	if err := c.OldEmojiStatus.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventEmojiStatusChanged#83e97b1e: field old_emoji_status: %w", err)
+	}
+	if err := c.NewEmojiStatus.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventEmojiStatusChanged#83e97b1e: field new_emoji_status: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChatEventEmojiStatusChanged) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventEmojiStatusChanged#83e97b1e to nil")
+	}
+	if err := b.ConsumeID(ChatEventEmojiStatusChangedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventEmojiStatusChanged#83e97b1e: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEventEmojiStatusChanged) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventEmojiStatusChanged#83e97b1e to nil")
+	}
+	{
+		if err := c.OldEmojiStatus.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatEventEmojiStatusChanged#83e97b1e: field old_emoji_status: %w", err)
+		}
+	}
+	{
+		if err := c.NewEmojiStatus.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode chatEventEmojiStatusChanged#83e97b1e: field new_emoji_status: %w", err)
+		}
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (c *ChatEventEmojiStatusChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEventEmojiStatusChanged#83e97b1e as nil")
+	}
+	b.ObjStart()
+	b.PutID("chatEventEmojiStatusChanged")
+	b.Comma()
+	b.FieldStart("old_emoji_status")
+	if err := c.OldEmojiStatus.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventEmojiStatusChanged#83e97b1e: field old_emoji_status: %w", err)
+	}
+	b.Comma()
+	b.FieldStart("new_emoji_status")
+	if err := c.NewEmojiStatus.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode chatEventEmojiStatusChanged#83e97b1e: field new_emoji_status: %w", err)
+	}
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (c *ChatEventEmojiStatusChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEventEmojiStatusChanged#83e97b1e to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("chatEventEmojiStatusChanged"); err != nil {
+				return fmt.Errorf("unable to decode chatEventEmojiStatusChanged#83e97b1e: %w", err)
+			}
+		case "old_emoji_status":
+			if err := c.OldEmojiStatus.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatEventEmojiStatusChanged#83e97b1e: field old_emoji_status: %w", err)
+			}
+		case "new_emoji_status":
+			if err := c.NewEmojiStatus.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode chatEventEmojiStatusChanged#83e97b1e: field new_emoji_status: %w", err)
+			}
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetOldEmojiStatus returns value of OldEmojiStatus field.
+func (c *ChatEventEmojiStatusChanged) GetOldEmojiStatus() (value EmojiStatus) {
+	if c == nil {
+		return
+	}
+	return c.OldEmojiStatus
+}
+
+// GetNewEmojiStatus returns value of NewEmojiStatus field.
+func (c *ChatEventEmojiStatusChanged) GetNewEmojiStatus() (value EmojiStatus) {
+	if c == nil {
+		return
+	}
+	return c.NewEmojiStatus
 }
 
 // ChatEventLinkedChatChanged represents TL type `chatEventLinkedChatChanged#6b2271af`.
@@ -4788,16 +5188,20 @@ func (c *ChatEventActiveUsernamesChanged) GetNewUsernames() (value []string) {
 	return c.NewUsernames
 }
 
-// ChatEventAccentColorChanged represents TL type `chatEventAccentColorChanged#2a327e32`.
+// ChatEventAccentColorChanged represents TL type `chatEventAccentColorChanged#e6837733`.
 type ChatEventAccentColorChanged struct {
 	// Previous identifier of chat accent color
 	OldAccentColorID int32
+	// Previous identifier of the custom emoji; 0 if none
+	OldBackgroundCustomEmojiID int64
 	// New identifier of chat accent color
 	NewAccentColorID int32
+	// New identifier of the custom emoji; 0 if none
+	NewBackgroundCustomEmojiID int64
 }
 
 // ChatEventAccentColorChangedTypeID is TL type id of ChatEventAccentColorChanged.
-const ChatEventAccentColorChangedTypeID = 0x2a327e32
+const ChatEventAccentColorChangedTypeID = 0xe6837733
 
 // construct implements constructor of ChatEventActionClass.
 func (c ChatEventAccentColorChanged) construct() ChatEventActionClass { return &c }
@@ -4819,7 +5223,13 @@ func (c *ChatEventAccentColorChanged) Zero() bool {
 	if !(c.OldAccentColorID == 0) {
 		return false
 	}
+	if !(c.OldBackgroundCustomEmojiID == 0) {
+		return false
+	}
 	if !(c.NewAccentColorID == 0) {
+		return false
+	}
+	if !(c.NewBackgroundCustomEmojiID == 0) {
 		return false
 	}
 
@@ -4863,8 +5273,16 @@ func (c *ChatEventAccentColorChanged) TypeInfo() tdp.Type {
 			SchemaName: "old_accent_color_id",
 		},
 		{
+			Name:       "OldBackgroundCustomEmojiID",
+			SchemaName: "old_background_custom_emoji_id",
+		},
+		{
 			Name:       "NewAccentColorID",
 			SchemaName: "new_accent_color_id",
+		},
+		{
+			Name:       "NewBackgroundCustomEmojiID",
+			SchemaName: "new_background_custom_emoji_id",
 		},
 	}
 	return typ
@@ -4873,7 +5291,7 @@ func (c *ChatEventAccentColorChanged) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatEventAccentColorChanged) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventAccentColorChanged#2a327e32 as nil")
+		return fmt.Errorf("can't encode chatEventAccentColorChanged#e6837733 as nil")
 	}
 	b.PutID(ChatEventAccentColorChangedTypeID)
 	return c.EncodeBare(b)
@@ -4882,20 +5300,22 @@ func (c *ChatEventAccentColorChanged) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatEventAccentColorChanged) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventAccentColorChanged#2a327e32 as nil")
+		return fmt.Errorf("can't encode chatEventAccentColorChanged#e6837733 as nil")
 	}
 	b.PutInt32(c.OldAccentColorID)
+	b.PutLong(c.OldBackgroundCustomEmojiID)
 	b.PutInt32(c.NewAccentColorID)
+	b.PutLong(c.NewBackgroundCustomEmojiID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (c *ChatEventAccentColorChanged) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventAccentColorChanged#2a327e32 to nil")
+		return fmt.Errorf("can't decode chatEventAccentColorChanged#e6837733 to nil")
 	}
 	if err := b.ConsumeID(ChatEventAccentColorChangedTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventAccentColorChanged#2a327e32: %w", err)
+		return fmt.Errorf("unable to decode chatEventAccentColorChanged#e6837733: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -4903,21 +5323,35 @@ func (c *ChatEventAccentColorChanged) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatEventAccentColorChanged) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventAccentColorChanged#2a327e32 to nil")
+		return fmt.Errorf("can't decode chatEventAccentColorChanged#e6837733 to nil")
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatEventAccentColorChanged#2a327e32: field old_accent_color_id: %w", err)
+			return fmt.Errorf("unable to decode chatEventAccentColorChanged#e6837733: field old_accent_color_id: %w", err)
 		}
 		c.OldAccentColorID = value
 	}
 	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventAccentColorChanged#e6837733: field old_background_custom_emoji_id: %w", err)
+		}
+		c.OldBackgroundCustomEmojiID = value
+	}
+	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatEventAccentColorChanged#2a327e32: field new_accent_color_id: %w", err)
+			return fmt.Errorf("unable to decode chatEventAccentColorChanged#e6837733: field new_accent_color_id: %w", err)
 		}
 		c.NewAccentColorID = value
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventAccentColorChanged#e6837733: field new_background_custom_emoji_id: %w", err)
+		}
+		c.NewBackgroundCustomEmojiID = value
 	}
 	return nil
 }
@@ -4925,7 +5359,7 @@ func (c *ChatEventAccentColorChanged) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (c *ChatEventAccentColorChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventAccentColorChanged#2a327e32 as nil")
+		return fmt.Errorf("can't encode chatEventAccentColorChanged#e6837733 as nil")
 	}
 	b.ObjStart()
 	b.PutID("chatEventAccentColorChanged")
@@ -4933,8 +5367,14 @@ func (c *ChatEventAccentColorChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
 	b.FieldStart("old_accent_color_id")
 	b.PutInt32(c.OldAccentColorID)
 	b.Comma()
+	b.FieldStart("old_background_custom_emoji_id")
+	b.PutLong(c.OldBackgroundCustomEmojiID)
+	b.Comma()
 	b.FieldStart("new_accent_color_id")
 	b.PutInt32(c.NewAccentColorID)
+	b.Comma()
+	b.FieldStart("new_background_custom_emoji_id")
+	b.PutLong(c.NewBackgroundCustomEmojiID)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -4944,27 +5384,39 @@ func (c *ChatEventAccentColorChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (c *ChatEventAccentColorChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventAccentColorChanged#2a327e32 to nil")
+		return fmt.Errorf("can't decode chatEventAccentColorChanged#e6837733 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("chatEventAccentColorChanged"); err != nil {
-				return fmt.Errorf("unable to decode chatEventAccentColorChanged#2a327e32: %w", err)
+				return fmt.Errorf("unable to decode chatEventAccentColorChanged#e6837733: %w", err)
 			}
 		case "old_accent_color_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatEventAccentColorChanged#2a327e32: field old_accent_color_id: %w", err)
+				return fmt.Errorf("unable to decode chatEventAccentColorChanged#e6837733: field old_accent_color_id: %w", err)
 			}
 			c.OldAccentColorID = value
+		case "old_background_custom_emoji_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventAccentColorChanged#e6837733: field old_background_custom_emoji_id: %w", err)
+			}
+			c.OldBackgroundCustomEmojiID = value
 		case "new_accent_color_id":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatEventAccentColorChanged#2a327e32: field new_accent_color_id: %w", err)
+				return fmt.Errorf("unable to decode chatEventAccentColorChanged#e6837733: field new_accent_color_id: %w", err)
 			}
 			c.NewAccentColorID = value
+		case "new_background_custom_emoji_id":
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventAccentColorChanged#e6837733: field new_background_custom_emoji_id: %w", err)
+			}
+			c.NewBackgroundCustomEmojiID = value
 		default:
 			return b.Skip()
 		}
@@ -4980,6 +5432,14 @@ func (c *ChatEventAccentColorChanged) GetOldAccentColorID() (value int32) {
 	return c.OldAccentColorID
 }
 
+// GetOldBackgroundCustomEmojiID returns value of OldBackgroundCustomEmojiID field.
+func (c *ChatEventAccentColorChanged) GetOldBackgroundCustomEmojiID() (value int64) {
+	if c == nil {
+		return
+	}
+	return c.OldBackgroundCustomEmojiID
+}
+
 // GetNewAccentColorID returns value of NewAccentColorID field.
 func (c *ChatEventAccentColorChanged) GetNewAccentColorID() (value int32) {
 	if c == nil {
@@ -4988,38 +5448,56 @@ func (c *ChatEventAccentColorChanged) GetNewAccentColorID() (value int32) {
 	return c.NewAccentColorID
 }
 
-// ChatEventBackgroundCustomEmojiChanged represents TL type `chatEventBackgroundCustomEmojiChanged#d2671e9a`.
-type ChatEventBackgroundCustomEmojiChanged struct {
-	// Previous identifier of the custom emoji; 0 if none
-	OldBackgroundCustomEmojiID int64
-	// New identifier of the custom emoji; 0 if none
-	NewBackgroundCustomEmojiID int64
+// GetNewBackgroundCustomEmojiID returns value of NewBackgroundCustomEmojiID field.
+func (c *ChatEventAccentColorChanged) GetNewBackgroundCustomEmojiID() (value int64) {
+	if c == nil {
+		return
+	}
+	return c.NewBackgroundCustomEmojiID
 }
 
-// ChatEventBackgroundCustomEmojiChangedTypeID is TL type id of ChatEventBackgroundCustomEmojiChanged.
-const ChatEventBackgroundCustomEmojiChangedTypeID = 0xd2671e9a
+// ChatEventProfileAccentColorChanged represents TL type `chatEventProfileAccentColorChanged#a5b8da64`.
+type ChatEventProfileAccentColorChanged struct {
+	// Previous identifier of chat's profile accent color; -1 if none
+	OldProfileAccentColorID int32
+	// Previous identifier of the custom emoji; 0 if none
+	OldProfileBackgroundCustomEmojiID int64
+	// New identifier of chat's profile accent color; -1 if none
+	NewProfileAccentColorID int32
+	// New identifier of the custom emoji; 0 if none
+	NewProfileBackgroundCustomEmojiID int64
+}
+
+// ChatEventProfileAccentColorChangedTypeID is TL type id of ChatEventProfileAccentColorChanged.
+const ChatEventProfileAccentColorChangedTypeID = 0xa5b8da64
 
 // construct implements constructor of ChatEventActionClass.
-func (c ChatEventBackgroundCustomEmojiChanged) construct() ChatEventActionClass { return &c }
+func (c ChatEventProfileAccentColorChanged) construct() ChatEventActionClass { return &c }
 
-// Ensuring interfaces in compile-time for ChatEventBackgroundCustomEmojiChanged.
+// Ensuring interfaces in compile-time for ChatEventProfileAccentColorChanged.
 var (
-	_ bin.Encoder     = &ChatEventBackgroundCustomEmojiChanged{}
-	_ bin.Decoder     = &ChatEventBackgroundCustomEmojiChanged{}
-	_ bin.BareEncoder = &ChatEventBackgroundCustomEmojiChanged{}
-	_ bin.BareDecoder = &ChatEventBackgroundCustomEmojiChanged{}
+	_ bin.Encoder     = &ChatEventProfileAccentColorChanged{}
+	_ bin.Decoder     = &ChatEventProfileAccentColorChanged{}
+	_ bin.BareEncoder = &ChatEventProfileAccentColorChanged{}
+	_ bin.BareDecoder = &ChatEventProfileAccentColorChanged{}
 
-	_ ChatEventActionClass = &ChatEventBackgroundCustomEmojiChanged{}
+	_ ChatEventActionClass = &ChatEventProfileAccentColorChanged{}
 )
 
-func (c *ChatEventBackgroundCustomEmojiChanged) Zero() bool {
+func (c *ChatEventProfileAccentColorChanged) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.OldBackgroundCustomEmojiID == 0) {
+	if !(c.OldProfileAccentColorID == 0) {
 		return false
 	}
-	if !(c.NewBackgroundCustomEmojiID == 0) {
+	if !(c.OldProfileBackgroundCustomEmojiID == 0) {
+		return false
+	}
+	if !(c.NewProfileAccentColorID == 0) {
+		return false
+	}
+	if !(c.NewProfileBackgroundCustomEmojiID == 0) {
 		return false
 	}
 
@@ -5027,31 +5505,31 @@ func (c *ChatEventBackgroundCustomEmojiChanged) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (c *ChatEventBackgroundCustomEmojiChanged) String() string {
+func (c *ChatEventProfileAccentColorChanged) String() string {
 	if c == nil {
-		return "ChatEventBackgroundCustomEmojiChanged(nil)"
+		return "ChatEventProfileAccentColorChanged(nil)"
 	}
-	type Alias ChatEventBackgroundCustomEmojiChanged
-	return fmt.Sprintf("ChatEventBackgroundCustomEmojiChanged%+v", Alias(*c))
+	type Alias ChatEventProfileAccentColorChanged
+	return fmt.Sprintf("ChatEventProfileAccentColorChanged%+v", Alias(*c))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*ChatEventBackgroundCustomEmojiChanged) TypeID() uint32 {
-	return ChatEventBackgroundCustomEmojiChangedTypeID
+func (*ChatEventProfileAccentColorChanged) TypeID() uint32 {
+	return ChatEventProfileAccentColorChangedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*ChatEventBackgroundCustomEmojiChanged) TypeName() string {
-	return "chatEventBackgroundCustomEmojiChanged"
+func (*ChatEventProfileAccentColorChanged) TypeName() string {
+	return "chatEventProfileAccentColorChanged"
 }
 
 // TypeInfo returns info about TL type.
-func (c *ChatEventBackgroundCustomEmojiChanged) TypeInfo() tdp.Type {
+func (c *ChatEventProfileAccentColorChanged) TypeInfo() tdp.Type {
 	typ := tdp.Type{
-		Name: "chatEventBackgroundCustomEmojiChanged",
-		ID:   ChatEventBackgroundCustomEmojiChangedTypeID,
+		Name: "chatEventProfileAccentColorChanged",
+		ID:   ChatEventProfileAccentColorChangedTypeID,
 	}
 	if c == nil {
 		typ.Null = true
@@ -5059,82 +5537,112 @@ func (c *ChatEventBackgroundCustomEmojiChanged) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "OldBackgroundCustomEmojiID",
-			SchemaName: "old_background_custom_emoji_id",
+			Name:       "OldProfileAccentColorID",
+			SchemaName: "old_profile_accent_color_id",
 		},
 		{
-			Name:       "NewBackgroundCustomEmojiID",
-			SchemaName: "new_background_custom_emoji_id",
+			Name:       "OldProfileBackgroundCustomEmojiID",
+			SchemaName: "old_profile_background_custom_emoji_id",
+		},
+		{
+			Name:       "NewProfileAccentColorID",
+			SchemaName: "new_profile_accent_color_id",
+		},
+		{
+			Name:       "NewProfileBackgroundCustomEmojiID",
+			SchemaName: "new_profile_background_custom_emoji_id",
 		},
 	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
-func (c *ChatEventBackgroundCustomEmojiChanged) Encode(b *bin.Buffer) error {
+func (c *ChatEventProfileAccentColorChanged) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventBackgroundCustomEmojiChanged#d2671e9a as nil")
+		return fmt.Errorf("can't encode chatEventProfileAccentColorChanged#a5b8da64 as nil")
 	}
-	b.PutID(ChatEventBackgroundCustomEmojiChangedTypeID)
+	b.PutID(ChatEventProfileAccentColorChangedTypeID)
 	return c.EncodeBare(b)
 }
 
 // EncodeBare implements bin.BareEncoder.
-func (c *ChatEventBackgroundCustomEmojiChanged) EncodeBare(b *bin.Buffer) error {
+func (c *ChatEventProfileAccentColorChanged) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventBackgroundCustomEmojiChanged#d2671e9a as nil")
+		return fmt.Errorf("can't encode chatEventProfileAccentColorChanged#a5b8da64 as nil")
 	}
-	b.PutLong(c.OldBackgroundCustomEmojiID)
-	b.PutLong(c.NewBackgroundCustomEmojiID)
+	b.PutInt32(c.OldProfileAccentColorID)
+	b.PutLong(c.OldProfileBackgroundCustomEmojiID)
+	b.PutInt32(c.NewProfileAccentColorID)
+	b.PutLong(c.NewProfileBackgroundCustomEmojiID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (c *ChatEventBackgroundCustomEmojiChanged) Decode(b *bin.Buffer) error {
+func (c *ChatEventProfileAccentColorChanged) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventBackgroundCustomEmojiChanged#d2671e9a to nil")
+		return fmt.Errorf("can't decode chatEventProfileAccentColorChanged#a5b8da64 to nil")
 	}
-	if err := b.ConsumeID(ChatEventBackgroundCustomEmojiChangedTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatEventBackgroundCustomEmojiChanged#d2671e9a: %w", err)
+	if err := b.ConsumeID(ChatEventProfileAccentColorChangedTypeID); err != nil {
+		return fmt.Errorf("unable to decode chatEventProfileAccentColorChanged#a5b8da64: %w", err)
 	}
 	return c.DecodeBare(b)
 }
 
 // DecodeBare implements bin.BareDecoder.
-func (c *ChatEventBackgroundCustomEmojiChanged) DecodeBare(b *bin.Buffer) error {
+func (c *ChatEventProfileAccentColorChanged) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventBackgroundCustomEmojiChanged#d2671e9a to nil")
+		return fmt.Errorf("can't decode chatEventProfileAccentColorChanged#a5b8da64 to nil")
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventProfileAccentColorChanged#a5b8da64: field old_profile_accent_color_id: %w", err)
+		}
+		c.OldProfileAccentColorID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatEventBackgroundCustomEmojiChanged#d2671e9a: field old_background_custom_emoji_id: %w", err)
+			return fmt.Errorf("unable to decode chatEventProfileAccentColorChanged#a5b8da64: field old_profile_background_custom_emoji_id: %w", err)
 		}
-		c.OldBackgroundCustomEmojiID = value
+		c.OldProfileBackgroundCustomEmojiID = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatEventProfileAccentColorChanged#a5b8da64: field new_profile_accent_color_id: %w", err)
+		}
+		c.NewProfileAccentColorID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatEventBackgroundCustomEmojiChanged#d2671e9a: field new_background_custom_emoji_id: %w", err)
+			return fmt.Errorf("unable to decode chatEventProfileAccentColorChanged#a5b8da64: field new_profile_background_custom_emoji_id: %w", err)
 		}
-		c.NewBackgroundCustomEmojiID = value
+		c.NewProfileBackgroundCustomEmojiID = value
 	}
 	return nil
 }
 
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
-func (c *ChatEventBackgroundCustomEmojiChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
+func (c *ChatEventProfileAccentColorChanged) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatEventBackgroundCustomEmojiChanged#d2671e9a as nil")
+		return fmt.Errorf("can't encode chatEventProfileAccentColorChanged#a5b8da64 as nil")
 	}
 	b.ObjStart()
-	b.PutID("chatEventBackgroundCustomEmojiChanged")
+	b.PutID("chatEventProfileAccentColorChanged")
 	b.Comma()
-	b.FieldStart("old_background_custom_emoji_id")
-	b.PutLong(c.OldBackgroundCustomEmojiID)
+	b.FieldStart("old_profile_accent_color_id")
+	b.PutInt32(c.OldProfileAccentColorID)
 	b.Comma()
-	b.FieldStart("new_background_custom_emoji_id")
-	b.PutLong(c.NewBackgroundCustomEmojiID)
+	b.FieldStart("old_profile_background_custom_emoji_id")
+	b.PutLong(c.OldProfileBackgroundCustomEmojiID)
+	b.Comma()
+	b.FieldStart("new_profile_accent_color_id")
+	b.PutInt32(c.NewProfileAccentColorID)
+	b.Comma()
+	b.FieldStart("new_profile_background_custom_emoji_id")
+	b.PutLong(c.NewProfileBackgroundCustomEmojiID)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -5142,29 +5650,41 @@ func (c *ChatEventBackgroundCustomEmojiChanged) EncodeTDLibJSON(b tdjson.Encoder
 }
 
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
-func (c *ChatEventBackgroundCustomEmojiChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
+func (c *ChatEventProfileAccentColorChanged) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatEventBackgroundCustomEmojiChanged#d2671e9a to nil")
+		return fmt.Errorf("can't decode chatEventProfileAccentColorChanged#a5b8da64 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
-			if err := b.ConsumeID("chatEventBackgroundCustomEmojiChanged"); err != nil {
-				return fmt.Errorf("unable to decode chatEventBackgroundCustomEmojiChanged#d2671e9a: %w", err)
+			if err := b.ConsumeID("chatEventProfileAccentColorChanged"); err != nil {
+				return fmt.Errorf("unable to decode chatEventProfileAccentColorChanged#a5b8da64: %w", err)
 			}
-		case "old_background_custom_emoji_id":
+		case "old_profile_accent_color_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventProfileAccentColorChanged#a5b8da64: field old_profile_accent_color_id: %w", err)
+			}
+			c.OldProfileAccentColorID = value
+		case "old_profile_background_custom_emoji_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatEventBackgroundCustomEmojiChanged#d2671e9a: field old_background_custom_emoji_id: %w", err)
+				return fmt.Errorf("unable to decode chatEventProfileAccentColorChanged#a5b8da64: field old_profile_background_custom_emoji_id: %w", err)
 			}
-			c.OldBackgroundCustomEmojiID = value
-		case "new_background_custom_emoji_id":
+			c.OldProfileBackgroundCustomEmojiID = value
+		case "new_profile_accent_color_id":
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode chatEventProfileAccentColorChanged#a5b8da64: field new_profile_accent_color_id: %w", err)
+			}
+			c.NewProfileAccentColorID = value
+		case "new_profile_background_custom_emoji_id":
 			value, err := b.Long()
 			if err != nil {
-				return fmt.Errorf("unable to decode chatEventBackgroundCustomEmojiChanged#d2671e9a: field new_background_custom_emoji_id: %w", err)
+				return fmt.Errorf("unable to decode chatEventProfileAccentColorChanged#a5b8da64: field new_profile_background_custom_emoji_id: %w", err)
 			}
-			c.NewBackgroundCustomEmojiID = value
+			c.NewProfileBackgroundCustomEmojiID = value
 		default:
 			return b.Skip()
 		}
@@ -5172,20 +5692,36 @@ func (c *ChatEventBackgroundCustomEmojiChanged) DecodeTDLibJSON(b tdjson.Decoder
 	})
 }
 
-// GetOldBackgroundCustomEmojiID returns value of OldBackgroundCustomEmojiID field.
-func (c *ChatEventBackgroundCustomEmojiChanged) GetOldBackgroundCustomEmojiID() (value int64) {
+// GetOldProfileAccentColorID returns value of OldProfileAccentColorID field.
+func (c *ChatEventProfileAccentColorChanged) GetOldProfileAccentColorID() (value int32) {
 	if c == nil {
 		return
 	}
-	return c.OldBackgroundCustomEmojiID
+	return c.OldProfileAccentColorID
 }
 
-// GetNewBackgroundCustomEmojiID returns value of NewBackgroundCustomEmojiID field.
-func (c *ChatEventBackgroundCustomEmojiChanged) GetNewBackgroundCustomEmojiID() (value int64) {
+// GetOldProfileBackgroundCustomEmojiID returns value of OldProfileBackgroundCustomEmojiID field.
+func (c *ChatEventProfileAccentColorChanged) GetOldProfileBackgroundCustomEmojiID() (value int64) {
 	if c == nil {
 		return
 	}
-	return c.NewBackgroundCustomEmojiID
+	return c.OldProfileBackgroundCustomEmojiID
+}
+
+// GetNewProfileAccentColorID returns value of NewProfileAccentColorID field.
+func (c *ChatEventProfileAccentColorChanged) GetNewProfileAccentColorID() (value int32) {
+	if c == nil {
+		return
+	}
+	return c.NewProfileAccentColorID
+}
+
+// GetNewProfileBackgroundCustomEmojiID returns value of NewProfileBackgroundCustomEmojiID field.
+func (c *ChatEventProfileAccentColorChanged) GetNewProfileBackgroundCustomEmojiID() (value int64) {
+	if c == nil {
+		return
+	}
+	return c.NewProfileBackgroundCustomEmojiID
 }
 
 // ChatEventHasProtectedContentToggled represents TL type `chatEventHasProtectedContentToggled#f5044201`.
@@ -8725,7 +9261,9 @@ const ChatEventActionClassName = "ChatEventAction"
 //	case *tdapi.ChatEventMemberPromoted: // chatEventMemberPromoted#1f4f6861
 //	case *tdapi.ChatEventMemberRestricted: // chatEventMemberRestricted#5f951e05
 //	case *tdapi.ChatEventAvailableReactionsChanged: // chatEventAvailableReactionsChanged#97b8e0bf
+//	case *tdapi.ChatEventBackgroundChanged: // chatEventBackgroundChanged#b6ed6d38
 //	case *tdapi.ChatEventDescriptionChanged: // chatEventDescriptionChanged#254cf1e
+//	case *tdapi.ChatEventEmojiStatusChanged: // chatEventEmojiStatusChanged#83e97b1e
 //	case *tdapi.ChatEventLinkedChatChanged: // chatEventLinkedChatChanged#6b2271af
 //	case *tdapi.ChatEventLocationChanged: // chatEventLocationChanged#e7cdfd4e
 //	case *tdapi.ChatEventMessageAutoDeleteTimeChanged: // chatEventMessageAutoDeleteTimeChanged#1083f24
@@ -8736,8 +9274,8 @@ const ChatEventActionClassName = "ChatEventAction"
 //	case *tdapi.ChatEventTitleChanged: // chatEventTitleChanged#43990ad2
 //	case *tdapi.ChatEventUsernameChanged: // chatEventUsernameChanged#6707b56b
 //	case *tdapi.ChatEventActiveUsernamesChanged: // chatEventActiveUsernamesChanged#95e54656
-//	case *tdapi.ChatEventAccentColorChanged: // chatEventAccentColorChanged#2a327e32
-//	case *tdapi.ChatEventBackgroundCustomEmojiChanged: // chatEventBackgroundCustomEmojiChanged#d2671e9a
+//	case *tdapi.ChatEventAccentColorChanged: // chatEventAccentColorChanged#e6837733
+//	case *tdapi.ChatEventProfileAccentColorChanged: // chatEventProfileAccentColorChanged#a5b8da64
 //	case *tdapi.ChatEventHasProtectedContentToggled: // chatEventHasProtectedContentToggled#f5044201
 //	case *tdapi.ChatEventInvitesToggled: // chatEventInvitesToggled#fc45966b
 //	case *tdapi.ChatEventIsAllHistoryAvailableToggled: // chatEventIsAllHistoryAvailableToggled#a0b03c15
@@ -8880,9 +9418,23 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
+	case ChatEventBackgroundChangedTypeID:
+		// Decoding chatEventBackgroundChanged#b6ed6d38.
+		v := ChatEventBackgroundChanged{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
 	case ChatEventDescriptionChangedTypeID:
 		// Decoding chatEventDescriptionChanged#254cf1e.
 		v := ChatEventDescriptionChanged{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChatEventEmojiStatusChangedTypeID:
+		// Decoding chatEventEmojiStatusChanged#83e97b1e.
+		v := ChatEventEmojiStatusChanged{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -8958,15 +9510,15 @@ func DecodeChatEventAction(buf *bin.Buffer) (ChatEventActionClass, error) {
 		}
 		return &v, nil
 	case ChatEventAccentColorChangedTypeID:
-		// Decoding chatEventAccentColorChanged#2a327e32.
+		// Decoding chatEventAccentColorChanged#e6837733.
 		v := ChatEventAccentColorChanged{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
-	case ChatEventBackgroundCustomEmojiChangedTypeID:
-		// Decoding chatEventBackgroundCustomEmojiChanged#d2671e9a.
-		v := ChatEventBackgroundCustomEmojiChanged{}
+	case ChatEventProfileAccentColorChangedTypeID:
+		// Decoding chatEventProfileAccentColorChanged#a5b8da64.
+		v := ChatEventProfileAccentColorChanged{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -9214,9 +9766,23 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
+	case "chatEventBackgroundChanged":
+		// Decoding chatEventBackgroundChanged#b6ed6d38.
+		v := ChatEventBackgroundChanged{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
 	case "chatEventDescriptionChanged":
 		// Decoding chatEventDescriptionChanged#254cf1e.
 		v := ChatEventDescriptionChanged{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
+		}
+		return &v, nil
+	case "chatEventEmojiStatusChanged":
+		// Decoding chatEventEmojiStatusChanged#83e97b1e.
+		v := ChatEventEmojiStatusChanged{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
@@ -9292,15 +9858,15 @@ func DecodeTDLibJSONChatEventAction(buf tdjson.Decoder) (ChatEventActionClass, e
 		}
 		return &v, nil
 	case "chatEventAccentColorChanged":
-		// Decoding chatEventAccentColorChanged#2a327e32.
+		// Decoding chatEventAccentColorChanged#e6837733.
 		v := ChatEventAccentColorChanged{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}
 		return &v, nil
-	case "chatEventBackgroundCustomEmojiChanged":
-		// Decoding chatEventBackgroundCustomEmojiChanged#d2671e9a.
-		v := ChatEventBackgroundCustomEmojiChanged{}
+	case "chatEventProfileAccentColorChanged":
+		// Decoding chatEventProfileAccentColorChanged#a5b8da64.
+		v := ChatEventProfileAccentColorChanged{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatEventActionClass: %w", err)
 		}

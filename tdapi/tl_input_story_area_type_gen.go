@@ -841,6 +841,208 @@ func (i *InputStoryAreaTypeSuggestedReaction) GetIsFlipped() (value bool) {
 	return i.IsFlipped
 }
 
+// InputStoryAreaTypeMessage represents TL type `inputStoryAreaTypeMessage#f01be457`.
+type InputStoryAreaTypeMessage struct {
+	// Identifier of the chat with the message. Currently, the chat must be a supergroup or a
+	// channel chat
+	ChatID int64
+	// Identifier of the message. Only successfully sent non-scheduled messages can be
+	// specified
+	MessageID int64
+}
+
+// InputStoryAreaTypeMessageTypeID is TL type id of InputStoryAreaTypeMessage.
+const InputStoryAreaTypeMessageTypeID = 0xf01be457
+
+// construct implements constructor of InputStoryAreaTypeClass.
+func (i InputStoryAreaTypeMessage) construct() InputStoryAreaTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InputStoryAreaTypeMessage.
+var (
+	_ bin.Encoder     = &InputStoryAreaTypeMessage{}
+	_ bin.Decoder     = &InputStoryAreaTypeMessage{}
+	_ bin.BareEncoder = &InputStoryAreaTypeMessage{}
+	_ bin.BareDecoder = &InputStoryAreaTypeMessage{}
+
+	_ InputStoryAreaTypeClass = &InputStoryAreaTypeMessage{}
+)
+
+func (i *InputStoryAreaTypeMessage) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ChatID == 0) {
+		return false
+	}
+	if !(i.MessageID == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputStoryAreaTypeMessage) String() string {
+	if i == nil {
+		return "InputStoryAreaTypeMessage(nil)"
+	}
+	type Alias InputStoryAreaTypeMessage
+	return fmt.Sprintf("InputStoryAreaTypeMessage%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputStoryAreaTypeMessage) TypeID() uint32 {
+	return InputStoryAreaTypeMessageTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputStoryAreaTypeMessage) TypeName() string {
+	return "inputStoryAreaTypeMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputStoryAreaTypeMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputStoryAreaTypeMessage",
+		ID:   InputStoryAreaTypeMessageTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "MessageID",
+			SchemaName: "message_id",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputStoryAreaTypeMessage) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStoryAreaTypeMessage#f01be457 as nil")
+	}
+	b.PutID(InputStoryAreaTypeMessageTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputStoryAreaTypeMessage) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStoryAreaTypeMessage#f01be457 as nil")
+	}
+	b.PutInt53(i.ChatID)
+	b.PutInt53(i.MessageID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputStoryAreaTypeMessage) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputStoryAreaTypeMessage#f01be457 to nil")
+	}
+	if err := b.ConsumeID(InputStoryAreaTypeMessageTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputStoryAreaTypeMessage#f01be457: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputStoryAreaTypeMessage) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputStoryAreaTypeMessage#f01be457 to nil")
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStoryAreaTypeMessage#f01be457: field chat_id: %w", err)
+		}
+		i.ChatID = value
+	}
+	{
+		value, err := b.Int53()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputStoryAreaTypeMessage#f01be457: field message_id: %w", err)
+		}
+		i.MessageID = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InputStoryAreaTypeMessage) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStoryAreaTypeMessage#f01be457 as nil")
+	}
+	b.ObjStart()
+	b.PutID("inputStoryAreaTypeMessage")
+	b.Comma()
+	b.FieldStart("chat_id")
+	b.PutInt53(i.ChatID)
+	b.Comma()
+	b.FieldStart("message_id")
+	b.PutInt53(i.MessageID)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InputStoryAreaTypeMessage) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputStoryAreaTypeMessage#f01be457 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("inputStoryAreaTypeMessage"); err != nil {
+				return fmt.Errorf("unable to decode inputStoryAreaTypeMessage#f01be457: %w", err)
+			}
+		case "chat_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputStoryAreaTypeMessage#f01be457: field chat_id: %w", err)
+			}
+			i.ChatID = value
+		case "message_id":
+			value, err := b.Int53()
+			if err != nil {
+				return fmt.Errorf("unable to decode inputStoryAreaTypeMessage#f01be457: field message_id: %w", err)
+			}
+			i.MessageID = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetChatID returns value of ChatID field.
+func (i *InputStoryAreaTypeMessage) GetChatID() (value int64) {
+	if i == nil {
+		return
+	}
+	return i.ChatID
+}
+
+// GetMessageID returns value of MessageID field.
+func (i *InputStoryAreaTypeMessage) GetMessageID() (value int64) {
+	if i == nil {
+		return
+	}
+	return i.MessageID
+}
+
 // InputStoryAreaTypeClassName is schema name of InputStoryAreaTypeClass.
 const InputStoryAreaTypeClassName = "InputStoryAreaType"
 
@@ -857,6 +1059,7 @@ const InputStoryAreaTypeClassName = "InputStoryAreaType"
 //	case *tdapi.InputStoryAreaTypeFoundVenue: // inputStoryAreaTypeFoundVenue#accda496
 //	case *tdapi.InputStoryAreaTypePreviousVenue: // inputStoryAreaTypePreviousVenue#6e124e0c
 //	case *tdapi.InputStoryAreaTypeSuggestedReaction: // inputStoryAreaTypeSuggestedReaction#7d4751d3
+//	case *tdapi.InputStoryAreaTypeMessage: // inputStoryAreaTypeMessage#f01be457
 //	default: panic(v)
 //	}
 type InputStoryAreaTypeClass interface {
@@ -916,6 +1119,13 @@ func DecodeInputStoryAreaType(buf *bin.Buffer) (InputStoryAreaTypeClass, error) 
 			return nil, fmt.Errorf("unable to decode InputStoryAreaTypeClass: %w", err)
 		}
 		return &v, nil
+	case InputStoryAreaTypeMessageTypeID:
+		// Decoding inputStoryAreaTypeMessage#f01be457.
+		v := InputStoryAreaTypeMessage{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputStoryAreaTypeClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode InputStoryAreaTypeClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -952,6 +1162,13 @@ func DecodeTDLibJSONInputStoryAreaType(buf tdjson.Decoder) (InputStoryAreaTypeCl
 	case "inputStoryAreaTypeSuggestedReaction":
 		// Decoding inputStoryAreaTypeSuggestedReaction#7d4751d3.
 		v := InputStoryAreaTypeSuggestedReaction{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputStoryAreaTypeClass: %w", err)
+		}
+		return &v, nil
+	case "inputStoryAreaTypeMessage":
+		// Decoding inputStoryAreaTypeMessage#f01be457.
+		v := InputStoryAreaTypeMessage{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputStoryAreaTypeClass: %w", err)
 		}
