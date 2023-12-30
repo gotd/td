@@ -687,6 +687,172 @@ func (b *BackgroundTypeFill) GetFill() (value BackgroundFillClass) {
 	return b.Fill
 }
 
+// BackgroundTypeChatTheme represents TL type `backgroundTypeChatTheme#4d7a9752`.
+type BackgroundTypeChatTheme struct {
+	// Name of the chat theme
+	ThemeName string
+}
+
+// BackgroundTypeChatThemeTypeID is TL type id of BackgroundTypeChatTheme.
+const BackgroundTypeChatThemeTypeID = 0x4d7a9752
+
+// construct implements constructor of BackgroundTypeClass.
+func (b BackgroundTypeChatTheme) construct() BackgroundTypeClass { return &b }
+
+// Ensuring interfaces in compile-time for BackgroundTypeChatTheme.
+var (
+	_ bin.Encoder     = &BackgroundTypeChatTheme{}
+	_ bin.Decoder     = &BackgroundTypeChatTheme{}
+	_ bin.BareEncoder = &BackgroundTypeChatTheme{}
+	_ bin.BareDecoder = &BackgroundTypeChatTheme{}
+
+	_ BackgroundTypeClass = &BackgroundTypeChatTheme{}
+)
+
+func (b *BackgroundTypeChatTheme) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.ThemeName == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (b *BackgroundTypeChatTheme) String() string {
+	if b == nil {
+		return "BackgroundTypeChatTheme(nil)"
+	}
+	type Alias BackgroundTypeChatTheme
+	return fmt.Sprintf("BackgroundTypeChatTheme%+v", Alias(*b))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*BackgroundTypeChatTheme) TypeID() uint32 {
+	return BackgroundTypeChatThemeTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*BackgroundTypeChatTheme) TypeName() string {
+	return "backgroundTypeChatTheme"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BackgroundTypeChatTheme) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "backgroundTypeChatTheme",
+		ID:   BackgroundTypeChatThemeTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ThemeName",
+			SchemaName: "theme_name",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (b *BackgroundTypeChatTheme) Encode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode backgroundTypeChatTheme#4d7a9752 as nil")
+	}
+	buf.PutID(BackgroundTypeChatThemeTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BackgroundTypeChatTheme) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode backgroundTypeChatTheme#4d7a9752 as nil")
+	}
+	buf.PutString(b.ThemeName)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (b *BackgroundTypeChatTheme) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode backgroundTypeChatTheme#4d7a9752 to nil")
+	}
+	if err := buf.ConsumeID(BackgroundTypeChatThemeTypeID); err != nil {
+		return fmt.Errorf("unable to decode backgroundTypeChatTheme#4d7a9752: %w", err)
+	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BackgroundTypeChatTheme) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode backgroundTypeChatTheme#4d7a9752 to nil")
+	}
+	{
+		value, err := buf.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode backgroundTypeChatTheme#4d7a9752: field theme_name: %w", err)
+		}
+		b.ThemeName = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (b *BackgroundTypeChatTheme) EncodeTDLibJSON(buf tdjson.Encoder) error {
+	if b == nil {
+		return fmt.Errorf("can't encode backgroundTypeChatTheme#4d7a9752 as nil")
+	}
+	buf.ObjStart()
+	buf.PutID("backgroundTypeChatTheme")
+	buf.Comma()
+	buf.FieldStart("theme_name")
+	buf.PutString(b.ThemeName)
+	buf.Comma()
+	buf.StripComma()
+	buf.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (b *BackgroundTypeChatTheme) DecodeTDLibJSON(buf tdjson.Decoder) error {
+	if b == nil {
+		return fmt.Errorf("can't decode backgroundTypeChatTheme#4d7a9752 to nil")
+	}
+
+	return buf.Obj(func(buf tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := buf.ConsumeID("backgroundTypeChatTheme"); err != nil {
+				return fmt.Errorf("unable to decode backgroundTypeChatTheme#4d7a9752: %w", err)
+			}
+		case "theme_name":
+			value, err := buf.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode backgroundTypeChatTheme#4d7a9752: field theme_name: %w", err)
+			}
+			b.ThemeName = value
+		default:
+			return buf.Skip()
+		}
+		return nil
+	})
+}
+
+// GetThemeName returns value of ThemeName field.
+func (b *BackgroundTypeChatTheme) GetThemeName() (value string) {
+	if b == nil {
+		return
+	}
+	return b.ThemeName
+}
+
 // BackgroundTypeClassName is schema name of BackgroundTypeClass.
 const BackgroundTypeClassName = "BackgroundType"
 
@@ -702,6 +868,7 @@ const BackgroundTypeClassName = "BackgroundType"
 //	case *tdapi.BackgroundTypeWallpaper: // backgroundTypeWallpaper#758c4c7b
 //	case *tdapi.BackgroundTypePattern: // backgroundTypePattern#4ce716fd
 //	case *tdapi.BackgroundTypeFill: // backgroundTypeFill#3b301c2c
+//	case *tdapi.BackgroundTypeChatTheme: // backgroundTypeChatTheme#4d7a9752
 //	default: panic(v)
 //	}
 type BackgroundTypeClass interface {
@@ -754,6 +921,13 @@ func DecodeBackgroundType(buf *bin.Buffer) (BackgroundTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode BackgroundTypeClass: %w", err)
 		}
 		return &v, nil
+	case BackgroundTypeChatThemeTypeID:
+		// Decoding backgroundTypeChatTheme#4d7a9752.
+		v := BackgroundTypeChatTheme{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode BackgroundTypeClass: %w", err)
+		}
+		return &v, nil
 	default:
 		return nil, fmt.Errorf("unable to decode BackgroundTypeClass: %w", bin.NewUnexpectedID(id))
 	}
@@ -783,6 +957,13 @@ func DecodeTDLibJSONBackgroundType(buf tdjson.Decoder) (BackgroundTypeClass, err
 	case "backgroundTypeFill":
 		// Decoding backgroundTypeFill#3b301c2c.
 		v := BackgroundTypeFill{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode BackgroundTypeClass: %w", err)
+		}
+		return &v, nil
+	case "backgroundTypeChatTheme":
+		// Decoding backgroundTypeChatTheme#4d7a9752.
+		v := BackgroundTypeChatTheme{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode BackgroundTypeClass: %w", err)
 		}

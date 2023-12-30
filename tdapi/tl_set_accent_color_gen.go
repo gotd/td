@@ -35,7 +35,8 @@ var (
 type SetAccentColorRequest struct {
 	// Identifier of the accent color to use
 	AccentColorID int32
-	// Identifier of a custom emoji to be shown on the reply header background; 0 if none
+	// Identifier of a custom emoji to be shown on the reply header and link preview
+	// background; 0 if none
 	BackgroundCustomEmojiID int64
 }
 

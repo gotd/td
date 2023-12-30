@@ -4331,6 +4331,172 @@ func (i *InternalLinkTypePremiumFeatures) GetReferrer() (value string) {
 	return i.Referrer
 }
 
+// InternalLinkTypePremiumGift represents TL type `internalLinkTypePremiumGift#5ad56d41`.
+type InternalLinkTypePremiumGift struct {
+	// Referrer specified in the link
+	Referrer string
+}
+
+// InternalLinkTypePremiumGiftTypeID is TL type id of InternalLinkTypePremiumGift.
+const InternalLinkTypePremiumGiftTypeID = 0x5ad56d41
+
+// construct implements constructor of InternalLinkTypeClass.
+func (i InternalLinkTypePremiumGift) construct() InternalLinkTypeClass { return &i }
+
+// Ensuring interfaces in compile-time for InternalLinkTypePremiumGift.
+var (
+	_ bin.Encoder     = &InternalLinkTypePremiumGift{}
+	_ bin.Decoder     = &InternalLinkTypePremiumGift{}
+	_ bin.BareEncoder = &InternalLinkTypePremiumGift{}
+	_ bin.BareDecoder = &InternalLinkTypePremiumGift{}
+
+	_ InternalLinkTypeClass = &InternalLinkTypePremiumGift{}
+)
+
+func (i *InternalLinkTypePremiumGift) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Referrer == "") {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InternalLinkTypePremiumGift) String() string {
+	if i == nil {
+		return "InternalLinkTypePremiumGift(nil)"
+	}
+	type Alias InternalLinkTypePremiumGift
+	return fmt.Sprintf("InternalLinkTypePremiumGift%+v", Alias(*i))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InternalLinkTypePremiumGift) TypeID() uint32 {
+	return InternalLinkTypePremiumGiftTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InternalLinkTypePremiumGift) TypeName() string {
+	return "internalLinkTypePremiumGift"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InternalLinkTypePremiumGift) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "internalLinkTypePremiumGift",
+		ID:   InternalLinkTypePremiumGiftTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Referrer",
+			SchemaName: "referrer",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InternalLinkTypePremiumGift) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypePremiumGift#5ad56d41 as nil")
+	}
+	b.PutID(InternalLinkTypePremiumGiftTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InternalLinkTypePremiumGift) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypePremiumGift#5ad56d41 as nil")
+	}
+	b.PutString(i.Referrer)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InternalLinkTypePremiumGift) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypePremiumGift#5ad56d41 to nil")
+	}
+	if err := b.ConsumeID(InternalLinkTypePremiumGiftTypeID); err != nil {
+		return fmt.Errorf("unable to decode internalLinkTypePremiumGift#5ad56d41: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InternalLinkTypePremiumGift) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypePremiumGift#5ad56d41 to nil")
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode internalLinkTypePremiumGift#5ad56d41: field referrer: %w", err)
+		}
+		i.Referrer = value
+	}
+	return nil
+}
+
+// EncodeTDLibJSON implements tdjson.TDLibEncoder.
+func (i *InternalLinkTypePremiumGift) EncodeTDLibJSON(b tdjson.Encoder) error {
+	if i == nil {
+		return fmt.Errorf("can't encode internalLinkTypePremiumGift#5ad56d41 as nil")
+	}
+	b.ObjStart()
+	b.PutID("internalLinkTypePremiumGift")
+	b.Comma()
+	b.FieldStart("referrer")
+	b.PutString(i.Referrer)
+	b.Comma()
+	b.StripComma()
+	b.ObjEnd()
+	return nil
+}
+
+// DecodeTDLibJSON implements tdjson.TDLibDecoder.
+func (i *InternalLinkTypePremiumGift) DecodeTDLibJSON(b tdjson.Decoder) error {
+	if i == nil {
+		return fmt.Errorf("can't decode internalLinkTypePremiumGift#5ad56d41 to nil")
+	}
+
+	return b.Obj(func(b tdjson.Decoder, key []byte) error {
+		switch string(key) {
+		case tdjson.TypeField:
+			if err := b.ConsumeID("internalLinkTypePremiumGift"); err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypePremiumGift#5ad56d41: %w", err)
+			}
+		case "referrer":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode internalLinkTypePremiumGift#5ad56d41: field referrer: %w", err)
+			}
+			i.Referrer = value
+		default:
+			return b.Skip()
+		}
+		return nil
+	})
+}
+
+// GetReferrer returns value of Referrer field.
+func (i *InternalLinkTypePremiumGift) GetReferrer() (value string) {
+	if i == nil {
+		return
+	}
+	return i.Referrer
+}
+
 // InternalLinkTypePremiumGiftCode represents TL type `internalLinkTypePremiumGiftCode#de5c9892`.
 type InternalLinkTypePremiumGiftCode struct {
 	// The Telegram Premium gift code
@@ -7463,6 +7629,7 @@ const InternalLinkTypeClassName = "InternalLinkType"
 //	case *tdapi.InternalLinkTypePassportDataRequest: // internalLinkTypePassportDataRequest#c50fce81
 //	case *tdapi.InternalLinkTypePhoneNumberConfirmation: // internalLinkTypePhoneNumberConfirmation#68bf6b16
 //	case *tdapi.InternalLinkTypePremiumFeatures: // internalLinkTypePremiumFeatures#48884f49
+//	case *tdapi.InternalLinkTypePremiumGift: // internalLinkTypePremiumGift#5ad56d41
 //	case *tdapi.InternalLinkTypePremiumGiftCode: // internalLinkTypePremiumGiftCode#de5c9892
 //	case *tdapi.InternalLinkTypePrivacyAndSecuritySettings: // internalLinkTypePrivacyAndSecuritySettings#ad5f6acf
 //	case *tdapi.InternalLinkTypeProxy: // internalLinkTypeProxy#b1b12cea
@@ -7676,6 +7843,13 @@ func DecodeInternalLinkType(buf *bin.Buffer) (InternalLinkTypeClass, error) {
 	case InternalLinkTypePremiumFeaturesTypeID:
 		// Decoding internalLinkTypePremiumFeatures#48884f49.
 		v := InternalLinkTypePremiumFeatures{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case InternalLinkTypePremiumGiftTypeID:
+		// Decoding internalLinkTypePremiumGift#5ad56d41.
+		v := InternalLinkTypePremiumGift{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}
@@ -7982,6 +8156,13 @@ func DecodeTDLibJSONInternalLinkType(buf tdjson.Decoder) (InternalLinkTypeClass,
 	case "internalLinkTypePremiumFeatures":
 		// Decoding internalLinkTypePremiumFeatures#48884f49.
 		v := InternalLinkTypePremiumFeatures{}
+		if err := v.DecodeTDLibJSON(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
+		}
+		return &v, nil
+	case "internalLinkTypePremiumGift":
+		// Decoding internalLinkTypePremiumGift#5ad56d41.
+		v := InternalLinkTypePremiumGift{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InternalLinkTypeClass: %w", err)
 		}

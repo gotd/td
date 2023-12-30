@@ -31,14 +31,16 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// PaymentProviderSmartGlocal represents TL type `paymentProviderSmartGlocal#6b5122ee`.
+// PaymentProviderSmartGlocal represents TL type `paymentProviderSmartGlocal#ba047774`.
 type PaymentProviderSmartGlocal struct {
 	// Public payment token
 	PublicToken string
+	// URL for sending card tokenization requests
+	TokenizeURL string
 }
 
 // PaymentProviderSmartGlocalTypeID is TL type id of PaymentProviderSmartGlocal.
-const PaymentProviderSmartGlocalTypeID = 0x6b5122ee
+const PaymentProviderSmartGlocalTypeID = 0xba047774
 
 // construct implements constructor of PaymentProviderClass.
 func (p PaymentProviderSmartGlocal) construct() PaymentProviderClass { return &p }
@@ -58,6 +60,9 @@ func (p *PaymentProviderSmartGlocal) Zero() bool {
 		return true
 	}
 	if !(p.PublicToken == "") {
+		return false
+	}
+	if !(p.TokenizeURL == "") {
 		return false
 	}
 
@@ -100,6 +105,10 @@ func (p *PaymentProviderSmartGlocal) TypeInfo() tdp.Type {
 			Name:       "PublicToken",
 			SchemaName: "public_token",
 		},
+		{
+			Name:       "TokenizeURL",
+			SchemaName: "tokenize_url",
+		},
 	}
 	return typ
 }
@@ -107,7 +116,7 @@ func (p *PaymentProviderSmartGlocal) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (p *PaymentProviderSmartGlocal) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode paymentProviderSmartGlocal#6b5122ee as nil")
+		return fmt.Errorf("can't encode paymentProviderSmartGlocal#ba047774 as nil")
 	}
 	b.PutID(PaymentProviderSmartGlocalTypeID)
 	return p.EncodeBare(b)
@@ -116,19 +125,20 @@ func (p *PaymentProviderSmartGlocal) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (p *PaymentProviderSmartGlocal) EncodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode paymentProviderSmartGlocal#6b5122ee as nil")
+		return fmt.Errorf("can't encode paymentProviderSmartGlocal#ba047774 as nil")
 	}
 	b.PutString(p.PublicToken)
+	b.PutString(p.TokenizeURL)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (p *PaymentProviderSmartGlocal) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode paymentProviderSmartGlocal#6b5122ee to nil")
+		return fmt.Errorf("can't decode paymentProviderSmartGlocal#ba047774 to nil")
 	}
 	if err := b.ConsumeID(PaymentProviderSmartGlocalTypeID); err != nil {
-		return fmt.Errorf("unable to decode paymentProviderSmartGlocal#6b5122ee: %w", err)
+		return fmt.Errorf("unable to decode paymentProviderSmartGlocal#ba047774: %w", err)
 	}
 	return p.DecodeBare(b)
 }
@@ -136,14 +146,21 @@ func (p *PaymentProviderSmartGlocal) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (p *PaymentProviderSmartGlocal) DecodeBare(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode paymentProviderSmartGlocal#6b5122ee to nil")
+		return fmt.Errorf("can't decode paymentProviderSmartGlocal#ba047774 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode paymentProviderSmartGlocal#6b5122ee: field public_token: %w", err)
+			return fmt.Errorf("unable to decode paymentProviderSmartGlocal#ba047774: field public_token: %w", err)
 		}
 		p.PublicToken = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode paymentProviderSmartGlocal#ba047774: field tokenize_url: %w", err)
+		}
+		p.TokenizeURL = value
 	}
 	return nil
 }
@@ -151,13 +168,16 @@ func (p *PaymentProviderSmartGlocal) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (p *PaymentProviderSmartGlocal) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if p == nil {
-		return fmt.Errorf("can't encode paymentProviderSmartGlocal#6b5122ee as nil")
+		return fmt.Errorf("can't encode paymentProviderSmartGlocal#ba047774 as nil")
 	}
 	b.ObjStart()
 	b.PutID("paymentProviderSmartGlocal")
 	b.Comma()
 	b.FieldStart("public_token")
 	b.PutString(p.PublicToken)
+	b.Comma()
+	b.FieldStart("tokenize_url")
+	b.PutString(p.TokenizeURL)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -167,21 +187,27 @@ func (p *PaymentProviderSmartGlocal) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (p *PaymentProviderSmartGlocal) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if p == nil {
-		return fmt.Errorf("can't decode paymentProviderSmartGlocal#6b5122ee to nil")
+		return fmt.Errorf("can't decode paymentProviderSmartGlocal#ba047774 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("paymentProviderSmartGlocal"); err != nil {
-				return fmt.Errorf("unable to decode paymentProviderSmartGlocal#6b5122ee: %w", err)
+				return fmt.Errorf("unable to decode paymentProviderSmartGlocal#ba047774: %w", err)
 			}
 		case "public_token":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode paymentProviderSmartGlocal#6b5122ee: field public_token: %w", err)
+				return fmt.Errorf("unable to decode paymentProviderSmartGlocal#ba047774: field public_token: %w", err)
 			}
 			p.PublicToken = value
+		case "tokenize_url":
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode paymentProviderSmartGlocal#ba047774: field tokenize_url: %w", err)
+			}
+			p.TokenizeURL = value
 		default:
 			return b.Skip()
 		}
@@ -195,6 +221,14 @@ func (p *PaymentProviderSmartGlocal) GetPublicToken() (value string) {
 		return
 	}
 	return p.PublicToken
+}
+
+// GetTokenizeURL returns value of TokenizeURL field.
+func (p *PaymentProviderSmartGlocal) GetTokenizeURL() (value string) {
+	if p == nil {
+		return
+	}
+	return p.TokenizeURL
 }
 
 // PaymentProviderStripe represents TL type `paymentProviderStripe#1614e19b`.
@@ -643,7 +677,7 @@ const PaymentProviderClassName = "PaymentProvider"
 //	    panic(err)
 //	}
 //	switch v := g.(type) {
-//	case *tdapi.PaymentProviderSmartGlocal: // paymentProviderSmartGlocal#6b5122ee
+//	case *tdapi.PaymentProviderSmartGlocal: // paymentProviderSmartGlocal#ba047774
 //	case *tdapi.PaymentProviderStripe: // paymentProviderStripe#1614e19b
 //	case *tdapi.PaymentProviderOther: // paymentProviderOther#b050e0e4
 //	default: panic(v)
@@ -678,7 +712,7 @@ func DecodePaymentProvider(buf *bin.Buffer) (PaymentProviderClass, error) {
 	}
 	switch id {
 	case PaymentProviderSmartGlocalTypeID:
-		// Decoding paymentProviderSmartGlocal#6b5122ee.
+		// Decoding paymentProviderSmartGlocal#ba047774.
 		v := PaymentProviderSmartGlocal{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PaymentProviderClass: %w", err)
@@ -711,7 +745,7 @@ func DecodeTDLibJSONPaymentProvider(buf tdjson.Decoder) (PaymentProviderClass, e
 	}
 	switch id {
 	case "paymentProviderSmartGlocal":
-		// Decoding paymentProviderSmartGlocal#6b5122ee.
+		// Decoding paymentProviderSmartGlocal#ba047774.
 		v := PaymentProviderSmartGlocal{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode PaymentProviderClass: %w", err)

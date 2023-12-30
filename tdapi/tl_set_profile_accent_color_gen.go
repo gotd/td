@@ -35,8 +35,8 @@ var (
 type SetProfileAccentColorRequest struct {
 	// Identifier of the accent color to use for profile; pass -1 if none
 	ProfileAccentColorID int32
-	// Identifier of a custom emoji to be shown in the on the user's profile photo
-	// background; 0 if none
+	// Identifier of a custom emoji to be shown on the user's profile photo background; 0 if
+	// none
 	ProfileBackgroundCustomEmojiID int64
 }
 

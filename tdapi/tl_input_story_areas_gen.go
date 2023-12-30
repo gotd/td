@@ -33,7 +33,7 @@ var (
 
 // InputStoryAreas represents TL type `inputStoryAreas#b8ba29fe`.
 type InputStoryAreas struct {
-	// List of 0-10 input story areas
+	// List of input story areas. Currently, a story can have
 	Areas []InputStoryArea
 }
 

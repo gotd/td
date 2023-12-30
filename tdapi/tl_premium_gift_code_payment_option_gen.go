@@ -39,7 +39,7 @@ type PremiumGiftCodePaymentOption struct {
 	Amount int64
 	// Number of users which will be able to activate the gift codes
 	UserCount int32
-	// Number of month the Telegram Premium subscription will be active
+	// Number of months the Telegram Premium subscription will be active
 	MonthCount int32
 	// Identifier of the store product associated with the option; may be empty if none
 	StoreProductID string

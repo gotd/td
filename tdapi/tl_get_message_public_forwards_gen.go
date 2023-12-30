@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// GetMessagePublicForwardsRequest represents TL type `getMessagePublicForwards#6006a949`.
+// GetMessagePublicForwardsRequest represents TL type `getMessagePublicForwards#519da4b4`.
 type GetMessagePublicForwardsRequest struct {
 	// Chat identifier of the message
 	ChatID int64
@@ -40,14 +40,14 @@ type GetMessagePublicForwardsRequest struct {
 	// Offset of the first entry to return as received from the previous request; use empty
 	// string to get the first chunk of results
 	Offset string
-	// The maximum number of messages to be returned; must be positive and can't be greater
-	// than 100. For optimal performance, the number of returned messages is chosen by TDLib
-	// and can be smaller than the specified limit
+	// The maximum number of messages and stories to be returned; must be positive and can't
+	// be greater than 100. For optimal performance, the number of returned objects is chosen
+	// by TDLib and can be smaller than the specified limit
 	Limit int32
 }
 
 // GetMessagePublicForwardsRequestTypeID is TL type id of GetMessagePublicForwardsRequest.
-const GetMessagePublicForwardsRequestTypeID = 0x6006a949
+const GetMessagePublicForwardsRequestTypeID = 0x519da4b4
 
 // Ensuring interfaces in compile-time for GetMessagePublicForwardsRequest.
 var (
@@ -132,7 +132,7 @@ func (g *GetMessagePublicForwardsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GetMessagePublicForwardsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getMessagePublicForwards#6006a949 as nil")
+		return fmt.Errorf("can't encode getMessagePublicForwards#519da4b4 as nil")
 	}
 	b.PutID(GetMessagePublicForwardsRequestTypeID)
 	return g.EncodeBare(b)
@@ -141,7 +141,7 @@ func (g *GetMessagePublicForwardsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *GetMessagePublicForwardsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getMessagePublicForwards#6006a949 as nil")
+		return fmt.Errorf("can't encode getMessagePublicForwards#519da4b4 as nil")
 	}
 	b.PutInt53(g.ChatID)
 	b.PutInt53(g.MessageID)
@@ -153,10 +153,10 @@ func (g *GetMessagePublicForwardsRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetMessagePublicForwardsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getMessagePublicForwards#6006a949 to nil")
+		return fmt.Errorf("can't decode getMessagePublicForwards#519da4b4 to nil")
 	}
 	if err := b.ConsumeID(GetMessagePublicForwardsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode getMessagePublicForwards#6006a949: %w", err)
+		return fmt.Errorf("unable to decode getMessagePublicForwards#519da4b4: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -164,33 +164,33 @@ func (g *GetMessagePublicForwardsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *GetMessagePublicForwardsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getMessagePublicForwards#6006a949 to nil")
+		return fmt.Errorf("can't decode getMessagePublicForwards#519da4b4 to nil")
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getMessagePublicForwards#6006a949: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode getMessagePublicForwards#519da4b4: field chat_id: %w", err)
 		}
 		g.ChatID = value
 	}
 	{
 		value, err := b.Int53()
 		if err != nil {
-			return fmt.Errorf("unable to decode getMessagePublicForwards#6006a949: field message_id: %w", err)
+			return fmt.Errorf("unable to decode getMessagePublicForwards#519da4b4: field message_id: %w", err)
 		}
 		g.MessageID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode getMessagePublicForwards#6006a949: field offset: %w", err)
+			return fmt.Errorf("unable to decode getMessagePublicForwards#519da4b4: field offset: %w", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode getMessagePublicForwards#6006a949: field limit: %w", err)
+			return fmt.Errorf("unable to decode getMessagePublicForwards#519da4b4: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -200,7 +200,7 @@ func (g *GetMessagePublicForwardsRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (g *GetMessagePublicForwardsRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if g == nil {
-		return fmt.Errorf("can't encode getMessagePublicForwards#6006a949 as nil")
+		return fmt.Errorf("can't encode getMessagePublicForwards#519da4b4 as nil")
 	}
 	b.ObjStart()
 	b.PutID("getMessagePublicForwards")
@@ -225,37 +225,37 @@ func (g *GetMessagePublicForwardsRequest) EncodeTDLibJSON(b tdjson.Encoder) erro
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (g *GetMessagePublicForwardsRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if g == nil {
-		return fmt.Errorf("can't decode getMessagePublicForwards#6006a949 to nil")
+		return fmt.Errorf("can't decode getMessagePublicForwards#519da4b4 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("getMessagePublicForwards"); err != nil {
-				return fmt.Errorf("unable to decode getMessagePublicForwards#6006a949: %w", err)
+				return fmt.Errorf("unable to decode getMessagePublicForwards#519da4b4: %w", err)
 			}
 		case "chat_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getMessagePublicForwards#6006a949: field chat_id: %w", err)
+				return fmt.Errorf("unable to decode getMessagePublicForwards#519da4b4: field chat_id: %w", err)
 			}
 			g.ChatID = value
 		case "message_id":
 			value, err := b.Int53()
 			if err != nil {
-				return fmt.Errorf("unable to decode getMessagePublicForwards#6006a949: field message_id: %w", err)
+				return fmt.Errorf("unable to decode getMessagePublicForwards#519da4b4: field message_id: %w", err)
 			}
 			g.MessageID = value
 		case "offset":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode getMessagePublicForwards#6006a949: field offset: %w", err)
+				return fmt.Errorf("unable to decode getMessagePublicForwards#519da4b4: field offset: %w", err)
 			}
 			g.Offset = value
 		case "limit":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode getMessagePublicForwards#6006a949: field limit: %w", err)
+				return fmt.Errorf("unable to decode getMessagePublicForwards#519da4b4: field limit: %w", err)
 			}
 			g.Limit = value
 		default:
@@ -297,9 +297,9 @@ func (g *GetMessagePublicForwardsRequest) GetLimit() (value int32) {
 	return g.Limit
 }
 
-// GetMessagePublicForwards invokes method getMessagePublicForwards#6006a949 returning error if any.
-func (c *Client) GetMessagePublicForwards(ctx context.Context, request *GetMessagePublicForwardsRequest) (*FoundMessages, error) {
-	var result FoundMessages
+// GetMessagePublicForwards invokes method getMessagePublicForwards#519da4b4 returning error if any.
+func (c *Client) GetMessagePublicForwards(ctx context.Context, request *GetMessagePublicForwardsRequest) (*PublicForwards, error) {
+	var result PublicForwards
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err

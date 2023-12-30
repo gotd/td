@@ -35,15 +35,18 @@ var (
 type SetChatBackgroundRequest struct {
 	// Chat identifier
 	ChatID int64
-	// The input background to use; pass null to create a new filled background
+	// The input background to use; pass null to create a new filled or chat theme background
 	Background InputBackgroundClass
-	// Background type; pass null to use default background type for the chosen background
+	// Background type; pass null to use default background type for the chosen background;
+	// backgroundTypeChatTheme isn't supported for private and secret chats.
 	Type BackgroundTypeClass
-	// Dimming of the background in dark themes, as a percentage; 0-100
+	// Dimming of the background in dark themes, as a percentage; 0-100. Applied only to
+	// Wallpaper and Fill types of background
 	DarkThemeDimming int32
-	// Pass true to set background only for self; pass false to set background for both chat
-	// users. Background can be set for both users only by Telegram Premium users and if set
-	// background isn't of the type inputBackgroundPrevious
+	// Pass true to set background only for self; pass false to set background for all chat
+	// users. Always false for backgrounds set in boosted chats. Background can be set for
+	// both users only by Telegram Premium users and if set background isn't of the type
+	// inputBackgroundPrevious
 	OnlyForSelf bool
 }
 

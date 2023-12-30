@@ -35,7 +35,8 @@ var (
 type ChatBackground struct {
 	// The background
 	Background Background
-	// Dimming of the background in dark themes, as a percentage; 0-100
+	// Dimming of the background in dark themes, as a percentage; 0-100. Applied only to
+	// Wallpaper and Fill types of background
 	DarkThemeDimming int32
 }
 
