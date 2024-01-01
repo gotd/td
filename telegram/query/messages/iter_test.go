@@ -41,36 +41,40 @@ func TestIterator(t *testing.T) {
 	raw := tg.NewClient(mock)
 
 	mock.ExpectCall(&tg.MessagesSearchRequest{
-		Q:        "query",
-		Peer:     &tg.InputPeerSelf{},
-		OffsetID: 0,
-		FromID:   &tg.InputPeerEmpty{},
-		Filter:   &tg.InputMessagesFilterEmpty{},
-		Limit:    limit,
+		Q:           "query",
+		Peer:        &tg.InputPeerSelf{},
+		OffsetID:    0,
+		FromID:      &tg.InputPeerEmpty{},
+		Filter:      &tg.InputMessagesFilterEmpty{},
+		SavedPeerID: &tg.InputPeerEmpty{},
+		Limit:       limit,
 	}).ThenResult(messagesClass(expected[2*limit:3*limit], totalMessages))
 	mock.ExpectCall(&tg.MessagesSearchRequest{
-		Q:        "query",
-		Peer:     &tg.InputPeerSelf{},
-		OffsetID: 20,
-		FromID:   &tg.InputPeerEmpty{},
-		Filter:   &tg.InputMessagesFilterEmpty{},
-		Limit:    limit,
+		Q:           "query",
+		Peer:        &tg.InputPeerSelf{},
+		OffsetID:    20,
+		FromID:      &tg.InputPeerEmpty{},
+		Filter:      &tg.InputMessagesFilterEmpty{},
+		SavedPeerID: &tg.InputPeerEmpty{},
+		Limit:       limit,
 	}).ThenResult(messagesClass(expected[limit:2*limit], totalMessages))
 	mock.ExpectCall(&tg.MessagesSearchRequest{
-		Q:        "query",
-		Peer:     &tg.InputPeerSelf{},
-		OffsetID: 10,
-		FromID:   &tg.InputPeerEmpty{},
-		Filter:   &tg.InputMessagesFilterEmpty{},
-		Limit:    limit,
+		Q:           "query",
+		Peer:        &tg.InputPeerSelf{},
+		OffsetID:    10,
+		FromID:      &tg.InputPeerEmpty{},
+		Filter:      &tg.InputMessagesFilterEmpty{},
+		SavedPeerID: &tg.InputPeerEmpty{},
+		Limit:       limit,
 	}).ThenResult(messagesClass(expected[:limit], totalMessages))
 	mock.ExpectCall(&tg.MessagesSearchRequest{
-		Q:        "query",
-		Peer:     &tg.InputPeerSelf{},
-		OffsetID: 0,
-		FromID:   &tg.InputPeerEmpty{},
-		Filter:   &tg.InputMessagesFilterEmpty{},
-		Limit:    limit,
+		Q:           "query",
+		Peer:        &tg.InputPeerSelf{},
+		OffsetID:    0,
+		FromID:      &tg.InputPeerEmpty{},
+		Filter:      &tg.InputMessagesFilterEmpty{},
+		SavedPeerID: &tg.InputPeerEmpty{},
+		Limit:       limit,
 	}).ThenResult(messagesClass(expected[:0], totalMessages))
 
 	iter := NewQueryBuilder(raw).Search(&tg.InputPeerSelf{}).
@@ -89,12 +93,13 @@ func TestIterator(t *testing.T) {
 	require.Equal(t, totalMessages, total)
 
 	mock.ExpectCall(&tg.MessagesSearchRequest{
-		Q:        "query",
-		Peer:     &tg.InputPeerSelf{},
-		OffsetID: 0,
-		FromID:   &tg.InputPeerEmpty{},
-		Filter:   &tg.InputMessagesFilterEmpty{},
-		Limit:    1,
+		Q:           "query",
+		Peer:        &tg.InputPeerSelf{},
+		OffsetID:    0,
+		FromID:      &tg.InputPeerEmpty{},
+		Filter:      &tg.InputMessagesFilterEmpty{},
+		SavedPeerID: &tg.InputPeerEmpty{},
+		Limit:       1,
 	}).ThenResult(messagesClass(expected[:0], totalMessages))
 	total, err = iter.FetchTotal(ctx)
 	require.NoError(t, err)
