@@ -1507,6 +1507,32 @@ func (s UpdateClassArray) AsUpdateBotMessageReactions() (to UpdateBotMessageReac
 	return to
 }
 
+// AsUpdateSavedDialogPinned returns copy with only UpdateSavedDialogPinned constructors.
+func (s UpdateClassArray) AsUpdateSavedDialogPinned() (to UpdateSavedDialogPinnedArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateSavedDialogPinned)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdatePinnedSavedDialogs returns copy with only UpdatePinnedSavedDialogs constructors.
+func (s UpdateClassArray) AsUpdatePinnedSavedDialogs() (to UpdatePinnedSavedDialogsArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdatePinnedSavedDialogs)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // UpdateNewMessageArray is adapter for slice of UpdateNewMessage.
 type UpdateNewMessageArray []UpdateNewMessage
 
@@ -10545,4 +10571,168 @@ func (s UpdateBotMessageReactionsArray) SortStableByDate() UpdateBotMessageReact
 	return s.SortStable(func(a, b UpdateBotMessageReactions) bool {
 		return a.GetDate() < b.GetDate()
 	})
+}
+
+// UpdateSavedDialogPinnedArray is adapter for slice of UpdateSavedDialogPinned.
+type UpdateSavedDialogPinnedArray []UpdateSavedDialogPinned
+
+// Sort sorts slice of UpdateSavedDialogPinned.
+func (s UpdateSavedDialogPinnedArray) Sort(less func(a, b UpdateSavedDialogPinned) bool) UpdateSavedDialogPinnedArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateSavedDialogPinned.
+func (s UpdateSavedDialogPinnedArray) SortStable(less func(a, b UpdateSavedDialogPinned) bool) UpdateSavedDialogPinnedArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateSavedDialogPinned.
+func (s UpdateSavedDialogPinnedArray) Retain(keep func(x UpdateSavedDialogPinned) bool) UpdateSavedDialogPinnedArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateSavedDialogPinnedArray) First() (v UpdateSavedDialogPinned, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateSavedDialogPinnedArray) Last() (v UpdateSavedDialogPinned, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateSavedDialogPinnedArray) PopFirst() (v UpdateSavedDialogPinned, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateSavedDialogPinned
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateSavedDialogPinnedArray) Pop() (v UpdateSavedDialogPinned, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdatePinnedSavedDialogsArray is adapter for slice of UpdatePinnedSavedDialogs.
+type UpdatePinnedSavedDialogsArray []UpdatePinnedSavedDialogs
+
+// Sort sorts slice of UpdatePinnedSavedDialogs.
+func (s UpdatePinnedSavedDialogsArray) Sort(less func(a, b UpdatePinnedSavedDialogs) bool) UpdatePinnedSavedDialogsArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdatePinnedSavedDialogs.
+func (s UpdatePinnedSavedDialogsArray) SortStable(less func(a, b UpdatePinnedSavedDialogs) bool) UpdatePinnedSavedDialogsArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdatePinnedSavedDialogs.
+func (s UpdatePinnedSavedDialogsArray) Retain(keep func(x UpdatePinnedSavedDialogs) bool) UpdatePinnedSavedDialogsArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdatePinnedSavedDialogsArray) First() (v UpdatePinnedSavedDialogs, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdatePinnedSavedDialogsArray) Last() (v UpdatePinnedSavedDialogs, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdatePinnedSavedDialogsArray) PopFirst() (v UpdatePinnedSavedDialogs, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdatePinnedSavedDialogs
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdatePinnedSavedDialogsArray) Pop() (v UpdatePinnedSavedDialogs, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

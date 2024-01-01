@@ -6079,6 +6079,116 @@ func (s *ServerDispatcher) OnMessagesSearchEmojiStickerSets(f func(ctx context.C
 	s.handlers[MessagesSearchEmojiStickerSetsRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesGetSavedDialogs(f func(ctx context.Context, request *MessagesGetSavedDialogsRequest) (MessagesSavedDialogsClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetSavedDialogsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesSavedDialogsBox{SavedDialogs: response}, nil
+	}
+
+	s.handlers[MessagesGetSavedDialogsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetSavedHistory(f func(ctx context.Context, request *MessagesGetSavedHistoryRequest) (MessagesMessagesClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetSavedHistoryRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesMessagesBox{Messages: response}, nil
+	}
+
+	s.handlers[MessagesGetSavedHistoryRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesDeleteSavedHistory(f func(ctx context.Context, request *MessagesDeleteSavedHistoryRequest) (*MessagesAffectedHistory, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesDeleteSavedHistoryRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[MessagesDeleteSavedHistoryRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetPinnedSavedDialogs(f func(ctx context.Context) (MessagesSavedDialogsClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetPinnedSavedDialogsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesSavedDialogsBox{SavedDialogs: response}, nil
+	}
+
+	s.handlers[MessagesGetPinnedSavedDialogsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesToggleSavedDialogPin(f func(ctx context.Context, request *MessagesToggleSavedDialogPinRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesToggleSavedDialogPinRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesToggleSavedDialogPinRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesReorderPinnedSavedDialogs(f func(ctx context.Context, request *MessagesReorderPinnedSavedDialogsRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesReorderPinnedSavedDialogsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesReorderPinnedSavedDialogsRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest

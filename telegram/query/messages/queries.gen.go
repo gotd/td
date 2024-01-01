@@ -358,6 +358,114 @@ func (b *GetRepliesQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
 	return r, iter.Err()
 }
 
+// GetSavedHistoryQueryBuilder is query builder of MessagesGetSavedHistory.
+type GetSavedHistoryQueryBuilder struct {
+	raw        *tg.Client
+	req        tg.MessagesGetSavedHistoryRequest
+	batchSize  int
+	addOffset  int
+	offsetDate int
+	offsetID   int
+}
+
+// GetSavedHistory creates query builder of MessagesGetSavedHistory.
+func (q *QueryBuilder) GetSavedHistory(paramPeer tg.InputPeerClass) *GetSavedHistoryQueryBuilder {
+	b := &GetSavedHistoryQueryBuilder{
+		raw:       q.raw,
+		batchSize: 1,
+		req: tg.MessagesGetSavedHistoryRequest{
+			Peer: &tg.InputPeerEmpty{},
+		},
+	}
+
+	b.req.Peer = paramPeer
+	return b
+}
+
+// BatchSize sets buffer of message loaded from one request.
+// Be carefully, when set this limit, because Telegram does not return error if limit is too big,
+// so results can be incorrect.
+func (b *GetSavedHistoryQueryBuilder) BatchSize(batchSize int) *GetSavedHistoryQueryBuilder {
+	b.batchSize = batchSize
+	return b
+}
+
+// OffsetDate sets offsetDate from which iterate start.
+func (b *GetSavedHistoryQueryBuilder) OffsetDate(offsetDate int) *GetSavedHistoryQueryBuilder {
+	b.offsetDate = offsetDate
+	return b
+}
+
+// OffsetID sets offsetID from which iterate start.
+func (b *GetSavedHistoryQueryBuilder) OffsetID(offsetID int) *GetSavedHistoryQueryBuilder {
+	b.offsetID = offsetID
+	return b
+}
+
+// Peer sets Peer field of GetSavedHistory query.
+func (b *GetSavedHistoryQueryBuilder) Peer(paramPeer tg.InputPeerClass) *GetSavedHistoryQueryBuilder {
+	b.req.Peer = paramPeer
+	return b
+}
+
+// Query implements Query interface.
+func (b *GetSavedHistoryQueryBuilder) Query(ctx context.Context, req Request) (tg.MessagesMessagesClass, error) {
+	r := &tg.MessagesGetSavedHistoryRequest{
+		Limit: req.Limit,
+	}
+
+	r.Peer = b.req.Peer
+	r.AddOffset = req.AddOffset
+	r.OffsetDate = req.OffsetDate
+	r.OffsetID = req.OffsetID
+	return b.raw.MessagesGetSavedHistory(ctx, r)
+}
+
+// Iter returns iterator using built query.
+func (b *GetSavedHistoryQueryBuilder) Iter() *Iterator {
+	iter := NewIterator(b, b.batchSize)
+	iter = iter.OffsetDate(b.offsetDate)
+	iter = iter.OffsetID(b.offsetID)
+	return iter
+}
+
+// ForEach calls given callback on each iterator element.
+func (b *GetSavedHistoryQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Elem) error) error {
+	iter := b.Iter()
+	for iter.Next(ctx) {
+		if err := cb(ctx, iter.Value()); err != nil {
+			return err
+		}
+	}
+	return iter.Err()
+}
+
+// Count fetches remote state to get number of elements.
+func (b *GetSavedHistoryQueryBuilder) Count(ctx context.Context) (int, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return 0, errors.Wrap(err, "get total")
+	}
+	return c, nil
+}
+
+// Collect creates iterator and collects all elements to slice.
+func (b *GetSavedHistoryQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return nil, errors.Wrap(err, "get total")
+	}
+
+	r := make([]Elem, 0, c)
+	for iter.Next(ctx) {
+		r = append(r, iter.Value())
+	}
+
+	return r, iter.Err()
+}
+
 // GetUnreadMentionsQueryBuilder is query builder of MessagesGetUnreadMentions.
 type GetUnreadMentionsQueryBuilder struct {
 	raw       *tg.Client
@@ -585,9 +693,10 @@ func (q *QueryBuilder) Search(paramPeer tg.InputPeerClass) *SearchQueryBuilder {
 		raw:       q.raw,
 		batchSize: 1,
 		req: tg.MessagesSearchRequest{
-			Filter: &tg.InputMessagesFilterEmpty{},
-			FromID: &tg.InputPeerEmpty{},
-			Peer:   &tg.InputPeerEmpty{},
+			Filter:      &tg.InputMessagesFilterEmpty{},
+			FromID:      &tg.InputPeerEmpty{},
+			Peer:        &tg.InputPeerEmpty{},
+			SavedPeerID: &tg.InputPeerEmpty{},
 		},
 	}
 
@@ -642,6 +751,12 @@ func (b *SearchQueryBuilder) Peer(paramPeer tg.InputPeerClass) *SearchQueryBuild
 // Q sets Q field of Search query.
 func (b *SearchQueryBuilder) Q(paramQ string) *SearchQueryBuilder {
 	b.req.Q = paramQ
+	return b
+}
+
+// SavedPeerID sets SavedPeerID field of Search query.
+func (b *SearchQueryBuilder) SavedPeerID(paramSavedPeerID tg.InputPeerClass) *SearchQueryBuilder {
+	b.req.SavedPeerID = paramSavedPeerID
 	return b
 }
 
@@ -761,6 +876,7 @@ func (b *SearchQueryBuilder) Query(ctx context.Context, req Request) (tg.Message
 	r.MinDate = b.req.MinDate
 	r.Peer = b.req.Peer
 	r.Q = b.req.Q
+	r.SavedPeerID = b.req.SavedPeerID
 	r.TopMsgID = b.req.TopMsgID
 	r.AddOffset = req.AddOffset
 	r.OffsetID = req.OffsetID

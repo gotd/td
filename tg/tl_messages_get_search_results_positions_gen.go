@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesGetSearchResultsPositionsRequest represents TL type `messages.getSearchResultsPositions#6e9583a3`.
+// MessagesGetSearchResultsPositionsRequest represents TL type `messages.getSearchResultsPositions#9c7f2f10`.
 // Returns sparse positions of messages of the specified type in the chat to be used for
 // shared media scroll implementation.
 // Returns the results in reverse chronological order (i.e., in order of decreasing
@@ -39,8 +39,14 @@ var (
 //
 // See https://core.telegram.org/method/messages.getSearchResultsPositions for reference.
 type MessagesGetSearchResultsPositionsRequest struct {
+	// Flags field of MessagesGetSearchResultsPositionsRequest.
+	Flags bin.Fields
 	// Peer where to search
 	Peer InputPeerClass
+	// SavedPeerID field of MessagesGetSearchResultsPositionsRequest.
+	//
+	// Use SetSavedPeerID and GetSavedPeerID helpers.
+	SavedPeerID InputPeerClass
 	// Message filter, inputMessagesFilterEmpty¹, inputMessagesFilterMyMentions² filters
 	// are not supported by this method.
 	//
@@ -61,7 +67,7 @@ type MessagesGetSearchResultsPositionsRequest struct {
 }
 
 // MessagesGetSearchResultsPositionsRequestTypeID is TL type id of MessagesGetSearchResultsPositionsRequest.
-const MessagesGetSearchResultsPositionsRequestTypeID = 0x6e9583a3
+const MessagesGetSearchResultsPositionsRequestTypeID = 0x9c7f2f10
 
 // Ensuring interfaces in compile-time for MessagesGetSearchResultsPositionsRequest.
 var (
@@ -75,7 +81,13 @@ func (g *MessagesGetSearchResultsPositionsRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
 	if !(g.Peer == nil) {
+		return false
+	}
+	if !(g.SavedPeerID == nil) {
 		return false
 	}
 	if !(g.Filter == nil) {
@@ -103,11 +115,16 @@ func (g *MessagesGetSearchResultsPositionsRequest) String() string {
 // FillFrom fills MessagesGetSearchResultsPositionsRequest from given interface.
 func (g *MessagesGetSearchResultsPositionsRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
+	GetSavedPeerID() (value InputPeerClass, ok bool)
 	GetFilter() (value MessagesFilterClass)
 	GetOffsetID() (value int)
 	GetLimit() (value int)
 }) {
 	g.Peer = from.GetPeer()
+	if val, ok := from.GetSavedPeerID(); ok {
+		g.SavedPeerID = val
+	}
+
 	g.Filter = from.GetFilter()
 	g.OffsetID = from.GetOffsetID()
 	g.Limit = from.GetLimit()
@@ -141,6 +158,11 @@ func (g *MessagesGetSearchResultsPositionsRequest) TypeInfo() tdp.Type {
 			SchemaName: "peer",
 		},
 		{
+			Name:       "SavedPeerID",
+			SchemaName: "saved_peer_id",
+			Null:       !g.Flags.Has(2),
+		},
+		{
 			Name:       "Filter",
 			SchemaName: "filter",
 		},
@@ -156,10 +178,17 @@ func (g *MessagesGetSearchResultsPositionsRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *MessagesGetSearchResultsPositionsRequest) SetFlags() {
+	if !(g.SavedPeerID == nil) {
+		g.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetSearchResultsPositionsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getSearchResultsPositions#6e9583a3 as nil")
+		return fmt.Errorf("can't encode messages.getSearchResultsPositions#9c7f2f10 as nil")
 	}
 	b.PutID(MessagesGetSearchResultsPositionsRequestTypeID)
 	return g.EncodeBare(b)
@@ -168,19 +197,31 @@ func (g *MessagesGetSearchResultsPositionsRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetSearchResultsPositionsRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getSearchResultsPositions#6e9583a3 as nil")
+		return fmt.Errorf("can't encode messages.getSearchResultsPositions#9c7f2f10 as nil")
+	}
+	g.SetFlags()
+	if err := g.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.getSearchResultsPositions#9c7f2f10: field flags: %w", err)
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getSearchResultsPositions#6e9583a3: field peer is nil")
+		return fmt.Errorf("unable to encode messages.getSearchResultsPositions#9c7f2f10: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getSearchResultsPositions#6e9583a3: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.getSearchResultsPositions#9c7f2f10: field peer: %w", err)
+	}
+	if g.Flags.Has(2) {
+		if g.SavedPeerID == nil {
+			return fmt.Errorf("unable to encode messages.getSearchResultsPositions#9c7f2f10: field saved_peer_id is nil")
+		}
+		if err := g.SavedPeerID.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.getSearchResultsPositions#9c7f2f10: field saved_peer_id: %w", err)
+		}
 	}
 	if g.Filter == nil {
-		return fmt.Errorf("unable to encode messages.getSearchResultsPositions#6e9583a3: field filter is nil")
+		return fmt.Errorf("unable to encode messages.getSearchResultsPositions#9c7f2f10: field filter is nil")
 	}
 	if err := g.Filter.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getSearchResultsPositions#6e9583a3: field filter: %w", err)
+		return fmt.Errorf("unable to encode messages.getSearchResultsPositions#9c7f2f10: field filter: %w", err)
 	}
 	b.PutInt(g.OffsetID)
 	b.PutInt(g.Limit)
@@ -190,10 +231,10 @@ func (g *MessagesGetSearchResultsPositionsRequest) EncodeBare(b *bin.Buffer) err
 // Decode implements bin.Decoder.
 func (g *MessagesGetSearchResultsPositionsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getSearchResultsPositions#6e9583a3 to nil")
+		return fmt.Errorf("can't decode messages.getSearchResultsPositions#9c7f2f10 to nil")
 	}
 	if err := b.ConsumeID(MessagesGetSearchResultsPositionsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getSearchResultsPositions#6e9583a3: %w", err)
+		return fmt.Errorf("unable to decode messages.getSearchResultsPositions#9c7f2f10: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -201,33 +242,45 @@ func (g *MessagesGetSearchResultsPositionsRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetSearchResultsPositionsRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getSearchResultsPositions#6e9583a3 to nil")
+		return fmt.Errorf("can't decode messages.getSearchResultsPositions#9c7f2f10 to nil")
+	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.getSearchResultsPositions#9c7f2f10: field flags: %w", err)
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSearchResultsPositions#6e9583a3: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.getSearchResultsPositions#9c7f2f10: field peer: %w", err)
 		}
 		g.Peer = value
+	}
+	if g.Flags.Has(2) {
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.getSearchResultsPositions#9c7f2f10: field saved_peer_id: %w", err)
+		}
+		g.SavedPeerID = value
 	}
 	{
 		value, err := DecodeMessagesFilter(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSearchResultsPositions#6e9583a3: field filter: %w", err)
+			return fmt.Errorf("unable to decode messages.getSearchResultsPositions#9c7f2f10: field filter: %w", err)
 		}
 		g.Filter = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSearchResultsPositions#6e9583a3: field offset_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getSearchResultsPositions#9c7f2f10: field offset_id: %w", err)
 		}
 		g.OffsetID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSearchResultsPositions#6e9583a3: field limit: %w", err)
+			return fmt.Errorf("unable to decode messages.getSearchResultsPositions#9c7f2f10: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -240,6 +293,24 @@ func (g *MessagesGetSearchResultsPositionsRequest) GetPeer() (value InputPeerCla
 		return
 	}
 	return g.Peer
+}
+
+// SetSavedPeerID sets value of SavedPeerID conditional field.
+func (g *MessagesGetSearchResultsPositionsRequest) SetSavedPeerID(value InputPeerClass) {
+	g.Flags.Set(2)
+	g.SavedPeerID = value
+}
+
+// GetSavedPeerID returns value of SavedPeerID conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetSearchResultsPositionsRequest) GetSavedPeerID() (value InputPeerClass, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(2) {
+		return value, false
+	}
+	return g.SavedPeerID, true
 }
 
 // GetFilter returns value of Filter field.
@@ -266,7 +337,7 @@ func (g *MessagesGetSearchResultsPositionsRequest) GetLimit() (value int) {
 	return g.Limit
 }
 
-// MessagesGetSearchResultsPositions invokes method messages.getSearchResultsPositions#6e9583a3 returning error if any.
+// MessagesGetSearchResultsPositions invokes method messages.getSearchResultsPositions#9c7f2f10 returning error if any.
 // Returns sparse positions of messages of the specified type in the chat to be used for
 // shared media scroll implementation.
 // Returns the results in reverse chronological order (i.e., in order of decreasing
