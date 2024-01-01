@@ -898,6 +898,12 @@ type MessageMediaDocument struct {
 	Nopremium bool
 	// Whether this media should be hidden behind a spoiler warning
 	Spoiler bool
+	// Video field of MessageMediaDocument.
+	Video bool
+	// Round field of MessageMediaDocument.
+	Round bool
+	// Voice field of MessageMediaDocument.
+	Voice bool
 	// Attached document
 	//
 	// Use SetDocument and GetDocument helpers.
@@ -943,6 +949,15 @@ func (m *MessageMediaDocument) Zero() bool {
 	if !(m.Spoiler == false) {
 		return false
 	}
+	if !(m.Video == false) {
+		return false
+	}
+	if !(m.Round == false) {
+		return false
+	}
+	if !(m.Voice == false) {
+		return false
+	}
 	if !(m.Document == nil) {
 		return false
 	}
@@ -969,12 +984,18 @@ func (m *MessageMediaDocument) String() string {
 func (m *MessageMediaDocument) FillFrom(from interface {
 	GetNopremium() (value bool)
 	GetSpoiler() (value bool)
+	GetVideo() (value bool)
+	GetRound() (value bool)
+	GetVoice() (value bool)
 	GetDocument() (value DocumentClass, ok bool)
 	GetAltDocument() (value DocumentClass, ok bool)
 	GetTTLSeconds() (value int, ok bool)
 }) {
 	m.Nopremium = from.GetNopremium()
 	m.Spoiler = from.GetSpoiler()
+	m.Video = from.GetVideo()
+	m.Round = from.GetRound()
+	m.Voice = from.GetVoice()
 	if val, ok := from.GetDocument(); ok {
 		m.Document = val
 	}
@@ -1023,6 +1044,21 @@ func (m *MessageMediaDocument) TypeInfo() tdp.Type {
 			Null:       !m.Flags.Has(4),
 		},
 		{
+			Name:       "Video",
+			SchemaName: "video",
+			Null:       !m.Flags.Has(6),
+		},
+		{
+			Name:       "Round",
+			SchemaName: "round",
+			Null:       !m.Flags.Has(7),
+		},
+		{
+			Name:       "Voice",
+			SchemaName: "voice",
+			Null:       !m.Flags.Has(8),
+		},
+		{
 			Name:       "Document",
 			SchemaName: "document",
 			Null:       !m.Flags.Has(0),
@@ -1048,6 +1084,15 @@ func (m *MessageMediaDocument) SetFlags() {
 	}
 	if !(m.Spoiler == false) {
 		m.Flags.Set(4)
+	}
+	if !(m.Video == false) {
+		m.Flags.Set(6)
+	}
+	if !(m.Round == false) {
+		m.Flags.Set(7)
+	}
+	if !(m.Voice == false) {
+		m.Flags.Set(8)
 	}
 	if !(m.Document == nil) {
 		m.Flags.Set(0)
@@ -1123,6 +1168,9 @@ func (m *MessageMediaDocument) DecodeBare(b *bin.Buffer) error {
 	}
 	m.Nopremium = m.Flags.Has(3)
 	m.Spoiler = m.Flags.Has(4)
+	m.Video = m.Flags.Has(6)
+	m.Round = m.Flags.Has(7)
+	m.Voice = m.Flags.Has(8)
 	if m.Flags.Has(0) {
 		value, err := DecodeDocument(b)
 		if err != nil {
@@ -1183,6 +1231,63 @@ func (m *MessageMediaDocument) GetSpoiler() (value bool) {
 		return
 	}
 	return m.Flags.Has(4)
+}
+
+// SetVideo sets value of Video conditional field.
+func (m *MessageMediaDocument) SetVideo(value bool) {
+	if value {
+		m.Flags.Set(6)
+		m.Video = true
+	} else {
+		m.Flags.Unset(6)
+		m.Video = false
+	}
+}
+
+// GetVideo returns value of Video conditional field.
+func (m *MessageMediaDocument) GetVideo() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(6)
+}
+
+// SetRound sets value of Round conditional field.
+func (m *MessageMediaDocument) SetRound(value bool) {
+	if value {
+		m.Flags.Set(7)
+		m.Round = true
+	} else {
+		m.Flags.Unset(7)
+		m.Round = false
+	}
+}
+
+// GetRound returns value of Round conditional field.
+func (m *MessageMediaDocument) GetRound() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(7)
+}
+
+// SetVoice sets value of Voice conditional field.
+func (m *MessageMediaDocument) SetVoice(value bool) {
+	if value {
+		m.Flags.Set(8)
+		m.Voice = true
+	} else {
+		m.Flags.Unset(8)
+		m.Voice = false
+	}
+}
+
+// GetVoice returns value of Voice conditional field.
+func (m *MessageMediaDocument) GetVoice() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(8)
 }
 
 // SetDocument sets value of Document conditional field.

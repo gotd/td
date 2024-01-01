@@ -24782,6 +24782,397 @@ func (u *UpdateBotMessageReactions) GetQts() (value int) {
 	return u.Qts
 }
 
+// UpdateSavedDialogPinned represents TL type `updateSavedDialogPinned#aeaf9e74`.
+//
+// See https://core.telegram.org/constructor/updateSavedDialogPinned for reference.
+type UpdateSavedDialogPinned struct {
+	// Flags field of UpdateSavedDialogPinned.
+	Flags bin.Fields
+	// Pinned field of UpdateSavedDialogPinned.
+	Pinned bool
+	// Peer field of UpdateSavedDialogPinned.
+	Peer DialogPeerClass
+}
+
+// UpdateSavedDialogPinnedTypeID is TL type id of UpdateSavedDialogPinned.
+const UpdateSavedDialogPinnedTypeID = 0xaeaf9e74
+
+// construct implements constructor of UpdateClass.
+func (u UpdateSavedDialogPinned) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateSavedDialogPinned.
+var (
+	_ bin.Encoder     = &UpdateSavedDialogPinned{}
+	_ bin.Decoder     = &UpdateSavedDialogPinned{}
+	_ bin.BareEncoder = &UpdateSavedDialogPinned{}
+	_ bin.BareDecoder = &UpdateSavedDialogPinned{}
+
+	_ UpdateClass = &UpdateSavedDialogPinned{}
+)
+
+func (u *UpdateSavedDialogPinned) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Pinned == false) {
+		return false
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateSavedDialogPinned) String() string {
+	if u == nil {
+		return "UpdateSavedDialogPinned(nil)"
+	}
+	type Alias UpdateSavedDialogPinned
+	return fmt.Sprintf("UpdateSavedDialogPinned%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateSavedDialogPinned from given interface.
+func (u *UpdateSavedDialogPinned) FillFrom(from interface {
+	GetPinned() (value bool)
+	GetPeer() (value DialogPeerClass)
+}) {
+	u.Pinned = from.GetPinned()
+	u.Peer = from.GetPeer()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateSavedDialogPinned) TypeID() uint32 {
+	return UpdateSavedDialogPinnedTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateSavedDialogPinned) TypeName() string {
+	return "updateSavedDialogPinned"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateSavedDialogPinned) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateSavedDialogPinned",
+		ID:   UpdateSavedDialogPinnedTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Pinned",
+			SchemaName: "pinned",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdateSavedDialogPinned) SetFlags() {
+	if !(u.Pinned == false) {
+		u.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateSavedDialogPinned) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSavedDialogPinned#aeaf9e74 as nil")
+	}
+	b.PutID(UpdateSavedDialogPinnedTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateSavedDialogPinned) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSavedDialogPinned#aeaf9e74 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateSavedDialogPinned#aeaf9e74: field flags: %w", err)
+	}
+	if u.Peer == nil {
+		return fmt.Errorf("unable to encode updateSavedDialogPinned#aeaf9e74: field peer is nil")
+	}
+	if err := u.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateSavedDialogPinned#aeaf9e74: field peer: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateSavedDialogPinned) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSavedDialogPinned#aeaf9e74 to nil")
+	}
+	if err := b.ConsumeID(UpdateSavedDialogPinnedTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateSavedDialogPinned#aeaf9e74: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateSavedDialogPinned) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSavedDialogPinned#aeaf9e74 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateSavedDialogPinned#aeaf9e74: field flags: %w", err)
+		}
+	}
+	u.Pinned = u.Flags.Has(0)
+	{
+		value, err := DecodeDialogPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateSavedDialogPinned#aeaf9e74: field peer: %w", err)
+		}
+		u.Peer = value
+	}
+	return nil
+}
+
+// SetPinned sets value of Pinned conditional field.
+func (u *UpdateSavedDialogPinned) SetPinned(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.Pinned = true
+	} else {
+		u.Flags.Unset(0)
+		u.Pinned = false
+	}
+}
+
+// GetPinned returns value of Pinned conditional field.
+func (u *UpdateSavedDialogPinned) GetPinned() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateSavedDialogPinned) GetPeer() (value DialogPeerClass) {
+	if u == nil {
+		return
+	}
+	return u.Peer
+}
+
+// UpdatePinnedSavedDialogs represents TL type `updatePinnedSavedDialogs#686c85a6`.
+//
+// See https://core.telegram.org/constructor/updatePinnedSavedDialogs for reference.
+type UpdatePinnedSavedDialogs struct {
+	// Flags field of UpdatePinnedSavedDialogs.
+	Flags bin.Fields
+	// Order field of UpdatePinnedSavedDialogs.
+	//
+	// Use SetOrder and GetOrder helpers.
+	Order []DialogPeerClass
+}
+
+// UpdatePinnedSavedDialogsTypeID is TL type id of UpdatePinnedSavedDialogs.
+const UpdatePinnedSavedDialogsTypeID = 0x686c85a6
+
+// construct implements constructor of UpdateClass.
+func (u UpdatePinnedSavedDialogs) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdatePinnedSavedDialogs.
+var (
+	_ bin.Encoder     = &UpdatePinnedSavedDialogs{}
+	_ bin.Decoder     = &UpdatePinnedSavedDialogs{}
+	_ bin.BareEncoder = &UpdatePinnedSavedDialogs{}
+	_ bin.BareDecoder = &UpdatePinnedSavedDialogs{}
+
+	_ UpdateClass = &UpdatePinnedSavedDialogs{}
+)
+
+func (u *UpdatePinnedSavedDialogs) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Order == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdatePinnedSavedDialogs) String() string {
+	if u == nil {
+		return "UpdatePinnedSavedDialogs(nil)"
+	}
+	type Alias UpdatePinnedSavedDialogs
+	return fmt.Sprintf("UpdatePinnedSavedDialogs%+v", Alias(*u))
+}
+
+// FillFrom fills UpdatePinnedSavedDialogs from given interface.
+func (u *UpdatePinnedSavedDialogs) FillFrom(from interface {
+	GetOrder() (value []DialogPeerClass, ok bool)
+}) {
+	if val, ok := from.GetOrder(); ok {
+		u.Order = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdatePinnedSavedDialogs) TypeID() uint32 {
+	return UpdatePinnedSavedDialogsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdatePinnedSavedDialogs) TypeName() string {
+	return "updatePinnedSavedDialogs"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdatePinnedSavedDialogs) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updatePinnedSavedDialogs",
+		ID:   UpdatePinnedSavedDialogsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Order",
+			SchemaName: "order",
+			Null:       !u.Flags.Has(0),
+		},
+	}
+	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UpdatePinnedSavedDialogs) SetFlags() {
+	if !(u.Order == nil) {
+		u.Flags.Set(0)
+	}
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdatePinnedSavedDialogs) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updatePinnedSavedDialogs#686c85a6 as nil")
+	}
+	b.PutID(UpdatePinnedSavedDialogsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdatePinnedSavedDialogs) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updatePinnedSavedDialogs#686c85a6 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updatePinnedSavedDialogs#686c85a6: field flags: %w", err)
+	}
+	if u.Flags.Has(0) {
+		b.PutVectorHeader(len(u.Order))
+		for idx, v := range u.Order {
+			if v == nil {
+				return fmt.Errorf("unable to encode updatePinnedSavedDialogs#686c85a6: field order element with index %d is nil", idx)
+			}
+			if err := v.Encode(b); err != nil {
+				return fmt.Errorf("unable to encode updatePinnedSavedDialogs#686c85a6: field order element with index %d: %w", idx, err)
+			}
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdatePinnedSavedDialogs) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updatePinnedSavedDialogs#686c85a6 to nil")
+	}
+	if err := b.ConsumeID(UpdatePinnedSavedDialogsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updatePinnedSavedDialogs#686c85a6: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdatePinnedSavedDialogs) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updatePinnedSavedDialogs#686c85a6 to nil")
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updatePinnedSavedDialogs#686c85a6: field flags: %w", err)
+		}
+	}
+	if u.Flags.Has(0) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode updatePinnedSavedDialogs#686c85a6: field order: %w", err)
+		}
+
+		if headerLen > 0 {
+			u.Order = make([]DialogPeerClass, 0, headerLen%bin.PreallocateLimit)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeDialogPeer(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode updatePinnedSavedDialogs#686c85a6: field order: %w", err)
+			}
+			u.Order = append(u.Order, value)
+		}
+	}
+	return nil
+}
+
+// SetOrder sets value of Order conditional field.
+func (u *UpdatePinnedSavedDialogs) SetOrder(value []DialogPeerClass) {
+	u.Flags.Set(0)
+	u.Order = value
+}
+
+// GetOrder returns value of Order conditional field and
+// boolean which is true if field was set.
+func (u *UpdatePinnedSavedDialogs) GetOrder() (value []DialogPeerClass, ok bool) {
+	if u == nil {
+		return
+	}
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.Order, true
+}
+
+// MapOrder returns field Order wrapped in DialogPeerClassArray helper.
+func (u *UpdatePinnedSavedDialogs) MapOrder() (value DialogPeerClassArray, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return DialogPeerClassArray(u.Order), true
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -24918,6 +25309,8 @@ const UpdateClassName = "Update"
 //	case *tg.UpdatePeerWallpaper: // updatePeerWallpaper#ae3f101d
 //	case *tg.UpdateBotMessageReaction: // updateBotMessageReaction#ac21d3ce
 //	case *tg.UpdateBotMessageReactions: // updateBotMessageReactions#9cb7759
+//	case *tg.UpdateSavedDialogPinned: // updateSavedDialogPinned#aeaf9e74
+//	case *tg.UpdatePinnedSavedDialogs: // updatePinnedSavedDialogs#686c85a6
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -25796,6 +26189,20 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateBotMessageReactionsTypeID:
 		// Decoding updateBotMessageReactions#9cb7759.
 		v := UpdateBotMessageReactions{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateSavedDialogPinnedTypeID:
+		// Decoding updateSavedDialogPinned#aeaf9e74.
+		v := UpdateSavedDialogPinned{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdatePinnedSavedDialogsTypeID:
+		// Decoding updatePinnedSavedDialogs#686c85a6.
+		v := UpdatePinnedSavedDialogs{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

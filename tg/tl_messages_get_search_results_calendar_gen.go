@@ -31,7 +31,7 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessagesGetSearchResultsCalendarRequest represents TL type `messages.getSearchResultsCalendar#49f0bde9`.
+// MessagesGetSearchResultsCalendarRequest represents TL type `messages.getSearchResultsCalendar#6aa3f6bd`.
 // Returns information about the next messages of the specified type in the chat split by
 // days.
 // Returns the results in reverse chronological order.
@@ -39,8 +39,14 @@ var (
 //
 // See https://core.telegram.org/method/messages.getSearchResultsCalendar for reference.
 type MessagesGetSearchResultsCalendarRequest struct {
+	// Flags field of MessagesGetSearchResultsCalendarRequest.
+	Flags bin.Fields
 	// Peer where to search
 	Peer InputPeerClass
+	// SavedPeerID field of MessagesGetSearchResultsCalendarRequest.
+	//
+	// Use SetSavedPeerID and GetSavedPeerID helpers.
+	SavedPeerID InputPeerClass
 	// Message filter, inputMessagesFilterEmpty¹, inputMessagesFilterMyMentions² filters
 	// are not supported by this method.
 	//
@@ -61,7 +67,7 @@ type MessagesGetSearchResultsCalendarRequest struct {
 }
 
 // MessagesGetSearchResultsCalendarRequestTypeID is TL type id of MessagesGetSearchResultsCalendarRequest.
-const MessagesGetSearchResultsCalendarRequestTypeID = 0x49f0bde9
+const MessagesGetSearchResultsCalendarRequestTypeID = 0x6aa3f6bd
 
 // Ensuring interfaces in compile-time for MessagesGetSearchResultsCalendarRequest.
 var (
@@ -75,7 +81,13 @@ func (g *MessagesGetSearchResultsCalendarRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
 	if !(g.Peer == nil) {
+		return false
+	}
+	if !(g.SavedPeerID == nil) {
 		return false
 	}
 	if !(g.Filter == nil) {
@@ -103,11 +115,16 @@ func (g *MessagesGetSearchResultsCalendarRequest) String() string {
 // FillFrom fills MessagesGetSearchResultsCalendarRequest from given interface.
 func (g *MessagesGetSearchResultsCalendarRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
+	GetSavedPeerID() (value InputPeerClass, ok bool)
 	GetFilter() (value MessagesFilterClass)
 	GetOffsetID() (value int)
 	GetOffsetDate() (value int)
 }) {
 	g.Peer = from.GetPeer()
+	if val, ok := from.GetSavedPeerID(); ok {
+		g.SavedPeerID = val
+	}
+
 	g.Filter = from.GetFilter()
 	g.OffsetID = from.GetOffsetID()
 	g.OffsetDate = from.GetOffsetDate()
@@ -141,6 +158,11 @@ func (g *MessagesGetSearchResultsCalendarRequest) TypeInfo() tdp.Type {
 			SchemaName: "peer",
 		},
 		{
+			Name:       "SavedPeerID",
+			SchemaName: "saved_peer_id",
+			Null:       !g.Flags.Has(2),
+		},
+		{
 			Name:       "Filter",
 			SchemaName: "filter",
 		},
@@ -156,10 +178,17 @@ func (g *MessagesGetSearchResultsCalendarRequest) TypeInfo() tdp.Type {
 	return typ
 }
 
+// SetFlags sets flags for non-zero fields.
+func (g *MessagesGetSearchResultsCalendarRequest) SetFlags() {
+	if !(g.SavedPeerID == nil) {
+		g.Flags.Set(2)
+	}
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetSearchResultsCalendarRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getSearchResultsCalendar#49f0bde9 as nil")
+		return fmt.Errorf("can't encode messages.getSearchResultsCalendar#6aa3f6bd as nil")
 	}
 	b.PutID(MessagesGetSearchResultsCalendarRequestTypeID)
 	return g.EncodeBare(b)
@@ -168,19 +197,31 @@ func (g *MessagesGetSearchResultsCalendarRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *MessagesGetSearchResultsCalendarRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode messages.getSearchResultsCalendar#49f0bde9 as nil")
+		return fmt.Errorf("can't encode messages.getSearchResultsCalendar#6aa3f6bd as nil")
+	}
+	g.SetFlags()
+	if err := g.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.getSearchResultsCalendar#6aa3f6bd: field flags: %w", err)
 	}
 	if g.Peer == nil {
-		return fmt.Errorf("unable to encode messages.getSearchResultsCalendar#49f0bde9: field peer is nil")
+		return fmt.Errorf("unable to encode messages.getSearchResultsCalendar#6aa3f6bd: field peer is nil")
 	}
 	if err := g.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getSearchResultsCalendar#49f0bde9: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.getSearchResultsCalendar#6aa3f6bd: field peer: %w", err)
+	}
+	if g.Flags.Has(2) {
+		if g.SavedPeerID == nil {
+			return fmt.Errorf("unable to encode messages.getSearchResultsCalendar#6aa3f6bd: field saved_peer_id is nil")
+		}
+		if err := g.SavedPeerID.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.getSearchResultsCalendar#6aa3f6bd: field saved_peer_id: %w", err)
+		}
 	}
 	if g.Filter == nil {
-		return fmt.Errorf("unable to encode messages.getSearchResultsCalendar#49f0bde9: field filter is nil")
+		return fmt.Errorf("unable to encode messages.getSearchResultsCalendar#6aa3f6bd: field filter is nil")
 	}
 	if err := g.Filter.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.getSearchResultsCalendar#49f0bde9: field filter: %w", err)
+		return fmt.Errorf("unable to encode messages.getSearchResultsCalendar#6aa3f6bd: field filter: %w", err)
 	}
 	b.PutInt(g.OffsetID)
 	b.PutInt(g.OffsetDate)
@@ -190,10 +231,10 @@ func (g *MessagesGetSearchResultsCalendarRequest) EncodeBare(b *bin.Buffer) erro
 // Decode implements bin.Decoder.
 func (g *MessagesGetSearchResultsCalendarRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getSearchResultsCalendar#49f0bde9 to nil")
+		return fmt.Errorf("can't decode messages.getSearchResultsCalendar#6aa3f6bd to nil")
 	}
 	if err := b.ConsumeID(MessagesGetSearchResultsCalendarRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.getSearchResultsCalendar#49f0bde9: %w", err)
+		return fmt.Errorf("unable to decode messages.getSearchResultsCalendar#6aa3f6bd: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -201,33 +242,45 @@ func (g *MessagesGetSearchResultsCalendarRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *MessagesGetSearchResultsCalendarRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode messages.getSearchResultsCalendar#49f0bde9 to nil")
+		return fmt.Errorf("can't decode messages.getSearchResultsCalendar#6aa3f6bd to nil")
+	}
+	{
+		if err := g.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.getSearchResultsCalendar#6aa3f6bd: field flags: %w", err)
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSearchResultsCalendar#49f0bde9: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.getSearchResultsCalendar#6aa3f6bd: field peer: %w", err)
 		}
 		g.Peer = value
+	}
+	if g.Flags.Has(2) {
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.getSearchResultsCalendar#6aa3f6bd: field saved_peer_id: %w", err)
+		}
+		g.SavedPeerID = value
 	}
 	{
 		value, err := DecodeMessagesFilter(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSearchResultsCalendar#49f0bde9: field filter: %w", err)
+			return fmt.Errorf("unable to decode messages.getSearchResultsCalendar#6aa3f6bd: field filter: %w", err)
 		}
 		g.Filter = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSearchResultsCalendar#49f0bde9: field offset_id: %w", err)
+			return fmt.Errorf("unable to decode messages.getSearchResultsCalendar#6aa3f6bd: field offset_id: %w", err)
 		}
 		g.OffsetID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.getSearchResultsCalendar#49f0bde9: field offset_date: %w", err)
+			return fmt.Errorf("unable to decode messages.getSearchResultsCalendar#6aa3f6bd: field offset_date: %w", err)
 		}
 		g.OffsetDate = value
 	}
@@ -240,6 +293,24 @@ func (g *MessagesGetSearchResultsCalendarRequest) GetPeer() (value InputPeerClas
 		return
 	}
 	return g.Peer
+}
+
+// SetSavedPeerID sets value of SavedPeerID conditional field.
+func (g *MessagesGetSearchResultsCalendarRequest) SetSavedPeerID(value InputPeerClass) {
+	g.Flags.Set(2)
+	g.SavedPeerID = value
+}
+
+// GetSavedPeerID returns value of SavedPeerID conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetSearchResultsCalendarRequest) GetSavedPeerID() (value InputPeerClass, ok bool) {
+	if g == nil {
+		return
+	}
+	if !g.Flags.Has(2) {
+		return value, false
+	}
+	return g.SavedPeerID, true
 }
 
 // GetFilter returns value of Filter field.
@@ -266,7 +337,7 @@ func (g *MessagesGetSearchResultsCalendarRequest) GetOffsetDate() (value int) {
 	return g.OffsetDate
 }
 
-// MessagesGetSearchResultsCalendar invokes method messages.getSearchResultsCalendar#49f0bde9 returning error if any.
+// MessagesGetSearchResultsCalendar invokes method messages.getSearchResultsCalendar#6aa3f6bd returning error if any.
 // Returns information about the next messages of the specified type in the chat split by
 // days.
 // Returns the results in reverse chronological order.

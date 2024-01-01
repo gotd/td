@@ -1325,3 +1325,23 @@ func (u UpdateDispatcher) OnBotMessageReactions(handler BotMessageReactionsHandl
 		return handler(ctx, e, update.(*UpdateBotMessageReactions))
 	}
 }
+
+// SavedDialogPinnedHandler is a SavedDialogPinned event handler.
+type SavedDialogPinnedHandler func(ctx context.Context, e Entities, update *UpdateSavedDialogPinned) error
+
+// OnSavedDialogPinned sets SavedDialogPinned handler.
+func (u UpdateDispatcher) OnSavedDialogPinned(handler SavedDialogPinnedHandler) {
+	u.handlers[UpdateSavedDialogPinnedTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateSavedDialogPinned))
+	}
+}
+
+// PinnedSavedDialogsHandler is a PinnedSavedDialogs event handler.
+type PinnedSavedDialogsHandler func(ctx context.Context, e Entities, update *UpdatePinnedSavedDialogs) error
+
+// OnPinnedSavedDialogs sets PinnedSavedDialogs handler.
+func (u UpdateDispatcher) OnPinnedSavedDialogs(handler PinnedSavedDialogsHandler) {
+	u.handlers[UpdatePinnedSavedDialogsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdatePinnedSavedDialogs))
+	}
+}
