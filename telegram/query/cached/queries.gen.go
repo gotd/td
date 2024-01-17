@@ -1194,6 +1194,90 @@ func (s *MessagesGetAttachMenuBots) Fetch(ctx context.Context) (bool, error) {
 	}
 }
 
+type innerMessagesGetDefaultTagReactions struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.MessagesReactions
+}
+
+type MessagesGetDefaultTagReactions struct {
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewMessagesGetDefaultTagReactions creates new MessagesGetDefaultTagReactions.
+func NewMessagesGetDefaultTagReactions(raw *tg.Client) *MessagesGetDefaultTagReactions {
+	q := &MessagesGetDefaultTagReactions{
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *MessagesGetDefaultTagReactions) store(v innerMessagesGetDefaultTagReactions) {
+	s.last.Store(v)
+}
+
+func (s *MessagesGetDefaultTagReactions) load() (innerMessagesGetDefaultTagReactions, bool) {
+	v, ok := s.last.Load().(innerMessagesGetDefaultTagReactions)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned MessagesReactions must not be mutated.
+func (s *MessagesGetDefaultTagReactions) Value() *tg.MessagesReactions {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *MessagesGetDefaultTagReactions) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *MessagesGetDefaultTagReactions) Get(ctx context.Context) (*tg.MessagesReactions, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *MessagesGetDefaultTagReactions) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := lastHash
+	result, err := s.raw.MessagesGetDefaultTagReactions(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute MessagesGetDefaultTagReactions")
+	}
+
+	switch variant := result.(type) {
+	case *tg.MessagesReactions:
+		hash := variant.Hash
+
+		s.store(innerMessagesGetDefaultTagReactions{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.MessagesReactionsNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
 type innerMessagesGetEmojiStickers struct {
 	// Last received hash.
 	hash int64
@@ -1865,6 +1949,90 @@ func (s *MessagesGetSavedGifs) Fetch(ctx context.Context) (bool, error) {
 		})
 		return true, nil
 	case *tg.MessagesSavedGifsNotModified:
+		if lastHash == 0 {
+			return false, errors.Errorf("got unexpected %T result", result)
+		}
+		return false, nil
+	default:
+		return false, errors.Errorf("unexpected type %T", result)
+	}
+}
+
+type innerMessagesGetSavedReactionTags struct {
+	// Last received hash.
+	hash int64
+	// Last received result.
+	value *tg.MessagesSavedReactionTags
+}
+
+type MessagesGetSavedReactionTags struct {
+	// Result state.
+	last atomic.Value
+
+	// Reference to RPC client to make requests.
+	raw *tg.Client
+}
+
+// NewMessagesGetSavedReactionTags creates new MessagesGetSavedReactionTags.
+func NewMessagesGetSavedReactionTags(raw *tg.Client) *MessagesGetSavedReactionTags {
+	q := &MessagesGetSavedReactionTags{
+		raw: raw,
+	}
+
+	return q
+}
+
+func (s *MessagesGetSavedReactionTags) store(v innerMessagesGetSavedReactionTags) {
+	s.last.Store(v)
+}
+
+func (s *MessagesGetSavedReactionTags) load() (innerMessagesGetSavedReactionTags, bool) {
+	v, ok := s.last.Load().(innerMessagesGetSavedReactionTags)
+	return v, ok
+}
+
+// Value returns last received result.
+// NB: May be nil. Returned MessagesSavedReactionTags must not be mutated.
+func (s *MessagesGetSavedReactionTags) Value() *tg.MessagesSavedReactionTags {
+	inner, _ := s.load()
+	return inner.value
+}
+
+// Hash returns last received hash.
+func (s *MessagesGetSavedReactionTags) Hash() int64 {
+	inner, _ := s.load()
+	return inner.hash
+}
+
+// Get updates data if needed and returns it.
+func (s *MessagesGetSavedReactionTags) Get(ctx context.Context) (*tg.MessagesSavedReactionTags, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
+	}
+
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *MessagesGetSavedReactionTags) Fetch(ctx context.Context) (bool, error) {
+	lastHash := s.Hash()
+
+	req := lastHash
+	result, err := s.raw.MessagesGetSavedReactionTags(ctx, req)
+	if err != nil {
+		return false, errors.Wrap(err, "execute MessagesGetSavedReactionTags")
+	}
+
+	switch variant := result.(type) {
+	case *tg.MessagesSavedReactionTags:
+		hash := variant.Hash
+
+		s.store(innerMessagesGetSavedReactionTags{
+			hash:  hash,
+			value: variant,
+		})
+		return true, nil
+	case *tg.MessagesSavedReactionTagsNotModified:
 		if lastHash == 0 {
 			return false, errors.Errorf("got unexpected %T result", result)
 		}

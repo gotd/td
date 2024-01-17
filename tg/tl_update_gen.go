@@ -25173,6 +25173,107 @@ func (u *UpdatePinnedSavedDialogs) MapOrder() (value DialogPeerClassArray, ok bo
 	return DialogPeerClassArray(u.Order), true
 }
 
+// UpdateSavedReactionTags represents TL type `updateSavedReactionTags#39c67432`.
+//
+// See https://core.telegram.org/constructor/updateSavedReactionTags for reference.
+type UpdateSavedReactionTags struct {
+}
+
+// UpdateSavedReactionTagsTypeID is TL type id of UpdateSavedReactionTags.
+const UpdateSavedReactionTagsTypeID = 0x39c67432
+
+// construct implements constructor of UpdateClass.
+func (u UpdateSavedReactionTags) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateSavedReactionTags.
+var (
+	_ bin.Encoder     = &UpdateSavedReactionTags{}
+	_ bin.Decoder     = &UpdateSavedReactionTags{}
+	_ bin.BareEncoder = &UpdateSavedReactionTags{}
+	_ bin.BareDecoder = &UpdateSavedReactionTags{}
+
+	_ UpdateClass = &UpdateSavedReactionTags{}
+)
+
+func (u *UpdateSavedReactionTags) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateSavedReactionTags) String() string {
+	if u == nil {
+		return "UpdateSavedReactionTags(nil)"
+	}
+	type Alias UpdateSavedReactionTags
+	return fmt.Sprintf("UpdateSavedReactionTags%+v", Alias(*u))
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*UpdateSavedReactionTags) TypeID() uint32 {
+	return UpdateSavedReactionTagsTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*UpdateSavedReactionTags) TypeName() string {
+	return "updateSavedReactionTags"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateSavedReactionTags) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateSavedReactionTags",
+		ID:   UpdateSavedReactionTagsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateSavedReactionTags) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSavedReactionTags#39c67432 as nil")
+	}
+	b.PutID(UpdateSavedReactionTagsTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateSavedReactionTags) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateSavedReactionTags#39c67432 as nil")
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateSavedReactionTags) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSavedReactionTags#39c67432 to nil")
+	}
+	if err := b.ConsumeID(UpdateSavedReactionTagsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateSavedReactionTags#39c67432: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateSavedReactionTags) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateSavedReactionTags#39c67432 to nil")
+	}
+	return nil
+}
+
 // UpdateClassName is schema name of UpdateClass.
 const UpdateClassName = "Update"
 
@@ -25311,6 +25412,7 @@ const UpdateClassName = "Update"
 //	case *tg.UpdateBotMessageReactions: // updateBotMessageReactions#9cb7759
 //	case *tg.UpdateSavedDialogPinned: // updateSavedDialogPinned#aeaf9e74
 //	case *tg.UpdatePinnedSavedDialogs: // updatePinnedSavedDialogs#686c85a6
+//	case *tg.UpdateSavedReactionTags: // updateSavedReactionTags#39c67432
 //	default: panic(v)
 //	}
 type UpdateClass interface {
@@ -26203,6 +26305,13 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdatePinnedSavedDialogsTypeID:
 		// Decoding updatePinnedSavedDialogs#686c85a6.
 		v := UpdatePinnedSavedDialogs{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateSavedReactionTagsTypeID:
+		// Decoding updateSavedReactionTags#39c67432.
+		v := UpdateSavedReactionTags{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

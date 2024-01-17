@@ -59,6 +59,8 @@ type MessageReactions struct {
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getMessageReactionsList
 	CanSeeList bool
+	// ReactionsAsTags field of MessageReactions.
+	ReactionsAsTags bool
 	// Reactions
 	Results []ReactionCount
 	// List of recent peers and their reactions
@@ -91,6 +93,9 @@ func (m *MessageReactions) Zero() bool {
 	if !(m.CanSeeList == false) {
 		return false
 	}
+	if !(m.ReactionsAsTags == false) {
+		return false
+	}
 	if !(m.Results == nil) {
 		return false
 	}
@@ -114,11 +119,13 @@ func (m *MessageReactions) String() string {
 func (m *MessageReactions) FillFrom(from interface {
 	GetMin() (value bool)
 	GetCanSeeList() (value bool)
+	GetReactionsAsTags() (value bool)
 	GetResults() (value []ReactionCount)
 	GetRecentReactions() (value []MessagePeerReaction, ok bool)
 }) {
 	m.Min = from.GetMin()
 	m.CanSeeList = from.GetCanSeeList()
+	m.ReactionsAsTags = from.GetReactionsAsTags()
 	m.Results = from.GetResults()
 	if val, ok := from.GetRecentReactions(); ok {
 		m.RecentReactions = val
@@ -160,6 +167,11 @@ func (m *MessageReactions) TypeInfo() tdp.Type {
 			Null:       !m.Flags.Has(2),
 		},
 		{
+			Name:       "ReactionsAsTags",
+			SchemaName: "reactions_as_tags",
+			Null:       !m.Flags.Has(3),
+		},
+		{
 			Name:       "Results",
 			SchemaName: "results",
 		},
@@ -179,6 +191,9 @@ func (m *MessageReactions) SetFlags() {
 	}
 	if !(m.CanSeeList == false) {
 		m.Flags.Set(2)
+	}
+	if !(m.ReactionsAsTags == false) {
+		m.Flags.Set(3)
 	}
 	if !(m.RecentReactions == nil) {
 		m.Flags.Set(1)
@@ -243,6 +258,7 @@ func (m *MessageReactions) DecodeBare(b *bin.Buffer) error {
 	}
 	m.Min = m.Flags.Has(0)
 	m.CanSeeList = m.Flags.Has(2)
+	m.ReactionsAsTags = m.Flags.Has(3)
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -316,6 +332,25 @@ func (m *MessageReactions) GetCanSeeList() (value bool) {
 		return
 	}
 	return m.Flags.Has(2)
+}
+
+// SetReactionsAsTags sets value of ReactionsAsTags conditional field.
+func (m *MessageReactions) SetReactionsAsTags(value bool) {
+	if value {
+		m.Flags.Set(3)
+		m.ReactionsAsTags = true
+	} else {
+		m.Flags.Unset(3)
+		m.ReactionsAsTags = false
+	}
+}
+
+// GetReactionsAsTags returns value of ReactionsAsTags conditional field.
+func (m *MessageReactions) GetReactionsAsTags() (value bool) {
+	if m == nil {
+		return
+	}
+	return m.Flags.Has(3)
 }
 
 // GetResults returns value of Results field.
