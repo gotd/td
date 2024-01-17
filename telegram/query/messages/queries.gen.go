@@ -760,6 +760,12 @@ func (b *SearchQueryBuilder) SavedPeerID(paramSavedPeerID tg.InputPeerClass) *Se
 	return b
 }
 
+// SavedReaction sets SavedReaction field of Search query.
+func (b *SearchQueryBuilder) SavedReaction(paramSavedReaction []tg.ReactionClass) *SearchQueryBuilder {
+	b.req.SavedReaction = paramSavedReaction
+	return b
+}
+
 // TopMsgID sets TopMsgID field of Search query.
 func (b *SearchQueryBuilder) TopMsgID(paramTopMsgID int) *SearchQueryBuilder {
 	b.req.TopMsgID = paramTopMsgID
@@ -877,6 +883,7 @@ func (b *SearchQueryBuilder) Query(ctx context.Context, req Request) (tg.Message
 	r.Peer = b.req.Peer
 	r.Q = b.req.Q
 	r.SavedPeerID = b.req.SavedPeerID
+	r.SavedReaction = b.req.SavedReaction
 	r.TopMsgID = b.req.TopMsgID
 	r.AddOffset = req.AddOffset
 	r.OffsetID = req.OffsetID

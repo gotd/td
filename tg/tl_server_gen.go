@@ -6189,6 +6189,61 @@ func (s *ServerDispatcher) OnMessagesReorderPinnedSavedDialogs(f func(ctx contex
 	s.handlers[MessagesReorderPinnedSavedDialogsRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnMessagesGetSavedReactionTags(f func(ctx context.Context, hash int64) (MessagesSavedReactionTagsClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetSavedReactionTagsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hash)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesSavedReactionTagsBox{SavedReactionTags: response}, nil
+	}
+
+	s.handlers[MessagesGetSavedReactionTagsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesUpdateSavedReactionTag(f func(ctx context.Context, request *MessagesUpdateSavedReactionTagRequest) (bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesUpdateSavedReactionTagRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		if response {
+			return &BoolBox{Bool: &BoolTrue{}}, nil
+		}
+
+		return &BoolBox{Bool: &BoolFalse{}}, nil
+	}
+
+	s.handlers[MessagesUpdateSavedReactionTagRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetDefaultTagReactions(f func(ctx context.Context, hash int64) (MessagesReactionsClass, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetDefaultTagReactionsRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.Hash)
+		if err != nil {
+			return nil, err
+		}
+		return &MessagesReactionsBox{Reactions: response}, nil
+	}
+
+	s.handlers[MessagesGetDefaultTagReactionsRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request UpdatesGetStateRequest

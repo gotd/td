@@ -32,7 +32,7 @@ var (
 )
 
 // Layer version of schema.
-const Layer = 170
+const Layer = 171
 
 // TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
@@ -385,6 +385,7 @@ func TypesMap() map[uint32]string {
 		UpdateBotMessageReactionsTypeID:                          "updateBotMessageReactions#9cb7759",
 		UpdateSavedDialogPinnedTypeID:                            "updateSavedDialogPinned#aeaf9e74",
 		UpdatePinnedSavedDialogsTypeID:                           "updatePinnedSavedDialogs#686c85a6",
+		UpdateSavedReactionTagsTypeID:                            "updateSavedReactionTags#39c67432",
 		UpdatesStateTypeID:                                       "updates.state#a56c2a3e",
 		UpdatesDifferenceEmptyTypeID:                             "updates.differenceEmpty#5d75a138",
 		UpdatesDifferenceTypeID:                                  "updates.difference#f49ca0",
@@ -1243,6 +1244,9 @@ func TypesMap() map[uint32]string {
 		MessagesSavedDialogsTypeID:                                              "messages.savedDialogs#f83ae221",
 		MessagesSavedDialogsSliceTypeID:                                         "messages.savedDialogsSlice#44ba9dd9",
 		MessagesSavedDialogsNotModifiedTypeID:                                   "messages.savedDialogsNotModified#c01f6fe8",
+		SavedReactionTagTypeID:                                                  "savedReactionTag#cb6ff828",
+		MessagesSavedReactionTagsNotModifiedTypeID:                              "messages.savedReactionTagsNotModified#889b59ef",
+		MessagesSavedReactionTagsTypeID:                                         "messages.savedReactionTags#3259950a",
 		InvokeAfterMsgRequestTypeID:                                             "invokeAfterMsg#cb9f372d",
 		InvokeAfterMsgsRequestTypeID:                                            "invokeAfterMsgs#3dc4b4f0",
 		InitConnectionRequestTypeID:                                             "initConnection#c1cd5ea9",
@@ -1395,7 +1399,7 @@ func TypesMap() map[uint32]string {
 		MessagesGetMessagesRequestTypeID:                                        "messages.getMessages#63c66506",
 		MessagesGetDialogsRequestTypeID:                                         "messages.getDialogs#a0f4cb4f",
 		MessagesGetHistoryRequestTypeID:                                         "messages.getHistory#4423e6c5",
-		MessagesSearchRequestTypeID:                                             "messages.search#a7b4e929",
+		MessagesSearchRequestTypeID:                                             "messages.search#29ee847a",
 		MessagesReadHistoryRequestTypeID:                                        "messages.readHistory#e306d3a",
 		MessagesDeleteHistoryRequestTypeID:                                      "messages.deleteHistory#b08f922a",
 		MessagesDeleteMessagesRequestTypeID:                                     "messages.deleteMessages#e58e95d2",
@@ -1586,6 +1590,9 @@ func TypesMap() map[uint32]string {
 		MessagesGetPinnedSavedDialogsRequestTypeID:                              "messages.getPinnedSavedDialogs#d63d94e0",
 		MessagesToggleSavedDialogPinRequestTypeID:                               "messages.toggleSavedDialogPin#ac81bbde",
 		MessagesReorderPinnedSavedDialogsRequestTypeID:                          "messages.reorderPinnedSavedDialogs#8b716587",
+		MessagesGetSavedReactionTagsRequestTypeID:                               "messages.getSavedReactionTags#761ddacf",
+		MessagesUpdateSavedReactionTagRequestTypeID:                             "messages.updateSavedReactionTag#60297dec",
+		MessagesGetDefaultTagReactionsRequestTypeID:                             "messages.getDefaultTagReactions#bdf93428",
 		UpdatesGetStateRequestTypeID:                                            "updates.getState#edd4882a",
 		UpdatesGetDifferenceRequestTypeID:                                       "updates.getDifference#19c2f763",
 		UpdatesGetChannelDifferenceRequestTypeID:                                "updates.getChannelDifference#3173d78",
@@ -2179,6 +2186,7 @@ func NamesMap() map[string]uint32 {
 		"updateBotMessageReactions":                          UpdateBotMessageReactionsTypeID,
 		"updateSavedDialogPinned":                            UpdateSavedDialogPinnedTypeID,
 		"updatePinnedSavedDialogs":                           UpdatePinnedSavedDialogsTypeID,
+		"updateSavedReactionTags":                            UpdateSavedReactionTagsTypeID,
 		"updates.state":                                      UpdatesStateTypeID,
 		"updates.differenceEmpty":                            UpdatesDifferenceEmptyTypeID,
 		"updates.difference":                                 UpdatesDifferenceTypeID,
@@ -3037,6 +3045,9 @@ func NamesMap() map[string]uint32 {
 		"messages.savedDialogs":                                             MessagesSavedDialogsTypeID,
 		"messages.savedDialogsSlice":                                        MessagesSavedDialogsSliceTypeID,
 		"messages.savedDialogsNotModified":                                  MessagesSavedDialogsNotModifiedTypeID,
+		"savedReactionTag":                                                  SavedReactionTagTypeID,
+		"messages.savedReactionTagsNotModified":                             MessagesSavedReactionTagsNotModifiedTypeID,
+		"messages.savedReactionTags":                                        MessagesSavedReactionTagsTypeID,
 		"invokeAfterMsg":                                                    InvokeAfterMsgRequestTypeID,
 		"invokeAfterMsgs":                                                   InvokeAfterMsgsRequestTypeID,
 		"initConnection":                                                    InitConnectionRequestTypeID,
@@ -3380,6 +3391,9 @@ func NamesMap() map[string]uint32 {
 		"messages.getPinnedSavedDialogs":                                    MessagesGetPinnedSavedDialogsRequestTypeID,
 		"messages.toggleSavedDialogPin":                                     MessagesToggleSavedDialogPinRequestTypeID,
 		"messages.reorderPinnedSavedDialogs":                                MessagesReorderPinnedSavedDialogsRequestTypeID,
+		"messages.getSavedReactionTags":                                     MessagesGetSavedReactionTagsRequestTypeID,
+		"messages.updateSavedReactionTag":                                   MessagesUpdateSavedReactionTagRequestTypeID,
+		"messages.getDefaultTagReactions":                                   MessagesGetDefaultTagReactionsRequestTypeID,
 		"updates.getState":                                                  UpdatesGetStateRequestTypeID,
 		"updates.getDifference":                                             UpdatesGetDifferenceRequestTypeID,
 		"updates.getChannelDifference":                                      UpdatesGetChannelDifferenceRequestTypeID,
@@ -3973,6 +3987,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		UpdateBotMessageReactionsTypeID:                          func() bin.Object { return &UpdateBotMessageReactions{} },
 		UpdateSavedDialogPinnedTypeID:                            func() bin.Object { return &UpdateSavedDialogPinned{} },
 		UpdatePinnedSavedDialogsTypeID:                           func() bin.Object { return &UpdatePinnedSavedDialogs{} },
+		UpdateSavedReactionTagsTypeID:                            func() bin.Object { return &UpdateSavedReactionTags{} },
 		UpdatesStateTypeID:                                       func() bin.Object { return &UpdatesState{} },
 		UpdatesDifferenceEmptyTypeID:                             func() bin.Object { return &UpdatesDifferenceEmpty{} },
 		UpdatesDifferenceTypeID:                                  func() bin.Object { return &UpdatesDifference{} },
@@ -4831,6 +4846,9 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		MessagesSavedDialogsTypeID:                                              func() bin.Object { return &MessagesSavedDialogs{} },
 		MessagesSavedDialogsSliceTypeID:                                         func() bin.Object { return &MessagesSavedDialogsSlice{} },
 		MessagesSavedDialogsNotModifiedTypeID:                                   func() bin.Object { return &MessagesSavedDialogsNotModified{} },
+		SavedReactionTagTypeID:                                                  func() bin.Object { return &SavedReactionTag{} },
+		MessagesSavedReactionTagsNotModifiedTypeID:                              func() bin.Object { return &MessagesSavedReactionTagsNotModified{} },
+		MessagesSavedReactionTagsTypeID:                                         func() bin.Object { return &MessagesSavedReactionTags{} },
 		InvokeAfterMsgRequestTypeID:                                             func() bin.Object { return &InvokeAfterMsgRequest{} },
 		InvokeAfterMsgsRequestTypeID:                                            func() bin.Object { return &InvokeAfterMsgsRequest{} },
 		InitConnectionRequestTypeID:                                             func() bin.Object { return &InitConnectionRequest{} },
@@ -5174,6 +5192,9 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		MessagesGetPinnedSavedDialogsRequestTypeID:                              func() bin.Object { return &MessagesGetPinnedSavedDialogsRequest{} },
 		MessagesToggleSavedDialogPinRequestTypeID:                               func() bin.Object { return &MessagesToggleSavedDialogPinRequest{} },
 		MessagesReorderPinnedSavedDialogsRequestTypeID:                          func() bin.Object { return &MessagesReorderPinnedSavedDialogsRequest{} },
+		MessagesGetSavedReactionTagsRequestTypeID:                               func() bin.Object { return &MessagesGetSavedReactionTagsRequest{} },
+		MessagesUpdateSavedReactionTagRequestTypeID:                             func() bin.Object { return &MessagesUpdateSavedReactionTagRequest{} },
+		MessagesGetDefaultTagReactionsRequestTypeID:                             func() bin.Object { return &MessagesGetDefaultTagReactionsRequest{} },
 		UpdatesGetStateRequestTypeID:                                            func() bin.Object { return &UpdatesGetStateRequest{} },
 		UpdatesGetDifferenceRequestTypeID:                                       func() bin.Object { return &UpdatesGetDifferenceRequest{} },
 		UpdatesGetChannelDifferenceRequestTypeID:                                func() bin.Object { return &UpdatesGetChannelDifferenceRequest{} },
@@ -6231,6 +6252,10 @@ func ClassConstructorsMap() map[string][]uint32 {
 			MessagesSavedGifsNotModifiedTypeID,
 			MessagesSavedGifsTypeID,
 		},
+		MessagesSavedReactionTagsClassName: {
+			MessagesSavedReactionTagsNotModifiedTypeID,
+			MessagesSavedReactionTagsTypeID,
+		},
 		MessagesSentEncryptedMessageClassName: {
 			MessagesSentEncryptedMessageTypeID,
 			MessagesSentEncryptedFileTypeID,
@@ -6687,6 +6712,7 @@ func ClassConstructorsMap() map[string][]uint32 {
 			UpdateBotMessageReactionsTypeID,
 			UpdateSavedDialogPinnedTypeID,
 			UpdatePinnedSavedDialogsTypeID,
+			UpdateSavedReactionTagsTypeID,
 		},
 		UpdatesChannelDifferenceClassName: {
 			UpdatesChannelDifferenceEmptyTypeID,

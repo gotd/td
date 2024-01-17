@@ -1345,3 +1345,13 @@ func (u UpdateDispatcher) OnPinnedSavedDialogs(handler PinnedSavedDialogsHandler
 		return handler(ctx, e, update.(*UpdatePinnedSavedDialogs))
 	}
 }
+
+// SavedReactionTagsHandler is a SavedReactionTags event handler.
+type SavedReactionTagsHandler func(ctx context.Context, e Entities, update *UpdateSavedReactionTags) error
+
+// OnSavedReactionTags sets SavedReactionTags handler.
+func (u UpdateDispatcher) OnSavedReactionTags(handler SavedReactionTagsHandler) {
+	u.handlers[UpdateSavedReactionTagsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateSavedReactionTags))
+	}
+}
