@@ -64,9 +64,11 @@ type AutoDownloadSettings struct {
 	FileSizeMax int64
 	// Maximum suggested bitrate for uploading videos
 	VideoUploadMaxbitrate int
-	// SmallQueueActiveOperationsMax field of AutoDownloadSettings.
+	// A limit, specifying the maximum number of files that should be downloaded in parallel
+	// from the same DC, for files smaller than 20MB.
 	SmallQueueActiveOperationsMax int
-	// LargeQueueActiveOperationsMax field of AutoDownloadSettings.
+	// A limit, specifying the maximum number of files that should be downloaded in parallel
+	// from the same DC, for files bigger than 20MB.
 	LargeQueueActiveOperationsMax int
 }
 

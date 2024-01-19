@@ -52,12 +52,14 @@ type StoriesGetStoryViewsListRequest struct {
 	// Whether to return storyView¹ info about users that reacted to the story (i.e. if set,
 	// the server will first sort results by view date as usual, and then also additionally
 	// sort the list by putting storyView²s with an associated reaction first in the list).
+	// Ignored if forwards_first is set.
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/storyView
 	//  2) https://core.telegram.org/constructor/storyView
 	ReactionsFirst bool
-	// ForwardsFirst field of StoriesGetStoryViewsListRequest.
+	// If set, returns forwards and reposts first, then reactions, then other views;
+	// otherwise returns interactions sorted just by interaction date.
 	ForwardsFirst bool
 	// Peer where the story was posted
 	Peer InputPeerClass

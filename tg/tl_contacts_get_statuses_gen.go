@@ -32,7 +32,8 @@ var (
 )
 
 // ContactsGetStatusesRequest represents TL type `contacts.getStatuses#c4a353ee`.
-// Returns the list of contact statuses.
+// Use this method to obtain the online statuses of all contacts with an accessible
+// associated Telegram account.
 //
 // See https://core.telegram.org/method/contacts.getStatuses for reference.
 type ContactsGetStatusesRequest struct {
@@ -129,7 +130,8 @@ func (g *ContactsGetStatusesRequest) DecodeBare(b *bin.Buffer) error {
 }
 
 // ContactsGetStatuses invokes method contacts.getStatuses#c4a353ee returning error if any.
-// Returns the list of contact statuses.
+// Use this method to obtain the online statuses of all contacts with an accessible
+// associated Telegram account.
 //
 // See https://core.telegram.org/method/contacts.getStatuses for reference.
 func (c *Client) ContactsGetStatuses(ctx context.Context) ([]ContactStatus, error) {

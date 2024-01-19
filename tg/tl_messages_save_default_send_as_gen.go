@@ -32,7 +32,8 @@ var (
 )
 
 // MessagesSaveDefaultSendAsRequest represents TL type `messages.saveDefaultSendAs#ccfddf96`.
-// Change the default peer that should be used when sending messages to a specific group
+// Change the default peer that should be used when sending messages, reactions, poll
+// votes to a specific group
 //
 // See https://core.telegram.org/method/messages.saveDefaultSendAs for reference.
 type MessagesSaveDefaultSendAsRequest struct {
@@ -199,7 +200,8 @@ func (s *MessagesSaveDefaultSendAsRequest) GetSendAs() (value InputPeerClass) {
 }
 
 // MessagesSaveDefaultSendAs invokes method messages.saveDefaultSendAs#ccfddf96 returning error if any.
-// Change the default peer that should be used when sending messages to a specific group
+// Change the default peer that should be used when sending messages, reactions, poll
+// votes to a specific group
 //
 // Possible errors:
 //

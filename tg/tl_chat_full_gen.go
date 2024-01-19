@@ -1271,7 +1271,10 @@ type ChannelFull struct {
 	//
 	// Use SetStories and GetStories helpers.
 	Stories PeerStories
-	// Wallpaper field of ChannelFull.
+	// Wallpaper¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/wallpapers
 	//
 	// Use SetWallpaper and GetWallpaper helpers.
 	Wallpaper WallPaperClass

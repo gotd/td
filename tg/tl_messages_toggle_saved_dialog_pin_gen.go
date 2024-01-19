@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/messages.toggleSavedDialogPin for reference.
 type MessagesToggleSavedDialogPinRequest struct {
-	// Flags field of MessagesToggleSavedDialogPinRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Pinned field of MessagesToggleSavedDialogPinRequest.
 	Pinned bool
@@ -221,6 +224,7 @@ func (t *MessagesToggleSavedDialogPinRequest) GetPeer() (value InputDialogPeerCl
 // MessagesToggleSavedDialogPin invokes method messages.toggleSavedDialogPin#ac81bbde returning error if any.
 //
 // See https://core.telegram.org/method/messages.toggleSavedDialogPin for reference.
+// Can be used by bots.
 func (c *Client) MessagesToggleSavedDialogPin(ctx context.Context, request *MessagesToggleSavedDialogPinRequest) (bool, error) {
 	var result BoolBox
 

@@ -39,7 +39,10 @@ var (
 //
 // See https://core.telegram.org/method/messages.getSearchResultsCalendar for reference.
 type MessagesGetSearchResultsCalendarRequest struct {
-	// Flags field of MessagesGetSearchResultsCalendarRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Peer where to search
 	Peer InputPeerClass

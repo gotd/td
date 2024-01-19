@@ -56,7 +56,11 @@ type InputReplyToMessage struct {
 	//
 	// Use SetReplyToPeerID and GetReplyToPeerID helpers.
 	ReplyToPeerID InputPeerClass
-	// Used to quote-reply to only a certain section (specified here) of the original message.
+	// Used to quote-reply to only a certain section (specified here) of the original message
+	// The maximum UTF-8 length for quotes is specified in the quote_length_max¹ config key.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#quote-length-max
 	//
 	// Use SetQuoteText and GetQuoteText helpers.
 	QuoteText string

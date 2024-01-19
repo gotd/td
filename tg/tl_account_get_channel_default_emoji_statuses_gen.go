@@ -32,10 +32,17 @@ var (
 )
 
 // AccountGetChannelDefaultEmojiStatusesRequest represents TL type `account.getChannelDefaultEmojiStatuses#7727a7d5`.
+// Get a list of default suggested channel emoji statuses¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/method/account.getChannelDefaultEmojiStatuses for reference.
 type AccountGetChannelDefaultEmojiStatusesRequest struct {
-	// Hash field of AccountGetChannelDefaultEmojiStatusesRequest.
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
 }
 
@@ -161,8 +168,13 @@ func (g *AccountGetChannelDefaultEmojiStatusesRequest) GetHash() (value int64) {
 }
 
 // AccountGetChannelDefaultEmojiStatuses invokes method account.getChannelDefaultEmojiStatuses#7727a7d5 returning error if any.
+// Get a list of default suggested channel emoji statuses¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/method/account.getChannelDefaultEmojiStatuses for reference.
+// Can be used by bots.
 func (c *Client) AccountGetChannelDefaultEmojiStatuses(ctx context.Context, hash int64) (AccountEmojiStatusesClass, error) {
 	var result AccountEmojiStatusesBox
 

@@ -130,6 +130,7 @@ func (g *MessagesGetPinnedSavedDialogsRequest) DecodeBare(b *bin.Buffer) error {
 // MessagesGetPinnedSavedDialogs invokes method messages.getPinnedSavedDialogs#d63d94e0 returning error if any.
 //
 // See https://core.telegram.org/method/messages.getPinnedSavedDialogs for reference.
+// Can be used by bots.
 func (c *Client) MessagesGetPinnedSavedDialogs(ctx context.Context) (MessagesSavedDialogsClass, error) {
 	var result MessagesSavedDialogsBox
 

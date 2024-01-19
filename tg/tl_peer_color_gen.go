@@ -44,14 +44,15 @@ type PeerColor struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Color palette ID, see here »¹ for more info.
+	// Color palette ID, see here »¹ for more info; if not set, the default palette should
+	// be used.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/colors
 	//
 	// Use SetColor and GetColor helpers.
 	Color int
-	// Custom emoji ID¹ used to generate the pattern.
+	// Optional custom emoji ID¹ used to generate the pattern.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/custom-emoji

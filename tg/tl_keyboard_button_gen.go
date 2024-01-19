@@ -2878,7 +2878,7 @@ func (k *KeyboardButtonSimpleWebView) GetURL() (value string) {
 }
 
 // KeyboardButtonRequestPeer represents TL type `keyboardButtonRequestPeer#53d7bfd8`.
-// Prompts the user to select and share a peer with the bot using messages
+// Prompts the user to select and share one or more peers with the bot using messages
 // sendBotRequestedPeer¹
 //
 // Links:
@@ -2895,10 +2895,10 @@ type KeyboardButtonRequestPeer struct {
 	ButtonID int
 	// Filtering criteria to use for the peer selection list shown to the user. The list
 	// should display all existing peers of the specified type, and should also offer an
-	// option for the user to create and immediately use a peer of the specified type, if
-	// needed.
+	// option for the user to create and immediately use one or more (up to max_quantity)
+	// peers of the specified type, if needed.
 	PeerType RequestPeerTypeClass
-	// MaxQuantity field of KeyboardButtonRequestPeer.
+	// Maximum number of peers that can be chosne.
 	MaxQuantity int
 }
 

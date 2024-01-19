@@ -761,7 +761,12 @@ type InputStorePaymentPremiumGiveaway struct {
 	// If set, only new subscribers starting from the giveaway creation date will be able to
 	// participate to the giveaway.
 	OnlyNewSubscribers bool
-	// WinnersAreVisible field of InputStorePaymentPremiumGiveaway.
+	// If set, giveaway winners are public and will be listed in a
+	// messageMediaGiveawayResults¹ message that will be automatically sent to the channel
+	// once the giveaway ends.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messageMediaGiveawayResults
 	WinnersAreVisible bool
 	// The channel starting the giveaway, that the user must join to participate, that will
 	// receive the giveaway boosts¹; see here »² for more info on giveaways.
@@ -784,7 +789,7 @@ type InputStorePaymentPremiumGiveaway struct {
 	//
 	// Use SetCountriesISO2 and GetCountriesISO2 helpers.
 	CountriesISO2 []string
-	// PrizeDescription field of InputStorePaymentPremiumGiveaway.
+	// Can contain a textual description of additional giveaway prizes.
 	//
 	// Use SetPrizeDescription and GetPrizeDescription helpers.
 	PrizeDescription string

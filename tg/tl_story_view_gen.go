@@ -348,16 +348,27 @@ func (s *StoryView) GetReaction() (value ReactionClass, ok bool) {
 }
 
 // StoryViewPublicForward represents TL type `storyViewPublicForward#9083670b`.
+// A certain peer has forwarded the story as a message to a public chat or channel.
 //
 // See https://core.telegram.org/constructor/storyViewPublicForward for reference.
 type StoryViewPublicForward struct {
-	// Flags field of StoryViewPublicForward.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Blocked field of StoryViewPublicForward.
+	// Whether we have completely blocked¹ this user, including from viewing more of our
+	// stories.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/block
 	Blocked bool
-	// BlockedMyStoriesFrom field of StoryViewPublicForward.
+	// Whether we have blocked¹ this user from viewing more of our stories.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/block
 	BlockedMyStoriesFrom bool
-	// Message field of StoryViewPublicForward.
+	// The message with the forwarded story.
 	Message MessageClass
 }
 
@@ -575,18 +586,29 @@ func (s *StoryViewPublicForward) GetMessage() (value MessageClass) {
 }
 
 // StoryViewPublicRepost represents TL type `storyViewPublicRepost#bd74cf49`.
+// A certain peer has reposted the story.
 //
 // See https://core.telegram.org/constructor/storyViewPublicRepost for reference.
 type StoryViewPublicRepost struct {
-	// Flags field of StoryViewPublicRepost.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Blocked field of StoryViewPublicRepost.
+	// Whether we have completely blocked¹ this user, including from viewing more of our
+	// stories.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/block
 	Blocked bool
-	// BlockedMyStoriesFrom field of StoryViewPublicRepost.
+	// Whether we have blocked¹ this user from viewing more of our stories.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/block
 	BlockedMyStoriesFrom bool
-	// PeerID field of StoryViewPublicRepost.
+	// The peer that reposted the story.
 	PeerID PeerClass
-	// Story field of StoryViewPublicRepost.
+	// The reposted story.
 	Story StoryItemClass
 }
 

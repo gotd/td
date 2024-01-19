@@ -35,19 +35,34 @@ var (
 //
 // See https://core.telegram.org/method/messages.getSavedDialogs for reference.
 type MessagesGetSavedDialogsRequest struct {
-	// Flags field of MessagesGetSavedDialogsRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// ExcludePinned field of MessagesGetSavedDialogsRequest.
 	ExcludePinned bool
-	// OffsetDate field of MessagesGetSavedDialogsRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetDate int
-	// OffsetID field of MessagesGetSavedDialogsRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetID int
 	// OffsetPeer field of MessagesGetSavedDialogsRequest.
 	OffsetPeer InputPeerClass
-	// Limit field of MessagesGetSavedDialogsRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
-	// Hash field of MessagesGetSavedDialogsRequest.
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
 }
 
@@ -329,6 +344,7 @@ func (g *MessagesGetSavedDialogsRequest) GetHash() (value int64) {
 // MessagesGetSavedDialogs invokes method messages.getSavedDialogs#5381d21a returning error if any.
 //
 // See https://core.telegram.org/method/messages.getSavedDialogs for reference.
+// Can be used by bots.
 func (c *Client) MessagesGetSavedDialogs(ctx context.Context, request *MessagesGetSavedDialogsRequest) (MessagesSavedDialogsClass, error) {
 	var result MessagesSavedDialogsBox
 

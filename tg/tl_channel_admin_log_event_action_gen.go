@@ -6708,12 +6708,16 @@ func (c *ChannelAdminLogEventActionToggleAntiSpam) GetNewValue() (value bool) {
 }
 
 // ChannelAdminLogEventActionChangePeerColor represents TL type `channelAdminLogEventActionChangePeerColor#5796e780`.
+// The message accent color¹ was changed
+//
+// Links:
+//  1. https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangePeerColor for reference.
 type ChannelAdminLogEventActionChangePeerColor struct {
-	// PrevValue field of ChannelAdminLogEventActionChangePeerColor.
+	// Previous accent palette
 	PrevValue PeerColor
-	// NewValue field of ChannelAdminLogEventActionChangePeerColor.
+	// New accent palette
 	NewValue PeerColor
 }
 
@@ -6871,12 +6875,16 @@ func (c *ChannelAdminLogEventActionChangePeerColor) GetNewValue() (value PeerCol
 }
 
 // ChannelAdminLogEventActionChangeProfilePeerColor represents TL type `channelAdminLogEventActionChangeProfilePeerColor#5e477b25`.
+// The profile accent color¹ was changed
+//
+// Links:
+//  1. https://core.telegram.org/api/colors
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeProfilePeerColor for reference.
 type ChannelAdminLogEventActionChangeProfilePeerColor struct {
-	// PrevValue field of ChannelAdminLogEventActionChangeProfilePeerColor.
+	// Previous accent palette
 	PrevValue PeerColor
-	// NewValue field of ChannelAdminLogEventActionChangeProfilePeerColor.
+	// New accent palette
 	NewValue PeerColor
 }
 
@@ -7034,12 +7042,16 @@ func (c *ChannelAdminLogEventActionChangeProfilePeerColor) GetNewValue() (value 
 }
 
 // ChannelAdminLogEventActionChangeWallpaper represents TL type `channelAdminLogEventActionChangeWallpaper#31bb5d52`.
+// The wallpaper¹ was changed
+//
+// Links:
+//  1. https://core.telegram.org/api/wallpapers
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeWallpaper for reference.
 type ChannelAdminLogEventActionChangeWallpaper struct {
-	// PrevValue field of ChannelAdminLogEventActionChangeWallpaper.
+	// Previous wallpaper
 	PrevValue WallPaperClass
-	// NewValue field of ChannelAdminLogEventActionChangeWallpaper.
+	// New wallpaper
 	NewValue WallPaperClass
 }
 
@@ -7207,12 +7219,16 @@ func (c *ChannelAdminLogEventActionChangeWallpaper) GetNewValue() (value WallPap
 }
 
 // ChannelAdminLogEventActionChangeEmojiStatus represents TL type `channelAdminLogEventActionChangeEmojiStatus#3ea9feb1`.
+// The emoji status¹ was changed
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeEmojiStatus for reference.
 type ChannelAdminLogEventActionChangeEmojiStatus struct {
-	// PrevValue field of ChannelAdminLogEventActionChangeEmojiStatus.
+	// Previous emoji status
 	PrevValue EmojiStatusClass
-	// NewValue field of ChannelAdminLogEventActionChangeEmojiStatus.
+	// New emoji status
 	NewValue EmojiStatusClass
 }
 

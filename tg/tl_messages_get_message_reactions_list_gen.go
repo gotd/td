@@ -48,12 +48,12 @@ type MessagesGetMessageReactionsListRequest struct {
 	Peer InputPeerClass
 	// Message ID
 	ID int
-	// Get only reactions of this type (UTF8 emoji)
+	// Get only reactions of this type
 	//
 	// Use SetReaction and GetReaction helpers.
 	Reaction ReactionClass
-	// Offset (typically taken from the next_offset field of the returned messages
-	// MessageReactionsList¹)
+	// Offset for pagination (taken from the next_offset field of the returned messages
+	// MessageReactionsList¹); empty in the first request.
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/messages.MessageReactionsList

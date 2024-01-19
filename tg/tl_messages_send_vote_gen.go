@@ -33,9 +33,12 @@ var (
 
 // MessagesSendVoteRequest represents TL type `messages.sendVote#10ea6184`.
 // Vote in a poll¹
+// Starting from layer 159, the vote will be sent from the peer specified using messages
+// saveDefaultSendAs¹.
 //
 // Links:
 //  1. https://core.telegram.org/constructor/poll
+//  2. https://core.telegram.org/method/messages.saveDefaultSendAs
 //
 // See https://core.telegram.org/method/messages.sendVote for reference.
 type MessagesSendVoteRequest struct {
@@ -238,9 +241,12 @@ func (s *MessagesSendVoteRequest) GetOptions() (value [][]byte) {
 
 // MessagesSendVote invokes method messages.sendVote#10ea6184 returning error if any.
 // Vote in a poll¹
+// Starting from layer 159, the vote will be sent from the peer specified using messages
+// saveDefaultSendAs¹.
 //
 // Links:
 //  1. https://core.telegram.org/constructor/poll
+//  2. https://core.telegram.org/method/messages.saveDefaultSendAs
 //
 // Possible errors:
 //

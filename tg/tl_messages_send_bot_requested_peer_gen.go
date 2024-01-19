@@ -32,7 +32,7 @@ var (
 )
 
 // MessagesSendBotRequestedPeerRequest represents TL type `messages.sendBotRequestedPeer#91b2d060`.
-// Send a chosen peer, as requested by a keyboardButtonRequestPeer¹ button.
+// Send one or more chosen peers, as requested by a keyboardButtonRequestPeer¹ button.
 //
 // Links:
 //  1. https://core.telegram.org/constructor/keyboardButtonRequestPeer
@@ -55,7 +55,7 @@ type MessagesSendBotRequestedPeerRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/keyboardButtonRequestPeer
 	ButtonID int
-	// RequestedPeers field of MessagesSendBotRequestedPeerRequest.
+	// The chosen peers.
 	RequestedPeers []InputPeerClass
 }
 
@@ -284,7 +284,7 @@ func (s *MessagesSendBotRequestedPeerRequest) MapRequestedPeers() (value InputPe
 }
 
 // MessagesSendBotRequestedPeer invokes method messages.sendBotRequestedPeer#91b2d060 returning error if any.
-// Send a chosen peer, as requested by a keyboardButtonRequestPeer¹ button.
+// Send one or more chosen peers, as requested by a keyboardButtonRequestPeer¹ button.
 //
 // Links:
 //  1. https://core.telegram.org/constructor/keyboardButtonRequestPeer

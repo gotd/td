@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/method/messages.deleteSavedHistory for reference.
 type MessagesDeleteSavedHistoryRequest struct {
-	// Flags field of MessagesDeleteSavedHistoryRequest.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Peer field of MessagesDeleteSavedHistoryRequest.
 	Peer InputPeerClass
@@ -309,6 +312,7 @@ func (d *MessagesDeleteSavedHistoryRequest) GetMaxDate() (value int, ok bool) {
 // MessagesDeleteSavedHistory invokes method messages.deleteSavedHistory#6e98102b returning error if any.
 //
 // See https://core.telegram.org/method/messages.deleteSavedHistory for reference.
+// Can be used by bots.
 func (c *Client) MessagesDeleteSavedHistory(ctx context.Context, request *MessagesDeleteSavedHistoryRequest) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory
 

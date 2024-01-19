@@ -971,14 +971,16 @@ func (m *MediaAreaSuggestedReaction) GetReaction() (value ReactionClass) {
 }
 
 // MediaAreaChannelPost represents TL type `mediaAreaChannelPost#770416af`.
+// Represents a channel post.
 //
 // See https://core.telegram.org/constructor/mediaAreaChannelPost for reference.
 type MediaAreaChannelPost struct {
-	// Coordinates field of MediaAreaChannelPost.
+	// The size and location of the media area corresponding to the location sticker on top
+	// of the story media.
 	Coordinates MediaAreaCoordinates
-	// ChannelID field of MediaAreaChannelPost.
+	// The channel that posted the message
 	ChannelID int64
-	// MsgID field of MediaAreaChannelPost.
+	// ID of the channel message
 	MsgID int
 }
 
@@ -1159,14 +1161,16 @@ func (m *MediaAreaChannelPost) GetMsgID() (value int) {
 }
 
 // InputMediaAreaChannelPost represents TL type `inputMediaAreaChannelPost#2271f2bf`.
+// Represents a channel post
 //
 // See https://core.telegram.org/constructor/inputMediaAreaChannelPost for reference.
 type InputMediaAreaChannelPost struct {
-	// Coordinates field of InputMediaAreaChannelPost.
+	// The size and location of the media area corresponding to the location sticker on top
+	// of the story media.
 	Coordinates MediaAreaCoordinates
-	// Channel field of InputMediaAreaChannelPost.
+	// The channel that posted the message
 	Channel InputChannelClass
-	// MsgID field of InputMediaAreaChannelPost.
+	// ID of the channel message
 	MsgID int
 }
 
