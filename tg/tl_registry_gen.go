@@ -32,7 +32,7 @@ var (
 )
 
 // Layer version of schema.
-const Layer = 171
+const Layer = 172
 
 // TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
@@ -110,9 +110,9 @@ func TypesMap() map[uint32]string {
 		UserStatusEmptyTypeID:                                    "userStatusEmpty#9d05049",
 		UserStatusOnlineTypeID:                                   "userStatusOnline#edb93949",
 		UserStatusOfflineTypeID:                                  "userStatusOffline#8c703f",
-		UserStatusRecentlyTypeID:                                 "userStatusRecently#e26f42f1",
-		UserStatusLastWeekTypeID:                                 "userStatusLastWeek#7bf09fc",
-		UserStatusLastMonthTypeID:                                "userStatusLastMonth#77ebc742",
+		UserStatusRecentlyTypeID:                                 "userStatusRecently#7b197dc8",
+		UserStatusLastWeekTypeID:                                 "userStatusLastWeek#541a1d1a",
+		UserStatusLastMonthTypeID:                                "userStatusLastMonth#65899777",
 		ChatEmptyTypeID:                                          "chatEmpty#29562865",
 		ChatTypeID:                                               "chat#41cbf256",
 		ChatForbiddenTypeID:                                      "chatForbidden#6592a1a7",
@@ -1247,6 +1247,7 @@ func TypesMap() map[uint32]string {
 		SavedReactionTagTypeID:                                                  "savedReactionTag#cb6ff828",
 		MessagesSavedReactionTagsNotModifiedTypeID:                              "messages.savedReactionTagsNotModified#889b59ef",
 		MessagesSavedReactionTagsTypeID:                                         "messages.savedReactionTags#3259950a",
+		OutboxReadDateTypeID:                                                    "outboxReadDate#3bb842ac",
 		InvokeAfterMsgRequestTypeID:                                             "invokeAfterMsg#cb9f372d",
 		InvokeAfterMsgsRequestTypeID:                                            "invokeAfterMsgs#3dc4b4f0",
 		InitConnectionRequestTypeID:                                             "initConnection#c1cd5ea9",
@@ -1371,6 +1372,7 @@ func TypesMap() map[uint32]string {
 		UsersGetUsersRequestTypeID:                                              "users.getUsers#d91a548",
 		UsersGetFullUserRequestTypeID:                                           "users.getFullUser#b60f5918",
 		UsersSetSecureValueErrorsRequestTypeID:                                  "users.setSecureValueErrors#90c894b5",
+		UsersGetIsPremiumRequiredToContactRequestTypeID:                         "users.getIsPremiumRequiredToContact#a622aa10",
 		ContactsGetContactIDsRequestTypeID:                                      "contacts.getContactIDs#7adc669d",
 		ContactsGetStatusesRequestTypeID:                                        "contacts.getStatuses#c4a353ee",
 		ContactsGetContactsRequestTypeID:                                        "contacts.getContacts#5dd69e12",
@@ -1593,6 +1595,7 @@ func TypesMap() map[uint32]string {
 		MessagesGetSavedReactionTagsRequestTypeID:                               "messages.getSavedReactionTags#761ddacf",
 		MessagesUpdateSavedReactionTagRequestTypeID:                             "messages.updateSavedReactionTag#60297dec",
 		MessagesGetDefaultTagReactionsRequestTypeID:                             "messages.getDefaultTagReactions#bdf93428",
+		MessagesGetOutboxReadDateRequestTypeID:                                  "messages.getOutboxReadDate#8c4bfe5d",
 		UpdatesGetStateRequestTypeID:                                            "updates.getState#edd4882a",
 		UpdatesGetDifferenceRequestTypeID:                                       "updates.getDifference#19c2f763",
 		UpdatesGetChannelDifferenceRequestTypeID:                                "updates.getChannelDifference#3173d78",
@@ -3048,6 +3051,7 @@ func NamesMap() map[string]uint32 {
 		"savedReactionTag":                                                  SavedReactionTagTypeID,
 		"messages.savedReactionTagsNotModified":                             MessagesSavedReactionTagsNotModifiedTypeID,
 		"messages.savedReactionTags":                                        MessagesSavedReactionTagsTypeID,
+		"outboxReadDate":                                                    OutboxReadDateTypeID,
 		"invokeAfterMsg":                                                    InvokeAfterMsgRequestTypeID,
 		"invokeAfterMsgs":                                                   InvokeAfterMsgsRequestTypeID,
 		"initConnection":                                                    InitConnectionRequestTypeID,
@@ -3172,6 +3176,7 @@ func NamesMap() map[string]uint32 {
 		"users.getUsers":                                                    UsersGetUsersRequestTypeID,
 		"users.getFullUser":                                                 UsersGetFullUserRequestTypeID,
 		"users.setSecureValueErrors":                                        UsersSetSecureValueErrorsRequestTypeID,
+		"users.getIsPremiumRequiredToContact":                               UsersGetIsPremiumRequiredToContactRequestTypeID,
 		"contacts.getContactIDs":                                            ContactsGetContactIDsRequestTypeID,
 		"contacts.getStatuses":                                              ContactsGetStatusesRequestTypeID,
 		"contacts.getContacts":                                              ContactsGetContactsRequestTypeID,
@@ -3394,6 +3399,7 @@ func NamesMap() map[string]uint32 {
 		"messages.getSavedReactionTags":                                     MessagesGetSavedReactionTagsRequestTypeID,
 		"messages.updateSavedReactionTag":                                   MessagesUpdateSavedReactionTagRequestTypeID,
 		"messages.getDefaultTagReactions":                                   MessagesGetDefaultTagReactionsRequestTypeID,
+		"messages.getOutboxReadDate":                                        MessagesGetOutboxReadDateRequestTypeID,
 		"updates.getState":                                                  UpdatesGetStateRequestTypeID,
 		"updates.getDifference":                                             UpdatesGetDifferenceRequestTypeID,
 		"updates.getChannelDifference":                                      UpdatesGetChannelDifferenceRequestTypeID,
@@ -4849,6 +4855,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		SavedReactionTagTypeID:                                                  func() bin.Object { return &SavedReactionTag{} },
 		MessagesSavedReactionTagsNotModifiedTypeID:                              func() bin.Object { return &MessagesSavedReactionTagsNotModified{} },
 		MessagesSavedReactionTagsTypeID:                                         func() bin.Object { return &MessagesSavedReactionTags{} },
+		OutboxReadDateTypeID:                                                    func() bin.Object { return &OutboxReadDate{} },
 		InvokeAfterMsgRequestTypeID:                                             func() bin.Object { return &InvokeAfterMsgRequest{} },
 		InvokeAfterMsgsRequestTypeID:                                            func() bin.Object { return &InvokeAfterMsgsRequest{} },
 		InitConnectionRequestTypeID:                                             func() bin.Object { return &InitConnectionRequest{} },
@@ -4973,6 +4980,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		UsersGetUsersRequestTypeID:                                              func() bin.Object { return &UsersGetUsersRequest{} },
 		UsersGetFullUserRequestTypeID:                                           func() bin.Object { return &UsersGetFullUserRequest{} },
 		UsersSetSecureValueErrorsRequestTypeID:                                  func() bin.Object { return &UsersSetSecureValueErrorsRequest{} },
+		UsersGetIsPremiumRequiredToContactRequestTypeID:                         func() bin.Object { return &UsersGetIsPremiumRequiredToContactRequest{} },
 		ContactsGetContactIDsRequestTypeID:                                      func() bin.Object { return &ContactsGetContactIDsRequest{} },
 		ContactsGetStatusesRequestTypeID:                                        func() bin.Object { return &ContactsGetStatusesRequest{} },
 		ContactsGetContactsRequestTypeID:                                        func() bin.Object { return &ContactsGetContactsRequest{} },
@@ -5195,6 +5203,7 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		MessagesGetSavedReactionTagsRequestTypeID:                               func() bin.Object { return &MessagesGetSavedReactionTagsRequest{} },
 		MessagesUpdateSavedReactionTagRequestTypeID:                             func() bin.Object { return &MessagesUpdateSavedReactionTagRequest{} },
 		MessagesGetDefaultTagReactionsRequestTypeID:                             func() bin.Object { return &MessagesGetDefaultTagReactionsRequest{} },
+		MessagesGetOutboxReadDateRequestTypeID:                                  func() bin.Object { return &MessagesGetOutboxReadDateRequest{} },
 		UpdatesGetStateRequestTypeID:                                            func() bin.Object { return &UpdatesGetStateRequest{} },
 		UpdatesGetDifferenceRequestTypeID:                                       func() bin.Object { return &UpdatesGetDifferenceRequest{} },
 		UpdatesGetChannelDifferenceRequestTypeID:                                func() bin.Object { return &UpdatesGetChannelDifferenceRequest{} },
