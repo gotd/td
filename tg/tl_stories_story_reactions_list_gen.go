@@ -32,20 +32,31 @@ var (
 )
 
 // StoriesStoryReactionsList represents TL type `stories.storyReactionsList#aa5f789c`.
+// List of peers that reacted to or intercated with a specific story¹
+//
+// Links:
+//  1. https://core.telegram.org/api/stories
 //
 // See https://core.telegram.org/constructor/stories.storyReactionsList for reference.
 type StoriesStoryReactionsList struct {
-	// Flags field of StoriesStoryReactionsList.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Count field of StoriesStoryReactionsList.
+	// Total number of reactions matching query
 	Count int
-	// Reactions field of StoriesStoryReactionsList.
+	// List of peers that reacted to or interacted with a specific story
 	Reactions []StoryReactionClass
-	// Chats field of StoriesStoryReactionsList.
+	// Mentioned chats
 	Chats []ChatClass
-	// Users field of StoriesStoryReactionsList.
+	// Mentioned users
 	Users []UserClass
-	// NextOffset field of StoriesStoryReactionsList.
+	// If set, indicates the next offset to use to load more results by invoking stories
+	// getStoryReactionsList¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/stories.getStoryReactionsList
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string

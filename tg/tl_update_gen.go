@@ -23928,7 +23928,7 @@ type UpdatePeerWallpaper struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.setChatWallPaper
-	//  2) https://core.telegram.org/api/wallpapers#installing-wallpapers-in-a-specific-chat
+	//  2) https://core.telegram.org/api/wallpapers#installing-wallpapers-in-a-specific-chat-or-channel
 	WallpaperOverridden bool
 	// The peer where the wallpaper has changed.
 	Peer PeerClass
@@ -24169,22 +24169,26 @@ func (u *UpdatePeerWallpaper) GetWallpaper() (value WallPaperClass, ok bool) {
 }
 
 // UpdateBotMessageReaction represents TL type `updateBotMessageReaction#ac21d3ce`.
+// Bots only: a user has changed their reactions on a message with public reactions.
 //
 // See https://core.telegram.org/constructor/updateBotMessageReaction for reference.
 type UpdateBotMessageReaction struct {
-	// Peer field of UpdateBotMessageReaction.
+	// Peer of the reacted-to message.
 	Peer PeerClass
-	// MsgID field of UpdateBotMessageReaction.
+	// ID of the reacted-to message.
 	MsgID int
-	// Date field of UpdateBotMessageReaction.
+	// Date of the change.
 	Date int
-	// Actor field of UpdateBotMessageReaction.
+	// The user that (un)reacted to the message.
 	Actor PeerClass
-	// OldReactions field of UpdateBotMessageReaction.
+	// Old reactions
 	OldReactions []ReactionClass
-	// NewReactions field of UpdateBotMessageReaction.
+	// New reactions
 	NewReactions []ReactionClass
-	// Qts field of UpdateBotMessageReaction.
+	// QTS¹ event sequence identifier
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Qts int
 }
 
@@ -24521,18 +24525,22 @@ func (u *UpdateBotMessageReaction) MapNewReactions() (value ReactionClassArray) 
 }
 
 // UpdateBotMessageReactions represents TL type `updateBotMessageReactions#9cb7759`.
+// Bots only: the number of reactions on a message with anonymous reactions has changed.
 //
 // See https://core.telegram.org/constructor/updateBotMessageReactions for reference.
 type UpdateBotMessageReactions struct {
-	// Peer field of UpdateBotMessageReactions.
+	// Peer of the reacted-to message.
 	Peer PeerClass
-	// MsgID field of UpdateBotMessageReactions.
+	// ID of the reacted-to message.
 	MsgID int
-	// Date field of UpdateBotMessageReactions.
+	// Date of the change.
 	Date int
-	// Reactions field of UpdateBotMessageReactions.
+	// New reaction counters.
 	Reactions []ReactionCount
-	// Qts field of UpdateBotMessageReactions.
+	// QTS¹ event sequence identifier
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Qts int
 }
 
@@ -24786,7 +24794,10 @@ func (u *UpdateBotMessageReactions) GetQts() (value int) {
 //
 // See https://core.telegram.org/constructor/updateSavedDialogPinned for reference.
 type UpdateSavedDialogPinned struct {
-	// Flags field of UpdateSavedDialogPinned.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Pinned field of UpdateSavedDialogPinned.
 	Pinned bool
@@ -24978,7 +24989,10 @@ func (u *UpdateSavedDialogPinned) GetPeer() (value DialogPeerClass) {
 //
 // See https://core.telegram.org/constructor/updatePinnedSavedDialogs for reference.
 type UpdatePinnedSavedDialogs struct {
-	// Flags field of UpdatePinnedSavedDialogs.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Order field of UpdatePinnedSavedDialogs.
 	//

@@ -3491,7 +3491,12 @@ type MessageMediaGiveaway struct {
 	// If set, only new subscribers starting from the giveaway creation date will be able to
 	// participate to the giveaway.
 	OnlyNewSubscribers bool
-	// WinnersAreVisible field of MessageMediaGiveaway.
+	// If set, giveaway winners are public and will be listed in a
+	// messageMediaGiveawayResults¹ message that will be automatically sent to the channel
+	// once the giveaway ends.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messageMediaGiveawayResults
 	WinnersAreVisible bool
 	// The channels that the user must join to participate in the giveaway.
 	Channels []int64
@@ -3501,7 +3506,7 @@ type MessageMediaGiveaway struct {
 	//
 	// Use SetCountriesISO2 and GetCountriesISO2 helpers.
 	CountriesISO2 []string
-	// PrizeDescription field of MessageMediaGiveaway.
+	// Can contain a textual description of additional giveaway prizes.
 	//
 	// Use SetPrizeDescription and GetPrizeDescription helpers.
 	PrizeDescription string
@@ -3917,36 +3922,53 @@ func (m *MessageMediaGiveaway) GetUntilDate() (value int) {
 }
 
 // MessageMediaGiveawayResults represents TL type `messageMediaGiveawayResults#c6991068`.
+// A giveaway¹ with public winners has finished, this constructor contains info about
+// the winners.
+//
+// Links:
+//  1. https://core.telegram.org/api/giveaways
 //
 // See https://core.telegram.org/constructor/messageMediaGiveawayResults for reference.
 type MessageMediaGiveawayResults struct {
-	// Flags field of MessageMediaGiveawayResults.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// OnlyNewSubscribers field of MessageMediaGiveawayResults.
+	// If set, only new subscribers starting from the giveaway creation date participated in
+	// the giveaway.
 	OnlyNewSubscribers bool
-	// Refunded field of MessageMediaGiveawayResults.
+	// If set, the giveaway was canceled and was fully refunded.
 	Refunded bool
-	// ChannelID field of MessageMediaGiveawayResults.
+	// ID of the channel that was automatically boosted¹ by the winners of the giveaway for
+	// duration of the Premium subscription.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/boost
 	ChannelID int64
-	// AdditionalPeersCount field of MessageMediaGiveawayResults.
+	// Number of other channels that participated in the giveaway.
 	//
 	// Use SetAdditionalPeersCount and GetAdditionalPeersCount helpers.
 	AdditionalPeersCount int
-	// LaunchMsgID field of MessageMediaGiveawayResults.
+	// Identifier of the message with the giveaway in channel_id.
 	LaunchMsgID int
-	// WinnersCount field of MessageMediaGiveawayResults.
+	// Total number of winners in the giveaway.
 	WinnersCount int
-	// UnclaimedCount field of MessageMediaGiveawayResults.
+	// Number of not-yet-claimed prizes.
 	UnclaimedCount int
-	// Winners field of MessageMediaGiveawayResults.
+	// Up to 100 user identifiers of the winners of the giveaway.
 	Winners []int64
-	// Months field of MessageMediaGiveawayResults.
+	// Duration in months of each Telegram Premium¹ subscription in the giveaway.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/premium
 	Months int
-	// PrizeDescription field of MessageMediaGiveawayResults.
+	// Can contain a textual description of additional giveaway prizes.
 	//
 	// Use SetPrizeDescription and GetPrizeDescription helpers.
 	PrizeDescription string
-	// UntilDate field of MessageMediaGiveawayResults.
+	// Point in time (Unix timestamp) when the winners were selected. May be bigger than
+	// winners selection date specified in initial parameters of the giveaway.
 	UntilDate int
 }
 

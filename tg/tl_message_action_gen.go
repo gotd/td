@@ -6453,8 +6453,8 @@ func (m *MessageActionSuggestProfilePhoto) GetPhoto() (value PhotoClass) {
 }
 
 // MessageActionRequestedPeer represents TL type `messageActionRequestedPeer#31518e9b`.
-// Contains info about a peer that the user shared with the bot after clicking on a
-// keyboardButtonRequestPeer¹ button.
+// Contains info about one or more peers that the user shared with the bot after clicking
+// on a keyboardButtonRequestPeer¹ button.
 //
 // Links:
 //  1. https://core.telegram.org/constructor/keyboardButtonRequestPeer
@@ -6466,7 +6466,7 @@ type MessageActionRequestedPeer struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/keyboardButtonRequestPeer
 	ButtonID int
-	// Peers field of MessageActionRequestedPeer.
+	// The shared peers
 	Peers []PeerClass
 }
 
@@ -6937,19 +6937,29 @@ type MessageActionGiftCode struct {
 	// Links:
 	//  1) https://core.telegram.org/api/links#premium-giftcode-links
 	Slug string
-	// Currency field of MessageActionGiftCode.
+	// Three-letter ISO 4217 currency¹ code
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	//
 	// Use SetCurrency and GetCurrency helpers.
 	Currency string
-	// Amount field of MessageActionGiftCode.
+	// Total price in the smallest units of the currency (integer, not float/double). For
+	// example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	//
 	// Use SetAmount and GetAmount helpers.
 	Amount int64
-	// CryptoCurrency field of MessageActionGiftCode.
+	// If set, the gift was made using the specified cryptocurrency.
 	//
 	// Use SetCryptoCurrency and GetCryptoCurrency helpers.
 	CryptoCurrency string
-	// CryptoAmount field of MessageActionGiftCode.
+	// If crypto_currency is set, contains the paid amount, in the smallest units of the
+	// cryptocurrency.
 	//
 	// Use SetCryptoAmount and GetCryptoAmount helpers.
 	CryptoAmount int64

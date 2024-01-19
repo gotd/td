@@ -95,7 +95,8 @@ type WallPaperSettings struct {
 	//
 	// Use SetRotation and GetRotation helpers.
 	Rotation int
-	// Emoticon field of WallPaperSettings.
+	// If set, this wallpaper can be used as a channel wallpaper and is represented by the
+	// specified UTF-8 emoji.
 	//
 	// Use SetEmoticon and GetEmoticon helpers.
 	Emoticon string

@@ -1159,15 +1159,24 @@ type Channel struct {
 	//
 	// Use SetColor and GetColor helpers.
 	Color PeerColor
-	// ProfileColor field of Channel.
+	// The channel's profile color¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/colors
 	//
 	// Use SetProfileColor and GetProfileColor helpers.
 	ProfileColor PeerColor
-	// EmojiStatus field of Channel.
+	// Emoji status¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/emoji-status
 	//
 	// Use SetEmojiStatus and GetEmojiStatus helpers.
 	EmojiStatus EmojiStatusClass
-	// Level field of Channel.
+	// Boost level¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/boost
 	//
 	// Use SetLevel and GetLevel helpers.
 	Level int

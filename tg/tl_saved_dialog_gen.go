@@ -35,7 +35,10 @@ var (
 //
 // See https://core.telegram.org/constructor/savedDialog for reference.
 type SavedDialog struct {
-	// Flags field of SavedDialog.
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Pinned field of SavedDialog.
 	Pinned bool

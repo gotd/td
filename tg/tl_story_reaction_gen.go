@@ -32,14 +32,15 @@ var (
 )
 
 // StoryReaction represents TL type `storyReaction#6090d6d5`.
+// How a certain peer reacted to a story
 //
 // See https://core.telegram.org/constructor/storyReaction for reference.
 type StoryReaction struct {
-	// PeerID field of StoryReaction.
+	// The peer
 	PeerID PeerClass
-	// Date field of StoryReaction.
+	// Reaction date
 	Date int
-	// Reaction field of StoryReaction.
+	// The reaction
 	Reaction ReactionClass
 }
 
@@ -230,10 +231,11 @@ func (s *StoryReaction) GetReaction() (value ReactionClass) {
 }
 
 // StoryReactionPublicForward represents TL type `storyReactionPublicForward#bbab2643`.
+// A certain peer has forwarded the story as a message to a public chat or channel.
 //
 // See https://core.telegram.org/constructor/storyReactionPublicForward for reference.
 type StoryReactionPublicForward struct {
-	// Message field of StoryReactionPublicForward.
+	// The message with the forwarded story.
 	Message MessageClass
 }
 
@@ -369,12 +371,13 @@ func (s *StoryReactionPublicForward) GetMessage() (value MessageClass) {
 }
 
 // StoryReactionPublicRepost represents TL type `storyReactionPublicRepost#cfcd0f13`.
+// A certain peer has reposted the story.
 //
 // See https://core.telegram.org/constructor/storyReactionPublicRepost for reference.
 type StoryReactionPublicRepost struct {
-	// PeerID field of StoryReactionPublicRepost.
+	// The peer that reposted the story.
 	PeerID PeerClass
-	// Story field of StoryReactionPublicRepost.
+	// The reposted story.
 	Story StoryItemClass
 }
 

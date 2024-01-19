@@ -46,15 +46,15 @@ type StoriesStoryViewsList struct {
 	Flags bin.Fields
 	// Total number of results that can be fetched
 	Count int
-	// ViewsCount field of StoriesStoryViewsList.
+	// Total number of story views
 	ViewsCount int
-	// ForwardsCount field of StoriesStoryViewsList.
+	// Total number of story forwards/reposts
 	ForwardsCount int
 	// Number of reactions that were added to the story
 	ReactionsCount int
 	// Story view date and reaction information
 	Views []StoryViewClass
-	// Chats field of StoriesStoryViewsList.
+	// Mentioned chats
 	Chats []ChatClass
 	// Mentioned users
 	Users []UserClass

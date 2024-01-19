@@ -44,11 +44,13 @@ type ChannelsUpdateColorRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// ForProfile field of ChannelsUpdateColorRequest.
+	// Whether to change the accent color emoji pattern of the profile page; otherwise, the
+	// accent color and emoji pattern of messages will be changed.
 	ForProfile bool
 	// Channel whose accent color should be changed.
 	Channel InputChannelClass
-	// ID of the accent color palette »¹ to use (not RGB24, see here »² for more info).
+	// ID of the accent color palette »¹ to use (not RGB24, see here »² for more info);
+	// if not set, the default palette is used.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/colors

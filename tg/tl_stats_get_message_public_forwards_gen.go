@@ -46,7 +46,11 @@ type StatsGetMessagePublicForwardsRequest struct {
 	Channel InputChannelClass
 	// Source message ID
 	MsgID int
-	// Offset field of StatsGetMessagePublicForwardsRequest.
+	// Offset for pagination¹, empty string on first call, then use the next_offset field of
+	// the returned constructor (if present, otherwise no more results are available).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Offset string
 	// Maximum number of results to return, see pagination¹
 	//

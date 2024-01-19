@@ -37,19 +37,34 @@ var (
 type MessagesGetSavedHistoryRequest struct {
 	// Peer field of MessagesGetSavedHistoryRequest.
 	Peer InputPeerClass
-	// OffsetID field of MessagesGetSavedHistoryRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetID int
-	// OffsetDate field of MessagesGetSavedHistoryRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetDate int
-	// AddOffset field of MessagesGetSavedHistoryRequest.
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	AddOffset int
-	// Limit field of MessagesGetSavedHistoryRequest.
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 	// MaxID field of MessagesGetSavedHistoryRequest.
 	MaxID int
 	// MinID field of MessagesGetSavedHistoryRequest.
 	MinID int
-	// Hash field of MessagesGetSavedHistoryRequest.
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int64
 }
 
@@ -357,6 +372,7 @@ func (g *MessagesGetSavedHistoryRequest) GetHash() (value int64) {
 // MessagesGetSavedHistory invokes method messages.getSavedHistory#3d9a414d returning error if any.
 //
 // See https://core.telegram.org/method/messages.getSavedHistory for reference.
+// Can be used by bots.
 func (c *Client) MessagesGetSavedHistory(ctx context.Context, request *MessagesGetSavedHistoryRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
 

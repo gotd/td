@@ -60,7 +60,11 @@ type HelpPeerColorOption struct {
 	//
 	// Use SetDarkColors and GetDarkColors helpers.
 	DarkColors HelpPeerColorSetClass
-	// ChannelMinLevel field of HelpPeerColorOption.
+	// Channels can use this palette only after reaching at least the boost level¹ specified
+	// in this field.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/boost
 	//
 	// Use SetChannelMinLevel and GetChannelMinLevel helpers.
 	ChannelMinLevel int

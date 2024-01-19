@@ -32,12 +32,22 @@ var (
 )
 
 // ChannelsUpdateEmojiStatusRequest represents TL type `channels.updateEmojiStatus#f0d3e6a8`.
+// Set an emoji status¹ for a channel.
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/method/channels.updateEmojiStatus for reference.
 type ChannelsUpdateEmojiStatusRequest struct {
-	// Channel field of ChannelsUpdateEmojiStatusRequest.
+	// The channel, must have at least channel_emoji_status_level_min boosts¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/config#channel-emoji-status-level-min
 	Channel InputChannelClass
-	// EmojiStatus field of ChannelsUpdateEmojiStatusRequest.
+	// Emoji status¹ to set
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/emoji-status
 	EmojiStatus EmojiStatusClass
 }
 
@@ -208,8 +218,13 @@ func (u *ChannelsUpdateEmojiStatusRequest) GetEmojiStatusAsNotEmpty() (NotEmptyE
 }
 
 // ChannelsUpdateEmojiStatus invokes method channels.updateEmojiStatus#f0d3e6a8 returning error if any.
+// Set an emoji status¹ for a channel.
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/method/channels.updateEmojiStatus for reference.
+// Can be used by bots.
 func (c *Client) ChannelsUpdateEmojiStatus(ctx context.Context, request *ChannelsUpdateEmojiStatusRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

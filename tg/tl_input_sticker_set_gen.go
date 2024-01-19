@@ -1199,6 +1199,10 @@ func (i *InputStickerSetEmojiDefaultTopicIcons) DecodeBare(b *bin.Buffer) error 
 }
 
 // InputStickerSetEmojiChannelDefaultStatuses represents TL type `inputStickerSetEmojiChannelDefaultStatuses#49748553`.
+// Default custom emoji status¹ stickerset for channel statuses
+//
+// Links:
+//  1. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/constructor/inputStickerSetEmojiChannelDefaultStatuses for reference.
 type InputStickerSetEmojiChannelDefaultStatuses struct {
