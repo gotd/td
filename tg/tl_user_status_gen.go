@@ -403,15 +403,19 @@ func (u *UserStatusOffline) GetWasOnline() (value int) {
 	return u.WasOnline
 }
 
-// UserStatusRecently represents TL type `userStatusRecently#e26f42f1`.
+// UserStatusRecently represents TL type `userStatusRecently#7b197dc8`.
 // Online status: last seen recently
 //
 // See https://core.telegram.org/constructor/userStatusRecently for reference.
 type UserStatusRecently struct {
+	// Flags field of UserStatusRecently.
+	Flags bin.Fields
+	// ByMe field of UserStatusRecently.
+	ByMe bool
 }
 
 // UserStatusRecentlyTypeID is TL type id of UserStatusRecently.
-const UserStatusRecentlyTypeID = 0xe26f42f1
+const UserStatusRecentlyTypeID = 0x7b197dc8
 
 // construct implements constructor of UserStatusClass.
 func (u UserStatusRecently) construct() UserStatusClass { return &u }
@@ -430,6 +434,12 @@ func (u *UserStatusRecently) Zero() bool {
 	if u == nil {
 		return true
 	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.ByMe == false) {
+		return false
+	}
 
 	return true
 }
@@ -441,6 +451,13 @@ func (u *UserStatusRecently) String() string {
 	}
 	type Alias UserStatusRecently
 	return fmt.Sprintf("UserStatusRecently%+v", Alias(*u))
+}
+
+// FillFrom fills UserStatusRecently from given interface.
+func (u *UserStatusRecently) FillFrom(from interface {
+	GetByMe() (value bool)
+}) {
+	u.ByMe = from.GetByMe()
 }
 
 // TypeID returns type id in TL schema.
@@ -465,14 +482,27 @@ func (u *UserStatusRecently) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ByMe",
+			SchemaName: "by_me",
+			Null:       !u.Flags.Has(0),
+		},
+	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UserStatusRecently) SetFlags() {
+	if !(u.ByMe == false) {
+		u.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *UserStatusRecently) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusRecently#e26f42f1 as nil")
+		return fmt.Errorf("can't encode userStatusRecently#7b197dc8 as nil")
 	}
 	b.PutID(UserStatusRecentlyTypeID)
 	return u.EncodeBare(b)
@@ -481,7 +511,11 @@ func (u *UserStatusRecently) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserStatusRecently) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusRecently#e26f42f1 as nil")
+		return fmt.Errorf("can't encode userStatusRecently#7b197dc8 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode userStatusRecently#7b197dc8: field flags: %w", err)
 	}
 	return nil
 }
@@ -489,10 +523,10 @@ func (u *UserStatusRecently) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UserStatusRecently) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusRecently#e26f42f1 to nil")
+		return fmt.Errorf("can't decode userStatusRecently#7b197dc8 to nil")
 	}
 	if err := b.ConsumeID(UserStatusRecentlyTypeID); err != nil {
-		return fmt.Errorf("unable to decode userStatusRecently#e26f42f1: %w", err)
+		return fmt.Errorf("unable to decode userStatusRecently#7b197dc8: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -500,20 +534,49 @@ func (u *UserStatusRecently) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserStatusRecently) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusRecently#e26f42f1 to nil")
+		return fmt.Errorf("can't decode userStatusRecently#7b197dc8 to nil")
 	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode userStatusRecently#7b197dc8: field flags: %w", err)
+		}
+	}
+	u.ByMe = u.Flags.Has(0)
 	return nil
 }
 
-// UserStatusLastWeek represents TL type `userStatusLastWeek#7bf09fc`.
+// SetByMe sets value of ByMe conditional field.
+func (u *UserStatusRecently) SetByMe(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.ByMe = true
+	} else {
+		u.Flags.Unset(0)
+		u.ByMe = false
+	}
+}
+
+// GetByMe returns value of ByMe conditional field.
+func (u *UserStatusRecently) GetByMe() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(0)
+}
+
+// UserStatusLastWeek represents TL type `userStatusLastWeek#541a1d1a`.
 // Online status: last seen last week
 //
 // See https://core.telegram.org/constructor/userStatusLastWeek for reference.
 type UserStatusLastWeek struct {
+	// Flags field of UserStatusLastWeek.
+	Flags bin.Fields
+	// ByMe field of UserStatusLastWeek.
+	ByMe bool
 }
 
 // UserStatusLastWeekTypeID is TL type id of UserStatusLastWeek.
-const UserStatusLastWeekTypeID = 0x7bf09fc
+const UserStatusLastWeekTypeID = 0x541a1d1a
 
 // construct implements constructor of UserStatusClass.
 func (u UserStatusLastWeek) construct() UserStatusClass { return &u }
@@ -532,6 +595,12 @@ func (u *UserStatusLastWeek) Zero() bool {
 	if u == nil {
 		return true
 	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.ByMe == false) {
+		return false
+	}
 
 	return true
 }
@@ -543,6 +612,13 @@ func (u *UserStatusLastWeek) String() string {
 	}
 	type Alias UserStatusLastWeek
 	return fmt.Sprintf("UserStatusLastWeek%+v", Alias(*u))
+}
+
+// FillFrom fills UserStatusLastWeek from given interface.
+func (u *UserStatusLastWeek) FillFrom(from interface {
+	GetByMe() (value bool)
+}) {
+	u.ByMe = from.GetByMe()
 }
 
 // TypeID returns type id in TL schema.
@@ -567,14 +643,27 @@ func (u *UserStatusLastWeek) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ByMe",
+			SchemaName: "by_me",
+			Null:       !u.Flags.Has(0),
+		},
+	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UserStatusLastWeek) SetFlags() {
+	if !(u.ByMe == false) {
+		u.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *UserStatusLastWeek) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusLastWeek#7bf09fc as nil")
+		return fmt.Errorf("can't encode userStatusLastWeek#541a1d1a as nil")
 	}
 	b.PutID(UserStatusLastWeekTypeID)
 	return u.EncodeBare(b)
@@ -583,7 +672,11 @@ func (u *UserStatusLastWeek) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserStatusLastWeek) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusLastWeek#7bf09fc as nil")
+		return fmt.Errorf("can't encode userStatusLastWeek#541a1d1a as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode userStatusLastWeek#541a1d1a: field flags: %w", err)
 	}
 	return nil
 }
@@ -591,10 +684,10 @@ func (u *UserStatusLastWeek) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UserStatusLastWeek) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusLastWeek#7bf09fc to nil")
+		return fmt.Errorf("can't decode userStatusLastWeek#541a1d1a to nil")
 	}
 	if err := b.ConsumeID(UserStatusLastWeekTypeID); err != nil {
-		return fmt.Errorf("unable to decode userStatusLastWeek#7bf09fc: %w", err)
+		return fmt.Errorf("unable to decode userStatusLastWeek#541a1d1a: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -602,20 +695,49 @@ func (u *UserStatusLastWeek) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserStatusLastWeek) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusLastWeek#7bf09fc to nil")
+		return fmt.Errorf("can't decode userStatusLastWeek#541a1d1a to nil")
 	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode userStatusLastWeek#541a1d1a: field flags: %w", err)
+		}
+	}
+	u.ByMe = u.Flags.Has(0)
 	return nil
 }
 
-// UserStatusLastMonth represents TL type `userStatusLastMonth#77ebc742`.
+// SetByMe sets value of ByMe conditional field.
+func (u *UserStatusLastWeek) SetByMe(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.ByMe = true
+	} else {
+		u.Flags.Unset(0)
+		u.ByMe = false
+	}
+}
+
+// GetByMe returns value of ByMe conditional field.
+func (u *UserStatusLastWeek) GetByMe() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(0)
+}
+
+// UserStatusLastMonth represents TL type `userStatusLastMonth#65899777`.
 // Online status: last seen last month
 //
 // See https://core.telegram.org/constructor/userStatusLastMonth for reference.
 type UserStatusLastMonth struct {
+	// Flags field of UserStatusLastMonth.
+	Flags bin.Fields
+	// ByMe field of UserStatusLastMonth.
+	ByMe bool
 }
 
 // UserStatusLastMonthTypeID is TL type id of UserStatusLastMonth.
-const UserStatusLastMonthTypeID = 0x77ebc742
+const UserStatusLastMonthTypeID = 0x65899777
 
 // construct implements constructor of UserStatusClass.
 func (u UserStatusLastMonth) construct() UserStatusClass { return &u }
@@ -634,6 +756,12 @@ func (u *UserStatusLastMonth) Zero() bool {
 	if u == nil {
 		return true
 	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.ByMe == false) {
+		return false
+	}
 
 	return true
 }
@@ -645,6 +773,13 @@ func (u *UserStatusLastMonth) String() string {
 	}
 	type Alias UserStatusLastMonth
 	return fmt.Sprintf("UserStatusLastMonth%+v", Alias(*u))
+}
+
+// FillFrom fills UserStatusLastMonth from given interface.
+func (u *UserStatusLastMonth) FillFrom(from interface {
+	GetByMe() (value bool)
+}) {
+	u.ByMe = from.GetByMe()
 }
 
 // TypeID returns type id in TL schema.
@@ -669,14 +804,27 @@ func (u *UserStatusLastMonth) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ByMe",
+			SchemaName: "by_me",
+			Null:       !u.Flags.Has(0),
+		},
+	}
 	return typ
+}
+
+// SetFlags sets flags for non-zero fields.
+func (u *UserStatusLastMonth) SetFlags() {
+	if !(u.ByMe == false) {
+		u.Flags.Set(0)
+	}
 }
 
 // Encode implements bin.Encoder.
 func (u *UserStatusLastMonth) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusLastMonth#77ebc742 as nil")
+		return fmt.Errorf("can't encode userStatusLastMonth#65899777 as nil")
 	}
 	b.PutID(UserStatusLastMonthTypeID)
 	return u.EncodeBare(b)
@@ -685,7 +833,11 @@ func (u *UserStatusLastMonth) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserStatusLastMonth) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusLastMonth#77ebc742 as nil")
+		return fmt.Errorf("can't encode userStatusLastMonth#65899777 as nil")
+	}
+	u.SetFlags()
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode userStatusLastMonth#65899777: field flags: %w", err)
 	}
 	return nil
 }
@@ -693,10 +845,10 @@ func (u *UserStatusLastMonth) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *UserStatusLastMonth) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusLastMonth#77ebc742 to nil")
+		return fmt.Errorf("can't decode userStatusLastMonth#65899777 to nil")
 	}
 	if err := b.ConsumeID(UserStatusLastMonthTypeID); err != nil {
-		return fmt.Errorf("unable to decode userStatusLastMonth#77ebc742: %w", err)
+		return fmt.Errorf("unable to decode userStatusLastMonth#65899777: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -704,9 +856,34 @@ func (u *UserStatusLastMonth) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserStatusLastMonth) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusLastMonth#77ebc742 to nil")
+		return fmt.Errorf("can't decode userStatusLastMonth#65899777 to nil")
 	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode userStatusLastMonth#65899777: field flags: %w", err)
+		}
+	}
+	u.ByMe = u.Flags.Has(0)
 	return nil
+}
+
+// SetByMe sets value of ByMe conditional field.
+func (u *UserStatusLastMonth) SetByMe(value bool) {
+	if value {
+		u.Flags.Set(0)
+		u.ByMe = true
+	} else {
+		u.Flags.Unset(0)
+		u.ByMe = false
+	}
+}
+
+// GetByMe returns value of ByMe conditional field.
+func (u *UserStatusLastMonth) GetByMe() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(0)
 }
 
 // UserStatusClassName is schema name of UserStatusClass.
@@ -726,9 +903,9 @@ const UserStatusClassName = "UserStatus"
 //	case *tg.UserStatusEmpty: // userStatusEmpty#9d05049
 //	case *tg.UserStatusOnline: // userStatusOnline#edb93949
 //	case *tg.UserStatusOffline: // userStatusOffline#8c703f
-//	case *tg.UserStatusRecently: // userStatusRecently#e26f42f1
-//	case *tg.UserStatusLastWeek: // userStatusLastWeek#7bf09fc
-//	case *tg.UserStatusLastMonth: // userStatusLastMonth#77ebc742
+//	case *tg.UserStatusRecently: // userStatusRecently#7b197dc8
+//	case *tg.UserStatusLastWeek: // userStatusLastWeek#541a1d1a
+//	case *tg.UserStatusLastMonth: // userStatusLastMonth#65899777
 //	default: panic(v)
 //	}
 type UserStatusClass interface {
@@ -779,21 +956,21 @@ func DecodeUserStatus(buf *bin.Buffer) (UserStatusClass, error) {
 		}
 		return &v, nil
 	case UserStatusRecentlyTypeID:
-		// Decoding userStatusRecently#e26f42f1.
+		// Decoding userStatusRecently#7b197dc8.
 		v := UserStatusRecently{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)
 		}
 		return &v, nil
 	case UserStatusLastWeekTypeID:
-		// Decoding userStatusLastWeek#7bf09fc.
+		// Decoding userStatusLastWeek#541a1d1a.
 		v := UserStatusLastWeek{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)
 		}
 		return &v, nil
 	case UserStatusLastMonthTypeID:
-		// Decoding userStatusLastMonth#77ebc742.
+		// Decoding userStatusLastMonth#65899777.
 		v := UserStatusLastMonth{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)

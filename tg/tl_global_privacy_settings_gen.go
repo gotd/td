@@ -53,6 +53,10 @@ type GlobalPrivacySettings struct {
 	// Links:
 	//  1) https://core.telegram.org/api/folders
 	KeepArchivedFolders bool
+	// HideReadMarks field of GlobalPrivacySettings.
+	HideReadMarks bool
+	// NewNoncontactPeersRequirePremium field of GlobalPrivacySettings.
+	NewNoncontactPeersRequirePremium bool
 }
 
 // GlobalPrivacySettingsTypeID is TL type id of GlobalPrivacySettings.
@@ -82,6 +86,12 @@ func (g *GlobalPrivacySettings) Zero() bool {
 	if !(g.KeepArchivedFolders == false) {
 		return false
 	}
+	if !(g.HideReadMarks == false) {
+		return false
+	}
+	if !(g.NewNoncontactPeersRequirePremium == false) {
+		return false
+	}
 
 	return true
 }
@@ -100,10 +110,14 @@ func (g *GlobalPrivacySettings) FillFrom(from interface {
 	GetArchiveAndMuteNewNoncontactPeers() (value bool)
 	GetKeepArchivedUnmuted() (value bool)
 	GetKeepArchivedFolders() (value bool)
+	GetHideReadMarks() (value bool)
+	GetNewNoncontactPeersRequirePremium() (value bool)
 }) {
 	g.ArchiveAndMuteNewNoncontactPeers = from.GetArchiveAndMuteNewNoncontactPeers()
 	g.KeepArchivedUnmuted = from.GetKeepArchivedUnmuted()
 	g.KeepArchivedFolders = from.GetKeepArchivedFolders()
+	g.HideReadMarks = from.GetHideReadMarks()
+	g.NewNoncontactPeersRequirePremium = from.GetNewNoncontactPeersRequirePremium()
 }
 
 // TypeID returns type id in TL schema.
@@ -144,6 +158,16 @@ func (g *GlobalPrivacySettings) TypeInfo() tdp.Type {
 			SchemaName: "keep_archived_folders",
 			Null:       !g.Flags.Has(2),
 		},
+		{
+			Name:       "HideReadMarks",
+			SchemaName: "hide_read_marks",
+			Null:       !g.Flags.Has(3),
+		},
+		{
+			Name:       "NewNoncontactPeersRequirePremium",
+			SchemaName: "new_noncontact_peers_require_premium",
+			Null:       !g.Flags.Has(4),
+		},
 	}
 	return typ
 }
@@ -158,6 +182,12 @@ func (g *GlobalPrivacySettings) SetFlags() {
 	}
 	if !(g.KeepArchivedFolders == false) {
 		g.Flags.Set(2)
+	}
+	if !(g.HideReadMarks == false) {
+		g.Flags.Set(3)
+	}
+	if !(g.NewNoncontactPeersRequirePremium == false) {
+		g.Flags.Set(4)
 	}
 }
 
@@ -206,6 +236,8 @@ func (g *GlobalPrivacySettings) DecodeBare(b *bin.Buffer) error {
 	g.ArchiveAndMuteNewNoncontactPeers = g.Flags.Has(0)
 	g.KeepArchivedUnmuted = g.Flags.Has(1)
 	g.KeepArchivedFolders = g.Flags.Has(2)
+	g.HideReadMarks = g.Flags.Has(3)
+	g.NewNoncontactPeersRequirePremium = g.Flags.Has(4)
 	return nil
 }
 
@@ -264,4 +296,42 @@ func (g *GlobalPrivacySettings) GetKeepArchivedFolders() (value bool) {
 		return
 	}
 	return g.Flags.Has(2)
+}
+
+// SetHideReadMarks sets value of HideReadMarks conditional field.
+func (g *GlobalPrivacySettings) SetHideReadMarks(value bool) {
+	if value {
+		g.Flags.Set(3)
+		g.HideReadMarks = true
+	} else {
+		g.Flags.Unset(3)
+		g.HideReadMarks = false
+	}
+}
+
+// GetHideReadMarks returns value of HideReadMarks conditional field.
+func (g *GlobalPrivacySettings) GetHideReadMarks() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(3)
+}
+
+// SetNewNoncontactPeersRequirePremium sets value of NewNoncontactPeersRequirePremium conditional field.
+func (g *GlobalPrivacySettings) SetNewNoncontactPeersRequirePremium(value bool) {
+	if value {
+		g.Flags.Set(4)
+		g.NewNoncontactPeersRequirePremium = true
+	} else {
+		g.Flags.Unset(4)
+		g.NewNoncontactPeersRequirePremium = false
+	}
+}
+
+// GetNewNoncontactPeersRequirePremium returns value of NewNoncontactPeersRequirePremium conditional field.
+func (g *GlobalPrivacySettings) GetNewNoncontactPeersRequirePremium() (value bool) {
+	if g == nil {
+		return
+	}
+	return g.Flags.Has(4)
 }

@@ -2246,6 +2246,23 @@ func (s *ServerDispatcher) OnUsersSetSecureValueErrors(f func(ctx context.Contex
 	s.handlers[UsersSetSecureValueErrorsRequestTypeID] = handler
 }
 
+func (s *ServerDispatcher) OnUsersGetIsPremiumRequiredToContact(f func(ctx context.Context, id []InputUserClass) ([]bool, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request UsersGetIsPremiumRequiredToContactRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, request.ID)
+		if err != nil {
+			return nil, err
+		}
+		return &BoolClassVector{Elems: response}, nil
+	}
+
+	s.handlers[UsersGetIsPremiumRequiredToContactRequestTypeID] = handler
+}
+
 func (s *ServerDispatcher) OnContactsGetContactIDs(f func(ctx context.Context, hash int64) ([]int, error)) {
 	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
 		var request ContactsGetContactIDsRequest
@@ -6242,6 +6259,23 @@ func (s *ServerDispatcher) OnMessagesGetDefaultTagReactions(f func(ctx context.C
 	}
 
 	s.handlers[MessagesGetDefaultTagReactionsRequestTypeID] = handler
+}
+
+func (s *ServerDispatcher) OnMessagesGetOutboxReadDate(f func(ctx context.Context, request *MessagesGetOutboxReadDateRequest) (*OutboxReadDate, error)) {
+	handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+		var request MessagesGetOutboxReadDateRequest
+		if err := request.Decode(b); err != nil {
+			return nil, err
+		}
+
+		response, err := f(ctx, &request)
+		if err != nil {
+			return nil, err
+		}
+		return response, nil
+	}
+
+	s.handlers[MessagesGetOutboxReadDateRequestTypeID] = handler
 }
 
 func (s *ServerDispatcher) OnUpdatesGetState(f func(ctx context.Context) (*UpdatesState, error)) {

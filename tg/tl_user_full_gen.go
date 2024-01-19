@@ -81,6 +81,10 @@ type UserFull struct {
 	//  1) https://core.telegram.org/method/messages.setChatWallPaper
 	//  2) https://core.telegram.org/api/wallpapers#installing-wallpapers-in-a-specific-chat
 	WallpaperOverridden bool
+	// ContactRequirePremium field of UserFull.
+	ContactRequirePremium bool
+	// ReadDatesPrivate field of UserFull.
+	ReadDatesPrivate bool
 	// User ID
 	ID int64
 	// Bio of the user
@@ -226,6 +230,12 @@ func (u *UserFull) Zero() bool {
 	if !(u.WallpaperOverridden == false) {
 		return false
 	}
+	if !(u.ContactRequirePremium == false) {
+		return false
+	}
+	if !(u.ReadDatesPrivate == false) {
+		return false
+	}
 	if !(u.ID == 0) {
 		return false
 	}
@@ -309,6 +319,8 @@ func (u *UserFull) FillFrom(from interface {
 	GetStoriesPinnedAvailable() (value bool)
 	GetBlockedMyStoriesFrom() (value bool)
 	GetWallpaperOverridden() (value bool)
+	GetContactRequirePremium() (value bool)
+	GetReadDatesPrivate() (value bool)
 	GetID() (value int64)
 	GetAbout() (value string, ok bool)
 	GetSettings() (value PeerSettings)
@@ -340,6 +352,8 @@ func (u *UserFull) FillFrom(from interface {
 	u.StoriesPinnedAvailable = from.GetStoriesPinnedAvailable()
 	u.BlockedMyStoriesFrom = from.GetBlockedMyStoriesFrom()
 	u.WallpaperOverridden = from.GetWallpaperOverridden()
+	u.ContactRequirePremium = from.GetContactRequirePremium()
+	u.ReadDatesPrivate = from.GetReadDatesPrivate()
 	u.ID = from.GetID()
 	if val, ok := from.GetAbout(); ok {
 		u.About = val
@@ -485,6 +499,16 @@ func (u *UserFull) TypeInfo() tdp.Type {
 			Null:       !u.Flags.Has(28),
 		},
 		{
+			Name:       "ContactRequirePremium",
+			SchemaName: "contact_require_premium",
+			Null:       !u.Flags.Has(29),
+		},
+		{
+			Name:       "ReadDatesPrivate",
+			SchemaName: "read_dates_private",
+			Null:       !u.Flags.Has(30),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -613,6 +637,12 @@ func (u *UserFull) SetFlags() {
 	}
 	if !(u.WallpaperOverridden == false) {
 		u.Flags.Set(28)
+	}
+	if !(u.ContactRequirePremium == false) {
+		u.Flags.Set(29)
+	}
+	if !(u.ReadDatesPrivate == false) {
+		u.Flags.Set(30)
 	}
 	if !(u.About == "") {
 		u.Flags.Set(1)
@@ -800,6 +830,8 @@ func (u *UserFull) DecodeBare(b *bin.Buffer) error {
 	u.StoriesPinnedAvailable = u.Flags.Has(26)
 	u.BlockedMyStoriesFrom = u.Flags.Has(27)
 	u.WallpaperOverridden = u.Flags.Has(28)
+	u.ContactRequirePremium = u.Flags.Has(29)
+	u.ReadDatesPrivate = u.Flags.Has(30)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -1141,6 +1173,44 @@ func (u *UserFull) GetWallpaperOverridden() (value bool) {
 		return
 	}
 	return u.Flags.Has(28)
+}
+
+// SetContactRequirePremium sets value of ContactRequirePremium conditional field.
+func (u *UserFull) SetContactRequirePremium(value bool) {
+	if value {
+		u.Flags.Set(29)
+		u.ContactRequirePremium = true
+	} else {
+		u.Flags.Unset(29)
+		u.ContactRequirePremium = false
+	}
+}
+
+// GetContactRequirePremium returns value of ContactRequirePremium conditional field.
+func (u *UserFull) GetContactRequirePremium() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(29)
+}
+
+// SetReadDatesPrivate sets value of ReadDatesPrivate conditional field.
+func (u *UserFull) SetReadDatesPrivate(value bool) {
+	if value {
+		u.Flags.Set(30)
+		u.ReadDatesPrivate = true
+	} else {
+		u.Flags.Unset(30)
+		u.ReadDatesPrivate = false
+	}
+}
+
+// GetReadDatesPrivate returns value of ReadDatesPrivate conditional field.
+func (u *UserFull) GetReadDatesPrivate() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags.Has(30)
 }
 
 // GetID returns value of ID field.

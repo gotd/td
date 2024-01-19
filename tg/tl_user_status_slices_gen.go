@@ -142,6 +142,45 @@ func (s UserStatusClassArray) AsUserStatusOffline() (to UserStatusOfflineArray) 
 	return to
 }
 
+// AsUserStatusRecently returns copy with only UserStatusRecently constructors.
+func (s UserStatusClassArray) AsUserStatusRecently() (to UserStatusRecentlyArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UserStatusRecently)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUserStatusLastWeek returns copy with only UserStatusLastWeek constructors.
+func (s UserStatusClassArray) AsUserStatusLastWeek() (to UserStatusLastWeekArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UserStatusLastWeek)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUserStatusLastMonth returns copy with only UserStatusLastMonth constructors.
+func (s UserStatusClassArray) AsUserStatusLastMonth() (to UserStatusLastMonthArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UserStatusLastMonth)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // UserStatusOnlineArray is adapter for slice of UserStatusOnline.
 type UserStatusOnlineArray []UserStatusOnline
 
@@ -294,6 +333,252 @@ func (s *UserStatusOfflineArray) PopFirst() (v UserStatusOffline, ok bool) {
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *UserStatusOfflineArray) Pop() (v UserStatusOffline, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UserStatusRecentlyArray is adapter for slice of UserStatusRecently.
+type UserStatusRecentlyArray []UserStatusRecently
+
+// Sort sorts slice of UserStatusRecently.
+func (s UserStatusRecentlyArray) Sort(less func(a, b UserStatusRecently) bool) UserStatusRecentlyArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UserStatusRecently.
+func (s UserStatusRecentlyArray) SortStable(less func(a, b UserStatusRecently) bool) UserStatusRecentlyArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UserStatusRecently.
+func (s UserStatusRecentlyArray) Retain(keep func(x UserStatusRecently) bool) UserStatusRecentlyArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UserStatusRecentlyArray) First() (v UserStatusRecently, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UserStatusRecentlyArray) Last() (v UserStatusRecently, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UserStatusRecentlyArray) PopFirst() (v UserStatusRecently, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UserStatusRecently
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UserStatusRecentlyArray) Pop() (v UserStatusRecently, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UserStatusLastWeekArray is adapter for slice of UserStatusLastWeek.
+type UserStatusLastWeekArray []UserStatusLastWeek
+
+// Sort sorts slice of UserStatusLastWeek.
+func (s UserStatusLastWeekArray) Sort(less func(a, b UserStatusLastWeek) bool) UserStatusLastWeekArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UserStatusLastWeek.
+func (s UserStatusLastWeekArray) SortStable(less func(a, b UserStatusLastWeek) bool) UserStatusLastWeekArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UserStatusLastWeek.
+func (s UserStatusLastWeekArray) Retain(keep func(x UserStatusLastWeek) bool) UserStatusLastWeekArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UserStatusLastWeekArray) First() (v UserStatusLastWeek, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UserStatusLastWeekArray) Last() (v UserStatusLastWeek, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UserStatusLastWeekArray) PopFirst() (v UserStatusLastWeek, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UserStatusLastWeek
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UserStatusLastWeekArray) Pop() (v UserStatusLastWeek, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UserStatusLastMonthArray is adapter for slice of UserStatusLastMonth.
+type UserStatusLastMonthArray []UserStatusLastMonth
+
+// Sort sorts slice of UserStatusLastMonth.
+func (s UserStatusLastMonthArray) Sort(less func(a, b UserStatusLastMonth) bool) UserStatusLastMonthArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UserStatusLastMonth.
+func (s UserStatusLastMonthArray) SortStable(less func(a, b UserStatusLastMonth) bool) UserStatusLastMonthArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UserStatusLastMonth.
+func (s UserStatusLastMonthArray) Retain(keep func(x UserStatusLastMonth) bool) UserStatusLastMonthArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UserStatusLastMonthArray) First() (v UserStatusLastMonth, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UserStatusLastMonthArray) Last() (v UserStatusLastMonth, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UserStatusLastMonthArray) PopFirst() (v UserStatusLastMonth, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UserStatusLastMonth
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UserStatusLastMonthArray) Pop() (v UserStatusLastMonth, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

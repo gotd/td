@@ -242,6 +242,8 @@ type User struct {
 	StoriesHidden bool
 	// No stories from this user are visible.
 	StoriesUnavailable bool
+	// ContactRequirePremium field of User.
+	ContactRequirePremium bool
 	// ID of the user
 	ID int64
 	// Access hash of the user
@@ -417,6 +419,9 @@ func (u *User) Zero() bool {
 	if !(u.StoriesUnavailable == false) {
 		return false
 	}
+	if !(u.ContactRequirePremium == false) {
+		return false
+	}
 	if !(u.ID == 0) {
 		return false
 	}
@@ -505,6 +510,7 @@ func (u *User) FillFrom(from interface {
 	GetCloseFriend() (value bool)
 	GetStoriesHidden() (value bool)
 	GetStoriesUnavailable() (value bool)
+	GetContactRequirePremium() (value bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64, ok bool)
 	GetFirstName() (value string, ok bool)
@@ -545,6 +551,7 @@ func (u *User) FillFrom(from interface {
 	u.CloseFriend = from.GetCloseFriend()
 	u.StoriesHidden = from.GetStoriesHidden()
 	u.StoriesUnavailable = from.GetStoriesUnavailable()
+	u.ContactRequirePremium = from.GetContactRequirePremium()
 	u.ID = from.GetID()
 	if val, ok := from.GetAccessHash(); ok {
 		u.AccessHash = val
@@ -746,6 +753,11 @@ func (u *User) TypeInfo() tdp.Type {
 			Null:       !u.Flags2.Has(4),
 		},
 		{
+			Name:       "ContactRequirePremium",
+			SchemaName: "contact_require_premium",
+			Null:       !u.Flags2.Has(10),
+		},
+		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -900,6 +912,9 @@ func (u *User) SetFlags() {
 	}
 	if !(u.StoriesUnavailable == false) {
 		u.Flags2.Set(4)
+	}
+	if !(u.ContactRequirePremium == false) {
+		u.Flags2.Set(10)
 	}
 	if !(u.AccessHash == 0) {
 		u.Flags.Set(0)
@@ -1101,6 +1116,7 @@ func (u *User) DecodeBare(b *bin.Buffer) error {
 	u.CloseFriend = u.Flags2.Has(2)
 	u.StoriesHidden = u.Flags2.Has(3)
 	u.StoriesUnavailable = u.Flags2.Has(4)
+	u.ContactRequirePremium = u.Flags2.Has(10)
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -1655,6 +1671,25 @@ func (u *User) GetStoriesUnavailable() (value bool) {
 		return
 	}
 	return u.Flags2.Has(4)
+}
+
+// SetContactRequirePremium sets value of ContactRequirePremium conditional field.
+func (u *User) SetContactRequirePremium(value bool) {
+	if value {
+		u.Flags2.Set(10)
+		u.ContactRequirePremium = true
+	} else {
+		u.Flags2.Unset(10)
+		u.ContactRequirePremium = false
+	}
+}
+
+// GetContactRequirePremium returns value of ContactRequirePremium conditional field.
+func (u *User) GetContactRequirePremium() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.Flags2.Has(10)
 }
 
 // GetID returns value of ID field.
