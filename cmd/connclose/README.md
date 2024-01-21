@@ -12,6 +12,14 @@ Dependencies:
 - cilium cli
 - go
 
+## Preparation
+
+```bash
+cp secret.example.yaml secret.yaml
+```
+
+Edit `secret.yaml` and put there your bot and application credentials.
+
 ## Running
 
 Start cluster:
