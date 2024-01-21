@@ -15,10 +15,10 @@ Dependencies:
 ## Preparation
 
 ```bash
-cp secret.example.yaml secret.yaml
+cp secret.example.yml secret.yml
 ```
 
-Edit `secret.yaml` and put there your bot and application credentials.
+Edit `secret.yml` and put there your bot and application credentials.
 
 ## Running
 
