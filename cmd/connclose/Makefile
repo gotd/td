@@ -19,8 +19,10 @@ start:
 down:
 	kind delete cluster
 
-update: image image-load
+restart:
 	kubectl rollout restart deployment bot
+
+update: image image-load restart
 
 allow:
 	kubectl apply -f network.allow.yml
@@ -33,5 +35,8 @@ wait:
 
 logs:
 	kubectl logs -l app=bot
+
+follow:
+	kubectl logs -f -l app=bot
 
 up: start image image-load deploy wait
