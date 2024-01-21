@@ -1,0 +1,10 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: telegram
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: bot
+  # None.
+  egress: []

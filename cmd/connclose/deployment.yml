@@ -1,0 +1,65 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bot
+  labels:
+    app.kubernetes.io/name: bot
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bot
+  template:
+    metadata:
+      labels:
+        app: bot
+        app.kubernetes.io/name: bot
+    spec:
+      containers:
+        - name: bot
+          image: connclose:latest
+          imagePullPolicy: Never
+          resources:
+            requests:
+              cpu: 500m
+              memory: 128M
+            limits:
+              cpu: 1000m
+              memory: 256M
+          env:
+            - name: GOMEMLIMIT
+              value: "128MiB"
+            - name: GOMAXPROCS
+              value: "2"
+            - name: OTEL_METRICS_EXPORTER
+              value: "prometheus"
+            - name: OTEL_EXPORTER_PROMETHEUS_PORT
+              value: "8090"
+            - name: OTEL_EXPORTER_PROMETHEUS_HOST
+              value: "0.0.0.0"
+            - name: PPROF_ADDR
+              value: "0.0.0.0:8090"
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: "service.name=connclose"
+            - name: OTEL_LOG_LEVEL
+              value: "DEBUG"
+            - name: OTEL_TRACES_EXPORTER
+              value: "none"
+            - name: BOT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: config
+                  key: BOT_TOKEN
+            - name: APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: config
+                  key: APP_ID
+            - name: APP_HASH
+              valueFrom:
+                secretKeyRef:
+                  name: config
+                  key: APP_HASH
