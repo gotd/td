@@ -266,6 +266,8 @@ formal security audit were performed.
 
 ## Who is using gotd?
 
+- The [iyear/tdl](https://github.com/iyear/tdl), 📥 Telegram Downloader, but more than a downloader
+
 [<img src="https://user-images.githubusercontent.com/43930873/142855897-7091ced0-4fe8-4f8d-ad43-e9db2723bacc.png" width="150">](https://telq.org)
 
 Drop a comment [here](https://github.com/gotd/td/issues/568) to add your project.
