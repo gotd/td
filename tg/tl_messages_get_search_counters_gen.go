@@ -47,7 +47,10 @@ type MessagesGetSearchCountersRequest struct {
 	Flags bin.Fields
 	// Peer where to search
 	Peer InputPeerClass
-	// SavedPeerID field of MessagesGetSearchCountersRequest.
+	// Search within the saved message dialog »¹ with this ID.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/saved-messages
 	//
 	// Use SetSavedPeerID and GetSavedPeerID helpers.
 	SavedPeerID InputPeerClass

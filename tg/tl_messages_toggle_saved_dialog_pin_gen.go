@@ -32,6 +32,10 @@ var (
 )
 
 // MessagesToggleSavedDialogPinRequest represents TL type `messages.toggleSavedDialogPin#ac81bbde`.
+// Pin or unpin a saved message dialog »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/saved-messages
 //
 // See https://core.telegram.org/method/messages.toggleSavedDialogPin for reference.
 type MessagesToggleSavedDialogPinRequest struct {
@@ -40,9 +44,9 @@ type MessagesToggleSavedDialogPinRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Pinned field of MessagesToggleSavedDialogPinRequest.
+	// Whether to pin or unpin the dialog
 	Pinned bool
-	// Peer field of MessagesToggleSavedDialogPinRequest.
+	// The dialog to pin
 	Peer InputDialogPeerClass
 }
 
@@ -222,9 +226,16 @@ func (t *MessagesToggleSavedDialogPinRequest) GetPeer() (value InputDialogPeerCl
 }
 
 // MessagesToggleSavedDialogPin invokes method messages.toggleSavedDialogPin#ac81bbde returning error if any.
+// Pin or unpin a saved message dialog »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/saved-messages
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.toggleSavedDialogPin for reference.
-// Can be used by bots.
 func (c *Client) MessagesToggleSavedDialogPin(ctx context.Context, request *MessagesToggleSavedDialogPinRequest) (bool, error) {
 	var result BoolBox
 

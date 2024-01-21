@@ -702,6 +702,7 @@ func (f *MessagesForwardMessagesRequest) GetSendAs() (value InputPeerClass, ok b
 //	400 QUIZ_ANSWER_MISSING: You can forward a quiz while hiding the original author only after choosing an option in the quiz.
 //	500 RANDOM_ID_DUPLICATE: You provided a random ID that was already used.
 //	400 RANDOM_ID_INVALID: A provided random ID is invalid.
+//	400 SCHEDULE_BOT_NOT_ALLOWED: Bots cannot schedule messages.
 //	400 SCHEDULE_DATE_TOO_LATE: You can't schedule a message this far in the future.
 //	400 SCHEDULE_TOO_MUCH: There are too many scheduled messages.
 //	400 SEND_AS_PEER_INVALID: You can't send messages as the specified peer.

@@ -898,11 +898,11 @@ type MessageMediaDocument struct {
 	Nopremium bool
 	// Whether this media should be hidden behind a spoiler warning
 	Spoiler bool
-	// Video field of MessageMediaDocument.
+	// Whether this is a video.
 	Video bool
-	// Round field of MessageMediaDocument.
+	// Whether this is a round video.
 	Round bool
-	// Voice field of MessageMediaDocument.
+	// Whether this is a voice message.
 	Voice bool
 	// Attached document
 	//

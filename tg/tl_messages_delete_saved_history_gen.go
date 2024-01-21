@@ -32,6 +32,10 @@ var (
 )
 
 // MessagesDeleteSavedHistoryRequest represents TL type `messages.deleteSavedHistory#6e98102b`.
+// Deletes messages forwarded from a specific peer to saved messages »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/saved-messages
 //
 // See https://core.telegram.org/method/messages.deleteSavedHistory for reference.
 type MessagesDeleteSavedHistoryRequest struct {
@@ -40,15 +44,18 @@ type MessagesDeleteSavedHistoryRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer field of MessagesDeleteSavedHistoryRequest.
+	// Peer, whose messages will be deleted from saved messages »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/saved-messages
 	Peer InputPeerClass
-	// MaxID field of MessagesDeleteSavedHistoryRequest.
+	// Maximum ID of message to delete
 	MaxID int
-	// MinDate field of MessagesDeleteSavedHistoryRequest.
+	// Delete all messages newer than this UNIX timestamp
 	//
 	// Use SetMinDate and GetMinDate helpers.
 	MinDate int
-	// MaxDate field of MessagesDeleteSavedHistoryRequest.
+	// Delete all messages older than this UNIX timestamp
 	//
 	// Use SetMaxDate and GetMaxDate helpers.
 	MaxDate int
@@ -310,9 +317,16 @@ func (d *MessagesDeleteSavedHistoryRequest) GetMaxDate() (value int, ok bool) {
 }
 
 // MessagesDeleteSavedHistory invokes method messages.deleteSavedHistory#6e98102b returning error if any.
+// Deletes messages forwarded from a specific peer to saved messages »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/saved-messages
+//
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
 //
 // See https://core.telegram.org/method/messages.deleteSavedHistory for reference.
-// Can be used by bots.
 func (c *Client) MessagesDeleteSavedHistory(ctx context.Context, request *MessagesDeleteSavedHistoryRequest) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory
 

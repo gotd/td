@@ -615,7 +615,9 @@ func (r *MessagesRequestWebViewRequest) GetSendAs() (value InputPeerClass, ok bo
 // Possible errors:
 //
 //	400 BOT_INVALID: This is not a valid bot.
+//	400 BOT_WEBVIEW_DISABLED:
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 YOU_BLOCKED_USER: You blocked this user.
 //
 // See https://core.telegram.org/method/messages.requestWebView for reference.
 func (c *Client) MessagesRequestWebView(ctx context.Context, request *MessagesRequestWebViewRequest) (*WebViewResultURL, error) {

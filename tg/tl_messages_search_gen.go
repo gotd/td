@@ -56,7 +56,10 @@ type MessagesSearchRequest struct {
 	//
 	// Use SetFromID and GetFromID helpers.
 	FromID InputPeerClass
-	// SavedPeerID field of MessagesSearchRequest.
+	// Search within the saved message dialog »¹ with this ID.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/saved-messages
 	//
 	// Use SetSavedPeerID and GetSavedPeerID helpers.
 	SavedPeerID InputPeerClass

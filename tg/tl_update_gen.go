@@ -24791,6 +24791,10 @@ func (u *UpdateBotMessageReactions) GetQts() (value int) {
 }
 
 // UpdateSavedDialogPinned represents TL type `updateSavedDialogPinned#aeaf9e74`.
+// A saved message dialog¹ was pinned/unpinned
+//
+// Links:
+//  1. https://core.telegram.org/api/saved-messages
 //
 // See https://core.telegram.org/constructor/updateSavedDialogPinned for reference.
 type UpdateSavedDialogPinned struct {
@@ -24799,9 +24803,9 @@ type UpdateSavedDialogPinned struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Pinned field of UpdateSavedDialogPinned.
+	// Whether the dialog was pinned
 	Pinned bool
-	// Peer field of UpdateSavedDialogPinned.
+	// The dialog
 	Peer DialogPeerClass
 }
 
@@ -24986,6 +24990,10 @@ func (u *UpdateSavedDialogPinned) GetPeer() (value DialogPeerClass) {
 }
 
 // UpdatePinnedSavedDialogs represents TL type `updatePinnedSavedDialogs#686c85a6`.
+// Pinned saved dialogs »¹ were updated
+//
+// Links:
+//  1. https://core.telegram.org/api/saved-messages
 //
 // See https://core.telegram.org/constructor/updatePinnedSavedDialogs for reference.
 type UpdatePinnedSavedDialogs struct {
@@ -24994,7 +25002,7 @@ type UpdatePinnedSavedDialogs struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Order field of UpdatePinnedSavedDialogs.
+	// New order of pinned saved dialogs
 	//
 	// Use SetOrder and GetOrder helpers.
 	Order []DialogPeerClass

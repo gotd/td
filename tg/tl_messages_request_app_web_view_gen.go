@@ -413,6 +413,11 @@ func (r *MessagesRequestAppWebViewRequest) GetPlatform() (value string) {
 //  2. https://core.telegram.org/api/links#named-mini-app-links
 //  3. https://core.telegram.org/method/messages.prolongWebView
 //
+// Possible errors:
+//
+//	400 BOT_APP_INVALID: The specified bot app is invalid.
+//	400 BOT_APP_SHORTNAME_INVALID: The specified bot app short name is invalid.
+//
 // See https://core.telegram.org/method/messages.requestAppWebView for reference.
 func (c *Client) MessagesRequestAppWebView(ctx context.Context, request *MessagesRequestAppWebViewRequest) (*AppWebViewResultURL, error) {
 	var result AppWebViewResultURL

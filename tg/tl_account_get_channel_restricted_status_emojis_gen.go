@@ -178,7 +178,6 @@ func (g *AccountGetChannelRestrictedStatusEmojisRequest) GetHash() (value int64)
 //  2. https://core.telegram.org/api/emoji-status
 //
 // See https://core.telegram.org/method/account.getChannelRestrictedStatusEmojis for reference.
-// Can be used by bots.
 func (c *Client) AccountGetChannelRestrictedStatusEmojis(ctx context.Context, hash int64) (EmojiListClass, error) {
 	var result EmojiListBox
 

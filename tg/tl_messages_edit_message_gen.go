@@ -607,6 +607,7 @@ func (e *MessagesEditMessageRequest) MapEntities() (value MessageEntityClassArra
 //	500 MSG_WAIT_FAILED: A waiting call returned an error.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
 //	400 REPLY_MARKUP_INVALID: The provided reply markup is invalid.
+//	400 REPLY_MARKUP_TOO_LONG: The specified reply_markup is too long.
 //	400 SCHEDULE_DATE_INVALID: Invalid schedule date provided.
 //	400 USER_BANNED_IN_CHANNEL: You're banned from sending messages in supergroups/channels.
 //

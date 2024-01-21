@@ -221,6 +221,7 @@ func (e *ChannelsEditPhotoRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel,
 //	403 CHAT_WRITE_FORBIDDEN: You can't write in this chat.
 //	400 FILE_PARTS_INVALID: The number of file parts is invalid.
 //	400 FILE_REFERENCE_INVALID: The specified file reference is invalid.
+//	400 IMAGE_PROCESS_FAILED: Failure while processing image.
 //	400 PHOTO_CROP_SIZE_SMALL: Photo is too small.
 //	400 PHOTO_EXT_INVALID: The extension of the photo is invalid.
 //	400 PHOTO_INVALID: Photo invalid.

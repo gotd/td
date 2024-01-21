@@ -290,7 +290,6 @@ func (s *MessagesSendBotRequestedPeerRequest) MapRequestedPeers() (value InputPe
 //  1. https://core.telegram.org/constructor/keyboardButtonRequestPeer
 //
 // See https://core.telegram.org/method/messages.sendBotRequestedPeer for reference.
-// Can be used by bots.
 func (c *Client) MessagesSendBotRequestedPeer(ctx context.Context, request *MessagesSendBotRequestedPeerRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 
