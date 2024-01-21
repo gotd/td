@@ -123,10 +123,12 @@ func (c *Conn) Run(ctx context.Context) (err error) {
 	defer func() {
 		if err != nil && ctx.Err() == nil {
 			c.log.Debug("Connection dead", zap.Error(err))
+		} else {
+			c.log.Debug("Connection closed")
 		}
 	}()
 	return c.proto.Run(ctx, func(ctx context.Context) error {
-		// Signal death on init error. Otherwise connection shutdown
+		// Signal death on init error. Otherwise, connection shutdown
 		// deadlocks in OnSession that occurs before init fails.
 		err := c.init(ctx)
 		if err != nil {
