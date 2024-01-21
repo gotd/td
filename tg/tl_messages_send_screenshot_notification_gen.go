@@ -233,6 +233,7 @@ func (s *MessagesSendScreenshotNotificationRequest) GetRandomID() (value int64) 
 //
 //	400 INPUT_USER_DEACTIVATED: The specified user was deleted.
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
+//	400 REPLY_MESSAGE_ID_INVALID: The specified reply-to message ID is invalid.
 //	400 STORY_ID_INVALID: The specified story ID is invalid.
 //	400 YOU_BLOCKED_USER: You blocked this user.
 //

@@ -21,8 +21,8 @@ github.com/go-openapi/inflect v0.19.0 h1:9jCH9scKIbHeV9m12SmPilScz6krDxKRasNNSNP
 github.com/go-openapi/inflect v0.19.0/go.mod h1:lHpZVlpIQqLyKwJ4N+YSc9hchQy/i12fJykb83CRBH4=
 github.com/google/go-cmp v0.6.0 h1:ofyhxvXcZhMsU5ulbFiLKl/XBFqE1GSq7atu8tAmTRI=
 github.com/google/go-cmp v0.6.0/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
-github.com/gotd/getdoc v0.39.1 h1:IDddS24LRt8hdo2zcN/UCdd23buA0DUFc39/6/h+uv4=
-github.com/gotd/getdoc v0.39.1/go.mod h1:nJwLqv5cBIre9AfVje+ui4hNEXmCt7OMLtl4I/QZjv8=
+github.com/gotd/getdoc v0.40.0 h1:HS2WPzzDHAj121yDbIHiMF5TwrWzkxDaB/4DmPd2QQM=
+github.com/gotd/getdoc v0.40.0/go.mod h1:nJwLqv5cBIre9AfVje+ui4hNEXmCt7OMLtl4I/QZjv8=
 github.com/gotd/ige v0.2.2 h1:XQ9dJZwBfDnOGSTxKXBGP4gMud3Qku2ekScRjDWWfEk=
 github.com/gotd/ige v0.2.2/go.mod h1:tuCRb+Y5Y3eNTo3ypIfNpQ4MFjrnONiL2jN2AKZXmb0=
 github.com/gotd/neo v0.1.5 h1:oj0iQfMbGClP8xI59x7fE/uHoTJD7NZH9oV1WNuPukQ=

@@ -32,16 +32,23 @@ var (
 )
 
 // MessagesSavedDialogs represents TL type `messages.savedDialogs#f83ae221`.
+// Represents some saved message dialogs »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/saved-messages
 //
 // See https://core.telegram.org/constructor/messages.savedDialogs for reference.
 type MessagesSavedDialogs struct {
-	// Dialogs field of MessagesSavedDialogs.
+	// Saved message dialogs »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/saved-messages
 	Dialogs []SavedDialog
-	// Messages field of MessagesSavedDialogs.
+	// List of last messages from each saved dialog
 	Messages []MessageClass
-	// Chats field of MessagesSavedDialogs.
+	// Mentioned chats
 	Chats []ChatClass
-	// Users field of MessagesSavedDialogs.
+	// Mentioned users
 	Users []UserClass
 }
 
@@ -331,18 +338,22 @@ func (s *MessagesSavedDialogs) MapUsers() (value UserClassArray) {
 }
 
 // MessagesSavedDialogsSlice represents TL type `messages.savedDialogsSlice#44ba9dd9`.
+// Incomplete list of saved message dialogs »¹ with messages and auxiliary data.
+//
+// Links:
+//  1. https://core.telegram.org/api/saved-messages
 //
 // See https://core.telegram.org/constructor/messages.savedDialogsSlice for reference.
 type MessagesSavedDialogsSlice struct {
-	// Count field of MessagesSavedDialogsSlice.
+	// Total number of saved message dialogs
 	Count int
-	// Dialogs field of MessagesSavedDialogsSlice.
+	// List of saved message dialogs
 	Dialogs []SavedDialog
-	// Messages field of MessagesSavedDialogsSlice.
+	// List of last messages from dialogs
 	Messages []MessageClass
-	// Chats field of MessagesSavedDialogsSlice.
+	// Mentioned chats
 	Chats []ChatClass
-	// Users field of MessagesSavedDialogsSlice.
+	// Mentioned users
 	Users []UserClass
 }
 
@@ -657,10 +668,14 @@ func (s *MessagesSavedDialogsSlice) MapUsers() (value UserClassArray) {
 }
 
 // MessagesSavedDialogsNotModified represents TL type `messages.savedDialogsNotModified#c01f6fe8`.
+// The saved dialogs haven't changed
 //
 // See https://core.telegram.org/constructor/messages.savedDialogsNotModified for reference.
 type MessagesSavedDialogsNotModified struct {
-	// Count field of MessagesSavedDialogsNotModified.
+	// Number of saved dialogs¹ found server-side by the query
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/saved-messages
 	Count int
 }
 
@@ -850,16 +865,19 @@ type ModifiedMessagesSavedDialogs interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// Dialogs field of MessagesSavedDialogs.
+	// Saved message dialogs »¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/saved-messages
 	GetDialogs() (value []SavedDialog)
 
-	// Messages field of MessagesSavedDialogs.
+	// List of last messages from each saved dialog
 	GetMessages() (value []MessageClass)
 
-	// Chats field of MessagesSavedDialogs.
+	// Mentioned chats
 	GetChats() (value []ChatClass)
 
-	// Users field of MessagesSavedDialogs.
+	// Mentioned users
 	GetUsers() (value []UserClass)
 }
 

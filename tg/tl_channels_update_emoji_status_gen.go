@@ -223,8 +223,11 @@ func (u *ChannelsUpdateEmojiStatusRequest) GetEmojiStatusAsNotEmpty() (NotEmptyE
 // Links:
 //  1. https://core.telegram.org/api/emoji-status
 //
+// Possible errors:
+//
+//	400 CHANNEL_INVALID: The provided channel is invalid.
+//
 // See https://core.telegram.org/method/channels.updateEmojiStatus for reference.
-// Can be used by bots.
 func (c *Client) ChannelsUpdateEmojiStatus(ctx context.Context, request *ChannelsUpdateEmojiStatusRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

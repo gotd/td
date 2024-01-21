@@ -65,6 +65,7 @@ const (
 	ErrBoostPeerInvalid                 = "BOOST_PEER_INVALID"
 	ErrBotsTooMuch                      = "BOTS_TOO_MUCH"
 	ErrBotAppInvalid                    = "BOT_APP_INVALID"
+	ErrBotAppShortnameInvalid           = "BOT_APP_SHORTNAME_INVALID"
 	ErrBotChannelsNa                    = "BOT_CHANNELS_NA"
 	ErrBotCommandDescriptionInvalid     = "BOT_COMMAND_DESCRIPTION_INVALID"
 	ErrBotCommandInvalid                = "BOT_COMMAND_INVALID"
@@ -77,6 +78,7 @@ const (
 	ErrBotPaymentsDisabled              = "BOT_PAYMENTS_DISABLED"
 	ErrBotResponseTimeout               = "BOT_RESPONSE_TIMEOUT"
 	ErrBotScoreNotModified              = "BOT_SCORE_NOT_MODIFIED"
+	ErrBotWebviewDisabled               = "BOT_WEBVIEW_DISABLED"
 	ErrBroadcastForbidden               = "BROADCAST_FORBIDDEN"
 	ErrBroadcastIDInvalid               = "BROADCAST_ID_INVALID"
 	ErrBroadcastPublicVotersForbidden   = "BROADCAST_PUBLIC_VOTERS_FORBIDDEN"
@@ -215,13 +217,13 @@ const (
 	ErrGeneralModifyIconForbidden       = "GENERAL_MODIFY_ICON_FORBIDDEN"
 	ErrGeoPointInvalid                  = "GEO_POINT_INVALID"
 	ErrGiftcodeNotAllowed               = "GIFTCODE_NOT_ALLOWED"
+	ErrGiftSlugExpired                  = "GIFT_SLUG_EXPIRED"
 	ErrGiftSlugInvalid                  = "GIFT_SLUG_INVALID"
 	ErrGifContentTypeInvalid            = "GIF_CONTENT_TYPE_INVALID"
 	ErrGifIDInvalid                     = "GIF_ID_INVALID"
 	ErrGraphExpiredReload               = "GRAPH_EXPIRED_RELOAD"
 	ErrGraphInvalidReload               = "GRAPH_INVALID_RELOAD"
 	ErrGraphOutdatedReload              = "GRAPH_OUTDATED_RELOAD"
-	ErrGroupcallAddParticipantsFailed   = "GROUPCALL_ADD_PARTICIPANTS_FAILED"
 	ErrGroupcallAlreadyDiscarded        = "GROUPCALL_ALREADY_DISCARDED"
 	ErrGroupcallAlreadyStarted          = "GROUPCALL_ALREADY_STARTED"
 	ErrGroupcallForbidden               = "GROUPCALL_FORBIDDEN"
@@ -242,6 +244,7 @@ const (
 	ErrInputChatlistInvalid             = "INPUT_CHATLIST_INVALID"
 	ErrInputFilterInvalid               = "INPUT_FILTER_INVALID"
 	ErrInputTextEmpty                   = "INPUT_TEXT_EMPTY"
+	ErrInputTextTooLong                 = "INPUT_TEXT_TOO_LONG"
 	ErrInputUserDeactivated             = "INPUT_USER_DEACTIVATED"
 	ErrInvitesTooMuch                   = "INVITES_TOO_MUCH"
 	ErrInviteForbiddenWithJoinas        = "INVITE_FORBIDDEN_WITH_JOINAS"
@@ -274,12 +277,10 @@ const (
 	ErrMediaPrevInvalid                 = "MEDIA_PREV_INVALID"
 	ErrMediaTTLInvalid                  = "MEDIA_TTL_INVALID"
 	ErrMediaTypeInvalid                 = "MEDIA_TYPE_INVALID"
-	ErrMediaVideoStoryMissing           = "MEDIA_VIDEO_STORY_MISSING"
 	ErrMegagroupGeoRequired             = "MEGAGROUP_GEO_REQUIRED"
 	ErrMegagroupIDInvalid               = "MEGAGROUP_ID_INVALID"
 	ErrMegagroupPrehistoryHidden        = "MEGAGROUP_PREHISTORY_HIDDEN"
 	ErrMegagroupRequired                = "MEGAGROUP_REQUIRED"
-	ErrMemberNotFound                   = "MEMBER_NOT_FOUND"
 	ErrMessageAuthorRequired            = "MESSAGE_AUTHOR_REQUIRED"
 	ErrMessageDeleteForbidden           = "MESSAGE_DELETE_FORBIDDEN"
 	ErrMessageEditTimeExpired           = "MESSAGE_EDIT_TIME_EXPIRED"
@@ -361,6 +362,7 @@ const (
 	ErrPollQuestionInvalid              = "POLL_QUESTION_INVALID"
 	ErrPollVoteRequired                 = "POLL_VOTE_REQUIRED"
 	ErrPremiumAccountRequired           = "PREMIUM_ACCOUNT_REQUIRED"
+	ErrPremiumSubActiveUntil            = "PREMIUM_SUB_ACTIVE_UNTIL"
 	ErrPreviousChatImportActiveWaitMin  = "PREVIOUS_CHAT_IMPORT_ACTIVE_WAIT_MIN"
 	ErrPrivacyKeyInvalid                = "PRIVACY_KEY_INVALID"
 	ErrPrivacyTooLong                   = "PRIVACY_TOO_LONG"
@@ -386,6 +388,7 @@ const (
 	ErrReplyMarkupBuyEmpty              = "REPLY_MARKUP_BUY_EMPTY"
 	ErrReplyMarkupInvalid               = "REPLY_MARKUP_INVALID"
 	ErrReplyMarkupTooLong               = "REPLY_MARKUP_TOO_LONG"
+	ErrReplyMessageIDInvalid            = "REPLY_MESSAGE_ID_INVALID"
 	ErrReplyToInvalid                   = "REPLY_TO_INVALID"
 	ErrReplyToUserInvalid               = "REPLY_TO_USER_INVALID"
 	ErrResetRequestMissing              = "RESET_REQUEST_MISSING"
@@ -460,6 +463,7 @@ const (
 	ErrStorySendFloodWeekly             = "STORY_SEND_FLOOD_WEEKLY"
 	ErrSwitchPmTextEmpty                = "SWITCH_PM_TEXT_EMPTY"
 	ErrTakeoutInitDelay                 = "TAKEOUT_INIT_DELAY"
+	ErrTakeoutInvalid                   = "TAKEOUT_INVALID"
 	ErrTakeoutRequired                  = "TAKEOUT_REQUIRED"
 	ErrTaskAlreadyExists                = "TASK_ALREADY_EXISTS"
 	ErrTempAuthKeyAlreadyBound          = "TEMP_AUTH_KEY_ALREADY_BOUND"
@@ -708,6 +712,11 @@ func IsBotAppInvalid(err error) bool {
 	return tgerr.Is(err, ErrBotAppInvalid)
 }
 
+// IsBotAppShortnameInvalid reports whether err is BOT_APP_SHORTNAME_INVALID.
+func IsBotAppShortnameInvalid(err error) bool {
+	return tgerr.Is(err, ErrBotAppShortnameInvalid)
+}
+
 // IsBotChannelsNa reports whether err is BOT_CHANNELS_NA.
 func IsBotChannelsNa(err error) bool {
 	return tgerr.Is(err, ErrBotChannelsNa)
@@ -766,6 +775,11 @@ func IsBotResponseTimeout(err error) bool {
 // IsBotScoreNotModified reports whether err is BOT_SCORE_NOT_MODIFIED.
 func IsBotScoreNotModified(err error) bool {
 	return tgerr.Is(err, ErrBotScoreNotModified)
+}
+
+// IsBotWebviewDisabled reports whether err is BOT_WEBVIEW_DISABLED.
+func IsBotWebviewDisabled(err error) bool {
+	return tgerr.Is(err, ErrBotWebviewDisabled)
 }
 
 // IsBroadcastForbidden reports whether err is BROADCAST_FORBIDDEN.
@@ -1458,6 +1472,11 @@ func IsGiftcodeNotAllowed(err error) bool {
 	return tgerr.Is(err, ErrGiftcodeNotAllowed)
 }
 
+// IsGiftSlugExpired reports whether err is GIFT_SLUG_EXPIRED.
+func IsGiftSlugExpired(err error) bool {
+	return tgerr.Is(err, ErrGiftSlugExpired)
+}
+
 // IsGiftSlugInvalid reports whether err is GIFT_SLUG_INVALID.
 func IsGiftSlugInvalid(err error) bool {
 	return tgerr.Is(err, ErrGiftSlugInvalid)
@@ -1486,11 +1505,6 @@ func IsGraphInvalidReload(err error) bool {
 // IsGraphOutdatedReload reports whether err is GRAPH_OUTDATED_RELOAD.
 func IsGraphOutdatedReload(err error) bool {
 	return tgerr.Is(err, ErrGraphOutdatedReload)
-}
-
-// IsGroupcallAddParticipantsFailed reports whether err is GROUPCALL_ADD_PARTICIPANTS_FAILED.
-func IsGroupcallAddParticipantsFailed(err error) bool {
-	return tgerr.Is(err, ErrGroupcallAddParticipantsFailed)
 }
 
 // IsGroupcallAlreadyDiscarded reports whether err is GROUPCALL_ALREADY_DISCARDED.
@@ -1591,6 +1605,11 @@ func IsInputFilterInvalid(err error) bool {
 // IsInputTextEmpty reports whether err is INPUT_TEXT_EMPTY.
 func IsInputTextEmpty(err error) bool {
 	return tgerr.Is(err, ErrInputTextEmpty)
+}
+
+// IsInputTextTooLong reports whether err is INPUT_TEXT_TOO_LONG.
+func IsInputTextTooLong(err error) bool {
+	return tgerr.Is(err, ErrInputTextTooLong)
 }
 
 // IsInputUserDeactivated reports whether err is INPUT_USER_DEACTIVATED.
@@ -1753,11 +1772,6 @@ func IsMediaTypeInvalid(err error) bool {
 	return tgerr.Is(err, ErrMediaTypeInvalid)
 }
 
-// IsMediaVideoStoryMissing reports whether err is MEDIA_VIDEO_STORY_MISSING.
-func IsMediaVideoStoryMissing(err error) bool {
-	return tgerr.Is(err, ErrMediaVideoStoryMissing)
-}
-
 // IsMegagroupGeoRequired reports whether err is MEGAGROUP_GEO_REQUIRED.
 func IsMegagroupGeoRequired(err error) bool {
 	return tgerr.Is(err, ErrMegagroupGeoRequired)
@@ -1776,11 +1790,6 @@ func IsMegagroupPrehistoryHidden(err error) bool {
 // IsMegagroupRequired reports whether err is MEGAGROUP_REQUIRED.
 func IsMegagroupRequired(err error) bool {
 	return tgerr.Is(err, ErrMegagroupRequired)
-}
-
-// IsMemberNotFound reports whether err is MEMBER_NOT_FOUND.
-func IsMemberNotFound(err error) bool {
-	return tgerr.Is(err, ErrMemberNotFound)
 }
 
 // IsMessageAuthorRequired reports whether err is MESSAGE_AUTHOR_REQUIRED.
@@ -2188,6 +2197,11 @@ func IsPremiumAccountRequired(err error) bool {
 	return tgerr.Is(err, ErrPremiumAccountRequired)
 }
 
+// IsPremiumSubActiveUntil reports whether err is PREMIUM_SUB_ACTIVE_UNTIL.
+func IsPremiumSubActiveUntil(err error) bool {
+	return tgerr.Is(err, ErrPremiumSubActiveUntil)
+}
+
 // IsPreviousChatImportActiveWaitMin reports whether err is PREVIOUS_CHAT_IMPORT_ACTIVE_WAIT_MIN.
 func IsPreviousChatImportActiveWaitMin(err error) bool {
 	return tgerr.Is(err, ErrPreviousChatImportActiveWaitMin)
@@ -2311,6 +2325,11 @@ func IsReplyMarkupInvalid(err error) bool {
 // IsReplyMarkupTooLong reports whether err is REPLY_MARKUP_TOO_LONG.
 func IsReplyMarkupTooLong(err error) bool {
 	return tgerr.Is(err, ErrReplyMarkupTooLong)
+}
+
+// IsReplyMessageIDInvalid reports whether err is REPLY_MESSAGE_ID_INVALID.
+func IsReplyMessageIDInvalid(err error) bool {
+	return tgerr.Is(err, ErrReplyMessageIDInvalid)
 }
 
 // IsReplyToInvalid reports whether err is REPLY_TO_INVALID.
@@ -2681,6 +2700,11 @@ func IsSwitchPmTextEmpty(err error) bool {
 // IsTakeoutInitDelay reports whether err is TAKEOUT_INIT_DELAY.
 func IsTakeoutInitDelay(err error) bool {
 	return tgerr.Is(err, ErrTakeoutInitDelay)
+}
+
+// IsTakeoutInvalid reports whether err is TAKEOUT_INVALID.
+func IsTakeoutInvalid(err error) bool {
+	return tgerr.Is(err, ErrTakeoutInvalid)
 }
 
 // IsTakeoutRequired reports whether err is TAKEOUT_REQUIRED.

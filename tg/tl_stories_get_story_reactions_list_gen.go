@@ -403,8 +403,11 @@ func (g *StoriesGetStoryReactionsListRequest) GetLimit() (value int) {
 //  1. https://core.telegram.org/api/reactions
 //  2. https://core.telegram.org/api/stories
 //
+// Possible errors:
+//
+//	400 PEER_ID_INVALID: The provided peer id is invalid.
+//
 // See https://core.telegram.org/method/stories.getStoryReactionsList for reference.
-// Can be used by bots.
 func (c *Client) StoriesGetStoryReactionsList(ctx context.Context, request *StoriesGetStoryReactionsListRequest) (*StoriesStoryReactionsList, error) {
 	var result StoriesStoryReactionsList
 

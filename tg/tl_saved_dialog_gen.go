@@ -32,6 +32,10 @@ var (
 )
 
 // SavedDialog represents TL type `savedDialog#bd87cb6c`.
+// Represents a saved dialog »¹.
+//
+// Links:
+//  1. https://core.telegram.org/api/saved-messages
 //
 // See https://core.telegram.org/constructor/savedDialog for reference.
 type SavedDialog struct {
@@ -40,11 +44,11 @@ type SavedDialog struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Pinned field of SavedDialog.
+	// Is the dialog pinned
 	Pinned bool
-	// Peer field of SavedDialog.
+	// The dialog
 	Peer PeerClass
-	// TopMessage field of SavedDialog.
+	// The latest message ID
 	TopMessage int
 }
 

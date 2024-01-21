@@ -205,7 +205,7 @@ func (e *StoriesExportStoryLinkRequest) GetID() (value int) {
 // Possible errors:
 //
 //	400 PEER_ID_INVALID: The provided peer id is invalid.
-//	400 USER_PUBLIC_MISSING:
+//	400 USER_PUBLIC_MISSING: Cannot generate a link to stories posted by a peer without a username.
 //
 // See https://core.telegram.org/method/stories.exportStoryLink for reference.
 func (c *Client) StoriesExportStoryLink(ctx context.Context, request *StoriesExportStoryLinkRequest) (*ExportedStoryLink, error) {

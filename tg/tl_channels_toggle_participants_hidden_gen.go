@@ -215,6 +215,7 @@ func (t *ChannelsToggleParticipantsHiddenRequest) GetChannelAsNotEmpty() (NotEmp
 //
 // Possible errors:
 //
+//	400 CHAT_ID_INVALID: The provided chat id is invalid.
 //	400 CHAT_NOT_MODIFIED: No changes were made to chat information because the new information you passed is identical to the current information.
 //	400 PARTICIPANTS_TOO_FEW: Not enough participants.
 //

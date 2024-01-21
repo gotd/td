@@ -296,7 +296,12 @@ type Message struct {
 	FromID PeerClass
 	// Peer ID, the chat where this message was sent
 	PeerID PeerClass
-	// SavedPeerID field of Message.
+	// Messages fetched from a saved messages dialog »¹ will have peer=inputPeerSelf² and
+	// the saved_peer_id flag set to the ID of the saved dialog.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/saved-messages
+	//  2) https://core.telegram.org/constructor/inputPeerSelf
 	//
 	// Use SetSavedPeerID and GetSavedPeerID helpers.
 	SavedPeerID PeerClass

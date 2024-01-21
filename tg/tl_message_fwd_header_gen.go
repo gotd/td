@@ -47,7 +47,12 @@ type MessageFwdHeader struct {
 	// Links:
 	//  1) https://core.telegram.org/api/import
 	Imported bool
-	// SavedOut field of MessageFwdHeader.
+	// Only for messages forwarded to saved messages »¹, set if the original message was
+	// outgoing (though the message may have been originally outgoing even if this flag is
+	// not set, if from_id points to the current user).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/saved-messages
 	SavedOut bool
 	// The ID of the user that originally sent the message
 	//
@@ -67,25 +72,52 @@ type MessageFwdHeader struct {
 	//
 	// Use SetPostAuthor and GetPostAuthor helpers.
 	PostAuthor string
-	// Only for messages forwarded to the current user (inputPeerSelf), full info about the
-	// user/channel that originally sent the message
+	// Only for messages forwarded to saved messages »¹, contains the dialog where the
+	// message was originally sent.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/saved-messages
 	//
 	// Use SetSavedFromPeer and GetSavedFromPeer helpers.
 	SavedFromPeer PeerClass
-	// Only for messages forwarded to the current user (inputPeerSelf), ID of the message
-	// that was forwarded from the original user/channel
+	// Only for messages forwarded to saved messages »¹, contains the original ID of the
+	// message in saved_from_peer.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/saved-messages
 	//
 	// Use SetSavedFromMsgID and GetSavedFromMsgID helpers.
 	SavedFromMsgID int
-	// SavedFromID field of MessageFwdHeader.
+	// Only for forwarded messages reforwarded to saved messages »¹, contains the sender of
+	// the original message (i.e. if user A sends a message, then user B forwards it
+	// somewhere, then user C saves it to saved messages, this field will contain the ID of
+	// user A and from_id will contain the ID of user B).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/saved-messages
 	//
 	// Use SetSavedFromID and GetSavedFromID helpers.
 	SavedFromID PeerClass
-	// SavedFromName field of MessageFwdHeader.
+	// Only for forwarded messages from users with forward privacy enabled reforwarded to
+	// saved messages »¹, contains the sender of the original message (i.e. if user A (fwd
+	// privacy enabled) sends a message, then user B forwards it somewhere, then user C saves
+	// it to saved messages, this field will contain the name of user A and from_id will
+	// contain the ID of user B).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/saved-messages
 	//
 	// Use SetSavedFromName and GetSavedFromName helpers.
 	SavedFromName string
-	// SavedDate field of MessageFwdHeader.
+	// Only for forwarded messages reforwarded to saved messages »¹, indicates when was the
+	// original message sent (i.e. if user A sends a message @ unixtime 1, then user B
+	// forwards it somewhere @ unixtime 2, then user C saves it to saved messages @ unixtime
+	// 3, this field will contain 1, date will contain 2 and the date of the containing
+	// message² will contain 3).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/saved-messages
+	//  2) https://core.telegram.org/constructor/message
 	//
 	// Use SetSavedDate and GetSavedDate helpers.
 	SavedDate int
