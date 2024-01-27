@@ -494,12 +494,15 @@ func (u *UserStatusOffline) GetWasOnline() (value int32) {
 	return u.WasOnline
 }
 
-// UserStatusRecently represents TL type `userStatusRecently#e26f42f1`.
+// UserStatusRecently represents TL type `userStatusRecently#faa60b5`.
 type UserStatusRecently struct {
+	// Exact user's status is hidden because the current user enabled
+	// userPrivacySettingShowStatus privacy setting for the user and has no Telegram Premium
+	ByMyPrivacySettings bool
 }
 
 // UserStatusRecentlyTypeID is TL type id of UserStatusRecently.
-const UserStatusRecentlyTypeID = 0xe26f42f1
+const UserStatusRecentlyTypeID = 0xfaa60b5
 
 // construct implements constructor of UserStatusClass.
 func (u UserStatusRecently) construct() UserStatusClass { return &u }
@@ -517,6 +520,9 @@ var (
 func (u *UserStatusRecently) Zero() bool {
 	if u == nil {
 		return true
+	}
+	if !(u.ByMyPrivacySettings == false) {
+		return false
 	}
 
 	return true
@@ -553,14 +559,19 @@ func (u *UserStatusRecently) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ByMyPrivacySettings",
+			SchemaName: "by_my_privacy_settings",
+		},
+	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
 func (u *UserStatusRecently) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusRecently#e26f42f1 as nil")
+		return fmt.Errorf("can't encode userStatusRecently#faa60b5 as nil")
 	}
 	b.PutID(UserStatusRecentlyTypeID)
 	return u.EncodeBare(b)
@@ -569,18 +580,19 @@ func (u *UserStatusRecently) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserStatusRecently) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusRecently#e26f42f1 as nil")
+		return fmt.Errorf("can't encode userStatusRecently#faa60b5 as nil")
 	}
+	b.PutBool(u.ByMyPrivacySettings)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *UserStatusRecently) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusRecently#e26f42f1 to nil")
+		return fmt.Errorf("can't decode userStatusRecently#faa60b5 to nil")
 	}
 	if err := b.ConsumeID(UserStatusRecentlyTypeID); err != nil {
-		return fmt.Errorf("unable to decode userStatusRecently#e26f42f1: %w", err)
+		return fmt.Errorf("unable to decode userStatusRecently#faa60b5: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -588,7 +600,14 @@ func (u *UserStatusRecently) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserStatusRecently) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusRecently#e26f42f1 to nil")
+		return fmt.Errorf("can't decode userStatusRecently#faa60b5 to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode userStatusRecently#faa60b5: field by_my_privacy_settings: %w", err)
+		}
+		u.ByMyPrivacySettings = value
 	}
 	return nil
 }
@@ -596,10 +615,13 @@ func (u *UserStatusRecently) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UserStatusRecently) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusRecently#e26f42f1 as nil")
+		return fmt.Errorf("can't encode userStatusRecently#faa60b5 as nil")
 	}
 	b.ObjStart()
 	b.PutID("userStatusRecently")
+	b.Comma()
+	b.FieldStart("by_my_privacy_settings")
+	b.PutBool(u.ByMyPrivacySettings)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -609,15 +631,21 @@ func (u *UserStatusRecently) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UserStatusRecently) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusRecently#e26f42f1 to nil")
+		return fmt.Errorf("can't decode userStatusRecently#faa60b5 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("userStatusRecently"); err != nil {
-				return fmt.Errorf("unable to decode userStatusRecently#e26f42f1: %w", err)
+				return fmt.Errorf("unable to decode userStatusRecently#faa60b5: %w", err)
 			}
+		case "by_my_privacy_settings":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode userStatusRecently#faa60b5: field by_my_privacy_settings: %w", err)
+			}
+			u.ByMyPrivacySettings = value
 		default:
 			return b.Skip()
 		}
@@ -625,12 +653,23 @@ func (u *UserStatusRecently) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// UserStatusLastWeek represents TL type `userStatusLastWeek#7bf09fc`.
+// GetByMyPrivacySettings returns value of ByMyPrivacySettings field.
+func (u *UserStatusRecently) GetByMyPrivacySettings() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.ByMyPrivacySettings
+}
+
+// UserStatusLastWeek represents TL type `userStatusLastWeek#12801b57`.
 type UserStatusLastWeek struct {
+	// Exact user's status is hidden because the current user enabled
+	// userPrivacySettingShowStatus privacy setting for the user and has no Telegram Premium
+	ByMyPrivacySettings bool
 }
 
 // UserStatusLastWeekTypeID is TL type id of UserStatusLastWeek.
-const UserStatusLastWeekTypeID = 0x7bf09fc
+const UserStatusLastWeekTypeID = 0x12801b57
 
 // construct implements constructor of UserStatusClass.
 func (u UserStatusLastWeek) construct() UserStatusClass { return &u }
@@ -648,6 +687,9 @@ var (
 func (u *UserStatusLastWeek) Zero() bool {
 	if u == nil {
 		return true
+	}
+	if !(u.ByMyPrivacySettings == false) {
+		return false
 	}
 
 	return true
@@ -684,14 +726,19 @@ func (u *UserStatusLastWeek) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ByMyPrivacySettings",
+			SchemaName: "by_my_privacy_settings",
+		},
+	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
 func (u *UserStatusLastWeek) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusLastWeek#7bf09fc as nil")
+		return fmt.Errorf("can't encode userStatusLastWeek#12801b57 as nil")
 	}
 	b.PutID(UserStatusLastWeekTypeID)
 	return u.EncodeBare(b)
@@ -700,18 +747,19 @@ func (u *UserStatusLastWeek) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserStatusLastWeek) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusLastWeek#7bf09fc as nil")
+		return fmt.Errorf("can't encode userStatusLastWeek#12801b57 as nil")
 	}
+	b.PutBool(u.ByMyPrivacySettings)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *UserStatusLastWeek) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusLastWeek#7bf09fc to nil")
+		return fmt.Errorf("can't decode userStatusLastWeek#12801b57 to nil")
 	}
 	if err := b.ConsumeID(UserStatusLastWeekTypeID); err != nil {
-		return fmt.Errorf("unable to decode userStatusLastWeek#7bf09fc: %w", err)
+		return fmt.Errorf("unable to decode userStatusLastWeek#12801b57: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -719,7 +767,14 @@ func (u *UserStatusLastWeek) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserStatusLastWeek) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusLastWeek#7bf09fc to nil")
+		return fmt.Errorf("can't decode userStatusLastWeek#12801b57 to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode userStatusLastWeek#12801b57: field by_my_privacy_settings: %w", err)
+		}
+		u.ByMyPrivacySettings = value
 	}
 	return nil
 }
@@ -727,10 +782,13 @@ func (u *UserStatusLastWeek) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UserStatusLastWeek) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusLastWeek#7bf09fc as nil")
+		return fmt.Errorf("can't encode userStatusLastWeek#12801b57 as nil")
 	}
 	b.ObjStart()
 	b.PutID("userStatusLastWeek")
+	b.Comma()
+	b.FieldStart("by_my_privacy_settings")
+	b.PutBool(u.ByMyPrivacySettings)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -740,15 +798,21 @@ func (u *UserStatusLastWeek) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UserStatusLastWeek) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusLastWeek#7bf09fc to nil")
+		return fmt.Errorf("can't decode userStatusLastWeek#12801b57 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("userStatusLastWeek"); err != nil {
-				return fmt.Errorf("unable to decode userStatusLastWeek#7bf09fc: %w", err)
+				return fmt.Errorf("unable to decode userStatusLastWeek#12801b57: %w", err)
 			}
+		case "by_my_privacy_settings":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode userStatusLastWeek#12801b57: field by_my_privacy_settings: %w", err)
+			}
+			u.ByMyPrivacySettings = value
 		default:
 			return b.Skip()
 		}
@@ -756,12 +820,23 @@ func (u *UserStatusLastWeek) DecodeTDLibJSON(b tdjson.Decoder) error {
 	})
 }
 
-// UserStatusLastMonth represents TL type `userStatusLastMonth#77ebc742`.
+// GetByMyPrivacySettings returns value of ByMyPrivacySettings field.
+func (u *UserStatusLastWeek) GetByMyPrivacySettings() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.ByMyPrivacySettings
+}
+
+// UserStatusLastMonth represents TL type `userStatusLastMonth#b8cb29fc`.
 type UserStatusLastMonth struct {
+	// Exact user's status is hidden because the current user enabled
+	// userPrivacySettingShowStatus privacy setting for the user and has no Telegram Premium
+	ByMyPrivacySettings bool
 }
 
 // UserStatusLastMonthTypeID is TL type id of UserStatusLastMonth.
-const UserStatusLastMonthTypeID = 0x77ebc742
+const UserStatusLastMonthTypeID = 0xb8cb29fc
 
 // construct implements constructor of UserStatusClass.
 func (u UserStatusLastMonth) construct() UserStatusClass { return &u }
@@ -779,6 +854,9 @@ var (
 func (u *UserStatusLastMonth) Zero() bool {
 	if u == nil {
 		return true
+	}
+	if !(u.ByMyPrivacySettings == false) {
+		return false
 	}
 
 	return true
@@ -815,14 +893,19 @@ func (u *UserStatusLastMonth) TypeInfo() tdp.Type {
 		typ.Null = true
 		return typ
 	}
-	typ.Fields = []tdp.Field{}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ByMyPrivacySettings",
+			SchemaName: "by_my_privacy_settings",
+		},
+	}
 	return typ
 }
 
 // Encode implements bin.Encoder.
 func (u *UserStatusLastMonth) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusLastMonth#77ebc742 as nil")
+		return fmt.Errorf("can't encode userStatusLastMonth#b8cb29fc as nil")
 	}
 	b.PutID(UserStatusLastMonthTypeID)
 	return u.EncodeBare(b)
@@ -831,18 +914,19 @@ func (u *UserStatusLastMonth) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (u *UserStatusLastMonth) EncodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusLastMonth#77ebc742 as nil")
+		return fmt.Errorf("can't encode userStatusLastMonth#b8cb29fc as nil")
 	}
+	b.PutBool(u.ByMyPrivacySettings)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (u *UserStatusLastMonth) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusLastMonth#77ebc742 to nil")
+		return fmt.Errorf("can't decode userStatusLastMonth#b8cb29fc to nil")
 	}
 	if err := b.ConsumeID(UserStatusLastMonthTypeID); err != nil {
-		return fmt.Errorf("unable to decode userStatusLastMonth#77ebc742: %w", err)
+		return fmt.Errorf("unable to decode userStatusLastMonth#b8cb29fc: %w", err)
 	}
 	return u.DecodeBare(b)
 }
@@ -850,7 +934,14 @@ func (u *UserStatusLastMonth) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (u *UserStatusLastMonth) DecodeBare(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusLastMonth#77ebc742 to nil")
+		return fmt.Errorf("can't decode userStatusLastMonth#b8cb29fc to nil")
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode userStatusLastMonth#b8cb29fc: field by_my_privacy_settings: %w", err)
+		}
+		u.ByMyPrivacySettings = value
 	}
 	return nil
 }
@@ -858,10 +949,13 @@ func (u *UserStatusLastMonth) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (u *UserStatusLastMonth) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if u == nil {
-		return fmt.Errorf("can't encode userStatusLastMonth#77ebc742 as nil")
+		return fmt.Errorf("can't encode userStatusLastMonth#b8cb29fc as nil")
 	}
 	b.ObjStart()
 	b.PutID("userStatusLastMonth")
+	b.Comma()
+	b.FieldStart("by_my_privacy_settings")
+	b.PutBool(u.ByMyPrivacySettings)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -871,20 +965,34 @@ func (u *UserStatusLastMonth) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (u *UserStatusLastMonth) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if u == nil {
-		return fmt.Errorf("can't decode userStatusLastMonth#77ebc742 to nil")
+		return fmt.Errorf("can't decode userStatusLastMonth#b8cb29fc to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("userStatusLastMonth"); err != nil {
-				return fmt.Errorf("unable to decode userStatusLastMonth#77ebc742: %w", err)
+				return fmt.Errorf("unable to decode userStatusLastMonth#b8cb29fc: %w", err)
 			}
+		case "by_my_privacy_settings":
+			value, err := b.Bool()
+			if err != nil {
+				return fmt.Errorf("unable to decode userStatusLastMonth#b8cb29fc: field by_my_privacy_settings: %w", err)
+			}
+			u.ByMyPrivacySettings = value
 		default:
 			return b.Skip()
 		}
 		return nil
 	})
+}
+
+// GetByMyPrivacySettings returns value of ByMyPrivacySettings field.
+func (u *UserStatusLastMonth) GetByMyPrivacySettings() (value bool) {
+	if u == nil {
+		return
+	}
+	return u.ByMyPrivacySettings
 }
 
 // UserStatusClassName is schema name of UserStatusClass.
@@ -902,9 +1010,9 @@ const UserStatusClassName = "UserStatus"
 //	case *tdapi.UserStatusEmpty: // userStatusEmpty#9d05049
 //	case *tdapi.UserStatusOnline: // userStatusOnline#a4d64774
 //	case *tdapi.UserStatusOffline: // userStatusOffline#d2b38d05
-//	case *tdapi.UserStatusRecently: // userStatusRecently#e26f42f1
-//	case *tdapi.UserStatusLastWeek: // userStatusLastWeek#7bf09fc
-//	case *tdapi.UserStatusLastMonth: // userStatusLastMonth#77ebc742
+//	case *tdapi.UserStatusRecently: // userStatusRecently#faa60b5
+//	case *tdapi.UserStatusLastWeek: // userStatusLastWeek#12801b57
+//	case *tdapi.UserStatusLastMonth: // userStatusLastMonth#b8cb29fc
 //	default: panic(v)
 //	}
 type UserStatusClass interface {
@@ -958,21 +1066,21 @@ func DecodeUserStatus(buf *bin.Buffer) (UserStatusClass, error) {
 		}
 		return &v, nil
 	case UserStatusRecentlyTypeID:
-		// Decoding userStatusRecently#e26f42f1.
+		// Decoding userStatusRecently#faa60b5.
 		v := UserStatusRecently{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)
 		}
 		return &v, nil
 	case UserStatusLastWeekTypeID:
-		// Decoding userStatusLastWeek#7bf09fc.
+		// Decoding userStatusLastWeek#12801b57.
 		v := UserStatusLastWeek{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)
 		}
 		return &v, nil
 	case UserStatusLastMonthTypeID:
-		// Decoding userStatusLastMonth#77ebc742.
+		// Decoding userStatusLastMonth#b8cb29fc.
 		v := UserStatusLastMonth{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)
@@ -1012,21 +1120,21 @@ func DecodeTDLibJSONUserStatus(buf tdjson.Decoder) (UserStatusClass, error) {
 		}
 		return &v, nil
 	case "userStatusRecently":
-		// Decoding userStatusRecently#e26f42f1.
+		// Decoding userStatusRecently#faa60b5.
 		v := UserStatusRecently{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)
 		}
 		return &v, nil
 	case "userStatusLastWeek":
-		// Decoding userStatusLastWeek#7bf09fc.
+		// Decoding userStatusLastWeek#12801b57.
 		v := UserStatusLastWeek{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)
 		}
 		return &v, nil
 	case "userStatusLastMonth":
-		// Decoding userStatusLastMonth#77ebc742.
+		// Decoding userStatusLastMonth#b8cb29fc.
 		v := UserStatusLastMonth{}
 		if err := v.DecodeTDLibJSON(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UserStatusClass: %w", err)

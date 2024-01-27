@@ -31,26 +31,23 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// MessageForwardInfo represents TL type `messageForwardInfo#f22bdd30`.
+// MessageForwardInfo represents TL type `messageForwardInfo#cb877b7d`.
 type MessageForwardInfo struct {
 	// Origin of the forwarded message
 	Origin MessageOriginClass
 	// Point in time (Unix timestamp) when the message was originally sent
 	Date int32
+	// For messages forwarded to the chat with the current user (Saved Messages), to the
+	// Replies bot chat, or to the channel's discussion group, information about the source
+	// message from which the message was forwarded last time; may be null for other forwards
+	// or if unknown
+	Source ForwardSource
 	// The type of a public service announcement for the forwarded message
 	PublicServiceAnnouncementType string
-	// For messages forwarded to the chat with the current user (Saved Messages), to the
-	// Replies bot chat, or to the channel's discussion group, the identifier of the chat
-	// from which the message was forwarded last time; 0 if unknown
-	FromChatID int64
-	// For messages forwarded to the chat with the current user (Saved Messages), to the
-	// Replies bot chat, or to the channel's discussion group, the identifier of the original
-	// message from which the new message was forwarded last time; 0 if unknown
-	FromMessageID int64
 }
 
 // MessageForwardInfoTypeID is TL type id of MessageForwardInfo.
-const MessageForwardInfoTypeID = 0xf22bdd30
+const MessageForwardInfoTypeID = 0xcb877b7d
 
 // Ensuring interfaces in compile-time for MessageForwardInfo.
 var (
@@ -70,13 +67,10 @@ func (m *MessageForwardInfo) Zero() bool {
 	if !(m.Date == 0) {
 		return false
 	}
+	if !(m.Source.Zero()) {
+		return false
+	}
 	if !(m.PublicServiceAnnouncementType == "") {
-		return false
-	}
-	if !(m.FromChatID == 0) {
-		return false
-	}
-	if !(m.FromMessageID == 0) {
 		return false
 	}
 
@@ -124,16 +118,12 @@ func (m *MessageForwardInfo) TypeInfo() tdp.Type {
 			SchemaName: "date",
 		},
 		{
+			Name:       "Source",
+			SchemaName: "source",
+		},
+		{
 			Name:       "PublicServiceAnnouncementType",
 			SchemaName: "public_service_announcement_type",
-		},
-		{
-			Name:       "FromChatID",
-			SchemaName: "from_chat_id",
-		},
-		{
-			Name:       "FromMessageID",
-			SchemaName: "from_message_id",
 		},
 	}
 	return typ
@@ -142,7 +132,7 @@ func (m *MessageForwardInfo) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (m *MessageForwardInfo) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageForwardInfo#f22bdd30 as nil")
+		return fmt.Errorf("can't encode messageForwardInfo#cb877b7d as nil")
 	}
 	b.PutID(MessageForwardInfoTypeID)
 	return m.EncodeBare(b)
@@ -151,28 +141,29 @@ func (m *MessageForwardInfo) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (m *MessageForwardInfo) EncodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageForwardInfo#f22bdd30 as nil")
+		return fmt.Errorf("can't encode messageForwardInfo#cb877b7d as nil")
 	}
 	if m.Origin == nil {
-		return fmt.Errorf("unable to encode messageForwardInfo#f22bdd30: field origin is nil")
+		return fmt.Errorf("unable to encode messageForwardInfo#cb877b7d: field origin is nil")
 	}
 	if err := m.Origin.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageForwardInfo#f22bdd30: field origin: %w", err)
+		return fmt.Errorf("unable to encode messageForwardInfo#cb877b7d: field origin: %w", err)
 	}
 	b.PutInt32(m.Date)
+	if err := m.Source.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageForwardInfo#cb877b7d: field source: %w", err)
+	}
 	b.PutString(m.PublicServiceAnnouncementType)
-	b.PutInt53(m.FromChatID)
-	b.PutInt53(m.FromMessageID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
 func (m *MessageForwardInfo) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageForwardInfo#f22bdd30 to nil")
+		return fmt.Errorf("can't decode messageForwardInfo#cb877b7d to nil")
 	}
 	if err := b.ConsumeID(MessageForwardInfoTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: %w", err)
+		return fmt.Errorf("unable to decode messageForwardInfo#cb877b7d: %w", err)
 	}
 	return m.DecodeBare(b)
 }
@@ -180,42 +171,33 @@ func (m *MessageForwardInfo) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (m *MessageForwardInfo) DecodeBare(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageForwardInfo#f22bdd30 to nil")
+		return fmt.Errorf("can't decode messageForwardInfo#cb877b7d to nil")
 	}
 	{
 		value, err := DecodeMessageOrigin(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: field origin: %w", err)
+			return fmt.Errorf("unable to decode messageForwardInfo#cb877b7d: field origin: %w", err)
 		}
 		m.Origin = value
 	}
 	{
 		value, err := b.Int32()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: field date: %w", err)
+			return fmt.Errorf("unable to decode messageForwardInfo#cb877b7d: field date: %w", err)
 		}
 		m.Date = value
 	}
 	{
+		if err := m.Source.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageForwardInfo#cb877b7d: field source: %w", err)
+		}
+	}
+	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: field public_service_announcement_type: %w", err)
+			return fmt.Errorf("unable to decode messageForwardInfo#cb877b7d: field public_service_announcement_type: %w", err)
 		}
 		m.PublicServiceAnnouncementType = value
-	}
-	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: field from_chat_id: %w", err)
-		}
-		m.FromChatID = value
-	}
-	{
-		value, err := b.Int53()
-		if err != nil {
-			return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: field from_message_id: %w", err)
-		}
-		m.FromMessageID = value
 	}
 	return nil
 }
@@ -223,30 +205,29 @@ func (m *MessageForwardInfo) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (m *MessageForwardInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageForwardInfo#f22bdd30 as nil")
+		return fmt.Errorf("can't encode messageForwardInfo#cb877b7d as nil")
 	}
 	b.ObjStart()
 	b.PutID("messageForwardInfo")
 	b.Comma()
 	b.FieldStart("origin")
 	if m.Origin == nil {
-		return fmt.Errorf("unable to encode messageForwardInfo#f22bdd30: field origin is nil")
+		return fmt.Errorf("unable to encode messageForwardInfo#cb877b7d: field origin is nil")
 	}
 	if err := m.Origin.EncodeTDLibJSON(b); err != nil {
-		return fmt.Errorf("unable to encode messageForwardInfo#f22bdd30: field origin: %w", err)
+		return fmt.Errorf("unable to encode messageForwardInfo#cb877b7d: field origin: %w", err)
 	}
 	b.Comma()
 	b.FieldStart("date")
 	b.PutInt32(m.Date)
 	b.Comma()
+	b.FieldStart("source")
+	if err := m.Source.EncodeTDLibJSON(b); err != nil {
+		return fmt.Errorf("unable to encode messageForwardInfo#cb877b7d: field source: %w", err)
+	}
+	b.Comma()
 	b.FieldStart("public_service_announcement_type")
 	b.PutString(m.PublicServiceAnnouncementType)
-	b.Comma()
-	b.FieldStart("from_chat_id")
-	b.PutInt53(m.FromChatID)
-	b.Comma()
-	b.FieldStart("from_message_id")
-	b.PutInt53(m.FromMessageID)
 	b.Comma()
 	b.StripComma()
 	b.ObjEnd()
@@ -256,45 +237,37 @@ func (m *MessageForwardInfo) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (m *MessageForwardInfo) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageForwardInfo#f22bdd30 to nil")
+		return fmt.Errorf("can't decode messageForwardInfo#cb877b7d to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("messageForwardInfo"); err != nil {
-				return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: %w", err)
+				return fmt.Errorf("unable to decode messageForwardInfo#cb877b7d: %w", err)
 			}
 		case "origin":
 			value, err := DecodeTDLibJSONMessageOrigin(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: field origin: %w", err)
+				return fmt.Errorf("unable to decode messageForwardInfo#cb877b7d: field origin: %w", err)
 			}
 			m.Origin = value
 		case "date":
 			value, err := b.Int32()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: field date: %w", err)
+				return fmt.Errorf("unable to decode messageForwardInfo#cb877b7d: field date: %w", err)
 			}
 			m.Date = value
+		case "source":
+			if err := m.Source.DecodeTDLibJSON(b); err != nil {
+				return fmt.Errorf("unable to decode messageForwardInfo#cb877b7d: field source: %w", err)
+			}
 		case "public_service_announcement_type":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: field public_service_announcement_type: %w", err)
+				return fmt.Errorf("unable to decode messageForwardInfo#cb877b7d: field public_service_announcement_type: %w", err)
 			}
 			m.PublicServiceAnnouncementType = value
-		case "from_chat_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: field from_chat_id: %w", err)
-			}
-			m.FromChatID = value
-		case "from_message_id":
-			value, err := b.Int53()
-			if err != nil {
-				return fmt.Errorf("unable to decode messageForwardInfo#f22bdd30: field from_message_id: %w", err)
-			}
-			m.FromMessageID = value
 		default:
 			return b.Skip()
 		}
@@ -318,26 +291,18 @@ func (m *MessageForwardInfo) GetDate() (value int32) {
 	return m.Date
 }
 
+// GetSource returns value of Source field.
+func (m *MessageForwardInfo) GetSource() (value ForwardSource) {
+	if m == nil {
+		return
+	}
+	return m.Source
+}
+
 // GetPublicServiceAnnouncementType returns value of PublicServiceAnnouncementType field.
 func (m *MessageForwardInfo) GetPublicServiceAnnouncementType() (value string) {
 	if m == nil {
 		return
 	}
 	return m.PublicServiceAnnouncementType
-}
-
-// GetFromChatID returns value of FromChatID field.
-func (m *MessageForwardInfo) GetFromChatID() (value int64) {
-	if m == nil {
-		return
-	}
-	return m.FromChatID
-}
-
-// GetFromMessageID returns value of FromMessageID field.
-func (m *MessageForwardInfo) GetFromMessageID() (value int64) {
-	if m == nil {
-		return
-	}
-	return m.FromMessageID
 }

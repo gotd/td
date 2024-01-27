@@ -31,19 +31,17 @@ var (
 	_ = tdjson.Encoder{}
 )
 
-// SearchEmojisRequest represents TL type `searchEmojis#9fb0feea`.
+// SearchEmojisRequest represents TL type `searchEmojis#d513cd61`.
 type SearchEmojisRequest struct {
 	// Text to search for
 	Text string
-	// Pass true if only emojis, which exactly match the text, needs to be returned
-	ExactMatch bool
 	// List of possible IETF language tags of the user's input language; may be empty if
 	// unknown
 	InputLanguageCodes []string
 }
 
 // SearchEmojisRequestTypeID is TL type id of SearchEmojisRequest.
-const SearchEmojisRequestTypeID = 0x9fb0feea
+const SearchEmojisRequestTypeID = 0xd513cd61
 
 // Ensuring interfaces in compile-time for SearchEmojisRequest.
 var (
@@ -58,9 +56,6 @@ func (s *SearchEmojisRequest) Zero() bool {
 		return true
 	}
 	if !(s.Text == "") {
-		return false
-	}
-	if !(s.ExactMatch == false) {
 		return false
 	}
 	if !(s.InputLanguageCodes == nil) {
@@ -107,10 +102,6 @@ func (s *SearchEmojisRequest) TypeInfo() tdp.Type {
 			SchemaName: "text",
 		},
 		{
-			Name:       "ExactMatch",
-			SchemaName: "exact_match",
-		},
-		{
 			Name:       "InputLanguageCodes",
 			SchemaName: "input_language_codes",
 		},
@@ -121,7 +112,7 @@ func (s *SearchEmojisRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (s *SearchEmojisRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchEmojis#9fb0feea as nil")
+		return fmt.Errorf("can't encode searchEmojis#d513cd61 as nil")
 	}
 	b.PutID(SearchEmojisRequestTypeID)
 	return s.EncodeBare(b)
@@ -130,10 +121,9 @@ func (s *SearchEmojisRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (s *SearchEmojisRequest) EncodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchEmojis#9fb0feea as nil")
+		return fmt.Errorf("can't encode searchEmojis#d513cd61 as nil")
 	}
 	b.PutString(s.Text)
-	b.PutBool(s.ExactMatch)
 	b.PutInt(len(s.InputLanguageCodes))
 	for _, v := range s.InputLanguageCodes {
 		b.PutString(v)
@@ -144,10 +134,10 @@ func (s *SearchEmojisRequest) EncodeBare(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SearchEmojisRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchEmojis#9fb0feea to nil")
+		return fmt.Errorf("can't decode searchEmojis#d513cd61 to nil")
 	}
 	if err := b.ConsumeID(SearchEmojisRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode searchEmojis#9fb0feea: %w", err)
+		return fmt.Errorf("unable to decode searchEmojis#d513cd61: %w", err)
 	}
 	return s.DecodeBare(b)
 }
@@ -155,26 +145,19 @@ func (s *SearchEmojisRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (s *SearchEmojisRequest) DecodeBare(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchEmojis#9fb0feea to nil")
+		return fmt.Errorf("can't decode searchEmojis#d513cd61 to nil")
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchEmojis#9fb0feea: field text: %w", err)
+			return fmt.Errorf("unable to decode searchEmojis#d513cd61: field text: %w", err)
 		}
 		s.Text = value
 	}
 	{
-		value, err := b.Bool()
-		if err != nil {
-			return fmt.Errorf("unable to decode searchEmojis#9fb0feea: field exact_match: %w", err)
-		}
-		s.ExactMatch = value
-	}
-	{
 		headerLen, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode searchEmojis#9fb0feea: field input_language_codes: %w", err)
+			return fmt.Errorf("unable to decode searchEmojis#d513cd61: field input_language_codes: %w", err)
 		}
 
 		if headerLen > 0 {
@@ -183,7 +166,7 @@ func (s *SearchEmojisRequest) DecodeBare(b *bin.Buffer) error {
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchEmojis#9fb0feea: field input_language_codes: %w", err)
+				return fmt.Errorf("unable to decode searchEmojis#d513cd61: field input_language_codes: %w", err)
 			}
 			s.InputLanguageCodes = append(s.InputLanguageCodes, value)
 		}
@@ -194,16 +177,13 @@ func (s *SearchEmojisRequest) DecodeBare(b *bin.Buffer) error {
 // EncodeTDLibJSON implements tdjson.TDLibEncoder.
 func (s *SearchEmojisRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 	if s == nil {
-		return fmt.Errorf("can't encode searchEmojis#9fb0feea as nil")
+		return fmt.Errorf("can't encode searchEmojis#d513cd61 as nil")
 	}
 	b.ObjStart()
 	b.PutID("searchEmojis")
 	b.Comma()
 	b.FieldStart("text")
 	b.PutString(s.Text)
-	b.Comma()
-	b.FieldStart("exact_match")
-	b.PutBool(s.ExactMatch)
 	b.Comma()
 	b.FieldStart("input_language_codes")
 	b.ArrStart()
@@ -222,37 +202,31 @@ func (s *SearchEmojisRequest) EncodeTDLibJSON(b tdjson.Encoder) error {
 // DecodeTDLibJSON implements tdjson.TDLibDecoder.
 func (s *SearchEmojisRequest) DecodeTDLibJSON(b tdjson.Decoder) error {
 	if s == nil {
-		return fmt.Errorf("can't decode searchEmojis#9fb0feea to nil")
+		return fmt.Errorf("can't decode searchEmojis#d513cd61 to nil")
 	}
 
 	return b.Obj(func(b tdjson.Decoder, key []byte) error {
 		switch string(key) {
 		case tdjson.TypeField:
 			if err := b.ConsumeID("searchEmojis"); err != nil {
-				return fmt.Errorf("unable to decode searchEmojis#9fb0feea: %w", err)
+				return fmt.Errorf("unable to decode searchEmojis#d513cd61: %w", err)
 			}
 		case "text":
 			value, err := b.String()
 			if err != nil {
-				return fmt.Errorf("unable to decode searchEmojis#9fb0feea: field text: %w", err)
+				return fmt.Errorf("unable to decode searchEmojis#d513cd61: field text: %w", err)
 			}
 			s.Text = value
-		case "exact_match":
-			value, err := b.Bool()
-			if err != nil {
-				return fmt.Errorf("unable to decode searchEmojis#9fb0feea: field exact_match: %w", err)
-			}
-			s.ExactMatch = value
 		case "input_language_codes":
 			if err := b.Arr(func(b tdjson.Decoder) error {
 				value, err := b.String()
 				if err != nil {
-					return fmt.Errorf("unable to decode searchEmojis#9fb0feea: field input_language_codes: %w", err)
+					return fmt.Errorf("unable to decode searchEmojis#d513cd61: field input_language_codes: %w", err)
 				}
 				s.InputLanguageCodes = append(s.InputLanguageCodes, value)
 				return nil
 			}); err != nil {
-				return fmt.Errorf("unable to decode searchEmojis#9fb0feea: field input_language_codes: %w", err)
+				return fmt.Errorf("unable to decode searchEmojis#d513cd61: field input_language_codes: %w", err)
 			}
 		default:
 			return b.Skip()
@@ -269,14 +243,6 @@ func (s *SearchEmojisRequest) GetText() (value string) {
 	return s.Text
 }
 
-// GetExactMatch returns value of ExactMatch field.
-func (s *SearchEmojisRequest) GetExactMatch() (value bool) {
-	if s == nil {
-		return
-	}
-	return s.ExactMatch
-}
-
 // GetInputLanguageCodes returns value of InputLanguageCodes field.
 func (s *SearchEmojisRequest) GetInputLanguageCodes() (value []string) {
 	if s == nil {
@@ -285,9 +251,9 @@ func (s *SearchEmojisRequest) GetInputLanguageCodes() (value []string) {
 	return s.InputLanguageCodes
 }
 
-// SearchEmojis invokes method searchEmojis#9fb0feea returning error if any.
-func (c *Client) SearchEmojis(ctx context.Context, request *SearchEmojisRequest) (*Emojis, error) {
-	var result Emojis
+// SearchEmojis invokes method searchEmojis#d513cd61 returning error if any.
+func (c *Client) SearchEmojis(ctx context.Context, request *SearchEmojisRequest) (*EmojiKeywords, error) {
+	var result EmojiKeywords
 
 	if err := c.rpc.Invoke(ctx, request, &result); err != nil {
 		return nil, err
